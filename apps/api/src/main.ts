@@ -1,3 +1,5 @@
+import { ProfilesModule } from './modules/profiles/profiles.module';
+import { TopicsModule } from './modules/topics/topics.module';
 import 'reflect-metadata';
 import { Controller, Get, Module, Res, Injectable, OnModuleDestroy } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
@@ -17,7 +19,7 @@ class HealthController {
  constructor(private readonly health: HealthService) {}
  @Get('healthz') async get(@Res({ passthrough: true }) response: { status: (code: number) => void }) { const result = await this.health.check(); response.status(result.status === 'ok' ? 200 : 503); return result; }
 }
-@Module({ imports: [CqrsModule.forRoot(), ServeStaticModule.forRoot({ rootPath: resolve(__dirname, '../../web/dist'), exclude: ['/healthz', '/api/{*path}'] })], controllers: [HealthController], providers: [HealthService] })
+@Module({ imports: [ProfilesModule, TopicsModule, CqrsModule.forRoot(), ServeStaticModule.forRoot({ rootPath: resolve(__dirname, '../../web/dist'), exclude: ['/healthz', '/api/{*path}'] })], controllers: [HealthController], providers: [HealthService] })
 class AppModule {}
 async function bootstrap() { const app = await NestFactory.create(AppModule); app.enableShutdownHooks(); await app.listen(Number(process.env.PORT ?? 8000), '0.0.0.0'); }
 void bootstrap();

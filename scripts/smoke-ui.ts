@@ -8,6 +8,9 @@ try {
  const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
  await page.goto('http://localhost:8000');
  await page.getByText('System online · Database and queue connected').waitFor();
+ await page.getByRole('heading', { name: 'Tech & AI', exact: true }).waitFor();
+ assert.equal(await page.locator('.topic-grid article').count(), 4);
+ await page.getByText('Automatic delivery is not connected yet.', { exact: false }).waitFor();
  assert.equal(await page.getByRole('heading', { level: 1 }).count(), 1);
  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
  assert.deepEqual(errors, []);

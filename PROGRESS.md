@@ -25,3 +25,16 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 - No proxy/DNS/visibility changes made; owner-facing HTTPS path remains externally unverified.
 - Documented architecture, sources (all untried/needs key), operations and ranking baseline.
 - Next: M1 topic/schedule domain and seeds, then M2 real ingestion across all four topics.
+
+## 2026-11-01: iteration 8 — topic and schedule foundations
+- Started clean on main; no leftover work to recover or discard; baseline checks and both services healthy.
+- Completed M1: seeded four persisted topics with guidance, source/query/account slots, order and budgets.
+- Added repository ports and read-only `/api/profile` and `/api/topics`; SPA renders actual stored settings.
+- Added schedule validation and half-open elapsed coverage windows; P1D explicitly means 24 hours across DST.
+- Schedule currently accepts daily local-time cron; execution and broader cadence support remain M7.
+- Added shared runtime contracts with CommonJS/ESM builds after fixing Vite's local CommonJS import failure.
+- `pnpm migrate` applied 002; repeat succeeded without changes; `pnpm check` passed all six tests, types, lint and boundaries.
+- `pnpm build` passed (only upstream Zod annotation warnings); `pnpm exec tsx scripts/smoke-ui.ts` passed desktop/mobile.
+- Updated screenshots; checked mobile rendering; no browser errors or horizontal overflow.
+- Restarted API/worker; both active; curl health/profile/topics returned healthy persisted settings.
+- No live ingestion or digest runs exist yet; no fixtures advertised as live. Next: M2 RSS/Atom/HN ingestion across four topics.

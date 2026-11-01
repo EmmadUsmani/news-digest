@@ -4,10 +4,11 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && tsc --module ESNext --outDir dist/esm",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "zod": "^4.1.12"
-  }
+  },
+  "module": "dist/esm/index.js"
 }

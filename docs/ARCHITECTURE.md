@@ -21,4 +21,16 @@ jobs. This is infrastructure telemetry, never content ingestion.
 
 `/healthz` checks actual database and Redis connections and returns 503 on
 failure. Both processes use graceful shutdown and systemd automatic restart.
-The default profile is persisted; topics and schedule are the next domain step.
+The default profile, four topics and schedule are persisted by migrations.
+`GET /api/profile` and `GET /api/topics` expose read-only settings through
+repository ports; editing remains M6. Topic configuration includes guidance,
+source/query/account arrays, order, enablement and item budgets. No live sources
+are configured yet. The SPA displays these persisted topics and budgets.
+
+The schedule domain validates IANA timezones, daily local-time cron expressions,
+ISO elapsed durations (days/hours/minutes/seconds), and 0–20 item budgets.
+`coverageWindow` produces a concrete half-open `[start, end)` interval for any
+provided end instant; P1D means 24 elapsed hours even across DST transitions.
+Calendar months/years are rejected. Scheduling execution and broader cron support
+remain M7; there is no claim that daily jobs run yet. Shared contracts publish
+CommonJS for NestJS and an ES module build for Vite runtime validation.
