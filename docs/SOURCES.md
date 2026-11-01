@@ -1,13 +1,13 @@
 # Content source inventory
 
-Checked 2026-11-01, iteration 27. Counts below are actual stored observations
-from the live worker and `/api/content/sources`, not fixture counts. Eight sources
-supplied 293 distinct URLs across all four topics. Last successful bounded
-verification: 19:59 UTC; two queued passes preserved the same 293-item total.
+Checked 2026-11-01, iteration 28. Counts below are actual stored observations
+from the live worker and `/api/content/sources`, not fixture counts. Nine sources
+supplied 354 distinct URLs across all four topics. Last successful bounded
+verification: 20:04 UTC; two queued passes preserved the same 354-item total.
 
 | Source | Topic | Status | Stored items | Feed / API |
 | --- | --- | --- | ---: | --- |
-| The Verge | Tech & AI | live | 10 | https://www.theverge.com/rss/index.xml (Atom) |
+| The Verge | Tech & AI | live | 11 | https://www.theverge.com/rss/index.xml (Atom) |
 | Hacker News official API | Tech & AI | live | 24 | https://hacker-news.firebaseio.com/v0/topstories.json plus `/v0/item/{id}.json` |
 | CBS Sports NBA | NBA | live | 36 | https://www.cbssports.com/rss/headlines/nba/ |
 | GamesIndustry.biz | Gaming | live | 60 | https://www.gamesindustry.biz/feed |
@@ -19,7 +19,7 @@ verification: 19:59 UTC; two queued passes preserved the same 293-item total.
 | NBA.com news RSS | NBA | blocked | 0 | HTTP 403 at `/news/rss.xml`; no bypass attempted |
 | GameSpot mashup RSS | Gaming | blocked | 0 | HTTP 403 at `/feeds/mashup/`; no bypass attempted |
 | IGN articles XML | Gaming | rejected | 0 | `/articles?format=xml` returned malformed XML; not scheduled |
-| Google News RSS | all | not yet tried | 0 | Widen after first digest |
+| Google News RSS: artificial intelligence | Tech & AI | live | 60 | https://news.google.com/rss/search?q=artificial+intelligence&hl=en-US&gl=US&ceid=US%3Aen |
 | xAI x_search via configured gateway | all | not yet tried | 0 | Review documented gateway routing before use |
 | X official oEmbed | all | not yet tried | 0 | Render discovered post URLs |
 | X official API | all | needs key | 0 | Owner token and hard read cap required |
@@ -131,3 +131,19 @@ Ars remains connected to Tech & AI; its broad science/technology coverage still
 passes the topic's existing phrase rules for preliminary selection. Two live
 queued passes retained 293 URLs from eight healthy sources. No LLM/provider,
 model or billing configuration changed; no fixture content entered production.
+
+Iteration 28: Manage topics → Sources → Discover news by query connects a named
+Google News RSS search feed (English/US edition). Query text supports Google
+operators, is bounded to 100 characters and is safely encoded; matching query
+URLs reuse collection. Replace by connecting a new query and disconnecting the
+old source. Existing articles and immutable editions survive disconnection.
+Google links are preserved as supplied; we do not crawl Google article redirects
+or claim publisher URL deduplication or independent-source counts. Phrase rules
+and preliminary ranking still apply; these are broad candidates, not edited news.
+
+Desktop/mobile live checks observed actual scheduled collection of 60 articles
+for `artificial intelligence`; that query remains connected to Tech & AI. Two
+explicit queued passes stored 354 real URLs from nine healthy sources across
+four topics. A two-item recorded Google RSS fixture is only for offline parser
+tests and is never seeded. Social account discovery remains unfinished. No
+provider/model/billing configuration changed.

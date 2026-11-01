@@ -215,3 +215,12 @@ validated address; redirects repeat URL/DNS checks, domain serialization and
 rate limiting, with a four-hop cap. Existing 20-second request timeouts, 2 MB
 body caps, cache and Retry-After backoff remain. IP literals are checked before
 requests, including Node URL normalization of alternate IPv4 notations.
+
+Iteration 28 adds POST `/api/topics/:id/queries` with a strict 1–100 character
+query contract (trimmed, no control characters). It builds a fixed English/US
+Google News RSS URL with URLSearchParams and uses the same profile-scoped feed
+registration transaction, catalog/connection caps and shared worker collection.
+Queries are persisted as named catalog feeds, not a second scheduler or source
+kind. Identical query URLs reuse collection across topics. Replace a query by
+connecting the new one and disconnecting its old catalog entry; stored articles
+and immutable editions remain unchanged. Social accounts remain pending.

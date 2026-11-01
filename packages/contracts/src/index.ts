@@ -70,3 +70,13 @@ export type OperationsStatus = z.infer<typeof operationsStatusSchema>;
 
 export const customFeedSchema = z.object({ name: z.string().trim().min(1).max(120), url: z.string().trim().url().max(2000) }).strict();
 export type CustomFeed = z.infer<typeof customFeedSchema>;
+
+export const newsQuerySchema = z.object({ query: z.string().trim().min(1).max(100).regex(/^[^\x00-\x1f\x7f]+$/) }).strict();
+export type NewsQuery = z.infer<typeof newsQuerySchema>;
+// Fixed edition: English-language US Google News RSS. Queries are encoded as data.
+export function newsQueryFeed(input: NewsQuery): CustomFeed {
+ const { query } = newsQuerySchema.parse(input);
+ const url = new URL('https://news.google.com/rss/search');
+ url.search = new URLSearchParams({ q: query, hl: 'en-US', gl: 'US', ceid: 'US:en' }).toString();
+ return { name: `Google News: ${query}`, url: url.href };
+}

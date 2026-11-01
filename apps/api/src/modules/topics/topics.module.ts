@@ -1,5 +1,5 @@
 import { publicFeedUrl } from '../../libs/ports/public-url';
-import { customFeedSchema, topicSourcesSchema, topicOrderSchema, topicUpdateSchema } from '@digest/contracts';
+import { newsQuerySchema, newsQueryFeed, customFeedSchema, topicSourcesSchema, topicOrderSchema, topicUpdateSchema } from '@digest/contracts';
 import { TopicRepository } from './domain/topic.repository';
 import { BadRequestException, Body, Controller, Delete, Get, Module, NotFoundException, Param, ParseUUIDPipe, Post, Put } from '@nestjs/common';
 import { PostgresTopicRepository } from './database/topic.repository';
@@ -7,6 +7,11 @@ import { PostgresTopicRepository } from './database/topic.repository';
 class TopicsController {
  constructor(private readonly topics: TopicRepository) {}
  @Get('sources') catalog() { return this.topics.catalog(); }
+ @Post(':id/queries') async addQuery(@Param('id', new ParseUUIDPipe()) id: string, @Body() body: unknown) {
+ const parsed = newsQuerySchema.safeParse(body);
+ if (!parsed.success) throw new BadRequestException('Provide a news query of 1–100 characters without control characters');
+ return this.addFeed(id, newsQueryFeed(parsed.data));
+ }
  @Post(':id/feeds') async addFeed(@Param('id', new ParseUUIDPipe()) id: string, @Body() body: unknown) {
  const parsed = customFeedSchema.safeParse(body);
  if (!parsed.success) throw new BadRequestException('Provide a feed name and public HTTPS RSS/Atom URL');

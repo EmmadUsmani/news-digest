@@ -311,3 +311,16 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 - `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 293 real URLs, four topics, eight healthy sources; `smoke-previews.ts` passed history/window checks, selections 5/5/3/5.
 - `pnpm exec tsx apps/api/scripts/smoke-scheduled-digests.ts` observed actual 20:01 UTC generation, exact 6h window, real candidates and completed job; original schedule restored.
 - API/worker rebuilt/restarted and /healthz healthy. Next: query/account discovery configuration; allowed editorial configuration remains blocked.
+
+## 2026-11-01: iteration 28 — configurable news-query discovery
+- Started clean on main; no leftover work. Baseline 30 checks, services, /healthz, sources and digest queues healthy.
+- Added POST /api/topics/:id/queries and desktop/mobile Google News RSS query form with fixed English/US edition, strict bounded text and encoded parameters.
+- Query feeds reuse shared registration, caps, safe HTTP, scheduled collection and disconnect controls; replacement preserves collected articles and immutable editions.
+- Actual worker collected 60 Google News articles; artificial intelligence query remains connected to Tech & AI. Google redirects/dedup and unverified outlet independence documented honestly.
+- `pnpm check` passed types/lint/boundaries and all 32 tests, including query encoding/validation and recorded Google RSS parsing; `pnpm build` passed with existing upstream Zod warnings.
+- `pnpm exec tsx scripts/smoke-news-queries.ts` passed desktop/mobile validation, scheduled real collection, shared query reuse, reload and disconnect; screenshots saved/mobile inspected.
+- `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-topic-sources.ts` passed; initial UI check overlapped a temporary probe topic and passed after cleanup/rerun; screenshots updated.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 354 real URLs, four topics, nine healthy sources; `smoke-previews.ts` passed history/window checks, selections 5/5/3/5.
+- `pnpm exec tsx apps/api/scripts/smoke-scheduled-digests.ts` observed actual 20:06 UTC generation, exact 6h window, real candidates and completed job; original schedule restored.
+- `pnpm lint` and `git diff --check` passed; API/worker rebuilt/restarted and /healthz healthy. No provider/model/billing changes; editorial configuration remains blocked.
+- Next: social account discovery/configuration; semantic ranking and durable queue recovery remain unfinished.

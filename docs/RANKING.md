@@ -117,3 +117,13 @@ cluster tests verify one-slot grouping/link retention, unchanged scores, numeric
 action/date/generic-title separation and resistance to overlap chains. Browser
 coverage expansion uses an isolated, unpersisted fixture; screenshots remain live.
 Editorial importance and semantic event clustering still require further work.
+
+Iteration 28: Google News query feeds widen candidates without changing scoring.
+Google article URLs remain Google redirects; no attempt is made to crawl or
+resolve publisher articles. Headlines generally include publisher labels, but
+all observations retain the Google News query source name. Neither those labels
+nor different query feeds establish independent reporting. The same publisher
+article reached by Google and a direct feed may have different canonical URLs;
+existing headline clustering can group close matches but cannot guarantee dedup
+of rewritten headlines. Editorial quality and verified outlet independence are
+still unfinished. The UI describes these results as broad candidates.
