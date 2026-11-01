@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[OpenAI News]]></title>
+        <description><![CDATA[The OpenAI blog]]></description>
+        <link>https://openai.com/news</link>
+        <image>
+            <url>https://openai.com/apple-icon.png</url>
+            <title>OpenAI News</title>
+            <link>https://openai.com/news</link>
+        </image>
+        <generator>OpenAI</generator>
+        <lastBuildDate>Sun, 01 Nov 2026 20:05:18 GMT</lastBuildDate>
+        <atom:link href="https://openai.com/news/rss.xml" rel="self" type="application/rss+xml"/>
+        <language><![CDATA[en-US]]></language>
+        <item>
+            <title><![CDATA[Making it easier for websites to express AI training preferences]]></title>
+            <description><![CDATA[OpenAI will honor a shared robots.txt signal to help website operators communicate their AI training preferences to participating providers.]]></description>
+            <link>https://openai.com/index/helping-websites-express-ai-training-preferences</link>
+            <guid isPermaLink="true">https://openai.com/index/helping-websites-express-ai-training-preferences</guid>
+            <category><![CDATA[Company]]></category>
+            <pubDate>Fri, 30 Oct 2026 09:30:00 GMT</pubDate>
+        </item>
+<item>
+            <title><![CDATA[Community safety report and new protections for teens]]></title>
+            <description><![CDATA[OpenAI is strengthening violence prevention in ChatGPT with expanded safeguards, earlier interventions, and a new commitment to public safety reporting.]]></description>
+            <link>https://openai.com/index/community-safety-report-and-new-protections-for-teens</link>
+            <guid isPermaLink="true">https://openai.com/index/community-safety-report-and-new-protections-for-teens</guid>
+            <category><![CDATA[Safety]]></category>
+            <pubDate>Fri, 30 Oct 2026 09:00:00 GMT</pubDate>
+        </item></channel></rss>

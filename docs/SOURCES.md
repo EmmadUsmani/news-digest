@@ -1,9 +1,9 @@
 # Content source inventory
 
-Checked 2026-11-01, iteration 33. Counts below are actual stored observations
-from the live worker and `/api/content/sources`, not fixture counts. Thirteen sources
-supplied 437 distinct URLs across all four topics. Last successful bounded
-verification: 20:21 UTC; two queued passes preserved the same 437-item total.
+Checked 2026-11-01, iteration 34. Counts below are actual stored observations
+from the live worker and `/api/content/sources`, not fixture counts. Fifteen sources
+supplied 557 distinct URLs across all four topics. Last successful bounded
+verification: 20:26 UTC; two queued passes preserved the same 557-item total.
 
 | Source | Topic | Status | Stored items | Feed / API |
 | --- | --- | --- | ---: | --- |
@@ -24,6 +24,8 @@ verification: 20:21 UTC; two queued passes preserved the same 437-item total.
 | GameSpot mashup RSS | Gaming | blocked | 0 | HTTP 403 at `/feeds/mashup/`; no bypass attempted |
 | IGN articles XML | Gaming | rejected | 0 | `/articles?format=xml` returned malformed XML; not scheduled |
 | Google News RSS: artificial intelligence | Tech & AI | live | 67 | https://news.google.com/rss/search?q=artificial+intelligence&hl=en-US&gl=US&ceid=US%3Aen |
+| OpenAI News | Tech & AI | live | 60 | https://openai.com/news/rss.xml (first-party announcements) |
+| Google DeepMind | Tech & AI | live | 60 | https://deepmind.google/blog/rss.xml (first-party research/announcements) |
 | xAI x_search via configured gateway | all | not yet tried | 0 | Review documented gateway routing before use |
 | X official oEmbed | all | not yet tried | 0 | Render discovered post URLs |
 | X official API | all | needs key | 0 | Owner token and hard read cap required |
@@ -190,3 +192,18 @@ healthy sources and four topics; preliminary editions still select 5/5/3/5.
 The World ranking fixture freezes 47 previously stored candidates from an exact
 24-hour window for offline evaluation; it is never ingested into production.
 No new source, article-page request or provider/model/billing change.
+
+Iteration 34: migration 013 connects OpenAI News and Google DeepMind to the
+original Tech & AI topic if present. The real worker stored 60 articles each;
+two queued passes retained 557 URLs across fifteen healthy sources. These are
+first-party announcements, including promotional and policy posts, not independent
+corroboration. Latest supplied dates are October 30 and October 28 respectively:
+24h selections stay 5/5/3/5. A seven-day edition examines 141 Tech candidates,
+but its five selections still come from HN; no ranking improvement is claimed.
+No article-page crawling or model/provider/billing changes were made.
+
+Repeat DeepMind collection exposed gzip bytes being decoded as UTF-8. The shared
+client now decodes gzip, deflate and Brotli before parsing/caching, with the
+existing 2 MB wire cap plus a 2 MB expanded cap; corrupt/unknown encodings fail.
+Recorded two-item publisher fixtures remain offline only. Tests cover decoding,
+cache reuse, corrupt bodies and expansion limits without external calls.

@@ -20,8 +20,9 @@ try {
  assert.equal(await page.locator('.selection-count').filter({hasText:'filtered by quality rules'}).count(),4);
  await page.locator('.omissions summary').first().click();
  await page.getByText('Monthly schedule guide', {exact:false}).waitFor();
- await page.locator('.digest-topic ol details summary').first().click();
- await page.getByText('Topic phrase:', {exact:false}).first().waitFor();
+ const selection = page.locator('.digest-topic ol details').filter({ has: page.locator('summary', { hasText: 'Why selected' }) }).first();
+ await selection.locator('summary').click();
+ await selection.getByText('Topic phrase:', {exact:false}).waitFor();
  assert.equal(await page.locator('.digest-topic').count(), 4);
  assert.ok(await page.locator('.digest-topic ol>li').count() > 0);
  const snapshot = await (await page.request.get('http://localhost:8000/api/digest-previews/latest')).json();

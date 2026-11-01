@@ -38,3 +38,35 @@ test('shared HTTP client validates redirect targets and pins DNS to public addre
  } finally { dnsMock.mock.restore(); }
  } finally { requestMock.mock.restore(); }
 });
+
+test('shared HTTP client decodes compressed feeds, caches text and bounds expanded size', async () => {
+ const https = await import('node:https');
+ const { mock } = await import('node:test');
+ const { EventEmitter } = await import('node:events');
+ const { Readable } = await import('node:stream');
+ const { gzipSync, deflateSync, brotliCompressSync } = await import('node:zlib');
+ const { SharedHttpClient } = await import('../src/libs/ports/http.client');
+ const xml = '<rss><channel><title>AI news</title></channel></rss>';
+ let encoding = 'gzip'; let payload = gzipSync(xml); let calls = 0;
+ const requestMock = mock.method(https.default, 'request', (_url: string, _options: unknown, callback: (response: unknown) => void) => {
+ calls++;
+ const req = new EventEmitter();
+ Object.assign(req, { end: () => queueMicrotask(() => callback(Object.assign(Readable.from([payload]), { statusCode: 200, headers: { 'content-encoding': encoding } }))) });
+ return req;
+ });
+ try {
+ for (const [name, compress] of [['gzip', gzipSync], ['deflate', deflateSync], ['br', brotliCompressSync]] as const) {
+ encoding = name; payload = compress(xml);
+ const client = new SharedHttpClient(); const before = calls;
+ assert.equal(await client.get('https://publisher.org/feed'), xml);
+ assert.equal(await client.get('https://publisher.org/feed'), xml);
+ assert.equal(calls, before + 1);
+ }
+ encoding = 'gzip'; payload = gzipSync('x'.repeat(2_000_001));
+ await assert.rejects(new SharedHttpClient().get('https://publisher.org/feed'));
+ payload = Buffer.from('broken gzip');
+ await assert.rejects(new SharedHttpClient().get('https://publisher.org/feed'));
+ encoding = 'unknown';
+ await assert.rejects(new SharedHttpClient().get('https://publisher.org/feed'), /Unsupported response encoding/);
+ } finally { requestMock.mock.restore(); }
+});

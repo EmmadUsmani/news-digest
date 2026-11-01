@@ -1,3 +1,4 @@
+import { gunzipSync, inflateSync, brotliDecompressSync } from 'node:zlib';
 import { lookup } from 'node:dns';
 import { request } from 'node:https';
 import { publicAddress, publicFeedUrl } from './public-url';
@@ -58,7 +59,11 @@ export class SharedHttpClient implements HttpPort {
  if (size > 2_000_000) { response.destroy(); throw new Error('Response exceeds 2 MB'); }
  chunks.push(chunk);
  }
- const body = Buffer.concat(chunks).toString('utf8');
+ const payload = Buffer.concat(chunks);
+ const encoding = String(response.headers['content-encoding'] ?? 'identity').trim().toLowerCase();
+ const decode = { gzip: gunzipSync, deflate: inflateSync, br: brotliDecompressSync }[encoding];
+ if (!decode && encoding !== 'identity') throw new Error('Unsupported response encoding');
+ const body = (decode ? decode(payload, { maxOutputLength: 2_000_000 }) : payload).toString('utf8');
  if (!body.trim()) throw new Error('Empty response');
  if (this.cache.size > 250) this.cache.clear();
  this.cache.set(url, { until: Date.now() + 300000, body });

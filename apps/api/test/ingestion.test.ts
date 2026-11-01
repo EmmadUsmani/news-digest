@@ -79,3 +79,19 @@ test('Postgres ingestion is idempotent and records failure without losing last s
  await repository.onModuleDestroy();
  }
 });
+test('recorded AI announcement feeds preserve publisher dates, missing fields and media', async () => {
+ const openai = parseFeed(await fixture('openai.xml'));
+ const deepmind = parseFeed(await fixture('deepmind.xml'));
+ assert.equal(openai.length, 2);
+ assert.equal(deepmind.length, 2);
+ assert.ok(openai.every(item => new URL(item.url).hostname === 'openai.com'));
+ assert.ok(deepmind.every(item => new URL(item.url).hostname === 'deepmind.google'));
+ assert.equal(openai[0].publishedAt, '2026-10-30T09:30:00.000Z');
+ assert.match(openai[0].excerpt, /robots.txt/);
+ assert.equal(deepmind[0].publishedAt, '2026-10-28T17:00:58.000Z');
+ assert.equal(deepmind[0].excerpt, '');
+ assert.equal(deepmind[0].author, null);
+ assert.equal(deepmind[0].imageUrl, null);
+ assert.ok(deepmind[1].imageUrl?.startsWith('https://lh3.googleusercontent.com/'));
+ assert.ok([...openai, ...deepmind].every(item => item.excerpt.length <= 1500));
+});
