@@ -1,0 +1,20 @@
+[Unit]
+Description=Autonomous news-digest build agent (Codex supervisor)
+After=network-online.target
+StartLimitIntervalSec=0
+ConditionPathExists=!%h/agent-control/STOP
+
+[Service]
+Type=simple
+Environment=RUN_HOURS=0
+Environment=ITER_TIMEOUT_MIN=75
+Environment=RETRY_WAIT_MIN=5
+Environment=USAGE_LIMIT_WAIT_MIN=15
+ExecStart=/bin/bash %h/agent-control/run.sh
+Restart=on-failure
+RestartSec=60
+KillMode=control-group
+TimeoutStopSec=650
+
+[Install]
+WantedBy=default.target
