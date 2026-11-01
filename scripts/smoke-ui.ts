@@ -10,6 +10,9 @@ try {
  await page.getByText('System online · Database and queue connected').waitFor();
  await page.getByRole('heading', { name: 'Tech & AI', exact: true }).waitFor();
  assert.equal(await page.locator('.topic-grid article').count(), 4);
+ await page.locator('.headlines a').first().waitFor();
+ for (const article of await page.locator('.topic-grid article').all()) assert.ok(await article.locator('.headlines a').count() > 0);
+ assert.equal(await page.locator('.headlines a[href*="betting"]').count(), 0);
  await page.getByText('Automatic delivery is not connected yet.', { exact: false }).waitFor();
  assert.equal(await page.getByRole('heading', { level: 1 }).count(), 1);
  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);

@@ -18,12 +18,12 @@ Fix regressions, broken services and stalled sources before starting new work.
     topics (data, not code)
   - digest schedule value objects (cadence, IANA timezone, ISO-8601 window,
     budgets) with thorough window-math tests
-- [ ] M2 first real content (next; vertical slice):
+- [x] M2 first real content (iteration 9; incoming articles visible for all topics):
   - a source port plus RSS/Atom and Hacker News adapters
   - ingestion jobs in BullMQ
   - normalized, deduplicated content items in Postgres
   - real items stored for all four topics, recorded in docs/SOURCES.md
-- [ ] M3 first real digest:
+- [ ] M3 first real digest (next):
   - simple scoring plus the LLM editorial pass through the exe.dev gateway
     (behind `LlmPort`, with usage caps)
   - an immutable digest snapshot for a window

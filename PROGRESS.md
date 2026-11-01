@@ -38,3 +38,18 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 - Updated screenshots; checked mobile rendering; no browser errors or horizontal overflow.
 - Restarted API/worker; both active; curl health/profile/topics returned healthy persisted settings.
 - No live ingestion or digest runs exist yet; no fixtures advertised as live. Next: M2 RSS/Atom/HN ingestion across four topics.
+
+## 2026-11-01: iteration 9 — real incoming articles across all topics
+- Started clean on main; no leftover work; baseline `pnpm check`, services and `/healthz` healthy.
+- Completed M2: source/HTTP/repository ports, RSS/Atom and official HN adapters, migration 003.
+- BullMQ ingests five persisted sources immediately/every 30m with retries; shared client enforces bounds/cache/backoff.
+- Stored 155 real URLs: Verge 10, HN 20, CBS NBA 36, GamesIndustry 60, BBC World 29.
+- Added read-only content/source-health APIs and recent linked headlines per topic; clearly unreviewed, not digests.
+- ESPN returned empty HTTP 202; chose CBS; no bot-protection bypass. Incoming view omits betting URLs.
+- Fixed XML entities; removed 29 first-pass malformed BBC URLs and successfully re-ingested them.
+- `pnpm migrate` applied 003; repeat clean. `pnpm check` passed types/lint/boundaries and all 9 tests.
+- `pnpm build` passed (only existing upstream Zod annotation warnings).
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live passes: 155 unchanged URLs, 4 topics, 5 healthy sources.
+- `pnpm exec tsx scripts/smoke-ui.ts` passed desktop/mobile with articles in each topic, no browser errors/overflow; screenshots updated and mobile inspected.
+- API/worker restarted; `/healthz` healthy; content/source endpoints show real stored content. No digest pipeline/runs exist yet.
+- No blockers or LLM calls/provider changes. Next: M3 first capped editorial pass and immutable digest snapshot.

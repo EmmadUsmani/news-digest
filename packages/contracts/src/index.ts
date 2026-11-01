@@ -12,3 +12,5 @@ export const topicSchema = z.object({
  sources: z.array(z.string()), queries: z.array(z.string()), accounts: z.array(z.string())
 });
 export type Topic = z.infer<typeof topicSchema>;
+export const contentGroupSchema = z.object({ topicId: z.string().uuid(), items: z.array(z.object({ id: z.string().uuid(), title: z.string(), url: z.string().url(), publishedAt: z.string(), source: z.string() })) });
+export type ContentGroup = z.infer<typeof contentGroupSchema>;

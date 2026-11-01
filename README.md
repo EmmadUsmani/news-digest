@@ -56,5 +56,16 @@ pnpm exec playwright install chromium
 pnpm exec tsx scripts/smoke-ui.ts
 ```
 
-The initial page is an honest empty state. Content ingestion, digests and
-configuration are tracked in [TASKS.md](TASKS.md).
+The page shows real incoming articles for all four topics, before editorial
+selection. The worker ingests five sources every 30 minutes. Curated digests
+and configuration editing are tracked in [TASKS.md](TASKS.md).
+
+Explicit live verification (contacts publishers and HN; never part of tests):
+
+```sh
+pnpm exec tsx apps/api/scripts/smoke-ingestion.ts
+curl --fail http://localhost:8000/api/content/sources
+```
+
+The smoke check queues two passes, at most 25 upstream requests per pass
+before the shared cache, and verifies all four topics and idempotent storage.

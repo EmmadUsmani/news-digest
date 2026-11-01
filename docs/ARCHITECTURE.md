@@ -15,17 +15,19 @@ Future contexts live under `apps/api/src/modules/<context>` with domain,
 application use cases, repository ports/adapters and transport controllers.
 Dependency-cruiser prevents domain imports of frameworks/I/O and imports of
 another context's internals; cross-context public facades go in `public/`.
-There is no news ingestion or editorial pipeline yet. The operations BullMQ
-worker runs a local heartbeat every minute, retaining ten successful/failed
-jobs. This is infrastructure telemetry, never content ingestion.
+The operations BullMQ worker runs a local heartbeat every minute, retaining ten
+successful/failed jobs. The separate ingestion queue polls persisted source
+configuration every 30 minutes (first job immediately), with one worker, three
+attempts and exponential retry backoff. Editorial selection remains M3.
 
 `/healthz` checks actual database and Redis connections and returns 503 on
 failure. Both processes use graceful shutdown and systemd automatic restart.
 The default profile, four topics and schedule are persisted by migrations.
 `GET /api/profile` and `GET /api/topics` expose read-only settings through
 repository ports; editing remains M6. Topic configuration includes guidance,
-source/query/account arrays, order, enablement and item budgets. No live sources
-are configured yet. The SPA displays these persisted topics and budgets.
+source/query/account arrays, order, enablement and item budgets. Five live sources are seeded in migration 003. The SPA displays persisted
+topics, budgets and five latest incoming articles per topic, explicitly labeled
+as unreviewed incoming headlines. This is not a digest.
 
 The schedule domain validates IANA timezones, daily local-time cron expressions,
 ISO elapsed durations (days/hours/minutes/seconds), and 0–20 item budgets.
@@ -34,3 +36,19 @@ provided end instant; P1D means 24 elapsed hours even across DST transitions.
 Calendar months/years are rejected. Scheduling execution and broader cron support
 remain M7; there is no claim that daily jobs run yet. Shared contracts publish
 CommonJS for NestJS and an ES module build for Vite runtime validation.
+
+Ingestion has source/HTTP/repository ports, RSS/Atom and official HN adapters,
+and transactional PostgreSQL persistence. Canonical HTTP(S) URLs remove fragments
+and common tracking parameters; a unique URL and unique source observation make
+repeated collection idempotent while retaining cross-source associations.
+Source health records last attempt/success, usable item count and sanitized errors.
+`GET /api/content` and `/api/content/sources` are read-only views. The incoming
+view omits `/betting/` URLs; comprehensive topical filtering/ranking remains M3/M5.
+The shared worker HTTP client serializes each domain with a one-second floor,
+caches for five minutes, applies Retry-After/error backoff, times out after 20s,
+and limits each response to 2 MB. Feeds cap at 60 items and HN at 20 stories.
+Only excerpts are stored; no article-page crawling or LLM calls occur.
+Recorded feed/HN fixtures are offline-only. Integration tests create and clean
+isolated fixture records; the explicit live smoke script queues two bounded
+passes and checks item counts remain unchanged. Source schedules are refreshed
+on worker startup; runtime configuration refresh and source-edit UI remain M6.

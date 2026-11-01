@@ -1,0 +1,67 @@
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns0="http://www.w3.org/2005/Atom" version="2.0">
+            
+        <channel>
+                            <link>
+                    https://www.cbssports.com
+                </link>
+            
+                                        <copyright>
+                    CBS Interactive Inc.
+                </copyright>
+            
+                                        <ns0:link href="https://www.cbssports.com/rss/headlines/nba/" rel="self" />
+            
+                            <language>
+                    en-us
+                </language>
+            
+                                            <description>
+                    The latest sports news from CBSSports.com
+                </description>
+                        
+                                            <title>
+                    CBS Sports Headlines
+                </title>
+            
+                                        <lastBuildDate>
+                        Sun, 01 Nov 2026 18:57:52 +0000
+
+                </lastBuildDate>
+            
+                        
+                                                    <image>
+                                            <url>
+                                https://sports.cbsimg.net/fly/images/cbssports/logo-digital.png
+
+                        </url>
+                                        <title>
+                                                CBSSports.com
+                    </title>
+                                            <link>
+                                https://www.cbssports.com
+
+                        </link>
+                                    </image>
+            
+                        <item><title>
+                        2026 NBA betting promos: Claim over $3,000 in bonuses from top online betting apps, sportsbooks for November 1
+                    </title><link>
+                                                https://www.cbssports.com/betting/news/2026-nba-betting-promos-claim-over-3000-in-bonuses-from-top-online-betting-apps-sportsbooks-for-november-1/
+                    </link><description>
+                        Top NBA betting apps include DraftKings, FanDuel, BetMGM, bet365, Caesars, Fanatics Sportsbook and Hard Rock Bet
+                    </description><pubDate>
+                        Sun, 01 Nov 2026 13:23:23 +0000
+                    </pubDate><dc:creator>
+                        Ryan Wooden
+                    </dc:creator><guid isPermaLink="false">f42d0af5-7ca0-4bc8-97fb-57d95e492176</guid><enclosure url="https://sportshub.cbsistatic.com/i/2026/10/21/a0920648-560c-4b7a-a24d-b217c48798b3/steph-curry-2.jpg" length="1637368" type="image/jpeg" /></item>            <item><title>
+                        Jeanie Buss accuses siblings of conspiring against her as dispute over Lakers stake continues
+                    </title><link>
+                                                https://www.cbssports.com/nba/news/jeanie-buss-lakers-sale-family-dispute/
+                    </link><description>
+                        Buss accused her siblings of a 'cloak and dagger' campaign through the media in a court filing this week
+                    </description><pubDate>
+                        Sat, 31 Oct 2026 18:55:21 +0000
+                    </pubDate><dc:creator>
+                        Brad Crawford
+                    </dc:creator><guid isPermaLink="false">61cfb290-aac0-4ad4-b1fa-94bac6495fa4</guid><enclosure url="https://sportshub.cbsistatic.com/i/2026/10/31/2c89a994-ccbb-4dda-962c-daffa9b9a50b/jeaniebuss.png" length="3865304" type="image/png" /></item>            </channel>
+    </rss>
