@@ -33,7 +33,7 @@ export class PostgresPreviewRepository extends PreviewRepository implements OnMo
  const selections = [];
  for (const topic of topics) {
  // Limit candidate work per topic, selecting the most recent 200 in the exact window.
- const candidates: Candidate[] = (await client.query(`SELECT i.id,i.title,i.canonical_url AS url,i.excerpt,i.published_at AS "publishedAt",array_agg(DISTINCT s.name ORDER BY s.name) AS sources,i.engagement->>'points' AS points FROM content_items i JOIN content_observations o ON o.item_id=i.id JOIN content_sources s ON s.id=o.source_id JOIN topic_source_connections c ON c.source_id=s.id WHERE c.topic_id=$1 AND i.published_at >= $2 AND i.published_at < $3 GROUP BY i.id ORDER BY i.published_at DESC,i.id LIMIT 200`, [topic.id,start,end])).rows.map(row => ({ ...row, publishedAt: row.publishedAt.toISOString(), points: Number(row.points ?? 0) }));
+ const candidates: Candidate[] = (await client.query(`SELECT i.id,i.title,i.canonical_url AS url,i.excerpt,i.image_url AS "imageUrl",i.published_at AS "publishedAt",array_agg(DISTINCT s.name ORDER BY s.name) AS sources,i.engagement->>'points' AS points FROM content_items i JOIN content_observations o ON o.item_id=i.id JOIN content_sources s ON s.id=o.source_id JOIN topic_source_connections c ON c.source_id=s.id WHERE c.topic_id=$1 AND i.published_at >= $2 AND i.published_at < $3 GROUP BY i.id ORDER BY i.published_at DESC,i.id LIMIT 200`, [topic.id,start,end])).rows.map(row => ({ ...row, publishedAt: row.publishedAt.toISOString(), points: Number(row.points ?? 0) }));
  const policy = relevancePolicySchema.parse(topic.relevance_policy);
  const eligible = candidates.filter(item => assessRelevance(item, policy).eligible);
  const qualityRejections = eligible.flatMap(item => {

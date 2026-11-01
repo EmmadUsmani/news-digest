@@ -30,6 +30,15 @@ try {
  await page.locator('.period').filter({hasText:'Saved edition'}).waitFor();
  const reloaded = await (await page.request.get('http://localhost:8000/api/digest-previews/latest')).json();
  assert.deepEqual(reloaded, snapshot);
+ const imageStories = snapshot.topics.flatMap((topic: { stories: { imageUrl?: string | null }[] }) => topic.stories).filter((story: { imageUrl?: string | null }) => story.imageUrl);
+ assert.ok(imageStories.length > 0, 'Live edition must include stored publisher images');
+ const images = page.locator('.story-image');
+ for (const image of await images.all()) {
+ assert.equal(await image.getAttribute('alt'), '');
+ assert.equal(await image.getAttribute('loading'), 'lazy');
+ assert.equal(await image.getAttribute('referrerpolicy'), 'no-referrer');
+ }
+
  await page.getByText('Browse saved editions', {exact:true}).click();
  const historyResponse = await page.request.get('http://localhost:8000/api/digest-previews');
  const history = await historyResponse.json();
@@ -116,6 +125,22 @@ try {
  assert.equal(await page.getByRole('link', {name:'Fixture: additional coverage'}).getAttribute('href'), 'https://example.org/fixture-coverage');
  await page.getByText('Grouped by similar headlines; independent reporting is unverified.').waitFor();
  await page.close();
+ // Synthetic image failure is browser-only and never saved or screenshotted.
+ for (const width of [1440,390]) {
+ const failedPage = await browser.newPage({ viewport: { width, height: 900 } });
+ story.imageUrl = 'https://example.org/fixture-broken.jpg';
+ await failedPage.route('**/fixture-broken.jpg', route => route.abort());
+ await failedPage.route('**/api/digest-previews/latest', route => route.fulfill({ json: fixture }));
+ const failedRequest = failedPage.waitForEvent('requestfailed', request => request.url() === story.imageUrl);
+ await failedPage.goto('http://localhost:8000');
+ const headline = failedPage.getByRole('link', { name: story.title, exact: true }).first();
+ await headline.scrollIntoViewIfNeeded();
+ await failedRequest;
+ await failedPage.waitForFunction(() => !document.querySelector('img[src="https://example.org/fixture-broken.jpg"]'));
+ assert.ok(await headline.isVisible());
+ assert.equal(await failedPage.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
+ await failedPage.close();
+ }
 } finally { await browser.close(); }
 
 }

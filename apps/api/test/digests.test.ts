@@ -34,3 +34,13 @@ test('Postgres snapshots reject update/delete and regeneration preserves earlier
  assert.deepEqual((await client.query('SELECT snapshot FROM digest_previews WHERE id=$1',[first])).rows[0].snapshot,{fixture:true});
  } finally { await client.query('ROLLBACK');client.release();await db.end(); }
 });
+
+test('lead images retain HTTPS publisher media without borrowing related coverage or accepting unsafe schemes', () => {
+ const lead = item('a', { title: 'New AI model released today', imageUrl: 'https://images.example.org/lead.jpg' });
+ const related = item('b', { title: lead.title, imageUrl: 'https://images.example.org/other.jpg' });
+ assert.equal(rank([lead,related],start,end,5)[0].imageUrl,lead.imageUrl);
+ assert.equal(rank([{ ...lead, imageUrl: null },related],start,end,5)[0].imageUrl,null);
+ for (const imageUrl of ['javascript:alert(1)', 'data:image/png;base64,AA', 'http://example.org/image.jpg', 'https://user:secret@example.org/image.jpg', 'broken']) {
+ assert.equal(rank([{ ...lead, imageUrl }],start,end,5)[0].imageUrl,null);
+ }
+});

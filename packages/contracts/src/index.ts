@@ -18,7 +18,7 @@ export const contentGroupSchema = z.object({ topicId: z.string().uuid(), items: 
 export type ContentGroup = z.infer<typeof contentGroupSchema>;
 
 export const rankedStorySchema = z.object({
- id: z.string().uuid(), title: z.string(), url: z.string().url(), excerpt: z.string(),
+ id: z.string().uuid(), title: z.string(), url: z.string().url(), excerpt: z.string(), imageUrl: z.string().url().refine(value => { try { const url = new URL(value); return url.protocol === 'https:' && !url.username && !url.password; } catch { return false; } }).nullable().optional(),
  publishedAt: z.string(), sources: z.array(z.string()), coverage: z.array(z.object({ id: z.string().uuid(), title: z.string(), url: z.string().url(), sources: z.array(z.string()), publishedAt: z.string() })).optional(), score: z.number(), reasons: z.array(z.string())
 });
 export const digestPreviewSchema = z.object({

@@ -259,3 +259,18 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - `pnpm exec tsx scripts/smoke-ui.ts` initially clicked related coverage instead of selection reasons; scoped selector fixed, desktop/mobile rerun passed. `scripts/smoke-status.ts` passed; screenshots updated/mobile inspected.
 - Archived bootstrap/iterations 7–16 to keep progress below 400 lines. API/worker rebuilt/restarted and /healthz healthy; provider/model/billing unchanged, editorial configuration still blocked.
 - Next: social discovery, reviewed ranking windows and verified outlet attribution; wider sources alone do not fix selection quality.
+
+## 2026-11-01: iteration 35 — publisher lead images in saved editions
+- Started clean on main; no leftover work. Baseline 39 tests, both services and /healthz healthy.
+- New snapshots retain each selected lead article's existing feed image; media does not change scores, grouping or historical snapshots.
+- Contracts accept missing/null media for older editions; ranking drops non-HTTPS/credentialed URLs and never borrows another cluster article's image.
+- Responsive lazy images preserve aspect ratio, omit referrers and disappear on failure; decorative alt avoids inventing captions.
+- Added lead-media/scheme regression, database-to-snapshot integration assertions and desktop/mobile browser failure checks; fixtures stay browser-only.
+- `pnpm check` passed types/lint/boundaries and all 40 tests; `pnpm build` passed with existing upstream Zod annotation warnings.
+- `pnpm exec tsx scripts/smoke-ui.ts` passed twice, including immutable history/windows and simulated broken images; screenshots updated and mobile inspected.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued passes: 558 real URLs, fifteen healthy sources, four topics.
+- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed immutable/history/window checks; selections remain 5/5/3/5.
+- `pnpm exec tsx scripts/smoke-status.ts` passed desktop/mobile telemetry and failure rendering; `pnpm evaluate:ranking` unchanged (NBA 2/5, World 1/5).
+- `pnpm exec tsx apps/api/scripts/smoke-scheduled-digests.ts` observed actual 20:30 UTC generation, exact 6h window and completed run; original schedule restored.
+- Final lint/diff checks passed; API/worker rebuilt/restarted and /healthz healthy. Provider/model/billing unchanged; editorial configuration remains blocked.
+- Next: social discovery, reviewed ranking windows and verified outlet attribution; publisher media does not improve editorial selection.

@@ -1,9 +1,9 @@
 # Content source inventory
 
-Checked 2026-11-01, iteration 34. Counts below are actual stored observations
+Checked 2026-11-01, iteration 35. Counts below are actual stored observations
 from the live worker and `/api/content/sources`, not fixture counts. Fifteen sources
-supplied 557 distinct URLs across all four topics. Last successful bounded
-verification: 20:26 UTC; two queued passes preserved the same 557-item total.
+supplied 558 distinct URLs across all four topics. Last successful bounded
+verification: 20:29 UTC; two queued passes preserved the same 558-item total.
 
 | Source | Topic | Status | Stored items | Feed / API |
 | --- | --- | --- | ---: | --- |
@@ -23,7 +23,7 @@ verification: 20:26 UTC; two queued passes preserved the same 557-item total.
 | NBA.com news RSS | NBA | blocked | 0 | HTTP 403 at `/news/rss.xml`; no bypass attempted |
 | GameSpot mashup RSS | Gaming | blocked | 0 | HTTP 403 at `/feeds/mashup/`; no bypass attempted |
 | IGN articles XML | Gaming | rejected | 0 | `/articles?format=xml` returned malformed XML; not scheduled |
-| Google News RSS: artificial intelligence | Tech & AI | live | 67 | https://news.google.com/rss/search?q=artificial+intelligence&hl=en-US&gl=US&ceid=US%3Aen |
+| Google News RSS: artificial intelligence | Tech & AI | live | 68 | https://news.google.com/rss/search?q=artificial+intelligence&hl=en-US&gl=US&ceid=US%3Aen |
 | OpenAI News | Tech & AI | live | 60 | https://openai.com/news/rss.xml (first-party announcements) |
 | Google DeepMind | Tech & AI | live | 60 | https://deepmind.google/blog/rss.xml (first-party research/announcements) |
 | xAI x_search via configured gateway | all | not yet tried | 0 | Review documented gateway routing before use |
@@ -207,3 +207,13 @@ client now decodes gzip, deflate and Brotli before parsing/caching, with the
 existing 2 MB wire cap plus a 2 MB expanded cap; corrupt/unknown encodings fail.
 Recorded two-item publisher fixtures remain offline only. Tests cover decoding,
 cache reuse, corrupt bodies and expansion limits without external calls.
+
+Iteration 35: new saved editions retain the selected lead article's existing
+feed-supplied HTTPS image URL. The browser displays publisher-hosted media
+lazily without a referrer; failed loads disappear while the headline, excerpt
+and source links remain. No image is borrowed from related coverage, generated,
+re-hosted or fetched by the backend. Missing media stays absent; old immutable
+editions are not backfilled. Images are illustrative publisher media, without
+verified captions, and use empty alt text beside the article headline.
+Two explicit live collection passes retained 558 real URLs from fifteen healthy
+sources; no new source, provider/model/billing change or article crawling.

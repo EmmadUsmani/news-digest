@@ -74,6 +74,7 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Direct AI announcements: OpenAI News + Google DeepMind with bounded compressed feed support (iteration 34).
   - widen sources per topic (Reddit, Bluesky, more publishers)
   - precision tuning
+  - [x] Publisher lead images in new immutable editions, responsive display and graceful image failures (iteration 35).
   - UI polish
   - retention/backup
   - resilience

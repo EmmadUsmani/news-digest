@@ -224,3 +224,10 @@ Queries are persisted as named catalog feeds, not a second scheduler or source
 kind. Identical query URLs reuse collection across topics. Replace a query by
 connecting the new one and disconnecting its old catalog entry; stored articles
 and immutable editions remain unchanged. Social accounts remain pending.
+
+Iteration 35 carries optional nullable `imageUrl` through ranked-story contracts
+and immutable snapshots. Ranking accepts only credential-free HTTPS media from
+the lead candidate; media does not affect scores or clustering. Historical JSON
+without the field remains valid. The SPA uses lazy, asynchronous publisher-hosted
+images, no-referrer requests, responsive uncropped sizing and a per-URL failure
+fallback. No media proxy, download worker or snapshot backfill is introduced.

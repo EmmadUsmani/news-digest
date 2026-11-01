@@ -2,7 +2,13 @@ import { qualityRejection } from './quality';
 import { clusterCandidates } from './cluster';
 export interface Candidate {
  id: string; title: string; url: string; excerpt: string; publishedAt: string;
- sources: string[]; points: number;
+ sources: string[]; points: number; imageUrl?: string | null;
+}
+function safeImageUrl(value: string | null | undefined): string | null {
+ try {
+ const url = new URL(value ?? '');
+ return url.protocol === 'https:' && !url.username && !url.password ? url.href : null;
+ } catch { return null; }
 }
 // Signals are deliberately transparent; editorial judgement remains a separate step.
 export function rank(candidates: Candidate[], start: Date, end: Date, budget: number) {
@@ -16,7 +22,7 @@ export function rank(candidates: Candidate[], start: Date, end: Date, budget: nu
  const engagement = Math.min(10, Math.log2(1 + Math.max(0, Number.isFinite(item.points) ? item.points : 0)));
  // Feed/aggregator observations do not prove independent reporting.
  const score = Math.round((recency * 10 + engagement) * 100) / 100;
- return { id: item.id, title: item.title, url: item.url, excerpt: item.excerpt.slice(0, 600), publishedAt: item.publishedAt, sources: item.sources, score,
+ return { imageUrl: safeImageUrl(item.imageUrl), id: item.id, title: item.title, url: item.url, excerpt: item.excerpt.slice(0, 600), publishedAt: item.publishedAt, sources: item.sources, score,
  reasons: [`Recency: ${(recency * 10).toFixed(1)}/10`, `Observed in ${breadth} source label${breadth === 1 ? '' : 's'} (independence unverified; no score bonus)`, `HN engagement: ${engagement.toFixed(1)}/10`] };
  }).sort((a,b) => b.score - a.score || a.id.localeCompare(b.id));
  const byId = new Map(scored.map(item => [item.id, item]));

@@ -33,3 +33,5 @@
 .status-grid p, .run-list { font-size: .9rem; line-height: 1.6; }
 .run-list { padding-left: 1.25rem; overflow-wrap: anywhere; }
 .run-list li { margin-bottom: .75rem; }
+
+.story-image{display:block;width:100%;height:auto;max-height:340px;object-fit:contain;background:#e9ede5;border-radius:8px;margin:16px 0}
