@@ -250,3 +250,44 @@ removes an observed discussion-format mismatch, not a general precision claim.
 Offline regressions protect launches, publisher coverage, Unicode titles, domain
 boundaries and empty sections even with high-engagement questions. NBA and World
 historical target recall remain 2/5 and 1/5; editorial selection stays unfinished.
+
+## Iteration 38: recorded Tech window exposes phrase and engagement limits
+
+The offline command now also evaluates `ranking-tech-2026-11-01.json`: all 54
+production-query candidates from [2026-10-31 20:35 UTC, 2026-11-01 20:35 UTC),
+with the saved Tech phrase policy, five-slot budget, excerpts, media references,
+source labels and HN points. No article pages were fetched. The fixture remains
+offline and is never seeded into production. Source dates and claims are not
+independently verified; even apparently concrete model benchmark claims require
+confirmation before publication as facts.
+
+Before evaluation, the build agent labeled five targets: reported Claude
+watermarking expansion, Brazilian court prompt-injection sanctions, a claimed
+Memdoor multi-model coding result, FBI attribution of the reported Binance
+heist, and the Flock camera cancellation controversy. Either recorded Flock
+report is accepted for that controversy; this does not prove event identity or
+independent corroboration. Six negative labels cover a personal TV question,
+celebrity opinion, an agricultural anecdote and three speculative crypto
+investment headline variants. These are provisional agent judgments, not owner
+labels, a complete important-event list or factual verification. Review them
+before using the benchmark to tune selection.
+
+Signals-v6 finds 0/5 targets: zero event recall and target slot yield, with all
+six negative labels absent. Four selected stories have an HN observation label;
+the fifth is a Google-discovered hospital/OpenAI headline. This does not mean
+those stories have no value. The watermarking report ranks 15th; the eligible
+Google-discovered prompt-injection report is outside twenty. Its HN alternative
+fails phrase screening. All recorded coverage of the model coding result, heist
+attribution and Flock dispute fails the saved phrase rules. This separates two
+observed problems: lexical false negatives and ranking of eligible candidates.
+No production policy, score, budget or provider/model/billing was changed.
+
+All three reports now show per-target article IDs/titles, phrase eligibility and
+reason, quality rule (only assessed after phrase eligibility), selection state,
+and the existing first rank within twenty. Selected headlines include their
+scores and observation labels. A null rank still means outside the audit horizon
+or ineligible, not necessarily a quality rejection. The Tech regression checks
+complete diagnostic accounting, metric consistency and negative-label omissions;
+it deliberately does not claim a useful recall floor for a zero baseline.
+NBA/World retain their existing 40%/20% floors. All windows are from one date,
+with agent labels; temporal diversity and independent review remain unfinished.

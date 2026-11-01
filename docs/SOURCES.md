@@ -1,14 +1,14 @@
 # Content source inventory
 
-Checked 2026-11-01, iteration 37. Counts below are actual stored observations
+Checked 2026-11-01, iteration 38. Counts below are actual stored observations
 from the live worker and `/api/content/sources`, not fixture counts. Seventeen sources
-supplied 668 distinct URLs across all four topics. Last successful bounded
-verification: 20:34 UTC; two queued passes preserved the same 668-item total.
+supplied 669 distinct URLs across all four topics. Last successful bounded
+verification: 20:38 UTC; two queued passes preserved the same 669-item total.
 
 | Source | Topic | Status | Stored items | Feed / API |
 | --- | --- | --- | ---: | --- |
 | The Verge | Tech & AI | live | 11 | https://www.theverge.com/rss/index.xml (Atom) |
-| Hacker News official API | Tech & AI | live | 25 | https://hacker-news.firebaseio.com/v0/topstories.json plus `/v0/item/{id}.json` |
+| Hacker News official API | Tech & AI | live | 26 | https://hacker-news.firebaseio.com/v0/topstories.json plus `/v0/item/{id}.json` |
 | CBS Sports NBA | NBA | live | 36 | https://www.cbssports.com/rss/headlines/nba/ |
 | GamesIndustry.biz | Gaming | live | 60 | https://www.gamesindustry.biz/feed |
 | BBC World | World news & politics | live | 31 | https://feeds.bbci.co.uk/news/world/rss.xml |
@@ -240,3 +240,11 @@ and visible as incoming content, but new signals-v6 news editions omit them with
 an auditable reason. This changes selection only; HN collection and engagement
 storage are unchanged. Show HN launches and publisher reporting remain eligible.
 No new external source, article crawling or provider/model/billing change.
+
+
+Iteration 38: two queued live passes retained 669 real URLs across seventeen
+healthy sources and all four topics. The Tech ranking fixture freezes the 54
+candidates present before these passes for a fixed 24h window ending 20:35 UTC;
+it retains publisher/Google/HN observations for offline evaluation only. It is
+never ingested, and its provisional agent event labels do not verify article
+claims. No new source, article-page requests or provider/model/billing change.

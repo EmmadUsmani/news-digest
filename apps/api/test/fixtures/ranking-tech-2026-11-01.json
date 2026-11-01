@@ -1,0 +1,774 @@
+{
+  "provenance": "Recorded stored publisher-feed and official HN API candidates; no article-page verification. Offline only; never seed into production.",
+  "windowStart": "2026-10-31T20:35:00.000Z",
+  "windowEnd": "2026-11-01T20:35:00.000Z",
+  "budget": 5,
+  "topic": "Tech & AI",
+  "relevancePolicy": {
+    "excludeAny": [
+      "sponsored",
+      "promo code",
+      "gift guide",
+      "best deals"
+    ],
+    "includeAny": [
+      "AI",
+      "artificial intelligence",
+      "machine learning",
+      "LLM",
+      "OpenAI",
+      "Anthropic",
+      "Claude",
+      "GPT",
+      "Gemini",
+      "DeepMind",
+      "software",
+      "programming",
+      "developer",
+      "code",
+      "coding",
+      "computer",
+      "computing",
+      "technology",
+      "tech",
+      "chip",
+      "semiconductor",
+      "GPU",
+      "Apple",
+      "Microsoft",
+      "Google",
+      "Meta",
+      "Linux",
+      "browser",
+      "internet",
+      "cybersecurity",
+      "robot",
+      "robotics",
+      "design",
+      "startup",
+      "smartphone",
+      "iPhone",
+      "Android",
+      "database",
+      "JavaScript",
+      "Python",
+      "Rust"
+    ]
+  },
+  "candidates": [
+    {
+      "id": "d0a0ace1-7e79-4347-bfc6-bb93f4c44798",
+      "title": "Flock keeps ignoring requests to cancel its contracts",
+      "url": "https://www.theverge.com/tech/1024232/flock-ignoring-cancel-contracts",
+      "excerpt": "While more cities are canceling their contracts with Flock Safety, just as many are discovering how difficult that can be in some instances. Plymouth, Minnesota's city council voted to terminate its contract with Flock in September, but failed to respond to the city's request. For over a month, the cameras remained up, and the city […]",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T19:58:02.000Z",
+      "sources": [
+        "The Verge"
+      ],
+      "points": 0
+    },
+    {
+      "id": "8558c525-c151-497c-822c-2b78ba595bd2",
+      "title": "Ask HN: Which TV do you recommend for privacy?",
+      "url": "https://news.ycombinator.com/item?id=50328896",
+      "excerpt": "I haven’t owned a TV in years and would like one that respects my privacy. Are there any TV’s which do this well? I am looking for something in the 60”to 80”range and would like a 4k display with at least 60hz display. I don’t mind paying a premium. I have heard good things about Apple TV as a better alternative to most smart TV native apps. Would some TV’s pair better with this than others for privacy? I don’t want the TV doing anything other than being the display for Apple TV. I am curious what success others have had.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T19:35:27.000Z",
+      "sources": [
+        "Hacker News"
+      ],
+      "points": 21
+    },
+    {
+      "id": "1fe872f3-1b34-4fd9-9000-f8bb43c1e322",
+      "title": "It wasn't AI that flipped Proton's charge",
+      "url": "https://blog.raed.dev/posts/proton-loser-thinking/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T18:53:55.000Z",
+      "sources": [
+        "Hacker News"
+      ],
+      "points": 72
+    },
+    {
+      "id": "3f0aaaab-f83d-43e7-a23f-70e9325fa882",
+      "title": "Nurses Sound Alarm as 'Uber for Nursing' Apps Push to Deregulate Healthcare",
+      "url": "https://nurse.org/news/uber-for-nursing-gig-apps-report/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T18:53:46.000Z",
+      "sources": [
+        "Hacker News"
+      ],
+      "points": 105
+    },
+    {
+      "id": "4a3b4ddc-82ff-4f44-87af-fb77ad46803f",
+      "title": "Wall Street's Black October: Why the worst may still be ahead - Ynetnews",
+      "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFB5SVhxOUVISjR6bkhBZHlxalhJODNOSjlCRlhRb1U3SmVtb0ZBQkVTeUNIVjloUjE3X09XeGtXS3g1TEd2OG5INTRnek0tNGJBcVBzVjlsc1MyZ0lQU090dWt3?oc=5",
+      "excerpt": "Wall Street's Black October: Why the worst may still be ahead Ynetnews",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T18:37:41.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "990615eb-06c5-4232-8be4-f701f8d13939",
+      "title": "Mathematics has changed. Let's act like it",
+      "url": "https://terrytao.wordpress.com/2026/11/01/mathematics-has-changed-lets-act-like-it/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T18:28:42.000Z",
+      "sources": [
+        "Hacker News"
+      ],
+      "points": 89
+    },
+    {
+      "id": "9f62943a-1eb5-4cc7-b09a-1a47490cc556",
+      "title": "\"We're the first hospital outside the US that gets the latest capabilities of OpenAI\" - www.calcalistech.com",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBvcUxNTWxKbTFqRmlEb0JGNUE0Rk56T3RNUlpjQVd0a0dCcVk1c25TWUtsbVllUG5UVjcybHVlSG5iT3psRjNIbC1aUHdicEIxR1NJdGplOVNqTlhxUXhpLU5waTlOWHM?oc=5",
+      "excerpt": "\"We're the first hospital outside the US that gets the latest capabilities of OpenAI\" www.calcalistech.com",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T18:21:00.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "7ad307c9-bd3b-4338-99d2-09ad9a50549d",
+      "title": "Artificial Intelligence Versus Human Interpretation in Diagnostic Radiology: A Systematic Review of Diagnostic Accuracy and Operational Efficiency - Cureus",
+      "url": "https://news.google.com/rss/articles/CBMikgJBVV95cUxPXzRWdm1ncnFCckFlWUh2dUllbTFaeXJEYzUxcEl1VkJWSXo3Rk1kZ1daQU9xUWp5Y2dySzdqSDh2bGJEVzJfdTd4N0pzcFF3dHAySzJYTTh4MUtDNnRDRnhFaXZnMVFtYUxOenJUQzN3ejlMU19sTExQQk8wT2xsMUM2SzVCcHVCWG1ZZXM0MGJ5d3F3bFZGZmV5WTBQbWM3RUFzWHQ1UzNDcUtQRTZ6c1phbmNHRTA0WDV0cS0tMVVTb19SUXpLTmpCZWpzc0NLcW9qRnhoSldoYmV0YTZGYll0bUFUb2puX0VuQ2pobFowNzE5a0VSWktKTGhVVjhKSk02aG16UjlhTGw0c1kyM3dR?oc=5",
+      "excerpt": "Artificial Intelligence Versus Human Interpretation in Diagnostic Radiology: A Systematic Review of Diagnostic Accuracy and Operational Efficiency Cureus",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T18:19:58.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "ee95d683-bf33-4c77-b832-b1fe48466e0a",
+      "title": "Pope Leo XIV on AI - GeekWire",
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE95OE1kdXZpVWJhWGRiWjJnTFdNck9TUnY3NmlycWZrZ294TnAwY29ldkRiajkyS3RuQjZYbFRMLUdyV2VnUnU2WGZkWmRydU50WHZOTFRtMEhuTFFVT3FmSDNlRmQtNU5tVm10ZEdlRzI?oc=5",
+      "excerpt": "Pope Leo XIV on AI GeekWire",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T18:11:38.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "9e2f5b93-8b6f-4f68-8994-f7c9b9d28e56",
+      "title": "Prisons Using AI to Predict When Incarcerated People Will Commit Future Crimes - Futurism",
+      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQTWE2Ym9nbHhmZmFVQ1daVkt6WGJ2Y3JTX3puYkx1UDVfTjF6ZTNZd3hFYU04djlNaUg1NER6WFhOeXV5U1J0Ri02TkEyMDdCVkM3WkdmdmJaY1VJU3BZOE4weENZbTFKR05ONjhXMEswUGhEdWxrclc2NHBxeXpQc0dLVGtqMG1GZFJ1N2hEelN3Y0Vn?oc=5",
+      "excerpt": "Prisons Using AI to Predict When Incarcerated People Will Commit Future Crimes Futurism",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T18:10:00.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "17ed013d-d281-46f7-a23d-e972129fe80e",
+      "title": "SECURITY AFFAIRS AI-CYBERSECURITY NEWSLETTER ROUND 6 - Security Affairs",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQQXdtUXktUHFOMmMxajdBUkN2R0phREw2cDduUG9SUE1uTEhRSWdHSjBua1JkN0t1SzZhZS02akY3VUpYTHRUQXFHM1RWRDZkOGFfbU1qc2M2emJMaUtUTnpVQVNYXzZfS3phWnlaaHFBaEY2SU91OVVpb0VEMFlpaUtoQnJGd1k2MlF4dDNmSFBCdU1KYm9JVHJIWdIBoAFBVV95cUxPLXJaWDJhRjI2WHFwLUIySjZGQnFDZjBlZUFWMDhSR19sbmtsQl9hbG5wUWZkdF9CRnZ1VmUtTVU1ZFN2VFYta2tNeEM0R1RQWHpYRVFhZmlXYXVfSzdGa1hKYlYxa21SOWhnNW9kamRMR05RLXVsRXFoQnFialJHb1kydmtsRFNvM0JBRk1XcW9wVi01bGdZWEZtdFR2MnJ2?oc=5",
+      "excerpt": "SECURITY AFFAIRS AI-CYBERSECURITY NEWSLETTER ROUND 6 Security Affairs",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T18:04:03.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "fc2d1f7b-d69c-451f-bb07-b7f3002e6dba",
+      "title": "Local mom-and-pops are embracing AI food slop, and residents are revolting - The Washington Post",
+      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQNmZCWm1wR0hsUXRkYlVXcVp0aDBFbWJkSUpZeE5oOXNnM0FzU0ZaeHhFbndfRUI1ZXBueGF5R1VheEptX1dmektlZzlwbTFtR0kzWXI5Y25XbGd6NXVjUnpybFhxWTFyOHpDX0RLMTJSTm9fYzAtX0N0d3IxaFN3VVgxQ2dEb1FFcUVEMHJCNjFTNnMzM3VkVXU5aWpaakFrOEthcC1kbnd1TlhmeGFNbjY5eG83SVZxaFZQY1Bn?oc=5",
+      "excerpt": "Local mom-and-pops are embracing AI food slop, and residents are revolting The Washington Post",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T18:00:00.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "58229a92-2fbf-409c-ae4c-9594038cae93",
+      "title": "PSUs are back-but they should exercise caution when implementing artificial intelligence - TradingView",
+      "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxORVloeV9TdVNoVFVCU1htMm5mYjhqbk5Vc3l0c2tBekpGSGNzRm53b0ZLeWN2Y0w5LXJ6dGp4UVNLNF9IcGo4U0dVOXh0c2MzcExKWGRZZ01CX0lnYUM3T3BnUEdVMGpoWGltQ29hZUQxc3l5MTJWX2ZVNmUwdUdNaFF4YUlLanUzajZBaUVnb0tELUwzTUFhdWg0cmlrRnZqNFRUMVNWY25mOVlQZ3Q4R0MyeFExNXBBb25QcTllaFNhcjlYUUJLZ0N4UDBRcWtNSTRPMHFGTk9ocldlQVE?oc=5",
+      "excerpt": "PSUs are back-but they should exercise caution when implementing artificial intelligence TradingView",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T17:34:14.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "53d919f6-638d-4ac8-bb9d-b84e632cbff9",
+      "title": "You’ll Never Guess How Scalpers Are Reportedly Snagging Rare iPhone Duos - Gizmodo",
+      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNWFBkNE1aZHRwNTJZNmdmXzdTMS1OQnhRV3YxQXRiZFhoVnU0UFAwazV0QUFjVGVIdWVFWmU5ajZLZ1o1bElvR3ZyY3RnQ2hMX3ZIREJUUW9IRlZMZC1JTmlCRTZpbE5WbWhXYkF1NnN6ZTlvVDhHc0FNWHY4RWlMb0pIcmpDQUNWXzhzTlk4ZEg3aHg0Z3ZKMUxubjFzM3B5RE1KZw?oc=5",
+      "excerpt": "You’ll Never Guess How Scalpers Are Reportedly Snagging Rare iPhone Duos Gizmodo",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T17:32:34.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "30279018-ffe8-435e-ba44-08391e620472",
+      "title": "Patrick Stewart taught us what good men do with power",
+      "url": "https://www.vox.com/politics/508526/patrick-stewart-jean-luc-picard-star-trek-liberalism",
+      "excerpt": "",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T17:28:16.000Z",
+      "sources": [
+        "Hacker News"
+      ],
+      "points": 242
+    },
+    {
+      "id": "fcf30925-50f0-49fe-9e43-a75eb9e45a06",
+      "title": "Apple’s HomeView could add security camera features",
+      "url": "https://www.theverge.com/tech/1024219/apples-homeview-could-add-security-camera-features",
+      "excerpt": "Reddit user pdfu found hints hidden in the HomeView 27.2 code that Apple could be adding security camera features to its smart home hub. The strings describe a security camera mode with motion detection, live streaming, and recording options, as well as privacy functions. According to pdfu, there is a setup page that even explicitly […]",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T17:16:07.000Z",
+      "sources": [
+        "The Verge"
+      ],
+      "points": 0
+    },
+    {
+      "id": "e42bdade-7015-474c-8aae-fa295df68c2e",
+      "title": "Microsoft Patents an AI That Can Literally Put Words in People’s Mouths in Real Time - Futurism",
+      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQS2hoMWw5c2MwUVlFbUxRYVhLLUhvT2pZQXVPMnJPUWVyZU52R2FWbE5ZdENMQTU4dHlQSmVJVHE5WTR3VFlIeE14M3VxOW5OVm5SYlFCeG9vb09ZNHBKMUc2TUtUS3ZMc3p4RkVLUFN4NnpMOHhoRDdMcTBlNFlxWS04dk1Gc3BJdEFNNkgwWkNmS0E?oc=5",
+      "excerpt": "Microsoft Patents an AI That Can Literally Put Words in People’s Mouths in Real Time Futurism",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T17:09:00.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "d7aa4c82-65f8-4c23-8ddb-28868a0bbdaf",
+      "title": "Vision-language AI agent could help radiologists interpret ultrasounds faster and more accurately - Medical Xpress",
+      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOcUVYNHhDczR6M0ljS2Y4Y2YyUTNiZ3huaTlyeWhaY3dwUjBnQm82c0VROXBsa0xYdm1LRi1NRXl2WDAzTHlzZlIyOTI2Mnl5T1Q4YzNwVXdYZm9NN21lODlFNjIxalpFSXo5Vk9CVnlvc2tOdU45ajV5RE95RFFjbzRfTUU3bHZh?oc=5",
+      "excerpt": "Vision-language AI agent could help radiologists interpret ultrasounds faster and more accurately Medical Xpress",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T17:00:01.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "1e30a987-9c6c-469b-90ed-c71cd7d4a4a0",
+      "title": "Anthropic expands text watermarking to older Claude versions beginning November 3 - Mashable",
+      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQUEM4THdHaktsdExGbnVyMWxVLWhuRmx4S3hYSEMwWFIxcjIydjA2TVl6bkZidU10QmYyWEZWYkNsM0NXdTBHc2pIY0tXU1ZiMTdYbDZvYVNUUDduTDB2eU1DRU0yVERyS3ppRFpHWjZ5OUFxdXU5ZTRCbk5hSG9UNkgxQTJmX1BKWlJkOXAtNA?oc=5",
+      "excerpt": "Anthropic expands text watermarking to older Claude versions beginning November 3 Mashable",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T16:59:47.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "bfa31a9b-4fd3-454e-8434-906d6c41f8c9",
+      "title": "Frontier Airlines Likely Breached",
+      "url": "https://www.reddit.com/r/frontierairlines/comments/1xl20e8/psa_email_scam/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T16:46:33.000Z",
+      "sources": [
+        "Hacker News"
+      ],
+      "points": 122
+    },
+    {
+      "id": "5d29f214-f605-4549-82b3-e68bf4a8e4a7",
+      "title": "Seoul Viosys begins production of rare-earth-free white light emitter",
+      "url": "https://www.semiconductor-today.com/news_items/2026/oct/seoul-291026.shtml",
+      "excerpt": "",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T16:23:26.000Z",
+      "sources": [
+        "Hacker News"
+      ],
+      "points": 98
+    },
+    {
+      "id": "15191a4a-231a-485c-aff9-3965775f1769",
+      "title": "A fully playable version of Portal prequel F-Stop leaked",
+      "url": "https://www.theverge.com/games/1024206/playable-portal-prequel-f-stop-leak",
+      "excerpt": "Leakers have pieced together a playable version of the canceled Portal prequel F-Stop. Most of the assets came from the massive 12-terabyte leak that dropped this August. That didn't include the game's source code or map data, but those final pieces apparently hit the Valve Cut Content Discord this week, allowing a nearly complete version […]",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T16:19:21.000Z",
+      "sources": [
+        "The Verge"
+      ],
+      "points": 0
+    },
+    {
+      "id": "d0777bbc-41d4-4321-8ae3-ba1747539ad1",
+      "title": "The artificial intelligence bubble is under threat: what we know - UkrMedia News",
+      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFB2WXA4N2kxXzR4WEFBRGxGVi16dUt1RVZnNmFNQXVEUEJFbW54Q0RNWDlsRXFBa1ZKTEJPX0dpMExSbjd0ZjBaNVNya3BPMUtJbkx4U0Z2SVlKSFNqdDhpQ0VwZWsxZ0I0VVk1VE5PMmExNGtZOGc?oc=5",
+      "excerpt": "The artificial intelligence bubble is under threat: what we know UkrMedia News",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T16:16:50.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "34ca6f1b-de66-4ca6-bc4e-fcaa3e24ac1d",
+      "title": "Show HN: HackerBooks – HackerTube, but for books mentioned on HN",
+      "url": "https://hackerbooks.org/",
+      "excerpt": "Saw Karpathy's HackerTube and wanted the same thing for books. So I had Claude build one (Opus 5.5). It's ~16.5k books that at least two different HN commenters brought up, from 2007 till now. Each book links back to the comments that mentioned it. Data is downloadable from the about page. To be clear: Claude wrote almost all of it, including the data pipeline and the site. I mostly steered and made calls, bought the domain name, etc. It counts mentions, so it's not perfect (praising a book and trashing it both count). If your favourite book is missing or matched to the wrong thing, tell me.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T15:58:28.000Z",
+      "sources": [
+        "Hacker News"
+      ],
+      "points": 534
+    },
+    {
+      "id": "2da849ee-cf74-4e64-aa51-596dd510a119",
+      "title": "Everything changed for the oil, AI and bond trades over the past month - CNBC",
+      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE55dmNrd1FhM2Y4WF9rSFZ5Tm91U1p6T0lkcDFtMjdSTC1HeW1nckRObm80bGNoMkIxVGMtenhNZERydEk0Y1Y0ZGNsZnhCVmR1UjQwcnE2cHloLVZDT3VXT3E3dzNnR2k0NFZtLTg0TdIBdEFVX3lxTFBvYzVYUk8tSlRXcDhuMVh4bU56TVJaRjNfc0pjcmctU1JPaUtmWmhFZzMtWXhkdGxRTlRYQ2xHblVGRVRUbXZleVh0UHJQUWdpazlKMjBxa1RRaGtPMl95a1hwUjMteUp2NzJIV1dPMTZOeW1z?oc=5",
+      "excerpt": "Everything changed for the oil, AI and bond trades over the past month CNBC",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T15:58:24.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "3e378f72-a833-4733-8fb1-a4e1a8dadda6",
+      "title": "These 3 AI Stocks Could Soon Enter the S&P 500. Are They Worth Buying Before the Move? - Yahoo Finance",
+      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPUmQxVVBnXzh3VC0tQTlkSFBFZ05RNzB5LWRlSkY5WWQyTDFrdXN3ZXptTktjYzJQaGFVWTAwa2cxdzdIZU11M3kwMDRlTmdQYlE5ZDI2RE1yV1lFMnVkV3JOUXpJOXdJZVdlazVOZFpJV1BvdTk2dGwxMEZGZnVCdUNlWTBOVmpJQmxxdWJHdmM?oc=5",
+      "excerpt": "These 3 AI Stocks Could Soon Enter the S&P 500. Are They Worth Buying Before the Move? Yahoo Finance",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T15:29:00.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "02b366cf-dc6a-46a7-86f4-70627480c567",
+      "title": "Debate intensifies over AI liability - theinsurer.com",
+      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQeU1mREpjYUExUEhxN19faVlMVnprTVkwY0ZIdWVyNTBINjB5STR1cDhnaTItTUxOcG5iM0x2UWZWRXgweDdkMGRJZkI1eDZPbWdHQlltRi0zaUZVUDdRbVBCRlRJSFpLdmFiRVVETW5vWl8wX3BtcGhULThsOGVEb0ZoWWxaVHVxSWVj?oc=5",
+      "excerpt": "Debate intensifies over AI liability theinsurer.com",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T15:16:52.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "f5ac28c5-6697-4cbc-847c-2a688c7311b8",
+      "title": "Congress members demand that Trump preserve correspondence with artificial intelligence for a future investigation - Politico - Українські Національні Новини (УНН)",
+      "url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxPX2U4QXRCaXZseHZjWnhjQnhkQ1VPODZwSnI5bDVqek5TWk9mbGo3WHh5S1lQejloTzhZVURMWWRXUEExZjM2b2s2djYzLVlFSkN0TnN0TzVGM3BQalZfMlpSejh5SkRGSFUtZGxXV3AycDJBVlo4QWxtcHQ5MzlxUU03RWhqenV1UHgySTVJb0ZWeEppRTRMeHZCN1dEQ0tDaTluR2RraXNXOVY0bVVJay1NS2UtYnF6YURBOW44UG9LMmt6SldpMk9LaEhwQ0hleU5SanRTQ0pWek12UmRB0gHeAUFVX3lxTE9jYkN3TVE5U3ZTTExQQ053SndhanpnVHRFMl9Nb0RtUF9SVzMxRGRKSTZUS3B0QVppT1FyYzNYblc4V1pUa2lrSFkyOU9PS01sbnpDMVpEUkpxOGprbmJELVVMTTVQSGttOFVoblVkMUpxV3RhUTdFOEgwck94OUJUQkttZXd1V25vVDdxU1hlVlVXaWRMZVlUeERWQnh6cE1rcURZcFVXZE5BZEE1bjJvTklyeHd4U1FoUjlaTHZGejNvWkVmQl9OTWprakdib216cnBQZGJBZ2c5SHJSUQ?oc=5",
+      "excerpt": "Congress members demand that Trump preserve correspondence with artificial intelligence for a future investigation - Politico Українські Національні Новини (УНН)",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T15:10:41.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "d2b3bf0b-6545-4b9e-b856-86ea3f1e6004",
+      "title": "Brazilian lawyers busted for attempting to manipulate court's AI with prompt injection hidden in filing — court's AI flags hidden text that demanded superficial legal scrutiny, lawyers fined $16,000 - Tom's Hardware",
+      "url": "https://news.google.com/rss/articles/CBMi-gJBVV95cUxNRkhtSHZqX3lUaEs3cDFDSVpkWjdYUUVnUkM4Mjk0V1hxVzRHTTFyVng0dWJMdS1OdDVXSGdzT2dnS09fRmkzYjRtRE16RTk3aGlfSEpGcjJKeEEzOUFTUUNTaGtuYTBrNjRaa3JHUGFiYkduVzJBVS1oZVViMERzTk5XbzdnNzVObzdrWmZwa1dPWEphRDZ1Y1BRTVJHaEN4OXRsSjhQcVJieUdCYWxvUmlfQnZsMnQ2TkRoc09ubUNITFU3TGRTQWliRTB0dUVTU3NxdXl2WGtQLTJQWGhVZ0Z1MENRMXA3Z0lxUDg5TjY4LVBvVWFGWTdQSjFuRWtkMWlDZC1FSzEtcTZNZEFKeUg3U2c1VE9tR1VqVlI2a2EyX3lSX1pOMkhtX2I3Vml0TnBaa25TNnZfSlRWRklKVVFsMGpTS0c3UmJ0ZnhYSFRJcmlSRVo3ZUZqZWVjZFlPekliQVFoVC1fSnhLZFZTZHlwaWRaVU1mOEE?oc=5",
+      "excerpt": "Brazilian lawyers busted for attempting to manipulate court's AI with prompt injection hidden in filing — court's AI flags hidden text that demanded superficial legal scrutiny, lawyers fined $16,000 Tom's Hardware",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T15:05:00.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "0c63c2ba-9b3f-4542-b6a6-504cadc5ce9f",
+      "title": "Police chief unplugs Flock cameras after company ignores contract cancellation",
+      "url": "https://www.tomshardware.com/tech-industry/big-tech/police-chief-physically-unplugs-flock-cameras-after-the-company-ignores-contract-cancellation-city-takes-matters-into-its-own-hands-amid-privacy-controversies",
+      "excerpt": "",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T14:36:13.000Z",
+      "sources": [
+        "Hacker News"
+      ],
+      "points": 374
+    },
+    {
+      "id": "c7dda797-bd84-4e1b-a9c7-44adc3b283fb",
+      "title": "Lenovo's 'encrypted' fingerprint USB is just an unencrypted SD card in a case",
+      "url": "https://www.reddit.com/r/technology/comments/1xl2pr3/lenovos_encrypted_fingerprint_usb_drive_is_just/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T14:34:43.000Z",
+      "sources": [
+        "Hacker News"
+      ],
+      "points": 280
+    },
+    {
+      "id": "971b7af9-fa2f-495c-b325-ea321259b664",
+      "title": "North Korea linked to massive Binance crypto heist",
+      "url": "https://www.theverge.com/tech/1024176/north-korea-binance-crypto-heist",
+      "excerpt": "The FBI says North Korea was behind the massive $6.3 billion crypto heist that hit Binance on October 29th. The FBI labeled the activity \"TraderTraitor\" and said that it had observed actors it has connected to hack converting the tokens to Ethereum and preparing for further laundering of the funds. The agency offered few other […]",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T14:33:11.000Z",
+      "sources": [
+        "The Verge"
+      ],
+      "points": 0
+    },
+    {
+      "id": "a190f17c-6be4-45a9-91ad-fc3185b3c575",
+      "title": "AI is disrupting the art of campaigning - The Economist",
+      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQd2ktNFVoR2doWjFiQzBmbHRGeHFHZFR0d285UHZvMS1nS3RJM1pnMkxzREVnOFBjeHJQYnFiakoxaUxxazRpbjY1cl9IMHRDdEFBV0FhTWVfVGVMU1FKYVRGNk42Mkx6eWQ5MzBvV3puVU9WWDI0c2NTWWVMQzFWMjNMM3NsU2VRbVhtSHZCdUphdW5L?oc=5",
+      "excerpt": "AI is disrupting the art of campaigning The Economist",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T14:10:44.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "c0ea84bf-d982-4201-90c0-fa940a269198",
+      "title": "One of the Fastest-Growing Segments of the Crypto Market Involves Artificial Intelligence. Here's the 1 Cryptocurrency I'm Buying Now. - The Globe and Mail",
+      "url": "https://news.google.com/rss/articles/CBMitgJBVV95cUxPNkpPN3d2LW1Jd3Y1bXNoZTN6U3lheWJyNmVrWFdRVm9mVjlWNURWRGkxZVNLSkJZZEhRMmQ3cEVMZGEwN1RuY1UwZGRlX0pBNDgtTTBFcnVMM2ZLVzkyX3lyd3o0YVZSalNnVzJnWldOQ2ZzVHdmSndZWkdwRGJlZEk2YVk4Z1lIWDZ4dGl3RWxGVFBVWVM4ckkyRnlDakNuRnY2VUhPYk84bzJCd2U0UUlCa19xbTBoUUxfaUxwRGJ6SWp6a1Izdi05VnMtc2M1cTlIeUtLTmRzLURzRGFQRmpia2pUNTZFN0VPY3BpMHQ2TlpSdnFncEhoNVFGSThleHdPcGJqRUJSdGhGRnJzZk5ZZTRFYTd1cnhXTzRMYWFPMG1NbGxpUlkycGh5ZGdFMFQ5THd3?oc=5",
+      "excerpt": "One of the Fastest-Growing Segments of the Crypto Market Involves Artificial Intelligence. Here's the 1 Cryptocurrency I'm Buying Now. The Globe and Mail",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T14:01:38.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "c01e5b6d-a384-4227-b8b6-13d00ed7dddb",
+      "title": "HomePod Mini 2 first look: Three things I love and one disappointment",
+      "url": "https://www.theverge.com/tech/1024108/homepod-mini-2-hands-on-siri-smart-home-mac-speaker",
+      "excerpt": "When I first heard about the new $149 HomePod Mini 2 at Apple's Welcome Home event last month, I was disappointed. It's been six years since Apple launched its entry-level smart speaker, and all it got in the second gen was a chip bump, some color glowy stuff, and better AirPlay? For $50 more than […]",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T14:00:00.000Z",
+      "sources": [
+        "The Verge"
+      ],
+      "points": 0
+    },
+    {
+      "id": "c49b701a-41bc-4d88-972a-c3c02c816ca0",
+      "title": "Novellas with Groff",
+      "url": "https://movq.de/blog/postings/2026-10-31/0/POSTING-en.html",
+      "excerpt": "",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T13:51:41.000Z",
+      "sources": [
+        "Hacker News"
+      ],
+      "points": 82
+    },
+    {
+      "id": "fc997ea3-1e67-42ca-a821-5c25c0c79cc3",
+      "title": "One of the Fastest-Growing Segments of the Crypto Market Involves Artificial Intelligence. Here's the 1 Cryptocurrency I'm Buying Now. - Yahoo Finance",
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxONVJFbjhvQ1hJVDVzUkxwdmc2U2g3Y2d6cmtLai1BeVFKX0FCMVRFMDJlNUJkSV84Vm1pQkJkd2hDNVJpZTNBZGIyc1Z5VnpaZURjZzRJelVKSGt1V1BLWjNTQVBSLTZ3a0VaTWhvMnY5OTdrZktVQzR1bVFIbjY1a2c5NlRobW5VSi1QSWdDci1UY0Y3WVc0Zi03UU5XZkwyOUE?oc=5",
+      "excerpt": "One of the Fastest-Growing Segments of the Crypto Market Involves Artificial Intelligence. Here's the 1 Cryptocurrency I'm Buying Now. Yahoo Finance",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T13:45:00.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "b79dbac3-169b-4fff-a25f-70e754c4d5ca",
+      "title": "One of the Fastest-Growing Segments of the Crypto Market Involves Artificial Intelligence. Here's the 1 Cryptocurrency I'm Buying Now. - The Motley Fool",
+      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQUklsY25Zb20yOVdCdXJCeHNaOEYyUktSSEJSam1iQkNST2hyUEFtZU9RdU9xTFFyMHZCM24zbWxEVEhPWFpwdnMzOUc2VDFoX3RSVEo3N2FfQWdRaHdBb1Q3OEJ4TGpmMEF1QWR0QXRJSUl6ZUxqUjd3c2ZwczdhRzdRek9qeG9SX0g4TS1HUkRPRG9yTENn?oc=5",
+      "excerpt": "One of the Fastest-Growing Segments of the Crypto Market Involves Artificial Intelligence. Here's the 1 Cryptocurrency I'm Buying Now. The Motley Fool",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T13:25:00.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "482d0dc6-3350-47bc-9aaf-aff47a34517e",
+      "title": "Proving and improving the Platonic Representation Hypothesis with JEPAs",
+      "url": "https://arxiv.org/abs/2610.39302",
+      "excerpt": "",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T13:24:49.000Z",
+      "sources": [
+        "Hacker News"
+      ],
+      "points": 84
+    },
+    {
+      "id": "94fd5b10-2e69-4f90-8dda-0cf11bd76b7c",
+      "title": "Show HN: OmniDiff – Opensource, super fast, content aware Git difftool, in Rust",
+      "url": "https://github.com/ivankovic/omnidiff",
+      "excerpt": "I have been researching what the ultimate diff tool would look like, based on actual diffs in open source repositories. OmniDiff can diff: code (25 languages), config, images, PDFs, archives, cursors, fonts... It's fast. It can diff C++ files of tens of thousands of lines in under 100ms, on a 2023 ThinkPad T14s. It's open source. AGPLv3. It's based on real diffs. I looked at the 7400 repositories that are listed in Gentoo packages, sampled 2000 diffs and solved them manually to get a good understanding of what is needed, before putting together the diff pipelines for each content type. Incidentally, this also forms the basis of the CI pipeline, so the robustness of the codebase is quite high. I'm still developing it. It's v0.3.0 at this time. But I have been using it daily as my git difftool for months now, and it works well. AI Disclosure: Yes, I do use AI. No, I do not vibecode.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T13:02:30.000Z",
+      "sources": [
+        "Hacker News"
+      ],
+      "points": 73
+    },
+    {
+      "id": "58a60ac1-5ce3-456f-be3c-0f944307d2d8",
+      "title": "New Zelda and GTA represent a games industry that no longer exists",
+      "url": "https://www.theverge.com/column/1022402/new-zelda-and-gta-represent-a-games-industry-that-no-longer-exists",
+      "excerpt": "This is The Stepback, a weekly newsletter breaking down one essential story from the tech world. For more on the biggest game releases of the year, follow Andrew Webster. The Stepback arrives in our subscribers' inboxes on Sunday at 8AM ET. Opt in for The Stepback here. How it started The two biggest games of […]",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T13:00:00.000Z",
+      "sources": [
+        "The Verge"
+      ],
+      "points": 0
+    },
+    {
+      "id": "f79c2148-af49-4efb-b223-94bed67aa0f3",
+      "title": "Prop 45 in California could be hiding a loophole for data centers",
+      "url": "https://www.theverge.com/policy/1023877/prop-45-california-data-centers-energy",
+      "excerpt": "A high-stakes California ballot measure pitched as a fast track for \"essential\" infrastructure could wind up giving data center developers a loophole to evade public scrutiny, environmental advocates warn. Proposition 45 would shorten timelines for state-mandated environmental assessments for eligible projects and make it more difficult for residents to challenge those projects in court. Proponents […]",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T13:00:00.000Z",
+      "sources": [
+        "The Verge"
+      ],
+      "points": 0
+    },
+    {
+      "id": "61a76b94-28d1-454b-a488-5fba26f6bfa0",
+      "title": "How CPAs are putting AI to work in audits - Journal of Accountancy",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNQnh0dDAwMElUNmxwWllxUF9lTW84U2JVMHBTNTNWZVZwUTZqV2NuOFJtOWdTU2NKa1NCdVhvWmpRQi02RWdJMUVjb19LU1haV2hKLXE1SnIzeWlrUEhkTkRsSGhDbXROS09mXzRZQ1pnUFRGMUx3U3BTamViZVdqcXYyQWJWTzFnYWw5cnR1Ny1IOEtYNS1rV0FTdw?oc=5",
+      "excerpt": "How CPAs are putting AI to work in audits Journal of Accountancy",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T12:00:53.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "3db536d1-ccf3-459c-b55a-068ee5eacef1",
+      "title": "Can AI Save The Planet? How Nine Innovators Are Fighting Climate Change - Forbes",
+      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPOUdVaEJWdWIzV0Fsb20zNDk3SmUxY2pJWUd3QVJsT2JMZzkyMkFUUll6RmNkZ3hubEQzeXZTdVF5eTF1ZG5kRUsyX1lrdW1ORUx5REY5LWJrNDJGc2xOY3BWUDUzT2N0dGxScFVDTGlUeVQ4TGxPQ0ZHWU54elJOZTY4TmgyWVhwdTB0U09KZ3Z3TXloX29mekJmR1pPZmpwTGEyR2hxLWFlN0NTSlFpbnlfeGg4NWxuWXZvS1E1MA?oc=5",
+      "excerpt": "Can AI Save The Planet? How Nine Innovators Are Fighting Climate Change Forbes",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T12:00:00.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "c67f0ce1-bc11-4746-aa23-0fb88c9687f2",
+      "title": "Communicating Christ in Asia in the Age of Artificial Intelligence - AsiaNews",
+      "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNRWlUQ3U3U3VfQXFQbUU5QlJTZ2E0RkxtWVdILVo1NzJleFBrRTVoM0xTX3pHSjhuVkE0SnViV3FCbFhvMXNyemJjdjAwbm4zbm5ab3BITjJEOW16WGNVX0RSLUR3NnRfYUFFTlo0YUlDT0xSdFhYOFRIYXd5ZU8xMUhzYWZGem9CWXY2eUVaQ2VSVm15VkJZeGNqd1pPZzlVaEdLX3MwYzljenhUdEE?oc=5",
+      "excerpt": "Communicating Christ in Asia in the Age of Artificial Intelligence AsiaNews",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T11:02:24.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "d899cea1-bfd3-4198-83ce-6a3d783a66fc",
+      "title": "The AI cost of JavaScript frameworks",
+      "url": "https://nolanlawson.com/2026/10/28/the-ai-cost-of-javascript-frameworks/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T06:06:19.000Z",
+      "sources": [
+        "Hacker News"
+      ],
+      "points": 250
+    },
+    {
+      "id": "4c7b3447-39a9-4c92-a7fe-f868e347c149",
+      "title": "Companies promised AI gains — here's how the payoff showed up in earnings - CNBC",
+      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9TUzBvaG91ZkJPb2Z3cDhJOHZGVW4tSGxXbXhuS0JTa0JQYVlaOE1kb3FzS1lKdjU4ckY5aWlON3pOWUY2eUcyRlkwSl9ob3E0TnpGQ005TW5kX19SWmJoUmttd3Vqcnp5MXNEckRENzA1eFJFeTh30gF8QVVfeXFMTkkydnZzNHdpR0RrUkVDb2UycEEzeF9ZejZZdnFBUlJfN0VIa2Zub3NCaFBXQzRMczNpbzQyWm1KZXA1UWk5MHBRVXo4WE1VN2tNUjJYUE1hbU1MRS02SUZ3NEk4Vk9VY0V5YjZnU1JVNS1La3g4dVpSOXJzbg?oc=5",
+      "excerpt": "Companies promised AI gains — here's how the payoff showed up in earnings CNBC",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T06:00:01.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "32c2db46-54fe-40f1-9b3a-796e95236b70",
+      "title": "Artificial Intelligence is overthrowing the purpose of schooling. Now what? - New University",
+      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQY3Nuc050dkQ4YjJlOVVlZkVNLUFnY3RkcHhjbkJ2cDhaRk5MMHpSOEdBYU5PMWZlRHZIR25jaGFHRm9QN3o5ckJveGM1R1RjQlRhbmhCZ3FWLTYtYlBnNWp1VzVmQ3BpM3F1QnlGTWhyZFZ6UnF2RThUME5ON21SUFdqWE9UeDQtaG05Z1ZvekJQUUt0ZE1RaUV4TWY4YkpqSnpvb2NRcDFrRWtBbm5TeQ?oc=5",
+      "excerpt": "Artificial Intelligence is overthrowing the purpose of schooling. Now what? New University",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T03:53:09.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "609f1891-d771-4ea9-940f-e79d2ce93a74",
+      "title": "Brazilian Court Sanctions Lawyers for Prompt Injection in Court Filing",
+      "url": "https://jetstream.security/insights/brazilian-court-sanctions-prompt-injection-filing/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T02:19:53.000Z",
+      "sources": [
+        "Hacker News"
+      ],
+      "points": 280
+    },
+    {
+      "id": "04d26f4d-1df5-4984-a854-dc92bf0526fb",
+      "title": "Sanford Health surgeon weighs in on AI in surgery - KFYR-TV",
+      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQMWh5RXpyWkRJdjVOdGxvQnQwTGtEcWZjNURPOUlBbXVXcWU5VTNidlRvcHlmTjktTUZ1RmZpNHowUEkwcWRkNjVaWEViZExZR2E4UmRJWHN0QmtHYlhZUy05TW03UzVQak5pWGxpTFZvVW1IS2FyWlJ2enhDNnB6aW05czJCUl9J?oc=5",
+      "excerpt": "Sanford Health surgeon weighs in on AI in surgery KFYR-TV",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T00:38:11.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "48842107-68ce-42a3-802e-1aaca048961f",
+      "title": "NYSBA Releases In-Depth Guidelines To Advise Attorneys on Ethical Use of AI - New York State Bar Association",
+      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNbGloX0xSbUxSNEpYaWZNTmRJUmdQMGZxY2JoX1c3a0d1endoZ0Q5N1VhNnJ0Njl5U0hfdW5NbEpkZllSUXNkYlI1QXdfRHRjNUowWUNEX1ZqZW1mSXl0bkxwVnJTaC1vWnc0WDctZ0htTGxsWGo2RDZUa2NpVGpEdzNMWDVLNEhvSWUwcGVLcHd4LUdmQ0JLWGp3?oc=5",
+      "excerpt": "NYSBA Releases In-Depth Guidelines To Advise Attorneys on Ethical Use of AI New York State Bar Association",
+      "imageUrl": null,
+      "publishedAt": "2026-11-01T00:12:18.000Z",
+      "sources": [
+        "Google News: artificial intelligence"
+      ],
+      "points": 0
+    },
+    {
+      "id": "9f06d37d-b113-48a1-8c7b-1aef40f532f8",
+      "title": "Memdoor: A team of 5 Qwen3.8-27B models beats Fable 5 on LiveCodeBench Hard",
+      "url": "https://github.com/guregodevo/memdoor/tree/main/examples/workflows/team-solve",
+      "excerpt": "",
+      "imageUrl": null,
+      "publishedAt": "2026-10-31T22:46:12.000Z",
+      "sources": [
+        "Hacker News"
+      ],
+      "points": 389
+    },
+    {
+      "id": "5a81489c-3f5c-4f88-ba38-019c52f6fc69",
+      "title": "An Italian farmer found some unknown seeds in his attic and planted them",
+      "url": "https://www.smithsonianmag.com/science-nature/italian-farmer-found-unknown-seeds-attic-with-nothing-lose-planted-them-result-biblical-180989644/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publishedAt": "2026-10-31T22:41:06.000Z",
+      "sources": [
+        "Hacker News"
+      ],
+      "points": 707
+    },
+    {
+      "id": "fc8e7050-2496-4909-ad25-25026958f4e4",
+      "title": "Get in the spooky spirit with these horrors from YouTube",
+      "url": "https://www.theverge.com/entertainment/1024096/halloween-spirit-youtube-horror",
+      "excerpt": "Rather than recommend a single horror film or an unsettling album for our final installment of spooky season recs, I present you with a small selection of creepy, disturbing, and just plain weird videos from YouTube. There's a little something for everyone here. Whether you're a fan of surreal art house shorts, cosmic horror, or […]",
+      "imageUrl": null,
+      "publishedAt": "2026-10-31T21:06:58.000Z",
+      "sources": [
+        "The Verge"
+      ],
+      "points": 0
+    }
+  ],
+  "events": [
+    {
+      "name": "Reported expansion of Claude text watermarking",
+      "reason": "A dated model-policy change is directly relevant to builders using model output; this Google headline alone does not verify the rollout.",
+      "ids": [
+        "1e30a987-9c6c-469b-90ed-c71cd7d4a4a0"
+      ]
+    },
+    {
+      "name": "Brazilian court sanctions over reported prompt injection",
+      "reason": "A concrete reported adversarial AI incident with legal consequences; the two headlines are acceptable reports of the same claimed incident.",
+      "ids": [
+        "d2b3bf0b-6545-4b9e-b856-86ea3f1e6004",
+        "609f1891-d771-4ea9-940f-e79d2ce93a74"
+      ]
+    },
+    {
+      "name": "Reported Memdoor multi-model coding result",
+      "reason": "A concrete builder-relevant model orchestration claim, requiring verification beyond the HN headline before treating the claimed benchmark gain as established.",
+      "ids": [
+        "9f06d37d-b113-48a1-8c7b-1aef40f532f8"
+      ]
+    },
+    {
+      "name": "FBI attribution of the reported Binance heist",
+      "reason": "A reported high-impact cybersecurity incident and attribution with industry implications; amount and attribution are copied publisher claims.",
+      "ids": [
+        "971b7af9-fa2f-495c-b325-ea321259b664"
+      ]
+    },
+    {
+      "name": "Flock camera contract cancellation dispute",
+      "reason": "Reported difficulty terminating surveillance technology contracts and one local response; either report covers this cancellation controversy without assuming independent corroboration.",
+      "ids": [
+        "d0a0ace1-7e79-4347-bfc6-bb93f4c44798",
+        "0c63c2ba-9b3f-4542-b6a6-504cadc5ce9f"
+      ]
+    }
+  ],
+  "mustOmit": [
+    {
+      "id": "8558c525-c151-497c-822c-2b78ba595bd2",
+      "reason": "Personal television recommendation question, rather than news."
+    },
+    {
+      "id": "30279018-ffe8-435e-ba44-08391e620472",
+      "reason": "General celebrity opinion without a technology event in the recorded headline."
+    },
+    {
+      "id": "c0ea84bf-d982-4201-90c0-fa940a269198",
+      "reason": "Personal speculative cryptocurrency investment recommendation; lower priority than concrete technology events."
+    },
+    {
+      "id": "fc997ea3-1e67-42ca-a821-5c25c0c79cc3",
+      "reason": "Syndicated investment recommendation variant; not another important technology event."
+    },
+    {
+      "id": "b79dbac3-169b-4fff-a25f-70e754c4d5ca",
+      "reason": "Syndicated investment recommendation variant; not another important technology event."
+    },
+    {
+      "id": "5a81489c-3f5c-4f88-ba38-019c52f6fc69",
+      "reason": "Agricultural anecdote without a technology event in the recorded headline."
+    }
+  ],
+  "labelProvenance": "Provisional build-agent judgments from recorded headlines/excerpts, assigned before evaluation. Not owner-reviewed, independently fact-checked, or a complete list of important events. Reported model capabilities and publisher claims are unverified."
+}

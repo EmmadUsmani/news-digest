@@ -2,6 +2,7 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { rank, type Candidate } from '../src/modules/digests/domain/rank';
+import { qualityRejection } from '../src/modules/digests/domain/quality';
 import { assessRelevance } from '../src/modules/digests/domain/relevance';
 import { relevancePolicySchema } from '@digest/contracts';
 
@@ -30,11 +31,18 @@ export function evaluateWindow(filename: string) {
  return {
  topic: fixture.topic, windowStart: fixture.windowStart, windowEnd: fixture.windowEnd,
  candidates: fixture.candidates.length, budget: fixture.budget,
- selected: stories.map(story => ({ id: story.id, title: story.title })),
+ selected: stories.map(story => ({ id: story.id, title: story.title, score: story.score, sources: story.sources })),
  eventDiagnostics: fixture.events.map(event => {
  const position = auditStories.findIndex(story => story.coverage.some(item => event.ids.includes(item.id)));
  return { name: event.name, recordedArticles: event.ids.length,
  relevanceEligibleArticles: eligible.filter(item => event.ids.includes(item.id)).length,
+ articles: fixture.candidates.filter(item => event.ids.includes(item.id)).map(item => {
+ const relevance = assessRelevance(item,policy);
+ const quality = relevance.eligible ? qualityRejection(item) : null;
+ return { id: item.id, title: item.title, relevanceEligible: relevance.eligible,
+ relevanceReason: relevance.reason, qualityRule: quality?.rule ?? null,
+ selected: selectedIds.has(item.id) };
+ }),
  firstRankWithinTwenty: position < 0 ? null : position + 1 };
  }),
  targetEvents: fixture.events.length, foundEvents: found.map(event => event.name),
@@ -47,4 +55,5 @@ export function evaluateWindow(filename: string) {
 }
 export function evaluateNbaWindow() { return evaluateWindow('ranking-nba-2026-11-01.json'); }
 export function evaluateWorldWindow() { return evaluateWindow('ranking-world-2026-11-01.json'); }
-if (require.main === module) console.log(JSON.stringify([evaluateNbaWindow(),evaluateWorldWindow()],null,2));
+export function evaluateTechWindow() { return evaluateWindow('ranking-tech-2026-11-01.json'); }
+if (require.main === module) console.log(JSON.stringify([evaluateNbaWindow(),evaluateWorldWindow(),evaluateTechWindow()],null,2));

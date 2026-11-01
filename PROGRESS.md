@@ -302,3 +302,9 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - `pnpm exec tsx apps/api/scripts/smoke-scheduled-digests.ts` observed actual 20:36 UTC generation, exact 6h window and completed run; original schedule restored, fresh 24h edition left on home.
 - `pnpm evaluate:ranking` unchanged (NBA 2/5, World 1/5); final `pnpm lint` and `git diff --check` passed. Rebuilt/restarted services; /healthz healthy.
 - Provider/model/billing unchanged; editorial configuration remains blocked. Next: social discovery, reviewed ranking windows and verified outlet attribution.
+
+## 2026-11-01: iteration 51 — recovered ranking benchmark
+- Found uncommitted Tech benchmark, diagnostics, fixtures and source notes from the previous session; deliberately finished and retained them.
+- `pnpm check` passed typecheck, lint, boundaries and all 43 tests; services and `/healthz` healthy.
+- Tech's agent-labeled window finds 0/5 targets; no ranking changes or precision improvement claimed.
+- Proceeding immediately to STEERING item 1 before further product work.
