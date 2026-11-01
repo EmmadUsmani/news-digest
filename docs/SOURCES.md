@@ -75,3 +75,7 @@ across seven healthy sources and all four topics. Headline grouping reads only
 stored candidates; new snapshots retain each grouped article's original link
 and source labels. Labels do not establish independent reporting or remove
 syndication. No new source adapters or external/LLM requests were added.
+
+Iteration 19: two explicit queued live passes stored 267 unique articles from
+all seven healthy sources across four topics; the repeated pass added no
+duplicates. No source configuration or provider/model/billing changes.

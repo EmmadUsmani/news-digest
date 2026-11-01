@@ -183,3 +183,16 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 - `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes; `pnpm exec tsx apps/api/scripts/smoke-previews.ts` restored 5/5/3/5 selections.
 - `pnpm lint` and `git diff --check` passed; API/worker restarted and /healthz healthy.
 - Next: topic creation/source configuration and schedule settings; editorial review still awaits allowed model configuration.
+
+## 2026-11-01: iteration 19 — repair reorder regression before new features
+- Started clean on main; no leftover work. Services/health healthy, but baseline `pnpm check` failed: reorder saved positions 1–4 while seeds/tests require 0–3.
+- Fixed SQL ordinality offset; migration 007 normalizes persisted positions per profile without changing reading order.
+- Added repository integration coverage for reverse order, exact positions and invalid-list atomicity; settings assertions now respect configurable names/enabled states.
+- Strengthened desktop/mobile reorder smoke to verify persisted zero-based positions; existing screenshots remain unchanged.
+- `pnpm migrate` applied 007; `pnpm check` passed all 20 tests, types/lint/boundaries, including a rerun after live browser reorders.
+- `pnpm build` passed with existing upstream Zod annotation warnings; `git diff --check` passed.
+- `pnpm exec tsx scripts/smoke-topic-order.ts` passed desktop/mobile persistence, new-edition order and immutable history.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 267 real URLs, four topics, seven healthy sources.
+- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed history/window/preservation checks; default selections remain 5/5/3/5.
+- API/worker restarted; `/healthz` healthy. No provider/model/billing changes; allowed editorial configuration remains pending.
+- Next: topic creation/source configuration and schedule settings; triage completed instead of starting new features.

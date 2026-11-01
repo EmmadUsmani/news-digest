@@ -17,7 +17,7 @@ export class PostgresTopicRepository extends TopicRepository implements OnModule
  if (current.rows.length !== ids.length || current.rows.some(row => !ids.includes(row.id))) {
  await client.query('ROLLBACK'); return false;
  }
- await client.query('UPDATE topics SET position=ordering.ordinality::int FROM unnest($1::uuid[]) WITH ORDINALITY AS ordering(id, ordinality) WHERE topics.id=ordering.id AND profile_id=$2', [ids, '00000000-0000-4000-8000-000000000001']);
+ await client.query('UPDATE topics SET position=(ordering.ordinality - 1)::int FROM unnest($1::uuid[]) WITH ORDINALITY AS ordering(id, ordinality) WHERE topics.id=ordering.id AND profile_id=$2', [ids, '00000000-0000-4000-8000-000000000001']);
  await client.query('COMMIT'); return true;
  } catch (error) { await client.query('ROLLBACK'); throw error; }
  finally { client.release(); }

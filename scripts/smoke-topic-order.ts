@@ -18,7 +18,9 @@ try {
  await page.getByRole('button', {name:`Move ${topics[0].name} down`,exact:true}).click();
  await page.getByRole('status').filter({hasText:'Topic order saved.'}).waitFor();
  const expected = [ids[1], ids[0], ...ids.slice(2)];
- assert.deepEqual((await (await api.get(base+'/api/topics')).json()).map((t:{id:string})=>t.id),expected);
+ const persisted = topicSchema.array().parse(await (await api.get(base+'/api/topics')).json());
+ assert.deepEqual(persisted.map(t => t.id), expected);
+ assert.deepEqual(persisted.map(t => t.position), expected.map((_, index) => index));
  await page.reload();
  await page.getByText('Manage topics', {exact:true}).click();
  assert.equal(await page.locator('.topic-settings li').first().locator('span').innerText(),`${topics[1].name} · Enabled`);
