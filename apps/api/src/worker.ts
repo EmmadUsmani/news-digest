@@ -1,9 +1,11 @@
+import { startScheduledDigests } from './scheduled-digests';
 import { PostgresContentRepository } from './modules/ingestion/database/content.repository';
 import { FeedAdapter } from './modules/ingestion/adapters/feed.adapter';
 import { HackerNewsAdapter } from './modules/ingestion/adapters/hn.adapter';
 import { ingest } from './modules/ingestion/ingest';
 import { SharedHttpClient } from './libs/ports/http.client';
 import { Queue, Worker } from 'bullmq';
+const stopScheduledDigests = startScheduledDigests();
 const connection = { host: '127.0.0.1', port: 6379 };
 // Operations telemetry remains separate from content collection.
 const queue = new Queue('operations', { connection });
@@ -24,6 +26,6 @@ async function scheduleSources() {
 }
 void scheduleSources().catch(() => { console.error('Source scheduling failed'); process.exitCode = 1; void stop(); });
 const sourceRefresh = setInterval(() => { void scheduleSources().catch(() => console.error('Source scheduling refresh failed')); }, 60000);
-async function stop() { clearInterval(sourceRefresh); await ingestionWorker.close(); await ingestionQueue.close(); await repository.onModuleDestroy(); await worker.close(); await queue.close(); }
+async function stop() { clearInterval(sourceRefresh); await stopScheduledDigests(); await ingestionWorker.close(); await ingestionQueue.close(); await repository.onModuleDestroy(); await worker.close(); await queue.close(); }
 process.on('SIGTERM', () => { void stop(); });
 process.on('SIGINT', () => { void stop(); });

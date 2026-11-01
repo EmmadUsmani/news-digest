@@ -19,10 +19,16 @@ export class PostgresPreviewRepository extends PreviewRepository implements OnMo
  const rows = (await this.db.query(`SELECT id,created_at AS "createdAt",window_start AS "windowStart",window_end AS "windowEnd",snapshot->>'method' AS method FROM digest_previews WHERE profile_id=$1 ORDER BY created_at DESC,id DESC LIMIT 21 OFFSET $2`, [profileId,offset])).rows;
  return { entries: rows.slice(0,20).map(row => ({ ...row, createdAt: row.createdAt.toISOString(), windowStart: row.windowStart.toISOString(), windowEnd: row.windowEnd.toISOString() })), hasMore: rows.length > 20 };
  }
- async generate(start: Date, end: Date): Promise<DigestPreview> {
+ async generate(start: Date, end: Date, scheduledKey?: string): Promise<DigestPreview> {
  const client = await this.db.connect();
  try {
+ // Lock before opening the snapshot so a retry sees the committed prior run.
+ if (scheduledKey) await client.query('SELECT pg_advisory_lock(hashtextextended($1,0))', [scheduledKey]);
  await client.query('BEGIN ISOLATION LEVEL REPEATABLE READ');
+ if (scheduledKey) {
+ const prior = (await client.query('SELECT snapshot FROM digest_previews WHERE scheduled_key=$1', [scheduledKey])).rows[0];
+ if (prior) { await client.query('COMMIT'); return prior.snapshot; }
+ }
  const topics = (await client.query('SELECT id,name,story_budget,relevance_policy FROM topics WHERE profile_id=$1 AND enabled ORDER BY position,id', [profileId])).rows;
  const selections = [];
  for (const topic of topics) {
@@ -38,9 +44,11 @@ export class PostgresPreviewRepository extends PreviewRepository implements OnMo
  selections.push({ qualityRejections, relevancePolicy: policy, relevanceRejectedCount: candidates.length - eligible.length, id: topic.id, name: topic.name, candidateCount: candidates.length, stories });
  }
  const snapshot: DigestPreview = { id: crypto.randomUUID(), createdAt: new Date().toISOString(), windowStart: start.toISOString(), windowEnd: end.toISOString(), method: 'signals-v4', topics: selections };
- await client.query('INSERT INTO digest_previews(id,profile_id,created_at,window_start,window_end,snapshot) VALUES($1,$2,$3,$4,$5,$6)', [snapshot.id,profileId,snapshot.createdAt,start,end,snapshot]);
+ await client.query('INSERT INTO digest_previews(id,profile_id,created_at,window_start,window_end,snapshot,scheduled_key) VALUES($1,$2,$3,$4,$5,$6,$7)', [snapshot.id,profileId,snapshot.createdAt,start,end,snapshot,scheduledKey ?? null]);
  await client.query('COMMIT'); return snapshot;
- } catch (error) { await client.query('ROLLBACK'); throw error; } finally { client.release(); }
+ } catch (error) { await client.query('ROLLBACK'); throw error; } finally {
+ try { if (scheduledKey) await client.query('SELECT pg_advisory_unlock(hashtextextended($1,0))', [scheduledKey]); } finally { client.release(); }
+ }
  }
  async onModuleDestroy() { await this.db.end(); }
 }

@@ -52,10 +52,12 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Repair zero-based positions after reordering; regression checks remain green after live UI use (iteration 19).
   - [x] Create topics through validated UI/API with saved phrase rules/budgets, appended reading order and clear source-less state (iteration 20).
   - [x] Connect/disconnect existing catalog sources per topic via UI/API; shared ingestion and immediate stored articles, immutable history (iteration 21).
-  - [x] Persist daily schedule time/timezone, elapsed coverage window and new-topic budget defaults through validated UI/API (iteration 22). Automatic generation remains M7.
-  - Next: custom feeds/query/account configuration and topic deletion; connect the saved schedule to automatic generation in M7.
+  - [x] Persist daily schedule time/timezone, elapsed coverage window and new-topic budget defaults through validated UI/API (iteration 22). Automatic preliminary generation connected in iteration 23 (M7).
+  - Next: custom feeds/query/account configuration and topic deletion; automatic generation is connected; add run/status visibility under M7.
 - [ ] M7 scheduled operation: the cadence scheduler generates digests
   automatically, plus the status page (sources, queues, runs, LLM usage).
+  - [x] Saved daily cadence/timezone drives automatic preliminary editions, exact slot windows, bounded retries and idempotent persistence (iteration 23).
+  - Next: status page with scheduled run outcomes and queue health; missed-run policy.
   `DigestPublished` event plus notification port with a log/in-app adapter.
 - [ ] Ongoing:
   - [x] Wider NBA/Gaming publisher coverage: Yahoo NBA + Eurogamer (iteration 12), 110 additional stored URLs.

@@ -64,8 +64,13 @@ the start is included and the end excluded. Only collected articles are used,
 so older coverage may be incomplete. Quiet sections remain
 empty. Browse saved editions to reopen an immutable version by URL; history lists
 20 versions per page with their creation time, coverage period and ranking method.
-LLM editorial summaries and automatic generation are still pending. The worker ingests seven sources every 30 minutes. Curated digests
-and configuration editing are tracked in [TASKS.md](TASKS.md).
+LLM editorial summaries are still pending. The worker ingests seven sources every
+30 minutes and generates preliminary editions at the saved daily local time.
+Schedule changes reach the worker within 10 seconds. Coverage ends at the scheduled
+slot, even if a queued job is delayed; repeated jobs reuse the same edition.
+BullMQ retains 100 successful/failed runs and retries failures three times with
+exponential backoff. Downtime does not backfill every missed daily edition.
+Further curation and configuration work is tracked in [TASKS.md](TASKS.md).
 
 Explicit live verification (contacts publishers and HN; never part of tests):
 
@@ -82,3 +87,12 @@ Local snapshot/API verification (uses stored real content, no external calls):
 ```sh
 pnpm exec tsx apps/api/scripts/smoke-previews.ts
 ```
+
+Verify automatic generation using stored real content (temporarily schedules the
+next UTC minute with 6h coverage, then restores the original schedule):
+
+```sh
+pnpm exec tsx apps/api/scripts/smoke-scheduled-digests.ts
+```
+
+Run schedule-changing smoke scripts sequentially. The worker must be running.

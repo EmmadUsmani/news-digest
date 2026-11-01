@@ -240,3 +240,17 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 - `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed saved-window/history checks; latest selections remain 5/5/3/5.
 - `pnpm lint` and `git diff --check` passed; API/worker rebuilt/restarted and health healthy.
 - Next: custom feeds/discovery configuration and topic deletion; wire saved schedules into automatic generation under M7.
+
+## 2026-11-01: iteration 23 — automatic preliminary editions
+- Started clean on main; no leftover work. Baseline services, /healthz and all 23 checks healthy.
+- Prioritized saved-schedule operation over custom feeds so real editions appear without manual generation.
+- Added BullMQ daily cron/timezone scheduler, 10-second settings refresh, obsolete-job skip and three bounded retry attempts.
+- Windows end at the scheduled slot; migration 009 plus pre-snapshot advisory lock makes retries return one immutable edition.
+- Manual generation remains independently versioned; UI identifies automatic editions as preliminary; no LLM/provider/billing changes.
+- `pnpm migrate`, `pnpm check` (24 tests/types/lint/boundaries), `pnpm build`, `pnpm lint` and `git diff --check` passed; existing Zod warnings only.
+- New concurrent-retry integration test verifies identical snapshots, one scheduled row and separate manual versions.
+- `pnpm exec tsx apps/api/scripts/smoke-scheduled-digests.ts` observed actual 19:43 UTC scheduled generation, exact 6h window, real candidates and completed queue job; original schedule restored.
+- `pnpm exec tsx scripts/smoke-schedule.ts` and `scripts/smoke-ui.ts` passed desktop/mobile checks; screenshots updated and mobile inspected.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 268 real URLs, four topics, seven healthy sources.
+- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed immutable/history/window checks; default selections remain 5/5/3/5.
+- API/worker rebuilt/restarted, /healthz healthy. Next: run/source status visibility, custom feeds, missed-run policy; editorial configuration remains blocked.

@@ -140,3 +140,19 @@ complete topic POST/PUT requests still supply explicit per-topic budgets.
 Existing topics and immutable snapshots do not change. The schedule note now
 shows actual saved coverage instead of hard-coded 24 hours. Automatic generation
 is explicitly not connected yet; the worker still schedules ingestion only.
+
+
+Iteration 23 connects the default profile schedule to a dedicated BullMQ
+`digest-generation` queue in the existing worker. A 10-second refresh upserts a
+stable per-profile scheduler using cron and IANA timezone. Jobs reject obsolete
+cadence/timezone settings and use BullMQ's `prevMillis` scheduled timestamp as
+the half-open coverage end; current saved elapsed coverage supplies the start.
+It produces the same explicitly preliminary signals-v4 snapshots as manual
+requests, with no LLM calls or notifications. No historical backfill is attempted.
+Migration 009 adds a unique nullable scheduled key. A session advisory lock is
+acquired before the repeatable-read transaction so concurrent retries see and
+return the first committed snapshot. The snapshot and key commit together;
+manual requests retain independent immutable versions. Lock release runs before
+returning the connection to the pool. Queue retries are bounded to three attempts
+with exponential backoff; the last 100 successes/failures retain edition IDs or
+errors. Status UI, missed-run policy and publication events remain unfinished.

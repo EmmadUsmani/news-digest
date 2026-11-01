@@ -52,7 +52,7 @@ try {
  for (const article of await page.locator('.topic-grid article').all()) assert.ok(await article.locator('.headlines a').count() > 0);
  assert.equal(await page.locator('.headlines a[href*="betting"]').count(), 0);
  await page.getByText('Schedule settings', {exact:true}).click();
- await page.locator('.schedule-note').filter({hasText:'Automatic generation is not connected yet.'}).waitFor();
+ await page.locator('.schedule-note').filter({hasText:'Automatic preliminary editions follow this schedule'}).waitFor();
  await page.getByText('Schedule settings', {exact:true}).click();
  assert.equal(await page.getByRole('heading', { level: 1 }).count(), 1);
  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
