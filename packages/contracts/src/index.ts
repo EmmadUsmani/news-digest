@@ -2,7 +2,7 @@ import { z } from 'zod';
 export const healthSchema = z.object({ status: z.enum(['ok', 'degraded']), database: z.boolean(), redis: z.boolean() });
 export type Health = z.infer<typeof healthSchema>;
 
-export const scheduleSchema = z.object({ cadence: z.string(), timezone: z.string(), coverageWindow: z.string(), storyBudget: z.number().int().min(0).max(20), postBudget: z.number().int().min(0).max(20) });
+export const scheduleSchema = z.object({ cadence: z.string().max(100), timezone: z.string().min(1).max(100), coverageWindow: z.string().max(100), storyBudget: z.number().int().min(0).max(20), postBudget: z.number().int().min(0).max(20) }).strict();
 export const profileSettingsSchema = z.object({ id: z.string().uuid(), name: z.string(), schedule: scheduleSchema });
 export type ProfileSettings = z.infer<typeof profileSettingsSchema>;
 export const relevancePolicySchema = z.object({ includeAny: z.array(z.string().trim().min(1).max(80)).max(100), excludeAny: z.array(z.string().trim().min(1).max(80)).max(100) }).strict();
@@ -46,3 +46,5 @@ export const topicOrderSchema = z.object({ ids: z.array(z.string().uuid()).max(1
 export const topicSourcesSchema = z.object({ ids: z.array(z.string().min(1).max(100)).max(100).refine(ids => new Set(ids).size === ids.length, 'Sources must be unique') }).strict();
 export const sourceCatalogSchema = z.array(z.object({ id: z.string(), name: z.string(), url: z.string().url() }));
 export type SourceCatalog = z.infer<typeof sourceCatalogSchema>;
+
+export type ScheduleSettings = z.infer<typeof scheduleSchema>;

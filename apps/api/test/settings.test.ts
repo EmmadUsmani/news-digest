@@ -81,3 +81,14 @@ test('topic source connections validate atomically and reuse the shared collecti
  const disconnected=await topics.connectDefault(id,[]); assert.ok(disconnected); assert.deepEqual(disconnected.sources,[]);
  } finally { if(id) await db.query('DELETE FROM topics WHERE id=$1',[id]); await db.end(); await topics.onModuleDestroy(); }
 });
+
+test('profile schedule persists independently of topics and restores all fields', async () => {
+ const profiles = new PostgresProfileRepository(); const topics = new PostgresTopicRepository();
+ const original = await profiles.getDefault(); const before = await topics.listDefault();
+ try {
+ const schedule = { cadence: '30 9 * * *', timezone: 'Asia/Tokyo', coverageWindow: 'PT6H', storyBudget: 3, postBudget: 0 };
+ assert.deepEqual(await profiles.updateDefault(schedule), { ...original, schedule });
+ assert.deepEqual((await profiles.getDefault()).schedule, schedule);
+ assert.deepEqual(await topics.listDefault(), before);
+ } finally { await profiles.updateDefault(original.schedule); await profiles.onModuleDestroy(); await topics.onModuleDestroy(); }
+});

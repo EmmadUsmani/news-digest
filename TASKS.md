@@ -52,7 +52,8 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Repair zero-based positions after reordering; regression checks remain green after live UI use (iteration 19).
   - [x] Create topics through validated UI/API with saved phrase rules/budgets, appended reading order and clear source-less state (iteration 20).
   - [x] Connect/disconnect existing catalog sources per topic via UI/API; shared ingestion and immediate stored articles, immutable history (iteration 21).
-  - Next: schedule settings; custom feeds/query/account configuration and topic deletion remain unfinished.
+  - [x] Persist daily schedule time/timezone, elapsed coverage window and new-topic budget defaults through validated UI/API (iteration 22). Automatic generation remains M7.
+  - Next: custom feeds/query/account configuration and topic deletion; connect the saved schedule to automatic generation in M7.
 - [ ] M7 scheduled operation: the cadence scheduler generates digests
   automatically, plus the status page (sources, queues, runs, LLM usage).
   `DigestPublished` event plus notification port with a log/in-app adapter.

@@ -1,2 +1,2 @@
-import type { ProfileSettings } from '@digest/contracts';
-export abstract class ProfileRepository { abstract getDefault(): Promise<ProfileSettings>; }
+import type { ProfileSettings, ScheduleSettings } from '@digest/contracts';
+export abstract class ProfileRepository { abstract updateDefault(schedule: ScheduleSettings): Promise<ProfileSettings>; abstract getDefault(): Promise<ProfileSettings>; }

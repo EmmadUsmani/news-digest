@@ -130,3 +130,13 @@ refreshes schedules every minute to activate connections without a restart.
 Source status still exposes its original seed topicId; multi-topic status UI is
 unfinished. The settings UI refreshes incoming articles after saving connections.
 Custom URLs, discovery queries and social accounts remain outside this catalog.
+
+Iteration 22 adds strict PUT `/api/profile/schedule` via ProfileRepository. The
+existing daily-cron/timezone/duration domain rules validate the configuration;
+the API limits coverage to 31 elapsed days to match on-demand generation.
+Schedule settings persist daily local time, IANA timezone, ISO elapsed window
+and story/post defaults. Defaults prefill newly opened Create topic forms;
+complete topic POST/PUT requests still supply explicit per-topic budgets.
+Existing topics and immutable snapshots do not change. The schedule note now
+shows actual saved coverage instead of hard-coded 24 hours. Automatic generation
+is explicitly not connected yet; the worker still schedules ingestion only.

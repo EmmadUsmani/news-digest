@@ -225,3 +225,18 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 - `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed immutable-history/window checks; restored latest selections 5/5/3/5.
 - API/worker rebuilt/restarted; `/healthz` healthy. No provider/model/billing changes; allowed editorial configuration remains pending.
 - Next: schedule settings; custom feeds/discovery configuration and topic deletion remain unfinished.
+
+## 2026-11-01: iteration 22 — persist schedule settings and topic defaults
+- Started clean on main; no leftover work; baseline 22 tests, services and `/healthz` healthy.
+- Added strict PUT /api/profile/schedule through ProfileRepository and accessible daily time/timezone/coverage/default-budget form.
+- Validates daily cron, IANA timezone, positive elapsed duration (maximum 31 days), bounded budgets and unknown fields; invalid saves leave settings intact.
+- Saved defaults prefill new topics; existing topics and immutable editions remain unchanged. Schedule note reflects actual saved coverage.
+- Automatic generation remains explicitly pending M7; no provider/model/billing changes; editorial configuration still blocked.
+- `pnpm check` passed types/lint/boundaries and all 23 tests; `pnpm build` passed with existing upstream Zod annotation warnings.
+- `pnpm exec tsx scripts/smoke-schedule.ts` passed desktop/mobile persistence, invalid-save atomicity, timezone errors, defaults and history; screenshots saved and mobile inspected.
+- Initial existing UI checks exposed a shared CSS selector and outdated schedule notice expectation; corrected both and reran successfully.
+- `pnpm exec tsx scripts/smoke-topic-create.ts` and `pnpm exec tsx scripts/smoke-ui.ts` passed desktop/mobile regressions; screenshots updated.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 268 real URLs, four topics, seven healthy sources.
+- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed saved-window/history checks; latest selections remain 5/5/3/5.
+- `pnpm lint` and `git diff --check` passed; API/worker rebuilt/restarted and health healthy.
+- Next: custom feeds/discovery configuration and topic deletion; wire saved schedules into automatic generation under M7.
