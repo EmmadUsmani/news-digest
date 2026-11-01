@@ -101,3 +101,17 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 - `pnpm exec tsx scripts/smoke-ui.ts` passed desktop/mobile/reload with updated screenshots; mobile inspected.
 - API/worker restarted; `/healthz` healthy. No LLM calls/provider/model changes or blockers.
 - Next: bounded cached LlmPort editorial pass; distinguish syndicated coverage when clustering.
+
+## 2026-11-01: iteration 13 — remove routine filler with inspectable reasons
+- Started clean on main; no leftover work; baseline 14 tests, both services and health passed; seven sources healthy.
+- Added signals-v3 quality rules for matchup previews, monthly schedules, discussion threads and shopping guides; retained betting/watch exclusions.
+- Immutable snapshots copy omitted IDs/headlines/rules/reasons; home shows counts and expandable explanations; older versions remain readable.
+- NBA: 51 candidates, five topic rejections, seven quality omissions; schedule/preview replaced by injury/rotation/game reporting.
+- Tech/World still five stories each; Gaming three. Lexical rules still admit filler such as Winners & Sinners; editorial review remains M3.
+- No app LLM provider/model configured in env/code; no calls or provider/model/billing changes. Recorded configuration dependency in NEEDS_FROM_HUMAN.
+- `pnpm check` passed typecheck/lint/boundaries and all 16 tests; 20 labeled headline cases plus quiet-budget regression.
+- `pnpm build` passed (existing upstream Zod warnings); `pnpm lint` and `git diff --check` passed.
+- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed versions/window/relevance/quality/preservation checks; all 15 historic snapshots validated separately.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 266 URLs, four topics, seven healthy sources.
+- `pnpm exec tsx scripts/smoke-ui.ts` passed desktop/mobile create/reload/omission details; screenshots updated and mobile inspected.
+- API/worker restarted; `/healthz` healthy. Next: capped cached editorial adapter after allowed model configuration; event clustering meanwhile.

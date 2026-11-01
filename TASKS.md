@@ -30,7 +30,8 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Home renders latest preliminary edition with excerpts, scores and quiet sections.
   - [x] Desktop/mobile Playwright screenshots and create/reload checks.
   - [x] Data-driven topic phrase relevance, auditable rules/rejection counts, 14 labeled regression cases (iteration 11).
-  - Next: LlmPort/editorial summaries using the configured provider/model, bounded usage/cache; semantic relevance beyond phrase rules; promote previews only after editorial review.
+  - [x] Auditable quality exclusions for routine previews, schedules and discussion threads, with omission reasons (iteration 13).
+  - Next: LlmPort/editorial summaries once an allowed provider/model is explicitly configured (currently absent), bounded usage/cache; semantic relevance beyond phrase rules; promote previews only after editorial review.
 - [ ] M4 X posts:
   - check xAI `x_search` through the gateway
   - post discovery per topic

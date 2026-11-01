@@ -1,6 +1,7 @@
 // Explicit local check using stored real content; no publisher or LLM requests.
 import assert from 'node:assert/strict';
 import { digestPreviewSchema } from '@digest/contracts';
+import { qualityRejection } from '../src/modules/digests/domain/quality';
 import { assessRelevance } from '../src/modules/digests/domain/relevance';
 import { database } from '../src/libs/db/connections';
 async function smoke() {
@@ -14,11 +15,18 @@ async function smoke() {
  const second = digestPreviewSchema.parse(await (await post(window)).json());
  assert.notEqual(first.id,second.id);
  assert.equal(first.topics.length,4);
- assert.equal(first.method,'signals-v2');
+ assert.equal(first.method,'signals-v3');
  for (const topic of first.topics) {
  assert.ok(topic.relevancePolicy);
+ assert.ok(topic.qualityRejections);
+ assert.ok(topic.stories.length + topic.qualityRejections.length + (topic.relevanceRejectedCount ?? 0) <= topic.candidateCount);
+ for (const rejected of topic.qualityRejections) {
+ assert.ok(!topic.stories.some(story => story.id === rejected.id));
+ assert.ok(rejected.rule && rejected.reason);
+ }
  assert.ok(Number.isInteger(topic.relevanceRejectedCount));
  for (const story of topic.stories) {
+ assert.equal(qualityRejection(story),null);
  assert.equal(assessRelevance(story,topic.relevancePolicy).eligible,true);
  assert.ok(story.reasons.includes(assessRelevance(story,topic.relevancePolicy).reason));
  }
@@ -31,7 +39,7 @@ async function smoke() {
  const saved = (await db.query('SELECT snapshot FROM digest_previews WHERE id=$1',[first.id])).rows[0].snapshot;
  assert.deepEqual(saved,first);
  assert.deepEqual(await (await fetch(`${endpoint}/latest`)).json(),second);
- console.log(JSON.stringify({ versions: [first.id,second.id], topics: first.topics.map(t=>({name:t.name,candidates:t.candidateCount,selected:t.stories.length,relevanceRejected:t.relevanceRejectedCount})) }));
+ console.log(JSON.stringify({ versions: [first.id,second.id], topics: first.topics.map(t=>({name:t.name,candidates:t.candidateCount,selected:t.stories.length,relevanceRejected:t.relevanceRejectedCount,qualityRejected:t.qualityRejections?.length})) }));
  } finally { await db.end(); }
 }
 void smoke();

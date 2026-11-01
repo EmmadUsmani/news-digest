@@ -17,7 +17,10 @@ try {
  await page.locator('.digest-topic').first().waitFor();
  await page.getByText('Topic phrase filtering', { exact: false }).waitFor();
  assert.equal(await page.locator('.selection-count').filter({hasText:'filtered by topic rules'}).count(),4);
- await page.locator('.digest-topic details summary').first().click();
+ assert.equal(await page.locator('.selection-count').filter({hasText:'filtered by quality rules'}).count(),4);
+ await page.locator('.omissions summary').first().click();
+ await page.getByText('Monthly schedule guide', {exact:false}).waitFor();
+ await page.locator('.digest-topic ol details summary').first().click();
  await page.getByText('Topic phrase:', {exact:false}).first().waitFor();
  assert.equal(await page.locator('.digest-topic').count(), 4);
  assert.ok(await page.locator('.digest-topic ol>li').count() > 0);
@@ -33,6 +36,8 @@ try {
  assert.equal(await page.getByRole('heading', { level: 1 }).count(), 1);
  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
  assert.deepEqual(errors, []);
+ await page.locator('.omissions summary').first().click();
+ await page.getByText('Monthly schedule guide', {exact:false}).waitFor();
  await page.screenshot({ path: `docs/screenshots/foundation-${name}.png`, fullPage: true });
  await page.close();
  }

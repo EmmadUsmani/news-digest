@@ -71,3 +71,11 @@ loads policies in the same repeatable-read transaction as candidate content.
 The topic API exposes these settings. Immutable signals-v2 snapshots preserve
 the rules, filtering counts and matching reasons; contracts still accept
 signals-v1 history. No LLM adapter or provider/model change is part of this step.
+
+Iteration 13 adds signals-v3 quality omissions through a pure domain function.
+The repository copies rejected item IDs/headlines/rules/reasons into each new
+snapshot; contracts and UI still accept signals-v1/v2 history. Rejections occur
+after topic eligibility, before ranking/budgeting, and are visible in expandable
+home-page details. No migration is required for the JSON snapshot format.
+These are lexical rules, not LLM review. No app provider/model is configured;
+no provider was selected or changed and no LLM calls were made.

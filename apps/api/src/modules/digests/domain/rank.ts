@@ -1,3 +1,4 @@
+import { qualityRejection } from './quality';
 export interface Candidate {
  id: string; title: string; url: string; excerpt: string; publishedAt: string;
  sources: string[]; points: number;
@@ -8,7 +9,7 @@ export function rank(candidates: Candidate[], start: Date, end: Date, budget: nu
  const seen = new Set<string>();
  return candidates.filter(item => {
  const date = Date.parse(item.publishedAt);
- return date >= start.getTime() && date < end.getTime() && /^https?:\/\//.test(item.url) && !/\/betting\/|\b(odds|best bets|promo code|how to watch|where to watch)\b/i.test(item.url + ' ' + item.title);
+ return date >= start.getTime() && date < end.getTime() && !qualityRejection(item);
  }).map(item => {
  const recency = Math.max(0, 1 - (end.getTime() - Date.parse(item.publishedAt)) / (end.getTime() - start.getTime()));
  const breadth = new Set(item.sources).size;

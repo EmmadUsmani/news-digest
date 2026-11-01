@@ -65,3 +65,30 @@ schedule and matchup preview; lexical eligibility plus recency does not equal
 editorial importance. Prioritize the bounded editorial pass before calling
 these snapshots curated digests. Syndicated Yahoo articles also require
 independence-aware clustering before source breadth becomes a strong signal.
+
+## Iteration 13: auditable quality exclusions (signals-v3)
+
+New preliminary editions exclude headline patterns for monthly schedule guides,
+matchup previews, open/game discussion threads, shopping guides and the existing
+betting/watch-guide exclusions before applying story budgets. Unsupported or
+malformed URLs are rejected too. These conservative rules apply across topics;
+they do not switch on a topic's name. Each omission after the topic phrase screen
+stores its item ID, copied title, stable rule ID and reason in the immutable
+snapshot. The home page shows counts and expandable reasons. Topic rejections
+and quality rejections are disjoint; duplicate titles and budget truncation are
+still separate, so these counts are not a complete selection funnel.
+
+Observed stored-content window on 2026-11-01: NBA 51 candidates, five topic
+rejections and seven quality omissions. The Suns monthly schedule and Nets/Pacers
+preview disappear from the five selected stories; injury/rotation reporting and
+game analysis take their places. Tech/World remain five each; Gaming remains
+three. Twenty labeled headline cases include observed examples and synthetic
+counterexamples protecting injuries, release announcements and schedule-policy
+news. They are offline regressions, not a representative precision estimate.
+"Winners & Sinners" still qualifies: these rules cannot establish newsworthiness,
+resolve duplicate events or replace semantic editorial judgment.
+
+No app LLM provider/model is configured in the VM env file or application code.
+The owner's instruction prohibits switching providers/models/billing, so this
+iteration made no LLM calls and did not choose one. A bounded cached editorial
+adapter remains pending an explicitly configured permitted gateway model.
