@@ -107,3 +107,11 @@ changed by this endpoint. Disabled topics remain collected but are omitted from
 incoming cards and future editions. Existing snapshots are unchanged. Descriptive
 guidance is stored, while current ranking uses explicit phrase policies only.
 The Manage topics editor uses the shared schema and reports save errors inline.
+
+Iteration 20 adds POST `/api/topics` using the same strict complete settings
+contract as topic updates. The server supplies UUID, default profile, appended
+zero-based position and empty sources/queries/accounts. Creation and reorder
+serialize on the parent profile row, so concurrent creations get distinct
+positions and a stale full-list reorder fails atomically. No migration needed.
+The shared editor creates or edits topics; new source-less cards explain why
+collection is empty. Creation does not discover feeds or modify saved editions.

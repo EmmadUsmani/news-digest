@@ -196,3 +196,17 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 - `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed history/window/preservation checks; default selections remain 5/5/3/5.
 - API/worker restarted; `/healthz` healthy. No provider/model/billing changes; allowed editorial configuration remains pending.
 - Next: topic creation/source configuration and schedule settings; triage completed instead of starting new features.
+
+## 2026-11-01: iteration 20 — create configurable topics
+- Started clean on main; no leftover work; baseline 20 tests, both services and `/healthz` healthy.
+- Added strict profile-scoped POST /api/topics and shared Create topic form with budgets, guidance, phrase rules and enable state.
+- Server assigns UUID and appended zero-based position; creation/reorder serialize on the profile row; stale reorder lists fail atomically.
+- New topics explicitly have no source connections; no articles are invented or fetched. Source setup remains the next configuration step.
+- `pnpm check` passed types/lint/boundaries and all 21 tests, including concurrent creation/order/defaults integration coverage.
+- `pnpm build` passed (existing upstream Zod warnings); `git diff --check` passed.
+- `pnpm exec tsx scripts/smoke-topic-create.ts` passed desktop/mobile validation, persistence, quiet editions and immutable history; screenshots inspected.
+- `pnpm exec tsx scripts/smoke-topic-order.ts`, `scripts/smoke-topics.ts`, and `scripts/smoke-ui.ts` passed existing browser checks; screenshots updated.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 268 real URLs, four topics, seven healthy sources.
+- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed saved-window/history checks; restored latest 24h selections remain 5/5/3/5.
+- API/worker rebuilt/restarted; health healthy. No provider/model/billing changes; allowed editorial configuration remains pending.
+- Next: source/query/account configuration and schedule settings; deletion remains unfinished.

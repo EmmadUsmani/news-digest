@@ -79,3 +79,9 @@ syndication. No new source adapters or external/LLM requests were added.
 Iteration 19: two explicit queued live passes stored 267 unique articles from
 all seven healthy sources across four topics; the repeated pass added no
 duplicates. No source configuration or provider/model/billing changes.
+
+Iteration 20: two explicit queued collection passes stored 268 real articles
+from seven healthy sources across the four seeded topics. New topics created
+through the UI/API have no source connections and collect nothing until source
+configuration is implemented. No automatic feed discovery, fixture ingestion
+or provider/model/billing changes.

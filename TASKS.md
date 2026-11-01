@@ -50,7 +50,8 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Edit existing topic names/descriptions, guidance, phrase rules, enable state and budgets through UI/API (iteration 17).
   - [x] Reorder topics through accessible desktop/mobile controls and atomic validated API; new editions preserve reading order (iteration 18).
   - [x] Repair zero-based positions after reordering; regression checks remain green after live UI use (iteration 19).
-  - Next: create topics, source/query/account configuration and schedule settings.
+  - [x] Create topics through validated UI/API with saved phrase rules/budgets, appended reading order and clear source-less state (iteration 20).
+  - Next: source/query/account configuration and schedule settings; topic deletion remains unfinished.
 - [ ] M7 scheduled operation: the cadence scheduler generates digests
   automatically, plus the status page (sources, queues, runs, LLM usage).
   `DigestPublished` event plus notification port with a log/in-app adapter.

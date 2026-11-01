@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto';
 import { TopicRepository } from '../domain/topic.repository';
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
 import { database } from '../../../libs/db/connections';
@@ -9,10 +10,26 @@ export class PostgresTopicRepository extends TopicRepository implements OnModule
  const result = await this.db.query(`SELECT id, profile_id AS "profileId", name, description, include_guidance AS "includeGuidance", exclude_guidance AS "excludeGuidance", enabled, position, story_budget AS "storyBudget", post_budget AS "postBudget", relevance_policy AS "relevancePolicy", sources, queries, accounts FROM topics WHERE profile_id=$1 ORDER BY position, id`, ['00000000-0000-4000-8000-000000000001']);
  return result.rows;
  }
+ async createDefault(input: TopicUpdate): Promise<Topic> {
+ const client = await this.db.connect();
+ const profileId = '00000000-0000-4000-8000-000000000001';
+ const id = randomUUID();
+ try {
+ await client.query('BEGIN');
+ // Serialize creation and reorder through the parent, including an empty topic list.
+ await client.query('SELECT id FROM profiles WHERE id=$1 FOR UPDATE', [profileId]);
+ await client.query(`INSERT INTO topics(id, profile_id, name, description, include_guidance, exclude_guidance, enabled, position, story_budget, post_budget, relevance_policy)
+ SELECT $1,$2,$3,$4,$5,$6,$7,COALESCE(MAX(position)+1,0),$8,$9,$10 FROM topics WHERE profile_id=$2`, [id,profileId,input.name,input.description,input.includeGuidance,input.excludeGuidance,input.enabled,input.storyBudget,input.postBudget,input.relevancePolicy]);
+ await client.query('COMMIT');
+ } catch (error) { await client.query('ROLLBACK'); throw error; }
+ finally { client.release(); }
+ return (await this.listDefault()).find(topic => topic.id === id)!;
+ }
  async reorderDefault(ids: string[]): Promise<boolean> {
  const client = await this.db.connect();
  try {
  await client.query('BEGIN');
+ await client.query('SELECT id FROM profiles WHERE id=$1 FOR UPDATE', ['00000000-0000-4000-8000-000000000001']);
  const current = await client.query('SELECT id FROM topics WHERE profile_id=$1 ORDER BY id FOR UPDATE', ['00000000-0000-4000-8000-000000000001']);
  if (current.rows.length !== ids.length || current.rows.some(row => !ids.includes(row.id))) {
  await client.query('ROLLBACK'); return false;

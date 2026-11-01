@@ -35,3 +35,31 @@ test('topic reorder persists zero-based positions and rejects incomplete lists a
  await topics.onModuleDestroy();
  }
 });
+
+test('concurrent topic creation appends unique ordered topics without changing existing settings', async () => {
+ const topics = new PostgresTopicRepository();
+ const db = (await import('../src/libs/db/connections')).database();
+ const original = await topics.listDefault();
+ const created: string[] = [];
+ try {
+ const input = { name: 'Creation integration check', description: '', includeGuidance: '', excludeGuidance: '', enabled: false, storyBudget: 2, postBudget: 0, relevancePolicy: { includeAny: ['science'], excludeAny: [] } };
+ const results = await Promise.all([topics.createDefault(input), topics.createDefault(input)]);
+ created.push(...results.map(topic => topic.id));
+ assert.equal(new Set(created).size, 2);
+ const rows = topicSchema.array().parse(await topics.listDefault());
+ assert.deepEqual(rows.slice(0, original.length), original);
+ assert.deepEqual(rows.map(topic => topic.position), rows.map((_, index) => index));
+ for (const topic of results) {
+ assert.equal(topic.profileId, original[0].profileId);
+ assert.deepEqual(topic.relevancePolicy, input.relevancePolicy);
+ assert.deepEqual(topic.sources, []);
+ assert.deepEqual(topic.queries, []);
+ assert.deepEqual(topic.accounts, []);
+ assert.equal(topic.enabled, false);
+ }
+ assert.equal(await topics.reorderDefault(original.map(topic => topic.id)), false, 'A stale order must not overwrite newly created topics');
+ } finally {
+ await db.query('DELETE FROM topics WHERE id=ANY($1::uuid[])', [created]);
+ await db.end(); await topics.onModuleDestroy();
+ }
+});
