@@ -297,3 +297,17 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 - `pnpm exec tsx apps/api/scripts/smoke-scheduled-digests.ts` observed actual 19:54 UTC automatic generation, real candidates, exact 6h window and completed job; original schedule restored.
 - `pnpm lint` and `git diff --check` passed; API/worker rebuilt/restarted and /healthz healthy. No provider/model/billing changes.
 - Next: custom feeds/discovery configuration; editorial model configuration remains blocked.
+
+## 2026-11-01: iteration 27 — custom feeds and wider live technology coverage
+- Started clean on main; no leftover work. Baseline 27 checks, services, /healthz, sources and digest queues healthy.
+- Added strict POST /api/topics/:id/feeds and desktop/mobile RSS/Atom form; registration connects atomically and identical normalized URLs share saved names, articles and collection.
+- Bounded catalog (500)/topic connections (100); unverified feeds wait for worker results, with disconnect and immutable history preserved.
+- Shared HTTPS client now validates/pins public DNS addresses at socket lookup; private literals/answers, credentials, custom ports and unsafe redirects are rejected; four-hop cap and existing limits retained.
+- Connected Ars Technica to Tech & AI after actual minute-scheduler collection stored 20 real articles; no provider/model/billing changes.
+- `pnpm check` passed types/lint/boundaries and all 30 tests; `pnpm build` passed with existing upstream Zod annotation warnings; final `pnpm test`, `pnpm lint`, `git diff --check` passed.
+- `pnpm exec tsx scripts/smoke-custom-feeds.ts` passed desktop/mobile invalid URLs, scheduled collection, shared URL reuse, reload and disconnect; screenshots saved/mobile inspected.
+- Existing `scripts/smoke-topic-sources.ts`, `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile regressions; screenshots updated.
+- Wider smoke checks exposed fixed-source-count/legacy-provenance assumptions; corrected scripts to use actual catalog and enabled topic connections, then reran successfully.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 293 real URLs, four topics, eight healthy sources; `smoke-previews.ts` passed history/window checks, selections 5/5/3/5.
+- `pnpm exec tsx apps/api/scripts/smoke-scheduled-digests.ts` observed actual 20:01 UTC generation, exact 6h window, real candidates and completed job; original schedule restored.
+- API/worker rebuilt/restarted and /healthz healthy. Next: query/account discovery configuration; allowed editorial configuration remains blocked.

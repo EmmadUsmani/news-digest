@@ -17,10 +17,12 @@ async function smoke() {
  };
  const before = await run(); const after = await run();
  assert.equal(after, before, 'Repeated collection must not create duplicate items');
- const status = await repository.db.query('SELECT id,last_success,last_error,last_item_count FROM content_sources');
+ const status = await repository.db.query('SELECT id,last_success,last_error,last_item_count FROM content_sources WHERE id=ANY($1::text[])',[sources.map(s=>s.id)]);
  assert.ok(status.rows.every(s => s.last_success && !s.last_error && s.last_item_count > 0));
- const topics = await repository.db.query('SELECT DISTINCT s.topic_id FROM content_sources s JOIN content_observations o ON o.source_id=s.id');
- assert.equal(topics.rowCount, 4);
+ const topics = await repository.db.query('SELECT DISTINCT t.id FROM topics t JOIN topic_source_connections c ON c.topic_id=t.id JOIN content_observations o ON o.source_id=c.source_id WHERE t.enabled');
+ const expected = await repository.db.query('SELECT count(*)::int AS n FROM topics t WHERE t.enabled AND EXISTS(SELECT 1 FROM topic_source_connections c WHERE c.topic_id=t.id)');
+ assert.ok(sources.length > 0);
+ assert.equal(topics.rowCount, expected.rows[0].n);
  console.log(JSON.stringify({ storedItems: after, topics: topics.rowCount, sources: status.rows }));
  } finally { await events.close(); await queue.close(); await repository.onModuleDestroy(); }
 }

@@ -1,4 +1,5 @@
-import { topicSourcesSchema, topicOrderSchema, topicUpdateSchema } from '@digest/contracts';
+import { publicFeedUrl } from '../../libs/ports/public-url';
+import { customFeedSchema, topicSourcesSchema, topicOrderSchema, topicUpdateSchema } from '@digest/contracts';
 import { TopicRepository } from './domain/topic.repository';
 import { BadRequestException, Body, Controller, Delete, Get, Module, NotFoundException, Param, ParseUUIDPipe, Post, Put } from '@nestjs/common';
 import { PostgresTopicRepository } from './database/topic.repository';
@@ -6,6 +7,16 @@ import { PostgresTopicRepository } from './database/topic.repository';
 class TopicsController {
  constructor(private readonly topics: TopicRepository) {}
  @Get('sources') catalog() { return this.topics.catalog(); }
+ @Post(':id/feeds') async addFeed(@Param('id', new ParseUUIDPipe()) id: string, @Body() body: unknown) {
+ const parsed = customFeedSchema.safeParse(body);
+ if (!parsed.success) throw new BadRequestException('Provide a feed name and public HTTPS RSS/Atom URL');
+ try { parsed.data.url = publicFeedUrl(parsed.data.url); }
+ catch { throw new BadRequestException('Use a public HTTPS feed URL without credentials or a custom port'); }
+ const result = await this.topics.addFeedDefault(id,parsed.data);
+ if (result === false) throw new BadRequestException('Source catalog or topic connection limit reached');
+ if (!result) throw new NotFoundException('Topic not found');
+ return result;
+ }
  @Put(':id/sources') async connect(@Param('id', new ParseUUIDPipe()) id: string, @Body() body: unknown) {
  const parsed = topicSourcesSchema.safeParse(body);
  if (!parsed.success) throw new BadRequestException('Provide unique source IDs from the catalog');

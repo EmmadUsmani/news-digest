@@ -1,6 +1,6 @@
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
-import { operationsStatusSchema } from '@digest/contracts';
+import { operationsStatusSchema, sourceCatalogSchema } from '@digest/contracts';
 async function smoke() {
  const browser = await chromium.launch({ headless:true });
  try {
@@ -14,11 +14,12 @@ async function smoke() {
  const response = await page.request.get('http://localhost:8000/api/status');
  assert.equal(response.status(),200);
  const status = operationsStatusSchema.parse(await response.json());
- assert.equal(status.sources.length,7);
- assert.ok(status.sources.every(source=>source.storedItems>0 && source.lastSuccess));
+ const catalog = sourceCatalogSchema.parse(await (await page.request.get('http://localhost:8000/api/topics/sources')).json());
+ assert.equal(status.sources.length,catalog.length);
+ assert.ok(status.sources.filter(source=>source.active).every(source=>source.storedItems>0 && source.lastSuccess));
  assert.ok(status.queues.every(queue=>queue.available && queue.workers>0));
  assert.ok(status.queues.find(queue=>queue.name==='digest-generation')?.nextRun);
- assert.equal(await page.locator('.status-grid article').count(),10);
+ assert.equal(await page.locator('.status-grid article').count(),status.sources.length + status.queues.length);
  await page.getByRole('button',{name:'Refresh status',exact:true}).click();
  await page.getByRole('button',{name:'Refresh status',exact:true}).waitFor();
  await page.locator('.status-panel').scrollIntoViewIfNeeded();

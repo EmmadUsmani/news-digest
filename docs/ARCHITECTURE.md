@@ -200,3 +200,18 @@ Redis jobs; it does not recover jobs lost by clearing Redis. Queue retries remai
 three attempts and scheduled snapshot keys remain idempotent. Smoke probes use
 synthetic slot times against the real worker and real stored articles, remove
 probe telemetry, and leave the resulting immutable real-content edition intact.
+
+Iteration 27 adds POST `/api/topics/:id/feeds` with a strict name/URL contract.
+Registration and connection are one profile-scoped transaction, serialized by a
+catalog advisory lock; identical normalized feed URLs reuse the existing source
+without changing its name. Catalog size is capped at 500 and topic connections
+at 100. New sources have no legacy topic provenance. The minute worker refresh
+schedules collection through the existing ingestion port; registration itself
+makes no outbound request and does not assert that a feed is live.
+
+The shared HTTP adapter accepts public HTTPS URLs only, without credentials or
+custom ports. Every socket lookup rejects nonpublic IPv4/IPv6 answers and pins a
+validated address; redirects repeat URL/DNS checks, domain serialization and
+rate limiting, with a four-hop cap. Existing 20-second request timeouts, 2 MB
+body caps, cache and Retry-After backoff remain. IP literals are checked before
+requests, including Node URL normalization of alternate IPv4 notations.

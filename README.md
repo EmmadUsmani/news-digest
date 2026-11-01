@@ -64,7 +64,7 @@ the start is included and the end excluded. Only collected articles are used,
 so older coverage may be incomplete. Quiet sections remain
 empty. Browse saved editions to reopen an immutable version by URL; history lists
 20 versions per page with their creation time, coverage period and ranking method.
-LLM editorial summaries are still pending. The worker ingests seven sources every
+LLM editorial summaries are still pending. The worker ingests eight sources every
 30 minutes and generates preliminary editions at the saved daily local time.
 Schedule changes reach the worker within 10 seconds. Coverage ends at the scheduled
 slot, even if a queued job is delayed; repeated jobs reuse the same edition.
@@ -79,8 +79,11 @@ pnpm exec tsx apps/api/scripts/smoke-ingestion.ts
 curl --fail http://localhost:8000/api/content/sources
 ```
 
-The smoke check queues two passes, at most 25 upstream requests per pass
-before the shared cache, and verifies all four topics and idempotent storage.
+The smoke check queues two passes: one request per connected feed plus the HN
+list and up to 20 items per pass, before cache/redirects. It verifies connected
+enabled topics and idempotent storage. Add public HTTPS RSS/Atom feeds under
+Manage topics → Sources; collection starts within one minute. Inspect Source &
+run status for first success or errors; registration alone does not verify a feed.
 
 Local snapshot/API verification (uses stored real content, no external calls):
 

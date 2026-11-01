@@ -1,3 +1,4 @@
+import { database } from '../src/libs/db/connections';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { PostgresProfileRepository } from '../src/modules/profiles/database/profile.repository';
@@ -136,4 +137,21 @@ test('topic deletion closes reading order and preserves shared sources, observat
  await topics.reorderDefault(original.map(t=>t.id));
  await db.end(); await topics.onModuleDestroy();
  }
+});
+
+test('custom feed registration atomically connects and shares existing URLs without renaming catalog entries', async () => {
+ const topics = new PostgresTopicRepository(); const db = database(); const ids: string[] = [];
+ const url = 'https://example.org/custom-feed-integration-fixture';
+ try {
+ const input = {name:'Feed integration fixture',description:'',includeGuidance:'',excludeGuidance:'',enabled:false,storyBudget:1,postBudget:0,relevancePolicy:{includeAny:[],excludeAny:[]}};
+ for(let n=0;n<2;n++) ids.push((await topics.createDefault(input)).id);
+ const [first,second] = await Promise.all(ids.map(id=>topics.addFeedDefault(id,{name:'Fixture feed',url})));
+ assert.ok(first && second); assert.deepEqual(first.sources,second.sources); assert.equal(first.sources.length,1);
+ const repeated = await topics.addFeedDefault(ids[0],{name:'Changed name',url}); assert.ok(repeated); assert.deepEqual(repeated.sources,first.sources);
+ const sources = await db.query('SELECT name,kind,topic_id FROM content_sources WHERE url=$1',[url]);
+ assert.equal(sources.rowCount,1); assert.deepEqual(sources.rows[0],{name:'Fixture feed',kind:'feed',topic_id:null});
+ assert.equal(await topics.addFeedDefault('00000000-0000-4000-8000-999999999999',{name:'Missing',url:url+'-missing'}),null);
+ assert.equal((await db.query('SELECT 1 FROM content_sources WHERE url=$1',[url+'-missing'])).rowCount,0);
+ await topics.deleteDefault(ids[0]); assert.deepEqual((await topics.listDefault()).find(t=>t.id===ids[1])?.sources,first.sources);
+ } finally { await db.query('DELETE FROM topics WHERE id=ANY($1::uuid[])',[ids]); await db.query('DELETE FROM content_sources WHERE url=$1',[url]); await db.end(); await topics.onModuleDestroy(); }
 });

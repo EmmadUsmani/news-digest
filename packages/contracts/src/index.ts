@@ -67,3 +67,6 @@ export const operationsStatusSchema = z.object({
  }))
 });
 export type OperationsStatus = z.infer<typeof operationsStatusSchema>;
+
+export const customFeedSchema = z.object({ name: z.string().trim().min(1).max(120), url: z.string().trim().url().max(2000) }).strict();
+export type CustomFeed = z.infer<typeof customFeedSchema>;

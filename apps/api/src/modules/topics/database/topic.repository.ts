@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto';
 import { TopicRepository } from '../domain/topic.repository';
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
 import { database } from '../../../libs/db/connections';
-import type { Topic, TopicUpdate } from '@digest/contracts';
+import type { Topic, TopicUpdate, CustomFeed } from '@digest/contracts';
 @Injectable()
 export class PostgresTopicRepository extends TopicRepository implements OnModuleDestroy {
  private readonly db = database();
@@ -11,6 +11,26 @@ export class PostgresTopicRepository extends TopicRepository implements OnModule
  return result.rows;
  }
  async catalog() { return (await this.db.query('SELECT id,name,url FROM content_sources ORDER BY name,id')).rows; }
+ async addFeedDefault(id: string, input: CustomFeed): Promise<Topic | null | false> {
+ const client = await this.db.connect();
+ try {
+ await client.query('BEGIN');
+ // Serialize catalog registration and enforce bounded catalog/connection sizes.
+ await client.query("SELECT pg_advisory_xact_lock(hashtext('custom-feed-catalog'))");
+ const topic = await client.query('SELECT id FROM topics WHERE id=$1 AND profile_id=$2 FOR UPDATE', [id,'00000000-0000-4000-8000-000000000001']);
+ if (!topic.rowCount) { await client.query('ROLLBACK'); return null; }
+ const existing = await client.query("SELECT id FROM content_sources WHERE kind='feed' AND url=$1 ORDER BY id LIMIT 1",[input.url]);
+ const sourceId = existing.rows[0]?.id ?? `feed-${randomUUID()}`;
+ const counts = await client.query('SELECT (SELECT count(*) FROM content_sources)::int AS catalog,(SELECT count(*) FROM topic_source_connections WHERE topic_id=$1)::int AS connections', [id]);
+ const connected = await client.query('SELECT 1 FROM topic_source_connections WHERE topic_id=$1 AND source_id=$2',[id,sourceId]);
+ if ((!existing.rowCount && counts.rows[0].catalog >= 500) || (!connected.rowCount && counts.rows[0].connections >= 100)) { await client.query('ROLLBACK'); return false; }
+ if (!existing.rowCount) await client.query("INSERT INTO content_sources(id,name,kind,url) VALUES($1,$2,'feed',$3)",[sourceId,input.name,input.url]);
+ await client.query('INSERT INTO topic_source_connections(topic_id,source_id) VALUES($1,$2) ON CONFLICT DO NOTHING',[id,sourceId]);
+ await client.query('COMMIT');
+ } catch(error) { await client.query('ROLLBACK'); throw error; }
+ finally { client.release(); }
+ return (await this.listDefault()).find(t=>t.id===id) ?? null;
+ }
  async connectDefault(id: string, ids: string[]): Promise<Topic | null | false> {
  const client = await this.db.connect();
  try {

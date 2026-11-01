@@ -1,19 +1,20 @@
 # Content source inventory
 
-Checked 2026-11-01, iteration 12. Counts below are actual stored observations
-from the live worker and `/api/content/sources`, not fixture counts. Seven sources
-supplied 266 distinct URLs across all four topics. Last successful bounded
-verification: 19:11 UTC; two queued passes preserved the same 266-item total.
+Checked 2026-11-01, iteration 27. Counts below are actual stored observations
+from the live worker and `/api/content/sources`, not fixture counts. Eight sources
+supplied 293 distinct URLs across all four topics. Last successful bounded
+verification: 19:59 UTC; two queued passes preserved the same 293-item total.
 
 | Source | Topic | Status | Stored items | Feed / API |
 | --- | --- | --- | ---: | --- |
 | The Verge | Tech & AI | live | 10 | https://www.theverge.com/rss/index.xml (Atom) |
-| Hacker News official API | Tech & AI | live | 20 | https://hacker-news.firebaseio.com/v0/topstories.json plus `/v0/item/{id}.json` |
+| Hacker News official API | Tech & AI | live | 24 | https://hacker-news.firebaseio.com/v0/topstories.json plus `/v0/item/{id}.json` |
 | CBS Sports NBA | NBA | live | 36 | https://www.cbssports.com/rss/headlines/nba/ |
 | GamesIndustry.biz | Gaming | live | 60 | https://www.gamesindustry.biz/feed |
-| BBC World | World news & politics | live | 30 | https://feeds.bbci.co.uk/news/world/rss.xml |
+| BBC World | World news & politics | live | 31 | https://feeds.bbci.co.uk/news/world/rss.xml |
+| Ars Technica | Tech & AI | live | 20 | https://arstechnica.com/feed/ |
 | ESPN NBA RSS | NBA | blocked | 0 | HTTP 202 with empty body; chose CBS without bypass attempts |
-| Yahoo Sports NBA | NBA | live | 50 | https://sports.yahoo.com/nba/rss/ |
+| Yahoo Sports NBA | NBA | live | 52 | https://sports.yahoo.com/nba/rss/ |
 | Eurogamer | Gaming | live | 60 | https://www.eurogamer.net/feed |
 | NBA.com news RSS | NBA | blocked | 0 | HTTP 403 at `/news/rss.xml`; no bypass attempted |
 | GameSpot mashup RSS | Gaming | blocked | 0 | HTTP 403 at `/feeds/mashup/`; no bypass attempted |
@@ -113,3 +114,20 @@ Iteration 26: two explicit live collection passes stored 270 unique real article
 across the four seeded topics; all seven sources succeeded without errors.
 Missed-run probes used synthetic slot timestamps and real stored candidates,
 not fabricated content or a real outage. No source/provider/model/billing change.
+
+Iteration 27: Manage topics → Sources now accepts custom public HTTPS RSS/Atom
+feed URLs. Registration connects immediately but marks nothing live until the
+worker stores real articles; first collection is scheduled within one minute.
+Identical normalized URLs share the catalog entry, name and collection. Existing
+connections can disconnect custom feeds; collected items and editions survive.
+There is no feed auto-discovery or search query/account support yet. Public DNS
+addresses are validated and pinned at socket lookup, including redirects; private
+addresses, credentials, non-HTTPS URLs and custom ports are rejected. Existing
+rate limits, cache, size/time caps and retries apply to custom feeds too.
+
+Desktop/mobile checks registered Ars Technica through the UI and observed the
+actual scheduled worker store 20 articles, then reused/disconnected the same URL.
+Ars remains connected to Tech & AI; its broad science/technology coverage still
+passes the topic's existing phrase rules for preliminary selection. Two live
+queued passes retained 293 URLs from eight healthy sources. No LLM/provider,
+model or billing configuration changed; no fixture content entered production.
