@@ -288,3 +288,17 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - `pnpm exec tsx apps/api/scripts/smoke-scheduled-digests.ts` observed actual 20:33 UTC generation, exact 6h window and completed run; original schedule restored.
 - `pnpm evaluate:ranking` unchanged (NBA 2/5, World 1/5); final `pnpm lint` and `git diff --check` passed. Rebuilt/restarted services and /healthz healthy.
 - Next: social discovery, reviewed ranking windows and verified outlet attribution; editorial configuration remains blocked.
+
+## 2026-11-01: iteration 37 — keep HN questions out of news slots
+- Started clean on main; no leftover work. Baseline 41 tests, both services and /healthz healthy.
+- New signals-v6 editions omit original HN `Ask HN:` question threads with stored `hn-question` reasons; incoming collection remains intact.
+- Show HN launches and publisher reporting remain eligible; scores/budgets/clustering unchanged. Historical method contracts and immutable snapshots remain readable.
+- Same-window live comparison removed the TV/privacy question, admitted the next eligible publisher item, preserved five Tech slots and identical other topics; old v5 snapshot reread unchanged.
+- Added offline Unicode/domain/launch/reporting/high-engagement/quiet-window regression; this narrow format rule is not an editorial precision claim.
+- `pnpm check` passed types/lint/boundaries and all 42 tests; `pnpm build` passed with existing upstream Zod annotation warnings.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued passes: 668 real URLs, seventeen healthy sources, four topics.
+- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed immutable/history/window checks; 24h selections 5/5/5/5, one Tech quality omission.
+- `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots updated and mobile omission panel visually inspected. Scoped NBA omission selector for the new Tech panel.
+- `pnpm exec tsx apps/api/scripts/smoke-scheduled-digests.ts` observed actual 20:36 UTC generation, exact 6h window and completed run; original schedule restored, fresh 24h edition left on home.
+- `pnpm evaluate:ranking` unchanged (NBA 2/5, World 1/5); final `pnpm lint` and `git diff --check` passed. Rebuilt/restarted services; /healthz healthy.
+- Provider/model/billing unchanged; editorial configuration remains blocked. Next: social discovery, reviewed ranking windows and verified outlet attribution.

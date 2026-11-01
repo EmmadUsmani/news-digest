@@ -11,6 +11,9 @@ export function qualityRejection(item: { title: string; url: string }): { rule: 
  try {
  const url = new URL(item.url);
  if (!['http:', 'https:'].includes(url.protocol)) return { rule: 'unsafe-url', reason: 'Unsupported article URL' };
+ // HN questions are useful incoming discussions, but do not establish a news event.
+ // Restrict this rule to original HN discussion URLs; reporting about Ask HN survives.
+ if (url.hostname === 'news.ycombinator.com' && url.pathname === '/item' && /^ask hn\s*:/i.test(item.title.normalize('NFKC').trim())) return { rule: 'hn-question', reason: 'Hacker News question thread' };
  if (/\/betting\//i.test(url.pathname)) return { rule: 'betting-promotion', reason: 'Betting or promotional guide' };
  } catch { return { rule: 'unsafe-url', reason: 'Invalid article URL' }; }
  const title = item.title.normalize('NFKC');

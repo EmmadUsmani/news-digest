@@ -37,3 +37,16 @@ test('ranking leaves a quiet section empty rather than filling its budget with p
  const news = {...base,id:'news',title:'NBA announces new player safety rules',points:0};
  assert.deepEqual(rank([base,news],start,end,5).map(item=>item.id),['news']);
 });
+test('HN question threads cannot spend news slots, while launches and reporting remain eligible', () => {
+ const base: Candidate = {id:'question',title:'Ask HN: Which TV do you recommend for privacy?',url:'https://news.ycombinator.com/item?id=123',excerpt:'AI and software recommendations',publishedAt:'2026-11-01T12:00:00Z',sources:['Hacker News'],points:10000};
+ assert.equal(qualityRejection(base)?.rule,'hn-question');
+ assert.equal(qualityRejection({...base,title:'  Ａｓｋ HN: Who is hiring?'})?.rule,'hn-question');
+ const launch = {...base,id:'launch',title:'Show HN: An open-source AI model debugger',points:0};
+ const report = {...base,id:'report',url:'https://example.org/news',title:'Ask HN: What developers learned about AI failures',points:0};
+ assert.equal(qualityRejection(launch),null);
+ assert.equal(qualityRejection(report),null);
+ assert.equal(qualityRejection({...base,url:'https://news.ycombinator.com.example.org/item?id=123'}),null);
+ assert.equal(qualityRejection({...base,title:'How Ask HN: questions shaped a new compiler'}),null);
+ assert.deepEqual(rank([base,launch,report],new Date('2026-11-01'),new Date('2026-11-02'),5).map(item=>item.id),['launch','report']);
+ assert.deepEqual(rank([base],new Date('2026-11-01'),new Date('2026-11-02'),5),[]);
+});

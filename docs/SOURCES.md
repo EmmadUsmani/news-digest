@@ -1,9 +1,9 @@
 # Content source inventory
 
-Checked 2026-11-01, iteration 36. Counts below are actual stored observations
+Checked 2026-11-01, iteration 37. Counts below are actual stored observations
 from the live worker and `/api/content/sources`, not fixture counts. Seventeen sources
 supplied 668 distinct URLs across all four topics. Last successful bounded
-verification: 20:32 UTC; two queued passes preserved the same 668-item total.
+verification: 20:34 UTC; two queued passes preserved the same 668-item total.
 
 | Source | Topic | Status | Stored items | Feed / API |
 | --- | --- | --- | ---: | --- |
@@ -232,3 +232,11 @@ labels nor different domains establish independent reporting. Existing phrase
 and quality rules still apply; ranking, budgets and provider/model/billing stay
 unchanged. No article pages were crawled. Recorded two-item fixtures omit long
 full-content fields, remain offline and never enter production ingestion.
+
+
+Iteration 37: two explicit queued passes again retained 668 real URLs from
+seventeen healthy sources. Original HN `Ask HN:` question threads remain stored
+and visible as incoming content, but new signals-v6 news editions omit them with
+an auditable reason. This changes selection only; HN collection and engagement
+storage are unchanged. Show HN launches and publisher reporting remain eligible.
+No new external source, article crawling or provider/model/billing change.

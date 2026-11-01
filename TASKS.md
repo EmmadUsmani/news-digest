@@ -41,6 +41,7 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Conservative headline clustering with copied coverage links, one-slot groups and no unverified syndication bonus (iteration 14).
   - Semantic event clustering and verified outlet independence remain unfinished.
   - [x] Remove unverified source-observation score bonuses while retaining auditable coverage and historical methods (iteration 30).
+  - [x] Auditable omission of original Ask HN question threads from news slots, with versioned snapshots and preserved incoming content (iteration 37).
   - explainable scores
   - per-topic relevance guidance
   - [x] First frozen real-candidate NBA window with agent event labels, offline report and baseline recall regression (iteration 31).

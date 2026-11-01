@@ -18,8 +18,13 @@ try {
  await page.getByText('Topic phrase filtering', { exact: false }).waitFor();
  assert.equal(await page.locator('.selection-count').filter({hasText:'filtered by topic rules'}).count(),4);
  assert.equal(await page.locator('.selection-count').filter({hasText:'filtered by quality rules'}).count(),4);
- await page.locator('.omissions summary').first().click();
+ const nba = page.locator('.digest-topic').filter({ has: page.getByRole('heading', { name: 'NBA', exact: true }) });
+ await nba.locator('.omissions summary').click();
  await page.getByText('Monthly schedule guide', {exact:false}).waitFor();
+ const tech = page.locator('.digest-topic').filter({ has: page.getByRole('heading', { name: 'Tech & AI', exact: true }) });
+ await tech.locator('.omissions summary').click();
+ await tech.getByText('Hacker News question thread', {exact:false}).waitFor();
+ assert.equal(await tech.locator('ol>li').filter({hasText:'Ask HN: Which TV'}).count(),0);
  const selection = page.locator('.digest-topic ol details').filter({ has: page.locator('summary', { hasText: 'Why selected' }) }).first();
  await selection.locator('summary').click();
  await selection.getByText('Topic phrase:', {exact:false}).waitFor();
@@ -67,7 +72,8 @@ try {
  assert.equal(await page.getByRole('heading', { level: 1 }).count(), 1);
  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
  assert.deepEqual(errors, []);
- await page.locator('.omissions summary').first().click();
+
+ await nba.locator('.omissions summary').click();
  await page.getByText('Monthly schedule guide', {exact:false}).waitFor();
  await page.screenshot({ path: `docs/screenshots/foundation-${name}.png`, fullPage: true });
  await page.getByText('Browse saved editions', {exact:true}).click();

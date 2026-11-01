@@ -228,3 +228,25 @@ labeled omissions, alongside NBA's existing 40% floor. This second topic on the
 same day widens failure analysis but does not provide temporal diversity or
 independent labels. Next add different dates and reviewed labels; editorial
 importance remains unresolved rather than treating fresh headlines as sufficient.
+
+
+## Iteration 37: keep HN question threads out of news slots (signals-v6)
+
+New editions reject titles beginning `Ask HN:` (NFKC/case normalized) only when
+the original URL is `news.ycombinator.com/item`. The stable `hn-question` rule
+and reason are saved in quality omissions. Questions stay in incoming content;
+Show HN launches and reporting at publisher URLs remain eligible. This is a
+narrow discussion-format rule, not semantic importance assessment. Exceptional
+newsworthy questions can also be omitted; the pending editor will need richer
+judgment. Scores, budgets, other quality rules and clustering are unchanged.
+Old method versions remain readable and saved snapshots are never recomputed.
+
+A same-window real-content comparison removed “Ask HN: Which TV do you recommend
+for privacy?” from a five-story Tech selection, admitting the next eligible
+publisher item. The other three topics were byte-for-byte equal; the old v5
+snapshot remained identical on reread. A fresh 24h edition examined 54 Tech
+candidates with one quality omission and still selected five stories. This
+removes an observed discussion-format mismatch, not a general precision claim.
+Offline regressions protect launches, publisher coverage, Unicode titles, domain
+boundaries and empty sections even with high-engagement questions. NBA and World
+historical target recall remain 2/5 and 1/5; editorial selection stays unfinished.

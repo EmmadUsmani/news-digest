@@ -23,7 +23,7 @@ export const rankedStorySchema = z.object({
 });
 export const digestPreviewSchema = z.object({
  id: z.string().uuid(), createdAt: z.string(), windowStart: z.string(), windowEnd: z.string(),
- method: z.enum(['signals-v1', 'signals-v2', 'signals-v3', 'signals-v4', 'signals-v5']), topics: z.array(z.object({
+ method: z.enum(['signals-v1', 'signals-v2', 'signals-v3', 'signals-v4', 'signals-v5', 'signals-v6']), topics: z.array(z.object({
  id: z.string().uuid(), name: z.string(), candidateCount: z.number().int(), relevanceRejectedCount: z.number().int().optional(), relevancePolicy: relevancePolicySchema.optional(), qualityRejections: z.array(z.object({ id: z.string().uuid(), title: z.string(), rule: z.string(), reason: z.string() })).optional(), stories: z.array(rankedStorySchema)
  }))
 });
