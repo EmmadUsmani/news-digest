@@ -156,3 +156,19 @@ manual requests retain independent immutable versions. Lock release runs before
 returning the connection to the pool. Queue retries are bounded to three attempts
 with exponential backoff; the last 100 successes/failures retain edition IDs or
 errors. Status UI, missed-run policy and publication events remain unfinished.
+
+Iteration 24 exposes read-only GET /api/status through an OperationsReader port
+and a Postgres/BullMQ adapter; no cross-context internals are imported. The home
+page's expandable Source & run status panel refreshes once per minute (or on
+request). Source freshness uses a one-hour threshold against the server's check
+time, twice the normal collection interval; disconnected sources show paused.
+Queue telemetry distinguishes unavailable Redis, no connected worker and paused
+queues, and displays retained counts rather than lifetime totals. Up to 20
+retained automatic jobs show state, attempts, slot/finish times and edition links;
+the next scheduler slot is explicit. Job payloads, failure stacks and raw job
+errors are omitted. Source errors retain the existing ingestion error messages.
+The LLM status explicitly remains unimplemented; no usage totals/caps are
+invented. Database failure returns an HTTP error; Redis failure degrades queue
+telemetry. Old UI data is marked stale on refresh failure. This does not provide
+persistent job auditing beyond BullMQ retention, missed-run recovery or worker
+liveness beyond connected-worker telemetry.

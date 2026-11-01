@@ -96,3 +96,10 @@ Desktop/mobile verification temporarily connected The Verge to new topics,
 verified real incoming stories/new snapshots, then removed the test topics.
 Custom feeds, query discovery and social accounts are still unfinished. No
 provider/model/billing changes.
+
+Iteration 24: Source & run status now displays the seven sources' real stored
+counts, latest response counts, attempt/success timestamps and collection errors.
+Enabled connections determine active versus paused; active sources without a
+success in one hour are flagged overdue. Two explicit live collection passes
+still stored 268 unique articles across four topics, with all seven sources
+successful. No source, provider, model or billing configuration changed.

@@ -57,7 +57,8 @@ Fix regressions, broken services and stalled sources before starting new work.
 - [ ] M7 scheduled operation: the cadence scheduler generates digests
   automatically, plus the status page (sources, queues, runs, LLM usage).
   - [x] Saved daily cadence/timezone drives automatic preliminary editions, exact slot windows, bounded retries and idempotent persistence (iteration 23).
-  - Next: status page with scheduled run outcomes and queue health; missed-run policy.
+  - [x] Source/run status panel and API: source freshness/errors/counts, queue availability/workers/pause/counts, next edition, retained run states and edition links (iteration 24).
+  - Next: missed-run policy; bounded LLM usage/cap reporting once editorial integration is configured.
   `DigestPublished` event plus notification port with a log/in-app adapter.
 - [ ] Ongoing:
   - [x] Wider NBA/Gaming publisher coverage: Yahoo NBA + Eurogamer (iteration 12), 110 additional stored URLs.

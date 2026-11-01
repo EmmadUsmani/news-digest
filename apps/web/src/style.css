@@ -24,3 +24,12 @@
 @media(max-width:600px){:is(.topic-settings,.schedule-settings) li>span{flex-basis:100%}}
 
 :is(.topic-settings,.schedule-settings) label a{font-size:13px;text-decoration:underline;margin-left:8px}
+
+.status-panel { margin: 3rem 0; border-top: 1px solid #ddd; padding-top: 1.5rem; }
+.status-panel summary { cursor: pointer; font-weight: 600; }
+.status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 1rem; }
+.status-grid article { padding: 1rem; border: 1px solid #ddd; border-radius: 8px; overflow-wrap: anywhere; }
+.status-grid h4 { margin: 0; }
+.status-grid p, .run-list { font-size: .9rem; line-height: 1.6; }
+.run-list { padding-left: 1.25rem; overflow-wrap: anywhere; }
+.run-list li { margin-bottom: .75rem; }

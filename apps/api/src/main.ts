@@ -1,3 +1,4 @@
+import { OperationsModule } from './modules/operations/operations.module';
 import { DigestsModule } from './modules/digests/digests.module';
 import { IngestionModule } from './modules/ingestion/ingestion.module';
 import { ProfilesModule } from './modules/profiles/profiles.module';
@@ -21,7 +22,7 @@ class HealthController {
  constructor(private readonly health: HealthService) {}
  @Get('healthz') async get(@Res({ passthrough: true }) response: { status: (code: number) => void }) { const result = await this.health.check(); response.status(result.status === 'ok' ? 200 : 503); return result; }
 }
-@Module({ imports: [DigestsModule, IngestionModule, ProfilesModule, TopicsModule, CqrsModule.forRoot(), ServeStaticModule.forRoot({ rootPath: resolve(__dirname, '../../web/dist'), exclude: ['/healthz', '/api/{*path}'] })], controllers: [HealthController], providers: [HealthService] })
+@Module({ imports: [OperationsModule, DigestsModule, IngestionModule, ProfilesModule, TopicsModule, CqrsModule.forRoot(), ServeStaticModule.forRoot({ rootPath: resolve(__dirname, '../../web/dist'), exclude: ['/healthz', '/api/{*path}'] })], controllers: [HealthController], providers: [HealthService] })
 class AppModule {}
 async function bootstrap() { const app = await NestFactory.create(AppModule); app.enableShutdownHooks(); await app.listen(Number(process.env.PORT ?? 8000), '0.0.0.0'); }
 void bootstrap();

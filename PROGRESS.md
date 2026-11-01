@@ -254,3 +254,17 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 - `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 268 real URLs, four topics, seven healthy sources.
 - `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed immutable/history/window checks; default selections remain 5/5/3/5.
 - API/worker rebuilt/restarted, /healthz healthy. Next: run/source status visibility, custom feeds, missed-run policy; editorial configuration remains blocked.
+
+## 2026-11-01: iteration 24 — visible source and automatic-run status
+- Started clean on main; no leftover work. Baseline 24 tests, services and /healthz healthy.
+- Added read-only /api/status behind OperationsReader plus expandable desktop/mobile status panel and minute/manual refresh.
+- Shows source freshness/errors/counts, active connections, queue workers/availability/pause/counts, next slot and up to 20 retained automatic runs with edition links.
+- Raw job payloads/errors/stacks are omitted; queue totals explicitly mean retained jobs. LLM usage/caps remain honestly pending editorial integration.
+- `pnpm check` passed typecheck/lint/boundaries and all 25 tests including Postgres/Redis telemetry integration.
+- `pnpm build` passed with existing upstream Zod annotation warnings; initial missing JSX fragment closure was fixed before successful verification.
+- `pnpm exec tsx scripts/smoke-status.ts` passed desktop/mobile real telemetry, real edition links, refresh errors and synthetic failure/paused rendering; screenshots saved and inspected.
+- `pnpm exec tsx scripts/smoke-ui.ts` passed existing desktop/mobile regressions; screenshots updated.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 268 real articles, four topics, seven healthy sources.
+- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed immutable/history/window checks; latest selections remain 5/5/3/5.
+- API/worker rebuilt/restarted; /healthz healthy. No source/provider/model/billing changes.
+- Next: custom feeds/discovery configuration, topic deletion and missed-run policy; editorial model configuration remains blocked.

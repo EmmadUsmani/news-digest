@@ -48,3 +48,22 @@ export const sourceCatalogSchema = z.array(z.object({ id: z.string(), name: z.st
 export type SourceCatalog = z.infer<typeof sourceCatalogSchema>;
 
 export type ScheduleSettings = z.infer<typeof scheduleSchema>;
+
+export const operationsStatusSchema = z.object({
+ checkedAt: z.string().datetime(),
+ sources: z.array(z.object({
+ id: z.string(), name: z.string(), lastAttempt: z.string().datetime().nullable(),
+ lastSuccess: z.string().datetime().nullable(), error: z.string().nullable(),
+ lastItemCount: z.number().int(), storedItems: z.number().int(), active: z.boolean()
+ })),
+ queues: z.array(z.object({
+ name: z.string(), available: z.boolean(), workers: z.number().int(), paused: z.boolean(),
+ counts: z.record(z.string(), z.number()), nextRun: z.string().datetime().nullable(),
+ runs: z.array(z.object({
+ id: z.string(), state: z.string(), attempts: z.number().int(),
+ scheduledAt: z.string().datetime().nullable(), finishedAt: z.string().datetime().nullable(),
+ editionId: z.string().nullable(), skipped: z.string().nullable()
+ }))
+ }))
+});
+export type OperationsStatus = z.infer<typeof operationsStatusSchema>;
