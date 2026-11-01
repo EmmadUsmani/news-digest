@@ -192,3 +192,39 @@ the measured 40% recall/yield and zero negative-label selections. It allows
 future improvements without freezing exact headlines or score values. Add
 independently labeled windows across other days/topics before assessing general
 ranking quality; semantic relevance/editorial judgment remain pending.
+
+## Iteration 33: recorded World window and selection diagnostics
+
+The offline command now reports NBA and World separately, without averaging
+subjective labels across topics. `ranking-world-2026-11-01.json` freezes all 47
+production-query candidates for [2026-10-31 20:20 UTC, 2026-11-01 20:20 UTC),
+with the saved World phrase policy (empty include list, four exclusions) and
+five-slot budget. It uses
+stored BBC, NPR and Guardian observations; it makes no new publisher requests.
+Fixtures are offline only and never seed the application.
+
+Before evaluation, the agent labeled five target events: Russian power strikes
+in Ukraine, Hormuz negotiations, dismissal of the Alaska election-certification
+lawsuit, India's opposition rally over electoral administration, and European
+cost-of-living protests. Alternative reports count once per labeled event.
+Separate Ukrainian refinery strikes and a separate Alaska ballot-name dispute
+do not substitute for the corresponding targets. Two omission labels mark a
+celebrity costume and a cruise passenger ordeal as lower priority in this window.
+These are agent judgments from headlines/excerpts, not owner labels, verified
+claims, or a complete account of important news. Other selected stories may
+also be important; target slot yield is not precision.
+
+Signals-v5 finds 1/5 targets (20% recall and target slot yield), with both
+omission labels absent. All nine target articles pass phrase screening.
+The first selected coverage of European protests ranks 7th, the Alaska decision
+9th and Hormuz talks 14th; the India rally is outside the first twenty groups.
+The report now includes recorded/phrase-eligible article counts and the first
+rank within twenty for each event, for both topic fixtures. A null rank means
+absent from that audit horizon, not necessarily rejected. The saved five-slot
+budget still controls recall/yield. No production scoring or budgets changed.
+
+The World regression requires at least the observed 20% recall/yield and zero
+labeled omissions, alongside NBA's existing 40% floor. This second topic on the
+same day widens failure analysis but does not provide temporal diversity or
+independent labels. Next add different dates and reviewed labels; editorial
+importance remains unresolved rather than treating fresh headlines as sufficient.

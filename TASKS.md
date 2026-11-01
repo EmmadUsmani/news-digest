@@ -44,7 +44,8 @@ Fix regressions, broken services and stalled sources before starting new work.
   - explainable scores
   - per-topic relevance guidance
   - [x] First frozen real-candidate NBA window with agent event labels, offline report and baseline recall regression (iteration 31).
-  - Next: independently reviewed labels and more windows/topics; current five-slot event recall is 2/5, not a general quality estimate.
+  - [x] Second recorded real-candidate World window and per-event top-twenty diagnostics (iteration 33); five-slot recall 1/5 versus NBA 2/5.
+  - Next: independently reviewed labels, different dates and more topics; these agent-labeled windows are not general quality estimates.
 - [ ] M6 configuration UI: topics CRUD/reorder/enable, schedule and budgets,
   on-demand digest for any window.
   - [x] Paginated immutable edition history and direct edition URLs (iteration 15).

@@ -1,9 +1,9 @@
 # Content source inventory
 
-Checked 2026-11-01, iteration 32. Counts below are actual stored observations
+Checked 2026-11-01, iteration 33. Counts below are actual stored observations
 from the live worker and `/api/content/sources`, not fixture counts. Thirteen sources
-supplied 436 distinct URLs across all four topics. Last successful bounded
-verification: 20:17 UTC; two queued passes preserved the same 436-item total.
+supplied 437 distinct URLs across all four topics. Last successful bounded
+verification: 20:21 UTC; two queued passes preserved the same 437-item total.
 
 | Source | Topic | Status | Stored items | Feed / API |
 | --- | --- | --- | ---: | --- |
@@ -23,7 +23,7 @@ verification: 20:17 UTC; two queued passes preserved the same 436-item total.
 | NBA.com news RSS | NBA | blocked | 0 | HTTP 403 at `/news/rss.xml`; no bypass attempted |
 | GameSpot mashup RSS | Gaming | blocked | 0 | HTTP 403 at `/feeds/mashup/`; no bypass attempted |
 | IGN articles XML | Gaming | rejected | 0 | `/articles?format=xml` returned malformed XML; not scheduled |
-| Google News RSS: artificial intelligence | Tech & AI | live | 66 | https://news.google.com/rss/search?q=artificial+intelligence&hl=en-US&gl=US&ceid=US%3Aen |
+| Google News RSS: artificial intelligence | Tech & AI | live | 67 | https://news.google.com/rss/search?q=artificial+intelligence&hl=en-US&gl=US&ceid=US%3Aen |
 | xAI x_search via configured gateway | all | not yet tried | 0 | Review documented gateway routing before use |
 | X official oEmbed | all | not yet tried | 0 | Render discovered post URLs |
 | X official API | all | needs key | 0 | Owner token and hard read cap required |
@@ -184,3 +184,9 @@ No source-breadth bonus, time-window widening or article-page crawling was added
 Two-item recorded fixtures omit full content:encoded bodies and remain offline
 only. Existing safe HTTP, rate limits, retries and disconnect controls apply.
 No provider/model/billing changes; social discovery remains unfinished.
+
+Iteration 33: two queued live passes retained 437 real URLs across thirteen
+healthy sources and four topics; preliminary editions still select 5/5/3/5.
+The World ranking fixture freezes 47 previously stored candidates from an exact
+24-hour window for offline evaluation; it is never ingested into production.
+No new source, article-page request or provider/model/billing change.
