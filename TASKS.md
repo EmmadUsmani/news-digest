@@ -69,6 +69,7 @@ Fix regressions, broken services and stalled sources before starting new work.
 - [ ] Ongoing:
   - [x] Wider NBA/Gaming publisher coverage: Yahoo NBA + Eurogamer (iteration 12), 110 additional stored URLs.
   - [x] Wider world coverage: NPR World + The Guardian World (iteration 29), 55 additional stored publisher articles.
+  - [x] Direct platform announcement coverage: PlayStation Blog + Xbox Wire, 20 real stored posts with offline fixtures (iteration 32).
   - widen sources per topic (Reddit, Bluesky, more publishers)
   - precision tuning
   - UI polish

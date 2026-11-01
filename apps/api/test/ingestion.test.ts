@@ -34,6 +34,20 @@ test('recorded world feeds retain publisher links, bylines and plain excerpts', 
  assert.doesNotMatch(guardian[0].excerpt, /<\/?(?:p|a|em)\b/);
  assert.ok(guardian[0].imageUrl?.startsWith('https://'));
 });
+test('recorded platform feeds preserve first-party links, dates and author attribution', async () => {
+ const playstation = parseFeed(await fixture('playstation.xml'));
+ const xbox = parseFeed(await fixture('xbox.xml'));
+ assert.equal(playstation.length, 2);
+ assert.equal(xbox.length, 2);
+ assert.ok(playstation.every(item => new URL(item.url).hostname === 'blog.playstation.com'));
+ assert.ok(xbox.every(item => new URL(item.url).hostname === 'news.xbox.com'));
+ assert.equal(playstation[0].publishedAt, '2026-10-30T16:55:53.000Z');
+ assert.equal(playstation[0].author, 'O’Dell Harmon Jr. (he/him)');
+ assert.equal(xbox[1].author, 'Mike Nelson, XBOX Wire Editor');
+ assert.match(xbox[1].excerpt, /Avatar State Patch is available today/);
+ assert.doesNotMatch(xbox[1].excerpt, /<\/?(?:p|a)\b|&#\d+;/);
+ assert.ok([...playstation, ...xbox].every(item => item.excerpt.length <= 1500));
+});
 test('Hacker News fixture preserves engagement and excludes deleted items', async () => {
  const records = JSON.parse(await fixture('hn.json'));
  records[0].text = 'It&#x27;s &amp; more <p>text</p>';

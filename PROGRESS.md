@@ -367,3 +367,17 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 - `pnpm exec tsx apps/api/scripts/smoke-scheduled-digests.ts` observed actual 20:16 UTC generation, exact 6h window and completed job; original schedule restored.
 - Final `pnpm lint`, `pnpm evaluate:ranking` and `git diff --check` passed. No UI changes; provider/model/billing unchanged, editorial configuration blocked.
 - Next: more labeled windows, social discovery and independently verified outlet attribution.
+
+## 2026-11-01: iteration 32 — direct gaming platform announcements
+- Started clean on main; no leftover work. Baseline 35 tests, services, /healthz, eleven sources and digest queues healthy.
+- Migration 012 connects PlayStation Blog and Xbox Wire to the original Gaming topic if present, through existing safe shared feed collection/disconnect controls.
+- Worker stored ten real articles each; `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes with 436 URLs, thirteen healthy sources and four topics.
+- First-party promotional/platform coverage is not independent corroboration; newest posts are October 30. Today's Gaming selection stays 3/5 with five candidates.
+- Explicit seven-day POST /api/digest-previews passed with 114 Gaming candidates; all five selections remain Eurogamer. No ranking improvement claimed.
+- Added two-item recorded fixtures (full content:encoded omitted) and offline link/date/author/excerpt regression; fixtures never enter production.
+- `pnpm migrate`, `pnpm check` (36 tests/types/lint/boundaries), `pnpm build`, `pnpm lint` and `git diff --check` passed; existing upstream Zod warnings only.
+- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed immutable/history/window checks; selections remain 5/5/3/5.
+- `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile checks; screenshots updated and mobile inspected.
+- `pnpm exec tsx apps/api/scripts/smoke-scheduled-digests.ts` observed actual 20:19 UTC generation, exact 6h window and completed run; original schedule restored.
+- API/worker rebuilt/restarted; /healthz healthy. No provider/model/billing changes; editorial configuration remains blocked.
+- Next: social discovery, independently labeled windows and verified outlet attribution; broader feeds alone do not fix editorial quality.

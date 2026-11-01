@@ -1,9 +1,9 @@
 # Content source inventory
 
-Checked 2026-11-01, iteration 29. Counts below are actual stored observations
-from the live worker and `/api/content/sources`, not fixture counts. Eleven sources
-supplied 411 distinct URLs across all four topics. Last successful bounded
-verification: 20:08 UTC; two queued passes preserved the same 411-item total.
+Checked 2026-11-01, iteration 32. Counts below are actual stored observations
+from the live worker and `/api/content/sources`, not fixture counts. Thirteen sources
+supplied 436 distinct URLs across all four topics. Last successful bounded
+verification: 20:17 UTC; two queued passes preserved the same 436-item total.
 
 | Source | Topic | Status | Stored items | Feed / API |
 | --- | --- | --- | ---: | --- |
@@ -18,10 +18,12 @@ verification: 20:08 UTC; two queued passes preserved the same 411-item total.
 | ESPN NBA RSS | NBA | blocked | 0 | HTTP 202 with empty body; chose CBS without bypass attempts |
 | Yahoo Sports NBA | NBA | live | 52 | https://sports.yahoo.com/nba/rss/ |
 | Eurogamer | Gaming | live | 60 | https://www.eurogamer.net/feed |
+| PlayStation Blog | Gaming | live | 10 | https://blog.playstation.com/feed/ (first-party announcements/promotions) |
+| Xbox Wire | Gaming | live | 10 | https://news.xbox.com/en-us/feed/ (first-party announcements/promotions) |
 | NBA.com news RSS | NBA | blocked | 0 | HTTP 403 at `/news/rss.xml`; no bypass attempted |
 | GameSpot mashup RSS | Gaming | blocked | 0 | HTTP 403 at `/feeds/mashup/`; no bypass attempted |
 | IGN articles XML | Gaming | rejected | 0 | `/articles?format=xml` returned malformed XML; not scheduled |
-| Google News RSS: artificial intelligence | Tech & AI | live | 61 | https://news.google.com/rss/search?q=artificial+intelligence&hl=en-US&gl=US&ceid=US%3Aen |
+| Google News RSS: artificial intelligence | Tech & AI | live | 66 | https://news.google.com/rss/search?q=artificial+intelligence&hl=en-US&gl=US&ceid=US%3Aen |
 | xAI x_search via configured gateway | all | not yet tried | 0 | Review documented gateway routing before use |
 | X official oEmbed | all | not yet tried | 0 | Render discovered post URLs |
 | X official API | all | needs key | 0 | Owner token and hard read cap required |
@@ -168,3 +170,17 @@ no source was registered and no bypass was attempted. The new historical NBA
 ranking fixture copies existing stored candidates for offline evaluation only;
 it does not ingest fixture data or independently verify publisher claims.
 No provider/model/billing configuration changed.
+
+Iteration 32: migration 012 connects PlayStation Blog and Xbox Wire to the
+original Gaming topic, if present. The existing worker stored ten real articles
+from each; two queued passes retained 436 URLs across thirteen healthy sources.
+These are first-party platform posts, not independent reviews or corroboration.
+Promotional content, podcasts, community showcases and third-party guest posts
+can appear; current phrase/quality rules do not guarantee editorial importance.
+The newest posts in both feeds are October 30: today's 24-hour edition remains
+five candidates / three selections for Gaming. A seven-day edition examines
+114 Gaming candidates; its five selected items still come from Eurogamer.
+No source-breadth bonus, time-window widening or article-page crawling was added.
+Two-item recorded fixtures omit full content:encoded bodies and remain offline
+only. Existing safe HTTP, rate limits, retries and disconnect controls apply.
+No provider/model/billing changes; social discovery remains unfinished.
