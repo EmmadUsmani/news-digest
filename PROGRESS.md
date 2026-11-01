@@ -142,3 +142,16 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 - `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 266 URLs, four topics, seven healthy sources.
 - `pnpm lint` and `git diff --check` passed; API/worker rebuilt/restarted; `/healthz` healthy.
 - No LLM/provider/model/billing changes; editorial configuration still pending. Next: topic editing and arbitrary-window UI; semantic evaluation.
+
+## 2026-11-01: iteration 16 — choose on-demand coverage windows
+- Started clean on main; no leftover work; baseline checks, both services and `/healthz` healthy; seven sources returning data.
+- Added elapsed 6h/24h/7d presets and custom local-time inputs with explicit browser timezone and half-open coverage labels.
+- Client rejects reversed/future/>31-day windows; server independently enforces the same limits; snapshots remain immutable.
+- UI warns that older stored coverage may be incomplete; no historical fetch or editorial-quality claim.
+- `pnpm check` passed typecheck/lint/boundaries and all 19 tests; `pnpm build` passed (existing upstream Zod warnings).
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 266 URLs, four topics, seven healthy sources.
+- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed windows/history/versions/preservation/ranking checks; latest 24h has 5/5/3/5 selections.
+- `pnpm exec tsx scripts/smoke-ui.ts` passed desktop/mobile preset durations, invalid/custom windows, DST UTC conversion and reload plus existing checks.
+- Screenshots updated, mobile custom controls visually inspected; `pnpm lint` and `git diff --check` passed.
+- Rebuilt/restarted API and worker; health healthy. No LLM/provider/model/billing changes; editorial configuration still pending.
+- Next: topic editing, schedule/budgets; semantic ranking evaluation while editorial configuration remains pending.

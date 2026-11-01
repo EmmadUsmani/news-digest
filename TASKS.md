@@ -46,7 +46,8 @@ Fix regressions, broken services and stalled sources before starting new work.
 - [ ] M6 configuration UI: topics CRUD/reorder/enable, schedule and budgets,
   on-demand digest for any window.
   - [x] Paginated immutable edition history and direct edition URLs (iteration 15).
-  - Next: topic editing and arbitrary-window controls.
+  - [x] On-demand 6h/24h/7d and custom-window UI with validation and timezone labels (iteration 16).
+  - Next: topic editing, schedule and budgets.
 - [ ] M7 scheduled operation: the cadence scheduler generates digests
   automatically, plus the status page (sources, queues, runs, LLM usage).
   `DigestPublished` event plus notification port with a log/in-app adapter.

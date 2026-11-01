@@ -63,10 +63,48 @@ try {
  await page.screenshot({ path: `docs/screenshots/history-${name}.png`, fullPage: false });
  await page.close();
  }
+ // Exercise actual persisted windows at both responsive sizes in a DST timezone.
+ for (const width of [1440, 390]) {
+ const page = await browser.newPage({ viewport: { width, height: 1000 }, timezoneId: 'America/Los_Angeles' });
+ await page.goto('http://localhost:8000');
+ await page.getByRole('button', {name:'Create edition · last 24 hours',exact:true}).waitFor();
+ for (const [choice, hours] of [['6',6],['168',168]] as const) {
+ await page.getByLabel('Period', {exact:true}).selectOption(choice);
+ const responsePromise = page.waitForResponse(r => r.url().endsWith('/api/digest-previews') && r.request().method() === 'POST');
+ await page.getByRole('button', {name:`Create edition · ${hours === 168 ? 'last 7 days' : 'last 6 hours'}`,exact:true}).click();
+ const response = await responsePromise; assert.equal(response.status(),201);
+ const saved = await response.json();
+ assert.equal(Date.parse(saved.windowEnd) - Date.parse(saved.windowStart),hours * 3600000);
+ await page.locator('.period').filter({hasText:saved.id.slice(0,8)}).waitFor();
+ }
+ await page.getByLabel('Period', {exact:true}).selectOption('custom');
+ await page.getByText('Times use your browser timezone (America/Los_Angeles).', {exact:false}).waitFor();
+ await page.getByLabel('Start', {exact:true}).fill('2026-10-31T12:00');
+ await page.getByLabel('End', {exact:true}).fill('2026-10-30T12:00');
+ await page.getByRole('button', {name:'Create edition · custom period',exact:true}).click();
+ await page.getByRole('alert').filter({hasText:'Choose a start before the end'}).waitFor();
+ await page.getByLabel('End', {exact:true}).fill('2026-11-01T04:00');
+ const responsePromise = page.waitForResponse(r => r.url().endsWith('/api/digest-previews') && r.request().method() === 'POST');
+ await page.getByRole('button', {name:'Create edition · custom period',exact:true}).click();
+ const saved = await (await responsePromise).json();
+ // Fall-back transition: 16 wall-clock hours cover 17 elapsed hours.
+ assert.equal(saved.windowStart,'2026-10-31T19:00:00.000Z');
+ assert.equal(saved.windowEnd,'2026-11-01T12:00:00.000Z');
+ await page.locator('.period').filter({hasText:saved.id.slice(0,8)}).waitFor();
+ await page.reload();
+ await page.locator('.period').filter({hasText:saved.id.slice(0,8)}).waitFor();
+ await page.getByLabel('Period', {exact:true}).selectOption('custom');
+ assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),true);
+ await page.getByLabel('Start', {exact:true}).fill('2026-10-31T12:00');
+ await page.getByLabel('End', {exact:true}).fill('2026-11-01T04:00');
+ await page.locator('.window-controls').scrollIntoViewIfNeeded();
+ await page.screenshot({path:`docs/screenshots/window-${width === 390 ? 'mobile' : 'desktop'}.png`,fullPage:false});
+ await page.close();
+ }
  // Isolated browser-only fixture verifies the multi-article UI when live windows
  // contain no matching headlines. Never persisted or included in live screenshots.
  const page = await browser.newPage();
- const fixture = await (await page.request.get('http://localhost:8000/api/digest-previews/latest')).json();
+ const fixture = await (await page.request.post('http://localhost:8000/api/digest-previews', {data:{windowStart:new Date(Date.now()-86400000).toISOString(),windowEnd:new Date().toISOString()}})).json();
  const story = fixture.topics[0].stories[0];
  story.coverage = [story.coverage[0], { ...story.coverage[0], id: '00000000-0000-4000-8000-000000000099', title: 'Fixture: additional coverage', url: 'https://example.org/fixture-coverage' }];
  await page.route('**/api/digest-previews/latest', route => route.fulfill({ json: fixture }));

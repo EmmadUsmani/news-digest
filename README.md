@@ -58,7 +58,10 @@ pnpm exec tsx scripts/smoke-ui.ts
 
 The page shows a preliminary ranked edition with saved publisher excerpts and
 selection signals, plus real incoming articles for all four topics. Use the
-create button to save a new edition for the last 24 hours. Quiet sections remain
+period controls to save a new edition for the last 6 hours, 24 hours, 7 days,
+or a custom period of up to 31 days. Custom times use the browser timezone;
+the start is included and the end excluded. Only collected articles are used,
+so older coverage may be incomplete. Quiet sections remain
 empty. Browse saved editions to reopen an immutable version by URL; history lists
 20 versions per page with their creation time, coverage period and ranking method.
 LLM editorial summaries and automatic generation are still pending. The worker ingests seven sources every 30 minutes. Curated digests

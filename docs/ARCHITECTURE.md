@@ -88,3 +88,12 @@ Home's history browser loads full snapshots only on selection; `?edition=<uuid>`
 reopens that version on reload. New editions and latest navigation update the
 URL. Offset pages can shift if another edition is created while browsing;
 immutable direct URLs remain stable. History is preliminary, not editorial output.
+
+Iteration 16 adds browser coverage controls over the existing explicit-window
+POST endpoint: 6h/24h/7d presets are elapsed durations ending at submission;
+custom datetime-local inputs use the browser timezone and convert to UTC.
+Client and server reject reversed, future and >31-day windows. Snapshots copy
+the exact half-open UTC window and remain immutable; selection uses only
+stored content, without fetching historical coverage. The UI states this limit.
+Playwright checks the Los Angeles fall-back transition (16 wall-clock hours
+become 17 elapsed hours), custom validation and saved-edition reloads.
