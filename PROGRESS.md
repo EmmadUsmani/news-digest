@@ -169,3 +169,17 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 - `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed history/versions/preservation/ranking; restored default 24h edition selects 5/5/3/5.
 - `git diff --check` passed; API/worker rebuilt/restarted and health healthy. No provider/model/billing changes; editorial configuration pending.
 - Next: topic creation/reorder/source configuration, schedule settings, semantic ranking evaluation.
+
+## 2026-11-01: iteration 18 — persist topic reading order
+- Started clean on main; no leftover work; baseline checks, services and health healthy.
+- Added accessible up/down controls and profile-scoped PUT /api/topics/order with strict unique/full-list validation.
+- Transaction locks topics in stable ID order and updates positions atomically; invalid lists leave settings unchanged.
+- Incoming cards and new editions use saved order; immutable historical editions retain their original order.
+- Seven healthy sources still store 266 real URLs; no source or provider/model/billing changes.
+- `pnpm check` passed types/lint/boundaries and all 19 tests; `pnpm build` passed (existing upstream Zod warnings).
+- `pnpm exec tsx scripts/smoke-topic-order.ts` passed desktop/mobile persistence, new-edition order, history and invalid atomicity; screenshots added/inspected.
+- Fixed initial smoke script CJS top-level-await failure by wrapping its entrypoint; successful rerun.
+- `pnpm exec tsx scripts/smoke-topics.ts` and `pnpm exec tsx scripts/smoke-ui.ts` passed existing UI checks/screenshots.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes; `pnpm exec tsx apps/api/scripts/smoke-previews.ts` restored 5/5/3/5 selections.
+- `pnpm lint` and `git diff --check` passed; API/worker restarted and /healthz healthy.
+- Next: topic creation/source configuration and schedule settings; editorial review still awaits allowed model configuration.

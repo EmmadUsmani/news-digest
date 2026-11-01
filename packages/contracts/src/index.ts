@@ -40,3 +40,5 @@ export const topicUpdateSchema = topicSchema.pick({ name: true, description: tru
  includeGuidance: z.string().trim().max(2000), excludeGuidance: z.string().trim().max(2000)
 }).strict();
 export type TopicUpdate = z.infer<typeof topicUpdateSchema>;
+
+export const topicOrderSchema = z.object({ ids: z.array(z.string().uuid()).max(1000).refine(ids => new Set(ids).size === ids.length, 'Topic IDs must be unique') }).strict();
