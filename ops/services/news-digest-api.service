@@ -1,0 +1,11 @@
+[Unit]
+Description=News Digest API and web
+After=network.target docker.service
+[Service]
+WorkingDirectory=%h/news-digest
+EnvironmentFile=%h/.config/news-digest/env
+ExecStart=/usr/bin/node apps/api/dist/main.js
+Restart=always
+RestartSec=5
+[Install]
+WantedBy=default.target

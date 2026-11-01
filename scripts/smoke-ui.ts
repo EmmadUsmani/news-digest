@@ -1,0 +1,20 @@
+import { chromium } from 'playwright';
+import assert from 'node:assert/strict';
+async function smoke() {
+const browser = await chromium.launch({ headless: true });
+try {
+ for (const [name, width, height] of [['desktop', 1440, 1100], ['mobile', 390, 844]] as const) {
+ const page = await browser.newPage({ viewport: { width, height } });
+ const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
+ await page.goto('http://localhost:8000');
+ await page.getByText('System online · Database and queue connected').waitFor();
+ assert.equal(await page.getByRole('heading', { level: 1 }).count(), 1);
+ assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
+ assert.deepEqual(errors, []);
+ await page.screenshot({ path: `docs/screenshots/foundation-${name}.png`, fullPage: true });
+ await page.close();
+ }
+} finally { await browser.close(); }
+
+}
+void smoke();

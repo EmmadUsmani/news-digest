@@ -1,0 +1,11 @@
+[Unit]
+Description=News Digest background worker
+After=network.target docker.service
+[Service]
+WorkingDirectory=%h/news-digest
+EnvironmentFile=%h/.config/news-digest/env
+ExecStart=/usr/bin/node apps/api/dist/worker.js
+Restart=always
+RestartSec=5
+[Install]
+WantedBy=default.target

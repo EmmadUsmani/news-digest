@@ -15,3 +15,46 @@ exe.dev VM under a never-give-up supervisor.
   [ops/agent-control/README.md](ops/agent-control/README.md)
 
 App (private to the owner): https://news-digest.exe.xyz/
+
+## Run locally (Node 22, pnpm, Docker Compose)
+
+```sh
+pnpm install --frozen-lockfile
+docker compose up -d
+pnpm build
+pnpm migrate
+pnpm check
+```
+
+`pnpm check` runs typechecks, ESLint, dependency boundaries and integration
+checks against local PostgreSQL/Redis. Tests do not contact external services.
+The check command builds shared contract declarations automatically.
+`pnpm migrate` is safe to repeat. Keep secrets only in
+`~/.config/news-digest/env` (mode 600), never in the repository.
+The API accepts `DATABASE_URL`, `REDIS_URL`, and `PORT`; defaults target the
+loopback Compose services and port 8000. The operations worker currently uses
+the default loopback Redis instance.
+
+```sh
+mkdir -p ~/.config/systemd/user
+cp ops/services/*.service ~/.config/systemd/user/
+systemctl --user daemon-reload
+systemctl --user enable --now news-digest-api news-digest-worker
+systemctl --user restart news-digest-api news-digest-worker
+systemctl --user status news-digest-api news-digest-worker
+journalctl --user -u news-digest-api -u news-digest-worker -f
+systemctl --user stop news-digest-api news-digest-worker
+curl --fail http://localhost:8000/healthz
+```
+
+After pulling changes, rebuild, migrate, and restart both services. Docker
+containers restart automatically; do not use `docker compose down -v` unless
+intentionally deleting local data. To reproduce desktop/mobile screenshots:
+
+```sh
+pnpm exec playwright install chromium
+pnpm exec tsx scripts/smoke-ui.ts
+```
+
+The initial page is an honest empty state. Content ingestion, digests and
+configuration are tracked in [TASKS.md](TASKS.md).

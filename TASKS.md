@@ -3,7 +3,7 @@
 Prioritized. The agent owns this file; reorder and split tasks as you learn.
 Fix regressions, broken services and stalled sources before starting new work.
 
-- [ ] M0 skeleton:
+- [x] M0 skeleton (iteration 7):
   - pnpm workspace (`apps/api` NestJS, `apps/web` React+Vite, `packages/contracts`)
   - Postgres and Redis running locally (Docker Compose or native)
   - migrations
@@ -12,7 +12,7 @@ Fix regressions, broken services and stalled sources before starting new work.
   - systemd user units `news-digest-api.service` / `news-digest-worker.service`
   - one `pnpm check` command (typecheck, lint, dependency boundaries, tests)
   - README run/stop/log commands
-- [ ] M1 domain foundations (Domain-Driven Hexagon):
+- [ ] M1 domain foundations (next; keep this thin so M2 real ingestion follows):
   - `libs/ddd` building blocks
   - `profiles` and `topics` modules with the seeded default profile and four
     topics (data, not code)
