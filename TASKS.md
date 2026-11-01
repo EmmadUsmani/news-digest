@@ -40,6 +40,7 @@ Fix regressions, broken services and stalled sources before starting new work.
 - [ ] M5 ranking quality:
   - [x] Conservative headline clustering with copied coverage links, one-slot groups and no unverified syndication bonus (iteration 14).
   - Semantic event clustering and verified outlet independence remain unfinished.
+  - [x] Remove unverified source-observation score bonuses while retaining auditable coverage and historical methods (iteration 30).
   - explainable scores
   - per-topic relevance guidance
   - labeled evaluation windows and docs/RANKING.md

@@ -43,7 +43,7 @@ export class PostgresPreviewRepository extends PreviewRepository implements OnMo
  const stories = rank(eligible,start,end,topic.story_budget).map(story => ({ ...story, reasons: [...story.reasons, assessRelevance(story,policy).reason] }));
  selections.push({ qualityRejections, relevancePolicy: policy, relevanceRejectedCount: candidates.length - eligible.length, id: topic.id, name: topic.name, candidateCount: candidates.length, stories });
  }
- const snapshot: DigestPreview = { id: crypto.randomUUID(), createdAt: new Date().toISOString(), windowStart: start.toISOString(), windowEnd: end.toISOString(), method: 'signals-v4', topics: selections };
+ const snapshot: DigestPreview = { id: crypto.randomUUID(), createdAt: new Date().toISOString(), windowStart: start.toISOString(), windowEnd: end.toISOString(), method: 'signals-v5', topics: selections };
  await client.query('INSERT INTO digest_previews(id,profile_id,created_at,window_start,window_end,snapshot,scheduled_key) VALUES($1,$2,$3,$4,$5,$6,$7)', [snapshot.id,profileId,snapshot.createdAt,start,end,snapshot,scheduledKey ?? null]);
  await client.query('COMMIT'); return snapshot;
  } catch (error) { await client.query('ROLLBACK'); throw error; } finally {

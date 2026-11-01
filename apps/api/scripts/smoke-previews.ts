@@ -15,7 +15,7 @@ async function smoke() {
  const second = digestPreviewSchema.parse(await (await post(window)).json());
  assert.notEqual(first.id,second.id);
  assert.equal(first.topics.length,4);
- assert.equal(first.method,'signals-v4');
+ assert.equal(first.method,'signals-v5');
  for (const topic of first.topics) {
  assert.ok(topic.relevancePolicy);
  assert.ok(topic.qualityRejections);

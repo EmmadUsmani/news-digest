@@ -337,3 +337,18 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 - `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile checks; screenshots updated and mobile inspected.
 - `pnpm exec tsx apps/api/scripts/smoke-scheduled-digests.ts` observed actual 20:09 UTC automatic generation, exact 6h window, real candidates and completed job; original schedule restored.
 - API/worker rebuilt/restarted and /healthz healthy. Next: social discovery/configuration; semantic ranking, editorial integration and durable queue recovery remain unfinished.
+
+## 2026-11-01: iteration 30 — stop rewarding repeated discovery as independent coverage
+- Started clean on main; no leftover work. Baseline 33 tests, services, /healthz, eleven sources and digest queues healthy.
+- New signals-v5 editions remove the eight-point bonus per additional source label; feeds/aggregators do not establish outlet independence.
+- Coverage labels/links remain auditable; ranking uses recency plus capped HN engagement. Historical snapshots keep original methods/scores.
+- Added synthetic regression for repeated discovery displacing fresher reporting and changing same-headline cluster leads; no live precision claim.
+- Updated shared method validation, generation smoke check, ranking documentation and UI explanation.
+- `pnpm check` passed types/lint/boundaries and all 34 tests; `pnpm build` passed with existing upstream Zod annotation warnings.
+- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed v5 generation, immutable history and exact-window checks; selections 5/5/3/5.
+- `pnpm exec tsx scripts/smoke-ui.ts` passed desktop/mobile rendering/history/window regressions; screenshots updated and mobile inspected.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 412 real URLs, four topics, eleven healthy sources.
+- `pnpm exec tsx scripts/smoke-status.ts` passed real telemetry/edition links and synthetic failure rendering; status screenshots updated.
+- `pnpm exec tsx apps/api/scripts/smoke-scheduled-digests.ts` observed actual 20:12 UTC generation, exact 6h window and completed job; original schedule restored.
+- Final `pnpm lint`, `git diff --check` and rebuild passed; services restarted and /healthz healthy. Provider/model/billing unchanged; editorial configuration remains blocked.
+- Next: social discovery/configuration, independent-outlet attribution and labeled historical ranking evaluation.

@@ -34,3 +34,23 @@ test('complete-link grouping prevents an overlap chain from merging distinct hea
  assert.equal(sameEvent(a,c),false);
  assert.deepEqual(clusterCandidates([a,b,c]).map(group => group.length),[2,1]);
 });
+
+test('repeated discovery cannot outrank fresher reporting or change cluster leads', () => {
+ const start = new Date('2026-11-01'), end = new Date('2026-11-02');
+ const older = { ...item('a', 'Research lab publishes model evaluation results'), publishedAt: '2026-11-01T06:00:00Z' };
+ const fresh = { ...item('b', 'Studio closes following bankruptcy filing'), publishedAt: '2026-11-01T18:00:00Z' };
+ const repeated = { ...older, sources: ['Publisher', 'Hacker News', 'Google News: AI', 'Google News: technology'] };
+ const baseline = rank([older,fresh],start,end,1);
+ const discovered = rank([repeated,fresh],start,end,1);
+ assert.equal(discovered[0].id,fresh.id);
+ assert.deepEqual(discovered,baseline);
+ const story = rank([repeated],start,end,1)[0];
+ assert.equal(story.score,rank([older],start,end,1)[0].score);
+ assert.deepEqual(story.coverage[0].sources,repeated.sources);
+ assert.ok(story.reasons.some(reason => reason.includes('independence unverified; no score bonus')));
+ const alternate = { ...older, id: 'c', sources: ['Syndicator'], publishedAt: '2026-11-01T12:00:00Z' };
+ const cluster = rank([repeated,alternate],start,end,1)[0];
+ assert.equal(cluster.id,alternate.id);
+ assert.equal(cluster.coverage.length,2);
+ assert.equal(cluster.score,5);
+});

@@ -14,9 +14,10 @@ export function rank(candidates: Candidate[], start: Date, end: Date, budget: nu
  const recency = Math.max(0, 1 - (end.getTime() - Date.parse(item.publishedAt)) / (end.getTime() - start.getTime()));
  const breadth = new Set(item.sources).size;
  const engagement = Math.min(10, Math.log2(1 + Math.max(0, Number.isFinite(item.points) ? item.points : 0)));
- const score = Math.round((recency * 10 + Math.max(0, breadth - 1) * 8 + engagement) * 100) / 100;
+ // Feed/aggregator observations do not prove independent reporting.
+ const score = Math.round((recency * 10 + engagement) * 100) / 100;
  return { id: item.id, title: item.title, url: item.url, excerpt: item.excerpt.slice(0, 600), publishedAt: item.publishedAt, sources: item.sources, score,
- reasons: [`Recency: ${(recency * 10).toFixed(1)}/10`, `Observed in ${breadth} source${breadth === 1 ? '' : 's'}`, `HN engagement: ${engagement.toFixed(1)}/10`] };
+ reasons: [`Recency: ${(recency * 10).toFixed(1)}/10`, `Observed in ${breadth} source label${breadth === 1 ? '' : 's'} (independence unverified; no score bonus)`, `HN engagement: ${engagement.toFixed(1)}/10`] };
  }).sort((a,b) => b.score - a.score || a.id.localeCompare(b.id));
  const byId = new Map(scored.map(item => [item.id, item]));
  return clusterCandidates(scored.map(item => ({ ...item, points: 0 }))).slice(0,budget).map(group => {

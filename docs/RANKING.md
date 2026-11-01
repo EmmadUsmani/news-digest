@@ -127,3 +127,28 @@ article reached by Google and a direct feed may have different canonical URLs;
 existing headline clustering can group close matches but cannot guarantee dedup
 of rewritten headlines. Editorial quality and verified outlet independence are
 still unfinished. The UI describes these results as broad candidates.
+
+## Iteration 30: remove unverified observation bonuses (signals-v5)
+
+A single canonical URL can be observed in a publisher feed, Hacker News and
+multiple Google News queries. These are discovery paths, not independent
+reporters. Previously, each additional label added eight points to that item
+before clustering, potentially overpowering the entire ten-point recency range.
+New editions score only recency (0–10) plus bounded HN engagement (0–10).
+All observation labels and grouped coverage links remain available for audit;
+they contribute zero points until outlet independence can be established.
+The strongest candidate remains the lead without a cluster bonus. Historical
+signals-v1 through v4 snapshots retain their original scores and explanations.
+
+An offline regression reproduces an older article discovered through four
+labels outranking fresher reporting under the previous formula. It now preserves
+the fresh selection, retains labels, and prevents repeated discovery from
+changing the lead in a same-headline cluster. These are synthetic candidates,
+not a historical precision benchmark. Authority, independently verified breadth,
+semantic importance and editorial review remain unfinished; recency and HN
+engagement alone do not establish newsworthiness.
+
+Live stored-content check on 2026-11-01: new v5 editions examined 54 Tech,
+52 NBA, 5 Gaming and 47 World candidates and selected 5/5/3/5 stories.
+History and immutable snapshots passed the API smoke check; no improvement in
+live precision or independent coverage is claimed from unchanged item counts.
