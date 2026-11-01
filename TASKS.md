@@ -23,12 +23,13 @@ Fix regressions, broken services and stalled sources before starting new work.
   - ingestion jobs in BullMQ
   - normalized, deduplicated content items in Postgres
   - real items stored for all four topics, recorded in docs/SOURCES.md
-- [ ] M3 first real digest (next):
+- [ ] M3 first real digest (in progress):
   - simple scoring plus the LLM editorial pass through the exe.dev gateway
     (behind `LlmPort`, with usage caps)
-  - an immutable digest snapshot for a window
-  - the digest page renders it
-  - Playwright screenshots
+  - [x] Immutable preliminary ranked snapshots for explicit windows (iteration 10); database rejects mutation.
+  - [x] Home renders latest preliminary edition with excerpts, scores and quiet sections.
+  - [x] Desktop/mobile Playwright screenshots and create/reload checks.
+  - Next: LlmPort/editorial summaries, relevance against topic guidance, bounded usage/cache; promote previews only after editorial review.
 - [ ] M4 X posts:
   - check xAI `x_search` through the gateway
   - post discovery per topic

@@ -53,3 +53,19 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 - `pnpm exec tsx scripts/smoke-ui.ts` passed desktop/mobile with articles in each topic, no browser errors/overflow; screenshots updated and mobile inspected.
 - API/worker restarted; `/healthz` healthy; content/source endpoints show real stored content. No digest pipeline/runs exist yet.
 - No blockers or LLM calls/provider changes. Next: M3 first capped editorial pass and immutable digest snapshot.
+
+## 2026-11-01: iteration 10 — immutable preliminary ranked editions
+- Started clean on main; no leftover work; baseline checks, both services, health and five sources healthy.
+- Added signal ranking, explicit-window API and repeatable-read snapshots; DB trigger rejects UPDATE/DELETE.
+- Home creates/loads a saved last-24-hour edition, publisher excerpts and auditable score reasons.
+- Clearly preliminary: no LLM summaries, briefs, editorial rationale or posts claimed; M3 remains open.
+- Exact windows/budgets, title deduplication and betting/watch-guide exclusions; no padding quiet topics.
+- Live edition: 5 Tech + 5 World stories; NBA's one candidate excluded; Gaming had none in-window.
+- Observed HN off-topic popularity; documented relevance/editorial review as next priority in docs/RANKING.md.
+- Fixed HN excerpt HTML entities with offline regression coverage; old snapshots remain unchanged.
+- `pnpm migrate` applied 004; repeat clean. `pnpm check` passed types/lint/boundaries and all 12 tests.
+- `pnpm build` passed (existing upstream Zod annotation warnings only).
+- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed bad-window/versions/preservation checks.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 156 items, four topics, five healthy sources.
+- `pnpm exec tsx scripts/smoke-ui.ts` passed desktop/mobile creation/reload, no browser errors/overflow; screenshots updated/inspected.
+- API/worker restarted and health healthy; no LLM/provider changes or blockers. Next: capped LlmPort editorial pass.

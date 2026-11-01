@@ -56,8 +56,10 @@ pnpm exec playwright install chromium
 pnpm exec tsx scripts/smoke-ui.ts
 ```
 
-The page shows real incoming articles for all four topics, before editorial
-selection. The worker ingests five sources every 30 minutes. Curated digests
+The page shows a preliminary ranked edition with saved publisher excerpts and
+selection signals, plus real incoming articles for all four topics. Use the
+create button to save a new edition for the last 24 hours. Quiet sections remain
+empty; LLM editorial summaries and automatic generation are still pending. The worker ingests five sources every 30 minutes. Curated digests
 and configuration editing are tracked in [TASKS.md](TASKS.md).
 
 Explicit live verification (contacts publishers and HN; never part of tests):
@@ -69,3 +71,9 @@ curl --fail http://localhost:8000/api/content/sources
 
 The smoke check queues two passes, at most 25 upstream requests per pass
 before the shared cache, and verifies all four topics and idempotent storage.
+
+Local snapshot/API verification (uses stored real content, no external calls):
+
+```sh
+pnpm exec tsx apps/api/scripts/smoke-previews.ts
+```

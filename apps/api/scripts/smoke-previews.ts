@@ -1,0 +1,27 @@
+// Explicit local check using stored real content; no publisher or LLM requests.
+import assert from 'node:assert/strict';
+import { digestPreviewSchema } from '@digest/contracts';
+import { database } from '../src/libs/db/connections';
+async function smoke() {
+ const endpoint = 'http://localhost:8000/api/digest-previews';
+ const post = (body: unknown) => fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+ const end = new Date(), start = new Date(end.getTime() - 86400000);
+ const window = { windowStart: start.toISOString(), windowEnd: end.toISOString() };
+ for (const body of [{}, { ...window, windowStart: window.windowEnd }, { ...window, windowEnd: 'invalid' }, { ...window, windowStart: new Date(end.getTime() - 32 * 86400000).toISOString() }]) assert.equal((await post(body)).status,400);
+ const firstResponse = await post(window); assert.equal(firstResponse.status,201);
+ const first = digestPreviewSchema.parse(await firstResponse.json());
+ const second = digestPreviewSchema.parse(await (await post(window)).json());
+ assert.notEqual(first.id,second.id);
+ assert.equal(first.topics.length,4);
+ assert.ok(first.topics.flatMap(t=>t.stories).length > 0);
+ assert.ok(first.topics.every(t=>t.stories.length <= 5));
+ assert.deepEqual(first.topics,second.topics);
+ const db = database();
+ try {
+ const saved = (await db.query('SELECT snapshot FROM digest_previews WHERE id=$1',[first.id])).rows[0].snapshot;
+ assert.deepEqual(saved,first);
+ assert.deepEqual(await (await fetch(`${endpoint}/latest`)).json(),second);
+ console.log(JSON.stringify({ versions: [first.id,second.id], topics: first.topics.map(t=>({name:t.name,candidates:t.candidateCount,selected:t.stories.length})) }));
+ } finally { await db.end(); }
+}
+void smoke();

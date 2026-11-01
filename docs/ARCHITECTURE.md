@@ -18,7 +18,7 @@ another context's internals; cross-context public facades go in `public/`.
 The operations BullMQ worker runs a local heartbeat every minute, retaining ten
 successful/failed jobs. The separate ingestion queue polls persisted source
 configuration every 30 minutes (first job immediately), with one worker, three
-attempts and exponential retry backoff. Editorial selection remains M3.
+attempts and exponential retry backoff. Editorial selection remains M3; preliminary signal ranking is available.
 
 `/healthz` checks actual database and Redis connections and returns 503 on
 failure. Both processes use graceful shutdown and systemd automatic restart.
@@ -27,7 +27,7 @@ The default profile, four topics and schedule are persisted by migrations.
 repository ports; editing remains M6. Topic configuration includes guidance,
 source/query/account arrays, order, enablement and item budgets. Five live sources are seeded in migration 003. The SPA displays persisted
 topics, budgets and five latest incoming articles per topic, explicitly labeled
-as unreviewed incoming headlines. This is not a digest.
+as unreviewed incoming headlines. These incoming items remain separate from the preliminary ranked edition.
 
 The schedule domain validates IANA timezones, daily local-time cron expressions,
 ISO elapsed durations (days/hours/minutes/seconds), and 0–20 item budgets.
@@ -52,3 +52,15 @@ Recorded feed/HN fixtures are offline-only. Integration tests create and clean
 isolated fixture records; the explicit live smoke script queues two bounded
 passes and checks item counts remain unchanged. Source schedules are refreshed
 on worker startup; runtime configuration refresh and source-edit UI remain M6.
+
+Iteration 10 adds the `digests` context and append-only `digest_previews` snapshots.
+POST `/api/digest-previews` accepts ISO `windowStart`/`windowEnd`, a positive past
+window up to 31 elapsed days; GET `/api/digest-previews/latest` returns the latest
+snapshot or null. This single-owner API uses the seeded profile. A repeatable-read
+transaction captures enabled topic names/budgets and up to 200 newest candidates
+per topic, ranks them, and saves copied excerpts, URLs, publication times, source
+names and signal reasons. Regeneration inserts a new UUID; a PostgreSQL trigger
+rejects UPDATE/DELETE. Selection is synchronous and local, with no LLM/API spend.
+The home button uses the last 24 hours; arbitrary-window controls, historical
+browsing and scheduled generation remain later work. No summaries, briefs or
+editorial rationale are fabricated. `signals-v1` is explicitly preliminary.

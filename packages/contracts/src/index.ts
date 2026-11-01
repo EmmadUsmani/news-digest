@@ -14,3 +14,17 @@ export const topicSchema = z.object({
 export type Topic = z.infer<typeof topicSchema>;
 export const contentGroupSchema = z.object({ topicId: z.string().uuid(), items: z.array(z.object({ id: z.string().uuid(), title: z.string(), url: z.string().url(), publishedAt: z.string(), source: z.string() })) });
 export type ContentGroup = z.infer<typeof contentGroupSchema>;
+
+export const rankedStorySchema = z.object({
+ id: z.string().uuid(), title: z.string(), url: z.string().url(), excerpt: z.string(),
+ publishedAt: z.string(), sources: z.array(z.string()), score: z.number(), reasons: z.array(z.string())
+});
+export const digestPreviewSchema = z.object({
+ id: z.string().uuid(), createdAt: z.string(), windowStart: z.string(), windowEnd: z.string(),
+ method: z.literal('signals-v1'), topics: z.array(z.object({
+ id: z.string().uuid(), name: z.string(), candidateCount: z.number().int(), stories: z.array(rankedStorySchema)
+ }))
+});
+export type DigestPreview = z.infer<typeof digestPreviewSchema>;
+
+export const previewRequestSchema = z.object({ windowStart: z.string().datetime({ offset: true }), windowEnd: z.string().datetime({ offset: true }) }).strict();

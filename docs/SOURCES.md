@@ -40,3 +40,10 @@ Offline fixtures record two entries each from CBS RSS, Verge Atom and the HN
 API on 2026-11-01. They are never seeded into production content. A first live
 pass exposed incorrect XML entity handling; decoding was fixed, 29 malformed
 BBC URL records were removed, and the queued live check re-ingested clean URLs.
+
+Iteration 10: ranked editions use the stored live items above without making
+additional publisher/LLM calls. Half-open time windows can legitimately leave
+NBA/Gaming empty even while older incoming headlines are present. Latest source
+checks still require nonzero fetched items and successful persistence. HN text
+now decodes HTML entities before storing excerpts; older immutable editions
+retain the text captured when they were generated.

@@ -23,9 +23,11 @@ test('recorded RSS and Atom normalize real headlines, dates and safe links', asy
 });
 test('Hacker News fixture preserves engagement and excludes deleted items', async () => {
  const records = JSON.parse(await fixture('hn.json'));
+ records[0].text = 'It&#x27;s &amp; more <p>text</p>';
  const adapter = new HackerNewsAdapter({ get: async url => url.endsWith('topstories.json') ? JSON.stringify([records[0].id,records[1].id,42]) : url.endsWith('/42.json') ? '{"deleted":true}' : JSON.stringify(records.find((r: { id: number }) => url.endsWith(`/${r.id}.json`))) });
  const items = await adapter.collect({ id: 'test', topicId: '', name: '', kind: 'hn', url: 'https://hacker-news.firebaseio.com/v0/topstories.json' });
  assert.equal(items.length, 2); assert.equal(items[0].engagement.points, records[0].score);
+ assert.equal(items[0].excerpt, "It's & more text");
 });
 test('Postgres ingestion is idempotent and records failure without losing last success', async () => {
  const repository = new PostgresContentRepository();

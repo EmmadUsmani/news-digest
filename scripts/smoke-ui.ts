@@ -8,8 +8,20 @@ try {
  const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
  await page.goto('http://localhost:8000');
  await page.getByText('System online · Database and queue connected').waitFor();
- await page.getByRole('heading', { name: 'Tech & AI', exact: true }).waitFor();
+ await page.locator('.topic-grid').getByRole('heading', { name: 'Tech & AI', exact: true }).waitFor();
  assert.equal(await page.locator('.topic-grid article').count(), 4);
+ if (name === 'desktop') {
+ await page.getByRole('button', { name: 'Create edition · last 24 hours' }).click();
+ await page.getByText('Saved edition', { exact: false }).waitFor();
+ }
+ await page.locator('.digest-topic').first().waitFor();
+ assert.equal(await page.locator('.digest-topic').count(), 4);
+ assert.ok(await page.locator('.digest-topic ol>li').count() > 0);
+ const snapshot = await (await page.request.get('http://localhost:8000/api/digest-previews/latest')).json();
+ await page.reload();
+ await page.getByText('Saved edition', { exact: false }).waitFor();
+ const reloaded = await (await page.request.get('http://localhost:8000/api/digest-previews/latest')).json();
+ assert.deepEqual(reloaded, snapshot);
  await page.locator('.headlines a').first().waitFor();
  for (const article of await page.locator('.topic-grid article').all()) assert.ok(await article.locator('.headlines a').count() > 0);
  assert.equal(await page.locator('.headlines a[href*="betting"]').count(), 0);

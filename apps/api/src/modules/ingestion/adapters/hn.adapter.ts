@@ -1,3 +1,4 @@
+import { decodeHTML } from 'entities';
 import type { ContentItem, HttpPort, Source, SourcePort } from '../domain/ports';
 import { canonicalUrl, plainText } from '../domain/normalize';
 export class HackerNewsAdapter implements SourcePort {
@@ -12,7 +13,7 @@ export class HackerNewsAdapter implements SourcePort {
  if (!item || item.deleted || item.dead || item.type !== 'story') continue;
  const url = canonicalUrl(item.url ?? `https://news.ycombinator.com/item?id=${id}`);
  if (!url || !item.title || !Number.isFinite(item.time)) continue;
- items.push({ url, title: plainText(item.title, 500), excerpt: plainText(item.text), author: item.by ?? null, publishedAt: new Date(item.time * 1000).toISOString(), imageUrl: null, engagement: { points: Number(item.score) || 0, comments: Number(item.descendants) || 0 } });
+ items.push({ url, title: plainText(decodeHTML(String(item.title)), 500), excerpt: plainText(decodeHTML(String(item.text ?? ''))), author: item.by ?? null, publishedAt: new Date(item.time * 1000).toISOString(), imageUrl: null, engagement: { points: Number(item.score) || 0, comments: Number(item.descendants) || 0 } });
  }
  return items;
  }
