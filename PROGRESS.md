@@ -7,6 +7,7 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11-01-iterations-7-16.md).
 
 ## 2026-11-01: iteration 17 — edit topic settings and active phrase rules
+
 - Started clean on main; no leftover work; baseline 19 tests, services and `/healthz` healthy.
 - Added profile-scoped validated PUT settings and Manage topics UI: name, description, enabled, budgets, guidance and phrase rules.
 - Disabled topics leave incoming cards/new editions; collection continues. Historical snapshots remain unchanged.
@@ -21,6 +22,7 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - Next: topic creation/reorder/source configuration, schedule settings, semantic ranking evaluation.
 
 ## 2026-11-01: iteration 18 — persist topic reading order
+
 - Started clean on main; no leftover work; baseline checks, services and health healthy.
 - Added accessible up/down controls and profile-scoped PUT /api/topics/order with strict unique/full-list validation.
 - Transaction locks topics in stable ID order and updates positions atomically; invalid lists leave settings unchanged.
@@ -35,6 +37,7 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - Next: topic creation/source configuration and schedule settings; editorial review still awaits allowed model configuration.
 
 ## 2026-11-01: iteration 19 — repair reorder regression before new features
+
 - Started clean on main; no leftover work. Services/health healthy, but baseline `pnpm check` failed: reorder saved positions 1–4 while seeds/tests require 0–3.
 - Fixed SQL ordinality offset; migration 007 normalizes persisted positions per profile without changing reading order.
 - Added repository integration coverage for reverse order, exact positions and invalid-list atomicity; settings assertions now respect configurable names/enabled states.
@@ -48,6 +51,7 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - Next: topic creation/source configuration and schedule settings; triage completed instead of starting new features.
 
 ## 2026-11-01: iteration 20 — create configurable topics
+
 - Started clean on main; no leftover work; baseline 20 tests, both services and `/healthz` healthy.
 - Added strict profile-scoped POST /api/topics and shared Create topic form with budgets, guidance, phrase rules and enable state.
 - Server assigns UUID and appended zero-based position; creation/reorder serialize on the profile row; stale reorder lists fail atomically.
@@ -62,6 +66,7 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - Next: source/query/account configuration and schedule settings; deletion remains unfinished.
 
 ## 2026-11-01: iteration 21 — connect topics to shared real sources
+
 - Started clean on main; no leftover work; baseline 21 tests, services and `/healthz` healthy.
 - Added migration 008 and transactional source connections, catalog API, validated replacement API and accessible desktop/mobile selection UI.
 - New topics immediately reuse stored articles; future collection stays shared per source; incoming cards refresh after saves.
@@ -77,6 +82,7 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - Next: schedule settings; custom feeds/discovery configuration and topic deletion remain unfinished.
 
 ## 2026-11-01: iteration 22 — persist schedule settings and topic defaults
+
 - Started clean on main; no leftover work; baseline 22 tests, services and `/healthz` healthy.
 - Added strict PUT /api/profile/schedule through ProfileRepository and accessible daily time/timezone/coverage/default-budget form.
 - Validates daily cron, IANA timezone, positive elapsed duration (maximum 31 days), bounded budgets and unknown fields; invalid saves leave settings intact.
@@ -92,6 +98,7 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - Next: custom feeds/discovery configuration and topic deletion; wire saved schedules into automatic generation under M7.
 
 ## 2026-11-01: iteration 23 — automatic preliminary editions
+
 - Started clean on main; no leftover work. Baseline services, /healthz and all 23 checks healthy.
 - Prioritized saved-schedule operation over custom feeds so real editions appear without manual generation.
 - Added BullMQ daily cron/timezone scheduler, 10-second settings refresh, obsolete-job skip and three bounded retry attempts.
@@ -106,6 +113,7 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - API/worker rebuilt/restarted, /healthz healthy. Next: run/source status visibility, custom feeds, missed-run policy; editorial configuration remains blocked.
 
 ## 2026-11-01: iteration 24 — visible source and automatic-run status
+
 - Started clean on main; no leftover work. Baseline 24 tests, services and /healthz healthy.
 - Added read-only /api/status behind OperationsReader plus expandable desktop/mobile status panel and minute/manual refresh.
 - Shows source freshness/errors/counts, active connections, queue workers/availability/pause/counts, next slot and up to 20 retained automatic runs with edition links.
@@ -120,6 +128,7 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - Next: custom feeds/discovery configuration, topic deletion and missed-run policy; editorial model configuration remains blocked.
 
 ## 2026-11-01: iteration 25 — delete topics without losing shared content
+
 - Started clean on main; no leftover work. Baseline 25 tests, both services and /healthz healthy.
 - Added profile-scoped DELETE /api/topics/:id and desktop/mobile permanent-delete confirmation, cancel and error/retry handling.
 - Deletion serializes with creation/reorder, closes position gaps and cascades topic connections; immutable editions retain deleted sections.
@@ -135,6 +144,7 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - Next: custom feeds/discovery configuration and missed-run policy.
 
 ## 2026-11-01: iteration 26 — bounded recovery for missed automatic editions
+
 - Started clean on main; no leftover work; baseline 26 tests, services, /healthz and seven sources healthy.
 - Retained queued slots up to six hours late preserve original windows; older slots skip visibly without snapshots or historical backfill.
 - Invalid/future slot timestamps fail; schedule changes still skip obsolete jobs; retries retain immutable snapshot identity.
@@ -149,6 +159,7 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - Next: custom feeds/discovery configuration; editorial model configuration remains blocked.
 
 ## 2026-11-01: iteration 27 — custom feeds and wider live technology coverage
+
 - Started clean on main; no leftover work. Baseline 27 checks, services, /healthz, sources and digest queues healthy.
 - Added strict POST /api/topics/:id/feeds and desktop/mobile RSS/Atom form; registration connects atomically and identical normalized URLs share saved names, articles and collection.
 - Bounded catalog (500)/topic connections (100); unverified feeds wait for worker results, with disconnect and immutable history preserved.
@@ -163,6 +174,7 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - API/worker rebuilt/restarted and /healthz healthy. Next: query/account discovery configuration; allowed editorial configuration remains blocked.
 
 ## 2026-11-01: iteration 28 — configurable news-query discovery
+
 - Started clean on main; no leftover work. Baseline 30 checks, services, /healthz, sources and digest queues healthy.
 - Added POST /api/topics/:id/queries and desktop/mobile Google News RSS query form with fixed English/US edition, strict bounded text and encoded parameters.
 - Query feeds reuse shared registration, caps, safe HTTP, scheduled collection and disconnect controls; replacement preserves collected articles and immutable editions.
@@ -176,6 +188,7 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - Next: social account discovery/configuration; semantic ranking and durable queue recovery remain unfinished.
 
 ## 2026-11-01: iteration 29 — wider live world reporting
+
 - Started clean on main; no leftover work. Baseline 32 tests, services, /healthz, nine sources and digest queues healthy.
 - Prioritized real coverage while editorial configuration remains blocked: migration 011 connects NPR World and The Guardian World to the original world topic if present.
 - Existing shared RSS adapter, safe HTTP, worker schedule and disconnect controls apply; no article-page crawling or provider/model/billing changes.
@@ -189,6 +202,7 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - API/worker rebuilt/restarted and /healthz healthy. Next: social discovery/configuration; semantic ranking, editorial integration and durable queue recovery remain unfinished.
 
 ## 2026-11-01: iteration 30 — stop rewarding repeated discovery as independent coverage
+
 - Started clean on main; no leftover work. Baseline 33 tests, services, /healthz, eleven sources and digest queues healthy.
 - New signals-v5 editions remove the eight-point bonus per additional source label; feeds/aggregators do not establish outlet independence.
 - Coverage labels/links remain auditable; ranking uses recency plus capped HN engagement. Historical snapshots keep original methods/scores.
@@ -204,6 +218,7 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - Next: social discovery/configuration, independent-outlet attribution and labeled historical ranking evaluation.
 
 ## 2026-11-01: iteration 31 — recorded NBA ranking benchmark
+
 - Started clean on main; no leftover work. Baseline 34 tests, services, /healthz and eleven sources healthy.
 - Public Reddit NBA RSS probe returned HTTP 403; documented blocked status without bypass attempts or registration.
 - Froze all 52 real stored candidates for a concrete 24h NBA window, saved phrase policy and five-slot budget; offline only, never seeded.
@@ -219,6 +234,7 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - Next: more labeled windows, social discovery and independently verified outlet attribution.
 
 ## 2026-11-01: iteration 32 — direct gaming platform announcements
+
 - Started clean on main; no leftover work. Baseline 35 tests, services, /healthz, eleven sources and digest queues healthy.
 - Migration 012 connects PlayStation Blog and Xbox Wire to the original Gaming topic if present, through existing safe shared feed collection/disconnect controls.
 - Worker stored ten real articles each; `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes with 436 URLs, thirteen healthy sources and four topics.
@@ -233,6 +249,7 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - Next: social discovery, independently labeled windows and verified outlet attribution; broader feeds alone do not fix editorial quality.
 
 ## 2026-11-01: iteration 33 — World ranking benchmark and missed-event diagnostics
+
 - Started clean on main; no leftover work. Baseline 36 tests, services, /healthz, thirteen sources and digest queues healthy.
 - Froze all 47 real stored World candidates for an exact 24h window with saved policy/budget; offline only, never seeded into production.
 - Agent labeled five target events and two lower-priority omissions before evaluation; labels are provisional, not owner judgments or fact checks.
@@ -247,6 +264,7 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - Next: social discovery, reviewed labels across different dates and verified outlet attribution; editorial configuration remains blocked.
 
 ## 2026-11-01: iteration 34 — direct AI announcements and compressed feed repair
+
 - Started clean on main; no leftover work. Baseline 37 tests, services and /healthz healthy.
 - Migration 013 connects OpenAI News and Google DeepMind to the original Tech & AI topic; worker stored 60 real articles each.
 - Repeat DeepMind collection exposed gzip parsed as UTF-8; shared HTTP now decodes gzip/deflate/Brotli with 2 MB compressed/expanded caps and explicit encoding failures.
@@ -261,6 +279,7 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - Next: social discovery, reviewed ranking windows and verified outlet attribution; wider sources alone do not fix selection quality.
 
 ## 2026-11-01: iteration 35 — publisher lead images in saved editions
+
 - Started clean on main; no leftover work. Baseline 39 tests, both services and /healthz healthy.
 - New snapshots retain each selected lead article's existing feed image; media does not change scores, grouping or historical snapshots.
 - Contracts accept missing/null media for older editions; ranking drops non-HTTPS/credentialed URLs and never borrows another cluster article's image.
@@ -276,6 +295,7 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - Next: social discovery, reviewed ranking windows and verified outlet attribution; publisher media does not improve editorial selection.
 
 ## 2026-11-01: iteration 36 — broader current Gaming coverage
+
 - Started clean on main; no leftover work. Baseline 40 tests, services and /healthz healthy.
 - Migration 014 connects PC Gamer and Rock Paper Shotgun to the original Gaming topic through existing shared collection/disconnect controls.
 - `pnpm migrate` passed; `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live passes: 668 URLs, seventeen healthy sources, four topics; new feeds stored 50/60 articles.
@@ -290,6 +310,7 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - Next: social discovery, reviewed ranking windows and verified outlet attribution; editorial configuration remains blocked.
 
 ## 2026-11-01: iteration 37 — keep HN questions out of news slots
+
 - Started clean on main; no leftover work. Baseline 41 tests, both services and /healthz healthy.
 - New signals-v6 editions omit original HN `Ask HN:` question threads with stored `hn-question` reasons; incoming collection remains intact.
 - Show HN launches and publisher reporting remain eligible; scores/budgets/clustering unchanged. Historical method contracts and immutable snapshots remain readable.
@@ -304,6 +325,7 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - Provider/model/billing unchanged; editorial configuration remains blocked. Next: social discovery, reviewed ranking windows and verified outlet attribution.
 
 ## 2026-11-01: iteration 51 — recovered ranking benchmark
+
 - Found uncommitted Tech benchmark, diagnostics, fixtures and source notes from the previous session; deliberately finished and retained them.
 - `pnpm check` passed typecheck, lint, boundaries and all 43 tests; services and `/healthz` healthy.
 - Tech's agent-labeled window finds 0/5 targets; no ranking changes or precision improvement claimed.

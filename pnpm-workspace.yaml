@@ -3,4 +3,4 @@ packages:
   - packages/*
 onlyBuiltDependencies:
   - esbuild
-  - "@nestjs/core"
+  - '@nestjs/core'

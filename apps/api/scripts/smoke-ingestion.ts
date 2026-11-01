@@ -3,29 +3,67 @@ import { Queue, QueueEvents } from 'bullmq';
 import assert from 'node:assert/strict';
 import { PostgresContentRepository } from '../src/modules/ingestion/database/content.repository';
 async function smoke() {
- const connection = { host: '127.0.0.1', port: 6379 };
- const queue = new Queue('ingestion', { connection });
- const events = new QueueEvents('ingestion', { connection });
- const repository = new PostgresContentRepository();
- try {
- await events.waitUntilReady();
- const sources = await repository.sources();
- // Each concurrent waitUntilFinished registers a closing listener on the queue.
- queue.setMaxListeners(Math.max(10, sources.length + 1));
- const run = async () => {
- const jobs = await Promise.all(sources.map(s => queue.add('collect', { sourceId: s.id }, { removeOnComplete: 100, removeOnFail: 100 })));
- await Promise.all(jobs.map(j => j.waitUntilFinished(events, 120000)));
- return (await repository.db.query('SELECT count(*)::int AS n FROM content_items')).rows[0].n;
- };
- const before = await run(); const after = await run();
- assert.equal(after, before, 'Repeated collection must not create duplicate items');
- const status = await repository.db.query('SELECT id,last_success,last_error,last_item_count FROM content_sources WHERE id=ANY($1::text[])',[sources.map(s=>s.id)]);
- assert.ok(status.rows.every(s => s.last_success && !s.last_error && s.last_item_count > 0));
- const topics = await repository.db.query('SELECT DISTINCT t.id FROM topics t JOIN topic_source_connections c ON c.topic_id=t.id JOIN content_observations o ON o.source_id=c.source_id WHERE t.enabled');
- const expected = await repository.db.query('SELECT count(*)::int AS n FROM topics t WHERE t.enabled AND EXISTS(SELECT 1 FROM topic_source_connections c WHERE c.topic_id=t.id)');
- assert.ok(sources.length > 0);
- assert.equal(topics.rowCount, expected.rows[0].n);
- console.log(JSON.stringify({ storedItems: after, topics: topics.rowCount, sources: status.rows }));
- } finally { await events.close(); await queue.close(); await repository.onModuleDestroy(); }
+  const connection = { host: '127.0.0.1', port: 6379 };
+  const queue = new Queue('ingestion', { connection });
+  const events = new QueueEvents('ingestion', { connection });
+  const repository = new PostgresContentRepository();
+  try {
+    await events.waitUntilReady();
+    const sources = await repository.sources();
+    // Each concurrent waitUntilFinished registers a closing listener on the queue.
+    queue.setMaxListeners(Math.max(10, sources.length + 1));
+    const run = async () => {
+      const jobs = await Promise.all(
+        sources.map((s) =>
+          queue.add(
+            'collect',
+            { sourceId: s.id },
+            { removeOnComplete: 100, removeOnFail: 100 },
+          ),
+        ),
+      );
+      await Promise.all(jobs.map((j) => j.waitUntilFinished(events, 120000)));
+      return (
+        await repository.db.query(
+          'SELECT count(*)::int AS n FROM content_items',
+        )
+      ).rows[0].n;
+    };
+    const before = await run();
+    const after = await run();
+    assert.equal(
+      after,
+      before,
+      'Repeated collection must not create duplicate items',
+    );
+    const status = await repository.db.query(
+      'SELECT id,last_success,last_error,last_item_count FROM content_sources WHERE id=ANY($1::text[])',
+      [sources.map((s) => s.id)],
+    );
+    assert.ok(
+      status.rows.every(
+        (s) => s.last_success && !s.last_error && s.last_item_count > 0,
+      ),
+    );
+    const topics = await repository.db.query(
+      'SELECT DISTINCT t.id FROM topics t JOIN topic_source_connections c ON c.topic_id=t.id JOIN content_observations o ON o.source_id=c.source_id WHERE t.enabled',
+    );
+    const expected = await repository.db.query(
+      'SELECT count(*)::int AS n FROM topics t WHERE t.enabled AND EXISTS(SELECT 1 FROM topic_source_connections c WHERE c.topic_id=t.id)',
+    );
+    assert.ok(sources.length > 0);
+    assert.equal(topics.rowCount, expected.rows[0].n);
+    console.log(
+      JSON.stringify({
+        storedItems: after,
+        topics: topics.rowCount,
+        sources: status.rows,
+      }),
+    );
+  } finally {
+    await events.close();
+    await queue.close();
+    await repository.onModuleDestroy();
+  }
 }
 void smoke();

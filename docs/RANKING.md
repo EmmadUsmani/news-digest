@@ -2,6 +2,7 @@
 
 `signals-v1` is a preliminary baseline, not an editorial quality claim.
 For each enabled topic/window, examine at most the 200 most recent candidates:
+
 - Recency: 0–10, linearly within the exact half-open coverage window.
 - Coverage: 8 per additional distinct observed source name. These are source
   observations, not a verified count of independent reporting outlets.
@@ -228,7 +229,6 @@ labeled omissions, alongside NBA's existing 40% floor. This second topic on the
 same day widens failure analysis but does not provide temporal diversity or
 independent labels. Next add different dates and reviewed labels; editorial
 importance remains unresolved rather than treating fresh headlines as sufficient.
-
 
 ## Iteration 37: keep HN question threads out of news slots (signals-v6)
 

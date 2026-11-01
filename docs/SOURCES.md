@@ -5,34 +5,34 @@ from the live worker and `/api/content/sources`, not fixture counts. Seventeen s
 supplied 669 distinct URLs across all four topics. Last successful bounded
 verification: 20:38 UTC; two queued passes preserved the same 669-item total.
 
-| Source | Topic | Status | Stored items | Feed / API |
-| --- | --- | --- | ---: | --- |
-| The Verge | Tech & AI | live | 11 | https://www.theverge.com/rss/index.xml (Atom) |
-| Hacker News official API | Tech & AI | live | 26 | https://hacker-news.firebaseio.com/v0/topstories.json plus `/v0/item/{id}.json` |
-| CBS Sports NBA | NBA | live | 36 | https://www.cbssports.com/rss/headlines/nba/ |
-| GamesIndustry.biz | Gaming | live | 60 | https://www.gamesindustry.biz/feed |
-| BBC World | World news & politics | live | 31 | https://feeds.bbci.co.uk/news/world/rss.xml |
-| NPR World | World news & politics | live | 10 | https://feeds.npr.org/1004/rss.xml |
-| The Guardian World | World news & politics | live | 45 | https://www.theguardian.com/world/rss |
-| Ars Technica | Tech & AI | live | 20 | https://arstechnica.com/feed/ |
-| ESPN NBA RSS | NBA | blocked | 0 | HTTP 202 with empty body; chose CBS without bypass attempts |
-| Yahoo Sports NBA | NBA | live | 52 | https://sports.yahoo.com/nba/rss/ |
-| Eurogamer | Gaming | live | 60 | https://www.eurogamer.net/feed |
-| PC Gamer | Gaming | live | 50 | https://www.pcgamer.com/rss/ |
-| Rock Paper Shotgun | Gaming | live | 60 | https://www.rockpapershotgun.com/feed |
-| PlayStation Blog | Gaming | live | 10 | https://blog.playstation.com/feed/ (first-party announcements/promotions) |
-| Xbox Wire | Gaming | live | 10 | https://news.xbox.com/en-us/feed/ (first-party announcements/promotions) |
-| NBA.com news RSS | NBA | blocked | 0 | HTTP 403 at `/news/rss.xml`; no bypass attempted |
-| GameSpot mashup RSS | Gaming | blocked | 0 | HTTP 403 at `/feeds/mashup/`; no bypass attempted |
-| IGN articles XML | Gaming | rejected | 0 | `/articles?format=xml` returned malformed XML; not scheduled |
-| Google News RSS: artificial intelligence | Tech & AI | live | 68 | https://news.google.com/rss/search?q=artificial+intelligence&hl=en-US&gl=US&ceid=US%3Aen |
-| OpenAI News | Tech & AI | live | 60 | https://openai.com/news/rss.xml (first-party announcements) |
-| Google DeepMind | Tech & AI | live | 60 | https://deepmind.google/blog/rss.xml (first-party research/announcements) |
-| xAI x_search via configured gateway | all | not yet tried | 0 | Review documented gateway routing before use |
-| X official oEmbed | all | not yet tried | 0 | Render discovered post URLs |
-| X official API | all | needs key | 0 | Owner token and hard read cap required |
-| Reddit NBA RSS | NBA | blocked | 0 | https://www.reddit.com/r/nba/.rss returned HTTP 403 (iteration 31); no bypass attempted; JSON/other communities untested |
-| Bluesky public API | all | not yet tried | 0 | Check topical relevance |
+| Source                                   | Topic                 | Status        | Stored items | Feed / API                                                                                                               |
+| ---------------------------------------- | --------------------- | ------------- | -----------: | ------------------------------------------------------------------------------------------------------------------------ |
+| The Verge                                | Tech & AI             | live          |           11 | https://www.theverge.com/rss/index.xml (Atom)                                                                            |
+| Hacker News official API                 | Tech & AI             | live          |           26 | https://hacker-news.firebaseio.com/v0/topstories.json plus `/v0/item/{id}.json`                                          |
+| CBS Sports NBA                           | NBA                   | live          |           36 | https://www.cbssports.com/rss/headlines/nba/                                                                             |
+| GamesIndustry.biz                        | Gaming                | live          |           60 | https://www.gamesindustry.biz/feed                                                                                       |
+| BBC World                                | World news & politics | live          |           31 | https://feeds.bbci.co.uk/news/world/rss.xml                                                                              |
+| NPR World                                | World news & politics | live          |           10 | https://feeds.npr.org/1004/rss.xml                                                                                       |
+| The Guardian World                       | World news & politics | live          |           45 | https://www.theguardian.com/world/rss                                                                                    |
+| Ars Technica                             | Tech & AI             | live          |           20 | https://arstechnica.com/feed/                                                                                            |
+| ESPN NBA RSS                             | NBA                   | blocked       |            0 | HTTP 202 with empty body; chose CBS without bypass attempts                                                              |
+| Yahoo Sports NBA                         | NBA                   | live          |           52 | https://sports.yahoo.com/nba/rss/                                                                                        |
+| Eurogamer                                | Gaming                | live          |           60 | https://www.eurogamer.net/feed                                                                                           |
+| PC Gamer                                 | Gaming                | live          |           50 | https://www.pcgamer.com/rss/                                                                                             |
+| Rock Paper Shotgun                       | Gaming                | live          |           60 | https://www.rockpapershotgun.com/feed                                                                                    |
+| PlayStation Blog                         | Gaming                | live          |           10 | https://blog.playstation.com/feed/ (first-party announcements/promotions)                                                |
+| Xbox Wire                                | Gaming                | live          |           10 | https://news.xbox.com/en-us/feed/ (first-party announcements/promotions)                                                 |
+| NBA.com news RSS                         | NBA                   | blocked       |            0 | HTTP 403 at `/news/rss.xml`; no bypass attempted                                                                         |
+| GameSpot mashup RSS                      | Gaming                | blocked       |            0 | HTTP 403 at `/feeds/mashup/`; no bypass attempted                                                                        |
+| IGN articles XML                         | Gaming                | rejected      |            0 | `/articles?format=xml` returned malformed XML; not scheduled                                                             |
+| Google News RSS: artificial intelligence | Tech & AI             | live          |           68 | https://news.google.com/rss/search?q=artificial+intelligence&hl=en-US&gl=US&ceid=US%3Aen                                 |
+| OpenAI News                              | Tech & AI             | live          |           60 | https://openai.com/news/rss.xml (first-party announcements)                                                              |
+| Google DeepMind                          | Tech & AI             | live          |           60 | https://deepmind.google/blog/rss.xml (first-party research/announcements)                                                |
+| xAI x_search via configured gateway      | all                   | not yet tried |            0 | Review documented gateway routing before use                                                                             |
+| X official oEmbed                        | all                   | not yet tried |            0 | Render discovered post URLs                                                                                              |
+| X official API                           | all                   | needs key     |            0 | Owner token and hard read cap required                                                                                   |
+| Reddit NBA RSS                           | NBA                   | blocked       |            0 | https://www.reddit.com/r/nba/.rss returned HTTP 403 (iteration 31); no bypass attempted; JSON/other communities untested |
+| Bluesky public API                       | all                   | not yet tried |            0 | Check topical relevance                                                                                                  |
 
 Ingestion runs immediately on first scheduling and every 30 minutes thereafter.
 Each run fetches at most 60 entries/feed and the first 20 HN stories; deleted,
@@ -233,14 +233,12 @@ and quality rules still apply; ranking, budgets and provider/model/billing stay
 unchanged. No article pages were crawled. Recorded two-item fixtures omit long
 full-content fields, remain offline and never enter production ingestion.
 
-
 Iteration 37: two explicit queued passes again retained 668 real URLs from
 seventeen healthy sources. Original HN `Ask HN:` question threads remain stored
 and visible as incoming content, but new signals-v6 news editions omit them with
 an auditable reason. This changes selection only; HN collection and engagement
 storage are unchanged. Show HN launches and publisher reporting remain eligible.
 No new external source, article crawling or provider/model/billing change.
-
 
 Iteration 38: two queued live passes retained 669 real URLs across seventeen
 healthy sources and all four topics. The Tech ranking fixture freezes the 54

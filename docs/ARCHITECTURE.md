@@ -101,8 +101,7 @@ become 17 elapsed hours), custom validation and saved-edition reloads.
 Iteration 17 adds complete validated PUT `/api/topics/:id` settings for the
 seeded profile through TopicRepository. Editable fields are name, description,
 enabled, story/post budgets, include/exclude guidance and explicit phrase rules.
-Unknown fields are rejected; IDs are UUID-validated and missing topics return
-404. Source wiring, position, profile and discovery configuration cannot be
+Unknown fields are rejected; IDs are UUID-validated and missing topics return 404. Source wiring, position, profile and discovery configuration cannot be
 changed by this endpoint. Disabled topics are omitted from incoming cards and future editions. Since
 iteration 21, collection continues only if an enabled topic connects that source. Existing snapshots are unchanged. Descriptive
 guidance is stored, while current ranking uses explicit phrase policies only.
@@ -140,7 +139,6 @@ complete topic POST/PUT requests still supply explicit per-topic budgets.
 Existing topics and immutable snapshots do not change. The schedule note now
 shows actual saved coverage instead of hard-coded 24 hours. Automatic generation
 is explicitly not connected yet; the worker still schedules ingestion only.
-
 
 Iteration 23 connects the default profile schedule to a dedicated BullMQ
 `digest-generation` queue in the existing worker. A 10-second refresh upserts a

@@ -25,6 +25,7 @@ tail -f ~/agent-control/logs/supervisor.log
 ## Never-give-up retry behavior
 
 Defaults:
+
 - Runs continuously (`RUN_HOURS=0`), with a 75-minute timeout per iteration.
 - **Retries every 5 minutes** after crashes, timeouts, unknown errors, or
   iterations that made no commits.
@@ -94,6 +95,7 @@ python3 ops/agent-control/verify_service.py
 
 The tests use temporary directories and fake Codex, Git and services; they need
 no model usage. They cover:
+
 - the real Unicode quota message with no error code
 - four consecutive failures, then recovery
 - unknown crashes, timeouts, authentication failures and no-commit turns

@@ -49,7 +49,7 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Recorded Tech & AI window plus per-article phrase/quality/selection diagnostics (iteration 38); five-slot target recall 0/5, exposing lexical false negatives and ranking misses without fitting scores.
   - Next: independently reviewed labels, different dates and Gaming; these agent-labeled windows are not general quality estimates.
 - [ ] M6 configuration UI: topics CRUD/reorder/enable, schedule and budgets,
-  on-demand digest for any window.
+      on-demand digest for any window.
   - [x] Paginated immutable edition history and direct edition URLs (iteration 15).
   - [x] On-demand 6h/24h/7d and custom-window UI with validation and timezone labels (iteration 16).
   - [x] Edit existing topic names/descriptions, guidance, phrase rules, enable state and budgets through UI/API (iteration 17).
@@ -63,12 +63,12 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Connect Google News RSS queries through validated UI/API with shared feed collection, replacement/disconnect and explicit Google links (iteration 28).
   - Next: social account configuration; automatic generation and run/status visibility are connected under M7.
 - [ ] M7 scheduled operation: the cadence scheduler generates digests
-  automatically, plus the status page (sources, queues, runs, LLM usage).
+      automatically, plus the status page (sources, queues, runs, LLM usage).
   - [x] Saved daily cadence/timezone drives automatic preliminary editions, exact slot windows, bounded retries and idempotent persistence (iteration 23).
   - [x] Source/run status panel and API: source freshness/errors/counts, queue availability/workers/pause/counts, next edition, retained run states and edition links (iteration 24).
   - [x] Bounded missed-run policy: retained slots up to six hours late keep original windows; older slots skip visibly, without daily backfill; settings/status explain custom-window recovery (iteration 26).
   - Next: bounded LLM usage/cap reporting once editorial integration is configured; durable recovery beyond retained Redis jobs.
-  `DigestPublished` event plus notification port with a log/in-app adapter.
+    `DigestPublished` event plus notification port with a log/in-app adapter.
 - [ ] Ongoing:
   - [x] Wider NBA/Gaming publisher coverage: Yahoo NBA + Eurogamer (iteration 12), 110 additional stored URLs.
   - [x] Wider world coverage: NPR World + The Guardian World (iteration 29), 55 additional stored publisher articles.
