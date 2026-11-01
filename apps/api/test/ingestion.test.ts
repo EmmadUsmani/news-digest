@@ -48,6 +48,22 @@ test('recorded platform feeds preserve first-party links, dates and author attri
  assert.doesNotMatch(xbox[1].excerpt, /<\/?(?:p|a)\b|&#\d+;/);
  assert.ok([...playstation, ...xbox].every(item => item.excerpt.length <= 1500));
 });
+test('recorded PC gaming feeds retain publisher bylines, excerpts and lead media', async () => {
+ const pcgamer = parseFeed(await fixture('pcgamer.xml'));
+ const rps = parseFeed(await fixture('rps.xml'));
+ assert.equal(pcgamer.length, 2);
+ assert.equal(rps.length, 2);
+ assert.ok(pcgamer.every(item => new URL(item.url).hostname === 'www.pcgamer.com'));
+ assert.ok(rps.every(item => new URL(item.url).hostname === 'www.rockpapershotgun.com'));
+ assert.equal(pcgamer[0].author, 'Justin Wagner');
+ assert.equal(pcgamer[0].publishedAt, '2026-11-01T18:41:29.000Z');
+ assert.equal(pcgamer[0].excerpt, 'Melvor Idle 2 has gained a subtitle: A RuneScape Adventure.');
+ assert.equal(rps[0].author, 'Oisin Kuhnke');
+ assert.equal(rps[0].publishedAt, '2026-11-01T19:08:44.000Z');
+ assert.match(rps[1].excerpt, /February 23rd, 2027/);
+ assert.ok([...pcgamer, ...rps].every(item => item.imageUrl?.startsWith('https://') && item.excerpt.length <= 1500));
+ assert.doesNotMatch(rps[0].excerpt, /<\/?(?:p|a)\b/);
+});
 test('Hacker News fixture preserves engagement and excludes deleted items', async () => {
  const records = JSON.parse(await fixture('hn.json'));
  records[0].text = 'It&#x27;s &amp; more <p>text</p>';

@@ -1,9 +1,9 @@
 # Content source inventory
 
-Checked 2026-11-01, iteration 35. Counts below are actual stored observations
-from the live worker and `/api/content/sources`, not fixture counts. Fifteen sources
-supplied 558 distinct URLs across all four topics. Last successful bounded
-verification: 20:29 UTC; two queued passes preserved the same 558-item total.
+Checked 2026-11-01, iteration 36. Counts below are actual stored observations
+from the live worker and `/api/content/sources`, not fixture counts. Seventeen sources
+supplied 668 distinct URLs across all four topics. Last successful bounded
+verification: 20:32 UTC; two queued passes preserved the same 668-item total.
 
 | Source | Topic | Status | Stored items | Feed / API |
 | --- | --- | --- | ---: | --- |
@@ -18,6 +18,8 @@ verification: 20:29 UTC; two queued passes preserved the same 558-item total.
 | ESPN NBA RSS | NBA | blocked | 0 | HTTP 202 with empty body; chose CBS without bypass attempts |
 | Yahoo Sports NBA | NBA | live | 52 | https://sports.yahoo.com/nba/rss/ |
 | Eurogamer | Gaming | live | 60 | https://www.eurogamer.net/feed |
+| PC Gamer | Gaming | live | 50 | https://www.pcgamer.com/rss/ |
+| Rock Paper Shotgun | Gaming | live | 60 | https://www.rockpapershotgun.com/feed |
 | PlayStation Blog | Gaming | live | 10 | https://blog.playstation.com/feed/ (first-party announcements/promotions) |
 | Xbox Wire | Gaming | live | 10 | https://news.xbox.com/en-us/feed/ (first-party announcements/promotions) |
 | NBA.com news RSS | NBA | blocked | 0 | HTTP 403 at `/news/rss.xml`; no bypass attempted |
@@ -217,3 +219,16 @@ editions are not backfilled. Images are illustrative publisher media, without
 verified captions, and use empty alt text beside the article headline.
 Two explicit live collection passes retained 558 real URLs from fifteen healthy
 sources; no new source, provider/model/billing change or article crawling.
+
+Iteration 36: migration 014 connects PC Gamer and Rock Paper Shotgun to the
+original Gaming topic if present. The existing worker stored 50 and 60 real
+articles respectively; two queued passes retained 668 URLs across seventeen
+healthy sources and all four topics. Today's Gaming window now has 22 candidates
+and five selections (previously five candidates and three selections), including
+both new outlets. This demonstrates coverage, not improved editorial precision.
+PC Gamer includes hardware, deals and opinion; Rock Paper Shotgun includes guides
+and shares the IGN Entertainment publisher group with Eurogamer. Neither source
+labels nor different domains establish independent reporting. Existing phrase
+and quality rules still apply; ranking, budgets and provider/model/billing stay
+unchanged. No article pages were crawled. Recorded two-item fixtures omit long
+full-content fields, remain offline and never enter production ingestion.

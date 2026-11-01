@@ -274,3 +274,17 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - `pnpm exec tsx apps/api/scripts/smoke-scheduled-digests.ts` observed actual 20:30 UTC generation, exact 6h window and completed run; original schedule restored.
 - Final lint/diff checks passed; API/worker rebuilt/restarted and /healthz healthy. Provider/model/billing unchanged; editorial configuration remains blocked.
 - Next: social discovery, reviewed ranking windows and verified outlet attribution; publisher media does not improve editorial selection.
+
+## 2026-11-01: iteration 36 — broader current Gaming coverage
+- Started clean on main; no leftover work. Baseline 40 tests, services and /healthz healthy.
+- Migration 014 connects PC Gamer and Rock Paper Shotgun to the original Gaming topic through existing shared collection/disconnect controls.
+- `pnpm migrate` passed; `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live passes: 668 URLs, seventeen healthy sources, four topics; new feeds stored 50/60 articles.
+- Gaming's checked 24h edition now has 22 candidates / five selections, including both new outlets, versus five / three; broader coverage is not an editorial precision claim.
+- RPS shares IGN Entertainment with Eurogamer; no independence bonus, ranking/budget or provider/model/billing changes. No article-page crawling.
+- Recorded two-item fixtures omit full-content fields and stay offline; regression verifies dates, bylines, publisher links, excerpts and lead media.
+- `pnpm check` passed types/lint/boundaries and all 41 tests; `pnpm build` passed with existing upstream Zod annotation warnings.
+- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed immutable/history/window checks; selections now 5/5/5/5.
+- `pnpm exec tsx scripts/smoke-ui.ts` passed desktop/mobile checks twice; `scripts/smoke-status.ts` passed real telemetry/failure rendering. Screenshots updated and mobile inspected.
+- `pnpm exec tsx apps/api/scripts/smoke-scheduled-digests.ts` observed actual 20:33 UTC generation, exact 6h window and completed run; original schedule restored.
+- `pnpm evaluate:ranking` unchanged (NBA 2/5, World 1/5); final `pnpm lint` and `git diff --check` passed. Rebuilt/restarted services and /healthz healthy.
+- Next: social discovery, reviewed ranking windows and verified outlet attribution; editorial configuration remains blocked.
