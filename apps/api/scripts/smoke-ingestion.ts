@@ -10,6 +10,8 @@ async function smoke() {
  try {
  await events.waitUntilReady();
  const sources = await repository.sources();
+ // Each concurrent waitUntilFinished registers a closing listener on the queue.
+ queue.setMaxListeners(Math.max(10, sources.length + 1));
  const run = async () => {
  const jobs = await Promise.all(sources.map(s => queue.add('collect', { sourceId: s.id }, { removeOnComplete: 100, removeOnFail: 100 })));
  await Promise.all(jobs.map(j => j.waitUntilFinished(events, 120000)));

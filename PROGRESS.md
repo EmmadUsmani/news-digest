@@ -324,3 +324,16 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 - `pnpm exec tsx apps/api/scripts/smoke-scheduled-digests.ts` observed actual 20:06 UTC generation, exact 6h window, real candidates and completed job; original schedule restored.
 - `pnpm lint` and `git diff --check` passed; API/worker rebuilt/restarted and /healthz healthy. No provider/model/billing changes; editorial configuration remains blocked.
 - Next: social account discovery/configuration; semantic ranking and durable queue recovery remain unfinished.
+
+## 2026-11-01: iteration 29 — wider live world reporting
+- Started clean on main; no leftover work. Baseline 32 tests, services, /healthz, nine sources and digest queues healthy.
+- Prioritized real coverage while editorial configuration remains blocked: migration 011 connects NPR World and The Guardian World to the original world topic if present.
+- Existing shared RSS adapter, safe HTTP, worker schedule and disconnect controls apply; no article-page crawling or provider/model/billing changes.
+- Worker stored 10 NPR + 45 Guardian articles; two queued passes retained 411 real URLs from eleven healthy sources across four topics.
+- Recorded two-item publisher fixtures cover links, bylines, timestamps, media and plain excerpts offline; never seeded into production.
+- `pnpm migrate`, `pnpm check` (33 tests/types/lint/boundaries), `pnpm build`, `pnpm lint` and `git diff --check` passed; existing upstream Zod warnings only.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed; eleven simultaneous waits exposed a smoke-only listener warning, adjusted limit to source count and reran without warnings.
+- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed immutable/history/window checks; selections 5/5/3/5, world candidates 47; new editions include Guardian coverage.
+- `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile checks; screenshots updated and mobile inspected.
+- `pnpm exec tsx apps/api/scripts/smoke-scheduled-digests.ts` observed actual 20:09 UTC automatic generation, exact 6h window, real candidates and completed job; original schedule restored.
+- API/worker rebuilt/restarted and /healthz healthy. Next: social discovery/configuration; semantic ranking, editorial integration and durable queue recovery remain unfinished.

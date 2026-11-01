@@ -8,7 +8,7 @@ import { PostgresContentRepository } from '../src/modules/ingestion/database/con
 import { ingest } from '../src/modules/ingestion/ingest';
 const fixture = (name: string) => readFile(`apps/api/test/fixtures/${name}`, 'utf8');
 test('recorded RSS and Atom normalize real headlines, dates and safe links', async () => {
- for (const name of ['rss.xml', 'atom.xml', 'yahoo-nba.xml', 'eurogamer.xml']) {
+ for (const name of ['rss.xml', 'atom.xml', 'yahoo-nba.xml', 'eurogamer.xml', 'npr-world.xml', 'guardian-world.xml']) {
  const items = parseFeed(await fixture(name));
  assert.equal(items.length, 2); assert.ok(items.every(i => i.title && i.url.startsWith('https://') && Date.parse(i.publishedAt)));
  }
@@ -20,6 +20,19 @@ test('recorded RSS and Atom normalize real headlines, dates and safe links', asy
  assert.equal(parseFeed('<rss><channel><item><title>No date</title><link>https://example.org</link></item></channel></rss>').length, 0);
  assert.equal(canonicalUrl('https://example.org/a?utm_source=x&b=2#top'), 'https://example.org/a?b=2');
  assert.equal(canonicalUrl('javascript:alert(1)'), null);
+});
+test('recorded world feeds retain publisher links, bylines and plain excerpts', async () => {
+ const npr = parseFeed(await fixture('npr-world.xml'));
+ assert.equal(npr[0].author, 'Ayesha Rascoe');
+ assert.equal(npr[0].publishedAt, '2026-11-01T13:15:28.000Z');
+ assert.ok(npr.every(item => new URL(item.url).hostname === 'www.npr.org'));
+ assert.match(npr[1].excerpt, /ministers' meeting/);
+ const guardian = parseFeed(await fixture('guardian-world.xml'));
+ assert.ok(guardian.every(item => new URL(item.url).hostname === 'www.theguardian.com'));
+ assert.match(guardian[0].title, /illegal gold mining/);
+ assert.ok(guardian[0].author);
+ assert.doesNotMatch(guardian[0].excerpt, /<\/?(?:p|a|em)\b/);
+ assert.ok(guardian[0].imageUrl?.startsWith('https://'));
 });
 test('Hacker News fixture preserves engagement and excludes deleted items', async () => {
  const records = JSON.parse(await fixture('hn.json'));

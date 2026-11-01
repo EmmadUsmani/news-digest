@@ -66,6 +66,7 @@ Fix regressions, broken services and stalled sources before starting new work.
   `DigestPublished` event plus notification port with a log/in-app adapter.
 - [ ] Ongoing:
   - [x] Wider NBA/Gaming publisher coverage: Yahoo NBA + Eurogamer (iteration 12), 110 additional stored URLs.
+  - [x] Wider world coverage: NPR World + The Guardian World (iteration 29), 55 additional stored publisher articles.
   - widen sources per topic (Reddit, Bluesky, more publishers)
   - precision tuning
   - UI polish

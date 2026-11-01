@@ -1,17 +1,19 @@
 # Content source inventory
 
-Checked 2026-11-01, iteration 28. Counts below are actual stored observations
-from the live worker and `/api/content/sources`, not fixture counts. Nine sources
-supplied 354 distinct URLs across all four topics. Last successful bounded
-verification: 20:04 UTC; two queued passes preserved the same 354-item total.
+Checked 2026-11-01, iteration 29. Counts below are actual stored observations
+from the live worker and `/api/content/sources`, not fixture counts. Eleven sources
+supplied 411 distinct URLs across all four topics. Last successful bounded
+verification: 20:08 UTC; two queued passes preserved the same 411-item total.
 
 | Source | Topic | Status | Stored items | Feed / API |
 | --- | --- | --- | ---: | --- |
 | The Verge | Tech & AI | live | 11 | https://www.theverge.com/rss/index.xml (Atom) |
-| Hacker News official API | Tech & AI | live | 24 | https://hacker-news.firebaseio.com/v0/topstories.json plus `/v0/item/{id}.json` |
+| Hacker News official API | Tech & AI | live | 25 | https://hacker-news.firebaseio.com/v0/topstories.json plus `/v0/item/{id}.json` |
 | CBS Sports NBA | NBA | live | 36 | https://www.cbssports.com/rss/headlines/nba/ |
 | GamesIndustry.biz | Gaming | live | 60 | https://www.gamesindustry.biz/feed |
 | BBC World | World news & politics | live | 31 | https://feeds.bbci.co.uk/news/world/rss.xml |
+| NPR World | World news & politics | live | 10 | https://feeds.npr.org/1004/rss.xml |
+| The Guardian World | World news & politics | live | 45 | https://www.theguardian.com/world/rss |
 | Ars Technica | Tech & AI | live | 20 | https://arstechnica.com/feed/ |
 | ESPN NBA RSS | NBA | blocked | 0 | HTTP 202 with empty body; chose CBS without bypass attempts |
 | Yahoo Sports NBA | NBA | live | 52 | https://sports.yahoo.com/nba/rss/ |
@@ -19,7 +21,7 @@ verification: 20:04 UTC; two queued passes preserved the same 354-item total.
 | NBA.com news RSS | NBA | blocked | 0 | HTTP 403 at `/news/rss.xml`; no bypass attempted |
 | GameSpot mashup RSS | Gaming | blocked | 0 | HTTP 403 at `/feeds/mashup/`; no bypass attempted |
 | IGN articles XML | Gaming | rejected | 0 | `/articles?format=xml` returned malformed XML; not scheduled |
-| Google News RSS: artificial intelligence | Tech & AI | live | 60 | https://news.google.com/rss/search?q=artificial+intelligence&hl=en-US&gl=US&ceid=US%3Aen |
+| Google News RSS: artificial intelligence | Tech & AI | live | 61 | https://news.google.com/rss/search?q=artificial+intelligence&hl=en-US&gl=US&ceid=US%3Aen |
 | xAI x_search via configured gateway | all | not yet tried | 0 | Review documented gateway routing before use |
 | X official oEmbed | all | not yet tried | 0 | Render discovered post URLs |
 | X official API | all | needs key | 0 | Owner token and hard read cap required |
@@ -38,8 +40,9 @@ Incoming articles are **not curated digests**. Publisher dates are preserved;
 quiet weekend feeds may be several days old. CBS includes betting promotions:
 these remain broad-ingestion candidates, but `/betting/` links are omitted from
 the incoming view. HN includes general technical stories; topical relevance,
-spam penalties and final editorial selection are still M3/M5. Gaming and world
-coverage need more independent outlets before robust clustering is possible.
+spam penalties and final editorial selection are still M3/M5. Gaming coverage
+needs more independent outlets; world coverage now includes BBC, NPR and The
+Guardian. Source labels still do not verify independence.
 
 Offline fixtures record two entries each from CBS RSS, Verge Atom and the HN
 API on 2026-11-01. They are never seeded into production content. A first live
@@ -147,3 +150,14 @@ explicit queued passes stored 354 real URLs from nine healthy sources across
 four topics. A two-item recorded Google RSS fixture is only for offline parser
 tests and is never seeded. Social account discovery remains unfinished. No
 provider/model/billing configuration changed.
+
+Iteration 29: migration 011 connects NPR World and The Guardian World to the
+original world topic (if it still exists), using the existing shared feed adapter,
+collection limits, public-network checks and disconnect controls. The real worker
+stored 10 NPR and 45 Guardian articles. Two live queued passes retained 411 URLs
+from eleven healthy sources; new preliminary editions include Guardian coverage.
+No article pages are fetched. Guardian RSS contains longer descriptions, but
+normalization stores only the existing bounded plain-text excerpt; this remains
+preliminary selection, without editorial summaries or verified independence.
+Two-item recorded fixtures verify each publisher offline and are never seeded.
+No social/LLM/provider/model/billing configuration changed.
