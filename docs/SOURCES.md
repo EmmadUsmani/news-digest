@@ -1,9 +1,9 @@
 # Content source inventory
 
-Checked 2026-11-01, iteration 11. Counts below are actual stored observations
-from the live worker and `/api/content/sources`, not fixture counts. Five sources
-supplied 156 distinct URLs across all four topics. Last successful bounded
-verification: 19:09 UTC; two queued passes preserved the same 156-item total.
+Checked 2026-11-01, iteration 12. Counts below are actual stored observations
+from the live worker and `/api/content/sources`, not fixture counts. Seven sources
+supplied 266 distinct URLs across all four topics. Last successful bounded
+verification: 19:11 UTC; two queued passes preserved the same 266-item total.
 
 | Source | Topic | Status | Stored items | Feed / API |
 | --- | --- | --- | ---: | --- |
@@ -13,7 +13,11 @@ verification: 19:09 UTC; two queued passes preserved the same 156-item total.
 | GamesIndustry.biz | Gaming | live | 60 | https://www.gamesindustry.biz/feed |
 | BBC World | World news & politics | live | 30 | https://feeds.bbci.co.uk/news/world/rss.xml |
 | ESPN NBA RSS | NBA | blocked | 0 | HTTP 202 with empty body; chose CBS without bypass attempts |
-| Yahoo NBA RSS | NBA | not yet tried | 0 | Probe returned XML; no adapter run/storage yet |
+| Yahoo Sports NBA | NBA | live | 50 | https://sports.yahoo.com/nba/rss/ |
+| Eurogamer | Gaming | live | 60 | https://www.eurogamer.net/feed |
+| NBA.com news RSS | NBA | blocked | 0 | HTTP 403 at `/news/rss.xml`; no bypass attempted |
+| GameSpot mashup RSS | Gaming | blocked | 0 | HTTP 403 at `/feeds/mashup/`; no bypass attempted |
+| IGN articles XML | Gaming | rejected | 0 | `/articles?format=xml` returned malformed XML; not scheduled |
 | Google News RSS | all | not yet tried | 0 | Widen after first digest |
 | xAI x_search via configured gateway | all | not yet tried | 0 | Review documented gateway routing before use |
 | X official oEmbed | all | not yet tried | 0 | Render discovered post URLs |
@@ -55,3 +59,13 @@ lexical screen, not an LLM editorial pass. In the checked 24-hour window it
 rejected 16/24 Tech candidates; NBA had one betting candidate excluded by the
 existing low-value filter, Gaming none. No new external source or LLM calls
 were added by edition generation.
+
+Iteration 12: migration 006 adds Yahoo NBA and Eurogamer to persisted topic
+source configuration and the existing 30-minute worker scheduler. Live queued
+collection stored 50/60 articles respectively; repeat collection added no
+duplicates. Two-item recorded fixtures cover each feed offline (never seeded).
+The checked last-24-hour edition has NBA 51 candidates / 5 selected and Gaming
+5 candidates / 3 selected, versus previously quiet sections. Yahoo includes
+syndicated coverage, fantasy and previews; phrase rules rejected five NBA
+candidates but do not establish newsworthiness. Editorial review and grouping
+syndicated outlets remain necessary. No article-page scraping or LLM calls.

@@ -1,4 +1,4 @@
-// Explicit live check: at most 4 feed GETs + HN list and 20 stories per pass.
+// Explicit live check: one GET/feed + HN list and 20 stories per pass.
 import { Queue, QueueEvents } from 'bullmq';
 import assert from 'node:assert/strict';
 import { PostgresContentRepository } from '../src/modules/ingestion/database/content.repository';

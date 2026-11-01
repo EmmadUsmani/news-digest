@@ -8,7 +8,7 @@ import { PostgresContentRepository } from '../src/modules/ingestion/database/con
 import { ingest } from '../src/modules/ingestion/ingest';
 const fixture = (name: string) => readFile(`apps/api/test/fixtures/${name}`, 'utf8');
 test('recorded RSS and Atom normalize real headlines, dates and safe links', async () => {
- for (const name of ['rss.xml', 'atom.xml']) {
+ for (const name of ['rss.xml', 'atom.xml', 'yahoo-nba.xml', 'eurogamer.xml']) {
  const items = parseFeed(await fixture(name));
  assert.equal(items.length, 2); assert.ok(items.every(i => i.title && i.url.startsWith('https://') && Date.parse(i.publishedAt)));
  }

@@ -85,3 +85,19 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 - `pnpm exec tsx scripts/smoke-ui.ts` passed desktop/mobile/reload/expanded reasons; screenshots updated, mobile inspected.
 - Restarted API/worker; health/topics endpoints healthy. No LLM calls or provider/model changes; no blockers.
 - Next: capped/cached LlmPort editorial review using configured model/provider; broader NBA/Gaming sources.
+
+## 2026-11-01: iteration 12 — recent NBA and Gaming coverage
+- Started clean on main; no leftover work; baseline checks, services, health and existing sources healthy.
+- Added migration 006: Yahoo Sports NBA and Eurogamer feeds, topic source configuration and existing worker scheduling.
+- Stored 110 additional real URLs: Yahoo 50, Eurogamer 60; seven healthy sources now supply 266 items.
+- Last-24-hour edition now selects NBA 5/51 candidates and Gaming 3/5; all four topics populated.
+- Still preliminary: NBA schedule/preview filler demonstrates the remaining editorial-quality gap; documented in RANKING.
+- Added two-entry recorded fixtures per publisher; no fixture data seeded or presented as live.
+- NBA.com/GameSpot returned 403; IGN returned malformed XML; recorded results without bypass attempts.
+- `pnpm migrate` applied 006; repeat clean; `pnpm check` passed types/lint/boundaries and all 14 tests.
+- `pnpm build` passed (existing upstream Zod warnings); `git diff --check` passed.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued passes: 266 items, no duplicates/errors.
+- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed immutable versions/window/relevance checks.
+- `pnpm exec tsx scripts/smoke-ui.ts` passed desktop/mobile/reload with updated screenshots; mobile inspected.
+- API/worker restarted; `/healthz` healthy. No LLM calls/provider/model changes or blockers.
+- Next: bounded cached LlmPort editorial pass; distinguish syndicated coverage when clustering.

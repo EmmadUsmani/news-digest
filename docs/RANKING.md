@@ -58,3 +58,10 @@ off-topic/promotional examples. They are an initial regression set, not live
 articles, a representative precision estimate, or the required historical
 top-story benchmark. LLM review, event clustering and historical evaluation
 remain unfinished.
+
+Iteration 12 coverage observation: Yahoo NBA and Eurogamer fill the previously
+quiet 24-hour NBA/Gaming sections (5/3 selected). NBA still includes a monthly
+schedule and matchup preview; lexical eligibility plus recency does not equal
+editorial importance. Prioritize the bounded editorial pass before calling
+these snapshots curated digests. Syndicated Yahoo articles also require
+independence-aware clustering before source breadth becomes a strong signal.

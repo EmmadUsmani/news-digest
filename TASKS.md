@@ -47,6 +47,7 @@ Fix regressions, broken services and stalled sources before starting new work.
   automatically, plus the status page (sources, queues, runs, LLM usage).
   `DigestPublished` event plus notification port with a log/in-app adapter.
 - [ ] Ongoing:
+  - [x] Wider NBA/Gaming publisher coverage: Yahoo NBA + Eurogamer (iteration 12), 110 additional stored URLs.
   - widen sources per topic (Reddit, Bluesky, more publishers)
   - precision tuning
   - UI polish
