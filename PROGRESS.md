@@ -69,3 +69,19 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 - `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 156 items, four topics, five healthy sources.
 - `pnpm exec tsx scripts/smoke-ui.ts` passed desktop/mobile creation/reload, no browser errors/overflow; screenshots updated/inspected.
 - API/worker restarted and health healthy; no LLM/provider changes or blockers. Next: capped LlmPort editorial pass.
+
+## 2026-11-01: iteration 11 — topic relevance before ranking
+- Started clean on main; no leftover work; baseline checks, health and both services passed.
+- Added seeded, data-driven include/exclude phrase policies and read-only topic API fields.
+- New signals-v2 editions store policy copies, rejection counts and selected-story matching reasons.
+- UI shows filtering counts; old immutable signals-v1 editions remain readable and unchanged.
+- Live Tech window: 24 candidates, 16 phrase rejections, five selected; Patrick Stewart excluded.
+- World: 19 candidates/five selected; NBA betting candidate excluded; Gaming quiet. Still preliminary.
+- Phrase rules are not semantic editorial review; documented limits and 14 synthetic labeled cases.
+- `pnpm migrate` applied 005; repeat clean; `pnpm check` passed types/lint/boundaries and all 14 tests.
+- `pnpm build` passed with existing upstream Zod warnings; `git diff --check` passed.
+- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed versions/preservation/policy/reason checks.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 156 items, four topics, five healthy sources.
+- `pnpm exec tsx scripts/smoke-ui.ts` passed desktop/mobile/reload/expanded reasons; screenshots updated, mobile inspected.
+- Restarted API/worker; health/topics endpoints healthy. No LLM calls or provider/model changes; no blockers.
+- Next: capped/cached LlmPort editorial review using configured model/provider; broader NBA/Gaming sources.

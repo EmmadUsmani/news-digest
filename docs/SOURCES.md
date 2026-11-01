@@ -1,9 +1,9 @@
 # Content source inventory
 
-Checked 2026-11-01, iteration 9. Counts below are actual stored observations
+Checked 2026-11-01, iteration 11. Counts below are actual stored observations
 from the live worker and `/api/content/sources`, not fixture counts. Five sources
-supplied 155 distinct URLs across all four topics. Last successful bounded
-verification: 19:01 UTC; two queued passes preserved the same 155-item total.
+supplied 156 distinct URLs across all four topics. Last successful bounded
+verification: 19:09 UTC; two queued passes preserved the same 156-item total.
 
 | Source | Topic | Status | Stored items | Feed / API |
 | --- | --- | --- | ---: | --- |
@@ -11,7 +11,7 @@ verification: 19:01 UTC; two queued passes preserved the same 155-item total.
 | Hacker News official API | Tech & AI | live | 20 | https://hacker-news.firebaseio.com/v0/topstories.json plus `/v0/item/{id}.json` |
 | CBS Sports NBA | NBA | live | 36 | https://www.cbssports.com/rss/headlines/nba/ |
 | GamesIndustry.biz | Gaming | live | 60 | https://www.gamesindustry.biz/feed |
-| BBC World | World news & politics | live | 29 | https://feeds.bbci.co.uk/news/world/rss.xml |
+| BBC World | World news & politics | live | 30 | https://feeds.bbci.co.uk/news/world/rss.xml |
 | ESPN NBA RSS | NBA | blocked | 0 | HTTP 202 with empty body; chose CBS without bypass attempts |
 | Yahoo NBA RSS | NBA | not yet tried | 0 | Probe returned XML; no adapter run/storage yet |
 | Google News RSS | all | not yet tried | 0 | Widen after first digest |
@@ -47,3 +47,11 @@ NBA/Gaming empty even while older incoming headlines are present. Latest source
 checks still require nonzero fetched items and successful persistence. HN text
 now decodes HTML entities before storing excerpts; older immutable editions
 retain the text captured when they were generated.
+
+Iteration 11: the five sources still return nonempty data with no recorded
+errors. Ranked editions now apply topic phrase rules to the stored headline and
+first 600 excerpt characters; incoming source coverage is unchanged. This is a
+lexical screen, not an LLM editorial pass. In the checked 24-hour window it
+rejected 16/24 Tech candidates; NBA had one betting candidate excluded by the
+existing low-value filter, Gaming none. No new external source or LLM calls
+were added by edition generation.

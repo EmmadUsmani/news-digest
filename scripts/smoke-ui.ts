@@ -15,6 +15,10 @@ try {
  await page.getByText('Saved edition', { exact: false }).waitFor();
  }
  await page.locator('.digest-topic').first().waitFor();
+ await page.getByText('Topic phrase filtering', { exact: false }).waitFor();
+ assert.equal(await page.locator('.selection-count').filter({hasText:'filtered by topic rules'}).count(),4);
+ await page.locator('.digest-topic details summary').first().click();
+ await page.getByText('Topic phrase:', {exact:false}).first().waitFor();
  assert.equal(await page.locator('.digest-topic').count(), 4);
  assert.ok(await page.locator('.digest-topic ol>li').count() > 0);
  const snapshot = await (await page.request.get('http://localhost:8000/api/digest-previews/latest')).json();

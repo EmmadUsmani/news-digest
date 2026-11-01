@@ -1,6 +1,7 @@
 // Explicit local check using stored real content; no publisher or LLM requests.
 import assert from 'node:assert/strict';
 import { digestPreviewSchema } from '@digest/contracts';
+import { assessRelevance } from '../src/modules/digests/domain/relevance';
 import { database } from '../src/libs/db/connections';
 async function smoke() {
  const endpoint = 'http://localhost:8000/api/digest-previews';
@@ -13,6 +14,15 @@ async function smoke() {
  const second = digestPreviewSchema.parse(await (await post(window)).json());
  assert.notEqual(first.id,second.id);
  assert.equal(first.topics.length,4);
+ assert.equal(first.method,'signals-v2');
+ for (const topic of first.topics) {
+ assert.ok(topic.relevancePolicy);
+ assert.ok(Number.isInteger(topic.relevanceRejectedCount));
+ for (const story of topic.stories) {
+ assert.equal(assessRelevance(story,topic.relevancePolicy).eligible,true);
+ assert.ok(story.reasons.includes(assessRelevance(story,topic.relevancePolicy).reason));
+ }
+ }
  assert.ok(first.topics.flatMap(t=>t.stories).length > 0);
  assert.ok(first.topics.every(t=>t.stories.length <= 5));
  assert.deepEqual(first.topics,second.topics);
@@ -21,7 +31,7 @@ async function smoke() {
  const saved = (await db.query('SELECT snapshot FROM digest_previews WHERE id=$1',[first.id])).rows[0].snapshot;
  assert.deepEqual(saved,first);
  assert.deepEqual(await (await fetch(`${endpoint}/latest`)).json(),second);
- console.log(JSON.stringify({ versions: [first.id,second.id], topics: first.topics.map(t=>({name:t.name,candidates:t.candidateCount,selected:t.stories.length})) }));
+ console.log(JSON.stringify({ versions: [first.id,second.id], topics: first.topics.map(t=>({name:t.name,candidates:t.candidateCount,selected:t.stories.length,relevanceRejected:t.relevanceRejectedCount})) }));
  } finally { await db.end(); }
 }
 void smoke();

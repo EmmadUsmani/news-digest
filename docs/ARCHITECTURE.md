@@ -64,3 +64,10 @@ rejects UPDATE/DELETE. Selection is synchronous and local, with no LLM/API spend
 The home button uses the last 24 hours; arbitrary-window controls, historical
 browsing and scheduled generation remain later work. No summaries, briefs or
 editorial rationale are fabricated. `signals-v1` is explicitly preliminary.
+
+Topic relevance (iteration 11): migration 005 adds data-driven phrase policies.
+The domain evaluates headline/excerpt evidence without I/O; the preview adapter
+loads policies in the same repeatable-read transaction as candidate content.
+The topic API exposes these settings. Immutable signals-v2 snapshots preserve
+the rules, filtering counts and matching reasons; contracts still accept
+signals-v1 history. No LLM adapter or provider/model change is part of this step.

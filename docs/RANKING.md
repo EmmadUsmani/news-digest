@@ -25,3 +25,36 @@ coverage also needs wider publishers rather than silently expanding the window.
 Offline tests cover window edges, budget zero/limits, exclusions, duplicate
 titles, score order/ties and database snapshot immutability. The explicit local
 smoke check verifies new versions preserve the earlier stored snapshot.
+
+## Iteration 11: topic phrase screening (signals-v2)
+
+New editions first apply each topic's persisted `relevance_policy`. A candidate
+must match at least one `includeAny` phrase when that list is nonempty; any
+`excludeAny` match rejects it. Only the headline and first 600 characters of
+excerpt count. NFKC normalization, lowercase and punctuation-to-space conversion
+give whole-token/phrase matches (AI does not match air). Source names and URLs
+are not evidence of relevance. No stemming or semantic inference is performed.
+
+Defaults are seeded in migration 005, not switches on topic names in ranking
+code. Empty include lists allow broad coverage (World); a new topic's default
+is unrestricted until rules are configured. The read-only topic API exposes the
+policy; editing it through the settings UI remains M6. Free-text include/exclude
+guidance is still reserved for the future editor, not interpreted by this filter.
+
+Snapshots copy the policy, rejected count and selected stories' matching reason.
+Old signals-v1 snapshots are readable and unchanged. Rejection counts cover only
+the phrase screen; later low-value/duplicate/budget filters are separate.
+
+Observed live window on 2026-11-01: Tech 24 candidates, 16 phrase rejections,
+5 selected; World 19 candidates, 0 phrase rejections, 5 selected. The previously
+observed Patrick Stewart general-interest item is no longer selected. The
+Portal leak still qualifies via source-code discussion: lexical matches can
+admit borderline items. Entity-free headlines can also be incorrectly rejected;
+this is not a semantic relevance or importance guarantee.
+
+Fourteen synthetic labeled cases in `relevance.test.ts` all pass against the
+actual seeded policies, covering relevant AI/Linux/NBA/Nintendo stories and
+off-topic/promotional examples. They are an initial regression set, not live
+articles, a representative precision estimate, or the required historical
+top-story benchmark. LLM review, event clustering and historical evaluation
+remain unfinished.
