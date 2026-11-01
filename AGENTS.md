@@ -6,6 +6,7 @@ conflict. Never edit `MISSION.md`, `BOOTSTRAP.md` or anything under
 `~/agent-control/`.
 
 ## Every iteration
+
 1. Read MISSION.md, STEERING.md, TASKS.md, and the tail of PROGRESS.md.
 2. `git status` / `git log -5`; recover or deliberately discard leftover work.
 3. Fix broken things first: build, tests, services, `/healthz`, stalled
@@ -17,6 +18,7 @@ conflict. Never edit `MISSION.md`, `BOOTSTRAP.md` or anything under
    matches `main`.
 
 ## Environment
+
 - exe.dev VM, Ubuntu-based. You have passwordless sudo. Project at
   `~/news-digest`.
 - App URL: `https://news-digest.exe.xyz/` maps to `0.0.0.0:8000` on this VM
@@ -37,6 +39,7 @@ conflict. Never edit `MISSION.md`, `BOOTSTRAP.md` or anything under
   `http://localhost:8000/healthz`.
 
 ## Engineering rules
+
 - pnpm workspace: `apps/web` (React + Vite SPA), `apps/api` (NestJS,
   Domain-Driven Hexagon), `packages/*` (shared contracts).
 - Hexagonal boundaries are enforced by tooling. Domain code never imports
@@ -49,14 +52,18 @@ conflict. Never edit `MISSION.md`, `BOOTSTRAP.md` or anything under
 - Never label fixture or mock content as live.
 
 ## Git
+
 - Work on `main`. Small clear commits. Push after every verified step.
 - Never force-push, rewrite history or change remotes.
 - Never commit secrets, `.env*`, databases, logs, `node_modules`, `dist` or
   coverage output.
 
 ## Hard limits (see MISSION.md section 8)
+
 - No purchases, paid plans or account signups.
 - No real emails or notifications.
 - No exe.dev sharing/DNS changes.
 - No scraping that depends on evading bot protection.
 - Only the owner edits owner files.
+
+Run `pnpm format` and `pnpm lint:fix` before every commit.

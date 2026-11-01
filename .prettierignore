@@ -1,0 +1,9 @@
+node_modules/
+**/dist/
+pnpm-lock.yaml
+coverage/
+docs/screenshots/
+# Owner-controlled instructions are read-only.
+MISSION.md
+BOOTSTRAP.md
+STEERING.md
