@@ -10,8 +10,7 @@ Possible later:
   turns out to be insufficient. The agent will document exact steps and a cost
   cap if it gets there.
 
-Editorial review configuration: the app currently has no configured LLM model or
-provider. To enable M3 without violating the instruction against model/provider
-changes, specify an allowed gateway-billed provider/model in STEERING.md (never
-the OpenAI ChatGPT-subscription provider). No key is needed for the gateway.
-The agent can then implement the capped, cached adapter; other work continues.
+Editorial provider/model question resolved by STEERING item 3: use Anthropic
+with configured Haiku triage and Sonnet editing. The owner installed and verified
+the key; implementation and budget enforcement are agent work, with no further
+owner input required.

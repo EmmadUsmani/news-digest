@@ -1,10 +1,10 @@
-import React from 'react';
 import {
-  sourceCatalogSchema,
-  topicSchema,
   type SourceCatalog,
+  sourceCatalogSchema,
   type Topic,
+  topicSchema,
 } from '@digest/contracts';
+import React from 'react';
 export function TopicSources({
   topic,
   onSaved,

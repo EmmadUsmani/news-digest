@@ -246,3 +246,11 @@ candidates present before these passes for a fixed 24h window ending 20:35 UTC;
 it retains publisher/Google/HN observations for offline evaluation only. It is
 never ingested, and its provisional agent event labels do not verify article
 claims. No new source, article-page requests or provider/model/billing change.
+
+### Iteration 51 verification (2026-11-01)
+
+`pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` completed two queued live
+collection passes with 706 stored URLs, four topics and seventeen healthy
+sources (all last errors null). No adapters, source configuration or ranking
+signals changed in this formatting/lint iteration. Recorded ranking fixtures
+remain offline evaluation data.

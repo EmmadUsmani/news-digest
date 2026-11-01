@@ -1,9 +1,11 @@
-import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { newsQuerySchema, newsQueryFeed } from '@digest/contracts';
+import { test } from 'node:test';
+
+import { newsQueryFeed, newsQuerySchema } from '@digest/contracts';
+
 import { parseFeed } from '../src/modules/ingestion/adapters/feed.adapter';
-test('news query is bounded, strict and encoded without overriding the fixed Google edition', () => {
+void test('news query is bounded, strict and encoded without overriding the fixed Google edition', () => {
   for (const query of ['', ' ', 'x'.repeat(101), 'AI\nnews', 'AI\u0000'])
     assert.equal(newsQuerySchema.safeParse({ query }).success, false);
   assert.equal(
@@ -25,7 +27,7 @@ test('news query is bounded, strict and encoded without overriding the fixed Goo
   assert.equal(url.hash, '');
   assert.equal(feed.name, `Google News: ${input.query.trim()}`);
 });
-test('recorded Google News RSS preserves real article titles, dates and Google links', () => {
+void test('recorded Google News RSS preserves real article titles, dates and Google links', () => {
   const items = parseFeed(
     readFileSync('apps/api/test/fixtures/google-news.xml', 'utf8'),
   );

@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
-import { Queue, QueueEvents, type Job } from 'bullmq';
+
 import { profileSettingsSchema } from '@digest/contracts';
+import { type Job, Queue, QueueEvents } from 'bullmq';
+
 import { database } from '../src/libs/db/connections';
 
 // Explicit synthetic outage probes against the real worker and stored content.

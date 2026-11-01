@@ -1,8 +1,9 @@
 import { Queue, Worker } from 'bullmq';
-import { PostgresProfileRepository } from './modules/profiles/database/profile.repository';
+
 import { PostgresPreviewRepository } from './modules/digests/database/preview.repository';
-import { scheduledSlot } from './modules/profiles/domain/scheduled-slot';
+import { PostgresProfileRepository } from './modules/profiles/database/profile.repository';
 import { coverageWindow } from './modules/profiles/domain/schedule';
+import { scheduledSlot } from './modules/profiles/domain/scheduled-slot';
 
 export function startScheduledDigests() {
   const connection = { host: '127.0.0.1', port: 6379 };

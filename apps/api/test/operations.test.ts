@@ -1,9 +1,11 @@
-import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { test } from 'node:test';
+
 import { operationsStatusSchema } from '@digest/contracts';
+
 import { OperationsStatus } from '../src/modules/operations/adapters/operations.status';
 
-test('operations reports persisted sources and bounded queue telemetry without job payloads', async () => {
+void test('operations reports persisted sources and bounded queue telemetry without job payloads', async () => {
   const status = new OperationsStatus();
   try {
     const result = operationsStatusSchema.parse(

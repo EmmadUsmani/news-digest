@@ -1,7 +1,8 @@
 // Explicit live check: connects Ars Technica and waits for real worker collection.
-import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
+
 import { topicSchema, topicUpdateSchema } from '@digest/contracts';
+import { chromium } from 'playwright';
 const base = 'http://localhost:8000';
 async function smoke() {
   const browser = await chromium.launch();
@@ -84,11 +85,9 @@ async function smoke() {
           ).status(),
           400,
         );
-      const card = page
-        .locator('.topic-grid article')
-        .filter({
-          has: page.getByRole('heading', { name: topic.name, exact: true }),
-        });
+      const card = page.locator('.topic-grid article').filter({
+        has: page.getByRole('heading', { name: topic.name, exact: true }),
+      });
       // Refresh incoming stories after the worker's minute scheduler discovers the source.
       const deadline = Date.now() + 100000;
       while (Date.now() < deadline) {

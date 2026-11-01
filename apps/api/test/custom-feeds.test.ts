@@ -1,8 +1,10 @@
-import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { publicAddress, publicFeedUrl } from '../src/libs/ports/public-url';
+import { test } from 'node:test';
+
 import { customFeedSchema } from '@digest/contracts';
-test('feed URLs restrict credentials, protocols, ports and nonpublic literal addresses', () => {
+
+import { publicAddress, publicFeedUrl } from '../src/libs/ports/public-url';
+void test('feed URLs restrict credentials, protocols, ports and nonpublic literal addresses', () => {
   for (const address of [
     '127.0.0.1',
     '10.2.3.4',
@@ -55,7 +57,7 @@ test('feed URLs restrict credentials, protocols, ports and nonpublic literal add
   );
 });
 
-test('shared HTTP client validates redirect targets and pins DNS to public addresses without live calls', async () => {
+void test('shared HTTP client validates redirect targets and pins DNS to public addresses without live calls', async () => {
   const https = await import('node:https');
   const dns = await import('node:dns');
   const { mock } = await import('node:test');
@@ -143,7 +145,7 @@ test('shared HTTP client validates redirect targets and pins DNS to public addre
   }
 });
 
-test('shared HTTP client decodes compressed feeds, caches text and bounds expanded size', async () => {
+void test('shared HTTP client decodes compressed feeds, caches text and bounds expanded size', async () => {
   const https = await import('node:https');
   const { mock } = await import('node:test');
   const { EventEmitter } = await import('node:events');

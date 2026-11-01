@@ -99,3 +99,19 @@ pnpm exec tsx apps/api/scripts/smoke-scheduled-digests.ts
 ```
 
 Run schedule-changing smoke scripts sequentially. The worker must be running.
+
+Workspace formatting and linting:
+
+```sh
+pnpm format
+pnpm lint:fix
+pnpm check
+```
+
+`check` enforces Prettier, zero-warning ESLint, type checks, dependency boundaries
+and tests. ESLint covers all workspace TS/TSX and configuration files; API,
+contracts and scripts use typed rules via `tsconfig.eslint.json`. Legacy untyped
+I/O boundaries and two React loading effects have scoped, commented exemptions
+tracked in TASKS.md. Owner-controlled files are excluded from formatting.
+Use `git config blame.ignoreRevsFile .git-blame-ignore-revs` to hide the isolated
+formatting commit in local blame output.

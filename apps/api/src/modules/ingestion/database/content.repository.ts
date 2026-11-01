@@ -1,6 +1,7 @@
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
+
 import { database } from '../../../libs/db/connections';
-import { ContentRepository, ContentItem, Source } from '../domain/ports';
+import { ContentItem, ContentRepository, Source } from '../domain/ports';
 @Injectable()
 export class PostgresContentRepository
   extends ContentRepository

@@ -1,13 +1,11 @@
-import { publicFeedUrl } from '../../libs/ports/public-url';
 import {
-  newsQuerySchema,
-  newsQueryFeed,
   customFeedSchema,
-  topicSourcesSchema,
+  newsQueryFeed,
+  newsQuerySchema,
   topicOrderSchema,
+  topicSourcesSchema,
   topicUpdateSchema,
 } from '@digest/contracts';
-import { TopicRepository } from './domain/topic.repository';
 import {
   BadRequestException,
   Body,
@@ -21,7 +19,10 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+
+import { publicFeedUrl } from '../../libs/ports/public-url';
 import { PostgresTopicRepository } from './database/topic.repository';
+import { TopicRepository } from './domain/topic.repository';
 @Controller('api/topics')
 class TopicsController {
   constructor(private readonly topics: TopicRepository) {}

@@ -1,5 +1,4 @@
 import { scheduleSchema } from '@digest/contracts';
-import { validateSchedule, durationMilliseconds } from './domain/schedule';
 import {
   BadRequestException,
   Body,
@@ -8,8 +7,10 @@ import {
   Module,
   Put,
 } from '@nestjs/common';
-import { ProfileRepository } from './domain/profile.repository';
+
 import { PostgresProfileRepository } from './database/profile.repository';
+import { ProfileRepository } from './domain/profile.repository';
+import { durationMilliseconds, validateSchedule } from './domain/schedule';
 @Controller('api/profile')
 class ProfilesController {
   constructor(private readonly profiles: ProfileRepository) {}

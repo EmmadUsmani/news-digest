@@ -1,8 +1,9 @@
-import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { test } from 'node:test';
+
 import { qualityRejection } from '../src/modules/digests/domain/quality';
-import { rank, type Candidate } from '../src/modules/digests/domain/rank';
-test('headline quality labels exclude routine filler while retaining reporting and announcements', () => {
+import { type Candidate, rank } from '../src/modules/digests/domain/rank';
+void test('headline quality labels exclude routine filler while retaining reporting and announcements', () => {
   // Selected observed headlines plus synthetic counterexamples; no network requests.
   const cases: [string, string | null][] = [
     ['A look at the Suns’ schedule for November', 'monthly-schedule'],
@@ -61,7 +62,7 @@ test('headline quality labels exclude routine filler while retaining reporting a
       'unsafe-url',
     );
 });
-test('ranking leaves a quiet section empty rather than filling its budget with previews', () => {
+void test('ranking leaves a quiet section empty rather than filling its budget with previews', () => {
   const base: Candidate = {
     id: 'preview',
     title: 'Nets vs. Pacers preview: what to expect',
@@ -85,7 +86,7 @@ test('ranking leaves a quiet section empty rather than filling its budget with p
     ['news'],
   );
 });
-test('HN question threads cannot spend news slots, while launches and reporting remain eligible', () => {
+void test('HN question threads cannot spend news slots, while launches and reporting remain eligible', () => {
   const base: Candidate = {
     id: 'question',
     title: 'Ask HN: Which TV do you recommend for privacy?',

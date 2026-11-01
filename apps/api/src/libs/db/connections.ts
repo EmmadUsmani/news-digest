@@ -1,5 +1,5 @@
-import { Pool } from 'pg';
 import Redis from 'ioredis';
+import { Pool } from 'pg';
 export function database() {
   return new Pool({
     connectionString:

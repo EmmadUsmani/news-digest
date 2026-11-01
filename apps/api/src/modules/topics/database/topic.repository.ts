@@ -1,8 +1,10 @@
 import { randomUUID } from 'node:crypto';
-import { TopicRepository } from '../domain/topic.repository';
+
+import type { CustomFeed, Topic, TopicUpdate } from '@digest/contracts';
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
+
 import { database } from '../../../libs/db/connections';
-import type { Topic, TopicUpdate, CustomFeed } from '@digest/contracts';
+import { TopicRepository } from '../domain/topic.repository';
 @Injectable()
 export class PostgresTopicRepository
   extends TopicRepository

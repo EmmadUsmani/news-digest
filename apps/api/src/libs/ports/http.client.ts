@@ -1,8 +1,9 @@
-import { gunzipSync, inflateSync, brotliDecompressSync } from 'node:zlib';
 import { lookup } from 'node:dns';
 import { request } from 'node:https';
-import { publicAddress, publicFeedUrl } from './public-url';
+import { brotliDecompressSync, gunzipSync, inflateSync } from 'node:zlib';
+
 import type { HttpPort } from '../../modules/ingestion/domain/ports';
+import { publicAddress, publicFeedUrl } from './public-url';
 // One worker uses this shared client. Domains are serialized with a one-second floor.
 export class SharedHttpClient implements HttpPort {
   private readonly next = new Map<string, number>();

@@ -1,12 +1,13 @@
 import { decodeHTML } from 'entities';
 import { XMLParser, XMLValidator } from 'fast-xml-parser';
+
+import { canonicalUrl, plainText } from '../domain/normalize';
 import type {
   ContentItem,
   HttpPort,
   Source,
   SourcePort,
 } from '../domain/ports';
-import { canonicalUrl, plainText } from '../domain/normalize';
 type Node = Record<string, unknown>;
 const list = (v: unknown): Node[] =>
   (Array.isArray(v) ? v : v ? [v] : []) as Node[];

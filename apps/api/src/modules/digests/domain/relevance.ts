@@ -1,4 +1,5 @@
 import type { RelevancePolicy } from '@digest/contracts';
+
 import type { Candidate } from './rank';
 const normalize = (text: string) =>
   text

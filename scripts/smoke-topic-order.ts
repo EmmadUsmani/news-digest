@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
-import { chromium } from 'playwright';
+
 import { topicSchema } from '@digest/contracts';
+import { chromium } from 'playwright';
 async function smoke() {
   const base = 'http://localhost:8000';
   const browser = await chromium.launch();

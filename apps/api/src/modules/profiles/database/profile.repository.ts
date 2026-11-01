@@ -1,7 +1,8 @@
+import type { ProfileSettings, ScheduleSettings } from '@digest/contracts';
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
+
 import { database } from '../../../libs/db/connections';
 import { ProfileRepository } from '../domain/profile.repository';
-import type { ProfileSettings, ScheduleSettings } from '@digest/contracts';
 @Injectable()
 export class PostgresProfileRepository
   extends ProfileRepository

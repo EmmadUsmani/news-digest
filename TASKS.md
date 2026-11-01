@@ -23,15 +23,18 @@ Fix regressions, broken services and stalled sources before starting new work.
   - ingestion jobs in BullMQ
   - normalized, deduplicated content items in Postgres
   - real items stored for all four topics, recorded in docs/SOURCES.md
+- [x] STEERING 1: Prettier, EditorConfig, typed ESLint, React hooks/refresh and sorted/unused imports; enforced workspace checks (iteration 51).
+  - Follow-up: remove scoped unsafe-value exemptions by adding schemas/types to legacy pg/XML/JSON/BullMQ boundaries and smoke fixtures (coordinate with 2a/2b).
+  - Follow-up: characterize unknown-to-text feed coercion, then enable no-base-to-string; refactor DigestPreview/StatusPanel loading effects to enable set-state-in-effect. Immediate Promise-shaped mocks retain require-await exemption.
 - [ ] M3 first real digest (in progress):
-  - simple scoring plus the LLM editorial pass through the exe.dev gateway
+  - simple scoring plus the Anthropic editorial pass
     (behind `LlmPort`, with usage caps)
   - [x] Immutable preliminary ranked snapshots for explicit windows (iteration 10); database rejects mutation.
   - [x] Home renders latest preliminary edition with excerpts, scores and quiet sections.
   - [x] Desktop/mobile Playwright screenshots and create/reload checks.
   - [x] Data-driven topic phrase relevance, auditable rules/rejection counts, 14 labeled regression cases (iteration 11).
   - [x] Auditable quality exclusions for routine previews, schedules and discussion threads, with omission reasons (iteration 13).
-  - Next: LlmPort/editorial summaries once an allowed provider/model is explicitly configured (currently absent), bounded usage/cache; semantic relevance beyond phrase rules; promote previews only after editorial review.
+  - Next (highest priority after formatting): implement real Anthropic LlmPort with configured Haiku triage/Sonnet editing, reservations, cost ledger/cache and graceful fallbacks per STEERING 3; key is installed. Semantic relevance and reviewed previews remain unfinished.
 - [ ] M4 X posts:
   - check xAI `x_search` through the gateway
   - post discovery per topic
@@ -81,3 +84,6 @@ Fix regressions, broken services and stalled sources before starting new work.
   - UI polish
   - retention/backup
   - resilience
+
+- [ ] STEERING 2a (after M3): isolated Testcontainers Postgres/Redis migration, repository/HTTP characterization, golden edition and database coverage; include `test:integration` in `check`. Never touch live DB.
+- [ ] STEERING 2b (only after 2a is green): record Drizzle decision/schema parity, back up live DB, gradually replace raw SQL behind ports and enforce boundaries.

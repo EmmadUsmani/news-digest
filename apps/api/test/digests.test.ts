@@ -1,7 +1,8 @@
-import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { rank, type Candidate } from '../src/modules/digests/domain/rank';
+import { test } from 'node:test';
+
 import { database } from '../src/libs/db/connections';
+import { type Candidate, rank } from '../src/modules/digests/domain/rank';
 const start = new Date('2026-11-01T00:00:00Z'),
   end = new Date('2026-11-02T00:00:00Z');
 const item = (id: string, changes: Partial<Candidate> = {}): Candidate => ({
@@ -14,7 +15,7 @@ const item = (id: string, changes: Partial<Candidate> = {}): Candidate => ({
   points: 0,
   ...changes,
 });
-test('rank enforces half-open windows, budgets, safe URLs, duplicate titles and low-value exclusions', () => {
+void test('rank enforces half-open windows, budgets, safe URLs, duplicate titles and low-value exclusions', () => {
   const items = [
     item('start', { publishedAt: start.toISOString() }),
     item('end', { publishedAt: end.toISOString() }),
@@ -30,7 +31,7 @@ test('rank enforces half-open windows, budgets, safe URLs, duplicate titles and 
   assert.throws(() => rank(items, end, start, 5));
   assert.throws(() => rank(items, start, end, 21));
 });
-test('rank gives auditable coverage, recency and bounded engagement signals with stable ties', () => {
+void test('rank gives auditable coverage, recency and bounded engagement signals with stable ties', () => {
   const selected = rank(
     [
       item('a'),
@@ -52,7 +53,7 @@ test('rank gives auditable coverage, recency and bounded engagement signals with
     rank([item('x', { points: Infinity })], start, end, 1)[0].score < 11,
   );
 });
-test('Postgres snapshots reject update/delete and regeneration preserves earlier versions', async () => {
+void test('Postgres snapshots reject update/delete and regeneration preserves earlier versions', async () => {
   const db = database(),
     client = await db.connect();
   try {
@@ -88,7 +89,7 @@ test('Postgres snapshots reject update/delete and regeneration preserves earlier
   }
 });
 
-test('lead images retain HTTPS publisher media without borrowing related coverage or accepting unsafe schemes', () => {
+void test('lead images retain HTTPS publisher media without borrowing related coverage or accepting unsafe schemes', () => {
   const lead = item('a', {
     title: 'New AI model released today',
     imageUrl: 'https://images.example.org/lead.jpg',

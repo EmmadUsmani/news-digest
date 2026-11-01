@@ -1,11 +1,12 @@
 import { decodeHTML } from 'entities';
+
+import { canonicalUrl, plainText } from '../domain/normalize';
 import type {
   ContentItem,
   HttpPort,
   Source,
   SourcePort,
 } from '../domain/ports';
-import { canonicalUrl, plainText } from '../domain/normalize';
 export class HackerNewsAdapter implements SourcePort {
   constructor(private readonly http: HttpPort) {}
   async collect(source: Source): Promise<ContentItem[]> {

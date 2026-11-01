@@ -1,9 +1,11 @@
 // Explicit local check using stored real content; no publisher or LLM requests.
 import assert from 'node:assert/strict';
+
 import { digestPreviewSchema, previewHistorySchema } from '@digest/contracts';
+
+import { database } from '../src/libs/db/connections';
 import { qualityRejection } from '../src/modules/digests/domain/quality';
 import { assessRelevance } from '../src/modules/digests/domain/relevance';
-import { database } from '../src/libs/db/connections';
 async function smoke() {
   const endpoint = 'http://localhost:8000/api/digest-previews';
   const post = (body: unknown) =>

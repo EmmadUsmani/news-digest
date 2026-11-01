@@ -1,9 +1,11 @@
-import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { database, redis } from '../src/libs/db/connections';
+import { test } from 'node:test';
+
 import { Queue, Worker } from 'bullmq';
 
-test('Postgres persists the default profile and migration ledger', async () => {
+import { database, redis } from '../src/libs/db/connections';
+
+void test('Postgres persists the default profile and migration ledger', async () => {
   const pool = database();
   try {
     const profile = await pool.query('SELECT name FROM profiles WHERE id=$1', [
@@ -17,7 +19,7 @@ test('Postgres persists the default profile and migration ledger', async () => {
   }
 });
 
-test('BullMQ processes a job on the local Redis instance', async () => {
+void test('BullMQ processes a job on the local Redis instance', async () => {
   const name = `integration-${process.pid}`;
   const connection = { host: '127.0.0.1', port: 6379 };
   const cache = redis();
@@ -40,7 +42,7 @@ test('BullMQ processes a job on the local Redis instance', async () => {
           assert.deepEqual(result, { value: 42 });
           resolve();
         } catch (error) {
-          reject(error);
+          reject(error instanceof Error ? error : new Error(String(error)));
         }
       });
     });

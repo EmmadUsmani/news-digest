@@ -1,9 +1,11 @@
-import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { assessRelevance } from '../src/modules/digests/domain/relevance';
-import { database } from '../src/libs/db/connections';
+import { test } from 'node:test';
+
 import { relevancePolicySchema } from '@digest/contracts';
-test('phrase matching respects token boundaries, Unicode, punctuation and exclusion precedence', () => {
+
+import { database } from '../src/libs/db/connections';
+import { assessRelevance } from '../src/modules/digests/domain/relevance';
+void test('phrase matching respects token boundaries, Unicode, punctuation and exclusion precedence', () => {
   const policy = {
     includeAny: ['AI', 'machine learning'],
     excludeAny: ['sponsored'],
@@ -36,7 +38,7 @@ test('phrase matching respects token boundaries, Unicode, punctuation and exclus
     false,
   );
 });
-test('seeded topic policies pass a small labeled relevance regression set', async () => {
+void test('seeded topic policies pass a small labeled relevance regression set', async () => {
   const db = database();
   try {
     const rows = (

@@ -1,22 +1,25 @@
-import { OperationsModule } from './modules/operations/operations.module';
-import { DigestsModule } from './modules/digests/digests.module';
-import { IngestionModule } from './modules/ingestion/ingestion.module';
-import { ProfilesModule } from './modules/profiles/profiles.module';
-import { TopicsModule } from './modules/topics/topics.module';
 import 'reflect-metadata';
+
+import { resolve } from 'node:path';
+
 import {
   Controller,
   Get,
-  Module,
-  Res,
   Injectable,
+  Module,
   OnModuleDestroy,
+  Res,
 } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { ServeStaticModule } from '@nestjs/serve-static';
 import { CqrsModule } from '@nestjs/cqrs';
-import { resolve } from 'node:path';
+import { ServeStaticModule } from '@nestjs/serve-static';
+
 import { database, redis } from './libs/db/connections';
+import { DigestsModule } from './modules/digests/digests.module';
+import { IngestionModule } from './modules/ingestion/ingestion.module';
+import { OperationsModule } from './modules/operations/operations.module';
+import { ProfilesModule } from './modules/profiles/profiles.module';
+import { TopicsModule } from './modules/topics/topics.module';
 @Injectable()
 class HealthService implements OnModuleDestroy {
   readonly db = database();

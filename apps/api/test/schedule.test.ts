@@ -1,5 +1,6 @@
-import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { test } from 'node:test';
+
 import {
   coverageWindow,
   durationMilliseconds,
@@ -12,7 +13,7 @@ const config = {
   storyBudget: 5,
   postBudget: 5,
 };
-test('schedule validates timezone, supported daily cadence and bounded budgets', () => {
+void test('schedule validates timezone, supported daily cadence and bounded budgets', () => {
   assert.equal(validateSchedule(config).ok, true);
   for (const override of [
     { timezone: 'Mars/Olympus' },
@@ -30,7 +31,7 @@ test('schedule validates timezone, supported daily cadence and bounded budgets',
     true,
   );
 });
-test('duration supports arbitrary elapsed coverage without calendar ambiguity', () => {
+void test('duration supports arbitrary elapsed coverage without calendar ambiguity', () => {
   for (const [duration, hours] of [
     ['PT6H', 6],
     ['P7D', 168],
@@ -51,7 +52,7 @@ test('duration supports arbitrary elapsed coverage without calendar ambiguity', 
   ])
     assert.equal(durationMilliseconds(invalid), null);
 });
-test('half-open coverage windows remain exact across DST, leap day and year boundaries', () => {
+void test('half-open coverage windows remain exact across DST, leap day and year boundaries', () => {
   for (const timestamp of [
     '2026-03-08T10:30:00Z',
     '2026-11-01T09:30:00Z',

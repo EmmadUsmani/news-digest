@@ -1,11 +1,13 @@
-import { database } from '../src/libs/db/connections';
-import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { PostgresProfileRepository } from '../src/modules/profiles/database/profile.repository';
-import { PostgresTopicRepository } from '../src/modules/topics/database/topic.repository';
+import { test } from 'node:test';
+
 import { profileSettingsSchema, topicSchema } from '@digest/contracts';
+
+import { database } from '../src/libs/db/connections';
+import { PostgresProfileRepository } from '../src/modules/profiles/database/profile.repository';
 import { validateSchedule } from '../src/modules/profiles/domain/schedule';
-test('persisted default profile, schedule and configured topics satisfy contracts', async () => {
+import { PostgresTopicRepository } from '../src/modules/topics/database/topic.repository';
+void test('persisted default profile, schedule and configured topics satisfy contracts', async () => {
   const profiles = new PostgresProfileRepository();
   const topics = new PostgresTopicRepository();
   try {
@@ -24,7 +26,7 @@ test('persisted default profile, schedule and configured topics satisfy contract
   }
 });
 
-test('topic reorder persists zero-based positions and rejects incomplete lists atomically', async () => {
+void test('topic reorder persists zero-based positions and rejects incomplete lists atomically', async () => {
   const topics = new PostgresTopicRepository();
   const original = await topics.listDefault();
   const ids = original.map((topic) => topic.id);
@@ -55,7 +57,7 @@ test('topic reorder persists zero-based positions and rejects incomplete lists a
   }
 });
 
-test('concurrent topic creation appends unique ordered topics without changing existing settings', async () => {
+void test('concurrent topic creation appends unique ordered topics without changing existing settings', async () => {
   const topics = new PostgresTopicRepository();
   const db = (await import('../src/libs/db/connections')).database();
   const original = await topics.listDefault();
@@ -103,7 +105,7 @@ test('concurrent topic creation appends unique ordered topics without changing e
   }
 });
 
-test('topic source connections validate atomically and reuse the shared collection catalog', async () => {
+void test('topic source connections validate atomically and reuse the shared collection catalog', async () => {
   const topics = new PostgresTopicRepository();
   const db = (await import('../src/libs/db/connections')).database();
   let id: string | undefined;
@@ -157,7 +159,7 @@ test('topic source connections validate atomically and reuse the shared collecti
   }
 });
 
-test('profile schedule persists independently of topics and restores all fields', async () => {
+void test('profile schedule persists independently of topics and restores all fields', async () => {
   const profiles = new PostgresProfileRepository();
   const topics = new PostgresTopicRepository();
   const original = await profiles.getDefault();
@@ -183,7 +185,7 @@ test('profile schedule persists independently of topics and restores all fields'
   }
 });
 
-test('topic deletion closes reading order and preserves shared sources, observations and profile scope', async () => {
+void test('topic deletion closes reading order and preserves shared sources, observations and profile scope', async () => {
   const topics = new PostgresTopicRepository();
   const db = (await import('../src/libs/db/connections')).database();
   const original = await topics.listDefault();
@@ -301,7 +303,7 @@ test('topic deletion closes reading order and preserves shared sources, observat
   }
 });
 
-test('custom feed registration atomically connects and shares existing URLs without renaming catalog entries', async () => {
+void test('custom feed registration atomically connects and shares existing URLs without renaming catalog entries', async () => {
   const topics = new PostgresTopicRepository();
   const db = database();
   const ids: string[] = [];

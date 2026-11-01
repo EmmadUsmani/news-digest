@@ -1,6 +1,8 @@
-import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
+
 import { topicSchema, topicUpdateSchema } from '@digest/contracts';
+import { chromium } from 'playwright';
+
 import { database } from '../apps/api/src/libs/db/connections';
 const base = 'http://localhost:8000';
 async function smoke() {
@@ -49,11 +51,9 @@ async function smoke() {
         .getByRole('status')
         .filter({ hasText: 'Source connections saved.' })
         .waitFor();
-      const card = page
-        .locator('.topic-grid article')
-        .filter({
-          has: page.getByRole('heading', { name: topic.name, exact: true }),
-        });
+      const card = page.locator('.topic-grid article').filter({
+        has: page.getByRole('heading', { name: topic.name, exact: true }),
+      });
       await card.locator('.headlines a').first().waitFor();
       assert.equal(
         await page.evaluate(

@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
-import { Queue } from 'bullmq';
+
 import { profileSettingsSchema } from '@digest/contracts';
+import { Queue } from 'bullmq';
+
 import { database } from '../src/libs/db/connections';
 const base = 'http://localhost:8000';
 async function smoke() {

@@ -1,12 +1,13 @@
-import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { test } from 'node:test';
+
 import {
   evaluateNbaWindow,
-  evaluateWorldWindow,
   evaluateTechWindow,
+  evaluateWorldWindow,
 } from '../scripts/evaluate-ranking';
 
-test('recorded NBA window preserves baseline event recall and omits labeled filler', () => {
+void test('recorded NBA window preserves baseline event recall and omits labeled filler', () => {
   const result = evaluateNbaWindow();
   assert.equal(result.candidates, 52);
   assert.equal(result.targetEvents, 5);
@@ -16,7 +17,7 @@ test('recorded NBA window preserves baseline event recall and omits labeled fill
   assert.deepEqual(result.forbiddenSelected, []);
 });
 
-test('recorded World window preserves baseline event recall and omits labeled filler', () => {
+void test('recorded World window preserves baseline event recall and omits labeled filler', () => {
   const result = evaluateWorldWindow();
   assert.equal(result.candidates, 47);
   assert.equal(result.targetEvents, 5);
@@ -32,7 +33,7 @@ test('recorded World window preserves baseline event recall and omits labeled fi
 
 // The first Tech baseline finds zero targets. Do not disguise a vacuous >= 0
 // assertion as a quality floor: validate labels/diagnostics and guard omissions.
-test('recorded Tech window reports all labeled articles and omits labeled filler', () => {
+void test('recorded Tech window reports all labeled articles and omits labeled filler', () => {
   const result = evaluateTechWindow();
   assert.equal(result.candidates, 54);
   assert.equal(result.targetEvents, 5);

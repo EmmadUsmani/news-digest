@@ -1,3 +1,4 @@
+import { previewRequestSchema } from '@digest/contracts';
 import {
   BadRequestException,
   Body,
@@ -10,9 +11,9 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { previewRequestSchema } from '@digest/contracts';
-import { PreviewRepository } from './domain/preview.repository';
+
 import { PostgresPreviewRepository } from './database/preview.repository';
+import { PreviewRepository } from './domain/preview.repository';
 @Controller('api/digest-previews')
 class PreviewController {
   constructor(private readonly repository: PreviewRepository) {}

@@ -1,6 +1,8 @@
 // Explicit live check: one GET/feed + HN list and 20 stories per pass.
-import { Queue, QueueEvents } from 'bullmq';
 import assert from 'node:assert/strict';
+
+import { Queue, QueueEvents } from 'bullmq';
+
 import { PostgresContentRepository } from '../src/modules/ingestion/database/content.repository';
 async function smoke() {
   const connection = { host: '127.0.0.1', port: 6379 };

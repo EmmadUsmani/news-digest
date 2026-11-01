@@ -1,5 +1,6 @@
-import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
+
+import { chromium } from 'playwright';
 async function smoke() {
   const browser = await chromium.launch({ headless: true });
   try {
@@ -46,20 +47,16 @@ async function smoke() {
           .count(),
         4,
       );
-      const nba = page
-        .locator('.digest-topic')
-        .filter({
-          has: page.getByRole('heading', { name: 'NBA', exact: true }),
-        });
+      const nba = page.locator('.digest-topic').filter({
+        has: page.getByRole('heading', { name: 'NBA', exact: true }),
+      });
       await nba.locator('.omissions summary').click();
       await page
         .getByText('Monthly schedule guide', { exact: false })
         .waitFor();
-      const tech = page
-        .locator('.digest-topic')
-        .filter({
-          has: page.getByRole('heading', { name: 'Tech & AI', exact: true }),
-        });
+      const tech = page.locator('.digest-topic').filter({
+        has: page.getByRole('heading', { name: 'Tech & AI', exact: true }),
+      });
       await tech.locator('.omissions summary').click();
       await tech
         .getByText('Hacker News question thread', { exact: false })

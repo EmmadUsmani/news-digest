@@ -1,14 +1,15 @@
-import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { test } from 'node:test';
+
 import { parseFeed } from '../src/modules/ingestion/adapters/feed.adapter';
 import { HackerNewsAdapter } from '../src/modules/ingestion/adapters/hn.adapter';
-import { canonicalUrl } from '../src/modules/ingestion/domain/normalize';
 import { PostgresContentRepository } from '../src/modules/ingestion/database/content.repository';
+import { canonicalUrl } from '../src/modules/ingestion/domain/normalize';
 import { ingest } from '../src/modules/ingestion/ingest';
 const fixture = (name: string) =>
   readFile(`apps/api/test/fixtures/${name}`, 'utf8');
-test('recorded RSS and Atom normalize real headlines, dates and safe links', async () => {
+void test('recorded RSS and Atom normalize real headlines, dates and safe links', async () => {
   for (const name of [
     'rss.xml',
     'atom.xml',
@@ -45,7 +46,7 @@ test('recorded RSS and Atom normalize real headlines, dates and safe links', asy
   );
   assert.equal(canonicalUrl('javascript:alert(1)'), null);
 });
-test('recorded world feeds retain publisher links, bylines and plain excerpts', async () => {
+void test('recorded world feeds retain publisher links, bylines and plain excerpts', async () => {
   const npr = parseFeed(await fixture('npr-world.xml'));
   assert.equal(npr[0].author, 'Ayesha Rascoe');
   assert.equal(npr[0].publishedAt, '2026-11-01T13:15:28.000Z');
@@ -62,7 +63,7 @@ test('recorded world feeds retain publisher links, bylines and plain excerpts', 
   assert.doesNotMatch(guardian[0].excerpt, /<\/?(?:p|a|em)\b/);
   assert.ok(guardian[0].imageUrl?.startsWith('https://'));
 });
-test('recorded platform feeds preserve first-party links, dates and author attribution', async () => {
+void test('recorded platform feeds preserve first-party links, dates and author attribution', async () => {
   const playstation = parseFeed(await fixture('playstation.xml'));
   const xbox = parseFeed(await fixture('xbox.xml'));
   assert.equal(playstation.length, 2);
@@ -84,7 +85,7 @@ test('recorded platform feeds preserve first-party links, dates and author attri
     [...playstation, ...xbox].every((item) => item.excerpt.length <= 1500),
   );
 });
-test('recorded PC gaming feeds retain publisher bylines, excerpts and lead media', async () => {
+void test('recorded PC gaming feeds retain publisher bylines, excerpts and lead media', async () => {
   const pcgamer = parseFeed(await fixture('pcgamer.xml'));
   const rps = parseFeed(await fixture('rps.xml'));
   assert.equal(pcgamer.length, 2);
@@ -114,7 +115,7 @@ test('recorded PC gaming feeds retain publisher bylines, excerpts and lead media
   );
   assert.doesNotMatch(rps[0].excerpt, /<\/?(?:p|a)\b/);
 });
-test('Hacker News fixture preserves engagement and excludes deleted items', async () => {
+void test('Hacker News fixture preserves engagement and excludes deleted items', async () => {
   const records = JSON.parse(await fixture('hn.json'));
   records[0].text = 'It&#x27;s &amp; more <p>text</p>';
   const adapter = new HackerNewsAdapter({
@@ -140,7 +141,7 @@ test('Hacker News fixture preserves engagement and excludes deleted items', asyn
   assert.equal(items[0].engagement.points, records[0].score);
   assert.equal(items[0].excerpt, "It's & more text");
 });
-test('Postgres ingestion is idempotent and records failure without losing last success', async () => {
+void test('Postgres ingestion is idempotent and records failure without losing last success', async () => {
   const repository = new PostgresContentRepository();
   const id = `test-${Date.now()}`;
   try {
@@ -199,7 +200,7 @@ test('Postgres ingestion is idempotent and records failure without losing last s
     await repository.onModuleDestroy();
   }
 });
-test('recorded AI announcement feeds preserve publisher dates, missing fields and media', async () => {
+void test('recorded AI announcement feeds preserve publisher dates, missing fields and media', async () => {
   const openai = parseFeed(await fixture('openai.xml'));
   const deepmind = parseFeed(await fixture('deepmind.xml'));
   assert.equal(openai.length, 2);

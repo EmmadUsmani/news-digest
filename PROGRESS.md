@@ -330,3 +330,17 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - `pnpm check` passed typecheck, lint, boundaries and all 43 tests; services and `/healthz` healthy.
 - Tech's agent-labeled window finds 0/5 targets; no ranking changes or precision improvement claimed.
 - Proceeding immediately to STEERING item 1 before further product work.
+
+## 2026-11-01: iteration 51 — enforce formatting and workspace lint
+
+- Recovered previous benchmark separately in `8eb77e2`; new STEERING instructions take priority over the stale prior summary.
+- Added Prettier/config/ignore, EditorConfig, format scripts and mandatory precommit format/lint rule; owner files excluded.
+- Isolated formatting-only commit `817d3be` in `.git-blame-ignore-revs`; setup is `7fe325d`.
+- Typed ESLint covers API/contracts/scripts, React hooks/refresh covers web; sorted/duplicate/unused imports enforced across workspace, zero warnings required.
+- Fixed imports, explicit Node test promise discards, rejection normalization and App export; scoped legacy I/O/coercion/loading-effect exemptions have comments and TASKS follow-ups.
+- `pnpm check` passed typecheck, lint, format, boundaries and all 43 tests; `pnpm build` passed (existing upstream Zod warnings only).
+- Rebuilt/restarted API/worker; `/healthz` healthy. `smoke-ui.ts` and `smoke-status.ts` passed desktop/mobile; screenshots refreshed/mobile inspected.
+- `smoke-ingestion.ts` passed two queued live passes: 706 real URLs, four topics, seventeen healthy sources; `smoke-previews.ts` passed immutable/history/windows (5/5/5/5).
+- Corrected stale editorial blocker: STEERING 3 authorizes installed Anthropic key and configured Haiku/Sonnet; next implement real capped/cached adapter and ledger before 2a/2b.
+- No app inference calls made this iteration ($0 incremental); provider/model/billing unchanged. Added ordered 2a integration infrastructure and 2b ORM tasks.
+- `smoke-scheduled-digests.ts` observed actual 23:59 UTC generation with exact 6h slot and completed run; original schedule restored. Final format/lint/diff checks passed.

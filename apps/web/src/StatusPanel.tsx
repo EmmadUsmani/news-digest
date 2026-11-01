@@ -1,8 +1,8 @@
-import React from 'react';
 import {
-  operationsStatusSchema,
   type OperationsStatus,
+  operationsStatusSchema,
 } from '@digest/contracts';
+import React from 'react';
 const time = (value: string | null) =>
   value ? new Date(value).toLocaleString() : 'Never';
 export function StatusPanel() {

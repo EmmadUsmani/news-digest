@@ -1,10 +1,11 @@
-import { startScheduledDigests } from './scheduled-digests';
-import { PostgresContentRepository } from './modules/ingestion/database/content.repository';
+import { Queue, Worker } from 'bullmq';
+
+import { SharedHttpClient } from './libs/ports/http.client';
 import { FeedAdapter } from './modules/ingestion/adapters/feed.adapter';
 import { HackerNewsAdapter } from './modules/ingestion/adapters/hn.adapter';
+import { PostgresContentRepository } from './modules/ingestion/database/content.repository';
 import { ingest } from './modules/ingestion/ingest';
-import { SharedHttpClient } from './libs/ports/http.client';
-import { Queue, Worker } from 'bullmq';
+import { startScheduledDigests } from './scheduled-digests';
 const stopScheduledDigests = startScheduledDigests();
 const connection = { host: '127.0.0.1', port: 6379 };
 // Operations telemetry remains separate from content collection.

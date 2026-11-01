@@ -1,5 +1,6 @@
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
 import { Queue } from 'bullmq';
+
 import { database } from '../../../libs/db/connections';
 import { OperationsReader } from '../domain/operations.reader';
 

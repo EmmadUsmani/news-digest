@@ -1,22 +1,24 @@
-import { StatusPanel } from './StatusPanel';
-import { ScheduleSettings } from './ScheduleSettings';
-import { TopicSettings } from './TopicSettings';
-import { DigestPreview } from './DigestPreview';
-import React from 'react';
-import { createRoot } from 'react-dom/client';
+import './style.css';
+
+import type {
+  ContentGroup,
+  Health,
+  ProfileSettings,
+  Topic,
+} from '@digest/contracts';
 import {
   contentGroupSchema,
   profileSettingsSchema,
   topicSchema,
 } from '@digest/contracts';
-import type {
-  ContentGroup,
-  Health,
-  Topic,
-  ProfileSettings,
-} from '@digest/contracts';
-import './style.css';
-function App() {
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+
+import { DigestPreview } from './DigestPreview';
+import { ScheduleSettings } from './ScheduleSettings';
+import { StatusPanel } from './StatusPanel';
+import { TopicSettings } from './TopicSettings';
+export function App() {
   const [content, setContent] = React.useState<ContentGroup[]>([]);
   const [contentError, setContentError] = React.useState(false);
   React.useEffect(() => {

@@ -1,5 +1,5 @@
+import { type ProfileSettings, profileSettingsSchema } from '@digest/contracts';
 import React from 'react';
-import { profileSettingsSchema, type ProfileSettings } from '@digest/contracts';
 export function ScheduleSettings({
   profile,
   onSaved,

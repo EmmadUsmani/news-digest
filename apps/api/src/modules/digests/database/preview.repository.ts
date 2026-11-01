@@ -1,13 +1,14 @@
-import { Injectable, OnModuleDestroy } from '@nestjs/common';
 import {
-  relevancePolicySchema,
   type DigestPreview,
   type PreviewHistory,
+  relevancePolicySchema,
 } from '@digest/contracts';
+import { Injectable, OnModuleDestroy } from '@nestjs/common';
+
 import { database } from '../../../libs/db/connections';
 import { PreviewRepository } from '../domain/preview.repository';
-import { Candidate, rank } from '../domain/rank';
 import { qualityRejection } from '../domain/quality';
+import { Candidate, rank } from '../domain/rank';
 import { assessRelevance } from '../domain/relevance';
 const profileId = '00000000-0000-4000-8000-000000000001';
 @Injectable()
@@ -44,14 +45,12 @@ export class PostgresPreviewRepository
       )
     ).rows;
     return {
-      entries: rows
-        .slice(0, 20)
-        .map((row) => ({
-          ...row,
-          createdAt: row.createdAt.toISOString(),
-          windowStart: row.windowStart.toISOString(),
-          windowEnd: row.windowEnd.toISOString(),
-        })),
+      entries: rows.slice(0, 20).map((row) => ({
+        ...row,
+        createdAt: row.createdAt.toISOString(),
+        windowStart: row.windowStart.toISOString(),
+        windowEnd: row.windowEnd.toISOString(),
+      })),
       hasMore: rows.length > 20,
     };
   }

@@ -1,5 +1,5 @@
-import { qualityRejection } from './quality';
 import { clusterCandidates } from './cluster';
+import { qualityRejection } from './quality';
 export interface Candidate {
   id: string;
   title: string;

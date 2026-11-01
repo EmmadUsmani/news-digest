@@ -1,8 +1,9 @@
-import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { test } from 'node:test';
+
 import { PostgresPreviewRepository } from '../src/modules/digests/database/preview.repository';
 
-test('concurrent scheduled retries return one immutable snapshot; manual regeneration stays versioned', async () => {
+void test('concurrent scheduled retries return one immutable snapshot; manual regeneration stays versioned', async () => {
   const repository = new PostgresPreviewRepository();
   const end = new Date(),
     start = new Date(end.getTime() - 86400000);

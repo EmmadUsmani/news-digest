@@ -1,10 +1,10 @@
-import React from 'react';
 import {
-  digestPreviewSchema,
-  previewHistorySchema,
-  type PreviewHistory,
   type DigestPreview as Preview,
+  digestPreviewSchema,
+  type PreviewHistory,
+  previewHistorySchema,
 } from '@digest/contracts';
+import React from 'react';
 export function DigestPreview() {
   const [preview, setPreview] = React.useState<Preview | null>(null);
   const [windowChoice, setWindowChoice] = React.useState('24');

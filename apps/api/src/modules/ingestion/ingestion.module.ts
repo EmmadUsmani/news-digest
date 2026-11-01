@@ -1,6 +1,7 @@
 import { Controller, Get, Module } from '@nestjs/common';
-import { ContentRepository } from './domain/ports';
+
 import { PostgresContentRepository } from './database/content.repository';
+import { ContentRepository } from './domain/ports';
 @Controller('api/content')
 class ContentController {
   constructor(private readonly repository: ContentRepository) {}

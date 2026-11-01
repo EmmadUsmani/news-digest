@@ -1,8 +1,8 @@
 import type {
+  CustomFeed,
+  SourceCatalog,
   Topic,
   TopicUpdate,
-  SourceCatalog,
-  CustomFeed,
 } from '@digest/contracts';
 export abstract class TopicRepository {
   abstract addFeedDefault(

@@ -1,11 +1,12 @@
-import React from 'react';
-import { TopicSources } from './TopicSources';
 import {
+  type ScheduleSettings,
+  type Topic,
   topicSchema,
   topicUpdateSchema,
-  type Topic,
-  type ScheduleSettings,
 } from '@digest/contracts';
+import React from 'react';
+
+import { TopicSources } from './TopicSources';
 export function TopicSettings({
   topics,
   onSaved,

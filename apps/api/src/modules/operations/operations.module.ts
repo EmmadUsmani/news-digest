@@ -1,6 +1,7 @@
 import { Controller, Get, Module } from '@nestjs/common';
-import { OperationsReader } from './domain/operations.reader';
+
 import { OperationsStatus } from './adapters/operations.status';
+import { OperationsReader } from './domain/operations.reader';
 @Controller('api/status')
 class OperationsController {
   constructor(private readonly status: OperationsReader) {}

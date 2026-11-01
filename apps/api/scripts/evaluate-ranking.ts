@@ -1,10 +1,12 @@
 // Offline evaluation only. Never imports database/network adapters or seeds content.
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { rank, type Candidate } from '../src/modules/digests/domain/rank';
-import { qualityRejection } from '../src/modules/digests/domain/quality';
-import { assessRelevance } from '../src/modules/digests/domain/relevance';
+
 import { relevancePolicySchema } from '@digest/contracts';
+
+import { qualityRejection } from '../src/modules/digests/domain/quality';
+import { type Candidate, rank } from '../src/modules/digests/domain/rank';
+import { assessRelevance } from '../src/modules/digests/domain/relevance';
 
 export function evaluateWindow(filename: string) {
   const fixture = JSON.parse(

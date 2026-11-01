@@ -46,6 +46,8 @@ line using the basic `recommended` rules. Fix that across the whole repo:
 
 Only after this is green, resume the normal task order.
 
+ack: 2026-11-01 iteration 51 — configured/enforced Prettier and typed ESLint, isolated formatting commit in blame-ignore, fixed imports and documented scoped legacy-rule follow-ups; 43 tests/build/browser checks pass.
+
 ## 2. LOWER PRIORITY: real DB verification, then an ORM (2026-11-01)
 
 Do this after item 1. It ranks below the milestone in progress: add it to
