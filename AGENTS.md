@@ -23,9 +23,13 @@ conflict. Never edit `MISSION.md`, `BOOTSTRAP.md` or anything under
   (private to the owner).
 - Secrets: `~/.config/news-digest/env` (mode 600). Read keys from there. Never
   print, log or commit them.
-- LLM gateway: `https://llm.int.exe.xyz` (no key on the VM). See MISSION.md
-  section 3 for which providers the app may use. Don't spend the OpenAI
-  ChatGPT-subscription quota on app traffic.
+- App LLM: the Anthropic API with `ANTHROPIC_API_KEY` from the secrets file.
+  It is a dedicated workspace with a hard $15/month limit. Haiku triages and
+  Sonnet edits; see MISSION.md "LLM usage inside the app" and STEERING.md
+  item 3.
+- The exe.dev LLM gateway `https://llm.int.exe.xyz` (no key) is only for the
+  xAI `x_search` evaluation. Never spend the OpenAI ChatGPT-subscription quota
+  on app traffic.
 - GitHub: `origin` goes through the exe.dev GitHub integration
   (`github.int.exe.xyz`). For `gh`, set `GH_HOST=github.int.exe.xyz`.
 - Long-lived app processes are systemd **user** units named

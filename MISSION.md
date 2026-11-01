@@ -164,17 +164,35 @@ per-domain rate limiting and caching.
 
 ### LLM usage inside the app
 
-Use the exe.dev LLM gateway attached to this VM (no keys on the VM). Hide it
-behind an `LlmPort` with adapters, so a provider is a configuration choice.
+Decided by the owner on 2026-11-01; the rationale is in
+`docs/decisions/0001-app-llm-provider-and-budget.md`. The detailed build
+instructions are in STEERING.md item 3.
 
-- Prefer a fast, inexpensive model for summarization, and use a stronger model
-  only for the final editorial pass if it is clearly better.
-- Avoid routing the app's own calls through the OpenAI ChatGPT-subscription
-  provider, because that quota is shared with the Codex agent building this
-  app. Check `/v1/models` and pick a gateway-billed provider.
-- Bound usage in code: a maximum number of calls and tokens per digest run and
-  per day, with usage recorded and shown on a status page. Cache
-  per-item summaries so a regeneration doesn't pay twice.
+- **Provider:** the Anthropic API directly via `@anthropic-ai/sdk`, using
+  `ANTHROPIC_API_KEY` from `~/.config/news-digest/env`. The key belongs to a
+  dedicated Anthropic workspace with a hard $15/month spend limit set by the
+  owner.
+- **Routes not to use:** the exe.dev gateway for editorial/summarization
+  calls. It has no spend caps. It stays fine for the xAI `x_search` evaluation
+  above. Never send app traffic through the OpenAI ChatGPT-subscription
+  provider: that quota is shared with the Codex agent building this app.
+- **Models (hybrid):**
+  - `claude-haiku-5-5` triages and scores all candidates. Keep each prompt
+    under 100k input tokens; above that Haiku costs 5x as much.
+  - `claude-sonnet-5-5` makes the final editorial pass on the shortlist and
+    writes the summaries.
+- **Abstraction:** keep it behind an `LlmPort` with adapters, so the provider
+  and models stay configuration choices.
+- **Budget:** usage is recorded in a cost ledger. The app adds its own caps
+  under the provider's: $14/month, and a daily cap equal to the remaining
+  monthly budget divided by the days left, at most $1.00.
+- **Graceful degradation:**
+  - When Sonnet's share is spent, finish with Haiku.
+  - When the budget is gone, fall back to non-AI ranking and label the
+    edition as such.
+  - When the provider's spend limit is hit, stop until next month; never
+    retry-loop on it.
+- Cache per-item results so a regeneration doesn't pay twice.
 
 ## 4. Notifications (architecture only for now)
 

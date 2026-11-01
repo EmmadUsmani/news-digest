@@ -121,6 +121,15 @@ starts.**
 This answers the M3 model question in NEEDS_FROM_HUMAN.md. Do it right after
 item 1, ahead of item 2.
 
+**Status (2026-11-01 21:40 UTC): the key is installed and verified.**
+- `ANTHROPIC_API_KEY` is in `~/.config/news-digest/env`.
+- A real Haiku test call succeeded.
+- `news-digest-api` and `news-digest-worker` were restarted, and both have the
+  key loaded.
+
+Build the real Anthropic adapter now (right after item 1), not a placeholder.
+The "if the key isn't there yet" fallback below no longer applies.
+
 ### Provider and key
 
 - Use the Anthropic API directly with the official `@anthropic-ai/sdk`. Do not
