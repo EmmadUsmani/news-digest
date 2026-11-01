@@ -1,5 +1,5 @@
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
-import { relevancePolicySchema, type DigestPreview } from '@digest/contracts';
+import { relevancePolicySchema, type DigestPreview, type PreviewHistory } from '@digest/contracts';
 import { database } from '../../../libs/db/connections';
 import { PreviewRepository } from '../domain/preview.repository';
 import { Candidate, rank } from '../domain/rank';
@@ -11,6 +11,13 @@ export class PostgresPreviewRepository extends PreviewRepository implements OnMo
  readonly db = database();
  async latest(): Promise<DigestPreview | null> {
  return (await this.db.query('SELECT snapshot FROM digest_previews WHERE profile_id=$1 ORDER BY created_at DESC,id DESC LIMIT 1', [profileId])).rows[0]?.snapshot ?? null;
+ }
+ async find(id: string): Promise<DigestPreview | null> {
+ return (await this.db.query('SELECT snapshot FROM digest_previews WHERE profile_id=$1 AND id=$2', [profileId,id])).rows[0]?.snapshot ?? null;
+ }
+ async history(offset: number): Promise<PreviewHistory> {
+ const rows = (await this.db.query(`SELECT id,created_at AS "createdAt",window_start AS "windowStart",window_end AS "windowEnd",snapshot->>'method' AS method FROM digest_previews WHERE profile_id=$1 ORDER BY created_at DESC,id DESC LIMIT 21 OFFSET $2`, [profileId,offset])).rows;
+ return { entries: rows.slice(0,20).map(row => ({ ...row, createdAt: row.createdAt.toISOString(), windowStart: row.windowStart.toISOString(), windowEnd: row.windowEnd.toISOString() })), hasMore: rows.length > 20 };
  }
  async generate(start: Date, end: Date): Promise<DigestPreview> {
  const client = await this.db.connect();

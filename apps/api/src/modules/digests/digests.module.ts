@@ -1,11 +1,20 @@
-import { BadRequestException, Body, Controller, Get, Module, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Module, NotFoundException, Param, ParseUUIDPipe, Post, Query } from '@nestjs/common';
 import { previewRequestSchema } from '@digest/contracts';
 import { PreviewRepository } from './domain/preview.repository';
 import { PostgresPreviewRepository } from './database/preview.repository';
 @Controller('api/digest-previews')
 class PreviewController {
  constructor(private readonly repository: PreviewRepository) {}
+ @Get() history(@Query('offset') offset = '0') {
+ if (!/^(0|[1-9]\d{0,6})$/.test(offset)) throw new BadRequestException('Use a nonnegative offset of at most 9999999');
+ return this.repository.history(Number(offset));
+ }
  @Get('latest') latest() { return this.repository.latest(); }
+ @Get(':id') async find(@Param('id', new ParseUUIDPipe()) id: string) {
+ const snapshot = await this.repository.find(id);
+ if (!snapshot) throw new NotFoundException('Edition not found');
+ return snapshot;
+ }
  @Post() generate(@Body() body: unknown) {
  const parsed = previewRequestSchema.safeParse(body);
  if (!parsed.success) throw new BadRequestException('Provide ISO windowStart and windowEnd');

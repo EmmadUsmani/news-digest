@@ -30,3 +30,7 @@ export const digestPreviewSchema = z.object({
 export type DigestPreview = z.infer<typeof digestPreviewSchema>;
 
 export const previewRequestSchema = z.object({ windowStart: z.string().datetime({ offset: true }), windowEnd: z.string().datetime({ offset: true }) }).strict();
+
+export const previewHistoryEntrySchema = digestPreviewSchema.pick({ id: true, createdAt: true, windowStart: true, windowEnd: true, method: true });
+export const previewHistorySchema = z.object({ entries: z.array(previewHistoryEntrySchema), hasMore: z.boolean() });
+export type PreviewHistory = z.infer<typeof previewHistorySchema>;

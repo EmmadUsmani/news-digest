@@ -12,7 +12,7 @@ try {
  assert.equal(await page.locator('.topic-grid article').count(), 4);
  if (name === 'desktop') {
  await page.getByRole('button', { name: 'Create edition · last 24 hours' }).click();
- await page.getByText('Saved edition', { exact: false }).waitFor();
+ await page.locator('.period').filter({hasText:'Saved edition'}).waitFor();
  }
  await page.locator('.digest-topic').first().waitFor();
  await page.getByText('Topic phrase filtering', { exact: false }).waitFor();
@@ -26,9 +26,28 @@ try {
  assert.ok(await page.locator('.digest-topic ol>li').count() > 0);
  const snapshot = await (await page.request.get('http://localhost:8000/api/digest-previews/latest')).json();
  await page.reload();
- await page.getByText('Saved edition', { exact: false }).waitFor();
+ await page.locator('.period').filter({hasText:'Saved edition'}).waitFor();
  const reloaded = await (await page.request.get('http://localhost:8000/api/digest-previews/latest')).json();
  assert.deepEqual(reloaded, snapshot);
+ await page.getByText('Browse saved editions', {exact:true}).click();
+ const historyResponse = await page.request.get('http://localhost:8000/api/digest-previews');
+ const history = await historyResponse.json();
+ const older = history.entries[1];
+ assert.ok(older);
+ await page.locator(`.edition-history a[href="?edition=${older.id}"]`).click();
+ await page.waitForURL(`**/?edition=${older.id}`);
+ await page.reload();
+ await page.locator('.period').filter({hasText:older.id.slice(0,8)}).waitFor();
+ await page.getByText('Browse saved editions', {exact:true}).click();
+ await page.getByRole('button', {name:'Open latest edition',exact:true}).click();
+ await page.locator('.period').filter({hasText:snapshot.id.slice(0,8)}).waitFor();
+ if (history.hasMore) {
+ await page.getByRole('button', {name:'Older editions',exact:true}).click();
+ await page.getByText('Page 2', {exact:true}).waitFor();
+ await page.getByRole('button', {name:'Newer editions',exact:true}).click();
+ await page.getByText('Page 1', {exact:true}).waitFor();
+ }
+ await page.getByText('Browse saved editions', {exact:true}).click();
  await page.locator('.headlines a').first().waitFor();
  for (const article of await page.locator('.topic-grid article').all()) assert.ok(await article.locator('.headlines a').count() > 0);
  assert.equal(await page.locator('.headlines a[href*="betting"]').count(), 0);
@@ -39,6 +58,9 @@ try {
  await page.locator('.omissions summary').first().click();
  await page.getByText('Monthly schedule guide', {exact:false}).waitFor();
  await page.screenshot({ path: `docs/screenshots/foundation-${name}.png`, fullPage: true });
+ await page.getByText('Browse saved editions', {exact:true}).click();
+ await page.locator('.edition-history a').first().waitFor();
+ await page.screenshot({ path: `docs/screenshots/history-${name}.png`, fullPage: false });
  await page.close();
  }
  // Isolated browser-only fixture verifies the multi-article UI when live windows

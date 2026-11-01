@@ -1,6 +1,6 @@
 // Explicit local check using stored real content; no publisher or LLM requests.
 import assert from 'node:assert/strict';
-import { digestPreviewSchema } from '@digest/contracts';
+import { digestPreviewSchema, previewHistorySchema } from '@digest/contracts';
 import { qualityRejection } from '../src/modules/digests/domain/quality';
 import { assessRelevance } from '../src/modules/digests/domain/relevance';
 import { database } from '../src/libs/db/connections';
@@ -42,6 +42,23 @@ async function smoke() {
  const saved = (await db.query('SELECT snapshot FROM digest_previews WHERE id=$1',[first.id])).rows[0].snapshot;
  assert.deepEqual(saved,first);
  assert.deepEqual(await (await fetch(`${endpoint}/latest`)).json(),second);
+ for (const offset of ['-1','1.5','foo','10000000']) assert.equal((await fetch(`${endpoint}?offset=${offset}`)).status,400);
+ assert.equal((await fetch(`${endpoint}/invalid`)).status,400);
+ assert.equal((await fetch(`${endpoint}/00000000-0000-4000-8000-000000000099`)).status,404);
+ const expected = (await db.query('SELECT snapshot FROM digest_previews WHERE profile_id=$1 ORDER BY created_at DESC,id DESC', ['00000000-0000-4000-8000-000000000001'])).rows.map(row => digestPreviewSchema.parse(row.snapshot));
+ const ids: string[] = [];
+ for (let offset = 0; ; offset += 20) {
+ const page = previewHistorySchema.parse(await (await fetch(`${endpoint}?offset=${offset}`)).json());
+ assert.deepEqual(page.entries.map(entry => entry.id),expected.slice(offset,offset + 20).map(entry => entry.id));
+ for (const entry of page.entries) {
+ const detail = digestPreviewSchema.parse(await (await fetch(`${endpoint}/${entry.id}`)).json());
+ assert.deepEqual(detail,expected.find(snapshot => snapshot.id === entry.id));
+ ids.push(entry.id);
+ }
+ assert.equal(page.hasMore,expected.length > offset + 20);
+ if (!page.hasMore) break;
+ }
+ assert.equal(new Set(ids).size,expected.length);
  console.log(JSON.stringify({ versions: [first.id,second.id], topics: first.topics.map(t=>({name:t.name,candidates:t.candidateCount,selected:t.stories.length,relevanceRejected:t.relevanceRejectedCount,qualityRejected:t.qualityRejections?.length})) }));
  } finally { await db.end(); }
 }

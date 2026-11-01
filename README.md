@@ -59,7 +59,9 @@ pnpm exec tsx scripts/smoke-ui.ts
 The page shows a preliminary ranked edition with saved publisher excerpts and
 selection signals, plus real incoming articles for all four topics. Use the
 create button to save a new edition for the last 24 hours. Quiet sections remain
-empty; LLM editorial summaries and automatic generation are still pending. The worker ingests five sources every 30 minutes. Curated digests
+empty. Browse saved editions to reopen an immutable version by URL; history lists
+20 versions per page with their creation time, coverage period and ranking method.
+LLM editorial summaries and automatic generation are still pending. The worker ingests seven sources every 30 minutes. Curated digests
 and configuration editing are tracked in [TASKS.md](TASKS.md).
 
 Explicit live verification (contacts publishers and HN; never part of tests):

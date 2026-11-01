@@ -61,8 +61,7 @@ transaction captures enabled topic names/budgets and up to 200 newest candidates
 per topic, ranks them, and saves copied excerpts, URLs, publication times, source
 names and signal reasons. Regeneration inserts a new UUID; a PostgreSQL trigger
 rejects UPDATE/DELETE. Selection is synchronous and local, with no LLM/API spend.
-The home button uses the last 24 hours; arbitrary-window controls, historical
-browsing and scheduled generation remain later work. No summaries, briefs or
+The home button uses the last 24 hours; arbitrary-window controls and scheduled generation remain later work. No summaries, briefs or
 editorial rationale are fabricated. `signals-v1` is explicitly preliminary.
 
 Topic relevance (iteration 11): migration 005 adds data-driven phrase policies.
@@ -79,3 +78,13 @@ after topic eligibility, before ranking/budgeting, and are visible in expandable
 home-page details. No migration is required for the JSON snapshot format.
 These are lexical rules, not LLM review. No app provider/model is configured;
 no provider was selected or changed and no LLM calls were made.
+
+Iteration 15 exposes saved preliminary history through the repository port:
+GET `/api/digest-previews?offset=0` returns 20 metadata entries and `hasMore`,
+ordered by creation time then UUID descending. Offset is a bounded nonnegative
+integer. GET `/api/digest-previews/:id` validates UUIDs and returns the seeded
+profile's immutable snapshot (404 if missing). No database migration is needed.
+Home's history browser loads full snapshots only on selection; `?edition=<uuid>`
+reopens that version on reload. New editions and latest navigation update the
+URL. Offset pages can shift if another edition is created while browsing;
+immutable direct URLs remain stable. History is preliminary, not editorial output.

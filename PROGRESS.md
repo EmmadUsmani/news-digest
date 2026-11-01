@@ -129,3 +129,16 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 - `pnpm exec tsx scripts/smoke-ui.ts` passed desktop/mobile/reload and isolated unpersisted coverage fixture; live screenshots updated/inspected.
 - API/worker restarted; health healthy. No LLM calls/provider/model/billing changes; editorial model configuration remains pending.
 - Next: semantic event/independence evaluation and capped cached editorial pass after allowed model configuration; topic configuration/history UI.
+
+## 2026-11-01: iteration 15 — browse immutable edition history
+- Started clean on main; no leftover work; baseline 19 tests, services and `/healthz` healthy.
+- Added profile-scoped history metadata pages (20 versions) and UUID snapshot API with 400/404 handling.
+- Home browses saved versions with creation/coverage times and method; direct edition URLs survive reload.
+- New editions and latest navigation update URL; all snapshots retain their original content and rules.
+- Offset pages may shift during concurrent generation; stable version URLs documented; topic/window editing remains M6.
+- `pnpm check` passed typecheck/lint/boundaries and all 19 tests; `pnpm build` passed (existing Zod warnings).
+- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed all history pages, exact saved snapshots, invalid/missing IDs and prior checks.
+- `pnpm exec tsx scripts/smoke-ui.ts` passed desktop/mobile old-version/reload/latest/pagination and existing checks; screenshots updated/inspected.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 266 URLs, four topics, seven healthy sources.
+- `pnpm lint` and `git diff --check` passed; API/worker rebuilt/restarted; `/healthz` healthy.
+- No LLM/provider/model/billing changes; editorial configuration still pending. Next: topic editing and arbitrary-window UI; semantic evaluation.
