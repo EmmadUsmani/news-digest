@@ -38,7 +38,8 @@ Fix regressions, broken services and stalled sources before starting new work.
   - faithful rendering with the official embed, media included
   - X API adapter behind the same port, enabled only by `X_BEARER_TOKEN`
 - [ ] M5 ranking quality:
-  - story clustering across outlets
+  - [x] Conservative headline clustering with copied coverage links, one-slot groups and no unverified syndication bonus (iteration 14).
+  - Semantic event clustering and verified outlet independence remain unfinished.
   - explainable scores
   - per-topic relevance guidance
   - labeled evaluation windows and docs/RANKING.md

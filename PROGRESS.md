@@ -115,3 +115,17 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 - `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 266 URLs, four topics, seven healthy sources.
 - `pnpm exec tsx scripts/smoke-ui.ts` passed desktop/mobile create/reload/omission details; screenshots updated and mobile inspected.
 - API/worker restarted; `/healthz` healthy. Next: capped cached editorial adapter after allowed model configuration; event clustering meanwhile.
+
+## 2026-11-01: iteration 14 — linked coverage in conservative headline groups
+- Started clean on main; no leftover work; baseline 16 tests, services and `/healthz` healthy.
+- Added signals-v4 complete-link headline groups before budgets; lead score preserved, all original coverage links copied.
+- Numeric/date/action guards and pairwise overlap checks reduce accidental merging; no unverified syndication bonus.
+- UI expands related coverage and explicitly warns that source independence is unverified; historical methods remain readable.
+- Current live 24h window has no matching pairs: Tech/NBA/Gaming/World remain 5/5/3/5; no live deduplication gain claimed.
+- `pnpm check` passed typecheck/lint/boundaries and all 19 tests, including three clustering regressions.
+- `pnpm build` passed (existing upstream Zod warnings only); `git diff --check` passed.
+- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed windows/versions/preservation/coverage checks; all 19 saved snapshots validate.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 266 URLs, four topics, seven healthy sources.
+- `pnpm exec tsx scripts/smoke-ui.ts` passed desktop/mobile/reload and isolated unpersisted coverage fixture; live screenshots updated/inspected.
+- API/worker restarted; health healthy. No LLM calls/provider/model/billing changes; editorial model configuration remains pending.
+- Next: semantic event/independence evaluation and capped cached editorial pass after allowed model configuration; topic configuration/history UI.

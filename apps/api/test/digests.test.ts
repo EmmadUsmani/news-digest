@@ -15,7 +15,7 @@ test('rank enforces half-open windows, budgets, safe URLs, duplicate titles and 
 test('rank gives auditable coverage, recency and bounded engagement signals with stable ties', () => {
  const selected = rank([item('a'),item('b',{ sources: ['A','B'], points: 1000 }),item('c',{ publishedAt: '2026-11-01T23:00:00Z' })],start,end,3);
  assert.equal(selected[0].id,'b'); assert.equal(selected[1].id,'c');
- assert.equal(selected[0].reasons.length,3);
+ assert.equal(selected[0].reasons.length,4);
  assert.deepEqual(rank([item('z'),item('a')],start,end,2).map(i=>i.id),['a','z']);
  assert.ok(rank([item('x',{points: Infinity})],start,end,1)[0].score < 11);
 });

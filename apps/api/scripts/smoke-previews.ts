@@ -15,7 +15,7 @@ async function smoke() {
  const second = digestPreviewSchema.parse(await (await post(window)).json());
  assert.notEqual(first.id,second.id);
  assert.equal(first.topics.length,4);
- assert.equal(first.method,'signals-v3');
+ assert.equal(first.method,'signals-v4');
  for (const topic of first.topics) {
  assert.ok(topic.relevancePolicy);
  assert.ok(topic.qualityRejections);
@@ -26,6 +26,9 @@ async function smoke() {
  }
  assert.ok(Number.isInteger(topic.relevanceRejectedCount));
  for (const story of topic.stories) {
+ assert.ok(story.coverage?.length);
+ assert.ok(story.coverage.some(article => article.id === story.id));
+ assert.equal(new Set(topic.stories.flatMap(s => s.coverage?.map(a => a.id) ?? [])).size, topic.stories.reduce((n,s) => n + (s.coverage?.length ?? 0), 0));
  assert.equal(qualityRejection(story),null);
  assert.equal(assessRelevance(story,topic.relevancePolicy).eligible,true);
  assert.ok(story.reasons.includes(assessRelevance(story,topic.relevancePolicy).reason));

@@ -69,3 +69,9 @@ The checked last-24-hour edition has NBA 51 candidates / 5 selected and Gaming
 syndicated coverage, fantasy and previews; phrase rules rejected five NBA
 candidates but do not establish newsworthiness. Editorial review and grouping
 syndicated outlets remain necessary. No article-page scraping or LLM calls.
+
+Iteration 14: two queued live collection passes still retain 266 unique items
+across seven healthy sources and all four topics. Headline grouping reads only
+stored candidates; new snapshots retain each grouped article's original link
+and source labels. Labels do not establish independent reporting or remove
+syndication. No new source adapters or external/LLM requests were added.

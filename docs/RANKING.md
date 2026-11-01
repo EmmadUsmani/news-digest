@@ -92,3 +92,28 @@ No app LLM provider/model is configured in the VM env file or application code.
 The owner's instruction prohibits switching providers/models/billing, so this
 iteration made no LLM calls and did not choose one. A bounded cached editorial
 adapter remains pending an explicitly configured permitted gateway model.
+
+## Iteration 14: conservative headline groups (signals-v4)
+
+Eligible, quality-screened articles are scored and sorted as before, then grouped
+before spending the topic budget. Every headline in a group must match every
+other headline (complete-link), be within 36 elapsed hours, and have identical
+numeric tokens. Normalized identical headlines match; otherwise at least four
+non-stopword tokens, 80% containment and 65% Jaccard overlap are required.
+A small action/negation token guard separates obvious announcement/delay and
+confirmation/denial changes. Input order is deterministic by score then ID.
+These are lexical groups, not verified event identity: paraphrases can be missed,
+unrecognized conflicting verbs can merge, and names shared by different events
+can mislead. No embeddings, LLM calls or article-page requests are involved.
+
+The strongest original candidate remains the lead with its original score;
+additional articles do not increase it. Copied coverage links and observed source
+labels are stored with the snapshot and shown in an expandable section. Source
+labels are explicitly not verified independent outlets, especially for Yahoo
+syndication or HN linking to a publisher. Historical methods remain readable.
+The current 24-hour live selection has no grouped pairs and remains 5 Tech,
+5 NBA, 3 Gaming and 5 World stories; no live reduction is claimed. Three offline
+cluster tests verify one-slot grouping/link retention, unchanged scores, numeric,
+action/date/generic-title separation and resistance to overlap chains. Browser
+coverage expansion uses an isolated, unpersisted fixture; screenshots remain live.
+Editorial importance and semantic event clustering still require further work.
