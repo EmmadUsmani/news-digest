@@ -85,3 +85,14 @@ from seven healthy sources across the four seeded topics. New topics created
 through the UI/API have no source connections and collect nothing until source
 configuration is implemented. No automatic feed discovery, fixture ingestion
 or provider/model/billing changes.
+
+Iteration 21: the seven-source catalog can now be connected to any topic through
+Manage topics → Sources. Stored observations are shared immediately; scheduled
+collection remains once per source and runs when any connected topic is enabled.
+Disconnecting leaves collected articles and saved editions intact. No new sources
+or external adapters were introduced. Two explicit queued live collection passes
+again stored 268 real articles across seven healthy sources and four seed topics.
+Desktop/mobile verification temporarily connected The Verge to new topics,
+verified real incoming stories/new snapshots, then removed the test topics.
+Custom feeds, query discovery and social accounts are still unfinished. No
+provider/model/billing changes.

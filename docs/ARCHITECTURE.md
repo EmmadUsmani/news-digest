@@ -103,8 +103,8 @@ seeded profile through TopicRepository. Editable fields are name, description,
 enabled, story/post budgets, include/exclude guidance and explicit phrase rules.
 Unknown fields are rejected; IDs are UUID-validated and missing topics return
 404. Source wiring, position, profile and discovery configuration cannot be
-changed by this endpoint. Disabled topics remain collected but are omitted from
-incoming cards and future editions. Existing snapshots are unchanged. Descriptive
+changed by this endpoint. Disabled topics are omitted from incoming cards and future editions. Since
+iteration 21, collection continues only if an enabled topic connects that source. Existing snapshots are unchanged. Descriptive
 guidance is stored, while current ranking uses explicit phrase policies only.
 The Manage topics editor uses the shared schema and reports save errors inline.
 
@@ -115,3 +115,18 @@ serialize on the parent profile row, so concurrent creations get distinct
 positions and a stale full-list reorder fails atomically. No migration needed.
 The shared editor creates or edits topics; new source-less cards explain why
 collection is empty. Creation does not discover feeds or modify saved editions.
+
+Iteration 21 adds `topic_source_connections` (migration 008), a many-to-many
+mapping seeded from the seven existing source assignments. GET `/api/topics/sources`
+returns the existing catalog; PUT `/api/topics/:id/sources` replaces connections
+through TopicRepository in a topic-row-locked transaction. Unknown/duplicate IDs
+fail atomically; empty lists disconnect. Topic responses derive `sources` from
+this mapping; the legacy topics.sources JSON and content_sources.topic_id are
+retained for migration compatibility and are not used to select topic content.
+Incoming articles and digest candidates join the mapping, reusing observations
+without copying content or fetching an outlet twice. Historical snapshots do not
+change. Collection runs only for sources connected to an enabled topic; the worker
+refreshes schedules every minute to activate connections without a restart.
+Source status still exposes its original seed topicId; multi-topic status UI is
+unfinished. The settings UI refreshes incoming articles after saving connections.
+Custom URLs, discovery queries and social accounts remain outside this catalog.

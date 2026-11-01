@@ -23,6 +23,7 @@ async function scheduleSources() {
  for (const source of await repository.sources()) await ingestionQueue.upsertJobScheduler(`source-${source.id}`, { every: 1800000 }, { name: 'collect', data: { sourceId: source.id }, opts: { attempts: 3, backoff: { type: 'exponential', delay: 60000 }, removeOnComplete: 100, removeOnFail: 100 } });
 }
 void scheduleSources().catch(() => { console.error('Source scheduling failed'); process.exitCode = 1; void stop(); });
-async function stop() { await ingestionWorker.close(); await ingestionQueue.close(); await repository.onModuleDestroy(); await worker.close(); await queue.close(); }
+const sourceRefresh = setInterval(() => { void scheduleSources().catch(() => console.error('Source scheduling refresh failed')); }, 60000);
+async function stop() { clearInterval(sourceRefresh); await ingestionWorker.close(); await ingestionQueue.close(); await repository.onModuleDestroy(); await worker.close(); await queue.close(); }
 process.on('SIGTERM', () => { void stop(); });
 process.on('SIGINT', () => { void stop(); });

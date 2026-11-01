@@ -1,10 +1,19 @@
-import { topicOrderSchema, topicUpdateSchema } from '@digest/contracts';
+import { topicSourcesSchema, topicOrderSchema, topicUpdateSchema } from '@digest/contracts';
 import { TopicRepository } from './domain/topic.repository';
 import { BadRequestException, Body, Controller, Get, Module, NotFoundException, Param, ParseUUIDPipe, Post, Put } from '@nestjs/common';
 import { PostgresTopicRepository } from './database/topic.repository';
 @Controller('api/topics')
 class TopicsController {
  constructor(private readonly topics: TopicRepository) {}
+ @Get('sources') catalog() { return this.topics.catalog(); }
+ @Put(':id/sources') async connect(@Param('id', new ParseUUIDPipe()) id: string, @Body() body: unknown) {
+ const parsed = topicSourcesSchema.safeParse(body);
+ if (!parsed.success) throw new BadRequestException('Provide unique source IDs from the catalog');
+ const result = await this.topics.connectDefault(id, parsed.data.ids);
+ if (result === false) throw new BadRequestException('Unknown source; reload the source catalog');
+ if (!result) throw new NotFoundException('Topic not found');
+ return result;
+ }
  @Post() async create(@Body() body: unknown) {
  const parsed = topicUpdateSchema.safeParse(body);
  if (!parsed.success) throw new BadRequestException('Provide complete topic settings with a name, bounded budgets and valid phrase rules');

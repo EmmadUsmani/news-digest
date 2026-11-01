@@ -4,7 +4,7 @@ import { ContentRepository, ContentItem, Source } from '../domain/ports';
 @Injectable()
 export class PostgresContentRepository extends ContentRepository implements OnModuleDestroy {
  readonly db = database();
- async sources(): Promise<Source[]> { return (await this.db.query(`SELECT s.id,s.topic_id AS "topicId",s.name,s.kind,s.url FROM content_sources s JOIN topics t ON t.id=s.topic_id WHERE t.enabled ORDER BY s.id`)).rows; }
+ async sources(): Promise<Source[]> { return (await this.db.query(`SELECT s.id,s.topic_id AS "topicId",s.name,s.kind,s.url FROM content_sources s WHERE EXISTS (SELECT 1 FROM topic_source_connections c JOIN topics t ON t.id=c.topic_id WHERE c.source_id=s.id AND t.enabled) ORDER BY s.id`)).rows; }
  async store(source: Source, items: ContentItem[]) {
  const client = await this.db.connect();
  try {
@@ -19,7 +19,7 @@ export class PostgresContentRepository extends ContentRepository implements OnMo
  }
  async failed(source: Source, message: string) { await this.db.query('UPDATE content_sources SET last_attempt=now(),last_error=$2 WHERE id=$1', [source.id,message.slice(0,300)]); }
  async latest() {
- return (await this.db.query(`SELECT t.id AS "topicId", COALESCE((SELECT jsonb_agg(r) FROM (SELECT i.id,i.title,i.canonical_url AS url,i.published_at AS "publishedAt", min(s.name) AS source FROM content_items i JOIN content_observations o ON o.item_id=i.id JOIN content_sources s ON s.id=o.source_id WHERE s.topic_id=t.id AND i.canonical_url NOT LIKE '%/betting/%' GROUP BY i.id ORDER BY i.published_at DESC LIMIT 5) r),'[]') AS items FROM topics t WHERE t.enabled ORDER BY t.position`)).rows;
+ return (await this.db.query(`SELECT t.id AS "topicId", COALESCE((SELECT jsonb_agg(r) FROM (SELECT i.id,i.title,i.canonical_url AS url,i.published_at AS "publishedAt", min(s.name) AS source FROM content_items i JOIN content_observations o ON o.item_id=i.id JOIN content_sources s ON s.id=o.source_id JOIN topic_source_connections c ON c.source_id=s.id WHERE c.topic_id=t.id AND i.canonical_url NOT LIKE '%/betting/%' GROUP BY i.id ORDER BY i.published_at DESC LIMIT 5) r),'[]') AS items FROM topics t WHERE t.enabled ORDER BY t.position`)).rows;
  }
  async status() { return (await this.db.query(`SELECT s.id,s.name,s.url,s.topic_id AS "topicId",s.last_attempt AS "lastAttempt",s.last_success AS "lastSuccess",s.last_error AS error,s.last_item_count AS "lastItemCount",count(o.item_id)::int AS "storedItems" FROM content_sources s LEFT JOIN content_observations o ON o.source_id=s.id GROUP BY s.id ORDER BY s.id`)).rows; }
  async onModuleDestroy() { await this.db.end(); }

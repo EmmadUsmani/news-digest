@@ -34,6 +34,7 @@ test('Postgres ingestion is idempotent and records failure without losing last s
  const id = `test-${Date.now()}`;
  try {
  await repository.db.query(`INSERT INTO content_sources(id,topic_id,name,kind,url) SELECT $1,id,'Fixture integration','feed','https://example.org/fixture' FROM topics ORDER BY position LIMIT 1`, [id]);
+ await repository.db.query('INSERT INTO topic_source_connections(topic_id,source_id) SELECT topic_id,id FROM content_sources WHERE id=$1', [id]);
  const source = (await repository.sources()).find(s => s.id === id)!;
  const item = { ...parseFeed(await fixture('rss.xml'))[0], url: `https://example.org/${id}` };
  const adapter = { collect: async () => [item,item] };
@@ -45,6 +46,7 @@ test('Postgres ingestion is idempotent and records failure without losing last s
  assert.ok(state.last_success); assert.match(state.last_error, /no usable/);
  } finally {
  await repository.db.query('DELETE FROM content_observations WHERE source_id=$1', [id]);
+ await repository.db.query('DELETE FROM topic_source_connections WHERE source_id=$1', [id]);
  await repository.db.query('DELETE FROM content_sources WHERE id=$1', [id]);
  await repository.db.query('DELETE FROM content_items WHERE canonical_url=$1', [`https://example.org/${id}`]);
  await repository.onModuleDestroy();

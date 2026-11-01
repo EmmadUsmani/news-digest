@@ -7,8 +7,24 @@ import type { Topic, TopicUpdate } from '@digest/contracts';
 export class PostgresTopicRepository extends TopicRepository implements OnModuleDestroy {
  private readonly db = database();
  async listDefault(): Promise<Topic[]> {
- const result = await this.db.query(`SELECT id, profile_id AS "profileId", name, description, include_guidance AS "includeGuidance", exclude_guidance AS "excludeGuidance", enabled, position, story_budget AS "storyBudget", post_budget AS "postBudget", relevance_policy AS "relevancePolicy", sources, queries, accounts FROM topics WHERE profile_id=$1 ORDER BY position, id`, ['00000000-0000-4000-8000-000000000001']);
+ const result = await this.db.query(`SELECT id, profile_id AS "profileId", name, description, include_guidance AS "includeGuidance", exclude_guidance AS "excludeGuidance", enabled, position, story_budget AS "storyBudget", post_budget AS "postBudget", relevance_policy AS "relevancePolicy", COALESCE((SELECT jsonb_agg(source_id ORDER BY source_id) FROM topic_source_connections c WHERE c.topic_id=topics.id),'[]') AS sources, queries, accounts FROM topics WHERE profile_id=$1 ORDER BY position, id`, ['00000000-0000-4000-8000-000000000001']);
  return result.rows;
+ }
+ async catalog() { return (await this.db.query('SELECT id,name,url FROM content_sources ORDER BY name,id')).rows; }
+ async connectDefault(id: string, ids: string[]): Promise<Topic | null | false> {
+ const client = await this.db.connect();
+ try {
+ await client.query('BEGIN');
+ const topic = await client.query('SELECT id FROM topics WHERE id=$1 AND profile_id=$2 FOR UPDATE', [id, '00000000-0000-4000-8000-000000000001']);
+ if (!topic.rowCount) { await client.query('ROLLBACK'); return null; }
+ const known = await client.query('SELECT id FROM content_sources WHERE id=ANY($1::text[])', [ids]);
+ if (known.rowCount !== ids.length) { await client.query('ROLLBACK'); return false; }
+ await client.query('DELETE FROM topic_source_connections WHERE topic_id=$1', [id]);
+ await client.query('INSERT INTO topic_source_connections(topic_id,source_id) SELECT $1,unnest($2::text[])', [id,ids]);
+ await client.query('COMMIT');
+ } catch (error) { await client.query('ROLLBACK'); throw error; }
+ finally { client.release(); }
+ return (await this.listDefault()).find(topic => topic.id === id) ?? null;
  }
  async createDefault(input: TopicUpdate): Promise<Topic> {
  const client = await this.db.connect();

@@ -63,3 +63,21 @@ test('concurrent topic creation appends unique ordered topics without changing e
  await db.end(); await topics.onModuleDestroy();
  }
 });
+
+test('topic source connections validate atomically and reuse the shared collection catalog', async () => {
+ const topics = new PostgresTopicRepository();
+ const db = (await import('../src/libs/db/connections')).database();
+ let id: string | undefined;
+ try {
+ const catalog = await topics.catalog(); assert.ok(catalog.length > 0);
+ const topic = await topics.createDefault({name:'Source integration check', description:'', includeGuidance:'', excludeGuidance:'', enabled:false, storyBudget:1, postBudget:0, relevancePolicy:{includeAny:[],excludeAny:[]}}); id=topic.id;
+ const connected = await topics.connectDefault(id,[catalog[0].id]); assert.ok(connected); assert.deepEqual(connected.sources,[catalog[0].id]);
+ for (const invalid of [[catalog[0].id,'missing-source'],[catalog[0].id,catalog[0].id]]) {
+ assert.equal(await topics.connectDefault(id,invalid),false);
+ assert.deepEqual((await topics.listDefault()).find(t=>t.id===id)?.sources,[catalog[0].id]);
+ }
+ assert.equal((await db.query('SELECT count(*)::int AS n FROM content_sources WHERE topic_id=$1',[id])).rows[0].n,0);
+ assert.equal(await topics.connectDefault('00000000-0000-4000-8000-999999999999',[]),null);
+ const disconnected=await topics.connectDefault(id,[]); assert.ok(disconnected); assert.deepEqual(disconnected.sources,[]);
+ } finally { if(id) await db.query('DELETE FROM topics WHERE id=$1',[id]); await db.end(); await topics.onModuleDestroy(); }
+});

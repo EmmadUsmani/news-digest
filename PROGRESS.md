@@ -210,3 +210,18 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 - `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed saved-window/history checks; restored latest 24h selections remain 5/5/3/5.
 - API/worker rebuilt/restarted; health healthy. No provider/model/billing changes; allowed editorial configuration remains pending.
 - Next: source/query/account configuration and schedule settings; deletion remains unfinished.
+
+## 2026-11-01: iteration 21 — connect topics to shared real sources
+- Started clean on main; no leftover work; baseline 21 tests, services and `/healthz` healthy.
+- Added migration 008 and transactional source connections, catalog API, validated replacement API and accessible desktop/mobile selection UI.
+- New topics immediately reuse stored articles; future collection stays shared per source; incoming cards refresh after saves.
+- Disconnecting removes candidates from new editions; old snapshots remain unchanged. Custom feeds/queries/accounts remain unfinished.
+- Worker refreshes source schedules every minute; collection pauses when no enabled topic connects a source.
+- First check exposed an ingestion fixture missing its new connection; updated fixture/cleanup and added atomicity/shared-catalog integration coverage.
+- `pnpm migrate`, `pnpm check` (22 tests/types/lint/boundaries), `pnpm build`, `pnpm lint`, `pnpm test` and `git diff --check` passed; existing Zod warnings only.
+- `pnpm exec tsx scripts/smoke-topic-sources.ts` passed desktop/mobile connect/reload/real articles/new editions/disconnect/400/404/history; screenshots inspected.
+- Existing `scripts/smoke-topic-create.ts`, `scripts/smoke-topics.ts`, `scripts/smoke-topic-order.ts`, `scripts/smoke-ui.ts` passed; screenshots updated.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 268 real URLs, four topics, seven healthy sources.
+- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed immutable-history/window checks; restored latest selections 5/5/3/5.
+- API/worker rebuilt/restarted; `/healthz` healthy. No provider/model/billing changes; allowed editorial configuration remains pending.
+- Next: schedule settings; custom feeds/discovery configuration and topic deletion remain unfinished.

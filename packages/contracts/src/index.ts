@@ -42,3 +42,7 @@ export const topicUpdateSchema = topicSchema.pick({ name: true, description: tru
 export type TopicUpdate = z.infer<typeof topicUpdateSchema>;
 
 export const topicOrderSchema = z.object({ ids: z.array(z.string().uuid()).max(1000).refine(ids => new Set(ids).size === ids.length, 'Topic IDs must be unique') }).strict();
+
+export const topicSourcesSchema = z.object({ ids: z.array(z.string().min(1).max(100)).max(100).refine(ids => new Set(ids).size === ids.length, 'Sources must be unique') }).strict();
+export const sourceCatalogSchema = z.array(z.object({ id: z.string(), name: z.string(), url: z.string().url() }));
+export type SourceCatalog = z.infer<typeof sourceCatalogSchema>;
