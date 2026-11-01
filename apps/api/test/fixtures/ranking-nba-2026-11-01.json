@@ -1,0 +1,694 @@
+{
+  "provenance": "Recorded stored publisher-feed candidates; no article-page verification. Offline only; never seed into production.",
+  "windowStart": "2026-10-31T20:15:00.000Z",
+  "windowEnd": "2026-11-01T20:15:00.000Z",
+  "budget": 5,
+  "topic": "NBA",
+  "relevancePolicy": {
+    "excludeAny": [
+      "WNBA",
+      "NCAA",
+      "college basketball",
+      "EuroLeague",
+      "NFL",
+      "MLB",
+      "NHL",
+      "fantasy",
+      "best bets",
+      "odds"
+    ],
+    "includeAny": [
+      "NBA",
+      "Lakers",
+      "Celtics",
+      "Warriors",
+      "Knicks",
+      "Nets",
+      "Bulls",
+      "Cavaliers",
+      "Mavericks",
+      "Nuggets",
+      "Pistons",
+      "Rockets",
+      "Pacers",
+      "Clippers",
+      "Grizzlies",
+      "Bucks",
+      "Timberwolves",
+      "Pelicans",
+      "Thunder",
+      "Magic",
+      "76ers",
+      "Suns",
+      "Trail Blazers",
+      "Kings",
+      "Spurs",
+      "Raptors",
+      "Jazz",
+      "Wizards",
+      "Hornets",
+      "Hawks",
+      "Miami Heat",
+      "LeBron",
+      "Wembanyama"
+    ]
+  },
+  "candidates": [
+    {
+      "id": "1f8e88af-2bbc-4205-bb4a-af6ea34285c9",
+      "title": "Week 2 Aftermath: Anthony Edwards, Kawhi Leonard and others join the dreaded injury list",
+      "url": "https://sports.yahoo.com/articles/week-2-aftermath-anthony-edwards-180000590.html",
+      "excerpt": "The Timberwolves, Pacers and Raptors are among the teams that have to account for star players being sidelined for extended periods after Week 2.",
+      "publishedAt": "2026-11-01T18:00:00.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "e0835666-3dfa-443a-b2a1-5c74aaeda25e",
+      "title": "Dusty May is exactly what the city of Dallas needed",
+      "url": "https://sports.yahoo.com/articles/dusty-may-exactly-city-dallas-173000144.html",
+      "excerpt": "The first-year head coach already has a hold on the hearts of Mavericks fans.",
+      "publishedAt": "2026-11-01T17:30:00.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "476e400d-8ae3-4b2c-8b5e-d8508b72f037",
+      "title": "A look at the Suns’ schedule for November",
+      "url": "https://sports.yahoo.com/articles/look-suns-schedule-november-170000570.html",
+      "excerpt": "How does the calendar shape up for the first full month of the season?",
+      "publishedAt": "2026-11-01T17:00:00.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "10613a67-0e78-4946-b41d-e8e343368599",
+      "title": "Celtics will be without key starter when they face Magic",
+      "url": "https://sports.yahoo.com/articles/celtics-without-key-starter-face-160217885.html",
+      "excerpt": "Robinson will miss his first game of the season as the Celtics rest him on the front-end of a back-to-back.",
+      "publishedAt": "2026-11-01T16:02:17.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "696f20b3-f6f5-4bff-99f7-3d3427d42c39",
+      "title": "Nets vs. Pacers preview: Brooklyn searches for answers after 0-5 start",
+      "url": "https://sports.yahoo.com/articles/nets-vs-pacers-preview-brooklyn-154459186.html",
+      "excerpt": "Brooklyn enters November with an 0-5 record and looks to get its season on track against Indiana.",
+      "publishedAt": "2026-11-01T15:44:59.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "6a28cba6-ad23-4fa9-9abd-f845e1d8ee70",
+      "title": "What we learned from the Spurs’ win over the Timberwolves",
+      "url": "https://sports.yahoo.com/articles/learned-spurs-win-over-timberwolves-152823059.html",
+      "excerpt": "The Spurs still look a lot like last year’s team. That is both good and bad.",
+      "publishedAt": "2026-11-01T15:28:23.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "8145e71e-a7e4-498b-b292-ce00845203da",
+      "title": "Tyler Kolek's strong start gives the Knicks a tough rotation decision when Jose Alvarado returns",
+      "url": "https://sports.yahoo.com/articles/tyler-koleks-strong-start-gives-150500116.html",
+      "excerpt": "Despite the end of his turnover-free streak, Tyler Kolek continues to impress, giving the Knicks a tough choice in their crowded backcourt.",
+      "publishedAt": "2026-11-01T15:05:00.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "a0633ef7-fb90-43fa-b4e6-f2393aeb6804",
+      "title": "Winners & Sinners: Week 2",
+      "url": "https://sports.yahoo.com/articles/winners-sinners-week-2-150000591.html",
+      "excerpt": "Who and what stood out for the Bucks this week?",
+      "publishedAt": "2026-11-01T15:00:00.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "257469cf-68c2-43cf-a89a-e459edcdc1b2",
+      "title": "Final Five: Breaking down the clutch minutes of the Mavericks’ 116-111 win over the Houston Rockets",
+      "url": "https://sports.yahoo.com/articles/final-five-breaking-down-clutch-143406198.html",
+      "excerpt": "The final five minutes of Friday’s 116-111 win was loaded with play worthy of analysis",
+      "publishedAt": "2026-11-01T14:34:06.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "07653a65-36c3-43ec-b4a9-96cd135520f9",
+      "title": "Highlights: Wembanyama, Fox and Harper help Spurs outlast the Timberwolves",
+      "url": "https://sports.yahoo.com/articles/highlights-wembanyama-fox-harper-help-135135068.html",
+      "excerpt": "Wembanyama scored the second-most points in a game of his career.",
+      "publishedAt": "2026-11-01T13:51:35.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "e3e205f0-aff1-45fb-9d62-d547ab76fcc8",
+      "title": "Boozer And Memphis Grizzlies Move To 6-0",
+      "url": "https://sports.yahoo.com/articles/boozer-memphis-grizzlies-move-6-134100514.html",
+      "excerpt": "Cameron Boozer is doing Cameron Boozer things again",
+      "publishedAt": "2026-11-01T13:41:00.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "ce5cbdf7-9859-48e0-a144-4d667d3261ea",
+      "title": "2026 NBA betting promos: Claim over $3,000 in bonuses from top online betting apps, sportsbooks for November 1",
+      "url": "https://www.cbssports.com/betting/news/2026-nba-betting-promos-claim-over-3000-in-bonuses-from-top-online-betting-apps-sportsbooks-for-november-1/",
+      "excerpt": "Top NBA betting apps include DraftKings, FanDuel, BetMGM, bet365, Caesars, Fanatics Sportsbook and Hard Rock Bet",
+      "publishedAt": "2026-11-01T13:23:23.000Z",
+      "sources": [
+        "CBS Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "bbd4a224-4fdb-4543-9a99-ca707996b855",
+      "title": "Rockets defeat Thunder 119-98",
+      "url": "https://sports.yahoo.com/articles/rockets-defeat-thunder-119-98-130752388.html",
+      "excerpt": "Back to the ways of winning!",
+      "publishedAt": "2026-11-01T13:07:52.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "2469bb14-ed25-4b19-8c84-f4cb26cc9aba",
+      "title": "Bucks vs. Cavaliers Player Grades: Rookies unafraid, veterans spooked in Halloween shellacking",
+      "url": "https://sports.yahoo.com/articles/bucks-vs-cavaliers-player-grades-130000923.html",
+      "excerpt": "Milwaukee looked like it had seen a ghost!",
+      "publishedAt": "2026-11-01T13:00:00.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "2c9ff804-512f-40d2-a210-520d01eab511",
+      "title": "Sandro Mamukelashvili was a fan-fave, but the Raptors need to win this",
+      "url": "https://sports.yahoo.com/articles/sandro-mamukelashvili-fan-fave-raptors-130000927.html",
+      "excerpt": "In the Raptors’ first trip to Los Angeles, Toronto has a chance to stop a cold streak, and prove they can win without Kawhi",
+      "publishedAt": "2026-11-01T13:00:00.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "51b71819-b98f-46dc-9d24-967211f1fb63",
+      "title": "Inside the Suns: Lineup changes, defense, and center options",
+      "url": "https://sports.yahoo.com/articles/inside-suns-lineup-changes-defense-130000472.html",
+      "excerpt": "Your weekly Inside the Suns analysis straight from the BSotS community who live and breathe the team.",
+      "publishedAt": "2026-11-01T13:00:00.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "2aff0f1d-27f5-4d3c-8210-7e8437b57d36",
+      "title": "The Dallas Mavericks are fun again",
+      "url": "https://sports.yahoo.com/articles/dallas-mavericks-fun-again-121400832.html",
+      "excerpt": "Wins over Indiana, Miami and Houston have turned the tables on expectations for the Mavericks entering the season.",
+      "publishedAt": "2026-11-01T12:14:00.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "de087808-7853-49e3-820a-48e097517b9d",
+      "title": "Open Thread: How the Spurs rolled in on Halloween",
+      "url": "https://sports.yahoo.com/articles/open-thread-spurs-rolled-halloween-120000629.html",
+      "excerpt": "The guys set the tone before they entered the arena",
+      "publishedAt": "2026-11-01T12:00:00.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "10965565-a0fb-4679-90c3-72fe04c31307",
+      "title": "Stumbling gracefully through my first game with a Celtics credential",
+      "url": "https://sports.yahoo.com/articles/stumbling-gracefully-first-game-celtics-115300520.html",
+      "excerpt": "My first night covering the Celtics as credentialed media, from getting lost in hallways to going 0-for-4 on questions.",
+      "publishedAt": "2026-11-01T11:53:00.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "51792ffa-9b95-47f8-8f8b-6016a83fb82e",
+      "title": "Gui Santos' encore to breakout for Warriors hinges on a simple characteristic",
+      "url": "https://sports.yahoo.com/articles/gui-santos-encore-breakout-warriors-112014182.html",
+      "excerpt": "Golden State Warriors forward Gui Santos made two easy decisions in 2026, and he carried that mindset into his preparation for the 2026-27 season.",
+      "publishedAt": "2026-11-01T11:20:14.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "4be67498-148c-4687-a96b-a441c8513dd6",
+      "title": "Kings players must help ‘special' rookie Darius Acuff Jr., Doug Christie states",
+      "url": "https://sports.yahoo.com/articles/kings-players-must-help-special-094327638.html",
+      "excerpt": "No. 7 overall draft pick Darius Acuff Jr. is leading all NBA rookies with 26.3 per game, but the Sacramento Kings remain winless this season.",
+      "publishedAt": "2026-11-01T09:43:27.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "bddb7e26-e09f-4190-9b41-98de64585125",
+      "title": "Spurs haunt Timberwolves in 121–111 Halloween thriller",
+      "url": "https://sports.yahoo.com/articles/spurs-haunt-timberwolves-121-111-053937153.html",
+      "excerpt": "The victory is the fourth straight for San Antonio, who started the season 0-2 after losses to the Oklahoma City Thunder and the Houston Rockets.",
+      "publishedAt": "2026-11-01T05:39:37.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "c12000b5-c248-4581-9cad-54e7e1a343be",
+      "title": "Austin Reaves took the blame for the struggles of the second unit vs. Warriors",
+      "url": "https://sports.yahoo.com/articles/austin-reaves-took-blame-struggles-052646596.html",
+      "excerpt": "The Lakers struggled without Luka Dončić on the floor against the Warriors and Austin Reaves took the blame for that.",
+      "publishedAt": "2026-11-01T05:26:46.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "1ebbd7da-afd1-4951-8cc0-ebd04e08d0d3",
+      "title": "Lakers vs. Raptors Preview: Bounce back game",
+      "url": "https://sports.yahoo.com/articles/lakers-vs-raptors-preview-bounce-052227452.html",
+      "excerpt": "The Lakers look to get back on the winning column against the Raptors on Sunday.",
+      "publishedAt": "2026-11-01T05:22:27.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "1b60adc1-f62a-4289-8827-d083507bc6cf",
+      "title": "Kings rookie Darius Acuff Jr. becomes NBA's first teenager to make 9 3-pointers in a game",
+      "url": "https://sports.yahoo.com/nba/article/kings-rookie-darius-acuff-jr-becomes-nbas-first-teenager-to-make-9-3-pointers-in-a-game-045202794.html",
+      "excerpt": "Darius Acuff Jr. has been busy in his first couple of weeks of NBA action.",
+      "publishedAt": "2026-11-01T04:52:02.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "3d88640c-4d29-4458-93a3-abbb35f2aa9a",
+      "title": "Boston Celtics (4-1) at Orlando Magic (2-3) Game #6 11/1/26",
+      "url": "https://sports.yahoo.com/articles/boston-celtics-4-1-orlando-043000650.html",
+      "excerpt": "The Celtics look for their 5th straight win as they visit the Orlando Magic.",
+      "publishedAt": "2026-11-01T04:30:00.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "330af28c-5f48-4cb8-8b99-005029bda3a5",
+      "title": "Spurs 121, Wolves 111: Couldn’t Get Over the Hump",
+      "url": "https://sports.yahoo.com/articles/spurs-121-wolves-111-couldn-040605497.html",
+      "excerpt": "Minnesota Timberwolves fell victim to a monster performance by alien Victor Wembanyama and the San Antonio Spurs.",
+      "publishedAt": "2026-11-01T04:06:05.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "095d0fe0-aac4-4b17-9e5b-af5c533989d0",
+      "title": "Preview: Warriors meet new look Clippers in Chase Center",
+      "url": "https://sports.yahoo.com/articles/preview-warriors-meet-look-clippers-033000682.html",
+      "excerpt": "Golden State rides a three-game winning streak into Sunday's matchup against a struggling Clippers squad.",
+      "publishedAt": "2026-11-01T03:30:00.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "86e51c7d-61a5-48e7-8da9-b7e805ed692d",
+      "title": "Diving deeper into Cavs 136-111 win over Bucks: Evan Mobley and Jarrett Allen dominate",
+      "url": "https://sports.yahoo.com/articles/diving-deeper-cavs-136-111-032343414.html",
+      "excerpt": "The Cavs are at their best when they’re getting the bigs involved.",
+      "publishedAt": "2026-11-01T03:23:43.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "c4b2ce66-9bf4-471e-9aa9-7cabae13a1d3",
+      "title": "Rapid Recap: Cavaliers 136, Bucks 111",
+      "url": "https://sports.yahoo.com/articles/rapid-recap-cavaliers-136-bucks-024655415.html",
+      "excerpt": "Another blowout for Milwaukee.",
+      "publishedAt": "2026-11-01T02:46:55.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "277cccbe-ae81-45bb-aa9f-c5ac3301ce3d",
+      "title": "San Antonio vs. Minnesota, Final Score: Spurs tame the Timberwolves 121-111",
+      "url": "https://sports.yahoo.com/articles/san-antonio-vs-minnesota-final-023918636.html",
+      "excerpt": "The Spurs take care of the Timberwolves for their fourth consecutive win",
+      "publishedAt": "2026-11-01T02:39:18.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "20a298f7-d298-4d9e-9239-cd0352954280",
+      "title": "Evan Mobley and Jarrett Allen lead Cavs to runaway victory over Bucks",
+      "url": "https://sports.yahoo.com/articles/evan-mobley-jarrett-allen-lead-022450371.html",
+      "excerpt": "The Cavs picked up their first blowout victory of the season.",
+      "publishedAt": "2026-11-01T02:24:50.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "9d729909-280c-4d3b-8b75-91f8e6a3c943",
+      "title": "Sixers Bell Ringer: Maxey dominates, Edgecombe clutch in come-from-behind win in Charlotte",
+      "url": "https://sports.yahoo.com/articles/sixers-bell-ringer-maxey-dominates-021223656.html",
+      "excerpt": "It was looking like a loss for a weary Sixers squad for most of this one — until Philadelphia hit a hot streak at just the right time.",
+      "publishedAt": "2026-11-01T02:12:23.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "c088e246-ab20-42ec-9234-c90045fbf9ff",
+      "title": "Paint defense suddenly a major issue for Knicks against 76ers",
+      "url": "https://sports.yahoo.com/articles/paint-defense-suddenly-major-issue-020113589.html",
+      "excerpt": "It was one of the first issues that Mike Brown mentioned.",
+      "publishedAt": "2026-11-01T02:01:13.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "9f6437ce-0290-4c43-87be-4ee35c684c63",
+      "title": "Jimmy Butler mocks Luka Doncic with strange ‘only master’ Steph Curry AI post",
+      "url": "https://sports.yahoo.com/articles/jimmy-butler-mocks-luka-doncic-010222496.html",
+      "excerpt": "Luka Dončić might never live down what Steph Curry did to him last night.",
+      "publishedAt": "2026-11-01T01:02:22.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "604ee7fe-21cb-45ad-bcc0-e0c9972696f9",
+      "title": "Tyrese Maxey scores 38, Jaylen Brown returns to 76ers' lineup for 109-104 win over Hornets",
+      "url": "https://sports.yahoo.com/nba/article/tyrese-maxey-scores-38-jaylen-brown-returns-to-76ers-lineup-for-109-104-win-over-hornets-004717731.html",
+      "excerpt": "Brown started slowly but finished with 16 points versus Charlotte after missing Friday's win over the Knicks with left patellar tendinopathy.",
+      "publishedAt": "2026-11-01T00:47:17.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "6a96b8fc-70b6-43cc-b78a-b83b977d59f2",
+      "title": "Jeanie Buss alleges 'cloak and dagger' plot by siblings over Lakers sale",
+      "url": "https://sports.yahoo.com/articles/jeanie-buss-alleges-cloak-dagger-004231974.html",
+      "excerpt": "In third Buss family court filing since August, Jeanie Buss accuses her siblings of running a \"false flag operation\" in bid to sell family's shares.",
+      "publishedAt": "2026-11-01T00:42:31.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "cbb36bd0-df11-434e-8159-55b0fc0cdd92",
+      "title": "Every loss has been something new for Knicks still trying to figure things out",
+      "url": "https://sports.yahoo.com/articles/every-loss-something-knicks-still-004118026.html",
+      "excerpt": "Double-digit comebacks are “taxing,” Hart said, and it’s not something they can rely on, even if improbable rallies were a defining part of their postseason run.",
+      "publishedAt": "2026-11-01T00:41:18.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "1d74bf76-7ace-4865-b145-72275de97c80",
+      "title": "VJ does it again! Edgecombe’s scary big shot caps off Sixers’ comeback win over Hornets",
+      "url": "https://sports.yahoo.com/articles/vj-does-again-edgecombe-scary-004001912.html",
+      "excerpt": "All VJ Edgecombe does is is hit huge shots.",
+      "publishedAt": "2026-11-01T00:40:01.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "62e1ed59-ddce-4a4a-89ac-4e5ec81c8910",
+      "title": "It’s time for Julius Randle and Michael Porter Jr. to be the leaders the Nets need",
+      "url": "https://sports.yahoo.com/articles/time-julius-randle-michael-porter-003602595.html",
+      "excerpt": "Right now, every time the young Nets hit adversity, they go awry like a rudderless ship.",
+      "publishedAt": "2026-11-01T00:36:02.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "21517663-6d90-4de8-ad19-bc341de5e130",
+      "title": "Elly De La Cruz’s Luka Doncic trolling adds twist to Dodgers trade rumors",
+      "url": "https://sports.yahoo.com/articles/elly-la-cruz-luka-doncic-000431033.html",
+      "excerpt": "MLB insider Jim Bowden says the Cincinnati Reds could trade Elly De La Cruz to the Los Angeles Dodgers, but De La Cruz is busy trolling Luka Doncic.",
+      "publishedAt": "2026-11-01T00:04:31.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "7007804d-2070-4a15-a0e6-b16d918885e0",
+      "title": "Cavs at Bucks game thread",
+      "url": "https://sports.yahoo.com/articles/cavs-bucks-game-thread-000000111.html",
+      "excerpt": "The Cavs will try to grab a win on Halloween.",
+      "publishedAt": "2026-11-01T00:00:00.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "a9113c21-0561-443e-a71b-34312ab0e97b",
+      "title": "The most dangerous opponent Phoenix faces is itself",
+      "url": "https://sports.yahoo.com/articles/most-dangerous-opponent-phoenix-faces-000000205.html",
+      "excerpt": "Phoenix has shown offensive improvement, but mental lapses and defensive breakdowns continue to undermine its progress.",
+      "publishedAt": "2026-11-01T00:00:00.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "8dfc4c91-f9b8-42b4-8e4a-97af311a8b45",
+      "title": "It’s time for Basketball: San Antonio Spurs vs Minnesota Timberwolves",
+      "url": "https://sports.yahoo.com/articles/time-basketball-san-antonio-spurs-233000510.html",
+      "excerpt": "The Silver and Black face Minnesota in a playoff rematch",
+      "publishedAt": "2026-10-31T23:30:00.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "f93fa842-5907-409f-9c2e-ce01ac455b05",
+      "title": "LeBron’s 76ers, Grizzlies continue to impress in Post’s NBA Power Rankings",
+      "url": "https://sports.yahoo.com/articles/lebron-76ers-grizzlies-continue-impress-232709198.html",
+      "excerpt": "Which team is No. 1 on the California Post's NBA power rankings?",
+      "publishedAt": "2026-10-31T23:27:09.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "34be2cee-dc67-49d9-b69f-2a93fb2489ce",
+      "title": "Celtics injury report against Magic lists one key player",
+      "url": "https://sports.yahoo.com/articles/celtics-injury-report-against-magic-230041252.html",
+      "excerpt": "Mitchell Robinson, who has started at center for the Celtics so far this season, could miss Sunday’s game against the Orlando Magic.",
+      "publishedAt": "2026-10-31T23:00:41.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "af3cc41a-5782-4f29-8293-b77fd13c63ec",
+      "title": "Rockets hope to bounce back tonight in Houston vs. Thunder",
+      "url": "https://sports.yahoo.com/articles/rockets-hope-bounce-back-tonight-223117130.html",
+      "excerpt": "Can the Rockets rebound from the season’s first loss?",
+      "publishedAt": "2026-10-31T22:31:17.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "1a81cd7f-e86b-4e2d-88b2-8faf6c63446f",
+      "title": "Hawks at Pelicans, Dream at Valkyries: start times, TV, streaming, radio, combined thread",
+      "url": "https://sports.yahoo.com/articles/hawks-pelicans-dream-valkyries-start-220000560.html",
+      "excerpt": "The WNBA trophy will be lifted tonight.",
+      "publishedAt": "2026-10-31T22:00:00.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "acac2dcf-6fab-4234-904e-e557748e0579",
+      "title": "Jazz spooked on their home floor against Trail Blazers",
+      "url": "https://sports.yahoo.com/articles/jazz-spooked-home-floor-against-213715026.html",
+      "excerpt": "Desperate times, unserious basketball",
+      "publishedAt": "2026-10-31T21:37:15.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "0dfd6c56-919a-47ea-a648-30eac6c90735",
+      "title": "Jaylen Brown, Tacko Fall active, Joel Embiid, LeBron James ruled OUT for Sixers-Hornets",
+      "url": "https://sports.yahoo.com/articles/jaylen-brown-tacko-fall-questionable-171828834.html",
+      "excerpt": "The Sixers will be down two of their stars, but might get some reinforcements back against the Hornets.",
+      "publishedAt": "2026-10-31T21:15:00.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "5b3858e8-6ef4-44b0-8edd-bfbc5f331d0c",
+      "title": "Jeanie Buss accuses siblings of secret plot to oust her from Lakers",
+      "url": "https://sports.yahoo.com/articles/jeanie-buss-accuses-siblings-secret-205928000.html",
+      "excerpt": "Jeanie Buss is asking a judge to block her siblings from selling their 17.8% Los Angeles Lakers stake, which would force her out as team governor.",
+      "publishedAt": "2026-10-31T20:59:28.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    },
+    {
+      "id": "3b278726-17f7-42ab-a75b-ec8f399986c5",
+      "title": "Observations after Maxey's 38 points lead Sixers to Halloween win over Hornets",
+      "url": "https://sports.yahoo.com/articles/observations-maxeys-38-points-lead-205340368.html",
+      "excerpt": "Tyrese Maxey’s 38-point performance helped the Sixers pull out a Halloween victory.",
+      "publishedAt": "2026-10-31T20:53:40.000Z",
+      "sources": [
+        "Yahoo Sports NBA"
+      ],
+      "points": 0
+    }
+  ],
+  "labelProvenance": "Agent judgments from recorded headlines and excerpts, before running this benchmark; not owner labels, fact checks or an exhaustive top-news list.",
+  "events": [
+    {
+      "name": "Acuff teenage three-pointer record",
+      "reason": "Reported league record is more consequential than routine rotation commentary.",
+      "ids": [
+        "1b60adc1-f62a-4289-8827-d083507bc6cf"
+      ]
+    },
+    {
+      "name": "Lakers ownership dispute",
+      "reason": "Reported ownership conflict affects a major franchise beyond a single game.",
+      "ids": [
+        "6a96b8fc-70b6-43cc-b78a-b83b977d59f2",
+        "5b3858e8-6ef4-44b0-8edd-bfbc5f331d0c"
+      ]
+    },
+    {
+      "name": "Major player injury roundup",
+      "reason": "Availability of Edwards and Leonard affects multiple teams.",
+      "ids": [
+        "1f8e88af-2bbc-4205-bb4a-af6ea34285c9"
+      ]
+    },
+    {
+      "name": "Sixers comeback and Maxey 38 points",
+      "reason": "Notable game outcome and returning player; any listed coverage satisfies this event.",
+      "ids": [
+        "604ee7fe-21cb-45ad-bcc0-e0c9972696f9",
+        "1d74bf76-7ace-4865-b145-72275de97c80",
+        "3b278726-17f7-42ab-a75b-ec8f399986c5",
+        "9d729909-280c-4d3b-8b75-91f8e6a3c943"
+      ]
+    },
+    {
+      "name": "Spurs defeat Timberwolves",
+      "reason": "Game result and leading players; recap or substantive analysis both count once.",
+      "ids": [
+        "6a28cba6-ad23-4fa9-9abd-f845e1d8ee70",
+        "07653a65-36c3-43ec-b4a9-96cd135520f9",
+        "bddb7e26-e09f-4190-9b41-98de64585125",
+        "330af28c-5f48-4cb8-8b99-005029bda3a5",
+        "277cccbe-ae81-45bb-aa9f-c5ac3301ce3d"
+      ]
+    }
+  ],
+  "mustOmit": [
+    {
+      "id": "ce5cbdf7-9859-48e0-a144-4d667d3261ea",
+      "reason": "Betting promotion"
+    },
+    {
+      "id": "476e400d-8ae3-4b2c-8b5e-d8508b72f037",
+      "reason": "Routine monthly schedule"
+    },
+    {
+      "id": "696f20b3-f6f5-4bff-99f7-3d3427d42c39",
+      "reason": "Routine matchup preview"
+    },
+    {
+      "id": "de087808-7853-49e3-820a-48e097517b9d",
+      "reason": "Open discussion thread"
+    }
+  ]
+}

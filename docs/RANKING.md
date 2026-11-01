@@ -152,3 +152,43 @@ Live stored-content check on 2026-11-01: new v5 editions examined 54 Tech,
 52 NBA, 5 Gaming and 47 World candidates and selected 5/5/3/5 stories.
 History and immutable snapshots passed the API smoke check; no improvement in
 live precision or independent coverage is claimed from unchanged item counts.
+
+## Iteration 31: first recorded-window event benchmark
+
+Run `pnpm evaluate:ranking` for an offline report. The checked-in
+`apps/api/test/fixtures/ranking-nba-2026-11-01.json` freezes all 52 candidates
+returned by the production candidate query for NBA over
+[2026-10-31 20:15 UTC, 2026-11-01 20:15 UTC), with the saved phrase policy,
+five-slot budget, source observations, excerpts and engagement. It is recorded
+publisher-feed content, never inserted into production by the evaluator or tests.
+Article claims were not independently verified; dates are publisher supplied.
+
+Before running the benchmark, the build agent labeled five target events from
+the recorded headlines/excerpts: Acuff's reported teenager three-pointer record,
+the Lakers ownership dispute, the Edwards/Leonard injury roundup, the Sixers
+comeback/Maxey's 38 points and the Spurs win over Minnesota. Each label includes
+its rationale and acceptable alternative article IDs. Four negative labels cover
+a betting promotion, monthly schedule, matchup preview and open thread. These
+are subjective agent labels, not owner judgments or a complete list of the day's
+important events. Labels should receive owner review before tuning against them.
+
+The evaluator runs the same phrase screening and rank/quality/cluster functions
+as edition generation. An event counts once if any accepted article appears in
+a selected story's coverage. It reports missed events, selected headlines,
+event recall (found / labeled events) and target slot yield (distinct found
+events / selected slots). Target yield is not precision: unlabeled stories may
+be important too. Candidate availability is fixed, so this cannot measure missing
+source coverage or establish whether reported claims are true.
+
+Signals-v5 baseline: 2/5 events found, 40% event recall and 40% target slot yield;
+all four negative labels omitted. Injury coverage and Spurs analysis surface;
+the record, ownership dispute and Sixers outcome miss the five slots. More
+recent commentary/rotation items displace older target events. This is evidence
+of the recency baseline's limits, not evidence that these exact five events are
+objectively optimal. No scoring change was fitted to these labels.
+
+`pnpm check` now includes a network/database-free regression requiring at least
+the measured 40% recall/yield and zero negative-label selections. It allows
+future improvements without freezing exact headlines or score values. Add
+independently labeled windows across other days/topics before assessing general
+ranking quality; semantic relevance/editorial judgment remain pending.

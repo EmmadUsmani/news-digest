@@ -43,7 +43,8 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Remove unverified source-observation score bonuses while retaining auditable coverage and historical methods (iteration 30).
   - explainable scores
   - per-topic relevance guidance
-  - labeled evaluation windows and docs/RANKING.md
+  - [x] First frozen real-candidate NBA window with agent event labels, offline report and baseline recall regression (iteration 31).
+  - Next: independently reviewed labels and more windows/topics; current five-slot event recall is 2/5, not a general quality estimate.
 - [ ] M6 configuration UI: topics CRUD/reorder/enable, schedule and budgets,
   on-demand digest for any window.
   - [x] Paginated immutable edition history and direct edition URLs (iteration 15).

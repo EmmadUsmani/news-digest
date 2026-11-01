@@ -352,3 +352,18 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 - `pnpm exec tsx apps/api/scripts/smoke-scheduled-digests.ts` observed actual 20:12 UTC generation, exact 6h window and completed job; original schedule restored.
 - Final `pnpm lint`, `git diff --check` and rebuild passed; services restarted and /healthz healthy. Provider/model/billing unchanged; editorial configuration remains blocked.
 - Next: social discovery/configuration, independent-outlet attribution and labeled historical ranking evaluation.
+
+## 2026-11-01: iteration 31 — recorded NBA ranking benchmark
+- Started clean on main; no leftover work. Baseline 34 tests, services, /healthz and eleven sources healthy.
+- Public Reddit NBA RSS probe returned HTTP 403; documented blocked status without bypass attempts or registration.
+- Froze all 52 real stored candidates for a concrete 24h NBA window, saved phrase policy and five-slot budget; offline only, never seeded.
+- Agent labeled five target events with alternative coverage IDs/rationales and four filler omissions before evaluation; not owner labels or verified article claims.
+- Added `pnpm evaluate:ranking` and offline regression: v5 finds 2/5 events (40% recall/target slot yield), omits all four negatives; documented missed record/ownership/Sixers events.
+- No scoring fitted to labels; broader independently labeled windows remain needed before general quality claims.
+- `pnpm check` passed types/lint/boundaries and all 35 tests; `pnpm build` passed with existing upstream Zod warnings.
+- `pnpm exec tsc --noEmit --strict --esModuleInterop --skipLibCheck --target ES2022 --module commonjs apps/api/scripts/evaluate-ranking.ts apps/api/test/historical-ranking.test.ts` passed.
+- Capture initially needed an async wrapper; evaluator moved into API package for standalone contracts typechecking; temporary capture script removed.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 416 URLs, four topics, eleven healthy sources; `smoke-previews.ts` passed immutable/history/window checks, selections 5/5/3/5.
+- `pnpm exec tsx apps/api/scripts/smoke-scheduled-digests.ts` observed actual 20:16 UTC generation, exact 6h window and completed job; original schedule restored.
+- Final `pnpm lint`, `pnpm evaluate:ranking` and `git diff --check` passed. No UI changes; provider/model/billing unchanged, editorial configuration blocked.
+- Next: more labeled windows, social discovery and independently verified outlet attribution.

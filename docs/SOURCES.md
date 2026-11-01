@@ -25,7 +25,7 @@ verification: 20:08 UTC; two queued passes preserved the same 411-item total.
 | xAI x_search via configured gateway | all | not yet tried | 0 | Review documented gateway routing before use |
 | X official oEmbed | all | not yet tried | 0 | Render discovered post URLs |
 | X official API | all | needs key | 0 | Owner token and hard read cap required |
-| Reddit RSS/JSON | all | not yet tried | 0 | Check public endpoints and limits |
+| Reddit NBA RSS | NBA | blocked | 0 | https://www.reddit.com/r/nba/.rss returned HTTP 403 (iteration 31); no bypass attempted; JSON/other communities untested |
 | Bluesky public API | all | not yet tried | 0 | Check topical relevance |
 
 Ingestion runs immediately on first scheduling and every 30 minutes thereafter.
@@ -161,3 +161,10 @@ normalization stores only the existing bounded plain-text excerpt; this remains
 preliminary selection, without editorial summaries or verified independence.
 Two-item recorded fixtures verify each publisher offline and are never seeded.
 No social/LLM/provider/model/billing configuration changed.
+
+Iteration 31: two queued live passes retained 416 real URLs across eleven healthy
+sources and four topics. One bounded public Reddit NBA RSS probe returned 403;
+no source was registered and no bypass was attempted. The new historical NBA
+ranking fixture copies existing stored candidates for offline evaluation only;
+it does not ingest fixture data or independently verify publisher claims.
+No provider/model/billing configuration changed.

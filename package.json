@@ -9,7 +9,8 @@
     "boundaries": "depcruise apps/api/src --config .dependency-cruiser.cjs",
     "test": "tsx --test apps/api/test/*.test.ts",
     "check": "pnpm --filter @digest/contracts build && pnpm typecheck && pnpm lint && pnpm boundaries && pnpm test",
-    "migrate": "tsx apps/api/src/libs/db/migrate.ts"
+    "migrate": "tsx apps/api/src/libs/db/migrate.ts",
+    "evaluate:ranking": "tsx apps/api/scripts/evaluate-ranking.ts"
   },
   "devDependencies": {
     "typescript": "^5.9.3",
