@@ -155,3 +155,17 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 - Screenshots updated, mobile custom controls visually inspected; `pnpm lint` and `git diff --check` passed.
 - Rebuilt/restarted API and worker; health healthy. No LLM/provider/model/billing changes; editorial configuration still pending.
 - Next: topic editing, schedule/budgets; semantic ranking evaluation while editorial configuration remains pending.
+
+## 2026-11-01: iteration 17 — edit topic settings and active phrase rules
+- Started clean on main; no leftover work; baseline 19 tests, services and `/healthz` healthy.
+- Added profile-scoped validated PUT settings and Manage topics UI: name, description, enabled, budgets, guidance and phrase rules.
+- Disabled topics leave incoming cards/new editions; collection continues. Historical snapshots remain unchanged.
+- UI distinguishes active phrase rules from editorial notes and future post budgets; source wiring/create/reorder remain unfinished.
+- `pnpm check` passed typecheck/lint/boundaries and all 19 tests; `pnpm build` passed (existing upstream Zod warnings).
+- `pnpm exec tsx scripts/smoke-topics.ts` passed desktop/mobile persistence, disable, budget, immutable-history and 400/404 checks; original settings restored.
+- Corrected smoke cleanup's read-only fields and textarea locator after initial failures; successful reruns and screenshots verified.
+- `pnpm exec tsx scripts/smoke-ui.ts` passed existing desktop/mobile/history/window checks; screenshots updated and topic mobile inspected.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 266 URLs, four topics, seven healthy sources.
+- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed history/versions/preservation/ranking; restored default 24h edition selects 5/5/3/5.
+- `git diff --check` passed; API/worker rebuilt/restarted and health healthy. No provider/model/billing changes; editorial configuration pending.
+- Next: topic creation/reorder/source configuration, schedule settings, semantic ranking evaluation.

@@ -34,3 +34,9 @@ export const previewRequestSchema = z.object({ windowStart: z.string().datetime(
 export const previewHistoryEntrySchema = digestPreviewSchema.pick({ id: true, createdAt: true, windowStart: true, windowEnd: true, method: true });
 export const previewHistorySchema = z.object({ entries: z.array(previewHistoryEntrySchema), hasMore: z.boolean() });
 export type PreviewHistory = z.infer<typeof previewHistorySchema>;
+
+export const topicUpdateSchema = topicSchema.pick({ name: true, description: true, includeGuidance: true, excludeGuidance: true, enabled: true, storyBudget: true, postBudget: true, relevancePolicy: true }).extend({
+ name: z.string().trim().min(1).max(120), description: z.string().trim().max(2000),
+ includeGuidance: z.string().trim().max(2000), excludeGuidance: z.string().trim().max(2000)
+}).strict();
+export type TopicUpdate = z.infer<typeof topicUpdateSchema>;

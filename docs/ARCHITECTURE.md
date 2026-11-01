@@ -97,3 +97,13 @@ the exact half-open UTC window and remain immutable; selection uses only
 stored content, without fetching historical coverage. The UI states this limit.
 Playwright checks the Los Angeles fall-back transition (16 wall-clock hours
 become 17 elapsed hours), custom validation and saved-edition reloads.
+
+Iteration 17 adds complete validated PUT `/api/topics/:id` settings for the
+seeded profile through TopicRepository. Editable fields are name, description,
+enabled, story/post budgets, include/exclude guidance and explicit phrase rules.
+Unknown fields are rejected; IDs are UUID-validated and missing topics return
+404. Source wiring, position, profile and discovery configuration cannot be
+changed by this endpoint. Disabled topics remain collected but are omitted from
+incoming cards and future editions. Existing snapshots are unchanged. Descriptive
+guidance is stored, while current ranking uses explicit phrase policies only.
+The Manage topics editor uses the shared schema and reports save errors inline.
