@@ -108,3 +108,8 @@ Topic lifecycle (iteration 25): removing a topic deletes its connections, not th
 shared catalog entry or stored articles/observations. Other connected topics keep
 their coverage. Collection pauses when no enabled topic connects a source, after
 the worker refreshes schedules; previously fetched content remains real content.
+
+Iteration 26: two explicit live collection passes stored 270 unique real articles
+across the four seeded topics; all seven sources succeeded without errors.
+Missed-run probes used synthetic slot timestamps and real stored candidates,
+not fabricated content or a real outage. No source/provider/model/billing change.

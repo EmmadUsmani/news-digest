@@ -10,6 +10,7 @@ async function smoke() {
  await page.goto('http://localhost:8000');
  await page.getByText('Source & run status',{exact:true}).click();
  await page.getByRole('heading',{name:'Recent automatic runs',exact:true}).waitFor();
+ await page.getByText('After an outage, queued runs up to six hours late', {exact:false}).waitFor();
  const response = await page.request.get('http://localhost:8000/api/status');
  assert.equal(response.status(),200);
  const status = operationsStatusSchema.parse(await response.json());
@@ -42,6 +43,7 @@ async function smoke() {
  // Exercise visible failure states with explicit synthetic browser responses only.
  const page=await browser.newPage();
  const live=operationsStatusSchema.parse(await (await page.request.get('http://localhost:8000/api/status')).json());
+ live.queues[2].runs = [{id:'synthetic-missed-run',state:'completed',attempts:1,scheduledAt:'2020-01-01T00:00:00.000Z',finishedAt:live.checkedAt,editionId:null,skipped:'Missed run: more than six hours late; generate a custom window to recover coverage'}];
  live.sources[0].error='Recorded collection failure';
  live.sources[1].lastSuccess='2020-01-01T00:00:00.000Z';
  live.sources[2].active=false;
@@ -49,6 +51,7 @@ async function smoke() {
  await page.route('**/api/status',route=>route.fulfill({json:live}));
  await page.goto('http://localhost:8000');
  await page.getByText('Source & run status',{exact:true}).click();
+ await page.getByText('Missed run: more than six hours late', {exact:false}).waitFor();
  for(const text of ['Collection failed','Collection overdue','Paused · no enabled topics','No worker connected','Queue unavailable','Queue paused']) await page.getByText(text,{exact:true}).waitFor();
  await page.close();
  console.log('Status desktop/mobile, real telemetry, edition links, refresh errors and synthetic failure rendering passed');

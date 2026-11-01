@@ -59,7 +59,8 @@ Fix regressions, broken services and stalled sources before starting new work.
   automatically, plus the status page (sources, queues, runs, LLM usage).
   - [x] Saved daily cadence/timezone drives automatic preliminary editions, exact slot windows, bounded retries and idempotent persistence (iteration 23).
   - [x] Source/run status panel and API: source freshness/errors/counts, queue availability/workers/pause/counts, next edition, retained run states and edition links (iteration 24).
-  - Next: missed-run policy; bounded LLM usage/cap reporting once editorial integration is configured.
+  - [x] Bounded missed-run policy: retained slots up to six hours late keep original windows; older slots skip visibly, without daily backfill; settings/status explain custom-window recovery (iteration 26).
+  - Next: bounded LLM usage/cap reporting once editorial integration is configured; durable recovery beyond retained Redis jobs.
   `DigestPublished` event plus notification port with a log/in-app adapter.
 - [ ] Ongoing:
   - [x] Wider NBA/Gaming publisher coverage: Yahoo NBA + Eurogamer (iteration 12), 110 additional stored URLs.

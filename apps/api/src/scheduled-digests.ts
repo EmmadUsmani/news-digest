@@ -1,6 +1,7 @@
 import { Queue, Worker } from 'bullmq';
 import { PostgresProfileRepository } from './modules/profiles/database/profile.repository';
 import { PostgresPreviewRepository } from './modules/digests/database/preview.repository';
+import { scheduledSlot } from './modules/profiles/domain/scheduled-slot';
 import { coverageWindow } from './modules/profiles/domain/schedule';
 
 export function startScheduledDigests() {
@@ -12,8 +13,10 @@ export function startScheduledDigests() {
  const profile = await profiles.getDefault();
  // A replaced schedule may leave an already queued slot; ignore obsolete settings.
  if (job.data.cadence !== profile.schedule.cadence || job.data.timezone !== profile.schedule.timezone) return { skipped: 'Schedule changed' };
- const scheduledAt = job.opts.prevMillis;
- if (!scheduledAt || !Number.isFinite(scheduledAt)) throw new Error('Scheduled slot timestamp missing');
+ const slot = scheduledSlot(job.opts.prevMillis, Date.now());
+ if (!slot.ok) throw new Error(slot.error);
+ if (slot.value.skip) return { skipped: slot.value.skip };
+ const scheduledAt = slot.value.timestamp;
  const window = coverageWindow(new Date(scheduledAt), profile.schedule.coverageWindow);
  if (!window.ok) throw new Error(window.error);
  const edition = await previews.generate(window.value.windowStart, window.value.windowEnd, `${profile.id}:${scheduledAt}`);

@@ -185,3 +185,18 @@ The settings UI requires a separate permanent-delete confirmation, offers
 cancellation and disabling guidance, and preserves the confirmation after errors.
 Deleting the final connection pauses future collection after scheduler refresh;
 already queued jobs and historical content may remain.
+
+Iteration 26 bounds missed-run recovery in the profile domain. BullMQ's retained
+pending slot runs after worker downtime if it is at most six elapsed hours late;
+its original slot still ends the coverage window and identifies retries. Runs
+more than six hours late complete with an explicit skip reason and no new
+snapshot. Future/invalid slot timestamps fail rather than publishing an edition.
+The fixed six-hour grace avoids an old edition becoming the latest after a long
+outage and bounds recovery to the existing pending slot; historical daily slots
+are not synthesized or backfilled. Cadence/timezone changes still skip obsolete
+jobs first. Skips appear in retained status history, and both status and schedule
+settings explain manual custom-window recovery. This policy requires retained
+Redis jobs; it does not recover jobs lost by clearing Redis. Queue retries remain
+three attempts and scheduled snapshot keys remain idempotent. Smoke probes use
+synthetic slot times against the real worker and real stored articles, remove
+probe telemetry, and leave the resulting immutable real-content edition intact.

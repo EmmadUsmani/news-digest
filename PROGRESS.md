@@ -283,3 +283,17 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 - `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed history/window checks; restored selections 5/5/3/5. Queue status has no failed jobs.
 - API/worker rebuilt/restarted and /healthz healthy. No provider/model/billing changes; editorial configuration remains blocked.
 - Next: custom feeds/discovery configuration and missed-run policy.
+
+## 2026-11-01: iteration 26 — bounded recovery for missed automatic editions
+- Started clean on main; no leftover work; baseline 26 tests, services, /healthz and seven sources healthy.
+- Retained queued slots up to six hours late preserve original windows; older slots skip visibly without snapshots or historical backfill.
+- Invalid/future slot timestamps fail; schedule changes still skip obsolete jobs; retries retain immutable snapshot identity.
+- Settings/status explain the policy and custom-window recovery; Redis job loss remains outside recovery scope.
+- `pnpm check` passed typecheck/lint/boundaries and all 27 tests; `pnpm build` passed with existing upstream Zod warnings.
+- `pnpm exec tsx apps/api/scripts/smoke-missed-runs.ts` passed synthetic stale/recent slots against the real worker: no stale snapshot, original recovered window, idempotent retry, visible skip reason.
+- `pnpm exec tsx scripts/smoke-status.ts`, `scripts/smoke-schedule.ts` and `scripts/smoke-ui.ts` passed desktop/mobile checks; screenshots updated and mobile inspected.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 270 real articles, four topics, seven healthy sources.
+- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed immutable/history/window checks; selections remain 5/5/3/5.
+- `pnpm exec tsx apps/api/scripts/smoke-scheduled-digests.ts` observed actual 19:54 UTC automatic generation, real candidates, exact 6h window and completed job; original schedule restored.
+- `pnpm lint` and `git diff --check` passed; API/worker rebuilt/restarted and /healthz healthy. No provider/model/billing changes.
+- Next: custom feeds/discovery configuration; editorial model configuration remains blocked.
