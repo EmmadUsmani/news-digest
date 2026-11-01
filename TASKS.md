@@ -53,7 +53,8 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Create topics through validated UI/API with saved phrase rules/budgets, appended reading order and clear source-less state (iteration 20).
   - [x] Connect/disconnect existing catalog sources per topic via UI/API; shared ingestion and immediate stored articles, immutable history (iteration 21).
   - [x] Persist daily schedule time/timezone, elapsed coverage window and new-topic budget defaults through validated UI/API (iteration 22). Automatic preliminary generation connected in iteration 23 (M7).
-  - Next: custom feeds/query/account configuration and topic deletion; automatic generation is connected; add run/status visibility under M7.
+  - [x] Delete topics through profile-scoped API and desktop/mobile confirmation UI; close reading-order gaps while retaining shared sources, collected articles and immutable editions (iteration 25).
+  - Next: custom feeds/query/account configuration; automatic generation and run/status visibility are connected under M7.
 - [ ] M7 scheduled operation: the cadence scheduler generates digests
   automatically, plus the status page (sources, queues, runs, LLM usage).
   - [x] Saved daily cadence/timezone drives automatic preliminary editions, exact slot windows, bounded retries and idempotent persistence (iteration 23).

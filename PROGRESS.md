@@ -268,3 +268,18 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 - `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed immutable/history/window checks; latest selections remain 5/5/3/5.
 - API/worker rebuilt/restarted; /healthz healthy. No source/provider/model/billing changes.
 - Next: custom feeds/discovery configuration, topic deletion and missed-run policy; editorial model configuration remains blocked.
+
+## 2026-11-01: iteration 25 — delete topics without losing shared content
+- Started clean on main; no leftover work. Baseline 25 tests, both services and /healthz healthy.
+- Added profile-scoped DELETE /api/topics/:id and desktop/mobile permanent-delete confirmation, cancel and error/retry handling.
+- Deletion serializes with creation/reorder, closes position gaps and cascades topic connections; immutable editions retain deleted sections.
+- Migration 010 makes legacy source-topic provenance nullable with SET NULL; shared sources, articles and observations survive.
+- New integration coverage verifies profile isolation, missing IDs, ordering, cascading connections and retained shared fixture content.
+- `pnpm migrate`, `pnpm check` (26 tests/types/lint/boundaries), `pnpm build`, `pnpm lint` and `git diff --check` passed; existing Zod warnings only.
+- `pnpm exec tsx scripts/smoke-topic-delete.ts` passed desktop/mobile cancel, failure/retry, deletion, history, new-edition exclusion and shared real content; screenshots saved/mobile inspected.
+- Initial browser assertion matched the intentionally preserved historical section; scoped it to incoming topics and reran successfully.
+- `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-topic-order.ts` passed existing UI/order checks; screenshots updated.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 268 real articles, four topics, seven healthy sources.
+- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed history/window checks; restored selections 5/5/3/5. Queue status has no failed jobs.
+- API/worker rebuilt/restarted and /healthz healthy. No provider/model/billing changes; editorial configuration remains blocked.
+- Next: custom feeds/discovery configuration and missed-run policy.

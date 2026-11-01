@@ -1,6 +1,6 @@
 import { topicSourcesSchema, topicOrderSchema, topicUpdateSchema } from '@digest/contracts';
 import { TopicRepository } from './domain/topic.repository';
-import { BadRequestException, Body, Controller, Get, Module, NotFoundException, Param, ParseUUIDPipe, Post, Put } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Module, NotFoundException, Param, ParseUUIDPipe, Post, Put } from '@nestjs/common';
 import { PostgresTopicRepository } from './database/topic.repository';
 @Controller('api/topics')
 class TopicsController {
@@ -31,6 +31,11 @@ class TopicsController {
  const topic = await this.topics.updateDefault(id, parsed.data);
  if (!topic) throw new NotFoundException('Topic not found');
  return topic;
+ }
+ @Delete(':id') async remove(@Param('id', new ParseUUIDPipe()) id: string) {
+ const result = await this.topics.deleteDefault(id);
+ if (!result) throw new NotFoundException('Topic not found');
+ return result;
  }
  @Get() get() { return this.topics.listDefault(); }
 }

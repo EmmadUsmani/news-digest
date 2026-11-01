@@ -26,6 +26,22 @@ export class PostgresTopicRepository extends TopicRepository implements OnModule
  finally { client.release(); }
  return (await this.listDefault()).find(topic => topic.id === id) ?? null;
  }
+ async deleteDefault(id: string): Promise<Topic[] | null> {
+ const client = await this.db.connect();
+ try {
+ await client.query('BEGIN');
+ // Share the creation/reorder lock so deleting closes positions atomically.
+ await client.query('SELECT id FROM profiles WHERE id=$1 FOR UPDATE', ['00000000-0000-4000-8000-000000000001']);
+ const removed = await client.query('DELETE FROM topics WHERE id=$1 AND profile_id=$2 RETURNING id', [id, '00000000-0000-4000-8000-000000000001']);
+ if (!removed.rowCount) { await client.query('ROLLBACK'); return null; }
+ await client.query(`UPDATE topics SET position=ordered.position FROM
+ (SELECT id,(row_number() OVER (ORDER BY position,id)-1)::int AS position FROM topics WHERE profile_id=$1) ordered
+ WHERE topics.id=ordered.id`, ['00000000-0000-4000-8000-000000000001']);
+ await client.query('COMMIT');
+ } catch (error) { await client.query('ROLLBACK'); throw error; }
+ finally { client.release(); }
+ return this.listDefault();
+ }
  async createDefault(input: TopicUpdate): Promise<Topic> {
  const client = await this.db.connect();
  const profileId = '00000000-0000-4000-8000-000000000001';

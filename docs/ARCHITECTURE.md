@@ -172,3 +172,16 @@ invented. Database failure returns an HTTP error; Redis failure degrades queue
 telemetry. Old UI data is marked stale on refresh failure. This does not provide
 persistent job auditing beyond BullMQ retention, missed-run recovery or worker
 liveness beyond connected-worker telemetry.
+
+Iteration 25 adds profile-scoped DELETE /api/topics/:id behind TopicRepository.
+Deletion serializes with creation/reorder on the profile row and closes position
+gaps in the same transaction. Topic connections cascade; shared sources,
+observations, content items and immutable editions remain intact. Migration 010
+makes the legacy content_sources.topic_id provenance nullable with ON DELETE
+SET NULL; collection eligibility continues to use topic_source_connections.
+The Source port reflects this nullable provenance. The API returns the remaining
+ordered topics (404 for unknown/other-profile IDs, 400 for invalid UUIDs).
+The settings UI requires a separate permanent-delete confirmation, offers
+cancellation and disabling guidance, and preserves the confirmation after errors.
+Deleting the final connection pauses future collection after scheduler refresh;
+already queued jobs and historical content may remain.

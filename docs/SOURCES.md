@@ -103,3 +103,8 @@ Enabled connections determine active versus paused; active sources without a
 success in one hour are flagged overdue. Two explicit live collection passes
 still stored 268 unique articles across four topics, with all seven sources
 successful. No source, provider, model or billing configuration changed.
+
+Topic lifecycle (iteration 25): removing a topic deletes its connections, not the
+shared catalog entry or stored articles/observations. Other connected topics keep
+their coverage. Collection pauses when no enabled topic connects a source, after
+the worker refreshes schedules; previously fetched content remains real content.

@@ -92,3 +92,48 @@ test('profile schedule persists independently of topics and restores all fields'
  assert.deepEqual(await topics.listDefault(), before);
  } finally { await profiles.updateDefault(original.schedule); await profiles.onModuleDestroy(); await topics.onModuleDestroy(); }
 });
+
+test('topic deletion closes reading order and preserves shared sources, observations and profile scope', async () => {
+ const topics = new PostgresTopicRepository();
+ const db = (await import('../src/libs/db/connections')).database();
+ const original = await topics.listDefault();
+ const created: string[] = [];
+ const sourceId = 'deletion-integration-fixture';
+ const otherProfile = '00000000-0000-4000-8000-999999999998';
+ const otherTopic = '00000000-0000-4000-8000-999999999997';
+ let itemId: string | undefined;
+ try {
+ const input = {name:'Deletion integration fixture',description:'',includeGuidance:'',excludeGuidance:'',enabled:false,storyBudget:1,postBudget:0,relevancePolicy:{includeAny:[],excludeAny:[]}};
+ const first = await topics.createDefault(input); created.push(first.id);
+ const second = await topics.createDefault(input); created.push(second.id);
+ await db.query("INSERT INTO content_sources(id,topic_id,name,kind,url) VALUES($1,$2,'Fixture','feed','https://example.org/deletion-fixture')", [sourceId,first.id]);
+ itemId = (await db.query("INSERT INTO content_items(canonical_url,title,excerpt,published_at) VALUES('https://example.org/deletion-fixture','Fixture','Fixture',now()) RETURNING id")).rows[0].id;
+ await db.query('INSERT INTO content_observations(source_id,item_id) VALUES($1,$2)',[sourceId,itemId]);
+ await topics.connectDefault(first.id,[sourceId]); await topics.connectDefault(second.id,[sourceId]);
+ await topics.reorderDefault([first.id,...original.map(t=>t.id),second.id]);
+ await db.query("INSERT INTO profiles(id,name) VALUES($1,'Other profile fixture')",[otherProfile]);
+ await db.query("INSERT INTO topics(id,profile_id,name,description,include_guidance,position) VALUES($1,$2,'Other topic','','',0)",[otherTopic,otherProfile]);
+ const before = await topics.listDefault();
+ assert.equal(await topics.deleteDefault(otherTopic),null);
+ assert.equal(await topics.deleteDefault('00000000-0000-4000-8000-999999999999'),null);
+ assert.deepEqual(await topics.listDefault(),before);
+ const remaining = await topics.deleteDefault(first.id); assert.ok(remaining);
+ assert.deepEqual(remaining.map(t=>t.id),[...original.map(t=>t.id),second.id]);
+ assert.deepEqual(remaining.map(t=>t.position),remaining.map((_,i)=>i));
+ assert.deepEqual(remaining.find(t=>t.id===second.id)?.sources,[sourceId]);
+ assert.equal((await db.query('SELECT topic_id FROM content_sources WHERE id=$1',[sourceId])).rows[0].topic_id,null);
+ assert.equal((await db.query('SELECT 1 FROM content_observations WHERE source_id=$1 AND item_id=$2',[sourceId,itemId])).rowCount,1);
+ assert.equal((await db.query('SELECT 1 FROM topic_source_connections WHERE topic_id=$1',[first.id])).rowCount,0);
+ assert.equal(await topics.deleteDefault(first.id),null);
+ await topics.deleteDefault(second.id);
+ assert.deepEqual(await topics.listDefault(),original);
+ } finally {
+ await db.query('DELETE FROM content_observations WHERE source_id=$1',[sourceId]);
+ await db.query('DELETE FROM content_sources WHERE id=$1',[sourceId]);
+ if(itemId) await db.query('DELETE FROM content_items WHERE id=$1',[itemId]);
+ await db.query('DELETE FROM topics WHERE id=ANY($1::uuid[])',[[...created,otherTopic]]);
+ await db.query('DELETE FROM profiles WHERE id=$1',[otherProfile]);
+ await topics.reorderDefault(original.map(t=>t.id));
+ await db.end(); await topics.onModuleDestroy();
+ }
+});
