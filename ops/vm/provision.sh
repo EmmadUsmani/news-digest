@@ -20,7 +20,7 @@ if exe ls 2>/dev/null | grep -q "$HOST"; then
     echo "exists"
     exe ls | grep "$HOST" | grep -q paused && exe resume "$VM" || true
 else
-    exe new --name="$VM" --no-email --comment="news-digest autonomous build"
+    exe new --name="$VM" --no-email --comment=news-digest-autonomous-build
 fi
 
 step "GitHub integration for $GH_REPO"

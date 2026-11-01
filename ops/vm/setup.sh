@@ -62,6 +62,11 @@ codex --version
 
 step "User services survive logout and reboot"
 sudo loginctl enable-linger "$USER"
+# Non-interactive SSH sessions lack the user-bus environment; point at it.
+export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
+for _ in $(seq 1 30); do [[ -S $XDG_RUNTIME_DIR/bus ]] && break; sleep 1; done
+[[ -S $XDG_RUNTIME_DIR/bus ]] || { echo 'ERROR: user systemd bus not available' >&2; exit 1; }
+echo "user systemd: $(systemctl --user is-system-running 2>/dev/null || true)"
 
 step "Install the build harness"
 bash "$REPO/ops/agent-control/install.sh"
@@ -70,10 +75,14 @@ python3 "$HOME/agent-control/verify.py" 2>&1 | tail -3
 if [[ ${SKIP_SMOKE:-0} != 1 ]]; then
     step "Real Codex smoke test (one tiny request, does not touch the repo)"
     rm -f "$HOME/agent-control/smoke.txt"
-    SMOKE=1 RUN_HOURS=0.25 bash "$HOME/agent-control/run.sh" >/dev/null 2>&1 || true
+    # Short deadline: a usage-limited account must not hold setup for 15 minutes.
+    SMOKE=1 RUN_HOURS=0.05 bash "$HOME/agent-control/run.sh" >/dev/null 2>&1 || true
     if grep -q 'smoke ok' "$HOME/agent-control/smoke.txt" 2>/dev/null; then
         echo 'smoke: PASS (non-interactive Codex works with the configured model)'
         rm -f "$HOME/agent-control/smoke.txt"
+    elif tail -n 20 "$HOME/agent-control/logs/supervisor.log" | grep -q 'result=usage'; then
+        echo 'smoke: Codex reached the model but the plan usage limit is exhausted.'
+        echo '       Auth works; the agent will poll every 15 minutes and start when it resets.'
     else
         echo 'smoke: FAIL. See ~/agent-control/logs/ (last iter-*.err / .jsonl)' >&2
         exit 1
