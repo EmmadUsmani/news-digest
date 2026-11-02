@@ -344,3 +344,9 @@ to scheduling while access is blocked. Migration 039 atomically retains X links
 from Reddit external URLs/selftext, including citing scores. They feed bounded X
 verification, topic scope and existing official-X selection; citations alone never
 verify a tweet. Reddit ranking/cards remain unfinished. Synthetic fixtures are not live content.
+
+Scheduled budget attempts now track worker retries and stalled redeliveries with
+compare-and-swap fencing, recording conservative AI/mixed/fallback publication
+outcomes. Remaining reserve integration is tracked in
+[decision 0002](docs/decisions/0002-scheduled-edition-budget-reserve.md); ledger
+enforcement is not active yet.

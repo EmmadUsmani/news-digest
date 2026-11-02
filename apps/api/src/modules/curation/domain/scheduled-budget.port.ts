@@ -26,7 +26,12 @@ export interface ScheduledBudgetRepository {
     runId: string,
   ): Promise<boolean>;
   read(budgetDay: string): Promise<ScheduledBudgetDay | null>;
-  claim(runId: string): Promise<ScheduledBudgetDay | null>;
+  // Recovery is permitted only with queue evidence of a redelivered job and
+  // the observed running attempt; compare-and-swap fences the old worker.
+  claim(
+    runId: string,
+    recoverAttempt?: number,
+  ): Promise<ScheduledBudgetDay | null>;
   finishAttempt(
     runId: string,
     attempt: number,

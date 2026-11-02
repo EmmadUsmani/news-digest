@@ -1,9 +1,15 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
+import type { DigestPreview } from '@digest/contracts';
+
 import { database } from '../src/libs/db/connections';
 import { readFullAiEditionCosts } from '../src/modules/curation/database/edition-cost.reader';
 import { PostgresScheduledBudgetRepository } from '../src/modules/curation/database/scheduled-budget.repository';
+import {
+  runScheduledBudgetAttempt,
+  scheduledOutcome,
+} from '../src/scheduled-budget-attempt';
 import { refreshScheduledBudget } from '../src/scheduled-budget-refresh';
 
 void test('reserve measurements include complete article/social costs and reject incomplete, unresolved and verification editions', async () => {
@@ -407,3 +413,141 @@ void test('scheduler refresh leaves UTC days without a cron occurrence unregiste
     await db.end();
   }
 });
+
+void test('scheduled worker retries retain protection and publish conservative AI outcomes', async () => {
+  const db = database();
+  const repo = new PostgresScheduledBudgetRepository(db);
+  const slot = new Date('2045-01-01T15:00:00Z');
+  const runId = crypto.randomUUID();
+  const edition = fixtureScheduledEdition();
+  try {
+    await repo.register(slot, runId);
+    await assert.rejects(
+      runScheduledBudgetAttempt(repo, slot, runId, 1, 0, 3, async () => {
+        throw new Error('fixture transport failure');
+      }),
+      /fixture transport/,
+    );
+    assert.equal((await repo.read('2045-01-01'))?.state, 'retrying');
+    assert.equal(
+      await runScheduledBudgetAttempt(
+        repo,
+        slot,
+        runId,
+        2,
+        1,
+        3,
+        async () => edition,
+      ),
+      edition,
+    );
+    const result = await repo.read('2045-01-01');
+    assert.equal(result?.attempt, 2);
+    assert.equal(result?.state, 'succeeded');
+    assert.equal(result?.outcome?.mode, 'full-ai');
+    assert.equal(result?.outcome?.editionId, edition.id);
+    const mixed = fixtureScheduledEdition();
+    mixed.topics[0].postEditorial!.unscoredIds = ['unscored-fixture'];
+    assert.equal(scheduledOutcome(mixed).mode, 'mixed');
+    mixed.topics[0].editorial!.mode = 'non-ai';
+    mixed.topics[0].postEditorial!.mode = 'non-ai';
+    assert.equal(scheduledOutcome(mixed).mode, 'fallback');
+    assert.equal(scheduledOutcome({ ...mixed, topics: [] }).mode, 'fallback');
+  } finally {
+    await db.query('DELETE FROM scheduled_ai_budget_days WHERE run_id=$1', [
+      runId,
+    ]);
+    await db.end();
+  }
+});
+
+void test('stalled redelivery fences abandoned workers; final failure is terminal', async () => {
+  const db = database();
+  const repo = new PostgresScheduledBudgetRepository(db);
+  const slot = new Date('2045-01-02T15:00:00Z');
+  const runId = crypto.randomUUID();
+  try {
+    await repo.register(slot, runId);
+    const old = await repo.claim(runId);
+    assert.equal(old?.attempt, 1);
+    await assert.rejects(
+      runScheduledBudgetAttempt(repo, slot, runId, 1, 0, 3, async () => {
+        throw new Error('must not generate');
+      }),
+      /could not be claimed/,
+    );
+    await assert.rejects(
+      runScheduledBudgetAttempt(repo, slot, runId, 2, 2, 3, async () => {
+        assert.equal(
+          await repo.finishAttempt(
+            runId,
+            1,
+            'succeeded',
+            scheduledOutcome(fixtureScheduledEdition()),
+          ),
+          false,
+        );
+        throw new Error('last fixture failure');
+      }),
+      /last fixture failure/,
+    );
+    assert.equal((await repo.read('2045-01-02'))?.state, 'failed');
+    assert.equal((await repo.read('2045-01-02'))?.attempt, 2);
+    assert.equal(await repo.claim(runId, 2), null);
+    await assert.rejects(repo.claim(runId, 0), /Invalid/);
+  } finally {
+    await db.query('DELETE FROM scheduled_ai_budget_days WHERE run_id=$1', [
+      runId,
+    ]);
+    await db.end();
+  }
+});
+
+void test('concurrent recovery compare-and-swap admits one replacement attempt', async () => {
+  const db = database();
+  const repo = new PostgresScheduledBudgetRepository(db);
+  const runId = crypto.randomUUID();
+  try {
+    await repo.register(new Date('2045-01-03T15:00:00Z'), runId);
+    await repo.claim(runId);
+    const recovered = await Promise.all([
+      repo.claim(runId, 1),
+      repo.claim(runId, 1),
+    ]);
+    assert.equal(recovered.filter(Boolean).length, 1);
+    assert.equal(recovered.find(Boolean)?.attempt, 2);
+    assert.equal(await repo.claim(runId, 1), null);
+  } finally {
+    await db.query('DELETE FROM scheduled_ai_budget_days WHERE run_id=$1', [
+      runId,
+    ]);
+    await db.end();
+  }
+});
+
+function fixtureScheduledEdition(): DigestPreview {
+  const section = {
+    mode: 'ai' as const,
+    model: 'fixture-model',
+    reason: 'Fixture AI evidence',
+    triage: [],
+    unscoredIds: [] as string[],
+  };
+  return {
+    id: crypto.randomUUID(),
+    createdAt: '2045-01-01T15:00:00Z',
+    windowStart: '2044-12-31T15:00:00Z',
+    windowEnd: '2045-01-01T15:00:00Z',
+    method: 'editorial-v1',
+    topics: [
+      {
+        id: crypto.randomUUID(),
+        name: 'Fixture topic',
+        candidateCount: 0,
+        stories: [],
+        editorial: { ...section, brief: [] },
+        postEditorial: { ...section },
+      },
+    ],
+  };
+}

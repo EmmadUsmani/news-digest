@@ -81,13 +81,19 @@ export class PostgresScheduledBudgetRepository implements ScheduledBudgetReposit
     });
   }
 
-  async claim(runId: string) {
+  async claim(runId: string, recoverAttempt?: number) {
+    if (
+      recoverAttempt !== undefined &&
+      (!Number.isSafeInteger(recoverAttempt) || recoverAttempt < 1)
+    )
+      throw new Error('Invalid scheduled budget recovery attempt');
     return this.locked(async (client) => {
       const result = await client.query<ScheduledBudgetDay>(
         `UPDATE scheduled_ai_budget_days SET state='running',attempt=attempt+1,
-         updated_at=clock_timestamp() WHERE run_id=$1 AND state IN ('pending','retrying')
+         updated_at=clock_timestamp() WHERE run_id=$1 AND
+         (state IN ('pending','retrying') OR (state='running' AND attempt=$2))
          RETURNING ${fields}`,
-        [runId],
+        [runId, recoverAttempt ?? null],
       );
       return result.rows[0] ?? null;
     });

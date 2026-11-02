@@ -60,16 +60,7 @@ Earlier iteration 181: [archive](docs/progress-archive/2026-11-02-iteration-181.
 
 Earlier iteration 182: [archive](docs/progress-archive/2026-11-02-iteration-182.md).
 
-## 2026-11-02: iteration 183 — Testcontainers verification infrastructure
-
-- Started clean on main; no leftover work. API/worker/health healthy, 32 sources without current errors, all queues available; two historical ingestion failures retained, no failed digest/social jobs.
-- Higher priorities remain blocked: real AI latency has only 848 micros available; Reddit access remains denied. No paid calls or live settings/content writes.
-- Replaced manual Docker lifecycle with Testcontainers PostgreSQL 17/Redis 7 matching compose, fresh migrations/seeds, readiness waits, cleanup and resource reaper.
-- Added separate `pnpm test:unit` (99 tests, no Docker, database access blocked) and `pnpm test:integration` (86 tests, disposable services); `pnpm test`/`check` include both. Both clear inference keys and live opt-in; mixed files remain integration.
-- Targeted commands passed 99/99 and 86/86. `pnpm format`, `pnpm lint:fix`, `pnpm check` passed all 185 tests; `pnpm build` passed. Temporary database/Redis containers removed; no UI changes/browser check needed.
-- Updated README/TASKS; archived completed speed detail to keep TASKS under 8 KB. STEERING 2a is partial: full repository/HTTP characterization, golden SQL edition and coverage reporting remain before ORM work.
-- Restarted API/worker after build; `/healthz` DB/Redis true. Read-only timing report confirms latest real scheduled edition four topics/10 X posts; budget unchanged. No source changes.
-- Next: expand repository/HTTP characterization while Reddit/live AI evidence is blocked; scheduled xAI still follows Reddit per owner order.
+Iteration 183: [archive](docs/progress-archive/2026-11-02-iteration-183.md).
 
 ## 2026-11-02: iteration 184 — production-module HTTP characterization
 
@@ -213,3 +204,14 @@ Earlier iteration 182: [archive](docs/progress-archive/2026-11-02-iteration-182.
 - Restarted API/worker: both active, health DB/Redis true, SPA 200, four queues available, 32 sources without errors, latest real edition four topics/10 posts. Read-only DB check confirms today's 15:00 UTC identity; next queue slot Nov 3 15:00 UTC.
 - Updated README, reserve decision and TASKS; archived iteration 182 to keep orientation bounded. No UI changes, paid inference or Reddit requests.
 - Reserve enforcement remains UNFINISHED. Next: worker claim/retry/stall recovery, terminal outcomes and obsolete/missed-slot release (including today's already-published run), then shared-lock ledger admission/races and manual/Status visibility.
+
+## 2026-11-02: iteration 198 — scheduled worker budget attempts
+
+- Started clean on main; services, health and 32 sources healthy. No leftover work.
+- Scheduled processor now claims matching daily identities, retains retry protection and records success/last-attempt failure plus published AI/mixed/fallback evidence.
+- Stalled redelivery uses BullMQ attemptsStarted and queue lock ownership to recover the observed running attempt via compare-and-swap; old completions remain fenced.
+- Three isolated tests cover retries, final exceptions, conservative outcomes, stalled recovery and competing recovery claims. No paid inference or Reddit requests.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (109 unit/105 integration), `pnpm build`, `git diff --check` passed.
+- Restarted API/worker: active, `/healthz` DB/Redis true, SPA 200, four queues, 32 sources without errors, latest real edition four topics/10 posts. No UI change.
+- Updated README, reserve decision and TASKS; archived iteration 183 to bound orientation size.
+- Reserve enforcement remains UNFINISHED: reconcile queue-final stall failure and obsolete/missed/already-published slots, then shared-lock admission/races and manual/Status visibility before Nov 3 15:00 UTC.

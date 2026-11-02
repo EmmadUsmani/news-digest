@@ -7,6 +7,7 @@ import { PostgresPreviewRepository } from './modules/digests/database/preview.re
 import { PostgresProfileRepository } from './modules/profiles/database/profile.repository';
 import { coverageWindow } from './modules/profiles/domain/schedule';
 import { scheduledSlot } from './modules/profiles/domain/scheduled-slot';
+import { runScheduledBudgetAttempt } from './scheduled-budget-attempt';
 import { refreshScheduledBudget } from './scheduled-budget-refresh';
 
 export function startScheduledDigests() {
@@ -42,11 +43,21 @@ export function startScheduledDigests() {
         profile.schedule.coverageWindow,
       );
       if (!window.ok) throw new Error(window.error);
-      const edition = await previews.generate(
-        window.value.windowStart,
-        window.value.windowEnd,
-        `${profile.id}:${scheduledAt}`,
-        (progress) => job.updateProgress(progress),
+      const runId = `${profile.id}:${scheduledAt}`;
+      const edition = await runScheduledBudgetAttempt(
+        budgets,
+        new Date(scheduledAt),
+        runId,
+        job.attemptsStarted,
+        job.attemptsMade,
+        job.opts.attempts ?? 1,
+        () =>
+          previews.generate(
+            window.value.windowStart,
+            window.value.windowEnd,
+            runId,
+            (progress) => job.updateProgress(progress),
+          ),
       );
       return {
         editionId: edition.id,

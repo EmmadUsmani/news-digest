@@ -123,3 +123,21 @@ This does not yet enforce spend protection. Worker claim/retry/stall recovery,
 terminal outcomes, obsolete/missed-slot release and days that lose their slot on
 settings changes still need wiring before enabling ledger admission. Registration
 is deliberately independent of whether today's slot is already in the past.
+
+## Worker attempts (iteration 198)
+
+The scheduled processor claims the matching daily identity before generation,
+retains protection through retryable exceptions, and records terminal success or
+last-attempt failure. Published outcomes conservatively require all article/social
+sections to have AI editing and no unscored items for `full-ai`; otherwise they
+are mixed or fallback and retain the published explanations. Manual jobs do not
+enter this wrapper; extra daily cron slots do not own the first slot's identity.
+
+BullMQ `attemptsStarted` (including stalled redeliveries) permits recovery of an
+observed running attempt only after reacquiring the queue job lock. Recovery
+compares the observed attempt under the ledger lock and increments it; late
+old-worker completion cannot release the replacement attempt's reserve.
+Isolated tests cover retries, final exceptions, recovery races and outcome modes.
+Queue-final stall failures outside the processor, missed/obsolete slots and
+previously published slots still need reconciliation. Ledger admission and
+manual/Status visibility remain unfinished; this is not live budget protection.
