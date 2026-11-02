@@ -233,3 +233,100 @@ crowds out the real digests.
     development spend separately from digest spend.
 - **The real schedule:** scheduled digest generation stays the only routine
   user of live Sonnet calls.
+
+## 5. NOW: wrap up the editorial audit work (2026-11-02)
+
+The recent run of commits auditing whether summaries are supported by their
+sources is good enough for now. Stop adding new audit or challenge variants.
+
+- Finish only what is half-done, keep `pnpm check` green, and write a short
+  summary of the audit coverage in docs/RANKING.md.
+- Then move on to item 6. Come back to editorial auditing only if a real
+  digest shows a wrong or unsupported summary.
+
+## 6. NEXT PRIORITY: social posts milestone (replaces and expands M4) (2026-11-02)
+
+This is the next big product milestone. It comes right after item 5 and ranks
+above items 2 and 4. Rewrite M4 in TASKS.md as "Social posts".
+
+**Goal:** each topic's digest shows the coolest, most interesting and viral
+social posts in that domain for the window. That means not just news reposts,
+but the posts people in that world are actually passing around:
+- AI demos and launches
+- NBA highlights, plays and insider scoops
+- game reveals, clips and studio news
+- on-the-ground world events
+
+### Source priority (owner's ranking; weight X heavily)
+
+1. **X (Twitter): by far the most important.**
+   - X posts should make up most of the posts section whenever good ones
+     exist. For example, about 3–4 of a topic's 5 post slots, with the rest
+     filled by other platforms only when they are clearly strong.
+   - Rank with virality signals:
+     - engagement and its velocity within the window (likes, reposts,
+       quotes, replies, views)
+     - engagement relative to the account's usual reach
+     - notable accounts per topic: reporters, insiders, teams, players, labs,
+       founders, studios, developers
+     - media (video, images)
+   - Penalize engagement bait, spam, crypto/promo, and near-duplicates of the
+     same moment.
+2. **Reddit: second.**
+   - Top posts of the window from curated subreddits per topic, for example
+     r/nba, r/LocalLLaMA, r/MachineLearning, r/singularity, r/technology,
+     r/programming, r/gaming, r/Games, r/pcgaming, r/worldnews, r/politics.
+     Research and store these per topic as data.
+   - Use the public RSS/JSON endpoints with a proper User-Agent, respect rate
+     limits, and add no scraping workarounds.
+3. **YouTube and others: lower weight.**
+   - YouTube: channel RSS feeds for curated channels per topic need no key,
+     for example NBA highlights, AI labs and game publishers. If the YouTube
+     Data API would add real value, add `YOUTUBE_API_KEY` to
+     NEEDS_FROM_HUMAN.md and switch it on only when that key exists.
+   - Bluesky's public API: optional, last.
+
+### Discovering X posts
+
+- Follow MISSION.md's order: first check whether xAI Grok's `x_search`
+  through the exe.dev gateway can find top/viral posts per topic and window,
+  with post URLs/IDs and engagement. Use curated account lists per topic
+  (stored as data) to improve discovery.
+- Use only official embeds to render posts (`publish.twitter.com/oembed` +
+  `widgets.js`). Never scrape x.com or use unofficial mirrors.
+- **Cost:** the exe.dev gateway has no provider spend cap.
+  - Record every xAI call in the LLM ledger with `purpose=x-discovery`.
+  - Enforce an app cap of **$0.50/day** for X discovery.
+  - Measure the real cost per day and record it in PROGRESS.md.
+  - If X discovery needs more than that, or `x_search` can't return what's
+    needed, add the exact options and costs to NEEDS_FROM_HUMAN.md and keep
+    going with Reddit and YouTube. The options are a direct xAI key in a
+    workspace with a hard monthly limit, or `X_BEARER_TOKEN` for the X API
+    with a cap.
+
+### Rendering (digest page)
+
+- Show the full post with its media via the official X embed. Use Reddit's
+  official embed (or a faithful card with title, media thumbnail, score,
+  comments and a link). Use the YouTube embed or a thumbnail card.
+- Show the platform, author, time, engagement and a link to the original.
+- Lazy-load embeds so the page stays fast.
+- Posts get their own "Top posts" section per topic, separate from the
+  stories. Keep the limited budget: 5 per topic by default, configurable.
+
+### Pipeline
+
+- Add a `SocialPost` content type next to articles in the existing ingestion
+  and ranking, with platform, external ID, author, metrics snapshot and media.
+- Haiku triage scores relevance and "interestingness". The Sonnet editor makes
+  the final picks within budget and writes a one-line "why it matters", under
+  the same LLM budget caps as item 3.
+- Each post links to a related story cluster when it is about the same event.
+
+### Done when
+
+- A real generated digest shows real X posts (if X discovery works) and real
+  Reddit posts for all four topics, rendered with media.
+- docs/SOURCES.md lists each social source with its status.
+- Playwright screenshots of the posts section on desktop and mobile.
+- Tests run on recorded fixtures, as in item 4: no live calls in tests.
