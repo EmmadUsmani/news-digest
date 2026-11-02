@@ -359,3 +359,18 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - Scheduled smoke was interrupted (143) before cleanup; verified actual 00:08 UTC edition/exact 6h window/completed job manually, restored prior 20:40 UTC/PT6H settings from retained evidence and verified Redis restoration.
 - Services rebuilt/restarted healthy. Documented safeguards/limitations in docs/LLM.md; no provider/model/billing changes or owner blockers.
 - Next: per-item semantic Haiku triage, Sonnet editing/Haiku fallback, immutable AI editions, briefs/rationale and scheduled batches; coalesce cache misses. M3 remains open.
+
+## 2026-11-02: iteration 53 — reusable semantic candidate triage
+
+- Started clean on main; baseline 53 tests, API/worker and `/healthz` healthy. No leftover work.
+- Added Haiku candidate triage service: up to 200 candidates before lexical filtering, three-item bounded batches, semantic relevance/importance, rationale and advisory event labels.
+- Exact-ID/schema validation uses the reserved single repair; failures stop subsequent batches and return explicit unscored IDs. Event labels are not verified clusters or independent outlets.
+- Per-item validated cache includes model/instructions/topic/text; reordered/regrouped regeneration reuses scores. Concurrent cache-miss coalescing remains open.
+- `pnpm exec tsx apps/api/scripts/smoke-triage.ts` scored 24 real last-24h articles across four topics in eight calls ($0.003301); reordered repeats made no new calls.
+- Actual today/month ledger cost $0.003448, zero reservations/errors; daily cap $0.482758, monthly $14. Provider/model/billing unchanged.
+- `pnpm check` passed types/lint/format/boundaries and all 58 tests; `pnpm build` passed (existing upstream Zod warnings only).
+- `smoke-ingestion.ts` passed two queued passes: 709 real URLs, seventeen healthy sources; retained DeepMind failed job is historical and current fetches pass.
+- `smoke-previews.ts` passed immutable/history/window checks with 5/5/5/5 selections; `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed, mobile usage inspected.
+- Rebuilt/restarted API/worker; `/healthz` healthy. `/api/status` confirms completed 00:08 UTC scheduled run and next 20:40 UTC slot; no schedule mutation this iteration.
+- Updated TASKS/docs/LLM. Published editions still use signals-v6; triage service is not wired into publication. No owner blockers.
+- Next: integrate triage and Sonnet shortlist editor into immutable editions, Haiku/non-AI fallback labels, then scheduled Message Batches. M3 remains open.

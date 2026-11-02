@@ -1,6 +1,6 @@
 # Anthropic editorial transport and cost ledger
 
-Iteration 52 implements a real, bounded SDK transport and exposes its recorded
+Iterations 52–53 implement a real, bounded SDK transport and candidate triage, exposing recorded
 usage under Source & run status. Published editions still use signal ranking;
 this is not yet the M3 editorial pipeline. One explicit live verification scored
 three stored headlines with Haiku. It did not publish those scores as a digest.
@@ -19,7 +19,7 @@ Raw provider errors, keys and prompts are not saved in the ledger. Cache keys
 hash model/instructions/input/output limit; only validated output is cached.
 Repeated identical input across run IDs reuses the cached result. Concurrent
 cache misses can each call the provider, but cannot bypass budget reservations;
-per-item triage keys and cross-process cache-miss coalescing remain pipeline work.
+triage adds per-item keys below. Cross-process cache-miss coalescing remains unfinished.
 
 A database transaction advisory lock serializes reservations across API/worker
 processes, without holding a transaction during HTTP. Input reservation uses a
@@ -41,7 +41,7 @@ HTTP 400 workspace API usage limits and 429 enforced_spend_limit_reached persist
 a block through the end of the UTC month. Ordinary rate limits are not mistaken
 for monthly blocks, but no hidden SDK retry is allowed. Budget/provider failures
 return no result, allowing the future editor to retain signal ranking. Sonnet
-allocation, Haiku editor fallback, scheduled Message Batches, per-item triage and
+allocation, Haiku editor fallback, scheduled Message Batches and
 immutable AI edition contracts remain unfinished.
 
 Configuration (all rates USD per million tokens):
@@ -82,3 +82,47 @@ cache reuse, and prints only sanitized ledger counters and costs. It is never
 part of `pnpm check`. On 2026-11-02 the first call used 336 input/225 output tokens,
 no cache tokens, and cost $0.000147 at the configured rates. Provider-side earlier
 owner verification calls are outside this application's ledger.
+
+## Candidate triage (iteration 53)
+
+`CandidateTriage` scores up to 200 unique candidates per topic before lexical
+phrase filtering. It sends three compact title/excerpt/source records at a time
+to configured Haiku. Topic description and guidance participate in both prompt
+and cache identity. Prompts treat supplied text as untrusted data. No article
+fetching, alternate models or providers are involved.
+
+Validated output contains relevance and importance (integers 0–10), a bounded
+rationale and an advisory event label. Each batch must return every requested ID
+exactly once. Duplicate, missing or invented IDs and invalid scores trigger the
+transport's single reserved repair; failure stops remaining batches. The result
+explicitly lists unscored IDs so future publication cannot silently treat budget
+refusal as a relevance judgment. Event labels do not establish duplicate identity
+or independent coverage, especially across separate batches.
+
+The service caches each validated item separately using model, instructions,
+compact topic and compact item identity. Reordering, adding unrelated items or
+changing the edition/run ID reuses unchanged items; changing text or topic
+instructions invalidates them. Cache entries remain internal and are not digest
+snapshots. Concurrent cache misses may still make duplicate paid requests within
+the budget caps. Scheduled Message Batches are not implemented.
+
+Input bounds: 200-character IDs/name, 2,000 characters each for description and
+guidance, 500-character titles, 1,800-character excerpts and eight 120-character
+source names. Three-item batches stay below the conservative 100k bound even
+with JSON escaping. Truncation is a deliberate cost limit; this is excerpt-based
+triage, not an evaluation of full article claims.
+
+`pnpm exec tsx --test apps/api/test/triage.test.ts` runs offline schema, coverage,
+cache, budget fallback and worst-case prompt tests. The explicit live command
+(with configured secrets loaded) is `pnpm exec tsx apps/api/scripts/smoke-triage.ts`:
+six stored last-24h items for each of the four topics, then reordered cache checks.
+At most sixteen tiny requests including one repair per three-item batch; every
+request uses the existing reservation ledger. It publishes no edition. M3 still
+needs triage integration, shortlist editing, immutable editorial contracts and
+non-AI fallback labels before an end-to-end editorial digest can be claimed.
+
+Live verification on 2026-11-02 scored 24 real articles (six per topic) in eight
+Haiku calls costing $0.003301. All reordered repeats reused per-item cache.
+The status page showed $0.003448 total today/month, zero reservations and no
+provider errors, against the $0.482758 daily allocation and $14 monthly cap.
+These are transport/triage checks, not a measured improvement in digest quality.

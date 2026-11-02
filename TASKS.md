@@ -35,7 +35,8 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Data-driven topic phrase relevance, auditable rules/rejection counts, 14 labeled regression cases (iteration 11).
   - [x] Auditable quality exclusions for routine previews, schedules and discussion threads, with omission reasons (iteration 13).
   - [x] Real official Anthropic SDK transport, configured models/prices, serialized Postgres reservations/ledger, validated JSON with one reserved repair, cache and provider-month blocks (iteration 52); one tiny live Haiku triage check costs $0.000147, cache reuse verified.
-  - Next (highest priority): wire per-item Haiku semantic triage and Sonnet shortlist editing into immutable editions; Sonnet allocation/Haiku fallback, briefs/summaries/rationale, non-AI labels and scheduled Message Batches remain unfinished. Coalesce concurrent cache misses. Transport verification is not a completed editorial digest.
+  - [x] Bounded Haiku candidate triage service with semantic relevance/importance, advisory event labels/rationale, exact-ID validation and per-item cache independent of batch/order (iteration 53); explicit real four-topic smoke, not yet used by published editions.
+  - Next (highest priority): wire the triage service and Sonnet shortlist editing into immutable editions; Sonnet allocation/Haiku fallback, briefs/summaries/rationale, non-AI labels and scheduled Message Batches remain unfinished. Coalesce concurrent cache misses. Transport verification is not a completed editorial digest.
 - [ ] M4 X posts:
   - check xAI `x_search` through the gateway
   - post discovery per topic
