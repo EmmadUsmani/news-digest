@@ -315,3 +315,14 @@ Earlier iteration 229: [archive](docs/progress-archive/2026-11-02-iteration-229.
 - Updated TASKS/database notes; archived iteration 230 to keep PROGRESS bounded. No provider or Reddit requests.
 - Restarted API/worker healthy; health DB/Redis true, SPA 200, 32 error-free sources and four available queues.
 - Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 248 — concurrent schedule replacement
+
+- Started clean on main; API/worker and health green; no leftover work.
+- Priority 15/13/7/9 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a.
+- Added concurrent schedule replacements through separate repository instances; returned/persisted configurations remain whole.
+- Invalid-budget replacement racing a valid update preserves valid settings; subsequent updates recover normally.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 146 integration), `pnpm build`, `git diff --check` passed.
+- Updated TASKS/database notes. Disposable fixtures only; no live schedule changes, provider or Reddit requests.
+- Live checks: health DB/Redis true, four-topic latest edition, 32 error-free sources and four available queues.
+- Restarted API/worker healthy; SPA 200. Next: observe Nov 3 X cost/yield and AI edition cost/duration before acknowledging 15/13/7.

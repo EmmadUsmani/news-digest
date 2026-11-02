@@ -277,3 +277,12 @@ zero byte leaves another key absent; a valid retry succeeds without changing
 the original key. All reads and writes use repository APIs against disposable
 PostgreSQL; no inference, X or Reddit requests occur. Remaining repository gaps
 and recorded-response golden coverage stay open.
+
+## Concurrent schedule replacement (iteration 248)
+
+`profile-repository.test.ts` races complete schedule replacements through two
+repository instances. Each returned and persisted schedule matches one whole
+submitted configuration; a writer may read a later committed replacement.
+A rejected invalid-budget update racing a valid replacement leaves the valid
+configuration intact, and a subsequent update succeeds. Original settings are
+restored in disposable PostgreSQL only; live schedules and providers are untouched.

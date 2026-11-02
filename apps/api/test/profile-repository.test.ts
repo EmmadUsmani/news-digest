@@ -94,3 +94,75 @@ void test('default profile isolates foreign schedules, rejects invalid budgets a
     await db.end();
   }
 });
+
+void test('concurrent schedule replacements preserve whole configurations and recover after rejection', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const firstAdapter = new PostgresProfileRepository();
+  const secondAdapter = new PostgresProfileRepository();
+  const first: ProfileRepository = firstAdapter;
+  const second: ProfileRepository = secondAdapter;
+  const original = await first.getDefault();
+  const schedules = [
+    {
+      cadence: '5 7 * * *',
+      timezone: 'America/Los_Angeles',
+      coverageWindow: 'P1D',
+      storyBudget: 3,
+      postBudget: 4,
+    },
+    {
+      cadence: '25 19 * * *',
+      timezone: 'Pacific/Auckland',
+      coverageWindow: 'PT12H',
+      storyBudget: 8,
+      postBudget: 9,
+    },
+  ];
+  const assertWhole = (profile: typeof original) => {
+    assert.equal(profile.id, original.id);
+    assert.equal(profile.name, original.name);
+    assert.ok(
+      schedules.some(
+        (schedule) =>
+          JSON.stringify(schedule) === JSON.stringify(profile.schedule),
+      ),
+      'schedule must match one complete submitted configuration',
+    );
+  };
+  try {
+    const results = await Promise.all(
+      schedules.map((schedule, index) =>
+        (index ? second : first).updateDefault(schedule),
+      ),
+    );
+    // A writer may read the other writer's later commit; neither may return a torn configuration.
+    results.forEach(assertWhole);
+    const winner = await first.getDefault();
+    assertWhole(winner);
+    assert.deepEqual(await second.getDefault(), winner);
+    const outcomes = await Promise.allSettled([
+      first.updateDefault({ ...schedules[0], storyBudget: -1 }),
+      second.updateDefault(schedules[1]),
+    ]);
+    assert.equal(outcomes[0].status, 'rejected');
+    assert.equal(outcomes[1].status, 'fulfilled');
+    assert.deepEqual(await first.getDefault(), {
+      ...original,
+      schedule: schedules[1],
+    });
+    assert.deepEqual(await first.updateDefault(schedules[0]), {
+      ...original,
+      schedule: schedules[0],
+    });
+    assert.deepEqual(await second.getDefault(), {
+      ...original,
+      schedule: schedules[0],
+    });
+  } finally {
+    await first.updateDefault(original.schedule);
+    await Promise.all([
+      firstAdapter.onModuleDestroy(),
+      secondAdapter.onModuleDestroy(),
+    ]);
+  }
+});
