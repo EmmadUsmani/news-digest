@@ -7,6 +7,7 @@ export interface XDiscoveryLedger {
     estimateMicros: number,
     requestedTopic?: { id: string; name: string },
     scheduledDay?: string,
+    searchType?: 'open-topic' | 'account-list',
   ): Promise<string | null>;
   settle(
     id: string,

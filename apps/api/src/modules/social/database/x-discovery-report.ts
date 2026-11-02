@@ -4,6 +4,7 @@ interface DiscoveryCallEvidence {
   id: string;
   runId: string;
   requestedTopic: { id: string; name: string } | null;
+  searchType: 'open-topic' | 'account-list' | null;
   status: string;
   createdAt: Date;
   costMicros: number | null;
@@ -37,7 +38,7 @@ export async function readXDiscoveryReport(
     throw new Error('Expected a valid UTC date (YYYY-MM-DD)');
   const { rows } = await db.query<DiscoveryCallEvidence>(
     `
-    SELECT c.id,c.run_id AS "runId",c.requested_topic AS "requestedTopic",c.status,c.created_at AS "createdAt",
+    SELECT c.id,c.run_id AS "runId",c.requested_topic AS "requestedTopic",c.search_type AS "searchType",c.status,c.created_at AS "createdAt",
       c.cost_micros::float8 AS "costMicros",
       CASE WHEN c.status IN ('pending','uncertain') THEN c.reserved_micros ELSE 0 END::float8 AS "heldMicros",
       c.posts_fetched::float8 AS "postsFetched",c.profiles_fetched::float8 AS "profilesFetched",
@@ -65,6 +66,6 @@ export async function readXDiscoveryReport(
     calls: rows,
     costMicros: rows.reduce((total, row) => total + (row.costMicros ?? 0), 0),
     heldMicros: rows.reduce((total, row) => total + row.heldMicros, 0),
-    note: 'Costs counted once per call; Requested topic is a reservation-time snapshot, including zero-yield calls; historical calls without a snapshot remain unattributed. New candidates were absent from verified storage and all earlier X search citations at save time; newVerifiedNow counts those currently verified, once across searches. Historical baselines remain unknown. This is attribution, not causation, relevance or edition picks.',
+    note: 'Search type is captured before HTTP; historical types remain unknown. Costs counted once per call; Requested topic is a reservation-time snapshot, including zero-yield calls; historical calls without a snapshot remain unattributed. New candidates were absent from verified storage and all earlier X search citations at save time; newVerifiedNow counts those currently verified, once across searches. Historical baselines remain unknown. This is attribution, not causation, relevance or edition picks.',
   };
 }

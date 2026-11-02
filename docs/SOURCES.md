@@ -6,7 +6,11 @@ verification counts. It performs no network requests or paid discovery. Counts
 are not incremental additions or relevance measurements; zero-citation historical
 calls have no stored topic attribution. New reservations snapshot the requested
 topic before HTTP, including failures and empty results, and retain it through
-topic rename/deletion. Paid discovery remains unscheduled.
+topic rename/deletion. New calls also snapshot `open-topic` or `account-list`
+before HTTP, allowing cost, fetched-post counts and verified yield to be read per
+topic and search type even for failures or empty results. Historical search types
+stay null; no type is inferred from run IDs. Scheduled account-list discovery
+remains enabled pending the first scheduled-run acknowledgement before switching.
 
 Checked 2026-11-01, iteration 38. Counts below are actual stored observations
 from the live worker and `/api/content/sources`, not fixture counts. Seventeen sources

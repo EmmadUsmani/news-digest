@@ -78,6 +78,7 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
     estimateMicros: number,
     requestedTopic?: { id: string; name: string },
     scheduledDay?: string,
+    searchType?: 'open-topic' | 'account-list',
   ) {
     if (
       !model.trim() ||
@@ -97,6 +98,11 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
       throw new Error('Invalid scheduled X discovery day');
     if (scheduledDay !== undefined && !requestedTopic?.id.trim())
       throw new Error('Scheduled X discovery requires a topic');
+    if (
+      searchType !== undefined &&
+      !['open-topic', 'account-list'].includes(searchType)
+    )
+      throw new Error('Invalid X discovery search type');
     return this.transaction(async (client) => {
       // A topic/day is consumed before HTTP, including rejected/uncertain calls.
       // Restart/retry cannot spend again or shift an obsolete job into today.
@@ -116,8 +122,8 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
       if (totals.availableMicros < estimateMicros) return null;
       const id = crypto.randomUUID();
       await client.query(
-        `INSERT INTO x_discovery_calls(id,model,run_id,status,reserved_micros,requested_topic,scheduled_day)
-        VALUES($1,$2,$3,'pending',$4,$5,$6)`,
+        `INSERT INTO x_discovery_calls(id,model,run_id,status,reserved_micros,requested_topic,scheduled_day,search_type)
+        VALUES($1,$2,$3,'pending',$4,$5,$6,$7)`,
         [
           id,
           model,
@@ -125,6 +131,7 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
           estimateMicros,
           requestedTopic ?? null,
           scheduledDay ?? null,
+          searchType ?? null,
         ],
       );
       return id;

@@ -54,6 +54,7 @@ void test('X daily evidence preserves zero-yield calls, counts cost once and use
     ]);
     assert.deepEqual(report.calls[1].topics, []);
     assert.equal(report.calls[1].requestedTopic, null);
+    assert.equal(report.calls[1].searchType, null);
     assert.equal(report.calls[3].heldMicros, 0);
     assert.equal(
       (await readXDiscoveryReport(client, '2032-01-04')).calls.length,
@@ -81,11 +82,25 @@ void test('X reservation snapshots attribute failed and zero-yield calls after t
       [topicId],
     );
     const snapshot = { id: topicId, name: 'Original topic' };
-    const failed = await ledger.reserve('fixture', runId, 400000, snapshot);
+    const failed = await ledger.reserve(
+      'fixture',
+      runId,
+      400000,
+      snapshot,
+      undefined,
+      'open-topic',
+    );
     assert.ok(failed);
     calls.push(failed);
     await ledger.fail(failed, 'rejected');
-    const empty = await ledger.reserve('fixture', runId, 400000, snapshot);
+    const empty = await ledger.reserve(
+      'fixture',
+      runId,
+      400000,
+      snapshot,
+      undefined,
+      'account-list',
+    );
     assert.ok(empty);
     calls.push(empty);
     await ledger.settle(
@@ -107,6 +122,10 @@ void test('X reservation snapshots attribute failed and zero-yield calls after t
     );
     const report = await readXDiscoveryReport(db, '2033-02-01');
     assert.equal(report.calls.length, 2);
+    assert.deepEqual(
+      new Set(report.calls.map((call) => call.searchType)),
+      new Set(['open-topic', 'account-list']),
+    );
     for (const call of report.calls) {
       assert.deepEqual(call.requestedTopic, snapshot);
       assert.deepEqual(call.topics, []);

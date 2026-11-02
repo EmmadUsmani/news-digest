@@ -238,7 +238,13 @@ void test('X orchestration refuses blocked budgets, settles before citation pers
       _run: string,
       amount: number,
       topic?: { id: string; name: string },
+      _day?: string,
+      searchType?: string,
     ) => {
+      assert.equal(
+        searchType,
+        request.handles === undefined ? 'open-topic' : 'account-list',
+      );
       assert.deepEqual(topic, { id: 'topic', name: request.topic });
       assert.equal(amount, 400000);
       events.push('reserve');

@@ -116,20 +116,6 @@ Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
 
 Iteration 252: [archive](docs/progress-archive/2026-11-02-iteration-252.md).
 
-## 2026-11-02: iteration 256 — rejected topic reorder recovery
-
-- Started clean on main; API/worker, health and all 32 sources healthy; no leftover work.
-- Priority 15/13/7/9 awaits Nov 3 evidence; advanced isolated STEERING 2a.
-- Pinned rejected position writes after reorder validation/locking; all topic settings survive.
-- A competing valid reorder succeeds; removing the rejection permits retry and original-order restoration.
-- Catalog and schedule remain unchanged; fixtures use disposable PostgreSQL only.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 152 integration), `pnpm build`, `git diff --check` passed.
-- Initial check stopped on newly added documentation formatting; formatted and full rerun passed.
-- Restarted API/worker; `/healthz` healthy, SPA 200, 32 error-free sources, four available queues and four-topic edition.
-- Recent articles/verified X posts present in every topic; no provider or Reddit requests.
-- Updated TASKS/database notes; archived iteration 237 to keep PROGRESS bounded.
-- Next: observe Nov 3 all-topic X cost/yield and scheduled AI cost/duration before acknowledging 15/13/7.
-
 ## 2026-11-02: iteration 257 — custom-feed registration rollback
 
 - Started clean on main; services, health and 32 sources healthy; no leftover work.
@@ -362,3 +348,15 @@ Iteration 252: [archive](docs/progress-archive/2026-11-02-iteration-252.md).
 - Next: search-type cost/yield and outside-list reporting; observe Nov 3 scheduled searches/edition before switching.
 - Verified: targeted tests; `pnpm format`, `pnpm lint:fix`, `pnpm check` (130 unit/165 integration), `pnpm build`, `git diff --check`.
 - API/worker restarted active; health OK, SPA 200, latest four-topic edition accessible; all 32 sources returning data without current errors.
+
+## 2026-11-02: iteration 276 — X search-type evidence
+
+- Started clean on main; no leftover work; health/services and all 32 sources healthy.
+- X reservations now snapshot open-topic/account-list before HTTP; historical types stay unknown.
+- Daily and recent-call reports expose type beside topic, fetched posts, cost and current verified yield, including failures/empty calls.
+- Isolated tests preserve both types through topic deletion and historical nulls; orchestration checks propagation.
+- Updated SOURCES reporting notes; archived iteration 256 and compacted TASKS.
+- Verified: `pnpm format`, `pnpm lint:fix`, `pnpm check` (130 unit/165 integration), `pnpm build`, `git diff --check`.
+- Applied `pnpm migrate` (046); API/worker restarted active, health OK, SPA 200, latest edition four topics; 32 sources returning data without errors.
+- Read-only live daily report includes searchType; no paid provider or Reddit requests.
+- Next: outside-list account reporting; Nov 3 scheduled searches/edition evidence required before open-search switch.

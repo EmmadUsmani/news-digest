@@ -5,7 +5,7 @@ async function main() {
   const db = database();
   try {
     const { rows } = await db.query(`
-      SELECT c.id,c.created_at AS "createdAt",c.status,c.model,
+      SELECT c.id,c.created_at AS "createdAt",c.status,c.model,c.search_type AS "searchType",
         c.cost_micros::float8 AS "costMicros",
         c.reserved_micros::float8 AS "reservationMicros",
         c.input_tokens::float8 AS "inputTokens",c.output_tokens::float8 AS "outputTokens",
@@ -19,7 +19,7 @@ async function main() {
       LEFT JOIN x_search_citations s ON s.call_id=c.id
       LEFT JOIN social_posts p ON p.platform='x' AND p.external_id=s.external_id
       LEFT JOIN x_embed_checks v ON v.external_id=s.external_id
-      GROUP BY c.id,c.created_at,c.status,c.model,c.cost_micros,c.reserved_micros,
+      GROUP BY c.id,c.created_at,c.status,c.model,c.search_type,c.cost_micros,c.reserved_micros,
         c.input_tokens,c.output_tokens,c.posts_fetched,c.profiles_fetched,c.error_code
       ORDER BY c.created_at DESC,c.id DESC
     `);
