@@ -23,15 +23,33 @@ export class PostgresSocialRepository {
     return result.rows;
   }
   async candidates(limit: number): Promise<string[]> {
+    // Spend bounded checks across enabled topics before taking another from one.
+    // Unverified discoveries precede refreshes; citation breadth is not independence.
     const result = await this.db.query<{ external_id: string }>(
       `WITH citations AS (
-         SELECT external_id,source_id,last_seen_at FROM x_link_citations
+         SELECT c.external_id,c.source_id,c.last_seen_at,t.topic_id
+         FROM x_link_citations c JOIN topic_source_connections t ON t.source_id=c.source_id
          UNION ALL
-         SELECT external_id,'river:' || source_id,last_seen_at FROM social_discovery_citations
-       ) SELECT c.external_id FROM citations c
-       LEFT JOIN x_embed_checks v ON v.external_id=c.external_id
-       WHERE v.checked_at IS NULL OR v.checked_at < now() - interval '1 day'
-       GROUP BY c.external_id ORDER BY count(DISTINCT c.source_id) DESC,max(c.last_seen_at) DESC,c.external_id LIMIT $1`,
+         SELECT c.external_id,'river:' || c.source_id,c.last_seen_at,s.topic_id
+         FROM social_discovery_citations c JOIN social_discovery_sources s ON s.id=c.source_id
+       ), eligible AS (
+         SELECT c.external_id,c.topic_id,
+                CASE WHEN p.external_id IS NULL THEN 0 ELSE 1 END AS refresh,
+                count(DISTINCT c.source_id) AS sources,max(c.last_seen_at) AS last_seen
+         FROM citations c JOIN topics t ON t.id=c.topic_id AND t.enabled
+         LEFT JOIN x_embed_checks v ON v.external_id=c.external_id
+         LEFT JOIN social_posts p ON p.platform='x' AND p.external_id=c.external_id
+         WHERE v.checked_at IS NULL OR v.checked_at < now() - interval '1 day'
+         GROUP BY c.external_id,c.topic_id,p.external_id
+       ), ranked AS (
+         SELECT *,row_number() OVER (
+           PARTITION BY refresh,topic_id
+           ORDER BY sources DESC,last_seen DESC,length(external_id) DESC,external_id DESC
+         ) AS topic_rank FROM eligible
+       ) SELECT external_id FROM ranked
+       GROUP BY external_id
+       ORDER BY min(refresh),min(topic_rank),max(sources) DESC,max(last_seen) DESC,
+                length(external_id) DESC,external_id DESC LIMIT $1`,
       [Math.min(50, Math.max(1, limit))],
     );
     return result.rows.map((row) => row.external_id);

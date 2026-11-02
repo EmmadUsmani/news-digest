@@ -420,3 +420,20 @@ The first scheduled live pass completed with two successful pages, 50 observed
 citations and ten successful official verifications, with no errors. These counts
 are observations/checks, not ten newly discovered or newly selected posts. The
 existing daily digest was not regenerated for this verification.
+
+### Iteration 95: spread bounded verification across topics
+
+Embed candidates now come only from enabled topics and connected publisher
+sources or configured rivers. Within the ten-request cap, topic ranks interleave
+before taking further posts from a busy topic; shared post IDs consume one slot.
+Unverified discoveries precede refreshes of stored posts, with the existing
+one-day check cooldown preserved. Within each topic citation-source breadth,
+recent observation and descending numeric-ID order break ties. Source breadth
+is discovery priority only, not independent reporting or post virality.
+
+One explicit live pass verified four posts and stopped at the first official
+HTTP 404 (five requests total). Stored coverage now has 21 Tech, 12 NBA and one
+Gaming post; World has none. The first Gaming post predates the checked window.
+Read-only Oct 26–Nov 2 06:00 UTC screening selects five NBA posts and zero for
+other topics. No new edition was published, and no inference was requested.
+Broader current discovery, particularly World and Gaming, remains unfinished.

@@ -267,3 +267,15 @@ Earlier iterations 51–60: [archive](docs/progress-archive/2026-11-01-iteration
 - Restarted API/worker; `/healthz` healthy. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live queued passes: 788 real article URLs, four topics, seventeen healthy sources.
 - `pnpm exec tsx scripts/smoke-status.ts` and `scripts/smoke-ui.ts` passed desktop/mobile; status screenshots refreshed and mobile inspected. Correct `/api/status` confirms one social worker/completed run and next run; exploratory `/api/operations/status` was 404.
 - Updated TASKS/README/docs/SOURCES. No inference spending or provider/model/billing changes; no new owner blockers. Reddit remains blocked by 403; broaden relevant discovery across topics next, then direct capped xAI and social editing.
+
+## 2026-11-02: iteration 95 — share bounded social verification across topics
+
+- Started clean on main; no leftover work. API/worker/health, retained digest runs and seventeen article sources healthy; no triage repair needed.
+- Embed candidates now require an enabled connected topic; interleave topic ranks, dedupe shared IDs and prioritize unverified discoveries before stored-post refreshes. Existing caps/cooldown remain; citation breadth is not independence or virality.
+- Added isolated DB regression for busy/quiet topics, shared IDs, refresh priority, cooldown expiry and disabled/deleted topic exclusion; synthetic fixtures never enter production.
+- Explicit `pnpm exec tsx apps/api/scripts/verify-x-embeds.ts`: four verified, then stopped on official HTTP 404 (five requests). Stored topic coverage: 21 Tech, 12 NBA, one Gaming, zero World; Gaming post is outside checked window.
+- Read-only `screen-social-posts.ts 2026-10-26T00:00:00Z 2026-11-02T06:00:00Z` selects five NBA posts, zero elsewhere. No edition published; current discovery breadth remains unfinished.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass typecheck/lint/format/boundaries and 109 isolated tests; `pnpm build` passes (existing upstream Zod warnings).
+- Restarted API/worker; `/healthz` healthy. `smoke-ingestion.ts` passes two queued live runs: 792 real URLs, four topics, seventeen healthy sources.
+- `smoke-status.ts`, `smoke-ui.ts`, `smoke-posts.ts /tmp/iteration95-posts.jsonl` pass desktop/mobile; refreshed screenshots and inspected mobile fallback. Post checks replay real stored selections with stubbed/blocked widgets, not a published edition.
+- No inference spending; provider/models/billing unchanged. Updated TASKS/docs/SOURCES; no owner blocker. Next: recent relevant World/Gaming discovery, then capped direct xAI/social editing. Reddit remains previously blocked by 403.
