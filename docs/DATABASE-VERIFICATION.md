@@ -378,3 +378,13 @@ survive unchanged. Removing the constraint permits deletion with contiguous
 positions; repeated deletion returns missing and cleanup restores the original
 settings. All fixtures use disposable PostgreSQL, with no source or provider
 requests. Recorded-response golden and other repository gaps remain open.
+
+## Final ingestion-write rollback (iteration 260)
+
+`content-repository.test.ts` rejects the final source-status update after a
+batch has updated an existing article, inserted another article and written
+both X citations. The entire retained article, citation, preview and source
+status snapshot remains unchanged. Removing the constraint permits a successful
+retry with the original article ID and citation first-seen time; repeating the
+batch retains exactly two articles, observations and citations. All fixtures
+use disposable PostgreSQL, with no source or provider requests.

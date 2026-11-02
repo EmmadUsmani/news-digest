@@ -597,3 +597,133 @@ void test('concurrent publishers merge one canonical item without losing observa
     await repository.onModuleDestroy();
   }
 });
+
+void test('final source-status failure rolls back article batches and citations before a successful retry', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const repository = new PostgresContentRepository();
+  const topicId = randomUUID();
+  const source: Source = {
+    id: `final-write-${topicId}`,
+    topicId,
+    name: 'Final write fixture',
+    kind: 'feed',
+    url: `https://example.org/${topicId}/feed`,
+  };
+  const original: ContentItem = {
+    url: `https://example.org/${topicId}/original`,
+    title: 'Original',
+    excerpt: 'Original excerpt',
+    author: 'Reporter',
+    imageUrl: null,
+    publishedAt: '2035-01-01T00:00:00Z',
+    engagement: { points: 1 },
+    xLinks: [
+      {
+        externalId: '123456789',
+        url: 'https://x.com/Reporter/status/123456789',
+      },
+    ],
+  };
+  const replacement = {
+    ...original,
+    title: 'Updated',
+    engagement: { points: 8 },
+  };
+  const added = {
+    ...original,
+    url: `https://example.org/${topicId}/added`,
+    title: 'Added',
+  };
+  const snapshot = async () => ({
+    status: (await repository.status()).find((row) => row.id === source.id),
+    preview: (await repository.latest()).find((row) => row.topicId === topicId),
+    // No public detail/citation reader exposes all retained evidence.
+    items: (
+      await repository.db.query(
+        'SELECT * FROM content_items WHERE canonical_url=ANY($1::text[]) ORDER BY canonical_url',
+        [[original.url, added.url]],
+      )
+    ).rows,
+    citations: (
+      await repository.db.query(
+        'SELECT * FROM x_link_citations WHERE source_id=$1 ORDER BY item_id,external_id',
+        [source.id],
+      )
+    ).rows,
+  });
+  try {
+    await repository.db.query(
+      `INSERT INTO topics(id,profile_id,name,description,include_guidance,position)
+      SELECT $1,id,'Final write fixture','','',100 FROM profiles LIMIT 1`,
+      [topicId],
+    );
+    await repository.db.query(
+      'INSERT INTO content_sources(id,topic_id,name,kind,url) VALUES($1,$2,$3,$4,$5)',
+      [source.id, topicId, source.name, source.kind, source.url],
+    );
+    await repository.db.query(
+      'INSERT INTO topic_source_connections(topic_id,source_id) VALUES($1,$2)',
+      [topicId, source.id],
+    );
+    await repository.store(source, [original]);
+    await repository.failed(source, 'Retained diagnostic');
+    const before = await snapshot();
+    await repository.db
+      .query(`ALTER TABLE content_sources ADD CONSTRAINT ingestion_final_write_fixture
+      CHECK (id <> 'final-write-${topicId}' OR last_item_count <> 2)`);
+    await assert.rejects(
+      repository.store(source, [replacement, added]),
+      /ingestion_final_write_fixture/,
+    );
+    assert.deepEqual(await snapshot(), before);
+    await repository.db.query(
+      'ALTER TABLE content_sources DROP CONSTRAINT ingestion_final_write_fixture',
+    );
+    await repository.store(source, [replacement, added]);
+    const after = await snapshot();
+    assert.equal(after.items.length, 2);
+    const retained = after.items.find(
+      (row) => row.canonical_url === original.url,
+    )!;
+    assert.equal(retained.id, before.items[0].id);
+    assert.equal(retained.title, 'Updated');
+    assert.deepEqual(retained.engagement, { points: 8 });
+    assert.equal(after.preview.items.length, 2);
+    assert.equal(after.citations.length, 2);
+    const citation = after.citations.find(
+      (row) => row.item_id === retained.id,
+    )!;
+    assert.deepEqual(citation.first_seen_at, before.citations[0].first_seen_at);
+    assert.deepEqual(citation.citing_engagement, { points: 8 });
+    assert.equal(after.status.storedItems, 2);
+    assert.equal(after.status.lastItemCount, 2);
+    assert.equal(after.status.error, null);
+    assert.ok(after.status.lastSuccess >= before.status.lastSuccess);
+    await repository.store(source, [replacement, added]);
+    const repeated = await snapshot();
+    assert.equal(repeated.items.length, 2);
+    assert.equal(repeated.citations.length, 2);
+    assert.equal(repeated.status.storedItems, 2);
+  } finally {
+    await repository.db.query(
+      'ALTER TABLE content_sources DROP CONSTRAINT IF EXISTS ingestion_final_write_fixture',
+    );
+    await repository.db.query(
+      'DELETE FROM content_observations WHERE source_id=$1',
+      [source.id],
+    );
+    await repository.db.query(
+      'DELETE FROM topic_source_connections WHERE source_id=$1',
+      [source.id],
+    );
+    await repository.db.query('DELETE FROM content_sources WHERE id=$1', [
+      source.id,
+    ]);
+    await repository.db.query(
+      'DELETE FROM content_items WHERE canonical_url=ANY($1::text[])',
+      [[original.url, added.url]],
+    );
+    await repository.db.query('DELETE FROM topics WHERE id=$1', [topicId]);
+    await repository.onModuleDestroy();
+  }
+});

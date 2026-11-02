@@ -110,18 +110,6 @@ Earlier iteration 229: [archive](docs/progress-archive/2026-11-02-iteration-229.
 
 Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
 
-## 2026-11-02: iteration 240 — scheduled X verification admission
-
-- Started clean on main; services/health green, 32 sources without current errors; no leftover work.
-- Priority 15/13/7/9 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a.
-- Added repository characterization for ten-candidate cap, numeric ordering, per-call isolation and verified-post exclusion.
-- Pins exact one-day cooldown plus millisecond neighbors, future checks and disabled/zero-budget topic exclusion in a non-UTC transaction.
-- Initial fixture omitted the successful-call cost required by a DB constraint; corrected to zero, then the full check passed.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 138 integration), `pnpm build`, `git diff --check` passed.
-- Updated TASKS/database notes. No provider or Reddit requests; all new fixtures roll back in disposable PostgreSQL.
-- Restarted API/worker healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues; latest edition has four topics.
-- Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
-
 ## 2026-11-02: iteration 241 — missing X publication-time recovery
 
 - Started clean on main; services/health green, 32 sources without current errors; no leftover work.
@@ -333,4 +321,17 @@ Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 154 integration), `pnpm build`, `git diff --check` passed.
 - Live latest edition has four topics; rolling article/X coverage present across all four topics.
 - Restarted API/worker; health, SPA, source and queue checks passed.
+- Next: observe Nov 3 scheduled X per-topic cost/yield and AI edition cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 260 — final ingestion-write rollback
+
+- Started clean on main; API/worker, health and all 32 sources healthy; no leftover work.
+- Priority 15/13/7/9 evidence awaits Nov 3; advanced isolated STEERING 2a.
+- Rejected the final source-status write after article upserts, observations and X citations; complete snapshots remain unchanged.
+- Removing rejection permits retry with retained article ID/citation first-seen time; repeat batches dedupe correctly.
+- Disposable PostgreSQL only; no provider or Reddit requests.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 155 integration), `pnpm build`, `git diff --check` passed.
+- Restarted API/worker; `/healthz` healthy, SPA 200, 32 error-free sources and four available queues.
+- Four-topic latest edition and rolling article/verified-X coverage present across all topics.
+- Updated TASKS/database notes; archived iteration 240 to keep PROGRESS bounded.
 - Next: observe Nov 3 scheduled X per-topic cost/yield and AI edition cost/duration before acknowledging 15/13/7.
