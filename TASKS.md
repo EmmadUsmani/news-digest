@@ -93,6 +93,7 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Connect Destructoid public RSS with recorded encoded-content X citation regression (iteration 131); feed contains guides/opinion as well as news, and its one observed X citation is outside the upcoming daily window. No page harvesting enabled.
   - [x] Status exposes bounded retained free social collection results, including partial river/page/embed errors and successful embed checks; correct social next-run label and isolated Redis telemetry regression (iteration 134). Counts do not imply new posts or virality.
   - [x] Aftermath public RSS adds 15 real articles and three X citations verified by official embeds (iteration 135); all cited posts precede the upcoming daily window. Recorded content/citation regression; no page harvesting or fresh-window/virality claim.
+  - [x] Empty verified candidate pools remain explicitly non-AI and skip both social AI services; incomplete triage reports its own fallback reason (iteration 136). Historical snapshots unchanged.
   - Next: observe the first scheduled semantic social edition and measure relevant Gaming discovery. Keep full-day X reservation and paid scheduling off. Semantic selection is not a virality measurement.
   - SocialPost storage, window-aware ranking with citation diversity/engagement, immutable post selections and lazy official X embeds.
   - Reddit per-topic communities and faithful cards; no bot-protection workarounds. Bluesky optional; YouTube deferred.

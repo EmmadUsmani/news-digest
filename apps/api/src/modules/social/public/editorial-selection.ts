@@ -59,7 +59,13 @@ export async function editTopicPosts(
       'verified-lexical-recency-v2' | 'verified-semantic-editor-v2',
     postEditorial: editorial,
   };
-  if (!services || budget === 0) return result;
+  if (budget === 0) return result;
+  if (candidates.length === 0) {
+    editorial.reason =
+      'No verified posts pass source, window, safety and duplicate checks; no social AI calls were needed.';
+    return result;
+  }
+  if (!services) return result;
   const triage = await services.socialTriage.score(
     topic,
     candidates.map((p) => ({
@@ -72,7 +78,11 @@ export async function editTopicPosts(
   );
   editorial.triage = triage.scores;
   editorial.unscoredIds = triage.unscoredIds;
-  if (triage.unscoredIds.length) return result;
+  if (triage.unscoredIds.length) {
+    editorial.reason =
+      'Non-AI selection: social triage is incomplete; retained lexical fallback.';
+    return result;
+  }
   const shortlist = triage.scores
     .filter((s) => s.relevance >= 6 && s.importance >= 4)
     .sort(

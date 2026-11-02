@@ -231,7 +231,9 @@ verified posts per topic with configured Haiku. Complete triage supplies at most
 ten posts (relevance ≥6, interestingness ≥4) to the budgeted Sonnet editor with
 Haiku fallback. Editions freeze original text, context, scores and selection
 method. Incomplete triage or unavailable editing retains lexical selection and
-labels it non-AI. Unknown engagement and media contents are never inferred.
+labels it non-AI. Empty verified candidate pools skip both social AI services and
+explain that no social AI calls were needed; incomplete triage has a separate
+fallback reason. Unknown engagement and media contents are never inferred.
 Read-only UI verification can use `POST_EDITORIAL_REPLAY=1` with `smoke-posts.ts`;
 its context is explicitly synthetic and it publishes no edition.
 

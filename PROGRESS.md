@@ -295,3 +295,14 @@ Earlier iterations 87–100: [archive](docs/progress-archive/2026-11-02-iteratio
 - `pnpm exec tsx apps/api/scripts/verify-x-embeds.ts`: three successes/zero failures. `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; refreshed screenshots and inspected mobile Aftermath card.
 - TASKS/docs/SOURCES updated. No publication, schedule mutation, inference/discovery spend or provider/model/billing change. Anthropic $0.408415; X $0.023382; no new owner blocker.
 - Next: inspect 20:40 UTC scheduled semantic edition when due. Gaming/World daily social gaps and Reddit block persist; keep paid X scheduling off.
+
+## 2026-11-02: iteration 136 — truthful empty social selection status
+
+- Started clean on main; no leftover work. API/worker/health, all 28 feeds and current collection/digest runs healthy; two historical ingestion failures retained. First semantic edition remains due 20:40 UTC.
+- Fixed empty verified candidate pools being labeled AI-selected despite no model call: skip both social services and preserve non-AI/null-model provenance with an explicit no-candidates reason. Incomplete triage now explains its lexical fallback separately from unavailable editing.
+- Regression uses throwing fake services to prove empty/zero-budget paths cannot invoke AI; verifies reasons and null model. Historical editions, prompts, model configuration and ranking are unchanged.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 144 isolated tests pass. `pnpm build` passes (existing upstream Zod warnings).
+- Restarted API/worker; `/healthz` healthy. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued live passes, 1,170 URLs/four topics/28 healthy sources; repeat idempotent.
+- `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; refreshed screenshots and inspected mobile status. README/TASKS updated; no source configuration change.
+- No publication, schedule mutation, inference/discovery spend, provider/model/billing change or new owner blocker. Gaming/World social gaps and Reddit block remain; paid X scheduling stays off.
+- Next: inspect 20:40 UTC scheduled semantic edition when due; continue relevant free social discovery.

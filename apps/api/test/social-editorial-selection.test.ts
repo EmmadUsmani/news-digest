@@ -104,23 +104,53 @@ void test('incomplete triage and exhausted editor retain lexical fallback; quiet
   const unavailable = await editTopicPosts(
     services,
     topic,
-    [],
+    posts,
     [posts[0]],
     1,
     'test',
   );
   assert.equal(unavailable.postEditorial.mode, 'non-ai');
-  services.socialEditor.edit = async () => ({ model: 'none', posts: [] });
-  const quiet = await editTopicPosts(
-    services,
-    topic,
-    [],
-    [posts[0]],
-    1,
-    'test',
-  );
+  services.socialEditor.edit = async () => {
+    throw new Error('Empty candidate pool must not reach editor');
+  };
+  const quiet = await editTopicPosts(services, topic, [], [], 1, 'test');
   assert.deepEqual(quiet.posts, []);
-  assert.equal(quiet.postEditorial.mode, 'ai');
+  assert.equal(quiet.postEditorial.mode, 'non-ai');
+  assert.equal(quiet.postEditorial.model, null);
+  assert.match(quiet.postEditorial.reason, /No verified posts/);
+  assert.match(incomplete.postEditorial.reason, /triage is incomplete/);
+  assert.match(unavailable.postEditorial.reason, /editor unavailable/);
   await editTopicPosts(services, topic, posts, [], 0, 'test');
   assert.equal(editorCalls, 1);
+});
+
+void test('empty and disabled post sections skip both social AI services', async () => {
+  const services: SocialSelectionServices = {
+    socialTriage: {
+      async score() {
+        throw new Error('Unexpected triage');
+      },
+    },
+    socialEditor: {
+      async edit() {
+        throw new Error('Unexpected edit');
+      },
+    },
+  };
+  for (const available of [services, null]) {
+    const empty = await editTopicPosts(available, topic, [], [], 5, 'test');
+    assert.equal(empty.postEditorial.mode, 'non-ai');
+    assert.equal(empty.postEditorial.model, null);
+    assert.deepEqual(empty.postEditorial.unscoredIds, []);
+    assert.match(empty.postEditorial.reason, /no social AI calls/);
+    const disabled = await editTopicPosts(
+      available,
+      topic,
+      posts,
+      [],
+      0,
+      'test',
+    );
+    assert.match(disabled.postEditorial.reason, /budget is zero/);
+  }
 });
