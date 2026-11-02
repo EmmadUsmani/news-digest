@@ -167,3 +167,14 @@ Earlier iterations 137–138: [archive](docs/progress-archive/2026-11-02-iterati
 - `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 163 isolated tests pass. `pnpm build` passes.
 - Restarted API/worker; /healthz healthy. Live Status retains 32 sources, no current source errors or failed digest jobs; stored editions remain available.
 - Updated TASKS; no source changes, docs/SOURCES unchanged. Item 7 remains open: granular editorial-stage progress and full-edition fake timing. No latency claim or new blocker.
+
+## 2026-11-02: iteration 162 — editorial-stage progress
+
+- Started clean on main; no leftover work. API/worker and health healthy, 32 sources without current errors and no failed digest jobs.
+- Generation reports each topic's story triage, story editing, social triage/editing and readiness, then publication; concurrent topics retain individual stages.
+- Scheduled/on-demand workers persist progress in BullMQ; polling API returns it and creation UI displays it, including resumed jobs. Publication progress precedes the insert/commit; completion still requires a saved edition.
+- Extended fake publication harness checks stage ordering and independent snapshots across parallel topics; isolated Redis test checks generator-to-worker-to-API progress delivery. No live inference spend.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 163 isolated tests pass. `pnpm build` passes.
+- `pnpm exec tsx scripts/smoke-edition-jobs.ts`: desktop/mobile stages, publication, reload, reconnect, completion and failure pass; updated docs/screenshots/edition-job-{desktop,mobile}.png. Generation intercepted; reads stored edition only.
+- Restarted API/worker; `/healthz` healthy, 32 sources/no current errors, zero failed digest jobs; latest stored edition retains four topics.
+- README/TASKS updated; no source changes, docs/SOURCES unchanged. No new blocker. Item 7 remains open for full-edition fake timing; no live latency claim.

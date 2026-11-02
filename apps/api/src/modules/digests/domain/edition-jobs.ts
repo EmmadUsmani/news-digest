@@ -1,7 +1,9 @@
+import type { EditionProgress } from './preview.repository';
 export interface EditionJobStatus {
   id: string;
   state: string;
   editionId: string | null;
+  progress: EditionProgress | null;
   durationMs: number | null;
   error: string | null;
 }

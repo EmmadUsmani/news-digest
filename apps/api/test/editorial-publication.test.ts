@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import { digestPreviewSchema } from '@digest/contracts';
 
 import { PostgresPreviewRepository } from '../src/modules/digests/database/preview.repository';
+import type { EditionProgress } from '../src/modules/digests/domain/preview.repository';
 
 const start = new Date('2026-11-01T00:00:00Z');
 const end = new Date('2026-11-02T00:00:00Z');
@@ -143,8 +144,26 @@ async function harness(
           },
         },
   });
+  const progress: EditionProgress[] = [];
   const snapshot = digestPreviewSchema.parse(
-    await repository.generate(start, end),
+    await repository.generate(start, end, undefined, async (value) => {
+      progress.push(value);
+    }),
+  );
+  assert.equal(progress[0].stage, 'topics');
+  assert.ok(progress[0].topics.every((topic) => topic.stage === 'triage'));
+  assert.equal(progress.at(-1)?.stage, 'publishing');
+  assert.ok(progress.at(-1)?.topics.every((topic) => topic.stage === 'ready'));
+  if (!options.disabled && !options.incomplete)
+    assert.ok(
+      progress.some((value) =>
+        value.topics.some((topic) => topic.stage === 'editing'),
+      ),
+    );
+  assert.ok(
+    progress.some((value) =>
+      value.topics.some((topic) => topic.stage === 'posts'),
+    ),
   );
   assert.deepEqual(stored, [snapshot]);
   assert.ok(calls.includes('COMMIT'));

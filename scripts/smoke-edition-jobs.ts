@@ -22,6 +22,7 @@ async function smoke() {
       let submissions = 0;
       let state = 'waiting';
       let disconnected = false;
+      let stage = 'triage';
       await page.route('**/api/digest-previews/jobs', async (route) => {
         assert.equal(route.request().method(), 'POST');
         submissions++;
@@ -33,6 +34,13 @@ async function smoke() {
           json: {
             id: '123',
             state,
+            progress:
+              state === 'active'
+                ? {
+                    stage: stage === 'publishing' ? 'publishing' : 'topics',
+                    topics: [{ id: 'fixture', name: 'Fixture topic', stage }],
+                  }
+                : null,
             editionId: state === 'completed' ? edition.id : null,
           },
         });
@@ -62,7 +70,7 @@ async function smoke() {
       state = 'active';
       await page
         .getByRole('status')
-        .filter({ hasText: 'scoring and editing' })
+        .filter({ hasText: 'triaging stories' })
         .waitFor();
       await page.screenshot({
         path: `docs/screenshots/edition-job-${name}.png`,
@@ -71,9 +79,17 @@ async function smoke() {
       await page.reload();
       await page
         .getByRole('status')
-        .filter({ hasText: 'scoring and editing' })
+        .filter({ hasText: 'triaging stories' })
         .waitFor();
       assert.equal(submissions, 1);
+      for (const [next, label] of [
+        ['editing', 'editing stories'],
+        ['posts', 'triaging and editing posts'],
+        ['publishing', 'Publishing your edition'],
+      ]) {
+        stage = next;
+        await page.getByRole('status').filter({ hasText: label }).waitFor();
+      }
       disconnected = true;
       await page
         .getByRole('status')

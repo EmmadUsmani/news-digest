@@ -84,13 +84,14 @@ exponential backoff. Downtime does not backfill every missed daily edition.
 Async API clients can `POST /api/digest-previews/jobs` with ISO `windowStart`
 and `windowEnd` values to receive HTTP 202 and a job ID without waiting for
 inference. Poll `GET /api/digest-previews/jobs/:id` for queue state, `editionId`,
-`durationMs` (worker processing time) and a sanitized error. Concurrent requests
+`durationMs` (worker processing time), per-topic editorial `progress` and a sanitized error. Concurrent requests
 for the exact same normalized window share a job until it completes or fails;
 a subsequent request creates a new edition. On-demand jobs make one attempt,
 and worker recovery reuses the same publication key. Job history is bounded to
 100 completed and 100 failed runs. Scheduled jobs keep their existing retries.
-The web UI still uses synchronous `POST /api/digest-previews`; connecting it to
-polling and editorial-stage progress is the next step.
+The web UI enqueues and polls these jobs, resumes polling after a reload and opens
+the saved edition on completion. Progress reports story triage/editing, social
+selection and publication; topics can be at different stages concurrently.
 Further curation and configuration work is tracked in [TASKS.md](TASKS.md).
 
 Explicit live verification (contacts publishers and HN; never part of tests):

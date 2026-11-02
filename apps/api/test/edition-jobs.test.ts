@@ -7,7 +7,10 @@ import { Worker } from 'bullmq';
 import { BullEditionJobs } from '../src/modules/digests/adapters/edition-jobs';
 import { generateOnDemandEdition } from '../src/modules/digests/application/on-demand-edition';
 import { PreviewController } from '../src/modules/digests/digests.module';
-import { type PreviewRepository } from '../src/modules/digests/domain/preview.repository';
+import {
+  type PreviewRepository,
+  type ReportEditionProgress,
+} from '../src/modules/digests/domain/preview.repository';
 
 void test('async edition requests dedupe while active, publish once and allow later regeneration', async () => {
   const jobs = new BullEditionJobs();
@@ -27,11 +30,20 @@ void test('async edition requests dedupe while active, publish once and allow la
     topics: [],
   };
   const repository = {
-    async generate(start: Date, end: Date, key?: string) {
+    async generate(
+      start: Date,
+      end: Date,
+      key?: string,
+      report?: ReportEditionProgress,
+    ) {
       calls++;
       keys.push(key!);
       assert.equal(start.toISOString(), snapshot.windowStart);
       assert.equal(end.toISOString(), snapshot.windowEnd);
+      await report?.({
+        stage: 'topics',
+        topics: [{ id: 'fixture', name: 'Fixture', stage: 'editing' }],
+      });
       await blocked;
       return snapshot;
     },
@@ -43,7 +55,10 @@ void test('async edition requests dedupe while active, publish once and allow la
   };
   const worker = new Worker(
     jobs.queue.name,
-    (job) => generateOnDemandEdition(repository, job.id!, job.data),
+    (job) =>
+      generateOnDemandEdition(repository, job.id!, job.data, (progress) =>
+        job.updateProgress(progress),
+      ),
     { connection },
   );
   const waitFor = async (id: string, state: string) => {
@@ -80,6 +95,13 @@ void test('async edition requests dedupe while active, publish once and allow la
     assert.equal(new Set(requests.map((job) => job.id)).size, 1);
     const id = requests[0].id;
     await waitFor(id, 'active');
+    for (
+      let attempt = 0;
+      attempt < 100 && !(await jobs.find(id))?.progress;
+      attempt++
+    )
+      await new Promise((resolve) => setTimeout(resolve, 10));
+    assert.equal((await jobs.find(id))?.progress?.topics[0].stage, 'editing');
     assert.equal(calls, 1);
     assert.equal((await controller.enqueue(request)).id, id);
     release();

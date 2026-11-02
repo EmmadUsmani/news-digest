@@ -55,6 +55,10 @@ export class BullEditionJobs extends EditionJobs implements OnModuleDestroy {
       id: job.id!,
       state,
       editionId,
+      progress:
+        typeof job.progress === 'object'
+          ? (job.progress as EditionJobStatus['progress'])
+          : null,
       durationMs:
         job.processedOn && job.finishedOn
           ? job.finishedOn - job.processedOn

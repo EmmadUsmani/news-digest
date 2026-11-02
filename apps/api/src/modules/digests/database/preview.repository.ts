@@ -12,7 +12,11 @@ import { editTopicPosts } from '../../social/public/editorial-selection';
 import { selectTopicPosts } from '../../social/public/selection';
 import { parallelTopics } from '../application/parallel-topics';
 import { editorialShortlist } from '../domain/editorial-shortlist';
-import { PreviewRepository } from '../domain/preview.repository';
+import {
+  type EditionProgress,
+  PreviewRepository,
+  type ReportEditionProgress,
+} from '../domain/preview.repository';
 import { qualityRejection } from '../domain/quality';
 import { Candidate, rank } from '../domain/rank';
 import { assessRelevance } from '../domain/relevance';
@@ -65,6 +69,7 @@ export class PostgresPreviewRepository
     start: Date,
     end: Date,
     scheduledKey?: string,
+    reportProgress?: ReportEditionProgress,
   ): Promise<DigestPreview> {
     const client = await this.db.connect();
     try {
@@ -93,6 +98,25 @@ export class PostgresPreviewRepository
           [profileId],
         )
       ).rows;
+      const progress: EditionProgress = {
+        stage: 'topics',
+        topics: topics.map((topic) => ({
+          id: String(topic.id),
+          name: String(topic.name),
+          stage: 'triage',
+        })),
+      };
+      const report = async () => {
+        if (reportProgress) await reportProgress(structuredClone(progress));
+      };
+      const topicStage = async (
+        id: string,
+        stage: EditionProgress['topics'][number]['stage'],
+      ) => {
+        progress.topics.find((topic) => topic.id === String(id))!.stage = stage;
+        await report();
+      };
+      await report();
       const selections = await parallelTopics(topics, async (topic) => {
         // Limit candidate work per topic, selecting the most recent 200 in the exact window.
         const candidates: Candidate[] = (
@@ -165,6 +189,7 @@ export class PostgresPreviewRepository
               start,
               end,
             );
+            await topicStage(topic.id, 'editing');
             const result = await this.editorial.editor.edit(
               context,
               ranked,
@@ -214,6 +239,7 @@ export class PostgresPreviewRepository
             }
           }
         }
+        await topicStage(topic.id, 'posts');
         const posts = await selectTopicPosts(
           client,
           topic.id,
@@ -252,6 +278,7 @@ export class PostgresPreviewRepository
           postSelection.posts,
           stories,
         );
+        await topicStage(topic.id, 'ready');
         return {
           ...postSelection,
           editorial,
@@ -264,6 +291,8 @@ export class PostgresPreviewRepository
           stories,
         };
       });
+      progress.stage = 'publishing';
+      await report();
       const snapshot: DigestPreview = {
         id: runId,
         createdAt: new Date().toISOString(),

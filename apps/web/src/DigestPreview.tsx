@@ -72,7 +72,11 @@ export function DigestPreview() {
         }
         setJobMessage(
           job.state === 'active'
-            ? 'Creating your edition: scoring and editing topics, then publishing. You can leave this page and return.'
+            ? job.progress?.stage === 'publishing'
+              ? 'Publishing your edition…'
+              : job.progress?.topics?.length
+                ? `Creating your edition: ${job.progress.topics.map((topic: { name: string; stage: string }) => `${topic.name}: ${{ triage: 'triaging stories', editing: 'editing stories', posts: 'triaging and editing posts', ready: 'ready' }[topic.stage] ?? 'processing'}`).join('; ')}.`
+                : 'Creating your edition: scoring and editing topics, then publishing. You can leave this page and return.'
             : 'Edition queued. Waiting for the worker…',
         );
       } catch {

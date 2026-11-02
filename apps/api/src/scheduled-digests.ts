@@ -15,7 +15,12 @@ export function startScheduledDigests() {
     'digest-generation',
     async (job) => {
       if (job.name === 'on-demand')
-        return generateOnDemandEdition(previews, job.id!, job.data);
+        return generateOnDemandEdition(
+          previews,
+          job.id!,
+          job.data,
+          (progress) => job.updateProgress(progress),
+        );
       const profile = await profiles.getDefault();
       // A replaced schedule may leave an already queued slot; ignore obsolete settings.
       if (
@@ -36,6 +41,7 @@ export function startScheduledDigests() {
         window.value.windowStart,
         window.value.windowEnd,
         `${profile.id}:${scheduledAt}`,
+        (progress) => job.updateProgress(progress),
       );
       return {
         editionId: edition.id,
