@@ -535,3 +535,104 @@ void test('topic post reads dedupe rivers, order ties and null times, and follow
     await repository.db.end();
   }
 });
+
+void test('verification URLs select the newest non-null evidence across all discovery paths', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const repository = new PostgresSocialRepository();
+  const id = '2116948532477468699';
+  const item = crypto.randomUUID();
+  const call = crypto.randomUUID();
+  const river = `verification-${item}`;
+  const reddit = 'verificationfixture';
+  const url = `https://x.com/fixture/status/${id}`;
+  const paths = [
+    ['x_link_citations', 'last_seen_at', 'publisher'],
+    ['social_discovery_citations', 'last_seen_at', 'river'],
+    ['reddit_x_citations', 'last_seen_at', 'reddit'],
+    ['x_search_citations', 'discovered_at', 'search'],
+  ] as const;
+  try {
+    assert.equal(await repository.verificationUrl(id), undefined);
+    await repository.db.query(
+      "INSERT INTO content_items(id,canonical_url,title,excerpt,published_at) VALUES($1,$2,'Fixture','Fixture',now())",
+      [item, `https://example.org/${item}`],
+    );
+    await repository.db.query(
+      "INSERT INTO x_link_citations(external_id,item_id,source_id,canonical_url) VALUES($1,$2,'hn',$3)",
+      [id, item, url],
+    );
+    await repository.db.query(
+      "INSERT INTO social_discovery_sources(id,name,url) VALUES($1,'Fixture',$2)",
+      [river, `https://example.org/${river}`],
+    );
+    await repository.discovered(river, [{ externalId: id, url }]);
+    await repository.db.query(
+      "INSERT INTO social_posts(platform,external_id,canonical_url,author,author_url,embed_html,reddit_metadata) VALUES('reddit',$1,$2,'Fixture','https://example.org','Fixture','{}')",
+      [reddit, `https://example.org/${reddit}`],
+    );
+    await repository.db.query(
+      'INSERT INTO reddit_x_citations(reddit_id,external_id,canonical_url) VALUES($1,$2,$3)',
+      [reddit, id, url],
+    );
+    await repository.db.query(
+      "INSERT INTO x_discovery_calls(id,model,run_id,status,reserved_micros) VALUES($1,'fixture','verification-fixture','pending',1)",
+      [call],
+    );
+    await repository.db.query(
+      'INSERT INTO x_search_citations(call_id,external_id,canonical_url) VALUES($1,$2,$3)',
+      [call, id, url],
+    );
+    assert.equal(await repository.verificationUrl(id), undefined);
+    // Offset timestamps compare by instant, independent of the discovery path.
+    for (const [index, [table, time, label]] of paths.entries()) {
+      await repository.db.query(
+        `UPDATE ${table} SET verification_url=$2,${time}=$3 WHERE external_id=$1`,
+        [
+          id,
+          `https://example.org/${label}`,
+          `2026-11-02T0${index + 1}:00:00-07:00`,
+        ],
+      );
+      assert.equal(
+        await repository.verificationUrl(id),
+        `https://example.org/${label}`,
+      );
+    }
+    // Newer evidence without a URL cannot hide an older usable URL.
+    for (const [index, [table, time]] of [...paths].reverse().entries()) {
+      await repository.db.query(
+        `UPDATE ${table} SET verification_url=NULL,${time}='2026-11-03T00:00:00Z' WHERE external_id=$1`,
+        [id],
+      );
+      const remaining = paths.length - index - 2;
+      assert.equal(
+        await repository.verificationUrl(id),
+        remaining < 0
+          ? undefined
+          : `https://example.org/${paths[remaining][2]}`,
+      );
+    }
+    assert.equal(
+      await repository.verificationUrl('2116948532477468698'),
+      undefined,
+    );
+  } finally {
+    await repository.db.query(
+      'DELETE FROM x_search_citations WHERE call_id=$1',
+      [call],
+    );
+    await repository.db.query('DELETE FROM x_discovery_calls WHERE id=$1', [
+      call,
+    ]);
+    await repository.db.query(
+      "DELETE FROM social_posts WHERE platform='reddit' AND external_id=$1",
+      [reddit],
+    );
+    await repository.db.query(
+      'DELETE FROM social_discovery_sources WHERE id=$1',
+      [river],
+    );
+    await repository.db.query('DELETE FROM content_items WHERE id=$1', [item]);
+    await repository.db.end();
+  }
+});

@@ -418,3 +418,12 @@ topics remain readable, and source/topic deletion removes association without
 requiring post deletion. Fixtures use disposable PostgreSQL only; no source,
 Reddit or provider requests occur. Other discovery paths retain their existing
 separate tests; recorded-response golden and other repository gaps remain open.
+
+## Verification URL precedence (iteration 264)
+
+`social-candidates.test.ts` pins newest non-null verification URLs across
+publisher, river, stored Reddit and direct-search citations. Offset timestamps
+compare by instant; newer null URLs cannot hide older usable evidence, and
+missing/all-null citations return no URL. All fixtures use disposable PostgreSQL;
+no source or provider requests occur. Equal-time tie selection remains unspecified.
+Recorded-response golden and other repository gaps remain open.

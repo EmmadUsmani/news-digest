@@ -110,18 +110,7 @@ Earlier iteration 229: [archive](docs/progress-archive/2026-11-02-iteration-229.
 
 Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
 
-## 2026-11-02: iteration 244 — concurrent catalog capacity
-
-- Started clean on main; API/worker and health green; no leftover work.
-- Priority 15/13/7/9 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a.
-- Added a two-topic race for the last catalog slot: one winner, one rejection, exactly 500 sources and no rejected connection.
-- Rejected caller then reuses the winning URL, pinning rollback, lock release and recovery at capacity.
-- First check stopped on archived progress formatting; corrected it and reran successfully.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 142 integration), `pnpm build`, `git diff --check` passed.
-- Updated TASKS/database notes; archived iteration 227 to keep PROGRESS bounded. No provider or Reddit requests.
-- Restarted API/worker healthy; DB/Redis true, SPA 200, 32 error-free sources and four queues.
-- Read-only timing report confirms next edition Nov 3 15:00 UTC; retained 856 ms fallback is not AI latency evidence.
-- Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
+Earlier iteration 244: [archive](docs/progress-archive/2026-11-02-iteration-244.md).
 
 ## 2026-11-02: iteration 245 — concurrent canonical ingestion
 
@@ -337,3 +326,15 @@ Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
 - Updated TASKS/database notes; archived iteration 243 to keep PROGRESS bounded.
 - Restarted API/worker; health, SPA, source/queue health and four-topic latest content checked.
 - Next: observe Nov 3 scheduled X cost/yield and AI edition cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 264 — verification URL precedence
+
+- Started clean on main; API/worker, health, 32 sources and four queues healthy; no leftover work.
+- Priority 15/13/7/9 evidence awaits Nov 3; advanced isolated STEERING 2a.
+- Pins newest non-null embed-verification URL across publisher, river, stored Reddit and search citations.
+- Offset timestamps compare by instant; newer null URLs retain older usable evidence; missing evidence returns undefined.
+- Disposable PostgreSQL only; no provider, source or Reddit verification requests.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 159 integration), `pnpm build`, `git diff --check`.
+- Updated TASKS/database notes; archived iteration 244; equal-time URL precedence remains unspecified.
+- Restarted API/worker; health, SPA, source/queue health and latest four-topic edition checked.
+- Next: observe Nov 3 scheduled X per-topic cost/yield and AI edition cost/duration before acknowledging 15/13/7.
