@@ -1147,3 +1147,14 @@ verified X post can enter selection. This follows the existing official X render
 path rather than rendering a Reddit wrapper for the tweet. Isolated synthetic tests
 cover repeated links, score refresh, edits, rollback, topic isolation and X selection.
 Collection remains unscheduled; Reddit ranking and faithful cards remain open.
+
+## Reddit ranking preparation — iteration 172 (2026-11-02)
+
+Public access remains blocked and collection unscheduled. A bounded, topic-scoped
+repository read and separate domain ranker now prepare Reddit shortlists using
+prior-week per-community score and lifetime score/hour medians, requiring five
+historical observations and conservative strength thresholds. Sparse evidence
+returns no picks. Posts citing X stay in the verified-X path. This is unpublished
+preparation, verified with synthetic/isolated tests; no real Reddit content or
+measured engagement growth is claimed. See docs/RANKING.md for limits. Faithful
+cards and platform-aware publication remain next.

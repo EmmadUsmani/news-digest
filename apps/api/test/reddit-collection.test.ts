@@ -96,6 +96,34 @@ void test('Reddit storage preserves metadata, updates metrics, links configured 
       ).rows,
       [{ topic_id: nba }],
     );
+    const observationStart = new Date(post.publishedAt);
+    const observationEnd = new Date(observationStart.getTime() + 86400000);
+    const observations = await repository.observations(
+      nba,
+      observationStart,
+      observationEnd,
+    );
+    assert.equal(observations.length, 1);
+    assert.equal(observations[0].post.title, post.title);
+    assert.equal(observations[0].post.metrics.score, 12345);
+    assert.ok(Number.isFinite(Date.parse(observations[0].observedAt)));
+    assert.equal(observations[0].citesX, true);
+    assert.deepEqual(
+      await repository.observations(gaming, observationStart, observationEnd),
+      [],
+    );
+    await repository.db.query(
+      'UPDATE topics SET reddit_communities=$2 WHERE id=$1',
+      [nba, '[]'],
+    );
+    assert.deepEqual(
+      await repository.observations(nba, observationStart, observationEnd),
+      [],
+    );
+    await repository.db.query(
+      'UPDATE topics SET reddit_communities=$2 WHERE id=$1',
+      [nba, '["nba"]'],
+    );
     const social = new PostgresSocialRepository();
     const xId = '2116948532477468673';
     assert.ok((await social.candidates(50)).includes(xId));

@@ -30,15 +30,7 @@ Earlier iterations 141–142: [archive](docs/progress-archive/2026-11-02-iterati
 
 Earlier iteration 143: [archive](docs/progress-archive/2026-11-02-iteration-143.md).
 
-## 2026-11-02: iteration 157 — shared Anthropic concurrency
-
-- Started clean on main; no leftover work. API/worker healthy, 32 sources without current errors and no digest queue failures; two historical ingestion failures remain retained.
-- STEERING 7 partial: process-wide FIFO four-call limit shared across Anthropic adapter instances and article/social triage/editing. Retains slots through 429 backoff and releases on success/failure. API and worker retain independent limits.
-- Fake HTTP test overlaps twelve calls across twelve adapters, verifies FIFO order, four-call peak and continued progress after four transport failures. No live LLM calls or spend.
-- `pnpm exec tsx --test apps/api/test/llm.test.ts`: 20 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and 158 isolated tests pass. `pnpm build` passes.
-- Restarted API/worker; both active. `/healthz` healthy, `/api/status` shows 32 sources with zero current errors and zero digest failures; `/api/digest-previews/latest` returns stored four-topic edition.
-- Updated TASKS and docs/RANKING. No UI/source/schedule changes or new publication; source docs unchanged. No new blocker.
-- Next: parallel topic editors, async jobs/window dedupe/progress and full-edition timing. Item 7 remains open; no full-edition performance claim.
+Earlier iteration 157: [archive](docs/progress-archive/2026-11-02-iteration-157.md).
 
 ## 2026-11-02: iteration 158 — parallel topic editorial pipelines
 
@@ -188,3 +180,15 @@ Earlier iteration 143: [archive](docs/progress-archive/2026-11-02-iteration-143.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (171 tests, types/lint/format/boundaries) and `pnpm build` passed; documentation formatting rechecked after updates. No UI changes.
 - `pnpm migrate` applied 039; restarted API/worker; `/healthz` DB/Redis true, status 32 sources/no errors and all queue workers present. Timing report initially raced restart, then passed: unchanged 856 ms fallback edition/four topics, 481910 micros spent/848 available; next Nov 3 15:00 UTC.
 - Updated README/TASKS/SOURCES; archived oldest progress entry to keep orientation compact. Next: Reddit ranking/cards; real Reddit content and live AI latency remain blocked/unverified.
+
+## 2026-11-02: iteration 172 — conservative Reddit ranking preparation
+
+- Started clean on main; no leftover work. Health/API/worker healthy, 32 sources/no errors, zero digest/social failures; two historical ingestion failures retained.
+- Added a bounded Reddit observation repository port/read and application shortlist, rechecking enabled topics/current communities and excluding X wrappers from Reddit picks.
+- Domain ranking requires five prior-week subreddit observations, >=2× median score and lifetime score/hour, score >=10 and ratio >=0.7; deterministic order and bounded results, no sparse-evidence padding.
+- Lifetime score/hour is a one-snapshot proxy, not measured growth; historical top-listing cohorts are biased. Thresholds are provisional, not live-validated virality claims.
+- Preparation stays unpublished pending platform-aware contracts/editorial/X preference and faithful cards. Reddit remains blocked/unscheduled; no live HTTP/inference or UI changes.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (173 tests); added application-port test afterward and reran three targeted ranking tests, typecheck, lint, boundaries and production build successfully.
+- Isolated repository tests cover metadata/timestamps, X citation presence, topic isolation and removed-community filtering. Domain tests cover relative strength, sparse/duplicate/unsafe/future evidence and budget limits.
+- Restarted API/worker; `/healthz` DB/Redis true, status all queue workers present. Read-only timing report unchanged: 856 ms fallback/four topics, 481910 micros spent/848 available; next Nov 3 15:00 UTC.
+- Updated TASKS/SOURCES/RANKING and archived oldest progress entry. Next: platform-aware publication and faithful Reddit cards; real content and live AI timing remain blocked/unverified.

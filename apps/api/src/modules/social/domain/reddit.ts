@@ -21,3 +21,11 @@ export interface RedditCollectionRepository {
   communities(): Promise<{ community: string; topicIds: string[] }[]>;
   store(posts: RedditPost[], topicIds: string[]): Promise<void>;
 }
+
+export interface RedditRankingRepository {
+  observations(
+    topicId: string,
+    start: Date,
+    end: Date,
+  ): Promise<import('./reddit-ranking').RedditObservation[]>;
+}

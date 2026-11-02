@@ -630,3 +630,25 @@ still applies. A failed topic stops queued topics and drains in-flight siblings
 before rollback/release. Fake publication tests require all four topic editors
 to overlap; worker tests cover multiple waves, ordering and failure draining.
 No live inference or full-edition latency claim is involved.
+
+### Reddit ranking preparation — iteration 172
+
+A separate, unpublished Reddit shortlist compares each post with at least five
+unique stored posts from the same subreddit published in the preceding seven
+days and observed before the window starts. It requires score >=10, upvote ratio
+
+> =0.7, and both score and lifetime score/hour >=2× their cohort medians. The
+> geometric mean of these two ratios orders candidates; score and ID break ties.
+> Lifetime score/hour uses age at collection (one-hour minimum), **not measured
+> engagement growth**. Public top-listing samples are biased, so these conservative
+> thresholds are provisional and are not a validated estimate of usual reach.
+> Sparse or missing historical evidence yields no shortlist, rather than padding.
+> Topic/time/exclusion checks still apply. Posts citing X are excluded from this
+> shortlist so they can use the existing verified-X pipeline.
+
+The bounded repository read rechecks enabled topics and current community choices,
+includes seven days of historical posts, and retains collection timestamps and
+citation presence. No inference or network access occurs here. This is not yet
+connected to publication: platform-aware immutable contracts, editorial candidates,
+X slot preference and faithful cards must land together before publishing Reddit.
+Access remains blocked and all ranking evidence in tests is synthetic.
