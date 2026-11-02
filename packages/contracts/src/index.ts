@@ -331,6 +331,39 @@ export type SourceCatalog = z.infer<typeof sourceCatalogSchema>;
 export type ScheduleSettings = z.infer<typeof scheduleSchema>;
 
 export const llmUsageSchema = z.object({
+  scheduledReserve: z
+    .object({
+      lastOutcome: z
+        .object({
+          budgetDay: z.string(),
+          scheduledAt: z.string().datetime(),
+          state: z.enum(['succeeded', 'failed']),
+          outcome: z
+            .object({
+              editionId: z.string().uuid(),
+              mode: z.enum(['full-ai', 'mixed', 'fallback']),
+              reason: z.string(),
+            })
+            .nullable(),
+        })
+        .nullable(),
+      enabled: z.boolean(),
+      budgetDay: z.string(),
+      state: z.enum([
+        'pending',
+        'running',
+        'retrying',
+        'succeeded',
+        'failed',
+        'not-scheduled',
+      ]),
+      sizedReserveMicros: z.number().int().nonnegative(),
+      reserveMicros: z.number().int().nonnegative(),
+      otherSpendLimitMicros: z.number().int().nonnegative(),
+      otherAvailableMicros: z.number().int().nonnegative(),
+      limitedByReserve: z.boolean(),
+    })
+    .optional(),
   purposes: z
     .array(
       z.object({

@@ -1,5 +1,5 @@
 import type { LlmUsage } from '@digest/contracts';
-import type { Pool } from 'pg';
+import type { Pool, PoolClient } from 'pg';
 
 import {
   budgetAllowance,
@@ -8,9 +8,15 @@ import {
   utcBudgetPeriod,
 } from '../domain/budget';
 
-export async function readUsage(db: Pool, caps: BudgetCaps): Promise<LlmUsage> {
-  const now = (await db.query<{ now: Date }>('SELECT clock_timestamp() AS now'))
-    .rows[0].now;
+export async function readUsage(
+  db: Pool | PoolClient,
+  caps: BudgetCaps,
+  snapshotTime?: Date,
+): Promise<LlmUsage> {
+  const now =
+    snapshotTime ??
+    (await db.query<{ now: Date }>('SELECT clock_timestamp() AS now')).rows[0]
+      .now;
   const period = utcBudgetPeriod(now);
   const totals = (
     await db.query<{

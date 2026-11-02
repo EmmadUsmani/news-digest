@@ -72,15 +72,7 @@ Iteration 188: [archive](docs/progress-archive/2026-11-02-iteration-188.md).
 
 Iteration 189: [archive](docs/progress-archive/2026-11-02-iteration-189.md).
 
-## 2026-11-02: iteration 192 — scheduled AI reserve policy
-
-- Started clean on main; API/worker/health healthy, all 32 sources without current errors. No leftover work. Reddit already unscheduled; no Reddit HTTP or paid inference used.
-- Added pure scheduled-reserve sizing/admission policy: largest recent full-AI edition cost plus configurable headroom, bounded explicit override, conservative whole-day protection without measurements, and terminal-only release.
-- Five focused tests cover rounding, sizing, exhausted funds, scheduled privilege, retry protection, release and invalid inputs. This is policy groundwork: live ledger enforcement is NOT implemented yet.
-- Documented the integration contract in decision 0002 and updated TASKS. Archived iteration 177 to keep orientation small.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (104 unit/95 isolated integration), `pnpm build` and `git diff --check` passed. No UI changes; browser verification unnecessary.
-- Restarted API/worker: health DB/Redis true, SPA 200, queues available, 32 sources without errors; latest real edition four topics/10 posts.
-- Next, urgently: durable UTC-day scheduled state and measured-cost reader, enforce policy under the shared ledger lock with isolated race tests, then manual/Status visibility. Item 13 remains open; no live reserve protection claim.
+Iteration 192: [archive](docs/progress-archive/2026-11-02-iteration-192.md).
 
 ## 2026-11-02: iteration 193 — durable scheduled AI budget lifecycle
 
@@ -251,3 +243,16 @@ Iteration 189: [archive](docs/progress-archive/2026-11-02-iteration-189.md).
 - Live reads: four queues, 32 sources without errors, latest real edition four topics/10 posts; SPA 200, health DB/Redis true.
 - Updated reserve decision/TASKS; archived iteration 191. No UI changes, paid inference or Reddit HTTP requests.
 - Reserve enforcement remains OFF. Next: manual/Status visibility, then enablement before Nov 3 15:00 UTC.
+
+## 2026-11-02: iteration 208 — show scheduled AI budget protection on Status
+
+- Started clean on main; API/worker, health and 32 sources healthy. No leftover work.
+- Added repeatable-read, ledger-locked reserve telemetry: UTC lifecycle, target/protected funds, other-run limits/availability and latest terminal outcome/reason.
+- Status distinguishes disabled protection, active manual limits and release; older editions without durable records are not inferred.
+- Disposable-Postgres test covers disabled/pending/running/retrying/released telemetry and synthetic fallback evidence.
+- Initial checks caught an invalid async parameter initializer and UI formatting; corrected before passing full verification.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (113 unit/113 isolated integration), `pnpm build`, `git diff --check` passed.
+- `pnpm exec tsx scripts/smoke-reserve-status.ts` passed live desktop/mobile rendering plus browser-only synthetic protected/released states; saved live screenshots.
+- Restarted API/worker healthy; health DB/Redis true, SPA 200, four queues, 32 sources without errors; retained real edition four topics/10 posts.
+- Live Status reports Nov 2 fallback reason, protection disabled, $0.000848 available; next scheduled run Nov 3 15:00 UTC. No inference or Reddit requests.
+- Updated README/decision/TASKS and archived iteration 192. Next: manual-run limitation notices, then enable protection before Nov 3 scheduled run.

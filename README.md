@@ -370,3 +370,11 @@ Anthropic production publication and guarded verification tools share
 `1.5`, minimum `1`). Invalid values fail immediately. Leave enforcement off until
 the remaining lifecycle races and manual/Status visibility are implemented;
 this iteration does not claim live protection.
+
+Status shows whether scheduled AI reserve protection is enabled, the UTC budget
+day and durable run state, protected amount, configured/measured target, and
+remaining allowance for other runs before stricter model/verification limits.
+It also reports the latest terminal scheduled budget record's AI/fallback mode
+and reason (or definitive failure). These fields share a ledger-locked snapshot;
+disabled protection displays zero protected funds. Older editions without a
+durable budget record are not inferred to have used AI.

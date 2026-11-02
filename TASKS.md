@@ -6,7 +6,7 @@ Fix regressions, broken services and stalled sources before starting new work.
 ## Immediate owner priorities (STEERING overrides older milestone notes)
 
 - [ ] STEERING 13 TOP PRIORITY before Nov 3 15:00 UTC: reserve configurable Anthropic budget for the scheduled edition under the shared ledger lock; limit all other spend until completion/failure; expose reserve/manual limits and scheduled AI/fallback outcome. Fake/Testcontainers verification only. Measure next scheduled edition cost/duration for item 7.
-  - Iterations 192–205: durable UTC-day lifecycle, scheduler/worker fencing, historical sizing, opt-in shared-lock admission and trusted configurable composition implemented. Enforcement remains OFF. Iterations 206–207 verify lifecycle/admission ordering, prior-day fencing and saved-schedule no-occurrence release. Next: manual/Status visibility and enablement. See reserve decision and PROGRESS for detail.
+  - Iterations 192–205: durable UTC-day lifecycle, scheduler/worker fencing, historical sizing, opt-in shared-lock admission and trusted configurable composition implemented. Enforcement remains OFF. Iterations 206–207 verify lifecycle/admission ordering, prior-day fencing and saved-schedule no-occurrence release. Iteration 208 adds ledger-consistent Status reserve/manual allowance and last scheduled outcome visibility. Next: manual-run limitation notices and enablement. See reserve decision and PROGRESS for detail.
 
 - [ ] STEERING 14: park Reddit collection in docs/Status, disable scheduling; no further Reddit HTTP requests. Social completion now requires X only. Priority order: 13, 7 scheduled timing, 9 scheduled X, 10 coverage; 2/4 lower priority.
 

@@ -250,3 +250,16 @@ exclusion of settings updates, full daily allowance (and cap), preservation of
 pending/running identities, and invalid settings failure. Production composition
 also verifies missing-state protection on occurrence days and resolver wiring.
 Enforcement remains OFF pending manual/Status visibility and enablement.
+
+## Status visibility (iteration 208)
+
+`readLlmUsage` now reads usage, saved schedule, durable lifecycle and measured
+reserve sizing under one shared ledger lock and PostgreSQL clock. Status shows
+the UTC day/state, active protection versus disabled configuration, target,
+protected funds and remaining allowance for all other callers. Model and
+verification caps can further restrict that allowance. It reports the most
+recent terminal durable record's AI/mixed/fallback evidence and reason, or
+failure; it does not infer outcomes for editions predating lifecycle tracking.
+Disposable-Postgres tests cover disabled/pending/running/retrying/released
+telemetry and a synthetic fallback outcome. Enforcement remains OFF pending
+manual-run notices and enablement.

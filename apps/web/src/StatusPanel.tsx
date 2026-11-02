@@ -292,6 +292,47 @@ export function StatusPanel() {
               reconciliation. Available today:{' '}
               {dollars(status.llm.availableMicros)}.
             </p>
+            {status.llm.scheduledReserve && (
+              <div aria-label="Scheduled AI budget" role="region">
+                <h4>Scheduled edition reserve</h4>
+                <p>
+                  Protection{' '}
+                  {status.llm.scheduledReserve.enabled ? 'enabled' : 'disabled'}
+                  . UTC budget day: {status.llm.scheduledReserve.budgetDay};
+                  scheduled run: {status.llm.scheduledReserve.state}.
+                </p>
+                <p>
+                  {dollars(status.llm.scheduledReserve.reserveMicros)} protected
+                  for the scheduled edition (configured or measured target:{' '}
+                  {dollars(status.llm.scheduledReserve.sizedReserveMicros)}).{' '}
+                  Other runs may spend up to{' '}
+                  {dollars(status.llm.scheduledReserve.otherSpendLimitMicros)}{' '}
+                  today;{' '}
+                  {dollars(status.llm.scheduledReserve.otherAvailableMicros)}{' '}
+                  remains available before model and verification limits.
+                </p>
+                {status.llm.scheduledReserve.limitedByReserve && (
+                  <p>
+                    AI budget reserved for the scheduled edition limits manual
+                    and development runs.
+                  </p>
+                )}
+                {status.llm.scheduledReserve.lastOutcome ? (
+                  <p>
+                    Last completed scheduled run (
+                    {time(status.llm.scheduledReserve.lastOutcome.scheduledAt)}
+                    ):{' '}
+                    {status.llm.scheduledReserve.lastOutcome.outcome?.mode ??
+                      'failed'}
+                    .{' '}
+                    {status.llm.scheduledReserve.lastOutcome.outcome?.reason ??
+                      'The scheduled run definitively failed; its reserve was released.'}
+                  </p>
+                ) : (
+                  <p>No completed scheduled AI budget record yet.</p>
+                )}
+              </div>
+            )}
             {status.llm.purposes && (
               <div aria-label="AI spend by purpose" role="region">
                 <h4>Spend by purpose</h4>
