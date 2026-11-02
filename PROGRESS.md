@@ -92,18 +92,6 @@ Iteration 208: [archive](docs/progress-archive/iteration-208.md).
 
 Earlier iteration 210: [archive](docs/progress-archive/2026-11-02-iteration-210.md).
 
-## 2026-11-02: iteration 211 — finish owner-directed Reddit parking
-
-- Started clean on main; health and both services healthy. No leftover work.
-- Confirmed Reddit collection is not wired into production workers, schedulers or HTTP endpoints; retained adapters/tests and saved communities.
-- Status/settings now say “parked by owner” and explain collection is disabled/unscheduled pending owner re-enablement; source docs updated and item 14 acknowledged.
-- TASKS now requires X-only social completion under item 14; archived iteration 195 to keep orientation small.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed: 113 unit and 113 isolated integration tests; `pnpm build` passed.
-- `pnpm exec tsx scripts/smoke-topic-coverage.ts` and `scripts/smoke-reddit-communities.ts` passed desktop/mobile checks; updated screenshots. Settings writes intercepted in-browser only.
-- API/worker restarted; `/healthz` DB/Redis true; 32 sources without errors; retained latest edition four topics/10 posts.
-- Read-only timing report confirms Nov 3 15:00 UTC next run; prior 856 ms fallback is not live AI latency evidence. No inference or Reddit requests.
-- Item 13/7 live evidence still awaits scheduled edition; next actionable work is item 9 capped scheduled X discovery.
-
 ## 2026-11-02: iteration 212 — daily X discovery evidence
 
 - Started clean on main; health, four queues and 32 sources healthy. No leftover work.
@@ -264,3 +252,14 @@ Earlier iteration 210: [archive](docs/progress-archive/2026-11-02-iteration-210.
 - Updated TASKS/database notes and archived iteration 210 to bound PROGRESS.
 - Read-only timing confirms Nov 3 15:00 UTC next edition; prior 856 ms fallback is not AI latency evidence. Next: observe 14:30 X search and scheduled edition cost/duration.
 - `pnpm build` and `git diff --check` passed; restarted API/worker active, DB/Redis healthy, SPA 200, 32 error-free sources and four queues available; retained real edition has four topics, 20 stories and 10 posts.
+
+## 2026-11-02: iteration 226 — topic coverage characterization
+
+- Started clean on main; health, 32 sources and four queues healthy. No leftover work. Two retained ingestion failures are historical; both sources recovered.
+- Items 13/7/9 await Nov 3 scheduled evidence; advanced lower-priority STEERING 2a with disposable-database coverage assertions.
+- Pinned discovery-route unions/deduplication, empty counts, tied ordering, topic isolation/reassignment/deletion, source-health boundaries and millisecond post windows in a non-UTC session.
+- Synthetic Reddit rows only; no inference or Reddit requests. AI golden and other repository characterization remain open.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (120 unit, 125 isolated integration), plus `pnpm build`. First check rejected a zero-reservation fixture; corrected to a valid positive reservation before the passing rerun.
+- Compacted TASKS below 8 KB and archived iteration 211 to keep PROGRESS below 25 KB; updated database verification notes.
+- Read-only Status confirms Nov 3 15:00 UTC next edition; retained 856 ms fallback is not AI latency evidence. Next: observe 14:30 X search and scheduled AI cost/duration.
+- Deployment: API/worker restarted active; `/healthz` DB/Redis true, SPA 200, 32 error-free sources and four available queues. `git diff --check` passed.

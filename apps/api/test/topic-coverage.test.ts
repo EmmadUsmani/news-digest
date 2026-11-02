@@ -85,3 +85,158 @@ void test('topic coverage deduplicates collection scope, excludes unverified/und
     await db.end();
   }
 });
+
+void test('topic coverage unions discovery routes, isolates topics and pins health/window boundaries in a non-UTC session', async () => {
+  const db = database();
+  const client = await db.connect();
+  const topic = crypto.randomUUID();
+  const other = crypto.randomUUID();
+  const call = crypto.randomUUID();
+  const end = new Date('2033-03-02T12:00:00Z');
+  try {
+    await client.query('BEGIN');
+    await client.query("SET LOCAL TIME ZONE 'America/Los_Angeles'");
+    for (const id of [topic, other])
+      await client.query(
+        `INSERT INTO topics(id,profile_id,name,description,include_guidance,position)
+         VALUES($1,'00000000-0000-4000-8000-000000000001','Coverage fixture','','',-1)`,
+        [id],
+      );
+    const empty = (await readTopicCoverage(client, end)).topics;
+    assert.deepEqual(
+      empty.slice(0, 2).map((row) => row.topicId),
+      [topic, other].sort(),
+    );
+    assert.deepEqual(
+      empty
+        .filter((row) => [topic, other].includes(row.topicId))
+        .map((row) => [
+          row.connectedSources,
+          row.healthySources,
+          row.articles,
+          row.xPosts,
+          row.redditPosts,
+        ]),
+      [
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+      ],
+    );
+    for (const [index, at] of [
+      '2033-03-02T11:00:00Z',
+      '2033-03-02T12:00:00Z',
+      '2033-03-02T10:59:59.999Z',
+      '2033-03-02T12:00:00.001Z',
+      null,
+    ].entries()) {
+      await client.query(
+        `INSERT INTO content_sources(id,topic_id,name,kind,url,last_success)
+         VALUES($1,$2,'Fixture','feed',$3,$4)`,
+        [
+          `coverage-health-${index}`,
+          topic,
+          `https://example.com/health-${index}`,
+          at,
+        ],
+      );
+      await client.query(
+        'INSERT INTO topic_source_connections(topic_id,source_id) VALUES($1,$2)',
+        [topic, `coverage-health-${index}`],
+      );
+    }
+    await client.query(
+      `INSERT INTO social_discovery_sources(id,topic_id,name,url)
+      VALUES('coverage-river',$1,'Fixture','https://example.com/coverage-river')`,
+      [topic],
+    );
+    await client.query(
+      `INSERT INTO x_discovery_calls(id,model,run_id,status,reserved_micros)
+      VALUES($1,'fixture','coverage','failed',1)`,
+      [call],
+    );
+    // Citation age and call outcome do not change the verified publication window.
+    for (const [id, at] of [
+      ['779901', '2033-03-01T04:00:00-08:00'],
+      ['779902', '2033-03-02T11:59:59.999Z'],
+      ['779903', '2033-03-02T12:00:00Z'],
+      ['779904', '2033-03-01T11:59:59.999Z'],
+      ['779905', null],
+    ]) {
+      await client.query(
+        `INSERT INTO social_posts(platform,external_id,canonical_url,author,author_url,published_at,embed_html)
+        VALUES('x',$1,'https://x.com/a/status/' || $1,'a','https://x.com/a',$2,'fixture')`,
+        [id, at],
+      );
+      await client.query(
+        `INSERT INTO social_discovery_citations(source_id,external_id,canonical_url)
+        VALUES('coverage-river',$1,'https://x.com/a/status/' || $1)`,
+        [id],
+      );
+      await client.query(
+        `INSERT INTO x_search_citations(call_id,topic_id,external_id,canonical_url)
+        VALUES($1,$2,$3,'https://x.com/a/status/' || $3)`,
+        [call, topic, id],
+      );
+    }
+    await client.query(`INSERT INTO social_posts(platform,external_id,canonical_url,author,author_url,published_at,embed_html,reddit_metadata)
+      VALUES('reddit','coveragebridge','https://www.reddit.com/r/nba/comments/coveragebridge/','a','https://www.reddit.com/user/a/','2033-03-02T11:00:00Z','','{}')`);
+    await client.query(
+      `INSERT INTO reddit_topic_posts(topic_id,external_id) VALUES($1,'coveragebridge')`,
+      [topic],
+    );
+    await client.query(`INSERT INTO reddit_x_citations(reddit_id,external_id,canonical_url)
+      VALUES('coveragebridge','779901','https://x.com/a/status/779901')`);
+    let coverage = await readTopicCoverage(client, end);
+    assert.equal(coverage.end, end.toISOString());
+    const row = coverage.topics.find((row) => row.topicId === topic)!;
+    assert.deepEqual(
+      [
+        row.connectedSources,
+        row.healthySources,
+        row.articles,
+        row.xPosts,
+        row.redditPosts,
+      ],
+      [5, 2, 0, 2, 1],
+    );
+    assert.equal(
+      coverage.topics.find((row) => row.topicId === other)!.xPosts,
+      0,
+    );
+    await client.query(
+      "UPDATE content_sources SET last_error='fixture failure' WHERE id='coverage-health-0'",
+    );
+    // Reassign the river: search/Reddit evidence preserves the original topic's posts.
+    await client.query(
+      "UPDATE social_discovery_sources SET topic_id=$1 WHERE id='coverage-river'",
+      [other],
+    );
+    coverage = await readTopicCoverage(client, end);
+    assert.equal(
+      coverage.topics.find((row) => row.topicId === topic)!.healthySources,
+      1,
+    );
+    assert.equal(
+      coverage.topics.find((row) => row.topicId === topic)!.xPosts,
+      2,
+    );
+    assert.equal(
+      coverage.topics.find((row) => row.topicId === other)!.xPosts,
+      2,
+    );
+    await client.query('DELETE FROM topics WHERE id=$1', [topic]);
+    coverage = await readTopicCoverage(client, end);
+    assert.equal(
+      coverage.topics.some((row) => row.topicId === topic),
+      false,
+    );
+    assert.equal(
+      coverage.topics.find((row) => row.topicId === other)!.xPosts,
+      2,
+    );
+  } finally {
+    await client.query('ROLLBACK');
+    client.release();
+    await db.end();
+  }
+});

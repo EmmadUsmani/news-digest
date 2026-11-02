@@ -61,3 +61,14 @@ assertions through the reader API; they make no inference calls.
 
 The 124-test integration run measures this source reader at 100% lines and
 92.31% branches (baseline 80% branches); AI golden and other behavior gaps remain.
+
+## Topic coverage characterization (iteration 226)
+
+`topic-coverage.test.ts` now pins empty topic counts and tied-position ordering,
+river/search/Reddit-X citation deduplication, topic isolation and reassignment,
+and topic deletion. It checks the inclusive one-hour source-health interval,
+failed/never-successful/future sources, and millisecond publication boundaries
+with an offset timestamp and a non-UTC database session. Synthetic Reddit rows
+are isolated fixtures; no Reddit or provider requests occur. Citation age and
+search-call failure do not exclude an otherwise verified post from coverage.
+AI golden and other repository behavior assertions remain open.
