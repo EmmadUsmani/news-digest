@@ -283,7 +283,7 @@ Do this before any other item, and ack it when done.
 - **Tests:** batching, concurrency limits, cache reuse and the async job flow
   must all run on fixtures or fakes (item 4).
 
-## 8. NEXT: Reddit, the owner's #2 social source (2026-11-02)
+## 8. PARKED by the owner (see item 14): Reddit, the owner's #2 social source (2026-11-02)
 
 None has been built yet: every stored social post is from X. Do it right after
 item 7, before adding more RSS feeds.
@@ -315,7 +315,7 @@ item 7, before adding more RSS feeds.
 ## 9. Run xAI X search on a schedule (2026-11-02)
 
 So far only one real `x_search` call has ever run, because layer 2 is
-explicit/manual. Do this after item 8.
+explicit/manual. Do this now; it no longer waits on item 8 (see item 14).
 
 - Run it automatically as part of the scheduled social discovery, for example
   1–2 searches per topic per day. Time it so the results land before the
@@ -370,3 +370,46 @@ Because each later step re-sends that context, it makes up most of the roughly
 
 
 ack: 2026-11-02 item 12 — iteration 154 archived completed TASKS detail and older PROGRESS entries; compact files preserve open work and prioritize items 7–11.
+
+## 13. TOP PRIORITY, before Nov 3 15:00 UTC: protect the scheduled edition's AI budget (2026-11-02)
+
+**The problem:** the Nov 2 07:00 PT (15:00 UTC) scheduled edition was published
+with non-AI fallback selection. By then, development calls and the owner's
+manual "create latest edition" clicks had used about $0.48 of that UTC day's
+$0.48 cap. The scheduled edition is the product; it must get AI editing first.
+
+- **Reserve:** until the day's scheduled edition has run, every other
+  Anthropic spend can use only `dailyCap - reserve`. That includes manual
+  create/regenerate, verification, smoke scripts and development.
+  - Size the reserve from the measured cost of recent full AI editions, with
+    headroom (for example 1.5x), never more than the daily cap. Make it
+    configurable.
+  - Release it once the scheduled edition finishes or definitively fails.
+  - Work out the timing against the UTC budget day; the schedule can change in
+    settings, so don't hard-code 15:00.
+  - Enforce it in the shared ledger under the same lock, so concurrent jobs
+    can't race past it.
+- **Visibility:** when a manual run is limited by the reserve, the UI says so
+  plainly ("AI budget reserved for the 07:00 edition"); don't fall back
+  silently. Status shows the reserve and whether the last scheduled edition
+  used AI or fallback, and why.
+- **Item 7 timing:** use the next scheduled edition as the live speed test.
+  No separate paid trial beyond the verification cap.
+- **Tests:** fakes and Testcontainers only; no paid calls to verify the reserve.
+- Ack here once Nov 3's scheduled edition runs with AI editing, with its cost
+  and duration.
+
+## 14. Owner decision: park Reddit, move to scheduled X search (2026-11-02)
+
+Reddit has returned 403 to the VM on every attempt. Reports say Reddit ends RSS
+on Nov 13 and now gates new API access behind an approval process that is
+rarely granted.
+
+- **Park item 8.** Keep the code, but disable and unschedule Reddit
+  collection. Show it as "parked by owner" in docs/SOURCES.md and on Status,
+  not as an error.
+- **No more Reddit HTTP requests,** including probes, unless the owner
+  re-enables Reddit here. Never bypass access controls.
+- **Item 6's "done when"** now needs real X posts only, not Reddit.
+- **Do item 9 next.** Order: 13, then 7 (finish using the scheduled edition's
+  timing), then 9, then 10. Items 2 and 4 stay lower priority.
