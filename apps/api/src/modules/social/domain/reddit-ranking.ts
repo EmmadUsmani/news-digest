@@ -109,6 +109,7 @@ export function rankRedditPosts(
       return [
         {
           post,
+          observedAt: entry.observedAt,
           strength: Math.sqrt(scoreRatio * rateRatio),
           reasons: [
             `Score ${scoreRatio.toFixed(1)}× and lifetime score/hour ${rateRatio.toFixed(1)}× the prior seven-day r/${post.subreddit} median (${baseline.length} posts).`,

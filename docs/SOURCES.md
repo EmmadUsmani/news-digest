@@ -1161,5 +1161,8 @@ cards and platform-aware publication remain next.
 
 Iteration 173 adds platform-aware editorial preparation with isolated Reddit IDs
 and enforced X preference. Only historically qualified Reddit candidates may be
-submitted. No collector activation or live requests: snapshot contracts, publication
-and faithful cards remain pending, and public access remains blocked.
+submitted. Iteration 174 adds a separate validated Reddit snapshot contract and
+shortlist conversion preserving title/body, thumbnail, destination, community,
+metrics and observation time. Schema parsing detaches nested evidence from later
+refreshes. Published editions remain X-only until faithful cards and publication
+are connected. No collector activation or live requests; public access remains blocked.

@@ -30,3 +30,13 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 162 isolated tests pass. `pnpm build` passes; restarted API/worker, both active; `/healthz` healthy.
 - Live invalid enqueue returns 400 and unknown job 404; `/api/status` has 32 sources, no current errors/failed digest jobs; latest stored edition has four topics. README/TASKS updated; no UI/source changes, source docs unchanged.
 - Next: connect creation/regeneration UI to enqueue/poll, editorial-stage progress and Status duration; measure full-edition timing with fakes. Item 7 remains open; no latency claim or new blocker.
+
+## 2026-11-02: iteration 160 — asynchronous edition UI
+
+- Started clean on main; no leftover work. API/worker and health healthy, 32 sources without current errors, no failed digest jobs; two historical ingestion failures retained.
+- Create edition now enqueues and polls BullMQ jobs, disables repeat submission, opens the saved edition on completion and refreshes history. Session storage resumes the job after reload/navigation within the tab.
+- Shows queued/active, completion and sanitized failure messages. Temporary status/edition-fetch failures retry without submitting another job; expired jobs direct the user to saved editions.
+- `pnpm exec tsx scripts/smoke-edition-jobs.ts`: desktop/mobile queued, active, reload, reconnect, completion and failure pass; screenshots in docs/screenshots/edition-job-{desktop,mobile}.png. Generation intercepted; reads real stored edition only, no live inference spend.
+- Initial checks caught state declaration order and smoke-script CommonJS top-level await; both corrected before verification.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: all 162 isolated tests and types/lint/format/boundaries pass; `pnpm build` passes; services restarted and health checked.
+- TASKS updated; no source changes, docs/SOURCES unchanged. Item 7 remains open: granular editorial-stage progress, last-run duration on Status and full-edition fake timing. No latency claim or new blocker.

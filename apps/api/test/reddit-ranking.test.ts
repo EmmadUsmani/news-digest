@@ -129,3 +129,41 @@ void test('Reddit application shortlist reads through the repository port and sk
   );
   assert.equal(calls.length, 1);
 });
+
+void test('Reddit snapshots retain faithful card fields and immutable observed evidence', async () => {
+  const { snapshotRedditPost } =
+    await import('../src/modules/social/public/reddit-snapshot');
+  const candidate = entry('snapshot');
+  candidate.post.text = 'A full description';
+  candidate.post.thumbnail = 'https://preview.redd.it/fixture.jpg';
+  candidate.post.externalUrl = 'https://example.org/highlight';
+  const ranked = rankRedditPosts(
+    [...baseline, candidate],
+    policy,
+    start,
+    end,
+    5,
+  )[0];
+  const snapshot = snapshotRedditPost(ranked);
+  assert.equal(snapshot.title, 'NBA highlight');
+  assert.equal(snapshot.text, 'NBA highlight\nA full description');
+  assert.equal(snapshot.displayText, 'A full description');
+  assert.equal(snapshot.subreddit, 'nba');
+  assert.equal(snapshot.observedAt, candidate.observedAt);
+  assert.equal(snapshot.thumbnail, candidate.post.thumbnail);
+  assert.equal(snapshot.externalUrl, candidate.post.externalUrl);
+  candidate.post.metrics.score = 999;
+  ranked.reasons.push('later mutation');
+  assert.equal(snapshot.metrics.score, 100);
+  assert.equal(snapshot.reasons.length, 2);
+  assert.throws(() => snapshotRedditPost({ ...ranked, observedAt: 'invalid' }));
+  assert.throws(() =>
+    snapshotRedditPost({
+      ...ranked,
+      post: {
+        ...candidate.post,
+        metrics: { ...candidate.post.metrics, comments: -1 },
+      },
+    }),
+  );
+});

@@ -140,6 +140,23 @@ export const selectedPostSchema = z.object({
 });
 export type SelectedPost = z.infer<typeof selectedPostSchema>;
 
+// Prepared Reddit snapshots remain separate until the edition renderer supports
+// faithful cards. Published editions still accept only selectedPostSchema.
+export const selectedRedditPostSchema = selectedPostSchema.extend({
+  platform: z.literal('reddit'),
+  title: z.string().min(1),
+  subreddit: z.string().min(1),
+  metrics: z.object({
+    score: z.number().int(),
+    comments: z.number().int().nonnegative(),
+    upvoteRatio: z.number().min(0).max(1),
+  }),
+  thumbnail: z.string().url().nullable(),
+  externalUrl: z.string().url().nullable(),
+  observedAt: z.string().datetime(),
+});
+export type SelectedRedditPost = z.infer<typeof selectedRedditPostSchema>;
+
 export const digestPreviewSchema = z.object({
   id: z.string().uuid(),
   createdAt: z.string(),

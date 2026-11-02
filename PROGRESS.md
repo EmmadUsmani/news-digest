@@ -32,16 +32,6 @@ Earlier iteration 143: [archive](docs/progress-archive/2026-11-02-iteration-143.
 
 Earlier iteration 157: [archive](docs/progress-archive/2026-11-02-iteration-157.md).
 
-## 2026-11-02: iteration 160 — asynchronous edition UI
-
-- Started clean on main; no leftover work. API/worker and health healthy, 32 sources without current errors, no failed digest jobs; two historical ingestion failures retained.
-- Create edition now enqueues and polls BullMQ jobs, disables repeat submission, opens the saved edition on completion and refreshes history. Session storage resumes the job after reload/navigation within the tab.
-- Shows queued/active, completion and sanitized failure messages. Temporary status/edition-fetch failures retry without submitting another job; expired jobs direct the user to saved editions.
-- `pnpm exec tsx scripts/smoke-edition-jobs.ts`: desktop/mobile queued, active, reload, reconnect, completion and failure pass; screenshots in docs/screenshots/edition-job-{desktop,mobile}.png. Generation intercepted; reads real stored edition only, no live inference spend.
-- Initial checks caught state declaration order and smoke-script CommonJS top-level await; both corrected before verification.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`: all 162 isolated tests and types/lint/format/boundaries pass; `pnpm build` passes; services restarted and health checked.
-- TASKS updated; no source changes, docs/SOURCES unchanged. Item 7 remains open: granular editorial-stage progress, last-run duration on Status and full-edition fake timing. No latency claim or new blocker.
-
 ## 2026-11-02: iteration 161 — edition duration on Status
 
 - Started clean on main; no leftover work. API/worker and health healthy, all 32 sources without current errors, no failed digest jobs; two historical ingestion failures retained.
@@ -182,3 +172,13 @@ Earlier iteration 157: [archive](docs/progress-archive/2026-11-02-iteration-157.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (175 tests, types/lint/format/boundaries); `pnpm build` passed. Updated TASKS/SOURCES/RANKING; archived oldest progress entries.
 - Restarted API/worker; `/healthz` DB/Redis true; `/api/status` 32 sources/no errors, all queues have workers. Read-only timing report unchanged: 856 ms fallback edition/four topics, 481910 micros spent/848 available; next Nov 3 15:00 UTC. Live AI latency remains unverified.
 - Next: connect conservative Reddit shortlist to platform-aware snapshots/publication and faithful cards; real content remains blocked by public access denial.
+
+## 2026-11-02: iteration 174 — immutable Reddit card snapshot preparation
+
+- Started clean on main; no leftover work. API/worker and health healthy; status has 32 sources and all queue workers present.
+- Added a separate validated Reddit snapshot contract and ranked-shortlist converter preserving title/body, community, thumbnail, destination, metrics and observation time. Ranking now retains observation timestamps.
+- Schema parsing copies nested evidence, preventing later source refreshes from changing prepared snapshots. Synthetic test covers metadata, mutation isolation and malformed timestamp/metric rejection.
+- Published edition contract remains X-only until faithful cards and platform-aware publication are connected. Reddit remains blocked/unscheduled; no live HTTP or inference calls, no UI changes.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (176 tests, types/lint/format/boundaries); `pnpm build` passed. Updated TASKS/SOURCES.
+- Restarted API/worker; `/healthz` DB/Redis true, 32 sources and all queue workers present. Read-only timing report: unchanged 856 ms fallback edition, 481910 micros spent/848 available; next Nov 3 15:00 UTC. Live AI latency unverified.
+- Next: faithful Reddit cards and publication wiring; real Reddit content remains blocked by public access denial.
