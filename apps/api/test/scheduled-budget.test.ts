@@ -2,7 +2,89 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { database } from '../src/libs/db/connections';
+import { readFullAiEditionCosts } from '../src/modules/curation/database/edition-cost.reader';
 import { PostgresScheduledBudgetRepository } from '../src/modules/curation/database/scheduled-budget.repository';
+
+void test('reserve measurements include complete article/social costs and reject incomplete, unresolved and verification editions', async () => {
+  const db = database();
+  const client = await db.connect();
+  const now = new Date('2090-06-01T12:00:00Z');
+  const ai = { mode: 'ai', unscoredIds: [] as string[] };
+  try {
+    await client.query('BEGIN');
+    const add = async (
+      ageDays: number,
+      topic = { editorial: ai, postEditorial: ai },
+      calls = [
+        { status: 'succeeded', cost: 100, purpose: 'triage' },
+        { status: 'succeeded', cost: 200, purpose: 'social-editor' },
+      ],
+    ) => {
+      const id = crypto.randomUUID();
+      const date = new Date(now.getTime() - ageDays * 86400000);
+      await client.query(
+        `INSERT INTO digest_previews(id,profile_id,created_at,window_start,window_end,snapshot)
+         VALUES($1,'00000000-0000-4000-8000-000000000001',$2,$2::timestamptz-interval '1 day',$2,$3)`,
+        [id, date, JSON.stringify({ method: 'editorial-v1', topics: [topic] })],
+      );
+      for (const call of calls)
+        await client.query(
+          `INSERT INTO llm_calls(id,model,purpose,run_id,status,reserved_micros,cost_micros)
+           VALUES($1,'fixture-model',$2,$3,$4,999,$5)`,
+          [
+            crypto.randomUUID(),
+            call.purpose,
+            id,
+            call.status,
+            call.status === 'succeeded' ? call.cost : null,
+          ],
+        );
+    };
+    await add(30); // Inclusive lookback boundary.
+    await add(0, undefined, [
+      { status: 'succeeded', cost: 450, purpose: 'editor' },
+    ]);
+    await add(31);
+    await add(-1); // Future snapshots are not measurements.
+    await add(1, {
+      editorial: ai,
+      postEditorial: { mode: 'non-ai', unscoredIds: [] },
+    });
+    await add(1, {
+      editorial: { mode: 'ai', unscoredIds: ['missed'] },
+      postEditorial: ai,
+    });
+    for (const status of ['pending', 'uncertain'])
+      await add(1, undefined, [
+        { status: 'succeeded', cost: 500, purpose: 'editor' },
+        { status, cost: 0, purpose: 'triage' },
+      ]);
+    await add(1, undefined, [
+      { status: 'succeeded', cost: 900, purpose: 'verification' },
+    ]);
+    await add(1, undefined, []); // Cache-only editions cannot size fresh work.
+    await add(1, undefined, [
+      { status: 'succeeded', cost: 0, purpose: 'editor' },
+    ]);
+    assert.deepEqual(await readFullAiEditionCosts(client, now), [450, 300]);
+    assert.deepEqual(await readFullAiEditionCosts(client, now, 1), [450]);
+    // Released failed holds add no cost; all settled models/purposes do.
+    await add(2, undefined, [
+      { status: 'failed', cost: 0, purpose: 'editor' },
+      { status: 'succeeded', cost: 700, purpose: 'triage' },
+    ]);
+    assert.deepEqual(
+      await readFullAiEditionCosts(client, now),
+      [450, 700, 300],
+    );
+    await assert.rejects(readFullAiEditionCosts(client, now, 0));
+    await assert.rejects(readFullAiEditionCosts(client, new Date('invalid')));
+  } finally {
+    await client.query('ROLLBACK');
+    client.release();
+    await db.end();
+  }
+});
 
 void test('scheduled budget identity survives UTC boundaries, concurrent claims, retries and restarts', async () => {
   const db = database();

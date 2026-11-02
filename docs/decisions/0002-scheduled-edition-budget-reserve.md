@@ -59,3 +59,20 @@ The integration must explicitly reconcile a changed pending schedule (rather
 than silently replace a running/terminal identity), recover abandoned running
 attempts using queue evidence, and handle obsolete jobs and midnight crossings.
 Missing day state must fail closed when ledger enforcement is connected.
+
+## Historical cost measurements (iteration 194)
+
+`readFullAiEditionCosts` reads the ten most recent qualifying editions in an
+inclusive 30-day lookback. It sums all succeeded Anthropic calls by edition/run
+ID, including article and social work and every model. Failed released calls add
+no cost; pending or uncertain calls disqualify the edition. Verification-tagged
+editions and zero-cost/cache-only editions cannot establish fresh production cost.
+Future snapshots and partial triage (unscored IDs) are excluded.
+
+Qualification is deliberately conservative: every topic must have both story and
+social editorial mode `ai` and no unscored candidates. Empty/disabled sections
+that retain non-AI mode therefore cannot establish a measurement. If no edition
+qualifies, the existing policy protects the whole daily cap unless overridden.
+The reader accepts a transaction client for use inside the ledger admission lock;
+it does not itself lock, mutate state, call providers or enforce live protection.
+Isolated Postgres fixtures verify lookback boundaries, costs, holds and exclusions.

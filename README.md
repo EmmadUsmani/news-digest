@@ -59,6 +59,8 @@ settled spend, retained old pending/uncertain holds, exact monthly cap admission
 atomic rollback/retry when persisting a prepaid-credit depletion block fails.
 Scheduled-budget lifecycle tests cover UTC slot identity, concurrent claims, durable
 retry fencing, terminal outcomes and contention on the Anthropic ledger lock.
+Historical reserve-cost tests cover settled article/social totals, inclusive
+30-day boundaries, incomplete AI exclusion, unresolved holds and verification spend.
 The lifecycle adapter is groundwork; live reserve enforcement remains unfinished.
 `pnpm test` runs both commands; integration tests remain part of `pnpm check`.
 Both runners replace inherited database/Redis URLs, clear Anthropic/xAI keys and

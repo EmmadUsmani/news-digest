@@ -52,15 +52,7 @@ Iteration 177: [archive](docs/progress-archive/2026-11-02-iteration-177.md).
 
 Iteration 178: [archive](docs/progress-archive/2026-11-02-iteration-178.md).
 
-## 2026-11-02: iteration 179 — guard historical paid recording
-
-- Started clean on main; no leftover work. Health/services healthy, 32 sources/no current errors; two historical ingestion failures retained, no failed digest/social jobs.
-- Historical editorial recorder now requires LLM_LIVE=1 before DB/file work and uses verification-mode ledger for triage, editor, repair and fallback; shared $0.05/day cap and normal app caps apply. Existing snapshots remain immutable.
-- Extended subprocess refusal test to recorder with invalid DB URL/no provider key; tests use disposable services/fakes, no paid calls or live configuration/content writes.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (180 tests); `pnpm build` passed. No UI changes; no browser check needed.
-- Restarted API/worker; retry reached healthy `/healthz` (DB/Redis true); latest real edition retains four topics/20 stories/10 posts. Available app budget remains 848 micros.
-- Updated TASKS/docs/LLM; archived iteration 165 to keep PROGRESS below 25 KB. No source changes.
-- Next: fingerprinted LlmPort replay and separate verification spend on Status. Reddit access/live AI timing remain blocked; scheduled xAI follows Reddit per owner order.
+Iteration 179: [archive](docs/progress-archive/2026-11-02-iteration-179.md).
 
 ## 2026-11-02: iteration 180 — show AI spend by purpose
 
@@ -201,3 +193,13 @@ Iteration 178: [archive](docs/progress-archive/2026-11-02-iteration-178.md).
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (104 unit/97 integration) and `pnpm build` passed. `pnpm migrate` applied 040; no paid calls or Reddit requests. No UI changes; browser verification unnecessary.
 - Updated decision 0002, README/TASKS; archived iteration 178 to keep orientation small. Live reserve protection remains UNFINISHED: wire cron/settings and worker lifecycle, measured costs and ledger admission next, then manual/Status visibility.
 - Restarted API/worker: `/healthz` DB/Redis true, SPA 200, four queues available, 32 sources without current errors and latest edition four topics/10 posts. `git diff --check` passed.
+
+## 2026-11-02: iteration 194 — measured full-AI edition costs
+
+- Started clean on main; API/worker and DB/Redis health healthy. No leftover work; 32 sources without current errors and latest real edition four topics/10 posts.
+- Added a read-only historical cost reader for reserve sizing: sums settled article/social/model calls by edition/run ID over an inclusive 30-day lookback, newest ten qualifying editions.
+- Excludes fallback/mixed modes, incomplete triage, pending/uncertain holds, verification-tagged runs, future snapshots and cache-only/zero-cost editions. Failed released calls add no cost.
+- Conservative qualification requires AI in both sections of every topic; absent measurements retain whole-day protection in the existing policy. Accepts a transaction client for later shared-lock admission integration.
+- Added rollback-isolated Postgres fixtures for costs, ordering/limits, UTC lookback boundaries and exclusions. No live inference or Reddit requests; no UI changes.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (104 unit/98 isolated integration), `pnpm build` and `git diff --check` passed. Updated decision 0002, README and TASKS.
+- Live reserve protection remains UNFINISHED. Next: cron/settings reconciliation, worker lifecycle and trusted scheduled identity, shared-lock admission/race tests, then manual/Status visibility before Nov 3 15:00 UTC.
