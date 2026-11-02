@@ -131,3 +131,14 @@ existing settings and topic order intact; successful creation afterward proves
 transaction recovery. Unicode guidance and relevance JSON round-trip, omitted
 social lists survive updates, and explicit empty lists clear them. All rows are
 disposable fixtures; no Reddit, X or inference requests occur.
+
+## Verified-post refresh characterization (iteration 233)
+
+`social-candidates.test.ts` pins verified X post insert and refresh semantics:
+author and embed refresh, a null incoming publication time preserves the stored
+time, and a supplied time replaces it with millisecond/offset fidelity. The
+original canonical URL and metrics remain unchanged on conflict, and repeated
+refreshes leave one row. A database-rejected JSON field leaves every existing
+field, including verification time, intact; a later valid refresh recovers.
+Assertions use disposable PostgreSQL and make no X, Reddit or inference calls.
+AI golden and other repository behavior gaps remain open.

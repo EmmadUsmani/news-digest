@@ -91,3 +91,103 @@ void test('bounded verification shares slots across enabled topics, dedupes shar
     await repository.db.end();
   }
 });
+
+void test('verified post refresh preserves discovery fields and rejects invalid JSON atomically', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const repository = new PostgresSocialRepository();
+  const id = '2116948532477468659';
+  const post = {
+    platform: 'x' as const,
+    externalId: id,
+    url: `https://x.com/original/status/${id}`,
+    author: 'Original author',
+    authorUrl: 'https://x.com/original',
+    publishedAt: '2026-10-21T14:30:00.123+05:30',
+    metrics: { likes: 42, views: 1234 },
+    embedHtml: '<blockquote>Original fixture</blockquote>',
+  };
+  // There is no public post-detail reader; inspect persisted values, not SQL text.
+  const read = async () =>
+    (
+      await repository.db.query(
+        `SELECT canonical_url,author,author_url,published_at,metrics,embed_html,verified_at
+     FROM social_posts WHERE platform='x' AND external_id=$1`,
+        [id],
+      )
+    ).rows[0];
+  try {
+    await repository.store(post);
+    const inserted = await read();
+    assert.equal(inserted.canonical_url, post.url);
+    assert.equal(inserted.author, post.author);
+    assert.equal(inserted.author_url, post.authorUrl);
+    assert.equal(
+      inserted.published_at.toISOString(),
+      '2026-10-21T09:00:00.123Z',
+    );
+    assert.deepEqual(inserted.metrics, post.metrics);
+    assert.equal(inserted.embed_html, post.embedHtml);
+    await repository.db.query(
+      "UPDATE social_posts SET verified_at='2000-01-01T00:00:00Z' WHERE platform='x' AND external_id=$1",
+      [id],
+    );
+    const refresh = {
+      ...post,
+      url: `https://x.com/renamed/status/${id}`,
+      author: 'Renamed — 選手',
+      authorUrl: 'https://x.com/renamed',
+      publishedAt: null,
+      metrics: { likes: 999 },
+      embedHtml: '<blockquote>Refreshed fixture</blockquote>',
+    };
+    await repository.store(refresh);
+    const refreshed = await read();
+    assert.deepEqual(
+      { ...refreshed, verified_at: inserted.verified_at },
+      {
+        ...inserted,
+        author: refresh.author,
+        author_url: refresh.authorUrl,
+        embed_html: refresh.embedHtml,
+      },
+    );
+    assert.ok(refreshed.verified_at > new Date('2000-01-01T00:00:00Z'));
+    // A PostgreSQL-rejected field must not partially refresh author, embed or time.
+    await assert.rejects(
+      repository.store({
+        ...refresh,
+        author: 'Must not persist',
+        embedHtml: 'Must not persist',
+        publishedAt: '2026-10-22T00:00:00Z',
+        metrics: { ['invalid\u0000key']: 1 },
+      }),
+    );
+    assert.deepEqual(await read(), refreshed);
+    await repository.store({
+      ...refresh,
+      publishedAt: '2026-10-22T02:00:00.456+02:00',
+    });
+    const recovered = await read();
+    assert.equal(
+      recovered.published_at.toISOString(),
+      '2026-10-22T00:00:00.456Z',
+    );
+    assert.equal(recovered.canonical_url, post.url);
+    assert.deepEqual(recovered.metrics, post.metrics);
+    assert.equal(
+      (
+        await repository.db.query(
+          "SELECT count(*)::int AS count FROM social_posts WHERE platform='x' AND external_id=$1",
+          [id],
+        )
+      ).rows[0].count,
+      1,
+    );
+  } finally {
+    await repository.db.query(
+      "DELETE FROM social_posts WHERE platform='x' AND external_id=$1",
+      [id],
+    );
+    await repository.db.end();
+  }
+});

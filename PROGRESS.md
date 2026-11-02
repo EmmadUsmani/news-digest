@@ -100,17 +100,7 @@ Archived iteration 216: [entry](docs/progress-archive/2026-11-02-iteration-216.m
 
 Iteration 217: [archive](docs/progress-archive/2026-11-02-iteration-217.md).
 
-## 2026-11-02: iteration 218 — automatic pre-edition X discovery
-
-- Started clean on main; API/worker and health healthy, 32 sources without errors and four queues available. No leftover work.
-- Social worker polls saved daily schedule every minute; 5–30 minutes before publication, searches the weakest eligible free-X topic through direct capped xAI and immediately verifies up to ten call-scoped candidates.
-- Existing full-day hold and durable once-per-UTC-day admission remain unchanged; no provider retries. Rechecks saved settings after coverage I/O, skips late/disabled windows and missing keys.
-- Only current-UTC-day editions qualify, preventing duplicate budget-day searches around midnight; editions before 00:05 UTC skip discovery.
-- Fake tests cover saved timezone, stable run identity, replaced settings, delayed reads, midnight and zero post budget. Existing isolated tests cover durable admission and call-scoped verification.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check`; 120 unit and 118 isolated integration tests passed.
-- Read-only `scripts/report-x-discovery.ts 2026-11-02`: $0.023382, two verified/dated historical World citations; incremental baseline unknown. No inference or Reddit requests.
-- `scripts/report-edition-timing.ts`: next Nov 3 15:00 UTC; prior 856 ms fallback remains insufficient AI evidence. First automatic X search expected Nov 3 14:30 UTC if settings remain unchanged.
-- API/worker restarted; health DB/Redis true, SPA 200, 32 sources without errors and four queues available. Updated TASKS/SOURCES; archived iterations 202–203. No UI change. Next: observe automatic search cost/yield and Nov 3 scheduled AI cost/duration for items 13/7.
+Earlier iteration 218: [archive](docs/progress-archive/2026-11-02-iteration-218.md).
 
 ## 2026-11-02: iteration 219 — edition history characterization
 
@@ -269,5 +259,18 @@ Archived iteration 214: [entry](docs/progress-archive/2026-11-02-iteration-214.m
 - No X, Reddit or inference requests. AI golden and other repository behavior gaps remain open.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (120 unit, 131 integration), `pnpm build` and `git diff --check` passed.
 - Updated TASKS/database notes; archived iteration 217 to bound PROGRESS.
+- Deployment: API/worker restarted healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues; retained edition: four topics, 20 stories, 10 posts.
+- Next: observe Nov 3 14:30 UTC X discovery and 15:00 edition cost/duration; fallback timing is not AI latency evidence.
+
+## 2026-11-02: iteration 233 — verified-post refresh characterization
+
+- Started clean on main; services, health, 32 sources and four queues healthy. No leftover work.
+- Priority items 13/7/9 await Nov 3 scheduled evidence; advanced isolated STEERING 2a coverage.
+- Pinned verified-post insert/upsert field preservation, author/embed refresh, timestamp offsets/precision and single-row dedupe.
+- Database-rejected JSON leaves the prior row and verification time intact; a later valid refresh recovers.
+- No provider or Reddit requests. AI golden and other repository behavior gaps remain open.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (120 unit, 132 integration), `pnpm build` and `git diff --check` passed.
+- Initial check stopped on docs formatting after a late docs edit; formatted and reran successfully.
+- Updated TASKS/database notes; archived iteration 218 to bound PROGRESS.
 - Deployment: API/worker restarted healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues; retained edition: four topics, 20 stories, 10 posts.
 - Next: observe Nov 3 14:30 UTC X discovery and 15:00 edition cost/duration; fallback timing is not AI latency evidence.
