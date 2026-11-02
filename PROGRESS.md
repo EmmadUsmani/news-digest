@@ -96,18 +96,6 @@ Iteration 212: [archive](docs/progress-archive/2026-11-02-iteration-212.md).
 
 Earlier iteration 213: [archive](docs/progress-archive/2026-11-02-iteration-213.md).
 
-## 2026-11-02: iteration 215 — durable scheduled X admission
-
-- Started clean on main; API/worker, health, four queues and 32 sources healthy. No leftover work.
-- Migration 043 adds nullable unique scheduled UTC day; ledger atomically admits at most one scheduled attempt across topics/day under the shared budget lock, before HTTP.
-- Rejected/uncertain attempts consume the day; budget denial does not. Stale/future days fail closed. Manual calls and full-day per-call hold remain unchanged.
-- Isolated tests verify competing connections/topics, restart, rejection, uncertainty, rollover, unique constraint and no repeated fake HTTP after provider rejection.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed: 113 unit/118 isolated integration tests; `pnpm build` and `git diff --check` passed.
-- `pnpm migrate` applied 043; API/worker restarted; `curl /healthz` DB/Redis true, SPA 200, 32 sources without errors and four queues available.
-- Read-only `scripts/report-x-discovery.ts 2026-11-02`: $0.023382, two verified/dated historical World citations; baseline unknown. No inference or Reddit requests.
-- `scripts/report-edition-timing.ts`: next Nov 3 15:00 UTC; prior 856 ms fallback remains insufficient AI evidence.
-- Updated README/SOURCES/TASKS; no UI change. Next: pre-edition timer and weakest-topic choice using durable admission; items 13/7 await scheduled evidence.
-
 ## 2026-11-02: iteration 216 — pre-edition X search planning
 
 - Started clean on main; API/worker and health healthy, 32 sources without errors. No leftover work.
@@ -264,3 +252,15 @@ Archived iteration 214: [entry](docs/progress-archive/2026-11-02-iteration-214.m
 - Updated TASKS/database notes and archived iteration 214 to bound PROGRESS. AI golden and other repository behavior gaps remain open.
 - Deployment: API/worker restarted active; `/healthz` DB/Redis true after startup retry, SPA 200, 32 error-free sources and four available queues. Retained edition: four topics, 20 stories, 10 posts.
 - Next: observe Nov 3 14:30 UTC X discovery and 15:00 edition cost/duration; prior fallback timing is not AI latency evidence.
+
+## 2026-11-02: iteration 230 — river-discovery transaction characterization
+
+- Started clean on main; services and health healthy. No leftover work.
+- Priority items 13/7/9 await Nov 3 scheduled evidence; advanced isolated STEERING 2a coverage.
+- Pinned river citation duplicate collapse, collection counts, URL/first-seen preservation, last-seen refresh and verification URL replacement.
+- A later invalid citation rolls back inserts, updates and source health; empty successful collection clears errors and retains evidence.
+- No inference, publisher or Reddit requests. AI golden and remaining repository behavior gaps stay open.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (120 unit, 128 integration), `pnpm build` and `git diff --check` passed.
+- Updated TASKS/database notes; archived iteration 215 to bound PROGRESS.
+- Deployment: API/worker restarted healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues; retained edition has four topics.
+- Next: observe Nov 3 14:30 UTC X discovery and 15:00 edition cost/duration; fallback timing is not AI latency evidence.

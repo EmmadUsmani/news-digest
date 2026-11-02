@@ -102,3 +102,12 @@ A failed article suppresses the entire publisher host; aging that failure past
 the daily cooldown restores the same ordered candidates. Assertions use the
 repository port and disposable PostgreSQL, with no publisher or provider calls.
 AI golden and other repository behavior gaps remain open.
+
+## River-discovery transaction characterization (iteration 230)
+
+`river-discovery.test.ts` pins duplicate citation collapse, raw collection counts,
+canonical URL and first-seen preservation, last-seen refresh, and named
+verification URL preservation/replacement. A later invalid citation rolls back
+prior inserts, citation updates and source health together. Empty successful
+collections clear source errors without removing retained evidence. Assertions
+use the repository API with disposable PostgreSQL; no network requests occur.
