@@ -42,27 +42,7 @@ Iteration 166: [archive](docs/progress-archive/2026-11-02-iteration-166.md).
 
 Earlier iterations 169–170: [archive](docs/progress-archive/2026-11-02-iterations-169-170.md).
 
-## 2026-11-02: iteration 171 — Reddit citations enter official X pipeline
-
-- Started clean on main; no leftover work. API/worker/health healthy; 32 sources/no current errors, zero failed digest/social jobs; two historical ingestion failures retained.
-- Migration 039 adds deduplicated per-Reddit-post X evidence with citing score, author verification URL and cascading cleanup; storage replaces citations transactionally on edits.
-- Reddit citations now feed bounded X verification, topic association and existing X selection. Community breadth is not independence/virality; scores are retained, not inferred as tweet engagement. Only officially verified X posts can be selected.
-- Extended synthetic isolated tests cover score refresh, repeat links, no premature verification, topic isolation, X selection, edited-away links and rollback. Reddit access remains blocked; collection unscheduled; no live HTTP/inference used.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (171 tests, types/lint/format/boundaries) and `pnpm build` passed; documentation formatting rechecked after updates. No UI changes.
-- `pnpm migrate` applied 039; restarted API/worker; `/healthz` DB/Redis true, status 32 sources/no errors and all queue workers present. Timing report initially raced restart, then passed: unchanged 856 ms fallback edition/four topics, 481910 micros spent/848 available; next Nov 3 15:00 UTC.
-- Updated README/TASKS/SOURCES; archived oldest progress entry to keep orientation compact. Next: Reddit ranking/cards; real Reddit content and live AI latency remain blocked/unverified.
-
-## 2026-11-02: iteration 172 — conservative Reddit ranking preparation
-
-- Started clean on main; no leftover work. Health/API/worker healthy, 32 sources/no errors, zero digest/social failures; two historical ingestion failures retained.
-- Added a bounded Reddit observation repository port/read and application shortlist, rechecking enabled topics/current communities and excluding X wrappers from Reddit picks.
-- Domain ranking requires five prior-week subreddit observations, >=2× median score and lifetime score/hour, score >=10 and ratio >=0.7; deterministic order and bounded results, no sparse-evidence padding.
-- Lifetime score/hour is a one-snapshot proxy, not measured growth; historical top-listing cohorts are biased. Thresholds are provisional, not live-validated virality claims.
-- Preparation stays unpublished pending platform-aware contracts/editorial/X preference and faithful cards. Reddit remains blocked/unscheduled; no live HTTP/inference or UI changes.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (173 tests); added application-port test afterward and reran three targeted ranking tests, typecheck, lint, boundaries and production build successfully.
-- Isolated repository tests cover metadata/timestamps, X citation presence, topic isolation and removed-community filtering. Domain tests cover relative strength, sparse/duplicate/unsafe/future evidence and budget limits.
-- Restarted API/worker; `/healthz` DB/Redis true, status all queue workers present. Read-only timing report unchanged: 856 ms fallback/four topics, 481910 micros spent/848 available; next Nov 3 15:00 UTC.
-- Updated TASKS/SOURCES/RANKING and archived oldest progress entry. Next: platform-aware publication and faithful Reddit cards; real content and live AI timing remain blocked/unverified.
+Earlier iterations 171–172: [archive](docs/progress-archive/2026-11-02-iterations-171-172.md).
 
 ## 2026-11-02: iteration 173 — platform-aware social editorial boundary
 
@@ -191,3 +171,13 @@ Earlier iterations 169–170: [archive](docs/progress-archive/2026-11-02-iterati
 - Updated README/TASKS; archived iterations 169–170 to keep orientation small. STEERING 2a remains partial; digest/edition HTTP, remaining repository characterization and database coverage precede ORM work.
 - Restarted API/worker; `curl /healthz` DB/Redis true, SPA HTTP 200 and `/api/status` all queues available. Latest real edition still has four topics/10 X posts; source successes remain current. Read-only timing report confirms spend unchanged.
 - Next: digest/edition HTTP characterization and remaining repository-port coverage; Reddit/live AI evidence blockers unchanged, scheduled xAI still follows Reddit per owner order.
+
+## 2026-11-02: iteration 185 — digest and edition HTTP characterization
+
+- Started clean on main; no leftover work. API/worker/health healthy, 32 sources without current errors, no failed digest/social jobs; two historical ingestion failures unchanged.
+- Added production-module HTTP tests against disposable Postgres/Redis for synchronous publication, retrieval/latest/history offsets, rejected windows/IDs/offsets and preservation of earlier snapshots.
+- A real BullMQ worker calls the real repository: overlapping HTTP creation requests dedupe, complete, expose duration/edition ID and publish retrievable immutable editions. Empty historical content fixes transport/persistence behavior; this is not a nonempty editorial golden.
+- `pnpm test:integration` passed 88/88; typecheck passed. Initial lint found an assertion style issue (fixed); a check then caught formatting in the newly archived progress entries (fixed).
+- No paid inference, live settings/content writes, source changes or UI changes; browser verification unnecessary. Updated README/TASKS and archived iterations 171–172 to keep orientation small.
+- Final `pnpm format`, `pnpm lint:fix`, `pnpm check` (99 unit/88 integration) and `pnpm build` passed. Restarted API/worker; health DB/Redis true, SPA 200, all queues available and 32 sources without errors; latest real edition retains four topics/10 X posts.
+- Next: remaining repository characterization, nonempty SQL golden and database coverage before ORM work. Reddit access/live AI timing blockers persist; scheduled xAI follows Reddit.
