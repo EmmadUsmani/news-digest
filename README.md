@@ -128,14 +128,11 @@ Local snapshot/API verification (uses stored real content, no external calls):
 pnpm exec tsx apps/api/scripts/smoke-previews.ts
 ```
 
-Verify automatic generation using stored real content (temporarily schedules the
-next UTC minute with 6h coverage, then restores the original schedule):
-
-```sh
-pnpm exec tsx apps/api/scripts/smoke-scheduled-digests.ts
-```
-
-Run schedule-changing smoke scripts sequentially. The worker must be running.
+Verify scheduling and publication with `pnpm test` (disposable Postgres/Redis,
+no live inference). The former live `smoke-scheduled-digests.ts` probe is disabled.
+`pnpm exec tsx scripts/smoke-schedule.ts` checks desktop/mobile schedule forms
+with intercepted profile requests and in-memory settings, and verifies the live
+profile remains unchanged. API validation is covered by the isolated tests.
 
 Workspace formatting and linting:
 
@@ -269,11 +266,8 @@ fallback reason. Unknown engagement and media contents are never inferred.
 Read-only UI verification can use `POST_EDITORIAL_REPLAY=1` with `smoke-posts.ts`;
 its context is explicitly synthetic and it publishes no edition.
 
-Schedule-changing smoke checks save the original profile schedule exclusively to
-`~/.local/state/news-digest/schedule-recovery.json` before editing it. Normal exit,
-SIGINT and SIGTERM restore and verify the saved schedule. If the VM stops or the
-process receives SIGKILL, the record remains and another probe refuses to start.
-Run `pnpm exec tsx scripts/recover-schedule.ts` once the API is healthy to restore
-that record; failed restoration retains it. Do not run schedule probes concurrently
-or edit the schedule while a probe is active. These probes can publish editions;
-use the isolated suite for routine verification rather than the live scheduler probe.
+Legacy recovery records may remain at
+`~/.local/state/news-digest/schedule-recovery.json`. Inspect any record before
+using `scripts/recover-schedule.ts`: it restores the saved value, which may
+predate the owner's corrected schedule. Routine verification never uses this
+recovery path or writes the live schedule.

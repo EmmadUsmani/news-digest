@@ -21,7 +21,7 @@ Fix regressions, broken services and stalled sources before starting new work.
 - [ ] STEERING 8, next: curated editable Reddit communities, public rate-limited JSON/RSS ingestion, social storage/cards and X citation extraction; real posts across four topics. Respect access denial; no bypass.
 - [ ] STEERING 9, after Reddit: schedule capped direct xAI discovery before digest; report daily spend and verified yield for first week. This supersedes older notes to leave paid scheduling off once prerequisites are met.
 - [ ] STEERING 10: per-topic source and verified-item/post coverage on Status; measure weakest topic before adding sources.
-- [ ] STEERING 11: restore 07:00 America/Los_Angeles daily P1D schedule; isolate all schedule-changing verification from live settings.
+- [x] STEERING 11: restored 07:00 America/Los_Angeles daily P1D; browser smoke uses intercepted in-memory profile, retired live scheduler probe; scheduling tests use disposable services (iteration 166).
 - [ ] STEERING 4 (lower priority): fingerprinted recorded/fake LlmPort responses; no live test calls; explicit opt-in development calls <=$0.05/iteration, tagged verification. Use recordings/cache for ranking replay.
 
 Completed milestone detail: [archive](docs/progress-archive/2026-11-02-tasks-through-143.md).

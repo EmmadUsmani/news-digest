@@ -346,6 +346,8 @@ an interrupted smoke test overwrote it.
 - Make sure smoke tests and verification can never write to the live
   schedule again (use the isolated verification database).
 
+ack: 2026-11-02 item 11 — iteration 166 restored daily 07:00 America/Los_Angeles P1D, preserved story/post budgets, replaced browser schedule writes with in-memory replay, and disabled the live scheduler probe; disposable-service scheduling tests remain.
+
 ## Housekeeping
 
 Append `ack:` lines under items 5 and 6 (and each new item as you finish it),

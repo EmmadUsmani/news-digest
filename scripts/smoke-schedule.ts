@@ -1,14 +1,39 @@
 import assert from 'node:assert/strict';
 
-import { profileSettingsSchema } from '@digest/contracts';
+import { profileSettingsSchema, scheduleSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
-import { protectSchedule } from './lib/schedule-recovery';
+import { validateSchedule } from '../apps/api/src/modules/profiles/domain/schedule';
+
 const base = 'http://localhost:8000';
 async function smoke() {
   const browser = await chromium.launch();
   const context = await browser.newContext();
-  const restoreSchedule = await protectSchedule(base);
+  const original = profileSettingsSchema.parse(
+    await (await context.request.get(`${base}/api/profile`)).json(),
+  );
+  const profile = structuredClone(original);
+  // All browser profile reads/writes are replayed in memory, including reloads.
+  await context.route('**/api/profile', (route) =>
+    route.fulfill({ json: profile }),
+  );
+  await context.route('**/api/profile/schedule', async (route) => {
+    const result = scheduleSchema.safeParse(route.request().postDataJSON());
+    if (!result.success) {
+      await route.fulfill({
+        status: 400,
+        json: { message: result.error.issues[0].message },
+      });
+      return;
+    }
+    const valid = validateSchedule(result.data);
+    if (!valid.ok) {
+      await route.fulfill({ status: 400, json: { message: valid.error } });
+      return;
+    }
+    profile.schedule = result.data;
+    await route.fulfill({ json: profile });
+  });
   const topics = await (await context.request.get(`${base}/api/topics`)).json();
   const latest = await (
     await context.request.get(`${base}/api/digest-previews/latest`)
@@ -40,9 +65,7 @@ async function smoke() {
         .getByRole('status')
         .filter({ hasText: 'Schedule settings saved.' })
         .waitFor();
-      const saved = profileSettingsSchema.parse(
-        await (await context.request.get(`${base}/api/profile`)).json(),
-      );
+      const saved = structuredClone(profile);
       assert.deepEqual(saved.schedule, {
         cadence: '30 9 * * *',
         timezone: 'Asia/Tokyo',
@@ -50,28 +73,6 @@ async function smoke() {
         storyBudget: 3,
         postBudget: 0,
       });
-      for (const override of [
-        { timezone: 'Mars/Olympus' },
-        { cadence: '* * * * *' },
-        { coverageWindow: 'P32D' },
-        { coverageWindow: 'P0D' },
-        { storyBudget: 21 },
-        { postBudget: -1 },
-        { extra: true },
-      ]) {
-        assert.equal(
-          (
-            await context.request.put(`${base}/api/profile/schedule`, {
-              data: { ...saved.schedule, ...override },
-            })
-          ).status(),
-          400,
-        );
-        assert.deepEqual(
-          await (await context.request.get(`${base}/api/profile`)).json(),
-          saved,
-        );
-      }
       await page.reload();
       await page.getByText('Schedule settings', { exact: true }).click();
       assert.equal(
@@ -141,10 +142,14 @@ async function smoke() {
         latest,
       );
     console.log(
-      'Schedule desktop/mobile: persistence, validation atomicity, timezone errors, new-topic defaults and immutable history passed',
+      'Schedule desktop/mobile: in-memory save/reload, timezone errors, defaults and immutable history passed; live profile unchanged',
     );
   } finally {
-    await restoreSchedule();
+    assert.deepEqual(
+      await (await context.request.get(`${base}/api/profile`)).json(),
+      original,
+      'Browser replay must never change the live profile',
+    );
     await browser.close();
   }
 }
