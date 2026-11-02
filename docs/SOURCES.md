@@ -926,3 +926,16 @@ posts, disabled post budgets and the initial SQL cap. Source statuses unchanged.
 - `pnpm migrate` and two queued `smoke-ingestion.ts` passes stored 25 new
   Al Jazeera articles; repeated collection was idempotent. Total: 1,144 stored
   URLs across four topics and 27 healthy sources. No new edition published.
+
+## Free collection visibility — iteration 134 (2026-11-02)
+
+Status now shows up to 20 retained social collection jobs, with separate river,
+publisher-page and official embed counters. The latest retained hourly pass
+finished at 10:39:10 UTC: two rivers, 50 citation observations, eight publisher
+pages, one page citation, ten successful embed checks and no reported errors.
+These can include previously known citations and embed refreshes; they are not
+new-post counts or a relevance/virality measurement. Earlier completed passes
+include partial errors, now visible without reading Redis. Historical results
+without the current counter shape explicitly show counts unavailable.
+Source configuration and paid-discovery scheduling are unchanged. No external
+social request, paid discovery, inference or publication was needed for this UI.

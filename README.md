@@ -174,8 +174,12 @@ Free social discovery runs hourly in the worker via the `social-collection`
 BullMQ queue. It harvests enabled public rivers, checks at most eight opted-in
 publisher pages, then verifies at most ten X
 oEmbeds per run, stopping verification on the first failure with a persisted
-one-day cooldown. Status shows this queue and its next run; no inference is
-used. `pnpm exec tsx apps/api/scripts/smoke-social.ts` explicitly queues one live
+one-day cooldown. Status shows this queue, its next collection time and up to
+20 retained runs with river/page citation observations, successful embed checks
+and separate error counts. Completed jobs can contain partial errors; checks
+include refreshes and do not establish new posts, relevance or virality. Older
+results without the current counter shape show counts unavailable. No inference
+is used. `pnpm exec tsx apps/api/scripts/smoke-social.ts` explicitly queues one live
 pass and reports its saved result, including page successes/errors/citations.
 The explicit harvest/verification commands remain available for diagnosis.
 

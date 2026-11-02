@@ -271,3 +271,15 @@ Earlier iterations 87–100: [archive](docs/progress-archive/2026-11-02-iteratio
 - `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; refreshed status screenshots. No product UI changes.
 - No publication, inference/discovery spend, provider/model/billing change or new owner blocker. Gaming/World social gaps and Reddit access remain; paid X scheduling stays off.
 - Next: inspect 20:40 UTC scheduled semantic edition when due; continue free social coverage work in the meantime.
+
+## 2026-11-02: iteration 134 — visible free social collection results
+
+- Started clean on main; no leftover work. API/worker/health, 27 feeds and retained digest runs healthy; semantic edition remains due 20:40 UTC.
+- Status now exposes up to 20 retained free social runs with validated river/page citation, embed-check and partial-error counters; historical incompatible results show counts unavailable. Separate digest run list and correct next-social-collection label.
+- Counts explicitly include refreshes/repeated citations and do not imply new posts, editorial relevance or virality. Latest hourly pass: two rivers, eight pages, one page citation, ten successful embed checks, zero errors.
+- Fixed operations telemetry's hardcoded Redis connection to honor the shared configured/test-isolated connection; isolated worker regression verifies valid counters, malformed-result rejection and payload stripping without touching live Redis.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 142 isolated tests pass. `pnpm build` passes (existing upstream Zod warnings).
+- Restarted API/worker; `/healthz` healthy. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued passes, 1,144 URLs/four topics/27 healthy sources; repeat idempotent.
+- `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed, new mobile social panel inspected. README/TASKS/docs/SOURCES updated.
+- No publication, schedule mutation, inference/discovery spend, provider/model/billing change or new owner blocker. Paid X scheduling stays off; Gaming/World social gaps and Reddit block remain.
+- Next: inspect scheduled 20:40 UTC semantic edition when due; continue relevant free social coverage.

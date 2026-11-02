@@ -1,7 +1,8 @@
+import { socialCollectionResultSchema } from '@digest/contracts';
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
 import { Queue } from 'bullmq';
 
-import { database } from '../../../libs/db/connections';
+import { database, redis } from '../../../libs/db/connections';
 import { readLlmUsage } from '../../curation/public/usage';
 import { readXDiscoveryUsage } from '../../social/public/usage';
 import { OperationsReader } from '../domain/operations.reader';
@@ -12,6 +13,7 @@ export class OperationsStatus
   implements OnModuleDestroy
 {
   readonly db = database();
+  readonly connection = redis();
   readonly queues = [
     'operations',
     'ingestion',
@@ -20,12 +22,7 @@ export class OperationsStatus
   ].map(
     (name) =>
       new Queue(name, {
-        connection: {
-          host: '127.0.0.1',
-          port: 6379,
-          maxRetriesPerRequest: 1,
-          connectTimeout: 3000,
-        },
+        connection: this.connection,
         skipVersionCheck: true,
       }),
   );
@@ -54,7 +51,7 @@ export class OperationsStatus
                 'completed',
               ),
               queue.getWorkers(),
-              queue.name === 'digest-generation'
+              ['digest-generation', 'social-collection'].includes(queue.name)
                 ? queue.getJobs(
                     ['completed', 'failed', 'active', 'waiting', 'delayed'],
                     0,
@@ -82,6 +79,11 @@ export class OperationsStatus
                 typeof job.returnvalue?.editionId === 'string'
                   ? job.returnvalue.editionId
                   : null,
+              socialCollection:
+                queue.name === 'social-collection'
+                  ? (socialCollectionResultSchema.safeParse(job.returnvalue)
+                      .data ?? null)
+                  : null,
               skipped:
                 typeof job.returnvalue?.skipped === 'string'
                   ? job.returnvalue.skipped
@@ -89,7 +91,9 @@ export class OperationsStatus
             })),
           );
           runs.sort((a, b) =>
-            (b.scheduledAt ?? '').localeCompare(a.scheduledAt ?? ''),
+            (b.scheduledAt ?? b.finishedAt ?? '').localeCompare(
+              a.scheduledAt ?? a.finishedAt ?? '',
+            ),
           );
           return {
             name: queue.name,
@@ -125,6 +129,7 @@ export class OperationsStatus
   }
   async onModuleDestroy() {
     await Promise.all(this.queues.map((queue) => queue.close()));
+    await this.connection.quit();
     await this.db.end();
   }
 }

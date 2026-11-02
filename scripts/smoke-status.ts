@@ -67,6 +67,28 @@ async function smoke() {
         path: `docs/screenshots/status-runs-${name}.png`,
         fullPage: false,
       });
+      const social = page.getByRole('region', {
+        name: 'Free social collection',
+        exact: true,
+      });
+      await social
+        .getByRole('heading', { name: 'Free social collection', exact: true })
+        .waitFor();
+      const socialRuns = status.queues.find(
+        (queue) => queue.name === 'social-collection',
+      )!.runs;
+      assert.equal(await social.locator('li').count(), socialRuns.length);
+      assert.ok(
+        socialRuns.some((run) => run.socialCollection),
+        'Retained real social counters must be visible',
+      );
+      await social
+        .getByRole('heading', { name: 'Free social collection', exact: true })
+        .evaluate((element) => element.scrollIntoView({ block: 'start' }));
+      await page.screenshot({
+        path: `docs/screenshots/status-social-${name}.png`,
+        fullPage: false,
+      });
       const xUsage = page.getByRole('region', {
         name: 'X discovery usage',
         exact: true,

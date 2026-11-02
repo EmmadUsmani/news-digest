@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { operationsStatusSchema } from '@digest/contracts';
+import { Worker } from 'bullmq';
 
 import { OperationsStatus } from '../src/modules/operations/adapters/operations.status';
 
@@ -33,6 +34,66 @@ void test('operations reports persisted sources and bounded queue telemetry with
     assert.equal(raw.includes('failedReason'), false);
     assert.equal(raw.includes('DATABASE_URL'), false);
   } finally {
+    await status.onModuleDestroy();
+  }
+});
+
+void test('social run telemetry exposes validated counters, isolates digest runs and strips payloads', async () => {
+  const status = new OperationsStatus();
+  const queue = status.queues.find(
+    (queue) => queue.name === 'social-collection',
+  )!;
+  const counters = {
+    sources: 2,
+    citations: 3,
+    discoveryErrors: 1,
+    verified: 4,
+    verificationErrors: 1,
+    articleDiscovery: { checked: 5, citations: 2, errors: 1 },
+  };
+  const workerConnection = status.connection.duplicate({
+    maxRetriesPerRequest: null,
+  });
+  const worker = new Worker(
+    queue.name,
+    async (job) =>
+      job.name === 'valid'
+        ? { ...counters, secretPayload: 'must-not-expose' }
+        : { ...counters, verified: -1 },
+    { connection: workerConnection },
+  );
+  try {
+    for (const name of ['valid', 'invalid']) {
+      const completed = new Promise<void>((resolve, reject) => {
+        worker.once('completed', () => resolve());
+        worker.once('failed', (_job, error) => reject(error));
+      });
+      await queue.add(name, { secret: 'must-not-expose' });
+      await completed;
+    }
+    const result = operationsStatusSchema.parse(
+      JSON.parse(JSON.stringify(await status.read())),
+    );
+    const runs = result.queues.find(
+      (queue) => queue.name === 'social-collection',
+    )!.runs;
+    assert.equal(runs.length, 2);
+    assert.equal(runs.filter((run) => run.socialCollection === null).length, 1);
+    assert.deepEqual(
+      runs.find((run) => run.socialCollection)?.socialCollection,
+      counters,
+    );
+    assert.ok(runs.every((run) => run.finishedAt && !run.editionId));
+    assert.equal(JSON.stringify(result).includes('must-not-expose'), false);
+    assert.equal(
+      result.queues.find((queue) => queue.name === 'digest-generation')!.runs
+        .length,
+      0,
+    );
+  } finally {
+    await worker.close();
+    await workerConnection.quit();
+    await queue.obliterate({ force: true });
     await status.onModuleDestroy();
   }
 });

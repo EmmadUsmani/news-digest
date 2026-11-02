@@ -332,6 +332,19 @@ export const xDiscoveryUsageSchema = z.object({
   blocked: z.boolean(),
 });
 
+export const socialCollectionResultSchema = z.object({
+  sources: z.number().int().nonnegative(),
+  citations: z.number().int().nonnegative(),
+  discoveryErrors: z.number().int().nonnegative(),
+  verified: z.number().int().nonnegative(),
+  verificationErrors: z.number().int().nonnegative(),
+  articleDiscovery: z.object({
+    checked: z.number().int().nonnegative(),
+    citations: z.number().int().nonnegative(),
+    errors: z.number().int().nonnegative(),
+  }),
+});
+
 export const operationsStatusSchema = z.object({
   xDiscovery: xDiscoveryUsageSchema,
   llm: llmUsageSchema,
@@ -365,6 +378,7 @@ export const operationsStatusSchema = z.object({
           finishedAt: z.string().datetime().nullable(),
           editionId: z.string().nullable(),
           skipped: z.string().nullable(),
+          socialCollection: socialCollectionResultSchema.nullable().optional(),
         }),
       ),
     }),

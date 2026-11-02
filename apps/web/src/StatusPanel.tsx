@@ -107,7 +107,12 @@ export function StatusPanel() {
                   </p>
                 )}
                 {queue.nextRun && (
-                  <p>Next scheduled edition: {time(queue.nextRun)}</p>
+                  <p>
+                    {queue.name === 'social-collection'
+                      ? 'Next social collection'
+                      : 'Next scheduled edition'}
+                    : {time(queue.nextRun)}
+                  </p>
                 )}
               </article>
             ))}
@@ -122,6 +127,7 @@ export function StatusPanel() {
           </p>
           <ul className="run-list">
             {status.queues
+              .filter((queue) => queue.name === 'digest-generation')
               .flatMap((queue) => queue.runs)
               .map((run) => (
                 <li key={run.id}>
@@ -138,9 +144,56 @@ export function StatusPanel() {
                 </li>
               ))}
           </ul>
-          {!status.queues.some((queue) => queue.runs.length) && (
-            <p>No retained automatic runs yet.</p>
-          )}
+          {!status.queues.some(
+            (queue) => queue.name === 'digest-generation' && queue.runs.length,
+          ) && <p>No retained automatic runs yet.</p>}
+          <section aria-label="Free social collection">
+            <h3>Free social collection</h3>
+            <p>
+              Up to 20 retained hourly collection jobs. A completed job can
+              include source or embed errors. Counts are observations and
+              successful embed checks, including refreshes; they do not measure
+              new posts, relevance or virality.
+            </p>
+            <ul className="run-list">
+              {status.queues
+                .filter((queue) => queue.name === 'social-collection')
+                .flatMap((queue) => queue.runs)
+                .map((run) => (
+                  <li key={run.id}>
+                    <strong>{run.state}</strong>
+                    {run.scheduledAt && (
+                      <> · scheduled {time(run.scheduledAt)}</>
+                    )}
+                    {run.finishedAt && <> · finished {time(run.finishedAt)}</>}
+                    {run.socialCollection ? (
+                      <>
+                        <br />
+                        {run.socialCollection.sources} river sources ·{' '}
+                        {run.socialCollection.citations} river citations ·{' '}
+                        {run.socialCollection.discoveryErrors} river errors
+                        <br />
+                        {run.socialCollection.articleDiscovery.checked}{' '}
+                        publisher pages read ·{' '}
+                        {run.socialCollection.articleDiscovery.citations} page
+                        citations ·{' '}
+                        {run.socialCollection.articleDiscovery.errors} page
+                        errors
+                        <br />
+                        {run.socialCollection.verified} successful embed checks
+                        · {run.socialCollection.verificationErrors} embed errors
+                      </>
+                    ) : (
+                      <> · Collection counts unavailable</>
+                    )}
+                  </li>
+                ))}
+            </ul>
+            {!status.queues.some(
+              (queue) =>
+                queue.name === 'social-collection' && queue.runs.length,
+            ) && <p>No retained social collection runs yet.</p>}
+          </section>
           <section aria-label="X discovery usage">
             <h3>X discovery usage</h3>
             <p>
