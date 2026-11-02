@@ -32,14 +32,23 @@ export async function runScheduledXSearch(
   )
     return { skipped: 'Outside search window' };
   const candidates = await topics(now);
-  const current = await loadProfile();
-  if (
-    current.id !== profile.id ||
-    JSON.stringify(current.schedule) !== JSON.stringify(profile.schedule)
-  )
-    return { skipped: 'Schedule changed' };
-  const plan = planScheduledSearch(candidates, clock(), edition);
-  if (!plan || plan.scheduledDay !== now.toISOString().slice(0, 10))
-    return { skipped: 'No eligible search' };
-  return execute(plan, `scheduled-x:${profile.id}:${edition.getTime()}`);
+  const results: unknown[] = [];
+  // Stable sort preserves owner order on ties. Recheck settings and time before
+  // every call: a slow search must not spend after the pre-edition window.
+  for (const topic of [...candidates].sort(
+    (a, b) => a.freePosts - b.freePosts,
+  )) {
+    const current = await loadProfile();
+    if (
+      current.id !== profile.id ||
+      JSON.stringify(current.schedule) !== JSON.stringify(profile.schedule)
+    )
+      return { skipped: 'Schedule changed', results };
+    const plan = planScheduledSearch([topic], clock(), edition);
+    if (!plan || plan.scheduledDay !== now.toISOString().slice(0, 10)) continue;
+    results.push(
+      await execute(plan, `scheduled-x:${profile.id}:${edition.getTime()}`),
+    );
+  }
+  return results;
 }

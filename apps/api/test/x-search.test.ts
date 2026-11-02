@@ -555,7 +555,7 @@ void test('scheduled search retries never reach HTTP again after a provider reje
     assert.equal(
       (
         await searchX(
-          'other-topic',
+          'fixture',
           runId,
           request,
           search,

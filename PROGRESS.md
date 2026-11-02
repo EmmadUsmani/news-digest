@@ -104,16 +104,6 @@ Earlier iteration 218: [archive](docs/progress-archive/2026-11-02-iteration-218.
 
 Earlier iteration 219: [archive](docs/progress-archive/2026-11-02-iteration-219.md).
 
-## 2026-11-02: iteration 220 — profile repository characterization
-
-- Started clean on main; API/worker and health healthy, 32 sources without errors and all four queues available. No leftover work.
-- Items 13/7/9 await Nov 3 scheduled evidence; advanced lower-priority STEERING 2a against disposable containers only.
-- Added repository-port coverage for foreign-profile schedule isolation, detached reads, inclusive story/post budget bounds, atomic rejection of invalid budgets and explicit missing-schedule errors without foreign-profile fallback.
-- Test restores the default schedule and removes foreign fixtures; registered in the isolated suite and documented in README/TASKS. No application behavior or UI change.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check`; 120 unit and 120 isolated integration tests passed.
-- Read-only timing report: next Nov 3 15:00 UTC; prior 856 ms fallback is not AI latency evidence. X report Nov 2: $0.023382, two verified/dated historical World citations, incremental baseline unknown.
-- No inference or Reddit requests. API/worker restarted; health DB/Redis true and SPA 200. Next: observe Nov 3 14:30 X discovery and 15:00 scheduled AI cost/duration; 2a remains incomplete.
-
 ## 2026-11-02: iteration 221 — topic source connection characterization
 
 - Started clean on main; API/worker and health healthy, 32 sources without errors and four queues available. No leftover work.
@@ -293,3 +283,16 @@ Archived iteration 214: [entry](docs/progress-archive/2026-11-02-iteration-214.m
 - Initial push rejected: owner added STEERING 15. Fetched/merged instructions-only commit without rewriting history; queued daily X search for every topic as next work.
 - Deployment: API/worker restarted healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues.
 - Next: observe Nov 3 14:30 UTC X discovery and 15:00 edition cost/duration; fallback timing is not AI latency evidence.
+
+## 2026-11-02: iteration 236 — daily X search for every topic
+
+- Started clean on main; health, services, 32 sources and four queues healthy. No leftover work.
+- STEERING 15: scheduler visits every eligible topic weakest-free-coverage first, preserving owner-order ties.
+- Rechecks settings/time before each sequential call; late searches skip. Second searches remain disabled.
+- Migration 044 preserves calls and replaces global daily uniqueness with topic/day uniqueness under the shared budget lock.
+- Scheduled holds project $0.10/call (~5x observed cost), settling actual usage before the next search; manual full-day holds and $0.40/day/$12/month caps remain.
+- Fakes/disposable DB pin all-topic ordering, late-window stopping, concurrent projections, restart/rejection dedupe and direct-write uniqueness.
+- Verification: `pnpm check` passed (122 unit, 135 integration); `pnpm build`, `pnpm format`, `pnpm lint:fix`, `git diff --check` passed.
+- Applied `pnpm migrate`; restarted API/worker healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues.
+- No paid/provider or Reddit requests; X ledger unchanged at $0.023382 today, no pending holds. Updated TASKS/SOURCES; archived iteration 220.
+- Next: observe Nov 3 14:30 UTC all-topic discovery, report per-topic cost/yield and acknowledge STEERING 15; measure 15:00 AI edition/reserve outcome for 13/7.

@@ -5,7 +5,7 @@ Fix regressions, broken services and stalled sources before starting new work.
 
 ## Immediate owner priorities (STEERING overrides older milestone notes)
 
-- [ ] STEERING 15: scheduled X search for every enabled topic daily, weakest first; atomic per-topic/day admission, optional second search only below three verified additions and within projected caps. Fake tests only; acknowledge after first full scheduled run with per-topic cost/yield. Newly merged owner instruction in iteration 235; implement before Nov 3 discovery.
+- [ ] STEERING 15: scheduled X search for every enabled topic daily, weakest first; atomic per-topic/day admission, optional second search only below three verified additions and within projected caps. Fake tests only; acknowledge after first full scheduled run with per-topic cost/yield. Iteration 236 implements weakest-first coverage of all eligible topics, atomic per-topic/day admission and $0.10 scheduled projections; optional second searches stay disabled. Next: observe Nov 3 and acknowledge with actual per-topic cost/yield.
 
 - [ ] STEERING 13 TOP PRIORITY before Nov 3 15:00 UTC: reserve configurable Anthropic budget for the scheduled edition under the shared ledger lock; limit all other spend until completion/failure; expose reserve/manual limits and scheduled AI/fallback outcome. Fake/Testcontainers verification only. Measure next scheduled edition cost/duration for item 7.
   - Iterations 192–210: durable UTC-day lifecycle, shared-lock admission, historical sizing, scheduler fencing and Status/manual-create notices implemented and enabled in production with 1.5x headroom. Next: observe Nov 3 AI cost/duration before acknowledging item 13; see reserve decision and PROGRESS.
@@ -35,7 +35,7 @@ M0–M2 and foundational M3/M6/M7 functionality are implemented; remaining work 
   - Audit work closed for now under STEERING 5: existing recorded/synthetic coverage is summarized in docs/RANKING.md. Resume only for a real unsupported digest summary.
   - Deferred: scheduled Message Batches, cross-process cache coordination, full-article retrieval and larger editor shortlists.
 - [ ] M4 Social posts (current priority; STEERING 6):
-  - Next: observe the first scheduled semantic social edition and measure relevant Gaming discovery. Keep full-day X reservation unchanged; enable capped paid scheduling only through verified STEERING 9 work. Semantic selection is not a virality measurement.
+  - Next: observe the first scheduled semantic social edition and measure relevant Gaming discovery. Scheduled X holds use $0.10 per topic under STEERING 15; manual holds retain the full day. Semantic selection is not a virality measurement.
   - [x] SocialPost storage, bounded discovery, immutable selections and official X embeds (iterations 87–143).
   - Reddit per-topic communities and faithful cards; no bot-protection workarounds. Bluesky optional; YouTube deferred.
   - [x] Direct capped xAI adapter and ledger implemented; scheduled use remains STEERING 9. Never use gateway.
@@ -60,5 +60,5 @@ M0–M2 and foundational M3/M6/M7 functionality are implemented; remaining work 
   - retention/backup
   - resilience
 
-- [ ] STEERING 2a (lower priority): finish repository/HTTP characterization before ORM. Disposable Postgres/Redis, fresh migrations, HTTP/worker flows and nonempty fallback golden are implemented (183–191, 219–222). Iteration 223 adds native database/operations coverage; measured gaps: [baseline](docs/DATABASE-VERIFICATION.md). Iteration 224 pins usage-reader UTC boundaries, model allocation, holds/errors and monthly provider blocks. Iteration 225 pins historical AI-cost snapshot eligibility, tied ordering, limits and bigint safety. Iteration 226 pins topic-coverage discovery unions, dedupe, reassignment/deletion and health/window boundaries. Iterations 227–233 pin feed capacity, discovery ordering/caps, citation rollback, topic isolation, rejected JSON writes and verified-post refresh semantics. Iteration 234 pins edition history page boundaries, chronological/latest ordering and read isolation. Iteration 235 adds a synthetic LlmPort AI golden through real triage/editor services and disposable-DB publication/retrieval, including warm-cache repeatability. Remaining repository gaps and recorded-response golden coverage stay open. Never touch live DB; finish 2a before ORM.
+- [ ] STEERING 2a (lower priority): finish repository/HTTP characterization before ORM. Disposable Postgres/Redis, fresh migrations, HTTP/worker flows, fallback and synthetic-AI goldens implemented (183–235). Coverage and remaining gaps: [database verification](docs/DATABASE-VERIFICATION.md). Never touch live DB; finish 2a before ORM. Recorded-response golden remains open.
 - [ ] STEERING 2b (only after 2a is green): record Drizzle decision/schema parity, back up live DB, gradually replace raw SQL behind ports and enforce boundaries.

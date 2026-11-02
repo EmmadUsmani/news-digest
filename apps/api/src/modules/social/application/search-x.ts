@@ -17,12 +17,13 @@ export async function searchX(
   price: XDiscoveryPrice,
   scheduledDay?: string,
 ) {
-  // Reserve the entire daily cap per call. This is
-  // admission control, not a provider-side ceiling: fetched items are unbounded.
+  // Scheduled searches project $0.10 per topic (roughly 5x observed cost).
+  // Manual calls retain the full-day hold. Neither is a provider-side ceiling:
+  // fetched items are unbounded; actual charges settle before the next search.
   const callId = await ledger.reserve(
     'grok-4.3',
     runId,
-    400000,
+    scheduledDay === undefined ? 400000 : 100000,
     { id: topicId, name: request.topic },
     scheduledDay,
   );

@@ -1277,3 +1277,22 @@ No catch-up spending or provider retries are added. Ledger/report scripts retain
 cost and per-topic incremental verified yield; the first automatic run remains
 to be observed. Verification used fakes and isolated services, with no inference
 or Reddit requests.
+
+## Daily X coverage for every topic — iteration 236 (2026-11-02)
+
+STEERING 15 supersedes iteration 218's single-topic/day limit. Every eligible
+(enabled, positive-budget, valid curated accounts) topic is now searched in
+ascending free verified-post count, with stable owner-order ties. The worker
+rechecks settings and the 5–30 minute window before each sequential call.
+Migration 044 preserves historical calls and replaces the global daily unique
+index with topic/day uniqueness. Admission remains under the shared budget lock;
+rejected and uncertain attempts consume that topic's day across restarts.
+Scheduled calls reserve a $0.10 projection (about five times observed ~$0.02),
+settle actual charges before the next search, and honor $0.40/day and $12/month
+caps. Manual calls retain the $0.40 hold. These are admission estimates, not
+provider-side charge ceilings; xAI prepaid credit remains the hard backstop.
+Optional second searches are disabled, so no low-yield retry can consume budget
+before other topics' first searches. Existing official verification and daily
+cost/incremental-yield reporting remain unchanged. Tests use fakes/disposable
+services only; no paid or Reddit requests. Await Nov 3's full scheduled run for
+per-topic cost/yield evidence and the STEERING acknowledgement.

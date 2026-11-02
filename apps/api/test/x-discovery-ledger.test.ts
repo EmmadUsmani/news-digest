@@ -234,7 +234,7 @@ void test('X credit-depletion failure rolls back the reservation transition if p
   }
 });
 
-void test('scheduled X admission is durable once per UTC day across topics, failures and restarts', async () => {
+void test('scheduled X admission is durable per topic/UTC day across failures and restarts', async () => {
   const db = database();
   const restartedDb = database();
   const ledger = new PostgresXDiscoveryLedger(db);
@@ -285,7 +285,7 @@ void test('scheduled X admission is durable once per UTC day across topics, fail
     await ledger.fail(manual, 'rejected');
     const attempts = await Promise.all([
       reserve(ledger, dates.today),
-      reserve(restarted, dates.today, 'different-topic'),
+      reserve(restarted, dates.today),
     ]);
     const admitted = attempts.filter((id): id is string => id !== null);
     assert.equal(admitted.length, 1);
@@ -294,7 +294,10 @@ void test('scheduled X admission is durable once per UTC day across topics, fail
     // a retry storm or changing topics to bypass the daily volume restriction.
     await ledger.fail(admitted[0], 'rejected');
     assert.equal((await ledger.status()).availableMicros, 400000);
-    assert.equal(await reserve(restarted, dates.today, 'third-topic'), null);
+    assert.equal(await reserve(restarted, dates.today), null);
+    const other = await reserve(restarted, dates.today, 'other-topic');
+    assert.ok(other);
+    await restarted.fail(other, 'rejected');
     assert.equal(
       (
         await db.query(
@@ -302,7 +305,7 @@ void test('scheduled X admission is durable once per UTC day across topics, fail
           [dates.today],
         )
       ).rowCount,
-      1,
+      2,
     );
 
     // Keep yesterday's durable claim but allow the next UTC day after restart.
@@ -315,8 +318,8 @@ void test('scheduled X admission is durable once per UTC day across topics, fail
     // The index also prevents bypasses from a writer without the advisory lock.
     await assert.rejects(
       db.query(
-        `INSERT INTO x_discovery_calls(id,model,run_id,status,reserved_micros,scheduled_day)
-       VALUES($1,'grok-4.3','bypass-fixture','failed',1,$2)`,
+        `INSERT INTO x_discovery_calls(id,model,run_id,status,reserved_micros,scheduled_day,requested_topic)
+       VALUES($1,'grok-4.3','bypass-fixture','failed',1,$2,'{"id":"first","name":"first"}')`,
         [crypto.randomUUID(), dates.today],
       ),
       { code: '23505' },
@@ -328,6 +331,45 @@ void test('scheduled X admission is durable once per UTC day across topics, fail
       ids,
     ]);
     await restartedDb.end();
+    await db.end();
+  }
+});
+
+void test('scheduled topic projections share the budget lock and cap; retries cannot multiply calls', async () => {
+  const db = database();
+  const ledger = new PostgresXDiscoveryLedger(db);
+  const ids: string[] = [];
+  const day = new Date().toISOString().slice(0, 10);
+  try {
+    await assert.rejects(
+      ledger.reserve('grok-4.3', 'no-topic', 100000, undefined, day),
+      /requires a topic/,
+    );
+    const reserve = async (id: string) => {
+      const call = await ledger.reserve(
+        'grok-4.3',
+        'projection-fixture',
+        100000,
+        { id, name: id },
+        day,
+      );
+      if (call) ids.push(call);
+      return call;
+    };
+    const calls = await Promise.all(['a', 'b', 'c', 'd', 'e'].map(reserve));
+    assert.equal(calls.filter(Boolean).length, 4);
+    assert.equal((await ledger.status()).reservedMicros, 400000);
+    for (const id of ids) await ledger.fail(id, 'rejected');
+    for (let i = 0; i < calls.length; i++) {
+      if (calls[i])
+        assert.equal(await reserve(['a', 'b', 'c', 'd', 'e'][i]), null);
+    }
+    const unclaimed = ['a', 'b', 'c', 'd', 'e'][calls.indexOf(null)];
+    assert.ok(await reserve(unclaimed));
+  } finally {
+    await db.query('DELETE FROM x_discovery_calls WHERE id=ANY($1::uuid[])', [
+      ids,
+    ]);
     await db.end();
   }
 });

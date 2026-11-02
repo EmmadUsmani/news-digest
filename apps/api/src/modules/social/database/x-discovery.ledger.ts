@@ -95,17 +95,20 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
         new Date(scheduledDay).toISOString().slice(0, 10) !== scheduledDay)
     )
       throw new Error('Invalid scheduled X discovery day');
+    if (scheduledDay !== undefined && !requestedTopic?.id.trim())
+      throw new Error('Scheduled X discovery requires a topic');
     return this.transaction(async (client) => {
-      // A UTC day is consumed before HTTP, including rejected/uncertain calls.
+      // A topic/day is consumed before HTTP, including rejected/uncertain calls.
       // Restart/retry cannot spend again or shift an obsolete job into today.
       if (scheduledDay !== undefined) {
         const {
           rows: [admission],
         } = await client.query<{ allowed: boolean }>(
           `SELECT $1::date = (clock_timestamp() AT TIME ZONE 'UTC')::date
-           AND NOT EXISTS(SELECT 1 FROM x_discovery_calls WHERE scheduled_day=$1::date)
+           AND NOT EXISTS(SELECT 1 FROM x_discovery_calls WHERE scheduled_day=$1::date
+             AND requested_topic->>'id'=$2)
            AS allowed`,
-          [scheduledDay],
+          [scheduledDay, requestedTopic?.id ?? null],
         );
         if (!admission.allowed) return null;
       }

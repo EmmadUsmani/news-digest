@@ -40,7 +40,7 @@ void test('scheduled X tick uses saved timezone, scarce topic and durable day id
     },
     () => new Date('2026-11-03T14:30:00Z'),
   );
-  assert.equal(result, 'executed');
+  assert.deepEqual(result, ['executed']);
 });
 void test('scheduled X tick rejects replaced settings and delayed coverage reads', async () => {
   let reads = 0;
@@ -61,7 +61,7 @@ void test('scheduled X tick rejects replaced settings and delayed coverage reads
       execute,
       () => new Date('2026-11-03T14:30:00Z'),
     ),
-    { skipped: 'Schedule changed' },
+    { skipped: 'Schedule changed', results: [] },
   );
   let ticks = 0;
   await runScheduledXSearch(
@@ -112,6 +112,38 @@ void test('midnight edition spends only on its own UTC day and skips missed/disa
     topics,
     execute,
     () => new Date('2026-11-04T00:01:00Z'),
+  );
+  assert.equal(calls, 1);
+});
+
+void test('scheduled X searches every topic weakest-first with stable ties, even after a blocked result', async () => {
+  const order: string[] = [];
+  await runScheduledXSearch(
+    async () => profile,
+    async () => [
+      { ...candidates[0], id: 'strong', freePosts: 9 },
+      { ...candidates[0], id: 'weak' },
+      { ...candidates[0], id: 'tie' },
+      { ...candidates[0], id: 'middle', freePosts: 3 },
+    ],
+    async (plan) => {
+      order.push(plan.topic.id);
+      return { state: 'budget-blocked' };
+    },
+    () => new Date('2026-11-03T14:30:00Z'),
+  );
+  assert.deepEqual(order, ['weak', 'tie', 'middle', 'strong']);
+});
+
+void test('a slow first search prevents later topics from spending after the window', async () => {
+  let calls = 0;
+  await runScheduledXSearch(
+    async () => profile,
+    async () => [candidates[0], { ...candidates[0], id: 'second' }],
+    async () => {
+      calls++;
+    },
+    () => new Date(calls ? '2026-11-03T14:56:00Z' : '2026-11-03T14:30:00Z'),
   );
   assert.equal(calls, 1);
 });
