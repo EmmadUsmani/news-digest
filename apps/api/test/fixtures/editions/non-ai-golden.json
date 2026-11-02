@@ -1,0 +1,100 @@
+{
+  "windowStart": "2024-02-01T00:00:00.000Z",
+  "windowEnd": "2024-02-02T00:00:00.000Z",
+  "method": "editorial-v1",
+  "topics": [
+    {
+      "id": "00000000-0000-4000-8000-000000000879",
+      "name": "Golden science",
+      "candidateCount": 3,
+      "stories": [
+        {
+          "imageUrl": null,
+          "id": "00000000-0000-4000-8000-000000000880",
+          "title": "Lunar telescope sends its first images",
+          "url": "https://example.org/golden/0",
+          "excerpt": "Fixture reporting.",
+          "publishedAt": "2024-02-01T18:00:00.000Z",
+          "sources": ["Golden publisher"],
+          "score": 7.5,
+          "reasons": [
+            "Recency: 7.5/10",
+            "Observed in 1 source label (independence unverified; no score bonus)",
+            "HN engagement: 0.0/10",
+            "Headline cluster: 1 article; 1 observed source label (independence unverified); no extra score bonus",
+            "Topic has no required phrase filter"
+          ],
+          "coverage": [
+            {
+              "id": "00000000-0000-4000-8000-000000000880",
+              "title": "Lunar telescope sends its first images",
+              "url": "https://example.org/golden/0",
+              "publishedAt": "2024-02-01T18:00:00.000Z",
+              "sources": ["Golden publisher"]
+            }
+          ]
+        },
+        {
+          "imageUrl": null,
+          "id": "00000000-0000-4000-8000-000000000881",
+          "title": "Coastal observatory opens a research station",
+          "url": "https://example.org/golden/1",
+          "excerpt": "Fixture reporting.",
+          "publishedAt": "2024-02-01T00:00:00.000Z",
+          "sources": ["Golden publisher"],
+          "score": 2,
+          "reasons": [
+            "Recency: 0.0/10",
+            "Observed in 1 source label (independence unverified; no score bonus)",
+            "HN engagement: 2.0/10",
+            "Headline cluster: 1 article; 1 observed source label (independence unverified); no extra score bonus",
+            "Topic has no required phrase filter"
+          ],
+          "coverage": [
+            {
+              "id": "00000000-0000-4000-8000-000000000881",
+              "title": "Coastal observatory opens a research station",
+              "url": "https://example.org/golden/1",
+              "publishedAt": "2024-02-01T00:00:00.000Z",
+              "sources": ["Golden publisher"]
+            }
+          ]
+        }
+      ],
+      "posts": [],
+      "postSelectionMethod": "verified-lexical-recency-v2",
+      "postEditorial": {
+        "mode": "non-ai",
+        "model": null,
+        "triage": [],
+        "unscoredIds": [],
+        "reason": "Non-AI selection: post budget is zero."
+      },
+      "editorial": {
+        "mode": "non-ai",
+        "model": null,
+        "brief": [],
+        "triage": [],
+        "unscoredIds": [
+          "00000000-0000-4000-8000-000000000880",
+          "00000000-0000-4000-8000-000000000882",
+          "00000000-0000-4000-8000-000000000881"
+        ],
+        "reason": "Non-AI ranking: editorial service unavailable."
+      },
+      "qualityRejections": [
+        {
+          "id": "00000000-0000-4000-8000-000000000882",
+          "title": "Best bets tonight",
+          "rule": "betting-promotion",
+          "reason": "Betting or promotional guide"
+        }
+      ],
+      "relevancePolicy": {
+        "includeAny": [],
+        "excludeAny": []
+      },
+      "relevanceRejectedCount": 0
+    }
+  ]
+}

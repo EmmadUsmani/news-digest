@@ -9,6 +9,7 @@ const integration = new Set([
   'content-repository.test.ts',
   'digests.test.ts',
   'edition-jobs.test.ts',
+  'edition-golden.test.ts',
   'edition-timing.test.ts',
   'editorial-publication.test.ts',
   'infrastructure.test.ts',

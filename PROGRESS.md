@@ -86,17 +86,7 @@ Iterations 204–205: [archive](docs/progress-archive/2026-11-02-iterations-204-
 
 Earlier iteration 206: [archive](docs/progress-archive/2026-11-02-iteration-206.md).
 
-## 2026-11-02: iteration 207 — release verified no-occurrence days
-
-- Started clean on main; API/worker, health and 32 sources healthy. No leftover work.
-- Production admission resolves the saved schedule under the ledger transaction when today's lifecycle row is absent; only a verified no-occurrence day releases funds.
-- Shared row lock fences concurrent settings updates; missing/invalid settings fail closed, existing pending/running identities retain protection, and daily caps still apply.
-- Disposable-Postgres coverage verifies the LA DST no-occurrence/adjacent day, settings lock, admission cap and production resolver wiring; no provider calls.
-- First integration run caught an incorrect test method name; corrected before the final full check.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (113 unit/112 isolated integration), `pnpm build`, `git diff --check` passed.
-- Live reads: four queues, 32 sources without errors, latest real edition four topics/10 posts; SPA 200, health DB/Redis true.
-- Updated reserve decision/TASKS; archived iteration 191. No UI changes, paid inference or Reddit HTTP requests.
-- Reserve enforcement remains OFF. Next: manual/Status visibility, then enablement before Nov 3 15:00 UTC.
+Iteration 207: [archive](docs/progress-archive/iteration-207.md).
 
 ## 2026-11-02: iteration 208 — show scheduled AI budget protection on Status
 
@@ -260,3 +250,15 @@ Earlier iteration 206: [archive](docs/progress-archive/2026-11-02-iteration-206.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check`; 120 unit and 121 isolated integration tests passed.
 - Live read-only status: next scheduled edition Nov 3 15:00 UTC; prior 856 ms fallback remains insufficient AI timing evidence. No inference or Reddit requests.
 - API/worker restarted; health DB/Redis true, SPA 200. Next: observe Nov 3 14:30 X discovery and 15:00 scheduled AI cost/duration; 2a remains incomplete.
+
+## 2026-11-02: iteration 222 — nonempty fallback golden edition
+
+- Started clean on main; API/worker, health, 32 sources and four queues healthy. No leftover work.
+- Items 13/7/9 await Nov 3 scheduled evidence; advanced lower-priority STEERING 2a using disposable containers only.
+- Added fixed synthetic inputs and a reviewed golden snapshot for nonempty fallback publication, exact retrieval and regeneration preserving the earlier edition.
+- Pins half-open window boundaries, story ordering/scores, source provenance, quality rejection and explicit non-AI labels; only generated edition ID/time are omitted from golden comparison.
+- Initial full check caught missing required include_guidance in the test seed; fixed it and passed the isolated targeted test, then reran the full check.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check`; 120 unit and 122 isolated integration tests passed. No application behavior or UI change.
+- Updated README/TASKS and archived iteration 207 to bound PROGRESS. AI golden coverage and database coverage reporting remain open; 2a is not complete.
+- Read-only timing report: next Nov 3 15:00 UTC; prior 856 ms fallback is not AI latency evidence. No inference or Reddit requests.
+- API/worker restarted; health DB/Redis true, SPA 200, 32 sources without errors and four queues available. Next: observe Nov 3 14:30 X discovery and 15:00 scheduled AI cost/duration.

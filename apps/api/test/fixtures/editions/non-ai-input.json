@@ -1,0 +1,42 @@
+[
+  {
+    "id": "00000000-0000-4000-8000-000000000880",
+    "title": "Lunar telescope sends its first images",
+    "url": "https://example.org/golden/0",
+    "excerpt": "Fixture reporting.",
+    "publishedAt": "2024-02-01T18:00:00.000Z",
+    "points": 0
+  },
+  {
+    "id": "00000000-0000-4000-8000-000000000881",
+    "title": "Coastal observatory opens a research station",
+    "url": "https://example.org/golden/1",
+    "excerpt": "Fixture reporting.",
+    "publishedAt": "2024-02-01T00:00:00.000Z",
+    "points": 3
+  },
+  {
+    "id": "00000000-0000-4000-8000-000000000882",
+    "title": "Best bets tonight",
+    "url": "https://example.org/golden/2",
+    "excerpt": "Fixture reporting.",
+    "publishedAt": "2024-02-01T12:00:00.000Z",
+    "points": 0
+  },
+  {
+    "id": "00000000-0000-4000-8000-000000000883",
+    "title": "Outside end boundary",
+    "url": "https://example.org/golden/3",
+    "excerpt": "Fixture reporting.",
+    "publishedAt": "2024-02-02T00:00:00.000Z",
+    "points": 0
+  },
+  {
+    "id": "00000000-0000-4000-8000-000000000884",
+    "title": "Outside start boundary",
+    "url": "https://example.org/golden/4",
+    "excerpt": "Fixture reporting.",
+    "publishedAt": "2024-01-31T23:59:59.999Z",
+    "points": 0
+  }
+]

@@ -39,6 +39,10 @@ exercise real controllers and repositories against the disposable services. Dige
 HTTP tests cover rejected requests, synchronous publication, immutable retrieval,
 latest/history offsets and deduplicated async jobs completed by a real BullMQ
 worker against the real repository (empty historical window, no inference).
+A reviewed nonempty fallback golden edition pins exact story ordering/scores, source
+provenance, quality rejection, half-open boundaries and fallback labels through real
+publication, retrieval and regeneration. Only generated edition IDs/timestamps are
+excluded from comparison; fixtures are synthetic and no inference runs.
 Edition history characterization covers profile isolation, exact JSON retrieval, detached
 read results, stable timestamp ties, 20-entry pagination and timezone normalization.
 Profile repository characterization covers foreign-schedule isolation, detached reads,
