@@ -284,3 +284,9 @@ Legacy recovery records may remain at
 using `scripts/recover-schedule.ts`: it restores the saved value, which may
 predate the owner's corrected schedule. Routine verification never uses this
 recovery path or writes the live schedule.
+
+Reddit community choices are editable under Manage topics → Edit. Public access
+is currently blocked; saving configuration does not fetch posts.
+`pnpm exec tsx scripts/smoke-reddit-communities.ts` checks settings on desktop
+and mobile with intercepted topic writes and asserts live topics stay unchanged.
+Community validation and persistence tests run against disposable SQL in `pnpm check`.

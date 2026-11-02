@@ -78,6 +78,9 @@ export function TopicSettings({
         .map((s) => s.trim())
         .filter(Boolean);
     const parsed = topicUpdateSchema.safeParse({
+      redditCommunities: phrases('redditCommunities').map((name) =>
+        name.replace(/^r\//i, ''),
+      ),
       accounts: phrases('accounts').map((handle) => handle.replace(/^@/, '')),
       name: data.get('name'),
       description: data.get('description'),
@@ -93,7 +96,7 @@ export function TopicSettings({
     });
     if (!parsed.success) {
       setMessage(
-        'Check the name, budgets (0–20), phrase rules, and X accounts (up to 20 unique handles, 1–15 letters, digits or underscores).',
+        'Check the name, budgets (0–20), phrase rules, Reddit communities (up to 20 unique names, 2–21 letters, digits or underscores), and X accounts (up to 20 unique handles, 1–15 letters, digits or underscores).',
       );
       return;
     }
@@ -151,6 +154,7 @@ export function TopicSettings({
             sources: [],
             queries: [],
             accounts: [],
+            redditCommunities: [],
           });
           setMessage('');
         }}
@@ -361,6 +365,20 @@ export function TopicSettings({
               currently off. Saving does not fetch posts or start a search.
               Leave empty to disable X searches for this topic. Free link
               discovery still uses the topic’s connected sources.
+            </p>
+            <label>
+              Reddit communities · one per line
+              <textarea
+                name="redditCommunities"
+                defaultValue={editing.redditCommunities.join('\n')}
+                aria-describedby="reddit-communities-help"
+              />
+            </label>
+            <p id="reddit-communities-help">
+              Up to 20 unique community names; an initial r/ is optional. Public
+              Reddit access is currently blocked. Saving keeps your choices for
+              future discovery and does not fetch posts. Leave empty to disable
+              Reddit discovery for this topic.
             </p>
             <p>
               Use the Sources button after saving to manage feeds and news

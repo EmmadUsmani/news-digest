@@ -1099,3 +1099,22 @@ The JSON fixture is explicitly synthetic, not a recorded live Reddit response.
 This is adapter preparation only: storage, editable per-topic communities,
 scheduling, relative engagement ranking and faithful cards remain unfinished.
 No source was enabled and no live Reddit content is claimed.
+
+## Reddit community configuration — iteration 169 (2026-11-02)
+
+The owner-curated community lists from STEERING 8 are now stored per topic and
+editable under Manage topics → Edit → Reddit communities. Tech/AI defaults to
+LocalLLaMA, MachineLearning, singularity, technology, programming, OpenAI and
+ClaudeAI; NBA to nba; Gaming to Games, gaming, pcgaming and GamingLeaks; World
+to worldnews, politics and geopolitics. These are candidate communities chosen
+for their domain focus, not validated live-source coverage. LocalLLaMA and NBA
+remain **blocked** following public endpoint 403s; the other communities are
+**not yet tried**. No access workaround or new live probe was used this iteration.
+
+Configuration is limited to 20 unique names per topic, case-insensitively;
+blank disables future Reddit discovery. Older API clients that omit the field
+preserve existing choices. Saving settings does not fetch posts. Ingestion,
+SocialPost persistence, citation extraction, ranking and cards remain unfinished;
+there are still no stored live Reddit posts. Desktop/mobile screenshots
+`reddit-communities-{desktop,mobile}.png` use intercepted topic settings for
+browser verification, not live Reddit data.

@@ -13,7 +13,7 @@ export class PostgresTopicRepository
   private readonly db = database();
   async listDefault(): Promise<Topic[]> {
     const result = await this.db.query(
-      `SELECT id, profile_id AS "profileId", name, description, include_guidance AS "includeGuidance", exclude_guidance AS "excludeGuidance", enabled, position, story_budget AS "storyBudget", post_budget AS "postBudget", relevance_policy AS "relevancePolicy", COALESCE((SELECT jsonb_agg(source_id ORDER BY source_id) FROM topic_source_connections c WHERE c.topic_id=topics.id),'[]') AS sources, queries, accounts FROM topics WHERE profile_id=$1 ORDER BY position, id`,
+      `SELECT id, profile_id AS "profileId", name, description, include_guidance AS "includeGuidance", exclude_guidance AS "excludeGuidance", enabled, position, story_budget AS "storyBudget", post_budget AS "postBudget", relevance_policy AS "relevancePolicy", COALESCE((SELECT jsonb_agg(source_id ORDER BY source_id) FROM topic_source_connections c WHERE c.topic_id=topics.id),'[]') AS sources, queries, accounts, reddit_communities AS "redditCommunities" FROM topics WHERE profile_id=$1 ORDER BY position, id`,
       ['00000000-0000-4000-8000-000000000001'],
     );
     return result.rows;
@@ -164,8 +164,8 @@ export class PostgresTopicRepository
         profileId,
       ]);
       await client.query(
-        `INSERT INTO topics(id, profile_id, name, description, include_guidance, exclude_guidance, enabled, position, story_budget, post_budget, relevance_policy, accounts)
- SELECT $1,$2,$3,$4,$5,$6,$7,COALESCE(MAX(position)+1,0),$8,$9,$10,$11 FROM topics WHERE profile_id=$2`,
+        `INSERT INTO topics(id, profile_id, name, description, include_guidance, exclude_guidance, enabled, position, story_budget, post_budget, relevance_policy, accounts, reddit_communities)
+ SELECT $1,$2,$3,$4,$5,$6,$7,COALESCE(MAX(position)+1,0),$8,$9,$10,$11,$12 FROM topics WHERE profile_id=$2`,
         [
           id,
           profileId,
@@ -178,6 +178,7 @@ export class PostgresTopicRepository
           input.postBudget,
           input.relevancePolicy,
           JSON.stringify(input.accounts ?? []),
+          JSON.stringify(input.redditCommunities ?? []),
         ],
       );
       await client.query('COMMIT');
@@ -222,7 +223,7 @@ export class PostgresTopicRepository
   }
   async updateDefault(id: string, update: TopicUpdate): Promise<Topic | null> {
     const result = await this.db.query(
-      `UPDATE topics SET name=$3, description=$4, include_guidance=$5, exclude_guidance=$6, enabled=$7, story_budget=$8, post_budget=$9, relevance_policy=$10, accounts=COALESCE($11::jsonb,accounts) WHERE id=$1 AND profile_id=$2 RETURNING id`,
+      `UPDATE topics SET name=$3, description=$4, include_guidance=$5, exclude_guidance=$6, enabled=$7, story_budget=$8, post_budget=$9, relevance_policy=$10, accounts=COALESCE($11::jsonb,accounts), reddit_communities=COALESCE($12::jsonb,reddit_communities) WHERE id=$1 AND profile_id=$2 RETURNING id`,
       [
         id,
         '00000000-0000-4000-8000-000000000001',
@@ -235,6 +236,9 @@ export class PostgresTopicRepository
         update.postBudget,
         update.relevancePolicy,
         update.accounts === undefined ? null : JSON.stringify(update.accounts),
+        update.redditCommunities === undefined
+          ? null
+          : JSON.stringify(update.redditCommunities),
       ],
     );
     if (!result.rowCount) return null;

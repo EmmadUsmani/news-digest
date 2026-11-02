@@ -30,18 +30,6 @@ Earlier iterations 141–142: [archive](docs/progress-archive/2026-11-02-iterati
 
 Earlier iteration 143: [archive](docs/progress-archive/2026-11-02-iteration-143.md).
 
-## 2026-11-02: iteration 154 — compact iteration orientation
-
-- Started clean on main; no leftover work. Completed STEERING 12 before item 7 as explicitly ordered.
-- Archived complete prior TASKS and progress iterations 101–132; TASKS shrank 25.8 KB to 4.5 KB, PROGRESS 61.5 KB to under 24 KB. Retained eleven recent entries rather than twenty to meet the 25 KB limit.
-- Preserved open work and added owner priorities 7–11 plus lower-priority recorded LLM testing; marked implemented social components clearly. Appended item 12 ack.
-- Python archive-preservation check confirms every original progress entry and the complete original task list survive (ignoring formatting whitespace).
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and 152 isolated tests pass. First check caught an archive created during formatting; corrected and full rerun green.
-- `pnpm build` passes; restarted API/worker, `curl -fsS http://localhost:8000/healthz` healthy. Read-only `/api/status`: 32 sources, zero current errors, 1,398 stored source items; digest queue has no failures. Two historical ingestion failures remain retained.
-- Included formatter-only fixes to two existing Markdown files so repository-wide format checking stays green. No UI/code/source changes, inference calls, schedule changes or provider changes.
-- Next: STEERING 7 edition speed/async jobs, then Reddit; restore owner schedule under item 11 and isolate schedule verification. No new blocker.
-- Initial push rejected because origin advanced to 31816b1 (supervisor weekly-window pacing). Merged without rewriting history; README conflict resolved using incoming text plus required formatting.
-
 ## 2026-11-02: iteration 155 — bounded concurrent article/social triage
 
 - Started clean on main; no leftover work. Services/health healthy; 32 sources without current errors, 1,398 stored items. Two historical ingestion failures retained; digest queue has no failures.
@@ -188,3 +176,14 @@ Earlier iteration 143: [archive](docs/progress-archive/2026-11-02-iteration-143.
 - `pnpm exec tsx --test apps/api/test/reddit-listing.test.ts`: 3 passed. Initial full check caught docs formatting during an edit; formatted and reran `pnpm check`: all 167 isolated tests, types/lint/format/boundaries pass. `pnpm build` passed.
 - Restarted API/worker; health database/Redis true, 32 sources/no current errors, digest queue zero failed, latest edition four topics. No UI changes; docs/SOURCES and TASKS updated; archived iteration 143 to keep orientation small.
 - Next: inspect 15:00 scheduled publication via read-only timing report; connect Reddit community settings/persistence behind the new port while respecting denied public access.
+
+## 2026-11-02: iteration 169 — editable Reddit community configuration
+
+- Started clean on main; no leftover work. API/worker/health healthy, 32 sources without current errors, zero failed digest jobs; two historical ingestion failures retained.
+- Added migration 037 with owner-curated communities for four original topics; settings/API persist bounded unique names, normalize r/ in UI, support clearing and preserve choices for older clients omitting the field.
+- Reddit collection stays disabled after prior 403s; no new access probe, bypass, inference or paid search. Post storage/collection/ranking/cards remain next; no live Reddit content claimed.
+- Added isolated repository/validation coverage for seed data, create/update/read, omission, clearing, independent X accounts and unchanged other topics.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (169 tests, types/lint/format/boundaries) and `pnpm build` pass. Fixed smoke script's CJS top-level-await issue before rerunning.
+- Applied migration with `pnpm migrate`; restarted API/worker. `pnpm exec tsx scripts/smoke-reddit-communities.ts` passed desktop/mobile normalize/save/reload/duplicates/clear with intercepted writes and unchanged live topics; screenshots updated.
+- Read-only timing report observed 15:00 scheduled edition 60718fe7 publish in 856 ms, 604 candidates/four topics, ten X posts; all story/social selection non-AI fallback due incomplete triage within caps. NOT live AI latency evidence. Spend unchanged at 481910 micros; next run Nov 3 15:00 UTC.
+- Health/source/status/latest-edition endpoints pass, no failed digest runs. README/TASKS/SOURCES updated; archived oldest progress entry to stay compact. Next: Reddit post persistence/collection behind port, respecting blocked public access.

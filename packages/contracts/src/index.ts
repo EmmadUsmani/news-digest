@@ -28,6 +28,19 @@ export const relevancePolicySchema = z
   })
   .strict();
 export type RelevancePolicy = z.infer<typeof relevancePolicySchema>;
+export const redditCommunitiesSchema = z
+  .array(
+    z
+      .string()
+      .trim()
+      .regex(/^[a-zA-Z0-9_]{2,21}$/),
+  )
+  .max(20)
+  .refine(
+    (names) =>
+      new Set(names.map((name) => name.toLowerCase())).size === names.length,
+    'Reddit communities must be unique, ignoring case',
+  );
 export const topicSchema = z.object({
   id: z.string().uuid(),
   profileId: z.string().uuid(),
@@ -43,6 +56,7 @@ export const topicSchema = z.object({
   sources: z.array(z.string()),
   queries: z.array(z.string()),
   accounts: z.array(z.string()),
+  redditCommunities: redditCommunitiesSchema.default([]),
 });
 export type Topic = z.infer<typeof topicSchema>;
 export const contentGroupSchema = z.object({
@@ -255,6 +269,7 @@ export const topicUpdateSchema = topicSchema
   })
   .extend({
     accounts: xAccountsSchema.optional(),
+    redditCommunities: redditCommunitiesSchema.optional(),
     name: z.string().trim().min(1).max(120),
     description: z.string().trim().max(2000),
     includeGuidance: z.string().trim().max(2000),
