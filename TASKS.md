@@ -144,7 +144,7 @@ Fix regressions, broken services and stalled sources before starting new work.
   - UI polish
   - retention/backup
   - resilience
-  - Make schedule-changing smoke checks persist recovery settings and restore on termination; iteration 52 required manual restoration after signal 143.
+  - [x] Schedule-changing smoke checks persist exclusive recovery settings and restore on SIGINT/SIGTERM; documented recovery command handles retained records after uncatchable termination (iteration 133). Isolated child-process signal regression; live schedule unchanged.
 
 - [x] Stop verification from replacing live AI editions: run the existing suite in disposable Postgres/Redis containers with cleared inference credentials, migrated seeds and guarded direct test connections (iteration 57; regression repair).
 - [ ] STEERING 2a (after M3): isolated Testcontainers Postgres/Redis migration, repository/HTTP characterization, golden edition and database coverage; include `test:integration` in `check`. Never touch live DB.

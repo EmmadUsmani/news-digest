@@ -2,13 +2,13 @@ import assert from 'node:assert/strict';
 
 import { profileSettingsSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
+
+import { protectSchedule } from './lib/schedule-recovery';
 const base = 'http://localhost:8000';
 async function smoke() {
   const browser = await chromium.launch();
   const context = await browser.newContext();
-  const original = profileSettingsSchema.parse(
-    await (await context.request.get(`${base}/api/profile`)).json(),
-  );
+  const restoreSchedule = await protectSchedule(base);
   const topics = await (await context.request.get(`${base}/api/topics`)).json();
   const latest = await (
     await context.request.get(`${base}/api/digest-previews/latest`)
@@ -144,14 +144,7 @@ async function smoke() {
       'Schedule desktop/mobile: persistence, validation atomicity, timezone errors, new-topic defaults and immutable history passed',
     );
   } finally {
-    assert.equal(
-      (
-        await context.request.put(`${base}/api/profile/schedule`, {
-          data: original.schedule,
-        })
-      ).status(),
-      200,
-    );
+    await restoreSchedule();
     await browser.close();
   }
 }

@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { profileSettingsSchema } from '@digest/contracts';
 import { Queue } from 'bullmq';
 
+import { protectSchedule } from '../../../scripts/lib/schedule-recovery';
 import { database } from '../src/libs/db/connections';
 const base = 'http://localhost:8000';
 async function smoke() {
@@ -27,6 +28,7 @@ async function smoke() {
       200,
     );
   }
+  const restoreSchedule = await protectSchedule(base);
   try {
     await save({
       ...profile.schedule,
@@ -74,7 +76,7 @@ async function smoke() {
       edition.id,
     );
   } finally {
-    await save(profile.schedule);
+    await restoreSchedule();
     // Ensure the restored schedule reaches Redis before exiting.
     for (let attempt = 0; attempt < 20; attempt++) {
       const scheduler = await queue.getJobScheduler(`profile-${profile.id}`);

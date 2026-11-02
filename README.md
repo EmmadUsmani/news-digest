@@ -230,3 +230,12 @@ method. Incomplete triage or unavailable editing retains lexical selection and
 labels it non-AI. Unknown engagement and media contents are never inferred.
 Read-only UI verification can use `POST_EDITORIAL_REPLAY=1` with `smoke-posts.ts`;
 its context is explicitly synthetic and it publishes no edition.
+
+Schedule-changing smoke checks save the original profile schedule exclusively to
+`~/.local/state/news-digest/schedule-recovery.json` before editing it. Normal exit,
+SIGINT and SIGTERM restore and verify the saved schedule. If the VM stops or the
+process receives SIGKILL, the record remains and another probe refuses to start.
+Run `pnpm exec tsx scripts/recover-schedule.ts` once the API is healthy to restore
+that record; failed restoration retains it. Do not run schedule probes concurrently
+or edit the schedule while a probe is active. These probes can publish editions;
+use the isolated suite for routine verification rather than the live scheduler probe.

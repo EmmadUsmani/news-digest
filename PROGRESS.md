@@ -259,3 +259,15 @@ Earlier iterations 87–100: [archive](docs/progress-archive/2026-11-02-iteratio
 - Restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; refreshed screenshots and inspected mobile Al Jazeera source card.
 - Updated TASKS/docs/SOURCES. No publication, inference/discovery spend, provider/model/billing change or new owner blocker: Anthropic $0.408415; X $0.023382; no reservations/errors.
 - Next: inspect scheduled 20:40 UTC semantic social edition. Gaming/World social fallback gaps and Reddit block remain; keep paid X scheduling off.
+
+## 2026-11-02: iteration 133 — recover interrupted schedule verification
+
+- Started clean on main; no leftover work. API/worker/health, 27 feeds and digest runs healthy; scheduled semantic edition remains due 20:40 UTC, not yet inspectable.
+- Both schedule-changing smoke scripts now save an exclusive mode-600 recovery record before mutation, restore/verify on normal completion and SIGINT/SIGTERM, and refuse to overwrite unresolved recovery state.
+- Added `scripts/recover-schedule.ts` for retained records after SIGKILL/VM interruption; failed restoration keeps the record. README documents recovery and concurrent-edit limitations. No live schedule probe or schedule edit performed.
+- Isolated fake-HTTP/child-process regression verifies SIGTERM exit 143, exact original restoration, record removal and refusal of a second probe. No live DB or external inference used by test.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 141 isolated tests pass. Initial lint caught unawaited test registration; corrected and full check rerun. `pnpm build` passes (existing upstream Zod warnings).
+- Restarted API/worker; `/healthz` healthy. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: 1,144 stored URLs/four topics/27 healthy sources, repeated collection idempotent.
+- `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; refreshed status screenshots. No product UI changes.
+- No publication, inference/discovery spend, provider/model/billing change or new owner blocker. Gaming/World social gaps and Reddit access remain; paid X scheduling stays off.
+- Next: inspect 20:40 UTC scheduled semantic edition when due; continue free social coverage work in the meantime.
