@@ -30,6 +30,7 @@ const integration = new Set([
   'social-eligibility.test.ts',
   'social-selection.test.ts',
   'topic-coverage.test.ts',
+  'topic-repository.test.ts',
   'usage-purpose.test.ts',
   'verification-budget.test.ts',
   'x-discovery-ledger.test.ts',

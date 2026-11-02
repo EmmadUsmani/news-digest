@@ -43,6 +43,9 @@ Edition history characterization covers profile isolation, exact JSON retrieval,
 read results, stable timestamp ties, 20-entry pagination and timezone normalization.
 Profile repository characterization covers foreign-schedule isolation, detached reads,
 both budget boundaries, atomic rejection of invalid budgets and missing-schedule errors.
+Topic repository characterization covers atomic source replacement/rejection, duplicate
+connection rejection, custom-feed URL dedupe across topics, missing-topic registration
+rollback, disconnects and catalog survival after topic deletion.
 Content repository characterization covers connected/enabled source eligibility, shared
 observations, dedupe, five-item ordering/filtering, timezone normalization, JSON
 upserts, failure truncation and batch rollback (including existing-row updates).

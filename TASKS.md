@@ -58,5 +58,5 @@ M0–M2 and foundational M3/M6/M7 functionality are implemented; remaining work 
   - retention/backup
   - resilience
 
-- [ ] STEERING 2a (lower priority): finish repository/HTTP characterization, nonempty golden edition and database coverage. Iterations 183–191 added isolated Postgres/Redis, fresh migrations, HTTP/worker flows, content/Reddit/publisher/X repositories, source telemetry and X budget boundary/rollback tests (99 unit/95 integration). 219–220 add edition retrieval/history and profile isolation, budget rollback and missing-schedule characterization. See README/PROGRESS for coverage. Never touch live DB; finish 2a before ORM.
+- [ ] STEERING 2a (lower priority): finish repository/HTTP characterization, nonempty golden edition and database coverage. Iterations 183–191 added isolated Postgres/Redis, fresh migrations, HTTP/worker flows, content/Reddit/publisher/X repositories, source telemetry and X budget boundary/rollback tests (99 unit/95 integration). 219–221 add edition history, profile isolation/budget rollback and topic source/feed dedupe characterization. See README/PROGRESS for coverage. Never touch live DB; finish 2a before ORM.
 - [ ] STEERING 2b (only after 2a is green): record Drizzle decision/schema parity, back up live DB, gradually replace raw SQL behind ports and enforce boundaries.

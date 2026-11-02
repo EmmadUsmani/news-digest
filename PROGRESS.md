@@ -84,17 +84,7 @@ Earlier iterations 202–203: [archive](docs/progress-archive/2026-11-02-iterati
 
 Iterations 204–205: [archive](docs/progress-archive/2026-11-02-iterations-204-205.md).
 
-## 2026-11-02: iteration 206 — verify lifecycle/admission lock ordering
-
-- Started clean on main; API/worker and health healthy. No leftover work.
-- Added disposable-Postgres tests queueing operations behind the actual advisory lock; observed lock wait establishes ordering.
-- Claim-before-admission grants current scheduled access; retry-before-admission fences it; admission-before-failure stays denied until committed release.
-- Yesterday's running claim cannot use today's reserve; released funds still obey the daily cap.
-- Reserve enforcement remains OFF. No provider calls, Reddit requests or UI changes.
-- Compressed completed TASKS detail and archived iteration 190 to keep orientation bounded.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (113 unit/111 isolated integration), `pnpm build`, `git diff --check` passed.
-- Live reads: four queues, 32 sources without errors, latest edition four topics/10 posts. API/worker restarted healthy after push.
-- Next: verified no-occurrence-day release, manual/Status visibility, then enforcement enablement before Nov 3 15:00 UTC.
+Earlier iteration 206: [archive](docs/progress-archive/2026-11-02-iteration-206.md).
 
 ## 2026-11-02: iteration 207 — release verified no-occurrence days
 
@@ -259,3 +249,14 @@ Iterations 204–205: [archive](docs/progress-archive/2026-11-02-iterations-204-
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check`; 120 unit and 120 isolated integration tests passed.
 - Read-only timing report: next Nov 3 15:00 UTC; prior 856 ms fallback is not AI latency evidence. X report Nov 2: $0.023382, two verified/dated historical World citations, incremental baseline unknown.
 - No inference or Reddit requests. API/worker restarted; health DB/Redis true and SPA 200. Next: observe Nov 3 14:30 X discovery and 15:00 scheduled AI cost/duration; 2a remains incomplete.
+
+## 2026-11-02: iteration 221 — topic source connection characterization
+
+- Started clean on main; API/worker and health healthy, 32 sources without errors and four queues available. No leftover work.
+- Items 13/7/9 await Nov 3 scheduled evidence; advanced lower-priority STEERING 2a using disposable containers only.
+- Added repository-port assertions for atomic source replacement/rejection, duplicate/unknown source rejection, sorted connections, disconnects and missing-topic registration rollback.
+- Custom-feed URL dedupe is pinned across repeated registration and multiple topics; deleting a connected topic preserves the catalog entry for reuse. No feed fetches occur.
+- Registered isolated test and updated README/TASKS; archived iteration 206 to keep PROGRESS bounded. No application behavior or UI change.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check`; 120 unit and 121 isolated integration tests passed.
+- Live read-only status: next scheduled edition Nov 3 15:00 UTC; prior 856 ms fallback remains insufficient AI timing evidence. No inference or Reddit requests.
+- API/worker restarted; health DB/Redis true, SPA 200. Next: observe Nov 3 14:30 X discovery and 15:00 scheduled AI cost/duration; 2a remains incomplete.
