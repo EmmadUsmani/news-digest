@@ -263,3 +263,16 @@ failure; it does not infer outcomes for editions predating lifecycle tracking.
 Disposable-Postgres tests cover disabled/pending/running/retrying/released
 telemetry and a synthetic fallback outcome. Enforcement remains OFF pending
 manual-run notices and enablement.
+
+## Manual creation visibility (iteration 209)
+
+The coverage-period form reads ledger-consistent Status telemetry on mount and
+again before submitting a manual job. Active protection shows the remaining
+other-run AI allowance and warns that topics may use labeled non-AI ranking.
+The notice remains visible through completion/failure; released or disabled
+protection clears it on the next refresh. Failed telemetry shows an explicit
+availability warning without blocking creation or bypassing ledger enforcement.
+These are current allowance estimates, not a promise of AI editing or proof
+that the reserve caused any particular topic's fallback. Browser checks use
+synthetic status/job responses; live screenshots are read-only. Enforcement
+remains OFF pending the separate operational enablement step.

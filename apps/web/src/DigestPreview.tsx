@@ -1,6 +1,7 @@
 import {
   type DigestPreview as Preview,
   digestPreviewSchema,
+  operationsStatusSchema,
   type PreviewHistory,
   previewHistorySchema,
 } from '@digest/contracts';
@@ -17,6 +18,27 @@ export function DigestPreview() {
     sessionStorage.getItem('edition-job'),
   );
   const [jobMessage, setJobMessage] = React.useState('');
+  const [budgetNotice, setBudgetNotice] = React.useState('');
+  const refreshBudgetNotice = React.useCallback(async () => {
+    try {
+      const response = await fetch('/api/status');
+      if (!response.ok) throw new Error();
+      const reserve = operationsStatusSchema.parse(await response.json()).llm
+        .scheduledReserve;
+      setBudgetNotice(
+        reserve?.enabled && reserve.limitedByReserve
+          ? `AI budget reserved for the scheduled edition. Manual runs have $${(reserve.otherAvailableMicros / 1e6).toFixed(6)} available for AI; some or all topics may use labeled non-AI ranking. See Source & run status for budget details.`
+          : '',
+      );
+    } catch {
+      setBudgetNotice(
+        'AI budget availability could not be checked. Scheduled edition protection still applies; manual runs may use labeled non-AI ranking.',
+      );
+    }
+  }, []);
+  React.useEffect(() => {
+    void refreshBudgetNotice();
+  }, [refreshBudgetNotice]);
   const [busy, setBusy] = React.useState(false);
   const working = busy || jobId !== null;
   const [error, setError] = React.useState(false);
@@ -141,6 +163,7 @@ export function DigestPreview() {
     setBusy(true);
     setError(false);
     try {
+      await refreshBudgetNotice();
       const response = await fetch('/api/digest-previews/jobs', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -191,6 +214,11 @@ export function DigestPreview() {
         establish independent reporting. Older editions keep their original
         method.
       </p>
+      {budgetNotice && (
+        <p role="status" aria-label="Manual edition AI budget">
+          {budgetNotice}
+        </p>
+      )}
       <form
         className="window-controls"
         onSubmit={(event) => {

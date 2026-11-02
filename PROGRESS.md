@@ -74,16 +74,6 @@ Iteration 189: [archive](docs/progress-archive/2026-11-02-iteration-189.md).
 
 Iteration 192: [archive](docs/progress-archive/2026-11-02-iteration-192.md).
 
-## 2026-11-02: iteration 193 — durable scheduled AI budget lifecycle
-
-- Started clean on main; API/worker and DB/Redis health healthy. Latest real edition four topics/10 posts; no leftover work.
-- Added migration 040 and a domain-port/database adapter for UTC-day scheduled identity, shared-ledger-lock lifecycle writes, single concurrent claim, numbered retry attempts and stale-worker completion fencing.
-- Terminal success/failure cannot reopen; successful completion persists edition ID, AI/mixed/fallback mode and reason. First registration wins across restarts; pending schedule reconciliation is still required.
-- Two isolated Postgres tests cover timezone boundaries, duplicate registrations, racing claims, retries, durable outcomes, terminal states, validation and contention with ledger lock 756282.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (104 unit/97 integration) and `pnpm build` passed. `pnpm migrate` applied 040; no paid calls or Reddit requests. No UI changes; browser verification unnecessary.
-- Updated decision 0002, README/TASKS; archived iteration 178 to keep orientation small. Live reserve protection remains UNFINISHED: wire cron/settings and worker lifecycle, measured costs and ledger admission next, then manual/Status visibility.
-- Restarted API/worker: `/healthz` DB/Redis true, SPA 200, four queues available, 32 sources without current errors and latest edition four topics/10 posts. `git diff --check` passed.
-
 ## 2026-11-02: iteration 194 — measured full-AI edition costs
 
 - Started clean on main; API/worker and DB/Redis health healthy. No leftover work; 32 sources without current errors and latest real edition four topics/10 posts.
@@ -256,3 +246,13 @@ Iteration 192: [archive](docs/progress-archive/2026-11-02-iteration-192.md).
 - Restarted API/worker healthy; health DB/Redis true, SPA 200, four queues, 32 sources without errors; retained real edition four topics/10 posts.
 - Live Status reports Nov 2 fallback reason, protection disabled, $0.000848 available; next scheduled run Nov 3 15:00 UTC. No inference or Reddit requests.
 - Updated README/decision/TASKS and archived iteration 192. Next: manual-run limitation notices, then enable protection before Nov 3 scheduled run.
+
+## 2026-11-02: iteration 209 — explain manual edition reserve limits
+
+- Started clean on main; API/worker, health and 32 sources healthy. No leftover work.
+- Manual creation now shows active scheduled protection, remaining other-run AI allowance and the possibility of labeled non-AI ranking.
+- Refreshes telemetry on page load and before submission; failed status reads show an explicit warning. Notices persist through job completion/failure.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (113 unit/113 isolated integration), `pnpm build`, `git diff --check` passed.
+- `pnpm exec tsx scripts/smoke-manual-reserve.ts` passed desktop/mobile protected, submission-refresh, released and unavailable states using synthetic browser responses; saved live screenshots.
+- Live reads: four queues, 32 sources without errors, latest real edition four topics/10 posts; health DB/Redis true. No paid inference, live jobs or Reddit requests.
+- Updated reserve decision/TASKS and archived iteration 193. Reserve enforcement remains OFF; next: enable protection before Nov 3 15:00 UTC and measure scheduled cost/duration.
