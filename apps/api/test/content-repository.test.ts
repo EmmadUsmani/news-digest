@@ -271,3 +271,104 @@ void test('content repository characterizes eligibility, shared observations, or
     await repository.onModuleDestroy();
   }
 });
+
+void test('source failure and empty recovery preserve retained content and independent source health', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const repository = new PostgresContentRepository();
+  const topicId = randomUUID();
+  const source: Source = {
+    id: `health-${topicId}`,
+    topicId,
+    name: 'Health fixture',
+    kind: 'feed',
+    url: `https://example.org/${topicId}`,
+  };
+  const other: Source = { ...source, id: `${source.id}-other` };
+  const status = async (id: string) =>
+    (await repository.status()).find((row: { id: string }) => row.id === id);
+  const health = async () =>
+    (
+      await repository.db.query(
+        'SELECT last_attempt,last_success,last_error,last_item_count FROM content_sources WHERE id=$1',
+        [source.id],
+      )
+    ).rows[0];
+  try {
+    await repository.db.query(
+      `INSERT INTO topics(id,profile_id,name,description,include_guidance,position) SELECT $1,id,'Health fixture','','',100 FROM profiles LIMIT 1`,
+      [topicId],
+    );
+    for (const row of [source, other])
+      await repository.db.query(
+        'INSERT INTO content_sources(id,topic_id,name,kind,url) VALUES($1,$2,$3,$4,$5)',
+        [row.id, topicId, row.name, row.kind, row.url],
+      );
+    await repository.db.query(
+      'INSERT INTO topic_source_connections(topic_id,source_id) VALUES($1,$2)',
+      [topicId, source.id],
+    );
+    await repository.failed(source, 'First attempt failed');
+    const first = await health();
+    assert.ok(first.last_attempt instanceof Date);
+    assert.equal(first.last_success, null);
+    assert.equal(first.last_error, 'First attempt failed');
+    const item: ContentItem = {
+      url: `${source.url}/story`,
+      title: 'Retained story',
+      excerpt: 'Evidence',
+      author: null,
+      publishedAt: '2035-01-01T00:00:00Z',
+      imageUrl: null,
+      engagement: { points: 5 },
+    };
+    await repository.store(source, [item]);
+    const successful = await health();
+    assert.equal(successful.last_error, null);
+    assert.equal(successful.last_item_count, 1);
+    assert.deepEqual(successful.last_attempt, successful.last_success);
+    const content = (await repository.latest()).find(
+      (row: { topicId: string }) => row.topicId === topicId,
+    );
+    const independent = await status(other.id);
+    await repository.failed(source, 'Upstream unavailable');
+    const failed = await health();
+    assert.deepEqual(failed.last_success, successful.last_success);
+    assert.equal(failed.last_item_count, 1);
+    assert.ok(failed.last_attempt >= successful.last_attempt);
+    assert.equal(failed.last_error, 'Upstream unavailable');
+    await repository.store(source, []);
+    const recovered = await health();
+    assert.equal(recovered.last_error, null);
+    assert.equal(recovered.last_item_count, 0);
+    assert.deepEqual(recovered.last_attempt, recovered.last_success);
+    assert.ok(recovered.last_success >= failed.last_attempt);
+    assert.equal((await status(source.id)).storedItems, 1);
+    assert.deepEqual(
+      (await repository.latest()).find(
+        (row: { topicId: string }) => row.topicId === topicId,
+      ),
+      content,
+    );
+    assert.deepEqual(await status(other.id), independent);
+    await repository.store(source, []);
+    assert.equal((await status(source.id)).storedItems, 1);
+  } finally {
+    await repository.db.query(
+      'DELETE FROM content_observations WHERE source_id=$1',
+      [source.id],
+    );
+    await repository.db.query(
+      'DELETE FROM topic_source_connections WHERE topic_id=$1',
+      [topicId],
+    );
+    await repository.db.query('DELETE FROM content_sources WHERE topic_id=$1', [
+      topicId,
+    ]);
+    await repository.db.query(
+      'DELETE FROM content_items WHERE canonical_url=$1',
+      [`${source.url}/story`],
+    );
+    await repository.db.query('DELETE FROM topics WHERE id=$1', [topicId]);
+    await repository.onModuleDestroy();
+  }
+});

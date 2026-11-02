@@ -219,3 +219,13 @@ at one millisecond and later recovery, legacy/overflow ID rejection,
 existing publication preservation and non-X exclusion. Full-row comparisons
 ensure recovery changes only publication time; repeated runs return zero.
 Synthetic Reddit rows test platform isolation without network requests.
+
+## Source health recovery (iteration 242)
+
+`content-repository.test.ts` pins a first failed poll before any success, a
+successful nonempty poll, a later failure and repeated empty successful polls.
+Failures retain the last-success timestamp and last successful item count;
+empty recovery clears the error and reports zero new items while preserving
+stored observations and the latest-content response. An independent source's
+health remains unchanged. All fixtures use disposable PostgreSQL; no feed,
+Reddit or inference requests occur. Remaining repository gaps stay open.
