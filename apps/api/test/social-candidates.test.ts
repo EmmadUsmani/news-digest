@@ -343,3 +343,105 @@ void test('missing X publication times backfill only valid verified posts and pr
     await pool.end();
   }
 });
+
+void test('river discovery rolls back its final status write and retries without duplicates', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const repository = new PostgresSocialRepository();
+  const topic = crypto.randomUUID();
+  const source = `river-rollback-${topic}`;
+  const original = {
+    externalId: '2116948532477468660',
+    url: 'https://x.com/fixture/status/2116948532477468660',
+    verificationUrl: 'https://example.org/original',
+  };
+  const added = {
+    externalId: '2116948532477468661',
+    url: 'https://x.com/fixture/status/2116948532477468661',
+    verificationUrl: 'https://example.org/added',
+  };
+  const read = async () => ({
+    source: (
+      await repository.db.query(
+        'SELECT * FROM social_discovery_sources WHERE id=$1',
+        [source],
+      )
+    ).rows,
+    citations: (
+      await repository.db.query(
+        'SELECT * FROM social_discovery_citations WHERE source_id=$1 ORDER BY external_id',
+        [source],
+      )
+    ).rows,
+  });
+  try {
+    await repository.db.query(
+      `INSERT INTO topics(id,profile_id,name,description,include_guidance,position)
+      VALUES($1,'00000000-0000-4000-8000-000000000001','River rollback','Fixture','Fixture',900)`,
+      [topic],
+    );
+    await repository.db.query(
+      `INSERT INTO social_discovery_sources(id,topic_id,name,url)
+      VALUES($1,$2,'Fixture','https://example.org/rollback')`,
+      [source, topic],
+    );
+    await repository.discovered(source, [original]);
+    await repository.discoveryFailed(source);
+    const before = await read();
+    // Reject the final source-health write after every citation upsert succeeded.
+    await repository.db
+      .query(`ALTER TABLE social_discovery_sources ADD CONSTRAINT river_final_status_fixture
+      CHECK (id <> '${source}' OR last_link_count <> 2)`);
+    await assert.rejects(
+      repository.discovered(source, [
+        { ...original, verificationUrl: 'https://example.org/replacement' },
+        added,
+      ]),
+      /river_final_status_fixture/,
+    );
+    assert.deepEqual(await read(), before);
+    assert.equal(
+      await repository.verificationUrl(original.externalId),
+      original.verificationUrl,
+    );
+    assert.equal(await repository.verificationUrl(added.externalId), undefined);
+    await repository.db.query(
+      'ALTER TABLE social_discovery_sources DROP CONSTRAINT river_final_status_fixture',
+    );
+    await repository.discovered(source, [original, added]);
+    const recovered = await read();
+    assert.equal(recovered.source[0].last_error, null);
+    assert.equal(recovered.source[0].last_link_count, 2);
+    assert.ok(
+      recovered.source[0].last_success >= before.source[0].last_success,
+    );
+    assert.equal(recovered.citations.length, 2);
+    assert.deepEqual(
+      recovered.citations[0].first_seen_at,
+      before.citations[0].first_seen_at,
+    );
+    assert.equal(
+      await repository.verificationUrl(added.externalId),
+      added.verificationUrl,
+    );
+    await repository.discovered(source, [
+      { externalId: original.externalId, url: original.url },
+      added,
+    ]);
+    const repeated = await read();
+    assert.equal(repeated.citations.length, 2);
+    assert.deepEqual(
+      repeated.citations.map((row) => row.first_seen_at),
+      recovered.citations.map((row) => row.first_seen_at),
+    );
+    assert.equal(
+      await repository.verificationUrl(original.externalId),
+      original.verificationUrl,
+    );
+  } finally {
+    await repository.db.query(
+      'ALTER TABLE social_discovery_sources DROP CONSTRAINT IF EXISTS river_final_status_fixture',
+    );
+    await repository.db.query('DELETE FROM topics WHERE id=$1', [topic]);
+    await repository.db.end();
+  }
+});

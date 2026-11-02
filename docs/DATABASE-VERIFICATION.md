@@ -398,3 +398,12 @@ The winning title and excerpt remain paired. Each source retains its own
 observation, citation engagement and healthy status; repeating both concurrent
 batches adds no duplicates and preserves citation first-seen times. Fixtures
 use disposable PostgreSQL only, with no source or provider requests.
+
+## River discovery batch recovery (iteration 262)
+
+`social-candidates.test.ts` rejects the final source-health write after updating
+an existing citation and inserting another. The complete citation and source-health snapshot
+survives unchanged. A valid retry clears the source error, retains first-seen
+times and exposes the new verification URL; repeat batches dedupe and preserve
+verification URLs when omitted. Disposable PostgreSQL only; no source or provider
+requests. Recorded-response golden and other repository gaps remain open.

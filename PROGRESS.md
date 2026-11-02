@@ -110,19 +110,6 @@ Earlier iteration 229: [archive](docs/progress-archive/2026-11-02-iteration-229.
 
 Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
 
-## 2026-11-02: iteration 242 — source health recovery
-
-- Started clean on main; API/worker and health green, 32 sources without current errors; no leftover work.
-- Priority 15/13/7/9 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a.
-- Added source-health characterization for first failure, successful collection, later failure and repeated empty recovery.
-- Pins retained success timestamps/counts on failure, cleared errors/zero poll count on recovery, retained content and independent source health.
-- First check stopped on formatting in the newly archived progress entry; formatted it and reran successfully.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 140 integration), `pnpm build`, `git diff --check` passed.
-- Updated TASKS/database notes; archived iteration 225 to keep PROGRESS bounded. No provider or Reddit requests.
-- Restarted API/worker healthy; DB/Redis true, SPA 200, 32 error-free sources and four available queues.
-- Read-only timing report confirms retained four-topic editions; 856 ms fallback remains no live AI latency evidence.
-- Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
-
 ## 2026-11-02: iteration 243 — shared-feed connection lifecycle
 
 - Started clean on main; API/worker and health green; no leftover work.
@@ -335,3 +322,16 @@ Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
 - Updated TASKS/database notes; archived iteration 241 to keep PROGRESS bounded.
 - Restarted API/worker; health, SPA, 32 error-free sources, four queues and latest four-topic edition verified.
 - Next: observe Nov 3 scheduled X per-topic cost/yield and AI edition cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 262 — river final-write recovery
+
+- Started clean on main; services, health, 32 sources and four queues healthy; no leftover work.
+- Priority 15/13/7/9 evidence awaits Nov 3; advanced isolated STEERING 2a.
+- Rejects the final river source-health write after existing/new citation upserts; the full snapshot survives unchanged.
+- Valid retry clears the error, preserves first-seen times and verification URLs, and repeated batches dedupe.
+- Disposable PostgreSQL only; no provider, source or Reddit requests for verification.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 157 integration), `pnpm build`, `git diff --check`.
+- Initial full suite passed; refined failure injection to the final write rather than duplicating existing mid-batch coverage, then reran checks.
+- Updated TASKS/database notes; archived iteration 242 to keep PROGRESS bounded.
+- Restarted API/worker; health, SPA, source/queue health and four-topic content checked.
+- Next: observe Nov 3 scheduled X cost/yield and AI edition cost/duration before acknowledging 15/13/7.
