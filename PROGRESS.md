@@ -110,19 +110,6 @@ Earlier iteration 229: [archive](docs/progress-archive/2026-11-02-iteration-229.
 
 Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
 
-## 2026-11-02: iteration 236 — daily X search for every topic
-
-- Started clean on main; health, services, 32 sources and four queues healthy. No leftover work.
-- STEERING 15: scheduler visits every eligible topic weakest-free-coverage first, preserving owner-order ties.
-- Rechecks settings/time before each sequential call; late searches skip. Second searches remain disabled.
-- Migration 044 preserves calls and replaces global daily uniqueness with topic/day uniqueness under the shared budget lock.
-- Scheduled holds project $0.10/call (~5x observed cost), settling actual usage before the next search; manual full-day holds and $0.40/day/$12/month caps remain.
-- Fakes/disposable DB pin all-topic ordering, late-window stopping, concurrent projections, restart/rejection dedupe and direct-write uniqueness.
-- Verification: `pnpm check` passed (122 unit, 135 integration); `pnpm build`, `pnpm format`, `pnpm lint:fix`, `git diff --check` passed.
-- Applied `pnpm migrate`; restarted API/worker healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues.
-- No paid/provider or Reddit requests; X ledger unchanged at $0.023382 today, no pending holds. Updated TASKS/SOURCES; archived iteration 220.
-- Next: observe Nov 3 14:30 UTC all-topic discovery, report per-topic cost/yield and acknowledge STEERING 15; measure 15:00 AI edition/reserve outcome for 13/7.
-
 ## 2026-11-02: iteration 237 — queue failure isolation characterization
 
 - Started clean on main; health, services, 32 sources and four queues healthy. No leftover work.
@@ -320,4 +307,15 @@ Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
 - Fixed two fixture constraints found by initial checks (numeric X IDs and required Reddit metadata); rerun passed.
 - API/worker restarted healthy; SPA 200, 32 error-free sources, four available queues and four-topic latest edition.
 - Updated TASKS/database notes; archived iteration 235 to keep PROGRESS bounded. No provider or Reddit requests.
+- Next: observe Nov 3 all-topic X cost/yield and scheduled AI cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 254 — concurrent publisher recovery
+
+- Started clean on main; services, health and all 32 sources healthy; no leftover work.
+- Priority 15/13/7/9 evidence awaits Nov 3; advanced isolated STEERING 2a.
+- Raced publisher collectors with a final-write constraint failure against a successful concurrent transaction.
+- Rejected citation inserts/author updates roll back; winner retains first-seen/engagement evidence and all three citations.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 150 integration), `pnpm build`, `git diff --check` passed.
+- Updated TASKS/database notes and archived iteration 236 to keep PROGRESS bounded. No provider or Reddit requests.
+- Restarted API/worker; health, SPA, source/queue status and four-topic latest edition verified after restart.
 - Next: observe Nov 3 all-topic X cost/yield and scheduled AI cost/duration before acknowledging 15/13/7.

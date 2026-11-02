@@ -333,3 +333,12 @@ Existing publication times, Reddit rows and all other post fields remain intact;
 repeating a backfill updates zero rows. The fixture uses a non-UTC transaction
 and rolls back all changes in disposable PostgreSQL. No provider or source
 requests occur. Recorded-response golden and other repository gaps remain open.
+
+## Concurrent publisher failure recovery (iteration 254)
+
+`article-discovery.test.ts` races two repository instances updating the same
+publisher citation. A disposable-database constraint rejects one transaction at
+its final check write while the other commits. The rejected transaction leaves
+no new citation or author replacement; the winner retains the original first-seen
+time and engagement, adds both new citations and records a successful three-link
+check. No publisher, X, Reddit or inference requests occur.

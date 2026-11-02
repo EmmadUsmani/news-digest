@@ -347,6 +347,58 @@ void test('publisher persistence rechecks shared-topic configuration and rolls b
       [article.id],
     );
     assert.deepEqual(await candidates(), []);
+
+    // Concurrent collectors must merge citations, even when one final write
+    // fails after updating existing evidence and inserting a new citation.
+    await repository.db.query(
+      'UPDATE content_sources SET article_discovery_host=$2 WHERE id=$1',
+      [source, host],
+    );
+    const peer = new PostgresArticleDiscoveryRepository();
+    await repository.db.query(
+      `ALTER TABLE article_x_discovery_checks ADD CONSTRAINT publisher_concurrent_failure
+       CHECK (item_id <> '${article.id}'::uuid OR link_count <> 2) NOT VALID`,
+    );
+    try {
+      const outcomes = await Promise.allSettled([
+        repository.record(article, [
+          link('999400000000000001', 'failed'),
+          link('999400000000000005'),
+        ]),
+        peer.record(article, [
+          link('999400000000000001', 'winner'),
+          link('999400000000000006'),
+          link('999400000000000007'),
+        ]),
+      ]);
+      assert.equal(outcomes[0].status, 'rejected');
+      if (outcomes[0].status === 'rejected')
+        assert.match(
+          String(outcomes[0].reason),
+          /publisher_concurrent_failure/,
+        );
+      assert.equal(outcomes[1].status, 'fulfilled');
+      const recovered = await citations();
+      assert.deepEqual(
+        recovered.map((row) => row.external_id),
+        ['999400000000000001', '999400000000000006', '999400000000000007'],
+      );
+      assert.equal(
+        recovered[0].verification_url,
+        'https://twitter.com/winner/status/999400000000000001',
+      );
+      assert.deepEqual(recovered[0].first_seen_at, before[0].first_seen_at);
+      assert.deepEqual(
+        recovered[0].citing_engagement,
+        before[0].citing_engagement,
+      );
+      assert.equal((await check()).link_count, 3);
+      assert.equal((await check()).last_error, null);
+    } finally {
+      await repository.db.query(
+        'ALTER TABLE article_x_discovery_checks DROP CONSTRAINT publisher_concurrent_failure',
+      );
+    }
   } finally {
     await repository.db.query(
       'DELETE FROM content_observations WHERE source_id=$1',
