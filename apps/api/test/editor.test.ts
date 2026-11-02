@@ -265,3 +265,43 @@ void test('editor exposes sanitized selection and absence failure categories thr
     );
   }
 });
+
+void test('editor advertises enforced text bounds and repairs overlong fields without relaxing validation', async () => {
+  for (const [field, limit] of [
+    ['headline', 240],
+    ['summary', 1400],
+    ['whyItMatters', 400],
+    ['rationale', 400],
+    ['brief', 400],
+  ] as const) {
+    const invalid =
+      field === 'brief'
+        ? { ...valid, brief: ['x'.repeat(limit + 1), 'A launch.'] }
+        : { ...valid, stories: [{ ...story, [field]: 'x'.repeat(limit + 1) }] };
+    const h = harness([invalid, valid]);
+    assert.ok(await h.editor.edit(topic, candidates, 1, 'length-repair'));
+    assert.equal(h.calls.length, 2);
+    assert.deepEqual(h.diagnostics(), [
+      { attempt: 'initial', category: 'invalid-schema' },
+    ]);
+    for (const request of h.calls) {
+      assert.ok(request.instructions.includes('headline 1–240 characters'));
+      assert.ok(request.instructions.includes('summary 1–1400 characters'));
+      assert.ok(
+        request.instructions.includes(
+          'whyItMatters and rationale each 1–400 characters',
+        ),
+      );
+      assert.ok(
+        request.instructions.includes('each brief bullet 1–400 characters'),
+      );
+    }
+    const boundary =
+      field === 'brief'
+        ? { ...valid, brief: ['x'.repeat(limit), 'A launch.'] }
+        : { ...valid, stories: [{ ...story, [field]: 'x'.repeat(limit) }] };
+    assert.ok(
+      await harness([boundary]).editor.edit(topic, candidates, 1, 'boundary'),
+    );
+  }
+});

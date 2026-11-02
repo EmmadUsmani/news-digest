@@ -237,3 +237,17 @@ Earlier iterations 23–37: [archive](docs/progress-archive/2026-11-01-iteration
 - Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed and mobile digest visually inspected.
 - No paid replay or new edition this iteration; no quality improvement claimed. Incremental inference $0; actual day/month $0.402119, zero reservations/provider errors. Provider/models/billing unchanged.
 - Updated TASKS/docs/LLM; no owner blockers. Next: bounded diagnostic Tech replay and absence-guard false-rejection audit before changing guard, then broader factual support/evaluation, scheduled batches and cross-process coordination.
+
+## 2026-11-02: iteration 67 — diagnose Tech rejection and state editor bounds
+
+- Started clean on main; no leftover work. API/worker/health, seventeen sources and retained digest runs healthy; historical ingestion failure has subsequent source successes. Schedule unchanged.
+- Bounded Tech replay diagnosed initial schema rejection then absence rejection on repair. Categories cannot identify rejected fields/sentences or establish false rejections; guard unchanged.
+- Added missing enforced text/array limits and exact-key requirements to editor instructions, including repairs. Instruction hash refreshes editor caches only; no provider/model/billing changes.
+- Second explicit Tech replay accepted five stories after one absence repair. New immutable offline v4 artifact retains 3/5 provisional targets and zero labeled omissions; no fixture content or evaluation editions published.
+- Audited all five summaries against cited bounded inputs; prior Apple/benchmark absence caveats absent. Significance extrapolation (hospital access versus adoption, benchmark implications) remains; no general factuality/precision claim.
+- Added all-field length boundary/repair regressions and offline v4 absence/recall regression; `pnpm evaluate:editorial` now includes v3/v4 snapshots alongside historical NBA/World/Tech replays.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass types/lint/format/boundaries and 88 isolated tests; `pnpm build` passes with existing upstream Zod warnings. Initial check raced the new unformatted artifact; formatted final rerun passed.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live passes: 723 real URLs, four topics, seventeen healthy sources. No source configuration changes.
+- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed and mobile digest inspected.
+- Two evaluations/four Haiku calls cost $0.006296; day/month actual $0.408415, zero reservations/provider errors, $0.482758 daily/$14 monthly caps.
+- Updated TASKS/docs/LLM/docs/RANKING; no owner blockers. Next: broader factual support/absence false-rejection audit, independent labels/later dates/Gaming, scheduled batches and cross-process coordination.

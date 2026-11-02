@@ -160,3 +160,28 @@ void test('absence guard rejects remaining recorded v3 Apple and benchmark cavea
     );
   }
 });
+
+void test('v4 recorded Tech replay retains targets and passes absence checks across selected story text', async () => {
+  const { assertAbsenceSupport } =
+    await import('../src/modules/curation/application/absence-support');
+  const report = evaluateEditorialWindow('tech', 'v4');
+  assert.equal(report.eventRecall, 0.6);
+  assert.equal(report.forbiddenSelected.length, 0);
+  assert.equal(report.selected.length, 5);
+  for (const story of report.selected) {
+    const input = report.evidenceInputs.find((e) => e.storyId === story.id)!;
+    assert.ok(input.candidates.some((c) => c.id === story.id));
+    for (const field of [
+      'headline',
+      'summary',
+      'whyItMatters',
+      'rationale',
+    ] as const)
+      assert.doesNotThrow(() =>
+        assertAbsenceSupport(
+          story[field],
+          input.candidates.flatMap((c) => [c.title, c.excerpt ?? '']),
+        ),
+      );
+  }
+});

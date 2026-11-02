@@ -344,3 +344,18 @@ accuracy. Reservation refusals and transport errors are not validation failures.
 No paid replay was performed in iteration 66. The earlier Tech failures cannot
 be diagnosed retroactively; a future explicit bounded replay can now distinguish
 absence rejection from schema/selection failure before changing the guard.
+
+Iteration 67: the bounded Tech replay reports `invalid-schema` initially and
+`unsupported-absence` on repair, with no accepted artifact. Categories do not
+identify the schema field or rejected sentence; no false-rejection conclusion
+is possible. Inspection found the editor prompt omitted its enforced field
+length limits. Added explicit text/array bounds and exact-key requirements to
+both initial and repair instructions; validation and absence guard are unchanged.
+The instruction hash changes editor cache identity; triage caches are retained.
+Boundary/overlong-field repair tests exercise every bounded text field.
+
+A second explicit Tech replay, after that change, needed one absence repair and
+returned five validated stories via configured Haiku fallback ($0.003503).
+The frozen v4 artifact supports offline replay, not publication. Both attempts
+cost $0.006296 total; actual day/month spend is $0.408415, with zero reservations
+or provider errors. No causal or general quality claim follows from one success.

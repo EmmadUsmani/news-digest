@@ -432,3 +432,25 @@ this failure: responses are deliberately not logged, and the recorder currently
 collapses schema and support failures into a generic failure. Add bounded,
 application-owned failure categories before further paid replays. Historical
 NBA/World/Tech evaluation artifacts and measurements remain unchanged.
+
+### Iteration 67: diagnosed rejection and accepted v4 replay
+
+A bounded replay distinguished initial schema rejection from absence rejection
+on repair; rejected text was not retained, so neither the failing field nor an
+absence false-rejection rate is known. The editor prompt lacked enforced text
+bounds. After making those limits explicit (without changing the guard), a
+second replay succeeded after one absence repair. The v4 artifact preserves the
+same shortlist and 3/5 provisional targets, with zero labeled omissions. Its five
+stories pass offline lexical absence checks across all four story text fields.
+No fixture content or evaluation edition was published.
+
+Compared all five accepted summaries against their cited bounded inputs: Apple
+preserves code-finding attribution, Anthropic preserves the reported date,
+the court story attributes the reported fine and detection, the benchmark
+attributes the title-only claim, and the hospital preserves the quoted claim.
+The earlier Apple/benchmark absence caveats are gone in these accepted fields.
+Significance still extrapolates beyond explicit evidence: the hospital's early
+access claim does not establish actual adoption, and a benchmark title alone
+does not establish that multi-model systems generally improve results. These
+are broader support gaps the lexical guard cannot detect. This is one-date,
+agent-audited target recall, not independent factual verification or precision.

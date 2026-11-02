@@ -178,9 +178,13 @@ export function evaluateEditorialWindow(
 if (require.main === module)
   console.log(
     JSON.stringify(
-      ['nba', 'world', 'tech'].map((key) =>
-        evaluateEditorialWindow(key as 'nba' | 'world' | 'tech'),
-      ),
+      [
+        ...(['nba', 'world', 'tech'] as const).map((key) =>
+          evaluateEditorialWindow(key),
+        ),
+        evaluateEditorialWindow('tech', 'v3'),
+        evaluateEditorialWindow('tech', 'v4'),
+      ],
       null,
       2,
     ),
