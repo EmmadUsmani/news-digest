@@ -76,3 +76,18 @@ qualifies, the existing policy protects the whole daily cap unless overridden.
 The reader accepts a transaction client for use inside the ledger admission lock;
 it does not itself lock, mutate state, call providers or enforce live protection.
 Isolated Postgres fixtures verify lookback boundaries, costs, holds and exclusions.
+
+## Pending settings reconciliation (iteration 195)
+
+`reconcilePending` replaces an unclaimed identity only when its expected run ID
+still matches. It shares ledger lock 756282 with admission and claims; obsolete
+jobs cannot claim the replaced identity, and stale refreshes cannot overwrite a
+newer settings snapshot. Running, retrying and terminal records are preserved.
+Replacement requires a distinct run ID, so completion and queue identity cannot
+be reused accidentally. Cross-UTC-day replacement is rejected: each budget day
+must be reconciled independently, retaining prior-day running work and protection.
+
+This is an adapter primitive, not live scheduling or reserve enforcement. The
+scheduler must still calculate slots from cron/timezone, register/reconcile each
+applicable UTC day, handle days without slots and obsolete jobs, and wire worker
+retry/recovery and outcomes before ledger admission is connected.

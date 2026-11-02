@@ -56,6 +56,31 @@ export class PostgresScheduledBudgetRepository implements ScheduledBudgetReposit
     return result.rows[0] ?? null;
   }
 
+  async reconcilePending(
+    budgetDay: string,
+    expectedRunId: string,
+    scheduledAt: Date,
+    runId: string,
+  ) {
+    if (
+      !Number.isFinite(scheduledAt.getTime()) ||
+      scheduledAt.toISOString().slice(0, 10) !== budgetDay ||
+      !expectedRunId.trim() ||
+      !runId.trim() ||
+      runId === expectedRunId
+    )
+      throw new Error('Invalid scheduled budget reconciliation');
+    return this.locked(async (client) => {
+      const result = await client.query(
+        `UPDATE scheduled_ai_budget_days SET scheduled_at=$3,run_id=$4,
+         updated_at=clock_timestamp()
+         WHERE budget_day=$1 AND run_id=$2 AND state='pending' AND attempt=0`,
+        [budgetDay, expectedRunId, scheduledAt, runId],
+      );
+      return result.rowCount === 1;
+    });
+  }
+
   async claim(runId: string) {
     return this.locked(async (client) => {
       const result = await client.query<ScheduledBudgetDay>(

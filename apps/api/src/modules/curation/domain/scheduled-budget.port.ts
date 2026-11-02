@@ -17,6 +17,14 @@ export interface ScheduledBudgetDay {
 // these identities. A claimed attempt fences late completion from old workers.
 export interface ScheduledBudgetRepository {
   register(scheduledAt: Date, runId: string): Promise<ScheduledBudgetDay>;
+  // Compare-and-swap only an unclaimed slot within the same UTC budget day.
+  // A stale settings refresh must not replace a newer identity or active work.
+  reconcilePending(
+    budgetDay: string,
+    expectedRunId: string,
+    scheduledAt: Date,
+    runId: string,
+  ): Promise<boolean>;
   read(budgetDay: string): Promise<ScheduledBudgetDay | null>;
   claim(runId: string): Promise<ScheduledBudgetDay | null>;
   finishAttempt(

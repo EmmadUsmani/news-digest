@@ -54,14 +54,7 @@ Iteration 178: [archive](docs/progress-archive/2026-11-02-iteration-178.md).
 
 Iteration 179: [archive](docs/progress-archive/2026-11-02-iteration-179.md).
 
-## 2026-11-02: iteration 180 — show AI spend by purpose
-
-- Started clean on main; no leftover work. API/worker, health and 32 sources healthy; two historical ingestion failures retained, no failed digest/social jobs.
-- Status shows UTC-day/month spend and unresolved reservations per ledger purpose, including development verification. Historical tags stay visible with an explicit warning that older development/editorial spend cannot reliably be separated.
-- Isolated transactional test covers mixed purposes, failed calls, old uncertain holds, expired settled calls and reconciliation to overall totals. Existing app/model budgets unchanged.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (181 tests); `pnpm build` passed. `pnpm exec tsx scripts/smoke-ai-spend.ts` passed read-only desktop/mobile checks; screenshots saved and mobile inspected.
-- Restarted API/worker; `/healthz` database/Redis true. Read-only timing report confirms latest real edition four topics/10 posts; available budget unchanged at 848 micros. No inference, settings writes or source changes.
-- Updated TASKS/docs/LLM. Next: fingerprinted LlmPort replay; legitimate Reddit access/live AI timing remain blocked, paid xAI scheduling follows Reddit.
+Iteration 180: [archive](docs/progress-archive/2026-11-02-iteration-180.md).
 
 ## 2026-11-02: iteration 181 — fingerprinted offline LLM replay
 
@@ -204,3 +197,14 @@ Iteration 179: [archive](docs/progress-archive/2026-11-02-iteration-179.md).
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (104 unit/98 isolated integration), `pnpm build` and `git diff --check` passed. Updated decision 0002, README and TASKS.
 - Live reserve protection remains UNFINISHED. Next: cron/settings reconciliation, worker lifecycle and trusted scheduled identity, shared-lock admission/race tests, then manual/Status visibility before Nov 3 15:00 UTC.
 - Pushed `be4b6d2`; restarted API/worker with `systemctl --user restart news-digest-api news-digest-worker`: both active, `/healthz` DB/Redis true, SPA 200, all four queues available, 32 sources without errors, latest real edition four topics/10 posts.
+
+## 2026-11-02: iteration 195 — reconcile pending reserve identities
+
+- Started clean on main; API/worker, DB/Redis health and 32 sources healthy. No leftover work.
+- Added ledger-lock compare-and-swap replacement for pending, unclaimed scheduled identities. Stale settings snapshots and obsolete jobs cannot replace/claim the new identity.
+- Running, retrying and terminal work remains protected; replacements require distinct run IDs and stay within the same UTC day.
+- Isolated Postgres tests cover replacement, stale updates, claim races, lifecycle protection, invalid/cross-day identities and shared-lock contention.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (104 unit/99 integration), `pnpm build`, `git diff --check` passed. Initial format check caught a new documentation entry; formatted it and reran the full check successfully.
+- Restarted API/worker: both active, `/healthz` DB/Redis true, SPA 200, four queues, 32 sources without errors, latest real edition four topics/10 posts. No UI changes, paid inference or Reddit HTTP requests.
+- Updated README, decision 0002 and TASKS; archived iteration 180 to bound this file.
+- Live reserve enforcement remains UNFINISHED: next compute cron/UTC slots and wire scheduler/worker lifecycle, then ledger admission/races and manual/Status visibility before Nov 3 15:00 UTC.

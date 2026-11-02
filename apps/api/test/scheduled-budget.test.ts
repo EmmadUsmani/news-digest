@@ -155,6 +155,15 @@ void test('scheduled budget lifecycle shares the ledger lock and final failure s
     await client.query('SELECT pg_advisory_xact_lock(756282)');
     // A bounded DB lock timeout proves registration/claims cannot bypass spend's lock.
     await db.query("SET lock_timeout='100ms'");
+    await assert.rejects(
+      repo.reconcilePending(
+        '2040-11-05',
+        runId,
+        new Date('2040-11-05T16:00:00Z'),
+        'blocked-replacement',
+      ),
+      { code: '55P03' },
+    );
     await assert.rejects(repo.claim(runId), { code: '55P03' });
     await client.query('ROLLBACK');
     await db.query('SET lock_timeout=0');
@@ -171,6 +180,78 @@ void test('scheduled budget lifecycle shares the ledger lock and final failure s
     client.release();
     await db.query('DELETE FROM scheduled_ai_budget_days WHERE run_id=$1', [
       runId,
+    ]);
+    await db.end();
+  }
+});
+
+void test('pending schedule reconciliation fences stale settings, obsolete jobs and concurrent claims', async () => {
+  const db = database();
+  const repo = new PostgresScheduledBudgetRepository(db);
+  const day = '2040-11-06';
+  const old = `old-${crypto.randomUUID()}`;
+  const replacement = `new-${crypto.randomUUID()}`;
+  const later = new Date(`${day}T18:00:00Z`);
+  try {
+    await repo.register(new Date(`${day}T15:00:00Z`), old);
+    assert.equal(
+      await repo.reconcilePending(day, old, later, replacement),
+      true,
+    );
+    assert.equal(await repo.claim(old), null);
+    assert.equal(await repo.reconcilePending(day, old, later, 'stale'), false);
+    assert.equal(
+      (await repo.read(day))?.scheduledAt.toISOString(),
+      later.toISOString(),
+    );
+    await assert.rejects(
+      repo.reconcilePending(
+        day,
+        replacement,
+        new Date('2040-11-07T00:00:00Z'),
+        'cross-day',
+      ),
+    );
+    await assert.rejects(
+      repo.reconcilePending(day, replacement, later, replacement),
+    );
+    await assert.rejects(
+      repo.reconcilePending(day, replacement, new Date('invalid'), 'invalid'),
+    );
+    // Whichever acquires the ledger lock first wins. Never both a claimed old
+    // identity and a replaced identity, even with separate repository instances.
+    const next = `race-${crypto.randomUUID()}`;
+    const [claim, changed] = await Promise.all([
+      repo.claim(replacement),
+      new PostgresScheduledBudgetRepository(db).reconcilePending(
+        day,
+        replacement,
+        later,
+        next,
+      ),
+    ]);
+    assert.equal(Boolean(claim), !changed);
+    const active = changed ? next : replacement;
+    if (changed) assert.equal((await repo.claim(active))?.attempt, 1);
+    assert.equal(
+      await repo.reconcilePending(day, active, later, 'running'),
+      false,
+    );
+    assert.equal(await repo.finishAttempt(active, 1, 'retrying'), true);
+    assert.equal(
+      await repo.reconcilePending(day, active, later, 'retrying'),
+      false,
+    );
+    assert.equal((await repo.claim(active))?.attempt, 2);
+    assert.equal(await repo.finishAttempt(active, 2, 'failed'), true);
+    assert.equal(
+      await repo.reconcilePending(day, active, later, 'terminal'),
+      false,
+    );
+    assert.equal((await repo.read(day))?.runId, active);
+  } finally {
+    await db.query('DELETE FROM scheduled_ai_budget_days WHERE budget_day=$1', [
+      day,
     ]);
     await db.end();
   }
