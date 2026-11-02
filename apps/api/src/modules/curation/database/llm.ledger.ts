@@ -8,6 +8,19 @@ import {
 } from '../domain/budget';
 import type { LlmRequest, TokenUsage } from '../domain/llm.port';
 import type { LlmLedger } from '../domain/llm-ledger.port';
+import {
+  type ScheduledEditionState,
+  scheduledReserveAllowance,
+  type ScheduledReservePolicy,
+} from '../domain/scheduled-reserve';
+import { readFullAiEditionCosts } from './edition-cost.reader';
+
+// Supplied by trusted composition, never by request purpose or HTTP input.
+export interface ScheduledLedgerAdmission {
+  policy: ScheduledReservePolicy;
+  context():
+    { runId: string; attempt: number; editionRunId: string } | undefined;
+}
 
 export interface UsageTotals {
   month: number;
@@ -18,6 +31,7 @@ export class PostgresLlmLedger implements LlmLedger {
     readonly db: Pool,
     readonly caps: BudgetCaps,
     readonly verification = false,
+    readonly scheduled?: ScheduledLedgerAdmission,
   ) {}
   async reserve(request: LlmRequest, estimate: number): Promise<string | null> {
     if (!Number.isSafeInteger(estimate) || estimate <= 0)
@@ -63,6 +77,40 @@ export class PostgresLlmLedger implements LlmLedger {
           return null;
         }
       }
+      let available = allowance.available;
+      if (this.scheduled) {
+        const {
+          rows: [slot],
+        } = await client.query<{
+          run_id: string;
+          state: ScheduledEditionState;
+          attempt: number;
+        }>(
+          `SELECT run_id,state,attempt FROM scheduled_ai_budget_days WHERE budget_day=$1`,
+          [period.dayStart],
+        );
+        const context = this.scheduled.context();
+        const scheduledRun =
+          !this.verification &&
+          purpose !== 'verification' &&
+          slot?.state === 'running' &&
+          context !== undefined &&
+          slot.run_id === context.runId &&
+          slot.attempt === context.attempt &&
+          request.runId === context.editionRunId;
+        available = scheduledReserveAllowance(
+          {
+            dailyCap: allowance.dailyCap,
+            available: allowance.available,
+            todayUsed: totals.today,
+            recentFullAiEditionCosts: await readFullAiEditionCosts(client, now),
+            // Missing lifecycle state fails closed until the scheduler reconciles it.
+            state: slot?.state ?? 'pending',
+            scheduledRun,
+          },
+          this.scheduled.policy,
+        ).availableMicros;
+      }
       const allocation = this.caps.modelAllocation;
       let modelAvailable = Infinity;
       if (allocation && request.model.id === allocation.model) {
@@ -80,10 +128,7 @@ export class PostgresLlmLedger implements LlmLedger {
           allocation.dailyFraction,
         );
       }
-      if (
-        blocked.rowCount ||
-        Math.min(allowance.available, modelAvailable) < estimate
-      ) {
+      if (blocked.rowCount || Math.min(available, modelAvailable) < estimate) {
         await client.query('COMMIT');
         return null;
       }

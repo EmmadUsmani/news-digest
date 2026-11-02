@@ -360,4 +360,5 @@ using immutable publication evidence and identity/attempt fencing under the ledg
 lock. Manual editions cannot release scheduled protection.
 Remaining reserve integration is tracked in
 [decision 0002](docs/decisions/0002-scheduled-edition-budget-reserve.md); ledger
-enforcement is not active yet.
+admission now has an opt-in shared-lock reserve primitive with attempt-fenced
+trusted context, but production enforcement is not active yet.

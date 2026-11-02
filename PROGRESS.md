@@ -66,14 +66,7 @@ Iteration 184: [archive](docs/progress-archive/2026-11-02-iteration-184.md).
 
 Iteration 186: [archive](docs/progress-archive/2026-11-02-iteration-186.md).
 
-## 2026-11-02: iteration 187 — Reddit observation characterization
-
-- Started clean on main; no leftover work. API/worker/health healthy, 32 sources without errors; two historical ingestion failures unchanged.
-- Disposable-Postgres tests pin inclusive seven-day lookback, exclusive end, timezone normalization, timestamp tie ordering, shared-topic dedupe and case-insensitive community aggregation.
-- Covered disabled/removed communities, write-time association checks, topic deletion isolation and rollback of existing metadata, new posts and X citations after a later invalid insert.
-- Initial integration run caught an overlong synthetic Reddit ID; corrected to the schema limit. Full `pnpm check` passed 99 unit/90 integration tests; `pnpm format`, `pnpm lint:fix`, `pnpm build` and `git diff --check` passed.
-- Restarted API/worker; health DB/Redis true, SPA 200, all queues available, no current source errors. Latest real edition has four topics/10 posts. No paid inference, live mutations or UI changes.
-- Updated README/TASKS. Next: remaining repository coverage, nonempty SQL golden and database coverage before ORM work. Reddit access/live AI timing blockers persist; paid scheduling follows Reddit.
+Iteration 187: [archive](docs/progress-archive/2026-11-02-iteration-187.md).
 
 ## 2026-11-02: iteration 188 — publisher citation transaction characterization
 
@@ -232,3 +225,15 @@ Iteration 186: [archive](docs/progress-archive/2026-11-02-iteration-186.md).
 - Restarted API/worker active; `/healthz` DB/Redis true, SPA 200, four queues, 32 sources without errors; latest real edition four topics/10 posts.
 - Updated README, reserve decision and TASKS; archived iteration 186. No UI changes, paid inference or Reddit requests.
 - Reserve enforcement remains UNFINISHED: shared-lock ledger admission/races, then manual/Status visibility before Nov 3 15:00 UTC.
+
+## 2026-11-02: iteration 203 — add shared-lock reserve admission primitive
+
+- Started clean on main; health/services and 32 sources healthy. No leftover work.
+- Opt-in ledger admission reads daily lifecycle, historical costs and holds under lock 756282; concurrent ordinary calls cannot exceed the unreserved limit.
+- Protected funds require trusted running-slot identity, attempt and edition ID; arbitrary purpose, verification, stale attempts and other editions gain no privilege.
+- Missing state protects funds; retry retains protection; definitive failure releases it. Existing ordinary/provider/model/verification caps remain in force.
+- Isolated race fixture initially assumed an empty ledger; corrected it to account for earlier settled fixtures without deleting their data. Rerun passed.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (109 unit/110 isolated integration), `pnpm build`, `git diff --check` passed.
+- Restarted API/worker active; health DB/Redis true, SPA 200, four queues, 32 sources without errors; latest real edition four topics/10 posts.
+- Updated README, reserve decision and TASKS; archived iteration 187. No UI changes, paid inference or Reddit requests.
+- Production protection remains OFF: next wire trusted worker/edition context and configurable policy across all Anthropic entrypoints, no-occurrence/midnight/lifecycle races, then manual/Status visibility.

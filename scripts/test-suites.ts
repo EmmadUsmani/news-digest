@@ -18,6 +18,7 @@ const integration = new Set([
   'reddit-collection.test.ts',
   'reddit-communities.test.ts',
   'relevance.test.ts',
+  'reserve-admission.test.ts',
   'river-discovery.test.ts',
   'scheduled-digests.test.ts',
   'scheduled-budget.test.ts',

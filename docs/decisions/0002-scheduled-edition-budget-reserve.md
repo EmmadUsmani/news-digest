@@ -170,3 +170,24 @@ edition or inventing an attempt; manual/other-key editions and terminal records
 are ignored. A concurrent redelivery or settings replacement fences stale recovery.
 No retained Redis job is needed for this publication evidence. Ledger enforcement
 and manual/Status visibility remain unfinished.
+
+## Ledger admission primitive (iteration 203)
+
+`PostgresLlmLedger` now accepts optional trusted reserve composition. When enabled,
+it reads the UTC day's lifecycle, historical costs and all holds inside lock
+756282 before inserting a reservation. Concurrent ordinary calls share the same
+remaining allowance. Missing lifecycle state protects the configured/measured
+reserve; terminal state releases it. Existing provider, model and verification
+ceilings still apply.
+
+Only a trusted context matching the running slot identity, current attempt and
+request edition ID can access protected funds. Purpose text grants no privilege;
+verification mode or purpose always uses the ordinary limit. Retries and stale
+contexts cannot borrow privileges from a new attempt. A context for yesterday's
+slot cannot access today's reserve across midnight.
+
+This is **not enabled in production composition yet**. Next wire worker context
+through edition creation, load configurable policy for every Anthropic entrypoint,
+and handle verified no-occurrence days without treating a missing record as
+release evidence. Add lifecycle/admission race and midnight integration coverage,
+then expose manual limitation reasons and Status fields before claiming protection.
