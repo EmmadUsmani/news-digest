@@ -173,3 +173,14 @@ one-day cooldown. Status shows this queue and its next run; no inference is
 used. `pnpm exec tsx apps/api/scripts/smoke-social.ts` explicitly queues one live
 pass and reports its saved result, including page successes/errors/citations.
 The explicit harvest/verification commands remain available for diagnosis.
+
+X-discovery funds are tracked separately from Anthropic editorial usage. Source &
+run status shows the $0.40/day and $12/month UTC caps, outstanding reservations
+and a durable prepaid-credit depletion block. Read the same live ledger without
+external requests using `pnpm exec tsx apps/api/scripts/x-discovery-status.ts`.
+Paid X discovery is not connected yet. The ledger keeps uncertain requests charged
+until reconciled; a depleted-credit block requires explicit operator review and
+does not expire with the month. Reservations estimate cost: xAI's `max_turns` does
+not impose a fetched-item or dollar limit. See docs/SOURCES.md iteration 99 before
+connecting the paid transport. `pnpm test` uses disposable services and clears both
+inference-provider keys.

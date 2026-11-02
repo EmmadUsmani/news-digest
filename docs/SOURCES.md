@@ -513,3 +513,30 @@ documented costume screenshot; these are preliminary lexical picks, not an AI
 editorial or virality assessment. No edition was published or inference used.
 The direct capped xAI adapter is the next discovery step; World coverage remains
 unresolved by free harvesting alone.
+
+### Iteration 99: separate X-discovery budget ledger (no paid searches)
+
+Migration 021 adds `x_discovery_calls` and a durable prepaid-credit block, separate
+from Anthropic editorial spend. Reservations serialize across processes and obey
+$0.40/day and $12/month UTC caps. Pending/uncertain requests retain their funds
+across day/month boundaries; only a definitive unbilled rejection releases them.
+Settlement stores model, `purpose=x-discovery`, run, input/output tokens and all
+posts/profiles fetched, including repeats. Costs round up to microdollars;
+actual overruns are retained in full and flagged, never clamped to an estimate.
+Depleted prepaid credits block new reservations until explicit operator review,
+without automatic midnight/monthly clearing. Status displays these separate caps
+and reservations; the read-only command is `x-discovery-status.ts`.
+
+Reviewed https://docs.x.ai/developers/tools/x-search and
+https://docs.x.ai/developers/tools/tool-usage-details on 2026-11-02. Usage lives in
+`usage.server_side_tool_usage_details.x_posts_fetched` / `x_users_fetched`.
+The documented `max_turns` bounds rounds, **not individual calls or fetched items**;
+a reservation is an estimate, not a provider-enforced request cost ceiling.
+The transport must address this exposure before scheduled paid searches, using
+narrow handles/dates, minimal turns, conservative reservation and measured usage.
+Pricing is supplied explicitly to settlement (owner reference: Grok 4.3 $1.25/$2.50
+per million input/output tokens; $0.005/post and $0.01/profile). Model selection,
+account data, direct HTTP discovery and automatic publication remain unfinished.
+No xAI inference call was made, and xAI remains `not yet tried` as a content source.
+Isolated tests clear both Anthropic and xAI credentials; ledger fixtures are not
+live content. No change to provider/model routing or billing configuration.

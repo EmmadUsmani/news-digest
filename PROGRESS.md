@@ -318,3 +318,16 @@ Earlier iterations 51–60: [archive](docs/progress-archive/2026-11-01-iteration
 - `screen-social-posts.ts 2026-10-26T00:00:00Z 2026-11-02T06:30:00Z`: two Tech, five NBA, one Gaming, zero World. Gaming remains earlier costume screenshot; no editorial/virality claim or edition published.
 - `pnpm exec tsx scripts/smoke-ui.ts`, `scripts/smoke-status.ts`, `scripts/smoke-posts.ts /tmp/iteration98-posts.jsonl` passed desktop/mobile; refreshed screenshots and inspected mobile status. Posts replay uses stored selections and stubbed/blocked widgets.
 - Updated TASKS/docs/SOURCES. No inference spending; provider/models/billing unchanged. No new owner blockers; Reddit remains previously blocked by 403. Next: direct capped xAI discovery, then social editorial selection.
+
+## 2026-11-02: iteration 99 — persistent X-discovery budget and visible caps
+
+- Started clean on main; no leftover work. API/worker/health, seventeen feeds and retained digest runs healthy; no triage repair needed.
+- Migration 021 adds separate `purpose=x-discovery` call ledger and durable prepaid-depletion block. Serialized reservations enforce $0.40/day/$12/month admission; pending/uncertain calls remain charged across periods, definitive unbilled rejections release funds.
+- Settlement records tokens/all fetched posts/profiles and rounded microdollar cost. Actual estimate overruns are recorded in full/flagged; depleted credits block across restarts/months until explicit review. Price is supplied explicitly; paid transport/account data remain unfinished.
+- Added Status/API X usage panel and read-only `pnpm exec tsx apps/api/scripts/x-discovery-status.ts`; live ledger is zero spend/reservations, $0.40 available. Isolated test runner also clears XAI_API_KEY.
+- Reviewed official xAI search/tool docs: `max_turns` limits rounds, not individual calls/items. Reservations cannot impose a provider request-dollar ceiling; transport must address this exposure before scheduling. No paid call or model/provider/billing change.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass types/lint/format/boundaries and 114 isolated tests; `pnpm build` passes (existing upstream Zod annotation warnings). Regression covers concurrent reservations, separate caps, settlement/overruns, uncertainty, rollover and durable depletion.
+- `pnpm migrate` applied 021; restarted API/worker, `/healthz` healthy. `smoke-status.ts` and `smoke-ui.ts` passed desktop/mobile, including synthetic credit-block rendering; screenshots refreshed and new mobile X budget screenshot inspected.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live runs: 795 URLs, four topics, seventeen healthy sources. `smoke-social.ts` job 14: two rivers/50 references, seven pages/three citations/one page error, ten verified embeds/no verification errors.
+- Read-only Oct 26–Nov 2 06:30 UTC social screen retained; no edition published. Updated TASKS/README/docs/SOURCES and removed obsolete gateway guidance from NEEDS_FROM_HUMAN.
+- No inference spending; Anthropic day/month stays $0.408415, X ledger zero. No new owner blocker. Next: direct xAI transport with measured conservative reservations, then social editorial selection. World absent, Gaming weak; Reddit remains blocked.

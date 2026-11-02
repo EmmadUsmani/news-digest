@@ -67,6 +67,23 @@ async function smoke() {
         path: `docs/screenshots/status-runs-${name}.png`,
         fullPage: false,
       });
+      const xUsage = page.getByRole('region', {
+        name: 'X discovery usage',
+        exact: true,
+      });
+      await xUsage
+        .getByRole('heading', { name: 'X discovery usage', exact: true })
+        .waitFor();
+      assert.equal(status.xDiscovery.dailyMicros, 400000);
+      assert.equal(status.xDiscovery.monthlyMicros, 12000000);
+      await xUsage
+        .getByText('Paid X discovery is not connected yet.', { exact: false })
+        .waitFor();
+      await xUsage.scrollIntoViewIfNeeded();
+      await page.screenshot({
+        path: `docs/screenshots/status-x-usage-${name}.png`,
+        fullPage: false,
+      });
       const usagePanel = page.getByRole('region', {
         name: 'AI usage',
         exact: true,
@@ -139,6 +156,8 @@ async function smoke() {
           'Missed run: more than six hours late; generate a custom window to recover coverage',
       },
     ];
+    live.xDiscovery.blocked = true;
+    live.xDiscovery.availableMicros = 0;
     live.llm.blockedUntil = '2027-01-01T00:00:00.000Z';
     live.llm.availableMicros = 0;
     live.llm.lastError = { code: 'provider-spend-limit', at: live.checkedAt };
@@ -163,6 +182,9 @@ async function smoke() {
       'Queue paused',
     ])
       await page.getByText(text, { exact: true }).waitFor();
+    await page
+      .getByText('X prepaid credits depleted.', { exact: false })
+      .waitFor();
     await page
       .getByText('Provider spend limit reached. Calls stopped until', {
         exact: false,

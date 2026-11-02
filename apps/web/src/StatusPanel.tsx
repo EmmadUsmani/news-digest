@@ -141,6 +141,31 @@ export function StatusPanel() {
           {!status.queues.some((queue) => queue.runs.length) && (
             <p>No retained automatic runs yet.</p>
           )}
+          <section aria-label="X discovery usage">
+            <h3>X discovery usage</h3>
+            <p>
+              Paid X discovery is not connected yet. Free link harvesting and
+              official post embeds are running.
+            </p>
+            <p>
+              Today (UTC): {dollars(status.xDiscovery.todayMicros)} spent or
+              reserved / {dollars(status.xDiscovery.dailyMicros)} cap.
+              <br />
+              This month (UTC): {dollars(status.xDiscovery.monthMicros)} spent
+              or reserved / {dollars(status.xDiscovery.monthlyMicros)} cap.
+            </p>
+            <p>
+              {dollars(status.xDiscovery.reservedMicros)} reserved or awaiting
+              reconciliation. Available today:{' '}
+              {dollars(status.xDiscovery.availableMicros)}.
+            </p>
+            {status.xDiscovery.blocked && (
+              <p role="status">
+                X prepaid credits depleted. Paid searches are stopped pending
+                credit review.
+              </p>
+            )}
+          </section>
           <section aria-label="AI usage">
             <h3>AI usage</h3>
             <p>

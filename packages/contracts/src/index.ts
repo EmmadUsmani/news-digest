@@ -278,7 +278,18 @@ export const llmUsageSchema = z.object({
 });
 export type LlmUsage = z.infer<typeof llmUsageSchema>;
 
+export const xDiscoveryUsageSchema = z.object({
+  todayMicros: z.number().int().nonnegative(),
+  monthMicros: z.number().int().nonnegative(),
+  reservedMicros: z.number().int().nonnegative(),
+  dailyMicros: z.number().int().nonnegative(),
+  monthlyMicros: z.number().int().nonnegative(),
+  availableMicros: z.number().int().nonnegative(),
+  blocked: z.boolean(),
+});
+
 export const operationsStatusSchema = z.object({
+  xDiscovery: xDiscoveryUsageSchema,
   llm: llmUsageSchema,
   checkedAt: z.string().datetime(),
   sources: z.array(

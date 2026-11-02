@@ -12,6 +12,15 @@ void test('operations reports persisted sources and bounded queue telemetry with
       JSON.parse(JSON.stringify(await status.read())),
     );
     assert.ok(result.sources.length >= 7);
+    assert.deepEqual(result.xDiscovery, {
+      todayMicros: 0,
+      monthMicros: 0,
+      reservedMicros: 0,
+      dailyMicros: 400000,
+      monthlyMicros: 12000000,
+      availableMicros: 400000,
+      blocked: false,
+    });
     assert.equal(result.queues.length, 4);
     for (const queue of result.queues) {
       assert.equal(queue.available, true);

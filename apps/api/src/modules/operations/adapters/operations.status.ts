@@ -3,6 +3,7 @@ import { Queue } from 'bullmq';
 
 import { database } from '../../../libs/db/connections';
 import { readLlmUsage } from '../../curation/public/usage';
+import { readXDiscoveryUsage } from '../../social/public/usage';
 import { OperationsReader } from '../domain/operations.reader';
 
 @Injectable()
@@ -119,6 +120,7 @@ export class OperationsStatus
       sources,
       queues,
       llm: await readLlmUsage(this.db),
+      xDiscovery: await readXDiscoveryUsage(this.db),
     };
   }
   async onModuleDestroy() {

@@ -50,6 +50,7 @@ async function main() {
       DATABASE_URL: `postgres://postgres@127.0.0.1:${postgres.port}/postgres`,
       REDIS_URL: `redis://127.0.0.1:${redis.port}`,
       ANTHROPIC_API_KEY: '',
+      XAI_API_KEY: '',
       NEWS_DIGEST_ISOLATED_TEST: '1',
     };
     const run = (args: string[]) => {
