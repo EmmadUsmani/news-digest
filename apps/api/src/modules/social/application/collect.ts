@@ -1,13 +1,16 @@
+import type { ArticleDiscoveryRepository } from '../domain/article-discovery.port';
 import type {
   RiverDiscoveryPort,
   SocialCollectionRepository,
 } from '../domain/collection.port';
 import type { PostVerificationPort } from '../domain/posts';
+import { collectArticleLinks } from './collect-article-links';
 
 export async function collectSocial(
   repository: SocialCollectionRepository,
   rivers: RiverDiscoveryPort,
   embeds: PostVerificationPort,
+  articles: ArticleDiscoveryRepository,
 ) {
   const result = {
     sources: 0,
@@ -29,6 +32,8 @@ export async function collectSocial(
     result.sources++;
     result.citations += links.length;
   }
+  // Harvest before verification so newly cited posts can be checked in this pass.
+  const articleDiscovery = await collectArticleLinks(articles, rivers);
   await repository.refreshMissingTimes();
   // At most ten official requests per hourly pass, with persisted one-day cooldown.
   for (const id of await repository.candidates(10)) {
@@ -45,5 +50,5 @@ export async function collectSocial(
     await repository.checked(id, null);
     result.verified++;
   }
-  return result;
+  return { ...result, articleDiscovery };
 }

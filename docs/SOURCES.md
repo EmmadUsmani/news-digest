@@ -463,3 +463,24 @@ stored. Existing post verification/screening applies before selection. Citation
 counts do not establish post engagement, independent reporting or relevance.
 The recorded Yahoo anchor excerpt is offline-only, never seeded into production.
 Broader current World/Gaming discovery and direct capped xAI remain unfinished.
+
+### Iteration 97: hourly publisher harvesting
+
+The existing hourly `social-collection` worker now runs the bounded article pass
+between river harvesting and official embed verification. The same shared HTTP
+client, eight-page cap, opted-in hosts, enabled-topic interleaving, persisted
+seven-day success/one-day error cooldown and failed-host stop apply. Page errors
+are recorded and verification continues; persistence failures fail the job. No
+automatic job retries, inference, new hosts or recursive crawling were added.
+Completed BullMQ results retain separate `articleDiscovery` checked/citations/errors
+counters. `pnpm exec tsx apps/api/scripts/smoke-social.ts` explicitly queues one
+live pass; it is excluded from tests and never publishes an edition.
+
+The actual queued pass (job 8) collected two rivers/50 references, read six pages
+with five citations, recorded one page error and verified ten official embeds
+without errors. Citations may already exist; these counts are not new-post counts.
+The Oct 26–Nov 2 06:00 UTC read-only screen selects five NBA posts and one Gaming
+post (jobolts_ costume screenshot, ID 2115558495626117351, Oct 28). The Gaming
+post passes the saved phrase `game`; this is not a demonstrated viral or editorial
+pick. Tech and World select zero. No edition was published or inference requested.
+World discovery, stronger Gaming relevance and direct capped xAI remain open.

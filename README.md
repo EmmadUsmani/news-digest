@@ -139,7 +139,7 @@ reads live DB settings. AI usage, caps and sanitized errors appear in Source &
 run status; published editions still use signal ranking. See [docs/LLM.md](docs/LLM.md)
 for configuration, remaining editorial work and the explicit paid live check.
 
-Free social discovery (also scheduled hourly for rivers): run
+Free social discovery (also scheduled hourly for rivers and opted-in publisher pages): run
 `pnpm exec tsx apps/api/scripts/harvest-social-rivers.ts` to collect bounded
 X references from enabled topic rivers, then
 `pnpm exec tsx apps/api/scripts/verify-x-embeds.ts` to verify at most ten
@@ -152,7 +152,7 @@ recent (three-day) articles from opted-in publisher hosts across enabled topics.
 It stores only X citations, with item/source provenance; full pages are discarded.
 Successful pages cool down seven days, failures one day; a failed host stops for
 that pass. It uses the same bounded public HTTP client, with no recursive crawl,
-bot-protection workaround or inference. This article pass is not scheduled yet. Inspect stored posts without HTTP,
+bot-protection workaround or inference. The hourly job also runs this bounded article pass. Inspect stored posts without HTTP,
 inference or publication using
 `pnpm exec tsx apps/api/scripts/screen-social-posts.ts START_ISO END_ISO`
 (default: last 24 hours). This reports per-post eligibility reasons against saved
@@ -166,7 +166,10 @@ publishing an edition. `POST_EMBED_LIVE=1` explicitly enables separate official
 widget requests instead; these are external checks, not automated tests.
 
 Free social discovery runs hourly in the worker via the `social-collection`
-BullMQ queue. It harvests enabled public rivers and verifies at most ten X
+BullMQ queue. It harvests enabled public rivers, checks at most eight opted-in
+publisher pages, then verifies at most ten X
 oEmbeds per run, stopping verification on the first failure with a persisted
 one-day cooldown. Status shows this queue and its next run; no inference is
-used. The explicit harvest/verification commands remain available for diagnosis.
+used. `pnpm exec tsx apps/api/scripts/smoke-social.ts` explicitly queues one live
+pass and reports its saved result, including page successes/errors/citations.
+The explicit harvest/verification commands remain available for diagnosis.
