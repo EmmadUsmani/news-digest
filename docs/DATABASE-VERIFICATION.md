@@ -361,3 +361,11 @@ positions and complete settings. Removing the constraint permits the previously
 rejected order, and the original order can then be restored. The shared source
 catalog and profile schedule remain unchanged. All fixtures use disposable
 PostgreSQL; no source, Reddit or provider requests occur.
+
+## Custom-feed registration rollback (iteration 257)
+
+`settings.test.ts` rejects a new feed connection after catalog insertion, proving
+the transaction leaves neither an orphan source nor altered topic settings.
+Removing the rejection permits registration; repeating it retains one source
+and one connection, while other topics stay unchanged. A temporary constraint
+injects failure only in disposable PostgreSQL; no feed or provider requests occur.

@@ -928,3 +928,61 @@ void test('rejected topic reorders preserve complete settings and release locks 
     ]);
   }
 });
+
+void test('failed custom-feed connection rolls back catalog registration and permits retry', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const topics = new PostgresTopicRepository();
+  const db = database();
+  const original = await topics.listDefault();
+  const catalog = await topics.catalog();
+  const target = original[0];
+  const input = {
+    name: 'Atomic feed registration fixture',
+    url: 'https://atomic-registration.example.test/feed.xml',
+  };
+  let sourceId: string | undefined;
+  try {
+    assert.ok(!catalog.some((source) => source.url === input.url));
+    // Reject the connection only after the new source has been inserted.
+    await db.query(`ALTER TABLE topic_source_connections
+      ADD CONSTRAINT feed_registration_failure_fixture
+      CHECK (topic_id <> '${target.id}'::uuid) NOT VALID`);
+    await assert.rejects(
+      topics.addFeedDefault(target.id, input),
+      /feed_registration_failure_fixture/,
+    );
+    assert.deepEqual(await topics.catalog(), catalog);
+    assert.deepEqual(await topics.listDefault(), original);
+
+    await db.query(
+      'ALTER TABLE topic_source_connections DROP CONSTRAINT feed_registration_failure_fixture',
+    );
+    const recovered = await topics.addFeedDefault(target.id, input);
+    assert.ok(recovered);
+    const registered = (await topics.catalog()).filter(
+      (source) => source.url === input.url,
+    );
+    assert.equal(registered.length, 1);
+    sourceId = registered[0].id;
+    assert.equal(registered[0].name, input.name);
+    assert.deepEqual(recovered, {
+      ...target,
+      sources: [...target.sources, sourceId].sort(),
+    });
+    assert.deepEqual(await topics.addFeedDefault(target.id, input), recovered);
+    assert.equal((await topics.catalog()).length, catalog.length + 1);
+    assert.deepEqual((await topics.listDefault()).slice(1), original.slice(1));
+  } finally {
+    await db.query(
+      'ALTER TABLE topic_source_connections DROP CONSTRAINT IF EXISTS feed_registration_failure_fixture',
+    );
+    if (sourceId) {
+      await db.query(
+        'DELETE FROM topic_source_connections WHERE source_id=$1',
+        [sourceId],
+      );
+      await db.query('DELETE FROM content_sources WHERE id=$1', [sourceId]);
+    }
+    await Promise.all([db.end(), topics.onModuleDestroy()]);
+  }
+});

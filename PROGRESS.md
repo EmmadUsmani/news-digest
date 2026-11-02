@@ -110,17 +110,6 @@ Earlier iteration 229: [archive](docs/progress-archive/2026-11-02-iteration-229.
 
 Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
 
-## 2026-11-02: iteration 238 — connection isolation guard verification
-
-- Started clean on main; API/worker and health green, 32 sources without current errors; no leftover work.
-- Priority 15/13/7/9 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a verification.
-- Added no-network tests for DB/Redis rejection without exact isolation admission and runner environment sanitization.
-- Inherited production-shaped URLs, synthetic provider keys and live opt-ins are replaced without mutating the parent.
-- Verification: targeted tests, `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 136 integration), `pnpm build`, `git diff --check` passed.
-- Updated TASKS/database notes; archived oldest progress entry. No provider or Reddit requests.
-- Restarted API/worker healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues; latest edition has four topics.
-- Next: observe Nov 3 all-topic X cost/yield and scheduled AI edition reserve/cost/duration before acknowledging 15/13/7.
-
 ## 2026-11-02: iteration 239 — daylight-saving coverage boundaries
 
 - Started clean on main; services/health green, 32 sources without current errors; no leftover work.
@@ -333,3 +322,16 @@ Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
 - Recent articles/verified X posts present in every topic; no provider or Reddit requests.
 - Updated TASKS/database notes; archived iteration 237 to keep PROGRESS bounded.
 - Next: observe Nov 3 all-topic X cost/yield and scheduled AI cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 257 — custom-feed registration rollback
+
+- Started clean on main; services, health and 32 sources healthy; no leftover work.
+- Priority 15/13/7/9 awaits Nov 3 evidence; advanced isolated STEERING 2a.
+- Rejected feed connections now pin rollback of the preceding catalog insert and unchanged topic settings.
+- Removing rejection permits retry; repeated registration retains one source and connection.
+- Fixtures use disposable PostgreSQL only; no feed, provider or Reddit requests.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 153 integration), `pnpm build`, `git diff --check` passed.
+- Restarted API/worker; `/healthz` healthy, SPA 200, 32 error-free sources and four available queues.
+- Live rolling article coverage: Tech/AI 306, NBA 108, Gaming 276, World 212; latest source success 21:46 UTC.
+- Updated TASKS/database notes; archived iteration 238 to keep PROGRESS bounded.
+- Next: observe Nov 3 scheduled X cost/yield and AI edition cost/duration before acknowledging 15/13/7.
