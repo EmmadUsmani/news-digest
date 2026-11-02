@@ -9,6 +9,7 @@ import {
 import type { LlmLedger } from '../domain/llm-ledger.port';
 
 export class BudgetedLlm {
+  private readonly pending = new Map<string, Promise<unknown>>();
   constructor(
     private readonly llm: LlmPort,
     private readonly ledger: LlmLedger,
@@ -40,6 +41,25 @@ export class BudgetedLlm {
         }),
       )
       .digest('hex');
+    const existing = this.pending.get(key);
+    if (existing) {
+      const result = await existing;
+      return result === null ? null : validate(result);
+    }
+    const work = this.resolve(request, key, validate);
+    this.pending.set(key, work);
+    try {
+      return await work;
+    } finally {
+      // Refusals and errors must not become a permanent in-memory cache.
+      this.pending.delete(key);
+    }
+  }
+  private async resolve<T>(
+    request: LlmRequest,
+    key: string,
+    validate: (value: unknown) => T,
+  ): Promise<T | null> {
     const cached = await this.ledger.cached(key);
     if (cached !== undefined) return validate(cached);
     // Each repair is separately reserved and recorded. No network retries.

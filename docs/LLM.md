@@ -199,3 +199,27 @@ Default `scripts/smoke-ui.ts` now reads existing live editions and uses browser-
 fixtures. Set `SMOKE_CREATE_EDITION=1` for a paid 24h creation check and
 `SMOKE_EXTENDED_WINDOWS=1` for paid 6h/7d/custom-window checks. Default fixture
 coverage and image-failure checks reuse a GET snapshot and make no LLM calls.
+
+## Concurrent requests (iteration 56)
+
+Within one `BudgetedLlm` instance, identical overlapping JSON requests now share
+one in-flight promise, including the cache lookup, reservation, provider call,
+validation, single repair and cache write. Run IDs do not affect request identity;
+the first caller owns ledger attribution. Each joining caller validates the
+result with its own validator. Different prompts/models/output limits remain
+independent. Failure, refusal and thrown ledger errors release the in-flight
+entry, so a later request can retry through the normal budget safeguards.
+
+Publication services are reused per database pool through a WeakMap, allowing
+concurrent manual editions in one API process to share this protection. The
+worker has its own process: simultaneous API/worker requests can still duplicate
+calls. Different triage batch compositions also remain distinct requests until
+per-item results reach the persistent cache. Cross-process coordination,
+canonical cross-window ordering, Sonnet allocation and scheduled Message Batches
+remain unfinished. No pricing, models, providers or caps changed.
+
+Offline concurrency regressions in `llm.test.ts` verify twelve overlapping runs
+share one repair sequence and two ledger charges, failures preserve uncertain
+reservations, unrelated prompts proceed independently, and database exceptions
+release waiters without contacting the provider. These are fake-provider tests,
+not live inference or an editorial-quality measurement.

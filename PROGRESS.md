@@ -313,3 +313,16 @@ Earlier iterations 17–22: [archive](docs/progress-archive/2026-11-01-iteration
 - Today/month ledger $0.264979 (increment $0.254745), zero reservations/provider errors, below $0.482758 daily/$14 monthly caps. Provider/model/billing unchanged.
 - Rebuilt/restarted services, `/healthz` healthy; schedule unchanged. Archived iterations 17–22; no owner blockers.
 - Next: Sonnet allocation, scheduled Message Batches, cache-miss coalescing/cross-window ordering, and recorded-window editorial precision. M3 remains open.
+
+## 2026-11-02: iteration 56 — coalesce overlapping editorial requests
+
+- Started clean on main; no leftover work. Both services, `/healthz`, sources and retained scheduled runs healthy; schedule unchanged.
+- Identical concurrent JSON requests now share cache lookup, reservation, provider call, validation/repair and cache write within one BudgetedLlm; publication services reused per database pool.
+- First caller owns ledger run attribution; joiners validate results. Refusal, provider failure and ledger exceptions release in-flight entries for later budget-checked attempts.
+- Three offline regressions cover twelve concurrent runs sharing one repair/two charges, uncertain failure recovery, independent prompts and database exceptions; no live inference used for these tests.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and all 69 tests; `pnpm build` passed with existing upstream Zod warnings only.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live passes: 713 real URLs, four topics, seventeen healthy sources.
+- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed, mobile digest visually inspected.
+- `/api/status` confirms $0.264979 today/month, zero reservations/errors, $0.482758 daily/$14 monthly caps; $0 incremental inference. Provider/model/billing unchanged.
+- Updated TASKS/docs/LLM; no source changes or owner blockers. Coalescing is process-local; simultaneous API/worker requests and differing triage batch compositions remain open.
+- Next: recorded-window editorial precision, Sonnet allocation, scheduled Message Batches, cross-process coordination and canonical cross-window ordering; M3 remains open.

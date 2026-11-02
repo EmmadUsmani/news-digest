@@ -334,3 +334,64 @@ void test('SDK maps all four usage counters and requests prompt caching with no 
   assert.deepEqual(result.usage, usage);
   assert.equal(result.text, '{"ok":true}');
 });
+
+void test('overlapping identical requests share one reservation and repair across run IDs', async () => {
+  const ledger = new MemoryLedger();
+  const provider = fake(['invalid', '{"ok":true}']);
+  const service = new BudgetedLlm(provider.llm, ledger);
+  const results = await Promise.all(
+    Array.from({ length: 12 }, (_, i) =>
+      service.json({ ...request, runId: `run-${i}` }, valid),
+    ),
+  );
+  assert.ok(results.every((result) => result?.ok === true));
+  assert.equal(provider.count(), 2);
+  assert.equal(ledger.calls.length, 2);
+  assert.ok(ledger.calls.every((call) => call.cost !== undefined));
+});
+
+void test('coalescing releases failed work and preserves independent prompt identity', async () => {
+  const ledger = new MemoryLedger();
+  const provider = fake([
+    new Error('offline transport'),
+    '{"ok":true}',
+    '{"ok":true}',
+  ]);
+  const service = new BudgetedLlm(provider.llm, ledger);
+  assert.deepEqual(
+    await Promise.all([
+      service.json(request, valid),
+      service.json(request, valid),
+    ]),
+    [null, null],
+  );
+  assert.equal(provider.count(), 1);
+  assert.equal(ledger.calls[0].uncertain, true);
+  assert.deepEqual(
+    await Promise.all([
+      service.json(request, valid),
+      service.json({ ...request, prompt: 'Different input' }, valid),
+    ]),
+    [{ ok: true }, { ok: true }],
+  );
+  assert.equal(provider.count(), 3);
+});
+
+void test('ledger exceptions release coalesced work for a later attempt', async () => {
+  const ledger = new MemoryLedger();
+  let reads = 0;
+  ledger.cached = async () => {
+    if (reads++ === 0) throw new Error('offline database');
+    return undefined;
+  };
+  const provider = fake(['{"ok":true}']);
+  const service = new BudgetedLlm(provider.llm, ledger);
+  const results = await Promise.allSettled([
+    service.json(request, valid),
+    service.json(request, valid),
+  ]);
+  assert.ok(results.every((result) => result.status === 'rejected'));
+  assert.equal(provider.count(), 0);
+  assert.deepEqual(await service.json(request, valid), { ok: true });
+  assert.equal(provider.count(), 1);
+});
