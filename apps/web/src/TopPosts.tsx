@@ -1,4 +1,9 @@
-import type { DigestPreview, SelectedPost } from '@digest/contracts';
+import type {
+  DigestPreview,
+  SelectedPost,
+  SelectedRedditPost,
+  SelectedSocialPost,
+} from '@digest/contracts';
 import React from 'react';
 
 type Widgets = {
@@ -40,7 +45,7 @@ export function TopPosts({
   posts,
   editorial,
 }: {
-  posts: SelectedPost[];
+  posts: SelectedSocialPost[];
   editorial?: DigestPreview['topics'][number]['postEditorial'];
 }) {
   return (
@@ -58,9 +63,13 @@ export function TopPosts({
         </p>
       ) : (
         <div className="post-grid">
-          {posts.map((post) => (
-            <Post key={post.externalId} post={post} />
-          ))}
+          {posts.map((post) =>
+            post.platform === 'reddit' ? (
+              <RedditPost key={`reddit:${post.externalId}`} post={post} />
+            ) : (
+              <Post key={`x:${post.externalId}`} post={post} />
+            ),
+          )}
         </div>
       )}
     </section>
@@ -172,6 +181,72 @@ function Post({ post }: { post: SelectedPost }) {
             .map(([name, value]) => `${name}: ${value.toLocaleString()}`)
             .join(' · ')}{' '}
           · at collection
+        </p>
+      )}
+      <details>
+        <summary>Why selected</summary>
+        <ul>
+          {post.reasons.map((reason) => (
+            <li key={reason}>{reason}</li>
+          ))}
+        </ul>
+      </details>
+    </article>
+  );
+}
+
+function RedditPost({ post }: { post: SelectedRedditPost }) {
+  const safeThumbnail = post.thumbnail?.startsWith('https://')
+    ? post.thumbnail
+    : null;
+  return (
+    <article className="post-card reddit-card">
+      <p className="byline">
+        Reddit · r/{post.subreddit} ·{' '}
+        <a href={post.authorUrl} target="_blank" rel="noreferrer">
+          {post.author}
+        </a>{' '}
+        ·{' '}
+        <time dateTime={post.publishedAt}>
+          {new Date(post.publishedAt).toLocaleString()}
+        </time>
+      </p>
+      <h5>
+        <a href={post.url} target="_blank" rel="noreferrer">
+          {post.title}
+        </a>
+      </h5>
+      {safeThumbnail && (
+        <img
+          className="reddit-thumbnail"
+          src={safeThumbnail}
+          alt="Post media thumbnail"
+          loading="lazy"
+          referrerPolicy="no-referrer"
+        />
+      )}
+      {post.displayText && <p className="post-text">{post.displayText}</p>}
+      {post.whyItMatters && <p className="post-context">{post.whyItMatters}</p>}
+      <p className="byline">
+        {post.metrics.score.toLocaleString()} score ·{' '}
+        {post.metrics.comments.toLocaleString()} comments ·{' '}
+        {Math.round(post.metrics.upvoteRatio * 100)}% upvoted
+      </p>
+      <p className="byline">
+        Observed{' '}
+        <time dateTime={post.observedAt}>
+          {new Date(post.observedAt).toLocaleString()}
+        </time>{' '}
+        · saved metrics
+      </p>
+      <a href={post.url} target="_blank" rel="noreferrer">
+        Open original post on Reddit
+      </a>
+      {post.externalUrl && post.externalUrl !== post.url && (
+        <p>
+          <a href={post.externalUrl} target="_blank" rel="noreferrer">
+            Linked source
+          </a>
         </p>
       )}
       <details>

@@ -140,8 +140,7 @@ export const selectedPostSchema = z.object({
 });
 export type SelectedPost = z.infer<typeof selectedPostSchema>;
 
-// Prepared Reddit snapshots remain separate until the edition renderer supports
-// faithful cards. Published editions still accept only selectedPostSchema.
+// Platform-specific evidence stays discriminated in immutable editions.
 export const selectedRedditPostSchema = selectedPostSchema.extend({
   platform: z.literal('reddit'),
   title: z.string().min(1),
@@ -156,6 +155,12 @@ export const selectedRedditPostSchema = selectedPostSchema.extend({
   observedAt: z.string().datetime(),
 });
 export type SelectedRedditPost = z.infer<typeof selectedRedditPostSchema>;
+
+export const selectedSocialPostSchema = z.discriminatedUnion('platform', [
+  selectedPostSchema,
+  selectedRedditPostSchema,
+]);
+export type SelectedSocialPost = z.infer<typeof selectedSocialPostSchema>;
 
 export const digestPreviewSchema = z.object({
   id: z.string().uuid(),
@@ -206,7 +211,7 @@ export const digestPreviewSchema = z.object({
           }),
         )
         .optional(),
-      posts: z.array(selectedPostSchema).optional(),
+      posts: z.array(selectedSocialPostSchema).optional(),
       postSelectionMethod: z
         .enum([
           'verified-lexical-recency-v1',

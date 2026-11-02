@@ -1166,3 +1166,12 @@ shortlist conversion preserving title/body, thumbnail, destination, community,
 metrics and observation time. Schema parsing detaches nested evidence from later
 refreshes. Published editions remain X-only until faithful cards and publication
 are connected. No collector activation or live requests; public access remains blocked.
+
+Iteration 175 allows platform-discriminated Reddit snapshots in edition readback
+and renders faithful title/body cards with community, author, timestamp, saved
+score/comments/upvote ratio, observation time, optional thumbnail and original/
+destination links. Synthetic desktop/mobile replay covers media and no-media
+cards without requesting X widgets. Screenshots `reddit-card-desktop.png` and
+`reddit-card-mobile.png` are synthetic UI evidence, not live Reddit content.
+Publication selection remains X-only pending pipeline wiring; fetching remains
+blocked and unscheduled. No live source or inference requests were made.

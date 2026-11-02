@@ -32,27 +32,7 @@ Earlier iteration 143: [archive](docs/progress-archive/2026-11-02-iteration-143.
 
 Earlier iteration 157: [archive](docs/progress-archive/2026-11-02-iteration-157.md).
 
-## 2026-11-02: iteration 161 — edition duration on Status
-
-- Started clean on main; no leftover work. API/worker and health healthy, all 32 sources without current errors, no failed digest jobs; two historical ingestion failures retained.
-- Status API exposes startedAt and nullable durationMs from BullMQ processing/finish timestamps. Retained runs sort by finish/start before schedule, placing finished on-demand runs correctly.
-- Status shows latest finished edition duration and per-run processing time; includes on-demand editions and explains queue-wait exclusion and final-attempt timing. Pending jobs have no duration.
-- Added isolated Redis worker test comparing telemetry to stored timestamps and checking pending/completed states. No live generation or inference spend.
-- `pnpm exec tsx scripts/smoke-run-duration.ts`: desktop/mobile completed and waiting states pass with intercepted telemetry; screenshots docs/screenshots/run-duration-{desktop,mobile}.png.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 163 isolated tests pass. `pnpm build` passes.
-- Restarted API/worker; /healthz healthy. Live Status retains 32 sources, no current source errors or failed digest jobs; stored editions remain available.
-- Updated TASKS; no source changes, docs/SOURCES unchanged. Item 7 remains open: granular editorial-stage progress and full-edition fake timing. No latency claim or new blocker.
-
-## 2026-11-02: iteration 162 — editorial-stage progress
-
-- Started clean on main; no leftover work. API/worker and health healthy, 32 sources without current errors and no failed digest jobs.
-- Generation reports each topic's story triage, story editing, social triage/editing and readiness, then publication; concurrent topics retain individual stages.
-- Scheduled/on-demand workers persist progress in BullMQ; polling API returns it and creation UI displays it, including resumed jobs. Publication progress precedes the insert/commit; completion still requires a saved edition.
-- Extended fake publication harness checks stage ordering and independent snapshots across parallel topics; isolated Redis test checks generator-to-worker-to-API progress delivery. No live inference spend.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 163 isolated tests pass. `pnpm build` passes.
-- `pnpm exec tsx scripts/smoke-edition-jobs.ts`: desktop/mobile stages, publication, reload, reconnect, completion and failure pass; updated docs/screenshots/edition-job-{desktop,mobile}.png. Generation intercepted; reads stored edition only.
-- Restarted API/worker; `/healthz` healthy, 32 sources/no current errors, zero failed digest jobs; latest stored edition retains four topics.
-- README/TASKS updated; no source changes, docs/SOURCES unchanged. No new blocker. Item 7 remains open for full-edition fake timing; no live latency claim.
+Earlier iterations 161–162: [archive](docs/progress-archive/2026-11-02-iterations-161-162.md).
 
 ## 2026-11-02: iteration 163 — reproducible full-publication timing baseline
 
@@ -182,3 +162,14 @@ Earlier iteration 157: [archive](docs/progress-archive/2026-11-02-iteration-157.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (176 tests, types/lint/format/boundaries); `pnpm build` passed. Updated TASKS/SOURCES.
 - Restarted API/worker; `/healthz` DB/Redis true, 32 sources and all queue workers present. Read-only timing report: unchanged 856 ms fallback edition, 481910 micros spent/848 available; next Nov 3 15:00 UTC. Live AI latency unverified.
 - Next: faithful Reddit cards and publication wiring; real Reddit content remains blocked by public access denial.
+
+## 2026-11-02: iteration 175 — faithful Reddit cards and edition readback
+
+- Started clean on main; no leftover work. Health/services healthy, 32 sources/no current errors, no failed digest/social jobs; two historical ingestion failures retained.
+- Edition readback now accepts discriminated X/Reddit snapshots while preserving historical X compatibility. Publication selection remains X-only pending pipeline wiring.
+- Added faithful Reddit cards: title/body, community/author/time, optional thumbnail/destination, saved score/comments/upvote ratio and observation time, context and selection reasons. Platform-qualified React keys avoid cross-platform ID collisions.
+- Added synthetic browser replay for desktop/mobile, media/no-media, links, metrics, no overflow/errors and zero X widget requests; screenshots saved under docs/screenshots/reddit-card-*.png. Inspected mobile screenshot.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (176 tests), `pnpm build` passed. First check caught source-note formatting; corrected before the successful full run.
+- `pnpm exec tsx scripts/smoke-reddit-cards.ts` passed after fixing its CommonJS main wrapper; final script lint/format checks passed. No live source or inference requests and no edition writes.
+- Restarted API/worker; `/healthz` DB/Redis true. Latest real edition retains four topics/20 stories/10 X posts (Tech/NBA), non-AI mode. Updated TASKS/SOURCES.
+- Next: wire conservative Reddit shortlist/snapshots through platform-aware publication. Real Reddit remains blocked/unscheduled; live AI latency remains unverified.
