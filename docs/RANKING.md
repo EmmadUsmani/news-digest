@@ -606,7 +606,7 @@ Offline tests cover overlapping calls, ordering, cache reuse, changed inputs,
 invalid outputs, byte bounds and refusal. A synthetic 1,500-item run in sequential
 200-item chunks used 30 calls in 217 ms with 20 ms fake latency; cached replay
 used zero calls in 15 ms. These are orchestration measurements, not provider
-latency or full-edition performance. Async generation, parallel topic editors
+latency or full-edition performance. Async generation and full-edition performance measurement
 remain unfinished under STEERING 7.
 
 The Anthropic adapter retries ordinary rejected HTTP 429 requests at most twice,
@@ -621,5 +621,12 @@ shared by all adapter instances, article/social triage and editing. A call retai
 its slot during bounded 429 backoff; success and failure both release it. The API
 and worker each have their own limit; there is no cross-process coordination.
 Offline HTTP tests overlap twelve calls across twelve adapters, assert FIFO start
-order and a four-call peak, and verify progress after transport failures. Topic
-parallelism and full-edition timing remain future work.
+order and a four-call peak, and verify progress after transport failures. Full-edition timing remains future work.
+
+Iteration 158 runs up to four topics concurrently, overlapping article/social
+triage and editing while preserving configured topic order and the single
+repeatable-read publication snapshot. The existing process-wide Anthropic cap
+still applies. A failed topic stops queued topics and drains in-flight siblings
+before rollback/release. Fake publication tests require all four topic editors
+to overlap; worker tests cover multiple waves, ordering and failure draining.
+No live inference or full-edition latency claim is involved.

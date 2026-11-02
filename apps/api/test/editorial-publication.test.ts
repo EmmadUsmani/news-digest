@@ -45,6 +45,7 @@ async function harness(
     quiet?: boolean;
     disabled?: boolean;
     supporting?: boolean;
+    parallel?: boolean;
   } = {},
 ) {
   const support = {
@@ -56,16 +57,22 @@ async function harness(
   const repository = new PostgresPreviewRepository();
   await repository.db.end();
   const stored: unknown[] = [];
+  let editors = 0;
+  let releaseEditors: () => void = () => {};
+  const editorsReady = new Promise<void>((resolve) => {
+    releaseEditors = resolve;
+  });
   const calls: string[] = [];
   const client = {
     async query(sql: string, args?: unknown[]) {
       calls.push(sql);
       if (sql.includes('FROM topics'))
         return {
-          rows: [
-            {
-              id: '00000000-0000-4000-8000-000000000001',
-              name: 'AI',
+          rows: Array.from(
+            { length: options.parallel ? 4 : 1 },
+            (_, index) => ({
+              id: `00000000-0000-4000-8000-${String(index + 1).padStart(12, '0')}`,
+              name: options.parallel ? `AI ${index}` : 'AI',
               description: 'AI tools',
               include_guidance: '',
               exclude_guidance: '',
@@ -75,8 +82,8 @@ async function harness(
                 includeAny: ['artificial intelligence'],
                 excludeAny: [],
               },
-            },
-          ],
+            }),
+          ),
         };
       if (sql.includes('FROM content_items'))
         return {
@@ -110,6 +117,11 @@ async function harness(
           },
           editor: {
             async edit(_topic: unknown, shortlist: unknown[]) {
+              if (options.parallel) {
+                editors++;
+                if (editors === 4) releaseEditors();
+                await editorsReady;
+              }
               assert.equal(
                 shortlist.length,
                 options.supporting ? 2 : 1,
@@ -192,3 +204,16 @@ void test('publication copies evidence outside headline coverage without changin
   assert.equal(story.evidence?.[1].url, 'https://example.org/support');
   assert.equal(story.evidence?.[1].title, 'Independent hardware announcement');
 });
+
+void test(
+  'publication overlaps four topic editors and preserves configured topic order',
+  { timeout: 3000 },
+  async () => {
+    const snapshot = await harness({ parallel: true });
+    assert.deepEqual(
+      snapshot.topics.map((topic) => topic.name),
+      ['AI 0', 'AI 1', 'AI 2', 'AI 3'],
+    );
+    assert.ok(snapshot.topics.every((topic) => topic.editorial?.mode === 'ai'));
+  },
+);

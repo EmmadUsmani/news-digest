@@ -10,6 +10,7 @@ import { editorialServices } from '../../curation/public/editorial';
 import { linkCitingStories } from '../../social/public/citing-stories';
 import { editTopicPosts } from '../../social/public/editorial-selection';
 import { selectTopicPosts } from '../../social/public/selection';
+import { parallelTopics } from '../application/parallel-topics';
 import { editorialShortlist } from '../domain/editorial-shortlist';
 import { PreviewRepository } from '../domain/preview.repository';
 import { qualityRejection } from '../domain/quality';
@@ -92,8 +93,7 @@ export class PostgresPreviewRepository
           [profileId],
         )
       ).rows;
-      const selections = [];
-      for (const topic of topics) {
+      const selections = await parallelTopics(topics, async (topic) => {
         // Limit candidate work per topic, selecting the most recent 200 in the exact window.
         const candidates: Candidate[] = (
           await client.query(
@@ -252,7 +252,7 @@ export class PostgresPreviewRepository
           postSelection.posts,
           stories,
         );
-        selections.push({
+        return {
           ...postSelection,
           editorial,
           qualityRejections,
@@ -262,8 +262,8 @@ export class PostgresPreviewRepository
           name: topic.name,
           candidateCount: candidates.length,
           stories,
-        });
-      }
+        };
+      });
       const snapshot: DigestPreview = {
         id: runId,
         createdAt: new Date().toISOString(),

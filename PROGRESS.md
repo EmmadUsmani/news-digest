@@ -20,28 +20,7 @@ Earlier iterations 124–132: [archive](docs/progress-archive/2026-11-02-iterati
 
 Earlier iterations 133–134: [archive](docs/progress-archive/2026-11-02-iterations-133-134.md).
 
-## 2026-11-02: iteration 135 — Aftermath free Gaming citation feed
-
-- Started clean on main; no leftover work. API/worker/health, current collection and digest runs healthy; two historical ingestion failures retained. First semantic edition remains due 20:40 UTC.
-- Migration 032 connects Aftermath public RSS: 15 real articles, three distinct X citations, all three verified via official oEmbed. Reporting/interviews/opinion remain candidates; no page harvesting configured.
-- All three cited posts precede upcoming daily window. Read-only `screen-social-posts.ts 2026-11-01T20:40:00Z 2026-11-02T20:40:00Z`: semantic pools 9/26/1/2, lexical selections 3/5/0/0; Gaming 21 scoped verified posts. No fresh-window or virality gain claimed.
-- Public AUTOMATON English RSS probe: 30 articles, latest Oct 31, zero feed X links; not connected. Temporary probe removed; no bypass or paid calls.
-- Two original Aftermath entries recorded for offline dates/excerpts/exact citations. Initial check caught citation assertion assigned to wrong entry; corrected. `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 143 isolated tests pass.
-- `pnpm migrate`, `pnpm build` pass (existing upstream Zod warnings). Restarted API/worker; `/healthz` healthy. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued passes, 1,161 URLs/four topics/28 healthy sources; repeat idempotent.
-- `pnpm exec tsx apps/api/scripts/verify-x-embeds.ts`: three successes/zero failures. `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; refreshed screenshots and inspected mobile Aftermath card.
-- TASKS/docs/SOURCES updated. No publication, schedule mutation, inference/discovery spend or provider/model/billing change. Anthropic $0.408415; X $0.023382; no new owner blocker.
-- Next: inspect 20:40 UTC scheduled semantic edition when due. Gaming/World daily social gaps and Reddit block persist; keep paid X scheduling off.
-
-## 2026-11-02: iteration 136 — truthful empty social selection status
-
-- Started clean on main; no leftover work. API/worker/health, all 28 feeds and current collection/digest runs healthy; two historical ingestion failures retained. First semantic edition remains due 20:40 UTC.
-- Fixed empty verified candidate pools being labeled AI-selected despite no model call: skip both social services and preserve non-AI/null-model provenance with an explicit no-candidates reason. Incomplete triage now explains its lexical fallback separately from unavailable editing.
-- Regression uses throwing fake services to prove empty/zero-budget paths cannot invoke AI; verifies reasons and null model. Historical editions, prompts, model configuration and ranking are unchanged.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 144 isolated tests pass. `pnpm build` passes (existing upstream Zod warnings).
-- Restarted API/worker; `/healthz` healthy. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued live passes, 1,170 URLs/four topics/28 healthy sources; repeat idempotent.
-- `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; refreshed screenshots and inspected mobile status. README/TASKS updated; no source configuration change.
-- No publication, schedule mutation, inference/discovery spend, provider/model/billing change or new owner blocker. Gaming/World social gaps and Reddit block remain; paid X scheduling stays off.
-- Next: inspect 20:40 UTC scheduled semantic edition when due; continue relevant free social discovery.
+Earlier iterations 135–136: [archive](docs/progress-archive/2026-11-02-iterations-135-136.md).
 
 ## 2026-11-02: iteration 137 — preserve saved social post formatting
 
@@ -167,3 +146,13 @@ Earlier iterations 133–134: [archive](docs/progress-archive/2026-11-02-iterati
 - Restarted API/worker; both active. `/healthz` healthy, `/api/status` shows 32 sources with zero current errors and zero digest failures; `/api/digest-previews/latest` returns stored four-topic edition.
 - Updated TASKS and docs/RANKING. No UI/source/schedule changes or new publication; source docs unchanged. No new blocker.
 - Next: parallel topic editors, async jobs/window dedupe/progress and full-edition timing. Item 7 remains open; no full-edition performance claim.
+
+## 2026-11-02: iteration 158 — parallel topic editorial pipelines
+
+- Started clean on main; no leftover work. API/worker and health healthy; 32 sources without current errors, zero failed digest jobs; two retained historical ingestion failures.
+- STEERING 7 partial: run four topic pipelines concurrently, overlapping article/social triage and editing under the existing shared Anthropic limit. Preserve configured topic order and one repeatable-read publication snapshot.
+- Stop queued topics after failure and drain in-flight siblings before rollback/release. Fake publication test requires four simultaneous editors; worker tests cover multiple waves, order, empty input and failure draining.
+- Initial direct targeted invocation hit the test-isolation guard (no live access); reran through the disposable Postgres/Redis harness. `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 161 isolated tests pass. `pnpm build` passes.
+- Restarted API/worker; both active. `/healthz` healthy; `/api/status` shows 32 sources, no current source errors or failed digest jobs; latest stored edition returns four topics.
+- Updated TASKS/docs/RANKING; archived iterations 135–136 to keep PROGRESS compact. No UI/source/schedule changes, new publication or live inference spend; source docs unchanged.
+- Next: async creation/regeneration, window dedupe, progress UI and last-run duration; measure full-edition timing with fakes. No full-edition latency claim or new blocker; item 7 stays open.
