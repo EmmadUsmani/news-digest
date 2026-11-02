@@ -5,6 +5,8 @@ Fix regressions, broken services and stalled sources before starting new work.
 
 ## Immediate owner priorities (STEERING overrides older milestone notes)
 
+- [ ] STEERING 15: scheduled X search for every enabled topic daily, weakest first; atomic per-topic/day admission, optional second search only below three verified additions and within projected caps. Fake tests only; acknowledge after first full scheduled run with per-topic cost/yield. Newly merged owner instruction in iteration 235; implement before Nov 3 discovery.
+
 - [ ] STEERING 13 TOP PRIORITY before Nov 3 15:00 UTC: reserve configurable Anthropic budget for the scheduled edition under the shared ledger lock; limit all other spend until completion/failure; expose reserve/manual limits and scheduled AI/fallback outcome. Fake/Testcontainers verification only. Measure next scheduled edition cost/duration for item 7.
   - Iterations 192–210: durable UTC-day lifecycle, shared-lock admission, historical sizing, scheduler fencing and Status/manual-create notices implemented and enabled in production with 1.5x headroom. Next: observe Nov 3 AI cost/duration before acknowledging item 13; see reserve decision and PROGRESS.
 

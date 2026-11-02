@@ -289,6 +289,7 @@ Archived iteration 214: [entry](docs/progress-archive/2026-11-02-iteration-214.m
 - Pins evidence, semantic scores, editor text, rejection and window boundaries; warm-cache regeneration stays identical with a new ID and preserves the first edition.
 - Responses are synthetic, not live recordings; ledger/cache are in memory. No provider or Reddit requests.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (120 unit, 134 integration), `pnpm build` and `git diff --check` passed.
-- Updated TASKS and database verification notes; remaining repository gaps and recorded-response golden stay open.
+- Updated TASKS/database notes; remaining repository gaps and recorded-response golden stay open.
+- Initial push rejected: owner added STEERING 15. Fetched/merged instructions-only commit without rewriting history; queued daily X search for every topic as next work.
 - Deployment: API/worker restarted healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues.
 - Next: observe Nov 3 14:30 UTC X discovery and 15:00 edition cost/duration; fallback timing is not AI latency evidence.
