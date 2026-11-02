@@ -986,3 +986,67 @@ void test('failed custom-feed connection rolls back catalog registration and per
     await Promise.all([db.end(), topics.onModuleDestroy()]);
   }
 });
+
+void test('failed deletion restores cascaded connections and positions before a successful retry', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const topics = new PostgresTopicRepository();
+  const db = database();
+  const original = await topics.listDefault();
+  const catalog = await topics.catalog();
+  const created: string[] = [];
+  try {
+    const {
+      id: _id,
+      profileId: _profileId,
+      position: _position,
+      sources: _sources,
+      queries: _queries,
+      ...input
+    } = original[0];
+    const first = await topics.createDefault({
+      ...input,
+      name: 'Deletion rollback target',
+      enabled: false,
+    });
+    created.push(first.id);
+    const second = await topics.createDefault({
+      ...input,
+      name: 'Deletion rollback successor',
+      enabled: false,
+    });
+    created.push(second.id);
+    assert.ok(catalog.length > 0);
+    assert.ok(await topics.connectDefault(first.id, [catalog[0].id]));
+    const before = await topics.listDefault();
+    // Fail after DELETE has cascaded, when the successor's gap is closed.
+    await db.query(`ALTER TABLE topics ADD CONSTRAINT deletion_failure_fixture
+      CHECK (id <> '${second.id}'::uuid OR position = ${second.position})`);
+    await assert.rejects(
+      topics.deleteDefault(first.id),
+      /deletion_failure_fixture/,
+    );
+    assert.deepEqual(await topics.listDefault(), before);
+    assert.deepEqual(await topics.catalog(), catalog);
+    await db.query(
+      'ALTER TABLE topics DROP CONSTRAINT deletion_failure_fixture',
+    );
+    const remaining = await topics.deleteDefault(first.id);
+    assert.deepEqual(
+      remaining,
+      before
+        .filter((topic) => topic.id !== first.id)
+        .map((topic, position) => ({ ...topic, position })),
+    );
+    assert.equal(await topics.deleteDefault(first.id), null);
+    await topics.deleteDefault(second.id);
+    assert.deepEqual(await topics.listDefault(), original);
+    assert.deepEqual(await topics.catalog(), catalog);
+  } finally {
+    await db.query(
+      'ALTER TABLE topics DROP CONSTRAINT IF EXISTS deletion_failure_fixture',
+    );
+    for (const id of created) await topics.deleteDefault(id);
+    await topics.onModuleDestroy();
+    await db.end();
+  }
+});

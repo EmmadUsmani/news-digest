@@ -110,18 +110,6 @@ Earlier iteration 229: [archive](docs/progress-archive/2026-11-02-iteration-229.
 
 Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
 
-## 2026-11-02: iteration 239 — daylight-saving coverage boundaries
-
-- Started clean on main; services/health green, 32 sources without current errors; no leftover work.
-- Priority 15/13/7/9 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a.
-- Added disposable PostgreSQL coverage for elapsed 24-hour article windows across spring/fall DST in a non-UTC session.
-- Pins inclusive start/exclusive end to millisecond precision plus connected-source and exact one-hour health counts.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 137 integration), `pnpm build`, `git diff --check` passed.
-- Updated TASKS/database notes; archived iteration 223 to keep PROGRESS bounded. No provider or Reddit requests.
-- Restarted API/worker healthy; DB/Redis true, SPA 200, 32 error-free sources and four available queues.
-- Read-only timing report confirms latest four-topic fallback edition remains intact; 856 ms is not live AI latency evidence.
-- Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
-
 ## 2026-11-02: iteration 240 — scheduled X verification admission
 
 - Started clean on main; services/health green, 32 sources without current errors; no leftover work.
@@ -335,3 +323,14 @@ Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
 - Live rolling article coverage: Tech/AI 306, NBA 108, Gaming 276, World 212; latest source success 21:46 UTC.
 - Updated TASKS/database notes; archived iteration 238 to keep PROGRESS bounded.
 - Next: observe Nov 3 scheduled X cost/yield and AI edition cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 259 — recover topic deletion rollback coverage
+
+- Recovered and finished iteration 258’s uncommitted test, database notes and iteration 239 archive; discarded nothing.
+- Services/health and all 32 sources healthy; priority 15/13/7/9 evidence still awaits Nov 3.
+- Pins rollback of cascaded source connections and topic positions when deletion fails; retry and missing-delete behavior verified.
+- Disposable PostgreSQL only; no provider or Reddit requests.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 154 integration), `pnpm build`, `git diff --check` passed.
+- Live latest edition has four topics; rolling article/X coverage present across all four topics.
+- Restarted API/worker; health, SPA, source and queue checks passed.
+- Next: observe Nov 3 scheduled X per-topic cost/yield and AI edition cost/duration before acknowledging 15/13/7.

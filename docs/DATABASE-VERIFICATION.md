@@ -369,3 +369,12 @@ the transaction leaves neither an orphan source nor altered topic settings.
 Removing the rejection permits registration; repeating it retains one source
 and one connection, while other topics stay unchanged. A temporary constraint
 injects failure only in disposable PostgreSQL; no feed or provider requests occur.
+
+## Topic deletion rollback (iteration 259; recovered from 258)
+
+`settings.test.ts` rejects gap closure after a topic deletion has cascaded to
+its source connections. The entire topic list, connection and source catalog
+survive unchanged. Removing the constraint permits deletion with contiguous
+positions; repeated deletion returns missing and cleanup restores the original
+settings. All fixtures use disposable PostgreSQL, with no source or provider
+requests. Recorded-response golden and other repository gaps remain open.
