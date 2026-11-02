@@ -39,6 +39,9 @@ exercise real controllers and repositories against the disposable services. Dige
 HTTP tests cover rejected requests, synchronous publication, immutable retrieval,
 latest/history offsets and deduplicated async jobs completed by a real BullMQ
 worker against the real repository (empty historical window, no inference).
+Content repository characterization covers connected/enabled source eligibility, shared
+observations, dedupe, five-item ordering/filtering, timezone normalization, JSON
+upserts, failure truncation and batch rollback (including existing-row updates).
 `pnpm test` runs both commands; integration tests remain part of `pnpm check`.
 Both runners replace inherited database/Redis URLs, clear Anthropic/xAI keys and
 live-inference opt-in. Docker is required only for integration tests; there is no

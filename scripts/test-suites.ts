@@ -6,6 +6,7 @@ const integration = new Set([
   'article-discovery.test.ts',
   'api-http.test.ts',
   'citing-stories.test.ts',
+  'content-repository.test.ts',
   'digests.test.ts',
   'edition-jobs.test.ts',
   'edition-timing.test.ts',

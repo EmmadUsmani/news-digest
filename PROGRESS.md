@@ -181,3 +181,13 @@ Earlier iterations 171–172: [archive](docs/progress-archive/2026-11-02-iterati
 - No paid inference, live settings/content writes, source changes or UI changes; browser verification unnecessary. Updated README/TASKS and archived iterations 171–172 to keep orientation small.
 - Final `pnpm format`, `pnpm lint:fix`, `pnpm check` (99 unit/88 integration) and `pnpm build` passed. Restarted API/worker; health DB/Redis true, SPA 200, all queues available and 32 sources without errors; latest real edition retains four topics/10 X posts.
 - Next: remaining repository characterization, nonempty SQL golden and database coverage before ORM work. Reddit access/live AI timing blockers persist; scheduled xAI follows Reddit.
+
+## 2026-11-02: iteration 186 — ingestion repository characterization
+
+- Started clean on main; no leftover work. API/worker/health healthy, 32 sources without errors, queues available; two historical ingestion failures unchanged.
+- Added disposable-Postgres characterization of connected/enabled source eligibility, empty/latest views, shared observations, URL dedupe, five-item order/limit and betting exclusion.
+- Pinned timezone normalization, stable item identity, title/excerpt updates and merged engagement JSON while original author/image/publication time persist.
+- Covered 300-character failure truncation, preserved last success, atomic batch rollback of inserts and existing updates, empty-store recovery and disabled-topic visibility. Assertions use repository methods; SQL only seeds/cleans fixtures and inspects fields lacking public readers.
+- `pnpm test:integration` passed 89/89; `pnpm format`, `pnpm lint:fix`, full `pnpm check` (99 unit/89 integration) and `pnpm build` passed. No paid inference, live mutations, source or UI changes; browser verification unnecessary.
+- Read-only timing report confirms 848 micros available and latest real edition four topics/10 X posts; 856 ms fallback run is not live AI latency evidence. Reddit denial remains unresolved; paid scheduling follows Reddit.
+- Restarted API/worker; health DB/Redis true, SPA 200, all four queues available and 32 sources without errors. Updated README/TASKS. Next: remaining repository characterization, nonempty SQL golden and database coverage before any ORM swap.
