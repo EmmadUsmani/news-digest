@@ -16,3 +16,8 @@ export interface RedditPost {
 export interface RedditListingPort {
   collect(community: string): Promise<RedditPost[]>;
 }
+
+export interface RedditCollectionRepository {
+  communities(): Promise<{ community: string; topicIds: string[] }[]>;
+  store(posts: RedditPost[], topicIds: string[]): Promise<void>;
+}

@@ -290,3 +290,9 @@ is currently blocked; saving configuration does not fetch posts.
 `pnpm exec tsx scripts/smoke-reddit-communities.ts` checks settings on desktop
 and mobile with intercepted topic writes and asserts live topics stay unchanged.
 Community validation and persistence tests run against disposable SQL in `pnpm check`.
+
+Reddit storage preparation uses `collectReddit` through a listing/repository port.
+Migration 038 retains card metadata and metrics in `social_posts` with transactional
+per-topic associations; repeated collection updates the snapshot. It is not wired
+to scheduling or selection while access is blocked. X citation integration and
+Reddit ranking/cards remain unfinished. Synthetic fixtures are not live content.

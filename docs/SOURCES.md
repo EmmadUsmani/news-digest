@@ -1118,3 +1118,18 @@ SocialPost persistence, citation extraction, ranking and cards remain unfinished
 there are still no stored live Reddit posts. Desktop/mobile screenshots
 `reddit-communities-{desktop,mobile}.png` use intercepted topic settings for
 browser verification, not live Reddit data.
+
+## Reddit storage preparation — iteration 170 (2026-11-02)
+
+Public access status remains **blocked**, with no new requests, stored live Reddit
+posts or access workarounds. Migration 038 allows Reddit IDs alongside X IDs and
+stores title/text, subreddit, thumbnail/external URL, UTC publication time and
+score/comments/upvote ratio in `social_posts`. Topic associations are transactional
+and recheck enabled topics and configured communities before writing. Repeated
+collection updates metadata/metrics without duplicating posts.
+
+The explicit `collectReddit` application path fetches at most 20 distinct enabled
+communities per pass and stops on the first listing error. It is deliberately
+not connected to the hourly worker while denied public access remains unresolved.
+Isolated synthetic tests cover updates, rollback and topic scope; they do not
+constitute live ingestion. X citations, ranking and Reddit cards remain next.

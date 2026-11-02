@@ -30,16 +30,6 @@ Earlier iterations 141–142: [archive](docs/progress-archive/2026-11-02-iterati
 
 Earlier iteration 143: [archive](docs/progress-archive/2026-11-02-iteration-143.md).
 
-## 2026-11-02: iteration 155 — bounded concurrent article/social triage
-
-- Started clean on main; no leftover work. Services/health healthy; 32 sources without current errors, 1,398 stored items. Two historical ingestion failures retained; digest queue has no failures.
-- STEERING 7 partial: replace sequential three-item calls with up to 50 items, four calls in flight per invocation, conservative 60 KB escaped UTF-8 input bound and batch-scaled output limits. Per-item cache keys and existing shared-instruction caching preserved.
-- Refusal stops new batches; in-flight calls finish and retain validated scores. Fake tests cover concurrency/order, byte splitting, changed inputs/cache reuse and refusal; no live LLM calls.
-- `pnpm exec tsx --test apps/api/test/triage.test.ts`: 9 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and 154 isolated tests pass. `pnpm build` passes (existing upstream Zod warnings).
-- Temporary offline benchmark: 1,500 candidates in sequential 200-item chunks, 20 ms fake calls: cold 30 calls/217 ms; replay zero calls/15 ms. This is triage orchestration only, not a live/full-edition timing claim.
-- Restarted API/worker; `/healthz`, `/api/status` and latest edition read pass (four topics). No new publication, schedule mutation or inference/discovery spend. No UI/source changes; source docs unchanged.
-- TASKS and docs/RANKING updated. Next: bounded 429 backoff, parallel topic editors/shared concurrency, async generation/dedupe/progress and full-edition timing. Item 7 remains open; no new blocker.
-
 ## 2026-11-02: iteration 156 — bounded Anthropic rate-limit backoff
 
 - Started clean on main; no leftover work. API/worker healthy, 32 sources without current errors; digest queue has zero failures. Two historical ingestion failures remain retained.
@@ -187,3 +177,14 @@ Earlier iteration 143: [archive](docs/progress-archive/2026-11-02-iteration-143.
 - Applied migration with `pnpm migrate`; restarted API/worker. `pnpm exec tsx scripts/smoke-reddit-communities.ts` passed desktop/mobile normalize/save/reload/duplicates/clear with intercepted writes and unchanged live topics; screenshots updated.
 - Read-only timing report observed 15:00 scheduled edition 60718fe7 publish in 856 ms, 604 candidates/four topics, ten X posts; all story/social selection non-AI fallback due incomplete triage within caps. NOT live AI latency evidence. Spend unchanged at 481910 micros; next run Nov 3 15:00 UTC.
 - Health/source/status/latest-edition endpoints pass, no failed digest runs. README/TASKS/SOURCES updated; archived oldest progress entry to stay compact. Next: Reddit post persistence/collection behind port, respecting blocked public access.
+
+## 2026-11-02: iteration 170 — transactional Reddit post storage
+
+- Started clean on main; no leftover work. Health/API/worker healthy, 32 sources/no current errors, zero failed digest runs; two historical ingestion failures retained.
+- Added migration 038: platform-specific Reddit/X ID checks, Reddit metadata on SocialPost rows and per-topic associations. Existing X selection remains unchanged.
+- Added repository/collection ports and bounded explicit collector: deduped enabled communities, 20-community cap, 100 posts/community, stop on first listing error; no scheduler activation or public requests while access remains blocked.
+- Transactional writes preserve title/text, author, UTC time, subreddit, external URL/thumbnail and engagement snapshot; upserts refresh metrics and associations recheck enabled/configured topics.
+- Synthetic/isolated tests verify metadata, repeated collection, topic scope, rollback and stop-on-denial; no live Reddit data claimed. X citation integration, ranking and cards remain next.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (171 tests, types/lint/format/boundaries) and `pnpm build` passed. No UI changes; browser verification not applicable. README/TASKS/SOURCES updated; oldest progress entry archived.
+- `pnpm migrate` applied 038; restarted API/worker. `/healthz` DB/Redis true; `/api/status` 32 sources/no errors and zero failed digest/social jobs, all queues have workers.
+- Read-only `pnpm exec tsx scripts/report-edition-timing.ts`: same 856 ms scheduled fallback edition/four topics; budget unchanged (481910 micros spent, 848 available), no inference calls. Live AI latency remains unverified; next routine run Nov 3 15:00 UTC.

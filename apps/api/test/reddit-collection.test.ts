@@ -1,0 +1,131 @@
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import { test } from 'node:test';
+
+import { RedditListing } from '../src/modules/social/adapters/reddit-listing';
+import { collectReddit } from '../src/modules/social/application/collect-reddit';
+import { PostgresRedditRepository } from '../src/modules/social/database/reddit.repository';
+import type { RedditPost } from '../src/modules/social/domain/reddit';
+
+async function fixture() {
+  const body = await readFile(
+    'apps/api/test/fixtures/reddit/top.synthetic.json',
+    'utf8',
+  );
+  return new RedditListing({ get: async () => body }).collect('nba');
+}
+
+void test('Reddit collection stops after first denied community and propagates storage failures', async () => {
+  const calls: string[] = [];
+  const communities = async () =>
+    ['nba', 'Games'].map((community) => ({ community, topicIds: ['topic'] }));
+  const store = async () => {
+    throw new Error('storage');
+  };
+  assert.deepEqual(
+    await collectReddit(
+      { communities, store },
+      {
+        collect: async (c) => {
+          calls.push(c);
+          throw new Error('403');
+        },
+      },
+    ),
+    { communities: 0, posts: 0, errors: 1 },
+  );
+  assert.deepEqual(calls, ['nba']);
+  await assert.rejects(
+    collectReddit({ communities, store }, { collect: async () => [] }),
+    /storage/,
+  );
+  const stored: RedditPost[][] = [];
+  const posts = await fixture();
+  assert.ok(posts.length > 0);
+  const result = await collectReddit(
+    {
+      communities,
+      store: async (p) => {
+        stored.push(p);
+      },
+    },
+    { collect: async () => posts },
+  );
+  assert.equal(result.communities, 2);
+  assert.equal(stored[0].length, posts.length);
+  assert.deepEqual(stored[1], []);
+});
+
+void test('Reddit storage preserves metadata, updates metrics, links configured topics and rolls back atomically', async () => {
+  const repository = new PostgresRedditRepository();
+  const posts = await fixture();
+  const post = posts[0];
+  const nba = '00000000-0000-4000-8000-000000000012';
+  const gaming = '00000000-0000-4000-8000-000000000013';
+  try {
+    assert.ok(
+      (await repository.communities())
+        .find((c) => c.community === 'nba')
+        ?.topicIds.includes(nba),
+    );
+    await repository.store([post], [nba, gaming]);
+    await repository.store(
+      [{ ...post, metrics: { ...post.metrics, score: 12345 } }],
+      [nba],
+    );
+    const stored = (
+      await repository.db.query(
+        `SELECT * FROM social_posts WHERE platform='reddit' AND external_id=$1`,
+        [post.externalId],
+      )
+    ).rows;
+    assert.equal(stored.length, 1);
+    assert.equal(stored[0].metrics.score, 12345);
+    assert.equal(stored[0].reddit_metadata.title, post.title);
+    assert.equal(stored[0].reddit_metadata.externalUrl, post.externalUrl);
+    assert.equal(stored[0].published_at.toISOString(), post.publishedAt);
+    assert.equal(stored[0].embed_html, '');
+    assert.deepEqual(
+      (
+        await repository.db.query(
+          'SELECT topic_id FROM reddit_topic_posts WHERE external_id=$1',
+          [post.externalId],
+        )
+      ).rows,
+      [{ topic_id: nba }],
+    );
+    await assert.rejects(
+      repository.store(
+        [
+          { ...post, metrics: { ...post.metrics, score: 999 } },
+          { ...post, externalId: 'INVALID!' },
+        ],
+        [nba],
+      ),
+    );
+    assert.equal(
+      (
+        await repository.db.query(
+          `SELECT metrics FROM social_posts WHERE platform='reddit' AND external_id=$1`,
+          [post.externalId],
+        )
+      ).rows[0].metrics.score,
+      12345,
+    );
+    assert.equal(
+      (
+        await repository.db.query(
+          `SELECT count(*)::int AS n FROM social_posts WHERE platform='x' AND external_id=$1`,
+          [post.externalId],
+        )
+      ).rows[0].n,
+      0,
+    );
+  } finally {
+    await repository.db.query(
+      `DELETE FROM social_posts WHERE platform='reddit' AND external_id=ANY($1::text[])`,
+      [posts.map((p) => p.externalId)],
+    );
+    await repository.db.end();
+  }
+});
