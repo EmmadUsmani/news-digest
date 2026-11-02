@@ -114,17 +114,7 @@ Earlier iteration 244: [archive](docs/progress-archive/2026-11-02-iteration-244.
 
 Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
 
-## 2026-11-02: iteration 252 — embed-check retry boundaries
-
-- Started clean on main; API/worker, health and 32 sources healthy; no leftover work.
-- Priority 15/13/7/9 evidence awaits Nov 3; advanced isolated STEERING 2a.
-- Pinned the strict daily embed-check cooldown at one millisecond in a non-UTC transaction.
-- Rejected diagnostic preserves the prior check; successful retry clears errors and repeat checks retain one row.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 149 integration), `pnpm build`, `git diff --check` passed.
-- Initial check caught transaction fixture setup using a nested connection; corrected it and reran checks.
-- Updated TASKS/database notes; archived iteration 234 to keep PROGRESS bounded. No provider or Reddit requests.
-- API/worker restarted healthy; SPA 200, 32 error-free sources, four available queues; all topics have recent articles and verified X posts.
-- Next: observe Nov 3 all-topic X cost/yield and scheduled AI cost/duration before acknowledging 15/13/7.
+Iteration 252: [archive](docs/progress-archive/2026-11-02-iteration-252.md).
 
 ## 2026-11-02: iteration 253 — missing post-time recovery
 
@@ -355,3 +345,16 @@ Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
 - API/worker restarted; health, SPA and latest four-topic edition checked; `git diff --check` clean.
 - Archived oldest progress entry to keep orientation bounded.
 - Next: engagement provenance/storage/ranking, then scheduled switch after Nov 3 evidence.
+
+## 2026-11-02: iteration 272 — reported X engagement contract
+
+- Started clean on main; API/worker and health healthy; 32 sources without current errors.
+- STEERING 16: compact search output requests known counts and post timestamps.
+- Adapter returns citation-bound observations with `reported_by: xai_search` and local observed-at time.
+- Missing counts remain absent; explicit zero survives; invalid/uncited/duplicate reports are rejected.
+- Malformed/incomplete output retains billable usage and cannot create engagement observations.
+- No paid or Reddit requests; reports remain unverified and are not yet persisted or ranked.
+- Verified: three targeted tests; `pnpm format`, `pnpm lint:fix`, `pnpm check` (127 unit/165 integration), `pnpm build`, `git diff --check`.
+- API/worker restarted; health, SPA HTTP 200 and four-topic latest edition checked.
+- Archived iteration 252 to keep progress bounded; no leftover work to recover.
+- Next: persist reported observations and rank by engagement/age plus relevance; Nov 3 scheduled evidence still pending.

@@ -13,7 +13,19 @@ export interface XSearchPort {
   search(request: XSearchRequest): Promise<{
     usage: XDiscoveryUsage;
     links: DiscoveredLink[];
+    reportedEngagement?: XReportedEngagement[];
   }>;
+}
+// Model-reported observations, never official/verified platform metrics.
+export interface XReportedEngagement {
+  externalId: string;
+  reported_by: 'xai_search';
+  observedAt: string;
+  publishedAt?: string;
+  likes?: number;
+  reposts?: number;
+  replies?: number;
+  views?: number;
 }
 export class XSearchError extends Error {
   constructor(readonly reason: 'credits-depleted' | 'rejected' | 'uncertain') {

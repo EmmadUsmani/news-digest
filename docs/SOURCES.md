@@ -1309,3 +1309,16 @@ cover outside-list citations; no live search or yield claim was made. Scheduled
 search stays on account lists until the first STEERING 15 run is acknowledged.
 Reported engagement, ranking, search-type reporting and budget-prioritized
 reaction/account searches remain unfinished under STEERING 16.
+
+## Reported X engagement preparation — iteration 272 (2026-11-02)
+
+Search now requests a compact JSON array with cited URLs, post times and known
+like/repost/reply/view counts. The adapter returns citation-bound observations
+marked `reported_by: xai_search` with a local observed-at timestamp. These are
+model reports, never verified engagement; unknown fields stay absent, while
+explicit zero is preserved. Invalid counts/times, future timestamps, uncited
+IDs, conflicting duplicate reports and malformed output do not become usable
+observations. Billed usage survives malformed output. Synthetic offline tests
+only; no live quality/virality claim. Persistence, age-relative ranking and
+search-type reporting remain next; the scheduled account-list path stays in
+place pending the first STEERING 15 run acknowledgement.
