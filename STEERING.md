@@ -204,3 +204,32 @@ The "if the key isn't there yet" fallback below no longer applies.
   - provider-limit error handling (with mocked responses)
 - Update NEEDS_FROM_HUMAN.md to clear the model question.
 
+
+## 4. LOWER PRIORITY: test against fake/recorded LLM responses (2026-11-02)
+
+Same priority level as item 2: after the current milestone work, not urgent.
+Add it to TASKS.md.
+
+**Why:** on 2026-11-02, about $0.40 of the $0.47 daily app budget went on the
+agent's own development and verification calls. Most of that was Sonnet. That
+crowds out the real digests.
+
+- **Tests:** unit, integration, e2e and golden tests use a fake or replaying
+  `LlmPort` adapter. No test may reach the real Anthropic API.
+- **Recorded responses:**
+  - Record realistic responses once into `apps/api/test/fixtures/llm/`, with
+    the request fingerprint, model and response body. Never store the key or
+    headers.
+  - Replay them by fingerprint.
+  - Re-record only when a prompt or schema version changes, and say so in
+    the commit.
+- **Ranking evaluations and replays:** use these recorded responses or the
+  existing `llm_cache`, not fresh calls.
+- **Real calls during development:**
+  - Allow them only behind an explicit opt-in (for example `LLM_LIVE=1`).
+  - Limit them to a few calls and at most $0.05 per iteration, preferring
+    Haiku.
+  - Tag them `purpose=verification` in the ledger, so the status page shows
+    development spend separately from digest spend.
+- **The real schedule:** scheduled digest generation stays the only routine
+  user of live Sonnet calls.
