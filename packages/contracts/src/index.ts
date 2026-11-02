@@ -107,6 +107,20 @@ export const rankedStorySchema = z.object({
   score: z.number(),
   reasons: z.array(z.string()),
 });
+// Optional on historical editions; new selections are copied into the snapshot.
+export const selectedPostSchema = z.object({
+  platform: z.literal('x'),
+  externalId: z.string(),
+  url: z.string().url(),
+  author: z.string(),
+  authorUrl: z.string().url(),
+  publishedAt: z.string().datetime(),
+  text: z.string(),
+  metrics: z.record(z.string(), z.number()),
+  reasons: z.array(z.string()),
+});
+export type SelectedPost = z.infer<typeof selectedPostSchema>;
+
 export const digestPreviewSchema = z.object({
   id: z.string().uuid(),
   createdAt: z.string(),
@@ -156,6 +170,8 @@ export const digestPreviewSchema = z.object({
           }),
         )
         .optional(),
+      posts: z.array(selectedPostSchema).optional(),
+      postSelectionMethod: z.literal('verified-lexical-recency-v1').optional(),
       stories: z.array(rankedStorySchema),
     }),
   ),

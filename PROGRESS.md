@@ -378,3 +378,15 @@ Earlier iterations 23–37: [archive](docs/progress-archive/2026-11-01-iteration
 - `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued live passes, 786 real article URLs, four topics, seventeen healthy sources.
 - Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-status.ts` and `scripts/smoke-ui.ts` passed desktop/mobile; screenshots refreshed.
 - No inference spending or provider/model/billing changes. Updated TASKS/README/docs/SOURCES; no owner blockers. Reddit remains 403; relevant discovery, immutable selections/widgets and scheduled free harvesting remain unfinished.
+
+## 2026-11-02: iteration 92 — freeze preliminary post selections in editions
+
+- Started clean on main; no leftover work. API/worker and `/healthz` healthy; no triage repair needed.
+- New manual/scheduled editions copy verified, topic-scoped post metadata/text/metrics/reasons in the publication transaction; saved budgets, half-open windows, topic/quality screening and normalized-text dedupe apply.
+- Selection method `verified-lexical-recency-v1` is newest-first and bounded to 500 candidates; no inferred virality, independent-source bonuses or AI claims. Raw HTML excluded; historical snapshots unchanged.
+- Read-only `screen-social-posts.ts` now reports exact selections: live Oct 26–Nov 2 UTC selects three NBA posts, zero for other topics. No live edition generated for verification; UI post rendering remains pending.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and 107 isolated tests; `pnpm build` passed (existing upstream Zod warnings). First check caught a concurrently edited unformatted diagnostic; final full rerun green.
+- Isolated publication regression covers budgets zero/one, scope, quality/window exclusions, repeated-text dedupe, refresh preservation, immutable scheduled retry and regeneration. No external calls in tests.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live queued passes: 788 real article URLs, four topics, seventeen healthy sources. Daily Nov 1 UTC post selection stays empty.
+- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed.
+- No inference spending or provider/model/billing changes. Updated TASKS/docs/SOURCES; no owner blocker. Next: lazy official widgets and broader relevant discovery; Reddit remains 403.

@@ -2,6 +2,7 @@
 import { officialPostText } from '../src/modules/social/adapters/embed-text';
 import { PostgresSocialRepository } from '../src/modules/social/database/social.repository';
 import { assessPostEligibility } from '../src/modules/social/domain/eligibility';
+import { selectTopicPosts } from '../src/modules/social/public/selection';
 import { PostgresTopicRepository } from '../src/modules/topics/database/topic.repository';
 
 async function main() {
@@ -25,6 +26,15 @@ async function main() {
           topic: topic.name,
           start,
           end,
+          selectionMethod: 'verified-lexical-recency-v1',
+          selected: await selectTopicPosts(
+            social.db,
+            topic.id,
+            topic.relevancePolicy,
+            start,
+            end,
+            topic.postBudget,
+          ),
           posts: posts.map((post) => ({
             externalId: post.externalId,
             ...assessPostEligibility(

@@ -366,3 +366,19 @@ the window. For [2026-10-26, 2026-11-02), three NBA posts pass saved phrase rule
 Gaming/World have no verified candidates. No paid inference or new source
 configuration; Reddit remains blocked by the previously observed 403. No posts
 are selected or displayed in digests yet.
+
+### Iteration 92: immutable preliminary post selections
+
+New editions copy verified, topic-scoped posts inside the publication transaction,
+including author, post time, paragraph text, metrics and eligibility reason. Saved
+post budgets (including zero) apply, repeated normalized text uses one slot, and
+selection is newest-first from at most 500 in-window verified candidates. The
+method `verified-lexical-recency-v1` is preliminary: no semantic interestingness,
+independent-source count or virality is inferred. Unknown engagement stays empty.
+Raw embed HTML is not included in the public snapshot. Historical editions are
+unchanged; official widget rendering is still pending.
+
+The read-only `screen-social-posts.ts` command now also returns exact selections.
+Live Oct 26–Nov 2 UTC replay selects three NBA posts and zero for other topics;
+this is stored real content, not a newly published edition or broader coverage.
+No HTTP or inference is used by selection. Reddit remains blocked (403).
