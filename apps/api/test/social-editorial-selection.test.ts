@@ -154,3 +154,102 @@ void test('empty and disabled post sections skip both social AI services', async
     assert.match(disabled.postEditorial.reason, /budget is zero/);
   }
 });
+
+void test('mixed-platform editorial isolates IDs and reserves X slots without padding', async () => {
+  const { selectedPostSchema } = await import('@digest/contracts');
+  type Candidate = Omit<SelectedPost, 'platform'> & {
+    platform: 'x' | 'reddit';
+  };
+  const reddit: Candidate[] = Array.from({ length: 8 }, (_, i) => ({
+    ...posts[i],
+    platform: 'reddit',
+    text: `Synthetic Reddit ${i}`,
+    url: `https://www.reddit.com/r/test/comments/${i}/`,
+  }));
+  const services: SocialSelectionServices = {
+    socialTriage: {
+      async score(_topic, candidates) {
+        assert.equal(
+          new Set(candidates.map((p) => p.id)).size,
+          candidates.length,
+        );
+        assert.ok(candidates.some((p) => p.title === 'Reddit post'));
+        return {
+          scores: candidates.map((p) => ({
+            id: p.id,
+            relevance: 8,
+            importance: p.id.startsWith('reddit:') ? 10 : 7,
+            event: 'fixture',
+            rationale: 'Synthetic score',
+          })),
+          unscoredIds: [],
+        };
+      },
+    },
+    socialEditor: {
+      async edit(_topic, candidates, budget) {
+        assert.ok(candidates.length <= 10);
+        // Deliberately prefer Reddit to exercise the enforced platform cap.
+        return {
+          model: 'fake',
+          posts: [...candidates]
+            .sort(
+              (a, b) =>
+                Number(b.platform === 'reddit') -
+                Number(a.platform === 'reddit'),
+            )
+            .slice(0, budget)
+            .map((p) => ({
+              id: p.id,
+              whyItMatters: 'Synthetic context',
+              rationale: 'Synthetic choice',
+            })),
+        };
+      },
+    },
+  };
+  const mixed: Candidate[] = [...posts.slice(0, 5), ...reddit];
+  const result = await editTopicPosts(services, topic, mixed, [], 5, 'test');
+  assert.equal(result.posts.filter((p) => p.platform === 'reddit').length, 1);
+  assert.equal(result.posts.length, 1, 'declined X slots must stay empty');
+  assert.equal(result.posts[0].text, reddit[0].text);
+  assert.ok(result.postEditorial.triage.some((p) => p.id === '0'));
+  assert.ok(result.postEditorial.triage.some((p) => p.id === 'reddit:0'));
+  assert.equal(
+    selectedPostSchema.safeParse(result.posts[0]).success,
+    false,
+    'Reddit editorial preparation must not silently enter the X-only snapshot contract',
+  );
+  const sparse = await editTopicPosts(
+    services,
+    topic,
+    [...posts.slice(0, 1), ...reddit],
+    [],
+    5,
+    'test',
+  );
+  assert.equal(sparse.posts.length, 4, 'one qualifying X reserves one slot');
+  const fallback = await editTopicPosts(
+    null,
+    topic,
+    mixed,
+    [...reddit, ...posts.slice(0, 5)],
+    5,
+    'test',
+  );
+  assert.equal(fallback.posts.filter((p) => p.platform === 'reddit').length, 1);
+  assert.equal(fallback.posts.filter((p) => p.platform === 'x').length, 4);
+  const redditOnly = await editTopicPosts(
+    services,
+    topic,
+    reddit,
+    [],
+    5,
+    'test',
+  );
+  assert.equal(
+    redditOnly.posts.length,
+    5,
+    'no X evidence permits strong Reddit candidates',
+  );
+});

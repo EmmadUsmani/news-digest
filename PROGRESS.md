@@ -32,27 +32,6 @@ Earlier iteration 143: [archive](docs/progress-archive/2026-11-02-iteration-143.
 
 Earlier iteration 157: [archive](docs/progress-archive/2026-11-02-iteration-157.md).
 
-## 2026-11-02: iteration 158 — parallel topic editorial pipelines
-
-- Started clean on main; no leftover work. API/worker and health healthy; 32 sources without current errors, zero failed digest jobs; two retained historical ingestion failures.
-- STEERING 7 partial: run four topic pipelines concurrently, overlapping article/social triage and editing under the existing shared Anthropic limit. Preserve configured topic order and one repeatable-read publication snapshot.
-- Stop queued topics after failure and drain in-flight siblings before rollback/release. Fake publication test requires four simultaneous editors; worker tests cover multiple waves, order, empty input and failure draining.
-- Initial direct targeted invocation hit the test-isolation guard (no live access); reran through the disposable Postgres/Redis harness. `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 161 isolated tests pass. `pnpm build` passes.
-- Restarted API/worker; both active. `/healthz` healthy; `/api/status` shows 32 sources, no current source errors or failed digest jobs; latest stored edition returns four topics.
-- Updated TASKS/docs/RANKING; archived iterations 135–136 to keep PROGRESS compact. No UI/source/schedule changes, new publication or live inference spend; source docs unchanged.
-- Next: async creation/regeneration, window dedupe, progress UI and last-run duration; measure full-edition timing with fakes. No full-edition latency claim or new blocker; item 7 stays open.
-
-## 2026-11-02: iteration 159 — async edition job backend
-
-- Started clean on main; no leftover work. API/worker healthy, 32 sources without current errors and zero failed digest jobs; two historical ingestion failures retained.
-- STEERING 7 partial: POST `/api/digest-previews/jobs` returns 202; GET `jobs/:id` exposes state, edition ID, processing duration and sanitized failure. Existing UI/POST stay synchronous pending polling UI.
-- BullMQ atomically dedupes normalized exact windows while waiting/active. Completion/failure allows a new regeneration; retained job IDs provide idempotent publication keys for worker recovery. One attempt per on-demand job; scheduled retries unchanged.
-- Isolated Redis/fake-generator test covers ten concurrent submissions, active dedupe, completion/duration, regeneration, failures/retry, request validation and unknown IDs. No live inference calls/spend or new edition.
-- Initial test setup had a transient migration failure; fresh-container rerun migrated successfully. Fixed strict request fixture and retained test-job cleanup exposed by full-suite verification.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 162 isolated tests pass. `pnpm build` passes; restarted API/worker, both active; `/healthz` healthy.
-- Live invalid enqueue returns 400 and unknown job 404; `/api/status` has 32 sources, no current errors/failed digest jobs; latest stored edition has four topics. README/TASKS updated; no UI/source changes, source docs unchanged.
-- Next: connect creation/regeneration UI to enqueue/poll, editorial-stage progress and Status duration; measure full-edition timing with fakes. Item 7 remains open; no latency claim or new blocker.
-
 ## 2026-11-02: iteration 160 — asynchronous edition UI
 
 - Started clean on main; no leftover work. API/worker and health healthy, 32 sources without current errors, no failed digest jobs; two historical ingestion failures retained.
@@ -192,3 +171,14 @@ Earlier iteration 157: [archive](docs/progress-archive/2026-11-02-iteration-157.
 - Isolated repository tests cover metadata/timestamps, X citation presence, topic isolation and removed-community filtering. Domain tests cover relative strength, sparse/duplicate/unsafe/future evidence and budget limits.
 - Restarted API/worker; `/healthz` DB/Redis true, status all queue workers present. Read-only timing report unchanged: 856 ms fallback/four topics, 481910 micros spent/848 available; next Nov 3 15:00 UTC.
 - Updated TASKS/SOURCES/RANKING and archived oldest progress entry. Next: platform-aware publication and faithful Reddit cards; real content and live AI timing remain blocked/unverified.
+
+## 2026-11-02: iteration 173 — platform-aware social editorial boundary
+
+- Started clean on main; no leftover work. Health/API/worker healthy, 32 sources/no current errors, no failed digest/social jobs; two historical ingestion failures retained.
+- Added generic editorial candidates preserving platform metadata, namespaced Reddit triage IDs and platform-aware v2 editor instructions/cache purpose; existing X IDs stay unchanged.
+- Shortlist retains qualifying X first; enforced ~70% X reservation bounded by available qualifying X, strong Reddit fills remaining slots, declined X leaves gaps. Fallback also preserves X preference.
+- Synthetic fake tests cover overlapping IDs, higher-scored Reddit pressure, sparse/no X, fallback caps and no padding. No live HTTP/inference used; Reddit access blocked/collection unscheduled.
+- Publication/snapshot contracts remain X-only pending faithful Reddit cards and publication wiring; this boundary alone publishes no Reddit content. No UI change/browser check needed.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (175 tests, types/lint/format/boundaries); `pnpm build` passed. Updated TASKS/SOURCES/RANKING; archived oldest progress entries.
+- Restarted API/worker; `/healthz` DB/Redis true; `/api/status` 32 sources/no errors, all queues have workers. Read-only timing report unchanged: 856 ms fallback edition/four topics, 481910 micros spent/848 available; next Nov 3 15:00 UTC. Live AI latency remains unverified.
+- Next: connect conservative Reddit shortlist to platform-aware snapshots/publication and faithful cards; real content remains blocked by public access denial.

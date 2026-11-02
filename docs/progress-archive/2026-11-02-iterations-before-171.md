@@ -9,3 +9,24 @@
 - `pnpm exec tsx --test apps/api/test/llm.test.ts`: 19 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and 157 isolated tests pass. Initial check caught SDK headers typed any; narrowed before green rerun.
 - `pnpm build` passes; restarted API/worker; `/healthz` healthy and `/api/digest-previews/latest` returns the stored four-topic edition. No new publication or schedule/source/UI changes; source docs unchanged.
 - Updated TASKS/docs/RANKING and archived progress 133–134 to stay below 25 KB. No new blocker; next: shared concurrency/parallel editors, async jobs/window dedupe/progress and full-edition timing. Item 7 remains open.
+
+## 2026-11-02: iteration 158 — parallel topic editorial pipelines
+
+- Started clean on main; no leftover work. API/worker and health healthy; 32 sources without current errors, zero failed digest jobs; two retained historical ingestion failures.
+- STEERING 7 partial: run four topic pipelines concurrently, overlapping article/social triage and editing under the existing shared Anthropic limit. Preserve configured topic order and one repeatable-read publication snapshot.
+- Stop queued topics after failure and drain in-flight siblings before rollback/release. Fake publication test requires four simultaneous editors; worker tests cover multiple waves, order, empty input and failure draining.
+- Initial direct targeted invocation hit the test-isolation guard (no live access); reran through the disposable Postgres/Redis harness. `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 161 isolated tests pass. `pnpm build` passes.
+- Restarted API/worker; both active. `/healthz` healthy; `/api/status` shows 32 sources, no current source errors or failed digest jobs; latest stored edition returns four topics.
+- Updated TASKS/docs/RANKING; archived iterations 135–136 to keep PROGRESS compact. No UI/source/schedule changes, new publication or live inference spend; source docs unchanged.
+- Next: async creation/regeneration, window dedupe, progress UI and last-run duration; measure full-edition timing with fakes. No full-edition latency claim or new blocker; item 7 stays open.
+
+## 2026-11-02: iteration 159 — async edition job backend
+
+- Started clean on main; no leftover work. API/worker healthy, 32 sources without current errors and zero failed digest jobs; two historical ingestion failures retained.
+- STEERING 7 partial: POST `/api/digest-previews/jobs` returns 202; GET `jobs/:id` exposes state, edition ID, processing duration and sanitized failure. Existing UI/POST stay synchronous pending polling UI.
+- BullMQ atomically dedupes normalized exact windows while waiting/active. Completion/failure allows a new regeneration; retained job IDs provide idempotent publication keys for worker recovery. One attempt per on-demand job; scheduled retries unchanged.
+- Isolated Redis/fake-generator test covers ten concurrent submissions, active dedupe, completion/duration, regeneration, failures/retry, request validation and unknown IDs. No live inference calls/spend or new edition.
+- Initial test setup had a transient migration failure; fresh-container rerun migrated successfully. Fixed strict request fixture and retained test-job cleanup exposed by full-suite verification.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 162 isolated tests pass. `pnpm build` passes; restarted API/worker, both active; `/healthz` healthy.
+- Live invalid enqueue returns 400 and unknown job 404; `/api/status` has 32 sources, no current errors/failed digest jobs; latest stored edition has four topics. README/TASKS updated; no UI/source changes, source docs unchanged.
+- Next: connect creation/regeneration UI to enqueue/poll, editorial-stage progress and Status duration; measure full-edition timing with fakes. Item 7 remains open; no latency claim or new blocker.

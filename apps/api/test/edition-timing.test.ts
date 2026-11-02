@@ -91,7 +91,7 @@ void test('four-topic edition timing includes SQL, batched triage, editing, publ
           candidates: { id: string }[];
           budget?: number;
         };
-        if (request.purpose === 'social-editor-v1') {
+        if (request.purpose === 'social-editor-v2') {
           socialEdits++;
           return {
             text: JSON.stringify({

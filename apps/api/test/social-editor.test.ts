@@ -72,7 +72,7 @@ void test('social editor preserves post identity, isolates purpose and reuses ca
   assert.deepEqual(result, { ...valid, model: 'claude-sonnet-5-5' });
   assert.deepEqual(await h.editor.edit(topic, candidates, 1, 'second'), result);
   assert.equal(h.calls.length, 1);
-  assert.equal(h.calls[0].purpose, 'social-editor-v1');
+  assert.equal(h.calls[0].purpose, 'social-editor-v2');
   assert.match(h.calls[0].instructions, /Never infer virality/);
   assert.match(h.calls[0].instructions, /do not rewrite/);
   assert.deepEqual(candidates[0].text, 'A company announced a model.');

@@ -33,13 +33,37 @@ export interface SocialSelectionServices {
   };
 }
 
+// Reddit inputs must already pass historical-strength ranking; this type is an
+// editorial boundary, not the published SelectedPost contract. Publication stays
+// X-only until snapshot contracts and faithful Reddit rendering are connected.
+export type EditorialPost = Omit<SelectedPost, 'platform'> & {
+  platform: 'x' | 'reddit';
+};
+function preferX<T extends EditorialPost>(
+  posts: T[],
+  qualifyingX: number,
+  budget: number,
+): T[] {
+  const redditLimit = Math.max(
+    0,
+    budget - Math.min(qualifyingX, Math.ceil(budget * 0.7)),
+  );
+  let redditCount = 0;
+  return posts
+    .filter((post) => post.platform === 'x' || ++redditCount <= redditLimit)
+    .slice(0, Math.max(0, budget));
+}
+
+const editorialId = (post: EditorialPost) =>
+  post.platform === 'x' ? post.externalId : `reddit:${post.externalId}`;
+
 // Candidates have already passed verified-storage, scope, window, exclusions
 // and conservative text/link deduplication. Incomplete AI coverage preserves the fallback.
-export async function editTopicPosts(
+export async function editTopicPosts<T extends EditorialPost>(
   services: SocialSelectionServices | null,
   topic: TriageTopic,
-  candidates: SelectedPost[],
-  fallback: SelectedPost[],
+  candidates: T[],
+  fallback: T[],
   budget: number,
   runId: string,
 ) {
@@ -47,14 +71,18 @@ export async function editTopicPosts(
     mode: 'non-ai',
     model: null,
     triage: [],
-    unscoredIds: candidates.map((p) => p.externalId),
+    unscoredIds: candidates.map(editorialId),
     reason:
       budget === 0
         ? 'Non-AI selection: post budget is zero.'
         : 'Non-AI selection: social editor unavailable within caps.',
   };
   const result = {
-    posts: fallback,
+    posts: preferX(
+      fallback,
+      fallback.filter((p) => p.platform === 'x').length,
+      budget,
+    ),
     postSelectionMethod: 'verified-lexical-recency-v2' as
       'verified-lexical-recency-v2' | 'verified-semantic-editor-v2',
     postEditorial: editorial,
@@ -69,8 +97,8 @@ export async function editTopicPosts(
   const triage = await services.socialTriage.score(
     topic,
     candidates.map((p) => ({
-      id: p.externalId,
-      title: 'Verified X post',
+      id: editorialId(p),
+      title: p.platform === 'x' ? 'Verified X post' : 'Reddit post',
       excerpt: p.text,
       sources: [],
     })),
@@ -92,11 +120,12 @@ export async function editTopicPosts(
         a.id.localeCompare(b.id),
     )
     .flatMap((s) => {
-      const post = candidates.find((p) => p.externalId === s.id);
+      const post = candidates.find((p) => editorialId(p) === s.id);
       return post
         ? [
             {
-              id: post.externalId,
+              id: editorialId(post),
+              platform: post.platform,
               text: post.text,
               author: post.author,
               publishedAt: post.publishedAt,
@@ -106,6 +135,8 @@ export async function editTopicPosts(
           ]
         : [];
     })
+    // Keep good X candidates available even when Reddit triage scores higher.
+    .sort((a, b) => Number(b.platform === 'x') - Number(a.platform === 'x'))
     .slice(0, 10);
   const edited = await services.socialEditor.edit(
     topic,
@@ -114,14 +145,23 @@ export async function editTopicPosts(
     runId,
   );
   if (!edited) return result;
-  result.posts = edited.posts.map((p) => {
-    const original = candidates.find((c) => c.externalId === p.id)!;
+  // Reserve about 70% of slots for qualifying X candidates. If the editor
+  // declines them, leave slots empty rather than substituting Reddit filler.
+  const xCount = shortlist.filter((p) => p.platform === 'x').length;
+  const chosen = edited.posts.flatMap((p) => {
+    const original = candidates.find((c) => editorialId(c) === p.id);
+    return original ? [original] : [];
+  });
+  result.posts = preferX(chosen, xCount, budget).map((original) => {
+    const p = edited.posts.find((p) => p.id === editorialId(original))!;
     const score = triage.scores.find((s) => s.id === p.id)!;
     return {
       ...original,
       whyItMatters: p.whyItMatters,
       reasons: [
-        'Verified post passes time, text and exclusion checks.',
+        original.platform === 'x'
+          ? 'Verified X post passes time, text and exclusion checks.'
+          : 'Reddit post passes window, topic, safety and historical-strength checks.',
         `Semantic relevance ${score.relevance}/10; interestingness ${score.importance}/10: ${score.rationale}`,
         `Editor: ${p.rationale}`,
         'Engagement, velocity and media contents were not inferred.',
@@ -132,6 +172,6 @@ export async function editTopicPosts(
   editorial.mode = 'ai';
   editorial.model = edited.model;
   editorial.reason =
-    'AI selected verified post text; engagement and virality are unknown.';
+    'AI selected supplied post text with X preference; virality and media contents are not inferred.';
   return result;
 }

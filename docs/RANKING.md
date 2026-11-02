@@ -652,3 +652,18 @@ citation presence. No inference or network access occurs here. This is not yet
 connected to publication: platform-aware immutable contracts, editorial candidates,
 X slot preference and faithful cards must land together before publishing Reddit.
 Access remains blocked and all ranking evidence in tests is synthetic.
+
+## Platform-aware editorial boundary — iteration 173
+
+The social editorial orchestrator can now preserve typed Reddit candidate metadata
+without treating it as a published X post. Callers must first apply the Reddit
+historical-strength shortlist. Reddit triage IDs are namespaced; existing X IDs
+stay unchanged. The ten-item editor shortlist puts qualifying X candidates first.
+About 70% of the post budget is reserved for qualifying X candidates (rounded up,
+bounded by their count); declined X choices leave empty slots. With no qualifying
+X, strong Reddit candidates may use the full budget. Fallback selection also
+preserves X preference. The v2 editor prompt identifies platforms and explicitly
+forbids inferring virality or unseen media; its changed prompt invalidates cached
+editor responses. Synthetic fake-service tests cover ID overlap, higher-scoring
+Reddit pressure, sparse/no X, fallback and no padding. Publication contracts and
+rendering remain X-only; no live Reddit or live inference claim is made.

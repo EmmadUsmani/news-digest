@@ -1158,3 +1158,8 @@ returns no picks. Posts citing X stay in the verified-X path. This is unpublishe
 preparation, verified with synthetic/isolated tests; no real Reddit content or
 measured engagement growth is claimed. See docs/RANKING.md for limits. Faithful
 cards and platform-aware publication remain next.
+
+Iteration 173 adds platform-aware editorial preparation with isolated Reddit IDs
+and enforced X preference. Only historically qualified Reddit candidates may be
+submitted. No collector activation or live requests: snapshot contracts, publication
+and faithful cards remain pending, and public access remains blocked.
