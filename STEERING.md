@@ -376,3 +376,104 @@ Build the real layer-2 adapter after layer 1, not just fixtures.
 - docs/SOURCES.md lists each social source with its status.
 - Playwright screenshots of the posts section on desktop and mobile.
 - Tests run on recorded fixtures, as in item 4: no live calls in tests.
+
+## 7. TOP PRIORITY NOW: make edition generation fast (2026-11-02)
+
+**The problem:** the owner clicked "create latest edition" at 13:15 UTC, and
+it took more than 5 minutes and 77+ sequential Haiku calls.
+- The cause is `triage.ts` scoring **3 items per call, one call at a time**,
+  at about 1k input tokens and 3s each.
+- Social triage does the same.
+
+Do this before any other item, and ack it when done.
+
+- **Batch:** triage 40–60 items per call, staying under about 60k input
+  tokens and the 100k Haiku limit. Use prompt caching for the shared
+  instructions and size output limits to match.
+  - Run calls concurrently: about 4–6 at a time, within Anthropic rate
+    limits, with backoff on 429.
+  - Do the same for social triage and per-topic editing (topics in
+    parallel).
+  - Keep the per-item cache, so a regeneration only scores new items.
+- **Async:** "create edition" (and any regenerate action) must start a BullMQ
+  job and return at once.
+  - The UI shows progress (triage, editing, publishing) and opens the
+    edition when it's ready.
+  - Deduplicate concurrent requests for the same window, so double-clicks
+    don't start a second run.
+- **Target:** a full four-topic edition in **under 60 seconds** at the
+  current volume, and under 2 minutes at about 1,500 items/day.
+  - Measure it and record the timing in PROGRESS.md.
+  - Show the duration of the last run on the status page.
+- **Budget:** the cost per edition should stay about the same or drop.
+  Batching cuts the per-call instruction overhead.
+- **Tests:** batching, concurrency limits, cache reuse and the async job flow
+  must all run on fixtures or fakes (item 4).
+
+## 8. NEXT: Reddit, the owner's #2 social source (2026-11-02)
+
+None has been built yet: every stored social post is from X. Do it right after
+item 7, before adding more RSS feeds.
+
+- Use curated subreddits per topic, stored as data and editable in the topic
+  settings (research them and record them in docs/SOURCES.md):
+  - **Tech/AI:** r/LocalLLaMA, r/MachineLearning, r/singularity,
+    r/technology, r/programming, r/OpenAI, r/ClaudeAI
+  - **NBA:** r/nba
+  - **Gaming:** r/Games, r/gaming, r/pcgaming, r/GamingLeaks
+  - **World:** r/worldnews, r/politics, r/geopolitics
+- **Fetching:** use the public `top?t=day` (or hot) JSON/RSS endpoints with a
+  descriptive User-Agent and per-domain rate limits, backing off on
+  429/`Retry-After`. Use no scraping workarounds.
+- **Storage:** store each post as a `SocialPost` with platform `reddit`:
+  score, comments, upvote ratio, subreddit, media/thumbnail, permalink and
+  the external link.
+- **Reddit posts that link to an X post** feed into the X citation layer as
+  well: count it as a citation, and show the embedded tweet rather than the
+  Reddit wrapper.
+- **Ranking:** Reddit ranks below X. Use it to fill post slots only when it's
+  clearly strong, judged by score and velocity relative to the subreddit's
+  usual levels.
+- **Rendering:** Reddit's official embed, or a faithful card (title, media,
+  score, comments, subreddit, link).
+- **Done when:** real Reddit posts are stored for all four topics and appear
+  in a generated edition, with screenshots.
+
+## 9. Run xAI X search on a schedule (2026-11-02)
+
+So far only one real `x_search` call has ever run, because layer 2 is
+explicit/manual. Do this after item 8.
+
+- Run it automatically as part of the scheduled social discovery, for example
+  1–2 searches per topic per day. Time it so the results land before the
+  scheduled digest.
+- Stay within the existing X caps ($0.40/day, $12/month) and the
+  post-count-minimizing rules in item 6.
+- Use it most for topics where free harvesting finds few strong X posts.
+- Record the daily X cost and the number of verified posts each search adds
+  per topic in PROGRESS.md for the first week.
+
+## 10. ONGOING: balance sources across topics (2026-11-02)
+
+The last session added about 12 Gaming feeds and few for the other topics.
+
+- Before adding any new source, look at per-topic coverage: live sources and
+  verified items/posts per day for each topic. Add to the weakest topic
+  first.
+- Tech/AI (the heaviest-weighted topic), NBA and World need comparable depth
+  to Gaming.
+- Show per-topic coverage counts on the status page.
+
+## 11. Fix the digest schedule (2026-11-02)
+
+The saved schedule is `40 20 * * *` UTC with a `PT6H` window. That looks like
+an interrupted smoke test overwrote it.
+- Restore the owner's default: **daily at 07:00 America/Los_Angeles, with a
+  `P1D` window**. The owner can change it in the settings UI.
+- Make sure smoke tests and verification can never write to the live
+  schedule again (use the isolated verification database).
+
+## Housekeeping
+
+Append `ack:` lines under items 5 and 6 (and each new item as you finish it),
+as this file's header asks, so the owner can follow progress here.
