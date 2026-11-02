@@ -106,18 +106,6 @@ Earlier iteration 219: [archive](docs/progress-archive/2026-11-02-iteration-219.
 
 Iteration 221: [archive](docs/progress-archive/2026-11-02-iteration-221.md).
 
-## 2026-11-02: iteration 222 — nonempty fallback golden edition
-
-- Started clean on main; API/worker, health, 32 sources and four queues healthy. No leftover work.
-- Items 13/7/9 await Nov 3 scheduled evidence; advanced lower-priority STEERING 2a using disposable containers only.
-- Added fixed synthetic inputs and a reviewed golden snapshot for nonempty fallback publication, exact retrieval and regeneration preserving the earlier edition.
-- Pins half-open window boundaries, story ordering/scores, source provenance, quality rejection and explicit non-AI labels; only generated edition ID/time are omitted from golden comparison.
-- Initial full check caught missing required include_guidance in the test seed; fixed it and passed the isolated targeted test, then reran the full check.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check`; 120 unit and 122 isolated integration tests passed. No application behavior or UI change.
-- Updated README/TASKS and archived iteration 207 to bound PROGRESS. AI golden coverage and database coverage reporting remain open; 2a is not complete.
-- Read-only timing report: next Nov 3 15:00 UTC; prior 856 ms fallback is not AI latency evidence. No inference or Reddit requests.
-- API/worker restarted; health DB/Redis true, SPA 200, 32 sources without errors and four queues available. Next: observe Nov 3 14:30 X discovery and 15:00 scheduled AI cost/duration.
-
 ## 2026-11-02: iteration 223 — database coverage reporting
 
 - Started clean on main; API/worker, health, 32 sources and four queues healthy. No leftover work.
@@ -298,4 +286,15 @@ Archived iteration 214: [entry](docs/progress-archive/2026-11-02-iteration-214.m
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (122 unit, 136 integration), `pnpm build`, `git diff --check` passed.
 - Updated TASKS/database notes; archived iteration 221 to keep PROGRESS bounded. No provider or Reddit requests.
 - Restarted API/worker healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues; latest edition retains four topics.
+- Next: observe Nov 3 all-topic X cost/yield and scheduled AI edition reserve/cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 238 — connection isolation guard verification
+
+- Started clean on main; API/worker and health green, 32 sources without current errors; no leftover work.
+- Priority 15/13/7/9 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a verification.
+- Added no-network tests for DB/Redis rejection without exact isolation admission and runner environment sanitization.
+- Inherited production-shaped URLs, synthetic provider keys and live opt-ins are replaced without mutating the parent.
+- Verification: targeted tests, `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 136 integration), `pnpm build`, `git diff --check` passed.
+- Updated TASKS/database notes; archived oldest progress entry. No provider or Reddit requests.
+- Restarted API/worker healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues; latest edition has four topics.
 - Next: observe Nov 3 all-topic X cost/yield and scheduled AI edition reserve/cost/duration before acknowledging 15/13/7.

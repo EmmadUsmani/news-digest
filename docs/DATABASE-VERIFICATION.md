@@ -178,3 +178,13 @@ next-run timestamp; pause/resume and scheduler removal update telemetry, and job
 payloads stay private. Cleanup removes the isolated scheduler and queue state.
 No live services, provider APIs or Reddit endpoints are called. Remaining
 repository behavior gaps and recorded-response golden coverage remain open.
+
+## Connection isolation guards (iteration 238)
+
+`connection-isolation.test.ts` runs without external services. It verifies that
+both connection factories reject a test process unless its isolation flag is
+exactly `1`, even with inherited production-shaped URLs. It also checks that
+the shared test runner environment replaces service addresses, clears provider
+keys and live-call opt-ins, and leaves the parent environment unchanged.
+Disposable integration tests continue to exercise admitted connections. These
+checks do not certify all repository behavior or complete STEERING 2a.
