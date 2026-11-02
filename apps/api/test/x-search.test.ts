@@ -331,6 +331,22 @@ void test('X citations join enabled topic verification/selection, preserve call 
       ).rowCount,
       1,
     );
+    assert.deepEqual(await repository.verificationCandidates(calls[0]), [
+      externalId,
+    ]);
+    assert.deepEqual(
+      await repository.verificationCandidates(crypto.randomUUID()),
+      [],
+    );
+    await social.checked(externalId, 'Fixture unavailable');
+    assert.deepEqual(await repository.verificationCandidates(calls[0]), []);
+    await social.db.query(
+      "UPDATE x_embed_checks SET checked_at=now()-interval '2 days' WHERE external_id=$1",
+      [externalId],
+    );
+    assert.deepEqual(await repository.verificationCandidates(calls[0]), [
+      externalId,
+    ]);
     assert.ok((await social.candidates(50)).includes(externalId));
     assert.equal(
       await social.verificationUrl(externalId),
@@ -348,6 +364,7 @@ void test('X citations join enabled topic verification/selection, preserve call 
       embedHtml: '<p>Offline fixture</p>',
     });
     assert.equal((await social.topicPosts(topicId)).length, 1);
+    assert.deepEqual(await repository.verificationCandidates(calls[0]), []);
     await social.checked(externalId, null);
     assert.ok(!(await social.candidates(50)).includes(externalId));
     await social.db.query('UPDATE topics SET enabled=false WHERE id=$1', [

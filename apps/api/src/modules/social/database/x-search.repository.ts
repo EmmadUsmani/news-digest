@@ -24,6 +24,19 @@ export class PostgresXSearchRepository implements XSearchRepository {
     );
     return rows;
   }
+  async verificationCandidates(callId: string): Promise<string[]> {
+    const { rows } = await this.db.query<{ external_id: string }>(
+      `SELECT c.external_id FROM x_search_citations c
+       JOIN topics t ON t.id=c.topic_id AND t.enabled AND t.post_budget > 0
+       LEFT JOIN social_posts p ON p.platform='x' AND p.external_id=c.external_id
+       LEFT JOIN x_embed_checks v ON v.external_id=c.external_id
+       WHERE c.call_id=$1 AND p.external_id IS NULL
+         AND (v.checked_at IS NULL OR v.checked_at < now() - interval '1 day')
+       ORDER BY length(c.external_id) DESC,c.external_id DESC LIMIT 10`,
+      [callId],
+    );
+    return rows.map((row) => row.external_id);
+  }
   async topic(id: string) {
     const { rows } = await this.db.query<{
       id: string;

@@ -52,6 +52,7 @@ export async function searchX(
   await repository.save(topicId, callId, result.links);
   return {
     state: 'completed' as const,
+    callId,
     citations: result.links.length,
     usage: result.usage,
   };

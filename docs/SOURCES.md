@@ -1247,3 +1247,15 @@ accounts (1–20). Plans are accepted only 5–30 minutes before the edition; la
 windows skip. Search dates cover yesterday through today in UTC. The planner
 performs no I/O; production timer/search/official verification wiring is next.
 No new paid call or Reddit request was made.
+
+## Pre-edition verification preparation — iteration 217 (2026-11-02)
+
+Search completion now returns its durable call ID. A call-scoped repository
+query selects at most ten unverified citations, excluding disabled/zero-budget
+topics and posts checked within one day. Existing verified posts need no new
+request. This prevents unrelated hourly backlog from taking the pre-edition
+verification allowance. Hourly collection uses the extracted shared verifier:
+deduplicate IDs, cap at ten, persist successful embeds before acknowledging,
+and stop on the first unavailable official response without a retry burst.
+Fake and isolated Postgres checks only; no new paid or Reddit requests.
+Production timer/search/verification composition remains the next step.

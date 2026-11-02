@@ -5,6 +5,7 @@ import type {
 } from '../domain/collection.port';
 import type { PostVerificationPort } from '../domain/posts';
 import { collectArticleLinks } from './collect-article-links';
+import { verifyPosts } from './verify-posts';
 
 export async function collectSocial(
   repository: SocialCollectionRepository,
@@ -35,20 +36,12 @@ export async function collectSocial(
   // Harvest before verification so newly cited posts can be checked in this pass.
   const articleDiscovery = await collectArticleLinks(articles, rivers);
   await repository.refreshMissingTimes();
-  // At most ten official requests per hourly pass, with persisted one-day cooldown.
-  for (const id of await repository.candidates(10)) {
-    let post;
-    try {
-      post = await embeds.verify(id, await repository.verificationUrl(id));
-    } catch {
-      await repository.checked(id, 'Official embed unavailable or invalid');
-      result.verificationErrors++;
-      // Stop at the first unavailable/invalid response. No automatic retry burst.
-      break;
-    }
-    await repository.store(post);
-    await repository.checked(id, null);
-    result.verified++;
-  }
+  const verification = await verifyPosts(
+    repository,
+    embeds,
+    await repository.candidates(10),
+  );
+  result.verified = verification.verified;
+  result.verificationErrors = verification.verificationErrors;
   return { ...result, articleDiscovery };
 }
