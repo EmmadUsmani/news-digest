@@ -68,7 +68,8 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Separate Top posts sections, lazy singleton official X widgets, saved-text fallback and desktop/mobile replay checks (iteration 93).
   - [x] Hourly free river collection and bounded official embed verification through a single-worker queue; persisted cooldown, stop-on-error and status queue telemetry (iteration 94).
   - [x] Allocate bounded embed checks across enabled topics, prioritize unverified discoveries over refreshes and dedupe shared IDs (iteration 95); first Gaming post verified, but outside current window.
-  - Next: broaden recent relevant discovery (especially World/Gaming) and publish real posts across all four topics.
+  - [x] Explicit bounded publisher-page X-link discovery from opted-in hosts, enabled-topic interleaving, persistent page cooldowns and citing-article provenance (iteration 96). Six pages read, one existing NBA citation observed; PC Gamer page unavailable, World pages empty.
+  - Next: measure broader recent relevant discovery (especially World/Gaming), decide article-pass scheduling and publish real posts across all four topics.
   - SocialPost storage, window-aware ranking with citation diversity/engagement, immutable post selections and lazy official X embeds.
   - Reddit per-topic communities and faithful cards; no bot-protection workarounds. Bluesky optional; YouTube deferred.
   - After free harvesting: direct capped xAI x_search adapter using installed key, cheapest supported model, per-topic accounts, $0.40/day/$12/month ledger and depleted-credit handling. Never use gateway.

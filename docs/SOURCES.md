@@ -40,7 +40,8 @@ dead, undated and unsafe-URL items are skipped. HN points/comments are stored.
 The shared client has a one-second domain floor, five-minute cache, 20-second
 timeout, 2 MB cap, Retry-After/error backoff; BullMQ retries three times with
 exponential delays. Failed/empty runs retain the previous successful timestamp
-and expose an error. No article pages are crawled.
+and expose an error. Feed ingestion does not crawl article pages; the separate
+explicit bounded X-link pass is described under iteration 96 below.
 
 Incoming articles are **not curated digests**. Publisher dates are preserved;
 quiet weekend feeds may be several days old. CBS includes betting promotions:
@@ -437,3 +438,28 @@ Gaming post; World has none. The first Gaming post predates the checked window.
 Read-only Oct 26–Nov 2 06:00 UTC screening selects five NBA posts and zero for
 other topics. No new edition was published, and no inference was requested.
 Broader current discovery, particularly World and Gaming, remains unfinished.
+
+### Iteration 96: bounded publisher-page X citations
+
+`pnpm exec tsx apps/api/scripts/harvest-article-x-links.ts` checks at most eight
+recent stored articles from explicitly opted-in exact publisher hosts, interleaved
+across enabled topics. Migration 019 opts in Ars Technica, Yahoo Sports, Guardian,
+PC Gamer and Eurogamer. Only three-day-old or newer, nonfuture HTTPS article URLs
+qualify. The shared safe client enforces rate limits, response limits and error
+backoff. A host failure skips its remaining candidates in that pass. Page checks
+persist for seven days on success and one day on error; there is no recursive
+crawl, scheduling, direct X fetch, inference or protection workaround.
+
+The explicit live pass read six pages, observing one ESPNNBA status citation in
+Yahoo's Yaxel Lendeborg article (ID 2117105625003921444). That citation was already
+stored from the feed: this pass establishes page discovery, not new post coverage.
+Two Guardian and two Ars pages had no status links; another Yahoo page was empty.
+One PC Gamer page failed; its remaining page was skipped. Eurogamer pages were
+not reached in this cap. These article outcomes do not change healthy feed status.
+
+Only validated status links are retained in existing item/source citation storage,
+with named verification URL and citing-item engagement; no full article text is
+stored. Existing post verification/screening applies before selection. Citation
+counts do not establish post engagement, independent reporting or relevance.
+The recorded Yahoo anchor excerpt is offline-only, never seeded into production.
+Broader current World/Gaming discovery and direct capped xAI remain unfinished.

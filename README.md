@@ -139,14 +139,20 @@ reads live DB settings. AI usage, caps and sanitized errors appear in Source &
 run status; published editions still use signal ranking. See [docs/LLM.md](docs/LLM.md)
 for configuration, remaining editorial work and the explicit paid live check.
 
-Free social discovery (explicit, not yet scheduled): run
+Free social discovery (also scheduled hourly for rivers): run
 `pnpm exec tsx apps/api/scripts/harvest-social-rivers.ts` to collect bounded
 X references from enabled topic rivers, then
 `pnpm exec tsx apps/api/scripts/verify-x-embeds.ts` to verify at most ten
 candidates through official oEmbed. These commands use no inference. Discovery
 references are not publishable posts; new editions select qualifying verified
 posts and show them with lazy official widgets and saved-text fallbacks.
-Run `pnpm migrate` before using them. Inspect stored posts without HTTP,
+Run `pnpm migrate` before using them. An additional explicit command,
+`pnpm exec tsx apps/api/scripts/harvest-article-x-links.ts`, checks at most eight
+recent (three-day) articles from opted-in publisher hosts across enabled topics.
+It stores only X citations, with item/source provenance; full pages are discarded.
+Successful pages cool down seven days, failures one day; a failed host stops for
+that pass. It uses the same bounded public HTTP client, with no recursive crawl,
+bot-protection workaround or inference. This article pass is not scheduled yet. Inspect stored posts without HTTP,
 inference or publication using
 `pnpm exec tsx apps/api/scripts/screen-social-posts.ts START_ISO END_ISO`
 (default: last 24 hours). This reports per-post eligibility reasons against saved

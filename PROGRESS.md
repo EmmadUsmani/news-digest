@@ -279,3 +279,16 @@ Earlier iterations 51–60: [archive](docs/progress-archive/2026-11-01-iteration
 - Restarted API/worker; `/healthz` healthy. `smoke-ingestion.ts` passes two queued live runs: 792 real URLs, four topics, seventeen healthy sources.
 - `smoke-status.ts`, `smoke-ui.ts`, `smoke-posts.ts /tmp/iteration95-posts.jsonl` pass desktop/mobile; refreshed screenshots and inspected mobile fallback. Post checks replay real stored selections with stubbed/blocked widgets, not a published edition.
 - No inference spending; provider/models/billing unchanged. Updated TASKS/docs/SOURCES; no owner blocker. Next: recent relevant World/Gaming discovery, then capped direct xAI/social editing. Reddit remains previously blocked by 403.
+
+## 2026-11-02: iteration 96 — bounded publisher-page X discovery
+
+- Started clean on main; no leftover work. API/worker/health healthy, retained digest runs completed and all seventeen feeds returned content.
+- Added explicit `harvest-article-x-links.ts`: at most eight recent articles interleaved across enabled topics, exact opted-in publisher hosts, shared safe HTTP, stop failed hosts per pass; no recursive crawling or inference.
+- Migration 019 adds host opt-ins and persisted page checks (seven-day success/one-day error cooldown). Validated citations reuse item/source provenance and named URLs; full pages are not stored, existing verification/selection unchanged.
+- Live command read six pages, observed one already-stored ESPNNBA citation from Yahoo, and recorded one unavailable PC Gamer page (remaining same-host page skipped). Guardian/Ars pages yielded no links; no broader coverage or newly published edition claimed.
+- Added recorded Yahoo anchor replay and isolated DB/application checks for caps, exact hosts, failure isolation, persistence errors, idempotence, provenance, topic state, age filtering and cooldown/recovery. Fixtures remain offline only.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and all 112 isolated tests; `pnpm build` passed (existing upstream Zod warnings). An earlier format check overlapped test edits; final full checks green.
+- Restarted API/worker; `/healthz` healthy. `smoke-ingestion.ts` passed two live queued runs: 792 real URLs, four topics, seventeen healthy sources. Retained digest runs completed; next scheduled edition unchanged.
+- `smoke-ui.ts` and `smoke-status.ts` passed desktop/mobile; screenshots refreshed and mobile status inspected. Updated TASKS/README/docs/SOURCES.
+- No inference spending; actual day/month $0.408415, no reservations/provider errors. Provider/models/billing unchanged; no new owner blocker. Reddit remains previously blocked by 403.
+- Next: broaden current World/Gaming discoveries, evaluate article-pass scheduling; direct capped xAI and social editing remain unfinished.
