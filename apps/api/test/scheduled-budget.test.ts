@@ -634,3 +634,115 @@ void test('queue-final stalls release only the matching running attempt and fenc
     await db.end();
   }
 });
+
+void test('no-occurrence refresh removes only observed unclaimed slots and preserves competing work', async () => {
+  const db = database();
+  const repo = new PostgresScheduledBudgetRepository(db);
+  const day = '2026-11-01';
+  const slot = new Date(day + 'T07:00:00Z');
+  const now = new Date(day + 'T00:00:00Z');
+  const profile = {
+    id: 'obsolete-profile',
+    name: 'Synthetic',
+    schedule: {
+      cadence: '0 16 * * *',
+      timezone: 'America/Los_Angeles',
+      coverageWindow: 'P1D',
+      storyBudget: 5,
+      postBudget: 5,
+    },
+  };
+  const clean = () =>
+    db.query('DELETE FROM scheduled_ai_budget_days WHERE budget_day=$1', [day]);
+  try {
+    await repo.register(slot, 'obsolete');
+    await refreshScheduledBudget(repo, async () => profile, now);
+    assert.equal(await repo.read(day), null);
+    assert.equal(await repo.claim('obsolete'), null);
+    await refreshScheduledBudget(repo, async () => profile, now);
+    assert.equal(await repo.read(day), null);
+    // Restoring a schedule on this day can install a fresh slot.
+    await refreshScheduledBudget(
+      repo,
+      async () => ({
+        ...profile,
+        schedule: {
+          ...profile.schedule,
+          cadence: '0 8 * * *',
+          timezone: 'UTC',
+        },
+      }),
+      now,
+    );
+    assert.equal(
+      (await repo.read(day))?.scheduledAt.toISOString(),
+      day + 'T08:00:00.000Z',
+    );
+    await clean();
+
+    for (const action of [
+      'replace',
+      'claim',
+      'retry',
+      'fail',
+      'succeed',
+    ] as const) {
+      await repo.register(slot, 'observed');
+      let loaded!: () => void;
+      let release!: () => void;
+      const snapshotLoaded = new Promise<void>((resolve) => {
+        loaded = resolve;
+      });
+      const resume = new Promise<void>((resolve) => {
+        release = resolve;
+      });
+      const stale = refreshScheduledBudget(
+        repo,
+        async () => {
+          loaded();
+          await resume;
+          return profile;
+        },
+        now,
+      );
+      await snapshotLoaded;
+      let expected;
+      try {
+        if (action === 'replace') {
+          await repo.reconcilePending(day, 'observed', slot, 'replacement');
+        } else {
+          const claim = await repo.claim('observed');
+          assert.ok(claim);
+          if (action !== 'claim') {
+            await repo.finishAttempt(
+              claim.runId,
+              claim.attempt,
+              action === 'retry'
+                ? 'retrying'
+                : action === 'fail'
+                  ? 'failed'
+                  : 'succeeded',
+              action === 'succeed'
+                ? {
+                    editionId: 'synthetic-edition',
+                    mode: 'fallback',
+                    reason: 'Synthetic test',
+                  }
+                : undefined,
+            );
+          }
+        }
+        expected = await repo.read(day);
+      } finally {
+        release();
+      }
+      await stale;
+      assert.deepEqual(await repo.read(day), expected, action);
+      await clean();
+    }
+    await assert.rejects(repo.removePending(day, ' '));
+  } finally {
+    await clean();
+    await db.end();
+  }
+});

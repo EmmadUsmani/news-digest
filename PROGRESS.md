@@ -216,3 +216,14 @@ Iteration 184: [archive](docs/progress-archive/2026-11-02-iteration-184.md).
 - Restarted API/worker: active; `/healthz` DB/Redis true, SPA 200, four queues, 32 sources without errors, latest real edition four topics/10 posts.
 - Updated README, reserve decision and TASKS; archived iteration 184 to bound orientation size. No UI changes, paid inference or Reddit requests.
 - Reserve enforcement remains UNFINISHED: obsolete/missed/already-published slots, shared-lock admission/races, then manual/Status visibility before Nov 3 15:00 UTC. Queue recovery requires retained Redis evidence.
+
+## 2026-11-02: iteration 200 — release obsolete no-occurrence slots
+
+- Started clean on main; services, health and 32 sources healthy. No leftover work.
+- Scheduler refresh now removes an observed pending, attempt-zero identity when changed settings have no occurrence in its UTC day, under the shared ledger lock.
+- Compare-and-swap preserves newer identities, worker claims, retries and terminal outcomes; restoring a same-day schedule can register again.
+- Isolated Postgres coverage verifies DST no-occurrence removal, restoration and stale settings versus replacement/claim/retry/failure/success. No live failure induced.
+- First check caught an unsupported monthly cron in the new fixture; replaced it with the supported daily DST no-occurrence case and reran successfully.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (109 unit/107 isolated integration), `pnpm build`, `git diff --check` passed.
+- Live health DB/Redis true; 32 sources without errors, four queues, latest real edition four topics/10 posts. No UI changes, paid inference or Reddit requests.
+- Updated README, reserve decision and TASKS. Reserve enforcement remains UNFINISHED: missed/already-published slots, shared-lock ledger admission/races, manual/Status visibility before Nov 3 15:00 UTC.

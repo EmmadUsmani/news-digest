@@ -24,6 +24,10 @@ export async function refreshScheduledBudget(
     } else if (expected.runId !== runId) {
       await budgets.reconcilePending(day, expected.runId, slot, runId);
     }
+  } else if (expected) {
+    // No occurrence in this UTC day (including timezone/DST changes). Release
+    // only the observed unclaimed slot; a concurrent claim or replacement wins.
+    await budgets.removePending(day, expected.runId);
   }
   return profile;
 }

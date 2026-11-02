@@ -81,6 +81,19 @@ export class PostgresScheduledBudgetRepository implements ScheduledBudgetReposit
     });
   }
 
+  async removePending(budgetDay: string, expectedRunId: string) {
+    if (!expectedRunId.trim())
+      throw new Error('Invalid scheduled budget removal');
+    return this.locked(async (client) => {
+      const result = await client.query(
+        `DELETE FROM scheduled_ai_budget_days
+         WHERE budget_day=$1 AND run_id=$2 AND state='pending' AND attempt=0`,
+        [budgetDay, expectedRunId],
+      );
+      return result.rowCount === 1;
+    });
+  }
+
   async claim(runId: string, recoverAttempt?: number) {
     if (
       recoverAttempt !== undefined &&

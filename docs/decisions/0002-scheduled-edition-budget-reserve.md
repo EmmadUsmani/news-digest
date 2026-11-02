@@ -145,5 +145,10 @@ Redis must report terminal failure after the database attempt is observed, and
 compare-and-swap fences a competing redelivery. Retryable, manual, mismatched and
 already-terminal jobs do not release protection. Retained queue evidence is
 required; durable recovery beyond Redis retention remains future work.
-Missed/obsolete slots and previously published slots still need reconciliation. Ledger admission and
+When changed settings resolve to no occurrence in today's UTC budget day,
+scheduler refresh deletes only the previously observed pending, attempt-zero
+identity under the ledger lock (iteration 200). Newer replacements, claims,
+retries and terminal outcomes survive a stale refresh. Restoring a same-day
+schedule can register a new identity; no-occurrence days require no reserve.
+Missed slots and previously published slots still need reconciliation. Ledger admission and
 manual/Status visibility remain unfinished; this is not live budget protection.
