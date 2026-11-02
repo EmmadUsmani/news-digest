@@ -251,3 +251,15 @@ Earlier iterations 23–37: [archive](docs/progress-archive/2026-11-01-iteration
 - Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed and mobile digest inspected.
 - Two evaluations/four Haiku calls cost $0.006296; day/month actual $0.408415, zero reservations/provider errors, $0.482758 daily/$14 monthly caps.
 - Updated TASKS/docs/LLM/docs/RANKING; no owner blockers. Next: broader factual support/absence false-rejection audit, independent labels/later dates/Gaming, scheduled batches and cross-process coordination.
+
+## 2026-11-02: iteration 68 — reproducible support challenge audit
+
+- Started clean on main; no leftover work. Services/health, seventeen sources and retained digest runs healthy; historical ingestion failure has later successes. Schedule unchanged.
+- Added `pnpm evaluate:support`: ten explicitly synthetic challenges plus two actual Tech v4 significance fields linked to SHA-checked bounded cited inputs. Prints labels, reasons, evidence and guard decisions offline; no inference/publication.
+- Four supported/eight unsupported cases: two supported paraphrases rejected; six unsupported claims accepted, including dropped attribution, absence synonym, causation, rumor certainty and both recorded significance extrapolations. These are hand-selected agent judgments, not production rates or independent review.
+- Production guard/prompts/cache identities unchanged. Tests check accounting, unique labels and recorded-evidence linkage without pinning weaknesses as required behavior; prioritized attribution-preserving lexical matching next.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and all 89 isolated tests; `pnpm build` passed with existing upstream Zod warnings. `pnpm evaluate:editorial` and `pnpm evaluate:support` passed offline.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live passes: 724 stored real URLs, four topics, seventeen healthy sources; no source configuration changes.
+- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed and mobile digest visually inspected.
+- Incremental inference $0; day/month actual $0.408415, zero reservations/provider errors, $0.482758 daily/$14 monthly caps. Provider/models/billing unchanged.
+- Updated TASKS/docs/RANKING; no owner blockers. Next: repair attribution-dropping matches, broader reviewed clause-support evaluation, scheduled batches and cross-process coordination. M3 remains open.

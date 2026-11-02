@@ -454,3 +454,32 @@ access claim does not establish actual adoption, and a benchmark title alone
 does not establish that multi-model systems generally improve results. These
 are broader support gaps the lexical guard cannot detect. This is one-date,
 agent-audited target recall, not independent factual verification or precision.
+
+### Iteration 68: reproducible factual-support challenge audit
+
+Run `pnpm evaluate:support` offline; no credentials, inference or publication.
+The report includes claim text, actual bounded evidence, support labels, reasons
+and guard decisions. Ten explicitly synthetic cases cover attribution, scope,
+paraphrase, omitted facts, uncertainty and causation. Two significance fields
+are loaded directly from the SHA-checked Tech v4 replay with their cited inputs;
+no copied claim/evidence pair can silently drift from that artifact.
+
+On these twelve hand-selected, agent-labeled challenges, four claims are
+supported and eight unsupported. The unchanged guard rejects two supported
+negative paraphrases and accepts six unsupported claims. Accepted gaps include
+attribution removal (a ministry claim becomes an established fact through
+substring matching), an absence synonym outside the trigger list, invented
+causation, rumor promoted to certainty, and both recorded significance
+extrapolations (hospital access becomes adoption; one benchmark claim becomes
+a broader route to better results). Exact negatives and a positive paraphrase
+pass; omitted confirmation and changed-subject negatives are rejected.
+
+These counts describe this challenge set only, not production error rates,
+precision, independent review, or an audit of rejected live responses (which
+were not retained). No production prompts, cache identities or guard behavior
+changed. The support labels and reasons are visible in the report for review;
+regression tests check accounting and recorded-evidence linkage without making
+known validator weaknesses mandatory forever. Prioritize preserving attribution
+at lexical matches, then broader clause support, with these cases as evaluation
+inputs. Independent labels, additional dates/topics and full-article retrieval
+remain open.
