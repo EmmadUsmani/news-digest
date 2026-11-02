@@ -834,3 +834,20 @@ wins before either lexical budgeting or semantic triage. This is conservative
 text/link matching, not general same-event or near-duplicate detection.
 Recorded/synthetic checks cover distinct claims, negation, links, copied reposts,
 new-edition behavior and immutable retries. No new source or paid call is needed.
+
+### Iteration 128: publisher-host failure cooldown
+
+The bounded article discovery pass now excludes an exact host for one day after
+any saved page failure, across subsequent jobs and process restarts. Previously
+only the failed article waited a day, allowing later hourly jobs to try other
+pages on the same unavailable host. Other publishers remain eligible; successful
+pages still wait seven days. This does not affect RSS collection or official X
+verification. Isolated database checks cover cross-page suppression, unaffected
+publishers, expiry and recovery.
+
+Explicit public probes: Push Square's current Phantom Blade Zero article returned
+HTTP 403; article harvesting stays disabled. GamingBolt's current Phantom Blade
+Zero article returned HTTP 200 and contains the already-known
+`2117074929594298758` citation. No new citation, stored post or fresh-coverage gain
+is claimed; GamingBolt page harvesting also remains disabled pending broader
+access checks. No protection bypass, inference call or paid discovery.

@@ -23,6 +23,13 @@ export class PostgresArticleDiscoveryRepository implements ArticleDiscoveryRepos
         WHERE s.article_discovery_host IS NOT NULL
           AND i.canonical_url LIKE 'https://' || s.article_discovery_host || '/%'
           AND i.published_at >= now()-interval '3 days' AND i.published_at <= now()
+          AND NOT EXISTS (
+            SELECT 1 FROM article_x_discovery_checks failed
+            JOIN content_items checked ON checked.id=failed.item_id
+            WHERE failed.last_error IS NOT NULL
+              AND failed.checked_at > now()-interval '1 day'
+              AND checked.canonical_url LIKE 'https://' || s.article_discovery_host || '/%'
+          )
           AND (v.item_id IS NULL OR v.checked_at < now() -
                CASE WHEN v.last_error IS NULL THEN interval '7 days' ELSE interval '1 day' END)
       ), ranked AS (

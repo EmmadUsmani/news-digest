@@ -179,6 +179,19 @@ void test('publisher candidates preserve provenance and idempotence, respect coo
     const rotated = await repository.candidates();
     assert.equal(rotated.length, 8);
     assert.equal(rotated[1].host, 'quiet.example.org');
+    // A failed page cools down the whole exact host across subsequent passes.
+    await repository.record(a, null);
+    const cooled = await repository.candidates();
+    assert.equal(cooled.length, 1);
+    assert.equal(cooled[0].host, 'quiet.example.org');
+    await repository.db.query(
+      "UPDATE article_x_discovery_checks SET checked_at=now()-interval '25 hours' WHERE item_id=$1",
+      [a.id],
+    );
+    assert.equal((await repository.candidates()).length, 8);
+    await repository.record(a, []);
+    assert.equal((await repository.candidates()).length, 8);
+
     assert.equal(new Set(rotated.map((item) => item.id)).size, 8);
     await repository.db.query('UPDATE topics SET enabled=false WHERE id=$1', [
       topic,

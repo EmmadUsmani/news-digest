@@ -374,3 +374,15 @@ Earlier iterations 61–72: [archive](docs/progress-archive/2026-11-02-iteration
 - `screen-social-posts.ts` read-only check; `scripts/smoke-ui.ts`, `scripts/smoke-status.ts`, `scripts/smoke-posts.ts /tmp/iteration127-posts.jsonl` pass desktop/mobile. Screenshots refreshed; mobile fallback inspected. Post replay uses saved real candidates/stubbed widgets, no publication.
 - TASKS/docs/SOURCES updated. No inference/discovery spend, publication, provider/model/billing change or new owner blocker: Anthropic $0.408415; X $0.023382; paid scheduling stays off.
 - Next: inspect 20:40 UTC semantic social edition, especially Gaming; Reddit blocked and fresh Gaming coverage incomplete.
+
+## 2026-11-02: iteration 128 — persist publisher-host discovery cooldown
+
+- Started clean on main; no leftover work. API/worker/health, 25 feeds and retained digest runs healthy; semantic edition still due Nov 2 20:40 UTC.
+- Publisher-page candidate queries now pause an exact host for one day after any saved page failure, across jobs/restarts. Previously a later hourly job could try another page on the failed host. Other publishers and RSS remain eligible; no migration required.
+- Extended isolated DB regression checks cross-page suppression, unaffected publisher eligibility, expiry and success recovery. No external test requests.
+- Public Push Square article probe returned 403; page harvesting stays off. GamingBolt article returned 200 with already-known Phantom Blade Zero citation only; page harvesting remains off pending broader checks. Temporary probe removed after correcting CJS top-level-await and stopping further blocked-host reads.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 138 isolated tests pass. `pnpm build` passes (existing upstream Zod warnings).
+- Restarted API/worker; `/healthz` healthy. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued passes, 1,086 real URLs/four topics/25 healthy sources, idempotent repeat.
+- `pnpm exec tsx apps/api/scripts/harvest-article-x-links.ts`: eight pages checked, one citation observation, zero errors; no new-post claim. `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed and mobile status inspected.
+- TASKS/docs/SOURCES updated. No inference/discovery spend, publication, provider/model/billing change or new owner blocker: Anthropic $0.408415; X $0.023382. Paid X scheduling stays off.
+- Next: inspect 20:40 UTC semantic social edition, especially Gaming; Reddit blocked and fresh Gaming coverage incomplete. GamingBolt public pages merit additional bounded access probes.
