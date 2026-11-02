@@ -115,7 +115,8 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Delete topics through profile-scoped API and desktop/mobile confirmation UI; close reading-order gaps while retaining shared sources, collected articles and immutable editions (iteration 25).
   - [x] Register and connect custom public HTTPS RSS/Atom feeds through UI/API, shared URL reuse, bounded catalog and safe worker fetches (iteration 27).
   - [x] Connect Google News RSS queries through validated UI/API with shared feed collection, replacement/disconnect and explicit Google links (iteration 28).
-  - Next: social account configuration; automatic generation and run/status visibility are connected under M7.
+  - [x] Edit per-topic X search account lists in create/edit UI and API, with bounded unique handles and backward-compatible saves (iteration 125).
+  - Next: Reddit community configuration when legitimate access is available; automatic generation and run/status visibility are connected under M7.
 - [ ] M7 scheduled operation: the cadence scheduler generates digests
       automatically, plus the status page (sources, queues, runs, LLM usage).
   - [x] Saved daily cadence/timezone drives automatic preliminary editions, exact slot windows, bounded retries and idempotent persistence (iteration 23).

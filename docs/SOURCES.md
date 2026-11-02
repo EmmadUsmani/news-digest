@@ -786,3 +786,15 @@ $0.40 reservation required for another explicit search.
 - **not yet tried** for configured ingestion: Shacknews and DualShockers feeds
   returned 200 but no X links in explicit probes; left unconfigured. No article
   crawling, paid discovery, inference or edition publication in this iteration.
+
+## Iteration 125: configurable X search accounts
+
+Manage topics → Edit now exposes each topic’s saved X account list, also
+available on topic creation. Use one handle per line (an initial @ is accepted
+in the UI), up to 20 unique handles of 1–15 letters, digits or underscores.
+The API accepts bare handles and rejects case-insensitive duplicates. Older
+updates omitting accounts preserve the saved list; an explicit empty list
+clears it. Direct discovery reads these saved lists. Saving settings makes no
+external requests and paid discovery scheduling remains off. Free publisher
+and river citations still follow connected sources rather than account lists.
+No new social source, paid call or published edition in this iteration.

@@ -337,3 +337,16 @@ Earlier iterations 61–72: [archive](docs/progress-archive/2026-11-02-iteration
 - Rebuilt/restarted API/worker; `/healthz` healthy after startup retry. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed and mobile status inspected.
 - TASKS/docs/SOURCES updated. No edition published, inference/discovery spend, provider/model/billing change or new owner blocker. Anthropic $0.408415; X $0.023382; zero reservations/errors.
 - Next: inspect 20:40 UTC semantic edition, especially Phantom Blade Zero; fresh Gaming gap and Reddit block remain. Keep paid X scheduling off.
+
+## 2026-11-02: iteration 125 — configurable topic X account lists
+
+- Started clean on main; no leftover work. API/worker/health, 24 sources and retained digest runs healthy; next semantic slot remains Nov 2 20:40 UTC. Two old ingestion failures retained, current collections succeed.
+- Topic create/edit UI and API now save up to 20 unique valid X handles. UI accepts an initial @; API rejects duplicate handles ignoring case. Omitted accounts preserve existing lists; explicit empty lists clear them. Direct discovery already reads this data; paid scheduling stays off.
+- Corrected outdated topic-settings copy about AI selection and news queries. No migration or changes to original topic lists.
+- Isolated Postgres regression covers validation, creation, update, clear, backward-compatible omission and direct-search repository parity. No external test calls.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 134 isolated tests pass. `pnpm build` passes (existing upstream Zod warnings).
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two live queued passes, 1,064 URLs/four topics/24 healthy sources. Rebuilt/restarted API/worker; `/healthz` healthy.
+- `pnpm exec tsx scripts/smoke-topic-accounts.ts`: desktop/mobile save/reload, @ normalization, duplicate UI/API rejection and unchanged latest edition pass; temporary disabled topic deleted. Initial exact-label selector timed out on prefilled textarea text; corrected to accessible textbox selector and reran successfully.
+- `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile. Refreshed screenshots and inspected mobile account form. TASKS/docs/SOURCES updated.
+- No publication, inference/discovery spend, provider/model/billing change or new owner blocker: Anthropic $0.408415; X $0.023382; zero reservations/errors. Reddit blocked; fresh Gaming coverage incomplete.
+- Next: inspect scheduled 20:40 UTC semantic social edition and continue legitimate free discovery; keep full-day X reservation and paid scheduling off.

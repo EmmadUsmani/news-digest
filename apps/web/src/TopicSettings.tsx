@@ -78,6 +78,7 @@ export function TopicSettings({
         .map((s) => s.trim())
         .filter(Boolean);
     const parsed = topicUpdateSchema.safeParse({
+      accounts: phrases('accounts').map((handle) => handle.replace(/^@/, '')),
       name: data.get('name'),
       description: data.get('description'),
       includeGuidance: data.get('includeGuidance'),
@@ -92,7 +93,7 @@ export function TopicSettings({
     });
     if (!parsed.success) {
       setMessage(
-        'Check the name, budgets (0–20), and phrase rules (up to 100 lines of 80 characters).',
+        'Check the name, budgets (0–20), phrase rules, and X accounts (up to 20 unique handles, 1–15 letters, digits or underscores).',
       );
       return;
     }
@@ -304,7 +305,8 @@ export function TopicSettings({
             </div>
             <p>
               Post budgets limit verified posts in new editions. Quiet windows
-              can have fewer posts; social AI editing is still pending.
+              can have fewer posts. AI editing selects from available verified
+              posts when the budget allows.
             </p>
             <label>
               Include guidance
@@ -323,9 +325,9 @@ export function TopicSettings({
               />
             </label>
             <p>
-              Guidance and descriptions are editorial notes. Current selection
-              uses the explicit phrase rules below, matched against headlines
-              and excerpts. Exclusions take precedence.
+              Guidance and descriptions inform AI selection. Non-AI selection
+              uses the phrase rules below, matched against headlines and
+              excerpts. Exclusions take precedence.
             </p>
             <label>
               Include phrases · one per line
@@ -345,9 +347,24 @@ export function TopicSettings({
                 defaultValue={editing.relevancePolicy.excludeAny.join('\n')}
               />
             </label>
+            <label>
+              X accounts · one handle per line
+              <textarea
+                name="accounts"
+                defaultValue={editing.accounts.join('\n')}
+                aria-describedby="x-accounts-help"
+              />
+            </label>
+            <p id="x-accounts-help">
+              Up to 20 unique handles; an initial @ is optional. These accounts
+              scope X searches when discovery runs. Automatic paid discovery is
+              currently off. Saving does not fetch posts or start a search.
+              Leave empty to disable X searches for this topic. Free link
+              discovery still uses the topic’s connected sources.
+            </p>
             <p>
-              Use the Sources button after saving to manage source connections.
-              Queries and accounts are not available yet.
+              Use the Sources button after saving to manage feeds and news
+              queries.
             </p>
             <button type="submit">
               {busy ? 'Saving…' : editing.id ? 'Save topic' : 'Create topic'}

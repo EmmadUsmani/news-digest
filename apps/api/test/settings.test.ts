@@ -1,7 +1,11 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { profileSettingsSchema, topicSchema } from '@digest/contracts';
+import {
+  profileSettingsSchema,
+  topicSchema,
+  topicUpdateSchema,
+} from '@digest/contracts';
 
 import { database } from '../src/libs/db/connections';
 import { PostgresProfileRepository } from '../src/modules/profiles/database/profile.repository';
@@ -367,6 +371,76 @@ void test('custom feed registration atomically connects and shares existing URLs
     await db.query('DELETE FROM topics WHERE id=ANY($1::uuid[])', [ids]);
     await db.query('DELETE FROM content_sources WHERE url=$1', [url]);
     await db.end();
+    await topics.onModuleDestroy();
+  }
+});
+
+void test('X account settings validate bounds and preserve omitted lists across updates', async () => {
+  const topics = new PostgresTopicRepository();
+  const original = (await topics.listDefault())[0];
+  const input = topicUpdateSchema.parse({
+    name: original.name,
+    description: original.description,
+    includeGuidance: original.includeGuidance,
+    excludeGuidance: original.excludeGuidance,
+    enabled: original.enabled,
+    storyBudget: original.storyBudget,
+    postBudget: original.postBudget,
+    relevancePolicy: original.relevancePolicy,
+    accounts: original.accounts,
+  });
+  try {
+    // Parse only writable fields because topicUpdateSchema is intentionally strict.
+    const { accounts: _accounts, ...legacy } = input;
+    for (const accounts of [
+      ['NBA', 'nba'],
+      ['@NBA'],
+      ['https://x.com/NBA'],
+      [''],
+      ['a'.repeat(16)],
+      Array.from({ length: 21 }, (_, i) => `handle${i}`),
+    ])
+      assert.equal(
+        topicUpdateSchema.safeParse({ ...legacy, accounts }).success,
+        false,
+      );
+    const updated = await topics.updateDefault(original.id, {
+      ...legacy,
+      accounts: ['NBA', 'NBAPR'],
+    });
+    assert.deepEqual(updated?.accounts, ['NBA', 'NBAPR']);
+    const search = new (
+      await import('../src/modules/social/database/x-search.repository')
+    ).PostgresXSearchRepository(database());
+    try {
+      assert.deepEqual((await search.topic(original.id))?.handles, [
+        'NBA',
+        'NBAPR',
+      ]);
+    } finally {
+      await search.db.end();
+    }
+    assert.deepEqual(
+      (await topics.updateDefault(original.id, legacy))?.accounts,
+      ['NBA', 'NBAPR'],
+    );
+    assert.deepEqual(
+      (await topics.updateDefault(original.id, { ...legacy, accounts: [] }))
+        ?.accounts,
+      [],
+    );
+    const created = await topics.createDefault({
+      ...legacy,
+      enabled: false,
+      accounts: ['TestAccount'],
+    });
+    try {
+      assert.deepEqual(created.accounts, ['TestAccount']);
+    } finally {
+      await topics.deleteDefault(created.id);
+    }
+  } finally {
+    await topics.updateDefault(original.id, input);
     await topics.onModuleDestroy();
   }
 });

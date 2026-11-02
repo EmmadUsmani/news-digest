@@ -164,8 +164,8 @@ export class PostgresTopicRepository
         profileId,
       ]);
       await client.query(
-        `INSERT INTO topics(id, profile_id, name, description, include_guidance, exclude_guidance, enabled, position, story_budget, post_budget, relevance_policy)
- SELECT $1,$2,$3,$4,$5,$6,$7,COALESCE(MAX(position)+1,0),$8,$9,$10 FROM topics WHERE profile_id=$2`,
+        `INSERT INTO topics(id, profile_id, name, description, include_guidance, exclude_guidance, enabled, position, story_budget, post_budget, relevance_policy, accounts)
+ SELECT $1,$2,$3,$4,$5,$6,$7,COALESCE(MAX(position)+1,0),$8,$9,$10,$11 FROM topics WHERE profile_id=$2`,
         [
           id,
           profileId,
@@ -177,6 +177,7 @@ export class PostgresTopicRepository
           input.storyBudget,
           input.postBudget,
           input.relevancePolicy,
+          JSON.stringify(input.accounts ?? []),
         ],
       );
       await client.query('COMMIT');
@@ -221,7 +222,7 @@ export class PostgresTopicRepository
   }
   async updateDefault(id: string, update: TopicUpdate): Promise<Topic | null> {
     const result = await this.db.query(
-      `UPDATE topics SET name=$3, description=$4, include_guidance=$5, exclude_guidance=$6, enabled=$7, story_budget=$8, post_budget=$9, relevance_policy=$10 WHERE id=$1 AND profile_id=$2 RETURNING id`,
+      `UPDATE topics SET name=$3, description=$4, include_guidance=$5, exclude_guidance=$6, enabled=$7, story_budget=$8, post_budget=$9, relevance_policy=$10, accounts=COALESCE($11::jsonb,accounts) WHERE id=$1 AND profile_id=$2 RETURNING id`,
       [
         id,
         '00000000-0000-4000-8000-000000000001',
@@ -233,6 +234,7 @@ export class PostgresTopicRepository
         update.storyBudget,
         update.postBudget,
         update.relevancePolicy,
+        update.accounts === undefined ? null : JSON.stringify(update.accounts),
       ],
     );
     if (!result.rowCount) return null;

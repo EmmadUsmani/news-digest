@@ -221,6 +221,21 @@ export const previewHistorySchema = z.object({
 });
 export type PreviewHistory = z.infer<typeof previewHistorySchema>;
 
+export const xAccountsSchema = z
+  .array(
+    z
+      .string()
+      .trim()
+      .regex(/^[a-zA-Z0-9_]{1,15}$/),
+  )
+  .max(20)
+  .refine(
+    (handles) =>
+      new Set(handles.map((handle) => handle.toLowerCase())).size ===
+      handles.length,
+    'X accounts must be unique, ignoring case',
+  );
+
 export const topicUpdateSchema = topicSchema
   .pick({
     name: true,
@@ -233,6 +248,7 @@ export const topicUpdateSchema = topicSchema
     relevancePolicy: true,
   })
   .extend({
+    accounts: xAccountsSchema.optional(),
     name: z.string().trim().min(1).max(120),
     description: z.string().trim().max(2000),
     includeGuidance: z.string().trim().max(2000),
