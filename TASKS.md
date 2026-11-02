@@ -55,12 +55,16 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Eight fixed-evidence support/unsupported clause pairs across all four topics, with per-pair decisions and regression coverage (iteration 70); expanded offline audit exposes cross-sentence attribution and quantity/time/scope gaps. Synthetic agent labels, no production quality claim.
   - [x] Complete twenty-field recorded Tech v4 support audit with snapshot/claim hashes, exact review coverage and separate interpretation labels (iteration 71); three unsupported fields pass, including adoption in rationale. Provisional agent judgments; no independent-review or false-rejection-rate claim.
   - [x] Extend complete recorded support audit to twenty World fields, including three-citation synthesis and historical absence rationales (iteration 72); ten supported, five interpretations, five unsupported under bounded-input policy. Current guard rejects two unsupported absence claims and accepts three other unsupported fields; provisional judgments only.
-  - Next (highest priority): review retained briefs and rejected attempts where available, and obtain independent support labels; evaluate broader clause support using the challenge audit; measure absence-guard false rejections on independently reviewed examples; extend editorial evaluation across topics/dates with independent labels; add scheduled Message Batches and cross-process cache-miss coalescing. Full-article retrieval remains unfinished; ten-candidate editor bounds may return fewer than larger topic budgets.
-- [ ] M4 X posts:
-  - check xAI `x_search` through the gateway
-  - post discovery per topic
-  - faithful rendering with the official embed, media included
-  - X API adapter behind the same port, enabled only by `X_BEARER_TOKEN`
+  - Audit work closed for now under STEERING 5: existing recorded/synthetic coverage is summarized in docs/RANKING.md. Resume only for a real unsupported digest summary.
+  - Deferred: scheduled Message Batches, cross-process cache coordination, full-article retrieval and larger editor shortlists.
+- [ ] M4 Social posts (current priority; STEERING 6):
+  - [x] Free X-link harvesting from feed HTML/content and HN destination/text; dedupe IDs and persist citing item/source/engagement separately from verified posts (iteration 87).
+  - Next: expand free discovery to Reddit/Techmeme/Memeorandum where accessible; collect real citations and verify official embeds.
+  - SocialPost storage, window-aware ranking with citation diversity/engagement, immutable post selections and lazy official X embeds.
+  - Reddit per-topic communities and faithful cards; no bot-protection workarounds. Bluesky optional; YouTube deferred.
+  - After free harvesting: direct capped xAI x_search adapter using installed key, cheapest supported model, per-topic accounts, $0.40/day/$12/month ledger and depleted-credit handling. Never use gateway.
+  - Haiku interestingness triage and Sonnet picks/context under existing app caps; related story links.
+  - Finish with real X/Reddit posts across four topics and desktop/mobile screenshots.
 - [ ] M5 ranking quality:
   - [x] Conservative headline clustering with copied coverage links, one-slot groups and no unverified syndication bonus (iteration 14).
   - Semantic event clustering and verified outlet independence remain unfinished.

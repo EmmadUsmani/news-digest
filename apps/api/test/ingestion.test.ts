@@ -157,6 +157,13 @@ void test('Postgres ingestion is idempotent and records failure without losing l
     const item = {
       ...parseFeed(await fixture('rss.xml'))[0],
       url: `https://example.org/${id}`,
+      xLinks: [
+        {
+          externalId: '123456789',
+          url: 'https://twitter.com/reporter/status/123456789?s=20',
+        },
+      ],
+      engagement: { points: 42 },
     };
     const adapter = { collect: async () => [item, item] };
     await ingest(repository, { feed: adapter, hn: adapter }, id);
@@ -170,6 +177,17 @@ void test('Postgres ingestion is idempotent and records failure without losing l
       ).rows[0].n,
       1,
     );
+    const citations = await repository.db.query(
+      'SELECT external_id,canonical_url,citing_engagement FROM x_link_citations WHERE source_id=$1',
+      [id],
+    );
+    assert.equal(citations.rowCount, 1);
+    assert.equal(citations.rows[0].external_id, '123456789');
+    assert.equal(
+      citations.rows[0].canonical_url,
+      'https://x.com/i/web/status/123456789',
+    );
+    assert.deepEqual(citations.rows[0].citing_engagement, { points: 42 });
     const empty = { collect: async () => [] };
     await assert.rejects(
       ingest(repository, { feed: empty, hn: empty }, id),

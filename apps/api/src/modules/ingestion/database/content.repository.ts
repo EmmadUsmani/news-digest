@@ -2,6 +2,7 @@ import { Injectable, OnModuleDestroy } from '@nestjs/common';
 
 import { database } from '../../../libs/db/connections';
 import { ContentItem, ContentRepository, Source } from '../domain/ports';
+import { extractXLinks } from '../domain/x-links';
 @Injectable()
 export class PostgresContentRepository
   extends ContentRepository
@@ -36,6 +37,24 @@ export class PostgresContentRepository
           'INSERT INTO content_observations(source_id,item_id) VALUES($1,$2) ON CONFLICT DO NOTHING',
           [source.id, row.rows[0].id],
         );
+        // Revalidate at the persistence boundary; source content is untrusted.
+        const links = extractXLinks(
+          [item.url, ...(item.xLinks ?? []).map((link) => link.url)].join(' '),
+        );
+        for (const link of links) {
+          await client.query(
+            `INSERT INTO x_link_citations(external_id,item_id,source_id,canonical_url,citing_engagement)
+             VALUES($1,$2,$3,$4,$5) ON CONFLICT(external_id,item_id,source_id)
+             DO UPDATE SET last_seen_at=now(),citing_engagement=EXCLUDED.citing_engagement`,
+            [
+              link.externalId,
+              row.rows[0].id,
+              source.id,
+              link.url,
+              item.engagement,
+            ],
+          );
+        }
       }
       await client.query(
         'UPDATE content_sources SET last_attempt=now(),last_success=now(),last_error=NULL,last_item_count=$2 WHERE id=$1',

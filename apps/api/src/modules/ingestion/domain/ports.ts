@@ -13,6 +13,7 @@ export interface ContentItem {
   publishedAt: string;
   imageUrl: string | null;
   engagement: Record<string, number>;
+  xLinks?: import('./x-links').XLink[];
 }
 export interface HttpPort {
   get(url: string): Promise<string>;

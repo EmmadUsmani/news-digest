@@ -7,6 +7,7 @@ import type {
   Source,
   SourcePort,
 } from '../domain/ports';
+import { extractXLinks } from '../domain/x-links';
 export class HackerNewsAdapter implements SourcePort {
   constructor(private readonly http: HttpPort) {}
   async collect(source: Source): Promise<ContentItem[]> {
@@ -32,6 +33,9 @@ export class HackerNewsAdapter implements SourcePort {
         author: item.by ?? null,
         publishedAt: new Date(item.time * 1000).toISOString(),
         imageUrl: null,
+        xLinks: extractXLinks(
+          [url, decodeHTML(String(item.text ?? ''))].join(' '),
+        ),
         engagement: {
           points: Number(item.score) || 0,
           comments: Number(item.descendants) || 0,

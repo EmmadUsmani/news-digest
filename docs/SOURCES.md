@@ -28,7 +28,7 @@ verification: 20:38 UTC; two queued passes preserved the same 669-item total.
 | Google News RSS: artificial intelligence | Tech & AI             | live          |           68 | https://news.google.com/rss/search?q=artificial+intelligence&hl=en-US&gl=US&ceid=US%3Aen                                 |
 | OpenAI News                              | Tech & AI             | live          |           60 | https://openai.com/news/rss.xml (first-party announcements)                                                              |
 | Google DeepMind                          | Tech & AI             | live          |           60 | https://deepmind.google/blog/rss.xml (first-party research/announcements)                                                |
-| xAI x_search via configured gateway      | all                   | not yet tried |            0 | Review documented gateway routing before use                                                                             |
+| xAI direct x_search (gateway prohibited) | all                   | not yet tried |            0 | Installed owner key; direct capped adapter follows free harvesting                                                       |
 | X official oEmbed                        | all                   | not yet tried |            0 | Render discovered post URLs                                                                                              |
 | X official API                           | all                   | needs key     |            0 | Owner token and hard read cap required                                                                                   |
 | Reddit NBA RSS                           | NBA                   | blocked       |            0 | https://www.reddit.com/r/nba/.rss returned HTTP 403 (iteration 31); no bypass attempted; JSON/other communities untested |
@@ -261,3 +261,25 @@ three real stored headlines, validated IDs/importance bounds and cached the resu
 for $0.000147. Anthropic is an editorial dependency, not another content source;
 these verification scores are not published selections or evidence of ranking
 quality. Automatic editions still use signal ranking.
+
+### Iteration 87: free X citation harvesting
+
+Feed descriptions, summaries, Atom content and RSS content:encoded are inspected
+before HTML removal/truncation; HN destination URLs and text are inspected too.
+Only exact X/Twitter hosts and numeric status paths are accepted, normalized by
+post ID, and persisted in x_link_citations with source/item provenance and the
+citing item's engagement snapshot. This is discovery evidence, not verified post
+content, post engagement, independent outlet counts, or a publishable SocialPost.
+No X request or inference is made. Repeated ingestion updates citation snapshots
+without duplicating observations. Missing links on a later fetch do not delete
+historical evidence. Feed bodies can omit embedded tweets; article retrieval,
+Reddit/Techmeme/Memeorandum harvesting and official embed verification remain next.
+
+YouTube: **deferred** by owner instruction; no research or implementation planned.
+
+Live verification: two queued passes on 2026-11-02 stored 779 article URLs across
+four topics, all seventeen sources healthy. Harvesting persisted 72 citations to
+68 distinct post IDs from seven sources (Ars Technica, Eurogamer,
+GamesIndustry.biz, PC Gamer, PlayStation Blog, Rock Paper Shotgun and Yahoo NBA).
+These are real fetched publisher references; post existence/content/publication
+time remain unverified, and World coverage has no harvested citations yet.

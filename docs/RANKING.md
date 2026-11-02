@@ -581,3 +581,14 @@ Briefs remain outside this story-field audit. NBA lacks recorded evidence IDs,
 so a citation-based review must not reconstruct historical provenance. Next: retained
 briefs/rejected responses where available, independently reviewed negative claims,
 and later-date/Gaming evidence rather than invented historical provenance.
+
+### Iteration 87: editorial audit wrap-up (STEERING 5)
+
+The audit is closed for now. Offline commands retain frozen NBA/World/Tech
+selection replays, 28 synthetic/recorded support challenges, and complete
+twenty-field Tech and World reviews. Labels are provisional agent judgments;
+they are neither independent truth verification nor production error rates.
+Known gaps include paraphrase rejection, unsupported significance/background,
+causation, scope and cross-sentence attribution. Briefs and rejected responses
+remain unaudited. No partial code was left to finish. Resume auditing only when
+a real digest shows an unsupported summary; social posts now take priority.

@@ -313,3 +313,16 @@ Earlier iterations 23–37: [archive](docs/progress-archive/2026-11-01-iteration
 - Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed and mobile digest visually inspected.
 - No inference spending; day/month actual $0.408415, zero reservations/provider errors, $0.482758 daily/$14 monthly caps. Provider/models/billing unchanged.
 - Updated TASKS/docs/RANKING; no owner blockers. Next: retained briefs, independently reviewed support labels and rejected negative claims; later dates/Gaming, scheduled batches and cross-process cache coordination remain open. M3 unfinished.
+
+## 2026-11-02: iteration 87 — start free X citation harvesting
+
+- Started clean on main; no leftover work. API/worker/health and live source/run smoke healthy. New STEERING 5/6 closes audit work, prioritizes Social posts and defers YouTube; TASKS updated.
+- Feed HTML/Atom content/RSS content:encoded and HN destination/text now yield bounded, exact-host X/Twitter links before excerpt truncation. Dedupe IDs without numeric precision loss; no X fetches or provider changes.
+- Migration 016 persists citing article/source, canonical post URL, citing engagement and first/last seen atomically with ingestion; repeated observations update without duplicating. Citations remain unverified discovery evidence.
+- Offline tests cover hostile hosts, malformed paths, ID dedupe/bounds and embedded links beyond excerpts; isolated Postgres checks citation persistence/idempotency and citing metrics.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and all 97 isolated tests; `pnpm build` passed. Earlier check caught docs edited during formatting; final rerun green.
+- `pnpm migrate` applied additive 016; restarted API/worker. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live runs: 779 article URLs, four topics, seventeen healthy sources.
+- Live SQL: 72 citations / 68 distinct X IDs / seven publisher sources. No claim of verified X content, post time, engagement or virality; no harvested World citations yet.
+- `pnpm exec tsx scripts/smoke-status.ts` and `scripts/smoke-ui.ts` passed desktop/mobile; screenshots refreshed. `/healthz` healthy.
+- Incremental inference $0; actual day/month $0.408415, no reservations/provider errors. No operational blockers; installed xAI key remains for direct capped layer 2 after free discovery.
+- Next: official embed verification/rendering and SocialPost storage/window metadata; widen free discovery, then ranked immutable post sections and capped direct xAI. No further audit variants unless real summaries fail.

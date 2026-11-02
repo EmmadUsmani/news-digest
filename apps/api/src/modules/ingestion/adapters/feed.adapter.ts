@@ -8,6 +8,7 @@ import type {
   Source,
   SourcePort,
 } from '../domain/ports';
+import { extractXLinks } from '../domain/x-links';
 type Node = Record<string, unknown>;
 const list = (v: unknown): Node[] =>
   (Array.isArray(v) ? v : v ? [v] : []) as Node[];
@@ -61,6 +62,15 @@ export function parseFeed(xml: string): ContentItem[] {
           publishedAt: date.toISOString(),
           imageUrl: canonicalUrl(String(media?.['@_url'] ?? '')),
           engagement: {},
+          xLinks: extractXLinks(
+            [
+              link,
+              text(entry.description),
+              text(entry.summary),
+              text(entry['content:encoded']),
+              text(entry.content),
+            ].join(' '),
+          ),
         },
       ];
     });
