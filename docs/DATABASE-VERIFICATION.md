@@ -111,3 +111,13 @@ verification URL preservation/replacement. A later invalid citation rolls back
 prior inserts, citation updates and source health together. Empty successful
 collections clear source errors without removing retained evidence. Assertions
 use the repository API with disposable PostgreSQL; no network requests occur.
+
+## X-search transaction characterization (iteration 231)
+
+`x-discovery-report.test.ts` pins rollback when a later citation violates a
+required field: neither the earlier insert nor first-search yield attribution
+survives. Existing evidence remains unchanged. A successful retry on another
+call owns the first attribution; duplicate links and empty saves are idempotent,
+and verification candidates reflect only committed citations in descending ID
+order. Assertions use repository/report APIs and disposable PostgreSQL, with no
+X, Reddit or inference requests. AI golden and other behavior gaps remain open.

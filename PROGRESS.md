@@ -96,16 +96,7 @@ Iteration 212: [archive](docs/progress-archive/2026-11-02-iteration-212.md).
 
 Earlier iteration 213: [archive](docs/progress-archive/2026-11-02-iteration-213.md).
 
-## 2026-11-02: iteration 216 — pre-edition X search planning
-
-- Started clean on main; API/worker and health healthy, 32 sources without errors. No leftover work.
-- Added planner selecting fewest verified free-harvested X posts; ties preserve owner order, invalid/empty curated accounts skip.
-- Repository counts distinct publisher/river post IDs in a half-open rolling 24-hour window; disabled/zero-budget topics excluded. Paid and Reddit citations do not affect scarcity.
-- Planner accepts only 5–30 minutes before an edition and produces bounded UTC dates; no I/O or production paid scheduling yet.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` passed; 115 unit and 118 isolated integration tests passed.
-- Read-only X report: $0.023382, two verified/dated historical World citations, unknown incremental baseline. No inference or Reddit requests.
-- Timing report: next Nov 3 15:00 UTC; prior 856 ms fallback remains insufficient AI latency evidence.
-- Updated TASKS/SOURCES; archived iterations 200–201. API/worker restarted; health DB/Redis true, SPA 200. Next: timer/search/official verification wiring with schedule-change and midnight tests; items 13/7 await Nov 3 evidence.
+Archived iteration 216: [entry](docs/progress-archive/2026-11-02-iteration-216.md).
 
 ## 2026-11-02: iteration 217 — search-scoped official verification
 
@@ -262,5 +253,17 @@ Archived iteration 214: [entry](docs/progress-archive/2026-11-02-iteration-214.m
 - No inference, publisher or Reddit requests. AI golden and remaining repository behavior gaps stay open.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (120 unit, 128 integration), `pnpm build` and `git diff --check` passed.
 - Updated TASKS/database notes; archived iteration 215 to bound PROGRESS.
+- Deployment: API/worker restarted healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues; retained edition has four topics.
+- Next: observe Nov 3 14:30 UTC X discovery and 15:00 edition cost/duration; fallback timing is not AI latency evidence.
+
+## 2026-11-02: iteration 231 — X-search transaction characterization
+
+- Started clean on main; services, health, 32 sources and four queues healthy. No leftover work.
+- Priority items 13/7/9 await Nov 3 scheduled evidence; advanced isolated STEERING 2a coverage.
+- Pinned partial-save rollback, unchanged prior yield evidence and committed-only verification candidates.
+- Retry on another call owns first-search attribution; duplicate links and empty saves remain idempotent.
+- No X, Reddit or inference requests. AI golden and remaining repository behavior gaps stay open.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (120 unit, 129 integration), `pnpm build` and `git diff --check` passed.
+- Updated TASKS/database notes; archived iteration 216 to bound PROGRESS.
 - Deployment: API/worker restarted healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues; retained edition has four topics.
 - Next: observe Nov 3 14:30 UTC X discovery and 15:00 edition cost/duration; fallback timing is not AI latency evidence.

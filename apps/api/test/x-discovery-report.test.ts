@@ -192,3 +192,66 @@ void test('X yield snapshots exclude existing posts, repeated searches and histo
     await db.end();
   }
 });
+
+void test('X search saves roll back partial citations and preserve first-search attribution on retry', async () => {
+  const db = database();
+  const repository = new PostgresXSearchRepository(db);
+  const topic = '00000000-0000-4000-8000-000000000011';
+  const calls = [crypto.randomUUID(), crypto.randomUUID()];
+  const link = (externalId: string) => ({
+    externalId,
+    url: `https://x.com/a/status/${externalId}`,
+    verificationUrl: `https://x.com/reporter/status/${externalId}`,
+  });
+  try {
+    for (const id of calls)
+      await db.query(
+        `INSERT INTO x_discovery_calls(id,model,run_id,status,reserved_micros,cost_micros,created_at)
+         VALUES($1,'fixture','rollback-fixture','succeeded',400000,0,'2036-01-02T12:00:00Z')`,
+        [id],
+      );
+    await repository.save(topic, calls[0], [link('889931')]);
+    const before = await readXDiscoveryReport(db, '2036-01-02');
+    // The duplicate is ignored, the next insert succeeds, then a malformed
+    // later row fails. Neither the new citation nor its attribution may leak.
+    await assert.rejects(
+      repository.save(topic, calls[0], [
+        { ...link('889931'), url: 'https://x.com/changed/status/889931' },
+        link('889932'),
+        { ...link('889933'), url: null as unknown as string },
+      ]),
+      { code: '23502' },
+    );
+    assert.deepEqual(await readXDiscoveryReport(db, '2036-01-02'), before);
+    assert.deepEqual(await repository.verificationCandidates(calls[0]), [
+      '889931',
+    ]);
+    assert.deepEqual(await repository.verificationCandidates(calls[1]), []);
+
+    // A later successful search owns the rolled-back post's first attribution.
+    await repository.save(topic, calls[1], [link('889932'), link('889932')]);
+    await repository.save(topic, calls[0], [link('889932')]);
+    const report = await readXDiscoveryReport(db, '2036-01-02');
+    const first = report.calls.find((call) => call.id === calls[0])!;
+    const second = report.calls.find((call) => call.id === calls[1])!;
+    assert.equal(first.topics[0].citations, 2);
+    assert.equal(first.topics[0].newCandidates, 1);
+    assert.equal(second.topics[0].citations, 1);
+    assert.equal(second.topics[0].newCandidates, 1);
+    assert.deepEqual(await repository.verificationCandidates(calls[0]), [
+      '889932',
+      '889931',
+    ]);
+    await repository.save(topic, calls[0], []);
+    assert.deepEqual(await readXDiscoveryReport(db, '2036-01-02'), report);
+  } finally {
+    await db.query(
+      'DELETE FROM x_search_citations WHERE call_id=ANY($1::uuid[])',
+      [calls],
+    );
+    await db.query('DELETE FROM x_discovery_calls WHERE id=ANY($1::uuid[])', [
+      calls,
+    ]);
+    await db.end();
+  }
+});
