@@ -643,3 +643,116 @@ void test('scheduled search retries never reach HTTP again after a provider reje
     await social.db.end();
   }
 });
+
+void test('X search verification pins ten-post priority, exact retry boundary and topic eligibility', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const social = new PostgresSocialRepository();
+  const client = await social.db.connect();
+  const repository = new PostgresXSearchRepository(social.db);
+  Object.defineProperty(repository, 'db', { value: client });
+  const topic = crypto.randomUUID();
+  const call = crypto.randomUUID();
+  // Different lengths distinguish numeric-ID ordering from lexical ordering.
+  const ids = [
+    '9',
+    '99',
+    ...Array.from(
+      { length: 12 },
+      (_, i) => `21179800000000000${String(i).padStart(2, '0')}`,
+    ),
+  ];
+  const ordered = [...ids].reverse();
+  try {
+    await client.query('BEGIN');
+    await client.query("SET LOCAL TIME ZONE 'America/Los_Angeles'");
+    await client.query(
+      `INSERT INTO topics(id,profile_id,name,description,include_guidance,position)
+       VALUES($1,'00000000-0000-4000-8000-000000000001','Verification fixture','Fixture','Fixture',100)`,
+      [topic],
+    );
+    await client.query(
+      `INSERT INTO x_discovery_calls(id,model,run_id,status,reserved_micros)
+       VALUES($1,'offline-fixture','verification-bounds','pending',1)`,
+      [call],
+    );
+    for (const id of ids)
+      await client.query(
+        `INSERT INTO x_search_citations(call_id,topic_id,external_id,canonical_url)
+         VALUES($1,$2,$3,$4)`,
+        [call, topic, id, `https://x.com/i/web/status/${id}`],
+      );
+    assert.deepEqual(
+      await repository.verificationCandidates(call),
+      ordered.slice(0, 10),
+    );
+    // now() is fixed for this transaction: equality must remain in cooldown.
+    await client.query(
+      `INSERT INTO x_embed_checks(external_id,checked_at,error)
+       VALUES($1,now()-interval '1 day','Fixture unavailable')`,
+      [ordered[0]],
+    );
+    assert.deepEqual(
+      await repository.verificationCandidates(call),
+      ordered.slice(1, 11),
+    );
+    await client.query(
+      "UPDATE x_embed_checks SET checked_at=checked_at-interval '1 millisecond' WHERE external_id=$1",
+      [ordered[0]],
+    );
+    assert.deepEqual(
+      await repository.verificationCandidates(call),
+      ordered.slice(0, 10),
+    );
+    await client.query(
+      `INSERT INTO social_posts(platform,external_id,canonical_url,author,author_url,metrics,embed_html)
+       VALUES('x',$1,$2,'Fixture','https://x.com/fixture','{}','<p>Fixture</p>')`,
+      [ordered[0], `https://x.com/i/web/status/${ordered[0]}`],
+    );
+    assert.deepEqual(
+      await repository.verificationCandidates(call),
+      ordered.slice(1, 11),
+    );
+    await client.query('UPDATE topics SET post_budget=0 WHERE id=$1', [topic]);
+    assert.deepEqual(await repository.verificationCandidates(call), []);
+    await client.query(
+      'UPDATE topics SET post_budget=5,enabled=false WHERE id=$1',
+      [topic],
+    );
+    assert.deepEqual(await repository.verificationCandidates(call), []);
+    await client.query('UPDATE topics SET enabled=true WHERE id=$1', [topic]);
+    assert.deepEqual(
+      await repository.verificationCandidates(call),
+      ordered.slice(1, 11),
+    );
+    await client.query('DELETE FROM social_posts WHERE external_id=$1', [
+      ordered[0],
+    ]);
+    // Recent checks, including success-shaped null errors, exclude all candidates.
+    await client.query(
+      `INSERT INTO x_embed_checks(external_id,checked_at,error)
+       SELECT unnest($1::text[]),now(),NULL
+       ON CONFLICT(external_id) DO UPDATE SET checked_at=excluded.checked_at,error=NULL`,
+      [ids],
+    );
+    assert.deepEqual(await repository.verificationCandidates(call), []);
+    await client.query(
+      "UPDATE x_embed_checks SET checked_at=now()-interval '1 day 1 millisecond' WHERE external_id=ANY($1::text[])",
+      [ids],
+    );
+    // Exhausting longer IDs proves the shorter IDs retain numeric order too.
+    await client.query(
+      'DELETE FROM x_search_citations WHERE call_id=$1 AND external_id=ANY($2::text[])',
+      [call, ids.slice(2)],
+    );
+    assert.deepEqual(await repository.verificationCandidates(call), [
+      '99',
+      '9',
+    ]);
+    await client.query('DELETE FROM topics WHERE id=$1', [topic]);
+    assert.deepEqual(await repository.verificationCandidates(call), []);
+  } finally {
+    await client.query('ROLLBACK');
+    client.release();
+    await social.db.end();
+  }
+});

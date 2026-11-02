@@ -461,3 +461,12 @@ counts, while the public daily report credits exactly one call with both new
 candidates. Repeating both saves preserves the attribution and reports no
 verified yield before verification. Disposable PostgreSQL only; no paid calls
 or external requests occur.
+
+## Search verification eligibility (iteration 269)
+
+`x-search.test.ts` pins the ten-post verification limit, numeric-ID priority,
+exact one-day retry exclusion and millisecond expiry in a non-UTC session.
+Verified posts, recent checks (including null-error checks), disabled/zero-budget
+and deleted topics stay excluded; re-enabling restores eligible candidates.
+All assertions use repository methods in a rolled-back disposable PostgreSQL
+transaction; no source, Reddit, embed or paid provider requests occur.

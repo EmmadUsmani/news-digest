@@ -114,18 +114,6 @@ Earlier iteration 244: [archive](docs/progress-archive/2026-11-02-iteration-244.
 
 Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
 
-## 2026-11-02: iteration 249 — scheduled publication failure recovery
-
-- Started clean on main; API/worker, health and all 32 sources healthy; no leftover work.
-- Priority 15/13/7/9 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a.
-- Added pre-publication failure coverage: original error propagates, history stays unchanged and no scheduled row persists.
-- Independent-pool concurrent retries release/reacquire the session lock and publish exactly one immutable, retrievable snapshot.
-- Initial checks caught documentation formatting and a cleanup delete blocked by edition immutability; corrected both.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 147 integration), `pnpm build`, `git diff --check` passed.
-- Updated TASKS/database notes; archived iteration 231 to keep PROGRESS bounded. No provider or Reddit requests.
-- Restarted API/worker healthy; health DB/Redis true, SPA 200, four-topic latest edition, 32 error-free sources and four available queues.
-- Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
-
 ## 2026-11-02: iteration 250 — publisher admission time boundaries
 
 - Started clean on main; API/worker, health and 32 sources healthy; no leftover work.
@@ -347,3 +335,16 @@ Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
 - API/worker restarted; health, SPA and latest edition checked after build.
 - Updated TASKS/database notes; archived iteration 248 to keep PROGRESS bounded.
 - Next: observe Nov 3 scheduled X cost/yield and AI edition cost/duration.
+
+## 2026-11-02: iteration 269 — X verification eligibility
+
+- Started clean on main; API/worker, health and all 32 sources healthy; no leftover work.
+- Two retained ingestion failures are historical; current sources have recovered.
+- Scheduled priorities await Nov 3 evidence; advanced isolated STEERING 2a.
+- Pins ten-post search verification bounds, numeric-ID priority and exact daily retry expiry.
+- Pins verified-post exclusion, recent null/error checks, topic disable/re-enable, zero budget and deletion.
+- Non-UTC transaction in disposable PostgreSQL only; no source, Reddit or paid calls.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 164 integration), `pnpm build`, `git diff --check`.
+- API/worker restarted; health, SPA and latest edition checked after build.
+- Updated TASKS/database notes; archived iteration 249 to keep PROGRESS bounded.
+- Next: observe Nov 3 scheduled X per-topic cost/yield and AI edition cost/duration.
