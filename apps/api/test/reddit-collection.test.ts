@@ -223,3 +223,125 @@ void test('Reddit storage preserves metadata, updates metrics, links configured 
     await repository.db.end();
   }
 });
+
+void test('Reddit observations pin lookback boundaries, stable ordering and current configuration', async () => {
+  const repository = new PostgresRedditRepository();
+  const topic = crypto.randomUUID();
+  const second = crypto.randomUUID();
+  const prefix = `b${topic.replaceAll('-', '').slice(0, 10)}`;
+  const start = new Date('2035-02-08T00:00:00Z');
+  const end = new Date('2035-02-09T00:00:00Z');
+  const base = (await fixture())[0];
+  const posts: RedditPost[] = [
+    ['a', '2035-02-01T05:30:00+05:30'], // inclusive seven-day lookback
+    ['b', '2035-02-01T00:00:00.001Z'],
+    ['c', '2035-02-08T23:59:59.999Z'],
+    ['d', '2035-02-08T23:59:59.999Z'],
+    ['old', '2035-01-31T23:59:59.999Z'],
+    ['end', '2035-02-09T00:00:00Z'], // exclusive end
+  ].map(([suffix, publishedAt]) => ({
+    ...base,
+    externalId: `${prefix}${suffix}`,
+    publishedAt,
+    url: `https://www.reddit.com/r/nba/comments/${prefix}${suffix}/`,
+    text: '',
+    externalUrl: null,
+    subreddit: 'NbA',
+  }));
+  const read = () => repository.observations(topic, start, end);
+  try {
+    for (const id of [topic, second]) {
+      await repository.db.query(
+        `INSERT INTO topics(id,profile_id,name,description,include_guidance,position,reddit_communities)
+         VALUES($1,'00000000-0000-4000-8000-000000000001','Boundary','','',100,'["NBA","nba"]')`,
+        [id],
+      );
+    }
+    const community = (await repository.communities()).find(
+      (c) => c.community === 'nba',
+    )!;
+    assert.equal(community.topicIds.filter((id) => id === topic).length, 1);
+    assert.ok(community.topicIds.includes(second));
+    assert.deepEqual(community.topicIds, [...community.topicIds].sort());
+    await repository.store(posts, [topic, second]);
+    await repository.store(posts, [topic, second]);
+    const observations = await read();
+    assert.deepEqual(
+      observations.map((o) => o.post.externalId),
+      ['c', 'd', 'b', 'a'].map((s) => `${prefix}${s}`),
+    );
+    assert.equal(
+      observations.at(-1)!.post.publishedAt,
+      '2035-02-01T00:00:00.000Z',
+    );
+    assert.ok(
+      observations.every(
+        (o) => !o.citesX && Number.isFinite(Date.parse(o.observedAt)),
+      ),
+    );
+    assert.deepEqual(
+      (await repository.observations(second, start, end)).map((o) => o.post),
+      observations.map((o) => o.post),
+    );
+    // A failing later insert rolls back both the preceding update and a new post.
+    await assert.rejects(
+      repository.store(
+        [
+          {
+            ...posts[0],
+            title: 'Must roll back',
+            text: 'https://x.com/fixture/status/2116948532477468673',
+          },
+          { ...posts[0], externalId: `${prefix}new` },
+          { ...posts[0], externalId: 'INVALID!' },
+        ],
+        [topic],
+      ),
+    );
+    assert.deepEqual(await read(), observations);
+    assert.equal(
+      (
+        await repository.db.query(
+          'SELECT 1 FROM social_posts WHERE external_id=$1',
+          [`${prefix}new`],
+        )
+      ).rowCount,
+      0,
+    );
+    await repository.db.query('UPDATE topics SET enabled=false WHERE id=$1', [
+      topic,
+    ]);
+    assert.deepEqual(await read(), []);
+    assert.ok(
+      !(await repository.communities())
+        .find((c) => c.community === 'nba')!
+        .topicIds.includes(topic),
+    );
+    await repository.store(
+      [{ ...posts[0], externalId: `${prefix}disabled` }],
+      [topic],
+    );
+    await repository.db.query(
+      `UPDATE topics SET enabled=true,reddit_communities='[]' WHERE id=$1`,
+      [topic],
+    );
+    assert.deepEqual(await read(), []);
+    await repository.db.query(
+      `UPDATE topics SET reddit_communities='["nba"]' WHERE id=$1`,
+      [topic],
+    );
+    assert.deepEqual(await read(), observations);
+    await repository.db.query('DELETE FROM topics WHERE id=$1', [topic]);
+    assert.deepEqual(await read(), []);
+    assert.equal((await repository.observations(second, start, end)).length, 4);
+  } finally {
+    await repository.db.query('DELETE FROM topics WHERE id=ANY($1::uuid[])', [
+      [topic, second],
+    ]);
+    await repository.db.query(
+      "DELETE FROM social_posts WHERE platform='reddit' AND external_id LIKE $1",
+      [`${prefix}%`],
+    );
+    await repository.db.end();
+  }
+});

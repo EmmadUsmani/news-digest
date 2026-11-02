@@ -191,3 +191,12 @@ Earlier iterations 171–172: [archive](docs/progress-archive/2026-11-02-iterati
 - `pnpm test:integration` passed 89/89; `pnpm format`, `pnpm lint:fix`, full `pnpm check` (99 unit/89 integration) and `pnpm build` passed. No paid inference, live mutations, source or UI changes; browser verification unnecessary.
 - Read-only timing report confirms 848 micros available and latest real edition four topics/10 X posts; 856 ms fallback run is not live AI latency evidence. Reddit denial remains unresolved; paid scheduling follows Reddit.
 - Restarted API/worker; health DB/Redis true, SPA 200, all four queues available and 32 sources without errors. Updated README/TASKS. Next: remaining repository characterization, nonempty SQL golden and database coverage before any ORM swap.
+
+## 2026-11-02: iteration 187 — Reddit observation characterization
+
+- Started clean on main; no leftover work. API/worker/health healthy, 32 sources without errors; two historical ingestion failures unchanged.
+- Disposable-Postgres tests pin inclusive seven-day lookback, exclusive end, timezone normalization, timestamp tie ordering, shared-topic dedupe and case-insensitive community aggregation.
+- Covered disabled/removed communities, write-time association checks, topic deletion isolation and rollback of existing metadata, new posts and X citations after a later invalid insert.
+- Initial integration run caught an overlong synthetic Reddit ID; corrected to the schema limit. Full `pnpm check` passed 99 unit/90 integration tests; `pnpm format`, `pnpm lint:fix`, `pnpm build` and `git diff --check` passed.
+- Restarted API/worker; health DB/Redis true, SPA 200, all queues available, no current source errors. Latest real edition has four topics/10 posts. No paid inference, live mutations or UI changes.
+- Updated README/TASKS. Next: remaining repository coverage, nonempty SQL golden and database coverage before ORM work. Reddit access/live AI timing blockers persist; paid scheduling follows Reddit.
