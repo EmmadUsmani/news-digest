@@ -53,6 +53,40 @@ export function StatusPanel() {
           <p>
             <small>Checked {time(status.checkedAt)}</small>
           </p>
+          {status.coverage && (
+            <section aria-label="Topic coverage">
+              <h3>Topic coverage · last 24 hours</h3>
+              <p>
+                Published {time(status.coverage.start)} –{' '}
+                {time(status.coverage.end)}. Articles are deduplicated within
+                each topic. Posts have stored verification and a known
+                publication time. Source connections indicate discovery scope;
+                these counts do not measure relevance or editorial quality.
+              </p>
+              <div className="status-grid">
+                {status.coverage.topics.map((topic) => (
+                  <article key={topic.topicId}>
+                    <h4>
+                      {topic.name}
+                      {!topic.enabled && ' · Paused'}
+                    </h4>
+                    <p>
+                      {topic.articles} articles · {topic.xPosts} X posts ·{' '}
+                      {topic.redditPosts} Reddit posts
+                    </p>
+                    <p>
+                      {topic.healthySources} / {topic.connectedSources} sources
+                      healthy
+                    </p>
+                  </article>
+                ))}
+              </div>
+              <small>
+                Healthy sources succeeded in the past hour with no current
+                error. Paused topics retain stored coverage.
+              </small>
+            </section>
+          )}
           <h3>Sources</h3>
           <div className="status-grid">
             {status.sources.map((source) => {

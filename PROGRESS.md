@@ -34,27 +34,7 @@ Earlier iteration 157: [archive](docs/progress-archive/2026-11-02-iteration-157.
 
 Earlier iterations 161–162: [archive](docs/progress-archive/2026-11-02-iterations-161-162.md).
 
-## 2026-11-02: iteration 163 — reproducible full-publication timing baseline
-
-- Started clean on main; no leftover work. API/worker and health healthy, 32 sources without current errors, zero failed digest jobs; two historical ingestion failures retained.
-- Added disposable-Postgres four-topic cold/warm generation benchmark: real candidate SQL, CandidateTriage batching/validation/cache, ranking, post queries (empty), editor orchestration and immutable publication/readback.
-- Synthetic 400 stored articles: 400 triaged, 8 calls, cold 144 ms / warm 87 ms. Synthetic 1,500 stored: 800 triaged, 16 calls, cold 238 ms / warm 204 ms. Both warm regenerations make zero new triage calls; all eight topic edits run.
-- Uses fake triage inference and fake editor with 25 ms delays; excludes real provider/concurrency/network/queue latency and social inference. These are application baselines, NOT proof of live <60s/<2min targets; 200 articles/topic cap explicitly recorded in README/TASKS.
-- Initial verification caught missing fixture guidance and prohibited immutable-edition cleanup; corrected fixture and leave editions for disposable-container removal. All temporary sources/items/topics are removed and original topic flags restored.
-- `pnpm lint:fix`, `pnpm format`, `pnpm check`: types/lint/format/boundaries and all 164 isolated tests pass. `pnpm build` passes.
-- Restarted API/worker; `/healthz` healthy; live sources, queues and stored editions checked. No live inference calls or spend; no UI/source changes, docs/SOURCES unchanged.
-- Archived iterations 139–140 to keep PROGRESS below 25 KB. Next: social-inclusive timing through the fake provider/worker path; item 7 remains open without a live latency claim.
-
-## 2026-11-02: iteration 164 — social-inclusive publication timing
-
-- Started clean on main; no leftover work. API/worker and health healthy, 32 sources without errors, zero failed digest jobs; two historical ingestion failures remain.
-- Extended isolated four-topic timing with 60 synthetic verified X posts/topic, scoped citations, real social triage/editor validation, selection and immutable readback. No live posts or inference used.
-- Synthetic 400 articles + 240 posts: cold 206 ms / warm 99 ms; 1,500 stored articles + 240 posts: cold 286 ms / warm 205 ms. Existing article cap scores only 800 at larger volume.
-- Both volumes score all 240 posts in eight batches; warm regeneration adds no article/social triage or social editor calls. Each topic publishes five AI-selected synthetic posts.
-- Measurements use 25 ms fake inference and fake story editing; exclude provider/network/concurrency limits and BullMQ path. They do not establish live <60s/<2min targets. No live inference spend.
-- Verification initially caught integer instead of JSON citation fixture data; corrected. `pnpm lint:fix`, `pnpm format`, `pnpm check` pass: types/lint/format/boundaries and all 164 isolated tests. `pnpm build` passes.
-- Restarted API/worker; `/healthz` healthy, 32 sources/no errors, zero failed digest jobs, latest stored edition still has four topics. No UI/source changes; docs/SOURCES unchanged.
-- README/TASKS updated. Next: representative fake provider/worker timing; live latency still unverified, item 7 stays open.
+Earlier iterations 163–164: [archive](docs/progress-archive/2026-11-02-iterations-163-164.md).
 
 ## 2026-11-02: iteration 165 — fake HTTP provider and worker timing
 
@@ -185,3 +165,14 @@ Earlier iterations 161–162: [archive](docs/progress-archive/2026-11-02-iterati
 - Restarted API/worker; health DB/Redis true, 32 sources/no current errors and all queue workers present; latest real edition retains four topics/20 stories/10 X posts.
 - Read-only timing report unchanged: 856 ms non-AI edition, 481910 micros spent/848 available; next Nov 3 15:00 UTC. Live AI latency remains unverified.
 - Reddit remains blocked/unscheduled, with no real Reddit content. Next: real collection/publication evidence when legitimate access permits; five prior community observations required. Proceed to next unblocked owner priority meanwhile.
+
+## 2026-11-02: iteration 177 — per-topic live coverage on Status
+
+- Started clean on main; no leftover work. Health/services healthy, 32 sources/no current errors, all workers present; two historical ingestion failures retained.
+- Added rolling 24-hour distinct article and verified X/Reddit counts by publication time, connected feeds and feeds healthy in the past hour. Includes paused topics; excludes undated posts/unverified citations. Counts describe collection scope, not relevance.
+- Isolated SQL fixture test covers duplicate observations/citations, platform ID collisions, window edges, undated/unverified posts, source health and paused/empty topics; rolls back. Fixed ambiguous fixture column after first test run failed.
+- `pnpm format`, `pnpm lint:fix`, final `pnpm check` passed (178 tests), `pnpm build` passed. Earlier checks caught formatting while new script/archive were being written; final run clean.
+- Restarted API/worker; `pnpm exec tsx scripts/smoke-topic-coverage.ts` passed read-only desktop/mobile checks with screenshots; inspected mobile. `/healthz` DB/Redis true, all workers present, latest edition four topics/20 stories/10 X posts.
+- Live 15:38 UTC baseline (articles/X/Reddit): Tech 198/34/0, NBA 74/35/0, Gaming 188/22/0, World 174/9/0. All 32 feeds healthy. NBA weakest in articles, World weakest in X. No new sources, inference calls or edition writes.
+- Updated TASKS/SOURCES and item 10 acknowledgment; archived iterations 163–164 to keep PROGRESS below 25 KB.
+- Next: legitimate Reddit access/publication evidence and live AI latency remain blocked; item 9 paid scheduling follows Reddit per owner order. Coverage now informs the next source/discovery decision.

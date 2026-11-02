@@ -5,6 +5,7 @@ import { Queue } from 'bullmq';
 import { database, redis } from '../../../libs/db/connections';
 import { readLlmUsage } from '../../curation/public/usage';
 import { readXDiscoveryUsage } from '../../social/public/usage';
+import { readTopicCoverage } from '../database/topic-coverage';
 import { OperationsReader } from '../domain/operations.reader';
 
 @Injectable()
@@ -31,6 +32,8 @@ export class OperationsStatus
     for (const queue of this.queues) queue.on('error', () => {});
   }
   async read() {
+    const checkedAt = new Date();
+    const coverage = await readTopicCoverage(this.db, checkedAt);
     const sources = (
       await this.db
         .query(`SELECT s.id,s.name,s.last_attempt AS "lastAttempt",s.last_success AS "lastSuccess",
@@ -127,7 +130,8 @@ export class OperationsStatus
       }),
     );
     return {
-      checkedAt: new Date().toISOString(),
+      checkedAt: checkedAt.toISOString(),
+      coverage,
       sources,
       queues,
       llm: await readLlmUsage(this.db),

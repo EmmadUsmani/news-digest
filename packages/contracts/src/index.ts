@@ -384,6 +384,24 @@ export const socialCollectionResultSchema = z.object({
 });
 
 export const operationsStatusSchema = z.object({
+  coverage: z
+    .object({
+      start: z.string().datetime(),
+      end: z.string().datetime(),
+      topics: z.array(
+        z.object({
+          topicId: z.string().uuid(),
+          name: z.string(),
+          enabled: z.boolean(),
+          connectedSources: z.number().int().nonnegative(),
+          healthySources: z.number().int().nonnegative(),
+          articles: z.number().int().nonnegative(),
+          xPosts: z.number().int().nonnegative(),
+          redditPosts: z.number().int().nonnegative(),
+        }),
+      ),
+    })
+    .optional(),
   xDiscovery: xDiscoveryUsageSchema,
   llm: llmUsageSchema,
   checkedAt: z.string().datetime(),

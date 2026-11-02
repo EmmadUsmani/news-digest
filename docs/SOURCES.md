@@ -1183,3 +1183,17 @@ story links apply only to X posts, preventing cross-platform ID collisions.
 Synthetic publication verification covers stored Reddit metadata and conservative
 fallback. Collection remains blocked/unscheduled; no live Reddit content or live
 inference calls were used.
+
+Iteration 177: Status now reports rolling 24-hour per-topic distinct articles and
+verified X/Reddit posts by publication time, excluding undated posts and
+unverified citations. Discovery associations define topic scope, not relevance.
+Connected feed counts and sources successful in the last hour without an error
+are shown separately. Paused topics retain their stored counts. No feeds added.
+
+Read-only baseline at 2026-11-02 15:38 UTC (articles / verified X / Reddit):
+Tech & AI 198/34/0, NBA 74/35/0, Gaming 188/22/0, World 174/9/0.
+Healthy/connected feeds: 6/6, 3/3, 18/18, 5/5 respectively. NBA has the
+fewest collected articles; World has the fewest verified X posts. Relevance
+still requires editorial selection. Browser checks and screenshots:
+`pnpm exec tsx scripts/smoke-topic-coverage.ts`,
+`docs/screenshots/topic-coverage-{desktop,mobile}.png`.

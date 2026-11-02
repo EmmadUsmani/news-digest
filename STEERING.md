@@ -337,6 +337,8 @@ The last session added about 12 Gaming feeds and few for the other topics.
   to Gaming.
 - Show per-topic coverage counts on the status page.
 
+ack: 2026-11-02 item 10 — iteration 177 added rolling 24-hour per-topic distinct articles, verified X/Reddit posts and connected/healthy source counts to Status. Live baseline: NBA 74 articles, World 9 X posts are the respective minima; no sources added.
+
 ## 11. Fix the digest schedule (2026-11-02)
 
 The saved schedule is `40 20 * * *` UTC with a `PT6H` window. That looks like

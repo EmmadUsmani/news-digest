@@ -22,7 +22,8 @@ Fix regressions, broken services and stalled sources before starting new work.
 - [ ] STEERING 8, next: curated editable Reddit communities, public rate-limited JSON/RSS ingestion, social storage/cards and X citation extraction; real posts across four topics. Respect access denial; no bypass.
   - Iterations 168–176: editable communities, bounded collection/storage, X citations, historical-strength ranking, X-preferred editorial selection and immutable faithful cards are wired through publication. Synthetic/isolated verification only. Public access remains 403; collection unscheduled. Next: real collection/edition evidence when access permits; no bypass. Current snapshots require five prior community observations before Reddit qualifies.
 - [ ] STEERING 9, after Reddit: schedule capped direct xAI discovery before digest; report daily spend and verified yield for first week. This supersedes older notes to leave paid scheduling off once prerequisites are met.
-- [ ] STEERING 10: per-topic source and verified-item/post coverage on Status; measure weakest topic before adding sources.
+- [x] STEERING 10: per-topic coverage on Status and live baseline (iteration 177); reassess before adding sources.
+  - Iteration 177: rolling 24-hour distinct article and verified X/Reddit coverage plus connected/healthy source counts added to Status. Counts indicate collection scope, not semantic relevance. Live baseline: NBA fewest articles (74); World fewest verified X posts (9). All 32 connected sources healthy; no new sources added.
 - [x] STEERING 11: restored 07:00 America/Los_Angeles daily P1D; browser smoke uses intercepted in-memory profile, retired live scheduler probe; scheduling tests use disposable services (iteration 166).
 - [ ] STEERING 4 (lower priority): fingerprinted recorded/fake LlmPort responses; no live test calls; explicit opt-in development calls <=$0.05/iteration, tagged verification. Use recordings/cache for ranking replay.
 
