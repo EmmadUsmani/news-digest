@@ -305,3 +305,33 @@ void test('editor advertises enforced text bounds and repairs overlong fields wi
     );
   }
 });
+
+void test('attribution-dropping absence claims are rejected in every editor field and brief', async () => {
+  const evidence = [
+    {
+      ...candidates[0],
+      excerpt: 'The ministry claims no civilians were injured.',
+    },
+  ];
+  for (const field of [
+    'headline',
+    'summary',
+    'whyItMatters',
+    'rationale',
+    'brief',
+  ] as const) {
+    const output =
+      field === 'brief'
+        ? { ...valid, brief: ['A report.', 'No civilians were injured.'] }
+        : {
+            ...valid,
+            stories: [{ ...story, [field]: 'No civilians were injured.' }],
+          };
+    const h = harness([output, valid]);
+    assert.ok(await h.editor.edit(topic, evidence, 1, 'attribution-repair'));
+    assert.equal(h.calls.length, 2);
+    assert.deepEqual(h.diagnostics(), [
+      { attempt: 'initial', category: 'unsupported-absence' },
+    ]);
+  }
+});

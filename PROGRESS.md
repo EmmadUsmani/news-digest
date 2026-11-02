@@ -263,3 +263,16 @@ Earlier iterations 23–37: [archive](docs/progress-archive/2026-11-01-iteration
 - Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed and mobile digest visually inspected.
 - Incremental inference $0; day/month actual $0.408415, zero reservations/provider errors, $0.482758 daily/$14 monthly caps. Provider/models/billing unchanged.
 - Updated TASKS/docs/RANKING; no owner blockers. Next: repair attribution-dropping matches, broader reviewed clause-support evaluation, scheduled batches and cross-process coordination. M3 remains open.
+
+## 2026-11-02: iteration 69 — retain complete absence evidence sentences
+
+- Started clean on main; no leftover work. Services/health, seventeen sources and retained digest runs healthy; historical ingestion failure has subsequent successes. Schedule unchanged.
+- Replaced absence substring matches with whole normalized source-sentence equality, retaining attribution prefixes and trailing scope/conditions; all four story fields and briefs share validation and reserved repair.
+- Updated editor instruction hash to refresh editor caches only; triage caches, models/provider/billing and immutable editions unchanged. Conservative punctuation/newline splitting remains, not semantic entailment or cross-sentence attribution validation.
+- Added regression coverage for attribution prefixes/suffixes, location/conditions, full sentences inside excerpts, separate evidence and all-field editor repair.
+- Original twelve-case offline audit now accepts five unsupported claims (previously six), rejects the dropped ministry attribution, and still rejects two supported paraphrases. Hand-selected agent judgments, not production rates; synonym/causal/uncertainty/significance gaps remain.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass types/lint/format/boundaries and all 92 isolated tests; `pnpm build`, `pnpm evaluate:editorial` and `pnpm evaluate:support` pass.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live passes: 726 real URLs, four topics, seventeen healthy sources. No source configuration changes.
+- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed.
+- No paid replay or evaluation edition published; incremental inference $0. Actual day/month $0.408415, zero reservations/provider errors; $0.482758 daily/$14 monthly caps.
+- Updated TASKS/docs/RANKING; no owner blockers. Next: broader clause-support and independently reviewed false-rejection evaluation, later dates/Gaming, scheduled Message Batches and cross-process coordination. M3 remains open.

@@ -483,3 +483,21 @@ known validator weaknesses mandatory forever. Prioritize preserving attribution
 at lexical matches, then broader clause support, with these cases as evaluation
 inputs. Independent labels, additional dates/topics and full-article retrieval
 remain open.
+
+### Iteration 69: preserve whole absence evidence sentences
+
+Absence matching now compares complete normalized source sentences rather than
+searching for output substrings inside evidence. This rejects the audit's dropped
+ministry attribution and removals of trailing attribution, location or conditional
+scope. Exact attributed sentences still pass, including within multi-sentence
+excerpts. All four story fields and briefs use the same rule and reserved repair.
+The instruction hash changes to prevent reuse of old editor cache identities;
+triage caches and historical editions remain intact.
+
+The original twelve offline challenges now have five unsupported acceptances
+(previously six) and the same two supported paraphrase rejections. The remaining
+synonym, causal, uncertainty and recorded significance gaps persist. These are
+hand-selected agent labels, not a production rate. Simple punctuation/newline
+splitting can reject valid quotes or abbreviations and cannot resolve cross-sentence
+attribution or semantic entailment. No paid replay or published edition validates
+this change; broader independently reviewed support evaluation remains next.

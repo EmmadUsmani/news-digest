@@ -5,17 +5,24 @@ import { LlmValidationFailure } from './validation-failure';
 // reject supported paraphrases; repair should omit them or quote the input.
 const absence =
   /\b(?:not|never|no|without|unconfirmed|unverified|unavailable|unknown)\b|\b(?:hasn|haven|isn|aren|wasn|weren|couldn|didn|doesn|don)['’]t\b|\b(?:rather than an? announcement|details remain limited)\b/i;
+const sentences = (text: string) => text.split(/(?<=[.!?])\s+|\n+/);
 const normalize = (text: string) =>
-  text.toLowerCase().replace(/\s+/g, ' ').trim();
+  text
+    .toLowerCase()
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/[.!?]$/, '');
 
 export function assertAbsenceSupport(text: string, evidence: string[]) {
-  const inputs = evidence.map(normalize);
-  for (const sentence of text.split(/(?<=[.!?])\s+|\n+/)) {
+  const inputs = new Set(evidence.flatMap(sentences).map(normalize));
+  for (const sentence of sentences(text)) {
     if (!absence.test(sentence)) continue;
     // Preserve subjects, attribution and qualifiers by requiring the entire
-    // sentence, rather than a shared keyword or a short negative fragment.
-    const claim = normalize(sentence).replace(/[.!?]$/, '');
-    if (!inputs.some((input) => input.includes(claim)))
+    // source sentence on both sides. Substrings can drop attribution prefixes
+    // or scope/uncertainty suffixes. Sentence splitting is deliberately simple;
+    // this remains a conservative lexical check, not semantic entailment.
+    const claim = normalize(sentence);
+    if (!inputs.has(claim))
       throw new LlmValidationFailure('unsupported-absence');
   }
 }

@@ -61,7 +61,7 @@ const synthetic: Omit<SupportCase, 'origin'>[] = [
     evidence: ['The ministry claims no civilians were injured.'],
     supported: false,
     reason:
-      'A ministry claim is promoted to established fact; substring matching accepts it.',
+      'A ministry claim is promoted to established fact; complete-sentence matching must reject it.',
   },
   {
     id: 'omitted-synonym',
@@ -130,7 +130,7 @@ export function evaluateSupport() {
   const unsupported = cases.filter((c) => !c.supported);
   return {
     caveat:
-      'Hand-selected agent-labeled challenge cases, not a production error rate or independent factual verification. Synthetic text is never ingested or published. Guard unchanged.',
+      'Hand-selected agent-labeled challenge cases, not a production error rate or independent factual verification. Synthetic text is never ingested or published. Lexical guard requires complete source sentences for absence claims.',
     supported: supported.length,
     unsupported: unsupported.length,
     falseRejections: supported.filter((c) => !c.accepted).map((c) => c.id),
