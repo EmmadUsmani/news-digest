@@ -203,3 +203,4 @@ Iteration 179: [archive](docs/progress-archive/2026-11-02-iteration-179.md).
 - Added rollback-isolated Postgres fixtures for costs, ordering/limits, UTC lookback boundaries and exclusions. No live inference or Reddit requests; no UI changes.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (104 unit/98 isolated integration), `pnpm build` and `git diff --check` passed. Updated decision 0002, README and TASKS.
 - Live reserve protection remains UNFINISHED. Next: cron/settings reconciliation, worker lifecycle and trusted scheduled identity, shared-lock admission/race tests, then manual/Status visibility before Nov 3 15:00 UTC.
+- Pushed `be4b6d2`; restarted API/worker with `systemctl --user restart news-digest-api news-digest-worker`: both active, `/healthz` DB/Redis true, SPA 200, all four queues available, 32 sources without errors, latest real edition four topics/10 posts.
