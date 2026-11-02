@@ -372,3 +372,103 @@ void test('source failure and empty recovery preserve retained content and indep
     await repository.onModuleDestroy();
   }
 });
+
+void test('shared feed collection follows active connections and preserves observations after disconnect', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const repository = new PostgresContentRepository();
+  const topicIds = [randomUUID(), randomUUID()];
+  const source: Source = {
+    id: `shared-${topicIds[0]}`,
+    topicId: topicIds[0],
+    name: 'Shared feed',
+    kind: 'feed',
+    url: `https://example.org/shared-${topicIds[0]}`,
+  };
+  const collected = async () =>
+    (await repository.sources()).filter((row) => row.id === source.id);
+  const views = async () =>
+    (await repository.latest()).filter((row) => topicIds.includes(row.topicId));
+  try {
+    for (const [index, id] of topicIds.entries()) {
+      await repository.db.query(
+        `INSERT INTO topics(id,profile_id,name,description,include_guidance,position)
+        SELECT $1,id,$2,'','',$3 FROM profiles LIMIT 1`,
+        [id, `Shared topic ${index}`, 110 + index],
+      );
+    }
+    await repository.db.query(
+      `INSERT INTO content_sources(id,topic_id,name,kind,url) VALUES($1,$2,$3,$4,$5)`,
+      [source.id, source.topicId, source.name, source.kind, source.url],
+    );
+    for (const id of topicIds)
+      await repository.db.query(
+        'INSERT INTO topic_source_connections(topic_id,source_id) VALUES($1,$2)',
+        [id, source.id],
+      );
+    assert.deepEqual(await collected(), [source]);
+    await repository.store(source, [
+      {
+        url: `${source.url}/story`,
+        title: 'Shared story',
+        excerpt: '',
+        author: null,
+        imageUrl: null,
+        publishedAt: '2035-01-01T00:00:00Z',
+        engagement: { points: 9 },
+      },
+    ]);
+    const initial = await views();
+    assert.equal(initial.length, 2);
+    assert.equal(initial[0].items.length, 1);
+    assert.deepEqual(initial[0].items, initial[1].items);
+    // The legacy source owner is disabled; the other active connection still admits collection.
+    await repository.db.query('UPDATE topics SET enabled=false WHERE id=$1', [
+      topicIds[0],
+    ]);
+    assert.deepEqual(await collected(), [source]);
+    assert.deepEqual(await views(), [initial[1]]);
+    await repository.db.query(
+      'DELETE FROM topic_source_connections WHERE topic_id=$1 AND source_id=$2',
+      [topicIds[1], source.id],
+    );
+    assert.deepEqual(await collected(), []);
+    assert.deepEqual(await views(), [{ topicId: topicIds[1], items: [] }]);
+    const retained = (await repository.status()).find(
+      (row) => row.id === source.id,
+    );
+    assert.equal(retained.storedItems, 1);
+    assert.equal(retained.lastItemCount, 1);
+    await repository.db.query('UPDATE topics SET enabled=true WHERE id=$1', [
+      topicIds[0],
+    ]);
+    assert.deepEqual(await collected(), [source]);
+    assert.deepEqual(await views(), [
+      initial[0],
+      { topicId: topicIds[1], items: [] },
+    ]);
+    assert.deepEqual(
+      (await repository.status()).find((row) => row.id === source.id),
+      retained,
+    );
+  } finally {
+    await repository.db.query(
+      'DELETE FROM content_observations WHERE source_id=$1',
+      [source.id],
+    );
+    await repository.db.query(
+      'DELETE FROM topic_source_connections WHERE source_id=$1',
+      [source.id],
+    );
+    await repository.db.query('DELETE FROM content_sources WHERE id=$1', [
+      source.id,
+    ]);
+    await repository.db.query(
+      'DELETE FROM content_items WHERE canonical_url=$1',
+      [`${source.url}/story`],
+    );
+    await repository.db.query('DELETE FROM topics WHERE id=ANY($1::uuid[])', [
+      topicIds,
+    ]);
+    await repository.onModuleDestroy();
+  }
+});

@@ -229,3 +229,13 @@ empty recovery clears the error and reports zero new items while preserving
 stored observations and the latest-content response. An independent source's
 health remains unchanged. All fixtures use disposable PostgreSQL; no feed,
 Reddit or inference requests occur. Remaining repository gaps stay open.
+
+## Shared-feed connection lifecycle (iteration 243)
+
+`content-repository.test.ts` pins one collection entry for a feed connected to
+two enabled topics, identical content views in both topics, continued collection
+when the legacy owning topic is disabled, and removal from collection when the
+last enabled connection is deleted. Re-enabling the original topic restores its
+retained content without changing source health or observation counts. All
+fixtures use disposable PostgreSQL; no feed, Reddit or provider requests occur.
+Remaining repository gaps and recorded-response golden coverage stay open.

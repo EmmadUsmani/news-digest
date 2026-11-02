@@ -106,17 +106,6 @@ Earlier iteration 219: [archive](docs/progress-archive/2026-11-02-iteration-219.
 
 Iteration 221: [archive](docs/progress-archive/2026-11-02-iteration-221.md).
 
-## 2026-11-02: iteration 226 — topic coverage characterization
-
-- Started clean on main; health, 32 sources and four queues healthy. No leftover work. Two retained ingestion failures are historical; both sources recovered.
-- Items 13/7/9 await Nov 3 scheduled evidence; advanced lower-priority STEERING 2a with disposable-database coverage assertions.
-- Pinned discovery-route unions/deduplication, empty counts, tied ordering, topic isolation/reassignment/deletion, source-health boundaries and millisecond post windows in a non-UTC session.
-- Synthetic Reddit rows only; no inference or Reddit requests. AI golden and other repository characterization remain open.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (120 unit, 125 isolated integration), plus `pnpm build`. First check rejected a zero-reservation fixture; corrected to a valid positive reservation before the passing rerun.
-- Compacted TASKS below 8 KB and archived iteration 211 to keep PROGRESS below 25 KB; updated database verification notes.
-- Read-only Status confirms Nov 3 15:00 UTC next edition; retained 856 ms fallback is not AI latency evidence. Next: observe 14:30 X search and scheduled AI cost/duration.
-- Deployment: API/worker restarted active; `/healthz` DB/Redis true, SPA 200, 32 error-free sources and four available queues. `git diff --check` passed.
-
 ## 2026-11-02: iteration 227 — custom-feed capacity characterization
 
 - Started clean on main; health, 32 sources and four queues healthy. No leftover work.
@@ -313,4 +302,15 @@ Archived iteration 214: [entry](docs/progress-archive/2026-11-02-iteration-214.m
 - Updated TASKS/database notes; archived iteration 225 to keep PROGRESS bounded. No provider or Reddit requests.
 - Restarted API/worker healthy; DB/Redis true, SPA 200, 32 error-free sources and four available queues.
 - Read-only timing report confirms retained four-topic editions; 856 ms fallback remains no live AI latency evidence.
+- Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 243 — shared-feed connection lifecycle
+
+- Started clean on main; API/worker and health green; no leftover work.
+- Priority 15/13/7/9 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a.
+- Added characterization for one shared-feed collection entry, identical two-topic content and active-connection eligibility independent of legacy ownership.
+- Pins disabled-topic hiding, last-active-connection removal and retained observation/health recovery on re-enable.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 141 integration), `pnpm build`, `git diff --check` passed.
+- Updated TASKS/database notes; archived iteration 226 to keep PROGRESS bounded. No provider or Reddit requests.
+- Restarted API/worker healthy; DB/Redis true, SPA 200, 32 error-free sources and four queues; latest edition has four topics.
 - Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
