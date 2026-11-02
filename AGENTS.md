@@ -7,7 +7,8 @@ conflict. Never edit `MISSION.md`, `BOOTSTRAP.md` or anything under
 
 ## Every iteration
 
-1. Read MISSION.md, STEERING.md, TASKS.md, and the tail of PROGRESS.md.
+1. Read STEERING.md, the open items of TASKS.md and the tail of PROGRESS.md.
+   Read only the MISSION.md sections your task needs (see Token efficiency).
 2. `git status` / `git log -5`; recover or deliberately discard leftover work.
 3. Fix broken things first: build, tests, services, `/healthz`, stalled
    sources, failed digest runs.
@@ -50,6 +51,36 @@ conflict. Never edit `MISSION.md`, `BOOTSTRAP.md` or anything under
 - Tests never call live external services. Use recorded fixtures for source
   adapters. Live checks are separate, explicit and budgeted.
 - Never label fixture or mock content as live.
+
+## Token efficiency (Codex quota is shared and limited)
+
+Every command's output stays in your context and is re-sent on every later
+step. Large outputs therefore cost many times their size. The supervisor paces
+iterations against the weekly quota, and each prompt says whether you are on
+pace.
+
+- **Cap output:**
+  - Pipe through `| tail -n 40`, `| head -n 60` or `| head -c 6000`.
+  - Never print whole JSON payloads, status dumps, HTML, logs, lockfiles,
+    screenshots-as-JSON or full test output.
+  - Extract only the fields you need (`jq '.field'`).
+- **Read narrowly:**
+  - Use `rg -n` with specific patterns, then `sed -n 'a,bp'` for the lines
+    you need.
+  - Don't `cat` large files, and don't re-read a file already in this
+    session.
+- **Tests:**
+  - While developing, run targeted tests with quiet reporters that print
+    failures and a summary only.
+  - Run the full `pnpm check` once before committing, with output trimmed to
+    failures and the summary.
+- **Keep the per-iteration orientation files small:**
+  - TASKS.md holds open work and one-line done markers (under about 8 KB).
+  - PROGRESS.md entries are 15 lines or fewer. Move older entries to
+    `docs/progress-archive/` when the file passes about 25 KB.
+- **Scope:** one meaningful, verified step per iteration. Skip exploratory
+  side quests, repeated audits and speculative refactors.
+- **Never trade correctness for tokens:** always verify the code you changed.
 
 ## Git
 

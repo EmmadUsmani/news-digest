@@ -29,10 +29,12 @@ Defaults:
 - Runs continuously (`RUN_HOURS=0`), with a 75-minute timeout per iteration.
 - **Retries every 5 minutes** after crashes, timeouts, unknown errors, or
   iterations that made no commits.
-- **Retries every 15 minutes** after Codex usage-limit (for example the
-  5-hour window) or authentication failures. While the limit is active, each
-  retry fails quickly and cheaply, so this is effectively polling until the
-  window reopens.
+- **Usage limits:** after a Codex usage-limit failure (for example the
+  5-hour window), it waits until the reset time Codex reports ("try again at
+  3:09 PM"). Failing that, it uses the last usage snapshot, and failing that,
+  it polls every 15 minutes. Waits are capped at 12 hours
+  (`USAGE_MAX_WAIT_MIN`), and then it simply tries again.
+- **Authentication failures:** retries every 15 minutes.
 
 There is **no failure-count cutoff**, including when a quota message is not
 recognized. Quota and authentication failures don't change the diagnostic
@@ -51,7 +53,29 @@ restart resumes the build (user lingering is enabled by `ops/vm/setup.sh`).
 Clean STOP or deadline exits are not restarted. A lock prevents overlapping
 tmux, systemd or manual runs.
 
-The heartbeat shows `retry_wait` or `usage_wait`, `next_retry_at`, the last
+## Codex quota pacing
+
+Real (non-smoke) runs keep the build from burning the weekly Codex allowance
+early and then stalling for days.
+
+**What it tracks:**
+- After each iteration, the supervisor reads the newest 5-hour and weekly
+  usage snapshot from `~/.codex/sessions` into `status/usage.json`.
+- It logs each iteration's token usage to `logs/usage.tsv` (time, iteration,
+  input, cached, output, reasoning, 5h %, weekly %).
+
+**How it paces:**
+- Before each iteration, if weekly usage exceeds the share of the week that
+  has elapsed plus `PACE_SLACK_PCT` (default 10 points), it waits up to
+  `PACE_MAX_WAIT_MIN` (default 60).
+- It then always runs one iteration, which refreshes the snapshot. When
+  ahead of pace this throttles to about one iteration per hour. It never
+  halts.
+- Each prompt carries a one-line budget status. When ahead of pace, the
+  agent is told to take smaller steps without skipping verification.
+- Disable with `PACE_WEEKLY=0`.
+
+The heartbeat shows `retry_wait`, `usage_wait` or `pace_wait`, `next_retry_at`, the last
 exit code, the no-progress count and health checks. It refreshes every five
 seconds during waits, and STOP is checked within five seconds.
 

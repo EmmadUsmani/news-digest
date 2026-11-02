@@ -4,9 +4,12 @@ You have a fresh session. State lives in repo files and git, not old chats.
 Use the configured model/provider; never switch models, providers or billing.
 Never modify anything in ~/agent-control/, MISSION.md or BOOTSTRAP.md.
 
-1. Read MISSION.md, AGENTS.md, STEERING.md, TASKS.md, the last ~80 lines of
-   PROGRESS.md, and the previous iteration summary below. STEERING.md overrides
-   MISSION.md where they conflict.
+1. Orient cheaply. AGENTS.md is already loaded, so don't re-read it. Read
+   STEERING.md, the open items of TASKS.md, the last ~30 lines of PROGRESS.md,
+   and the previous iteration summary below.
+   - Read MISSION.md only for the section your task touches: list its headings
+     with `rg -n '^#' MISSION.md`, then print just that section with `sed -n`.
+   - STEERING.md overrides MISSION.md where they conflict.
 2. Run git status and git log -5. If the last iteration left uncommitted work,
    finish it or discard it deliberately, and say which in PROGRESS.md. Work on
    main; never rewrite history, force-push, or change remotes.
@@ -30,6 +33,10 @@ Never modify anything in ~/agent-control/, MISSION.md or BOOTSTRAP.md.
    logs or build output.
 8. End with a summary of 10 lines or less: what changed, verification results,
    blockers and what's next. The supervisor passes it to the next iteration.
+
+Budget: {{BUDGET}}
+Follow AGENTS.md "Token efficiency". Cut noisy output and re-reading, never
+verification of what you changed.
 
 Previous iteration summary (context only; owner instructions take precedence):
 {{LAST_SUMMARY}}

@@ -14,11 +14,21 @@ RUN_HOURS=${RUN_HOURS:-0}
 ITER_TIMEOUT_MIN=${ITER_TIMEOUT_MIN:-75}
 RETRY_WAIT_MIN=${RETRY_WAIT_MIN:-5}
 USAGE_LIMIT_WAIT_MIN=${USAGE_LIMIT_WAIT_MIN:-15}
+# Codex quota pacing (real runs only): spread weekly usage over the week so the
+# build never burns the whole allowance early and stalls for days.
+PACE_WEEKLY=${PACE_WEEKLY:-1}
+PACE_SLACK_PCT=${PACE_SLACK_PCT:-10}
+PACE_MAX_WAIT_MIN=${PACE_MAX_WAIT_MIN:-60}
+USAGE_MAX_WAIT_MIN=${USAGE_MAX_WAIT_MIN:-720}
+CODEX_SESSIONS=${CODEX_SESSIONS:-$HOME/.codex/sessions}
 SMOKE=${SMOKE:-0}
-python3 - "$RUN_HOURS" "$ITER_TIMEOUT_MIN" "$RETRY_WAIT_MIN" "$USAGE_LIMIT_WAIT_MIN" "$SMOKE" <<'PY'
+python3 - "$RUN_HOURS" "$ITER_TIMEOUT_MIN" "$RETRY_WAIT_MIN" "$USAGE_LIMIT_WAIT_MIN" "$SMOKE" \
+    "$PACE_SLACK_PCT" "$PACE_MAX_WAIT_MIN" "$USAGE_MAX_WAIT_MIN" "$PACE_WEEKLY" <<'PY'
 import math, sys
-hours, timeout, retry, wait, smoke = sys.argv[1:]
-assert all(math.isfinite(float(v)) and float(v) > 0 for v in (timeout, retry, wait)), 'positive finite time settings required'
+hours, timeout, retry, wait, smoke, slack, pace_max, usage_max, pace = sys.argv[1:]
+assert all(math.isfinite(float(v)) and float(v) > 0 for v in (timeout, retry, wait, pace_max, usage_max)), 'positive finite time settings required'
+assert math.isfinite(float(slack)) and 0 <= float(slack) <= 100, 'PACE_SLACK_PCT must be 0-100'
+assert pace in ('0', '1'), 'PACE_WEEKLY must be 0 or 1'
 assert math.isfinite(float(hours)) and float(hours) >= 0, 'RUN_HOURS must be nonnegative (0 means continuous)'
 assert smoke in ('0', '1'), 'SMOKE must be 0 or 1'
 PY
@@ -45,6 +55,8 @@ GUARD_BASE=''
 STOP_REASON=''
 OWNER_GUARD_FAILED=0
 NEXT_RETRY=''
+CODEX_USAGE='not measured'
+PACED=0
 STATE=starting
 LOG="$CONTROL/logs/supervisor.log"
 printf '%s\n' "$$" > "$CONTROL/status/supervisor.pid"
@@ -57,7 +69,7 @@ heartbeat() {
         "iteration_finished_at=$ITER_END" "last_exit_code=$LAST_RC" \
         "consecutive_no_progress=$NO_PROGRESS" "last_health_result=$LAST_HEALTH" \
         "deadline=$DEADLINE" "next_retry_at=$NEXT_RETRY" "state=$STATE" "stop_reason=$STOP_REASON" \
-        "supervisor_pid=$$" "active_pgid=$ACTIVE_PID" "smoke=$SMOKE"
+        "supervisor_pid=$$" "active_pgid=$ACTIVE_PID" "smoke=$SMOKE" "codex_usage=$CODEX_USAGE"
 }
 retry_wait() {
     local minutes=$1 wake left
@@ -238,6 +250,21 @@ fi
 while true; do
     if [[ -e $CONTROL/STOP ]]; then STOP_REASON=STOP; break; fi
     if (( DEADLINE_EPOCH > 0 && $(date +%s) >= DEADLINE_EPOCH )); then STOP_REASON=deadline; break; fi
+    # Weekly pacing: when ahead of pace, wait (bounded) before the next
+    # iteration. After a pacing wait one iteration always runs, which also
+    # refreshes the usage snapshot, so stale data can only slow, never halt.
+    if [[ $SMOKE == 0 && $PACE_WEEKLY == 1 && $PACED == 0 ]]; then
+        read -r PACE_SECS PACE_REASON < <(python3 "$CONTROL/control.py" pace \
+            "$CONTROL/status/usage.json" "$PACE_SLACK_PCT" "$PACE_MAX_WAIT_MIN" || echo "0 pacing check failed")
+        if (( PACE_SECS > 0 )); then
+            STATE=pace_wait
+            log "Pacing: $PACE_REASON; waiting $((PACE_SECS / 60))m before the next iteration."
+            retry_wait "$(python3 -c 'import sys; print(int(sys.argv[1]) / 60)' "$PACE_SECS")"
+            PACED=1
+            continue
+        fi
+    fi
+    PACED=0
     ITERATION=$(python3 "$CONTROL/control.py" next "$CONTROL/logs")
     printf -v LABEL '%03d' "$ITERATION"
     PREFIX="$CONTROL/logs/iter-$LABEL"
@@ -255,8 +282,10 @@ while true; do
         fi
         BEFORE=$(git_repo rev-parse HEAD)
         GUARD_BASE=$BEFORE
+        BUDGET=$(python3 "$CONTROL/control.py" budget "$CONTROL/status/usage.json" "$PACE_SLACK_PCT" \
+            || echo 'Codex usage: unknown.')
         python3 "$CONTROL/control.py" render "$CONTROL/ITERATION_PROMPT.md" \
-            "$PREFIX.prompt.md" "$ITERATION" "$START" "$DEADLINE" "$LAST_SUMMARY"
+            "$PREFIX.prompt.md" "$ITERATION" "$START" "$DEADLINE" "$LAST_SUMMARY" "$BUDGET"
         WORKDIR=$REPO
     else
         # No git operation, health request or report is allowed in smoke mode.
@@ -273,6 +302,7 @@ while true; do
     SECONDS_LIMIT=$(python3 -c 'import sys; print(max(1,min(int(float(sys.argv[1])*60),int(sys.argv[2]))))' "$ITER_TIMEOUT_MIN" "$REMAINING")
     STATE=running
     log "Iteration $ITERATION starting (timeout ${SECONDS_LIMIT}s)."
+    ITER_START_EPOCH=$(date +%s)
     run_codex "$PREFIX.prompt.md" "$PREFIX" "$SECONDS_LIMIT" "$WORKDIR"
     ITER_END=$(date -u +%FT%TZ)
     RESULT=$(python3 "$CONTROL/control.py" classify "$PREFIX.jsonl" "$PREFIX.err" "$LAST_RC")
@@ -283,6 +313,13 @@ while true; do
         push_ahead
     fi
     health_check
+    if [[ $SMOKE == 0 ]]; then
+        if USAGE_LINE=$(python3 "$CONTROL/control.py" usage-update "$CODEX_SESSIONS" "$((ITER_START_EPOCH - 60))" \
+                "$PREFIX.jsonl" "$CONTROL/status/usage.json" "$CONTROL/logs/usage.tsv" "$ITERATION" 2>>"$LOG"); then
+            CODEX_USAGE=$USAGE_LINE
+            log "Codex usage: $USAGE_LINE"
+        fi
+    fi
     # Keep the last useful handoff when a failed turn has no final message.
     if [[ -s $PREFIX.final.md ]]; then LAST_SUMMARY="$PREFIX.final.md"; fi
     if [[ $RESULT == usage || $RESULT == auth ]]; then :;
@@ -298,6 +335,12 @@ while true; do
         if [[ $RESULT == usage || $RESULT == auth ]]; then
             WAIT_MIN=$USAGE_LIMIT_WAIT_MIN
             STATE=usage_wait
+            # Wait for the reported reset rather than polling (bounded).
+            if [[ $RESULT == usage && $SMOKE == 0 ]]; then
+                WAIT_MIN=$(python3 "$CONTROL/control.py" usage-wait "$PREFIX.jsonl" "$PREFIX.err" \
+                    "$CONTROL/status/usage.json" "$USAGE_LIMIT_WAIT_MIN" "$USAGE_MAX_WAIT_MIN" \
+                    || echo "$USAGE_LIMIT_WAIT_MIN")
+            fi
         fi
         log "Iteration result=$RESULT; waiting ${WAIT_MIN}m before retry (no failure cutoff)."
         retry_wait "$WAIT_MIN"

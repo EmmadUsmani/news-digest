@@ -145,6 +145,76 @@ class ClassifierTests(unittest.TestCase):
         self.assertEqual(self.classify([{"type": "turn.failed"}], 0), "crash")
 
 
+class UsagePacingTests(unittest.TestCase):
+    WEEK = 7 * 24 * 3600
+
+    def usage(self, weekly_used, elapsed_frac, now=1_000_000_000, primary=None):
+        resets = now + self.WEEK * (1 - elapsed_frac)
+        data = {"secondary": {"used_percent": weekly_used, "window_minutes": 10080, "resets_at": resets}}
+        if primary:
+            data["primary"] = primary
+        return data
+
+    def test_on_pace_and_no_data_never_wait(self):
+        now = 1_000_000_000
+        self.assertEqual(control.pace_seconds({}, 10, 60, now)[0], 0)
+        self.assertEqual(control.pace_seconds(self.usage(30, 0.5), 10, 60, now)[0], 0)
+        self.assertEqual(control.pace_seconds(self.usage(59, 0.5), 10, 60, now)[0], 0)
+
+    def test_ahead_of_pace_waits_bounded(self):
+        now = 1_000_000_000
+        seconds, reason = control.pace_seconds(self.usage(94, 0.22), 10, 60, now)
+        self.assertEqual(seconds, 3600)
+        self.assertIn("94%", reason)
+        seconds, _ = control.pace_seconds(self.usage(61, 0.5), 10, 600, now)
+        self.assertTrue(60 <= seconds <= 0.011 * self.WEEK, seconds)
+
+    def test_reset_window_never_waits(self):
+        now = 1_000_000_000
+        stale = {"secondary": {"used_percent": 100, "window_minutes": 10080, "resets_at": now - 5}}
+        self.assertEqual(control.pace_seconds(stale, 10, 60, now)[0], 0)
+
+    def test_usage_wait_uses_try_again_time_bounded(self):
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            (base / "events").write_text(json.dumps({"type": "turn.failed", "error": {
+                "message": "You've hit your usage limit. Try again at 3:09 PM."}}))
+            (base / "err").write_text("")
+            now = time.mktime((2026, 11, 2, 13, 0, 0, 0, 0, -1))
+            wait = control.usage_wait_seconds(base / "events", base / "err", {}, 15, 720, now)
+            self.assertEqual(wait, 2 * 3600 + 9 * 60 + 60)
+            late = time.mktime((2026, 11, 2, 16, 0, 0, 0, 0, -1))
+            self.assertEqual(control.usage_wait_seconds(base / "events", base / "err", {}, 15, 720, late), 720 * 60)
+
+    def test_usage_wait_falls_back_to_snapshot_then_polling(self):
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            (base / "events").write_text("")
+            (base / "err").write_text("")
+            now = 1_000_000_000
+            snap = {"primary": {"used_percent": 100, "window_minutes": 300, "resets_at": now + 1200}}
+            self.assertEqual(control.usage_wait_seconds(base / "events", base / "err", snap, 15, 720, now), 1260)
+            self.assertEqual(control.usage_wait_seconds(base / "events", base / "err", {}, 15, 720, now), 900)
+
+    def test_latest_snapshot_and_tokens_are_parsed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            day = base / "2026" / "11" / "02"
+            day.mkdir(parents=True)
+            good = {"used_percent": 40.0, "window_minutes": 300, "resets_at": 2_000_000_000}
+            lines = [
+                {"timestamp": "2026-11-02T10:00:00Z", "payload": {"type": "token_count", "rate_limits": {"limit_id": "codex", "primary": good, "secondary": None}}},
+                {"timestamp": "2026-11-02T10:05:00Z", "payload": {"type": "token_count", "rate_limits": {"limit_id": "premium", "primary": None, "secondary": None}}},
+            ]
+            (day / "rollout.jsonl").write_text("\n".join(json.dumps(line) for line in lines))
+            self.assertEqual(control.latest_rate_limits(base, 0)["primary"]["used_percent"], 40.0)
+            self.assertIsNone(control.latest_rate_limits(base, time.time() + 60))
+            (base / "events").write_text("\n".join(json.dumps(e) for e in [
+                {"type": "turn.completed", "usage": {"input_tokens": 10, "cached_input_tokens": 7, "output_tokens": 3}}]))
+            self.assertEqual(control.iteration_tokens(base / "events")["input"], 10)
+            self.assertIn("5-hour window 40% used", control.budget_text({"primary": good}, 10, 1_000_000_000))
+
+
 class SupervisorTests(unittest.TestCase):
     def run_case(self, mode, stop=False, overrides=None):
         with tempfile.TemporaryDirectory(prefix="harness-supervisor-test-") as directory:
@@ -165,7 +235,7 @@ class SupervisorTests(unittest.TestCase):
             env = dict(os.environ, PATH=f"{base / 'bin'}:{os.environ['PATH']}",
                        SMOKE="1", RUN_HOURS="0.02", ITER_TIMEOUT_MIN="0.0167",
                        USAGE_LIMIT_WAIT_MIN="0.001", RETRY_WAIT_MIN="0.001", MAX_NO_PROGRESS="1", FAKE_MODE=mode,
-                       FORBIDDEN_FILE=str(base / "forbidden"))
+                       FORBIDDEN_FILE=str(base / "forbidden"), CODEX_SESSIONS=str(base / "sessions"))
             env.update(overrides or {})
             result = subprocess.run(["bash", str(base / "run.sh")], env=env,
                                     capture_output=True, text=True, timeout=40)
@@ -305,7 +375,8 @@ class RealLoopContractTests(unittest.TestCase):
                 executable.chmod(0o700)
             if mode == 'initial_stop': (base / 'STOP').touch()
             env = dict(os.environ, PATH=f"{base / 'bin'}:{os.environ['PATH']}",
-                       SMOKE='0', MAX_NO_PROGRESS='2', RUN_HOURS='0', RETRY_WAIT_MIN='0.001', USAGE_LIMIT_WAIT_MIN='0.001', FAKE_MODE=mode)
+                       SMOKE='0', MAX_NO_PROGRESS='2', RUN_HOURS='0', RETRY_WAIT_MIN='0.001', USAGE_LIMIT_WAIT_MIN='0.001', FAKE_MODE=mode,
+                       CODEX_SESSIONS=str(base / 'sessions'))
             result = subprocess.run(['bash', str(base / 'run.sh')], env=env,
                                     capture_output=True, text=True, timeout=40)
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
