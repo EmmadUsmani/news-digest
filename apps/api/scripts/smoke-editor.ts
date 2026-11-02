@@ -15,13 +15,18 @@ import { PostgresLlmLedger } from '../src/modules/curation/database/llm.ledger';
 import { readLlmUsage } from '../src/modules/curation/public/usage';
 
 async function smoke() {
+  assert.equal(
+    process.env.LLM_LIVE,
+    '1',
+    'Live verification requires LLM_LIVE=1',
+  );
   const key = process.env.ANTHROPIC_API_KEY;
   assert.ok(key, 'Load configured secrets environment');
   const db = database();
   const runId = 'live-editor-' + randomUUID();
   try {
     const config = llmConfig();
-    const ledger = new PostgresLlmLedger(db, config.caps);
+    const ledger = new PostgresLlmLedger(db, config.caps, true);
     const editor = new ShortlistEditor(
       new BudgetedLlm(new AnthropicLlmAdapter(key), ledger),
       config.sonnet,
@@ -90,6 +95,11 @@ async function smoke() {
   }
 }
 void smoke().catch(() => {
+  if (process.env.LLM_LIVE !== '1') {
+    console.error('Live verification requires LLM_LIVE=1; no calls made.');
+    process.exitCode = 1;
+    return;
+  }
   console.error(
     'Live editor check failed; inspect sanitized usage ledger. No edition was published.',
   );

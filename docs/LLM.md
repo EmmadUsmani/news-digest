@@ -62,7 +62,7 @@ Verification:
 
 ```sh
 pnpm exec tsx --test apps/api/test/llm.test.ts
-pnpm exec tsx apps/api/scripts/smoke-llm-ledger.ts
+LLM_LIVE=1 pnpm exec tsx apps/api/scripts/smoke-llm-ledger.ts
 ```
 
 The second command creates and destroys a fresh `postgres:17-alpine` container;
@@ -75,7 +75,7 @@ Explicit live verification, after `pnpm migrate`, with the configured secrets
 environment loaded (up to two tiny Haiku calls, including one repair):
 
 ```sh
-pnpm exec tsx apps/api/scripts/smoke-anthropic.ts
+LLM_LIVE=1 pnpm exec tsx apps/api/scripts/smoke-anthropic.ts
 ```
 
 It scores three real stored headlines, validates IDs and score bounds, verifies
@@ -115,7 +115,7 @@ triage, not an evaluation of full article claims.
 
 `pnpm exec tsx --test apps/api/test/triage.test.ts` runs offline schema, coverage,
 cache, budget fallback and worst-case prompt tests. The explicit live command
-(with configured secrets loaded) is `pnpm exec tsx apps/api/scripts/smoke-triage.ts`:
+(with configured secrets loaded) is `LLM_LIVE=1 pnpm exec tsx apps/api/scripts/smoke-triage.ts`:
 six stored last-24h items for each of the four topics, then reordered cache checks.
 At most sixteen tiny requests including one repair per three-item batch; every
 request uses the existing reservation ledger. It publishes no edition. M3 still
@@ -149,7 +149,7 @@ editor requests reuse validated transport cache, including empty selections.
 
 Offline checks: `pnpm exec tsx --test apps/api/test/editor.test.ts`.
 Explicit paid check with configured secrets loaded:
-`pnpm exec tsx apps/api/scripts/smoke-editor.ts`. It uses three real recent NBA
+`LLM_LIVE=1 pnpm exec tsx apps/api/scripts/smoke-editor.ts`. It uses three real recent NBA
 items, budget two, and checks identical regeneration without another call. No
 edition is published. Initial Tech and NBA checks both returned valid empty
 selections in one Sonnet call each ($0.003958 and $0.002828). These verify quiet
@@ -359,3 +359,19 @@ returned five validated stories via configured Haiku fallback ($0.003503).
 The frozen v4 artifact supports offline replay, not publication. Both attempts
 cost $0.006296 total; actual day/month spend is $0.408415, with zero reservations
 or provider errors. No causal or general quality claim follows from one success.
+
+### Development live-call guard
+
+The three Anthropic smoke scripts refuse to run unless `LLM_LIVE=1`, before
+opening a database connection. They tag all reservations (including editorial
+fallback and JSON repair) `purpose=verification`. The ledger serializes a shared
+$0.05 UTC-day verification allowance across processes, in addition to the normal
+app/model caps. Pending and uncertain reservations count until resolved, even
+across days; known failures release funds. This daily ceiling is stricter than
+the owner's $0.05 per-iteration limit. A cache hit spends nothing. The editor
+smoke remains an explicit Sonnet check; prefer the tiny Haiku smoke when a live
+check is necessary. Routine tests use fakes and never require this opt-in.
+
+Historical development calls used older purpose tags and are not retroactively
+classified. Separate verification totals on Status and fingerprinted fixture
+replay remain open work. No paid calls were made to verify this guard.

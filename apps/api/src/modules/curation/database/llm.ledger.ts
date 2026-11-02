@@ -17,6 +17,7 @@ export class PostgresLlmLedger implements LlmLedger {
   constructor(
     readonly db: Pool,
     readonly caps: BudgetCaps,
+    readonly verification = false,
   ) {}
   async reserve(request: LlmRequest, estimate: number): Promise<string | null> {
     if (!Number.isSafeInteger(estimate) || estimate <= 0)
@@ -45,6 +46,23 @@ export class PostgresLlmLedger implements LlmLedger {
         [period.monthStart, period.dayStart],
       );
       const allowance = budgetAllowance(now, totals, this.caps);
+      // Share the existing lock across processes and repairs. Verification is
+      // stricter than the per-iteration owner limit: $0.05 for the whole UTC day.
+      const purpose = this.verification ? 'verification' : request.purpose;
+      if (purpose === 'verification') {
+        const {
+          rows: [verification],
+        } = await client.query<{ used: number }>(
+          `SELECT COALESCE(sum(COALESCE(cost_micros,reserved_micros)),0)::float8 AS used
+           FROM llm_calls WHERE purpose='verification' AND status <> 'failed'
+           AND (created_at >= $1 OR status IN ('pending','uncertain'))`,
+          [period.dayStart],
+        );
+        if (verification.used + estimate > 50000) {
+          await client.query('COMMIT');
+          return null;
+        }
+      }
       const allocation = this.caps.modelAllocation;
       let modelAvailable = Infinity;
       if (allocation && request.model.id === allocation.model) {
@@ -72,7 +90,7 @@ export class PostgresLlmLedger implements LlmLedger {
       const id = crypto.randomUUID();
       await client.query(
         `INSERT INTO llm_calls(id,model,purpose,run_id,status,reserved_micros) VALUES($1,$2,$3,$4,'pending',$5)`,
-        [id, request.model.id, request.purpose, request.runId, estimate],
+        [id, request.model.id, purpose, request.runId, estimate],
       );
       await client.query('COMMIT');
       return id;

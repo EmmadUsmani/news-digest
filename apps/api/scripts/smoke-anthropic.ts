@@ -11,12 +11,17 @@ import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import { PostgresLlmLedger } from '../src/modules/curation/database/llm.ledger';
 
 async function smoke() {
+  assert.equal(
+    process.env.LLM_LIVE,
+    '1',
+    'Live verification requires LLM_LIVE=1',
+  );
   const key = process.env.ANTHROPIC_API_KEY;
   assert.ok(key, 'Load the configured secrets environment');
   const db = database();
   try {
     const config = llmConfig();
-    const ledger = new PostgresLlmLedger(db, config.caps);
+    const ledger = new PostgresLlmLedger(db, config.caps, true);
     const service = new BudgetedLlm(new AnthropicLlmAdapter(key), ledger);
     const candidates = (
       await db.query<{ id: string; title: string }>(
@@ -83,6 +88,11 @@ async function smoke() {
   }
 }
 void smoke().catch(() => {
+  if (process.env.LLM_LIVE !== '1') {
+    console.error('Live verification requires LLM_LIVE=1; no calls made.');
+    process.exitCode = 1;
+    return;
+  }
   console.error(
     'Budgeted Anthropic smoke failed; inspect sanitized llm_calls ledger',
   );
