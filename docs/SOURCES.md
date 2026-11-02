@@ -851,3 +851,18 @@ Zero article returned HTTP 200 and contains the already-known
 `2117074929594298758` citation. No new citation, stored post or fresh-coverage gain
 is claimed; GamingBolt page harvesting also remains disabled pending broader
 access checks. No protection bypass, inference call or paid discovery.
+
+## GamingBolt public-page discovery — iteration 129 (2026-11-02)
+
+Six recent stored article URLs returned public HTML through the shared HTTPS
+client (47–51 KB each). The Phantom Blade Zero sales article exposed the named
+`pbzero_official/status/2117074929594298758` citation already collected from RSS;
+five other articles exposed no X links. These are live access observations, not
+new posts or evidence of virality. No blocked-host workaround was used.
+
+Migration 029 opts only `gamingbolt.com` into existing hourly article discovery:
+exact host, recent stored articles, publisher rotation, eight pages per pass,
+seven-day successful-page cooldown and one-day host cooldown after failure.
+No recursive crawling, paid search or model call. The first explicit mixed-host
+pass checked eight pages, recorded four citation observations and had zero errors;
+those observations do not imply four new posts. RSS remains independently live.
