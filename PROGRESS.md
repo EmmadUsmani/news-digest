@@ -356,5 +356,5 @@ Iteration 252: [archive](docs/progress-archive/2026-11-02-iteration-252.md).
 - No paid or Reddit requests; reports remain unverified and are not yet persisted or ranked.
 - Verified: three targeted tests; `pnpm format`, `pnpm lint:fix`, `pnpm check` (127 unit/165 integration), `pnpm build`, `git diff --check`.
 - API/worker restarted; health, SPA HTTP 200 and four-topic latest edition checked.
-- Archived iteration 252 to keep progress bounded; no leftover work to recover.
+- Archived iteration 252; started clean. Push rejected by owner STEERING update; merged it (Reddit stays parked, official OAuth API only).
 - Next: persist reported observations and rank by engagement/age plus relevance; Nov 3 scheduled evidence still pending.
