@@ -240,3 +240,79 @@ void test('topic coverage unions discovery routes, isolates topics and pins heal
     await db.end();
   }
 });
+
+void test('topic coverage keeps an elapsed 24-hour window across both daylight-saving transitions', async () => {
+  const db = database();
+  const client = await db.connect();
+  const topic = crypto.randomUUID();
+  const source = `coverage-dst-${topic}`;
+  try {
+    await client.query('BEGIN');
+    await client.query("SET LOCAL TIME ZONE 'America/Los_Angeles'");
+    await client.query(
+      `INSERT INTO topics(id,profile_id,name,description,include_guidance,position)
+       VALUES($1,'00000000-0000-4000-8000-000000000001','DST coverage fixture','','',100)`,
+      [topic],
+    );
+    await client.query(
+      `INSERT INTO content_sources(id,topic_id,name,kind,url)
+       VALUES($1,$2,'DST fixture','feed','https://example.com/dst-coverage')`,
+      [source, topic],
+    );
+    await client.query(
+      'INSERT INTO topic_source_connections(topic_id,source_id) VALUES($1,$2)',
+      [topic, source],
+    );
+    for (const [endText, startText] of [
+      ['2030-03-10T12:00:00-07:00', '2030-03-09T11:00:00-08:00'],
+      ['2030-11-03T12:00:00-08:00', '2030-11-02T13:00:00-07:00'],
+    ]) {
+      const end = new Date(endText);
+      const start = new Date(startText);
+      const publications = [
+        start.getTime() - 1,
+        start.getTime(),
+        end.getTime() - 1,
+        end.getTime(),
+      ];
+      for (const [index, timestamp] of publications.entries()) {
+        const inserted = await client.query(
+          `INSERT INTO content_items(canonical_url,title,excerpt,published_at)
+           VALUES($1,'DST fixture','',$2) RETURNING id`,
+          [
+            `https://example.com/${topic}/${end.getTime()}/${index}`,
+            new Date(timestamp),
+          ],
+        );
+        await client.query(
+          'INSERT INTO content_observations(source_id,item_id) VALUES($1,$2)',
+          [source, inserted.rows[0].id],
+        );
+      }
+      // The exact one-hour health boundary uses absolute elapsed time too.
+      await client.query(
+        'UPDATE content_sources SET last_success=$2 WHERE id=$1',
+        [source, new Date(end.getTime() - 3600000)],
+      );
+      const result = await readTopicCoverage(client, end);
+      assert.equal(result.start, start.toISOString());
+      assert.equal(result.end, end.toISOString());
+      assert.equal(
+        new Date(result.end).getTime() - new Date(result.start).getTime(),
+        86400000,
+      );
+      const row = result.topics.find((row) => row.topicId === topic)!;
+      assert.equal(
+        row.articles,
+        2,
+        'Start is inclusive and end is exclusive to millisecond precision',
+      );
+      assert.equal(row.connectedSources, 1);
+      assert.equal(row.healthySources, 1);
+    }
+  } finally {
+    await client.query('ROLLBACK');
+    client.release();
+    await db.end();
+  }
+});

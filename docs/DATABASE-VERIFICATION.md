@@ -188,3 +188,14 @@ the shared test runner environment replaces service addresses, clears provider
 keys and live-call opt-ins, and leaves the parent environment unchanged.
 Disposable integration tests continue to exercise admitted connections. These
 checks do not certify all repository behavior or complete STEERING 2a.
+
+## Rolling coverage across daylight saving (iteration 239)
+
+`topic-coverage.test.ts` pins an elapsed 24-hour article window across both
+America/Los_Angeles daylight-saving transitions in a non-UTC database session.
+The previous local start hour shifts in opposite directions in spring and fall;
+articles exactly at the start count, while those one millisecond before the
+start or exactly at the end do not. Connected-source and exact one-hour health
+counts remain available. Fixtures and transaction rollback use only disposable
+PostgreSQL; there are no provider or Reddit requests. Remaining repository gaps
+and recorded-response golden coverage stay open.

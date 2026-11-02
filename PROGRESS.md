@@ -106,18 +106,6 @@ Earlier iteration 219: [archive](docs/progress-archive/2026-11-02-iteration-219.
 
 Iteration 221: [archive](docs/progress-archive/2026-11-02-iteration-221.md).
 
-## 2026-11-02: iteration 223 — database coverage reporting
-
-- Started clean on main; API/worker, health, 32 sources and four queues healthy. No leftover work.
-- Items 13/7/9 await Nov 3 scheduled evidence; advanced lower-priority STEERING 2a using disposable containers only.
-- Integration runner now prints native V8 line/branch/function coverage for database helpers/adapters and direct operations status; included in `pnpm check`, without new dependencies.
-- Added measured baseline and gap guidance in docs/DATABASE-VERIFICATION.md and README; source and compiled HTTP rows remain separate, unloaded files are unmeasured, migration setup is excluded.
-- All 16 database source helpers/adapters plus operations status appear; usage reader branches are 42.86%, operations status 79.41%. Coverage is not proof of complete query characterization; AI golden remains open.
-- Verification: targeted `pnpm test:integration`, then `pnpm format`, `pnpm lint:fix`, `pnpm check` (120 unit/122 isolated integration), `pnpm build` passed. No inference or Reddit requests.
-- Read-only timing report confirms next scheduled edition Nov 3 15:00 UTC; previous 856 ms fallback is not AI latency evidence.
-- Compacted TASKS and archived iteration 208 to bound orientation files. Next: observe Nov 3 14:30 X discovery and 15:00 edition; continue 2a behavior gaps while waiting.
-- Deployment check: API/worker restarted active; health DB/Redis true, SPA 200, 32 sources without errors, four queues available; retained real edition has four topics, 20 stories and 10 posts. Final format check and `git diff --check` passed.
-
 ## 2026-11-02: iteration 224 — usage ledger characterization
 
 - Started clean on main; API/worker, health and 32 sources healthy. No leftover work.
@@ -298,3 +286,15 @@ Archived iteration 214: [entry](docs/progress-archive/2026-11-02-iteration-214.m
 - Updated TASKS/database notes; archived oldest progress entry. No provider or Reddit requests.
 - Restarted API/worker healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues; latest edition has four topics.
 - Next: observe Nov 3 all-topic X cost/yield and scheduled AI edition reserve/cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 239 — daylight-saving coverage boundaries
+
+- Started clean on main; services/health green, 32 sources without current errors; no leftover work.
+- Priority 15/13/7/9 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a.
+- Added disposable PostgreSQL coverage for elapsed 24-hour article windows across spring/fall DST in a non-UTC session.
+- Pins inclusive start/exclusive end to millisecond precision plus connected-source and exact one-hour health counts.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 137 integration), `pnpm build`, `git diff --check` passed.
+- Updated TASKS/database notes; archived iteration 223 to keep PROGRESS bounded. No provider or Reddit requests.
+- Restarted API/worker healthy; DB/Redis true, SPA 200, 32 error-free sources and four available queues.
+- Read-only timing report confirms latest four-topic fallback edition remains intact; 856 ms is not live AI latency evidence.
+- Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
