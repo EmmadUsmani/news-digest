@@ -278,3 +278,14 @@ Earlier iterations 61–72: [archive](docs/progress-archive/2026-11-02-iteration
 - `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed. TASKS/docs/SOURCES updated; no new owner blocker.
 - No inference/discovery spending or provider/model/billing changes: Anthropic day/month $0.408415; X $0.023382, zero reservations/errors. Paid scheduling remains off. Gaming weak; Reddit blocked.
 - Next: inspect first scheduled semantic edition when due, improve Gaming discovery, and add semantic same-event links only with reliable evidence.
+
+## 2026-11-02: iteration 108 — enable free Eurogamer post discovery
+
+- Started clean on main; no leftover work. API/worker/health and seventeen feeds healthy; retained digest runs complete, first semantic slot still Nov 2 20:40 UTC. Historical ingestion failure retained; current sources succeed.
+- Migration 023 opts exact-host Eurogamer pages into existing bounded hourly publisher harvesting. Three public-page probes succeeded; bounded explicit harvest stored a named DSDigitalDev game-reveal citation with article provenance. Already verified post dates May 7: no current-window relevance/virality claim.
+- `pnpm migrate` applied 023. `pnpm exec tsx apps/api/scripts/smoke-social.ts` job 36: seven pages, zero citations, one unavailable page, ten verified embeds/no verification errors. Separate three-recent-page check found no links; explicit three newest stored-page harvest found one citation. Temporary scripts removed.
+- Initial temporary probe required an async wrapper; report query used nonexistent author_name, corrected to author. First workspace check caught the temporary script; removed it and reran all checks successfully.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and 130 isolated tests pass. `pnpm build` passes (existing upstream Zod warnings).
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two live queued passes, 820 real URLs/four topics/seventeen healthy sources. `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed and mobile digest inspected.
+- Rebuilt/restarted API/worker; `/healthz` healthy. TASKS/docs/SOURCES updated. No edition published or inference/discovery spending; Anthropic $0.408415, X $0.023382, no provider/model/billing changes.
+- No new owner blocker. Paid scheduling stays off; remaining daily X allowance cannot cover conservative $0.40 reservation. Reddit blocked; fresh Gaming posts remain weak. Next: inspect scheduled semantic edition when due and widen free relevant Gaming discovery.

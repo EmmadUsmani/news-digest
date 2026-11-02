@@ -80,6 +80,7 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Standalone bounded social editor with supplied-ID picks/context, separate purpose/cache, capped Sonnet-to-Haiku fallback and offline rejection regressions (iteration 105). Shared composition exposes social services; no publication/inference yet.
   - [x] Connect semantic social shortlist/final picks to manual and scheduled immutable publication, saved scores/context/method and visible AI/non-AI labels; preserve lexical fallback and scheduled retries (iteration 106). Fake-response/isolated DB verification only; no real semantic edition yet.
   - [x] Immutable links to selected stories with explicit stored post citations, including coverage/editor evidence; desktop/mobile navigation replay (iteration 107). Citation provenance only; semantic same-event matching remains unfinished.
+  - [x] Opt Eurogamer public pages into bounded free discovery after explicit access/citation probes (iteration 108); stored a real game-reveal citation, but its May timestamp is outside current windows. No fresh Gaming-pick claim.
   - Next: observe the first scheduled semantic social edition and measure relevant Gaming discovery. Keep full-day X reservation and paid scheduling off. Semantic selection is not a virality measurement.
   - SocialPost storage, window-aware ranking with citation diversity/engagement, immutable post selections and lazy official X embeds.
   - Reddit per-topic communities and faithful cards; no bot-protection workarounds. Bluesky optional; YouTube deferred.

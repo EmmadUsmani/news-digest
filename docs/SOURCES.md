@@ -687,3 +687,19 @@ same-event judgment. Missing citations produce no links. Historical editions
 remain unchanged. Browser replay uses saved real posts with explicitly
 synthetic coverage relationships; it is not a published edition. No new source,
 inference or discovery spend. The next scheduled slot is 20:40 UTC Nov 2.
+
+### Iteration 108: Eurogamer free publisher discovery
+
+Enabled exact-host `www.eurogamer.net` article discovery through migration 023,
+using the existing publisher/topic rotation, eight-page cap, shared HTTP client
+and persistent cooldowns. Three explicit public-page probes all succeeded; the
+“At Dead of Night 2” announcement page exposed a named DSDigitalDev X link.
+A bounded three-page harvest stored that real citation with Eurogamer article
+provenance (post `2052420737714040869`, already officially verified as Brian
+Clarke). Its timestamp is May 7, 2026, so it is not a current-window Gaming pick.
+The ordinary queued pass checked seven pages, recorded zero citations and one
+unavailable page; a separate three-recent-page pass found no links. These small
+checks establish access and a citation route, not current quality or virality.
+No paid discovery, inference, publication or X scraping was performed. Paid
+scheduling remains off; today's remaining allowance is below the conservative
+$0.40 reservation required for another explicit search.
