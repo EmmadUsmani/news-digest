@@ -439,3 +439,116 @@ about $0.02 each, so four a day is about $0.10, well inside the caps.
   verified posts for the first week.
 - **Tests:** use fakes only; no paid calls to verify admission.
 - Ack here after the first full scheduled run, with per-topic cost and yield.
+
+## 16. NEXT PRIORITY: open X discovery, not just account lists (2026-11-02)
+
+**Why:** the owner wants the cool, viral and newsworthy posts in each field,
+and many of those come from small or unknown accounts that blow up. Today
+nothing searches for them:
+- free harvesting only finds tweets that articles already embed, so it lags;
+- the paid `x_search` adapter *requires* 1–20 curated handles and asks for at
+  most 5 posts from them;
+- selection judges relevance only, with no engagement or virality signal.
+
+**Build:**
+- **Open topic search (main path).** One scheduled `x_search` per topic per
+  day with **no `allowed_x_handles`**. Ask for the most-engaged, fastest-rising
+  original posts on the topic in the last ~24 hours, using keyword plus
+  semantic search.
+  - Derive the queries from the topic's name and guidance.
+  - Exclude bait, crypto/giveaway spam, engagement farming and reposts of
+    plain headlines.
+  - Allow requests without handles in the adapter and contracts. Keep handle
+    validation for the account-list path.
+- **Top-story reactions.** After open topic search, if budget remains, search
+  X for the most-engaged posts about the day's 1–2 biggest stories per topic.
+  These are known from the article pipeline. This is how a random user's
+  viral take on a news event gets found.
+- **Account lists become secondary.** The curated-handle search runs only
+  with budget left over after open search. It's an input, never the only
+  paid path.
+- **Engagement signal:** have each search return per-post like, repost, reply
+  and view counts, plus post time, alongside the URLs.
+  - Store them as `reported_by: xai_search` with an observed-at time. Never
+    label them as verified.
+  - Rank X posts on engagement and velocity (relative to post age) combined
+    with topic relevance, not relevance alone.
+  - Every post still has to pass the existing official oEmbed check before it
+    is shown.
+- **Budget: keep the current caps** of $0.40/day and $12/month for X (owner
+  decision); the prepaid credit stays the backstop.
+  - Search fees are $5 per 1k posts fetched, so fit open search inside the
+    cap: tight prompts, few results per search, `max_turns` 1–2.
+  - Measure `x_posts_fetched` and the cost per search, then tune.
+  - Priority order within the cap: open topic search for every topic, then
+    top-story reactions, then account lists.
+- **Item 15:** its per-topic daily search becomes the open search. Ack 15 from
+  the first scheduled run as planned, then switch.
+- **Report** per topic and per search type: posts fetched, cost, new verified
+  posts, and how many came from accounts not on any curated list.
+- **Done when:** an edition shows X posts in all four topics that include
+  high-engagement posts from accounts outside the curated lists, within the
+  caps, with desktop/mobile screenshots.
+
+## 17. LOWER: better curated X account lists (2026-11-02)
+
+After item 16. Review each topic's curated handles (up to 20) against the bar
+"accounts whose posts are often viral, newsworthy or first-hand". Think
+insiders, reporters, builders, researchers and leakers, not just official
+brand accounts. Keep them editable in settings and record the choices in
+docs/SOURCES.md. This supplements item 16 and never replaces it.
+
+## 18. NEXT: Bluesky as the #3 social source, open discovery first (2026-11-02)
+
+After items 16–17. Use the official public AT Protocol / Bluesky API only;
+no scraping.
+- **Open discovery first**, the same idea as item 16:
+  - per-topic `searchPosts` with `sort=top` over the last ~24 hours;
+  - relevant public feeds (for example trending or topic feeds) if they're
+    useful.
+  - Curated accounts are secondary.
+  - Bluesky returns real like, repost and reply counts: store them and rank
+    on engagement, velocity and relevance.
+- **Auth:** if search requires authentication, add exact steps to
+  NEEDS_FROM_HUMAN.md (an app password stored in `~/.config/news-digest/env`).
+  Build and test the rest against fixtures meanwhile.
+- **Fetching:** respect rate limits and back off. Store posts as `SocialPost`
+  with platform `bluesky`.
+- **Rendering:** Bluesky's official embed or a faithful card.
+- **Ranking:** below X, the same as Reddit was meant to be.
+- **Done when:** real Bluesky posts appear in a generated edition for the
+  topics where Bluesky has real activity, with screenshots. Record per-topic
+  yield in docs/SOURCES.md; it's fine if some topics have little.
+
+## 19. NEXT: group duplicate stories (2026-11-02)
+
+After item 18. An edition shouldn't show near-duplicate stories from
+different outlets about the same event.
+- **Cluster articles about the same event:** shared links or X citations,
+  title and entity similarity, and time proximity.
+  - Start without AI (no budget needed).
+  - Later, an AI pass may confirm borderline merges within the existing
+    budget, never spending the scheduled-edition reserve.
+- **Show one story per event,** with its best summary plus "also covered by"
+  outlet links.
+- **Use cluster size** (independent outlets) as an importance signal in
+  ranking.
+- **Never merge different events.** Test with fixtures built from real items,
+  with hand-checked labels for same and different events. Report precision on
+  them.
+- This covers M5's "semantic event clustering".
+
+## 20. Owner priorities and exclusions (2026-11-02)
+
+- **Order now:**
+  1. When the Nov 3 scheduled runs happen, verify and ack items 13, 7 and 15,
+     fixing anything they show.
+  2. Otherwise: 16 → 17 → 18 → 19.
+  3. Then item 10.
+  4. Items 2a/2b and 4 go to the bottom. Don't keep adding database
+     characterization tests while these items are open.
+- **Not now:** feedback buttons (👍/👎, "less like this") and email delivery.
+  Don't build them unless the owner asks.
+- **Fix:** docs/SOURCES.md labels ESPN NBA RSS "parked by owner". It was never
+  parked by the owner: it returned empty responses and was replaced by CBS.
+  Correct the label.
