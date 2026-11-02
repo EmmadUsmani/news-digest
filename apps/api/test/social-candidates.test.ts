@@ -191,3 +191,82 @@ void test('verified post refresh preserves discovery fields and rejects invalid 
     await repository.db.end();
   }
 });
+
+void test('embed checks pin daily retry boundaries and recover without losing prior state', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const repository = new PostgresSocialRepository();
+  const pool = repository.db;
+  const client = await pool.connect();
+  Object.defineProperty(repository, 'db', { value: client });
+  const topic = crypto.randomUUID();
+  const source = 'embed-check-boundary-fixture';
+  const id = '2116948532477468660';
+  const read = async () =>
+    (
+      await client.query('SELECT * FROM x_embed_checks WHERE external_id=$1', [
+        id,
+      ])
+    ).rows[0];
+  try {
+    await client.query('BEGIN');
+    await client.query("SET LOCAL TIME ZONE 'America/Los_Angeles'");
+    await client.query('UPDATE topics SET enabled=false');
+    await client.query(
+      `INSERT INTO topics(id,profile_id,name,description,include_guidance,position)
+      VALUES($1,'00000000-0000-4000-8000-000000000001','Fixture','Fixture','Fixture',100)`,
+      [topic],
+    );
+    await client.query(
+      `INSERT INTO social_discovery_sources(id,topic_id,name,url)
+      VALUES($1,$2,'Fixture','https://example.org/embed-check-fixture')`,
+      [source, topic],
+    );
+    await client.query(
+      'INSERT INTO social_discovery_citations(source_id,external_id,canonical_url) VALUES($1,$2,$3)',
+      [source, id, `https://x.com/fixture/status/${id}`],
+    );
+    assert.deepEqual(await repository.candidates(50), [id]);
+    await repository.checked(id, 'Official embed unavailable — 試験');
+    const failed = await read();
+    assert.equal(failed.error, 'Official embed unavailable — 試験');
+    assert.deepEqual(await repository.candidates(50), []);
+    for (const [offset, expected] of [
+      [1, []],
+      [0, []],
+      [-1, [id]],
+    ] as const) {
+      await client.query(
+        `UPDATE x_embed_checks SET checked_at=now()-interval '1 day'+$2*interval '1 millisecond'
+        WHERE external_id=$1`,
+        [id, offset],
+      );
+      assert.deepEqual(await repository.candidates(50), expected);
+    }
+    const stale = await read();
+    await client.query('SAVEPOINT invalid_check');
+    await assert.rejects(repository.checked(id, 'invalid\u0000diagnostic'));
+    await client.query('ROLLBACK TO SAVEPOINT invalid_check');
+    assert.deepEqual(await read(), stale);
+    assert.deepEqual(await repository.candidates(50), [id]);
+    await repository.checked(id, null);
+    const recovered = await read();
+    assert.equal(recovered.error, null);
+    assert.ok(recovered.checked_at > stale.checked_at);
+    assert.deepEqual(await repository.candidates(50), []);
+    await repository.checked(id, 'Later failure');
+    assert.equal((await read()).error, 'Later failure');
+    assert.equal(
+      (
+        await client.query(
+          'SELECT count(*)::int AS count FROM x_embed_checks WHERE external_id=$1',
+          [id],
+        )
+      ).rows[0].count,
+      1,
+    );
+  } finally {
+    await client.query('ROLLBACK');
+    client.release();
+    await pool.end();
+  }
+});

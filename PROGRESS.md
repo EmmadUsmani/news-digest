@@ -110,19 +110,6 @@ Earlier iteration 229: [archive](docs/progress-archive/2026-11-02-iteration-229.
 
 Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
 
-## 2026-11-02: iteration 234 — edition history boundaries
-
-- Started clean on main; services, health and all 32 sources healthy. No leftover work.
-- Two retained ingestion failures are historical; both sources subsequently collected successfully (50/60 items).
-- Priority items 13/7/9 await Nov 3 scheduled evidence; advanced isolated STEERING 2a coverage.
-- Pinned timestamp-before-ID ordering, exact 20-entry pagination, exhausted/negative offsets and recovery.
-- Latest reads respect persisted sort keys, tied IDs and caller mutation isolation; history retains UTC/millisecond fidelity.
-- No provider or Reddit requests. AI golden and other repository behavior gaps remain open.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (120 unit, 133 integration), `pnpm build` and `git diff --check` passed.
-- Updated TASKS/database notes; archived iteration 219 to bound PROGRESS.
-- Deployment: API/worker restarted healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues.
-- Next: observe Nov 3 14:30 UTC X discovery and 15:00 edition cost/duration; fallback timing is not AI latency evidence.
-
 ## 2026-11-02: iteration 235 — database-backed AI edition golden
 
 - Started clean on main; health, API/worker, 32 sources and four queues healthy. No leftover work.
@@ -323,4 +310,16 @@ Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 148 integration), `pnpm build`, `git diff --check` passed.
 - Initial check caught archive formatting; formatted and reran verification. Updated TASKS/database notes and archived iteration 233.
 - No provider or Reddit requests. API/worker restarted healthy; SPA 200, 32 error-free sources, four available queues and four-topic latest edition.
+- Next: observe Nov 3 all-topic X cost/yield and scheduled AI cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 252 — embed-check retry boundaries
+
+- Started clean on main; API/worker, health and 32 sources healthy; no leftover work.
+- Priority 15/13/7/9 evidence awaits Nov 3; advanced isolated STEERING 2a.
+- Pinned the strict daily embed-check cooldown at one millisecond in a non-UTC transaction.
+- Rejected diagnostic preserves the prior check; successful retry clears errors and repeat checks retain one row.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 149 integration), `pnpm build`, `git diff --check` passed.
+- Initial check caught transaction fixture setup using a nested connection; corrected it and reran checks.
+- Updated TASKS/database notes; archived iteration 234 to keep PROGRESS bounded. No provider or Reddit requests.
+- API/worker restarted healthy; SPA 200, 32 error-free sources, four available queues; all topics have recent articles and verified X posts.
 - Next: observe Nov 3 all-topic X cost/yield and scheduled AI cost/duration before acknowledging 15/13/7.

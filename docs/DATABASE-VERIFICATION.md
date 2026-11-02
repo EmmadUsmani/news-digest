@@ -314,3 +314,12 @@ item counts and observations. A PostgreSQL-rejected zero byte leaves the entire
 source status unchanged; a subsequent valid failure and empty successful poll
 recover normally. Independent source health and retained content stay unchanged.
 All assertions use disposable PostgreSQL; no provider or source requests occur.
+
+## Embed-check retry boundaries (iteration 252)
+
+`social-candidates.test.ts` pins the strict daily embed-check retry cutoff at
+one millisecond in a non-UTC transaction. Failed and successful checks both
+suppress immediate retries; a rejected zero-byte diagnostic preserves the prior
+check and its eligibility, and a valid retry clears the error. Repeated checks
+retain one row. All assertions use disposable PostgreSQL, with no X, Reddit or
+inference requests.
