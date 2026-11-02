@@ -369,3 +369,17 @@ Earlier iterations 17–22: [archive](docs/progress-archive/2026-11-01-iteration
 - `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; refreshed status screenshots and inspected mobile digest. Services rebuilt/restarted; `/healthz` healthy.
 - Live API regeneration of the prior exact window retained five AI stories per topic, identical snapshots and zero new LLM calls; prior edition reread unchanged.
 - No owner blockers. M3 remains open: evidence provenance, Sonnet allocation, scheduled Message Batches, cross-process coordination and broader evaluation.
+
+## 2026-11-02: iteration 60 — preserve summary evidence links
+
+- Started clean on main; no leftover work. API/worker, health, seventeen sources and retained digest runs healthy; schedule unchanged.
+- Editor v2 requires unique supplied evidence IDs including the selected lead; unknown/missing/duplicate IDs fail closed through existing repair/fallback. Changed editor prompts invalidate only editor caches.
+- Immutable stories copy original evidence titles, URLs, excerpts, source labels and times; Summary sources disclosures distinguish editor inputs from headline-based coverage. Historical snapshots remain unchanged.
+- Attribution is model-reported, not completeness/entailment or independent fact-checking. Added invalid-ID, supporting-input and cross-cluster persistence regressions.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and 74 isolated tests; `pnpm build` passed (existing upstream Zod warnings). Initial check stopped on formatting after a concurrent test edit; formatted and full rerun passed.
+- `pnpm evaluate:editorial` passes unchanged historical NBA replay; no new quality benchmark claimed.
+- `smoke-ingestion.ts` passed two queued live passes: 716 real URLs, seventeen healthy sources. No source changes.
+- Exact prior-window API generation produced 4/5/5/5 AI stories with evidence (NBA includes two/three-input summaries); quiet Tech selection intentionally unpadded. Identical regeneration made zero calls and matched snapshots; previous edition reread unchanged.
+- Four Sonnet calls cost $0.093172; day/month actual $0.386695, zero reservations/errors, $0.482758 daily/$14 monthly caps. Provider/models/billing unchanged.
+- `scripts/smoke-ui.ts`, `scripts/smoke-status.ts` and explicit real evidence disclosure/link checks passed desktop/mobile; screenshots refreshed and mobile evidence screenshot visually inspected.
+- Rebuilt/restarted API/worker; `/healthz` healthy. No owner blockers; next broader editorial evaluation, Sonnet allocation, scheduled Message Batches and cross-process coordination.

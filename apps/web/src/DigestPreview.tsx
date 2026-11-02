@@ -344,6 +344,33 @@ export function DigestPreview() {
                         {new Date(story.publishedAt).toLocaleString()}
                       </time>
                     </p>
+                    {!!story.evidence?.length && (
+                      <details className="coverage">
+                        <summary>
+                          Summary sources · {story.evidence.length} articles
+                        </summary>
+                        <p>
+                          Headlines and excerpts supplied to the editor.
+                          Attribution is not independent fact-checking.
+                        </p>
+                        <ul>
+                          {story.evidence.map((article) => (
+                            <li key={article.id}>
+                              <a
+                                href={article.url}
+                                target="_blank"
+                                rel="noreferrer"
+                              >
+                                {article.title}
+                              </a>
+                              {' · '}
+                              {article.sources.join(' · ')}
+                              <p>{article.excerpt}</p>
+                            </li>
+                          ))}
+                        </ul>
+                      </details>
+                    )}
                     {!!story.coverage && story.coverage.length > 1 && (
                       <details className="coverage">
                         <summary>

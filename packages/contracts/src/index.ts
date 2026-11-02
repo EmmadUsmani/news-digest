@@ -64,6 +64,18 @@ export const rankedStorySchema = z.object({
   title: z.string(),
   url: z.string().url(),
   excerpt: z.string(),
+  evidence: z
+    .array(
+      z.object({
+        id: z.string().uuid(),
+        title: z.string(),
+        url: z.string().url(),
+        excerpt: z.string(),
+        sources: z.array(z.string()),
+        publishedAt: z.string(),
+      }),
+    )
+    .optional(),
   summary: z.string().optional(),
   whyItMatters: z.string().optional(),
   imageUrl: z

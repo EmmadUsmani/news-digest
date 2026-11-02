@@ -175,6 +175,17 @@ export class PostgresPreviewRepository
                 return {
                   ...original,
                   title: edit.headline,
+                  evidence: edit.evidenceIds.map((id) => {
+                    const source = ranked.find((item) => item.id === id)!;
+                    return {
+                      id: source.id,
+                      title: source.title,
+                      url: source.url,
+                      excerpt: source.excerpt,
+                      sources: source.sources,
+                      publishedAt: source.publishedAt,
+                    };
+                  }),
                   summary: edit.summary,
                   whyItMatters: edit.whyItMatters,
                   reasons: [

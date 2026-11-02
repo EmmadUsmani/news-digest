@@ -23,6 +23,7 @@ const candidates = [
 ];
 const story = {
   id: 'one',
+  evidenceIds: ['one'],
   headline: 'Company announces model',
   summary: 'The company announced a model. Details remain limited.',
   whyItMatters: 'Builders have a new option.',
@@ -90,6 +91,10 @@ void test('invalid selection gets one repair per model then returns no result', 
   for (const output of [
     { ...valid, stories: [{ ...story, id: 'invented' }] },
     { ...valid, stories: [story, story] },
+    ...[[], ['invented'], ['one', 'one']].map((evidenceIds) => ({
+      ...valid,
+      stories: [{ ...story, evidenceIds }],
+    })),
     { ...valid, brief: [] },
     { brief: valid.brief, stories: [] },
     { ...valid, stories: [{ ...story, url: 'https://invented.example' }] },
@@ -136,4 +141,30 @@ void test('maximum escaped shortlist stays under transport input bound', async (
       100000,
   );
   assert.equal(h.calls.length, 1);
+});
+
+void test('editor retains supporting IDs outside selected stories and requires the lead ID', async () => {
+  const second = { ...candidates[0], id: 'two' };
+  const supported = {
+    ...valid,
+    stories: [{ ...story, evidenceIds: ['one', 'two'] }],
+  };
+  const h = harness([supported]);
+  assert.deepEqual(
+    (await h.editor.edit(topic, [...candidates, second], 1, 'support'))
+      ?.stories,
+    supported.stories,
+  );
+  const invalid = harness([
+    { ...valid, stories: [{ ...story, evidenceIds: ['two'] }] },
+  ]);
+  assert.equal(
+    await invalid.editor.edit(
+      topic,
+      [...candidates, second],
+      1,
+      'missing-lead',
+    ),
+    null,
+  );
 });

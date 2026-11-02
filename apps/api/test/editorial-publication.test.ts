@@ -30,6 +30,7 @@ const edit = {
   stories: [
     {
       id,
+      evidenceIds: [id],
       headline: 'New model becomes available',
       summary: 'A company launched a model. It is available today.',
       whyItMatters: 'Builders have another tool.',
@@ -43,8 +44,15 @@ async function harness(
     refused?: boolean;
     quiet?: boolean;
     disabled?: boolean;
+    supporting?: boolean;
   } = {},
 ) {
+  const support = {
+    ...candidate,
+    id: '00000000-0000-4000-8000-000000000098',
+    title: 'Independent hardware announcement',
+    url: 'https://example.org/support',
+  };
   const repository = new PostgresPreviewRepository();
   await repository.db.end();
   const stored: unknown[] = [];
@@ -69,7 +77,10 @@ async function harness(
             },
           ],
         };
-      if (sql.includes('FROM content_items')) return { rows: [candidate] };
+      if (sql.includes('FROM content_items'))
+        return {
+          rows: options.supporting ? [candidate, support] : [candidate],
+        };
       if (sql.startsWith('INSERT')) stored.push(args?.[5]);
       return { rows: [] };
     },
@@ -89,7 +100,9 @@ async function harness(
           triage: {
             async score() {
               return {
-                scores: [score],
+                scores: options.supporting
+                  ? [score, { ...score, id: support.id }]
+                  : [score],
                 unscoredIds: options.incomplete ? [id] : [],
               };
             },
@@ -98,14 +111,21 @@ async function harness(
             async edit(_topic: unknown, shortlist: unknown[]) {
               assert.equal(
                 shortlist.length,
-                1,
+                options.supporting ? 2 : 1,
                 'Semantic relevance recovers lexical false negatives',
               );
               return options.refused
                 ? null
                 : options.quiet
                   ? { ...edit, brief: [], stories: [] }
-                  : edit;
+                  : options.supporting
+                    ? {
+                        ...edit,
+                        stories: [
+                          { ...edit.stories[0], evidenceIds: [id, support.id] },
+                        ],
+                      }
+                    : edit;
             },
           },
         },
@@ -131,6 +151,16 @@ void test('publication stores semantic recovery, source provenance, editor text 
   assert.equal(topic.stories[0].excerpt, candidate.excerpt);
   assert.equal(topic.stories[0].summary, edit.stories[0].summary);
   assert.equal(topic.stories[0].coverage?.[0].title, candidate.title);
+  assert.deepEqual(topic.stories[0].evidence, [
+    {
+      id,
+      title: candidate.title,
+      url: candidate.url,
+      excerpt: candidate.excerpt,
+      sources: candidate.sources,
+      publishedAt: candidate.publishedAt.toISOString(),
+    },
+  ]);
 });
 void test('publication labels fallback and never mixes partial semantic results with ranked selections', async () => {
   for (const options of [
@@ -152,4 +182,12 @@ void test('valid quiet editorial selection stays empty without padding', async (
   const topic = (await harness({ quiet: true })).topics[0];
   assert.equal(topic.editorial?.mode, 'ai');
   assert.deepEqual(topic.stories, []);
+});
+
+void test('publication copies evidence outside headline coverage without changing the cluster', async () => {
+  const story = (await harness({ supporting: true })).topics[0].stories[0];
+  assert.equal(story.coverage?.length, 1);
+  assert.equal(story.evidence?.length, 2);
+  assert.equal(story.evidence?.[1].url, 'https://example.org/support');
+  assert.equal(story.evidence?.[1].title, 'Independent hardware announcement');
 });

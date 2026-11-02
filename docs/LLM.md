@@ -243,3 +243,19 @@ the Sonnet summaries. An identical regeneration made no new calls; the old
 fallback snapshot was unchanged. Diagnosis and recovery used four Haiku calls
 ($0.001053), bringing actual day/month spend to $0.267129, with no reservations
 or provider errors. Provider, models, pricing and caps are unchanged.
+
+### Editor evidence provenance (iteration 60)
+
+New shortlist-editor-v2 responses require nonempty, unique supplied evidence IDs
+for each selection, including its lead ID. Unknown IDs and missing lead evidence
+fail validation and follow the existing repair/fallback policy. Instructions ask
+for every input supporting the headline, summary or significance. This records
+model attribution; it does not prove completeness or factual entailment.
+
+Publication resolves IDs against the exact editor shortlist and copies original
+titles, URLs, supplied excerpts, source labels and times into optional story
+`evidence`. The UI exposes these as “Summary sources”, separately from
+headline-based related coverage. Model output cannot supply URLs. The changed
+instructions invalidate editor caches only; triage caches remain reusable.
+Historical snapshots and the v1 NBA evaluation remain unchanged and have no
+retroactively inferred evidence.
