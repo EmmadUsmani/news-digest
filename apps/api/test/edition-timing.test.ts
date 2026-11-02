@@ -2,11 +2,17 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { setTimeout } from 'node:timers/promises';
 
+import { Worker } from 'bullmq';
+
+import { AnthropicLlmAdapter } from '../src/modules/curation/adapters/anthropic';
 import { llmConfig } from '../src/modules/curation/adapters/config';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import { SocialPostEditor } from '../src/modules/curation/application/social-editor';
 import { CandidateTriage } from '../src/modules/curation/application/triage';
+import type { LlmRequest } from '../src/modules/curation/domain/llm.port';
 import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
+import { BullEditionJobs } from '../src/modules/digests/adapters/edition-jobs';
+import { generateOnDemandEdition } from '../src/modules/digests/application/on-demand-edition';
 import { PostgresPreviewRepository } from '../src/modules/digests/database/preview.repository';
 import type { Candidate } from '../src/modules/digests/domain/rank';
 
@@ -16,6 +22,16 @@ void test('four-topic edition timing includes SQL, batched triage, editing, publ
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
   assert.equal(process.env.ANTHROPIC_API_KEY, '');
   const repository = new PostgresPreviewRepository();
+  const jobs = new BullEditionJobs();
+  const connection = jobs.connection.duplicate({ maxRetriesPerRequest: null });
+  const worker = new Worker(
+    jobs.queue.name,
+    (job) =>
+      generateOnDemandEdition(repository, job.id!, job.data, (progress) =>
+        job.updateProgress(progress),
+      ),
+    { connection },
+  );
   const start = new Date('2025-01-01T00:00:00Z');
   const end = new Date('2025-01-02T00:00:00Z');
   const topicIds: string[] = [];
@@ -66,47 +82,87 @@ void test('four-topic edition timing includes SQL, batched triage, editing, publ
         async settle() {},
         async fail() {},
       };
+      let active = 0;
+      let peak = 0;
+      const requests = new Map<string, LlmRequest>();
+      const fakeComplete = async (request: LlmRequest) => {
+        await setTimeout(25);
+        const { candidates, budget } = JSON.parse(request.prompt) as {
+          candidates: { id: string }[];
+          budget?: number;
+        };
+        if (request.purpose === 'social-editor-v1') {
+          socialEdits++;
+          return {
+            text: JSON.stringify({
+              posts: candidates.slice(0, budget).map(({ id }) => ({
+                id,
+                whyItMatters: 'A synthetic launch.',
+                rationale: 'Fixture selection.',
+              })),
+            }),
+            usage: { input: 20, output: 20, cacheRead: 0, cacheWrite: 0 },
+          };
+        }
+        assert.ok(candidates.length <= 50);
+        if (request.purpose.startsWith('social')) {
+          socialScored += candidates.length;
+          socialCalls++;
+        } else {
+          scored += candidates.length;
+          calls++;
+        }
+        return {
+          text: JSON.stringify({
+            items: candidates.map(({ id }) => ({
+              id,
+              relevance: 9,
+              importance: 8,
+              event: id,
+              rationale: 'Synthetic relevant launch.',
+            })),
+          }),
+          usage: { input: 20, output: 20, cacheRead: 0, cacheWrite: 0 },
+        };
+      };
+      const adapter = new AnthropicLlmAdapter(
+        'fixture-only',
+        async (_url, init) => {
+          assert.equal(typeof init?.body, 'string');
+          const body = JSON.parse(init?.body as string) as {
+            messages: { content: string }[];
+          };
+          const request = requests.get(body.messages[0].content);
+          assert.ok(
+            request,
+            'Only registered fixture requests may reach fake HTTP',
+          );
+          active++;
+          peak = Math.max(peak, active);
+          try {
+            const result = await fakeComplete(request);
+            return new Response(
+              JSON.stringify({
+                id: 'fixture',
+                type: 'message',
+                role: 'assistant',
+                model: request.model.id,
+                content: [{ type: 'text', text: result.text }],
+                stop_reason: 'end_turn',
+                usage: { input_tokens: 20, output_tokens: 20 },
+              }),
+              { headers: { 'content-type': 'application/json' } },
+            );
+          } finally {
+            active--;
+          }
+        },
+      );
       const llm = new BudgetedLlm(
         {
-          async complete(request) {
-            await setTimeout(25);
-            const { candidates, budget } = JSON.parse(request.prompt) as {
-              candidates: { id: string }[];
-              budget?: number;
-            };
-            if (request.purpose === 'social-editor-v1') {
-              socialEdits++;
-              return {
-                text: JSON.stringify({
-                  posts: candidates.slice(0, budget).map(({ id }) => ({
-                    id,
-                    whyItMatters: 'A synthetic launch.',
-                    rationale: 'Fixture selection.',
-                  })),
-                }),
-                usage: { input: 20, output: 20, cacheRead: 0, cacheWrite: 0 },
-              };
-            }
-            assert.ok(candidates.length <= 50);
-            if (request.purpose.startsWith('social')) {
-              socialScored += candidates.length;
-              socialCalls++;
-            } else {
-              scored += candidates.length;
-              calls++;
-            }
-            return {
-              text: JSON.stringify({
-                items: candidates.map(({ id }) => ({
-                  id,
-                  relevance: 9,
-                  importance: 8,
-                  event: id,
-                  rationale: 'Synthetic relevant launch.',
-                })),
-              }),
-              usage: { input: 20, output: 20, cacheRead: 0, cacheWrite: 0 },
-            };
+          complete(request) {
+            requests.set(request.prompt, request);
+            return adapter.complete(request);
           },
         },
         ledger,
@@ -206,9 +262,31 @@ void test('four-topic edition timing includes SQL, batched triage, editing, publ
         );
       }
       const timings: number[] = [];
+      const workerTimings: number[] = [];
       for (const pass of ['cold', 'warm']) {
         const before = performance.now();
-        const snapshot = await repository.generate(start, end);
+        const queued = await jobs.enqueue(start, end);
+        let status = await jobs.find(queued.id);
+        for (
+          let attempt = 0;
+          attempt < 1000 && status?.state !== 'completed';
+          attempt++
+        ) {
+          assert.notEqual(
+            status?.state,
+            'failed',
+            'Timing job must publish successfully',
+          );
+          await setTimeout(10);
+          status = await jobs.find(queued.id);
+        }
+        assert.equal(status?.state, 'completed');
+        assert.ok(status.editionId);
+        assert.ok(status.durationMs! > 0);
+        assert.equal(status.progress?.stage, 'publishing');
+        workerTimings.push(status.durationMs!);
+        const snapshot = await repository.find(status.editionId);
+        assert.ok(snapshot);
         timings.push(Math.round(performance.now() - before));
         assert.equal(snapshot.topics.length, 4);
         assert.ok(
@@ -235,11 +313,23 @@ void test('four-topic edition timing includes SQL, batched triage, editing, publ
       assert.equal(socialCalls, 8, 'Sixty posts per topic use two batches');
       assert.equal(socialEdits, 4, 'Warm social selections reuse editor cache');
       assert.equal(editors, 8, 'Both editions edit all four topics');
+      assert.equal(active, 0);
+      assert.equal(
+        peak,
+        4,
+        'Real adapter saturates but never exceeds four HTTP calls',
+      );
       console.log(
-        `Fake full-edition baseline: stored=${volume}, triaged=${scored}, triageCalls=${calls}, coldMs=${timings[0]}, warmMs=${timings[1]}, socialTriaged=${socialScored}, socialCalls=${socialCalls}, socialEdits=${socialEdits}; 25ms fake inference, no provider/network/queue latency`,
+        `Fake full-edition baseline: stored=${volume}, triaged=${scored}, triageCalls=${calls}, coldMs=${timings[0]}, warmMs=${timings[1]}, socialTriaged=${socialScored}, socialCalls=${socialCalls}, socialEdits=${socialEdits}; workerColdMs=${workerTimings[0]}, workerWarmMs=${workerTimings[1]}, peakHttp=${peak}; real adapter + BullMQ, 25ms fake HTTP inference; no live latency claim`,
       );
     }
   } finally {
+    await worker.close();
+    await jobs.queue.drain();
+    for (const job of await jobs.queue.getJobs(['completed', 'failed']))
+      if (job.name === 'on-demand') await job.remove();
+    await connection.quit();
+    await jobs.onModuleDestroy();
     await repository.db.query(
       'DELETE FROM x_link_citations WHERE external_id=ANY($1::text[])',
       [postIds],

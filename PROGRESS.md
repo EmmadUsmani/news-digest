@@ -26,29 +26,7 @@ Earlier iterations 137–138: [archive](docs/progress-archive/2026-11-02-iterati
 
 Earlier iterations 139–140: [archive](docs/progress-archive/2026-11-02-iterations-139-140.md).
 
-## 2026-11-02: iteration 141 — Guardian US free World citations
-
-- Started clean on main; no leftover work. API/worker/health, all current sources and digest/social runs healthy; two historical ingestion failures retained. Semantic edition remains due 20:40 UTC.
-- Migration 035 connects Guardian US RSS to World and enables bounded exact-host discovery: 33 real articles, eight distinct X citations persisted with reporting provenance, all eight verified by official oEmbed. Same outlet as Guardian World, not independent coverage.
-- Two new World posts (Bernie Sanders, 2WAY) fall inside the upcoming daily window: semantic pools 9/26/3/4 versus 9/26/3/2; lexical selections still 3/5/0/0. No relevance/virality or published-selection claim.
-- France 24/PBS/HuffPost World public feeds and three pages each yielded no X citations; left unconfigured. Alternate BBC feed duplicates existing coverage. No bypass or paid calls.
-- Two original RSS entries/four original page anchors recorded for offline date/excerpt/named-link regressions. `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 150 isolated tests pass. Initial check encountered temporary unformatted probe; removed it and full rerun passed.
-- `pnpm migrate`, `pnpm build` pass (existing upstream Zod warnings). Restarted API/worker; `/healthz` healthy. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued passes, 1,252 URLs/four topics/31 healthy sources; repeat idempotent.
-- Temporary shared-client probe checked four Guardian pages and was removed. Two `verify-x-embeds.ts` passes: five plus three successes/zero failures. `screen-social-posts.ts` read-only upcoming-window report confirms counts above.
-- `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed and targeted Guardian US mobile card inspected. TASKS/docs/SOURCES updated.
-- No publication, schedule mutation, inference/discovery spend, provider/model/billing change or new owner blocker. Gaming social gap and Reddit access remain; paid X scheduling stays off.
-- Next: inspect scheduled 20:40 UTC semantic edition when due; continue relevant free social discovery.
-
-## 2026-11-02: iteration 142 — recover stalled official widgets
-
-- Started clean on main; no leftover work. API/worker/health, all 31 feeds and current digest/social runs healthy; two historical ingestion failures retained. First scheduled semantic edition remains due 20:40 UTC.
-- Official widget creation now has a 15-second deadline: stalled promises expose the existing saved-text/retry UI. Each attempt owns a detached-on-expiry target; late widget writes/results cannot overwrite a newer retry. Cleanup cancels timers on navigation.
-- Extended read-only browser replay with accelerated production deadlines and delayed widget completion; desktop/mobile confirm fallback, successful retry, no stale widget nodes, preserved text, singleton scripts and no overflow/page errors. Protocol stubs are not live media evidence.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 150 isolated tests pass. `pnpm build` passes (existing upstream Zod warnings).
-- Restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-posts.ts /tmp/iteration142-posts.jsonl`, `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass; screenshots refreshed and mobile stalled-widget card inspected.
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued live passes, 1,256 URLs/four topics/31 healthy sources; repeat idempotent. Read-only `screen-social-posts.ts` upcoming window: semantic pools 9/26/3/4, lexical picks 3/5/0/0; no relevance or virality gain claimed.
-- README/TASKS updated; source configuration unchanged. No publication, schedule mutation, inference/discovery spend or provider/model/billing change; no new owner blocker.
-- Next: inspect 20:40 UTC scheduled semantic edition. Gaming social coverage and Reddit access remain unresolved; keep paid X scheduling off.
+Earlier iterations 141–142: [archive](docs/progress-archive/2026-11-02-iterations-141-142.md).
 
 ## 2026-11-02: iteration 143 — Insider Gaming free social discovery
 
@@ -178,3 +156,14 @@ Earlier iterations 139–140: [archive](docs/progress-archive/2026-11-02-iterati
 - Verification initially caught integer instead of JSON citation fixture data; corrected. `pnpm lint:fix`, `pnpm format`, `pnpm check` pass: types/lint/format/boundaries and all 164 isolated tests. `pnpm build` passes.
 - Restarted API/worker; `/healthz` healthy, 32 sources/no errors, zero failed digest jobs, latest stored edition still has four topics. No UI/source changes; docs/SOURCES unchanged.
 - README/TASKS updated. Next: representative fake provider/worker timing; live latency still unverified, item 7 stays open.
+
+## 2026-11-02: iteration 165 — fake HTTP provider and worker timing
+
+- Started clean on main; no leftover work. API/worker/health healthy, 32 sources without errors, zero failed digest jobs; two historical ingestion failures retained.
+- Extended social-inclusive disposable-service benchmark through real Anthropic SDK serialization, adapter four-call limiter, BullMQ enqueue/worker, progress persistence and completed-edition readback. Story editor remains fake.
+- Synthetic 400 articles + 240 posts: cold/warm enqueue-to-readback 273/114 ms; worker 262/108 ms. Synthetic 1,500 stored articles + 240 posts: 349/261 ms; worker 336/252 ms. Existing cap triages 800 articles at larger volume.
+- Both volumes reach exactly four fake HTTP calls concurrently, reuse all warm article/social scores and social selection caches, and publish four five-story/five-post topics. Uses 25 ms fake HTTP inference; NOT proof of live <60s/<2min targets. No live inference spend.
+- Initial lint caught unsafe RequestInit body stringification; added explicit string assertion. `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 164 isolated tests pass. `pnpm build` passes.
+- Restarted API/worker; `/healthz` healthy; 32 sources, 1,451 stored source items, no source errors, zero failed digest jobs. Latest stored edition remains four topics.
+- README/TASKS updated; archived iterations 141–142 to keep PROGRESS small. No source/UI changes; docs/SOURCES unchanged.
+- Next: live/cache-backed provider latency evidence within verification budget; item 7 remains open. Avoid treating fake timings as live targets; Reddit follows item 7.

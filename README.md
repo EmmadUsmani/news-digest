@@ -37,14 +37,18 @@ The check command builds shared contract declarations automatically.
 The `edition-timing.test.ts` integration test prints cold/warm four-topic publication
 baselines for synthetic 400- and 1,500-article windows. It runs real database
 selection, batching, score caching, ranking and immutable publication, with fake
-triage inference and a fake story editor (25 ms per call). Each topic also has
+HTTP responses through the real Anthropic SDK adapter (25 ms per call) and a
+fake story editor (25 ms per call). Each topic also has
 60 synthetic verified X posts: real social triage, social editor validation and
 publication select five posts. Warm passes assert no new article/social triage
 calls and reuse the social editor cache. The existing 200-article/topic limit
 means only 800 of the 1,500 stored articles are triaged; all 240 posts are scored
-in eight batches. These measurements exclude provider/network latency, real
-inference limits and queue wait; they do not establish the live <60 s / <2 min
-targets. Run with `pnpm test` against disposable services, never the live database.
+in eight batches. Jobs run through BullMQ and the on-demand worker application,
+persist publication progress, and report worker duration separately from
+enqueue-to-readback timing (including queue wait). The real adapter must reach
+and stay within four concurrent HTTP calls. These measurements exclude live
+provider/network latency and rate limits; they do not establish the live
+<60 s / <2 min targets. Run with `pnpm test` against disposable services, never the live database.
 `pnpm migrate` is safe to repeat. Keep secrets only in
 `~/.config/news-digest/env` (mode 600), never in the repository.
 The API accepts `DATABASE_URL`, `REDIS_URL`, and `PORT`; defaults target the
