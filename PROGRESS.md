@@ -344,3 +344,18 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - Corrected stale editorial blocker: STEERING 3 authorizes installed Anthropic key and configured Haiku/Sonnet; next implement real capped/cached adapter and ledger before 2a/2b.
 - No app inference calls made this iteration ($0 incremental); provider/model/billing unchanged. Added ordered 2a integration infrastructure and 2b ORM tasks.
 - `smoke-scheduled-digests.ts` observed actual 23:59 UTC generation with exact 6h slot and completed run; original schedule restored. Final format/lint/diff checks passed.
+
+## 2026-11-02: iteration 52 — bounded real Anthropic transport and visible costs
+
+- Started clean on main; baseline checks, both services and `/healthz` healthy. No leftover work to recover.
+- Added official Anthropic SDK LlmPort, configured Haiku/Sonnet prices, JSON validation/one reserved repair, prompt caching and validated-result cache; no automatic SDK retries.
+- Migration 015 adds microdollar ledger/reservations, usage counters, persistent provider-month blocks and cache. Advisory locks serialize callers; uncertain/crash-left calls retain funds across months.
+- `pnpm exec tsx apps/api/scripts/smoke-anthropic.ts` scored three real stored headlines with configured Haiku: 336 input/225 output tokens, $0.000147 total today/month; identical repeat used cache without a call.
+- Added status usage/caps/reservations, monthly model calls and sanitized provider errors through a curation public facade. Published editions still use signals-v6; no editorial quality claim.
+- `pnpm check` passed types/lint/format/boundaries and all 53 tests, including mocked SDK spend-limit responses; `pnpm build` passed (existing upstream Zod warnings).
+- `pnpm exec tsx apps/api/scripts/smoke-llm-ledger.ts` passed disposable Postgres 17 concurrency, settlement, cache, usage, block rollover and uncertainty checks; never queried live DB.
+- `pnpm migrate`, `smoke-ingestion.ts` (708 real URLs/seventeen healthy sources), `smoke-previews.ts` (immutable history/windows, 5/5/5/5 selections) and `scripts/smoke-ui.ts` passed.
+- `scripts/smoke-status.ts` passed desktop/mobile real spend and synthetic error/block rendering; screenshots refreshed and mobile usage visually inspected.
+- Scheduled smoke was interrupted (143) before cleanup; verified actual 00:08 UTC edition/exact 6h window/completed job manually, restored prior 20:40 UTC/PT6H settings from retained evidence and verified Redis restoration.
+- Services rebuilt/restarted healthy. Documented safeguards/limitations in docs/LLM.md; no provider/model/billing changes or owner blockers.
+- Next: per-item semantic Haiku triage, Sonnet editing/Haiku fallback, immutable AI editions, briefs/rationale and scheduled batches; coalesce cache misses. M3 remains open.

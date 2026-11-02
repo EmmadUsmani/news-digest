@@ -67,6 +67,26 @@ async function smoke() {
         path: `docs/screenshots/status-runs-${name}.png`,
         fullPage: false,
       });
+      const usagePanel = page.getByRole('region', {
+        name: 'AI usage',
+        exact: true,
+      });
+      await usagePanel
+        .getByRole('heading', { name: 'AI usage', exact: true })
+        .waitFor();
+      assert.ok(status.llm.monthlyCapMicros <= 14000000);
+      assert.ok(
+        status.llm.todayMicros > 0,
+        'Real live probe spend must be visible',
+      );
+      await usagePanel
+        .getByText('This month (UTC):', { exact: false })
+        .waitFor();
+      await usagePanel.scrollIntoViewIfNeeded();
+      await page.screenshot({
+        path: `docs/screenshots/status-usage-${name}.png`,
+        fullPage: false,
+      });
       assert.equal(
         await page.evaluate(
           () => document.documentElement.scrollWidth <= innerWidth,
@@ -114,6 +134,9 @@ async function smoke() {
           'Missed run: more than six hours late; generate a custom window to recover coverage',
       },
     ];
+    live.llm.blockedUntil = '2027-01-01T00:00:00.000Z';
+    live.llm.availableMicros = 0;
+    live.llm.lastError = { code: 'provider-spend-limit', at: live.checkedAt };
     live.sources[0].error = 'Recorded collection failure';
     live.sources[1].lastSuccess = '2020-01-01T00:00:00.000Z';
     live.sources[2].active = false;
@@ -135,6 +158,14 @@ async function smoke() {
       'Queue paused',
     ])
       await page.getByText(text, { exact: true }).waitFor();
+    await page
+      .getByText('Provider spend limit reached. Calls stopped until', {
+        exact: false,
+      })
+      .waitFor();
+    await page
+      .getByText('Last provider error: provider-spend-limit', { exact: false })
+      .waitFor();
     await page.close();
     console.log(
       'Status desktop/mobile, real telemetry, edition links, refresh errors and synthetic failure rendering passed',

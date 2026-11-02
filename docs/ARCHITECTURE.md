@@ -229,3 +229,11 @@ the lead candidate; media does not affect scores or clustering. Historical JSON
 without the field remains valid. The SPA uses lazy, asynchronous publisher-hosted
 images, no-referrer requests, responsive uncropped sizing and a per-URL failure
 fallback. No media proxy, download worker or snapshot backfill is introduced.
+
+Iteration 52 adds the curation LLM/ledger ports, official Anthropic SDK adapter,
+transactionally serialized reservations, validated JSON cache and usage facade.
+Operations reads usage only through `curation/public`; SQL remains in curation's
+database adapters. Status displays recorded real call costs and caps. Published
+editions still use signals-v6: no automatic editorial calls are wired yet.
+See [LLM.md](LLM.md) for budgets, conservative failure handling, configuration,
+isolated database checks and the remaining pipeline work.

@@ -34,7 +34,8 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Desktop/mobile Playwright screenshots and create/reload checks.
   - [x] Data-driven topic phrase relevance, auditable rules/rejection counts, 14 labeled regression cases (iteration 11).
   - [x] Auditable quality exclusions for routine previews, schedules and discussion threads, with omission reasons (iteration 13).
-  - Next (highest priority after formatting): implement real Anthropic LlmPort with configured Haiku triage/Sonnet editing, reservations, cost ledger/cache and graceful fallbacks per STEERING 3; key is installed. Semantic relevance and reviewed previews remain unfinished.
+  - [x] Real official Anthropic SDK transport, configured models/prices, serialized Postgres reservations/ledger, validated JSON with one reserved repair, cache and provider-month blocks (iteration 52); one tiny live Haiku triage check costs $0.000147, cache reuse verified.
+  - Next (highest priority): wire per-item Haiku semantic triage and Sonnet shortlist editing into immutable editions; Sonnet allocation/Haiku fallback, briefs/summaries/rationale, non-AI labels and scheduled Message Batches remain unfinished. Coalesce concurrent cache misses. Transport verification is not a completed editorial digest.
 - [ ] M4 X posts:
   - check xAI `x_search` through the gateway
   - post discovery per topic
@@ -70,7 +71,8 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Saved daily cadence/timezone drives automatic preliminary editions, exact slot windows, bounded retries and idempotent persistence (iteration 23).
   - [x] Source/run status panel and API: source freshness/errors/counts, queue availability/workers/pause/counts, next edition, retained run states and edition links (iteration 24).
   - [x] Bounded missed-run policy: retained slots up to six hours late keep original windows; older slots skip visibly, without daily backfill; settings/status explain custom-window recovery (iteration 26).
-  - Next: bounded LLM usage/cap reporting once editorial integration is configured; durable recovery beyond retained Redis jobs.
+  - [x] Status shows real Anthropic spend/reservations, daily/monthly caps, calls per model and sanitized provider errors (iteration 52); automated editing is still pending.
+  - Next: durable recovery beyond retained Redis jobs.
     `DigestPublished` event plus notification port with a log/in-app adapter.
 - [ ] Ongoing:
   - [x] Wider NBA/Gaming publisher coverage: Yahoo NBA + Eurogamer (iteration 12), 110 additional stored URLs.
@@ -84,6 +86,7 @@ Fix regressions, broken services and stalled sources before starting new work.
   - UI polish
   - retention/backup
   - resilience
+  - Make schedule-changing smoke checks persist recovery settings and restore on termination; iteration 52 required manual restoration after signal 143.
 
 - [ ] STEERING 2a (after M3): isolated Testcontainers Postgres/Redis migration, repository/HTTP characterization, golden edition and database coverage; include `test:integration` in `check`. Never touch live DB.
 - [ ] STEERING 2b (only after 2a is green): record Drizzle decision/schema parity, back up live DB, gradually replace raw SQL behind ports and enforce boundaries.

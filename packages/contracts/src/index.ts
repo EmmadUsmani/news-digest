@@ -199,7 +199,30 @@ export type SourceCatalog = z.infer<typeof sourceCatalogSchema>;
 
 export type ScheduleSettings = z.infer<typeof scheduleSchema>;
 
+export const llmUsageSchema = z.object({
+  monthMicros: z.number().int().nonnegative(),
+  todayMicros: z.number().int().nonnegative(),
+  monthReservedMicros: z.number().int().nonnegative(),
+  todayReservedMicros: z.number().int().nonnegative(),
+  dailyCapMicros: z.number().int().nonnegative(),
+  monthlyCapMicros: z.number().int().nonnegative(),
+  availableMicros: z.number().int().nonnegative(),
+  blockedUntil: z.string().datetime().nullable(),
+  models: z.array(
+    z.object({
+      model: z.string(),
+      calls: z.number().int().nonnegative(),
+      costMicros: z.number().int().nonnegative(),
+    }),
+  ),
+  lastError: z
+    .object({ code: z.string(), at: z.string().datetime() })
+    .nullable(),
+});
+export type LlmUsage = z.infer<typeof llmUsageSchema>;
+
 export const operationsStatusSchema = z.object({
+  llm: llmUsageSchema,
   checkedAt: z.string().datetime(),
   sources: z.array(
     z.object({

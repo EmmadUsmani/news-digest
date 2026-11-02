@@ -115,3 +115,15 @@ I/O boundaries and two React loading effects have scoped, commented exemptions
 tracked in TASKS.md. Owner-controlled files are excluded from formatting.
 Use `git config blame.ignoreRevsFile .git-blame-ignore-revs` to hide the isolated
 formatting commit in local blame output.
+
+Anthropic transport and budget verification:
+
+```sh
+pnpm exec tsx --test apps/api/test/llm.test.ts
+pnpm exec tsx apps/api/scripts/smoke-llm-ledger.ts
+```
+
+The ledger check uses a fresh disposable Postgres 17 Docker container and never
+reads live DB settings. AI usage, caps and sanitized errors appear in Source &
+run status; published editions still use signal ranking. See [docs/LLM.md](docs/LLM.md)
+for configuration, remaining editorial work and the explicit paid live check.

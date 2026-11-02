@@ -5,6 +5,7 @@ import {
 import React from 'react';
 const time = (value: string | null) =>
   value ? new Date(value).toLocaleString() : 'Never';
+const dollars = (micros: number) => '$' + (micros / 1e6).toFixed(6);
 export function StatusPanel() {
   const [status, setStatus] = React.useState<OperationsStatus | null>(null);
   const [error, setError] = React.useState(false);
@@ -143,12 +144,45 @@ export function StatusPanel() {
           {!status.queues.some((queue) => queue.runs.length) && (
             <p>No retained automatic runs yet.</p>
           )}
-          <h3>Editorial review</h3>
-          <p>
-            These editions use ranking rules. LLM editorial review is not
-            connected; usage and cap reporting will appear when it is
-            implemented.
-          </p>
+          <section aria-label="AI usage">
+            <h3>AI usage</h3>
+            <p>
+              Current editions use signal ranking. AI editorial review is being
+              connected; the usage below includes live verification calls.
+            </p>
+            <p>
+              Today (UTC): {dollars(status.llm.todayMicros)} spent /{' '}
+              {dollars(status.llm.dailyCapMicros)} cap.
+              <br />
+              This month (UTC): {dollars(status.llm.monthMicros)} spent /{' '}
+              {dollars(status.llm.monthlyCapMicros)} cap.
+            </p>
+            <p>
+              {dollars(status.llm.todayReservedMicros)} reserved or awaiting
+              reconciliation. Available today:{' '}
+              {dollars(status.llm.availableMicros)}.
+            </p>
+            {status.llm.blockedUntil && (
+              <p role="status">
+                Provider spend limit reached. Calls stopped until{' '}
+                {time(status.llm.blockedUntil)}.
+              </p>
+            )}
+            <ul>
+              {status.llm.models.map((model) => (
+                <li key={model.model}>
+                  {model.model}: {model.calls} calls this month ·{' '}
+                  {dollars(model.costMicros)}
+                </li>
+              ))}
+            </ul>
+            {status.llm.lastError && (
+              <p>
+                Last provider error: {status.llm.lastError.code} ·{' '}
+                {time(status.llm.lastError.at)}
+              </p>
+            )}
+          </section>
         </>
       )}
     </details>

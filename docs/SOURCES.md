@@ -254,3 +254,10 @@ collection passes with 706 stored URLs, four topics and seventeen healthy
 sources (all last errors null). No adapters, source configuration or ranking
 signals changed in this formatting/lint iteration. Recorded ranking fixtures
 remain offline evaluation data.
+
+Iteration 52 (2026-11-02): live ingestion checks passed with 708 stored URLs and
+seventeen healthy sources. An explicit Anthropic Haiku transport check scored
+three real stored headlines, validated IDs/importance bounds and cached the result
+for $0.000147. Anthropic is an editorial dependency, not another content source;
+these verification scores are not published selections or evidence of ranking
+quality. Automatic editions still use signal ranking.

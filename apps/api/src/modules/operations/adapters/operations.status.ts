@@ -2,6 +2,7 @@ import { Injectable, OnModuleDestroy } from '@nestjs/common';
 import { Queue } from 'bullmq';
 
 import { database } from '../../../libs/db/connections';
+import { readLlmUsage } from '../../curation/public/usage';
 import { OperationsReader } from '../domain/operations.reader';
 
 @Injectable()
@@ -108,7 +109,12 @@ export class OperationsStatus
         }
       }),
     );
-    return { checkedAt: new Date().toISOString(), sources, queues };
+    return {
+      checkedAt: new Date().toISOString(),
+      sources,
+      queues,
+      llm: await readLlmUsage(this.db),
+    };
   }
   async onModuleDestroy() {
     await Promise.all(this.queues.map((queue) => queue.close()));
