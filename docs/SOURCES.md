@@ -996,3 +996,33 @@ social request, paid discovery, inference or publication was needed for this UI.
 - First two original feed entries recorded in `fixtures/gematsu.xml` pin
   headlines, publication times, article hosts, bounded excerpts and absent X
   citations. Fixtures are offline evidence, not live content.
+
+## Iteration 140 — Kotaku free Gaming citations (2026-11-02)
+
+- **Live:** `https://kotaku.com/rss` supplies 20 stored articles, connected to
+  the original Gaming topic by migration 034. Includes reporting, commentary,
+  guides and lists; collection does not imply selection. Feed has no X links.
+- Three explicit public article probes returned 200: Skyblivion lawsuit,
+  Super Mario Bros. speedrun and leaked Portal prequel. The first two expose
+  three distinct named X citations; the third contains none. Shared-client
+  re-fetch persisted citations with article/source provenance. Exact-host
+  `kotaku.com` discovery now uses existing publisher rotation, eight-page cap,
+  three-day article window and persistent one-day failed-host cooldown.
+- Official oEmbed verified Skyblivion `2116315667078996211`, orange
+  `2116763103912161559` and SummoningSalt `2116778943940628612`.
+  Their decoded timestamps precede Nov 1 20:40 UTC: no new candidate for the
+  upcoming daily edition, engagement measurement or virality claim.
+- First two original feed entries and one original speedrun embed block are
+  recorded for offline date/host/excerpt and named-citation regressions.
+  Fixtures are not live evidence or production seeds.
+- Public Wccftech RSS also returned 20 items/no X links; three sampled pages
+  returned 200 and one exposed an already-known Phantom Blade Zero citation.
+  **Rejected for this expansion**, left unconfigured. Existing VGC feed was
+  re-probed (10 items/no feed X links); its configuration is unchanged.
+- Two queued ingestion passes: 1,220 URLs/four topics/30 healthy sources,
+  repeated collection idempotent. Bounded embed pass: eight successes/zero
+  failures, including refreshes and the three Kotaku citations.
+- Read-only upcoming-window screening: semantic pools 9/26/3/2 and lexical
+  selections 3/5/0/0. Gaming's two additional candidates are unrelated existing
+  source citations, not these older Kotaku posts; semantic eligibility does not
+  establish relevance. No paid discovery, inference or publication.

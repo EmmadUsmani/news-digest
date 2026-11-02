@@ -340,3 +340,16 @@ Earlier iterations 87–100: [archive](docs/progress-archive/2026-11-02-iteratio
 - Restarted API/worker; `/healthz` healthy. `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed and targeted mobile Gematsu card inspected.
 - Updated TASKS/docs/SOURCES. No publication, schedule mutation, inference/discovery spend or provider/model/billing change; Anthropic $0.408415 and X $0.023382. No new owner blocker.
 - Next: inspect 20:40 UTC scheduled semantic edition. Gaming/World social gaps and Reddit access persist; keep paid X scheduling off.
+
+## 2026-11-02: iteration 140 — Kotaku free Gaming citations
+
+- Started clean on main; no leftover work. API/worker/health, current sources and digest runs healthy; two historical ingestion failures retained. Semantic edition remains due 20:40 UTC.
+- Migration 034 connects Kotaku RSS (20 real articles) and exact-host bounded page discovery after three public pages returned 200. Two sampled pages expose three named X citations, persisted with article/source provenance; all three officially verified.
+- All three cited posts precede upcoming daily window; no fresh-selection or virality gain claimed. Existing page caps/rotation/cooldowns apply. Wccftech probe found only an already-known citation; left unconfigured.
+- Original two-entry RSS and speedrun embed fragment recorded for offline dates/hosts/excerpts/exact citation regression; fixtures are not live data.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 148 isolated tests pass. `pnpm migrate`, `pnpm build` pass (existing upstream Zod warnings).
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued live passes, 1,220 URLs/four topics/30 healthy sources; repeat idempotent. Temporary shared-client probe stored three citations and was removed. `verify-x-embeds.ts`: eight successes/zero failures, including refreshes.
+- `screen-social-posts.ts` upcoming window: semantic pools 9/26/3/2, lexical selections 3/5/0/0; extra Gaming candidates come from existing sources, not older Kotaku citations. No publication/inference.
+- Restarted API/worker; `/healthz` healthy. `scripts/smoke-ui.ts`, `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed and targeted Kotaku mobile card inspected.
+- TASKS/docs/SOURCES updated. Spend unchanged: Anthropic $0.408415, X $0.023382. No provider/model/billing or schedule changes, new owner blocker, or bot-protection bypass.
+- Next: inspect scheduled 20:40 UTC semantic edition. Gaming/World social gaps and Reddit access persist; paid X scheduling stays off.

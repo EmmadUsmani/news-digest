@@ -27,6 +27,7 @@ void test('recorded RSS and Atom normalize real headlines, dates and safe links'
     'al-jazeera.xml',
     'aftermath.xml',
     'gematsu.xml',
+    'kotaku.xml',
     'npr-world.xml',
     'guardian-world.xml',
   ]) {
@@ -428,6 +429,22 @@ void test('recorded Gematsu RSS preserves release reporting and has no inferred 
   assert.ok(
     items.every((item) => new URL(item.url).hostname === 'www.gematsu.com'),
   );
+  assert.ok(
+    items.every(
+      (item) => item.excerpt.length > 0 && item.excerpt.length <= 1500,
+    ),
+  );
+  assert.ok(items.every((item) => item.xLinks.length === 0));
+});
+
+void test('recorded Kotaku feed preserves dates without inventing page citations', async () => {
+  const items = parseFeed(await fixture('kotaku.xml'));
+  assert.equal(
+    items[1].title,
+    'Team Behind Fan-Made Oblivion Remake Face Lawsuit From Former Contributor',
+  );
+  assert.equal(items[1].publishedAt, '2026-11-01T21:19:05.000Z');
+  assert.ok(items.every((item) => new URL(item.url).hostname === 'kotaku.com'));
   assert.ok(
     items.every(
       (item) => item.excerpt.length > 0 && item.excerpt.length <= 1500,

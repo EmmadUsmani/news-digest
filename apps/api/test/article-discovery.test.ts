@@ -245,3 +245,19 @@ void test('recorded Yahoo article citation yields named verification URL without
     ],
   );
 });
+
+void test('recorded Kotaku speedrun embed preserves named X citation without fetching X', async () => {
+  const html = await readFile(
+    'apps/api/test/fixtures/kotaku-article-x.html',
+    'utf8',
+  );
+  const pages = new RiverDiscovery({ get: async () => html });
+  assert.deepEqual(await pages.collect('https://kotaku.com/recorded'), [
+    {
+      externalId: '2116763103912161559',
+      url: 'https://x.com/i/web/status/2116763103912161559',
+      verificationUrl:
+        'https://twitter.com/acid4096dx/status/2116763103912161559',
+    },
+  ]);
+});

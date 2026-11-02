@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:media="http://search.yahoo.com/mrss/"
+	>
+
+<channel>
+	<title>Kotaku</title>
+	<atom:link href="https://kotaku.com/feed" rel="self" type="application/rss+xml" />
+	<link>https://kotaku.com/</link>
+	<description>Gaming Reviews, News, Tips and More.</description>
+	<lastBuildDate>Sun, 01 Nov 2026 22:40:51 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	
+	<item>
+		<title>Patrick Stewart, Our Captain Of Multimedia CD-ROM Edutainment</title>
+		<link>https://kotaku.com/patrick-stewart-our-captain-of-multimedia-cd-rom-edutainment-2000752105</link>
+					<comments>https://kotaku.com/patrick-stewart-our-captain-of-multimedia-cd-rom-edutainment-2000752105#respond</comments>
+		
+		<dc:creator><![CDATA[Zack Kotzer]]></dc:creator>
+		<pubDate>Sun, 01 Nov 2026 22:40:51 +0000</pubDate>
+				<category><![CDATA[Culture]]></category>
+		<category><![CDATA[1990s]]></category>
+		<category><![CDATA[Patrick Stewart]]></category>
+		<category><![CDATA[Retro]]></category>
+		<category><![CDATA[Star Trek]]></category>
+		<guid isPermaLink="false">https://kotaku.com/?p=2000752105</guid>
+
+					<description><![CDATA[While there is still much to parse from the multifaceted performer, we should take a minute to remember the scholar who lived inside our computer encyclopedias]]></description>
+		
+					<wfw:commentRss></wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<media:content url="https://kotaku.com/app/uploads/2026/11/nineworldspatrickstewart.jpg" medium="image" type="image/jpeg" width="1117" height="716" />
+		<media:thumbnail url="https://kotaku.com/app/uploads/2026/11/nineworldspatrickstewart.jpg" width="1117" height="716" />
+		<enclosure url="https://kotaku.com/app/uploads/2026/11/nineworldspatrickstewart.jpg" type="image/jpeg" length="271209" />
+	</item><item>
+		<title>Team Behind Fan-Made Oblivion Remake Face Lawsuit From Former Contributor</title>
+		<link>https://kotaku.com/team-behind-fan-made-oblivion-remake-face-lawsuit-from-former-contributor-2000752100</link>
+					<comments>https://kotaku.com/team-behind-fan-made-oblivion-remake-face-lawsuit-from-former-contributor-2000752100#respond</comments>
+		
+		<dc:creator><![CDATA[Zack Kotzer]]></dc:creator>
+		<pubDate>Sun, 01 Nov 2026 21:19:05 +0000</pubDate>
+				<category><![CDATA[Culture]]></category>
+		<category><![CDATA[Bethesda]]></category>
+		<category><![CDATA[Fan game]]></category>
+		<category><![CDATA[The Elder Scrolls IV: Oblivion Remastered]]></category>
+		<category><![CDATA[The Elder Scrolls V: Skyrim]]></category>
+		<guid isPermaLink="false">https://kotaku.com/?p=2000752100</guid>
+
+					<description><![CDATA[Community projects are no stranger to legal threats, but in a rare instance the <i>'Skyblivion'</i> developers are facing litigation from one of their own]]></description>
+		
+					<wfw:commentRss></wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<media:content url="https://kotaku.com/app/uploads/2026/11/skyblivion-1280x849.jpg" medium="image" type="image/jpeg" width="1280" height="849" />
+		<media:thumbnail url="https://kotaku.com/app/uploads/2026/11/skyblivion-1280x849.jpg" width="1280" height="849" />
+		<enclosure url="https://kotaku.com/app/uploads/2026/11/skyblivion-1280x849.jpg" type="image/jpeg" length="384150" />
+	</item>
+</channel></rss>
