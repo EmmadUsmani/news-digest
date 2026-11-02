@@ -37,3 +37,14 @@ High line coverage can coexist with missing error paths, JSON shapes, transactio
 outcomes or boundary assertions. No coverage threshold currently certifies the
 ORM migration as safe. Continue characterization through repository ports and
 HTTP, and finish AI golden coverage before declaring STEERING 2a complete.
+
+## Usage reader characterization (iteration 224)
+
+`usage-purpose.test.ts` also pins an empty ledger, UTC day/month inclusion
+(including an offset timestamp at midnight), per-model ordering and totals,
+failed-reservation exclusion, pending and older uncertain holds, latest error
+selection, and current-month versus expired provider blocks. All assertions use
+the reader API against disposable PostgreSQL; no provider requests are made.
+The 123-test integration run measures this source reader at 100% lines and
+92.86% branches (previously 99.12% and 42.86%). The iteration 223 table above
+remains the historical baseline. AI golden and other behavior gaps remain open.

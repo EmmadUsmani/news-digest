@@ -90,16 +90,6 @@ Iteration 207: [archive](docs/progress-archive/iteration-207.md).
 
 Iteration 208: [archive](docs/progress-archive/iteration-208.md).
 
-## 2026-11-02: iteration 209 — explain manual edition reserve limits
-
-- Started clean on main; API/worker, health and 32 sources healthy. No leftover work.
-- Manual creation now shows active scheduled protection, remaining other-run AI allowance and the possibility of labeled non-AI ranking.
-- Refreshes telemetry on page load and before submission; failed status reads show an explicit warning. Notices persist through job completion/failure.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (113 unit/113 isolated integration), `pnpm build`, `git diff --check` passed.
-- `pnpm exec tsx scripts/smoke-manual-reserve.ts` passed desktop/mobile protected, submission-refresh, released and unavailable states using synthetic browser responses; saved live screenshots.
-- Live reads: four queues, 32 sources without errors, latest real edition four topics/10 posts; health DB/Redis true. No paid inference, live jobs or Reddit requests.
-- Updated reserve decision/TASKS and archived iteration 193. Reserve enforcement remains OFF; next: enable protection before Nov 3 15:00 UTC and measure scheduled cost/duration.
-
 ## 2026-11-02: iteration 210 — enable scheduled AI budget protection
 
 - Started clean on main; services, health and 32 sources healthy. No leftover work.
@@ -263,3 +253,14 @@ Iteration 208: [archive](docs/progress-archive/iteration-208.md).
 - Read-only timing report confirms next scheduled edition Nov 3 15:00 UTC; previous 856 ms fallback is not AI latency evidence.
 - Compacted TASKS and archived iteration 208 to bound orientation files. Next: observe Nov 3 14:30 X discovery and 15:00 edition; continue 2a behavior gaps while waiting.
 - Deployment check: API/worker restarted active; health DB/Redis true, SPA 200, 32 sources without errors, four queues available; retained real edition has four topics, 20 stories and 10 posts. Final format check and `git diff --check` passed.
+
+## 2026-11-02: iteration 224 — usage ledger characterization
+
+- Started clean on main; API/worker, health and 32 sources healthy. No leftover work.
+- Items 13/7/9 await Nov 3 scheduled evidence; advanced STEERING 2a with disposable-container reader assertions.
+- Pinned empty usage, UTC day/month boundaries and offset timestamp, model totals/order/allocation, failed reservations, old uncertain holds, latest errors and expired/current provider blocks.
+- Source usage.reader coverage rises from 42.86% to 92.86% branches and 100% lines; characterization is still incomplete, including AI golden. No application/UI change.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (120 unit, 123 isolated integration), `pnpm build`, `git diff --check` passed. No inference or Reddit requests.
+- Updated TASKS/database verification notes; archived iteration 209 to bound PROGRESS.
+- Read-only timing: next Nov 3 15:00 UTC; prior 856 ms fallback is not AI latency evidence. Next: observe 14:30 X search and scheduled edition cost/duration.
+- Deployment: API/worker restarted active; DB/Redis healthy, SPA 200, 32 sources without errors, four queues available; retained real edition has four topics, 20 stories and 10 posts.
