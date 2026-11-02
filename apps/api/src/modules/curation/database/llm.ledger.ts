@@ -1,4 +1,4 @@
-import type { Pool } from 'pg';
+import type { Pool, PoolClient } from 'pg';
 
 import {
   budgetAllowance,
@@ -18,6 +18,7 @@ import { readFullAiEditionCosts } from './edition-cost.reader';
 // Supplied by trusted composition, never by request purpose or HTTP input.
 export interface ScheduledLedgerAdmission {
   policy: ScheduledReservePolicy;
+  hasOccurrence?(client: PoolClient, day: string): Promise<boolean>;
   context():
     { runId: string; attempt: number; editionRunId: string } | undefined;
 }
@@ -90,6 +91,13 @@ export class PostgresLlmLedger implements LlmLedger {
           [period.dayStart],
         );
         const context = this.scheduled.context();
+        const noOccurrence =
+          !slot &&
+          this.scheduled.hasOccurrence !== undefined &&
+          !(await this.scheduled.hasOccurrence(
+            client,
+            now.toISOString().slice(0, 10),
+          ));
         const scheduledRun =
           !this.verification &&
           purpose !== 'verification' &&
@@ -105,7 +113,7 @@ export class PostgresLlmLedger implements LlmLedger {
             todayUsed: totals.today,
             recentFullAiEditionCosts: await readFullAiEditionCosts(client, now),
             // Missing lifecycle state fails closed until the scheduler reconciles it.
-            state: slot?.state ?? 'pending',
+            state: slot?.state ?? (noOccurrence ? 'not-scheduled' : 'pending'),
             scheduledRun,
           },
           this.scheduled.policy,

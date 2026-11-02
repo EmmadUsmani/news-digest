@@ -6,7 +6,7 @@ export interface ScheduledReservePolicy {
   headroom: number;
 }
 export type ScheduledEditionState =
-  'pending' | 'running' | 'retrying' | 'succeeded' | 'failed'; // Definitive failure only; retries retain protection.
+  'pending' | 'running' | 'retrying' | 'succeeded' | 'failed' | 'not-scheduled'; // Definitive failure only; retries retain protection.
 
 export interface ScheduledReserveInput {
   dailyCap: number;
@@ -33,9 +33,14 @@ export function scheduledReserveAllowance(
   if (!Number.isFinite(policy.headroom) || policy.headroom < 1)
     throw new Error('Invalid scheduled reserve headroom');
   if (
-    !['pending', 'running', 'retrying', 'succeeded', 'failed'].includes(
-      input.state,
-    )
+    ![
+      'pending',
+      'running',
+      'retrying',
+      'succeeded',
+      'failed',
+      'not-scheduled',
+    ].includes(input.state)
   )
     throw new Error('Invalid scheduled edition state');
 
@@ -53,7 +58,10 @@ export function scheduledReserveAllowance(
     policy.configuredMicros ??
     (measured ? Math.ceil(measured * policy.headroom) : input.dailyCap);
   const sizedReserve = Math.min(input.dailyCap, target);
-  const released = input.state === 'succeeded' || input.state === 'failed';
+  const released =
+    input.state === 'succeeded' ||
+    input.state === 'failed' ||
+    input.state === 'not-scheduled';
   const reserveMicros = released ? 0 : sizedReserve;
   // Keep the full reserve until terminal completion. Scheduled calls still obey
   // the ordinary monthly/daily/model caps; this policy never adds funds.

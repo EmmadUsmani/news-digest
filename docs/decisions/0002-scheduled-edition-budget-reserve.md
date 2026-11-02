@@ -234,3 +234,19 @@ the released funds within the ordinary cap. A running prior-UTC-day identity
 cannot access today's protected funds. These checks make no provider requests.
 Verified no-occurrence-day release and manual/Status visibility remain unfinished;
 production enforcement stays off.
+
+## Verified no-occurrence admission (iteration 207)
+
+Production admission now resolves the saved schedule when today's lifecycle row
+is absent. Only a verified absence of an occurrence releases the reserve; a
+missing or invalid schedule throws, and any existing lifecycle identity keeps
+its normal state policy. The profile adapter uses `FOR SHARE` in the ledger's
+transaction so a concurrent settings update cannot install an occurrence before
+admitted spend commits. Resolution uses the ledger's PostgreSQL UTC date.
+
+Disposable-Postgres coverage uses the actual LA fall-back no-occurrence schedule
+with a frozen resolver date, verifies the adjacent day's occurrence, row-lock
+exclusion of settings updates, full daily allowance (and cap), preservation of
+pending/running identities, and invalid settings failure. Production composition
+also verifies missing-state protection on occurrence days and resolver wiring.
+Enforcement remains OFF pending manual/Status visibility and enablement.

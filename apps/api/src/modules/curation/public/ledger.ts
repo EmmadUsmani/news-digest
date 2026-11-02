@@ -1,5 +1,6 @@
 import type { Pool } from 'pg';
 
+import { hasBudgetDayOccurrence } from '../../profiles/public/budget-day';
 import { scheduledReserveConfig } from '../adapters/config';
 import { PostgresLlmLedger } from '../database/llm.ledger';
 import type { BudgetCaps } from '../domain/budget';
@@ -19,7 +20,11 @@ export function configuredLlmLedger(
     caps,
     verification,
     config.enabled
-      ? { policy: config.policy, context: scheduledLedgerContext }
+      ? {
+          policy: config.policy,
+          context: scheduledLedgerContext,
+          hasOccurrence: hasBudgetDayOccurrence,
+        }
       : undefined,
   );
 }

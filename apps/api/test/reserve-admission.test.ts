@@ -11,6 +11,7 @@ import {
   withEditionRun,
   withScheduledAttempt,
 } from '../src/modules/curation/public/scheduled-context';
+import { hasBudgetDayOccurrence } from '../src/modules/profiles/public/budget-day';
 
 void test('reserve admission serializes competing spend and fences scheduled privileges by identity and attempt', async () => {
   const db = database();
@@ -238,6 +239,119 @@ void test('lifecycle transitions and admission share lock ordering; yesterday ca
       'DELETE FROM scheduled_ai_budget_days WHERE run_id=ANY($1::text[])',
       [[runId, oldRunId]],
     );
+    await db.end();
+  }
+});
+
+void test('verified no-occurrence releases missing slots only and locks the saved schedule', async () => {
+  const db = database();
+  const budgets = new PostgresScheduledBudgetRepository(db);
+  const reader = await db.connect();
+  const writer = await db.connect();
+  const {
+    rows: [clock],
+  } = await db.query<{ now: Date }>('SELECT clock_timestamp() AS now');
+  const day = clock.now.toISOString().slice(0, 10);
+  const profileId = '00000000-0000-4000-8000-000000000001';
+  const {
+    rows: [original],
+  } = await db.query<{ cadence: string; timezone: string }>(
+    'SELECT cadence,timezone FROM digest_schedules WHERE profile_id=$1',
+    [profileId],
+  );
+  const {
+    rows: [baseline],
+  } = await db.query<{ used: number }>(
+    `SELECT COALESCE(sum(COALESCE(cost_micros,reserved_micros)),0)::float8 AS used
+     FROM llm_calls WHERE status <> 'failed'
+     AND (created_at >= $1::date OR status IN ('pending','uncertain'))`,
+    [day],
+  );
+  const caps = { monthly: 30e6, dailyMax: baseline.used + 100000 };
+  const request = {
+    model: llmConfig({}).haiku,
+    purpose: 'manual-editor',
+    runId: 'no-occurrence-edition',
+    instructions: '',
+    prompt: '',
+    maxOutputTokens: 1,
+  };
+  const options = {
+    policy: { configuredMicros: 100000, headroom: 1.5 },
+    context: () => undefined,
+    // Frozen DST day exercises the real persisted-schedule resolver; ledger
+    // money and lifecycle continue to use the actual PostgreSQL clock.
+    hasOccurrence: (client: import('pg').PoolClient) =>
+      hasBudgetDayOccurrence(client, '2026-11-01'),
+  };
+  const ledger = new PostgresLlmLedger(db, caps, false, options);
+  const runId = 'no-occurrence-slot';
+  try {
+    await db.query(
+      `UPDATE digest_schedules SET cadence='30 16 * * *',timezone='America/Los_Angeles' WHERE profile_id=$1`,
+      [profileId],
+    );
+    await reader.query('BEGIN');
+    assert.equal(await hasBudgetDayOccurrence(reader, '2026-11-01'), false);
+    assert.equal(await hasBudgetDayOccurrence(reader, '2026-11-02'), true);
+    // A concurrent settings update cannot invalidate the admission snapshot.
+    await writer.query('BEGIN');
+    await writer.query("SET LOCAL lock_timeout='100ms'");
+    await assert.rejects(
+      writer.query(
+        `UPDATE digest_schedules SET cadence='0 7 * * *' WHERE profile_id=$1`,
+        [profileId],
+      ),
+      { code: '55P03' },
+    );
+    await writer.query('ROLLBACK');
+    await reader.query('COMMIT');
+    assert.ok(await ledger.reserve(request, 100000));
+    assert.equal(await ledger.reserve(request, 1), null); // Still obeys daily cap.
+    await db.query('DELETE FROM llm_calls WHERE run_id=$1', [request.runId]);
+    await budgets.register(clock.now, runId);
+    assert.equal(await ledger.reserve(request, 1), null); // Existing identity wins.
+    const claimed = await budgets.claim(runId);
+    assert.ok(claimed);
+    assert.equal(await ledger.reserve(request, 1), null);
+    await db.query('DELETE FROM scheduled_ai_budget_days WHERE run_id=$1', [
+      runId,
+    ]);
+    await db.query(
+      `UPDATE digest_schedules SET timezone='invalid-zone' WHERE profile_id=$1`,
+      [profileId],
+    );
+    await assert.rejects(ledger.reserve(request, 1), /Invalid IANA timezone/);
+    await db.query(
+      `UPDATE digest_schedules SET cadence='0 7 * * *',timezone='UTC' WHERE profile_id=$1`,
+      [profileId],
+    );
+    const production = configuredLlmLedger(db, caps, false, {
+      LLM_SCHEDULED_RESERVE_ENABLED: '1',
+      LLM_SCHEDULED_RESERVE_MICROS: '100000',
+    });
+    assert.equal(await production.reserve(request, 1), null); // Today's occurrence needs a slot.
+    await db.query(
+      `UPDATE digest_schedules SET timezone='invalid-zone' WHERE profile_id=$1`,
+      [profileId],
+    );
+    await assert.rejects(
+      production.reserve(request, 1),
+      /Invalid IANA timezone/,
+    );
+  } finally {
+    await reader.query('ROLLBACK');
+    await writer.query('ROLLBACK');
+    reader.release();
+    writer.release();
+    await db.query(
+      'UPDATE digest_schedules SET cadence=$2,timezone=$3 WHERE profile_id=$1',
+      [profileId, original.cadence, original.timezone],
+    );
+    await db.query('DELETE FROM llm_calls WHERE run_id=$1', [request.runId]);
+    await db.query('DELETE FROM scheduled_ai_budget_days WHERE run_id=$1', [
+      runId,
+    ]);
     await db.end();
   }
 });

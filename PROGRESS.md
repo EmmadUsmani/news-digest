@@ -72,16 +72,6 @@ Iteration 188: [archive](docs/progress-archive/2026-11-02-iteration-188.md).
 
 Iteration 189: [archive](docs/progress-archive/2026-11-02-iteration-189.md).
 
-## 2026-11-02: iteration 191 — X discovery ledger boundary and rollback characterization
-
-- Started clean on main; no leftover work. API/worker/health healthy, 32 sources without current errors; two historical ingestion failures unchanged.
-- Added disposable-Postgres tests for inclusive UTC day/month starts, microsecond exclusions, explicit-offset old holds, failed-call exclusion and exact monthly cap admission/release.
-- Injected a fixture-only provider-block constraint failure to prove reservation transitions roll back atomically; retry persists depletion across new ledger readers and rejects further reservations or closed-call changes.
-- `pnpm test:integration` passed 95/95; `pnpm format`, `pnpm lint:fix`, `pnpm build` and `git diff --check` passed. Full `pnpm check` passed 99 unit/95 integration tests.
-- Updated README/TASKS. Restarted API/worker: health DB/Redis true, SPA 200, queues available, 32 sources without errors and latest edition four topics/10 posts. No paid inference, live content/settings writes or UI changes; browser verification unnecessary.
-- Next: remaining repository characterization, nonempty SQL golden and database coverage before ORM work. Reddit access/live AI timing blockers persist; paid scheduling follows Reddit.
-- Push initially rejected: owner steering commit e16b300 arrived remotely. Fetched/merged without rewriting history; new items 13/14 override prior next steps: scheduled AI budget reserve first, Reddit parked/no HTTP, then scheduled timing and X discovery. Updated TASKS; lower-priority DB work pauses.
-
 ## 2026-11-02: iteration 192 — scheduled AI reserve policy
 
 - Started clean on main; API/worker/health healthy, all 32 sources without current errors. No leftover work. Reddit already unscheduled; no Reddit HTTP or paid inference used.
@@ -249,3 +239,15 @@ Iteration 189: [archive](docs/progress-archive/2026-11-02-iteration-189.md).
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (113 unit/111 isolated integration), `pnpm build`, `git diff --check` passed.
 - Live reads: four queues, 32 sources without errors, latest edition four topics/10 posts. API/worker restarted healthy after push.
 - Next: verified no-occurrence-day release, manual/Status visibility, then enforcement enablement before Nov 3 15:00 UTC.
+
+## 2026-11-02: iteration 207 — release verified no-occurrence days
+
+- Started clean on main; API/worker, health and 32 sources healthy. No leftover work.
+- Production admission resolves the saved schedule under the ledger transaction when today's lifecycle row is absent; only a verified no-occurrence day releases funds.
+- Shared row lock fences concurrent settings updates; missing/invalid settings fail closed, existing pending/running identities retain protection, and daily caps still apply.
+- Disposable-Postgres coverage verifies the LA DST no-occurrence/adjacent day, settings lock, admission cap and production resolver wiring; no provider calls.
+- First integration run caught an incorrect test method name; corrected before the final full check.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (113 unit/112 isolated integration), `pnpm build`, `git diff --check` passed.
+- Live reads: four queues, 32 sources without errors, latest real edition four topics/10 posts; SPA 200, health DB/Redis true.
+- Updated reserve decision/TASKS; archived iteration 191. No UI changes, paid inference or Reddit HTTP requests.
+- Reserve enforcement remains OFF. Next: manual/Status visibility, then enablement before Nov 3 15:00 UTC.
