@@ -649,3 +649,14 @@ Existing editions and scheduled retries retain their frozen snapshots.
 The two real World citations remain verified, but empty positive phrase rules
 still prevent lexical publication; semantic triage and final picks remain next.
 No new discovery call, inference spend or edition publication in this step.
+
+### Social final-pick service (iteration 105)
+
+A standalone social editor now accepts at most ten scored verified-post inputs,
+selects supplied IDs and returns context/rationale without replacing original
+text. It uses the shared Anthropic reservations/cache and Sonnet-to-Haiku
+fallback under a separate social purpose. Offline fake responses cover identity,
+quiet selections, malformed outputs, unsupported absence and budget refusals.
+This is not live editorial evidence: publication still uses lexical selection,
+and no discovery or inference call was made. Next connect semantic triage,
+shortlist construction and immutable per-topic post editorial metadata.

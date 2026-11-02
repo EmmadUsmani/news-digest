@@ -4,6 +4,7 @@ import { AnthropicLlmAdapter } from '../adapters/anthropic';
 import { llmConfig } from '../adapters/config';
 import { BudgetedLlm } from '../application/budgeted-llm';
 import { ShortlistEditor } from '../application/editor';
+import { SocialPostEditor } from '../application/social-editor';
 import { CandidateTriage } from '../application/triage';
 import { PostgresLlmLedger } from '../database/llm.ledger';
 
@@ -17,6 +18,8 @@ const services = new WeakMap<
   {
     triage: CandidateTriage;
     editor: ShortlistEditor;
+    socialTriage: CandidateTriage;
+    socialEditor: SocialPostEditor;
     validationDiagnostics: BudgetedLlm['validationDiagnostics'];
   }
 >();
@@ -34,6 +37,8 @@ export function editorialServices(db: Pool) {
     validationDiagnostics: () => llm.validationDiagnostics(),
     triage: new CandidateTriage(llm, ledger, config.haiku),
     editor: new ShortlistEditor(llm, config.sonnet, config.haiku),
+    socialTriage: new CandidateTriage(llm, ledger, config.haiku, 'social'),
+    socialEditor: new SocialPostEditor(llm, config.sonnet, config.haiku),
   };
   services.set(db, result);
   return result;

@@ -393,3 +393,16 @@ Earlier iterations 51–60: [archive](docs/progress-archive/2026-11-01-iteration
 - `report-x-discovery.ts` confirms unchanged $0.023382, two verified World citations/no unavailable checks; cache-only `triage-social-posts.ts 2026-11-01T00:00:00Z 2026-11-02T06:30:00Z` returns 25 Tech/14 NBA/zero Gaming/two World, all unscored. No new edition or inference.
 - `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; refreshed screenshots and inspected mobile status. Retained scheduled digest runs completed, next slot unchanged.
 - Updated TASKS/docs/SOURCES. No new owner blocker, provider/model/billing change or spending. World lexical publication still rejects empty positive rules; next integrate semantic triage/Sonnet post picks. Paid scheduling stays off; Gaming weak, Reddit blocked.
+
+## 2026-11-02: iteration 105 — bounded social final-pick editor
+
+- Started clean on main; no leftover work. API/worker/health, seventeen sources and retained digest runs healthy; no triage repair needed.
+- Added standalone social editor: at most ten scored verified-post inputs, supplied-ID selections, context/rationale, quiet windows, original text preserved. Separate social purpose/cache; shared Sonnet reservations and capped Haiku fallback, repair/provider blocks unchanged.
+- Shared editorial composition exposes social triage/editor. Publication is deliberately still lexical until shortlist orchestration and immutable post-editorial metadata are connected; no claim of live semantic picks.
+- Fake-response regressions cover cache reuse, identity, refusal/fallback, unknown/duplicate IDs, forbidden rewrites, field bounds, unsupported absence and invalid inputs; no tests call live inference.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and 126 isolated tests pass; `pnpm build` passes (existing upstream Zod warnings).
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued live passes, 817 real URLs, four topics, seventeen healthy sources.
+- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed and mobile status inspected.
+- Initial status URL used `/api/operations/status` (404); corrected to `/api/status`. Retained scheduled runs complete; next slot unchanged. No edition published or inference spend.
+- Anthropic day/month $0.408415; X $0.023382, no reservations/provider errors. Provider/models/billing unchanged; updated TASKS/docs/SOURCES; no new owner blocker.
+- Next: connect social semantic shortlist/final picks to immutable publication, then measure Gaming discovery. Keep paid scheduling off; Gaming weak, Reddit blocked.
