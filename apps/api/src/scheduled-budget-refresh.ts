@@ -25,6 +25,11 @@ export async function refreshScheduledBudget(
     } else if (expected.runId !== runId) {
       await budgets.reconcilePending(day, expected.runId, slot, runId);
     }
+    // Publication can commit before lifecycle completion (or before rollout).
+    // Reconcile before declaring a never-claimed slot missed after downtime.
+    const observed = await budgets.read(day);
+    if (observed?.runId === runId)
+      await budgets.reconcilePublished(day, runId, observed.attempt);
     // Match the worker's bounded recovery window, including its exact boundary.
     // CAS preserves claims/retries and identities replaced by newer settings.
     const recovery = scheduledSlot(slot.getTime(), now.getTime());

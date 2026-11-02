@@ -150,7 +150,7 @@ scheduler refresh deletes only the previously observed pending, attempt-zero
 identity under the ledger lock (iteration 200). Newer replacements, claims,
 retries and terminal outcomes survive a stale refresh. Restoring a same-day
 schedule can register a new identity; no-occurrence days require no reserve.
-Missed slots and previously published slots still need reconciliation. Ledger admission and
+Missed and published-slot reconciliation follow below. Ledger admission and
 manual/Status visibility remain unfinished; this is not live budget protection.
 
 Iteration 201 bounds never-claimed pending protection to the worker's six-hour
@@ -159,4 +159,14 @@ failed only when strictly more than six hours late. The shared-ledger lock and
 identity/state/attempt-zero predicate preserve concurrent claims, retries,
 replacements and terminal outcomes. Restart after the cutoff records failure
 without inventing an edition or AI outcome. Exact-cutoff slots remain eligible.
-Already-published reconciliation and ledger admission remain unfinished.
+Published-slot reconciliation follows below; ledger admission remains unfinished.
+
+Iteration 202 reconciles committed editions by the exact scheduled publication key
+before applying the missed-slot cutoff. Under the shared ledger lock, only the
+observed identity and attempt in pending/running/retrying state can succeed.
+The immutable snapshot supplies the same full-AI/mixed/fallback classification
+used by the worker. Startup after publication recovers without generating a new
+edition or inventing an attempt; manual/other-key editions and terminal records
+are ignored. A concurrent redelivery or settings replacement fences stale recovery.
+No retained Redis job is needed for this publication evidence. Ledger enforcement
+and manual/Status visibility remain unfinished.

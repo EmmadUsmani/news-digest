@@ -1,37 +1,9 @@
 import type { DigestPreview } from '@digest/contracts';
 
-import type {
-  ScheduledBudgetOutcome,
-  ScheduledBudgetRepository,
-} from './modules/curation/domain/scheduled-budget.port';
+import type { ScheduledBudgetRepository } from './modules/curation/domain/scheduled-budget.port';
+import { scheduledOutcome } from './modules/curation/domain/scheduled-budget-outcome';
 
-export function scheduledOutcome(
-  edition: DigestPreview,
-): ScheduledBudgetOutcome {
-  const sections = edition.topics.flatMap((topic) => [
-    topic.editorial,
-    topic.postEditorial,
-  ]);
-  const full =
-    sections.length > 0 &&
-    sections.every(
-      (section) => section?.mode === 'ai' && section.unscoredIds.length === 0,
-    );
-  const anyAi = sections.some((section) => section?.mode === 'ai');
-  return {
-    editionId: edition.id,
-    mode: full ? 'full-ai' : anyAi ? 'mixed' : 'fallback',
-    reason: full
-      ? 'All article and social sections completed AI editing and triage.'
-      : [
-          ...new Set(
-            sections.map(
-              (section) => section?.reason ?? 'Editorial evidence unavailable.',
-            ),
-          ),
-        ].join(' '),
-  };
-}
+export { scheduledOutcome } from './modules/curation/domain/scheduled-budget-outcome';
 
 // Called only by the scheduled BullMQ processor, after queue lock acquisition.
 // attemptsStarted includes stalled redeliveries, unlike attemptsMade.

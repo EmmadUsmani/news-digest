@@ -29,6 +29,12 @@ export interface ScheduledBudgetRepository {
   removePending(budgetDay: string, expectedRunId: string): Promise<boolean>;
   // Definitively miss only an observed, never-claimed slot.
   missPending(budgetDay: string, expectedRunId: string): Promise<boolean>;
+  // Recover committed publication without inventing an attempt or overwriting active redelivery.
+  reconcilePublished(
+    budgetDay: string,
+    expectedRunId: string,
+    expectedAttempt: number,
+  ): Promise<boolean>;
   read(budgetDay: string): Promise<ScheduledBudgetDay | null>;
   // Recovery is permitted only with queue evidence of a redelivered job and
   // the observed running attempt; compare-and-swap fences the old worker.

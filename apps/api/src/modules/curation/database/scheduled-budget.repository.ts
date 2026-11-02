@@ -1,3 +1,4 @@
+import type { DigestPreview } from '@digest/contracts';
 import type { Pool, PoolClient } from 'pg';
 
 import type {
@@ -5,6 +6,7 @@ import type {
   ScheduledBudgetOutcome,
   ScheduledBudgetRepository,
 } from '../domain/scheduled-budget.port';
+import { scheduledOutcome } from '../domain/scheduled-budget-outcome';
 
 const fields = `budget_day::text AS "budgetDay", scheduled_at AS "scheduledAt",
  run_id AS "runId", state, attempt, outcome`;
@@ -103,6 +105,35 @@ export class PostgresScheduledBudgetRepository implements ScheduledBudgetReposit
          updated_at=clock_timestamp()
          WHERE budget_day=$1 AND run_id=$2 AND state='pending' AND attempt=0`,
         [budgetDay, expectedRunId],
+      );
+      return result.rowCount === 1;
+    });
+  }
+
+  async reconcilePublished(
+    budgetDay: string,
+    expectedRunId: string,
+    expectedAttempt: number,
+  ) {
+    if (
+      !expectedRunId.trim() ||
+      !Number.isSafeInteger(expectedAttempt) ||
+      expectedAttempt < 0
+    )
+      throw new Error('Invalid published scheduled budget identity');
+    return this.locked(async (client) => {
+      const edition = await client.query<{ snapshot: DigestPreview }>(
+        'SELECT snapshot FROM digest_previews WHERE scheduled_key=$1',
+        [expectedRunId],
+      );
+      if (!edition.rows[0]) return false;
+      const outcome = scheduledOutcome(edition.rows[0].snapshot);
+      const result = await client.query(
+        `UPDATE scheduled_ai_budget_days SET state='succeeded',outcome=$4,
+         updated_at=clock_timestamp()
+         WHERE budget_day=$1 AND run_id=$2 AND attempt=$3
+         AND state IN ('pending','running','retrying')`,
+        [budgetDay, expectedRunId, expectedAttempt, JSON.stringify(outcome)],
       );
       return result.rowCount === 1;
     });

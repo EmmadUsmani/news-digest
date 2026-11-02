@@ -64,15 +64,7 @@ Iteration 183: [archive](docs/progress-archive/2026-11-02-iteration-183.md).
 
 Iteration 184: [archive](docs/progress-archive/2026-11-02-iteration-184.md).
 
-## 2026-11-02: iteration 186 — ingestion repository characterization
-
-- Started clean on main; no leftover work. API/worker/health healthy, 32 sources without errors, queues available; two historical ingestion failures unchanged.
-- Added disposable-Postgres characterization of connected/enabled source eligibility, empty/latest views, shared observations, URL dedupe, five-item order/limit and betting exclusion.
-- Pinned timezone normalization, stable item identity, title/excerpt updates and merged engagement JSON while original author/image/publication time persist.
-- Covered 300-character failure truncation, preserved last success, atomic batch rollback of inserts and existing updates, empty-store recovery and disabled-topic visibility. Assertions use repository methods; SQL only seeds/cleans fixtures and inspects fields lacking public readers.
-- `pnpm test:integration` passed 89/89; `pnpm format`, `pnpm lint:fix`, full `pnpm check` (99 unit/89 integration) and `pnpm build` passed. No paid inference, live mutations, source or UI changes; browser verification unnecessary.
-- Read-only timing report confirms 848 micros available and latest real edition four topics/10 X posts; 856 ms fallback run is not live AI latency evidence. Reddit denial remains unresolved; paid scheduling follows Reddit.
-- Restarted API/worker; health DB/Redis true, SPA 200, all four queues available and 32 sources without errors. Updated README/TASKS. Next: remaining repository characterization, nonempty SQL golden and database coverage before any ORM swap.
+Iteration 186: [archive](docs/progress-archive/2026-11-02-iteration-186.md).
 
 ## 2026-11-02: iteration 187 — Reddit observation characterization
 
@@ -228,3 +220,15 @@ Iteration 184: [archive](docs/progress-archive/2026-11-02-iteration-184.md).
 - Restarted API/worker active; health DB/Redis true, SPA 200, four queues, 32 sources without errors, latest real edition four topics/10 posts.
 - Updated README, reserve decision and TASKS; archived iteration 185 to bound orientation size. No UI changes.
 - Reserve enforcement remains UNFINISHED: already-published reconciliation, shared-lock admission/races and manual/Status visibility before Nov 3 15:00 UTC.
+
+## 2026-11-02: iteration 202 — recover already-published scheduled slots
+
+- Started clean on main; health/services and 32 sources healthy. No leftover work.
+- Scheduler refresh reconciles exact scheduled publication keys before missed-slot termination, including startup after downtime; no Redis evidence required.
+- Shared-ledger lock plus identity/attempt/nonterminal predicates preserve replacements, redeliveries and terminal outcomes. Manual/other-key editions cannot release protection.
+- Reuses the worker's conservative full-AI/mixed/fallback snapshot classification without generating a new edition or inventing an attempt.
+- Added isolated Postgres recovery/fencing coverage; fixture corrections respected positive digest windows and immutable snapshots using transaction savepoints. Initial doc-format check corrected too.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (109 unit/109 isolated integration), `pnpm build`, `git diff --check` passed.
+- Restarted API/worker active; `/healthz` DB/Redis true, SPA 200, four queues, 32 sources without errors; latest real edition four topics/10 posts.
+- Updated README, reserve decision and TASKS; archived iteration 186. No UI changes, paid inference or Reddit requests.
+- Reserve enforcement remains UNFINISHED: shared-lock ledger admission/races, then manual/Status visibility before Nov 3 15:00 UTC.

@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import type { DigestPreview } from '@digest/contracts';
+import type { Pool } from 'pg';
 
 import { database } from '../src/libs/db/connections';
 import { readFullAiEditionCosts } from '../src/modules/curation/database/edition-cost.reader';
@@ -811,6 +812,150 @@ void test('missed unclaimed slots terminate after six hours while claims, retrie
     await assert.rejects(repo.missPending(day, ' '));
   } finally {
     await clean();
+    await db.end();
+  }
+});
+
+void test('published scheduled snapshots recover pending/running/retry slots before cutoff reconciliation with identity and attempt fencing', async () => {
+  const db = database();
+  const client = await db.connect();
+  await client.query('BEGIN');
+  await client.query('SAVEPOINT fixture');
+  // Lifecycle transactions nest in one disposable fixture transaction.
+  const nested = {
+    query: (sql: string, values?: unknown[]) =>
+      client.query(
+        sql === 'BEGIN'
+          ? 'SAVEPOINT lifecycle'
+          : sql === 'COMMIT'
+            ? 'RELEASE SAVEPOINT lifecycle'
+            : sql === 'ROLLBACK'
+              ? 'ROLLBACK TO SAVEPOINT lifecycle'
+              : sql,
+        values,
+      ),
+    release() {},
+  };
+  const repo = new PostgresScheduledBudgetRepository({
+    query: nested.query,
+    connect: async () => nested,
+  } as unknown as Pool);
+  const day = '2092-04-05';
+  const slot = new Date(day + 'T07:00:00Z');
+  const profile = {
+    id: 'published-profile',
+    name: 'Synthetic',
+    schedule: {
+      cadence: '0 7 * * *',
+      timezone: 'UTC',
+      coverageWindow: 'P1D',
+      storyBudget: 5,
+      postBudget: 5,
+    },
+  };
+  const runId = `${profile.id}:${slot.getTime()}`;
+  const editionId = crypto.randomUUID();
+  const ai = { mode: 'ai', unscoredIds: [] };
+  const clean = () =>
+    client.query('DELETE FROM scheduled_ai_budget_days WHERE budget_day=$1', [
+      day,
+    ]);
+  const publish = async (topics: unknown[], key: string | null = runId) => {
+    await client.query('ROLLBACK TO SAVEPOINT fixture');
+    return client.query(
+      `INSERT INTO digest_previews(id,profile_id,created_at,window_start,window_end,snapshot,scheduled_key)
+     VALUES($1,'00000000-0000-4000-8000-000000000001',$2,$2::timestamptz-interval '1 day',$2,$3,$4)`,
+      [editionId, slot, JSON.stringify({ id: editionId, topics }), key],
+    );
+  };
+  try {
+    await repo.register(slot, runId);
+    assert.equal(await repo.reconcilePublished(day, runId, 0), false);
+    // A manual edition and another scheduled identity are never evidence.
+    for (const key of [null, runId + '-other']) {
+      await publish([{ editorial: ai, postEditorial: ai }], key);
+      await repo.register(slot, runId);
+      assert.equal(await repo.reconcilePublished(day, runId, 0), false);
+    }
+    for (const mode of ['full-ai', 'mixed', 'fallback'] as const) {
+      await clean();
+      const topics = [
+        {
+          editorial:
+            mode === 'fallback'
+              ? { mode: 'non-ai', reason: 'Synthetic budget exhausted' }
+              : ai,
+          postEditorial:
+            mode === 'full-ai'
+              ? ai
+              : { mode: 'non-ai', reason: 'Synthetic budget exhausted' },
+        },
+      ];
+      await publish(topics);
+      // Startup long after recovery cutoff must recover publication, not mark failure.
+      await refreshScheduledBudget(
+        repo,
+        async () => profile,
+        new Date(day + 'T20:00:00Z'),
+      );
+      const recovered = await repo.read(day);
+      assert.equal(recovered?.state, 'succeeded');
+      assert.equal(recovered?.attempt, 0);
+      assert.equal(recovered?.outcome?.mode, mode);
+      assert.equal(recovered?.outcome?.editionId, editionId);
+      assert.match(
+        recovered.outcome.reason,
+        mode === 'full-ai' ? /All article/ : /Synthetic budget/,
+      );
+      assert.equal(await repo.reconcilePublished(day, runId, 0), false);
+      assert.deepEqual(await repo.read(day), recovered);
+    }
+    for (const state of ['running', 'retrying'] as const) {
+      await clean();
+      await repo.register(slot, runId);
+      const claim = await repo.claim(runId);
+      assert.ok(claim);
+      if (state === 'retrying')
+        await repo.finishAttempt(runId, claim.attempt, 'retrying');
+      assert.equal(await repo.reconcilePublished(day, runId, 0), false);
+      assert.equal(
+        await repo.reconcilePublished(day, runId, claim.attempt),
+        true,
+      );
+      assert.equal(
+        await repo.finishAttempt(runId, claim.attempt, 'failed'),
+        false,
+      );
+    }
+    // A redelivery changes the attempt between observation and reconciliation.
+    await clean();
+    await repo.register(slot, runId);
+    const first = await repo.claim(runId);
+    const second = await repo.claim(runId, first.attempt);
+    assert.ok(second);
+    assert.equal(
+      await repo.reconcilePublished(day, runId, first.attempt),
+      false,
+    );
+    assert.equal((await repo.read(day))?.state, 'running');
+    assert.equal(
+      await repo.reconcilePublished(day, runId, second.attempt),
+      true,
+    );
+    // Settings replacement and definitive failure cannot be overwritten.
+    await clean();
+    await repo.register(slot, runId);
+    await repo.reconcilePending(day, runId, slot, 'replacement');
+    assert.equal(await repo.reconcilePublished(day, runId, 0), false);
+    await clean();
+    await repo.register(slot, runId);
+    await repo.missPending(day, runId);
+    assert.equal(await repo.reconcilePublished(day, runId, 0), false);
+    await assert.rejects(repo.reconcilePublished(day, '', 0));
+    await assert.rejects(repo.reconcilePublished(day, runId, -1));
+  } finally {
+    await client.query('ROLLBACK');
+    client.release();
     await db.end();
   }
 });

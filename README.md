@@ -68,8 +68,9 @@ UTC-day slots and 100 combinations compared with BullMQ's repeat strategy.
 The scheduler registers the current UTC day before refreshing its BullMQ schedule,
 using stable publication keys and compare-and-swap settings reconciliation. Tests
 cover delayed snapshots racing registration/reconciliation, restarts, day rollover
-and protection of claimed/terminal work. Worker lifecycle and live ledger reserve
-enforcement remain unfinished.
+and protection of claimed/terminal work. Published-slot recovery tests cover
+AI/mixed/fallback snapshots, manual-key exclusion, restart after cutoff and
+attempt fencing. Live ledger reserve enforcement remains unfinished.
 `pnpm test` runs both commands; integration tests remain part of `pnpm check`.
 Both runners replace inherited database/Redis URLs, clear Anthropic/xAI keys and
 live-inference opt-in. Docker is required only for integration tests; there is no
@@ -354,6 +355,9 @@ outcomes. Terminal queue failures are reconciled on failed events and from retai
 failed jobs during scheduler refresh, with attempt fencing against redelivery.
 A schedule change to a UTC day without an occurrence removes only its observed,
 never-claimed budget identity; concurrent claims and replacements are preserved.
+Refresh also recovers committed scheduled editions before the missed-slot cutoff,
+using immutable publication evidence and identity/attempt fencing under the ledger
+lock. Manual editions cannot release scheduled protection.
 Remaining reserve integration is tracked in
 [decision 0002](docs/decisions/0002-scheduled-edition-budget-reserve.md); ledger
 enforcement is not active yet.
