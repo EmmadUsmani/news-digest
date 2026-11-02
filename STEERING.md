@@ -287,23 +287,60 @@ owner explicitly asks to come back to it. Most of it is long-form content the
 owner doesn't want in the feed, and it's hard to summarize, so it isn't worth
 the effort now. Mark it `deferred` in docs/SOURCES.md.
 
-### Discovering X posts
+### Discovering X posts (owner decision 2026-11-02; replaces MISSION.md's X order)
 
-- Follow MISSION.md's order: first check whether xAI Grok's `x_search`
-  through the exe.dev gateway can find top/viral posts per topic and window,
-  with post URLs/IDs and engagement. Use curated account lists per topic
-  (stored as data) to improve discovery.
-- Use only official embeds to render posts (`publish.twitter.com/oembed` +
-  `widgets.js`). Never scrape x.com or use unofficial mirrors.
-- **Cost:** the exe.dev gateway has no provider spend cap.
-  - Record every xAI call in the LLM ledger with `purpose=x-discovery`.
-  - Enforce an app cap of **$0.50/day** for X discovery.
-  - Measure the real cost per day and record it in PROGRESS.md.
-  - If X discovery needs more than that, or `x_search` can't return what's
-    needed, add the exact options and costs to NEEDS_FROM_HUMAN.md and keep
-    going with Reddit. The options are a direct xAI key in a
-    workspace with a hard monthly limit, or `X_BEARER_TOKEN` for the X API
-    with a cap.
+Two layers. Build layer 1 first, because it is free and needs nothing from the
+owner.
+
+**Layer 1: free link harvesting (no X access needed).** Humans already pick out
+the viral posts and link to them from places we can read legitimately:
+- Reddit, especially r/nba, where insider tweets are often top posts.
+- Techmeme and Memeorandum, which include tweets in their rivers.
+- Hacker News.
+- Publisher articles we already fetch, which often embed tweets.
+
+What to do:
+- Extract `x.com/…/status/…` and `twitter.com/…/status/…` URLs from these.
+- Dedupe by post ID.
+- Score by how many independent places cite the post and by the citing
+  item's own engagement (Reddit score, HN points).
+- Render with the official embed.
+
+**Layer 2: xAI `x_search` with a DIRECT xAI key.**
+- The owner will add `XAI_API_KEY` to `~/.config/news-digest/env`. The xAI
+  team is on prepaid credits only, which xAI enforces as a hard cap: requests
+  are rejected when credits run out.
+- **Do not route xAI through the exe.dev gateway.** It has no spend cap.
+- Until the key exists, build the adapter against recorded fixtures (item 4)
+  and check for the key each iteration.
+- **Use the cheapest Grok model that supports `x_search`.** Check the models
+  page; for example `grok-4.3` at $1.25 in / $2.50 out per 1M tokens, not
+  grok-4.6 or grok-4.7.
+- **Pricing (since 2026-09-21):** $5 per 1,000 posts fetched and $10 per
+  1,000 profiles fetched, plus tokens.
+  - Parent posts, quoted posts and thread posts all count. Repeats are not
+    de-duplicated.
+  - So: avoid profile searches and thread fetches, set `max_turns` low (1–2),
+    and use `from_date`/`to_date` for the window.
+  - Use `allowed_x_handles` (up to 20) with curated per-topic account lists
+    stored as data.
+  - Image and video understanding stay off.
+- **Volume:** about 1–2 searches per topic per day, aimed at the most viral
+  posts. Collect post IDs and whatever engagement Grok returns, then verify
+  and render each post with the official embed.
+- **Budget:**
+  - Record every call (tokens plus posts and profiles fetched) in the ledger
+    with `purpose=x-discovery`.
+  - App cap: $0.40/day and $12/month for X discovery.
+  - Treat xAI's "credits depleted" rejection as budget exhausted, with no
+    retry loops. Show X spend on the status page.
+- **If this proves too costly or too weak:** write the measurements (cost per
+  day and quality of picks per topic) in NEEDS_FROM_HUMAN.md and keep going
+  with layer 1 and Reddit. Don't adopt unofficial third-party X data APIs or
+  any scraping without explicit owner approval in STEERING.md.
+
+**Rendering:** use only the official embed (`publish.twitter.com/oembed` +
+`widgets.js`). Never scrape x.com.
 
 ### Rendering (digest page)
 
