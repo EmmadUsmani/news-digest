@@ -188,3 +188,12 @@ Earlier iterations 175–176: [archive](docs/progress-archive/2026-11-02-iterati
 - `pnpm test:integration` passed 93/93; production `pnpm build` passed. Initial full check found archive formatting; corrected with `pnpm format` before rerunning.
 - Updated README/TASKS and archived iterations 175–176 to keep PROGRESS below 25 KB. Remaining repository characterization, nonempty SQL golden and database coverage precede ORM work; Reddit access/live AI timing remain blocked.
 - Final `pnpm check` passed 99 unit/93 integration tests; `pnpm lint:fix` and `git diff --check` passed. Restarted API/worker; health DB/Redis true, SPA 200, all queues available, 32 sources without errors and latest edition four topics/10 posts. Browser verification unnecessary for test/docs changes.
+
+## 2026-11-02: iteration 191 — X discovery ledger boundary and rollback characterization
+
+- Started clean on main; no leftover work. API/worker/health healthy, 32 sources without current errors; two historical ingestion failures unchanged.
+- Added disposable-Postgres tests for inclusive UTC day/month starts, microsecond exclusions, explicit-offset old holds, failed-call exclusion and exact monthly cap admission/release.
+- Injected a fixture-only provider-block constraint failure to prove reservation transitions roll back atomically; retry persists depletion across new ledger readers and rejects further reservations or closed-call changes.
+- `pnpm test:integration` passed 95/95; `pnpm format`, `pnpm lint:fix`, `pnpm build` and `git diff --check` passed. Full `pnpm check` passed 99 unit/95 integration tests.
+- Updated README/TASKS. Restarted API/worker: health DB/Redis true, SPA 200, queues available, 32 sources without errors and latest edition four topics/10 posts. No paid inference, live content/settings writes or UI changes; browser verification unnecessary.
+- Next: remaining repository characterization, nonempty SQL golden and database coverage before ORM work. Reddit access/live AI timing blockers persist; paid scheduling follows Reddit.
