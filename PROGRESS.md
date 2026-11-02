@@ -48,16 +48,7 @@ Earlier iterations 173–174: [archive](docs/progress-archive/2026-11-02-iterati
 
 Earlier iterations 175–176: [archive](docs/progress-archive/2026-11-02-iterations-175-176.md).
 
-## 2026-11-02: iteration 177 — per-topic live coverage on Status
-
-- Started clean on main; no leftover work. Health/services healthy, 32 sources/no current errors, all workers present; two historical ingestion failures retained.
-- Added rolling 24-hour distinct article and verified X/Reddit counts by publication time, connected feeds and feeds healthy in the past hour. Includes paused topics; excludes undated posts/unverified citations. Counts describe collection scope, not relevance.
-- Isolated SQL fixture test covers duplicate observations/citations, platform ID collisions, window edges, undated/unverified posts, source health and paused/empty topics; rolls back. Fixed ambiguous fixture column after first test run failed.
-- `pnpm format`, `pnpm lint:fix`, final `pnpm check` passed (178 tests), `pnpm build` passed. Earlier checks caught formatting while new script/archive were being written; final run clean.
-- Restarted API/worker; `pnpm exec tsx scripts/smoke-topic-coverage.ts` passed read-only desktop/mobile checks with screenshots; inspected mobile. `/healthz` DB/Redis true, all workers present, latest edition four topics/20 stories/10 X posts.
-- Live 15:38 UTC baseline (articles/X/Reddit): Tech 198/34/0, NBA 74/35/0, Gaming 188/22/0, World 174/9/0. All 32 feeds healthy. NBA weakest in articles, World weakest in X. No new sources, inference calls or edition writes.
-- Updated TASKS/SOURCES and item 10 acknowledgment; archived iterations 163–164 to keep PROGRESS below 25 KB.
-- Next: legitimate Reddit access/publication evidence and live AI latency remain blocked; item 9 paid scheduling follows Reddit per owner order. Coverage now informs the next source/discovery decision.
+Iteration 177: [archive](docs/progress-archive/2026-11-02-iteration-177.md).
 
 ## 2026-11-02: iteration 178 — bound explicit development inference
 
@@ -198,3 +189,13 @@ Earlier iterations 175–176: [archive](docs/progress-archive/2026-11-02-iterati
 - Updated README/TASKS. Restarted API/worker: health DB/Redis true, SPA 200, queues available, 32 sources without errors and latest edition four topics/10 posts. No paid inference, live content/settings writes or UI changes; browser verification unnecessary.
 - Next: remaining repository characterization, nonempty SQL golden and database coverage before ORM work. Reddit access/live AI timing blockers persist; paid scheduling follows Reddit.
 - Push initially rejected: owner steering commit e16b300 arrived remotely. Fetched/merged without rewriting history; new items 13/14 override prior next steps: scheduled AI budget reserve first, Reddit parked/no HTTP, then scheduled timing and X discovery. Updated TASKS; lower-priority DB work pauses.
+
+## 2026-11-02: iteration 192 — scheduled AI reserve policy
+
+- Started clean on main; API/worker/health healthy, all 32 sources without current errors. No leftover work. Reddit already unscheduled; no Reddit HTTP or paid inference used.
+- Added pure scheduled-reserve sizing/admission policy: largest recent full-AI edition cost plus configurable headroom, bounded explicit override, conservative whole-day protection without measurements, and terminal-only release.
+- Five focused tests cover rounding, sizing, exhausted funds, scheduled privilege, retry protection, release and invalid inputs. This is policy groundwork: live ledger enforcement is NOT implemented yet.
+- Documented the integration contract in decision 0002 and updated TASKS. Archived iteration 177 to keep orientation small.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (104 unit/95 isolated integration), `pnpm build` and `git diff --check` passed. No UI changes; browser verification unnecessary.
+- Restarted API/worker: health DB/Redis true, SPA 200, queues available, 32 sources without errors; latest real edition four topics/10 posts.
+- Next, urgently: durable UTC-day scheduled state and measured-cost reader, enforce policy under the shared ledger lock with isolated race tests, then manual/Status visibility. Item 13 remains open; no live reserve protection claim.

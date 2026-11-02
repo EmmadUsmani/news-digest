@@ -1,0 +1,44 @@
+# Scheduled edition Anthropic reserve
+
+Owner instruction: STEERING item 13, 2026-11-02. The scheduled edition must
+retain funds even when manual editions and verification share the daily cap.
+
+## Sizing and admission policy (iteration 192)
+
+`curation/domain/scheduled-reserve.ts` defines the pure policy. It is preparation;
+the live ledger does not enforce this reserve yet.
+
+- Use the largest measured recent **complete full-AI edition** cost, with
+  configurable headroom (initial recommendation: 1.5). Include article and social
+  inference for the edition, not just the editor. Partial/fallback editions must
+  not establish the cost of a full edition.
+- Round up to integer microdollars. An explicit configured microdollar amount
+  overrides measured sizing; zero deliberately disables the reserve.
+- Bound the reserve by the current daily cap. Without a positive measured cost,
+  reserve the entire daily cap until a measurement or explicit override exists.
+  Cache-only zero-cost editions cannot predict fresh inference costs.
+- Other spend may use at most `dailyCap - reserve - todayUsed`, further bounded
+  by the ordinary remaining monthly/daily allowance. Verification retains its
+  additional $0.05 cap. This conservative rule keeps the whole reserve during
+  scheduled execution, even as its own calls settle.
+- Scheduled work uses the ordinary remaining allowance and existing model
+  allocation. A reserve grants no extra money and cannot bypass provider blocks.
+- Pending, running and retrying scheduled work retain protection. Only successful
+  completion or definitive failure releases it. A failed attempt with retries
+  remaining is not definitive failure.
+
+## Remaining integration (required before claiming protection)
+
+The ledger must evaluate this policy inside advisory transaction lock 756282,
+with its database UTC clock, durable scheduled-run identity and state. Determine
+which scheduled slot belongs to each UTC budget day from the current saved cron
+and timezone; never hard-code 15:00 UTC. Settings changes, DST, midnight-crossing
+runs, retries, skipped obsolete jobs and worker restarts require isolated tests.
+A request's arbitrary purpose text must not grant scheduled privileges.
+
+Read full-AI historical edition costs without paid provider calls. Persist
+scheduled lifecycle transitions and distinguish final failure from BullMQ retry.
+Expose reserve/other-spend limits and the last scheduled AI/fallback outcome on
+Status, with an explicit explanation in manual edition flows when limited.
+Verify admission and lifecycle races through disposable Postgres/Redis tests.
+Use the next scheduled edition for actual cost and speed evidence; no paid trial.
