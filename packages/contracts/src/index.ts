@@ -217,6 +217,7 @@ export const digestPreviewSchema = z.object({
           'verified-lexical-recency-v1',
           'verified-semantic-editor-v1',
           'verified-lexical-recency-v2',
+          'verified-lexical-engagement-v3',
           'verified-semantic-editor-v2',
         ])
         .optional(),

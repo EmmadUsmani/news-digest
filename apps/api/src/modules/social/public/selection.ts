@@ -9,6 +9,8 @@ import { postDuplicateKey } from '../adapters/post-duplicate-key';
 import { shortlistReddit } from '../application/shortlist-reddit';
 import { readRedditObservations } from '../database/reddit.repository';
 import { assessPostEligibility, assessPostSafety } from '../domain/eligibility';
+import { xEngagementSignal } from '../domain/x-engagement-ranking';
+import type { XReportedEngagement } from '../domain/x-search.port';
 import { snapshotRedditPost } from './reddit-snapshot';
 
 // Use the publisher's transaction so source configuration, posts and stories
@@ -31,9 +33,16 @@ export async function selectTopicPosts(
     publishedAt: Date;
     embedHtml: string;
     metrics: Record<string, number>;
+    reportedEngagement: XReportedEngagement | null;
   }>(
     `SELECT p.external_id AS "externalId",p.canonical_url AS url,p.author,p.author_url AS "authorUrl",
-      p.published_at AS "publishedAt",p.embed_html AS "embedHtml",p.metrics
+      p.published_at AS "publishedAt",p.embed_html AS "embedHtml",p.metrics,
+      (SELECT c.reported_engagement FROM x_search_citations c
+       WHERE c.external_id=p.external_id AND c.topic_id=$1
+         AND c.reported_engagement IS NOT NULL
+         AND (c.reported_engagement->>'observedAt')::timestamptz <= $3
+       ORDER BY (c.reported_engagement->>'observedAt')::timestamptz DESC,c.call_id
+       LIMIT 1) AS "reportedEngagement"
      FROM social_posts p WHERE p.platform='x' AND p.published_at >= $2 AND p.published_at < $3 AND (
        EXISTS(SELECT 1 FROM x_link_citations c JOIN topic_source_connections t ON t.source_id=c.source_id
               WHERE c.external_id=p.external_id AND t.topic_id=$1)
@@ -48,7 +57,23 @@ export async function selectTopicPosts(
   );
   const selected: SelectedPost[] = [];
   const texts = new Set<string>();
-  for (const row of result.rows) {
+  const ranked = result.rows
+    .map((row) => ({
+      row,
+      signal: xEngagementSignal(
+        row.reportedEngagement,
+        row.externalId,
+        row.publishedAt,
+        end,
+      ),
+    }))
+    .sort(
+      (a, b) =>
+        b.signal.bonus - a.signal.bonus ||
+        b.row.publishedAt.getTime() - a.row.publishedAt.getTime() ||
+        a.row.externalId.localeCompare(b.row.externalId),
+    );
+  for (const { row, signal } of ranked) {
     const text = officialPostText(row.embedHtml);
     const publishedAt = row.publishedAt.toISOString();
     const assessment = (
@@ -69,7 +94,8 @@ export async function selectTopicPosts(
       metrics: { ...row.metrics },
       reasons: [
         assessment.reason,
-        'Preliminary selection: newest verified eligible posts; conservative text/link duplicate checks; engagement and virality are not inferred.',
+        signal.reason,
+        'Preliminary selection: topic/safety gates, reported engagement and age, then recency; conservative text/link duplicate checks.',
       ],
     });
     if (selected.length >= Math.min(mode === 'lexical' ? 20 : 200, budget))

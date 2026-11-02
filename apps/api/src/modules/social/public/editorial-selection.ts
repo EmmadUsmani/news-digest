@@ -82,8 +82,8 @@ export async function editTopicPosts<T extends EditorialPost>(
       fallback.filter((p) => p.platform === 'x').length,
       budget,
     ),
-    postSelectionMethod: 'verified-lexical-recency-v2' as
-      'verified-lexical-recency-v2' | 'verified-semantic-editor-v2',
+    postSelectionMethod: 'verified-lexical-engagement-v3' as
+      'verified-lexical-engagement-v3' | 'verified-semantic-editor-v2',
     postEditorial: editorial,
   };
   if (budget === 0) return result;

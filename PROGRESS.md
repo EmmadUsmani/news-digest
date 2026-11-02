@@ -116,17 +116,6 @@ Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
 
 Iteration 252: [archive](docs/progress-archive/2026-11-02-iteration-252.md).
 
-## 2026-11-02: iteration 254 — concurrent publisher recovery
-
-- Started clean on main; services, health and all 32 sources healthy; no leftover work.
-- Priority 15/13/7/9 evidence awaits Nov 3; advanced isolated STEERING 2a.
-- Raced publisher collectors with a final-write constraint failure against a successful concurrent transaction.
-- Rejected citation inserts/author updates roll back; winner retains first-seen/engagement evidence and all three citations.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 150 integration), `pnpm build`, `git diff --check` passed.
-- Updated TASKS/database notes and archived iteration 236 to keep PROGRESS bounded. No provider or Reddit requests.
-- Restarted API/worker; health, SPA, source/queue status and four-topic latest edition verified after restart.
-- Next: observe Nov 3 all-topic X cost/yield and scheduled AI cost/duration before acknowledging 15/13/7.
-
 ## 2026-11-02: iteration 255 — source selection rollback recovery
 
 - Started clean on main; services, health and all 32 sources healthy; no leftover work.
@@ -359,3 +348,16 @@ Iteration 252: [archive](docs/progress-archive/2026-11-02-iteration-252.md).
 - Applied `pnpm migrate`; API/worker restarted active, health OK, SPA 200, latest four-topic edition accessible.
 - Archived iteration 253 to keep PROGRESS bounded; no leftover work to recover.
 - Next: engagement/age ranking plus relevance, search-type reporting; Nov 3 scheduled evidence pending.
+
+## 2026-11-02: iteration 274 — reported engagement shortlist
+
+- Started clean on main; health/services and 32 sources healthy; latest edition has four topics.
+- Verified X preliminary candidates/fallback now rank on reported engagement and lifetime age proxy, then recency.
+- Existing topic/safety/time gates and dedupe remain; reports cannot populate verified metrics.
+- Latest topic-bound observation must precede window end; frozen reasons preserve unknown/zero counts and unverified provenance.
+- Added v3 fallback method; updated synthetic golden labels only; no LLM re-recording.
+- No paid provider or Reddit requests; scheduled account-list path unchanged pending Nov 3 evidence.
+- Verified: targeted tests; `pnpm format`, `pnpm lint:fix`, `pnpm check` (129 unit/165 integration), `pnpm build`, `git diff --check`.
+- API/worker restarted active; health OK, SPA 200, latest four-topic edition accessible; all 32 sources returning data without errors.
+- Archived iteration 254; no leftover work to recover.
+- Next: combine semantic ranking with engagement, add search-type reporting; observe Nov 3 scheduled runs.

@@ -667,3 +667,25 @@ forbids inferring virality or unseen media; its changed prompt invalidates cache
 editor responses. Synthetic fake-service tests cover ID overlap, higher-scoring
 Reddit pressure, sparse/no X, fallback and no padding. Publication contracts and
 rendering remain X-only; no live Reddit or live inference claim is made.
+
+### Reported X engagement shortlist (iteration 274)
+
+Verified X candidates now read the latest topic-bound search report observed no
+later than the window end, separately from official post metrics. Preliminary
+shortlisting and lexical fallback require their existing scope, time, safety and
+relevance gates, then order by a bounded reported-engagement signal, recency and
+ID. Duplicate checks run in that order before the post budget is applied.
+The weighted count is likes + 2×reposts + replies + 0.01×views. The signal is
+min(2, (log10(1 + count) + log10(1 + count / ageHours)) / 4), with age measured
+at observation from the verified post time and a one-hour floor. Unknown fields
+stay unknown in frozen reasons; they contribute no numeric evidence. Invalid,
+future or pre-publication observations supply no bonus. This single-snapshot
+lifetime rate is an age proxy, not measured growth or account-relative reach.
+Reports remain explicitly unverified and never populate official metrics.
+Fallback snapshots use `verified-lexical-engagement-v3`; older editions retain
+accepted v2 identifiers. Synthetic golden changes update this method label only;
+no LLM recording or live request was made. Fake unit and isolated Postgres tests
+cover ranking/gates, missing/zero counts and historical report exclusion.
+Semantic triage/editor ranking still uses its existing relevance/interestingness
+scores; combining those scores with this signal is the next step. The signal
+already orders the bounded candidate pool before semantic triage.

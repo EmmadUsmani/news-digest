@@ -26,7 +26,7 @@
     },
     "qualityRejections": [],
     "posts": [],
-    "postSelectionMethod": "verified-lexical-recency-v2",
+    "postSelectionMethod": "verified-lexical-engagement-v3",
     "postEditorial": {
       "mode": "non-ai",
       "model": null,

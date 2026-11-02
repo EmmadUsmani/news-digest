@@ -332,7 +332,7 @@ void test('new editions preserve distinct claims and clip links while removing c
     const first = await repository.generate(start, end, retryKey);
     digestPreviewSchema.parse(first);
     const topic = first.topics.find((t) => t.id === topicId)!;
-    assert.equal(topic.postSelectionMethod, 'verified-lexical-recency-v2');
+    assert.equal(topic.postSelectionMethod, 'verified-lexical-engagement-v3');
     assert.deepEqual(
       topic.posts?.map((p) => p.externalId),
       [ids[5], ids[4], ids[3], ids[2], ids[1]],

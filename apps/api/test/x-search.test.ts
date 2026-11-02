@@ -11,6 +11,7 @@ import { PostgresXDiscoveryLedger } from '../src/modules/social/database/x-disco
 import { readXDiscoveryReport } from '../src/modules/social/database/x-discovery-report';
 import { PostgresXSearchRepository } from '../src/modules/social/database/x-search.repository';
 import { XSearchError } from '../src/modules/social/domain/x-search.port';
+import { selectTopicPosts } from '../src/modules/social/public/selection';
 
 // Synthetic protocol examples based on the public xAI OpenAPI schema, NOT recorded live responses.
 const request = {
@@ -428,6 +429,35 @@ void test('X citations join enabled topic verification/selection, preserve call 
       embedHtml: '<p>Offline fixture</p>',
     });
     assert.equal((await social.topicPosts(topicId)).length, 1);
+    const picks = await selectTopicPosts(
+      social.db,
+      topicId,
+      { includeAny: ['Offline fixture'], excludeAny: [] },
+      new Date('2026-11-01T00:00:00Z'),
+      new Date('2026-11-02T13:00:00Z'),
+      1,
+    );
+    assert.equal(picks[0].externalId, externalId);
+    assert.deepEqual(picks[0].metrics, {});
+    assert.ok(
+      picks[0].reasons.some((reason) =>
+        reason.includes('likes 0, reposts unknown'),
+      ),
+    );
+    const historical = await selectTopicPosts(
+      social.db,
+      topicId,
+      { includeAny: ['Offline fixture'], excludeAny: [] },
+      new Date('2026-11-01T00:00:00Z'),
+      new Date('2026-11-02T11:00:00Z'),
+      1,
+    );
+    assert.ok(
+      historical[0].reasons.some((reason) =>
+        reason.includes('No usable X search'),
+      ),
+    );
+
     assert.deepEqual(await repository.verificationCandidates(calls[0]), []);
     await social.checked(externalId, null);
     assert.ok(!(await social.candidates(50)).includes(externalId));
