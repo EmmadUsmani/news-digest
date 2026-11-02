@@ -326,3 +326,16 @@ Earlier iterations 23–37: [archive](docs/progress-archive/2026-11-01-iteration
 - `pnpm exec tsx scripts/smoke-status.ts` and `scripts/smoke-ui.ts` passed desktop/mobile; screenshots refreshed. `/healthz` healthy.
 - Incremental inference $0; actual day/month $0.408415, no reservations/provider errors. No operational blockers; installed xAI key remains for direct capped layer 2 after free discovery.
 - Next: official embed verification/rendering and SocialPost storage/window metadata; widen free discovery, then ranked immutable post sections and capped direct xAI. No further audit variants unless real summaries fail.
+
+## 2026-11-02: iteration 88 — verify official X embeds before publication
+
+- Started clean on main; no leftover work. API/worker/health and seventeen sources healthy; retained digest runs completed, historical ingestion failure has later successes.
+- Added official oEmbed verification port with exact post-ID/provider/author validation and rejected active HTML; provenance HTML is never injected. Public ingestion facade preserves context boundaries.
+- Additive migration 017 stores verified SocialPost records separately from citations and tracks failed checks with a one-day cooldown. Unknown post timestamps/engagement remain null/empty; no inferred virality/window eligibility.
+- Explicit `pnpm exec tsx apps/api/scripts/verify-x-embeds.ts` checks at most ten IDs, stops on HTTP errors and uses shared rate limiting/redirects. Live endpoint returned HTTP 404; zero verified posts, no workaround or inference. Initial run stopped after repeated failures; revised run stopped at first 404.
+- Synthetic protocol fixtures cover successful verification, unsafe/mismatched/unavailable embeds and isolated Postgres idempotency; fixtures are not live posts.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass typecheck/lint/format/boundaries and 99 isolated tests; `pnpm build` passes. `pnpm migrate` applied 017.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live queued passes: 779 real article URLs, four topics, seventeen healthy sources.
+- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed.
+- Incremental inference $0; actual day/month $0.408415, zero reservations/provider errors. Provider/models/billing unchanged. Updated TASKS/docs/SOURCES; no owner action needed.
+- Next: expand free discovery and investigate official embed availability with valid discovered URLs; immutable post selections/lazy widget rendering, Reddit and capped direct xAI remain unfinished.

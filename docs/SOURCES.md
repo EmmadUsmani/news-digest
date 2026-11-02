@@ -29,7 +29,7 @@ verification: 20:38 UTC; two queued passes preserved the same 669-item total.
 | OpenAI News                              | Tech & AI             | live          |           60 | https://openai.com/news/rss.xml (first-party announcements)                                                              |
 | Google DeepMind                          | Tech & AI             | live          |           60 | https://deepmind.google/blog/rss.xml (first-party research/announcements)                                                |
 | xAI direct x_search (gateway prohibited) | all                   | not yet tried |            0 | Installed owner key; direct capped adapter follows free harvesting                                                       |
-| X official oEmbed                        | all                   | not yet tried |            0 | Render discovered post URLs                                                                                              |
+| X official oEmbed                        | all                   | blocked       |            0 | Official endpoint returned HTTP 404; verification fails closed                                                           |
 | X official API                           | all                   | needs key     |            0 | Owner token and hard read cap required                                                                                   |
 | Reddit NBA RSS                           | NBA                   | blocked       |            0 | https://www.reddit.com/r/nba/.rss returned HTTP 403 (iteration 31); no bypass attempted; JSON/other communities untested |
 | Bluesky public API                       | all                   | not yet tried |            0 | Check topical relevance                                                                                                  |
@@ -283,3 +283,20 @@ four topics, all seventeen sources healthy. Harvesting persisted 72 citations to
 GamesIndustry.biz, PC Gamer, PlayStation Blog, Rock Paper Shotgun and Yahoo NBA).
 These are real fetched publisher references; post existence/content/publication
 time remain unverified, and World coverage has no harvested citations yet.
+
+### Iteration 88: official X verification
+
+Added `pnpm exec tsx apps/api/scripts/verify-x-embeds.ts`: at most ten IDs
+selected from stored citations by source diversity and recent observation. Uses
+the shared rate-limited HTTP client and official `publish.twitter.com/oembed`
+(follows the official redirect to `publish.x.com`). Stops on HTTP errors; failed
+IDs cool down for one day. No direct x.com fetch, scraping workaround or inference.
+
+Live checks returned HTTP 404; no verified posts were stored. Separate
+`social_posts` stores successful official responses and author metadata, while
+`x_embed_checks` tracks failed attempts. Post timestamp and engagement remain
+unknown: citation dates/engagement must never masquerade as post metadata.
+Synthetic protocol fixtures test successful verification and database upserts;
+they are not live content. Rendering/ranking and discovery expansion remain next.
+Stored HTML is provenance only: future UI must render by ID with the official
+widget and must never inject the stored HTML.

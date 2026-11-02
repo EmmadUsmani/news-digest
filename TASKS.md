@@ -59,6 +59,7 @@ Fix regressions, broken services and stalled sources before starting new work.
   - Deferred: scheduled Message Batches, cross-process cache coordination, full-article retrieval and larger editor shortlists.
 - [ ] M4 Social posts (current priority; STEERING 6):
   - [x] Free X-link harvesting from feed HTML/content and HN destination/text; dedupe IDs and persist citing item/source/engagement separately from verified posts (iteration 87).
+  - [x] Official oEmbed verification port, separate SocialPost storage, bounded explicit verifier and one-day failure cooldown (iteration 88). Live official endpoint returned HTTP 404; zero posts promoted, metadata remains unknown.
   - Next: expand free discovery to Reddit/Techmeme/Memeorandum where accessible; collect real citations and verify official embeds.
   - SocialPost storage, window-aware ranking with citation diversity/engagement, immutable post selections and lazy official X embeds.
   - Reddit per-topic communities and faithful cards; no bot-protection workarounds. Bluesky optional; YouTube deferred.
