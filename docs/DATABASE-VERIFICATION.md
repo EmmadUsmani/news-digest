@@ -199,3 +199,14 @@ start or exactly at the end do not. Connected-source and exact one-hour health
 counts remain available. Fixtures and transaction rollback use only disposable
 PostgreSQL; there are no provider or Reddit requests. Remaining repository gaps
 and recorded-response golden coverage stay open.
+
+## Scheduled X verification admission (iteration 240)
+
+`x-discovery-report.test.ts` pins the verification candidate reader through its
+repository API: per-call isolation, the ten-post cap, numeric-length ordering,
+verified-post exclusion, disabled topics and zero post budgets. In a non-UTC
+transaction, a check exactly one day old is still suppressed, one millisecond
+older is eligible, and newer/future checks remain suppressed regardless of their
+error field. Re-enabling the topic restores the same candidates. All fixtures
+roll back in disposable PostgreSQL; no X, Reddit or inference requests occur.
+Remaining repository gaps and recorded-response golden coverage stay open.

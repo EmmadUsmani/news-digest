@@ -255,3 +255,80 @@ void test('X search saves roll back partial citations and preserve first-search 
     await db.end();
   }
 });
+
+void test('X verification admission caps numeric ordering and respects exact cooldown and topic eligibility', async () => {
+  const db = database();
+  const client = await db.connect();
+  const call = crypto.randomUUID();
+  const otherCall = crypto.randomUUID();
+  const topic = crypto.randomUUID();
+  const posts = [
+    '999',
+    ...Array.from({ length: 12 }, (_, i) => String(880000 + i)),
+  ];
+  try {
+    await client.query('BEGIN');
+    // now() is transaction-stable, making the exact one-day boundary deterministic.
+    await client.query("SET LOCAL TIME ZONE 'Pacific/Auckland'");
+    await client.query(
+      `INSERT INTO topics(id,profile_id,name,description,include_guidance,position)
+       VALUES($1,'00000000-0000-4000-8000-000000000001','Verification fixture','','',100)`,
+      [topic],
+    );
+    for (const id of [call, otherCall])
+      await client.query(
+        `INSERT INTO x_discovery_calls(id,model,run_id,status,reserved_micros,cost_micros)
+         VALUES($1,'fixture','verification-admission','succeeded',1,0)`,
+        [id],
+      );
+    for (const id of posts)
+      await client.query(
+        `INSERT INTO x_search_citations(call_id,topic_id,external_id,canonical_url)
+         VALUES($1,$2,$3,'https://x.com/a/status/' || $3)`,
+        [call, topic, id],
+      );
+    const repository = new PostgresXSearchRepository(client as never);
+    assert.deepEqual(await repository.verificationCandidates(otherCall), []);
+    // Length precedes lexical order: 999 cannot outrank six-digit IDs.
+    assert.deepEqual(
+      await repository.verificationCandidates(call),
+      posts.slice(3).reverse(),
+    );
+    await client.query(
+      `INSERT INTO social_posts(platform,external_id,canonical_url,author,author_url,embed_html)
+       VALUES('x','880011','https://x.com/a/status/880011','a','https://x.com/a','fixture')`,
+    );
+    await client.query(
+      `INSERT INTO x_embed_checks(external_id,checked_at,error) VALUES
+       ('880010',now() - interval '1 day','fixture'),
+       ('880009',now() - interval '1 day' - interval '1 millisecond','fixture'),
+       ('880008',now() - interval '1 day' + interval '1 millisecond',NULL),
+       ('880007',now() + interval '1 hour','fixture')`,
+    );
+    const eligible = [
+      '880009',
+      '880006',
+      '880005',
+      '880004',
+      '880003',
+      '880002',
+      '880001',
+      '880000',
+      '999',
+    ];
+    assert.deepEqual(await repository.verificationCandidates(call), eligible);
+    await client.query('UPDATE topics SET enabled=false WHERE id=$1', [topic]);
+    assert.deepEqual(await repository.verificationCandidates(call), []);
+    await client.query(
+      'UPDATE topics SET enabled=true,post_budget=0 WHERE id=$1',
+      [topic],
+    );
+    assert.deepEqual(await repository.verificationCandidates(call), []);
+    await client.query('UPDATE topics SET post_budget=5 WHERE id=$1', [topic]);
+    assert.deepEqual(await repository.verificationCandidates(call), eligible);
+  } finally {
+    await client.query('ROLLBACK');
+    client.release();
+    await db.end();
+  }
+});

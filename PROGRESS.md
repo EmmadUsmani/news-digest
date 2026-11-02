@@ -298,3 +298,15 @@ Archived iteration 214: [entry](docs/progress-archive/2026-11-02-iteration-214.m
 - Restarted API/worker healthy; DB/Redis true, SPA 200, 32 error-free sources and four available queues.
 - Read-only timing report confirms latest four-topic fallback edition remains intact; 856 ms is not live AI latency evidence.
 - Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 240 — scheduled X verification admission
+
+- Started clean on main; services/health green, 32 sources without current errors; no leftover work.
+- Priority 15/13/7/9 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a.
+- Added repository characterization for ten-candidate cap, numeric ordering, per-call isolation and verified-post exclusion.
+- Pins exact one-day cooldown plus millisecond neighbors, future checks and disabled/zero-budget topic exclusion in a non-UTC transaction.
+- Initial fixture omitted the successful-call cost required by a DB constraint; corrected to zero, then the full check passed.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 138 integration), `pnpm build`, `git diff --check` passed.
+- Updated TASKS/database notes. No provider or Reddit requests; all new fixtures roll back in disposable PostgreSQL.
+- Restarted API/worker healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues; latest edition has four topics.
+- Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
