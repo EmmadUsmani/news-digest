@@ -70,14 +70,7 @@ Iteration 187: [archive](docs/progress-archive/2026-11-02-iteration-187.md).
 
 Iteration 188: [archive](docs/progress-archive/2026-11-02-iteration-188.md).
 
-## 2026-11-02: iteration 189 — X-search repository characterization
-
-- Started clean on main; no leftover work. API/worker/health healthy, all 32 sources without current errors and queues available.
-- Added disposable-Postgres coverage for current guidance/account JSON, zero-post budgets, call/post dedupe, first-write topic/URL provenance, shared-topic eligibility and deletion with retained call history.
-- Pinned foreign-key rejection and atomic partial-batch rollback/recovery using a fixture-only final-row constraint. Assertions use repository readers; SQL sets up fixtures and cleans them up.
-- `pnpm test:integration` passed 92/92; `pnpm format`, `pnpm lint:fix`, full `pnpm check` (99 unit/92 integration), `pnpm build` and `git diff --check` passed.
-- Updated README/TASKS. No paid inference, live settings/content writes or UI changes; browser verification unnecessary.
-- Restarted API/worker; health DB/Redis true, SPA 200, all queues available, 32 sources without current errors and latest edition four topics/10 posts. Next: remaining repository characterization, nonempty SQL golden and database coverage before ORM work. Reddit access/live AI timing blockers persist; paid scheduling follows Reddit.
+Iteration 189: [archive](docs/progress-archive/2026-11-02-iteration-189.md).
 
 ## 2026-11-02: iteration 190 — operations source telemetry characterization
 
@@ -241,3 +234,15 @@ Iteration 188: [archive](docs/progress-archive/2026-11-02-iteration-188.md).
 - Restarted API/worker active; health DB/Redis true, SPA 200, 32 sources without errors; latest real edition four topics/10 posts.
 - Updated reserve decision/TASKS; archived iteration 188 to bound orientation size. No UI changes, paid inference or Reddit requests.
 - Next: policy configuration across every Anthropic entrypoint, no-occurrence/midnight/lifecycle races, then manual/Status visibility before Nov 3 15:00 UTC.
+
+## 2026-11-02: iteration 205 — configure shared reserve composition
+
+- Started clean on main; no leftover work. API/worker, health and all 32 sources healthy.
+- Added validated reserve enablement, integer microdollar override and headroom configuration; default remains OFF.
+- Shared production factory now supplies policy and per-admission trusted context for manual/scheduled publication, all paid smoke tools and guarded recording; cache-only social diagnostics also use it.
+- Unit tests reject malformed deployment values; isolated production-factory admission verifies scheduled access and denial of verification privilege.
+- First check caught documentation formatting; corrected before final full check.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (113 unit/110 isolated integration), `pnpm build`, `git diff --check` passed.
+- Restarted API/worker active; `/healthz` DB/Redis true, SPA 200, four queues, 32 sources without errors; latest real edition four topics/10 posts.
+- Updated README, reserve decision and TASKS; archived iteration 189. No UI changes, paid inference or Reddit requests.
+- Next: no-occurrence/midnight and lifecycle admission races, then manual/Status visibility and enforcement enablement before Nov 3 15:00 UTC.

@@ -11,7 +11,7 @@ import {
   type TriageCandidate,
   type TriageTopic,
 } from '../src/modules/curation/application/triage';
-import { PostgresLlmLedger } from '../src/modules/curation/database/llm.ledger';
+import { configuredLlmLedger } from '../src/modules/curation/public/ledger';
 import { readLlmUsage } from '../src/modules/curation/public/usage';
 
 async function smoke() {
@@ -26,7 +26,7 @@ async function smoke() {
   const runId = 'live-editor-' + randomUUID();
   try {
     const config = llmConfig();
-    const ledger = new PostgresLlmLedger(db, config.caps, true);
+    const ledger = configuredLlmLedger(db, config.caps, true);
     const editor = new ShortlistEditor(
       new BudgetedLlm(new AnthropicLlmAdapter(key), ledger),
       config.sonnet,

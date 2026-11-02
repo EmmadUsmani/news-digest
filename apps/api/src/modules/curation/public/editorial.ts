@@ -6,7 +6,7 @@ import { BudgetedLlm } from '../application/budgeted-llm';
 import { ShortlistEditor } from '../application/editor';
 import { SocialPostEditor } from '../application/social-editor';
 import { CandidateTriage } from '../application/triage';
-import { PostgresLlmLedger } from '../database/llm.ledger';
+import { configuredLlmLedger } from './ledger';
 
 export type { EditorialResult } from '../application/editor';
 export type { TriageScore } from '../application/triage';
@@ -31,7 +31,7 @@ export function editorialServices(db: Pool) {
   const existing = services.get(db);
   if (existing) return existing;
   const config = llmConfig();
-  const ledger = new PostgresLlmLedger(db, config.caps);
+  const ledger = configuredLlmLedger(db, config.caps);
   const llm = new BudgetedLlm(new AnthropicLlmAdapter(key), ledger);
   const result = {
     validationDiagnostics: () => llm.validationDiagnostics(),

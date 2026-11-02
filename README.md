@@ -362,3 +362,11 @@ Remaining reserve integration is tracked in
 [decision 0002](docs/decisions/0002-scheduled-edition-budget-reserve.md); ledger
 admission now has an opt-in shared-lock reserve primitive with attempt-fenced
 trusted context, but production enforcement is not active yet.
+
+Anthropic production publication and guarded verification tools share
+`configuredLlmLedger`. Reserve deployment settings are
+`LLM_SCHEDULED_RESERVE_ENABLED` (`0` default, `1` opt-in), optional integer
+`LLM_SCHEDULED_RESERVE_MICROS`, and `LLM_SCHEDULED_RESERVE_HEADROOM` (default
+`1.5`, minimum `1`). Invalid values fail immediately. Leave enforcement off until
+the remaining lifecycle races and manual/Status visibility are implemented;
+this iteration does not claim live protection.

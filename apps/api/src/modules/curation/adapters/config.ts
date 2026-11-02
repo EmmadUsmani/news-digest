@@ -1,5 +1,6 @@
 import type { BudgetCaps } from '../domain/budget';
 import type { ModelPrice } from '../domain/llm.port';
+import type { ScheduledReservePolicy } from '../domain/scheduled-reserve';
 
 export function llmConfig(env: NodeJS.ProcessEnv = process.env) {
   const amount = (name: string, fallback: number) => {
@@ -41,4 +42,23 @@ export function llmConfig(env: NodeJS.ProcessEnv = process.env) {
     haiku,
     sonnet,
   };
+}
+
+// Parse even while disabled so invalid deployment configuration fails early.
+export function scheduledReserveConfig(env: NodeJS.ProcessEnv = process.env) {
+  const enabled = env.LLM_SCHEDULED_RESERVE_ENABLED ?? '0';
+  if (!['0', '1'].includes(enabled))
+    throw new Error('Invalid LLM_SCHEDULED_RESERVE_ENABLED');
+  const headroom = Number(env.LLM_SCHEDULED_RESERVE_HEADROOM ?? 1.5);
+  if (!Number.isFinite(headroom) || headroom < 1)
+    throw new Error('Invalid LLM_SCHEDULED_RESERVE_HEADROOM');
+  const raw = env.LLM_SCHEDULED_RESERVE_MICROS;
+  const configuredMicros = raw === undefined ? undefined : Number(raw);
+  if (
+    raw !== undefined &&
+    (!/^\d+$/.test(raw) || !Number.isSafeInteger(configuredMicros))
+  )
+    throw new Error('Invalid LLM_SCHEDULED_RESERVE_MICROS');
+  const policy: ScheduledReservePolicy = { headroom, configuredMicros };
+  return { enabled: enabled === '1', policy };
 }

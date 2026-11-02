@@ -8,7 +8,7 @@ import { database } from '../src/libs/db/connections';
 import { AnthropicLlmAdapter } from '../src/modules/curation/adapters/anthropic';
 import { llmConfig } from '../src/modules/curation/adapters/config';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
-import { PostgresLlmLedger } from '../src/modules/curation/database/llm.ledger';
+import { configuredLlmLedger } from '../src/modules/curation/public/ledger';
 
 async function smoke() {
   assert.equal(
@@ -21,7 +21,7 @@ async function smoke() {
   const db = database();
   try {
     const config = llmConfig();
-    const ledger = new PostgresLlmLedger(db, config.caps, true);
+    const ledger = configuredLlmLedger(db, config.caps, true);
     const service = new BudgetedLlm(new AnthropicLlmAdapter(key), ledger);
     const candidates = (
       await db.query<{ id: string; title: string }>(

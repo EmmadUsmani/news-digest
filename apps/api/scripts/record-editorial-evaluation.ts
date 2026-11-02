@@ -15,7 +15,7 @@ import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import { ShortlistEditor } from '../src/modules/curation/application/editor';
 import type { TriageTopic } from '../src/modules/curation/application/triage';
 import { CandidateTriage } from '../src/modules/curation/application/triage';
-import { PostgresLlmLedger } from '../src/modules/curation/database/llm.ledger';
+import { configuredLlmLedger } from '../src/modules/curation/public/ledger';
 import { editorialShortlist } from '../src/modules/digests/domain/editorial-shortlist';
 import type { Candidate } from '../src/modules/digests/domain/rank';
 
@@ -73,7 +73,7 @@ async function main() {
   const runId = `recorded-${key}-` + randomUUID();
   try {
     const config = llmConfig();
-    const ledger = new PostgresLlmLedger(db, config.caps, true);
+    const ledger = configuredLlmLedger(db, config.caps, true);
     const llm = new BudgetedLlm(recording, ledger);
     const triageService = new CandidateTriage(llm, ledger, config.haiku);
     const editor = new ShortlistEditor(llm, config.sonnet, config.haiku);

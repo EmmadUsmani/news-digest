@@ -5,6 +5,7 @@ import { database } from '../src/libs/db/connections';
 import { llmConfig } from '../src/modules/curation/adapters/config';
 import { PostgresLlmLedger } from '../src/modules/curation/database/llm.ledger';
 import { PostgresScheduledBudgetRepository } from '../src/modules/curation/database/scheduled-budget.repository';
+import { configuredLlmLedger } from '../src/modules/curation/public/ledger';
 import {
   scheduledLedgerContext,
   withEditionRun,
@@ -74,10 +75,20 @@ void test('reserve admission serializes competing spend and fences scheduled pri
     context = { ...context, attempt: claimed.attempt, runId: 'wrong-slot' };
     assert.equal(await ledger.reserve(request, 1), null);
     context = { ...context, runId };
-    const contextualLedger = new PostgresLlmLedger(db, caps, false, {
-      ...options,
-      context: scheduledLedgerContext,
-    });
+    const env = {
+      LLM_SCHEDULED_RESERVE_ENABLED: '1',
+      LLM_SCHEDULED_RESERVE_MICROS: '80000',
+    };
+    const contextualLedger = configuredLlmLedger(db, caps, false, env);
+    const verificationLedger = configuredLlmLedger(db, caps, true, env);
+    assert.equal(
+      await withScheduledAttempt(runId, claimed.attempt, () =>
+        withEditionRun(runId, request.runId, () =>
+          verificationLedger.reserve(request, 1),
+        ),
+      ),
+      null,
+    );
     assert.equal(await contextualLedger.reserve(request, 1), null);
     const scheduled = await withScheduledAttempt(runId, claimed.attempt, () =>
       withEditionRun(runId, request.runId, () =>

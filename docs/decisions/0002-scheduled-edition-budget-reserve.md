@@ -204,3 +204,22 @@ claim. This prepares `scheduledLedgerContext` for policy composition; production
 ledger construction still leaves admission disabled until configuration and
 remaining lifecycle races are verified. Tests cover overlapping scopes, cleanup,
 manual isolation, worker retry binding and real isolated ledger admission.
+
+## Shared deployment configuration (iteration 205)
+
+Publication (manual and scheduled), the guarded recorder and all three paid
+smoke scripts now construct their ledger through `configuredLlmLedger`. Cache-only
+social diagnostics use the same composition. The isolated ledger smoke retains
+direct construction and never accesses production data or a provider.
+
+- `LLM_SCHEDULED_RESERVE_ENABLED=1` opts in; default `0` keeps enforcement off
+  while lifecycle races and visibility are unfinished. Other values fail ledger construction.
+- `LLM_SCHEDULED_RESERVE_MICROS` optionally overrides measured sizing with a
+  nonnegative integer microdollar amount (including intentional zero).
+- `LLM_SCHEDULED_RESERVE_HEADROOM` defaults to `1.5` and must be finite and at
+  least one. Invalid configuration fails even when enforcement is disabled.
+
+Each enabled ledger reads the trusted async context per admission; it never
+captures a worker identity at construction. Verification ledgers retain the
+shared daily verification cap and cannot use a scheduled claim. Tests exercise
+this production factory with disposable Postgres and no provider requests.

@@ -1,7 +1,7 @@
 // Cache-only diagnostics: no external HTTP, inference or edition publication.
 import { llmConfig } from '../src/modules/curation/adapters/config';
 import { CandidateTriage } from '../src/modules/curation/application/triage';
-import { PostgresLlmLedger } from '../src/modules/curation/database/llm.ledger';
+import { configuredLlmLedger } from '../src/modules/curation/public/ledger';
 import { PostgresSocialRepository } from '../src/modules/social/database/social.repository';
 import { selectTopicPosts } from '../src/modules/social/public/selection';
 import { PostgresTopicRepository } from '../src/modules/topics/database/topic.repository';
@@ -19,7 +19,7 @@ async function main() {
   const topics = new PostgresTopicRepository();
   try {
     const config = llmConfig();
-    const ledger = new PostgresLlmLedger(social.db, config.caps);
+    const ledger = configuredLlmLedger(social.db, config.caps);
     const triage = new CandidateTriage(
       {
         json() {
