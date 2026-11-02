@@ -436,3 +436,11 @@ one-to-fifty request clamp. Fifty-five discoveries prove oversized requests stop
 at fifty without disturbing priority. Transactional fixtures roll back in disposable
 PostgreSQL; no embed, source, Reddit or provider HTTP requests occur.
 Recorded-response golden and other repository gaps remain open.
+
+## River source lifecycle (iteration 266)
+
+`social-candidates.test.ts` pins discovery-source ID ordering and exact URL
+payloads, enabled-topic filtering, re-enablement, source deletion and topic
+cascade deletion. Repeated failures and unknown source IDs preserve successful
+poll timestamps, link counts and sibling state; errors remain eligible for retry.
+All fixtures roll back in disposable PostgreSQL; no external requests occur.

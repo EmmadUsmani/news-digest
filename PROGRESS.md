@@ -114,17 +114,6 @@ Earlier iteration 244: [archive](docs/progress-archive/2026-11-02-iteration-244.
 
 Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
 
-## 2026-11-02: iteration 246 — concurrent topic deletion and ordering
-
-- Started clean on main; API/worker, health and all 32 sources healthy; no leftover work.
-- Priority 15/13/7/9 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a.
-- Added reorder-versus-delete and simultaneous-delete races; remaining settings and contiguous positions survive either serialization.
-- Repeated deletion and stale order fail without changes; valid ordering restores original settings.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 144 integration), `pnpm build`, `git diff --check` passed.
-- Updated TASKS/database notes; archived iteration 229 to keep PROGRESS bounded. No provider or Reddit requests.
-- Live checks: SPA 200, four-topic latest edition, 32 error-free sources and four available queues; API/worker restarted healthy.
-- Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
-
 ## 2026-11-02: iteration 247 — concurrent LLM cache persistence
 
 - Started clean on main; API/worker, health and all 32 sources healthy; no leftover work.
@@ -341,3 +330,16 @@ Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
 - Updated TASKS/database notes; archived iteration 245 to keep PROGRESS bounded.
 - Restarted API/worker; health recovered after startup; latest edition has four topics, 20 stories and 10 posts.
 - Next: observe Nov 3 scheduled X per-topic cost/yield and AI edition cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 266 — river source lifecycle
+
+- Started clean on main; API/worker, health, 32 sources and four queues healthy; no leftover work.
+- Scheduled priorities await Nov 3 evidence; advanced isolated STEERING 2a.
+- Pins source ordering/payloads, enabled-topic filtering, re-enablement and source/topic deletion.
+- Repeated and unknown-source failures retain successful timestamps, counts and sibling state; errors remain retryable.
+- Transactional disposable-PostgreSQL fixtures only; no provider, source or Reddit verification requests.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 161 integration), `pnpm build`, `git diff --check`.
+- First check caught archive formatting; formatted and reran successfully.
+- Updated TASKS/database notes; archived iteration 246 to keep PROGRESS bounded.
+- Restarted API/worker; health, SPA, latest four-topic edition and source/queue health verified.
+- Next: observe Nov 3 scheduled X cost/yield and AI edition cost/duration before acknowledging 15/13/7.

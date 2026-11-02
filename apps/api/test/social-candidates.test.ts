@@ -701,3 +701,71 @@ void test('candidate ordering favors citation breadth then freshness and numeric
     await pool.end();
   }
 });
+
+void test('river source eligibility follows topic lifecycle while failures retain successful evidence', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const repository = new PostgresSocialRepository();
+  const pool = repository.db;
+  const client = await pool.connect();
+  Object.defineProperty(repository, 'db', { value: client });
+  const topic = crypto.randomUUID();
+  const sources = ['river-lifecycle-z', 'river-lifecycle-a'];
+  const state = async () =>
+    (
+      await client.query(
+        'SELECT * FROM social_discovery_sources WHERE topic_id=$1 ORDER BY id',
+        [topic],
+      )
+    ).rows;
+  try {
+    await client.query('BEGIN');
+    await client.query('UPDATE topics SET enabled=false');
+    await client.query(
+      `INSERT INTO topics(id,profile_id,name,description,include_guidance,position)
+      VALUES($1,'00000000-0000-4000-8000-000000000001','River lifecycle','Fixture','Fixture',950)`,
+      [topic],
+    );
+    for (const id of sources) {
+      await client.query(
+        `INSERT INTO social_discovery_sources(id,topic_id,name,url)
+        VALUES($1,$2,'Fixture',$3)`,
+        [id, topic, `https://example.org/${id}`],
+      );
+    }
+    const expected = [...sources]
+      .sort()
+      .map((id) => ({ id, url: `https://example.org/${id}` }));
+    assert.deepEqual(await repository.discoverySources(), expected);
+    await repository.discoveryFailed(sources[0]);
+    const rows = await state();
+    assert.equal(rows[1].last_success, null);
+    assert.equal(rows[1].last_error, 'Public discovery page unavailable');
+    // Diagnostics do not remove an enabled source from retry eligibility.
+    assert.deepEqual(await repository.discoverySources(), expected);
+    await client.query(
+      `UPDATE social_discovery_sources SET last_success='2026-10-20T12:00:00Z',
+      last_link_count=7 WHERE id=$1`,
+      [sources[0]],
+    );
+    const before = await state();
+    await repository.discoveryFailed(sources[0]);
+    await repository.discoveryFailed('missing-river-fixture');
+    assert.deepEqual(await state(), before);
+    await client.query('UPDATE topics SET enabled=false WHERE id=$1', [topic]);
+    assert.deepEqual(await repository.discoverySources(), []);
+    assert.deepEqual(await state(), before);
+    await client.query('UPDATE topics SET enabled=true WHERE id=$1', [topic]);
+    assert.deepEqual(await repository.discoverySources(), expected);
+    await client.query('DELETE FROM social_discovery_sources WHERE id=$1', [
+      sources[1],
+    ]);
+    assert.deepEqual(await repository.discoverySources(), [expected[1]]);
+    await client.query('DELETE FROM topics WHERE id=$1', [topic]);
+    assert.deepEqual(await repository.discoverySources(), []);
+    assert.deepEqual(await state(), []);
+  } finally {
+    await client.query('ROLLBACK');
+    client.release();
+    await pool.end();
+  }
+});
