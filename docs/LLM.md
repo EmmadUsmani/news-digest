@@ -312,3 +312,16 @@ two Haiku attempts without a validated result ($0.003047); no artifact or editio
 was published. Sonnet was unavailable under its reservation allocation. This
 shows safe rejection, not improved live recall; evaluate false rejections and
 more general factual support next. Provider, model IDs and caps are unchanged.
+
+Iteration 65: validation now passes a fixed application-owned absence-support
+hint into the single reserved repair. It asks the editor to review every text
+field and return complete corrected JSON with unsupported sentences removed.
+Raw model output, source text and exception/schema messages are never appended
+as feedback. Generic validation errors retain the existing JSON/schema hint;
+input bounds, separate repair reservation, fallback and validated caches apply.
+Initial prompts/cache identity and the conservative support rule are unchanged.
+Regressions inspect the actual repair request for all four story fields.
+An explicit Tech v4 retry still produced no validated result after two calls
+($0.003279). No artifact or edition was published; useful feedback alone has
+not established recovery or a reduction in false rejections. Structured failure
+categories and recorded safe rejection diagnostics are the next step.

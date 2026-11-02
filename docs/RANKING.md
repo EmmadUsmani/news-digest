@@ -423,3 +423,12 @@ Tech replay returned no validated result after two Haiku calls ($0.003047), so
 no v4 artifact, recall measurement or edition was produced. Historical replay
 results remain unchanged. Prioritize diagnosing false rejections and useful
 repair feedback before claiming quality improvement; see docs/LLM.md for scope.
+
+Iteration 65 supplies a fixed absence-support repair hint rather than only
+asking for valid JSON after semantic rejection. The explicit Tech v4 retry
+still failed closed after two Haiku attempts ($0.003279), with no artifact or
+edition. No quality improvement or false-rejection rate can be inferred from
+this failure: responses are deliberately not logged, and the recorder currently
+collapses schema and support failures into a generic failure. Add bounded,
+application-owned failure categories before further paid replays. Historical
+NBA/World/Tech evaluation artifacts and measurements remain unchanged.

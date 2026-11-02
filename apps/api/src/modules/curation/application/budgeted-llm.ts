@@ -7,6 +7,7 @@ import {
   ProviderSpendLimit,
 } from '../domain/llm.port';
 import type { LlmLedger } from '../domain/llm-ledger.port';
+import { LlmValidationFailure } from './validation-failure';
 
 export class BudgetedLlm {
   private readonly pending = new Map<string, Promise<unknown>>();
@@ -63,13 +64,15 @@ export class BudgetedLlm {
     const cached = await this.ledger.cached(key);
     if (cached !== undefined) return validate(cached);
     // Each repair is separately reserved and recorded. No network retries.
+    let feedback = '';
     for (let attempt = 0; attempt < 2; attempt++) {
       const current = attempt
         ? {
             ...request,
             prompt:
               request.prompt +
-              '\nReturn only valid JSON matching the requested schema. No markdown fences.',
+              '\nReturn only valid JSON matching the requested schema. No markdown fences.' +
+              feedback,
           }
         : request;
       const bound =
@@ -116,7 +119,10 @@ export class BudgetedLlm {
       let parsed: T;
       try {
         parsed = validate(JSON.parse(response.text) as unknown);
-      } catch {
+      } catch (error) {
+        // Only application-owned feedback is sent: never raw provider output,
+        // schema errors, source text or exception messages.
+        feedback = error instanceof LlmValidationFailure ? error.feedback : '';
         continue;
       }
       await this.ledger.cache(key, parsed);

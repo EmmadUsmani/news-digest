@@ -1,3 +1,5 @@
+import { LlmValidationFailure } from './validation-failure';
+
 // Conservative lexical guard, not entailment or independent fact-checking.
 // Require verbatim source support for sentences that assert absence. This can
 // reject supported paraphrases; repair should omit them or quote the input.
@@ -14,8 +16,6 @@ export function assertAbsenceSupport(text: string, evidence: string[]) {
     // sentence, rather than a shared keyword or a short negative fragment.
     const claim = normalize(sentence).replace(/[.!?]$/, '');
     if (!inputs.some((input) => input.includes(claim)))
-      throw new Error(
-        'Absence claim lacks verbatim cited input support; omit it or quote a supported source sentence',
-      );
+      throw new LlmValidationFailure('unsupported-absence');
   }
 }

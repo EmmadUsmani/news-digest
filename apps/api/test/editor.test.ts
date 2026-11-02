@@ -186,6 +186,16 @@ void test('absence claims fail closed in every output field and repair can remov
     const repaired = harness([invalid, valid]);
     assert.ok(await repaired.editor.edit(topic, candidates, 1, 'repair'));
     assert.equal(repaired.calls.length, 2);
+    assert.ok(
+      repaired.calls[1].prompt.includes('failed the absence-support check'),
+    );
+    assert.ok(
+      repaired.calls[1].prompt.includes('Return the complete corrected JSON'),
+    );
+    assert.ok(!repaired.calls[1].prompt.includes('Apple has not confirmed'));
+    // The original untrusted topic/shortlist is unchanged; feedback is fixed.
+    assert.ok(repaired.calls[1].prompt.startsWith(repaired.calls[0].prompt));
+    assert.equal(repaired.calls[1].model.id, repaired.calls[0].model.id);
   }
   const h = harness([
     { ...valid, brief: ['A launch.', 'No price is available.'] },

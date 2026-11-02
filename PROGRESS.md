@@ -212,3 +212,16 @@ Earlier iterations 23–37: [archive](docs/progress-archive/2026-11-01-iteration
 - Live evaluation cost $0.003047; day/month $0.398840, zero reservations/provider errors. Shared daily cap $0.482758/$14 monthly; models/provider/billing unchanged.
 - Updated TASKS/docs/LLM/docs/RANKING; no owner blockers. M3 remains open: factual support, broader reviewed evaluation, scheduled batches and cross-process coordination.
 - Rebuilt/restarted API/worker; `/healthz` healthy. `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed and mobile digest inspected. First UI attempt raced restart; rerun passed after health recovered.
+
+## 2026-11-02: iteration 65 — explain absence failures to the repair
+
+- Started clean on main; no leftover work. API/worker/health, seventeen active sources and retained digest runs healthy; schedule unchanged.
+- Found semantic rejection received only generic JSON repair instructions. Added fixed application-owned absence-support feedback covering every output field; no raw model/source/error text echoed.
+- Single separately reserved repair, original input bounds/cache identity, strict support guard and capped model fallback remain. Extended four-field regression to inspect actual repair requests.
+- Explicit `record-editorial-evaluation.ts tech v4` still failed closed after two Haiku attempts; no artifact/edition published and no quality or false-rejection improvement claimed.
+- Inference cost $0.003279; day/month $0.402119, zero reservations/provider errors, $0.482758 daily/$14 monthly caps. Provider/models/billing unchanged.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and all 82 isolated tests; `pnpm build` passed (existing upstream Zod warnings).
+- `pnpm evaluate:editorial` passed unchanged historical offline replays. No fixture content inserted or labeled live.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live passes: 722 stored real URLs, four topics, seventeen healthy sources; no source configuration changes.
+- Rebuilt/restarted API/worker; `/healthz` healthy. `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed and mobile digest visually inspected.
+- Updated TASKS/docs/LLM/docs/RANKING; no owner blockers. Next: bounded validation failure categories/diagnostics before another paid replay, then false-rejection audit and broader factual support.
