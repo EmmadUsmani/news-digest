@@ -74,17 +74,6 @@ Iteration 189: [archive](docs/progress-archive/2026-11-02-iteration-189.md).
 
 Iteration 192: [archive](docs/progress-archive/2026-11-02-iteration-192.md).
 
-## 2026-11-02: iteration 194 — measured full-AI edition costs
-
-- Started clean on main; API/worker and DB/Redis health healthy. No leftover work; 32 sources without current errors and latest real edition four topics/10 posts.
-- Added a read-only historical cost reader for reserve sizing: sums settled article/social/model calls by edition/run ID over an inclusive 30-day lookback, newest ten qualifying editions.
-- Excludes fallback/mixed modes, incomplete triage, pending/uncertain holds, verification-tagged runs, future snapshots and cache-only/zero-cost editions. Failed released calls add no cost.
-- Conservative qualification requires AI in both sections of every topic; absent measurements retain whole-day protection in the existing policy. Accepts a transaction client for later shared-lock admission integration.
-- Added rollback-isolated Postgres fixtures for costs, ordering/limits, UTC lookback boundaries and exclusions. No live inference or Reddit requests; no UI changes.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (104 unit/98 isolated integration), `pnpm build` and `git diff --check` passed. Updated decision 0002, README and TASKS.
-- Live reserve protection remains UNFINISHED. Next: cron/settings reconciliation, worker lifecycle and trusted scheduled identity, shared-lock admission/race tests, then manual/Status visibility before Nov 3 15:00 UTC.
-- Pushed `be4b6d2`; restarted API/worker with `systemctl --user restart news-digest-api news-digest-worker`: both active, `/healthz` DB/Redis true, SPA 200, all four queues available, 32 sources without errors, latest real edition four topics/10 posts.
-
 ## 2026-11-02: iteration 195 — reconcile pending reserve identities
 
 - Started clean on main; API/worker, DB/Redis health and 32 sources healthy. No leftover work.
@@ -256,3 +245,16 @@ Iteration 192: [archive](docs/progress-archive/2026-11-02-iteration-192.md).
 - `pnpm exec tsx scripts/smoke-manual-reserve.ts` passed desktop/mobile protected, submission-refresh, released and unavailable states using synthetic browser responses; saved live screenshots.
 - Live reads: four queues, 32 sources without errors, latest real edition four topics/10 posts; health DB/Redis true. No paid inference, live jobs or Reddit requests.
 - Updated reserve decision/TASKS and archived iteration 193. Reserve enforcement remains OFF; next: enable protection before Nov 3 15:00 UTC and measure scheduled cost/duration.
+
+## 2026-11-02: iteration 210 — enable scheduled AI budget protection
+
+- Started clean on main; services, health and 32 sources healthy. No leftover work.
+- Enabled shared environment reserve protection, 1.5x headroom, no fixed override; API/worker process environments verified without exposing secrets.
+- Default measured sizing protects the full daily cap without qualifying full-AI history; existing provider/model/billing caps remain unchanged.
+- Live Status: protection enabled, Nov 2 terminal fallback, $0.482758 target/$0 protected; Nov 3 15:00 UTC remains queued.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (113 unit/113 isolated integration), `pnpm build`, `git diff --check` passed.
+- `pnpm exec tsx scripts/smoke-reserve-status.ts` passed live desktop/mobile plus synthetic protected/released states; updated screenshots.
+- `pnpm exec tsx scripts/report-edition-timing.ts` confirms retained four-topic/10-post fallback; no new AI timing claim.
+- Restarted API/worker; health DB/Redis true, SPA 200, 32 sources without errors. No paid inference, live jobs or Reddit requests.
+- Updated README/reserve decision/TASKS; archived iteration 194. Item 13 stays open for Nov 3 AI cost/duration evidence; no premature steering ack.
+- Next: observe scheduled run and measure AI editing/cost/duration; then scheduled X discovery under item 9.

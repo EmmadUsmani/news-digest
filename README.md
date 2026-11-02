@@ -70,7 +70,7 @@ using stable publication keys and compare-and-swap settings reconciliation. Test
 cover delayed snapshots racing registration/reconciliation, restarts, day rollover
 and protection of claimed/terminal work. Published-slot recovery tests cover
 AI/mixed/fallback snapshots, manual-key exclusion, restart after cutoff and
-attempt fencing. Live ledger reserve enforcement remains unfinished.
+attempt fencing. Shared-lock reserve admission and lifecycle ordering are covered by isolated tests.
 `pnpm test` runs both commands; integration tests remain part of `pnpm check`.
 Both runners replace inherited database/Redis URLs, clear Anthropic/xAI keys and
 live-inference opt-in. Docker is required only for integration tests; there is no
@@ -158,7 +158,7 @@ BullMQ retains 100 successful/failed runs and retries failures three times with
 exponential backoff. Downtime does not backfill every missed daily edition.
 Scheduler refresh marks never-claimed daily budget slots failed after the same
 six-hour recovery window used by the worker; active attempts and retries remain
-protected. Budget reserve admission is still being implemented.
+protected. Shared-ledger admission protects the scheduled edition before other runs.
 Async API clients can `POST /api/digest-previews/jobs` with ISO `windowStart`
 and `windowEnd` values to receive HTTP 202 and a job ID without waiting for
 inference. Poll `GET /api/digest-previews/jobs/:id` for queue state, `editionId`,
@@ -358,18 +358,22 @@ never-claimed budget identity; concurrent claims and replacements are preserved.
 Refresh also recovers committed scheduled editions before the missed-slot cutoff,
 using immutable publication evidence and identity/attempt fencing under the ledger
 lock. Manual editions cannot release scheduled protection.
-Remaining reserve integration is tracked in
-[decision 0002](docs/decisions/0002-scheduled-edition-budget-reserve.md); ledger
-admission now has an opt-in shared-lock reserve primitive with attempt-fenced
-trusted context, but production enforcement is not active yet.
+Reserve implementation and rollout are tracked in
+[decision 0002](docs/decisions/0002-scheduled-edition-budget-reserve.md). Ledger
+admission uses shared-lock protection with attempt-fenced trusted context.
+Production enforcement was enabled in iteration 210.
 
 Anthropic production publication and guarded verification tools share
 `configuredLlmLedger`. Reserve deployment settings are
 `LLM_SCHEDULED_RESERVE_ENABLED` (`0` default, `1` opt-in), optional integer
 `LLM_SCHEDULED_RESERVE_MICROS`, and `LLM_SCHEDULED_RESERVE_HEADROOM` (default
-`1.5`, minimum `1`). Invalid values fail immediately. Leave enforcement off until
-the remaining lifecycle races and manual/Status visibility are implemented;
-this iteration does not claim live protection.
+`1.5`, minimum `1`). Invalid values fail immediately. The production environment
+enables protection with headroom `1.5` and no fixed amount override. Sizing uses
+the largest positive cost among the ten most recent full-AI editions within
+30 days; without qualifying
+evidence it protects the entire daily cap. Today's completed scheduled edition
+releases protection; the next UTC day protects its own scheduled run. No paid
+verification run is needed to enable this policy.
 
 Status shows whether scheduled AI reserve protection is enabled, the UTC budget
 day and durable run state, protected amount, configured/measured target, and

@@ -276,3 +276,22 @@ These are current allowance estimates, not a promise of AI editing or proof
 that the reserve caused any particular topic's fallback. Browser checks use
 synthetic status/job responses; live screenshots are read-only. Enforcement
 remains OFF pending the separate operational enablement step.
+
+## Production enablement (iteration 210)
+
+Enabled `LLM_SCHEDULED_RESERVE_ENABLED=1` in the shared service environment,
+with `LLM_SCHEDULED_RESERVE_HEADROOM=1.5` and no fixed microdollar override.
+Sizing uses the largest qualifying cost among the ten most recent full-AI
+editions within 30 days, capped by the daily allowance; absent measurements it
+protects the full daily cap. This changes no provider, model or billing cap.
+
+Both restarted API and worker processes loaded these settings. Live Status
+reports enabled protection, Nov 2 succeeded/fallback, target $0.482758 and
+$0 protected because today's scheduled edition is terminal. The Nov 3 run
+remains queued for 15:00 UTC; its UTC day will get separate protection.
+Desktop/mobile Status screenshots show the enabled configuration. Browser
+protected/released variants remain synthetic and issue no provider requests.
+
+No paid trial or new edition was triggered. Item 13 remains open until the
+Nov 3 scheduled run demonstrates AI editing with measured cost and duration;
+do not acknowledge completion from enablement or today's fallback alone.
