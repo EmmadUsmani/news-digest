@@ -703,3 +703,19 @@ checks establish access and a citation route, not current quality or virality.
 No paid discovery, inference, publication or X scraping was performed. Paid
 scheduling remains off; today's remaining allowance is below the conservative
 $0.40 reservation required for another explicit search.
+
+## 2026-11-02 iteration 121 — Nintendo Life RSS
+
+- **live:** `https://www.nintendolife.com/feeds/latest`, connected to the original
+  Gaming topic by migration 024. Two queued ingestion passes stored 25 real
+  articles (release/platform news with excerpts and lead images); eighteen healthy
+  sources now supply 899 distinct URLs across four topics.
+- Recorded the first two fetched entries in `nintendo-life.xml`; offline adapter
+  checks preserve decoded headlines, exact UTC dates, publisher links and plain
+  excerpts. Fixtures are not the live ingestion evidence.
+- Free social discovery probes: all 25 feed entries contain zero X status links.
+  The three newest article pages returned HTTP 403; publisher-page harvesting
+  stays disabled. This improves article coverage, not fresh social coverage.
+- **blocked:** IGN's `https://feeds.ign.com/ign/all` redirects to
+  `https://www.ign.com/rss/articles/feed`, which returns HTTP 403. Not configured;
+  no bypass attempted. No paid discovery or inference calls.

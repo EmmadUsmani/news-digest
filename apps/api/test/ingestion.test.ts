@@ -15,6 +15,7 @@ void test('recorded RSS and Atom normalize real headlines, dates and safe links'
     'atom.xml',
     'yahoo-nba.xml',
     'eurogamer.xml',
+    'nintendo-life.xml',
     'npr-world.xml',
     'guardian-world.xml',
   ]) {
@@ -45,6 +46,22 @@ void test('recorded RSS and Atom normalize real headlines, dates and safe links'
     'https://example.org/a?b=2',
   );
   assert.equal(canonicalUrl('javascript:alert(1)'), null);
+});
+void test('recorded Nintendo Life feed preserves release news and plain excerpts', async () => {
+  const items = parseFeed(await fixture('nintendo-life.xml'));
+  assert.equal(
+    items[0].title,
+    "HoYoverse Announces Cosy Galactic Life Sim 'Petit Planet' For Switch 2",
+  );
+  assert.equal(items[0].publishedAt, '2026-11-02T03:30:00.000Z');
+  assert.match(items[0].excerpt, /2027/);
+  assert.ok(
+    items.every(
+      (item) => new URL(item.url).hostname === 'www.nintendolife.com',
+    ),
+  );
+  assert.doesNotMatch(items[0].excerpt, /<[^>]+>|&#\d+;/);
+  assert.equal(items[0].xLinks?.length, 0);
 });
 void test('recorded world feeds retain publisher links, bylines and plain excerpts', async () => {
   const npr = parseFeed(await fixture('npr-world.xml'));

@@ -289,3 +289,14 @@ Earlier iterations 61–72: [archive](docs/progress-archive/2026-11-02-iteration
 - `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two live queued passes, 820 real URLs/four topics/seventeen healthy sources. `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed and mobile digest inspected.
 - Rebuilt/restarted API/worker; `/healthz` healthy. TASKS/docs/SOURCES updated. No edition published or inference/discovery spending; Anthropic $0.408415, X $0.023382, no provider/model/billing changes.
 - No new owner blocker. Paid scheduling stays off; remaining daily X allowance cannot cover conservative $0.40 reservation. Reddit blocked; fresh Gaming posts remain weak. Next: inspect scheduled semantic edition when due and widen free relevant Gaming discovery.
+
+## 2026-11-02: iteration 121 — Nintendo Life Gaming coverage
+
+- Started clean on main; no leftover work. API/worker/health, seventeen existing feeds and retained digest runs healthy. First semantic slot remains Nov 2 20:40 UTC; no manual edition.
+- Probed IGN RSS (redirect then 403), Nintendo Life RSS (25 real entries), and three Nintendo Life article pages (403). No bypass. No feed X links; page harvesting remains disabled, fresh Gaming social gap remains.
+- Migration 024 connects Nintendo Life RSS to the original Gaming topic; recorded two entries and offline assertions for decoded titles, dates, publisher URLs/plain excerpts. Fixtures never counted as live.
+- `pnpm migrate` applied 024; `pnpm format`, `pnpm lint:fix`, `pnpm check` pass types/lint/format/boundaries and all 131 isolated tests. `pnpm build` passes (existing upstream Zod warnings).
+- Restarted API/worker; `/healthz` healthy. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passes two queued live runs: 899 real URLs/four topics/eighteen healthy sources, including 25 Nintendo Life articles.
+- `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed and mobile digest inspected. Historical editions remain intact.
+- Updated TASKS/docs/SOURCES. No inference/discovery spend, edition publication, provider/model/billing change or new owner blocker. Anthropic $0.408415; X $0.023382, paid scheduling stays off.
+- Next: observe 20:40 UTC semantic social edition; widen legitimate free Gaming post discovery. Reddit remains blocked.
