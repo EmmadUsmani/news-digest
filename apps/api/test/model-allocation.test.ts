@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
+import { isDeepStrictEqual } from 'node:util';
 
 import { database } from '../src/libs/db/connections';
 import { llmConfig } from '../src/modules/curation/adapters/config';
@@ -130,6 +131,56 @@ void test('serialized model reservations preserve Haiku funds, settlement, uncer
     );
     await db.query('DELETE FROM llm_cache WHERE cache_key=ANY($1::text[])', [
       cacheKeys,
+    ]);
+    await db.end();
+  }
+});
+
+void test('concurrent cache writers preserve one complete immutable JSON response and recover after rejection', async () => {
+  const db = database();
+  const ledgers = [
+    new PostgresLlmLedger(db, { monthly: 30e6, dailyMax: 1e6 }),
+    new PostgresLlmLedger(db, { monthly: 30e6, dailyMax: 1e6 }),
+  ];
+  const key = 'isolated-concurrent-cache';
+  const otherKey = `${key}-other`;
+  const responses = [
+    { picks: [{ id: 'a', score: 0.75 }], explanation: '世界', extra: null },
+    {
+      picks: [{ id: 'b', score: 0.25 }],
+      explanation: 'NBA',
+      extra: [true, false],
+    },
+  ];
+  try {
+    assert.equal(await ledgers[0].cached(key), undefined);
+    await Promise.all(
+      ledgers.map((ledger, i) => ledger.cache(key, responses[i])),
+    );
+    const winner = await ledgers[0].cached(key);
+    assert.ok(
+      responses.some((response) => isDeepStrictEqual(response, winner)),
+    );
+    assert.deepEqual(await ledgers[1].cached(key), winner);
+    // A later write cannot replace the first successful response.
+    await ledgers[1].cache(key, { replacement: true });
+    assert.deepEqual(await ledgers[0].cached(key), winner);
+    const mutable = (await ledgers[1].cached(key)) as {
+      picks: { id: string }[];
+    };
+    mutable.picks[0].id = 'caller-mutation';
+    assert.deepEqual(await ledgers[0].cached(key), winner);
+    // PostgreSQL JSON rejects a zero byte; the failure must not poison reuse.
+    await assert.rejects(ledgers[0].cache(otherKey, { invalid: '\u0000' }));
+    assert.equal(await ledgers[1].cached(otherKey), undefined);
+    await ledgers[1].cache(otherKey, { recovered: [1, null, 'ok'] });
+    assert.deepEqual(await ledgers[0].cached(otherKey), {
+      recovered: [1, null, 'ok'],
+    });
+    assert.deepEqual(await ledgers[1].cached(key), winner);
+  } finally {
+    await db.query('DELETE FROM llm_cache WHERE cache_key=ANY($1::text[])', [
+      [key, otherKey],
     ]);
     await db.end();
   }

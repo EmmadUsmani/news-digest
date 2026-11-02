@@ -108,18 +108,6 @@ Iteration 221: [archive](docs/progress-archive/2026-11-02-iteration-221.md).
 
 Earlier iteration 229: [archive](docs/progress-archive/2026-11-02-iteration-229.md).
 
-## 2026-11-02: iteration 230 — river-discovery transaction characterization
-
-- Started clean on main; services and health healthy. No leftover work.
-- Priority items 13/7/9 await Nov 3 scheduled evidence; advanced isolated STEERING 2a coverage.
-- Pinned river citation duplicate collapse, collection counts, URL/first-seen preservation, last-seen refresh and verification URL replacement.
-- A later invalid citation rolls back inserts, updates and source health; empty successful collection clears errors and retains evidence.
-- No inference, publisher or Reddit requests. AI golden and remaining repository behavior gaps stay open.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (120 unit, 128 integration), `pnpm build` and `git diff --check` passed.
-- Updated TASKS/database notes; archived iteration 215 to bound PROGRESS.
-- Deployment: API/worker restarted healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues; retained edition has four topics.
-- Next: observe Nov 3 14:30 UTC X discovery and 15:00 edition cost/duration; fallback timing is not AI latency evidence.
-
 ## 2026-11-02: iteration 231 — X-search transaction characterization
 
 - Started clean on main; services, health, 32 sources and four queues healthy. No leftover work.
@@ -315,4 +303,15 @@ Earlier iteration 229: [archive](docs/progress-archive/2026-11-02-iteration-229.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 144 integration), `pnpm build`, `git diff --check` passed.
 - Updated TASKS/database notes; archived iteration 229 to keep PROGRESS bounded. No provider or Reddit requests.
 - Live checks: SPA 200, four-topic latest edition, 32 error-free sources and four available queues; API/worker restarted healthy.
+- Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 247 — concurrent LLM cache persistence
+
+- Started clean on main; API/worker, health and all 32 sources healthy; no leftover work.
+- Priority 15/13/7/9 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a.
+- Added concurrent ledger cache writes: one complete nested JSON winner, immutable replacement behavior and independent caller reads.
+- Invalid JSON leaves a separate key absent; valid retry recovers without changing the winning response.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 145 integration), `pnpm build`, `git diff --check` passed.
+- Updated TASKS/database notes; archived iteration 230 to keep PROGRESS bounded. No provider or Reddit requests.
+- Restarted API/worker healthy; health DB/Redis true, SPA 200, 32 error-free sources and four available queues.
 - Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.

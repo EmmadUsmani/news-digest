@@ -267,3 +267,13 @@ gaps; repeated deletion and stale reorder fail without changing settings, and
 a valid reorder restores the original state. Tests use repository APIs against
 disposable PostgreSQL only. No provider, feed or Reddit requests occur.
 Remaining repository gaps and recorded-response golden coverage stay open.
+
+## Concurrent LLM cache characterization (iteration 247)
+
+`model-allocation.test.ts` races two ledger instances writing different nested
+JSON responses to one cache key. Reads retain one complete winning response,
+ignore later replacements and isolate caller mutations. A PostgreSQL-rejected
+zero byte leaves another key absent; a valid retry succeeds without changing
+the original key. All reads and writes use repository APIs against disposable
+PostgreSQL; no inference, X or Reddit requests occur. Remaining repository gaps
+and recorded-response golden coverage stay open.
