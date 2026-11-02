@@ -98,16 +98,7 @@ Earlier iteration 213: [archive](docs/progress-archive/2026-11-02-iteration-213.
 
 Archived iteration 216: [entry](docs/progress-archive/2026-11-02-iteration-216.md).
 
-## 2026-11-02: iteration 217 — search-scoped official verification
-
-- Started clean on main; API/worker and health healthy, 32 sources without errors and four queues available. No leftover work.
-- Search completion exposes its durable call ID; repository selects up to ten unverified citations for that call, honoring enabled/positive-budget topics and persisted one-day cooldown.
-- Extracted shared bounded verifier used by hourly collection: dedupe, at most ten requests, store before success acknowledgement, stop on first unavailable embed; no retry burst.
-- Fake tests cover request bounds/dedupe, safe failure persistence and storage failures; isolated search test covers call scope, cooldown expiry and already-verified exclusion.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` passed; 117 unit and 118 isolated integration tests passed.
-- Read-only X report: $0.023382, two verified/dated historical World citations, unknown incremental baseline. No inference or Reddit requests.
-- Timing report: next Nov 3 15:00 UTC; prior 856 ms fallback remains insufficient AI latency evidence.
-- Updated TASKS/SOURCES; API/worker restarted, health DB/Redis true and SPA 200. No UI change. Next: production timer/search/verification composition with schedule-change and midnight tests; items 13/7 await scheduled evidence.
+Iteration 217: [archive](docs/progress-archive/2026-11-02-iteration-217.md).
 
 ## 2026-11-02: iteration 218 — automatic pre-edition X discovery
 
@@ -266,4 +257,17 @@ Archived iteration 214: [entry](docs/progress-archive/2026-11-02-iteration-214.m
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (120 unit, 129 integration), `pnpm build` and `git diff --check` passed.
 - Updated TASKS/database notes; archived iteration 216 to bound PROGRESS.
 - Deployment: API/worker restarted healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues; retained edition has four topics.
+- Next: observe Nov 3 14:30 UTC X discovery and 15:00 edition cost/duration; fallback timing is not AI latency evidence.
+
+## 2026-11-02: iteration 232 — topic write isolation and rollback
+
+- Started clean on main; services, health and source collection healthy. No leftover work.
+- Priority items 13/7/9 await Nov 3 scheduled evidence; advanced isolated STEERING 2a coverage.
+- Pinned foreign/missing-topic rejection across writes without catalog or cross-profile changes.
+- Invalid JSON create/update preserves settings/order; later writes recover, round-trip Unicode and preserve/clear social lists.
+- Fixed fixture cleanup to delete its child topic before the parent profile after the first integration run caught the foreign key.
+- No X, Reddit or inference requests. AI golden and other repository behavior gaps remain open.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (120 unit, 131 integration), `pnpm build` and `git diff --check` passed.
+- Updated TASKS/database notes; archived iteration 217 to bound PROGRESS.
+- Deployment: API/worker restarted healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues; retained edition: four topics, 20 stories, 10 posts.
 - Next: observe Nov 3 14:30 UTC X discovery and 15:00 edition cost/duration; fallback timing is not AI latency evidence.

@@ -530,3 +530,132 @@ void test('custom feed limits reject atomically while allowing existing connecti
     await topics.onModuleDestroy();
   }
 });
+
+void test('default-topic writes reject foreign profiles without changing either profile or the catalog', async () => {
+  const topics = new PostgresTopicRepository();
+  const db = database();
+  const profile = '00000000-0000-4000-8000-999999999991';
+  const foreign = '00000000-0000-4000-8000-999999999992';
+  const missing = '00000000-0000-4000-8000-999999999993';
+  const input = {
+    name: 'Profile boundary fixture',
+    description: '',
+    includeGuidance: '',
+    excludeGuidance: '',
+    enabled: false,
+    storyBudget: 1,
+    postBudget: 0,
+    relevancePolicy: { includeAny: [], excludeAny: [] },
+  };
+  try {
+    await db.query(
+      "INSERT INTO profiles(id,name) VALUES($1,'Profile boundary fixture')",
+      [profile],
+    );
+    await db.query(
+      "INSERT INTO topics(id,profile_id,name,description,include_guidance,position) VALUES($1,$2,'Foreign fixture','','',7)",
+      [foreign, profile],
+    );
+    const before = await topics.listDefault();
+    const catalog = await topics.catalog();
+    const foreignBefore = (
+      await db.query('SELECT * FROM topics WHERE id=$1', [foreign])
+    ).rows;
+    for (const id of [foreign, missing]) {
+      assert.equal(await topics.updateDefault(id, input), null);
+      assert.equal(await topics.connectDefault(id, [catalog[0].id]), null);
+      assert.equal(
+        await topics.addFeedDefault(id, {
+          name: 'Unregistered fixture',
+          url: 'https://example.org/profile-boundary.xml',
+        }),
+        null,
+      );
+      assert.equal(await topics.deleteDefault(id), null);
+      assert.equal(
+        await topics.reorderDefault([id, ...before.slice(1).map((t) => t.id)]),
+        false,
+      );
+      assert.deepEqual(await topics.listDefault(), before);
+      assert.deepEqual(await topics.catalog(), catalog);
+      assert.deepEqual(
+        (await db.query('SELECT * FROM topics WHERE id=$1', [foreign])).rows,
+        foreignBefore,
+      );
+    }
+    assert.equal(
+      (
+        await db.query(
+          'SELECT count(*)::int AS n FROM topic_source_connections WHERE topic_id=$1',
+          [foreign],
+        )
+      ).rows[0].n,
+      0,
+    );
+  } finally {
+    await db.query('DELETE FROM topics WHERE id=$1', [foreign]);
+    await db.query('DELETE FROM profiles WHERE id=$1', [profile]);
+    await db.end();
+    await topics.onModuleDestroy();
+  }
+});
+
+void test('rejected topic JSON writes roll back settings and creation order, then allow recovery', async () => {
+  const topics = new PostgresTopicRepository();
+  const before = await topics.listDefault();
+  const input = {
+    name: 'JSON rollback fixture',
+    description: 'Unicode: café 🏀',
+    includeGuidance: 'First line\nSecond line',
+    excludeGuidance: '',
+    enabled: false,
+    storyBudget: 2,
+    postBudget: 1,
+    relevancePolicy: { includeAny: ['café'], excludeAny: ['promotion'] },
+    accounts: ['FixtureAccount'],
+    redditCommunities: ['nba'],
+  };
+  let created: string | undefined;
+  try {
+    const invalid = {
+      ...input,
+      redditCommunities: Array.from({ length: 21 }, (_, i) => `fixture${i}`),
+    };
+    await assert.rejects(topics.createDefault(invalid), { code: '23514' });
+    assert.deepEqual(await topics.listDefault(), before);
+    await assert.rejects(topics.updateDefault(before[0].id, invalid), {
+      code: '23514',
+    });
+    assert.deepEqual(await topics.listDefault(), before);
+    const topic = await topics.createDefault(input);
+    created = topic.id;
+    assert.equal(topic.position, before.length);
+    for (const [key, value] of Object.entries(input))
+      assert.deepEqual(topic[key as keyof typeof topic], value);
+    const {
+      accounts: _accounts,
+      redditCommunities: _communities,
+      ...legacy
+    } = input;
+    const retained = await topics.updateDefault(topic.id, {
+      ...legacy,
+      name: 'Recovered fixture',
+    });
+    assert.deepEqual(retained?.accounts, input.accounts);
+    assert.deepEqual(retained?.redditCommunities, input.redditCommunities);
+    const cleared = await topics.updateDefault(topic.id, {
+      ...input,
+      accounts: [],
+      redditCommunities: [],
+    });
+    assert.deepEqual(cleared?.accounts, []);
+    assert.deepEqual(cleared?.redditCommunities, []);
+    assert.deepEqual(
+      (await topics.listDefault()).slice(0, before.length),
+      before,
+    );
+  } finally {
+    if (created) await topics.deleteDefault(created);
+    await topics.onModuleDestroy();
+  }
+});

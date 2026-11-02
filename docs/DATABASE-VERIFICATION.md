@@ -121,3 +121,13 @@ call owns the first attribution; duplicate links and empty saves are idempotent,
 and verification candidates reflect only committed citations in descending ID
 order. Assertions use repository/report APIs and disposable PostgreSQL, with no
 X, Reddit or inference requests. AI golden and other behavior gaps remain open.
+
+## Topic write isolation and rollback (iteration 232)
+
+`settings.test.ts` pins foreign-profile and missing-topic rejection for updates,
+source connections, custom feeds, deletion and reorder. Rejections preserve both
+profiles and the shared source catalog. Database-rejected JSON writes leave
+existing settings and topic order intact; successful creation afterward proves
+transaction recovery. Unicode guidance and relevance JSON round-trip, omitted
+social lists survive updates, and explicit empty lists clear them. All rows are
+disposable fixtures; no Reddit, X or inference requests occur.
