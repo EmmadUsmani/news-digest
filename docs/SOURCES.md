@@ -1026,3 +1026,34 @@ social request, paid discovery, inference or publication was needed for this UI.
   selections 3/5/0/0. Gaming's two additional candidates are unrelated existing
   source citations, not these older Kotaku posts; semantic eligibility does not
   establish relevance. No paid discovery, inference or publication.
+
+## Iteration 141 — Guardian US politics citations (2026-11-02)
+
+- Public `https://www.theguardian.com/us-news/rss` returned 33 articles.
+  Three sampled article pages returned 200 and exposed eight distinct named
+  X citations, including political reactions and a political-show clip.
+  Migration 035 connects the feed to the original World news & politics topic
+  and enables existing exact-host bounded page discovery. Guardian US and
+  Guardian World are the same outlet; this adds no independent-outlet claim.
+- The live-blog citations include BernieSanders `2117003682382229741` and
+  2waytvapp `2117033676525412562`, whose Snowflake timestamps fall inside the
+  upcoming Nov 1–2 20:40 UTC daily window. Other sampled citations predate it.
+  Discovery alone establishes neither official availability nor relevance,
+  engagement or virality. Scheduled semantic selection is still pending.
+- Two original RSS entries and the live blog's four original X anchor elements
+  are recorded for offline dates/excerpts/named-citation regressions. These
+  fixtures are not live content or production seeds.
+- **Rejected for this social expansion:** France 24 English RSS (24 items),
+  PBS NewsHour World RSS (20) and HuffPost World RSS (four) returned 200, but
+  no feed X links or citations on three sampled pages each. Left unconfigured.
+  BBC's alternate World feed was accessible but duplicates the existing BBC
+  source; left unconfigured. No bypass, paid discovery or inference calls.
+- **Live verification:** two queued ingestion passes stored 1,252 distinct URLs
+  across four topics/31 healthy sources; repeated collection was idempotent.
+  Shared-client discovery persisted all eight distinct citations from the
+  sampled reporting pages (plus checked one newer opinion page with none).
+  Two bounded official oEmbed passes verified all eight with zero failures.
+- Read-only upcoming-window screening: semantic pools 9/26/3/4 versus
+  9/26/3/2 before expansion; lexical selections remain 3/5/0/0. The two new
+  World candidates are Bernie Sanders and 2WAY. Safety eligibility is not an
+  editorial relevance judgment; no new edition was published.

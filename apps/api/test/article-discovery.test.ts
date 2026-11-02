@@ -261,3 +261,24 @@ void test('recorded Kotaku speedrun embed preserves named X citation without fet
     },
   ]);
 });
+
+void test('recorded Guardian US article links preserve four named X citations without fetching X', async () => {
+  const html = await readFile(
+    'apps/api/test/fixtures/guardian-us-article-x.html',
+    'utf8',
+  );
+  const pages = new RiverDiscovery({ get: async () => html });
+  assert.deepEqual(
+    await pages.collect('https://www.theguardian.com/us-news/recorded'),
+    [
+      ['2waytvapp', '2117033676525412562'],
+      ['chuckschumer', '2116969707425468536'],
+      ['BernieSanders', '2117003682382229741'],
+      ['ZohranKMamdani', '2116987903419338975'],
+    ].map(([handle, externalId]) => ({
+      externalId,
+      url: `https://x.com/i/web/status/${externalId}`,
+      verificationUrl: `https://twitter.com/${handle}/status/${externalId}`,
+    })),
+  );
+});

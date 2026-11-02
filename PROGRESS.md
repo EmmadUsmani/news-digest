@@ -353,3 +353,16 @@ Earlier iterations 87–100: [archive](docs/progress-archive/2026-11-02-iteratio
 - Restarted API/worker; `/healthz` healthy. `scripts/smoke-ui.ts`, `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed and targeted Kotaku mobile card inspected.
 - TASKS/docs/SOURCES updated. Spend unchanged: Anthropic $0.408415, X $0.023382. No provider/model/billing or schedule changes, new owner blocker, or bot-protection bypass.
 - Next: inspect scheduled 20:40 UTC semantic edition. Gaming/World social gaps and Reddit access persist; paid X scheduling stays off.
+
+## 2026-11-02: iteration 141 — Guardian US free World citations
+
+- Started clean on main; no leftover work. API/worker/health, all current sources and digest/social runs healthy; two historical ingestion failures retained. Semantic edition remains due 20:40 UTC.
+- Migration 035 connects Guardian US RSS to World and enables bounded exact-host discovery: 33 real articles, eight distinct X citations persisted with reporting provenance, all eight verified by official oEmbed. Same outlet as Guardian World, not independent coverage.
+- Two new World posts (Bernie Sanders, 2WAY) fall inside the upcoming daily window: semantic pools 9/26/3/4 versus 9/26/3/2; lexical selections still 3/5/0/0. No relevance/virality or published-selection claim.
+- France 24/PBS/HuffPost World public feeds and three pages each yielded no X citations; left unconfigured. Alternate BBC feed duplicates existing coverage. No bypass or paid calls.
+- Two original RSS entries/four original page anchors recorded for offline date/excerpt/named-link regressions. `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 150 isolated tests pass. Initial check encountered temporary unformatted probe; removed it and full rerun passed.
+- `pnpm migrate`, `pnpm build` pass (existing upstream Zod warnings). Restarted API/worker; `/healthz` healthy. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued passes, 1,252 URLs/four topics/31 healthy sources; repeat idempotent.
+- Temporary shared-client probe checked four Guardian pages and was removed. Two `verify-x-embeds.ts` passes: five plus three successes/zero failures. `screen-social-posts.ts` read-only upcoming-window report confirms counts above.
+- `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed and targeted Guardian US mobile card inspected. TASKS/docs/SOURCES updated.
+- No publication, schedule mutation, inference/discovery spend, provider/model/billing change or new owner blocker. Gaming social gap and Reddit access remain; paid X scheduling stays off.
+- Next: inspect scheduled 20:40 UTC semantic edition when due; continue relevant free social discovery.

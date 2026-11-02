@@ -97,6 +97,7 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] New post snapshots retain visible URLs and line breaks in a separate display-only plain-text fallback; historical text and screening/editorial evidence remain unchanged (iteration 137). Desktop/mobile replay covers blocked widgets and legacy snapshots.
   - [x] Failed official widgets explain unavailable X media and offer an explicit retry while preserving saved text/original links; desktop/mobile blocked-script recovery replay (iteration 138).
   - [x] Kotaku RSS and exact-host bounded page discovery after three successful public probes (iteration 140): 20 real articles and three officially verified X citations; cited posts precede upcoming daily window. Offline feed/embed regressions; no paid calls.
+  - [x] Guardian US public RSS and bounded exact-host page discovery (iteration 141): three accessible reporting pages expose eight named X citations, including two in the upcoming daily window. Same outlet as Guardian World; offline feed/link regressions, no paid calls.
   - Next: observe the first scheduled semantic social edition and measure relevant Gaming discovery. Keep full-day X reservation and paid scheduling off. Semantic selection is not a virality measurement.
   - SocialPost storage, window-aware ranking with citation diversity/engagement, immutable post selections and lazy official X embeds.
   - Reddit per-topic communities and faithful cards; no bot-protection workarounds. Bluesky optional; YouTube deferred.

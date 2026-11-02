@@ -452,3 +452,20 @@ void test('recorded Kotaku feed preserves dates without inventing page citations
   );
   assert.ok(items.every((item) => item.xLinks.length === 0));
 });
+
+void test('recorded Guardian US feed preserves US reporting without inferring page citations', async () => {
+  const items = parseFeed(await fixture('guardian-us.xml'));
+  assert.equal(items.length, 2);
+  assert.match(items[0].title, /Haley Stevens/);
+  assert.equal(items[0].publishedAt, '2026-11-02T11:06:26.000Z');
+  assert.equal(items[1].publishedAt, '2026-11-02T11:00:41.000Z');
+  assert.ok(
+    items.every((item) => new URL(item.url).hostname === 'www.theguardian.com'),
+  );
+  assert.ok(
+    items.every(
+      (item) => item.excerpt.length > 0 && item.excerpt.length <= 1500,
+    ),
+  );
+  assert.ok(items.every((item) => item.xLinks.length === 0));
+});
