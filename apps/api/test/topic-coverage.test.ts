@@ -3,6 +3,7 @@ import { test } from 'node:test';
 
 import { database } from '../src/libs/db/connections';
 import { readTopicCoverage } from '../src/modules/operations/database/topic-coverage';
+import { PostgresXSearchRepository } from '../src/modules/social/database/x-search.repository';
 
 void test('topic coverage deduplicates collection scope, excludes unverified/undated posts and respects publication boundaries', async () => {
   const db = database();
@@ -57,6 +58,26 @@ void test('topic coverage deduplicates collection scope, excludes unverified/und
     assert.equal(row.healthySources, 1);
     assert.ok(row.connectedSources >= 3);
     assert.equal(result.topics.length, 4);
+    const searches = new PostgresXSearchRepository(client as never);
+    assert.equal(
+      (await searches.scheduledTopics(end)).some((row) => row.id === topic),
+      false,
+    );
+    await client.query(
+      'UPDATE topics SET enabled=true,post_budget=5 WHERE id=$1',
+      [topic],
+    );
+    assert.equal(
+      (await searches.scheduledTopics(end)).find((row) => row.id === topic)
+        ?.freePosts,
+      1,
+    );
+    await client.query('UPDATE topics SET post_budget=0 WHERE id=$1', [topic]);
+    assert.equal(
+      (await searches.scheduledTopics(end)).some((row) => row.id === topic),
+      false,
+    );
+
     assert.equal(result.topics.find((row) => row.name === 'NBA')?.articles, 0);
   } finally {
     await client.query('ROLLBACK');

@@ -78,27 +78,7 @@ Earlier iteration 195: [archive](docs/progress-archive/2026-11-02-iteration-195.
 
 Earlier iterations 198–199: [archive](docs/progress-archive/2026-11-02-iterations-198-199.md).
 
-## 2026-11-02: iteration 200 — release obsolete no-occurrence slots
-
-- Started clean on main; services, health and 32 sources healthy. No leftover work.
-- Scheduler refresh now removes an observed pending, attempt-zero identity when changed settings have no occurrence in its UTC day, under the shared ledger lock.
-- Compare-and-swap preserves newer identities, worker claims, retries and terminal outcomes; restoring a same-day schedule can register again.
-- Isolated Postgres coverage verifies DST no-occurrence removal, restoration and stale settings versus replacement/claim/retry/failure/success. No live failure induced.
-- First check caught an unsupported monthly cron in the new fixture; replaced it with the supported daily DST no-occurrence case and reran successfully.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (109 unit/107 isolated integration), `pnpm build`, `git diff --check` passed.
-- Live health DB/Redis true; 32 sources without errors, four queues, latest real edition four topics/10 posts. No UI changes, paid inference or Reddit requests.
-- Updated README, reserve decision and TASKS. Reserve enforcement remains UNFINISHED: missed/already-published slots, shared-lock ledger admission/races, manual/Status visibility before Nov 3 15:00 UTC.
-
-## 2026-11-02: iteration 201 — terminate never-claimed missed slots
-
-- Started clean on main; health, services and 32 sources healthy. No leftover work.
-- Refresh now marks unclaimed daily slots failed strictly after the worker's six-hour recovery window, including startup after downtime.
-- Shared-lock identity/state/attempt-zero guards preserve claims, retries, replacements and terminal outcomes; no fabricated edition/AI outcome.
-- Isolated coverage checks exact cutoff, one millisecond late, restart, idempotence and competing lifecycle transitions. No paid inference or Reddit requests.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (109 unit/108 isolated integration), `pnpm build`, `git diff --check` passed. First check caught archive formatting; corrected and reran.
-- Restarted API/worker active; health DB/Redis true, SPA 200, four queues, 32 sources without errors, latest real edition four topics/10 posts.
-- Updated README, reserve decision and TASKS; archived iteration 185 to bound orientation size. No UI changes.
-- Reserve enforcement remains UNFINISHED: already-published reconciliation, shared-lock admission/races and manual/Status visibility before Nov 3 15:00 UTC.
+Earlier iterations 200–201: [archive](docs/progress-archive/2026-11-02-iterations-200-201.md).
 
 ## 2026-11-02: iteration 202 — recover already-published scheduled slots
 
@@ -269,3 +249,14 @@ Earlier iterations 198–199: [archive](docs/progress-archive/2026-11-02-iterati
 - Read-only `scripts/report-x-discovery.ts 2026-11-02`: $0.023382, two verified/dated historical World citations; baseline unknown. No inference or Reddit requests.
 - `scripts/report-edition-timing.ts`: next Nov 3 15:00 UTC; prior 856 ms fallback remains insufficient AI evidence.
 - Updated README/SOURCES/TASKS; no UI change. Next: pre-edition timer and weakest-topic choice using durable admission; items 13/7 await scheduled evidence.
+
+## 2026-11-02: iteration 216 — pre-edition X search planning
+
+- Started clean on main; API/worker and health healthy, 32 sources without errors. No leftover work.
+- Added planner selecting fewest verified free-harvested X posts; ties preserve owner order, invalid/empty curated accounts skip.
+- Repository counts distinct publisher/river post IDs in a half-open rolling 24-hour window; disabled/zero-budget topics excluded. Paid and Reddit citations do not affect scarcity.
+- Planner accepts only 5–30 minutes before an edition and produces bounded UTC dates; no I/O or production paid scheduling yet.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` passed; 115 unit and 118 isolated integration tests passed.
+- Read-only X report: $0.023382, two verified/dated historical World citations, unknown incremental baseline. No inference or Reddit requests.
+- Timing report: next Nov 3 15:00 UTC; prior 856 ms fallback remains insufficient AI latency evidence.
+- Updated TASKS/SOURCES; archived iterations 200–201. API/worker restarted; health DB/Redis true, SPA 200. Next: timer/search/official verification wiring with schedule-change and midnight tests; items 13/7 await Nov 3 evidence.

@@ -1,10 +1,29 @@
 import type { Pool } from 'pg';
 
 import type { DiscoveredLink } from '../domain/collection.port';
+import type { ScheduledSearchTopic } from '../domain/scheduled-search';
 import type { XSearchRepository } from '../domain/x-search.port';
 
 export class PostgresXSearchRepository implements XSearchRepository {
   constructor(readonly db: Pool) {}
+  async scheduledTopics(end: Date) {
+    const { rows } = await this.db.query<ScheduledSearchTopic>(
+      `WITH free_topics AS (
+        SELECT c.external_id,t.topic_id FROM x_link_citations c
+          JOIN topic_source_connections t ON t.source_id=c.source_id
+        UNION SELECT c.external_id,s.topic_id FROM social_discovery_citations c
+          JOIN social_discovery_sources s ON s.id=c.source_id
+      )
+      SELECT t.id,t.name,t.include_guidance AS guidance,t.accounts AS handles,
+        (SELECT count(*)::int FROM free_topics f JOIN social_posts p
+          ON p.platform='x' AND p.external_id=f.external_id
+          WHERE f.topic_id=t.id AND p.published_at >= $1::timestamptz - interval '24 hours'
+            AND p.published_at < $1::timestamptz) AS "freePosts"
+      FROM topics t WHERE t.enabled AND t.post_budget > 0 ORDER BY t.position,t.id`,
+      [end],
+    );
+    return rows;
+  }
   async topic(id: string) {
     const { rows } = await this.db.query<{
       id: string;

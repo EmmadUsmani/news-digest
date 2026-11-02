@@ -1235,3 +1235,15 @@ budget denial does not. Stale/future jobs cannot spend. Manual calls and histori
 rows remain unchanged. The full-day reservation is retained; timer wiring and
 coverage-based topic choice remain unfinished. Verified using isolated/fake
 requests only; no new paid call or Reddit request.
+
+## Scheduled X planner — iteration 216 (2026-11-02)
+
+The planner chooses the enabled topic with a positive post budget and the fewest
+verified, dated free-harvested X posts in the preceding 24 hours; ties preserve
+owner topic order. Publisher and river citations deduplicate by post ID. Paid
+search citations and parked Reddit are excluded from this scarcity measure.
+Counts measure coverage, not strength or relevance. Topics need valid curated
+accounts (1–20). Plans are accepted only 5–30 minutes before the edition; late
+windows skip. Search dates cover yesterday through today in UTC. The planner
+performs no I/O; production timer/search/official verification wiring is next.
+No new paid call or Reddit request was made.
