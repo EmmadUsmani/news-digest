@@ -36,16 +36,7 @@ Earlier iterations 161–162: [archive](docs/progress-archive/2026-11-02-iterati
 
 Earlier iterations 163–164: [archive](docs/progress-archive/2026-11-02-iterations-163-164.md).
 
-## 2026-11-02: iteration 165 — fake HTTP provider and worker timing
-
-- Started clean on main; no leftover work. API/worker/health healthy, 32 sources without errors, zero failed digest jobs; two historical ingestion failures retained.
-- Extended social-inclusive disposable-service benchmark through real Anthropic SDK serialization, adapter four-call limiter, BullMQ enqueue/worker, progress persistence and completed-edition readback. Story editor remains fake.
-- Synthetic 400 articles + 240 posts: cold/warm enqueue-to-readback 273/114 ms; worker 262/108 ms. Synthetic 1,500 stored articles + 240 posts: 349/261 ms; worker 336/252 ms. Existing cap triages 800 articles at larger volume.
-- Both volumes reach exactly four fake HTTP calls concurrently, reuse all warm article/social scores and social selection caches, and publish four five-story/five-post topics. Uses 25 ms fake HTTP inference; NOT proof of live <60s/<2min targets. No live inference spend.
-- Initial lint caught unsafe RequestInit body stringification; added explicit string assertion. `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 164 isolated tests pass. `pnpm build` passes.
-- Restarted API/worker; `/healthz` healthy; 32 sources, 1,451 stored source items, no source errors, zero failed digest jobs. Latest stored edition remains four topics.
-- README/TASKS updated; archived iterations 141–142 to keep PROGRESS small. No source/UI changes; docs/SOURCES unchanged.
-- Next: live/cache-backed provider latency evidence within verification budget; item 7 remains open. Avoid treating fake timings as live targets; Reddit follows item 7.
+Earlier iteration 165: [archive](docs/progress-archive/2026-11-02-iteration-165.md).
 
 ## 2026-11-02: iteration 166 — restore owner schedule and stop live smoke writes
 
@@ -186,3 +177,13 @@ Earlier iterations 163–164: [archive](docs/progress-archive/2026-11-02-iterati
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (180 tests); `pnpm build` passed. No UI change; no browser check required.
 - Restarted API/worker; `/healthz` DB/Redis true, all workers available/no retained failed queue jobs. Latest real edition four topics/20 stories/10 X posts; remaining app budget unchanged.
 - Updated TASKS and docs/LLM. Separate verification spend on Status, fingerprinted replay and guarding historical recording entrypoint remain open; Reddit/AI timing blockers unchanged.
+
+## 2026-11-02: iteration 179 — guard historical paid recording
+
+- Started clean on main; no leftover work. Health/services healthy, 32 sources/no current errors; two historical ingestion failures retained, no failed digest/social jobs.
+- Historical editorial recorder now requires LLM_LIVE=1 before DB/file work and uses verification-mode ledger for triage, editor, repair and fallback; shared $0.05/day cap and normal app caps apply. Existing snapshots remain immutable.
+- Extended subprocess refusal test to recorder with invalid DB URL/no provider key; tests use disposable services/fakes, no paid calls or live configuration/content writes.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (180 tests); `pnpm build` passed. No UI changes; no browser check needed.
+- Restarted API/worker; retry reached healthy `/healthz` (DB/Redis true); latest real edition retains four topics/20 stories/10 posts. Available app budget remains 848 micros.
+- Updated TASKS/docs/LLM; archived iteration 165 to keep PROGRESS below 25 KB. No source changes.
+- Next: fingerprinted LlmPort replay and separate verification spend on Status. Reddit access/live AI timing remain blocked; scheduled xAI follows Reddit per owner order.

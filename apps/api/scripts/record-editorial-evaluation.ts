@@ -1,5 +1,5 @@
 // Explicit paid evaluation on frozen feed content; writes no content/edition rows.
-// Usage: load configured env, then tsx this file. Never run as part of pnpm check.
+// Usage: load configured env, then LLM_LIVE=1 tsx this file. Never run in checks.
 import assert from 'node:assert/strict';
 import { createHash, randomUUID } from 'node:crypto';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
@@ -8,12 +8,22 @@ import { join } from 'node:path';
 import { relevancePolicySchema } from '@digest/contracts';
 
 import { database } from '../src/libs/db/connections';
+import { AnthropicLlmAdapter } from '../src/modules/curation/adapters/anthropic';
+import { llmConfig } from '../src/modules/curation/adapters/config';
+import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
+import { ShortlistEditor } from '../src/modules/curation/application/editor';
 import type { TriageTopic } from '../src/modules/curation/application/triage';
-import { editorialServices } from '../src/modules/curation/public/editorial';
+import { CandidateTriage } from '../src/modules/curation/application/triage';
+import { PostgresLlmLedger } from '../src/modules/curation/database/llm.ledger';
 import { editorialShortlist } from '../src/modules/digests/domain/editorial-shortlist';
 import type { Candidate } from '../src/modules/digests/domain/rank';
 
 async function main() {
+  assert.equal(
+    process.env.LLM_LIVE,
+    '1',
+    'Live verification requires LLM_LIVE=1',
+  );
   assert.ok(
     process.env.ANTHROPIC_API_KEY,
     'Load configured secrets environment',
@@ -53,7 +63,14 @@ async function main() {
   const db = database();
   const runId = `recorded-${key}-` + randomUUID();
   try {
-    const services = editorialServices(db)!;
+    const config = llmConfig();
+    const ledger = new PostgresLlmLedger(db, config.caps, true);
+    const llm = new BudgetedLlm(
+      new AnthropicLlmAdapter(process.env.ANTHROPIC_API_KEY),
+      ledger,
+    );
+    const triageService = new CandidateTriage(llm, ledger, config.haiku);
+    const editor = new ShortlistEditor(llm, config.sonnet, config.haiku);
     const topic = (
       await db.query<TriageTopic>(
         "SELECT id,name,description,include_guidance || E'\nExclude: ' || exclude_guidance AS guidance FROM topics WHERE name=$1 AND profile_id='00000000-0000-4000-8000-000000000001'",
@@ -63,11 +80,7 @@ async function main() {
     assert.ok(topic);
     const policy = relevancePolicySchema.parse(fixture.relevancePolicy);
     topic.guidance += `\nRequired phrases: ${policy.includeAny.join(', ')}\nExcluded phrases: ${policy.excludeAny.join(', ')}`;
-    const triage = await services.triage.score(
-      topic,
-      fixture.candidates,
-      runId,
-    );
+    const triage = await triageService.score(topic, fixture.candidates, runId);
     assert.equal(
       triage.unscoredIds.length,
       0,
@@ -80,15 +93,10 @@ async function main() {
       new Date(fixture.windowStart),
       new Date(fixture.windowEnd),
     );
-    const result = await services.editor.edit(
-      topic,
-      ranked,
-      fixture.budget,
-      runId,
-    );
+    const result = await editor.edit(topic, ranked, fixture.budget, runId);
     console.log(
       JSON.stringify({
-        validationDiagnostics: services.validationDiagnostics(),
+        validationDiagnostics: llm.validationDiagnostics(),
       }),
     );
     assert.ok(result, 'Editor refused; no snapshot recorded');
@@ -127,6 +135,11 @@ async function main() {
   }
 }
 void main().catch(() => {
+  if (process.env.LLM_LIVE !== '1') {
+    console.error('Live verification requires LLM_LIVE=1; no calls made.');
+    process.exitCode = 1;
+    return;
+  }
   console.error(
     'Recorded evaluation failed; inspect sanitized ledger. No edition published.',
   );

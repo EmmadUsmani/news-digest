@@ -362,7 +362,8 @@ or provider errors. No causal or general quality claim follows from one success.
 
 ### Development live-call guard
 
-The three Anthropic smoke scripts refuse to run unless `LLM_LIVE=1`, before
+The three Anthropic smoke scripts and historical editorial recorder refuse to
+run unless `LLM_LIVE=1`, before
 opening a database connection. They tag all reservations (including editorial
 fallback and JSON repair) `purpose=verification`. The ledger serializes a shared
 $0.05 UTC-day verification allowance across processes, in addition to the normal
@@ -375,3 +376,8 @@ check is necessary. Routine tests use fakes and never require this opt-in.
 Historical development calls used older purpose tags and are not retroactively
 classified. Separate verification totals on Status and fingerprinted fixture
 replay remain open work. No paid calls were made to verify this guard.
+
+Iteration 179: the historical `record-editorial-evaluation.ts` entrypoint now
+uses the same verification ledger for triage, editing, repairs and fallback.
+Existing snapshots are still never overwritten; incomplete results write no
+snapshot. Recording remains an explicit paid operation, not part of checks.

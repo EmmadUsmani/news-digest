@@ -6,11 +6,16 @@ import { database } from '../src/libs/db/connections';
 import { llmConfig } from '../src/modules/curation/adapters/config';
 import { PostgresLlmLedger } from '../src/modules/curation/database/llm.ledger';
 
-void test('live smoke scripts refuse without opt-in before database or provider access', () => {
-  for (const name of ['anthropic', 'editor', 'triage']) {
+void test('live development scripts refuse without opt-in before database or provider access', () => {
+  for (const name of [
+    'smoke-anthropic',
+    'smoke-editor',
+    'smoke-triage',
+    'record-editorial-evaluation',
+  ]) {
     const result = spawnSync(
       'pnpm',
-      ['exec', 'tsx', `apps/api/scripts/smoke-${name}.ts`],
+      ['exec', 'tsx', `apps/api/scripts/${name}.ts`],
       {
         env: {
           ...process.env,
