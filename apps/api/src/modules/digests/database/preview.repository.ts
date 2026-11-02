@@ -6,6 +6,7 @@ import {
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
 
 import { database } from '../../../libs/db/connections';
+import { editorialServices } from '../../curation/public/editorial';
 import { PreviewRepository } from '../domain/preview.repository';
 import { qualityRejection } from '../domain/quality';
 import { Candidate, rank } from '../domain/rank';
@@ -17,6 +18,7 @@ export class PostgresPreviewRepository
   implements OnModuleDestroy
 {
   readonly db = database();
+  readonly editorial = editorialServices(this.db);
   async latest(): Promise<DigestPreview | null> {
     return (
       (
@@ -79,9 +81,10 @@ export class PostgresPreviewRepository
           return prior.snapshot;
         }
       }
+      const runId = crypto.randomUUID();
       const topics = (
         await client.query(
-          'SELECT id,name,story_budget,relevance_policy FROM topics WHERE profile_id=$1 AND enabled ORDER BY position,id',
+          'SELECT id,name,description,include_guidance,exclude_guidance,story_budget,relevance_policy FROM topics WHERE profile_id=$1 AND enabled ORDER BY position,id',
           [profileId],
         )
       ).rows;
@@ -102,22 +105,118 @@ export class PostgresPreviewRepository
         const eligible = candidates.filter(
           (item) => assessRelevance(item, policy).eligible,
         );
-        const qualityRejections = eligible.flatMap((item) => {
+        const qualityRejections = candidates.flatMap((item) => {
           const rejection = qualityRejection(item);
           return rejection
             ? [{ id: item.id, title: item.title, ...rejection }]
             : [];
         });
-        const stories = rank(eligible, start, end, topic.story_budget).map(
-          (story) => ({
-            ...story,
-            reasons: [...story.reasons, assessRelevance(story, policy).reason],
-          }),
-        );
+        let stories: DigestPreview['topics'][number]['stories'] = rank(
+          eligible,
+          start,
+          end,
+          topic.story_budget,
+        ).map((story) => ({
+          ...story,
+          reasons: [...story.reasons, assessRelevance(story, policy).reason],
+        }));
+        let relevanceRejectedCount = candidates.filter(
+          (c) => !qualityRejection(c) && !assessRelevance(c, policy).eligible,
+        ).length;
+        const editorial: NonNullable<
+          DigestPreview['topics'][number]['editorial']
+        > = {
+          mode: 'non-ai',
+          model: null,
+          brief: [],
+          triage: [],
+          unscoredIds: candidates.map((c) => c.id),
+          reason:
+            topic.story_budget === 0
+              ? 'Non-AI ranking: topic story budget is zero.'
+              : 'Non-AI ranking: editorial service unavailable.',
+        };
+        if (this.editorial && topic.story_budget > 0) {
+          const context = {
+            id: String(topic.id),
+            name: String(topic.name),
+            description: String(topic.description),
+            guidance: `${topic.include_guidance}\nExclude: ${topic.exclude_guidance}\nRequired phrases: ${policy.includeAny.join(', ')}\nExcluded phrases: ${policy.excludeAny.join(', ')}`,
+          };
+          const triage = await this.editorial.triage.score(
+            context,
+            candidates,
+            runId,
+          );
+          editorial.triage = triage.scores;
+          editorial.unscoredIds = triage.unscoredIds;
+          editorial.reason =
+            'Non-AI ranking: incomplete triage or editor unavailable within caps.';
+          // Partial semantic coverage must never silently displace unscored news.
+          if (triage.unscoredIds.length === 0) {
+            const ordered = triage.scores
+              .filter((s) => s.relevance >= 6 && s.importance >= 4)
+              .sort(
+                (a, b) =>
+                  b.importance - a.importance ||
+                  b.relevance - a.relevance ||
+                  a.id.localeCompare(b.id),
+              );
+            const shortlist = ordered
+              .flatMap((score) => {
+                const candidate = candidates.find((c) => c.id === score.id)!;
+                // Explicit exclusions remain hard rules; required phrases are advisory to semantic triage.
+                return !qualityRejection(candidate) &&
+                  assessRelevance(candidate, { ...policy, includeAny: [] })
+                    .eligible
+                  ? [candidate]
+                  : [];
+              })
+              .slice(0, 10);
+            const ranked = rank(shortlist, start, end, 10);
+            const result = await this.editorial.editor.edit(
+              context,
+              ranked,
+              Math.min(10, topic.story_budget),
+              runId,
+            );
+            if (result) {
+              stories = result.stories.map((edit) => {
+                const original = ranked.find((s) => s.id === edit.id)!;
+                const score = triage.scores.find((s) => s.id === edit.id)!;
+                return {
+                  ...original,
+                  title: edit.headline,
+                  summary: edit.summary,
+                  whyItMatters: edit.whyItMatters,
+                  reasons: [
+                    ...original.reasons,
+                    `Semantic relevance ${score.relevance}/10; importance ${score.importance}/10: ${score.rationale}`,
+                    `Editor: ${edit.rationale}`,
+                  ],
+                };
+              });
+              relevanceRejectedCount = candidates.filter(
+                (c) =>
+                  !qualityRejection(c) && !shortlist.some((s) => s.id === c.id),
+              ).length;
+              editorial.mode = 'ai';
+              editorial.model = result.model;
+              // Derive the published brief only from selected headlines. A model's
+              // free-form brief can mention candidates it ultimately omitted.
+              editorial.brief = result.stories
+                .slice(0, 4)
+                .map((story) => story.headline);
+              editorial.reason =
+                'AI edited from supplied headlines and excerpts; full articles were not fetched.';
+            }
+          }
+        }
         selections.push({
+          editorial,
           qualityRejections,
           relevancePolicy: policy,
-          relevanceRejectedCount: candidates.length - eligible.length,
+          relevanceRejectedCount,
           id: topic.id,
           name: topic.name,
           candidateCount: candidates.length,
@@ -125,11 +224,11 @@ export class PostgresPreviewRepository
         });
       }
       const snapshot: DigestPreview = {
-        id: crypto.randomUUID(),
+        id: runId,
         createdAt: new Date().toISOString(),
         windowStart: start.toISOString(),
         windowEnd: end.toISOString(),
-        method: 'signals-v6',
+        method: 'editorial-v1',
         topics: selections,
       };
       await client.query(

@@ -6,96 +6,7 @@ about 400 lines, move older entries to `docs/progress-archive/`.
 
 Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11-01-iterations-7-16.md).
 
-## 2026-11-01: iteration 17 — edit topic settings and active phrase rules
-
-- Started clean on main; no leftover work; baseline 19 tests, services and `/healthz` healthy.
-- Added profile-scoped validated PUT settings and Manage topics UI: name, description, enabled, budgets, guidance and phrase rules.
-- Disabled topics leave incoming cards/new editions; collection continues. Historical snapshots remain unchanged.
-- UI distinguishes active phrase rules from editorial notes and future post budgets; source wiring/create/reorder remain unfinished.
-- `pnpm check` passed typecheck/lint/boundaries and all 19 tests; `pnpm build` passed (existing upstream Zod warnings).
-- `pnpm exec tsx scripts/smoke-topics.ts` passed desktop/mobile persistence, disable, budget, immutable-history and 400/404 checks; original settings restored.
-- Corrected smoke cleanup's read-only fields and textarea locator after initial failures; successful reruns and screenshots verified.
-- `pnpm exec tsx scripts/smoke-ui.ts` passed existing desktop/mobile/history/window checks; screenshots updated and topic mobile inspected.
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 266 URLs, four topics, seven healthy sources.
-- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed history/versions/preservation/ranking; restored default 24h edition selects 5/5/3/5.
-- `git diff --check` passed; API/worker rebuilt/restarted and health healthy. No provider/model/billing changes; editorial configuration pending.
-- Next: topic creation/reorder/source configuration, schedule settings, semantic ranking evaluation.
-
-## 2026-11-01: iteration 18 — persist topic reading order
-
-- Started clean on main; no leftover work; baseline checks, services and health healthy.
-- Added accessible up/down controls and profile-scoped PUT /api/topics/order with strict unique/full-list validation.
-- Transaction locks topics in stable ID order and updates positions atomically; invalid lists leave settings unchanged.
-- Incoming cards and new editions use saved order; immutable historical editions retain their original order.
-- Seven healthy sources still store 266 real URLs; no source or provider/model/billing changes.
-- `pnpm check` passed types/lint/boundaries and all 19 tests; `pnpm build` passed (existing upstream Zod warnings).
-- `pnpm exec tsx scripts/smoke-topic-order.ts` passed desktop/mobile persistence, new-edition order, history and invalid atomicity; screenshots added/inspected.
-- Fixed initial smoke script CJS top-level-await failure by wrapping its entrypoint; successful rerun.
-- `pnpm exec tsx scripts/smoke-topics.ts` and `pnpm exec tsx scripts/smoke-ui.ts` passed existing UI checks/screenshots.
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes; `pnpm exec tsx apps/api/scripts/smoke-previews.ts` restored 5/5/3/5 selections.
-- `pnpm lint` and `git diff --check` passed; API/worker restarted and /healthz healthy.
-- Next: topic creation/source configuration and schedule settings; editorial review still awaits allowed model configuration.
-
-## 2026-11-01: iteration 19 — repair reorder regression before new features
-
-- Started clean on main; no leftover work. Services/health healthy, but baseline `pnpm check` failed: reorder saved positions 1–4 while seeds/tests require 0–3.
-- Fixed SQL ordinality offset; migration 007 normalizes persisted positions per profile without changing reading order.
-- Added repository integration coverage for reverse order, exact positions and invalid-list atomicity; settings assertions now respect configurable names/enabled states.
-- Strengthened desktop/mobile reorder smoke to verify persisted zero-based positions; existing screenshots remain unchanged.
-- `pnpm migrate` applied 007; `pnpm check` passed all 20 tests, types/lint/boundaries, including a rerun after live browser reorders.
-- `pnpm build` passed with existing upstream Zod annotation warnings; `git diff --check` passed.
-- `pnpm exec tsx scripts/smoke-topic-order.ts` passed desktop/mobile persistence, new-edition order and immutable history.
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 267 real URLs, four topics, seven healthy sources.
-- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed history/window/preservation checks; default selections remain 5/5/3/5.
-- API/worker restarted; `/healthz` healthy. No provider/model/billing changes; allowed editorial configuration remains pending.
-- Next: topic creation/source configuration and schedule settings; triage completed instead of starting new features.
-
-## 2026-11-01: iteration 20 — create configurable topics
-
-- Started clean on main; no leftover work; baseline 20 tests, both services and `/healthz` healthy.
-- Added strict profile-scoped POST /api/topics and shared Create topic form with budgets, guidance, phrase rules and enable state.
-- Server assigns UUID and appended zero-based position; creation/reorder serialize on the profile row; stale reorder lists fail atomically.
-- New topics explicitly have no source connections; no articles are invented or fetched. Source setup remains the next configuration step.
-- `pnpm check` passed types/lint/boundaries and all 21 tests, including concurrent creation/order/defaults integration coverage.
-- `pnpm build` passed (existing upstream Zod warnings); `git diff --check` passed.
-- `pnpm exec tsx scripts/smoke-topic-create.ts` passed desktop/mobile validation, persistence, quiet editions and immutable history; screenshots inspected.
-- `pnpm exec tsx scripts/smoke-topic-order.ts`, `scripts/smoke-topics.ts`, and `scripts/smoke-ui.ts` passed existing browser checks; screenshots updated.
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 268 real URLs, four topics, seven healthy sources.
-- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed saved-window/history checks; restored latest 24h selections remain 5/5/3/5.
-- API/worker rebuilt/restarted; health healthy. No provider/model/billing changes; allowed editorial configuration remains pending.
-- Next: source/query/account configuration and schedule settings; deletion remains unfinished.
-
-## 2026-11-01: iteration 21 — connect topics to shared real sources
-
-- Started clean on main; no leftover work; baseline 21 tests, services and `/healthz` healthy.
-- Added migration 008 and transactional source connections, catalog API, validated replacement API and accessible desktop/mobile selection UI.
-- New topics immediately reuse stored articles; future collection stays shared per source; incoming cards refresh after saves.
-- Disconnecting removes candidates from new editions; old snapshots remain unchanged. Custom feeds/queries/accounts remain unfinished.
-- Worker refreshes source schedules every minute; collection pauses when no enabled topic connects a source.
-- First check exposed an ingestion fixture missing its new connection; updated fixture/cleanup and added atomicity/shared-catalog integration coverage.
-- `pnpm migrate`, `pnpm check` (22 tests/types/lint/boundaries), `pnpm build`, `pnpm lint`, `pnpm test` and `git diff --check` passed; existing Zod warnings only.
-- `pnpm exec tsx scripts/smoke-topic-sources.ts` passed desktop/mobile connect/reload/real articles/new editions/disconnect/400/404/history; screenshots inspected.
-- Existing `scripts/smoke-topic-create.ts`, `scripts/smoke-topics.ts`, `scripts/smoke-topic-order.ts`, `scripts/smoke-ui.ts` passed; screenshots updated.
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 268 real URLs, four topics, seven healthy sources.
-- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed immutable-history/window checks; restored latest selections 5/5/3/5.
-- API/worker rebuilt/restarted; `/healthz` healthy. No provider/model/billing changes; allowed editorial configuration remains pending.
-- Next: schedule settings; custom feeds/discovery configuration and topic deletion remain unfinished.
-
-## 2026-11-01: iteration 22 — persist schedule settings and topic defaults
-
-- Started clean on main; no leftover work; baseline 22 tests, services and `/healthz` healthy.
-- Added strict PUT /api/profile/schedule through ProfileRepository and accessible daily time/timezone/coverage/default-budget form.
-- Validates daily cron, IANA timezone, positive elapsed duration (maximum 31 days), bounded budgets and unknown fields; invalid saves leave settings intact.
-- Saved defaults prefill new topics; existing topics and immutable editions remain unchanged. Schedule note reflects actual saved coverage.
-- Automatic generation remains explicitly pending M7; no provider/model/billing changes; editorial configuration still blocked.
-- `pnpm check` passed types/lint/boundaries and all 23 tests; `pnpm build` passed with existing upstream Zod annotation warnings.
-- `pnpm exec tsx scripts/smoke-schedule.ts` passed desktop/mobile persistence, invalid-save atomicity, timezone errors, defaults and history; screenshots saved and mobile inspected.
-- Initial existing UI checks exposed a shared CSS selector and outdated schedule notice expectation; corrected both and reran successfully.
-- `pnpm exec tsx scripts/smoke-topic-create.ts` and `pnpm exec tsx scripts/smoke-ui.ts` passed desktop/mobile regressions; screenshots updated.
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 268 real URLs, four topics, seven healthy sources.
-- `pnpm exec tsx apps/api/scripts/smoke-previews.ts` passed saved-window/history checks; latest selections remain 5/5/3/5.
-- `pnpm lint` and `git diff --check` passed; API/worker rebuilt/restarted and health healthy.
-- Next: custom feeds/discovery configuration and topic deletion; wire saved schedules into automatic generation under M7.
+Earlier iterations 17–22: [archive](docs/progress-archive/2026-11-01-iterations-17-22.md).
 
 ## 2026-11-01: iteration 23 — automatic preliminary editions
 
@@ -387,3 +298,18 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - `smoke-ingestion.ts` passed two live passes: 712 real URLs, seventeen healthy sources. Initial overlapping preview failed on changed candidate counts; rerun after collection/checks passed immutable/history/windows, selections 5/5/5/5.
 - `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed/mobile inspected. Rebuilt/restarted services and `/healthz` healthy; schedule unchanged.
 - M3 remains open: connect triage/editor to immutable editions, verify nonempty live summaries, Sonnet allocation/non-AI labels, scheduled batches and cache-miss coalescing. No owner blockers.
+
+## 2026-11-02: iteration 55 — publish immutable AI editions
+
+- Started clean on main; no leftover work. API/worker and `/healthz` healthy.
+- Manual/scheduled editorial-v1 editions now triage before lexical inclusion, edit a bounded shortlist, preserve source links/excerpts/coverage and store scores, rationale, model, summaries and significance.
+- Explicit exclusions/quality rules remain hard filters. Incomplete triage/editor refusal uses labeled per-topic non-AI ranking; valid quiet selections stay empty.
+- A live free-form brief mentioned omitted stories; publication now derives bullets from selected rewritten headlines. Spot-inspected four lead summaries; no independent precision/factual-accuracy claim.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and 66 tests; `pnpm build` passed with existing upstream Zod warnings only.
+- `smoke-ingestion.ts` passed two queued live passes: 712 URLs, seventeen healthy sources. No source configuration changes.
+- Final `smoke-previews.ts` passed history/preservation/contracts and cached identical regeneration with no new calls: 74/45/22/50 candidates, five Sonnet summaries per topic.
+- Initial NBA triage validation failed after repair and published labeled fallback; retry completed coverage. Updated smoke to distinguish recovery from stable cached regeneration; legacy local-DB test explicitly disables external inference.
+- `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; fixed stale omission selector, updated screenshots and visually inspected mobile. Extra paid creation/window browser checks are now opt-in; fixtures reuse GET snapshots.
+- Today/month ledger $0.264979 (increment $0.254745), zero reservations/provider errors, below $0.482758 daily/$14 monthly caps. Provider/model/billing unchanged.
+- Rebuilt/restarted services, `/healthz` healthy; schedule unchanged. Archived iterations 17–22; no owner blockers.
+- Next: Sonnet allocation, scheduled Message Batches, cache-miss coalescing/cross-window ordering, and recorded-window editorial precision. M3 remains open.

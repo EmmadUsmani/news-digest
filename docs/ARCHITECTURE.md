@@ -234,6 +234,17 @@ Iteration 52 adds the curation LLM/ledger ports, official Anthropic SDK adapter,
 transactionally serialized reservations, validated JSON cache and usage facade.
 Operations reads usage only through `curation/public`; SQL remains in curation's
 database adapters. Status displays recorded real call costs and caps. Published
-editions still use signals-v6: no automatic editorial calls are wired yet.
+editions used signals-v6 at that point; iteration 55 connects publication below.
 See [LLM.md](LLM.md) for budgets, conservative failure handling, configuration,
 isolated database checks and the remaining pipeline work.
+
+Iteration 55 connects both manual and scheduled repository generation through
+`curation/public/editorial`, retaining the inward context boundary. Immutable
+`editorial-v1` snapshots contain per-topic triage evidence, editor model/brief,
+source-linked summaries and significance, or an explicit non-AI fallback reason.
+Complete semantic triage can recover lexical inclusion misses; explicit exclusions
+and quality filters remain hard rules. See LLM.md for thresholds, shortlist bounds
+and unfinished Sonnet allocation/batch execution. Generation currently holds its
+repeatable-read snapshot connection during capped external calls, plus the existing
+scheduled-key advisory lock for idempotence. Moving long runs to resumable queued
+stages and coalescing concurrent cache misses remain follow-ups.

@@ -5,6 +5,9 @@ import { PostgresPreviewRepository } from '../src/modules/digests/database/previ
 
 void test('concurrent scheduled retries return one immutable snapshot; manual regeneration stays versioned', async () => {
   const repository = new PostgresPreviewRepository();
+  // This legacy local-DB characterization must never make paid external calls,
+  // including when the developer has loaded the configured service environment.
+  Object.defineProperty(repository, 'editorial', { value: null });
   const end = new Date(),
     start = new Date(end.getTime() - 86400000);
   const key = `integration:${crypto.randomUUID()}`;

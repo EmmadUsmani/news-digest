@@ -56,16 +56,22 @@ pnpm exec playwright install chromium
 pnpm exec tsx scripts/smoke-ui.ts
 ```
 
-The page shows a preliminary ranked edition with saved publisher excerpts and
-selection signals, plus real incoming articles for all four topics. Use the
+The default browser check reads saved editions. Opt in to paid inference with
+`SMOKE_CREATE_EDITION=1` (24h creation) or `SMOKE_EXTENDED_WINDOWS=1`
+(6h/7d/custom-window creation).
+
+The page shows immutable editions with AI briefs, source-based summaries and
+selection evidence, or labeled non-AI ranking when editing is unavailable, plus
+real incoming articles for all four topics. Use the
 period controls to save a new edition for the last 6 hours, 24 hours, 7 days,
 or a custom period of up to 31 days. Custom times use the browser timezone;
 the start is included and the end excluded. Only collected articles are used,
 so older coverage may be incomplete. Quiet sections remain
 empty. Browse saved editions to reopen an immutable version by URL; history lists
 20 versions per page with their creation time, coverage period and ranking method.
-LLM editorial summaries are still pending. The worker ingests eight sources every
-30 minutes and generates preliminary editions at the saved daily local time.
+The worker ingests seventeen sources every 30 minutes and generates editions at
+the saved daily local time. New editions and UI creation checks make budgeted
+Anthropic calls; offline tests never call external services.
 Schedule changes reach the worker within 10 seconds. Coverage ends at the scheduled
 slot, even if a queued job is delayed; repeated jobs reuse the same edition.
 BullMQ retains 100 successful/failed runs and retries failures three times with

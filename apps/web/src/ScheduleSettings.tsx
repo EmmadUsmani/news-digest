@@ -41,7 +41,7 @@ export function ScheduleSettings({
       }
       onSaved(profileSettingsSchema.parse(await response.json()));
       setMessage(
-        'Schedule settings saved. Automatic preliminary editions follow this schedule; changes take effect within 10 seconds.',
+        'Schedule settings saved. Automatic editions follow this schedule; changes take effect within 10 seconds.',
       );
     } catch {
       setMessage(
@@ -57,8 +57,8 @@ export function ScheduleSettings({
       <p className="schedule-note">
         Automatic edition: daily at {hour.padStart(2, '0')}:
         {minute.padStart(2, '0')} ({schedule.timezone.replaceAll('_', ' ')}) ·
-        Coverage: {schedule.coverageWindow}. Automatic preliminary editions
-        follow this schedule; changes take effect within 10 seconds.
+        Coverage: {schedule.coverageWindow}. Automatic editions follow this
+        schedule; changes take effect within 10 seconds.
       </p>
       <p>
         After an outage, queued editions run up to six hours late with their

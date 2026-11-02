@@ -132,10 +132,7 @@ export function StatusPanel() {
                   {run.editionId && (
                     <>
                       {' '}
-                      ·{' '}
-                      <a href={`?edition=${run.editionId}`}>
-                        Open preliminary edition
-                      </a>
+                      · <a href={`?edition=${run.editionId}`}>Open edition</a>
                     </>
                   )}
                 </li>

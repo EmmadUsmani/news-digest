@@ -291,3 +291,15 @@ complete diagnostic accounting, metric consistency and negative-label omissions;
 it deliberately does not claim a useful recall floor for a zero baseline.
 NBA/World retain their existing 40%/20% floors. All windows are from one date,
 with agent labels; temporal diversity and independent review remain unfinished.
+
+Iteration 55 connects semantic triage to publication; the frozen signals-v6
+benchmarks above remain baseline measurements, not AI precision estimates.
+The live 24h check had 74 Tech, 45 NBA, 22 Gaming and 50 World candidates,
+with five Sonnet stories per topic. Spot inspection of the lead story in each
+topic found attribution and explicit limits where excerpts lacked details.
+Significance lines remain generated interpretation, and this was not an
+independent factual audit. Full article text was not fetched. A free-form editor
+brief mentioned unselected candidates; published briefs now use selected rewritten
+headlines only. An initially incomplete NBA triage produced labeled non-AI
+fallback; a later run completed scoring rather than treating partial coverage
+as a semantic selection. No measured precision improvement is claimed.

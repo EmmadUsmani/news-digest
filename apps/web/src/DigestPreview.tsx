@@ -109,11 +109,11 @@ export function DigestPreview() {
       <p className="eyebrow">YOUR RANKED EDITION</p>
       <h2>A shorter reading list.</h2>
       <p>
-        Preliminary selection by recency and Hacker News engagement. Coverage
-        links are retained; source labels do not establish independent
-        reporting. Older editions retain their original scoring. Publisher
-        headlines and excerpts appear as supplied; editorial summaries and post
-        selection are still to come.
+        New editions use semantic triage and AI editing of source headlines and
+        excerpts, with non-AI ranking labeled per topic when unavailable. Source
+        links and selection evidence are retained. Source labels do not
+        establish independent reporting. Older editions keep their original
+        method.
       </p>
       <form
         className="window-controls"
@@ -180,8 +180,8 @@ export function DigestPreview() {
       <details className="edition-history">
         <summary>Browse saved editions</summary>
         <p>
-          Immutable preliminary selections, newest first. Each regeneration is a
-          separate version.
+          Immutable editions, newest first. Each regeneration is a separate
+          version.
         </p>
         <button disabled={busy} onClick={() => void openEdition()}>
           Open latest edition
@@ -260,13 +260,32 @@ export function DigestPreview() {
             {new Date(preview.windowEnd).toLocaleString()} · Saved edition ·
             Created {new Date(preview.createdAt).toLocaleString()} ·{' '}
             {preview.id.slice(0, 8)} ·{' '}
-            {preview.method !== 'signals-v1'
-              ? 'Topic phrase filtering'
-              : 'Original ranking'}
+            {preview.method === 'editorial-v1'
+              ? 'AI editing with labeled non-AI fallback'
+              : preview.method !== 'signals-v1'
+                ? 'Topic phrase filtering'
+                : 'Original ranking'}
           </p>
           {preview.topics.map((topic) => (
             <article className="digest-topic" key={topic.id}>
               <h3>{topic.name}</h3>
+              {topic.editorial && (
+                <>
+                  <p className="editorial-label">
+                    {topic.editorial.mode === 'ai'
+                      ? `AI edited · ${topic.editorial.model}`
+                      : 'Non-AI ranking'}{' '}
+                    · {topic.editorial.reason}
+                  </p>
+                  {topic.editorial.brief.length > 0 && (
+                    <ul className="topic-brief">
+                      {topic.editorial.brief.map((line) => (
+                        <li key={line}>{line}</li>
+                      ))}
+                    </ul>
+                  )}
+                </>
+              )}
               <p className="selection-count">
                 {topic.stories.length} selected from {topic.candidateCount}{' '}
                 candidates examined
@@ -309,8 +328,15 @@ export function DigestPreview() {
                     {story.imageUrl && (
                       <StoryImage key={story.imageUrl} url={story.imageUrl} />
                     )}{' '}
-                    {story.excerpt && (
-                      <p className="excerpt">{story.excerpt}</p>
+                    {(story.summary || story.excerpt) && (
+                      <p className="excerpt">
+                        {story.summary || story.excerpt}
+                      </p>
+                    )}
+                    {story.whyItMatters && (
+                      <p>
+                        <strong>Why it matters:</strong> {story.whyItMatters}
+                      </p>
                     )}
                     <p className="byline">
                       {story.sources.join(' · ')} ·{' '}

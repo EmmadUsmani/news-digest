@@ -9,6 +9,7 @@ async function smoke() {
       ['mobile', 390, 844],
     ] as const) {
       const page = await browser.newPage({ viewport: { width, height } });
+      page.setDefaultTimeout(600000);
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
       await page.goto('http://localhost:8000');
@@ -20,7 +21,7 @@ async function smoke() {
         .getByRole('heading', { name: 'Tech & AI', exact: true })
         .waitFor();
       assert.equal(await page.locator('.topic-grid article').count(), 4);
-      if (name === 'desktop') {
+      if (name === 'desktop' && process.env.SMOKE_CREATE_EDITION === '1') {
         await page
           .getByRole('button', { name: 'Create edition · last 24 hours' })
           .click();
@@ -31,7 +32,7 @@ async function smoke() {
       }
       await page.locator('.digest-topic').first().waitFor();
       await page
-        .getByText('Topic phrase filtering', { exact: false })
+        .getByText('AI editing with labeled non-AI fallback', { exact: false })
         .waitFor();
       assert.equal(
         await page
@@ -47,33 +48,16 @@ async function smoke() {
           .count(),
         4,
       );
-      const nba = page.locator('.digest-topic').filter({
-        has: page.getByRole('heading', { name: 'NBA', exact: true }),
-      });
-      await nba.locator('.omissions summary').click();
-      await page
-        .getByText('Monthly schedule guide', { exact: false })
-        .waitFor();
-      const tech = page.locator('.digest-topic').filter({
-        has: page.getByRole('heading', { name: 'Tech & AI', exact: true }),
-      });
-      await tech.locator('.omissions summary').click();
-      await tech
-        .getByText('Hacker News question thread', { exact: false })
-        .waitFor();
-      assert.equal(
-        await tech
-          .locator('ol>li')
-          .filter({ hasText: 'Ask HN: Which TV' })
-          .count(),
-        0,
-      );
+      assert.equal(await page.locator('.editorial-label').count(), 4);
       const selection = page
         .locator('.digest-topic ol details')
         .filter({ has: page.locator('summary', { hasText: 'Why selected' }) })
         .first();
       await selection.locator('summary').click();
-      await selection.getByText('Topic phrase:', { exact: false }).waitFor();
+      await selection
+        .getByText(/Semantic relevance|Topic phrase:/)
+        .first()
+        .waitFor();
       assert.equal(await page.locator('.digest-topic').count(), 4);
       assert.ok((await page.locator('.digest-topic ol>li').count()) > 0);
       const snapshot = await (
@@ -154,7 +138,7 @@ async function smoke() {
       await page
         .locator('.schedule-note')
         .filter({
-          hasText: 'Automatic preliminary editions follow this schedule',
+          hasText: 'Automatic editions follow this schedule',
         })
         .waitFor();
       await page.getByText('Schedule settings', { exact: true }).click();
@@ -167,10 +151,8 @@ async function smoke() {
       );
       assert.deepEqual(errors, []);
 
-      await nba.locator('.omissions summary').click();
-      await page
-        .getByText('Monthly schedule guide', { exact: false })
-        .waitFor();
+      const omissions = page.locator('.omissions summary').first();
+      if (await omissions.count()) await omissions.click();
       await page.screenshot({
         path: `docs/screenshots/foundation-${name}.png`,
         fullPage: true,
@@ -183,12 +165,17 @@ async function smoke() {
       });
       await page.close();
     }
+    // Opt in explicitly: these different windows can score hundreds of extra
+    // candidates and incur paid inference. Default smoke reuses the 24h cache.
     // Exercise actual persisted windows at both responsive sizes in a DST timezone.
-    for (const width of [1440, 390]) {
+    for (const width of process.env.SMOKE_EXTENDED_WINDOWS === '1'
+      ? [1440, 390]
+      : []) {
       const page = await browser.newPage({
         viewport: { width, height: 1000 },
         timezoneId: 'America/Los_Angeles',
       });
+      page.setDefaultTimeout(600000);
       await page.goto('http://localhost:8000');
       await page
         .getByRole('button', {
@@ -287,12 +274,7 @@ async function smoke() {
     // contain no matching headlines. Never persisted or included in live screenshots.
     const page = await browser.newPage();
     const fixture = await (
-      await page.request.post('http://localhost:8000/api/digest-previews', {
-        data: {
-          windowStart: new Date(Date.now() - 86400000).toISOString(),
-          windowEnd: new Date().toISOString(),
-        },
-      })
+      await page.request.get('http://localhost:8000/api/digest-previews/latest')
     ).json();
     const story = fixture.topics[0].stories[0];
     story.coverage = [

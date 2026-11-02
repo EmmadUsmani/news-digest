@@ -64,6 +64,8 @@ export const rankedStorySchema = z.object({
   title: z.string(),
   url: z.string().url(),
   excerpt: z.string(),
+  summary: z.string().optional(),
+  whyItMatters: z.string().optional(),
   imageUrl: z
     .string()
     .url()
@@ -105,12 +107,31 @@ export const digestPreviewSchema = z.object({
     'signals-v4',
     'signals-v5',
     'signals-v6',
+    'editorial-v1',
   ]),
   topics: z.array(
     z.object({
       id: z.string().uuid(),
       name: z.string(),
       candidateCount: z.number().int(),
+      editorial: z
+        .object({
+          mode: z.enum(['ai', 'non-ai']),
+          model: z.string().nullable(),
+          reason: z.string(),
+          brief: z.array(z.string()),
+          triage: z.array(
+            z.object({
+              id: z.string(),
+              relevance: z.number(),
+              importance: z.number(),
+              event: z.string(),
+              rationale: z.string(),
+            }),
+          ),
+          unscoredIds: z.array(z.string()),
+        })
+        .optional(),
       relevanceRejectedCount: z.number().int().optional(),
       relevancePolicy: relevancePolicySchema.optional(),
       qualityRejections: z

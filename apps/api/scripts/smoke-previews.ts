@@ -1,7 +1,11 @@
-// Explicit local check using stored real content; no publisher or LLM requests.
+// Explicit budgeted publication check using stored real content and the configured LLM.
 import assert from 'node:assert/strict';
 
-import { digestPreviewSchema, previewHistorySchema } from '@digest/contracts';
+import {
+  digestPreviewSchema,
+  operationsStatusSchema,
+  previewHistorySchema,
+} from '@digest/contracts';
 
 import { database } from '../src/libs/db/connections';
 import { qualityRejection } from '../src/modules/digests/domain/quality';
@@ -33,10 +37,24 @@ async function smoke() {
   const firstResponse = await post(window);
   assert.equal(firstResponse.status, 201);
   const first = digestPreviewSchema.parse(await firstResponse.json());
+  const callCount = async () =>
+    operationsStatusSchema
+      .parse(await (await fetch('http://localhost:8000/api/status')).json())
+      .llm.models.reduce((n, model) => n + model.calls, 0);
+  const beforeRepeat = await callCount();
   const second = digestPreviewSchema.parse(await (await post(window)).json());
+  const fullyEdited = first.topics.every(
+    (t) => t.editorial?.mode === 'ai' && t.editorial.unscoredIds.length === 0,
+  );
+  if (fullyEdited)
+    assert.equal(
+      await callCount(),
+      beforeRepeat,
+      'Identical regeneration must make no new LLM calls',
+    );
   assert.notEqual(first.id, second.id);
   assert.equal(first.topics.length, 4);
-  assert.equal(first.method, 'signals-v6');
+  assert.equal(first.method, 'editorial-v1');
   for (const topic of first.topics) {
     assert.ok(topic.relevancePolicy);
     assert.ok(topic.qualityRejections);
@@ -60,21 +78,38 @@ async function smoke() {
         ).size,
         topic.stories.reduce((n, s) => n + (s.coverage?.length ?? 0), 0),
       );
-      assert.equal(qualityRejection(story), null);
       assert.equal(
-        assessRelevance(story, topic.relevancePolicy).eligible,
-        true,
+        qualityRejection({
+          ...story,
+          title:
+            story.coverage?.find((a) => a.id === story.id)?.title ??
+            story.title,
+        }),
+        null,
       );
-      assert.ok(
-        story.reasons.includes(
-          assessRelevance(story, topic.relevancePolicy).reason,
-        ),
-      );
+      if (topic.editorial?.mode !== 'ai') {
+        assert.equal(
+          assessRelevance(story, topic.relevancePolicy).eligible,
+          true,
+        );
+        assert.ok(
+          story.reasons.includes(
+            assessRelevance(story, topic.relevancePolicy).reason,
+          ),
+        );
+      } else {
+        assert.ok(story.summary && story.whyItMatters);
+        assert.ok(topic.editorial.brief.length >= 1);
+        assert.deepEqual(
+          topic.editorial.brief,
+          topic.stories.slice(0, 4).map((s) => s.title),
+        );
+      }
     }
   }
   assert.ok(first.topics.flatMap((t) => t.stories).length > 0);
   assert.ok(first.topics.every((t) => t.stories.length <= 5));
-  assert.deepEqual(first.topics, second.topics);
+  if (fullyEdited) assert.deepEqual(first.topics, second.topics);
   const db = database();
   try {
     const saved = (
@@ -127,6 +162,9 @@ async function smoke() {
           name: t.name,
           candidates: t.candidateCount,
           selected: t.stories.length,
+          mode: t.editorial?.mode,
+          model: t.editorial?.model,
+          summaries: t.stories.filter((s) => s.summary).length,
           relevanceRejected: t.relevanceRejectedCount,
           qualityRejected: t.qualityRejections?.length,
         })),

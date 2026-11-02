@@ -1,0 +1,155 @@
+import assert from 'node:assert/strict';
+import { test } from 'node:test';
+
+import { digestPreviewSchema } from '@digest/contracts';
+
+import { PostgresPreviewRepository } from '../src/modules/digests/database/preview.repository';
+
+const start = new Date('2026-11-01T00:00:00Z');
+const end = new Date('2026-11-02T00:00:00Z');
+const id = '00000000-0000-4000-8000-000000000099';
+const candidate = {
+  id,
+  title: 'Company launches a model',
+  url: 'https://example.org/news',
+  excerpt: 'The model is available today.',
+  publishedAt: new Date('2026-11-01T12:00:00Z'),
+  sources: ['Publisher'],
+  points: 0,
+};
+const score = {
+  id,
+  relevance: 9,
+  importance: 8,
+  event: 'Model launch',
+  rationale: 'Relevant new tool.',
+};
+const edit = {
+  model: 'configured-editor',
+  brief: ['A model launched.', 'It is available today.'],
+  stories: [
+    {
+      id,
+      headline: 'New model becomes available',
+      summary: 'A company launched a model. It is available today.',
+      whyItMatters: 'Builders have another tool.',
+      rationale: 'Important launch.',
+    },
+  ],
+};
+async function harness(
+  options: {
+    incomplete?: boolean;
+    refused?: boolean;
+    quiet?: boolean;
+    disabled?: boolean;
+  } = {},
+) {
+  const repository = new PostgresPreviewRepository();
+  await repository.db.end();
+  const stored: unknown[] = [];
+  const calls: string[] = [];
+  const client = {
+    async query(sql: string, args?: unknown[]) {
+      calls.push(sql);
+      if (sql.includes('FROM topics'))
+        return {
+          rows: [
+            {
+              id: '00000000-0000-4000-8000-000000000001',
+              name: 'AI',
+              description: 'AI tools',
+              include_guidance: '',
+              exclude_guidance: '',
+              story_budget: 5,
+              relevance_policy: {
+                includeAny: ['artificial intelligence'],
+                excludeAny: [],
+              },
+            },
+          ],
+        };
+      if (sql.includes('FROM content_items')) return { rows: [candidate] };
+      if (sql.startsWith('INSERT')) stored.push(args?.[5]);
+      return { rows: [] };
+    },
+    release() {},
+  };
+  Object.defineProperty(repository, 'db', {
+    value: {
+      async connect() {
+        return client;
+      },
+    },
+  });
+  Object.defineProperty(repository, 'editorial', {
+    value: options.disabled
+      ? null
+      : {
+          triage: {
+            async score() {
+              return {
+                scores: [score],
+                unscoredIds: options.incomplete ? [id] : [],
+              };
+            },
+          },
+          editor: {
+            async edit(_topic: unknown, shortlist: unknown[]) {
+              assert.equal(
+                shortlist.length,
+                1,
+                'Semantic relevance recovers lexical false negatives',
+              );
+              return options.refused
+                ? null
+                : options.quiet
+                  ? { ...edit, brief: [], stories: [] }
+                  : edit;
+            },
+          },
+        },
+  });
+  const snapshot = digestPreviewSchema.parse(
+    await repository.generate(start, end),
+  );
+  assert.deepEqual(stored, [snapshot]);
+  assert.ok(calls.includes('COMMIT'));
+  return snapshot;
+}
+void test('publication stores semantic recovery, source provenance, editor text and audit evidence', async () => {
+  const snapshot = await harness();
+  const topic = snapshot.topics[0];
+  assert.equal(snapshot.method, 'editorial-v1');
+  assert.equal(topic.editorial?.mode, 'ai');
+  assert.deepEqual(topic.editorial?.triage, [score]);
+  assert.deepEqual(
+    topic.editorial?.brief,
+    edit.stories.map((story) => story.headline),
+  );
+  assert.equal(topic.stories[0].url, candidate.url);
+  assert.equal(topic.stories[0].excerpt, candidate.excerpt);
+  assert.equal(topic.stories[0].summary, edit.stories[0].summary);
+  assert.equal(topic.stories[0].coverage?.[0].title, candidate.title);
+});
+void test('publication labels fallback and never mixes partial semantic results with ranked selections', async () => {
+  for (const options of [
+    { incomplete: true },
+    { refused: true },
+    { disabled: true },
+  ]) {
+    const topic = (await harness(options)).topics[0];
+    assert.equal(topic.editorial?.mode, 'non-ai');
+    assert.deepEqual(topic.editorial?.brief, []);
+    assert.deepEqual(
+      topic.stories,
+      [],
+      'Fallback respects required lexical phrases',
+    );
+  }
+});
+void test('valid quiet editorial selection stays empty without padding', async () => {
+  const topic = (await harness({ quiet: true })).topics[0];
+  assert.equal(topic.editorial?.mode, 'ai');
+  assert.deepEqual(topic.stories, []);
+});

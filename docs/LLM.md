@@ -156,3 +156,46 @@ output and cache behavior, not live summary quality or editorial precision.
 Today's/month's ledger total after these checks is $0.010234, zero reservations
 or provider errors. Publication wiring, immutable editorial contracts, Sonnet
 allocation and scheduled batches remain unfinished; M3 is still open.
+
+## Immutable publication (iteration 55)
+
+Manual and scheduled generation now share `editorial-v1`: score up to the
+existing 200 latest window candidates per topic before lexical inclusion rules.
+A complete triage uses relevance >=6 and importance >=4, ordered by importance,
+then relevance and ID. Explicit exclusion phrases and quality rules stay hard
+filters. The top ten eligible candidates form a headline-clustered shortlist;
+the editor may choose fewer, including zero, with a maximum ten-story budget.
+Larger configured budgets remain upper bounds, not targets.
+
+Each snapshot keeps triage scores/event labels/rationale, unscored IDs, editor
+model, brief, summary, significance and selection rationale. Source URLs,
+original excerpts and original coverage headlines remain attached. Semantic
+labels do not establish verified clusters or outlet independence. AI summaries
+use only the supplied excerpts; full-article retrieval is still unfinished.
+Incomplete triage, missing credentials or editor refusal publishes the original
+lexical/ranked selection with an explicit per-topic non-AI label, never a mixture
+of partially scored semantic candidates. A valid empty editor selection stays
+empty. Older snapshots remain unchanged and readable.
+
+`smoke-previews.ts` is now an explicit paid end-to-end publication check (not an
+offline test); repeated identical input reuses validated caches. Publication
+regressions use a fake repository connection and fake editorial services without
+external calls. Sonnet allocation, scheduled Message Batches and concurrent
+cache-miss coalescing remain follow-ups; M3 is still open.
+
+The first live editor brief mentioned candidates absent from its final stories.
+Publication therefore derives up to four brief bullets from selected rewritten
+headlines, discarding the model's free-form brief. A one-story quiet topic has
+one bullet. This structurally prevents unselected stories appearing in the brief;
+it does not independently verify generated headlines or summaries.
+
+Final live verification: 191 candidates across four topics produced twenty
+Sonnet summaries; identical complete regeneration made no new calls and retained
+immutable history. Final day/month ledger was $0.264979, zero reservations/errors,
+under the $0.482758 daily/$14 monthly caps. This includes browser creation checks,
+not only a single edition. Recency ordering can change editor prompt order across
+different windows, so cross-window editorial cache reuse is not guaranteed.
+Default `scripts/smoke-ui.ts` now reads existing live editions and uses browser-only
+fixtures. Set `SMOKE_CREATE_EDITION=1` for a paid 24h creation check and
+`SMOKE_EXTENDED_WINDOWS=1` for paid 6h/7d/custom-window checks. Default fixture
+coverage and image-failure checks reuse a GET snapshot and make no LLM calls.
