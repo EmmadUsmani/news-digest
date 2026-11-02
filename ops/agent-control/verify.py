@@ -169,6 +169,15 @@ class UsagePacingTests(unittest.TestCase):
         seconds, _ = control.pace_seconds(self.usage(61, 0.5), 10, 600, now)
         self.assertTrue(60 <= seconds <= 0.011 * self.WEEK, seconds)
 
+    def test_weekly_only_plan_reported_as_primary_is_paced(self):
+        now = 1_000_000_000
+        pro = {"primary": {"used_percent": 94, "window_minutes": 10080,
+                           "resets_at": now + self.WEEK * 0.78}, "secondary": None}
+        self.assertEqual(control.pace_seconds(pro, 10, 60, now)[0], 3600)
+        text = control.budget_text(pro, 10, now)
+        self.assertIn("weekly 94% used", text)
+        self.assertNotIn("5-hour", text)
+
     def test_reset_window_never_waits(self):
         now = 1_000_000_000
         stale = {"secondary": {"used_percent": 100, "window_minutes": 10080, "resets_at": now - 5}}

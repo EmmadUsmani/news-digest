@@ -59,8 +59,10 @@ Real (non-smoke) runs keep the build from burning the weekly Codex allowance
 early and then stalling for days.
 
 **What it tracks:**
-- After each iteration, the supervisor reads the newest 5-hour and weekly
-  usage snapshot from `~/.codex/sessions` into `status/usage.json`.
+- After each iteration, the supervisor reads the newest usage snapshot from
+  `~/.codex/sessions` into `status/usage.json`. Windows are told apart by
+  length, not slot: Plus reports a 5-hour window and a weekly one, while Pro
+  reports only a weekly window.
 - It logs each iteration's token usage to `logs/usage.tsv` (time, iteration,
   input, cached, output, reasoning, 5h %, weekly %).
 
