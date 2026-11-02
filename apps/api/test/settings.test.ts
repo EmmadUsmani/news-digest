@@ -444,3 +444,89 @@ void test('X account settings validate bounds and preserve omitted lists across 
     await topics.onModuleDestroy();
   }
 });
+
+void test('custom feed limits reject atomically while allowing existing connections at capacity', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const topics = new PostgresTopicRepository();
+  const db = database();
+  const prefix = 'feed-capacity-fixture-';
+  let id: string | undefined;
+  try {
+    id = (
+      await topics.createDefault({
+        name: 'Capacity fixture',
+        description: '',
+        includeGuidance: '',
+        excludeGuidance: '',
+        enabled: false,
+        storyBudget: 1,
+        postBudget: 0,
+        relevancePolicy: { includeAny: [], excludeAny: [] },
+      })
+    ).id;
+    await db.query(
+      `INSERT INTO content_sources(id,name,kind,url)
+       SELECT $1 || n,'Capacity fixture','feed','https://example.org/' || $1 || n
+       FROM generate_series(1,500-(SELECT count(*)::int FROM content_sources)) n`,
+      [prefix],
+    );
+    const catalog = await topics.catalog();
+    assert.equal(catalog.length, 500);
+    const fixtureSources = catalog.filter((source) =>
+      source.id.startsWith(prefix),
+    );
+    assert.ok(fixtureSources.length > 101);
+    const connected = await topics.connectDefault(
+      id,
+      fixtureSources.slice(0, 100).map((source) => source.id),
+    );
+    assert.ok(connected);
+    const newFeed = {
+      name: 'Rejected fixture',
+      url: 'https://example.org/capacity-rejected',
+    };
+    assert.equal(await topics.addFeedDefault(id, newFeed), false);
+    assert.equal(await topics.addFeedDefault(id, fixtureSources[100]), false);
+    const repeated = await topics.addFeedDefault(id, fixtureSources[0]);
+    assert.ok(repeated);
+    assert.deepEqual(repeated.sources, connected.sources);
+    assert.deepEqual(await topics.catalog(), catalog);
+
+    // Leave room in the catalog: connection capacity alone must prevent insertion.
+    await db.query('DELETE FROM content_sources WHERE id=$1', [
+      fixtureSources[101].id,
+    ]);
+    const belowCapacity = await topics.catalog();
+    assert.equal(belowCapacity.length, 499);
+    assert.equal(await topics.addFeedDefault(id, newFeed), false);
+    assert.deepEqual(await topics.catalog(), belowCapacity);
+    assert.deepEqual(
+      (await topics.listDefault()).find((topic) => topic.id === id)?.sources,
+      connected.sources,
+    );
+
+    // Leave room in the topic, then fill the catalog: existing URLs remain reusable.
+    const reduced = await topics.connectDefault(
+      id,
+      connected.sources.slice(0, 99),
+    );
+    assert.ok(reduced);
+    await db.query(
+      "INSERT INTO content_sources(id,name,kind,url) VALUES($1,'Capacity fixture','feed',$2)",
+      [fixtureSources[101].id, fixtureSources[101].url],
+    );
+    assert.equal(await topics.addFeedDefault(id, newFeed), false);
+    const reused = await topics.addFeedDefault(id, fixtureSources[100]);
+    assert.ok(reused);
+    assert.equal(reused.sources.length, 100);
+    assert.ok(reused.sources.includes(fixtureSources[100].id));
+    assert.deepEqual(await topics.catalog(), catalog);
+  } finally {
+    if (id) await topics.deleteDefault(id);
+    await db.query('DELETE FROM content_sources WHERE starts_with(id,$1)', [
+      prefix,
+    ]);
+    await db.end();
+    await topics.onModuleDestroy();
+  }
+});

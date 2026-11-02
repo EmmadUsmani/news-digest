@@ -72,3 +72,13 @@ with an offset timestamp and a non-UTC database session. Synthetic Reddit rows
 are isolated fixtures; no Reddit or provider requests occur. Citation age and
 search-call failure do not exclude an otherwise verified post from coverage.
 AI golden and other repository behavior assertions remain open.
+
+## Custom-feed capacity characterization (iteration 227)
+
+`settings.test.ts` pins the 500-source catalog and 100-connection per-topic
+admission boundaries through the topic repository API. At capacity, repeating an
+existing connection succeeds without changing the catalog; an existing catalog
+URL can fill the last available topic slot. New URLs and new connections are
+rejected at their respective limits without leaving catalog or connection rows.
+All 500-source fixtures live only in disposable PostgreSQL and are cleaned up.
+No feed, Reddit or inference requests occur.

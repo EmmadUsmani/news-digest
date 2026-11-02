@@ -92,17 +92,7 @@ Iteration 208: [archive](docs/progress-archive/iteration-208.md).
 
 Earlier iteration 210: [archive](docs/progress-archive/2026-11-02-iteration-210.md).
 
-## 2026-11-02: iteration 212 — daily X discovery evidence
-
-- Started clean on main; health, four queues and 32 sources healthy. No leftover work.
-- Added read-only UTC-day X report with per-call cost/holds/fetched counts and per-topic citations/current verified and dated counts; costs never multiply with citation joins.
-- Zero-citation calls remain visible. Historical zero-yield topic attribution and incremental additions cannot be inferred; report explicitly states these limits.
-- Isolated test covers UTC boundaries under a non-UTC session, zero-yield/failed/uncertain calls, verification/date gaps, invalid dates and empty days.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (113 unit/114 isolated integration); `pnpm build` and `git diff --check` passed.
-- `pnpm exec tsx scripts/report-x-discovery.ts 2026-11-02`: existing World search $0.023382, two citations, both currently verified/dated, no holds. No new paid calls.
-- Live coverage: X Tech 29/NBA 37/Gaming 26/World 8; 32 sources without errors. Read-only timing report: Nov 3 15:00 UTC next; prior 856 ms fallback is not AI timing evidence.
-- Updated README/SOURCES/TASKS; shortened stale timing notes. No UI changes, inference or Reddit requests.
-- Next: durable topic attribution and incremental verified yield, then capped pre-edition X scheduling; full-day per-call reservation remains unchanged. Items 13/7 await Nov 3 evidence.
+Iteration 212: [archive](docs/progress-archive/2026-11-02-iteration-212.md).
 
 ## 2026-11-02: iteration 213 — durable X search topic attribution
 
@@ -263,3 +253,14 @@ Earlier iteration 210: [archive](docs/progress-archive/2026-11-02-iteration-210.
 - Compacted TASKS below 8 KB and archived iteration 211 to keep PROGRESS below 25 KB; updated database verification notes.
 - Read-only Status confirms Nov 3 15:00 UTC next edition; retained 856 ms fallback is not AI latency evidence. Next: observe 14:30 X search and scheduled AI cost/duration.
 - Deployment: API/worker restarted active; `/healthz` DB/Redis true, SPA 200, 32 error-free sources and four available queues. `git diff --check` passed.
+
+## 2026-11-02: iteration 227 — custom-feed capacity characterization
+
+- Started clean on main; health, 32 sources and four queues healthy. No leftover work.
+- Items 13/7/9 await Nov 3 scheduled evidence; advanced lower-priority STEERING 2a with isolated custom-feed admission assertions.
+- Pinned 500 catalog/100 topic-connection limits, unchanged state on rejection, idempotent connections at capacity and existing-URL reuse with one remaining slot.
+- Topic repository source coverage: 94.80% lines, 82.46% branches; AI golden and remaining behavior gaps stay open.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (120 unit, 126 integration), `pnpm build`, `git diff --check` passed. Initial check caught archive formatting; formatted and reran successfully.
+- Updated TASKS/database verification notes; archived iteration 212 to bound PROGRESS. No inference or Reddit requests.
+- Next: observe Nov 3 14:30 UTC X discovery and 15:00 edition cost/duration; prior fallback duration is not AI latency evidence.
+- Deployment: API/worker restarted active; `/healthz` DB/Redis true, SPA 200, 32 error-free sources and four available queues; retained edition has four topics, 20 stories and 10 posts.
