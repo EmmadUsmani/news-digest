@@ -96,19 +96,6 @@ Iteration 212: [archive](docs/progress-archive/2026-11-02-iteration-212.md).
 
 Earlier iteration 213: [archive](docs/progress-archive/2026-11-02-iteration-213.md).
 
-## 2026-11-02: iteration 214 — incremental X discovery yield
-
-- Started clean on main; API/worker, health, four queues and 32 sources healthy. No leftover work.
-- New citations snapshot first-search candidates absent from verified storage; serialized saves prevent repeat/concurrent attribution. Historical baselines stay NULL.
-- Daily report adds new candidates/current verified yield and unknown baselines per search/topic; documents attribution versus causation or relevance.
-- Isolated regression covers concurrent saves, existing/unverified posts, historical citations and idempotency. Corrected fixture cost and numeric-ID constraints after initial failures.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (113 unit/116 isolated integration); `pnpm build` and `git diff --check` passed.
-- Applied migration 042; API/worker restarted; `/healthz` DB/Redis true, SPA 200, 32 sources without errors and four queues available.
-- Read-only daily report: existing World search $0.023382; two verified/dated citations, both historical baselines unknown. No inference or Reddit requests.
-- Timing report: next scheduled edition Nov 3 15:00 UTC; prior 856 ms fallback remains insufficient AI evidence.
-- Updated README/SOURCES/TASKS; archived iterations 198–199. No UI change.
-- Next: capped pre-edition X scheduling; unchanged full-day reservation. Items 13/7 await Nov 3 scheduled cost/timing evidence.
-
 ## 2026-11-02: iteration 215 — durable scheduled X admission
 
 - Started clean on main; API/worker, health, four queues and 32 sources healthy. No leftover work.
@@ -263,4 +250,17 @@ Earlier iteration 213: [archive](docs/progress-archive/2026-11-02-iteration-213.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (120 unit, 126 integration); `pnpm build` and `git diff --check` passed.
 - Updated TASKS/database notes and archived iteration 213 to bound PROGRESS. AI golden and other repository behavior gaps remain open.
 - Deployment: restarted API/worker active; `/healthz` DB/Redis true, SPA 200, 32 error-free sources and four available queues. Retained edition: four topics, 20 stories, 10 posts.
+- Next: observe Nov 3 14:30 UTC X discovery and 15:00 edition cost/duration; prior fallback timing is not AI latency evidence.
+
+Archived iteration 214: [entry](docs/progress-archive/2026-11-02-iteration-214.md).
+
+## 2026-11-02: iteration 229 — publisher-discovery ordering characterization
+
+- Started clean on main; health, 32 sources and four queues healthy. No leftover work.
+- Items 13/7/9 await Nov 3 scheduled evidence; advanced lower-priority STEERING 2a through the publisher-discovery port.
+- Pinned eight-candidate cap, tied UUID ordering, topic reordering, shared-publisher deduplication, host-wide failure cooldown and recovery.
+- All fixtures are disposable PostgreSQL rows; no inference, publisher or Reddit requests.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (120 unit, 127 integration), `pnpm build` and `git diff --check` passed.
+- Updated TASKS/database notes and archived iteration 214 to bound PROGRESS. AI golden and other repository behavior gaps remain open.
+- Deployment: API/worker restarted active; `/healthz` DB/Redis true after startup retry, SPA 200, 32 error-free sources and four available queues. Retained edition: four topics, 20 stories, 10 posts.
 - Next: observe Nov 3 14:30 UTC X discovery and 15:00 edition cost/duration; prior fallback timing is not AI latency evidence.

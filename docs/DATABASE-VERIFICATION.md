@@ -92,3 +92,13 @@ an unnamed URL preserves the named verification URL and first-seen timestamp,
 updates last-seen time, and replaces the citation engagement JSON. A later invalid
 item rolls back both new citations and updates, together with source health.
 All assertions run in disposable PostgreSQL; no X, Reddit or inference calls.
+
+## Publisher-discovery ordering characterization (iteration 229)
+
+`article-discovery.test.ts` pins the eight-candidate cap with twelve eligible
+articles, deterministic UUID ordering for tied publication timestamps, topic
+position changes, and deduplication when a publisher connects to two topics.
+A failed article suppresses the entire publisher host; aging that failure past
+the daily cooldown restores the same ordered candidates. Assertions use the
+repository port and disposable PostgreSQL, with no publisher or provider calls.
+AI golden and other repository behavior gaps remain open.

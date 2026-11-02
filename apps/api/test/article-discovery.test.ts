@@ -1,11 +1,15 @@
 import assert from 'node:assert/strict';
+import { randomUUID } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { test } from 'node:test';
 
 import { RiverDiscovery } from '../src/modules/social/adapters/river-discovery';
 import { collectArticleLinks } from '../src/modules/social/application/collect-article-links';
 import { PostgresArticleDiscoveryRepository } from '../src/modules/social/database/article-discovery.repository';
-import type { DiscoveryArticle } from '../src/modules/social/domain/article-discovery.port';
+import type {
+  ArticleDiscoveryRepository,
+  DiscoveryArticle,
+} from '../src/modules/social/domain/article-discovery.port';
 
 void test('publisher pass bounds requests, validates exact hosts, stops failed hosts and propagates persistence errors', async () => {
   const article = (id: string, host = 'example.org'): DiscoveryArticle => ({
@@ -435,4 +439,115 @@ void test('recorded Insider Gaming article preserves named firmware citation', a
         'https://twitter.com/PlaystationSize/status/2117174273852792952',
     },
   ]);
+});
+
+void test('publisher candidate limit preserves publisher diversity, topic position and tied ID ordering', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const adapter = new PostgresArticleDiscoveryRepository();
+  const repository: ArticleDiscoveryRepository = adapter;
+  const db = adapter.db;
+  const enabled = (
+    await db.query<{ id: string }>('SELECT id FROM topics WHERE enabled')
+  ).rows.map((row) => row.id);
+  const topics = [randomUUID(), randomUUID()];
+  const sources = topics.map((id) => `fairness-${id}`);
+  const items: DiscoveryArticle[][] = [[], []];
+  try {
+    await db.query('UPDATE topics SET enabled=false');
+    for (let t = 0; t < 2; t++) {
+      await db.query(
+        `INSERT INTO topics(id,profile_id,name,description,include_guidance,position)
+        VALUES($1,'00000000-0000-4000-8000-000000000001','Fairness fixture','','',$2)`,
+        [topics[t], 100 + t],
+      );
+      await db.query(
+        `INSERT INTO content_sources(id,topic_id,name,kind,url,article_discovery_host)
+        VALUES($1,$2,'Fairness fixture','feed',$3,$4)`,
+        [
+          sources[t],
+          topics[t],
+          `https://fairness-${t}.example/feed`,
+          `fairness-${t}.example`,
+        ],
+      );
+      await db.query(
+        'INSERT INTO topic_source_connections(topic_id,source_id) VALUES($1,$2)',
+        [topics[t], sources[t]],
+      );
+      for (let i = 0; i < 6; i++) {
+        const article = {
+          id: randomUUID(),
+          url: `https://fairness-${t}.example/${i}`,
+          host: `fairness-${t}.example`,
+        };
+        items[t].push(article);
+        await db.query(
+          `INSERT INTO content_items(id,canonical_url,title,excerpt,published_at)
+          VALUES($1,$2,'Fairness fixture','',now()-interval '1 hour')`,
+          [article.id, article.url],
+        );
+        await db.query(
+          'INSERT INTO content_observations(item_id,source_id) VALUES($1,$2)',
+          [article.id, sources[t]],
+        );
+      }
+    }
+    // Equal timestamps leave UUID as the publisher-local tie breaker.
+    await db.query(
+      `UPDATE content_items SET published_at=now()-interval '1 hour' WHERE id=ANY($1::uuid[])`,
+      [items.flat().map((a) => a.id)],
+    );
+    items.forEach((group) => group.sort((a, b) => a.id.localeCompare(b.id)));
+    const interleave = () =>
+      items[0].flatMap((a, i) => [a, items[1][i]]).slice(0, 8);
+    assert.deepEqual(await repository.candidates(), interleave());
+    // Sharing a publisher with both topics must not consume duplicate fetch slots.
+    await db.query(
+      'INSERT INTO topic_source_connections(topic_id,source_id) VALUES($1,$2)',
+      [topics[1], sources[0]],
+    );
+    const shared = await repository.candidates();
+    assert.equal(shared.length, 8);
+    assert.equal(new Set(shared.map((a) => a.id)).size, 8);
+    for (const group of items)
+      assert.ok(shared.some((article) => article.id === group[0].id));
+    await db.query(
+      'DELETE FROM topic_source_connections WHERE topic_id=$1 AND source_id=$2',
+      [topics[1], sources[0]],
+    );
+    await db.query('UPDATE topics SET position=99 WHERE id=$1', [topics[1]]);
+    const reordered = await repository.candidates();
+    assert.deepEqual(
+      reordered,
+      items[1].flatMap((a, i) => [a, items[0][i]]).slice(0, 8),
+    );
+    // A recently failed article suppresses the whole opted-in host, leaving the other publisher.
+    await repository.record(items[1][0], null);
+    assert.deepEqual(await repository.candidates(), items[0]);
+    await db.query(
+      `UPDATE article_x_discovery_checks SET checked_at=now()-interval '25 hours' WHERE item_id=$1`,
+      [items[1][0].id],
+    );
+    assert.deepEqual(await repository.candidates(), reordered);
+  } finally {
+    await db.query(
+      'DELETE FROM content_observations WHERE source_id=ANY($1::text[])',
+      [sources],
+    );
+    await db.query('DELETE FROM content_items WHERE id=ANY($1::uuid[])', [
+      items.flat().map((a) => a.id),
+    ]);
+    await db.query(
+      'DELETE FROM topic_source_connections WHERE source_id=ANY($1::text[])',
+      [sources],
+    );
+    await db.query('DELETE FROM content_sources WHERE id=ANY($1::text[])', [
+      sources,
+    ]);
+    await db.query('DELETE FROM topics WHERE id=ANY($1::uuid[])', [topics]);
+    await db.query('UPDATE topics SET enabled=true WHERE id=ANY($1::uuid[])', [
+      enabled,
+    ]);
+    await db.end();
+  }
 });
