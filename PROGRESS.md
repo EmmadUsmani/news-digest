@@ -22,28 +22,7 @@ Earlier iterations 133–134: [archive](docs/progress-archive/2026-11-02-iterati
 
 Earlier iterations 135–136: [archive](docs/progress-archive/2026-11-02-iterations-135-136.md).
 
-## 2026-11-02: iteration 137 — preserve saved social post formatting
-
-- Started clean on main; no leftover work. API/worker/health, 28 feeds and current digest/collection runs healthy; two historical ingestion failures retained. First semantic edition remains due 20:40 UTC.
-- New immutable post selections include optional display-only plain text preserving visible URL labels and line breaks. React renders escaped text when widgets fail or in saved-text details; historical editions retain their existing fallback.
-- Screening/editorial text, duplicate keys, prompts, models and historical snapshots unchanged. Unit regression covers URLs, blank lines, encoded markup, ambiguous paragraphs and bounds; isolated publication regression verifies frozen display text survives post refresh/retry.
-- Free World probes: Kyiv Independent advertised feed 15 items/three accessible pages with no X citations; Independent World 44 items/no citations; Guardian politics adds only a citation already in World. None configured; no bypass or paid calls.
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued live passes, 1,172 URLs/four topics/28 healthy sources; repeat idempotent. `verify-x-embeds.ts`: one success/zero failures, current Guardian World citation. `screen-social-posts.ts` upcoming window: semantic 9/26/1/2, fallback 3/5/0/0; incomplete window, not relevance/virality evidence.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 145 isolated tests pass. `pnpm build` passes (existing upstream Zod warnings).
-- Restarted API/worker; `/healthz` healthy. `scripts/smoke-ui.ts`, `scripts/smoke-status.ts`, and `scripts/smoke-posts.ts /tmp/iteration137-posts.jsonl` pass desktop/mobile; post replay covers blocked/stubbed widgets and legacy snapshots. Initial style assertion raced widget replacement; restricted to stable blocked mode, rerun passed. Screenshots refreshed; mobile fallback inspected.
-- README/TASKS/docs/SOURCES updated. No publication, schedule mutation, inference/discovery spend or provider/model/billing change; no new owner blocker.
-- Next: inspect scheduled 20:40 UTC semantic edition. Gaming/World social gaps and Reddit access persist; keep paid X scheduling off.
-
-## 2026-11-02: iteration 138 — recover unavailable X widgets
-
-- Started clean on main; no leftover work. API/worker/health, 28 feeds and current digest/collection runs healthy; two historical ingestion failures retained. First semantic edition remains due 20:40 UTC.
-- Failed official widget script/load or empty widget results now explain unavailable X media and offer an explicit retry. Removed failed script nodes; retry resets the shared loader and preserves saved text/original links. No automatic retries or edition changes.
-- Extended read-only post replay to assert visible failure controls, one shared initial script, successful blocked-script recovery and preserved saved text on desktop/mobile. Widgets are protocol stubs, not evidence of live X media availability.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 145 isolated tests pass. `pnpm build` passes (existing upstream Zod warnings).
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued live passes, 1,179 URLs/four topics/28 healthy sources; repeat idempotent. Upcoming-window screening still selects 3/5/0/0 lexical posts; no Gaming/World improvement claimed.
-- Restarted API/worker; `/healthz` healthy. `scripts/smoke-ui.ts`, `scripts/smoke-status.ts`, `scripts/smoke-posts.ts /tmp/iteration138-posts.jsonl` pass desktop/mobile; screenshots refreshed, mobile failure card inspected.
-- README/TASKS updated. No publication, schedule mutation, inference/discovery spend or provider/model/billing change; no source configuration change or new owner blocker.
-- Next: inspect scheduled 20:40 UTC semantic edition. Gaming/World social gaps and Reddit access persist; keep paid X scheduling off.
+Earlier iterations 137–138: [archive](docs/progress-archive/2026-11-02-iterations-137-138.md).
 
 ## 2026-11-02: iteration 139 — Gematsu Gaming reporting
 
@@ -167,3 +146,13 @@ Earlier iterations 135–136: [archive](docs/progress-archive/2026-11-02-iterati
 - `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 162 isolated tests pass. `pnpm build` passes; restarted API/worker, both active; `/healthz` healthy.
 - Live invalid enqueue returns 400 and unknown job 404; `/api/status` has 32 sources, no current errors/failed digest jobs; latest stored edition has four topics. README/TASKS updated; no UI/source changes, source docs unchanged.
 - Next: connect creation/regeneration UI to enqueue/poll, editorial-stage progress and Status duration; measure full-edition timing with fakes. Item 7 remains open; no latency claim or new blocker.
+
+## 2026-11-02: iteration 160 — asynchronous edition UI
+
+- Started clean on main; no leftover work. API/worker and health healthy, 32 sources without current errors, no failed digest jobs; two historical ingestion failures retained.
+- Create edition now enqueues and polls BullMQ jobs, disables repeat submission, opens the saved edition on completion and refreshes history. Session storage resumes the job after reload/navigation within the tab.
+- Shows queued/active, completion and sanitized failure messages. Temporary status/edition-fetch failures retry without submitting another job; expired jobs direct the user to saved editions.
+- `pnpm exec tsx scripts/smoke-edition-jobs.ts`: desktop/mobile queued, active, reload, reconnect, completion and failure pass; screenshots in docs/screenshots/edition-job-{desktop,mobile}.png. Generation intercepted; reads real stored edition only, no live inference spend.
+- Initial checks caught state declaration order and smoke-script CommonJS top-level await; both corrected before verification.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: all 162 isolated tests and types/lint/format/boundaries pass; `pnpm build` passes; services restarted and health checked.
+- TASKS updated; no source changes, docs/SOURCES unchanged. Item 7 remains open: granular editorial-stage progress, last-run duration on Status and full-edition fake timing. No latency claim or new blocker.

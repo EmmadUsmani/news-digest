@@ -13,13 +13,82 @@ export function DigestPreview() {
   const [customStart, setCustomStart] = React.useState('');
   const [customEnd, setCustomEnd] = React.useState('');
   const [windowError, setWindowError] = React.useState('');
+  const [jobId, setJobId] = React.useState<string | null>(() =>
+    sessionStorage.getItem('edition-job'),
+  );
+  const [jobMessage, setJobMessage] = React.useState('');
   const [busy, setBusy] = React.useState(false);
+  const working = busy || jobId !== null;
   const [error, setError] = React.useState(false);
   const [loaded, setLoaded] = React.useState(false);
   const [history, setHistory] = React.useState<PreviewHistory | null>(null);
   const [offset, setOffset] = React.useState(0);
   const [historyError, setHistoryError] = React.useState(false);
   const [revision, setRevision] = React.useState(0);
+  React.useEffect(() => {
+    if (!jobId) return;
+    sessionStorage.setItem('edition-job', jobId);
+    let cancelled = false;
+    let timer: ReturnType<typeof setTimeout>;
+    const finish = () => {
+      sessionStorage.removeItem('edition-job');
+      setJobId(null);
+    };
+    async function poll() {
+      try {
+        const response = await fetch(
+          `/api/digest-previews/jobs/${encodeURIComponent(jobId!)}`,
+        );
+        if (cancelled) return;
+        if (response.status === 404) {
+          setJobMessage(
+            'This generation job is no longer available. Check saved editions before trying again.',
+          );
+          finish();
+          return;
+        }
+        if (!response.ok) throw new Error();
+        const job = await response.json();
+        if (cancelled) return;
+        if (job.state === 'failed') {
+          setJobMessage('Edition generation failed. Try again later.');
+          finish();
+          return;
+        }
+        if (job.state === 'completed' && job.editionId) {
+          const edition = await fetch(
+            `/api/digest-previews/${encodeURIComponent(job.editionId)}`,
+          );
+          if (!edition.ok) throw new Error();
+          const saved = digestPreviewSchema.parse(await edition.json());
+          if (cancelled) return;
+          setPreview(saved);
+          window.history.replaceState(null, '', `?edition=${saved.id}`);
+          setOffset(0);
+          setRevision((value) => value + 1);
+          setJobMessage('Edition ready.');
+          finish();
+          return;
+        }
+        setJobMessage(
+          job.state === 'active'
+            ? 'Creating your edition: scoring and editing topics, then publishing. You can leave this page and return.'
+            : 'Edition queued. Waiting for the worker…',
+        );
+      } catch {
+        if (cancelled) return;
+        setJobMessage(
+          'Connection interrupted. Retrying generation status; your job continues in the background.',
+        );
+      }
+      if (!cancelled) timer = setTimeout(() => void poll(), 1500);
+    }
+    void poll();
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+  }, [jobId]);
   React.useEffect(() => {
     setHistory(null);
     setHistoryError(false);
@@ -46,6 +115,7 @@ export function DigestPreview() {
       .finally(() => setLoaded(true));
   }, []);
   async function generate() {
+    if (working) return;
     const end = windowChoice === 'custom' ? new Date(customEnd) : new Date();
     const start =
       windowChoice === 'custom'
@@ -67,7 +137,7 @@ export function DigestPreview() {
     setBusy(true);
     setError(false);
     try {
-      const response = await fetch('/api/digest-previews', {
+      const response = await fetch('/api/digest-previews/jobs', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -76,11 +146,11 @@ export function DigestPreview() {
         }),
       });
       if (!response.ok) throw new Error();
-      const saved = digestPreviewSchema.parse(await response.json());
-      setPreview(saved);
-      window.history.replaceState(null, '', `?edition=${saved.id}`);
-      setOffset(0);
-      setRevision((value) => value + 1);
+      const job = await response.json();
+      if (typeof job.id !== 'string' || !/^[0-9]{1,20}$/.test(job.id))
+        throw new Error();
+      setJobMessage('Edition queued. Waiting for the worker…');
+      setJobId(job.id);
     } catch {
       setError(true);
     } finally {
@@ -124,7 +194,7 @@ export function DigestPreview() {
           void generate();
         }}
       >
-        <fieldset disabled={busy || !loaded}>
+        <fieldset disabled={working || !loaded}>
           <legend>Choose a coverage period</legend>
           <label htmlFor="coverage-period">Period</label>
           <select
@@ -172,20 +242,21 @@ export function DigestPreview() {
             Quiet periods stay empty.
           </p>
           <button type="submit">
-            {busy
-              ? 'Selecting stories…'
+            {working
+              ? 'Creating edition…'
               : `Create edition · ${windowChoice === 'custom' ? 'custom period' : windowChoice === '168' ? 'last 7 days' : `last ${windowChoice} hours`}`}
           </button>
         </fieldset>
         {windowError && <p role="alert">{windowError}</p>}
       </form>
+      {jobMessage && <p role="status">{jobMessage}</p>}
       <details className="edition-history">
         <summary>Browse saved editions</summary>
         <p>
           Immutable editions, newest first. Each regeneration is a separate
           version.
         </p>
-        <button disabled={busy} onClick={() => void openEdition()}>
+        <button disabled={working} onClick={() => void openEdition()}>
           Open latest edition
         </button>
         {historyError ? (
