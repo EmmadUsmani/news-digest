@@ -351,3 +351,13 @@ replacement racing a valid save through another repository leaves exactly the
 valid selection. A subsequent disconnect succeeds; the source catalog and all
 other topics remain unchanged. A temporary constraint injects failure only in
 disposable PostgreSQL. No source, Reddit or provider requests occur.
+
+## Reorder write failure recovery (iteration 256)
+
+`settings.test.ts` injects a position constraint failure after topic membership
+validation and row locking. A rejected reorder leaves every topic field intact;
+a competing valid reorder through another repository succeeds with contiguous
+positions and complete settings. Removing the constraint permits the previously
+rejected order, and the original order can then be restored. The shared source
+catalog and profile schedule remain unchanged. All fixtures use disposable
+PostgreSQL; no source, Reddit or provider requests occur.

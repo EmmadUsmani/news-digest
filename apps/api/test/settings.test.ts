@@ -863,3 +863,68 @@ void test('concurrent deletion and stale reorder serialize without losing remain
     await topics.onModuleDestroy();
   }
 });
+
+void test('rejected topic reorders preserve complete settings and release locks for competing saves', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const topics = new PostgresTopicRepository();
+  const other = new PostgresTopicRepository();
+  const db = database();
+  const original = await topics.listDefault();
+  const ids = original.map((topic) => topic.id);
+  const catalog = await topics.catalog();
+  const profiles = new PostgresProfileRepository();
+  const profile = await profiles.getDefault();
+  try {
+    assert.ok(ids.length >= 3);
+    // Reject a real position update after membership validation and row locking.
+    await db.query(`ALTER TABLE topics ADD CONSTRAINT reorder_failure_fixture
+      CHECK (id <> '${ids[0]}'::uuid OR position = 0)`);
+    const rejected = [...ids].reverse();
+    await assert.rejects(
+      topics.reorderDefault(rejected),
+      /reorder_failure_fixture/,
+    );
+    assert.deepEqual(await topics.listDefault(), original);
+
+    const accepted = [ids[0], ...ids.slice(1).reverse()];
+    const outcomes = await Promise.allSettled([
+      topics.reorderDefault(rejected),
+      other.reorderDefault(accepted),
+    ]);
+    assert.equal(outcomes[0].status, 'rejected');
+    if (outcomes[0].status === 'rejected')
+      assert.match(String(outcomes[0].reason), /reorder_failure_fixture/);
+    assert.deepEqual(outcomes[1], { status: 'fulfilled', value: true });
+    const expected = accepted.map((id, position) => ({
+      ...original.find((topic) => topic.id === id)!,
+      position,
+    }));
+    assert.deepEqual(await topics.listDefault(), expected);
+    assert.deepEqual(await other.listDefault(), expected);
+    assert.deepEqual(await topics.catalog(), catalog);
+    assert.deepEqual(await profiles.getDefault(), profile);
+    await db.query(
+      'ALTER TABLE topics DROP CONSTRAINT reorder_failure_fixture',
+    );
+    assert.equal(await topics.reorderDefault(rejected), true);
+    assert.deepEqual(
+      await other.listDefault(),
+      [...original]
+        .reverse()
+        .map((topic, position) => ({ ...topic, position })),
+    );
+    assert.equal(await other.reorderDefault(ids), true);
+    assert.deepEqual(await topics.listDefault(), original);
+  } finally {
+    await db.query(
+      'ALTER TABLE topics DROP CONSTRAINT IF EXISTS reorder_failure_fixture',
+    );
+    await topics.reorderDefault(ids);
+    await Promise.all([
+      db.end(),
+      topics.onModuleDestroy(),
+      other.onModuleDestroy(),
+      profiles.onModuleDestroy(),
+    ]);
+  }
+});

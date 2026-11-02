@@ -110,18 +110,6 @@ Earlier iteration 229: [archive](docs/progress-archive/2026-11-02-iteration-229.
 
 Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
 
-## 2026-11-02: iteration 237 — queue failure isolation characterization
-
-- Started clean on main; health, services, 32 sources and four queues healthy. No leftover work.
-- Priority 13/7/9/15 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a.
-- Added Status characterization for one failed queue command while the other queues, sources and coverage remain available.
-- Real disposable BullMQ scheduler pins next-run time, pause/resume and removal; job payloads remain private.
-- Initial test setup incorrectly assumed Queue.close disables shared Redis commands; replaced with scoped command failure injection.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (122 unit, 136 integration), `pnpm build`, `git diff --check` passed.
-- Updated TASKS/database notes; archived iteration 221 to keep PROGRESS bounded. No provider or Reddit requests.
-- Restarted API/worker healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues; latest edition retains four topics.
-- Next: observe Nov 3 all-topic X cost/yield and scheduled AI edition reserve/cost/duration before acknowledging 15/13/7.
-
 ## 2026-11-02: iteration 238 — connection isolation guard verification
 
 - Started clean on main; API/worker and health green, 32 sources without current errors; no leftover work.
@@ -330,4 +318,18 @@ Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 151 integration), `pnpm build`, `git diff --check` passed.
 - API/worker restarted healthy; SPA 200, 32 error-free sources, four available queues and recent content across all topics.
 - Updated TASKS/database notes. No provider or Reddit requests.
+- Next: observe Nov 3 all-topic X cost/yield and scheduled AI cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 256 — rejected topic reorder recovery
+
+- Started clean on main; API/worker, health and all 32 sources healthy; no leftover work.
+- Priority 15/13/7/9 awaits Nov 3 evidence; advanced isolated STEERING 2a.
+- Pinned rejected position writes after reorder validation/locking; all topic settings survive.
+- A competing valid reorder succeeds; removing the rejection permits retry and original-order restoration.
+- Catalog and schedule remain unchanged; fixtures use disposable PostgreSQL only.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 152 integration), `pnpm build`, `git diff --check` passed.
+- Initial check stopped on newly added documentation formatting; formatted and full rerun passed.
+- Restarted API/worker; `/healthz` healthy, SPA 200, 32 error-free sources, four available queues and four-topic edition.
+- Recent articles/verified X posts present in every topic; no provider or Reddit requests.
+- Updated TASKS/database notes; archived iteration 237 to keep PROGRESS bounded.
 - Next: observe Nov 3 all-topic X cost/yield and scheduled AI cost/duration before acknowledging 15/13/7.
