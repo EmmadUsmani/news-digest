@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Gematsu</title>
+	<atom:link href="https://www.gematsu.com/feed" rel="self" type="application/rss+xml" />
+	<link>https://www.gematsu.com</link>
+	<description>Japanese Video Game News</description>
+	<lastBuildDate>Mon, 02 Nov 2026 03:16:59 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	
+<site xmlns="com-wordpress:feed-additions:1">7062773</site>	<item>
+		<title>Nagoshi Studio shuts down</title>
+		<link>https://www.gematsu.com/2026/11/nagoshi-studio-shuts-down</link>
+					<comments>https://www.gematsu.com/2026/11/nagoshi-studio-shuts-down#respond</comments>
+		
+		<dc:creator><![CDATA[Sal Romano]]></dc:creator>
+		<pubDate>Mon, 02 Nov 2026 03:16:59 +0000</pubDate>
+				<category><![CDATA[Industry]]></category>
+		<category><![CDATA[Nagoshi Studio]]></category>
+		<category><![CDATA[NetEase Games]]></category>
+		<guid isPermaLink="false">https://www.gematsu.com/?p=1086998</guid>
+
+					<description><![CDATA[<img src="https://www.gematsu.com/wp-content/uploads/2026/11/Nagoshi-Studio-Dissolves_11-01-26.jpg"> Nagoshi Studio, the Shinjuku, Tokyo-based founded by Yakuza series creator Toshiro Nagoshi under NetEase Games &hellip;]]></description>
+										<content:encoded><![CDATA[<p>Nagoshi Studio, the Shinjuku, Tokyo-based founded by Yakuza series creator Toshiro Nagoshi under NetEase Games …</p>
+<p><a href="https://www.gematsu.com/2026/11/nagoshi-studio-shuts-down" rel="nofollow">Source</a></p>]]></content:encoded>
+					
+					<wfw:commentRss>https://www.gematsu.com/2026/11/nagoshi-studio-shuts-down/feed</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1086998</post-id>	</item><item>
+		<title>Phantom Blade Zero sales top four million in 72 hours</title>
+		<link>https://www.gematsu.com/2026/11/phantom-blade-zero-sales-top-four-million-in-72-hours</link>
+					<comments>https://www.gematsu.com/2026/11/phantom-blade-zero-sales-top-four-million-in-72-hours#respond</comments>
+		
+		<dc:creator><![CDATA[Sal Romano]]></dc:creator>
+		<pubDate>Mon, 02 Nov 2026 02:59:03 +0000</pubDate>
+				<category><![CDATA[PC]]></category>
+		<category><![CDATA[PS5]]></category>
+		<category><![CDATA[Phantom Blade Zero]]></category>
+		<category><![CDATA[RPG]]></category>
+		<category><![CDATA[S-GAME]]></category>
+		<category><![CDATA[Sales]]></category>
+		<guid isPermaLink="false">https://www.gematsu.com/?p=1087083</guid>
+
+					<description><![CDATA[<img src="https://www.gematsu.com/wp-content/uploads/2026/11/Phantom-Blade-Zero-Sales_11-01-26.jpg"> Total sales for Wuxia action RPG Phantom Blade Zero have surpassed four million units in &hellip;]]></description>
+										<content:encoded><![CDATA[<p>Total sales for Wuxia action RPG Phantom Blade Zero have surpassed four million units in …</p>
+<p><a href="https://www.gematsu.com/2026/11/phantom-blade-zero-sales-top-four-million-in-72-hours" rel="nofollow">Source</a></p>]]></content:encoded>
+					
+					<wfw:commentRss>https://www.gematsu.com/2026/11/phantom-blade-zero-sales-top-four-million-in-72-hours/feed</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1087083</post-id>	</item></channel></rss>

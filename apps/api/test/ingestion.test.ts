@@ -26,6 +26,7 @@ void test('recorded RSS and Atom normalize real headlines, dates and safe links'
     'destructoid.xml',
     'al-jazeera.xml',
     'aftermath.xml',
+    'gematsu.xml',
     'npr-world.xml',
     'guardian-world.xml',
   ]) {
@@ -413,4 +414,24 @@ void test('recorded AI announcement feeds preserve publisher dates, missing fiel
   assert.ok(
     [...openai, ...deepmind].every((item) => item.excerpt.length <= 1500),
   );
+});
+
+void test('recorded Gematsu RSS preserves release reporting and has no inferred X citations', async () => {
+  const items = parseFeed(await fixture('gematsu.xml'));
+  assert.equal(items[0].title, 'Nagoshi Studio shuts down');
+  assert.equal(items[0].publishedAt, '2026-11-02T03:16:59.000Z');
+  assert.equal(
+    items[1].title,
+    'Phantom Blade Zero sales top four million in 72 hours',
+  );
+  assert.equal(items[1].publishedAt, '2026-11-02T02:59:03.000Z');
+  assert.ok(
+    items.every((item) => new URL(item.url).hostname === 'www.gematsu.com'),
+  );
+  assert.ok(
+    items.every(
+      (item) => item.excerpt.length > 0 && item.excerpt.length <= 1500,
+    ),
+  );
+  assert.ok(items.every((item) => item.xLinks.length === 0));
 });

@@ -982,3 +982,17 @@ social request, paid discovery, inference or publication was needed for this UI.
 - Two queued ingestion passes stored 1,172 URLs across four topics/28 healthy
   sources; repeat collection was idempotent. One bounded official embed check
   succeeded with zero failures. Source configuration remains unchanged.
+
+## Iteration 139 — Gematsu Gaming RSS (2026-11-02)
+
+- **Live:** `https://www.gematsu.com/feed` supplies 20 real articles, connected
+  to the original Gaming topic by migration 033. It broadens studio, release,
+  platform and sales reporting; rumors and weekly lists remain candidates,
+  subject to selection rather than guaranteed digest slots.
+- The fetched feed contains no X status URLs. Four sampled public pages
+  (Nagoshi Studio, Phantom Blade Zero sales, weekly Japanese releases and Petit
+  Planet) returned HTTP 403. Page harvesting remains disabled; no bypass,
+  inferred posts, paid search or improvement in social coverage is claimed.
+- First two original feed entries recorded in `fixtures/gematsu.xml` pin
+  headlines, publication times, article hosts, bounded excerpts and absent X
+  citations. Fixtures are offline evidence, not live content.

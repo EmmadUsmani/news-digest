@@ -329,3 +329,14 @@ Earlier iterations 87–100: [archive](docs/progress-archive/2026-11-02-iteratio
 - Restarted API/worker; `/healthz` healthy. `scripts/smoke-ui.ts`, `scripts/smoke-status.ts`, `scripts/smoke-posts.ts /tmp/iteration138-posts.jsonl` pass desktop/mobile; screenshots refreshed, mobile failure card inspected.
 - README/TASKS updated. No publication, schedule mutation, inference/discovery spend or provider/model/billing change; no source configuration change or new owner blocker.
 - Next: inspect scheduled 20:40 UTC semantic edition. Gaming/World social gaps and Reddit access persist; keep paid X scheduling off.
+
+## 2026-11-02: iteration 139 — Gematsu Gaming reporting
+
+- Started clean on main; no leftover work. API/worker/health, current collection and digest runs healthy; two historical ingestion failures retained. Semantic edition remains due 20:40 UTC.
+- Migration 033 connects Gematsu public RSS to original Gaming topic: 20 real articles covering studio/release/platform news, also rumors and lists subject to selection. Feed contains no X links; four sampled article pages returned 403, so page harvesting stays off. No bypass or social gain claimed.
+- First two original RSS entries recorded for offline headline/date/host/excerpt/absent-citation regression. Fixtures are not live evidence.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 146 isolated tests pass. `pnpm build` passes (existing upstream Zod warnings); `pnpm migrate` applied 033.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued live passes, 1,199 URLs/four topics/29 healthy sources; repeat idempotent. Read-only `screen-social-posts.ts` upcoming window still selects 3/5/0/0 lexical posts.
+- Restarted API/worker; `/healthz` healthy. `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed and targeted mobile Gematsu card inspected.
+- Updated TASKS/docs/SOURCES. No publication, schedule mutation, inference/discovery spend or provider/model/billing change; Anthropic $0.408415 and X $0.023382. No new owner blocker.
+- Next: inspect 20:40 UTC scheduled semantic edition. Gaming/World social gaps and Reddit access persist; keep paid X scheduling off.
