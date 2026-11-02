@@ -347,6 +347,8 @@ verify a tweet. Reddit ranking/cards remain unfinished. Synthetic fixtures are n
 
 Scheduled budget attempts now track worker retries and stalled redeliveries with
 compare-and-swap fencing, recording conservative AI/mixed/fallback publication
-outcomes. Remaining reserve integration is tracked in
+outcomes. Terminal queue failures are reconciled on failed events and from retained
+failed jobs during scheduler refresh, with attempt fencing against redelivery.
+Remaining reserve integration is tracked in
 [decision 0002](docs/decisions/0002-scheduled-edition-budget-reserve.md); ledger
 enforcement is not active yet.

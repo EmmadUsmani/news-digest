@@ -79,3 +79,29 @@ export async function runScheduledBudgetAttempt(
     throw error;
   }
 }
+
+// Read the attempt before checking Redis. A redelivery during the check then
+// increments the attempt and prevents this stale failure from releasing it.
+export async function reconcileFailedScheduledJob(
+  budgets: ScheduledBudgetRepository,
+  profileId: string,
+  job: {
+    name: string;
+    opts: { prevMillis?: number };
+    getState(): Promise<string>;
+  },
+) {
+  const timestamp = job.opts.prevMillis;
+  if (job.name !== 'generate' || !Number.isSafeInteger(timestamp)) return false;
+  const slot = new Date(timestamp!);
+  if (!Number.isFinite(slot.getTime())) return false;
+  const observed = await budgets.read(slot.toISOString().slice(0, 10));
+  if (
+    !observed ||
+    observed.runId !== `${profileId}:${timestamp}` ||
+    observed.state !== 'running'
+  )
+    return false;
+  if ((await job.getState()) !== 'failed') return false;
+  return budgets.finishAttempt(observed.runId, observed.attempt, 'failed');
+}

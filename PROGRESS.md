@@ -62,17 +62,7 @@ Earlier iteration 182: [archive](docs/progress-archive/2026-11-02-iteration-182.
 
 Iteration 183: [archive](docs/progress-archive/2026-11-02-iteration-183.md).
 
-## 2026-11-02: iteration 184 — production-module HTTP characterization
-
-- Started clean on main; no leftover work. API/worker/health healthy, all 32 sources recently successful, no digest/social failures; two retained historical ingestion failures unchanged.
-- Higher priorities still blocked by Reddit access and live AI timing budget (848 micros available). No paid inference, live content/settings writes or source changes.
-- Extracted the unchanged production Nest module from bootstrap so HTTP tests boot the same app on an ephemeral loopback port. Integration runner builds API first to preserve Nest constructor metadata.
-- Added HTTP characterization for healthy DB/Redis, topic create/read/update/delete, JSON fields, reorder/position closure, catalog/connections, missing/invalid IDs and atomic rejected writes.
-- Profile HTTP tests persist an Asia/Kolkata schedule and budgets, reject invalid timezone/window/budget changes without mutation and restore fixture settings. App shutdown is registered even on assertion failure.
-- `pnpm test:integration` passed 87/87; `pnpm format`, `pnpm lint:fix`, full `pnpm check` passed 99 unit/87 integration tests; `pnpm build` passed. No UI changes/browser check needed.
-- Updated README/TASKS; archived iterations 169–170 to keep orientation small. STEERING 2a remains partial; digest/edition HTTP, remaining repository characterization and database coverage precede ORM work.
-- Restarted API/worker; `curl /healthz` DB/Redis true, SPA HTTP 200 and `/api/status` all queues available. Latest real edition still has four topics/10 X posts; source successes remain current. Read-only timing report confirms spend unchanged.
-- Next: digest/edition HTTP characterization and remaining repository-port coverage; Reddit/live AI evidence blockers unchanged, scheduled xAI still follows Reddit per owner order.
+Iteration 184: [archive](docs/progress-archive/2026-11-02-iteration-184.md).
 
 ## 2026-11-02: iteration 185 — digest and edition HTTP characterization
 
@@ -215,3 +205,14 @@ Iteration 183: [archive](docs/progress-archive/2026-11-02-iteration-183.md).
 - Restarted API/worker: active, `/healthz` DB/Redis true, SPA 200, four queues, 32 sources without errors, latest real edition four topics/10 posts. No UI change.
 - Updated README, reserve decision and TASKS; archived iteration 183 to bound orientation size.
 - Reserve enforcement remains UNFINISHED: reconcile queue-final stall failure and obsolete/missed/already-published slots, then shared-lock admission/races and manual/Status visibility before Nov 3 15:00 UTC.
+
+## 2026-11-02: iteration 199 — reconcile terminal queue stalls
+
+- Started clean on main; services, health and 32 sources healthy. No leftover work.
+- Terminal BullMQ failures now reconcile matching running daily identities from failed events and a bounded retained-failure scan during scheduler refresh, including after downtime.
+- Observe the attempt before checking Redis failure; compare-and-swap prevents a racing redelivery or late completion from releasing another attempt. Manual, retryable, mismatched and terminal work is ignored.
+- One isolated Postgres test covers terminal stalls, mismatched/manual jobs, missing slots, retry states, redelivery races and late success. Queue state evidence is fake; no live failure was induced.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (109 unit/106 isolated integration), `pnpm build`, `git diff --check` passed.
+- Restarted API/worker: active; `/healthz` DB/Redis true, SPA 200, four queues, 32 sources without errors, latest real edition four topics/10 posts.
+- Updated README, reserve decision and TASKS; archived iteration 184 to bound orientation size. No UI changes, paid inference or Reddit requests.
+- Reserve enforcement remains UNFINISHED: obsolete/missed/already-published slots, shared-lock admission/races, then manual/Status visibility before Nov 3 15:00 UTC. Queue recovery requires retained Redis evidence.

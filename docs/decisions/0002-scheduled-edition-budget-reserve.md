@@ -138,6 +138,12 @@ observed running attempt only after reacquiring the queue job lock. Recovery
 compares the observed attempt under the ledger lock and increments it; late
 old-worker completion cannot release the replacement attempt's reserve.
 Isolated tests cover retries, final exceptions, recovery races and outcome modes.
-Queue-final stall failures outside the processor, missed/obsolete slots and
-previously published slots still need reconciliation. Ledger admission and
+Queue-final stall failures outside the processor are reconciled from the worker's
+failed event and a bounded scan of the 100 retained failed jobs during scheduler
+refresh (iteration 199). Only matching scheduled slots still running can finish;
+Redis must report terminal failure after the database attempt is observed, and
+compare-and-swap fences a competing redelivery. Retryable, manual, mismatched and
+already-terminal jobs do not release protection. Retained queue evidence is
+required; durable recovery beyond Redis retention remains future work.
+Missed/obsolete slots and previously published slots still need reconciliation. Ledger admission and
 manual/Status visibility remain unfinished; this is not live budget protection.

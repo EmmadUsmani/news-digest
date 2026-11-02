@@ -7,7 +7,10 @@ import { PostgresPreviewRepository } from './modules/digests/database/preview.re
 import { PostgresProfileRepository } from './modules/profiles/database/profile.repository';
 import { coverageWindow } from './modules/profiles/domain/schedule';
 import { scheduledSlot } from './modules/profiles/domain/scheduled-slot';
-import { runScheduledBudgetAttempt } from './scheduled-budget-attempt';
+import {
+  reconcileFailedScheduledJob,
+  runScheduledBudgetAttempt,
+} from './scheduled-budget-attempt';
 import { refreshScheduledBudget } from './scheduled-budget-refresh';
 
 export function startScheduledDigests() {
@@ -68,9 +71,18 @@ export function startScheduledDigests() {
     { connection, concurrency: 1 },
   );
   worker.on('error', () => console.error('Digest worker connection error'));
-  worker.on('failed', (job) =>
-    console.error('Scheduled digest failed', job?.id),
-  );
+  worker.on('failed', (job) => {
+    console.error('Scheduled digest failed', job?.id);
+    if (job)
+      void profiles
+        .getDefault()
+        .then((profile) =>
+          reconcileFailedScheduledJob(budgets, profile.id, job),
+        )
+        .catch(() =>
+          console.error('Scheduled budget failure reconciliation failed'),
+        );
+  });
   let refreshing = false;
   async function refresh() {
     if (refreshing) return;
@@ -81,6 +93,10 @@ export function startScheduledDigests() {
         () => profiles.getDefault(),
         new Date(),
       );
+      // Recover final stalls even if the failed event occurred during downtime.
+      // Retention is capped at 100 jobs by this queue's scheduler options.
+      for (const job of await queue.getJobs(['failed'], 0, 99))
+        await reconcileFailedScheduledJob(budgets, profile.id, job);
       await queue.upsertJobScheduler(
         `profile-${profile.id}`,
         { pattern: profile.schedule.cadence, tz: profile.schedule.timezone },

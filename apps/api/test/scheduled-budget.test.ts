@@ -7,6 +7,7 @@ import { database } from '../src/libs/db/connections';
 import { readFullAiEditionCosts } from '../src/modules/curation/database/edition-cost.reader';
 import { PostgresScheduledBudgetRepository } from '../src/modules/curation/database/scheduled-budget.repository';
 import {
+  reconcileFailedScheduledJob,
   runScheduledBudgetAttempt,
   scheduledOutcome,
 } from '../src/scheduled-budget-attempt';
@@ -551,3 +552,85 @@ function fixtureScheduledEdition(): DigestPreview {
     ],
   };
 }
+
+void test('queue-final stalls release only the matching running attempt and fence redelivery races', async () => {
+  const db = database();
+  const repo = new PostgresScheduledBudgetRepository(db);
+  const slot = new Date('2045-01-04T15:00:00Z');
+  const profileId = crypto.randomUUID();
+  const runId = `${profileId}:${slot.getTime()}`;
+  const job = {
+    name: 'generate',
+    opts: { prevMillis: slot.getTime() },
+    getState: async () => 'failed',
+  };
+  try {
+    await repo.register(slot, runId);
+    assert.equal(
+      await reconcileFailedScheduledJob(repo, profileId, job),
+      false,
+    );
+    await repo.claim(runId);
+    assert.equal(
+      await reconcileFailedScheduledJob(repo, 'other-profile', job),
+      false,
+    );
+    assert.equal(
+      await reconcileFailedScheduledJob(repo, profileId, {
+        ...job,
+        name: 'on-demand',
+      }),
+      false,
+    );
+    assert.equal(
+      await reconcileFailedScheduledJob(repo, profileId, { ...job, opts: {} }),
+      false,
+    );
+    for (const state of [
+      'active',
+      'delayed',
+      'waiting',
+      'completed',
+      'unknown',
+    ])
+      assert.equal(
+        await reconcileFailedScheduledJob(repo, profileId, {
+          ...job,
+          getState: async () => state,
+        }),
+        false,
+      );
+    assert.equal(
+      await reconcileFailedScheduledJob(repo, profileId, {
+        ...job,
+        getState: async () => {
+          await repo.claim(runId, 1);
+          return 'failed';
+        },
+      }),
+      false,
+    );
+    assert.equal((await repo.read('2045-01-04'))?.attempt, 2);
+    assert.equal((await repo.read('2045-01-04'))?.state, 'running');
+    assert.equal(await reconcileFailedScheduledJob(repo, profileId, job), true);
+    assert.equal((await repo.read('2045-01-04'))?.state, 'failed');
+    assert.equal(
+      await repo.finishAttempt(
+        runId,
+        2,
+        'succeeded',
+        scheduledOutcome(fixtureScheduledEdition()),
+      ),
+      false,
+    );
+    assert.equal(
+      await reconcileFailedScheduledJob(repo, profileId, job),
+      false,
+    );
+  } finally {
+    await db.query('DELETE FROM scheduled_ai_budget_days WHERE run_id=$1', [
+      runId,
+    ]);
+    await db.end();
+  }
+});
