@@ -257,3 +257,13 @@ engagement keys, and one preview entry with deterministic publisher attribution.
 Concurrent repeat batches preserve the item ID and engagement, dedupe observations,
 and independently update each source's successful collection count. All writes
 use disposable PostgreSQL; no publisher, Reddit or inference requests occur.
+
+## Concurrent topic deletion and ordering (iteration 246)
+
+`settings.test.ts` races a complete reorder against deletion of a middle topic.
+It accepts either serialized outcome and compares every remaining topic field,
+including contiguous positions. Two further concurrent deletions close both
+gaps; repeated deletion and stale reorder fail without changing settings, and
+a valid reorder restores the original state. Tests use repository APIs against
+disposable PostgreSQL only. No provider, feed or Reddit requests occur.
+Remaining repository gaps and recorded-response golden coverage stay open.

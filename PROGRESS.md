@@ -106,16 +106,7 @@ Earlier iteration 219: [archive](docs/progress-archive/2026-11-02-iteration-219.
 
 Iteration 221: [archive](docs/progress-archive/2026-11-02-iteration-221.md).
 
-## 2026-11-02: iteration 229 — publisher-discovery ordering characterization
-
-- Started clean on main; health, 32 sources and four queues healthy. No leftover work.
-- Items 13/7/9 await Nov 3 scheduled evidence; advanced lower-priority STEERING 2a through the publisher-discovery port.
-- Pinned eight-candidate cap, tied UUID ordering, topic reordering, shared-publisher deduplication, host-wide failure cooldown and recovery.
-- All fixtures are disposable PostgreSQL rows; no inference, publisher or Reddit requests.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (120 unit, 127 integration), `pnpm build` and `git diff --check` passed.
-- Updated TASKS/database notes and archived iteration 214 to bound PROGRESS. AI golden and other repository behavior gaps remain open.
-- Deployment: API/worker restarted active; `/healthz` DB/Redis true after startup retry, SPA 200, 32 error-free sources and four available queues. Retained edition: four topics, 20 stories, 10 posts.
-- Next: observe Nov 3 14:30 UTC X discovery and 15:00 edition cost/duration; prior fallback timing is not AI latency evidence.
+Earlier iteration 229: [archive](docs/progress-archive/2026-11-02-iteration-229.md).
 
 ## 2026-11-02: iteration 230 — river-discovery transaction characterization
 
@@ -313,4 +304,15 @@ Iteration 221: [archive](docs/progress-archive/2026-11-02-iteration-221.md).
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 143 integration), `pnpm build`, `git diff --check` passed.
 - Updated TASKS/database notes; archived iteration 228 to keep PROGRESS bounded. No provider or Reddit requests.
 - Live checks: API/worker active, health DB/Redis true, SPA 200, 32 error-free sources, four available queues and four-topic latest edition.
+- Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 246 — concurrent topic deletion and ordering
+
+- Started clean on main; API/worker, health and all 32 sources healthy; no leftover work.
+- Priority 15/13/7/9 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a.
+- Added reorder-versus-delete and simultaneous-delete races; remaining settings and contiguous positions survive either serialization.
+- Repeated deletion and stale order fail without changes; valid ordering restores original settings.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 144 integration), `pnpm build`, `git diff --check` passed.
+- Updated TASKS/database notes; archived iteration 229 to keep PROGRESS bounded. No provider or Reddit requests.
+- Live checks: SPA 200, four-topic latest edition, 32 error-free sources and four available queues; API/worker restarted healthy.
 - Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.

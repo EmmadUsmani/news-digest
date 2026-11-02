@@ -730,3 +730,60 @@ void test('concurrent custom feeds compete atomically for the final catalog slot
     await topics.onModuleDestroy();
   }
 });
+
+void test('concurrent deletion and stale reorder serialize without losing remaining topic settings', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const topics = new PostgresTopicRepository();
+  const original = await topics.listDefault();
+  const ids = original.map((topic) => topic.id);
+  const created: string[] = [];
+  try {
+    for (let index = 0; index < 3; index++) {
+      const topic = await topics.createDefault({
+        name: `Deletion race fixture ${index}`,
+        description: 'Disposable topic',
+        includeGuidance: 'Preserve this guidance',
+        excludeGuidance: '',
+        enabled: false,
+        storyBudget: 2,
+        postBudget: 0,
+        relevancePolicy: { includeAny: ['science'], excludeAny: [] },
+      });
+      created.push(topic.id);
+    }
+    const before = await topics.listDefault();
+    const reversed = before.map((topic) => topic.id).reverse();
+    const [reordered, deleted] = await Promise.all([
+      topics.reorderDefault(reversed),
+      topics.deleteDefault(created[1]),
+    ]);
+    assert.ok(deleted);
+    const remaining = await topics.listDefault();
+    const expected = (reordered ? [...before].reverse() : before)
+      .filter((topic) => topic.id !== created[1])
+      .map((topic, position) => ({ ...topic, position }));
+    assert.deepEqual(remaining, expected);
+    // Two deletions must close both gaps even when they begin together.
+    const results = await Promise.all([
+      topics.deleteDefault(created[0]),
+      topics.deleteDefault(created[2]),
+    ]);
+    assert.ok(results.every((result) => result !== null));
+    const after = await topics.listDefault();
+    assert.deepEqual(
+      after,
+      (reordered ? [...original].reverse() : original).map(
+        (topic, position) => ({ ...topic, position }),
+      ),
+    );
+    assert.equal(await topics.deleteDefault(created[1]), null);
+    assert.equal(await topics.reorderDefault(reversed), false);
+    assert.deepEqual(await topics.listDefault(), after);
+    assert.equal(await topics.reorderDefault(ids), true);
+    assert.deepEqual(await topics.listDefault(), original);
+  } finally {
+    for (const id of created) await topics.deleteDefault(id);
+    await topics.reorderDefault(ids);
+    await topics.onModuleDestroy();
+  }
+});
