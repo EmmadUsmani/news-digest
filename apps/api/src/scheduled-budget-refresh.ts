@@ -2,6 +2,7 @@ import type { ProfileSettings } from '@digest/contracts';
 
 import type { ScheduledBudgetRepository } from './modules/curation/domain/scheduled-budget.port';
 import { budgetDaySlot } from './modules/profiles/adapters/budget-day-slot';
+import { scheduledSlot } from './modules/profiles/domain/scheduled-slot';
 
 // Read the expected identity BEFORE loading settings. A slow settings snapshot
 // cannot replace an identity installed by a newer refresh in the meantime.
@@ -24,6 +25,11 @@ export async function refreshScheduledBudget(
     } else if (expected.runId !== runId) {
       await budgets.reconcilePending(day, expected.runId, slot, runId);
     }
+    // Match the worker's bounded recovery window, including its exact boundary.
+    // CAS preserves claims/retries and identities replaced by newer settings.
+    const recovery = scheduledSlot(slot.getTime(), now.getTime());
+    if (recovery.ok && recovery.value.skip)
+      await budgets.missPending(day, runId);
   } else if (expected) {
     // No occurrence in this UTC day (including timezone/DST changes). Release
     // only the observed unclaimed slot; a concurrent claim or replacement wins.

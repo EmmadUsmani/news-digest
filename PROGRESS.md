@@ -64,16 +64,6 @@ Iteration 183: [archive](docs/progress-archive/2026-11-02-iteration-183.md).
 
 Iteration 184: [archive](docs/progress-archive/2026-11-02-iteration-184.md).
 
-## 2026-11-02: iteration 185 — digest and edition HTTP characterization
-
-- Started clean on main; no leftover work. API/worker/health healthy, 32 sources without current errors, no failed digest/social jobs; two historical ingestion failures unchanged.
-- Added production-module HTTP tests against disposable Postgres/Redis for synchronous publication, retrieval/latest/history offsets, rejected windows/IDs/offsets and preservation of earlier snapshots.
-- A real BullMQ worker calls the real repository: overlapping HTTP creation requests dedupe, complete, expose duration/edition ID and publish retrievable immutable editions. Empty historical content fixes transport/persistence behavior; this is not a nonempty editorial golden.
-- `pnpm test:integration` passed 88/88; typecheck passed. Initial lint found an assertion style issue (fixed); a check then caught formatting in the newly archived progress entries (fixed).
-- No paid inference, live settings/content writes, source changes or UI changes; browser verification unnecessary. Updated README/TASKS and archived iterations 171–172 to keep orientation small.
-- Final `pnpm format`, `pnpm lint:fix`, `pnpm check` (99 unit/88 integration) and `pnpm build` passed. Restarted API/worker; health DB/Redis true, SPA 200, all queues available and 32 sources without errors; latest real edition retains four topics/10 X posts.
-- Next: remaining repository characterization, nonempty SQL golden and database coverage before ORM work. Reddit access/live AI timing blockers persist; scheduled xAI follows Reddit.
-
 ## 2026-11-02: iteration 186 — ingestion repository characterization
 
 - Started clean on main; no leftover work. API/worker/health healthy, 32 sources without errors, queues available; two historical ingestion failures unchanged.
@@ -227,3 +217,14 @@ Iteration 184: [archive](docs/progress-archive/2026-11-02-iteration-184.md).
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (109 unit/107 isolated integration), `pnpm build`, `git diff --check` passed.
 - Live health DB/Redis true; 32 sources without errors, four queues, latest real edition four topics/10 posts. No UI changes, paid inference or Reddit requests.
 - Updated README, reserve decision and TASKS. Reserve enforcement remains UNFINISHED: missed/already-published slots, shared-lock ledger admission/races, manual/Status visibility before Nov 3 15:00 UTC.
+
+## 2026-11-02: iteration 201 — terminate never-claimed missed slots
+
+- Started clean on main; health, services and 32 sources healthy. No leftover work.
+- Refresh now marks unclaimed daily slots failed strictly after the worker's six-hour recovery window, including startup after downtime.
+- Shared-lock identity/state/attempt-zero guards preserve claims, retries, replacements and terminal outcomes; no fabricated edition/AI outcome.
+- Isolated coverage checks exact cutoff, one millisecond late, restart, idempotence and competing lifecycle transitions. No paid inference or Reddit requests.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (109 unit/108 isolated integration), `pnpm build`, `git diff --check` passed. First check caught archive formatting; corrected and reran.
+- Restarted API/worker active; health DB/Redis true, SPA 200, four queues, 32 sources without errors, latest real edition four topics/10 posts.
+- Updated README, reserve decision and TASKS; archived iteration 185 to bound orientation size. No UI changes.
+- Reserve enforcement remains UNFINISHED: already-published reconciliation, shared-lock admission/races and manual/Status visibility before Nov 3 15:00 UTC.

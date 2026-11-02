@@ -94,6 +94,20 @@ export class PostgresScheduledBudgetRepository implements ScheduledBudgetReposit
     });
   }
 
+  async missPending(budgetDay: string, expectedRunId: string) {
+    if (!expectedRunId.trim())
+      throw new Error('Invalid missed scheduled budget identity');
+    return this.locked(async (client) => {
+      const result = await client.query(
+        `UPDATE scheduled_ai_budget_days SET state='failed',
+         updated_at=clock_timestamp()
+         WHERE budget_day=$1 AND run_id=$2 AND state='pending' AND attempt=0`,
+        [budgetDay, expectedRunId],
+      );
+      return result.rowCount === 1;
+    });
+  }
+
   async claim(runId: string, recoverAttempt?: number) {
     if (
       recoverAttempt !== undefined &&

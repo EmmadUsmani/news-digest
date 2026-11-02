@@ -155,6 +155,9 @@ Schedule changes reach the worker within 10 seconds. Coverage ends at the schedu
 slot, even if a queued job is delayed; repeated jobs reuse the same edition.
 BullMQ retains 100 successful/failed runs and retries failures three times with
 exponential backoff. Downtime does not backfill every missed daily edition.
+Scheduler refresh marks never-claimed daily budget slots failed after the same
+six-hour recovery window used by the worker; active attempts and retries remain
+protected. Budget reserve admission is still being implemented.
 Async API clients can `POST /api/digest-previews/jobs` with ISO `windowStart`
 and `windowEnd` values to receive HTTP 202 and a job ID without waiting for
 inference. Poll `GET /api/digest-previews/jobs/:id` for queue state, `editionId`,

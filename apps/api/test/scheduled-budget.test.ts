@@ -282,7 +282,7 @@ void test('scheduler refresh registers the current UTC day and reconciles only u
       postBudget: 5,
     },
   });
-  const now = new Date('2070-11-04T23:00:00Z');
+  const now = new Date('2070-11-04T21:00:00Z');
   const refresh = (value = profile(), date = now) =>
     refreshScheduledBudget(repo, async () => value, date);
   try {
@@ -741,6 +741,74 @@ void test('no-occurrence refresh removes only observed unclaimed slots and prese
       await clean();
     }
     await assert.rejects(repo.removePending(day, ' '));
+  } finally {
+    await clean();
+    await db.end();
+  }
+});
+
+void test('missed unclaimed slots terminate after six hours while claims, retries and replacements stay fenced', async () => {
+  const db = database();
+  const repo = new PostgresScheduledBudgetRepository(db);
+  const day = '2091-04-05';
+  const slot = new Date(day + 'T07:00:00Z');
+  const runId = `missed-profile:${slot.getTime()}`;
+  const profile = {
+    id: 'missed-profile',
+    name: 'Synthetic',
+    schedule: {
+      cadence: '0 7 * * *',
+      timezone: 'UTC',
+      coverageWindow: 'P1D',
+      storyBudget: 5,
+      postBudget: 5,
+    },
+  };
+  const clean = () =>
+    db.query('DELETE FROM scheduled_ai_budget_days WHERE budget_day=$1', [day]);
+  const refresh = (time: string) =>
+    refreshScheduledBudget(repo, async () => profile, new Date(day + time));
+  try {
+    await refresh('T13:00:00Z');
+    assert.equal((await repo.read(day))?.state, 'pending');
+    await refresh('T13:00:00.001Z');
+    const missed = await repo.read(day);
+    assert.equal(missed?.state, 'failed');
+    assert.equal(missed?.attempt, 0);
+    assert.equal(missed?.outcome, null);
+    await refresh('T14:00:00Z');
+    assert.deepEqual(await repo.read(day), missed);
+    await clean();
+    // Starting after downtime also registers then terminates the expired slot.
+    await refresh('T14:00:00Z');
+    assert.equal((await repo.read(day))?.state, 'failed');
+    for (const action of ['claim', 'retry', 'replace', 'succeed']) {
+      await clean();
+      await repo.register(slot, runId);
+      if (action === 'replace') {
+        await repo.reconcilePending(day, runId, slot, 'replacement');
+      } else {
+        const claim = await repo.claim(runId);
+        assert.ok(claim);
+        if (action !== 'claim')
+          await repo.finishAttempt(
+            runId,
+            claim.attempt,
+            action === 'retry' ? 'retrying' : 'succeeded',
+            action === 'succeed'
+              ? {
+                  editionId: 'synthetic',
+                  mode: 'fallback',
+                  reason: 'Synthetic',
+                }
+              : undefined,
+          );
+      }
+      const expected = await repo.read(day);
+      assert.equal(await repo.missPending(day, runId), false);
+      assert.deepEqual(await repo.read(day), expected, action);
+    }
+    await assert.rejects(repo.missPending(day, ' '));
   } finally {
     await clean();
     await db.end();

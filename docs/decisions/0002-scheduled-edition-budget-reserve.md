@@ -152,3 +152,11 @@ retries and terminal outcomes survive a stale refresh. Restoring a same-day
 schedule can register a new identity; no-occurrence days require no reserve.
 Missed slots and previously published slots still need reconciliation. Ledger admission and
 manual/Status visibility remain unfinished; this is not live budget protection.
+
+Iteration 201 bounds never-claimed pending protection to the worker's six-hour
+recovery window. Refresh registers/reconciles the current slot, then marks it
+failed only when strictly more than six hours late. The shared-ledger lock and
+identity/state/attempt-zero predicate preserve concurrent claims, retries,
+replacements and terminal outcomes. Restart after the cutoff records failure
+without inventing an edition or AI outcome. Exact-cutoff slots remain eligible.
+Already-published reconciliation and ledger admission remain unfinished.

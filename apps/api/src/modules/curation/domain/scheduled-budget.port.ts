@@ -27,6 +27,8 @@ export interface ScheduledBudgetRepository {
   ): Promise<boolean>;
   // Remove an obsolete, never-claimed slot only if its observed identity matches.
   removePending(budgetDay: string, expectedRunId: string): Promise<boolean>;
+  // Definitively miss only an observed, never-claimed slot.
+  missPending(budgetDay: string, expectedRunId: string): Promise<boolean>;
   read(budgetDay: string): Promise<ScheduledBudgetDay | null>;
   // Recovery is permitted only with queue evidence of a redelivered job and
   // the observed running attempt; compare-and-swap fences the old worker.
