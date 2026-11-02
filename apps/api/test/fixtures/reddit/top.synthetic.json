@@ -1,0 +1,27 @@
+{
+  "kind": "Listing",
+  "data": {
+    "children": [
+      {
+        "kind": "t3",
+        "data": {
+          "id": "abc123",
+          "subreddit": "nba",
+          "title": "[Highlight] A synthetic fixture play",
+          "selftext": "",
+          "author": "fixture_author",
+          "created_utc": 1793628000,
+          "permalink": "/r/nba/comments/abc123/synthetic_highlight/",
+          "url": "https://x.com/fixture/status/2116948532477468673",
+          "score": 1234,
+          "num_comments": 87,
+          "upvote_ratio": 0.97,
+          "thumbnail": "https://preview.redd.it/fixture.jpg",
+          "over_18": false,
+          "stickied": false,
+          "is_self": false
+        }
+      }
+    ]
+  }
+}

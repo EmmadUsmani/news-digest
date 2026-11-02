@@ -28,17 +28,7 @@ Earlier iterations 139–140: [archive](docs/progress-archive/2026-11-02-iterati
 
 Earlier iterations 141–142: [archive](docs/progress-archive/2026-11-02-iterations-141-142.md).
 
-## 2026-11-02: iteration 143 — Insider Gaming free social discovery
-
-- Started clean on main; no leftover work. API/worker/health and current source/digest/social runs healthy; two historical ingestion failures retained. Scheduled semantic edition remains due 20:40 UTC.
-- Migration 036 connects Insider Gaming RSS and exact-host bounded article discovery: 10 real articles; four accessible reporting pages yielded 11 X citations persisted with article/source provenance. Existing page cap/rotation/cooldowns apply. Guides/esports coverage remains subject to selection.
-- Explicit official verification: 10 successes/zero failures; subsequent pass has no candidates. Upcoming-window semantic pools 9/26/14/4, lexical picks 3/5/0/0; Gaming pool previously 3. No relevance/virality or published-selection claim.
-- Recorded three original feed entries and firmware citation anchor for offline regressions. Siliconera feed returned 15 items/no citations and much anime/merchandise coverage; left unconfigured.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 152 isolated tests pass. `pnpm build` passes (existing upstream Zod warnings); `pnpm migrate` applied 036.
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued passes, 1,268 URLs/four topics/32 healthy sources; repeat idempotent. Temporary shared-client probe persisted reporting citations and was removed. `verify-x-embeds.ts` and read-only `screen-social-posts.ts` confirm above.
-- Restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; refreshed screenshots and captured targeted mobile Insider Gaming card.
-- TASKS/docs/SOURCES updated. No publication, schedule mutation, inference/discovery spend, provider/model/billing change or new owner blocker. Reddit remains blocked; paid X scheduling stays off.
-- Next: inspect 20:40 UTC scheduled semantic edition; measure Gaming selection quality before further discovery changes.
+Earlier iteration 143: [archive](docs/progress-archive/2026-11-02-iteration-143.md).
 
 ## 2026-11-02: iteration 154 — compact iteration orientation
 
@@ -187,3 +177,14 @@ Earlier iterations 141–142: [archive](docs/progress-archive/2026-11-02-iterati
 - `pnpm exec tsx scripts/report-edition-timing.ts` plus JSON assertions passed (three runs, four topics each, nonnegative duration, exact remaining budget); next scheduled run is 15:00 UTC, unchanged.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (all 164 isolated tests, types/lint/format/boundaries) and `pnpm build` passed. No UI/source changes or live inference spend; docs/SOURCES unchanged.
 - README/TASKS updated. Next: inspect 15:00 scheduled publication with this report; proceed to Reddit while fresh live latency evidence awaits budget. No human action needed.
+
+## 2026-11-02: iteration 168 — bounded Reddit listing adapter
+
+- Started clean on main; no leftover work. API/worker/health healthy, 32 sources without current errors, zero failed digest jobs; two historical ingestion failures retained.
+- Live timing report still has only 848 micros available today; made no inference calls. Owner's next scheduled slot remains 15:00 UTC; live AI latency targets stay unverified.
+- Added RedditListingPort and public top/day JSON adapter using the shared HTTP port; retains card metadata, UTC timestamps, engagement and external X URLs, validates identity, deduplicates and skips unsafe/removed/adult/pinned entries.
+- One bounded LocalLLaMA public JSON probe with descriptive User-Agent returned 403. No bypass, alternate host or source activation. Reddit storage/settings/ranking/cards remain unfinished; no live Reddit content claimed.
+- Synthetic fixture tests cover faithful metadata/X citation evidence, malformed posts, URL/identity rejection, dedupe, invalid community input and single-call denial propagation.
+- `pnpm exec tsx --test apps/api/test/reddit-listing.test.ts`: 3 passed. Initial full check caught docs formatting during an edit; formatted and reran `pnpm check`: all 167 isolated tests, types/lint/format/boundaries pass. `pnpm build` passed.
+- Restarted API/worker; health database/Redis true, 32 sources/no current errors, digest queue zero failed, latest edition four topics. No UI changes; docs/SOURCES and TASKS updated; archived iteration 143 to keep orientation small.
+- Next: inspect 15:00 scheduled publication via read-only timing report; connect Reddit community settings/persistence behind the new port while respecting denied public access.

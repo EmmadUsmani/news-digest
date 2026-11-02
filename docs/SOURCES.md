@@ -1077,3 +1077,25 @@ social request, paid discovery, inference or publication was needed for this UI.
   as offline fixtures; they are not live content evidence. No paid calls.
 - Siliconera public feed probe returned 15 items, no X citations and substantial
   anime/merchandise coverage; left unconfigured. No page probes performed.
+
+## Reddit listing preparation — iteration 168 (2026-11-02)
+
+A single public `https://www.reddit.com/r/LocalLLaMA/top.json?t=day&limit=5`
+request with descriptive `NewsDigest/1.0` User-Agent returned HTTP 403.
+No alternate host, proxy, login or scraping workaround was attempted.
+LocalLLaMA is **blocked**, with zero stored Reddit posts. NBA remains blocked
+by the earlier JSON/RSS checks; other communities remain **not yet tried**.
+
+`RedditListing` now accepts a community name through `RedditListingPort` and
+uses the existing shared HTTP port for the public top/day listing (100 max).
+It retains title/text, author, UTC time, subreddit, score/comments/upvote ratio,
+HTTPS thumbnail and external URL, including X links for future citation ingestion.
+It rejects invalid listing envelopes; skips malformed, removed, adult and pinned
+posts; checks subreddit/permalink identity and deduplicates IDs. Access errors
+propagate without endpoint fallback. Production use must inject SharedHttpClient
+for its existing User-Agent, domain rate limit, cache and Retry-After handling.
+
+The JSON fixture is explicitly synthetic, not a recorded live Reddit response.
+This is adapter preparation only: storage, editable per-topic communities,
+scheduling, relative engagement ranking and faithful cards remain unfinished.
+No source was enabled and no live Reddit content is claimed.
