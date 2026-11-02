@@ -187,6 +187,28 @@ void test('topic coverage unions discovery routes, isolates topics and pins heal
     await client.query(`INSERT INTO reddit_x_citations(reddit_id,external_id,canonical_url)
       VALUES('coveragebridge','779901','https://x.com/a/status/779901')`);
     let coverage = await readTopicCoverage(client, end);
+    const searches = new PostgresXSearchRepository(client as never);
+    const planned = async () =>
+      (await searches.scheduledTopics(end)).filter((row) =>
+        [topic, other].includes(row.id),
+      );
+    assert.deepEqual(
+      await planned(),
+      [topic, other].sort().map((id) => ({
+        id,
+        name: 'Coverage fixture',
+        guidance: '',
+        handles: [],
+        freePosts: id === topic ? 2 : 0,
+      })),
+    );
+    // An unverified free citation cannot make a topic look well covered.
+    await client.query(`INSERT INTO social_discovery_citations(source_id,external_id,canonical_url)
+      VALUES('coverage-river','779906','https://x.com/a/status/779906')`);
+    assert.equal(
+      (await planned()).find((row) => row.id === topic)!.freePosts,
+      2,
+    );
     assert.equal(coverage.end, end.toISOString());
     const row = coverage.topics.find((row) => row.topicId === topic)!;
     assert.deepEqual(
@@ -224,7 +246,35 @@ void test('topic coverage unions discovery routes, isolates topics and pins heal
       coverage.topics.find((row) => row.topicId === other)!.xPosts,
       2,
     );
+    // Search and stored Reddit evidence retain Status coverage but must not
+    // count as free harvesting for scheduled X weakest-first planning.
+    assert.equal(
+      (await planned()).find((row) => row.id === topic)!.freePosts,
+      0,
+    );
+    assert.equal(
+      (await planned()).find((row) => row.id === other)!.freePosts,
+      2,
+    );
+    await client.query('UPDATE topics SET enabled=false WHERE id=$1', [other]);
+    assert.deepEqual(
+      (await planned()).map((row) => row.id),
+      [topic],
+    );
+    await client.query(
+      'UPDATE topics SET enabled=true,post_budget=0 WHERE id=$1',
+      [other],
+    );
+    assert.deepEqual(
+      (await planned()).map((row) => row.id),
+      [topic],
+    );
+    await client.query('UPDATE topics SET post_budget=5 WHERE id=$1', [other]);
     await client.query('DELETE FROM topics WHERE id=$1', [topic]);
+    assert.deepEqual(
+      (await planned()).map((row) => row.id),
+      [other],
+    );
     coverage = await readTopicCoverage(client, end);
     assert.equal(
       coverage.topics.some((row) => row.topicId === topic),

@@ -114,17 +114,6 @@ Earlier iteration 244: [archive](docs/progress-archive/2026-11-02-iteration-244.
 
 Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
 
-## 2026-11-02: iteration 250 — publisher admission time boundaries
-
-- Started clean on main; API/worker, health and 32 sources healthy; no leftover work.
-- Priority 15/13/7/9 evidence awaits Nov 3; advanced isolated STEERING 2a.
-- Pinned inclusive publication window, future exclusion and success/error retry cutoffs to one millisecond in a non-UTC transaction.
-- Pinned exact-day host recovery independently of the failed article's stricter retry cutoff.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 148 integration), `pnpm build`, `git diff --check` passed.
-- Updated TASKS/database notes; archived iteration 232 to keep PROGRESS bounded. No provider or Reddit requests.
-- Restarted API/worker healthy; DB/Redis health true, SPA 200, 32 error-free sources, four available queues and four-topic latest edition.
-- Next: observe Nov 3 all-topic X cost/yield and scheduled AI cost/duration before acknowledging 15/13/7.
-
 ## 2026-11-02: iteration 251 — source diagnostic persistence
 
 - Started clean on main; API/worker, health and 32 sources healthy; no leftover work.
@@ -348,3 +337,16 @@ Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
 - API/worker restarted; health, SPA and latest edition checked after build.
 - Updated TASKS/database notes; archived iteration 249 to keep PROGRESS bounded.
 - Next: observe Nov 3 scheduled X per-topic cost/yield and AI edition cost/duration.
+
+## 2026-11-02: iteration 270 — scheduled free-post coverage
+
+- Started clean on main; API/worker, health and all 32 sources healthy; no leftover work.
+- Two retained ingestion failures are historical; sources currently report no errors.
+- Scheduled priorities await Nov 3 evidence; advanced isolated STEERING 2a.
+- Pins scheduled topic payload/order and exact 24-hour boundaries in a non-UTC session.
+- Free coverage follows river reassignment; paid/Reddit evidence cannot inflate it.
+- Unverified/undated posts and disabled, zero-budget or deleted topics stay excluded.
+- Disposable PostgreSQL only; no source, Reddit or paid provider verification calls.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 164 integration), `pnpm build`, `git diff --check`.
+- API/worker restarted; health, SPA and latest four-topic/20-story/10-post edition checked.
+- Updated TASKS/database notes; archived iteration 250. Next: Nov 3 scheduled X cost/yield and AI cost/duration.

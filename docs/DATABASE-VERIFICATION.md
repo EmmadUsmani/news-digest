@@ -470,3 +470,13 @@ Verified posts, recent checks (including null-error checks), disabled/zero-budge
 and deleted topics stay excluded; re-enabling restores eligible candidates.
 All assertions use repository methods in a rolled-back disposable PostgreSQL
 transaction; no source, Reddit, embed or paid provider requests occur.
+
+## Scheduled free-post coverage (iteration 270)
+
+`topic-coverage.test.ts` now also characterizes the scheduled-search reader:
+exact configuration payloads and tied-position ordering, inclusive start and
+exclusive end publication boundaries in a non-UTC session, and exclusion of
+undated and unverified posts. Reassigning a river moves free coverage even when
+paid-search and stored Reddit evidence preserve Status coverage. Disabled,
+zero-budget and deleted topics leave the search plan. Disposable PostgreSQL
+only; no source, Reddit or paid provider requests occur.
