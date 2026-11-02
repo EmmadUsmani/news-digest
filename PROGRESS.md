@@ -354,3 +354,18 @@ Earlier iterations 17–22: [archive](docs/progress-archive/2026-11-01-iteration
 - `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live passes: 716 real URLs, four topics, seventeen healthy sources; no source changes.
 - `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed and mobile digest visually inspected. Services rebuilt/restarted, `/healthz` healthy.
 - Updated TASKS/docs/LLM; no owner blockers. Next: recorded-window editorial precision, Sonnet allocation, scheduled Message Batches and cross-process coordination; M3 remains open.
+
+## 2026-11-02: iteration 59 — recorded NBA AI selection evaluation
+
+- Started clean on main; no leftover work. API/worker, health, seventeen sources and retained digest runs healthy; schedule unchanged.
+- Extracted unchanged production semantic shortlist rules for shared offline replay; regression protects thresholds, quality/exclusion rules and include-phrase recovery.
+- Recorded configured Haiku/Sonnet inference over the existing frozen 52-candidate NBA window; labels never entered prompts. No fixture content inserted or edition published.
+- `pnpm evaluate:editorial` validates fixture SHA, complete scores, exact production shortlist and unique valid selections without network/DB. AI found 5/5 prior target events versus signals 2/5, zero four labeled omissions.
+- This is provisional agent-labeled target recall/yield, not independent precision/factual verification. Manual audit found concrete summary claims in supplied shortlist excerpts/headlines; questionable source claims remain unverified.
+- Audit exposed mixed-shortlist facts without guaranteed coverage links. TASKS/docs/RANKING prioritize validated evidence IDs/links, then broader independently reviewed windows; no scoring fitted to labels.
+- Six new calls (five Haiku, one Sonnet) cost $0.026394; actual day/month $0.293523, zero reservations/errors, $0.482758 daily/$14 monthly caps. Provider/models/billing unchanged.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and 72 tests in disposable DBs; `pnpm build` passed (existing upstream Zod warnings).
+- `smoke-ingestion.ts` passed two queued live passes: 716 real URLs, four topics, seventeen healthy sources; no source changes.
+- `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; refreshed status screenshots and inspected mobile digest. Services rebuilt/restarted; `/healthz` healthy.
+- Live API regeneration of the prior exact window retained five AI stories per topic, identical snapshots and zero new LLM calls; prior edition reread unchanged.
+- No owner blockers. M3 remains open: evidence provenance, Sonnet allocation, scheduled Message Batches, cross-process coordination and broader evaluation.

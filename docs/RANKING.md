@@ -303,3 +303,44 @@ brief mentioned unselected candidates; published briefs now use selected rewritt
 headlines only. An initially incomplete NBA triage produced labeled non-AI
 fallback; a later run completed scoring rather than treating partial coverage
 as a semantic selection. No measured precision improvement is claimed.
+
+## Iteration 59: first recorded AI selection comparison
+
+Run `pnpm evaluate:editorial` offline. The immutable checked-in inference
+artifact `editorial-nba-2026-11-01.json` contains complete Haiku scores, the
+exact ten-item production shortlist, Sonnet output, topic guidance, run ID and
+actual ledger cost. A SHA-256 binds it to the existing 52-candidate NBA fixture,
+including its labels. Neither model received event/omission labels. Selection
+uses the same extracted shortlist function as publication; thresholds, tie
+ordering, exclusions, clustering and source text bounds are unchanged.
+The explicit recorder uses the configured Anthropic provider/models and capped
+production ledger, but never inserts fixture content or publishes an edition.
+It refuses to overwrite an existing artifact before making calls.
+
+On this window Sonnet selects all five previously labeled target events:
+record, ownership dispute, injuries, Sixers comeback and Spurs win. Target
+recall and target slot yield are 5/5 (100%), versus signals-v6's 2/5 (40%).
+All four omission labels are absent. Six new charged calls (five Haiku, one
+Sonnet; other per-item triage results reused cache) cost $0.026394. Replaying
+the saved output uses no inference or database. Tests check complete score
+accounting, exact shortlist replay, valid unique selected IDs, event metrics
+and absence of negative labels. A separate synthetic regression protects
+semantic include-phrase recovery and hard quality/exclusion/score thresholds.
+
+This is **not a precision estimate**: the five targets are provisional agent
+labels from one date, not independently reviewed exhaustive judgments. The
+offline regression does not require perfect target recall for future models.
+No scoring was fitted to these labels. No article pages or independent facts
+were checked. Source text itself contains potentially questionable claims
+(for example the Brown/76ers and Acuff headlines); agreement with feed text
+does not establish truth.
+
+A manual excerpt-support audit of all five saved summaries found the concrete
+claims in the supplied shortlist headlines/excerpts. The injury summary
+explicitly admits missing diagnoses/timelines. However, the ownership, Spurs
+and Sixers summaries also draw on other shortlisted articles. Those articles
+are not guaranteed to appear in the selected lead's conservative headline
+cluster: publication currently retains cluster coverage, not claim citations.
+This is a discovered provenance limitation, not verified independent coverage.
+Next retain explicit editor evidence IDs/links and test their validation; then
+add other topics/dates and independent labels before claiming broad quality.

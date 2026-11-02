@@ -1,0 +1,444 @@
+{
+  "provenance": "Real configured Anthropic inference over recorded publisher-feed excerpts. Offline evaluation only; not a published edition. Labels were not supplied to either model.",
+  "recordedAt": "2026-11-02T00:43:58.152Z",
+  "runId": "recorded-nba-1d7cfd07-3ca6-4a9a-aca1-dbd24c87e963",
+  "fixture": "ranking-nba-2026-11-01.json",
+  "fixtureSha256": "88c7f7bf6014342e70aeabf95a73bb33f7ed5410d5482dcd11b2840a51349f0a",
+  "topic": {
+    "id": "00000000-0000-4000-8000-000000000012",
+    "name": "NBA",
+    "description": "NBA basketball news and analysis.",
+    "guidance": "Teams, players, trades, injuries and important games.\nExclude: Other sports and non-NBA basketball\nRequired phrases: NBA, Lakers, Celtics, Warriors, Knicks, Nets, Bulls, Cavaliers, Mavericks, Nuggets, Pistons, Rockets, Pacers, Clippers, Grizzlies, Bucks, Timberwolves, Pelicans, Thunder, Magic, 76ers, Suns, Trail Blazers, Kings, Spurs, Raptors, Jazz, Wizards, Hornets, Hawks, Miami Heat, LeBron, Wembanyama\nExcluded phrases: WNBA, NCAA, college basketball, EuroLeague, NFL, MLB, NHL, fantasy, best bets, odds"
+  },
+  "triage": {
+    "scores": [
+      {
+        "id": "1f8e88af-2bbc-4205-bb4a-af6ea34285c9",
+        "relevance": 9,
+        "importance": 6,
+        "event": "Week 2 NBA injuries: Edwards, Leonard sidelined",
+        "rationale": "Covers multiple NBA teams (Timberwolves, Pacers, Raptors) with star players out for extended periods, a consequential injury story."
+      },
+      {
+        "id": "e0835666-3dfa-443a-b2a1-5c74aaeda25e",
+        "relevance": 7,
+        "importance": 2,
+        "event": "Commentary on Mavericks first-year coach Dusty May",
+        "rationale": "Opinion piece about a Mavericks coach's reception in Dallas. It concerns an NBA team but reports no consequential event."
+      },
+      {
+        "id": "476e400d-8ae3-4b2c-8b5e-d8508b72f037",
+        "relevance": 7,
+        "importance": 2,
+        "event": "Suns November schedule preview",
+        "rationale": "Concerns a named NBA team, but it is a calendar overview with little consequential news."
+      },
+      {
+        "id": "10613a67-0e78-4946-b41d-e8e343368599",
+        "relevance": 9,
+        "importance": 4,
+        "event": "Celtics rest Robinson for game vs. Magic",
+        "rationale": "Clearly NBA team and player news about a key starter missing a game on a back-to-back. Limited to one game, so modest consequence."
+      },
+      {
+        "id": "696f20b3-f6f5-4bff-99f7-3d3427d42c39",
+        "relevance": 8,
+        "importance": 3,
+        "event": "Nets vs. Pacers preview after 0-5 start",
+        "rationale": "Clearly NBA coverage of Brooklyn's winless start and an upcoming game. It is a game preview, so its news weight is modest."
+      },
+      {
+        "id": "6a28cba6-ad23-4fa9-9abd-f845e1d8ee70",
+        "relevance": 8,
+        "importance": 4,
+        "event": "Spurs win over the Timberwolves",
+        "rationale": "Post-game analysis of a Spurs win involving NBA teams. Relevant, but it is commentary on one game and offers no injury, trade, or major consequential development."
+      },
+      {
+        "id": "8145e71e-a7e4-498b-b292-ce00845203da",
+        "relevance": 8,
+        "importance": 4,
+        "event": "Tyler Kolek's early-season play and Knicks backcourt rotation decision ahead of Jose Alvarado's return",
+        "rationale": "Covers a Knicks rotation question tied to a player's return from injury. Useful team-level news, though a rotation decision is modest in consequence."
+      },
+      {
+        "id": "a0633ef7-fb90-43fa-b4e6-f2393aeb6804",
+        "relevance": 7,
+        "importance": 2,
+        "event": "Bucks weekly winners and sinners column (Week 2)",
+        "rationale": "A recurring weekly roundup column about the Bucks with no specific verified event. Low importance; it reads as filler."
+      },
+      {
+        "id": "257469cf-68c2-43cf-a89a-e459edcdc1b2",
+        "relevance": 9,
+        "importance": 3,
+        "event": "Mavericks 116-111 win over Rockets",
+        "rationale": "NBA game analysis of a regular-season win focused on the final minutes. Notable mainly as a single game recap, not a major consequential development."
+      },
+      {
+        "id": "07653a65-36c3-43ec-b4a9-96cd135520f9",
+        "relevance": 9,
+        "importance": 4,
+        "event": "Spurs outlast Timberwolves; Wembanyama scores heavily",
+        "rationale": "NBA game highlights featuring Wembanyama, who scored the second-most points of his career. Notable individual performance in a regular-season game, though not a major league-wide event."
+      },
+      {
+        "id": "e3e205f0-aff1-45fb-9d62-d547ab76fcc8",
+        "relevance": 7,
+        "importance": 3,
+        "event": "Grizzlies start season 6-0 with Cameron Boozer",
+        "rationale": "Grizzlies team record update involving Cameron Boozer. The excerpt is vague and gives no details on the games or his role, so the importance is modest."
+      },
+      {
+        "id": "ce5cbdf7-9859-48e0-a144-4d667d3261ea",
+        "relevance": 2,
+        "importance": 0,
+        "event": "NBA sportsbook bonus promotions",
+        "rationale": "Betting promotional content that mentions the NBA only in passing. It is promotion, not NBA news."
+      },
+      {
+        "id": "bbd4a224-4fdb-4543-9a99-ca707996b855",
+        "relevance": 9,
+        "importance": 4,
+        "event": "Rockets defeat Thunder 119-98",
+        "rationale": "Direct NBA game result between two listed teams. It is a routine regular-season result with no stated stakes or injury or trade context."
+      },
+      {
+        "id": "2469bb14-ed25-4b19-8c84-f4cb26cc9aba",
+        "relevance": 8,
+        "importance": 3,
+        "event": "Bucks vs. Cavaliers Halloween game",
+        "rationale": "Post-game player grades for a Bucks-Cavaliers NBA game. Relevant NBA coverage, but routine recap content with no evident lasting consequence."
+      },
+      {
+        "id": "2c9ff804-512f-40d2-a210-520d01eab511",
+        "relevance": 8,
+        "importance": 4,
+        "event": "Raptors' first Los Angeles trip without Kawhi Leonard",
+        "rationale": "Preview of the Raptors' upcoming Los Angeles game amid a cold streak and Kawhi Leonard's absence. Notable for team status, but it is opinion-driven pre-game analysis rather than major news."
+      },
+      {
+        "id": "51b71819-b98f-46dc-9d24-967211f1fb63",
+        "relevance": 7,
+        "importance": 2,
+        "event": "Suns weekly lineup, defense, and center options analysis",
+        "rationale": "Fan-community weekly analysis of the Suns' lineup and center options. Relevant team coverage, but it is opinion from a fan site with no verified consequential news."
+      },
+      {
+        "id": "2aff0f1d-27f5-4d3c-8210-7e8437b57d36",
+        "relevance": 8,
+        "importance": 3,
+        "event": "Mavericks early-season wins over Pacers, Heat and Rockets",
+        "rationale": "Season-start feature on Mavericks' winning streak against several NBA teams. It is relevant analysis, but it is a narrative piece with little consequential news."
+      },
+      {
+        "id": "de087808-7853-49e3-820a-48e097517b9d",
+        "relevance": 7,
+        "importance": 2,
+        "event": "Spurs game on Halloween",
+        "rationale": "Open thread about a Spurs game. The excerpt is vague and offers no concrete result or consequential development, so importance is low."
+      },
+      {
+        "id": "10965565-a0fb-4679-90c3-72fe04c31307",
+        "relevance": 6,
+        "importance": 1,
+        "event": "Reporter's first game covering the Celtics",
+        "rationale": "Personal media diary about a reporter's first credentialed Celtics game. It mentions the team but reports no notable news, trades, injuries or results."
+      },
+      {
+        "id": "51792ffa-9b95-47f8-8f8b-6016a83fb82e",
+        "relevance": 7,
+        "importance": 3,
+        "event": "Gui Santos offseason preparation for 2026-27 season",
+        "rationale": "Warriors forward feature on his development and offseason mindset. Team-relevant, but a soft feature rather than consequential news."
+      },
+      {
+        "id": "4be67498-148c-4687-a96b-a441c8513dd6",
+        "relevance": 9,
+        "importance": 4,
+        "event": "Kings rookie Darius Acuff Jr. praised amid Kings' winless start",
+        "rationale": "Covers Kings coach comments on rookie Darius Acuff Jr., who leads rookies in scoring, and the team's winless start. Notable for the team, but not major league news."
+      },
+      {
+        "id": "bddb7e26-e09f-4190-9b41-98de64585125",
+        "relevance": 9,
+        "importance": 4,
+        "event": "Spurs beat Timberwolves 121-111 on Halloween for fourth straight win",
+        "rationale": "Regular-season game result with a winning streak and early-season context for the Spurs. Clearly NBA and team-specific, but an ordinary early-season game."
+      },
+      {
+        "id": "c12000b5-c248-4581-9cad-54e7e1a343be",
+        "relevance": 9,
+        "importance": 3,
+        "event": "Lakers struggles vs. Warriors with Dončić off floor; Reaves blamed",
+        "rationale": "Covers a Lakers game and a player's assessment of the second unit's struggles. Team-specific and on-topic, but a single-game storyline with limited broader consequence."
+      },
+      {
+        "id": "1ebbd7da-afd1-4951-8cc0-ebd04e08d0d3",
+        "relevance": 8,
+        "importance": 2,
+        "event": "Lakers vs. Raptors game preview (Sunday)",
+        "rationale": "Pregame preview for a regular-season Lakers game. On-topic, but routine and low consequence."
+      },
+      {
+        "id": "1b60adc1-f62a-4289-8827-d083507bc6cf",
+        "relevance": 9,
+        "importance": 4,
+        "event": "Kings rookie Darius Acuff Jr. makes nine 3-pointers, NBA record for a teenager",
+        "rationale": "Notable individual performance and a record for a teenager in the league. Newsworthy for a rookie, though not a major league-wide development."
+      },
+      {
+        "id": "3d88640c-4d29-4458-93a3-abbb35f2aa9a",
+        "relevance": 9,
+        "importance": 3,
+        "event": "Celtics at Magic, Game #6 (Nov 1, 2026)",
+        "rationale": "Regular-season NBA matchup preview between Boston and Orlando. Celtics are on a 5-game win streak, but this is an early-season game with limited broader consequence."
+      },
+      {
+        "id": "330af28c-5f48-4cb8-8b99-005029bda3a5",
+        "relevance": 10,
+        "importance": 4,
+        "event": "Spurs 121, Timberwolves 111 game recap",
+        "rationale": "Recap of a regular-season NBA game in which Victor Wembanyama had a standout performance for San Antonio. Notable individual result, but a single early-season game."
+      },
+      {
+        "id": "095d0fe0-aac4-4b17-9e5b-af5c533989d0",
+        "relevance": 9,
+        "importance": 3,
+        "event": "Warriors vs. Clippers preview (Sunday, Chase Center)",
+        "rationale": "Preview of a regular-season NBA game. Warriors are on a 3-game win streak against a struggling Clippers team. Routine matchup with modest significance."
+      },
+      {
+        "id": "86e51c7d-61a5-48e7-8da9-b7e805ed692d",
+        "relevance": 9,
+        "importance": 3,
+        "event": "Cavaliers 136-111 win over Bucks",
+        "rationale": "Analysis of a regular-season NBA game featuring Cavaliers and Bucks players; routine game coverage with no lasting consequence stated."
+      },
+      {
+        "id": "c4b2ce66-9bf4-471e-9aa9-7cabae13a1d3",
+        "relevance": 9,
+        "importance": 2,
+        "event": "Cavaliers 136-111 win over Bucks",
+        "rationale": "Brief game recap of a regular-season NBA result; routine coverage of the same Cavaliers-Bucks game."
+      },
+      {
+        "id": "277cccbe-ae81-45bb-aa9f-c5ac3301ce3d",
+        "relevance": 9,
+        "importance": 3,
+        "event": "Spurs 121-111 win over Timberwolves",
+        "rationale": "Final score report of a regular-season NBA game with Spurs and Timberwolves; notable only as a fourth straight win, with no major consequence stated."
+      },
+      {
+        "id": "20a298f7-d298-4d9e-9239-cd0352954280",
+        "relevance": 9,
+        "importance": 4,
+        "event": "Cavaliers blowout win over Bucks",
+        "rationale": "Game recap of a Cavaliers victory over the Bucks, featuring Mobley and Allen. Routine regular-season result with limited wider consequence, though it is the team's first blowout win of the season."
+      },
+      {
+        "id": "9d729909-280c-4d3b-8b75-91f8e6a3c943",
+        "relevance": 9,
+        "importance": 4,
+        "event": "Sixers come-back win at Hornets",
+        "rationale": "Game recap of a 76ers come-from-behind win in Charlotte, highlighting Maxey and Edgecombe. A routine regular-season result with modest importance."
+      },
+      {
+        "id": "c088e246-ab20-42ec-9234-c90045fbf9ff",
+        "relevance": 8,
+        "importance": 3,
+        "event": "Knicks paint defense concerns vs 76ers",
+        "rationale": "Analysis of Knicks interior defense problems in a game against the 76ers, citing comments from coach Mike Brown. Useful team analysis but a narrow, single-game storyline."
+      },
+      {
+        "id": "9f6437ce-0290-4c43-87be-4ee35c684c63",
+        "relevance": 6,
+        "importance": 2,
+        "event": "Jimmy Butler AI post mocking Luka Dončić over Steph Curry",
+        "rationale": "Light NBA player banter about a social media post. Involves Luka Dončić and Steph Curry, but it has little consequence for teams, games, or trades."
+      },
+      {
+        "id": "604ee7fe-21cb-45ad-bcc0-e0c9972696f9",
+        "relevance": 9,
+        "importance": 5,
+        "event": "76ers 109-104 win over Hornets with Maxey 38 points",
+        "rationale": "Regular-season NBA game report with a notable scoring performance and Jaylen Brown's return from a left patellar tendinopathy absence. Routine game coverage, but it has team-level relevance."
+      },
+      {
+        "id": "6a96b8fc-70b6-43cc-b78a-b83b977d59f2",
+        "relevance": 9,
+        "importance": 7,
+        "event": "Jeanie Buss third court filing alleging sibling plot over Lakers sale",
+        "rationale": "Ongoing family court dispute affecting ownership of the Lakers, a major franchise. The allegations are the filer's claims and are not verified in the supplied facts."
+      },
+      {
+        "id": "cbb36bd0-df11-434e-8159-55b0fc0cdd92",
+        "relevance": 8,
+        "importance": 3,
+        "event": "Knicks reflect on losses and double-digit comebacks",
+        "rationale": "NBA team analysis on the Knicks' struggles and reliance on comebacks. It is commentary on a team, not a major consequential development."
+      },
+      {
+        "id": "1d74bf76-7ace-4865-b145-72275de97c80",
+        "relevance": 9,
+        "importance": 4,
+        "event": "76ers come back to beat Hornets on Edgecombe late shot",
+        "rationale": "Covers a specific NBA game result with a late go-ahead shot by VJ Edgecombe. A single regular-season win has limited broader consequence."
+      },
+      {
+        "id": "62e1ed59-ddce-4a4a-89ac-4e5ec81c8910",
+        "relevance": 8,
+        "importance": 2,
+        "event": "Column on Nets leadership from Randle and Porter Jr.",
+        "rationale": "Opinion piece urging veterans Randle and Porter Jr. to lead the Nets. It is analysis with no concrete news event."
+      },
+      {
+        "id": "21517663-6d90-4de8-ad19-bc341de5e130",
+        "relevance": 1,
+        "importance": 1,
+        "event": "Reds-Dodgers Elly De La Cruz trade rumor",
+        "rationale": "Centers on MLB trade rumors involving Elly De La Cruz; Luka Doncic is only a passing mention, and MLB is an excluded topic."
+      },
+      {
+        "id": "7007804d-2070-4a15-a0e6-b16d918885e0",
+        "relevance": 7,
+        "importance": 2,
+        "event": "Cavaliers at Bucks game preview",
+        "rationale": "A routine game thread for a Cavaliers-Bucks matchup with no notable stakes or news beyond the scheduled game."
+      },
+      {
+        "id": "a9113c21-0561-443e-a71b-34312ab0e97b",
+        "relevance": 7,
+        "importance": 3,
+        "event": "Analysis of Phoenix Suns offensive gains and defensive lapses",
+        "rationale": "Team analysis of the Suns' mental lapses and defensive breakdowns; opinion piece with no new consequential event."
+      },
+      {
+        "id": "8dfc4c91-f9b8-42b4-8e4a-97af311a8b45",
+        "relevance": 8,
+        "importance": 4,
+        "event": "Spurs vs Timberwolves playoff rematch preview",
+        "rationale": "Preview of a Spurs–Timberwolves game involving NBA teams; a routine matchup preview rather than a major development."
+      },
+      {
+        "id": "f93fa842-5907-409f-9c2e-ce01ac455b05",
+        "relevance": 6,
+        "importance": 2,
+        "event": "Post NBA Power Rankings featuring 76ers and Grizzlies",
+        "rationale": "Power-ranking feature mentioning NBA teams; low-consequence routine content with little substantive news."
+      },
+      {
+        "id": "34be2cee-dc67-49d9-b69f-2a93fb2489ce",
+        "relevance": 8,
+        "importance": 4,
+        "event": "Celtics injury report ahead of Magic game",
+        "rationale": "NBA injury news for a Celtics-Magic game, but the named player, Mitchell Robinson, is not verified as a Celtics player, so the team link is unconfirmed."
+      },
+      {
+        "id": "af3cc41a-5782-4f29-8293-b77fd13c63ec",
+        "relevance": 9,
+        "importance": 3,
+        "event": "Rockets vs. Thunder game after first loss",
+        "rationale": "Preview of a regular-season Rockets-Thunder game; the item is a routine matchup preview with little consequence."
+      },
+      {
+        "id": "1a81cd7f-e86b-4e2d-88b2-8faf6c63446f",
+        "relevance": 2,
+        "importance": 1,
+        "event": "Hawks-Pelicans and Dream-Valkyries game listings",
+        "rationale": "Mostly a schedule roundup that includes WNBA content (Dream, Valkyries), which is excluded, and offers little NBA news."
+      },
+      {
+        "id": "acac2dcf-6fab-4234-904e-e557748e0579",
+        "relevance": 7,
+        "importance": 3,
+        "event": "Jazz home game against Trail Blazers, described as a shaky performance",
+        "rationale": "NBA Jazz and Trail Blazers game coverage, but the excerpt is opinion-heavy and gives no concrete outcome or consequence."
+      },
+      {
+        "id": "0dfd6c56-919a-47ea-a648-30eac6c90735",
+        "relevance": 8,
+        "importance": 4,
+        "event": "Sixers vs Hornets injury report: Embiid and LeBron ruled out",
+        "rationale": "Routine NBA injury report for a specific game; the title pairs LeBron with the Sixers, which conflicts with his Lakers affiliation, so the details are unverified."
+      },
+      {
+        "id": "5b3858e8-6ef4-44b0-8edd-bfbc5f331d0c",
+        "relevance": 9,
+        "importance": 8,
+        "event": "Jeanie Buss asks judge to block siblings' sale of Lakers stake",
+        "rationale": "A court fight over the Lakers' 17.8% stake that could remove Buss as governor is a consequential team-ownership development."
+      },
+      {
+        "id": "3b278726-17f7-42ab-a75b-ec8f399986c5",
+        "relevance": 9,
+        "importance": 3,
+        "event": "Sixers beat Hornets as Tyrese Maxey scores 38",
+        "rationale": "Regular-season NBA game recap featuring a 38-point performance by Maxey; a routine result with limited broader consequence."
+      }
+    ],
+    "unscoredIds": []
+  },
+  "shortlistIds": [
+    "1f8e88af-2bbc-4205-bb4a-af6ea34285c9",
+    "10613a67-0e78-4946-b41d-e8e343368599",
+    "07653a65-36c3-43ec-b4a9-96cd135520f9",
+    "1b60adc1-f62a-4289-8827-d083507bc6cf",
+    "330af28c-5f48-4cb8-8b99-005029bda3a5",
+    "20a298f7-d298-4d9e-9239-cd0352954280",
+    "604ee7fe-21cb-45ad-bcc0-e0c9972696f9",
+    "6a96b8fc-70b6-43cc-b78a-b83b977d59f2",
+    "1d74bf76-7ace-4865-b145-72275de97c80",
+    "5b3858e8-6ef4-44b0-8edd-bfbc5f331d0c"
+  ],
+  "result": {
+    "brief": [
+      "Jeanie Buss asked a judge to block her siblings from selling their 17.8% Lakers stake, alleging a secret plot to push her out as governor.",
+      "Week 2 left several teams, including the Timberwolves, Pacers and Raptors, without star players for extended periods. Anthony Edwards and Kawhi Leonard are named in the headline.",
+      "The Spurs beat the Timberwolves 121-111 behind a big game from Victor Wembanyama.",
+      "Kings rookie Darius Acuff Jr. became the NBA's first teenager to hit nine 3-pointers in a game, and the 76ers beat the Hornets 109-104 with Tyrese Maxey scoring 38."
+    ],
+    "stories": [
+      {
+        "id": "5b3858e8-6ef4-44b0-8edd-bfbc5f331d0c",
+        "headline": "Jeanie Buss asks judge to block siblings from selling 17.8% Lakers stake",
+        "summary": "Jeanie Buss is asking a judge to stop her siblings from selling their 17.8% stake in the Los Angeles Lakers. She says the sale would force her out as team governor. A related report describes it as her third Buss family court filing since August and quotes her alleging a \"false flag operation\" by her siblings.",
+        "whyItMatters": "The dispute could affect who controls one of the NBA's best-known franchises.",
+        "rationale": "A major ownership and governance story. I chose this version for its detail on the stake and the governor role, and left out the duplicate report."
+      },
+      {
+        "id": "1f8e88af-2bbc-4205-bb4a-af6ea34285c9",
+        "headline": "Week 2 injuries sideline Anthony Edwards, Kawhi Leonard and other stars",
+        "summary": "A Yahoo Sports roundup says the Timberwolves, Pacers and Raptors are among the teams that must account for star players sidelined for extended periods after Week 2. The headline names Anthony Edwards and Kawhi Leonard among those added to the injury list. The excerpt gives no details on the injuries or timelines.",
+        "whyItMatters": "Extended absences by star players can change team outlooks early in the season.",
+        "rationale": "Injuries to prominent players affect several teams, so the roundup is consequential. The excerpt is thin, so the summary stays limited to what it states."
+      },
+      {
+        "id": "330af28c-5f48-4cb8-8b99-005029bda3a5",
+        "headline": "Spurs beat Timberwolves 121-111 as Wembanyama dominates",
+        "summary": "The San Antonio Spurs beat the Minnesota Timberwolves 121-111. The recap credits a monster performance from Victor Wembanyama. A separate highlights item says he scored the second-most points in a game in his career, and it also credits Fox and Harper for the win.",
+        "whyItMatters": "A star performance in a notable matchup, and a loss for a Timberwolves team also named in the injury roundup.",
+        "rationale": "An important game with a standout individual showing. I chose the recap with the final score over the duplicate highlights item."
+      },
+      {
+        "id": "1b60adc1-f62a-4289-8827-d083507bc6cf",
+        "headline": "Kings rookie Darius Acuff Jr. is first NBA teenager to hit nine 3-pointers in a game",
+        "summary": "Kings rookie Darius Acuff Jr. became the first teenager in NBA history to make nine 3-pointers in a game. The excerpt says he has been busy in his first couple of weeks in the league.",
+        "whyItMatters": "It is a league-history milestone for a rookie early in his career.",
+        "rationale": "A clear record-setting achievement with lasting interest."
+      },
+      {
+        "id": "604ee7fe-21cb-45ad-bcc0-e0c9972696f9",
+        "headline": "Maxey scores 38 as 76ers beat Hornets 109-104 with Jaylen Brown back",
+        "summary": "Tyrese Maxey scored 38 points in the 76ers' 109-104 win over the Hornets. Jaylen Brown returned to the lineup after missing Friday's win over the Knicks with left patellar tendinopathy. He started slowly but finished with 16 points. A separate item credits VJ Edgecombe with a big late shot in the comeback.",
+        "whyItMatters": "Brown's return from a knee issue and Maxey's scoring mattered in a close win.",
+        "rationale": "A close game with a notable player return and injury context. I merged the duplicate coverage of the same game."
+      }
+    ],
+    "model": "claude-sonnet-5-5"
+  },
+  "usage": {
+    "calls": 6,
+    "costMicros": 26394
+  }
+}

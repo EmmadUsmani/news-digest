@@ -7,6 +7,7 @@ import { Injectable, OnModuleDestroy } from '@nestjs/common';
 
 import { database } from '../../../libs/db/connections';
 import { editorialServices } from '../../curation/public/editorial';
+import { editorialShortlist } from '../domain/editorial-shortlist';
 import { PreviewRepository } from '../domain/preview.repository';
 import { qualityRejection } from '../domain/quality';
 import { Candidate, rank } from '../domain/rank';
@@ -154,26 +155,13 @@ export class PostgresPreviewRepository
             'Non-AI ranking: incomplete triage or editor unavailable within caps.';
           // Partial semantic coverage must never silently displace unscored news.
           if (triage.unscoredIds.length === 0) {
-            const ordered = triage.scores
-              .filter((s) => s.relevance >= 6 && s.importance >= 4)
-              .sort(
-                (a, b) =>
-                  b.importance - a.importance ||
-                  b.relevance - a.relevance ||
-                  a.id.localeCompare(b.id),
-              );
-            const shortlist = ordered
-              .flatMap((score) => {
-                const candidate = candidates.find((c) => c.id === score.id)!;
-                // Explicit exclusions remain hard rules; required phrases are advisory to semantic triage.
-                return !qualityRejection(candidate) &&
-                  assessRelevance(candidate, { ...policy, includeAny: [] })
-                    .eligible
-                  ? [candidate]
-                  : [];
-              })
-              .slice(0, 10);
-            const ranked = rank(shortlist, start, end, 10);
+            const { shortlist, ranked } = editorialShortlist(
+              candidates,
+              triage.scores,
+              policy,
+              start,
+              end,
+            );
             const result = await this.editorial.editor.edit(
               context,
               ranked,

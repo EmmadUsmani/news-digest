@@ -41,7 +41,8 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Real end-to-end four-topic Sonnet edition with twenty summaries and identical cached regeneration (iteration 55); spot inspection is not a precision benchmark.
   - [x] Coalesce identical overlapping LLM requests within each publication process, including reserved repairs and safe failure release (iteration 56); API/worker cross-process and different triage batch compositions remain open.
   - [x] Diagnose World fallback from overlong Haiku rationales; supply explicit field bounds without invalidating validated per-item caches, recover all four AI topics and verify cached regeneration (iteration 58).
-  - Next (highest priority): measure editorial precision on recorded windows; add separate Sonnet allocation, scheduled Message Batches and cross-process cache-miss coalescing. Full-article retrieval remains unfinished; ten-candidate editor bounds may return fewer than larger topic budgets.
+  - [x] First frozen NBA AI selection replay against pre-existing labels: 5/5 target events versus 2/5 signals baseline, zero labeled omissions; offline replay and shortlist parity checks (iteration 59). This is target recall, not general precision.
+  - Next (highest priority): retain validated editor evidence IDs/links (recorded summaries mix shortlist sources outside saved cluster coverage); extend editorial evaluation across topics/dates with independent labels; add separate Sonnet allocation, scheduled Message Batches and cross-process cache-miss coalescing. Full-article retrieval remains unfinished; ten-candidate editor bounds may return fewer than larger topic budgets.
 - [ ] M4 X posts:
   - check xAI `x_search` through the gateway
   - post discovery per topic
