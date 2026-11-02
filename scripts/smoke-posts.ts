@@ -74,12 +74,13 @@ async function main() {
           .at(-1);
         if (legacyPost) delete legacyPost.displayText;
         let scriptRequests = 0;
+        let allowRetry = false;
         if (mode !== 'live')
           await page.route(
             'https://platform.twitter.com/widgets.js',
             async (route) => {
               scriptRequests++;
-              if (mode === 'blocked') return route.abort();
+              if (mode === 'blocked' && !allowRetry) return route.abort();
               await route.fulfill({
                 contentType: 'text/javascript',
                 body: `window.twttr = { widgets: { createTweet: async (id, target, options) => { const element = document.createElement('div'); element.dataset.postId = id; element.textContent = 'Recorded widget protocol stub'; target.append(element); return element; } } };`,
@@ -134,6 +135,7 @@ async function main() {
               post.displayText ?? post.text,
             );
           } else {
+            await card.getByRole('button', { name: 'Retry X media' }).waitFor();
             assert.equal(
               await card
                 .locator('.post-text')
@@ -167,6 +169,23 @@ async function main() {
           await cards.first().screenshot({
             path: `docs/screenshots/posts-${process.env.POST_EDITORIAL_REPLAY === '1' ? 'semantic-replay-' : ''}${mode}-${name}.png`,
           });
+        }
+        if (mode === 'blocked') {
+          // A failed shared script must remain retryable without reloading the page.
+          allowRetry = true;
+          const card = cards.first();
+          await card.scrollIntoViewIfNeeded();
+          await card.getByRole('button', { name: 'Retry X media' }).click();
+          await card
+            .locator(`[data-post-id="${expected[0].externalId}"]`)
+            .waitFor();
+          await card.locator('.saved-post-text').waitFor();
+          assert.equal(await card.locator('.post-embed-status').count(), 0);
+          assert.equal(scriptRequests, 2, 'Retry loads one replacement script');
+          assert.equal(
+            await card.locator('.saved-post-text .post-text').textContent(),
+            expected[0].displayText ?? expected[0].text,
+          );
         }
         await page.close();
       }

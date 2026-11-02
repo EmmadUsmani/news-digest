@@ -95,6 +95,7 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Aftermath public RSS adds 15 real articles and three X citations verified by official embeds (iteration 135); all cited posts precede the upcoming daily window. Recorded content/citation regression; no page harvesting or fresh-window/virality claim.
   - [x] Empty verified candidate pools remain explicitly non-AI and skip both social AI services; incomplete triage reports its own fallback reason (iteration 136). Historical snapshots unchanged.
   - [x] New post snapshots retain visible URLs and line breaks in a separate display-only plain-text fallback; historical text and screening/editorial evidence remain unchanged (iteration 137). Desktop/mobile replay covers blocked widgets and legacy snapshots.
+  - [x] Failed official widgets explain unavailable X media and offer an explicit retry while preserving saved text/original links; desktop/mobile blocked-script recovery replay (iteration 138).
   - Next: observe the first scheduled semantic social edition and measure relevant Gaming discovery. Keep full-day X reservation and paid scheduling off. Semantic selection is not a virality measurement.
   - SocialPost storage, window-aware ranking with citation diversity/engagement, immutable post selections and lazy official X embeds.
   - Reddit per-topic communities and faithful cards; no bot-protection workarounds. Bluesky optional; YouTube deferred.

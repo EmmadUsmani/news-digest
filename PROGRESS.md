@@ -318,3 +318,14 @@ Earlier iterations 87–100: [archive](docs/progress-archive/2026-11-02-iteratio
 - Restarted API/worker; `/healthz` healthy. `scripts/smoke-ui.ts`, `scripts/smoke-status.ts`, and `scripts/smoke-posts.ts /tmp/iteration137-posts.jsonl` pass desktop/mobile; post replay covers blocked/stubbed widgets and legacy snapshots. Initial style assertion raced widget replacement; restricted to stable blocked mode, rerun passed. Screenshots refreshed; mobile fallback inspected.
 - README/TASKS/docs/SOURCES updated. No publication, schedule mutation, inference/discovery spend or provider/model/billing change; no new owner blocker.
 - Next: inspect scheduled 20:40 UTC semantic edition. Gaming/World social gaps and Reddit access persist; keep paid X scheduling off.
+
+## 2026-11-02: iteration 138 — recover unavailable X widgets
+
+- Started clean on main; no leftover work. API/worker/health, 28 feeds and current digest/collection runs healthy; two historical ingestion failures retained. First semantic edition remains due 20:40 UTC.
+- Failed official widget script/load or empty widget results now explain unavailable X media and offer an explicit retry. Removed failed script nodes; retry resets the shared loader and preserves saved text/original links. No automatic retries or edition changes.
+- Extended read-only post replay to assert visible failure controls, one shared initial script, successful blocked-script recovery and preserved saved text on desktop/mobile. Widgets are protocol stubs, not evidence of live X media availability.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 145 isolated tests pass. `pnpm build` passes (existing upstream Zod warnings).
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued live passes, 1,179 URLs/four topics/28 healthy sources; repeat idempotent. Upcoming-window screening still selects 3/5/0/0 lexical posts; no Gaming/World improvement claimed.
+- Restarted API/worker; `/healthz` healthy. `scripts/smoke-ui.ts`, `scripts/smoke-status.ts`, `scripts/smoke-posts.ts /tmp/iteration138-posts.jsonl` pass desktop/mobile; screenshots refreshed, mobile failure card inspected.
+- README/TASKS updated. No publication, schedule mutation, inference/discovery spend or provider/model/billing change; no source configuration change or new owner blocker.
+- Next: inspect scheduled 20:40 UTC semantic edition. Gaming/World social gaps and Reddit access persist; keep paid X scheduling off.

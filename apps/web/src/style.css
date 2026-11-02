@@ -541,6 +541,9 @@ summary:focus-visible {
 .official-post {
   min-height: 1px;
 }
+.post-embed-status {
+  margin-bottom: 1rem;
+}
 .post-card details {
   margin-top: 1rem;
 }

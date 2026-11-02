@@ -172,7 +172,9 @@ widget requests instead; these are external checks, not automated tests.
 New snapshots preserve visible URL labels and line breaks in the saved plain-text
 fallback, including when the official widget is blocked. Historical snapshots use
 their existing text. Screening/editorial evidence continues to exclude URLs; raw
-embed HTML is never rendered by the fallback.
+embed HTML is never rendered by the fallback. Failed widgets show an explanation
+and a Retry X media button; retrying keeps the saved text and original link
+available. The replay also verifies recovery after a blocked widget script.
 
 Free social discovery runs hourly in the worker via the `social-collection`
 BullMQ queue. It harvests enabled public rivers, checks at most eight opted-in

@@ -16,19 +16,20 @@ function loadWidgets(): Promise<Widgets> {
     const script = document.createElement('script');
     script.src = 'https://platform.twitter.com/widgets.js';
     script.async = true;
-    const timeout = window.setTimeout(
-      () => reject(new Error('Embed timeout')),
-      15000,
-    );
+    const fail = () => {
+      script.remove();
+      reject(new Error('Embed unavailable'));
+    };
+    const timeout = window.setTimeout(fail, 15000);
     script.onload = () => {
       window.clearTimeout(timeout);
       const api = (window as Window & { twttr?: Widgets }).twttr;
       if (api?.widgets) resolve(api);
-      else reject(new Error('Embed unavailable'));
+      else fail();
     };
     script.onerror = () => {
       window.clearTimeout(timeout);
-      reject(new Error('Embed unavailable'));
+      fail();
     };
     document.head.append(script);
   });
@@ -69,10 +70,14 @@ export function TopPosts({
 function Post({ post }: { post: SelectedPost }) {
   const host = React.useRef<HTMLDivElement>(null);
   const [embedded, setEmbedded] = React.useState(false);
+  const [failed, setFailed] = React.useState(false);
+  const [attempt, setAttempt] = React.useState(0);
   React.useEffect(() => {
     const target = host.current;
     if (!target) return;
     let active = true;
+    setEmbedded(false);
+    setFailed(false);
     const observer = new IntersectionObserver(
       (entries) => {
         if (!entries.some((entry) => entry.isIntersecting)) return;
@@ -88,10 +93,12 @@ function Post({ post }: { post: SelectedPost }) {
               : undefined,
           )
           .then((element) => {
-            if (active && element) setEmbedded(true);
+            if (!active) return;
+            if (element) setEmbedded(true);
+            else setFailed(true);
           })
           .catch(() => {
-            /* The saved text and original link remain available. */
+            if (active) setFailed(true);
           });
       },
       { rootMargin: '200px' },
@@ -102,7 +109,7 @@ function Post({ post }: { post: SelectedPost }) {
       observer.disconnect();
       target.replaceChildren();
     };
-  }, [post.externalId]);
+  }, [post.externalId, attempt]);
   return (
     <article className="post-card">
       <p className="byline">
@@ -132,6 +139,20 @@ function Post({ post }: { post: SelectedPost }) {
         </p>
       )}
       <div ref={host} className="official-post" />
+      {failed && (
+        <div className="post-embed-status" role="status">
+          <p>X media could not load. Saved text is shown above.</p>
+          <button
+            type="button"
+            onClick={() => {
+              widgetScript = undefined;
+              setAttempt((value) => value + 1);
+            }}
+          >
+            Retry X media
+          </button>
+        </div>
+      )}
       <a href={post.url} target="_blank" rel="noreferrer">
         Open original post on X
       </a>
