@@ -68,15 +68,7 @@ Iteration 186: [archive](docs/progress-archive/2026-11-02-iteration-186.md).
 
 Iteration 187: [archive](docs/progress-archive/2026-11-02-iteration-187.md).
 
-## 2026-11-02: iteration 188 — publisher citation transaction characterization
-
-- Started clean on main; no leftover work. API/worker/health healthy, 32 sources without errors; two historical ingestion failures unchanged.
-- Added disposable-Postgres publisher coverage for shared-topic candidate dedupe, enabled/deleted topic connections, removed opt-in hosts and stale-candidate writes.
-- Pinned engagement JSON, verification URL updates and stable first-seen provenance. A fixture-only final-write constraint failure proves citation inserts/updates and check state roll back together; successful retry recovers.
-- Initial integration run found fixture cleanup violating an observation FK and contaminating a later count; fixed cleanup order. A full check caught new archive formatting; corrected. Final `pnpm check` passed 99 unit/91 integration tests.
-- Updated README/TASKS and archived iterations 173–174 to keep PROGRESS below 25 KB. No paid inference, live settings/content writes or UI changes; browser verification unnecessary.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build` and `git diff --check` passed. Restarted API/worker; health DB/Redis true, SPA 200, queues available and no current source errors; latest real edition retains four topics/10 posts.
-- Next: remaining repository coverage, nonempty SQL golden and database coverage before ORM work. Reddit access/live AI timing blockers persist; paid scheduling follows Reddit.
+Iteration 188: [archive](docs/progress-archive/2026-11-02-iteration-188.md).
 
 ## 2026-11-02: iteration 189 — X-search repository characterization
 
@@ -237,3 +229,15 @@ Iteration 187: [archive](docs/progress-archive/2026-11-02-iteration-187.md).
 - Restarted API/worker active; health DB/Redis true, SPA 200, four queues, 32 sources without errors; latest real edition four topics/10 posts.
 - Updated README, reserve decision and TASKS; archived iteration 187. No UI changes, paid inference or Reddit requests.
 - Production protection remains OFF: next wire trusted worker/edition context and configurable policy across all Anthropic entrypoints, no-occurrence/midnight/lifecycle races, then manual/Status visibility.
+
+## 2026-11-02: iteration 204 — bind trusted scheduled attempts to editions
+
+- Started clean on main; health/services and 32 sources healthy. No leftover work.
+- Claimed worker attempts now establish async-local identity; generation binds its edition UUID only for the matching scheduled key.
+- Manual/unrelated nested generation clears privileges; overlapping attempts retain separate contexts. Durable ledger checks still fence stale workers.
+- Added unit isolation/cleanup tests and isolated worker retry/contextual ledger admission coverage. Production reserve admission remains OFF.
+- First check caught import order in an edited test; fixed before the final full check.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (111 unit/110 isolated integration), `pnpm build`, `git diff --check` passed.
+- Restarted API/worker active; health DB/Redis true, SPA 200, 32 sources without errors; latest real edition four topics/10 posts.
+- Updated reserve decision/TASKS; archived iteration 188 to bound orientation size. No UI changes, paid inference or Reddit requests.
+- Next: policy configuration across every Anthropic entrypoint, no-occurrence/midnight/lifecycle races, then manual/Status visibility before Nov 3 15:00 UTC.

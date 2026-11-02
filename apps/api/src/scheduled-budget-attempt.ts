@@ -2,6 +2,7 @@ import type { DigestPreview } from '@digest/contracts';
 
 import type { ScheduledBudgetRepository } from './modules/curation/domain/scheduled-budget.port';
 import { scheduledOutcome } from './modules/curation/domain/scheduled-budget-outcome';
+import { withScheduledAttempt } from './modules/curation/public/scheduled-context';
 
 export { scheduledOutcome } from './modules/curation/domain/scheduled-budget-outcome';
 
@@ -34,7 +35,11 @@ export async function runScheduledBudgetAttempt(
   if (!claimed)
     throw new Error('Scheduled budget attempt could not be claimed');
   try {
-    const edition = await generate();
+    const edition = await withScheduledAttempt(
+      runId,
+      claimed.attempt,
+      generate,
+    );
     await budgets.finishAttempt(
       runId,
       claimed.attempt,

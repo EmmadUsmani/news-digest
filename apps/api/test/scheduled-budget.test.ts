@@ -8,6 +8,10 @@ import { database } from '../src/libs/db/connections';
 import { readFullAiEditionCosts } from '../src/modules/curation/database/edition-cost.reader';
 import { PostgresScheduledBudgetRepository } from '../src/modules/curation/database/scheduled-budget.repository';
 import {
+  scheduledLedgerContext,
+  withEditionRun,
+} from '../src/modules/curation/public/scheduled-context';
+import {
   reconcileFailedScheduledJob,
   runScheduledBudgetAttempt,
   scheduledOutcome,
@@ -432,14 +436,15 @@ void test('scheduled worker retries retain protection and publish conservative A
     );
     assert.equal((await repo.read('2045-01-01'))?.state, 'retrying');
     assert.equal(
-      await runScheduledBudgetAttempt(
-        repo,
-        slot,
-        runId,
-        2,
-        1,
-        3,
-        async () => edition,
+      await runScheduledBudgetAttempt(repo, slot, runId, 2, 1, 3, async () =>
+        withEditionRun(runId, edition.id, async () => {
+          assert.deepEqual(scheduledLedgerContext(), {
+            runId,
+            attempt: 2,
+            editionRunId: edition.id,
+          });
+          return edition;
+        }),
       ),
       edition,
     );

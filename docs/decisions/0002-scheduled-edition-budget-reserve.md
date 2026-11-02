@@ -186,8 +186,21 @@ verification mode or purpose always uses the ordinary limit. Retries and stale
 contexts cannot borrow privileges from a new attempt. A context for yesterday's
 slot cannot access today's reserve across midnight.
 
-This is **not enabled in production composition yet**. Next wire worker context
-through edition creation, load configurable policy for every Anthropic entrypoint,
+This is **not enabled in production composition yet**. Worker context now flows
+through edition creation (iteration 204). Next load configurable policy for every Anthropic entrypoint,
 and handle verified no-occurrence days without treating a missing record as
 release evidence. Add lifecycle/admission race and midnight integration coverage,
 then expose manual limitation reasons and Status fields before claiming protection.
+
+## Trusted execution context (iteration 204)
+
+After a successful durable claim, the scheduled worker scopes the slot and
+attempt with AsyncLocalStorage. Edition generation binds its newly allocated
+UUID only when its scheduled key matches that claim. Manual and unrelated nested
+generation clear inherited privileges. Concurrent topics, retries and stalled
+workers retain separate async scopes; the ledger still fences stale attempts
+against durable state on every admission. No HTTP parameter or purpose grants a
+claim. This prepares `scheduledLedgerContext` for policy composition; production
+ledger construction still leaves admission disabled until configuration and
+remaining lifecycle races are verified. Tests cover overlapping scopes, cleanup,
+manual isolation, worker retry binding and real isolated ledger admission.

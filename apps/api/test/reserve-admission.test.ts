@@ -5,6 +5,11 @@ import { database } from '../src/libs/db/connections';
 import { llmConfig } from '../src/modules/curation/adapters/config';
 import { PostgresLlmLedger } from '../src/modules/curation/database/llm.ledger';
 import { PostgresScheduledBudgetRepository } from '../src/modules/curation/database/scheduled-budget.repository';
+import {
+  scheduledLedgerContext,
+  withEditionRun,
+  withScheduledAttempt,
+} from '../src/modules/curation/public/scheduled-context';
 
 void test('reserve admission serializes competing spend and fences scheduled privileges by identity and attempt', async () => {
   const db = database();
@@ -69,7 +74,17 @@ void test('reserve admission serializes competing spend and fences scheduled pri
     context = { ...context, attempt: claimed.attempt, runId: 'wrong-slot' };
     assert.equal(await ledger.reserve(request, 1), null);
     context = { ...context, runId };
-    const scheduled = await ledger.reserve(request, 60000);
+    const contextualLedger = new PostgresLlmLedger(db, caps, false, {
+      ...options,
+      context: scheduledLedgerContext,
+    });
+    assert.equal(await contextualLedger.reserve(request, 1), null);
+    const scheduled = await withScheduledAttempt(runId, claimed.attempt, () =>
+      withEditionRun(runId, request.runId, () =>
+        contextualLedger.reserve(request, 60000),
+      ),
+    );
+    assert.equal(scheduledLedgerContext(), undefined);
     assert.ok(scheduled);
     await ledger.fail(scheduled, 'fixture-uncertain', false, true);
     // Uncertain holds consume actual daily allowance even for the owner slot.

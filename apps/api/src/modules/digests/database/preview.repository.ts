@@ -8,6 +8,7 @@ import { Injectable, OnModuleDestroy } from '@nestjs/common';
 
 import { database } from '../../../libs/db/connections';
 import { editorialServices } from '../../curation/public/editorial';
+import { withEditionRun } from '../../curation/public/scheduled-context';
 import { linkCitingStories } from '../../social/public/citing-stories';
 import { editTopicPosts } from '../../social/public/editorial-selection';
 import {
@@ -75,6 +76,18 @@ export class PostgresPreviewRepository
     scheduledKey?: string,
     reportProgress?: ReportEditionProgress,
   ): Promise<DigestPreview> {
+    const runId = crypto.randomUUID();
+    return withEditionRun(scheduledKey, runId, () =>
+      this.generateEdition(start, end, runId, scheduledKey, reportProgress),
+    );
+  }
+  private async generateEdition(
+    start: Date,
+    end: Date,
+    runId: string,
+    scheduledKey?: string,
+    reportProgress?: ReportEditionProgress,
+  ): Promise<DigestPreview> {
     const client = await this.db.connect();
     try {
       // Lock before opening the snapshot so a retry sees the committed prior run.
@@ -95,7 +108,6 @@ export class PostgresPreviewRepository
           return prior.snapshot;
         }
       }
-      const runId = crypto.randomUUID();
       const topics = (
         await client.query(
           'SELECT id,name,description,include_guidance,exclude_guidance,story_budget,post_budget,relevance_policy FROM topics WHERE profile_id=$1 AND enabled ORDER BY position,id',
