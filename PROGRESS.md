@@ -191,3 +191,12 @@ Earlier iterations 173–174: [archive](docs/progress-archive/2026-11-02-iterati
 - Updated README/TASKS and archived iterations 173–174 to keep PROGRESS below 25 KB. No paid inference, live settings/content writes or UI changes; browser verification unnecessary.
 - `pnpm format`, `pnpm lint:fix`, `pnpm build` and `git diff --check` passed. Restarted API/worker; health DB/Redis true, SPA 200, queues available and no current source errors; latest real edition retains four topics/10 posts.
 - Next: remaining repository coverage, nonempty SQL golden and database coverage before ORM work. Reddit access/live AI timing blockers persist; paid scheduling follows Reddit.
+
+## 2026-11-02: iteration 189 — X-search repository characterization
+
+- Started clean on main; no leftover work. API/worker/health healthy, all 32 sources without current errors and queues available.
+- Added disposable-Postgres coverage for current guidance/account JSON, zero-post budgets, call/post dedupe, first-write topic/URL provenance, shared-topic eligibility and deletion with retained call history.
+- Pinned foreign-key rejection and atomic partial-batch rollback/recovery using a fixture-only final-row constraint. Assertions use repository readers; SQL sets up fixtures and cleans them up.
+- `pnpm test:integration` passed 92/92; `pnpm format`, `pnpm lint:fix`, full `pnpm check` (99 unit/92 integration), `pnpm build` and `git diff --check` passed.
+- Updated README/TASKS. No paid inference, live settings/content writes or UI changes; browser verification unnecessary.
+- Restarted API/worker; health DB/Redis true, SPA 200, all queues available, 32 sources without current errors and latest edition four topics/10 posts. Next: remaining repository characterization, nonempty SQL golden and database coverage before ORM work. Reddit access/live AI timing blockers persist; paid scheduling follows Reddit.

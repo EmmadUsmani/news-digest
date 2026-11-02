@@ -377,3 +377,117 @@ void test('X citations join enabled topic verification/selection, preserve call 
     await social.db.end();
   }
 });
+
+void test('X search repository pins configuration, first-write provenance, shared topics and atomic batch rollback', async () => {
+  const social = new PostgresSocialRepository();
+  const repository = new PostgresXSearchRepository(social.db);
+  const topic = crypto.randomUUID();
+  const otherTopic = crypto.randomUUID();
+  const calls = [crypto.randomUUID(), crypto.randomUUID()];
+  const ids = [
+    '2117990000000000001',
+    '2117990000000000002',
+    '2117990000000000003',
+  ];
+  const link = (index: number) => ({
+    externalId: ids[index],
+    url: `https://x.com/i/web/status/${ids[index]}`,
+    verificationUrl: `https://twitter.com/Fixture/status/${ids[index]}`,
+  });
+  try {
+    for (const id of [topic, otherTopic])
+      await social.db.query(
+        `INSERT INTO topics(id,profile_id,name,description,include_guidance,position,accounts)
+         VALUES($1,'00000000-0000-4000-8000-000000000001','X fixture','Fixture','Highlights',100,'["NBA","NBAPR"]')`,
+        [id],
+      );
+    for (const id of calls)
+      await social.db.query(
+        `INSERT INTO x_discovery_calls(id,model,run_id,status,reserved_micros)
+         VALUES($1,'offline-fixture','repository-characterization','pending',1)`,
+        [id],
+      );
+    assert.deepEqual(await repository.topic(topic), {
+      id: topic,
+      name: 'X fixture',
+      guidance: 'Highlights',
+      handles: ['NBA', 'NBAPR'],
+    });
+    await social.db.query('UPDATE topics SET post_budget=0 WHERE id=$1', [
+      topic,
+    ]);
+    assert.equal(await repository.topic(topic), undefined);
+    await social.db.query(
+      `UPDATE topics SET post_budget=5,include_guidance='Updated',accounts='[]' WHERE id=$1`,
+      [topic],
+    );
+    assert.equal((await repository.topic(topic)).guidance, 'Updated');
+    assert.deepEqual((await repository.topic(topic)).handles, []);
+    await repository.save(topic, calls[0], []);
+    await repository.save(topic, calls[0], [link(0), link(0)]);
+    await repository.save(otherTopic, calls[0], [
+      { ...link(0), verificationUrl: 'https://example.com/changed' },
+    ]);
+    assert.equal(await social.verificationUrl(ids[0]), link(0).verificationUrl);
+    // The key is call + post, so a repeated call cannot reassign the original topic.
+    await social.db.query('UPDATE topics SET enabled=false WHERE id=$1', [
+      topic,
+    ]);
+    assert.ok(!(await social.candidates(50)).includes(ids[0]));
+    await repository.save(otherTopic, calls[1], [link(0)]);
+    assert.equal(
+      (await social.candidates(50)).filter((id) => id === ids[0]).length,
+      1,
+    );
+    await social.db.query('DELETE FROM topics WHERE id=$1', [topic]);
+    assert.equal(await repository.topic(topic), undefined);
+    assert.ok((await social.candidates(50)).includes(ids[0]));
+
+    // Fixture-only final-row rejection exercises a real partial-batch rollback.
+    await social.db
+      .query(`ALTER TABLE x_search_citations ADD CONSTRAINT fixture_x_search_reject
+      CHECK (external_id <> '2117990000000000003') NOT VALID`);
+    await assert.rejects(
+      repository.save(otherTopic, calls[1], [link(1), link(2)]),
+    );
+    assert.ok(!(await social.candidates(50)).includes(ids[1]));
+    assert.equal(await social.verificationUrl(ids[1]), undefined);
+    assert.equal(await social.verificationUrl(ids[0]), link(0).verificationUrl);
+    await social.db.query(
+      'ALTER TABLE x_search_citations DROP CONSTRAINT fixture_x_search_reject',
+    );
+    await repository.save(otherTopic, calls[1], [link(1), link(2)]);
+    for (const id of ids) assert.ok((await social.candidates(50)).includes(id));
+    await assert.rejects(
+      repository.save(otherTopic, crypto.randomUUID(), [
+        { ...link(1), externalId: '2117990000000000004' },
+      ]),
+    );
+    await assert.rejects(
+      repository.save(crypto.randomUUID(), calls[1], [
+        { ...link(1), externalId: '2117990000000000004' },
+      ]),
+    );
+    await social.db.query('DELETE FROM topics WHERE id=$1', [otherTopic]);
+    for (const id of ids)
+      assert.ok(!(await social.candidates(50)).includes(id));
+    // Deleting configuration removes eligibility while retaining call provenance.
+    assert.equal(await social.verificationUrl(ids[1]), link(1).verificationUrl);
+  } finally {
+    await social.db.query(
+      'ALTER TABLE x_search_citations DROP CONSTRAINT IF EXISTS fixture_x_search_reject',
+    );
+    await social.db.query(
+      'DELETE FROM x_search_citations WHERE call_id=ANY($1::uuid[])',
+      [calls],
+    );
+    await social.db.query(
+      'DELETE FROM x_discovery_calls WHERE id=ANY($1::uuid[])',
+      [calls],
+    );
+    await social.db.query('DELETE FROM topics WHERE id=ANY($1::uuid[])', [
+      [topic, otherTopic],
+    ]);
+    await social.db.end();
+  }
+});
