@@ -178,3 +178,110 @@ void test('direct-search citations enter only their topic editions after verific
     await repository.onModuleDestroy();
   }
 });
+
+void test('semantic publication recovers empty positive rules and freezes post context and scores', async () => {
+  const repository = new PostgresPreviewRepository();
+  const social = new PostgresSocialRepository();
+  const topicId = '00000000-0000-4000-8000-000000000011';
+  const id = '999300000000000001';
+  const start = new Date('2026-10-19T00:00:00Z');
+  const end = new Date('2026-10-20T00:00:00Z');
+  let calls = 0;
+  Object.defineProperty(repository, 'editorial', {
+    value: {
+      triage: {
+        async score() {
+          return { scores: [], unscoredIds: [] };
+        },
+      },
+      editor: {
+        async edit() {
+          return null;
+        },
+      },
+      socialTriage: {
+        async score(_topic: unknown, candidates: { id: string }[]) {
+          calls++;
+          return {
+            scores: candidates.map((c) => ({
+              id: c.id,
+              relevance: 9,
+              importance: 8,
+              event: 'Synthetic launch',
+              rationale: 'Synthetic triage',
+            })),
+            unscoredIds: [],
+          };
+        },
+      },
+      socialEditor: {
+        async edit(_topic: unknown, candidates: { id: string }[]) {
+          return {
+            model: 'fake-editor',
+            posts: candidates.map((c) => ({
+              id: c.id,
+              whyItMatters: 'Synthetic context',
+              rationale: 'Synthetic selection',
+            })),
+          };
+        },
+      },
+    },
+  });
+  const original = (
+    await repository.db.query(
+      'SELECT story_budget,relevance_policy FROM topics WHERE id=$1',
+      [topicId],
+    )
+  ).rows[0];
+  try {
+    await repository.db.query(
+      'UPDATE topics SET story_budget=0,relevance_policy=$2 WHERE id=$1',
+      [topicId, { includeAny: [], excludeAny: [] }],
+    );
+    await social.store({
+      platform: 'x',
+      externalId: id,
+      url: `https://x.com/fixture/status/${id}`,
+      author: 'Synthetic',
+      authorUrl: 'https://x.com/fixture',
+      publishedAt: start.toISOString(),
+      metrics: {},
+      embedHtml: '<p>Synthetic event without topic keywords.</p>',
+    });
+    await social.discovered('techmeme', [
+      { externalId: id, url: `https://x.com/fixture/status/${id}` },
+    ]);
+    const key = `semantic-social:${crypto.randomUUID()}`;
+    const first = await repository.generate(start, end, key);
+    digestPreviewSchema.parse(first);
+    const selected = first.topics.find((t) => t.id === topicId)!;
+    assert.equal(selected.posts?.[0].externalId, id);
+    assert.equal(selected.posts?.[0].whyItMatters, 'Synthetic context');
+    assert.equal(selected.postEditorial?.model, 'fake-editor');
+    assert.equal(selected.postEditorial?.triage[0].importance, 8);
+    assert.equal(selected.postSelectionMethod, 'verified-semantic-editor-v1');
+    await social.db.query(
+      'DELETE FROM social_discovery_citations WHERE external_id=$1',
+      [id],
+    );
+    const before = calls;
+    assert.deepEqual(await repository.generate(start, end, key), first);
+    assert.equal(calls, before);
+    assert.deepEqual(await repository.find(first.id), first);
+  } finally {
+    await repository.db.query(
+      'UPDATE topics SET story_budget=$2,relevance_policy=$3 WHERE id=$1',
+      [topicId, original.story_budget, original.relevance_policy],
+    );
+    await social.db.query(
+      'DELETE FROM social_discovery_citations WHERE external_id=$1',
+      [id],
+    );
+    await social.db.query('DELETE FROM social_posts WHERE external_id=$1', [
+      id,
+    ]);
+    await social.db.end();
+    await repository.onModuleDestroy();
+  }
+});

@@ -45,6 +45,20 @@ async function main() {
           topic.posts = (
             screened.find((row) => row.topic === topic.name)?.selected ?? []
           ).slice(0, mode === 'live' ? 1 : undefined);
+          if (process.env.POST_EDITORIAL_REPLAY === '1') {
+            topic.postSelectionMethod = 'verified-semantic-editor-v1';
+            topic.postEditorial = {
+              mode: 'ai',
+              model: 'synthetic-replay',
+              reason: 'Synthetic UI replay',
+              triage: [],
+              unscoredIds: [],
+            };
+            topic.posts.forEach((post) => {
+              post.whyItMatters =
+                'Synthetic context for UI verification; not a live editorial result.';
+            });
+          }
         });
         let scriptRequests = 0;
         if (mode !== 'live')
@@ -82,6 +96,12 @@ async function main() {
               .getAttribute('href'),
             post.url,
           );
+          if (process.env.POST_EDITORIAL_REPLAY === '1') {
+            assert.equal(
+              await card.locator('.post-context').textContent(),
+              post.whyItMatters,
+            );
+          }
           if (mode === 'live') {
             await card.locator('iframe').waitFor({ timeout: 30000 });
           } else if (mode === 'success') {
@@ -115,9 +135,9 @@ async function main() {
               : 'Read-only replay · real verified posts · official widget blocked to verify fallback · not a published edition';
             document.querySelector('.post-card')?.prepend(banner);
           }, mode === 'live');
-          await cards
-            .first()
-            .screenshot({ path: `docs/screenshots/posts-${mode}-${name}.png` });
+          await cards.first().screenshot({
+            path: `docs/screenshots/posts-${process.env.POST_EDITORIAL_REPLAY === '1' ? 'semantic-replay-' : ''}${mode}-${name}.png`,
+          });
         }
         await page.close();
       }

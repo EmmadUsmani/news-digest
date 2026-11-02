@@ -215,6 +215,12 @@ Social semantic triage diagnostics (no HTTP, inference or publication):
 `pnpm exec tsx apps/api/scripts/triage-social-posts.ts START_ISO END_ISO`.
 This reads verified source-scoped posts, keeps time/text/quality/explicit-topic
 exclusions, and checks separate social triage caches. Missing scores are reported
-as unscored; positive phrase rules are reserved for preliminary publication.
-The social scoring mode uses configured Haiku through the existing budgeted LLM
-when integrated by a caller; final editing/publication is still pending.
+as unscored; positive phrase rules are reserved for non-AI fallback.
+Manual and scheduled publication now triage up to 200 safety-screened, deduplicated
+verified posts per topic with configured Haiku. Complete triage supplies at most
+ten posts (relevance ≥6, interestingness ≥4) to the budgeted Sonnet editor with
+Haiku fallback. Editions freeze original text, context, scores and selection
+method. Incomplete triage or unavailable editing retains lexical selection and
+labels it non-AI. Unknown engagement and media contents are never inferred.
+Read-only UI verification can use `POST_EDITORIAL_REPLAY=1` with `smoke-posts.ts`;
+its context is explicitly synthetic and it publishes no edition.

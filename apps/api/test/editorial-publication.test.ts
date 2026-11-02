@@ -70,6 +70,7 @@ async function harness(
               include_guidance: '',
               exclude_guidance: '',
               story_budget: 5,
+              post_budget: 0,
               relevance_policy: {
                 includeAny: ['artificial intelligence'],
                 excludeAny: [],

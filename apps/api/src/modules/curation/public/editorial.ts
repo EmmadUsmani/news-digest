@@ -43,3 +43,9 @@ export function editorialServices(db: Pool) {
   services.set(db, result);
   return result;
 }
+
+export type {
+  SocialEditorialCandidate,
+  SocialEditorialResult,
+} from '../application/social-editor';
+export type { TriageResult, TriageTopic } from '../application/triage';

@@ -12,160 +12,7 @@ Earlier iterations 23–37: [archive](docs/progress-archive/2026-11-01-iteration
 
 Earlier iterations 51–60: [archive](docs/progress-archive/2026-11-01-iterations-51-60.md).
 
-## 2026-11-02: iteration 61 — reserve a separate Sonnet allocation
-
-- Started clean on main; no leftover work. Services/health, seventeen sources and digest runs healthy. Retained ingestion failure was historical invalid XML; all active sources subsequently succeeded.
-- Sonnet now has a configurable 80% ceiling inside the shared daily cap (`LLM_EDITOR_DAILY_FRACTION`, 0–1); no extra funds or model/provider/billing changes. Existing Haiku then labeled signal fallback remains.
-- Same cross-process reservation lock enforces both caps, including repairs and all old pending/uncertain model charges; settlement releases unused funds and free validated caches remain available.
-- Status API/UI displays model allocation, used/reserved amount and effective availability; corrected obsolete signal-only status description. Updated TASKS/docs/LLM; no source changes or owner blockers.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and 76 tests in disposable DBs; `pnpm build` passed (existing upstream Zod warnings). An intermediate concurrent edit caused an import-order check failure; final full rerun passed.
-- New isolated Postgres checks cover concurrent model reservations, settlement, prior-month uncertainty, Haiku editor fallback/cache and usage reporting; no live inference in tests.
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live passes: 717 real URLs, four topics, seventeen healthy sources.
-- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; refreshed screenshots and visually inspected mobile allocation display.
-- Exact-window API regeneration preserved 4/5/5/5 AI stories, identical topic snapshots, unchanged historical edition and zero new calls. Schedule unchanged.
-- Incremental inference $0; actual day/month $0.386695, zero reservations/errors. Shared daily cap $0.482758; Sonnet allocation $0.386206 with $0.039654 remaining.
-- Next: broader independently reviewed editorial evaluation, scheduled Message Batches and cross-process cache-miss coordination; M3 remains open.
-
-## 2026-11-02: iteration 62 — World and Tech editorial evaluation
-
-- Started clean on main; no leftover work. Services, health, active sources and digest runs healthy; retained ingestion failure remains historical, with subsequent source successes.
-- Generalized explicit paid recorder/offline replay to existing World/Tech windows; preserved NBA v1. New artifacts require valid evidence IDs; replay includes bounded evidence inputs and exact shortlist/SHA/complete-score checks.
-- Withheld pre-existing agent labels: World 3/5 targets vs signals 1/5; Tech 3/5 vs 0/5; all eight omission labels absent. These are one-date provisional target-recall measurements, not precision or factual verification.
-- Haiku edited both via existing budgeted fallback: Sonnet's remaining allocation could not cover its reservation. Ten new calls cost $0.007407; day/month actual $0.394102, zero reservations/provider errors, $0.482758 daily/$14 monthly caps. Models/provider/billing unchanged.
-- Audited ten summaries against supplied evidence. Found unsupported Apple non-confirmation statement; documented concrete triage/shortlist/editor misses and prioritized factual-support follow-up. No production prompts or scores changed.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed typecheck/lint/format/boundaries and 78 isolated tests; `pnpm build` passed with existing upstream Zod warnings only.
-- `pnpm evaluate:editorial` passed all three offline replays; recorder refuses existing artifact before inference. No fixture content inserted or editions published by evaluation.
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 718 real URLs, seventeen healthy sources; no source configuration changes.
-- Rebuilt/restarted API/worker; `/healthz` healthy. `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; refreshed screenshots, visually inspected mobile digest. Schedule unchanged.
-- Updated TASKS/docs/RANKING; archived iterations 23–37 to keep progress bounded. No owner blockers. Next: unsupported negative claims, reviewed labels/later dates/Gaming, scheduled batches and cross-process cache coordination.
-
-## 2026-11-02: iteration 63 — mitigate unsupported absence claims
-
-- Started clean on main; no leftover work. Services/health, seventeen sources and digest runs healthy; schedule unchanged.
-- Editor v3 distinguishes omitted excerpt facts from real-world absence, permits shorter supported summaries and requests clause review; changed instruction hash invalidates only editor caches.
-- Recorded one explicit Tech replay with unchanged triage/shortlist and withheld labels: same 3/5 provisional targets, zero labeled omissions. Apple summary now attributes findings without asserting company non-confirmation.
-- This is prompt mitigation, not factual validation: Apple significance/rationale still imply no announcement/confirmation; benchmark summary describes unperformed verification. Documented all-five-summary audit and prioritized remaining support validation.
-- Added immutable v3 artifact and offline case regression; recorder supports explicit v3 output and refuses overwrite before inference. No fixture content inserted or editions published.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and 79 isolated tests; `pnpm build` passed (existing upstream Zod warnings). Initial check stopped after concurrent documentation edits; formatted/full rerun passed.
-- `pnpm evaluate:editorial` passed historical replays; v3 regression verifies recorded Apple improvement with preserved recall. No general quality estimate claimed.
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 720 stored URLs, seventeen healthy sources; no source changes.
-- Rebuilt/restarted API/worker; `/healthz` healthy. `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed and mobile digest visually inspected.
-- One configured Haiku fallback call cost $0.001691; day/month $0.395793, zero reservations/provider errors, $0.482758 daily/$14 monthly caps. Models/provider/billing unchanged.
-- Updated TASKS/docs/LLM/docs/RANKING; no owner blockers. Next: stronger factual-support validation, broader reviewed evaluation, scheduled Message Batches and cross-process coordination.
-
-## 2026-11-02: iteration 64 — validate lexical absence claims
-
-- Started clean on main; no leftover work. API/worker/health, seventeen sources and digest runs healthy; retained ingestion failure historical with later successes. Schedule unchanged.
-- Editor v4 rejects lexical absence sentences unless verbatim in cited bounded inputs; includes rationale and briefs. Existing reserved repair/model fallback applies; only editor cache identity changes.
-- Regressions reject recorded v3 Apple/benchmark caveats, uncited/clipped/changed-subject support; supported quotes and repaired outputs pass. Conservative heuristic may reject good paraphrases; broader factual entailment remains open.
-- Explicit Tech v4 evaluation returned no validated result after two Haiku calls; no artifact/edition published and no improved recall claimed. Sonnet reservation allocation unavailable. Next: diagnose false rejection/repair feedback before broader factual validation.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and 82 isolated tests pass; `pnpm build` passes (existing upstream Zod warnings). Initial check hit a formatting edit during verification; final full rerun green.
-- `pnpm evaluate:editorial` passes historical replays; focused editor/evaluation tests 14/14 pass without external services.
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passes two live queued passes: 720 real URLs, four topics, seventeen healthy sources; no source configuration changes.
-- Live evaluation cost $0.003047; day/month $0.398840, zero reservations/provider errors. Shared daily cap $0.482758/$14 monthly; models/provider/billing unchanged.
-- Updated TASKS/docs/LLM/docs/RANKING; no owner blockers. M3 remains open: factual support, broader reviewed evaluation, scheduled batches and cross-process coordination.
-- Rebuilt/restarted API/worker; `/healthz` healthy. `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed and mobile digest inspected. First UI attempt raced restart; rerun passed after health recovered.
-
-## 2026-11-02: iteration 65 — explain absence failures to the repair
-
-- Started clean on main; no leftover work. API/worker/health, seventeen active sources and retained digest runs healthy; schedule unchanged.
-- Found semantic rejection received only generic JSON repair instructions. Added fixed application-owned absence-support feedback covering every output field; no raw model/source/error text echoed.
-- Single separately reserved repair, original input bounds/cache identity, strict support guard and capped model fallback remain. Extended four-field regression to inspect actual repair requests.
-- Explicit `record-editorial-evaluation.ts tech v4` still failed closed after two Haiku attempts; no artifact/edition published and no quality or false-rejection improvement claimed.
-- Inference cost $0.003279; day/month $0.402119, zero reservations/provider errors, $0.482758 daily/$14 monthly caps. Provider/models/billing unchanged.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and all 82 isolated tests; `pnpm build` passed (existing upstream Zod warnings).
-- `pnpm evaluate:editorial` passed unchanged historical offline replays. No fixture content inserted or labeled live.
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live passes: 722 stored real URLs, four topics, seventeen healthy sources; no source configuration changes.
-- Rebuilt/restarted API/worker; `/healthz` healthy. `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed and mobile digest visually inspected.
-- Updated TASKS/docs/LLM/docs/RANKING; no owner blockers. Next: bounded validation failure categories/diagnostics before another paid replay, then false-rejection audit and broader factual support.
-
-## 2026-11-02: iteration 66 — bounded editorial validation diagnostics
-
-- Started clean on main; no leftover work. Services/health, seventeen active sources and retained digest runs healthy; historical ingestion failure has subsequent source successes. Schedule unchanged.
-- Budgeted caller now retains only the last 32 validation failures as closed attempt/category pairs: JSON, schema, selection, absence support or unexpected validator error. Defensive copies; no raw model/source/error text, paths or IDs.
-- Editorial facade exposes diagnostics; explicit paid recorder prints them before a refused-result assertion. Process-local/shared across triage and editor, no durable run attribution; no automatic logging or extra inference.
-- Tests cover real selection/absence checks, parse/schema separation, unexpected errors, bounds/mutation safety, successful repair/cache reuse and invalid-cache classification; existing reservations/repair/fallback and prompt/cache identities preserved.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass types/lint/format/boundaries and 86 isolated tests; `pnpm build` passes with existing upstream Zod warnings. `pnpm evaluate:editorial` passes historical offline replays.
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passes two queued live passes: 722 real URLs, four topics, seventeen healthy sources. No source configuration changes.
-- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed and mobile digest visually inspected.
-- No paid replay or new edition this iteration; no quality improvement claimed. Incremental inference $0; actual day/month $0.402119, zero reservations/provider errors. Provider/models/billing unchanged.
-- Updated TASKS/docs/LLM; no owner blockers. Next: bounded diagnostic Tech replay and absence-guard false-rejection audit before changing guard, then broader factual support/evaluation, scheduled batches and cross-process coordination.
-
-## 2026-11-02: iteration 67 — diagnose Tech rejection and state editor bounds
-
-- Started clean on main; no leftover work. API/worker/health, seventeen sources and retained digest runs healthy; historical ingestion failure has subsequent source successes. Schedule unchanged.
-- Bounded Tech replay diagnosed initial schema rejection then absence rejection on repair. Categories cannot identify rejected fields/sentences or establish false rejections; guard unchanged.
-- Added missing enforced text/array limits and exact-key requirements to editor instructions, including repairs. Instruction hash refreshes editor caches only; no provider/model/billing changes.
-- Second explicit Tech replay accepted five stories after one absence repair. New immutable offline v4 artifact retains 3/5 provisional targets and zero labeled omissions; no fixture content or evaluation editions published.
-- Audited all five summaries against cited bounded inputs; prior Apple/benchmark absence caveats absent. Significance extrapolation (hospital access versus adoption, benchmark implications) remains; no general factuality/precision claim.
-- Added all-field length boundary/repair regressions and offline v4 absence/recall regression; `pnpm evaluate:editorial` now includes v3/v4 snapshots alongside historical NBA/World/Tech replays.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass types/lint/format/boundaries and 88 isolated tests; `pnpm build` passes with existing upstream Zod warnings. Initial check raced the new unformatted artifact; formatted final rerun passed.
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live passes: 723 real URLs, four topics, seventeen healthy sources. No source configuration changes.
-- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed and mobile digest inspected.
-- Two evaluations/four Haiku calls cost $0.006296; day/month actual $0.408415, zero reservations/provider errors, $0.482758 daily/$14 monthly caps.
-- Updated TASKS/docs/LLM/docs/RANKING; no owner blockers. Next: broader factual support/absence false-rejection audit, independent labels/later dates/Gaming, scheduled batches and cross-process coordination.
-
-## 2026-11-02: iteration 68 — reproducible support challenge audit
-
-- Started clean on main; no leftover work. Services/health, seventeen sources and retained digest runs healthy; historical ingestion failure has later successes. Schedule unchanged.
-- Added `pnpm evaluate:support`: ten explicitly synthetic challenges plus two actual Tech v4 significance fields linked to SHA-checked bounded cited inputs. Prints labels, reasons, evidence and guard decisions offline; no inference/publication.
-- Four supported/eight unsupported cases: two supported paraphrases rejected; six unsupported claims accepted, including dropped attribution, absence synonym, causation, rumor certainty and both recorded significance extrapolations. These are hand-selected agent judgments, not production rates or independent review.
-- Production guard/prompts/cache identities unchanged. Tests check accounting, unique labels and recorded-evidence linkage without pinning weaknesses as required behavior; prioritized attribution-preserving lexical matching next.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and all 89 isolated tests; `pnpm build` passed with existing upstream Zod warnings. `pnpm evaluate:editorial` and `pnpm evaluate:support` passed offline.
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live passes: 724 stored real URLs, four topics, seventeen healthy sources; no source configuration changes.
-- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed and mobile digest visually inspected.
-- Incremental inference $0; day/month actual $0.408415, zero reservations/provider errors, $0.482758 daily/$14 monthly caps. Provider/models/billing unchanged.
-- Updated TASKS/docs/RANKING; no owner blockers. Next: repair attribution-dropping matches, broader reviewed clause-support evaluation, scheduled batches and cross-process coordination. M3 remains open.
-
-## 2026-11-02: iteration 69 — retain complete absence evidence sentences
-
-- Started clean on main; no leftover work. Services/health, seventeen sources and retained digest runs healthy; historical ingestion failure has subsequent successes. Schedule unchanged.
-- Replaced absence substring matches with whole normalized source-sentence equality, retaining attribution prefixes and trailing scope/conditions; all four story fields and briefs share validation and reserved repair.
-- Updated editor instruction hash to refresh editor caches only; triage caches, models/provider/billing and immutable editions unchanged. Conservative punctuation/newline splitting remains, not semantic entailment or cross-sentence attribution validation.
-- Added regression coverage for attribution prefixes/suffixes, location/conditions, full sentences inside excerpts, separate evidence and all-field editor repair.
-- Original twelve-case offline audit now accepts five unsupported claims (previously six), rejects the dropped ministry attribution, and still rejects two supported paraphrases. Hand-selected agent judgments, not production rates; synonym/causal/uncertainty/significance gaps remain.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass types/lint/format/boundaries and all 92 isolated tests; `pnpm build`, `pnpm evaluate:editorial` and `pnpm evaluate:support` pass.
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live passes: 726 real URLs, four topics, seventeen healthy sources. No source configuration changes.
-- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed.
-- No paid replay or evaluation edition published; incremental inference $0. Actual day/month $0.408415, zero reservations/provider errors; $0.482758 daily/$14 monthly caps.
-- Updated TASKS/docs/RANKING; no owner blockers. Next: broader clause-support and independently reviewed false-rejection evaluation, later dates/Gaming, scheduled Message Batches and cross-process coordination. M3 remains open.
-
-## 2026-11-02: iteration 70 — evaluate paired clause support
-
-- Started clean on main; no leftover work. Services/health, seventeen active sources and retained digest runs healthy; historical ingestion failure has later successes. Schedule unchanged.
-- Added eight synthetic fixed-evidence support/unsupported pairs across all four topics: attribution, certainty, causation, quantity, scope, time, cross-sentence attribution and added clauses; report exposes per-pair decisions.
-- Expanded audit: 12 supported/16 unsupported; three supported rejections and thirteen unsupported acceptances. All eight new unsupported variants pass; cross-sentence attributed paraphrase fails while its unattributed exact sentence passes.
-- These are hand-selected agent judgments, not independent review or production rates. No production guard/prompt/cache changes or published evaluation edition; broader recorded-output review remains needed.
-- Tests verify fixed evidence, opposite labels, four-topic coverage and report accounting without pinning known guard weaknesses. Updated TASKS/docs/RANKING; no source changes or owner blockers.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and 93 isolated tests; `pnpm build`, `pnpm evaluate:editorial`, `pnpm evaluate:support` passed.
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live passes: 726 real URLs, four topics, seventeen healthy sources. API/worker rebuilt/restarted; `/healthz` healthy.
-- `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; status screenshots refreshed.
-- No inference spending; day/month actual $0.408415, zero reservations/provider errors, $0.482758 daily/$14 monthly caps. Provider/models/billing unchanged.
-- Next: recorded clause-support evaluation with independent labels/later dates/Gaming; scheduled Message Batches and cross-process cache coordination remain open. M3 remains unfinished.
-
-## 2026-11-02: iteration 71 — audit every recorded Tech v4 story field
-
-- Started clean on main; no leftover work. API/worker/health, seventeen sources and retained digest runs healthy; historical ingestion failure has subsequent successes. Schedule unchanged.
-- Added `pnpm evaluate:recorded-support`: all twenty headline/summary/significance/rationale fields in accepted Tech v4 output, with provisional labels/reasons and bounded cited inputs. Snapshot/claim SHA-256, citation replay and exact field coverage prevent silent drift.
-- Review: eleven supported, six editorial interpretations, three unsupported. All three unsupported pass the lexical guard: prior benchmark/hospital significance gaps plus access-to-adoption in the hospital rationale. Interpretations excluded from support/rejection counts.
-- Single accepted historical output, agent judgments only; no independent labels, clause-level truth claim or false-rejection-rate estimate. Briefs/triage/rejected attempts excluded; no production guard/prompt/cache/edition changes.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass types/lint/format/boundaries and 94 isolated tests; `pnpm build`, `pnpm evaluate:editorial`, `pnpm evaluate:support`, `pnpm evaluate:recorded-support` pass (existing upstream Zod build warnings).
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live passes: 726 real stored URLs, four topics, seventeen healthy sources. No source configuration changes.
-- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; status screenshots refreshed.
-- No inference spending; day/month actual $0.408415, zero reservations/provider errors, $0.482758 daily/$14 monthly caps. Provider/models/billing unchanged.
-- Updated TASKS/docs/RANKING; no owner blockers. Next: other recorded topics/briefs, independent labels and rejected negative claims; later dates/Gaming, scheduled batches and cross-process cache coordination remain open. M3 unfinished.
-
-## 2026-11-02: iteration 72 — audit recorded World story fields
-
-- Started clean on main; no leftover work. API/worker/health, seventeen sources and retained digest runs healthy; historical ingestion failure has subsequent successes. Schedule unchanged.
-- Extended `pnpm evaluate:recorded-support` to report all twenty World fields alongside Tech, with exact coverage, claim/snapshot hashes and bounded citation replay, including three-source protest synthesis.
-- World provisional judgments: ten supported, five interpretations, five unsupported. Current guard rejects two historical absence rationales but accepts three unsupported background/scope/attribution fields. Historical output predates current guard; no runtime regression or general quality estimate claimed.
-- Agent judgments only, not independent labels or truth verification; unsupported means absent from bounded citations. Briefs/triage/rejected attempts remain outside this story-field audit; no production guard/prompt/cache/edition changes.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and 95 isolated tests; `pnpm build`, `pnpm evaluate:editorial`, `pnpm evaluate:support`, `pnpm evaluate:recorded-support` passed (existing upstream Zod build warnings).
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live passes: 726 real stored URLs, four topics, seventeen healthy sources. No source configuration changes.
-- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed and mobile digest visually inspected.
-- No inference spending; day/month actual $0.408415, zero reservations/provider errors, $0.482758 daily/$14 monthly caps. Provider/models/billing unchanged.
-- Updated TASKS/docs/RANKING; no owner blockers. Next: retained briefs, independently reviewed support labels and rejected negative claims; later dates/Gaming, scheduled batches and cross-process cache coordination remain open. M3 unfinished.
+Earlier iterations 61–72: [archive](docs/progress-archive/2026-11-02-iterations-61-72.md).
 
 ## 2026-11-02: iteration 87 — start free X citation harvesting
 
@@ -406,3 +253,16 @@ Earlier iterations 51–60: [archive](docs/progress-archive/2026-11-01-iteration
 - Initial status URL used `/api/operations/status` (404); corrected to `/api/status`. Retained scheduled runs complete; next slot unchanged. No edition published or inference spend.
 - Anthropic day/month $0.408415; X $0.023382, no reservations/provider errors. Provider/models/billing unchanged; updated TASKS/docs/SOURCES; no new owner blocker.
 - Next: connect social semantic shortlist/final picks to immutable publication, then measure Gaming discovery. Keep paid scheduling off; Gaming weak, Reddit blocked.
+
+## 2026-11-02: iteration 106 — publish semantic social picks in immutable editions
+
+- Started clean on main; no leftover work. API/worker/health and seventeen feeds healthy; retained scheduled digests completed, next slot unchanged. One historical ingestion failure remains retained; all current sources succeed.
+- Connected verified source-scoped post candidates, safety exclusions/window/text dedupe, bounded Haiku triage and ten-item semantic shortlist to budgeted final editing in manual/scheduled publication. Incomplete triage/editor refusal retains lexical fallback; quiet AI selections stay empty.
+- Snapshots freeze original text, context/rationale, scores, model and selection method; UI labels AI/non-AI posts and displays context. Historical snapshots and scheduled retries remain unchanged.
+- Fake-response orchestration and isolated Postgres regressions cover shortlist bounds, fallback, quiet windows, empty-positive-rule recovery and immutable scores/context. No tests call live inference; no real semantic edition or quality claim yet.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 129 isolated tests pass. Initial article fixture lacked post_budget (four failures); corrected. Prettier required a second pass on a changed chain; final checks green.
+- `pnpm build` passes (existing upstream Zod warnings). Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two live queued passes, 818 real URLs/four topics/seventeen healthy sources.
+- `screen-social-posts.ts 2026-10-26T00:00:00Z 2026-11-02T06:30:00Z` plus `POST_EDITORIAL_REPLAY=1 pnpm exec tsx scripts/smoke-posts.ts /tmp/iteration106-posts.jsonl`: desktop/mobile widget-stub/blocked checks pass; saved real posts with explicitly synthetic context, no edition published. Inspected mobile screenshot.
+- `pnpm exec tsx scripts/smoke-status.ts` and `scripts/smoke-ui.ts` pass desktop/mobile. Screenshots refreshed; TASKS/README/docs/SOURCES updated, older progress archived.
+- No inference/discovery spend or provider/model/billing change: Anthropic day/month $0.408415; X $0.023382, zero reservations/errors. No new owner blocker; Gaming weak, Reddit blocked.
+- Next: inspect the first scheduled semantic social edition, then measure relevant Gaming discovery and connect related-story links. Paid X scheduling stays off/full-day reservation retained.

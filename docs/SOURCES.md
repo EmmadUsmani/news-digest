@@ -660,3 +660,19 @@ quiet selections, malformed outputs, unsupported absence and budget refusals.
 This is not live editorial evidence: publication still uses lexical selection,
 and no discovery or inference call was made. Next connect semantic triage,
 shortlist construction and immutable per-topic post editorial metadata.
+
+### Semantic post publication (iteration 106)
+
+Manual and scheduled editions now use safety-screened verified posts from the
+existing exact-topic feed, river and direct-search scope. Up to 200 deduplicated
+posts receive Haiku triage using topic description/guidance; complete scores
+supply a maximum ten-item shortlist (relevance ≥6, interestingness ≥4) to the
+budgeted final editor. Positive phrases remain the non-AI fallback. Explicit
+exclusions and half-open windows apply before either path. Quiet AI selections
+stay empty; incomplete triage or unavailable editing retains lexical picks.
+Immutable snapshots store triage, model, method, original post text and editor
+context/rationale. The UI labels AI and fallback picks separately. This step
+uses fake responses in isolated DB tests and synthetic context over saved real
+posts in browser replay, not a real semantic edition or virality evaluation.
+No new discovery route, paid search or live inference was used. Next inspect
+the first scheduled semantic edition and improve weak Gaming discovery.

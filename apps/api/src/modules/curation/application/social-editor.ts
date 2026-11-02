@@ -37,7 +37,7 @@ All supplied posts are verified X embeds. Engagement, velocity, usual reach and 
 Select IDs only; do not rewrite, summarize or replace the original post. Write one short whyItMatters context line and a selection rationale using only that post's supplied text. Do not claim factual verification.
 Return ONLY JSON {"posts":[{"id":"supplied ID","whyItMatters":"context","rationale":"selection reason"}]}. Each field is 1–400 characters. IDs must be unique and supplied. Return at most the budget; no extra keys.`;
 
-// Standalone preparation for publication: no mutation of posts or editions.
+// Returns validated selections; publication copies context without rewriting posts.
 export class SocialPostEditor {
   constructor(
     private readonly llm: Pick<BudgetedLlm, 'json'>,

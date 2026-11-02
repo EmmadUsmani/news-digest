@@ -117,6 +117,7 @@ export const selectedPostSchema = z.object({
   publishedAt: z.string().datetime(),
   text: z.string(),
   metrics: z.record(z.string(), z.number()),
+  whyItMatters: z.string().optional(),
   reasons: z.array(z.string()),
 });
 export type SelectedPost = z.infer<typeof selectedPostSchema>;
@@ -171,7 +172,26 @@ export const digestPreviewSchema = z.object({
         )
         .optional(),
       posts: z.array(selectedPostSchema).optional(),
-      postSelectionMethod: z.literal('verified-lexical-recency-v1').optional(),
+      postSelectionMethod: z
+        .enum(['verified-lexical-recency-v1', 'verified-semantic-editor-v1'])
+        .optional(),
+      postEditorial: z
+        .object({
+          mode: z.enum(['ai', 'non-ai']),
+          model: z.string().nullable(),
+          reason: z.string(),
+          triage: z.array(
+            z.object({
+              id: z.string(),
+              relevance: z.number(),
+              importance: z.number(),
+              event: z.string(),
+              rationale: z.string(),
+            }),
+          ),
+          unscoredIds: z.array(z.string()),
+        })
+        .optional(),
       stories: z.array(rankedStorySchema),
     }),
   ),

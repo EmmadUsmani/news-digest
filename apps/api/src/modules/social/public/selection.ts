@@ -2,7 +2,7 @@ import type { RelevancePolicy, SelectedPost } from '@digest/contracts';
 import type { PoolClient } from 'pg';
 
 import { officialPostText } from '../adapters/embed-text';
-import { assessPostEligibility } from '../domain/eligibility';
+import { assessPostEligibility, assessPostSafety } from '../domain/eligibility';
 
 // Use the publisher's transaction so source configuration, posts and stories
 // share one database snapshot. No network or inference during post selection.
@@ -13,6 +13,7 @@ export async function selectTopicPosts(
   start: Date,
   end: Date,
   budget: number,
+  mode: 'lexical' | 'semantic-candidates' = 'lexical',
 ): Promise<SelectedPost[]> {
   if (!Number.isInteger(budget) || budget <= 0) return [];
   const result = await db.query<{
@@ -41,12 +42,9 @@ export async function selectTopicPosts(
   for (const row of result.rows) {
     const text = officialPostText(row.embedHtml);
     const publishedAt = row.publishedAt.toISOString();
-    const assessment = assessPostEligibility(
-      { text, publishedAt },
-      policy,
-      start,
-      end,
-    );
+    const assessment = (
+      mode === 'lexical' ? assessPostEligibility : assessPostSafety
+    )({ text, publishedAt }, policy, start, end);
     const key = text
       .normalize('NFKC')
       .toLowerCase()
@@ -68,7 +66,8 @@ export async function selectTopicPosts(
         'Preliminary selection: newest verified eligible posts; engagement and virality are not inferred.',
       ],
     });
-    if (selected.length >= Math.min(20, budget)) break;
+    if (selected.length >= Math.min(mode === 'lexical' ? 20 : 200, budget))
+      break;
   }
   return selected;
 }

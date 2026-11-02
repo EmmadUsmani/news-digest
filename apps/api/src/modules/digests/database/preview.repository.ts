@@ -7,6 +7,7 @@ import { Injectable, OnModuleDestroy } from '@nestjs/common';
 
 import { database } from '../../../libs/db/connections';
 import { editorialServices } from '../../curation/public/editorial';
+import { editTopicPosts } from '../../social/public/editorial-selection';
 import { selectTopicPosts } from '../../social/public/selection';
 import { editorialShortlist } from '../domain/editorial-shortlist';
 import { PreviewRepository } from '../domain/preview.repository';
@@ -220,9 +221,33 @@ export class PostgresPreviewRepository
           end,
           Number(topic.post_budget),
         );
-        selections.push({
+        const postCandidates =
+          topic.post_budget > 0
+            ? await selectTopicPosts(
+                client,
+                topic.id,
+                policy,
+                start,
+                end,
+                200,
+                'semantic-candidates',
+              )
+            : [];
+        const postSelection = await editTopicPosts(
+          this.editorial,
+          {
+            id: String(topic.id),
+            name: String(topic.name),
+            description: String(topic.description),
+            guidance: `${topic.include_guidance}\nExclude: ${topic.exclude_guidance}`,
+          },
+          postCandidates,
           posts,
-          postSelectionMethod: 'verified-lexical-recency-v1' as const,
+          Number(topic.post_budget),
+          runId,
+        );
+        selections.push({
+          ...postSelection,
           editorial,
           qualityRejections,
           relevancePolicy: policy,

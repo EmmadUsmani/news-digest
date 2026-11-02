@@ -409,7 +409,9 @@ export function DigestPreview() {
                   </li>
                 ))}
               </ol>
-              {topic.posts !== undefined && <TopPosts posts={topic.posts} />}
+              {topic.posts !== undefined && (
+                <TopPosts posts={topic.posts} editorial={topic.postEditorial} />
+              )}
             </article>
           ))}
         </>

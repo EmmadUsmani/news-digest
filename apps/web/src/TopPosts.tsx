@@ -1,4 +1,4 @@
-import type { SelectedPost } from '@digest/contracts';
+import type { DigestPreview, SelectedPost } from '@digest/contracts';
 import React from 'react';
 
 type Widgets = {
@@ -35,13 +35,21 @@ function loadWidgets(): Promise<Widgets> {
   return widgetScript;
 }
 
-export function TopPosts({ posts }: { posts: SelectedPost[] }) {
+export function TopPosts({
+  posts,
+  editorial,
+}: {
+  posts: SelectedPost[];
+  editorial?: DigestPreview['topics'][number]['postEditorial'];
+}) {
   return (
     <section className="top-posts" aria-label="Top posts">
       <h4>Top posts</h4>
       <p className="post-method">
-        Preliminary picks · topic matching and recency, without AI editing or a
-        virality score.
+        {editorial?.mode === 'ai'
+          ? 'AI picks · relevance and interestingness from verified post text. Virality is unknown.'
+          : 'Preliminary picks · topic matching and recency, without AI editing or a virality score.'}
+        {editorial?.mode === 'non-ai' && ` ${editorial.reason}`}
       </p>
       {posts.length === 0 ? (
         <p>
@@ -111,6 +119,7 @@ function Post({ post }: { post: SelectedPost }) {
       ) : (
         <p className="post-text">{post.text}</p>
       )}
+      {post.whyItMatters && <p className="post-context">{post.whyItMatters}</p>}
       <div ref={host} className="official-post" />
       <a href={post.url} target="_blank" rel="noreferrer">
         Open original post on X
