@@ -80,29 +80,7 @@ Earlier iterations 198–199: [archive](docs/progress-archive/2026-11-02-iterati
 
 Earlier iterations 200–201: [archive](docs/progress-archive/2026-11-02-iterations-200-201.md).
 
-## 2026-11-02: iteration 202 — recover already-published scheduled slots
-
-- Started clean on main; health/services and 32 sources healthy. No leftover work.
-- Scheduler refresh reconciles exact scheduled publication keys before missed-slot termination, including startup after downtime; no Redis evidence required.
-- Shared-ledger lock plus identity/attempt/nonterminal predicates preserve replacements, redeliveries and terminal outcomes. Manual/other-key editions cannot release protection.
-- Reuses the worker's conservative full-AI/mixed/fallback snapshot classification without generating a new edition or inventing an attempt.
-- Added isolated Postgres recovery/fencing coverage; fixture corrections respected positive digest windows and immutable snapshots using transaction savepoints. Initial doc-format check corrected too.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (109 unit/109 isolated integration), `pnpm build`, `git diff --check` passed.
-- Restarted API/worker active; `/healthz` DB/Redis true, SPA 200, four queues, 32 sources without errors; latest real edition four topics/10 posts.
-- Updated README, reserve decision and TASKS; archived iteration 186. No UI changes, paid inference or Reddit requests.
-- Reserve enforcement remains UNFINISHED: shared-lock ledger admission/races, then manual/Status visibility before Nov 3 15:00 UTC.
-
-## 2026-11-02: iteration 203 — add shared-lock reserve admission primitive
-
-- Started clean on main; health/services and 32 sources healthy. No leftover work.
-- Opt-in ledger admission reads daily lifecycle, historical costs and holds under lock 756282; concurrent ordinary calls cannot exceed the unreserved limit.
-- Protected funds require trusted running-slot identity, attempt and edition ID; arbitrary purpose, verification, stale attempts and other editions gain no privilege.
-- Missing state protects funds; retry retains protection; definitive failure releases it. Existing ordinary/provider/model/verification caps remain in force.
-- Isolated race fixture initially assumed an empty ledger; corrected it to account for earlier settled fixtures without deleting their data. Rerun passed.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (109 unit/110 isolated integration), `pnpm build`, `git diff --check` passed.
-- Restarted API/worker active; health DB/Redis true, SPA 200, four queues, 32 sources without errors; latest real edition four topics/10 posts.
-- Updated README, reserve decision and TASKS; archived iteration 187. No UI changes, paid inference or Reddit requests.
-- Production protection remains OFF: next wire trusted worker/edition context and configurable policy across all Anthropic entrypoints, no-occurrence/midnight/lifecycle races, then manual/Status visibility.
+Earlier iterations 202–203: [archive](docs/progress-archive/2026-11-02-iterations-202-203.md).
 
 ## 2026-11-02: iteration 204 — bind trusted scheduled attempts to editions
 
@@ -271,3 +249,15 @@ Earlier iterations 200–201: [archive](docs/progress-archive/2026-11-02-iterati
 - Read-only X report: $0.023382, two verified/dated historical World citations, unknown incremental baseline. No inference or Reddit requests.
 - Timing report: next Nov 3 15:00 UTC; prior 856 ms fallback remains insufficient AI latency evidence.
 - Updated TASKS/SOURCES; API/worker restarted, health DB/Redis true and SPA 200. No UI change. Next: production timer/search/verification composition with schedule-change and midnight tests; items 13/7 await scheduled evidence.
+
+## 2026-11-02: iteration 218 — automatic pre-edition X discovery
+
+- Started clean on main; API/worker and health healthy, 32 sources without errors and four queues available. No leftover work.
+- Social worker polls saved daily schedule every minute; 5–30 minutes before publication, searches the weakest eligible free-X topic through direct capped xAI and immediately verifies up to ten call-scoped candidates.
+- Existing full-day hold and durable once-per-UTC-day admission remain unchanged; no provider retries. Rechecks saved settings after coverage I/O, skips late/disabled windows and missing keys.
+- Only current-UTC-day editions qualify, preventing duplicate budget-day searches around midnight; editions before 00:05 UTC skip discovery.
+- Fake tests cover saved timezone, stable run identity, replaced settings, delayed reads, midnight and zero post budget. Existing isolated tests cover durable admission and call-scoped verification.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check`; 120 unit and 118 isolated integration tests passed.
+- Read-only `scripts/report-x-discovery.ts 2026-11-02`: $0.023382, two verified/dated historical World citations; incremental baseline unknown. No inference or Reddit requests.
+- `scripts/report-edition-timing.ts`: next Nov 3 15:00 UTC; prior 856 ms fallback remains insufficient AI evidence. First automatic X search expected Nov 3 14:30 UTC if settings remain unchanged.
+- API/worker restarted; health DB/Redis true, SPA 200, 32 sources without errors and four queues available. Updated TASKS/SOURCES; archived iterations 202–203. No UI change. Next: observe automatic search cost/yield and Nov 3 scheduled AI cost/duration for items 13/7.

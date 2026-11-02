@@ -1259,3 +1259,21 @@ deduplicate IDs, cap at ten, persist successful embeds before acknowledging,
 and stop on the first unavailable official response without a retry burst.
 Fake and isolated Postgres checks only; no new paid or Reddit requests.
 Production timer/search/verification composition remains the next step.
+
+## Automatic pre-edition X discovery — iteration 218 (2026-11-02)
+
+The social worker now checks the saved daily schedule every minute and runs
+bounded direct `grok-4.3` discovery 5–30 minutes before the edition. It chooses
+the eligible topic with the fewest verified free-harvested posts, preserving
+owner order on ties. The existing shared-ledger full-day reservation and
+once-per-UTC-day admission remain unchanged ($0.40/day, $12/month); this
+intentionally permits at most one automatic search across all topics per day.
+Completed calls immediately feed at most ten candidates to official oEmbed
+verification, honoring stored cooldowns. Missing keys, replaced settings,
+zero global post budget, missed windows and invalid accounts skip safely.
+Only an edition within the current UTC day is considered: an edition shortly
+after midnight waits until midnight; editions before 00:05 UTC skip discovery.
+No catch-up spending or provider retries are added. Ledger/report scripts retain
+cost and per-topic incremental verified yield; the first automatic run remains
+to be observed. Verification used fakes and isolated services, with no inference
+or Reddit requests.
