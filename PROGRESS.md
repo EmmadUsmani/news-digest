@@ -58,15 +58,7 @@ Iteration 180: [archive](docs/progress-archive/2026-11-02-iteration-180.md).
 
 Earlier iteration 181: [archive](docs/progress-archive/2026-11-02-iteration-181.md).
 
-## 2026-11-02: iteration 182 — article publication transport replay
-
-- Started clean on main; no leftover work. API/worker and health healthy; 32 sources and all queues available, no retained failed jobs.
-- Added authored synthetic raw triage/editor responses and frozen topic golden. Replaying LlmPort now traverses real budgeting, triage, editor validation and publication mapping with fake ledger/SQL; two fresh-cache runs match all topic fields and retain progress/commit assertions.
-- This is article-path synthetic coverage, not real provider recordings, social selection or SQL integration. No prompt changes, re-recordings, paid inference, live content/settings writes or source changes.
-- First direct targeted run hit the existing isolation guard; rerun with isolated flag and invalid DB URL passed 7/7 without connecting. Full disposable-service suite passed 185/185.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build` passed; no UI changes/browser check needed.
-- Restarted API/worker; healthy `/healthz` DB/Redis true. Read-only timing report: latest real edition four topics/10 posts; available app budget unchanged at 848 micros.
-- Updated TASKS/docs/LLM. Next: real raw-response golden coverage when legitimately captured; Reddit access/live AI timing still blocked, scheduled xAI follows Reddit per owner order.
+Earlier iteration 182: [archive](docs/progress-archive/2026-11-02-iteration-182.md).
 
 ## 2026-11-02: iteration 183 — Testcontainers verification infrastructure
 
@@ -210,3 +202,14 @@ Earlier iteration 181: [archive](docs/progress-archive/2026-11-02-iteration-181.
 - Restarted API/worker: both active; health DB/Redis true, SPA 200, four queues, 32 sources without errors, latest real edition four topics/10 posts.
 - Updated README, reserve decision and TASKS; archived iteration 181 to bound orientation size.
 - Reserve enforcement remains UNFINISHED: wire resolved slots into scheduler/worker lifecycle, shared-lock admission and races, then manual/Status visibility before Nov 3 15:00 UTC.
+
+## 2026-11-02: iteration 197 — register scheduled UTC budget identities
+
+- Started clean on main; API/worker, health and 32 sources healthy. No leftover work.
+- Wired ten-second scheduler refresh to register today's cron-resolved UTC slot with the stable edition publication key, before BullMQ schedule updates.
+- Read expected identity before loading settings; stale refreshes cannot replace a newer registration/reconciliation. Preserve claimed/retrying/terminal work and prior days; no-slot days create no identity.
+- Three isolated Postgres tests cover restart, past-slot retention, settings changes, obsolete claims, running/retrying/failed protection, UTC rollover, stale-snapshot races, missing slots and invalid settings.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (109 unit/102 integration), `pnpm build`, `git diff --check` passed. First check caught import-sort formatting; reformatted and reran successfully.
+- Restarted API/worker: both active, health DB/Redis true, SPA 200, four queues available, 32 sources without errors, latest real edition four topics/10 posts. Read-only DB check confirms today's 15:00 UTC identity; next queue slot Nov 3 15:00 UTC.
+- Updated README, reserve decision and TASKS; archived iteration 182 to keep orientation bounded. No UI changes, paid inference or Reddit requests.
+- Reserve enforcement remains UNFINISHED. Next: worker claim/retry/stall recovery, terminal outcomes and obsolete/missed-slot release (including today's already-published run), then shared-lock ledger admission/races and manual/Status visibility.

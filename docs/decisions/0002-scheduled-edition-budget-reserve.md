@@ -108,3 +108,18 @@ gaps and autumn repeated times follow BullMQ's parser behavior. Tests compare
 This resolver is not wired into the scheduler or live admission yet. Pending
 identity reconciliation must preserve claim fencing and avoid stale settings
 snapshots when that wiring is added.
+
+## Scheduler registration (iteration 197)
+
+The worker's ten-second schedule refresh now registers the current UTC day's
+resolved slot before updating BullMQ. Identity uses the existing publication key
+(`profileId:slotMilliseconds`), surviving restart and independent of LLM purpose.
+It reads the expected identity before loading settings, so a slow settings
+snapshot cannot overwrite a newer registration/reconciliation. Lost compare-and-swap
+updates are left for the next refresh; running, retrying and terminal work survives.
+Days without a cron occurrence create no identity. Prior-day records are retained.
+
+This does not yet enforce spend protection. Worker claim/retry/stall recovery,
+terminal outcomes, obsolete/missed-slot release and days that lose their slot on
+settings changes still need wiring before enabling ledger admission. Registration
+is deliberately independent of whether today's slot is already in the past.

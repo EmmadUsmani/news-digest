@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import { database } from '../src/libs/db/connections';
 import { readFullAiEditionCosts } from '../src/modules/curation/database/edition-cost.reader';
 import { PostgresScheduledBudgetRepository } from '../src/modules/curation/database/scheduled-budget.repository';
+import { refreshScheduledBudget } from '../src/scheduled-budget-refresh';
 
 void test('reserve measurements include complete article/social costs and reject incomplete, unresolved and verification editions', async () => {
   const db = database();
@@ -253,6 +254,156 @@ void test('pending schedule reconciliation fences stale settings, obsolete jobs 
     await db.query('DELETE FROM scheduled_ai_budget_days WHERE budget_day=$1', [
       day,
     ]);
+    await db.end();
+  }
+});
+
+void test('scheduler refresh registers the current UTC day and reconciles only unclaimed slots', async () => {
+  const db = database();
+  const repo = new PostgresScheduledBudgetRepository(db);
+  const profile = (
+    cadence = '0 7 * * *',
+    timezone = 'America/Los_Angeles',
+  ) => ({
+    id: 'synthetic-profile',
+    name: 'Synthetic',
+    schedule: {
+      cadence,
+      timezone,
+      coverageWindow: 'P1D',
+      storyBudget: 5,
+      postBudget: 5,
+    },
+  });
+  const now = new Date('2070-11-04T23:00:00Z');
+  const refresh = (value = profile(), date = now) =>
+    refreshScheduledBudget(repo, async () => value, date);
+  try {
+    // Resolve from midnight even after the slot has passed; restarting must
+    // not shift today's protection to tomorrow or create a second identity.
+    assert.deepEqual(await refresh(), profile());
+    const first = await repo.read('2070-11-04');
+    assert.equal(first.scheduledAt.toISOString(), '2070-11-04T15:00:00.000Z');
+    assert.equal(
+      first.runId,
+      `synthetic-profile:${first.scheduledAt.getTime()}`,
+    );
+    await refresh();
+    assert.deepEqual(await repo.read('2070-11-04'), first);
+    await refresh(profile('0 8 * * *'));
+    const changed = await repo.read('2070-11-04');
+    assert.equal(changed.scheduledAt.toISOString(), '2070-11-04T16:00:00.000Z');
+    assert.equal(await repo.claim(first.runId), null);
+    const claim = await repo.claim(changed.runId);
+    await refresh(profile('0 9 * * *'));
+    assert.deepEqual(await repo.read('2070-11-04'), claim);
+    await repo.finishAttempt(claim.runId, claim.attempt, 'retrying');
+    await refresh();
+    assert.equal((await repo.read('2070-11-04'))?.state, 'retrying');
+    const retry = await repo.claim(claim.runId);
+    await repo.finishAttempt(retry.runId, retry.attempt, 'failed');
+    await refresh();
+    assert.equal((await repo.read('2070-11-04'))?.state, 'failed');
+    await refresh(profile(), new Date('2070-11-05T00:00:00Z'));
+    assert.equal((await repo.read('2070-11-05'))?.state, 'pending');
+    assert.equal((await repo.read('2070-11-04'))?.state, 'failed');
+  } finally {
+    await db.query(
+      "DELETE FROM scheduled_ai_budget_days WHERE budget_day IN ('2070-11-04','2070-11-05')",
+    );
+    await db.end();
+  }
+});
+
+void test('slow scheduler settings snapshots cannot overwrite newer registration or reconciliation', async () => {
+  const db = database();
+  const repo = new PostgresScheduledBudgetRepository(db);
+  const profile = (hour: number) => ({
+    id: 'race-profile',
+    name: 'Synthetic',
+    schedule: {
+      cadence: `0 ${hour} * * *`,
+      timezone: 'UTC',
+      coverageWindow: 'P1D',
+      storyBudget: 5,
+      postBudget: 5,
+    },
+  });
+  const now = new Date('2070-11-06T00:00:00Z');
+  try {
+    for (const existing of [false, true]) {
+      if (existing)
+        await repo.register(new Date('2070-11-06T01:00:00Z'), 'initial');
+      let loaded!: () => void;
+      let release!: () => void;
+      const snapshotLoaded = new Promise<void>((resolve) => {
+        loaded = resolve;
+      });
+      const resume = new Promise<void>((resolve) => {
+        release = resolve;
+      });
+      const stale = refreshScheduledBudget(
+        repo,
+        async () => {
+          loaded();
+          await resume;
+          return profile(2);
+        },
+        now,
+      );
+      await snapshotLoaded;
+      try {
+        await refreshScheduledBudget(repo, async () => profile(3), now);
+      } finally {
+        release();
+      }
+      await stale;
+      assert.equal(
+        (await repo.read('2070-11-06'))?.scheduledAt.toISOString(),
+        '2070-11-06T03:00:00.000Z',
+      );
+      await db.query(
+        "DELETE FROM scheduled_ai_budget_days WHERE budget_day='2070-11-06'",
+      );
+    }
+  } finally {
+    await db.query(
+      "DELETE FROM scheduled_ai_budget_days WHERE budget_day='2070-11-06'",
+    );
+    await db.end();
+  }
+});
+
+void test('scheduler refresh leaves UTC days without a cron occurrence unregistered and fails on invalid settings', async () => {
+  const db = database();
+  const repo = new PostgresScheduledBudgetRepository(db);
+  const profile = {
+    id: 'dst-profile',
+    name: 'Synthetic',
+    schedule: {
+      cadence: '0 16 * * *',
+      timezone: 'America/Los_Angeles',
+      coverageWindow: 'P1D',
+      storyBudget: 5,
+      postBudget: 5,
+    },
+  };
+  const now = new Date('2026-11-01T12:00:00Z');
+  try {
+    await refreshScheduledBudget(repo, async () => profile, now);
+    assert.equal(await repo.read('2026-11-01'), null);
+    await assert.rejects(
+      refreshScheduledBudget(
+        repo,
+        async () => ({
+          ...profile,
+          schedule: { ...profile.schedule, cadence: 'invalid' },
+        }),
+        now,
+      ),
+    );
+    assert.equal(await repo.read('2026-11-01'), null);
+  } finally {
     await db.end();
   }
 });

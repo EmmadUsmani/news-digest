@@ -1,15 +1,20 @@
 import { Queue, Worker } from 'bullmq';
 
+import { database } from './libs/db/connections';
+import { PostgresScheduledBudgetRepository } from './modules/curation/database/scheduled-budget.repository';
 import { generateOnDemandEdition } from './modules/digests/application/on-demand-edition';
 import { PostgresPreviewRepository } from './modules/digests/database/preview.repository';
 import { PostgresProfileRepository } from './modules/profiles/database/profile.repository';
 import { coverageWindow } from './modules/profiles/domain/schedule';
 import { scheduledSlot } from './modules/profiles/domain/scheduled-slot';
+import { refreshScheduledBudget } from './scheduled-budget-refresh';
 
 export function startScheduledDigests() {
   const connection = { host: '127.0.0.1', port: 6379 };
   const profiles = new PostgresProfileRepository();
   const previews = new PostgresPreviewRepository();
+  const budgetDb = database();
+  const budgets = new PostgresScheduledBudgetRepository(budgetDb);
   const queue = new Queue('digest-generation', { connection });
   const worker = new Worker(
     'digest-generation',
@@ -60,7 +65,11 @@ export function startScheduledDigests() {
     if (refreshing) return;
     refreshing = true;
     try {
-      const profile = await profiles.getDefault();
+      const profile = await refreshScheduledBudget(
+        budgets,
+        () => profiles.getDefault(),
+        new Date(),
+      );
       await queue.upsertJobScheduler(
         `profile-${profile.id}`,
         { pattern: profile.schedule.cadence, tz: profile.schedule.timezone },
@@ -94,5 +103,6 @@ export function startScheduledDigests() {
     await queue.close();
     await profiles.onModuleDestroy();
     await previews.onModuleDestroy();
+    await budgetDb.end();
   };
 }

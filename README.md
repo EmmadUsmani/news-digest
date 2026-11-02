@@ -65,7 +65,11 @@ Historical reserve-cost tests cover settled article/social totals, inclusive
 30-day boundaries, incomplete AI exclusion, unresolved holds and verification spend.
 UTC-day cron resolution tests cover midnight, DST gaps/repeated hours, missing
 UTC-day slots and 100 combinations compared with BullMQ's repeat strategy.
-The lifecycle adapter and slot resolver are groundwork; live reserve enforcement remains unfinished.
+The scheduler registers the current UTC day before refreshing its BullMQ schedule,
+using stable publication keys and compare-and-swap settings reconciliation. Tests
+cover delayed snapshots racing registration/reconciliation, restarts, day rollover
+and protection of claimed/terminal work. Worker lifecycle and live ledger reserve
+enforcement remain unfinished.
 `pnpm test` runs both commands; integration tests remain part of `pnpm check`.
 Both runners replace inherited database/Redis URLs, clear Anthropic/xAI keys and
 live-inference opt-in. Docker is required only for integration tests; there is no
