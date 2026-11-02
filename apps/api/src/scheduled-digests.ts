@@ -1,5 +1,6 @@
 import { Queue, Worker } from 'bullmq';
 
+import { generateOnDemandEdition } from './modules/digests/application/on-demand-edition';
 import { PostgresPreviewRepository } from './modules/digests/database/preview.repository';
 import { PostgresProfileRepository } from './modules/profiles/database/profile.repository';
 import { coverageWindow } from './modules/profiles/domain/schedule';
@@ -13,6 +14,8 @@ export function startScheduledDigests() {
   const worker = new Worker(
     'digest-generation',
     async (job) => {
+      if (job.name === 'on-demand')
+        return generateOnDemandEdition(previews, job.id!, job.data);
       const profile = await profiles.getDefault();
       // A replaced schedule may leave an already queued slot; ignore obsolete settings.
       if (

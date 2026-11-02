@@ -4,6 +4,7 @@ import {
   Body,
   Controller,
   Get,
+  HttpCode,
   Module,
   NotFoundException,
   Param,
@@ -12,11 +13,16 @@ import {
   Query,
 } from '@nestjs/common';
 
+import { BullEditionJobs } from './adapters/edition-jobs';
 import { PostgresPreviewRepository } from './database/preview.repository';
+import { EditionJobs } from './domain/edition-jobs';
 import { PreviewRepository } from './domain/preview.repository';
 @Controller('api/digest-previews')
-class PreviewController {
-  constructor(private readonly repository: PreviewRepository) {}
+export class PreviewController {
+  constructor(
+    private readonly repository: PreviewRepository,
+    private readonly jobs: EditionJobs,
+  ) {}
   @Get() history(@Query('offset') offset = '0') {
     if (!/^(0|[1-9]\d{0,6})$/.test(offset))
       throw new BadRequestException(
@@ -27,12 +33,28 @@ class PreviewController {
   @Get('latest') latest() {
     return this.repository.latest();
   }
+  @Get('jobs/:id') async job(@Param('id') id: string) {
+    if (!/^[0-9]{1,20}$/.test(id)) throw new NotFoundException('Job not found');
+    const job = await this.jobs.find(id);
+    if (!job) throw new NotFoundException('Job not found');
+    return job;
+  }
+  @Post('jobs')
+  @HttpCode(202)
+  enqueue(@Body() body: unknown) {
+    const { start, end } = this.window(body);
+    return this.jobs.enqueue(start, end);
+  }
   @Get(':id') async find(@Param('id', new ParseUUIDPipe()) id: string) {
     const snapshot = await this.repository.find(id);
     if (!snapshot) throw new NotFoundException('Edition not found');
     return snapshot;
   }
   @Post() generate(@Body() body: unknown) {
+    const { start, end } = this.window(body);
+    return this.repository.generate(start, end);
+  }
+  private window(body: unknown) {
     const parsed = previewRequestSchema.safeParse(body);
     if (!parsed.success)
       throw new BadRequestException('Provide ISO windowStart and windowEnd');
@@ -44,12 +66,13 @@ class PreviewController {
       end.getTime() > Date.now()
     )
       throw new BadRequestException('Use a past window of at most 31 days');
-    return this.repository.generate(start, end);
+    return { start, end };
   }
 }
 @Module({
   controllers: [PreviewController],
   providers: [
+    { provide: EditionJobs, useClass: BullEditionJobs },
     { provide: PreviewRepository, useClass: PostgresPreviewRepository },
   ],
 })
