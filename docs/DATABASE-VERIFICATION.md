@@ -342,3 +342,12 @@ its final check write while the other commits. The rejected transaction leaves
 no new citation or author replacement; the winner retains the original first-seen
 time and engagement, adds both new citations and records a successful three-link
 check. No publisher, X, Reddit or inference requests occur.
+
+## Source replacement failure recovery (iteration 255)
+
+`settings.test.ts` rejects a connection insert after the repository deletes the
+previous selection, proving rollback restores the complete topic. A rejected
+replacement racing a valid save through another repository leaves exactly the
+valid selection. A subsequent disconnect succeeds; the source catalog and all
+other topics remain unchanged. A temporary constraint injects failure only in
+disposable PostgreSQL. No source, Reddit or provider requests occur.

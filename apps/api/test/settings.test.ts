@@ -163,6 +163,82 @@ void test('topic source connections validate atomically and reuse the shared col
   }
 });
 
+void test('source replacement rolls back a failed insert and releases its lock for concurrent saves', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const topics = new PostgresTopicRepository();
+  const other = new PostgresTopicRepository();
+  const db = database();
+  const original = await topics.listDefault();
+  const catalog = await topics.catalog();
+  let id: string | undefined;
+  try {
+    assert.ok(catalog.length >= 4);
+    const created = await topics.createDefault({
+      name: 'Connection rollback fixture',
+      description: '',
+      includeGuidance: '',
+      excludeGuidance: '',
+      enabled: false,
+      storyBudget: 1,
+      postBudget: 0,
+      relevancePolicy: { includeAny: [], excludeAny: [] },
+    });
+    id = created.id;
+    const baseline = await topics.connectDefault(id, [catalog[0].id]);
+    assert.ok(baseline);
+    // Fail after the repository has deleted the old connections, not at validation.
+    await db.query(`ALTER TABLE topic_source_connections ADD CONSTRAINT connection_failure_fixture
+      CHECK (topic_id <> '${id}'::uuid OR source_id <> '${catalog[1].id.replaceAll("'", "''")}')`);
+    const rejected = [catalog[1].id, catalog[2].id];
+    await assert.rejects(
+      topics.connectDefault(id, rejected),
+      /connection_failure_fixture/,
+    );
+    assert.deepEqual(
+      (await topics.listDefault()).find((t) => t.id === id),
+      baseline,
+    );
+
+    const accepted = [catalog[2].id, catalog[3].id].sort();
+    const results = await Promise.allSettled([
+      topics.connectDefault(id, rejected),
+      other.connectDefault(id, accepted),
+    ]);
+    assert.equal(results[0].status, 'rejected');
+    if (results[0].status === 'rejected')
+      assert.match(String(results[0].reason), /connection_failure_fixture/);
+    assert.equal(results[1].status, 'fulfilled');
+    if (results[1].status === 'fulfilled') {
+      assert.ok(results[1].value);
+      assert.deepEqual(results[1].value, { ...baseline, sources: accepted });
+    }
+    assert.deepEqual(
+      (await topics.listDefault()).find((t) => t.id === id),
+      {
+        ...baseline,
+        sources: accepted,
+      },
+    );
+    assert.deepEqual(await other.connectDefault(id, []), {
+      ...baseline,
+      sources: [],
+    });
+    assert.deepEqual(await topics.catalog(), catalog);
+    assert.deepEqual(
+      (await topics.listDefault()).filter((t) => t.id !== id),
+      original,
+    );
+  } finally {
+    await db.query(
+      'ALTER TABLE topic_source_connections DROP CONSTRAINT IF EXISTS connection_failure_fixture',
+    );
+    if (id) await topics.deleteDefault(id);
+    await db.end();
+    await topics.onModuleDestroy();
+    await other.onModuleDestroy();
+  }
+});
+
 void test('profile schedule persists independently of topics and restores all fields', async () => {
   const profiles = new PostgresProfileRepository();
   const topics = new PostgresTopicRepository();

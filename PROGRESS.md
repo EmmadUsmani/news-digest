@@ -319,3 +319,15 @@ Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
 - Updated TASKS/database notes and archived iteration 236 to keep PROGRESS bounded. No provider or Reddit requests.
 - Restarted API/worker; health, SPA, source/queue status and four-topic latest edition verified after restart.
 - Next: observe Nov 3 all-topic X cost/yield and scheduled AI cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 255 — source selection rollback recovery
+
+- Started clean on main; services, health and all 32 sources healthy; no leftover work.
+- Priority 15/13/7/9 evidence awaits Nov 3; advanced isolated STEERING 2a.
+- Pinned failed source replacement after deletion: prior selection and topic fields survive rollback.
+- Concurrent rejected/valid saves preserve exactly the valid selection; subsequent disconnect succeeds.
+- Catalog and other topics stay unchanged; all fixtures run in disposable PostgreSQL.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 151 integration), `pnpm build`, `git diff --check` passed.
+- API/worker restarted healthy; SPA 200, 32 error-free sources, four available queues and recent content across all topics.
+- Updated TASKS/database notes. No provider or Reddit requests.
+- Next: observe Nov 3 all-topic X cost/yield and scheduled AI cost/duration before acknowledging 15/13/7.
