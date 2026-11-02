@@ -82,29 +82,7 @@ Earlier iterations 200–201: [archive](docs/progress-archive/2026-11-02-iterati
 
 Earlier iterations 202–203: [archive](docs/progress-archive/2026-11-02-iterations-202-203.md).
 
-## 2026-11-02: iteration 204 — bind trusted scheduled attempts to editions
-
-- Started clean on main; health/services and 32 sources healthy. No leftover work.
-- Claimed worker attempts now establish async-local identity; generation binds its edition UUID only for the matching scheduled key.
-- Manual/unrelated nested generation clears privileges; overlapping attempts retain separate contexts. Durable ledger checks still fence stale workers.
-- Added unit isolation/cleanup tests and isolated worker retry/contextual ledger admission coverage. Production reserve admission remains OFF.
-- First check caught import order in an edited test; fixed before the final full check.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (111 unit/110 isolated integration), `pnpm build`, `git diff --check` passed.
-- Restarted API/worker active; health DB/Redis true, SPA 200, 32 sources without errors; latest real edition four topics/10 posts.
-- Updated reserve decision/TASKS; archived iteration 188 to bound orientation size. No UI changes, paid inference or Reddit requests.
-- Next: policy configuration across every Anthropic entrypoint, no-occurrence/midnight/lifecycle races, then manual/Status visibility before Nov 3 15:00 UTC.
-
-## 2026-11-02: iteration 205 — configure shared reserve composition
-
-- Started clean on main; no leftover work. API/worker, health and all 32 sources healthy.
-- Added validated reserve enablement, integer microdollar override and headroom configuration; default remains OFF.
-- Shared production factory now supplies policy and per-admission trusted context for manual/scheduled publication, all paid smoke tools and guarded recording; cache-only social diagnostics also use it.
-- Unit tests reject malformed deployment values; isolated production-factory admission verifies scheduled access and denial of verification privilege.
-- First check caught documentation formatting; corrected before final full check.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (113 unit/110 isolated integration), `pnpm build`, `git diff --check` passed.
-- Restarted API/worker active; `/healthz` DB/Redis true, SPA 200, four queues, 32 sources without errors; latest real edition four topics/10 posts.
-- Updated README, reserve decision and TASKS; archived iteration 189. No UI changes, paid inference or Reddit requests.
-- Next: no-occurrence/midnight and lifecycle admission races, then manual/Status visibility and enforcement enablement before Nov 3 15:00 UTC.
+Iterations 204–205: [archive](docs/progress-archive/2026-11-02-iterations-204-205.md).
 
 ## 2026-11-02: iteration 206 — verify lifecycle/admission lock ordering
 
@@ -261,3 +239,13 @@ Earlier iterations 202–203: [archive](docs/progress-archive/2026-11-02-iterati
 - Read-only `scripts/report-x-discovery.ts 2026-11-02`: $0.023382, two verified/dated historical World citations; incremental baseline unknown. No inference or Reddit requests.
 - `scripts/report-edition-timing.ts`: next Nov 3 15:00 UTC; prior 856 ms fallback remains insufficient AI evidence. First automatic X search expected Nov 3 14:30 UTC if settings remain unchanged.
 - API/worker restarted; health DB/Redis true, SPA 200, 32 sources without errors and four queues available. Updated TASKS/SOURCES; archived iterations 202–203. No UI change. Next: observe automatic search cost/yield and Nov 3 scheduled AI cost/duration for items 13/7.
+
+## 2026-11-02: iteration 219 — edition history characterization
+
+- Started clean on main; API/worker, health, 32 sources and four queues healthy. No leftover work.
+- Items 13/7/9 await Nov 3 scheduled evidence; advanced lower-priority STEERING 2a using disposable services only.
+- Added repository-port assertions for profile isolation, unknown IDs, exact snapshot JSON, detached read results, stable UUID ordering at tied timestamps, 20-entry pagination/end offsets and timezone normalization.
+- Historical fixtures cannot replace newer default-profile editions; a newer foreign-profile fixture verifies latest/history isolation. Registered the test in the isolated suite and documented coverage in README/TASKS.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`; 120 unit and 119 isolated integration tests passed. No application behavior or UI change.
+- Read-only timing report: next Nov 3 15:00 UTC; prior 856 ms fallback is not AI latency evidence. X report Nov 2: $0.023382, two verified/dated historical World citations, incremental baseline unknown.
+- No inference or Reddit requests. API/worker restarted; health DB/Redis true, SPA 200, 32 sources without errors and four queues available. `git diff --check` passed. Next: observe Nov 3 14:30 X discovery and 15:00 scheduled AI cost/duration; 2a remains incomplete.

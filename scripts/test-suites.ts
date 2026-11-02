@@ -15,6 +15,7 @@ const integration = new Set([
   'ingestion.test.ts',
   'model-allocation.test.ts',
   'operations.test.ts',
+  'preview-history.test.ts',
   'reddit-collection.test.ts',
   'reddit-communities.test.ts',
   'relevance.test.ts',
