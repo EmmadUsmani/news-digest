@@ -223,3 +223,23 @@ share one repair sequence and two ledger charges, failures preserve uncertain
 reservations, unrelated prompts proceed independently, and database exceptions
 release waiters without contacting the provider. These are fake-provider tests,
 not live inference or an editorial-quality measurement.
+
+## Triage field bounds (iteration 58)
+
+The World fallback was reproduced on its single unscored real candidate:
+both otherwise valid responses exceeded the rationale schema's 300-character
+limit. The original request asked for a short rationale without stating that
+limit. New triage prompts now explicitly give event/rationale character limits
+and integer score ranges, including on the existing single repair attempt.
+Validation remains strict; no text is silently truncated or cached after failure.
+These formatting constraints leave the per-item cache identity unchanged, so
+already validated scores remain reusable. Batch request identities change only
+for cache misses. Explicit bounds reduce this failure risk; they do not guarantee
+model compliance or establish editorial accuracy.
+
+The same candidate passed on the first call with the constraints. A new immutable
+edition of the prior window recovered five AI stories in all four topics, reusing
+the Sonnet summaries. An identical regeneration made no new calls; the old
+fallback snapshot was unchanged. Diagnosis and recovery used four Haiku calls
+($0.001053), bringing actual day/month spend to $0.267129, with no reservations
+or provider errors. Provider, models, pricing and caps are unchanged.

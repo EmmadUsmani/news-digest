@@ -40,6 +40,7 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Manual/scheduled immutable editorial-v1 publication with semantic triage, bounded shortlist, briefs/summaries/rationale, source provenance and per-topic non-AI fallback labels (iteration 55).
   - [x] Real end-to-end four-topic Sonnet edition with twenty summaries and identical cached regeneration (iteration 55); spot inspection is not a precision benchmark.
   - [x] Coalesce identical overlapping LLM requests within each publication process, including reserved repairs and safe failure release (iteration 56); API/worker cross-process and different triage batch compositions remain open.
+  - [x] Diagnose World fallback from overlong Haiku rationales; supply explicit field bounds without invalidating validated per-item caches, recover all four AI topics and verify cached regeneration (iteration 58).
   - Next (highest priority): measure editorial precision on recorded windows; add separate Sonnet allocation, scheduled Message Batches and cross-process cache-miss coalescing. Full-article retrieval remains unfinished; ten-candidate editor bounds may return fewer than larger topic budgets.
 - [ ] M4 X posts:
   - check xAI `x_search` through the gateway

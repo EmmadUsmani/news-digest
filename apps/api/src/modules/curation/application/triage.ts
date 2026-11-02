@@ -119,6 +119,14 @@ export class CandidateTriage {
           instructions,
           prompt: JSON.stringify({
             topic: compactTopic,
+            // Formatting constraints do not change score semantics or invalidate
+            // validated per-item caches. State them for every new/repair call.
+            outputLimits: {
+              event: '1–160 characters',
+              rationale: '1–300 characters; one concise sentence',
+              relevance: 'integer 0–10',
+              importance: 'integer 0–10',
+            },
             candidates: batch.map((e) => e.item),
           }),
           maxOutputTokens: 1400,

@@ -189,3 +189,27 @@ void test('worst-case escaped text stays below prompt limit; empty and invalid s
   );
   assert.equal(h.calls.length, 1);
 });
+
+void test('new triage requests and their single repair carry explicit field constraints', async () => {
+  const h = harness((items) => ({
+    items: items.map((item) => ({ ...item, rationale: 'x'.repeat(301) })),
+  }));
+  const result = await h.service.score(
+    topic,
+    candidates.slice(0, 1),
+    'long-rationale',
+  );
+  assert.deepEqual(result.unscoredIds, ['0']);
+  assert.equal(h.calls.length, 2);
+  for (const call of h.calls) {
+    const body = JSON.parse(call.prompt.split('\nReturn only')[0]) as {
+      outputLimits: Record<string, string>;
+    };
+    assert.equal(
+      body.outputLimits.rationale,
+      '1–300 characters; one concise sentence',
+    );
+    assert.equal(body.outputLimits.event, '1–160 characters');
+  }
+  assert.equal(h.values.size, 0, 'Overlong output still fails closed');
+});

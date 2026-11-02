@@ -340,3 +340,17 @@ Earlier iterations 17–22: [archive](docs/progress-archive/2026-11-01-iteration
 - `smoke-ingestion.ts` passed two queued live passes: 713 real URLs, four topics, seventeen healthy sources; no source changes.
 - Rebuilt/restarted services; `/healthz` healthy. `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; refreshed screenshots and visually inspected mobile digest.
 - This fixes a live regression; full STEERING 2a Testcontainers/characterization/HTTP/coverage work remains pending after M3. No owner blockers; next investigate World triage failure, then editorial precision and Sonnet allocation.
+
+## 2026-11-02: iteration 58 — recover World AI triage with explicit field bounds
+
+- Started clean on main; no leftover work. API/worker, `/healthz`, seventeen sources and scheduled runs healthy; schedule unchanged.
+- Reproduced World's single unscored candidate: both successful Haiku responses exceeded the strict 300-character rationale limit; the prompt had not stated it.
+- New triage requests/repairs carry explicit event/rationale lengths and integer score ranges. Validation still fails closed; validated per-item cache identities are preserved.
+- Regression verifies limits on both attempts and rejects/caches none of an overlong response. No external services in tests.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and all 70 tests in disposable databases; `pnpm build` passed (existing upstream Zod warnings only).
+- Explicit budgeted candidate diagnosis passed first attempt after the fix; API regeneration of the previous window recovered five AI stories per topic, reusing Sonnet summaries.
+- Identical regeneration made no new calls and matched topic snapshots; GET of the previous fallback edition remained byte-for-byte equivalent after JSON parsing.
+- Diagnosis/recovery: four Haiku calls, $0.001053 increment; actual day/month $0.267129, zero reservations/errors, $0.482758 daily/$14 monthly caps. Provider/models/billing unchanged.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live passes: 716 real URLs, four topics, seventeen healthy sources; no source changes.
+- `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed and mobile digest visually inspected. Services rebuilt/restarted, `/healthz` healthy.
+- Updated TASKS/docs/LLM; no owner blockers. Next: recorded-window editorial precision, Sonnet allocation, scheduled Message Batches and cross-process coordination; M3 remains open.
