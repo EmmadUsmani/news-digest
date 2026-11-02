@@ -344,3 +344,15 @@ Earlier iterations 51–60: [archive](docs/progress-archive/2026-11-01-iteration
 - `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two live queued passes, 800 URLs, four topics, seventeen healthy sources. `smoke-social.ts` job 18: two rivers/50 references, seven pages/two citation observations/one page error, one verified embed then stop on one unavailable embed.
 - Corrected stale Status/topic/schedule wording. `smoke-status.ts`, `smoke-ui.ts` and read-only Playwright topic/schedule checks pass desktop/mobile; refreshed screenshots. No edition published; retained scheduled runs completed, next slot unchanged.
 - Updated TASKS/README/docs/SOURCES. No new owner blocker or billing/model/provider configuration change. Next: measure direct X search cost/quality before scheduling, then social editorial selection; World coverage absent, Gaming weak, Reddit remains blocked.
+
+## 2026-11-02: iteration 101 — measure direct X discovery cost and verification yield
+
+- Started clean on main; no leftover work. API/worker/health, seventeen feeds and retained digest runs healthy; no triage repair needed.
+- One explicit World Grok 4.3 search (Nov 1–2 UTC, nine saved accounts) settled $0.023382: 5,771 input/2,467 output tokens, two posts fetched, zero profiles. No retry, second paid call, scheduling or configuration change.
+- Two real citation IDs persisted, neither with author-qualified URLs. Official verifier stored two unrelated posts then stopped on HTTP 404; bounded call-specific check also stopped unavailable. Both paid citations have failed checks, zero verified SocialPosts; World daily selection remains empty. No edition published or quality/virality claim.
+- Added read-only `pnpm exec tsx apps/api/scripts/report-x-discovery.ts`: latest twenty calls, cost/fetched counts, named citations and current verification yield; live report confirms $0.023382, two citations, zero named/verified and no reservation. Initial query used wrong check column; corrected and rerun successfully.
+- Corrected Status wording for measured manual paid search and refreshed/inspected mobile X budget screenshot. Updated TASKS/README/docs/SOURCES; keep full-day reservation and paid scheduling off pending author-qualified citation recovery.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass typecheck/lint/format/boundaries and all 118 isolated tests; `pnpm build` passes (existing upstream Zod warnings).
+- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passes two queued live runs: 805 real article URLs, four topics, seventeen healthy sources.
+- `pnpm exec tsx scripts/smoke-status.ts` and `scripts/smoke-ui.ts` pass desktop/mobile with refreshed screenshots; read-only `screen-social-posts.ts 2026-11-01T00:00:00Z 2026-11-02T00:00:00Z` confirms no World picks.
+- No Anthropic spend (day/month $0.408415); X day/month $0.023382, zero pending. No owner blocker. Next: recover usable named citations without guessed handles/paid retries, then social editorial selection. Gaming weak; Reddit remains blocked.

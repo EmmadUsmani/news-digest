@@ -200,3 +200,13 @@ Timeouts, malformed/missing usage and ambiguous HTTP errors keep reservations
 charged until reconciled; depleted credits block until explicit operator review.
 The adapter never retries, follows redirects or uses the gateway. `pnpm test`
 uses disposable services and clears both inference-provider keys.
+
+Inspect the last twenty direct X discovery calls without HTTP or inference:
+
+```sh
+pnpm exec tsx apps/api/scripts/report-x-discovery.ts
+```
+
+The report compares settled ledger cost and fetched items with stored citations,
+author-qualified URLs and current official verification. These counts do not
+measure editorial quality or demonstrate eligibility for a digest window.

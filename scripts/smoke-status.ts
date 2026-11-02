@@ -77,9 +77,12 @@ async function smoke() {
       assert.equal(status.xDiscovery.dailyMicros, 400000);
       assert.equal(status.xDiscovery.monthlyMicros, 12000000);
       await xUsage
-        .getByText('Paid X discovery is available for manual checks', {
-          exact: false,
-        })
+        .getByText(
+          'Paid X discovery runs only through explicit manual commands',
+          {
+            exact: false,
+          },
+        )
         .waitFor();
       await xUsage.scrollIntoViewIfNeeded();
       await page.screenshot({
