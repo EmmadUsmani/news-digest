@@ -20,6 +20,8 @@ void test('recorded RSS and Atom normalize real headlines, dates and safe links'
     'gamedeveloper.xml',
     'gamingbolt.xml',
     'pushsquare.xml',
+    'gamesradar.xml',
+    'gamespot.xml',
     'npr-world.xml',
     'guardian-world.xml',
   ]) {
@@ -71,6 +73,27 @@ void test('recorded Gaming feeds discover X citations from encoded content and d
     square.every((item) => new URL(item.url).hostname === 'www.pushsquare.com'),
   );
   assert.ok([...bolt, ...square].every((item) => item.excerpt.length <= 1500));
+});
+void test('recorded GamesRadar and GameSpot feeds retain publisher X citations and original dates', async () => {
+  const radar = parseFeed(await fixture('gamesradar.xml'));
+  const spot = parseFeed(await fixture('gamespot.xml'));
+  assert.deepEqual(
+    radar.flatMap((item) => item.xLinks?.map((link) => link.externalId) ?? []),
+    ['2116073492521394429', '2116088984703209689', '2115337924376141927'],
+  );
+  assert.deepEqual(
+    spot.flatMap((item) => item.xLinks?.map((link) => link.externalId) ?? []),
+    ['2116827467977527751'],
+  );
+  assert.equal(radar[0].publishedAt, '2026-10-30T18:31:42.000Z');
+  assert.match(radar[0].title, /Marathon/);
+  assert.ok(
+    radar.every((item) => new URL(item.url).hostname === 'www.gamesradar.com'),
+  );
+  assert.ok(
+    spot.every((item) => new URL(item.url).hostname === 'www.gamespot.com'),
+  );
+  assert.ok([...radar, ...spot].every((item) => item.excerpt.length <= 1500));
 });
 void test('recorded Nintendo Life feed preserves release news and plain excerpts', async () => {
   const items = parseFeed(await fixture('nintendo-life.xml'));

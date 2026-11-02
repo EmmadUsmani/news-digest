@@ -763,3 +763,26 @@ $0.40 reservation required for another explicit search.
 - **not yet tried** for configured ingestion: Gematsu, Destructoid and Siliconera
   public feeds returned 200 but no X links; left unconfigured in this iteration.
   Gematsu homepage returned 403; no bypass. No paid search or provider changes.
+
+## 2026-11-02 iteration 124 — GamesRadar+ and GameSpot RSS citations
+
+- **live:** `https://www.gamesradar.com/feeds.xml` (50 stored articles) and
+  `https://www.gamespot.com/feeds/mashup/` (15 stored articles), connected to
+  the original Gaming topic by migration 027. Two queued ingestion passes
+  confirm 1,063 stored URLs across 24 healthy sources and an idempotent second pass.
+- GamesRadar's `/feeds/all/` redirects through HTTP. Initial worker collection
+  correctly rejected that redirect; direct final HTTPS `/feeds.xml` succeeds.
+  Corrected the unpublished migration and the already-applied local source URL;
+  no relaxation of the shared client's HTTPS policy.
+- Five distinct stored X IDs: `2115337924376141927`, `2116073492521394429`,
+  `2116088984703209689`, `2116173308005638609` (GamesRadar), and
+  `2116827467977527751` (GameSpot). Four newly verified official embeds, zero
+  failures; the FromSoftware support post was already verified. Original post
+  dates range October 28 to November 1 09:39 UTC, all outside the checked
+  November 1 10:20–November 2 10:20 UTC window. No freshness/virality claim.
+- Recorded two original XML entries per feed; offline checks assert exact X IDs,
+  publisher hosts, dates and excerpt bounds. Fixtures are replay data. Feed scope
+  includes entertainment/deals; collection does not establish Gaming relevance.
+- **not yet tried** for configured ingestion: Shacknews and DualShockers feeds
+  returned 200 but no X links in explicit probes; left unconfigured. No article
+  crawling, paid discovery, inference or edition publication in this iteration.

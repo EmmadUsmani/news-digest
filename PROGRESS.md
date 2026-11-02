@@ -324,3 +324,16 @@ Earlier iterations 61–72: [archive](docs/progress-archive/2026-11-02-iteration
 - Updated TASKS/docs/SOURCES. Gematsu/Destructoid/Siliconera feed probes succeeded but exposed no X links; left unconfigured. Gematsu homepage 403; no bypass.
 - No inference/discovery spend, publication, provider/model/billing change or new owner blocker: Anthropic $0.408415; X $0.023382. Reddit blocked; paid X scheduling stays off.
 - Next: observe 20:40 UTC semantic social edition, especially new Gaming candidate; continue free social discovery and distinguish current posts from old citations.
+
+## 2026-11-02: iteration 124 — GamesRadar+ and GameSpot free X citations
+
+- Started clean on main; no leftover work. API/worker/health, 22 existing sources and retained digest runs healthy; next semantic slot remains Nov 2 20:40 UTC.
+- Migration 027 connects public GamesRadar+ and GameSpot RSS to original Gaming topic. Stored 65 real articles and five distinct X citations; four newly verified official embeds/no failures, one already verified.
+- Initial GamesRadar `/feeds/all/` collection failed because it redirects through HTTP. Used working final HTTPS `/feeds.xml`; corrected unpublished migration and applied local URL. HTTPS safeguards unchanged; subsequent collection healthy.
+- Cited post dates Oct 28–Nov 1 09:39 UTC all miss checked Nov 1 10:20–Nov 2 10:20 UTC window. Free discovery route improved; no fresh-pick/virality claim. Shacknews/DualShockers feed probes 200/no X links; unconfigured.
+- Recorded two original entries/feed; offline regression asserts exact citation IDs, dates, hosts and bounded excerpts. Fixtures are not live evidence.
+- `pnpm migrate`; `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued passes, 1,063 stored URLs/four topics/24 healthy sources, idempotent second pass. `verify-x-embeds.ts` and read-only `screen-social-posts.ts` complete without inference.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 133 isolated tests pass. `pnpm build` passes (existing upstream Zod warnings).
+- Rebuilt/restarted API/worker; `/healthz` healthy after startup retry. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed and mobile status inspected.
+- TASKS/docs/SOURCES updated. No edition published, inference/discovery spend, provider/model/billing change or new owner blocker. Anthropic $0.408415; X $0.023382; zero reservations/errors.
+- Next: inspect 20:40 UTC semantic edition, especially Phantom Blade Zero; fresh Gaming gap and Reddit block remain. Keep paid X scheduling off.
