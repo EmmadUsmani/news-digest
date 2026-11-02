@@ -94,18 +94,7 @@ Earlier iteration 210: [archive](docs/progress-archive/2026-11-02-iteration-210.
 
 Iteration 212: [archive](docs/progress-archive/2026-11-02-iteration-212.md).
 
-## 2026-11-02: iteration 213 — durable X search topic attribution
-
-- Started clean on main; health, services, queues and 32 sources healthy. No leftover work.
-- X reservations now snapshot requested topic ID/name before HTTP, retaining failed/zero-citation attribution through topic rename/deletion; historical calls remain NULL rather than guessed.
-- Additive migration 041 and UTC daily report expose the snapshot separately from citation-derived/current verification evidence.
-- Unit orchestration asserts attribution at reservation; isolated test covers rejection, empty success, rename/deletion and report retention.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed: 113 unit/115 isolated integration tests; `pnpm build` and `git diff --check` passed.
-- `pnpm migrate` applied 041; API/worker restarted. `/healthz` DB/Redis true, SPA 200, four queues available, 32 sources without errors.
-- `pnpm exec tsx scripts/report-x-discovery.ts 2026-11-02`: existing search $0.023382, two currently verified/dated citations; snapshot correctly NULL for historical call.
-- Read-only `scripts/report-edition-timing.ts`: next edition Nov 3 15:00 UTC; prior 856 ms fallback remains insufficient AI evidence. No inference or Reddit requests.
-- Updated README/SOURCES/TASKS; archived iterations 196–197 to keep orientation small. No UI change.
-- Next: incremental verified additions, then capped pre-edition X scheduling. Items 13/7 await Nov 3 scheduled cost/timing evidence.
+Earlier iteration 213: [archive](docs/progress-archive/2026-11-02-iteration-213.md).
 
 ## 2026-11-02: iteration 214 — incremental X discovery yield
 
@@ -264,3 +253,14 @@ Iteration 212: [archive](docs/progress-archive/2026-11-02-iteration-212.md).
 - Updated TASKS/database verification notes; archived iteration 212 to bound PROGRESS. No inference or Reddit requests.
 - Next: observe Nov 3 14:30 UTC X discovery and 15:00 edition cost/duration; prior fallback duration is not AI latency evidence.
 - Deployment: API/worker restarted active; `/healthz` DB/Redis true, SPA 200, 32 error-free sources and four available queues; retained edition has four topics, 20 stories and 10 posts.
+
+## 2026-11-02: iteration 228 — ingestion citation characterization
+
+- Started clean on main; API/worker, health, 32 sources and four queues healthy. No leftover work.
+- Items 13/7/9 await Nov 3 scheduled evidence; advanced lower-priority STEERING 2a with isolated ingestion citation assertions.
+- Pinned URL-derived IDs, duplicate/host rejection, independent source citations, named verification URL and first-seen preservation, last-seen updates and engagement JSON replacement.
+- Invalid later items roll back citation inserts/updates and source health together. No inference or Reddit requests.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (120 unit, 126 integration); `pnpm build` and `git diff --check` passed.
+- Updated TASKS/database notes and archived iteration 213 to bound PROGRESS. AI golden and other repository behavior gaps remain open.
+- Deployment: restarted API/worker active; `/healthz` DB/Redis true, SPA 200, 32 error-free sources and four available queues. Retained edition: four topics, 20 stories, 10 posts.
+- Next: observe Nov 3 14:30 UTC X discovery and 15:00 edition cost/duration; prior fallback timing is not AI latency evidence.

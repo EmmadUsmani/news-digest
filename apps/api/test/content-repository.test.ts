@@ -9,6 +9,7 @@ import {
 } from '../src/modules/ingestion/domain/ports';
 
 void test('content repository characterizes eligibility, shared observations, ordering, upserts and rollback', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
   const repository = new PostgresContentRepository();
   const topicId = randomUUID();
   const prefix = `content-${topicId}`;
@@ -142,6 +143,94 @@ void test('content repository characterizes eligibility, shared observations, or
       ).rowCount,
       0,
     );
+    // Ingestion owns citation persistence too: untrusted IDs are derived from URLs.
+    const citationRows = async () =>
+      (
+        await repository.db.query(
+          `SELECT external_id,source_id,canonical_url,verification_url,citing_engagement,
+           first_seen_at,last_seen_at FROM x_link_citations
+           WHERE source_id=ANY($1::text[]) ORDER BY source_id,external_id`,
+          [sources.map((source) => source.id)],
+        )
+      ).rows;
+    const cited: ContentItem = {
+      ...items[6],
+      engagement: { points: 12, nested: { replies: 3 }, tags: ['fixture'] },
+      xLinks: [
+        {
+          externalId: 'forged',
+          url: 'https://x.com/Reporter/status/123456789',
+        },
+        {
+          externalId: '123456789',
+          url: 'https://twitter.com/Reporter/status/123456789',
+        },
+        {
+          externalId: '999',
+          url: 'https://x.com.evil.test/Reporter/status/999',
+        },
+      ],
+    };
+    await repository.store(sources[0], [cited, cited]);
+    const initialCitations = await citationRows();
+    assert.equal(initialCitations.length, 1);
+    assert.equal(initialCitations[0].external_id, '123456789');
+    assert.equal(
+      initialCitations[0].canonical_url,
+      'https://x.com/i/web/status/123456789',
+    );
+    assert.equal(
+      initialCitations[0].verification_url,
+      'https://twitter.com/Reporter/status/123456789',
+    );
+    assert.deepEqual(initialCitations[0].citing_engagement, cited.engagement);
+    await repository.store(sources[0], [
+      {
+        ...cited,
+        engagement: { points: 30 },
+        xLinks: [
+          {
+            externalId: 'ignored',
+            url: 'https://x.com/i/web/status/123456789',
+          },
+        ],
+      },
+    ]);
+    const refreshed = await citationRows();
+    assert.equal(refreshed.length, 1);
+    assert.deepEqual(refreshed[0].citing_engagement, { points: 30 });
+    assert.equal(
+      refreshed[0].verification_url,
+      initialCitations[0].verification_url,
+    );
+    assert.deepEqual(
+      refreshed[0].first_seen_at,
+      initialCitations[0].first_seen_at,
+    );
+    assert.ok(refreshed[0].last_seen_at >= initialCitations[0].last_seen_at);
+    const beforeRollback = await state();
+    await assert.rejects(
+      repository.store(sources[0], [
+        {
+          ...cited,
+          engagement: { points: 999 },
+          xLinks: [
+            ...cited.xLinks!,
+            { externalId: '222', url: 'https://x.com/Other/status/222' },
+          ],
+        },
+        { ...item(10), publishedAt: 'invalid timestamp' },
+      ]),
+    );
+    assert.deepEqual(await citationRows(), refreshed);
+    assert.deepEqual(await state(), beforeRollback);
+    await repository.store(sources[1], [cited]);
+    const independent = await citationRows();
+    assert.equal(independent.length, 2);
+    assert.deepEqual(
+      independent.map((row) => row.source_id),
+      sources.slice(0, 2).map((source) => source.id),
+    );
     await repository.store(sources[0], []);
     assert.equal((await state()).error, null);
     assert.equal((await state()).lastItemCount, 0);
@@ -158,6 +247,10 @@ void test('content repository characterizes eligibility, shared observations, or
     );
     assert.equal((await state()).storedItems, 8);
   } finally {
+    await repository.db.query(
+      'DELETE FROM x_link_citations WHERE source_id=ANY($1::text[])',
+      [sources.map((source) => source.id)],
+    );
     await repository.db.query(
       'DELETE FROM content_observations WHERE source_id=ANY($1::text[])',
       [sources.map((source) => source.id)],

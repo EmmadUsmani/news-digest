@@ -82,3 +82,13 @@ URL can fill the last available topic slot. New URLs and new connections are
 rejected at their respective limits without leaving catalog or connection rows.
 All 500-source fixtures live only in disposable PostgreSQL and are cleaned up.
 No feed, Reddit or inference requests occur.
+
+## Ingestion citation characterization (iteration 228)
+
+`content-repository.test.ts` now pins ingestion's citation persistence boundary:
+IDs are derived from validated URLs, duplicate links collapse, lookalike hosts
+are rejected, and independent sources retain independent citations. Reobserving
+an unnamed URL preserves the named verification URL and first-seen timestamp,
+updates last-seen time, and replaces the citation engagement JSON. A later invalid
+item rolls back both new citations and updates, together with source health.
+All assertions run in disposable PostgreSQL; no X, Reddit or inference calls.
