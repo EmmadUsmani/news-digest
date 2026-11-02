@@ -235,3 +235,16 @@ Earlier iterations 87–100: [archive](docs/progress-archive/2026-11-02-iteratio
 - `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile. No UI changes; smoke screenshots refreshed. Updated README/TASKS/docs/SOURCES; archived iterations 87–100.
 - No inference/discovery spend, publication, provider/model/billing change or new owner blocker: Anthropic $0.408415; X $0.023382; no reservations/errors. Reddit blocked; paid X scheduling stays off.
 - Next: inspect scheduled 20:40 UTC semantic edition; rerun readiness after later collection. Gaming/World fallback gaps remain and GamingBolt yield needs observation.
+
+## 2026-11-02: iteration 131 — Destructoid free Gaming citation feed
+
+- Started clean on main; no leftover work. API/worker/health, all feeds and retained digest runs healthy; first semantic social edition still due 20:40 UTC. Two historical ingestion failures remain, current collection succeeds.
+- Migration 030 connects public Destructoid RSS to original Gaming topic. `pnpm migrate`; `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued passes, 30 new articles, 1,118 total URLs/four topics/26 healthy sources; repeat idempotent.
+- Feed exposes one Destiny/Bungie X citation; `pnpm exec tsx apps/api/scripts/verify-x-embeds.ts`: one verified, zero failures. Its post is outside upcoming daily window; no fresh-window or virality claim.
+- Three Destructoid public pages returned 200/no citations, mostly guides; page harvesting stays off. Gematsu article 403 stopped probes; Gematsu/VideoGamer/Siliconera feed checks did not justify configuration. No bypass or paid calls.
+- Recorded two original RSS entries with namespaces/encoded content; offline regression asserts exact X identity/URL, dates, authors, hosts and bounded plain excerpts. Fixtures are not live evidence.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 139 isolated tests pass. `pnpm build` passes (existing upstream Zod warnings).
+- Restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed, mobile status inspected.
+- `screen-social-posts.ts 2026-11-01T20:40:00Z 2026-11-02T20:40:00Z`: semantic pools still Tech 9/NBA 26/Gaming 1/World 2. Gaming has 18 scoped verified posts, 17 outside window.
+- Updated TASKS/docs/SOURCES. No publication/inference/discovery spend/provider/model/billing change or new owner blocker: Anthropic $0.408415; X $0.023382; no reservations/errors.
+- Next: inspect scheduled 20:40 UTC semantic edition; Gaming/World daily fallback gaps and Reddit block remain. Keep paid X scheduling off.

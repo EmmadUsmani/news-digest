@@ -883,3 +883,28 @@ stored content so far, not the final future window or evidence of virality.
 bounded semantic pool. `triage-social-posts.ts` now uses publication's selector
 instead of its former independent filter, fixing diagnostic drift for duplicate
 posts, disabled post budgets and the initial SQL cap. Source statuses unchanged.
+
+## Destructoid RSS — iteration 131 (2026-11-02)
+
+- **live:** `https://www.destructoid.com/feed/` returned 30 articles (233 KB),
+  including guides, opinion and news. Migration 030 connects the feed to the
+  original Gaming topic without changing ranking or topic guidance. Collection
+  does not establish importance or relevance.
+- Full encoded RSS content exposes one distinct X citation,
+  `S14deane/status/2116086082341306812`, in an October 31 Destiny/Bungie article.
+  It is outside the upcoming Nov 1 20:40–Nov 2 20:40 UTC daily window; no
+  current-window improvement or virality claim.
+- Three newest public article pages returned 200 but no X links. Page harvesting
+  stays disabled: current pages are guides and the feed already exposes citations.
+- Gematsu RSS returned 20 entries/no X links; its newest article returned 403,
+  so probing stopped and no source/page harvesting was configured. VideoGamer
+  RSS returned 30 entries/one older citation; Siliconera RSS returned 15/no
+  citations. Neither was configured. No access workarounds or paid calls.
+- Two original Destructoid entries, with XML namespaces and encoded content,
+  are recorded for offline citation/date/author/host/excerpt regression.
+  Fixtures are not live content.
+- `pnpm migrate` and two queued `smoke-ingestion.ts` passes stored all 30
+  source articles; repeat collection was idempotent. Total: 1,118 stored URLs
+  across 26 healthy sources. Bounded `verify-x-embeds.ts` verified the one
+  new citation with no failures; Gaming now has 18 scoped verified posts,
+  17 outside the upcoming window. Readiness remains 9/26/1/2 by topic.

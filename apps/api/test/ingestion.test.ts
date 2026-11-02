@@ -23,6 +23,7 @@ void test('recorded RSS and Atom normalize real headlines, dates and safe links'
     'gamesradar.xml',
     'gamespot.xml',
     'hoopsrumors.xml',
+    'destructoid.xml',
     'npr-world.xml',
     'guardian-world.xml',
   ]) {
@@ -95,6 +96,28 @@ void test('recorded GamesRadar and GameSpot feeds retain publisher X citations a
     spot.every((item) => new URL(item.url).hostname === 'www.gamespot.com'),
   );
   assert.ok([...radar, ...spot].every((item) => item.excerpt.length <= 1500));
+});
+void test('recorded Destructoid RSS preserves encoded-content citations without promoting guide links', async () => {
+  const items = parseFeed(await fixture('destructoid.xml'));
+  assert.equal(items[0].publishedAt, '2026-11-02T10:22:16.000Z');
+  assert.equal(items[0].author, 'Kacee Fay');
+  assert.deepEqual(items[0].xLinks, []);
+  assert.equal(items[1].publishedAt, '2026-10-31T19:16:39.000Z');
+  assert.equal(items[1].author, 'Pedro Peres');
+  assert.match(items[1].title, /Bungie’s new leadership/);
+  assert.deepEqual(items[1].xLinks, [
+    {
+      externalId: '2116086082341306812',
+      verificationUrl:
+        'https://twitter.com/S14deane/status/2116086082341306812',
+      url: 'https://x.com/i/web/status/2116086082341306812',
+    },
+  ]);
+  assert.ok(
+    items.every((item) => new URL(item.url).hostname === 'www.destructoid.com'),
+  );
+  assert.ok(items.every((item) => item.excerpt.length <= 1500));
+  assert.doesNotMatch(items[1].excerpt, /<[^>]+>|&#\d+;/);
 });
 void test('recorded Hoops Rumors RSS preserves NBA reporter and official team citations', async () => {
   const items = parseFeed(await fixture('hoopsrumors.xml'));

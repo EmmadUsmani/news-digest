@@ -90,6 +90,7 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Persist failed publisher-host cooldown across hourly page passes (iteration 128): any recent failed page pauses that exact host for one day; other publishers remain eligible. Isolated regression covers new-page suppression and expiry.
   - [x] Enable GamingBolt exact-host article discovery after six successful public-page probes (iteration 129); existing bounded collector/cooldown applies. Probe found only the already-known Phantom Blade Zero citation; no fresh-post improvement claimed.
   - [x] Read-only semantic readiness report and cache diagnostics now share publication candidate selection, including duplicate checks, zero budgets and caps; counts distinguish safety eligibility from editorial relevance (iteration 130).
+  - [x] Connect Destructoid public RSS with recorded encoded-content X citation regression (iteration 131); feed contains guides/opinion as well as news, and its one observed X citation is outside the upcoming daily window. No page harvesting enabled.
   - Next: observe the first scheduled semantic social edition and measure relevant Gaming discovery. Keep full-day X reservation and paid scheduling off. Semantic selection is not a virality measurement.
   - SocialPost storage, window-aware ranking with citation diversity/engagement, immutable post selections and lazy official X embeds.
   - Reddit per-topic communities and faithful cards; no bot-protection workarounds. Bluesky optional; YouTube deferred.
