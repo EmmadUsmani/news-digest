@@ -167,3 +167,14 @@ Earlier iterations 139–140: [archive](docs/progress-archive/2026-11-02-iterati
 - `pnpm lint:fix`, `pnpm format`, `pnpm check`: types/lint/format/boundaries and all 164 isolated tests pass. `pnpm build` passes.
 - Restarted API/worker; `/healthz` healthy; live sources, queues and stored editions checked. No live inference calls or spend; no UI/source changes, docs/SOURCES unchanged.
 - Archived iterations 139–140 to keep PROGRESS below 25 KB. Next: social-inclusive timing through the fake provider/worker path; item 7 remains open without a live latency claim.
+
+## 2026-11-02: iteration 164 — social-inclusive publication timing
+
+- Started clean on main; no leftover work. API/worker and health healthy, 32 sources without errors, zero failed digest jobs; two historical ingestion failures remain.
+- Extended isolated four-topic timing with 60 synthetic verified X posts/topic, scoped citations, real social triage/editor validation, selection and immutable readback. No live posts or inference used.
+- Synthetic 400 articles + 240 posts: cold 206 ms / warm 99 ms; 1,500 stored articles + 240 posts: cold 286 ms / warm 205 ms. Existing article cap scores only 800 at larger volume.
+- Both volumes score all 240 posts in eight batches; warm regeneration adds no article/social triage or social editor calls. Each topic publishes five AI-selected synthetic posts.
+- Measurements use 25 ms fake inference and fake story editing; exclude provider/network/concurrency limits and BullMQ path. They do not establish live <60s/<2min targets. No live inference spend.
+- Verification initially caught integer instead of JSON citation fixture data; corrected. `pnpm lint:fix`, `pnpm format`, `pnpm check` pass: types/lint/format/boundaries and all 164 isolated tests. `pnpm build` passes.
+- Restarted API/worker; `/healthz` healthy, 32 sources/no errors, zero failed digest jobs, latest stored edition still has four topics. No UI/source changes; docs/SOURCES unchanged.
+- README/TASKS updated. Next: representative fake provider/worker timing; live latency still unverified, item 7 stays open.

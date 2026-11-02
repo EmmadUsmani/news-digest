@@ -4,6 +4,7 @@ import { setTimeout } from 'node:timers/promises';
 
 import { llmConfig } from '../src/modules/curation/adapters/config';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
+import { SocialPostEditor } from '../src/modules/curation/application/social-editor';
 import { CandidateTriage } from '../src/modules/curation/application/triage';
 import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
 import { PostgresPreviewRepository } from '../src/modules/digests/database/preview.repository';
@@ -20,6 +21,7 @@ void test('four-topic edition timing includes SQL, batched triage, editing, publ
   const topicIds: string[] = [];
   const sourceIds: string[] = [];
   const itemIds: string[] = [];
+  const postIds: string[] = [];
   const original = (await repository.db.query('SELECT id,enabled FROM topics'))
     .rows;
   try {
@@ -48,6 +50,9 @@ void test('four-topic edition timing includes SQL, batched triage, editing, publ
       let calls = 0;
       let editors = 0;
       let scored = 0;
+      let socialScored = 0;
+      let socialCalls = 0;
+      let socialEdits = 0;
       const ledger: LlmLedger = {
         async cached(key) {
           return cache.get(key);
@@ -64,13 +69,32 @@ void test('four-topic edition timing includes SQL, batched triage, editing, publ
       const llm = new BudgetedLlm(
         {
           async complete(request) {
-            calls++;
             await setTimeout(25);
-            const { candidates } = JSON.parse(request.prompt) as {
+            const { candidates, budget } = JSON.parse(request.prompt) as {
               candidates: { id: string }[];
+              budget?: number;
             };
+            if (request.purpose === 'social-editor-v1') {
+              socialEdits++;
+              return {
+                text: JSON.stringify({
+                  posts: candidates.slice(0, budget).map(({ id }) => ({
+                    id,
+                    whyItMatters: 'A synthetic launch.',
+                    rationale: 'Fixture selection.',
+                  })),
+                }),
+                usage: { input: 20, output: 20, cacheRead: 0, cacheWrite: 0 },
+              };
+            }
             assert.ok(candidates.length <= 50);
-            scored += candidates.length;
+            if (request.purpose.startsWith('social')) {
+              socialScored += candidates.length;
+              socialCalls++;
+            } else {
+              scored += candidates.length;
+              calls++;
+            }
             return {
               text: JSON.stringify({
                 items: candidates.map(({ id }) => ({
@@ -91,6 +115,17 @@ void test('four-topic edition timing includes SQL, batched triage, editing, publ
         configurable: true,
         value: {
           triage: new CandidateTriage(llm, ledger, llmConfig({}).haiku),
+          socialTriage: new CandidateTriage(
+            llm,
+            ledger,
+            llmConfig({}).haiku,
+            'social',
+          ),
+          socialEditor: new SocialPostEditor(
+            llm,
+            llmConfig({}).sonnet,
+            llmConfig({}).haiku,
+          ),
           editor: {
             async edit(
               _topic: unknown,
@@ -116,6 +151,15 @@ void test('four-topic edition timing includes SQL, batched triage, editing, publ
         },
       });
       await repository.db.query(
+        'DELETE FROM x_link_citations WHERE external_id=ANY($1::text[])',
+        [postIds],
+      );
+      await repository.db.query(
+        'DELETE FROM social_posts WHERE external_id=ANY($1::text[])',
+        [postIds],
+      );
+      postIds.length = 0;
+      await repository.db.query(
         'DELETE FROM content_observations WHERE item_id=ANY($1::uuid[])',
         [itemIds],
       );
@@ -135,6 +179,27 @@ void test('four-topic edition timing includes SQL, batched triage, editing, publ
         );
         const ids = inserted.rows.map((row) => String(row.id));
         itemIds.push(...ids);
+        for (let n = 0; n < 60; n++) {
+          const postId = `${volume}${topic}${String(n).padStart(14, '0')}`;
+          postIds.push(postId);
+          const url = `https://x.com/fixture/status/${postId}`;
+          await repository.db.query(
+            `INSERT INTO social_posts(platform,external_id,canonical_url,author,author_url,published_at,metrics,embed_html)
+             VALUES('x',$1,$2,'Fixture','https://x.com/fixture',$3,'{}',$4)`,
+            [
+              postId,
+              url,
+              new Date(start.getTime() + n * 1000),
+              `<blockquote><p>Synthetic launch ${topic} experiment ${n} makes tool ${n} available.</p></blockquote>`,
+            ],
+          );
+          await repository.db.query(
+            `INSERT INTO x_link_citations(external_id,item_id,source_id,canonical_url,citing_engagement)
+             VALUES($1,$2,$3,$4,'{}'::jsonb)`,
+            [postId, ids[0], sourceIds[topic], url],
+          );
+        }
+
         await repository.db.query(
           'INSERT INTO content_observations(item_id,source_id) SELECT unnest($1::uuid[]),$2',
           [ids, sourceIds[topic]],
@@ -149,7 +214,10 @@ void test('four-topic edition timing includes SQL, batched triage, editing, publ
         assert.ok(
           snapshot.topics.every(
             (topic) =>
-              topic.editorial?.mode === 'ai' && topic.stories.length === 5,
+              topic.editorial?.mode === 'ai' &&
+              topic.stories.length === 5 &&
+              topic.postEditorial?.mode === 'ai' &&
+              topic.posts?.length === 5,
           ),
         );
         assert.deepEqual(await repository.find(snapshot.id), snapshot);
@@ -163,12 +231,23 @@ void test('four-topic edition timing includes SQL, batched triage, editing, publ
         Math.min(volume, 800),
         'Warm regeneration reuses every triage score',
       );
+      assert.equal(socialScored, 240, 'Warm regeneration reuses social triage');
+      assert.equal(socialCalls, 8, 'Sixty posts per topic use two batches');
+      assert.equal(socialEdits, 4, 'Warm social selections reuse editor cache');
       assert.equal(editors, 8, 'Both editions edit all four topics');
       console.log(
-        `Fake full-edition baseline: stored=${volume}, triaged=${scored}, triageCalls=${calls}, coldMs=${timings[0]}, warmMs=${timings[1]}; 25ms fake inference, no social candidates/provider/network/queue latency`,
+        `Fake full-edition baseline: stored=${volume}, triaged=${scored}, triageCalls=${calls}, coldMs=${timings[0]}, warmMs=${timings[1]}, socialTriaged=${socialScored}, socialCalls=${socialCalls}, socialEdits=${socialEdits}; 25ms fake inference, no provider/network/queue latency`,
       );
     }
   } finally {
+    await repository.db.query(
+      'DELETE FROM x_link_citations WHERE external_id=ANY($1::text[])',
+      [postIds],
+    );
+    await repository.db.query(
+      'DELETE FROM social_posts WHERE external_id=ANY($1::text[])',
+      [postIds],
+    );
     // Published editions are immutable; the disposable container removes them.
     await repository.db.query(
       'DELETE FROM content_observations WHERE item_id=ANY($1::uuid[])',
