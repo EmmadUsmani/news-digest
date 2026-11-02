@@ -600,3 +600,26 @@ it does not establish editorial quality or window eligibility. This single
 measurement cannot justify a daily forecast, scheduling or a smaller reservation.
 Next investigate author-qualified citation recovery without guessed handles or
 paid retry searches; keep paid scheduling disabled and the $0.40 reservation.
+
+### ID-only official verification repair (iteration 102)
+
+The official oEmbed endpoint resolves `https://twitter.com/i/status/ID`
+without a guessed author. The previous `/i/web/status/ID` fallback returned
+404 for the two measured World citations. The adapter now uses `/i/status/ID`
+when no named discovery URL exists; named URLs and all response validation stay
+unchanged. Canonical stored links remain `/i/web/status/ID`.
+
+An explicit free, two-ID recheck on 2026-11-02 verified both
+`2116774062907138317` (Nov 1 06:07 UTC) and `2117118592390951258`
+(Nov 2 04:56 UTC) as BBCWorld posts and stored their official embeds.
+The recheck intentionally bypassed the old failed-check cooldown once after the
+URL repair; routine hourly cooldowns remain unchanged. No xAI request was made.
+The original discovery citations remain unnamed; the cost/yield report now
+shows two verified posts, zero unavailable checks, and unchanged $0.023382 cost.
+A recorded official BBCWorld oEmbed response is replayed in offline tests.
+
+Neither World post passes preliminary screening: World has no positive phrase
+rules, so the conservative lexical gate rejects both. No edition was published,
+and verification does not establish relevance, virality or editorial quality.
+Semantic social editing with topic descriptions/guidance is the next gap;
+paid discovery remains unscheduled.

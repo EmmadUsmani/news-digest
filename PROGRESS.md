@@ -356,3 +356,16 @@ Earlier iterations 51–60: [archive](docs/progress-archive/2026-11-01-iteration
 - Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passes two queued live runs: 805 real article URLs, four topics, seventeen healthy sources.
 - `pnpm exec tsx scripts/smoke-status.ts` and `scripts/smoke-ui.ts` pass desktop/mobile with refreshed screenshots; read-only `screen-social-posts.ts 2026-11-01T00:00:00Z 2026-11-02T00:00:00Z` confirms no World picks.
 - No Anthropic spend (day/month $0.408415); X day/month $0.023382, zero pending. No owner blocker. Next: recover usable named citations without guessed handles/paid retries, then social editorial selection. Gaming weak; Reddit remains blocked.
+
+## 2026-11-02: iteration 102 — recover ID-only X citations through official embeds
+
+- Started clean on main; no leftover work. API/worker/health and seventeen feeds healthy; no failed retained digest runs reported by status checks.
+- Fixed official oEmbed fallback to `twitter.com/i/status/ID`; previous `i/web/status/ID` returned 404. Named discovery URLs, stored canonical URLs and response validation unchanged.
+- Explicit free two-ID repair recheck (`pnpm exec tsx apps/api/scripts/iteration102-recover.ts`, temporary script removed) stored both measured World citations as verified BBCWorld posts, then cleared their failed-check state. No guessed handles or paid search; normal cooldown remains unchanged.
+- `pnpm exec tsx apps/api/scripts/report-x-discovery.ts`: unchanged $0.023382, two citations/two currently verified posts/zero unavailable checks; original citations remain unnamed. Recorded official BBCWorld response now replays offline in regression tests.
+- `screen-social-posts.ts 2026-11-01T00:00:00Z 2026-11-02T06:30:00Z`: World posts fail because no positive topic phrase rules are configured. No edition published or relevance/virality claim; next is semantic social selection with topic description/guidance.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass typecheck/lint/format/boundaries and all 119 isolated tests; `pnpm build` passes (existing upstream Zod warnings).
+- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passes two live queued runs: 807 real URLs, four topics, seventeen healthy sources.
+- `pnpm exec tsx scripts/smoke-ui.ts`, `scripts/smoke-posts.ts /tmp/iteration102-posts.jsonl` pass desktop/mobile; refreshed foundation screenshots and inspected mobile. Post replay uses saved selections and stubbed/blocked widgets, not a published edition.
+- `pnpm exec tsx scripts/smoke-status.ts` passes desktop/mobile; initial invocation incorrectly used apps/api/scripts and was corrected. Updated TASKS/docs/SOURCES; no inference spending or provider/model/billing change.
+- No new owner blocker. Keep paid scheduling off/full-day reservation; Gaming remains weak, Reddit blocked. Next: social editorial selection, then another bounded discovery measurement if needed.

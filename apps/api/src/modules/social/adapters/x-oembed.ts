@@ -21,8 +21,7 @@ export class XOfficialEmbed implements PostVerificationPort {
   ): Promise<SocialPost> {
     if (!/^[1-9][0-9]{0,19}$/.test(externalId))
       throw new Error('Invalid X post ID');
-    const url =
-      discoveredUrl ?? `https://twitter.com/i/web/status/${externalId}`;
+    const url = discoveredUrl ?? `https://twitter.com/i/status/${externalId}`;
     if (extractXLinks(url)[0]?.externalId !== externalId)
       throw new Error('Invalid X verification URL');
     const query = new URLSearchParams({

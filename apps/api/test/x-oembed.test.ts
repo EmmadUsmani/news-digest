@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 
 import { XOfficialEmbed } from '../src/modules/social/adapters/x-oembed';
@@ -102,4 +103,24 @@ void test('accepts current official X branding with a named post URL', async () 
       }),
   }).verify('123456789', 'https://x.com/example/status/123456789');
   assert.equal(post.externalId, '123456789');
+});
+
+// Recorded official response, 2026-11-02. Replayed offline; no live test HTTP.
+void test('ID-only official URL resolves a recorded named World post without guessing a handle', async () => {
+  const raw = readFileSync(
+    new URL('./fixtures/social/bbc-world-oembed.json', import.meta.url),
+    'utf8',
+  );
+  const post = await new XOfficialEmbed({
+    get: async (url) => {
+      assert.equal(
+        new URL(url).searchParams.get('url'),
+        'https://twitter.com/i/status/2116774062907138317',
+      );
+      return raw;
+    },
+  }).verify('2116774062907138317');
+  assert.equal(post.authorUrl, 'https://x.com/BBCWorld');
+  assert.equal(post.externalId, '2116774062907138317');
+  assert.ok(post.publishedAt);
 });
