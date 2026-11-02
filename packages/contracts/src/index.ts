@@ -132,6 +132,9 @@ export const selectedPostSchema = z.object({
   text: z.string(),
   displayText: z.string().max(20000).optional(),
   metrics: z.record(z.string(), z.number()),
+  xSearchRanking: z
+    .object({ bonus: z.number().min(0).max(2), reason: z.string() })
+    .optional(),
   whyItMatters: z.string().optional(),
   citingStories: z
     .array(z.object({ id: z.string().uuid(), title: z.string() }))
@@ -219,6 +222,7 @@ export const digestPreviewSchema = z.object({
           'verified-lexical-recency-v2',
           'verified-lexical-engagement-v3',
           'verified-semantic-editor-v2',
+          'verified-semantic-engagement-v3',
         ])
         .optional(),
       postEditorial: z

@@ -83,7 +83,7 @@ export async function editTopicPosts<T extends EditorialPost>(
       budget,
     ),
     postSelectionMethod: 'verified-lexical-engagement-v3' as
-      'verified-lexical-engagement-v3' | 'verified-semantic-editor-v2',
+      'verified-lexical-engagement-v3' | 'verified-semantic-engagement-v3',
     postEditorial: editorial,
   };
   if (budget === 0) return result;
@@ -110,11 +110,15 @@ export async function editTopicPosts<T extends EditorialPost>(
       'Non-AI selection: social triage is incomplete; retained lexical fallback.';
     return result;
   }
+  const engagement = (id: string) => {
+    const post = candidates.find((p) => editorialId(p) === id);
+    return post?.platform === 'x' ? (post.xSearchRanking?.bonus ?? 0) : 0;
+  };
   const shortlist = triage.scores
     .filter((s) => s.relevance >= 6 && s.importance >= 4)
     .sort(
       (a, b) =>
-        b.importance - a.importance ||
+        b.importance + engagement(b.id) - (a.importance + engagement(a.id)) ||
         b.relevance - a.relevance ||
         a.id.localeCompare(b.id),
     )
@@ -163,14 +167,17 @@ export async function editTopicPosts<T extends EditorialPost>(
           : 'Reddit post passes window, topic, safety and historical-strength checks.',
         `Semantic relevance ${score.relevance}/10; interestingness ${score.importance}/10: ${score.rationale}`,
         `Editor: ${p.rationale}`,
-        'Engagement, velocity and media contents were not inferred.',
+        ...(original.platform === 'x' && original.xSearchRanking
+          ? [original.xSearchRanking.reason]
+          : ['No usable X search engagement ranking evidence.']),
+        'Semantic shortlist orders by interestingness plus bounded reported engagement, then relevance; media contents and measured growth were not inferred.',
       ],
     };
   });
-  result.postSelectionMethod = 'verified-semantic-editor-v2';
+  result.postSelectionMethod = 'verified-semantic-engagement-v3';
   editorial.mode = 'ai';
   editorial.model = edited.model;
   editorial.reason =
-    'AI selected supplied post text with X preference; virality and media contents are not inferred.';
+    'AI selected supplied post text after relevance gates and engagement-weighted shortlisting with X preference; reported counts are unverified and media contents are not inferred.';
   return result;
 }

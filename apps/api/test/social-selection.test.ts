@@ -265,7 +265,10 @@ void test('semantic publication recovers empty positive rules and freezes post c
     assert.equal(selected.posts?.[0].whyItMatters, 'Synthetic context');
     assert.equal(selected.postEditorial?.model, 'fake-editor');
     assert.equal(selected.postEditorial?.triage[0].importance, 8);
-    assert.equal(selected.postSelectionMethod, 'verified-semantic-editor-v2');
+    assert.equal(
+      selected.postSelectionMethod,
+      'verified-semantic-engagement-v3',
+    );
     await social.db.query(
       'DELETE FROM social_discovery_citations WHERE external_id=$1',
       [id],

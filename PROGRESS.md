@@ -116,18 +116,6 @@ Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
 
 Iteration 252: [archive](docs/progress-archive/2026-11-02-iteration-252.md).
 
-## 2026-11-02: iteration 255 — source selection rollback recovery
-
-- Started clean on main; services, health and all 32 sources healthy; no leftover work.
-- Priority 15/13/7/9 evidence awaits Nov 3; advanced isolated STEERING 2a.
-- Pinned failed source replacement after deletion: prior selection and topic fields survive rollback.
-- Concurrent rejected/valid saves preserve exactly the valid selection; subsequent disconnect succeeds.
-- Catalog and other topics stay unchanged; all fixtures run in disposable PostgreSQL.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 151 integration), `pnpm build`, `git diff --check` passed.
-- API/worker restarted healthy; SPA 200, 32 error-free sources, four available queues and recent content across all topics.
-- Updated TASKS/database notes. No provider or Reddit requests.
-- Next: observe Nov 3 all-topic X cost/yield and scheduled AI cost/duration before acknowledging 15/13/7.
-
 ## 2026-11-02: iteration 256 — rejected topic reorder recovery
 
 - Started clean on main; API/worker, health and all 32 sources healthy; no leftover work.
@@ -361,3 +349,16 @@ Iteration 252: [archive](docs/progress-archive/2026-11-02-iteration-252.md).
 - API/worker restarted active; health OK, SPA 200, latest four-topic edition accessible; all 32 sources returning data without errors.
 - Archived iteration 254; no leftover work to recover.
 - Next: combine semantic ranking with engagement, add search-type reporting; observe Nov 3 scheduled runs.
+
+## 2026-11-02: iteration 275 — semantic engagement shortlist
+
+- Started clean on main; API/worker and health healthy, all 32 sources returning data without current errors.
+- Semantic social shortlist now adds bounded reported engagement/age to interestingness after unchanged relevance/safety gates.
+- X preference, editor limit and final editorial choice remain; no prompt/cache changes or provider requests.
+- Optional snapshot ranking evidence preserves bonus and explicitly unverified explanation separately from official metrics.
+- New AI method v3 retains historical v2 compatibility; fake test covers shortlist admission, exclusions and schema round-trip.
+- No paid discovery, Anthropic or Reddit requests; scheduled account-list path unchanged pending Nov 3 evidence.
+- Archived iteration 255; no leftover work to recover.
+- Next: search-type cost/yield and outside-list reporting; observe Nov 3 scheduled searches/edition before switching.
+- Verified: targeted tests; `pnpm format`, `pnpm lint:fix`, `pnpm check` (130 unit/165 integration), `pnpm build`, `git diff --check`.
+- API/worker restarted active; health OK, SPA 200, latest four-topic edition accessible; all 32 sources returning data without current errors.

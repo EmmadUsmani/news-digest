@@ -686,6 +686,12 @@ Fallback snapshots use `verified-lexical-engagement-v3`; older editions retain
 accepted v2 identifiers. Synthetic golden changes update this method label only;
 no LLM recording or live request was made. Fake unit and isolated Postgres tests
 cover ranking/gates, missing/zero counts and historical report exclusion.
-Semantic triage/editor ranking still uses its existing relevance/interestingness
-scores; combining those scores with this signal is the next step. The signal
-already orders the bounded candidate pool before semantic triage.
+Iteration 275 combines interestingness with the bounded 0–2 engagement bonus
+after the unchanged relevance ≥6 and interestingness ≥4 gates, then breaks ties
+by relevance and ID. X preference and the ten-candidate editor limit remain.
+The editor still makes final picks from supplied text; no prompt or cache version
+changes. Optional `xSearchRanking` freezes the numeric bonus and explicitly
+unverified explanation without populating official metrics. AI snapshots use
+`verified-semantic-engagement-v3`; historical v2 snapshots remain accepted.
+Fake-service tests show high-engagement candidates entering the shortlist while
+low-relevance/low-interest candidates remain excluded; no live quality claim.

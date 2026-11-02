@@ -67,7 +67,7 @@ void test('social orchestration bounds shortlist, preserves post identity and st
     2,
     'test',
   );
-  assert.equal(result.postSelectionMethod, 'verified-semantic-editor-v2');
+  assert.equal(result.postSelectionMethod, 'verified-semantic-engagement-v3');
   assert.equal(result.postEditorial.mode, 'ai');
   assert.equal(result.posts[0].text, posts[0].text);
   assert.equal(result.posts[0].whyItMatters, 'Synthetic context');
@@ -251,5 +251,70 @@ void test('mixed-platform editorial isolates IDs and reserves X slots without pa
     redditOnly.posts.length,
     5,
     'no X evidence permits strong Reddit candidates',
+  );
+});
+
+void test('reported engagement changes semantic shortlist admission without bypassing relevance or importance gates', async () => {
+  const candidates = posts.map((p, i) => ({
+    ...p,
+    xSearchRanking: {
+      bonus: i >= 10 ? 2 : 0,
+      reason: 'Unverified synthetic search report',
+    },
+  }));
+  const services: SocialSelectionServices = {
+    socialTriage: {
+      async score() {
+        return {
+          scores: candidates.map((p, i) => ({
+            id: p.externalId,
+            relevance: i === 12 ? 5 : 8,
+            importance: i === 13 ? 3 : i >= 10 ? 6 : 7,
+            event: 'fixture',
+            rationale: 'Synthetic score',
+          })),
+          unscoredIds: [],
+        };
+      },
+    },
+    socialEditor: {
+      async edit(_topic, shortlist) {
+        assert.equal(shortlist.length, 10);
+        assert.deepEqual(
+          shortlist.slice(0, 2).map((p) => p.id),
+          ['10', '11'],
+        );
+        assert.ok(!shortlist.some((p) => ['12', '13'].includes(p.id)));
+        return {
+          model: 'fake',
+          posts: [
+            {
+              id: '10',
+              whyItMatters: 'Synthetic context',
+              rationale: 'Synthetic pick',
+            },
+          ],
+        };
+      },
+    },
+  };
+  const result = await editTopicPosts(
+    services,
+    topic,
+    candidates,
+    [],
+    1,
+    'test',
+  );
+  assert.equal(result.posts[0].externalId, '10');
+  assert.ok(
+    result.posts[0].reasons.includes('Unverified synthetic search report'),
+  );
+  assert.deepEqual(result.posts[0].metrics, {});
+  assert.equal(result.posts[0].xSearchRanking?.bonus, 2);
+  const { selectedPostSchema } = await import('@digest/contracts');
+  assert.equal(
+    selectedPostSchema.parse(result.posts[0]).xSearchRanking?.bonus,
+    2,
   );
 });

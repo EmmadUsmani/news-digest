@@ -92,6 +92,7 @@ export async function selectTopicPosts(
       text,
       displayText: officialPostDisplayText(row.embedHtml),
       metrics: { ...row.metrics },
+      xSearchRanking: signal,
       reasons: [
         assessment.reason,
         signal.reason,
