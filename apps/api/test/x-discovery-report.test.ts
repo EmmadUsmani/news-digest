@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { database } from '../src/libs/db/connections';
+import { PostgresXDiscoveryLedger } from '../src/modules/social/database/x-discovery.ledger';
 import { readXDiscoveryReport } from '../src/modules/social/database/x-discovery-report';
 
 void test('X daily evidence preserves zero-yield calls, counts cost once and uses UTC boundaries', async () => {
@@ -48,6 +49,7 @@ void test('X daily evidence preserves zero-yield calls, counts cost once and use
       },
     ]);
     assert.deepEqual(report.calls[1].topics, []);
+    assert.equal(report.calls[1].requestedTopic, null);
     assert.equal(report.calls[3].heldMicros, 0);
     assert.equal(
       (await readXDiscoveryReport(client, '2032-01-04')).calls.length,
@@ -58,6 +60,62 @@ void test('X daily evidence preserves zero-yield calls, counts cost once and use
   } finally {
     await client.query('ROLLBACK');
     client.release();
+    await db.end();
+  }
+});
+
+void test('X reservation snapshots attribute failed and zero-yield calls after topic deletion', async () => {
+  const db = database();
+  const ledger = new PostgresXDiscoveryLedger(db);
+  const topicId = crypto.randomUUID();
+  const runId = crypto.randomUUID();
+  const calls: string[] = [];
+  try {
+    await db.query(
+      `INSERT INTO topics(id,profile_id,name,description,include_guidance,position)
+      VALUES($1,'00000000-0000-4000-8000-000000000001','Original topic','Fixture','Fixture',100)`,
+      [topicId],
+    );
+    const snapshot = { id: topicId, name: 'Original topic' };
+    const failed = await ledger.reserve('fixture', runId, 400000, snapshot);
+    assert.ok(failed);
+    calls.push(failed);
+    await ledger.fail(failed, 'rejected');
+    const empty = await ledger.reserve('fixture', runId, 400000, snapshot);
+    assert.ok(empty);
+    calls.push(empty);
+    await ledger.settle(
+      empty,
+      { inputTokens: 0, outputTokens: 0, postsFetched: 0, profilesFetched: 0 },
+      {
+        inputPerMillion: 1.25,
+        outputPerMillion: 2.5,
+        perPost: 0.005,
+        perProfile: 0.01,
+      },
+    );
+    await db.query("UPDATE topics SET name='Renamed' WHERE id=$1", [topicId]);
+    await db.query('DELETE FROM topics WHERE id=$1', [topicId]);
+    // Pin the report date independently of the clock or UTC midnight.
+    await db.query(
+      "UPDATE x_discovery_calls SET created_at='2033-02-01T12:00:00Z' WHERE run_id=$1",
+      [runId],
+    );
+    const report = await readXDiscoveryReport(db, '2033-02-01');
+    assert.equal(report.calls.length, 2);
+    for (const call of report.calls) {
+      assert.deepEqual(call.requestedTopic, snapshot);
+      assert.deepEqual(call.topics, []);
+    }
+    assert.deepEqual(
+      new Set(report.calls.map((c) => c.status)),
+      new Set(['failed', 'succeeded']),
+    );
+  } finally {
+    await db.query('DELETE FROM x_discovery_calls WHERE id=ANY($1::uuid[])', [
+      calls,
+    ]);
+    await db.query('DELETE FROM topics WHERE id=$1', [topicId]);
     await db.end();
   }
 });

@@ -18,7 +18,10 @@ export async function searchX(
 ) {
   // Reserve the entire daily cap for the first measured explicit call. This is
   // admission control, not a provider-side ceiling: fetched items are unbounded.
-  const callId = await ledger.reserve('grok-4.3', runId, 400000);
+  const callId = await ledger.reserve('grok-4.3', runId, 400000, {
+    id: topicId,
+    name: request.topic,
+  });
   if (!callId) return { state: 'budget-blocked' as const, citations: 0 };
   let result;
   try {

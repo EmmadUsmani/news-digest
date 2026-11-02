@@ -113,7 +113,9 @@ For X discovery evidence, run `pnpm exec tsx scripts/report-x-discovery.ts YYYY-
 (defaults to today UTC). This reads the database only: per-call cost, unresolved
 holds, fetched counts and per-topic citations with current verified/dated counts.
 Costs are counted once even when a call has multiple citations. Zero-citation
-calls remain visible but their topic cannot be recovered from historical data.
+calls remain visible. New reservations snapshot the requested topic ID/name before
+HTTP, preserving attribution through failures and topic rename/deletion. Historical
+calls have no snapshot and remain explicitly unattributed.
 Verification counts are current storage, not incremental yield, relevance or
 edition selection; preserve that distinction in scheduled search reports.
 

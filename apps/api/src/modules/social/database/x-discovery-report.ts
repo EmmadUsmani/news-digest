@@ -3,6 +3,7 @@ import type { Pool } from 'pg';
 interface DiscoveryCallEvidence {
   id: string;
   runId: string;
+  requestedTopic: { id: string; name: string } | null;
   status: string;
   createdAt: Date;
   costMicros: number | null;
@@ -33,7 +34,7 @@ export async function readXDiscoveryReport(
     throw new Error('Expected a valid UTC date (YYYY-MM-DD)');
   const { rows } = await db.query<DiscoveryCallEvidence>(
     `
-    SELECT c.id,c.run_id AS "runId",c.status,c.created_at AS "createdAt",
+    SELECT c.id,c.run_id AS "runId",c.requested_topic AS "requestedTopic",c.status,c.created_at AS "createdAt",
       c.cost_micros::float8 AS "costMicros",
       CASE WHEN c.status IN ('pending','uncertain') THEN c.reserved_micros ELSE 0 END::float8 AS "heldMicros",
       c.posts_fetched::float8 AS "postsFetched",c.profiles_fetched::float8 AS "profilesFetched",
@@ -58,6 +59,6 @@ export async function readXDiscoveryReport(
     calls: rows,
     costMicros: rows.reduce((total, row) => total + (row.costMicros ?? 0), 0),
     heldMicros: rows.reduce((total, row) => total + row.heldMicros, 0),
-    note: 'Costs counted once per call; topics with no citations cannot be recovered from historical calls. Verified counts reflect current storage, not new additions, relevance or edition picks.',
+    note: 'Costs counted once per call; Requested topic is a reservation-time snapshot, including zero-yield calls; historical calls without a snapshot remain unattributed. Verified counts reflect current storage, not new additions, relevance or edition picks.',
   };
 }

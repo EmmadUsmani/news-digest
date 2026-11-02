@@ -72,7 +72,12 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
   async status() {
     return this.totals(this.db);
   }
-  async reserve(model: string, runId: string, estimateMicros: number) {
+  async reserve(
+    model: string,
+    runId: string,
+    estimateMicros: number,
+    requestedTopic?: { id: string; name: string },
+  ) {
     if (
       !model.trim() ||
       model.length > 100 ||
@@ -87,9 +92,9 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
       if (totals.availableMicros < estimateMicros) return null;
       const id = crypto.randomUUID();
       await client.query(
-        `INSERT INTO x_discovery_calls(id,model,run_id,status,reserved_micros)
-        VALUES($1,$2,$3,'pending',$4)`,
-        [id, model, runId, estimateMicros],
+        `INSERT INTO x_discovery_calls(id,model,run_id,status,reserved_micros,requested_topic)
+        VALUES($1,$2,$3,'pending',$4,$5)`,
+        [id, model, runId, estimateMicros, requestedTopic ?? null],
       );
       return id;
     });

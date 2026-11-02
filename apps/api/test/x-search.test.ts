@@ -190,7 +190,13 @@ void test('X errors sanitize provider text, never retry, retain ambiguous bills 
 void test('X orchestration refuses blocked budgets, settles before citation persistence and never releases spend after save failure', async () => {
   const events: string[] = [];
   const ledger = {
-    reserve: async (_model: string, _run: string, amount: number) => {
+    reserve: async (
+      _model: string,
+      _run: string,
+      amount: number,
+      topic?: { id: string; name: string },
+    ) => {
+      assert.deepEqual(topic, { id: 'topic', name: request.topic });
       assert.equal(amount, 400000);
       events.push('reserve');
       return 'id';

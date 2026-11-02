@@ -1,10 +1,12 @@
 # Content source inventory
 
-Iteration 212: `pnpm exec tsx scripts/report-x-discovery.ts YYYY-MM-DD` reads
+Iteration 213: `pnpm exec tsx scripts/report-x-discovery.ts YYYY-MM-DD` reads
 UTC-day X ledger cost/holds and each call's topic citations with current official
 verification counts. It performs no network requests or paid discovery. Counts
 are not incremental additions or relevance measurements; zero-citation historical
-calls have no stored topic attribution. Paid discovery remains unscheduled.
+calls have no stored topic attribution. New reservations snapshot the requested
+topic before HTTP, including failures and empty results, and retain it through
+topic rename/deletion. Paid discovery remains unscheduled.
 
 Checked 2026-11-01, iteration 38. Counts below are actual stored observations
 from the live worker and `/api/content/sources`, not fixture counts. Seventeen sources

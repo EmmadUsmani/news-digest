@@ -76,28 +76,6 @@ Iteration 192: [archive](docs/progress-archive/2026-11-02-iteration-192.md).
 
 Earlier iteration 195: [archive](docs/progress-archive/2026-11-02-iteration-195.md).
 
-## 2026-11-02: iteration 196 — resolve cron slots by UTC budget day
-
-- Started clean on main; API/worker and DB/Redis healthy. No leftover work.
-- Added a timezone-aware daily cron slot resolver using the same cron-parser version as BullMQ; validates schedules and UTC dates before resolution.
-- Includes UTC midnight, excludes next midnight, keeps past slots, returns null for UTC days without an occurrence and chooses the first occurrence for the single daily identity.
-- Five unit tests cover settings changes, DST gaps/repeated times, timezone boundaries and 100 direct comparisons against BullMQ's repeat strategy.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (109 unit/99 isolated integration), `pnpm build` and `git diff --check` passed. No paid inference or Reddit requests; no UI changes.
-- Restarted API/worker: both active; health DB/Redis true, SPA 200, four queues, 32 sources without errors, latest real edition four topics/10 posts.
-- Updated README, reserve decision and TASKS; archived iteration 181 to bound orientation size.
-- Reserve enforcement remains UNFINISHED: wire resolved slots into scheduler/worker lifecycle, shared-lock admission and races, then manual/Status visibility before Nov 3 15:00 UTC.
-
-## 2026-11-02: iteration 197 — register scheduled UTC budget identities
-
-- Started clean on main; API/worker, health and 32 sources healthy. No leftover work.
-- Wired ten-second scheduler refresh to register today's cron-resolved UTC slot with the stable edition publication key, before BullMQ schedule updates.
-- Read expected identity before loading settings; stale refreshes cannot replace a newer registration/reconciliation. Preserve claimed/retrying/terminal work and prior days; no-slot days create no identity.
-- Three isolated Postgres tests cover restart, past-slot retention, settings changes, obsolete claims, running/retrying/failed protection, UTC rollover, stale-snapshot races, missing slots and invalid settings.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (109 unit/102 integration), `pnpm build`, `git diff --check` passed. First check caught import-sort formatting; reformatted and reran successfully.
-- Restarted API/worker: both active, health DB/Redis true, SPA 200, four queues available, 32 sources without errors, latest real edition four topics/10 posts. Read-only DB check confirms today's 15:00 UTC identity; next queue slot Nov 3 15:00 UTC.
-- Updated README, reserve decision and TASKS; archived iteration 182 to keep orientation bounded. No UI changes, paid inference or Reddit requests.
-- Reserve enforcement remains UNFINISHED. Next: worker claim/retry/stall recovery, terminal outcomes and obsolete/missed-slot release (including today's already-published run), then shared-lock ledger admission/races and manual/Status visibility.
-
 ## 2026-11-02: iteration 198 — scheduled worker budget attempts
 
 - Started clean on main; services, health and 32 sources healthy. No leftover work.
@@ -273,3 +251,16 @@ Earlier iteration 195: [archive](docs/progress-archive/2026-11-02-iteration-195.
 - Live coverage: X Tech 29/NBA 37/Gaming 26/World 8; 32 sources without errors. Read-only timing report: Nov 3 15:00 UTC next; prior 856 ms fallback is not AI timing evidence.
 - Updated README/SOURCES/TASKS; shortened stale timing notes. No UI changes, inference or Reddit requests.
 - Next: durable topic attribution and incremental verified yield, then capped pre-edition X scheduling; full-day per-call reservation remains unchanged. Items 13/7 await Nov 3 evidence.
+
+## 2026-11-02: iteration 213 — durable X search topic attribution
+
+- Started clean on main; health, services, queues and 32 sources healthy. No leftover work.
+- X reservations now snapshot requested topic ID/name before HTTP, retaining failed/zero-citation attribution through topic rename/deletion; historical calls remain NULL rather than guessed.
+- Additive migration 041 and UTC daily report expose the snapshot separately from citation-derived/current verification evidence.
+- Unit orchestration asserts attribution at reservation; isolated test covers rejection, empty success, rename/deletion and report retention.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed: 113 unit/115 isolated integration tests; `pnpm build` and `git diff --check` passed.
+- `pnpm migrate` applied 041; API/worker restarted. `/healthz` DB/Redis true, SPA 200, four queues available, 32 sources without errors.
+- `pnpm exec tsx scripts/report-x-discovery.ts 2026-11-02`: existing search $0.023382, two currently verified/dated citations; snapshot correctly NULL for historical call.
+- Read-only `scripts/report-edition-timing.ts`: next edition Nov 3 15:00 UTC; prior 856 ms fallback remains insufficient AI evidence. No inference or Reddit requests.
+- Updated README/SOURCES/TASKS; archived iterations 196–197 to keep orientation small. No UI change.
+- Next: incremental verified additions, then capped pre-edition X scheduling. Items 13/7 await Nov 3 scheduled cost/timing evidence.
