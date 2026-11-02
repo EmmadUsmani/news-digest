@@ -114,17 +114,6 @@ Earlier iteration 244: [archive](docs/progress-archive/2026-11-02-iteration-244.
 
 Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
 
-## 2026-11-02: iteration 248 — concurrent schedule replacement
-
-- Started clean on main; API/worker and health green; no leftover work.
-- Priority 15/13/7/9 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a.
-- Added concurrent schedule replacements through separate repository instances; returned/persisted configurations remain whole.
-- Invalid-budget replacement racing a valid update preserves valid settings; subsequent updates recover normally.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 146 integration), `pnpm build`, `git diff --check` passed.
-- Updated TASKS/database notes. Disposable fixtures only; no live schedule changes, provider or Reddit requests.
-- Live checks: health DB/Redis true, four-topic latest edition, 32 error-free sources and four available queues.
-- Restarted API/worker healthy; SPA 200. Next: observe Nov 3 X cost/yield and AI edition cost/duration before acknowledging 15/13/7.
-
 ## 2026-11-02: iteration 249 — scheduled publication failure recovery
 
 - Started clean on main; API/worker, health and all 32 sources healthy; no leftover work.
@@ -344,3 +333,17 @@ Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
 - Live latest edition: four topics, 20 stories and 10 posts; API/worker restarted and health/SPA checked.
 - Updated TASKS/database notes; archived iteration 247 to keep PROGRESS bounded.
 - Next: observe Nov 3 scheduled X per-topic cost/yield and AI edition cost/duration.
+
+## 2026-11-02: iteration 268 — concurrent search attribution
+
+- Started clean on main; API/worker, health and 32 sources healthy; no leftover work.
+- Two retained ingestion failures are historical; sources recovered and social collection is flowing.
+- Scheduled priorities await Nov 3 evidence; advanced isolated STEERING 2a.
+- Races two X search repositories with opposite post order, then repeats both saves.
+- Daily report credits new candidates once while both calls retain citation/verification evidence.
+- Disposable PostgreSQL only; no provider, source or Reddit verification requests.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 163 integration), `pnpm build`, `git diff --check`.
+- Fixed missing required fixture guidance after first check; full rerun passed.
+- API/worker restarted; health, SPA and latest edition checked after build.
+- Updated TASKS/database notes; archived iteration 248 to keep PROGRESS bounded.
+- Next: observe Nov 3 scheduled X cost/yield and AI edition cost/duration.

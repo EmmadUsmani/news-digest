@@ -8,6 +8,7 @@ import {
 import { searchX } from '../src/modules/social/application/search-x';
 import { PostgresSocialRepository } from '../src/modules/social/database/social.repository';
 import { PostgresXDiscoveryLedger } from '../src/modules/social/database/x-discovery.ledger';
+import { readXDiscoveryReport } from '../src/modules/social/database/x-discovery-report';
 import { PostgresXSearchRepository } from '../src/modules/social/database/x-search.repository';
 import { XSearchError } from '../src/modules/social/domain/x-search.port';
 
@@ -511,6 +512,72 @@ void test('X search repository pins configuration, first-write provenance, share
     await social.db.query('DELETE FROM topics WHERE id=ANY($1::uuid[])', [
       [topic, otherTopic],
     ]);
+    await social.db.end();
+  }
+});
+
+void test('concurrent X search saves attribute each new post to exactly one call', async () => {
+  const social = new PostgresSocialRepository();
+  const first = new PostgresXSearchRepository(social.db);
+  const second = new PostgresXSearchRepository(social.db);
+  const topic = crypto.randomUUID();
+  const calls = [crypto.randomUUID(), crypto.randomUUID()];
+  const ids = ['2117991000000000001', '2117991000000000002'];
+  const links = ids.map((externalId) => ({
+    externalId,
+    url: `https://x.com/i/web/status/${externalId}`,
+  }));
+  try {
+    await social.db.query(
+      `INSERT INTO topics(id,profile_id,name,description,include_guidance,position)
+       VALUES($1,'00000000-0000-4000-8000-000000000001','Concurrent search','Fixture','Fixture',100)`,
+      [topic],
+    );
+    for (const id of calls)
+      await social.db.query(
+        `INSERT INTO x_discovery_calls(id,model,run_id,status,reserved_micros)
+         VALUES($1,'offline-fixture','concurrent-attribution','pending',1)`,
+        [id],
+      );
+    for (let attempt = 0; attempt < 3; attempt++) {
+      await Promise.all([
+        first.save(topic, calls[0], links),
+        second.save(topic, calls[1], [...links].reverse()),
+      ]);
+      const candidates = await Promise.all(
+        calls.map((id) => first.verificationCandidates(id)),
+      );
+      assert.deepEqual(candidates, [[...ids].reverse(), [...ids].reverse()]);
+      const report = await readXDiscoveryReport(
+        social.db,
+        new Date().toISOString().slice(0, 10),
+      );
+      const evidence = report.calls.filter((call) => calls.includes(call.id));
+      assert.equal(evidence.length, 2);
+      assert.deepEqual(
+        evidence.map((call) => call.topics[0].citations),
+        [2, 2],
+      );
+      assert.deepEqual(
+        evidence.map((call) => call.topics[0].newCandidates).sort(),
+        [0, 2],
+      );
+      for (const call of evidence) {
+        assert.equal(call.topics[0].topicId, topic);
+        assert.equal(call.topics[0].unknownBaseline, 0);
+        assert.equal(call.topics[0].newVerifiedNow, 0);
+      }
+    }
+  } finally {
+    await social.db.query(
+      'DELETE FROM x_search_citations WHERE call_id=ANY($1::uuid[])',
+      [calls],
+    );
+    await social.db.query(
+      'DELETE FROM x_discovery_calls WHERE id=ANY($1::uuid[])',
+      [calls],
+    );
+    await social.db.query('DELETE FROM topics WHERE id=$1', [topic]);
     await social.db.end();
   }
 });

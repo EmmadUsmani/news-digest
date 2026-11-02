@@ -452,3 +452,12 @@ verified X post three times. Each outcome must contain a complete matching
 author, author URL and embed payload, with exactly one row and the original
 identity, canonical URL, engagement metrics and publication time retained.
 Disposable PostgreSQL only; no embed, source, Reddit or provider requests occur.
+
+## Concurrent search attribution (iteration 268)
+
+`x-search.test.ts` races two repository instances saving the same two posts in
+opposite order. Both calls retain their verification candidates and citation
+counts, while the public daily report credits exactly one call with both new
+candidates. Repeating both saves preserves the attribution and reports no
+verified yield before verification. Disposable PostgreSQL only; no paid calls
+or external requests occur.
