@@ -112,16 +112,7 @@ Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
 
 Earlier iteration 244: [archive](docs/progress-archive/2026-11-02-iteration-244.md).
 
-## 2026-11-02: iteration 245 — concurrent canonical ingestion
-
-- Started clean on main; API/worker and health green; no leftover work.
-- Priority 15/13/7/9 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a.
-- Added concurrent publisher writes for one canonical article: one item, merged engagement, both observations and one attributed preview.
-- Concurrent duplicate batches preserve identity/engagement and update source health independently without duplicating observations.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 143 integration), `pnpm build`, `git diff --check` passed.
-- Updated TASKS/database notes; archived iteration 228 to keep PROGRESS bounded. No provider or Reddit requests.
-- Live checks: API/worker active, health DB/Redis true, SPA 200, 32 error-free sources, four available queues and four-topic latest edition.
-- Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
+Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
 
 ## 2026-11-02: iteration 246 — concurrent topic deletion and ordering
 
@@ -337,4 +328,16 @@ Earlier iteration 244: [archive](docs/progress-archive/2026-11-02-iteration-244.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 159 integration), `pnpm build`, `git diff --check`.
 - Updated TASKS/database notes; archived iteration 244; equal-time URL precedence remains unspecified.
 - Restarted API/worker; health, SPA, source/queue health and latest four-topic edition checked.
+- Next: observe Nov 3 scheduled X per-topic cost/yield and AI edition cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 265 — verification candidate priority and bounds
+
+- Started clean on main; API/worker, health, 32 sources and four queues healthy; no leftover work.
+- Priority 15/13/7/9 evidence awaits Nov 3; advanced isolated STEERING 2a.
+- Pins citation breadth before freshness, offset timestamp ordering, numeric-ID ties and exact result prefixes.
+- Fifty-five discoveries verify the one-to-fifty request clamp, including negative/zero and oversized requests.
+- Transactional disposable-PostgreSQL fixtures only; no provider, source or Reddit verification requests.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 160 integration), `pnpm build`, `git diff --check`.
+- Updated TASKS/database notes; archived iteration 245 to keep PROGRESS bounded.
+- Restarted API/worker; health recovered after startup; latest edition has four topics, 20 stories and 10 posts.
 - Next: observe Nov 3 scheduled X per-topic cost/yield and AI edition cost/duration before acknowledging 15/13/7.

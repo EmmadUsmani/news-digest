@@ -636,3 +636,68 @@ void test('verification URLs select the newest non-null evidence across all disc
     await repository.db.end();
   }
 });
+
+void test('candidate ordering favors citation breadth then freshness and numeric IDs, with bounded limits', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const repository = new PostgresSocialRepository();
+  const pool = repository.db;
+  const client = await pool.connect();
+  Object.defineProperty(repository, 'db', { value: client });
+  const topic = crypto.randomUUID();
+  const sources = ['candidate-order-a', 'candidate-order-b'];
+  const ids = ['90', '800', '799', '999', '1000'];
+  try {
+    await client.query('BEGIN');
+    await client.query('UPDATE topics SET enabled=false');
+    await client.query(
+      `INSERT INTO topics(id,profile_id,name,description,include_guidance,position)
+       VALUES($1,'00000000-0000-4000-8000-000000000001','Fixture','Fixture','Fixture',100)`,
+      [topic],
+    );
+    for (const source of sources) {
+      await client.query(
+        `INSERT INTO social_discovery_sources(id,topic_id,name,url)
+         VALUES($1,$2,'Fixture',$3)`,
+        [source, topic, `https://example.org/${source}`],
+      );
+    }
+    const cite = async (id: string, source: string, time: string) => {
+      await client.query(
+        `INSERT INTO social_discovery_citations(source_id,external_id,canonical_url,last_seen_at)
+         VALUES($1,$2,$3,$4)`,
+        [source, id, `https://x.com/fixture/status/${id}`, time],
+      );
+    };
+    // Two citations beat newer single-source evidence. Equal instants use
+    // numeric-ID ordering (length before lexical order), independent of timezone.
+    for (const id of ids) {
+      await cite(id, sources[0], '2026-11-02T10:00:00Z');
+    }
+    await cite('90', sources[1], '2026-11-01T10:00:00Z');
+    await client.query(
+      `UPDATE social_discovery_citations SET last_seen_at='2026-11-02T04:00:00-07:00'
+       WHERE external_id='799' AND source_id=$1`,
+      [sources[0]],
+    );
+    const ordered = ['90', '799', '1000', '999', '800'];
+    assert.deepEqual(await repository.candidates(50), ordered);
+    assert.deepEqual(await repository.candidates(3), ordered.slice(0, 3));
+    assert.deepEqual(await repository.candidates(0), ['90']);
+    assert.deepEqual(await repository.candidates(-10), ['90']);
+    // Enough additional discoveries to exercise the hard request cap.
+    for (let i = 0; i < 50; i++) {
+      await cite(String(10000 + i), sources[0], '2026-10-01T00:00:00Z');
+    }
+    const all = [
+      ...ordered,
+      ...Array.from({ length: 50 }, (_, i) => String(10049 - i)),
+    ];
+    assert.deepEqual(await repository.candidates(50), all.slice(0, 50));
+    assert.deepEqual(await repository.candidates(500), all.slice(0, 50));
+    assert.deepEqual(await repository.candidates(1), ['90']);
+  } finally {
+    await client.query('ROLLBACK');
+    client.release();
+    await pool.end();
+  }
+});

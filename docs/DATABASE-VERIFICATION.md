@@ -427,3 +427,12 @@ compare by instant; newer null URLs cannot hide older usable evidence, and
 missing/all-null citations return no URL. All fixtures use disposable PostgreSQL;
 no source or provider requests occur. Equal-time tie selection remains unspecified.
 Recorded-response golden and other repository gaps remain open.
+
+## Verification candidate ordering and bounds (iteration 265)
+
+`social-candidates.test.ts` pins citation breadth before freshness, equal-instant
+numeric-ID ordering (length before lexical order), exact prefix limits and the
+one-to-fifty request clamp. Fifty-five discoveries prove oversized requests stop
+at fifty without disturbing priority. Transactional fixtures roll back in disposable
+PostgreSQL; no embed, source, Reddit or provider HTTP requests occur.
+Recorded-response golden and other repository gaps remain open.
