@@ -210,3 +210,11 @@ pnpm exec tsx apps/api/scripts/report-x-discovery.ts
 The report compares settled ledger cost and fetched items with stored citations,
 author-qualified URLs and current official verification. These counts do not
 measure editorial quality or demonstrate eligibility for a digest window.
+
+Social semantic triage diagnostics (no HTTP, inference or publication):
+`pnpm exec tsx apps/api/scripts/triage-social-posts.ts START_ISO END_ISO`.
+This reads verified source-scoped posts, keeps time/text/quality/explicit-topic
+exclusions, and checks separate social triage caches. Missing scores are reported
+as unscored; positive phrase rules are reserved for preliminary publication.
+The social scoring mode uses configured Haiku through the existing budgeted LLM
+when integrated by a caller; final editing/publication is still pending.

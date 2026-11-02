@@ -24,7 +24,7 @@ const excluded = [
   'like and repost',
   'follow to win',
 ];
-export function assessPostEligibility(
+export function assessPostSafety(
   post: { text: string; publishedAt: string | null },
   policy: RelevancePolicy,
   start: Date,
@@ -49,6 +49,22 @@ export function assessPostEligibility(
   const rejected = policy.excludeAny.find((phrase) => contains(text, phrase));
   if (rejected)
     return { eligible: false, reason: `Excluded topic phrase: ${rejected}` };
+  return {
+    eligible: true,
+    reason: 'Verified post passes time, text and exclusion checks',
+  };
+}
+
+// Positive phrase matching remains the conservative publication fallback.
+export function assessPostEligibility(
+  post: { text: string; publishedAt: string | null },
+  policy: RelevancePolicy,
+  start: Date,
+  end: Date,
+) {
+  const safety = assessPostSafety(post, policy, start, end);
+  if (!safety.eligible) return safety;
+  const text = normalize(post.text);
   const included = policy.includeAny.find((phrase) => contains(text, phrase));
   if (!included)
     return {

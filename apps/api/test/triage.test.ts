@@ -22,7 +22,10 @@ const candidates: TriageCandidate[] = Array.from({ length: 7 }, (_, i) => ({
   excerpt: 'Reported facts',
   sources: ['Publisher'],
 }));
-function harness(transform?: (items: ReturnType<typeof score>[]) => unknown) {
+function harness(
+  transform?: (items: ReturnType<typeof score>[]) => unknown,
+  kind: 'article' | 'social' = 'article',
+) {
   const values = new Map<string, unknown>();
   const calls: LlmRequest[] = [];
   let available = true;
@@ -56,7 +59,7 @@ function harness(transform?: (items: ReturnType<typeof score>[]) => unknown) {
     ledger,
   );
   return {
-    service: new CandidateTriage(llm, ledger, llmConfig({}).haiku),
+    service: new CandidateTriage(llm, ledger, llmConfig({}).haiku, kind),
     calls,
     values,
     refuse: () => {
@@ -212,4 +215,61 @@ void test('new triage requests and their single repair carry explicit field cons
     assert.equal(body.outputLimits.event, '1–160 characters');
   }
   assert.equal(h.values.size, 0, 'Overlong output still fails closed');
+});
+
+void test('social triage uses topic meaning and interestingness with separate caches and purpose', async () => {
+  const h = harness(undefined, 'social');
+  const world = {
+    ...topic,
+    id: 'world',
+    name: 'World',
+    description: 'Global news and politics',
+    guidance: 'On-the-ground world events',
+  };
+  const posts = [
+    {
+      id: 'post',
+      title: 'Verified X post',
+      excerpt: 'Eyewitness footage from the election protests',
+      sources: [],
+    },
+  ];
+  const result = await h.service.score(world, posts, 'social');
+  assert.equal(result.scores.length, 1);
+  assert.equal(h.calls[0].purpose, 'social-triage-v1');
+  assert.match(h.calls[0].instructions, /Importance means interestingness/);
+  assert.match(h.calls[0].instructions, /never infer virality/);
+  assert.match(h.calls[0].instructions, /no positive keyword rules/);
+  assert.ok(
+    [...h.values.keys()].some((key) =>
+      key.startsWith('social-triage-item-v1:'),
+    ),
+  );
+  assert.ok(
+    [...h.values.keys()].every((key) => !key.startsWith('triage-item-v1:')),
+  );
+  await h.service.score(world, posts, 'cached');
+  assert.equal(h.calls.length, 1);
+  await h.service.score(
+    { ...world, guidance: 'Different selection guidance' },
+    posts,
+    'changed',
+  );
+  assert.equal(h.calls.length, 2);
+  const invalid = harness(
+    (items) => ({ items: items.map((item) => ({ ...item, id: 'invented' })) }),
+    'social',
+  );
+  assert.deepEqual(
+    (await invalid.service.score(world, posts, 'invalid')).unscoredIds,
+    ['post'],
+  );
+  assert.equal(invalid.calls.length, 2);
+  assert.equal(invalid.values.size, 0);
+  h.refuse();
+  assert.deepEqual(
+    (await h.service.score(world, [{ ...posts[0], id: 'new' }], 'refused'))
+      .unscoredIds,
+    ['new'],
+  );
 });

@@ -623,3 +623,16 @@ rules, so the conservative lexical gate rejects both. No edition was published,
 and verification does not establish relevance, virality or editorial quality.
 Semantic social editing with topic descriptions/guidance is the next gap;
 paid discovery remains unscheduled.
+
+### Semantic social candidate diagnostic (iteration 103)
+
+`triage-social-posts.ts START_ISO END_ISO` reads stored verified posts only,
+including direct-search citations. It retains half-open time, verified text,
+spam/promotion and explicit topic exclusions, while allowing empty positive
+phrase rules into semantic triage. It checks social-specific caches without
+HTTP/inference/publication. Nov 1 00:00–Nov 2 06:30 UTC: 25 Tech, 14 NBA,
+zero Gaming and two World candidates, all unscored. These are candidate counts,
+not relevance or virality claims. Existing lexical publication remains unchanged.
+The shared bounded triage service now has social interestingness instructions,
+separate `social-triage-v1` purpose and per-item caches; Sonnet picks and
+publication integration remain unfinished. No inference spend in this step.
