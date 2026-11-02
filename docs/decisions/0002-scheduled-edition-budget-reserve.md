@@ -91,3 +91,20 @@ This is an adapter primitive, not live scheduling or reserve enforcement. The
 scheduler must still calculate slots from cron/timezone, register/reconcile each
 applicable UTC day, handle days without slots and obsolete jobs, and wire worker
 retry/recovery and outcomes before ledger admission is connected.
+
+## UTC-day slot resolution (iteration 196)
+
+`profiles/adapters/budget-day-slot.ts` resolves the configured daily local cron
+against UTC midnight, using cron-parser 4.9.0 (the version used by BullMQ). It
+includes midnight and excludes the next midnight, and retains past slots when
+called after the scheduled time. Invalid days, timezones and unsupported schedules
+fail closed. No current clock time or hard-coded 15:00 is used.
+
+DST can leave a UTC day without a local daily occurrence; the resolver returns
+null rather than moving tomorrow's reserve into today. If a UTC day contains
+multiple occurrences, its single reserve identity belongs to the first. Spring
+gaps and autumn repeated times follow BullMQ's parser behavior. Tests compare
+100 timezone/date/cadence combinations directly with BullMQ's repeat strategy.
+This resolver is not wired into the scheduler or live admission yet. Pending
+identity reconciliation must preserve claim fencing and avoid stale settings
+snapshots when that wiring is added.

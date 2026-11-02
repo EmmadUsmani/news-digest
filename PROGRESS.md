@@ -56,16 +56,7 @@ Iteration 179: [archive](docs/progress-archive/2026-11-02-iteration-179.md).
 
 Iteration 180: [archive](docs/progress-archive/2026-11-02-iteration-180.md).
 
-## 2026-11-02: iteration 181 — fingerprinted offline LLM replay
-
-- Started clean on main; no leftover work. API/worker, health, 32 sources and queues available. Higher priorities still await legitimate Reddit access and live AI timing budget (848 micros available).
-- Extracted unchanged production cache fingerprint and added fail-closed replay plus response-recording LlmPort adapters. Repeated requests replay in order; changed prompts/models fail without network fallback.
-- Guarded historical recorder now saves raw successful responses/model/fingerprint to new fixtures even when later validation fails; preserves opt-in, verification cap and existing snapshot refusal. No keys/headers/request text/provider errors recorded.
-- Added explicitly synthetic transport fixture; no paid recording or inference. Full editorial golden wiring to raw recordings remains open; older validated snapshots cannot faithfully supply transport responses.
-- Targeted `pnpm exec tsx --test apps/api/test/recorded-llm.test.ts apps/api/test/llm.test.ts` passed (23 tests). Fixed replay method lint error before final checks.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (184 tests); `pnpm build` passed. No UI changes; no browser check needed.
-- Restarted API/worker; `/healthz` DB/Redis true. Read-only `scripts/report-edition-timing.ts`: latest real scheduled edition four topics/10 X posts; spend unchanged. No settings/content writes or source changes.
-- Updated TASKS/docs/LLM; archived iteration 167 to keep orientation small. Next: full editorial fixture replay; Reddit/live AI timing blockers unchanged, scheduled xAI follows Reddit per owner order.
+Earlier iteration 181: [archive](docs/progress-archive/2026-11-02-iteration-181.md).
 
 ## 2026-11-02: iteration 182 — article publication transport replay
 
@@ -208,3 +199,14 @@ Iteration 180: [archive](docs/progress-archive/2026-11-02-iteration-180.md).
 - Restarted API/worker: both active, `/healthz` DB/Redis true, SPA 200, four queues, 32 sources without errors, latest real edition four topics/10 posts. No UI changes, paid inference or Reddit HTTP requests.
 - Updated README, decision 0002 and TASKS; archived iteration 180 to bound this file.
 - Live reserve enforcement remains UNFINISHED: next compute cron/UTC slots and wire scheduler/worker lifecycle, then ledger admission/races and manual/Status visibility before Nov 3 15:00 UTC.
+
+## 2026-11-02: iteration 196 — resolve cron slots by UTC budget day
+
+- Started clean on main; API/worker and DB/Redis healthy. No leftover work.
+- Added a timezone-aware daily cron slot resolver using the same cron-parser version as BullMQ; validates schedules and UTC dates before resolution.
+- Includes UTC midnight, excludes next midnight, keeps past slots, returns null for UTC days without an occurrence and chooses the first occurrence for the single daily identity.
+- Five unit tests cover settings changes, DST gaps/repeated times, timezone boundaries and 100 direct comparisons against BullMQ's repeat strategy.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (109 unit/99 isolated integration), `pnpm build` and `git diff --check` passed. No paid inference or Reddit requests; no UI changes.
+- Restarted API/worker: both active; health DB/Redis true, SPA 200, four queues, 32 sources without errors, latest real edition four topics/10 posts.
+- Updated README, reserve decision and TASKS; archived iteration 181 to bound orientation size.
+- Reserve enforcement remains UNFINISHED: wire resolved slots into scheduler/worker lifecycle, shared-lock admission and races, then manual/Status visibility before Nov 3 15:00 UTC.

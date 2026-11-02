@@ -77,6 +77,9 @@ importers:
       bullmq:
         specifier: ^5.61.2
         version: 5.81.5
+      cron-parser:
+        specifier: 4.9.0
+        version: 4.9.0
       entities:
         specifier: ^9.0.0
         version: 9.0.0
