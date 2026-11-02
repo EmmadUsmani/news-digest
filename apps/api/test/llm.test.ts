@@ -1,12 +1,15 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
+import { z } from 'zod';
+
 import {
   AnthropicLlmAdapter,
   isProviderSpendLimit,
 } from '../src/modules/curation/adapters/anthropic';
 import { llmConfig } from '../src/modules/curation/adapters/config';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
+import { LlmValidationFailure } from '../src/modules/curation/application/validation-failure';
 import {
   budgetAllowance,
   costMicros,
@@ -394,4 +397,83 @@ void test('ledger exceptions release coalesced work for a later attempt', async 
   assert.equal(provider.count(), 0);
   assert.deepEqual(await service.json(request, valid), { ok: true });
   assert.equal(provider.count(), 1);
+});
+
+void test('validation diagnostics distinguish parse, schema and semantic failures without retaining untrusted text', async () => {
+  const cases = [
+    { text: 'secret invalid JSON', validate: valid, category: 'invalid-json' },
+    {
+      text: '{}',
+      validate: (value: unknown) =>
+        z.object({ required: z.string() }).parse(value),
+      category: 'invalid-schema',
+    },
+    {
+      text: '{}',
+      validate: () => {
+        throw new LlmValidationFailure('invalid-selection');
+      },
+      category: 'invalid-selection',
+    },
+    {
+      text: '{}',
+      validate: () => {
+        throw new LlmValidationFailure('unsupported-absence');
+      },
+      category: 'unsupported-absence',
+    },
+    {
+      text: '{}',
+      validate: () => {
+        throw new Error('secret source or model text');
+      },
+      category: 'validator-error',
+    },
+  ];
+  for (const entry of cases) {
+    const provider = fake([entry.text, entry.text]);
+    const ledger = new MemoryLedger();
+    const llm = new BudgetedLlm(provider.llm, ledger);
+    assert.equal(await llm.json(request, entry.validate), null);
+    assert.deepEqual(llm.validationDiagnostics(), [
+      { attempt: 'initial', category: entry.category },
+      { attempt: 'repair', category: entry.category },
+    ]);
+    assert.equal(provider.count(), 2);
+    assert.equal(ledger.values.size, 0);
+    assert.ok(!JSON.stringify(llm.validationDiagnostics()).includes('secret'));
+  }
+});
+void test('validation diagnostic storage is bounded and callers cannot mutate it', async () => {
+  const provider = fake(Array<string>(40).fill('invalid'));
+  const llm = new BudgetedLlm(provider.llm, new MemoryLedger());
+  for (let i = 0; i < 20; i++) await llm.json(request, valid);
+  const snapshot = llm.validationDiagnostics();
+  assert.equal(snapshot.length, 32);
+  snapshot[0].category = 'validator-error';
+  snapshot.pop();
+  assert.equal(llm.validationDiagnostics().length, 32);
+  assert.equal(llm.validationDiagnostics()[0].category, 'invalid-json');
+});
+
+void test('diagnostics survive successful repair/cache reuse and classify invalid cached values without new calls', async () => {
+  const provider = fake(['invalid', '{"ok":true}']);
+  const ledger = new MemoryLedger();
+  const llm = new BudgetedLlm(provider.llm, ledger);
+  assert.deepEqual(await llm.json(request, valid), { ok: true });
+  assert.deepEqual(await llm.json(request, valid), { ok: true });
+  assert.deepEqual(llm.validationDiagnostics(), [
+    { attempt: 'initial', category: 'invalid-json' },
+  ]);
+  for (const key of ledger.values.keys()) ledger.values.set(key, {});
+  await assert.rejects(() =>
+    llm.json(request, (value) =>
+      z.object({ ok: z.literal(true) }).parse(value),
+    ),
+  );
+  assert.deepEqual(llm.validationDiagnostics().at(-1), {
+    attempt: 'cache',
+    category: 'invalid-schema',
+  });
+  assert.equal(provider.count(), 2);
 });

@@ -17,6 +17,7 @@ const services = new WeakMap<
   {
     triage: CandidateTriage;
     editor: ShortlistEditor;
+    validationDiagnostics: BudgetedLlm['validationDiagnostics'];
   }
 >();
 
@@ -30,6 +31,7 @@ export function editorialServices(db: Pool) {
   const ledger = new PostgresLlmLedger(db, config.caps);
   const llm = new BudgetedLlm(new AnthropicLlmAdapter(key), ledger);
   const result = {
+    validationDiagnostics: () => llm.validationDiagnostics(),
     triage: new CandidateTriage(llm, ledger, config.haiku),
     editor: new ShortlistEditor(llm, config.sonnet, config.haiku),
   };

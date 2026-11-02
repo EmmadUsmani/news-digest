@@ -225,3 +225,15 @@ Earlier iterations 23–37: [archive](docs/progress-archive/2026-11-01-iteration
 - `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live passes: 722 stored real URLs, four topics, seventeen healthy sources; no source configuration changes.
 - Rebuilt/restarted API/worker; `/healthz` healthy. `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed and mobile digest visually inspected.
 - Updated TASKS/docs/LLM/docs/RANKING; no owner blockers. Next: bounded validation failure categories/diagnostics before another paid replay, then false-rejection audit and broader factual support.
+
+## 2026-11-02: iteration 66 — bounded editorial validation diagnostics
+
+- Started clean on main; no leftover work. Services/health, seventeen active sources and retained digest runs healthy; historical ingestion failure has subsequent source successes. Schedule unchanged.
+- Budgeted caller now retains only the last 32 validation failures as closed attempt/category pairs: JSON, schema, selection, absence support or unexpected validator error. Defensive copies; no raw model/source/error text, paths or IDs.
+- Editorial facade exposes diagnostics; explicit paid recorder prints them before a refused-result assertion. Process-local/shared across triage and editor, no durable run attribution; no automatic logging or extra inference.
+- Tests cover real selection/absence checks, parse/schema separation, unexpected errors, bounds/mutation safety, successful repair/cache reuse and invalid-cache classification; existing reservations/repair/fallback and prompt/cache identities preserved.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass types/lint/format/boundaries and 86 isolated tests; `pnpm build` passes with existing upstream Zod warnings. `pnpm evaluate:editorial` passes historical offline replays.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passes two queued live passes: 722 real URLs, four topics, seventeen healthy sources. No source configuration changes.
+- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed and mobile digest visually inspected.
+- No paid replay or new edition this iteration; no quality improvement claimed. Incremental inference $0; actual day/month $0.402119, zero reservations/provider errors. Provider/models/billing unchanged.
+- Updated TASKS/docs/LLM; no owner blockers. Next: bounded diagnostic Tech replay and absence-guard false-rejection audit before changing guard, then broader factual support/evaluation, scheduled batches and cross-process coordination.

@@ -325,3 +325,22 @@ An explicit Tech v4 retry still produced no validated result after two calls
 ($0.003279). No artifact or edition was published; useful feedback alone has
 not established recovery or a reduction in false rejections. Structured failure
 categories and recorded safe rejection diagnostics are the next step.
+
+Iteration 66: the budgeted caller retains a process-local ring of the last 32
+validation failures, exposed as defensive copies through the editorial facade.
+Each entry contains only `initial`/`repair`/`cache` and one closed category:
+`invalid-json`, `invalid-schema`, `invalid-selection`, `unsupported-absence`, or
+`validator-error`. Parsing is separated from validation so validator exceptions
+cannot masquerade as JSON failures. No response text, exception messages, schema
+paths, candidate/run IDs or source text are retained. Cache failures remain
+exceptions; invalid paid outputs still receive at most one separately reserved
+repair and never enter the validated cache. No prompt/cache identity changes.
+
+The explicit editorial recorder prints this bounded diagnostic list before
+checking for refusal, including on a failed edit. The list is shared by triage
+and editing within that process, has no durable/run attribution, and resets on
+restart; it is a debugging aid rather than a count of provider errors or factual
+accuracy. Reservation refusals and transport errors are not validation failures.
+No paid replay was performed in iteration 66. The earlier Tech failures cannot
+be diagnosed retroactively; a future explicit bounded replay can now distinguish
+absence rejection from schema/selection failure before changing the guard.

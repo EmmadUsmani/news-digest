@@ -86,6 +86,11 @@ async function main() {
       fixture.budget,
       runId,
     );
+    console.log(
+      JSON.stringify({
+        validationDiagnostics: services.validationDiagnostics(),
+      }),
+    );
     assert.ok(result, 'Editor refused; no snapshot recorded');
     const usage = (
       await db.query<{ calls: number; costMicros: number }>(

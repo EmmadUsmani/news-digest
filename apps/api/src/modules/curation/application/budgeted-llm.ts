@@ -1,5 +1,7 @@
 import { createHash } from 'node:crypto';
 
+import { ZodError } from 'zod';
+
 import { costMicros } from '../domain/budget';
 import {
   type LlmPort,
@@ -7,9 +9,33 @@ import {
   ProviderSpendLimit,
 } from '../domain/llm.port';
 import type { LlmLedger } from '../domain/llm-ledger.port';
-import { LlmValidationFailure } from './validation-failure';
+import {
+  LlmValidationFailure,
+  type ValidationDiagnostic,
+} from './validation-failure';
 
 export class BudgetedLlm {
+  private readonly failures: ValidationDiagnostic[] = [];
+  validationDiagnostics(): ValidationDiagnostic[] {
+    return this.failures.map((failure) => ({ ...failure }));
+  }
+  private recordFailure(
+    error: unknown,
+    attempt: ValidationDiagnostic['attempt'],
+    invalidJson = false,
+  ) {
+    this.failures.push({
+      attempt,
+      category: invalidJson
+        ? 'invalid-json'
+        : error instanceof LlmValidationFailure
+          ? error.code
+          : error instanceof ZodError
+            ? 'invalid-schema'
+            : 'validator-error',
+    });
+    if (this.failures.length > 32) this.failures.shift();
+  }
   private readonly pending = new Map<string, Promise<unknown>>();
   constructor(
     private readonly llm: LlmPort,
@@ -62,7 +88,14 @@ export class BudgetedLlm {
     validate: (value: unknown) => T,
   ): Promise<T | null> {
     const cached = await this.ledger.cached(key);
-    if (cached !== undefined) return validate(cached);
+    if (cached !== undefined) {
+      try {
+        return validate(cached);
+      } catch (error) {
+        this.recordFailure(error, 'cache');
+        throw error;
+      }
+    }
     // Each repair is separately reserved and recorded. No network retries.
     let feedback = '';
     for (let attempt = 0; attempt < 2; attempt++) {
@@ -117,11 +150,20 @@ export class BudgetedLlm {
         costMicros(response.usage, current.model),
       );
       let parsed: T;
+      let decoded: unknown;
       try {
-        parsed = validate(JSON.parse(response.text) as unknown);
+        decoded = JSON.parse(response.text) as unknown;
+      } catch (error) {
+        this.recordFailure(error, attempt ? 'repair' : 'initial', true);
+        feedback = '';
+        continue;
+      }
+      try {
+        parsed = validate(decoded);
       } catch (error) {
         // Only application-owned feedback is sent: never raw provider output,
         // schema errors, source text or exception messages.
+        this.recordFailure(error, attempt ? 'repair' : 'initial');
         feedback = error instanceof LlmValidationFailure ? error.feedback : '';
         continue;
       }

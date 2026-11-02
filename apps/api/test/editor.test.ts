@@ -67,6 +67,7 @@ function harness(outputs: unknown[] = [valid], refuse: string[] = []) {
   return {
     editor: new ShortlistEditor(llm, config.sonnet, config.haiku),
     calls,
+    diagnostics: () => llm.validationDiagnostics(),
   };
 }
 void test('editor selects supplied IDs, records model and reuses cache across runs', async () => {
@@ -235,4 +236,32 @@ void test('absence support is limited to cited and actually supplied bounded inp
     await harness([changed]).editor.edit(topic, supported, 1, 'subject'),
     null,
   );
+});
+
+void test('editor exposes sanitized selection and absence failure categories through real validation', async () => {
+  for (const [output, category] of [
+    [
+      { ...valid, stories: [{ ...story, evidenceIds: ['unknown'] }] },
+      'invalid-selection',
+    ],
+    [
+      {
+        ...valid,
+        stories: [
+          { ...story, summary: 'The company has not confirmed the launch.' },
+        ],
+      },
+      'unsupported-absence',
+    ],
+  ] as const) {
+    const h = harness([output]);
+    assert.equal(
+      await h.editor.edit(topic, candidates, 1, 'diagnostics'),
+      null,
+    );
+    assert.deepEqual(
+      h.diagnostics().map((event) => event.category),
+      Array(4).fill(category),
+    );
+  }
 });

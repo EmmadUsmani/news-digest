@@ -4,6 +4,7 @@ import type { ModelPrice } from '../domain/llm.port';
 import { assertAbsenceSupport } from './absence-support';
 import type { BudgetedLlm } from './budgeted-llm';
 import type { TriageCandidate, TriageTopic } from './triage';
+import { LlmValidationFailure } from './validation-failure';
 
 const storySchema = z
   .object({
@@ -79,7 +80,7 @@ export class ShortlistEditor {
           ? parsed.brief.length !== 0
           : parsed.brief.length < 2)
       )
-        throw new Error('Invalid editorial selection or brief');
+        throw new LlmValidationFailure('invalid-selection');
       const evidenceFor = (evidenceIds: string[]) =>
         candidates
           .filter((c) => evidenceIds.includes(c.id))
