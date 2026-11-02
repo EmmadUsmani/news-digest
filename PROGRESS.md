@@ -108,18 +108,7 @@ Iteration 221: [archive](docs/progress-archive/2026-11-02-iteration-221.md).
 
 Earlier iteration 229: [archive](docs/progress-archive/2026-11-02-iteration-229.md).
 
-## 2026-11-02: iteration 232 — topic write isolation and rollback
-
-- Started clean on main; services, health and source collection healthy. No leftover work.
-- Priority items 13/7/9 await Nov 3 scheduled evidence; advanced isolated STEERING 2a coverage.
-- Pinned foreign/missing-topic rejection across writes without catalog or cross-profile changes.
-- Invalid JSON create/update preserves settings/order; later writes recover, round-trip Unicode and preserve/clear social lists.
-- Fixed fixture cleanup to delete its child topic before the parent profile after the first integration run caught the foreign key.
-- No X, Reddit or inference requests. AI golden and other repository behavior gaps remain open.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (120 unit, 131 integration), `pnpm build` and `git diff --check` passed.
-- Updated TASKS/database notes; archived iteration 217 to bound PROGRESS.
-- Deployment: API/worker restarted healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues; retained edition: four topics, 20 stories, 10 posts.
-- Next: observe Nov 3 14:30 UTC X discovery and 15:00 edition cost/duration; fallback timing is not AI latency evidence.
+Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
 
 ## 2026-11-02: iteration 233 — verified-post refresh characterization
 
@@ -326,3 +315,14 @@ Earlier iteration 229: [archive](docs/progress-archive/2026-11-02-iteration-229.
 - Updated TASKS/database notes; archived iteration 231 to keep PROGRESS bounded. No provider or Reddit requests.
 - Restarted API/worker healthy; health DB/Redis true, SPA 200, four-topic latest edition, 32 error-free sources and four available queues.
 - Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 250 — publisher admission time boundaries
+
+- Started clean on main; API/worker, health and 32 sources healthy; no leftover work.
+- Priority 15/13/7/9 evidence awaits Nov 3; advanced isolated STEERING 2a.
+- Pinned inclusive publication window, future exclusion and success/error retry cutoffs to one millisecond in a non-UTC transaction.
+- Pinned exact-day host recovery independently of the failed article's stricter retry cutoff.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 148 integration), `pnpm build`, `git diff --check` passed.
+- Updated TASKS/database notes; archived iteration 232 to keep PROGRESS bounded. No provider or Reddit requests.
+- Restarted API/worker healthy; DB/Redis health true, SPA 200, 32 error-free sources, four available queues and four-topic latest edition.
+- Next: observe Nov 3 all-topic X cost/yield and scheduled AI cost/duration before acknowledging 15/13/7.

@@ -295,3 +295,13 @@ unchanged and persists no scheduled snapshot. Concurrent retries through separat
 repository pools then acquire the released session lock and return one identical,
 retrievable snapshot with exactly one scheduled row. Editorial services are
 disabled; all data lives in disposable PostgreSQL and no provider requests occur.
+
+## Publisher admission time boundaries (iteration 250)
+
+`article-discovery.test.ts` pins the inclusive three-day publication window and
+future exclusion at one millisecond, seven-day success and one-day error retry
+boundaries, and future-check suppression. A failed article at exactly one day
+still waits for retry while its host becomes available to sibling articles;
+one millisecond newer suppresses the whole host. Assertions use a frozen
+transaction clock in a non-UTC session and roll back disposable PostgreSQL
+fixtures. No publisher, X, Reddit or inference requests occur.

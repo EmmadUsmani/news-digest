@@ -551,3 +551,119 @@ void test('publisher candidate limit preserves publisher diversity, topic positi
     await db.end();
   }
 });
+
+void test('publisher admission pins millisecond publication and cooldown boundaries in a non-UTC session', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const repository = new PostgresArticleDiscoveryRepository();
+  const pool = repository.db;
+  const client = await pool.connect();
+  Object.defineProperty(repository, 'db', { value: client });
+  const topic = randomUUID();
+  const source = `boundary-${topic}`;
+  const host = `${topic}.example.org`;
+  const article: DiscoveryArticle = {
+    id: randomUUID(),
+    url: `https://${host}/story`,
+    host,
+  };
+  try {
+    await client.query('BEGIN');
+    await client.query("SET LOCAL TIME ZONE 'Pacific/Auckland'");
+    await client.query('UPDATE topics SET enabled=false');
+    await client.query(
+      `INSERT INTO topics(id,profile_id,name,description,include_guidance,position)
+      SELECT $1,id,'Boundary fixture','','',100 FROM profiles LIMIT 1`,
+      [topic],
+    );
+    await client.query(
+      `INSERT INTO content_sources(id,topic_id,name,kind,url,article_discovery_host)
+      VALUES($1,$2,'Boundary fixture','feed',$3,$4)`,
+      [source, topic, `https://${host}/feed`, host],
+    );
+    await client.query(
+      'INSERT INTO topic_source_connections(topic_id,source_id) VALUES($1,$2)',
+      [topic, source],
+    );
+    await client.query(
+      `INSERT INTO content_items(id,canonical_url,title,excerpt,published_at)
+      VALUES($1,$2,'Boundary fixture','',now())`,
+      [article.id, article.url],
+    );
+    await client.query(
+      'INSERT INTO content_observations(item_id,source_id) VALUES($1,$2)',
+      [article.id, source],
+    );
+    for (const [offset, eligible] of [
+      ['-3 days', true],
+      ['-3 days -1 millisecond', false],
+      ['0 seconds', true],
+      ['1 millisecond', false],
+    ] as const) {
+      await client.query(
+        'UPDATE content_items SET published_at=now()+$2::interval WHERE id=$1',
+        [article.id, offset],
+      );
+      assert.deepEqual(
+        await repository.candidates(),
+        eligible ? [article] : [],
+        offset,
+      );
+    }
+    await client.query(
+      "UPDATE content_items SET published_at=now()-interval '1 hour' WHERE id=$1",
+      [article.id],
+    );
+    await client.query(
+      'INSERT INTO article_x_discovery_checks(item_id,link_count) VALUES($1,0)',
+      [article.id],
+    );
+    for (const [error, age, eligible] of [
+      [null, '7 days', false],
+      [null, '7 days 1 millisecond', true],
+      ['Unavailable', '1 day', false],
+      ['Unavailable', '1 day 1 millisecond', true],
+      ['Unavailable', '23 hours 59 minutes 59.999 seconds', false],
+      [null, '-1 millisecond', false],
+    ] as const) {
+      await client.query(
+        'UPDATE article_x_discovery_checks SET last_error=$2,checked_at=now()-$3::interval WHERE item_id=$1',
+        [article.id, error, age],
+      );
+      assert.deepEqual(
+        await repository.candidates(),
+        eligible ? [article] : [],
+        `${error}: ${age}`,
+      );
+    }
+    // An exact-day host failure no longer blocks sibling articles, even though
+    // the failed article itself requires strictly more than a day before retry.
+    await client.query(
+      "UPDATE article_x_discovery_checks SET last_error='Unavailable',checked_at=now()-interval '1 day' WHERE item_id=$1",
+      [article.id],
+    );
+    const sibling = {
+      ...article,
+      id: randomUUID(),
+      url: `https://${host}/sibling`,
+    };
+    await client.query(
+      `INSERT INTO content_items(id,canonical_url,title,excerpt,published_at)
+      VALUES($1,$2,'Sibling fixture','',now())`,
+      [sibling.id, sibling.url],
+    );
+    await client.query(
+      'INSERT INTO content_observations(item_id,source_id) VALUES($1,$2)',
+      [sibling.id, source],
+    );
+    assert.deepEqual(await repository.candidates(), [sibling]);
+    await client.query(
+      "UPDATE article_x_discovery_checks SET checked_at=checked_at+interval '1 millisecond' WHERE item_id=$1",
+      [article.id],
+    );
+    assert.deepEqual(await repository.candidates(), []);
+  } finally {
+    await client.query('ROLLBACK');
+    client.release();
+    await pool.end();
+  }
+});
