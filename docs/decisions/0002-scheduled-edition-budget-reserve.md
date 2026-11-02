@@ -223,3 +223,14 @@ Each enabled ledger reads the trusted async context per admission; it never
 captures a worker identity at construction. Verification ledgers retain the
 shared daily verification cap and cannot use a scheduled claim. Tests exercise
 this production factory with disposable Postgres and no provider requests.
+
+## Lifecycle/admission ordering verification (iteration 206)
+
+Disposable Postgres coverage now holds the real shared advisory lock and observes
+queued lock acquisition before starting competing operations. A committed claim
+permits its matching admission; a committed retry removes privileges. An ordinary
+admission queued before definitive failure is denied, and the next admission uses
+the released funds within the ordinary cap. A running prior-UTC-day identity
+cannot access today's protected funds. These checks make no provider requests.
+Verified no-occurrence-day release and manual/Status visibility remain unfinished;
+production enforcement stays off.

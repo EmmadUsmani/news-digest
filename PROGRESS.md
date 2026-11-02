@@ -72,15 +72,6 @@ Iteration 188: [archive](docs/progress-archive/2026-11-02-iteration-188.md).
 
 Iteration 189: [archive](docs/progress-archive/2026-11-02-iteration-189.md).
 
-## 2026-11-02: iteration 190 — operations source telemetry characterization
-
-- Started clean on main; no leftover work. API/worker/health healthy, 32 sources without current errors; two historical ingestion failures unchanged.
-- Added disposable-Postgres Status coverage for source name ordering, empty sources, shared-topic observation counts, current enabled connections and disconnects without losing stored telemetry.
-- Pinned independent last-item/stored-item counts, persisted fetch errors and timezone-normalized attempt/success timestamps. No paid inference, live mutations or UI changes.
-- `pnpm test:integration` passed 93/93; production `pnpm build` passed. Initial full check found archive formatting; corrected with `pnpm format` before rerunning.
-- Updated README/TASKS and archived iterations 175–176 to keep PROGRESS below 25 KB. Remaining repository characterization, nonempty SQL golden and database coverage precede ORM work; Reddit access/live AI timing remain blocked.
-- Final `pnpm check` passed 99 unit/93 integration tests; `pnpm lint:fix` and `git diff --check` passed. Restarted API/worker; health DB/Redis true, SPA 200, all queues available, 32 sources without errors and latest edition four topics/10 posts. Browser verification unnecessary for test/docs changes.
-
 ## 2026-11-02: iteration 191 — X discovery ledger boundary and rollback characterization
 
 - Started clean on main; no leftover work. API/worker/health healthy, 32 sources without current errors; two historical ingestion failures unchanged.
@@ -246,3 +237,15 @@ Iteration 189: [archive](docs/progress-archive/2026-11-02-iteration-189.md).
 - Restarted API/worker active; `/healthz` DB/Redis true, SPA 200, four queues, 32 sources without errors; latest real edition four topics/10 posts.
 - Updated README, reserve decision and TASKS; archived iteration 189. No UI changes, paid inference or Reddit requests.
 - Next: no-occurrence/midnight and lifecycle admission races, then manual/Status visibility and enforcement enablement before Nov 3 15:00 UTC.
+
+## 2026-11-02: iteration 206 — verify lifecycle/admission lock ordering
+
+- Started clean on main; API/worker and health healthy. No leftover work.
+- Added disposable-Postgres tests queueing operations behind the actual advisory lock; observed lock wait establishes ordering.
+- Claim-before-admission grants current scheduled access; retry-before-admission fences it; admission-before-failure stays denied until committed release.
+- Yesterday's running claim cannot use today's reserve; released funds still obey the daily cap.
+- Reserve enforcement remains OFF. No provider calls, Reddit requests or UI changes.
+- Compressed completed TASKS detail and archived iteration 190 to keep orientation bounded.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (113 unit/111 isolated integration), `pnpm build`, `git diff --check` passed.
+- Live reads: four queues, 32 sources without errors, latest edition four topics/10 posts. API/worker restarted healthy after push.
+- Next: verified no-occurrence-day release, manual/Status visibility, then enforcement enablement before Nov 3 15:00 UTC.
