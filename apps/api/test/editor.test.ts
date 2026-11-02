@@ -25,12 +25,12 @@ const story = {
   id: 'one',
   evidenceIds: ['one'],
   headline: 'Company announces model',
-  summary: 'The company announced a model. Details remain limited.',
+  summary: 'The company announced a model.',
   whyItMatters: 'Builders have a new option.',
   rationale: 'Relevant launch.',
 };
 const valid = {
-  brief: ['A company announced a model.', 'Details remain limited.'],
+  brief: ['A company announced a model.', 'A model launch.'],
   stories: [story],
 };
 function harness(outputs: unknown[] = [valid], refuse: string[] = []) {
@@ -165,6 +165,64 @@ void test('editor retains supporting IDs outside selected stories and requires t
       1,
       'missing-lead',
     ),
+    null,
+  );
+});
+
+void test('absence claims fail closed in every output field and repair can remove them', async () => {
+  for (const field of [
+    'headline',
+    'summary',
+    'whyItMatters',
+    'rationale',
+  ] as const) {
+    const invalid = {
+      ...valid,
+      stories: [{ ...story, [field]: 'Apple has not confirmed the feature.' }],
+    };
+    const h = harness([invalid]);
+    assert.equal(await h.editor.edit(topic, candidates, 1, 'absence'), null);
+    assert.equal(h.calls.length, 4);
+    const repaired = harness([invalid, valid]);
+    assert.ok(await repaired.editor.edit(topic, candidates, 1, 'repair'));
+    assert.equal(repaired.calls.length, 2);
+  }
+  const h = harness([
+    { ...valid, brief: ['A launch.', 'No price is available.'] },
+  ]);
+  assert.equal(await h.editor.edit(topic, candidates, 1, 'brief'), null);
+});
+
+void test('absence support is limited to cited and actually supplied bounded input', async () => {
+  const sentence = 'The company has not announced a price.';
+  const output = { ...valid, stories: [{ ...story, summary: sentence }] };
+  const supported = [{ ...candidates[0], excerpt: sentence }];
+  assert.ok(
+    await harness([output]).editor.edit(topic, supported, 1, 'supported'),
+  );
+  const other = { ...candidates[0], id: 'two', excerpt: sentence };
+  assert.equal(
+    await harness([output]).editor.edit(
+      topic,
+      [...candidates, other],
+      1,
+      'uncited',
+    ),
+    null,
+  );
+  const clipped = [{ ...candidates[0], excerpt: 'x'.repeat(601) + sentence }];
+  assert.equal(
+    await harness([output]).editor.edit(topic, clipped, 1, 'clipped'),
+    null,
+  );
+  const changed = {
+    ...valid,
+    stories: [
+      { ...story, summary: 'Another company has not announced a price.' },
+    ],
+  };
+  assert.equal(
+    await harness([changed]).editor.edit(topic, supported, 1, 'subject'),
     null,
   );
 });

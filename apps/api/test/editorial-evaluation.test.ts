@@ -137,3 +137,26 @@ void test('v3 recorded Tech replay preserves reported Apple findings without ass
   // A frozen example documents one observed improvement, not entailment of
   // arbitrary future outputs or proof that the prompt enforces factuality.
 });
+
+void test('absence guard rejects remaining recorded v3 Apple and benchmark caveats', async () => {
+  const { assertAbsenceSupport } =
+    await import('../src/modules/curation/application/absence-support');
+  const report = evaluateEditorialWindow('tech', 'v3');
+  for (const [title, field] of [
+    ['HomeView', 'whyItMatters'],
+    ['HomeView', 'rationale'],
+    ['Memdoor', 'summary'],
+    ['Memdoor', 'rationale'],
+  ] as const) {
+    const input = report.evidenceInputs.find((e) =>
+      e.candidates.some((c) => c.title.includes(title)),
+    )!;
+    const story = report.selected.find((s) => s.id === input.storyId)!;
+    assert.throws(() =>
+      assertAbsenceSupport(
+        story[field],
+        input.candidates.flatMap((c) => [c.title, c.excerpt ?? '']),
+      ),
+    );
+  }
+});

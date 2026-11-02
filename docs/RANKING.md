@@ -414,3 +414,12 @@ Explicit replay command (load secrets without printing them):
 `pnpm exec tsx apps/api/scripts/record-editorial-evaluation.ts tech v3`.
 It refuses to overwrite the existing artifact before inference. Historical
 artifacts remain unchanged; no fixture items or editions were published.
+
+Iteration 64 adds an offline rejection regression for the four remaining v3
+Tech caveats (Apple significance/rationale and benchmark summary/rationale).
+Editor v4 requires lexical absence sentences to occur verbatim in cited bounded
+input; this is conservative validation, not factual entailment. Its explicit
+Tech replay returned no validated result after two Haiku calls ($0.003047), so
+no v4 artifact, recall measurement or edition was produced. Historical replay
+results remain unchanged. Prioritize diagnosing false rejections and useful
+repair feedback before claiming quality improvement; see docs/LLM.md for scope.

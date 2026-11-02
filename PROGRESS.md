@@ -199,3 +199,16 @@ Earlier iterations 23–37: [archive](docs/progress-archive/2026-11-01-iteration
 - Rebuilt/restarted API/worker; `/healthz` healthy. `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed and mobile digest visually inspected.
 - One configured Haiku fallback call cost $0.001691; day/month $0.395793, zero reservations/provider errors, $0.482758 daily/$14 monthly caps. Models/provider/billing unchanged.
 - Updated TASKS/docs/LLM/docs/RANKING; no owner blockers. Next: stronger factual-support validation, broader reviewed evaluation, scheduled Message Batches and cross-process coordination.
+
+## 2026-11-02: iteration 64 — validate lexical absence claims
+
+- Started clean on main; no leftover work. API/worker/health, seventeen sources and digest runs healthy; retained ingestion failure historical with later successes. Schedule unchanged.
+- Editor v4 rejects lexical absence sentences unless verbatim in cited bounded inputs; includes rationale and briefs. Existing reserved repair/model fallback applies; only editor cache identity changes.
+- Regressions reject recorded v3 Apple/benchmark caveats, uncited/clipped/changed-subject support; supported quotes and repaired outputs pass. Conservative heuristic may reject good paraphrases; broader factual entailment remains open.
+- Explicit Tech v4 evaluation returned no validated result after two Haiku calls; no artifact/edition published and no improved recall claimed. Sonnet reservation allocation unavailable. Next: diagnose false rejection/repair feedback before broader factual validation.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and 82 isolated tests pass; `pnpm build` passes (existing upstream Zod warnings). Initial check hit a formatting edit during verification; final full rerun green.
+- `pnpm evaluate:editorial` passes historical replays; focused editor/evaluation tests 14/14 pass without external services.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passes two live queued passes: 720 real URLs, four topics, seventeen healthy sources; no source configuration changes.
+- Live evaluation cost $0.003047; day/month $0.398840, zero reservations/provider errors. Shared daily cap $0.482758/$14 monthly; models/provider/billing unchanged.
+- Updated TASKS/docs/LLM/docs/RANKING; no owner blockers. M3 remains open: factual support, broader reviewed evaluation, scheduled batches and cross-process coordination.
+- Rebuilt/restarted API/worker; `/healthz` healthy. `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed and mobile digest inspected. First UI attempt raced restart; rerun passed after health recovered.

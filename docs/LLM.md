@@ -289,3 +289,26 @@ excerpts. Instruction hashing invalidates old editor caches only; triage caches
 and prior editions remain intact. This is a prompt mitigation, not factual
 validation. The recorded Tech replay and remaining unsupported wording are
 reported in `docs/RANKING.md`.
+
+### Iteration 64: conservative absence validation
+
+Editor v4 checks every story text field (including selection rationale) against
+only its cited, bounded title/excerpt inputs; brief bullets use the selected
+stories' cited inputs. Sentences containing lexical absence markers such as
+`not`, `no`, `without`, `unconfirmed`, `unverified` or `rather than an announcement`
+must occur verbatim in an input (case/whitespace normalized), or validation
+fails through the existing reserved repair and capped model fallback. The prompt
+explains this restriction; the changed instruction hash invalidates editor caches
+only. Historical editions and evaluation artifacts remain unchanged.
+
+This is a deliberately conservative lexical guard, not entailment or independent
+verification: it can reject supported paraphrases and harmless uses of these
+words, miss other unsupported claims, and accept inaccurate source statements.
+Exact matching preserves subjects/qualifiers better than matching a negative
+keyword alone. It does not prove the completeness of model-reported evidence IDs.
+The recorded v3 Apple significance/rationale and benchmark verification caveats
+are offline rejection regressions. An explicit Tech v4 live evaluation exhausted
+two Haiku attempts without a validated result ($0.003047); no artifact or edition
+was published. Sonnet was unavailable under its reservation allocation. This
+shows safe rejection, not improved live recall; evaluate false rejections and
+more general factual support next. Provider, model IDs and caps are unchanged.

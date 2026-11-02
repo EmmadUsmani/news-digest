@@ -24,7 +24,10 @@ async function main() {
     'Expected nba, world or tech',
   );
   const revision = process.argv[3] ?? '';
-  assert.ok(['', 'v3'].includes(revision), 'Expected optional v3 revision');
+  assert.ok(
+    ['', 'v3', 'v4'].includes(revision),
+    'Expected optional v3/v4 revision',
+  );
   const suffix = revision ? `-${revision}` : '';
   const filename = `ranking-${key}-2026-11-01.json`;
   const output = join(

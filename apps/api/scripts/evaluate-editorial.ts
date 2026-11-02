@@ -55,7 +55,7 @@ const snapshotSchema = z.object({
 
 export function evaluateEditorialWindow(
   key: 'nba' | 'world' | 'tech' = 'nba',
-  revision: '' | 'v3' = '',
+  revision: '' | 'v3' | 'v4' = '',
 ) {
   const suffix = revision ? `-${revision}` : '';
   const snapshot = snapshotSchema.parse(
