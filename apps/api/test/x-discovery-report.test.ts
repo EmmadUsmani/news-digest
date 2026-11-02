@@ -50,6 +50,9 @@ void test('X daily evidence preserves zero-yield calls, counts cost once and use
         newCandidates: 0,
         newVerifiedNow: 0,
         unknownBaseline: 3,
+        outsideListVerifiedNow: 2,
+        outsideListNewVerifiedNow: 0,
+        unknownAuthorVerifiedNow: 0,
       },
     ]);
     assert.deepEqual(report.calls[1].topics, []);
@@ -345,6 +348,66 @@ void test('X verification admission caps numeric ordering and respects exact coo
     assert.deepEqual(await repository.verificationCandidates(call), []);
     await client.query('UPDATE topics SET post_budget=5 WHERE id=$1', [topic]);
     assert.deepEqual(await repository.verificationCandidates(call), eligible);
+  } finally {
+    await client.query('ROLLBACK');
+    client.release();
+    await db.end();
+  }
+});
+
+void test('X outside-list yield uses verified authors and every current list without multiplying citations', async () => {
+  const db = database();
+  const client = await db.connect();
+  const call = crypto.randomUUID();
+  const topic = '00000000-0000-4000-8000-000000000011';
+  try {
+    await client.query('BEGIN');
+    await client.query(
+      `UPDATE topics SET accounts='["@KNOWN","known"]'::jsonb,enabled=false`,
+    );
+    await client.query(
+      `INSERT INTO x_discovery_calls(id,model,run_id,status,reserved_micros,cost_micros,created_at)
+      VALUES($1,'fixture','outside-list','succeeded',1,0,'2037-01-02T12:00:00Z')`,
+      [call],
+    );
+    const authors = [
+      'https://twitter.com/KnOwN/',
+      'https://x.com/outsider',
+      'https://example.com/unknown',
+      'https://x.com/outsider',
+    ];
+    for (const [i, author] of authors.entries()) {
+      const id = String(887800 + i);
+      await client.query(
+        `INSERT INTO social_posts(platform,external_id,canonical_url,author,author_url,embed_html)
+        VALUES('x',$1,'https://x.com/i/status/' || $1,'Display name is not a handle',$2,'fixture')`,
+        [id, author],
+      );
+      await client.query(
+        `INSERT INTO x_search_citations(call_id,topic_id,external_id,canonical_url,new_candidate)
+        VALUES($1,$2,$3,'https://x.com/i/status/' || $3,$4)`,
+        [call, topic, id, i !== 3],
+      );
+    }
+    // A citation URL alone cannot establish an officially verified author.
+    await client.query(
+      `INSERT INTO x_search_citations(call_id,topic_id,external_id,canonical_url,new_candidate)
+      VALUES($1,$2,'887899','https://x.com/outsider/status/887899',true)`,
+      [call, topic],
+    );
+    const evidence = async () =>
+      (await readXDiscoveryReport(client, '2037-01-02')).calls[0].topics[0];
+    const before = await evidence();
+    assert.equal(before.citations, 5);
+    assert.equal(before.verifiedNow, 4);
+    assert.equal(before.outsideListVerifiedNow, 2);
+    assert.equal(before.outsideListNewVerifiedNow, 1);
+    assert.equal(before.unknownAuthorVerifiedNow, 1);
+    await client.query(`UPDATE topics SET accounts='["outsider"]'::jsonb`);
+    const after = await evidence();
+    assert.equal(after.outsideListVerifiedNow, 1);
+    assert.equal(after.outsideListNewVerifiedNow, 1);
+    assert.equal(after.unknownAuthorVerifiedNow, 1);
   } finally {
     await client.query('ROLLBACK');
     client.release();

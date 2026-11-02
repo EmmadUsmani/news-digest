@@ -116,19 +116,6 @@ Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
 
 Iteration 252: [archive](docs/progress-archive/2026-11-02-iteration-252.md).
 
-## 2026-11-02: iteration 257 — custom-feed registration rollback
-
-- Started clean on main; services, health and 32 sources healthy; no leftover work.
-- Priority 15/13/7/9 awaits Nov 3 evidence; advanced isolated STEERING 2a.
-- Rejected feed connections now pin rollback of the preceding catalog insert and unchanged topic settings.
-- Removing rejection permits retry; repeated registration retains one source and connection.
-- Fixtures use disposable PostgreSQL only; no feed, provider or Reddit requests.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 153 integration), `pnpm build`, `git diff --check` passed.
-- Restarted API/worker; `/healthz` healthy, SPA 200, 32 error-free sources and four available queues.
-- Live rolling article coverage: Tech/AI 306, NBA 108, Gaming 276, World 212; latest source success 21:46 UTC.
-- Updated TASKS/database notes; archived iteration 238 to keep PROGRESS bounded.
-- Next: observe Nov 3 scheduled X cost/yield and AI edition cost/duration before acknowledging 15/13/7.
-
 ## 2026-11-02: iteration 259 — recover topic deletion rollback coverage
 
 - Recovered and finished iteration 258’s uncommitted test, database notes and iteration 239 archive; discarded nothing.
@@ -360,3 +347,16 @@ Iteration 252: [archive](docs/progress-archive/2026-11-02-iteration-252.md).
 - Applied `pnpm migrate` (046); API/worker restarted active, health OK, SPA 200, latest edition four topics; 32 sources returning data without errors.
 - Read-only live daily report includes searchType; no paid provider or Reddit requests.
 - Next: outside-list account reporting; Nov 3 scheduled searches/edition evidence required before open-search switch.
+
+## 2026-11-02: iteration 277 — outside-list X yield
+
+- Started clean on main; no leftover work; API/worker and health healthy, latest edition four topics.
+- Daily X cost/yield report counts verified and new verified posts outside every current curated account list per topic/call/search type.
+- Official author URLs determine membership; case/@ normalization, disabled topics and duplicate handles covered; unknown authors counted separately.
+- Explicitly current-list post counts, not distinct accounts or historical membership; unverified citations cannot qualify.
+- Added isolated DB coverage for list edits and attribution; updated SOURCES/TASKS; archived iteration 257.
+- No paid provider or Reddit requests; scheduled account-list path unchanged pending Nov 3 evidence.
+- Verified: `pnpm format`, `pnpm lint:fix`, `pnpm check` (130 unit/166 integration), `pnpm build`; final typecheck/lint/format rechecked after JSON-column fix; `git diff --check`.
+- API/worker restarted active; health OK, SPA 200, latest edition four topics, 32 sources returning data without errors.
+- Read-only live report: one Nov 2 call, 23,382 cost micros, zero outside-list verified/new posts and unknown authors; no discovery triggered.
+- Next: observe Nov 3 scheduled searches/edition, acknowledge item 15 with cost/yield, then switch to open search; real-edition/screenshots remain.

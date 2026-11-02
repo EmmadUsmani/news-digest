@@ -12,6 +12,16 @@ topic and search type even for failures or empty results. Historical search type
 stay null; no type is inferred from run IDs. Scheduled account-list discovery
 remains enabled pending the first scheduled-run acknowledgement before switching.
 
+Iteration 277: the daily report adds `outsideListVerifiedNow` and
+`outsideListNewVerifiedNow` per topic/call, counting posts whose official author
+URL is absent from **all current** curated topic lists, including disabled topics.
+Comparison ignores handle case and leading `@`; duplicate list entries do not
+multiply yield. `unknownAuthorVerifiedNow` keeps unrecognized author URLs out of
+outside-list counts. Citation-only authors never qualify. These are post counts,
+not unique accounts or historical membership snapshots; edits to lists and current
+verification state can change them. Existing search-type and requested-topic
+snapshots allow the counts to be compared per topic and search type.
+
 Checked 2026-11-01, iteration 38. Counts below are actual stored observations
 from the live worker and `/api/content/sources`, not fixture counts. Seventeen sources
 supplied 669 distinct URLs across all four topics. Last successful bounded
