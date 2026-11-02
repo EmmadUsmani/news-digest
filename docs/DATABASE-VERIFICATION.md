@@ -286,3 +286,12 @@ submitted configuration; a writer may read a later committed replacement.
 A rejected invalid-budget update racing a valid replacement leaves the valid
 configuration intact, and a subsequent update succeeds. Original settings are
 restored in disposable PostgreSQL only; live schedules and providers are untouched.
+
+## Scheduled publication failure recovery (iteration 249)
+
+`scheduled-digests.test.ts` injects a progress-reporting failure immediately
+before publication. The repository propagates the original error, leaves history
+unchanged and persists no scheduled snapshot. Concurrent retries through separate
+repository pools then acquire the released session lock and return one identical,
+retrievable snapshot with exactly one scheduled row. Editorial services are
+disabled; all data lives in disposable PostgreSQL and no provider requests occur.

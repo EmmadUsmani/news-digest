@@ -108,18 +108,6 @@ Iteration 221: [archive](docs/progress-archive/2026-11-02-iteration-221.md).
 
 Earlier iteration 229: [archive](docs/progress-archive/2026-11-02-iteration-229.md).
 
-## 2026-11-02: iteration 231 — X-search transaction characterization
-
-- Started clean on main; services, health, 32 sources and four queues healthy. No leftover work.
-- Priority items 13/7/9 await Nov 3 scheduled evidence; advanced isolated STEERING 2a coverage.
-- Pinned partial-save rollback, unchanged prior yield evidence and committed-only verification candidates.
-- Retry on another call owns first-search attribution; duplicate links and empty saves remain idempotent.
-- No X, Reddit or inference requests. AI golden and remaining repository behavior gaps stay open.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (120 unit, 129 integration), `pnpm build` and `git diff --check` passed.
-- Updated TASKS/database notes; archived iteration 216 to bound PROGRESS.
-- Deployment: API/worker restarted healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues; retained edition has four topics.
-- Next: observe Nov 3 14:30 UTC X discovery and 15:00 edition cost/duration; fallback timing is not AI latency evidence.
-
 ## 2026-11-02: iteration 232 — topic write isolation and rollback
 
 - Started clean on main; services, health and source collection healthy. No leftover work.
@@ -326,3 +314,15 @@ Earlier iteration 229: [archive](docs/progress-archive/2026-11-02-iteration-229.
 - Updated TASKS/database notes. Disposable fixtures only; no live schedule changes, provider or Reddit requests.
 - Live checks: health DB/Redis true, four-topic latest edition, 32 error-free sources and four available queues.
 - Restarted API/worker healthy; SPA 200. Next: observe Nov 3 X cost/yield and AI edition cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 249 — scheduled publication failure recovery
+
+- Started clean on main; API/worker, health and all 32 sources healthy; no leftover work.
+- Priority 15/13/7/9 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a.
+- Added pre-publication failure coverage: original error propagates, history stays unchanged and no scheduled row persists.
+- Independent-pool concurrent retries release/reacquire the session lock and publish exactly one immutable, retrievable snapshot.
+- Initial checks caught documentation formatting and a cleanup delete blocked by edition immutability; corrected both.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 147 integration), `pnpm build`, `git diff --check` passed.
+- Updated TASKS/database notes; archived iteration 231 to keep PROGRESS bounded. No provider or Reddit requests.
+- Restarted API/worker healthy; health DB/Redis true, SPA 200, four-topic latest edition, 32 error-free sources and four available queues.
+- Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
