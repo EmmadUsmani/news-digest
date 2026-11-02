@@ -1,0 +1,418 @@
+{
+  "provenance": "Real configured Anthropic inference over recorded publisher-feed excerpts. Offline evaluation only; not a published edition. Labels were not supplied to either model.",
+  "recordedAt": "2026-11-02T00:57:07.731Z",
+  "runId": "recorded-world-8da1f07a-5099-4d53-9038-10444de42ad1",
+  "fixture": "ranking-world-2026-11-01.json",
+  "fixtureSha256": "14b186377a0a638605e146917b7c8b029d5d8107fc3c7d2f840867cfd934d697",
+  "topic": {
+    "id": "00000000-0000-4000-8000-000000000014",
+    "name": "World news & politics",
+    "description": "US and global news, politics and major public issues.",
+    "guidance": "Consequential developments with credible reporting.\nExclude: Unsourced rumors and clickbait\nRequired phrases: \nExcluded phrases: sponsored, promo code, horoscope, gift guide"
+  },
+  "triage": {
+    "scores": [
+      {
+        "id": "8b8b19dd-fcb5-4f0e-8c6e-16a47c95828f",
+        "relevance": 8,
+        "importance": 5,
+        "event": "UK agrees to structured dialogue on slavery reparations but keeps issue off Commonwealth summit agenda",
+        "rationale": "Politically significant Guardian report on UK diplomacy, but the claim that officials threatened Burnham's attendance rests on one unverified source's account."
+      },
+      {
+        "id": "20a24bed-c0ff-4801-bfd7-67aabbb6ea06",
+        "relevance": 9,
+        "importance": 7,
+        "event": "Russian strikes cut power to thousands in Ukraine; humanitarian ceasefire allows civilian evacuation from Oleshky",
+        "rationale": "Consequential war and humanitarian development in Ukraine, though the excerpt is brief and gives few details beyond the ceasefire and evacuation."
+      },
+      {
+        "id": "12990383-ac56-46d8-947c-f09fd5de52f4",
+        "relevance": 9,
+        "importance": 7,
+        "event": "UK Home Secretary Shabana Mahmood announces longer settlement waiting periods for legal migrants",
+        "rationale": "Major UK immigration policy change affecting many legal migrants, with reported concerns from ministers and MPs about care-sector staffing. Based on a preview of an announcement, not the announced rules themselves."
+      },
+      {
+        "id": "7ddbc32d-6295-4891-9b36-f1272b6f55a6",
+        "relevance": 8,
+        "importance": 8,
+        "event": "Spain train collision near Urda, Toledo province, killing at least 69 people",
+        "rationale": "A mass-casualty rail disaster with at least 69 reported deaths, a major international news event. The article's details on a Cambridge scientist among the victims are secondary to the crash itself."
+      },
+      {
+        "id": "363675a0-15b3-4a03-8b20-13c34b229ed5",
+        "relevance": 8,
+        "importance": 5,
+        "event": "Sen. Chris Murphy hospitalized after stroke",
+        "rationale": "A sitting US senator hospitalized after a reported stroke, sourced to his chief of staff and a hospital visit. Notable for US politics, but a personal health event with no reported policy consequence."
+      },
+      {
+        "id": "14ae4702-0b9c-4773-a246-8c3906e01c3e",
+        "relevance": 9,
+        "importance": 6,
+        "event": "Democrat Haley Stevens endorses Republican Mike Rogers in Michigan Senate race after losing primary to Abdul El-Sayed",
+        "rationale": "A notable rebuke of the Democratic nominee in a major midterm Senate race, reported by The Guardian with details of the feud and campaign staff departures."
+      },
+      {
+        "id": "4555bc0f-4562-403c-a432-23b32f063598",
+        "relevance": 9,
+        "importance": 6,
+        "event": "Violence and looting during protests in Frankfurt, Berlin, Cologne and Hamburg",
+        "rationale": "Public-order unrest across several major German cities is consequential civil news from BBC World. The excerpt gives no cause, date, or casualty figures, so the scale is not fully established."
+      },
+      {
+        "id": "5c9736a9-60a5-4834-b419-1e5682dfeaa1",
+        "relevance": 4,
+        "importance": 3,
+        "event": "National Grid buys land at Dorman Point, Teesside, for a large substation serving a planned datacentre",
+        "rationale": "Relates to UK AI infrastructure and energy investment, which is more of an industrial or business story than world politics. Regional scope and a land purchase give it modest importance; the Sky News original report is cited."
+      },
+      {
+        "id": "9ca38897-820e-4a3c-9ff3-14d17fcb7855",
+        "relevance": 9,
+        "importance": 7,
+        "event": "Judge dismisses Trump DoJ lawsuit seeking to block Alaska Senate race certification",
+        "rationale": "Major US politics: a federal court dismissed a Trump-backed suit over Senate election certification, a consequential election-integrity matter with credible Guardian reporting."
+      },
+      {
+        "id": "4d8192ae-493b-4741-8a3a-d3e43430e7d8",
+        "relevance": 2,
+        "importance": 3,
+        "event": "Death of Juan Atkins, Detroit techno pioneer",
+        "rationale": "Notable cultural obituary of a music figure, but outside world news and politics scope and not a major public issue."
+      },
+      {
+        "id": "0cb26249-faf9-4444-a9be-efa610a0deba",
+        "relevance": 8,
+        "importance": 5,
+        "event": "Haley Stevens endorses Republican opponent in Michigan Senate race",
+        "rationale": "Notable intra-party political development in a key Senate race, reported by one outlet based on a headline and short excerpt."
+      },
+      {
+        "id": "63236455-64e1-4ba6-a027-827f97420279",
+        "relevance": 9,
+        "importance": 7,
+        "event": "Record early voting ahead of US midterm elections",
+        "rationale": "Core US politics; high turnout in tight Senate-race states is a consequential signal for the midterms, though it is analyst interpretation of early voting data."
+      },
+      {
+        "id": "f32ffdd0-43c8-4144-ae2b-7bdceedf1043",
+        "relevance": 6,
+        "importance": 5,
+        "event": "Armed police patrols begin in Sydney after Bondi Beach attack",
+        "rationale": "Significant public-safety and security development in response to a deadly attack, but it is a regional story with limited global political consequence."
+      },
+      {
+        "id": "ebdaa2d1-a4d5-4053-bfdc-78646aedd60c",
+        "relevance": 9,
+        "importance": 9,
+        "event": "Indirect US-Iran talks in Doha over Strait of Hormuz reopening",
+        "rationale": "Major geopolitical negotiation affecting a critical shipping chokepoint and Iran's nuclear programme; reporting describes ongoing talks and officials' assessments, so outcomes remain unverified."
+      },
+      {
+        "id": "78c37b25-41fd-4bda-8e31-8119a5628d94",
+        "relevance": 7,
+        "importance": 4,
+        "event": "Analysis of Rachel Reeves' economic agenda under PM Andy Burnham",
+        "rationale": "Feature analysis of UK Brexit, devolution and investment positions rather than a discrete new government decision."
+      },
+      {
+        "id": "f4b24d62-72ac-48c0-b96b-7e5cecaf960b",
+        "relevance": 8,
+        "importance": 6,
+        "event": "Metropolitan police arrest 320-325 people at Palestine Action protest outside US embassy in London",
+        "rationale": "Significant public-order and civil-liberties story tied to the government's proscription of Palestine Action and a pending supreme court challenge. Arrest figures are reported by police."
+      },
+      {
+        "id": "2f46850c-2250-40e4-9b30-8fe2d3b373b0",
+        "relevance": 3,
+        "importance": 3,
+        "event": "Lindsay Clancy court appearance while awaiting decision on retrial in children's murder case",
+        "rationale": "Individual US criminal case with limited political or global policy significance. Covered as a routine court update, so it falls outside the topic's focus."
+      },
+      {
+        "id": "b2135263-8e91-4822-b62f-441c791de7d1",
+        "relevance": 9,
+        "importance": 7,
+        "event": "Ukraine resumes strikes on Russian oil refineries despite US pressure",
+        "rationale": "Consequential Russia-Ukraine and US diplomacy development with a Kremlin response, though the refinery strike reports rely partly on Russian state media."
+      },
+      {
+        "id": "9c0fd91f-c1a6-4254-b70d-c574e406d851",
+        "relevance": 9,
+        "importance": 6,
+        "event": "Israeli strikes in Gaza kill eight, including a child",
+        "rationale": "Ongoing conflict with reported civilian and police casualties, citing hospital and official sources. Consequential, though it is one of many recurring strike reports and the excerpt gives limited detail."
+      },
+      {
+        "id": "62e4f02d-3507-43d0-96f0-4478694741d2",
+        "relevance": 5,
+        "importance": 4,
+        "event": "Spanish train crash kills Cambridge scientist Marta Shahbazi",
+        "rationale": "A fatal train crash is a public-interest story, but this excerpt centers on a tribute to one victim and gives little detail on the crash's scale or cause."
+      },
+      {
+        "id": "c300ecd3-4ef5-448f-8fc2-aed8739f477b",
+        "relevance": 8,
+        "importance": 6,
+        "event": "UK plan to offer EU students home-rate university fees conditional on joining Made in Europe scheme",
+        "rationale": "Government policy with cross-border and fiscal stakes (up to £450m a year) and a link to UK-EU relations. The report is an exclusive citing unnamed officials, so the plan is not independently verified here."
+      },
+      {
+        "id": "515cc3ad-cc24-4b4b-942d-9d0e767f5be6",
+        "relevance": 9,
+        "importance": 7,
+        "event": "Youth-led protests and police clashes across France, Germany, Switzerland, Portugal and Albania",
+        "rationale": "Multi-country political unrest with violence, a police attempted-murder investigation, and a German interior minister calling for harsher penalties. Consequential public-order news with specific details."
+      },
+      {
+        "id": "a82bc71b-ff2d-4f3b-9842-9b01b282cc0c",
+        "relevance": 2,
+        "importance": 3,
+        "event": "Five teenagers stabbed at Halloween party in Chandler's Ford, Hampshire",
+        "rationale": "Local crime incident with no political or wider public-policy dimension. Serious for those involved but outside the world news and politics scope."
+      },
+      {
+        "id": "6cdda6f3-6358-4913-9570-3f704aa12100",
+        "relevance": 9,
+        "importance": 8,
+        "event": "Opposition-led protests in Delhi over removal of 130 million names from voter roll",
+        "rationale": "Major political story: a large opposition-led protest against the Modi government over a contested voter-roll revision. Reported by The Guardian; the 130 million figure and protest size are as stated in the article and not independently verified here."
+      },
+      {
+        "id": "cee31a25-1b55-497f-8b5a-acad84229fef",
+        "relevance": 9,
+        "importance": 7,
+        "event": "Tusk defends contested overhaul of Poland's constitutional court amid protests",
+        "rationale": "Consequential constitutional and political dispute: the prime minister vows to proceed despite protests and riot police deployment. Reported by The Guardian; claims are as reported and not independently verified."
+      },
+      {
+        "id": "b4d01d21-8f6b-4247-914c-94a4774c9dc3",
+        "relevance": 6,
+        "importance": 5,
+        "event": "Cotality data shows Australian home values falling for a seventh straight month in October",
+        "rationale": "Reports a sustained national housing downturn tied to rate rises, a consequential economic issue with data-based sourcing, though the topic is more economic than political."
+      },
+      {
+        "id": "39de9b78-f436-4f50-9a83-7bc6ecc10979",
+        "relevance": 6,
+        "importance": 4,
+        "event": "Former NSW Liberal Mark Jones helping vet One Nation candidates",
+        "rationale": "Australian party politics with a notable defection-style angle, based on anonymous Liberal sources cited in the excerpt. Consequential mainly for NSW political competition, not a major national development."
+      },
+      {
+        "id": "39b80465-de34-4a49-b778-4d9ed1380071",
+        "relevance": 5,
+        "importance": 4,
+        "event": "NT government plan to remove legal requirement to allocate water to the environment",
+        "rationale": "Proposed change to territory water law affecting environmental allocations, a public policy issue. The excerpt relies on a green group's characterization ('blatant and shameless'), and the scope is regional rather than national."
+      },
+      {
+        "id": "ef0260cd-49f3-4b79-93ee-6c10d6ffa758",
+        "relevance": 6,
+        "importance": 3,
+        "event": "Sally Scales says AI is taking and degrading First Nations art",
+        "rationale": "Covers a public cultural and ethical issue, but rests mainly on one artist's statements and is a limited-scope story."
+      },
+      {
+        "id": "7ed05352-a3d1-491e-96e5-2b0402cd5046",
+        "relevance": 4,
+        "importance": 3,
+        "event": "Cruise ship suspends operations over fuel costs, passengers stranded in Cambodia",
+        "rationale": "Mainly a human-interest travel story. Fuel-price pressure gives it a faint global economic angle, but the excerpt describes one ship's disruption and a personal account."
+      },
+      {
+        "id": "012504c8-f5ab-474e-a6b8-cdc722ee949d",
+        "relevance": 5,
+        "importance": 6,
+        "event": "Binance $6.3bn hack attributed to North Korea by FBI",
+        "rationale": "A large crypto theft with a state-actor attribution from the FBI, which has geopolitical and security weight. It is mainly a financial-sector story, and the excerpt is brief and does not give the attribution's evidence."
+      },
+      {
+        "id": "8ac7fa83-87bf-44c2-9e20-ad21f1b5610b",
+        "relevance": 8,
+        "importance": 5,
+        "event": "US-China trade truce and risk of renewed trade conflict",
+        "rationale": "Central to global politics and economics. It is an opinion/analysis column rather than a new development, so importance is moderate. It discusses tariff threats and a fragile truce without reporting a specific new action."
+      },
+      {
+        "id": "1028efb0-d04c-4eed-8969-0bcb3d55fb9e",
+        "relevance": 9,
+        "importance": 7,
+        "event": "German cost-of-living protests turn violent amid French protests",
+        "rationale": "Covers large public protests over living costs in several German cities, with looting reported, on the same day as mass protests in France. Strongly on-topic and consequential, though the excerpt gives few details on scale or casualties."
+      },
+      {
+        "id": "7ff10b67-1f43-45dc-8bdd-43821166c575",
+        "relevance": 5,
+        "importance": 6,
+        "event": "Binance $6.3bn crypto hack and withdrawal resumption",
+        "rationale": "A record crypto theft with significant financial impact. Its link to world politics is indirect, since the excerpt attributes it to a North Korean group per FBI claims, which should be treated as reported rather than verified. The resumption of withdrawals is a follow-up development."
+      },
+      {
+        "id": "60367c27-1931-4851-9a33-58de96ee4bc2",
+        "relevance": 8,
+        "importance": 6,
+        "event": "Indian opposition mega rally demanding election chief's resignation",
+        "rationale": "A large political rally in Delhi calling for the chief election commissioner to step down. It is clearly political and of national significance, but the excerpt is brief and gives no outcome or official response."
+      },
+      {
+        "id": "c2483235-866b-472b-8c45-4380258ce6b9",
+        "relevance": 4,
+        "importance": 2,
+        "event": "Jacinda Ardern speaks at Sydney Opera House on rebuilding trust in politics",
+        "rationale": "Former NZ prime minister's speech offers commentary on political polarisation, but it is an academic talk with little consequential news value."
+      },
+      {
+        "id": "ee9eb99d-f492-41a5-968e-11b8248552fa",
+        "relevance": 9,
+        "importance": 6,
+        "event": "Democrat Talarico's Texas Senate race in the 2026 US midterms",
+        "rationale": "Analysis of a closely watched US Senate contest with national implications for control of Congress. Consequential political coverage, though it is a preview rather than a concrete development."
+      },
+      {
+        "id": "ae50597c-b516-4e98-a29e-6326b01ad543",
+        "relevance": 0,
+        "importance": 0,
+        "event": "Heidi Klum Halloween party costume appearance",
+        "rationale": "Entertainment and celebrity video content with no political or public-issue relevance and no consequential news value."
+      },
+      {
+        "id": "c6fad2d3-4733-4afe-87f0-6211e182c175",
+        "relevance": 3,
+        "importance": 4,
+        "event": "Concerns over debt held by data centre firms fueling AI bubble fears",
+        "rationale": "Financial/tech market story with some macroeconomic significance, but it is primarily business and markets rather than world news or politics."
+      },
+      {
+        "id": "105ddbe5-1520-4317-a1bb-293d4986a47c",
+        "relevance": 9,
+        "importance": 6,
+        "event": "Defeat of Serbian PM Aleksandar Vučić in recent election, compared to Orbán's fall in Hungary",
+        "rationale": "Significant political development on a national election outcome and regional democratic trends; analysis piece, so event details rest on the article's reporting."
+      },
+      {
+        "id": "37aeb6b8-78db-45c7-b14f-594c9b6bf141",
+        "relevance": 6,
+        "importance": 3,
+        "event": "Alaska Senate candidate denies involvement in alleged plot to place a second Dan Sullivan on ballot",
+        "rationale": "Relevant US electoral politics, but the allegation is contested and the story is a localized campaign dispute with limited broader consequence."
+      },
+      {
+        "id": "883a8cba-98f7-41f4-a935-9741f5d53063",
+        "relevance": 9,
+        "importance": 7,
+        "event": "Judge dismisses Trump's lawsuit against Wall Street Journal over Epstein birthday book letter",
+        "rationale": "Major US political and legal story involving the president, a national newspaper, and Epstein-related reporting; a court dismissal is consequential, though it is reported from a single source here."
+      },
+      {
+        "id": "e73e9a0d-dcd1-48df-a08e-d4d0086b3da5",
+        "relevance": 9,
+        "importance": 8,
+        "event": "Judge orders Trump administration to stop threatening US election officials over voter ballots",
+        "rationale": "Significant US election-integrity and government-power story; a court order restraining federal officials from pressuring election officials has broad democratic consequences, though it rests on a single source here."
+      },
+      {
+        "id": "0229ce7f-02a2-4f4d-86da-87f3f0ae1a03",
+        "relevance": 4,
+        "importance": 2,
+        "event": "Sri Lankan national stranded in Cook Islands seeking transit visa to return home",
+        "rationale": "Individual human-interest case touching on visas and stranding; it is not a consequential political or policy development."
+      },
+      {
+        "id": "08f4447c-9328-41e1-9161-9ee041fd9971",
+        "relevance": 9,
+        "importance": 7,
+        "event": "Nationwide protests across France over cost of living and public services, with police clashes",
+        "rationale": "Large, reported protest movement (over 320,000 people) with clashes and clear political stakes; the headline's claim of spread across Europe is not supported by the excerpt."
+      },
+      {
+        "id": "15021574-7d12-46c2-9dd4-2da030f431e8",
+        "relevance": 8,
+        "importance": 5,
+        "event": "G20 foreign ministers' meeting hosted by Marco Rubio in Atlanta",
+        "rationale": "Significant multilateral diplomatic meeting on economic and security issues, though the excerpt gives only the framing and no outcomes."
+      },
+      {
+        "id": "047bc2ab-543e-4ad8-9da0-c5d696b4d033",
+        "relevance": 9,
+        "importance": 6,
+        "event": "New local government takes office in southern Philippines as peace process milestone",
+        "rationale": "A newly seated local government in the southern Philippines is a political development tied to a long-running peace process, though the excerpt gives limited detail on its scope."
+      }
+    ],
+    "unscoredIds": []
+  },
+  "shortlistIds": [
+    "20a24bed-c0ff-4801-bfd7-67aabbb6ea06",
+    "12990383-ac56-46d8-947c-f09fd5de52f4",
+    "7ddbc32d-6295-4891-9b36-f1272b6f55a6",
+    "63236455-64e1-4ba6-a027-827f97420279",
+    "ebdaa2d1-a4d5-4053-bfdc-78646aedd60c",
+    "515cc3ad-cc24-4b4b-942d-9d0e767f5be6",
+    "6cdda6f3-6358-4913-9570-3f704aa12100",
+    "1028efb0-d04c-4eed-8969-0bcb3d55fb9e",
+    "e73e9a0d-dcd1-48df-a08e-d4d0086b3da5",
+    "08f4447c-9328-41e1-9161-9ee041fd9971"
+  ],
+  "result": {
+    "brief": [
+      "Indirect US-Iran talks in Doha entered a third day, with Qatar seeking release of over $6bn in Iranian assets that could help reopen the Strait of Hormuz.",
+      "Opposition-led protests in Delhi over the removal of 130 million names from India's voter roll drew tens of thousands.",
+      "A judge ordered the Trump administration to stop threatening US election officials who were sent letters seeking to set aside ballots of possible non-citizen voters.",
+      "Cost-of-living protests across Europe turned violent in several places, with a France investigation, looting in Germany and clashes in Portugal and Switzerland reported."
+    ],
+    "stories": [
+      {
+        "id": "ebdaa2d1-a4d5-4053-bfdc-78646aedd60c",
+        "evidenceIds": ["ebdaa2d1-a4d5-4053-bfdc-78646aedd60c"],
+        "headline": "Gulf negotiators brace for US response to Iranian proposal on reopening Hormuz",
+        "summary": "Indirect talks in Doha entered a third day as Qatar tries to negotiate the release of more than $6bn in Iranian assets. Officials from Gulf states are reportedly \"braced for the worst\" while awaiting Washington's response to an Iranian proposal that could reopen the strait of Hormuz before the US midterm elections.",
+        "whyItMatters": "The strait of Hormuz is a major shipping route, and the talks could also affect the restart of negotiations on Iran's nuclear programme.",
+        "rationale": "Major geopolitical development with credible Guardian reporting, though the excerpt is partial and the outcome is unresolved."
+      },
+      {
+        "id": "6cdda6f3-6358-4913-9570-3f704aa12100",
+        "evidenceIds": ["6cdda6f3-6358-4913-9570-3f704aa12100"],
+        "headline": "Tens of thousands protest in Delhi over voter roll removals",
+        "summary": "Thousands of opposition supporters, led by the Congress party, gathered in Delhi to protest the Modi government. The protests are driven by anger over a large-scale revision of the voter roll that the report says erased 130 million names.",
+        "whyItMatters": "The voter roll dispute touches on electoral participation and public trust in a national election process affecting a very large population.",
+        "rationale": "Large-scale political protest on a consequential electoral issue, reported by the Guardian."
+      },
+      {
+        "id": "e73e9a0d-dcd1-48df-a08e-d4d0086b3da5",
+        "evidenceIds": ["e73e9a0d-dcd1-48df-a08e-d4d0086b3da5"],
+        "headline": "Judge orders Trump administration to stop threatening election officials",
+        "summary": "A judge ordered the Trump administration to stop threatening US election officials. The order follows letters that demanded officials set aside ballots of possible non-citizen voters.",
+        "whyItMatters": "The ruling addresses federal pressure on local election administration ahead of the midterms.",
+        "rationale": "Consequential legal development on election administration, reported by the BBC; the excerpt is brief, so details beyond the order are not available."
+      },
+      {
+        "id": "515cc3ad-cc24-4b4b-942d-9d0e767f5be6",
+        "evidenceIds": [
+          "515cc3ad-cc24-4b4b-942d-9d0e767f5be6",
+          "1028efb0-d04c-4eed-8969-0bcb3d55fb9e",
+          "08f4447c-9328-41e1-9161-9ee041fd9971"
+        ],
+        "headline": "Cost-of-living protests across Europe turn violent in several countries",
+        "summary": "Protests over the cost of living spread across Europe, with more than 320,000 people reported to have demonstrated across France. In Germany, shops were looted in cities including Berlin, Hamburg and Frankfurt, and French officials opened an attempted murder investigation after a petrol bomb was thrown at riot police. Police cleared camps in Portugal and security forces in Switzerland were attacked with paving stones.",
+        "whyItMatters": "The demonstrations span several countries and reflect broad public anger over living costs and public services, with police and officials responding to clashes.",
+        "rationale": "Combines three candidate reports of the same European protest wave to avoid duplicate coverage; each source is attributed and some excerpts are partial."
+      },
+      {
+        "id": "7ddbc32d-6295-4891-9b36-f1272b6f55a6",
+        "evidenceIds": ["7ddbc32d-6295-4891-9b36-f1272b6f55a6"],
+        "headline": "Spanish train collision near Urda kills at least 69, including Cambridge scientist",
+        "summary": "A train collision near Urda in Toledo province, Spain, on Wednesday killed at least 69 people, according to the Guardian. Among the dead was Dr Marta Shahbazi, 41, a Cambridge Stem Cell Institute affiliate and Medical Research Council group leader, who was travelling to a conference.",
+        "whyItMatters": "The crash is a major loss of life, and the Cambridge link brings attention to the human toll among the victims.",
+        "rationale": "A high-casualty transport disaster; the excerpt does not cover the cause or investigation, so those details are omitted."
+      }
+    ],
+    "model": "claude-haiku-5-5"
+  },
+  "usage": {
+    "calls": 7,
+    "costMicros": 5343
+  }
+}

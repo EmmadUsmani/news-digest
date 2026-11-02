@@ -344,3 +344,45 @@ cluster: publication currently retains cluster coverage, not claim citations.
 This is a discovered provenance limitation, not verified independent coverage.
 Next retain explicit editor evidence IDs/links and test their validation; then
 add other topics/dates and independent labels before claiming broad quality.
+
+## Iteration 62: World and Tech editorial replay
+
+`pnpm evaluate:editorial` now reports NBA, World and Tech separately, including
+model, actual recorded cost, per-target triage scores, shortlist/selection state
+and model-reported evidence inputs. New recordings require unique known evidence
+IDs including the lead. The original NBA artifact is preserved as v1 with no
+inferred evidence citations. SHA checks bind each recording to its unchanged
+candidate/label fixture. Run the explicit paid recorder with `world` or `tech`
+after loading the configured environment; it refuses existing outputs before
+inference and uses exclusive file creation. Neither recorder nor replay inserts
+fixture articles or publishes editions; the replay needs no DB or network.
+
+World: 47 candidates, five selected, 3/5 prior targets (60% target recall/yield)
+versus signals' 1/5; both omission labels absent. Ukraine power strikes reached
+the shortlist but were not selected. Alaska certification litigation received
+relevance 9/importance 7 but missed the ten-item shortlist. Tech: 54 candidates,
+five selected, 3/5 targets versus 0/5; all six omission labels absent. Watermarking,
+prompt-injection sanctions and the coding-benchmark claim surfaced. The Binance
+attribution (relevance 4) and Flock dispute (relevance 3) fell below the semantic
+cutoff. These misses expose topic-guidance/selection tradeoffs, not grounds to
+fit thresholds to provisional labels.
+
+Both editors used the configured Haiku fallback because Sonnet's remaining
+allocation could not cover its conservative reservation. World used seven calls,
+$0.005343; Tech three calls, $0.002064 (including reused per-item caches). This
+is a hybrid pipeline evaluation with Haiku editing, not a Sonnet comparison.
+All labels predate inference and were withheld from prompts. These are still
+agent labels from one date: target yield is not precision, source coverage or
+factual verification. Independent review, Gaming and later dates remain open.
+
+Manual audit compared all ten summaries with their recorded evidence inputs.
+Concrete reported facts were present in supplied titles/excerpts; World combines
+three protest reports with retained evidence IDs. Tech explicitly qualifies
+three title-only stories and preserves attribution for the sanctions report.
+However, the Apple summary says “Apple has not confirmed the feature” without
+an explicit statement of non-confirmation in the supplied excerpt. Missing
+confirmation in an input does not establish that no confirmation exists. This
+is a remaining unsupported negative claim; evidence IDs alone do not ensure
+entailment. No article pages or independent facts were checked. Prioritize an
+editor factual-support regression/prompt fix and broader reviewed labels before
+claiming general editorial quality. Production scoring/prompts are unchanged.

@@ -79,3 +79,41 @@ void test('semantic shortlist recovers missing include phrases but preserves exc
     output,
   );
 });
+
+for (const [key, candidates, baselineRecall] of [
+  ['world', 47, 0.2],
+  ['tech', 54, 0],
+] as const) {
+  void test(`recorded ${key} editorial replay accounts for all candidates, labels and evidence`, () => {
+    const report = evaluateEditorialWindow(key);
+    assert.equal(report.candidates, candidates);
+    assert.equal(report.events.length, 5);
+    assert.equal(report.forbiddenSelected.length, 0);
+    assert.equal(
+      report.eventRecall,
+      report.events.filter((e) => e.selected).length / 5,
+    );
+    assert.equal(
+      report.targetSlotYield,
+      report.selected.length
+        ? report.events.filter((e) => e.selected).length /
+            report.selected.length
+        : 0,
+    );
+    assert.ok(report.events.every((e) => !e.selected || e.shortlisted));
+    assert.equal(report.baseline.eventRecall, baselineRecall);
+    assert.equal(report.evidenceInputs.length, report.selected.length);
+    for (const evidence of report.evidenceInputs) {
+      assert.equal(evidence.recorded, true);
+      assert.ok(evidence.candidates.some((c) => c.id === evidence.storyId));
+      assert.ok(
+        evidence.candidates.every(
+          (c) => c.title.length <= 300 && (c.excerpt?.length ?? 0) <= 600,
+        ),
+      );
+    }
+    assert.ok(
+      report.selected.every((story) => story.evidenceIds?.includes(story.id)),
+    );
+  });
+}

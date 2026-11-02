@@ -1,0 +1,463 @@
+{
+  "provenance": "Real configured Anthropic inference over recorded publisher-feed excerpts. Offline evaluation only; not a published edition. Labels were not supplied to either model.",
+  "recordedAt": "2026-11-02T00:57:28.693Z",
+  "runId": "recorded-tech-f1833375-b1c3-4bf3-9291-731da69c8bbf",
+  "fixture": "ranking-tech-2026-11-01.json",
+  "fixtureSha256": "a8e0fbafccbfa29c82553092f9984dcba0a1785b6264469d334c7368ce0ec463",
+  "topic": {
+    "id": "00000000-0000-4000-8000-000000000011",
+    "name": "Tech & AI",
+    "description": "Technology, programming, AI and digital design.",
+    "guidance": "Prioritize AI models, tools, agents, research and launches useful to builders.\nExclude: Promotional content and SEO filler\nRequired phrases: AI, artificial intelligence, machine learning, LLM, OpenAI, Anthropic, Claude, GPT, Gemini, DeepMind, software, programming, developer, code, coding, computer, computing, technology, tech, chip, semiconductor, GPU, Apple, Microsoft, Google, Meta, Linux, browser, internet, cybersecurity, robot, robotics, design, startup, smartphone, iPhone, Android, database, JavaScript, Python, Rust\nExcluded phrases: sponsored, promo code, gift guide, best deals"
+  },
+  "triage": {
+    "scores": [
+      {
+        "id": "d0a0ace1-7e79-4347-bfc6-bb93f4c44798",
+        "relevance": 3,
+        "importance": 4,
+        "event": "Flock Safety ignoring city requests to cancel surveillance contracts",
+        "rationale": "Municipal contract dispute over Flock Safety camera systems. It has some surveillance and privacy relevance but is mainly a civic procurement story, not a technical AI or software development."
+      },
+      {
+        "id": "8558c525-c151-497c-822c-2b78ba595bd2",
+        "relevance": 2,
+        "importance": 1,
+        "event": "Hacker News user asks for TV recommendations for privacy",
+        "rationale": "A consumer buying question posted as a forum discussion. It is not news and has little relevance to AI, software, or developer topics."
+      },
+      {
+        "id": "1fe872f3-1b34-4fd9-9000-f8bb43c1e322",
+        "relevance": 2,
+        "importance": 1,
+        "event": "Claim that AI did not cause a change in Proton's charge",
+        "rationale": "Title only, with no excerpt. It appears to be a physics or science item with little clear link to AI, software, or builder tools, so it is weakly relevant and low in importance."
+      },
+      {
+        "id": "3f0aaaab-f83d-43e7-a23f-70e9325fa882",
+        "relevance": 3,
+        "importance": 3,
+        "event": "Nurses oppose 'Uber for Nursing' apps pushing to deregulate healthcare",
+        "rationale": "Concerns gig-economy staffing apps and healthcare regulation. It is tangentially tech-related, but it is a labor and policy story rather than AI, software, or developer content."
+      },
+      {
+        "id": "4a3b4ddc-82ff-4f44-87af-fb77ad46803f",
+        "relevance": 2,
+        "importance": 3,
+        "event": "Ynetnews warns of a 'Black October' sell-off on Wall Street",
+        "rationale": "A general market analysis piece. The title does not mention AI or tech, so it is only weakly relevant despite the Google News artificial intelligence feed, and the claimed downside is not verified from the supplied text."
+      },
+      {
+        "id": "990615eb-06c5-4232-8be4-f701f8d13939",
+        "relevance": 3,
+        "importance": 3,
+        "event": "Essay arguing mathematics has changed",
+        "rationale": "Title only, with no excerpt. It does not clearly involve AI, software, or computing, so its fit with the Tech & AI topic is uncertain."
+      },
+      {
+        "id": "9f62943a-1eb5-4cc7-b09a-1a47490cc556",
+        "relevance": 7,
+        "importance": 5,
+        "event": "Hospital outside US gets early access to OpenAI capabilities",
+        "rationale": "Concerns OpenAI tool deployment in a hospital, which fits the AI-tools focus. The claim rests on a single quoted headline, is unverified, and covers one institution, so its broader consequence is limited."
+      },
+      {
+        "id": "7ad307c9-bd3b-4338-99d2-09ad9a50549d",
+        "relevance": 7,
+        "importance": 4,
+        "event": "Systematic review of AI versus human radiologist diagnostic accuracy",
+        "rationale": "A research review on AI in diagnostic radiology, relevant to AI applications and research. It is a secondary synthesis of existing studies rather than a major new development, and the excerpt gives no findings."
+      },
+      {
+        "id": "ee95d683-bf33-4c77-b832-b1fe48466e0a",
+        "relevance": 4,
+        "importance": 3,
+        "event": "Pope Leo XIV comments on AI",
+        "rationale": "Covers AI, but only as a papal statement with no detail in the excerpt. Little builder-relevant content in the supplied text."
+      },
+      {
+        "id": "9e2f5b93-8b6f-4f68-8994-f7c9b9d28e56",
+        "relevance": 4,
+        "importance": 4,
+        "event": "Prisons using AI to predict future crimes by incarcerated people",
+        "rationale": "A notable deployment of AI in criminal justice with civil-liberties implications. It is a policy and society story rather than a model, tool, or launch useful to builders."
+      },
+      {
+        "id": "17ed013d-d281-46f7-a23d-e972129fe80e",
+        "relevance": 5,
+        "importance": 2,
+        "event": "Security Affairs AI-cybersecurity newsletter, round 6",
+        "rationale": "A newsletter roundup at the intersection of AI and cybersecurity. The excerpt names no specific development, so its importance is low and its builder value is unclear."
+      },
+      {
+        "id": "fc2d1f7b-d69c-451f-bb07-b7f3002e6dba",
+        "relevance": 4,
+        "importance": 3,
+        "event": "Local restaurants adopting AI-generated food content and residents objecting",
+        "rationale": "AI is central, but the story is about local consumer backlash to AI-made food marketing, not AI tools, models, or builder-relevant technology."
+      },
+      {
+        "id": "58229a92-2fbf-409c-ae4c-9594038cae93",
+        "relevance": 3,
+        "importance": 2,
+        "event": "PSU stocks returning with advice on cautious AI adoption",
+        "rationale": "Mentions AI, but the headline reads as generic market or finance commentary with no specific tool, model, or launch useful to builders."
+      },
+      {
+        "id": "53d919f6-638d-4ac8-bb9d-b84e632cbff9",
+        "relevance": 3,
+        "importance": 1,
+        "event": "Reported scalping of rare iPhone duo bundles",
+        "rationale": "Touches Apple and iPhone, but it is consumer retail gossip with a clickbait framing and no technical or builder relevance."
+      },
+      {
+        "id": "30279018-ffe8-435e-ba44-08391e620472",
+        "relevance": 0,
+        "importance": 1,
+        "event": "Patrick Stewart commentary on power and leadership",
+        "rationale": "Opinion piece about an actor and power; no AI, software, computing, or other topic-relevant content."
+      },
+      {
+        "id": "fcf30925-50f0-49fe-9e43-a75eb9e45a06",
+        "relevance": 7,
+        "importance": 4,
+        "event": "Apple HomeView 27.2 code hints at security camera mode",
+        "rationale": "Apple smart home software relevant to builders, but based on a Reddit user's reading of code strings. Unannounced features, not a confirmed launch."
+      },
+      {
+        "id": "e42bdade-7015-474c-8aae-fa295df68c2e",
+        "relevance": 7,
+        "importance": 4,
+        "event": "Microsoft patent for real-time AI speech alteration",
+        "rationale": "AI and Microsoft relevant, but a patent filing is not a product launch. The excerpt is minimal, and the headline's framing is unverified beyond the title."
+      },
+      {
+        "id": "d7aa4c82-65f8-4c23-8ddb-28868a0bbdaf",
+        "relevance": 7,
+        "importance": 4,
+        "event": "Vision-language AI agent for ultrasound interpretation",
+        "rationale": "AI research on a vision-language agent for radiology. Relevant to AI builders, but the application is medical and the report is a secondary Medical Xpress summary with no claimed results verified here."
+      },
+      {
+        "id": "1e30a987-9c6c-469b-90ed-c71cd7d4a4a0",
+        "relevance": 9,
+        "importance": 6,
+        "event": "Anthropic extends text watermarking to older Claude versions",
+        "rationale": "Directly about Anthropic's Claude models and a policy/tooling change with a stated start date of November 3. Useful to developers who depend on these models, though the excerpt is minimal."
+      },
+      {
+        "id": "bfa31a9b-4fd3-454e-8434-906d6c41f8c9",
+        "relevance": 5,
+        "importance": 5,
+        "event": "Frontier Airlines reported breach",
+        "rationale": "Cybersecurity incident involving an airline, which fits the cybersecurity scope. The headline says 'likely' and no excerpt is provided, so the breach is unverified and the tech-builder angle is limited."
+      },
+      {
+        "id": "5d29f214-f605-4549-82b3-e68bf4a8e4a7",
+        "relevance": 4,
+        "importance": 4,
+        "event": "Seoul Viosys begins production of rare-earth-free white light emitter",
+        "rationale": "Hardware component news about LED lighting materials. It is tangentially related to chips and semiconductors, but it has little direct value for software builders. The title is the only available detail."
+      },
+      {
+        "id": "15191a4a-231a-485c-aff9-3965775f1769",
+        "relevance": 2,
+        "importance": 2,
+        "event": "Leak of playable canceled Portal prequel F-Stop",
+        "rationale": "Video game leak story with little relevance to AI, programming, or developer tools. The mention of leaked source code is incidental to the gaming news, and the story is not consequential for the topic."
+      },
+      {
+        "id": "d0777bbc-41d4-4321-8ae3-ba1747539ad1",
+        "relevance": 6,
+        "importance": 3,
+        "event": "Reports of threat to AI market bubble",
+        "rationale": "Relates to AI and its market outlook, but the title and content are a generic aggregator headline with no specifics, sources, or verifiable developments. Its substance is unclear, so importance is low."
+      },
+      {
+        "id": "34ca6f1b-de66-4ca6-bc4e-fcaa3e24ac1d",
+        "relevance": 4,
+        "importance": 2,
+        "event": "HackerBooks side project launch built with Claude",
+        "rationale": "A Show HN personal project, mostly AI-generated by Claude per the author. It is a small builder-oriented launch with limited consequence, and the claims are self-reported."
+      },
+      {
+        "id": "2da849ee-cf74-4e64-aa51-596dd510a119",
+        "relevance": 3,
+        "importance": 2,
+        "event": "Oil, AI and bond market moves over the past month",
+        "rationale": "A financial markets roundup that touches on AI stocks only as one of several asset classes. The excerpt is a bare headline with no substantive detail on AI technology."
+      },
+      {
+        "id": "3e378f72-a833-4733-8fb1-a4e1a8dadda6",
+        "relevance": 2,
+        "importance": 1,
+        "event": "Speculation on AI stocks entering the S&P 500",
+        "rationale": "Investment-advice framing about stock purchases, with no technical AI development. It reads as promotional filler rather than tech news."
+      },
+      {
+        "id": "02b366cf-dc6a-46a7-86f4-70627480c567",
+        "relevance": 5,
+        "importance": 3,
+        "event": "Debate over AI liability (insurance coverage)",
+        "rationale": "Covers AI liability debate, which touches AI deployment risk, but the excerpt is a bare headline with no specifics on developments, parties, or actions."
+      },
+      {
+        "id": "f5ac28c5-6697-4cbc-847c-2a688c7311b8",
+        "relevance": 4,
+        "importance": 4,
+        "event": "Congress members demand Trump preserve AI-related correspondence for investigation",
+        "rationale": "Significant AI governance and political story, but it concerns records preservation and oversight rather than models, tools, or builder-relevant technical developments. Claims rest on a secondary aggregator headline."
+      },
+      {
+        "id": "d2b3bf0b-6545-4b9e-b856-86ea3f1e6004",
+        "relevance": 7,
+        "importance": 5,
+        "event": "Brazilian lawyers fined for hidden prompt injection in court filing targeting court AI",
+        "rationale": "Prompt injection against an AI system is directly useful to builders working on LLM security and input handling, and the case is a concrete incident. The fine and court AI behavior are reported only by Tom's Hardware and were not independently verified here."
+      },
+      {
+        "id": "0c63c2ba-9b3f-4542-b6a6-504cadc5ce9f",
+        "relevance": 3,
+        "importance": 3,
+        "event": "Police chief disconnects Flock cameras after vendor ignores contract cancellation",
+        "rationale": "Concerns surveillance camera vendor and municipal contract dispute. Only tangentially tech-related, with no AI builder angle shown in the title alone, and the excerpt is empty."
+      },
+      {
+        "id": "c7dda797-bd84-4e1b-a9c7-44adc3b283fb",
+        "relevance": 6,
+        "importance": 4,
+        "event": "Lenovo fingerprint USB drive found to store data unencrypted",
+        "rationale": "A computer hardware security flaw relevant to cybersecurity and computing. Limited scope and no excerpt, and the claim is a single report that has not been verified."
+      },
+      {
+        "id": "971b7af9-fa2f-495c-b325-ea321259b664",
+        "relevance": 4,
+        "importance": 6,
+        "event": "FBI attributes Binance crypto heist to North Korea ('TraderTraitor')",
+        "rationale": "A major cybersecurity incident with state-actor attribution, but mostly crypto-focused rather than tech or AI builder content. The $6.3B figure and attribution are FBI claims as reported in the excerpt, not independently verified."
+      },
+      {
+        "id": "a190f17c-6be4-45a9-91ad-fc3185b3c575",
+        "relevance": 4,
+        "importance": 4,
+        "event": "AI disrupting political campaigning (Economist analysis)",
+        "rationale": "Covers AI's effect on political campaigns. It is a general-interest analysis piece with little direct relevance to builders, tools, or research."
+      },
+      {
+        "id": "c0ea84bf-d982-4201-90c0-fa940a269198",
+        "relevance": 2,
+        "importance": 1,
+        "event": "Crypto stock pick promoting an AI-related cryptocurrency",
+        "rationale": "Investment advice framed as a personal buy recommendation. It is promotional and mentions AI only as a market theme, with no substantive technology news."
+      },
+      {
+        "id": "c01e5b6d-a384-4227-b8b6-13d00ed7dddb",
+        "relevance": 5,
+        "importance": 3,
+        "event": "Apple HomePod Mini 2 launch and hands-on review",
+        "rationale": "Hands-on review of a new Apple consumer smart speaker with a chip upgrade. It is a product review of modest consequence and of limited use to developers."
+      },
+      {
+        "id": "c49b701a-41bc-4d88-972a-c3c02c816ca0",
+        "relevance": 1,
+        "importance": 1,
+        "event": "Novellas with Groff (literary piece)",
+        "rationale": "Title suggests a literary topic with no supplied excerpt and no link to AI, software, or technology."
+      },
+      {
+        "id": "fc997ea3-1e67-42ca-a821-5c25c0c79cc3",
+        "relevance": 3,
+        "importance": 1,
+        "event": "Yahoo Finance crypto-AI token buy recommendation",
+        "rationale": "Mentions AI only in passing within a personal investment pitch for a cryptocurrency. It is promotional, not builder-focused technology news."
+      },
+      {
+        "id": "b79dbac3-169b-4fff-a25f-70e754c4d5ca",
+        "relevance": 3,
+        "importance": 1,
+        "event": "Motley Fool article promoting an AI-related cryptocurrency purchase",
+        "rationale": "Mentions AI, but it is investment promotion about crypto rather than AI models, tools, or research useful to builders, and the excerpt adds no substantive facts."
+      },
+      {
+        "id": "482d0dc6-3350-47bc-9aaf-aff47a34517e",
+        "relevance": 8,
+        "importance": 5,
+        "event": "Research on proving and improving the Platonic Representation Hypothesis with JEPAs",
+        "rationale": "Machine learning research on representation learning that is directly relevant to AI practitioners. The excerpt is empty, so the claimed results cannot be verified from the supplied material."
+      },
+      {
+        "id": "94fd5b10-2e69-4f90-8dda-0cf11bd76b7c",
+        "relevance": 8,
+        "importance": 3,
+        "event": "OmniDiff v0.3.0 open-source Git difftool launch",
+        "rationale": "A developer-focused, open-source Rust tool that is directly useful to programmers. It is a small independent project announcement with self-reported performance claims, so its importance is limited."
+      },
+      {
+        "id": "58a60ac1-5ce3-456f-be3c-0f944307d2d8",
+        "relevance": 2,
+        "importance": 2,
+        "event": "Commentary on new Zelda and GTA releases and the games industry",
+        "rationale": "A newsletter teaser about video game releases and industry trends. It has little connection to AI, software development, or the other required tech topics."
+      },
+      {
+        "id": "f79c2148-af49-4efb-b223-94bed67aa0f3",
+        "relevance": 5,
+        "importance": 5,
+        "event": "California Proposition 45 ballot measure and data center environmental review loophole concerns",
+        "rationale": "Covers a state ballot measure that could speed approval of data center projects and limit legal challenges. Data center infrastructure is relevant to computing and AI capacity, but the article is mainly about environmental policy and public scrutiny."
+      },
+      {
+        "id": "61a76b94-28d1-454b-a488-5fba26f6bfa0",
+        "relevance": 5,
+        "importance": 3,
+        "event": "CPAs adopting AI tools in audit work",
+        "rationale": "Covers practical AI adoption in auditing. It is trade-press coverage of professional use rather than a model, tool launch, or builder-focused technical development, and the excerpt gives no specifics."
+      },
+      {
+        "id": "3db536d1-ccf3-459c-b55a-068ee5eacef1",
+        "relevance": 4,
+        "importance": 2,
+        "event": "Forbes feature on nine AI climate innovators",
+        "rationale": "A general feature profiling AI applications to climate change. It names no specific product, model, or research result, so it offers little that is useful to builders."
+      },
+      {
+        "id": "c67f0ce1-bc11-4746-aa23-0fb88c9687f2",
+        "relevance": 2,
+        "importance": 1,
+        "event": "AsiaNews piece on Christian communication in the AI age",
+        "rationale": "Religious and mission commentary that mentions AI only as a backdrop. It has no technical content, product news, or consequential development."
+      },
+      {
+        "id": "d899cea1-bfd3-4198-83ce-6a3d783a66fc",
+        "relevance": 6,
+        "importance": 3,
+        "event": "Discussion of the AI-related cost of JavaScript frameworks",
+        "rationale": "Relevant to developers through JavaScript and AI cost, but the item has no excerpt and the title alone doesn't establish a concrete development, launch, or finding."
+      },
+      {
+        "id": "4c7b3447-39a9-4c92-a7fe-f868e347c149",
+        "relevance": 7,
+        "importance": 5,
+        "event": "Earnings reports showing returns from company AI investments",
+        "rationale": "Clearly about AI, but framed around corporate financial payoff rather than models, tools, or research useful to builders. Business news with moderate broad significance."
+      },
+      {
+        "id": "32c2db46-54fe-40f1-9b3a-796e95236b70",
+        "relevance": 4,
+        "importance": 2,
+        "event": "Opinion piece on AI's effect on the purpose of schooling",
+        "rationale": "Mentions AI, but it is an education-focused opinion piece with little direct value to builders and no concrete new development."
+      },
+      {
+        "id": "609f1891-d771-4ea9-940f-e79d2ce93a74",
+        "relevance": 6,
+        "importance": 4,
+        "event": "Brazilian court sanctions lawyers over prompt injection in a court filing",
+        "rationale": "Touches AI security (prompt injection) and its misuse in legal filings, which is relevant to builders, but the item is a court sanction story with no excerpt or technical detail."
+      },
+      {
+        "id": "04d26f4d-1df5-4984-a854-dc92bf0526fb",
+        "relevance": 3,
+        "importance": 1,
+        "event": "Sanford Health surgeon comments on AI in surgery",
+        "rationale": "A local TV interview with general commentary on AI in surgery. It names no specific model, tool, or launch and offers little value to builders."
+      },
+      {
+        "id": "48842107-68ce-42a3-802e-1aaca048961f",
+        "relevance": 5,
+        "importance": 4,
+        "event": "NYSBA releases guidelines on attorneys' ethical use of AI",
+        "rationale": "Covers AI use, but as legal-ethics guidance for lawyers rather than models, tools, or builder-facing technology; the excerpt gives no detail beyond the headline."
+      },
+      {
+        "id": "9f06d37d-b113-48a1-8c7b-1aef40f532f8",
+        "relevance": 9,
+        "importance": 5,
+        "event": "Memdoor claims a 5-model Qwen3.8-27B team beats Fable 5 on LiveCodeBench Hard",
+        "rationale": "Directly relevant AI coding benchmark result useful to builders, but the claim is unverified, the excerpt is empty, and the model names are not confirmed."
+      },
+      {
+        "id": "5a81489c-3f5c-4f88-ba38-019c52f6fc69",
+        "relevance": 0,
+        "importance": 0,
+        "event": "Italian farmer plants unknown seeds found in attic",
+        "rationale": "Unrelated to technology, AI, programming, or digital design; a non-tech human-interest story."
+      },
+      {
+        "id": "fc8e7050-2496-4909-ad25-25026958f4e4",
+        "relevance": 2,
+        "importance": 1,
+        "event": "The Verge roundup of spooky YouTube horror videos",
+        "rationale": "Entertainment video recommendations with no AI, software, or builder-relevant content; only tangentially tied to tech via YouTube."
+      }
+    ],
+    "unscoredIds": []
+  },
+  "shortlistIds": [
+    "482d0dc6-3350-47bc-9aaf-aff47a34517e",
+    "9f06d37d-b113-48a1-8c7b-1aef40f532f8",
+    "9f62943a-1eb5-4cc7-b09a-1a47490cc556",
+    "7ad307c9-bd3b-4338-99d2-09ad9a50549d",
+    "fcf30925-50f0-49fe-9e43-a75eb9e45a06",
+    "e42bdade-7015-474c-8aae-fa295df68c2e",
+    "1e30a987-9c6c-469b-90ed-c71cd7d4a4a0",
+    "d7aa4c82-65f8-4c23-8ddb-28868a0bbdaf",
+    "d2b3bf0b-6545-4b9e-b856-86ea3f1e6004",
+    "4c7b3447-39a9-4c92-a7fe-f868e347c149"
+  ],
+  "result": {
+    "brief": [
+      "Anthropic is extending text watermarking to older Claude versions starting November 3, according to a Mashable report.",
+      "A Brazilian court's AI flagged hidden prompt-injection text in a filing, and the lawyers involved were reportedly fined $16,000.",
+      "A claim that a team of five Qwen3.8-27B models beats \"Fable 5\" on LiveCodeBench Hard was posted on Hacker News; the claim is not independently verified here.",
+      "Reddit user pdfu reportedly found code strings suggesting Apple may add security camera features to HomeView."
+    ],
+    "stories": [
+      {
+        "id": "1e30a987-9c6c-469b-90ed-c71cd7d4a4a0",
+        "evidenceIds": ["1e30a987-9c6c-469b-90ed-c71cd7d4a4a0"],
+        "headline": "Anthropic Extends Text Watermarking to Older Claude Versions From November 3",
+        "summary": "Mashable reports that Anthropic is expanding its text watermarking to older Claude versions beginning November 3. The available excerpt is only the headline, so details such as scope and detection methods are not confirmed here.",
+        "whyItMatters": "Watermarking older models affects developers and platforms that rely on detecting AI-generated text.",
+        "rationale": "Concrete, dated product change from a major AI lab that is directly relevant to builders."
+      },
+      {
+        "id": "d2b3bf0b-6545-4b9e-b856-86ea3f1e6004",
+        "evidenceIds": ["d2b3bf0b-6545-4b9e-b856-86ea3f1e6004"],
+        "headline": "Brazilian Lawyers Fined $16,000 After Hidden Prompt Injection Targeted Court AI",
+        "summary": "Tom's Hardware reports that lawyers attempted to manipulate a court's AI using prompt injection hidden in a filing. The court's AI reportedly flagged the hidden text, which demanded superficial legal scrutiny, and the lawyers were fined $16,000.",
+        "whyItMatters": "The case shows prompt injection being used against AI systems in a real institutional setting, with a financial penalty attached.",
+        "rationale": "Consequential security incident involving AI and prompt injection, relevant to developers building LLM-based tools."
+      },
+      {
+        "id": "9f06d37d-b113-48a1-8c7b-1aef40f532f8",
+        "evidenceIds": ["9f06d37d-b113-48a1-8c7b-1aef40f532f8"],
+        "headline": "Hacker News Post Claims Five-Model Qwen3.8-27B Team Beats \"Fable 5\" on LiveCodeBench Hard",
+        "summary": "A Hacker News post titled \"Memdoor\" claims a team of five Qwen3.8-27B models outperforms \"Fable 5\" on LiveCodeBench Hard. The supplied text is only the title, and the benchmark result, the \"Fable 5\" comparison and the model details are not independently verified.",
+        "whyItMatters": "If accurate, a multi-model setup beating a competitor on a coding benchmark would be relevant to developers choosing coding systems.",
+        "rationale": "Relevant to coding and LLM builders, but included with caution because the claim rests on a title-only candidate."
+      },
+      {
+        "id": "482d0dc6-3350-47bc-9aaf-aff47a34517e",
+        "evidenceIds": ["482d0dc6-3350-47bc-9aaf-aff47a34517e"],
+        "headline": "New Research Tests the Platonic Representation Hypothesis Using JEPAs",
+        "summary": "A Hacker News post titled \"Proving and improving the Platonic Representation Hypothesis with JEPAs\" points to research on the Platonic Representation Hypothesis using JEPA models. The supplied material is title-only, so the methods and findings are not confirmed here.",
+        "whyItMatters": "Research on whether learned representations converge across models could inform how machine learning practitioners think about representation learning.",
+        "rationale": "Machine learning research relevant to builders, though the details available are limited."
+      },
+      {
+        "id": "fcf30925-50f0-49fe-9e43-a75eb9e45a06",
+        "evidenceIds": ["fcf30925-50f0-49fe-9e43-a75eb9e45a06"],
+        "headline": "Code Strings Suggest Apple May Add Security Camera Features to HomeView",
+        "summary": "The Verge reports that a Reddit user, pdfu, found hints in HomeView 27.2 code suggesting Apple could add security camera features to its smart home hub. The strings reportedly describe a security camera mode with motion detection, live streaming, recording options and privacy functions. These findings come from code strings, so Apple has not confirmed the feature.",
+        "whyItMatters": "If Apple ships this, it would extend its smart home hub into security camera use, which affects privacy and device design.",
+        "rationale": "Relevant Apple product development story, but presented as unconfirmed based on code analysis."
+      }
+    ],
+    "model": "claude-haiku-5-5"
+  },
+  "usage": {
+    "calls": 3,
+    "costMicros": 2064
+  }
+}

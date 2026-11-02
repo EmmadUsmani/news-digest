@@ -12,9 +12,13 @@ import type { Candidate } from '../src/modules/digests/domain/rank';
 import { evaluateWindow } from './evaluate-ranking';
 
 const snapshotSchema = z.object({
-  fixture: z.literal('ranking-nba-2026-11-01.json'),
+  fixture: z.enum([
+    'ranking-nba-2026-11-01.json',
+    'ranking-world-2026-11-01.json',
+    'ranking-tech-2026-11-01.json',
+  ]),
   fixtureSha256: z.string(),
-  topic: z.object({ name: z.literal('NBA') }),
+  topic: z.object({ name: z.string().min(1) }),
   triage: z.object({
     scores: z.array(
       z.object({
@@ -34,6 +38,7 @@ const snapshotSchema = z.object({
       .array(
         z.object({
           id: z.string(),
+          evidenceIds: z.array(z.string()).min(1).max(10).optional(),
           headline: z.string(),
           summary: z.string(),
           whyItMatters: z.string(),
@@ -48,11 +53,11 @@ const snapshotSchema = z.object({
   }),
 });
 
-export function evaluateEditorialWindow() {
+export function evaluateEditorialWindow(key: 'nba' | 'world' | 'tech' = 'nba') {
   const snapshot = snapshotSchema.parse(
     JSON.parse(
       readFileSync(
-        join(__dirname, '../test/fixtures/editorial-nba-2026-11-01.json'),
+        join(__dirname, `../test/fixtures/editorial-${key}-2026-11-01.json`),
         'utf8',
       ),
     ),
@@ -67,6 +72,7 @@ export function evaluateEditorialWindow() {
     'Candidate/label fixture changed since inference was recorded',
   );
   const fixture = JSON.parse(input) as {
+    topic: string;
     candidates: Candidate[];
     relevancePolicy: unknown;
     budget: number;
@@ -75,6 +81,8 @@ export function evaluateEditorialWindow() {
     events: { name: string; ids: string[] }[];
     mustOmit: { id: string; reason: string }[];
   };
+  assert.equal(snapshot.fixture, `ranking-${key}-2026-11-01.json`);
+  assert.equal(snapshot.topic.name, fixture.topic);
   const baseline = evaluateWindow(snapshot.fixture); // also validates existing event labels
   assert.deepEqual(
     snapshot.triage.scores.map((s) => s.id).sort(),
@@ -100,6 +108,17 @@ export function evaluateEditorialWindow() {
     selected.every((s) => ranked.some((r) => r.id === s.id)),
     'Unknown selection',
   );
+  for (const story of selected) {
+    if (key !== 'nba')
+      assert.ok(story.evidenceIds, 'New snapshots require evidence IDs');
+    if (story.evidenceIds) {
+      assert.ok(story.evidenceIds.includes(story.id));
+      assert.equal(new Set(story.evidenceIds).size, story.evidenceIds.length);
+      assert.ok(
+        story.evidenceIds.every((id) => ranked.some((r) => r.id === id)),
+      );
+    }
+  }
   const selectedIds = new Set(
     ranked
       .filter((r) => selected.some((s) => s.id === r.id))
@@ -122,6 +141,21 @@ export function evaluateEditorialWindow() {
       'Provisional agent labels from excerpts; target slot yield is not precision or factual verification.',
     candidates: fixture.candidates.length,
     selected,
+    evidenceInputs: selected.map((story) => ({
+      storyId: story.id,
+      // v1 NBA did not record evidence IDs; do not infer historical citations.
+      recorded: story.evidenceIds !== undefined,
+      candidates: (story.evidenceIds ?? []).map((id) => {
+        const candidate = fixture.candidates.find((c) => c.id === id)!;
+        return {
+          id,
+          title: candidate.title.slice(0, 300),
+          excerpt: candidate.excerpt?.slice(0, 600) ?? null,
+          sources: candidate.sources.slice(0, 3).map((s) => s.slice(0, 80)),
+          url: candidate.url,
+        };
+      }),
+    })),
     events,
     eventRecall: found / fixture.events.length,
     targetSlotYield: selected.length ? found / selected.length : 0,
@@ -135,4 +169,12 @@ export function evaluateEditorialWindow() {
   };
 }
 if (require.main === module)
-  console.log(JSON.stringify(evaluateEditorialWindow(), null, 2));
+  console.log(
+    JSON.stringify(
+      ['nba', 'world', 'tech'].map((key) =>
+        evaluateEditorialWindow(key as 'nba' | 'world' | 'tech'),
+      ),
+      null,
+      2,
+    ),
+  );

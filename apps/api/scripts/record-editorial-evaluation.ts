@@ -18,12 +18,22 @@ async function main() {
     process.env.ANTHROPIC_API_KEY,
     'Load configured secrets environment',
   );
-  const filename = 'ranking-nba-2026-11-01.json';
+  const key = process.argv[2] ?? 'nba';
+  assert.ok(
+    ['nba', 'world', 'tech'].includes(key),
+    'Expected nba, world or tech',
+  );
+  const filename = `ranking-${key}-2026-11-01.json`;
+  const output = join(
+    __dirname,
+    `../test/fixtures/editorial-${key}-2026-11-01.json`,
+  );
   const input = readFileSync(
     join(__dirname, '../test/fixtures', filename),
     'utf8',
   );
   const fixture = JSON.parse(input) as {
+    topic: string;
     candidates: Candidate[];
     relevancePolicy: unknown;
     windowStart: string;
@@ -31,18 +41,17 @@ async function main() {
     budget: number;
   };
   assert.ok(
-    !existsSync(
-      join(__dirname, '../test/fixtures/editorial-nba-2026-11-01.json'),
-    ),
+    !existsSync(output),
     'Recorded snapshot already exists; do not spend or overwrite it',
   );
   const db = database();
-  const runId = 'recorded-nba-' + randomUUID();
+  const runId = `recorded-${key}-` + randomUUID();
   try {
     const services = editorialServices(db)!;
     const topic = (
       await db.query<TriageTopic>(
-        "SELECT id,name,description,include_guidance || E'\nExclude: ' || exclude_guidance AS guidance FROM topics WHERE name='NBA' AND profile_id='00000000-0000-4000-8000-000000000001'",
+        "SELECT id,name,description,include_guidance || E'\nExclude: ' || exclude_guidance AS guidance FROM topics WHERE name=$1 AND profile_id='00000000-0000-4000-8000-000000000001'",
+        [fixture.topic],
       )
     ).rows[0];
     assert.ok(topic);
@@ -91,10 +100,9 @@ async function main() {
       result,
       usage,
     };
-    writeFileSync(
-      join(__dirname, '../test/fixtures/editorial-nba-2026-11-01.json'),
-      JSON.stringify(snapshot, null, 2) + '\n',
-    );
+    writeFileSync(output, JSON.stringify(snapshot, null, 2) + '\n', {
+      flag: 'wx',
+    });
     console.log(
       JSON.stringify({
         runId,
