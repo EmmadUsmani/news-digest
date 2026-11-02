@@ -99,6 +99,7 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Kotaku RSS and exact-host bounded page discovery after three successful public probes (iteration 140): 20 real articles and three officially verified X citations; cited posts precede upcoming daily window. Offline feed/embed regressions; no paid calls.
   - [x] Guardian US public RSS and bounded exact-host page discovery (iteration 141): three accessible reporting pages expose eight named X citations, including two in the upcoming daily window. Same outlet as Guardian World; offline feed/link regressions, no paid calls.
   - [x] Bound stalled official widget creation to 15 seconds with retry and isolate late results from newer attempts; desktop/mobile timed-out recovery replay (iteration 142).
+  - [x] Insider Gaming RSS and bounded exact-host discovery (iteration 143): 10 real articles, 11 reporting-page X citations; explicit official verification 10 successes/zero failures. Gaming upcoming-window semantic pool rises 3 to 14, lexical picks still zero; relevance/virality unmeasured.
   - Next: observe the first scheduled semantic social edition and measure relevant Gaming discovery. Keep full-day X reservation and paid scheduling off. Semantic selection is not a virality measurement.
   - SocialPost storage, window-aware ranking with citation diversity/engagement, immutable post selections and lazy official X embeds.
   - Reddit per-topic communities and faithful cards; no bot-protection workarounds. Bluesky optional; YouTube deferred.

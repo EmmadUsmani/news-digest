@@ -1057,3 +1057,23 @@ social request, paid discovery, inference or publication was needed for this UI.
   9/26/3/2 before expansion; lexical selections remain 3/5/0/0. The two new
   World candidates are Bernie Sanders and 2WAY. Safety eligibility is not an
   editorial relevance judgment; no new edition was published.
+
+## Iteration 143 — Insider Gaming reporting and free X citations (2026-11-02)
+
+- **live:** `https://insider-gaming.com/feed/`, migration 036 connected to the
+  original Gaming topic; 10 real articles stored. Coverage includes platform,
+  studio, sales and esports reporting, but also puzzle guides. Existing topical
+  and quality filters still apply; connection does not endorse every item.
+- Four explicit reporting pages returned 200 through the shared HTTP client.
+  PS5 firmware, Phantom Blade Zero sales and an ALGS interview expose 11 distinct
+  named X citations altogether; the ARC Raiders page has none. Persisted with
+  article/source provenance. Existing eight-page rotation and persistent exact-host
+  failure cooldown apply; no recursive crawling or bot-protection workaround.
+- Explicit official oEmbed pass: 10 successes, zero failures. Upcoming-window
+  screening now has 14 Gaming semantic candidates versus 3 previously, while
+  lexical selection remains empty. Candidate counts do not establish relevance,
+  virality or final semantic selections; scheduled edition still due 20:40 UTC.
+- First three original RSS entries and original firmware citation anchor recorded
+  as offline fixtures; they are not live content evidence. No paid calls.
+- Siliconera public feed probe returned 15 items, no X citations and substantial
+  anime/merchandise coverage; left unconfigured. No page probes performed.

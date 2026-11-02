@@ -282,3 +282,19 @@ void test('recorded Guardian US article links preserve four named X citations wi
     })),
   );
 });
+
+void test('recorded Insider Gaming article preserves named firmware citation', async () => {
+  const html = await readFile(
+    'apps/api/test/fixtures/insider-gaming-article-x.html',
+    'utf8',
+  );
+  const pages = new RiverDiscovery({ get: async () => html });
+  assert.deepEqual(await pages.collect('https://insider-gaming.com/recorded'), [
+    {
+      externalId: '2117174273852792952',
+      url: 'https://x.com/i/web/status/2117174273852792952',
+      verificationUrl:
+        'https://twitter.com/PlaystationSize/status/2117174273852792952',
+    },
+  ]);
+});

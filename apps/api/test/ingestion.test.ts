@@ -469,3 +469,15 @@ void test('recorded Guardian US feed preserves US reporting without inferring pa
   );
   assert.ok(items.every((item) => item.xLinks.length === 0));
 });
+
+void test('recorded Insider Gaming feed retains reporting dates and leaves page citations unknown', async () => {
+  const items = parseFeed(await fixture('insider-gaming.xml'));
+  assert.equal(items.length, 3);
+  assert.match(items[0].title, /PS5 Firmware Update/);
+  assert.equal(items[0].publishedAt, '2026-11-02T10:58:42.000Z');
+  assert.match(items[2].title, /Phantom Blade Zero/);
+  assert.ok(
+    items.every((item) => new URL(item.url).hostname === 'insider-gaming.com'),
+  );
+  assert.ok(items.every((item) => item.xLinks.length === 0));
+});
