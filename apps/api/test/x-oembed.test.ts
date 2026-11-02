@@ -19,10 +19,17 @@ void test('official embed binds exact post ID, leaves unknown time and metrics e
     get: async (url) => {
       assert.equal(new URL(url).hostname, 'publish.twitter.com');
       assert.equal(new URL(url).searchParams.get('omit_script'), 'true');
+      assert.equal(
+        new URL(url).searchParams.get('url'),
+        'https://twitter.com/example/status/123456789',
+      );
       return JSON.stringify(fixture);
     },
   });
-  const post = await adapter.verify('123456789');
+  const post = await adapter.verify(
+    '123456789',
+    'https://twitter.com/example/status/123456789',
+  );
   assert.equal(post.publishedAt, null);
   assert.deepEqual(post.metrics, {});
   const repository = new PostgresSocialRepository();
@@ -64,6 +71,14 @@ void test('rejects unavailable, mismatched or unsafe embeds instead of promoting
     await assert.rejects(adapter.verify('123456789'));
   }
   await assert.rejects(
+    new XOfficialEmbed({
+      get: async () => {
+        throw new Error('must not fetch');
+      },
+    }).verify('123456789', 'https://evil.org/example/status/123456789'),
+    /Invalid X verification URL/,
+  );
+  await assert.rejects(
     new XOfficialEmbed({ get: async () => '<html>Unavailable</html>' }).verify(
       '123456789',
     ),
@@ -75,4 +90,16 @@ void test('rejects unavailable, mismatched or unsafe embeds instead of promoting
       },
     }).verify('123456789'),
   );
+});
+
+void test('accepts current official X branding with a named post URL', async () => {
+  const post = await new XOfficialEmbed({
+    get: async () =>
+      JSON.stringify({
+        ...fixture,
+        provider_name: 'X',
+        provider_url: 'https://x.com',
+      }),
+  }).verify('123456789', 'https://x.com/example/status/123456789');
+  assert.equal(post.externalId, '123456789');
 });

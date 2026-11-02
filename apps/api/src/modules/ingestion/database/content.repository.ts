@@ -39,19 +39,25 @@ export class PostgresContentRepository
         );
         // Revalidate at the persistence boundary; source content is untrusted.
         const links = extractXLinks(
-          [item.url, ...(item.xLinks ?? []).map((link) => link.url)].join(' '),
+          [
+            item.url,
+            ...(item.xLinks ?? []).map(
+              (link) => link.verificationUrl ?? link.url,
+            ),
+          ].join(' '),
         );
         for (const link of links) {
           await client.query(
-            `INSERT INTO x_link_citations(external_id,item_id,source_id,canonical_url,citing_engagement)
-             VALUES($1,$2,$3,$4,$5) ON CONFLICT(external_id,item_id,source_id)
-             DO UPDATE SET last_seen_at=now(),citing_engagement=EXCLUDED.citing_engagement`,
+            `INSERT INTO x_link_citations(external_id,item_id,source_id,canonical_url,citing_engagement,verification_url)
+             VALUES($1,$2,$3,$4,$5,$6) ON CONFLICT(external_id,item_id,source_id)
+             DO UPDATE SET last_seen_at=now(),citing_engagement=EXCLUDED.citing_engagement,verification_url=COALESCE(EXCLUDED.verification_url,x_link_citations.verification_url)`,
             [
               link.externalId,
               row.rows[0].id,
               source.id,
               link.url,
               item.engagement,
+              link.verificationUrl ?? null,
             ],
           );
         }

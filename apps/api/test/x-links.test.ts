@@ -20,6 +20,10 @@ void test('X citations deduplicate exact IDs without trusting host lookalikes or
     links.map((link) => link.externalId),
     ['1234567890123456789', '987654321'],
   );
+  assert.equal(
+    links[0].verificationUrl,
+    'https://twitter.com/reporter/status/1234567890123456789',
+  );
   assert.equal(links[0].url, 'https://x.com/i/web/status/1234567890123456789');
   assert.equal(
     extractXLinks(

@@ -10,5 +10,5 @@ export interface SocialPost {
   embedHtml: string;
 }
 export interface PostVerificationPort {
-  verify(externalId: string): Promise<SocialPost>;
+  verify(externalId: string, discoveredUrl?: string): Promise<SocialPost>;
 }

@@ -13,7 +13,7 @@ async function main() {
     for (const id of await repository.candidates(10)) {
       let post;
       try {
-        post = await adapter.verify(id);
+        post = await adapter.verify(id, await repository.verificationUrl(id));
       } catch (error) {
         await repository.checked(id, 'Official embed unavailable or invalid');
         failed++;

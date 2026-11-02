@@ -2,6 +2,7 @@
 export interface XLink {
   externalId: string;
   url: string;
+  verificationUrl?: string;
 }
 export function extractXLinks(input: string): XLink[] {
   const links = new Map<string, XLink>();
@@ -27,8 +28,14 @@ export function extractXLinks(input: string): XLink[] {
         );
       if (!path || /^0+$/.test(path[1])) continue;
       const externalId = path[1];
+      const handle = url.pathname.split('/')[1];
+      const verificationUrl =
+        handle !== 'i'
+          ? `https://twitter.com/${handle}/status/${externalId}`
+          : links.get(externalId)?.verificationUrl;
       links.set(externalId, {
         externalId,
+        ...(verificationUrl ? { verificationUrl } : {}),
         url: `https://x.com/i/web/status/${externalId}`,
       });
       if (links.size >= 50) break;

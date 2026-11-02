@@ -339,3 +339,17 @@ Earlier iterations 23–37: [archive](docs/progress-archive/2026-11-01-iteration
 - Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed.
 - Incremental inference $0; actual day/month $0.408415, zero reservations/provider errors. Provider/models/billing unchanged. Updated TASKS/docs/SOURCES; no owner action needed.
 - Next: expand free discovery and investigate official embed availability with valid discovered URLs; immutable post selections/lazy widget rendering, Reddit and capped direct xAI remain unfinished.
+
+## 2026-11-02: iteration 89 — free river discovery and working official X verification
+
+- Started clean on main; no leftover work. API/worker/health, seventeen sources and retained run smoke healthy; no triage regression.
+- Added data-configured Techmeme/Memeorandum public river harvesting through shared HTTP, separate provenance/count/error storage and candidate union; explicit command only, not scheduled. Migration 018 applied.
+- Live harvest stored 50 Techmeme X references (cap); Memeorandum returned zero. Both RSS feeds accessible but yielded no status URLs. Reddit NBA top JSON returned 403; no workaround.
+- Found previous verification defect: official oEmbed returns 404 for /i/web/status/ID but 200 for the same named /handle/status/ID. Preserve named URLs through harvesting/persistence and accept official X branding alongside Twitter.
+- Ten real posts now verified/stored; timestamps/metrics remain unknown, no digest selections published. River crypto/promo candidates require relevance filtering. No independent-source/virality claims.
+- Added recorded river excerpt replay and isolated DB idempotency/cooldown/recovery checks, named URL preservation and provider-branding/invalid-URL regressions. Earlier checks exposed partial-HTML formatter rejection; raw excerpts now .txt, final checks green.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and 101 isolated tests; `pnpm build` passed.
+- `pnpm exec tsx apps/api/scripts/harvest-social-rivers.ts`, `verify-x-embeds.ts` and `smoke-ingestion.ts` passed final live checks: 783 real article URLs, four topics, seventeen healthy sources.
+- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; status screenshots refreshed.
+- No inference spending; actual day/month $0.408415, no reservations/provider errors; provider/models/billing unchanged. Updated TASKS/README/docs/SOURCES; no owner blocker.
+- Next: window metadata, relevance filtering, immutable post selection/lazy official widgets; scheduled harvesting, Reddit and capped direct xAI remain open.

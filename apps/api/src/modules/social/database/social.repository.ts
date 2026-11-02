@@ -5,13 +5,67 @@ export class PostgresSocialRepository {
   readonly db = database();
   async candidates(limit: number): Promise<string[]> {
     const result = await this.db.query<{ external_id: string }>(
-      `SELECT c.external_id FROM x_link_citations c
+      `WITH citations AS (
+         SELECT external_id,source_id,last_seen_at FROM x_link_citations
+         UNION ALL
+         SELECT external_id,'river:' || source_id,last_seen_at FROM social_discovery_citations
+       ) SELECT c.external_id FROM citations c
        LEFT JOIN x_embed_checks v ON v.external_id=c.external_id
        WHERE v.checked_at IS NULL OR v.checked_at < now() - interval '1 day'
        GROUP BY c.external_id ORDER BY count(DISTINCT c.source_id) DESC,max(c.last_seen_at) DESC,c.external_id LIMIT $1`,
       [Math.min(50, Math.max(1, limit))],
     );
     return result.rows.map((row) => row.external_id);
+  }
+  async discoverySources() {
+    return (
+      await this.db.query<{ id: string; url: string }>(
+        `SELECT s.id,s.url FROM social_discovery_sources s JOIN topics t ON t.id=s.topic_id
+       WHERE t.enabled ORDER BY s.id`,
+      )
+    ).rows;
+  }
+  async discovered(
+    sourceId: string,
+    links: { externalId: string; url: string; verificationUrl?: string }[],
+  ) {
+    const client = await this.db.connect();
+    try {
+      await client.query('BEGIN');
+      for (const link of links) {
+        await client.query(
+          `INSERT INTO social_discovery_citations(source_id,external_id,canonical_url,verification_url) VALUES($1,$2,$3,$4)
+           ON CONFLICT(source_id,external_id) DO UPDATE SET last_seen_at=now(),verification_url=COALESCE(EXCLUDED.verification_url,social_discovery_citations.verification_url)`,
+          [sourceId, link.externalId, link.url, link.verificationUrl ?? null],
+        );
+      }
+      await client.query(
+        `UPDATE social_discovery_sources SET last_success=now(),last_error=NULL,last_link_count=$2 WHERE id=$1`,
+        [sourceId, links.length],
+      );
+      await client.query('COMMIT');
+    } catch (error) {
+      await client.query('ROLLBACK');
+      throw error;
+    } finally {
+      client.release();
+    }
+  }
+  async discoveryFailed(sourceId: string) {
+    await this.db.query(
+      `UPDATE social_discovery_sources SET last_error='Public discovery page unavailable' WHERE id=$1`,
+      [sourceId],
+    );
+  }
+  async verificationUrl(externalId: string): Promise<string | undefined> {
+    const result = await this.db.query<{ verification_url: string }>(
+      `SELECT verification_url FROM (
+        SELECT verification_url,last_seen_at FROM x_link_citations WHERE external_id=$1
+        UNION ALL SELECT verification_url,last_seen_at FROM social_discovery_citations WHERE external_id=$1
+       ) c WHERE verification_url IS NOT NULL ORDER BY last_seen_at DESC LIMIT 1`,
+      [externalId],
+    );
+    return result.rows[0]?.verification_url;
   }
   async store(post: SocialPost) {
     await this.db.query(

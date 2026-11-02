@@ -138,3 +138,11 @@ The ledger check uses a fresh disposable Postgres 17 Docker container and never
 reads live DB settings. AI usage, caps and sanitized errors appear in Source &
 run status; published editions still use signal ranking. See [docs/LLM.md](docs/LLM.md)
 for configuration, remaining editorial work and the explicit paid live check.
+
+Free social discovery (explicit, not yet scheduled): run
+`pnpm exec tsx apps/api/scripts/harvest-social-rivers.ts` to collect bounded
+X references from enabled topic rivers, then
+`pnpm exec tsx apps/api/scripts/verify-x-embeds.ts` to verify at most ten
+candidates through official oEmbed. These commands use no inference. Discovery
+references are not publishable posts; verified posts still need window metadata,
+selection and UI rendering. Run `pnpm migrate` before using them.

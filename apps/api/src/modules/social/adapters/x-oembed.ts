@@ -5,7 +5,7 @@ import type { PostVerificationPort, SocialPost } from '../domain/posts';
 
 const responseSchema = z.object({
   type: z.literal('rich'),
-  provider_name: z.literal('Twitter'),
+  provider_name: z.enum(['Twitter', 'X']),
   provider_url: z.string().url(),
   author_name: z.string().min(1).max(500),
   author_url: z.string().url(),
@@ -14,10 +14,16 @@ const responseSchema = z.object({
 });
 export class XOfficialEmbed implements PostVerificationPort {
   constructor(private readonly http: HttpPort) {}
-  async verify(externalId: string): Promise<SocialPost> {
+  async verify(
+    externalId: string,
+    discoveredUrl?: string,
+  ): Promise<SocialPost> {
     if (!/^[1-9][0-9]{0,19}$/.test(externalId))
       throw new Error('Invalid X post ID');
-    const url = `https://twitter.com/i/web/status/${externalId}`;
+    const url =
+      discoveredUrl ?? `https://twitter.com/i/web/status/${externalId}`;
+    if (extractXLinks(url)[0]?.externalId !== externalId)
+      throw new Error('Invalid X verification URL');
     const query = new URLSearchParams({
       url,
       omit_script: 'true',
