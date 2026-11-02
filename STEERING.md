@@ -413,3 +413,5 @@ rarely granted.
 - **Item 6's "done when"** now needs real X posts only, not Reddit.
 - **Do item 9 next.** Order: 13, then 7 (finish using the scheduled edition's
   timing), then 9, then 10. Items 2 and 4 stay lower priority.
+
+ack: 2026-11-02 item 14 — iteration 211 confirmed Reddit has no production collector, worker or schedule; Status/settings and docs now say parked by owner. No Reddit requests. Social completion now requires X only.

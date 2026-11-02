@@ -31,6 +31,16 @@ async function main() {
         exact: true,
       });
       await coverage.waitFor();
+      const reddit = page.getByRole('region', {
+        name: 'Reddit collection',
+        exact: true,
+      });
+      await reddit.waitFor();
+      assert.match(await reddit.innerText(), /parked by owner/);
+      assert.match(await reddit.innerText(), /disabled and unscheduled/);
+      await reddit.screenshot({
+        path: `docs/screenshots/reddit-parked-${name}.png`,
+      });
       assert.equal(
         await coverage.locator('article').count(),
         status.coverage.topics.length,

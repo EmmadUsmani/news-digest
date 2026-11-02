@@ -40,6 +40,10 @@ async function main() {
       };
       await page.goto(base);
       await open();
+      assert.match(
+        await page.locator('#reddit-communities-help').innerText(),
+        /parked by owner and unscheduled/,
+      );
       const field = page.getByRole('textbox', {
         name: 'Reddit communities · one per line',
         exact: true,

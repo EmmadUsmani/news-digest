@@ -8,7 +8,7 @@ Fix regressions, broken services and stalled sources before starting new work.
 - [ ] STEERING 13 TOP PRIORITY before Nov 3 15:00 UTC: reserve configurable Anthropic budget for the scheduled edition under the shared ledger lock; limit all other spend until completion/failure; expose reserve/manual limits and scheduled AI/fallback outcome. Fake/Testcontainers verification only. Measure next scheduled edition cost/duration for item 7.
   - Iterations 192–205: durable UTC-day lifecycle, scheduler/worker fencing, historical sizing, opt-in shared-lock admission and trusted configurable composition implemented. Enforcement initially stayed off. Iterations 206–207 verify lifecycle/admission ordering, prior-day fencing and saved-schedule no-occurrence release. Iteration 208 adds ledger-consistent Status reserve/manual allowance and last scheduled outcome visibility. Iteration 209 adds manual-create reserve notices and submission-time refresh. Iteration 210 enables production enforcement with measured sizing and 1.5x headroom; no fixed override. Next: observe Nov 3 scheduled AI cost/duration before acknowledging item 13. See reserve decision and PROGRESS for detail.
 
-- [ ] STEERING 14: park Reddit collection in docs/Status, disable scheduling; no further Reddit HTTP requests. Social completion now requires X only. Priority order: 13, 7 scheduled timing, 9 scheduled X, 10 coverage; 2/4 lower priority.
+- [x] STEERING 14 (211): park Reddit collection in docs/Status, disable scheduling; no further Reddit HTTP requests. Social completion now requires X only. Priority order: 13, 7 scheduled timing, 9 scheduled X, 10 coverage; 2/4 lower priority.
 
 - [x] STEERING 12: shrink orientation files (154).
 - [x] STEERING 7 infrastructure: batched/concurrent AI, async jobs/progress/duration and synthetic timing (155–165); [detail](docs/progress-archive/2026-11-02-tasks-155-165.md).
@@ -37,7 +37,7 @@ M0–M2 and foundational M3/M6/M7 functionality are implemented; remaining work 
   - Reddit per-topic communities and faithful cards; no bot-protection workarounds. Bluesky optional; YouTube deferred.
   - [x] Direct capped xAI adapter and ledger implemented; scheduled use remains STEERING 9. Never use gateway.
   - [x] Semantic triage/editor and citation-based story links implemented; semantic same-event links and virality validation remain open.
-  - Finish with real X/Reddit posts across four topics and desktop/mobile screenshots.
+  - Finish with real X posts across four topics and desktop/mobile screenshots.
 - [ ] M5 ranking quality:
   - Semantic event clustering and verified outlet independence remain unfinished.
   - explainable scores

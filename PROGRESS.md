@@ -74,16 +74,7 @@ Iteration 189: [archive](docs/progress-archive/2026-11-02-iteration-189.md).
 
 Iteration 192: [archive](docs/progress-archive/2026-11-02-iteration-192.md).
 
-## 2026-11-02: iteration 195 — reconcile pending reserve identities
-
-- Started clean on main; API/worker, DB/Redis health and 32 sources healthy. No leftover work.
-- Added ledger-lock compare-and-swap replacement for pending, unclaimed scheduled identities. Stale settings snapshots and obsolete jobs cannot replace/claim the new identity.
-- Running, retrying and terminal work remains protected; replacements require distinct run IDs and stay within the same UTC day.
-- Isolated Postgres tests cover replacement, stale updates, claim races, lifecycle protection, invalid/cross-day identities and shared-lock contention.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (104 unit/99 integration), `pnpm build`, `git diff --check` passed. Initial format check caught a new documentation entry; formatted it and reran the full check successfully.
-- Restarted API/worker: both active, `/healthz` DB/Redis true, SPA 200, four queues, 32 sources without errors, latest real edition four topics/10 posts. No UI changes, paid inference or Reddit HTTP requests.
-- Updated README, decision 0002 and TASKS; archived iteration 180 to bound this file.
-- Live reserve enforcement remains UNFINISHED: next compute cron/UTC slots and wire scheduler/worker lifecycle, then ledger admission/races and manual/Status visibility before Nov 3 15:00 UTC.
+Earlier iteration 195: [archive](docs/progress-archive/2026-11-02-iteration-195.md).
 
 ## 2026-11-02: iteration 196 — resolve cron slots by UTC budget day
 
@@ -258,3 +249,15 @@ Iteration 192: [archive](docs/progress-archive/2026-11-02-iteration-192.md).
 - Restarted API/worker; health DB/Redis true, SPA 200, 32 sources without errors. No paid inference, live jobs or Reddit requests.
 - Updated README/reserve decision/TASKS; archived iteration 194. Item 13 stays open for Nov 3 AI cost/duration evidence; no premature steering ack.
 - Next: observe scheduled run and measure AI editing/cost/duration; then scheduled X discovery under item 9.
+
+## 2026-11-02: iteration 211 — finish owner-directed Reddit parking
+
+- Started clean on main; health and both services healthy. No leftover work.
+- Confirmed Reddit collection is not wired into production workers, schedulers or HTTP endpoints; retained adapters/tests and saved communities.
+- Status/settings now say “parked by owner” and explain collection is disabled/unscheduled pending owner re-enablement; source docs updated and item 14 acknowledged.
+- TASKS now requires X-only social completion under item 14; archived iteration 195 to keep orientation small.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed: 113 unit and 113 isolated integration tests; `pnpm build` passed.
+- `pnpm exec tsx scripts/smoke-topic-coverage.ts` and `scripts/smoke-reddit-communities.ts` passed desktop/mobile checks; updated screenshots. Settings writes intercepted in-browser only.
+- API/worker restarted; `/healthz` DB/Redis true; 32 sources without errors; retained latest edition four topics/10 posts.
+- Read-only timing report confirms Nov 3 15:00 UTC next run; prior 856 ms fallback is not live AI latency evidence. No inference or Reddit requests.
+- Item 13/7 live evidence still awaits scheduled edition; next actionable work is item 9 capped scheduled X discovery.

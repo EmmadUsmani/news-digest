@@ -376,9 +376,9 @@ export function TopicSettings({
             </label>
             <p id="reddit-communities-help">
               Up to 20 unique community names; an initial r/ is optional. Public
-              Reddit access is currently blocked. Saving keeps your choices for
-              future discovery and does not fetch posts. Leave empty to disable
-              Reddit discovery for this topic.
+              Reddit collection is parked by owner and unscheduled. Saving keeps
+              your choices for future discovery and does not fetch posts.
+              Collection requires the owner to re-enable it.
             </p>
             <p>
               Use the Sources button after saving to manage feeds and news
