@@ -305,3 +305,12 @@ still waits for retry while its host becomes available to sibling articles;
 one millisecond newer suppresses the whole host. Assertions use a frozen
 transaction clock in a non-UTC session and roll back disposable PostgreSQL
 fixtures. No publisher, X, Reddit or inference requests occur.
+
+## Source diagnostic persistence (iteration 251)
+
+`content-repository.test.ts` pins diagnostics below, at and above the 300-character
+storage limit, including multibyte text. Failed polls retain successful timestamps,
+item counts and observations. A PostgreSQL-rejected zero byte leaves the entire
+source status unchanged; a subsequent valid failure and empty successful poll
+recover normally. Independent source health and retained content stay unchanged.
+All assertions use disposable PostgreSQL; no provider or source requests occur.

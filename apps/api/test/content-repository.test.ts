@@ -336,6 +336,27 @@ void test('source failure and empty recovery preserve retained content and indep
     assert.equal(failed.last_item_count, 1);
     assert.ok(failed.last_attempt >= successful.last_attempt);
     assert.equal(failed.last_error, 'Upstream unavailable');
+    // Bound persisted diagnostics without losing the last successful poll.
+    for (const message of [
+      'x'.repeat(299),
+      '界'.repeat(300),
+      '界'.repeat(301),
+    ]) {
+      await repository.failed(source, message);
+      const bounded = await status(source.id);
+      assert.equal(bounded.error, message.slice(0, 300));
+      assert.deepEqual(bounded.lastSuccess, successful.last_success);
+      assert.equal(bounded.lastItemCount, 1);
+      assert.equal(bounded.storedItems, 1);
+    }
+    const beforeRejectedError = await status(source.id);
+    await assert.rejects(repository.failed(source, 'Invalid\u0000diagnostic'));
+    assert.deepEqual(await status(source.id), beforeRejectedError);
+    await repository.failed(source, 'Retry after rejected diagnostic');
+    assert.equal(
+      (await status(source.id)).error,
+      'Retry after rejected diagnostic',
+    );
     await repository.store(source, []);
     const recovered = await health();
     assert.equal(recovered.last_error, null);
