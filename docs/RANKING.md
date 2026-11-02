@@ -557,3 +557,27 @@ this audit, no inference was purchased, and no edition/guard/prompt/cache change
 Next: review additional recorded topics and briefs, obtain independent labels,
 and evaluate rejected/support-preserving negative claims before expanding a
 production support validator. Later-date/Gaming windows remain open.
+
+### Iteration 72: complete recorded World story-field review
+
+`pnpm evaluate:recorded-support` now reports Tech v4 and World separately. The
+World review pins all twenty fields and the historical snapshot with SHA-256,
+replays the same citation checks, and includes the three-input European protest
+story. Ten fields are provisionally supported, five interpretations and five
+unsupported. The current guard rejects two historical absence rationales, while
+accepting three unsupported fields: shipping-route background not in the cited
+input, local-election scope/midterm timing not in the cited BBC input, and a
+rationale claiming every source was attributed when the displayed story names
+neither publisher. These judgments use only each story's bounded citations;
+unsupported background is not a claim that the statement is false in the world.
+
+The historic output predates the current absence guard. Its two rejected
+rationales infer unavailable information from short excerpts; this audit does not
+republish it or treat rejection as a new runtime failure. Interpretation labels
+remain excluded from support/rejection counts. Zero supported rejections in this
+selected accepted sample cannot estimate false-rejection rates. No independent
+review, inference, source fetching or production validator change is involved.
+Briefs remain outside this story-field audit. NBA lacks recorded evidence IDs,
+so a citation-based review must not reconstruct historical provenance. Next: retained
+briefs/rejected responses where available, independently reviewed negative claims,
+and later-date/Gaming evidence rather than invented historical provenance.

@@ -14,7 +14,10 @@ const fields = ['headline', 'summary', 'whyItMatters', 'rationale'] as const;
 const hash = (text: string) => createHash('sha256').update(text).digest('hex');
 const reviewSchema = z
   .object({
-    snapshot: z.literal('editorial-tech-2026-11-01-v4.json'),
+    snapshot: z.enum([
+      'editorial-tech-2026-11-01-v4.json',
+      'editorial-world-2026-11-01.json',
+    ]),
     snapshotSha256: z.string().regex(/^[a-f0-9]{64}$/),
     review: z.string().min(1),
     scope: z.string().min(1),
@@ -32,11 +35,17 @@ const reviewSchema = z
   })
   .strict();
 
-export function evaluateRecordedSupport() {
+export function evaluateRecordedSupport(topic: 'tech' | 'world' = 'tech') {
   const directory = join(__dirname, '../test/fixtures');
   const review = reviewSchema.parse(
     JSON.parse(
-      readFileSync(join(directory, 'support-review-tech-v4.json'), 'utf8'),
+      readFileSync(
+        join(
+          directory,
+          `support-review-${topic}${topic === 'tech' ? '-v4' : ''}.json`,
+        ),
+        'utf8',
+      ),
     ),
   );
   assert.equal(
@@ -44,7 +53,11 @@ export function evaluateRecordedSupport() {
     review.snapshotSha256,
     'Reviewed snapshot changed',
   );
-  const replay = evaluateEditorialWindow('tech', 'v4');
+  assert.equal(
+    review.snapshot,
+    `editorial-${topic}-2026-11-01${topic === 'tech' ? '-v4' : ''}.json`,
+  );
+  const replay = evaluateEditorialWindow(topic, topic === 'tech' ? 'v4' : '');
   const keys = review.annotations.map((a) => `${a.storyId}:${a.field}`);
   assert.equal(new Set(keys).size, keys.length, 'Duplicate review annotation');
   assert.deepEqual(
@@ -104,4 +117,12 @@ export function evaluateRecordedSupport() {
   };
 }
 if (require.main === module)
-  console.log(JSON.stringify(evaluateRecordedSupport(), null, 2));
+  console.log(
+    JSON.stringify(
+      ['tech', 'world'].map((topic) =>
+        evaluateRecordedSupport(topic as 'tech' | 'world'),
+      ),
+      null,
+      2,
+    ),
+  );

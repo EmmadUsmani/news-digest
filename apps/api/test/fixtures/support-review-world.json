@@ -1,0 +1,148 @@
+{
+  "snapshot": "editorial-world-2026-11-01.json",
+  "snapshotSha256": "a205b06b8e4cba0bbb587a9468863ef071dcfa9318d1b310f080e4aefbc84748",
+  "review": "Provisional build-agent judgments against bounded cited inputs, not independent review or source fact checking.",
+  "scope": "All four text fields of all five selected historical World stories, including a three-input composite. Briefs, triage and rejected responses are outside this story-field audit. Claims requiring uncited background are unsupported under this bounded-input policy, not declared false in the world.",
+  "annotations": [
+    {
+      "storyId": "ebdaa2d1-a4d5-4053-bfdc-78646aedd60c",
+      "field": "headline",
+      "claimSha256": "3e58edc67e461e6ae3f6db0d9c31dc583e66078453c702fdae98298b173137f5",
+      "label": "supported",
+      "reason": "Preserves proposal, participants, awaiting US response and reopening scope."
+    },
+    {
+      "storyId": "ebdaa2d1-a4d5-4053-bfdc-78646aedd60c",
+      "field": "summary",
+      "claimSha256": "1589d6ce96a26124e042dbf669490c9a459ce6b6d90608596f347f2326bae832",
+      "label": "supported",
+      "reason": "The cited excerpt states Doha, the third day, asset amount and conditional reopening before midterms."
+    },
+    {
+      "storyId": "ebdaa2d1-a4d5-4053-bfdc-78646aedd60c",
+      "field": "whyItMatters",
+      "claimSha256": "89aeefe5624db2cd11c671fa868cf7b6baeaab25861e787aec40145f3096a6de",
+      "label": "unsupported",
+      "reason": "Nuclear-talk implications are stated, but major shipping-route status is background knowledge absent from the bounded cited input."
+    },
+    {
+      "storyId": "ebdaa2d1-a4d5-4053-bfdc-78646aedd60c",
+      "field": "rationale",
+      "claimSha256": "a8c1a710365d4a3c48d9c18e2c397abceeb78e28f5b552fbbf8bdc4cd0ef07f4",
+      "label": "interpretation",
+      "reason": "Importance and source credibility are editorial assessments; the ongoing negotiation is explicit."
+    },
+    {
+      "storyId": "6cdda6f3-6358-4913-9570-3f704aa12100",
+      "field": "headline",
+      "claimSha256": "996bf37c2c105e8b76e91a3d2d744d31de8943e9f6218f5dfc0988d8f055ee5d",
+      "label": "supported",
+      "reason": "Combines protest size from title with voter-roll grievance in excerpt."
+    },
+    {
+      "storyId": "6cdda6f3-6358-4913-9570-3f704aa12100",
+      "field": "summary",
+      "claimSha256": "ccd853e00f4ed688c0e289fb71be14059324bc70888d3ab7e624e4cbda0c3ce0",
+      "label": "supported",
+      "reason": "Preserves Congress leadership, location and attributed 130 million names removed."
+    },
+    {
+      "storyId": "6cdda6f3-6358-4913-9570-3f704aa12100",
+      "field": "whyItMatters",
+      "claimSha256": "6fccb61f64725231be427d44694d7f0308be49b1cdbd8ac957f28fde6dbb24fe",
+      "label": "interpretation",
+      "reason": "Participation and public-trust implications are editorial assessments, not a measured public-trust outcome."
+    },
+    {
+      "storyId": "6cdda6f3-6358-4913-9570-3f704aa12100",
+      "field": "rationale",
+      "claimSha256": "dab6a1c2bba0e3acc03b2b449863bc5b073178e707f867796c5dd4b1e8c116f2",
+      "label": "interpretation",
+      "reason": "Consequential is editorial; protest scale, electoral grievance and publisher are supported."
+    },
+    {
+      "storyId": "e73e9a0d-dcd1-48df-a08e-d4d0086b3da5",
+      "field": "headline",
+      "claimSha256": "20945c599701653a7fd36fab32e733696359b53be02f859e9e6e61da1ae95b7a",
+      "label": "supported",
+      "reason": "Restates the cited BBC title."
+    },
+    {
+      "storyId": "e73e9a0d-dcd1-48df-a08e-d4d0086b3da5",
+      "field": "summary",
+      "claimSha256": "c287998364b029a6a103bbc9cb9955f17ef5d7e40d5d8fd71457ccd864878125",
+      "label": "supported",
+      "reason": "Restates the order and the letters, retaining possible non-citizen qualification."
+    },
+    {
+      "storyId": "e73e9a0d-dcd1-48df-a08e-d4d0086b3da5",
+      "field": "whyItMatters",
+      "claimSha256": "e36005dff7a7cfcdeddc1ab4e1d9c8abae757536c1aeea1083bd6d176ecc003e",
+      "label": "unsupported",
+      "reason": "Federal pressure is a reasonable description, but local scope and timing ahead of midterms are absent from this story's cited input."
+    },
+    {
+      "storyId": "e73e9a0d-dcd1-48df-a08e-d4d0086b3da5",
+      "field": "rationale",
+      "claimSha256": "a2e750e3b75e759efdf270da37403e3ff2a6e99b3974985b07b5f3c079407efe",
+      "label": "unsupported",
+      "reason": "Brief input does not establish that details beyond the order are unavailable; it actually includes the letters. This is an absence claim about omitted information."
+    },
+    {
+      "storyId": "515cc3ad-cc24-4b4b-942d-9d0e767f5be6",
+      "field": "headline",
+      "claimSha256": "c35eb79262623ff5e2961c08aa08147684128c20937ecf5fe1729f5e8982ee2d",
+      "label": "supported",
+      "reason": "Combined citations describe cost-of-living protests, multiple countries and violence."
+    },
+    {
+      "storyId": "515cc3ad-cc24-4b4b-942d-9d0e767f5be6",
+      "field": "summary",
+      "claimSha256": "b9be5785a08e62a1e3885fe7e4644885fae804198bd44cd0c6d48659f5d48626",
+      "label": "supported",
+      "reason": "Each factual clause appears across the three cited inputs, including quantity, cities, petrol bomb, Portugal and Switzerland."
+    },
+    {
+      "storyId": "515cc3ad-cc24-4b4b-942d-9d0e767f5be6",
+      "field": "whyItMatters",
+      "claimSha256": "57adb12520e90b7c508d8e8114257a8cfd72e17c0cf6e1f3d607c762532dc4e1",
+      "label": "interpretation",
+      "reason": "Public anger is editorial framing of the reported protest grievances; no measured public sentiment is asserted."
+    },
+    {
+      "storyId": "515cc3ad-cc24-4b4b-942d-9d0e767f5be6",
+      "field": "rationale",
+      "claimSha256": "d82449c5280d8a21afc394caa6a5e7418d1f61b95b8081442b7ffce1c0bf3123",
+      "label": "unsupported",
+      "reason": "Three inputs are present, but each source is attributed is false of the displayed story text, which names neither BBC nor Guardian. Same-wave grouping is editorial, not independently verified."
+    },
+    {
+      "storyId": "7ddbc32d-6295-4891-9b36-f1272b6f55a6",
+      "field": "headline",
+      "claimSha256": "1ce16491874abb5e5a295e2938324a8088873bf760cb8a93d4a01764545e3898",
+      "label": "supported",
+      "reason": "Death toll, location and Cambridge scientist appear in bounded input."
+    },
+    {
+      "storyId": "7ddbc32d-6295-4891-9b36-f1272b6f55a6",
+      "field": "summary",
+      "claimSha256": "bde1bf76b0421ad417792da5132913b58aa04ffa853c23b9ba36eeb1e6bd8b25",
+      "label": "supported",
+      "reason": "Preserves day, province, death toll, name, age, affiliations and conference travel with attribution."
+    },
+    {
+      "storyId": "7ddbc32d-6295-4891-9b36-f1272b6f55a6",
+      "field": "whyItMatters",
+      "claimSha256": "de95ec30bd56956e1d7630b62d3cb214d18a8eb7bb4532f3dbee3d3f9a71e33c",
+      "label": "interpretation",
+      "reason": "Major loss and attention to human toll are editorial significance judgments."
+    },
+    {
+      "storyId": "7ddbc32d-6295-4891-9b36-f1272b6f55a6",
+      "field": "rationale",
+      "claimSha256": "ab9b293d29577cbe9b4c8ef4cb40976c26c6f71cfc0ad13cb0d48a98fdf97fab",
+      "label": "unsupported",
+      "reason": "The excerpt omits cause and investigation, which cannot establish their absence; the current lexical absence rule rejects this historical rationale."
+    }
+  ]
+}
