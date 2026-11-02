@@ -116,30 +116,6 @@ Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
 
 Iteration 252: [archive](docs/progress-archive/2026-11-02-iteration-252.md).
 
-## 2026-11-02: iteration 259 — recover topic deletion rollback coverage
-
-- Recovered and finished iteration 258’s uncommitted test, database notes and iteration 239 archive; discarded nothing.
-- Services/health and all 32 sources healthy; priority 15/13/7/9 evidence still awaits Nov 3.
-- Pins rollback of cascaded source connections and topic positions when deletion fails; retry and missing-delete behavior verified.
-- Disposable PostgreSQL only; no provider or Reddit requests.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 154 integration), `pnpm build`, `git diff --check` passed.
-- Live latest edition has four topics; rolling article/X coverage present across all four topics.
-- Restarted API/worker; health, SPA, source and queue checks passed.
-- Next: observe Nov 3 scheduled X per-topic cost/yield and AI edition cost/duration before acknowledging 15/13/7.
-
-## 2026-11-02: iteration 260 — final ingestion-write rollback
-
-- Started clean on main; API/worker, health and all 32 sources healthy; no leftover work.
-- Priority 15/13/7/9 evidence awaits Nov 3; advanced isolated STEERING 2a.
-- Rejected the final source-status write after article upserts, observations and X citations; complete snapshots remain unchanged.
-- Removing rejection permits retry with retained article ID/citation first-seen time; repeat batches dedupe correctly.
-- Disposable PostgreSQL only; no provider or Reddit requests.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 155 integration), `pnpm build`, `git diff --check` passed.
-- Restarted API/worker; `/healthz` healthy, SPA 200, 32 error-free sources and four available queues.
-- Four-topic latest edition and rolling article/verified-X coverage present across all topics.
-- Updated TASKS/database notes; archived iteration 240 to keep PROGRESS bounded.
-- Next: observe Nov 3 scheduled X per-topic cost/yield and AI edition cost/duration before acknowledging 15/13/7.
-
 ## 2026-11-02: iteration 261 — concurrent ingestion merge
 
 - Started clean on main; health, API/worker, 32 sources and four queues healthy; no leftover work.
@@ -359,4 +335,15 @@ Iteration 252: [archive](docs/progress-archive/2026-11-02-iteration-252.md).
 - Verified: `pnpm format`, `pnpm lint:fix`, `pnpm check` (130 unit/166 integration), `pnpm build`; final typecheck/lint/format rechecked after JSON-column fix; `git diff --check`.
 - API/worker restarted active; health OK, SPA 200, latest edition four topics, 32 sources returning data without errors.
 - Read-only live report: one Nov 2 call, 23,382 cost micros, zero outside-list verified/new posts and unknown authors; no discovery triggered.
+- Next: observe Nov 3 scheduled searches/edition, acknowledge item 15 with cost/yield, then switch to open search; real-edition/screenshots remain.
+
+## 2026-11-02: iteration 278 — X discovery publication evidence
+
+- Started clean on main; no leftover work; API/worker and health healthy, 32 sources without errors.
+- Daily X report now counts cited posts selected in same-topic editions after each call within that UTC day, including outside-list posts.
+- Repeated editions count once per call/topic; other topics/platforms and earlier/later-day editions excluded; current-list caveats retained.
+- Extended isolated fixtures for publication timing and duplicate editions; updated SOURCES/TASKS; archived iterations 259–260.
+- Verified: `pnpm format`, `pnpm lint:fix`, `pnpm check` (130 unit/166 integration), `pnpm build`, `git diff --check`. Initial check caught archive formatting; corrected before passing full check.
+- API/worker restarted active; health OK, SPA 200, latest edition four topics; no paid provider or Reddit requests.
+- Read-only Nov 2 report: one call, 23,382 cost micros, zero same-day selected/outside-list selected posts.
 - Next: observe Nov 3 scheduled searches/edition, acknowledge item 15 with cost/yield, then switch to open search; real-edition/screenshots remain.

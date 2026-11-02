@@ -6,7 +6,7 @@ Fix regressions, broken services and stalled sources before starting new work.
 ## Immediate owner priorities (STEERING overrides older milestone notes)
 
 - [ ] STEERING 16 (next implementation): open per-topic X search without handle restrictions; reported engagement/velocity, then budget-permitting story reactions and secondary account lists. Keep caps; item 15's first scheduled run is acknowledged before switching. Report search type, cost/yield and outside-list accounts; finish with real editions/screenshots.
-  - Iterations 271–276: open adapter, unverified engagement snapshots, relevance-gated semantic/engagement ranking and per-call search-type cost/yield reporting implemented. Scheduled switch awaits item 15 acknowledgement. Iteration 277 adds current-list outside-account verified/new-post yield with unknown-author counts. Next: Nov 3 evidence.
+  - Iterations 271–276: open adapter, unverified engagement snapshots, relevance-gated semantic/engagement ranking and per-call search-type cost/yield reporting implemented. Scheduled switch awaits item 15 acknowledgement. Iteration 277 adds current-list outside-account verified/new-post yield with unknown-author counts. Iteration 278 adds same-day edition selection counts, including outside-list posts. Next: Nov 3 evidence.
 - [ ] STEERING 17 (after 16): improve editable curated X accounts and document choices.
 - [ ] STEERING 18 (after 17): official Bluesky open discovery, engagement ranking and cards; fixtures first if authentication blocks live search.
 - [ ] STEERING 19 (after 18): conservative event grouping with fixture precision, one story per event and additional outlet links.

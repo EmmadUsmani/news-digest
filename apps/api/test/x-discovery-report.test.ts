@@ -53,6 +53,8 @@ void test('X daily evidence preserves zero-yield calls, counts cost once and use
         outsideListVerifiedNow: 2,
         outsideListNewVerifiedNow: 0,
         unknownAuthorVerifiedNow: 0,
+        selectedInDay: 0,
+        outsideListSelectedInDay: 0,
       },
     ]);
     assert.deepEqual(report.calls[1].topics, []);
@@ -397,8 +399,36 @@ void test('X outside-list yield uses verified authors and every current list wit
     );
     const evidence = async () =>
       (await readXDiscoveryReport(client, '2037-01-02')).calls[0].topics[0];
+    // Repeated publication must not multiply selected posts; wrong topics,
+    // platforms and editions before the search or on later days do not qualify.
+    for (const [at, topicId, platform, ids] of [
+      ['2037-01-02T11:00:00Z', topic, 'x', ['887803']],
+      ['2037-01-03T00:00:00Z', topic, 'x', ['887803']],
+      ['2037-01-02T13:00:00Z', crypto.randomUUID(), 'x', ['887803']],
+      ['2037-01-02T13:00:00Z', topic, 'reddit', ['887803']],
+      ['2037-01-02T13:00:00Z', topic, 'x', ['887800', '887801']],
+      ['2037-01-02T14:00:00Z', topic, 'x', ['887800', '887801']],
+    ] as const) {
+      await client.query(
+        `INSERT INTO digest_previews(profile_id,created_at,window_start,window_end,snapshot)
+        VALUES('00000000-0000-4000-8000-000000000001',$1,'2037-01-01','2037-01-02',$2)`,
+        [
+          at,
+          {
+            topics: [
+              {
+                id: topicId,
+                posts: ids.map((externalId) => ({ platform, externalId })),
+              },
+            ],
+          },
+        ],
+      );
+    }
     const before = await evidence();
     assert.equal(before.citations, 5);
+    assert.equal(before.selectedInDay, 2);
+    assert.equal(before.outsideListSelectedInDay, 1);
     assert.equal(before.verifiedNow, 4);
     assert.equal(before.outsideListVerifiedNow, 2);
     assert.equal(before.outsideListNewVerifiedNow, 1);
@@ -406,6 +436,8 @@ void test('X outside-list yield uses verified authors and every current list wit
     await client.query(`UPDATE topics SET accounts='["outsider"]'::jsonb`);
     const after = await evidence();
     assert.equal(after.outsideListVerifiedNow, 1);
+    assert.equal(after.selectedInDay, 2);
+    assert.equal(after.outsideListSelectedInDay, 1);
     assert.equal(after.outsideListNewVerifiedNow, 1);
     assert.equal(after.unknownAuthorVerifiedNow, 1);
   } finally {

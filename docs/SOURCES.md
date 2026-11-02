@@ -22,6 +22,14 @@ not unique accounts or historical membership snapshots; edits to lists and curre
 verification state can change them. Existing search-type and requested-topic
 snapshots allow the counts to be compared per topic and search type.
 
+Iteration 278: `selectedInDay` counts each cited post once per call/topic if it
+appears in a same-topic edition published after that call and before the UTC day
+ends. Repeated editions do not multiply counts; earlier or later-day editions,
+other topics and non-X posts do not qualify. `outsideListSelectedInDay` applies
+the current verified-author/list comparison above. These counts show publication,
+not incremental discovery or causal attribution; the same post can count for
+multiple calls. No inference, publication or verification is triggered.
+
 Checked 2026-11-01, iteration 38. Counts below are actual stored observations
 from the live worker and `/api/content/sources`, not fixture counts. Seventeen sources
 supplied 669 distinct URLs across all four topics. Last successful bounded
