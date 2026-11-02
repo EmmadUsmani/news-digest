@@ -1,5 +1,3 @@
-import { createHash } from 'node:crypto';
-
 import { ZodError } from 'zod';
 
 import { costMicros } from '../domain/budget';
@@ -9,6 +7,7 @@ import {
   ProviderSpendLimit,
 } from '../domain/llm.port';
 import type { LlmLedger } from '../domain/llm-ledger.port';
+import { llmFingerprint } from './llm-fingerprint';
 import {
   LlmValidationFailure,
   type ValidationDiagnostic,
@@ -57,17 +56,7 @@ export class BudgetedLlm {
       Buffer.byteLength(request.instructions + request.prompt, 'utf8') + 2048;
     if (inputBound >= 100000)
       throw new Error('Split prompt below 100k token bound');
-    const key = createHash('sha256')
-      .update(
-        JSON.stringify({
-          version: 1,
-          model: request.model.id,
-          instructions: request.instructions,
-          prompt: request.prompt,
-          maxOutputTokens: request.maxOutputTokens,
-        }),
-      )
-      .digest('hex');
+    const key = llmFingerprint(request);
     const existing = this.pending.get(key);
     if (existing) {
       const result = await existing;

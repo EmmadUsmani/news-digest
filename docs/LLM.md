@@ -385,3 +385,31 @@ Status now breaks down UTC-day/month spend and unresolved reservations by ledger
 purpose, including development verification. Old holds remain visible across
 months. Other purpose tags retain their original names because historical
 development and digest calls cannot reliably be separated retroactively.
+
+### Fingerprinted offline transport replay (iteration 181)
+
+`ReplayLlmAdapter` implements `LlmPort` with no network dependency or provider
+fallback. Its version-1 SHA-256 fingerprint is the existing `llm_cache` key:
+model ID, exact instructions, prompt and maximum output tokens. Run IDs, purpose
+and pricing do not affect it. Prompt/schema instructions or model changes cause
+a hard miss; identical repeated requests consume recorded responses in order.
+Each replay instance starts fresh. Response text and usage are preserved,
+including invalid JSON needed to exercise repair paths.
+
+`RecordingLlmAdapter` captures only successful transport responses, fingerprint
+and model, never headers, keys, request text or thrown provider errors. The
+explicit historical recorder saves these under `apps/api/test/fixtures/llm/`
+even if subsequent editorial validation fails. Existing opt-in, immutable
+snapshot refusal and verification budget guards still apply. Review captured
+response bodies before committing. Re-record only for prompt/schema changes
+and explain the change in the commit; do not run paid recording merely to test
+this adapter.
+
+The initial `transport.synthetic.json` is authored synthetic transport data,
+not a real provider recording. Earlier editorial snapshots contain validated
+results rather than raw transport responses and cannot be reconstructed as
+faithful request replays. Full editorial golden wiring to raw recorded responses
+remains open; no new live recordings were made in this iteration.
+
+Offline targeted check:
+`pnpm exec tsx --test apps/api/test/recorded-llm.test.ts apps/api/test/llm.test.ts`.

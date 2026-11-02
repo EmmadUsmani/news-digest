@@ -40,3 +40,13 @@
 - Initial checks caught state declaration order and smoke-script CommonJS top-level await; both corrected before verification.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check`: all 162 isolated tests and types/lint/format/boundaries pass; `pnpm build` passes; services restarted and health checked.
 - TASKS updated; no source changes, docs/SOURCES unchanged. Item 7 remains open: granular editorial-stage progress, last-run duration on Status and full-edition fake timing. No latency claim or new blocker.
+
+## 2026-11-02: iteration 167 — budget-safe live timing evidence
+
+- Started clean on main; no leftover work. Health/API/worker healthy, 32 sources without errors, zero failed digest jobs; two historical ingestion failures remain.
+- Added read-only `scripts/report-edition-timing.ts`: GETs status and three retained completed editions; reports worker timing, attempts, window, candidate counts, AI/fallback metadata and remaining app budget. No jobs, settings writes or inference.
+- Actual live report: retained runs took 85/73/74 ms and published older signals-v6 editions with four topics and no AI metadata. These are NOT live AI latency evidence.
+- Only 848 micros ($0.000848) remains today, with no reservations; a meaningful fresh provider trial cannot fit. Preserved the scheduled digest's budget. Item 7 targets stay unverified; inspect routine runs instead of more paid verification.
+- `pnpm exec tsx scripts/report-edition-timing.ts` plus JSON assertions passed (three runs, four topics each, nonnegative duration, exact remaining budget); next scheduled run is 15:00 UTC, unchanged.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (all 164 isolated tests, types/lint/format/boundaries) and `pnpm build` passed. No UI/source changes or live inference spend; docs/SOURCES unchanged.
+- README/TASKS updated. Next: inspect 15:00 scheduled publication with this report; proceed to Reddit while fresh live latency evidence awaits budget. No human action needed.

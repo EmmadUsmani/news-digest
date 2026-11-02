@@ -40,16 +40,6 @@ Earlier iteration 165: [archive](docs/progress-archive/2026-11-02-iteration-165.
 
 Iteration 166: [archive](docs/progress-archive/2026-11-02-iteration-166.md).
 
-## 2026-11-02: iteration 167 — budget-safe live timing evidence
-
-- Started clean on main; no leftover work. Health/API/worker healthy, 32 sources without errors, zero failed digest jobs; two historical ingestion failures remain.
-- Added read-only `scripts/report-edition-timing.ts`: GETs status and three retained completed editions; reports worker timing, attempts, window, candidate counts, AI/fallback metadata and remaining app budget. No jobs, settings writes or inference.
-- Actual live report: retained runs took 85/73/74 ms and published older signals-v6 editions with four topics and no AI metadata. These are NOT live AI latency evidence.
-- Only 848 micros ($0.000848) remains today, with no reservations; a meaningful fresh provider trial cannot fit. Preserved the scheduled digest's budget. Item 7 targets stay unverified; inspect routine runs instead of more paid verification.
-- `pnpm exec tsx scripts/report-edition-timing.ts` plus JSON assertions passed (three runs, four topics each, nonnegative duration, exact remaining budget); next scheduled run is 15:00 UTC, unchanged.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (all 164 isolated tests, types/lint/format/boundaries) and `pnpm build` passed. No UI/source changes or live inference spend; docs/SOURCES unchanged.
-- README/TASKS updated. Next: inspect 15:00 scheduled publication with this report; proceed to Reddit while fresh live latency evidence awaits budget. No human action needed.
-
 ## 2026-11-02: iteration 168 — bounded Reddit listing adapter
 
 - Started clean on main; no leftover work. API/worker/health healthy, 32 sources without current errors, zero failed digest jobs; two historical ingestion failures retained.
@@ -188,3 +178,14 @@ Iteration 166: [archive](docs/progress-archive/2026-11-02-iteration-166.md).
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (181 tests); `pnpm build` passed. `pnpm exec tsx scripts/smoke-ai-spend.ts` passed read-only desktop/mobile checks; screenshots saved and mobile inspected.
 - Restarted API/worker; `/healthz` database/Redis true. Read-only timing report confirms latest real edition four topics/10 posts; available budget unchanged at 848 micros. No inference, settings writes or source changes.
 - Updated TASKS/docs/LLM. Next: fingerprinted LlmPort replay; legitimate Reddit access/live AI timing remain blocked, paid xAI scheduling follows Reddit.
+
+## 2026-11-02: iteration 181 — fingerprinted offline LLM replay
+
+- Started clean on main; no leftover work. API/worker, health, 32 sources and queues available. Higher priorities still await legitimate Reddit access and live AI timing budget (848 micros available).
+- Extracted unchanged production cache fingerprint and added fail-closed replay plus response-recording LlmPort adapters. Repeated requests replay in order; changed prompts/models fail without network fallback.
+- Guarded historical recorder now saves raw successful responses/model/fingerprint to new fixtures even when later validation fails; preserves opt-in, verification cap and existing snapshot refusal. No keys/headers/request text/provider errors recorded.
+- Added explicitly synthetic transport fixture; no paid recording or inference. Full editorial golden wiring to raw recordings remains open; older validated snapshots cannot faithfully supply transport responses.
+- Targeted `pnpm exec tsx --test apps/api/test/recorded-llm.test.ts apps/api/test/llm.test.ts` passed (23 tests). Fixed replay method lint error before final checks.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (184 tests); `pnpm build` passed. No UI changes; no browser check needed.
+- Restarted API/worker; `/healthz` DB/Redis true. Read-only `scripts/report-edition-timing.ts`: latest real scheduled edition four topics/10 X posts; spend unchanged. No settings/content writes or source changes.
+- Updated TASKS/docs/LLM; archived iteration 167 to keep orientation small. Next: full editorial fixture replay; Reddit/live AI timing blockers unchanged, scheduled xAI follows Reddit per owner order.

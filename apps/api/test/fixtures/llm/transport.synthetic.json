@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "provenance": "Synthetic transport fixture; authored locally, no provider inference or live content.",
+  "records": [
+    {
+      "fingerprint": "1ef685dd911142b4617b0361ec4044ac2c9267f97170fe7ec8b4e9724fcc7ddc",
+      "model": "claude-haiku-5-5",
+      "response": {
+        "text": "{\"ok\":true}",
+        "usage": {
+          "input": 40,
+          "cacheWrite": 12,
+          "cacheRead": 4,
+          "output": 8
+        }
+      }
+    }
+  ]
+}

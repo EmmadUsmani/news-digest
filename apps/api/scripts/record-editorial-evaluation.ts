@@ -10,6 +10,7 @@ import { relevancePolicySchema } from '@digest/contracts';
 import { database } from '../src/libs/db/connections';
 import { AnthropicLlmAdapter } from '../src/modules/curation/adapters/anthropic';
 import { llmConfig } from '../src/modules/curation/adapters/config';
+import { RecordingLlmAdapter } from '../src/modules/curation/adapters/recorded-llm';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import { ShortlistEditor } from '../src/modules/curation/application/editor';
 import type { TriageTopic } from '../src/modules/curation/application/triage';
@@ -60,15 +61,20 @@ async function main() {
     !existsSync(output),
     'Recorded snapshot already exists; do not spend or overwrite it',
   );
+  const replayOutput = join(
+    __dirname,
+    '../test/fixtures/llm',
+    `${key}-${Date.now()}.json`,
+  );
+  const recording = new RecordingLlmAdapter(
+    new AnthropicLlmAdapter(process.env.ANTHROPIC_API_KEY),
+  );
   const db = database();
   const runId = `recorded-${key}-` + randomUUID();
   try {
     const config = llmConfig();
     const ledger = new PostgresLlmLedger(db, config.caps, true);
-    const llm = new BudgetedLlm(
-      new AnthropicLlmAdapter(process.env.ANTHROPIC_API_KEY),
-      ledger,
-    );
+    const llm = new BudgetedLlm(recording, ledger);
     const triageService = new CandidateTriage(llm, ledger, config.haiku);
     const editor = new ShortlistEditor(llm, config.sonnet, config.haiku);
     const topic = (
@@ -131,7 +137,17 @@ async function main() {
       }),
     );
   } finally {
-    await db.end();
+    try {
+      const captured = recording.snapshot(
+        'Real configured Anthropic responses from explicit verification on frozen feed excerpts; offline replay only.',
+      );
+      if (captured.records.length)
+        writeFileSync(replayOutput, JSON.stringify(captured, null, 2) + '\n', {
+          flag: 'wx',
+        });
+    } finally {
+      await db.end();
+    }
   }
 }
 void main().catch(() => {
