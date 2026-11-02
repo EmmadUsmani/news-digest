@@ -311,3 +311,16 @@ Earlier iterations 61–72: [archive](docs/progress-archive/2026-11-02-iteration
 - Restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; refreshed screenshots and inspected mobile status.
 - Updated TASKS/docs/SOURCES. No edition published, inference/discovery spending, provider/model/billing change or new owner blocker. Anthropic $0.408415; X $0.023382; paid scheduling stays off.
 - Next: inspect scheduled semantic social edition when due; widen legitimate free Gaming post discovery. Reddit and these publisher pages remain blocked.
+
+## 2026-11-02: iteration 123 — free Gaming X discovery from publisher RSS
+
+- Started clean on main; no leftover work. API/worker/health, twenty feeds and retained digest runs healthy; next semantic slot Nov 2 20:40 UTC.
+- Migration 026 connects GamingBolt + Push Square RSS to original Gaming topic. Existing ingestion stores 35 real articles and three X citations with publisher provenance; no page crawling or paid calls.
+- `pnpm migrate`; `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two live queued passes, 997 URLs/four topics/22 healthy sources. `verify-x-embeds.ts`: two newly verified/no failures; all three cited posts have stored official embeds.
+- Current Phantom Blade Zero post is dated Nov 2 02:02 UTC. FromSoftware support and Shiina citations date Oct 30/Nov 1; article recency does not refresh posts. Last-24h `screen-social-posts.ts` rejects Phantom Blade Zero on lexical phrase rules; scheduled semantic selection remains unverified.
+- Recorded two entries each; regression asserts exact X IDs from encoded content/descriptions. Initial suite caught XML recorder namespace renaming; preserved original XML instead. Initial diagnostic queried nonexistent last_error; corrected read-only query.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 132 isolated tests pass. `pnpm build` passes (existing upstream Zod warnings).
+- Restarted API/worker; `/healthz` healthy. `scripts/smoke-ui.ts`, `scripts/smoke-status.ts`, and `scripts/smoke-posts.ts /tmp/iteration123-posts.jsonl` pass desktop/mobile; refreshed screenshots and inspected mobile status. Post replay uses saved candidates with stubbed widgets/blocked fallback, not a new edition.
+- Updated TASKS/docs/SOURCES. Gematsu/Destructoid/Siliconera feed probes succeeded but exposed no X links; left unconfigured. Gematsu homepage 403; no bypass.
+- No inference/discovery spend, publication, provider/model/billing change or new owner blocker: Anthropic $0.408415; X $0.023382. Reddit blocked; paid X scheduling stays off.
+- Next: observe 20:40 UTC semantic social edition, especially new Gaming candidate; continue free social discovery and distinguish current posts from old citations.

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+	<channel>
+		<title>Push Square | Latest Updates</title>
+		<link>https://www.pushsquare.com/feeds/latest</link>
+		<description></description>
+		<language>en</language>
+		<copyright>(c) 2026 Hookshot Media</copyright>
+		<lastBuildDate>Mon, 02 Nov 2026 10:15:00 GMT</lastBuildDate>
+		<docs>https://www.pushsquare.com/feeds</docs>
+		<generator>dgpCMS/1.0 https://hookshot.media</generator>
+		<webMaster>help@pushsquare.com (Push Square)</webMaster>
+		<ttl>5</ttl>
+		<image>
+			<url>https://images.pushsquare.com/site/icon/128x128.png</url>
+			<title>Push Square</title>
+			<link>https://www.pushsquare.com/</link>
+			<width>128</width>
+			<height>128</height>
+		</image>
+		<atom:link href="https://www.pushsquare.com/feeds/latest" rel="self" type="application/rss+xml" />
+		<item>
+			<pubDate>Mon, 02 Nov 2026 10:00:00 GMT</pubDate>
+			<title>New PS5 Firmware Update Available Now as Sony Cracks Down on Jailbreaks</title>
+			<description><![CDATA[<p><strong>What does version 26.07-14.22.00 do?</strong></p><p>Sony has released another system software update for PS5, hot on the heels of <a href="https://www.pushsquare.com/news/2026/10/ps5-firmware-update-26-07-14-20-00-available-to-download-now">the last one</a> from less than a fortnight ago.</p><p>Version 26.07-14.22.00 is available to download and install now, and the singular patch note makes it fairly clear what it's targeting:</p><p>Read the <a href="https://www.pushsquare.com/news/2026/11/new-ps5-firmware-update-available-now-as-sony-cracks-down-on-jailbreaks">full article on pushsquare.com</a></p>]]></description>
+			<guid isPermaLink="false">https://www.pushsquare.com/#article-208443</guid>
+			<link>https://www.pushsquare.com/news/2026/11/new-ps5-firmware-update-available-now-as-sony-cracks-down-on-jailbreaks</link>
+			<media:thumbnail url="https://images.pushsquare.com/9cbef94ee2a4b/small.jpg" />
+			<media:content url="https://images.pushsquare.com/9cbef94ee2a4b/large.jpg" medium="image" type="image/jpeg" />
+		</item>
+		<item>
+			<pubDate>Mon, 02 Nov 2026 00:00:00 GMT</pubDate>
+			<title>Fortnite&#039;s Pirate Shop Unlocks the Entire Item Shop for Free</title>
+			<description><![CDATA[<p><strong>Battle Royale tops five million concurrent players.</strong></p><p>In case you haven’t been paying attention, <a href="https://www.pushsquare.com/games/ps5/fortnite">Fortnite</a> is running a pirate-themed season with <em>One Piece</em> crossover content available right now.</p><p>But the big news is <a href="https://x.com/ShiinaBR/status/2116822592556580874">the discovery of a Pirate Shop</a>, which makes the entire Item Shop free for two weeks. If you’re running in a squad, then everyone on your team gets the reward.</p><p>Read the <a href="https://www.pushsquare.com/news/2026/11/fortnites-pirate-shop-unlocks-the-entire-item-shop-for-free">full article on pushsquare.com</a></p>]]></description>
+			<guid isPermaLink="false">https://www.pushsquare.com/#article-208440</guid>
+			<link>https://www.pushsquare.com/news/2026/11/fortnites-pirate-shop-unlocks-the-entire-item-shop-for-free</link>
+			<media:thumbnail url="https://images.pushsquare.com/ce57d15a7af15/small.jpg" />
+			<media:content url="https://images.pushsquare.com/ce57d15a7af15/large.jpg" medium="image" type="image/jpeg" />
+		</item>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</channel>
+</rss>

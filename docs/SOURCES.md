@@ -737,3 +737,29 @@ $0.40 reservation required for another explicit search.
   offline normalization checks validate titles, HTTPS URLs and publication dates.
   Fixtures are replay data. Two queued live ingestion passes stored 960 total
   URLs across twenty healthy feeds, with no duplicates on the second pass.
+
+## 2026-11-02 iteration 123 — Gaming feeds with X citations
+
+- **live:** `https://gamingbolt.com/feed` (10 stored articles) and
+  `https://www.pushsquare.com/feeds/latest` (25 stored articles), connected only
+  to the original Gaming topic by migration 026. No article-discovery host enabled.
+  Two queued ingestion passes confirm 997 distinct stored URLs across 22 healthy sources.
+- Their public RSS includes three X citations: Phantom Blade Zero
+  `2117074929594298758`, FromSoftware player support `2116088984703209689`,
+  and Shiina `2116822592556580874`. Existing ingestion extracts encoded-content
+  and description links and stores publisher/article provenance automatically.
+- Official embed verification explicitly checked two new candidates successfully;
+  all three citations now join stored verified posts. Post timestamps are Nov 2
+  02:02 UTC, Oct 30 08:45 UTC, and Nov 1 09:20 UTC respectively. A newly published
+  article does not make an older cited post fresh.
+- Read-only last-24-hour screening at Nov 2 10:20 UTC rejects Phantom Blade Zero
+  on lexical phrase rules; the other two are outside that window. Semantic
+  scheduled selection remains unverified until the 20:40 UTC edition. This is
+  discovery availability, not a virality or selection-quality measurement.
+- Recorded two entries per feed in `gamingbolt.xml` and `pushsquare.xml`; offline
+  checks assert exact citation IDs, dates, source hosts and excerpt bounds.
+  Browser checks replay existing saved candidates with stubbed widgets and blocked
+  fallbacks; no edition published or live inference used.
+- **not yet tried** for configured ingestion: Gematsu, Destructoid and Siliconera
+  public feeds returned 200 but no X links; left unconfigured in this iteration.
+  Gematsu homepage returned 403; no bypass. No paid search or provider changes.

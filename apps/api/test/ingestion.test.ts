@@ -18,6 +18,8 @@ void test('recorded RSS and Atom normalize real headlines, dates and safe links'
     'nintendo-life.xml',
     'vgc.xml',
     'gamedeveloper.xml',
+    'gamingbolt.xml',
+    'pushsquare.xml',
     'npr-world.xml',
     'guardian-world.xml',
   ]) {
@@ -48,6 +50,27 @@ void test('recorded RSS and Atom normalize real headlines, dates and safe links'
     'https://example.org/a?b=2',
   );
   assert.equal(canonicalUrl('javascript:alert(1)'), null);
+});
+void test('recorded Gaming feeds discover X citations from encoded content and descriptions', async () => {
+  const bolt = parseFeed(await fixture('gamingbolt.xml'));
+  const square = parseFeed(await fixture('pushsquare.xml'));
+  assert.deepEqual(
+    bolt.flatMap((item) => item.xLinks?.map((link) => link.externalId) ?? []),
+    ['2117074929594298758', '2116088984703209689'],
+  );
+  assert.deepEqual(
+    square.flatMap((item) => item.xLinks?.map((link) => link.externalId) ?? []),
+    ['2116822592556580874'],
+  );
+  assert.equal(bolt[0].publishedAt, '2026-11-02T03:31:07.000Z');
+  assert.match(bolt[0].title, /Phantom Blade Zero/);
+  assert.ok(
+    bolt.every((item) => new URL(item.url).hostname === 'gamingbolt.com'),
+  );
+  assert.ok(
+    square.every((item) => new URL(item.url).hostname === 'www.pushsquare.com'),
+  );
+  assert.ok([...bolt, ...square].every((item) => item.excerpt.length <= 1500));
 });
 void test('recorded Nintendo Life feed preserves release news and plain excerpts', async () => {
   const items = parseFeed(await fixture('nintendo-life.xml'));
