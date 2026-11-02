@@ -42,3 +42,20 @@ Expose reserve/other-spend limits and the last scheduled AI/fallback outcome on
 Status, with an explicit explanation in manual edition flows when limited.
 Verify admission and lifecycle races through disposable Postgres/Redis tests.
 Use the next scheduled edition for actual cost and speed evidence; no paid trial.
+
+## Durable lifecycle foundation (iteration 193)
+
+Migration 040 and `ScheduledBudgetRepository` store a single identity for each
+UTC budget day, deriving the day from the supplied scheduled timestamp. All
+lifecycle writes take ledger lock 756282. Concurrent registration keeps the
+first identity; concurrent claims admit one worker. Attempts increment on retry,
+and completion compares the attempt number so a late old worker cannot release
+protection. Only running attempts may finish; terminal days cannot be reopened.
+Successful completion retains edition ID, AI/mixed/fallback mode and reason.
+
+This adapter is not wired to scheduling or ledger admission yet. Registration
+expects a trusted scheduler-computed timestamp; it does not compute cron slots.
+The integration must explicitly reconcile a changed pending schedule (rather
+than silently replace a running/terminal identity), recover abandoned running
+attempts using queue evidence, and handle obsolete jobs and midnight crossings.
+Missing day state must fail closed when ledger enforcement is connected.

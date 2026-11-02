@@ -50,15 +50,7 @@ Earlier iterations 175–176: [archive](docs/progress-archive/2026-11-02-iterati
 
 Iteration 177: [archive](docs/progress-archive/2026-11-02-iteration-177.md).
 
-## 2026-11-02: iteration 178 — bound explicit development inference
-
-- Started clean on main; health/services and queues healthy, 32 sources. No leftover work. Higher priorities remain blocked on legitimate Reddit access and live AI timing budget (848 micros available).
-- Three Anthropic live smoke entrypoints now require LLM_LIVE=1 before opening DB connections. Their ledger reservations, including repairs/editor fallback, use purpose=verification.
-- Added serialized $0.05 UTC-day verification cap across processes, stricter than the owner per-iteration ceiling; pending/uncertain calls retain holds across days, known failures release funds. Normal digest/model caps still apply.
-- Isolated tests cover opt-in rejection, concurrent ledger instances, exact cap, settlement, uncertainty rollover/resolution and ordinary digest allowance. No live inference/source requests or edition/settings writes.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (180 tests); `pnpm build` passed. No UI change; no browser check required.
-- Restarted API/worker; `/healthz` DB/Redis true, all workers available/no retained failed queue jobs. Latest real edition four topics/20 stories/10 X posts; remaining app budget unchanged.
-- Updated TASKS and docs/LLM. Separate verification spend on Status, fingerprinted replay and guarding historical recording entrypoint remain open; Reddit/AI timing blockers unchanged.
+Iteration 178: [archive](docs/progress-archive/2026-11-02-iteration-178.md).
 
 ## 2026-11-02: iteration 179 — guard historical paid recording
 
@@ -199,3 +191,13 @@ Iteration 177: [archive](docs/progress-archive/2026-11-02-iteration-177.md).
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (104 unit/95 isolated integration), `pnpm build` and `git diff --check` passed. No UI changes; browser verification unnecessary.
 - Restarted API/worker: health DB/Redis true, SPA 200, queues available, 32 sources without errors; latest real edition four topics/10 posts.
 - Next, urgently: durable UTC-day scheduled state and measured-cost reader, enforce policy under the shared ledger lock with isolated race tests, then manual/Status visibility. Item 13 remains open; no live reserve protection claim.
+
+## 2026-11-02: iteration 193 — durable scheduled AI budget lifecycle
+
+- Started clean on main; API/worker and DB/Redis health healthy. Latest real edition four topics/10 posts; no leftover work.
+- Added migration 040 and a domain-port/database adapter for UTC-day scheduled identity, shared-ledger-lock lifecycle writes, single concurrent claim, numbered retry attempts and stale-worker completion fencing.
+- Terminal success/failure cannot reopen; successful completion persists edition ID, AI/mixed/fallback mode and reason. First registration wins across restarts; pending schedule reconciliation is still required.
+- Two isolated Postgres tests cover timezone boundaries, duplicate registrations, racing claims, retries, durable outcomes, terminal states, validation and contention with ledger lock 756282.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (104 unit/97 integration) and `pnpm build` passed. `pnpm migrate` applied 040; no paid calls or Reddit requests. No UI changes; browser verification unnecessary.
+- Updated decision 0002, README/TASKS; archived iteration 178 to keep orientation small. Live reserve protection remains UNFINISHED: wire cron/settings and worker lifecycle, measured costs and ledger admission next, then manual/Status visibility.
+- Restarted API/worker: `/healthz` DB/Redis true, SPA 200, four queues available, 32 sources without current errors and latest edition four topics/10 posts. `git diff --check` passed.

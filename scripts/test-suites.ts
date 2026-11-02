@@ -20,6 +20,7 @@ const integration = new Set([
   'relevance.test.ts',
   'river-discovery.test.ts',
   'scheduled-digests.test.ts',
+  'scheduled-budget.test.ts',
   'settings.test.ts',
   'social-candidates.test.ts',
   'social-eligibility.test.ts',
