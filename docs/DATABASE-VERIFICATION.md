@@ -388,3 +388,13 @@ status snapshot remains unchanged. Removing the constraint permits a successful
 retry with the original article ID and citation first-seen time; repeating the
 batch retains exactly two articles, observations and citations. All fixtures
 use disposable PostgreSQL, with no source or provider requests.
+
+## Concurrent ingestion merge (iteration 261)
+
+`content-repository.test.ts` races separate repository instances ingesting the
+same canonical article from two sources. Both engagement keys survive along
+with the original metrics, article identity, author, image and publication time.
+The winning title and excerpt remain paired. Each source retains its own
+observation, citation engagement and healthy status; repeating both concurrent
+batches adds no duplicates and preserves citation first-seen times. Fixtures
+use disposable PostgreSQL only, with no source or provider requests.

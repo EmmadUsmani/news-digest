@@ -727,3 +727,140 @@ void test('final source-status failure rolls back article batches and citations 
     await repository.onModuleDestroy();
   }
 });
+
+void test('concurrent ingestion merges engagement while retaining independent observations and citations', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const repository = new PostgresContentRepository();
+  const competing = new PostgresContentRepository();
+  const topicId = randomUUID();
+  const sources: Source[] = ['a', 'b'].map((suffix) => ({
+    id: `concurrent-${topicId}-${suffix}`,
+    topicId,
+    name: `Concurrent fixture ${suffix}`,
+    kind: 'feed',
+    url: `https://example.org/${topicId}/${suffix}`,
+  }));
+  const original: ContentItem = {
+    url: `https://example.org/${topicId}/shared`,
+    title: 'Original title',
+    excerpt: 'Original excerpt',
+    author: 'Original reporter',
+    imageUrl: `https://example.org/${topicId}/image`,
+    publishedAt: '2035-01-01T00:00:00Z',
+    engagement: { views: 100 },
+  };
+  const variants: ContentItem[] = sources.map((_, index) => ({
+    ...original,
+    title: `Update ${index}`,
+    excerpt: `Excerpt ${index}`,
+    author: `Replacement ${index}`,
+    imageUrl: null,
+    publishedAt: '2036-01-01T00:00:00Z',
+    engagement: index === 0 ? { points: 30 } : { comments: 8 },
+    xLinks: [
+      {
+        externalId: '123456789',
+        url: 'https://x.com/Reporter/status/123456789',
+      },
+    ],
+  }));
+  const retained = async () =>
+    (
+      await repository.db.query(
+        'SELECT * FROM content_items WHERE canonical_url=$1',
+        [original.url],
+      )
+    ).rows;
+  try {
+    await repository.db.query(
+      `INSERT INTO topics(id,profile_id,name,description,include_guidance,position)
+       SELECT $1,id,'Concurrent ingestion fixture','','',100 FROM profiles LIMIT 1`,
+      [topicId],
+    );
+    for (const source of sources) {
+      await repository.db.query(
+        'INSERT INTO content_sources(id,topic_id,name,kind,url) VALUES($1,$2,$3,$4,$5)',
+        [source.id, topicId, source.name, source.kind, source.url],
+      );
+      await repository.db.query(
+        'INSERT INTO topic_source_connections(topic_id,source_id) VALUES($1,$2)',
+        [topicId, source.id],
+      );
+    }
+    await repository.store(sources[0], [original]);
+    const [before] = await retained();
+    const ingestBoth = () =>
+      Promise.all([
+        repository.store(sources[0], [variants[0]]),
+        competing.store(sources[1], [variants[1]]),
+      ]);
+    await ingestBoth();
+    const verify = async () => {
+      const rows = await retained();
+      assert.equal(rows.length, 1);
+      const [row] = rows;
+      assert.equal(row.id, before.id);
+      assert.equal(row.author, before.author);
+      assert.equal(row.image_url, before.image_url);
+      assert.deepEqual(row.published_at, before.published_at);
+      assert.deepEqual(row.engagement, { views: 100, points: 30, comments: 8 });
+      const winner = variants.find((variant) => variant.title === row.title);
+      assert.ok(winner);
+      assert.equal(row.excerpt, winner.excerpt);
+      const citations = (
+        await repository.db.query(
+          'SELECT source_id,item_id,citing_engagement,first_seen_at FROM x_link_citations WHERE item_id=$1 ORDER BY source_id',
+          [row.id],
+        )
+      ).rows;
+      assert.deepEqual(
+        citations.map((citation) => citation.source_id),
+        sources.map((source) => source.id),
+      );
+      assert.deepEqual(
+        citations.map((citation) => citation.citing_engagement),
+        variants.map((variant) => variant.engagement),
+      );
+      const states = (await repository.status()).filter((source) =>
+        sources.some((fixture) => fixture.id === source.id),
+      );
+      assert.equal(states.length, 2);
+      for (const state of states) {
+        assert.equal(state.storedItems, 1);
+        assert.equal(state.lastItemCount, 1);
+        assert.equal(state.error, null);
+        assert.ok(state.lastSuccess);
+      }
+      return citations;
+    };
+    const citations = await verify();
+    await ingestBoth();
+    assert.deepEqual(await verify(), citations);
+  } finally {
+    await repository.db.query(
+      'DELETE FROM x_link_citations WHERE source_id=ANY($1::text[])',
+      [sources.map((source) => source.id)],
+    );
+    await repository.db.query(
+      'DELETE FROM content_observations WHERE source_id=ANY($1::text[])',
+      [sources.map((source) => source.id)],
+    );
+    await repository.db.query(
+      'DELETE FROM topic_source_connections WHERE topic_id=$1',
+      [topicId],
+    );
+    await repository.db.query(
+      'DELETE FROM content_sources WHERE id=ANY($1::text[])',
+      [sources.map((source) => source.id)],
+    );
+    await repository.db.query(
+      'DELETE FROM content_items WHERE canonical_url=$1',
+      [original.url],
+    );
+    await repository.db.query('DELETE FROM topics WHERE id=$1', [topicId]);
+    await Promise.all([
+      repository.onModuleDestroy(),
+      competing.onModuleDestroy(),
+    ]);
+  }
+});

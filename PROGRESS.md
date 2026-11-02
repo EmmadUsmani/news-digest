@@ -110,19 +110,6 @@ Earlier iteration 229: [archive](docs/progress-archive/2026-11-02-iteration-229.
 
 Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
 
-## 2026-11-02: iteration 241 — missing X publication-time recovery
-
-- Started clean on main; services/health green, 32 sources without current errors; no leftover work.
-- Priority 15/13/7/9 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a.
-- Added maintenance characterization for exact millisecond inclusion, future exclusion/later recovery, legacy/overflow IDs and repeat runs.
-- Full-row comparisons pin existing timestamps, non-X rows and all other evidence in a rolled-back non-UTC transaction.
-- Initial fixtures violated X ID and Reddit metadata constraints; corrected fixtures without weakening schema or production behavior.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 139 integration), `pnpm build`, `git diff --check` passed.
-- Updated TASKS/database notes; archived iteration 224 to keep PROGRESS bounded. No provider or Reddit requests.
-- Restarted API/worker healthy; DB/Redis true, SPA 200, 32 error-free sources and four available queues.
-- Read-only timing report confirms retained four-topic editions; 856 ms fallback remains no live AI latency evidence.
-- Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
-
 ## 2026-11-02: iteration 242 — source health recovery
 
 - Started clean on main; API/worker and health green, 32 sources without current errors; no leftover work.
@@ -334,4 +321,17 @@ Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
 - Restarted API/worker; `/healthz` healthy, SPA 200, 32 error-free sources and four available queues.
 - Four-topic latest edition and rolling article/verified-X coverage present across all topics.
 - Updated TASKS/database notes; archived iteration 240 to keep PROGRESS bounded.
+- Next: observe Nov 3 scheduled X per-topic cost/yield and AI edition cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 261 — concurrent ingestion merge
+
+- Started clean on main; health, API/worker, 32 sources and four queues healthy; no leftover work.
+- Priority 15/13/7/9 live evidence still awaits Nov 3; advanced isolated STEERING 2a.
+- Separate repositories concurrently ingest one article; both metrics and independent source observations/citations survive.
+- Pins stable article identity/metadata, paired title/excerpt and duplicate-free concurrent retries with retained citation first-seen times.
+- Disposable PostgreSQL only; no source, provider or Reddit requests.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 156 integration), `pnpm build`, `git diff --check` passed.
+- Initial check caught documentation formatting during edits; formatted and reran the complete check successfully.
+- Updated TASKS/database notes; archived iteration 241 to keep PROGRESS bounded.
+- Restarted API/worker; health, SPA, 32 error-free sources, four queues and latest four-topic edition verified.
 - Next: observe Nov 3 scheduled X per-topic cost/yield and AI edition cost/duration before acknowledging 15/13/7.
