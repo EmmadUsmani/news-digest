@@ -22,6 +22,7 @@ void test('recorded RSS and Atom normalize real headlines, dates and safe links'
     'pushsquare.xml',
     'gamesradar.xml',
     'gamespot.xml',
+    'hoopsrumors.xml',
     'npr-world.xml',
     'guardian-world.xml',
   ]) {
@@ -94,6 +95,33 @@ void test('recorded GamesRadar and GameSpot feeds retain publisher X citations a
     spot.every((item) => new URL(item.url).hostname === 'www.gamespot.com'),
   );
   assert.ok([...radar, ...spot].every((item) => item.excerpt.length <= 1500));
+});
+void test('recorded Hoops Rumors RSS preserves NBA reporter and official team citations', async () => {
+  const items = parseFeed(await fixture('hoopsrumors.xml'));
+  assert.equal(
+    items[0].title,
+    'NBA Suspends Hawks’ Kingston Flemings For One Game',
+  );
+  assert.equal(items[0].publishedAt, '2026-11-02T02:02:18.000Z');
+  assert.equal(items[1].publishedAt, '2026-11-02T01:09:01.000Z');
+  assert.deepEqual(
+    items
+      .flatMap((item) => item.xLinks?.map((link) => link.externalId) ?? [])
+      .sort(),
+    [
+      '2117092005188878390',
+      '2116712563430060542',
+      '2117071860672143746',
+      '2117052664475263042',
+      '2117056008900014458',
+      '2117052480076837082',
+    ].sort(),
+  );
+  assert.ok(
+    items.every((item) => new URL(item.url).hostname === 'www.hoopsrumors.com'),
+  );
+  assert.ok(items.every((item) => item.excerpt.length <= 1500 && item.author));
+  assert.doesNotMatch(items[0].excerpt, /<[^>]+>|&#\d+;/);
 });
 void test('recorded Nintendo Life feed preserves release news and plain excerpts', async () => {
   const items = parseFeed(await fixture('nintendo-life.xml'));

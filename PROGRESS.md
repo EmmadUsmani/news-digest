@@ -350,3 +350,15 @@ Earlier iterations 61–72: [archive](docs/progress-archive/2026-11-02-iteration
 - `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile. Refreshed screenshots and inspected mobile account form. TASKS/docs/SOURCES updated.
 - No publication, inference/discovery spend, provider/model/billing change or new owner blocker: Anthropic $0.408415; X $0.023382; zero reservations/errors. Reddit blocked; fresh Gaming coverage incomplete.
 - Next: inspect scheduled 20:40 UTC semantic social edition and continue legitimate free discovery; keep full-day X reservation and paid scheduling off.
+
+## 2026-11-02: iteration 126 — Hoops Rumors free NBA X discovery
+
+- Started clean on main; no leftover work. API/worker/health, 24 sources and retained digest runs healthy; next semantic edition remains Nov 2 20:40 UTC. Two historical ingestion failures retained, current collection succeeds.
+- Migration 028 connects Hoops Rumors public RSS to original NBA topic. `pnpm migrate`; `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued passes, 1,081 real URLs/four topics/25 healthy sources; 15 new-source articles and 21 distinct X citations.
+- `verify-x-embeds.ts` overlapping pass verified one candidate, post-ingestion bounded pass verified ten/no failures. Thirteen Hoops Rumors citations have official embeds; twelve in checked day. `screen-social-posts.ts` accepts NBA Communications/Hornets PR; existing newer NBA candidates fill fallback slots. No semantic/virality claim.
+- Recorded two original feed entries with six exact X IDs, preserved namespaces and date/host/byline/excerpt regressions. Fixture content never counted as live. BasketNews/NBC probes returned non-feed responses; unconfigured, no bypass.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 135 isolated tests pass. `pnpm build` passes (existing upstream Zod warnings).
+- Restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts`, `scripts/smoke-status.ts`, and `scripts/smoke-posts.ts /tmp/iteration126-posts.jsonl` pass desktop/mobile; refreshed screenshots and inspected mobile post fallback. Replay uses saved real candidates/stubbed widgets, no new edition.
+- Probe initially parsed detached XML without namespaces; switched to whole-document parsing. Local psql unavailable; read-only diagnostics used existing DB module. Initial operations URL 404 corrected to `/api/status`.
+- TASKS/docs/SOURCES updated. No inference/discovery spend, publication, provider/model/billing change or new owner blocker. Anthropic $0.408415; X $0.023382; paid scheduling remains off.
+- Next: inspect 20:40 UTC semantic social edition, especially Gaming; Reddit blocked and fresh Gaming coverage incomplete.

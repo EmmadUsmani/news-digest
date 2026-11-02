@@ -798,3 +798,24 @@ clears it. Direct discovery reads these saved lists. Saving settings makes no
 external requests and paid discovery scheduling remains off. Free publisher
 and river citations still follow connected sources rather than account lists.
 No new social source, paid call or published edition in this iteration.
+
+## Iteration 126 — Hoops Rumors NBA RSS and free X citations
+
+- `https://www.hoopsrumors.com/feed` is **live**, connected to the original NBA
+  topic by migration 028. Two queued ingestion passes stored 15 real articles
+  and 21 distinct X citations with publisher provenance; no article crawling.
+  The complete collection now contains 1,081 distinct URLs across 25 healthy sources.
+- The bounded official verifier added ten posts without failures after collection
+  (an earlier overlapping pass verified one other candidate). Thirteen of the
+  21 cited IDs now have official embeds, including NBA Communications, Hornets
+  PR and NBA reporters. Twelve of those thirteen posts fall in the checked
+  Nov 1 10:30–Nov 2 10:30 UTC window; the older citation retains its real date.
+- Read-only lexical screening accepts NBA Communications and Hornets PR posts;
+  some reporter posts lack a configured phrase. Existing newer NBA candidates
+  fill the five fallback slots. No semantic selection, engagement/virality or
+  published-edition improvement is claimed; next scheduled semantic run is 20:40 UTC.
+- Recorded two original RSS entries, preserving XML namespaces and embedded X
+  links. Offline assertions cover all six exact cited IDs, article dates, title,
+  attribution, publisher host and plain bounded excerpts. Fixtures are not live data.
+- BasketNews `/feed` returned HTML and NBC Sports `/nba.rss` returned a small
+  non-feed response; neither was configured. No bypass attempts or paid calls.
