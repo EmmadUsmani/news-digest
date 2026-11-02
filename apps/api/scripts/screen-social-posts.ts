@@ -26,7 +26,7 @@ async function main() {
           topic: topic.name,
           start,
           end,
-          selectionMethod: 'verified-lexical-recency-v1',
+          selectionMethod: 'verified-lexical-recency-v2',
           selected: await selectTopicPosts(
             social.db,
             topic.id,

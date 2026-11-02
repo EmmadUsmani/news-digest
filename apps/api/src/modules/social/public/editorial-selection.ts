@@ -34,7 +34,7 @@ export interface SocialSelectionServices {
 }
 
 // Candidates have already passed verified-storage, scope, window, exclusions
-// and exact-text deduplication. Incomplete AI coverage preserves the fallback.
+// and conservative text/link deduplication. Incomplete AI coverage preserves the fallback.
 export async function editTopicPosts(
   services: SocialSelectionServices | null,
   topic: TriageTopic,
@@ -55,8 +55,8 @@ export async function editTopicPosts(
   };
   const result = {
     posts: fallback,
-    postSelectionMethod: 'verified-lexical-recency-v1' as
-      'verified-lexical-recency-v1' | 'verified-semantic-editor-v1',
+    postSelectionMethod: 'verified-lexical-recency-v2' as
+      'verified-lexical-recency-v2' | 'verified-semantic-editor-v2',
     postEditorial: editorial,
   };
   if (!services || budget === 0) return result;
@@ -118,7 +118,7 @@ export async function editTopicPosts(
       ],
     };
   });
-  result.postSelectionMethod = 'verified-semantic-editor-v1';
+  result.postSelectionMethod = 'verified-semantic-editor-v2';
   editorial.mode = 'ai';
   editorial.model = edited.model;
   editorial.reason =

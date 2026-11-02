@@ -362,3 +362,15 @@ Earlier iterations 61–72: [archive](docs/progress-archive/2026-11-02-iteration
 - Probe initially parsed detached XML without namespaces; switched to whole-document parsing. Local psql unavailable; read-only diagnostics used existing DB module. Initial operations URL 404 corrected to `/api/status`.
 - TASKS/docs/SOURCES updated. No inference/discovery spend, publication, provider/model/billing change or new owner blocker. Anthropic $0.408415; X $0.023382; paid scheduling remains off.
 - Next: inspect 20:40 UTC semantic social edition, especially Gaming; Reddit blocked and fresh Gaming coverage incomplete.
+
+## 2026-11-02: iteration 127 — conservative post duplicate correction
+
+- Started clean on main; no leftover work. API/worker/health, 25 feeds and retained digest runs healthy; next semantic slot remains Nov 2 20:40 UTC.
+- Corrected post duplicate keys: preserve signed numbers, punctuation and paragraph link targets, avoiding collisions between distinct claims or clips. Matching long captions with an explicit RT prefix share one slot; general same-event/media matching remains unfinished.
+- Both lexical and semantic paths apply the correction before budgeting/triage. New method versions v2 distinguish behavior; contracts still accept historical v1 snapshots. Immutable publication/retry regression passes.
+- Added synthetic checks for copied reposts, changed numbers/negation/time, different links and HTML entity decoding. Read-only diagnostic: 46 Tech, 70 NBA, 17 Gaming, 3 World verified posts; old/new distinct counts match, no current-content improvement claimed. Temporary script removed.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 138 isolated tests pass. `pnpm build` passes (existing upstream Zod warnings).
+- Restarted API/worker; `/healthz` healthy. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued live passes, 1,084 real URLs/four topics/25 healthy sources; idempotent second pass.
+- `screen-social-posts.ts` read-only check; `scripts/smoke-ui.ts`, `scripts/smoke-status.ts`, `scripts/smoke-posts.ts /tmp/iteration127-posts.jsonl` pass desktop/mobile. Screenshots refreshed; mobile fallback inspected. Post replay uses saved real candidates/stubbed widgets, no publication.
+- TASKS/docs/SOURCES updated. No inference/discovery spend, publication, provider/model/billing change or new owner blocker: Anthropic $0.408415; X $0.023382; paid scheduling stays off.
+- Next: inspect 20:40 UTC semantic social edition, especially Gaming; Reddit blocked and fresh Gaming coverage incomplete.

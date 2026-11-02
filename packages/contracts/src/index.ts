@@ -176,7 +176,12 @@ export const digestPreviewSchema = z.object({
         .optional(),
       posts: z.array(selectedPostSchema).optional(),
       postSelectionMethod: z
-        .enum(['verified-lexical-recency-v1', 'verified-semantic-editor-v1'])
+        .enum([
+          'verified-lexical-recency-v1',
+          'verified-semantic-editor-v1',
+          'verified-lexical-recency-v2',
+          'verified-semantic-editor-v2',
+        ])
         .optional(),
       postEditorial: z
         .object({

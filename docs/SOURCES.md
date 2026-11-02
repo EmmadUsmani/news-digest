@@ -819,3 +819,18 @@ No new social source, paid call or published edition in this iteration.
   attribution, publisher host and plain bounded excerpts. Fixtures are not live data.
 - BasketNews `/feed` returned HTML and NBC Sports `/nba.rss` returned a small
   non-feed response; neither was configured. No bypass attempts or paid calls.
+
+### Conservative post duplicate correction (iteration 127)
+
+New lexical/semantic selections use method versions `verified-lexical-recency-v2`
+and `verified-semantic-editor-v2`; historical v1 snapshots remain readable.
+Duplicate keys preserve symbols and numbers, so `+5%` and `-5%` or `5.5` and
+`55` cannot collapse. They also retain decoded paragraph link targets: identical
+captions with different clip/shortened URLs remain separate. No link resolution
+or media-identity inference is performed. Long captions (at least twelve words)
+with an explicit leading `RT @handle:` share a slot with matching original text
+and links; short repost captions stay separate. The newest matching eligible post
+wins before either lexical budgeting or semantic triage. This is conservative
+text/link matching, not general same-event or near-duplicate detection.
+Recorded/synthetic checks cover distinct claims, negation, links, copied reposts,
+new-edition behavior and immutable retries. No new source or paid call is needed.

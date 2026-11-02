@@ -67,7 +67,7 @@ void test('social orchestration bounds shortlist, preserves post identity and st
     2,
     'test',
   );
-  assert.equal(result.postSelectionMethod, 'verified-semantic-editor-v1');
+  assert.equal(result.postSelectionMethod, 'verified-semantic-editor-v2');
   assert.equal(result.postEditorial.mode, 'ai');
   assert.equal(result.posts[0].text, posts[0].text);
   assert.equal(result.posts[0].whyItMatters, 'Synthetic context');

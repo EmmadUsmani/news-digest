@@ -260,7 +260,7 @@ void test('semantic publication recovers empty positive rules and freezes post c
     assert.equal(selected.posts?.[0].whyItMatters, 'Synthetic context');
     assert.equal(selected.postEditorial?.model, 'fake-editor');
     assert.equal(selected.postEditorial?.triage[0].importance, 8);
-    assert.equal(selected.postSelectionMethod, 'verified-semantic-editor-v1');
+    assert.equal(selected.postSelectionMethod, 'verified-semantic-editor-v2');
     await social.db.query(
       'DELETE FROM social_discovery_citations WHERE external_id=$1',
       [id],
@@ -281,6 +281,77 @@ void test('semantic publication recovers empty positive rules and freezes post c
     await social.db.query('DELETE FROM social_posts WHERE external_id=$1', [
       id,
     ]);
+    await social.db.end();
+    await repository.onModuleDestroy();
+  }
+});
+
+void test('new editions preserve distinct claims and clip links while removing copied long reposts', async () => {
+  const repository = new PostgresPreviewRepository();
+  const social = new PostgresSocialRepository();
+  Object.defineProperty(repository, 'editorial', { value: null });
+  const topicId = '00000000-0000-4000-8000-000000000011';
+  const start = new Date('2026-10-21T00:00:00Z');
+  const end = new Date('2026-10-22T00:00:00Z');
+  const caption =
+    'Our new AI tool launches today with a public demo available to all builders worldwide.';
+  const texts = [
+    caption,
+    `RT @studio: ${caption}`,
+    'AI revenue +5%',
+    'AI revenue -5%',
+    'AI demo <a href="https://t.co/one">clip</a>',
+    'AI demo <a href="https://t.co/two">clip</a>',
+  ];
+  const ids = texts.map((_, i) => `99940000000000000${i}`);
+  try {
+    await repository.db.query('UPDATE topics SET post_budget=10 WHERE id=$1', [
+      topicId,
+    ]);
+    for (const [i, text] of texts.entries()) {
+      await social.store({
+        platform: 'x',
+        externalId: ids[i],
+        url: `https://x.com/fixture/status/${ids[i]}`,
+        author: 'Synthetic fixture',
+        authorUrl: 'https://x.com/fixture',
+        publishedAt: new Date(start.getTime() + i * 1000).toISOString(),
+        metrics: {},
+        embedHtml: `<p>${text}</p>`,
+      });
+      await social.discovered('techmeme', [
+        { externalId: ids[i], url: `https://x.com/fixture/status/${ids[i]}` },
+      ]);
+    }
+    const retryKey = `duplicate-social:${crypto.randomUUID()}`;
+    const first = await repository.generate(start, end, retryKey);
+    digestPreviewSchema.parse(first);
+    const topic = first.topics.find((t) => t.id === topicId)!;
+    assert.equal(topic.postSelectionMethod, 'verified-lexical-recency-v2');
+    assert.deepEqual(
+      topic.posts?.map((p) => p.externalId),
+      [ids[5], ids[4], ids[3], ids[2], ids[1]],
+    );
+    await social.db.query(
+      'UPDATE social_posts SET embed_html=$2 WHERE external_id=$1',
+      [ids[0], '<p>AI different announcement</p>'],
+    );
+    assert.deepEqual(await repository.generate(start, end, retryKey), first);
+    assert.deepEqual(await repository.find(first.id), first);
+    const next = await repository.generate(start, end);
+    assert.equal(next.topics.find((t) => t.id === topicId)?.posts?.length, 6);
+  } finally {
+    await repository.db.query('UPDATE topics SET post_budget=5 WHERE id=$1', [
+      topicId,
+    ]);
+    await social.db.query(
+      'DELETE FROM social_discovery_citations WHERE external_id=ANY($1::text[])',
+      [ids],
+    );
+    await social.db.query(
+      'DELETE FROM social_posts WHERE external_id=ANY($1::text[])',
+      [ids],
+    );
     await social.db.end();
     await repository.onModuleDestroy();
   }

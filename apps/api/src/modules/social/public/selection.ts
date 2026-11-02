@@ -2,6 +2,7 @@ import type { RelevancePolicy, SelectedPost } from '@digest/contracts';
 import type { PoolClient } from 'pg';
 
 import { officialPostText } from '../adapters/embed-text';
+import { postDuplicateKey } from '../adapters/post-duplicate-key';
 import { assessPostEligibility, assessPostSafety } from '../domain/eligibility';
 
 // Use the publisher's transaction so source configuration, posts and stories
@@ -45,11 +46,7 @@ export async function selectTopicPosts(
     const assessment = (
       mode === 'lexical' ? assessPostEligibility : assessPostSafety
     )({ text, publishedAt }, policy, start, end);
-    const key = text
-      .normalize('NFKC')
-      .toLowerCase()
-      .replace(/[^\p{L}\p{N}]+/gu, ' ')
-      .trim();
+    const key = postDuplicateKey(row.embedHtml);
     if (!assessment.eligible || texts.has(key)) continue;
     texts.add(key);
     selected.push({
@@ -63,7 +60,7 @@ export async function selectTopicPosts(
       metrics: { ...row.metrics },
       reasons: [
         assessment.reason,
-        'Preliminary selection: newest verified eligible posts; engagement and virality are not inferred.',
+        'Preliminary selection: newest verified eligible posts; conservative text/link duplicate checks; engagement and virality are not inferred.',
       ],
     });
     if (selected.length >= Math.min(mode === 'lexical' ? 20 : 200, budget))
