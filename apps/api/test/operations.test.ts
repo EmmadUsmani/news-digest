@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { randomUUID } from 'node:crypto';
 import { test } from 'node:test';
 
 import { operationsStatusSchema } from '@digest/contracts';
@@ -144,6 +145,120 @@ void test('edition run duration excludes queue wait and is null before processin
     await worker.close();
     await connection.quit();
     await queue.obliterate({ force: true });
+    await status.onModuleDestroy();
+  }
+});
+
+void test('operations source telemetry follows current connections and retains persisted observations and errors', async () => {
+  const status = new OperationsStatus();
+  const topic = randomUUID();
+  const other = randomUUID();
+  const prefix = `operations-${topic}`;
+  const source = `${prefix}-a`;
+  const empty = `${prefix}-z`;
+  const url = `https://example.org/${prefix}`;
+  const read = async () => {
+    const result = operationsStatusSchema.parse(
+      JSON.parse(JSON.stringify(await status.read())),
+    );
+    const rows = result.sources.filter((row) => row.id.startsWith(prefix));
+    assert.deepEqual(
+      rows.map((row) => row.id),
+      [source, empty],
+    );
+    return rows;
+  };
+  try {
+    for (const id of [topic, other]) {
+      await status.db.query(
+        `INSERT INTO topics(id,profile_id,name,description,include_guidance,position)
+        SELECT $1,id,'Operations fixture','','',100 FROM profiles LIMIT 1`,
+        [id],
+      );
+    }
+    for (const [id, name] of [
+      [source, 'Operations A'],
+      [empty, 'Operations Z'],
+    ]) {
+      await status.db.query(
+        `INSERT INTO content_sources(id,topic_id,name,kind,url)
+        VALUES($1,$2,$3,'feed',$4)`,
+        [id, topic, name, `${url}/${id}`],
+      );
+    }
+    let rows = await read();
+    assert.equal(rows[0].active, false);
+    assert.equal(rows[0].storedItems, 0);
+    assert.equal(rows[0].lastAttempt, null);
+    assert.equal(rows[0].lastSuccess, null);
+    assert.equal(rows[0].error, null);
+    await status.db.query(
+      `INSERT INTO topic_source_connections(topic_id,source_id) VALUES($1,$3),($2,$3)`,
+      [topic, other, source],
+    );
+    await status.db.query(
+      `INSERT INTO content_items(canonical_url,title,excerpt,published_at)
+      VALUES($1,'Shared fixture','','2035-01-01T12:00:00Z'),($2,'Second fixture','','2035-01-01T13:00:00Z')`,
+      [url, `${url}/2`],
+    );
+    await status.db.query(
+      `INSERT INTO content_observations(source_id,item_id)
+      SELECT $1,id FROM content_items WHERE canonical_url IN ($2,$3)`,
+      [source, url, `${url}/2`],
+    );
+    await status.db.query(
+      `UPDATE content_sources SET last_attempt='2035-01-02T12:00:00+05:30',
+      last_success='2035-01-01T12:00:00+05:30',last_error='fixture fetch failure',last_item_count=7 WHERE id=$1`,
+      [source],
+    );
+    rows = await read();
+    assert.equal(rows[0].active, true);
+    assert.equal(rows[0].storedItems, 2);
+    assert.equal(rows[0].lastItemCount, 7);
+    assert.equal(rows[0].lastAttempt, '2035-01-02T06:30:00.000Z');
+    assert.equal(rows[0].lastSuccess, '2035-01-01T06:30:00.000Z');
+    assert.equal(rows[0].error, 'fixture fetch failure');
+    assert.equal(rows[1].storedItems, 0);
+    await status.db.query('UPDATE topics SET enabled=false WHERE id=$1', [
+      topic,
+    ]);
+    assert.equal((await read())[0].active, true);
+    await status.db.query(
+      'DELETE FROM topic_source_connections WHERE topic_id=$1',
+      [other],
+    );
+    rows = await read();
+    assert.equal(rows[0].active, false);
+    assert.equal(rows[0].storedItems, 2);
+    await status.db.query('UPDATE topics SET enabled=true WHERE id=$1', [
+      topic,
+    ]);
+    assert.equal((await read())[0].active, true);
+    await status.db.query(
+      'DELETE FROM topic_source_connections WHERE topic_id=$1',
+      [topic],
+    );
+    rows = await read();
+    assert.equal(rows[0].active, false);
+    assert.equal(rows[0].storedItems, 2);
+    assert.equal(rows[0].error, 'fixture fetch failure');
+  } finally {
+    await status.db.query(
+      'DELETE FROM content_observations WHERE source_id IN ($1,$2)',
+      [source, empty],
+    );
+    await status.db.query('DELETE FROM content_sources WHERE id IN ($1,$2)', [
+      source,
+      empty,
+    ]);
+    await status.db.query(
+      'DELETE FROM content_items WHERE canonical_url IN ($1,$2)',
+      [url, `${url}/2`],
+    );
+    await status.db.query('DELETE FROM topics WHERE id IN ($1,$2)', [
+      topic,
+      other,
+    ]);
     await status.onModuleDestroy();
   }
 });

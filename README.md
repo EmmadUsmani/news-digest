@@ -51,6 +51,9 @@ and atomic rollback of citation inserts/updates when the final check fails.
 X-search repository characterization covers current topic/account configuration, zero-post
 budgets, call/post dedupe, first-write provenance, shared-topic eligibility, deletion,
 foreign keys and partial-batch rollback/recovery.
+Operations source telemetry characterization covers name ordering, empty sources,
+shared observations without count inflation, current enabled connections, disconnects,
+persisted failures and timezone-normalized attempt/success timestamps.
 `pnpm test` runs both commands; integration tests remain part of `pnpm check`.
 Both runners replace inherited database/Redis URLs, clear Anthropic/xAI keys and
 live-inference opt-in. Docker is required only for integration tests; there is no

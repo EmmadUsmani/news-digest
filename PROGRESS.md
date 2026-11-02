@@ -46,28 +46,7 @@ Earlier iterations 171–172: [archive](docs/progress-archive/2026-11-02-iterati
 
 Earlier iterations 173–174: [archive](docs/progress-archive/2026-11-02-iterations-173-174.md).
 
-## 2026-11-02: iteration 175 — faithful Reddit cards and edition readback
-
-- Started clean on main; no leftover work. Health/services healthy, 32 sources/no current errors, no failed digest/social jobs; two historical ingestion failures retained.
-- Edition readback now accepts discriminated X/Reddit snapshots while preserving historical X compatibility. Publication selection remains X-only pending pipeline wiring.
-- Added faithful Reddit cards: title/body, community/author/time, optional thumbnail/destination, saved score/comments/upvote ratio and observation time, context and selection reasons. Platform-qualified React keys avoid cross-platform ID collisions.
-- Added synthetic browser replay for desktop/mobile, media/no-media, links, metrics, no overflow/errors and zero X widget requests; screenshots saved under docs/screenshots/reddit-card-*.png. Inspected mobile screenshot.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (176 tests), `pnpm build` passed. First check caught source-note formatting; corrected before the successful full run.
-- `pnpm exec tsx scripts/smoke-reddit-cards.ts` passed after fixing its CommonJS main wrapper; final script lint/format checks passed. No live source or inference requests and no edition writes.
-- Restarted API/worker; `/healthz` DB/Redis true. Latest real edition retains four topics/20 stories/10 X posts (Tech/NBA), non-AI mode. Updated TASKS/SOURCES.
-- Next: wire conservative Reddit shortlist/snapshots through platform-aware publication. Real Reddit remains blocked/unscheduled; live AI latency remains unverified.
-
-## 2026-11-02: iteration 176 — platform-aware social publication
-
-- Started clean on main; no leftover work. API/worker and health healthy, 32 sources/no current errors, no failed digest/social jobs; two historical ingestion failures retained.
-- Connected historical-strength Reddit shortlist/snapshots to semantic candidates and non-AI fallback inside the publisher repeatable-read transaction; retained enforced X preference and immutable platform metadata.
-- Shared repository observation reader accepts the publisher client; no extra connection, source fetch or inference added. Citation story links now apply only to X, preventing cross-platform ID collisions.
-- Added synthetic publication test for qualified Reddit fallback/metadata and isolated SQL citation collision coverage. No UI changes; existing faithful cards render these snapshots. No live source/inference requests or edition writes.
-- Initial direct targeted command was correctly refused by test-isolation guard. First full check found a test assertion expecting empty citation metadata with no stories; corrected to absent metadata.
-- `pnpm format`, `pnpm lint:fix`, final `pnpm check` passed (177 tests); `pnpm build` passed. Updated TASKS/SOURCES. No browser check needed for pipeline-only change.
-- Restarted API/worker; health DB/Redis true, 32 sources/no current errors and all queue workers present; latest real edition retains four topics/20 stories/10 X posts.
-- Read-only timing report unchanged: 856 ms non-AI edition, 481910 micros spent/848 available; next Nov 3 15:00 UTC. Live AI latency remains unverified.
-- Reddit remains blocked/unscheduled, with no real Reddit content. Next: real collection/publication evidence when legitimate access permits; five prior community observations required. Proceed to next unblocked owner priority meanwhile.
+Earlier iterations 175–176: [archive](docs/progress-archive/2026-11-02-iterations-175-176.md).
 
 ## 2026-11-02: iteration 177 — per-topic live coverage on Status
 
@@ -200,3 +179,12 @@ Earlier iterations 173–174: [archive](docs/progress-archive/2026-11-02-iterati
 - `pnpm test:integration` passed 92/92; `pnpm format`, `pnpm lint:fix`, full `pnpm check` (99 unit/92 integration), `pnpm build` and `git diff --check` passed.
 - Updated README/TASKS. No paid inference, live settings/content writes or UI changes; browser verification unnecessary.
 - Restarted API/worker; health DB/Redis true, SPA 200, all queues available, 32 sources without current errors and latest edition four topics/10 posts. Next: remaining repository characterization, nonempty SQL golden and database coverage before ORM work. Reddit access/live AI timing blockers persist; paid scheduling follows Reddit.
+
+## 2026-11-02: iteration 190 — operations source telemetry characterization
+
+- Started clean on main; no leftover work. API/worker/health healthy, 32 sources without current errors; two historical ingestion failures unchanged.
+- Added disposable-Postgres Status coverage for source name ordering, empty sources, shared-topic observation counts, current enabled connections and disconnects without losing stored telemetry.
+- Pinned independent last-item/stored-item counts, persisted fetch errors and timezone-normalized attempt/success timestamps. No paid inference, live mutations or UI changes.
+- `pnpm test:integration` passed 93/93; production `pnpm build` passed. Initial full check found archive formatting; corrected with `pnpm format` before rerunning.
+- Updated README/TASKS and archived iterations 175–176 to keep PROGRESS below 25 KB. Remaining repository characterization, nonempty SQL golden and database coverage precede ORM work; Reddit access/live AI timing remain blocked.
+- Final `pnpm check` passed 99 unit/93 integration tests; `pnpm lint:fix` and `git diff --check` passed. Restarted API/worker; health DB/Redis true, SPA 200, all queues available, 32 sources without errors and latest edition four topics/10 posts. Browser verification unnecessary for test/docs changes.
