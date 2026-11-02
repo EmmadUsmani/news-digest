@@ -5,10 +5,16 @@ Fix regressions, broken services and stalled sources before starting new work.
 
 ## Immediate owner priorities (STEERING overrides older milestone notes)
 
+- [ ] STEERING 16 (next implementation): open per-topic X search without handle restrictions; reported engagement/velocity, then budget-permitting story reactions and secondary account lists. Keep caps; item 15's first scheduled run is acknowledged before switching. Report search type, cost/yield and outside-list accounts; finish with real editions/screenshots.
+- [ ] STEERING 17 (after 16): improve editable curated X accounts and document choices.
+- [ ] STEERING 18 (after 17): official Bluesky open discovery, engagement ranking and cards; fixtures first if authentication blocks live search.
+- [ ] STEERING 19 (after 18): conservative event grouping with fixture precision, one story per event and additional outlet links.
+- [x] STEERING 20 (270): priorities recorded; no further database characterization while 16–19 remain open. ESPN source label corrected to empty-response replacement, not owner parking.
+
 - [ ] STEERING 15: scheduled X search for every enabled topic daily, weakest first; atomic per-topic/day admission, optional second search only below three verified additions and within projected caps. Fake tests only; acknowledge after first full scheduled run with per-topic cost/yield. Iteration 236 implements weakest-first coverage of all eligible topics, atomic per-topic/day admission and $0.10 scheduled projections; optional second searches stay disabled. Next: observe Nov 3 and acknowledge with actual per-topic cost/yield.
 
 - [ ] STEERING 13 TOP PRIORITY before Nov 3 15:00 UTC: reserve configurable Anthropic budget for the scheduled edition under the shared ledger lock; limit all other spend until completion/failure; expose reserve/manual limits and scheduled AI/fallback outcome. Fake/Testcontainers verification only. Measure next scheduled edition cost/duration for item 7.
-  - Iterations 192–210: durable UTC-day lifecycle, shared-lock admission, historical sizing, scheduler fencing and Status/manual-create notices implemented and enabled in production with 1.5x headroom. Next: observe Nov 3 AI cost/duration before acknowledging item 13; see reserve decision and PROGRESS.
+  - Iterations 192–210: reserve lifecycle/admission, sizing, fencing and UI implemented; production uses 1.5x headroom. Next: observe Nov 3 AI cost/duration before acknowledging item 13; see reserve decision and PROGRESS.
 
 - [x] STEERING 14 (211): Reddit parked and unscheduled; no HTTP requests. Social completion requires X only. Priority: 13, 7 timing, 9 X, 10 coverage; 2/4 lower.
 
@@ -23,7 +29,7 @@ Fix regressions, broken services and stalled sources before starting new work.
 - [x] STEERING 10: per-topic coverage on Status and live baseline (iteration 177); reassess before adding sources.
   - Iteration 177: rolling 24-hour distinct article and verified X/Reddit coverage plus connected/healthy source counts added to Status. Counts indicate collection scope, not semantic relevance. Live baseline: NBA fewest articles (74); World fewest verified X posts (9). All 32 connected sources healthy; no new sources added.
 - [x] STEERING 11 (166): restored daily 07:00 America/Los_Angeles P1D; all schedule verification isolated.
-- [ ] STEERING 4 (lower priority): fingerprinted LlmPort replay and separate verification spend on Status. Iteration 178: three Anthropic smoke scripts require LLM_LIVE=1, tag verification and share a serialized $0.05/day cap. Iteration 179: historical recording entrypoint guarded and verification-capped. Iteration 180: Status now separates tagged verification and all other purpose totals, including old unresolved holds; historical editorial tags remain explicitly mixed. Iteration 181: shared stable cache fingerprint, fail-closed replay/recording LlmPort adapters, synthetic transport fixture and guarded recorder capture added. Iteration 182: raw synthetic transport replay now covers real article triage/editor through publication against a frozen topic snapshot, with fresh caches. Real raw-response golden coverage remains open; do not re-record unchanged prompts or spend merely to test replay.
+- [ ] STEERING 4 (lower priority): fingerprinted LlmPort replay and separate verification spend are implemented (178–182); real raw-response golden remains open. Do not re-record unchanged prompts or spend merely to test replay. See docs/DATABASE-VERIFICATION.md.
 
 Completed milestone detail: [archive](docs/progress-archive/2026-11-02-tasks-through-143.md).
 M0–M2 and foundational M3/M6/M7 functionality are implemented; remaining work follows.

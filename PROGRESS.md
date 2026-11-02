@@ -349,4 +349,6 @@ Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
 - Disposable PostgreSQL only; no source, Reddit or paid provider verification calls.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 164 integration), `pnpm build`, `git diff --check`.
 - API/worker restarted; health, SPA and latest four-topic/20-story/10-post edition checked.
-- Updated TASKS/database notes; archived iteration 250. Next: Nov 3 scheduled X cost/yield and AI cost/duration.
+- Initial push rejected: owner added STEERING 16–20; fetched and merged without rewriting history.
+- Recorded new priorities, corrected ESPN label; no more DB characterization. Archived iteration 250.
+- Next: open X discovery (16), plus Nov 3 scheduled X cost/yield and AI cost/duration.
