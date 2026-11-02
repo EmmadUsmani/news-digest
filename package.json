@@ -7,7 +7,7 @@
     "typecheck": "pnpm -r typecheck",
     "lint": "eslint . --max-warnings 0",
     "boundaries": "depcruise apps/api/src --config .dependency-cruiser.cjs",
-    "test": "tsx scripts/test-isolated.ts",
+    "test": "pnpm test:unit && pnpm test:integration",
     "check": "pnpm --filter @digest/contracts build && pnpm typecheck && pnpm lint && pnpm format:check && pnpm boundaries && pnpm test",
     "migrate": "tsx apps/api/src/libs/db/migrate.ts",
     "evaluate:ranking": "tsx apps/api/scripts/evaluate-ranking.ts",
@@ -16,7 +16,9 @@
     "lint:fix": "eslint . --fix --max-warnings 0",
     "evaluate:editorial": "tsx apps/api/scripts/evaluate-editorial.ts",
     "evaluate:support": "tsx apps/api/scripts/evaluate-support.ts",
-    "evaluate:recorded-support": "tsx apps/api/scripts/evaluate-recorded-support.ts"
+    "evaluate:recorded-support": "tsx apps/api/scripts/evaluate-recorded-support.ts",
+    "test:unit": "tsx scripts/test-unit.ts",
+    "test:integration": "tsx scripts/test-isolated.ts"
   },
   "devDependencies": {
     "@types/node": "^22.18.0",
@@ -29,6 +31,7 @@
     "eslint-plugin-unused-imports": "^4.4.1",
     "playwright": "^1.56.1",
     "prettier": "^3.9.10",
+    "testcontainers": "12.2.1",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.2"

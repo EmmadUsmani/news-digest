@@ -26,13 +26,21 @@ pnpm migrate
 pnpm check
 ```
 
-`pnpm check` runs typechecks, ESLint, dependency boundaries and integration
-checks against fresh disposable PostgreSQL 17/Redis 7 Docker containers.
-The test runner overrides inherited database/Redis URLs, clears the Anthropic
-key, applies all migrations, and removes containers on completion. Docker is
-required; tests never fall back to the live database or contact external services.
-Database tests must run through `pnpm test`; direct Node test invocations that
-construct database clients fail before connecting.
+`pnpm check` runs typechecks, ESLint, dependency boundaries and both test suites.
+`pnpm test:unit` runs fast offline tests without Docker, with database access
+blocked. `pnpm test:integration` uses Testcontainers to start fresh PostgreSQL
+17/Redis 7 containers matching `compose.yaml`, applies every migration from zero
+(including fixture seed migrations), and stops the containers on completion.
+Testcontainers also supplies crash cleanup through its resource reaper.
+`pnpm test` runs both commands; integration tests remain part of `pnpm check`.
+Both runners replace inherited database/Redis URLs, clear Anthropic/xAI keys and
+live-inference opt-in. Docker is required only for integration tests; there is no
+fallback to live services. Direct Node test invocations constructing database
+clients fail before connecting. Suite membership is explicit in
+`scripts/test-suites.ts`; mixed files stay in integration until split. New tests
+start in the unit suite, where accidental database access fails closed.
+This is the infrastructure step of STEERING 2a, not complete repository/HTTP
+characterization or database coverage reporting.
 The check command builds shared contract declarations automatically.
 The `edition-timing.test.ts` integration test prints cold/warm four-topic publication
 baselines for synthetic 400- and 1,500-article windows. It runs real database

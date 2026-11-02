@@ -5,18 +5,8 @@ Fix regressions, broken services and stalled sources before starting new work.
 
 ## Immediate owner priorities (STEERING overrides older milestone notes)
 
-- [x] STEERING 12: shrink orientation files and archive completed detail (iteration 154).
-- [x] STEERING 7 partial: article/social triage batches up to 50, conservative 60 KB bound, four concurrent calls, scaled output limits and unchanged per-item caches (iteration 155; fake-based verification). Existing adapter caches shared instructions.
-- [x] STEERING 7 partial: bounded Anthropic 429 backoff honors Retry-After, preserves reservations and never retries spend-limit/uncertain failures (iteration 156; fake HTTP verification).
-- [x] STEERING 7 partial: process-wide four-call Anthropic limit across adapter instances, shared by article/social triage and editors, retaining slots through backoff (iteration 157; fake HTTP verification).
-- [x] STEERING 7 partial: four concurrent topic pipelines/editors, ordered publication and failure draining (iteration 158; fake-based verification).
-- [x] STEERING 7 partial: async enqueue/poll API and on-demand worker path, atomic active-window dedupe, idempotent publication keys, sanitized failure/duration results (iteration 159; isolated Redis + fake generator). UI polling connected in iteration 160.
-- [x] STEERING 7 partial: creation uses async jobs with queued/active feedback, reload recovery, reconnect polling and automatic edition opening (iteration 160; intercepted desktop/mobile browser checks).
-- [x] STEERING 7 partial: Status shows latest finished edition duration and per-run worker timing, including on-demand runs; excludes queue wait and identifies final retry attempt (iteration 161).
-- [x] STEERING 7 partial: per-topic story triage/editing and social selection progress plus publication stage persisted in BullMQ and shown by polling UI (iteration 162; fake publication/Redis tests and desktop/mobile browser checks).
-- [x] STEERING 7 partial: reproducible cold/warm full-publication baseline on disposable SQL with batched fake inference at 400/1,500 stored articles; checks 200/topic cap and zero warm triage calls (iteration 163). Live latency remains unmeasured; social application timing added in iteration 164.
-- [x] STEERING 7 partial: social-inclusive publication timing with 240 synthetic verified posts, real social triage/editor validation and warm score/selection cache assertions (iteration 164). Provider/worker timing and live latency remain unverified.
-- [x] STEERING 7 partial: social-inclusive timing now traverses Anthropic SDK with fake HTTP, its four-call limiter, BullMQ worker, persisted progress and duration/readback (iteration 165). Live provider latency remains unverified.
+- [x] STEERING 12: shrink orientation files (154).
+- [x] STEERING 7 infrastructure: batched/concurrent AI, async jobs/progress/duration and synthetic timing (155–165); [detail](docs/progress-archive/2026-11-02-tasks-155-165.md).
 - [ ] STEERING 7, first: async BullMQ creation/regeneration, window dedupe, progress UI and last-run duration. Fake job/publication flows verified; measure live provider timing against <60s/current-volume and <2min/1,500-item targets. Repository fake baseline is documented; not a live latency claim.
   - Iteration 167: read-only `scripts/report-edition-timing.ts` links retained worker durations to edition modes/candidates and budget. Old live jobs are signals-only; $0.000848 remains today, blocking a meaningful paid trial. Iteration 169 observed the 15:00 run: 856 ms, all four topics, non-AI fallback throughout, unchanged spend; not live AI latency evidence. Next run Nov 3 15:00 UTC. Move to Reddit while live timing awaits budget/evidence.
 - [ ] STEERING 8, next: curated editable Reddit communities, public rate-limited JSON/RSS ingestion, social storage/cards and X citation extraction; real posts across four topics. Respect access denial; no bypass.
@@ -62,5 +52,5 @@ M0–M2 and foundational M3/M6/M7 functionality are implemented; remaining work 
   - retention/backup
   - resilience
 
-- [ ] STEERING 2a (after M3): isolated Testcontainers Postgres/Redis migration, repository/HTTP characterization, golden edition and database coverage; include `test:integration` in `check`. Never touch live DB.
+- [ ] STEERING 2a (M3 blocked): repository/HTTP characterization, golden edition and database coverage. Iteration 183: Testcontainers Postgres/Redis matching compose, fresh migrations/seeds, separate offline unit/integration commands included in `check` (99/86 tests). Full characterization and coverage reporting remain; never touch live DB.
 - [ ] STEERING 2b (only after 2a is green): record Drizzle decision/schema parity, back up live DB, gradually replace raw SQL behind ports and enforce boundaries.
