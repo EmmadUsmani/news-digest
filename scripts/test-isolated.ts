@@ -48,7 +48,15 @@ async function main() {
     if (build.error) throw build.error;
     if (build.status !== 0) throw new Error('API integration build failed');
     run(['apps/api/src/libs/db/migrate.ts']);
-    run(['--test', '--test-concurrency=1', ...testFiles('integration')]);
+    run([
+      '--test',
+      '--test-concurrency=1',
+      '--experimental-test-coverage',
+      '--test-coverage-include=apps/api/**/database/**',
+      '--test-coverage-include=apps/api/**/libs/db/**',
+      '--test-coverage-include=apps/api/**/operations/adapters/operations.status.*',
+      ...testFiles('integration'),
+    ]);
   } finally {
     const cleanup = await Promise.allSettled(
       containers.reverse().map((container) => container.stop()),

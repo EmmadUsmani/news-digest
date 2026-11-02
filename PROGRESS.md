@@ -88,18 +88,7 @@ Earlier iteration 206: [archive](docs/progress-archive/2026-11-02-iteration-206.
 
 Iteration 207: [archive](docs/progress-archive/iteration-207.md).
 
-## 2026-11-02: iteration 208 — show scheduled AI budget protection on Status
-
-- Started clean on main; API/worker, health and 32 sources healthy. No leftover work.
-- Added repeatable-read, ledger-locked reserve telemetry: UTC lifecycle, target/protected funds, other-run limits/availability and latest terminal outcome/reason.
-- Status distinguishes disabled protection, active manual limits and release; older editions without durable records are not inferred.
-- Disposable-Postgres test covers disabled/pending/running/retrying/released telemetry and synthetic fallback evidence.
-- Initial checks caught an invalid async parameter initializer and UI formatting; corrected before passing full verification.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (113 unit/113 isolated integration), `pnpm build`, `git diff --check` passed.
-- `pnpm exec tsx scripts/smoke-reserve-status.ts` passed live desktop/mobile rendering plus browser-only synthetic protected/released states; saved live screenshots.
-- Restarted API/worker healthy; health DB/Redis true, SPA 200, four queues, 32 sources without errors; retained real edition four topics/10 posts.
-- Live Status reports Nov 2 fallback reason, protection disabled, $0.000848 available; next scheduled run Nov 3 15:00 UTC. No inference or Reddit requests.
-- Updated README/decision/TASKS and archived iteration 192. Next: manual-run limitation notices, then enable protection before Nov 3 scheduled run.
+Iteration 208: [archive](docs/progress-archive/iteration-208.md).
 
 ## 2026-11-02: iteration 209 — explain manual edition reserve limits
 
@@ -262,3 +251,15 @@ Iteration 207: [archive](docs/progress-archive/iteration-207.md).
 - Updated README/TASKS and archived iteration 207 to bound PROGRESS. AI golden coverage and database coverage reporting remain open; 2a is not complete.
 - Read-only timing report: next Nov 3 15:00 UTC; prior 856 ms fallback is not AI latency evidence. No inference or Reddit requests.
 - API/worker restarted; health DB/Redis true, SPA 200, 32 sources without errors and four queues available. Next: observe Nov 3 14:30 X discovery and 15:00 scheduled AI cost/duration.
+
+## 2026-11-02: iteration 223 — database coverage reporting
+
+- Started clean on main; API/worker, health, 32 sources and four queues healthy. No leftover work.
+- Items 13/7/9 await Nov 3 scheduled evidence; advanced lower-priority STEERING 2a using disposable containers only.
+- Integration runner now prints native V8 line/branch/function coverage for database helpers/adapters and direct operations status; included in `pnpm check`, without new dependencies.
+- Added measured baseline and gap guidance in docs/DATABASE-VERIFICATION.md and README; source and compiled HTTP rows remain separate, unloaded files are unmeasured, migration setup is excluded.
+- All 16 database source helpers/adapters plus operations status appear; usage reader branches are 42.86%, operations status 79.41%. Coverage is not proof of complete query characterization; AI golden remains open.
+- Verification: targeted `pnpm test:integration`, then `pnpm format`, `pnpm lint:fix`, `pnpm check` (120 unit/122 isolated integration), `pnpm build` passed. No inference or Reddit requests.
+- Read-only timing report confirms next scheduled edition Nov 3 15:00 UTC; previous 856 ms fallback is not AI latency evidence.
+- Compacted TASKS and archived iteration 208 to bound orientation files. Next: observe Nov 3 14:30 X discovery and 15:00 edition; continue 2a behavior gaps while waiting.
+- Deployment check: API/worker restarted active; health DB/Redis true, SPA 200, 32 sources without errors, four queues available; retained real edition has four topics, 20 stories and 10 posts. Final format check and `git diff --check` passed.

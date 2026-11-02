@@ -89,8 +89,18 @@ fallback to live services. Direct Node test invocations constructing database
 clients fail before connecting. Suite membership is explicit in
 `scripts/test-suites.ts`; mixed files stay in integration until split. New tests
 start in the unit suite, where accidental database access fails closed.
-This is the infrastructure step of STEERING 2a, not complete repository/HTTP
-characterization or database coverage reporting.
+`pnpm test:integration` (also run by `pnpm check`) prints Node's native V8
+line, branch and function coverage for `database/`, `libs/db/` and the direct
+operations-status adapter. No additional provider calls or live services are used.
+The report includes TypeScript adapters loaded by repository tests and compiled
+JavaScript adapters loaded by HTTP tests as separate rows; do not add or average
+their percentages. Native coverage only lists loaded files, so omitted adapters
+are unmeasured, not covered. Compare against `rg --files apps/api/src | rg
+'/(database|libs/db)/|/operations/adapters/operations.status.ts$'` when reviewing gaps.
+Coverage measures executed code, not complete query/behavior characterization;
+STEERING 2a remains open until remaining behavior and AI golden tests are covered.
+See [database verification](docs/DATABASE-VERIFICATION.md) for the measured baseline
+and remaining coverage gaps.
 The check command builds shared contract declarations automatically.
 The `edition-timing.test.ts` integration test prints cold/warm four-topic publication
 baselines for synthetic 400- and 1,500-article windows. It runs real database
