@@ -249,3 +249,13 @@ Iterations 204–205: [archive](docs/progress-archive/2026-11-02-iterations-204-
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`; 120 unit and 119 isolated integration tests passed. No application behavior or UI change.
 - Read-only timing report: next Nov 3 15:00 UTC; prior 856 ms fallback is not AI latency evidence. X report Nov 2: $0.023382, two verified/dated historical World citations, incremental baseline unknown.
 - No inference or Reddit requests. API/worker restarted; health DB/Redis true, SPA 200, 32 sources without errors and four queues available. `git diff --check` passed. Next: observe Nov 3 14:30 X discovery and 15:00 scheduled AI cost/duration; 2a remains incomplete.
+
+## 2026-11-02: iteration 220 — profile repository characterization
+
+- Started clean on main; API/worker and health healthy, 32 sources without errors and all four queues available. No leftover work.
+- Items 13/7/9 await Nov 3 scheduled evidence; advanced lower-priority STEERING 2a against disposable containers only.
+- Added repository-port coverage for foreign-profile schedule isolation, detached reads, inclusive story/post budget bounds, atomic rejection of invalid budgets and explicit missing-schedule errors without foreign-profile fallback.
+- Test restores the default schedule and removes foreign fixtures; registered in the isolated suite and documented in README/TASKS. No application behavior or UI change.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check`; 120 unit and 120 isolated integration tests passed.
+- Read-only timing report: next Nov 3 15:00 UTC; prior 856 ms fallback is not AI latency evidence. X report Nov 2: $0.023382, two verified/dated historical World citations, incremental baseline unknown.
+- No inference or Reddit requests. API/worker restarted; health DB/Redis true and SPA 200. Next: observe Nov 3 14:30 X discovery and 15:00 scheduled AI cost/duration; 2a remains incomplete.
