@@ -60,6 +60,14 @@ async function main() {
             });
           }
         });
+        if (process.env.POST_COVERAGE_REPLAY === '1') {
+          for (const topic of snapshot.topics) {
+            const story = topic.stories[0];
+            if (!story) continue;
+            for (const post of topic.posts ?? [])
+              post.citingStories = [{ id: story.id, title: story.title }];
+          }
+        }
         let scriptRequests = 0;
         if (mode !== 'live')
           await page.route(
@@ -102,6 +110,16 @@ async function main() {
               post.whyItMatters,
             );
           }
+          if (post.citingStories?.length) {
+            const link = card.locator('.post-coverage a').first();
+            assert.equal(await link.textContent(), post.citingStories[0].title);
+            await link.click();
+            assert.equal(
+              await page.locator(`#story-${post.citingStories[0].id}`).count(),
+              1,
+            );
+            await card.scrollIntoViewIfNeeded();
+          }
           if (mode === 'live') {
             await card.locator('iframe').waitFor({ timeout: 30000 });
           } else if (mode === 'success') {
@@ -132,7 +150,7 @@ async function main() {
             const banner = document.createElement('p');
             banner.textContent = live
               ? 'Read-only replay · real verified posts · official X widgets · not a published edition'
-              : 'Read-only replay · real verified posts · official widget blocked to verify fallback · not a published edition';
+              : 'Read-only replay · real verified posts · synthetic coverage links when enabled · widget blocked · not a published edition';
             document.querySelector('.post-card')?.prepend(banner);
           }, mode === 'live');
           await cards.first().screenshot({

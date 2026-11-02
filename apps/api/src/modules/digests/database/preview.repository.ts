@@ -7,6 +7,7 @@ import { Injectable, OnModuleDestroy } from '@nestjs/common';
 
 import { database } from '../../../libs/db/connections';
 import { editorialServices } from '../../curation/public/editorial';
+import { linkCitingStories } from '../../social/public/citing-stories';
 import { editTopicPosts } from '../../social/public/editorial-selection';
 import { selectTopicPosts } from '../../social/public/selection';
 import { editorialShortlist } from '../domain/editorial-shortlist';
@@ -245,6 +246,11 @@ export class PostgresPreviewRepository
           posts,
           Number(topic.post_budget),
           runId,
+        );
+        postSelection.posts = await linkCitingStories(
+          client,
+          postSelection.posts,
+          stories,
         );
         selections.push({
           ...postSelection,

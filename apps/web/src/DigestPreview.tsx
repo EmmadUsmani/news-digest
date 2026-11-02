@@ -323,7 +323,7 @@ export function DigestPreview() {
               )}
               <ol>
                 {topic.stories.map((story) => (
-                  <li key={story.id}>
+                  <li key={story.id} id={`story-${story.id}`}>
                     <a href={story.url} target="_blank" rel="noreferrer">
                       {story.title}
                     </a>

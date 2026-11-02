@@ -266,3 +266,15 @@ Earlier iterations 61–72: [archive](docs/progress-archive/2026-11-02-iteration
 - `pnpm exec tsx scripts/smoke-status.ts` and `scripts/smoke-ui.ts` pass desktop/mobile. Screenshots refreshed; TASKS/README/docs/SOURCES updated, older progress archived.
 - No inference/discovery spend or provider/model/billing change: Anthropic day/month $0.408415; X $0.023382, zero reservations/errors. No new owner blocker; Gaming weak, Reddit blocked.
 - Next: inspect the first scheduled semantic social edition, then measure relevant Gaming discovery and connect related-story links. Paid X scheduling stays off/full-day reservation retained.
+
+## 2026-11-02: iteration 107 — link posts to selected coverage that cites them
+
+- Started clean on main; no leftover work. API/worker/health and seventeen feeds healthy; retained digest runs complete. First semantic scheduled edition is not due until Nov 2 20:40 UTC; no schedule change or manual edition.
+- New immutable snapshots copy selected-story IDs/titles onto posts when stored article citations match the lead, coverage or editor evidence. UI links jump within the edition and say “Coverage citing this post”; this is citation provenance, not semantic same-event matching. Historical snapshots unchanged.
+- Isolated Postgres regression verifies lead/coverage/evidence matching, deduplication, missing/unselected relationships, input preservation and copied titles after citation deletion. No external test calls.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 130 isolated tests pass. Initial check caught browser-script formatting edited during verification; formatted and reran successfully. `pnpm build` passes (existing upstream Zod warnings).
+- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passes two queued live runs: 819 real URLs/four topics/seventeen healthy sources.
+- `screen-social-posts.ts 2026-10-26T00:00:00Z 2026-11-02T06:30:00Z` plus `POST_COVERAGE_REPLAY=1 pnpm exec tsx scripts/smoke-posts.ts /tmp/iteration107-posts.jsonl`: desktop/mobile navigation, widget stub and blocked fallback pass; saved real posts with explicitly synthetic coverage links, not a published edition. Inspected desktop/mobile screenshots.
+- `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed. TASKS/docs/SOURCES updated; no new owner blocker.
+- No inference/discovery spending or provider/model/billing changes: Anthropic day/month $0.408415; X $0.023382, zero reservations/errors. Paid scheduling remains off. Gaming weak; Reddit blocked.
+- Next: inspect first scheduled semantic edition when due, improve Gaming discovery, and add semantic same-event links only with reliable evidence.

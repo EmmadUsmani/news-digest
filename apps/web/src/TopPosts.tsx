@@ -120,6 +120,17 @@ function Post({ post }: { post: SelectedPost }) {
         <p className="post-text">{post.text}</p>
       )}
       {post.whyItMatters && <p className="post-context">{post.whyItMatters}</p>}
+      {!!post.citingStories?.length && (
+        <p className="post-coverage">
+          Coverage citing this post:{' '}
+          {post.citingStories.map((story, index) => (
+            <React.Fragment key={story.id}>
+              {index > 0 && ' · '}
+              <a href={`#story-${story.id}`}>{story.title}</a>
+            </React.Fragment>
+          ))}
+        </p>
+      )}
       <div ref={host} className="official-post" />
       <a href={post.url} target="_blank" rel="noreferrer">
         Open original post on X

@@ -676,3 +676,14 @@ uses fake responses in isolated DB tests and synthetic context over saved real
 posts in browser replay, not a real semantic edition or virality evaluation.
 No new discovery route, paid search or live inference was used. Next inspect
 the first scheduled semantic edition and improve weak Gaming discovery.
+
+### Citing-story links (iteration 107)
+
+New editions copy links from selected posts to selected stories whose lead,
+coverage or editor evidence articles explicitly cite that post in
+`x_link_citations`. The UI says “Coverage citing this post” and jumps to the
+story within the edition. This records a citation relationship, not a semantic
+same-event judgment. Missing citations produce no links. Historical editions
+remain unchanged. Browser replay uses saved real posts with explicitly
+synthetic coverage relationships; it is not a published edition. No new source,
+inference or discovery spend. The next scheduled slot is 20:40 UTC Nov 2.

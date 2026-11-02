@@ -118,6 +118,9 @@ export const selectedPostSchema = z.object({
   text: z.string(),
   metrics: z.record(z.string(), z.number()),
   whyItMatters: z.string().optional(),
+  citingStories: z
+    .array(z.object({ id: z.string().uuid(), title: z.string() }))
+    .optional(),
   reasons: z.array(z.string()),
 });
 export type SelectedPost = z.infer<typeof selectedPostSchema>;
