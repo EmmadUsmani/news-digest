@@ -30,7 +30,7 @@ void test('editions freeze scoped screened posts, honor budgets and preserve sch
             ? end.toISOString()
             : new Date(start.getTime() + i * 1000).toISOString(),
         metrics: {},
-        embedHtml: `<p>${i === 3 ? 'AI crypto promo' : i === 2 ? 'Unrelated text' : 'AI demo launch'}</p>`,
+        embedHtml: `<p>${i === 3 ? 'AI crypto promo' : i === 2 ? 'Unrelated text' : i === 1 ? 'AI demo launch<br>https://example.org/demo' : 'AI demo launch'}</p>`,
       });
       if (i !== 5)
         await social.discovered('techmeme', [
@@ -46,6 +46,11 @@ void test('editions freeze scoped screened posts, honor budgets and preserve sch
       [ids[1]],
     );
     assert.deepEqual(topic.posts?.[0].metrics, {});
+    assert.equal(topic.posts?.[0].text, 'AI demo launch');
+    assert.equal(
+      topic.posts?.[0].displayText,
+      'AI demo launch\nhttps://example.org/demo',
+    );
     assert.equal(first.topics.find((t) => t.id !== topicId)?.posts?.length, 0);
     await social.db.query(
       'UPDATE social_posts SET embed_html=$2,author=$3 WHERE external_id=$1',

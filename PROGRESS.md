@@ -306,3 +306,15 @@ Earlier iterations 87–100: [archive](docs/progress-archive/2026-11-02-iteratio
 - `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; refreshed screenshots and inspected mobile status. README/TASKS updated; no source configuration change.
 - No publication, schedule mutation, inference/discovery spend, provider/model/billing change or new owner blocker. Gaming/World social gaps and Reddit block remain; paid X scheduling stays off.
 - Next: inspect 20:40 UTC scheduled semantic edition when due; continue relevant free social discovery.
+
+## 2026-11-02: iteration 137 — preserve saved social post formatting
+
+- Started clean on main; no leftover work. API/worker/health, 28 feeds and current digest/collection runs healthy; two historical ingestion failures retained. First semantic edition remains due 20:40 UTC.
+- New immutable post selections include optional display-only plain text preserving visible URL labels and line breaks. React renders escaped text when widgets fail or in saved-text details; historical editions retain their existing fallback.
+- Screening/editorial text, duplicate keys, prompts, models and historical snapshots unchanged. Unit regression covers URLs, blank lines, encoded markup, ambiguous paragraphs and bounds; isolated publication regression verifies frozen display text survives post refresh/retry.
+- Free World probes: Kyiv Independent advertised feed 15 items/three accessible pages with no X citations; Independent World 44 items/no citations; Guardian politics adds only a citation already in World. None configured; no bypass or paid calls.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued live passes, 1,172 URLs/four topics/28 healthy sources; repeat idempotent. `verify-x-embeds.ts`: one success/zero failures, current Guardian World citation. `screen-social-posts.ts` upcoming window: semantic 9/26/1/2, fallback 3/5/0/0; incomplete window, not relevance/virality evidence.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 145 isolated tests pass. `pnpm build` passes (existing upstream Zod warnings).
+- Restarted API/worker; `/healthz` healthy. `scripts/smoke-ui.ts`, `scripts/smoke-status.ts`, and `scripts/smoke-posts.ts /tmp/iteration137-posts.jsonl` pass desktop/mobile; post replay covers blocked/stubbed widgets and legacy snapshots. Initial style assertion raced widget replacement; restricted to stable blocked mode, rerun passed. Screenshots refreshed; mobile fallback inspected.
+- README/TASKS/docs/SOURCES updated. No publication, schedule mutation, inference/discovery spend or provider/model/billing change; no new owner blocker.
+- Next: inspect scheduled 20:40 UTC semantic edition. Gaming/World social gaps and Reddit access persist; keep paid X scheduling off.

@@ -1,7 +1,10 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { officialPostText } from '../src/modules/social/adapters/embed-text';
+import {
+  officialPostDisplayText,
+  officialPostText,
+} from '../src/modules/social/adapters/embed-text';
 import { PostgresSocialRepository } from '../src/modules/social/database/social.repository';
 import { assessPostEligibility } from '../src/modules/social/domain/eligibility';
 
@@ -15,6 +18,24 @@ const assess = (
   text: string,
   publishedAt: string | null = start.toISOString(),
 ) => assessPostEligibility({ text, publishedAt }, policy, start, end);
+void test('saved display preserves paragraph line breaks and visible URLs without changing screening evidence', () => {
+  const html =
+    '<blockquote><p>Launch &amp; demo<br><br>Read <a href="https://example.org/AI">https://example.org/AI</a><br />&lt;img src=x onerror=alert(1)&gt;</p>— AI Labs <a>footer</a></blockquote>';
+  assert.equal(
+    officialPostDisplayText(html),
+    'Launch & demo\n\nRead https://example.org/AI\n<img src=x onerror=alert(1)>',
+  );
+  assert.equal(
+    officialPostText(html),
+    'Launch & demo Read <img src=x onerror=alert(1)>',
+  );
+  assert.equal(assess(officialPostText(html)).eligible, false);
+  assert.equal(officialPostDisplayText('<p>first</p><p>second</p>'), '');
+  assert.equal(
+    officialPostDisplayText('<p>' + 'x'.repeat(20001) + '</p>').length,
+    20000,
+  );
+});
 void test('social screening uses bounded post paragraph evidence, never author, date or URL attributes', () => {
   const text = officialPostText(
     '<blockquote><p>A launch &amp; demo<br>today <a href="https://ai.example">details</a></p>— AI Labs <a>AI</a></blockquote>',

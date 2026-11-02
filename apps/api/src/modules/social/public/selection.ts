@@ -1,7 +1,10 @@
 import type { RelevancePolicy, SelectedPost } from '@digest/contracts';
 import type { PoolClient } from 'pg';
 
-import { officialPostText } from '../adapters/embed-text';
+import {
+  officialPostDisplayText,
+  officialPostText,
+} from '../adapters/embed-text';
 import { postDuplicateKey } from '../adapters/post-duplicate-key';
 import { assessPostEligibility, assessPostSafety } from '../domain/eligibility';
 
@@ -57,6 +60,7 @@ export async function selectTopicPosts(
       authorUrl: row.authorUrl,
       publishedAt,
       text,
+      displayText: officialPostDisplayText(row.embedHtml),
       metrics: { ...row.metrics },
       reasons: [
         assessment.reason,

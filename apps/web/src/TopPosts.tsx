@@ -114,10 +114,10 @@ function Post({ post }: { post: SelectedPost }) {
       {embedded ? (
         <details className="saved-post-text">
           <summary>Saved post text</summary>
-          <p className="post-text">{post.text}</p>
+          <p className="post-text">{post.displayText ?? post.text}</p>
         </details>
       ) : (
-        <p className="post-text">{post.text}</p>
+        <p className="post-text">{post.displayText ?? post.text}</p>
       )}
       {post.whyItMatters && <p className="post-context">{post.whyItMatters}</p>}
       {!!post.citingStories?.length && (

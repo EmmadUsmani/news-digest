@@ -68,6 +68,11 @@ async function main() {
               post.citingStories = [{ id: story.id, title: story.title }];
           }
         }
+        // Exercise historical snapshots without the optional display field too.
+        const legacyPost = snapshot.topics
+          .flatMap((topic) => topic.posts ?? [])
+          .at(-1);
+        if (legacyPost) delete legacyPost.displayText;
         let scriptRequests = 0;
         if (mode !== 'live')
           await page.route(
@@ -126,12 +131,18 @@ async function main() {
             await card.locator(`[data-post-id="${post.externalId}"]`).waitFor();
             assert.equal(
               await card.locator('.saved-post-text .post-text').textContent(),
-              post.text,
+              post.displayText ?? post.text,
             );
           } else {
             assert.equal(
+              await card
+                .locator('.post-text')
+                .evaluate((element) => getComputedStyle(element).whiteSpace),
+              'pre-wrap',
+            );
+            assert.equal(
               await card.locator('.post-text').textContent(),
-              post.text,
+              post.displayText ?? post.text,
             );
           }
         }

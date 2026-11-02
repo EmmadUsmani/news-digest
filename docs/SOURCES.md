@@ -960,3 +960,25 @@ social request, paid discovery, inference or publication was needed for this UI.
 - Also probed public `https://automaton-media.com/en/feed/`: 30 parseable
   articles, latest Oct 31, no feed X citations. Not connected; no page probe,
   bot-protection bypass, paid discovery or inference.
+
+## Iteration 137 — World citation refresh and bounded feed probes (2026-11-02)
+
+- Existing **live** Guardian World feed supplied the named X citation
+  `CPhilpOfficial/status/2117178880029085938`; official oEmbed verification
+  succeeded. Its decoded timestamp is Nov 2 08:55:54 UTC, inside the upcoming
+  daily window. Verification establishes availability, not relevance or virality.
+- Read-only daily screening after collection: Tech 9/NBA 26/Gaming 1/World 2
+  semantic candidates; lexical fallback selections 3/5/0/0. No AI calls or
+  publication. World still needs semantic selection, and the window is incomplete.
+- **Rejected for this social expansion:** The Kyiv Independent's advertised
+  `https://kyivindependent.com/news-archive/rss/` returned 15 items/no X links;
+  its first three public article pages returned 200/no X citations. The guessed
+  `/rss/` path returned 404 before homepage discovery found the advertised URL.
+- **Rejected for this social expansion:** Independent World RSS at
+  `https://www.independent.co.uk/news/world/rss` returned 44 items/no X links
+  (gzip decoded). Guardian US politics RSS returned 17 items/no X links;
+  Guardian politics RSS returned 21 items and the same citation already in World.
+  These feeds were not configured; no new page harvesting, bypass or paid calls.
+- Two queued ingestion passes stored 1,172 URLs across four topics/28 healthy
+  sources; repeat collection was idempotent. One bounded official embed check
+  succeeded with zero failures. Source configuration remains unchanged.

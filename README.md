@@ -169,6 +169,10 @@ to a temporary file, then run
 selected candidates with stubbed widget success and blocked-script checks, without
 publishing an edition. `POST_EMBED_LIVE=1` explicitly enables separate official
 widget requests instead; these are external checks, not automated tests.
+New snapshots preserve visible URL labels and line breaks in the saved plain-text
+fallback, including when the official widget is blocked. Historical snapshots use
+their existing text. Screening/editorial evidence continues to exclude URLs; raw
+embed HTML is never rendered by the fallback.
 
 Free social discovery runs hourly in the worker via the `social-collection`
 BullMQ queue. It harvests enabled public rivers, checks at most eight opted-in

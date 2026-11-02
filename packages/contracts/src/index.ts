@@ -116,6 +116,7 @@ export const selectedPostSchema = z.object({
   authorUrl: z.string().url(),
   publishedAt: z.string().datetime(),
   text: z.string(),
+  displayText: z.string().max(20000).optional(),
   metrics: z.record(z.string(), z.number()),
   whyItMatters: z.string().optional(),
   citingStories: z
