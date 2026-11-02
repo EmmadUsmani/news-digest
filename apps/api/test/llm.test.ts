@@ -577,3 +577,61 @@ void test('rate-limit retries exhaust after three attempts; long deadlines and o
     assert.deepEqual(waits, expected === 3 ? [1000, 2000] : []);
   }
 });
+
+void test('all adapter instances share four FIFO slots and release failures', async () => {
+  let active = 0;
+  let peak = 0;
+  const started: number[] = [];
+  const release: (() => void)[] = [];
+  const adapters = Array.from(
+    { length: 12 },
+    (_, index) =>
+      new AnthropicLlmAdapter('offline-fixture-key', async () => {
+        active++;
+        peak = Math.max(peak, active);
+        started.push(index);
+        await new Promise<void>((resolve) => release.push(resolve));
+        active--;
+        if (index % 3 === 0) throw new Error('offline transport failure');
+        return new Response(
+          JSON.stringify({
+            id: 'fixture',
+            type: 'message',
+            role: 'assistant',
+            model: config.haiku.id,
+            content: [{ type: 'text', text: '{"ok":true}' }],
+            stop_reason: 'end_turn',
+            stop_sequence: null,
+            usage: { input_tokens: 40, output_tokens: 8 },
+          }),
+          { headers: { 'content-type': 'application/json' } },
+        );
+      }),
+  );
+  const pending = Promise.allSettled(
+    adapters.map((adapter) => adapter.complete(request)),
+  );
+  const tick = () => new Promise<void>((resolve) => setImmediate(resolve));
+  while (started.length < 4) await tick();
+  assert.deepEqual(started, [0, 1, 2, 3]);
+  for (let index = 0; index < 12; index++) {
+    while (!release[index]) await tick();
+    release[index]();
+    await tick();
+  }
+  const results = await pending;
+  assert.equal(peak, 4);
+  assert.equal(active, 0);
+  assert.deepEqual(
+    started,
+    Array.from({ length: 12 }, (_, i) => i),
+  );
+  assert.equal(
+    results.filter((result) => result.status === 'rejected').length,
+    4,
+  );
+  assert.equal(
+    results.filter((result) => result.status === 'fulfilled').length,
+    8,
+  );
+});

@@ -615,3 +615,11 @@ Retry-After seconds or HTTP dates, with at most 10s per wait (20s total). Longer
 deadlines fail immediately instead of retrying early. Spend-limit responses,
 transport errors and other HTTP failures never retry. Offline SDK/HTTP tests
 verify bounds, deadlines, successful usage settlement and single-call spend blocks.
+
+Iteration 157 adds a process-wide FIFO limit of four logical Anthropic calls,
+shared by all adapter instances, article/social triage and editing. A call retains
+its slot during bounded 429 backoff; success and failure both release it. The API
+and worker each have their own limit; there is no cross-process coordination.
+Offline HTTP tests overlap twelve calls across twelve adapters, assert FIFO start
+order and a four-call peak, and verify progress after transport failures. Topic
+parallelism and full-edition timing remain future work.

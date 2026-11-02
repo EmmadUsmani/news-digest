@@ -157,3 +157,13 @@ Earlier iterations 133–134: [archive](docs/progress-archive/2026-11-02-iterati
 - `pnpm exec tsx --test apps/api/test/llm.test.ts`: 19 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and 157 isolated tests pass. Initial check caught SDK headers typed any; narrowed before green rerun.
 - `pnpm build` passes; restarted API/worker; `/healthz` healthy and `/api/digest-previews/latest` returns the stored four-topic edition. No new publication or schedule/source/UI changes; source docs unchanged.
 - Updated TASKS/docs/RANKING and archived progress 133–134 to stay below 25 KB. No new blocker; next: shared concurrency/parallel editors, async jobs/window dedupe/progress and full-edition timing. Item 7 remains open.
+
+## 2026-11-02: iteration 157 — shared Anthropic concurrency
+
+- Started clean on main; no leftover work. API/worker healthy, 32 sources without current errors and no digest queue failures; two historical ingestion failures remain retained.
+- STEERING 7 partial: process-wide FIFO four-call limit shared across Anthropic adapter instances and article/social triage/editing. Retains slots through 429 backoff and releases on success/failure. API and worker retain independent limits.
+- Fake HTTP test overlaps twelve calls across twelve adapters, verifies FIFO order, four-call peak and continued progress after four transport failures. No live LLM calls or spend.
+- `pnpm exec tsx --test apps/api/test/llm.test.ts`: 20 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and 158 isolated tests pass. `pnpm build` passes.
+- Restarted API/worker; both active. `/healthz` healthy, `/api/status` shows 32 sources with zero current errors and zero digest failures; `/api/digest-previews/latest` returns stored four-topic edition.
+- Updated TASKS and docs/RANKING. No UI/source/schedule changes or new publication; source docs unchanged. No new blocker.
+- Next: parallel topic editors, async jobs/window dedupe/progress and full-edition timing. Item 7 remains open; no full-edition performance claim.

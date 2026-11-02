@@ -16,6 +16,27 @@ export function isProviderSpendLimit(status: number, body: unknown): boolean {
     (status === 429 && text.includes('enforced_spend_limit_reached'))
   );
 }
+// Shared across adapters and editorial services in this process. API and worker
+// have independent limits; this does not coordinate separate processes.
+class InferenceSlots {
+  private active = 0;
+  private readonly waiting: (() => void)[] = [];
+
+  async run<T>(work: () => Promise<T>): Promise<T> {
+    if (this.active < 4) this.active++;
+    else await new Promise<void>((resolve) => this.waiting.push(resolve));
+    try {
+      return await work();
+    } finally {
+      const next = this.waiting.shift();
+      if (next)
+        next(); // Transfer the occupied slot directly to the next caller.
+      else this.active--;
+    }
+  }
+}
+const inferenceSlots = new InferenceSlots();
+
 export class AnthropicLlmAdapter extends LlmPort {
   private readonly client: Anthropic;
   constructor(
@@ -34,7 +55,11 @@ export class AnthropicLlmAdapter extends LlmPort {
       fetch,
     });
   }
-  async complete(request: LlmRequest): Promise<LlmResponse> {
+  complete(request: LlmRequest): Promise<LlmResponse> {
+    // Retain the slot during backoff to avoid increasing pressure on rejection.
+    return inferenceSlots.run(() => this.completeWithRetries(request));
+  }
+  private async completeWithRetries(request: LlmRequest): Promise<LlmResponse> {
     for (let attempt = 0; ; attempt++) {
       try {
         const response = await this.client.messages.create({
