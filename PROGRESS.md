@@ -116,19 +116,6 @@ Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
 
 Iteration 252: [archive](docs/progress-archive/2026-11-02-iteration-252.md).
 
-## 2026-11-02: iteration 261 — concurrent ingestion merge
-
-- Started clean on main; health, API/worker, 32 sources and four queues healthy; no leftover work.
-- Priority 15/13/7/9 live evidence still awaits Nov 3; advanced isolated STEERING 2a.
-- Separate repositories concurrently ingest one article; both metrics and independent source observations/citations survive.
-- Pins stable article identity/metadata, paired title/excerpt and duplicate-free concurrent retries with retained citation first-seen times.
-- Disposable PostgreSQL only; no source, provider or Reddit requests.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 156 integration), `pnpm build`, `git diff --check` passed.
-- Initial check caught documentation formatting during edits; formatted and reran the complete check successfully.
-- Updated TASKS/database notes; archived iteration 241 to keep PROGRESS bounded.
-- Restarted API/worker; health, SPA, 32 error-free sources, four queues and latest four-topic edition verified.
-- Next: observe Nov 3 scheduled X per-topic cost/yield and AI edition cost/duration before acknowledging 15/13/7.
-
 ## 2026-11-02: iteration 262 — river final-write recovery
 
 - Started clean on main; services, health, 32 sources and four queues healthy; no leftover work.
@@ -347,3 +334,14 @@ Iteration 252: [archive](docs/progress-archive/2026-11-02-iteration-252.md).
 - API/worker restarted active; health OK, SPA 200, latest edition four topics; no paid provider or Reddit requests.
 - Read-only Nov 2 report: one call, 23,382 cost micros, zero same-day selected/outside-list selected posts.
 - Next: observe Nov 3 scheduled searches/edition, acknowledge item 15 with cost/yield, then switch to open search; real-edition/screenshots remain.
+
+## 2026-11-02: iteration 279 — accurate scheduled X guidance
+
+- Started clean on main; no leftover work; API/worker and health healthy.
+- Fixed Status/settings claims that automatic paid X discovery was off; describe active timing, eligibility, curated accounts and shared caps.
+- Open search remains gated on Nov 3 item 15 evidence; no provider or Reddit requests.
+- Added read-only desktop/mobile Playwright guidance check and four screenshots; no topic or schedule writes.
+- Broad `smoke-status.ts` hit its pre-existing stale "Recent automatic runs" heading; focused `pnpm exec tsx scripts/smoke-x-schedule-copy.ts` passed.
+- Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (130 unit/166 integration), `pnpm build`, `git diff --check`.
+- API/worker restarted; health OK, SPA 200; 32 sources without errors, latest edition four topics.
+- Archived iteration 261; next: Nov 3 scheduled search cost/yield and AI edition timing before open-search switch.

@@ -1355,3 +1355,10 @@ These observations are separate from official oEmbed verification and from
 Isolated synthetic tests cover provenance, zero counts and retry preservation.
 No paid discovery or Reddit requests were made. Age-relative ranking and
 search-type reporting remain open; the scheduled account-list path is unchanged.
+
+### Iteration 279: scheduled X discovery visibility
+
+Status and topic settings now describe the active capped, weakest-first daily
+account-list searches 5–30 minutes before publication. Topics need enabled status,
+post slots and curated accounts. Open search remains pending item 15 acknowledgement;
+saving accounts does not initiate discovery. No provider or Reddit requests.

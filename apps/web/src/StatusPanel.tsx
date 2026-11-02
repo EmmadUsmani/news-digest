@@ -259,9 +259,11 @@ export function StatusPanel() {
           <section aria-label="X discovery usage">
             <h3>X discovery usage</h3>
             <p>
-              Paid X discovery runs only through explicit manual commands;
-              automatic paid searches are off. Spending does not imply verified
-              posts. Free link harvesting and official post embeds are running.
+              Paid X discovery is scheduled 5–30 minutes before the edition,
+              once per enabled topic with X accounts and post slots, weakest
+              coverage first and within the caps below. Searches currently use
+              curated accounts. Spending does not imply verified posts. Free
+              link harvesting and official post embeds are running.
             </p>
             <p>
               Today (UTC): {dollars(status.xDiscovery.todayMicros)} spent or

@@ -361,10 +361,11 @@ export function TopicSettings({
             </label>
             <p id="x-accounts-help">
               Up to 20 unique handles; an initial @ is optional. These accounts
-              scope X searches when discovery runs. Automatic paid discovery is
-              currently off. Saving does not fetch posts or start a search.
-              Leave empty to disable X searches for this topic. Free link
-              discovery still uses the topic’s connected sources.
+              scope the current scheduled X searches before each daily edition,
+              within the shared spending caps. The topic must be enabled and
+              have post slots. Saving does not fetch posts or start a search.
+              Leave empty to disable scheduled X searches for this topic. Free
+              link discovery still uses the topic’s connected sources.
             </p>
             <label>
               Reddit communities · one per line
