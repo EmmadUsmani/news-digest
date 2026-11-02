@@ -27,7 +27,12 @@ pnpm check
 ```
 
 `pnpm check` runs typechecks, ESLint, dependency boundaries and integration
-checks against local PostgreSQL/Redis. Tests do not contact external services.
+checks against fresh disposable PostgreSQL 17/Redis 7 Docker containers.
+The test runner overrides inherited database/Redis URLs, clears the Anthropic
+key, applies all migrations, and removes containers on completion. Docker is
+required; tests never fall back to the live database or contact external services.
+Database tests must run through `pnpm test`; direct Node test invocations that
+construct database clients fail before connecting.
 The check command builds shared contract declarations automatically.
 `pnpm migrate` is safe to repeat. Keep secrets only in
 `~/.config/news-digest/env` (mode 600), never in the repository.

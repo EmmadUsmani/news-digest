@@ -93,5 +93,6 @@ Fix regressions, broken services and stalled sources before starting new work.
   - resilience
   - Make schedule-changing smoke checks persist recovery settings and restore on termination; iteration 52 required manual restoration after signal 143.
 
+- [x] Stop verification from replacing live AI editions: run the existing suite in disposable Postgres/Redis containers with cleared inference credentials, migrated seeds and guarded direct test connections (iteration 57; regression repair).
 - [ ] STEERING 2a (after M3): isolated Testcontainers Postgres/Redis migration, repository/HTTP characterization, golden edition and database coverage; include `test:integration` in `check`. Never touch live DB.
 - [ ] STEERING 2b (only after 2a is green): record Drizzle decision/schema parity, back up live DB, gradually replace raw SQL behind ports and enforce boundaries.

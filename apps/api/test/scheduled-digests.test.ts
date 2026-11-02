@@ -5,18 +5,34 @@ import { PostgresPreviewRepository } from '../src/modules/digests/database/previ
 
 void test('concurrent scheduled retries return one immutable snapshot; manual regeneration stays versioned', async () => {
   const repository = new PostgresPreviewRepository();
-  // This legacy local-DB characterization must never make paid external calls,
+  // This isolated characterization must never make paid external calls,
   // including when the developer has loaded the configured service environment.
   Object.defineProperty(repository, 'editorial', { value: null });
   const end = new Date(),
     start = new Date(end.getTime() - 86400000);
   const key = `integration:${crypto.randomUUID()}`;
   try {
+    // Synthetic content exists only in the disposable test database.
+    const itemId = crypto.randomUUID();
+    await repository.db.query(
+      `INSERT INTO content_items(id,canonical_url,title,excerpt,published_at,image_url)
+       VALUES($1,$2,'New AI developer tool released','Synthetic test excerpt',$3,'https://example.org/image.jpg')`,
+      [itemId, `https://example.org/${itemId}`, new Date(end.getTime() - 1000)],
+    );
+    await repository.db.query(
+      "INSERT INTO content_observations(item_id,source_id) VALUES($1,'hn')",
+      [itemId],
+    );
     const [first, retry] = await Promise.all([
       repository.generate(start, end, key),
       repository.generate(start, end, key),
     ]);
     assert.deepEqual(first, retry);
+    assert.ok(
+      first.topics.some((topic) =>
+        topic.stories.some((story) => story.id === itemId),
+      ),
+    );
     for (const story of first.topics.flatMap((topic) => topic.stories)) {
       const stored = (
         await repository.db.query(

@@ -21,7 +21,8 @@ void test('Postgres persists the default profile and migration ledger', async ()
 
 void test('BullMQ processes a job on the local Redis instance', async () => {
   const name = `integration-${process.pid}`;
-  const connection = { host: '127.0.0.1', port: 6379 };
+  const url = new URL(process.env.REDIS_URL!);
+  const connection = { host: url.hostname, port: Number(url.port) };
   const cache = redis();
   const queue = new Queue(name, { connection });
   const worker = new Worker(

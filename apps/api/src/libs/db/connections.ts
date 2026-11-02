@@ -1,6 +1,17 @@
 import Redis from 'ioredis';
 import { Pool } from 'pg';
+function assertTestIsolation() {
+  if (
+    process.env.NODE_TEST_CONTEXT &&
+    process.env.NEWS_DIGEST_ISOLATED_TEST !== '1'
+  ) {
+    throw new Error(
+      'Run tests with pnpm test to use disposable Postgres and Redis',
+    );
+  }
+}
 export function database() {
+  assertTestIsolation();
   return new Pool({
     connectionString:
       process.env.DATABASE_URL ??
@@ -9,6 +20,7 @@ export function database() {
   });
 }
 export function redis() {
+  assertTestIsolation();
   return new Redis(process.env.REDIS_URL ?? 'redis://127.0.0.1:6379', {
     maxRetriesPerRequest: 1,
     connectTimeout: 3000,

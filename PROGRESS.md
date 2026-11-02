@@ -326,3 +326,17 @@ Earlier iterations 17–22: [archive](docs/progress-archive/2026-11-01-iteration
 - `/api/status` confirms $0.264979 today/month, zero reservations/errors, $0.482758 daily/$14 monthly caps; $0 incremental inference. Provider/model/billing unchanged.
 - Updated TASKS/docs/LLM; no source changes or owner blockers. Coalescing is process-local; simultaneous API/worker requests and differing triage batch compositions remain open.
 - Next: recorded-window editorial precision, Sonnet allocation, scheduled Message Batches, cross-process coordination and canonical cross-window ordering; M3 remains open.
+
+## 2026-11-02: iteration 57 — keep verification out of the live database
+
+- Started clean on main; API/worker, `/healthz`, seventeen sources and retained digest runs healthy. No leftover work.
+- Triage found the scheduled-digest test publishing non-AI snapshots into the live DB on every check, displacing the real AI edition; other repository tests also used live state.
+- `pnpm test` now creates disposable Postgres 17/Redis 7 Docker containers, applies all fifteen migrations, overrides inherited service URLs and clears the Anthropic key; containers are removed after success/failure.
+- Database/Redis clients reject direct Node test execution outside the isolated runner; BullMQ test uses the disposable Redis port. Scheduled characterization seeds a synthetic article and verifies selection/image persistence.
+- `pnpm check` passed typecheck/lint/format/boundaries and all 69 tests on fresh containers; `pnpm build` passed (existing upstream Zod warnings only).
+- A second `pnpm test` passed 69/69; the production edition remained byte-for-byte unchanged and only live containers remained. Direct infrastructure-test invocation failed before DB connection as intended.
+- Regenerated the former AI window through the API: Tech/NBA/Gaming reused summaries; one World candidate failed triage twice, leaving an explicit per-topic non-AI fallback. No snapshots were mutated/deleted.
+- Recovery cost $0.001097 total: today/month $0.266076, zero reservations/provider errors, $0.482758 daily/$14 monthly caps. No provider/model/billing changes; no further retries.
+- `smoke-ingestion.ts` passed two queued live passes: 713 real URLs, four topics, seventeen healthy sources; no source changes.
+- Rebuilt/restarted services; `/healthz` healthy. `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; refreshed screenshots and visually inspected mobile digest.
+- This fixes a live regression; full STEERING 2a Testcontainers/characterization/HTTP/coverage work remains pending after M3. No owner blockers; next investigate World triage failure, then editorial precision and Sonnet allocation.
