@@ -158,3 +158,4 @@ Earlier iterations 124–132: [archive](docs/progress-archive/2026-11-02-iterati
 - `pnpm build` passes; restarted API/worker, `curl -fsS http://localhost:8000/healthz` healthy. Read-only `/api/status`: 32 sources, zero current errors, 1,398 stored source items; digest queue has no failures. Two historical ingestion failures remain retained.
 - Included formatter-only fixes to two existing Markdown files so repository-wide format checking stays green. No UI/code/source changes, inference calls, schedule changes or provider changes.
 - Next: STEERING 7 edition speed/async jobs, then Reddit; restore owner schedule under item 11 and isolate schedule verification. No new blocker.
+- Initial push rejected because origin advanced to 31816b1 (supervisor weekly-window pacing). Merged without rewriting history; README conflict resolved using incoming text plus required formatting.

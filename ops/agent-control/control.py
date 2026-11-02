@@ -128,9 +128,22 @@ def window(usage, name):
     return used, minutes * 60, resets
 
 
+def windows(usage):
+    """(short, weekly) windows by length: plans differ in which slot holds which.
+
+    Plus reports 5h as primary and weekly as secondary; Pro reports only a
+    weekly window, as primary. Windows of a day or longer count as weekly.
+    """
+    found = [w for w in (window(usage, "primary"), window(usage, "secondary")) if w]
+    short = [w for w in found if w[1] < 86400]
+    weekly = [w for w in found if w[1] >= 86400]
+    return (min(short, key=lambda w: w[1]) if short else None,
+            max(weekly, key=lambda w: w[1]) if weekly else None)
+
+
 def pace_seconds(usage, slack_pct, max_wait_min, now):
     """Seconds to wait so weekly usage tracks elapsed time in the week (plus slack)."""
-    weekly = window(usage, "secondary")
+    weekly = windows(usage)[1]
     if weekly is None:
         return 0, "no weekly usage data yet"
     used, length, resets = weekly
@@ -167,8 +180,7 @@ def usage_wait_seconds(event_path, stderr_path, usage, fallback_min, max_wait_mi
             candidate += 86400
         target = candidate
     else:
-        exhausted = [w for w in (window(usage, "primary"), window(usage, "secondary"))
-                     if w and w[0] >= 90 and w[2] > now]
+        exhausted = [w for w in windows(usage) if w and w[0] >= 90 and w[2] > now]
         if exhausted:
             target = max(w[2] for w in exhausted)
     if target is None:
@@ -178,7 +190,7 @@ def usage_wait_seconds(event_path, stderr_path, usage, fallback_min, max_wait_mi
 
 
 def budget_text(usage, slack_pct, now):
-    primary, weekly = window(usage, "primary"), window(usage, "secondary")
+    primary, weekly = windows(usage)
     if primary is None and weekly is None:
         return "Codex usage: not measured yet. Work efficiently (see AGENTS.md, Token efficiency)."
     parts = []
@@ -226,7 +238,7 @@ def main():
             os.replace(tmp, status_path)
         tokens = iteration_tokens(events)
         with open(ledger, "a") as handle:
-            primary, weekly = window(usage, "primary"), window(usage, "secondary")
+            primary, weekly = windows(usage)
             handle.write("\t".join(map(str, [
                 time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), n, tokens["input"], tokens["cached"],
                 tokens["output"], tokens["reasoning"],
