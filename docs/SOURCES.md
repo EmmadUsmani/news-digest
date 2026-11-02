@@ -1296,3 +1296,16 @@ before other topics' first searches. Existing official verification and daily
 cost/incremental-yield reporting remain unchanged. Tests use fakes/disposable
 services only; no paid or Reddit requests. Await Nov 3's full scheduled run for
 per-topic cost/yield evidence and the STEERING acknowledgement.
+
+## Open X search preparation — iteration 271 (2026-11-02)
+
+The direct adapter accepts omitted handles for unrestricted topic discovery.
+Its open prompt uses topic name/guidance, keyword and semantic relevance, and
+asks for engaged, rising original posts including small accounts. Supplied
+account lists still require 1–20 valid unique handles; an empty list is invalid.
+One turn, five requested results, media understanding off, citation-only URL
+acceptance and official oEmbed verification remain in force. Synthetic tests
+cover outside-list citations; no live search or yield claim was made. Scheduled
+search stays on account lists until the first STEERING 15 run is acknowledged.
+Reported engagement, ranking, search-type reporting and budget-prioritized
+reaction/account searches remain unfinished under STEERING 16.

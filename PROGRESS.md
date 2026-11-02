@@ -114,17 +114,6 @@ Earlier iteration 244: [archive](docs/progress-archive/2026-11-02-iteration-244.
 
 Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
 
-## 2026-11-02: iteration 251 — source diagnostic persistence
-
-- Started clean on main; API/worker, health and 32 sources healthy; no leftover work.
-- Priority 15/13/7/9 evidence awaits Nov 3; advanced isolated STEERING 2a.
-- Pinned 299/300/301-character diagnostic handling, multibyte text and retention of successful poll state.
-- Rejected zero-byte diagnostic leaves status unchanged; valid retry and empty successful poll recover normally.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 148 integration), `pnpm build`, `git diff --check` passed.
-- Initial check caught archive formatting; formatted and reran verification. Updated TASKS/database notes and archived iteration 233.
-- No provider or Reddit requests. API/worker restarted healthy; SPA 200, 32 error-free sources, four available queues and four-topic latest edition.
-- Next: observe Nov 3 all-topic X cost/yield and scheduled AI cost/duration before acknowledging 15/13/7.
-
 ## 2026-11-02: iteration 252 — embed-check retry boundaries
 
 - Started clean on main; API/worker, health and 32 sources healthy; no leftover work.
@@ -352,3 +341,17 @@ Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
 - Initial push rejected: owner added STEERING 16–20; fetched and merged without rewriting history.
 - Recorded new priorities, corrected ESPN label; no more DB characterization. Archived iteration 250.
 - Next: open X discovery (16), plus Nov 3 scheduled X cost/yield and AI cost/duration.
+
+## 2026-11-02: iteration 271 — open X adapter preparation
+
+- Started clean on main; health/API/worker healthy, 32 sources without current errors.
+- Historical ingestion failures retained; no current digest/source regression found.
+- STEERING 16: omitted handles enable open topic search; supplied lists stay validated.
+- Open prompt seeks engaged/rising originals using topic guidance and keyword/semantic relevance.
+- Synthetic outside-list citations retain usage billing and official verification routing.
+- Account-list schedule stays until item 15's first scheduled run is acknowledged.
+- No paid provider or Reddit requests; no new live discovery/engagement claim.
+- Verified: 4 targeted tests; `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit/165 integration), `pnpm build`.
+- API/worker restarted; health, SPA and latest four-topic edition checked; `git diff --check` clean.
+- Archived oldest progress entry to keep orientation bounded.
+- Next: engagement provenance/storage/ranking, then scheduled switch after Nov 3 evidence.

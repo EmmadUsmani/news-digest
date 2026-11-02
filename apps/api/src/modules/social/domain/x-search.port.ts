@@ -4,7 +4,8 @@ import type { XDiscoveryUsage } from './x-discovery-budget';
 export interface XSearchRequest {
   topic: string;
   guidance: string;
-  handles: string[];
+  // Omit for open topic discovery; supplied lists must contain 1–20 handles.
+  handles?: string[];
   fromDate: string;
   toDate: string;
 }

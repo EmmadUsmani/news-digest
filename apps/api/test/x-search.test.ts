@@ -66,6 +66,47 @@ const fake =
   async () =>
     new Response(JSON.stringify(body), { status });
 
+void test('open X discovery omits account restrictions and accepts cited outside-list posts with bounded usage', async () => {
+  const open = {
+    topic: request.topic,
+    guidance: request.guidance,
+    fromDate: request.fromDate,
+    toDate: request.toDate,
+  };
+  const body = xSearchBody(open);
+  assert.equal('allowed_x_handles' in body.tools[0], false);
+  assert.equal(body.max_turns, 1);
+  assert.equal(body.max_output_tokens, 1000);
+  assert.match(body.input[0].content, /most-engaged, fastest-rising/);
+  assert.match(body.input[0].content, /keyword and semantic/);
+  assert.match(body.input[0].content, /small or unknown accounts/);
+  assert.match(body.input[0].content, /request at most five results/);
+  assert.match(
+    body.input[0].content,
+    /crypto, giveaways and routine news reposts/,
+  );
+  const response = fixture();
+  response.output[0].content[0].annotations = [
+    {
+      type: 'url_citation',
+      url: `https://x.com/small_builder/status/${externalId}`,
+    },
+  ];
+  const adapter = new DirectXSearch('offline-fixture', async (_url, init) => {
+    assert.deepEqual(JSON.parse(init?.body as string), body);
+    return new Response(JSON.stringify(response));
+  });
+  const result = await adapter.search(open);
+  assert.equal(result.links.length, 1);
+  assert.equal(result.links[0].externalId, externalId);
+  assert.equal(
+    result.links[0].verificationUrl,
+    `https://twitter.com/small_builder/status/${externalId}`,
+  );
+  assert.equal(result.usage.postsFetched, 12);
+  assert.equal(result.usage.profilesFetched, 1);
+});
+
 void test('X request restricts accounts, whole UTC dates, one round, model and media; validates before HTTP', async () => {
   const body = xSearchBody(request);
   assert.equal(body.model, 'grok-4.3');
