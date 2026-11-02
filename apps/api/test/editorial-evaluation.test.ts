@@ -117,3 +117,23 @@ for (const [key, candidates, baselineRecall] of [
     );
   });
 }
+
+void test('v3 recorded Tech replay preserves reported Apple findings without asserting company non-confirmation', () => {
+  const before = evaluateEditorialWindow('tech');
+  const after = evaluateEditorialWindow('tech', 'v3');
+  assert.equal(after.candidates, before.candidates);
+  assert.equal(after.eventRecall, before.eventRecall);
+  assert.equal(after.forbiddenSelected.length, 0);
+  const apple = after.evidenceInputs.find((entry) =>
+    entry.candidates.some((c) => c.title.includes('HomeView')),
+  );
+  assert.ok(apple, 'Known factual-support case must remain selected');
+  const original = before.selected.find((s) => s.id === apple.storyId)!;
+  const revised = after.selected.find((s) => s.id === apple.storyId)!;
+  assert.match(original.summary, /Apple has not confirmed/i);
+  assert.doesNotMatch(revised.summary, /not confirmed|unconfirmed/i);
+  assert.match(revised.summary, /according to The Verge/);
+  assert.match(revised.summary, /reportedly/);
+  // A frozen example documents one observed improvement, not entailment of
+  // arbitrary future outputs or proof that the prompt enforces factuality.
+});

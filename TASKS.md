@@ -45,7 +45,8 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Require validated shortlist evidence IDs and preserve source links/excerpts separately from headline coverage; expose summary sources without changing historical snapshots (iteration 60). Attribution is not factual verification.
   - [x] Separate configured Sonnet daily allocation inside shared caps; serialized reservations include old pending/uncertain calls, Haiku fallback and cache reuse verified in isolated Postgres; status shows allocation (iteration 61).
   - [x] Replay World/Tech frozen windows with withheld pre-existing labels, evidence-input audit and offline regressions: each 3/5 targets, zero labeled omissions, Haiku fallback (iteration 62). Provisional labels, not precision.
-  - Next (highest priority): address unsupported negative claims (Apple non-confirmation in iteration 62 audit); extend editorial evaluation across topics/dates with independent labels; add scheduled Message Batches and cross-process cache-miss coalescing. Full-article retrieval remains unfinished; ten-candidate editor bounds may return fewer than larger topic budgets.
+  - [x] Editor v3 explicitly forbids inferring absence from omitted excerpt facts; recorded Tech replay removes Apple non-confirmation from summary with unchanged 3/5 recall (iteration 63). Prompt mitigation only; rationale/absence wording still needs factual validation.
+  - Next (highest priority): validate factual support beyond prompting (remaining Apple rationale/announcement wording and benchmark verification caveat); extend editorial evaluation across topics/dates with independent labels; add scheduled Message Batches and cross-process cache-miss coalescing. Full-article retrieval remains unfinished; ten-candidate editor bounds may return fewer than larger topic budgets.
 - [ ] M4 X posts:
   - check xAI `x_search` through the gateway
   - post discovery per topic

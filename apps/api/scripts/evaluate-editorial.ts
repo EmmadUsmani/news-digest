@@ -53,11 +53,18 @@ const snapshotSchema = z.object({
   }),
 });
 
-export function evaluateEditorialWindow(key: 'nba' | 'world' | 'tech' = 'nba') {
+export function evaluateEditorialWindow(
+  key: 'nba' | 'world' | 'tech' = 'nba',
+  revision: '' | 'v3' = '',
+) {
+  const suffix = revision ? `-${revision}` : '';
   const snapshot = snapshotSchema.parse(
     JSON.parse(
       readFileSync(
-        join(__dirname, `../test/fixtures/editorial-${key}-2026-11-01.json`),
+        join(
+          __dirname,
+          `../test/fixtures/editorial-${key}-2026-11-01${suffix}.json`,
+        ),
         'utf8',
       ),
     ),

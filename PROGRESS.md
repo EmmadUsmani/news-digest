@@ -185,3 +185,17 @@ Earlier iterations 23–37: [archive](docs/progress-archive/2026-11-01-iteration
 - `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 718 real URLs, seventeen healthy sources; no source configuration changes.
 - Rebuilt/restarted API/worker; `/healthz` healthy. `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; refreshed screenshots, visually inspected mobile digest. Schedule unchanged.
 - Updated TASKS/docs/RANKING; archived iterations 23–37 to keep progress bounded. No owner blockers. Next: unsupported negative claims, reviewed labels/later dates/Gaming, scheduled batches and cross-process cache coordination.
+
+## 2026-11-02: iteration 63 — mitigate unsupported absence claims
+
+- Started clean on main; no leftover work. Services/health, seventeen sources and digest runs healthy; schedule unchanged.
+- Editor v3 distinguishes omitted excerpt facts from real-world absence, permits shorter supported summaries and requests clause review; changed instruction hash invalidates only editor caches.
+- Recorded one explicit Tech replay with unchanged triage/shortlist and withheld labels: same 3/5 provisional targets, zero labeled omissions. Apple summary now attributes findings without asserting company non-confirmation.
+- This is prompt mitigation, not factual validation: Apple significance/rationale still imply no announcement/confirmation; benchmark summary describes unperformed verification. Documented all-five-summary audit and prioritized remaining support validation.
+- Added immutable v3 artifact and offline case regression; recorder supports explicit v3 output and refuses overwrite before inference. No fixture content inserted or editions published.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and 79 isolated tests; `pnpm build` passed (existing upstream Zod warnings). Initial check stopped after concurrent documentation edits; formatted/full rerun passed.
+- `pnpm evaluate:editorial` passed historical replays; v3 regression verifies recorded Apple improvement with preserved recall. No general quality estimate claimed.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live passes: 720 stored URLs, seventeen healthy sources; no source changes.
+- Rebuilt/restarted API/worker; `/healthz` healthy. `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed and mobile digest visually inspected.
+- One configured Haiku fallback call cost $0.001691; day/month $0.395793, zero reservations/provider errors, $0.482758 daily/$14 monthly caps. Models/provider/billing unchanged.
+- Updated TASKS/docs/LLM/docs/RANKING; no owner blockers. Next: stronger factual-support validation, broader reviewed evaluation, scheduled Message Batches and cross-process coordination.

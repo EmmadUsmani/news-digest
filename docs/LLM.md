@@ -282,3 +282,10 @@ and effective availability (also constrained by shared funds/provider block).
 Isolated Postgres regressions exercise concurrent allocation reservations,
 settlement, old uncertainty, real editor fallback with a fake provider, cached
 regeneration and status totals. No live inference is needed for these checks.
+
+Iteration 63: `shortlist-editor-v3` adds explicit evidence-of-absence guidance
+and permits shorter source-supported summaries instead of padding sparse
+excerpts. Instruction hashing invalidates old editor caches only; triage caches
+and prior editions remain intact. This is a prompt mitigation, not factual
+validation. The recorded Tech replay and remaining unsupported wording are
+reported in `docs/RANKING.md`.

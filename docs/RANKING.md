@@ -386,3 +386,31 @@ is a remaining unsupported negative claim; evidence IDs alone do not ensure
 entailment. No article pages or independent facts were checked. Prioritize an
 editor factual-support regression/prompt fix and broader reviewed labels before
 claiming general editorial quality. Production scoring/prompts are unchanged.
+
+### Iteration 63: targeted absence-claim mitigation
+
+Editor v3 explicitly distinguishes omitted facts from evidence of absence,
+permits shorter summaries, and asks for clause review before returning. The
+changed instructions invalidate editor caches, retaining valid triage caches
+and immutable historical editions. This is prompt guidance, not a semantic
+validator or independent fact check.
+
+A separately recorded `editorial-tech-2026-11-01-v3.json` uses the same frozen
+54 candidates and production shortlist, with labels withheld. One configured
+Haiku fallback call cost $0.001691; no new triage calls. Offline replay retains
+3/5 provisional targets and zero labeled omissions. The Apple summary now
+attributes code findings to The Verge and the Reddit user, omitting the earlier
+“Apple has not confirmed” sentence. A regression preserves this observed case.
+All five revised summaries were compared with their bounded evidence inputs.
+Remaining concerns: Apple significance says “rather than an announcement” and
+its rationale calls findings “unconfirmed”; the benchmark summary says details
+“could not be verified” although no verification was performed. Other summaries
+include repetitive descriptions of input limitations. These limit the result:
+no general factuality or precision improvement is established. Next work should
+validate clause support and distinguish editor input limitations from real-world
+absence, including significance, rationale and brief text.
+
+Explicit replay command (load secrets without printing them):
+`pnpm exec tsx apps/api/scripts/record-editorial-evaluation.ts tech v3`.
+It refuses to overwrite the existing artifact before inference. Historical
+artifacts remain unchanged; no fixture items or editions were published.
