@@ -76,27 +76,7 @@ Iteration 192: [archive](docs/progress-archive/2026-11-02-iteration-192.md).
 
 Earlier iteration 195: [archive](docs/progress-archive/2026-11-02-iteration-195.md).
 
-## 2026-11-02: iteration 198 — scheduled worker budget attempts
-
-- Started clean on main; services, health and 32 sources healthy. No leftover work.
-- Scheduled processor now claims matching daily identities, retains retry protection and records success/last-attempt failure plus published AI/mixed/fallback evidence.
-- Stalled redelivery uses BullMQ attemptsStarted and queue lock ownership to recover the observed running attempt via compare-and-swap; old completions remain fenced.
-- Three isolated tests cover retries, final exceptions, conservative outcomes, stalled recovery and competing recovery claims. No paid inference or Reddit requests.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (109 unit/105 integration), `pnpm build`, `git diff --check` passed.
-- Restarted API/worker: active, `/healthz` DB/Redis true, SPA 200, four queues, 32 sources without errors, latest real edition four topics/10 posts. No UI change.
-- Updated README, reserve decision and TASKS; archived iteration 183 to bound orientation size.
-- Reserve enforcement remains UNFINISHED: reconcile queue-final stall failure and obsolete/missed/already-published slots, then shared-lock admission/races and manual/Status visibility before Nov 3 15:00 UTC.
-
-## 2026-11-02: iteration 199 — reconcile terminal queue stalls
-
-- Started clean on main; services, health and 32 sources healthy. No leftover work.
-- Terminal BullMQ failures now reconcile matching running daily identities from failed events and a bounded retained-failure scan during scheduler refresh, including after downtime.
-- Observe the attempt before checking Redis failure; compare-and-swap prevents a racing redelivery or late completion from releasing another attempt. Manual, retryable, mismatched and terminal work is ignored.
-- One isolated Postgres test covers terminal stalls, mismatched/manual jobs, missing slots, retry states, redelivery races and late success. Queue state evidence is fake; no live failure was induced.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (109 unit/106 isolated integration), `pnpm build`, `git diff --check` passed.
-- Restarted API/worker: active; `/healthz` DB/Redis true, SPA 200, four queues, 32 sources without errors, latest real edition four topics/10 posts.
-- Updated README, reserve decision and TASKS; archived iteration 184 to bound orientation size. No UI changes, paid inference or Reddit requests.
-- Reserve enforcement remains UNFINISHED: obsolete/missed/already-published slots, shared-lock admission/races, then manual/Status visibility before Nov 3 15:00 UTC. Queue recovery requires retained Redis evidence.
+Earlier iterations 198–199: [archive](docs/progress-archive/2026-11-02-iterations-198-199.md).
 
 ## 2026-11-02: iteration 200 — release obsolete no-occurrence slots
 
@@ -264,3 +244,16 @@ Earlier iteration 195: [archive](docs/progress-archive/2026-11-02-iteration-195.
 - Read-only `scripts/report-edition-timing.ts`: next edition Nov 3 15:00 UTC; prior 856 ms fallback remains insufficient AI evidence. No inference or Reddit requests.
 - Updated README/SOURCES/TASKS; archived iterations 196–197 to keep orientation small. No UI change.
 - Next: incremental verified additions, then capped pre-edition X scheduling. Items 13/7 await Nov 3 scheduled cost/timing evidence.
+
+## 2026-11-02: iteration 214 — incremental X discovery yield
+
+- Started clean on main; API/worker, health, four queues and 32 sources healthy. No leftover work.
+- New citations snapshot first-search candidates absent from verified storage; serialized saves prevent repeat/concurrent attribution. Historical baselines stay NULL.
+- Daily report adds new candidates/current verified yield and unknown baselines per search/topic; documents attribution versus causation or relevance.
+- Isolated regression covers concurrent saves, existing/unverified posts, historical citations and idempotency. Corrected fixture cost and numeric-ID constraints after initial failures.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (113 unit/116 isolated integration); `pnpm build` and `git diff --check` passed.
+- Applied migration 042; API/worker restarted; `/healthz` DB/Redis true, SPA 200, 32 sources without errors and four queues available.
+- Read-only daily report: existing World search $0.023382; two verified/dated citations, both historical baselines unknown. No inference or Reddit requests.
+- Timing report: next scheduled edition Nov 3 15:00 UTC; prior 856 ms fallback remains insufficient AI evidence.
+- Updated README/SOURCES/TASKS; archived iterations 198–199. No UI change.
+- Next: capped pre-edition X scheduling; unchanged full-day reservation. Items 13/7 await Nov 3 scheduled cost/timing evidence.

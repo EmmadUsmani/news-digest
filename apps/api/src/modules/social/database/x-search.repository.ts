@@ -22,10 +22,14 @@ export class PostgresXSearchRepository implements XSearchRepository {
     const client = await this.db.connect();
     try {
       await client.query('BEGIN');
+      // Serialize first-search attribution across concurrent search saves.
+      await client.query('SELECT pg_advisory_xact_lock(756284)');
       for (const link of links)
         await client.query(
-          `INSERT INTO x_search_citations(call_id,topic_id,external_id,canonical_url,verification_url)
-         VALUES($1,$2,$3,$4,$5) ON CONFLICT DO NOTHING`,
+          `INSERT INTO x_search_citations(call_id,topic_id,external_id,canonical_url,verification_url,new_candidate)
+         VALUES($1,$2,$3,$4,$5,
+           NOT EXISTS(SELECT 1 FROM social_posts WHERE platform='x' AND external_id=$3)
+           AND NOT EXISTS(SELECT 1 FROM x_search_citations WHERE external_id=$3)) ON CONFLICT DO NOTHING`,
           [
             callId,
             topicId,

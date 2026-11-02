@@ -116,8 +116,13 @@ Costs are counted once even when a call has multiple citations. Zero-citation
 calls remain visible. New reservations snapshot the requested topic ID/name before
 HTTP, preserving attribution through failures and topic rename/deletion. Historical
 calls have no snapshot and remain explicitly unattributed.
-Verification counts are current storage, not incremental yield, relevance or
-edition selection; preserve that distinction in scheduled search reports.
+New citations snapshot whether the post was absent from verified storage and all
+previous X searches. `newCandidates` counts these first-search discoveries;
+`newVerifiedNow` counts those currently verified, once across searches. Concurrent
+search saves serialize attribution; repeats retain the original baseline.
+`unknownBaseline` keeps historical citations explicit. These counts can rise when
+later free collection verifies a post: they measure attributed yield, not causation,
+relevance or edition selection. No historical baseline is inferred.
 
 `pnpm migrate` is safe to repeat. Keep secrets only in
 `~/.config/news-digest/env` (mode 600), never in the repository.

@@ -17,11 +17,14 @@ interface DiscoveryCallEvidence {
     citations: number;
     verifiedNow: number;
     datedNow: number;
+    newCandidates: number;
+    newVerifiedNow: number;
+    unknownBaseline: number;
   }[];
 }
 
 // Read-only UTC-day evidence. Verification is the current stored state, not
-// proof that this search caused a new post to be verified or selected.
+// proof that this search caused a post to be verified or selected.
 export async function readXDiscoveryReport(
   db: Pick<Pool, 'query'>,
   day: string,
@@ -42,6 +45,9 @@ export async function readXDiscoveryReport(
       COALESCE((SELECT jsonb_agg(y ORDER BY y."topicId" NULLS LAST) FROM (
         SELECT s.topic_id AS "topicId",t.name,
           count(*)::int AS citations,
+          count(*) FILTER (WHERE s.new_candidate)::int AS "newCandidates",
+          count(p.external_id) FILTER (WHERE s.new_candidate)::int AS "newVerifiedNow",
+          count(*) FILTER (WHERE s.new_candidate IS NULL)::int AS "unknownBaseline",
           count(p.external_id)::int AS "verifiedNow",
           count(p.external_id) FILTER (WHERE p.published_at IS NOT NULL)::int AS "datedNow"
         FROM x_search_citations s LEFT JOIN topics t ON t.id=s.topic_id
@@ -59,6 +65,6 @@ export async function readXDiscoveryReport(
     calls: rows,
     costMicros: rows.reduce((total, row) => total + (row.costMicros ?? 0), 0),
     heldMicros: rows.reduce((total, row) => total + row.heldMicros, 0),
-    note: 'Costs counted once per call; Requested topic is a reservation-time snapshot, including zero-yield calls; historical calls without a snapshot remain unattributed. Verified counts reflect current storage, not new additions, relevance or edition picks.',
+    note: 'Costs counted once per call; Requested topic is a reservation-time snapshot, including zero-yield calls; historical calls without a snapshot remain unattributed. New candidates were absent from verified storage and all earlier X search citations at save time; newVerifiedNow counts those currently verified, once across searches. Historical baselines remain unknown. This is attribution, not causation, relevance or edition picks.',
   };
 }

@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import { database } from '../src/libs/db/connections';
 import { PostgresXDiscoveryLedger } from '../src/modules/social/database/x-discovery.ledger';
 import { readXDiscoveryReport } from '../src/modules/social/database/x-discovery-report';
+import { PostgresXSearchRepository } from '../src/modules/social/database/x-search.repository';
 
 void test('X daily evidence preserves zero-yield calls, counts cost once and uses UTC boundaries', async () => {
   const db = database();
@@ -46,6 +47,9 @@ void test('X daily evidence preserves zero-yield calls, counts cost once and use
         citations: 3,
         verifiedNow: 2,
         datedNow: 1,
+        newCandidates: 0,
+        newVerifiedNow: 0,
+        unknownBaseline: 3,
       },
     ]);
     assert.deepEqual(report.calls[1].topics, []);
@@ -116,6 +120,75 @@ void test('X reservation snapshots attribute failed and zero-yield calls after t
       calls,
     ]);
     await db.query('DELETE FROM topics WHERE id=$1', [topicId]);
+    await db.end();
+  }
+});
+
+void test('X yield snapshots exclude existing posts, repeated searches and historical citations', async () => {
+  const db = database();
+  const repository = new PostgresXSearchRepository(db);
+  const topic = '00000000-0000-4000-8000-000000000011';
+  const calls = [crypto.randomUUID(), crypto.randomUUID()];
+  const posts = ['889921', '889922', '889923', '889924'];
+  const link = (externalId: string) => ({
+    externalId,
+    url: `https://x.com/a/status/${externalId}`,
+  });
+  try {
+    for (const id of calls)
+      await db.query(
+        `INSERT INTO x_discovery_calls(id,model,run_id,status,reserved_micros,cost_micros,created_at)
+        VALUES($1,'fixture','yield-fixture','succeeded',400000,0,'2034-01-02T12:00:00Z')`,
+        [id],
+      );
+    await db.query(
+      `INSERT INTO social_posts(platform,external_id,canonical_url,author,author_url,embed_html)
+      VALUES('x',$1,'https://x.com/a/status/' || $1,'a','https://x.com/a','fixture')`,
+      [posts[1]],
+    );
+    await db.query(
+      `INSERT INTO x_search_citations(call_id,topic_id,external_id,canonical_url)
+      VALUES($1,$2,$3,'https://x.com/a/status/1')`,
+      [calls[0], topic, posts[3]],
+    );
+    // Concurrent saves must allocate each new post to one search only.
+    await Promise.all(
+      calls.map((id) => repository.save(topic, id, posts.map(link))),
+    );
+    await db.query(
+      `INSERT INTO social_posts(platform,external_id,canonical_url,author,author_url,embed_html)
+      VALUES('x',$1,'https://x.com/a/status/' || $1,'a','https://x.com/a','fixture')`,
+      [posts[0]],
+    );
+    const report = await readXDiscoveryReport(db, '2034-01-02');
+    const evidence = report.calls.flatMap((call) => call.topics);
+    assert.equal(
+      evidence.reduce((n, t) => n + t.newCandidates, 0),
+      2,
+    );
+    assert.equal(
+      evidence.reduce((n, t) => n + t.newVerifiedNow, 0),
+      1,
+    );
+    assert.equal(
+      evidence.reduce((n, t) => n + t.unknownBaseline, 0),
+      1,
+    );
+    // Idempotent re-saving must not erase the original baseline.
+    await repository.save(topic, calls[0], posts.map(link));
+    assert.deepEqual(await readXDiscoveryReport(db, '2034-01-02'), report);
+  } finally {
+    await db.query(
+      'DELETE FROM x_search_citations WHERE call_id=ANY($1::uuid[])',
+      [calls],
+    );
+    await db.query('DELETE FROM x_discovery_calls WHERE id=ANY($1::uuid[])', [
+      calls,
+    ]);
+    await db.query(
+      "DELETE FROM social_posts WHERE platform='x' AND external_id=ANY($1::text[])",
+      [posts],
+    );
     await db.end();
   }
 });

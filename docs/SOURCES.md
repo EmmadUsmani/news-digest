@@ -1216,3 +1216,12 @@ only schedules free X harvesting (rivers/publisher links), never `collectReddit`
 there is no Reddit worker, scheduler or HTTP collection endpoint. Status and
 topic settings now explain this intentional pause rather than a source error.
 YouTube remains deferred. Social milestone completion requires real X posts only.
+
+## X search yield evidence — iteration 214 (2026-11-02)
+
+New X citations retain a save-time first-search/absent-from-verified-storage
+baseline. The read-only daily report exposes new candidates and their current
+verified yield per search/topic, without double-counting repeated searches.
+Historical baselines stay unknown. Later free harvesting may verify these posts;
+attribution does not prove causation, relevance or selection. No paid call was
+made for this change; automatic paid scheduling remains unfinished.
