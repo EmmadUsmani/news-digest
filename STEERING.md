@@ -415,3 +415,27 @@ rarely granted.
   timing), then 9, then 10. Items 2 and 4 stay lower priority.
 
 ack: 2026-11-02 item 14 — iteration 211 confirmed Reddit has no production collector, worker or schedule; Status/settings and docs now say parked by owner. No Reddit requests. Social completion now requires X only.
+
+## 15. Owner decision: scheduled X search for every topic, every day (2026-11-02)
+
+Item 9 currently allows **one scheduled `x_search` per day in total**, for the
+weakest topic. The owner wants every topic covered daily. Searches so far cost
+about $0.02 each, so four a day is about $0.10, well inside the caps.
+
+- **Each scheduled run:** one search per enabled topic per day, before the
+  edition.
+  - Run them in weakest-first order (fewest verified free X posts), so if a cap
+    is hit, the topics that need it most were already served.
+  - Concurrency is fine within xAI rate limits.
+- **Second search:** allowed for a topic only when its first search added
+  fewer than about 3 verified posts, and only if the day's projected spend
+  stays under the cap.
+- **Admission:** change the durable daily admission from "one per UTC day" to
+  "one (or two, per the rule above) per topic per UTC day". Keep it atomic
+  under the shared budget lock, before any HTTP call.
+- **Caps unchanged:** $0.40/day and $12/month for X; the xAI prepaid credit is
+  the hard backstop. Keep the post-count-minimizing rules in item 6.
+- **Report:** keep the daily report of per-topic cost and incremental
+  verified posts for the first week.
+- **Tests:** use fakes only; no paid calls to verify admission.
+- Ack here after the first full scheduled run, with per-topic cost and yield.
