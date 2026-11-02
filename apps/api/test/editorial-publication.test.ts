@@ -1,8 +1,16 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 
 import { digestPreviewSchema } from '@digest/contracts';
 
+import { llmConfig } from '../src/modules/curation/adapters/config';
+import { ReplayLlmAdapter } from '../src/modules/curation/adapters/recorded-llm';
+import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
+import { ShortlistEditor } from '../src/modules/curation/application/editor';
+import { CandidateTriage } from '../src/modules/curation/application/triage';
+import type { LlmPort } from '../src/modules/curation/domain/llm.port';
+import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
 import { PostgresPreviewRepository } from '../src/modules/digests/database/preview.repository';
 import type { EditionProgress } from '../src/modules/digests/domain/preview.repository';
 
@@ -48,6 +56,7 @@ async function harness(
     supporting?: boolean;
     parallel?: boolean;
     reddit?: boolean;
+    provider?: LlmPort;
   } = {},
 ) {
   const support = {
@@ -133,47 +142,73 @@ async function harness(
       },
     },
   });
+  const cache = new Map<string, unknown>();
+  const ledger: LlmLedger = {
+    async cached(key) {
+      return cache.get(key);
+    },
+    async cache(key, value) {
+      cache.set(key, value);
+    },
+    async reserve() {
+      return 'offline-reservation';
+    },
+    async settle() {},
+    async fail() {},
+  };
+  const config = llmConfig({});
+  const llm = options.provider
+    ? new BudgetedLlm(options.provider, ledger)
+    : null;
   Object.defineProperty(repository, 'editorial', {
     value: options.disabled
       ? null
-      : {
-          triage: {
-            async score() {
-              return {
-                scores: options.supporting
-                  ? [score, { ...score, id: support.id }]
-                  : [score],
-                unscoredIds: options.incomplete ? [id] : [],
-              };
+      : llm
+        ? {
+            triage: new CandidateTriage(llm, ledger, config.haiku),
+            editor: new ShortlistEditor(llm, config.sonnet, config.haiku),
+          }
+        : {
+            triage: {
+              async score() {
+                return {
+                  scores: options.supporting
+                    ? [score, { ...score, id: support.id }]
+                    : [score],
+                  unscoredIds: options.incomplete ? [id] : [],
+                };
+              },
+            },
+            editor: {
+              async edit(_topic: unknown, shortlist: unknown[]) {
+                if (options.parallel) {
+                  editors++;
+                  if (editors === 4) releaseEditors();
+                  await editorsReady;
+                }
+                assert.equal(
+                  shortlist.length,
+                  options.supporting ? 2 : 1,
+                  'Semantic relevance recovers lexical false negatives',
+                );
+                return options.refused
+                  ? null
+                  : options.quiet
+                    ? { ...edit, brief: [], stories: [] }
+                    : options.supporting
+                      ? {
+                          ...edit,
+                          stories: [
+                            {
+                              ...edit.stories[0],
+                              evidenceIds: [id, support.id],
+                            },
+                          ],
+                        }
+                      : edit;
+              },
             },
           },
-          editor: {
-            async edit(_topic: unknown, shortlist: unknown[]) {
-              if (options.parallel) {
-                editors++;
-                if (editors === 4) releaseEditors();
-                await editorsReady;
-              }
-              assert.equal(
-                shortlist.length,
-                options.supporting ? 2 : 1,
-                'Semantic relevance recovers lexical false negatives',
-              );
-              return options.refused
-                ? null
-                : options.quiet
-                  ? { ...edit, brief: [], stories: [] }
-                  : options.supporting
-                    ? {
-                        ...edit,
-                        stories: [
-                          { ...edit.stories[0], evidenceIds: [id, support.id] },
-                        ],
-                      }
-                    : edit;
-            },
-          },
-        },
   });
   const progress: EditionProgress[] = [];
   const snapshot = digestPreviewSchema.parse(
@@ -280,4 +315,20 @@ void test('publication includes qualified Reddit snapshots from its transaction 
   assert.match(post.reasons.join(' '), /median/);
   assert.equal(post.citingStories, undefined);
   assert.equal(snapshot.topics[0].postEditorial?.mode, 'non-ai');
+});
+
+void test('synthetic raw LLM replay publishes the golden story through real triage and editor', async () => {
+  const load = (name: string): unknown =>
+    JSON.parse(
+      readFileSync(new URL(`./fixtures/llm/${name}`, import.meta.url), 'utf8'),
+    );
+  const fixture = load('publication.synthetic.json');
+  const golden = load('publication.golden.synthetic.json');
+  // Fresh ledgers force the raw transport path each time; no validated cache shortcuts.
+  for (let run = 0; run < 2; run++) {
+    const snapshot = await harness({ provider: new ReplayLlmAdapter(fixture) });
+    assert.equal(snapshot.method, 'editorial-v1');
+    assert.equal(snapshot.topics[0].editorial?.mode, 'ai');
+    assert.deepEqual(snapshot.topics, golden);
+  }
 });

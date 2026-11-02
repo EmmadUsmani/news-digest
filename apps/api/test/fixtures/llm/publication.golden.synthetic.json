@@ -1,0 +1,79 @@
+[
+  {
+    "id": "00000000-0000-4000-8000-000000000001",
+    "name": "AI",
+    "candidateCount": 1,
+    "editorial": {
+      "mode": "ai",
+      "model": "claude-sonnet-5-5",
+      "reason": "AI edited from supplied headlines and excerpts; full articles were not fetched.",
+      "brief": ["New model becomes available"],
+      "triage": [
+        {
+          "id": "00000000-0000-4000-8000-000000000099",
+          "relevance": 9,
+          "importance": 8,
+          "event": "Model launch",
+          "rationale": "Relevant new tool."
+        }
+      ],
+      "unscoredIds": []
+    },
+    "relevanceRejectedCount": 0,
+    "relevancePolicy": {
+      "includeAny": ["artificial intelligence"],
+      "excludeAny": []
+    },
+    "qualityRejections": [],
+    "posts": [],
+    "postSelectionMethod": "verified-lexical-recency-v2",
+    "postEditorial": {
+      "mode": "non-ai",
+      "model": null,
+      "reason": "Non-AI selection: post budget is zero.",
+      "triage": [],
+      "unscoredIds": []
+    },
+    "stories": [
+      {
+        "id": "00000000-0000-4000-8000-000000000099",
+        "title": "New model becomes available",
+        "url": "https://example.org/news",
+        "excerpt": "The model is available today.",
+        "evidence": [
+          {
+            "id": "00000000-0000-4000-8000-000000000099",
+            "title": "Company launches a model",
+            "url": "https://example.org/news",
+            "excerpt": "The model is available today.",
+            "sources": ["Publisher"],
+            "publishedAt": "2026-11-01T12:00:00.000Z"
+          }
+        ],
+        "summary": "A company launched a model. It is available today.",
+        "whyItMatters": "Builders have another tool.",
+        "imageUrl": null,
+        "publishedAt": "2026-11-01T12:00:00.000Z",
+        "sources": ["Publisher"],
+        "coverage": [
+          {
+            "id": "00000000-0000-4000-8000-000000000099",
+            "title": "Company launches a model",
+            "url": "https://example.org/news",
+            "sources": ["Publisher"],
+            "publishedAt": "2026-11-01T12:00:00.000Z"
+          }
+        ],
+        "score": 5,
+        "reasons": [
+          "Recency: 5.0/10",
+          "Observed in 1 source label (independence unverified; no score bonus)",
+          "HN engagement: 0.0/10",
+          "Headline cluster: 1 article; 1 observed source label (independence unverified); no extra score bonus",
+          "Semantic relevance 9/10; importance 8/10: Relevant new tool.",
+          "Editor: Important launch."
+        ]
+      }
+    ]
+  }
+]

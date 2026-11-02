@@ -40,17 +40,6 @@ Earlier iteration 165: [archive](docs/progress-archive/2026-11-02-iteration-165.
 
 Iteration 166: [archive](docs/progress-archive/2026-11-02-iteration-166.md).
 
-## 2026-11-02: iteration 168 — bounded Reddit listing adapter
-
-- Started clean on main; no leftover work. API/worker/health healthy, 32 sources without current errors, zero failed digest jobs; two historical ingestion failures retained.
-- Live timing report still has only 848 micros available today; made no inference calls. Owner's next scheduled slot remains 15:00 UTC; live AI latency targets stay unverified.
-- Added RedditListingPort and public top/day JSON adapter using the shared HTTP port; retains card metadata, UTC timestamps, engagement and external X URLs, validates identity, deduplicates and skips unsafe/removed/adult/pinned entries.
-- One bounded LocalLLaMA public JSON probe with descriptive User-Agent returned 403. No bypass, alternate host or source activation. Reddit storage/settings/ranking/cards remain unfinished; no live Reddit content claimed.
-- Synthetic fixture tests cover faithful metadata/X citation evidence, malformed posts, URL/identity rejection, dedupe, invalid community input and single-call denial propagation.
-- `pnpm exec tsx --test apps/api/test/reddit-listing.test.ts`: 3 passed. Initial full check caught docs formatting during an edit; formatted and reran `pnpm check`: all 167 isolated tests, types/lint/format/boundaries pass. `pnpm build` passed.
-- Restarted API/worker; health database/Redis true, 32 sources/no current errors, digest queue zero failed, latest edition four topics. No UI changes; docs/SOURCES and TASKS updated; archived iteration 143 to keep orientation small.
-- Next: inspect 15:00 scheduled publication via read-only timing report; connect Reddit community settings/persistence behind the new port while respecting denied public access.
-
 ## 2026-11-02: iteration 169 — editable Reddit community configuration
 
 - Started clean on main; no leftover work. API/worker/health healthy, 32 sources without current errors, zero failed digest jobs; two historical ingestion failures retained.
@@ -189,3 +178,13 @@ Iteration 166: [archive](docs/progress-archive/2026-11-02-iteration-166.md).
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (184 tests); `pnpm build` passed. No UI changes; no browser check needed.
 - Restarted API/worker; `/healthz` DB/Redis true. Read-only `scripts/report-edition-timing.ts`: latest real scheduled edition four topics/10 X posts; spend unchanged. No settings/content writes or source changes.
 - Updated TASKS/docs/LLM; archived iteration 167 to keep orientation small. Next: full editorial fixture replay; Reddit/live AI timing blockers unchanged, scheduled xAI follows Reddit per owner order.
+
+## 2026-11-02: iteration 182 — article publication transport replay
+
+- Started clean on main; no leftover work. API/worker and health healthy; 32 sources and all queues available, no retained failed jobs.
+- Added authored synthetic raw triage/editor responses and frozen topic golden. Replaying LlmPort now traverses real budgeting, triage, editor validation and publication mapping with fake ledger/SQL; two fresh-cache runs match all topic fields and retain progress/commit assertions.
+- This is article-path synthetic coverage, not real provider recordings, social selection or SQL integration. No prompt changes, re-recordings, paid inference, live content/settings writes or source changes.
+- First direct targeted run hit the existing isolation guard; rerun with isolated flag and invalid DB URL passed 7/7 without connecting. Full disposable-service suite passed 185/185.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build` passed; no UI changes/browser check needed.
+- Restarted API/worker; healthy `/healthz` DB/Redis true. Read-only timing report: latest real edition four topics/10 posts; available app budget unchanged at 848 micros.
+- Updated TASKS/docs/LLM. Next: real raw-response golden coverage when legitimately captured; Reddit access/live AI timing still blocked, scheduled xAI follows Reddit per owner order.

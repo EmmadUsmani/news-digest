@@ -408,8 +408,18 @@ this adapter.
 The initial `transport.synthetic.json` is authored synthetic transport data,
 not a real provider recording. Earlier editorial snapshots contain validated
 results rather than raw transport responses and cannot be reconstructed as
-faithful request replays. Full editorial golden wiring to raw recorded responses
-remains open; no new live recordings were made in this iteration.
+faithful request replays.
+
+Iteration 182 adds `publication.synthetic.json` and its frozen topic snapshot.
+The publication test uses the replaying `LlmPort`, real `BudgetedLlm`, triage and
+editor validation, and publication mapping with an in-memory ledger and SQL
+client double. Two fresh-cache runs must match the entire topic snapshot,
+including selections, summaries, evidence, provenance and editorial mode. The
+harness also checks transaction commit, persisted snapshot and progress. This
+covers the article editorial path, not social selection or real database SQL.
+These are authored synthetic responses, not a live recording or a real edition;
+no prompt changed and no paid re-recording occurred. Future opt-in recordings
+can use the same adapter, but real raw-response golden coverage remains open.
 
 Offline targeted check:
 `pnpm exec tsx --test apps/api/test/recorded-llm.test.ts apps/api/test/llm.test.ts`.

@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "provenance": "Authored synthetic publication responses; no provider calls or live content.",
+  "records": [
+    {
+      "fingerprint": "dd31832fee908bb533c6be359008ed28a1200b9a2c0839780c1d9c9895479785",
+      "model": "claude-haiku-5-5",
+      "response": {
+        "text": "{\"items\":[{\"id\":\"00000000-0000-4000-8000-000000000099\",\"relevance\":9,\"importance\":8,\"event\":\"Model launch\",\"rationale\":\"Relevant new tool.\"}]}",
+        "usage": {
+          "input": 100,
+          "cacheWrite": 0,
+          "cacheRead": 0,
+          "output": 80
+        }
+      }
+    },
+    {
+      "fingerprint": "680349edc684785d559d05e237c6bb3fe1e124afb9946ef7ae83a780ff86aa5d",
+      "model": "claude-sonnet-5-5",
+      "response": {
+        "text": "{\"brief\":[\"A model launched.\",\"It is available today.\"],\"stories\":[{\"id\":\"00000000-0000-4000-8000-000000000099\",\"evidenceIds\":[\"00000000-0000-4000-8000-000000000099\"],\"headline\":\"New model becomes available\",\"summary\":\"A company launched a model. It is available today.\",\"whyItMatters\":\"Builders have another tool.\",\"rationale\":\"Important launch.\"}]}",
+        "usage": {
+          "input": 100,
+          "cacheWrite": 0,
+          "cacheRead": 0,
+          "output": 80
+        }
+      }
+    }
+  ]
+}
