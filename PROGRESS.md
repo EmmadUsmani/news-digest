@@ -110,20 +110,6 @@ Earlier iteration 229: [archive](docs/progress-archive/2026-11-02-iteration-229.
 
 Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
 
-## 2026-11-02: iteration 235 — database-backed AI edition golden
-
-- Started clean on main; health, API/worker, 32 sources and four queues healthy. No leftover work.
-- Priority 13/7/9 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a.
-- Added synthetic LlmPort triage/editor responses and a complete stable AI edition golden.
-- Real parsing/triage/editor services publish and retrieve fixture content through disposable PostgreSQL.
-- Pins evidence, semantic scores, editor text, rejection and window boundaries; warm-cache regeneration stays identical with a new ID and preserves the first edition.
-- Responses are synthetic, not live recordings; ledger/cache are in memory. No provider or Reddit requests.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (120 unit, 134 integration), `pnpm build` and `git diff --check` passed.
-- Updated TASKS/database notes; remaining repository gaps and recorded-response golden stay open.
-- Initial push rejected: owner added STEERING 15. Fetched/merged instructions-only commit without rewriting history; queued daily X search for every topic as next work.
-- Deployment: API/worker restarted healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues.
-- Next: observe Nov 3 14:30 UTC X discovery and 15:00 edition cost/duration; fallback timing is not AI latency evidence.
-
 ## 2026-11-02: iteration 236 — daily X search for every topic
 
 - Started clean on main; health, services, 32 sources and four queues healthy. No leftover work.
@@ -322,4 +308,16 @@ Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
 - Initial check caught transaction fixture setup using a nested connection; corrected it and reran checks.
 - Updated TASKS/database notes; archived iteration 234 to keep PROGRESS bounded. No provider or Reddit requests.
 - API/worker restarted healthy; SPA 200, 32 error-free sources, four available queues; all topics have recent articles and verified X posts.
+- Next: observe Nov 3 all-topic X cost/yield and scheduled AI cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 253 — missing post-time recovery
+
+- Started clean on main; services, health and 32 sources healthy; no leftover work.
+- Priority 15/13/7/9 evidence awaits Nov 3; advanced isolated STEERING 2a.
+- Pinned missing verified-X publication-time recovery, millisecond future admission, invalid/legacy IDs and overflow rejection.
+- Existing timestamps, Reddit fixtures and all other evidence remain intact; repeated backfill is idempotent.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 150 integration), `pnpm build`, `git diff --check` passed.
+- Fixed two fixture constraints found by initial checks (numeric X IDs and required Reddit metadata); rerun passed.
+- API/worker restarted healthy; SPA 200, 32 error-free sources, four available queues and four-topic latest edition.
+- Updated TASKS/database notes; archived iteration 235 to keep PROGRESS bounded. No provider or Reddit requests.
 - Next: observe Nov 3 all-topic X cost/yield and scheduled AI cost/duration before acknowledging 15/13/7.

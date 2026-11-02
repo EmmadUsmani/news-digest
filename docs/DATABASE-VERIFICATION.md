@@ -323,3 +323,13 @@ suppress immediate retries; a rejected zero-byte diagnostic preserves the prior
 check and its eligibility, and a valid retry clears the error. Repeated checks
 retain one row. All assertions use disposable PostgreSQL, with no X, Reddit or
 inference requests.
+
+## Missing publication-time recovery (iteration 253)
+
+`social-candidates.test.ts` pins the global verified-X timestamp backfill through
+its repository API. Exactly-now Snowflakes are accepted, one-millisecond future
+posts wait until eligible, and invalid, legacy and overflowing IDs stay undated.
+Existing publication times, Reddit rows and all other post fields remain intact;
+repeating a backfill updates zero rows. The fixture uses a non-UTC transaction
+and rolls back all changes in disposable PostgreSQL. No provider or source
+requests occur. Recorded-response golden and other repository gaps remain open.

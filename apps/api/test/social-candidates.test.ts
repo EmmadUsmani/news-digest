@@ -270,3 +270,76 @@ void test('embed checks pin daily retry boundaries and recover without losing pr
     await pool.end();
   }
 });
+
+void test('missing X publication times backfill only valid verified posts and preserve existing evidence', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const repository = new PostgresSocialRepository();
+  const pool = repository.db;
+  const client = await pool.connect();
+  Object.defineProperty(repository, 'db', { value: client });
+  const now = new Date('2026-10-20T12:34:56.789Z');
+  const snowflake = (time: number) =>
+    ((BigInt(time) - 1288834974657n) << 22n).toString();
+  const current = snowflake(now.getTime());
+  const future = snowflake(now.getTime() + 1);
+  const dated = snowflake(now.getTime() - 1000);
+  const invalid = ['1', '12345', '9223372036854775808'];
+  const read = async () =>
+    (
+      await client.query(
+        'SELECT * FROM social_posts ORDER BY platform,external_id',
+      )
+    ).rows;
+  try {
+    await client.query('BEGIN');
+    await client.query("SET LOCAL TIME ZONE 'Asia/Tokyo'");
+    // Isolate the global backfill from other test fixtures; rollback restores them.
+    await client.query('DELETE FROM social_posts');
+    for (const externalId of [current, future, dated, ...invalid]) {
+      await repository.store({
+        platform: 'x',
+        externalId,
+        url: `https://x.com/fixture/status/${externalId}`,
+        author: 'Fixture',
+        authorUrl: 'https://x.com/fixture',
+        publishedAt: externalId === dated ? '2026-10-19T01:02:03.456Z' : null,
+        metrics: { likes: 17 },
+        embedHtml: '<p>Verified fixture</p>',
+      });
+    }
+    await client.query(
+      `INSERT INTO social_posts(platform,external_id,canonical_url,author,author_url,metrics,embed_html,reddit_metadata)
+      VALUES('reddit',$1,'https://example.org/fixture','Fixture','https://example.org','{}','<p>Fixture</p>','{}')`,
+      [current],
+    );
+    const before = await read();
+    assert.equal(await repository.refreshMissingTimes(now), 1);
+    const after = await read();
+    assert.deepEqual(
+      after,
+      before.map((row) =>
+        row.platform === 'x' && row.external_id === current
+          ? { ...row, published_at: now }
+          : row,
+      ),
+    );
+    assert.equal(await repository.refreshMissingTimes(now), 0);
+    assert.deepEqual(await read(), after);
+    assert.equal(
+      await repository.refreshMissingTimes(new Date(now.getTime() + 1)),
+      1,
+    );
+    assert.deepEqual(
+      await read(),
+      after.map((row) =>
+        row.platform === 'x' && row.external_id === future
+          ? { ...row, published_at: new Date(now.getTime() + 1) }
+          : row,
+      ),
+    );
+  } finally {
+    await client.query('ROLLBACK');
+    client.release();
+    await pool.end();
+  }
+});
