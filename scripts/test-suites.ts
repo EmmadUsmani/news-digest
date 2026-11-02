@@ -31,6 +31,7 @@ const integration = new Set([
   'usage-purpose.test.ts',
   'verification-budget.test.ts',
   'x-discovery-ledger.test.ts',
+  'x-discovery-report.test.ts',
   'x-oembed.test.ts',
   'x-post-time.test.ts',
   'x-search.test.ts',

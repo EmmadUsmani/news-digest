@@ -109,6 +109,14 @@ On November 2 at 14:49 UTC, retained jobs were older `signals-v6` publications
 remained. Live AI latency targets therefore remain unverified; observe routine
 scheduled runs rather than spending the digest budget on development trials.
 
+For X discovery evidence, run `pnpm exec tsx scripts/report-x-discovery.ts YYYY-MM-DD`
+(defaults to today UTC). This reads the database only: per-call cost, unresolved
+holds, fetched counts and per-topic citations with current verified/dated counts.
+Costs are counted once even when a call has multiple citations. Zero-citation
+calls remain visible but their topic cannot be recovered from historical data.
+Verification counts are current storage, not incremental yield, relevance or
+edition selection; preserve that distinction in scheduled search reports.
+
 `pnpm migrate` is safe to repeat. Keep secrets only in
 `~/.config/news-digest/env` (mode 600), never in the repository.
 The API accepts `DATABASE_URL`, `REDIS_URL`, and `PORT`; defaults target the
