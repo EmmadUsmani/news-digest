@@ -866,3 +866,20 @@ seven-day successful-page cooldown and one-day host cooldown after failure.
 No recursive crawling, paid search or model call. The first explicit mixed-host
 pass checked eight pages, recorded four citation observations and had zero errors;
 those observations do not imply four new posts. RSS remains independently live.
+
+## Scheduled social availability — iteration 130 (2026-11-02)
+
+Read-only checks during this iteration for the upcoming Nov 1 20:40–Nov 2
+20:40 UTC edition window found semantic candidate pools of 9 Tech & AI, 26 NBA,
+1 Gaming and 2 World posts. Lexical fallback selects 3, 5, 0 and 0 respectively.
+Gaming has 17 scoped verified posts, but 16 are outside this window; the one
+remaining post still requires semantic relevance/interestingness selection.
+World's two safety-eligible posts also lack lexical fallback matches. All 38
+candidate triage scores are currently uncached. No inference, publication,
+external requests or new discovery was performed for this report. Counts reflect
+stored content so far, not the final future window or evidence of virality.
+
+`screen-social-posts.ts` now reports separate safety/lexical counts and the exact
+bounded semantic pool. `triage-social-posts.ts` now uses publication's selector
+instead of its former independent filter, fixing diagnostic drift for duplicate
+posts, disabled post budgets and the initial SQL cap. Source statuses unchanged.

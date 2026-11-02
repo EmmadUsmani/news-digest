@@ -14,183 +14,7 @@ Earlier iterations 51–60: [archive](docs/progress-archive/2026-11-01-iteration
 
 Earlier iterations 61–72: [archive](docs/progress-archive/2026-11-02-iterations-61-72.md).
 
-## 2026-11-02: iteration 87 — start free X citation harvesting
-
-- Started clean on main; no leftover work. API/worker/health and live source/run smoke healthy. New STEERING 5/6 closes audit work, prioritizes Social posts and defers YouTube; TASKS updated.
-- Feed HTML/Atom content/RSS content:encoded and HN destination/text now yield bounded, exact-host X/Twitter links before excerpt truncation. Dedupe IDs without numeric precision loss; no X fetches or provider changes.
-- Migration 016 persists citing article/source, canonical post URL, citing engagement and first/last seen atomically with ingestion; repeated observations update without duplicating. Citations remain unverified discovery evidence.
-- Offline tests cover hostile hosts, malformed paths, ID dedupe/bounds and embedded links beyond excerpts; isolated Postgres checks citation persistence/idempotency and citing metrics.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and all 97 isolated tests; `pnpm build` passed. Earlier check caught docs edited during formatting; final rerun green.
-- `pnpm migrate` applied additive 016; restarted API/worker. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live runs: 779 article URLs, four topics, seventeen healthy sources.
-- Live SQL: 72 citations / 68 distinct X IDs / seven publisher sources. No claim of verified X content, post time, engagement or virality; no harvested World citations yet.
-- `pnpm exec tsx scripts/smoke-status.ts` and `scripts/smoke-ui.ts` passed desktop/mobile; screenshots refreshed. `/healthz` healthy.
-- Incremental inference $0; actual day/month $0.408415, no reservations/provider errors. No operational blockers; installed xAI key remains for direct capped layer 2 after free discovery.
-- Next: official embed verification/rendering and SocialPost storage/window metadata; widen free discovery, then ranked immutable post sections and capped direct xAI. No further audit variants unless real summaries fail.
-
-## 2026-11-02: iteration 88 — verify official X embeds before publication
-
-- Started clean on main; no leftover work. API/worker/health and seventeen sources healthy; retained digest runs completed, historical ingestion failure has later successes.
-- Added official oEmbed verification port with exact post-ID/provider/author validation and rejected active HTML; provenance HTML is never injected. Public ingestion facade preserves context boundaries.
-- Additive migration 017 stores verified SocialPost records separately from citations and tracks failed checks with a one-day cooldown. Unknown post timestamps/engagement remain null/empty; no inferred virality/window eligibility.
-- Explicit `pnpm exec tsx apps/api/scripts/verify-x-embeds.ts` checks at most ten IDs, stops on HTTP errors and uses shared rate limiting/redirects. Live endpoint returned HTTP 404; zero verified posts, no workaround or inference. Initial run stopped after repeated failures; revised run stopped at first 404.
-- Synthetic protocol fixtures cover successful verification, unsafe/mismatched/unavailable embeds and isolated Postgres idempotency; fixtures are not live posts.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass typecheck/lint/format/boundaries and 99 isolated tests; `pnpm build` passes. `pnpm migrate` applied 017.
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live queued passes: 779 real article URLs, four topics, seventeen healthy sources.
-- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed.
-- Incremental inference $0; actual day/month $0.408415, zero reservations/provider errors. Provider/models/billing unchanged. Updated TASKS/docs/SOURCES; no owner action needed.
-- Next: expand free discovery and investigate official embed availability with valid discovered URLs; immutable post selections/lazy widget rendering, Reddit and capped direct xAI remain unfinished.
-
-## 2026-11-02: iteration 89 — free river discovery and working official X verification
-
-- Started clean on main; no leftover work. API/worker/health, seventeen sources and retained run smoke healthy; no triage regression.
-- Added data-configured Techmeme/Memeorandum public river harvesting through shared HTTP, separate provenance/count/error storage and candidate union; explicit command only, not scheduled. Migration 018 applied.
-- Live harvest stored 50 Techmeme X references (cap); Memeorandum returned zero. Both RSS feeds accessible but yielded no status URLs. Reddit NBA top JSON returned 403; no workaround.
-- Found previous verification defect: official oEmbed returns 404 for /i/web/status/ID but 200 for the same named /handle/status/ID. Preserve named URLs through harvesting/persistence and accept official X branding alongside Twitter.
-- Ten real posts now verified/stored; timestamps/metrics remain unknown, no digest selections published. River crypto/promo candidates require relevance filtering. No independent-source/virality claims.
-- Added recorded river excerpt replay and isolated DB idempotency/cooldown/recovery checks, named URL preservation and provider-branding/invalid-URL regressions. Earlier checks exposed partial-HTML formatter rejection; raw excerpts now .txt, final checks green.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and 101 isolated tests; `pnpm build` passed.
-- `pnpm exec tsx apps/api/scripts/harvest-social-rivers.ts`, `verify-x-embeds.ts` and `smoke-ingestion.ts` passed final live checks: 783 real article URLs, four topics, seventeen healthy sources.
-- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; status screenshots refreshed.
-- No inference spending; actual day/month $0.408415, no reservations/provider errors; provider/models/billing unchanged. Updated TASKS/README/docs/SOURCES; no owner blocker.
-- Next: window metadata, relevance filtering, immutable post selection/lazy official widgets; scheduled harvesting, Reddit and capped direct xAI remain open.
-
-## 2026-11-02: iteration 90 — date verified X posts for coverage windows
-
-- Started clean on main; no leftover work. API/worker/health healthy; retained digest runs and source telemetry passed status smoke.
-- Decode modern verified X Snowflake IDs with BigInt into millisecond publication time. Legacy/transition-era, malformed, oversized and future IDs remain undated; citation dates and engagement never become post metadata.
-- Explicit embed verifier backfills missing timestamps on already verified posts without HTTP; repeated backfills are idempotent and embed refreshes cannot erase known times with null.
-- Live repository backfill dated all ten verified posts, 2026-11-01 03:04:31.487Z–06:46:05.919Z; no inference or external requests for this backfill. No migration needed.
-- Added offline precision/future/legacy regressions and isolated Postgres backfill/evidence-preservation/upsert checks; synthetic fixtures are not live content.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and all 103 isolated tests; `pnpm build` passed.
-- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued passes: 786 real article URLs, four topics, seventeen healthy sources.
-- `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed. Updated TASKS/docs/SOURCES.
-- No inference spending or provider/model/billing changes; no new owner blockers. Reddit's previously observed 403 remains unresolved without workarounds.
-- Next: topical/crypto filtering, window-aware immutable selections and lazy official widgets; posts remain absent from digests. Scheduled harvesting and capped direct xAI remain open.
-
-## 2026-11-02: iteration 91 — screen verified social posts by evidence and window
-
-- Started clean on main; no leftover work. API/worker/health, source telemetry and retained digest runs healthy; no triage repair needed.
-- Added read-only topic-scoped verified-post reader and `screen-social-posts.ts START_ISO END_ISO` (default last 24h); no HTTP, inference, publication or schedule changes.
-- Extract only one unambiguous official embed paragraph; ignore author/footer/HTML attributes/URL targets. Normalize whole phrases against saved topic rules, fail closed without positive rules, reject crypto/bait and apply exact half-open post-time windows.
-- This is conservative lexical eligibility, not semantic relevance, interestingness or virality. No filler or posts published; immutable selection/official widgets remain next.
-- Explicit `pnpm exec tsx apps/api/scripts/verify-x-embeds.ts`: ten more official requests succeeded, twenty real verified posts stored. Daily Nov 1 UTC screen passes zero; Oct 26–Nov 2 screen passes three NBA posts. Tech exclusions/misses documented in docs/SOURCES.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and all 106 isolated tests, including paragraph/window/quality regressions and topic-reader persistence tests; `pnpm build` passed (existing upstream Zod warnings).
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued live passes, 786 real article URLs, four topics, seventeen healthy sources.
-- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-status.ts` and `scripts/smoke-ui.ts` passed desktop/mobile; screenshots refreshed.
-- No inference spending or provider/model/billing changes. Updated TASKS/README/docs/SOURCES; no owner blockers. Reddit remains 403; relevant discovery, immutable selections/widgets and scheduled free harvesting remain unfinished.
-
-## 2026-11-02: iteration 92 — freeze preliminary post selections in editions
-
-- Started clean on main; no leftover work. API/worker and `/healthz` healthy; no triage repair needed.
-- New manual/scheduled editions copy verified, topic-scoped post metadata/text/metrics/reasons in the publication transaction; saved budgets, half-open windows, topic/quality screening and normalized-text dedupe apply.
-- Selection method `verified-lexical-recency-v1` is newest-first and bounded to 500 candidates; no inferred virality, independent-source bonuses or AI claims. Raw HTML excluded; historical snapshots unchanged.
-- Read-only `screen-social-posts.ts` now reports exact selections: live Oct 26–Nov 2 UTC selects three NBA posts, zero for other topics. No live edition generated for verification; UI post rendering remains pending.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and 107 isolated tests; `pnpm build` passed (existing upstream Zod warnings). First check caught a concurrently edited unformatted diagnostic; final full rerun green.
-- Isolated publication regression covers budgets zero/one, scope, quality/window exclusions, repeated-text dedupe, refresh preservation, immutable scheduled retry and regeneration. No external calls in tests.
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live queued passes: 788 real article URLs, four topics, seventeen healthy sources. Daily Nov 1 UTC post selection stays empty.
-- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed.
-- No inference spending or provider/model/billing changes. Updated TASKS/docs/SOURCES; no owner blocker. Next: lazy official widgets and broader relevant discovery; Reddit remains 403.
-
-## 2026-11-02: iteration 93 — show selected posts with lazy official X widgets
-
-- Started clean on main; no leftover work. API/worker/health and source/run telemetry healthy; no triage repair needed.
-- Digest topics now show separate Top posts sections with preliminary-selection labels, author/time/original links, available saved metrics and selection evidence. Historical snapshots without posts remain unchanged.
-- Load one official widgets.js only near the viewport; createTweet uses exact saved IDs with media/DNT. Never inject stored HTML; blocked/unavailable widgets retain saved text and links.
-- Read-only Oct 26–Nov 2 replay uses three real NBA selections; no verification edition published and latest AI edition untouched. Current daily post selection remains empty.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and 107 isolated tests pass; `pnpm build` passes (existing Zod annotation warnings).
-- `pnpm exec tsx scripts/smoke-posts.ts /tmp/iteration93-posts.jsonl` passes desktop/mobile lazy loading, single script, exact IDs, blocked-script fallback and overflow/page-error checks with a protocol stub.
-- Explicit `POST_EMBED_LIVE=1` checks render official video thumbnails on desktop/mobile; screenshots saved and mobile inspected. Multi-post checks expose intermittent X-script errors; saved text stays accessible even after embed success. Initial UI smoke raced restart; rerun passed.
-- `smoke-ingestion.ts` passes two queued live runs: 788 real article URLs, four topics, seventeen healthy sources. `smoke-ui.ts`/`smoke-status.ts` pass desktop/mobile; API/worker restarted, `/healthz` healthy.
-- No inference spending or provider/model/billing changes. Updated TASKS/README/docs/SOURCES; Reddit remains 403. Next: scheduled free harvesting and broader relevant discovery, then capped direct xAI and social editing.
-
-## 2026-11-02: iteration 94 — schedule free social discovery and verification
-
-- Started clean on main; no leftover work. API/worker/health healthy; retained scheduled digest runs completed and seventeen sources returned data.
-- Added hourly `social-collection` BullMQ scheduler/worker using the existing shared HTTP client; enabled rivers only, single concurrency, one attempt and bounded retained jobs.
-- Collection uses explicit domain ports; river failures persist sanitized source errors and allow other rivers, while database failures fail the job. At most ten official embed checks per pass, persisted one-day cooldown and stop on first embed failure.
-- Status now reports social queue health/counts/next run. First actual scheduled pass completed: two rivers, 50 citations, ten verified posts, zero discovery/verification errors; next hourly job retained. No inference calls or new digest generated.
-- Added offline orchestration regression for river failure isolation, verification limits, named URLs, persistence and stop-on-error; existing isolated DB tests cover cooldown/idempotence.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass typecheck/lint/format/boundaries and all 108 isolated tests; final repeated check green. `pnpm build` passed (existing upstream Zod warnings).
-- Restarted API/worker; `/healthz` healthy. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live queued passes: 788 real article URLs, four topics, seventeen healthy sources.
-- `pnpm exec tsx scripts/smoke-status.ts` and `scripts/smoke-ui.ts` passed desktop/mobile; status screenshots refreshed and mobile inspected. Correct `/api/status` confirms one social worker/completed run and next run; exploratory `/api/operations/status` was 404.
-- Updated TASKS/README/docs/SOURCES. No inference spending or provider/model/billing changes; no new owner blockers. Reddit remains blocked by 403; broaden relevant discovery across topics next, then direct capped xAI and social editing.
-
-## 2026-11-02: iteration 95 — share bounded social verification across topics
-
-- Started clean on main; no leftover work. API/worker/health, retained digest runs and seventeen article sources healthy; no triage repair needed.
-- Embed candidates now require an enabled connected topic; interleave topic ranks, dedupe shared IDs and prioritize unverified discoveries before stored-post refreshes. Existing caps/cooldown remain; citation breadth is not independence or virality.
-- Added isolated DB regression for busy/quiet topics, shared IDs, refresh priority, cooldown expiry and disabled/deleted topic exclusion; synthetic fixtures never enter production.
-- Explicit `pnpm exec tsx apps/api/scripts/verify-x-embeds.ts`: four verified, then stopped on official HTTP 404 (five requests). Stored topic coverage: 21 Tech, 12 NBA, one Gaming, zero World; Gaming post is outside checked window.
-- Read-only `screen-social-posts.ts 2026-10-26T00:00:00Z 2026-11-02T06:00:00Z` selects five NBA posts, zero elsewhere. No edition published; current discovery breadth remains unfinished.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass typecheck/lint/format/boundaries and 109 isolated tests; `pnpm build` passes (existing upstream Zod warnings).
-- Restarted API/worker; `/healthz` healthy. `smoke-ingestion.ts` passes two queued live runs: 792 real URLs, four topics, seventeen healthy sources.
-- `smoke-status.ts`, `smoke-ui.ts`, `smoke-posts.ts /tmp/iteration95-posts.jsonl` pass desktop/mobile; refreshed screenshots and inspected mobile fallback. Post checks replay real stored selections with stubbed/blocked widgets, not a published edition.
-- No inference spending; provider/models/billing unchanged. Updated TASKS/docs/SOURCES; no owner blocker. Next: recent relevant World/Gaming discovery, then capped direct xAI/social editing. Reddit remains previously blocked by 403.
-
-## 2026-11-02: iteration 96 — bounded publisher-page X discovery
-
-- Started clean on main; no leftover work. API/worker/health healthy, retained digest runs completed and all seventeen feeds returned content.
-- Added explicit `harvest-article-x-links.ts`: at most eight recent articles interleaved across enabled topics, exact opted-in publisher hosts, shared safe HTTP, stop failed hosts per pass; no recursive crawling or inference.
-- Migration 019 adds host opt-ins and persisted page checks (seven-day success/one-day error cooldown). Validated citations reuse item/source provenance and named URLs; full pages are not stored, existing verification/selection unchanged.
-- Live command read six pages, observed one already-stored ESPNNBA citation from Yahoo, and recorded one unavailable PC Gamer page (remaining same-host page skipped). Guardian/Ars pages yielded no links; no broader coverage or newly published edition claimed.
-- Added recorded Yahoo anchor replay and isolated DB/application checks for caps, exact hosts, failure isolation, persistence errors, idempotence, provenance, topic state, age filtering and cooldown/recovery. Fixtures remain offline only.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and all 112 isolated tests; `pnpm build` passed (existing upstream Zod warnings). An earlier format check overlapped test edits; final full checks green.
-- Restarted API/worker; `/healthz` healthy. `smoke-ingestion.ts` passed two live queued runs: 792 real URLs, four topics, seventeen healthy sources. Retained digest runs completed; next scheduled edition unchanged.
-- `smoke-ui.ts` and `smoke-status.ts` passed desktop/mobile; screenshots refreshed and mobile status inspected. Updated TASKS/README/docs/SOURCES.
-- No inference spending; actual day/month $0.408415, no reservations/provider errors. Provider/models/billing unchanged; no new owner blocker. Reddit remains previously blocked by 403.
-- Next: broaden current World/Gaming discoveries, evaluate article-pass scheduling; direct capped xAI and social editing remain unfinished.
-
-## 2026-11-02: iteration 97 — hourly publisher-page social harvesting
-
-- Started clean on main; no leftover work. API/worker/health, seventeen feeds and retained digest runs healthy; no triage repair needed.
-- Hourly social collection now harvests opted-in publisher pages after rivers and before official verification. Existing eight-page cap, host validation, topic interleaving, persisted cooldowns and failed-host stop retained; no retries/inference added.
-- Completed jobs retain separate page counters. Added explicit `pnpm exec tsx apps/api/scripts/smoke-social.ts`; real queued job 8: two rivers/50 references, six pages/five citations/one page error, ten verified embeds/no verification errors. Citations are not necessarily new posts.
-- Offline collection regression proves publisher failure isolation, harvest-before-verification ordering and retained embed limits/stop behavior; existing DB tests cover cooldown/provenance. Fixtures never enter live storage.
-- `screen-social-posts.ts 2026-10-26T00:00:00Z 2026-11-02T06:00:00Z`: five NBA, one Gaming, zero Tech/World. Gaming is an Oct 28 costume screenshot matching `game`, not a demonstrated editorial/viral pick. No edition published.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass types/lint/format/boundaries and all 112 isolated tests; `pnpm build` passes (existing upstream Zod warnings).
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two live queued passes, 792 real URLs, four topics, seventeen healthy sources. API/worker rebuilt/restarted; `/healthz` healthy.
-- `pnpm exec tsx scripts/smoke-ui.ts`, `scripts/smoke-status.ts`, `scripts/smoke-posts.ts /tmp/iteration97-posts.jsonl` pass desktop/mobile; refreshed status screenshots and inspected mobile. Posts replay uses stored candidates and stubbed/blocked widgets, not a published edition.
-- Updated TASKS/README/docs/SOURCES. No inference spending; day/month remains $0.408415 with no reservations/provider errors. Provider/models/billing unchanged; no new owner blocker.
-- Next: broaden World/relevant Gaming discovery, direct capped xAI, then social editorial selection. Reddit remains previously blocked by 403 without workarounds.
-
-## 2026-11-02: iteration 98 — broaden and rotate publisher social discovery
-
-- Started clean on main; no leftover work. API/worker/health, seventeen feeds and retained digest runs healthy; no triage repair needed.
-- Migration 020 opts in BBC, NPR, GamesIndustry, Rock Paper Shotgun, PlayStation and Xbox exact hosts. Explicit shared-client probe read eighteen recent pages: five PlayStation costume citations, seventeen empty pages; probes did not insert posts.
-- Page candidates rotate publishers within each enabled topic before topic interleaving and eight-page cap. Existing article age, dedupe, cooldowns, exact-host checks and failed-host stop retained.
-- Extended isolated DB regression proves a quiet publisher gets a slot ahead of nine newer busy-publisher articles; fixtures stay offline.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass types/lint/format/boundaries and all 112 isolated tests; `pnpm build` passed (existing upstream Zod warnings). `pnpm migrate` applied 020; restarted API/worker and `/healthz` healthy.
-- `pnpm exec tsx apps/api/scripts/smoke-social.ts`: live queued job 11, two rivers/50 references, seven pages/three citation observations/one unavailable PC Gamer page, ten verified embeds/no verification errors. Counts need not be new posts.
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued live passes, 794 real URLs, four topics, seventeen healthy sources.
-- `screen-social-posts.ts 2026-10-26T00:00:00Z 2026-11-02T06:30:00Z`: two Tech, five NBA, one Gaming, zero World. Gaming remains earlier costume screenshot; no editorial/virality claim or edition published.
-- `pnpm exec tsx scripts/smoke-ui.ts`, `scripts/smoke-status.ts`, `scripts/smoke-posts.ts /tmp/iteration98-posts.jsonl` passed desktop/mobile; refreshed screenshots and inspected mobile status. Posts replay uses stored selections and stubbed/blocked widgets.
-- Updated TASKS/docs/SOURCES. No inference spending; provider/models/billing unchanged. No new owner blockers; Reddit remains previously blocked by 403. Next: direct capped xAI discovery, then social editorial selection.
-
-## 2026-11-02: iteration 99 — persistent X-discovery budget and visible caps
-
-- Started clean on main; no leftover work. API/worker/health, seventeen feeds and retained digest runs healthy; no triage repair needed.
-- Migration 021 adds separate `purpose=x-discovery` call ledger and durable prepaid-depletion block. Serialized reservations enforce $0.40/day/$12/month admission; pending/uncertain calls remain charged across periods, definitive unbilled rejections release funds.
-- Settlement records tokens/all fetched posts/profiles and rounded microdollar cost. Actual estimate overruns are recorded in full/flagged; depleted credits block across restarts/months until explicit review. Price is supplied explicitly; paid transport/account data remain unfinished.
-- Added Status/API X usage panel and read-only `pnpm exec tsx apps/api/scripts/x-discovery-status.ts`; live ledger is zero spend/reservations, $0.40 available. Isolated test runner also clears XAI_API_KEY.
-- Reviewed official xAI search/tool docs: `max_turns` limits rounds, not individual calls/items. Reservations cannot impose a provider request-dollar ceiling; transport must address this exposure before scheduling. No paid call or model/provider/billing change.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass types/lint/format/boundaries and 114 isolated tests; `pnpm build` passes (existing upstream Zod annotation warnings). Regression covers concurrent reservations, separate caps, settlement/overruns, uncertainty, rollover and durable depletion.
-- `pnpm migrate` applied 021; restarted API/worker, `/healthz` healthy. `smoke-status.ts` and `smoke-ui.ts` passed desktop/mobile, including synthetic credit-block rendering; screenshots refreshed and new mobile X budget screenshot inspected.
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live runs: 795 URLs, four topics, seventeen healthy sources. `smoke-social.ts` job 14: two rivers/50 references, seven pages/three citations/one page error, ten verified embeds/no verification errors.
-- Read-only Oct 26–Nov 2 06:30 UTC social screen retained; no edition published. Updated TASKS/README/docs/SOURCES and removed obsolete gateway guidance from NEEDS_FROM_HUMAN.
-- No inference spending; Anthropic day/month stays $0.408415, X ledger zero. No new owner blocker. Next: direct xAI transport with measured conservative reservations, then social editorial selection. World absent, Gaming weak; Reddit remains blocked.
-
-## 2026-11-02: iteration 100 — explicit direct X search and saved account seeds
-
-- Started clean on main; no leftover work. API/worker/health, seventeen feeds and retained digest runs healthy; no triage repair needed.
-- Added direct Grok 4.3 adapter and dry-run-by-default `discover-x.ts TOPIC_ID FROM_DATE TO_DATE`; one round, saved handles, date-only UTC bounds, no parallel calls/media/retries/redirects/gateway. No paid scheduler or inference call.
-- Migration 022 seeds curated accounts only for empty lists and stores separate call/topic citation provenance. Only completed API citation annotations enter existing official verification/selection; prose URLs/metrics are ignored. Citations alone never become verified posts.
-- Reserve full $0.40 daily allowance before HTTP; settle fetched posts/profiles and tokens before citation writes. Missing usage/ambiguous errors retain uncertainty; explicit depleted credits block durably. Reservation/output limits cannot guarantee request-dollar cost; live measurement remains next.
-- Offline synthetic protocol and isolated Postgres regressions cover request restrictions, sanitization, no retries, missing usage, billing-before-persistence, long-context rates, dedupe, topic deletion and verification eligibility. Synthetic examples are not live recordings.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass types/lint/format/boundaries and 118 isolated tests; `pnpm build` passed (existing upstream Zod warnings). Initial lint caught unsafe test body stringification; corrected before final checks.
-- `pnpm migrate` applied 022; World dry-run command passed with saved handles and zero spend/reservations. API/worker rebuilt/restarted; `/healthz` healthy. Anthropic day/month remains $0.408415; X ledger zero.
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two live queued passes, 800 URLs, four topics, seventeen healthy sources. `smoke-social.ts` job 18: two rivers/50 references, seven pages/two citation observations/one page error, one verified embed then stop on one unavailable embed.
-- Corrected stale Status/topic/schedule wording. `smoke-status.ts`, `smoke-ui.ts` and read-only Playwright topic/schedule checks pass desktop/mobile; refreshed screenshots. No edition published; retained scheduled runs completed, next slot unchanged.
-- Updated TASKS/README/docs/SOURCES. No new owner blocker or billing/model/provider configuration change. Next: measure direct X search cost/quality before scheduling, then social editorial selection; World coverage absent, Gaming weak, Reddit remains blocked.
+Earlier iterations 87–100: [archive](docs/progress-archive/2026-11-02-iterations-87-100.md).
 
 ## 2026-11-02: iteration 101 — measure direct X discovery cost and verification yield
 
@@ -398,3 +222,16 @@ Earlier iterations 61–72: [archive](docs/progress-archive/2026-11-02-iteration
 - `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; refreshed screenshots and inspected mobile source status.
 - TASKS/docs/SOURCES updated. No publication, inference/discovery spend, provider/model/billing change or new owner blocker. Anthropic $0.408415; X $0.023382; paid scheduling remains off.
 - Next: inspect 20:40 UTC semantic social edition, especially Gaming; Reddit blocked and fresh Gaming social coverage incomplete. Observe prospective GamingBolt page yield.
+
+## 2026-11-02: iteration 130 — social window readiness and diagnostic parity
+
+- Started clean on main; no leftover work. API/worker/health, 25 sources and retained digest runs healthy; first scheduled semantic edition remains due 20:40 UTC.
+- Screening now reports separate verified/safety/lexical counts, safety exclusion reasons and exact bounded semantic candidates while preserving `selected` for existing UI replays.
+- Fixed cache-only triage diagnostic drift: reuse publication selector for text/link deduplication, zero post budgets and SQL/candidate caps instead of independent filtering. No production ranking or prompt changes.
+- `screen-social-posts.ts` and `triage-social-posts.ts` for Nov 1 20:40–Nov 2 20:40 UTC: semantic pools Tech 9/NBA 26/Gaming 1/World 2; fallback 3/5/0/0. Exact candidate/cache-ID parity passed all four topics; all 38 scores uncached. Future window remains incomplete.
+- Gaming has 17 scoped verified posts, 16 outside window; remaining post needs semantic selection. Availability is not relevance or virality. Invalid-window CLI check exits 1 as expected.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 138 isolated tests pass. `pnpm build` and final `pnpm format:check` pass (existing upstream Zod warnings).
+- Restarted API/worker; `/healthz` healthy. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued live passes, 1,088 URLs/four topics/25 healthy sources; repeat idempotent.
+- `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile. No UI changes; smoke screenshots refreshed. Updated README/TASKS/docs/SOURCES; archived iterations 87–100.
+- No inference/discovery spend, publication, provider/model/billing change or new owner blocker: Anthropic $0.408415; X $0.023382; no reservations/errors. Reddit blocked; paid X scheduling stays off.
+- Next: inspect scheduled 20:40 UTC semantic edition; rerun readiness after later collection. Gaming/World fallback gaps remain and GamingBolt yield needs observation.

@@ -2,9 +2,8 @@
 import { llmConfig } from '../src/modules/curation/adapters/config';
 import { CandidateTriage } from '../src/modules/curation/application/triage';
 import { PostgresLlmLedger } from '../src/modules/curation/database/llm.ledger';
-import { officialPostText } from '../src/modules/social/adapters/embed-text';
 import { PostgresSocialRepository } from '../src/modules/social/database/social.repository';
-import { assessPostSafety } from '../src/modules/social/domain/eligibility';
+import { selectTopicPosts } from '../src/modules/social/public/selection';
 import { PostgresTopicRepository } from '../src/modules/topics/database/topic.repository';
 
 async function main() {
@@ -34,28 +33,22 @@ async function main() {
     for (const topic of (await topics.listDefault()).filter(
       (topic) => topic.enabled,
     )) {
-      const posts = await social.topicPosts(topic.id);
-      const candidates = posts
-        .flatMap((post) => {
-          const text = officialPostText(post.embedHtml);
-          const safety = assessPostSafety(
-            { text, publishedAt: post.publishedAt?.toISOString() ?? null },
-            topic.relevancePolicy,
-            start,
-            end,
-          );
-          return safety.eligible
-            ? [
-                {
-                  id: post.externalId,
-                  title: 'Verified X post',
-                  excerpt: text,
-                  sources: [],
-                },
-              ]
-            : [];
-        })
-        .slice(0, 200);
+      // Use publication's exact window, exclusions, duplicate keys and caps.
+      const posts = await selectTopicPosts(
+        social.db,
+        topic.id,
+        topic.relevancePolicy,
+        start,
+        end,
+        topic.postBudget > 0 ? 200 : 0,
+        'semantic-candidates',
+      );
+      const candidates = posts.map((post) => ({
+        id: post.externalId,
+        title: 'Verified X post',
+        excerpt: post.text,
+        sources: [],
+      }));
       const result = await triage.score(
         {
           id: topic.id,
@@ -71,6 +64,9 @@ async function main() {
         JSON.stringify({
           topic: topic.name,
           mode: 'cache-only',
+          start,
+          end,
+          postBudget: topic.postBudget,
           candidates: candidates.length,
           ...result,
         }),

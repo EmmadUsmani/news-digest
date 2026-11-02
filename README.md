@@ -156,7 +156,12 @@ bot-protection workaround or inference. The hourly job also runs this bounded ar
 inference or publication using
 `pnpm exec tsx apps/api/scripts/screen-social-posts.ts START_ISO END_ISO`
 (default: last 24 hours). This reports per-post eligibility reasons against saved
-topic phrase rules and verified timestamps; it is not a virality or editorial score.
+topic phrase rules and verified timestamps. It also reports safety exclusions,
+pre-deduplication counts, and the exact bounded, deduplicated semantic candidate
+pool used by publication (empty when the post budget is zero). The `selected`
+field remains the lexical fallback for UI replays. These are availability checks,
+not relevance, virality or editorial scores. For a future scheduled window, only
+posts collected so far are represented; rerun after collection progresses.
 
 For a read-only desktop/mobile post UI replay, save the screening JSONL output
 to a temporary file, then run
@@ -213,8 +218,9 @@ measure editorial quality or demonstrate eligibility for a digest window.
 
 Social semantic triage diagnostics (no HTTP, inference or publication):
 `pnpm exec tsx apps/api/scripts/triage-social-posts.ts START_ISO END_ISO`.
-This reads verified source-scoped posts, keeps time/text/quality/explicit-topic
-exclusions, and checks separate social triage caches. Missing scores are reported
+This uses publication's shared candidate selector, including source scope,
+window, safety exclusions, text/link deduplication, zero budgets and the 200-post
+cap, then checks separate social triage caches. Missing scores are reported
 as unscored; positive phrase rules are reserved for non-AI fallback.
 Manual and scheduled publication now triage up to 200 safety-screened, deduplicated
 verified posts per topic with configured Haiku. Complete triage supplies at most
