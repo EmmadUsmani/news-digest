@@ -76,6 +76,9 @@ function Post({ post }: { post: SelectedPost }) {
     const target = host.current;
     if (!target) return;
     let active = true;
+    let widgetTimeout: number | undefined;
+    const attemptTarget = document.createElement('div');
+    target.replaceChildren(attemptTarget);
     setEmbedded(false);
     setFailed(false);
     const observer = new IntersectionObserver(
@@ -83,21 +86,27 @@ function Post({ post }: { post: SelectedPost }) {
         if (!entries.some((entry) => entry.isIntersecting)) return;
         observer.disconnect();
         void loadWidgets()
-          .then((api) =>
-            active
-              ? api.widgets.createTweet(post.externalId, target, {
-                  dnt: true,
-                  conversation: 'none',
-                  width: 550,
-                })
-              : undefined,
-          )
+          .then((api) => {
+            if (!active) return undefined;
+            widgetTimeout = window.setTimeout(() => {
+              active = false;
+              attemptTarget.remove();
+              setFailed(true);
+            }, 15000);
+            return api.widgets.createTweet(post.externalId, attemptTarget, {
+              dnt: true,
+              conversation: 'none',
+              width: 550,
+            });
+          })
           .then((element) => {
+            window.clearTimeout(widgetTimeout);
             if (!active) return;
             if (element) setEmbedded(true);
             else setFailed(true);
           })
           .catch(() => {
+            window.clearTimeout(widgetTimeout);
             if (active) setFailed(true);
           });
       },
@@ -106,6 +115,7 @@ function Post({ post }: { post: SelectedPost }) {
     observer.observe(target);
     return () => {
       active = false;
+      window.clearTimeout(widgetTimeout);
       observer.disconnect();
       target.replaceChildren();
     };

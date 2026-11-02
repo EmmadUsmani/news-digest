@@ -366,3 +366,14 @@ Earlier iterations 87–100: [archive](docs/progress-archive/2026-11-02-iteratio
 - `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed and targeted Guardian US mobile card inspected. TASKS/docs/SOURCES updated.
 - No publication, schedule mutation, inference/discovery spend, provider/model/billing change or new owner blocker. Gaming social gap and Reddit access remain; paid X scheduling stays off.
 - Next: inspect scheduled 20:40 UTC semantic edition when due; continue relevant free social discovery.
+
+## 2026-11-02: iteration 142 — recover stalled official widgets
+
+- Started clean on main; no leftover work. API/worker/health, all 31 feeds and current digest/social runs healthy; two historical ingestion failures retained. First scheduled semantic edition remains due 20:40 UTC.
+- Official widget creation now has a 15-second deadline: stalled promises expose the existing saved-text/retry UI. Each attempt owns a detached-on-expiry target; late widget writes/results cannot overwrite a newer retry. Cleanup cancels timers on navigation.
+- Extended read-only browser replay with accelerated production deadlines and delayed widget completion; desktop/mobile confirm fallback, successful retry, no stale widget nodes, preserved text, singleton scripts and no overflow/page errors. Protocol stubs are not live media evidence.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 150 isolated tests pass. `pnpm build` passes (existing upstream Zod warnings).
+- Restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-posts.ts /tmp/iteration142-posts.jsonl`, `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass; screenshots refreshed and mobile stalled-widget card inspected.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued live passes, 1,256 URLs/four topics/31 healthy sources; repeat idempotent. Read-only `screen-social-posts.ts` upcoming window: semantic pools 9/26/3/4, lexical picks 3/5/0/0; no relevance or virality gain claimed.
+- README/TASKS updated; source configuration unchanged. No publication, schedule mutation, inference/discovery spend or provider/model/billing change; no new owner blocker.
+- Next: inspect 20:40 UTC scheduled semantic edition. Gaming social coverage and Reddit access remain unresolved; keep paid X scheduling off.

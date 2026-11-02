@@ -28,7 +28,7 @@ async function main() {
     ] as const) {
       for (const mode of process.env.POST_EMBED_LIVE === '1'
         ? (['live'] as const)
-        : (['success', 'blocked'] as const)) {
+        : (['success', 'blocked', 'hanging'] as const)) {
         const page = await browser.newPage({ viewport: { width, height } });
         const errors: string[] = [];
         page.on('pageerror', (error) =>
@@ -73,6 +73,22 @@ async function main() {
           .flatMap((topic) => topic.posts ?? [])
           .at(-1);
         if (legacyPost) delete legacyPost.displayText;
+        if (mode === 'hanging') {
+          // Accelerate only the production embed deadline; leave other timers intact.
+          await page.addInitScript(() => {
+            const original = window.setTimeout.bind(window);
+            window.setTimeout = ((
+              handler: TimerHandler,
+              timeout?: number,
+              ...args: unknown[]
+            ) =>
+              original(
+                handler,
+                timeout === 15000 ? 100 : timeout,
+                ...args,
+              )) as typeof window.setTimeout;
+          });
+        }
         let scriptRequests = 0;
         let allowRetry = false;
         if (mode !== 'live')
@@ -83,7 +99,10 @@ async function main() {
               if (mode === 'blocked' && !allowRetry) return route.abort();
               await route.fulfill({
                 contentType: 'text/javascript',
-                body: `window.twttr = { widgets: { createTweet: async (id, target, options) => { const element = document.createElement('div'); element.dataset.postId = id; element.textContent = 'Recorded widget protocol stub'; target.append(element); return element; } } };`,
+                body:
+                  mode === 'hanging' && !allowRetry
+                    ? `window.twttr = { widgets: { createTweet: (id, target) => new Promise(resolve => { (window.finishStalledWidgets ??= []).push(() => { const element = document.createElement('div'); element.dataset.latePost = id; target.append(element); resolve(element); }); }) } };`
+                    : `window.twttr = { widgets: { createTweet: async (id, target, options) => { const element = document.createElement('div'); element.dataset.postId = id; element.textContent = 'Recorded widget protocol stub'; target.append(element); return element; } } };`,
               });
             },
           );
@@ -157,20 +176,20 @@ async function main() {
           true,
         );
         assert.deepEqual(errors, []);
-        if (mode === 'blocked' || mode === 'live') {
+        if (mode === 'blocked' || mode === 'hanging' || mode === 'live') {
           await cards.first().scrollIntoViewIfNeeded();
           await page.evaluate((live) => {
             const banner = document.createElement('p');
             banner.textContent = live
               ? 'Read-only replay · real verified posts · official X widgets · not a published edition'
-              : 'Read-only replay · real verified posts · synthetic coverage links when enabled · widget blocked · not a published edition';
+              : 'Read-only replay · real verified posts · synthetic coverage links when enabled · widget unavailable · not a published edition';
             document.querySelector('.post-card')?.prepend(banner);
           }, mode === 'live');
           await cards.first().screenshot({
             path: `docs/screenshots/posts-${process.env.POST_EDITORIAL_REPLAY === '1' ? 'semantic-replay-' : ''}${mode}-${name}.png`,
           });
         }
-        if (mode === 'blocked') {
+        if (mode === 'blocked' || mode === 'hanging') {
           // A failed shared script must remain retryable without reloading the page.
           allowRetry = true;
           const card = cards.first();
@@ -182,6 +201,17 @@ async function main() {
           await card.locator('.saved-post-text').waitFor();
           assert.equal(await card.locator('.post-embed-status').count(), 0);
           assert.equal(scriptRequests, 2, 'Retry loads one replacement script');
+          if (mode === 'hanging') {
+            // Expired widget promises may resolve and mutate their old target later.
+            await page.evaluate(() => {
+              const callbacks = (
+                window as Window & { finishStalledWidgets?: Array<() => void> }
+              ).finishStalledWidgets;
+              callbacks?.forEach((finish) => finish());
+            });
+            assert.equal(await card.locator('[data-late-post]').count(), 0);
+            assert.equal(await card.locator('[data-post-id]').count(), 1);
+          }
           assert.equal(
             await card.locator('.saved-post-text .post-text').textContent(),
             expected[0].displayText ?? expected[0].text,
@@ -191,7 +221,7 @@ async function main() {
       }
     }
     console.log(
-      `Post replay passed (${process.env.POST_EMBED_LIVE === '1' ? 'live official widgets' : 'stubbed widgets and blocked fallback'}): desktop/mobile, no overflow or page errors. No edition published.`,
+      `Post replay passed (${process.env.POST_EMBED_LIVE === '1' ? 'live official widgets' : 'stubbed widgets, blocked and timed-out recovery'}): desktop/mobile, no overflow or page errors. No edition published.`,
     );
   } finally {
     await browser.close();

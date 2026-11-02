@@ -174,7 +174,7 @@ fallback, including when the official widget is blocked. Historical snapshots us
 their existing text. Screening/editorial evidence continues to exclude URLs; raw
 embed HTML is never rendered by the fallback. Failed widgets show an explanation
 and a Retry X media button; retrying keeps the saved text and original link
-available. The replay also verifies recovery after a blocked widget script.
+available. Widget creation times out after 15 seconds and offers the same retry; late widget results cannot replace a newer attempt. The replay verifies blocked-script and timed-out-widget recovery on desktop/mobile.
 
 Free social discovery runs hourly in the worker via the `social-collection`
 BullMQ queue. It harvests enabled public rivers, checks at most eight opted-in
