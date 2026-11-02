@@ -374,3 +374,16 @@ Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11
 - Rebuilt/restarted API/worker; `/healthz` healthy. `/api/status` confirms completed 00:08 UTC scheduled run and next 20:40 UTC slot; no schedule mutation this iteration.
 - Updated TASKS/docs/LLM. Published editions still use signals-v6; triage service is not wired into publication. No owner blockers.
 - Next: integrate triage and Sonnet shortlist editor into immutable editions, Haiku/non-AI fallback labels, then scheduled Message Batches. M3 remains open.
+
+## 2026-11-02: iteration 54 — bounded shortlist editor
+
+- Started clean on main; no leftover work. API/worker and `/healthz` healthy.
+- Added standalone Sonnet shortlist editor: bounded source-only prompts, supplied unique IDs, budgets, brief/headline/summary/significance/rationale schemas and recorded model; no publication wiring yet.
+- Sonnet refusal/invalid output falls back to configured Haiku through the same capped ledger; total refusal returns null. Empty inputs/zero budgets spend nothing; quiet selections may be empty.
+- `pnpm exec tsx --test apps/api/test/editor.test.ts` passed five offline cases (cache, fallbacks, invalid output/repair, quiet budgets, escaped input bound).
+- Explicit `smoke-editor.ts` checks used three real Tech and three NBA items: both returned valid empty selections, one Sonnet call each, costing $0.003958/$0.002828; identical repeats made no calls. Live summary quality is unverified.
+- Today/month actual ledger $0.010234; zero reservations/errors, daily cap $0.482758, monthly $14. Provider/model/billing unchanged.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (63 tests/types/lint/format/boundaries) and `pnpm build` passed; existing upstream Zod build warnings only.
+- `smoke-ingestion.ts` passed two live passes: 712 real URLs, seventeen healthy sources. Initial overlapping preview failed on changed candidate counts; rerun after collection/checks passed immutable/history/windows, selections 5/5/5/5.
+- `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed/mobile inspected. Rebuilt/restarted services and `/healthz` healthy; schedule unchanged.
+- M3 remains open: connect triage/editor to immutable editions, verify nonempty live summaries, Sonnet allocation/non-AI labels, scheduled batches and cache-miss coalescing. No owner blockers.

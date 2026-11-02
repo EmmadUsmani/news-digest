@@ -1,7 +1,7 @@
 # Anthropic editorial transport and cost ledger
 
-Iterations 52–53 implement a real, bounded SDK transport and candidate triage, exposing recorded
-usage under Source & run status. Published editions still use signal ranking;
+Iterations 52–54 implement a real, bounded SDK transport and candidate triage, exposing recorded
+usage under Source & run status. A standalone shortlist editor is also implemented. Published editions still use signal ranking;
 this is not yet the M3 editorial pipeline. One explicit live verification scored
 three stored headlines with Haiku. It did not publish those scores as a digest.
 
@@ -41,7 +41,7 @@ HTTP 400 workspace API usage limits and 429 enforced_spend_limit_reached persist
 a block through the end of the UTC month. Ordinary rate limits are not mistaken
 for monthly blocks, but no hidden SDK retry is allowed. Budget/provider failures
 return no result, allowing the future editor to retain signal ranking. Sonnet
-allocation, Haiku editor fallback, scheduled Message Batches and
+allocation, publication fallback labels, scheduled Message Batches and
 immutable AI edition contracts remain unfinished.
 
 Configuration (all rates USD per million tokens):
@@ -126,3 +126,33 @@ Haiku calls costing $0.003301. All reordered repeats reused per-item cache.
 The status page showed $0.003448 total today/month, zero reservations and no
 provider errors, against the $0.482758 daily allocation and $14 monthly cap.
 These are transport/triage checks, not a measured improvement in digest quality.
+
+## Shortlist editor (iteration 54)
+
+`ShortlistEditor` accepts up to ten unique candidates and a 0–10 story budget.
+It asks configured Sonnet for selected IDs, headlines, 2–3 sentence summaries,
+significance, selection rationale and 2–4 brief bullets. Prompts require source-only
+facts, attribution and uncertainty, treating source text as untrusted. Schema
+validation enforces bounded text, unique supplied IDs, budget and brief cardinality;
+it cannot establish factual accuracy or enforce sentence counts. Source links
+remain the caller's responsibility, never model-generated URLs.
+
+The prompt bounds topic fields and each candidate to a 300-character title,
+600-character excerpt and three 80-character source labels. This deliberately
+small excerpt-only first step does not retrieve full articles. Empty input or a
+zero budget spends nothing. Quiet selections may be empty. Sonnet refusal or
+invalid output after its single repair tries configured Haiku through the same
+reservation ledger; total refusal returns null for future non-AI publication.
+A separate Sonnet spending allocation is not implemented. Identical complete
+editor requests reuse validated transport cache, including empty selections.
+
+Offline checks: `pnpm exec tsx --test apps/api/test/editor.test.ts`.
+Explicit paid check with configured secrets loaded:
+`pnpm exec tsx apps/api/scripts/smoke-editor.ts`. It uses three real recent NBA
+items, budget two, and checks identical regeneration without another call. No
+edition is published. Initial Tech and NBA checks both returned valid empty
+selections in one Sonnet call each ($0.003958 and $0.002828). These verify quiet
+output and cache behavior, not live summary quality or editorial precision.
+Today's/month's ledger total after these checks is $0.010234, zero reservations
+or provider errors. Publication wiring, immutable editorial contracts, Sonnet
+allocation and scheduled batches remain unfinished; M3 is still open.
