@@ -374,10 +374,14 @@ smoke remains an explicit Sonnet check; prefer the tiny Haiku smoke when a live
 check is necessary. Routine tests use fakes and never require this opt-in.
 
 Historical development calls used older purpose tags and are not retroactively
-classified. Separate verification totals on Status and fingerprinted fixture
-replay remain open work. No paid calls were made to verify this guard.
+classified. Fingerprinted fixture replay remains open work. No paid calls were made to verify this guard.
 
 Iteration 179: the historical `record-editorial-evaluation.ts` entrypoint now
 uses the same verification ledger for triage, editing, repairs and fallback.
 Existing snapshots are still never overwritten; incomplete results write no
 snapshot. Recording remains an explicit paid operation, not part of checks.
+
+Status now breaks down UTC-day/month spend and unresolved reservations by ledger
+purpose, including development verification. Old holds remain visible across
+months. Other purpose tags retain their original names because historical
+development and digest calls cannot reliably be separated retroactively.

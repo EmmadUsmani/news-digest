@@ -38,15 +38,7 @@ Earlier iterations 163–164: [archive](docs/progress-archive/2026-11-02-iterati
 
 Earlier iteration 165: [archive](docs/progress-archive/2026-11-02-iteration-165.md).
 
-## 2026-11-02: iteration 166 — restore owner schedule and stop live smoke writes
-
-- Started clean on main; API/worker/health healthy, 32 sources without errors, no failed digest jobs; two historical ingestion failures retained.
-- Triage found the reported wrong live schedule still active: 20:40 UTC/PT6H. Restored 07:00 America/Los_Angeles/P1D through API, preserving both budgets at five; Redis next slot now 2026-11-02T15:00Z.
-- Schedule UI smoke now intercepts profile reads/writes in memory, checks reload/defaults/timezone errors, and asserts live profile unchanged. Updated desktop/mobile screenshots are replay settings, not live schedule evidence.
-- Disabled the obsolete live scheduler probe with an explicit failure directing callers to isolated scheduling tests. Legacy recovery remains manual only; README explains the distinction.
-- Initial replay needed domain timezone validation; corrected. `pnpm exec tsx scripts/smoke-schedule.ts` passed desktop/mobile with unchanged live profile.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `pnpm build` pass (164 tests); services restarted and health/schedule/source/edition endpoints checked.
-- No live inference calls/spend or source changes; docs/SOURCES unchanged. Item 7 live latency still unverified; next use budget-safe evidence before Reddit.
+Iteration 166: [archive](docs/progress-archive/2026-11-02-iteration-166.md).
 
 ## 2026-11-02: iteration 167 — budget-safe live timing evidence
 
@@ -187,3 +179,12 @@ Earlier iteration 165: [archive](docs/progress-archive/2026-11-02-iteration-165.
 - Restarted API/worker; retry reached healthy `/healthz` (DB/Redis true); latest real edition retains four topics/20 stories/10 posts. Available app budget remains 848 micros.
 - Updated TASKS/docs/LLM; archived iteration 165 to keep PROGRESS below 25 KB. No source changes.
 - Next: fingerprinted LlmPort replay and separate verification spend on Status. Reddit access/live AI timing remain blocked; scheduled xAI follows Reddit per owner order.
+
+## 2026-11-02: iteration 180 — show AI spend by purpose
+
+- Started clean on main; no leftover work. API/worker, health and 32 sources healthy; two historical ingestion failures retained, no failed digest/social jobs.
+- Status shows UTC-day/month spend and unresolved reservations per ledger purpose, including development verification. Historical tags stay visible with an explicit warning that older development/editorial spend cannot reliably be separated.
+- Isolated transactional test covers mixed purposes, failed calls, old uncertain holds, expired settled calls and reconciliation to overall totals. Existing app/model budgets unchanged.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (181 tests); `pnpm build` passed. `pnpm exec tsx scripts/smoke-ai-spend.ts` passed read-only desktop/mobile checks; screenshots saved and mobile inspected.
+- Restarted API/worker; `/healthz` database/Redis true. Read-only timing report confirms latest real edition four topics/10 posts; available budget unchanged at 848 micros. No inference, settings writes or source changes.
+- Updated TASKS/docs/LLM. Next: fingerprinted LlmPort replay; legitimate Reddit access/live AI timing remain blocked, paid xAI scheduling follows Reddit.

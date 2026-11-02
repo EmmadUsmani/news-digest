@@ -42,6 +42,22 @@ export async function readUsage(db: Pool, caps: BudgetCaps): Promise<LlmUsage> {
       [period.monthStart],
     )
   ).rows;
+  const purposes = (
+    await db.query<{
+      purpose: string;
+      todayMicros: number;
+      monthMicros: number;
+      reservedMicros: number;
+    }>(
+      `SELECT purpose,
+       COALESCE(sum(cost_micros) FILTER (WHERE created_at >= $2),0)::float8 AS "todayMicros",
+       COALESCE(sum(cost_micros) FILTER (WHERE created_at >= $1),0)::float8 AS "monthMicros",
+       COALESCE(sum(reserved_micros) FILTER (WHERE status IN ('pending','uncertain')),0)::float8 AS "reservedMicros"
+       FROM llm_calls WHERE created_at >= $1 OR status IN ('pending','uncertain')
+       GROUP BY purpose ORDER BY purpose`,
+      [period.monthStart, period.dayStart],
+    )
+  ).rows;
   const last = (
     await db.query<{ code: string; at: Date }>(
       `SELECT error_code AS code,completed_at AS at FROM llm_calls WHERE error_code IS NOT NULL ORDER BY completed_at DESC LIMIT 1`,
@@ -80,6 +96,7 @@ export async function readUsage(db: Pool, caps: BudgetCaps): Promise<LlmUsage> {
   }
   return {
     ...totals,
+    purposes,
     modelAllocation,
     dailyCapMicros: allowance.dailyCap,
     monthlyCapMicros: caps.monthly,

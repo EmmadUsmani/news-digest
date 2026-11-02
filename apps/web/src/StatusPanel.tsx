@@ -292,6 +292,36 @@ export function StatusPanel() {
               reconciliation. Available today:{' '}
               {dollars(status.llm.availableMicros)}.
             </p>
+            {status.llm.purposes && (
+              <div aria-label="AI spend by purpose" role="region">
+                <h4>Spend by purpose</h4>
+                <p>
+                  Verification is development spend. Older development calls
+                  used editorial purpose tags; these cannot reliably distinguish
+                  digest spend from development spend.
+                </p>
+                <ul>
+                  {status.llm.purposes.map((usage) => (
+                    <li key={usage.purpose}>
+                      {usage.purpose === 'verification'
+                        ? 'Development verification'
+                        : usage.purpose}
+                      : {dollars(usage.todayMicros)} today ·{' '}
+                      {dollars(usage.monthMicros)} this month ·{' '}
+                      {dollars(usage.reservedMicros)} reserved
+                    </li>
+                  ))}
+                </ul>
+                {!status.llm.purposes.some(
+                  (usage) => usage.purpose === 'verification',
+                ) && (
+                  <p>
+                    Development verification: $0.0000 this month; no
+                    reservations.
+                  </p>
+                )}
+              </div>
+            )}
             {status.llm.modelAllocation && (
               <p>
                 Final editor ({status.llm.modelAllocation.model}):{' '}

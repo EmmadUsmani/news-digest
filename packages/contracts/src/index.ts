@@ -331,6 +331,16 @@ export type SourceCatalog = z.infer<typeof sourceCatalogSchema>;
 export type ScheduleSettings = z.infer<typeof scheduleSchema>;
 
 export const llmUsageSchema = z.object({
+  purposes: z
+    .array(
+      z.object({
+        purpose: z.string(),
+        todayMicros: z.number().int().nonnegative(),
+        monthMicros: z.number().int().nonnegative(),
+        reservedMicros: z.number().int().nonnegative(),
+      }),
+    )
+    .optional(),
   monthMicros: z.number().int().nonnegative(),
   todayMicros: z.number().int().nonnegative(),
   monthReservedMicros: z.number().int().nonnegative(),

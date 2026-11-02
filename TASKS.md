@@ -25,7 +25,7 @@ Fix regressions, broken services and stalled sources before starting new work.
 - [x] STEERING 10: per-topic coverage on Status and live baseline (iteration 177); reassess before adding sources.
   - Iteration 177: rolling 24-hour distinct article and verified X/Reddit coverage plus connected/healthy source counts added to Status. Counts indicate collection scope, not semantic relevance. Live baseline: NBA fewest articles (74); World fewest verified X posts (9). All 32 connected sources healthy; no new sources added.
 - [x] STEERING 11: restored 07:00 America/Los_Angeles daily P1D; browser smoke uses intercepted in-memory profile, retired live scheduler probe; scheduling tests use disposable services (iteration 166).
-- [ ] STEERING 4 (lower priority): fingerprinted LlmPort replay and separate verification spend on Status. Iteration 178: three Anthropic smoke scripts require LLM_LIVE=1, tag verification and share a serialized $0.05/day cap. Iteration 179: historical recording entrypoint guarded and verification-capped. Next: fingerprinted replay and separate Status spend.
+- [ ] STEERING 4 (lower priority): fingerprinted LlmPort replay and separate verification spend on Status. Iteration 178: three Anthropic smoke scripts require LLM_LIVE=1, tag verification and share a serialized $0.05/day cap. Iteration 179: historical recording entrypoint guarded and verification-capped. Iteration 180: Status now separates tagged verification and all other purpose totals, including old unresolved holds; historical editorial tags remain explicitly mixed. Next: fingerprinted replay.
 
 Completed milestone detail: [archive](docs/progress-archive/2026-11-02-tasks-through-143.md).
 M0–M2 and foundational M3/M6/M7 functionality are implemented; remaining work follows.
