@@ -1,9 +1,10 @@
 # Anthropic editorial transport and cost ledger
 
-Iterations 52–54 implement a real, bounded SDK transport and candidate triage, exposing recorded
-usage under Source & run status. A standalone shortlist editor is also implemented. Published editions still use signal ranking;
-this is not yet the M3 editorial pipeline. One explicit live verification scored
-three stored headlines with Haiku. It did not publish those scores as a digest.
+Manual and scheduled editions use bounded Anthropic triage and editing, with
+immutable source evidence and labeled per-topic signal fallback. Status reports
+real usage and the separate editor allocation. The sections below retain the
+implementation and verification history; current publication behavior is described
+under Immutable publication, Editor evidence provenance and Sonnet allocation.
 
 `curation/domain/LlmPort` isolates provider calls; `LlmLedger` isolates persistence.
 The Anthropic adapter uses the official SDK, direct API, a 60-second timeout and
@@ -259,3 +260,25 @@ headline-based related coverage. Model output cannot supply URLs. The changed
 instructions invalidate editor caches only; triage caches remain reusable.
 Historical snapshots and the v1 NBA evaluation remain unchanged and have no
 retroactively inferred evidence.
+
+## Sonnet allocation (iteration 61)
+
+`LLM_EDITOR_DAILY_FRACTION` defaults to 0.8 (valid range 0–1). The configured
+editor model can spend at most that fraction of the shared UTC daily allowance;
+it gets no additional funds. This preserves capacity for Haiku triage and fallback
+editing. Both models still obey the shared monthly/daily caps and provider block.
+Model IDs must differ so the ledger can distinguish the two allocations.
+
+The reservation transaction checks settled editor charges plus all outstanding
+pending/uncertain editor reservations, including older days/months. Every repair
+reserves again under the same limits. Successful settlement releases unused
+reservation; known failure releases it, uncertain failure retains it. The existing
+editor tries Haiku after Sonnet refusal, then publication uses labeled signal
+ranking if no AI result is available. Validated cache reads remain free even when
+an allocation is exhausted. Model/pricing/provider routes are unchanged.
+
+Source & run status now displays the editor allocation, spent/reserved amount
+and effective availability (also constrained by shared funds/provider block).
+Isolated Postgres regressions exercise concurrent allocation reservations,
+settlement, old uncertainty, real editor fallback with a fake provider, cached
+regeneration and status totals. No live inference is needed for these checks.

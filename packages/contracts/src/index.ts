@@ -240,6 +240,14 @@ export const llmUsageSchema = z.object({
   dailyCapMicros: z.number().int().nonnegative(),
   monthlyCapMicros: z.number().int().nonnegative(),
   availableMicros: z.number().int().nonnegative(),
+  modelAllocation: z
+    .object({
+      model: z.string(),
+      dailyCapMicros: z.number().int().nonnegative(),
+      usedMicros: z.number().int().nonnegative(),
+      availableMicros: z.number().int().nonnegative(),
+    })
+    .optional(),
   blockedUntil: z.string().datetime().nullable(),
   models: z.array(
     z.object({

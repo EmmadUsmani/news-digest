@@ -3,6 +3,7 @@ import type { Pool } from 'pg';
 import {
   budgetAllowance,
   type BudgetCaps,
+  modelBudgetAvailable,
   utcBudgetPeriod,
 } from '../domain/budget';
 import type { LlmRequest, TokenUsage } from '../domain/llm.port';
@@ -43,9 +44,27 @@ export class PostgresLlmLedger implements LlmLedger {
         FROM llm_calls WHERE status <> 'failed'`,
         [period.monthStart, period.dayStart],
       );
+      const allowance = budgetAllowance(now, totals, this.caps);
+      const allocation = this.caps.modelAllocation;
+      let modelAvailable = Infinity;
+      if (allocation && request.model.id === allocation.model) {
+        const {
+          rows: [modelTotals],
+        } = await client.query<{ today: number }>(
+          `SELECT COALESCE(sum(COALESCE(cost_micros,reserved_micros)),0)::float8 AS today
+           FROM llm_calls WHERE model=$1 AND status <> 'failed'
+           AND (created_at >= $2 OR status IN ('pending','uncertain'))`,
+          [allocation.model, period.dayStart],
+        );
+        modelAvailable = modelBudgetAvailable(
+          allowance.dailyCap,
+          modelTotals.today,
+          allocation.dailyFraction,
+        );
+      }
       if (
         blocked.rowCount ||
-        budgetAllowance(now, totals, this.caps).available < estimate
+        Math.min(allowance.available, modelAvailable) < estimate
       ) {
         await client.query('COMMIT');
         return null;

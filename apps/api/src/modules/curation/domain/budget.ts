@@ -36,6 +36,7 @@ export interface BudgetTotals {
 export interface BudgetCaps {
   monthly: number;
   dailyMax: number;
+  modelAllocation?: { model: string; dailyFraction: number };
 }
 export function budgetAllowance(
   now: Date,
@@ -62,4 +63,24 @@ export function budgetAllowance(
       Math.min(caps.monthly - totals.month, dailyCap - totals.today),
     ),
   };
+}
+
+// A model's allocation is a ceiling within the shared daily cap, never extra
+// funds. Outstanding/uncertain reservations must be included in modelToday.
+export function modelBudgetAvailable(
+  dailyCap: number,
+  modelToday: number,
+  fraction: number,
+): number {
+  if (
+    !Number.isSafeInteger(dailyCap) ||
+    dailyCap < 0 ||
+    !Number.isSafeInteger(modelToday) ||
+    modelToday < 0 ||
+    !Number.isFinite(fraction) ||
+    fraction < 0 ||
+    fraction > 1
+  )
+    throw new Error('Invalid model allocation');
+  return Math.max(0, Math.floor(dailyCap * fraction) - modelToday);
 }

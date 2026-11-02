@@ -4,6 +4,7 @@ import type { Pool } from 'pg';
 import {
   budgetAllowance,
   type BudgetCaps,
+  modelBudgetAvailable,
   utcBudgetPeriod,
 } from '../domain/budget';
 
@@ -50,8 +51,36 @@ export async function readUsage(db: Pool, caps: BudgetCaps): Promise<LlmUsage> {
     'SELECT 1 FROM llm_provider_blocks WHERE month_start=$1',
     [period.monthStart],
   );
+  let modelAllocation;
+  if (caps.modelAllocation) {
+    const allocation = caps.modelAllocation;
+    const used = (
+      await db.query<{ used: number }>(
+        `SELECT COALESCE(sum(COALESCE(cost_micros,reserved_micros)),0)::float8 AS used
+       FROM llm_calls WHERE model=$1 AND status <> 'failed'
+       AND (created_at >= $2 OR status IN ('pending','uncertain'))`,
+        [allocation.model, period.dayStart],
+      )
+    ).rows[0].used;
+    modelAllocation = {
+      model: allocation.model,
+      dailyCapMicros: Math.floor(allowance.dailyCap * allocation.dailyFraction),
+      usedMicros: used,
+      availableMicros: block.rowCount
+        ? 0
+        : Math.min(
+            allowance.available,
+            modelBudgetAvailable(
+              allowance.dailyCap,
+              used,
+              allocation.dailyFraction,
+            ),
+          ),
+    };
+  }
   return {
     ...totals,
+    modelAllocation,
     dailyCapMicros: allowance.dailyCap,
     monthlyCapMicros: caps.monthly,
     availableMicros: block.rowCount ? 0 : allowance.available,

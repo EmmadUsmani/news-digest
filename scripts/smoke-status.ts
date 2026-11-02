@@ -82,6 +82,11 @@ async function smoke() {
       await usagePanel
         .getByText('This month (UTC):', { exact: false })
         .waitFor();
+      assert.ok(status.llm.modelAllocation);
+      assert.ok(
+        status.llm.modelAllocation.dailyCapMicros <= status.llm.dailyCapMicros,
+      );
+      await usagePanel.getByText('Final editor (', { exact: false }).waitFor();
       await usagePanel.scrollIntoViewIfNeeded();
       await page.screenshot({
         path: `docs/screenshots/status-usage-${name}.png`,

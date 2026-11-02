@@ -144,8 +144,9 @@ export function StatusPanel() {
           <section aria-label="AI usage">
             <h3>AI usage</h3>
             <p>
-              Current editions use signal ranking. AI editorial review is being
-              connected; the usage below includes live verification calls.
+              AI review uses Haiku for triage and Sonnet for final editing. When
+              funds run low, editing falls back to Haiku, then labeled signal
+              ranking. Usage includes verification calls.
             </p>
             <p>
               Today (UTC): {dollars(status.llm.todayMicros)} spent /{' '}
@@ -159,6 +160,17 @@ export function StatusPanel() {
               reconciliation. Available today:{' '}
               {dollars(status.llm.availableMicros)}.
             </p>
+            {status.llm.modelAllocation && (
+              <p>
+                Final editor ({status.llm.modelAllocation.model}):{' '}
+                {dollars(status.llm.modelAllocation.usedMicros)} spent or
+                reserved / {dollars(status.llm.modelAllocation.dailyCapMicros)}{' '}
+                daily allocation. Available:{' '}
+                {dollars(status.llm.modelAllocation.availableMicros)}. The
+                remaining shared budget supports Haiku triage and fallback
+                editing.
+              </p>
+            )}
             {status.llm.blockedUntil && (
               <p role="status">
                 Provider spend limit reached. Calls stopped until{' '}

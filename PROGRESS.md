@@ -383,3 +383,17 @@ Earlier iterations 17–22: [archive](docs/progress-archive/2026-11-01-iteration
 - Four Sonnet calls cost $0.093172; day/month actual $0.386695, zero reservations/errors, $0.482758 daily/$14 monthly caps. Provider/models/billing unchanged.
 - `scripts/smoke-ui.ts`, `scripts/smoke-status.ts` and explicit real evidence disclosure/link checks passed desktop/mobile; screenshots refreshed and mobile evidence screenshot visually inspected.
 - Rebuilt/restarted API/worker; `/healthz` healthy. No owner blockers; next broader editorial evaluation, Sonnet allocation, scheduled Message Batches and cross-process coordination.
+
+## 2026-11-02: iteration 61 — reserve a separate Sonnet allocation
+
+- Started clean on main; no leftover work. Services/health, seventeen sources and digest runs healthy. Retained ingestion failure was historical invalid XML; all active sources subsequently succeeded.
+- Sonnet now has a configurable 80% ceiling inside the shared daily cap (`LLM_EDITOR_DAILY_FRACTION`, 0–1); no extra funds or model/provider/billing changes. Existing Haiku then labeled signal fallback remains.
+- Same cross-process reservation lock enforces both caps, including repairs and all old pending/uncertain model charges; settlement releases unused funds and free validated caches remain available.
+- Status API/UI displays model allocation, used/reserved amount and effective availability; corrected obsolete signal-only status description. Updated TASKS/docs/LLM; no source changes or owner blockers.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and 76 tests in disposable DBs; `pnpm build` passed (existing upstream Zod warnings). An intermediate concurrent edit caused an import-order check failure; final full rerun passed.
+- New isolated Postgres checks cover concurrent model reservations, settlement, prior-month uncertainty, Haiku editor fallback/cache and usage reporting; no live inference in tests.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live passes: 717 real URLs, four topics, seventeen healthy sources.
+- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; refreshed screenshots and visually inspected mobile allocation display.
+- Exact-window API regeneration preserved 4/5/5/5 AI stories, identical topic snapshots, unchanged historical edition and zero new calls. Schedule unchanged.
+- Incremental inference $0; actual day/month $0.386695, zero reservations/errors. Shared daily cap $0.482758; Sonnet allocation $0.386206 with $0.039654 remaining.
+- Next: broader independently reviewed editorial evaluation, scheduled Message Batches and cross-process cache-miss coordination; M3 remains open.
