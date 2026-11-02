@@ -45,6 +45,9 @@ upserts, failure truncation and batch rollback (including existing-row updates).
 Reddit repository characterization pins the inclusive seven-day observation lookback,
 exclusive end, stable timestamp ties, shared-topic dedupe, configuration filtering,
 topic deletion and atomic rollback of updates, inserts and X citations.
+Publisher discovery characterization covers shared-topic dedupe, current host/topic
+configuration, citation provenance/engagement JSON, cooldowns, publisher rotation
+and atomic rollback of citation inserts/updates when the final check fails.
 `pnpm test` runs both commands; integration tests remain part of `pnpm check`.
 Both runners replace inherited database/Redis URLs, clear Anthropic/xAI keys and
 live-inference opt-in. Docker is required only for integration tests; there is no

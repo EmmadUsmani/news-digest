@@ -227,6 +227,144 @@ void test('publisher candidates preserve provenance and idempotence, respect coo
   }
 });
 
+void test('publisher persistence rechecks shared-topic configuration and rolls back citation updates when the final check fails', async () => {
+  const repository = new PostgresArticleDiscoveryRepository();
+  const topic = crypto.randomUUID();
+  const sharedTopic = crypto.randomUUID();
+  const source = `publisher-${topic}`;
+  const host = `${topic}.example.org`;
+  let article: DiscoveryArticle | undefined;
+  const link = (id: string, handle = 'original') => ({
+    externalId: id,
+    url: `https://x.com/${handle}/status/${id}`,
+  });
+  const citations = async () =>
+    (
+      await repository.db.query(
+        `SELECT external_id,verification_url,citing_engagement,first_seen_at,last_seen_at
+       FROM x_link_citations WHERE item_id=$1 ORDER BY external_id`,
+        [article!.id],
+      )
+    ).rows;
+  const check = async () =>
+    (
+      await repository.db.query(
+        'SELECT checked_at,last_error,link_count FROM article_x_discovery_checks WHERE item_id=$1',
+        [article!.id],
+      )
+    ).rows[0];
+  try {
+    await repository.db.query(
+      `INSERT INTO topics(id,profile_id,name,description,include_guidance,position)
+       SELECT fixture.id,p.id,'Publisher fixture','','',100
+       FROM profiles p CROSS JOIN unnest($1::uuid[]) fixture(id) LIMIT 2`,
+      [[topic, sharedTopic]],
+    );
+    await repository.db.query(
+      `INSERT INTO content_sources(id,topic_id,name,kind,url,article_discovery_host)
+       VALUES($1,$2,'Publisher fixture','feed',$3,$4)`,
+      [source, topic, `https://${host}/feed`, host],
+    );
+    await repository.db.query(
+      'INSERT INTO topic_source_connections(topic_id,source_id) VALUES($1,$3),($2,$3)',
+      [topic, sharedTopic, source],
+    );
+    const item = await repository.db.query<{ id: string }>(
+      `INSERT INTO content_items(canonical_url,title,excerpt,published_at,engagement)
+       VALUES($1,'Publisher fixture','',now()-interval '1 hour','{"points":42,"comments":7}') RETURNING id`,
+      [`https://${host}/story`],
+    );
+    article = { id: item.rows[0].id, host, url: `https://${host}/story` };
+    await repository.db.query(
+      'INSERT INTO content_observations(item_id,source_id) VALUES($1,$2)',
+      [article.id, source],
+    );
+    const candidates = async () =>
+      (await repository.candidates()).filter((a) => a.host === host);
+    assert.deepEqual(await candidates(), [article]); // two connected topics, one fetch
+    await repository.record(article, [link('999400000000000001')]);
+    const before = await citations();
+    assert.deepEqual(before[0].citing_engagement, { points: 42, comments: 7 });
+    const beforeCheck = await check();
+    // Fault injection at the final write proves earlier INSERT/UPDATE work is atomic.
+    await repository.db.query(
+      `ALTER TABLE article_x_discovery_checks ADD CONSTRAINT publisher_fixture_failure
+       CHECK (item_id <> '${article.id}'::uuid OR link_count <> 2) NOT VALID`,
+    );
+    try {
+      await assert.rejects(
+        repository.record(article, [
+          link('999400000000000001', 'updated'),
+          link('999400000000000002'),
+        ]),
+        /publisher_fixture_failure/,
+      );
+      assert.deepEqual(await citations(), before);
+      assert.deepEqual(await check(), beforeCheck);
+    } finally {
+      await repository.db.query(
+        'ALTER TABLE article_x_discovery_checks DROP CONSTRAINT publisher_fixture_failure',
+      );
+    }
+    await repository.record(article, [link('999400000000000001', 'updated')]);
+    assert.equal(
+      (await citations())[0].verification_url,
+      'https://twitter.com/updated/status/999400000000000001',
+    );
+    assert.deepEqual(
+      (await citations())[0].first_seen_at,
+      before[0].first_seen_at,
+    );
+
+    await repository.db.query(
+      'DELETE FROM article_x_discovery_checks WHERE item_id=$1',
+      [article.id],
+    );
+    await repository.db.query('UPDATE topics SET enabled=false WHERE id=$1', [
+      topic,
+    ]);
+    assert.deepEqual(await candidates(), [article]); // remaining enabled connection
+    await repository.db.query('DELETE FROM topics WHERE id=$1', [sharedTopic]);
+    assert.deepEqual(await candidates(), []);
+    await repository.record(article, [link('999400000000000003')]);
+    assert.equal((await citations()).length, 1); // stale candidate cannot add citations
+    assert.equal((await check()).link_count, 1); // check counts parsed links, not inserts
+    await repository.db.query('UPDATE topics SET enabled=true WHERE id=$1', [
+      topic,
+    ]);
+    await repository.db.query(
+      'UPDATE content_sources SET article_discovery_host=NULL WHERE id=$1',
+      [source],
+    );
+    await repository.record(article, [link('999400000000000004')]);
+    assert.equal((await citations()).length, 1);
+    await repository.db.query(
+      'DELETE FROM article_x_discovery_checks WHERE item_id=$1',
+      [article.id],
+    );
+    assert.deepEqual(await candidates(), []);
+  } finally {
+    await repository.db.query(
+      'DELETE FROM content_observations WHERE source_id=$1',
+      [source],
+    );
+    await repository.db.query('DELETE FROM content_items WHERE id=$1', [
+      article?.id,
+    ]);
+    await repository.db.query(
+      'DELETE FROM topic_source_connections WHERE source_id=$1',
+      [source],
+    );
+    await repository.db.query('DELETE FROM content_sources WHERE id=$1', [
+      source,
+    ]);
+    await repository.db.query('DELETE FROM topics WHERE id=ANY($1::uuid[])', [
+      [topic, sharedTopic],
+    ]);
+    await repository.db.end();
+  }
+});
+
 void test('recorded Yahoo article citation yields named verification URL without fetching X', async () => {
   const html = await readFile(
     'apps/api/test/fixtures/yahoo-article-x.txt',

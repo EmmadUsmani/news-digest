@@ -44,26 +44,7 @@ Earlier iterations 169–170: [archive](docs/progress-archive/2026-11-02-iterati
 
 Earlier iterations 171–172: [archive](docs/progress-archive/2026-11-02-iterations-171-172.md).
 
-## 2026-11-02: iteration 173 — platform-aware social editorial boundary
-
-- Started clean on main; no leftover work. Health/API/worker healthy, 32 sources/no current errors, no failed digest/social jobs; two historical ingestion failures retained.
-- Added generic editorial candidates preserving platform metadata, namespaced Reddit triage IDs and platform-aware v2 editor instructions/cache purpose; existing X IDs stay unchanged.
-- Shortlist retains qualifying X first; enforced ~70% X reservation bounded by available qualifying X, strong Reddit fills remaining slots, declined X leaves gaps. Fallback also preserves X preference.
-- Synthetic fake tests cover overlapping IDs, higher-scored Reddit pressure, sparse/no X, fallback caps and no padding. No live HTTP/inference used; Reddit access blocked/collection unscheduled.
-- Publication/snapshot contracts remain X-only pending faithful Reddit cards and publication wiring; this boundary alone publishes no Reddit content. No UI change/browser check needed.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (175 tests, types/lint/format/boundaries); `pnpm build` passed. Updated TASKS/SOURCES/RANKING; archived oldest progress entries.
-- Restarted API/worker; `/healthz` DB/Redis true; `/api/status` 32 sources/no errors, all queues have workers. Read-only timing report unchanged: 856 ms fallback edition/four topics, 481910 micros spent/848 available; next Nov 3 15:00 UTC. Live AI latency remains unverified.
-- Next: connect conservative Reddit shortlist to platform-aware snapshots/publication and faithful cards; real content remains blocked by public access denial.
-
-## 2026-11-02: iteration 174 — immutable Reddit card snapshot preparation
-
-- Started clean on main; no leftover work. API/worker and health healthy; status has 32 sources and all queue workers present.
-- Added a separate validated Reddit snapshot contract and ranked-shortlist converter preserving title/body, community, thumbnail, destination, metrics and observation time. Ranking now retains observation timestamps.
-- Schema parsing copies nested evidence, preventing later source refreshes from changing prepared snapshots. Synthetic test covers metadata, mutation isolation and malformed timestamp/metric rejection.
-- Published edition contract remains X-only until faithful cards and platform-aware publication are connected. Reddit remains blocked/unscheduled; no live HTTP or inference calls, no UI changes.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (176 tests, types/lint/format/boundaries); `pnpm build` passed. Updated TASKS/SOURCES.
-- Restarted API/worker; `/healthz` DB/Redis true, 32 sources and all queue workers present. Read-only timing report: unchanged 856 ms fallback edition, 481910 micros spent/848 available; next Nov 3 15:00 UTC. Live AI latency unverified.
-- Next: faithful Reddit cards and publication wiring; real Reddit content remains blocked by public access denial.
+Earlier iterations 173–174: [archive](docs/progress-archive/2026-11-02-iterations-173-174.md).
 
 ## 2026-11-02: iteration 175 — faithful Reddit cards and edition readback
 
@@ -200,3 +181,13 @@ Earlier iterations 171–172: [archive](docs/progress-archive/2026-11-02-iterati
 - Initial integration run caught an overlong synthetic Reddit ID; corrected to the schema limit. Full `pnpm check` passed 99 unit/90 integration tests; `pnpm format`, `pnpm lint:fix`, `pnpm build` and `git diff --check` passed.
 - Restarted API/worker; health DB/Redis true, SPA 200, all queues available, no current source errors. Latest real edition has four topics/10 posts. No paid inference, live mutations or UI changes.
 - Updated README/TASKS. Next: remaining repository coverage, nonempty SQL golden and database coverage before ORM work. Reddit access/live AI timing blockers persist; paid scheduling follows Reddit.
+
+## 2026-11-02: iteration 188 — publisher citation transaction characterization
+
+- Started clean on main; no leftover work. API/worker/health healthy, 32 sources without errors; two historical ingestion failures unchanged.
+- Added disposable-Postgres publisher coverage for shared-topic candidate dedupe, enabled/deleted topic connections, removed opt-in hosts and stale-candidate writes.
+- Pinned engagement JSON, verification URL updates and stable first-seen provenance. A fixture-only final-write constraint failure proves citation inserts/updates and check state roll back together; successful retry recovers.
+- Initial integration run found fixture cleanup violating an observation FK and contaminating a later count; fixed cleanup order. A full check caught new archive formatting; corrected. Final `pnpm check` passed 99 unit/91 integration tests.
+- Updated README/TASKS and archived iterations 173–174 to keep PROGRESS below 25 KB. No paid inference, live settings/content writes or UI changes; browser verification unnecessary.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build` and `git diff --check` passed. Restarted API/worker; health DB/Redis true, SPA 200, queues available and no current source errors; latest real edition retains four topics/10 posts.
+- Next: remaining repository coverage, nonempty SQL golden and database coverage before ORM work. Reddit access/live AI timing blockers persist; paid scheduling follows Reddit.
