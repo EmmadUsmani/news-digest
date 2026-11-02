@@ -294,5 +294,7 @@ Community validation and persistence tests run against disposable SQL in `pnpm c
 Reddit storage preparation uses `collectReddit` through a listing/repository port.
 Migration 038 retains card metadata and metrics in `social_posts` with transactional
 per-topic associations; repeated collection updates the snapshot. It is not wired
-to scheduling or selection while access is blocked. X citation integration and
-Reddit ranking/cards remain unfinished. Synthetic fixtures are not live content.
+to scheduling while access is blocked. Migration 039 atomically retains X links
+from Reddit external URLs/selftext, including citing scores. They feed bounded X
+verification, topic scope and existing official-X selection; citations alone never
+verify a tweet. Reddit ranking/cards remain unfinished. Synthetic fixtures are not live content.

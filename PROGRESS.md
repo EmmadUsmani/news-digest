@@ -30,16 +30,6 @@ Earlier iterations 141–142: [archive](docs/progress-archive/2026-11-02-iterati
 
 Earlier iteration 143: [archive](docs/progress-archive/2026-11-02-iteration-143.md).
 
-## 2026-11-02: iteration 156 — bounded Anthropic rate-limit backoff
-
-- Started clean on main; no leftover work. API/worker healthy, 32 sources without current errors; digest queue has zero failures. Two historical ingestion failures remain retained.
-- STEERING 7 partial: ordinary HTTP 429 rejections retry at most twice within one existing reservation; default waits 1s/2s, honoring Retry-After seconds/dates up to 10s per wait. Longer deadlines fail rather than retry early.
-- Spend-limit responses remain immediate monthly blocks; transport/other HTTP failures never retry. Successful inference usage settles once; exhausted failures retain conservative reservations.
-- Fake HTTP tests cover retry recovery/exhaustion, one reservation/settlement, long deadlines, date parsing and non-retry failures. No live inference calls or spend.
-- `pnpm exec tsx --test apps/api/test/llm.test.ts`: 19 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and 157 isolated tests pass. Initial check caught SDK headers typed any; narrowed before green rerun.
-- `pnpm build` passes; restarted API/worker; `/healthz` healthy and `/api/digest-previews/latest` returns the stored four-topic edition. No new publication or schedule/source/UI changes; source docs unchanged.
-- Updated TASKS/docs/RANKING and archived progress 133–134 to stay below 25 KB. No new blocker; next: shared concurrency/parallel editors, async jobs/window dedupe/progress and full-edition timing. Item 7 remains open.
-
 ## 2026-11-02: iteration 157 — shared Anthropic concurrency
 
 - Started clean on main; no leftover work. API/worker healthy, 32 sources without current errors and no digest queue failures; two historical ingestion failures remain retained.
@@ -188,3 +178,13 @@ Earlier iteration 143: [archive](docs/progress-archive/2026-11-02-iteration-143.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (171 tests, types/lint/format/boundaries) and `pnpm build` passed. No UI changes; browser verification not applicable. README/TASKS/SOURCES updated; oldest progress entry archived.
 - `pnpm migrate` applied 038; restarted API/worker. `/healthz` DB/Redis true; `/api/status` 32 sources/no errors and zero failed digest/social jobs, all queues have workers.
 - Read-only `pnpm exec tsx scripts/report-edition-timing.ts`: same 856 ms scheduled fallback edition/four topics; budget unchanged (481910 micros spent, 848 available), no inference calls. Live AI latency remains unverified; next routine run Nov 3 15:00 UTC.
+
+## 2026-11-02: iteration 171 — Reddit citations enter official X pipeline
+
+- Started clean on main; no leftover work. API/worker/health healthy; 32 sources/no current errors, zero failed digest/social jobs; two historical ingestion failures retained.
+- Migration 039 adds deduplicated per-Reddit-post X evidence with citing score, author verification URL and cascading cleanup; storage replaces citations transactionally on edits.
+- Reddit citations now feed bounded X verification, topic association and existing X selection. Community breadth is not independence/virality; scores are retained, not inferred as tweet engagement. Only officially verified X posts can be selected.
+- Extended synthetic isolated tests cover score refresh, repeat links, no premature verification, topic isolation, X selection, edited-away links and rollback. Reddit access remains blocked; collection unscheduled; no live HTTP/inference used.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (171 tests, types/lint/format/boundaries) and `pnpm build` passed; documentation formatting rechecked after updates. No UI changes.
+- `pnpm migrate` applied 039; restarted API/worker; `/healthz` DB/Redis true, status 32 sources/no errors and all queue workers present. Timing report initially raced restart, then passed: unchanged 856 ms fallback edition/four topics, 481910 micros spent/848 available; next Nov 3 15:00 UTC.
+- Updated README/TASKS/SOURCES; archived oldest progress entry to keep orientation compact. Next: Reddit ranking/cards; real Reddit content and live AI latency remain blocked/unverified.

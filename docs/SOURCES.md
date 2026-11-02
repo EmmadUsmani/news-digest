@@ -1133,3 +1133,17 @@ communities per pass and stops on the first listing error. It is deliberately
 not connected to the hourly worker while denied public access remains unresolved.
 Isolated synthetic tests cover updates, rollback and topic scope; they do not
 constitute live ingestion. X citations, ranking and Reddit cards remain next.
+
+## Reddit X citations — iteration 171 (2026-11-02)
+
+Access remains **blocked**; no HTTP probe, inference call or live Reddit content
+was used. Migration 039 stores deduplicated X links from Reddit destinations and
+selftext with the citing post score. Evidence is replaced transactionally on edits
+and cascades on deletion. Existing topic associations scope X discovery and post
+selection; discovery breadth counts distinct communities, not repeated posts as
+independent sources. Retained scores are evidence, not a measured virality rank.
+The bounded X verifier uses the extracted author URL for official oEmbed; only a
+verified X post can enter selection. This follows the existing official X rendering
+path rather than rendering a Reddit wrapper for the tweet. Isolated synthetic tests
+cover repeated links, score refresh, edits, rollback, topic isolation and X selection.
+Collection remains unscheduled; Reddit ranking and faithful cards remain open.

@@ -5,7 +5,9 @@ import { test } from 'node:test';
 import { RedditListing } from '../src/modules/social/adapters/reddit-listing';
 import { collectReddit } from '../src/modules/social/application/collect-reddit';
 import { PostgresRedditRepository } from '../src/modules/social/database/reddit.repository';
+import { PostgresSocialRepository } from '../src/modules/social/database/social.repository';
 import type { RedditPost } from '../src/modules/social/domain/reddit';
+import { selectTopicPosts } from '../src/modules/social/public/selection';
 
 async function fixture() {
   const body = await readFile(
@@ -94,6 +96,66 @@ void test('Reddit storage preserves metadata, updates metrics, links configured 
       ).rows,
       [{ topic_id: nba }],
     );
+    const social = new PostgresSocialRepository();
+    const xId = '2116948532477468673';
+    assert.ok((await social.candidates(50)).includes(xId));
+    assert.equal(
+      await social.verificationUrl(xId),
+      `https://twitter.com/fixture/status/${xId}`,
+    );
+    assert.equal(
+      (await social.topicPosts(nba)).some((p) => p.externalId === xId),
+      false,
+    );
+    const citations = () =>
+      repository.db.query(
+        'SELECT * FROM reddit_x_citations WHERE reddit_id=$1',
+        [post.externalId],
+      );
+    assert.equal((await citations()).rows.length, 1);
+    assert.equal((await citations()).rows[0].citing_engagement, 12345);
+    await social.store({
+      platform: 'x',
+      externalId: xId,
+      url: `https://x.com/i/web/status/${xId}`,
+      author: 'fixture',
+      authorUrl: 'https://twitter.com/fixture',
+      publishedAt: post.publishedAt,
+      metrics: {},
+      embedHtml:
+        '<blockquote class="twitter-tweet"><p lang="en">NBA synthetic highlight</p></blockquote>',
+    });
+    assert.ok((await social.topicPosts(nba)).some((p) => p.externalId === xId));
+    assert.equal(
+      (await social.topicPosts(gaming)).some((p) => p.externalId === xId),
+      false,
+    );
+    const picks = await selectTopicPosts(
+      repository.db,
+      nba,
+      { includeAny: ['NBA'], excludeAny: [] },
+      new Date(post.publishedAt),
+      new Date(Date.parse(post.publishedAt) + 1000),
+      5,
+    );
+    assert.equal(picks[0]?.platform, 'x');
+    assert.equal(picks[0]?.externalId, xId);
+    // Repeated links count once; edited-away citations are removed, not accumulated.
+    await repository.store(
+      [{ ...post, text: `${post.externalUrl} ${post.externalUrl}` }],
+      [nba],
+    );
+    assert.equal((await citations()).rows.length, 1);
+    await repository.store([{ ...post, externalUrl: null, text: '' }], [nba]);
+    assert.equal((await citations()).rows.length, 0);
+    assert.equal(
+      (await social.topicPosts(nba)).some((p) => p.externalId === xId),
+      false,
+    );
+    await repository.store(
+      [{ ...post, metrics: { ...post.metrics, score: 12345 } }],
+      [nba],
+    );
     await assert.rejects(
       repository.store(
         [
@@ -103,6 +165,7 @@ void test('Reddit storage preserves metadata, updates metrics, links configured 
         [nba],
       ),
     );
+    assert.equal((await citations()).rows[0].citing_engagement, 12345);
     assert.equal(
       (
         await repository.db.query(
@@ -122,6 +185,9 @@ void test('Reddit storage preserves metadata, updates metrics, links configured 
       0,
     );
   } finally {
+    await repository.db.query(
+      "DELETE FROM social_posts WHERE platform='x' AND external_id='2116948532477468673'",
+    );
     await repository.db.query(
       `DELETE FROM social_posts WHERE platform='reddit' AND external_id=ANY($1::text[])`,
       [posts.map((p) => p.externalId)],

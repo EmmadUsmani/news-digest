@@ -1,4 +1,5 @@
 import { database } from '../../../libs/db/connections';
+import { extractXLinks } from '../../ingestion/public/discovery';
 import type { RedditCollectionRepository, RedditPost } from '../domain/reddit';
 
 export class PostgresRedditRepository implements RedditCollectionRepository {
@@ -39,6 +40,26 @@ export class PostgresRedditRepository implements RedditCollectionRepository {
             },
           ],
         );
+        // Replace a post's evidence atomically when its text or destination changes.
+        await client.query(
+          'DELETE FROM reddit_x_citations WHERE reddit_id=$1',
+          [post.externalId],
+        );
+        for (const link of extractXLinks(
+          `${post.externalUrl ?? ''} ${post.text}`,
+        )) {
+          await client.query(
+            `INSERT INTO reddit_x_citations(reddit_id,external_id,canonical_url,verification_url,citing_engagement)
+             VALUES($1,$2,$3,$4,$5)`,
+            [
+              post.externalId,
+              link.externalId,
+              link.url,
+              link.verificationUrl ?? null,
+              post.metrics.score ?? 0,
+            ],
+          );
+        }
         for (const topicId of topicIds) {
           // Recheck configuration on write so disabled/removed communities do not gain associations.
           await client.query(
