@@ -501,3 +501,29 @@ hand-selected agent labels, not a production rate. Simple punctuation/newline
 splitting can reject valid quotes or abbreviations and cannot resolve cross-sentence
 attribution or semantic entailment. No paid replay or published edition validates
 this change; broader independently reviewed support evaluation remains next.
+
+### Iteration 70: paired clause-support challenges across topics
+
+`pnpm evaluate:support` now adds eight explicitly synthetic minimal pairs across
+Tech & AI, NBA, Gaming and World. Each pair holds evidence fixed and changes a
+supported claim into an unsupported one: attribution, uncertainty, causation,
+quantity, population scope, planned versus completed events, attribution carried
+by a previous sentence, and an invented second clause. The report exposes each
+pair's support/rejection decisions, claim, evidence and provisional reason.
+Tests enforce shared evidence, opposite labels and four-topic coverage without
+requiring current validator weaknesses to persist.
+
+All eight new unsupported claims pass the existing lexical guard. Seven supported
+partners pass; the cross-sentence attributed paraphrase fails, while the naked
+negative sentence passes because it matches a complete evidence sentence. This
+shows why whole-sentence matching alone cannot retain attribution across sentence
+boundaries. The expanded 28-case set has 12 supported/16 unsupported labels,
+three supported rejections and thirteen unsupported acceptances. These selected,
+agent-authored examples are diagnostic challenges, not production rates or an
+independently reviewed evaluation. The original twelve-case results are unchanged.
+
+No guard, prompt, model, cache identity or published edition changed. Next:
+measure broader support on recorded output fields and independent labels before
+choosing a general validation approach; avoid treating a longer lexical trigger
+list as a solution to clause entailment. Additional real dates/Gaming windows,
+full-article inputs and scheduled batching remain unfinished.

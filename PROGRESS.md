@@ -276,3 +276,16 @@ Earlier iterations 23–37: [archive](docs/progress-archive/2026-11-01-iteration
 - Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed.
 - No paid replay or evaluation edition published; incremental inference $0. Actual day/month $0.408415, zero reservations/provider errors; $0.482758 daily/$14 monthly caps.
 - Updated TASKS/docs/RANKING; no owner blockers. Next: broader clause-support and independently reviewed false-rejection evaluation, later dates/Gaming, scheduled Message Batches and cross-process coordination. M3 remains open.
+
+## 2026-11-02: iteration 70 — evaluate paired clause support
+
+- Started clean on main; no leftover work. Services/health, seventeen active sources and retained digest runs healthy; historical ingestion failure has later successes. Schedule unchanged.
+- Added eight synthetic fixed-evidence support/unsupported pairs across all four topics: attribution, certainty, causation, quantity, scope, time, cross-sentence attribution and added clauses; report exposes per-pair decisions.
+- Expanded audit: 12 supported/16 unsupported; three supported rejections and thirteen unsupported acceptances. All eight new unsupported variants pass; cross-sentence attributed paraphrase fails while its unattributed exact sentence passes.
+- These are hand-selected agent judgments, not independent review or production rates. No production guard/prompt/cache changes or published evaluation edition; broader recorded-output review remains needed.
+- Tests verify fixed evidence, opposite labels, four-topic coverage and report accounting without pinning known guard weaknesses. Updated TASKS/docs/RANKING; no source changes or owner blockers.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and 93 isolated tests; `pnpm build`, `pnpm evaluate:editorial`, `pnpm evaluate:support` passed.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live passes: 726 real URLs, four topics, seventeen healthy sources. API/worker rebuilt/restarted; `/healthz` healthy.
+- `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; status screenshots refreshed.
+- No inference spending; day/month actual $0.408415, zero reservations/provider errors, $0.482758 daily/$14 monthly caps. Provider/models/billing unchanged.
+- Next: recorded clause-support evaluation with independent labels/later dates/Gaming; scheduled Message Batches and cross-process cache coordination remain open. M3 remains unfinished.
