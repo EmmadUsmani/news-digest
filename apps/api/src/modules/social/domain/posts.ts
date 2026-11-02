@@ -4,7 +4,8 @@ export interface SocialPost {
   url: string;
   author: string;
   authorUrl: string;
-  // oEmbed supplies neither authoritative engagement nor a structured post time.
+  // Time is decoded from a verified modern X Snowflake ID; legacy IDs stay null.
+  // oEmbed supplies no authoritative engagement.
   publishedAt: string | null;
   metrics: Record<string, number>;
   embedHtml: string;

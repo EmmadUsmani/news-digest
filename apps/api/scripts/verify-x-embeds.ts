@@ -10,6 +10,7 @@ async function main() {
   let verified = 0;
   let failed = 0;
   try {
+    const timestampsUpdated = await repository.refreshMissingTimes();
     for (const id of await repository.candidates(10)) {
       let post;
       try {
@@ -32,7 +33,7 @@ async function main() {
       await repository.checked(id, null);
       verified++;
     }
-    console.log(JSON.stringify({ verified, failed }));
+    console.log(JSON.stringify({ verified, failed, timestampsUpdated }));
   } finally {
     await repository.db.end();
   }

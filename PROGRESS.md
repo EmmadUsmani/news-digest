@@ -353,3 +353,16 @@ Earlier iterations 23–37: [archive](docs/progress-archive/2026-11-01-iteration
 - Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; status screenshots refreshed.
 - No inference spending; actual day/month $0.408415, no reservations/provider errors; provider/models/billing unchanged. Updated TASKS/README/docs/SOURCES; no owner blocker.
 - Next: window metadata, relevance filtering, immutable post selection/lazy official widgets; scheduled harvesting, Reddit and capped direct xAI remain open.
+
+## 2026-11-02: iteration 90 — date verified X posts for coverage windows
+
+- Started clean on main; no leftover work. API/worker/health healthy; retained digest runs and source telemetry passed status smoke.
+- Decode modern verified X Snowflake IDs with BigInt into millisecond publication time. Legacy/transition-era, malformed, oversized and future IDs remain undated; citation dates and engagement never become post metadata.
+- Explicit embed verifier backfills missing timestamps on already verified posts without HTTP; repeated backfills are idempotent and embed refreshes cannot erase known times with null.
+- Live repository backfill dated all ten verified posts, 2026-11-01 03:04:31.487Z–06:46:05.919Z; no inference or external requests for this backfill. No migration needed.
+- Added offline precision/future/legacy regressions and isolated Postgres backfill/evidence-preservation/upsert checks; synthetic fixtures are not live content.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and all 103 isolated tests; `pnpm build` passed.
+- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued passes: 786 real article URLs, four topics, seventeen healthy sources.
+- `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed. Updated TASKS/docs/SOURCES.
+- No inference spending or provider/model/billing changes; no new owner blockers. Reddit's previously observed 403 remains unresolved without workarounds.
+- Next: topical/crypto filtering, window-aware immutable selections and lazy official widgets; posts remain absent from digests. Scheduled harvesting and capped direct xAI remain open.

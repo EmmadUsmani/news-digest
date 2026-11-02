@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 import { extractXLinks, type HttpPort } from '../../ingestion/public/discovery';
 import type { PostVerificationPort, SocialPost } from '../domain/posts';
+import { xPostTime } from '../domain/x-post-time';
 
 const responseSchema = z.object({
   type: z.literal('rich'),
@@ -62,7 +63,7 @@ export class XOfficialEmbed implements PostVerificationPort {
       url: `https://x.com/i/web/status/${externalId}`,
       author: response.author_name,
       authorUrl: response.author_url,
-      publishedAt: null,
+      publishedAt: xPostTime(externalId),
       metrics: {},
       embedHtml: response.html,
     };

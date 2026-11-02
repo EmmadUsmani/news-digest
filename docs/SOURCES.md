@@ -328,3 +328,20 @@ Ten real posts verified and stored after these fixes; post timestamps and
 engagement remain unknown. They are not yet selected or displayed in digests.
 The earlier claim of endpoint-wide blocking is superseded by this live result.
 Recorded river markup excerpts remain offline fixtures, never production input.
+
+### Iteration 90: verified X post time
+
+Official oEmbed still supplies no structured publication time or engagement.
+After official verification, modern X Snowflake IDs yield millisecond creation
+time from their high bits and the X epoch (1288834974657). BigInt preserves ID
+precision. Legacy/transition-era decoded dates before 2011, malformed IDs,
+IDs beyond signed 64-bit range and future timestamps remain unknown. Citation
+observation times are never used as post times; metrics remain empty.
+
+The explicit embed verifier now also backfills missing times on already verified
+stored posts without HTTP requests, preserving evidence and verification times.
+Repeated backfills do nothing; later embed refreshes fill missing publication
+time and never erase a known time with null. No database migration is needed.
+Live backfill dated all ten existing verified posts: 2026-11-01 03:04:31.487Z
+through 06:46:05.919Z. This establishes window metadata, not topical relevance,
+virality or selection eligibility by itself. Posts are still absent from digests.

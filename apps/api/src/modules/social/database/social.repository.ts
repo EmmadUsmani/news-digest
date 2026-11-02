@@ -1,5 +1,6 @@
 import { database } from '../../../libs/db/connections';
 import type { SocialPost } from '../domain/posts';
+import { xPostTime } from '../domain/x-post-time';
 
 export class PostgresSocialRepository {
   readonly db = database();
@@ -71,7 +72,7 @@ export class PostgresSocialRepository {
     await this.db.query(
       `INSERT INTO social_posts(platform,external_id,canonical_url,author,author_url,published_at,metrics,embed_html)
        VALUES($1,$2,$3,$4,$5,$6,$7,$8) ON CONFLICT(platform,external_id)
-       DO UPDATE SET author=EXCLUDED.author,author_url=EXCLUDED.author_url,embed_html=EXCLUDED.embed_html,verified_at=now()`,
+       DO UPDATE SET published_at=COALESCE(EXCLUDED.published_at,social_posts.published_at),author=EXCLUDED.author,author_url=EXCLUDED.author_url,embed_html=EXCLUDED.embed_html,verified_at=now()`,
       [
         post.platform,
         post.externalId,
@@ -83,6 +84,22 @@ export class PostgresSocialRepository {
         post.embedHtml,
       ],
     );
+  }
+  async refreshMissingTimes(now = new Date()): Promise<number> {
+    const posts = await this.db.query<{ external_id: string }>(
+      "SELECT external_id FROM social_posts WHERE platform='x' AND published_at IS NULL",
+    );
+    let updated = 0;
+    for (const post of posts.rows) {
+      const time = xPostTime(post.external_id, now);
+      if (!time) continue;
+      const result = await this.db.query(
+        "UPDATE social_posts SET published_at=$2 WHERE platform='x' AND external_id=$1 AND published_at IS NULL",
+        [post.external_id, time],
+      );
+      updated += result.rowCount ?? 0;
+    }
+    return updated;
   }
   async checked(externalId: string, error: string | null) {
     await this.db.query(
