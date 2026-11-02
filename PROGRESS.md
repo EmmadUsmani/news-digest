@@ -248,3 +248,14 @@ Earlier iterations 87–100: [archive](docs/progress-archive/2026-11-02-iteratio
 - `screen-social-posts.ts 2026-11-01T20:40:00Z 2026-11-02T20:40:00Z`: semantic pools still Tech 9/NBA 26/Gaming 1/World 2. Gaming has 18 scoped verified posts, 17 outside window.
 - Updated TASKS/docs/SOURCES. No publication/inference/discovery spend/provider/model/billing change or new owner blocker: Anthropic $0.408415; X $0.023382; no reservations/errors.
 - Next: inspect scheduled 20:40 UTC semantic edition; Gaming/World daily fallback gaps and Reddit block remain. Keep paid X scheduling off.
+
+## 2026-11-02: iteration 132 — broader World reporting via Al Jazeera RSS
+
+- Started clean on main; no leftover work. API/worker/health, feeds and retained digest runs healthy; first scheduled semantic social edition still due 20:40 UTC. Historical ingestion failures retained; current collection succeeds.
+- Public Al Jazeera RSS returned 25 articles/no X links; three sampled article pages returned 200/no citations. France 24 general RSS returned 24 entries/no citations, three video pages 200/no citations; attempted international feed path 404. No page harvesting configured, bypass or social improvement claimed. Temporary probe removed.
+- Migration 031 connects Al Jazeera public general RSS to original World topic; includes some sports/opinion, so collection is not selection. Two original entries recorded for offline headline/date/host/excerpt/absent-metadata checks; fixtures are not live evidence.
+- `pnpm migrate`; `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued passes, 25 new-source articles, 1,144 URLs/four topics/27 healthy sources; repeat idempotent.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 140 isolated tests pass. `pnpm build` passes (existing upstream Zod warnings).
+- Restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; refreshed screenshots and inspected mobile Al Jazeera source card.
+- Updated TASKS/docs/SOURCES. No publication, inference/discovery spend, provider/model/billing change or new owner blocker: Anthropic $0.408415; X $0.023382; no reservations/errors.
+- Next: inspect scheduled 20:40 UTC semantic social edition. Gaming/World social fallback gaps and Reddit block remain; keep paid X scheduling off.

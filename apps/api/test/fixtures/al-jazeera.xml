@@ -1,0 +1,36 @@
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/"
+	>
+	<channel>
+		<atom:link href="https://www.aljazeera.com/xml/rss/all.xml" rel="self" type="application/rss+xml"/>
+		<title>Al Jazeera &#8211; Breaking News, World News and Video from Al Jazeera</title>
+		<link>https://www.aljazeera.com</link>
+		<managingEditor>apps.support@aljazeera.net (Apps Support)</managingEditor>
+		<webMaster>apps.support@aljazeera.net (Apps Support)</webMaster>
+		<description>Breaking News, World News and Video from Al Jazeera</description>
+		<copyright>© 2026 Al Jazeera Media Network</copyright>
+		<lastBuildDate>Mon, 02 Nov 2026 10:25:22 +0000</lastBuildDate>
+		<language>en</language>
+		<image>
+			<url>https://www.aljazeera.com/images/logo_aje.png</url>
+			<title>Al Jazeera &#8211; Breaking News, World News and Video from Al Jazeera</title>
+			<link>https://www.aljazeera.com</link>
+			<description>Breaking News, World News and Video from Al Jazeera</description>
+		</image>
+		<generator>https://wordpress.org/?v=7.0.8</generator>
+<site xmlns="com-wordpress:feed-additions:1">213497099</site>			<item>
+				<link>https://www.aljazeera.com/news/2026/11/2/sudan-files-complaints-against-ethiopia-with-un-over-deadly-drone-spree?traffic_source=rss</link>
+				<title>Sudan files complaints against Ethiopia with UN over deadly drone spree</title>
+				<description><![CDATA[One-way drone attacks have killed or wounded 484 civilians since February, Khartoum says.]]></description>
+				<pubDate>Mon, 02 Nov 2026 10:25:22 +0000</pubDate>
+				<category>News</category>
+				<guid isPermaLink="false">https://www.aljazeera.com/?t=1793609585</guid>
+				<post-id xmlns="com-wordpress:feed-additions:1">5110431</post-id>			</item><item>
+				<link>https://www.aljazeera.com/news/2026/11/2/jailed-pkk-founder-ocalan-moved-to-new-section-of-turkish-island-prison?traffic_source=rss</link>
+				<title>Jailed PKK founder Ocalan moved to new section of Turkish island prison</title>
+				<description><![CDATA[Improving prison conditions for Abdullah Ocalan has been a key Kurdish demand in push to end PKK-Turkiye conflict.]]></description>
+				<pubDate>Mon, 02 Nov 2026 10:24:47 +0000</pubDate>
+				<category>News</category>
+				<guid isPermaLink="false">https://www.aljazeera.com/?t=1793607790</guid>
+				<post-id xmlns="com-wordpress:feed-additions:1">5110431</post-id>			</item>
+			</channel>
+</rss>

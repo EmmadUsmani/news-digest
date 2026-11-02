@@ -137,6 +137,7 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Direct platform announcement coverage: PlayStation Blog + Xbox Wire, 20 real stored posts with offline fixtures (iteration 32).
   - [x] Direct AI announcements: OpenAI News + Google DeepMind with bounded compressed feed support (iteration 34).
   - [x] PC Gamer + Rock Paper Shotgun feeds: 110 real articles and broader current Gaming selections, with offline fixtures (iteration 36).
+  - [x] Al Jazeera public RSS broadens World reporting (iteration 132); 25 real articles, no observed X citations, page harvesting disabled. General feed includes some sports/opinion; selection still applies.
   - widen sources per topic (Reddit, Bluesky, more publishers)
   - precision tuning
   - [x] Publisher lead images in new immutable editions, responsive display and graceful image failures (iteration 35).

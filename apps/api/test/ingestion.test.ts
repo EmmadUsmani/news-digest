@@ -24,6 +24,7 @@ void test('recorded RSS and Atom normalize real headlines, dates and safe links'
     'gamespot.xml',
     'hoopsrumors.xml',
     'destructoid.xml',
+    'al-jazeera.xml',
     'npr-world.xml',
     'guardian-world.xml',
   ]) {
@@ -96,6 +97,30 @@ void test('recorded GamesRadar and GameSpot feeds retain publisher X citations a
     spot.every((item) => new URL(item.url).hostname === 'www.gamespot.com'),
   );
   assert.ok([...radar, ...spot].every((item) => item.excerpt.length <= 1500));
+});
+void test('recorded Al Jazeera RSS retains World headlines and dates without inventing social citations', async () => {
+  const items = parseFeed(await fixture('al-jazeera.xml'));
+  assert.equal(
+    items[0].title,
+    'Sudan files complaints against Ethiopia with UN over deadly drone spree',
+  );
+  assert.equal(items[0].publishedAt, '2026-11-02T10:25:22.000Z');
+  assert.equal(items[1].publishedAt, '2026-11-02T10:24:47.000Z');
+  assert.ok(
+    items.every((item) => new URL(item.url).hostname === 'www.aljazeera.com'),
+  );
+  assert.ok(
+    items.every(
+      (item) => item.excerpt.length > 0 && item.excerpt.length <= 1500,
+    ),
+  );
+  assert.ok(
+    items.every((item) => item.author === null && item.imageUrl === null),
+  );
+  assert.deepEqual(
+    items.flatMap((item) => item.xLinks ?? []),
+    [],
+  );
 });
 void test('recorded Destructoid RSS preserves encoded-content citations without promoting guide links', async () => {
   const items = parseFeed(await fixture('destructoid.xml'));

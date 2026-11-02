@@ -908,3 +908,21 @@ posts, disabled post budgets and the initial SQL cap. Source statuses unchanged.
   across 26 healthy sources. Bounded `verify-x-embeds.ts` verified the one
   new citation with no failures; Gaming now has 18 scoped verified posts,
   17 outside the upcoming window. Readiness remains 9/26/1/2 by topic.
+
+## Al Jazeera World coverage — iteration 132 (2026-11-02)
+
+- **live:** `https://www.aljazeera.com/xml/rss/all.xml` returned 25 real
+  articles, including Sudan, Yemen and US election coverage. Migration 031
+  connects it to the original World topic. This is a general feed with some
+  sports/opinion content; collection does not imply editorial selection.
+- No X links in the feed or three sampled public articles (all HTTP 200).
+  Publisher-page harvesting stays disabled; no social coverage gain claimed.
+- France 24's general English RSS returned 24 entries/no X links; three
+  sampled video pages returned 200/no links. The attempted international RSS
+  path returned 404. Not configured. No bypass, paid discovery or inference.
+- Two original Al Jazeera RSS entries are recorded for offline headline,
+  timestamp, host, excerpt and absent-metadata/citation checks. Fixtures are
+  not live evidence.
+- `pnpm migrate` and two queued `smoke-ingestion.ts` passes stored 25 new
+  Al Jazeera articles; repeated collection was idempotent. Total: 1,144 stored
+  URLs across four topics and 27 healthy sources. No new edition published.
