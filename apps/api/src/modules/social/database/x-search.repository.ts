@@ -2,7 +2,10 @@ import type { Pool } from 'pg';
 
 import type { DiscoveredLink } from '../domain/collection.port';
 import type { ScheduledSearchTopic } from '../domain/scheduled-search';
-import type { XSearchRepository } from '../domain/x-search.port';
+import type {
+  XReportedEngagement,
+  XSearchRepository,
+} from '../domain/x-search.port';
 
 export class PostgresXSearchRepository implements XSearchRepository {
   constructor(readonly db: Pool) {}
@@ -50,7 +53,12 @@ export class PostgresXSearchRepository implements XSearchRepository {
     );
     return rows[0];
   }
-  async save(topicId: string, callId: string, links: DiscoveredLink[]) {
+  async save(
+    topicId: string,
+    callId: string,
+    links: DiscoveredLink[],
+    reportedEngagement: XReportedEngagement[] = [],
+  ) {
     const client = await this.db.connect();
     try {
       await client.query('BEGIN');
@@ -58,16 +66,20 @@ export class PostgresXSearchRepository implements XSearchRepository {
       await client.query('SELECT pg_advisory_xact_lock(756284)');
       for (const link of links)
         await client.query(
-          `INSERT INTO x_search_citations(call_id,topic_id,external_id,canonical_url,verification_url,new_candidate)
+          `INSERT INTO x_search_citations(call_id,topic_id,external_id,canonical_url,verification_url,new_candidate,reported_engagement)
          VALUES($1,$2,$3,$4,$5,
            NOT EXISTS(SELECT 1 FROM social_posts WHERE platform='x' AND external_id=$3)
-           AND NOT EXISTS(SELECT 1 FROM x_search_citations WHERE external_id=$3)) ON CONFLICT DO NOTHING`,
+           AND NOT EXISTS(SELECT 1 FROM x_search_citations WHERE external_id=$3),$6) ON CONFLICT DO NOTHING`,
           [
             callId,
             topicId,
             link.externalId,
             link.url,
             link.verificationUrl ?? null,
+            // Citation-bound reports stay separate from officially verified posts.
+            reportedEngagement.find(
+              (report) => report.externalId === link.externalId,
+            ) ?? null,
           ],
         );
       await client.query('COMMIT');

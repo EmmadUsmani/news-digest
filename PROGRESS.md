@@ -116,18 +116,6 @@ Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
 
 Iteration 252: [archive](docs/progress-archive/2026-11-02-iteration-252.md).
 
-## 2026-11-02: iteration 253 — missing post-time recovery
-
-- Started clean on main; services, health and 32 sources healthy; no leftover work.
-- Priority 15/13/7/9 evidence awaits Nov 3; advanced isolated STEERING 2a.
-- Pinned missing verified-X publication-time recovery, millisecond future admission, invalid/legacy IDs and overflow rejection.
-- Existing timestamps, Reddit fixtures and all other evidence remain intact; repeated backfill is idempotent.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 150 integration), `pnpm build`, `git diff --check` passed.
-- Fixed two fixture constraints found by initial checks (numeric X IDs and required Reddit metadata); rerun passed.
-- API/worker restarted healthy; SPA 200, 32 error-free sources, four available queues and four-topic latest edition.
-- Updated TASKS/database notes; archived iteration 235 to keep PROGRESS bounded. No provider or Reddit requests.
-- Next: observe Nov 3 all-topic X cost/yield and scheduled AI cost/duration before acknowledging 15/13/7.
-
 ## 2026-11-02: iteration 254 — concurrent publisher recovery
 
 - Started clean on main; services, health and all 32 sources healthy; no leftover work.
@@ -358,3 +346,16 @@ Iteration 252: [archive](docs/progress-archive/2026-11-02-iteration-252.md).
 - API/worker restarted; health, SPA HTTP 200 and four-topic latest edition checked.
 - Archived iteration 252; started clean. Push rejected by owner STEERING update; merged it (Reddit stays parked, official OAuth API only).
 - Next: persist reported observations and rank by engagement/age plus relevance; Nov 3 scheduled evidence still pending.
+
+## 2026-11-02: iteration 273 — persist reported X engagement
+
+- Started clean on main; API/worker, health and all 32 sources healthy.
+- Search orchestration passes citation-bound model reports into transactional citation storage.
+- Migration 045 adds nullable JSONB per search citation; provenance/time/unknown counts survive.
+- Reports remain separate from official oEmbed verification and social-post metrics; no ranking/display claim.
+- Isolated test checks zero counts, missing fields, uncited report exclusion and immutable retries.
+- No paid discovery, Anthropic or Reddit requests; scheduled account-list path unchanged.
+- Verified: `pnpm format`, `pnpm lint:fix`, `pnpm check` (127 unit/165 integration), `pnpm build`.
+- Applied `pnpm migrate`; API/worker restarted active, health OK, SPA 200, latest four-topic edition accessible.
+- Archived iteration 253 to keep PROGRESS bounded; no leftover work to recover.
+- Next: engagement/age ranking plus relevance, search-type reporting; Nov 3 scheduled evidence pending.

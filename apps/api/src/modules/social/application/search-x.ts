@@ -50,7 +50,12 @@ export async function searchX(
         }
       : price;
   await ledger.settle(callId, result.usage, billedPrice);
-  await repository.save(topicId, callId, result.links);
+  await repository.save(
+    topicId,
+    callId,
+    result.links,
+    result.reportedEngagement,
+  );
   return {
     state: 'completed' as const,
     callId,

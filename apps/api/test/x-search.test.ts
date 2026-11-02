@@ -336,6 +336,13 @@ void test('X citations join enabled topic verification/selection, preserve call 
   const ledger = new PostgresXDiscoveryLedger(social.db);
   const topicId = crypto.randomUUID();
   const calls: string[] = [];
+  const report = {
+    externalId,
+    reported_by: 'xai_search' as const,
+    observedAt: '2026-11-02T12:00:00Z',
+    likes: 0,
+    views: 12000,
+  };
   try {
     const seeds = await social.db.query<{ accounts: string[] }>(
       "SELECT accounts FROM topics WHERE id='00000000-0000-4000-8000-000000000014'",
@@ -351,12 +358,19 @@ void test('X citations join enabled topic verification/selection, preserve call 
       topicId,
       'offline-x-search',
       request,
-      new DirectXSearch('fixture', fake(fixture())),
+      {
+        search: async () => ({
+          ...(await new DirectXSearch('fixture', fake(fixture())).search(
+            request,
+          )),
+          reportedEngagement: [report, { ...report, externalId: 'uncited' }],
+        }),
+      },
       ledger,
       {
-        save: async (topic, call, links) => {
+        save: async (topic, call, links, reports) => {
           calls.push(call);
-          await repository.save(topic, call, links);
+          await repository.save(topic, call, links, reports);
           await repository.save(topic, call, links);
         },
       },
@@ -373,6 +387,14 @@ void test('X citations join enabled topic verification/selection, preserve call 
       ).rowCount,
       1,
     );
+    const storedReports = await social.db.query(
+      'SELECT external_id,reported_engagement FROM x_search_citations WHERE call_id=$1',
+      calls,
+    );
+    assert.deepEqual(storedReports.rows, [
+      { external_id: externalId, reported_engagement: report },
+    ]);
+    // Retry without reports cannot erase the original observation; uncited reports never persist.
     assert.deepEqual(await repository.verificationCandidates(calls[0]), [
       externalId,
     ]);

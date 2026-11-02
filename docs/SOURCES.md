@@ -1322,3 +1322,14 @@ observations. Billed usage survives malformed output. Synthetic offline tests
 only; no live quality/virality claim. Persistence, age-relative ranking and
 search-type reporting remain next; the scheduled account-list path stays in
 place pending the first STEERING 15 run acknowledgement.
+
+## Reported X engagement persistence — iteration 273 (2026-11-02)
+
+Search citations now retain each search's reported engagement JSON, including
+`reported_by: xai_search` and observed-at time. Missing observations remain SQL
+NULL; retries preserve the original report, and uncited reports are not saved.
+These observations are separate from official oEmbed verification and from
+`social_posts.metrics`; they do not yet affect ranking or displayed engagement.
+Isolated synthetic tests cover provenance, zero counts and retry preservation.
+No paid discovery or Reddit requests were made. Age-relative ranking and
+search-type reporting remain open; the scheduled account-list path is unchanged.

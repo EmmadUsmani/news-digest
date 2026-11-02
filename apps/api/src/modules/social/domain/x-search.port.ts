@@ -33,5 +33,10 @@ export class XSearchError extends Error {
   }
 }
 export interface XSearchRepository {
-  save(topicId: string, callId: string, links: DiscoveredLink[]): Promise<void>;
+  save(
+    topicId: string,
+    callId: string,
+    links: DiscoveredLink[],
+    reportedEngagement?: XReportedEngagement[],
+  ): Promise<void>;
 }
