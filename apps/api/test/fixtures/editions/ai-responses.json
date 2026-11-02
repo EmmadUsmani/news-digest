@@ -1,0 +1,51 @@
+{
+  "triage": {
+    "items": [
+      {
+        "id": "00000000-0000-4000-8000-000000000880",
+        "relevance": 9,
+        "importance": 8,
+        "event": "Lunar images",
+        "rationale": "Relevant science reporting."
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000882",
+        "relevance": 0,
+        "importance": 0,
+        "event": "Betting promotion",
+        "rationale": "Unrelated promotion."
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000881",
+        "relevance": 9,
+        "importance": 7,
+        "event": "Research station",
+        "rationale": "Relevant science reporting."
+      }
+    ]
+  },
+  "editor": {
+    "brief": [
+      "Lunar telescope sends images.",
+      "Coastal observatory opens a station."
+    ],
+    "stories": [
+      {
+        "id": "00000000-0000-4000-8000-000000000880",
+        "evidenceIds": ["00000000-0000-4000-8000-000000000880"],
+        "headline": "Lunar telescope sends its first images",
+        "summary": "Lunar telescope sends its first images.",
+        "whyItMatters": "A science research update.",
+        "rationale": "Relevant science reporting."
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000881",
+        "evidenceIds": ["00000000-0000-4000-8000-000000000881"],
+        "headline": "Coastal observatory opens a research station",
+        "summary": "Coastal observatory opens a research station.",
+        "whyItMatters": "A science research update.",
+        "rationale": "Relevant science reporting."
+      }
+    ]
+  }
+}

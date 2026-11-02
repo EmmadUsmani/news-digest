@@ -153,3 +153,18 @@ snapshot metadata differs, and caller mutations cannot change later reads.
 Offset timestamps normalize to UTC while window milliseconds survive history
 mapping. Fixtures exist only in disposable PostgreSQL; no provider calls occur.
 AI golden and other repository behavior gaps remain open.
+
+## AI edition golden characterization (iteration 235)
+
+`edition-golden.test.ts` now runs the same fixed content through fallback and
+AI publication in disposable PostgreSQL. The AI case injects a synthetic
+`LlmPort` with explicit triage/editor responses, exercises real `BudgetedLlm`,
+`CandidateTriage` and `ShortlistEditor`, and compares the complete stable
+snapshot with `ai-golden.json`. Only edition ID and creation time are excluded.
+The golden pins source URLs, excerpts, evidence, semantic scores, editor text,
+quality rejection and window boundaries. A second generation produces a new ID
+and identical content from cache, without another LLM call; the first stored
+edition remains unchanged. The ledger/cache are in memory; no provider or Reddit
+requests occur. These are synthetic responses, not recorded live responses.
+Remaining repository behavior gaps and recorded-response golden coverage stay
+open; this step alone does not complete STEERING 2a or 4.

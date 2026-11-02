@@ -1,0 +1,147 @@
+{
+  "windowStart": "2024-02-01T00:00:00.000Z",
+  "windowEnd": "2024-02-02T00:00:00.000Z",
+  "method": "editorial-v1",
+  "topics": [
+    {
+      "id": "00000000-0000-4000-8000-000000000879",
+      "name": "Golden science",
+      "candidateCount": 3,
+      "stories": [
+        {
+          "imageUrl": null,
+          "id": "00000000-0000-4000-8000-000000000880",
+          "title": "Lunar telescope sends its first images",
+          "url": "https://example.org/golden/0",
+          "excerpt": "Fixture reporting.",
+          "publishedAt": "2024-02-01T18:00:00.000Z",
+          "sources": ["Golden publisher"],
+          "score": 7.5,
+          "reasons": [
+            "Recency: 7.5/10",
+            "Observed in 1 source label (independence unverified; no score bonus)",
+            "HN engagement: 0.0/10",
+            "Headline cluster: 1 article; 1 observed source label (independence unverified); no extra score bonus",
+            "Semantic relevance 9/10; importance 8/10: Relevant science reporting.",
+            "Editor: Relevant science reporting."
+          ],
+          "coverage": [
+            {
+              "id": "00000000-0000-4000-8000-000000000880",
+              "title": "Lunar telescope sends its first images",
+              "url": "https://example.org/golden/0",
+              "publishedAt": "2024-02-01T18:00:00.000Z",
+              "sources": ["Golden publisher"]
+            }
+          ],
+          "evidence": [
+            {
+              "id": "00000000-0000-4000-8000-000000000880",
+              "title": "Lunar telescope sends its first images",
+              "url": "https://example.org/golden/0",
+              "excerpt": "Fixture reporting.",
+              "sources": ["Golden publisher"],
+              "publishedAt": "2024-02-01T18:00:00.000Z"
+            }
+          ],
+          "summary": "Lunar telescope sends its first images.",
+          "whyItMatters": "A science research update."
+        },
+        {
+          "imageUrl": null,
+          "id": "00000000-0000-4000-8000-000000000881",
+          "title": "Coastal observatory opens a research station",
+          "url": "https://example.org/golden/1",
+          "excerpt": "Fixture reporting.",
+          "publishedAt": "2024-02-01T00:00:00.000Z",
+          "sources": ["Golden publisher"],
+          "score": 2,
+          "reasons": [
+            "Recency: 0.0/10",
+            "Observed in 1 source label (independence unverified; no score bonus)",
+            "HN engagement: 2.0/10",
+            "Headline cluster: 1 article; 1 observed source label (independence unverified); no extra score bonus",
+            "Semantic relevance 9/10; importance 7/10: Relevant science reporting.",
+            "Editor: Relevant science reporting."
+          ],
+          "coverage": [
+            {
+              "id": "00000000-0000-4000-8000-000000000881",
+              "title": "Coastal observatory opens a research station",
+              "url": "https://example.org/golden/1",
+              "publishedAt": "2024-02-01T00:00:00.000Z",
+              "sources": ["Golden publisher"]
+            }
+          ],
+          "evidence": [
+            {
+              "id": "00000000-0000-4000-8000-000000000881",
+              "title": "Coastal observatory opens a research station",
+              "url": "https://example.org/golden/1",
+              "excerpt": "Fixture reporting.",
+              "sources": ["Golden publisher"],
+              "publishedAt": "2024-02-01T00:00:00.000Z"
+            }
+          ],
+          "summary": "Coastal observatory opens a research station.",
+          "whyItMatters": "A science research update."
+        }
+      ],
+      "posts": [],
+      "postSelectionMethod": "verified-lexical-recency-v2",
+      "postEditorial": {
+        "mode": "non-ai",
+        "model": null,
+        "triage": [],
+        "unscoredIds": [],
+        "reason": "Non-AI selection: post budget is zero."
+      },
+      "editorial": {
+        "mode": "ai",
+        "model": "claude-sonnet-5-5",
+        "brief": [
+          "Lunar telescope sends its first images",
+          "Coastal observatory opens a research station"
+        ],
+        "triage": [
+          {
+            "id": "00000000-0000-4000-8000-000000000880",
+            "relevance": 9,
+            "importance": 8,
+            "event": "Lunar images",
+            "rationale": "Relevant science reporting."
+          },
+          {
+            "id": "00000000-0000-4000-8000-000000000882",
+            "relevance": 0,
+            "importance": 0,
+            "event": "Betting promotion",
+            "rationale": "Unrelated promotion."
+          },
+          {
+            "id": "00000000-0000-4000-8000-000000000881",
+            "relevance": 9,
+            "importance": 7,
+            "event": "Research station",
+            "rationale": "Relevant science reporting."
+          }
+        ],
+        "unscoredIds": [],
+        "reason": "AI edited from supplied headlines and excerpts; full articles were not fetched."
+      },
+      "qualityRejections": [
+        {
+          "id": "00000000-0000-4000-8000-000000000882",
+          "title": "Best bets tonight",
+          "rule": "betting-promotion",
+          "reason": "Betting or promotional guide"
+        }
+      ],
+      "relevancePolicy": {
+        "includeAny": [],
+        "excludeAny": []
+      },
+      "relevanceRejectedCount": 0
+    }
+  ]
+}
