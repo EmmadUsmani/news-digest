@@ -48,3 +48,16 @@ the reader API against disposable PostgreSQL; no provider requests are made.
 The 123-test integration run measures this source reader at 100% lines and
 92.86% branches (previously 99.12% and 42.86%). The iteration 223 table above
 remains the historical baseline. AI golden and other behavior gaps remain open.
+
+## Historical edition-cost characterization (iteration 225)
+
+`scheduled-budget.test.ts` pins the reserve-sizing reader's complete-AI snapshot
+requirements, including absent editorial fields, partially scored social topics,
+empty topics and other generation methods. It also checks empty history,
+deterministic ID ordering when timestamps tie, limits, millisecond lookback/future
+boundaries, and exact safe-integer conversion of PostgreSQL bigint costs. Values
+above JavaScript's safe integer range fail closed. These are disposable-database
+assertions through the reader API; they make no inference calls.
+
+The 124-test integration run measures this source reader at 100% lines and
+92.31% branches (baseline 80% branches); AI golden and other behavior gaps remain.

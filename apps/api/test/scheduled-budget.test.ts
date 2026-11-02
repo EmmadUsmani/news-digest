@@ -99,6 +99,79 @@ void test('reserve measurements include complete article/social costs and reject
   }
 });
 
+void test('reserve measurements pin snapshot eligibility, deterministic limits and safe integer costs', async () => {
+  const db = database();
+  const client = await db.connect();
+  const now = new Date('2091-06-01T12:00:00Z');
+  const ai = { mode: 'ai', unscoredIds: [] };
+  const topic = { editorial: ai, postEditorial: ai };
+  const snapshot = { method: 'editorial-v1', topics: [topic] };
+  try {
+    await client.query('BEGIN');
+    assert.deepEqual(await readFullAiEditionCosts(client, now), []);
+    let sequence = 0;
+    const add = async (value: unknown, cost: string, date = now) => {
+      const id = `10000000-0000-4000-8000-${String(++sequence).padStart(12, '0')}`;
+      await client.query(
+        `INSERT INTO digest_previews(id,profile_id,created_at,window_start,window_end,snapshot)
+         VALUES($1,'00000000-0000-4000-8000-000000000001',$2,$2::timestamptz-interval '1 day',$2,$3)`,
+        [id, date, JSON.stringify(value)],
+      );
+      await client.query(
+        `INSERT INTO llm_calls(id,model,purpose,run_id,status,reserved_micros,cost_micros)
+         VALUES($1,'fixture-model','editor',$2,'succeeded',1,$3)`,
+        [crypto.randomUUID(), id, cost],
+      );
+    };
+    // All JSON is valid storage; only complete AI snapshots are measurements.
+    for (const value of [
+      { ...snapshot, method: 'preview-v1' },
+      { method: 'editorial-v1' },
+      { ...snapshot, topics: [] },
+      { ...snapshot, topics: [{ editorial: ai }] },
+      { ...snapshot, topics: [{ ...topic, editorial: { mode: 'ai' } }] },
+      {
+        ...snapshot,
+        topics: [
+          topic,
+          { ...topic, postEditorial: { mode: 'ai', unscoredIds: ['missed'] } },
+        ],
+      },
+    ])
+      await add(value, '999');
+    assert.deepEqual(await readFullAiEditionCosts(client, now), []);
+    await add(snapshot, '101');
+    await add(snapshot, '202');
+    // Same timestamps use descending edition ID, including before LIMIT.
+    assert.deepEqual(await readFullAiEditionCosts(client, now), [202, 101]);
+    assert.deepEqual(await readFullAiEditionCosts(client, now, 1), [202]);
+    await add(snapshot, '303', new Date(now.getTime() - 30 * 86400000 - 1));
+    await add(snapshot, '404', new Date(now.getTime() + 1));
+    assert.deepEqual(
+      await readFullAiEditionCosts(client, now, 100),
+      [202, 101],
+    );
+    for (const limit of [-1, 1.5, 101, NaN, Infinity])
+      await assert.rejects(
+        readFullAiEditionCosts(client, now, limit),
+        /Invalid edition cost measurement range/,
+      );
+    await add(snapshot, String(Number.MAX_SAFE_INTEGER));
+    assert.deepEqual(await readFullAiEditionCosts(client, now, 1), [
+      Number.MAX_SAFE_INTEGER,
+    ]);
+    await add(snapshot, '9007199254740992');
+    await assert.rejects(
+      readFullAiEditionCosts(client, now, 1),
+      /Invalid measured edition cost/,
+    );
+  } finally {
+    await client.query('ROLLBACK');
+    client.release();
+    await db.end();
+  }
+});
+
 void test('scheduled budget identity survives UTC boundaries, concurrent claims, retries and restarts', async () => {
   const db = database();
   const repo = new PostgresScheduledBudgetRepository(db);

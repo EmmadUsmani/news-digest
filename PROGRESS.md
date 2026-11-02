@@ -90,18 +90,7 @@ Iteration 207: [archive](docs/progress-archive/iteration-207.md).
 
 Iteration 208: [archive](docs/progress-archive/iteration-208.md).
 
-## 2026-11-02: iteration 210 — enable scheduled AI budget protection
-
-- Started clean on main; services, health and 32 sources healthy. No leftover work.
-- Enabled shared environment reserve protection, 1.5x headroom, no fixed override; API/worker process environments verified without exposing secrets.
-- Default measured sizing protects the full daily cap without qualifying full-AI history; existing provider/model/billing caps remain unchanged.
-- Live Status: protection enabled, Nov 2 terminal fallback, $0.482758 target/$0 protected; Nov 3 15:00 UTC remains queued.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (113 unit/113 isolated integration), `pnpm build`, `git diff --check` passed.
-- `pnpm exec tsx scripts/smoke-reserve-status.ts` passed live desktop/mobile plus synthetic protected/released states; updated screenshots.
-- `pnpm exec tsx scripts/report-edition-timing.ts` confirms retained four-topic/10-post fallback; no new AI timing claim.
-- Restarted API/worker; health DB/Redis true, SPA 200, 32 sources without errors. No paid inference, live jobs or Reddit requests.
-- Updated README/reserve decision/TASKS; archived iteration 194. Item 13 stays open for Nov 3 AI cost/duration evidence; no premature steering ack.
-- Next: observe scheduled run and measure AI editing/cost/duration; then scheduled X discovery under item 9.
+Earlier iteration 210: [archive](docs/progress-archive/2026-11-02-iteration-210.md).
 
 ## 2026-11-02: iteration 211 — finish owner-directed Reddit parking
 
@@ -264,3 +253,14 @@ Iteration 208: [archive](docs/progress-archive/iteration-208.md).
 - Updated TASKS/database verification notes; archived iteration 209 to bound PROGRESS.
 - Read-only timing: next Nov 3 15:00 UTC; prior 856 ms fallback is not AI latency evidence. Next: observe 14:30 X search and scheduled edition cost/duration.
 - Deployment: API/worker restarted active; DB/Redis healthy, SPA 200, 32 sources without errors, four queues available; retained real edition has four topics, 20 stories and 10 posts.
+
+## 2026-11-02: iteration 225 — historical AI-cost characterization
+
+- Started clean on main; API/worker, health, 32 sources and four queues healthy. No leftover work.
+- Items 13/7/9 await Nov 3 evidence; advanced lower-priority STEERING 2a through disposable-database reader assertions.
+- Pinned complete-AI snapshot eligibility, missing fields, partial social scores, deterministic tied ordering/limits, millisecond boundaries and bigint safe-integer rejection.
+- Historical edition-cost reader: 100% lines, 92.31% branches (baseline 80%); AI golden and remaining repository behavior stay open. No application/UI change.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (120 unit, 124 isolated integration); no inference or Reddit requests.
+- Updated TASKS/database notes and archived iteration 210 to bound PROGRESS.
+- Read-only timing confirms Nov 3 15:00 UTC next edition; prior 856 ms fallback is not AI latency evidence. Next: observe 14:30 X search and scheduled edition cost/duration.
+- `pnpm build` and `git diff --check` passed; restarted API/worker active, DB/Redis healthy, SPA 200, 32 error-free sources and four queues available; retained real edition has four topics, 20 stories and 10 posts.
