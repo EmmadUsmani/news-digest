@@ -376,6 +376,8 @@ export const operationsStatusSchema = z.object({
           state: z.string(),
           attempts: z.number().int(),
           scheduledAt: z.string().datetime().nullable(),
+          startedAt: z.string().datetime().nullable(),
+          durationMs: z.number().int().nonnegative().nullable(),
           finishedAt: z.string().datetime().nullable(),
           editionId: z.string().nullable(),
           skipped: z.string().nullable(),

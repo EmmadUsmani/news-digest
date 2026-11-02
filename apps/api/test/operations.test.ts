@@ -97,3 +97,53 @@ void test('social run telemetry exposes validated counters, isolates digest runs
     await status.onModuleDestroy();
   }
 });
+
+void test('edition run duration excludes queue wait and is null before processing finishes', async () => {
+  const status = new OperationsStatus();
+  const queue = status.queues.find(
+    (queue) => queue.name === 'digest-generation',
+  )!;
+  const connection = status.connection.duplicate({
+    maxRetriesPerRequest: null,
+  });
+  const worker = new Worker(
+    queue.name,
+    async () => ({ editionId: 'saved-edition' }),
+    {
+      connection,
+      autorun: false,
+    },
+  );
+  try {
+    const job = await queue.add('on-demand', {}, { delay: 60000 });
+    const readRuns = async () =>
+      operationsStatusSchema
+        .parse(JSON.parse(JSON.stringify(await status.read())))
+        .queues.find((queue) => queue.name === 'digest-generation')!.runs;
+    const waiting = (await readRuns()).find((run) => run.id === job.id)!;
+    assert.equal(waiting.startedAt, null);
+    assert.equal(waiting.durationMs, null);
+    const completed = new Promise<void>((resolve, reject) => {
+      worker.once('completed', () => resolve());
+      worker.once('failed', (_job, error) => reject(error));
+    });
+    await job.promote();
+    void worker.run();
+    await completed;
+    const stored = (await queue.getJob(job.id!))!;
+    const finished = (await readRuns()).find((run) => run.id === job.id)!;
+    assert.equal(
+      finished.startedAt,
+      new Date(stored.processedOn!).toISOString(),
+    );
+    assert.equal(finished.durationMs, stored.finishedOn! - stored.processedOn!);
+    assert.equal(finished.editionId, 'saved-edition');
+    assert.equal(finished.scheduledAt, null);
+    assert.equal(finished.state, 'completed');
+  } finally {
+    await worker.close();
+    await connection.quit();
+    await queue.obliterate({ force: true });
+    await status.onModuleDestroy();
+  }
+});

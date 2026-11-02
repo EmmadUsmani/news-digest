@@ -72,6 +72,13 @@ export class OperationsStatus
               scheduledAt: job.opts.prevMillis
                 ? new Date(job.opts.prevMillis).toISOString()
                 : null,
+              startedAt: job.processedOn
+                ? new Date(job.processedOn).toISOString()
+                : null,
+              durationMs:
+                job.processedOn != null && job.finishedOn != null
+                  ? Math.max(0, job.finishedOn - job.processedOn)
+                  : null,
               finishedAt: job.finishedOn
                 ? new Date(job.finishedOn).toISOString()
                 : null,
@@ -91,8 +98,8 @@ export class OperationsStatus
             })),
           );
           runs.sort((a, b) =>
-            (b.scheduledAt ?? b.finishedAt ?? '').localeCompare(
-              a.scheduledAt ?? a.finishedAt ?? '',
+            (b.finishedAt ?? b.startedAt ?? b.scheduledAt ?? '').localeCompare(
+              a.finishedAt ?? a.startedAt ?? a.scheduledAt ?? '',
             ),
           );
           return {

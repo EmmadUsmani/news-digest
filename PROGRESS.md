@@ -156,3 +156,14 @@ Earlier iterations 137–138: [archive](docs/progress-archive/2026-11-02-iterati
 - Initial checks caught state declaration order and smoke-script CommonJS top-level await; both corrected before verification.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check`: all 162 isolated tests and types/lint/format/boundaries pass; `pnpm build` passes; services restarted and health checked.
 - TASKS updated; no source changes, docs/SOURCES unchanged. Item 7 remains open: granular editorial-stage progress, last-run duration on Status and full-edition fake timing. No latency claim or new blocker.
+
+## 2026-11-02: iteration 161 — edition duration on Status
+
+- Started clean on main; no leftover work. API/worker and health healthy, all 32 sources without current errors, no failed digest jobs; two historical ingestion failures retained.
+- Status API exposes startedAt and nullable durationMs from BullMQ processing/finish timestamps. Retained runs sort by finish/start before schedule, placing finished on-demand runs correctly.
+- Status shows latest finished edition duration and per-run processing time; includes on-demand editions and explains queue-wait exclusion and final-attempt timing. Pending jobs have no duration.
+- Added isolated Redis worker test comparing telemetry to stored timestamps and checking pending/completed states. No live generation or inference spend.
+- `pnpm exec tsx scripts/smoke-run-duration.ts`: desktop/mobile completed and waiting states pass with intercepted telemetry; screenshots docs/screenshots/run-duration-{desktop,mobile}.png.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 163 isolated tests pass. `pnpm build` passes.
+- Restarted API/worker; /healthz healthy. Live Status retains 32 sources, no current source errors or failed digest jobs; stored editions remain available.
+- Updated TASKS; no source changes, docs/SOURCES unchanged. Item 7 remains open: granular editorial-stage progress and full-edition fake timing. No latency claim or new blocker.

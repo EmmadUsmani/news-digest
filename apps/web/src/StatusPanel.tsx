@@ -30,10 +30,15 @@ export function StatusPanel() {
     }, 60000);
     return () => clearInterval(timer);
   }, [load]);
+  const lastDigestRun = status?.queues
+    .filter((queue) => queue.name === 'digest-generation')
+    .flatMap((queue) => queue.runs)
+    .filter((run) => run.finishedAt && run.durationMs != null)
+    .sort((a, b) => b.finishedAt!.localeCompare(a.finishedAt!))[0];
   return (
     <details className="status-panel">
       <summary>Source &amp; run status</summary>
-      <p>Collection and automatic edition activity. Refreshes every minute.</p>
+      <p>Collection and edition activity. Refreshes every minute.</p>
       <button type="button" onClick={() => void load()} disabled={loading}>
         {loading ? 'Refreshing…' : 'Refresh status'}
       </button>
@@ -117,13 +122,21 @@ export function StatusPanel() {
               </article>
             ))}
           </div>
-          <h3>Recent automatic runs</h3>
+          <h3>Recent edition runs</h3>
+          {lastDigestRun && (
+            <p>
+              Last finished run: {(lastDigestRun.durationMs! / 1000).toFixed(1)}
+              s processing · {lastDigestRun.state}. Queue wait is excluded;
+              retried jobs show the final attempt.
+            </p>
+          )}
           <p>
-            Up to 20 retained jobs. Failed jobs retry up to three attempts.
-            After an outage, queued runs up to six hours late keep their
-            original coverage window. Older runs are skipped; missed days are
-            not backfilled. Use a custom window to recover missed coverage.
-            Manual editions are in saved edition history.
+            Up to 20 retained jobs. Scheduled jobs retry up to three attempts;
+            on-demand jobs run once. After an outage, queued runs up to six
+            hours late keep their original coverage window. Older runs are
+            skipped; missed days are not backfilled. Use a custom window to
+            recover missed coverage. Includes on-demand editions; saved editions
+            are also in history.
           </p>
           <ul className="run-list">
             {status.queues
@@ -131,8 +144,14 @@ export function StatusPanel() {
               .flatMap((queue) => queue.runs)
               .map((run) => (
                 <li key={run.id}>
-                  <strong>{run.state}</strong> · scheduled{' '}
-                  {time(run.scheduledAt)} · {run.attempts} attempts
+                  <strong>{run.state}</strong> ·{' '}
+                  {run.scheduledAt
+                    ? `scheduled ${time(run.scheduledAt)}`
+                    : 'on-demand'}{' '}
+                  · {run.attempts} attempts
+                  {run.durationMs != null && (
+                    <> · {(run.durationMs / 1000).toFixed(1)}s processing</>
+                  )}
                   {run.finishedAt && <> · finished {time(run.finishedAt)}</>}
                   {run.skipped && <> · {run.skipped}</>}
                   {run.editionId && (
@@ -146,7 +165,7 @@ export function StatusPanel() {
           </ul>
           {!status.queues.some(
             (queue) => queue.name === 'digest-generation' && queue.runs.length,
-          ) && <p>No retained automatic runs yet.</p>}
+          ) && <p>No retained edition runs yet.</p>}
           <section aria-label="Free social collection">
             <h3>Free social collection</h3>
             <p>
