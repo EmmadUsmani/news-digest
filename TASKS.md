@@ -82,6 +82,7 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Immutable links to selected stories with explicit stored post citations, including coverage/editor evidence; desktop/mobile navigation replay (iteration 107). Citation provenance only; semantic same-event matching remains unfinished.
   - [x] Opt Eurogamer public pages into bounded free discovery after explicit access/citation probes (iteration 108); stored a real game-reveal citation, but its May timestamp is outside current windows. No fresh Gaming-pick claim.
   - [x] Add Nintendo Life public RSS for Gaming after free discovery probes (iteration 121): 25 real articles stored; feed has no X links and article pages return 403, so no page harvesting. IGN feed also blocked; no bypass.
+  - [x] Add Game Developer and VGC public RSS (iteration 122): 60 real articles stored, twenty healthy sources; six publisher-page probes return 403, so page harvesting stays off. Fresh Gaming social gap remains.
   - Next: observe the first scheduled semantic social edition and measure relevant Gaming discovery. Keep full-day X reservation and paid scheduling off. Semantic selection is not a virality measurement.
   - SocialPost storage, window-aware ranking with citation diversity/engagement, immutable post selections and lazy official X embeds.
   - Reddit per-topic communities and faithful cards; no bot-protection workarounds. Bluesky optional; YouTube deferred.

@@ -300,3 +300,14 @@ Earlier iterations 61–72: [archive](docs/progress-archive/2026-11-02-iteration
 - `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed and mobile digest inspected. Historical editions remain intact.
 - Updated TASKS/docs/SOURCES. No inference/discovery spend, edition publication, provider/model/billing change or new owner blocker. Anthropic $0.408415; X $0.023382, paid scheduling stays off.
 - Next: observe 20:40 UTC semantic social edition; widen legitimate free Gaming post discovery. Reddit remains blocked.
+
+## 2026-11-02: iteration 122 — Game Developer and VGC Gaming coverage
+
+- Started clean on main; no leftover work. API/worker/health, eighteen feeds and retained digest runs healthy; semantic social slot remains Nov 2 20:40 UTC.
+- Public Game Developer/VGC RSS probes succeeded (50/10 entries). Six article-page probes returned 403; no bypass or page-harvesting opt-in. Neither feed contains X status links; fresh Gaming social gap remains.
+- Migration 025 connects both feeds to original Gaming topic. Recorded two entries each; extended offline normalization regression. Fixtures never count as live.
+- `pnpm migrate` applied 025; `pnpm format`, `pnpm lint:fix`, `pnpm check` pass types/lint/format/boundaries and all 131 isolated tests. `pnpm build` passes (existing upstream Zod warnings).
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued live passes, 960 real stored URLs/four topics/twenty healthy sources, 60 articles from new sources, idempotent second pass.
+- Restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; refreshed screenshots and inspected mobile status.
+- Updated TASKS/docs/SOURCES. No edition published, inference/discovery spending, provider/model/billing change or new owner blocker. Anthropic $0.408415; X $0.023382; paid scheduling stays off.
+- Next: inspect scheduled semantic social edition when due; widen legitimate free Gaming post discovery. Reddit and these publisher pages remain blocked.

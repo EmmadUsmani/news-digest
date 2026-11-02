@@ -16,6 +16,8 @@ void test('recorded RSS and Atom normalize real headlines, dates and safe links'
     'yahoo-nba.xml',
     'eurogamer.xml',
     'nintendo-life.xml',
+    'vgc.xml',
+    'gamedeveloper.xml',
     'npr-world.xml',
     'guardian-world.xml',
   ]) {

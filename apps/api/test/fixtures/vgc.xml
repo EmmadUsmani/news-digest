@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>VGC</title>
+	<atom:link href="https://www.videogameschronicle.com/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.videogameschronicle.com</link>
+	<description>Best video game news first, plus reviews and guides</description>
+	<lastBuildDate>Mon, 02 Nov 2026 09:49:37 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	
+	<item>
+		<title>Days Gone developer Bend Studio&#8217;s next game will be revealed and released next year, report claims</title>
+		<link>https://www.videogameschronicle.com/news/days-gone-developer-bend-studios-next-game-will-be-revealed-and-released-next-year-report-claims/</link>
+					<comments>https://www.videogameschronicle.com/news/days-gone-developer-bend-studios-next-game-will-be-revealed-and-released-next-year-report-claims/#respond</comments>
+		
+		<dc:creator><![CDATA[Chris Scullion]]></dc:creator>
+		<pubDate>Mon, 02 Nov 2026 09:49:37 +0000</pubDate>
+				<category><![CDATA[News]]></category>
+		<guid isPermaLink="false">https://www.videogameschronicle.com/?p=249444</guid>
+
+					<description><![CDATA[<img src="https://www.videogameschronicle.com/files/2019/04/meet-the-zombies-aka-freakers-e1556547696829.jpg"> The game will reportedly not be live-service, nor will it be Days Gone 2]]></description>
+										<content:encoded><![CDATA[<p>The game will reportedly not be live-service, nor will it be Days Gone 2…</p>
+<p><a href="https://www.videogameschronicle.com/news/days-gone-developer-bend-studios-next-game-will-be-revealed-and-released-next-year-report-claims/" rel="nofollow">Source</a></p>]]></content:encoded>
+					
+					<wfw:commentRss>https://www.videogameschronicle.com/news/days-gone-developer-bend-studios-next-game-will-be-revealed-and-released-next-year-report-claims/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Nagoshi Studio officially closes after NetEase cuts funding</title>
+		<link>https://www.videogameschronicle.com/news/nagoshi-studio-officially-closes-after-netease-cuts-funding/</link>
+					<comments>https://www.videogameschronicle.com/news/nagoshi-studio-officially-closes-after-netease-cuts-funding/#respond</comments>
+		
+		<dc:creator><![CDATA[Andy Robinson]]></dc:creator>
+		<pubDate>Mon, 02 Nov 2026 08:01:35 +0000</pubDate>
+				<category><![CDATA[News]]></category>
+		<guid isPermaLink="false">https://www.videogameschronicle.com/?p=249440</guid>
+
+					<description><![CDATA[<img src="https://www.videogameschronicle.com/files/2025/12/Screenshot-2025-12-12-020734.jpg"> Nagoshi Studio, founded by Yakuza creator Toshihiro Nagoshi, has officially closed]]></description>
+										<content:encoded><![CDATA[<p>Nagoshi Studio, founded by Yakuza creator Toshihiro Nagoshi…</p>
+<p><a href="https://www.videogameschronicle.com/news/nagoshi-studio-officially-closes-after-netease-cuts-funding/" rel="nofollow">Source</a></p>]]></content:encoded>
+					
+					<wfw:commentRss>https://www.videogameschronicle.com/news/nagoshi-studio-officially-closes-after-netease-cuts-funding/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		</channel></rss>

@@ -719,3 +719,21 @@ $0.40 reservation required for another explicit search.
 - **blocked:** IGN's `https://feeds.ign.com/ign/all` redirects to
   `https://www.ign.com/rss/articles/feed`, which returns HTTP 403. Not configured;
   no bypass attempted. No paid discovery or inference calls.
+
+## 2026-11-02 iteration 122 — Game Developer and VGC
+
+- **live:** `https://www.gamedeveloper.com/rss.xml` (50 real stored articles)
+  and `https://www.videogameschronicle.com/feed/` (10 real stored articles).
+  Migration 025 connects both to the original Gaming topic, without changing
+  other topics or enabling publisher-page harvesting.
+- Game Developer adds industry/development coverage; its newest fetched item is
+  dated October 30. VGC includes November 2 studio closure and release reports.
+  Availability does not establish editorial importance or independent reporting.
+- **blocked:** each publisher's three newest article pages returned HTTP 403
+  during explicit public probes. No bypass attempted; no discovery host enabled.
+  Neither fetched feed contains X status links, so this adds news coverage,
+  not fresh social posts. Gaming social discovery remains incomplete.
+- Recorded two entries per feed in `gamedeveloper.xml` and `vgc.xml`; existing
+  offline normalization checks validate titles, HTTPS URLs and publication dates.
+  Fixtures are replay data. Two queued live ingestion passes stored 960 total
+  URLs across twenty healthy feeds, with no duplicates on the second pass.
