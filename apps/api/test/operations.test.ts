@@ -12,7 +12,7 @@ void test('operations reports persisted sources and bounded queue telemetry with
       JSON.parse(JSON.stringify(await status.read())),
     );
     assert.ok(result.sources.length >= 7);
-    assert.equal(result.queues.length, 3);
+    assert.equal(result.queues.length, 4);
     for (const queue of result.queues) {
       assert.equal(queue.available, true);
       assert.ok(queue.runs.length <= 20);

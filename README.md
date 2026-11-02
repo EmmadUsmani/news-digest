@@ -158,3 +158,9 @@ to a temporary file, then run
 selected candidates with stubbed widget success and blocked-script checks, without
 publishing an edition. `POST_EMBED_LIVE=1` explicitly enables separate official
 widget requests instead; these are external checks, not automated tests.
+
+Free social discovery runs hourly in the worker via the `social-collection`
+BullMQ queue. It harvests enabled public rivers and verifies at most ten X
+oEmbeds per run, stopping verification on the first failure with a persisted
+one-day cooldown. Status shows this queue and its next run; no inference is
+used. The explicit harvest/verification commands remain available for diagnosis.

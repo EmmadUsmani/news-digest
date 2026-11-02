@@ -6,6 +6,7 @@ import { HackerNewsAdapter } from './modules/ingestion/adapters/hn.adapter';
 import { PostgresContentRepository } from './modules/ingestion/database/content.repository';
 import { ingest } from './modules/ingestion/ingest';
 import { startScheduledDigests } from './scheduled-digests';
+import { startScheduledSocial } from './scheduled-social';
 const stopScheduledDigests = startScheduledDigests();
 const connection = { host: '127.0.0.1', port: 6379 };
 // Operations telemetry remains separate from content collection.
@@ -26,6 +27,7 @@ void queue.upsertJobScheduler(
 );
 const repository = new PostgresContentRepository();
 const http = new SharedHttpClient();
+const stopScheduledSocial = startScheduledSocial(http);
 const adapters = {
   feed: new FeedAdapter(http),
   hn: new HackerNewsAdapter(http),
@@ -69,6 +71,7 @@ const sourceRefresh = setInterval(() => {
 async function stop() {
   clearInterval(sourceRefresh);
   await stopScheduledDigests();
+  await stopScheduledSocial();
   await ingestionWorker.close();
   await ingestionQueue.close();
   await repository.onModuleDestroy();

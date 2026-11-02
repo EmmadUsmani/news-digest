@@ -11,7 +11,12 @@ export class OperationsStatus
   implements OnModuleDestroy
 {
   readonly db = database();
-  readonly queues = ['operations', 'ingestion', 'digest-generation'].map(
+  readonly queues = [
+    'operations',
+    'ingestion',
+    'digest-generation',
+    'social-collection',
+  ].map(
     (name) =>
       new Queue(name, {
         connection: {
@@ -55,7 +60,7 @@ export class OperationsStatus
                     19,
                   )
                 : Promise.resolve([]),
-              queue.name === 'digest-generation'
+              ['digest-generation', 'social-collection'].includes(queue.name)
                 ? queue.getJobSchedulers(0, 9)
                 : Promise.resolve([]),
               queue.isPaused(),

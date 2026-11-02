@@ -255,3 +255,15 @@ Earlier iterations 51–60: [archive](docs/progress-archive/2026-11-01-iteration
 - Explicit `POST_EMBED_LIVE=1` checks render official video thumbnails on desktop/mobile; screenshots saved and mobile inspected. Multi-post checks expose intermittent X-script errors; saved text stays accessible even after embed success. Initial UI smoke raced restart; rerun passed.
 - `smoke-ingestion.ts` passes two queued live runs: 788 real article URLs, four topics, seventeen healthy sources. `smoke-ui.ts`/`smoke-status.ts` pass desktop/mobile; API/worker restarted, `/healthz` healthy.
 - No inference spending or provider/model/billing changes. Updated TASKS/README/docs/SOURCES; Reddit remains 403. Next: scheduled free harvesting and broader relevant discovery, then capped direct xAI and social editing.
+
+## 2026-11-02: iteration 94 — schedule free social discovery and verification
+
+- Started clean on main; no leftover work. API/worker/health healthy; retained scheduled digest runs completed and seventeen sources returned data.
+- Added hourly `social-collection` BullMQ scheduler/worker using the existing shared HTTP client; enabled rivers only, single concurrency, one attempt and bounded retained jobs.
+- Collection uses explicit domain ports; river failures persist sanitized source errors and allow other rivers, while database failures fail the job. At most ten official embed checks per pass, persisted one-day cooldown and stop on first embed failure.
+- Status now reports social queue health/counts/next run. First actual scheduled pass completed: two rivers, 50 citations, ten verified posts, zero discovery/verification errors; next hourly job retained. No inference calls or new digest generated.
+- Added offline orchestration regression for river failure isolation, verification limits, named URLs, persistence and stop-on-error; existing isolated DB tests cover cooldown/idempotence.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass typecheck/lint/format/boundaries and all 108 isolated tests; final repeated check green. `pnpm build` passed (existing upstream Zod warnings).
+- Restarted API/worker; `/healthz` healthy. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two live queued passes: 788 real article URLs, four topics, seventeen healthy sources.
+- `pnpm exec tsx scripts/smoke-status.ts` and `scripts/smoke-ui.ts` passed desktop/mobile; status screenshots refreshed and mobile inspected. Correct `/api/status` confirms one social worker/completed run and next run; exploratory `/api/operations/status` was 404.
+- Updated TASKS/README/docs/SOURCES. No inference spending or provider/model/billing changes; no new owner blockers. Reddit remains blocked by 403; broaden relevant discovery across topics next, then direct capped xAI and social editing.

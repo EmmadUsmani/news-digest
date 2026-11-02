@@ -307,8 +307,7 @@ widget and must never inject the stored HTML.
 shared-client request per enabled configured river. Migration 018 stores
 Techmeme (Tech & AI) and Memeorandum (World) as topic data, with separate page
 citation provenance, last success/error/count and first/last observation times.
-These are public aggregator pages, not article content. This explicit harvester
-is not scheduled yet. Successful empty pages are recorded honestly; historical
+These are public aggregator pages, not article content. Since iteration 94 the worker also runs this harvesting hourly. Successful empty pages are recorded honestly; historical
 citations survive later absence. Deleted/disabled topics stop collection.
 
 Live Techmeme homepage: 50 distinct X references stored (the extraction cap).
@@ -398,7 +397,7 @@ Read-only desktop/mobile replays use the three real NBA selections from the
 Oct 26–Nov 2 window, without publishing or changing the latest live edition.
 `posts-blocked-*.png` captures the blocked-widget fallback, explicitly labeled as
 a replay. The deterministic smoke uses a widget protocol stub, not live media.
-Broader relevant discovery, scheduled free harvesting, and Reddit remain open.
+Broader relevant discovery and Reddit remain open.
 
 Separate explicit `POST_EMBED_LIVE=1` checks rendered official video thumbnails
 on desktop and mobile (`posts-live-*.png`); mobile appearance was inspected.
@@ -407,3 +406,17 @@ script, although another full replay passed. Explicit live checks are bounded
 to one real post per topic; deterministic checks still exercise all selections.
 Provider availability is external; saved text remains accessible in a disclosure
 even after widget creation succeeds, and original links remain available. No X scraping or inference was used.
+
+### Iteration 94: scheduled free collection
+
+The worker runs `social-collection` hourly (one concurrent job, no automatic
+retries): one shared-client fetch per enabled river, then at most ten official
+oEmbed checks. Verification uses persisted one-day cooldown and stops at its
+first unavailable/invalid response. Failed rivers retain sanitized errors and
+do not block other rivers. Database failures fail the job visibly. Completed
+jobs retain bounded aggregate counts; queue health appears in Status. No xAI,
+Anthropic, direct X scraping or inference calls are part of this job.
+The first scheduled live pass completed with two successful pages, 50 observed
+citations and ten successful official verifications, with no errors. These counts
+are observations/checks, not ten newly discovered or newly selected posts. The
+existing daily digest was not regenerated for this verification.
