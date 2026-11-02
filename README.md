@@ -34,6 +34,15 @@ required; tests never fall back to the live database or contact external service
 Database tests must run through `pnpm test`; direct Node test invocations that
 construct database clients fail before connecting.
 The check command builds shared contract declarations automatically.
+The `edition-timing.test.ts` integration test prints cold/warm four-topic publication
+baselines for synthetic 400- and 1,500-article windows. It runs real database
+selection, batching, score caching, ranking and immutable publication, with fake
+triage inference and a fake editor (25 ms per call). Warm passes assert no new
+triage calls. The existing 200-article/topic limit means only 800 of the 1,500
+stored articles are triaged. Social selection queries run with no social candidates.
+These measurements exclude provider/network latency, real inference limits,
+queue wait and social inference; they do not establish the live <60 s / <2 min
+targets. Run with `pnpm test` against disposable services, never the live database.
 `pnpm migrate` is safe to repeat. Keep secrets only in
 `~/.config/news-digest/env` (mode 600), never in the repository.
 The API accepts `DATABASE_URL`, `REDIS_URL`, and `PORT`; defaults target the

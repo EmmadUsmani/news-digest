@@ -1,0 +1,199 @@
+import assert from 'node:assert/strict';
+import { test } from 'node:test';
+import { setTimeout } from 'node:timers/promises';
+
+import { llmConfig } from '../src/modules/curation/adapters/config';
+import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
+import { CandidateTriage } from '../src/modules/curation/application/triage';
+import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
+import { PostgresPreviewRepository } from '../src/modules/digests/database/preview.repository';
+import type { Candidate } from '../src/modules/digests/domain/rank';
+
+// Full repository publication baseline, NOT a prediction of provider latency.
+// Run only via pnpm test/check, which creates and migrates disposable services.
+void test('four-topic edition timing includes SQL, batched triage, editing, publication and regeneration', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  assert.equal(process.env.ANTHROPIC_API_KEY, '');
+  const repository = new PostgresPreviewRepository();
+  const start = new Date('2025-01-01T00:00:00Z');
+  const end = new Date('2025-01-02T00:00:00Z');
+  const topicIds: string[] = [];
+  const sourceIds: string[] = [];
+  const itemIds: string[] = [];
+  const original = (await repository.db.query('SELECT id,enabled FROM topics'))
+    .rows;
+  try {
+    await repository.db.query('UPDATE topics SET enabled=false');
+    for (let i = 0; i < 4; i++) {
+      const id = crypto.randomUUID();
+      const source = `timing-${id}`;
+      topicIds.push(id);
+      sourceIds.push(source);
+      await repository.db.query(
+        `INSERT INTO topics(id,profile_id,name,description,include_guidance,position,story_budget,post_budget)
+         VALUES($1,'00000000-0000-4000-8000-000000000001',$2,'Synthetic timing topic','',$3,5,5)`,
+        [id, `Timing ${i}`, i + 100],
+      );
+      await repository.db.query(
+        `INSERT INTO content_sources(id,topic_id,name,kind,url) VALUES($1,$2,'Timing publisher','feed',$3)`,
+        [source, id, `https://example.org/${id}`],
+      );
+      await repository.db.query(
+        'INSERT INTO topic_source_connections(topic_id,source_id) VALUES($1,$2)',
+        [id, source],
+      );
+    }
+    for (const volume of [400, 1500]) {
+      const cache = new Map<string, unknown>();
+      let calls = 0;
+      let editors = 0;
+      let scored = 0;
+      const ledger: LlmLedger = {
+        async cached(key) {
+          return cache.get(key);
+        },
+        async cache(key, value) {
+          cache.set(key, value);
+        },
+        async reserve() {
+          return crypto.randomUUID();
+        },
+        async settle() {},
+        async fail() {},
+      };
+      const llm = new BudgetedLlm(
+        {
+          async complete(request) {
+            calls++;
+            await setTimeout(25);
+            const { candidates } = JSON.parse(request.prompt) as {
+              candidates: { id: string }[];
+            };
+            assert.ok(candidates.length <= 50);
+            scored += candidates.length;
+            return {
+              text: JSON.stringify({
+                items: candidates.map(({ id }) => ({
+                  id,
+                  relevance: 9,
+                  importance: 8,
+                  event: id,
+                  rationale: 'Synthetic relevant launch.',
+                })),
+              }),
+              usage: { input: 20, output: 20, cacheRead: 0, cacheWrite: 0 },
+            };
+          },
+        },
+        ledger,
+      );
+      Object.defineProperty(repository, 'editorial', {
+        configurable: true,
+        value: {
+          triage: new CandidateTriage(llm, ledger, llmConfig({}).haiku),
+          editor: {
+            async edit(
+              _topic: unknown,
+              candidates: Candidate[],
+              budget: number,
+            ) {
+              editors++;
+              await setTimeout(25);
+              return {
+                model: 'fake-timing-editor',
+                brief: [],
+                stories: candidates.slice(0, budget).map((c) => ({
+                  id: c.id,
+                  evidenceIds: [c.id],
+                  headline: c.title,
+                  summary: c.excerpt,
+                  whyItMatters: 'Synthetic timing example.',
+                  rationale: 'Fixture selection.',
+                })),
+              };
+            },
+          },
+        },
+      });
+      await repository.db.query(
+        'DELETE FROM content_observations WHERE item_id=ANY($1::uuid[])',
+        [itemIds],
+      );
+      await repository.db.query(
+        'DELETE FROM content_items WHERE id=ANY($1::uuid[])',
+        [itemIds],
+      );
+      itemIds.length = 0;
+      for (let topic = 0; topic < 4; topic++) {
+        const inserted = await repository.db.query(
+          `INSERT INTO content_items(canonical_url,title,excerpt,published_at)
+           SELECT 'https://example.org/timing/' || $1 || '/' || n,
+           'Synthetic launch number ' || n, 'A synthetic tool became available.',
+           $2::timestamptz + n * interval '1 second'
+           FROM generate_series(1,$3::int) n RETURNING id`,
+          [sourceIds[topic], start, volume / 4],
+        );
+        const ids = inserted.rows.map((row) => String(row.id));
+        itemIds.push(...ids);
+        await repository.db.query(
+          'INSERT INTO content_observations(item_id,source_id) SELECT unnest($1::uuid[]),$2',
+          [ids, sourceIds[topic]],
+        );
+      }
+      const timings: number[] = [];
+      for (const pass of ['cold', 'warm']) {
+        const before = performance.now();
+        const snapshot = await repository.generate(start, end);
+        timings.push(Math.round(performance.now() - before));
+        assert.equal(snapshot.topics.length, 4);
+        assert.ok(
+          snapshot.topics.every(
+            (topic) =>
+              topic.editorial?.mode === 'ai' && topic.stories.length === 5,
+          ),
+        );
+        assert.deepEqual(await repository.find(snapshot.id), snapshot);
+        if (pass === 'cold') {
+          assert.equal(scored, Math.min(volume, 800));
+          assert.equal(calls, 4 * Math.ceil(Math.min(volume / 4, 200) / 50));
+        }
+      }
+      assert.equal(
+        scored,
+        Math.min(volume, 800),
+        'Warm regeneration reuses every triage score',
+      );
+      assert.equal(editors, 8, 'Both editions edit all four topics');
+      console.log(
+        `Fake full-edition baseline: stored=${volume}, triaged=${scored}, triageCalls=${calls}, coldMs=${timings[0]}, warmMs=${timings[1]}; 25ms fake inference, no social candidates/provider/network/queue latency`,
+      );
+    }
+  } finally {
+    // Published editions are immutable; the disposable container removes them.
+    await repository.db.query(
+      'DELETE FROM content_observations WHERE item_id=ANY($1::uuid[])',
+      [itemIds],
+    );
+    await repository.db.query(
+      'DELETE FROM content_items WHERE id=ANY($1::uuid[])',
+      [itemIds],
+    );
+    await repository.db.query(
+      'DELETE FROM topic_source_connections WHERE topic_id=ANY($1::uuid[])',
+      [topicIds],
+    );
+    await repository.db.query(
+      'DELETE FROM content_sources WHERE id=ANY($1::text[])',
+      [sourceIds],
+    );
+    await repository.db.query('DELETE FROM topics WHERE id=ANY($1::uuid[])', [
+      topicIds,
+    ]);
+    for (const row of original)
+      await repository.db.query('UPDATE topics SET enabled=$2 WHERE id=$1', [
+        row.id,
+        row.enabled,
+      ]);
+    await repository.onModuleDestroy();
+  }
+});

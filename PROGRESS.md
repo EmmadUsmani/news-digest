@@ -24,29 +24,7 @@ Earlier iterations 135–136: [archive](docs/progress-archive/2026-11-02-iterati
 
 Earlier iterations 137–138: [archive](docs/progress-archive/2026-11-02-iterations-137-138.md).
 
-## 2026-11-02: iteration 139 — Gematsu Gaming reporting
-
-- Started clean on main; no leftover work. API/worker/health, current collection and digest runs healthy; two historical ingestion failures retained. Semantic edition remains due 20:40 UTC.
-- Migration 033 connects Gematsu public RSS to original Gaming topic: 20 real articles covering studio/release/platform news, also rumors and lists subject to selection. Feed contains no X links; four sampled article pages returned 403, so page harvesting stays off. No bypass or social gain claimed.
-- First two original RSS entries recorded for offline headline/date/host/excerpt/absent-citation regression. Fixtures are not live evidence.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 146 isolated tests pass. `pnpm build` passes (existing upstream Zod warnings); `pnpm migrate` applied 033.
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued live passes, 1,199 URLs/four topics/29 healthy sources; repeat idempotent. Read-only `screen-social-posts.ts` upcoming window still selects 3/5/0/0 lexical posts.
-- Restarted API/worker; `/healthz` healthy. `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed and targeted mobile Gematsu card inspected.
-- Updated TASKS/docs/SOURCES. No publication, schedule mutation, inference/discovery spend or provider/model/billing change; Anthropic $0.408415 and X $0.023382. No new owner blocker.
-- Next: inspect 20:40 UTC scheduled semantic edition. Gaming/World social gaps and Reddit access persist; keep paid X scheduling off.
-
-## 2026-11-02: iteration 140 — Kotaku free Gaming citations
-
-- Started clean on main; no leftover work. API/worker/health, current sources and digest runs healthy; two historical ingestion failures retained. Semantic edition remains due 20:40 UTC.
-- Migration 034 connects Kotaku RSS (20 real articles) and exact-host bounded page discovery after three public pages returned 200. Two sampled pages expose three named X citations, persisted with article/source provenance; all three officially verified.
-- All three cited posts precede upcoming daily window; no fresh-selection or virality gain claimed. Existing page caps/rotation/cooldowns apply. Wccftech probe found only an already-known citation; left unconfigured.
-- Original two-entry RSS and speedrun embed fragment recorded for offline dates/hosts/excerpts/exact citation regression; fixtures are not live data.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 148 isolated tests pass. `pnpm migrate`, `pnpm build` pass (existing upstream Zod warnings).
-- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued live passes, 1,220 URLs/four topics/30 healthy sources; repeat idempotent. Temporary shared-client probe stored three citations and was removed. `verify-x-embeds.ts`: eight successes/zero failures, including refreshes.
-- `screen-social-posts.ts` upcoming window: semantic pools 9/26/3/2, lexical selections 3/5/0/0; extra Gaming candidates come from existing sources, not older Kotaku citations. No publication/inference.
-- Restarted API/worker; `/healthz` healthy. `scripts/smoke-ui.ts`, `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed and targeted Kotaku mobile card inspected.
-- TASKS/docs/SOURCES updated. Spend unchanged: Anthropic $0.408415, X $0.023382. No provider/model/billing or schedule changes, new owner blocker, or bot-protection bypass.
-- Next: inspect scheduled 20:40 UTC semantic edition. Gaming/World social gaps and Reddit access persist; paid X scheduling stays off.
+Earlier iterations 139–140: [archive](docs/progress-archive/2026-11-02-iterations-139-140.md).
 
 ## 2026-11-02: iteration 141 — Guardian US free World citations
 
@@ -178,3 +156,14 @@ Earlier iterations 137–138: [archive](docs/progress-archive/2026-11-02-iterati
 - `pnpm exec tsx scripts/smoke-edition-jobs.ts`: desktop/mobile stages, publication, reload, reconnect, completion and failure pass; updated docs/screenshots/edition-job-{desktop,mobile}.png. Generation intercepted; reads stored edition only.
 - Restarted API/worker; `/healthz` healthy, 32 sources/no current errors, zero failed digest jobs; latest stored edition retains four topics.
 - README/TASKS updated; no source changes, docs/SOURCES unchanged. No new blocker. Item 7 remains open for full-edition fake timing; no live latency claim.
+
+## 2026-11-02: iteration 163 — reproducible full-publication timing baseline
+
+- Started clean on main; no leftover work. API/worker and health healthy, 32 sources without current errors, zero failed digest jobs; two historical ingestion failures retained.
+- Added disposable-Postgres four-topic cold/warm generation benchmark: real candidate SQL, CandidateTriage batching/validation/cache, ranking, post queries (empty), editor orchestration and immutable publication/readback.
+- Synthetic 400 stored articles: 400 triaged, 8 calls, cold 144 ms / warm 87 ms. Synthetic 1,500 stored: 800 triaged, 16 calls, cold 238 ms / warm 204 ms. Both warm regenerations make zero new triage calls; all eight topic edits run.
+- Uses fake triage inference and fake editor with 25 ms delays; excludes real provider/concurrency/network/queue latency and social inference. These are application baselines, NOT proof of live <60s/<2min targets; 200 articles/topic cap explicitly recorded in README/TASKS.
+- Initial verification caught missing fixture guidance and prohibited immutable-edition cleanup; corrected fixture and leave editions for disposable-container removal. All temporary sources/items/topics are removed and original topic flags restored.
+- `pnpm lint:fix`, `pnpm format`, `pnpm check`: types/lint/format/boundaries and all 164 isolated tests pass. `pnpm build` passes.
+- Restarted API/worker; `/healthz` healthy; live sources, queues and stored editions checked. No live inference calls or spend; no UI/source changes, docs/SOURCES unchanged.
+- Archived iterations 139–140 to keep PROGRESS below 25 KB. Next: social-inclusive timing through the fake provider/worker path; item 7 remains open without a live latency claim.
