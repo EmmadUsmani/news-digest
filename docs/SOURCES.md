@@ -1175,3 +1175,11 @@ cards without requesting X widgets. Screenshots `reddit-card-desktop.png` and
 `reddit-card-mobile.png` are synthetic UI evidence, not live Reddit content.
 Publication selection remains X-only pending pipeline wiring; fetching remains
 blocked and unscheduled. No live source or inference requests were made.
+
+Iteration 176 connects historical-strength Reddit selection to edition publication
+through the publisher's repeatable-read transaction. Both semantic candidates
+and non-AI fallback retain platform snapshots and enforce X preference. X citation
+story links apply only to X posts, preventing cross-platform ID collisions.
+Synthetic publication verification covers stored Reddit metadata and conservative
+fallback. Collection remains blocked/unscheduled; no live Reddit content or live
+inference calls were used.

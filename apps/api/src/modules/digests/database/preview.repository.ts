@@ -2,6 +2,7 @@ import {
   type DigestPreview,
   type PreviewHistory,
   relevancePolicySchema,
+  type SelectedSocialPost,
 } from '@digest/contracts';
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
 
@@ -9,7 +10,10 @@ import { database } from '../../../libs/db/connections';
 import { editorialServices } from '../../curation/public/editorial';
 import { linkCitingStories } from '../../social/public/citing-stories';
 import { editTopicPosts } from '../../social/public/editorial-selection';
-import { selectTopicPosts } from '../../social/public/selection';
+import {
+  selectTopicPosts,
+  selectTopicRedditPosts,
+} from '../../social/public/selection';
 import { parallelTopics } from '../application/parallel-topics';
 import { editorialShortlist } from '../domain/editorial-shortlist';
 import {
@@ -240,7 +244,15 @@ export class PostgresPreviewRepository
           }
         }
         await topicStage(topic.id, 'posts');
-        const posts = await selectTopicPosts(
+        const redditPosts = await selectTopicRedditPosts(
+          client,
+          topic.id,
+          policy,
+          start,
+          end,
+          Number(topic.post_budget) > 0 ? 200 : 0,
+        );
+        const posts: SelectedSocialPost[] = await selectTopicPosts(
           client,
           topic.id,
           policy,
@@ -248,7 +260,8 @@ export class PostgresPreviewRepository
           end,
           Number(topic.post_budget),
         );
-        const postCandidates =
+        posts.push(...redditPosts);
+        const postCandidates: SelectedSocialPost[] =
           topic.post_budget > 0
             ? await selectTopicPosts(
                 client,
@@ -260,6 +273,7 @@ export class PostgresPreviewRepository
                 'semantic-candidates',
               )
             : [];
+        postCandidates.push(...redditPosts);
         const postSelection = await editTopicPosts(
           this.editorial,
           {

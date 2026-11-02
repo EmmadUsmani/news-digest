@@ -6,7 +6,10 @@ import {
   officialPostText,
 } from '../adapters/embed-text';
 import { postDuplicateKey } from '../adapters/post-duplicate-key';
+import { shortlistReddit } from '../application/shortlist-reddit';
+import { readRedditObservations } from '../database/reddit.repository';
 import { assessPostEligibility, assessPostSafety } from '../domain/eligibility';
+import { snapshotRedditPost } from './reddit-snapshot';
 
 // Use the publisher's transaction so source configuration, posts and stories
 // share one database snapshot. No network or inference during post selection.
@@ -73,4 +76,28 @@ export async function selectTopicPosts(
       break;
   }
   return selected;
+}
+
+// Read through the publisher transaction; never open a second snapshot or fetch.
+export async function selectTopicRedditPosts(
+  db: Pick<PoolClient, 'query'>,
+  topicId: string,
+  policy: RelevancePolicy,
+  start: Date,
+  end: Date,
+  budget: number,
+) {
+  return (
+    await shortlistReddit(
+      {
+        observations: (id, from, to) =>
+          readRedditObservations(db, id, from, to),
+      },
+      topicId,
+      policy,
+      start,
+      end,
+      budget,
+    )
+  ).map(snapshotRedditPost);
 }

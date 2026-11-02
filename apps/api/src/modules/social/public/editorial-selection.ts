@@ -34,8 +34,7 @@ export interface SocialSelectionServices {
 }
 
 // Reddit inputs must already pass historical-strength ranking; this type is an
-// editorial boundary, not the published SelectedPost contract. Publication stays
-// X-only until snapshot contracts and faithful Reddit rendering are connected.
+// editorial boundary; callers retain full platform-specific snapshot metadata.
 export type EditorialPost = Omit<SelectedPost, 'platform'> & {
   platform: 'x' | 'reddit';
 };

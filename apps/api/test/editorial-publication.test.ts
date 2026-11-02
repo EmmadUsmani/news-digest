@@ -47,6 +47,7 @@ async function harness(
     disabled?: boolean;
     supporting?: boolean;
     parallel?: boolean;
+    reddit?: boolean;
   } = {},
 ) {
   const support = {
@@ -67,6 +68,36 @@ async function harness(
   const client = {
     async query(sql: string, args?: unknown[]) {
       calls.push(sql);
+      if (sql.includes('FROM social_posts p JOIN reddit_topic_posts')) {
+        assert.ok(options.reddit);
+        return {
+          rows: Array.from({ length: 6 }, (_, i) => ({
+            externalId: `reddit${i}`,
+            url: `https://www.reddit.com/comments/reddit${i}`,
+            author: 'fixture',
+            authorUrl: 'https://www.reddit.com/user/fixture',
+            publishedAt: new Date(
+              i < 5 ? '2026-10-31T02:00:00Z' : '2026-11-01T02:00:00Z',
+            ),
+            observedAt: new Date(
+              i < 5 ? '2026-10-31T12:00:00Z' : '2026-11-01T12:00:00Z',
+            ),
+            metrics: {
+              score: i < 5 ? 20 : 200,
+              comments: 12,
+              upvoteRatio: 0.95,
+            },
+            metadata: {
+              title: 'Artificial intelligence demo',
+              text: 'A new model demo.',
+              subreddit: 'LocalLLaMA',
+              thumbnail: null,
+              externalUrl: null,
+            },
+            citesX: false,
+          })),
+        };
+      }
       if (sql.includes('FROM topics'))
         return {
           rows: Array.from(
@@ -78,7 +109,7 @@ async function harness(
               include_guidance: '',
               exclude_guidance: '',
               story_budget: 5,
-              post_budget: 0,
+              post_budget: options.reddit ? 5 : 0,
               relevance_policy: {
                 includeAny: ['artificial intelligence'],
                 excludeAny: [],
@@ -236,3 +267,17 @@ void test(
     assert.ok(snapshot.topics.every((topic) => topic.editorial?.mode === 'ai'));
   },
 );
+
+void test('publication includes qualified Reddit snapshots from its transaction in non-AI fallback', async () => {
+  const snapshot = await harness({ reddit: true, disabled: true });
+  const post = snapshot.topics[0].posts?.[0];
+  assert.equal(snapshot.topics[0].posts?.length, 1);
+  assert.equal(post?.platform, 'reddit');
+  if (post?.platform !== 'reddit') throw new Error('Missing Reddit snapshot');
+  assert.equal(post.title, 'Artificial intelligence demo');
+  assert.equal(post.metrics.score, 200);
+  assert.equal(post.observedAt, '2026-11-01T12:00:00.000Z');
+  assert.match(post.reasons.join(' '), /median/);
+  assert.equal(post.citingStories, undefined);
+  assert.equal(snapshot.topics[0].postEditorial?.mode, 'non-ai');
+});

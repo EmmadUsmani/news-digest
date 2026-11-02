@@ -1,13 +1,13 @@
-import type { DigestPreview, SelectedPost } from '@digest/contracts';
+import type { DigestPreview, SelectedSocialPost } from '@digest/contracts';
 import type { PoolClient } from 'pg';
 
 // Citation provenance is an explicit relationship, not a semantic same-event claim.
 // Only selected stories in this topic may become internal edition links.
 export async function linkCitingStories(
   db: Pick<PoolClient, 'query'>,
-  posts: SelectedPost[],
+  posts: SelectedSocialPost[],
   stories: DigestPreview['topics'][number]['stories'],
-): Promise<SelectedPost[]> {
+): Promise<SelectedSocialPost[]> {
   if (!posts.length || !stories.length) return posts;
   const members = (story: (typeof stories)[number]) =>
     new Set([
@@ -19,7 +19,12 @@ export async function linkCitingStories(
   const { rows } = await db.query<{ externalId: string; itemId: string }>(
     `SELECT DISTINCT external_id AS "externalId",item_id AS "itemId"
      FROM x_link_citations WHERE external_id=ANY($1::text[]) AND item_id=ANY($2::uuid[])`,
-    [posts.map((post) => post.externalId), ids],
+    [
+      posts
+        .filter((post) => post.platform === 'x')
+        .map((post) => post.externalId),
+      ids,
+    ],
   );
   return posts.map((post) => ({
     ...post,
@@ -27,6 +32,7 @@ export async function linkCitingStories(
       .filter((story) =>
         rows.some(
           (row) =>
+            post.platform === 'x' &&
             row.externalId === post.externalId &&
             members(story).has(row.itemId),
         ),

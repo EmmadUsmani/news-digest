@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import type { DigestPreview, SelectedPost } from '@digest/contracts';
+import type { DigestPreview, SelectedSocialPost } from '@digest/contracts';
 
 import { database } from '../src/libs/db/connections';
 import { linkCitingStories } from '../src/modules/social/public/citing-stories';
@@ -10,17 +10,29 @@ void test('citation links use selected lead/coverage/evidence only and freeze ti
   const db = database();
   const client = await db.connect();
   const ids = Array.from({ length: 4 }, () => crypto.randomUUID());
-  const posts: SelectedPost[] = ['9991071', '9991072'].map((externalId) => ({
-    platform: 'x',
-    externalId,
-    url: `https://x.com/i/status/${externalId}`,
-    author: 'Fixture',
-    authorUrl: 'https://x.com/fixture',
-    publishedAt: '2026-11-01T12:00:00Z',
-    text: 'Synthetic post',
-    metrics: {},
-    reasons: [],
-  }));
+  const posts: SelectedSocialPost[] = ['9991071', '9991072'].map(
+    (externalId) => ({
+      platform: 'x',
+      externalId,
+      url: `https://x.com/i/status/${externalId}`,
+      author: 'Fixture',
+      authorUrl: 'https://x.com/fixture',
+      publishedAt: '2026-11-01T12:00:00Z',
+      text: 'Synthetic post',
+      metrics: {},
+      reasons: [],
+    }),
+  );
+  posts.push({
+    ...posts[0],
+    platform: 'reddit',
+    title: 'Synthetic Reddit collision',
+    subreddit: 'nba',
+    thumbnail: null,
+    externalUrl: null,
+    observedAt: '2026-11-01T13:00:00Z',
+    metrics: { score: 100, comments: 12, upvoteRatio: 0.95 },
+  });
   const story = (id: string) => ({
     id,
     title: `Fixture ${id}`,
@@ -53,6 +65,11 @@ void test('citation links use selected lead/coverage/evidence only and freeze ti
       { id: ids[0], title: stories[0].title },
     ]);
     assert.deepEqual(linked[1].citingStories, []);
+    assert.deepEqual(
+      linked[2].citingStories,
+      [],
+      'Reddit ID cannot inherit X citations',
+    );
     for (const member of [ids[1], ids[2]]) {
       await client.query('DELETE FROM x_link_citations WHERE item_id <> $1', [
         member,

@@ -1,3 +1,5 @@
+import type { PoolClient } from 'pg';
+
 import { database } from '../../../libs/db/connections';
 import { extractXLinks } from '../../ingestion/public/discovery';
 import type {
@@ -11,53 +13,7 @@ export class PostgresRedditRepository
 {
   readonly db = database();
   async observations(topicId: string, start: Date, end: Date) {
-    const result = await this.db.query<{
-      externalId: string;
-      url: string;
-      author: string;
-      authorUrl: string;
-      publishedAt: Date;
-      observedAt: Date;
-      metrics: RedditPost['metrics'];
-      metadata: Omit<
-        RedditPost,
-        | 'platform'
-        | 'externalId'
-        | 'url'
-        | 'author'
-        | 'authorUrl'
-        | 'publishedAt'
-        | 'metrics'
-      >;
-      citesX: boolean;
-    }>(
-      `SELECT p.external_id AS "externalId",p.canonical_url AS url,p.author,
-      p.author_url AS "authorUrl",p.published_at AS "publishedAt",p.verified_at AS "observedAt",
-      p.metrics,p.reddit_metadata AS metadata,
-      EXISTS(SELECT 1 FROM reddit_x_citations c WHERE c.reddit_id=p.external_id) AS "citesX"
-      FROM social_posts p JOIN reddit_topic_posts r ON r.external_id=p.external_id
-      JOIN topics t ON t.id=r.topic_id
-      WHERE p.platform='reddit' AND t.id=$1 AND t.enabled
-      AND EXISTS(SELECT 1 FROM jsonb_array_elements_text(t.reddit_communities) c
-        WHERE lower(c.value)=lower(p.reddit_metadata->>'subreddit'))
-      AND p.published_at >= $2::timestamptz - interval '7 days' AND p.published_at < $3
-      ORDER BY p.published_at DESC,p.external_id LIMIT 5000`,
-      [topicId, start, end],
-    );
-    return result.rows.map((row) => ({
-      post: {
-        ...row.metadata,
-        platform: 'reddit' as const,
-        externalId: row.externalId,
-        url: row.url,
-        author: row.author,
-        authorUrl: row.authorUrl,
-        publishedAt: row.publishedAt.toISOString(),
-        metrics: row.metrics,
-      },
-      observedAt: row.observedAt.toISOString(),
-      citesX: row.citesX,
-    }));
+    return readRedditObservations(this.db, topicId, start, end);
   }
   async communities() {
     return (
@@ -134,4 +90,59 @@ export class PostgresRedditRepository
       client.release();
     }
   }
+}
+
+export async function readRedditObservations(
+  db: Pick<PoolClient, 'query'>,
+  topicId: string,
+  start: Date,
+  end: Date,
+) {
+  const result = await db.query<{
+    externalId: string;
+    url: string;
+    author: string;
+    authorUrl: string;
+    publishedAt: Date;
+    observedAt: Date;
+    metrics: RedditPost['metrics'];
+    metadata: Omit<
+      RedditPost,
+      | 'platform'
+      | 'externalId'
+      | 'url'
+      | 'author'
+      | 'authorUrl'
+      | 'publishedAt'
+      | 'metrics'
+    >;
+    citesX: boolean;
+  }>(
+    `SELECT p.external_id AS "externalId",p.canonical_url AS url,p.author,
+      p.author_url AS "authorUrl",p.published_at AS "publishedAt",p.verified_at AS "observedAt",
+      p.metrics,p.reddit_metadata AS metadata,
+      EXISTS(SELECT 1 FROM reddit_x_citations c WHERE c.reddit_id=p.external_id) AS "citesX"
+      FROM social_posts p JOIN reddit_topic_posts r ON r.external_id=p.external_id
+      JOIN topics t ON t.id=r.topic_id
+      WHERE p.platform='reddit' AND t.id=$1 AND t.enabled
+      AND EXISTS(SELECT 1 FROM jsonb_array_elements_text(t.reddit_communities) c
+        WHERE lower(c.value)=lower(p.reddit_metadata->>'subreddit'))
+      AND p.published_at >= $2::timestamptz - interval '7 days' AND p.published_at < $3
+      ORDER BY p.published_at DESC,p.external_id LIMIT 5000`,
+    [topicId, start, end],
+  );
+  return result.rows.map((row) => ({
+    post: {
+      ...row.metadata,
+      platform: 'reddit' as const,
+      externalId: row.externalId,
+      url: row.url,
+      author: row.author,
+      authorUrl: row.authorUrl,
+      publishedAt: row.publishedAt.toISOString(),
+      metrics: row.metrics,
+    },
+    observedAt: row.observedAt.toISOString(),
+    citesX: row.citesX,
+  }));
 }
