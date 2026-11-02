@@ -102,15 +102,7 @@ Iteration 217: [archive](docs/progress-archive/2026-11-02-iteration-217.md).
 
 Earlier iteration 218: [archive](docs/progress-archive/2026-11-02-iteration-218.md).
 
-## 2026-11-02: iteration 219 — edition history characterization
-
-- Started clean on main; API/worker, health, 32 sources and four queues healthy. No leftover work.
-- Items 13/7/9 await Nov 3 scheduled evidence; advanced lower-priority STEERING 2a using disposable services only.
-- Added repository-port assertions for profile isolation, unknown IDs, exact snapshot JSON, detached read results, stable UUID ordering at tied timestamps, 20-entry pagination/end offsets and timezone normalization.
-- Historical fixtures cannot replace newer default-profile editions; a newer foreign-profile fixture verifies latest/history isolation. Registered the test in the isolated suite and documented coverage in README/TASKS.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`; 120 unit and 119 isolated integration tests passed. No application behavior or UI change.
-- Read-only timing report: next Nov 3 15:00 UTC; prior 856 ms fallback is not AI latency evidence. X report Nov 2: $0.023382, two verified/dated historical World citations, incremental baseline unknown.
-- No inference or Reddit requests. API/worker restarted; health DB/Redis true, SPA 200, 32 sources without errors and four queues available. `git diff --check` passed. Next: observe Nov 3 14:30 X discovery and 15:00 scheduled AI cost/duration; 2a remains incomplete.
+Earlier iteration 219: [archive](docs/progress-archive/2026-11-02-iteration-219.md).
 
 ## 2026-11-02: iteration 220 — profile repository characterization
 
@@ -273,4 +265,17 @@ Archived iteration 214: [entry](docs/progress-archive/2026-11-02-iteration-214.m
 - Initial check stopped on docs formatting after a late docs edit; formatted and reran successfully.
 - Updated TASKS/database notes; archived iteration 218 to bound PROGRESS.
 - Deployment: API/worker restarted healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues; retained edition: four topics, 20 stories, 10 posts.
+- Next: observe Nov 3 14:30 UTC X discovery and 15:00 edition cost/duration; fallback timing is not AI latency evidence.
+
+## 2026-11-02: iteration 234 — edition history boundaries
+
+- Started clean on main; services, health and all 32 sources healthy. No leftover work.
+- Two retained ingestion failures are historical; both sources subsequently collected successfully (50/60 items).
+- Priority items 13/7/9 await Nov 3 scheduled evidence; advanced isolated STEERING 2a coverage.
+- Pinned timestamp-before-ID ordering, exact 20-entry pagination, exhausted/negative offsets and recovery.
+- Latest reads respect persisted sort keys, tied IDs and caller mutation isolation; history retains UTC/millisecond fidelity.
+- No provider or Reddit requests. AI golden and other repository behavior gaps remain open.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (120 unit, 133 integration), `pnpm build` and `git diff --check` passed.
+- Updated TASKS/database notes; archived iteration 219 to bound PROGRESS.
+- Deployment: API/worker restarted healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues.
 - Next: observe Nov 3 14:30 UTC X discovery and 15:00 edition cost/duration; fallback timing is not AI latency evidence.

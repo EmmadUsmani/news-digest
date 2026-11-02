@@ -93,3 +93,104 @@ void test('edition reads preserve JSON, profile isolation and stable 20-entry hi
     await adapter.onModuleDestroy();
   }
 });
+
+void test('latest and history order by stored timestamps before IDs and distinguish exactly full pages', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const adapter = new PostgresPreviewRepository();
+  const repository: PreviewRepository = adapter;
+  const profile = '00000000-0000-4000-8000-000000000001';
+  try {
+    const offset = Number(
+      (
+        await adapter.db.query(
+          'SELECT count(*) FROM digest_previews WHERE profile_id=$1',
+          [profile],
+        )
+      ).rows[0].count,
+    );
+    const snapshots: DigestPreview[] = [];
+    // Older than other fixtures, with IDs deliberately opposed to chronology.
+    for (let index = 0; index < 20; index++) {
+      const snapshot: DigestPreview = {
+        id: `00000000-0000-4000-8000-${String(960000 + index).padStart(12, '0')}`,
+        createdAt: new Date(
+          Date.UTC(1800, 0, 20 - Math.floor(index / 2)),
+        ).toISOString(),
+        windowStart: '1799-12-31T23:00:00.123Z',
+        windowEnd: '1800-01-01T23:00:00.456Z',
+        method: 'signals-v6',
+        topics: [],
+      };
+      snapshots.push(snapshot);
+      await adapter.db.query(
+        'INSERT INTO digest_previews(id,profile_id,created_at,window_start,window_end,snapshot) VALUES($1,$2,$3,$4,$5,$6)',
+        [
+          snapshot.id,
+          profile,
+          snapshot.createdAt,
+          snapshot.windowStart,
+          snapshot.windowEnd,
+          snapshot,
+        ],
+      );
+    }
+    const expected = snapshots.sort(
+      (a, b) =>
+        b.createdAt.localeCompare(a.createdAt) || b.id.localeCompare(a.id),
+    );
+    const entries = expected.map(({ topics: _topics, ...entry }) => entry);
+    assert.deepEqual(await repository.history(offset), {
+      entries,
+      hasMore: false,
+    });
+    assert.deepEqual(await repository.history(offset + 19), {
+      entries: entries.slice(19),
+      hasMore: false,
+    });
+    assert.deepEqual(await repository.history(offset + 20), {
+      entries: [],
+      hasMore: false,
+    });
+    await assert.rejects(repository.history(-1));
+    assert.deepEqual(await repository.history(offset), {
+      entries,
+      hasMore: false,
+    });
+
+    // latest uses the persisted sort keys, even if snapshot metadata differs.
+    for (const snapshot of expected.slice(0, 2)) {
+      const future = { ...snapshot, id: randomUUID() };
+      await adapter.db.query(
+        'INSERT INTO digest_previews(id,profile_id,created_at,window_start,window_end,snapshot) VALUES($1,$2,$3,$4,$5,$6)',
+        [
+          future.id,
+          profile,
+          '2200-01-01T08:00:00+08:00',
+          future.windowStart,
+          future.windowEnd,
+          future,
+        ],
+      );
+      snapshots.push(future);
+    }
+    const newest = snapshots.slice(-2).sort((a, b) => b.id.localeCompare(a.id));
+    assert.deepEqual(await repository.latest(), newest[0]);
+    assert.deepEqual(await repository.find(newest[1].id), newest[1]);
+    const latest = await repository.latest();
+    assert.ok(latest);
+    latest.topics.push({
+      id: randomUUID(),
+      name: 'Caller mutation',
+      candidateCount: 0,
+      stories: [],
+      posts: [],
+    });
+    assert.deepEqual(await repository.latest(), newest[0]);
+    assert.equal(
+      (await repository.history(0)).entries[0].createdAt,
+      '2200-01-01T00:00:00.000Z',
+    );
+  } finally {
+    await adapter.onModuleDestroy();
+  }
+});

@@ -142,3 +142,14 @@ refreshes leave one row. A database-rejected JSON field leaves every existing
 field, including verification time, intact; a later valid refresh recovers.
 Assertions use disposable PostgreSQL and make no X, Reddit or inference calls.
 AI golden and other repository behavior gaps remain open.
+
+## Edition history boundary characterization (iteration 234)
+
+`preview-history.test.ts` pins chronological ordering ahead of UUID ordering,
+tied timestamps, exactly 20 remaining entries without a next-page sentinel,
+last-entry and exhausted offsets, and recovery after a rejected negative offset.
+Latest reads use persisted timestamps and descending IDs even when immutable
+snapshot metadata differs, and caller mutations cannot change later reads.
+Offset timestamps normalize to UTC while window milliseconds survive history
+mapping. Fixtures exist only in disposable PostgreSQL; no provider calls occur.
+AI golden and other repository behavior gaps remain open.
