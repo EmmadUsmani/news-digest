@@ -96,7 +96,7 @@ export class BudgetedLlm {
         throw error;
       }
     }
-    // Each repair is separately reserved and recorded. No network retries.
+    // Each repair is separately reserved and recorded. Only rejected rate-limit requests may retry inside the adapter.
     let feedback = '';
     for (let attempt = 0; attempt < 2; attempt++) {
       const current = attempt

@@ -18,29 +18,7 @@ Earlier iterations 87–100: [archive](docs/progress-archive/2026-11-02-iteratio
 Earlier iterations 101–123: [archive](docs/progress-archive/2026-11-02-iterations-101-123.md).
 Earlier iterations 124–132: [archive](docs/progress-archive/2026-11-02-iterations-124-132.md).
 
-## 2026-11-02: iteration 133 — recover interrupted schedule verification
-
-- Started clean on main; no leftover work. API/worker/health, 27 feeds and digest runs healthy; scheduled semantic edition remains due 20:40 UTC, not yet inspectable.
-- Both schedule-changing smoke scripts now save an exclusive mode-600 recovery record before mutation, restore/verify on normal completion and SIGINT/SIGTERM, and refuse to overwrite unresolved recovery state.
-- Added `scripts/recover-schedule.ts` for retained records after SIGKILL/VM interruption; failed restoration keeps the record. README documents recovery and concurrent-edit limitations. No live schedule probe or schedule edit performed.
-- Isolated fake-HTTP/child-process regression verifies SIGTERM exit 143, exact original restoration, record removal and refusal of a second probe. No live DB or external inference used by test.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 141 isolated tests pass. Initial lint caught unawaited test registration; corrected and full check rerun. `pnpm build` passes (existing upstream Zod warnings).
-- Restarted API/worker; `/healthz` healthy. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: 1,144 stored URLs/four topics/27 healthy sources, repeated collection idempotent.
-- `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; refreshed status screenshots. No product UI changes.
-- No publication, inference/discovery spend, provider/model/billing change or new owner blocker. Gaming/World social gaps and Reddit access remain; paid X scheduling stays off.
-- Next: inspect 20:40 UTC scheduled semantic edition when due; continue free social coverage work in the meantime.
-
-## 2026-11-02: iteration 134 — visible free social collection results
-
-- Started clean on main; no leftover work. API/worker/health, 27 feeds and retained digest runs healthy; semantic edition remains due 20:40 UTC.
-- Status now exposes up to 20 retained free social runs with validated river/page citation, embed-check and partial-error counters; historical incompatible results show counts unavailable. Separate digest run list and correct next-social-collection label.
-- Counts explicitly include refreshes/repeated citations and do not imply new posts, editorial relevance or virality. Latest hourly pass: two rivers, eight pages, one page citation, ten successful embed checks, zero errors.
-- Fixed operations telemetry's hardcoded Redis connection to honor the shared configured/test-isolated connection; isolated worker regression verifies valid counters, malformed-result rejection and payload stripping without touching live Redis.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 142 isolated tests pass. `pnpm build` passes (existing upstream Zod warnings).
-- Restarted API/worker; `/healthz` healthy. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued passes, 1,144 URLs/four topics/27 healthy sources; repeat idempotent.
-- `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed, new mobile social panel inspected. README/TASKS/docs/SOURCES updated.
-- No publication, schedule mutation, inference/discovery spend, provider/model/billing change or new owner blocker. Paid X scheduling stays off; Gaming/World social gaps and Reddit block remain.
-- Next: inspect scheduled 20:40 UTC semantic edition when due; continue relevant free social coverage.
+Earlier iterations 133–134: [archive](docs/progress-archive/2026-11-02-iterations-133-134.md).
 
 ## 2026-11-02: iteration 135 — Aftermath free Gaming citation feed
 
@@ -169,3 +147,13 @@ Earlier iterations 124–132: [archive](docs/progress-archive/2026-11-02-iterati
 - Temporary offline benchmark: 1,500 candidates in sequential 200-item chunks, 20 ms fake calls: cold 30 calls/217 ms; replay zero calls/15 ms. This is triage orchestration only, not a live/full-edition timing claim.
 - Restarted API/worker; `/healthz`, `/api/status` and latest edition read pass (four topics). No new publication, schedule mutation or inference/discovery spend. No UI/source changes; source docs unchanged.
 - TASKS and docs/RANKING updated. Next: bounded 429 backoff, parallel topic editors/shared concurrency, async generation/dedupe/progress and full-edition timing. Item 7 remains open; no new blocker.
+
+## 2026-11-02: iteration 156 — bounded Anthropic rate-limit backoff
+
+- Started clean on main; no leftover work. API/worker healthy, 32 sources without current errors; digest queue has zero failures. Two historical ingestion failures remain retained.
+- STEERING 7 partial: ordinary HTTP 429 rejections retry at most twice within one existing reservation; default waits 1s/2s, honoring Retry-After seconds/dates up to 10s per wait. Longer deadlines fail rather than retry early.
+- Spend-limit responses remain immediate monthly blocks; transport/other HTTP failures never retry. Successful inference usage settles once; exhausted failures retain conservative reservations.
+- Fake HTTP tests cover retry recovery/exhaustion, one reservation/settlement, long deadlines, date parsing and non-retry failures. No live inference calls or spend.
+- `pnpm exec tsx --test apps/api/test/llm.test.ts`: 19 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and 157 isolated tests pass. Initial check caught SDK headers typed any; narrowed before green rerun.
+- `pnpm build` passes; restarted API/worker; `/healthz` healthy and `/api/digest-previews/latest` returns the stored four-topic edition. No new publication or schedule/source/UI changes; source docs unchanged.
+- Updated TASKS/docs/RANKING and archived progress 133–134 to stay below 25 KB. No new blocker; next: shared concurrency/parallel editors, async jobs/window dedupe/progress and full-edition timing. Item 7 remains open.

@@ -6,6 +6,7 @@ import { z } from 'zod';
 import {
   AnthropicLlmAdapter,
   isProviderSpendLimit,
+  rateLimitDelay,
 } from '../src/modules/curation/adapters/anthropic';
 import { llmConfig } from '../src/modules/curation/adapters/config';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
@@ -476,4 +477,103 @@ void test('diagnostics survive successful repair/cache reuse and classify invali
     category: 'invalid-schema',
   });
   assert.equal(provider.count(), 2);
+});
+
+void test('rate-limit delays honor seconds and HTTP dates, with bounded fallback', () => {
+  const now = Date.parse('2026-11-02T14:00:00Z');
+  assert.equal(rateLimitDelay('3', 0, now), 3000);
+  assert.equal(rateLimitDelay('0.5', 0, now), 1000);
+  assert.equal(rateLimitDelay('Mon, 02 Nov 2026 14:00:05 GMT', 0, now), 5000);
+  assert.equal(rateLimitDelay('Mon, 02 Nov 2026 13:59:00 GMT', 1, now), 2000);
+  assert.equal(rateLimitDelay(null, 1, now), 2000);
+  assert.equal(rateLimitDelay('invalid', 0, now), 1000);
+  assert.equal(rateLimitDelay('11', 0, now), null);
+});
+
+void test('429 retries share one reservation and successful usage is recorded once', async () => {
+  let calls = 0;
+  const waits: number[] = [];
+  const adapter = new AnthropicLlmAdapter(
+    'offline-fixture-key',
+    async () => {
+      calls++;
+      if (calls < 3)
+        return new Response(
+          JSON.stringify({
+            type: 'error',
+            error: { type: 'rate_limit_error', message: 'Rate limited' },
+          }),
+          {
+            status: 429,
+            headers: { 'content-type': 'application/json', 'retry-after': '3' },
+          },
+        );
+      return new Response(
+        JSON.stringify({
+          id: 'fixture',
+          type: 'message',
+          role: 'assistant',
+          model: config.haiku.id,
+          content: [{ type: 'text', text: '{"ok":true}' }],
+          stop_reason: 'end_turn',
+          stop_sequence: null,
+          usage: { input_tokens: 40, output_tokens: 8 },
+        }),
+        { headers: { 'content-type': 'application/json' } },
+      );
+    },
+    (ms) => {
+      waits.push(ms);
+      return Promise.resolve();
+    },
+  );
+  const ledger = new MemoryLedger();
+  assert.deepEqual(
+    await new BudgetedLlm(adapter, ledger).json(request, valid),
+    { ok: true },
+  );
+  assert.equal(calls, 3);
+  assert.deepEqual(waits, [3000, 3000]);
+  assert.equal(ledger.calls.length, 1);
+  assert.ok(ledger.calls[0].cost !== undefined);
+});
+
+void test('rate-limit retries exhaust after three attempts; long deadlines and other failures never retry', async () => {
+  for (const [status, retryAfter, expected] of [
+    [429, '0', 3],
+    [429, '11', 1],
+    [500, '0', 1],
+    [401, '0', 1],
+    [0, '0', 1],
+  ] as const) {
+    let calls = 0;
+    const waits: number[] = [];
+    const adapter = new AnthropicLlmAdapter(
+      'offline-fixture-key',
+      async () => {
+        calls++;
+        if (!status) throw new Error('offline transport');
+        return new Response(
+          JSON.stringify({
+            type: 'error',
+            error: { type: 'rate_limit_error', message: 'Rejected' },
+          }),
+          {
+            status,
+            headers: {
+              'content-type': 'application/json',
+              'retry-after': retryAfter,
+            },
+          },
+        );
+      },
+      (ms) => {
+        waits.push(ms);
+        return Promise.resolve();
+      },
+    );
+    await assert.rejects(() => adapter.complete(request));
+    assert.equal(calls, expected);
+    assert.deepEqual(waits, expected === 3 ? [1000, 2000] : []);
+  }
 });

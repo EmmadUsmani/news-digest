@@ -607,4 +607,11 @@ invalid outputs, byte bounds and refusal. A synthetic 1,500-item run in sequenti
 200-item chunks used 30 calls in 217 ms with 20 ms fake latency; cached replay
 used zero calls in 15 ms. These are orchestration measurements, not provider
 latency or full-edition performance. Async generation, parallel topic editors
-and rate-limit backoff remain unfinished under STEERING 7.
+remain unfinished under STEERING 7.
+
+The Anthropic adapter retries ordinary rejected HTTP 429 requests at most twice,
+within the same budget reservation. Backoff defaults to 1s then 2s and honors
+Retry-After seconds or HTTP dates, with at most 10s per wait (20s total). Longer
+deadlines fail immediately instead of retrying early. Spend-limit responses,
+transport errors and other HTTP failures never retry. Offline SDK/HTTP tests
+verify bounds, deadlines, successful usage settlement and single-call spend blocks.
