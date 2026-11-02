@@ -210,3 +210,12 @@ older is eligible, and newer/future checks remain suppressed regardless of their
 error field. Re-enabling the topic restores the same candidates. All fixtures
 roll back in disposable PostgreSQL; no X, Reddit or inference requests occur.
 Remaining repository gaps and recorded-response golden coverage stay open.
+
+## Missing X publication-time recovery (iteration 241)
+
+`x-post-time.test.ts` pins the maintenance reader/writer in a rolled-back,
+non-UTC transaction: exact observation-time inclusion, future time exclusion
+at one millisecond and later recovery, legacy/overflow ID rejection,
+existing publication preservation and non-X exclusion. Full-row comparisons
+ensure recovery changes only publication time; repeated runs return zero.
+Synthetic Reddit rows test platform isolation without network requests.

@@ -106,17 +106,6 @@ Earlier iteration 219: [archive](docs/progress-archive/2026-11-02-iteration-219.
 
 Iteration 221: [archive](docs/progress-archive/2026-11-02-iteration-221.md).
 
-## 2026-11-02: iteration 224 — usage ledger characterization
-
-- Started clean on main; API/worker, health and 32 sources healthy. No leftover work.
-- Items 13/7/9 await Nov 3 scheduled evidence; advanced STEERING 2a with disposable-container reader assertions.
-- Pinned empty usage, UTC day/month boundaries and offset timestamp, model totals/order/allocation, failed reservations, old uncertain holds, latest errors and expired/current provider blocks.
-- Source usage.reader coverage rises from 42.86% to 92.86% branches and 100% lines; characterization is still incomplete, including AI golden. No application/UI change.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (120 unit, 123 isolated integration), `pnpm build`, `git diff --check` passed. No inference or Reddit requests.
-- Updated TASKS/database verification notes; archived iteration 209 to bound PROGRESS.
-- Read-only timing: next Nov 3 15:00 UTC; prior 856 ms fallback is not AI latency evidence. Next: observe 14:30 X search and scheduled edition cost/duration.
-- Deployment: API/worker restarted active; DB/Redis healthy, SPA 200, 32 sources without errors, four queues available; retained real edition has four topics, 20 stories and 10 posts.
-
 ## 2026-11-02: iteration 225 — historical AI-cost characterization
 
 - Started clean on main; API/worker, health, 32 sources and four queues healthy. No leftover work.
@@ -309,4 +298,17 @@ Archived iteration 214: [entry](docs/progress-archive/2026-11-02-iteration-214.m
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 138 integration), `pnpm build`, `git diff --check` passed.
 - Updated TASKS/database notes. No provider or Reddit requests; all new fixtures roll back in disposable PostgreSQL.
 - Restarted API/worker healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues; latest edition has four topics.
+- Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 241 — missing X publication-time recovery
+
+- Started clean on main; services/health green, 32 sources without current errors; no leftover work.
+- Priority 15/13/7/9 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a.
+- Added maintenance characterization for exact millisecond inclusion, future exclusion/later recovery, legacy/overflow IDs and repeat runs.
+- Full-row comparisons pin existing timestamps, non-X rows and all other evidence in a rolled-back non-UTC transaction.
+- Initial fixtures violated X ID and Reddit metadata constraints; corrected fixtures without weakening schema or production behavior.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 139 integration), `pnpm build`, `git diff --check` passed.
+- Updated TASKS/database notes; archived iteration 224 to keep PROGRESS bounded. No provider or Reddit requests.
+- Restarted API/worker healthy; DB/Redis true, SPA 200, 32 error-free sources and four available queues.
+- Read-only timing report confirms retained four-topic editions; 856 ms fallback remains no live AI latency evidence.
 - Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
