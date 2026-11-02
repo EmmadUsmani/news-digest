@@ -248,3 +248,12 @@ one new catalog row and no connection for the rejected feed. The rejected
 caller can then connect the winning URL at full capacity, pinning transaction
 rollback and lock release. The test uses disposable PostgreSQL only; no feed,
 Reddit or provider requests occur. Remaining repository gaps stay open.
+
+## Concurrent content ingestion (iteration 245)
+
+`content-repository.test.ts` races two publishers storing the same canonical
+article. It pins one item, both source observations, lossless merging of distinct
+engagement keys, and one preview entry with deterministic publisher attribution.
+Concurrent repeat batches preserve the item ID and engagement, dedupe observations,
+and independently update each source's successful collection count. All writes
+use disposable PostgreSQL; no publisher, Reddit or inference requests occur.

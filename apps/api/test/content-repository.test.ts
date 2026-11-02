@@ -472,3 +472,107 @@ void test('shared feed collection follows active connections and preserves obser
     await repository.onModuleDestroy();
   }
 });
+
+void test('concurrent publishers merge one canonical item without losing observations or engagement', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const repository = new PostgresContentRepository();
+  const topicId = randomUUID();
+  const prefix = `concurrent-${topicId}`;
+  const sources: Source[] = ['a', 'b'].map((suffix) => ({
+    id: `${prefix}-${suffix}`,
+    topicId,
+    name: `Publisher ${suffix}`,
+    kind: 'feed',
+    url: `https://example.org/${prefix}/${suffix}`,
+  }));
+  const item: ContentItem = {
+    url: `https://example.org/${prefix}/story`,
+    title: 'Shared story',
+    excerpt: 'Shared excerpt',
+    author: 'Reporter',
+    imageUrl: null,
+    publishedAt: '2035-01-01T00:00:00Z',
+    engagement: {},
+  };
+  try {
+    await repository.db.query(
+      `INSERT INTO topics(id,profile_id,name,description,include_guidance,position)
+       SELECT $1,id,'Concurrent publishers','','',100 FROM profiles LIMIT 1`,
+      [topicId],
+    );
+    for (const source of sources) {
+      await repository.db.query(
+        'INSERT INTO content_sources(id,topic_id,name,kind,url) VALUES($1,$2,$3,$4,$5)',
+        [source.id, topicId, source.name, source.kind, source.url],
+      );
+      await repository.db.query(
+        'INSERT INTO topic_source_connections(topic_id,source_id) VALUES($1,$2)',
+        [topicId, source.id],
+      );
+    }
+    await Promise.all([
+      repository.store(sources[0], [{ ...item, engagement: { points: 12 } }]),
+      repository.store(sources[1], [{ ...item, engagement: { comments: 7 } }]),
+    ]);
+    const persisted = await repository.db.query(
+      'SELECT id,engagement FROM content_items WHERE canonical_url=$1',
+      [item.url],
+    );
+    assert.equal(persisted.rowCount, 1);
+    assert.deepEqual(persisted.rows[0].engagement, { points: 12, comments: 7 });
+    const latest = (await repository.latest()).find(
+      (row) => row.topicId === topicId,
+    );
+    assert.equal(latest.items.length, 1);
+    assert.equal(latest.items[0].id, persisted.rows[0].id);
+    assert.equal(latest.items[0].source, 'Publisher a');
+    await Promise.all(
+      sources.map((source) => repository.store(source, [item, item])),
+    );
+    assert.deepEqual(
+      (
+        await repository.db.query(
+          'SELECT id,engagement FROM content_items WHERE canonical_url=$1',
+          [item.url],
+        )
+      ).rows,
+      persisted.rows,
+    );
+    const observations = await repository.db.query(
+      'SELECT source_id FROM content_observations WHERE item_id=$1 ORDER BY source_id',
+      [persisted.rows[0].id],
+    );
+    assert.deepEqual(
+      observations.rows.map((row) => row.source_id),
+      sources.map((source) => source.id),
+    );
+    const statuses = (await repository.status()).filter((row) =>
+      sources.some((source) => source.id === row.id),
+    );
+    assert.equal(statuses.length, 2);
+    for (const status of statuses) {
+      assert.equal(status.storedItems, 1);
+      assert.equal(status.lastItemCount, 2);
+      assert.equal(status.error, null);
+      assert.ok(status.lastSuccess);
+    }
+  } finally {
+    await repository.db.query(
+      'DELETE FROM content_observations WHERE source_id=ANY($1::text[])',
+      [sources.map((source) => source.id)],
+    );
+    await repository.db.query(
+      'DELETE FROM topic_source_connections WHERE topic_id=$1',
+      [topicId],
+    );
+    await repository.db.query('DELETE FROM content_sources WHERE topic_id=$1', [
+      topicId,
+    ]);
+    await repository.db.query(
+      'DELETE FROM content_items WHERE canonical_url=$1',
+      [item.url],
+    );
+    await repository.db.query('DELETE FROM topics WHERE id=$1', [topicId]);
+    await repository.onModuleDestroy();
+  }
+});

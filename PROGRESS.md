@@ -106,19 +106,6 @@ Earlier iteration 219: [archive](docs/progress-archive/2026-11-02-iteration-219.
 
 Iteration 221: [archive](docs/progress-archive/2026-11-02-iteration-221.md).
 
-## 2026-11-02: iteration 228 — ingestion citation characterization
-
-- Started clean on main; API/worker, health, 32 sources and four queues healthy. No leftover work.
-- Items 13/7/9 await Nov 3 scheduled evidence; advanced lower-priority STEERING 2a with isolated ingestion citation assertions.
-- Pinned URL-derived IDs, duplicate/host rejection, independent source citations, named verification URL and first-seen preservation, last-seen updates and engagement JSON replacement.
-- Invalid later items roll back citation inserts/updates and source health together. No inference or Reddit requests.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` passed (120 unit, 126 integration); `pnpm build` and `git diff --check` passed.
-- Updated TASKS/database notes and archived iteration 213 to bound PROGRESS. AI golden and other repository behavior gaps remain open.
-- Deployment: restarted API/worker active; `/healthz` DB/Redis true, SPA 200, 32 error-free sources and four available queues. Retained edition: four topics, 20 stories, 10 posts.
-- Next: observe Nov 3 14:30 UTC X discovery and 15:00 edition cost/duration; prior fallback timing is not AI latency evidence.
-
-Archived iteration 214: [entry](docs/progress-archive/2026-11-02-iteration-214.md).
-
 ## 2026-11-02: iteration 229 — publisher-discovery ordering characterization
 
 - Started clean on main; health, 32 sources and four queues healthy. No leftover work.
@@ -315,4 +302,15 @@ Archived iteration 214: [entry](docs/progress-archive/2026-11-02-iteration-214.m
 - Updated TASKS/database notes; archived iteration 227 to keep PROGRESS bounded. No provider or Reddit requests.
 - Restarted API/worker healthy; DB/Redis true, SPA 200, 32 error-free sources and four queues.
 - Read-only timing report confirms next edition Nov 3 15:00 UTC; retained 856 ms fallback is not AI latency evidence.
+- Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 245 — concurrent canonical ingestion
+
+- Started clean on main; API/worker and health green; no leftover work.
+- Priority 15/13/7/9 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a.
+- Added concurrent publisher writes for one canonical article: one item, merged engagement, both observations and one attributed preview.
+- Concurrent duplicate batches preserve identity/engagement and update source health independently without duplicating observations.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 143 integration), `pnpm build`, `git diff --check` passed.
+- Updated TASKS/database notes; archived iteration 228 to keep PROGRESS bounded. No provider or Reddit requests.
+- Live checks: API/worker active, health DB/Redis true, SPA 200, 32 error-free sources, four available queues and four-topic latest edition.
 - Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
