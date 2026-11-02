@@ -382,3 +382,28 @@ The read-only `screen-social-posts.ts` command now also returns exact selections
 Live Oct 26–Nov 2 UTC replay selects three NBA posts and zero for other topics;
 this is stored real content, not a newly published edition or broader coverage.
 No HTTP or inference is used by selection. Reddit remains blocked (403).
+
+### Iteration 93: lazy official X widgets and readable fallback
+
+Digest topics with saved post selections now show a separate Top posts section.
+The browser loads one official `platform.twitter.com/widgets.js` script only
+when a selected post approaches the viewport, then asks `createTweet` to render
+that exact saved ID with media. No stored oEmbed HTML is injected. Saved text,
+author, timestamp and original link remain readable when widgets are blocked or
+unavailable; unknown engagement remains absent. Picks are visibly preliminary
+(topic matching and recency), without claims of AI selection or virality.
+Historical editions without post fields remain unchanged; quiet windows stay empty.
+
+Read-only desktop/mobile replays use the three real NBA selections from the
+Oct 26–Nov 2 window, without publishing or changing the latest live edition.
+`posts-blocked-*.png` captures the blocked-widget fallback, explicitly labeled as
+a replay. The deterministic smoke uses a widget protocol stub, not live media.
+Broader relevant discovery, scheduled free harvesting, and Reddit remain open.
+
+Separate explicit `POST_EMBED_LIVE=1` checks rendered official video thumbnails
+on desktop and mobile (`posts-live-*.png`); mobile appearance was inspected.
+Multi-post live checks intermittently raised an exception inside X's widget
+script, although another full replay passed. Explicit live checks are bounded
+to one real post per topic; deterministic checks still exercise all selections.
+Provider availability is external; saved text remains accessible in a disclosure
+even after widget creation succeeds, and original links remain available. No X scraping or inference was used.

@@ -507,3 +507,44 @@ summary:focus-visible {
   border-radius: 8px;
   margin: 16px 0;
 }
+
+.top-posts {
+  margin-top: 2rem;
+  border-top: 1px solid var(--border, #dce1e6);
+  padding-top: 1rem;
+}
+.top-posts h4 {
+  font-size: 1.3rem;
+  margin: 0 0 0.5rem;
+}
+.post-method {
+  color: #596775;
+  font-size: 0.9rem;
+}
+.post-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+}
+.post-card {
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid #dce1e6;
+  border-radius: 12px;
+  background: #fff;
+}
+.post-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.6;
+}
+.official-post {
+  min-height: 1px;
+}
+.post-card details {
+  margin-top: 1rem;
+}
+.post-card > a {
+  font-size: 0.95rem;
+  font-weight: 600;
+}

@@ -144,9 +144,17 @@ Free social discovery (explicit, not yet scheduled): run
 X references from enabled topic rivers, then
 `pnpm exec tsx apps/api/scripts/verify-x-embeds.ts` to verify at most ten
 candidates through official oEmbed. These commands use no inference. Discovery
-references are not publishable posts; verified posts still need selection and UI
-rendering. Run `pnpm migrate` before using them. Inspect stored posts without HTTP,
+references are not publishable posts; new editions select qualifying verified
+posts and show them with lazy official widgets and saved-text fallbacks.
+Run `pnpm migrate` before using them. Inspect stored posts without HTTP,
 inference or publication using
 `pnpm exec tsx apps/api/scripts/screen-social-posts.ts START_ISO END_ISO`
 (default: last 24 hours). This reports per-post eligibility reasons against saved
 topic phrase rules and verified timestamps; it is not a virality or editorial score.
+
+For a read-only desktop/mobile post UI replay, save the screening JSONL output
+to a temporary file, then run
+`pnpm exec tsx scripts/smoke-posts.ts /tmp/post-screen.jsonl`. It uses actual
+selected candidates with stubbed widget success and blocked-script checks, without
+publishing an edition. `POST_EMBED_LIVE=1` explicitly enables separate official
+widget requests instead; these are external checks, not automated tests.

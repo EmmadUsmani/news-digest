@@ -5,6 +5,8 @@ import {
   previewHistorySchema,
 } from '@digest/contracts';
 import React from 'react';
+
+import { TopPosts } from './TopPosts';
 export function DigestPreview() {
   const [preview, setPreview] = React.useState<Preview | null>(null);
   const [windowChoice, setWindowChoice] = React.useState('24');
@@ -407,6 +409,7 @@ export function DigestPreview() {
                   </li>
                 ))}
               </ol>
+              {topic.posts !== undefined && <TopPosts posts={topic.posts} />}
             </article>
           ))}
         </>

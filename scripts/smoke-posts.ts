@@ -1,0 +1,132 @@
+// Read-only UI replay of actual saved candidates; never publishes an edition.
+// Official widgets are stubbed for deterministic checks; opt in separately to live embeds.
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+
+import { digestPreviewSchema, selectedPostSchema } from '@digest/contracts';
+import { chromium } from 'playwright';
+
+async function main() {
+  const path = process.argv[2];
+  if (!path) throw new Error('Supply screen-social-posts.ts JSONL output');
+  const screened = (await readFile(path, 'utf8'))
+    .trim()
+    .split('\n')
+    .map((line) => {
+      const value = JSON.parse(line) as { topic: string; selected: unknown[] };
+      return {
+        topic: value.topic,
+        selected: value.selected.map((post) => selectedPostSchema.parse(post)),
+      };
+    });
+  assert.ok(screened.some((topic) => topic.selected.length > 0));
+  const browser = await chromium.launch();
+  try {
+    for (const [name, width, height] of [
+      ['desktop', 1440, 1100],
+      ['mobile', 390, 844],
+    ] as const) {
+      for (const mode of process.env.POST_EMBED_LIVE === '1'
+        ? (['live'] as const)
+        : (['success', 'blocked'] as const)) {
+        const page = await browser.newPage({ viewport: { width, height } });
+        const errors: string[] = [];
+        page.on('pageerror', (error) =>
+          errors.push(error.stack ?? error.message),
+        );
+        const snapshot = digestPreviewSchema.parse(
+          await (
+            await page.request.get(
+              'http://localhost:8000/api/digest-previews/latest',
+            )
+          ).json(),
+        );
+        snapshot.topics.forEach((topic) => {
+          topic.posts = (
+            screened.find((row) => row.topic === topic.name)?.selected ?? []
+          ).slice(0, mode === 'live' ? 1 : undefined);
+        });
+        let scriptRequests = 0;
+        if (mode !== 'live')
+          await page.route(
+            'https://platform.twitter.com/widgets.js',
+            async (route) => {
+              scriptRequests++;
+              if (mode === 'blocked') return route.abort();
+              await route.fulfill({
+                contentType: 'text/javascript',
+                body: `window.twttr = { widgets: { createTweet: async (id, target, options) => { const element = document.createElement('div'); element.dataset.postId = id; element.textContent = 'Recorded widget protocol stub'; target.append(element); return element; } } };`,
+              });
+            },
+          );
+        await page.route('**/api/digest-previews/latest', (route) =>
+          route.fulfill({ json: snapshot }),
+        );
+        await page.goto('http://localhost:8000');
+        await page.locator('.top-posts').first().waitFor();
+        assert.equal(
+          scriptRequests,
+          0,
+          'Widgets must wait until posts approach the viewport',
+        );
+        const cards = page.locator('.post-card');
+        const expected = snapshot.topics.flatMap((topic) => topic.posts ?? []);
+        assert.equal(await cards.count(), expected.length);
+        for (let index = 0; index < expected.length; index++) {
+          const card = cards.nth(index);
+          const post = expected[index];
+          await card.scrollIntoViewIfNeeded();
+          assert.equal(
+            await card
+              .getByRole('link', { name: 'Open original post on X' })
+              .getAttribute('href'),
+            post.url,
+          );
+          if (mode === 'live') {
+            await card.locator('iframe').waitFor({ timeout: 30000 });
+          } else if (mode === 'success') {
+            await card.locator(`[data-post-id="${post.externalId}"]`).waitFor();
+            assert.equal(
+              await card.locator('.saved-post-text .post-text').textContent(),
+              post.text,
+            );
+          } else {
+            assert.equal(
+              await card.locator('.post-text').textContent(),
+              post.text,
+            );
+          }
+        }
+        if (mode !== 'live')
+          assert.equal(scriptRequests, 1, 'One shared widget script per page');
+        assert.equal(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth <= innerWidth,
+          ),
+          true,
+        );
+        assert.deepEqual(errors, []);
+        if (mode === 'blocked' || mode === 'live') {
+          await cards.first().scrollIntoViewIfNeeded();
+          await page.evaluate((live) => {
+            const banner = document.createElement('p');
+            banner.textContent = live
+              ? 'Read-only replay · real verified posts · official X widgets · not a published edition'
+              : 'Read-only replay · real verified posts · official widget blocked to verify fallback · not a published edition';
+            document.querySelector('.post-card')?.prepend(banner);
+          }, mode === 'live');
+          await cards
+            .first()
+            .screenshot({ path: `docs/screenshots/posts-${mode}-${name}.png` });
+        }
+        await page.close();
+      }
+    }
+    console.log(
+      `Post replay passed (${process.env.POST_EMBED_LIVE === '1' ? 'live official widgets' : 'stubbed widgets and blocked fallback'}): desktop/mobile, no overflow or page errors. No edition published.`,
+    );
+  } finally {
+    await browser.close();
+  }
+}
+void main();

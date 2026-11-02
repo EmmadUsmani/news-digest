@@ -64,8 +64,9 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Preserve named status URLs for official verification and accept current X provider branding (iteration 89); ten real official embeds stored.
   - [x] Decode verified modern X Snowflake timestamps with conservative legacy/future rejection, idempotent stored-post backfill and refresh preservation (iteration 90); ten real verified posts dated.
   - [x] Read-only verified-post screening by topic source scope, post paragraph evidence, saved phrase rules, crypto/bait exclusions and half-open coverage windows (iteration 91); three real NBA candidates pass a seven-day window, none pass the checked daily window. Conservative lexical eligibility only.
-  - [x] Immutable window-aware preliminary post selections copied into new manual/scheduled snapshots, saved budgets, exact-text dedupe and selection provenance (iteration 92). Historical editions unchanged; UI rendering pending.
-  - Next: lazy official widget rendering; schedule free harvesting and broaden relevant discovery.
+  - [x] Immutable window-aware preliminary post selections copied into new manual/scheduled snapshots, saved budgets, exact-text dedupe and selection provenance (iteration 92). Historical editions unchanged; rendering added in iteration 93.
+  - [x] Separate Top posts sections, lazy singleton official X widgets, saved-text fallback and desktop/mobile replay checks (iteration 93).
+  - Next: schedule free harvesting and broaden relevant discovery; publish real posts across all four topics.
   - SocialPost storage, window-aware ranking with citation diversity/engagement, immutable post selections and lazy official X embeds.
   - Reddit per-topic communities and faithful cards; no bot-protection workarounds. Bluesky optional; YouTube deferred.
   - After free harvesting: direct capped xAI x_search adapter using installed key, cheapest supported model, per-topic accounts, $0.40/day/$12/month ledger and depleted-credit handling. Never use gateway.
