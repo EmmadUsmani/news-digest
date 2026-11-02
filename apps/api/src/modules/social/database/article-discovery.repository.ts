@@ -11,9 +11,10 @@ export class PostgresArticleDiscoveryRepository implements ArticleDiscoveryRepos
   async candidates(): Promise<DiscoveryArticle[]> {
     return (
       await this.db.query<DiscoveryArticle>(
-        `WITH ranked AS (
+        `WITH publishers AS (
         SELECT i.id,i.canonical_url AS url,s.article_discovery_host AS host,
-          row_number() OVER(PARTITION BY t.id ORDER BY i.published_at DESC,i.id) AS rank,t.position
+          i.published_at,t.id AS topic_id,t.position,
+          row_number() OVER(PARTITION BY t.id,s.id ORDER BY i.published_at DESC,i.id) AS publisher_rank
         FROM content_items i JOIN content_observations o ON o.item_id=i.id
         JOIN content_sources s ON s.id=o.source_id
         JOIN topic_source_connections c ON c.source_id=s.id
@@ -24,6 +25,9 @@ export class PostgresArticleDiscoveryRepository implements ArticleDiscoveryRepos
           AND i.published_at >= now()-interval '3 days' AND i.published_at <= now()
           AND (v.item_id IS NULL OR v.checked_at < now() -
                CASE WHEN v.last_error IS NULL THEN interval '7 days' ELSE interval '1 day' END)
+      ), ranked AS (
+        SELECT *,row_number() OVER(PARTITION BY topic_id
+          ORDER BY publisher_rank,published_at DESC,id) AS rank FROM publishers
       ) SELECT id,url,host FROM ranked GROUP BY id,url,host
         ORDER BY min(rank),min(position),id LIMIT 8`,
       )

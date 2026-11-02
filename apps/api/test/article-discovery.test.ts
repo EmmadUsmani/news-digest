@@ -64,6 +64,7 @@ void test('publisher candidates preserve provenance and idempotence, respect coo
   ).rows;
   const topic = crypto.randomUUID();
   const source = `article-fixture-${topic}`;
+  const quietSource = `${source}-quiet`;
   try {
     await repository.db.query('UPDATE topics SET enabled=false');
     await repository.db.query(
@@ -149,26 +150,57 @@ void test('publisher candidates preserve provenance and idempotence, respect coo
       'DELETE FROM article_x_discovery_checks WHERE item_id=$1',
       [a.id],
     );
+    // One busy publisher must not crowd out another publisher in the same topic.
+    await repository.db.query(
+      `INSERT INTO content_sources(id,topic_id,name,kind,url,article_discovery_host)
+       VALUES($1,$2,'Quiet fixture','feed','https://quiet.example.org/feed','quiet.example.org')`,
+      [quietSource, topic],
+    );
+    await repository.db.query(
+      'INSERT INTO topic_source_connections(topic_id,source_id) VALUES($1,$2)',
+      [topic, quietSource],
+    );
+    for (let n = 0; n < 10; n++) {
+      const quiet = n === 9;
+      const item = await repository.db.query<{ id: string }>(
+        `INSERT INTO content_items(canonical_url,title,excerpt,published_at)
+         VALUES($1,'Fixture','Fixture',now()-$2::interval) RETURNING id`,
+        [
+          `https://${quiet ? 'quiet.example.org' : 'example.org'}/rotation-${n}`,
+          quiet ? '2 days' : '30 minutes',
+        ],
+      );
+      ids.push(item.rows[0].id);
+      await repository.db.query(
+        'INSERT INTO content_observations(item_id,source_id) VALUES($1,$2)',
+        [item.rows[0].id, quiet ? quietSource : source],
+      );
+    }
+    const rotated = await repository.candidates();
+    assert.equal(rotated.length, 8);
+    assert.equal(rotated[1].host, 'quiet.example.org');
+    assert.equal(new Set(rotated.map((item) => item.id)).size, 8);
     await repository.db.query('UPDATE topics SET enabled=false WHERE id=$1', [
       topic,
     ]);
     assert.deepEqual(await repository.candidates(), []);
   } finally {
     await repository.db.query(
-      'DELETE FROM x_link_citations WHERE source_id=$1',
-      [source],
+      'DELETE FROM x_link_citations WHERE source_id=ANY($1::text[])',
+      [[source, quietSource]],
     );
     await repository.db.query(
-      'DELETE FROM content_observations WHERE source_id=$1',
-      [source],
+      'DELETE FROM content_observations WHERE source_id=ANY($1::text[])',
+      [[source, quietSource]],
     );
     await repository.db.query(
-      'DELETE FROM topic_source_connections WHERE source_id=$1',
-      [source],
+      'DELETE FROM topic_source_connections WHERE source_id=ANY($1::text[])',
+      [[source, quietSource]],
     );
-    await repository.db.query('DELETE FROM content_sources WHERE id=$1', [
-      source,
-    ]);
+    await repository.db.query(
+      'DELETE FROM content_sources WHERE id=ANY($1::text[])',
+      [[source, quietSource]],
+    );
     await repository.db.query(
       'DELETE FROM content_items WHERE id=ANY($1::uuid[])',
       [ids],

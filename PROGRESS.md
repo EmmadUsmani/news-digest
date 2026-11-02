@@ -305,3 +305,16 @@ Earlier iterations 51–60: [archive](docs/progress-archive/2026-11-01-iteration
 - `pnpm exec tsx scripts/smoke-ui.ts`, `scripts/smoke-status.ts`, `scripts/smoke-posts.ts /tmp/iteration97-posts.jsonl` pass desktop/mobile; refreshed status screenshots and inspected mobile. Posts replay uses stored candidates and stubbed/blocked widgets, not a published edition.
 - Updated TASKS/README/docs/SOURCES. No inference spending; day/month remains $0.408415 with no reservations/provider errors. Provider/models/billing unchanged; no new owner blocker.
 - Next: broaden World/relevant Gaming discovery, direct capped xAI, then social editorial selection. Reddit remains previously blocked by 403 without workarounds.
+
+## 2026-11-02: iteration 98 — broaden and rotate publisher social discovery
+
+- Started clean on main; no leftover work. API/worker/health, seventeen feeds and retained digest runs healthy; no triage repair needed.
+- Migration 020 opts in BBC, NPR, GamesIndustry, Rock Paper Shotgun, PlayStation and Xbox exact hosts. Explicit shared-client probe read eighteen recent pages: five PlayStation costume citations, seventeen empty pages; probes did not insert posts.
+- Page candidates rotate publishers within each enabled topic before topic interleaving and eight-page cap. Existing article age, dedupe, cooldowns, exact-host checks and failed-host stop retained.
+- Extended isolated DB regression proves a quiet publisher gets a slot ahead of nine newer busy-publisher articles; fixtures stay offline.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass types/lint/format/boundaries and all 112 isolated tests; `pnpm build` passed (existing upstream Zod warnings). `pnpm migrate` applied 020; restarted API/worker and `/healthz` healthy.
+- `pnpm exec tsx apps/api/scripts/smoke-social.ts`: live queued job 11, two rivers/50 references, seven pages/three citation observations/one unavailable PC Gamer page, ten verified embeds/no verification errors. Counts need not be new posts.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued live passes, 794 real URLs, four topics, seventeen healthy sources.
+- `screen-social-posts.ts 2026-10-26T00:00:00Z 2026-11-02T06:30:00Z`: two Tech, five NBA, one Gaming, zero World. Gaming remains earlier costume screenshot; no editorial/virality claim or edition published.
+- `pnpm exec tsx scripts/smoke-ui.ts`, `scripts/smoke-status.ts`, `scripts/smoke-posts.ts /tmp/iteration98-posts.jsonl` passed desktop/mobile; refreshed screenshots and inspected mobile status. Posts replay uses stored selections and stubbed/blocked widgets.
+- Updated TASKS/docs/SOURCES. No inference spending; provider/models/billing unchanged. No new owner blockers; Reddit remains previously blocked by 403. Next: direct capped xAI discovery, then social editorial selection.

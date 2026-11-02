@@ -484,3 +484,32 @@ post (jobolts_ costume screenshot, ID 2115558495626117351, Oct 28). The Gaming
 post passes the saved phrase `game`; this is not a demonstrated viral or editorial
 pick. Tech and World select zero. No edition was published or inference requested.
 World discovery, stronger Gaming relevance and direct capped xAI remain open.
+
+### Iteration 98: wider publisher opt-ins and publisher rotation
+
+Migration 020 opts in exact hosts for BBC (`www.bbc.co.uk`), NPR (`www.npr.org`),
+GamesIndustry (`www.gamesindustry.biz`), Rock Paper Shotgun
+(`www.rockpapershotgun.com`), PlayStation Blog (`blog.playstation.com`) and Xbox
+Wire (`news.xbox.com`). An explicit shared-client probe read three recent stored
+article URLs per publisher: all eighteen returned pages; only PlayStation's
+Oct 30 “Share of the Week: Costumes” page contained status links (five). Probe
+results were diagnostic only, not inserted as verified posts. Empty pages do not
+establish that a publisher never embeds X.
+
+Within each enabled topic, page candidates now take one recent article per
+publisher before a second from a busy publisher. Topics still interleave; shared
+articles dedupe, the total cap remains eight, and existing exact-host checks,
+three-day article age, persisted cooldowns and failure handling remain. An isolated
+DB regression proves an older quiet publisher gets a slot ahead of nine newer
+articles from a busy publisher. Fixtures never enter production.
+
+Explicit queued live `smoke-social.ts` job 11 read seven publisher pages, stored
+three citation observations, recorded one unavailable PC Gamer page and verified
+ten official embeds; two rivers supplied fifty references without errors.
+The BBC and Rock Paper Shotgun pages returned no status links. Citation counts
+may include existing posts. Read-only Oct 26–Nov 2 06:30 UTC selection now yields
+two Tech, five NBA, one Gaming and zero World posts. Gaming remains the previously
+documented costume screenshot; these are preliminary lexical picks, not an AI
+editorial or virality assessment. No edition was published or inference used.
+The direct capped xAI adapter is the next discovery step; World coverage remains
+unresolved by free harvesting alone.
