@@ -49,6 +49,19 @@ enqueue-to-readback timing (including queue wait). The real adapter must reach
 and stay within four concurrent HTTP calls. These measurements exclude live
 provider/network latency and rate limits; they do not establish the live
 <60 s / <2 min targets. Run with `pnpm test` against disposable services, never the live database.
+
+For read-only live evidence, run `pnpm exec tsx scripts/report-edition-timing.ts`
+with the API running locally. It only GETs status and the editions linked to the
+three latest retained completed jobs; it never enqueues work or calls an LLM.
+The report includes final-attempt worker duration, edition creation/window,
+candidate counts, editorial modes/reasons and remaining app budget. Queue wait,
+prior retries and cold provider latency are not measured. A reused edition,
+cached scores or non-AI fallback must not be reported as a cold AI timing result.
+On November 2 at 14:49 UTC, retained jobs were older `signals-v6` publications
+(73–85 ms, no AI editorial metadata), and only $0.000848 of the daily app budget
+remained. Live AI latency targets therefore remain unverified; observe routine
+scheduled runs rather than spending the digest budget on development trials.
+
 `pnpm migrate` is safe to repeat. Keep secrets only in
 `~/.config/news-digest/env` (mode 600), never in the repository.
 The API accepts `DATABASE_URL`, `REDIS_URL`, and `PORT`; defaults target the
