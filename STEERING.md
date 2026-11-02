@@ -311,7 +311,7 @@ What to do:
 **Status (2026-11-02 04:50 UTC): `XAI_API_KEY` is installed and verified.**
 - `GET /v1/models` returned 200, and `grok-4.3` is available.
 - The API/worker services were restarted and both have the key loaded.
-- The xAI team runs on prepaid credits ($12) with auto top-up off, so the
+- The xAI team runs on prepaid credits ($15) with auto top-up off, so the
   balance is the hard cap.
 
 Build the real layer-2 adapter after layer 1, not just fixtures.
