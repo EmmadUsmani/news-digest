@@ -769,3 +769,63 @@ void test('river source eligibility follows topic lifecycle while failures retai
     await pool.end();
   }
 });
+
+void test('concurrent verified post refreshes retain identity and publish one complete payload', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const first = new PostgresSocialRepository();
+  const second = new PostgresSocialRepository();
+  const id = '2116948532477468999';
+  const original = {
+    platform: 'x' as const,
+    externalId: id,
+    url: `https://x.com/original/status/${id}`,
+    author: 'Original',
+    authorUrl: 'https://x.com/original',
+    publishedAt: '2026-10-21T09:00:00.123Z',
+    metrics: { likes: 42, views: 1000 },
+    embedHtml: '<p>Original</p>',
+  };
+  const variants = ['Alpha', 'Beta'].map((author) => ({
+    ...original,
+    author,
+    authorUrl: `https://x.com/${author}`,
+    url: `https://x.com/${author}/status/${id}`,
+    publishedAt: null,
+    metrics: { likes: 999 },
+    embedHtml: `<p>${author}</p>`,
+  }));
+  const read = async () =>
+    (
+      await first.db.query(
+        "SELECT * FROM social_posts WHERE platform='x' AND external_id=$1",
+        [id],
+      )
+    ).rows;
+  try {
+    await first.store(original);
+    const [before] = await read();
+    for (let attempt = 0; attempt < 3; attempt++) {
+      await Promise.all([first.store(variants[0]), second.store(variants[1])]);
+      const rows = await read();
+      assert.equal(rows.length, 1);
+      const [after] = rows;
+      const winner = variants.find(
+        (variant) => variant.author === after.author,
+      );
+      assert.ok(winner);
+      assert.equal(after.author_url, winner.authorUrl);
+      assert.equal(after.embed_html, winner.embedHtml);
+      assert.equal(after.id, before.id);
+      assert.equal(after.canonical_url, original.url);
+      assert.deepEqual(after.metrics, original.metrics);
+      assert.deepEqual(after.published_at, before.published_at);
+      assert.ok(after.verified_at >= before.verified_at);
+    }
+  } finally {
+    await first.db.query(
+      "DELETE FROM social_posts WHERE platform='x' AND external_id=$1",
+      [id],
+    );
+    await Promise.all([first.db.end(), second.db.end()]);
+  }
+});

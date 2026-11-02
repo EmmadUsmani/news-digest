@@ -444,3 +444,11 @@ payloads, enabled-topic filtering, re-enablement, source deletion and topic
 cascade deletion. Repeated failures and unknown source IDs preserve successful
 poll timestamps, link counts and sibling state; errors remain eligible for retry.
 All fixtures roll back in disposable PostgreSQL; no external requests occur.
+
+## Concurrent verified-post refresh (iteration 267)
+
+`social-candidates.test.ts` races separate repository instances refreshing one
+verified X post three times. Each outcome must contain a complete matching
+author, author URL and embed payload, with exactly one row and the original
+identity, canonical URL, engagement metrics and publication time retained.
+Disposable PostgreSQL only; no embed, source, Reddit or provider requests occur.

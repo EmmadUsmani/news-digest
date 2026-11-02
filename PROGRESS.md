@@ -114,17 +114,6 @@ Earlier iteration 244: [archive](docs/progress-archive/2026-11-02-iteration-244.
 
 Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
 
-## 2026-11-02: iteration 247 — concurrent LLM cache persistence
-
-- Started clean on main; API/worker, health and all 32 sources healthy; no leftover work.
-- Priority 15/13/7/9 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a.
-- Added concurrent ledger cache writes: one complete nested JSON winner, immutable replacement behavior and independent caller reads.
-- Invalid JSON leaves a separate key absent; valid retry recovers without changing the winning response.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 145 integration), `pnpm build`, `git diff --check` passed.
-- Updated TASKS/database notes; archived iteration 230 to keep PROGRESS bounded. No provider or Reddit requests.
-- Restarted API/worker healthy; health DB/Redis true, SPA 200, 32 error-free sources and four available queues.
-- Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
-
 ## 2026-11-02: iteration 248 — concurrent schedule replacement
 
 - Started clean on main; API/worker and health green; no leftover work.
@@ -343,3 +332,15 @@ Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
 - Updated TASKS/database notes; archived iteration 246 to keep PROGRESS bounded.
 - Restarted API/worker; health, SPA, latest four-topic edition and source/queue health verified.
 - Next: observe Nov 3 scheduled X cost/yield and AI edition cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 267 — concurrent verified-post refresh
+
+- Started clean on main; API/worker, health, 32 sources and four queues healthy; no leftover work.
+- Scheduled priorities await Nov 3 evidence; advanced isolated STEERING 2a.
+- Races independent repositories refreshing one verified X post; complete author/embed payloads survive together.
+- Pins one-row identity, canonical URL, original metrics and publication time across repeated concurrent writes.
+- Disposable PostgreSQL only; no provider, source or Reddit verification requests.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 162 integration), `pnpm build`, `git diff --check`.
+- Live latest edition: four topics, 20 stories and 10 posts; API/worker restarted and health/SPA checked.
+- Updated TASKS/database notes; archived iteration 247 to keep PROGRESS bounded.
+- Next: observe Nov 3 scheduled X per-topic cost/yield and AI edition cost/duration.
