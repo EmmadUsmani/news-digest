@@ -1,0 +1,139 @@
+# Data model
+
+Postgres holds about 24 tables in five areas. Most of the app's state is
+simple: settings, collected content, ledgers, and editions as immutable
+snapshots.
+
+> [!TIP]
+> For every table, column, key and index, open the live
+> **[DB schema explorer](https://news-digest.exe.xyz/db/)**. It reads the
+> database directly, so it is always current. This page is the map, and the
+> explorer is the territory.
+
+## The areas and how they connect
+
+```mermaid
+flowchart TB
+  subgraph settings["Profile & topics"]
+    profiles --> schedules["digest_schedules"]
+    profiles --> topics
+    topics --> tsc["topic_source_connections"]
+  end
+  subgraph articles["Article ingestion"]
+    sources["content_sources"] --> obs["content_observations"] --> items["content_items"]
+  end
+  subgraph social["Social posts"]
+    cites["citations<br/>(x_link · river · x_search)"] -. post id .-> posts["social_posts"]
+  end
+  subgraph ai["AI usage & budget"]
+    calls["llm_calls"]
+    cache["llm_cache"]
+    reserve["scheduled_ai_budget_days"]
+    xcalls["x_discovery_calls"]
+  end
+  subgraph editions["Editions"]
+    previews["digest_previews<br/>(JSON snapshot)"]
+  end
+  tsc --> sources
+  items -- "articles link to X posts" --> cites
+  xcalls --> cites
+  profiles --> previews
+  items -. copied into .-> previews
+  posts -. copied into .-> previews
+  calls -. run id .-> previews
+```
+
+Solid arrows are foreign keys or ownership. Dotted arrows are references
+without a foreign key: values copied into a snapshot, or ids shared by
+convention.
+
+## Core entities
+
+```mermaid
+erDiagram
+  profiles ||--|| digest_schedules : "has schedule"
+  profiles ||--o{ topics : "has"
+  topics ||--o{ topic_source_connections : "reads from"
+  content_sources ||--o{ topic_source_connections : "feeds"
+  content_sources ||--o{ content_observations : "saw"
+  content_items ||--o{ content_observations : "seen by"
+  profiles ||--o{ digest_previews : "publishes"
+
+  topics {
+    uuid id PK
+    text name
+    text include_guidance
+    int story_budget
+    int post_budget
+    jsonb accounts "curated X handles"
+  }
+  content_sources {
+    text id PK
+    text kind "feed or hn"
+    text url
+    timestamptz last_success
+  }
+  content_items {
+    uuid id PK
+    text canonical_url UK
+    text title
+    timestamptz published_at
+  }
+  digest_previews {
+    uuid id PK
+    timestamptz window_start
+    timestamptz window_end
+    jsonb snapshot "everything shown"
+    text scheduled_key UK "one per slot"
+  }
+```
+
+## Social posts
+
+```mermaid
+erDiagram
+  content_items ||--o{ x_link_citations : "links to X post"
+  social_discovery_sources ||--o{ social_discovery_citations : "river saw"
+  x_discovery_calls ||--o{ x_search_citations : "search found"
+  social_posts {
+    text platform PK "x (reddit parked)"
+    text external_id PK
+    text author
+    timestamptz published_at
+    text embed_html "official embed"
+    timestamptz verified_at
+  }
+  x_link_citations {
+    text external_id "X post id"
+    uuid item_id FK
+  }
+  x_search_citations {
+    uuid call_id FK
+    text external_id "X post id"
+    jsonb reported_engagement
+  }
+  x_discovery_calls {
+    uuid id PK
+    text status
+    bigint cost_micros
+    date scheduled_day
+  }
+```
+
+All three citation tables point at `social_posts` by X post id (no foreign
+key, because a citation is stored before the post is verified).
+
+## Patterns to know
+
+- **Snapshots, not joins, for editions.** `digest_previews.snapshot` holds a
+  copy of every story, summary and post shown. Old editions stay readable even
+  if articles or settings change. A trigger forbids UPDATE and DELETE.
+- **Ledgers for money.** `llm_calls` and `x_discovery_calls` record a
+  reservation before each paid call and the actual cost after it. Budgets are
+  computed from these tables.
+- **Dedup by URL.** An article is stored once (`canonical_url` is unique) even
+  when several sources publish it. `content_observations` records who saw it.
+- **Money is integer micro-dollars** (`*_micros`, 1,000,000 = $1) to avoid
+  rounding errors.
+- **Migrations** are plain SQL files in `migrations/`, applied in order and
+  recorded in `schema_migrations`.

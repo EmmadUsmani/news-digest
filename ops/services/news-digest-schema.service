@@ -1,0 +1,11 @@
+[Unit]
+Description=News Digest DB schema explorer (served at /db/ through the API)
+After=network.target docker.service
+[Service]
+WorkingDirectory=%h/news-digest
+Environment=SCHEMA_EXPLORER_PORT=8200
+ExecStart=/usr/bin/node apps/schema-explorer/src/server.ts
+Restart=always
+RestartSec=5
+[Install]
+WantedBy=default.target

@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "erasableSyntaxOnly": true,
+    "experimentalDecorators": false,
+    "emitDecoratorMetadata": false,
+    "types": ["node"]
+  },
+  "include": ["src"]
+}

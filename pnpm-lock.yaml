@@ -106,6 +106,18 @@ importers:
         specifier: ^8.15.5
         version: 8.23.1
 
+  apps/docs-site: {}
+
+  apps/schema-explorer:
+    dependencies:
+      pg:
+        specifier: ^8.16.3
+        version: 8.23.1
+    devDependencies:
+      '@types/pg':
+        specifier: ^8.15.5
+        version: 8.23.1
+
   apps/web:
     dependencies:
       '@digest/contracts':

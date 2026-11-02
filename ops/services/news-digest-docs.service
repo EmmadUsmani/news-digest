@@ -1,0 +1,11 @@
+[Unit]
+Description=News Digest handbook (served at /docs/ through the API)
+After=network.target
+[Service]
+WorkingDirectory=%h/news-digest
+Environment=DOCS_SITE_PORT=8100
+ExecStart=/usr/bin/node apps/docs-site/src/server.ts
+Restart=always
+RestartSec=5
+[Install]
+WantedBy=default.target

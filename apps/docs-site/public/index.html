@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>news-digest docs</title>
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <header class="top">
+      <button id="menu" class="icon" aria-label="Toggle navigation">☰</button>
+      <a class="brand" href="#/"
+        ><strong>news-digest</strong> <span>docs</span></a
+      >
+      <div class="search">
+        <input
+          id="search"
+          type="search"
+          placeholder="Search docs…  (/)"
+          autocomplete="off"
+        />
+        <div id="results" class="results" hidden></div>
+      </div>
+      <nav class="links">
+        <a href="../">App</a>
+        <a href="../db/">DB schema</a>
+        <a
+          href="https://github.com/EmmadUsmani/news-digest"
+          target="_blank"
+          rel="noopener"
+          >GitHub ↗</a
+        >
+      </nav>
+    </header>
+    <div class="layout">
+      <nav id="sidebar" class="sidebar"></nav>
+      <main>
+        <article id="content" class="content">Loading…</article>
+        <footer id="pager" class="pager"></footer>
+      </main>
+      <aside id="toc" class="toc"></aside>
+    </div>
+  </body>
+</html>

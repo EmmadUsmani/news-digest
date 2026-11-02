@@ -1,0 +1,11 @@
+{
+  "name": "@digest/docs-site",
+  "private": true,
+  "type": "module",
+  "description": "Serves docs/handbook (Markdown + Mermaid) as a browsable site. No build step: pages are read from disk per request.",
+  "scripts": {
+    "start": "node src/server.ts",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "node --test src/*.test.ts"
+  }
+}

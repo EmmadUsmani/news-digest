@@ -557,3 +557,22 @@ different outlets about the same event.
 - **Fix:** docs/SOURCES.md labels ESPN NBA RSS "parked by owner". It was never
   parked by the owner: it returned empty responses and was replaced by CBS.
   Correct the label.
+
+## 21. Owner work in progress: handbook, docs site and DB schema explorer (2026-11-02)
+
+The owner and Claude added system documentation and two internal tools:
+- `docs/handbook/` (Markdown + Mermaid), served at `/docs/` by
+  `apps/docs-site` (unit `news-digest-docs`, loopback :8100);
+- a live DB schema explorer at `/db/`, from `apps/schema-explorer` (unit
+  `news-digest-schema`, loopback :8200), plus `docs/schema-meta.json`;
+- `apps/api/src/internal-tools.ts`: the API forwards `/docs/*` and `/db/*`
+  to those services.
+
+Rules for now:
+- **Keep them running and green.** They are part of `pnpm check`, the health
+  check and the restart routine like any other `news-digest-*` service.
+- **Don't edit `docs/handbook/` or `docs/schema-meta.json` yet,** except to fix
+  a broken link or check. The owner is still designing the doc format.
+  Maintenance rules will come in a later steering item. Until then, new
+  tables simply appear as "Unassigned" in the explorer.
+- **Don't spend iterations improving these tools** unless they break.

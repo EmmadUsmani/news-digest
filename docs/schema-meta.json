@@ -1,0 +1,140 @@
+{
+  "$comment": "Light metadata for the DB schema explorer (apps/schema-explorer). The schema itself comes from live introspection; this file only adds groups, short notes and relations that have no foreign key. Tables missing here appear under 'Unassigned'.",
+  "groups": [
+    {
+      "id": "settings",
+      "name": "Profile & topics",
+      "color": "#4f46e5",
+      "description": "Owner settings: the single profile, its daily schedule, topics and which sources feed each topic.",
+      "tables": [
+        "profiles",
+        "digest_schedules",
+        "topics",
+        "topic_source_connections"
+      ]
+    },
+    {
+      "id": "articles",
+      "name": "Article ingestion",
+      "color": "#0891b2",
+      "description": "RSS/HN sources and the deduplicated articles collected from them every 30 minutes.",
+      "tables": ["content_sources", "content_items", "content_observations"]
+    },
+    {
+      "id": "editions",
+      "name": "Editions",
+      "color": "#16a34a",
+      "description": "Published digests. Each edition is an immutable JSON snapshot.",
+      "tables": ["digest_previews"]
+    },
+    {
+      "id": "ai",
+      "name": "AI usage & budget",
+      "color": "#d97706",
+      "description": "Anthropic (Haiku/Sonnet) call ledger, response cache, provider blocks and the daily reserve for the scheduled edition.",
+      "tables": [
+        "llm_calls",
+        "llm_cache",
+        "llm_provider_blocks",
+        "scheduled_ai_budget_days"
+      ]
+    },
+    {
+      "id": "social",
+      "name": "X posts (free discovery)",
+      "color": "#db2777",
+      "description": "X posts found for free (linked from articles and news rivers), verified through X's official oEmbed.",
+      "tables": [
+        "social_posts",
+        "x_link_citations",
+        "article_x_discovery_checks",
+        "social_discovery_sources",
+        "social_discovery_citations",
+        "x_embed_checks"
+      ]
+    },
+    {
+      "id": "xsearch",
+      "name": "X search (paid, xAI)",
+      "color": "#7c3aed",
+      "description": "Capped xAI x_search calls and the posts each call surfaced.",
+      "tables": [
+        "x_discovery_calls",
+        "x_search_citations",
+        "x_discovery_provider_block"
+      ]
+    },
+    {
+      "id": "reddit",
+      "name": "Reddit (parked)",
+      "color": "#ea580c",
+      "description": "Built but switched off: Reddit blocks public access. Kept for a future official-API integration.",
+      "tables": ["reddit_topic_posts", "reddit_x_citations"]
+    },
+    {
+      "id": "system",
+      "name": "System",
+      "color": "#64748b",
+      "description": "Migration bookkeeping.",
+      "tables": ["schema_migrations"]
+    }
+  ],
+  "tables": {
+    "profiles": "The single owner profile. Everything hangs off it.",
+    "digest_schedules": "When editions are generated (cron + timezone), the coverage window and default story/post budgets.",
+    "topics": "A digest section (Tech & AI, NBA, …): guidance, budgets, curated X accounts and relevance rules.",
+    "topic_source_connections": "Many-to-many: which sources feed which topic. Only connected sources are collected.",
+    "content_sources": "An RSS/Atom feed or Hacker News, with its health (last success/error).",
+    "content_items": "One article, deduplicated by canonical URL across all sources.",
+    "content_observations": "Which source(s) saw which article.",
+    "digest_previews": "An edition: an immutable JSON snapshot of stories, briefs and posts per topic. A trigger blocks UPDATE/DELETE.",
+    "llm_calls": "Ledger of every Anthropic call: reservation, actual cost, tokens and status. Budgets are enforced from this table.",
+    "llm_cache": "Cached model responses keyed by a fingerprint of model + prompt, so regenerations only pay for new items.",
+    "llm_provider_blocks": "Records that the provider refused calls this month (e.g. the workspace spend limit).",
+    "scheduled_ai_budget_days": "Per UTC day: the AI budget held back for the scheduled edition and how that run ended.",
+    "social_posts": "A verified social post (mostly X) with author, time, metrics and the official embed HTML.",
+    "x_link_citations": "An article that links to an X post. The main free discovery signal.",
+    "article_x_discovery_checks": "Which article pages have been scanned for X links (and when).",
+    "social_discovery_sources": "News 'rivers' (Techmeme, Memeorandum) scanned for X links.",
+    "social_discovery_citations": "X posts seen on a river page.",
+    "x_embed_checks": "Results of checking a post through X's official oEmbed (verification).",
+    "x_discovery_calls": "Ledger of paid xAI x_search calls: reservation, cost, posts fetched and the topic searched.",
+    "x_search_citations": "X posts returned by a paid search, with engagement as reported by xAI.",
+    "x_discovery_provider_block": "Set when xAI refuses calls (e.g. credits depleted); stops further paid searches.",
+    "reddit_topic_posts": "Reddit posts per topic (parked; empty).",
+    "reddit_x_citations": "Reddit posts that link to X posts (parked; empty).",
+    "schema_migrations": "Which SQL files in migrations/ have been applied."
+  },
+  "relations": [
+    {
+      "from": "x_link_citations.external_id",
+      "to": "social_posts.external_id",
+      "note": "X post id (platform 'x'). No FK: citations are stored before the post is verified."
+    },
+    {
+      "from": "social_discovery_citations.external_id",
+      "to": "social_posts.external_id",
+      "note": "X post id seen on a river page."
+    },
+    {
+      "from": "x_search_citations.external_id",
+      "to": "social_posts.external_id",
+      "note": "X post id returned by a paid search."
+    },
+    {
+      "from": "x_embed_checks.external_id",
+      "to": "social_posts.external_id",
+      "note": "oEmbed verification attempt for this post."
+    },
+    {
+      "from": "scheduled_ai_budget_days.run_id",
+      "to": "digest_previews.scheduled_key",
+      "note": "Scheduled runs share one id: '<profile id>:<slot ms>'."
+    },
+    {
+      "from": "llm_calls.run_id",
+      "to": "digest_previews.scheduled_key",
+      "note": "AI calls made for a scheduled edition carry its run id (manual runs use the job id)."
+    }
+  ]
+}
