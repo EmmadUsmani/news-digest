@@ -445,3 +445,93 @@ void test('river discovery rolls back its final status write and retries without
     await repository.db.end();
   }
 });
+
+void test('topic post reads dedupe rivers, order ties and null times, and follow source reassignment', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const repository = new PostgresSocialRepository();
+  const topics = [crypto.randomUUID(), crypto.randomUUID()];
+  const sources = topics.map((topic) => `topic-read-${topic}`);
+  const ids = Array.from({ length: 6 }, (_, i) => `211694853247746867${i}`);
+  const expected = (indices: number[]) =>
+    indices.map((i) => ({
+      externalId: ids[i],
+      publishedAt:
+        i === 3
+          ? null
+          : new Date(i === 0 ? '2026-10-20T00:00:00Z' : '2026-10-21T00:00:00Z'),
+      embedHtml: `<p>Fixture ${i}</p>`,
+    }));
+  try {
+    for (const [i, topic] of topics.entries()) {
+      await repository.db.query(
+        `INSERT INTO topics(id,profile_id,name,description,include_guidance,position)
+        VALUES($1,'00000000-0000-4000-8000-000000000001','Read fixture','Fixture','Fixture',$2)`,
+        [topic, 950 + i],
+      );
+      await repository.db.query(
+        `INSERT INTO social_discovery_sources(id,topic_id,name,url) VALUES($1,$2,'Fixture',$3)`,
+        [sources[i], topic, `https://example.org/${topic}`],
+      );
+    }
+    assert.deepEqual(await repository.topicPosts(topics[0]), []);
+    for (let i = 0; i < 5; i++) {
+      await repository.store({
+        platform: 'x',
+        externalId: ids[i],
+        url: `https://x.com/fixture/status/${ids[i]}`,
+        author: 'Fixture',
+        authorUrl: 'https://x.com/fixture',
+        publishedAt: expected([i])[0].publishedAt?.toISOString() ?? null,
+        metrics: {},
+        embedHtml: `<p>Fixture ${i}</p>`,
+      });
+    }
+    const links = ids.map((externalId) => ({
+      externalId,
+      url: `https://x.com/fixture/status/${externalId}`,
+    }));
+    await repository.discovered(
+      sources[0],
+      links.filter((_, i) => i !== 4),
+    );
+    await repository.discovered(sources[1], [links[1], links[4]]);
+    assert.deepEqual(
+      await repository.topicPosts(topics[0]),
+      expected([1, 2, 0, 3]),
+    );
+    assert.deepEqual(await repository.topicPosts(topics[1]), expected([1, 4]));
+    // Reading scope follows connections even when a topic is disabled; eligibility is separate.
+    await repository.db.query('UPDATE topics SET enabled=false WHERE id=$1', [
+      topics[0],
+    ]);
+    await repository.db.query(
+      'UPDATE social_discovery_sources SET topic_id=$1 WHERE id=$2',
+      [topics[0], sources[1]],
+    );
+    assert.deepEqual(
+      await repository.topicPosts(topics[0]),
+      expected([1, 2, 4, 0, 3]),
+    );
+    assert.deepEqual(await repository.topicPosts(topics[1]), []);
+    await repository.db.query(
+      'DELETE FROM social_discovery_sources WHERE id=$1',
+      [sources[0]],
+    );
+    assert.deepEqual(await repository.topicPosts(topics[0]), expected([1, 4]));
+    await repository.db.query('DELETE FROM topics WHERE id=$1', [topics[0]]);
+    assert.deepEqual(await repository.topicPosts(topics[0]), []);
+  } finally {
+    await repository.db.query(
+      'DELETE FROM social_discovery_sources WHERE id=ANY($1::text[])',
+      [sources],
+    );
+    await repository.db.query('DELETE FROM topics WHERE id=ANY($1::uuid[])', [
+      topics,
+    ]);
+    await repository.db.query(
+      "DELETE FROM social_posts WHERE platform='x' AND external_id=ANY($1::text[])",
+      [ids],
+    );
+    await repository.db.end();
+  }
+});

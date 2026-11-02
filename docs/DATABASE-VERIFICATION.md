@@ -407,3 +407,14 @@ survives unchanged. A valid retry clears the source error, retains first-seen
 times and exposes the new verification URL; repeat batches dedupe and preserve
 verification URLs when omitted. Disposable PostgreSQL only; no source or provider
 requests. Recorded-response golden and other repository gaps remain open.
+
+## Topic post reader scope (iteration 263)
+
+`social-candidates.test.ts` pins exact verified-post payloads and descending
+publication order, external-ID tie ordering and null dates last. Multiple river
+sources merge without duplicate posts; unverified citations and unrelated posts
+stay excluded. Source reassignment changes topic scope immediately, disabled
+topics remain readable, and source/topic deletion removes association without
+requiring post deletion. Fixtures use disposable PostgreSQL only; no source,
+Reddit or provider requests occur. Other discovery paths retain their existing
+separate tests; recorded-response golden and other repository gaps remain open.

@@ -110,17 +110,6 @@ Earlier iteration 229: [archive](docs/progress-archive/2026-11-02-iteration-229.
 
 Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
 
-## 2026-11-02: iteration 243 — shared-feed connection lifecycle
-
-- Started clean on main; API/worker and health green; no leftover work.
-- Priority 15/13/7/9 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a.
-- Added characterization for one shared-feed collection entry, identical two-topic content and active-connection eligibility independent of legacy ownership.
-- Pins disabled-topic hiding, last-active-connection removal and retained observation/health recovery on re-enable.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 141 integration), `pnpm build`, `git diff --check` passed.
-- Updated TASKS/database notes; archived iteration 226 to keep PROGRESS bounded. No provider or Reddit requests.
-- Restarted API/worker healthy; DB/Redis true, SPA 200, 32 error-free sources and four queues; latest edition has four topics.
-- Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
-
 ## 2026-11-02: iteration 244 — concurrent catalog capacity
 
 - Started clean on main; API/worker and health green; no leftover work.
@@ -334,4 +323,17 @@ Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
 - Initial full suite passed; refined failure injection to the final write rather than duplicating existing mid-batch coverage, then reran checks.
 - Updated TASKS/database notes; archived iteration 242 to keep PROGRESS bounded.
 - Restarted API/worker; health, SPA, source/queue health and four-topic content checked.
+- Next: observe Nov 3 scheduled X cost/yield and AI edition cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 263 — topic post reader scope
+
+- Started clean on main; services, health, 32 sources and four queues healthy; no leftover work.
+- Priority 15/13/7/9 evidence awaits Nov 3; advanced isolated STEERING 2a.
+- Pins exact post payloads, descending dates, ID ties, null dates last and river-source deduplication.
+- Unverified/unrelated posts stay excluded; reassignment, disabled-topic reads and source/topic deletion preserve scope.
+- Disposable PostgreSQL only; no provider, source or Reddit requests for verification.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 158 integration), `pnpm build`, `git diff --check`.
+- First check caught documentation formatting; formatted and reran checks.
+- Updated TASKS/database notes; archived iteration 243 to keep PROGRESS bounded.
+- Restarted API/worker; health, SPA, source/queue health and four-topic latest content checked.
 - Next: observe Nov 3 scheduled X cost/yield and AI edition cost/duration before acknowledging 15/13/7.
