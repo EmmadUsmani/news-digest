@@ -15,7 +15,8 @@
     "format:check": "prettier --check .",
     "lint:fix": "eslint . --fix --max-warnings 0",
     "evaluate:editorial": "tsx apps/api/scripts/evaluate-editorial.ts",
-    "evaluate:support": "tsx apps/api/scripts/evaluate-support.ts"
+    "evaluate:support": "tsx apps/api/scripts/evaluate-support.ts",
+    "evaluate:recorded-support": "tsx apps/api/scripts/evaluate-recorded-support.ts"
   },
   "devDependencies": {
     "@types/node": "^22.18.0",

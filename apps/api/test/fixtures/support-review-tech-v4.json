@@ -1,0 +1,148 @@
+{
+  "snapshot": "editorial-tech-2026-11-01-v4.json",
+  "snapshotSha256": "254dd2b8c64c6d92b0b600616d776de55e2b7a28107e0a85a8c2efbeddfcf96c",
+  "review": "Provisional build-agent judgments against bounded cited inputs, not independent review or source fact checking.",
+  "scope": "All four text fields of all five selected Tech v4 stories. Briefs and triage output are outside this audit.",
+  "annotations": [
+    {
+      "storyId": "fcf30925-50f0-49fe-9e43-a75eb9e45a06",
+      "field": "headline",
+      "claimSha256": "1420927e5d5b17a2c2fda536ec31c925fcb1280f6917926aff0c1366a69c1c38",
+      "label": "supported",
+      "reason": "Preserves code hints, product and uncertainty."
+    },
+    {
+      "storyId": "fcf30925-50f0-49fe-9e43-a75eb9e45a06",
+      "field": "summary",
+      "claimSha256": "c1a4bfa209da8da40a9ac015cf2e9f7fce420f2e7e1bffbdf999f7523a5ede9e",
+      "label": "supported",
+      "reason": "Preserves reporter, discoverer, possible feature and listed functions."
+    },
+    {
+      "storyId": "fcf30925-50f0-49fe-9e43-a75eb9e45a06",
+      "field": "whyItMatters",
+      "claimSha256": "c7d2abbbc563cc6691daa76188dc9589ef223c51c94f177d74c3829c5b3cb4f5",
+      "label": "interpretation",
+      "reason": "Explicit conditional implication of the reported camera features; shipping is not established."
+    },
+    {
+      "storyId": "fcf30925-50f0-49fe-9e43-a75eb9e45a06",
+      "field": "rationale",
+      "claimSha256": "4dd3d774ea5f6387cb00e3fcbc08a2dec9348dd1db2b41439034b7ea54fdef6c",
+      "label": "interpretation",
+      "reason": "Builder relevance and product-direction framing are editorial judgments."
+    },
+    {
+      "storyId": "1e30a987-9c6c-469b-90ed-c71cd7d4a4a0",
+      "field": "headline",
+      "claimSha256": "6b48230459db7049fb646341657da61194b72342aa427d98adefaecf719f13b1",
+      "label": "supported",
+      "reason": "Restates the reported scope and start date."
+    },
+    {
+      "storyId": "1e30a987-9c6c-469b-90ed-c71cd7d4a4a0",
+      "field": "summary",
+      "claimSha256": "c687686ca334e66fae791db8a1c8f2a536fb878f318880e5453a7496299b159a",
+      "label": "supported",
+      "reason": "Attributes the scope and date to the named publisher."
+    },
+    {
+      "storyId": "1e30a987-9c6c-469b-90ed-c71cd7d4a4a0",
+      "field": "whyItMatters",
+      "claimSha256": "d618ecea4b406dac862bad6cc569d71d70930cf8e02bb2ec429520b61f2614c9",
+      "label": "interpretation",
+      "reason": "Expanded model coverage follows the report; developer impact is an editorial inference."
+    },
+    {
+      "storyId": "1e30a987-9c6c-469b-90ed-c71cd7d4a4a0",
+      "field": "rationale",
+      "claimSha256": "b93d25392f7192f3377b15ab33bb62448bbefeb267eb77c15484d7fc12b65faa",
+      "label": "interpretation",
+      "reason": "Tooling relevance and clarity are editorial judgments."
+    },
+    {
+      "storyId": "d2b3bf0b-6545-4b9e-b856-86ea3f1e6004",
+      "field": "headline",
+      "claimSha256": "850022c8601072fb25410bfaa7061dde7950d7af2b2914ab43cf07195929bce9",
+      "label": "supported",
+      "reason": "Fine amount, jurisdiction and attempted prompt injection are stated in the title."
+    },
+    {
+      "storyId": "d2b3bf0b-6545-4b9e-b856-86ea3f1e6004",
+      "field": "summary",
+      "claimSha256": "0c19210af30a7ed45974225194c6d0538dde7d0aba000d926038c0420a9fa15a",
+      "label": "supported",
+      "reason": "Attributes the AI detection, hidden demand and fine to the named publisher."
+    },
+    {
+      "storyId": "d2b3bf0b-6545-4b9e-b856-86ea3f1e6004",
+      "field": "whyItMatters",
+      "claimSha256": "8c9c3336b380bbdbd10a8afcccdc6cecd9bb845742eef1855c1397f8f3316b19",
+      "label": "supported",
+      "reason": "Direct description of the reported attack on legal-filing AI."
+    },
+    {
+      "storyId": "d2b3bf0b-6545-4b9e-b856-86ea3f1e6004",
+      "field": "rationale",
+      "claimSha256": "d82145969ab252dbf88728b7e596b326ccfbc49db23258e50279255d3d34632f",
+      "label": "interpretation",
+      "reason": "Relevance to LLM document-review developers is an editorial judgment."
+    },
+    {
+      "storyId": "9f06d37d-b113-48a1-8c7b-1aef40f532f8",
+      "field": "headline",
+      "claimSha256": "67eadae0a3b0474e6e059edc0e10e27168e2edd54916daed01f87a3cd042eadf",
+      "label": "supported",
+      "reason": "Preserves the claimed result, team size, models and benchmark."
+    },
+    {
+      "storyId": "9f06d37d-b113-48a1-8c7b-1aef40f532f8",
+      "field": "summary",
+      "claimSha256": "42950f195bd4ad39bdd851f55305e5bf7106d130343920718826e45ff500f629",
+      "label": "supported",
+      "reason": "Explicitly presents the result as a Hacker News title claim, not independent verification."
+    },
+    {
+      "storyId": "9f06d37d-b113-48a1-8c7b-1aef40f532f8",
+      "field": "whyItMatters",
+      "claimSha256": "419591b15b7b104475cf5fde24ae39861174d9fe596673961d5e9743efc815c0",
+      "label": "unsupported",
+      "reason": "A single title claiming a result does not establish a general route to stronger benchmark results."
+    },
+    {
+      "storyId": "9f06d37d-b113-48a1-8c7b-1aef40f532f8",
+      "field": "rationale",
+      "claimSha256": "a680f621ffe527cb088ccabbf5aac133777bb1be69886cdf4b9a3b949bc5caf9",
+      "label": "interpretation",
+      "reason": "Audience relevance is an editorial judgment."
+    },
+    {
+      "storyId": "9f62943a-1eb5-4cc7-b09a-1a47490cc556",
+      "field": "headline",
+      "claimSha256": "08af42faea743788047c15435ccd7cb49ac3018d15e2976562cd7cdfe7da7873",
+      "label": "supported",
+      "reason": "Preserves the quoted hospital claim and outside-US scope."
+    },
+    {
+      "storyId": "9f62943a-1eb5-4cc7-b09a-1a47490cc556",
+      "field": "summary",
+      "claimSha256": "460c65b446d28e3220b3f9f1e29d39b9985105b8f461d642cece3dacb1c4f9c0",
+      "label": "supported",
+      "reason": "Attributes the exact access claim to a hospital quoted by the named publisher."
+    },
+    {
+      "storyId": "9f62943a-1eb5-4cc7-b09a-1a47490cc556",
+      "field": "whyItMatters",
+      "claimSha256": "942ecbdf8585aa546871249ed4c68b731ffe02ec7b0c93352460ffc824c7d6c4",
+      "label": "unsupported",
+      "reason": "Access at one hospital does not establish healthcare-provider adoption or frontier-tool use."
+    },
+    {
+      "storyId": "9f62943a-1eb5-4cc7-b09a-1a47490cc556",
+      "field": "rationale",
+      "claimSha256": "0fe930f951ca79fbb12e3afb2521a84a38ca49ac09059e62be87430c7d1c55ce",
+      "label": "unsupported",
+      "reason": "Calling this an adoption story repeats the unsupported promotion of access to adoption; audience relevance alone is editorial."
+    }
+  ]
+}

@@ -527,3 +527,33 @@ measure broader support on recorded output fields and independent labels before
 choosing a general validation approach; avoid treating a longer lexical trigger
 list as a solution to clause entailment. Additional real dates/Gaming windows,
 full-article inputs and scheduled batching remain unfinished.
+
+### Iteration 71: complete recorded Tech v4 story-field review
+
+`pnpm evaluate:recorded-support` audits all twenty text fields (headline, summary,
+significance and rationale) of the five accepted Tech v4 stories against their
+recorded bounded cited inputs. `support-review-tech-v4.json` stores provisional
+build-agent labels and reasons, pinned to the inference snapshot and each claim
+with SHA-256. The existing replay also checks the candidate fixture hash and
+shortlist/citation membership. Missing, duplicate, changed or extra field reviews
+fail the audit rather than silently changing its denominator. Reports include
+actual claims, cited titles/excerpts/URLs and the current absence-guard decision.
+
+The field-level review labels eleven fields supported, six editorial
+interpretations and three unsupported. All three unsupported fields pass the
+lexical absence guard: the previously identified benchmark and hospital
+significance extrapolations, plus the hospital rationale calling access an
+"adoption story." This shows the access-to-adoption extrapolation also recurs in
+selection justification. Conditional implications and audience-relevance judgments
+are listed as interpretation rather than silently counted as supported facts.
+Mixed factual/editorial fields with an unsupported factual clause are unsupported.
+
+These are one agent's judgments on a single accepted historical Tech output, not
+independent labels, clause-level truth verification or production rates. Zero
+supported rejections here cannot estimate false rejection: selected accepted
+outputs exclude rejected attempts, and these fields contain no absence claims.
+Briefs and triage output are explicitly outside scope. No source was fetched for
+this audit, no inference was purchased, and no edition/guard/prompt/cache changed.
+Next: review additional recorded topics and briefs, obtain independent labels,
+and evaluate rejected/support-preserving negative claims before expanding a
+production support validator. Later-date/Gaming windows remain open.
