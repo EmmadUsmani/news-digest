@@ -659,3 +659,74 @@ void test('rejected topic JSON writes roll back settings and creation order, the
     await topics.onModuleDestroy();
   }
 });
+
+void test('concurrent custom feeds compete atomically for the final catalog slot', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const topics = new PostgresTopicRepository();
+  const db = database();
+  const prefix = 'feed-final-slot-fixture-';
+  const ids: string[] = [];
+  const feeds = [0, 1].map((n) => ({
+    name: `Final slot ${n}`,
+    url: `https://example.org/${prefix}${n}`,
+  }));
+  try {
+    for (let n = 0; n < 2; n++)
+      ids.push(
+        (
+          await topics.createDefault({
+            name: `Final slot topic ${n}`,
+            description: '',
+            includeGuidance: '',
+            excludeGuidance: '',
+            enabled: false,
+            storyBudget: 1,
+            postBudget: 0,
+            relevancePolicy: { includeAny: [], excludeAny: [] },
+          })
+        ).id,
+      );
+    await db.query(
+      `INSERT INTO content_sources(id,name,kind,url)
+       SELECT $1 || n,'Final slot fixture','feed','https://example.org/catalog-' || $1 || n
+       FROM generate_series(1,499-(SELECT count(*)::int FROM content_sources)) n`,
+      [prefix],
+    );
+    assert.equal((await topics.catalog()).length, 499);
+    const results = await Promise.all(
+      ids.map((id, n) => topics.addFeedDefault(id, feeds[n])),
+    );
+    assert.equal(results.filter((result) => result === false).length, 1);
+    const winner = results.findIndex((result) => !!result);
+    assert.ok(winner >= 0);
+    const loser = 1 - winner;
+    const catalog = await topics.catalog();
+    assert.equal(catalog.length, 500);
+    const saved = catalog.filter((source) =>
+      feeds.some((feed) => feed.url === source.url),
+    );
+    assert.equal(saved.length, 1);
+    assert.equal(saved[0].url, feeds[winner].url);
+    const rows = await topics.listDefault();
+    assert.deepEqual(rows.find((topic) => topic.id === ids[winner])?.sources, [
+      saved[0].id,
+    ]);
+    assert.deepEqual(
+      rows.find((topic) => topic.id === ids[loser])?.sources,
+      [],
+    );
+    // A rejected transaction must release its lock and leave the connection reusable.
+    const recovered = await topics.addFeedDefault(ids[loser], feeds[winner]);
+    assert.ok(recovered);
+    assert.deepEqual(recovered.sources, [saved[0].id]);
+    assert.deepEqual(await topics.catalog(), catalog);
+  } finally {
+    for (const id of ids) await topics.deleteDefault(id);
+    await db.query(
+      'DELETE FROM content_sources WHERE starts_with(id,$1) OR url=ANY($2::text[])',
+      [prefix, feeds.map((feed) => feed.url)],
+    );
+    await db.end();
+    await topics.onModuleDestroy();
+  }
+});

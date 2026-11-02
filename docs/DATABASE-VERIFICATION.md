@@ -239,3 +239,12 @@ last enabled connection is deleted. Re-enabling the original topic restores its
 retained content without changing source health or observation counts. All
 fixtures use disposable PostgreSQL; no feed, Reddit or provider requests occur.
 Remaining repository gaps and recorded-response golden coverage stay open.
+
+## Concurrent catalog admission (iteration 244)
+
+`settings.test.ts` races two different custom-feed registrations from separate
+topics against a 499-source catalog. Exactly one succeeds, leaving 500 sources,
+one new catalog row and no connection for the rejected feed. The rejected
+caller can then connect the winning URL at full capacity, pinning transaction
+rollback and lock release. The test uses disposable PostgreSQL only; no feed,
+Reddit or provider requests occur. Remaining repository gaps stay open.

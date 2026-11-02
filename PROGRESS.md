@@ -106,17 +106,6 @@ Earlier iteration 219: [archive](docs/progress-archive/2026-11-02-iteration-219.
 
 Iteration 221: [archive](docs/progress-archive/2026-11-02-iteration-221.md).
 
-## 2026-11-02: iteration 227 — custom-feed capacity characterization
-
-- Started clean on main; health, 32 sources and four queues healthy. No leftover work.
-- Items 13/7/9 await Nov 3 scheduled evidence; advanced lower-priority STEERING 2a with isolated custom-feed admission assertions.
-- Pinned 500 catalog/100 topic-connection limits, unchanged state on rejection, idempotent connections at capacity and existing-URL reuse with one remaining slot.
-- Topic repository source coverage: 94.80% lines, 82.46% branches; AI golden and remaining behavior gaps stay open.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (120 unit, 126 integration), `pnpm build`, `git diff --check` passed. Initial check caught archive formatting; formatted and reran successfully.
-- Updated TASKS/database verification notes; archived iteration 212 to bound PROGRESS. No inference or Reddit requests.
-- Next: observe Nov 3 14:30 UTC X discovery and 15:00 edition cost/duration; prior fallback duration is not AI latency evidence.
-- Deployment: API/worker restarted active; `/healthz` DB/Redis true, SPA 200, 32 error-free sources and four available queues; retained edition has four topics, 20 stories and 10 posts.
-
 ## 2026-11-02: iteration 228 — ingestion citation characterization
 
 - Started clean on main; API/worker, health, 32 sources and four queues healthy. No leftover work.
@@ -313,4 +302,17 @@ Archived iteration 214: [entry](docs/progress-archive/2026-11-02-iteration-214.m
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 141 integration), `pnpm build`, `git diff --check` passed.
 - Updated TASKS/database notes; archived iteration 226 to keep PROGRESS bounded. No provider or Reddit requests.
 - Restarted API/worker healthy; DB/Redis true, SPA 200, 32 error-free sources and four queues; latest edition has four topics.
+- Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
+
+## 2026-11-02: iteration 244 — concurrent catalog capacity
+
+- Started clean on main; API/worker and health green; no leftover work.
+- Priority 15/13/7/9 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a.
+- Added a two-topic race for the last catalog slot: one winner, one rejection, exactly 500 sources and no rejected connection.
+- Rejected caller then reuses the winning URL, pinning rollback, lock release and recovery at capacity.
+- First check stopped on archived progress formatting; corrected it and reran successfully.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 142 integration), `pnpm build`, `git diff --check` passed.
+- Updated TASKS/database notes; archived iteration 227 to keep PROGRESS bounded. No provider or Reddit requests.
+- Restarted API/worker healthy; DB/Redis true, SPA 200, 32 error-free sources and four queues.
+- Read-only timing report confirms next edition Nov 3 15:00 UTC; retained 856 ms fallback is not AI latency evidence.
 - Next: observe Nov 3 all-topic X cost/yield and scheduled AI reserve/cost/duration before acknowledging 15/13/7.
