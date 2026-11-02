@@ -31,7 +31,11 @@ pnpm check
 blocked. `pnpm test:integration` uses Testcontainers to start fresh PostgreSQL
 17/Redis 7 containers matching `compose.yaml`, applies every migration from zero
 (including fixture seed migrations), and stops the containers on completion.
-Testcontainers also supplies crash cleanup through its resource reaper.
+Testcontainers also supplies crash cleanup through its resource reaper. The runner
+builds the API before testing; HTTP characterization boots the production Nest
+module from compiled code (including constructor metadata) on an ephemeral
+loopback port. Topic CRUD/order/source connections and profile schedule changes
+exercise real controllers and repositories against the disposable services.
 `pnpm test` runs both commands; integration tests remain part of `pnpm check`.
 Both runners replace inherited database/Redis URLs, clear Anthropic/xAI keys and
 live-inference opt-in. Docker is required only for integration tests; there is no

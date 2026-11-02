@@ -41,6 +41,12 @@ async function main() {
       if (result.status !== 0)
         throw new Error(`Test command failed (${result.status})`);
     };
+    const build = spawnSync('pnpm', ['--filter', '@digest/api', 'build'], {
+      env,
+      stdio: 'inherit',
+    });
+    if (build.error) throw build.error;
+    if (build.status !== 0) throw new Error('API integration build failed');
     run(['apps/api/src/libs/db/migrate.ts']);
     run(['--test', '--test-concurrency=1', ...testFiles('integration')]);
   } finally {

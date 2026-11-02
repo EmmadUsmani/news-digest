@@ -40,27 +40,7 @@ Earlier iteration 165: [archive](docs/progress-archive/2026-11-02-iteration-165.
 
 Iteration 166: [archive](docs/progress-archive/2026-11-02-iteration-166.md).
 
-## 2026-11-02: iteration 169 — editable Reddit community configuration
-
-- Started clean on main; no leftover work. API/worker/health healthy, 32 sources without current errors, zero failed digest jobs; two historical ingestion failures retained.
-- Added migration 037 with owner-curated communities for four original topics; settings/API persist bounded unique names, normalize r/ in UI, support clearing and preserve choices for older clients omitting the field.
-- Reddit collection stays disabled after prior 403s; no new access probe, bypass, inference or paid search. Post storage/collection/ranking/cards remain next; no live Reddit content claimed.
-- Added isolated repository/validation coverage for seed data, create/update/read, omission, clearing, independent X accounts and unchanged other topics.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (169 tests, types/lint/format/boundaries) and `pnpm build` pass. Fixed smoke script's CJS top-level-await issue before rerunning.
-- Applied migration with `pnpm migrate`; restarted API/worker. `pnpm exec tsx scripts/smoke-reddit-communities.ts` passed desktop/mobile normalize/save/reload/duplicates/clear with intercepted writes and unchanged live topics; screenshots updated.
-- Read-only timing report observed 15:00 scheduled edition 60718fe7 publish in 856 ms, 604 candidates/four topics, ten X posts; all story/social selection non-AI fallback due incomplete triage within caps. NOT live AI latency evidence. Spend unchanged at 481910 micros; next run Nov 3 15:00 UTC.
-- Health/source/status/latest-edition endpoints pass, no failed digest runs. README/TASKS/SOURCES updated; archived oldest progress entry to stay compact. Next: Reddit post persistence/collection behind port, respecting blocked public access.
-
-## 2026-11-02: iteration 170 — transactional Reddit post storage
-
-- Started clean on main; no leftover work. Health/API/worker healthy, 32 sources/no current errors, zero failed digest runs; two historical ingestion failures retained.
-- Added migration 038: platform-specific Reddit/X ID checks, Reddit metadata on SocialPost rows and per-topic associations. Existing X selection remains unchanged.
-- Added repository/collection ports and bounded explicit collector: deduped enabled communities, 20-community cap, 100 posts/community, stop on first listing error; no scheduler activation or public requests while access remains blocked.
-- Transactional writes preserve title/text, author, UTC time, subreddit, external URL/thumbnail and engagement snapshot; upserts refresh metrics and associations recheck enabled/configured topics.
-- Synthetic/isolated tests verify metadata, repeated collection, topic scope, rollback and stop-on-denial; no live Reddit data claimed. X citation integration, ranking and cards remain next.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (171 tests, types/lint/format/boundaries) and `pnpm build` passed. No UI changes; browser verification not applicable. README/TASKS/SOURCES updated; oldest progress entry archived.
-- `pnpm migrate` applied 038; restarted API/worker. `/healthz` DB/Redis true; `/api/status` 32 sources/no errors and zero failed digest/social jobs, all queues have workers.
-- Read-only `pnpm exec tsx scripts/report-edition-timing.ts`: same 856 ms scheduled fallback edition/four topics; budget unchanged (481910 micros spent, 848 available), no inference calls. Live AI latency remains unverified; next routine run Nov 3 15:00 UTC.
+Earlier iterations 169–170: [archive](docs/progress-archive/2026-11-02-iterations-169-170.md).
 
 ## 2026-11-02: iteration 171 — Reddit citations enter official X pipeline
 
@@ -199,3 +179,15 @@ Iteration 166: [archive](docs/progress-archive/2026-11-02-iteration-166.md).
 - Updated README/TASKS; archived completed speed detail to keep TASKS under 8 KB. STEERING 2a is partial: full repository/HTTP characterization, golden SQL edition and coverage reporting remain before ORM work.
 - Restarted API/worker after build; `/healthz` DB/Redis true. Read-only timing report confirms latest real scheduled edition four topics/10 X posts; budget unchanged. No source changes.
 - Next: expand repository/HTTP characterization while Reddit/live AI evidence is blocked; scheduled xAI still follows Reddit per owner order.
+
+## 2026-11-02: iteration 184 — production-module HTTP characterization
+
+- Started clean on main; no leftover work. API/worker/health healthy, all 32 sources recently successful, no digest/social failures; two retained historical ingestion failures unchanged.
+- Higher priorities still blocked by Reddit access and live AI timing budget (848 micros available). No paid inference, live content/settings writes or source changes.
+- Extracted the unchanged production Nest module from bootstrap so HTTP tests boot the same app on an ephemeral loopback port. Integration runner builds API first to preserve Nest constructor metadata.
+- Added HTTP characterization for healthy DB/Redis, topic create/read/update/delete, JSON fields, reorder/position closure, catalog/connections, missing/invalid IDs and atomic rejected writes.
+- Profile HTTP tests persist an Asia/Kolkata schedule and budgets, reject invalid timezone/window/budget changes without mutation and restore fixture settings. App shutdown is registered even on assertion failure.
+- `pnpm test:integration` passed 87/87; `pnpm format`, `pnpm lint:fix`, full `pnpm check` passed 99 unit/87 integration tests; `pnpm build` passed. No UI changes/browser check needed.
+- Updated README/TASKS; archived iterations 169–170 to keep orientation small. STEERING 2a remains partial; digest/edition HTTP, remaining repository characterization and database coverage precede ORM work.
+- Restarted API/worker; `curl /healthz` DB/Redis true, SPA HTTP 200 and `/api/status` all queues available. Latest real edition still has four topics/10 X posts; source successes remain current. Read-only timing report confirms spend unchanged.
+- Next: digest/edition HTTP characterization and remaining repository-port coverage; Reddit/live AI evidence blockers unchanged, scheduled xAI still follows Reddit per owner order.
