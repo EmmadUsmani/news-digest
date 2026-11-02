@@ -159,3 +159,13 @@ Earlier iterations 124–132: [archive](docs/progress-archive/2026-11-02-iterati
 - Included formatter-only fixes to two existing Markdown files so repository-wide format checking stays green. No UI/code/source changes, inference calls, schedule changes or provider changes.
 - Next: STEERING 7 edition speed/async jobs, then Reddit; restore owner schedule under item 11 and isolate schedule verification. No new blocker.
 - Initial push rejected because origin advanced to 31816b1 (supervisor weekly-window pacing). Merged without rewriting history; README conflict resolved using incoming text plus required formatting.
+
+## 2026-11-02: iteration 155 — bounded concurrent article/social triage
+
+- Started clean on main; no leftover work. Services/health healthy; 32 sources without current errors, 1,398 stored items. Two historical ingestion failures retained; digest queue has no failures.
+- STEERING 7 partial: replace sequential three-item calls with up to 50 items, four calls in flight per invocation, conservative 60 KB escaped UTF-8 input bound and batch-scaled output limits. Per-item cache keys and existing shared-instruction caching preserved.
+- Refusal stops new batches; in-flight calls finish and retain validated scores. Fake tests cover concurrency/order, byte splitting, changed inputs/cache reuse and refusal; no live LLM calls.
+- `pnpm exec tsx --test apps/api/test/triage.test.ts`: 9 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and 154 isolated tests pass. `pnpm build` passes (existing upstream Zod warnings).
+- Temporary offline benchmark: 1,500 candidates in sequential 200-item chunks, 20 ms fake calls: cold 30 calls/217 ms; replay zero calls/15 ms. This is triage orchestration only, not a live/full-edition timing claim.
+- Restarted API/worker; `/healthz`, `/api/status` and latest edition read pass (four topics). No new publication, schedule mutation or inference/discovery spend. No UI/source changes; source docs unchanged.
+- TASKS and docs/RANKING updated. Next: bounded 429 backoff, parallel topic editors/shared concurrency, async generation/dedupe/progress and full-edition timing. Item 7 remains open; no new blocker.

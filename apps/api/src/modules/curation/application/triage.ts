@@ -107,10 +107,39 @@ export class CandidateTriage {
         scores.set(entry.item.id, parsed.data);
       else missing.push(entry);
     }
-    // Three items also bound worst-case Unicode/JSON-escaped text below the
-    // transport's conservative 100k input limit, including topic instructions.
-    for (let offset = 0; offset < missing.length; offset += 3) {
-      const batch = missing.slice(offset, offset + 3);
+    const promptFor = (batch: typeof entries) =>
+      JSON.stringify({
+        topic: compactTopic,
+        outputLimits: {
+          event: '1–160 characters',
+          rationale: '1–300 characters; one concise sentence',
+          relevance: 'integer 0–10',
+          importance: 'integer 0–10',
+        },
+        candidates: batch.map((e) => e.item),
+      });
+    // UTF-8 bytes conservatively bound tokens, including escaped Unicode and
+    // framing. Typical batches contain 50 items; long excerpts split earlier.
+    const batches: (typeof entries)[] = [];
+    let batch: typeof entries = [];
+    for (const entry of missing) {
+      const next = [...batch, entry];
+      if (
+        batch.length &&
+        (next.length > 50 ||
+          Buffer.byteLength(activeInstructions + promptFor(next), 'utf8') +
+            2048 >
+            60000)
+      ) {
+        batches.push(batch);
+        batch = [];
+      }
+      batch.push(entry);
+    }
+    if (batch.length) batches.push(batch);
+    let cursor = 0;
+    let stopped = false;
+    const scoreBatch = async (batch: typeof entries): Promise<boolean> => {
       const ids = new Set(batch.map((e) => e.item.id));
       const validate = (value: unknown) => {
         const parsed = z
@@ -130,30 +159,31 @@ export class CandidateTriage {
           purpose,
           runId,
           instructions: activeInstructions,
-          prompt: JSON.stringify({
-            topic: compactTopic,
-            // Formatting constraints do not change score semantics or invalidate
-            // validated per-item caches. State them for every new/repair call.
-            outputLimits: {
-              event: '1–160 characters',
-              rationale: '1–300 characters; one concise sentence',
-              relevance: 'integer 0–10',
-              importance: 'integer 0–10',
-            },
-            candidates: batch.map((e) => e.item),
-          }),
-          maxOutputTokens: 1400,
+          prompt: promptFor(batch),
+          maxOutputTokens: Math.min(16000, Math.max(1400, batch.length * 300)),
         },
         validate,
       );
       // Stop this run on refusal/failure; report every missing ID explicitly.
-      if (!result) break;
+      if (!result) return false;
       for (const entry of batch) {
         const score = result.items.find((s) => s.id === entry.item.id)!;
         await this.cache.cache(entry.key, score);
         scores.set(score.id, score);
       }
-    }
+      return true;
+    };
+    // A refusal stops new work; already reserved in-flight calls still settle
+    // and retain valid results. Never abandon their ledger reservations.
+    const worker = async () => {
+      while (!stopped && cursor < batches.length) {
+        const current = batches[cursor++];
+        if (!(await scoreBatch(current))) stopped = true;
+      }
+    };
+    await Promise.all(
+      Array.from({ length: Math.min(4, batches.length) }, worker),
+    );
     return {
       scores: candidates.flatMap((c) => {
         const value = scores.get(c.id);

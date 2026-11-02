@@ -592,3 +592,19 @@ Known gaps include paraphrase rejection, unsupported significance/background,
 causation, scope and cross-sentence attribution. Briefs and rejected responses
 remain unaudited. No partial code was left to finish. Resume auditing only when
 a real digest shows an unsupported summary; social posts now take priority.
+
+## Triage throughput (iteration 155)
+
+Article and social triage use up to 50 candidates per call and four concurrent
+calls per scoring invocation. Escaped UTF-8 payloads split earlier to keep
+instructions, prompt and framing within a conservative 60 KB bound. Output
+reservations scale with batch size (up to 15,000 tokens). Existing instruction
+prompt caching and validated per-item cache keys remain unchanged. A refusal
+stops new batches; in-flight calls complete and retain valid scores.
+
+Offline tests cover overlapping calls, ordering, cache reuse, changed inputs,
+invalid outputs, byte bounds and refusal. A synthetic 1,500-item run in sequential
+200-item chunks used 30 calls in 217 ms with 20 ms fake latency; cached replay
+used zero calls in 15 ms. These are orchestration measurements, not provider
+latency or full-edition performance. Async generation, parallel topic editors
+and rate-limit backoff remain unfinished under STEERING 7.

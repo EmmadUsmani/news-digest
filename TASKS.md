@@ -6,7 +6,8 @@ Fix regressions, broken services and stalled sources before starting new work.
 ## Immediate owner priorities (STEERING overrides older milestone notes)
 
 - [x] STEERING 12: shrink orientation files and archive completed detail (iteration 154).
-- [ ] STEERING 7, first: triage batches of 40–60, bounded 4–6-way concurrency, shared prompt caching, per-item cache reuse and 429 backoff; parallel topic editors. Async BullMQ creation/regeneration, window dedupe, progress UI and last-run duration. Verify fake-based flows and record measured timing against <60s/current-volume and <2min/1,500-item targets.
+- [x] STEERING 7 partial: article/social triage batches up to 50, conservative 60 KB bound, four concurrent calls, scaled output limits and unchanged per-item caches (iteration 155; fake-based verification). Existing adapter caches shared instructions.
+- [ ] STEERING 7, first: bounded 429 backoff, parallel topic editors and shared concurrency across topics; async BullMQ creation/regeneration, window dedupe, progress UI and last-run duration. Verify fake-based flows and measure full-edition timing against <60s/current-volume and <2min/1,500-item targets. Synthetic triage timing is not full-edition timing.
 - [ ] STEERING 8, next: curated editable Reddit communities, public rate-limited JSON/RSS ingestion, social storage/cards and X citation extraction; real posts across four topics. Respect access denial; no bypass.
 - [ ] STEERING 9, after Reddit: schedule capped direct xAI discovery before digest; report daily spend and verified yield for first week. This supersedes older notes to leave paid scheduling off once prerequisites are met.
 - [ ] STEERING 10: per-topic source and verified-item/post coverage on Status; measure weakest topic before adding sources.

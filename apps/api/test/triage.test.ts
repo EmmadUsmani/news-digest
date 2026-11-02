@@ -84,7 +84,7 @@ void test('triage covers all candidates in bounded batches before any lexical fi
     candidates.map((c) => c.id),
   );
   assert.deepEqual(result.unscoredIds, []);
-  assert.equal(h.calls.length, 3);
+  assert.equal(h.calls.length, 1);
   assert.ok(
     h.calls.every(
       (r) =>
@@ -95,7 +95,7 @@ void test('triage covers all candidates in bounded batches before any lexical fi
   await h.service.score(topic, candidates.slice().reverse(), 'new-run');
   assert.equal(
     h.calls.length,
-    3,
+    1,
     'Per-item cache survives different ordering and batch composition',
   );
 });
@@ -107,13 +107,13 @@ void test('cache invalidates changed item text and topic guidance', async () => 
     [{ ...candidates[0], excerpt: 'Updated facts' }],
     'changed',
   );
-  assert.equal(h.calls.length, 4);
+  assert.equal(h.calls.length, 2);
   await h.service.score(
     { ...topic, guidance: 'New guidance' },
     [candidates[1]],
     'guidance',
   );
-  assert.equal(h.calls.length, 5);
+  assert.equal(h.calls.length, 3);
 });
 void test('duplicate, foreign, omitted and out-of-range outputs never become item cache entries', async () => {
   for (const transform of [
@@ -190,7 +190,7 @@ void test('worst-case escaped text stays below prompt limit; empty and invalid s
       'oversize',
     ),
   );
-  assert.equal(h.calls.length, 1);
+  assert.equal(h.calls.length, 3, 'Escaped text splits at the byte ceiling');
 });
 
 void test('new triage requests and their single repair carry explicit field constraints', async () => {
@@ -271,5 +271,119 @@ void test('social triage uses topic meaning and interestingness with separate ca
     (await h.service.score(world, [{ ...posts[0], id: 'new' }], 'refused'))
       .unscoredIds,
     ['new'],
+  );
+});
+
+void test('article and social batches overlap up to four calls and preserve ordered results', async () => {
+  for (const kind of ['article', 'social'] as const) {
+    const values = new Map<string, unknown>();
+    const requests: LlmRequest[] = [];
+    let active = 0;
+    let peak = 0;
+    const releases: (() => void)[] = [];
+    const service = new CandidateTriage(
+      {
+        async json(request, validate) {
+          requests.push(request);
+          active++;
+          peak = Math.max(peak, active);
+          await new Promise<void>((resolve) => releases.push(resolve));
+          active--;
+          const body = JSON.parse(request.prompt) as {
+            candidates: TriageCandidate[];
+          };
+          return validate({ items: body.candidates.map(score).reverse() });
+        },
+      },
+      {
+        async cached(key) {
+          return values.get(key);
+        },
+        async cache(key, value) {
+          values.set(key, value);
+        },
+      },
+      llmConfig({}).haiku,
+      kind,
+    );
+    const pool = Array.from({ length: 200 }, (_, i) => ({
+      ...candidates[0],
+      id: String(i),
+    }));
+    const pending = service.score(topic, pool, 'parallel');
+    // Let cache reads and all four requests reach the explicit barrier.
+    await new Promise<void>((resolve) => setImmediate(resolve));
+    assert.equal(active, 4);
+    assert.equal(requests.length, 4);
+    for (const request of requests) {
+      assert.equal(JSON.parse(request.prompt).candidates.length, 50);
+      assert.equal(request.maxOutputTokens, 15000);
+    }
+    releases.reverse().forEach((release) => release());
+    const result = await pending;
+    assert.equal(peak, 4);
+    assert.deepEqual(
+      result.scores.map((item) => item.id),
+      pool.map((c) => c.id),
+    );
+    assert.deepEqual(result.unscoredIds, []);
+    await service.score(topic, pool.slice().reverse(), 'cached');
+    assert.equal(requests.length, 4);
+    const changed = service.score(
+      topic,
+      [{ ...pool[0], title: 'Changed' }],
+      'new',
+    );
+    await new Promise<void>((resolve) => setImmediate(resolve));
+    assert.equal(requests.length, 5);
+    assert.equal(JSON.parse(requests[4].prompt).candidates.length, 1);
+    releases.at(-1)!();
+    await changed;
+  }
+});
+
+void test('escaped large batches obey byte ceiling and stop scheduling after refusal', async () => {
+  let calls = 0;
+  let active = 0;
+  let peak = 0;
+  const service = new CandidateTriage(
+    {
+      async json(request) {
+        calls++;
+        active++;
+        peak = Math.max(peak, active);
+        assert.ok(
+          Buffer.byteLength(request.instructions + request.prompt) + 2048 <=
+            60000,
+        );
+        assert.ok(JSON.parse(request.prompt).candidates.length < 50);
+        await new Promise<void>((resolve) => setImmediate(resolve));
+        active--;
+        return null;
+      },
+    },
+    {
+      async cached() {
+        return undefined;
+      },
+      async cache() {
+        assert.fail('Refusal must not cache');
+      },
+    },
+    llmConfig({}).haiku,
+  );
+  const pool = Array.from({ length: 200 }, (_, i) => ({
+    id: String(i),
+    title: '\u0000'.repeat(500),
+    excerpt: '\u0000'.repeat(1800),
+    sources: Array<string>(8).fill('\u0000'.repeat(120)),
+  }));
+  const result = await service.score(topic, pool, 'refused');
+  assert.equal(calls, 4, 'Only the initial four batches are in flight');
+  assert.equal(peak, 4);
+  assert.deepEqual(result.scores, []);
+  assert.deepEqual(
+    result.unscoredIds,
+    pool.map((c) => c.id),
   );
 });
