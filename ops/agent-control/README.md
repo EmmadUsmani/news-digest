@@ -59,12 +59,14 @@ Real (non-smoke) runs keep the build from burning the weekly Codex allowance
 early and then stalling for days.
 
 **What it tracks:**
+
 - After each iteration, the supervisor reads the newest 5-hour and weekly
   usage snapshot from `~/.codex/sessions` into `status/usage.json`.
 - It logs each iteration's token usage to `logs/usage.tsv` (time, iteration,
   input, cached, output, reasoning, 5h %, weekly %).
 
 **How it paces:**
+
 - Before each iteration, if weekly usage exceeds the share of the week that
   has elapsed plus `PACE_SLACK_PCT` (default 10 points), it waits up to
   `PACE_MAX_WAIT_MIN` (default 60).

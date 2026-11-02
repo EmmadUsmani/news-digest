@@ -1,0 +1,161 @@
+# Tasks
+
+Prioritized. The agent owns this file; reorder and split tasks as you learn.
+Fix regressions, broken services and stalled sources before starting new work.
+
+- [x] M0 skeleton (iteration 7):
+  - pnpm workspace (`apps/api` NestJS, `apps/web` React+Vite, `packages/contracts`)
+  - Postgres and Redis running locally (Docker Compose or native)
+  - migrations
+  - `GET /healthz` with DB/Redis checks
+  - the API serves the built SPA on :8000
+  - systemd user units `news-digest-api.service` / `news-digest-worker.service`
+  - one `pnpm check` command (typecheck, lint, dependency boundaries, tests)
+  - README run/stop/log commands
+- [x] M1 domain foundations (iteration 8; read-only APIs and topic overview):
+  - `libs/ddd` building blocks
+  - `profiles` and `topics` modules with the seeded default profile and four
+    topics (data, not code)
+  - digest schedule value objects (cadence, IANA timezone, ISO-8601 window,
+    budgets) with thorough window-math tests
+- [x] M2 first real content (iteration 9; incoming articles visible for all topics):
+  - a source port plus RSS/Atom and Hacker News adapters
+  - ingestion jobs in BullMQ
+  - normalized, deduplicated content items in Postgres
+  - real items stored for all four topics, recorded in docs/SOURCES.md
+- [x] STEERING 1: Prettier, EditorConfig, typed ESLint, React hooks/refresh and sorted/unused imports; enforced workspace checks (iteration 51).
+  - Follow-up: remove scoped unsafe-value exemptions by adding schemas/types to legacy pg/XML/JSON/BullMQ boundaries and smoke fixtures (coordinate with 2a/2b).
+  - Follow-up: characterize unknown-to-text feed coercion, then enable no-base-to-string; refactor DigestPreview/StatusPanel loading effects to enable set-state-in-effect. Immediate Promise-shaped mocks retain require-await exemption.
+- [ ] M3 first real digest (in progress):
+  - simple scoring plus the Anthropic editorial pass
+    (behind `LlmPort`, with usage caps)
+  - [x] Immutable preliminary ranked snapshots for explicit windows (iteration 10); database rejects mutation.
+  - [x] Home renders latest preliminary edition with excerpts, scores and quiet sections.
+  - [x] Desktop/mobile Playwright screenshots and create/reload checks.
+  - [x] Data-driven topic phrase relevance, auditable rules/rejection counts, 14 labeled regression cases (iteration 11).
+  - [x] Auditable quality exclusions for routine previews, schedules and discussion threads, with omission reasons (iteration 13).
+  - [x] Real official Anthropic SDK transport, configured models/prices, serialized Postgres reservations/ledger, validated JSON with one reserved repair, cache and provider-month blocks (iteration 52); one tiny live Haiku triage check costs $0.000147, cache reuse verified.
+  - [x] Bounded Haiku candidate triage service with semantic relevance/importance, advisory event labels/rationale, exact-ID validation and per-item cache independent of batch/order (iteration 53); explicit real four-topic smoke, not yet used by published editions.
+  - [x] Bounded shortlist editor with validated IDs/briefs/story text, cached Sonnet calls and budgeted Haiku fallback (iteration 54); standalone only, live checks returned empty selections.
+  - [x] Manual/scheduled immutable editorial-v1 publication with semantic triage, bounded shortlist, briefs/summaries/rationale, source provenance and per-topic non-AI fallback labels (iteration 55).
+  - [x] Real end-to-end four-topic Sonnet edition with twenty summaries and identical cached regeneration (iteration 55); spot inspection is not a precision benchmark.
+  - [x] Coalesce identical overlapping LLM requests within each publication process, including reserved repairs and safe failure release (iteration 56); API/worker cross-process and different triage batch compositions remain open.
+  - [x] Diagnose World fallback from overlong Haiku rationales; supply explicit field bounds without invalidating validated per-item caches, recover all four AI topics and verify cached regeneration (iteration 58).
+  - [x] First frozen NBA AI selection replay against pre-existing labels: 5/5 target events versus 2/5 signals baseline, zero labeled omissions; offline replay and shortlist parity checks (iteration 59). This is target recall, not general precision.
+  - [x] Require validated shortlist evidence IDs and preserve source links/excerpts separately from headline coverage; expose summary sources without changing historical snapshots (iteration 60). Attribution is not factual verification.
+  - [x] Separate configured Sonnet daily allocation inside shared caps; serialized reservations include old pending/uncertain calls, Haiku fallback and cache reuse verified in isolated Postgres; status shows allocation (iteration 61).
+  - [x] Replay World/Tech frozen windows with withheld pre-existing labels, evidence-input audit and offline regressions: each 3/5 targets, zero labeled omissions, Haiku fallback (iteration 62). Provisional labels, not precision.
+  - [x] Editor v3 explicitly forbids inferring absence from omitted excerpt facts; recorded Tech replay removes Apple non-confirmation from summary with unchanged 3/5 recall (iteration 63). Prompt mitigation only; rationale/absence wording still needs factual validation.
+  - [x] Editor v4 conservative verbatim-input guard for lexical absence sentences across all text fields and briefs; rejects recorded Apple/benchmark caveats, uncited/truncated/changed-subject evidence (iteration 64). Live Tech attempt failed closed; no improved-recall claim.
+  - [x] Supply fixed absence-support feedback to the single reserved repair without echoing raw model/source/error text; regression checks inspect repair requests (iteration 65). Explicit Tech replay still failed closed; no quality gain claimed.
+  - [x] Bounded process-local validation diagnostics distinguish parse/schema/selection/absence failures; explicit recorder prints closed categories without model/source text (iteration 66). No paid replay or quality gain claimed.
+  - [x] Bounded diagnostic replay distinguishes schema then absence rejection; explicit editor output bounds and offline boundary/repair regressions; accepted Tech v4 replay retains 3/5 provisional targets after one absence repair (iteration 67). Guard unchanged; broader significance support gaps documented.
+  - [x] Reproducible offline twelve-case support audit: supported negative paraphrase rejections, attribution/synonym/causal/uncertainty gaps and two actual Tech v4 significance extrapolations, with visible provisional labels and evidence (iteration 68). Guard unchanged; no production error-rate claim.
+  - [x] Complete-source-sentence matching rejects attribution-dropping negative substrings and removed trailing qualifiers across all editor fields/briefs; editor instruction hash refreshed and offline challenge audit rerun (iteration 69). Conservative lexical check, not entailment.
+  - [x] Eight fixed-evidence support/unsupported clause pairs across all four topics, with per-pair decisions and regression coverage (iteration 70); expanded offline audit exposes cross-sentence attribution and quantity/time/scope gaps. Synthetic agent labels, no production quality claim.
+  - [x] Complete twenty-field recorded Tech v4 support audit with snapshot/claim hashes, exact review coverage and separate interpretation labels (iteration 71); three unsupported fields pass, including adoption in rationale. Provisional agent judgments; no independent-review or false-rejection-rate claim.
+  - [x] Extend complete recorded support audit to twenty World fields, including three-citation synthesis and historical absence rationales (iteration 72); ten supported, five interpretations, five unsupported under bounded-input policy. Current guard rejects two unsupported absence claims and accepts three other unsupported fields; provisional judgments only.
+  - Audit work closed for now under STEERING 5: existing recorded/synthetic coverage is summarized in docs/RANKING.md. Resume only for a real unsupported digest summary.
+  - Deferred: scheduled Message Batches, cross-process cache coordination, full-article retrieval and larger editor shortlists.
+- [ ] M4 Social posts (current priority; STEERING 6):
+  - [x] Free X-link harvesting from feed HTML/content and HN destination/text; dedupe IDs and persist citing item/source/engagement separately from verified posts (iteration 87).
+  - [x] Official oEmbed verification port, separate SocialPost storage, bounded explicit verifier and one-day failure cooldown (iteration 88). Live official endpoint returned HTTP 404; zero posts promoted, metadata remains unknown.
+  - [x] Bounded public Techmeme/Memeorandum river harvesting with separate provenance, per-topic source data and idempotent persistence (iteration 89): 50 Techmeme references, none from Memeorandum. Reddit public JSON remains 403.
+  - [x] Preserve named status URLs for official verification and accept current X provider branding (iteration 89); ten real official embeds stored.
+  - [x] Decode verified modern X Snowflake timestamps with conservative legacy/future rejection, idempotent stored-post backfill and refresh preservation (iteration 90); ten real verified posts dated.
+  - [x] Read-only verified-post screening by topic source scope, post paragraph evidence, saved phrase rules, crypto/bait exclusions and half-open coverage windows (iteration 91); three real NBA candidates pass a seven-day window, none pass the checked daily window. Conservative lexical eligibility only.
+  - [x] Immutable window-aware preliminary post selections copied into new manual/scheduled snapshots, saved budgets, exact-text dedupe and selection provenance (iteration 92). Historical editions unchanged; rendering added in iteration 93.
+  - [x] Separate Top posts sections, lazy singleton official X widgets, saved-text fallback and desktop/mobile replay checks (iteration 93).
+  - [x] Hourly free river collection and bounded official embed verification through a single-worker queue; persisted cooldown, stop-on-error and status queue telemetry (iteration 94).
+  - [x] Allocate bounded embed checks across enabled topics, prioritize unverified discoveries over refreshes and dedupe shared IDs (iteration 95); first Gaming post verified, but outside current window.
+  - [x] Explicit bounded publisher-page X-link discovery from opted-in hosts, enabled-topic interleaving, persistent page cooldowns and citing-article provenance (iteration 96). Six pages read, one existing NBA citation observed; PC Gamer page unavailable, World pages empty.
+  - [x] Connect bounded publisher-page discovery to hourly social collection before official verification, retaining cooldowns/caps and per-job page counters; explicit queued live smoke (iteration 97).
+  - [x] Broaden exact-host publisher opt-ins to BBC, NPR, GamesIndustry, Rock Paper Shotgun, PlayStation and Xbox; rotate publishers within topic before the eight-page cap (iteration 98). Eighteen explicit probe pages yielded five PlayStation citations; queued pass read seven pages/three citations, with no World posts yet.
+  - [x] Persistent separate X-discovery ledger with serialized $0.40/day/$12/month reservations, fetched-post/profile accounting, durable prepaid depletion block and Status visibility (iteration 99). No paid searches made; direct transport/account data and scheduled discovery remain unfinished.
+  - [x] Explicit direct Grok 4.3 transport, dry-run command, saved curated topic accounts, fetched-item usage settlement and citation provenance wired to official verification (iteration 100). Offline protocol/DB checks only; no paid call or paid scheduler.
+  - [x] Measure first direct World search and expose read-only recent-call cost/citation/verification yield report (iteration 101): $0.023382, two citations, neither verified; no paid scheduler.
+  - [x] Repair ID-only official oEmbed fallback (`i/status`, not `i/web/status`) and recover both measured World citations without paid retries or guessed handles; recorded BBCWorld response replay (iteration 102). Both verified, but World screening rejects an empty positive-phrase policy.
+  - [x] Bounded social Haiku triage mode with interestingness instructions, separate purpose/cache and topic-description/guidance input; cache-only real-candidate diagnostic bypasses positive phrases while retaining safety exclusions (iteration 103). No live semantic scores or publication yet.
+  - [x] Include direct-search citations in immutable edition post selection with topic isolation, verified-post requirement, existing screening/dedupe and snapshot retry preservation (iteration 104). World still needs semantic selection; discovery scope never implies relevance.
+  - [x] Standalone bounded social editor with supplied-ID picks/context, separate purpose/cache, capped Sonnet-to-Haiku fallback and offline rejection regressions (iteration 105). Shared composition exposes social services; no publication/inference yet.
+  - [x] Connect semantic social shortlist/final picks to manual and scheduled immutable publication, saved scores/context/method and visible AI/non-AI labels; preserve lexical fallback and scheduled retries (iteration 106). Fake-response/isolated DB verification only; no real semantic edition yet.
+  - [x] Immutable links to selected stories with explicit stored post citations, including coverage/editor evidence; desktop/mobile navigation replay (iteration 107). Citation provenance only; semantic same-event matching remains unfinished.
+  - [x] Opt Eurogamer public pages into bounded free discovery after explicit access/citation probes (iteration 108); stored a real game-reveal citation, but its May timestamp is outside current windows. No fresh Gaming-pick claim.
+  - [x] Add Nintendo Life public RSS for Gaming after free discovery probes (iteration 121): 25 real articles stored; feed has no X links and article pages return 403, so no page harvesting. IGN feed also blocked; no bypass.
+  - [x] Add Game Developer and VGC public RSS (iteration 122): 60 real articles stored, twenty healthy sources; six publisher-page probes return 403, so page harvesting stays off. Fresh Gaming social gap remains.
+  - [x] GamingBolt + Push Square RSS social discovery (iteration 123): 35 real articles and three stored X citations with verified official embeds, including a current Phantom Blade Zero post. No page scraping or paid calls; lexical fallback misses its topic phrase, scheduled semantic selection remains unverified.
+  - [x] GamesRadar+ and GameSpot RSS citation discovery (iteration 124): 65 real articles, five distinct X citations/four newly verified embeds; all cited posts outside the checked 24h window. Direct HTTPS GamesRadar feed avoids its HTTP redirect; no page crawling or paid calls.
+  - [x] Hoops Rumors public NBA RSS (iteration 126): 15 real articles, 21 distinct X citations, thirteen cited posts with official embeds after bounded verification. NBA Communications/Hornets PR pass lexical eligibility; no paid calls or publication. Recorded RSS citation/date regressions pass.
+  - [x] Conservative post duplicate correction (iteration 127): preserve signed numbers, punctuation and distinct paragraph link targets; suppress long matching RT captions before lexical/semantic selection, version new methods and retain immutable history. General same-event/media matching remains unfinished.
+  - [x] Persist failed publisher-host cooldown across hourly page passes (iteration 128): any recent failed page pauses that exact host for one day; other publishers remain eligible. Isolated regression covers new-page suppression and expiry.
+  - [x] Enable GamingBolt exact-host article discovery after six successful public-page probes (iteration 129); existing bounded collector/cooldown applies. Probe found only the already-known Phantom Blade Zero citation; no fresh-post improvement claimed.
+  - [x] Read-only semantic readiness report and cache diagnostics now share publication candidate selection, including duplicate checks, zero budgets and caps; counts distinguish safety eligibility from editorial relevance (iteration 130).
+  - [x] Connect Destructoid public RSS with recorded encoded-content X citation regression (iteration 131); feed contains guides/opinion as well as news, and its one observed X citation is outside the upcoming daily window. No page harvesting enabled.
+  - [x] Status exposes bounded retained free social collection results, including partial river/page/embed errors and successful embed checks; correct social next-run label and isolated Redis telemetry regression (iteration 134). Counts do not imply new posts or virality.
+  - [x] Aftermath public RSS adds 15 real articles and three X citations verified by official embeds (iteration 135); all cited posts precede the upcoming daily window. Recorded content/citation regression; no page harvesting or fresh-window/virality claim.
+  - [x] Empty verified candidate pools remain explicitly non-AI and skip both social AI services; incomplete triage reports its own fallback reason (iteration 136). Historical snapshots unchanged.
+  - [x] New post snapshots retain visible URLs and line breaks in a separate display-only plain-text fallback; historical text and screening/editorial evidence remain unchanged (iteration 137). Desktop/mobile replay covers blocked widgets and legacy snapshots.
+  - [x] Failed official widgets explain unavailable X media and offer an explicit retry while preserving saved text/original links; desktop/mobile blocked-script recovery replay (iteration 138).
+  - [x] Kotaku RSS and exact-host bounded page discovery after three successful public probes (iteration 140): 20 real articles and three officially verified X citations; cited posts precede upcoming daily window. Offline feed/embed regressions; no paid calls.
+  - [x] Guardian US public RSS and bounded exact-host page discovery (iteration 141): three accessible reporting pages expose eight named X citations, including two in the upcoming daily window. Same outlet as Guardian World; offline feed/link regressions, no paid calls.
+  - [x] Bound stalled official widget creation to 15 seconds with retry and isolate late results from newer attempts; desktop/mobile timed-out recovery replay (iteration 142).
+  - [x] Insider Gaming RSS and bounded exact-host discovery (iteration 143): 10 real articles, 11 reporting-page X citations; explicit official verification 10 successes/zero failures. Gaming upcoming-window semantic pool rises 3 to 14, lexical picks still zero; relevance/virality unmeasured.
+  - Next: observe the first scheduled semantic social edition and measure relevant Gaming discovery. Keep full-day X reservation and paid scheduling off. Semantic selection is not a virality measurement.
+  - SocialPost storage, window-aware ranking with citation diversity/engagement, immutable post selections and lazy official X embeds.
+  - Reddit per-topic communities and faithful cards; no bot-protection workarounds. Bluesky optional; YouTube deferred.
+  - After free harvesting: direct capped xAI x_search adapter using installed key, cheapest supported model, per-topic accounts, $0.40/day/$12/month ledger and depleted-credit handling. Never use gateway.
+  - Haiku interestingness triage and Sonnet picks/context under existing app caps; related story links.
+  - Finish with real X/Reddit posts across four topics and desktop/mobile screenshots.
+- [ ] M5 ranking quality:
+  - [x] Conservative headline clustering with copied coverage links, one-slot groups and no unverified syndication bonus (iteration 14).
+  - Semantic event clustering and verified outlet independence remain unfinished.
+  - [x] Remove unverified source-observation score bonuses while retaining auditable coverage and historical methods (iteration 30).
+  - [x] Auditable omission of original Ask HN question threads from news slots, with versioned snapshots and preserved incoming content (iteration 37).
+  - explainable scores
+  - per-topic relevance guidance
+  - [x] First frozen real-candidate NBA window with agent event labels, offline report and baseline recall regression (iteration 31).
+  - [x] Second recorded real-candidate World window and per-event top-twenty diagnostics (iteration 33); five-slot recall 1/5 versus NBA 2/5.
+  - [x] Recorded Tech & AI window plus per-article phrase/quality/selection diagnostics (iteration 38); five-slot target recall 0/5, exposing lexical false negatives and ranking misses without fitting scores.
+  - Next: independently reviewed labels, different dates and Gaming; these agent-labeled windows are not general quality estimates.
+- [ ] M6 configuration UI: topics CRUD/reorder/enable, schedule and budgets,
+      on-demand digest for any window.
+  - [x] Paginated immutable edition history and direct edition URLs (iteration 15).
+  - [x] On-demand 6h/24h/7d and custom-window UI with validation and timezone labels (iteration 16).
+  - [x] Edit existing topic names/descriptions, guidance, phrase rules, enable state and budgets through UI/API (iteration 17).
+  - [x] Reorder topics through accessible desktop/mobile controls and atomic validated API; new editions preserve reading order (iteration 18).
+  - [x] Repair zero-based positions after reordering; regression checks remain green after live UI use (iteration 19).
+  - [x] Create topics through validated UI/API with saved phrase rules/budgets, appended reading order and clear source-less state (iteration 20).
+  - [x] Connect/disconnect existing catalog sources per topic via UI/API; shared ingestion and immediate stored articles, immutable history (iteration 21).
+  - [x] Persist daily schedule time/timezone, elapsed coverage window and new-topic budget defaults through validated UI/API (iteration 22). Automatic preliminary generation connected in iteration 23 (M7).
+  - [x] Delete topics through profile-scoped API and desktop/mobile confirmation UI; close reading-order gaps while retaining shared sources, collected articles and immutable editions (iteration 25).
+  - [x] Register and connect custom public HTTPS RSS/Atom feeds through UI/API, shared URL reuse, bounded catalog and safe worker fetches (iteration 27).
+  - [x] Connect Google News RSS queries through validated UI/API with shared feed collection, replacement/disconnect and explicit Google links (iteration 28).
+  - [x] Edit per-topic X search account lists in create/edit UI and API, with bounded unique handles and backward-compatible saves (iteration 125).
+  - Next: Reddit community configuration when legitimate access is available; automatic generation and run/status visibility are connected under M7.
+- [ ] M7 scheduled operation: the cadence scheduler generates digests
+      automatically, plus the status page (sources, queues, runs, LLM usage).
+  - [x] Saved daily cadence/timezone drives automatic preliminary editions, exact slot windows, bounded retries and idempotent persistence (iteration 23).
+  - [x] Source/run status panel and API: source freshness/errors/counts, queue availability/workers/pause/counts, next edition, retained run states and edition links (iteration 24).
+  - [x] Bounded missed-run policy: retained slots up to six hours late keep original windows; older slots skip visibly, without daily backfill; settings/status explain custom-window recovery (iteration 26).
+  - [x] Status shows real Anthropic spend/reservations, daily/monthly caps, calls per model and sanitized provider errors (iteration 52); automated editing is still pending.
+  - Next: durable recovery beyond retained Redis jobs.
+    `DigestPublished` event plus notification port with a log/in-app adapter.
+- [ ] Ongoing:
+  - [x] Wider NBA/Gaming publisher coverage: Yahoo NBA + Eurogamer (iteration 12), 110 additional stored URLs.
+  - [x] Wider world coverage: NPR World + The Guardian World (iteration 29), 55 additional stored publisher articles.
+  - [x] Direct platform announcement coverage: PlayStation Blog + Xbox Wire, 20 real stored posts with offline fixtures (iteration 32).
+  - [x] Direct AI announcements: OpenAI News + Google DeepMind with bounded compressed feed support (iteration 34).
+  - [x] PC Gamer + Rock Paper Shotgun feeds: 110 real articles and broader current Gaming selections, with offline fixtures (iteration 36).
+  - [x] Al Jazeera public RSS broadens World reporting (iteration 132); 25 real articles, no observed X citations, page harvesting disabled. General feed includes some sports/opinion; selection still applies.
+  - [x] Gematsu public RSS adds current Gaming studio/release reporting (iteration 139); 20 real articles, no feed X links, sampled pages 403 so page harvesting stays off.
+  - widen sources per topic (Reddit, Bluesky, more publishers)
+  - precision tuning
+  - [x] Publisher lead images in new immutable editions, responsive display and graceful image failures (iteration 35).
+  - UI polish
+  - retention/backup
+  - resilience
+  - [x] Schedule-changing smoke checks persist exclusive recovery settings and restore on SIGINT/SIGTERM; documented recovery command handles retained records after uncatchable termination (iteration 133). Isolated child-process signal regression; live schedule unchanged.
+
+- [x] Stop verification from replacing live AI editions: run the existing suite in disposable Postgres/Redis containers with cleared inference credentials, migrated seeds and guarded direct test connections (iteration 57; regression repair).
+- [ ] STEERING 2a (after M3): isolated Testcontainers Postgres/Redis migration, repository/HTTP characterization, golden edition and database coverage; include `test:integration` in `check`. Never touch live DB.
+- [ ] STEERING 2b (only after 2a is green): record Drizzle decision/schema parity, back up live DB, gradually replace raw SQL behind ports and enforce boundaries.

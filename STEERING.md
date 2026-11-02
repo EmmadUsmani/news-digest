@@ -364,3 +364,5 @@ Because each later step re-sends that context, it makes up most of the roughly
 - Follow AGENTS.md "Token efficiency" (new) from now on.
 - Ack here when done.
 
+
+ack: 2026-11-02 item 12 — iteration 154 archived completed TASKS detail and older PROGRESS entries; compact files preserve open work and prioritize items 7–11.

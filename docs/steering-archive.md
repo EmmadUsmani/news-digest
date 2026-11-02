@@ -53,6 +53,7 @@ This answers the M3 model question in NEEDS_FROM_HUMAN.md. Do it right after
 item 1, ahead of item 2.
 
 **Status (2026-11-01 21:40 UTC): the key is installed and verified.**
+
 - `ANTHROPIC_API_KEY` is in `~/.config/news-digest/env`.
 - A real Haiku test call succeeded.
 - `news-digest-api` and `news-digest-worker` were restarted, and both have the
@@ -132,5 +133,3 @@ The "if the key isn't there yet" fallback below no longer applies.
   - the fallbacks
   - provider-limit error handling (with mocked responses)
 - Update NEEDS_FROM_HUMAN.md to clear the model question.
-
-
