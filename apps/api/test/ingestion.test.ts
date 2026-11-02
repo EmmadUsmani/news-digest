@@ -25,6 +25,7 @@ void test('recorded RSS and Atom normalize real headlines, dates and safe links'
     'hoopsrumors.xml',
     'destructoid.xml',
     'al-jazeera.xml',
+    'aftermath.xml',
     'npr-world.xml',
     'guardian-world.xml',
   ]) {
@@ -97,6 +98,36 @@ void test('recorded GamesRadar and GameSpot feeds retain publisher X citations a
     spot.every((item) => new URL(item.url).hostname === 'www.gamespot.com'),
   );
   assert.ok([...radar, ...spot].every((item) => item.excerpt.length <= 1500));
+});
+void test('recorded Aftermath RSS preserves article citations and separates excerpts from full content', async () => {
+  const items = parseFeed(await fixture('aftermath.xml'));
+  assert.equal(items[0].title, 'Itch Is Being Flooded By AI-Generated Garbage');
+  assert.equal(items[0].publishedAt, '2026-11-01T23:52:20.000Z');
+  assert.equal(items[1].publishedAt, '2026-10-30T19:59:05.000Z');
+  assert.deepEqual(items[0].xLinks, []);
+  assert.deepEqual(items[1].xLinks, [
+    {
+      externalId: '2115869254688063857',
+      verificationUrl:
+        'https://twitter.com/socialistadri/status/2115869254688063857',
+      url: 'https://x.com/i/web/status/2115869254688063857',
+    },
+    {
+      externalId: '2043182942982373785',
+      verificationUrl:
+        'https://twitter.com/HnD_Productions/status/2043182942982373785',
+      url: 'https://x.com/i/web/status/2043182942982373785',
+    },
+  ]);
+  assert.ok(
+    items.every((item) => new URL(item.url).hostname === 'aftermath.site'),
+  );
+  assert.ok(
+    items.every(
+      (item) => item.excerpt.length > 0 && item.excerpt.length <= 1500,
+    ),
+  );
+  assert.ok(items.every((item) => !/<[^>]+>/.test(item.excerpt)));
 });
 void test('recorded Al Jazeera RSS retains World headlines and dates without inventing social citations', async () => {
   const items = parseFeed(await fixture('al-jazeera.xml'));

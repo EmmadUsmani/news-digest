@@ -283,3 +283,15 @@ Earlier iterations 87–100: [archive](docs/progress-archive/2026-11-02-iteratio
 - `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; screenshots refreshed, new mobile social panel inspected. README/TASKS/docs/SOURCES updated.
 - No publication, schedule mutation, inference/discovery spend, provider/model/billing change or new owner blocker. Paid X scheduling stays off; Gaming/World social gaps and Reddit block remain.
 - Next: inspect scheduled 20:40 UTC semantic edition when due; continue relevant free social coverage.
+
+## 2026-11-02: iteration 135 — Aftermath free Gaming citation feed
+
+- Started clean on main; no leftover work. API/worker/health, current collection and digest runs healthy; two historical ingestion failures retained. First semantic edition remains due 20:40 UTC.
+- Migration 032 connects Aftermath public RSS: 15 real articles, three distinct X citations, all three verified via official oEmbed. Reporting/interviews/opinion remain candidates; no page harvesting configured.
+- All three cited posts precede upcoming daily window. Read-only `screen-social-posts.ts 2026-11-01T20:40:00Z 2026-11-02T20:40:00Z`: semantic pools 9/26/1/2, lexical selections 3/5/0/0; Gaming 21 scoped verified posts. No fresh-window or virality gain claimed.
+- Public AUTOMATON English RSS probe: 30 articles, latest Oct 31, zero feed X links; not connected. Temporary probe removed; no bypass or paid calls.
+- Two original Aftermath entries recorded for offline dates/excerpts/exact citations. Initial check caught citation assertion assigned to wrong entry; corrected. `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 143 isolated tests pass.
+- `pnpm migrate`, `pnpm build` pass (existing upstream Zod warnings). Restarted API/worker; `/healthz` healthy. `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued passes, 1,161 URLs/four topics/28 healthy sources; repeat idempotent.
+- `pnpm exec tsx apps/api/scripts/verify-x-embeds.ts`: three successes/zero failures. `scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; refreshed screenshots and inspected mobile Aftermath card.
+- TASKS/docs/SOURCES updated. No publication, schedule mutation, inference/discovery spend or provider/model/billing change. Anthropic $0.408415; X $0.023382; no new owner blocker.
+- Next: inspect 20:40 UTC scheduled semantic edition when due. Gaming/World daily social gaps and Reddit block persist; keep paid X scheduling off.

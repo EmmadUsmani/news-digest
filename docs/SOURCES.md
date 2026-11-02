@@ -939,3 +939,24 @@ include partial errors, now visible without reading Redis. Historical results
 without the current counter shape explicitly show counts unavailable.
 Source configuration and paid-discovery scheduling are unchanged. No external
 social request, paid discovery, inference or publication was needed for this UI.
+
+## Iteration 135 — Aftermath Gaming RSS (2026-11-02)
+
+- **Live:** `https://aftermath.site/feed` supplies 15 stored articles, connected
+  to the original Gaming topic by migration 032. Includes industry reporting,
+  interviews and opinion about adjacent technology/culture; ingestion does not
+  imply editorial relevance. No publisher-page harvesting configured.
+- Two queued collection passes are idempotent: 1,161 total stored URLs across
+  four topics and 28 healthy sources. The increase includes two new URLs from
+  existing sources as well as Aftermath's 15.
+- Feed content exposes three distinct X citations; all three passed official
+  oEmbed verification. Their decoded timestamps precede Nov 1 20:40 UTC, so
+  none adds a candidate to the upcoming Nov 2 20:40 daily edition. Gaming now
+  has 21 scoped verified posts, but only one semantic candidate for that window.
+  No engagement/virality or new-selection claim.
+- Recorded first two original feed entries in `fixtures/aftermath.xml` for
+  offline dates, bounded plain excerpts, exact citation identities and the
+  uncited first article. Fixtures are never live evidence or production seeds.
+- Also probed public `https://automaton-media.com/en/feed/`: 30 parseable
+  articles, latest Oct 31, no feed X citations. Not connected; no page probe,
+  bot-protection bypass, paid discovery or inference.
