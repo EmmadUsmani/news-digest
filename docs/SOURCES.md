@@ -636,3 +636,16 @@ not relevance or virality claims. Existing lexical publication remains unchanged
 The shared bounded triage service now has social interestingness instructions,
 separate `social-triage-v1` purpose and per-item caches; Sonnet picks and
 publication integration remain unfinished. No inference spend in this step.
+
+### Direct-search publication scope repair (iteration 104)
+
+Edition post selection now includes verified posts cited by `x_search_citations`
+for the exact topic, alongside feed and river citations. Previously only the
+read-only candidate diagnostic included direct search. Citation-only IDs still
+cannot enter an edition: the query starts from verified `social_posts`, applies
+the coverage window, and retains lexical screening, text dedupe and budgets.
+Multiple discovery routes do not add slots or imply independent coverage.
+Existing editions and scheduled retries retain their frozen snapshots.
+The two real World citations remain verified, but empty positive phrase rules
+still prevent lexical publication; semantic triage and final picks remain next.
+No new discovery call, inference spend or edition publication in this step.

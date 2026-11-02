@@ -82,3 +82,99 @@ void test('editions freeze scoped screened posts, honor budgets and preserve sch
     await repository.onModuleDestroy();
   }
 });
+
+void test('direct-search citations enter only their topic editions after verification and screening', async () => {
+  const repository = new PostgresPreviewRepository();
+  const social = new PostgresSocialRepository();
+  Object.defineProperty(repository, 'editorial', { value: null });
+  const topicId = '00000000-0000-4000-8000-000000000011';
+  const otherTopic = '00000000-0000-4000-8000-000000000012';
+  const start = new Date('2026-10-17T00:00:00Z');
+  const end = new Date('2026-10-18T00:00:00Z');
+  const callId = crypto.randomUUID();
+  const ids = Array.from({ length: 7 }, (_, i) => `99920000000000000${i}`);
+  try {
+    await repository.db.query(
+      `INSERT INTO x_discovery_calls(id,model,run_id,status,reserved_micros,cost_micros)
+       VALUES($1,'synthetic-fixture','social-selection-test','succeeded',1,0)`,
+      [callId],
+    );
+    for (const [i, id] of ids.entries()) {
+      // Citation 0 has never passed official verification. Citation 1 is scoped
+      // to another topic. The last two are duplicates, including another route.
+      await repository.db.query(
+        `INSERT INTO x_search_citations(call_id,topic_id,external_id,canonical_url)
+         VALUES($1,$2,$3,$4)`,
+        [
+          callId,
+          i === 1 ? otherTopic : topicId,
+          id,
+          `https://x.com/fixture/status/${id}`,
+        ],
+      );
+      if (i === 0) continue;
+      await social.store({
+        platform: 'x',
+        externalId: id,
+        url: `https://x.com/fixture/status/${id}`,
+        author: 'Synthetic fixture',
+        authorUrl: 'https://x.com/fixture',
+        publishedAt:
+          i === 2
+            ? end.toISOString()
+            : new Date(start.getTime() + i * 1000).toISOString(),
+        metrics: {},
+        embedHtml: `<p>${i === 3 ? 'AI crypto promo' : i === 4 ? 'Unrelated text' : 'AI demo launch'}</p>`,
+      });
+    }
+    const key = `direct-social-test:${crypto.randomUUID()}`;
+    const first = await repository.generate(start, end, key);
+    digestPreviewSchema.parse(first);
+    const selected = first.topics.find((t) => t.id === topicId)!.posts!;
+    assert.deepEqual(
+      selected.map((post) => post.externalId),
+      [ids[6]],
+    );
+    assert.equal(selected[0].text, 'AI demo launch');
+    assert.deepEqual(selected[0].metrics, {});
+    await social.discovered('techmeme', [
+      { externalId: ids[6], url: `https://x.com/fixture/status/${ids[6]}` },
+    ]);
+    const multiRoute = await repository.generate(start, end);
+    assert.deepEqual(
+      multiRoute.topics.find((t) => t.id === topicId)!.posts,
+      selected,
+    );
+    // Removing discovery scope affects a new edition, never an existing snapshot.
+    await repository.db.query(
+      'DELETE FROM x_search_citations WHERE call_id=$1',
+      [callId],
+    );
+    await repository.db.query(
+      'DELETE FROM social_discovery_citations WHERE external_id=ANY($1::text[])',
+      [ids],
+    );
+    assert.deepEqual(await repository.generate(start, end, key), first);
+    assert.deepEqual(await repository.find(first.id), first);
+    const next = await repository.generate(start, end);
+    assert.deepEqual(next.topics.find((t) => t.id === topicId)!.posts, []);
+  } finally {
+    await repository.db.query(
+      'DELETE FROM x_search_citations WHERE call_id=$1',
+      [callId],
+    );
+    await repository.db.query('DELETE FROM x_discovery_calls WHERE id=$1', [
+      callId,
+    ]);
+    await repository.db.query(
+      'DELETE FROM social_discovery_citations WHERE external_id=ANY($1::text[])',
+      [ids],
+    );
+    await repository.db.query(
+      'DELETE FROM social_posts WHERE external_id=ANY($1::text[])',
+      [ids],
+    );
+    await social.db.end();
+    await repository.onModuleDestroy();
+  }
+});

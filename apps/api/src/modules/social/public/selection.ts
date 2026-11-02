@@ -31,6 +31,8 @@ export async function selectTopicPosts(
               WHERE c.external_id=p.external_id AND t.topic_id=$1)
        OR EXISTS(SELECT 1 FROM social_discovery_citations c JOIN social_discovery_sources s ON s.id=c.source_id
                  WHERE c.external_id=p.external_id AND s.topic_id=$1)
+       OR EXISTS(SELECT 1 FROM x_search_citations c
+                 WHERE c.external_id=p.external_id AND c.topic_id=$1)
      ) ORDER BY p.published_at DESC,p.external_id LIMIT 500`,
     [topicId, start, end],
   );

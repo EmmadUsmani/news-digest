@@ -382,3 +382,14 @@ Earlier iterations 51–60: [archive](docs/progress-archive/2026-11-01-iteration
 - `pnpm exec tsx scripts/smoke-status.ts` and `scripts/smoke-ui.ts` pass desktop/mobile; refreshed screenshots and inspected mobile status. Retained digest runs completed, next slot unchanged; no edition published.
 - Updated TASKS/README/docs/SOURCES. No inference spend: Anthropic day/month $0.408415; X $0.023382, no reservations/provider errors. Provider/models/billing unchanged; no new owner blocker.
 - Next: integrate social triage and Sonnet picks into immutable publication; include direct-search citations currently omitted by `selectTopicPosts` SQL. Keep paid scheduling off; Gaming weak, Reddit blocked.
+
+## 2026-11-02: iteration 104 — repair direct-search publication scope
+
+- Started clean on main; no leftover work. API/worker/health, seventeen sources and retained digest runs healthy; no triage repair needed.
+- Fixed edition post selection to include exact-topic `x_search_citations`, matching existing diagnostics. Only verified stored posts can enter; lexical relevance, time/exclusions, budgets and text dedupe remain unchanged.
+- Isolated Postgres regression covers direct-search-only publication, unverified IDs, another topic, end boundary, crypto/unrelated text, repeated text/routes, and immutable snapshots/scheduled retries after citation removal. Synthetic fixtures never touch live storage.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: types/lint/format/boundaries and all 122 isolated tests pass. Initial check caught a test edited during verification; formatted and reran successfully. `pnpm build` passes (existing upstream Zod warnings).
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two live queued passes, 808 real URLs, four topics, seventeen healthy sources. Rebuilt/restarted API/worker; `/healthz` healthy.
+- `report-x-discovery.ts` confirms unchanged $0.023382, two verified World citations/no unavailable checks; cache-only `triage-social-posts.ts 2026-11-01T00:00:00Z 2026-11-02T06:30:00Z` returns 25 Tech/14 NBA/zero Gaming/two World, all unscored. No new edition or inference.
+- `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` pass desktop/mobile; refreshed screenshots and inspected mobile status. Retained scheduled digest runs completed, next slot unchanged.
+- Updated TASKS/docs/SOURCES. No new owner blocker, provider/model/billing change or spending. World lexical publication still rejects empty positive rules; next integrate semantic triage/Sonnet post picks. Paid scheduling stays off; Gaming weak, Reddit blocked.
