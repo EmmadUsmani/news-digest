@@ -6,6 +6,7 @@ export interface XDiscoveryLedger {
     runId: string,
     estimateMicros: number,
     requestedTopic?: { id: string; name: string },
+    scheduledDay?: string,
   ): Promise<string | null>;
   settle(
     id: string,

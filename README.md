@@ -124,6 +124,16 @@ search saves serialize attribution; repeats retain the original baseline.
 later free collection verifies a post: they measure attributed yield, not causation,
 relevance or edition selection. No historical baseline is inferred.
 
+Scheduled X admission (migration 043) accepts an optional UTC budget day.
+It atomically allows at most one scheduled attempt across all topics per day,
+before HTTP, under the ledger budget lock. Rejected and uncertain calls consume
+that attempt; budget denial does not. Past/future days fail closed and a unique
+index prevents duplicate claims across processes. Manual searches retain existing
+budget behavior. The $0.40 full-day per-call hold remains unchanged, so automatic
+volume starts conservatively at one attempt per day rather than 1–2 per topic.
+The pre-edition timer and weakest-topic selection are still pending; this guard
+does not activate paid scheduling.
+
 `pnpm migrate` is safe to repeat. Keep secrets only in
 `~/.config/news-digest/env` (mode 600), never in the repository.
 The API accepts `DATABASE_URL`, `REDIS_URL`, and `PORT`; defaults target the

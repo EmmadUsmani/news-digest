@@ -1225,3 +1225,13 @@ verified yield per search/topic, without double-counting repeated searches.
 Historical baselines stay unknown. Later free harvesting may verify these posts;
 attribution does not prove causation, relevance or selection. No paid call was
 made for this change; automatic paid scheduling remains unfinished.
+
+## Scheduled X admission — iteration 215 (2026-11-02)
+
+Migration 043 adds a nullable unique UTC scheduled day to the X ledger.
+The shared budget lock admits one scheduled attempt across all topics for the
+current UTC day, before HTTP. Rejected/uncertain calls still consume that day;
+budget denial does not. Stale/future jobs cannot spend. Manual calls and historical
+rows remain unchanged. The full-day reservation is retained; timer wiring and
+coverage-based topic choice remain unfinished. Verified using isolated/fake
+requests only; no new paid call or Reddit request.

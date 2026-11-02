@@ -497,3 +497,65 @@ void test('X search repository pins configuration, first-write provenance, share
     await social.db.end();
   }
 });
+
+void test('scheduled search retries never reach HTTP again after a provider rejection', async () => {
+  const social = new PostgresSocialRepository();
+  const ledger = new PostgresXDiscoveryLedger(social.db);
+  const runId = crypto.randomUUID();
+  let calls = 0;
+  try {
+    const {
+      rows: [day],
+    } = await social.db.query<{ today: string }>(
+      "SELECT to_char(clock_timestamp() AT TIME ZONE 'UTC','YYYY-MM-DD') AS today",
+    );
+    const search = {
+      search: async () => {
+        calls++;
+        throw new XSearchError('rejected');
+      },
+    };
+    const save = {
+      save: async () => {
+        throw new Error('Must not save');
+      },
+    };
+    assert.equal(
+      (
+        await searchX(
+          'fixture',
+          runId,
+          request,
+          search,
+          ledger,
+          save,
+          price,
+          day.today,
+        )
+      ).state,
+      'failed',
+    );
+    assert.equal(
+      (
+        await searchX(
+          'other-topic',
+          runId,
+          request,
+          search,
+          new PostgresXDiscoveryLedger(social.db),
+          save,
+          price,
+          day.today,
+        )
+      ).state,
+      'budget-blocked',
+    );
+    assert.equal(calls, 1);
+    assert.equal((await ledger.status()).availableMicros, 400000);
+  } finally {
+    await social.db.query('DELETE FROM x_discovery_calls WHERE run_id=$1', [
+      runId,
+    ]);
+    await social.db.end();
+  }
+});

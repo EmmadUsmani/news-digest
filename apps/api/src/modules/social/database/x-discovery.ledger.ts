@@ -77,6 +77,7 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
     runId: string,
     estimateMicros: number,
     requestedTopic?: { id: string; name: string },
+    scheduledDay?: string,
   ) {
     if (
       !model.trim() ||
@@ -87,14 +88,41 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
       estimateMicros <= 0
     )
       throw new Error('Invalid X discovery reservation');
+    if (
+      scheduledDay !== undefined &&
+      (!/^\d{4}-\d{2}-\d{2}$/.test(scheduledDay) ||
+        !Number.isFinite(Date.parse(scheduledDay)) ||
+        new Date(scheduledDay).toISOString().slice(0, 10) !== scheduledDay)
+    )
+      throw new Error('Invalid scheduled X discovery day');
     return this.transaction(async (client) => {
+      // A UTC day is consumed before HTTP, including rejected/uncertain calls.
+      // Restart/retry cannot spend again or shift an obsolete job into today.
+      if (scheduledDay !== undefined) {
+        const {
+          rows: [admission],
+        } = await client.query<{ allowed: boolean }>(
+          `SELECT $1::date = (clock_timestamp() AT TIME ZONE 'UTC')::date
+           AND NOT EXISTS(SELECT 1 FROM x_discovery_calls WHERE scheduled_day=$1::date)
+           AS allowed`,
+          [scheduledDay],
+        );
+        if (!admission.allowed) return null;
+      }
       const totals = await this.totals(client);
       if (totals.availableMicros < estimateMicros) return null;
       const id = crypto.randomUUID();
       await client.query(
-        `INSERT INTO x_discovery_calls(id,model,run_id,status,reserved_micros,requested_topic)
-        VALUES($1,$2,$3,'pending',$4,$5)`,
-        [id, model, runId, estimateMicros, requestedTopic ?? null],
+        `INSERT INTO x_discovery_calls(id,model,run_id,status,reserved_micros,requested_topic,scheduled_day)
+        VALUES($1,$2,$3,'pending',$4,$5,$6)`,
+        [
+          id,
+          model,
+          runId,
+          estimateMicros,
+          requestedTopic ?? null,
+          scheduledDay ?? null,
+        ],
       );
       return id;
     });

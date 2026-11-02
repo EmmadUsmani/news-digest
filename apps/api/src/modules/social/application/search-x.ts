@@ -15,13 +15,17 @@ export async function searchX(
   ledger: XDiscoveryLedger,
   repository: XSearchRepository,
   price: XDiscoveryPrice,
+  scheduledDay?: string,
 ) {
-  // Reserve the entire daily cap for the first measured explicit call. This is
+  // Reserve the entire daily cap per call. This is
   // admission control, not a provider-side ceiling: fetched items are unbounded.
-  const callId = await ledger.reserve('grok-4.3', runId, 400000, {
-    id: topicId,
-    name: request.topic,
-  });
+  const callId = await ledger.reserve(
+    'grok-4.3',
+    runId,
+    400000,
+    { id: topicId, name: request.topic },
+    scheduledDay,
+  );
   if (!callId) return { state: 'budget-blocked' as const, citations: 0 };
   let result;
   try {

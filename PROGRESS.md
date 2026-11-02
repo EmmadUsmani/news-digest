@@ -257,3 +257,15 @@ Earlier iterations 198–199: [archive](docs/progress-archive/2026-11-02-iterati
 - Timing report: next scheduled edition Nov 3 15:00 UTC; prior 856 ms fallback remains insufficient AI evidence.
 - Updated README/SOURCES/TASKS; archived iterations 198–199. No UI change.
 - Next: capped pre-edition X scheduling; unchanged full-day reservation. Items 13/7 await Nov 3 scheduled cost/timing evidence.
+
+## 2026-11-02: iteration 215 — durable scheduled X admission
+
+- Started clean on main; API/worker, health, four queues and 32 sources healthy. No leftover work.
+- Migration 043 adds nullable unique scheduled UTC day; ledger atomically admits at most one scheduled attempt across topics/day under the shared budget lock, before HTTP.
+- Rejected/uncertain attempts consume the day; budget denial does not. Stale/future days fail closed. Manual calls and full-day per-call hold remain unchanged.
+- Isolated tests verify competing connections/topics, restart, rejection, uncertainty, rollover, unique constraint and no repeated fake HTTP after provider rejection.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed: 113 unit/118 isolated integration tests; `pnpm build` and `git diff --check` passed.
+- `pnpm migrate` applied 043; API/worker restarted; `curl /healthz` DB/Redis true, SPA 200, 32 sources without errors and four queues available.
+- Read-only `scripts/report-x-discovery.ts 2026-11-02`: $0.023382, two verified/dated historical World citations; baseline unknown. No inference or Reddit requests.
+- `scripts/report-edition-timing.ts`: next Nov 3 15:00 UTC; prior 856 ms fallback remains insufficient AI evidence.
+- Updated README/SOURCES/TASKS; no UI change. Next: pre-edition timer and weakest-topic choice using durable admission; items 13/7 await scheduled evidence.
