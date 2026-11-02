@@ -279,12 +279,13 @@ but the posts people in that world are actually passing around:
      Research and store these per topic as data.
    - Use the public RSS/JSON endpoints with a proper User-Agent, respect rate
      limits, and add no scraping workarounds.
-3. **YouTube and others: lower weight.**
-   - YouTube: channel RSS feeds for curated channels per topic need no key,
-     for example NBA highlights, AI labs and game publishers. If the YouTube
-     Data API would add real value, add `YOUTUBE_API_KEY` to
-     NEEDS_FROM_HUMAN.md and switch it on only when that key exists.
-   - Bluesky's public API: optional, last.
+3. **Bluesky's public API: optional, last.**
+
+**YouTube is explicitly DEFERRED (owner decision 2026-11-02).** Don't build,
+research or plan any YouTube source, and don't ask for a YouTube key, until the
+owner explicitly asks to come back to it. Most of it is long-form content the
+owner doesn't want in the feed, and it's hard to summarize, so it isn't worth
+the effort now. Mark it `deferred` in docs/SOURCES.md.
 
 ### Discovering X posts
 
@@ -300,7 +301,7 @@ but the posts people in that world are actually passing around:
   - Measure the real cost per day and record it in PROGRESS.md.
   - If X discovery needs more than that, or `x_search` can't return what's
     needed, add the exact options and costs to NEEDS_FROM_HUMAN.md and keep
-    going with Reddit and YouTube. The options are a direct xAI key in a
+    going with Reddit. The options are a direct xAI key in a
     workspace with a hard monthly limit, or `X_BEARER_TOKEN` for the X API
     with a cap.
 
@@ -308,8 +309,7 @@ but the posts people in that world are actually passing around:
 
 - Show the full post with its media via the official X embed. Use Reddit's
   official embed (or a faithful card with title, media thumbnail, score,
-  comments and a link). Use the YouTube embed or a thumbnail card.
-- Show the platform, author, time, engagement and a link to the original.
+  comments and a link). - Show the platform, author, time, engagement and a link to the original.
 - Lazy-load embeds so the page stays fast.
 - Posts get their own "Top posts" section per topic, separate from the
   stories. Keep the limited budget: 5 per topic by default, configurable.
