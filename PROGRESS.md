@@ -366,3 +366,15 @@ Earlier iterations 23–37: [archive](docs/progress-archive/2026-11-01-iteration
 - `pnpm exec tsx scripts/smoke-ui.ts` and `scripts/smoke-status.ts` passed desktop/mobile; screenshots refreshed. Updated TASKS/docs/SOURCES.
 - No inference spending or provider/model/billing changes; no new owner blockers. Reddit's previously observed 403 remains unresolved without workarounds.
 - Next: topical/crypto filtering, window-aware immutable selections and lazy official widgets; posts remain absent from digests. Scheduled harvesting and capped direct xAI remain open.
+
+## 2026-11-02: iteration 91 — screen verified social posts by evidence and window
+
+- Started clean on main; no leftover work. API/worker/health, source telemetry and retained digest runs healthy; no triage repair needed.
+- Added read-only topic-scoped verified-post reader and `screen-social-posts.ts START_ISO END_ISO` (default last 24h); no HTTP, inference, publication or schedule changes.
+- Extract only one unambiguous official embed paragraph; ignore author/footer/HTML attributes/URL targets. Normalize whole phrases against saved topic rules, fail closed without positive rules, reject crypto/bait and apply exact half-open post-time windows.
+- This is conservative lexical eligibility, not semantic relevance, interestingness or virality. No filler or posts published; immutable selection/official widgets remain next.
+- Explicit `pnpm exec tsx apps/api/scripts/verify-x-embeds.ts`: ten more official requests succeeded, twenty real verified posts stored. Daily Nov 1 UTC screen passes zero; Oct 26–Nov 2 screen passes three NBA posts. Tech exclusions/misses documented in docs/SOURCES.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` passed types/lint/format/boundaries and all 106 isolated tests, including paragraph/window/quality regressions and topic-reader persistence tests; `pnpm build` passed (existing upstream Zod warnings).
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two queued live passes, 786 real article URLs, four topics, seventeen healthy sources.
+- Rebuilt/restarted API/worker; `/healthz` healthy. `pnpm exec tsx scripts/smoke-status.ts` and `scripts/smoke-ui.ts` passed desktop/mobile; screenshots refreshed.
+- No inference spending or provider/model/billing changes. Updated TASKS/README/docs/SOURCES; no owner blockers. Reddit remains 403; relevant discovery, immutable selections/widgets and scheduled free harvesting remain unfinished.

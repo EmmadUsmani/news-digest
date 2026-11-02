@@ -4,6 +4,24 @@ import { xPostTime } from '../domain/x-post-time';
 
 export class PostgresSocialRepository {
   readonly db = database();
+  async topicPosts(topicId: string) {
+    // Source association is discovery scope only; relevance must use post text.
+    const result = await this.db.query<{
+      externalId: string;
+      publishedAt: Date | null;
+      embedHtml: string;
+    }>(
+      `SELECT p.external_id AS "externalId",p.published_at AS "publishedAt",p.embed_html AS "embedHtml"
+       FROM social_posts p WHERE p.platform='x' AND (
+         EXISTS(SELECT 1 FROM x_link_citations c JOIN topic_source_connections t ON t.source_id=c.source_id
+                WHERE c.external_id=p.external_id AND t.topic_id=$1)
+         OR EXISTS(SELECT 1 FROM social_discovery_citations c JOIN social_discovery_sources s ON s.id=c.source_id
+                   WHERE c.external_id=p.external_id AND s.topic_id=$1)
+       ) ORDER BY p.published_at DESC NULLS LAST,p.external_id`,
+      [topicId],
+    );
+    return result.rows;
+  }
   async candidates(limit: number): Promise<string[]> {
     const result = await this.db.query<{ external_id: string }>(
       `WITH citations AS (

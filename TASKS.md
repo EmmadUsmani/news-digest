@@ -63,7 +63,8 @@ Fix regressions, broken services and stalled sources before starting new work.
   - [x] Bounded public Techmeme/Memeorandum river harvesting with separate provenance, per-topic source data and idempotent persistence (iteration 89): 50 Techmeme references, none from Memeorandum. Reddit public JSON remains 403.
   - [x] Preserve named status URLs for official verification and accept current X provider branding (iteration 89); ten real official embeds stored.
   - [x] Decode verified modern X Snowflake timestamps with conservative legacy/future rejection, idempotent stored-post backfill and refresh preservation (iteration 90); ten real verified posts dated.
-  - Next: relevance filtering (river includes crypto), window-aware immutable post selection and official widget rendering; schedule free harvesting.
+  - [x] Read-only verified-post screening by topic source scope, post paragraph evidence, saved phrase rules, crypto/bait exclusions and half-open coverage windows (iteration 91); three real NBA candidates pass a seven-day window, none pass the checked daily window. Conservative lexical eligibility only.
+  - Next: window-aware immutable post selection and official widget rendering; schedule free harvesting and broaden relevant discovery.
   - SocialPost storage, window-aware ranking with citation diversity/engagement, immutable post selections and lazy official X embeds.
   - Reddit per-topic communities and faithful cards; no bot-protection workarounds. Bluesky optional; YouTube deferred.
   - After free harvesting: direct capped xAI x_search adapter using installed key, cheapest supported model, per-topic accounts, $0.40/day/$12/month ledger and depleted-credit handling. Never use gateway.

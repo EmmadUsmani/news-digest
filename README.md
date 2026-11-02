@@ -144,5 +144,9 @@ Free social discovery (explicit, not yet scheduled): run
 X references from enabled topic rivers, then
 `pnpm exec tsx apps/api/scripts/verify-x-embeds.ts` to verify at most ten
 candidates through official oEmbed. These commands use no inference. Discovery
-references are not publishable posts; verified posts still need window metadata,
-selection and UI rendering. Run `pnpm migrate` before using them.
+references are not publishable posts; verified posts still need selection and UI
+rendering. Run `pnpm migrate` before using them. Inspect stored posts without HTTP,
+inference or publication using
+`pnpm exec tsx apps/api/scripts/screen-social-posts.ts START_ISO END_ISO`
+(default: last 24 hours). This reports per-post eligibility reasons against saved
+topic phrase rules and verified timestamps; it is not a virality or editorial score.

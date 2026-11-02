@@ -345,3 +345,24 @@ time and never erase a known time with null. No database migration is needed.
 Live backfill dated all ten existing verified posts: 2026-11-01 03:04:31.487Z
 through 06:46:05.919Z. This establishes window metadata, not topical relevance,
 virality or selection eligibility by itself. Posts are still absent from digests.
+
+### Iteration 91: conservative verified-post eligibility
+
+Read-only `screen-social-posts.ts START_ISO END_ISO` inspects verified posts
+associated with a topic's publisher connections or discovery rivers. Only the
+single post paragraph from stored official oEmbed is text evidence: author,
+footer, HTML attributes and URL targets do not imply relevance. Missing or
+ambiguous paragraphs fail closed. Saved include/exclude phrases use normalized
+whole phrases; no positive rules means no eligibility. Crypto/promo and explicit
+engagement-bait phrases are excluded before positive matching. This lexical
+screen is conservative and can miss relevant posts; it is not Haiku triage,
+semantic understanding, independent-source verification or a virality score.
+
+Ten further official oEmbed requests succeeded, bringing stored real verified
+posts to twenty (ten Tech river, ten NBA publisher discoveries). For
+[2026-11-01, 2026-11-02) UTC none qualify: Tech has two Bitcoin exclusions,
+seven phrase misses and one missing unambiguous paragraph; all NBA posts predate
+the window. For [2026-10-26, 2026-11-02), three NBA posts pass saved phrase rules.
+Gaming/World have no verified candidates. No paid inference or new source
+configuration; Reddit remains blocked by the previously observed 403. No posts
+are selected or displayed in digests yet.
