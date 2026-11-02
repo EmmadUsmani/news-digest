@@ -303,8 +303,8 @@ export function TopicSettings({
               </label>
             </div>
             <p>
-              Post discovery is not connected yet. Post budgets are saved for
-              future use.
+              Post budgets limit verified posts in new editions. Quiet windows
+              can have fewer posts; social AI editing is still pending.
             </p>
             <label>
               Include guidance

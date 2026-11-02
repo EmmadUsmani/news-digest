@@ -144,8 +144,9 @@ export function StatusPanel() {
           <section aria-label="X discovery usage">
             <h3>X discovery usage</h3>
             <p>
-              Paid X discovery is not connected yet. Free link harvesting and
-              official post embeds are running.
+              Paid X discovery is available for manual checks and has not been
+              live-verified or scheduled. Free link harvesting and official post
+              embeds are running.
             </p>
             <p>
               Today (UTC): {dollars(status.xDiscovery.todayMicros)} spent or

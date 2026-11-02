@@ -17,6 +17,7 @@ export class PostgresSocialRepository {
                 WHERE c.external_id=p.external_id AND t.topic_id=$1)
          OR EXISTS(SELECT 1 FROM social_discovery_citations c JOIN social_discovery_sources s ON s.id=c.source_id
                    WHERE c.external_id=p.external_id AND s.topic_id=$1)
+         OR EXISTS(SELECT 1 FROM x_search_citations c WHERE c.external_id=p.external_id AND c.topic_id=$1)
        ) ORDER BY p.published_at DESC NULLS LAST,p.external_id`,
       [topicId],
     );
@@ -32,6 +33,8 @@ export class PostgresSocialRepository {
          UNION ALL
          SELECT c.external_id,'river:' || c.source_id,c.last_seen_at,s.topic_id
          FROM social_discovery_citations c JOIN social_discovery_sources s ON s.id=c.source_id
+         UNION ALL
+         SELECT c.external_id,'x-search',c.discovered_at,c.topic_id FROM x_search_citations c
        ), eligible AS (
          SELECT c.external_id,c.topic_id,
                 CASE WHEN p.external_id IS NULL THEN 0 ELSE 1 END AS refresh,
@@ -99,6 +102,7 @@ export class PostgresSocialRepository {
       `SELECT verification_url FROM (
         SELECT verification_url,last_seen_at FROM x_link_citations WHERE external_id=$1
         UNION ALL SELECT verification_url,last_seen_at FROM social_discovery_citations WHERE external_id=$1
+        UNION ALL SELECT verification_url,discovered_at FROM x_search_citations WHERE external_id=$1
        ) c WHERE verification_url IS NOT NULL ORDER BY last_seen_at DESC LIMIT 1`,
       [externalId],
     );

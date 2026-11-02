@@ -331,3 +331,16 @@ Earlier iterations 51–60: [archive](docs/progress-archive/2026-11-01-iteration
 - `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts` passed two queued live runs: 795 URLs, four topics, seventeen healthy sources. `smoke-social.ts` job 14: two rivers/50 references, seven pages/three citations/one page error, ten verified embeds/no verification errors.
 - Read-only Oct 26–Nov 2 06:30 UTC social screen retained; no edition published. Updated TASKS/README/docs/SOURCES and removed obsolete gateway guidance from NEEDS_FROM_HUMAN.
 - No inference spending; Anthropic day/month stays $0.408415, X ledger zero. No new owner blocker. Next: direct xAI transport with measured conservative reservations, then social editorial selection. World absent, Gaming weak; Reddit remains blocked.
+
+## 2026-11-02: iteration 100 — explicit direct X search and saved account seeds
+
+- Started clean on main; no leftover work. API/worker/health, seventeen feeds and retained digest runs healthy; no triage repair needed.
+- Added direct Grok 4.3 adapter and dry-run-by-default `discover-x.ts TOPIC_ID FROM_DATE TO_DATE`; one round, saved handles, date-only UTC bounds, no parallel calls/media/retries/redirects/gateway. No paid scheduler or inference call.
+- Migration 022 seeds curated accounts only for empty lists and stores separate call/topic citation provenance. Only completed API citation annotations enter existing official verification/selection; prose URLs/metrics are ignored. Citations alone never become verified posts.
+- Reserve full $0.40 daily allowance before HTTP; settle fetched posts/profiles and tokens before citation writes. Missing usage/ambiguous errors retain uncertainty; explicit depleted credits block durably. Reservation/output limits cannot guarantee request-dollar cost; live measurement remains next.
+- Offline synthetic protocol and isolated Postgres regressions cover request restrictions, sanitization, no retries, missing usage, billing-before-persistence, long-context rates, dedupe, topic deletion and verification eligibility. Synthetic examples are not live recordings.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass types/lint/format/boundaries and 118 isolated tests; `pnpm build` passed (existing upstream Zod warnings). Initial lint caught unsafe test body stringification; corrected before final checks.
+- `pnpm migrate` applied 022; World dry-run command passed with saved handles and zero spend/reservations. API/worker rebuilt/restarted; `/healthz` healthy. Anthropic day/month remains $0.408415; X ledger zero.
+- `pnpm exec tsx apps/api/scripts/smoke-ingestion.ts`: two live queued passes, 800 URLs, four topics, seventeen healthy sources. `smoke-social.ts` job 18: two rivers/50 references, seven pages/two citation observations/one page error, one verified embed then stop on one unavailable embed.
+- Corrected stale Status/topic/schedule wording. `smoke-status.ts`, `smoke-ui.ts` and read-only Playwright topic/schedule checks pass desktop/mobile; refreshed screenshots. No edition published; retained scheduled runs completed, next slot unchanged.
+- Updated TASKS/README/docs/SOURCES. No new owner blocker or billing/model/provider configuration change. Next: measure direct X search cost/quality before scheduling, then social editorial selection; World coverage absent, Gaming weak, Reddit remains blocked.

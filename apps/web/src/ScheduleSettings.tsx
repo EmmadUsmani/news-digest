@@ -146,8 +146,8 @@ export function ScheduleSettings({
           </div>
           <p>
             Defaults prefill new topics. Existing topics keep their own budgets.
-            Post discovery is not connected yet. Saved editions keep their
-            original windows and selections.
+            Post budgets limit verified posts in new editions. Saved editions
+            keep their original windows and selections.
           </p>
           <button type="submit">{busy ? 'Saving…' : 'Save schedule'}</button>
         </fieldset>

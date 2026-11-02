@@ -178,9 +178,25 @@ X-discovery funds are tracked separately from Anthropic editorial usage. Source 
 run status shows the $0.40/day and $12/month UTC caps, outstanding reservations
 and a durable prepaid-credit depletion block. Read the same live ledger without
 external requests using `pnpm exec tsx apps/api/scripts/x-discovery-status.ts`.
-Paid X discovery is not connected yet. The ledger keeps uncertain requests charged
-until reconciled; a depleted-credit block requires explicit operator review and
-does not expire with the month. Reservations estimate cost: xAI's `max_turns` does
-not impose a fetched-item or dollar limit. See docs/SOURCES.md iteration 99 before
-connecting the paid transport. `pnpm test` uses disposable services and clears both
-inference-provider keys.
+The direct adapter is available through an explicit, dry-run-by-default command:
+
+```sh
+pnpm exec tsx apps/api/scripts/discover-x.ts 00000000-0000-4000-8000-000000000014 2026-11-01 2026-11-02
+```
+
+It uses enabled topics' saved `accounts` lists and whole UTC dates (at most seven
+days). Migration 022 seeds curated accounts only where the list was empty.
+`X_DISCOVERY_LIVE=1` opts into one real direct xAI request, with the installed
+`XAI_API_KEY` loaded from the secrets file; never put the key in shell arguments.
+No live paid validation has been performed yet. Paid discovery is not scheduled.
+One call reserves the entire $0.40 daily cap; this is conservative admission
+control, **not a provider-enforced per-request dollar ceiling**. A tool can fetch
+more posts/parents than requested, and output limits exclude reasoning tokens.
+Measure the first call before reducing reservations or enabling any scheduling.
+Only API citation annotations become discovery records; generated prose and metrics
+are ignored. The free verification worker then checks their official embeds before
+posts can enter selections. Spend settles before citations are stored.
+Timeouts, malformed/missing usage and ambiguous HTTP errors keep reservations
+charged until reconciled; depleted credits block until explicit operator review.
+The adapter never retries, follows redirects or uses the gateway. `pnpm test`
+uses disposable services and clears both inference-provider keys.

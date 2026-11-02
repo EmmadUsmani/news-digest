@@ -28,7 +28,7 @@ verification: 20:38 UTC; two queued passes preserved the same 669-item total.
 | Google News RSS: artificial intelligence | Tech & AI             | live          |           68 | https://news.google.com/rss/search?q=artificial+intelligence&hl=en-US&gl=US&ceid=US%3Aen                                                                   |
 | OpenAI News                              | Tech & AI             | live          |           60 | https://openai.com/news/rss.xml (first-party announcements)                                                                                                |
 | Google DeepMind                          | Tech & AI             | live          |           60 | https://deepmind.google/blog/rss.xml (first-party research/announcements)                                                                                  |
-| xAI direct x_search (gateway prohibited) | all                   | not yet tried |            0 | Installed owner key; direct capped adapter follows free harvesting                                                                                         |
+| xAI direct x_search (gateway prohibited) | all                   | not yet tried |            0 | Direct explicit adapter implemented; dry run verified, paid discovery unmeasured                                                                           |
 | X official oEmbed                        | all                   | live          |           10 | Named status URLs verified; /i/web/status URLs return 404                                                                                                  |
 | X official API                           | all                   | needs key     |            0 | Owner token and hard read cap required                                                                                                                     |
 | Reddit NBA RSS                           | NBA                   | blocked       |            0 | https://www.reddit.com/r/nba/.rss returned HTTP 403 (iteration 31); no bypass attempted; NBA top JSON also 403 in iteration 89; other communities untested |
@@ -540,3 +540,36 @@ account data, direct HTTP discovery and automatic publication remain unfinished.
 No xAI inference call was made, and xAI remains `not yet tried` as a content source.
 Isolated tests clear both Anthropic and xAI credentials; ledger fixtures are not
 live content. No change to provider/model routing or billing configuration.
+
+### Iteration 100: explicit direct X search adapter (no paid searches)
+
+Reviewed the official model table, X search guide and OpenAPI on 2026-11-02:
+https://docs.x.ai/developers/models.md,
+https://docs.x.ai/developers/tools/x-search.md and https://docs.x.ai/openapi.json.
+The owner-selected Grok 4.3 is listed at $1.25 input/$2.50
+output per million tokens below 200k, tied with the 4.20 variants. The adapter
+retains that selection; it does not adopt a newer, more expensive model. The adapter pins Grok 4.3, one round, no parallel calls,
+1000 visible output tokens, no provider response storage, and image/video off.
+It uses one enabled topic's stored curated handles (1–20) and UTC date-only bounds
+(up to seven days). Migration 022 seeds the four topics only if accounts are empty.
+The prompt requests one keyword search/five results and avoids profiles/threads;
+these prompt requests do not guarantee a maximum fetched-item cost.
+
+`discover-x.ts TOPIC_ID FROM_DATE TO_DATE` is dry run by default. Explicit
+`X_DISCOVERY_LIVE=1` enables one direct authenticated POST to api.x.ai, without
+retries, redirects or alternate routes. It reserves $0.40 before HTTP; no paid
+scheduler is connected. Current docs say output token limits exclude reasoning,
+so neither that limit nor max_turns provides a dollar ceiling. Measure before
+scheduling or shrinking the reservation. Ordinary input rates include cached
+input conservatively; cumulative input at least 200k doubles input/output rates,
+a conservative proxy for the per-context long-input tier.
+
+Settlement requires actual `x_posts_fetched` and `x_users_fetched` counters;
+missing/invalid usage, transport failures, 429 and 5xx retain charged uncertainty.
+Explicit depleted-credit errors persist the durable block. Only valid X URLs in
+completed assistant citation annotations are retained, deduped and capped at five.
+Generated prose URLs/engagement are ignored. Separate call/topic provenance joins
+existing topic-interleaved official verification and post selection; citations
+alone never become verified SocialPosts. Spend settles before citation persistence.
+Synthetic schema examples and isolated DB tests are offline only. No paid call,
+new live X content or publication is claimed; source remains `not yet tried`.
