@@ -7,6 +7,70 @@ import { Worker } from 'bullmq';
 
 import { OperationsStatus } from '../src/modules/operations/adapters/operations.status';
 
+void test('operations preserves healthy telemetry when one queue is unavailable and reports pause and schedule state', async (t) => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const status = new OperationsStatus();
+  const unavailable = status.queues.find(
+    (queue) => queue.name === 'ingestion',
+  )!;
+  const scheduled = status.queues.find(
+    (queue) => queue.name === 'digest-generation',
+  )!;
+  const schedulerId = `status-${randomUUID()}`;
+  try {
+    await scheduled.pause();
+    await scheduled.upsertJobScheduler(
+      schedulerId,
+      { pattern: '0 7 * * *', tz: 'America/Los_Angeles' },
+      { name: 'scheduled', data: { secret: 'must-not-expose' } },
+    );
+    const scheduler = await scheduled.getJobScheduler(schedulerId);
+    assert.ok(scheduler?.next);
+    // Queues share Redis, so closing a Queue does not model a failed command.
+    t.mock.method(unavailable, 'getJobCounts', async () => {
+      throw new Error('fixture queue command failure');
+    });
+    const result = operationsStatusSchema.parse(
+      JSON.parse(JSON.stringify(await status.read())),
+    );
+    assert.deepEqual(
+      result.queues.find((queue) => queue.name === unavailable.name),
+      {
+        name: 'ingestion',
+        available: false,
+        workers: 0,
+        paused: false,
+        counts: {},
+        runs: [],
+        nextRun: null,
+      },
+    );
+    const healthy = result.queues.filter(
+      (queue) => queue.name !== unavailable.name,
+    );
+    assert.equal(healthy.length, 3);
+    assert.ok(healthy.every((queue) => queue.available));
+    const digest = healthy.find((queue) => queue.name === scheduled.name)!;
+    assert.equal(digest.paused, true);
+    assert.equal(digest.nextRun, new Date(scheduler.next).toISOString());
+    assert.ok(result.sources.length >= 7);
+    assert.ok(result.coverage && result.coverage.topics.length > 0);
+    assert.equal(JSON.stringify(result).includes('must-not-expose'), false);
+    await scheduled.resume();
+    await scheduled.removeJobScheduler(schedulerId);
+    const recovered = operationsStatusSchema
+      .parse(JSON.parse(JSON.stringify(await status.read())))
+      .queues.find((queue) => queue.name === scheduled.name)!;
+    assert.equal(recovered.paused, false);
+    assert.equal(recovered.nextRun, null);
+  } finally {
+    await scheduled.removeJobScheduler(schedulerId);
+    await scheduled.resume();
+    await scheduled.obliterate({ force: true });
+    await status.onModuleDestroy();
+  }
+});
+
 void test('operations reports persisted sources and bounded queue telemetry without job payloads', async () => {
   const status = new OperationsStatus();
   try {

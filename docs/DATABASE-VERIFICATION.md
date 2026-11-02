@@ -168,3 +168,13 @@ edition remains unchanged. The ledger/cache are in memory; no provider or Reddit
 requests occur. These are synthetic responses, not recorded live responses.
 Remaining repository behavior gaps and recorded-response golden coverage stay
 open; this step alone does not complete STEERING 2a or 4.
+
+## Queue failure isolation characterization (iteration 237)
+
+`operations.test.ts` now injects a failure in one queue command against disposable Redis and
+checks that Status returns its unavailable shape while retaining the other three
+queues, source rows and topic coverage. A real BullMQ scheduler pins the reported
+next-run timestamp; pause/resume and scheduler removal update telemetry, and job
+payloads stay private. Cleanup removes the isolated scheduler and queue state.
+No live services, provider APIs or Reddit endpoints are called. Remaining
+repository behavior gaps and recorded-response golden coverage remain open.

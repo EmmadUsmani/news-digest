@@ -104,16 +104,7 @@ Earlier iteration 218: [archive](docs/progress-archive/2026-11-02-iteration-218.
 
 Earlier iteration 219: [archive](docs/progress-archive/2026-11-02-iteration-219.md).
 
-## 2026-11-02: iteration 221 — topic source connection characterization
-
-- Started clean on main; API/worker and health healthy, 32 sources without errors and four queues available. No leftover work.
-- Items 13/7/9 await Nov 3 scheduled evidence; advanced lower-priority STEERING 2a using disposable containers only.
-- Added repository-port assertions for atomic source replacement/rejection, duplicate/unknown source rejection, sorted connections, disconnects and missing-topic registration rollback.
-- Custom-feed URL dedupe is pinned across repeated registration and multiple topics; deleting a connected topic preserves the catalog entry for reuse. No feed fetches occur.
-- Registered isolated test and updated README/TASKS; archived iteration 206 to keep PROGRESS bounded. No application behavior or UI change.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check`; 120 unit and 121 isolated integration tests passed.
-- Live read-only status: next scheduled edition Nov 3 15:00 UTC; prior 856 ms fallback remains insufficient AI timing evidence. No inference or Reddit requests.
-- API/worker restarted; health DB/Redis true, SPA 200. Next: observe Nov 3 14:30 X discovery and 15:00 scheduled AI cost/duration; 2a remains incomplete.
+Iteration 221: [archive](docs/progress-archive/2026-11-02-iteration-221.md).
 
 ## 2026-11-02: iteration 222 — nonempty fallback golden edition
 
@@ -296,3 +287,15 @@ Archived iteration 214: [entry](docs/progress-archive/2026-11-02-iteration-214.m
 - Applied `pnpm migrate`; restarted API/worker healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues.
 - No paid/provider or Reddit requests; X ledger unchanged at $0.023382 today, no pending holds. Updated TASKS/SOURCES; archived iteration 220.
 - Next: observe Nov 3 14:30 UTC all-topic discovery, report per-topic cost/yield and acknowledge STEERING 15; measure 15:00 AI edition/reserve outcome for 13/7.
+
+## 2026-11-02: iteration 237 — queue failure isolation characterization
+
+- Started clean on main; health, services, 32 sources and four queues healthy. No leftover work.
+- Priority 13/7/9/15 evidence awaits Nov 3 scheduled runs; advanced isolated STEERING 2a.
+- Added Status characterization for one failed queue command while the other queues, sources and coverage remain available.
+- Real disposable BullMQ scheduler pins next-run time, pause/resume and removal; job payloads remain private.
+- Initial test setup incorrectly assumed Queue.close disables shared Redis commands; replaced with scoped command failure injection.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (122 unit, 136 integration), `pnpm build`, `git diff --check` passed.
+- Updated TASKS/database notes; archived iteration 221 to keep PROGRESS bounded. No provider or Reddit requests.
+- Restarted API/worker healthy; DB/Redis true, SPA 200, 32 error-free sources, four available queues; latest edition retains four topics.
+- Next: observe Nov 3 all-topic X cost/yield and scheduled AI edition reserve/cost/duration before acknowledging 15/13/7.
