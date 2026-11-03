@@ -1287,3 +1287,20 @@ There is no live entrypoint yet. A capped ledger/explicit live opt-in and time
 gate, plus newly labelled unseen-day evidence, are still required before the
 owner-authorized evaluation. This iteration made no paid calls and leaves
 production grouping disabled.
+
+## Iteration 472: evaluation admission, no live caller
+
+The evaluation ledger decorator requires explicit live opt-in, rejects invalid
+clocks and reservations during 13:00–16:00 UTC, and binds requests to the chosen
+run, model and grouping purpose. Its integer-microdollar execution ceiling is at
+most $0.10. It claims conservative request estimates before awaiting shared
+admission; estimates are never refunded after refusal, failure or settlement.
+Concurrent requests therefore cannot race past this additional ceiling.
+The shared ledger still controls daily/monthly caps, scheduled reserve,
+verification allowance, settlement and cache; this wrapper adds no funds.
+
+Fake tests cover boundary times, crossing into the protected interval, malformed
+reservations, concurrency, refusal, failures, settlement and budgeted cache reuse.
+This is a per-execution guard, not durable authorization for repeated executions.
+A once-only live entrypoint and new-day labels remain necessary before any paid
+evaluation. No provider calls or production changes were made.

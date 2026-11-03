@@ -1,14 +1,3 @@
-## 2026-11-03: iteration 456 — group publisher-confirmed game title reveals
-
-- Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis, all 32 sources flowing and scheduled collectors healthy. Next scheduled social/latency evidence is pending; advanced item 19.
-- Opt-in title grouping now accepts publisher “officially confirms [full sequel: subtitle] as its next game” announcements. Full identity, uncertainty/history and 36-hour guards remain; production grouping stays disabled.
-- Recorded Insider Gaming Sentinel report joins four title reveals. Four newly agent-reviewed positive pairs complete the cluster: benchmark 95 pairs, combined 26/54 positives, zero/41 false merges, unknown merges or membership variation across 34 orders/window. Labels are not independent validation.
-- Synthetic guards cover different sequels/subtitles, release-date news, expansions, rumors, historical and prospective claims. Targeted suite 20/20; updated old recorded positive-count assertions before full verification.
-- pnpm format, pnpm lint:fix, pnpm check (290 unit/176 isolated integration), pnpm build and git diff --check passed. Zero dangling Docker volumes.
-- Restarted API/worker; first immediate probe raced startup, retry passed pnpm obs health --check and root HTTP 200; both units active, zero alerts.
-- Updated TASKS/RANKING; archived iteration 440 to keep PROGRESS bounded. No UI/handbook production-flow change, paid calls, new editions or Reddit requests.
-- Next: Nov 4 social selections/screenshots, World yield and latency/full-AI evidence; grouping recall/independent labels remain open.
-
 ## 2026-11-03: iteration 457 — recover game-title identity from explicit excerpts
 
 - Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis, all 32 sources flowing and scheduled collectors healthy. Next scheduled social/latency evidence remains pending; advanced item 19.
@@ -163,3 +152,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (277 unit/177 isolated integration), pnpm build, offline --plan and git diff --check passed. Zero dangling Docker volumes.
 - Live root HTTP 200; pnpm obs health/sources/jobs --check pass, zero alerts. No service restart: running service code/config unchanged, per STEERING 22.
 - Next: add owner-capped live evaluation admission and new-day labels; evaluate before activation. Check Nov 4 NBA/full-AI/latency and social evidence when available.
+
+## 2026-11-03: iteration 472 — fail-closed grouping evaluation admission
+
+- Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis and all 33 sources; Nov 4 scheduled evidence remains pending.
+- Added evaluation-only ledger decorator: explicit live opt-in, valid UTC clock, 13–16 UTC exclusion checked before every reservation, bound run/model/purpose and at most $0.10 per execution.
+- Claims conservative estimates synchronously before shared admission; no refunds on refusal/failure/settlement. Shared caps, scheduled reserve, verification limits, settlement and cache remain authoritative.
+- Five fake tests cover time boundaries/crossing, invalid estimates/identities, concurrent admissions, shared refusal, uncertain failure, settlement, budgeted abstention and cache reuse. No paid calls, new editions, Reddit requests or production activation.
+- Updated TASKS/RANKING; archived iteration 456 to bound PROGRESS. No production flow/UI/handbook change.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (282 unit/177 isolated integration), pnpm build and git diff --check passed. Root HTTP 200; health/sources/jobs checks pass, zero alerts.
+- Services unchanged: no restart under STEERING 22 because running code/config did not change.
+- Next: durable once-only live entrypoint and unseen-day labels before the owner-capped evaluation. Activation requires zero wrong merges and recall above 13/32; Nov 4 provider/social evidence takes priority when available.
