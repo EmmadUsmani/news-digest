@@ -9,7 +9,7 @@ Fix failures and stalled sources first. [Completed markers](docs/progress-archiv
 
 - [x] STEERING 17 (431): editable secondary X lists activated; scheduled effectiveness pending.
 - [ ] STEERING 18 (325): authenticated Bluesky discovery, engagement/semantic editing, storage/cards and edition caller prepared. Owner login configured; Nov 3 gate acknowledged. Hourly bounded official collection added (432); edition inclusion enabled by default (433), with explicit off switch. Next: measure scheduled real selections/screenshots. Reports expose immutable platform picks (443) and fresh stored Bluesky candidates across four topics (444); selection evidence pending.
-- [x] STEERING 26 (476): wording rules removed; once-only Haiku evaluation failed the zero-wrong-merge gate (76/77 positive pairs, 2 wrong merges, $0.008275). Grouping parked per owner; inactive AI pass/paid runner removed. Generic plumbing, frozen labels and offline saved-membership evaluator retained. Production keeps stories separate. See docs/RANKING.md. Item 7 live speed/NBA evidence remains open.
+- [x] STEERING 26 (476): grouping parked after once-only AI evaluation failed precision gate; inactive paid path removed. See docs/RANKING.md.
 
 - [ ] STEERING 13 TOP PRIORITY before Nov 3 15:00 UTC: reserve configurable Anthropic budget for the scheduled edition under the shared ledger lock; limit all other spend until completion/failure; expose reserve/manual limits and scheduled AI/fallback outcome. Fake/Testcontainers verification only. Measure next scheduled edition cost/duration for item 7.
   - Reserve/fencing/UI implemented with 1.5x headroom. Nov 3 (425): $0.339524, 231.829 s, zero holds; NBA fallback leaves full-AI acceptance open.
@@ -51,7 +51,7 @@ M0–M2; M3/M6/M7 foundations implemented.
   - Next: durable recovery beyond retained Redis jobs.
     `DigestPublished` event plus notification port with a log/in-app adapter.
 - [ ] Ongoing:
-  - widen sources per topic (Reddit, Bluesky, more publishers); item 10: NBA was weakest (140 articles/3 sources), RealGM added in 465; SB Nation NBA feed and free highlight citations added in 477. Relevance and reporting independence remain caveats.
+  - widen sources per topic (Reddit, Bluesky, more publishers); item 10: NBA was weakest (140 articles/3 sources), RealGM added in 465; SB Nation NBA feed/citations added in 477; Basketball Insiders reporting feed added in 478. Relevance and reporting independence remain caveats.
   - precision tuning
   - UI polish
   - retention/backup

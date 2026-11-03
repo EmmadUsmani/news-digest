@@ -25,6 +25,7 @@ void test('recorded RSS and Atom normalize real headlines, dates and safe links'
     'hoopsrumors.xml',
     'realgm.xml',
     'sbnation-nba.xml',
+    'basketball-insiders.xml',
     'destructoid.xml',
     'al-jazeera.xml',
     'aftermath.xml',
@@ -559,4 +560,32 @@ void test('recorded SB Nation NBA Atom preserves dates, authors and embedded hig
     ),
   );
   assert.ok(items.every((item) => item.imageUrl === null));
+});
+
+void test('recorded Basketball Insiders feed preserves authored game reporting and UTC dates', async () => {
+  const items = parseFeed(await fixture('basketball-insiders.xml'));
+  assert.equal(items.length, 2);
+  assert.equal(
+    items[0].title,
+    'Gilgeous-Alexander’s 43 points and late 3 hand Cavaliers their first home loss',
+  );
+  assert.deepEqual(
+    items.map((item) => item.publishedAt),
+    ['2026-11-03T12:18:28.000Z', '2026-11-03T09:57:57.000Z'],
+  );
+  assert.ok(
+    items.every((item) => item.author === 'Basketball Insiders Editor'),
+  );
+  assert.ok(items[0].excerpt.includes('117-112'));
+  assert.ok(items[1].excerpt.includes('Golden State'));
+  assert.ok(
+    items.every(
+      (item) =>
+        new URL(item.url).hostname === 'www.basketballinsiders.com' &&
+        item.excerpt.length > 0 &&
+        item.excerpt.length <= 1500 &&
+        !item.excerpt.includes('<p>'),
+    ),
+  );
+  assert.ok(items.every((item) => item.xLinks.length === 0));
 });

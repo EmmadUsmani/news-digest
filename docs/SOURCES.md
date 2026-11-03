@@ -1698,3 +1698,22 @@ Other bounded public-feed checks: HoopsHype `/feed/` and NBC
 No bypass or repeated probes. Basketball Insiders `/feed/` returned 200 with
 25 dated items (two recent); not connected in this step, prioritizing SB
 Nation's highlight links and authored coverage.
+
+## NBA reporting depth — iteration 478 (2026-11-03)
+
+Pre-change rolling-day coverage: Tech/AI 328 articles / 6 healthy sources,
+NBA 152/5, Gaming 280/18 and World 227/5. NBA remains weakest for articles;
+World has zero currently verified rolling-day X posts, with scheduled open
+search evidence pending. No extra paid search was run.
+
+**Basketball Insiders** (`https://www.basketballinsiders.com/feed/`) returned
+HTTP 200 with 25 dated RSS entries, two within the past day. The recent items
+are authored game reports with useful plain-text excerpts. The feed also carries
+opinion and broader basketball coverage; topic relevance still needs ranking,
+and a separate outlet is not proof of independent reporting or factual accuracy.
+Migration 052 connects it to the original NBA topic without recreating a deleted
+topic. A recorded two-entry fixture pins authors, UTC dates, canonical links,
+plain excerpts and the absence of invented X citations. Tests use no live HTTP.
+**Status: live.** Migration 052 applied; the normal worker stored 25 articles
+at 20:41:07 UTC, with no source error. No paid call or edition was triggered.
+All 35 sources are healthy.

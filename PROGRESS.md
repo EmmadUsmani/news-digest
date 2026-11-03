@@ -1,21 +1,3 @@
-## 2026-11-03: iteration 463 — group explicit Water Temple remake adjustments
-
-- Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis and all 32 source connections. Scheduled social/latency evidence awaits Nov 4; advanced item 19.
-- Default-off grouping joins explicit same-game Water Temple adjustment reports with quoted rationale/remake excerpt evidence. Other games/dungeons, uncertainty, historical titles, missing evidence and invalid/out-of-window dates stay separate.
-- Recorded GamesRadar+/Kotaku pair recovered: 35/57 positives, zero/41 false merges, unknown merges or sampled membership variation. Agent labels remain non-independent; production grouping stays disabled.
-- Targeted suites passed 10/10. First full check found two stale benchmark totals; updated them. Final pnpm format, pnpm lint:fix, pnpm check (297 unit/176 isolated integration), pnpm build and git diff --check passed; zero dangling volumes.
-- API/worker restarted; immediate health probe preceded startup, then pnpm obs health --check passed and root returned HTTP 200. Rolling article/X counts: Tech 335/73, NBA 144/54, Gaming 275/15, World 230/1; no new paid calls, editions or Reddit requests.
-- Updated TASKS/RANKING and archived iterations 446–447 to keep PROGRESS bounded. No UI/handbook flow change.
-- Next: Nov 4 open-X/Bluesky selections/screenshots, World yield and full-AI/latency evidence; broader grouping and independent labels remain open.
-
-## 2026-11-03: iteration 464 — honor concurrent owner grouping replacement
-
-- Started clean; zero alerts and healthy API/DB/Redis/32 sources. Built and verified a default-off jersey matcher (300 unit/176 isolated integration, build and 11 focused tests), then committed c5f53d2.
-- Push rejected: origin/main advanced with owner commit abb792f, STEERING 26. Fetched and merged without rewriting history; it prohibits wording rules and supersedes item 19.
-- Immediately reverted all c5f53d2 changes, including its new matcher/tests/docs, before pushing. Production never enabled that matcher. Existing wording rules remain pending removal after the owner's Nov 4 scheduled-run priority; TASKS now records the replacement AI approach.
-- No paid calls, new editions or Reddit requests. Next: Nov 4 latency/NBA fallback and social evidence first, then STEERING 26 removal, AI grouping evaluation and conditional activation.
-- Reverted-state verification: pnpm format, pnpm lint:fix, pnpm check (297 unit/176 isolated integration), pnpm build and git diff --check passed. API/worker restarted on the restored code; health passed after startup retry, root HTTP 200, zero alerts/dangling volumes.
-
 ## 2026-11-03: iteration 465 — widen the weakest article topic with RealGM
 
 - Started clean on main; zero alerts and healthy API/DB/Redis. Nov 4 evidence remains pending; respected STEERING 26's grouping-removal gate and progressed item 10.
@@ -155,3 +137,14 @@
 - Updated SOURCES/TASKS and owner handbook; archived iterations 461–462 to keep PROGRESS bounded. No table/relationship metadata change or UI change.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (263 unit/178 isolated integration), pnpm build, handbook check (17 pages/one unchanged diagram/25 assigned tables), two targeted fixture tests and git diff --check passed. Zero dangling Docker volumes.
 - Worker/API/docs/schema active; health --check passed, root HTTP 200, saved edition schema/content valid (19 stories/11 posts), zero alerts. Next: Nov 4 scheduled provider timing/NBA fallback and open-X/Bluesky selection evidence.
+
+## 2026-11-03: iteration 478 — deepen NBA reporting coverage
+
+- Started clean on main; no leftovers. Zero alerts and healthy services. Nov 4 scheduled provider/social evidence remains pending; grouping stays parked.
+- Advanced item 10: pre-change rolling-day articles/healthy sources were Tech 328/6, NBA 152/5, Gaming 280/18, World 227/5. World had zero rolling-day verified X posts; no extra paid search was triggered.
+- Added Basketball Insiders public RSS via migration 052, respecting deletion of the original NBA topic. Feed returned 25 dated entries, two recent game reports. Independent reporting and relevance remain caveats.
+- Recorded two entries; fixture tests pin dates, authors, plain excerpts, links and no invented X citations. No tests call live HTTP. No paid calls, new editions or Reddit requests.
+- Applied migration and restarted worker for source configuration. Normal collection stored 25 articles at 20:41:07 UTC with no error. NBA now 154 rolling articles/six healthy sources; all 35 sources healthy.
+- Updated SOURCES/TASKS and affected handbook page; shortened completed task marker and archived iterations 463–464 to keep orientation files bounded. No table/relationship or UI change.
+- Verification: two targeted fixture tests, pnpm check (263 unit/179 isolated integration), pnpm build, handbook check (17 pages/14 unchanged diagrams/25 assigned tables), pnpm format, pnpm lint:fix and git diff --check passed.
+- API/worker/docs/schema active; pnpm obs health --check passed, root HTTP 200, zero alerts/dangling volumes. Next: Nov 4 scheduled speed/NBA fallback and open-X/Bluesky selection evidence.
