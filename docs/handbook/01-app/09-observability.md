@@ -355,7 +355,7 @@ panel query responses and populated dashboards, renders desktop/mobile views
 with Playwright and saves screenshots in `docs/screenshots/`. No paid calls
 or content jobs are triggered. Reader privileges and denied access to cache/article
 text are also checked. Database top-query timing and available supervisor status are included;
-agent tokens, commits and pacing measurements remain unavailable.
+agent tokens, commits and cumulative pacing measurements remain unavailable.
 
 Agent supervisor shows the build unit's active state, cgroup memory, CPU,
 task count and automatic restarts since activation, using existing unit samples.
@@ -367,7 +367,7 @@ iteration number, previous exit code, no-progress streak, iteration start/finish
 and status timestamps, plus weekly quota when known. The dashboard shows reported iteration, previous exit code, no-progress streak,
 weekly quota, heartbeat/quota observation ages, per-file read success and the
 reported start in UTC. Missing values say “Unknown”; they are never filled with zero.
-Start is a timestamp, not elapsed runtime. These gauges also appear in the local metrics query API. Read-success gauges
+Start is a timestamp, not elapsed runtime. The metrics query API also exposes completed-iteration duration when the same heartbeat supplies valid start and finish timestamps, and the next retry timestamp when reported. A running iteration removes the duration sample; short completion states can fall between collector snapshots. These are observations, not a durable history or cumulative pacing time. A retry timestamp may be stale and does not prove a wait is active. These gauges also appear in the local metrics query API. Read-success gauges
 are independent for the two files; malformed input removes that file's samples.
 Heartbeat age can grow during an active iteration, so it is not a liveness test.
 The previous exit code describes the preceding iteration. Quota has its own

@@ -2,28 +2,6 @@
 
 Earlier entries: [progress archive](docs/progress-archive/).
 
-## 2026-11-03: iteration 426 — preserve editorial rejection evidence
-
-- Started clean on main; no leftover work. Health, 32 sources and queues healthy; no alerts; two historical ingestion failures unchanged.
-- Read-only Nov 3 journal analysis: all 43 calls admitted, no budget refusals. Article triage: 17 calls, 133,175 output tokens, 517,143 ms aggregate; all inference: 811,368 ms. Four slots imply ~203 s at observed call times, before other work; reducing output/provider work is necessary for item 7.
-- Rejected responses were not cached and validation categories were memory-only, so the NBA rejection cause cannot be reconstructed from saved responses. Added structured llm.validation events with fixed category, initial/repair/cache phase, run/model and original request fingerprint; external call fingerprints link initial rejections to purpose/timing. No prompts, rejected text, schema details or error messages logged.
-- Fake tests cover parse/schema/selection/absence/validator categories, successful repair/cache silence, invalid-cache logging, fingerprint correlation and content exclusion. Corrected a test expectation to hash its customized private fixture request; targeted 21/21 passed.
-- Updated handbook/TASKS; archived iteration 410 to keep this file small. No UI/edition behavior changes, paid calls or Reddit requests. NBA fallback, World eligibility and items 13/7 remain open.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (261 unit/174 isolated integration), pnpm build, targeted llm.test.ts (21), check-handbook.ts 09-observability and git diff --check passed; real edition GET still returns 19 stories/11 X posts. Zero dangling Docker volumes.
-- Next: reduce triage output/provider work using saved scores/fakes, then resolve NBA rejection and World eligibility; no paid trial. Items 13/7 stay open.
-- Deployment: pushed 3c98bf1; systemctl --user restart news-digest-api.service news-digest-worker.service. Initial pnpm obs health --check raced startup; repeat passed at 15:15:44 UTC (DB/Redis healthy), both services active; edition GET preserved 19 stories/11 posts, zero alerts.
-
-## 2026-11-03: iteration 427 — compact triage output
-
-- Started clean on main; no leftover work. Health, 32 sources and four queues healthy; zero alerts; two historical ingestion failures unchanged.
-- Article/social triage now requests compact JSON, event labels ≤80 characters and factual rationale phrases ≤100 (previously 160/300). A 50-UUID-item output reservation drops from 15,000 to 9,964 tokens (33.6%); long escaped IDs retain headroom up to 16,000. This is a ceiling reduction, not measured savings or latency.
-- Scoring instructions, full-ID coverage checks and per-item cache keys remain unchanged; historical score schema stays compatible. Fake coverage verifies compact batches, cache reuse, ordering/concurrency, escaped IDs, repair and refusal (11 targeted tests).
-- First full check exposed the expected synthetic raw-replay fingerprint mismatch. Re-fingerprinted only its Haiku request offline for the changed prompt; authored response bodies and golden edition unchanged. No provider responses re-recorded or paid calls.
-- Updated ranking/owner pipeline docs. Archived completed TASKS markers and replaced the long archive-link index in PROGRESS with its directory link; open priorities remain.
-- Verification: pnpm format, pnpm lint:fix, final pnpm check (263 unit/174 isolated integration), pnpm build, targeted triage.test.ts, check-handbook.ts 04-edition-pipeline and git diff --check passed. Zero dangling Docker volumes.
-- Restarted API/worker; pnpm obs health --check and alerts passed at 15:24:58 UTC. Existing edition GET retains 19 stories/11 real X posts. No UI changes, Reddit requests or new editions.
-- Next: inspect next scheduled triage output/cost/duration and truncation/validation rates; resolve NBA editor fallback and World eligibility offline. Items 13/7 remain open; no speed-target claim or paid trial.
-
 ## 2026-11-03: iteration 428 — align scheduled X search with edition coverage
 
 - Started clean on main; no leftover work. Health, 32 sources and all queues healthy; zero alerts; two historical ingestion failures unchanged.
@@ -153,3 +131,13 @@ Earlier entries: [progress archive](docs/progress-archive/).
 - pnpm format, pnpm lint:fix, pnpm check (275 unit/176 isolated integration), pnpm build and check-handbook.ts 09-observability passed; git diff --check clean. No diagram changes.
 - Installed only dashboard JSON; Grafana hot-loaded it without restart. App/DB/Redis unchanged. Zero alerts/dangling volumes; healthy sources/queues and all-topic articles/stored X. Latest real edition remains 19 stories/11 posts; no paid calls/new editions.
 - TASKS/plan/handbook updated. O8 remains open for available duration/token/commit/pacing evidence; next scheduled social/latency evidence takes priority, then O10 browser errors.
+
+## 2026-11-03: iteration 440 — bounded supervisor completion and retry observations
+
+- Started clean on main; no leftovers. Health/alerts green; scheduled social/latency acceptance still awaits the next run. Advanced O8 under items 24/25.
+- Read-only collector exports completed-iteration seconds only when the same heartbeat has valid start/finish timestamps, plus next-retry UTC timestamp when supplied. No protected harness edits or log/transcript reads.
+- Running iterations remove duration; brief completion states can fall between snapshots. Retry can be stale and does not prove an active wait. Tokens/commits/cumulative pacing remain unavailable; dashboard presentation stays open.
+- Four offline Python cases cover timezone arithmetic, running reset, malformed/negative duration, invalid retry, privacy and independent source failures. Live --verify-o8 passes optional finite/unique sample checks; current running heartbeat correctly exposes neither optional sample. No live completed duration/retry claimed.
+- pnpm format, pnpm lint:fix, pnpm check (275 unit/176 isolated integration), pnpm build, python3 ops/observability/test-harness-metrics.py, check-observability.ts --verify-o8 and check-handbook.ts 09-observability passed. No UI/diagram changes.
+- Installed only harness-metrics.py and ran obs-unit-metrics.service; timer active. App/DB/Redis unchanged. Zero alerts/dangling volumes; 32 healthy sources, queues available, all-topic articles/stored X. Latest real edition remains 19 stories/11 X posts; no paid calls/new editions.
+- TASKS/plan/handbook updated; archived iterations 426–427 to keep PROGRESS small. Next: scheduled product evidence first; otherwise O8 duration/retry presentation, then O10 browser errors.

@@ -21,6 +21,20 @@ async function main() {
     });
     assert.equal(response.status, 200);
     const metrics = await response.text();
+    // Optional status disappears while an iteration runs or no retry is reported.
+    // Never require a completed iteration or schedule a retry just to verify metrics.
+    for (const name of [
+      'completed_iteration_duration_seconds',
+      'next_retry_timestamp_seconds',
+    ]) {
+      const prefix = `news_digest_harness_${name} `;
+      const rows = metrics.split('\n').filter((row) => row.startsWith(prefix));
+      assert.ok(rows.length <= 1, `Duplicate ${name}`);
+      for (const row of rows) {
+        const value = Number(row.slice(prefix.length));
+        assert.ok(Number.isFinite(value) && value >= 0, `Invalid ${name}`);
+      }
+    }
     for (const source of ['heartbeat', 'usage']) {
       assert.match(
         metrics,

@@ -44,8 +44,16 @@ def collect(directory):
                                       ('iteration_started_at', 'iteration_started_timestamp_seconds')]:
                     samples.append(f'news_digest_harness_{suffix} {timestamp(value[field])}')
                 if value.get('iteration_finished_at'):
+                    finished = timestamp(value['iteration_finished_at'])
+                    duration = finished - timestamp(value['iteration_started_at'])
+                    if duration < 0:
+                        raise ValueError('Finish precedes start')
                     samples.append('news_digest_harness_iteration_finished_timestamp_seconds '
-                                   + str(timestamp(value['iteration_finished_at'])))
+                                   + str(finished))
+                    samples.append(f'news_digest_harness_completed_iteration_duration_seconds {duration}')
+                if value.get('next_retry_at'):
+                    samples.append('news_digest_harness_next_retry_timestamp_seconds '
+                                   + str(timestamp(value['next_retry_at'])))
             else:
                 samples.append('news_digest_harness_usage_timestamp_seconds '
                                + str(timestamp(value['observed_at'])))

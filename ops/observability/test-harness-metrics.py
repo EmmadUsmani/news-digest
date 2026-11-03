@@ -27,10 +27,39 @@ class HarnessMetricsTest(unittest.TestCase):
             self.assertIn('news_digest_harness_weekly_used_percent 17', rows)
             self.assertNotIn('PRIVATE', rows)
             self.assertNotIn('finished_timestamp', rows)
+            self.assertNotIn('completed_iteration_duration', rows)
+            self.assertNotIn('next_retry_timestamp', rows)
             self.assertNotIn('99', rows)
             status['iteration_finished_at'] = '2026-11-03T16:33:43Z'
             (path / 'heartbeat.json').write_text(json.dumps(status))
             self.assertIn('finished_timestamp', '\n'.join(harness.collect(path)))
+
+    def test_completed_duration_and_reported_retry_do_not_infer_activity(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory)
+            status = dict(iteration=440, last_exit_code=0, consecutive_no_progress=0,
+                          updated_at='2026-11-03T16:33:43Z',
+                          iteration_started_at='2026-11-03T17:32:43+01:00',
+                          iteration_finished_at='2026-11-03T16:33:43Z',
+                          next_retry_at='2026-11-03T16:34:43Z')
+            def collect():
+                (path / 'heartbeat.json').write_text(json.dumps(status))
+                return '\n'.join(harness.collect(path))
+            rows = collect()
+            self.assertIn('completed_iteration_duration_seconds 60.0', rows)
+            self.assertIn('next_retry_timestamp_seconds ' + str(harness.timestamp(status['next_retry_at'])), rows)
+            # A new running iteration removes the completed sample, never exports elapsed time.
+            status['iteration_finished_at'] = ''
+            self.assertNotIn('completed_iteration_duration', collect())
+            for field, invalid in [('iteration_finished_at', '2026-11-03T16:32:42Z'),
+                                   ('iteration_finished_at', 'bad'),
+                                   ('next_retry_at', '2026-11-03T16:34:43')]:
+                status['iteration_finished_at'] = ''
+                status['next_retry_at'] = ''
+                status[field] = invalid
+                rows = collect()
+                self.assertIn('source="heartbeat"} 0', rows)
+                self.assertNotIn('news_digest_harness_iteration ', rows)
 
     def test_invalid_sources_fail_independently_without_stale_values(self):
         for content in ['{', '[]', 'x' * 16385, '[' * 2000 + ']' * 2000, json.dumps(dict(iteration=True)), '{}']:
