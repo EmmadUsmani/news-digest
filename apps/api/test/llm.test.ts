@@ -692,3 +692,111 @@ void test('all adapter instances share four FIFO slots and release failures', as
     8,
   );
 });
+
+void test('budget logs distinguish admission, refusal, settlement and uncertain holds without content', async () => {
+  const lines: string[] = [];
+  const log = createLogger(
+    'test',
+    {
+      write: (line) => {
+        lines.push(line);
+      },
+    },
+    [],
+  );
+  const secretRequest = {
+    ...request,
+    prompt: 'private-prompt',
+    instructions: 'private-instructions',
+    purpose: 'private-purpose',
+  };
+  const ledger = new MemoryLedger();
+  const provider = fake(['not json', '{"ok":true}']);
+  const budgeted = new BudgetedLlm(provider.llm, ledger, log);
+  await logJob(
+    'offline-budget',
+    async () => {
+      assert.deepEqual(await budgeted.json(secretRequest, valid), { ok: true });
+      assert.deepEqual(await budgeted.json(secretRequest, valid), { ok: true });
+    },
+    log,
+  )({ id: 'budget-job', name: 'test', attemptsMade: 0 } as Job);
+  let events = lines
+    .map((line) => JSON.parse(line) as Record<string, unknown>)
+    .filter((line) => String(line.event).startsWith('budget.'));
+  assert.deepEqual(
+    events.map((line) => line.event),
+    [
+      'budget.decision',
+      'budget.settlement',
+      'budget.decision',
+      'budget.settlement',
+    ],
+  );
+  assert.deepEqual(
+    events
+      .filter((line) => line.event === 'budget.decision')
+      .map((line) => line.attempt),
+    [1, 2],
+  );
+  assert.ok(
+    events.every(
+      (line) => line.jobId === 'budget-job' && line.runId === 'offline',
+    ),
+  );
+  assert.equal(events[0].estimateMicros, ledger.calls[0].estimate);
+  assert.equal(events[1].costMicros, ledger.calls[0].cost);
+  assert.ok(!lines.join('').includes('private-'));
+  assert.equal(
+    provider.count(),
+    2,
+    'cache reuse does not reserve or call again',
+  );
+  lines.length = 0;
+  ledger.blocked = true;
+  assert.equal(
+    await new BudgetedLlm(fake([]).llm, ledger, log).json(
+      { ...secretRequest, prompt: 'other-private-prompt' },
+      valid,
+    ),
+    null,
+  );
+  events = lines.map((line) => JSON.parse(line) as Record<string, unknown>);
+  assert.equal(events.length, 1);
+  assert.equal(events[0].outcome, 'refused');
+  for (const [error, outcome] of [
+    [new Error('private-provider-error'), 'held-uncertain'],
+    [new ProviderSpendLimit('private-provider-error'), 'released'],
+  ] as const) {
+    lines.length = 0;
+    const failedLedger = new MemoryLedger();
+    assert.equal(
+      await new BudgetedLlm(fake([error]).llm, failedLedger, log).json(
+        secretRequest,
+        valid,
+      ),
+      null,
+    );
+    events = lines.map((line) => JSON.parse(line) as Record<string, unknown>);
+    assert.deepEqual(
+      events.map((line) => line.event),
+      ['budget.decision', 'budget.failure'],
+    );
+    assert.equal(events[1].outcome, outcome);
+    assert.equal(failedLedger.calls[0].uncertain, outcome === 'held-uncertain');
+    assert.ok(!lines.join('').includes('private-'));
+  }
+  lines.length = 0;
+  const brokenLedger = new MemoryLedger();
+  brokenLedger.reserve = async () => {
+    throw new Error('private-db-error');
+  };
+  await assert.rejects(
+    new BudgetedLlm(fake([]).llm, brokenLedger, log).json(secretRequest, valid),
+  );
+  assert.equal(
+    lines.length,
+    0,
+    'failed ledger operations must not claim a decision',
+  );
+});

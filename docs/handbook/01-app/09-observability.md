@@ -12,6 +12,7 @@ or monitoring service is installed.
 | Anthropic calls       | Model, purpose, run ID, attempt, duration, success or failure, failure HTTP status and successful token usage/computed microdollar cost |
 | xAI calls             | Model, search type, HTTP status, duration, outcome, safe failure reason and successful token/fetched-item/citation counts               |
 | Bluesky calls         | Login, refresh or search, HTTP status when received, duration and outcome; no account, token, query, URL or response content            |
+| Anthropic budgets     | Admission/refusal and estimate per attempt; settled cost or released/uncertain failure hold, with run and inherited job context         |
 | Errors                | Error message, stack and cause; fatal exceptions and unhandled rejections exit unsuccessfully so systemd can recover the service        |
 
 The API returns `X-Request-Id` so a browser request can be matched to its
@@ -45,3 +46,8 @@ Search topics, account lists, guidance, citations and provider text are omitted.
 Bluesky outcomes cover HTTP and JSON reading; session and post validation follow
 a successful attempt. Session reuse adds no login entry. Refreshes and pagination
 produce separate attempts, with rate-limit waiting excluded from duration.
+
+Budget entries follow successful ledger operations. Refusals do not identify the
+limiting cap; the ledger remains authoritative. Cache reuse adds no admission.
+Repairs reserve separately, and transport failures retain uncertain holds. No
+prompt, response, purpose or provider error text is included in budget entries.

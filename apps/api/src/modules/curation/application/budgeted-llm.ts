@@ -1,5 +1,6 @@
 import { ZodError } from 'zod';
 
+import { logger } from '../../../libs/observability/logging';
 import { costMicros } from '../domain/budget';
 import {
   type LlmPort,
@@ -39,6 +40,7 @@ export class BudgetedLlm {
   constructor(
     private readonly llm: LlmPort,
     private readonly ledger: LlmLedger,
+    private readonly log = logger,
   ) {}
   async json<T>(
     request: LlmRequest,
@@ -117,6 +119,18 @@ export class BudgetedLlm {
         },
       );
       const id = await this.ledger.reserve(current, estimate);
+      this.log.info(
+        {
+          event: 'budget.decision',
+          target: 'anthropic',
+          runId: request.runId,
+          model: current.model.id,
+          attempt: attempt + 1,
+          estimateMicros: estimate,
+          outcome: id ? 'admitted' : 'refused',
+        },
+        'LLM budget decision',
+      );
       if (!id) return null;
       let response;
       try {
@@ -131,12 +145,33 @@ export class BudgetedLlm {
           limit,
           !limit,
         );
+        this.log.info(
+          {
+            event: 'budget.failure',
+            target: 'anthropic',
+            runId: request.runId,
+            attempt: attempt + 1,
+            outcome: limit ? 'released' : 'held-uncertain',
+            reason: limit ? 'provider-spend-limit' : 'provider-call-failed',
+          },
+          'LLM budget failure recorded',
+        );
         return null;
       }
       await this.ledger.settle(
         id,
         response.usage,
         costMicros(response.usage, current.model),
+      );
+      this.log.info(
+        {
+          event: 'budget.settlement',
+          target: 'anthropic',
+          runId: request.runId,
+          attempt: attempt + 1,
+          costMicros: costMicros(response.usage, current.model),
+        },
+        'LLM budget settled',
       );
       let parsed: T;
       let decoded: unknown;

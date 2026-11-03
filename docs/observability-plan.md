@@ -235,3 +235,9 @@ O1 incremental progress (348): Bluesky login, refresh and search attempts log
 status, duration and outcome with inherited context. No credentials, queries,
 URLs, response content or provider exceptions are logged. Budget decisions and
 edition steps remain before O1 completion.
+
+O1 incremental progress (349): Anthropic budget admissions/refusals log estimates
+and attempts; settlements log cost, failures distinguish released and uncertain
+holds. Cache reuse is omitted; logs follow successful ledger operations and omit
+content. Refusal reasons are not inferred. Discovery/reserve budget decisions and
+edition steps remain open; no O1 completion claim.

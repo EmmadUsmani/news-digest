@@ -117,6 +117,14 @@ async function main() {
           ],
         ),
       ),
+      budgetEventsInJournalSample: Object.fromEntries(
+        ['budget.decision', 'budget.settlement', 'budget.failure'].map(
+          (event) => [
+            event,
+            logs.filter((line) => line.event === event).length,
+          ],
+        ),
+      ),
       resources,
       extraServices: 0,
       extraLogStoreBytes: 0,
