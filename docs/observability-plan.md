@@ -312,3 +312,7 @@ credentials and DB/Redis. Forced exceptions/rejections run only in child process
 Runtime sample: 470 structured records, feed/HN/oEmbed calls and reserve lifecycle
 entries; no fresh paid provider or edition events. API/worker measured 46/59 MiB
 and 0.6/0.9% average CPU since startup; no added services or log-store disk.
+
+O6 incremental progress (378): Product reserve lifecycle shows its last durable update
+and minutes past schedule for open states. Settled rows have no overdue value;
+this is neither a heartbeat nor a failure/worker-duration measurement.

@@ -289,6 +289,8 @@ export async function checkGrafana() {
           'Scored',
           'Unscored',
           'Reason',
+          'Updated (UTC)',
+          'Open overdue (min)',
         ]) {
           const column = page.getByRole('columnheader', { name, exact: true });
           await column.scrollIntoViewIfNeeded();
@@ -336,6 +338,32 @@ export async function checkGrafana() {
     );
     await page.screenshot({
       path: 'docs/screenshots/grafana-product-mobile.png',
+    });
+    const reserve = page.getByRole('heading', {
+      name: 'Scheduled reserve lifecycle (latest seven days)',
+      exact: true,
+    });
+    for (let attempt = 0; attempt < 12 && !(await reserve.count()); attempt++) {
+      await page.mouse.wheel(0, 400);
+      await page.waitForTimeout(300);
+    }
+    await reserve.scrollIntoViewIfNeeded();
+    await reserve.evaluate((node) => node.scrollIntoView({ block: 'start' }));
+    await page.evaluate(() => {
+      for (const element of document.querySelectorAll<HTMLElement>('div')) {
+        if (
+          element.scrollWidth > element.clientWidth &&
+          element.clientWidth > 200
+        )
+          element.scrollLeft = element.scrollWidth;
+      }
+    });
+    await page
+      .getByRole('columnheader', { name: 'Open overdue (min)', exact: true })
+      .waitFor({ state: 'visible' });
+    await page.waitForTimeout(1500);
+    await page.screenshot({
+      path: 'docs/screenshots/grafana-product-reserve-mobile.png',
     });
     // Grafana virtualizes panels below the mobile viewport.
     for (let attempt = 0; attempt < 10; attempt++) {

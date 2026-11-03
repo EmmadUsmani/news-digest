@@ -181,7 +181,7 @@
       "gridPos": {
         "x": 0,
         "y": 16,
-        "w": 12,
+        "w": 24,
         "h": 8
       },
       "targets": [
@@ -211,24 +211,24 @@
     {
       "id": 6,
       "title": "Scheduled reserve lifecycle (latest seven days)",
-      "description": "Durable lifecycle only. Protected reserve amount, cap and current availability are read from configuration by app Status, not inferred here. Pending is not a missed run before its scheduled time.",
+      "description": "Durable lifecycle only. Protected reserve amount, cap and current availability are read from configuration by app Status, not inferred here. Pending is not a missed run before its scheduled time. Updated is the last durable lifecycle write, not a heartbeat. Open overdue minutes is shown only for pending/running/retrying states after the scheduled time; it does not establish failure or worker duration. Snapshot ignores the time picker.",
       "type": "table",
       "datasource": {
         "type": "grafana-postgresql-datasource",
         "uid": "product-postgres"
       },
       "gridPos": {
-        "x": 12,
-        "y": 16,
-        "w": 12,
-        "h": 8
+        "x": 0,
+        "y": 24,
+        "w": 24,
+        "h": 7
       },
       "targets": [
         {
           "refId": "A",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT budget_day::text AS \"Day (UTC)\", scheduled_at AS \"Scheduled (UTC)\", state AS \"State\", attempt AS \"Attempt\" FROM scheduled_ai_budget_days ORDER BY budget_day DESC LIMIT 7",
+          "rawSql": "SELECT budget_day::text AS \"Day (UTC)\", scheduled_at AS \"Scheduled (UTC)\", state AS \"State\", attempt AS \"Attempt\", updated_at AS \"Updated (UTC)\", CASE WHEN state IN ('pending','running','retrying') THEN greatest(0, extract(epoch FROM (now()-scheduled_at))/60)::numeric(12,1) END AS \"Open overdue (min)\" FROM scheduled_ai_budget_days ORDER BY budget_day DESC LIMIT 7",
           "editorMode": "code",
           "sql": {
             "limit": 100
@@ -258,7 +258,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 24,
+        "y": 31,
         "w": 24,
         "h": 10
       },
@@ -297,7 +297,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 34,
+        "y": 41,
         "w": 24,
         "h": 8
       },
@@ -336,7 +336,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 42,
+        "y": 49,
         "w": 24,
         "h": 8
       },
@@ -375,7 +375,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 50,
+        "y": 57,
         "w": 12,
         "h": 8
       },
@@ -411,7 +411,7 @@
       },
       "gridPos": {
         "x": 12,
-        "y": 50,
+        "y": 57,
         "w": 12,
         "h": 8
       },
@@ -447,7 +447,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 58,
+        "y": 65,
         "w": 24,
         "h": 10
       },

@@ -269,6 +269,10 @@ cached, fallback and reused editions; retries count separately and queue wait is
 excluded. No data means no observed settled attempts, not zero failures. This does
 not establish cold AI latency. Counters reset on restart. The time picker controls
 the graph's displayed range.
+Reserve lifecycle rows include the last durable update and minutes past the scheduled
+time while pending, running or retrying (zero before the schedule, blank once settled).
+The update is not a heartbeat; overdue time does not establish failure or worker duration.
+
 Configured caps, reserve amounts, available funds and individual run durations remain
 in the app's **Source & run status** panel; Product does not infer caps from ledger rows.
 
