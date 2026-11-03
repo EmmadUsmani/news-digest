@@ -418,3 +418,9 @@ API queue gauges. Offline hold/recovery and queue/job isolation verified.
 No app/DB/Redis restart or new collector. Missing lifecycle records after an
 otherwise registered schedule advances remain open; scheduler presence alone
 does not prove publication.
+
+O9 incremental progress (418): registered daily digest schedules now warn when
+the next-run timestamp remains more than fifteen minutes overdue for two minutes.
+Offline cases cover threshold, hold, advancement recovery, queue/exporter isolation
+and future/zero/absent timestamps. Existing API metric only; no app restart or
+new collector. Missing lifecycle/publication after a schedule advances remains open.

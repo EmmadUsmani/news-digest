@@ -82,3 +82,10 @@ groups:
           severity: warning
         annotations:
           summary: Daily digest queue has no registered schedule or is paused
+      - alert: DigestScheduleStalled
+        expr: (time() - news_digest_queue_next_scheduled_timestamp_seconds{job="app-api",queue="digest-generation"} > 900) and (news_digest_queue_next_scheduled_timestamp_seconds{job="app-api",queue="digest-generation"} > 0)
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: Daily digest scheduler next run remains more than fifteen minutes overdue

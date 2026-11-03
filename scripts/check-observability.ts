@@ -29,6 +29,10 @@ async function main() {
         ),
       );
     }
+    assert.match(
+      queueMetrics,
+      /^news_digest_queue_next_scheduled_timestamp_seconds\{[^\n]*queue="digest-generation"[^\n]*\} [1-9]\d*(?:\.\d+)?$/m,
+    );
     const exporter = await fetch('http://127.0.0.1:9187/metrics');
     assert.equal(exporter.ok, true);
     const exporterMetrics = await exporter.text();
@@ -79,6 +83,7 @@ async function main() {
       'ScheduledEditionUnsettled',
       'ProviderSpendNearCap',
       'DigestScheduleUnavailable',
+      'DigestScheduleStalled',
     ]) {
       const rule = rules.find((row: { name: string }) => row.name === name);
       assert.ok(rule, `Missing ${name}`);

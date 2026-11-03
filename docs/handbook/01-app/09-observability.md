@@ -491,3 +491,10 @@ assumes the owner's daily schedule should remain enabled. Other queues and worke
 metrics do not trigger it. A missing lifecycle after a registered schedule
 advances still requires separate publication checks; this rule detects a lost
 scheduler, not every missing edition. Scrape failures have their own alert.
+
+A registered digest scheduler also warns when its next-run timestamp remains
+more than fifteen minutes in the past for two minutes. Advancing that timestamp
+clears the warning. This detects a scheduler that stops advancing, but cannot
+prove that an advanced schedule produced a lifecycle record or an edition.
+Missing or invalid timestamps do not infer a stall; scrape and scheduler-absence
+alerts cover their respective failures.

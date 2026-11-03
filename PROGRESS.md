@@ -111,3 +111,13 @@ Earlier entries: [iterations 405–407](docs/progress-archive/2026-11-03-iterati
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (261 unit/174 integration), `pnpm build`, vmalert dry-run/unittest, handbook 09, observability --verify-alerts/--verify-o4 and health checks passed. Initial check stopped on archive formatting; fixed and full rerun green. Zero dangling Docker volumes.
 - Updated handbook, plan and TASKS; archived iterations 405–407 to keep PROGRESS below 25 KB.
 - Next: Nov 3 scheduled AI timing/cost/X yield and acks first; otherwise missing lifecycle/publication detection, then O7/O8/O10.
+
+## 2026-11-03: iteration 418 — stalled registered scheduler warning
+
+- Started clean on main; no leftover work. Health, 32 sources and four queues healthy; two historical ingestion failures unchanged. Nov 3 scheduled AI/X evidence still awaits 15:00 UTC.
+- Added warning when the digest scheduler's next run remains >15 minutes overdue for two minutes. Uses existing API timestamp; excludes other queues/exporters and zero/absent values. Schedule advancement clears it; missing lifecycle after advancement remains open.
+- Offline evaluator verifies strict threshold, hold, recovery and future/zero/absent samples. Corrected test timestamps to vmalert's documented 2000-01-01 epoch before passing.
+- Deployed and restarted only obs-alerts at 14:23 UTC. Twelve healthy rules, no active alerts; eight scrape targets healthy. Latest free collection verified ten real X posts, no errors; no provider calls or Reddit requests initiated.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, vmalert dry-run/unittest, handbook 09, observability `--verify-alerts`/`--verify-o4`, health/status and `git diff --check` passed (261 unit/174 integration); zero dangling Docker volumes.
+- Updated handbook, observability plan and TASKS. No edition behavior, UI or app/DB/Redis restart.
+- Next: scheduled Nov 3 AI timing/cost/X yield and acks first; otherwise missing lifecycle/publication detection, then O7/O8/O10.

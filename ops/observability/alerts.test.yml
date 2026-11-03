@@ -325,3 +325,66 @@ tests:
         alertname: DigestScheduleUnavailable
         groupname: app-outcomes
         exp_alerts: []
+  - name: digest stalled schedule threshold hold and recovery
+    interval: 30s
+    input_series:
+      - series: 'news_digest_queue_next_scheduled_timestamp_seconds{job="app-api",queue="digest-generation"}'
+        values: '946684801+0x35 946694800'
+      - series: 'news_digest_queue_next_scheduled_timestamp_seconds{job="app-api",queue="social-collection"}'
+        values: '946684801+0x40'
+      - series: 'news_digest_queue_next_scheduled_timestamp_seconds{job="app-worker",queue="digest-generation"}'
+        values: '946684801+0x40'
+    alert_rule_test:
+      - eval_time: 15m
+        alertname: DigestScheduleStalled
+        groupname: app-outcomes
+        exp_alerts: []
+      - eval_time: 17m
+        alertname: DigestScheduleStalled
+        groupname: app-outcomes
+        exp_alerts: []
+      - eval_time: 17m30s
+        alertname: DigestScheduleStalled
+        groupname: app-outcomes
+        exp_alerts:
+          - exp_labels:
+              job: app-api
+              queue: digest-generation
+              severity: warning
+              alertgroup: app-outcomes
+            exp_annotations:
+              summary: Daily digest scheduler next run remains more than fifteen minutes overdue
+      - eval_time: 18m
+        alertname: DigestScheduleStalled
+        groupname: app-outcomes
+        exp_alerts: []
+  - name: future zero and absent scheduler times do not imply stall
+    interval: 30s
+    input_series:
+      - series: 'news_digest_queue_next_scheduled_timestamp_seconds{job="app-api",queue="digest-generation"}'
+        values: '946694800+0x40'
+      - series: 'news_digest_queue_next_scheduled_timestamp_seconds{job="app-api",queue="social-collection"}'
+        values: '0+0x40'
+    alert_rule_test:
+      - eval_time: 20m
+        alertname: DigestScheduleStalled
+        groupname: app-outcomes
+        exp_alerts: []
+  - name: zero digest scheduler time is invalid not overdue
+    interval: 30s
+    input_series:
+      - series: 'news_digest_queue_next_scheduled_timestamp_seconds{job="app-api",queue="digest-generation"}'
+        values: '0+0x40'
+    alert_rule_test:
+      - eval_time: 20m
+        alertname: DigestScheduleStalled
+        groupname: app-outcomes
+        exp_alerts: []
+  - name: absent digest scheduler time is not overdue
+    interval: 30s
+    input_series: []
+    alert_rule_test:
+      - eval_time: 20m
+        alertname: DigestScheduleStalled
+        groupname: app-outcomes
+        exp_alerts: []
