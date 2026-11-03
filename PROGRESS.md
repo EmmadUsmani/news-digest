@@ -4,18 +4,6 @@ Archived: [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md), [2
 
 Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md), [283](docs/progress-archive/2026-11-03-iteration-283.md), [284](docs/progress-archive/2026-11-03-iteration-284.md).
 
-## 2026-11-03: iteration 287 — article pipeline boundary for X reactions
-
-- Started clean on main; all four services/health healthy; no leftover work.
-- Added read-only `loadReactionStories` public boundary: up to two topic/window stories using existing relevance, quality, ranking and clustering, without LLM calls or publication.
-- Extracted the edition's existing 200-candidate query unchanged so reaction preparation and edition generation share article loading.
-- Fake tests cover ranking/duplicate grouping, relevance/quality/window exclusions, invalid windows, disabled topics and highest-priority reaction handoff.
-- Preparation only: production remains account-list pending item 15 acknowledgement; durable optional admission and scheduler wiring remain open.
-- Verification: targeted tests (2 passed), `pnpm format`, `pnpm lint:fix`, `pnpm check` (146 unit/167 integration), `pnpm build`, `git diff --check`.
-- Restarted API/worker/docs/schema; health and SPA/docs/db checks pass; 32 sources error-free, social collection completed.
-- Read-only reports: Nov 3 X calls/cost zero; reserve pending at $0.482788, other-spend allowance zero; latest scheduled run Nov 2 fallback (856 ms).
-- No paid provider or Reddit requests. Next: scheduled Nov 3 evidence/acks, open-search switch, durable optional admission and scheduler wiring.
-
 ## 2026-11-03: iteration 288 — durable optional X admission
 
 - Started clean on main; all four services/health healthy; no leftover work.
@@ -206,3 +194,12 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Items 13/7/15 await scheduled evidence; item 16 activation requires item 15 acknowledgement. No application/settings changes, paid calls or Reddit requests.
 - Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `git diff --check`; restarted four services, active; health/app/status/docs/db HTTP 200.
 - Next: measure scheduled per-topic X cost/yield and 15:00 edition AI cost/duration; acknowledge results, then activate open search.
+
+## 2026-11-03: iteration 305 — scheduled evidence still pending
+
+- Started clean on main; no leftover work. All four services active; `/healthz` confirms database and Redis healthy.
+- Read-only status at 02:03 UTC: all 32 sources healthy with workers on all queues; rolling-day X coverage Tech/AI 51, NBA 32, Gaming 19, World 3. Two retained ingestion failures remain historical/recovered.
+- `pnpm exec tsx scripts/report-x-discovery.ts 2026-11-03`: zero scheduled calls; `pnpm exec tsx scripts/report-edition-timing.ts`: 15:00 UTC edition delayed, 482,788-micro reserve pending and other Anthropic allowance zero.
+- No application/settings changes or paid/Reddit calls. Items 13/7/15 require actual scheduled evidence; item 16 activation remains gated. Archived oldest progress entry to keep this file under 25 KB.
+- Next: record scheduled per-topic cost/yield and edition AI cost/duration, acknowledge evidence, then activate open search.
+- Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, and `git diff --check`; restarted all four services, active; health/app/status/docs/db HTTP 200.
