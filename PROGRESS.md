@@ -1,13 +1,3 @@
-## 2026-11-03: iteration 432 — hourly official Bluesky collection
-
-- Started clean on main; no leftover work. Zero alerts, healthy API/DB/Redis and 32 healthy sources.
-- Added hourly Bluesky collection to the existing social queue: one open query per enabled topic with positive post budget, maximum four topics/200 submissions. Query uses configured first nonempty query, first relevance term or topic name.
-- Shared authenticated session/backoff; sequential pass stops on search/storage error, one attempt, missing credentials skip. Per-topic counts retained in queue results; no paid calls or edition changes. Production inclusion stays off pending activation next.
-- Tests pin configuration filtering, cap/window and failure stop behavior. Targeted Bluesky suite 12/12; pnpm format, pnpm lint:fix, pnpm check (270 unit/174 isolated integration), pnpm build and affected handbook checks passed.
-- Restarted worker with rebuilt code. First automatic pass completed 15:54 UTC: Tech/AI 50, NBA 49, Gaming 48, World 45 fetched/submitted. Stored window readback 81/82/82/74 includes earlier probes, not new-insert counts or editorial evidence.
-- Updated SOURCES, TASKS and social/schedule handbook pages. No UI change. Existing edition remains 19 stories/11 X posts; health green, zero alerts and zero dangling Docker volumes.
-- Next: activate Bluesky edition inclusion under existing budget, then verify actual scheduled selections/screenshots. Continue scheduled X yield and triage/NBA fallback evidence; no paid verification run.
-
 ## 2026-11-03: iteration 433 — enable Bluesky edition inclusion
 
 - Started clean on main; no leftover work. Health green and zero alerts.
@@ -156,3 +146,13 @@
 - Updated TASKS and RANKING; archived iteration 431 to keep PROGRESS below 25 KB. No UI or handbook-described flow change.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build passed (281 unit/176 isolated integration tests). pnpm obs health/sources/jobs --check passed after API/worker restart; 32 healthy sources and collection jobs completing.
 - No paid calls, new editions or Reddit requests. Broader grouping recall and independent labels remain open; next scheduled X/Bluesky selections, World yield, screenshots and latency/full-AI evidence take priority.
+
+## 2026-11-03: iteration 447 — preserve directed headline participants
+
+- Started clean on main; no leftovers. Zero alerts; API/DB/Redis and all 32 sources healthy. Scheduled product evidence still pending; progressed item 19.
+- Fixed lexical grouping merging reversed winners, buyers and lawsuit participants. Shared meaningful tokens cannot cross sides of a small directed-action vocabulary; ambiguous multiple actions refuse non-identical matches. Conservative guard can miss paraphrases; no general semantic identity claim.
+- Synthetic regressions pin both input orders, separate clusters/two story slots and retained matches with minor wording differences. Targeted grouping/evaluation tests: 13 passed. Updated RANKING and compacted TASKS; archived iteration 432 to keep PROGRESS bounded.
+- First full check found tokenizer return-type inference incompatible with indexOf; explicit string-array return fixed it before final verification.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build passed (282 unit/176 isolated integration tests); git diff --check passed. No UI/layout or handbook-described flow change.
+- Restarted API/worker. pnpm obs health/sources/jobs --check passed; 32 healthy sources, four available queues, root HTTP 200, zero dangling volumes. Existing scheduled edition unchanged; no paid calls, new editions or Reddit requests.
+- Next: Nov 4 scheduled X/Bluesky selections/screenshots, World yield and latency/full-AI evidence; broader grouping recall and independent labels remain open.

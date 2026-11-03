@@ -103,7 +103,11 @@ numeric tokens in the same order (preserving score and version roles).
 Normalized identical headlines match; otherwise at least four
 non-stopword tokens, 80% containment and 65% Jaccard overlap are required.
 A small action/negation token guard separates obvious announcement/delay and
-confirmation/denial changes. Input order is deterministic by score then ID.
+confirmation/denial changes. For a small set of directed actions (beat, defeat,
+acquire and sue), shared meaningful tokens cannot cross from before the verb
+to after it; ambiguous multiple actions refuse lexical merging. This protects
+participant roles conservatively and can miss paraphrases. Synthetic tests cover
+reversed winners, buyers and lawsuit participants, in both input orders. Input order is deterministic by score then ID.
 These are lexical groups, not verified event identity: paraphrases can be missed,
 unrecognized conflicting verbs can merge, and names shared by different events
 can mislead. No embeddings, LLM calls or article-page requests are involved.

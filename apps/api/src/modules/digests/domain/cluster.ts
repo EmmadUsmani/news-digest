@@ -1,5 +1,5 @@
 import type { Candidate } from './rank';
-const words = (title: string) =>
+const words = (title: string): string[] =>
   title
     .normalize('NFKC')
     .toLowerCase()
@@ -34,6 +34,28 @@ export function sameEvent(a: Candidate, b: Candidate): boolean {
   )
     return false;
   if (left.join(' ') === right.join(' ')) return true;
+  // Shared participants must not switch sides of a directed action. A bag of
+  // words cannot distinguish the winner from the loser (or buyer from target).
+  const directed = /^(beats?|defeats?|defeated|acquires?|acquired|sues?|sued)$/;
+  const leftActions = left.filter((token) => directed.test(token));
+  const rightActions = right.filter((token) => directed.test(token));
+  if (leftActions.length || rightActions.length) {
+    if (
+      leftActions.length !== 1 ||
+      rightActions.length !== 1 ||
+      leftActions[0] !== rightActions[0]
+    )
+      return false;
+    const li = left.indexOf(leftActions[0]),
+      ri = right.indexOf(rightActions[0]);
+    const crosses = (before: string[], after: string[]) =>
+      before.some((token) => !ignored.has(token) && after.includes(token));
+    if (
+      crosses(left.slice(0, li), right.slice(ri + 1)) ||
+      crosses(right.slice(0, ri), left.slice(li + 1))
+    )
+      return false;
+  }
   // Do not collapse announcements into reversals merely because entities overlap.
   const actions =
     /^(announc|launch|releas|delay|cancel|den|confirm|approv|reject|win|lose|beat|not|never)/;

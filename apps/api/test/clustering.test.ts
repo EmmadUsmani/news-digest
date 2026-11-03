@@ -177,3 +177,56 @@ void test('headline groups preserve numeric roles in scores and version transiti
     true,
   );
 });
+
+void test('directed headline actions keep participants on the same side', () => {
+  // Synthetic regressions; reversed participants describe distinct events.
+  for (const [left, right] of [
+    [
+      'Lakers beat Celtics in overtime thriller',
+      'Celtics beat Lakers in overtime thriller',
+    ],
+    [
+      'Lakers defeated Celtics in overtime thriller',
+      'Celtics defeated Lakers in overtime thriller',
+    ],
+    [
+      'Microsoft acquires Nintendo in surprise gaming deal',
+      'Nintendo acquires Microsoft in surprise gaming deal',
+    ],
+    [
+      'Nintendo sues Microsoft over gaming patent dispute',
+      'Microsoft sues Nintendo over gaming patent dispute',
+    ],
+  ]) {
+    const a = item('a', left),
+      b = item('b', right);
+    for (const candidates of [
+      [a, b],
+      [b, a],
+    ]) {
+      assert.equal(sameEvent(candidates[0], candidates[1]), false);
+      assert.deepEqual(
+        clusterCandidates(candidates).map((group) => group.length),
+        [1, 1],
+      );
+      assert.equal(
+        rank(candidates, new Date('2026-11-01'), new Date('2026-11-02'), 2)
+          .length,
+        2,
+      );
+    }
+  }
+  for (const [left, right] of [
+    [
+      'Lakers beat Celtics in overtime thriller',
+      'The Lakers beat the Celtics in overtime thriller',
+    ],
+    [
+      'Microsoft acquires Nintendo in surprise gaming deal',
+      'Microsoft acquires Nintendo in a surprise gaming deal',
+    ],
+  ]) {
+    assert.equal(sameEvent(item('a', left), item('b', right)), true);
+    assert.equal(sameEvent(item('b', right), item('a', left)), true);
+  }
+});
