@@ -108,3 +108,12 @@ Earlier entries: [iterations 402–404](docs/progress-archive/2026-11-03-iterati
 - `check-observability.ts --verify-o4` confirms eight targets and retained metrics; metrics-store memory settled around 50 MiB after cache reset. Eight deployed alert rules healthy, zero pending/firing after natural recovery. Health/services/targets green; zero dangling Docker volumes.
 - Updated handbook, observability plan and TASKS; archived iterations 402–404 to keep PROGRESS under 25 KB. No UI, paid calls or Reddit requests.
 - Next: scheduled Nov 3 cost/yield/AI timing and acks first; otherwise remaining O9 missed-edition/spend rules, then O7/O8/O10.
+
+## 2026-11-03: iteration 415 — overdue recorded schedule alert
+
+- Started clean on main; no leftover work. Health, 32 sources and four queues healthy; two historical ingestion failures unchanged. Scheduled evidence still awaits 15:00 UTC.
+- Added read-only Postgres-exporter schedule lifecycle aggregate and warning after latest due unresolved/failed record exceeds 15 minutes plus two-minute hold. Newer success clears old failures; future records cannot hide overdue work. Success includes fallback; missing records/publication integrity remain outside coverage.
+- Column-only schedule grants, existing read-only role/timeouts and resource ceilings retained. Restarted only obs-postgres and obs-alerts; no app/Postgres/Redis restart, provider calls, Reddit requests or production edition changes.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (261 unit/173 integration), `pnpm build`, vmalert dry-run/unittest, `check-observability.ts --verify-alerts`/`--verify-o4`, handbook 09 and `git diff --check` passed. SQL fixture cases run against isolated Testcontainers; zero dangling Docker volumes.
+- Nine deployed rules healthy, zero pending/firing; live schedule metric zero and exporter scrape error zero. Eight scrape targets healthy; latest free collection verified ten real posts without errors. Updated handbook, plan and TASKS.
+- Next: scheduled Nov 3 cost/yield/AI timing and acks first; otherwise O9 spend and missing-schedule detection before O7/O8/O10.

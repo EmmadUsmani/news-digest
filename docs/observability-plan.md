@@ -398,3 +398,10 @@ exclusion and missing/zero ceilings. CPU quotas remain enforced by systemd;
 missed-edition and spend rules remain open. The rule exposed metrics-store memory
 pressure; reduced its cache/Go targets and reset saved caches without removing
 stored samples.
+
+O9 incremental progress (415): read-only Postgres exporter aggregates the latest
+due scheduled-budget lifecycle within 48 hours. Unresolved/failed records over
+15 minutes late warn after two minutes; success (including fallback) clears it.
+Future rows do not mask overdue runs; newer success supersedes old failures.
+Fixture CTE query cases and offline alert duration/recovery cases verify it.
+Entirely missing schedule records, publication integrity and spend remain open.

@@ -1,0 +1,11 @@
+news_digest_schedule:
+  query: |
+    SELECT coalesce((SELECT CASE WHEN state IN ('pending','running','retrying','failed')
+      THEN greatest(0, extract(epoch FROM (now() - scheduled_at))) ELSE 0 END
+      FROM scheduled_ai_budget_days
+      WHERE scheduled_at <= now() AND scheduled_at > now() - interval '48 hours'
+      ORDER BY scheduled_at DESC LIMIT 1), 0)::double precision AS unsettled_seconds
+  metrics:
+    - unsettled_seconds:
+        usage: GAUGE
+        description: Age of latest due unresolved or failed scheduled lifecycle within 48 hours; zero if succeeded or absent

@@ -463,5 +463,14 @@ and a 64 MiB Go memory target within its existing 112 MiB systemd ceiling. Its e
 is reset on startup so an older, larger saved cache cannot defeat the reduced
 budget; stored metric samples are preserved.
 
-Missed-edition and spend alerts are still
+Spend alerts and detection of entirely missing schedule records are still
 pending in the [observability plan](../../observability-plan.md).
+
+The Postgres exporter reads only schedule time and lifecycle state to report the
+latest due record within 48 hours. Pending, running, retrying or failed records
+more than fifteen minutes overdue raise a warning after two minutes. Success
+clears it, including fallback publication. Future records do not hide an overdue
+run; older failures do not override a newer success. This detects unresolved
+recorded runs, not missing schedule records, AI quality or publication integrity.
+The exporter has column-only read grants and a three-second query timeout;
+collection never invokes a provider or changes application data.

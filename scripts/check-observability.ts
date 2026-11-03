@@ -17,6 +17,12 @@ async function main() {
       ['unittest', '-files=alerts.test.yml'],
       { cwd: 'ops/observability', stdio: 'pipe', timeout: 30_000 },
     );
+    const exporter = await fetch('http://127.0.0.1:9187/metrics');
+    assert.equal(exporter.ok, true);
+    assert.match(
+      await exporter.text(),
+      /^news_digest_schedule_unsettled_seconds(?:\{[^\n]*\})? \d/m,
+    );
     const response = await fetch('http://127.0.0.1:8880/api/v1/rules');
     assert.equal(response.ok, true);
     const body = await response.json();
@@ -35,6 +41,7 @@ async function main() {
       'ObservabilityMemoryBudget',
       'RecentJobFailures',
       'ApiServerErrorRate',
+      'ScheduledEditionUnsettled',
     ]) {
       const rule = rules.find((row: { name: string }) => row.name === name);
       assert.ok(rule, `Missing ${name}`);

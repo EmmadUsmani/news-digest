@@ -11,6 +11,7 @@ tar -xzf "$obs_tmp/postgres.tgz" -C "$obs_tmp"
 docker compose exec -T postgres psql -U postgres -d news_digest -v ON_ERROR_STOP=1 < ops/observability/postgres-reader.sql
 sudo install -d /opt/news-digest-observability /etc/news-digest-observability
 sudo install -m 755 "$obs_tmp/postgres_exporter-0.20.1.linux-amd64/postgres_exporter" /opt/news-digest-observability/
+sudo install -m 644 ops/observability/product-queries.yml /etc/news-digest-observability/
 sudo install -m 644 ops/observability/obs-postgres.service /etc/systemd/system/
 sudo install -m 644 ops/observability/scrape.yml /etc/news-digest-observability/
 sudo install -m 755 ops/observability/unit-metrics.py /opt/news-digest-observability/
