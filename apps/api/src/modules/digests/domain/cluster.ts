@@ -67,11 +67,14 @@ export function sameEvent(a: Candidate, b: Candidate): boolean {
 }
 // Complete-link grouping prevents chains of overlapping headlines merging distinct events.
 // Input is already score ordered; the strongest candidate remains the lead.
-export function clusterCandidates(candidates: Candidate[]): Candidate[][] {
+export function clusterCandidates(
+  candidates: Candidate[],
+  matches: (a: Candidate, b: Candidate) => boolean = sameEvent,
+): Candidate[][] {
   const clusters: Candidate[][] = [];
   for (const candidate of candidates) {
     const group = clusters.find((items) =>
-      items.every((item) => sameEvent(item, candidate)),
+      items.every((item) => matches(item, candidate)),
     );
     if (group) group.push(candidate);
     else clusters.push([candidate]);

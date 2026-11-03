@@ -722,3 +722,23 @@ independent review remain gaps. The test prevents false merges on these pairs
 while the report makes missed paraphrases visible. Any production grouping or
 ranking change remains gated off under STEERING 23 until scheduled evidence is
 recorded and acknowledged.
+
+## Iteration 327: opt-in NBA score grouping
+
+`pnpm exec tsx scripts/evaluate-event-grouping.ts --game-scores` evaluates the
+prepared matcher against the same recorded labels. It merges **4/11** positive
+pairs with **0/10** false merges (observed precision 4/4, recall 36.4%). Three
+additional matches are game recaps naming both teams and the complete score,
+including Cavs/Cavaliers and Wolves/Timberwolves aliases. This remains a small,
+agent-labeled development sample, not a general precision claim.
+
+The matcher requires two unambiguous NBA teams, a single plausible score and
+at most 18 hours between reports; it preserves team order and score attribution.
+Previews, predictions, multi-score reports, missing scores, conflicting outcomes
+and invalid timestamps cannot use this extra rule. Conservative misses remain:
+reports naming only a city, scoreless highlights and non-sports paraphrases.
+Synthetic adversarial tests supplement the recorded pairs. The existing lexical
+matcher remains the default; only an explicit matcher argument enables the
+prepared grouping, and no production caller supplies it. No ranking bonus or
+claim of outlet independence was added. More dates, Gaming and independent
+negative review remain necessary before broader activation under STEERING 23.

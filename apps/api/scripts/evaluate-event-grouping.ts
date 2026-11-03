@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { sameEvent } from '../src/modules/digests/domain/cluster';
 import type { Candidate } from '../src/modules/digests/domain/rank';
 
-export function evaluateEventGrouping() {
+export function evaluateEventGrouping(matches = sameEvent) {
   const root = join(__dirname, '../test/fixtures');
   const fixture = JSON.parse(
     readFileSync(join(root, 'event-grouping-pairs.json'), 'utf8'),
@@ -50,7 +50,7 @@ export function evaluateEventGrouping() {
     return {
       ...pair,
       titles: [left.title, right.title],
-      predictedSameEvent: sameEvent(left, right),
+      predictedSameEvent: matches(left, right),
     };
   });
   const truePositives = pairs.filter(
