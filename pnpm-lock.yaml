@@ -118,10 +118,17 @@ importers:
         specifier: ^8.15.5
         version: 8.23.1
 
-  apps/docs-site: {}
+  apps/docs-site:
+    dependencies:
+      '@digest/tool-metrics':
+        specifier: workspace:*
+        version: link:../../packages/tool-metrics
 
   apps/schema-explorer:
     dependencies:
+      '@digest/tool-metrics':
+        specifier: workspace:*
+        version: link:../../packages/tool-metrics
       pg:
         specifier: ^8.16.3
         version: 8.23.1
@@ -157,6 +164,12 @@ importers:
       zod:
         specifier: ^4.1.12
         version: 4.6.7
+
+  packages/tool-metrics:
+    dependencies:
+      prom-client:
+        specifier: 15.1.3
+        version: 15.1.3
 
 packages:
 

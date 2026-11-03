@@ -34,10 +34,10 @@ export async function checkMetricStore() {
   const fs = statfsSync('/var/lib/news-digest-metrics');
   assert.ok(fs.blocks * fs.bsize <= 700_000_000);
   const targets = await query('up');
-  assert.equal(targets.length, 4);
+  assert.equal(targets.length, 6);
   for (const target of targets)
     assert.equal(target.value[1], '1', `Target down: ${target.metric.job}`);
-  for (const service of ['api', 'worker']) {
+  for (const service of ['api', 'worker', 'docs', 'schema']) {
     for (const metric of [
       'process_resident_memory_bytes',
       'nodejs_heap_size_used_bytes',

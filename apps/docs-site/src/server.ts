@@ -4,12 +4,15 @@ import { createServer } from 'node:http';
 import { extname, join, relative, resolve } from 'node:path';
 import { promisify } from 'node:util';
 
+import { startRuntimeMetrics } from '@digest/tool-metrics';
+
 import { listTree, safePath } from './pages.ts';
 
 // Serves docs/handbook as a site. Markdown is read from disk on every request
 // and rendered in the browser (marked + Mermaid), so a `git pull` is enough to
 // publish changes: no build, no restart.
 const run = promisify(execFile);
+startRuntimeMetrics('docs', 9466);
 const port = Number(process.env.DOCS_SITE_PORT ?? 8100);
 const repo = resolve(process.env.REPO_ROOT ?? process.cwd());
 const handbook = join(repo, 'docs/handbook');

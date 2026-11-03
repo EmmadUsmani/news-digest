@@ -2,11 +2,14 @@ import { readFile } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import { extname, join, resolve } from 'node:path';
 
+import { startRuntimeMetrics } from '@digest/tool-metrics';
+
 import { createPool, introspect } from './introspect.ts';
 import { buildModel } from './model.ts';
 
 // Live, read-only DB schema explorer. Every /api/schema request introspects the
 // database, so new migrations appear without a rebuild or restart.
+startRuntimeMetrics('schema', 9467);
 const port = Number(process.env.SCHEMA_EXPLORER_PORT ?? 8200);
 const repo = resolve(process.env.REPO_ROOT ?? process.cwd());
 const metaPath = join(repo, 'docs/schema-meta.json');

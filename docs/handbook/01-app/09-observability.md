@@ -189,8 +189,8 @@ real unit samples. For API outages, forward localhost 8428 over SSH and open
 
 ## Node runtime metrics
 
-The API and worker also expose Prometheus runtime samples on loopback ports
-9464 and 9465 at `/metrics`. VictoriaMetrics scrapes them every 30 seconds:
+The API, worker, docs and schema services expose Prometheus runtime samples
+on loopback ports 9464, 9465, 9466 and 9467 respectively at `/metrics`. VictoriaMetrics scrapes them every 30 seconds:
 process CPU/RAM, heap, garbage collection, event-loop lag and active handles.
 The only added label is a fixed service name; content and request identifiers
 are excluded. These listeners are separate from the public API and are not
@@ -201,5 +201,5 @@ a route template share one static/unmatched label; URLs, queries and IDs are omi
 metrics listener is excluded. Query `news_digest_http_request_duration_seconds_count`
 for volume or its histogram buckets for latency. Samples reset on API restart.
 
-Provider and queue metrics and the docs/schema runtime endpoints remain
-unfinished; their journal records are available today.
+Provider and queue metrics remain unfinished; their journal records are
+available today.
