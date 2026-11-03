@@ -52,6 +52,9 @@ flowchart TB
   edition by its id.
 
 > [!NOTE]
-> Planned: grouping articles about the same event into one story with "also
-> covered by" links (STEERING item 19). Today only near-identical headlines
-> are merged.
+> Production merges near-identical headlines. A broader game/studio event
+> matcher is prepared behind `EDITION_EVENT_GROUPING_ENABLED=1`, off by
+> default until the protected scheduled run is acknowledged (STEERING items
+> 19 and 23). It applies to fallback selection and the AI shortlist, retaining
+> coverage links without an outlet-count score bonus. Source labels do not
+> establish independent reporting. Previously published editions stay unchanged.

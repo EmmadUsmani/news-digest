@@ -3,7 +3,11 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import test from 'node:test';
 
+import { relevancePolicySchema } from '@digest/contracts';
+
+import { editionEventMatcher } from '../src/modules/digests/adapters/event-grouping';
 import { sameEvent } from '../src/modules/digests/domain/cluster';
+import { editorialShortlist } from '../src/modules/digests/domain/editorial-shortlist';
 import { type Candidate, rank } from '../src/modules/digests/domain/rank';
 import { sameEventWithStudioClosure } from '../src/modules/digests/domain/studio-event';
 
@@ -99,4 +103,59 @@ void test('recorded Gaming closure retains three outlet links in one ranked slot
       reason.includes('independence unverified'),
     ),
   );
+});
+
+void test('edition grouping requires exact opt-in and retains lexical fallback', () => {
+  for (const value of ['', '0', 'true', 'yes', ' 1', '1 '])
+    assert.equal(editionEventMatcher(value), sameEvent);
+  assert.equal(editionEventMatcher('1'), sameEventWithStudioClosure);
+});
+
+void test('AI shortlist uses the edition matcher only after semantic eligibility', () => {
+  const candidates = [
+    item('lead', 'Copper Studio shuts down after funding cuts', 20),
+    item('alternate', 'Copper Studio is closed', 19),
+    item('irrelevant', 'Copper Studio is closed', 18),
+    item('unscored', 'Copper Studio is closed', 17),
+    item('other', 'Silver Studio closes its doors', 16),
+  ];
+  const scores = candidates
+    .filter((c) => c.id !== 'unscored')
+    .map((c) => ({
+      id: c.id,
+      relevance: c.id === 'irrelevant' ? 2 : 9,
+      importance: 8,
+    }));
+  const policy = relevancePolicySchema.parse({
+    includeAny: [],
+    excludeAny: [],
+  });
+  const baseline = editorialShortlist(candidates, scores, policy, start, end);
+  assert.deepEqual(
+    baseline,
+    editorialShortlist(
+      candidates,
+      scores,
+      policy,
+      start,
+      end,
+      editionEventMatcher('0'),
+    ),
+  );
+  const grouped = editorialShortlist(
+    candidates,
+    scores,
+    policy,
+    start,
+    end,
+    editionEventMatcher('1'),
+  );
+  assert.deepEqual(grouped.shortlist, baseline.shortlist);
+  assert.equal(baseline.ranked.length, 3);
+  assert.equal(grouped.ranked.length, 2);
+  assert.deepEqual(
+    grouped.ranked[0].coverage.map((c) => c.id),
+    ['lead', 'alternate'],
+  );
+  assert.equal(grouped.ranked[0].score, baseline.ranked[0].score);
 });

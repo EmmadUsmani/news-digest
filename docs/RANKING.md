@@ -872,3 +872,15 @@ Synthetic adversarial cases cover these boundaries and symmetry. The recorded
 benchmark remains 13/32 positive matches and zero labeled false merges, with
 all observed cluster merges labeled. These tests add safety examples, not
 independent or general precision evidence. Production remains unchanged.
+
+## Iteration 335: gated edition caller
+
+`EDITION_EVENT_GROUPING_ENABLED=1` selects the prepared studio/game matcher
+for both fallback ranking and the semantic editorial shortlist. Every other
+value retains lexical matching; the switch is unset in production pending
+Nov 3 scheduled evidence and acknowledgements. The matcher is captured once
+per edition so both paths agree. Semantic eligibility and the ten-candidate
+shortlist remain unchanged; grouped coverage never admits unscored or rejected
+items. This does not broaden label evidence, establish outlet independence or
+activate the feature. Tests pin exact opt-in, baseline equivalence and coverage
+exclusion for semantically rejected/unscored items.
