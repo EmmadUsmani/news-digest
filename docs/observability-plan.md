@@ -405,3 +405,9 @@ due scheduled-budget lifecycle within 48 hours. Unresolved/failed records over
 Future rows do not mask overdue runs; newer success supersedes old failures.
 Fixture CTE query cases and offline alert duration/recovery cases verify it.
 Entirely missing schedule records, publication integrity and spend remain open.
+
+O9 incremental progress (416): provider cap warning at >=90% for two minutes joins
+read-only UTC settled ledger spend plus all unresolved holds to existing daily/
+monthly configured ceilings. Empty ledgers emit zero; missing/zero caps are not
+inferred. Offline threshold/hold/recovery/join cases and isolated SQL fixtures
+cover both providers and UTC boundaries. Missing-schedule detection remains open.

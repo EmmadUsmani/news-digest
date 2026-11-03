@@ -474,3 +474,13 @@ run; older failures do not override a newer success. This detects unresolved
 recorded runs, not missing schedule records, AI quality or publication integrity.
 The exporter has column-only read grants and a three-second query timeout;
 collection never invokes a provider or changes application data.
+
+Provider spend warns at 90% of a configured daily or monthly cap for two minutes.
+The read-only exporter aggregates UTC ledger costs plus all pending/uncertain
+holds, including holds from older periods, separately for Anthropic and xAI.
+Empty ledgers produce zero values for each provider/period combination. The rule
+joins those values to the existing configured-ceiling metrics; absent or zero
+ceilings do not infer available funds. This is a cap warning, not an estimate of
+prepaid xAI credit, scheduled reserve availability or a budget admission decision.
+Only ledger timestamps, status and monetary columns are granted to the exporter;
+provider prompts, responses and keys are excluded. No external notification is sent.

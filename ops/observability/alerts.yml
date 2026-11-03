@@ -68,3 +68,10 @@ groups:
           severity: warning
         annotations:
           summary: Latest due scheduled lifecycle is unresolved or failed more than fifteen minutes after its scheduled time
+      - alert: ProviderSpendNearCap
+        expr: (news_digest_provider_committed_usd / on (provider, period) max by (provider, period) (news_digest_provider_configured_ceiling_usd) >= 0.9) and on (provider, period) (max by (provider, period) (news_digest_provider_configured_ceiling_usd) > 0)
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: Provider UTC spend and outstanding holds reach 90 percent of the configured cap

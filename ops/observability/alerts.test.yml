@@ -208,3 +208,42 @@ tests:
         alertname: ScheduledEditionUnsettled
         groupname: app-outcomes
         exp_alerts: []
+  - name: provider caps join by provider and period with threshold hold recovery
+    interval: 30s
+    input_series:
+      - series: 'news_digest_provider_committed_usd{job="postgres",provider="anthropic",period="daily"}'
+        values: '0.89 0.9+0x4 0.89'
+      - series: 'news_digest_provider_configured_ceiling_usd{job="app-api",provider="anthropic",period="daily"}'
+        values: '1+0x7'
+      - series: 'news_digest_provider_configured_ceiling_usd{job="app-worker",provider="anthropic",period="daily"}'
+        values: '1+0x7'
+      - series: 'news_digest_provider_committed_usd{job="postgres",provider="xai",period="monthly"}'
+        values: '8+0x7'
+      - series: 'news_digest_provider_configured_ceiling_usd{provider="xai",period="monthly"}'
+        values: '12+0x7'
+      - series: 'news_digest_provider_committed_usd{provider="xai",period="daily"}'
+        values: '1+0x7'
+      - series: 'news_digest_provider_configured_ceiling_usd{provider="xai",period="daily"}'
+        values: '0+0x7'
+      - series: 'news_digest_provider_committed_usd{provider="unknown",period="daily"}'
+        values: '9+0x7'
+    alert_rule_test:
+      - eval_time: 2m
+        alertname: ProviderSpendNearCap
+        groupname: app-outcomes
+        exp_alerts: []
+      - eval_time: 2m30s
+        alertname: ProviderSpendNearCap
+        groupname: app-outcomes
+        exp_alerts:
+          - exp_labels:
+              provider: anthropic
+              period: daily
+              severity: warning
+              alertgroup: app-outcomes
+            exp_annotations:
+              summary: Provider UTC spend and outstanding holds reach 90 percent of the configured cap
+      - eval_time: 3m
+        alertname: ProviderSpendNearCap
+        groupname: app-outcomes
+        exp_alerts: []

@@ -19,10 +19,33 @@ async function main() {
     );
     const exporter = await fetch('http://127.0.0.1:9187/metrics');
     assert.equal(exporter.ok, true);
+    const exporterMetrics = await exporter.text();
     assert.match(
-      await exporter.text(),
+      exporterMetrics,
       /^news_digest_schedule_unsettled_seconds(?:\{[^\n]*\})? \d/m,
     );
+    const commitments = [
+      ...exporterMetrics.matchAll(
+        /^news_digest_provider_committed_usd\{([^\n]+)\} ([^\n]+)$/gm,
+      ),
+    ];
+    assert.equal(
+      commitments.length,
+      4,
+      'Expected both providers and UTC periods',
+    );
+    for (const provider of ['anthropic', 'xai']) {
+      for (const period of ['daily', 'monthly']) {
+        const row = commitments.find(
+          ([, labels]) =>
+            labels.includes(`provider="${provider}"`) &&
+            labels.includes(`period="${period}"`),
+        );
+        assert.ok(row, `Missing ${provider}/${period}`);
+        assert.ok(Number.isFinite(Number(row[2])) && Number(row[2]) >= 0);
+      }
+    }
+    assert.match(exporterMetrics, /^pg_exporter_last_scrape_error 0$/m);
     const response = await fetch('http://127.0.0.1:8880/api/v1/rules');
     assert.equal(response.ok, true);
     const body = await response.json();
@@ -42,6 +65,7 @@ async function main() {
       'RecentJobFailures',
       'ApiServerErrorRate',
       'ScheduledEditionUnsettled',
+      'ProviderSpendNearCap',
     ]) {
       const rule = rules.find((row: { name: string }) => row.name === name);
       assert.ok(rule, `Missing ${name}`);

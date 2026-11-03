@@ -9,3 +9,30 @@ news_digest_schedule:
     - unsettled_seconds:
         usage: GAUGE
         description: Age of latest due unresolved or failed scheduled lifecycle within 48 hours; zero if succeeded or absent
+news_digest_provider:
+  query: |
+    WITH providers(provider) AS (VALUES ('anthropic'), ('xai')),
+    periods(period, boundary) AS (
+      VALUES ('daily', date_trunc('day', now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC'),
+             ('monthly', date_trunc('month', now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC')
+    ), calls AS (
+      SELECT 'anthropic' AS provider, created_at, status, cost_micros, reserved_micros FROM llm_calls
+      UNION ALL
+      SELECT 'xai', created_at, status, cost_micros, reserved_micros FROM x_discovery_calls
+    )
+    SELECT providers.provider, periods.period,
+      (coalesce(sum(cost_micros) FILTER (WHERE created_at >= boundary), 0)
+       + coalesce(sum(reserved_micros) FILTER (WHERE status IN ('pending','uncertain')), 0))
+       / 1000000.0 AS committed_usd
+    FROM providers CROSS JOIN periods LEFT JOIN calls USING (provider)
+    GROUP BY providers.provider, periods.period
+  metrics:
+    - provider:
+        usage: LABEL
+        description: Provider ledger
+    - period:
+        usage: LABEL
+        description: UTC accounting period
+    - committed_usd:
+        usage: GAUGE
+        description: UTC settled spend plus all outstanding holds, including older unresolved calls
