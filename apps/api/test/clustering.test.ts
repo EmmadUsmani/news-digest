@@ -63,6 +63,30 @@ void test('clustering separates different versions, dates, short generic titles 
   );
 });
 
+void test('headline matching requires known timestamps within 36 hours in either order', () => {
+  const a = item('a', 'Nintendo announces new console launch date');
+  for (const publishedAt of ['', 'invalid', '2026-11-03T00:00:00.001Z']) {
+    const b = { ...a, id: 'b', publishedAt };
+    assert.equal(sameEvent(a, b), false);
+    assert.equal(sameEvent(b, a), false);
+    assert.deepEqual(
+      clusterCandidates([a, b]).map((group) => group.length),
+      [1, 1],
+    );
+    if (!Number.isFinite(Date.parse(publishedAt)))
+      assert.equal(sameEvent(b, { ...b, id: 'c' }), false);
+  }
+  for (const publishedAt of [
+    '2026-11-03T00:00:00.000Z',
+    '2026-11-02T16:00:00-08:00',
+    '2026-10-31T00:00:00.000Z',
+  ]) {
+    const b = { ...a, id: 'b', publishedAt };
+    assert.equal(sameEvent(a, b), true);
+    assert.equal(sameEvent(b, a), true);
+  }
+});
+
 void test('complete-link grouping prevents an overlap chain from merging distinct headlines', () => {
   const a = item('a', 'Alpha bravo charlie delta echo foxtrot');
   const b = item('b', 'Alpha bravo charlie delta echo golf');

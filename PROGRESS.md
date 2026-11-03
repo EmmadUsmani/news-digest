@@ -152,3 +152,13 @@ Earlier entries: [progress archive](docs/progress-archive/).
 - Verification: pnpm format, pnpm lint:fix, pnpm check, pnpm build, check-handbook.ts 08-operations, report-bluesky-coverage.ts (live stored reads and invalid-argument rejection), scheduled-only timing report, obs health/sources/jobs --check and git diff --check passed (279 unit/176 isolated integration tests; zero dangling volumes).
 - No running-service code/config changed; services remain running under STEERING 22. Healthy sources/four available queues; latest scheduled edition still Nov 3. No new live editorial acceptance claimed.
 - Next: scheduled open-X/Bluesky selection/screenshots, World yield, and latency/full-AI evidence. World phrase-filter zero alone does not establish semantic irrelevance.
+
+## 2026-11-03: iteration 445 — require known event timing for headline merges
+
+- Started clean on main; no leftovers. Zero alerts and healthy API/DB/Redis. Scheduled product acceptance remains pending Nov 4; continued item 19 correctness work.
+- Fixed base headline matcher treating NaN timestamp differences as within 36 hours. Unknown timing now refuses merges even for identical titles; valid matching behavior and opt-in activation unchanged.
+- Regression checks cover invalid/missing timestamps, both input orders, isolated cluster membership, exact 36-hour limits, one millisecond outside and equivalent UTC offsets. Targeted grouping tests: 17 passed.
+- Verification: pnpm format, pnpm lint:fix, pnpm check, pnpm build and git diff --check passed: 280 unit/176 isolated integration tests; zero dangling volumes.
+- No paid calls, new editions, Reddit requests, UI/layout changes or handbook-described flow changes.
+- Restarted API/worker for the changed matcher. Immediate health probe raced startup; retry passed with healthy DB/Redis, all 32 sources and four queues. Existing real collection continues; no new scheduled edition claimed.
+- Next: Nov 4 scheduled X/Bluesky selections, World yield, screenshots and latency/full-AI evidence; broader grouping recall and independent labels remain open.

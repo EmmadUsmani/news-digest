@@ -22,11 +22,9 @@ const ignored = new Set([
   'after',
 ]);
 export function sameEvent(a: Candidate, b: Candidate): boolean {
-  if (
-    Math.abs(Date.parse(a.publishedAt) - Date.parse(b.publishedAt)) >
-    36 * 3600000
-  )
-    return false;
+  const delta = Math.abs(Date.parse(a.publishedAt) - Date.parse(b.publishedAt));
+  // Unknown event timing cannot establish proximity, even for identical titles.
+  if (!Number.isFinite(delta) || delta > 36 * 3600000) return false;
   const left = words(a.title),
     right = words(b.title);
   // Conflicting numbers often distinguish games, model versions or casualty updates.
