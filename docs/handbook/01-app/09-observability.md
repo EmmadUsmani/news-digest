@@ -344,3 +344,21 @@ scrapes it every 30 seconds with a 10-second timeout. The `obs-redis` system uni
 has a 32 MB memory ceiling, a 2% CPU ceiling and low scheduling priority.
 `bash ops/observability/install-redis.sh` reconciles its binary, unit and scraper
 config; it reloads the metrics store without restarting Redis or the app.
+
+## Postgres metrics
+
+A pinned postgres_exporter reads aggregate database statistics through a dedicated
+read-only login with two allowed connections and a three-second query timeout.
+It has no application-table access or statistics-reader membership. Only the
+`stat_database` collector runs: connections, transactions, cache blocks, deadlocks
+and database-wide timing counters. Query text, user labels and statement IDs are
+not exported. Counters cover each database since its statistics reset; they do
+not measure individual requests or slow queries.
+
+VictoriaMetrics scrapes `127.0.0.1:9187` every 30 seconds. The `obs-postgres`
+unit has a 32 MB memory ceiling and a 2% CPU ceiling; its resources appear in
+the existing service metrics. `bash ops/observability/install-postgres.sh`
+reconciles the pinned binary, restricted login, unit and scrape configuration
+without restarting Postgres or the app. `scripts/check-observability.ts --verify-o4`
+checks collection, exported labels, reader restrictions and service limits.
+The Database dashboard continues to use its existing read-only SQL tables.

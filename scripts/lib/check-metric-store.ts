@@ -34,8 +34,72 @@ export async function checkMetricStore() {
   const fs = statfsSync('/var/lib/news-digest-metrics');
   assert.ok(fs.blocks * fs.bsize <= 700_000_000);
   const targets = await query('up');
-  assert.equal(targets.length, 7);
+  assert.equal(targets.length, 8);
   assert.equal((await query('redis_up'))[0]?.value[1], '1');
+  assert.equal((await query('pg_up'))[0]?.value[1], '1');
+  assert.equal(
+    (await query('pg_exporter_last_scrape_error'))[0]?.value[1],
+    '0',
+  );
+  const postgresMetrics = await (
+    await fetch('http://127.0.0.1:9187/metrics')
+  ).text();
+  assert.ok(
+    !/query=|queryid=|usename=/.test(postgresMetrics),
+    'No query/user labels',
+  );
+  const collectors = [
+    ...postgresMetrics.matchAll(
+      /pg_scrape_collector_success\{collector="([^"]+)"\} 1/g,
+    ),
+  ];
+  assert.deepEqual(
+    collectors.map((match) => match[1]),
+    ['stat_database'],
+  );
+  for (const metric of [
+    'numbackends',
+    'xact_commit',
+    'xact_rollback',
+    'blks_hit',
+    'blks_read',
+    'deadlocks',
+  ]) {
+    const samples = await query(
+      `pg_stat_database_${metric}{datname="news_digest"}`,
+    );
+    assert.equal(samples.length, 1, `Missing Postgres ${metric}`);
+    assert.ok(Number.isFinite(Number(samples[0].value[1])));
+  }
+  const postgresUnit = execFileSync(
+    'systemctl',
+    ['show', 'obs-postgres', '-p', 'ExecStart'],
+    { encoding: 'utf8' },
+  );
+  assert.ok(postgresUnit.includes('--web.listen-address=127.0.0.1:9187'));
+  assert.ok(postgresUnit.includes('--disable-default-metrics'));
+  assert.ok(postgresUnit.includes('--no-collector.stat_statements'));
+  const reader = execFileSync(
+    'docker',
+    [
+      'compose',
+      'exec',
+      '-T',
+      'postgres',
+      'psql',
+      '-U',
+      'postgres_metrics',
+      '-d',
+      'news_digest',
+      '-At',
+      '-v',
+      'ON_ERROR_STOP=1',
+      '-c',
+      "SELECT current_setting('default_transaction_read_only'), current_setting('statement_timeout'), has_table_privilege(current_user, 'content_items', 'SELECT'), pg_has_role(current_user, 'pg_read_all_stats', 'MEMBER');",
+    ],
+    { encoding: 'utf8' },
+  ).trim();
+  assert.equal(reader, 'on|3s|f|f');
   const redisUnit = execFileSync(
     'systemctl',
     ['show', 'obs-redis', '-p', 'ExecStart'],
@@ -138,6 +202,7 @@ export async function checkMetricStore() {
     'obs-metrics',
     'obs-node',
     'obs-redis',
+    'obs-postgres',
   ]) {
     const labels = `{unit="${unit}.service"}`;
     assert.equal(
@@ -164,6 +229,7 @@ export async function checkMetricStore() {
     'obs-metrics',
     'obs-node',
     'obs-redis',
+    'obs-postgres',
   ].map((unit) => {
     const fields = Object.fromEntries(
       execFileSync(
@@ -199,7 +265,7 @@ export async function checkMetricStore() {
   assert.match(await page.text(), /VictoriaMetrics/);
   return {
     targets: targets.length,
-    units: 10,
+    units: 11,
     retentionDays: 30,
     diskAllocatedMiB: Math.round(
       (statSync('/var/lib/news-digest-observability/metrics.ext4').blocks *

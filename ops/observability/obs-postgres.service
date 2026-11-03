@@ -1,0 +1,21 @@
+[Unit]
+Description=Read-only Postgres database statistics exporter
+After=network.target
+[Service]
+User=exedev
+Environment="DATA_SOURCE_NAME=postgresql://postgres_metrics@127.0.0.1:5432/news_digest?sslmode=disable&connect_timeout=2"
+Environment=GOMAXPROCS=1 GOMEMLIMIT=16MiB
+ExecStart=/opt/news-digest-observability/postgres_exporter --web.listen-address=127.0.0.1:9187 --disable-default-metrics --no-collector.database --no-collector.locks --no-collector.replication --no-collector.replication_slots --no-collector.roles --no-collector.settings --no-collector.stat_activity --no-collector.stat_archiver --no-collector.stat_bgwriter --no-collector.stat_progress_vacuum --no-collector.stat_replication --no-collector.stat_user_tables --no-collector.statio_user_tables --no-collector.wal --no-collector.stat_statements
+Restart=always
+RestartSec=5
+MemoryMax=32M
+CPUQuota=2%
+CPUWeight=10
+IOWeight=10
+Nice=10
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+[Install]
+WantedBy=multi-user.target

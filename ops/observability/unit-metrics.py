@@ -8,7 +8,7 @@ import time
 rows = []
 for scope, units in [
     ('user', [f'news-digest-{role}.service' for role in ['api', 'worker', 'docs', 'schema', 'agent']]),
-    ('system', [f'obs-{role}.service' for role in ['logs', 'shipper', 'metrics', 'node', 'grafana', 'redis']]),
+    ('system', [f'obs-{role}.service' for role in ['logs', 'shipper', 'metrics', 'node', 'grafana', 'redis', 'postgres']]),
 ]:
     result = subprocess.run(
         ['systemctl', *(['--user'] if scope == 'user' else []), 'show', *units,
