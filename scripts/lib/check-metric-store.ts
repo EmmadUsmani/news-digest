@@ -34,7 +34,22 @@ export async function checkMetricStore() {
   const fs = statfsSync('/var/lib/news-digest-metrics');
   assert.ok(fs.blocks * fs.bsize <= 700_000_000);
   const targets = await query('up');
-  assert.equal(targets.length, 6);
+  assert.equal(targets.length, 7);
+  assert.equal((await query('redis_up'))[0]?.value[1], '1');
+  const redisUnit = execFileSync(
+    'systemctl',
+    ['show', 'obs-redis', '-p', 'ExecStart'],
+    { encoding: 'utf8' },
+  );
+  assert.ok(redisUnit.includes('--web.listen-address=127.0.0.1:9121'));
+  assert.ok(redisUnit.includes('--redis-only-metrics'));
+  assert.ok(!redisUnit.includes('--check-keys'));
+  assert.ok(
+    Number(
+      (await query('redis_exporter_last_scrape_duration_seconds'))[0]?.value[1],
+    ) < 10,
+    'Redis collection must fit scrape timeout',
+  );
   for (const target of targets)
     assert.equal(target.value[1], '1', `Target down: ${target.metric.job}`);
   for (const service of ['api', 'worker', 'docs', 'schema']) {
@@ -122,6 +137,7 @@ export async function checkMetricStore() {
     'obs-shipper',
     'obs-metrics',
     'obs-node',
+    'obs-redis',
   ]) {
     const labels = `{unit="${unit}.service"}`;
     assert.equal(
@@ -142,44 +158,48 @@ export async function checkMetricStore() {
       );
     }
   }
-  const resources = ['obs-logs', 'obs-shipper', 'obs-metrics', 'obs-node'].map(
-    (unit) => {
-      const fields = Object.fromEntries(
-        execFileSync(
-          'systemctl',
-          [
-            'show',
-            unit,
-            '-p',
-            'ActiveState,MemoryCurrent,MemoryMax,CPUUsageNSec,ActiveEnterTimestampMonotonic,Nice,CPUWeight,IOWeight,CPUQuotaPerSecUSec',
-          ],
-          { encoding: 'utf8' },
-        )
-          .trim()
-          .split('\n')
-          .map((line) => line.split('=')),
-      );
-      assert.equal(fields.ActiveState, 'active');
-      assert.equal(fields.Nice, '10');
-      assert.equal(fields.CPUWeight, '10');
-      assert.equal(fields.IOWeight, '10');
-      assert.ok(Number(fields.MemoryCurrent) < Number(fields.MemoryMax));
-      assert.notEqual(fields.CPUQuotaPerSecUSec, 'infinity');
-      const age = uptime() - Number(fields.ActiveEnterTimestampMonotonic) / 1e6;
-      return {
-        unit,
-        memoryMiB: Math.round(Number(fields.MemoryCurrent) / 1048576),
-        averageCpuPercentSinceStart:
-          Math.round((Number(fields.CPUUsageNSec) / 1e9 / age) * 1000) / 10,
-      };
-    },
-  );
+  const resources = [
+    'obs-logs',
+    'obs-shipper',
+    'obs-metrics',
+    'obs-node',
+    'obs-redis',
+  ].map((unit) => {
+    const fields = Object.fromEntries(
+      execFileSync(
+        'systemctl',
+        [
+          'show',
+          unit,
+          '-p',
+          'ActiveState,MemoryCurrent,MemoryMax,CPUUsageNSec,ActiveEnterTimestampMonotonic,Nice,CPUWeight,IOWeight,CPUQuotaPerSecUSec',
+        ],
+        { encoding: 'utf8' },
+      )
+        .trim()
+        .split('\n')
+        .map((line) => line.split('=')),
+    );
+    assert.equal(fields.ActiveState, 'active');
+    assert.equal(fields.Nice, '10');
+    assert.equal(fields.CPUWeight, '10');
+    assert.equal(fields.IOWeight, '10');
+    assert.ok(Number(fields.MemoryCurrent) < Number(fields.MemoryMax));
+    assert.notEqual(fields.CPUQuotaPerSecUSec, 'infinity');
+    const age = uptime() - Number(fields.ActiveEnterTimestampMonotonic) / 1e6;
+    return {
+      unit,
+      memoryMiB: Math.round(Number(fields.MemoryCurrent) / 1048576),
+      averageCpuPercentSinceStart:
+        Math.round((Number(fields.CPUUsageNSec) / 1e9 / age) * 1000) / 10,
+    };
+  });
   const page = await fetch('http://127.0.0.1:8000/metrics/vmui/');
   assert.equal(page.status, 200);
   assert.match(await page.text(), /VictoriaMetrics/);
   return {
     targets: targets.length,
-    units: 9,
+    units: 10,
     retentionDays: 30,
     diskAllocatedMiB: Math.round(
       (statSync('/var/lib/news-digest-observability/metrics.ext4').blocks *

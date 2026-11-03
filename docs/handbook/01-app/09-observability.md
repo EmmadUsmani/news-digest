@@ -229,7 +229,7 @@ details remain in the jobs browser.
 ## Grafana dashboards
 
 Open [/grafana/](/grafana/) and choose **Dashboards → News Digest** for Host,
-Services, App runtime, HTTP, Jobs, Errors and logs, Product and Database. The operational dashboards use the local metrics store; Host shows CPU,
+Services, App runtime, HTTP, Jobs, Errors and logs, Product, Database and Redis. The operational dashboards use the local metrics store; Host shows CPU,
 memory, disk and network, Services shows unit and Node health, App runtime shows
 API, worker, docs and schema resident memory, used/allocated V8 heap, open file descriptors and
 GC pause time per second, CPU use, active handles, libuv requests and resources,
@@ -296,3 +296,18 @@ with Playwright and saves screenshots in `docs/screenshots/`. No paid calls
 or content jobs are triggered. Reader privileges and denied access to cache/article
 text are also checked. Redis and agent dashboards remain pending their data
 connections and later observability work; Database top-query timing is also pending.
+
+## Redis metrics
+
+The Redis dashboard shows connectivity, allocator memory, connected clients, key
+counts per logical database, command and eviction rates, overall keyspace hit
+ratio and collector duration. These are Redis-wide statistics: keys are not job
+counts, and the hit ratio is not LLM cache effectiveness. Rates reset on restart;
+a hit ratio is undefined when no lookups occur.
+
+A pinned redis_exporter reads Redis INFO on loopback and exposes only Redis
+metrics at `127.0.0.1:9121`. It does not scan keys or read values. VictoriaMetrics
+scrapes it every 30 seconds with a 10-second timeout. The `obs-redis` system unit
+has a 32 MB memory ceiling, a 2% CPU ceiling and low scheduling priority.
+`bash ops/observability/install-redis.sh` reconciles its binary, unit and scraper
+config; it reloads the metrics store without restarting Redis or the app.

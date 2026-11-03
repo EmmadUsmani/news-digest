@@ -1,0 +1,20 @@
+[Unit]
+Description=Read-only Redis Prometheus exporter
+After=network.target
+[Service]
+User=exedev
+ExecStart=/opt/news-digest-observability/redis_exporter --web.listen-address=127.0.0.1:9121 --redis.addr=redis://127.0.0.1:6379 --redis-only-metrics --connection-timeout=2s
+Environment=GOMAXPROCS=1 GOMEMLIMIT=16MiB
+Restart=always
+RestartSec=5
+MemoryMax=32M
+CPUQuota=2%
+CPUWeight=10
+IOWeight=10
+Nice=10
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+[Install]
+WantedBy=multi-user.target

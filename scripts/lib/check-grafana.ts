@@ -232,9 +232,13 @@ export async function checkGrafana() {
         }
       }
       if (
-        ['nd-host', 'nd-services', 'nd-jobs', 'nd-runtime'].includes(
-          dashboard.uid,
-        )
+        [
+          'nd-host',
+          'nd-services',
+          'nd-jobs',
+          'nd-runtime',
+          'nd-redis',
+        ].includes(dashboard.uid)
       )
         assert.equal(
           populated,
@@ -243,7 +247,7 @@ export async function checkGrafana() {
         );
       await page.setViewportSize({
         width: 1440,
-        height: ['nd-product', 'nd-runtime'].includes(dashboard.uid)
+        height: ['nd-product', 'nd-runtime', 'nd-redis'].includes(dashboard.uid)
           ? 2100
           : 1100,
       });
@@ -392,6 +396,21 @@ export async function checkGrafana() {
     );
     await page.screenshot({
       path: 'docs/screenshots/grafana-database-mobile.png',
+    });
+    await page.goto(`${base}/d/nd-redis?kiosk`, { waitUntil: 'networkidle' });
+    await page
+      .getByRole('heading', { name: 'Redis available', exact: true })
+      .waitFor();
+    await page.locator('canvas').first().waitFor({ state: 'visible' });
+    await page.waitForTimeout(1500);
+    assert.equal(
+      await page
+        .locator('[data-testid="data-testid Panel status error"]')
+        .count(),
+      0,
+    );
+    await page.screenshot({
+      path: 'docs/screenshots/grafana-redis-mobile.png',
     });
     await page.goto(`${base}/d/nd-host?kiosk`, { waitUntil: 'networkidle' });
     await page
