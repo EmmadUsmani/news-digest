@@ -212,3 +212,12 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Verified weekly output against all seven daily reports; rejected four invalid dates; checked leap-day and year boundaries. No paid provider or Reddit requests.
 - Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, social handbook/24-table metadata check and `git diff --check`; archived iteration 281 to keep PROGRESS bounded.
 - Restarted all four services; active, health OK, app/docs/db/edition endpoints HTTP 200. No UI change. Next: observe scheduled X/edition evidence, acknowledge required items, then activate open search.
+
+## 2026-11-03: iteration 299 — scheduled evidence gate rechecked
+
+- Started clean on main; no leftover changes. All four services and `/healthz` healthy.
+- At 01:36 UTC, all 32 sources had succeeded within 30 minutes without reported errors; all four queues had workers and no retained failed runs.
+- Read-only `scripts/report-x-discovery.ts 2026-11-03` confirms zero calls/cost/holds; `scripts/report-edition-timing.ts` confirms the 15:00 UTC delayed edition, pending 482,788-micro reserve and zero other Anthropic allowance.
+- Items 13/7/15 remain pending actual scheduled evidence; item 16 activation stays gated by item 15 acknowledgement. No application/settings changes, paid provider calls or Reddit requests.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `git diff --check`; services restarted and app/health/docs/db checked after build.
+- Next: observe the scheduled X run and 15:00 UTC edition, record actual per-topic yield and AI cost/duration, acknowledge results, then activate open search.
