@@ -90,6 +90,11 @@ prompt, response, purpose or provider error text is included in budget entries.
 
 Validation entries distinguish a successful HTTP response from usable editorial
 output. HTTP entries include their request fingerprint to link calls to rejections.
+Successful Anthropic HTTP calls also record the requested output ceiling and an
+allowlisted completion reason: normal end, output limit, stop sequence, tool use,
+pause or refusal; absent or unfamiliar reasons become `unknown`. HTTP success
+can therefore be distinguished from output truncation or a provider refusal.
+Response text and stop-sequence content are omitted.
 Initial and repair failures share the original request fingerprint;
 invalid cached values use the same identifier. Successful validation and cache
 reuse add no rejection entry. Categories are fixed; exception messages, schema

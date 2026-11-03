@@ -99,6 +99,18 @@ export class AnthropicLlmAdapter extends LlmPort {
           {
             ...fields,
             outcome: 'success',
+            // Allowlist provider metadata; never persist arbitrary response text.
+            completionReason: [
+              'end_turn',
+              'max_tokens',
+              'stop_sequence',
+              'tool_use',
+              'pause_turn',
+              'refusal',
+            ].includes(response.stop_reason ?? '')
+              ? response.stop_reason
+              : 'unknown',
+            outputLimit: request.maxOutputTokens,
             durationMs: Math.round(performance.now() - started),
             usage,
             costMicros: costMicros(usage, request.model),

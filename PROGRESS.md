@@ -132,3 +132,13 @@ Earlier entries: [progress archive](docs/progress-archive/).
 - Updated SOURCES, TASKS and owner schedule handbook. Verification: targeted scheduled tests 17/17, pnpm format, pnpm lint:fix, final pnpm check (267 unit/174 isolated integration), pnpm build, check-handbook.ts 03-jobs-and-schedules and git diff --check passed. Zero dangling Docker volumes.
 - Restarted API/worker; health passed at 15:32:40 UTC, zero alerts. Existing edition GET retains 19 stories/11 real X posts; no improved World-yield claim before the next scheduled search.
 - Next: observe corrected scheduled World yield and compact triage output/latency; NBA fallback rejection needs the new validation diagnostics. Items 13/7 remain open; open X/Bluesky/grouping remain disabled.
+
+## 2026-11-03: iteration 429 — distinguish provider truncation from validation rejection
+
+- Started clean on main; no leftover work. Zero alerts and healthy DB/Redis/API; existing edition retains 19 stories/11 real X posts.
+- NBA's historical rejected response cannot be reconstructed. Added allowlisted completion reason and requested output ceiling to successful Anthropic HTTP logs, correlated by request fingerprint. Future output-limit/refusal responses can be separated from normal completion and subsequent parse/schema/semantic rejection.
+- Unknown/null reasons become `unknown`; no response text, stop sequence or arbitrary provider reason is logged. HTTP success still does not imply usable editorial output. No selection, cache, budget, retry or provider changes; no paid calls or Reddit requests.
+- Fake-provider regression covers normal completion, output limit, refusal, null/unrecognized reasons, fingerprint/usage correlation and private-content exclusion (22 targeted tests passed). Updated TASKS and owner observability handbook.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (268 unit/174 isolated integration), pnpm build, check-handbook.ts 09-observability and git diff --check passed; zero dangling Docker volumes.
+- Restarted API/worker with rebuilt code; pnpm obs health --check passed at 15:37:37 UTC, zero alerts; edition GET still returns 19 stories/11 posts. No UI change.
+- Next: measure compact triage latency/output and corrected World search yield on the next scheduled run; inspect NBA completion/validation diagnostics if it falls back again. Items 13/7 stay open; no latency or full-AI acceptance claim.

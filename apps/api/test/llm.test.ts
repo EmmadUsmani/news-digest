@@ -864,3 +864,54 @@ void test('budget logs distinguish admission, refusal, settlement and uncertain 
     'failed ledger operations must not claim a decision',
   );
 });
+
+void test('provider completion logs distinguish truncation and refusal without response text', async () => {
+  for (const [reason, expected] of [
+    ['end_turn', 'end_turn'],
+    ['max_tokens', 'max_tokens'],
+    ['refusal', 'refusal'],
+    [null, 'unknown'],
+    ['private-unrecognized-reason', 'unknown'],
+  ]) {
+    const lines: string[] = [];
+    const log = createLogger(
+      'test',
+      {
+        write: (line: string) => {
+          lines.push(line);
+        },
+      },
+      [],
+    );
+    const adapter = new AnthropicLlmAdapter(
+      'offline-fixture-key',
+      async () =>
+        new Response(
+          JSON.stringify({
+            id: 'fixture',
+            type: 'message',
+            role: 'assistant',
+            model: config.haiku.id,
+            content: [{ type: 'text', text: 'private-response-text' }],
+            stop_reason: reason,
+            stop_sequence: 'private-stop-sequence',
+            usage: { input_tokens: 40, output_tokens: 8 },
+          }),
+          { headers: { 'content-type': 'application/json' } },
+        ),
+      async () => {},
+      log,
+    );
+    const response = await adapter.complete(request);
+    assert.equal(response.text, 'private-response-text');
+    const entry = lines
+      .map((line) => JSON.parse(line))
+      .find((line) => line.event === 'external.call');
+    assert.equal(entry.completionReason, expected);
+    assert.equal(entry.outputLimit, request.maxOutputTokens);
+    assert.equal(entry.requestFingerprint, llmFingerprint(request));
+    assert.equal(entry.usage.output, 8);
+    assert.equal(entry.outcome, 'success');
+    assert.ok(!lines.join('').includes('private-'));
+  }
+});
