@@ -520,7 +520,7 @@ void test('CLI check rejects invalid options before network access and propagate
     return new Response('', { status: 503 });
   }) as typeof fetch;
   for (const args of [
-    ['jobs', '--check'],
+    ['jobs', '--check', '--queue', 'ingestion'],
     ['metric', '--check'],
     ['--check', 'services'],
     ['sources', '--check', '--check'],
@@ -643,4 +643,54 @@ void test('jobs validates the complete queue snapshot before applying filters', 
   assert.equal(result.privateField, undefined);
   assert.equal(result.queues[0].privateField, undefined);
   assert.equal(result.queues[0].available, true);
+});
+
+void test('queue checks require every worker queue ready and ignore retained failures', async () => {
+  const queues = [
+    'operations',
+    'ingestion',
+    'digest-generation',
+    'social-collection',
+  ].map((name) => ({
+    name,
+    available: true,
+    workers: 1,
+    paused: false,
+    counts: { failed: 2 },
+    nextRun: null,
+    runs: [],
+  }));
+  const probe = async (rows: typeof queues) => {
+    const read = (async () =>
+      Response.json({
+        checkedAt: '2026-11-03T12:00:00Z',
+        queues: rows,
+      })) as typeof fetch;
+    const normal = await runObsCli(['jobs'], read);
+    const checked = await runObsCli(['jobs', '--check'], read);
+    assert.equal(normal.exitCode, 0);
+    assert.equal(checked.output, normal.output);
+    return checked.exitCode;
+  };
+  assert.equal(await probe(queues), 0);
+  for (const change of [
+    { available: false },
+    { paused: true },
+    { workers: 0 },
+  ]) {
+    assert.equal(
+      await probe(
+        queues.map((queue, index) =>
+          index === 0 ? { ...queue, ...change } : queue,
+        ),
+      ),
+      1,
+    );
+  }
+  assert.equal(await probe([]), 1);
+  assert.equal(await probe(queues.slice(1)), 1);
+  assert.equal(await probe([...queues, queues[0]]), 1);
+  await assert.rejects(
+    runObsCli(['jobs', '--check'], async () => Response.json({ queues: [] })),
+  );
 });

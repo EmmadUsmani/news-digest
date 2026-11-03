@@ -381,3 +381,8 @@ O5 incremental progress (409): jobs validates the Status timestamp and complete
 queue/run schema before filtering, rejects malformed snapshots and omits unknown
 fields. Offline malformed/filtered-queue tests and live four-queue verification;
 no additional reads, provider calls or production changes.
+
+O5 incremental progress (410): `pnpm obs jobs --check` verifies all four expected
+queues are uniquely present, available, unpaused and staffed. Historical failures
+remain separate from readiness. JSON stays unchanged; filters cannot hide an
+unhealthy queue during this check. Offline failure cases and live read-only probe.

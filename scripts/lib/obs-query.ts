@@ -47,7 +47,7 @@ export function obsRequest(
   if (command === 'metric') return metricRequest(rest, now);
   if (command !== 'logs' && command !== 'errors')
     throw new Error(
-      'Use: pnpm obs health|services|sources|targets [--check]; pnpm obs logs|errors [--since 1h] [--service worker] [--edition UUID] [--queue name] [--job ID] [--grep text] [--limit 40]; pnpm obs jobs [--queue name] [--state failed] [--limit 5]; pnpm obs metric <PromQL> [--since 1h] [--step 60s]',
+      'Use: pnpm obs health|services|sources|targets [--check]; pnpm obs logs|errors [--since 1h] [--service worker] [--edition UUID] [--queue name] [--job ID] [--grep text] [--limit 40]; pnpm obs jobs [--check] [--queue name] [--state failed] [--limit 5]; pnpm obs metric <PromQL> [--since 1h] [--step 60s]',
     );
   const options = new Map<string, string>();
   for (let i = 0; i < rest.length; i += 2) {
@@ -141,20 +141,35 @@ export async function runObsCli(
   let queryArgs = args;
   if (checking) {
     if (
-      !['health', 'services', 'sources', 'targets'].includes(args[0]) ||
+      !['health', 'services', 'sources', 'targets', 'jobs'].includes(args[0]) ||
       args.length !== 2 ||
       args[1] !== '--check'
     )
       throw new Error(
-        '--check is supported only by health, services, sources and targets',
+        '--check is supported only by health, services, sources, targets and jobs',
       );
     queryArgs = args.slice(0, 1);
   }
   const output = await runObs(queryArgs, read);
-  return {
-    output,
-    exitCode: checking && JSON.parse(output).healthy !== true ? 1 : 0,
-  };
+  let healthy = true;
+  if (checking) {
+    const body = JSON.parse(output);
+    healthy =
+      args[0] === 'jobs'
+        ? queueNames.every((name) => {
+            const matches = (body.queues as OperationsStatus['queues']).filter(
+              (queue) => queue.name === name,
+            );
+            return (
+              matches.length === 1 &&
+              matches[0].available &&
+              !matches[0].paused &&
+              matches[0].workers > 0
+            );
+          })
+        : body.healthy === true;
+  }
+  return { output, exitCode: healthy ? 0 : 1 };
 }
 
 export async function runObs(

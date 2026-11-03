@@ -397,13 +397,14 @@ or provider calls. These commands also work over SSH:
 - `pnpm obs logs --edition UUID` finds records explicitly attributed to an edition.
 - `pnpm obs logs --queue digest-generation --job ID` follows one job across worker and provider records that carry its identity.
 - `pnpm obs logs --grep 'Job finished'` matches message text literally.
-- Add `--check` to `health`, `services`, `sources` or `targets` for unattended checks: healthy exits 0, unhealthy exits 1, with the same JSON summary on stdout. Invalid options, failed requests and malformed responses also exit 1 (errors go to stderr). Without `--check`, health remains a JSON field and does not affect exit status. Other commands reject this flag.
+- Add `--check` to `health`, `services`, `sources` or `targets` for unattended checks: healthy exits 0, unhealthy exits 1, with the same JSON summary on stdout. Invalid options, failed requests and malformed responses also exit 1 (errors go to stderr). Without `--check`, health remains a JSON field and does not affect exit status. Logs, errors and metric queries reject this flag.
 - `pnpm obs health` probes the API’s `/healthz` directly and reports database and Redis connectivity. Valid degraded HTTP 503 responses retain their JSON summary; transport failures and malformed or inconsistent responses are errors. The request times out after ten seconds. It does not use the metric store or prove content freshness.
 - `pnpm obs services` checks the 12 deployed app, agent and observability units from existing metrics. Missing/duplicate or invalid samples are unknown; a collector snapshot over 120 seconds old is stale. The fixed inventory includes scope (user/system); inactive/unknown/stale units come first. This reports unit activity, not endpoint health or job progress; JSON health does not change exit status.
 - `pnpm obs sources` summarizes collection health from Status: active errors, unknown success times and successes older than two hours come first. Inactive sources stay separate; zero new items alone is healthy. Output is limited to 50 sources with total/unhealthy/omitted counts, and excludes provider error text. Freshness uses the server snapshot time; JSON health does not change exit status.
 - `pnpm obs targets` summarizes collector health and last-scrape age directly from the metrics store.
 - `pnpm obs metric 'up'` runs an instant PromQL query.
 - `pnpm obs metric 'up' --since 1h --step 60s` returns historical samples with timestamps.
+- `pnpm obs jobs --check` exits 0 only when all four expected queues appear exactly once, are available and unpaused, and have at least one worker. Missing/duplicate queues fail the check. Retained failed-job counts do not indicate a current queue outage. It preserves the jobs JSON and accepts no filters with `--check`; malformed responses and request failures exit 1.
 - `pnpm obs jobs` shows all queue summaries, next scheduled times and up to five retained runs per queue.
 - `pnpm obs jobs --queue digest-generation --state failed --limit 2` narrows the returned run history.
 
