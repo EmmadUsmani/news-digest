@@ -258,6 +258,8 @@ and unresolved holds. Zero calls may mean cached or fallback work. It excludes X
 discovery and unpublished attempts, so it is not total scheduled-run spend.
 Seven-day article counts include the last 24 hours and use publication time, not discovery time.
 Source response counts include duplicates and older items; they are not new-item yield.
+The latest edition selection table shows story/post picks, stored triage and unscored counts, modes and reasons per topic. Missing editorial metadata stays blank; triage can be cached, and unscored IDs are not all rejected candidates.
+
 Edition creation time is not worker duration. These table windows are explicit and ignore the Grafana time picker.
 AI mode can use cached work; verified citations are not incremental discovery yield.
 Product also graphs mean worker attempt duration and settled

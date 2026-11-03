@@ -249,7 +249,7 @@ export async function checkGrafana() {
         width: 1440,
         height:
           dashboard.uid === 'nd-product'
-            ? 2500
+            ? 2900
             : ['nd-runtime', 'nd-redis'].includes(dashboard.uid)
               ? 2100
               : 1100,
@@ -286,6 +286,9 @@ export async function checkGrafana() {
           'Articles (7d)',
           'AI story topics',
           'Charged ($)',
+          'Scored',
+          'Unscored',
+          'Reason',
         ]) {
           const column = page.getByRole('columnheader', { name, exact: true });
           await column.scrollIntoViewIfNeeded();
@@ -425,6 +428,44 @@ export async function checkGrafana() {
     await page.waitForTimeout(1000);
     await page.screenshot({
       path: 'docs/screenshots/grafana-product-timing-mobile.png',
+    });
+    for (let attempt = 0; attempt < 12; attempt++) {
+      if (
+        await page
+          .getByRole('heading', {
+            name: 'Latest edition selection coverage',
+            exact: true,
+          })
+          .count()
+      )
+        break;
+      await page.mouse.wheel(0, 500);
+      await page.waitForTimeout(300);
+    }
+    const selection = page.getByRole('heading', {
+      name: 'Latest edition selection coverage',
+      exact: true,
+    });
+    await selection.scrollIntoViewIfNeeded();
+    await selection.evaluate((node) => node.scrollIntoView({ block: 'start' }));
+    await page.evaluate(() => {
+      for (const element of document.querySelectorAll<HTMLElement>('div')) {
+        if (
+          element.scrollWidth > element.clientWidth &&
+          element.clientWidth > 200
+        )
+          element.scrollLeft = 280;
+      }
+    });
+    await page.waitForTimeout(1500);
+    assert.equal(
+      await page
+        .locator('[data-testid="data-testid Panel status error"]')
+        .count(),
+      0,
+    );
+    await page.screenshot({
+      path: 'docs/screenshots/grafana-product-selection-mobile.png',
     });
     await page.goto(`${base}/d/nd-database?kiosk`, {
       waitUntil: 'networkidle',
