@@ -19,6 +19,15 @@ export function obsRequest(
   init?: RequestInit;
 } {
   const [command, ...rest] = args;
+  if (command === 'services') {
+    if (rest.length) throw new Error('services accepts no options');
+    return metricRequest(
+      [
+        'news_digest_unit_active or news_digest_unit_snapshot_timestamp_seconds',
+      ],
+      now,
+    );
+  }
   if (command === 'sources') {
     if (rest.length) throw new Error('sources accepts no options');
     return { url: 'http://127.0.0.1:8000/api/status' };
@@ -34,7 +43,7 @@ export function obsRequest(
   if (command === 'metric') return metricRequest(rest, now);
   if (command !== 'logs' && command !== 'errors')
     throw new Error(
-      'Use: pnpm obs sources; pnpm obs targets; pnpm obs logs|errors [--since 1h] [--service worker] [--edition UUID] [--queue name] [--job ID] [--grep text] [--limit 40]; pnpm obs jobs [--queue name] [--state failed] [--limit 5]; pnpm obs metric <PromQL> [--since 1h] [--step 60s]',
+      'Use: pnpm obs services; pnpm obs sources; pnpm obs targets; pnpm obs logs|errors [--since 1h] [--service worker] [--edition UUID] [--queue name] [--job ID] [--grep text] [--limit 40]; pnpm obs jobs [--queue name] [--state failed] [--limit 5]; pnpm obs metric <PromQL> [--since 1h] [--step 60s]',
     );
   const options = new Map<string, string>();
   for (let i = 0; i < rest.length; i += 2) {
@@ -130,6 +139,9 @@ export async function runObs(
   });
   if (!response.ok)
     throw new Error(`Local query failed: HTTP ${response.status}`);
+  if (args[0] === 'services') {
+    return JSON.stringify(serviceSummary(await response.json(), Date.now()));
+  }
   if (args[0] === 'sources') {
     const snapshot = operationsStatusSchema
       .pick({ checkedAt: true, sources: true })
@@ -354,5 +366,83 @@ export function sourceSummary(
     unhealthy,
     omitted: Math.max(0, sources.length - 50),
     sources: sources.slice(0, 50),
+  };
+}
+
+// Require the deployed units even when a series disappears from the collector.
+export function serviceSummary(body: unknown, now: number) {
+  const result = body as {
+    status?: string;
+    data?: {
+      resultType?: string;
+      result?: Array<{
+        metric: Record<string, string>;
+        value: [number, string];
+      }>;
+    };
+  } | null;
+  if (
+    result?.status !== 'success' ||
+    result.data?.resultType !== 'vector' ||
+    !Array.isArray(result.data.result)
+  )
+    throw new Error('Invalid local service response');
+  const rows = result.data.result;
+  const snapshots = rows.filter(
+    (row) =>
+      row.metric?.__name__ === 'news_digest_unit_snapshot_timestamp_seconds',
+  );
+  const timestamp =
+    snapshots.length === 1 ? Number(snapshots[0].value?.[1]) : NaN;
+  const age =
+    Number.isFinite(timestamp) && timestamp > 0 && timestamp <= now / 1000
+      ? now / 1000 - timestamp
+      : null;
+  const expected = [
+    ...['api', 'worker', 'docs', 'schema', 'agent'].map((role) => ({
+      unit: `news-digest-${role}.service`,
+      scope: 'user',
+    })),
+    ...[
+      'grafana',
+      'logs',
+      'metrics',
+      'node',
+      'postgres',
+      'redis',
+      'shipper',
+    ].map((role) => ({ unit: `obs-${role}.service`, scope: 'system' })),
+  ];
+  const services = expected.map((unit) => {
+    const matches = rows.filter(
+      (row) =>
+        row.metric?.__name__ === 'news_digest_unit_active' &&
+        row.metric.unit === unit.unit &&
+        row.metric.scope === unit.scope,
+    );
+    const value = matches.length === 1 ? matches[0].value?.[1] : undefined;
+    const state =
+      age === null || !['0', '1'].includes(value ?? '')
+        ? 'unknown'
+        : age > 120
+          ? 'stale'
+          : value === '1'
+            ? 'active'
+            : 'inactive';
+    return { ...unit, state };
+  });
+  services.sort(
+    (a, b) =>
+      Number(a.state === 'active') - Number(b.state === 'active') ||
+      a.unit.localeCompare(b.unit),
+  );
+  const unhealthy = services.filter((unit) => unit.state !== 'active').length;
+  return {
+    checkedAt: new Date(now).toISOString(),
+    snapshotAgeSeconds: age,
+    healthy: unhealthy === 0,
+    total: services.length,
+    unhealthy,
+    services,
   };
 }

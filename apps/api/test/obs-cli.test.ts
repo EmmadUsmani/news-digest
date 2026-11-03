@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import {
   obsRequest,
   runObs,
+  serviceSummary,
   sourceSummary,
   targetSummary,
 } from '../../../scripts/lib/obs-query';
@@ -33,6 +34,7 @@ void test('obs log filters escape query operators and bound results', () => {
 void test('obs rejects malformed inputs before any network access', async () => {
   for (const args of [
     ['alerts'],
+    ['services', '--limit', '5'],
     ['sources', '--limit', '5'],
     ['targets', '--url', 'https://example.com'],
     ['jobs', '--limit', '21'],
@@ -380,4 +382,84 @@ void test('sources reads and validates only the local status snapshot', async ()
       JSON.stringify({ checkedAt: 'invalid', sources: [] }),
     )) as typeof fetch;
   await assert.rejects(runObs(['sources'], read));
+});
+
+void test('service health requires every scoped unit and a fresh collector snapshot', async () => {
+  const now = 1_800_000_000_000;
+  const row = (name: string, value: string, unit = '', scope = '') => ({
+    metric: { __name__: name, unit, scope },
+    value: [now / 1000, value],
+  });
+  const active = row(
+    'news_digest_unit_active',
+    '1',
+    'news-digest-api.service',
+    'user',
+  );
+  const snapshot = row(
+    'news_digest_unit_snapshot_timestamp_seconds',
+    String(now / 1000 - 120),
+  );
+  const body = (rows: unknown[]) => ({
+    status: 'success',
+    data: { resultType: 'vector', result: rows },
+  });
+  const summary = serviceSummary(body([active, snapshot]), now);
+  assert.equal(summary.healthy, false);
+  assert.equal(summary.total, 12);
+  assert.equal(summary.unhealthy, 11);
+  const complete = summary.services.map((unit) =>
+    row('news_digest_unit_active', '1', unit.unit, unit.scope),
+  );
+  assert.equal(
+    serviceSummary(body([...complete, snapshot]), now).healthy,
+    true,
+  );
+  assert.equal(summary.services.at(-1)?.state, 'active');
+  assert.equal(
+    serviceSummary(
+      body([
+        active,
+        { ...snapshot, value: [now / 1000, String(now / 1000 - 121)] },
+      ]),
+      now,
+    ).services.every((unit) => unit.state !== 'active'),
+    true,
+  );
+  for (const value of ['NaN', '', String(now / 1000 + 1)]) {
+    assert.equal(
+      serviceSummary(
+        body([active, { ...snapshot, value: [now / 1000, value] }]),
+        now,
+      ).snapshotAgeSeconds,
+      null,
+    );
+  }
+  for (const rows of [
+    [],
+    [active],
+    [active, snapshot, snapshot],
+    [active, active, snapshot],
+    [{ ...active, metric: { ...active.metric, scope: 'system' } }, snapshot],
+  ]) {
+    assert.equal(serviceSummary(body(rows), now).unhealthy, 12);
+  }
+  const inactive = serviceSummary(
+    body([{ ...active, value: [now / 1000, '0'] }, snapshot]),
+    now,
+  );
+  assert.equal(
+    inactive.services.find((unit) => unit.unit === active.metric.unit)?.state,
+    'inactive',
+  );
+  assert.throws(() => serviceSummary({}, now), /Invalid local/);
+  const request = obsRequest(['services'], now);
+  assert.equal(
+    new URL(request.url).searchParams.get('query'),
+    'news_digest_unit_active or news_digest_unit_snapshot_timestamp_seconds',
+  );
+  const output = JSON.parse(
+    await runObs(['services'], async () => Response.json(body([]))),
+  );
+  assert.equal(output.unhealthy, 12);
 });
