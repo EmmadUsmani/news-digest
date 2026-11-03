@@ -1,21 +1,8 @@
 # Progress
 
-Archived: [iteration 288](docs/progress-archive/2026-11-03-iteration-288.md), [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md), [286](docs/progress-archive/2026-11-03-iteration-286.md).
+Archived: [iteration 290](docs/progress-archive/2026-11-03-iteration-290.md), [iteration 288](docs/progress-archive/2026-11-03-iteration-288.md), [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md), [286](docs/progress-archive/2026-11-03-iteration-286.md).
 
 Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md), [283](docs/progress-archive/2026-11-03-iteration-283.md), [284](docs/progress-archive/2026-11-03-iteration-284.md).
-
-## 2026-11-03: iteration 290 — scheduled X verification completion
-
-- Started clean on main; no leftover work; services/health healthy and all 32 sources error-free.
-- Wired the scheduler's bounded official verification pass to durable open-search completion, after settlement and citation persistence.
-- Only scheduled primary open searches with zero verification errors mark completion; manual/account/reaction searches still verify but cannot unlock optional admission.
-- Verification/storage/ledger failures propagate without authorizing optional spend; fake tests cover ordering and these failure paths.
-- Production remains account-list pending item 15's first scheduled evidence/ack; optional scheduler execution remains unfinished.
-- Verification: targeted fake tests (3 passed), `pnpm format`, `pnpm lint:fix`, `pnpm check` (151 unit/168 integration), `pnpm build`, `git diff --check`.
-- Initial lint found missing `void` on test registration; fixed before full checks.
-- Restarted API/worker/docs/schema; all active, health OK, SPA/docs/db HTTP 200; latest social collection completed.
-- Read-only reports: Nov 3 X calls zero; Anthropic reserve pending at $0.482788, other-spend allowance zero; edition due 15:00 UTC.
-- No paid provider or Reddit requests. Next: scheduled evidence/acks, switch open search, wire optional scheduler with persisted parents/yield.
 
 ## 2026-11-03: iteration 291 — optional X planner parent forwarding
 
@@ -203,3 +190,12 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Items 13/7/15 await actual scheduled results; item 16 activation remains gated by item 15 acknowledgement. No application/settings changes, paid calls or Reddit requests.
 - Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `git diff --check`; restarted four app services, active; health/app/status/docs/db HTTP 200. No UI change.
 - Next: measure scheduled X cost/yield and edition AI cost/duration, acknowledge results, then activate open search.
+
+## 2026-11-03: iteration 309 — scheduled evidence gate preserved
+
+- Started clean on main; no leftover work. Four services active; health reports database/Redis healthy and every queue has a worker.
+- Read-only status at 02:23 UTC: rolling-day articles Tech/AI 331, NBA 110, Gaming 287, World 222; verified X posts 50/31/18/3.
+- `pnpm exec tsx scripts/report-x-discovery.ts 2026-11-03`: zero calls/cost/holds. `pnpm exec tsx scripts/report-edition-timing.ts`: edition due 15:00 UTC; 482,788-micro reserve pending, other Anthropic allowance zero.
+- Items 13/7/15 require scheduled evidence; item 16 activation remains explicitly gated by item 15 acknowledgement. No application/settings changes, paid calls or Reddit requests. Archived iteration 290 to keep progress bounded.
+- Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `git diff --check`; restarted four services, active; health/app/status/docs/db HTTP 200. No UI change.
+- Next: observe scheduled X per-topic cost/yield and edition AI cost/duration, acknowledge results, then activate open search.
