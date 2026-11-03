@@ -1,30 +1,6 @@
 # Progress
 
-Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md).
-
-## 2026-11-03: iteration 283 — prepare bounded top-story X reactions
-
-- Started clean on main; no leftover work; all four services and health healthy, 32 sources without errors.
-- Added a pure top-two story planner with importance ordering, ID/title dedupe and bounded context; inputs must belong to the topic/window.
-- Direct adapter supports unrestricted event reactions as data, retaining one turn/five requested results and existing exclusions; no scheduler wiring yet.
-- Migration 047 and ledger/report distinguish `story-reactions`; existing shared caps/admission remain in force.
-- Synthetic unit coverage checks planning, prompt constraints, injection-as-data and budget denial; disposable integration checks persisted report attribution.
-- Read-only reports: Nov 3 X calls zero; reserve pending at $0.482788 with zero other-spend allowance; Nov 2 fallback 856 ms, zero edition provider calls.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (135 unit/167 integration), `pnpm build`, `git diff --check`; initial check caught added-test import ordering, fixed before rerun.
-- Applied migration 047; restarted API/worker/docs/schema; health OK, SPA/docs/db 200, 32 sources error-free.
-- No paid provider or Reddit requests. Archived iterations 265–266; next: Nov 3 scheduled evidence/acks, open-search switch, then priority/budget wiring for reactions.
-
-## 2026-11-03: iteration 284 — gate optional X searches behind open discovery
-
-- Started clean on main; all four services and health healthy; no leftover work.
-- Prepared optional-search orchestration: every enabled topic must complete open search before reactions, then valid secondary account lists.
-- Rechecks caller schedule/window guard before each attempt; stops on budget denial and rejects duplicate/restricted input; each execution still requires ledger admission.
-- Four fake tests cover cross-topic priority, incomplete/failed discovery, budget stop, schedule change, invalid lists and input immutability.
-- Production remains account-list mode pending item 15 acknowledgement; optional scheduler/durable admission wiring remains open.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (139 unit/167 integration), `pnpm build`, `git diff --check`.
-- Restarted API/worker/docs/schema; health OK; 32 sources without errors; scheduled edition remains Nov 3 15:00 UTC, latest social collection completed.
-- No paid provider or Reddit requests; archived iterations 267–268.
-- Next: observe scheduled cost/yield and AI timing, acknowledge 15/13/7, enable open search; then wire optional ledger admission.
+Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md), [283](docs/progress-archive/2026-11-03-iteration-283.md), [284](docs/progress-archive/2026-11-03-iteration-284.md).
 
 ## 2026-11-03: iteration 285 — stop stale scheduled X plans after topic edits
 
@@ -219,3 +195,12 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Items 13/7/15 still await scheduled evidence; item 16 activation remains gated. No application/settings changes, paid calls or Reddit requests. Archived iteration 282 to keep progress bounded.
 - Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`; restarted API/worker/docs/schema, all active; health/app/docs/db/status HTTP 200.
 - Next: observe scheduled X per-topic cost/yield and 15:00 UTC edition AI cost/duration, acknowledge required results, then activate open search.
+
+## 2026-11-03: iteration 301 — readiness and weakest-topic baseline
+
+- Started clean on main; no leftover work. All four services healthy; 32 sources collected within 30 minutes with no current errors. The two retained ingestion failures remain historical/recovered.
+- Read-only status at 01:45 UTC: rolling-day verified X posts Tech/AI 51, NBA 35, Gaming 21, World 3; World remains weakest. Article counts respectively 332/114/287/220.
+- `pnpm exec tsx scripts/report-x-discovery.ts 2026-11-03`: zero calls/cost/holds. `pnpm exec tsx scripts/report-edition-timing.ts`: scheduled edition delayed until 15:00 UTC, reserve 482,788 micros pending, other allowance zero.
+- No application/settings changes: items 13/7/15 still need actual scheduled evidence; item 16 activation remains explicitly gated by item 15 acknowledgement. No paid provider or Reddit requests.
+- Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`; restarted all four services, active; health/app/docs/db/status HTTP 200. No UI change.
+- Updated task handoff and archived iterations 283–284 to keep PROGRESS under 25 KB. Next: observe scheduled per-topic X cost/yield and 15:00 edition AI cost/duration, acknowledge required evidence, then activate open search.
