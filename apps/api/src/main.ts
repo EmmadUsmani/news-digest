@@ -9,11 +9,13 @@ import {
   logger,
   requestLogging,
 } from './libs/observability/logging';
+import { startRuntimeMetrics } from './libs/observability/runtime-metrics';
 import { mountJobsBrowser } from './modules/operations/adapters/jobs-browser';
 import { OperationsStatus } from './modules/operations/adapters/operations.status';
 
 async function bootstrap() {
   installFatalLogging();
+  startRuntimeMetrics('api', 9464);
   const app = await NestFactory.create(AppModule, {
     logger: {
       log: (message: unknown) => logger.info({ message }, 'Nest'),

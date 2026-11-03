@@ -7,6 +7,7 @@ import {
   logger,
   logJob,
 } from './libs/observability/logging';
+import { startRuntimeMetrics } from './libs/observability/runtime-metrics';
 import { SharedHttpClient } from './libs/ports/http.client';
 import { FeedAdapter } from './modules/ingestion/adapters/feed.adapter';
 import { HackerNewsAdapter } from './modules/ingestion/adapters/hn.adapter';
@@ -15,6 +16,7 @@ import { ingest } from './modules/ingestion/ingest';
 import { startScheduledDigests } from './scheduled-digests';
 import { startScheduledSocial } from './scheduled-social';
 installFatalLogging();
+const runtimeMetrics = startRuntimeMetrics('worker', 9465);
 const stopScheduledDigests = startScheduledDigests();
 const connection = { host: '127.0.0.1', port: 6379 };
 // Operations telemetry remains separate from content collection.
@@ -81,6 +83,7 @@ const sourceRefresh = setInterval(() => {
   );
 }, 60000);
 async function stop() {
+  runtimeMetrics.server.close();
   clearInterval(sourceRefresh);
   await stopScheduledDigests();
   await stopScheduledSocial();

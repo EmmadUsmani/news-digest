@@ -127,3 +127,13 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - `pnpm check`: 227 unit/172 integration tests passed; first shell ended SIGTERM after coverage, detached rerun recorded exit 0. API restarted for forwarding change; metrics units deployed/reconciled; four app services and DB/Redis health green.
 - Sampled four observability daemons: ~194 MiB RAM, ~0.7% startup-average CPU combined; helper is intermittent/bounded. Sparse logs/metrics ~48/21 MiB allocated, installed binaries ~220 MiB. Retained real edition: four topics/20 stories/10 posts.
 - Next: scheduled evidence/acks first; otherwise O5 app/queue metrics. Production activation stays gated.
+
+## 2026-11-03: iteration 358 — API and worker runtime metrics
+
+- Started clean on main; no leftover work. All four app units/health green, 32 sources without current errors and no failed digest jobs. Scheduled evidence remains pending; retained edition still has four topics/20 stories/10 posts.
+- Started O5 with pinned prom-client API/worker runtime registries on separate loopback-only ports 9464/9465. Fixed service labels expose process CPU/RAM, heap, GC, event-loop lag and handles; other paths/methods rejected. Listener errors log without stopping the app.
+- Added both 30-second scrape targets and runtime sample assertions to `check-observability.ts --verify-o4`. Disabled query caching after early checks returned stale target counts; final runtime check passes with four healthy targets. No new daemon, paid call, Reddit request or edition content/spend change.
+- Updated handbook/plan/TASKS; O5 remains open for docs/schema runtime, HTTP, provider and queue/job metrics. No UI or diagram change.
+- Verification: focused runtime test passed; `pnpm format`, `pnpm lint:fix`, `pnpm check` (228 unit/172 integration), `pnpm build`, handbook 09 check and `git diff --check` passed. Initial lint caught a missing void on the test promise; fixed before final check.
+- Restarted API/worker and metrics store for changed code/config; DB/Redis untouched. Loopback bindings confirmed with `ss`, runtime endpoint GETs and health passed. Four observability daemons sampled ~201 MiB RAM/~0.8% startup-average CPU combined, metrics volume ~22 MiB allocated; API/worker ~53/44 MiB.
+- Next: scheduled evidence/acks first; otherwise continue O5. Production activation stays gated.

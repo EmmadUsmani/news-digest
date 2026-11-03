@@ -72,7 +72,7 @@ The journal also contains older plain-text entries from earlier versions.
 
 > [!NOTE]
 > Structured API/worker logging and local log collection are installed.
-> Dashboards, metrics and browser error reporting remain planned.
+> Dashboards and browser error reporting remain planned.
 > See the [approved observability plan](../../observability-plan.md).
 
 xAI outcomes include response parsing and usage validation. Failed attempts have no
@@ -185,4 +185,15 @@ No app, DB, Redis or log unit is restarted by this installer.
 host/unit samples, freshness, retention, disk and resource limits.
 `pnpm exec tsx scripts/smoke-metrics.ts` checks desktop/mobile rendering with
 real unit samples. For API outages, forward localhost 8428 over SSH and open
-`/metrics/vmui/`. Node application metrics and dashboards are separate work.
+`/metrics/vmui/`. Dashboards remain separate work.
+
+## Node runtime metrics
+
+The API and worker also expose Prometheus runtime samples on loopback ports
+9464 and 9465 at `/metrics`. VictoriaMetrics scrapes them every 30 seconds:
+process CPU/RAM, heap, garbage collection, event-loop lag and active handles.
+The only added label is a fixed service name; content and request identifiers
+are excluded. These listeners are separate from the public API and are not
+forwarded by it. A listener failure is logged without stopping the app.
+HTTP, provider and queue metrics and the docs/schema runtime endpoints remain
+unfinished; their journal records are available today.

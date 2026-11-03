@@ -7,7 +7,7 @@ const store = 'http://127.0.0.1:8428/metrics';
 type Sample = { metric: Record<string, string>; value: [number, string] };
 async function query(expression: string): Promise<Sample[]> {
   const response = await fetch(
-    `${store}/api/v1/query?${new URLSearchParams({ query: expression })}`,
+    `${store}/api/v1/query?${new URLSearchParams({ query: expression, nocache: '1' })}`,
     { signal: AbortSignal.timeout(15_000) },
   );
   assert.equal(response.status, 200);
@@ -34,9 +34,23 @@ export async function checkMetricStore() {
   const fs = statfsSync('/var/lib/news-digest-metrics');
   assert.ok(fs.blocks * fs.bsize <= 700_000_000);
   const targets = await query('up');
-  assert.equal(targets.length, 2);
+  assert.equal(targets.length, 4);
   for (const target of targets)
     assert.equal(target.value[1], '1', `Target down: ${target.metric.job}`);
+  for (const service of ['api', 'worker']) {
+    for (const metric of [
+      'process_resident_memory_bytes',
+      'nodejs_heap_size_used_bytes',
+      'nodejs_eventloop_lag_seconds',
+      'nodejs_active_handles_total',
+    ]) {
+      const samples = await query(
+        `news_digest_${metric}{service="${service}"}`,
+      );
+      assert.equal(samples.length, 1, `Missing ${service} ${metric}`);
+      assert.ok(Number.isFinite(Number(samples[0].value[1])));
+    }
+  }
   for (const metric of [
     'node_cpu_seconds_total',
     'node_memory_MemAvailable_bytes',

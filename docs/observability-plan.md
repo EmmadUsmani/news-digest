@@ -158,6 +158,9 @@ only when its check passes.
 - [ ] **O5 App metrics.** `prom-client` endpoints on all Node services, plus
       queue metrics. Done when HTTP, event-loop, external-call and job metrics
       are scraped.
+  - Iteration 358: API/worker runtime metrics on separate loopback listeners
+    (9464/9465), fixed service labels and 30-second scraping. Remaining:
+    docs/schema runtimes, HTTP, external-call and queue/job metrics.
 - [ ] **O6 Dashboards.**
   - **Scope:** Grafana at `/grafana/`, with datasources and dashboards
     provisioned from `ops/observability/grafana/`.
