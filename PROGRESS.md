@@ -1,19 +1,8 @@
 # Progress
 
+Archived: [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md).
+
 Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md), [283](docs/progress-archive/2026-11-03-iteration-283.md), [284](docs/progress-archive/2026-11-03-iteration-284.md).
-
-## 2026-11-03: iteration 285 — stop stale scheduled X plans after topic edits
-
-- Started clean on main; all four services and health healthy; no leftover work.
-- Scheduled X now rereads enabled topic configuration before each paid attempt; disable/delete/add, name, guidance and account edits stop the old tick.
-- Coverage count changes remain valid; schedule/day/window checks run after the added read, retaining weakest-first order and daily ledger admission.
-- Applies to current account-list scheduling and prepared open mode; production mode unchanged pending item 15 acknowledgement.
-- Fake regression cases cover both modes, mid-run topic edits, changing coverage and delayed reads crossing the window or changing schedule.
-- Verification: targeted scheduler tests (9 passed), `pnpm format`, `pnpm lint:fix`, `pnpm check` (142 unit/167 integration), `pnpm build`, `git diff --check`.
-- Restarted API/worker/docs/schema; all active, health OK, SPA 200, 32 sources error-free with recent success; latest social collection completed.
-- Read-only reports: no Nov 3 X calls; scheduled reserve pending at $0.482788 with zero other-spend allowance; latest scheduled edition is Nov 2 fallback (856 ms).
-- No paid provider or Reddit requests. Scheduled X/AI evidence remains pending Nov 3 14:30–15:00 UTC; no premature acknowledgement.
-- Next: collect scheduled cost/yield and AI timing, acknowledge 15/13/7, enable open search, then durable optional admission and scheduler wiring.
 
 ## 2026-11-03: iteration 286 — bound low-yield X followups
 
@@ -204,3 +193,12 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - No application/settings changes: items 13/7/15 still need actual scheduled evidence; item 16 activation remains explicitly gated by item 15 acknowledgement. No paid provider or Reddit requests.
 - Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`; restarted all four services, active; health/app/docs/db/status HTTP 200. No UI change.
 - Updated task handoff and archived iterations 283–284 to keep PROGRESS under 25 KB. Next: observe scheduled per-topic X cost/yield and 15:00 edition AI cost/duration, acknowledge required evidence, then activate open search.
+
+## 2026-11-03: iteration 302 — scheduled evidence remains pending
+
+- Started clean on main; no leftover work. API/worker/docs/schema active and `/healthz` reports database/Redis healthy.
+- Read-only `/api/status` at 01:50 UTC: all 32 sources healthy; every queue has a worker and no retained failed runs. Rolling-day verified X posts: Tech/AI 51, NBA 34, Gaming 21, World 3.
+- `pnpm exec tsx scripts/report-x-discovery.ts 2026-11-03`: no calls, cost or holds. `pnpm exec tsx scripts/report-edition-timing.ts`: edition delayed until 15:00 UTC; 482,788-micro reserve pending and other Anthropic allowance zero.
+- Items 13/7/15 await scheduled evidence; item 16 activation remains gated by item 15 acknowledgement. No application/settings changes, paid calls or Reddit requests.
+- Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `git diff --check`; restarted all four services, active; health/app/docs/db/status/preview HTTP 200. Archived iteration 285 to keep progress bounded.
+- Next: observe scheduled per-topic X cost/yield and 15:00 edition AI cost/duration, acknowledge actual evidence, then activate open search.
