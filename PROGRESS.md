@@ -1,22 +1,8 @@
 # Progress
 
-Archived: [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md).
+Archived: [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md), [286](docs/progress-archive/2026-11-03-iteration-286.md).
 
 Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md), [283](docs/progress-archive/2026-11-03-iteration-283.md), [284](docs/progress-archive/2026-11-03-iteration-284.md).
-
-## 2026-11-03: iteration 286 — bound low-yield X followups
-
-- Started clean on main; all four services/health healthy, no leftover work.
-- Prepared optional runner now requires 0–2 verified additions from the first open search; missing/invalid counts cannot authorize calls.
-- At most one optional attempt per topic, including failure; highest-priority reaction wins, accounts fill topics without valid reactions.
-- All open searches must complete first; production remains unchanged pending scheduled evidence and durable optional admission/article wiring.
-- Six fake tests cover yield boundaries/invalid counts, failure allowance, reaction priority, budget/settings stops and input immutability.
-- Verification: targeted tests (6 passed), `pnpm format`, `pnpm lint:fix`, `pnpm check` (144 unit/167 integration), `pnpm build`, `git diff --check`.
-- Restarted API/worker/docs/schema; all active, health OK, SPA/docs/db 200, 32 sources error-free; latest social collection completed.
-- Latest real edition has five X posts each for Tech/AI and NBA, zero Gaming/World; social milestone remains incomplete.
-- Read-only reports: Nov 3 X calls/cost zero; reserve pending at $0.482788, other-spend allowance zero; latest scheduled run remains Nov 2 fallback (856 ms).
-- No paid provider or Reddit requests. Archived iterations 269–270 and prior archive index; compacted task preparation history.
-- Next: Nov 3 14:30–15:00 UTC scheduled evidence/acks, open-search switch, then durable optional admission and article wiring.
 
 ## 2026-11-03: iteration 287 — article pipeline boundary for X reactions
 
@@ -202,3 +188,12 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Items 13/7/15 await scheduled evidence; item 16 activation remains gated by item 15 acknowledgement. No application/settings changes, paid calls or Reddit requests.
 - Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `git diff --check`; restarted all four services, active; health/app/docs/db/status/preview HTTP 200. Archived iteration 285 to keep progress bounded.
 - Next: observe scheduled per-topic X cost/yield and 15:00 edition AI cost/duration, acknowledge actual evidence, then activate open search.
+
+## 2026-11-03: iteration 303 — healthy free collection, scheduled evidence pending
+
+- Started clean on main; no leftover work. All four services and database/Redis health checks pass; all 32 sources have successful collections without current errors.
+- Read-only status at 01:54 UTC: rolling-day verified X posts Tech/AI 51, NBA 33, Gaming 21, World 3. Latest free social run verified 10 posts with zero discovery/verification errors. Two retained ingestion failures remain historical, with successful source collections since.
+- `pnpm exec tsx scripts/report-x-discovery.ts 2026-11-03`: zero calls/cost/holds. `pnpm exec tsx scripts/report-edition-timing.ts`: scheduled edition due 15:00 UTC; 482,788-micro reserve pending, other Anthropic allowance zero.
+- Items 13/7/15 still await scheduled evidence; item 16 activation remains gated by item 15 acknowledgement. No application/settings changes, paid calls or Reddit requests.
+- Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`; restarted API/worker/docs/schema, all active; health/app/status/docs/db HTTP 200. No UI change. Archived iteration 286 to keep progress bounded.
+- Next: record scheduled per-topic X cost/yield and 15:00 edition AI cost/duration, acknowledge results, then activate open search.
