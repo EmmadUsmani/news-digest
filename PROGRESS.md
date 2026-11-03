@@ -161,4 +161,5 @@
 - Targeted fake tests 12/12 cover X aliases, unrelated links, no model merge despite hints, bounds and cache changes. No paid calls, new editions or Reddit requests.
 - Updated TASKS/RANKING; archived iteration 453 to keep PROGRESS bounded. No production flow/UI/handbook change.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (271 unit/177 isolated integration), pnpm build and git diff --check passed. First check found archived Markdown formatting; fixed before rerun.
+- Pushed f4e5757; restarted API/worker. pnpm obs health --check passed, root HTTP 200, zero alerts; sources 33/33 healthy and scheduled digest queue healthy.
 - Next: evaluation/caller wiring and owner-capped labelled-day evaluation; activation requires zero wrong merges and recall above 13/32. Check Nov 4 scheduled provider/social evidence first when available.
