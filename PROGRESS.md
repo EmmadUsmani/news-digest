@@ -118,31 +118,7 @@ Iteration 252: [archive](docs/progress-archive/2026-11-02-iteration-252.md).
 
 Earlier iteration 264: [archive](docs/progress-archive/2026-11-02-iteration-264.md).
 
-## 2026-11-02: iteration 267 — concurrent verified-post refresh
-
-- Started clean on main; API/worker, health, 32 sources and four queues healthy; no leftover work.
-- Scheduled priorities await Nov 3 evidence; advanced isolated STEERING 2a.
-- Races independent repositories refreshing one verified X post; complete author/embed payloads survive together.
-- Pins one-row identity, canonical URL, original metrics and publication time across repeated concurrent writes.
-- Disposable PostgreSQL only; no provider, source or Reddit verification requests.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 162 integration), `pnpm build`, `git diff --check`.
-- Live latest edition: four topics, 20 stories and 10 posts; API/worker restarted and health/SPA checked.
-- Updated TASKS/database notes; archived iteration 247 to keep PROGRESS bounded.
-- Next: observe Nov 3 scheduled X per-topic cost/yield and AI edition cost/duration.
-
-## 2026-11-02: iteration 268 — concurrent search attribution
-
-- Started clean on main; API/worker, health and 32 sources healthy; no leftover work.
-- Two retained ingestion failures are historical; sources recovered and social collection is flowing.
-- Scheduled priorities await Nov 3 evidence; advanced isolated STEERING 2a.
-- Races two X search repositories with opposite post order, then repeats both saves.
-- Daily report credits new candidates once while both calls retain citation/verification evidence.
-- Disposable PostgreSQL only; no provider, source or Reddit verification requests.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 163 integration), `pnpm build`, `git diff --check`.
-- Fixed missing required fixture guidance after first check; full rerun passed.
-- API/worker restarted; health, SPA and latest edition checked after build.
-- Updated TASKS/database notes; archived iteration 248 to keep PROGRESS bounded.
-- Next: observe Nov 3 scheduled X cost/yield and AI edition cost/duration.
+Iterations 267–268: [archive](docs/progress-archive/2026-11-02-iterations-267-268.md).
 
 ## 2026-11-02: iteration 269 — X verification eligibility
 
@@ -329,3 +305,15 @@ Earlier iteration 264: [archive](docs/progress-archive/2026-11-02-iteration-264.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (135 unit/167 integration), `pnpm build`, `git diff --check`; initial check caught added-test import ordering, fixed before rerun.
 - Applied migration 047; restarted API/worker/docs/schema; health OK, SPA/docs/db 200, 32 sources error-free.
 - No paid provider or Reddit requests. Archived iterations 265–266; next: Nov 3 scheduled evidence/acks, open-search switch, then priority/budget wiring for reactions.
+
+## 2026-11-03: iteration 284 — gate optional X searches behind open discovery
+
+- Started clean on main; all four services and health healthy; no leftover work.
+- Prepared optional-search orchestration: every enabled topic must complete open search before reactions, then valid secondary account lists.
+- Rechecks caller schedule/window guard before each attempt; stops on budget denial and rejects duplicate/restricted input; each execution still requires ledger admission.
+- Four fake tests cover cross-topic priority, incomplete/failed discovery, budget stop, schedule change, invalid lists and input immutability.
+- Production remains account-list mode pending item 15 acknowledgement; optional scheduler/durable admission wiring remains open.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (139 unit/167 integration), `pnpm build`, `git diff --check`.
+- Restarted API/worker/docs/schema; health OK; 32 sources without errors; scheduled edition remains Nov 3 15:00 UTC, latest social collection completed.
+- No paid provider or Reddit requests; archived iterations 267–268.
+- Next: observe scheduled cost/yield and AI timing, acknowledge 15/13/7, enable open search; then wire optional ledger admission.
