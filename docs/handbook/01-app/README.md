@@ -45,3 +45,4 @@ flowchart LR
 6. [AI & budgets](06-ai-and-budgets.md): models, caps and spending rules
 7. [Data model](07-data-model.md): the database at a glance
 8. [Operations](08-operations.md): URLs, health, logs, tests
+9. [Observability](09-observability.md): structured request, job and error logs

@@ -1,6 +1,7 @@
 import { Queue, Worker } from 'bullmq';
 
 import { database } from './libs/db/connections';
+import { logger, logJob } from './libs/observability/logging';
 import { PostgresScheduledBudgetRepository } from './modules/curation/database/scheduled-budget.repository';
 import { generateOnDemandEdition } from './modules/digests/application/on-demand-edition';
 import { PostgresPreviewRepository } from './modules/digests/database/preview.repository';
@@ -22,7 +23,7 @@ export function startScheduledDigests() {
   const queue = new Queue('digest-generation', { connection });
   const worker = new Worker(
     'digest-generation',
-    async (job) => {
+    logJob('digest-generation', async (job) => {
       if (job.name === 'on-demand')
         return generateOnDemandEdition(
           previews,
@@ -67,20 +68,25 @@ export function startScheduledDigests() {
         windowStart: edition.windowStart,
         windowEnd: edition.windowEnd,
       };
-    },
+    }),
     { connection, concurrency: 1 },
   );
-  worker.on('error', () => console.error('Digest worker connection error'));
+  worker.on('error', (err) =>
+    logger.error({ err }, 'Digest worker connection error'),
+  );
   worker.on('failed', (job) => {
-    console.error('Scheduled digest failed', job?.id);
+    logger.error({ jobId: job?.id }, 'Scheduled digest failed');
     if (job)
       void profiles
         .getDefault()
         .then((profile) =>
           reconcileFailedScheduledJob(budgets, profile.id, job),
         )
-        .catch(() =>
-          console.error('Scheduled budget failure reconciliation failed'),
+        .catch((err) =>
+          logger.error(
+            { err },
+            'Scheduled budget failure reconciliation failed',
+          ),
         );
   });
   let refreshing = false;
@@ -118,10 +124,12 @@ export function startScheduledDigests() {
       refreshing = false;
     }
   }
-  void refresh().catch(() => console.error('Digest scheduling failed'));
+  void refresh().catch((err) =>
+    logger.error({ err }, 'Digest scheduling failed'),
+  );
   const timer = setInterval(() => {
-    void refresh().catch(() =>
-      console.error('Digest scheduling refresh failed'),
+    void refresh().catch((err) =>
+      logger.error({ err }, 'Digest scheduling refresh failed'),
     );
   }, 10000);
   return async () => {

@@ -1,5 +1,6 @@
 import { Queue, Worker } from 'bullmq';
 
+import { logger, logJob } from './libs/observability/logging';
 import { SharedHttpClient } from './libs/ports/http.client';
 import { loadReactionStories } from './modules/digests/public/reaction-stories';
 import { PostgresProfileRepository } from './modules/profiles/database/profile.repository';
@@ -49,7 +50,9 @@ export function startScheduledSocial(http: SharedHttpClient) {
     }
   }
   const refreshSearch = () =>
-    discover().catch(() => console.error('Scheduled X discovery failed'));
+    discover().catch((err) =>
+      logger.error({ err }, 'Scheduled X discovery failed'),
+    );
   void refreshSearch();
   const searchTimer = setInterval(() => {
     void refreshSearch();
@@ -58,7 +61,7 @@ export function startScheduledSocial(http: SharedHttpClient) {
   const queue = new Queue('social-collection', { connection });
   const worker = new Worker(
     'social-collection',
-    async (job) => {
+    logJob('social-collection', async (job) => {
       if (job.name !== 'collect') throw new Error('Unknown social job');
       return collectSocial(
         repository,
@@ -66,11 +69,15 @@ export function startScheduledSocial(http: SharedHttpClient) {
         new XOfficialEmbed(http),
         articles,
       );
-    },
+    }),
     { connection, concurrency: 1 },
   );
-  worker.on('error', () => console.error('Social worker connection error'));
-  worker.on('failed', () => console.error('Social collection failed'));
+  worker.on('error', (err) =>
+    logger.error({ err }, 'Social worker connection error'),
+  );
+  worker.on('failed', (err) =>
+    logger.error({ err }, 'Social collection failed'),
+  );
   void queue
     .upsertJobScheduler(
       'free-social-hourly',
@@ -80,7 +87,7 @@ export function startScheduledSocial(http: SharedHttpClient) {
         opts: { attempts: 1, removeOnComplete: 48, removeOnFail: 48 },
       },
     )
-    .catch(() => console.error('Social scheduling failed'));
+    .catch((err) => logger.error({ err }, 'Social scheduling failed'));
   return async () => {
     clearInterval(searchTimer);
     // Let in-flight discovery settle its ledger entry before closing connections.
