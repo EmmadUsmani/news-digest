@@ -136,8 +136,12 @@ remained. Live AI latency targets therefore remain unverified; observe routine
 scheduled runs rather than spending the digest budget on development trials.
 
 For X discovery evidence, run `pnpm exec tsx scripts/report-x-discovery.ts YYYY-MM-DD`
-(defaults to today UTC). This reads the database only: per-call cost, unresolved
-holds, fetched counts and per-topic citations with current verified/dated counts.
+(defaults to today UTC). For seven days ending on a UTC date, use
+`pnpm exec tsx scripts/report-x-week.ts YYYY-MM-DD`. The weekly report includes
+empty days and daily plus whole-week topic/type summaries; the current day can
+be incomplete. A day without calls does not prove successful scheduled coverage.
+Both commands read the database only. The daily report includes per-call cost,
+unresolved holds, fetched counts and per-topic citations with current verified/dated counts.
 Costs are counted once even when a call has multiple citations. Zero-citation
 calls remain visible. New reservations snapshot the requested topic ID/name before
 HTTP, preserving attribution through failures and topic rename/deletion. Historical

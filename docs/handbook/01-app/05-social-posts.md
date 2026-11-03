@@ -54,7 +54,9 @@ by topic and search type, including searches with no results. Unknown charges
 and fetched counts remain explicit. Outside-list yield compares current verified
 authors with all current account lists; it counts posts and can change when
 lists or verification change. It does not measure relevance or historical list
-membership.
+membership. The seven-day report adds daily and whole-week summaries, including
+days with no recorded calls. Today can be incomplete; an empty day does not
+prove the scheduler covered every topic.
 
 ## Other platforms
 

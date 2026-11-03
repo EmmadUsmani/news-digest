@@ -2,17 +2,6 @@
 
 Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md).
 
-## 2026-11-03: iteration 281 — prepare scheduled open-topic eligibility
-
-- Started clean on main; no leftover work; all four services and health healthy.
-- Planner/tick now accept explicit open-topic mode, without requiring or sending curated handles; production default remains account-list until item 15 acknowledgement.
-- Open-mode fixtures cover empty/invalid lists, weakest-first order, invalid coverage exclusion and unchanged daily/run identity; existing timing/settings safeguards retained.
-- Verified targeted scheduler tests (8), `pnpm format`, `pnpm lint:fix`, `pnpm check` (132 unit/166 integration), `pnpm build` and `git diff --check`.
-- Read-only evidence: 32 sources without errors; Nov 3 edition queued for 15:00 UTC; no Anthropic spend today at inspection.
-- Restarted API/worker/docs/schema; all active, health OK, SPA/docs/db 200; no source errors.
-- No paid provider or Reddit requests; no live schedule/settings changes.
-- Next: observe scheduled X calls and AI edition, acknowledge items 15/13/7 with actual cost/yield/timing, then enable open-topic mode in `scheduled-social.ts`.
-
 ## 2026-11-03: iteration 282 — attribute edition timing to provider cost
 
 - Started clean on main; no leftover work; all four services and health healthy.
@@ -212,3 +201,14 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Verified: `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `pnpm exec tsx scripts/smoke-status.ts`, `git diff --check`.
 - Restarted API/worker/docs/schema; all active, health OK and app/docs/db HTTP 200.
 - No paid provider or Reddit requests. Next: observe scheduled X cost/yield and 15:00 AI cost/duration, acknowledge results, then activate open search.
+
+## 2026-11-03: iteration 298 — first-week X evidence report
+
+- Started clean on main; four services/health healthy, 32 sources returning data without errors, all queues available with workers and no retained failed jobs.
+- Added read-only `scripts/report-x-week.ts [end-day]`: seven inclusive UTC days, explicit empty days, daily and whole-week topic/type cost/holds, fetched counts, unknown counters and incremental verified/outside-list yield.
+- Reuses existing daily evidence and attribution; no provider requests, new discovery, settings writes or inferred historical topics. Current verification/list and incomplete-day caveats remain explicit.
+- Updated README, source inventory and social handbook; recorded reporting support under item 9. Items 13/7/15 still await scheduled evidence; open search remains gated.
+- Live report through Nov 3: only Nov 2 historical $0.023382 call (unattributed); Nov 3 zero calls/holds. Scheduled edition remains 15:00 UTC with 482,788-micro reserve pending and zero other allowance.
+- Verified weekly output against all seven daily reports; rejected four invalid dates; checked leap-day and year boundaries. No paid provider or Reddit requests.
+- Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, social handbook/24-table metadata check and `git diff --check`; archived iteration 281 to keep PROGRESS bounded.
+- Restarted all four services; active, health OK, app/docs/db/edition endpoints HTTP 200. No UI change. Next: observe scheduled X/edition evidence, acknowledge required items, then activate open search.

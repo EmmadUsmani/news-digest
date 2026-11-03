@@ -12,6 +12,12 @@ topic and search type even for failures or empty results. Historical search type
 stay null; no type is inferred from run IDs. Scheduled account-list discovery
 remains enabled pending the first scheduled-run acknowledgement before switching.
 
+Iteration 298: `pnpm exec tsx scripts/report-x-week.ts YYYY-MM-DD` reports
+seven UTC days ending on the supplied date (today by default), including empty
+days, daily topic/type summaries and whole-week totals with unknown counters.
+It only reads stored evidence; it makes no provider or verification requests.
+The current day can be incomplete and an empty day does not prove coverage.
+
 Iteration 296: `byTopicAndSearchType` summarizes reservation-time topic IDs
 and recorded search types, including empty and failed calls. It counts each
 call's settled cost and hold once, and sums same-topic incremental verified
