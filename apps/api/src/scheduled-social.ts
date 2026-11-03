@@ -4,15 +4,19 @@ import { logger, logJob } from './libs/observability/logging';
 import { SharedHttpClient } from './libs/ports/http.client';
 import { loadReactionStories } from './modules/digests/public/reaction-stories';
 import { PostgresProfileRepository } from './modules/profiles/database/profile.repository';
+import { BlueskySearch } from './modules/social/adapters/bluesky-search';
 import { RiverDiscovery } from './modules/social/adapters/river-discovery';
 import { XOfficialEmbed } from './modules/social/adapters/x-oembed';
 import { DirectXSearch } from './modules/social/adapters/x-search';
 import { collectSocial } from './modules/social/application/collect';
+import { collectBlueskyTopics } from './modules/social/application/collect-bluesky-topics';
 import { verifyPosts } from './modules/social/application/verify-posts';
 import { PostgresArticleDiscoveryRepository } from './modules/social/database/article-discovery.repository';
+import { PostgresBlueskyRepository } from './modules/social/database/bluesky.repository';
 import { PostgresSocialRepository } from './modules/social/database/social.repository';
 import { PostgresXDiscoveryLedger } from './modules/social/database/x-discovery.ledger';
 import { PostgresXSearchRepository } from './modules/social/database/x-search.repository';
+import { PostgresTopicRepository } from './modules/topics/database/topic.repository';
 import { runScheduledXRuntime } from './scheduled-x-runtime';
 
 export function startScheduledSocial(http: SharedHttpClient) {
@@ -58,10 +62,28 @@ export function startScheduledSocial(http: SharedHttpClient) {
     void refreshSearch();
   }, 60000);
   const articles = new PostgresArticleDiscoveryRepository();
+  const topics = new PostgresTopicRepository();
+  const bluesky = new PostgresBlueskyRepository();
+  const blueskySearch =
+    process.env.BLUESKY_HANDLE && process.env.BLUESKY_APP_PASSWORD
+      ? new BlueskySearch({
+          handle: process.env.BLUESKY_HANDLE,
+          password: process.env.BLUESKY_APP_PASSWORD,
+        })
+      : null;
   const queue = new Queue('social-collection', { connection });
   const worker = new Worker(
     'social-collection',
     logJob('social-collection', async (job) => {
+      if (job.name === 'collect-bluesky') {
+        if (!blueskySearch)
+          return { status: 'credentials-missing', topics: [] };
+        return collectBlueskyTopics(
+          bluesky,
+          blueskySearch,
+          await topics.listDefault(),
+        );
+      }
       if (job.name !== 'collect') throw new Error('Unknown social job');
       return collectSocial(
         repository,
@@ -88,6 +110,16 @@ export function startScheduledSocial(http: SharedHttpClient) {
       },
     )
     .catch((err) => logger.error({ err }, 'Social scheduling failed'));
+  void queue
+    .upsertJobScheduler(
+      'bluesky-hourly',
+      { every: 3600000 },
+      {
+        name: 'collect-bluesky',
+        opts: { attempts: 1, removeOnComplete: 48, removeOnFail: 48 },
+      },
+    )
+    .catch((err) => logger.error({ err }, 'Bluesky scheduling failed'));
   return async () => {
     clearInterval(searchTimer);
     // Let in-flight discovery settle its ledger entry before closing connections.
@@ -97,5 +129,7 @@ export function startScheduledSocial(http: SharedHttpClient) {
     await queue.close();
     await repository.db.end();
     await articles.db.end();
+    await bluesky.db.end();
+    await topics.onModuleDestroy();
   };
 }

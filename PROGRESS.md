@@ -117,3 +117,13 @@ Earlier entries: [progress archive](docs/progress-archive/).
 - Verification: pnpm format, pnpm lint:fix, pnpm check (268 unit/174 isolated integration), pnpm build passed. Initial check stopped on newly archived Markdown formatting; corrected before successful full rerun. Browser script initially needed the repo's async-main wrapper; corrected before verification.
 - No restart under STEERING 22: production binaries unchanged and topic settings are read from DB. Health/source/jobs checks passed; existing edition preserved. Final health at 15:49:59 UTC, alerts and git diff --check passed; zero dangling Docker volumes.
 - Next: item 18 Bluesky production inclusion; continue scheduled open-search cost/yield/outside-list evidence and triage/NBA fallback diagnostics. No account-list quality or latency claim.
+
+## 2026-11-03: iteration 432 — hourly official Bluesky collection
+
+- Started clean on main; no leftover work. Zero alerts, healthy API/DB/Redis and 32 healthy sources.
+- Added hourly Bluesky collection to the existing social queue: one open query per enabled topic with positive post budget, maximum four topics/200 submissions. Query uses configured first nonempty query, first relevance term or topic name.
+- Shared authenticated session/backoff; sequential pass stops on search/storage error, one attempt, missing credentials skip. Per-topic counts retained in queue results; no paid calls or edition changes. Production inclusion stays off pending activation next.
+- Tests pin configuration filtering, cap/window and failure stop behavior. Targeted Bluesky suite 12/12; pnpm format, pnpm lint:fix, pnpm check (270 unit/174 isolated integration), pnpm build and affected handbook checks passed.
+- Restarted worker with rebuilt code. First automatic pass completed 15:54 UTC: Tech/AI 50, NBA 49, Gaming 48, World 45 fetched/submitted. Stored window readback 81/82/82/74 includes earlier probes, not new-insert counts or editorial evidence.
+- Updated SOURCES, TASKS and social/schedule handbook pages. No UI change. Existing edition remains 19 stories/11 X posts; health green, zero alerts and zero dangling Docker volumes.
+- Next: activate Bluesky edition inclusion under existing budget, then verify actual scheduled selections/screenshots. Continue scheduled X yield and triage/NBA fallback evidence; no paid verification run.

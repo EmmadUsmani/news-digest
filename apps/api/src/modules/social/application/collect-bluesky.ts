@@ -1,6 +1,6 @@
 import type { BlueskyRepository, BlueskySearchPort } from '../domain/bluesky';
 
-// Explicit single-query collection only; no scheduler or edition caller.
+// Bounded single-query collection; shared by explicit and hourly collection.
 // Reuse one search adapter across topics so its session and backoff are shared.
 export async function collectBluesky(
   repository: BlueskyRepository,

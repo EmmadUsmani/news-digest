@@ -5,15 +5,16 @@ Redis (retried, visible on the Status page) plus a few in-process timers.
 
 ## What runs when
 
-| Job                     | Queue / mechanism    | Runs                              | Does                                                                |
-| ----------------------- | -------------------- | --------------------------------- | ------------------------------------------------------------------- |
-| Collect a source        | `ingestion`          | Every 30 min per connected source | Fetch an RSS feed or HN, store new articles                         |
-| Free social collection  | `social-collection`  | Hourly                            | Scan news rivers and article pages for X links, verify posts        |
-| Scheduled X search      | timer (every minute) | 5–30 min before the edition       | Open-topic xAI search, verification, then capped low-yield followup |
-| Scheduled edition       | `digest-generation`  | Daily cron, default 07:00 PT      | Build and publish the edition                                       |
-| On-demand edition       | `digest-generation`  | When you click "create edition"   | Same pipeline, for any time window, with live progress              |
-| Budget/schedule refresh | timer (every 10 s)   | Continuous                        | Sync the cron from settings; manage the AI reserve                  |
-| Heartbeat               | `operations`         | Every minute                      | Proves the worker is alive (shown on Status)                        |
+| Job                     | Queue / mechanism    | Runs                              | Does                                                                                                |
+| ----------------------- | -------------------- | --------------------------------- | --------------------------------------------------------------------------------------------------- |
+| Collect a source        | `ingestion`          | Every 30 min per connected source | Fetch an RSS feed or HN, store new articles                                                         |
+| Bluesky collection      | `social-collection`  | Hourly                            | Up to four enabled topics, one open query each; store observed posts/counts; no AI calls or retries |
+| Free social collection  | `social-collection`  | Hourly                            | Scan news rivers and article pages for X links, verify posts                                        |
+| Scheduled X search      | timer (every minute) | 5–30 min before the edition       | Open-topic xAI search, verification, then capped low-yield followup                                 |
+| Scheduled edition       | `digest-generation`  | Daily cron, default 07:00 PT      | Build and publish the edition                                                                       |
+| On-demand edition       | `digest-generation`  | When you click "create edition"   | Same pipeline, for any time window, with live progress                                              |
+| Budget/schedule refresh | timer (every 10 s)   | Continuous                        | Sync the cron from settings; manage the AI reserve                                                  |
+| Heartbeat               | `operations`         | Every minute                      | Proves the worker is alive (shown on Status)                                                        |
 
 ## A normal day (times in Pacific)
 

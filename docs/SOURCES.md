@@ -1587,3 +1587,19 @@ curated accounts. Durable admission, official oEmbed verification, exact-time
 window guidance and $0.40/day/$12/month caps are unchanged. Current curated
 lists remain unchanged. No immediate search or paid verification was run;
 open-search yield, outside-list picks and relevance await scheduled evidence.
+
+## Hourly Bluesky collection — iteration 432 (2026-11-03)
+
+The social worker now schedules authenticated official API collection hourly on
+the existing social queue. One open query per enabled topic with a positive
+post budget (maximum four topics / 200 submissions): first nonempty configured
+query, otherwise first relevance term, otherwise topic name. Shared session,
+24-hour window, no automatic retries; search/storage failure stops the pass.
+Missing credentials skip collection. Queue results retain per-topic fetched and
+submitted counts; submissions are not necessarily new inserts. Edition inclusion
+remains off; no paid editorial calls or new editions are triggered.
+
+First automatic pass completed at 15:54 UTC: Tech/AI `AI` 50 fetched/submitted,
+NBA `NBA` 49, Gaming `game` 48, World `World news & politics` 45.
+Readback found 81/82/82/74 window observations including earlier probes; these
+are stored API observations, not new-row counts or editorial/virality evidence.

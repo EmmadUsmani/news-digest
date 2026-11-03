@@ -70,18 +70,23 @@ prove the scheduler covered every topic.
 
 ## Other platforms
 
-| Platform | Status                                                                                                                                                                                                                                                                                |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Reddit   | **Parked.** Built, but Reddit blocks public access and ends RSS on Nov 13. The only way back is the official API with owner credentials.                                                                                                                                              |
-| Bluesky  | **Preparation only:** authenticated discovery, phrase-filtered and semantic engagement/age shortlists, isolated final editing, plus storage for timestamped text/media/count snapshots. Explicit free collection is available; scheduled collection and edition inclusion remain off. |
-| YouTube  | **Deferred** by the owner.                                                                                                                                                                                                                                                            |
+| Platform | Status                                                                                                                                                                                                                                                   |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Reddit   | **Parked.** Built, but Reddit blocks public access and ends RSS on Nov 13. The only way back is the official API with owner credentials.                                                                                                                 |
+| Bluesky  | **Preparation only:** authenticated discovery, phrase-filtered and semantic engagement/age shortlists, isolated final editing, plus storage for timestamped text/media/count snapshots. Hourly free collection is active; edition inclusion remains off. |
+| YouTube  | **Deferred** by the owner.                                                                                                                                                                                                                               |
 
 Bluesky storage retains each topic's observations separately, so a later count
 cannot overwrite the evidence available at an earlier cutoff. Current post
 metadata follows the newest observation, even if older responses arrive late.
 Disabled topics are excluded from reads and writes; deleting a topic removes
-its observations. No production collector or edition selector uses this storage
-yet. An explicit collection pass can search the four configured topics over a
+its observations. The social worker collects observations hourly through the official authenticated API.
+Each pass uses one query for each enabled topic with a positive post budget,
+up to four topics and 50 observations each. The first nonempty configured query
+is used, otherwise the first relevance term, otherwise the topic name.
+One shared session serves the pass; search or storage failure stops it with no
+automatic retry. Missing credentials skip collection. Completed queue jobs retain
+per-topic fetched/submitted counts for 48 runs. Edition inclusion remains off. An explicit collection pass can search the four configured topics over a
 24-hour window and store up to 50 observations per topic. It shares one login
 and rate-limit backoff across topics and stops on search or storage failure.
 The report distinguishes fetched/submitted posts from stored window observations;
@@ -112,7 +117,7 @@ run the isolated editor and create validated text/media/count snapshots. Its gat
 defaults off. The edition publisher calls it after X/Reddit selection, using the
 same database transaction and existing budgeted AI services. Only the exact
 process setting `BLUESKY_EDITIONS_ENABLED=1` enables it; production must keep
-that setting unset until the protected Nov 3 scheduled run is acknowledged.
-This does not collect new posts or schedule Bluesky requests. Existing picks are retained;
+that setting unset until production inclusion is activated. The protected Nov 3 run has been acknowledged.
+The edition selector itself does not collect posts; it reads hourly observations. Existing picks are retained;
 Bluesky can use only the remaining topic slots. Disabled or full selections do
 not read storage or call AI; refused or incomplete editing adds no posts.
