@@ -21,16 +21,17 @@ Redis (retried, visible on the Status page) plus a few in-process timers.
 gantt
   dateFormat HH:mm
   axisFormat %H:%M
+  todayMarker off
   section Articles
-  RSS/HN collection every 30 min      :active, 00:00, 24h
-  section Free X posts
-  Hourly rivers + article links       :active, 00:00, 24h
-  section Paid X search
-  One search per topic (06:30–06:55)  :crit, 06:30, 25m
+  Every 30 min         :active, 00:00, 24h
+  section Free X
+  Hourly               :active, 00:00, 24h
+  section Paid X
+  Searches before edition :crit, 06:30, 25m
   section Edition
-  Scheduled edition                   :milestone, 07:00, 0m
+  Scheduled edition    :milestone, 07:00, 0m
   section AI budget
-  New UTC budget day starts           :milestone, 16:00, 0m
+  New UTC budget day   :milestone, 16:00, 0m
 ```
 
 The AI budget day follows UTC, so it resets at 16:00 Pacific (17:00 in
@@ -55,7 +56,7 @@ sequenceDiagram
     API-->>UI: stage + per-topic progress
   end
   Q->>W: run job
-  W->>W: triage → edit → publish (topics in parallel)
+  Note over W: triage → edit → publish<br/>(topics in parallel)
   W-->>Q: edition id
   UI->>You: opens the new edition
 ```

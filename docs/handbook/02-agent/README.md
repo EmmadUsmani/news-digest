@@ -8,17 +8,15 @@ repo.
 
 ```mermaid
 flowchart LR
-  owner(["👤 Owner"]) -- "edits STEERING.md<br/>(via git)" --> gh[("GitHub<br/>main branch")]
+  owner(["👤 Owner"]) -- "edits STEERING.md" --> gh[("GitHub<br/>main branch")]
   subgraph vm["VM"]
-    unit["systemd unit<br/>news-digest-agent"] --> sup["Supervisor<br/>run.sh + control.py"]
-    sup -- "1 · pull main" --> repo[("~/news-digest<br/>working copy")]
-    sup -- "2 · render prompt" --> prompt["Iteration prompt<br/>+ budget + last summary"]
-    prompt --> codex["3 · codex exec<br/>(fresh session)"]
-    codex -- "reads memory files,<br/>edits code, tests,<br/>restarts app" --> repo
-    codex -- "commit + push" --> gh
-    sup -- "4 · classify result,<br/>health check, usage" --> st[("status/ + logs/")]
+    unit["systemd unit"] --> sup["Supervisor<br/>run.sh + control.py"]
+    sup -- "1 · pull, render prompt" --> codex["2 · codex exec<br/>(fresh session)"]
+    codex -- "edits code, tests,<br/>commits, restarts app" --> repo[("~/news-digest<br/>working copy")]
+    sup -- "3 · classify, health,<br/>usage" --> st[("status/ + logs/")]
   end
-  codex -. "model calls" .-> gw["exe.dev LLM gateway<br/>→ owner's ChatGPT Pro"]
+  gh <-- "pull / push" --> sup
+  codex -. "model calls" .-> gw["exe.dev LLM gateway<br/>→ ChatGPT Pro"]
 ```
 
 ## The big ideas

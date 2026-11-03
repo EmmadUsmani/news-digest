@@ -47,6 +47,18 @@ flowchart LR
 | Entities and relations   | `erDiagram`       | [Data model](01-app/07-data-model.md)               |
 | Timelines                | `gantt`           | [Jobs & schedules](01-app/03-jobs-and-schedules.md) |
 
+### Diagram checklist
+
+The viewer lays diagrams out with the ELK engine. Before committing a diagram,
+look at it rendered and check that:
+
+- **no line crosses another line, a box, or a box's title;**
+- **boxes with titles flow left-to-right** (`flowchart LR`), because arrows
+  entering a box from the top run through its title;
+- **sequence diagrams have no self-messages** (use `Note over X:`), and
+  participants are ordered so no arrow crosses a lifeline it doesn't use;
+- **Gantt labels contain no colons** (Mermaid cuts the label at a colon).
+
 Inline SVG is allowed for the rare diagram Mermaid can't express. Callouts use
 GitHub syntax: `> [!NOTE]`, `> [!TIP]`, `> [!IMPORTANT]`, `> [!WARNING]`.
 

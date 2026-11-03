@@ -6,10 +6,10 @@ interesting social posts. You can also create an edition on demand for any
 time window.
 
 ```mermaid
-flowchart TB
+flowchart LR
   subgraph collect["1 · Collect (all day)"]
     rss["32 RSS feeds<br/>+ Hacker News"] -->|every 30 min| articles[("Articles")]
-    rivers["Articles & news rivers<br/>(Techmeme, Memeorandum)"] -->|hourly| xlinks[("X posts<br/>found for free")]
+    rivers["Articles & news rivers<br/>(Techmeme, Memeorandum)"] -->|hourly| xlinks[("X posts")]
     xai["xAI X search<br/>(paid, capped)"] -->|daily, before edition| xlinks
   end
   subgraph make["2 · Make the edition (07:00 PT)"]

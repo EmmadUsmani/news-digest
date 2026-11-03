@@ -39,18 +39,18 @@ Spending is enforced before calling, not discovered afterwards.
 
 ```mermaid
 sequenceDiagram
-  participant P as Pipeline
   participant L as Ledger (Postgres)
+  participant P as Pipeline
   participant A as Anthropic / xAI
   P->>L: reserve worst-case cost (under a lock)
   alt over a cap
     L-->>P: refused, so use the fallback
   else allowed
     L-->>P: reservation id
-    P->>A: call
-    A-->>P: response + token usage
-    P->>L: settle with the actual cost
   end
+  P->>A: call (only if allowed)
+  A-->>P: response + token usage
+  P->>L: settle with the actual cost
 ```
 
 - **Reserve, then settle.** Concurrent jobs can't race past a cap, because

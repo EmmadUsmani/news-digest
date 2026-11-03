@@ -2,30 +2,26 @@
 
 The supervisor (`ops/agent-control/run.sh`, with helpers in `control.py`) is a
 plain Bash loop. One pass is one **iteration**: a single Codex session, with a
-75-minute timeout.
+75-minute timeout. During every wait, the STOP file is checked every 5 seconds.
 
 ```mermaid
-stateDiagram-v2
-  [*] --> CheckStop
-  CheckStop --> [*]: STOP file present
-  CheckStop --> Pace
-  Pace --> Waiting: weekly usage ahead of pace
-  Pace --> Prepare: on pace
-  Prepare --> Run: git pull main, render prompt
-  Run --> AfterRun: codex exec finished or timed out
-  AfterRun --> CheckStop: ok with commits
-  AfterRun --> Waiting: crash, timeout or no commits (5 min)
-  AfterRun --> Waiting: usage limit (until reset)
-  AfterRun --> Waiting: auth failure (15 min)
-  Waiting --> CheckStop: wait over (STOP checked every 5 s)
-
-  state AfterRun {
-    [*] --> Classify
-    Classify --> Guard: revert owner-file edits
-    Guard --> Push: push unpushed commits
-    Push --> Health: /healthz and app services
-    Health --> Usage: record tokens and quota
-  }
+flowchart TB
+  start(["Loop start"]) --> stop{"STOP file?"}
+  stop -- yes --> done(["Stopped"])
+  stop -- no --> pace{"Ahead of<br/>weekly pace?"}
+  pace -- yes --> pw["Wait until on pace<br/>(≤ 60 min)"]
+  pace -- no --> prep["Pull main,<br/>render prompt"]
+  pw --> prep
+  prep --> run["codex exec<br/>(≤ 75 min)"]
+  run --> after["Classify → revert owner files → push<br/>→ health check → record usage"]
+  after --> res{"Result"}
+  res -- "ok + commits" --> next(["Next iteration<br/>(back to the top)"])
+  res -- "crash, timeout,<br/>no commits" --> w5["Wait 5 min"]
+  res -- "usage limit" --> wr["Wait until reset<br/>(≤ 12 h)"]
+  res -- "auth failure" --> w15["Wait 15 min"]
+  w5 --> next
+  wr --> next
+  w15 --> next
 ```
 
 ## What goes into each prompt

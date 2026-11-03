@@ -13,17 +13,19 @@ snapshots.
 ## The areas and how they connect
 
 ```mermaid
-flowchart TB
+flowchart LR
   subgraph settings["Profile & topics"]
+    profiles --> topics --> tsc["topic_source_connections"]
     profiles --> schedules["digest_schedules"]
-    profiles --> topics
-    topics --> tsc["topic_source_connections"]
   end
   subgraph articles["Article ingestion"]
     sources["content_sources"] --> obs["content_observations"] --> items["content_items"]
   end
   subgraph social["Social posts"]
-    cites["citations<br/>(x_link · river · x_search)"] -. post id .-> posts["social_posts"]
+    cites["citations<br/>(x_link · river · x_search)"] -. "post id" .-> posts["social_posts"]
+  end
+  subgraph editions["Editions"]
+    previews["digest_previews<br/>(JSON snapshot)"]
   end
   subgraph ai["AI usage & budget"]
     calls["llm_calls"]
@@ -31,16 +33,12 @@ flowchart TB
     reserve["scheduled_ai_budget_days"]
     xcalls["x_discovery_calls"]
   end
-  subgraph editions["Editions"]
-    previews["digest_previews<br/>(JSON snapshot)"]
-  end
   tsc --> sources
-  items -- "articles link to X posts" --> cites
+  items -- "links to X posts" --> cites
   xcalls --> cites
-  profiles --> previews
-  items -. copied into .-> previews
-  posts -. copied into .-> previews
-  calls -. run id .-> previews
+  items -. "copied into" .-> previews
+  posts -. "copied into" .-> previews
+  calls -. "run id" .-> previews
 ```
 
 Solid arrows are foreign keys or ownership. Dotted arrows are references
@@ -95,6 +93,9 @@ erDiagram
   content_items ||--o{ x_link_citations : "links to X post"
   social_discovery_sources ||--o{ social_discovery_citations : "river saw"
   x_discovery_calls ||--o{ x_search_citations : "search found"
+  x_link_citations }o..o| social_posts : "post id (no FK)"
+  social_discovery_citations }o..o| social_posts : "post id (no FK)"
+  x_search_citations }o..o| social_posts : "post id (no FK)"
   social_posts {
     text platform PK "x (reddit parked)"
     text external_id PK
@@ -120,8 +121,8 @@ erDiagram
   }
 ```
 
-All three citation tables point at `social_posts` by X post id (no foreign
-key, because a citation is stored before the post is verified).
+Dotted lines: the citation tables point at `social_posts` by X post id, with no
+foreign key, because a citation is stored before the post is verified.
 
 ## Patterns to know
 

@@ -3,6 +3,7 @@
 import DOMPurify from 'https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.es.mjs';
 import { marked } from 'https://cdn.jsdelivr.net/npm/marked@15/lib/marked.esm.js';
 import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+import elkLayouts from 'https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0/dist/mermaid-layout-elk.esm.min.mjs';
 
 const REPO = 'https://github.com/EmmadUsmani/news-digest/blob/main';
 const BASE = 'docs/handbook';
@@ -12,8 +13,13 @@ let tree = null;
 let order = []; // flat page list for prev/next
 let searchIndex = null;
 
+// ELK is the default layout engine: it routes edges and labels around nested
+// boxes and titles far better than dagre. A diagram can opt out with
+// `config: layout: dagre` frontmatter.
+mermaid.registerLayoutLoaders(elkLayouts);
 mermaid.initialize({
   startOnLoad: false,
+  layout: 'elk',
   securityLevel: 'strict',
   theme: dark ? 'dark' : 'neutral',
   fontFamily: 'ui-sans-serif, system-ui, -apple-system, sans-serif',

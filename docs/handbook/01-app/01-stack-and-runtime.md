@@ -21,23 +21,26 @@ One exe.dev VM. App processes are systemd **user** services. Postgres and
 Redis run in Docker, reachable only from the VM itself.
 
 ```mermaid
-flowchart TB
-  you(["👤 Browser"]) -->|"HTTPS (exe.dev login)"| proxy["exe.dev proxy"]
+flowchart LR
+  you(["👤 Browser"]) -->|"HTTPS<br/>(exe.dev login)"| proxy["exe.dev proxy"]
   subgraph vm["VM news-digest.exe.xyz"]
-    proxy -->|":8000"| api["news-digest-api<br/>NestJS API + web UI"]
-    api -->|"/docs/*"| docs["news-digest-docs<br/>this handbook (:8100)"]
-    api -->|"/db/*"| schema["news-digest-schema<br/>DB schema explorer (:8200)"]
+    api["news-digest-api<br/>NestJS API + web UI<br/>:8000"]
     worker["news-digest-worker<br/>BullMQ jobs + timers"]
-    subgraph docker["Docker (loopback only)"]
-      pg[("Postgres 17<br/>:5432")]
-      redis[("Redis 7<br/>:6379")]
-    end
-    api --> pg & redis
-    worker --> pg & redis
-    schema -. "catalog only" .-> pg
+    docs["news-digest-docs<br/>handbook :8100"]
+    schema["news-digest-schema<br/>DB explorer :8200"]
     agent["news-digest-agent<br/>build supervisor"]
+    subgraph docker["Docker (loopback only)"]
+      pg[("Postgres 17")]
+      redis[("Redis 7")]
+    end
+    api --> docker
+    worker --> docker
+    api -->|"/docs/*"| docs
+    api -->|"/db/*"| schema
+    schema -. "catalog only" .-> docker
   end
-  worker -->|RSS / HN / X oEmbed| web(("Public web"))
+  proxy --> api
+  worker -->|"RSS · HN · X oEmbed"| web(("Public web"))
   worker -->|"AI calls"| anthropic["Anthropic API"]
   worker -->|"x_search"| xai["xAI API"]
 ```

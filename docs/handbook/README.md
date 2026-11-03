@@ -9,25 +9,25 @@ There are two parts:
 
 ```mermaid
 flowchart LR
-  owner(["👤 Owner"])
   reader(["👥 End users"])
   subgraph vm["VM: news-digest.exe.xyz"]
-    direction LR
-    subgraph factory["Agent factory"]
-      sup["Supervisor<br/>(run.sh)"] --> codex["Codex agent"]
-    end
     subgraph app["The app"]
       api["API + web UI"]
       worker["Worker<br/>(jobs)"]
       db[("Postgres<br/>+ Redis")]
     end
+    subgraph factory["Agent factory"]
+      sup["Supervisor<br/>(run.sh)"] --> codex["Codex agent"]
+    end
     codex -- "writes code,<br/>restarts" --> app
   end
+  ext["RSS · Hacker News<br/>Anthropic · xAI · X"]
   repo[("GitHub repo<br/>code + steering")]
-  owner -- "STEERING.md" --> repo
-  codex <-- "pull / push" --> repo
+  owner(["👤 Owner"])
   reader -- "read the digest" --> api
-  worker -- "fetch news,<br/>call AI" --> ext["RSS · Hacker News<br/>Anthropic · xAI · X"]
+  worker -- "fetch news,<br/>call AI" --> ext
+  codex <-- "pull / push" --> repo
+  owner -- "STEERING.md" --> repo
 ```
 
 ## Start here

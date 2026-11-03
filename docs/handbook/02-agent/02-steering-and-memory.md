@@ -5,25 +5,27 @@ form a hierarchy: the owner sets direction, and the agent keeps its own plan
 and log.
 
 ```mermaid
-flowchart TB
+flowchart LR
   subgraph owner["Owner writes"]
-    mission["MISSION.md<br/>product vision + rules<br/>(rarely changes)"]
+    mission["MISSION.md<br/>product vision + rules"]
     steering["STEERING.md<br/>current priorities<br/>(overrides MISSION)"]
   end
-  subgraph both["Shared"]
-    agents["AGENTS.md<br/>standing instructions<br/>(how to work)"]
-    needs["NEEDS_FROM_HUMAN.md<br/>what the agent is blocked on"]
+  subgraph shared["Shared"]
+    agents["AGENTS.md<br/>how to work"]
+    needs["NEEDS_FROM_HUMAN.md<br/>blockers for the owner"]
   end
   subgraph agent["Agent writes"]
-    tasks["TASKS.md<br/>open work, prioritized<br/>(under 8 KB)"]
-    progress["PROGRESS.md<br/>log, ≤ 15 lines per iteration<br/>(under 25 KB)"]
-    archive["docs/progress-archive/<br/>older log entries"]
+    tasks["TASKS.md<br/>open work (under 8 KB)"]
+    progress["PROGRESS.md<br/>log (under 25 KB)"]
+    archive["docs/progress-archive/"]
   end
-  mission --> steering --> tasks
+  mission --> steering
+  steering --> tasks
   agents --> tasks
   tasks --> progress --> archive
-  agent -. "appends ack lines" .-> steering
 ```
+
+The agent's only write to `STEERING.md` is appending `ack:` lines.
 
 ## Who edits what
 
@@ -47,7 +49,7 @@ sequenceDiagram
   Owner->>GH: add a numbered item to STEERING.md, push
   Note over Agent: next iteration starts
   Agent->>GH: git pull
-  Agent->>Agent: reads STEERING, reorders TASKS
+  Note over Agent: reads STEERING,<br/>reorders TASKS
   Agent->>GH: works the item, commits
   Agent->>GH: appends "ack: item N — what was done"
 ```
