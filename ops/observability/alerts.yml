@@ -37,3 +37,20 @@ groups:
           severity: warning
         annotations:
           summary: Host available memory is below 10 percent
+  - name: app-outcomes
+    interval: 30s
+    rules:
+      - alert: RecentJobFailures
+        expr: sum by (queue) (increase_prometheus(news_digest_job_duration_seconds_count{job="app-worker",outcome="failed"}[10m])) > 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: Worker recorded failed attempts in the last ten minutes
+      - alert: ApiServerErrorRate
+        expr: (sum(increase_prometheus(news_digest_http_request_duration_seconds_count{job="app-api",status=~"5.."}[5m])) / sum(increase_prometheus(news_digest_http_request_duration_seconds_count{job="app-api"}[5m])) > 0.05) and (sum(increase_prometheus(news_digest_http_request_duration_seconds_count{job="app-api"}[5m])) >= 20)
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: API 5xx responses exceed five percent with at least twenty requests in five minutes

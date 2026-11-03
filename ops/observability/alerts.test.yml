@@ -34,3 +34,100 @@ tests:
         alertname: DiskSpaceLow
         groupname: host-and-services
         exp_alerts: []
+  - name: job counter increase persists then expires
+    interval: 30s
+    input_series:
+      - series: 'news_digest_job_duration_seconds_count{job="app-worker",queue="ingestion",name="collect",outcome="failed",trigger="scheduled"}'
+        values: '2 2 3+0x24'
+    alert_rule_test:
+      - eval_time: 30s
+        alertname: RecentJobFailures
+        groupname: app-outcomes
+        exp_alerts: []
+      - eval_time: 1m
+        alertname: RecentJobFailures
+        groupname: app-outcomes
+        exp_alerts: []
+      - eval_time: 2m
+        alertname: RecentJobFailures
+        groupname: app-outcomes
+        exp_alerts:
+          - exp_labels:
+              queue: ingestion
+              severity: warning
+              alertgroup: app-outcomes
+            exp_annotations:
+              summary: Worker recorded failed attempts in the last ten minutes
+      - eval_time: 12m
+        alertname: RecentJobFailures
+        groupname: app-outcomes
+        exp_alerts: []
+  - name: sustained API server errors
+    interval: 30s
+    input_series:
+      - series: 'news_digest_http_request_duration_seconds_count{job="app-api",status="500"}'
+        values: '0+2x10 20+0x20'
+      - series: 'news_digest_http_request_duration_seconds_count{job="app-api",status="200"}'
+        values: '0+18x10 180+20x20'
+    alert_rule_test:
+      - eval_time: 1m
+        alertname: ApiServerErrorRate
+        groupname: app-outcomes
+        exp_alerts: []
+      - eval_time: 3m
+        alertname: ApiServerErrorRate
+        groupname: app-outcomes
+        exp_alerts:
+          - exp_labels:
+              severity: warning
+              alertgroup: app-outcomes
+            exp_annotations:
+              summary: API 5xx responses exceed five percent with at least twenty requests in five minutes
+      - eval_time: 12m
+        alertname: ApiServerErrorRate
+        groupname: app-outcomes
+        exp_alerts: []
+  - name: low volume errors and client errors do not page
+    interval: 30s
+    input_series:
+      - series: 'news_digest_http_request_duration_seconds_count{job="app-api",status="500"}'
+        values: '0+0.1x20'
+      - series: 'news_digest_http_request_duration_seconds_count{job="app-api",status="404"}'
+        values: '0+0.2x20'
+    alert_rule_test:
+      - eval_time: 5m
+        alertname: ApiServerErrorRate
+        groupname: app-outcomes
+        exp_alerts: []
+  - name: five percent is below threshold
+    interval: 30s
+    input_series:
+      - series: 'news_digest_http_request_duration_seconds_count{job="app-api",status="503"}'
+        values: '0+1x20'
+      - series: 'news_digest_http_request_duration_seconds_count{job="app-api",status="200"}'
+        values: '0+19x20'
+    alert_rule_test:
+      - eval_time: 5m
+        alertname: ApiServerErrorRate
+        groupname: app-outcomes
+        exp_alerts: []
+  - name: retained failure counter without new failures
+    interval: 30s
+    input_series:
+      - series: 'news_digest_job_duration_seconds_count{job="app-worker",queue="ingestion",outcome="failed"}'
+        values: '12+0x24'
+    alert_rule_test:
+      - eval_time: 5m
+        alertname: RecentJobFailures
+        groupname: app-outcomes
+        exp_alerts: []
+  - name: resetting a failure counter is not a new failure
+    interval: 30s
+    input_series:
+      - series: 'news_digest_job_duration_seconds_count{job="app-worker",queue="ingestion",outcome="failed"}'
+        values: '12+0x4 0+0x20'
+    alert_rule_test:
+      - eval_time: 5m
+        alertname: RecentJobFailures
+        groupname: app-outcomes
+        exp_alerts: []

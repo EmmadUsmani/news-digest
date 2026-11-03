@@ -443,6 +443,14 @@ included in service snapshots; it cannot report its own outage while stopped.
 
 Reconcile only this service with `bash ops/observability/install-alerts.sh`.
 `pnpm exec tsx scripts/check-observability.ts --verify-alerts` checks rule
-health, CLI output and offline disk threshold/duration/recovery cases.
-Job, error-rate, missed-edition, spend and per-service budget alerts are still
+health, CLI output and offline threshold, duration and recovery cases.
+
+Worker failed-attempt increases over ten minutes must persist for one minute.
+Retries count as attempts; old retained failed jobs alone do not fire. API 5xx
+responses above 5% over five minutes must persist for two minutes, with at least
+20 requests in that window. Client errors are excluded; low traffic can stay
+below the alert threshold even when a request fails. Missing metrics are handled
+by the scrape alerts rather than treated as successful requests.
+
+Missed-edition, spend and per-service budget alerts are still
 pending in the [observability plan](../../observability-plan.md).

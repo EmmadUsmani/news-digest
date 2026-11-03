@@ -32,6 +32,8 @@ async function main() {
       'ScrapeTargetDown',
       'UnitSnapshotStale',
       'HostMemoryPressure',
+      'RecentJobFailures',
+      'ApiServerErrorRate',
     ]) {
       const rule = rules.find((row: { name: string }) => row.name === name);
       assert.ok(rule, `Missing ${name}`);

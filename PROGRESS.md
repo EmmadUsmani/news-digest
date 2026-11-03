@@ -114,3 +114,12 @@ Earlier entry: [iteration 397](docs/progress-archive/2026-11-03-iteration-397.md
 - Verification: `pnpm format`, `pnpm lint:fix`, another format pass after import sorting, `pnpm check` (261 unit/172 integration), `pnpm build`, `check-observability.ts --verify-alerts`/`--verify-cli`, handbook 09 and `git diff --check` passed. First check stopped at formatting; corrected before rerunning.
 - API/worker/docs/schema remain active; health and all sources green. Latest real free collection verified 10 posts; digest/social failures zero; dangling Docker volumes zero. Only alert service installed/reloaded and unit collector refreshed; no app/DB/Redis restart, UI changes, paid calls or Reddit requests.
 - Next: scheduled Nov 3 cost/yield/AI timing and acks when available; otherwise finish remaining O9 alert rules before O7/O8/O10.
+
+## 2026-11-03: iteration 413 — job and API error alerts
+
+- Started clean on main; no leftover work. Health, 32 sources and four queues healthy; two historical ingestion failures remain. Scheduled evidence still awaits 15:00 UTC.
+- Added local recent-worker-failure and sustained API 5xx rules: ten-minute failed-attempt increase/one-minute hold; >5% 5xx with >=20 requests in five minutes/two-minute hold. No notifications or production-content/cost changes.
+- Offline vmalert cases cover sustained thresholds, recovery/expiry, low traffic, exact 5% boundary, historical counters and resets. Used increase_prometheus after tests exposed default MetricsQL first-sample counting; retained historical failures must not fire.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (261 unit/172 integration), `pnpm build`, vmalert dry-run/unittest, `check-observability.ts --verify-alerts`, handbook 09 and `git diff --check` passed. Zero dangling Docker volumes.
+- Deployed rule config and restarted only obs-alerts; seven rules healthy, zero pending/firing. Live /healthz green; latest real free collection verified ten posts. No app/DB/Redis restart, paid calls, Reddit requests or UI changes.
+- Updated handbook, plan and TASKS. Next: scheduled Nov 3 cost/yield/AI timing and acks first; otherwise missed-edition/spend/per-service-budget alerts before O7/O8/O10.
