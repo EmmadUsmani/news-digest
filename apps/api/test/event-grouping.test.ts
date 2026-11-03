@@ -42,7 +42,7 @@ function harness(text: string, available = true) {
     {
       async complete(request) {
         calls++;
-        assert.equal(request.purpose, 'event-grouping-v1');
+        assert.equal(request.purpose, 'event-grouping-v2');
         return {
           text,
           usage: { input: 10, output: 10, cacheWrite: 0, cacheRead: 0 },
@@ -120,4 +120,78 @@ void test('budget refusal and unavailable provider keep articles separate', asyn
     llmConfig({}).haiku,
   );
   assert.deepEqual(await service.group('nba', candidates, 'run'), []);
+});
+
+void test('shared references normalize X IDs, dedupe citations and never force merges', async () => {
+  const prompts: string[] = [];
+  const service = new EventGrouping(
+    {
+      async json(request, validate) {
+        prompts.push(request.prompt);
+        assert.match(request.instructions, /hints only, never proof/);
+        return validate({ groups: [] });
+      },
+    },
+    llmConfig({}).haiku,
+  );
+  const items = candidates.map((item, i) => ({
+    ...item,
+    outboundLinks:
+      i === 0
+        ? [
+            'https://twitter.com/reporter/status/123?s=20',
+            'https://x.com/reporter/status/123',
+            'https://example.com/story#section',
+            'javascript:alert(1)',
+            'https://user:password@example.com/story',
+            'https://x.com.evil.test/reporter/status/123',
+          ]
+        : i === 1
+          ? [
+              'https://x.com/other/status/123/photo/1',
+              'https://example.com/story',
+              'https://example.com/different',
+            ]
+          : ['https://example.com/unrelated'],
+  }));
+  assert.deepEqual(await service.group('nba', items, 'run'), []);
+  assert.deepEqual(JSON.parse(prompts[0]).sharedReferences, [
+    { url: 'https://x.com/i/status/123', ids: ['a', 'b'] },
+    { url: 'https://example.com/story', ids: ['a', 'b'] },
+  ]);
+});
+void test('changed shared hints invalidate cached grouping without extra repair calls', async () => {
+  const h = harness('{"groups":[]}');
+  await h.service.group('nba', candidates, 'run');
+  const items = candidates.map((item) => ({
+    ...item,
+    outboundLinks: ['https://example.com/event'],
+  }));
+  await h.service.group('nba', items, 'run');
+  await h.service.group('nba', items, 'another-run');
+  assert.equal(h.counts().calls, 2);
+});
+void test('reference hints bound link counts and URL length without truncating into matches', async () => {
+  const service = new EventGrouping(
+    {
+      async json(request, validate) {
+        assert.deepEqual(JSON.parse(request.prompt).sharedReferences, []);
+        return validate({ groups: [] });
+      },
+    },
+    llmConfig({}).haiku,
+  );
+  const long = 'https://example.com/' + 'a'.repeat(2048);
+  const items = candidates.map((item, i) => ({
+    ...item,
+    outboundLinks:
+      i === 0
+        ? [
+            ...Array.from({ length: 20 }, (_, j) => `https://example.com/${j}`),
+            'https://example.com/shared',
+            long,
+          ]
+        : ['https://example.com/shared', long, 'invalid URL'],
+  }));
+  assert.deepEqual(await service.group('nba', items.slice(0, 2), 'run'), []);
 });

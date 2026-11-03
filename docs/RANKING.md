@@ -1232,6 +1232,19 @@ repair behavior.
 
 This component has no production caller and no effect on editions or ranking.
 Fake-provider tests establish validation, accounting and cache behavior only.
-Approved shared-link/X hints, evaluation tooling and the capped labelled-day
-quality evaluation remain unfinished. No live quality, cost or latency claim is
+Approved shared-link/X hints were added in iteration 469; evaluation tooling
+and the capped labelled-day quality evaluation remain unfinished. No live quality, cost or latency claim is
 made; activation still requires STEERING 26's zero-wrong-merge/recall gate.
+
+## Iteration 469: shared-reference hints, still inactive
+
+Grouping v2 accepts optional outbound links from each shortlisted article.
+It supplies shared HTTP(S) references to the model, bounded to the first 20
+links per article and 2,048 characters per URL. Exact links ignore fragments;
+X/Twitter status URLs normalize to the post ID, ignoring handle and media/query
+suffixes. Credentials and non-HTTP links are discarded. References are never
+fetched, and shared references never cause a code-level merge. The prompt
+explicitly warns that one link can cover separate events. Prompt/cache version
+changed; fake tests verify citation dedupe, X aliases, unrelated links, empty
+model decisions and cache invalidation. No production caller or paid call was
+added. Extraction/caller wiring and the quality evaluation remain open.

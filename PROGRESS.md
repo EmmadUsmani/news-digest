@@ -1,13 +1,3 @@
-## 2026-11-03: iteration 453 — group explicit game-title reveals
-
-- Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis and all 32 sources. Scheduled social/latency evidence remains pending; advanced item 19.
-- Added opt-in official sequel/subtitle reveal matching with full identity, Roman/Arabic numeral normalization and a 36-hour bound. Different titles/sequels, generic trailers, release-date news and uncertain/historical headlines do not qualify. Production grouping stays disabled.
-- Three recorded Sentinel announcements group; reviewed one previously unlabeled positive pair. Benchmark now 89 pairs: combined 19/48 positives, zero/41 false merges; no unknown merges or membership variation across 34 orders/window. Agent labels are not independent verification.
-- Updated TASKS/RANKING; archived iteration 437 to keep PROGRESS bounded. No UI or handbook-described production flow change.
-- Verification: targeted grouping 20/20; pnpm format, pnpm lint:fix, pnpm check (290 unit/176 isolated integration), pnpm build and git diff --check passed. Initial full check found an old 16-match assertion; updated to 19 before rerunning.
-- Restarted API/worker; health/root/jobs/sources checks passed, zero alerts/dangling volumes. Hourly social collection and latest scheduled edition remain healthy.
-- No paid calls, new editions or Reddit requests. Next: Nov 4 social selections, World yield and latency/full-AI evidence; broader Gaming recall/independent labels remain open.
-
 ## 2026-11-03: iteration 454 — reset oversized metrics storage caches
 
 - Started clean on main; no leftovers. App healthy/all 32 sources flowing, but metrics-store memory warning pending (about 105/112 MiB). Fixed this before product work.
@@ -162,3 +152,13 @@
 - Verification: targeted tests 9/9; pnpm format, pnpm lint:fix, pnpm check (268 unit/177 isolated integration), pnpm build and git diff --check passed. First check caught floating promises in new tests; fixed explicitly. Zero dangling volumes.
 - Restarted API/worker; pnpm obs health --check passed, root HTTP 200, zero alerts. Healthy sources and completed scheduled digest/hourly social jobs confirmed; no fresh edition generated.
 - Next: add approved shared-link/X prompt hints and evaluation wiring; run the owner's capped quality evaluation before any activation. Nov 4 NBA/full-AI/latency and social selection evidence still takes priority when available.
+
+## 2026-11-03: iteration 469 — bounded shared-reference grouping hints
+
+- Started clean on main; no leftovers, zero alerts, healthy API/DB/Redis and all 33 sources. Nov 4 scheduled latency/NBA/social evidence remains pending.
+- Inactive grouping v2 accepts bounded optional outbound links; exact shared links and normalized X post IDs become prompt hints only. Model decides membership; no automatic merges, extraction/caller wiring or production activation.
+- Deduplicates article citations, strips fragments, rejects credentials/non-HTTP references and bounds link count/length. Prompt explicitly warns that shared references can cover distinct events; changed hints invalidate the existing request cache.
+- Targeted fake tests 12/12 cover X aliases, unrelated links, no model merge despite hints, bounds and cache changes. No paid calls, new editions or Reddit requests.
+- Updated TASKS/RANKING; archived iteration 453 to keep PROGRESS bounded. No production flow/UI/handbook change.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (271 unit/177 isolated integration), pnpm build and git diff --check passed. First check found archived Markdown formatting; fixed before rerun.
+- Next: evaluation/caller wiring and owner-capped labelled-day evaluation; activation requires zero wrong merges and recall above 13/32. Check Nov 4 scheduled provider/social evidence first when available.
