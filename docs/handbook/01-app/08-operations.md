@@ -44,6 +44,14 @@ The **Status page** in the app is the dashboard. It shows:
 `/healthz` returns 200 only when both Postgres and Redis respond. The agent's
 supervisor also checks it after every iteration.
 
+The read-only edition timing report (`pnpm exec tsx scripts/report-edition-timing.ts`,
+with the configured database environment loaded) joins retained completed jobs,
+published editions and their provider charges. It separates final-attempt worker
+duration from signed offsets between the intended schedule and start/completion.
+Positive offsets mean later; manual runs have no schedule offset. These offsets
+include scheduling delay and earlier retries, so they do not measure pure queue
+wait or fresh AI latency. The report never starts a job or calls a provider.
+
 ## How code reaches production
 
 There is no separate CI/CD. The build agent works directly on the VM:

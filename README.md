@@ -122,12 +122,15 @@ For read-only live evidence, run `pnpm exec tsx scripts/report-edition-timing.ts
 with the API running locally and the configured database environment loaded.
 It GETs status and the editions linked to the three latest retained completed
 jobs and SELECTs their provider ledger entries; it never enqueues work or calls an LLM.
-The report includes final-attempt worker duration, edition creation/window,
+The report includes final-attempt worker duration, signed schedule-to-start and
+schedule-to-completion offsets (positive means later; manual/missing timestamps
+stay null), edition creation/window,
 candidate counts, editorial modes/reasons, scheduled reserve/outcome and remaining app budget.
 Per-edition settled microdollar cost, unresolved holds and model/purpose call counts
 use the edition UUID, so concurrent manual jobs cannot inflate the scheduled cost.
 Cache hits add no new call; failed unpublished attempts use different UUIDs and
-are excluded, so these totals do not measure all retry spend. Queue wait,
+are excluded, so these totals do not measure all retry spend. Schedule offsets
+include scheduler delay and prior retries; they are not pure queue wait. Queue wait,
 prior retries and cold provider latency are not measured. A reused edition,
 cached scores or non-AI fallback must not be reported as a cold AI timing result.
 On November 2 at 14:49 UTC, retained jobs were older `signals-v6` publications

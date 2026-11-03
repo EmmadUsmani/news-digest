@@ -3,6 +3,7 @@ import { digestPreviewSchema, operationsStatusSchema } from '@digest/contracts';
 
 import { database } from '../apps/api/src/libs/db/connections';
 import { readEditionCost } from '../apps/api/src/modules/curation/database/edition-cost.reader';
+import { scheduledTiming } from './lib/scheduled-timing';
 
 async function read(path: string) {
   const response = await fetch(`http://localhost:8000${path}`, {
@@ -35,6 +36,7 @@ async function main() {
         startedAt: run.startedAt,
         finishedAt: run.finishedAt,
         workerDurationMs: run.durationMs,
+        ...scheduledTiming(run),
         attempts: run.attempts,
         editionCreatedAt: edition.createdAt,
         providerLedger: await readEditionCost(db, edition.id),
@@ -68,6 +70,8 @@ async function main() {
         checkedAt: status.checkedAt,
         note: 'Retained live jobs only; duration covers the final worker attempt, excludes queue wait, and may reuse an existing edition or cached scores. AI mode does not prove fresh provider calls. Fallback/cache timings do not establish cold live AI latency targets. No inference or publication triggered.',
         nextRun: queue.nextRun,
+        scheduleTimingNote:
+          'Signed milliseconds from intended scheduled time to final-attempt start/completion; positive means later. Includes scheduling delay and prior retries, not pure queue wait. Manual runs or missing timestamps are null. Edition reuse is not a fresh publication measurement.',
         llmBudget: {
           todayMicros: status.llm.todayMicros,
           availableMicros: status.llm.availableMicros,
