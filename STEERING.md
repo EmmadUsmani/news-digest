@@ -792,3 +792,31 @@ read, and spend tonight on the daily-quality bugs.
 **Until the Nov 4 run is checked:**
 - No new sources, and no other new production feature or activation.
 - Item 7 bug fixes are fine (see step 1).
+
+## 28. Never idle: work allowed before the Nov 4 run (2026-11-03)
+
+Iterations 486–507 exited with no work for about two hours. Item 27 was
+read as gating everything on the Nov 4 run. That was not the intent.
+- **Observability (item 24) is allowed now.** It is not an edition feature.
+  - **Next pieces:** the remaining O7 slow-query view, completing O9 alert
+    coverage, and O10 if anything is left.
+  - **Existing limits:** no Postgres or Redis restarts within 2 h of the
+    edition, and deploys done by 14:30 UTC.
+- **Edition speed (item 7): try other approaches offline.** Capping the
+  candidate pool is ruled out (it lost stories).
+  - **The main lever:** triage articles incrementally through the day as
+    they're collected, so the 07:00 PT run only triages the remainder.
+    - Each article is still triaged once, through `llm_cache`, so the cost
+      stays about the same.
+    - It uses the normal daily budget and never the scheduled reserve.
+    - Articles that are never used still cost money: measure that waste.
+  - **Other levers worth measuring:** concurrency, batch size and prompt
+    size.
+  - **Build it behind a setting that is off by default,** and test it on
+    recorded windows. It goes live only after the Nov 4 run is checked.
+- **Standing rule:** if every item in the current order is waiting on
+  evidence, work down this list. Never end an iteration without useful
+  work.
+  1. Observability (item 24).
+  2. Offline item 7 speed work.
+  3. Items 2a/2b and 4.
