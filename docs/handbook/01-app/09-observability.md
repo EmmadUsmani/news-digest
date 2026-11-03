@@ -65,3 +65,10 @@ available funds. They distinguish a reserve shortfall from the final admission
 result: another cap or provider block may also refuse the call. These entries
 follow the ledger transaction commit and omit request content and purpose.
 Verification calls rejected by their separate early cap do not reach this log.
+
+Reserve lifecycle entries follow committed registration, reconciliation, claim
+and completion transactions. They record the operation, budget day or run ID,
+attempt and requested state. `applied` means a fenced transition changed a row;
+`unchanged` means no eligible row matched. Registration reports `observed` and
+the stored state because the first registration wins. Reads are silent, and
+edition content and outcome explanations are omitted.

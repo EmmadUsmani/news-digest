@@ -252,3 +252,8 @@ O1 incremental progress (351): Anthropic reserve admission logs report the locke
 policy state, protected funds, effective availability and committed admission
 outcome without request content. Separate early verification-cap refusals do not
 evaluate the reserve. Reserve lifecycle transitions and edition steps remain open.
+
+O1 incremental progress (352): reserve lifecycle transactions log committed
+observations and applied/unchanged fenced transitions, including retries and
+publication reconciliation. Rollbacks produce no lifecycle entry; edition
+content and outcome reasons are omitted. Edition steps remain before O1 completion.

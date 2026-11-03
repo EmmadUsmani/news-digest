@@ -123,6 +123,7 @@ async function main() {
           'budget.settlement',
           'budget.failure',
           'budget.reserve-decision',
+          'budget.reserve-lifecycle',
         ].map((event) => [
           event,
           logs.filter((line) => line.event === event).length,
