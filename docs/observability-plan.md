@@ -227,6 +227,7 @@ only when its check passes.
   - Iteration 402: metric history via `--since`/`--step`, capped at seven days and 1,000 evaluation timestamps per series; offline boundary tests and a live retained-sample check. Series count remains query-dependent.
   - Iteration 403: read-only edition timing accepts `--scheduled-only --limit 20`, with pre-read selection, separate completed/failure bounds and retained/selected counts. Offline validation and `--verify-timing` cover real retained editions; queue retention still bounds historical evidence.
   - Iteration 404: `pnpm obs targets` reports registered scrape health and age, distinguishes stale/unknown/down, puts unhealthy targets first and bounds output at 50 with totals. Offline boundary/error tests and live eight-target verification; no alert engine or O9 completion claim.
+  - Iteration 405: `pnpm obs sources` adds bounded source-health triage from the validated Status snapshot, with active error/unknown/stale states and inactive separation. Two-hour freshness is a triage threshold, not a source schedule guarantee; no provider calls or alert-engine completion.
   - **Scope:** vmalert rules for:
     - disk over 80%;
     - a `news-digest-*` or `obs-*` unit down;

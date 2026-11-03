@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import {
   obsRequest,
   runObs,
+  sourceSummary,
   targetSummary,
 } from '../../../scripts/lib/obs-query';
 
@@ -32,6 +33,7 @@ void test('obs log filters escape query operators and bound results', () => {
 void test('obs rejects malformed inputs before any network access', async () => {
   for (const args of [
     ['alerts'],
+    ['sources', '--limit', '5'],
     ['targets', '--url', 'https://example.com'],
     ['jobs', '--limit', '21'],
     ['jobs', '--limit', '0'],
@@ -313,4 +315,69 @@ void test('obs target health distinguishes failed, stale, absent and future scra
     }),
   );
   assert.equal(output.total, 0);
+});
+
+void test('source health distinguishes errors, stale success, unknown and inactive without exposing errors', () => {
+  const checkedAt = '2026-11-03T12:00:00.000Z';
+  const source = {
+    id: 'ok',
+    name: 'source',
+    active: true,
+    error: null,
+    lastAttempt: checkedAt,
+    lastSuccess: '2026-11-03T10:00:00.000Z',
+    lastItemCount: 0,
+    storedItems: 100,
+  };
+  const summary = sourceSummary({
+    checkedAt,
+    sources: [
+      source,
+      { ...source, id: 'stale', lastSuccess: '2026-11-03T09:59:59.000Z' },
+      { ...source, id: 'unknown', lastSuccess: null },
+      { ...source, id: 'future', lastSuccess: '2026-11-04T12:00:00.000Z' },
+      { ...source, id: 'error', error: 'sensitive provider response' },
+      {
+        ...source,
+        id: 'parked',
+        active: false,
+        error: 'old failure',
+        lastSuccess: null,
+      },
+    ],
+  });
+  assert.equal(summary.healthy, false);
+  assert.equal(summary.unhealthy, 4);
+  assert.deepEqual(
+    summary.sources.map(({ id, state }) => [id, state]),
+    [
+      ['error', 'error'],
+      ['future', 'unknown'],
+      ['unknown', 'unknown'],
+      ['stale', 'stale'],
+      ['ok', 'ok'],
+      ['parked', 'inactive'],
+    ],
+  );
+  assert.equal(JSON.stringify(summary).includes('sensitive'), false);
+  assert.equal(summary.sources.find((s) => s.id === 'ok')?.ageSeconds, 7200);
+  assert.equal(sourceSummary({ checkedAt, sources: [] }).healthy, false);
+  const bounded = sourceSummary({
+    checkedAt,
+    sources: Array.from({ length: 55 }, (_, i) => ({
+      ...source,
+      id: String(i),
+    })),
+  });
+  assert.equal(bounded.sources.length, 50);
+  assert.equal(bounded.omitted, 5);
+});
+
+void test('sources reads and validates only the local status snapshot', async () => {
+  assert.equal(obsRequest(['sources']).url, 'http://127.0.0.1:8000/api/status');
+  const read = (async () =>
+    new Response(
+      JSON.stringify({ checkedAt: 'invalid', sources: [] }),
+    )) as typeof fetch;
+  await assert.rejects(runObs(['sources'], read));
 });

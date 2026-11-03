@@ -69,6 +69,10 @@ async function main() {
       ],
       { env: testEnvironment(), stdio: 'pipe', timeout: 120_000 },
     );
+    const sources = JSON.parse(await runObs(['sources']));
+    assert.equal(sources.healthy, true);
+    assert.ok(sources.total > 0);
+    assert.equal(sources.omitted, 0);
     const targets = JSON.parse(await runObs(['targets']));
     assert.equal(targets.healthy, true);
     assert.equal(targets.total, 8);

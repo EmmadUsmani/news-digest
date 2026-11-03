@@ -397,6 +397,7 @@ or provider calls. These commands also work over SSH:
 - `pnpm obs logs --edition UUID` finds records explicitly attributed to an edition.
 - `pnpm obs logs --queue digest-generation --job ID` follows one job across worker and provider records that carry its identity.
 - `pnpm obs logs --grep 'Job finished'` matches message text literally.
+- `pnpm obs sources` summarizes collection health from Status: active errors, unknown success times and successes older than two hours come first. Inactive sources stay separate; zero new items alone is healthy. Output is limited to 50 sources with total/unhealthy/omitted counts, and excludes provider error text. Freshness uses the server snapshot time; JSON health does not change exit status.
 - `pnpm obs targets` summarizes collector health and last-scrape age directly from the metrics store.
 - `pnpm obs metric 'up'` runs an instant PromQL query.
 - `pnpm obs metric 'up' --since 1h --step 60s` returns historical samples with timestamps.

@@ -1,4 +1,7 @@
-import type { OperationsStatus } from '@digest/contracts';
+import {
+  type OperationsStatus,
+  operationsStatusSchema,
+} from '@digest/contracts';
 
 const queueNames = [
   'operations',
@@ -16,6 +19,10 @@ export function obsRequest(
   init?: RequestInit;
 } {
   const [command, ...rest] = args;
+  if (command === 'sources') {
+    if (rest.length) throw new Error('sources accepts no options');
+    return { url: 'http://127.0.0.1:8000/api/status' };
+  }
   if (command === 'targets') {
     if (rest.length) throw new Error('targets accepts no options');
     return { url: 'http://127.0.0.1:8428/metrics/api/v1/targets' };
@@ -27,7 +34,7 @@ export function obsRequest(
   if (command === 'metric') return metricRequest(rest, now);
   if (command !== 'logs' && command !== 'errors')
     throw new Error(
-      'Use: pnpm obs targets; pnpm obs logs|errors [--since 1h] [--service worker] [--edition UUID] [--queue name] [--job ID] [--grep text] [--limit 40]; pnpm obs jobs [--queue name] [--state failed] [--limit 5]; pnpm obs metric <PromQL> [--since 1h] [--step 60s]',
+      'Use: pnpm obs sources; pnpm obs targets; pnpm obs logs|errors [--since 1h] [--service worker] [--edition UUID] [--queue name] [--job ID] [--grep text] [--limit 40]; pnpm obs jobs [--queue name] [--state failed] [--limit 5]; pnpm obs metric <PromQL> [--since 1h] [--step 60s]',
     );
   const options = new Map<string, string>();
   for (let i = 0; i < rest.length; i += 2) {
@@ -123,6 +130,12 @@ export async function runObs(
   });
   if (!response.ok)
     throw new Error(`Local query failed: HTTP ${response.status}`);
+  if (args[0] === 'sources') {
+    const snapshot = operationsStatusSchema
+      .pick({ checkedAt: true, sources: true })
+      .parse(await response.json());
+    return JSON.stringify(sourceSummary(snapshot));
+  }
   if (args[0] === 'targets') {
     return JSON.stringify(targetSummary(await response.json(), Date.now()));
   }
@@ -288,5 +301,58 @@ export function targetSummary(body: unknown, now: number) {
     unhealthy: targets.filter((target) => target.state !== 'up').length,
     omitted: Math.max(0, targets.length - 50),
     targets: targets.slice(0, 50),
+  };
+}
+
+// Collection freshness is judged at the server snapshot, not the CLI clock.
+export function sourceSummary(
+  snapshot: Pick<OperationsStatus, 'checkedAt' | 'sources'>,
+) {
+  const checkedAt = Date.parse(snapshot.checkedAt);
+  const sources = snapshot.sources.map((source) => {
+    const success = source.lastSuccess ? Date.parse(source.lastSuccess) : NaN;
+    const ageSeconds =
+      Number.isFinite(success) && success <= checkedAt
+        ? Math.floor((checkedAt - success) / 1000)
+        : null;
+    const state = !source.active
+      ? 'inactive'
+      : source.error !== null
+        ? 'error'
+        : ageSeconds === null
+          ? 'unknown'
+          : ageSeconds > 7200
+            ? 'stale'
+            : 'ok';
+    return {
+      id: source.id,
+      state,
+      lastAttempt: source.lastAttempt,
+      lastSuccess: source.lastSuccess,
+      ageSeconds,
+      lastItemCount: source.lastItemCount,
+      storedItems: source.storedItems,
+    };
+  });
+  const unhealthy = sources.filter(
+    (source) => !['ok', 'inactive'].includes(source.state),
+  ).length;
+  const priority: Record<string, number> = {
+    error: 0,
+    unknown: 1,
+    stale: 2,
+    ok: 3,
+    inactive: 4,
+  };
+  sources.sort(
+    (a, b) => priority[a.state] - priority[b.state] || a.id.localeCompare(b.id),
+  );
+  return {
+    checkedAt: snapshot.checkedAt,
+    healthy: sources.length > 0 && unhealthy === 0,
+    total: sources.length,
+    unhealthy,
+    omitted: Math.max(0, sources.length - 50),
+    sources: sources.slice(0, 50),
   };
 }
