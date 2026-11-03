@@ -643,3 +643,22 @@ for the owner and query APIs plus an `obs` CLI for the agent.
   chosen tool without a short note in `docs/decisions/`.
 - **Logs must never contain secrets.**
 - No ack needed; ticked pieces in the plan show progress.
+
+## 25. Stop the test-volume leak; observability focus (2026-11-03)
+
+- **Disk leak (fix soon, small):** `scripts/test-isolated.ts` left 266
+  anonymous Docker volumes (5.6 GB). Disk went from 57% to 64% overnight.
+  The owner pruned them on Nov 3 (disk now 42%).
+  - Give the test Postgres and Redis containers tmpfs data dirs
+    (`withTmpFs`), so no volume is created, even when a run is killed or
+    times out.
+  - Verify that `docker volume ls -qf dangling=true` stays at 0 across
+    `pnpm check` and an interrupted run.
+  - Also prune dangling volumes if any appear.
+- **Observability (item 24): next is O9 alerts, then O7, O8, O10.**
+  - Stop refining the `obs` CLI and existing dashboards unless they're
+    broken.
+  - O9 must include a disk alert (it would have caught this leak), the
+    other alerts in the plan, and `obs alerts` at iteration start.
+  - Grafana uses about 280 MB, which puts the stack slightly over budget.
+    Trim it if that's easy (disable unused plugins and features).
