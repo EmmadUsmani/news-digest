@@ -220,3 +220,8 @@ Each piece ends with:
 O1 incremental progress (345): Anthropic attempts include retry outcomes, run context,
 token usage and computed cost. Provider bodies/prompts are omitted; ledger remains
 authoritative. Other providers, budget decisions and edition steps remain open.
+
+O1 incremental progress (346): official X oEmbed HTTP attempts now have their own
+`x-oembed` target, including failures, with cache omission and inherited context.
+Mocked tests verify categorization and omission of post URLs and embed bodies.
+HTTP success does not assert subsequent embed validation success.

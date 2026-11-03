@@ -127,3 +127,80 @@ void test('shared HTTP logs actual attempts, status, failures and job context wi
     requestMock.mock.restore();
   }
 });
+
+void test('shared HTTP distinguishes official X embeds and HN without exposing post URLs', async () => {
+  const lines: string[] = [];
+  const log = createLogger(
+    'test',
+    {
+      write: (line: string) => {
+        lines.push(line);
+      },
+    },
+    [],
+  );
+  let status = 200;
+  const requestMock = mock.method(
+    https,
+    'request',
+    (
+      _url: string,
+      _options: unknown,
+      callback: (response: unknown) => void,
+    ) => {
+      const req = new EventEmitter();
+      Object.assign(req, {
+        end: () =>
+          queueMicrotask(() =>
+            callback(
+              Object.assign(
+                Readable.from([Buffer.from('private-embed-html')]),
+                { statusCode: status, headers: {} },
+              ),
+            ),
+          ),
+      });
+      return req;
+    },
+  );
+  const url =
+    'https://publish.twitter.com/oembed?url=https%3A%2F%2Fx.com%2Fprivate-author%2Fstatus%2F123';
+  try {
+    const client = new SharedHttpClient(log);
+    await logJob(
+      'social-collection',
+      () => client.get(url),
+      log,
+    )({ id: 'embed-job', name: 'collect', attemptsMade: 0 } as Job);
+    await client.get(url);
+    status = 404;
+    await assert.rejects(new SharedHttpClient(log).get(url), /HTTP 404/);
+    status = 200;
+    for (const other of [
+      'https://hacker-news.firebaseio.com/v0/item/123.json',
+      'https://publish.twitter.com/other',
+      'https://publish.twitter.com.example.org/oembed',
+    ])
+      await new SharedHttpClient(log).get(other);
+    const calls = lines
+      .map((line) => JSON.parse(line))
+      .filter((line) => line.event === 'external.call');
+    assert.deepEqual(
+      calls.map((line) => [line.target, line.status, line.outcome]),
+      [
+        ['x-oembed', 200, 'success'],
+        ['x-oembed', 404, 'failure'],
+        ['hacker-news', 200, 'success'],
+        ['feed', 200, 'success'],
+        ['feed', 200, 'success'],
+      ],
+    );
+    assert.equal(calls[0].jobId, 'embed-job');
+    assert.equal(calls[0].queue, 'social-collection');
+    assert.ok(calls.every((line) => line.durationMs >= 0));
+    assert.ok(!lines.join('').includes('private-'));
+    assert.ok(!lines.join('').includes('https://'));
+  } finally {
+    requestMock.mock.restore();
+  }
+});

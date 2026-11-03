@@ -32,6 +32,12 @@ export class SharedHttpClient implements HttpPort {
       setTimeout(resolve, Math.max(0, (this.next.get(host) ?? 0) - Date.now())),
     );
     this.next.set(host, Date.now() + 1000);
+    const target =
+      host === 'hacker-news.firebaseio.com'
+        ? 'hacker-news'
+        : host === 'publish.twitter.com' && new URL(url).pathname === '/oembed'
+          ? 'x-oembed'
+          : 'feed';
     const started = performance.now();
     let status: number | undefined;
     try {
@@ -41,8 +47,7 @@ export class SharedHttpClient implements HttpPort {
       this.log.info(
         {
           event: 'external.call',
-          target:
-            host === 'hacker-news.firebaseio.com' ? 'hacker-news' : 'feed',
+          target,
           status,
           outcome: typeof result === 'string' ? 'success' : 'redirect',
           durationMs: Math.round(performance.now() - started),
@@ -55,8 +60,7 @@ export class SharedHttpClient implements HttpPort {
       this.log.warn(
         {
           event: 'external.call',
-          target:
-            host === 'hacker-news.firebaseio.com' ? 'hacker-news' : 'feed',
+          target,
           status,
           outcome: 'failure',
           durationMs: Math.round(performance.now() - started),

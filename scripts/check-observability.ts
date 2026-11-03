@@ -106,6 +106,14 @@ async function main() {
       externalCallsInJournalSample: logs.filter(
         (line) => line.event === 'external.call',
       ).length,
+      externalCallsByTarget: Object.fromEntries(
+        ['feed', 'hacker-news', 'anthropic', 'x-oembed'].map((target) => [
+          target,
+          logs.filter(
+            (line) => line.event === 'external.call' && line.target === target,
+          ).length,
+        ]),
+      ),
       resources,
       extraServices: 0,
       extraLogStoreBytes: 0,
