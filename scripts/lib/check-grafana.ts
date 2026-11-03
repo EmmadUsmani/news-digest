@@ -237,7 +237,13 @@ export async function checkGrafana() {
         assert.equal(result.status, 'success', panel.title);
         if (result.data.result.length > 0) populated++;
         if (dashboard.uid === 'nd-agent') {
-          assert.ok(result.data.result.length > 0, panel.title);
+          if (![15, 16].includes(panel.id))
+            assert.ok(result.data.result.length > 0, panel.title);
+          else {
+            assert.ok(result.data.result.length <= 1, panel.title);
+            assert.equal(panel.fieldConfig.defaults.noValue, 'Unknown');
+            assert.equal(panel.targets[0].instant, true);
+          }
           for (const series of result.data.result)
             assert.ok(Number.isFinite(Number(series.value[1])), panel.title);
         }
@@ -495,6 +501,8 @@ export async function checkGrafana() {
         'Weekly quota used (last observation)',
         'Status reads successful',
         'Reported iteration start',
+        'Observed completed iteration duration',
+        'Reported next retry (UTC)',
       ]) {
         const heading = page.getByRole('heading', { name: title, exact: true });
         for (
@@ -514,6 +522,15 @@ export async function checkGrafana() {
           .count(),
         0,
       );
+      await page
+        .getByRole('heading', {
+          name: 'Observed completed iteration duration',
+          exact: true,
+        })
+        .scrollIntoViewIfNeeded();
+      await page.screenshot({
+        path: 'docs/screenshots/grafana-agent-timing-mobile.png',
+      });
       await page.evaluate(() => window.scrollTo(0, 0));
       await page.mouse.wheel(0, -10000);
       await page.waitForTimeout(500);

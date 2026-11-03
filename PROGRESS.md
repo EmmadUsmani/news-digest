@@ -141,3 +141,13 @@ Earlier entries: [progress archive](docs/progress-archive/).
 - pnpm format, pnpm lint:fix, pnpm check (275 unit/176 isolated integration), pnpm build, python3 ops/observability/test-harness-metrics.py, check-observability.ts --verify-o8 and check-handbook.ts 09-observability passed. No UI/diagram changes.
 - Installed only harness-metrics.py and ran obs-unit-metrics.service; timer active. App/DB/Redis unchanged. Zero alerts/dangling volumes; 32 healthy sources, queues available, all-topic articles/stored X. Latest real edition remains 19 stories/11 X posts; no paid calls/new editions.
 - TASKS/plan/handbook updated; archived iterations 426–427 to keep PROGRESS small. Next: scheduled product evidence first; otherwise O8 duration/retry presentation, then O10 browser errors.
+
+## 2026-11-03: iteration 441 — supervisor duration and retry presentation
+
+- Started clean on main; no leftovers. Alerts/health green; product acceptance still awaits the next scheduled edition. Finished O8 within available bounded-status scope under items 24/25.
+- Agent dashboard adds optional completed-iteration duration and reported next-retry UTC panels. Missing samples display Unknown; running iterations remove duration, brief completions may be missed, and retry timestamps can be stale. Tokens/commits/cumulative pacing remain unavailable and uninferred.
+- Read-only checker accepts missing optional samples but requires finite values when present, instant queries and explicit Unknown configuration. Desktop/mobile Playwright checks and three inspected screenshots cover the panels; 16 queries successful, 14 currently populated, two honestly unknown. Viewer grants and Grafana memory (197 MiB) verified.
+- Initial browser check caught provisioning reload lag; rerun passed after hot reload. Installed dashboard JSON only; no service restart needed under STEERING 22. Protected harness files unchanged.
+- pnpm format, pnpm lint:fix, pnpm check, pnpm build, check-observability.ts --verify-o8 --verify-grafana --grafana-agent-only and check-handbook.ts 09-observability passed. No diagram changes.
+- Healthy sources/queues, real articles and stored X across four topics; latest real edition remains Nov 3 15:03 UTC with four topics. Zero alerts/dangling volumes. No paid calls or new editions.
+- TASKS/plan/handbook updated. Next: scheduled social/latency evidence first; otherwise O10 browser errors. O8 is complete with the documented unavailable-counter limits.

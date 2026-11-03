@@ -357,6 +357,8 @@ or content jobs are triggered. Reader privileges and denied access to cache/arti
 text are also checked. Database top-query timing and available supervisor status are included;
 agent tokens, commits and cumulative pacing measurements remain unavailable.
 
+Agent supervisor also shows optional completed-iteration duration and reported next retry in UTC. Missing observations display Unknown. Duration disappears while an iteration runs; brief completion states may be missed. Retry time may be stale and does not establish an active wait.
+
 Agent supervisor shows the build unit's active state, cgroup memory, CPU,
 task count and automatic restarts since activation, using existing unit samples.
 The cgroup includes child processes, so builds and tests contribute to these

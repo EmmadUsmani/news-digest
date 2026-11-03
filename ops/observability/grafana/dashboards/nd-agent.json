@@ -1,9 +1,9 @@
 {
   "uid": "nd-agent",
   "title": "Agent supervisor",
-  "description": "Read-only supervisor status and systemd cgroup measurements. Status can be stale during a running iteration; read success is not freshness or progress. Previous exit code belongs to the previous run. Tokens, commits, pacing waits and iteration duration are not available.",
+  "description": "Read-only supervisor status and systemd cgroup measurements. Status can be stale during a running iteration; read success is not freshness or progress. Previous exit code belongs to the previous run. Optional completed duration and retry time are supervisor observations; tokens, commits and cumulative pacing are unavailable.",
   "schemaVersion": 41,
-  "version": 2,
+  "version": 3,
   "editable": false,
   "tags": ["news-digest"],
   "timezone": "utc",
@@ -350,6 +350,90 @@
       }
     },
     {
+      "id": 15,
+      "title": "Observed completed iteration duration",
+      "description": "Duration from valid start and finish in the same heartbeat. Removed while an iteration runs; brief completions can fall between collector snapshots. Unknown is not zero; this is not a durable last-completed history.",
+      "type": "stat",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 20,
+        "w": 12,
+        "h": 5
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "news_digest_harness_completed_iteration_duration_seconds",
+          "instant": true,
+          "legendFormat": "reported"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "noValue": "Unknown"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "orientation": "auto"
+      }
+    },
+    {
+      "id": 16,
+      "title": "Reported next retry (UTC)",
+      "description": "Optional supervisor-reported retry timestamp. May be stale and does not prove a wait is active. Unknown means no available observation; this is not cumulative pacing time.",
+      "type": "stat",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 20,
+        "w": 12,
+        "h": 5
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "news_digest_harness_next_retry_timestamp_seconds * 1000",
+          "instant": true,
+          "legendFormat": "reported"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "dateTimeAsIso",
+          "noValue": "Unknown"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "orientation": "auto"
+      }
+    },
+    {
       "id": 1,
       "title": "Supervisor active",
       "type": "timeseries",
@@ -359,7 +443,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 20,
+        "y": 25,
         "w": 12,
         "h": 8
       },
@@ -394,7 +478,7 @@
       },
       "gridPos": {
         "x": 12,
-        "y": 20,
+        "y": 25,
         "w": 12,
         "h": 8
       },
@@ -429,7 +513,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 28,
+        "y": 33,
         "w": 12,
         "h": 8
       },
@@ -464,7 +548,7 @@
       },
       "gridPos": {
         "x": 12,
-        "y": 28,
+        "y": 33,
         "w": 12,
         "h": 8
       },
@@ -499,7 +583,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 36,
+        "y": 41,
         "w": 12,
         "h": 8
       },
@@ -534,7 +618,7 @@
       },
       "gridPos": {
         "x": 12,
-        "y": 36,
+        "y": 41,
         "w": 12,
         "h": 8
       },
