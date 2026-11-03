@@ -1,21 +1,8 @@
 # Progress
 
-Archived: [iteration 292](docs/progress-archive/2026-11-03-iteration-292.md), [iteration 291](docs/progress-archive/2026-11-03-iteration-291.md), [iteration 290](docs/progress-archive/2026-11-03-iteration-290.md), [iteration 288](docs/progress-archive/2026-11-03-iteration-288.md), [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md), [286](docs/progress-archive/2026-11-03-iteration-286.md).
+Archived: [iteration 293](docs/progress-archive/2026-11-03-iteration-293.md), [iteration 292](docs/progress-archive/2026-11-03-iteration-292.md), [iteration 291](docs/progress-archive/2026-11-03-iteration-291.md), [iteration 290](docs/progress-archive/2026-11-03-iteration-290.md), [iteration 288](docs/progress-archive/2026-11-03-iteration-288.md), [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md), [286](docs/progress-archive/2026-11-03-iteration-286.md).
 
 Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md), [283](docs/progress-archive/2026-11-03-iteration-283.md), [284](docs/progress-archive/2026-11-03-iteration-284.md).
-
-## 2026-11-03: iteration 293 — optional X scheduler orchestration
-
-- Started clean on main; four services and health healthy, 32 sources error-free and no failed digests.
-- Connected open-mode scheduler orchestration to injected persisted completion/yield, article-story readers and parent-aware optional execution.
-- Every enabled topic needs exactly one durable completed primary; reactions precede account fallbacks, with weakest-first order inside each path.
-- Rechecks enabled topic settings, saved schedule, UTC day and pre-edition window after evidence/story I/O and before each optional attempt.
-- Fake tests cover restart recovery despite rejected duplicate primary admissions, durable parents, reaction priority, missing/duplicate evidence, delayed I/O and configuration changes.
-- Production remains account-list pending item 15 evidence/ack; production dependency wiring and open-mode activation remain.
-- Archived iterations 273–274 to keep PROGRESS bounded. Historical GamesRadar/DeepMind failed ingestion jobs have newer successful collections; no current outage.
-- Verified: 11 targeted tests; `pnpm format`, `pnpm lint:fix`, `pnpm check` (155 unit/168 integration), `pnpm build`, `git diff --check`.
-- Restarted API/worker/docs/schema; all active, health OK and SPA/docs/db HTTP 200. Latest social collection verified 10 posts without errors.
-- No paid provider or Reddit requests; Nov 3 X spend remains zero. Next: scheduled evidence/acks, then open-mode production wiring and activation.
 
 ## 2026-11-03: iteration 294 — production X dependency wiring
 
@@ -200,3 +187,12 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Items 13/7/15 await scheduled evidence; item 16 activation stays gated by item 15 acknowledgement. No application/settings changes, paid calls or Reddit requests.
 - Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `git diff --check`; restarted four services, active; health/app/status/docs/db HTTP 200. No UI change.
 - Next: record scheduled X per-topic cost/yield and edition AI cost/duration, acknowledge results, then activate open search.
+
+## 2026-11-03: iteration 313 — scheduled evidence gate unchanged
+
+- Started clean on main; no leftover work. API/worker/docs/schema active; database/Redis healthy; all queues staffed and no failed digest jobs.
+- Read-only status at 02:45 UTC: all 32 sources healthy; rolling-day articles Tech/AI 332, NBA 115, Gaming 288, World 223; verified X posts 53/33/17/3. Two retained historical ingestion failures have healthy current sources.
+- `pnpm exec tsx scripts/report-x-discovery.ts 2026-11-03`: zero calls/cost/holds; `pnpm exec tsx scripts/report-edition-timing.ts`: next edition 15:00 UTC, 482,788-micro reserve pending, other Anthropic allowance zero.
+- Items 13/7/15 still require scheduled evidence; owner item 16 explicitly requires item 15 acknowledgement before activation. No application/settings changes, paid calls or Reddit requests. Archived iteration 293 to keep progress bounded.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `git diff --check`; four services restarted, active; health/app/status/docs/db HTTP 200. No UI change.
+- Next: observe scheduled X per-topic cost/yield and edition AI cost/duration, acknowledge results, then activate open search.
