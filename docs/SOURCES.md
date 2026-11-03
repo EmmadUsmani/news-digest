@@ -1535,3 +1535,11 @@ contract for saved text/media/counts. Synthetic desktop/mobile browser replay
 checks images, video links, empty media, original links and saved metrics; these
 are not real editorial selections. Production inclusion remains off pending the
 Nov 3 scheduled evidence and acknowledgments; no new collection or paid calls.
+
+Iteration 324 prepares an explicit, default-off edition assembly seam over stored
+Bluesky observations. It reads at the window cutoff, validates snapshot URLs/media
+before triage, preserves existing picks and fills only unused slots after complete
+editing. Disabled/full selections do no storage or AI work; failures add no picks.
+Five fake-only tests cover the gate, bounded slots, snapshot independence and
+incomplete/refused responses. No production caller, new collection or paid calls;
+real editorial yield remains unmeasured and production inclusion remains off.

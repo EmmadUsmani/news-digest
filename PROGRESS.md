@@ -1,26 +1,8 @@
 # Progress
 
-Archived: [iterations 309–310](docs/progress-archive/2026-11-03-iterations-309-310.md), [iterations 307–308](docs/progress-archive/2026-11-03-iterations-307-308.md), [iterations 305–306](docs/progress-archive/2026-11-03-iterations-305-306.md), [iterations 303–304](docs/progress-archive/2026-11-03-iterations-303-304.md), [iteration 302](docs/progress-archive/2026-11-03-iteration-302.md), [iteration 301](docs/progress-archive/2026-11-03-iteration-301.md), [iteration 300](docs/progress-archive/2026-11-03-iteration-300.md), [iteration 299](docs/progress-archive/2026-11-03-iteration-299.md), [iteration 298](docs/progress-archive/2026-11-03-iteration-298.md), [iteration 297](docs/progress-archive/2026-11-03-iteration-297.md), [iteration 296](docs/progress-archive/2026-11-03-iteration-296.md), [iteration 295](docs/progress-archive/2026-11-03-iteration-295.md), [iteration 294](docs/progress-archive/2026-11-03-iteration-294.md), [iteration 293](docs/progress-archive/2026-11-03-iteration-293.md), [iteration 292](docs/progress-archive/2026-11-03-iteration-292.md), [iteration 291](docs/progress-archive/2026-11-03-iteration-291.md), [iteration 290](docs/progress-archive/2026-11-03-iteration-290.md), [iteration 288](docs/progress-archive/2026-11-03-iteration-288.md), [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md), [286](docs/progress-archive/2026-11-03-iteration-286.md).
+Archived: [iterations 311–312](docs/progress-archive/2026-11-03-iterations-311-312.md), [iterations 309–310](docs/progress-archive/2026-11-03-iterations-309-310.md), [iterations 307–308](docs/progress-archive/2026-11-03-iterations-307-308.md), [iterations 305–306](docs/progress-archive/2026-11-03-iterations-305-306.md), [iterations 303–304](docs/progress-archive/2026-11-03-iterations-303-304.md), [iteration 302](docs/progress-archive/2026-11-03-iteration-302.md), [iteration 301](docs/progress-archive/2026-11-03-iteration-301.md), [iteration 300](docs/progress-archive/2026-11-03-iteration-300.md), [iteration 299](docs/progress-archive/2026-11-03-iteration-299.md), [iteration 298](docs/progress-archive/2026-11-03-iteration-298.md), [iteration 297](docs/progress-archive/2026-11-03-iteration-297.md), [iteration 296](docs/progress-archive/2026-11-03-iteration-296.md), [iteration 295](docs/progress-archive/2026-11-03-iteration-295.md), [iteration 294](docs/progress-archive/2026-11-03-iteration-294.md), [iteration 293](docs/progress-archive/2026-11-03-iteration-293.md), [iteration 292](docs/progress-archive/2026-11-03-iteration-292.md), [iteration 291](docs/progress-archive/2026-11-03-iteration-291.md), [iteration 290](docs/progress-archive/2026-11-03-iteration-290.md), [iteration 288](docs/progress-archive/2026-11-03-iteration-288.md), [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md), [286](docs/progress-archive/2026-11-03-iteration-286.md).
 
 Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md), [283](docs/progress-archive/2026-11-03-iteration-283.md), [284](docs/progress-archive/2026-11-03-iteration-284.md).
-
-## 2026-11-03: iteration 311 — scheduled evidence still pending
-
-- Started clean on main; no leftover work. Four app services active; database/Redis healthy, all queues staffed, all 32 sources error-free.
-- Read-only status at 02:37 UTC: rolling-day articles Tech/AI 332, NBA 109, Gaming 287, World 223; verified X posts 49/31/17/3.
-- `pnpm exec tsx scripts/report-x-discovery.ts 2026-11-03`: zero calls/cost/holds. `pnpm exec tsx scripts/report-edition-timing.ts`: next edition 15:00 UTC, 482,788-micro reserve pending, other Anthropic allowance zero.
-- Items 13/7/15 await actual scheduled evidence; item 16 activation remains gated by item 15 acknowledgement. No application/settings changes, paid calls or Reddit requests. Archived iteration 292 to bound progress size.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check`; passed (163 unit/168 integration tests); four services restarted; health/app/status/docs/db HTTP 200. No UI change.
-- Next: measure scheduled per-topic X cost/yield and edition AI cost/duration, acknowledge results, then activate open search.
-
-## 2026-11-03: iteration 312 — live ingestion healthy; scheduled evidence pending
-
-- Started clean on main; no leftover work. Four app services active, database/Redis healthy and all queues staffed.
-- Read-only status at 02:41 UTC: all 32 connected sources healthy; rolling-day articles Tech/AI 332, NBA 115, Gaming 288, World 223; verified X posts 53/33/17/3.
-- `pnpm exec tsx scripts/report-x-discovery.ts 2026-11-03`: zero calls/cost/holds. `pnpm exec tsx scripts/report-edition-timing.ts`: next edition 15:00 UTC, 482,788-micro reserve pending, other Anthropic allowance zero.
-- Items 13/7/15 await scheduled evidence; item 16 activation stays gated by item 15 acknowledgement. No application/settings changes, paid calls or Reddit requests.
-- Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `git diff --check`; restarted four services, active; health/app/status/docs/db HTTP 200. No UI change.
-- Next: record scheduled X per-topic cost/yield and edition AI cost/duration, acknowledge results, then activate open search.
 
 ## 2026-11-03: iteration 313 — scheduled evidence gate unchanged
 
@@ -136,3 +118,13 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Updated TASKS, source evidence and handbook; archived iterations 309–310 to bound progress. Next: prepare gated Bluesky edition wiring; scheduled evidence/acks take priority when available.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (184 unit/170 integration passed, typecheck/lint/format/boundaries), `pnpm build`, handbook check (16 pages, 1 unchanged diagram, 25 tables), `git diff --check`. Initial check caught a late contract formatting edit; corrected before the successful full rerun.
 - Restarted API/worker for contract/editor types and rebuilt web; four services active, health database/Redis OK, app/docs/db HTTP 200. Live edition still has 20 stories and 10 X posts, zero Bluesky posts.
+
+## 2026-11-03: iteration 324 — default-off Bluesky edition preparation
+
+- Started clean on main; no leftover work. Four app services/health healthy, all 32 sources without current errors, no failed digest runs; Nov 3 15:00 UTC evidence remains pending.
+- Added explicit edition preparation over stored observations at the window cutoff, isolated semantic/final editing and validated immutable snapshots. Gate defaults off with no production caller; existing picks remain and Bluesky uses only unused topic slots.
+- Disabled/full selections do no storage or AI work; malformed URLs/media are excluded before triage. Refused/incomplete editing adds no posts. Five fake-only tests cover gates, bounds, X preservation, snapshot independence and failure paths.
+- No paid calls, collection or Reddit requests. No UI change. Live edition retains 20 stories/10 X posts and zero Bluesky posts; production inclusion remains off under item 23.
+- Updated TASKS, source evidence and handbook; archived iterations 311–312 to bound PROGRESS. Next: production caller behind a default-off flag, then activation only after scheduled evidence/acks.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (189 unit/170 integration passed, typecheck/lint/format/boundaries), `pnpm build`, handbook check (16 pages, 1 unchanged diagram, 25 assigned tables), `git diff --check`. First check caught archive formatting; corrected before full rerun.
+- App/docs/db HTTP 200 and health database/Redis OK. No service restart: new helper has no runtime caller; item 22 avoids unnecessary restarts. No screenshots required.

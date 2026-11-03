@@ -103,3 +103,9 @@ Images link to the original full-size media; video previews link to the post on
 Bluesky rather than loading a streaming player. Images load lazily with their
 original alt text. Cards use no third-party widget script. Production editions
 still exclude Bluesky; desktop/mobile screenshots are synthetic browser replays.
+
+Explicit edition preparation can read stored observations at the edition cutoff,
+run the isolated editor and create validated text/media/count snapshots. Its gate
+defaults off and it has no production caller. Existing picks are retained;
+Bluesky can use only the remaining topic slots. Disabled or full selections do
+not read storage or call AI; refused or incomplete editing adds no posts.
