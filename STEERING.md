@@ -580,3 +580,18 @@ The owner and Claude added system documentation and two internal tools:
   you've assigned any tables added since 2026-11-02.
 
 ack: 2026-11-03 item 21 — iteration 295 ran the full handbook check: 16 pages, 21 diagrams, no rendering or link errors; all 24 live tables assigned with no schema metadata warnings. Docs and schema services are active and their proxied endpoints return HTTP 200.
+
+## 22. Don't idle while waiting for evidence (2026-11-03)
+
+Iterations 296–314 only recorded "pending scheduled evidence", each one
+rerunning the full suite, restarting services and committing a status note.
+- **Blocked only on live evidence? Move on.** If the current item can't
+  progress until a scheduled run produces evidence (now: activating item 16
+  and the item 13/7/15 acks wait on the Nov 3 15:00 UTC run), start the next
+  item in the item 20 order: **17 now, then 18**. Return to the blocked item
+  as soon as the evidence exists; that takes priority again.
+- **No status-only commits while waiting.** Don't commit just to record that
+  evidence is still pending or that services are healthy.
+- **Don't restart services** unless code or config they run has changed, or
+  they are unhealthy.
+- No ack needed; the next commits show it.
