@@ -194,6 +194,29 @@ export async function checkGrafana() {
         const result = await response.json();
         assert.equal(result.status, 'success', panel.title);
         if (result.data.result.length > 0) populated++;
+        if (
+          dashboard.uid === 'nd-jobs' &&
+          panel.title === 'Next registered publication / social run'
+        ) {
+          const status = await (
+            await fetch('http://127.0.0.1:8000/api/status')
+          ).json();
+          for (const queue of ['digest-generation', 'social-collection']) {
+            const sample = result.data.result.find(
+              (series: { metric: { queue: string } }) =>
+                series.metric.queue === queue,
+            );
+            assert.ok(sample, `${queue}: missing next schedule`);
+            const next = status.queues.find(
+              (entry: { name: string }) => entry.name === queue,
+            )?.nextRun;
+            assert.equal(
+              Number(sample.value[1]),
+              Date.parse(next),
+              `${queue}: dashboard/status schedule mismatch`,
+            );
+          }
+        }
         if (dashboard.uid === 'nd-agent') {
           assert.equal(result.data.result.length, 1, panel.title);
           const sample = result.data.result[0];

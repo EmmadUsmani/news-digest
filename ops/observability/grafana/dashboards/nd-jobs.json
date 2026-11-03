@@ -182,6 +182,49 @@
           "placement": "bottom"
         }
       }
+    },
+    {
+      "id": 6,
+      "title": "Next registered publication / social run",
+      "description": "Earliest registered recurring run per queue. UTC display. Missing means no valid schedule was observed. A due time is not a start/completion guarantee; inspect paused state and workers.",
+      "type": "stat",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 24,
+        "w": 24,
+        "h": 5
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "news_digest_queue_next_scheduled_timestamp_seconds * 1000",
+          "instant": true,
+          "legendFormat": "{{queue}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "dateTimeAsIso",
+          "noValue": "No schedule observed"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name",
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal"
+      }
     }
   ],
   "links": [

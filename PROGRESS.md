@@ -4,16 +4,6 @@ Archived: [iteration 379](docs/progress-archive/2026-11-03-iteration-379.md), [i
 
 Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md), [283](docs/progress-archive/2026-11-03-iteration-283.md), [284](docs/progress-archive/2026-11-03-iteration-284.md).
 
-## 2026-11-03: iteration 380 — daily provider call outcomes
-
-- Started clean on main; no leftover work. App services/health green, all 32 sources returning items without current errors, no retained failed digest jobs. Nov 3 15:00 UTC evidence/acks remain pending.
-- Product provider spend adds succeeded/failed call counts for the UTC creation day. Current ledger status only; uncertain transport outcomes remain separate, and cache reuse/refused admissions create no row. Existing grants only; widened provider table for desktop.
-- Restricted-reader SQL verified live zero calls today, synthetic mixed-day successes/failures/unresolved calls and both empty ledgers. No production data writes or paid calls.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (232 unit/172 integration, exit 0), `pnpm build`, handbook 09 and `git diff --check` passed. Observability Grafana/O4 check passed: 62 queries/57 populated, seven scrape targets.
-- Inspected final desktop/mobile outcome captures; corrected probes to scroll virtualized mobile columns and await rendered text. Discarded unrelated regenerated screenshots. Updated handbook/plan/TASKS; archived iteration 367.
-- Grafana hot-reloaded; no service code/config restart needed. No content, schedule, caps or production activation changes.
-- Next: scheduled evidence/acks first; otherwise remaining O6 Product caps/individual timings or O7 Postgres collection. Activation stays gated.
-
 ## 2026-11-03: iteration 381 — X discovery call history
 
 - Started clean on main; no leftover work. Services/health green, 32 sources without current errors and no retained failed digest jobs. Scheduled evidence remains due 15:00 UTC.
@@ -132,3 +122,13 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Live Grafana queries/Viewer permissions passed; desktop/mobile timing columns inspected and widths adjusted after mobile clipping. Stack snapshot: ~450 MiB RAM, 1.42% one CPU average since service starts, 172 MiB allocated log/metric disk.
 - Grafana hot-reloads the dashboard; no application/service code or runtime configuration requiring restart. Retained scheduled result is 856 ms fallback; no fresh AI timing claim.
 - Next: collect/ack Nov 3 scheduled cost/yield/AI timing; production activation stays gated. Individual worker duration and per-iteration harness metrics remain open.
+
+## 2026-11-03: iteration 393 — next scheduled runs in Grafana
+
+- Started clean on main; no leftover work. Health green, 32 sources without current errors and no failed digest jobs. Nov 3 evidence/acks remain due 15:00 UTC; activation stays gated.
+- Jobs dashboard now shows earliest registered digest/social recurring run in UTC. API scrapes two bounded ascending one-row scheduler reads; missing/invalid dates remove samples, Redis failures fail the scrape and recover. Due time does not guarantee worker start/completion.
+- Offline tests cover timestamp conversion, bounded reads, ingestion exclusion, invalid/missing dates and failure recovery. Live metric/status comparison and desktop/mobile screenshots verified 15:00 digest and 12:38 social schedules.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (239 unit/172 integration), `pnpm build`, handbook 09 and read-only edition timing report passed. No fresh AI timing claim; retained scheduled result remains 856 ms fallback.
+- Live `pnpm exec tsx scripts/check-observability.ts --verify-grafana` passed all ten dashboards and Viewer permissions. First probe found the old provisioned dashboard; copied the updated file and reran successfully. Unrelated regenerated screenshots discarded.
+- Updated handbook/plan/TASKS; archived iteration 380. API restarted healthy; Grafana dashboard provision copied for hot reload. No paid calls, Reddit requests or production content/cap/schedule/activation changes.
+- Next: collect/ack Nov 3 scheduled cost/yield/AI timing; individual edition duration and per-iteration harness metrics remain open.

@@ -19,6 +19,11 @@ interface QueueReader {
   getJobCounts(...states: string[]): Promise<Record<string, number>>;
   getJobSchedulersCount(): Promise<number>;
   isPaused(): Promise<boolean>;
+  getJobSchedulers(
+    start: number,
+    end: number,
+    asc: boolean,
+  ): Promise<{ next?: number }[]>;
 }
 
 // Read through existing connections at scrape time. No job payloads or mutations.
@@ -59,6 +64,30 @@ export function startQueueMetrics(
       );
       this.reset();
       for (const { queue, count } of snapshots) this.set({ queue }, count);
+    },
+  });
+  new Gauge({
+    name: 'news_digest_queue_next_scheduled_timestamp_seconds',
+    help: 'Earliest registered digest/social recurring run in Unix seconds; absent without a valid schedule. Not a completion guarantee.',
+    labelNames: ['queue'],
+    registers: [registry],
+    async collect() {
+      const snapshots = await Promise.all(
+        allowed
+          .filter((queue) =>
+            ['digest-generation', 'social-collection'].includes(queue.name),
+          )
+          .map(async (queue) => ({
+            queue: queue.name,
+            schedules: await queue.getJobSchedulers(0, 0, true),
+          })),
+      );
+      this.reset();
+      for (const { queue, schedules } of snapshots) {
+        const next = schedules[0]?.next;
+        if (typeof next === 'number' && Number.isFinite(next) && next > 0)
+          this.set({ queue }, next / 1000);
+      }
     },
   });
   new Gauge({

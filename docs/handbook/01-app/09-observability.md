@@ -223,7 +223,7 @@ only four fixed queue names and six states. Completed/failed counts reflect
 retention limits, not lifetime totals; delayed includes future scheduled jobs.
 Each gauge is a separate snapshot, so a busy queue can change between reads.
 A Redis read error fails the scrape with HTTP 503 rather than serving stale
-queue values; the next successful scrape recovers. Schedule definitions and job
+queue values; the next successful scrape recovers. Digest and social queues also expose the earliest registered recurring run time, read in ascending order with a one-row limit. Missing or invalid times have no sample; past due times stay visible. This is a due time, not a guarantee of worker start or completion. Schedule definitions and job
 details remain in the jobs browser.
 
 ## Grafana dashboards
@@ -241,7 +241,7 @@ include sockets and servers; libuv requests are pending native work, not HTTP
 requests. Resource counts include timers and other asynchronous resources. Allocated heap is not a hard limit; descriptors are
 process-wide and do not measure database connections. HTTP shows
 request and external-attempt rates and latency, and Jobs shows retained queue
-state, schedules and processor attempts. Dashboard descriptions explain what
+state, schedules, the next registered digest/social run in UTC and processor attempts. Dashboard descriptions explain what
 the measurements count. Empty panels mean no observed samples, rather than
 zero failures. Retained job counts are snapshots, not lifetime totals.
 Errors and logs brings together API 5xx, external HTTP failures, failed processor
