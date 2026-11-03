@@ -894,3 +894,15 @@ links in one grouped story, retain the lead and score, and restore the baseline
 when disabled. Reading every saved edition after the flag changes returns its
 original snapshot. These tests use no live providers and do not establish
 outlet independence or broaden the reviewed event labels. Production remains off.
+
+## Iteration 337: refuse uncertain game grouping before lexical fallback
+
+The opt-in NBA matcher now rejects previews, predictions, conditional/negative
+claims and historical wording when two teams are named, even if both titles
+are identical. Previously those rejected score identities returned to lexical
+matching, which could group them as a current game. Synthetic regressions
+exercise seven such pairs, symmetric matching and separate story slots; an
+unrelated developer-tools preview still follows lexical matching. This does
+not extend the recorded benchmark or provide independent event labels.
+Production remains on the unchanged lexical matcher pending the scheduled-run
+gate and broader evidence.

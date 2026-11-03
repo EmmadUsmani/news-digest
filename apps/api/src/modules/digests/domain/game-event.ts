@@ -36,16 +36,22 @@ const teams = [
   ['wizards'],
 ];
 
-function gameIdentity(title: string): string | null {
+function gameIdentity(title: string): string | null | false {
   const text = title.normalize('NFKC').toLowerCase();
   const named = teams.flatMap((aliases, index) =>
     aliases.some((alias) => new RegExp(`\\b${alias}\\b`).test(text))
       ? [index]
       : [],
   );
-  if (/\b(preview|prediction|predicted|odds|rematch|last season)\b/.test(text))
-    return null;
   if (named.length !== 2) return null;
+  // Refuse uncertain or historical game claims before lexical fallback. A fresh
+  // publication date alone cannot establish when the reported game happened.
+  if (
+    /[?？]|\b(preview|prediction|predicted|odds|rematch|last season|last year|years? ago|previously|could|might|would|if|not|never)\b/.test(
+      text,
+    )
+  )
+    return false;
   // Accept “136–111” and “Cavaliers 136, Bucks 111”, only once per title.
   const scores = [
     ...text.matchAll(/\b(\d{2,3})\s*(?:[-–—]|,\s*[a-z ]+)\s*(\d{2,3})\b/g),
@@ -97,6 +103,7 @@ export function sameEventWithGameScore(a: Candidate, b: Candidate): boolean {
   if (!Number.isFinite(delta)) return false;
   const left = gameIdentity(a.title);
   const right = gameIdentity(b.title);
+  if (left === false || right === false) return false;
   // Explicit outcomes take precedence over lexical overlap (which sorts numbers).
   if (left !== null || right !== null)
     return delta <= 18 * 3600000 && left !== null && left === right;

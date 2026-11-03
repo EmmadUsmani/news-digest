@@ -128,3 +128,13 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (206 unit/172 integration passed), `pnpm build`, `git diff --check`; targeted disposable publication suite 4/4.
 - Health database/Redis OK; app/docs/db HTTP 200. Retained real edition: 20 stories/10 X posts. No restart under item 22 because only tests/docs changed; grouping remains off.
 - Next: scheduled evidence/acks at 15:00 UTC take priority, then eligible social activation; broader independent grouping evidence remains required.
+
+## 2026-11-03: iteration 337 — guard opt-in NBA lexical fallthrough
+
+- Started clean on main; no leftover work. Four services/health healthy, 32 sources without current errors. Two retained ingestion failures have recovered sources; no failed digest jobs. Scheduled evidence remains pending.
+- Found rejected game previews could fall back to lexical grouping. Opt-in matcher now refuses two-team preview, historical, conditional and negative titles before fallback; production lexical behavior stays unchanged.
+- Seven synthetic pairs verify symmetry and separate slots despite identical titles; unrelated developer preview still uses lexical matching. Existing recorded benchmark remains green; no new independent labels or general quality claim.
+- Updated TASKS/RANKING. No source/schema/UI changes, paid calls or Reddit requests; handbook behavior unchanged.
+- Verification: targeted game suite 4/4; `pnpm format`, `pnpm lint:fix`, `pnpm check` (207 unit/172 integration), `pnpm build`, `git diff --check` passed.
+- Restarted API/worker for runtime changes; all four services active, health database/Redis OK. Retained edition before restart: 20 stories/10 posts; app/docs/db HTTP 200. Grouping remains off.
+- Next: Nov 3 scheduled evidence/acks take priority, then eligible social activation; broader grouping evidence remains open.

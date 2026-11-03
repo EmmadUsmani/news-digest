@@ -2,7 +2,10 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import { evaluateEventGrouping } from '../scripts/evaluate-event-grouping';
-import { clusterCandidates } from '../src/modules/digests/domain/cluster';
+import {
+  clusterCandidates,
+  sameEvent,
+} from '../src/modules/digests/domain/cluster';
 import { sameEventWithGameScore } from '../src/modules/digests/domain/game-event';
 import type { Candidate } from '../src/modules/digests/domain/rank';
 
@@ -89,5 +92,33 @@ void test('score attribution survives loser-first order and overrides lexical si
     ),
     false,
     'lexical similarity cannot bypass the game time bound',
+  );
+});
+
+void test('uncertain and historical game reports cannot regain eligibility through lexical fallback', () => {
+  for (const title of [
+    'Cavaliers Bucks game preview and injury report',
+    'Cavaliers Bucks prediction for the upcoming game',
+    'Cavaliers Bucks game recap from last season',
+    'Cavaliers Bucks played this game years ago',
+    'Could Cavaliers beat Bucks 136-111?',
+    'Cavaliers might beat Bucks 136-111',
+    'Cavaliers did not beat Bucks 136-111',
+  ]) {
+    const left = item(title);
+    const right = { ...item(title), id: 'second-outlet' };
+    assert.equal(sameEvent(left, right), true, 'exercise lexical fallthrough');
+    assert.equal(sameEventWithGameScore(left, right), false, title);
+    assert.equal(sameEventWithGameScore(right, left), false, title);
+    assert.equal(
+      clusterCandidates([left, right], sameEventWithGameScore).length,
+      2,
+    );
+  }
+  const news = item('New developer tools preview improves game rendering');
+  assert.equal(
+    sameEventWithGameScore(news, { ...news, id: 'other' }),
+    true,
+    'NBA guard does not reject unrelated preview coverage',
   );
 });
