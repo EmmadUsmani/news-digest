@@ -130,3 +130,15 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (277 unit/182 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts edition-pipeline and git diff --check passed.
 - Health check passed; root HTTP 200, all 36 sources healthy; live rolling articles Tech/NBA/Gaming/World 327/162/283/221. Digest queue has zero failures; zero alerts. No service restart under STEERING 22: only offline evaluator/tests/docs changed.
 - Next: wire/run the single new $0.05-capped restored-prompt evaluation outside 13:00–16:00 UTC with a distinct durable item-27 guard; never delete/reuse the consumed item-26 claim. Grouping stays off pending Nov 4 review and conditional Nov 5 activation.
+
+## 2026-11-03: iteration 484 — once-only same-story evaluation
+
+- Started clean on main; no leftovers, healthz healthy and zero alerts. No production changes, editions, new sources, Reddit requests or grouping activation.
+- Restored explicit paid runner with a distinct durable item-27 claim; consumed item-26 claim untouched. Configured Haiku only, $0.05 ceiling, live opt-in, verification tagging/shared ledger and excluded UTC hours enforced; no retries or repairs.
+- Run item-27-evaluation-9c53e904-c472-4528-8252-aeb4653d2571: seven successful calls, $0.008393, zero holds. Frozen 195 labels: precision 141/141 (100%), recall 141/157 (89.81%), zero false positives; one borderline merged pair.
+- Saved fresh memberships; separately reviewed all 14 unknown merged pairs (13 Sentinel reveal/timing follow-ups; one European-protest roundup explicitly covering Germany). All same-story; original labels/output untouched.
+- Complete review: zero clearly unrelated, 1/155 borderline (0.65%), passing sampled gate. Supplemental-label precision 155/155, recall 155/171 (90.64%); retrospective agent review is not independent or general production quality evidence.
+- Targeted restored tests initially caught old $0.10 reservation expectations; corrected for $0.05, 12/12 pass. Saved replay and exact supplemental-review coverage assertions passed without provider calls.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (289 unit/182 isolated integration), pnpm build, filtered handbook check (17 pages/one unchanged diagram/25 tables), git diff --check passed.
+- Root HTTP 200, health check passed; all 36 sources healthy, digest queue zero failures, zero alerts. Live article counts Tech/NBA/Gaming/World 326/161/284/220. No restart under STEERING 22: runtime/config unchanged.
+- Updated TASKS, RANKING and affected handbook. No schema/source/UI changes; screenshots unnecessary. Next: Nov 4 scheduled evidence review; conditional grouping activation for Nov 5 only, no more paid evaluations.

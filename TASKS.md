@@ -4,7 +4,7 @@ Fix failures and stalled sources first. [Completed markers](docs/progress-archiv
 
 ## Immediate owner priorities (STEERING overrides older milestone notes)
 
-- [ ] STEERING 27: World date bounds fixed (428); NBA rejection awaits logs. Hard-exclusion prefilter ships (481); then fewer triage candidates; inactive same-story AI pass restored (482); 195 pairs relabelled (483), old saved output 135/135 precision and 135/157 recall; restored-prompt evaluation remains ($0.05 cap). No new sources/features before Nov 4 evidence; grouping stays off until checked, then Nov 5 activation if passing. Item 27 overrides older parking/order notes below.
+- [ ] STEERING 27: World date bounds fixed (428); NBA rejection awaits logs. Hard-exclusion prefilter ships (481); then fewer triage candidates; inactive same-story AI pass restored (482); 195 pairs relabelled (483), old saved output 135/135 precision and 135/157 recall; restored-prompt evaluation passed sampled gate (484): $0.008393/7 calls, labelled precision 141/141, recall 141/157; 14 additional merges reviewed same-story, one borderline/155 merges. No new sources/features before Nov 4 evidence; grouping stays off until checked, then Nov 5 activation if passing. Item 27 overrides older parking/order notes below.
 
 - [ ] STEERING 16 (next implementation): open per-topic X search without handle restrictions; reported engagement/velocity, then budget-permitting story reactions and secondary account lists. Keep caps; item 15's first scheduled run is acknowledged before switching. Report search type, cost/yield and outside-list accounts; finish with real editions/screenshots.
   - Open/engagement reporting and durable optional execution are wired and fake-tested (271–294). Item 15 acknowledged (425); open-topic production activated (430), including durable low-yield followups. Next scheduled cost/yield/outside-list picks remain unverified; items 13/7 still await provider evidence. Iteration 296 adds daily topic/type cost and incremental-yield summaries with explicit unknowns.
@@ -36,7 +36,7 @@ Fix failures and stalled sources first. [Completed markers](docs/progress-archiv
   - [x] Semantic triage/editor and citation-based story links implemented; semantic same-event links and virality validation remain open.
   - Finish with real X posts across four topics. Nov 3 embeds/media verified desktop/mobile (448); open-X/Bluesky selection screenshots await next edition.
 - [ ] M5 ranking quality:
-  - Semantic event clustering parked after failed item 26 evaluation; verified outlet independence remains unfinished.
+  - Inactive same-story AI pass passed item 27 sampled evaluation; activation awaits Nov 4 review for Nov 5. Verified outlet independence remains unfinished.
   - explainable scores
   - per-topic relevance guidance
   - Next: independently reviewed labels, different dates and Gaming; these agent-labeled windows are not general quality estimates.

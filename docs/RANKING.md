@@ -1490,3 +1490,47 @@ pnpm exec tsx scripts/evaluate-event-grouping.ts --same-story --memberships apps
 Omit `--same-story` to reproduce the historical strict-event failure. Regression
 checks pin every original pair’s identity, all 57 added reviews, zero unknown
 saved merges, the historical failure and clear-unrelated/borderline reporting.
+
+## Iteration 484: once-only restored-prompt evaluation
+
+The explicit live runner now consumes a separate fixed item-27 authorization
+under `/home/exedev/.local/state/news-digest/item-27`. Item 26's consumed claim
+is untouched. Exclusive, synced claims survive failures; a second invocation
+cannot make calls. `LLM_LIVE=1`, configured Haiku, verification-ledger tagging,
+the shared daily/monthly/reserve rules, a conservative $0.05 execution ceiling
+and the 13:00–16:00 UTC exclusion all remain enforced. Seven windows run
+sequentially without repairs or retries. No app or scheduler imports this runner.
+
+Run `item-27-evaluation-9c53e904-c472-4528-8252-aeb4653d2571` completed
+seven successful calls for **$0.008393**, with no remaining holds. Frozen
+195-pair labels give precision **141/141 (100%)**, recall **141/157 (89.81%)**,
+zero labelled false positives and one borderline merged pair. New memberships
+also contain **14 unlabelled merged pairs**; the offline evaluator continues
+to report them as unknown rather than silently count them as correct.
+
+Separate retrospective review records all 14 in
+`apps/api/test/fixtures/same-story-evaluation-review-2026-11-03.json`:
+13 directly connect Sentinel reveal coverage with its release-timing follow-ups.
+The other connects the French-investigation/European-protest roundup to German
+protest coverage: the supplied excerpt explicitly reports Germany's protests
+and minister response. It is not a merge based solely on a shared protest theme.
+All 14 are same-story under item 27; frozen labels remain unchanged.
+
+Across all **155 merged pairs**, review found **zero clearly unrelated** and
+**one borderline (0.65%)**, passing this sample's gate. Counting the supplemental
+positive labels gives 155/155 precision and 155/171 recall (90.64%); keep these
+post-output review numbers separate from the frozen-label metrics above.
+Agent-labelled, label-aware shortlists across seven saved windows are not an
+independent or representative production quality estimate. No retry evaluation
+is authorized. Production has no caller and remains off until the Nov 4 run
+is checked; conditional activation is for Nov 5 only.
+
+Reproduce the frozen-label report without provider or database access:
+
+```sh
+pnpm exec tsx scripts/evaluate-event-grouping.ts --same-story --memberships apps/api/test/fixtures/same-story-evaluation-2026-11-03.json
+```
+
+Restored fake tests cover single consumption, crash/failure persistence, state
+ownership, time and budget gates, concurrent reservation bounds, shared ledger
+refusal, cache/settlement, all labelled endpoints and invalid membership stops.
