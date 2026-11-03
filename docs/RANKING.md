@@ -950,3 +950,9 @@ the company closed. Synthetic tests check symmetry, excerpt assertions,
 negation, uncertainty and history. The recorded benchmark remains 13/32
 positives and zero labeled false merges; independent evidence is still open.
 Production grouping stays off pending the scheduled-run gate.
+
+Iteration 342 also rejects historical qualifiers before a closure assertion
+in the same excerpt sentence (for example, “In 2020, Copper Studio shut
+down”). A date in a separate founding sentence does not date the closure.
+Synthetic regressions cover symmetry and identical historical excerpts; the
+recorded benchmark and production gate are unchanged.

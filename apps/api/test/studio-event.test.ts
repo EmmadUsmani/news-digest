@@ -216,3 +216,39 @@ void test('ongoing studio shutdown assertions exclude facility and product closu
     assert.equal(sameEventWithStudioClosure(other, other), false, assertion);
   }
 });
+
+void test('excerpt qualifiers before closure assertions cannot turn history into a current event', () => {
+  const current = item('Copper Studio shuts down');
+  for (const excerpt of [
+    'Previously, Copper Studio shut down after losing funding.',
+    'Last year, Copper Studio ceased operations.',
+    'Years ago, Copper Studio closed its doors.',
+    'In 2020, Copper Studio shut down.',
+    'Formerly, Copper Studio was closed.',
+    'Once, Copper Studio shut its doors.',
+  ]) {
+    const historical = { ...item('Developer retrospective'), excerpt };
+    assert.equal(
+      sameEventWithStudioClosure(current, historical),
+      false,
+      excerpt,
+    );
+    assert.equal(
+      sameEventWithStudioClosure(historical, current),
+      false,
+      excerpt,
+    );
+    assert.equal(
+      sameEventWithStudioClosure(historical, historical),
+      false,
+      excerpt,
+    );
+  }
+  assert.equal(
+    sameEventWithStudioClosure(current, {
+      ...item('Developer confirms shutdown'),
+      excerpt: 'Founded in 2020. Copper Studio has shut down.',
+    }),
+    true,
+  );
+});
