@@ -138,3 +138,14 @@ Earlier entries: [progress archive](docs/progress-archive/).
 - Verification: pnpm format, pnpm lint:fix, pnpm check (270 unit/174 isolated integration), pnpm build and check-handbook.ts 05-social-posts passed. No diagram edits; zero dangling Docker volumes.
 - Restarted API/worker with rebuilt code. pnpm obs health --check and alerts passed at 15:59 UTC; existing edition unchanged at 19 stories/11 real X posts. git diff --check passed.
 - Next: measure scheduled Bluesky picks/screenshots, X cost/yield and compact-triage latency; inspect NBA diagnostics if fallback recurs. No live editorial-quality claim.
+
+## 2026-11-03: iteration 434 — check grouping across input permutations
+
+- Started clean on main; no leftover work. Zero alerts, health green, 32 healthy sources and four available queues. Scheduled Bluesky/open-X evidence is still pending; progressed item 19 offline.
+- Extended the grouping evaluator beyond forward/reverse order: exhaustive permutations for up to six candidates; original/reverse plus 32 reproducible shuffles for larger windows. Reports unstable pair membership, worst false/unknown merges and positive-match range; caches pure directional comparisons.
+- Synthetic four-item regression proves forward/reverse agreement can conceal a labeled false merge. Covers bounded deterministic sampling, unknown merges and empty input too.
+- Recorded studio/game evaluation: five windows × 34 orders, no observed unstable, negative or unknown merges. Still 13/32 positive pairs and zero labeled false merges; no recall gain, independent labels or general order-stability claim. Production matcher/activation unchanged.
+- Verification: targeted grouping suites 18/18 before caching; pnpm format, pnpm lint:fix and pnpm check passed (272 unit/174 isolated integration). Final cached evaluator reproduced recorded results; pnpm build passed. git diff --check and zero dangling Docker volumes.
+- Updated TASKS and RANKING. No UI or handbook behavior change. No paid calls/new editions; current real edition remains 19 stories/11 X posts, with articles and stored X posts across all topics.
+- No restart under STEERING 22: deployed runtime source/config unchanged. Final health/alerts checked before push.
+- Next: scheduled Bluesky selections/screenshots and open-X cost/yield; item 19 still needs broader paraphrase recall and independent labels before activation.

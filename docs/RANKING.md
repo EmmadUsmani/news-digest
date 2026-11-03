@@ -969,3 +969,25 @@ in the same excerpt sentence (for example, “In 2020, Copper Studio shut
 down”). A date in a separate founding sentence does not date the closure.
 Synthetic regressions cover symmetry and identical historical excerpts; the
 recorded benchmark and production gate are unchanged.
+
+## Iteration 434: grouping input-order review
+
+`pnpm exec tsx scripts/evaluate-event-grouping.ts --studio-closures` now
+reports `permutationCheck` for each recorded window. It checks every permutation
+for sets of at most six candidates; larger windows use the original order,
+its reverse and 32 deterministic shuffles from canonical candidate-ID order.
+The report distinguishes sampled checks from exhaustive ones and records pair
+membership changes, worst labeled false/unknown merges and the range of matched
+positive pairs. Pure directional matcher comparisons are reused across orders.
+
+A synthetic four-item case demonstrates why reversal alone is insufficient:
+forward and reverse both merge A–C and B–D, while another order merges B–C,
+a labeled negative. The exhaustive check exposes this failure. Unknown merges
+remain unknown rather than contributing to precision.
+
+All five recorded windows retain stable membership over the 34 checked orders,
+with zero labeled false merges or unknown merged pairs. The studio/game matcher
+still finds 13/32 positive pairs and rejects all 28 labeled negatives. This is
+bounded order testing on the existing agent-labeled dataset, not independent
+review, improved recall or proof of stability for every possible input order.
+Production matching and the grouping activation setting are unchanged.

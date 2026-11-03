@@ -54,6 +54,11 @@ void test('recorded studio closure improves Gaming recall with fully labeled clu
     assert.equal(window.membership.unlabeledMergedPairs, 0);
     assert.equal(window.membership.falsePositives, 0);
     assert.equal(window.membership.orderSensitivePairs, 0);
+    assert.equal(window.membership.permutationCheck.orders, 34);
+    assert.equal(window.membership.permutationCheck.exhaustive, false);
+    assert.equal(window.membership.permutationCheck.orderSensitivePairs, 0);
+    assert.equal(window.membership.permutationCheck.maxFalsePositives, 0);
+    assert.equal(window.membership.permutationCheck.maxUnlabeledMergedPairs, 0);
   }
 });
 

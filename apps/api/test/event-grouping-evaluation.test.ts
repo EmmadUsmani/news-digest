@@ -99,3 +99,63 @@ void test('recorded full-window cluster membership covers every observed merge a
     );
   }
 });
+
+void test('permutation review catches instability hidden by forward and reverse agreement', () => {
+  const candidates = ['a', 'b', 'c', 'd'].map((id) => ({
+    id,
+    title: id,
+    url: `https://example.org/${id}`,
+    excerpt: '',
+    publishedAt: '2026-11-02T12:00:00Z',
+    sources: ['Fixture'],
+    points: 0,
+  }));
+  const matches = (a: { id: string }, b: { id: string }) =>
+    ['ac', 'bc', 'bd'].includes([a.id, b.id].sort().join(''));
+  const result = evaluateClusterMembership(
+    candidates,
+    [
+      { left: 'a', right: 'c', sameEvent: true },
+      { left: 'b', right: 'd', sameEvent: true },
+      { left: 'b', right: 'c', sameEvent: false },
+    ],
+    matches,
+  );
+  assert.equal(result.orderSensitivePairs, 0);
+  assert.equal(result.falsePositives, 0);
+  assert.equal(result.reverse.falsePositives, 0);
+  assert.deepEqual(result.permutationCheck, {
+    orders: 24,
+    exhaustive: true,
+    orderSensitivePairs: 3,
+    maxFalsePositives: 1,
+    maxUnlabeledMergedPairs: 0,
+    minMatchedPositivePairs: 0,
+    maxMatchedPositivePairs: 2,
+  });
+});
+
+void test('large-window permutation sampling is bounded, reproducible and labels unknown merges', () => {
+  const candidates = Array.from({ length: 7 }, (_, index) => ({
+    id: String(index),
+    title: String(index),
+    url: `https://example.org/${index}`,
+    excerpt: '',
+    publishedAt: '2026-11-02T12:00:00Z',
+    sources: ['Fixture'],
+    points: 0,
+  }));
+  const evaluate = () =>
+    evaluateClusterMembership(candidates, [], () => true).permutationCheck;
+  assert.deepEqual(evaluate(), evaluate());
+  assert.deepEqual(evaluate(), {
+    orders: 34,
+    exhaustive: false,
+    orderSensitivePairs: 0,
+    maxFalsePositives: 0,
+    maxUnlabeledMergedPairs: 21,
+    minMatchedPositivePairs: 0,
+    maxMatchedPositivePairs: 0,
+  });
+  assert.equal(evaluateClusterMembership([], []).permutationCheck.orders, 1);
+});

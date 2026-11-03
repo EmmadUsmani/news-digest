@@ -14,6 +14,35 @@ interface EventLabel {
   sameEvent: boolean;
 }
 
+function evaluationOrders(candidates: Candidate[]): Candidate[][] {
+  const canonical = [...candidates].sort((a, b) => a.id.localeCompare(b.id));
+  if (canonical.length <= 6) {
+    const permutations = (items: Candidate[]): Candidate[][] =>
+      items.length === 0
+        ? [[]]
+        : items.flatMap((item, index) =>
+            permutations(items.filter((_, i) => i !== index)).map((rest) => [
+              item,
+              ...rest,
+            ]),
+          );
+    return permutations(canonical);
+  }
+  // Bounded, reproducible samples independent of the fixture's initial order.
+  let state = 434;
+  const orders = [candidates, [...candidates].reverse()];
+  for (let sample = 0; sample < 32; sample++) {
+    const order = [...canonical];
+    for (let i = order.length - 1; i > 0; i--) {
+      state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
+      const j = state % (i + 1);
+      [order[i], order[j]] = [order[j], order[i]];
+    }
+    orders.push(order);
+  }
+  return orders;
+}
+
 // Evaluate every within-cluster pair, including pairs absent from sparse labels.
 // Unknown pairs are never counted as correct merges.
 export function evaluateClusterMembership(
@@ -25,8 +54,16 @@ export function evaluateClusterMembership(
   const known = new Map(
     labels.map((pair) => [key(pair.left, pair.right), pair.sameEvent]),
   );
+  // Matchers are pure; reuse directional comparisons across all input orders.
+  const comparisons = new Map<Candidate, Map<Candidate, boolean>>();
+  const cachedMatch = (a: Candidate, b: Candidate) => {
+    let row = comparisons.get(a);
+    if (!row) comparisons.set(a, (row = new Map()));
+    if (!row.has(b)) row.set(b, matches(a, b));
+    return row.get(b)!;
+  };
   const inspect = (ordered: Candidate[]) => {
-    const clusters = clusterCandidates(ordered, matches);
+    const clusters = clusterCandidates(ordered, cachedMatch);
     const merged = new Set<string>();
     for (const group of clusters)
       for (let i = 0; i < group.length; i++)
@@ -65,8 +102,30 @@ export function evaluateClusterMembership(
   };
   const { merged: forward, ...result } = inspect(candidates);
   const { merged: backward, ...reverse } = inspect([...candidates].reverse());
+  const samples = evaluationOrders(candidates).map(inspect);
+  const possible = new Set(samples.flatMap((sample) => [...sample.merged]));
+  const unstable = [...possible].filter((pair) =>
+    samples.some((sample) => !sample.merged.has(pair)),
+  );
   return {
     ...result,
+    permutationCheck: {
+      orders: samples.length,
+      exhaustive: candidates.length <= 6,
+      orderSensitivePairs: unstable.length,
+      maxFalsePositives: Math.max(
+        ...samples.map((sample) => sample.falsePositives),
+      ),
+      maxUnlabeledMergedPairs: Math.max(
+        ...samples.map((sample) => sample.unlabeledMergedPairs),
+      ),
+      minMatchedPositivePairs: Math.min(
+        ...samples.map((sample) => sample.truePositives),
+      ),
+      maxMatchedPositivePairs: Math.max(
+        ...samples.map((sample) => sample.truePositives),
+      ),
+    },
     reverse,
     orderSensitivePairs: new Set([
       ...[...forward].filter((pair) => !backward.has(pair)),
