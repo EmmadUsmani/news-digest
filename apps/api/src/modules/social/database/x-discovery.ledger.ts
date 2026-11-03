@@ -164,7 +164,7 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
       return id;
     });
   }
-  // Future scheduler calls this only after citation persistence and bounded
+  // The scheduler calls this only after citation persistence and bounded
   // official verification finish. Settlement alone cannot authorize a followup.
   async completeVerification(id: string) {
     await this.transaction(async (client) => {

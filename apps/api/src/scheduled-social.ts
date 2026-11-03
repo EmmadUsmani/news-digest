@@ -8,6 +8,7 @@ import { DirectXSearch } from './modules/social/adapters/x-search';
 import { collectSocial } from './modules/social/application/collect';
 import { searchX } from './modules/social/application/search-x';
 import { verifyPosts } from './modules/social/application/verify-posts';
+import { verifySearch } from './modules/social/application/verify-search';
 import { PostgresArticleDiscoveryRepository } from './modules/social/database/article-discovery.repository';
 import { PostgresSocialRepository } from './modules/social/database/social.repository';
 import { PostgresXDiscoveryLedger } from './modules/social/database/x-discovery.ledger';
@@ -44,12 +45,18 @@ export function startScheduledSocial(http: SharedHttpClient) {
             },
             plan.scheduledDay,
           );
-          if (result.state === 'completed')
-            await verifyPosts(
-              repository,
-              new XOfficialEmbed(http),
-              await searches.verificationCandidates(result.callId),
-            );
+          await verifySearch(
+            result,
+            plan.request,
+            plan.scheduledDay,
+            async (callId) =>
+              verifyPosts(
+                repository,
+                new XOfficialEmbed(http),
+                await searches.verificationCandidates(callId),
+              ),
+            (callId) => ledger.completeVerification(callId),
+          );
           return result;
         },
       );
