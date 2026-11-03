@@ -5,10 +5,11 @@ Fix regressions, broken services and stalled sources before starting new work.
 
 ## Immediate owner priorities (STEERING overrides older milestone notes)
 
-- [x] Status smoke repair (280): desktop/mobile telemetry and synthetic failures pass.
+- [x] Status smoke repair (280): desktop/mobile checks pass.
+- [x] STEERING 21 (295): all 16 handbook pages/21 diagrams and 24-table metadata check pass; owner approval acknowledged.
 
 - [ ] STEERING 16 (next implementation): open per-topic X search without handle restrictions; reported engagement/velocity, then budget-permitting story reactions and secondary account lists. Keep caps; item 15's first scheduled run is acknowledged before switching. Report search type, cost/yield and outside-list accounts; finish with real editions/screenshots.
-  - Open/engagement reporting, eligibility, low-yield followups and article-ranked reaction stories prepared (271–287). Atomic optional admission/executor forwarding and verification completion and planner parent forwarding and persisted completion/yield reader prepared (288–292). Iteration 293 connects optional scheduler orchestration to injected durable evidence/story readers and parent-aware execution, with schedule rechecks. Iteration 294 wires production dependencies through a fake-tested runtime: persisted completion/yield, ranked article reactions, parent-aware execution and official verification. Production stays account-list pending scheduled evidence/acks; activation remains.
+  - Open/engagement reporting and durable optional execution are wired and fake-tested (271–294). Production remains account-list pending scheduled evidence/acks; activation remains.
 
 - [ ] STEERING 17 (after 16): improve editable curated X accounts and document choices.
 - [ ] STEERING 18 (after 17): official Bluesky open discovery, engagement ranking and cards; fixtures first if authentication blocks live search.

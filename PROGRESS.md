@@ -1,30 +1,6 @@
 # Progress
 
-Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md).
-
-## 2026-11-02: iteration 277 — outside-list X yield
-
-- Started clean on main; no leftover work; API/worker and health healthy, latest edition four topics.
-- Daily X cost/yield report counts verified and new verified posts outside every current curated account list per topic/call/search type.
-- Official author URLs determine membership; case/@ normalization, disabled topics and duplicate handles covered; unknown authors counted separately.
-- Explicitly current-list post counts, not distinct accounts or historical membership; unverified citations cannot qualify.
-- Added isolated DB coverage for list edits and attribution; updated SOURCES/TASKS; archived iteration 257.
-- No paid provider or Reddit requests; scheduled account-list path unchanged pending Nov 3 evidence.
-- Verified: `pnpm format`, `pnpm lint:fix`, `pnpm check` (130 unit/166 integration), `pnpm build`; final typecheck/lint/format rechecked after JSON-column fix; `git diff --check`.
-- API/worker restarted active; health OK, SPA 200, latest edition four topics, 32 sources returning data without errors.
-- Read-only live report: one Nov 2 call, 23,382 cost micros, zero outside-list verified/new posts and unknown authors; no discovery triggered.
-- Next: observe Nov 3 scheduled searches/edition, acknowledge item 15 with cost/yield, then switch to open search; real-edition/screenshots remain.
-
-## 2026-11-02: iteration 278 — X discovery publication evidence
-
-- Started clean on main; no leftover work; API/worker and health healthy, 32 sources without errors.
-- Daily X report now counts cited posts selected in same-topic editions after each call within that UTC day, including outside-list posts.
-- Repeated editions count once per call/topic; other topics/platforms and earlier/later-day editions excluded; current-list caveats retained.
-- Extended isolated fixtures for publication timing and duplicate editions; updated SOURCES/TASKS; archived iterations 259–260.
-- Verified: `pnpm format`, `pnpm lint:fix`, `pnpm check` (130 unit/166 integration), `pnpm build`, `git diff --check`. Initial check caught archive formatting; corrected before passing full check.
-- API/worker restarted active; health OK, SPA 200, latest edition four topics; no paid provider or Reddit requests.
-- Read-only Nov 2 report: one call, 23,382 cost micros, zero same-day selected/outside-list selected posts.
-- Next: observe Nov 3 scheduled searches/edition, acknowledge item 15 with cost/yield, then switch to open search; real-edition/screenshots remain.
+Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md).
 
 ## 2026-11-02: iteration 279 — accurate scheduled X guidance
 
@@ -224,3 +200,14 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Restarted API/worker/docs/schema; all active, health OK and SPA/docs/db HTTP 200; latest real edition has four story sections, Gaming/World posts still empty.
 - Read-only Nov 3 X report: zero calls/cost/holds; scheduled reserve pending, latest social collection verified 10 posts without errors.
 - No paid provider or Reddit requests. Next: measure Nov 3 scheduled X/edition evidence, acknowledge required items, then activate open mode.
+
+## 2026-11-03: iteration 295 — handbook ownership acknowledgement
+
+- Started clean on main; API/worker/docs/schema and health healthy, no source errors or failed digest runs.
+- Completed STEERING 21 acknowledgement after full handbook validation: 16 pages, 21 diagrams, no render/link errors; all 24 tables assigned, no metadata warnings.
+- No handbook content, diagrams, schema metadata or production behavior changed; compacted TASKS and archived iterations 277–278.
+- Read-only Nov 3 report: zero X calls/cost/holds; next edition 15:00 UTC, reserve pending at 482,788 micros and other Anthropic allowance zero.
+- Items 13/7/15 cannot be acknowledged before scheduled evidence; open-search activation remains gated on item 15 acknowledgement.
+- Verified: full handbook check, `pnpm format`, `pnpm lint:fix`, `pnpm check` (160 unit/168 integration), `pnpm build`, `git diff --check`.
+- Restarted all four services; active, health OK, app/docs/db HTTP 200.
+- No paid provider or Reddit requests. Next: observe scheduled X cost/yield and AI edition timing, acknowledge required items, then activate open search.

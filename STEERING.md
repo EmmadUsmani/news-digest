@@ -578,3 +578,5 @@ The owner and Claude added system documentation and two internal tools:
   tools** unless they break or the owner asks.
 - **Ack here once you've confirmed** `scripts/check-handbook.ts` passes, and
   you've assigned any tables added since 2026-11-02.
+
+ack: 2026-11-03 item 21 — iteration 295 ran the full handbook check: 16 pages, 21 diagrams, no rendering or link errors; all 24 live tables assigned with no schema metadata warnings. Docs and schema services are active and their proxied endpoints return HTTP 200.
