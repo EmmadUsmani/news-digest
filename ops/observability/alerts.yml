@@ -89,3 +89,10 @@ groups:
           severity: warning
         annotations:
           summary: Daily digest scheduler next run remains more than fifteen minutes overdue
+      - alert: DigestScheduleMetricsMissing
+        expr: (up{job="app-api"} == 1) unless on (job, instance) (news_digest_queue_schedulers{job="app-api",queue="digest-generation"} and news_digest_queue_paused{job="app-api",queue="digest-generation"} and news_digest_queue_next_scheduled_timestamp_seconds{job="app-api",queue="digest-generation"})
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: API scrape succeeds but digest scheduling metrics are incomplete

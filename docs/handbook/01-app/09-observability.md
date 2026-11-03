@@ -498,3 +498,8 @@ clears the warning. This detects a scheduler that stops advancing, but cannot
 prove that an advanced schedule produced a lifecycle record or an edition.
 Missing or invalid timestamps do not infer a stall; scrape and scheduler-absence
 alerts cover their respective failures.
+
+A successful API scrape with any digest scheduling gauge missing (scheduler
+count, paused state or next-run timestamp) warns after two minutes. This catches
+partial exporter failures that the scrape-down and value-based rules cannot
+see. Recovery clears the warning; a failed scrape uses the scrape-down alert.

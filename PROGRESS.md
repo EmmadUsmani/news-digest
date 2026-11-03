@@ -121,3 +121,13 @@ Earlier entries: [iterations 405–407](docs/progress-archive/2026-11-03-iterati
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, vmalert dry-run/unittest, handbook 09, observability `--verify-alerts`/`--verify-o4`, health/status and `git diff --check` passed (261 unit/174 integration); zero dangling Docker volumes.
 - Updated handbook, observability plan and TASKS. No edition behavior, UI or app/DB/Redis restart.
 - Next: scheduled Nov 3 AI timing/cost/X yield and acks first; otherwise missing lifecycle/publication detection, then O7/O8/O10.
+
+## 2026-11-03: iteration 419 — incomplete schedule metrics warning
+
+- Started clean on main; no leftover work. Health, 32 sources and four queues healthy; two historical ingestion failures unchanged. Scheduled evidence still awaits 15:00 UTC.
+- Added two-minute warning when a successful API scrape lacks any digest scheduler count, pause or next-run gauge. This closes a silent partial-exporter failure; missing lifecycle/publication after advancement remains open.
+- Offline evaluator covers each missing gauge, healthy/down scrapes, hold, recovery and unrelated queue/exporter isolation. Runtime verification requires the thirteenth rule.
+- Deployed and restarted only obs-alerts at 14:29:08 UTC, before freeze. Thirteen healthy rules, zero active alerts; eight scrape targets healthy. No app/DB/Redis restart, paid calls, Reddit requests, UI or edition changes.
+- Latest free social collection verified ten real X posts without errors. Updated handbook, plan and TASKS.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, vmalert dry-run/unittest, handbook 09, observability `--verify-alerts`/`--verify-o4`, health/jobs/sources and `git diff --check`; zero dangling Docker volumes.
+- Next: Nov 3 scheduled AI timing/cost/X yield and acks first; otherwise missing lifecycle/publication detection, then O7/O8/O10.

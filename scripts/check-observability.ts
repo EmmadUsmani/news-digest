@@ -84,6 +84,7 @@ async function main() {
       'ProviderSpendNearCap',
       'DigestScheduleUnavailable',
       'DigestScheduleStalled',
+      'DigestScheduleMetricsMissing',
     ]) {
       const rule = rules.find((row: { name: string }) => row.name === name);
       assert.ok(rule, `Missing ${name}`);

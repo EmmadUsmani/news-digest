@@ -424,3 +424,6 @@ the next-run timestamp remains more than fifteen minutes overdue for two minutes
 Offline cases cover threshold, hold, advancement recovery, queue/exporter isolation
 and future/zero/absent timestamps. Existing API metric only; no app restart or
 new collector. Missing lifecycle/publication after a schedule advances remains open.
+
+Iteration 419 adds a two-minute warning for successful API scrapes missing any
+digest scheduling gauge, with offline hold, recovery and isolation cases.
