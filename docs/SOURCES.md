@@ -1753,8 +1753,12 @@ publisher failure cooldown apply; no recursive crawling or paid search added.
 A Basketball Insiders game-report page returned 200 but no X status links;
 its article discovery remains off. No Reddit requests or bypasses.
 
-**Status: live.** Migration applied. The normal capped candidate pass checked
+**Status: prepared, disabled under STEERING 27.** Migration 054 was applied before
+the concurrent owner update was fetched; migration 055 disables the new host
+configuration until the Nov 4 run is checked. The existing feed stays active.
+The normal capped candidate pass checked
 eight pages (two Yardbarker), finding no links or errors. An explicit one-page
 check of the stored Westbrook article then persisted both citations at
 20:54:25 UTC without error. Neither check published an edition or called an LLM;
-post verification and selection remain separate.
+post verification and selection remain separate. Retained citations are real
+observations; this does not establish scheduled discovery or selected-post yield.

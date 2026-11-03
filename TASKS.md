@@ -4,12 +4,12 @@ Fix failures and stalled sources first. [Completed markers](docs/progress-archiv
 
 ## Immediate owner priorities (STEERING overrides older milestone notes)
 
+- [ ] STEERING 27: offline World social/NBA fallback bugs, then fewer triage candidates; restore AI grouping with same-story definition and relabel/evaluate ($0.05 cap). No new sources/features before Nov 4 evidence; grouping stays off until checked, then Nov 5 activation if passing. Item 27 overrides older parking/order notes below.
+
 - [ ] STEERING 16 (next implementation): open per-topic X search without handle restrictions; reported engagement/velocity, then budget-permitting story reactions and secondary account lists. Keep caps; item 15's first scheduled run is acknowledged before switching. Report search type, cost/yield and outside-list accounts; finish with real editions/screenshots.
   - Open/engagement reporting and durable optional execution are wired and fake-tested (271–294). Item 15 acknowledged (425); open-topic production activated (430), including durable low-yield followups. Next scheduled cost/yield/outside-list picks remain unverified; items 13/7 still await provider evidence. Iteration 296 adds daily topic/type cost and incremental-yield summaries with explicit unknowns.
 
-- [x] STEERING 17 (431): secondary X lists active; yield pending.
 - [ ] STEERING 18 (325): authenticated Bluesky discovery, engagement/semantic editing, storage/cards and edition caller prepared. Owner login configured; Nov 3 gate acknowledged. Hourly bounded official collection added (432); edition inclusion enabled by default (433), with explicit off switch. Next: measure scheduled real selections/screenshots. Reports expose immutable platform picks (443) and fresh stored Bluesky candidates across four topics (444); selection evidence pending.
-- [x] STEERING 26 (476): grouping parked after failed precision gate; paid path removed. See docs/RANKING.md.
 
 - [ ] STEERING 13 TOP PRIORITY before Nov 3 15:00 UTC: reserve configurable Anthropic budget for the scheduled edition under the shared ledger lock; limit all other spend until completion/failure; expose reserve/manual limits and scheduled AI/fallback outcome. Fake/Testcontainers verification only. Measure next scheduled edition cost/duration for item 7.
   - Reserve/fencing/UI implemented with 1.5x headroom. Nov 3 (425): $0.339524, 231.829 s, zero holds; NBA fallback leaves full-AI acceptance open.
@@ -21,8 +21,6 @@ Fix failures and stalled sources first. [Completed markers](docs/progress-archiv
 - [ ] STEERING 9, after 13/7 (no Reddit dependency): schedule capped direct xAI discovery before digest; report daily spend and verified yield for first week. Item 14 removes the Reddit prerequisite.
   - Cost/yield reporting, durable admission, weakest-topic planning and official verification implemented. Worker searches 5–30 minutes before publication; seven-day report available. First automatic run verified (425): $0.137056/18 new verified posts. Continue first-week spend/yield.
 - [ ] STEERING 4 (lower priority): fingerprinted LlmPort replay and separate verification spend are implemented (178–182); real raw-response golden remains open. Do not re-record unchanged prompts or spend merely to test replay. See docs/DATABASE-VERIFICATION.md.
-
-M0–M2 and M3/M6/M7 foundations: [history](docs/progress-archive/2026-11-02-tasks-through-143.md).
 
 ## Remaining milestones
 
@@ -50,7 +48,7 @@ M0–M2 and M3/M6/M7 foundations: [history](docs/progress-archive/2026-11-02-tas
   - Next: durable recovery beyond retained Redis jobs.
     `DigestPublished` event plus notification port with a log/in-app adapter.
 - [ ] Ongoing:
-  - widen sources per topic (item 10): NBA remains weakest by rolling-day article count; RealGM, SB Nation, Basketball Insiders and Yardbarker NBA added (465/477–479). Yardbarker public-page X harvesting enabled (480); syndication/relevance are caveats.
+  - widen sources (item 10): paused by item 27. Yardbarker page harvesting prepared, disabled (480); existing feeds unchanged.
   - precision tuning
   - UI polish
   - retention/backup

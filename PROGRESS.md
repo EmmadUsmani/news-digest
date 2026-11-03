@@ -149,4 +149,5 @@
 - Updated SOURCES/TASKS and affected handbook; archived iterations 465–466 to keep PROGRESS bounded. No table/relationship, diagram or UI change.
 - Verification: targeted fixture test, pnpm format, pnpm lint:fix, pnpm check (263 unit/181 isolated integration), pnpm build, filtered handbook check (17 pages/one unchanged diagram/25 assigned tables) and git diff --check passed; zero dangling volumes.
 - API/worker/docs/schema active; pnpm obs health --check passed, root HTTP 200, zero alerts. No restart under STEERING 22: application code unchanged; publisher host configuration is read each pass.
-- Next: Nov 4 scheduled timing/NBA fallback, World yield and open-X/Bluesky selections/screenshots; no extra paid verification.
+- Push rejected by concurrent owner commit 09c9fa0 (STEERING 27); merged without rewriting history. Owner freezes new sources/features until Nov 4 evidence. Migration 055 disables the just-added Yardbarker host; existing feed and real citations remain. Fixture remains prepared; live host confirmed null, repeated pnpm check passed (263 unit/181 integration), handbook rechecked.
+- Next under item 27: offline World social/NBA fallback fixes, tighter triage prefilter, then restore/relabel same-story AI grouping; production grouping stays off until Nov 4 evidence and conditional Nov 5 activation.

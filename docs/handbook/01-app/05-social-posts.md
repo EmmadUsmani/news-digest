@@ -32,13 +32,6 @@ flowchart LR
 | Free (rivers, articles) | $0                     | Not tied to any account list            | Lags: a post appears only once media embeds it    |
 | Paid (xAI search)       | $0.026–$0.038 on Nov 3 | Searches X directly, before the edition | Reported engagement is not independently verified |
 
-Public Yardbarker NBA article pages join the free publisher rotation, supplying
-team announcements and highlight links absent from its RSS excerpts. The
-shared hourly pass reads at most eight pages across all topics, uses exact
-configured hosts, and pauses a failed publisher for a day. These links are
-citations, not verified posts or independent reporting; official verification
-and editorial selection still apply.
-
 Scheduled paid discovery searches each topic without account restrictions,
 weakest coverage first, 5–30 minutes before the edition. It requests original,
 engaging posts within the edition window. Once all topics have completed and
