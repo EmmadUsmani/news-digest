@@ -159,9 +159,53 @@ export const selectedRedditPostSchema = selectedPostSchema.extend({
 });
 export type SelectedRedditPost = z.infer<typeof selectedRedditPostSchema>;
 
+// Prepared for explicit replays; production publication does not select Bluesky.
+const blueskyMediaUrl = z
+  .string()
+  .url()
+  .refine((value) => {
+    const url = new URL(value);
+    return url.protocol === 'https:' && !url.username && !url.password;
+  });
+export const selectedBlueskyPostSchema = selectedPostSchema
+  .omit({ authorUrl: true })
+  .extend({
+    platform: z.literal('bluesky'),
+    url: blueskyMediaUrl.refine(
+      (value) => new URL(value).hostname === 'bsky.app',
+    ),
+    observedAt: z.string().datetime(),
+    metrics: z.object({
+      likes: z.number().int().nonnegative(),
+      reposts: z.number().int().nonnegative(),
+      replies: z.number().int().nonnegative(),
+    }),
+    media: z
+      .array(
+        z.discriminatedUnion('type', [
+          z.object({
+            type: z.literal('image'),
+            thumbnail: blueskyMediaUrl,
+            fullsize: blueskyMediaUrl,
+            alt: z.string(),
+          }),
+          z.object({
+            type: z.literal('video'),
+            thumbnail: blueskyMediaUrl.nullable(),
+            playlist: blueskyMediaUrl,
+            alt: z.string(),
+          }),
+        ]),
+      )
+      .max(4)
+      .optional(),
+  });
+export type SelectedBlueskyPost = z.infer<typeof selectedBlueskyPostSchema>;
+
 export const selectedSocialPostSchema = z.discriminatedUnion('platform', [
   selectedPostSchema,
   selectedRedditPostSchema,
+  selectedBlueskyPostSchema,
 ]);
 export type SelectedSocialPost = z.infer<typeof selectedSocialPostSchema>;
 

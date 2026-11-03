@@ -563,3 +563,22 @@ summary:focus-visible {
   object-fit: contain;
   border-radius: 8px;
 }
+
+.bluesky-media {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.5rem;
+}
+.bluesky-media a {
+  min-width: 0;
+}
+.bluesky-media img {
+  display: block;
+  max-width: 100%;
+  max-height: 320px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+.bluesky-card .byline {
+  overflow-wrap: anywhere;
+}

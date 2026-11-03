@@ -1529,3 +1529,9 @@ Iteration 322 adds isolated final Bluesky editing after semantic shortlisting.
 Fake-only checks cover bounded candidates, fewer-than-budget picks, preserved
 observations, invalid/refused selections and zero-budget no-I/O behavior.
 No new live yield claim, collection or paid calls; production inclusion stays off.
+
+Iteration 323 prepares faithful Bluesky cards and a discriminated edition snapshot
+contract for saved text/media/counts. Synthetic desktop/mobile browser replay
+checks images, video links, empty media, original links and saved metrics; these
+are not real editorial selections. Production inclusion remains off pending the
+Nov 3 scheduled evidence and acknowledgments; no new collection or paid calls.

@@ -96,3 +96,10 @@ Bluesky final editing selects at most ten shortlisted observations without rewri
 the original text, media or counts. Refused or invalid selections produce no picks.
 Its separate editorial prompt and budget-ledger purpose do not change X editing;
 no production edition or scheduler calls this preparation path.
+
+Prepared Bluesky cards show the full saved text, author, publication time, observed
+likes/reposts/replies and observation time, with editorial context when present.
+Images link to the original full-size media; video previews link to the post on
+Bluesky rather than loading a streaming player. Images load lazily with their
+original alt text. Cards use no third-party widget script. Production editions
+still exclude Bluesky; desktop/mobile screenshots are synthetic browser replays.

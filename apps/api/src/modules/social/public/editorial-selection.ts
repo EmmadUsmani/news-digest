@@ -1,4 +1,4 @@
-import type { DigestPreview, SelectedPost } from '@digest/contracts';
+import type { DigestPreview, SelectedSocialPost } from '@digest/contracts';
 
 import type {
   SocialEditorialCandidate,
@@ -33,11 +33,9 @@ export interface SocialSelectionServices {
   };
 }
 
-// Reddit inputs must already pass historical-strength ranking; this type is an
-// editorial boundary; callers retain full platform-specific snapshot metadata.
-export type EditorialPost = Omit<SelectedPost, 'platform'> & {
-  platform: 'x' | 'reddit';
-};
+// Callers retain full platform-specific snapshot metadata. Production callers
+// still supply X/Reddit only; Bluesky preparation has its own editor.
+export type EditorialPost = SelectedSocialPost;
 function preferX<T extends EditorialPost>(
   posts: T[],
   qualifyingX: number,

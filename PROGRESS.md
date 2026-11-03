@@ -1,26 +1,8 @@
 # Progress
 
-Archived: [iterations 307–308](docs/progress-archive/2026-11-03-iterations-307-308.md), [iterations 305–306](docs/progress-archive/2026-11-03-iterations-305-306.md), [iterations 303–304](docs/progress-archive/2026-11-03-iterations-303-304.md), [iteration 302](docs/progress-archive/2026-11-03-iteration-302.md), [iteration 301](docs/progress-archive/2026-11-03-iteration-301.md), [iteration 300](docs/progress-archive/2026-11-03-iteration-300.md), [iteration 299](docs/progress-archive/2026-11-03-iteration-299.md), [iteration 298](docs/progress-archive/2026-11-03-iteration-298.md), [iteration 297](docs/progress-archive/2026-11-03-iteration-297.md), [iteration 296](docs/progress-archive/2026-11-03-iteration-296.md), [iteration 295](docs/progress-archive/2026-11-03-iteration-295.md), [iteration 294](docs/progress-archive/2026-11-03-iteration-294.md), [iteration 293](docs/progress-archive/2026-11-03-iteration-293.md), [iteration 292](docs/progress-archive/2026-11-03-iteration-292.md), [iteration 291](docs/progress-archive/2026-11-03-iteration-291.md), [iteration 290](docs/progress-archive/2026-11-03-iteration-290.md), [iteration 288](docs/progress-archive/2026-11-03-iteration-288.md), [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md), [286](docs/progress-archive/2026-11-03-iteration-286.md).
+Archived: [iterations 309–310](docs/progress-archive/2026-11-03-iterations-309-310.md), [iterations 307–308](docs/progress-archive/2026-11-03-iterations-307-308.md), [iterations 305–306](docs/progress-archive/2026-11-03-iterations-305-306.md), [iterations 303–304](docs/progress-archive/2026-11-03-iterations-303-304.md), [iteration 302](docs/progress-archive/2026-11-03-iteration-302.md), [iteration 301](docs/progress-archive/2026-11-03-iteration-301.md), [iteration 300](docs/progress-archive/2026-11-03-iteration-300.md), [iteration 299](docs/progress-archive/2026-11-03-iteration-299.md), [iteration 298](docs/progress-archive/2026-11-03-iteration-298.md), [iteration 297](docs/progress-archive/2026-11-03-iteration-297.md), [iteration 296](docs/progress-archive/2026-11-03-iteration-296.md), [iteration 295](docs/progress-archive/2026-11-03-iteration-295.md), [iteration 294](docs/progress-archive/2026-11-03-iteration-294.md), [iteration 293](docs/progress-archive/2026-11-03-iteration-293.md), [iteration 292](docs/progress-archive/2026-11-03-iteration-292.md), [iteration 291](docs/progress-archive/2026-11-03-iteration-291.md), [iteration 290](docs/progress-archive/2026-11-03-iteration-290.md), [iteration 288](docs/progress-archive/2026-11-03-iteration-288.md), [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md), [286](docs/progress-archive/2026-11-03-iteration-286.md).
 
 Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md), [283](docs/progress-archive/2026-11-03-iteration-283.md), [284](docs/progress-archive/2026-11-03-iteration-284.md).
-
-## 2026-11-03: iteration 309 — scheduled evidence gate preserved
-
-- Started clean on main; no leftover work. Four services active; health reports database/Redis healthy and every queue has a worker.
-- Read-only status at 02:23 UTC: rolling-day articles Tech/AI 331, NBA 110, Gaming 287, World 222; verified X posts 50/31/18/3.
-- `pnpm exec tsx scripts/report-x-discovery.ts 2026-11-03`: zero calls/cost/holds. `pnpm exec tsx scripts/report-edition-timing.ts`: edition due 15:00 UTC; 482,788-micro reserve pending, other Anthropic allowance zero.
-- Items 13/7/15 require scheduled evidence; item 16 activation remains explicitly gated by item 15 acknowledgement. No application/settings changes, paid calls or Reddit requests. Archived iteration 290 to keep progress bounded.
-- Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `git diff --check`; restarted four services, active; health/app/status/docs/db HTTP 200. No UI change.
-- Next: observe scheduled X per-topic cost/yield and edition AI cost/duration, acknowledge results, then activate open search.
-
-## 2026-11-03: iteration 310 — healthy scheduled-run handoff
-
-- Started clean on main; no leftover work. All four services active; database/Redis healthy and every queue has a worker.
-- Read-only status at 02:33 UTC: all 32 sources healthy; rolling-day articles Tech/AI 332, NBA 110, Gaming 287, World 223; verified X posts 49/31/17/3.
-- `pnpm exec tsx scripts/report-x-discovery.ts 2026-11-03`: zero calls/cost/holds; `pnpm exec tsx scripts/report-edition-timing.ts`: next edition 15:00 UTC, 482,788-micro reserve pending, other Anthropic allowance zero.
-- Items 13/7/15 still need actual scheduled evidence; item 16 activation remains explicitly gated by item 15 acknowledgement. No application/settings changes, paid calls or Reddit requests. Archived iteration 291 to keep progress bounded.
-- Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `git diff --check`; restarted four services, active; health/app/status/docs/db HTTP 200. No UI change.
-- Next: measure scheduled X per-topic cost/yield and edition AI cost/duration, acknowledge results, then activate open search.
 
 ## 2026-11-03: iteration 311 — scheduled evidence still pending
 
@@ -144,3 +126,13 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Verification: targeted editor tests (8 passed), `pnpm format`, `pnpm lint:fix`, `pnpm check` (184 unit/170 integration passed, typecheck/lint/format/boundaries), `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 05-social-posts` (16 pages, 1 unchanged diagram, 25 tables), `git diff --check`.
 - Updated source evidence, handbook and TASKS; archived iterations 307–308 to bound progress. Restarted API/worker for shared editor code; four services active, health OK and app/docs/db HTTP 200.
 - Next: faithful Bluesky cards, keeping production inclusion off until scheduled evidence/acks. Scheduled results take priority when available.
+
+## 2026-11-03: iteration 323 — faithful Bluesky cards prepared
+
+- Started clean on main; no leftover work. Four services/health healthy; 32 sources without current errors, staffed queues and no failed digest runs. Nov 3 15:00 UTC scheduled evidence remains pending.
+- Added discriminated Bluesky snapshot contract and faithful cards: full original text, author/time, saved likes/reposts/replies and observation time, context/rationale, lazy images with alt text/full-size links and video links with optional previews. No streaming player or widget script.
+- Production candidate collection and edition inclusion remain off under item 23; existing X/Reddit behavior unchanged. No paid calls, new collection or Reddit requests.
+- Synthetic `pnpm exec tsx scripts/smoke-bluesky-cards.ts` passed desktop/mobile: image/text-only cards, video without preview, metrics/original links, literal markup, invalid media/timestamps, no widget calls, page errors or horizontal overflow. Saved and visually inspected both screenshots; these are not real editorial picks.
+- Updated TASKS, source evidence and handbook; archived iterations 309–310 to bound progress. Next: prepare gated Bluesky edition wiring; scheduled evidence/acks take priority when available.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (184 unit/170 integration passed, typecheck/lint/format/boundaries), `pnpm build`, handbook check (16 pages, 1 unchanged diagram, 25 tables), `git diff --check`. Initial check caught a late contract formatting edit; corrected before the successful full rerun.
+- Restarted API/worker for contract/editor types and rebuilt web; four services active, health database/Redis OK, app/docs/db HTTP 200. Live edition still has 20 stories and 10 X posts, zero Bluesky posts.

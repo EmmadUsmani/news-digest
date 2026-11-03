@@ -1,5 +1,6 @@
 import type {
   DigestPreview,
+  SelectedBlueskyPost,
   SelectedPost,
   SelectedRedditPost,
   SelectedSocialPost,
@@ -45,7 +46,7 @@ export function TopPosts({
   posts,
   editorial,
 }: {
-  posts: SelectedSocialPost[];
+  posts: (SelectedSocialPost | SelectedBlueskyPost)[];
   editorial?: DigestPreview['topics'][number]['postEditorial'];
 }) {
   return (
@@ -64,7 +65,9 @@ export function TopPosts({
       ) : (
         <div className="post-grid">
           {posts.map((post) =>
-            post.platform === 'reddit' ? (
+            post.platform === 'bluesky' ? (
+              <BlueskyPost key={`bluesky:${post.externalId}`} post={post} />
+            ) : post.platform === 'reddit' ? (
               <RedditPost key={`reddit:${post.externalId}`} post={post} />
             ) : (
               <Post key={`x:${post.externalId}`} post={post} />
@@ -249,6 +252,67 @@ function RedditPost({ post }: { post: SelectedRedditPost }) {
           </a>
         </p>
       )}
+      <details>
+        <summary>Why selected</summary>
+        <ul>
+          {post.reasons.map((reason) => (
+            <li key={reason}>{reason}</li>
+          ))}
+        </ul>
+      </details>
+    </article>
+  );
+}
+
+function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
+  return (
+    <article className="post-card bluesky-card">
+      <p className="byline">
+        Bluesky · {post.author} ·{' '}
+        <time dateTime={post.publishedAt}>
+          {new Date(post.publishedAt).toLocaleString()}
+        </time>
+      </p>
+      <p className="post-text">{post.text}</p>
+      <div className="bluesky-media">
+        {post.media?.map((media, index) => (
+          <a
+            key={index}
+            href={media.type === 'image' ? media.fullsize : post.url}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {media.thumbnail && (
+              <img
+                src={media.thumbnail}
+                alt={
+                  media.alt ||
+                  (media.type === 'image' ? 'Post image' : 'Video preview')
+                }
+                loading="lazy"
+                referrerPolicy="no-referrer"
+              />
+            )}
+            {media.type === 'video' && <span>Watch video on Bluesky ↗</span>}
+          </a>
+        ))}
+      </div>
+      {post.whyItMatters && <p className="post-context">{post.whyItMatters}</p>}
+      <p className="byline">
+        {post.metrics.likes.toLocaleString()} likes ·{' '}
+        {post.metrics.reposts.toLocaleString()} reposts ·{' '}
+        {post.metrics.replies.toLocaleString()} replies
+      </p>
+      <p className="byline">
+        Observed{' '}
+        <time dateTime={post.observedAt}>
+          {new Date(post.observedAt).toLocaleString()}
+        </time>{' '}
+        · saved metrics
+      </p>
+      <a href={post.url} target="_blank" rel="noreferrer">
+        Open original post on Bluesky
+      </a>
       <details>
         <summary>Why selected</summary>
         <ul>
