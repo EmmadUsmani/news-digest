@@ -620,3 +620,26 @@ activating item 16. It must test today's production behavior.
   green, and finish deploys and restarts by 14:30 UTC.
 - **Item 18 has its Bluesky login,** so it isn't blocked: build and test it
   live, but keep Bluesky out of production editions until the run is acked.
+
+## 24. LOW PRIORITY, background: observability (2026-11-03)
+
+Owner-approved design: [docs/observability-plan.md](docs/observability-plan.md).
+The goal is as much observability as the VM can afford: logs, errors,
+requests, jobs, host, services, database, Redis, product numbers and the
+agent harness. It must be free, open source and run on the VM only, with UIs
+for the owner and query APIs plus an `obs` CLI for the agent.
+- **Only when product work is done or blocked** (item 20 order, item 22).
+  Product work always comes first; when a product item becomes unblocked,
+  return to it immediately.
+- **One piece at a time** (O1–O11 in the plan). Finish and verify each piece
+  with `scripts/check-observability.ts`, update the handbook, and tick it in
+  the plan before starting another. Never leave a service half-installed.
+- **Resource budget:** about 500 MB RAM, under 5% of one CPU and about 3 GB
+  disk for the whole stack, enforced with unit limits. If a tool exceeds
+  its budget, scale it back or remove it.
+- **Never restart Postgres or Redis within 2 hours of the scheduled
+  edition.** Item 23's freeze before the Nov 3 run also applies.
+- **No paid services** or third-party log or metric hosting. Don't swap a
+  chosen tool without a short note in `docs/decisions/`.
+- **Logs must never contain secrets.**
+- No ack needed; ticked pieces in the plan show progress.
