@@ -906,3 +906,13 @@ unrelated developer-tools preview still follows lexical matching. This does
 not extend the recorded benchmark or provide independent event labels.
 Production remains on the unchanged lexical matcher pending the scheduled-run
 gate and broader evidence.
+
+## Iteration 338: keep ambiguous score claims out of lexical fallback
+
+The opt-in matcher now refuses two-team headlines with multiple score pairs,
+implausible or tied scores, or an outcome that cannot be assigned to a winner.
+Previously these returned to lexical matching, so identical ambiguous recaps
+could share a story slot. Seven synthetic cases now keep separate slots in
+both argument orders; scoreless coverage retains lexical matching. The recorded
+benchmark remains unchanged. This is a conservative guard, not new independent
+quality evidence; production event grouping remains off.

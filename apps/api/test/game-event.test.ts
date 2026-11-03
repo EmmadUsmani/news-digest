@@ -122,3 +122,30 @@ void test('uncertain and historical game reports cannot regain eligibility throu
     'NBA guard does not reject unrelated preview coverage',
   );
 });
+
+void test('ambiguous or implausible two-team scores cannot use lexical fallback', () => {
+  for (const title of [
+    'Bucks fall to Cavaliers 136-111',
+    'Bucks and Cavaliers 136-111: game recap',
+    'Bucks beat Cavaliers 111-136',
+    'Bucks beat Cavaliers 111-111',
+    'Bucks beat Cavaliers 250-111',
+    'Bucks beat Cavaliers 50-40',
+    'Bucks beat Cavaliers 136-111 after a 110-110 tie',
+  ]) {
+    const left = item(title);
+    const right = { ...left, id: 'second-outlet' };
+    assert.equal(sameEvent(left, right), true);
+    assert.equal(sameEventWithGameScore(left, right), false, title);
+    assert.equal(sameEventWithGameScore(right, left), false, title);
+    assert.equal(
+      clusterCandidates([left, right], sameEventWithGameScore).length,
+      2,
+    );
+  }
+  const scoreless = item('Bucks Cavaliers game recap and player reactions');
+  assert.equal(
+    sameEventWithGameScore(scoreless, { ...scoreless, id: 'other' }),
+    true,
+  );
+});

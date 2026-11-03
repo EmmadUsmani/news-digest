@@ -56,10 +56,11 @@ function gameIdentity(title: string): string | null | false {
   const scores = [
     ...text.matchAll(/\b(\d{2,3})\s*(?:[-–—]|,\s*[a-z ]+)\s*(\d{2,3})\b/g),
   ];
-  if (scores.length !== 1) return null;
+  if (scores.length === 0) return null;
+  if (scores.length !== 1) return false;
   const score = scores[0].slice(1).map(Number);
   if (score.some((value) => value < 60 || value > 200) || score[0] === score[1])
-    return null;
+    return false;
   // Preserve the winning team: reversed outcomes are distinct games.
   const position = (team: number) =>
     Math.min(
@@ -78,16 +79,16 @@ function gameIdentity(title: string): string | null | false {
   if (!assigned) {
     // A bare score is conventionally winner-first, but only accept a clear
     // winning action. Loss-first and matchup-only wording cannot assign it.
-    if (score[0] < score[1]) return null;
+    if (score[0] < score[1]) return false;
     const between = text.slice(position(first), position(second));
     if (
       !/\b(win|wins|beat|beats|defeat|defeats|tame|tames|haunt|haunts)\b/.test(
         between,
       )
     )
-      return null;
+      return false;
     if (/\b(lose|loses|loss|fall|falls|fell|lost|beaten|defeated)\b/.test(text))
-      return null;
+      return false;
   }
   return [
     [first, score[0]],
