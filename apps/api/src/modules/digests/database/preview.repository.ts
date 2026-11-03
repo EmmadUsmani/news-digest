@@ -17,7 +17,6 @@ import {
   selectTopicRedditPosts,
 } from '../../social/public/selection';
 import { observeEdition } from '../adapters/edition-logging';
-import { editionEventMatcher } from '../adapters/event-grouping';
 import { parallelTopics } from '../application/parallel-topics';
 import { editorialShortlist } from '../domain/editorial-shortlist';
 import {
@@ -142,7 +141,6 @@ export class PostgresPreviewRepository
         await report();
       };
       await report();
-      const matches = editionEventMatcher();
       const selections = await parallelTopics(topics, async (topic) => {
         // Limit candidate work per topic, selecting the most recent 200 in the exact window.
         const candidates = await loadArticleCandidates(
@@ -166,7 +164,6 @@ export class PostgresPreviewRepository
           start,
           end,
           topic.story_budget,
-          matches,
         ).map((story) => ({
           ...story,
           reasons: [...story.reasons, assessRelevance(story, policy).reason],
@@ -211,7 +208,6 @@ export class PostgresPreviewRepository
               policy,
               start,
               end,
-              matches,
             );
             await topicStage(topic.id, 'editing');
             const result = await this.editorial.editor.edit(

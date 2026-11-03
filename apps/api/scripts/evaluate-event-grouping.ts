@@ -4,7 +4,7 @@ import { join } from 'node:path';
 
 import {
   clusterCandidates,
-  sameEvent,
+  noGrouping,
 } from '../src/modules/digests/domain/cluster';
 import type { Candidate } from '../src/modules/digests/domain/rank';
 
@@ -48,7 +48,7 @@ function evaluationOrders(candidates: Candidate[]): Candidate[][] {
 export function evaluateClusterMembership(
   candidates: Candidate[],
   labels: EventLabel[],
-  matches = sameEvent,
+  matches = noGrouping,
 ) {
   const key = (left: string, right: string) => [left, right].sort().join(':');
   const known = new Map(
@@ -134,7 +134,7 @@ export function evaluateClusterMembership(
   };
 }
 
-export function evaluateEventGrouping(matches = sameEvent) {
+export function evaluateEventGrouping(matches = noGrouping) {
   const root = join(__dirname, '../test/fixtures');
   const fixture = JSON.parse(
     readFileSync(join(root, 'event-grouping-pairs.json'), 'utf8'),

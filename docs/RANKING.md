@@ -1,5 +1,11 @@
 # Ranking evaluation
 
+Current grouping state (STEERING 26, iteration 467): production keeps articles
+separate. Wording matchers and their flag have been removed; only generic
+grouping/coverage plumbing remains. Canonical-URL ingestion dedupe continues.
+The iteration sections below record historical experiments, including superseded
+scoring and grouping behavior; the iteration 467 entry describes the removal.
+
 `signals-v1` is a preliminary baseline, not an editorial quality claim.
 For each enabled topic/window, examine at most the 200 most recent candidates:
 
@@ -1197,3 +1203,17 @@ historical titles, missing evidence and invalid/out-of-window times stay separat
 The benchmark reaches 35/57 positives and zero/41 false merges, with no unknown
 cluster pairs or sampled membership variation. Labels remain agent-reviewed,
 not independent validation. Production grouping stays disabled.
+
+## Iteration 467: wording grouping removed (STEERING 26)
+
+This supersedes the historical grouping experiments above. All wording-based
+event matchers and their opt-in flag have been removed. Production ranking and
+the AI shortlist now keep every article separate, including identical headlines.
+Ingestion still deduplicates canonical URLs. Generic complete-link plumbing,
+coverage links and all recorded pair labels remain; past editions are immutable.
+
+`pnpm exec tsx scripts/evaluate-event-grouping.ts` now measures the disabled
+baseline: no predicted merges, null precision and zero recall. Rule-specific CLI
+options no longer exist. These results are not an AI grouping evaluation. The
+next step is a ledger/cache-backed Haiku pass, validated and evaluated before
+activation under STEERING 26's cost and precision gates.

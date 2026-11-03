@@ -60,12 +60,12 @@ function fixture(enabled = true) {
   } as unknown as Pick<PoolClient, 'query'>;
   return { db, calls };
 }
-void test('reaction stories reuse article filters, ranking, clustering and the exact topic/window', async () => {
+void test('reaction stories reuse article filters, ranking without wording grouping and the exact topic/window', async () => {
   const { db, calls } = fixture();
   const stories = await loadReactionStories(db, 'nba', start, end);
   assert.deepEqual(
     stories.map(({ id }) => id),
-    ['best', 'second'],
+    ['best', 'duplicate'],
   );
   assert.ok(stories[0].importance > stories[1].importance);
   assert.deepEqual(calls, [['nba'], ['nba', start, end]]);

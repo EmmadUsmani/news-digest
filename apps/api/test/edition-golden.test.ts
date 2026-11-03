@@ -177,11 +177,10 @@ for (const mode of ['non-ai', 'ai'] as const) {
 }
 
 for (const mode of ['fallback', 'synthetic-ai'] as const) {
-  void test(`${mode} opt-in grouping survives publication, flag changes and snapshot retrieval`, async () => {
+  void test(`${mode} ungrouped recorded stories survive publication and snapshot retrieval`, async () => {
     assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
     assert.equal(process.env.ANTHROPIC_API_KEY, '');
     const adapter = new PostgresPreviewRepository();
-    const previousFlag = process.env.EDITION_EVENT_GROUPING_ENABLED;
     const topic = '00000000-0000-4000-8000-000000000889';
     const source = 'grouping-recorded-publisher';
     const recorded = JSON.parse(
@@ -282,33 +281,23 @@ for (const mode of ['fallback', 'synthetic-ai'] as const) {
             new Date('2026-11-03'),
           ),
         );
-      delete process.env.EDITION_EVENT_GROUPING_ENABLED;
-      const baseline = await publish();
-      assert.equal(baseline.topics[0].stories.length, 3);
-      process.env.EDITION_EVENT_GROUPING_ENABLED = '1';
-      const grouped = await publish();
-      assert.equal(grouped.topics[0].stories.length, 1);
-      const story = grouped.topics[0].stories[0];
+      const edition = await publish();
+      assert.equal(edition.topics[0].stories.length, 3);
       assert.deepEqual(
-        story.coverage.map((item) => item.id).sort(),
-        items.map((item) => item.id).sort(),
+        edition.topics[0].stories
+          .map((story) => ({
+            id: story.id,
+            coverageIds: story.coverage.map((item) => item.id),
+          }))
+          .sort((a, b) => a.id.localeCompare(b.id)),
+        fixture('ungrouped-coverage-golden'),
       );
-      assert.equal(story.id, baseline.topics[0].stories[0].id);
-      assert.equal(story.score, baseline.topics[0].stories[0].score);
       assert.equal(
-        grouped.topics[0].editorial?.mode,
+        edition.topics[0].editorial?.mode,
         mode === 'fallback' ? 'non-ai' : 'ai',
       );
-      delete process.env.EDITION_EVENT_GROUPING_ENABLED;
-      const restored = await publish();
-      assert.deepEqual(restored.topics, baseline.topics);
-      assert.notEqual(grouped.id, baseline.id);
-      for (const edition of [baseline, grouped, restored])
-        assert.deepEqual(await adapter.find(edition.id), edition);
+      assert.deepEqual(await adapter.find(edition.id), edition);
     } finally {
-      if (previousFlag === undefined)
-        delete process.env.EDITION_EVENT_GROUPING_ENABLED;
-      else process.env.EDITION_EVENT_GROUPING_ENABLED = previousFlag;
       await adapter.db.query(
         'DELETE FROM content_observations WHERE source_id=$1',
         [source],

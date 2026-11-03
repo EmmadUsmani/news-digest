@@ -1,6 +1,6 @@
 import type { RelevancePolicy } from '@digest/contracts';
 
-import { sameEvent } from './cluster';
+import { noGrouping } from './cluster';
 import { qualityRejection } from './quality';
 import { type Candidate, rank } from './rank';
 import { assessRelevance } from './relevance';
@@ -12,7 +12,7 @@ export function editorialShortlist(
   policy: RelevancePolicy,
   start: Date,
   end: Date,
-  matches: (a: Candidate, b: Candidate) => boolean = sameEvent,
+  matches: (a: Candidate, b: Candidate) => boolean = noGrouping,
 ) {
   const shortlist = scores
     .filter((s) => s.relevance >= 6 && s.importance >= 4)

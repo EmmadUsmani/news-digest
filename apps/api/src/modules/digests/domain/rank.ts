@@ -1,4 +1,4 @@
-import { clusterCandidates, sameEvent } from './cluster';
+import { clusterCandidates, noGrouping } from './cluster';
 import { qualityRejection } from './quality';
 export interface Candidate {
   id: string;
@@ -26,8 +26,8 @@ export function rank(
   start: Date,
   end: Date,
   budget: number,
-  // Explicit opt-in for prepared matchers; production callers retain the baseline.
-  matches: (a: Candidate, b: Candidate) => boolean = sameEvent,
+  // Explicit opt-in for prepared matchers; production callers keep grouping disabled.
+  matches: (a: Candidate, b: Candidate) => boolean = noGrouping,
 ) {
   if (
     !Number.isFinite(start.getTime()) ||

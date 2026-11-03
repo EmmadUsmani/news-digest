@@ -1,232 +1,63 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import {
-  clusterCandidates,
-  sameEvent,
-} from '../src/modules/digests/domain/cluster';
+import { clusterCandidates } from '../src/modules/digests/domain/cluster';
 import { type Candidate, rank } from '../src/modules/digests/domain/rank';
-const item = (id: string, title: string, source = 'Publisher'): Candidate => ({
+const item = (id: string): Candidate => ({
   id,
-  title,
-  sources: [source],
+  title: 'Identical recorded headline',
+  sources: [id],
   url: `https://example.org/${id}`,
   excerpt: '',
   publishedAt: '2026-11-01T12:00:00Z',
   points: 0,
 });
-void test('headline clusters retain coverage, spend one slot and do not reward unverified syndication', () => {
-  const a = item(
-    'a',
-    'Nintendo announces new console launch date',
-    'Publisher',
+void test('production default keeps even identical headlines separate', () => {
+  const candidates = [item('a'), item('b')];
+  assert.deepEqual(
+    clusterCandidates(candidates),
+    candidates.map((c) => [c]),
   );
-  const b = item(
-    'b',
-    'Nintendo announces the new console launch date',
-    'Syndicator',
-  );
-  const c = item('c', 'Studio closes following bankruptcy filing');
   const stories = rank(
-    [a, b, c],
+    candidates,
     new Date('2026-11-01'),
     new Date('2026-11-02'),
     2,
   );
-  assert.equal(stories.length, 2);
   assert.deepEqual(
-    stories[0].coverage.map((a) => a.id),
+    stories.map((s) => s.coverage.map((c) => c.id)),
+    [['a'], ['b']],
+  );
+});
+void test('generic matcher preserves coverage and strongest lead without a cluster score bonus', () => {
+  const a = { ...item('a'), points: 10 },
+    b = item('b'),
+    c = item('c');
+  const matches = (x: Candidate, y: Candidate) => x.id !== 'c' && y.id !== 'c';
+  const stories = rank(
+    [c, b, a],
+    new Date('2026-11-01'),
+    new Date('2026-11-02'),
+    2,
+    matches,
+  );
+  assert.equal(stories[0].id, 'a');
+  assert.deepEqual(
+    stories[0].coverage.map((c) => c.id),
     ['a', 'b'],
   );
-  assert.deepEqual(stories[0].sources, ['Publisher', 'Syndicator']);
-  assert.equal(stories[0].score, 5);
-  assert.equal(clusterCandidates([a, b, c]).length, 2);
-});
-void test('clustering separates different versions, dates, short generic titles and related events', () => {
-  const pairs = [
-    [
-      'Lakers beat Celtics 110 105 in overtime',
-      'Lakers beat Celtics 112 105 in overtime',
-    ],
-    [
-      'Nintendo announces new console launch date',
-      'Nintendo delays new console launch date',
-    ],
-    ['Company announces update', 'Company releases update'],
-  ];
-  for (const [a, b] of pairs)
-    assert.equal(sameEvent(item('a', a), item('b', b)), false);
-  const a = item('a', 'Nintendo announces new console launch date');
+  assert.deepEqual(stories[0].sources, ['a', 'b']);
   assert.equal(
-    sameEvent(a, { ...a, publishedAt: '2026-11-04T12:00:00Z' }),
-    false,
+    stories[0].score,
+    rank([a], new Date('2026-11-01'), new Date('2026-11-02'), 1)[0].score,
   );
 });
-
-void test('headline matching requires known timestamps within 36 hours in either order', () => {
-  const a = item('a', 'Nintendo announces new console launch date');
-  for (const publishedAt of ['', 'invalid', '2026-11-03T00:00:00.001Z']) {
-    const b = { ...a, id: 'b', publishedAt };
-    assert.equal(sameEvent(a, b), false);
-    assert.equal(sameEvent(b, a), false);
-    assert.deepEqual(
-      clusterCandidates([a, b]).map((group) => group.length),
-      [1, 1],
-    );
-    if (!Number.isFinite(Date.parse(publishedAt)))
-      assert.equal(sameEvent(b, { ...b, id: 'c' }), false);
-  }
-  for (const publishedAt of [
-    '2026-11-03T00:00:00.000Z',
-    '2026-11-02T16:00:00-08:00',
-    '2026-10-31T00:00:00.000Z',
-  ]) {
-    const b = { ...a, id: 'b', publishedAt };
-    assert.equal(sameEvent(a, b), true);
-    assert.equal(sameEvent(b, a), true);
-  }
-});
-
-void test('complete-link grouping prevents an overlap chain from merging distinct headlines', () => {
-  const a = item('a', 'Alpha bravo charlie delta echo foxtrot');
-  const b = item('b', 'Alpha bravo charlie delta echo golf');
-  const c = item('c', 'Alpha bravo charlie delta golf hotel');
-  assert.equal(sameEvent(a, b), true);
-  assert.equal(sameEvent(b, c), true);
-  assert.equal(sameEvent(a, c), false);
+void test('generic complete-link plumbing does not chain incompatible members', () => {
+  const candidates = [item('a'), item('b'), item('c')];
+  const matches = (a: Candidate, b: Candidate) =>
+    [a.id, b.id].sort().join('') !== 'ac';
   assert.deepEqual(
-    clusterCandidates([a, b, c]).map((group) => group.length),
-    [2, 1],
+    clusterCandidates(candidates, matches).map((g) => g.map((c) => c.id)),
+    [['a', 'b'], ['c']],
   );
-});
-
-void test('repeated discovery cannot outrank fresher reporting or change cluster leads', () => {
-  const start = new Date('2026-11-01'),
-    end = new Date('2026-11-02');
-  const older = {
-    ...item('a', 'Research lab publishes model evaluation results'),
-    publishedAt: '2026-11-01T06:00:00Z',
-  };
-  const fresh = {
-    ...item('b', 'Studio closes following bankruptcy filing'),
-    publishedAt: '2026-11-01T18:00:00Z',
-  };
-  const repeated = {
-    ...older,
-    sources: [
-      'Publisher',
-      'Hacker News',
-      'Google News: AI',
-      'Google News: technology',
-    ],
-  };
-  const baseline = rank([older, fresh], start, end, 1);
-  const discovered = rank([repeated, fresh], start, end, 1);
-  assert.equal(discovered[0].id, fresh.id);
-  assert.deepEqual(discovered, baseline);
-  const story = rank([repeated], start, end, 1)[0];
-  assert.equal(story.score, rank([older], start, end, 1)[0].score);
-  assert.deepEqual(story.coverage[0].sources, repeated.sources);
-  assert.ok(
-    story.reasons.some((reason) =>
-      reason.includes('independence unverified; no score bonus'),
-    ),
-  );
-  const alternate = {
-    ...older,
-    id: 'c',
-    sources: ['Syndicator'],
-    publishedAt: '2026-11-01T12:00:00Z',
-  };
-  const cluster = rank([repeated, alternate], start, end, 1)[0];
-  assert.equal(cluster.id, alternate.id);
-  assert.equal(cluster.coverage.length, 2);
-  assert.equal(cluster.score, 5);
-});
-
-void test('headline groups preserve numeric roles in scores and version transitions', () => {
-  // Synthetic regressions, not live reports or general event-quality evidence.
-  for (const [left, right] of [
-    [
-      'Lakers beat Celtics 110 105 in overtime',
-      'Lakers beat Celtics 105 110 in overtime',
-    ],
-    [
-      'Studio upgrades engine from version 4 to version 5',
-      'Studio upgrades engine from version 5 to version 4',
-    ],
-  ]) {
-    const a = item('a', left),
-      b = item('b', right);
-    assert.equal(sameEvent(a, b), false);
-    assert.equal(sameEvent(b, a), false);
-    assert.deepEqual(
-      clusterCandidates([a, b]).map((group) => group.length),
-      [1, 1],
-    );
-    assert.equal(
-      rank([a, b], new Date('2026-11-01'), new Date('2026-11-02'), 2).length,
-      2,
-    );
-  }
-  assert.equal(
-    sameEvent(
-      item('a', 'Lakers beat Celtics 110 105 in overtime'),
-      item('b', 'The Lakers beat the Celtics 110 105 in overtime'),
-    ),
-    true,
-  );
-});
-
-void test('directed headline actions keep participants on the same side', () => {
-  // Synthetic regressions; reversed participants describe distinct events.
-  for (const [left, right] of [
-    [
-      'Lakers beat Celtics in overtime thriller',
-      'Celtics beat Lakers in overtime thriller',
-    ],
-    [
-      'Lakers defeated Celtics in overtime thriller',
-      'Celtics defeated Lakers in overtime thriller',
-    ],
-    [
-      'Microsoft acquires Nintendo in surprise gaming deal',
-      'Nintendo acquires Microsoft in surprise gaming deal',
-    ],
-    [
-      'Nintendo sues Microsoft over gaming patent dispute',
-      'Microsoft sues Nintendo over gaming patent dispute',
-    ],
-  ]) {
-    const a = item('a', left),
-      b = item('b', right);
-    for (const candidates of [
-      [a, b],
-      [b, a],
-    ]) {
-      assert.equal(sameEvent(candidates[0], candidates[1]), false);
-      assert.deepEqual(
-        clusterCandidates(candidates).map((group) => group.length),
-        [1, 1],
-      );
-      assert.equal(
-        rank(candidates, new Date('2026-11-01'), new Date('2026-11-02'), 2)
-          .length,
-        2,
-      );
-    }
-  }
-  for (const [left, right] of [
-    [
-      'Lakers beat Celtics in overtime thriller',
-      'The Lakers beat the Celtics in overtime thriller',
-    ],
-    [
-      'Microsoft acquires Nintendo in surprise gaming deal',
-      'Microsoft acquires Nintendo in a surprise gaming deal',
-    ],
-  ]) {
-    assert.equal(sameEvent(item('a', left), item('b', right)), true);
-    assert.equal(sameEvent(item('b', right), item('a', left)), true);
-  }
 });

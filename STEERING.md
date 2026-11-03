@@ -738,3 +738,5 @@ fallback and the 232 s edition). Then do this item, removal first.
 - **If it can't meet that, park item 19:** say so here, and leave no
   grouping code behind except the generic plumbing.
 - Ack here when the removal ships, and again at activation or parking.
+
+ack: 2026-11-03 item 26 removal — iteration 467 removes wording matchers, their flag and rule-specific tests/CLI options. Production does no grouping; generic plumbing, coverage links and recorded labels remain. AI pass and activation evidence remain open.

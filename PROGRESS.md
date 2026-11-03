@@ -1,13 +1,3 @@
-## 2026-11-03: iteration 451 — group conservative Gaming preload overviews
-
-- Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis and all 32 sources. Scheduled social/latency evidence remains pending; advanced item 19.
-- Opt-in matcher groups same-game preload dates/times overviews; refuses uncertainty/history, schedule changes, concrete suffix numbers and conflicting explicit platforms. No aliases inferred; production grouping stays disabled.
-- Three recorded GTA 6 overviews group; reviewed/added two previously unlabeled positive pairs. Benchmark now 88 pairs: combined 16/47 positives, zero/41 false merges; no unknown merges or membership variation across 34 orders per window. Agent labels are not independent verification.
-- Updated TASKS/RANKING; archived iteration 436 to keep PROGRESS bounded. No UI or handbook-described production flow change.
-- Verification: targeted grouping 16/16; pnpm format, pnpm lint:fix, pnpm check (286 unit/176 isolated integration), pnpm build and git diff --check passed.
-- Restarted API/worker; health/jobs checks passed, root HTTP 200, zero alerts/dangling Docker volumes. Existing scheduled edition and hourly social collection remain healthy.
-- No paid calls, new editions or Reddit requests. Next: Nov 4 social selections, World yield and latency/full-AI evidence; broader grouping recall and independent labels remain open.
-
 ## 2026-11-03: iteration 452 — distinguish preload hardware variants
 
 - Started clean on main; no leftovers. Zero alerts and healthy API/DB/Redis; scheduled social/latency evidence remains pending. Advanced item 19.
@@ -161,3 +151,13 @@
 - Initial full check found two synthetic fixtures still returning full wire IDs; adapted the authored golden response mapping and updated the synthetic replay fingerprint/body for the changed prompt. Published goldens remain unchanged; no recording/provider spend.
 - Final pnpm format, pnpm lint:fix, pnpm check (297 unit/177 isolated integration), pnpm build and git diff --check passed. Zero dangling volumes. Restarted API/worker; health passed, root HTTP 200, all 33 sources healthy, zero alerts.
 - Archived iteration 450 to keep PROGRESS bounded. Next: continue offline NBA/latency diagnosis, then remove wording grouping under item 26; verify real speed/full-AI and social selections on Nov 4. No live latency or full-AI acceptance claimed.
+
+## 2026-11-03: iteration 467 — remove wording-based story grouping
+
+- Started clean on main; no leftovers, zero alerts, healthy API/DB/Redis and 33 sources. Continued STEERING 26 after iteration 466's offline triage reduction; NBA rejection/live speed still need scheduled evidence.
+- Removed word-overlap/action/number-order matching, all five game/studio/preload/remake/title-reveal rule modules, their flag, rule tests and CLI options. Production now does no grouping, including identical titles; canonical-URL ingestion dedupe stays.
+- Kept generic complete-link matcher plumbing, coverage links and every recorded label unchanged. Disabled baseline: 98 pairs, zero merges, null precision/zero recall; this is not AI quality evidence.
+- Updated publication coverage golden for three separate recorded Gaming stories in fallback/synthetic-AI modes. Full checks exposed two old duplicate-title assumptions in reaction/ranking tests; updated them. One check also caught archived Markdown formatting; corrected it.
+- Final pnpm format, pnpm lint:fix, pnpm check (259 unit/177 isolated integration), pnpm build and git diff --check passed. Handbook check passed; corrected and visually inspected the pipeline diagram.
+- Restarted API/worker; health passed after startup retry, root HTTP 200, all 33 sources healthy, zero alerts/dangling volumes. No paid calls, new editions or Reddit requests.
+- Updated TASKS/RANKING/handbook and acknowledged removal in STEERING; archived iteration 451 to bound PROGRESS. Next: ledger/cache-backed one-Haiku-call-per-topic AI grouping, then gated evaluation; Nov 4 scheduled latency/NBA and social evidence takes priority when available.

@@ -5,7 +5,6 @@ import {
   evaluateClusterMembership,
   evaluateEventGrouping,
 } from '../scripts/evaluate-event-grouping';
-import { sameEventWithGameScore } from '../src/modules/digests/domain/game-event';
 
 void test('recorded strict event labels expose false merges and missed paraphrases', () => {
   const result = evaluateEventGrouping();
@@ -13,12 +12,9 @@ void test('recorded strict event labels expose false merges and missed paraphras
   assert.equal(result.positives, 57);
   assert.equal(result.negatives, 41);
   assert.equal(result.falsePositives, 0);
-  assert.ok(
-    result.truePositives > 0,
-    'Precision needs actual predicted merges',
-  );
+  assert.equal(result.truePositives, 0);
   assert.equal(result.truePositives + result.falseNegatives, result.positives);
-  assert.equal(result.precision, 1);
+  assert.equal(result.precision, null);
   assert.equal(result.disagreements.length, result.falseNegatives);
   assert.equal(result.windows.length, 6);
   const gaming = result.windows.find((window) =>
@@ -28,16 +24,6 @@ void test('recorded strict event labels expose false merges and missed paraphras
   assert.equal(gaming.negatives, 12);
   assert.equal(gaming.truePositives, 0);
   assert.equal(gaming.falsePositives, 0);
-});
-
-void test('opt-in grouping preserves recorded negative labels in both argument orders', () => {
-  const forward = evaluateEventGrouping(sameEventWithGameScore);
-  const reversed = evaluateEventGrouping((a, b) =>
-    sameEventWithGameScore(b, a),
-  );
-  assert.equal(forward.truePositives, 10);
-  assert.equal(forward.falsePositives, 0);
-  assert.deepEqual(reversed, forward);
 });
 
 void test('cluster evaluation separates unknown merges and exposes complete-link order sensitivity', () => {
@@ -76,28 +62,6 @@ void test('cluster evaluation separates unknown merges and exposes complete-link
   assert.equal(incorrect.falsePositives, 1);
   assert.equal(incorrect.unlabeledMergedPairs, 2);
   assert.equal(incorrect.labeledPrecision, 0);
-});
-
-void test('recorded full-window cluster membership covers every observed merge after headline review', () => {
-  const result = evaluateEventGrouping(sameEventWithGameScore);
-  const memberships = result.windows.map((window) => window.membership);
-  assert.equal(
-    memberships.reduce((sum, row) => sum + row.mergedPairs, 0),
-    10,
-  );
-  assert.equal(
-    memberships.reduce((sum, row) => sum + row.unlabeledMergedPairs, 0),
-    0,
-  );
-  for (const row of memberships) {
-    assert.equal(row.falsePositives, 0);
-    assert.equal(row.reverse.falsePositives, 0);
-    assert.equal(row.orderSensitivePairs, 0);
-    assert.equal(
-      row.mergedPairs,
-      row.truePositives + row.falsePositives + row.unlabeledMergedPairs,
-    );
-  }
 });
 
 void test('permutation review catches instability hidden by forward and reverse agreement', () => {
@@ -158,21 +122,4 @@ void test('large-window permutation sampling is bounded, reproducible and labels
     maxMatchedPositivePairs: 0,
   });
   assert.equal(evaluateClusterMembership([], []).permutationCheck.orders, 1);
-});
-
-void test('November 3 Gaming reveals expose recall gaps without merging separate developments', () => {
-  for (const matches of [undefined, sameEventWithGameScore]) {
-    const result = evaluateEventGrouping(matches);
-    const window = result.windows.find(
-      (row) => row.window === 'event-grouping-gaming-2026-11-03.json',
-    )!;
-    assert.equal(window.positives, 25);
-    assert.equal(window.negatives, 13);
-    assert.equal(window.truePositives, 0);
-    assert.equal(window.falsePositives, 0);
-    assert.equal(window.membership.missedPositivePairs, 25);
-    assert.equal(window.membership.permutationCheck.orderSensitivePairs, 0);
-    assert.equal(window.membership.permutationCheck.maxFalsePositives, 0);
-    assert.equal(window.membership.permutationCheck.maxUnlabeledMergedPairs, 0);
-  }
 });

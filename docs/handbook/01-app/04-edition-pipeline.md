@@ -10,7 +10,7 @@ flowchart TB
   subgraph per["For each enabled topic (in parallel)"]
     direction TB
     c["1 · Candidates<br/>articles from the topic's sources in the window"]
-    r["2 · Rules (no AI)<br/>relevance phrases · quality filters · title clustering"]
+    r["2 · Rules (no AI)<br/>relevance phrases · quality filters"]
     t{"AI budget<br/>available?"}
     tri["3 · Triage (Haiku)<br/>score every candidate for relevance + importance<br/>batches of ~50, 4 at a time, cached"]
     sl["4 · Shortlist<br/>top ~10 by scores + signals"]
@@ -56,9 +56,7 @@ flowchart TB
   edition by its id.
 
 > [!NOTE]
-> Production merges near-identical headlines. A broader game/studio event
-> matcher is prepared behind `EDITION_EVENT_GROUPING_ENABLED=1`, off by
-> default until the protected scheduled run is acknowledged (STEERING items
-> 19 and 23). It applies to fallback selection and the AI shortlist, retaining
-> coverage links without an outlet-count score bonus. Source labels do not
-> establish independent reporting. Previously published editions stay unchanged.
+> Production keeps articles separate until the AI event-grouping pass has been
+> validated. Same-URL dedupe still happens during ingestion. The generic grouping
+> plumbing and “also covered by” links remain available; historical editions keep
+> their original coverage. Source labels do not establish independent reporting.

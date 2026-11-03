@@ -15,7 +15,7 @@ const item = (id: string, changes: Partial<Candidate> = {}): Candidate => ({
   points: 0,
   ...changes,
 });
-void test('rank enforces half-open windows, budgets, safe URLs, duplicate titles and low-value exclusions', () => {
+void test('rank enforces half-open windows, budgets, safe URLs, separate titles and low-value exclusions', () => {
   const items = [
     item('start', { publishedAt: start.toISOString() }),
     item('end', { publishedAt: end.toISOString() }),
@@ -25,7 +25,7 @@ void test('rank enforces half-open windows, budgets, safe URLs, duplicate titles
     item('one', { title: 'Launch announced!' }),
     item('two', { title: 'Launch announced' }),
   ];
-  assert.equal(rank(items, start, end, 20).length, 2);
+  assert.equal(rank(items, start, end, 20).length, 3);
   assert.equal(rank(items, start, end, 1).length, 1);
   assert.deepEqual(rank(items, start, end, 0), []);
   assert.throws(() => rank(items, end, start, 5));
