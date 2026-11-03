@@ -191,6 +191,7 @@ only when its check passes.
   - Iteration 370: Product adds edition-ID-attributed Anthropic charges, call counts and unresolved holds for the latest seven snapshots. No timestamp attribution; excludes X discovery and unpublished attempts. Reader adds only edition/run ID columns; caps and worker timing remain open.
   - **Scope:** Grafana at `/grafana/`, with datasources and dashboards
     provisioned from `ops/observability/grafana/`.
+  - Iteration 371: App runtime adds API/worker resident memory, V8 heap used/allocated, descriptor count/limit use and GC pause rate from existing scrapes. Read-only, no new collector or app restart; desktop/mobile verified. Redis/Agent and remaining Product caps/timing remain open.
   - **Dashboards:** Host, Services, HTTP, Jobs, Database, Redis, Errors and
     logs, Product, Agent.
   - **Done when:** every dashboard renders with no panel errors (screenshot

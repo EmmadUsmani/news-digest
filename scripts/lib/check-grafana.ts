@@ -194,6 +194,19 @@ export async function checkGrafana() {
         const result = await response.json();
         assert.equal(result.status, 'success', panel.title);
         if (result.data.result.length > 0) populated++;
+        if (dashboard.uid === 'nd-runtime') {
+          const services = new Set(
+            result.data.result.map(
+              (series: { metric: { service?: string } }) =>
+                series.metric.service,
+            ),
+          );
+          for (const service of ['api', 'worker'])
+            assert.ok(
+              services.has(service),
+              `${panel.title}: missing ${service} samples`,
+            );
+        }
       }
       assert.ok(populated > 0, `${dashboard.title}: all panels empty`);
       if (dashboard.uid === 'nd-errors') {
@@ -218,7 +231,11 @@ export async function checkGrafana() {
           );
         }
       }
-      if (['nd-host', 'nd-services', 'nd-jobs'].includes(dashboard.uid))
+      if (
+        ['nd-host', 'nd-services', 'nd-jobs', 'nd-runtime'].includes(
+          dashboard.uid,
+        )
+      )
         assert.equal(
           populated,
           dashboard.panels.length,
@@ -268,6 +285,16 @@ export async function checkGrafana() {
 
       if (!['nd-product', 'nd-database'].includes(dashboard.uid))
         await page.locator('canvas').first().waitFor({ state: 'visible' });
+      if (dashboard.uid === 'nd-runtime') {
+        // A first canvas can paint while the other queries are still pending.
+        await page
+          .getByText('worker', { exact: true })
+          .nth(4)
+          .waitFor({ state: 'visible' });
+        await page
+          .getByText('worker minor', { exact: true })
+          .waitFor({ state: 'visible' });
+      }
       await page.screenshot({
         path: `docs/screenshots/grafana-${dashboard.uid}-desktop.png`,
         fullPage: true,
@@ -377,6 +404,21 @@ export async function checkGrafana() {
     await page.waitForTimeout(1500);
     await page.screenshot({
       path: 'docs/screenshots/grafana-host-mobile.png',
+    });
+    await page.goto(`${base}/d/nd-runtime?kiosk`, { waitUntil: 'networkidle' });
+    await page
+      .getByRole('heading', { name: 'Resident memory', exact: true })
+      .waitFor();
+    await page.locator('canvas').first().waitFor({ state: 'visible' });
+    await page.waitForTimeout(1500);
+    assert.equal(
+      await page
+        .locator('[data-testid="data-testid Panel status error"]')
+        .count(),
+      0,
+    );
+    await page.screenshot({
+      path: 'docs/screenshots/grafana-runtime-mobile.png',
     });
     await page.goto(`${base}/d/nd-errors?kiosk`, { waitUntil: 'networkidle' });
     await page

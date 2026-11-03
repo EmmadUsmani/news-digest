@@ -1,0 +1,231 @@
+{
+  "uid": "nd-runtime",
+  "title": "App runtime",
+  "description": "API, worker, docs and schema process metrics. Resident memory includes native allocations; V8 allocated heap is not its hard limit. GC is cumulative pause time per wall second, not latency per collection. File descriptors are process-wide, not database connections. Missing samples mean unavailable telemetry.",
+  "schemaVersion": 41,
+  "version": 1,
+  "editable": false,
+  "tags": ["news-digest"],
+  "timezone": "utc",
+  "refresh": "1m",
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "panels": [
+    {
+      "id": 1,
+      "title": "Resident memory",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "news_digest_process_resident_memory_bytes",
+          "legendFormat": "{{service}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "title": "V8 heap used",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "news_digest_nodejs_heap_size_used_bytes",
+          "legendFormat": "{{service}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "title": "V8 heap allocated",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 8,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "news_digest_nodejs_heap_size_total_bytes",
+          "legendFormat": "{{service}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 4,
+      "title": "Open file descriptors",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 8,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "news_digest_process_open_fds",
+          "legendFormat": "{{service}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 5,
+      "title": "File descriptor limit used",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 16,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "100 * news_digest_process_open_fds / news_digest_process_max_fds",
+          "legendFormat": "{{service}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 6,
+      "title": "GC pause seconds per second",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 16,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum by (service, kind) (rate(news_digest_nodejs_gc_duration_seconds_sum[5m]))",
+          "legendFormat": "{{service}} {{kind}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    }
+  ],
+  "links": [
+    {
+      "title": "Logs",
+      "url": "/logs/select/vmui/"
+    },
+    {
+      "title": "Queues",
+      "url": "/queues/"
+    }
+  ]
+}
