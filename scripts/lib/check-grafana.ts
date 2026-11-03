@@ -374,9 +374,20 @@ export async function checkGrafana() {
           element.scrollLeft = element.scrollWidth;
       }
     });
-    await page
-      .getByRole('columnheader', { name: 'Open overdue (min)', exact: true })
-      .waitFor({ state: 'visible' });
+    // The mobile panel can mount its grid after its heading appears. Scroll
+    // again after mounting so a newly created grid is not left at column zero.
+    const overdue = page.getByRole('columnheader', {
+      name: 'Open overdue (min)',
+      exact: true,
+    });
+    for (let attempt = 0; attempt < 20; attempt++) {
+      if (await overdue.isVisible()) break;
+      await page.locator('.rdg').evaluateAll((grids) => {
+        for (const grid of grids) grid.scrollLeft = grid.scrollWidth;
+      });
+      await page.waitForTimeout(300);
+    }
+    await overdue.waitFor({ state: 'visible' });
     await page.waitForTimeout(1500);
     await page.screenshot({
       path: 'docs/screenshots/grafana-product-reserve-mobile.png',
@@ -532,7 +543,7 @@ export async function checkGrafana() {
     await page.screenshot({
       path: 'docs/screenshots/grafana-product-x-calls-mobile.png',
     });
-    await page.setViewportSize({ width: 1440, height: 1100 });
+    await page.setViewportSize({ width: 1800, height: 1100 });
     await page
       .getByRole('columnheader', { name: 'Profiles fetched', exact: true })
       .waitFor();

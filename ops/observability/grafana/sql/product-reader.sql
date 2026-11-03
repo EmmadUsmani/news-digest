@@ -26,3 +26,4 @@ GRANT SELECT (external_id, topic_id, discovered_at) ON x_search_citations TO gra
 GRANT SELECT (platform, external_id) ON social_posts TO grafana_product;
 GRANT SELECT (budget_day, scheduled_at, state, attempt, updated_at) ON scheduled_ai_budget_days TO grafana_product;
 GRANT SELECT (id, requested_topic, search_type, posts_fetched, profiles_fetched) ON x_discovery_calls TO grafana_product;
+GRANT SELECT (completed_at, error_code) ON x_discovery_calls TO grafana_product;

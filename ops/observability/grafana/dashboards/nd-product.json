@@ -567,7 +567,7 @@
     {
       "id": 13,
       "title": "Recent X discovery calls (latest 30 in seven days)",
-      "description": "Reservation-time topic and search type, current ledger status and provider-reported fetched counts. Null means unknown, not zero. Settled cost and unresolved holds are separate. Includes manual and scheduled calls; cached/refused requests have no row. Fetched posts include repeats and thread/parent posts; these are not verified additions or selection quality. Fixed seven-day window ignores time picker.",
+      "description": "Reservation-time topic and search type, current ledger status and provider-reported fetched counts. Null means unknown, not zero. Settled cost and unresolved holds are separate. Includes manual and scheduled calls; cached/refused requests have no row. Fetched posts include repeats and thread/parent posts; these are not verified additions or selection quality. Fixed seven-day window ignores time picker. Outcome recorded is when the ledger recorded success, failure or uncertainty; blank while pending. Ledger elapsed measures reservation to that outcome, including local work, not provider HTTP latency or official verification. Uncertain outcomes retain their hold.",
       "type": "table",
       "datasource": {
         "type": "grafana-postgresql-datasource",
@@ -584,7 +584,7 @@
           "refId": "A",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT created_at AS \"Created (UTC)\", coalesce(requested_topic->>'name','Unattributed') AS \"Requested topic\", coalesce(search_type,'unknown') AS \"Search type\", status AS \"Status\", cost_micros / 1000000.0 AS \"Settled USD\", CASE WHEN status IN ('pending','uncertain') THEN reserved_micros ELSE 0 END / 1000000.0 AS \"Held USD\", posts_fetched AS \"Posts fetched\", profiles_fetched AS \"Profiles fetched\" FROM x_discovery_calls WHERE created_at >= now() - interval '7 days' ORDER BY created_at DESC, id DESC LIMIT 30",
+          "rawSql": "SELECT created_at AS \"Created (UTC)\", coalesce(requested_topic->>'name','Unattributed') AS \"Requested topic\", coalesce(search_type,'unknown') AS \"Search type\", status AS \"Status\", error_code AS \"Failure reason\", completed_at AS \"Outcome recorded (UTC)\", extract(epoch FROM (completed_at-created_at)) AS \"Ledger elapsed (s)\", cost_micros / 1000000.0 AS \"Settled USD\", CASE WHEN status IN ('pending','uncertain') THEN reserved_micros ELSE 0 END / 1000000.0 AS \"Held USD\", posts_fetched AS \"Posts fetched\", profiles_fetched AS \"Profiles fetched\" FROM x_discovery_calls WHERE created_at >= now() - interval '7 days' ORDER BY created_at DESC, id DESC LIMIT 30",
           "editorMode": "code",
           "sql": {
             "limit": 100
@@ -592,7 +592,11 @@
         }
       ],
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "custom": {
+            "minWidth": 150
+          }
+        },
         "overrides": [
           {
             "matcher": {
@@ -623,6 +627,18 @@
               {
                 "id": "decimals",
                 "value": 4
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Outcome recorded (UTC)"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 210
               }
             ]
           }
