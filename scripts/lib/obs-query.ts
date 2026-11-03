@@ -19,6 +19,10 @@ export function obsRequest(
   init?: RequestInit;
 } {
   const [command, ...rest] = args;
+  if (command === 'alerts') {
+    if (rest.length) throw new Error('alerts accepts no options');
+    return { url: 'http://127.0.0.1:8880/api/v1/alerts' };
+  }
   if (command === 'health') {
     if (rest.length) throw new Error('health accepts no options');
     return { url: 'http://127.0.0.1:8000/healthz' };
@@ -47,7 +51,7 @@ export function obsRequest(
   if (command === 'metric') return metricRequest(rest, now);
   if (command !== 'logs' && command !== 'errors')
     throw new Error(
-      'Use: pnpm obs health|services|sources|targets [--check]; pnpm obs logs|errors [--since 1h] [--service worker] [--edition UUID] [--queue name] [--job ID] [--grep text] [--limit 40]; pnpm obs jobs [--check] [--queue name] [--state failed] [--limit 5]; pnpm obs metric <PromQL> [--since 1h] [--step 60s]',
+      'Use: pnpm obs alerts; pnpm obs health|services|sources|targets [--check]; pnpm obs logs|errors [--since 1h] [--service worker] [--edition UUID] [--queue name] [--job ID] [--grep text] [--limit 40]; pnpm obs jobs [--check] [--queue name] [--state failed] [--limit 5]; pnpm obs metric <PromQL> [--since 1h] [--step 60s]',
     );
   const options = new Map<string, string>();
   for (let i = 0; i < rest.length; i += 2) {
@@ -203,6 +207,9 @@ export async function runObs(
   }
   if (!response.ok)
     throw new Error(`Local query failed: HTTP ${response.status}`);
+  if (args[0] === 'alerts') {
+    return JSON.stringify(alertSummary(await response.json()));
+  }
   if (args[0] === 'services') {
     return JSON.stringify(serviceSummary(await response.json(), Date.now()));
   }
@@ -467,6 +474,7 @@ export function serviceSummary(body: unknown, now: number) {
       scope: 'user',
     })),
     ...[
+      'alerts',
       'grafana',
       'logs',
       'metrics',
@@ -507,5 +515,65 @@ export function serviceSummary(body: unknown, now: number) {
     total: services.length,
     unhealthy,
     services,
+  };
+}
+
+// Keep the evaluator response bounded and fail closed on malformed state.
+export function alertSummary(value: unknown) {
+  const body = value as { status?: string; data?: { alerts?: unknown } } | null;
+  if (body?.status !== 'success' || !Array.isArray(body.data?.alerts))
+    throw new Error('Invalid local alert response');
+  const alerts = body.data.alerts.map((value: unknown) => {
+    const row = value as {
+      labels?: Record<string, unknown>;
+      annotations?: Record<string, unknown>;
+      state?: string;
+      activeAt?: string;
+      value?: string;
+    } | null;
+    if (
+      !row ||
+      !['pending', 'firing'].includes(row.state ?? '') ||
+      typeof row.labels?.alertname !== 'string' ||
+      typeof row.activeAt !== 'string' ||
+      !Number.isFinite(Date.parse(row.activeAt))
+    )
+      throw new Error('Invalid local alert entry');
+    const labels = Object.fromEntries(
+      Object.entries(row.labels ?? {}).filter(
+        ([key, value]) =>
+          [
+            'alertname',
+            'severity',
+            'unit',
+            'scope',
+            'job',
+            'instance',
+            'mountpoint',
+            'device',
+            'alertgroup',
+          ].includes(key) && typeof value === 'string',
+      ),
+    );
+    return {
+      state: row.state,
+      labels,
+      activeAt: row.activeAt,
+      summary:
+        typeof row.annotations?.summary === 'string'
+          ? row.annotations.summary
+          : null,
+    };
+  });
+  alerts.sort(
+    (a, b) => Number(b.state === 'firing') - Number(a.state === 'firing'),
+  );
+  return {
+    checkedAt: new Date().toISOString(),
+    total: alerts.length,
+    firing: alerts.filter((row) => row.state === 'firing').length,
+    pending: alerts.filter((row) => row.state === 'pending').length,
+    omitted: Math.max(0, alerts.length - 50),
+    alerts: alerts.slice(0, 50),
   };
 }

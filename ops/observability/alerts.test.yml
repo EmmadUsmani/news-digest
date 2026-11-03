@@ -1,0 +1,36 @@
+rule_files:
+  - alerts.yml
+evaluation_interval: 30s
+tests:
+  - name: disk threshold and sustained duration
+    interval: 30s
+    input_series:
+      - series: 'node_filesystem_avail_bytes{fstype="ext4",mountpoint="/",device="root"}'
+        values: '20 19 19 19 19 19 30'
+      - series: 'node_filesystem_size_bytes{fstype="ext4",mountpoint="/",device="root"}'
+        values: '100 100 100 100 100 100 100'
+    alert_rule_test:
+      - eval_time: 0m
+        alertname: DiskSpaceLow
+        groupname: host-and-services
+        exp_alerts: []
+      - eval_time: 2m
+        alertname: DiskSpaceLow
+        groupname: host-and-services
+        exp_alerts: []
+      - eval_time: 2m30s
+        alertname: DiskSpaceLow
+        groupname: host-and-services
+        exp_alerts:
+          - exp_labels:
+              fstype: ext4
+              mountpoint: /
+              device: root
+              severity: warning
+              alertgroup: host-and-services
+            exp_annotations:
+              summary: Filesystem exceeds 80 percent used
+      - eval_time: 3m
+        alertname: DiskSpaceLow
+        groupname: host-and-services
+        exp_alerts: []

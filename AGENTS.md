@@ -10,7 +10,7 @@ conflict. Never edit `MISSION.md`, `BOOTSTRAP.md` or anything under
 1. Read STEERING.md, the open items of TASKS.md and the tail of PROGRESS.md.
    Read only the MISSION.md sections your task needs (see Token efficiency).
 2. `git status` / `git log -5`; recover or deliberately discard leftover work.
-3. Fix broken things first: build, tests, services, `/healthz`, stalled
+3. Run `pnpm obs alerts` for a cheap local alert snapshot. Fix broken things first: build, tests, services, `/healthz`, stalled
    sources, failed digest runs.
 4. Then complete one meaningful, verified step. Prefer user-visible progress
    (real content, better digests, better UI) over internal polish.

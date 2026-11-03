@@ -11,6 +11,44 @@ import { runObs, runObsCli } from './lib/obs-query';
 import { testEnvironment } from './test-suites';
 
 async function main() {
+  if (process.argv.includes('--verify-alerts')) {
+    execFileSync(
+      '/opt/news-digest-observability/vmalert-tool-prod',
+      ['unittest', '-files=alerts.test.yml'],
+      { cwd: 'ops/observability', stdio: 'pipe', timeout: 30_000 },
+    );
+    const response = await fetch('http://127.0.0.1:8880/api/v1/rules');
+    assert.equal(response.ok, true);
+    const body = await response.json();
+    assert.equal(body.status, 'success');
+    const rules = body.data.groups.flatMap(
+      (group: {
+        rules: { name: string; health: string; lastError?: string }[];
+      }) => group.rules,
+    );
+    for (const name of [
+      'DiskSpaceLow',
+      'ServiceDown',
+      'ScrapeTargetDown',
+      'UnitSnapshotStale',
+      'HostMemoryPressure',
+    ]) {
+      const rule = rules.find((row: { name: string }) => row.name === name);
+      assert.ok(rule, `Missing ${name}`);
+      assert.equal(rule.health, 'ok');
+      assert.ok(!rule.lastError);
+    }
+    const alerts = JSON.parse(await runObs(['alerts']));
+    console.log(
+      JSON.stringify({
+        alertRules: rules.length,
+        firing: alerts.firing,
+        pending: alerts.pending,
+        mutations: 0,
+      }),
+    );
+    return;
+  }
   if (process.argv.includes('--verify-timing')) {
     execFileSync(
       'pnpm',
@@ -76,7 +114,7 @@ async function main() {
     }
     const services = JSON.parse(await runObs(['services']));
     assert.equal(services.healthy, true);
-    assert.equal(services.total, 12);
+    assert.equal(services.total, 13);
     const sources = JSON.parse(await runObs(['sources']));
     assert.equal(sources.healthy, true);
     assert.ok(sources.total > 0);

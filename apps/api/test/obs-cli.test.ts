@@ -419,8 +419,8 @@ void test('service health requires every scoped unit and a fresh collector snaps
   });
   const summary = serviceSummary(body([active, snapshot]), now);
   assert.equal(summary.healthy, false);
-  assert.equal(summary.total, 12);
-  assert.equal(summary.unhealthy, 11);
+  assert.equal(summary.total, 13);
+  assert.equal(summary.unhealthy, 12);
   const complete = summary.services.map((unit) =>
     row('news_digest_unit_active', '1', unit.unit, unit.scope),
   );
@@ -455,7 +455,7 @@ void test('service health requires every scoped unit and a fresh collector snaps
     [active, active, snapshot],
     [{ ...active, metric: { ...active.metric, scope: 'system' } }, snapshot],
   ]) {
-    assert.equal(serviceSummary(body(rows), now).unhealthy, 12);
+    assert.equal(serviceSummary(body(rows), now).unhealthy, 13);
   }
   const inactive = serviceSummary(
     body([{ ...active, value: [now / 1000, '0'] }, snapshot]),
@@ -474,7 +474,7 @@ void test('service health requires every scoped unit and a fresh collector snaps
   const output = JSON.parse(
     await runObs(['services'], async () => Response.json(body([]))),
   );
-  assert.equal(output.unhealthy, 12);
+  assert.equal(output.unhealthy, 13);
 });
 
 void test('CLI check preserves health JSON and fails unhealthy summaries only when opted in', async () => {
@@ -692,5 +692,48 @@ void test('queue checks require every worker queue ready and ignore retained fai
   assert.equal(await probe([...queues, queues[0]]), 1);
   await assert.rejects(
     runObsCli(['jobs', '--check'], async () => Response.json({ queues: [] })),
+  );
+});
+
+void test('alerts queries local evaluator and bounds active results with firing first', async () => {
+  assert.equal(
+    obsRequest(['alerts']).url,
+    'http://127.0.0.1:8880/api/v1/alerts',
+  );
+  assert.throws(() => obsRequest(['alerts', '--since', '1h']));
+  const alerts = Array.from({ length: 55 }, (_, i) => ({
+    state: i === 54 ? 'firing' : 'pending',
+    activeAt: '2026-11-03T13:00:00Z',
+    labels: {
+      alertname: 'SyntheticTest',
+      severity: 'warning',
+      private: 'omit',
+    },
+    annotations: { summary: 'Synthetic only', private: 'omit' },
+  }));
+  const read = (async () =>
+    Response.json({ status: 'success', data: { alerts } })) as typeof fetch;
+  const output = JSON.parse(await runObs(['alerts'], read));
+  assert.equal(output.total, 55);
+  assert.equal(output.firing, 1);
+  assert.equal(output.pending, 54);
+  assert.equal(output.omitted, 5);
+  assert.equal(output.alerts.length, 50);
+  assert.equal(output.alerts[0].state, 'firing');
+  assert.equal(output.alerts[0].labels.private, undefined);
+  for (const body of [
+    null,
+    {},
+    { status: 'error' },
+    { status: 'success', data: { alerts: [{}] } },
+    {
+      status: 'success',
+      data: { alerts: [{ ...alerts[0], state: 'inactive' }] },
+    },
+  ]) {
+    await assert.rejects(runObs(['alerts'], async () => Response.json(body)));
+  }
+  await assert.rejects(
+    runObs(['alerts'], async () => new Response('', { status: 503 })),
   );
 });

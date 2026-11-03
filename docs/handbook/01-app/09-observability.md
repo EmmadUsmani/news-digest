@@ -399,7 +399,7 @@ or provider calls. These commands also work over SSH:
 - `pnpm obs logs --grep 'Job finished'` matches message text literally.
 - Add `--check` to `health`, `services`, `sources` or `targets` for unattended checks: healthy exits 0, unhealthy exits 1, with the same JSON summary on stdout. Invalid options, failed requests and malformed responses also exit 1 (errors go to stderr). Without `--check`, health remains a JSON field and does not affect exit status. Logs, errors and metric queries reject this flag.
 - `pnpm obs health` probes the API’s `/healthz` directly and reports database and Redis connectivity. Valid degraded HTTP 503 responses retain their JSON summary; transport failures and malformed or inconsistent responses are errors. The request times out after ten seconds. It does not use the metric store or prove content freshness.
-- `pnpm obs services` checks the 12 deployed app, agent and observability units from existing metrics. Missing/duplicate or invalid samples are unknown; a collector snapshot over 120 seconds old is stale. The fixed inventory includes scope (user/system); inactive/unknown/stale units come first. This reports unit activity, not endpoint health or job progress; JSON health does not change exit status.
+- `pnpm obs services` checks the 13 deployed app, agent and observability units from existing metrics. Missing/duplicate or invalid samples are unknown; a collector snapshot over 120 seconds old is stale. The fixed inventory includes scope (user/system); inactive/unknown/stale units come first. This reports unit activity, not endpoint health or job progress; JSON health does not change exit status.
 - `pnpm obs sources` summarizes collection health from Status: active errors, unknown success times and successes older than two hours come first. Inactive sources stay separate; zero new items alone is healthy. Output is limited to 50 sources with total/unhealthy/omitted counts, and excludes provider error text. Freshness uses the server snapshot time; JSON health does not change exit status.
 - `pnpm obs targets` summarizes collector health and last-scrape age directly from the metrics store.
 - `pnpm obs metric 'up'` runs an instant PromQL query.
@@ -422,4 +422,27 @@ No matching records does not prove a run never happened. Queue state depends on
 the API; log and metric queries work directly against their local stores.
 Metric history accepts positive integer durations in seconds, minutes, hours or days, up to seven days. The default step is 60 seconds; steps must be at least 30 seconds and produce at most 1,000 evaluation timestamps per series. Use a larger step for long windows. This bounds timestamps, not series count; use specific label filters to keep output small. Missing samples remain missing, and range results do not establish what happened before retention began.
 Target health reports down, stale (more than 120 seconds since the last scrape), unknown (missing/invalid/future scrape time or unrecognized health), or up. Collectors currently scrape every 30 seconds. Unhealthy targets come first; output includes at most 50 targets with totals and omitted counts. An empty target list is unhealthy. This checks registered collectors, not missing configuration, app health or individual sources. Health is a JSON field; a successful query exits normally even when targets are unhealthy. Provider response bodies and scrape error text are omitted.
-Backend failures exit unsuccessfully. Alerts are not installed yet.
+Backend failures exit unsuccessfully.
+
+### Local alerts
+
+`pnpm obs alerts` reads pending and firing alerts from vmalert on loopback
+port 8880, independently of the app API. Run it at iteration start. Results
+put firing alerts first and include up to 50 entries with totals. Query or
+validation failures exit unsuccessfully; zero alerts does not prove the
+metrics store is healthy. Pair it with health and target checks.
+
+The evaluator checks every 30 seconds. Filesystems above 80% used, inactive
+monitored units and failed scrapes must persist for two minutes. A missing or
+more than two-minute-old service snapshot must persist for one minute; host
+available memory below 10% must persist for five minutes. These are current
+conditions, not historical incident records. Restarting the evaluator resets
+pending durations. No email, external receiver or other notification is sent.
+The evaluator has a 48 MiB memory ceiling and 1% CPU ceiling. Its own unit is
+included in service snapshots; it cannot report its own outage while stopped.
+
+Reconcile only this service with `bash ops/observability/install-alerts.sh`.
+`pnpm exec tsx scripts/check-observability.ts --verify-alerts` checks rule
+health, CLI output and offline disk threshold/duration/recovery cases.
+Job, error-rate, missed-edition, spend and per-service budget alerts are still
+pending in the [observability plan](../../observability-plan.md).

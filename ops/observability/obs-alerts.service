@@ -1,0 +1,19 @@
+[Unit]
+Description=Local VictoriaMetrics alert evaluator
+After=obs-metrics.service
+[Service]
+User=exedev
+ExecStart=/opt/news-digest-observability/vmalert-prod -httpListenAddr=127.0.0.1:8880 -datasource.url=http://127.0.0.1:8428/metrics -rule=/etc/news-digest-observability/alerts.yml -notifier.blackhole -evaluationInterval=30s
+Environment=GOMAXPROCS=1 GOMEMLIMIT=24MiB
+Restart=always
+RestartSec=5
+MemoryMax=48M
+CPUQuota=1%
+CPUWeight=10
+Nice=10
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+[Install]
+WantedBy=multi-user.target
