@@ -1,17 +1,6 @@
 # Progress
 
-Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md).
-
-## 2026-11-03: iteration 282 — attribute edition timing to provider cost
-
-- Started clean on main; no leftover work; all four services and health healthy.
-- Read-only timing report now includes per-edition settled microdollars, unresolved holds and model/purpose call counts, plus scheduled reserve/outcome.
-- Attribution uses edition/run UUID across UTC days; overlapping jobs and unpublished failed attempts are excluded, with limits documented in README.
-- Disposable integration coverage checks cross-day costs, overlapping jobs, failed/pending/uncertain calls and no-call editions.
-- Live read: Nov 2 fallback edition 856 ms, zero provider calls/cost; Nov 3 reserve pending, scheduled for 15:00 UTC; no AI latency claim.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (132 unit/167 integration), `pnpm build`, `git diff --check`; initial check caught archive formatting, corrected before rerun.
-- Restarted API/worker/docs/schema; health OK, SPA/docs/db 200, 32 sources without errors; no paid provider or Reddit requests.
-- Archived iteration 264; next: collect Nov 3 scheduled X cost/yield and AI timing, acknowledge 15/13/7, then switch to open search.
+Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md).
 
 ## 2026-11-03: iteration 283 — prepare bounded top-story X reactions
 
@@ -221,3 +210,12 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Items 13/7/15 remain pending actual scheduled evidence; item 16 activation stays gated by item 15 acknowledgement. No application/settings changes, paid provider calls or Reddit requests.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `git diff --check`; services restarted and app/health/docs/db checked after build.
 - Next: observe the scheduled X run and 15:00 UTC edition, record actual per-topic yield and AI cost/duration, acknowledge results, then activate open search.
+
+## 2026-11-03: iteration 300 — distinguish recovered ingestion failures
+
+- Started clean on main; no leftover work. All four services and `/healthz` healthy; all 32 sources have successful recent collections and no current errors.
+- Investigated two retained ingestion failures: GamesRadar collection and DeepMind XML failures are historical; both subsequently succeeded (01:20 and 01:24 UTC). No retry, source change or deletion of failure evidence needed.
+- Read-only X report at 01:41 UTC: zero Nov 3 calls/cost/holds. Timing report: 15:00 UTC edition delayed as expected; 482,788-micro reserve pending, zero other Anthropic allowance.
+- Items 13/7/15 still await scheduled evidence; item 16 activation remains gated. No application/settings changes, paid calls or Reddit requests. Archived iteration 282 to keep progress bounded.
+- Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`; restarted API/worker/docs/schema, all active; health/app/docs/db/status HTTP 200.
+- Next: observe scheduled X per-topic cost/yield and 15:00 UTC edition AI cost/duration, acknowledge required results, then activate open search.
