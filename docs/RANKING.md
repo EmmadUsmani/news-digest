@@ -1361,3 +1361,55 @@ claim once execution starts; inspect the ledger/report without paid retries.
 No production app or scheduler imports this script. This iteration provisioned
 the directory and tested preflight rejection, but made no paid calls. Grouping
 remains disabled; evaluation and activation evidence are still pending.
+
+## Iteration 476: once-only evaluation failed; grouping parked
+
+**Current state:** item 19/26 grouping is parked. Production keeps articles
+separate. The inactive AI pass, live evaluation entrypoint and its admission/state
+helpers were removed after the owner’s zero-wrong-merge gate failed. Generic
+clustering/coverage plumbing and the offline evaluator remain. Earlier sections
+468–475 describe the removed implementation, not the current runtime.
+
+The owner-authorized once-only run used configured `claude-haiku-5-5` at
+20:25–20:26 UTC on November 3, outside the excluded UTC hours. Run ID:
+`item-26-evaluation-78af9286-4635-4122-8c41-89928e98cd8a`. The shared ledger
+records seven succeeded calls, $0.008275 actual cost and $0.027462 total
+conservative reservations, within the $0.10 ceiling. No repairs or paid retries.
+The persistent claim and complete report remain in the fixed VM state directory;
+do not remove the claim. No new edition was generated or grouping activated.
+
+| Recorded sample | Positive pairs matched | Wrong labelled merges | Unlabelled merged pairs |
+| --------------- | ---------------------: | --------------------: | ----------------------: |
+| Nov 1 NBA       |                    7/8 |                     0 |                      14 |
+| Nov 1 World     |                    2/2 |                     0 |                       3 |
+| Nov 1 Tech/AI   |                    4/4 |                     1 |                       0 |
+| Nov 2 NBA       |                    8/8 |                     0 |                       9 |
+| Nov 2 Gaming    |                  10/10 |                     0 |                       4 |
+| Nov 3 Gaming    |                  25/25 |                     0 |                      27 |
+| Fresh Nov 3 NBA |                  20/20 |                     1 |                       0 |
+
+Across 138 frozen labels: precision **76/78 (97.44%)**, recall **76/77
+(98.70%)**. On the original 60 labels: precision 31/32 and recall 31/32,
+above old recall 13/32 but failing the required zero wrong merges. The fresh NBA
+sample also fails: precision 20/21, recall 20/20. The 57 unlabelled merged pairs
+are **unreviewed**, not verified correct; labelled precision is not overall merge
+precision. These selected agent labels are not independent or representative,
+and November 3 overlaps the Gaming development date as previously disclosed.
+The known failures alone are enough to reject activation without relabelling,
+prompt tuning or another provider call.
+
+Wrong merges combine the general Flock contract-cancellation pattern with one
+police chief unplugging cameras, and Draymond Green’s ejection with teammates’
+subsequent response. The sole missed positive is the Jeanie Buss allegation
+pair. Labels were preserved unchanged.
+
+Frozen memberships are in
+`apps/api/test/fixtures/event-grouping-evaluation-2026-11-03.json`. Reproduce all
+metrics without network/database/provider access:
+
+```sh
+pnpm exec tsx scripts/evaluate-event-grouping.ts --memberships apps/api/test/fixtures/event-grouping-evaluation-2026-11-03.json
+```
+
+The offline regression test pins the saved result and fresh-window failure.
+Reopening grouping requires a new owner decision; no paid runner remains.

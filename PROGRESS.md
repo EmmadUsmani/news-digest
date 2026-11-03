@@ -1,14 +1,3 @@
-## 2026-11-03: iteration 460 — group matching revised preload schedules
-
-- Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis, all sources flowing and scheduled collectors healthy. Next scheduled social/latency evidence remains pending; advanced item 19.
-- Opt-in preload grouping now matches explicitly earlier revised schedules only with the same numbered game, new calendar date and install size. An excerpt date must directly name the same game; original starts/undated overviews stay separate.
-- Recovered the existing GamesRadar+/GamingBolt revised GTA 6 schedule pair: 33/57 positives, zero/41 false merges, unknown cluster pairs or membership variation. Agent-reviewed labels are not independent validation; production grouping remains disabled.
-- Added bidirectional guards for conflicting dates/sizes/games, invalid dates, history/uncertainty, missing/wrong-game excerpt evidence and time bounds. Targeted grouping suites passed 16/16.
-- Initial checks caught two stale benchmark assertions and archive formatting; corrected both. Final pnpm format, pnpm lint:fix, pnpm check (293 unit/176 isolated integration), pnpm build and git diff --check passed.
-- Restarted API/worker; pnpm obs health --check passed, root HTTP 200, both units active, zero alerts and no dangling Docker volumes.
-- Compacted TASKS/RANKING and archived iteration 444 to keep PROGRESS bounded. No UI/handbook production-flow change, paid calls, new editions or Reddit requests.
-- Next: Nov 4 social selections/screenshots, World yield and latency/full-AI evidence; broader grouping recall/independent labels remain open.
-
 ## 2026-11-03: iteration 461 — separate future studio closures
 
 - Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis and 32 healthy source connections. Nov 4 scheduled social/latency evidence remains pending; advanced item 19.
@@ -163,3 +152,14 @@
 - No paid evaluation, new editions, Reddit requests or production activation. Updated TASKS/RANKING; archived iteration 459 to keep PROGRESS bounded.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (286 unit/177 isolated integration), pnpm build, targeted preflight test and git diff --check passed. HTTP root 200; health/sources/jobs checks pass; zero alerts/dangling volumes.
 - No restart under STEERING 22: running service code/config unchanged. Next: once-only capped evaluation, then accuracy gate; Nov 4 scheduled evidence takes priority when available.
+
+## 2026-11-03: iteration 476 — evaluate AI grouping once, then park it
+
+- Started clean on main; no leftovers. Zero alerts, API/DB/Redis healthy, all 33 sources healthy. Nov 4 scheduled evidence remains pending.
+- Executed owner-authorized once-only item 26 evaluation at 20:25–20:26 UTC through fixed persistent claim, configured Haiku and shared ledger: seven succeeded calls, $0.008275 actual/$0.027462 reserved, below $0.10 cap. No retries, repairs or new editions.
+- Frozen 138 labels: 76/77 positives matched, two wrong merges, precision 76/78 (97.44%), recall 76/77 (98.70%). Original 60: 31/32 recall, one wrong merge. Fresh NBA: 20/20 recall, one wrong merge. Another 57 merged pairs remain unreviewed, not correct by assumption.
+- Zero-wrong-merge gate failed. Parked item 19/26 per owner and acked STEERING; removed inactive AI pass, paid runner, guards and their tests. Generic plumbing, labels and offline evaluator remain; production keeps articles separate. Persistent claim/report preserved; no paid retry path remains.
+- Committed frozen memberships and an offline regression; RANKING reports per-window results, failures, limitations and replay command. Updated TASKS/handbook; archived iteration 460 to keep PROGRESS bounded.
+- Targeted tests 8/8, saved-membership CLI, handbook check (one unchanged diagram/25 assigned tables), pnpm build and git diff --check passed. Initial full check caught archive formatting during preparation; fixed before final check. Final pnpm check passed (263 unit/177 isolated integration), including typecheck/lint/format/boundaries.
+- No restart under STEERING 22: removed code was inactive, running code/config unchanged; handbook serves edited source. API/worker/docs/schema active; healthz HTTP 200 and zero dangling volumes.
+- Next: prioritize Nov 4 scheduled NBA/speed, open-X/Bluesky evidence; grouping remains parked unless owner reopens it.

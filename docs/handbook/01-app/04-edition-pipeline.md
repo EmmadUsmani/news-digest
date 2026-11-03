@@ -56,7 +56,8 @@ flowchart TB
   edition by its id.
 
 > [!NOTE]
-> Production keeps articles separate until the AI event-grouping pass has been
-> validated. Same-URL dedupe still happens during ingestion. The generic grouping
+> Production keeps articles separate. AI event grouping is parked after its
+> evaluation merged distinct events; the AI pass has been removed. Same-URL
+> dedupe still happens during ingestion. The generic grouping
 > plumbing and “also covered by” links remain available; historical editions keep
 > their original coverage. Source labels do not establish independent reporting.

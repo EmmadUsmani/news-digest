@@ -230,3 +230,30 @@ void test('saved AI groups expose wrong and unlabelled merges rather than inflat
     ),
   );
 });
+
+void test('once-only paid evaluation remains reproducible and fails the activation gate', () => {
+  const memberships = JSON.parse(
+    readFileSync(
+      join(__dirname, 'fixtures/event-grouping-evaluation-2026-11-03.json'),
+      'utf8',
+    ),
+  ) as Record<string, string[][]>;
+  const result = evaluateEventGrouping(undefined, memberships);
+  assert.equal(result.truePositives, 76);
+  assert.equal(result.falsePositives, 2);
+  assert.equal(result.falseNegatives, 1);
+  assert.equal(result.precision, 76 / 78);
+  assert.equal(result.recall, 76 / 77);
+  assert.equal(
+    result.windows.reduce(
+      (sum, entry) => sum + entry.membership.unlabeledMergedPairs,
+      0,
+    ),
+    57,
+  );
+  const fresh = result.windows.find(
+    (entry) => entry.window === 'event-grouping-nba-2026-11-03.json',
+  )!;
+  assert.equal(fresh.truePositives, 20);
+  assert.equal(fresh.falsePositives, 1);
+});

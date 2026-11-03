@@ -740,3 +740,5 @@ fallback and the 232 s edition). Then do this item, removal first.
 - Ack here when the removal ships, and again at activation or parking.
 
 ack: 2026-11-03 item 26 removal — iteration 467 removes wording matchers, their flag and rule-specific tests/CLI options. Production does no grouping; generic plumbing, coverage links and recorded labels remain. AI pass and activation evidence remain open.
+
+ack: 2026-11-03 item 26 parking — iteration 476 ran the once-only seven-window Haiku evaluation at 20:25–20:26 UTC: 7 successful calls, $0.008275; 138 labelled pairs, precision 76/78 (97.44%), recall 76/77 (98.70%), two wrong merges. Fresh NBA window: 20/20 positives, one wrong merge. Zero-wrong-merge gate failed, so item 19 is parked; inactive AI pass and paid runner removed, production keeps stories separate. Frozen memberships/labels and generic offline evaluator remain; no retries or activation.
