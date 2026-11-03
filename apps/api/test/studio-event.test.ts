@@ -133,3 +133,48 @@ void test('multiword studio closures match full identities without suffix collis
     true,
   );
 });
+
+void test('explicit closure paraphrases group while temporary and beta closures stay separate', () => {
+  const lead = item('Silver Copper Studio shuts down after funding cuts');
+  for (const assertion of [
+    'ceases operations',
+    'ceased operations',
+    'has ceased operations',
+    'closes its doors',
+    'has closed its doors',
+    'shuts its doors',
+    'has officially shut its doors',
+  ]) {
+    const other = item(`Silver Copper Studio ${assertion}`);
+    assert.equal(sameEventWithStudioClosure(lead, other), true, assertion);
+    assert.equal(sameEventWithStudioClosure(other, lead), true, assertion);
+    assert.equal(
+      sameEventWithStudioClosure(lead, {
+        ...item('Developer confirms closure'),
+        excerpt: other.title,
+      }),
+      true,
+      assertion,
+    );
+  }
+  for (const title of [
+    'Silver Copper Studio ceases operations temporarily',
+    'Silver Copper Studio closes its doors for the holidays',
+    'Silver Copper Studio shuts its doors for maintenance',
+    'Silver Copper Studio closed its doors in 2020',
+    'Silver Copper Studio ceased operations years ago',
+    'Silver Copper Studio reportedly ceases operations',
+    'Silver Copper Studio may cease operations',
+    'Silver Copper Studio closes beta applications',
+    'Silver Copper Studio closed its beta',
+    'Silver Copper Studio closes submissions',
+    'Gold Copper Studio ceases operations',
+  ]) {
+    const other = item(title);
+    assert.equal(sameEventWithStudioClosure(lead, other), false, title);
+    assert.equal(sameEventWithStudioClosure(other, lead), false, title);
+    if (!title.startsWith('Gold')) {
+      assert.equal(sameEventWithStudioClosure(other, other), false, title);
+    }
+  }
+});

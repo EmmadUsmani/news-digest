@@ -13,9 +13,20 @@ function closedStudio(candidate: Candidate): string | null | false {
   )
     return false;
   if (/\breportedly\b/i.test(candidate.title)) return false;
+  // Closing a beta or pausing for a holiday does not close the company.
+  // Refuse these before lexical fallback, including identical headlines.
+  if (
+    /\b(?:temporar(?:y|ily)|for (?:the )?(?:holidays?|maintenance|renovations?|weekend))\b/i.test(
+      text,
+    ) ||
+    /\bclos(?:ed|es|ing) (?:its |the |a )?(?:alpha|beta|playtest|test|applications|submissions)\b/i.test(
+      text,
+    )
+  )
+    return false;
   const matches = [
     ...text.matchAll(
-      /\b([A-Z][a-zA-Z]+(?: [A-Z][a-zA-Z]+)* Studios?),? (?:[Hh]as |[Ii]s |[Ww]as )?(?:[Oo]fficially )?(?:[Ss]hut down|[Ss]huts down|[Cc]losed|[Cc]loses)\b/g,
+      /\b([A-Z][a-zA-Z]+(?: [A-Z][a-zA-Z]+)* Studios?),? (?:[Hh]as |[Ii]s |[Ww]as )?(?:[Oo]fficially )?(?:[Ss]hut down|[Ss]huts down|[Cc]eased operations|[Cc]eases operations|[Ss]hut its doors|[Ss]huts its doors|[Cc]losed its doors|[Cc]loses its doors|[Cc]losed|[Cc]loses)\b/g,
     ),
   ];
   // A publication timestamp does not date the event. Historical retrospectives

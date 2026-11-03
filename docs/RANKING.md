@@ -927,3 +927,15 @@ suffix collisions, different prefixes, singular/plural names, multiple
 closures and existing historical/uncertainty guards. The recorded benchmark
 remains 13/32 positive pairs, zero labeled false merges; this adds no independent
 labels or measured real-world recall gain. Production grouping stays off.
+
+## Iteration 340: explicit studio closure paraphrases
+
+The default-off matcher also recognizes a named studio that “ceases operations”
+or “closes/shuts its doors,” including completed assertions. It keeps the same
+full-identity and 36-hour checks. Temporary closures and closed alpha/beta,
+playtest, application or submission announcements refuse lexical fallback;
+these assertions do not establish that the company closed. Synthetic pairs
+cover title/excerpt paraphrases, symmetry, distinct studios, historical and
+uncertain assertions, and identical non-closure headlines. The recorded
+benchmark remains 13/32 positives with zero labeled false merges; this adds no
+independent labels or measured real-world recall claim. Production stays off.
