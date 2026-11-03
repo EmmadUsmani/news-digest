@@ -27,16 +27,10 @@ export function sameEvent(a: Candidate, b: Candidate): boolean {
   if (!Number.isFinite(delta) || delta > 36 * 3600000) return false;
   const left = words(a.title),
     right = words(b.title);
-  // Conflicting numbers often distinguish games, model versions or casualty updates.
+  // Preserve number order: reversed scores or version transitions can describe different events.
   if (
-    left
-      .filter((t) => /\d/.test(t))
-      .sort()
-      .join('|') !==
-    right
-      .filter((t) => /\d/.test(t))
-      .sort()
-      .join('|')
+    left.filter((t) => /\d/.test(t)).join('|') !==
+    right.filter((t) => /\d/.test(t)).join('|')
   )
     return false;
   if (left.join(' ') === right.join(' ')) return true;

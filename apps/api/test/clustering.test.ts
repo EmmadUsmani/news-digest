@@ -143,3 +143,37 @@ void test('repeated discovery cannot outrank fresher reporting or change cluster
   assert.equal(cluster.coverage.length, 2);
   assert.equal(cluster.score, 5);
 });
+
+void test('headline groups preserve numeric roles in scores and version transitions', () => {
+  // Synthetic regressions, not live reports or general event-quality evidence.
+  for (const [left, right] of [
+    [
+      'Lakers beat Celtics 110 105 in overtime',
+      'Lakers beat Celtics 105 110 in overtime',
+    ],
+    [
+      'Studio upgrades engine from version 4 to version 5',
+      'Studio upgrades engine from version 5 to version 4',
+    ],
+  ]) {
+    const a = item('a', left),
+      b = item('b', right);
+    assert.equal(sameEvent(a, b), false);
+    assert.equal(sameEvent(b, a), false);
+    assert.deepEqual(
+      clusterCandidates([a, b]).map((group) => group.length),
+      [1, 1],
+    );
+    assert.equal(
+      rank([a, b], new Date('2026-11-01'), new Date('2026-11-02'), 2).length,
+      2,
+    );
+  }
+  assert.equal(
+    sameEvent(
+      item('a', 'Lakers beat Celtics 110 105 in overtime'),
+      item('b', 'The Lakers beat the Celtics 110 105 in overtime'),
+    ),
+    true,
+  );
+});

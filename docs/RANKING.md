@@ -99,7 +99,8 @@ adapter remains pending an explicitly configured permitted gateway model.
 Eligible, quality-screened articles are scored and sorted as before, then grouped
 before spending the topic budget. Every headline in a group must match every
 other headline (complete-link), be within 36 elapsed hours, and have identical
-numeric tokens. Normalized identical headlines match; otherwise at least four
+numeric tokens in the same order (preserving score and version roles).
+Normalized identical headlines match; otherwise at least four
 non-stopword tokens, 80% containment and 65% Jaccard overlap are required.
 A small action/negation token guard separates obvious announcement/delay and
 confirmation/denial changes. Input order is deterministic by score then ID.

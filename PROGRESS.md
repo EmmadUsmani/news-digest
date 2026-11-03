@@ -1,18 +1,3 @@
-# Progress
-
-Earlier entries: [progress archive](docs/progress-archive/).
-
-## 2026-11-03: iteration 431 — activate reviewed secondary X account lists
-
-- Started clean on main; no leftover work. Zero alerts, health green, 32 healthy sources and four working queues; two historical ingestion failures unchanged.
-- Followed items 20/22 after Nov 3 evidence/acks: activated item 17's already-reviewed editable lists (Tech/AI 11, NBA 10, Gaming 12, World 11). Open-topic search stays primary; these lists support optional secondary searches under unchanged caps.
-- Saved through topic HTTP API and read back all four lists. Asserted every other topic field and latest edition unchanged. No paid calls, discovery triggers, Reddit requests or new editions.
-- Added read-only scripts/smoke-reviewed-x-accounts.ts: compares documented lists with live API/settings across desktop/mobile, checks errors/overflow and refreshes eight screenshots. Passed; visually inspected desktop Tech and mobile NBA.
-- Updated SOURCES, TASKS and item 17 ack; archived iterations 411–415 to keep PROGRESS below 25 KB. No handbook behavior change.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (268 unit/174 isolated integration), pnpm build passed. Initial check stopped on newly archived Markdown formatting; corrected before successful full rerun. Browser script initially needed the repo's async-main wrapper; corrected before verification.
-- No restart under STEERING 22: production binaries unchanged and topic settings are read from DB. Health/source/jobs checks passed; existing edition preserved. Final health at 15:49:59 UTC, alerts and git diff --check passed; zero dangling Docker volumes.
-- Next: item 18 Bluesky production inclusion; continue scheduled open-search cost/yield/outside-list evidence and triage/NBA fallback diagnostics. No account-list quality or latency claim.
-
 ## 2026-11-03: iteration 432 — hourly official Bluesky collection
 
 - Started clean on main; no leftover work. Zero alerts, healthy API/DB/Redis and 32 healthy sources.
@@ -162,3 +147,12 @@ Earlier entries: [progress archive](docs/progress-archive/).
 - No paid calls, new editions, Reddit requests, UI/layout changes or handbook-described flow changes.
 - Restarted API/worker for the changed matcher. Immediate health probe raced startup; retry passed with healthy DB/Redis, all 32 sources and four queues. Existing real collection continues; no new scheduled edition claimed.
 - Next: Nov 4 scheduled X/Bluesky selections, World yield, screenshots and latency/full-AI evidence; broader grouping recall and independent labels remain open.
+
+## 2026-11-03: iteration 446 — preserve numeric roles in headline groups
+
+- Started clean on main; no leftovers. Zero alerts and healthy API/DB/Redis; scheduled social/latency evidence still awaits Nov 4.
+- Headline matching no longer sorts numeric tokens: reversed scores and reversed version transitions cannot pass the numeric guard. This conservatively sacrifices some paraphrase recall rather than merging conflicting events.
+- Synthetic regressions verify both input orders, separate cluster membership and two retained story slots; matching score sequences still group. Targeted clustering/evaluation tests: 12 passed. These are not live reports or general quality measurements.
+- Updated TASKS and RANKING; archived iteration 431 to keep PROGRESS below 25 KB. No UI or handbook-described flow change.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build passed (281 unit/176 isolated integration tests). pnpm obs health/sources/jobs --check passed after API/worker restart; 32 healthy sources and collection jobs completing.
+- No paid calls, new editions or Reddit requests. Broader grouping recall and independent labels remain open; next scheduled X/Bluesky selections, World yield, screenshots and latency/full-AI evidence take priority.
