@@ -277,8 +277,13 @@ Reserve lifecycle rows include the last durable update and minutes past the sche
 time while pending, running or retrying (zero before the schedule, blank once settled).
 The update is not a heartbeat; overdue time does not establish failure or worker duration.
 
-Configured caps, reserve amounts, available funds and individual run durations remain
-in the app's **Source & run status** panel; Product does not infer caps from ledger rows.
+Product graphs startup-configured daily/monthly provider ceilings from the API's
+loopback metrics listener, collected without ledger queries or budget locks. These
+are ceilings, not available funds: Anthropic monthly pacing and holds may reduce
+the day's allowance, the scheduled reserve can limit manual runs, and depleted
+xAI credits can block calls. Configuration changes require an API restart.
+Current allowance, reserve amounts, available funds and individual run durations
+remain in the app's **Source & run status** panel.
 
 Database uses the same restricted Postgres connection for current system statistics:
 connections, transactions, deadlocks, temporary bytes, shared-buffer hit ratio,

@@ -13,6 +13,7 @@ import {
 } from './libs/observability/logging';
 import { startQueueMetrics } from './libs/observability/queue-metrics';
 import { startRuntimeMetrics } from './libs/observability/runtime-metrics';
+import { startBudgetMetrics } from './modules/operations/adapters/budget-metrics';
 import { mountJobsBrowser } from './modules/operations/adapters/jobs-browser';
 import { OperationsStatus } from './modules/operations/adapters/operations.status';
 
@@ -37,6 +38,7 @@ async function bootstrap() {
   const queues = app.get(OperationsStatus).queues;
   mountJobsBrowser(app, queues);
   startQueueMetrics(registry, queues);
+  startBudgetMetrics(registry);
   app.enableShutdownHooks();
   await app.listen(Number(process.env.PORT ?? 8000), '0.0.0.0');
 }

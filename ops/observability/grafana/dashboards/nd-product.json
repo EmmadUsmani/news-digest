@@ -1,7 +1,7 @@
 {
   "uid": "nd-product",
   "title": "Product",
-  "description": "Read-only retained product evidence from Postgres. Tables are current snapshots, independent of the Grafana time picker; each title states its window. No provider calls or content jobs. Use app Status for configured caps, reserve amounts and live budget availability.",
+  "description": "Read-only retained product evidence from Postgres. Tables are current snapshots, independent of the Grafana time picker; each title states its window. No provider calls or content jobs. Use app Status for reserve amounts and live budget availability.",
   "schemaVersion": 41,
   "version": 3,
   "editable": false,
@@ -705,6 +705,43 @@
         "cellHeight": "sm",
         "footer": {
           "show": false
+        }
+      }
+    },
+    {
+      "id": 15,
+      "title": "Configured provider ceilings (USD)",
+      "description": "Startup configuration ceilings, not spendable balances. Anthropic's actual daily allowance can be lower due to monthly pacing and outstanding holds; the scheduled reserve can further limit manual runs. X prepaid depletion can block calls below these ceilings. See app Status for current allowance and reserve amounts. Configuration changes require an API restart.",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 103,
+        "w": 24,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "news_digest_provider_configured_ceiling_usd{service=\"api\"}",
+          "legendFormat": "{{provider}} {{period}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "min": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": ["lastNotNull"]
         }
       }
     }

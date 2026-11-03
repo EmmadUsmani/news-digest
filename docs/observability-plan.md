@@ -333,3 +333,5 @@ O6 incremental progress (382): X call history adds safe failure reason, recorded
 O6 incremental progress (383): Product adds the latest 30 Anthropic ledger admissions in seven days, including unpublished attempts, with run/model/purpose/status, settled cost and unresolved hold. Cache hits and refused requests are absent; null cost is unknown. Reader gains only ID/model/purpose columns.
 
 O6 incremental progress (384): Anthropic history adds recorded outcome time and reservation-to-outcome seconds. Pending values stay blank; uncertain outcomes retain holds. Ledger elapsed includes local work and is not HTTP latency or edition duration. Reader gains only completed_at.
+
+O6 incremental progress (385): Product graphs API startup-configured Anthropic/X daily and monthly ceilings in USD. Fixed provider/period labels, no database or ledger locks and no provider calls. Ceilings are not the paced daily allowance, reserve or available funds; these remain on Status.

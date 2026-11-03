@@ -194,6 +194,33 @@ export async function checkGrafana() {
         const result = await response.json();
         assert.equal(result.status, 'success', panel.title);
         if (result.data.result.length > 0) populated++;
+        if (dashboard.uid === 'nd-product' && panel.id === 15) {
+          assert.equal(
+            result.data.result.length,
+            4,
+            'All four configured ceilings must be scraped',
+          );
+          const labels = result.data.result
+            .map(
+              (series: {
+                metric: { provider: string; period: string };
+                value: [number, string];
+              }) => {
+                assert.ok(
+                  Number.isFinite(Number(series.value[1])) &&
+                    Number(series.value[1]) >= 0,
+                );
+                return `${series.metric.provider}/${series.metric.period}`;
+              },
+            )
+            .sort();
+          assert.deepEqual(labels, [
+            'anthropic/daily',
+            'anthropic/monthly',
+            'xai/daily',
+            'xai/monthly',
+          ]);
+        }
         if (dashboard.uid === 'nd-runtime') {
           const services = new Set(
             result.data.result.map(
@@ -249,7 +276,7 @@ export async function checkGrafana() {
         width: 1440,
         height:
           dashboard.uid === 'nd-product'
-            ? 3800
+            ? 4300
             : ['nd-runtime', 'nd-redis'].includes(dashboard.uid)
               ? 2100
               : 1100,
@@ -583,6 +610,32 @@ export async function checkGrafana() {
     await page.waitForTimeout(1000);
     await page.screenshot({
       path: 'docs/screenshots/grafana-product-anthropic-calls-mobile.png',
+    });
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(`${base}/d/nd-product?kiosk&viewPanel=panel-15`, {
+      waitUntil: 'networkidle',
+    });
+    await page
+      .getByRole('heading', {
+        name: 'Configured provider ceilings (USD)',
+        exact: true,
+      })
+      .scrollIntoViewIfNeeded();
+    for (const legend of [
+      'anthropic daily',
+      'anthropic monthly',
+      'xai daily',
+      'xai monthly',
+    ])
+      await page.getByText(legend, { exact: true }).first().waitFor();
+    await page.waitForTimeout(1500);
+    await page.screenshot({
+      path: 'docs/screenshots/grafana-product-caps-mobile.png',
+    });
+    await page.setViewportSize({ width: 1440, height: 1100 });
+    await page.waitForTimeout(1000);
+    await page.screenshot({
+      path: 'docs/screenshots/grafana-product-caps-desktop.png',
     });
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(`${base}/d/nd-database?kiosk`, {

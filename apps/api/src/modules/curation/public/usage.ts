@@ -99,3 +99,9 @@ export async function readLlmUsage(
     client.release();
   }
 }
+
+// Configured ceilings only; the ledger can lower today's actual allowance.
+export function configuredLlmCaps(env: NodeJS.ProcessEnv = process.env) {
+  const { monthly, dailyMax } = llmConfig(env).caps;
+  return { monthlyMicros: monthly, dailyMicros: dailyMax };
+}

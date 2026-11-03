@@ -5,3 +5,5 @@ import { PostgresXDiscoveryLedger } from '../database/x-discovery.ledger';
 export function readXDiscoveryUsage(db: Pool) {
   return new PostgresXDiscoveryLedger(db).status();
 }
+
+export { xDiscoveryCaps } from '../domain/x-discovery-budget';
