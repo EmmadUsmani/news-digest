@@ -1,5 +1,4 @@
 import { sameEventWithGameScore } from './game-event';
-import { isJerseyCeremonyReport, sameJerseyCeremony } from './jersey-event';
 import { samePreloadOverview } from './preload-event';
 import type { Candidate } from './rank';
 import {
@@ -80,8 +79,6 @@ export function sameEventWithStudioClosure(
   a: Candidate,
   b: Candidate,
 ): boolean {
-  if (isJerseyCeremonyReport(a) || isJerseyCeremonyReport(b))
-    return sameJerseyCeremony(a, b);
   const left = closedStudio(a);
   const right = closedStudio(b);
   if (left === false || right === false) return false;

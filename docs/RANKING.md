@@ -1197,19 +1197,3 @@ historical titles, missing evidence and invalid/out-of-window times stay separat
 The benchmark reaches 35/57 positives and zero/41 false merges, with no unknown
 cluster pairs or sampled membership variation. Labels remain agent-reviewed,
 not independent validation. Production grouping stays disabled.
-
-## Iteration 464: explicit dated NBA jersey ceremonies
-
-The default-off matcher joins jersey-retirement announcements only when a full
-player name, NBA franchise, jersey number and full ceremony date agree. Team
-aliases reuse the game-result vocabulary. A missing year resolves to the next
-calendar occurrence after publication; explicit years must agree. Career
-retirements, missing dates, contradictory dates/numbers, invalid or past dates,
-uncertainty and publication gaps over 36 hours remain separate.
-
-The dated Westbrook pair is recovered; a previously lexical-matched syndicated
-pair with only a month is now withheld because it lacks ceremony-date evidence.
-The benchmark stays at 35/57 positives with zero/41 false merges, no unknown
-cluster merges and no sampled membership variation.
-These are agent-reviewed labels, not independent validation. Production grouping
-remains disabled; no live editorial or discovery calls were made.

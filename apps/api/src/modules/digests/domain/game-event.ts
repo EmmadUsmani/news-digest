@@ -3,7 +3,7 @@ import type { Candidate } from './rank';
 
 // Explicitly opt-in: no production caller until scheduled evidence is acknowledged.
 // Require two named teams and the complete score; team overlap alone is insufficient.
-export const nbaTeamAliases = [
+const teams = [
   ['hawks'],
   ['celtics'],
   ['nets'],
@@ -38,7 +38,7 @@ export const nbaTeamAliases = [
 
 function gameIdentity(title: string): string | null | false {
   const text = title.normalize('NFKC').toLowerCase();
-  const named = nbaTeamAliases.flatMap((aliases, index) =>
+  const named = teams.flatMap((aliases, index) =>
     aliases.some((alias) => new RegExp(`\\b${alias}\\b`).test(text))
       ? [index]
       : [],
@@ -64,7 +64,7 @@ function gameIdentity(title: string): string | null | false {
   // Preserve the winning team: reversed outcomes are distinct games.
   const position = (team: number) =>
     Math.min(
-      ...nbaTeamAliases[team].map((alias) => {
+      ...teams[team].map((alias) => {
         const match = new RegExp(`\\b${alias}\\b`).exec(text);
         return match?.index ?? Infinity;
       }),
@@ -72,7 +72,7 @@ function gameIdentity(title: string): string | null | false {
   const first = position(named[0]) < position(named[1]) ? named[0] : named[1];
   const second = named.find((team) => team !== first)!;
   // Team-score pairs explicitly assign each value, even in loser-first recaps.
-  const teamPattern = (team: number) => `(?:${nbaTeamAliases[team].join('|')})`;
+  const teamPattern = (team: number) => `(?:${teams[team].join('|')})`;
   const assigned = new RegExp(
     `\\b${teamPattern(first)}\\s+${score[0]}\\s*,\\s*${teamPattern(second)}\\s+${score[1]}\\b`,
   ).test(text);
