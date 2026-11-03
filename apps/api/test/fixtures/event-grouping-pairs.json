@@ -616,6 +616,13 @@
       "right": "ba60cf83-8985-4ba0-aff9-d8bc37aebeb6",
       "sameEvent": true,
       "reason": "Both are same-day GTA 6 preload schedule/file-size overviews; PS5 download guidance covers the same announcement. Agent-reviewed headlines/excerpts, not independent verification."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "141faa31-16c2-4cf0-a142-1bf5b35e5837",
+      "right": "705b94d8-f43d-4edb-9045-e17abe39cb75",
+      "sameEvent": true,
+      "reason": "Both explicitly report the official Sentinel title announcement. Agent-reviewed headlines/excerpts, not independent validation."
     }
   ]
 }

@@ -1057,3 +1057,20 @@ unspecified platform still supplies no evidence of a conflict. Synthetic pairs
 exercise both argument orders. Recorded results remain 16/47 positive pairs,
 zero/41 false merges; this guard adds no real-report recall evidence.
 Production grouping remains disabled.
+
+## Iteration 453: explicit game-title reveals
+
+The opt-in matcher recognizes sequel/subtitle headlines explicitly announcing an
+official name or title reveal, including Roman/Arabic sequel numerals. It requires
+the full game identity, a 36-hour publication bound and unqualified announcement
+language. Generic trailers, release-date news, different subtitles/sequels and
+uncertain or historical headlines do not qualify under this rule. Production
+grouping remains disabled.
+
+Three recorded Sentinel title announcements now group. Reviewed the previously
+unlabeled trailer/title-reveal pair as positive using stored headlines/excerpts.
+The benchmark now has 89 pairs (48 positive/41 negative): lexical 6/48, game-only
+10/48, combined opt-in 19/48, with zero labeled false merges. All six windows have
+zero unknown merges or membership variation across 34 deterministic orders each.
+These agent-reviewed labels are not independent validation; the narrow supported
+headline forms still miss broader paraphrases and do not establish outlet independence.

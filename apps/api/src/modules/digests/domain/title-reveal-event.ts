@@ -1,0 +1,45 @@
+import type { Candidate } from './rank';
+
+// Opt-in: require an explicit named sequel/subtitle and a title announcement.
+// Do not infer the event from a franchise mention or a generic new trailer.
+function revealedTitle(candidate: Candidate): string | null {
+  const title = candidate.title.normalize('NFKC').toLowerCase();
+  if (
+    /\bin (?:19|20)\d{2}\b/.test(title) ||
+    /[?？]|\b(not|never|denies|denied|fake|fan|concept|rumou?r|reportedly|might|could|may|would|should|if|unless|allegedly|previously|last year|years? ago|will|expected|leaked?|delayed?|cancelled?|canceled?)\b/.test(
+      title,
+    )
+  )
+    return null;
+  const match =
+    /^(?:the )?([\p{L}][\p{L} '-]{1,60} (?:[1-9]\d?|ii|iii|iv|v|vi|vii|viii|ix|x): [\p{L}][\p{L} '-]{1,50}?) (?:[–—-] official (?:name|title) reveal trailer|is finally made official|title officially revealed)(?:$|[,.:])/u.exec(
+      title,
+    );
+  if (!match) return null;
+  const numerals: Record<string, string> = {
+    ii: '2',
+    iii: '3',
+    iv: '4',
+    v: '5',
+    vi: '6',
+    vii: '7',
+    viii: '8',
+    ix: '9',
+    x: '10',
+  };
+  return match[1].replace(
+    /\b(ii|iii|iv|v|vi|vii|viii|ix|x):/,
+    (_, numeral: string) => `${numerals[numeral]}:`,
+  );
+}
+
+export function sameTitleReveal(a: Candidate, b: Candidate): boolean {
+  const left = revealedTitle(a);
+  const delta = Math.abs(Date.parse(a.publishedAt) - Date.parse(b.publishedAt));
+  return (
+    left !== null &&
+    left === revealedTitle(b) &&
+    Number.isFinite(delta) &&
+    delta <= 36 * 3600000
+  );
+}

@@ -1,14 +1,3 @@
-## 2026-11-03: iteration 437 — private slow database-call evidence
-
-- Started clean on main; no leftovers. Zero alerts/healthy services. Product acceptance still awaits scheduled evidence; completed O7 under items 24/25.
-- App database clients now emit duration/outcome for calls ≥250 ms, capped at ten/minute/process across pools; next emitted record includes suppressed count. No SQL, parameters, results or database errors. Existing request/job context and 14-day log retention apply.
-- Covers promise/callback pool queries and transaction clients; excludes pool acquisition, custom streaming Query objects and non-app clients. This documented client-duration alternative replaces raw server slow-query text logging, which stays disabled.
-- Unit tests pin thresholds/caps/privacy, receiver/callback/result/error behavior and single wrapping. Isolated Postgres verifies real pool/transaction success/failure logs; its deliberate slow calls are test evidence only.
-- pnpm format, pnpm lint:fix, pnpm check (274 unit/176 isolated integration), pnpm build passed. Fixed initial wrapper typing/lint errors before the successful full check. check-handbook.ts 09-observability passed; no diagram/UI changes.
-- Added slow-call suite to check-observability.ts --verify-o1; post-restart --verify-o1 --verify-o2 passed ten offline suites, request/worker logs, redaction and log-store delivery. Restarted only API/worker; no DB/Redis restart.
-- TASKS/plan/handbook updated; O7 complete with documented limits. Health green, zero alerts/dangling volumes, 32 healthy sources/four available queues, all-topic articles/X storage. Latest real edition unchanged: 19 stories/11 X posts. No paid calls/new editions.
-- Next: scheduled social/latency evidence first; otherwise O8 harness metrics, then O10 browser errors. Grouping activation/independent labels remain open.
-
 ## 2026-11-03: iteration 438 — read-only harness status metrics
 
 - Started clean on main; no leftovers. Zero alerts/healthy services; product acceptance awaits scheduled evidence. Advanced O8 under items 24/25.
@@ -161,3 +150,13 @@
 - Verification: targeted preload tests 3/3; pnpm format, pnpm lint:fix, pnpm check (287 unit/176 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
 - Restarted API/worker. Immediate probe raced startup; retry and pnpm obs health --check passed, root HTTP 200, zero alerts. pnpm obs jobs --check passed; hourly social runs completed.
 - No paid calls, new editions or Reddit requests. Next: Nov 4 social selections/screenshots, World yield and latency/full-AI evidence; broader Gaming recall/independent labels remain open.
+
+## 2026-11-03: iteration 453 — group explicit game-title reveals
+
+- Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis and all 32 sources. Scheduled social/latency evidence remains pending; advanced item 19.
+- Added opt-in official sequel/subtitle reveal matching with full identity, Roman/Arabic numeral normalization and a 36-hour bound. Different titles/sequels, generic trailers, release-date news and uncertain/historical headlines do not qualify. Production grouping stays disabled.
+- Three recorded Sentinel announcements group; reviewed one previously unlabeled positive pair. Benchmark now 89 pairs: combined 19/48 positives, zero/41 false merges; no unknown merges or membership variation across 34 orders/window. Agent labels are not independent verification.
+- Updated TASKS/RANKING; archived iteration 437 to keep PROGRESS bounded. No UI or handbook-described production flow change.
+- Verification: targeted grouping 20/20; pnpm format, pnpm lint:fix, pnpm check (290 unit/176 isolated integration), pnpm build and git diff --check passed. Initial full check found an old 16-match assertion; updated to 19 before rerunning.
+- Restarted API/worker; health/root/jobs/sources checks passed, zero alerts/dangling volumes. Hourly social collection and latest scheduled edition remain healthy.
+- No paid calls, new editions or Reddit requests. Next: Nov 4 social selections, World yield and latency/full-AI evidence; broader Gaming recall/independent labels remain open.

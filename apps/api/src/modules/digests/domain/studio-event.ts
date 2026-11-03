@@ -1,6 +1,7 @@
 import { sameEventWithGameScore } from './game-event';
 import { samePreloadOverview } from './preload-event';
 import type { Candidate } from './rank';
+import { sameTitleReveal } from './title-reveal-event';
 
 // Offline/opt-in only. Require a named studio directly followed by a closure
 // assertion, rather than inferring closure from funding cuts or a cancelled game.
@@ -88,5 +89,9 @@ export function sameEventWithStudioClosure(
       left === right
     );
   }
-  return samePreloadOverview(a, b) || sameEventWithGameScore(a, b);
+  return (
+    sameTitleReveal(a, b) ||
+    samePreloadOverview(a, b) ||
+    sameEventWithGameScore(a, b)
+  );
 }
