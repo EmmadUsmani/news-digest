@@ -63,6 +63,16 @@ wait or fresh AI latency. A failed edition or charge read preserves the other
 runs and the unavailable job’s timing, marks evidence incomplete and exits
 nonzero; it does not imply a failed digest. The report never starts a job or calls a provider.
 
+The stored Bluesky coverage report (`pnpm exec tsx scripts/report-bluesky-coverage.ts`)
+reads a rolling 24-hour publication window without contacting Bluesky or an LLM.
+For each enabled topic it shows stored observations, distinct posts, newest
+observation time, safe engaged candidates (up to 50) and phrase matches limited
+to the post budget. Three engagement-ranked examples include saved API counts
+and links. Reads stop at 5,000 observations per topic and flag that limit.
+These are candidate coverage checks, not semantic relevance, editorial picks,
+platform-wide activity or measured growth. Use the edition report to confirm
+what was actually published.
+
 The timing report also includes per-platform selected-post counts and original links, authors, publication times and saved engagement from each immutable edition. Missing historical selections are unknown; an explicit empty selection has zero counts. Missing metrics or observation times remain unknown. These snapshots do not establish current virality, discovery search attribution or outside-list yield.
 
 ## How code reaches production

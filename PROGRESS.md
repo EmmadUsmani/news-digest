@@ -2,18 +2,6 @@
 
 Earlier entries: [progress archive](docs/progress-archive/).
 
-## 2026-11-03: iteration 430 — activate scheduled open X discovery
-
-- Started clean on main; no leftover work. Zero alerts, 32 healthy sources and four working queues; two historical ingestion failures unchanged.
-- Nov 3 item 15 run is recorded/acked; followed item 22 while NBA rejection/compact-triage latency await scheduled provider evidence. Activated item 16's prepared open-topic runtime, without curated-handle restrictions.
-- All primary searches must complete verification before durable low-yield (0–2 new verified posts) followups: story reactions first, otherwise accounts. Existing atomic admission, $0.40/day/$12/month caps, official verification and window guards remain. Current account lists unchanged.
-- Updated Status/settings guidance, SOURCES and affected handbook pages; empty account lists no longer claim to disable primary discovery. No paid calls, new editions, Reddit requests, Bluesky inclusion or grouping activation.
-- Fake regression verifies production default with empty handles, persisted verification before parented reactions, explicit account-list compatibility and budget/failure guards; targeted runtime/scheduled suite 17/17.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (268 unit/174 isolated integration), pnpm build, check-handbook.ts 03-jobs-and-schedules and 05-social-posts, git diff --check passed. Zero dangling Docker volumes.
-- Restarted API/worker with rebuilt code; pnpm obs health --check and alerts passed at 15:41 UTC. Existing edition GET retains 19 stories/11 real X posts.
-- pnpm exec tsx scripts/smoke-x-schedule-copy.ts passed desktop/mobile with no browser errors or horizontal overflow; refreshed four screenshots and inspected mobile Status/desktop settings.
-- Next: measure scheduled open-search cost/yield/outside-list picks, compact triage latency and corrected World window; inspect NBA completion/validation diagnostics if fallback recurs. Items 13/7/16 remain open; no live quality or latency claim.
-
 ## 2026-11-03: iteration 431 — activate reviewed secondary X account lists
 
 - Started clean on main; no leftover work. Zero alerts, health green, 32 healthy sources and four working queues; two historical ingestion failures unchanged.
@@ -154,3 +142,13 @@ Earlier entries: [progress archive](docs/progress-archive/).
 - Verification: pnpm format, pnpm lint:fix, pnpm check, pnpm build, check-handbook.ts 08-operations, scheduled-only timing report, obs health --check and git diff --check. All passed: 279 unit/176 isolated integration tests; zero dangling Docker volumes.
 - No running-service code/config changed; services remain running under STEERING 22. Healthy DB/Redis, 32 sources/four available queues and real articles/stored X across all topics.
 - Next: scheduled real platform selections/screenshots, World yield and latency/full-AI acceptance; no new live acceptance claimed.
+
+## 2026-11-03: iteration 444 — stored Bluesky coverage evidence
+
+- Started clean on main; no leftovers. Alerts/health green; scheduled social/latency acceptance still awaits Nov 4 15:00 UTC. No paid calls, new editions or Reddit requests.
+- Added read-only Bluesky coverage report over a repeatable-read/read-only DB transaction and topic GET. Reports bounded observations/distinct posts, freshness, safe engaged candidates, phrase shortlist and three saved link/metric examples per topic; no post text, collection or inference.
+- At 17:05 UTC: Tech/AI 124 observations/77 distinct posts, NBA 121/51, Gaming 118/48, World 114/73. All freshest observations 16:54 UTC; no read caps reached. Safe candidates capped at 50: 50/49/48/50; phrase shortlist 5/5/5/0. These are stored candidate observations, not new inserts, semantic review, editorial selections or measured growth.
+- README, operations handbook, SOURCES and TASKS explain limits; archived iteration 430 to keep PROGRESS bounded. No diagrams or UI changed; no screenshots needed.
+- Verification: pnpm format, pnpm lint:fix, pnpm check, pnpm build, check-handbook.ts 08-operations, report-bluesky-coverage.ts (live stored reads and invalid-argument rejection), scheduled-only timing report, obs health/sources/jobs --check and git diff --check passed (279 unit/176 isolated integration tests; zero dangling volumes).
+- No running-service code/config changed; services remain running under STEERING 22. Healthy sources/four available queues; latest scheduled edition still Nov 3. No new live editorial acceptance claimed.
+- Next: scheduled open-X/Bluesky selection/screenshots, World yield, and latency/full-AI evidence. World phrase-filter zero alone does not establish semantic irrelevance.

@@ -1614,3 +1614,17 @@ posts. Hourly collection is unchanged. Fake publisher verification covers defaul
 activation and the off switch. No paid verification or new edition was triggered;
 real per-topic editorial yield and screenshots await the next scheduled edition.
 This supersedes the historical default-off notes above.
+
+## Stored Bluesky coverage — iteration 444 (2026-11-03)
+
+`pnpm exec tsx scripts/report-bluesky-coverage.ts` reads stored observations only;
+no API search, collection, LLM call or edition creation. At 17:05 UTC, the rolling
+24-hour publication window contained Tech/AI 124 observations / 77 distinct
+posts, NBA 121/51, Gaming 118/48, World 114/73. Latest observations were from
+16:54 UTC for every topic; no 5,000-observation read cap was reached.
+Safe engaged candidates, capped at 50: 50/49/48/50. Phrase shortlist, capped at
+the topic's five slots: 5/5/5/0. World's zero phrase matches does not establish
+zero semantic relevance: semantic triage/editorial selection has not been run
+by this report. These are stored official API observations, not new inserts,
+measured growth, platform-wide counts or published selections. Scheduled
+Bluesky editorial yield and screenshots remain pending.

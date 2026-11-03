@@ -147,6 +147,14 @@ On November 2 at 14:49 UTC, retained jobs were older `signals-v6` publications
 remained. Live AI latency targets therefore remain unverified; observe routine
 scheduled runs rather than spending the digest budget on development trials.
 
+For stored Bluesky coverage, run `pnpm exec tsx scripts/report-bluesky-coverage.ts`.
+It reads the rolling 24-hour window without search, collection or editorial calls,
+and reports per-topic observation/distinct-post counts, freshness, safe engaged
+candidates (up to 50), and a phrase-based shortlist. Up to three saved examples
+include original links and official API metrics, without post text. Counts are
+bounded by the 5,000-observation read cap per topic. Safe candidates and phrase
+matches are not semantic review, edition picks or measured engagement growth.
+
 For X discovery evidence, run `pnpm exec tsx scripts/report-x-discovery.ts YYYY-MM-DD`
 (defaults to today UTC). For seven days ending on a UTC date, use
 `pnpm exec tsx scripts/report-x-week.ts YYYY-MM-DD`. The weekly report includes
