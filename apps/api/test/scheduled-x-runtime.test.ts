@@ -1,0 +1,160 @@
+import assert from 'node:assert/strict';
+import { test } from 'node:test';
+
+import type { ProfileSettings } from '@digest/contracts';
+
+import { runScheduledXRuntime } from '../src/scheduled-x-runtime';
+
+const now = new Date('2026-11-03T14:30:00Z');
+const parentId = '00000000-0000-4000-8000-000000000001';
+
+function fixture(verificationErrors = 0) {
+  const events: string[] = [];
+  let completed = false;
+  let reservations = 0;
+  const dependencies: Parameters<typeof runScheduledXRuntime>[0] = {
+    profile: async () =>
+      ({
+        id: 'owner',
+        schedule: {
+          cadence: '0 15 * * *',
+          timezone: 'UTC',
+          coverageWindow: 'P1D',
+          storyBudget: 5,
+          postBudget: 5,
+        },
+      }) as ProfileSettings,
+    searches: {
+      scheduledTopics: async () => [
+        {
+          id: 'nba',
+          name: 'NBA',
+          guidance: '',
+          handles: ['NBA'],
+          freePosts: 0,
+        },
+      ],
+      save: async () => {
+        events.push('save');
+      },
+      completedOpenSearches: async (day) => {
+        assert.equal(day, '2026-11-03');
+        events.push('read-completed');
+        return completed
+          ? [{ topicId: 'nba', openCallId: parentId, openVerifiedAdditions: 0 }]
+          : [];
+      },
+    },
+    search: {
+      search: async (request) => {
+        events.push(
+          request.reactionStory
+            ? 'reaction'
+            : request.handles
+              ? 'accounts'
+              : 'open',
+        );
+        return {
+          links: [],
+          usage: {
+            inputTokens: 0,
+            outputTokens: 0,
+            postsFetched: 0,
+            profilesFetched: 0,
+          },
+        };
+      },
+    },
+    ledger: {
+      reserve: async (_model, _run, estimate, topic, day, type, parent) => {
+        assert.equal(estimate, 100000);
+        assert.equal(topic?.id, 'nba');
+        assert.equal(day, '2026-11-03');
+        if (reservations++ === 0) {
+          assert.equal(parent, undefined);
+          return parentId;
+        }
+        assert.equal(type, 'story-reactions');
+        assert.equal(parent, parentId);
+        return '00000000-0000-4000-8000-000000000002';
+      },
+      settle: async () => {
+        events.push('settle');
+      },
+      fail: async () => {
+        assert.fail('Unexpected provider failure');
+      },
+      completeVerification: async (id) => {
+        assert.equal(id, parentId);
+        events.push('complete');
+        completed = true;
+      },
+    },
+    verify: async () => {
+      events.push('verify');
+      return { verificationErrors };
+    },
+    stories: async (id, end) => {
+      assert.equal(id, 'nba');
+      assert.equal(end.toISOString(), now.toISOString());
+      events.push('stories');
+      return [{ id: 'story', title: 'NBA playoff highlights', importance: 10 }];
+    },
+  };
+  return { dependencies, events };
+}
+
+void test('production runtime defaults to account lists and leaves open dependencies idle', async () => {
+  const { dependencies, events } = fixture();
+  await runScheduledXRuntime(dependencies, () => now);
+  assert.deepEqual(events, ['accounts', 'settle', 'save', 'verify']);
+});
+
+void test('open runtime persists and verifies primary before reading evidence and executing parented reactions', async () => {
+  const { dependencies, events } = fixture();
+  await runScheduledXRuntime(dependencies, () => now, 'open-topic');
+  assert.deepEqual(events, [
+    'open',
+    'settle',
+    'save',
+    'verify',
+    'complete',
+    'read-completed',
+    'stories',
+    'reaction',
+    'settle',
+    'save',
+    'verify',
+  ]);
+});
+
+void test('verification errors prevent durable completion and optional execution', async () => {
+  const { dependencies, events } = fixture(1);
+  await runScheduledXRuntime(dependencies, () => now, 'open-topic');
+  assert.deepEqual(events, [
+    'open',
+    'settle',
+    'save',
+    'verify',
+    'read-completed',
+  ]);
+});
+
+void test('runtime budget rejection performs no provider or verification work', async () => {
+  const { dependencies, events } = fixture();
+  dependencies.ledger.reserve = async () => null;
+  await runScheduledXRuntime(dependencies, () => now, 'open-topic');
+  assert.deepEqual(events, ['read-completed']);
+});
+
+void test('completion persistence failure aborts optional execution', async () => {
+  const { dependencies, events } = fixture();
+  dependencies.ledger.completeVerification = async () => {
+    throw new Error('completion unavailable');
+  };
+  await assert.rejects(
+    runScheduledXRuntime(dependencies, () => now, 'open-topic'),
+    /completion unavailable/,
+  );
+  assert.deepEqual(events, ['open', 'settle', 'save', 'verify']);
+});

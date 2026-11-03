@@ -36,6 +36,8 @@ flowchart LR
 > **In progress (STEERING item 16):** open X search with no account
 > restriction, per topic plus reactions to the day's top stories, ranked by
 > engagement and velocity. Account-list search becomes a secondary input.
+> The worker dependencies are connected, but production keeps account-list
+> searches until the first scheduled run is measured and acknowledged.
 
 ## Verification and safety
 

@@ -1,19 +1,18 @@
 import { Queue, Worker } from 'bullmq';
 
 import { SharedHttpClient } from './libs/ports/http.client';
+import { loadReactionStories } from './modules/digests/public/reaction-stories';
 import { PostgresProfileRepository } from './modules/profiles/database/profile.repository';
 import { RiverDiscovery } from './modules/social/adapters/river-discovery';
 import { XOfficialEmbed } from './modules/social/adapters/x-oembed';
 import { DirectXSearch } from './modules/social/adapters/x-search';
 import { collectSocial } from './modules/social/application/collect';
-import { searchX } from './modules/social/application/search-x';
 import { verifyPosts } from './modules/social/application/verify-posts';
-import { verifySearch } from './modules/social/application/verify-search';
 import { PostgresArticleDiscoveryRepository } from './modules/social/database/article-discovery.repository';
 import { PostgresSocialRepository } from './modules/social/database/social.repository';
 import { PostgresXDiscoveryLedger } from './modules/social/database/x-discovery.ledger';
 import { PostgresXSearchRepository } from './modules/social/database/x-search.repository';
-import { runScheduledXSearch } from './scheduled-x-search';
+import { runScheduledXRuntime } from './scheduled-x-runtime';
 
 export function startScheduledSocial(http: SharedHttpClient) {
   const connection = { host: '127.0.0.1', port: 6379 };
@@ -26,40 +25,25 @@ export function startScheduledSocial(http: SharedHttpClient) {
     if (searching || !process.env.XAI_API_KEY) return;
     searching = true;
     try {
-      await runScheduledXSearch(
-        () => profiles.getDefault(),
-        (now) => searches.scheduledTopics(now),
-        async (plan, runId) => {
-          const result = await searchX(
-            plan.topic.id,
-            runId,
-            plan.request,
-            new DirectXSearch(process.env.XAI_API_KEY!),
-            ledger,
-            searches,
-            {
-              inputPerMillion: 1.25,
-              outputPerMillion: 2.5,
-              perPost: 0.005,
-              perProfile: 0.01,
-            },
-            plan.scheduledDay,
-          );
-          await verifySearch(
-            result,
-            plan.request,
-            plan.scheduledDay,
-            async (callId) =>
-              verifyPosts(
-                repository,
-                new XOfficialEmbed(http),
-                await searches.verificationCandidates(callId),
-              ),
-            (callId) => ledger.completeVerification(callId),
-          );
-          return result;
-        },
-      );
+      await runScheduledXRuntime({
+        profile: () => profiles.getDefault(),
+        searches,
+        search: new DirectXSearch(process.env.XAI_API_KEY),
+        ledger,
+        verify: async (callId) =>
+          verifyPosts(
+            repository,
+            new XOfficialEmbed(http),
+            await searches.verificationCandidates(callId),
+          ),
+        stories: (topicId, end) =>
+          loadReactionStories(
+            repository.db,
+            topicId,
+            new Date(end.getTime() - 24 * 60 * 60 * 1000),
+            end,
+          ),
+      });
     } finally {
       searching = false;
     }
