@@ -1,0 +1,22 @@
+[Unit]
+Description=Fluent Bit local journal and file shipping
+After=obs-logs.service
+Wants=obs-logs.service
+[Service]
+ExecStart=/opt/news-digest-observability/fluent/opt/fluent-bit/bin/fluent-bit -c /etc/news-digest-observability/fluent-bit.conf
+EnvironmentFile=/home/exedev/.config/news-digest/env
+Restart=always
+RestartSec=5
+TimeoutStopSec=15
+MemoryMax=80M
+CPUQuota=1%
+CPUWeight=10
+IOWeight=10
+Nice=10
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=read-only
+PrivateTmp=true
+ReadWritePaths=/var/lib/news-digest-log-shipper
+[Install]
+WantedBy=multi-user.target

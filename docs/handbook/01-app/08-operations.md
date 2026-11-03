@@ -2,18 +2,19 @@
 
 ## URLs
 
-| What               | URL                                 |
-| ------------------ | ----------------------------------- |
-| App + Status page  | https://news-digest.exe.xyz/        |
-| Health check       | https://news-digest.exe.xyz/healthz |
-| Handbook           | https://news-digest.exe.xyz/docs/   |
-| DB schema explorer | https://news-digest.exe.xyz/db/     |
+| What               | URL                                           |
+| ------------------ | --------------------------------------------- |
+| App + Status page  | https://news-digest.exe.xyz/                  |
+| Health check       | https://news-digest.exe.xyz/healthz           |
+| Handbook           | https://news-digest.exe.xyz/docs/             |
+| DB schema explorer | https://news-digest.exe.xyz/db/               |
+| Log browser        | https://news-digest.exe.xyz/logs/select/vmui/ |
 
 ## Services (systemd user units on the VM)
 
 | Unit                 | Runs                                                                   |
 | -------------------- | ---------------------------------------------------------------------- |
-| `news-digest-api`    | API + web UI on :8000; forwards `/docs/` and `/db/`                    |
+| `news-digest-api`    | API + web UI on :8000; forwards `/docs/`, `/db/` and `/logs/`          |
 | `news-digest-worker` | All jobs and timers                                                    |
 | `news-digest-docs`   | This handbook (loopback :8100)                                         |
 | `news-digest-schema` | DB schema explorer (loopback :8200)                                    |
@@ -25,6 +26,10 @@ systemctl --user restart news-digest-api news-digest-worker
 journalctl --user -u news-digest-worker -n 100     # recent worker logs
 docker compose ps                                  # Postgres + Redis
 ```
+
+The log store and shipper are separate **system** units (`obs-logs` and
+`obs-shipper`), outside the app health gate. Use `systemctl status obs-logs
+obs-shipper` and see [Observability](09-observability.md) for limits and recovery.
 
 ## How to tell if things are healthy
 

@@ -50,7 +50,8 @@ flowchart LR
 > base. The API answers the UI. The worker does everything on a timer or
 > queue: collecting, verifying posts and generating editions. The docs and
 > schema tools are small separate services, listening only on the VM's
-> loopback. The API forwards `/docs/` and `/db/` to them.
+> loopback. The API forwards `/docs/` and `/db/` to them. Local log collection
+> uses separate system units and `/logs/`; see [Observability](09-observability.md).
 
 ## Configuration and secrets
 
@@ -58,4 +59,5 @@ flowchart LR
   (mode 600). They are never committed. The API and worker load this file.
 - Non-secret settings (topics, schedule, budgets) live in the database and
   are edited in the app.
-- Service definitions are tracked in `ops/services/*.service`.
+- App service definitions are tracked in `ops/services/*.service`; observability
+  units and configuration live in `ops/observability/`.

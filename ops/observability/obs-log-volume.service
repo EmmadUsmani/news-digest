@@ -1,0 +1,15 @@
+[Unit]
+Description=Hard 2 GB local log filesystem
+Before=obs-logs.service
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+MemoryMax=32M
+CPUQuota=1%
+CPUWeight=10
+IOWeight=10
+Nice=10
+ExecStart=/bin/sh -c 'mountpoint -q /var/lib/news-digest-logs || mount -t ext4 -o loop,nosuid,nodev,noexec /var/lib/news-digest-observability/logs.ext4 /var/lib/news-digest-logs'
+ExecStart=/usr/bin/install -d -o exedev -g exedev /var/lib/news-digest-logs/data
+[Install]
+WantedBy=multi-user.target

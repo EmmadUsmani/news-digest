@@ -1,8 +1,41 @@
 # Observability
 
+```mermaid
+flowchart LR
+  inputs["App journal<br/>Postgres · Redis<br/>Supervisor log"] --> shipper["Fluent Bit<br/>redaction + buffer"]
+  shipper --> store["VictoriaLogs<br/>14 days · 2 GB ceiling"]
+  store --> owner["Owner<br/>/logs/select/vmui/"]
+```
+
 The API and worker write structured JSON to the systemd journal. Each line
-has a service name, numeric severity and timestamp. No additional log store
-or monitoring service is installed.
+has a service name, numeric severity and timestamp. Fluent Bit ships their
+logs, the docs/schema journals, the two production container logs and the
+supervisor log into a local VictoriaLogs store. Codex transcripts are excluded.
+The [log browser](/logs/select/vmui/) shares the app’s private exe.dev login.
+It supports LogsQL queries such as `service:worker event:job.failure`.
+Structured fields remain searchable; stored severity uses names such as `info`.
+
+The store listens only on `127.0.0.1:9428` and keeps up to 14 days, deleting
+older daily partitions around 1.8 GB. A dedicated 2 GB filesystem imposes a
+hard ceiling even within one day. If full, shipping can fail; the journal
+remains available independently. Journald has a 500 MB configured limit.
+Fluent Bit has a 32 MB retry buffer and persistent cursors; exhausted buffering
+can drop older pending logs. Shipping is best effort and may repeat records
+after a crash. Existing journal/container timestamps are retained; plain
+supervisor lines use collection time, including the initial backfill.
+
+`obs-logs` and `obs-shipper` are system units outside the app health gate.
+Their memory limits are 160/80 MiB, CPU quotas 3%/1% of one core, nice level
+10 and low CPU/IO weights. The mount helper `obs-log-volume` creates no
+background process. Metrics and dashboards are not installed yet.
+
+Install or reconcile with `ops/observability/install.sh`: pinned official
+releases are SHA-256 checked. Re-run after recreating production containers
+so only their new log paths are selected. The installer never restarts them.
+Read status with `systemctl status obs-logs obs-shipper`; query locally at
+`http://127.0.0.1:9428/logs/select/logsql/query`. If the app is down, an SSH
+forward to localhost port 9428 provides access at `/logs/select/vmui/`.
+Stopping the log units preserves their data and the mounted volume.
 
 | Activity              | What the journal records                                                                                                                |
 | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
@@ -37,8 +70,8 @@ serialization, including error stacks. API and worker logs can be read with
 The journal also contains older plain-text entries from earlier versions.
 
 > [!NOTE]
-> Structured API/worker logging is complete. The log store, dashboards, metrics
-> and browser error reporting remain planned.
+> Structured API/worker logging and local log collection are installed.
+> Dashboards, metrics and browser error reporting remain planned.
 > See the [approved observability plan](../../observability-plan.md).
 
 xAI outcomes include response parsing and usage validation. Failed attempts have no
@@ -90,3 +123,11 @@ including secret redaction and forced fatal errors in disposable child processes
 It never enqueues a job, publishes an edition or calls a paid provider. An empty
 provider or edition count means no event was observed in the journal sample;
 it does not claim that path ran live. Migration command output remains plain text.
+
+Run `pnpm exec tsx scripts/check-observability.ts --verify-o2` to check the
+seven collected sources, retention, hard filesystem ceiling, unit limits,
+private UI forwarding and a fresh API request reaching the store within 60 s.
+An isolated dummy-input Fluent Bit child checks redaction without reading live
+logs or calling providers. Existing records from quieter services prove their
+collection, not recent activity. File shipping also redacts configured credential
+values, nested credential fields, bearer tokens and URL passwords.

@@ -3,10 +3,14 @@ import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { uptime } from 'node:os';
 
+import { checkLogStore } from './lib/check-log-store';
 import { testEnvironment } from './test-suites';
 
 async function main() {
   const verifyO1 = process.argv.includes('--verify-o1');
+  const logStore = process.argv.includes('--verify-o2')
+    ? await checkLogStore()
+    : undefined;
   if (verifyO1) {
     // Forced fatal errors run in disposable children; never crash a live service.
     // Provider suites use injected fakes and the same disabled environment as CI.
@@ -203,8 +207,7 @@ async function main() {
         ]),
       ),
       resources,
-      extraServices: 0,
-      extraLogStoreBytes: 0,
+      logStore,
     }),
   );
 }

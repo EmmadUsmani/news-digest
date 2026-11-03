@@ -1,0 +1,22 @@
+[Unit]
+Description=VictoriaLogs local log store
+Requires=obs-log-volume.service
+After=obs-log-volume.service
+[Service]
+User=exedev
+ExecStart=/opt/news-digest-observability/victoria-logs-prod -httpListenAddr=127.0.0.1:9428 -http.pathPrefix=/logs -storageDataPath=/var/lib/news-digest-logs/data -retentionPeriod=14d -retention.maxDiskSpaceUsageBytes=1800MB -memory.allowedBytes=32MiB
+Environment=GOMAXPROCS=1 GOMEMLIMIT=100MiB
+Restart=always
+RestartSec=5
+MemoryMax=160M
+CPUQuota=3%
+CPUWeight=10
+IOWeight=10
+Nice=10
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/news-digest-logs
+[Install]
+WantedBy=multi-user.target

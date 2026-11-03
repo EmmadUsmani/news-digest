@@ -146,7 +146,8 @@ only when its check passes.
     - every request and job writes a JSON line;
     - the redaction test passes;
     - a forced uncaught error is logged with its stack.
-- [ ] **O2 Logs store.**
+- [x] **O2 Logs store.**
+  - Iteration 355: pinned VictoriaLogs/Fluent Bit, four app journals plus production Postgres/Redis and supervisor logs; loopback store and private `/logs/` forwarding. Retention 14 days, 1.8 GB partition pruning and a hard 2 GB filesystem; bounded 32 MB shipper buffer. `--verify-o2` checks seven actual sources, fresh request delivery under 60 s, limits and isolated redaction. Quieter services use existing entries; supervisor backfill uses collection timestamps. No Codex transcripts or provider calls.
   - **Scope:** VictoriaLogs, journal shipping, container and supervisor logs,
     `/logs/`.
   - **Done when:**

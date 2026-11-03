@@ -6,11 +6,13 @@ import { type IncomingMessage, request, type ServerResponse } from 'node:http';
 export interface InternalTool {
   prefix: string;
   port: number;
+  preservePrefix?: boolean;
 }
 
 export const internalTools: InternalTool[] = [
   { prefix: '/docs', port: Number(process.env.DOCS_SITE_PORT ?? 8100) },
   { prefix: '/db', port: Number(process.env.SCHEMA_EXPLORER_PORT ?? 8200) },
+  { prefix: '/logs', port: 9428, preservePrefix: true },
 ];
 
 export function proxyInternalTools(tools: InternalTool[], host = '127.0.0.1') {
@@ -37,7 +39,7 @@ export function proxyInternalTools(tools: InternalTool[], host = '127.0.0.1') {
         host,
         port: tool.port,
         method: req.method,
-        path: rest,
+        path: tool.preservePrefix ? url : rest,
         headers: { ...req.headers, host: `${host}:${tool.port}` },
         timeout: 30000,
       },

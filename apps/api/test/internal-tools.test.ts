@@ -25,6 +25,7 @@ void test('forwards tool subpaths, redirects bare prefixes, passes others throug
   const proxy = proxyInternalTools([
     { prefix: '/docs', port: toolPort },
     { prefix: '/db', port: downPort },
+    { prefix: '/logs', port: toolPort, preservePrefix: true },
   ]);
   const app = createServer((req, res) =>
     proxy(req, res, () => {
@@ -37,6 +38,13 @@ void test('forwards tool subpaths, redirects bare prefixes, passes others throug
     assert.equal(page.status, 200);
     assert.equal(page.headers.get('x-tool'), 'yes');
     assert.equal(await page.text(), 'tool saw /api/page?path=a.md');
+
+    const logs = await fetch(`${base}/logs/select/logsql/query?query=error`);
+    assert.equal(
+      await logs.text(),
+      'tool saw /logs/select/logsql/query?query=error',
+    );
+    assert.equal(await (await fetch(`${base}/logstash`)).text(), 'app');
 
     const bare = await fetch(`${base}/docs`, { redirect: 'manual' });
     assert.equal(bare.status, 308);
