@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import {
+  collectTimingEvidence,
   scheduledTiming,
   timingEvidence,
 } from '../../../scripts/lib/scheduled-timing';
@@ -104,5 +105,52 @@ void test('scheduled evidence survives newer manual completions and unordered in
     latestScheduled: null,
     latestScheduledOutcome: null,
     failed: [],
+  });
+});
+
+void test('partial timing reads retain other editions and unavailable job timing without exception content', async () => {
+  const runs = ['first', 'missing', 'last'].map((id) => ({
+    id,
+    state: 'completed',
+    attempts: 1,
+    scheduledAt: '2026-11-03T15:00:00Z',
+    startedAt: '2026-11-03T15:00:01Z',
+    finishedAt: '2026-11-03T15:00:10Z',
+    durationMs: 9000,
+    editionId: id,
+    skipped: null,
+  }));
+  const reads: string[] = [];
+  const result = await collectTimingEvidence(runs, async (run) => {
+    reads.push(run.id);
+    if (run.id === 'missing') throw new Error('secret SQL/HTTP detail');
+    return { editionId: run.editionId, cost: 10 };
+  });
+  assert.deepEqual(reads, ['first', 'missing', 'last']);
+  assert.equal(result.complete, false);
+  assert.deepEqual(
+    result.runs.map((run) => run.editionId),
+    ['first', 'last'],
+  );
+  assert.deepEqual(result.unavailable, [runs[1]]);
+  assert.equal(JSON.stringify(result).includes('secret'), false);
+  assert.equal(
+    scheduledTiming(result.unavailable[0]).scheduledCompletionDelayMs,
+    10000,
+  );
+  const allUnavailable = await collectTimingEvidence(runs, async () => {
+    throw new Error('unavailable');
+  });
+  assert.equal(allUnavailable.complete, false);
+  assert.equal(allUnavailable.unavailable.length, 3);
+  assert.deepEqual(allUnavailable.runs, []);
+  const complete = await collectTimingEvidence(runs, async (run) => run.id);
+  assert.equal(complete.complete, true);
+  assert.deepEqual(complete.runs, reads);
+  assert.deepEqual(complete.unavailable, []);
+  assert.deepEqual(await collectTimingEvidence([], async () => assert.fail()), {
+    runs: [],
+    unavailable: [],
+    complete: true,
   });
 });

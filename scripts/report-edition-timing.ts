@@ -3,7 +3,11 @@ import { digestPreviewSchema, operationsStatusSchema } from '@digest/contracts';
 
 import { database } from '../apps/api/src/libs/db/connections';
 import { readEditionCost } from '../apps/api/src/modules/curation/database/edition-cost.reader';
-import { scheduledTiming, timingEvidence } from './lib/scheduled-timing';
+import {
+  collectTimingEvidence,
+  scheduledTiming,
+  timingEvidence,
+} from './lib/scheduled-timing';
 
 async function read(path: string) {
   const response = await fetch(`http://localhost:8000${path}`, {
@@ -20,49 +24,52 @@ async function main() {
     const queue = status.queues.find((q) => q.name === 'digest-generation');
     if (!queue?.available) throw new Error('Digest queue unavailable');
     const evidence = timingEvidence(queue.runs);
-    const runs = [];
-    for (const run of evidence.completed) {
-      const edition = digestPreviewSchema.parse(
-        await read(
-          `/api/digest-previews/${encodeURIComponent(run.editionId!)}`,
-        ),
-      );
-      runs.push({
-        jobId: run.id,
-        editionId: edition.id,
-        scheduledAt: run.scheduledAt,
-        startedAt: run.startedAt,
-        finishedAt: run.finishedAt,
-        workerDurationMs: run.durationMs,
-        ...scheduledTiming(run),
-        attempts: run.attempts,
-        editionCreatedAt: edition.createdAt,
-        providerLedger: await readEditionCost(db, edition.id),
-        method: edition.method,
-        windowStart: edition.windowStart,
-        windowEnd: edition.windowEnd,
-        topics: edition.topics.map((topic) => ({
-          name: topic.name,
-          candidateCount: topic.candidateCount,
-          storyEditorial: topic.editorial
-            ? {
-                mode: topic.editorial.mode,
-                model: topic.editorial.model,
-                reason: topic.editorial.reason,
-                unscored: topic.editorial.unscoredIds.length,
-              }
-            : null,
-          postCount: topic.posts?.length ?? 0,
-          postEditorial: topic.postEditorial
-            ? {
-                mode: topic.postEditorial.mode,
-                model: topic.postEditorial.model,
-                reason: topic.postEditorial.reason,
-              }
-            : null,
-        })),
-      });
-    }
+    const collected = await collectTimingEvidence(
+      evidence.completed,
+      async (run) => {
+        const edition = digestPreviewSchema.parse(
+          await read(
+            `/api/digest-previews/${encodeURIComponent(run.editionId!)}`,
+          ),
+        );
+        return {
+          jobId: run.id,
+          editionId: edition.id,
+          scheduledAt: run.scheduledAt,
+          startedAt: run.startedAt,
+          finishedAt: run.finishedAt,
+          workerDurationMs: run.durationMs,
+          ...scheduledTiming(run),
+          attempts: run.attempts,
+          editionCreatedAt: edition.createdAt,
+          providerLedger: await readEditionCost(db, edition.id),
+          method: edition.method,
+          windowStart: edition.windowStart,
+          windowEnd: edition.windowEnd,
+          topics: edition.topics.map((topic) => ({
+            name: topic.name,
+            candidateCount: topic.candidateCount,
+            storyEditorial: topic.editorial
+              ? {
+                  mode: topic.editorial.mode,
+                  model: topic.editorial.model,
+                  reason: topic.editorial.reason,
+                  unscored: topic.editorial.unscoredIds.length,
+                }
+              : null,
+            postCount: topic.posts?.length ?? 0,
+            postEditorial: topic.postEditorial
+              ? {
+                  mode: topic.postEditorial.mode,
+                  model: topic.postEditorial.model,
+                  reason: topic.postEditorial.reason,
+                }
+              : null,
+          })),
+        };
+      },
+    );
+    if (!collected.complete) process.exitCode = 1;
     console.log(
       JSON.stringify({
         checkedAt: status.checkedAt,
@@ -88,7 +95,16 @@ async function main() {
           .map(({ id, state, scheduledAt }) => ({ id, state, scheduledAt })),
         costNote:
           'Microdollars attributed by edition UUID, not time overlap. Successful calls are settled cost; pending/uncertain calls retain holds. Cache hits have no new call. Failed unpublished attempts have different UUIDs and are excluded; this is not total scheduled retry spend.',
-        runs,
+        evidenceComplete: collected.complete,
+        unavailable: collected.unavailable.map((run) => ({
+          ...run,
+          ...scheduledTiming(run),
+          reason:
+            'Edition or ledger read unavailable; no cost or content inferred.',
+        })),
+        partialEvidenceNote:
+          'A failed edition or ledger read preserves other runs and the unavailable job timing. Partial evidence exits nonzero; unavailable is not a failed digest or proof of deletion. Status/queue read failures still stop the report.',
+        runs: collected.runs,
       }),
     );
   } finally {

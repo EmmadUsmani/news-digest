@@ -126,6 +126,9 @@ The latest retained scheduled job and latest settled scheduled outcome are shown
 separately, alongside up to three
 failed jobs; absence is not proof that no scheduled run occurred. Failures have no
 inferred edition cost or failure reason (use logs for the latter).
+If an edition or ledger read fails, the report preserves other runs and the
+unavailable job’s timing, marks evidence incomplete and exits nonzero. It does
+not infer that the digest failed or the edition was deleted.
 The report includes final-attempt worker duration, signed schedule-to-start and
 schedule-to-completion offsets (positive means later; manual/missing timestamps
 stay null), edition creation/window,

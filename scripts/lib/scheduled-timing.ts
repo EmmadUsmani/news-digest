@@ -50,3 +50,21 @@ export function timingEvidence(
     failed: latest.filter((run) => run.state === 'failed').slice(0, 3),
   };
 }
+
+// A missing snapshot or transient read must not erase other retained evidence.
+// Do not expose exception messages: database/HTTP errors may contain sensitive data.
+export async function collectTimingEvidence<T>(
+  runs: OperationsStatus['queues'][number]['runs'],
+  readRun: (run: (typeof runs)[number]) => Promise<T>,
+) {
+  const collected: T[] = [];
+  const unavailable: (typeof runs)[number][] = [];
+  for (const run of runs) {
+    try {
+      collected.push(await readRun(run));
+    } catch {
+      unavailable.push(run);
+    }
+  }
+  return { runs: collected, unavailable, complete: unavailable.length === 0 };
+}

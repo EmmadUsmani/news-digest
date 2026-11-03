@@ -54,7 +54,9 @@ that a run never happened; failure details remain in logs. It separates final-at
 duration from signed offsets between the intended schedule and start/completion.
 Positive offsets mean later; manual runs have no schedule offset. These offsets
 include scheduling delay and earlier retries, so they do not measure pure queue
-wait or fresh AI latency. The report never starts a job or calls a provider.
+wait or fresh AI latency. A failed edition or charge read preserves the other
+runs and the unavailable job’s timing, marks evidence incomplete and exits
+nonzero; it does not imply a failed digest. The report never starts a job or calls a provider.
 
 ## How code reaches production
 
