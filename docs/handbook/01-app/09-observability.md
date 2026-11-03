@@ -397,10 +397,16 @@ or provider calls. These commands also work over SSH:
 - `pnpm obs logs --edition UUID` finds records explicitly attributed to an edition.
 - `pnpm obs logs --grep 'Job finished'` matches message text literally.
 - `pnpm obs metric 'up'` runs an instant PromQL query.
-- `pnpm obs jobs` shows retained queue state, runs and next scheduled times.
+- `pnpm obs jobs` shows all queue summaries, next scheduled times and up to five retained runs per queue.
+- `pnpm obs jobs --queue digest-generation --state failed --limit 2` narrows the returned run history.
 
 Log results default to 40 records and are capped at 200. Edition filtering does
 not expand to related job/run IDs; older records may lack edition attribution.
+Job limits range from 1 to 20 per queue. Filters apply before the limit and keep
+queue availability, counts and next-run information. Output includes retained,
+matching and omitted run counts for the status snapshot. It preserves the API's
+run order; this is not a search of all Redis jobs. Some queues expose counts but
+no run details, so an empty filtered history can coexist with failed-job counts.
 No matching records does not prove a run never happened. Queue state depends on
 the API; log and metric queries work directly against their local stores.
 Backend failures exit unsuccessfully. Alerts are not installed yet.

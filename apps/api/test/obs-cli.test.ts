@@ -28,7 +28,12 @@ void test('obs log filters escape query operators and bound results', () => {
 void test('obs rejects malformed inputs before any network access', async () => {
   for (const args of [
     ['alerts'],
-    ['jobs', '--limit', '1'],
+    ['jobs', '--limit', '21'],
+    ['jobs', '--limit', '0'],
+    ['jobs', '--queue', 'unknown'],
+    ['jobs', '--state', 'invalid'],
+    ['jobs', '--state'],
+    ['jobs', '--state', 'failed', '--state', 'active'],
     ['metric'],
     ['logs', '--since', '1h | delete'],
     ['logs', '--service', 'other'],
@@ -78,4 +83,70 @@ void test('obs reads only local endpoints, preserves metrics and reports backend
     ).toString(),
     /editionId/,
   );
+});
+
+void test('obs bounds retained job output after filtering while preserving queue health and counts', async () => {
+  const runs = Array.from({ length: 12 }, (_, i) => ({
+    id: String(i),
+    state: i % 2 ? 'failed' : 'completed',
+  }));
+  let calls = 0;
+  const read: typeof fetch = async (url, init) => {
+    calls++;
+    assert.equal(url, 'http://127.0.0.1:8000/api/status');
+    assert.equal(init?.method, undefined);
+    return Response.json({
+      checkedAt: 'now',
+      queues: [
+        {
+          name: 'digest-generation',
+          available: true,
+          counts: { failed: 99 },
+          nextRun: 'later',
+          runs,
+        },
+        {
+          name: 'ingestion',
+          available: false,
+          counts: { failed: 2 },
+          runs: [],
+        },
+      ],
+    });
+  };
+  const defaults = JSON.parse(await runObs(['jobs'], read));
+  assert.equal(defaults.queues.length, 2);
+  assert.equal(defaults.queues[0].runs.length, 5);
+  assert.equal(defaults.queues[0].omittedRuns, 7);
+  assert.equal(defaults.queues[1].available, false);
+  const filtered = JSON.parse(
+    await runObs(
+      [
+        'jobs',
+        '--queue',
+        'digest-generation',
+        '--state',
+        'failed',
+        '--limit',
+        '2',
+      ],
+      read,
+    ),
+  );
+  assert.equal(filtered.queues.length, 1);
+  assert.deepEqual(
+    filtered.queues[0].runs.map((run: { id: string }) => run.id),
+    ['1', '3'],
+  );
+  assert.equal(filtered.queues[0].retainedRuns, 12);
+  assert.equal(filtered.queues[0].matchingRuns, 6);
+  assert.equal(filtered.queues[0].omittedRuns, 4);
+  assert.deepEqual(filtered.queues[0].counts, { failed: 99 });
+  assert.equal(filtered.queues[0].nextRun, 'later');
+  const empty = JSON.parse(
+    await runObs(['jobs', '--queue', 'ingestion', '--state', 'failed'], read),
+  );
+  assert.equal(empty.queues[0].matchingRuns, 0);
+  assert.equal(empty.queues[0].counts.failed, 2);
+  assert.equal(calls, 3);
 });

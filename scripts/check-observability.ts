@@ -28,6 +28,32 @@ async function main() {
     assert.ok(
       jobs.queues.every((queue: { available: boolean }) => queue.available),
     );
+    assert.ok(
+      jobs.queues.every((queue: { runs: unknown[] }) => queue.runs.length <= 5),
+    );
+    const filteredJobs = JSON.parse(
+      await runObs([
+        'jobs',
+        '--queue',
+        'digest-generation',
+        '--state',
+        'completed',
+        '--limit',
+        '1',
+      ]),
+    );
+    assert.equal(filteredJobs.queues.length, 1);
+    assert.equal(filteredJobs.queues[0].name, 'digest-generation');
+    assert.ok(filteredJobs.queues[0].runs.length <= 1);
+    assert.ok(
+      filteredJobs.queues[0].runs.every(
+        (run: { state: string }) => run.state === 'completed',
+      ),
+    );
+    assert.ok(
+      filteredJobs.queues[0].retainedRuns >=
+        filteredJobs.queues[0].matchingRuns,
+    );
     const metrics = JSON.parse(await runObs(['metric', 'up']));
     assert.equal(metrics.status, 'success');
     assert.ok(metrics.data.result.length > 0);
