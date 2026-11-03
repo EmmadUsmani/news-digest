@@ -48,7 +48,7 @@ void test('studio closure requires an explicit matching entity and assertion wit
 
 void test('recorded studio closure improves Gaming recall with fully labeled cluster merges', () => {
   const result = evaluateEventGrouping(sameEventWithStudioClosure);
-  assert.equal(result.truePositives, 31);
+  assert.equal(result.truePositives, 32);
   assert.equal(result.falsePositives, 0);
   for (const window of result.windows) {
     assert.equal(window.membership.unlabeledMergedPairs, 0);

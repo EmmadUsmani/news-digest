@@ -30,6 +30,52 @@ function preloadOverview(candidate: Candidate): string | null {
   return match[1];
 }
 
+// A dated start announcement is distinct from an undated overview or a change.
+function datedPreload(candidate: Candidate): string | null {
+  const title = candidate.title.normalize('NFKC').toLowerCase();
+  if (
+    /\b(rumou?r|reportedly|not|never|denies|denied|might|could|would|should|if|unless|allegedly|previously|last year|years? ago|moved|earlier|later|delayed?|cancelled?|canceled?|may (?=change|be))\b|[?？]/i.test(
+      `${title}. ${candidate.excerpt}`,
+    )
+  )
+    return null;
+  const match =
+    /^([\p{L}][\p{L} '-]{1,60}) ([1-9]\d?|ii|iii|iv|v|vi|vii|viii|ix|x) pre-(?:load|download) begins (?:on )?(?:(\d{1,2})(?:st|nd|rd|th)? ([a-z]+)|([a-z]+) (\d{1,2})(?:st|nd|rd|th)?)(?:, file size and regional timings released)?$/u.exec(
+      title,
+    );
+  if (!match) return null;
+  const months = [
+    'january',
+    'february',
+    'march',
+    'april',
+    'may',
+    'june',
+    'july',
+    'august',
+    'september',
+    'october',
+    'november',
+    'december',
+  ];
+  const month = months.indexOf(match[4] ?? match[5]);
+  const day = Number(match[3] ?? match[6]);
+  const year = new Date(candidate.publishedAt).getUTCFullYear();
+  const date = new Date(Date.UTC(year, month, day));
+  if (
+    month < 0 ||
+    !Number.isFinite(year) ||
+    date.getUTCMonth() !== month ||
+    date.getUTCDate() !== day
+  )
+    return null;
+  const numerals = ['ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x'];
+  const sequel = numerals.includes(match[2])
+    ? String(numerals.indexOf(match[2]) + 2)
+    : match[2];
+  return `${match[1]} ${sequel}:${year}-${month + 1}-${day}`;
+}
+
 export function samePreloadOverview(a: Candidate, b: Candidate): boolean {
   // Match the longest hardware name first, preserving editions and generations.
   // Deduplicate repeated mentions so repetition alone cannot split an overview.
@@ -47,10 +93,11 @@ export function samePreloadOverview(a: Candidate, b: Candidate): boolean {
     bp = platforms(b.title);
   if (ap && bp && ap !== bp) return false;
   const left = preloadOverview(a);
+  const dated = datedPreload(a);
   const delta = Math.abs(Date.parse(a.publishedAt) - Date.parse(b.publishedAt));
   return (
-    left !== null &&
-    left === preloadOverview(b) &&
+    ((left !== null && left === preloadOverview(b)) ||
+      (dated !== null && dated === datedPreload(b))) &&
     Number.isFinite(delta) &&
     delta <= 36 * 3600000
   );

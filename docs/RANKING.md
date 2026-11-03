@@ -1129,3 +1129,18 @@ establishing a current title reveal. Separate background sentences and “the
 previously reported name” remain accepted. Synthetic bidirectional guards pass;
 the recorded benchmark stays 31/57 positive pairs and 0/41 false merges. These
 agent-reviewed labels are not independent validation. Production remains off.
+
+## Iteration 459: explicit dated preload starts
+
+The opt-in preload matcher recognizes a named sequel followed by an explicit
+pre-load/pre-download start date. Roman/Arabic sequel numbers and month/day
+order normalize to the same identity. The recorded PlayStation Blog and
+Eurogamer November 10 announcements now match. Schedule changes, uncertainty,
+different games/dates, invalid calendar days and undated overviews stay outside
+this rule; existing platform and 36-hour limits still apply. Dates without a
+year use the publication's UTC year; explicit years are not supported.
+
+The existing 98 agent-reviewed pairs now yield 32/57 positives with zero/41
+false merges, no unknown merged pairs and no membership variation across the
+bounded input orders. These labels are not independent validation. Production
+grouping remains disabled; no provider calls were made.

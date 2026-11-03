@@ -1,14 +1,3 @@
-## 2026-11-03: iteration 443 — immutable social selection evidence
-
-- Started clean on main; no leftovers. Alerts/health green; next scheduled edition is Nov 4 15:00 UTC. No paid calls or new editions.
-- Timing report now includes per-platform counts, selected links/authors/publication times and saved engagement from immutable editions; historical missing selections remain null, empty selections have zero counts, and absent observation times stay unknown. No inferred virality, search attribution or outside-list yield.
-- Two offline regressions cover historical absence versus explicit empty selections and mixed-platform saved metrics (including unknown versus zero), timestamps and omission of post text. Eight targeted report tests pass.
-- Read-only production report passed: Nov 3 X counts 4/4/3/0, Bluesky zero; 231.829 s duration unchanged. These preactivation snapshots do not verify next scheduled open-X/Bluesky selections.
-- README/operations handbook and TASKS updated; archived iteration 429 to keep PROGRESS bounded. Initial full check caught archive formatting introduced during verification; formatted archive and reran.
-- Verification: pnpm format, pnpm lint:fix, pnpm check, pnpm build, check-handbook.ts 08-operations, scheduled-only timing report, obs health --check and git diff --check. All passed: 279 unit/176 isolated integration tests; zero dangling Docker volumes.
-- No running-service code/config changed; services remain running under STEERING 22. Healthy DB/Redis, 32 sources/four available queues and real articles/stored X across all topics.
-- Next: scheduled real platform selections/screenshots, World yield and latency/full-AI acceptance; no new live acceptance claimed.
-
 ## 2026-11-03: iteration 444 — stored Bluesky coverage evidence
 
 - Started clean on main; no leftovers. Alerts/health green; scheduled social/latency acceptance still awaits Nov 4 15:00 UTC. No paid calls, new editions or Reddit requests.
@@ -161,3 +150,14 @@
 - pnpm format, pnpm lint:fix, pnpm check (291 unit/176 isolated integration), pnpm build and git diff --check passed. Zero dangling Docker volumes.
 - Restarted API/worker; pnpm obs health --check passed, root HTTP 200, zero alerts. Updated TASKS/RANKING; archived iteration 442 to keep PROGRESS bounded.
 - No UI or handbook production-flow change, paid calls, new editions or Reddit requests. Next: Nov 4 social selections/screenshots, World yield and latency/full-AI evidence; grouping recall/independent labels remain open.
+
+## 2026-11-03: iteration 459 — match explicit dated preload starts
+
+- Started clean on main; no leftovers. Worker metrics alert was transient after the prior restart and cleared; API/DB/Redis, all 32 sources and scheduled collectors healthy.
+- Opt-in preload grouping now matches explicit start dates across pre-load/pre-download wording, Roman/Arabic sequel numbers and month/day order. Recorded PlayStation Blog/Eurogamer announcements recover one existing positive pair.
+- Different dates/games, invalid calendar days, uncertainty, schedule changes, explicit years and undated overviews remain excluded. Existing hardware and 36-hour bounds remain. Publication UTC year supplies omitted years.
+- Benchmark: 32/57 positives, zero/41 false merges, unknown merges or membership variation. Labels remain agent-reviewed, not independent validation; production grouping stays disabled.
+- Targeted grouping suites 15/15; final preload guards 4/4. pnpm format, pnpm lint:fix, pnpm check (292 unit/176 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
+- Restarted API/worker; immediate probe raced startup, retry passed pnpm obs health --check and root HTTP 200; both units active, zero alerts.
+- Updated TASKS/RANKING. No UI/handbook production-flow change, paid calls, new editions or Reddit requests.
+- Next: Nov 4 social selections/screenshots, World yield and latency/full-AI evidence; grouping recall/independent labels remain open.

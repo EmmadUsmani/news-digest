@@ -82,10 +82,45 @@ void test('preload platforms preserve hardware variants and normalize equivalent
 void test('opt-in preload rule improves recorded recall without unknown or incorrect cluster merges', () => {
   const result = evaluateEventGrouping(sameEventWithStudioClosure);
   assert.equal(result.falsePositives, 0);
-  assert.equal(result.truePositives, 31);
+  assert.equal(result.truePositives, 32);
   for (const window of result.windows) {
     assert.equal(window.membership.permutationCheck.maxFalsePositives, 0);
     assert.equal(window.membership.permutationCheck.maxUnlabeledMergedPairs, 0);
     assert.equal(window.membership.permutationCheck.orderSensitivePairs, 0);
   }
+});
+
+void test('dated preload starts normalize numeral and date order without merging different schedules', () => {
+  const lead = item('Example Quest VI pre-download begins November 10');
+  const equivalent = item(
+    'Example Quest 6 pre-load begins on 10th November, file size and regional timings released',
+  );
+  assert.equal(samePreloadOverview(lead, equivalent), true);
+  assert.equal(samePreloadOverview(equivalent, lead), true);
+  for (const other of [
+    item('Example Quest 6 pre-load begins November 11'),
+    item('Example Quest 7 pre-load begins November 10'),
+    item('Other Quest 6 pre-load begins November 10'),
+    item('Example Quest 6 pre-load begins November 31'),
+    item('Example Quest 6 pre-load begins November 10, trailer released'),
+    item('Example Quest 6 pre-load begins November 10 2027'),
+    item('Example Quest 6 pre-load begins November 10?'),
+    item('Example Quest 6 pre-load moved to November 10'),
+    item('Example Quest 6 preload dates confirmed'),
+    { ...equivalent, excerpt: 'Reportedly the schedule is confirmed.' },
+    { ...equivalent, excerpt: 'The preload date may change.' },
+    { ...equivalent, excerpt: 'This is accurate unless the rumor is wrong.' },
+    { ...equivalent, publishedAt: 'invalid' },
+    { ...equivalent, publishedAt: '2026-11-05T12:00:00Z' },
+  ]) {
+    assert.equal(samePreloadOverview(lead, other), false, other.title);
+    assert.equal(samePreloadOverview(other, lead), false, other.title);
+  }
+  assert.equal(
+    samePreloadOverview(
+      item('Example Quest 6 pre-load begins May 10'),
+      item('Example Quest VI pre-download begins on 10th May'),
+    ),
+    true,
+  );
 });
