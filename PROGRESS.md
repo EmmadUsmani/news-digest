@@ -1,17 +1,8 @@
 # Progress
 
-Archived: [iteration 298](docs/progress-archive/2026-11-03-iteration-298.md), [iteration 297](docs/progress-archive/2026-11-03-iteration-297.md), [iteration 296](docs/progress-archive/2026-11-03-iteration-296.md), [iteration 295](docs/progress-archive/2026-11-03-iteration-295.md), [iteration 294](docs/progress-archive/2026-11-03-iteration-294.md), [iteration 293](docs/progress-archive/2026-11-03-iteration-293.md), [iteration 292](docs/progress-archive/2026-11-03-iteration-292.md), [iteration 291](docs/progress-archive/2026-11-03-iteration-291.md), [iteration 290](docs/progress-archive/2026-11-03-iteration-290.md), [iteration 288](docs/progress-archive/2026-11-03-iteration-288.md), [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md), [286](docs/progress-archive/2026-11-03-iteration-286.md).
+Archived: [iteration 299](docs/progress-archive/2026-11-03-iteration-299.md), [iteration 298](docs/progress-archive/2026-11-03-iteration-298.md), [iteration 297](docs/progress-archive/2026-11-03-iteration-297.md), [iteration 296](docs/progress-archive/2026-11-03-iteration-296.md), [iteration 295](docs/progress-archive/2026-11-03-iteration-295.md), [iteration 294](docs/progress-archive/2026-11-03-iteration-294.md), [iteration 293](docs/progress-archive/2026-11-03-iteration-293.md), [iteration 292](docs/progress-archive/2026-11-03-iteration-292.md), [iteration 291](docs/progress-archive/2026-11-03-iteration-291.md), [iteration 290](docs/progress-archive/2026-11-03-iteration-290.md), [iteration 288](docs/progress-archive/2026-11-03-iteration-288.md), [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md), [286](docs/progress-archive/2026-11-03-iteration-286.md).
 
 Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md), [283](docs/progress-archive/2026-11-03-iteration-283.md), [284](docs/progress-archive/2026-11-03-iteration-284.md).
-
-## 2026-11-03: iteration 299 — scheduled evidence gate rechecked
-
-- Started clean on main; no leftover changes. All four services and `/healthz` healthy.
-- At 01:36 UTC, all 32 sources had succeeded within 30 minutes without reported errors; all four queues had workers and no retained failed runs.
-- Read-only `scripts/report-x-discovery.ts 2026-11-03` confirms zero calls/cost/holds; `scripts/report-edition-timing.ts` confirms the 15:00 UTC delayed edition, pending 482,788-micro reserve and zero other Anthropic allowance.
-- Items 13/7/15 remain pending actual scheduled evidence; item 16 activation stays gated by item 15 acknowledgement. No application/settings changes, paid provider calls or Reddit requests.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `git diff --check`; services restarted and app/health/docs/db checked after build.
-- Next: observe the scheduled X run and 15:00 UTC edition, record actual per-topic yield and AI cost/duration, acknowledge results, then activate open search.
 
 ## 2026-11-03: iteration 300 — distinguish recovered ingestion failures
 
@@ -171,3 +162,15 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 05-social-posts` (16 pages, 1 diagram, 24 tables, no errors), `git diff --check`. Full check passed 169 unit/168 integration tests plus typecheck, lint, formatting and boundaries.
 - No services restarted: their runtime wiring/config is unchanged (item 22). Archived iterations 297–298 to keep PROGRESS under 25 KB.
 - Next: persist Bluesky observations behind an off-by-default inclusion flag, add topic relevance/engagement velocity ranking and cards; measure/ack Nov 3 scheduled evidence first when available.
+
+## 2026-11-03: iteration 317 — isolated Bluesky engagement shortlist
+
+- Started clean on main; no leftover work. Four services and health green; 32 sources without current errors, queues staffed, no failed digest runs. Two retained ingestion failures have successful current source observations.
+- Added pure Bluesky shortlist: positive topic phrase/safety/window gates, latest valid pre-cutoff snapshot per post, engagement and lifetime/hour ranking, deterministic order and bounded slots. No edition caller; X preference/publication wiring remains future work.
+- Three fake-only tests cover relevance/spam gates, engagement/age order, malformed metrics/times, window boundaries, duplicate snapshots and future-observation rejection. Single snapshots never claim measured growth or account-relative reach.
+- Enhanced explicit free probe to read current local topic policies. At 03:28 UTC raw Tech/AI/NBA/Gaming/World yields were 47/50/49/48; phrase shortlists capped at five were 5/5/5/0. World has no positive rules; semantic review is unfinished. No DB writes or edition inclusion.
+- Initial probe stopped before World because its configured display name differed; corrected the probe name and reran successfully. No credentials or post bodies logged. No paid calls or Reddit requests.
+- Verification: targeted `pnpm exec tsx --test apps/api/test/bluesky-ranking.test.ts` (3 passed), `pnpm format`, `pnpm lint:fix`, `pnpm check` (172 unit/168 integration), `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 05-social-posts` (no errors), `git diff --check`.
+- Read-only timing/X reports: Nov 3 15:00 UTC run pending, reserve 482,788 micros, other Anthropic allowance zero; X cost/holds zero. Item 13/7/15 acks and item 16 activation remain gated.
+- Updated source evidence/handbook; archived iteration 299 to keep progress bounded. App/health/docs/db HTTP 200. No restart: no running service code/config path changed; handbook reads disk per request (item 22).
+- Next: Bluesky persistence, semantic selection and cards behind disabled edition inclusion; scheduled evidence takes priority when available.

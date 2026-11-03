@@ -1466,4 +1466,19 @@ Search terms need topic-guidance refinement before collection. Authentication
 currently accepts official hosted PDS endpoints only; custom PDS accounts are
 unsupported. Missing credentials fail closed; no anonymous endpoint is probed.
 Production has no wiring to this adapter: edition inclusion remains off under
-STEERING 23. Persistence, observed engagement ranking and cards remain unfinished.
+STEERING 23. The isolated shortlist now requires a configured positive topic
+phrase and passes the existing spam/exclusion and time gates before ranking by
+log-scaled weighted engagement (likes + 2×reposts + replies) and lifetime
+engagement/hour. It selects the latest valid observation before the cutoff,
+deduplicates post IDs and never pads with zero-engagement posts. This is phrase
+screening and an age proxy, not semantic review, measured growth or
+account-relative reach. Persistence, semantic selection and cards remain
+unfinished.
+
+Iteration 317 live shortlist probe, 2026-11-03 03:28 UTC, same preceding-day
+queries: raw yields Tech/AI 47, NBA 50, Gaming 49, World 48; phrase-eligible
+shortlists capped at five yielded 5/5/5/0. World has no positive phrase rules,
+so conservative screening correctly excludes all candidates pending semantic
+selection. These counts are not relevance judgments or live stored content.
+The probe reads current topic policies from the local API; observation cutoffs
+follow each search response, while publication times remain search-window bounded.
