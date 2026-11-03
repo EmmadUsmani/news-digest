@@ -241,3 +241,9 @@ and attempts; settlements log cost, failures distinguish released and uncertain
 holds. Cache reuse is omitted; logs follow successful ledger operations and omit
 content. Refusal reasons are not inferred. Discovery/reserve budget decisions and
 edition steps remain open; no O1 completion claim.
+
+O1 incremental progress (350): X discovery admission/refusal, settlement and
+failure holds log run/topic IDs and search type after ledger operations. Credit
+exhaustion records the provider block; request content is omitted. Offline
+coverage includes ledger/storage errors and higher input pricing. Scheduled
+reserve decisions and edition steps remain open.

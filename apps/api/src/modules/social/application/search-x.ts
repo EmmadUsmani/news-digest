@@ -1,4 +1,8 @@
-import type { XDiscoveryPrice } from '../domain/x-discovery-budget';
+import { logger } from '../../../libs/observability/logging';
+import {
+  xDiscoveryCost,
+  type XDiscoveryPrice,
+} from '../domain/x-discovery-budget';
 import type { XDiscoveryLedger } from '../domain/x-discovery-ledger.port';
 import {
   XSearchError,
@@ -17,6 +21,7 @@ export async function searchX(
   price: XDiscoveryPrice,
   scheduledDay?: string,
   optionalParentId?: string,
+  log = logger,
 ) {
   // Reject malformed optional requests before admission or any external effects.
   // The ledger still checks the persisted parent, yield, completion and caps.
@@ -30,27 +35,49 @@ export async function searchX(
   // Scheduled searches project $0.10 per topic (roughly 5x observed cost).
   // Manual calls retain the full-day hold. Neither is a provider-side ceiling:
   // fetched items are unbounded; actual charges settle before the next search.
-  const callId = await ledger.reserve(
-    'grok-4.3',
-    runId,
-    scheduledDay === undefined ? 400000 : 100000,
-    { id: topicId, name: request.topic },
-    scheduledDay,
+  const searchType =
     request.reactionStory !== undefined
       ? 'story-reactions'
       : request.handles === undefined
         ? 'open-topic'
-        : 'account-list',
+        : 'account-list';
+  const estimateMicros = scheduledDay === undefined ? 400000 : 100000;
+  const fields = { target: 'xai', runId, topic: topicId, searchType };
+  const callId = await ledger.reserve(
+    'grok-4.3',
+    runId,
+    estimateMicros,
+    { id: topicId, name: request.topic },
+    scheduledDay,
+    searchType,
     optionalParentId,
+  );
+  log.info(
+    {
+      ...fields,
+      event: 'budget.decision',
+      estimateMicros,
+      outcome: callId ? 'admitted' : 'refused',
+    },
+    'X discovery budget decision',
   );
   if (!callId) return { state: 'budget-blocked' as const, citations: 0 };
   let result;
   try {
     result = await search.search(request);
   } catch (error) {
-    await ledger.fail(
-      callId,
-      error instanceof XSearchError ? error.reason : 'uncertain',
+    const reason = error instanceof XSearchError ? error.reason : 'uncertain';
+    await ledger.fail(callId, reason);
+    log.info(
+      {
+        ...fields,
+        callId,
+        event: 'budget.failure',
+        reason,
+        outcome: reason === 'uncertain' ? 'held-uncertain' : 'released',
+        providerBlocked: reason === 'credits-depleted',
+      },
+      'X discovery budget failure recorded',
     );
     return { state: 'failed' as const, citations: 0 };
   }
@@ -66,6 +93,15 @@ export async function searchX(
         }
       : price;
   await ledger.settle(callId, result.usage, billedPrice);
+  log.info(
+    {
+      ...fields,
+      callId,
+      event: 'budget.settlement',
+      costMicros: xDiscoveryCost(result.usage, billedPrice),
+    },
+    'X discovery budget settled',
+  );
   await repository.save(
     topicId,
     callId,

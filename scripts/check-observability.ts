@@ -125,6 +125,12 @@ async function main() {
           ],
         ),
       ),
+      xDiscoveryBudgetEventsInJournalSample: logs.filter(
+        (line) =>
+          line.target === 'xai' &&
+          typeof line.event === 'string' &&
+          line.event.startsWith('budget.'),
+      ).length,
       resources,
       extraServices: 0,
       extraLogStoreBytes: 0,

@@ -12,6 +12,7 @@ or monitoring service is installed.
 | Anthropic calls       | Model, purpose, run ID, attempt, duration, success or failure, failure HTTP status and successful token usage/computed microdollar cost |
 | xAI calls             | Model, search type, HTTP status, duration, outcome, safe failure reason and successful token/fetched-item/citation counts               |
 | Bluesky calls         | Login, refresh or search, HTTP status when received, duration and outcome; no account, token, query, URL or response content            |
+| X discovery budgets   | Admission/refusal and estimate by run/topic/search type; settled cost, released/uncertain holds and provider credit block               |
 | Anthropic budgets     | Admission/refusal and estimate per attempt; settled cost or released/uncertain failure hold, with run and inherited job context         |
 | Errors                | Error message, stack and cause; fatal exceptions and unhandled rejections exit unsuccessfully so systemd can recover the service        |
 
@@ -51,3 +52,9 @@ Budget entries follow successful ledger operations. Refusals do not identify the
 limiting cap; the ledger remains authoritative. Cache reuse adds no admission.
 Repairs reserve separately, and transport failures retain uncertain holds. No
 prompt, response, purpose or provider error text is included in budget entries.
+
+X discovery budget entries omit topic names, guidance, handles and provider text.
+A refusal may also mean durable scheduled admission was already consumed; no
+cap or refusal cause is inferred. Settlement logs precede citation persistence,
+so a storage failure does not hide a charge. Credit exhaustion releases that
+call’s hold while blocking further discovery in the ledger.
