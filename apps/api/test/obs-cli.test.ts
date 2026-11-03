@@ -521,3 +521,70 @@ void test('CLI check rejects invalid options before network access and propagate
     runObsCli(['sources', '--check'], async () => Response.json({})),
   );
 });
+
+void test('health probes dependencies directly and preserves valid degraded responses', async () => {
+  assert.equal(obsRequest(['health']).url, 'http://127.0.0.1:8000/healthz');
+  for (const database of [true, false]) {
+    for (const redis of [true, false]) {
+      const healthy = database && redis;
+      const body = { status: healthy ? 'ok' : 'degraded', database, redis };
+      const read = (async (url, init) => {
+        assert.equal(url, 'http://127.0.0.1:8000/healthz');
+        assert.ok(init?.signal instanceof AbortSignal);
+        return Response.json(
+          { ...body, privateExtra: 'omitted' },
+          { status: healthy ? 200 : 503 },
+        );
+      }) as typeof fetch;
+      for (const checking of [false, true]) {
+        const result = await runObsCli(
+          checking ? ['health', '--check'] : ['health'],
+          read,
+        );
+        assert.equal(result.exitCode, checking && !healthy ? 1 : 0);
+        const { checkedAt, ...output } = JSON.parse(result.output);
+        assert.ok(Number.isFinite(Date.parse(checkedAt)));
+        assert.deepEqual(output, { healthy, ...body });
+      }
+    }
+  }
+});
+
+void test('health rejects invalid options, HTTP failures and inconsistent or malformed bodies', async () => {
+  let reads = 0;
+  const read = (async () => {
+    reads++;
+    return Response.json({});
+  }) as typeof fetch;
+  for (const args of [
+    ['health', '--limit', '1'],
+    ['health', '--check', '--check'],
+  ])
+    await assert.rejects(runObsCli(args, read));
+  assert.equal(reads, 0);
+  const valid = { status: 'ok', database: true, redis: true };
+  for (const [body, status] of [
+    [null, 200],
+    [{}, 200],
+    [{ ...valid, database: 'true' }, 200],
+    [{ ...valid, status: 'degraded' }, 503],
+    [valid, 503],
+    [{ status: 'degraded', database: false, redis: true }, 200],
+    [valid, 500],
+    [valid, 201],
+  ] as const)
+    await assert.rejects(
+      runObsCli(['health', '--check'], async () =>
+        Response.json(body, { status }),
+      ),
+    );
+  await assert.rejects(
+    runObsCli(['health'], async () => new Response('not JSON')),
+  );
+  await assert.rejects(
+    runObsCli(['health'], async () => {
+      throw new Error('connection refused');
+    }),
+    /connection refused/,
+  );
+});

@@ -69,7 +69,7 @@ async function main() {
       ],
       { env: testEnvironment(), stdio: 'pipe', timeout: 120_000 },
     );
-    for (const command of ['services', 'sources', 'targets']) {
+    for (const command of ['health', 'services', 'sources', 'targets']) {
       const result = await runObsCli([command, '--check']);
       assert.equal(result.exitCode, 0);
       assert.equal(JSON.parse(result.output).healthy, true);

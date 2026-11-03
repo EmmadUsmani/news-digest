@@ -370,3 +370,9 @@ O5 incremental progress (407): health summaries support opt-in `--check` exit
 status for unattended probes. Services/sources/targets preserve their JSON output;
 unhealthy summaries exit 1, healthy summaries exit 0. Query and validation failures
 remain errors. Other commands reject the flag before network access.
+
+O5 incremental progress (408): `pnpm obs health [--check]` queries `/healthz`
+directly, validates HTTP/status/dependency consistency and preserves degraded
+503 summaries. It works independently of the metrics store and uses the existing
+ten-second timeout. Malformed responses and transport failures remain errors;
+no provider calls or production changes.

@@ -10,15 +10,7 @@ Earlier entries: [iterations 389–390](docs/progress-archive/2026-11-03-iterati
 
 Earlier entry: [iteration 396](docs/progress-archive/2026-11-03-iteration-396.md).
 
-## 2026-11-03: iteration 397 — worker timing by trigger
-
-- Started clean on main; no leftover work. Health/services green, all 32 sources current without errors, no failed digest/social jobs; two historical ingestion failures remain. Scheduled evidence/activation still gated on 15:00 UTC.
-- Worker timing histograms now distinguish scheduled/manual/unknown triggers using scheduler metadata and the on-demand digest branch. Retries count separately; missing metadata stays unknown. No IDs/payloads/new ledger reads; previous samples lack the label.
-- Offline tests verify attribution, retries/failures, unchanged result/error propagation and private bounded labels. New `check-observability.ts --verify-job-metrics` checks those tests and normal recurring heartbeat samples without enqueueing jobs.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (242 unit/172 integration), `pnpm build`, handbook 09 and read-only edition timing report passed. No UI/diagram changes; no screenshots needed.
-- Restarted changed API/worker; health green. First runtime check caught interval jobs lacking `prevMillis`; added BullMQ recurring-key support and regression coverage. Final `--verify-job-metrics` passed against scheduled heartbeat/ingestion samples and healthy runtime logs. Updated handbook/plan/TASKS; archived iteration 385.
-- Retained scheduled result remains 856 ms fallback; scheduled attempt attribution does not prove a fresh publication or provider latency. No paid calls, Reddit requests or product/cap/schedule/activation changes.
-- Next: collect/ack Nov 3 scheduled cost/yield/AI timing; then activation work. Observability still needs individual-edition attribution, per-iteration metrics and top queries.
+Earlier entry: [iteration 397](docs/progress-archive/2026-11-03-iteration-397.md).
 
 ## 2026-11-03: iteration 398 — correlate completed worker attempts with editions
 
@@ -109,3 +101,12 @@ Earlier entry: [iteration 396](docs/progress-archive/2026-11-03-iteration-396.md
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (256 unit/172 integration), `pnpm build`, handbook 09 and `git diff --check` passed. Read-only scheduled timing report has complete retained evidence and zero failed runs; no new AI timing claim.
 - Updated handbook/plan/TASKS and archived iteration 396. No UI/diagram changes or screenshots needed; CLI/tests/docs only, so no service restart under STEERING 22. No paid calls, Reddit requests or production content/cap/schedule/activation changes.
 - Next: collect/ack Nov 3 scheduled cost/yield/AI timing first; top queries, harness counters and alert engine remain open.
+
+## 2026-11-03: iteration 408 — direct API dependency health probe
+
+- Started clean on main; no leftover work. Live API/dependencies, 32 sources, 12 units/eight collectors and four queues healthy; no failed digest/social jobs. Two historical ingestion failures remain. Scheduled evidence still waits for 15:00 UTC.
+- Added read-only `pnpm obs health [--check]`, independent of metrics: validates `/healthz` HTTP/status/dependency consistency, retains valid degraded 503 JSON, omits extra fields and uses the existing ten-second timeout. Opt-in unhealthy exit 1; transport/malformed responses remain errors.
+- Offline tests cover all dependency combinations, inconsistent statuses, invalid options, malformed JSON and connection failure. `pnpm exec tsx scripts/check-observability.ts --verify-cli`, live `pnpm obs health --check`, `pnpm build`, handbook 09 and read-only timing report passed. No paid calls or new AI timing claim.
+- First `pnpm check` stopped on formatting of the newly archived progress entry; formatted it and reran checks. `pnpm format`, `pnpm lint:fix`, final `pnpm check` (258 unit/172 integration) and `git diff --check` passed.
+- Updated handbook/plan/TASKS; archived iteration 397. CLI/tests/docs only: no service restart under STEERING 22, UI changes or screenshots. No production content/cap/schedule/activation changes or Reddit requests.
+- Next: collect/ack scheduled cost/yield/AI timing first; top queries, harness counters and alert engine remain open.

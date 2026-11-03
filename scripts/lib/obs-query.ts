@@ -19,6 +19,10 @@ export function obsRequest(
   init?: RequestInit;
 } {
   const [command, ...rest] = args;
+  if (command === 'health') {
+    if (rest.length) throw new Error('health accepts no options');
+    return { url: 'http://127.0.0.1:8000/healthz' };
+  }
   if (command === 'services') {
     if (rest.length) throw new Error('services accepts no options');
     return metricRequest(
@@ -43,7 +47,7 @@ export function obsRequest(
   if (command === 'metric') return metricRequest(rest, now);
   if (command !== 'logs' && command !== 'errors')
     throw new Error(
-      'Use: pnpm obs services|sources|targets [--check]; pnpm obs logs|errors [--since 1h] [--service worker] [--edition UUID] [--queue name] [--job ID] [--grep text] [--limit 40]; pnpm obs jobs [--queue name] [--state failed] [--limit 5]; pnpm obs metric <PromQL> [--since 1h] [--step 60s]',
+      'Use: pnpm obs health|services|sources|targets [--check]; pnpm obs logs|errors [--since 1h] [--service worker] [--edition UUID] [--queue name] [--job ID] [--grep text] [--limit 40]; pnpm obs jobs [--queue name] [--state failed] [--limit 5]; pnpm obs metric <PromQL> [--since 1h] [--step 60s]',
     );
   const options = new Map<string, string>();
   for (let i = 0; i < rest.length; i += 2) {
@@ -137,12 +141,12 @@ export async function runObsCli(
   let queryArgs = args;
   if (checking) {
     if (
-      !['services', 'sources', 'targets'].includes(args[0]) ||
+      !['health', 'services', 'sources', 'targets'].includes(args[0]) ||
       args.length !== 2 ||
       args[1] !== '--check'
     )
       throw new Error(
-        '--check is supported only by services, sources and targets',
+        '--check is supported only by health, services, sources and targets',
       );
     queryArgs = args.slice(0, 1);
   }
@@ -162,6 +166,26 @@ export async function runObs(
     ...request.init,
     signal: AbortSignal.timeout(10_000),
   });
+  if (args[0] === 'health') {
+    if (response.status !== 200 && response.status !== 503)
+      throw new Error(`Local query failed: HTTP ${response.status}`);
+    const body = (await response.json()) as Record<string, unknown> | null;
+    if (
+      !body ||
+      typeof body.database !== 'boolean' ||
+      typeof body.redis !== 'boolean' ||
+      body.status !== (body.database && body.redis ? 'ok' : 'degraded') ||
+      response.status !== (body.status === 'ok' ? 200 : 503)
+    )
+      throw new Error('Invalid local health response');
+    return JSON.stringify({
+      checkedAt: new Date().toISOString(),
+      healthy: body.status === 'ok',
+      status: body.status,
+      database: body.database,
+      redis: body.redis,
+    });
+  }
   if (!response.ok)
     throw new Error(`Local query failed: HTTP ${response.status}`);
   if (args[0] === 'services') {
