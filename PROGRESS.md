@@ -116,17 +116,7 @@ Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
 
 Iteration 252: [archive](docs/progress-archive/2026-11-02-iteration-252.md).
 
-## 2026-11-02: iteration 264 — verification URL precedence
-
-- Started clean on main; API/worker, health, 32 sources and four queues healthy; no leftover work.
-- Priority 15/13/7/9 evidence awaits Nov 3; advanced isolated STEERING 2a.
-- Pins newest non-null embed-verification URL across publisher, river, stored Reddit and search citations.
-- Offset timestamps compare by instant; newer null URLs retain older usable evidence; missing evidence returns undefined.
-- Disposable PostgreSQL only; no provider, source or Reddit verification requests.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 159 integration), `pnpm build`, `git diff --check`.
-- Updated TASKS/database notes; archived iteration 244; equal-time URL precedence remains unspecified.
-- Restarted API/worker; health, SPA, source/queue health and latest four-topic edition checked.
-- Next: observe Nov 3 scheduled X per-topic cost/yield and AI edition cost/duration before acknowledging 15/13/7.
+Earlier iteration 264: [archive](docs/progress-archive/2026-11-02-iteration-264.md).
 
 ## 2026-11-02: iteration 265 — verification candidate priority and bounds
 
@@ -341,3 +331,14 @@ Iteration 252: [archive](docs/progress-archive/2026-11-02-iteration-252.md).
 - Restarted API/worker/docs/schema; all active, health OK, SPA/docs/db 200; no source errors.
 - No paid provider or Reddit requests; no live schedule/settings changes.
 - Next: observe scheduled X calls and AI edition, acknowledge items 15/13/7 with actual cost/yield/timing, then enable open-topic mode in `scheduled-social.ts`.
+
+## 2026-11-03: iteration 282 — attribute edition timing to provider cost
+
+- Started clean on main; no leftover work; all four services and health healthy.
+- Read-only timing report now includes per-edition settled microdollars, unresolved holds and model/purpose call counts, plus scheduled reserve/outcome.
+- Attribution uses edition/run UUID across UTC days; overlapping jobs and unpublished failed attempts are excluded, with limits documented in README.
+- Disposable integration coverage checks cross-day costs, overlapping jobs, failed/pending/uncertain calls and no-call editions.
+- Live read: Nov 2 fallback edition 856 ms, zero provider calls/cost; Nov 3 reserve pending, scheduled for 15:00 UTC; no AI latency claim.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (132 unit/167 integration), `pnpm build`, `git diff --check`; initial check caught archive formatting, corrected before rerun.
+- Restarted API/worker/docs/schema; health OK, SPA/docs/db 200, 32 sources without errors; no paid provider or Reddit requests.
+- Archived iteration 264; next: collect Nov 3 scheduled X cost/yield and AI timing, acknowledge 15/13/7, then switch to open search.

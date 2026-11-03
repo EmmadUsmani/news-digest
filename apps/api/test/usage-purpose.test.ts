@@ -4,7 +4,66 @@ import { test } from 'node:test';
 
 import { Pool } from 'pg';
 
+import { readEditionCost } from '../src/modules/curation/database/edition-cost.reader';
 import { readUsage } from '../src/modules/curation/database/usage.reader';
+
+void test('edition cost uses run identity across UTC days and excludes overlapping jobs', async () => {
+  const db = new Pool({ connectionString: process.env.DATABASE_URL, max: 1 });
+  const edition = randomUUID();
+  await db.query('BEGIN');
+  try {
+    for (const [run, model, purpose, status, cost, hold, age] of [
+      [edition, 'haiku', 'triage', 'succeeded', 20, 100, '1 day'],
+      [edition, 'sonnet', 'editor', 'succeeded', 90, 200, '0 days'],
+      [edition, 'sonnet', 'editor', 'pending', null, 40, '0 days'],
+      [edition, 'sonnet', 'editor', 'uncertain', null, 30, '0 days'],
+      [edition, 'sonnet', 'editor', 'failed', null, 80, '0 days'],
+      [randomUUID(), 'sonnet', 'editor', 'succeeded', 999, 999, '0 days'],
+    ] as const) {
+      await db.query(
+        `INSERT INTO llm_calls(id,model,purpose,run_id,status,cost_micros,reserved_micros,created_at)
+         VALUES($1,$2,$3,$4,$5,$6,$7,now()-$8::interval)`,
+        [randomUUID(), model, purpose, run, status, cost, hold, age],
+      );
+    }
+    assert.deepEqual(await readEditionCost(db, edition), {
+      costMicros: 110,
+      reservedMicros: 70,
+      calls: 5,
+      byModelAndPurpose: [
+        {
+          model: 'haiku',
+          purpose: 'triage',
+          calls: 1,
+          succeeded: 1,
+          failed: 0,
+          unresolved: 0,
+          costMicros: 20,
+          reservedMicros: 0,
+        },
+        {
+          model: 'sonnet',
+          purpose: 'editor',
+          calls: 4,
+          succeeded: 1,
+          failed: 1,
+          unresolved: 2,
+          costMicros: 90,
+          reservedMicros: 70,
+        },
+      ],
+    });
+    assert.deepEqual(await readEditionCost(db, randomUUID()), {
+      costMicros: 0,
+      reservedMicros: 0,
+      calls: 0,
+      byModelAndPurpose: [],
+    });
+  } finally {
+    await db.query('ROLLBACK');
+    await db.end();
+  }
+});
 
 void test('purpose totals reconcile spend and retain old holds without counting failed reservations', async () => {
   const db = new Pool({ connectionString: process.env.DATABASE_URL, max: 1 });

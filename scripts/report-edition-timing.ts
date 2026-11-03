@@ -1,5 +1,8 @@
-// Read-only production evidence: GETs only, no jobs, inference or settings writes.
+// Read-only production evidence: GETs and ledger SELECTs; no jobs or inference.
 import { digestPreviewSchema, operationsStatusSchema } from '@digest/contracts';
+
+import { database } from '../apps/api/src/libs/db/connections';
+import { readEditionCost } from '../apps/api/src/modules/curation/database/edition-cost.reader';
 
 async function read(path: string) {
   const response = await fetch(`http://localhost:8000${path}`, {
@@ -10,69 +13,80 @@ async function read(path: string) {
 }
 
 async function main() {
-  const status = operationsStatusSchema.parse(await read('/api/status'));
-  const queue = status.queues.find((q) => q.name === 'digest-generation');
-  if (!queue?.available) throw new Error('Digest queue unavailable');
-  const completed = queue.runs
-    .filter((run) => run.state === 'completed' && run.editionId)
-    .slice(0, 3);
-  const runs = [];
-  for (const run of completed) {
-    const edition = digestPreviewSchema.parse(
-      await read(`/api/digest-previews/${encodeURIComponent(run.editionId!)}`),
+  const db = database();
+  try {
+    const status = operationsStatusSchema.parse(await read('/api/status'));
+    const queue = status.queues.find((q) => q.name === 'digest-generation');
+    if (!queue?.available) throw new Error('Digest queue unavailable');
+    const completed = queue.runs
+      .filter((run) => run.state === 'completed' && run.editionId)
+      .slice(0, 3);
+    const runs = [];
+    for (const run of completed) {
+      const edition = digestPreviewSchema.parse(
+        await read(
+          `/api/digest-previews/${encodeURIComponent(run.editionId!)}`,
+        ),
+      );
+      runs.push({
+        jobId: run.id,
+        editionId: edition.id,
+        scheduledAt: run.scheduledAt,
+        startedAt: run.startedAt,
+        finishedAt: run.finishedAt,
+        workerDurationMs: run.durationMs,
+        attempts: run.attempts,
+        editionCreatedAt: edition.createdAt,
+        providerLedger: await readEditionCost(db, edition.id),
+        method: edition.method,
+        windowStart: edition.windowStart,
+        windowEnd: edition.windowEnd,
+        topics: edition.topics.map((topic) => ({
+          name: topic.name,
+          candidateCount: topic.candidateCount,
+          storyEditorial: topic.editorial
+            ? {
+                mode: topic.editorial.mode,
+                model: topic.editorial.model,
+                reason: topic.editorial.reason,
+                unscored: topic.editorial.unscoredIds.length,
+              }
+            : null,
+          postCount: topic.posts?.length ?? 0,
+          postEditorial: topic.postEditorial
+            ? {
+                mode: topic.postEditorial.mode,
+                model: topic.postEditorial.model,
+                reason: topic.postEditorial.reason,
+              }
+            : null,
+        })),
+      });
+    }
+    console.log(
+      JSON.stringify({
+        checkedAt: status.checkedAt,
+        note: 'Retained live jobs only; duration covers the final worker attempt, excludes queue wait, and may reuse an existing edition or cached scores. AI mode does not prove fresh provider calls. Fallback/cache timings do not establish cold live AI latency targets. No inference or publication triggered.',
+        nextRun: queue.nextRun,
+        llmBudget: {
+          todayMicros: status.llm.todayMicros,
+          availableMicros: status.llm.availableMicros,
+          todayReservedMicros: status.llm.todayReservedMicros,
+          dailyCapMicros: status.llm.dailyCapMicros,
+          blockedUntil: status.llm.blockedUntil,
+        },
+        scheduledReserve: status.llm.scheduledReserve ?? null,
+        pending: queue.runs
+          .filter((run) => ['active', 'waiting', 'delayed'].includes(run.state))
+          .map(({ id, state, scheduledAt }) => ({ id, state, scheduledAt })),
+        costNote:
+          'Microdollars attributed by edition UUID, not time overlap. Successful calls are settled cost; pending/uncertain calls retain holds. Cache hits have no new call. Failed unpublished attempts have different UUIDs and are excluded; this is not total scheduled retry spend.',
+        runs,
+      }),
     );
-    runs.push({
-      jobId: run.id,
-      editionId: edition.id,
-      scheduledAt: run.scheduledAt,
-      startedAt: run.startedAt,
-      finishedAt: run.finishedAt,
-      workerDurationMs: run.durationMs,
-      attempts: run.attempts,
-      editionCreatedAt: edition.createdAt,
-      method: edition.method,
-      windowStart: edition.windowStart,
-      windowEnd: edition.windowEnd,
-      topics: edition.topics.map((topic) => ({
-        name: topic.name,
-        candidateCount: topic.candidateCount,
-        storyEditorial: topic.editorial
-          ? {
-              mode: topic.editorial.mode,
-              model: topic.editorial.model,
-              reason: topic.editorial.reason,
-              unscored: topic.editorial.unscoredIds.length,
-            }
-          : null,
-        postCount: topic.posts?.length ?? 0,
-        postEditorial: topic.postEditorial
-          ? {
-              mode: topic.postEditorial.mode,
-              model: topic.postEditorial.model,
-              reason: topic.postEditorial.reason,
-            }
-          : null,
-      })),
-    });
+  } finally {
+    await db.end();
   }
-  console.log(
-    JSON.stringify({
-      checkedAt: status.checkedAt,
-      note: 'Retained live jobs only; duration covers the final worker attempt, excludes queue wait, and may reuse an existing edition or cached scores. AI mode does not prove fresh provider calls. Fallback/cache timings do not establish cold live AI latency targets. No inference or publication triggered.',
-      nextRun: queue.nextRun,
-      llmBudget: {
-        todayMicros: status.llm.todayMicros,
-        availableMicros: status.llm.availableMicros,
-        todayReservedMicros: status.llm.todayReservedMicros,
-        dailyCapMicros: status.llm.dailyCapMicros,
-        blockedUntil: status.llm.blockedUntil,
-      },
-      pending: queue.runs
-        .filter((run) => ['active', 'waiting', 'delayed'].includes(run.state))
-        .map(({ id, state, scheduledAt }) => ({ id, state, scheduledAt })),
-      runs,
-    }),
-  );
 }
 
 void main().catch(() => {

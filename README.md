@@ -119,10 +119,15 @@ provider/network latency and rate limits; they do not establish the live
 <60 s / <2 min targets. Run with `pnpm test` against disposable services, never the live database.
 
 For read-only live evidence, run `pnpm exec tsx scripts/report-edition-timing.ts`
-with the API running locally. It only GETs status and the editions linked to the
-three latest retained completed jobs; it never enqueues work or calls an LLM.
+with the API running locally and the configured database environment loaded.
+It GETs status and the editions linked to the three latest retained completed
+jobs and SELECTs their provider ledger entries; it never enqueues work or calls an LLM.
 The report includes final-attempt worker duration, edition creation/window,
-candidate counts, editorial modes/reasons and remaining app budget. Queue wait,
+candidate counts, editorial modes/reasons, scheduled reserve/outcome and remaining app budget.
+Per-edition settled microdollar cost, unresolved holds and model/purpose call counts
+use the edition UUID, so concurrent manual jobs cannot inflate the scheduled cost.
+Cache hits add no new call; failed unpublished attempts use different UUIDs and
+are excluded, so these totals do not measure all retry spend. Queue wait,
 prior retries and cold provider latency are not measured. A reused edition,
 cached scores or non-AI fallback must not be reported as a cold AI timing result.
 On November 2 at 14:49 UTC, retained jobs were older `signals-v6` publications

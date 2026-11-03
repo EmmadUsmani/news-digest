@@ -43,3 +43,36 @@ export async function readFullAiEditionCosts(
     return value;
   });
 }
+
+// A published edition's UUID is also the LLM run_id. Do not infer attribution
+// from timestamps: manual jobs can overlap the scheduled worker.
+export async function readEditionCost(
+  db: Pool | PoolClient,
+  editionId: string,
+) {
+  const { rows } = await db.query<{
+    model: string;
+    purpose: string;
+    calls: number;
+    succeeded: number;
+    failed: number;
+    unresolved: number;
+    costMicros: number;
+    reservedMicros: number;
+  }>(
+    `SELECT model,purpose,count(*)::int AS calls,
+      count(*) FILTER (WHERE status='succeeded')::int AS succeeded,
+      count(*) FILTER (WHERE status='failed')::int AS failed,
+      count(*) FILTER (WHERE status IN ('pending','uncertain'))::int AS unresolved,
+      COALESCE(sum(cost_micros),0)::float8 AS "costMicros",
+      COALESCE(sum(reserved_micros) FILTER (WHERE status IN ('pending','uncertain')),0)::float8 AS "reservedMicros"
+     FROM llm_calls WHERE run_id=$1 GROUP BY model,purpose ORDER BY model,purpose`,
+    [editionId],
+  );
+  return {
+    costMicros: rows.reduce((sum, row) => sum + row.costMicros, 0),
+    reservedMicros: rows.reduce((sum, row) => sum + row.reservedMicros, 0),
+    calls: rows.reduce((sum, row) => sum + row.calls, 0),
+    byModelAndPurpose: rows,
+  };
+}
