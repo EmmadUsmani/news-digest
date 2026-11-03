@@ -385,6 +385,27 @@
       "right": "95dde458-05fc-4bc5-961d-8b48c61c09bf",
       "sameEvent": false,
       "reason": "New Thief campaign developer details versus console physical-edition packaging."
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "bddb7e26-e09f-4190-9b41-98de64585125",
+      "right": "277cccbe-ae81-45bb-aa9f-c5ac3301ce3d",
+      "sameEvent": true,
+      "reason": "Same San Antonio–Minnesota Halloween game: both recorded headlines give the Spurs win and identical 121–111 score, within three hours."
+    },
+    {
+      "window": "ranking-tech-2026-11-01.json",
+      "left": "c0ea84bf-d982-4201-90c0-fa940a269198",
+      "right": "b79dbac3-169b-4fff-a25f-70e754c4d5ca",
+      "sameEvent": true,
+      "reason": "Identical distinctive investment-column headline and excerpt within one hour, differing only by publisher suffix; same syndicated content for deduplication. Not a discrete news event or evidence of independent reporting; original attribution is not verified from these Google News records."
+    },
+    {
+      "window": "ranking-tech-2026-11-01.json",
+      "left": "fc997ea3-1e67-42ca-a821-5c25c0c79cc3",
+      "right": "b79dbac3-169b-4fff-a25f-70e754c4d5ca",
+      "sameEvent": true,
+      "reason": "Identical distinctive investment-column headline and excerpt within one hour, differing only by publisher suffix; same syndicated content for deduplication. Not a discrete news event or evidence of independent reporting; original attribution is not verified from these Google News records."
     }
   ]
 }

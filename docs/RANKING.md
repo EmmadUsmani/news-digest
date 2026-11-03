@@ -800,3 +800,21 @@ Gaming still has no merges. Synthetic tests demonstrate overlapping A–B/B–C
 matches with a negative A–C label, order-sensitive complete-link assignment,
 and explicit unknown/incorrect merge accounting. These tests do not add real
 precision evidence. Production grouping and ranking remain unchanged.
+
+## Iteration 331: review all observed cluster merges
+
+Reviewed the three previously unlabelled pairs using the stored headlines,
+excerpts and timestamps, without fetching publishers. The NBA pair describes
+the same Spurs–Timberwolves Halloween game, with identical winner and 121–111
+score. The two Tech pairs share a distinctive investment-column headline and
+excerpt within one hour, differing by publisher suffix. They are positive
+**content deduplication** labels, not evidence of a discrete news event,
+independent reporting, original attribution or investment relevance.
+
+The selected set now has **58 pairs: 30 positive and 28 negative**. Lexical
+matching finds 6/30 positives; opt-in game matching finds 10/30, both with
+0/28 false merges. All ten full-window opt-in merges now have positive labels,
+with no unknown or negative merges in either input direction. This closes the
+observed label gap, not the general precision question: labels remain agent
+reviewed, Gaming still has no merges, and outlet independence needs separate
+verification. No matcher, production grouping or ranking behavior changed.

@@ -121,3 +121,13 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Updated RANKING/TASKS, compacted task detail and archived iterations 317–318 to keep orientation bounded.
 - Verification: targeted evaluator tests 4/4; `pnpm exec tsx scripts/evaluate-event-grouping.ts --game-scores`; `pnpm format`, `pnpm lint:fix`, full `pnpm check` (198 unit/170 integration passed), `pnpm build`, `git diff --check`. Initial check caught archive formatting; fixed and reran successfully.
 - App/docs/db/health HTTP 200; retained live edition has 20 stories/10 X posts. No restart under STEERING 22: only offline evaluation/tests/docs changed. Next: review three unlabelled merges and improve conservative paraphrase recall; scheduled evidence/acks take priority.
+
+## 2026-11-03: iteration 331 — close observed cluster label gaps
+
+- Started clean on main; no leftover work. Four services and health healthy, all 32 sources without current errors and no retained failed jobs. Nov 3 scheduled evidence remains due at 15:00 UTC.
+- Reviewed three unknown full-window merges from recorded headlines/excerpts/timestamps: same Spurs–Timberwolves game and two syndicated investment-column pairs. Added explicit positive labels with attribution/independence limitations; no publisher requests.
+- Benchmark now has 58 pairs: 30 positive/28 negative. Lexical 6/30 and opt-in 10/30 positives, both zero false merges; all ten observed cluster merges labeled positive in both input directions. Gaming remains zero merges; agent labels are not independent/general precision evidence.
+- Updated regression expectations, RANKING and TASKS. No matcher, production config/UI/handbook/source changes, paid calls or Reddit requests. Syndicated duplicates must not be treated as independent reporting.
+- Verification: targeted tests 7/7; both offline evaluator modes; `pnpm format`, `pnpm lint:fix`, full `pnpm check` (198 unit/170 integration passed), `pnpm build`, `git diff --check`. Targeted test initially exposed stale baseline count; corrected before full check.
+- App/docs/db/health HTTP 200; live edition retains 20 stories/10 posts. Rolling articles/X posts: Tech 338/62, NBA 118/32, Gaming 285/7, World 226/3. No restart under item 22: only fixtures/tests/docs changed.
+- Next: conservative Gaming/paraphrase recall and independent labels before gated grouping wiring; scheduled evidence/acks take priority.
