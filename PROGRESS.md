@@ -1,20 +1,8 @@
 # Progress
 
-Archived: [iteration 291](docs/progress-archive/2026-11-03-iteration-291.md), [iteration 290](docs/progress-archive/2026-11-03-iteration-290.md), [iteration 288](docs/progress-archive/2026-11-03-iteration-288.md), [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md), [286](docs/progress-archive/2026-11-03-iteration-286.md).
+Archived: [iteration 292](docs/progress-archive/2026-11-03-iteration-292.md), [iteration 291](docs/progress-archive/2026-11-03-iteration-291.md), [iteration 290](docs/progress-archive/2026-11-03-iteration-290.md), [iteration 288](docs/progress-archive/2026-11-03-iteration-288.md), [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md), [286](docs/progress-archive/2026-11-03-iteration-286.md).
 
 Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md), [283](docs/progress-archive/2026-11-03-iteration-283.md), [284](docs/progress-archive/2026-11-03-iteration-284.md).
-
-## 2026-11-03: iteration 292 — persisted open-search followup evidence
-
-- Started clean on main; no leftover work. Four services/health healthy; 32 sources error-free and no retained failed jobs.
-- Added a read-only repository reader for durable completed primary open-search IDs and incremental currently verified additions per enabled topic/day.
-- Missing/unfinished verification, failed calls and unknown historical attribution cannot produce a completed planning snapshot; ledger admission still revalidates under its lock.
-- Extended disposable-DB integration assertions for restart recovery, zero/three/two additions, unknown attribution and invalid/other dates; no external calls.
-- Production remains account-list pending item 15 scheduled evidence/ack; optional scheduler wiring remains unfinished.
-- Verified: `pnpm format`, `pnpm lint:fix`, `pnpm check` (153 unit/168 integration), `pnpm build`, `git diff --check`.
-- Restarted API/worker/docs/schema; all active, health OK, SPA/docs/db HTTP 200.
-- Read-only Nov 3 X report: zero calls/cost/holds; scheduled evidence still due before the 15:00 UTC edition. No paid provider or Reddit requests.
-- Next: observe scheduled evidence/acks, switch open search, connect persisted followup snapshots to scheduler execution.
 
 ## 2026-11-03: iteration 293 — optional X scheduler orchestration
 
@@ -194,3 +182,12 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Items 13/7/15 still need actual scheduled evidence; item 16 activation remains explicitly gated by item 15 acknowledgement. No application/settings changes, paid calls or Reddit requests. Archived iteration 291 to keep progress bounded.
 - Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `git diff --check`; restarted four services, active; health/app/status/docs/db HTTP 200. No UI change.
 - Next: measure scheduled X per-topic cost/yield and edition AI cost/duration, acknowledge results, then activate open search.
+
+## 2026-11-03: iteration 311 — scheduled evidence still pending
+
+- Started clean on main; no leftover work. Four app services active; database/Redis healthy, all queues staffed, all 32 sources error-free.
+- Read-only status at 02:37 UTC: rolling-day articles Tech/AI 332, NBA 109, Gaming 287, World 223; verified X posts 49/31/17/3.
+- `pnpm exec tsx scripts/report-x-discovery.ts 2026-11-03`: zero calls/cost/holds. `pnpm exec tsx scripts/report-edition-timing.ts`: next edition 15:00 UTC, 482,788-micro reserve pending, other Anthropic allowance zero.
+- Items 13/7/15 await actual scheduled evidence; item 16 activation remains gated by item 15 acknowledgement. No application/settings changes, paid calls or Reddit requests. Archived iteration 292 to bound progress size.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check`; passed (163 unit/168 integration tests); four services restarted; health/app/status/docs/db HTTP 200. No UI change.
+- Next: measure scheduled per-topic X cost/yield and edition AI cost/duration, acknowledge results, then activate open search.
