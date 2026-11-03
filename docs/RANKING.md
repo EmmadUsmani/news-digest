@@ -696,6 +696,23 @@ unverified explanation without populating official metrics. AI snapshots use
 Fake-service tests show high-engagement candidates entering the shortlist while
 low-relevance/low-interest candidates remain excluded; no live quality claim.
 
+## Iteration 334: opt-in grouping in ranked story slots
+
+Ranking now accepts an explicit event matcher, retaining the lexical matcher
+when omitted. No production caller opts in. This prepares the studio/game
+matcher for later activation after the scheduled-run gate and further evidence.
+Clustering still runs after quality/window filtering and score ordering, and
+before applying the story limit. Merged articles retain their outlet URLs in
+coverage; the highest-ranked article supplies the lead and score. Observed
+source labels still receive no independence or ranking bonus.
+
+Offline recorded Gaming ranking with the prepared matcher retains all three
+Nagoshi closure reports in one story slot. Synthetic regressions also verify
+that a merge frees a slot for another event, input order does not change the
+scored lead, zero budget selects nothing, and excluded articles cannot become
+coverage. These checks verify integration behavior, not general merge quality;
+the existing 60-pair benchmark and independent-review limitations still apply.
+
 ## Iteration 326: strict event-grouping baseline
 
 Run `pnpm exec tsx scripts/evaluate-event-grouping.ts` offline. It reads 21

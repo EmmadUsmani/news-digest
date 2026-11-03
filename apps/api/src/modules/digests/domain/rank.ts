@@ -1,4 +1,4 @@
-import { clusterCandidates } from './cluster';
+import { clusterCandidates, sameEvent } from './cluster';
 import { qualityRejection } from './quality';
 export interface Candidate {
   id: string;
@@ -26,6 +26,8 @@ export function rank(
   start: Date,
   end: Date,
   budget: number,
+  // Explicit opt-in for prepared matchers; production callers retain the baseline.
+  matches: (a: Candidate, b: Candidate) => boolean = sameEvent,
 ) {
   if (
     !Number.isFinite(start.getTime()) ||
@@ -79,7 +81,10 @@ export function rank(
     })
     .sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
   const byId = new Map(scored.map((item) => [item.id, item]));
-  return clusterCandidates(scored.map((item) => ({ ...item, points: 0 })))
+  return clusterCandidates(
+    scored.map((item) => ({ ...item, points: 0 })),
+    matches,
+  )
     .slice(0, budget)
     .map((group) => {
       const lead = byId.get(group[0].id)!;
