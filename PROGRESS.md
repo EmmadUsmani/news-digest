@@ -162,3 +162,12 @@
 - Restarted API/worker; pnpm obs health --check passed, root HTTP 200, both units active, zero alerts and no dangling Docker volumes.
 - Compacted TASKS/RANKING and archived iteration 444 to keep PROGRESS bounded. No UI/handbook production-flow change, paid calls, new editions or Reddit requests.
 - Next: Nov 4 social selections/screenshots, World yield and latency/full-AI evidence; broader grouping recall/independent labels remain open.
+
+## 2026-11-03: iteration 461 — separate future studio closures
+
+- Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis and 32 healthy source connections. Nov 4 scheduled social/latency evidence remains pending; advanced item 19.
+- Opt-in studio grouping now excludes relative future closures (“tomorrow”, “next week/month/year”) before or after assertions in titles/excerpts, including identical-headline fallback. Separate future background sentences stay accepted.
+- Bidirectional synthetic regression guards pass; recorded evaluation remains 33/57 positives, zero/41 false merges and no unknown merges or sampled membership variation. Agent labels are not independent validation; production grouping stays disabled.
+- pnpm format, pnpm lint:fix, pnpm check (294 unit/176 isolated integration), pnpm build and git diff --check passed; no dangling Docker volumes.
+- Restarted API/worker; pnpm obs health --check passed, root HTTP 200 and zero alerts. Updated TASKS/RANKING. No UI or handbook flow change, paid calls, new editions or Reddit requests.
+- Next: Nov 4 open-X/Bluesky selections/screenshots, World yield and latency/full-AI evidence; broader grouping recall and independent labels remain open.

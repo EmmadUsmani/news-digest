@@ -49,12 +49,12 @@ function closedStudio(candidate: Candidate): string | null | false {
       // Qualifiers before an assertion in the excerpt matter too. Scope this
       // to its sentence so an unrelated founding date is not a closure date.
       const prefix = text.slice(0, match.index).split(/[.!?]/).at(-1)!;
-      return /\b(?:previously|formerly|once|years? ago|last year|in (?:19|20)\d{2})\b/i.test(
+      return /\b(?:previously|formerly|once|years? ago|last year|tomorrow|next (?:week|month|year)|in (?:19|20)\d{2})\b/i.test(
         prefix,
       );
     }) ||
     matches.some((match) =>
-      /^[^.!?]{0,60}\b(?:(?:19|20)\d{2}|years? ago|last year)\b/.test(
+      /^[^.!?]{0,60}\b(?:(?:19|20)\d{2}|years? ago|last year|tomorrow|next (?:week|month|year))\b/i.test(
         text.slice(match.index + match[0].length),
       ),
     )

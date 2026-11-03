@@ -257,3 +257,45 @@ void test('excerpt qualifiers before closure assertions cannot turn history into
     true,
   );
 });
+
+void test('relative future closure dates stay separate from current shutdowns', () => {
+  const current = item('Copper Studio shuts down');
+  for (const assertion of [
+    'Copper Studio closes next month',
+    'Copper Studio shuts down tomorrow',
+    'Copper Studio shuts down (Tomorrow)',
+    'Copper Studio is closing its doors next week',
+    'Copper Studio ceases operations next year',
+    'Next month, Copper Studio shuts down',
+    'Tomorrow, Copper Studio closes its doors',
+  ]) {
+    for (const candidate of [
+      item(assertion),
+      { ...item('Developer announces shutdown'), excerpt: assertion },
+    ]) {
+      assert.equal(
+        sameEventWithStudioClosure(current, candidate),
+        false,
+        assertion,
+      );
+      assert.equal(
+        sameEventWithStudioClosure(candidate, current),
+        false,
+        assertion,
+      );
+      assert.equal(
+        sameEventWithStudioClosure(candidate, candidate),
+        false,
+        assertion,
+      );
+    }
+  }
+  for (const excerpt of [
+    'Next month, a new game launches. Copper Studio shuts down.',
+    'Copper Studio shuts down. Staff meet next week.',
+  ]) {
+    const candidate = { ...item('Developer confirms shutdown'), excerpt };
+    assert.equal(sameEventWithStudioClosure(current, candidate), true, excerpt);
+    assert.equal(sameEventWithStudioClosure(candidate, current), true, excerpt);
+  }
+});

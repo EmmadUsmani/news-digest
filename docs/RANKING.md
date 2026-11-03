@@ -1160,3 +1160,14 @@ This recovers the existing GamesRadar+/GamingBolt revised GTA 6 schedule pair:
 33/57 recorded positive pairs, zero/41 false merges, no unknown cluster pairs
 or membership variation across the sampled orders. Labels remain agent-reviewed,
 not independent validation. Production grouping stays disabled. No paid calls.
+
+## Iteration 461: relative future studio closures
+
+The opt-in studio matcher rejects closure assertions qualified by “tomorrow”
+or “next week/month/year”, before the named assertion in its sentence or
+within the existing bounded suffix. These dates cannot establish a current
+shutdown, including in excerpts or identical-headline lexical fallback.
+Separate sentences about future games or staff meetings remain accepted.
+Bidirectional synthetic guards pass. The recorded benchmark remains 33/57
+positives with zero/41 false merges; agent labels are not independent
+validation. Production grouping remains disabled.
