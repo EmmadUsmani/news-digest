@@ -1046,3 +1046,14 @@ labeled false merges. All six windows have zero unknown/false cluster merges
 and no membership variation across 34 deterministic orders. These agent labels
 are not independent validation; grouping remains disabled in production. Alias,
 explicit-date and broader Gaming paraphrase recall remain unfinished.
+
+## Iteration 452: explicit preload hardware variants
+
+The opt-in preload rule now distinguishes PS5 Pro, Xbox One, Xbox Series X/S
+and Switch 2 from their other hardware variants. PlayStation 4/5 spellings
+normalize to PS4/5, repeated mentions are deduplicated, and platform sets are
+compared regardless of order. Conflicting explicit sets stay separate; an
+unspecified platform still supplies no evidence of a conflict. Synthetic pairs
+exercise both argument orders. Recorded results remain 16/47 positive pairs,
+zero/41 false merges; this guard adds no real-report recall evidence.
+Production grouping remains disabled.

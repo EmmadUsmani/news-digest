@@ -53,6 +53,32 @@ void test('preload overviews require the same game and a bounded unqualified sch
   }
 });
 
+void test('preload platforms preserve hardware variants and normalize equivalent mentions', () => {
+  const overview = (platform: string) =>
+    item(`Example Quest preload dates on ${platform}`);
+  for (const [left, right] of [
+    ['PS5', 'PS5 Pro'],
+    ['PlayStation 5 Pro', 'PS5'],
+    ['Xbox Series X', 'Xbox Series S'],
+    ['Xbox One', 'Xbox Series X'],
+    ['Switch', 'Switch 2'],
+    ['PC and PS5', 'PC'],
+  ]) {
+    assert.equal(samePreloadOverview(overview(left), overview(right)), false);
+    assert.equal(samePreloadOverview(overview(right), overview(left)), false);
+  }
+  for (const [left, right] of [
+    ['PS5', 'PlayStation 5'],
+    ['PS5 Pro', 'PlayStation 5 Pro'],
+    ['PS5 and PS5', 'PS5'],
+    ['PS5 and PC', 'PC and PlayStation 5'],
+    ['Switch 2', 'Switch 2'],
+  ]) {
+    assert.equal(samePreloadOverview(overview(left), overview(right)), true);
+    assert.equal(samePreloadOverview(overview(right), overview(left)), true);
+  }
+});
+
 void test('opt-in preload rule improves recorded recall without unknown or incorrect cluster merges', () => {
   const result = evaluateEventGrouping(sameEventWithStudioClosure);
   assert.equal(result.falsePositives, 0);

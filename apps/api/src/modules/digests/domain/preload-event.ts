@@ -18,7 +18,9 @@ function preloadOverview(candidate: Candidate): string | null {
   if (!match) return null;
   // Concrete dates, sizes or versions beyond the entity need a richer parser.
   // Also refuse secondary announcements mixed into an overview headline.
-  const suffix = title.slice(match[1].length).replace(/\bps[45]\b/g, '');
+  const suffix = title
+    .slice(match[1].length)
+    .replace(/\b(?:ps[45]|playstation [45]|switch 2)\b/g, '');
   if (
     /\d|\b(delay|cancel|change|update|patch|trailer|sales|revenue|rumor)\w*\b/.test(
       suffix,
@@ -29,12 +31,18 @@ function preloadOverview(candidate: Candidate): string | null {
 }
 
 export function samePreloadOverview(a: Candidate, b: Candidate): boolean {
-  const platforms = (title: string) =>
-    title
+  // Match the longest hardware name first, preserving editions and generations.
+  // Deduplicate repeated mentions so repetition alone cannot split an overview.
+  const platforms = (title: string) => {
+    const names = title
+      .normalize('NFKC')
       .toLowerCase()
-      .match(/\b(?:ps[45]|xbox|pc|switch)\b/g)
-      ?.sort()
-      .join('|');
+      .match(
+        /\b(?:ps5 pro|playstation 5 pro|ps[45]|playstation [45]|xbox series [xs]|xbox one|xbox|pc|switch 2|switch)\b/g,
+      )
+      ?.map((name) => name.replace('playstation ', 'ps'));
+    return names ? [...new Set(names)].sort().join('|') : undefined;
+  };
   const ap = platforms(a.title),
     bp = platforms(b.title);
   if (ap && bp && ap !== bp) return false;
