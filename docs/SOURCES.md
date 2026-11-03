@@ -1524,3 +1524,8 @@ phrase, excludes high-engagement irrelevant posts and fails closed on incomplete
 or malformed triage. Existing budgeted social triage is injected; no live LLM
 calls, new API collection or production edition caller. Final editing, cards and
 real editorial yield remain pending; the 189 stored observations are unreviewed.
+
+Iteration 322 adds isolated final Bluesky editing after semantic shortlisting.
+Fake-only checks cover bounded candidates, fewer-than-budget picks, preserved
+observations, invalid/refused selections and zero-budget no-I/O behavior.
+No new live yield claim, collection or paid calls; production inclusion stays off.

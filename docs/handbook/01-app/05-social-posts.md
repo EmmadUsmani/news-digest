@@ -67,11 +67,11 @@ prove the scheduler covered every topic.
 
 ## Other platforms
 
-| Platform | Status                                                                                                                                                                                                                                                        |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Reddit   | **Parked.** Built, but Reddit blocks public access and ends RSS on Nov 13. The only way back is the official API with owner credentials.                                                                                                                      |
-| Bluesky  | **Preparation only:** authenticated discovery, phrase-filtered and semantic engagement/age shortlists, plus storage for timestamped text/media/count snapshots. Explicit free collection is available; scheduled collection and edition inclusion remain off. |
-| YouTube  | **Deferred** by the owner.                                                                                                                                                                                                                                    |
+| Platform | Status                                                                                                                                                                                                                                                                                |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Reddit   | **Parked.** Built, but Reddit blocks public access and ends RSS on Nov 13. The only way back is the official API with owner credentials.                                                                                                                                              |
+| Bluesky  | **Preparation only:** authenticated discovery, phrase-filtered and semantic engagement/age shortlists, isolated final editing, plus storage for timestamped text/media/count snapshots. Explicit free collection is available; scheduled collection and edition inclusion remain off. |
+| YouTube  | **Deferred** by the owner.                                                                                                                                                                                                                                                            |
 
 Bluesky storage retains each topic's observations separately, so a later count
 cannot overwrite the evidence available at an earlier cutoff. Current post
@@ -91,3 +91,8 @@ keyword, requires complete scores, and orders qualifying posts by interestingnes
 relevance and observed engagement/age. Missing or malformed scores produce no
 semantic picks. This preparation does not call the final editor or publish posts;
 API counts still do not establish measured growth or account-relative reach.
+
+Bluesky final editing selects at most ten shortlisted observations without rewriting
+the original text, media or counts. Refused or invalid selections produce no picks.
+Its separate editorial prompt and budget-ledger purpose do not change X editing;
+no production edition or scheduler calls this preparation path.

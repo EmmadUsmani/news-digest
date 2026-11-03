@@ -133,3 +133,19 @@ void test('quiet/zero budget social selections make no calls and invalid inputs 
   );
   assert.equal(empty.calls.length, 0);
 });
+
+void test('Bluesky editor uses isolated purpose and observation instructions', async () => {
+  const h = harness();
+  await h.editor.edit(
+    topic,
+    [{ ...candidates[0], platform: 'bluesky' }],
+    1,
+    'bluesky',
+  );
+  assert.equal(h.calls[0].purpose, 'bluesky-social-editor-v1');
+  assert.match(h.calls[0].instructions, /official API observations/);
+  assert.doesNotMatch(
+    h.calls[0].instructions,
+    /X posts come from verified embeds/,
+  );
+});

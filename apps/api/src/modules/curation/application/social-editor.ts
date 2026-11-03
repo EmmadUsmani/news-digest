@@ -7,7 +7,7 @@ import type { TriageTopic } from './triage';
 
 export interface SocialEditorialCandidate {
   id: string;
-  platform?: 'x' | 'reddit';
+  platform?: 'x' | 'reddit' | 'bluesky';
   text: string;
   author: string;
   publishedAt: string;
@@ -110,9 +110,16 @@ export class SocialPostEditor {
       const result = await this.llm.json(
         {
           model,
-          purpose: 'social-editor-v2',
+          purpose: candidates.some((c) => c.platform === 'bluesky')
+            ? 'bluesky-social-editor-v1'
+            : 'social-editor-v2',
           runId,
-          instructions,
+          instructions: candidates.some((c) => c.platform === 'bluesky')
+            ? instructions.replace(
+                /X posts come from verified embeds;.*?Preserve uncertainty and attribution\./,
+                'Bluesky posts are official API observations, not fact-checked claims. Select exceptional posts without padding. Engagement, velocity, usual reach and media contents are not supplied to this editor. Never infer virality or describe unseen video/image contents. Preserve uncertainty and attribution.',
+              )
+            : instructions,
           prompt,
           maxOutputTokens: 4000,
         },
