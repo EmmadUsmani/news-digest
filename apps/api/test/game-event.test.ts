@@ -55,3 +55,39 @@ void test('game scores require matching teams, outcomes, bounded time and unambi
     [[lead, coverage]],
   );
 });
+
+void test('score attribution survives loser-first order and overrides lexical similarity', () => {
+  const winnerFirst = item('Rapid Recap: Cavaliers 136, Bucks 111');
+  const loserFirst = item('Rapid Recap: Bucks 111, Cavaliers 136');
+  assert.equal(sameEventWithGameScore(winnerFirst, loserFirst), true);
+  assert.equal(sameEventWithGameScore(loserFirst, winnerFirst), true);
+  const opposite = item('Rapid Recap: Cavaliers 111, Bucks 136');
+  assert.equal(sameEventWithGameScore(winnerFirst, opposite), false);
+  assert.equal(sameEventWithGameScore(opposite, winnerFirst), false);
+  for (const title of [
+    'Bucks fall to Cavaliers 136-111',
+    'Bucks lose to Cavaliers 136-111',
+    'Bucks defeated by Cavaliers 136-111',
+    'Bucks and Cavaliers 136-111: game recap',
+    'Bucks beat Cavaliers 111-136',
+  ]) {
+    assert.equal(
+      sameEventWithGameScore(winnerFirst, item(title)),
+      false,
+      title,
+    );
+    assert.equal(
+      sameEventWithGameScore(item(title), winnerFirst),
+      false,
+      title,
+    );
+  }
+  assert.equal(
+    sameEventWithGameScore(
+      winnerFirst,
+      item(loserFirst.title, '2026-11-02T07:00:00Z'),
+    ),
+    false,
+    'lexical similarity cannot bypass the game time bound',
+  );
+});

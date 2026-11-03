@@ -733,7 +733,7 @@ including Cavs/Cavaliers and Wolves/Timberwolves aliases. This remains a small,
 agent-labeled development sample, not a general precision claim.
 
 The matcher requires two unambiguous NBA teams, a single plausible score and
-at most 18 hours between reports; it preserves team order and score attribution.
+at most 18 hours between reports; it preserves score attribution to each team.
 Previews, predictions, multi-score reports, missing scores, conflicting outcomes
 and invalid timestamps cannot use this extra rule. Conservative misses remain:
 reports naming only a city, scoreless highlights and non-sports paraphrases.
@@ -742,3 +742,15 @@ matcher remains the default; only an explicit matcher argument enables the
 prepared grouping, and no production caller supplies it. No ranking bonus or
 claim of outlet independence was added. More dates, Gaming and independent
 negative review remain necessary before broader activation under STEERING 23.
+
+## Iteration 328: conservative score attribution
+
+The opt-in matcher now canonicalizes explicit team-score pairs, including
+loser-first recaps, before considering lexical similarity. Conflicting explicit
+outcomes and the 18-hour bound cannot be bypassed by overlapping words or sorted
+numbers. Bare scores require a clear winning action; loss-first and ambiguous
+matchup wording are rejected rather than guessing which team owns each score.
+Synthetic regression cases cover both argument orders and reversed outcomes.
+The recorded benchmark remains 4/11 positives and 0/10 false merges; these
+regressions are synthetic, not additional real-world precision evidence.
+Production still uses the original lexical matcher.

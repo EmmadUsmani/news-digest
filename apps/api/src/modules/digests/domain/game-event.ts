@@ -64,14 +64,41 @@ function gameIdentity(title: string): string | null {
     );
   const first = position(named[0]) < position(named[1]) ? named[0] : named[1];
   const second = named.find((team) => team !== first)!;
-  return `${first}:${score[0]}|${second}:${score[1]}`;
+  // Team-score pairs explicitly assign each value, even in loser-first recaps.
+  const teamPattern = (team: number) => `(?:${teams[team].join('|')})`;
+  const assigned = new RegExp(
+    `\\b${teamPattern(first)}\\s+${score[0]}\\s*,\\s*${teamPattern(second)}\\s+${score[1]}\\b`,
+  ).test(text);
+  if (!assigned) {
+    // A bare score is conventionally winner-first, but only accept a clear
+    // winning action. Loss-first and matchup-only wording cannot assign it.
+    if (score[0] < score[1]) return null;
+    const between = text.slice(position(first), position(second));
+    if (
+      !/\b(win|wins|beat|beats|defeat|defeats|tame|tames|haunt|haunts)\b/.test(
+        between,
+      )
+    )
+      return null;
+    if (/\b(lose|loses|loss|fall|falls|fell|lost|beaten|defeated)\b/.test(text))
+      return null;
+  }
+  return [
+    [first, score[0]],
+    [second, score[1]],
+  ]
+    .sort((left, right) => left[0] - right[0])
+    .map(([team, points]) => `${team}:${points}`)
+    .join('|');
 }
 
 export function sameEventWithGameScore(a: Candidate, b: Candidate): boolean {
   const delta = Math.abs(Date.parse(a.publishedAt) - Date.parse(b.publishedAt));
   if (!Number.isFinite(delta)) return false;
-  if (sameEvent(a, b)) return true;
-  if (delta > 18 * 3600000) return false;
   const left = gameIdentity(a.title);
-  return left !== null && left === gameIdentity(b.title);
+  const right = gameIdentity(b.title);
+  // Explicit outcomes take precedence over lexical overlap (which sorts numbers).
+  if (left !== null || right !== null)
+    return delta <= 18 * 3600000 && left !== null && left === right;
+  return sameEvent(a, b);
 }

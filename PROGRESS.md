@@ -114,3 +114,12 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Fake-only adversarial tests cover gates and defaults. No production caller, collection, paid calls, Reddit requests or UI changes. Updated RANKING/TASKS; archived iterations 315–316 to bound PROGRESS.
 - Verification: targeted tests, `pnpm format`, `pnpm lint:fix`, full `pnpm check` (194 unit/170 integration passed; typecheck/lint/format/boundaries), `pnpm build`, `git diff --check`. No handbook change: offline preparation changes no production flow.
 - Restarted API/worker for the clustering signature change; all four services active, health database/Redis OK and app/docs/db HTTP 200. Live edition retains 20 stories/10 posts; all 32 sources healthy. Next: broaden recorded adversarial evidence before gated publication wiring; scheduled evidence/acks take priority.
+
+## 2026-11-03: iteration 328 — conservative game score attribution
+
+- Started clean on main; no leftover work. Four app services/health healthy, all 32 sources without current errors; no failed digest runs. Two retained ingestion failures have recovered sources. Nov 3 scheduled evidence remains pending.
+- Hardened the default-off game matcher: explicit team-score pairs canonicalize loser-first reports; conflicting outcomes and the 18-hour bound override lexical overlap. Bare scores require clear winning wording, rejecting ambiguous/loss-first attribution.
+- Added synthetic symmetric regressions for reversed score assignments, loser-first recaps, ambiguous/loss-first headlines and lexical time-bound bypass. Recorded benchmark remains 4/11 positives, 0/10 false merges; synthetic tests are not new live precision evidence.
+- Updated RANKING/TASKS. No production caller, configuration change, paid calls, collection, Reddit requests or UI change. No handbook change: production flows remain unchanged.
+- Verification: targeted tests (4 passed), `pnpm format`, `pnpm lint:fix`, full `pnpm check` (195 unit/170 integration passed) and `pnpm build`; `git diff --check`; app/docs/db/health HTTP 200. Live coverage: 334/116/285/227 articles and 57/27/9/3 verified X posts across Tech/NBA/Gaming/World; retained edition has 20 stories/10 posts.
+- No restart under item 22: changed helper has no runtime caller. Next: broaden recorded dates/negative labels before gated publication wiring; scheduled evidence/acks take priority.
