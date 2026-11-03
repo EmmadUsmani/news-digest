@@ -7,7 +7,7 @@ import { checkGrafana } from './lib/check-grafana';
 import { checkJobsBrowser } from './lib/check-jobs-browser';
 import { checkLogStore } from './lib/check-log-store';
 import { checkMetricStore } from './lib/check-metric-store';
-import { runObs } from './lib/obs-query';
+import { runObs, runObsCli } from './lib/obs-query';
 import { testEnvironment } from './test-suites';
 
 async function main() {
@@ -69,6 +69,11 @@ async function main() {
       ],
       { env: testEnvironment(), stdio: 'pipe', timeout: 120_000 },
     );
+    for (const command of ['services', 'sources', 'targets']) {
+      const result = await runObsCli([command, '--check']);
+      assert.equal(result.exitCode, 0);
+      assert.equal(JSON.parse(result.output).healthy, true);
+    }
     const services = JSON.parse(await runObs(['services']));
     assert.equal(services.healthy, true);
     assert.equal(services.total, 12);

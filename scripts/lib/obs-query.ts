@@ -43,7 +43,7 @@ export function obsRequest(
   if (command === 'metric') return metricRequest(rest, now);
   if (command !== 'logs' && command !== 'errors')
     throw new Error(
-      'Use: pnpm obs services; pnpm obs sources; pnpm obs targets; pnpm obs logs|errors [--since 1h] [--service worker] [--edition UUID] [--queue name] [--job ID] [--grep text] [--limit 40]; pnpm obs jobs [--queue name] [--state failed] [--limit 5]; pnpm obs metric <PromQL> [--since 1h] [--step 60s]',
+      'Use: pnpm obs services|sources|targets [--check]; pnpm obs logs|errors [--since 1h] [--service worker] [--edition UUID] [--queue name] [--job ID] [--grep text] [--limit 40]; pnpm obs jobs [--queue name] [--state failed] [--limit 5]; pnpm obs metric <PromQL> [--since 1h] [--step 60s]',
     );
   const options = new Map<string, string>();
   for (let i = 0; i < rest.length; i += 2) {
@@ -125,6 +125,31 @@ export function obsRequest(
         query: `${filters.join(' ')} | sort by (_time) desc | limit ${Number(limit)}`,
       }),
     },
+  };
+}
+
+// Opt-in exit semantics belong to the CLI; query consumers retain JSON output.
+export async function runObsCli(
+  args: string[],
+  read: typeof fetch = fetch,
+): Promise<{ output: string; exitCode: number }> {
+  const checking = args.includes('--check');
+  let queryArgs = args;
+  if (checking) {
+    if (
+      !['services', 'sources', 'targets'].includes(args[0]) ||
+      args.length !== 2 ||
+      args[1] !== '--check'
+    )
+      throw new Error(
+        '--check is supported only by services, sources and targets',
+      );
+    queryArgs = args.slice(0, 1);
+  }
+  const output = await runObs(queryArgs, read);
+  return {
+    output,
+    exitCode: checking && JSON.parse(output).healthy !== true ? 1 : 0,
   };
 }
 

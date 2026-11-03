@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import {
   obsRequest,
   runObs,
+  runObsCli,
   serviceSummary,
   sourceSummary,
   targetSummary,
@@ -462,4 +463,61 @@ void test('service health requires every scoped unit and a fresh collector snaps
     await runObs(['services'], async () => Response.json(body([]))),
   );
   assert.equal(output.unhealthy, 12);
+});
+
+void test('CLI check preserves health JSON and fails unhealthy summaries only when opted in', async () => {
+  for (const command of ['sources', 'targets', 'services']) {
+    const payload =
+      command === 'sources'
+        ? { checkedAt: new Date().toISOString(), sources: [] }
+        : command === 'targets'
+          ? { status: 'success', data: { activeTargets: [] } }
+          : { status: 'success', data: { resultType: 'vector', result: [] } };
+    const read = (async () => Response.json(payload)) as typeof fetch;
+    const normal = await runObsCli([command], read);
+    const checked = await runObsCli([command, '--check'], read);
+    assert.equal(normal.exitCode, 0);
+    assert.equal(checked.exitCode, 1);
+    assert.equal(JSON.parse(checked.output).healthy, false);
+    const { checkedAt: _normalTime, ...normalBody } = JSON.parse(normal.output);
+    const { checkedAt: _checkedTime, ...checkedBody } = JSON.parse(
+      checked.output,
+    );
+    assert.deepEqual(normalBody, checkedBody);
+  }
+  const read = (async () =>
+    Response.json({
+      status: 'success',
+      data: {
+        activeTargets: [
+          {
+            labels: { job: 'api' },
+            health: 'up',
+            lastScrape: new Date().toISOString(),
+          },
+        ],
+      },
+    })) as typeof fetch;
+  assert.equal((await runObsCli(['targets', '--check'], read)).exitCode, 0);
+});
+
+void test('CLI check rejects invalid options before network access and propagates query failures', async () => {
+  let reads = 0;
+  const read = (async () => {
+    reads++;
+    return new Response('', { status: 503 });
+  }) as typeof fetch;
+  for (const args of [
+    ['jobs', '--check'],
+    ['metric', '--check'],
+    ['--check', 'services'],
+    ['sources', '--check', '--check'],
+    ['services', '--check', '--limit', '1'],
+  ])
+    await assert.rejects(runObsCli(args, read), /--check/);
+  assert.equal(reads, 0);
+  await assert.rejects(runObsCli(['sources', '--check'], read), /HTTP 503/);
+  await assert.rejects(
+    runObsCli(['sources', '--check'], async () => Response.json({})),
+  );
 });

@@ -8,14 +8,7 @@ Earlier entries: [iteration 385](docs/progress-archive/2026-11-03-iteration-385.
 
 Earlier entries: [iterations 389–390](docs/progress-archive/2026-11-03-iterations-389-390.md).
 
-## 2026-11-03: iteration 396 — historical Postgres dashboard charts
-
-- Started clean on main; no leftover work. Health/services green, 32 sources without current errors and no failed digest jobs; two historical ingestion failures remain. Scheduled evidence/activation still gated on 15:00 UTC.
-- Database adds historical news_digest connections, commits, rollbacks and temporary writes from the existing aggregate exporter. Five-minute rates handle resets; current SQL tables remain explicitly independent of the time picker. No query/session text, new grants or DB restart.
-- Focused Grafana verification checks all nine queries, finite/nonnegative database samples, provision parity and Viewer permissions; desktop/mobile screenshots inspected. First probe preceded hot reload; rerun passed. Desktop capture now waits for SQL data and chart painting.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (240 unit/172 integration), `pnpm build`, handbook 09 and read-only edition timing report passed. First full check stopped on concurrent-edit formatting; formatted and reran successfully. No new scheduled AI timing claim.
-- Updated handbook/plan/TASKS; archived iteration 384. Grafana provision hot-reloaded; no application code/config changed, so no app restart. No paid calls, Reddit requests or content/cap/schedule/activation changes.
-- Next: collect/ack Nov 3 scheduled cost/yield/AI timing first; otherwise top queries and per-iteration metrics.
+Earlier entry: [iteration 396](docs/progress-archive/2026-11-03-iteration-396.md).
 
 ## 2026-11-03: iteration 397 — worker timing by trigger
 
@@ -107,3 +100,12 @@ Earlier entries: [iterations 389–390](docs/progress-archive/2026-11-03-iterati
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (254 unit/172 integration), `pnpm build`, handbook 09 and `git diff --check` passed. No UI/diagram changes or screenshots needed.
 - Updated handbook/plan/TASKS and archived iteration 395. CLI/tests/docs only; no restart under STEERING 22. No paid calls, Reddit requests or production-content/cap/schedule/activation changes.
 - Next: collect/ack Nov 3 scheduled cost/yield/AI timing first; alert engine, top queries and harness counters remain open.
+
+## 2026-11-03: iteration 407 — health-check exit status
+
+- Started clean on main; no leftover work. Health/services green, 32 healthy sources and no failed digest/social jobs. Scheduled evidence/activation still waits for 15:00 UTC; no DB/Redis restart in the protected window.
+- Added opt-in `pnpm obs services|sources|targets --check`: same JSON stdout, exit 0 for healthy and 1 for unhealthy. Defaults retain exit 0 for valid unhealthy summaries; invalid flags, request failures and malformed responses remain errors. Other commands reject the flag before network access.
+- Offline tests verify healthy/unhealthy exit semantics, preserved summaries, option validation and request/schema failures. Initial focused test compared changing snapshot timestamps; corrected to compare summary fields independently. Runtime `pnpm exec tsx scripts/check-observability.ts --verify-cli` passed all 12 units/32 sources/eight targets/four queues with zero mutations.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (256 unit/172 integration), `pnpm build`, handbook 09 and `git diff --check` passed. Read-only scheduled timing report has complete retained evidence and zero failed runs; no new AI timing claim.
+- Updated handbook/plan/TASKS and archived iteration 396. No UI/diagram changes or screenshots needed; CLI/tests/docs only, so no service restart under STEERING 22. No paid calls, Reddit requests or production content/cap/schedule/activation changes.
+- Next: collect/ack Nov 3 scheduled cost/yield/AI timing first; top queries, harness counters and alert engine remain open.

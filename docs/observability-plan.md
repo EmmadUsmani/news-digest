@@ -365,3 +365,8 @@ This correlates attempts and edition ledger records without metric-ID labels or
 payload logging. Reused editions remain explicitly possible; failed/skipped jobs
 have no inferred edition. `--verify-job-correlation` checks offline digest cases and
 normal heartbeat delivery to VictoriaLogs; no paid run or backfilled attribution.
+
+O5 incremental progress (407): health summaries support opt-in `--check` exit
+status for unattended probes. Services/sources/targets preserve their JSON output;
+unhealthy summaries exit 1, healthy summaries exit 0. Query and validation failures
+remain errors. Other commands reject the flag before network access.
