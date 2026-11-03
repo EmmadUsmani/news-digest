@@ -191,9 +191,16 @@ export class PostgresPreviewRepository
             description: String(topic.description),
             guidance: `${topic.include_guidance}\nExclude: ${topic.exclude_guidance}\nRequired phrases: ${policy.includeAny.join(', ')}\nExcluded phrases: ${policy.excludeAny.join(', ')}`,
           };
+          // Skip only hard exclusions shared with the final shortlist. Missing
+          // include phrases must still reach semantic triage for relevance recovery.
+          const triageCandidates = candidates.filter(
+            (item) =>
+              !qualityRejection(item) &&
+              assessRelevance(item, { ...policy, includeAny: [] }).eligible,
+          );
           const triage = await this.editorial.triage.score(
             context,
-            candidates,
+            triageCandidates,
             runId,
           );
           editorial.triage = triage.scores;

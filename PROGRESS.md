@@ -151,3 +151,15 @@
 - API/worker/docs/schema active; pnpm obs health --check passed, root HTTP 200, zero alerts. No restart under STEERING 22: application code unchanged; publisher host configuration is read each pass.
 - Push rejected by concurrent owner commit 09c9fa0 (STEERING 27); merged without rewriting history. Owner freezes new sources/features until Nov 4 evidence. Migration 055 disables the just-added Yardbarker host; existing feed and real citations remain. Fixture remains prepared; live host confirmed null, repeated pnpm check passed (263 unit/181 integration), handbook rechecked.
 - Next under item 27: offline World social/NBA fallback fixes, tighter triage prefilter, then restore/relabel same-story AI grouping; production grouping stays off until Nov 4 evidence and conditional Nov 5 activation.
+
+## 2026-11-03: iteration 481 — skip hard exclusions before article triage
+
+- Started clean on main; zero alerts, services and healthz healthy. No leftovers, paid calls, new editions, source changes, Reddit requests or grouping activation.
+- Item 27 offline step: article triage now skips existing quality-rule rejections and explicit excluded topic phrases, matching final-shortlist gates. Missing include phrases still reach semantic triage; no arbitrary top-N cutoff.
+- Recorded Nov 1 NBA fixture admits 43/52 articles (nine unnecessary scores avoided). This is offline workload evidence, not measured live speed/cost improvement.
+- Regression pins skipped inputs, semantic recovery, AI publication, original candidate totals/quality omissions and complete admitted coverage. Synthetic golden now omits the skipped betting score; selected stories unchanged.
+- First direct test invocation correctly refused without isolated services; first full check found stale synthetic golden response (181/182 integration). Updated synthetic response/expected metadata; no real response re-recording.
+- Updated RANKING, affected handbook and TASKS. World date-bound fix already shipped (428); original NBA rejected responses were not retained, so cause still awaits next-run validation logs.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (263 unit/182 isolated integration), pnpm build, filtered handbook check (17 pages/one unchanged diagram/25 tables), git diff --check passed.
+- Restarted API/worker; pnpm obs health --check passed, root HTTP 200, zero alerts/dangling volumes. Live rolling article counts Tech/NBA/Gaming/World: 329/161/281/222, all 36 sources healthy.
+- Next: further bounded offline triage reduction if warranted, then item 27 same-story grouping restoration/relabel/evaluation; keep grouping off. Nov 4 scheduled evidence takes priority, including NBA/World outcomes and latency.

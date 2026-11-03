@@ -1413,3 +1413,13 @@ pnpm exec tsx scripts/evaluate-event-grouping.ts --memberships apps/api/test/fix
 
 The offline regression test pins the saved result and fresh-window failure.
 Reopening grouping requires a new owner decision; no paid runner remains.
+
+## Iteration 481: skip hard exclusions before article triage
+
+Publication no longer sends existing quality-rule rejections or explicit excluded
+phrases to Haiku. These same hard gates already apply to the final shortlist.
+Missing required include phrases still receive semantic triage, preserving
+relevance recovery. Candidate totals and quality omissions retain all loaded
+inputs; unscored IDs track incomplete scoring among admitted candidates only.
+This reduces unnecessary scoring without an arbitrary top-N cutoff; live latency
+and cost effects await the scheduled edition. No paid verification was used.

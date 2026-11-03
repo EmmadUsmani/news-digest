@@ -30,7 +30,7 @@ flowchart TB
 | Step          | Plain-language purpose                                                                  |
 | ------------- | --------------------------------------------------------------------------------------- |
 | 1. Candidates | Everything collected for this topic during the window (up to a few hundred items)       |
-| 2. Rules      | Drop clear junk (betting promos, game threads), merge near-identical headlines          |
+| 2. Rules      | Drop quality-rule rejections (betting promos, game threads) and excluded topic phrases  |
 | 3. Triage     | A cheap model scores each item, so the expensive model sees only the best               |
 | 4. Shortlist  | Combine AI scores with signals (recency, number of outlets, HN points)                  |
 | 5. Editor     | A stronger model chooses stories and writes the brief, using only facts in the items    |
@@ -39,6 +39,10 @@ flowchart TB
 
 ## Things worth knowing
 
+- **Before article triage:** skip existing quality-rule rejections and explicit
+  excluded topic phrases. Missing required phrases still reach AI, which can
+  recover relevant news. Candidate totals and quality omissions retain all inputs;
+  triage coverage describes only the candidates admitted for scoring.
 - **Caching:** triage results are cached per item and prompt, so
   regenerating an edition only pays for new items.
 - **Triage throughput:** article and social scoring use batches of up to 50

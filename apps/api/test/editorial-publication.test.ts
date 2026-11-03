@@ -54,6 +54,7 @@ async function harness(
     quiet?: boolean;
     disabled?: boolean;
     supporting?: boolean;
+    hardExcluded?: boolean;
     parallel?: boolean;
     reddit?: boolean;
     provider?: LlmPort;
@@ -121,14 +122,26 @@ async function harness(
               post_budget: options.reddit ? 5 : 0,
               relevance_policy: {
                 includeAny: ['artificial intelligence'],
-                excludeAny: [],
+                excludeAny: options.hardExcluded ? ['cryptocurrency'] : [],
               },
             }),
           ),
         };
       if (sql.includes('FROM content_items'))
         return {
-          rows: options.supporting ? [candidate, support] : [candidate],
+          rows: options.hardExcluded
+            ? [
+                candidate,
+                { ...support, title: 'Best bets for tonight' },
+                {
+                  ...support,
+                  id: 'excluded-topic',
+                  title: 'Cryptocurrency launch',
+                },
+              ]
+            : options.supporting
+              ? [candidate, support]
+              : [candidate],
         };
       if (sql.startsWith('INSERT')) stored.push(args?.[5]);
       return { rows: [] };
@@ -170,7 +183,12 @@ async function harness(
           }
         : {
             triage: {
-              async score() {
+              async score(_topic: unknown, inputs: { id: string }[]) {
+                if (options.hardExcluded)
+                  assert.deepEqual(
+                    inputs.map((item) => item.id),
+                    [id],
+                  );
                 return {
                   scores: options.supporting
                     ? [score, { ...score, id: support.id }]
@@ -331,4 +349,17 @@ void test('synthetic raw LLM replay publishes the golden story through real tria
     assert.equal(snapshot.topics[0].editorial?.mode, 'ai');
     assert.deepEqual(snapshot.topics, golden);
   }
+});
+
+void test('publication skips hard exclusions before triage while preserving semantic recovery', async () => {
+  const snapshot = await harness({ hardExcluded: true });
+  const topic = snapshot.topics[0];
+  assert.equal(topic.candidateCount, 3);
+  assert.equal(topic.editorial?.mode, 'ai');
+  assert.deepEqual(topic.editorial?.unscoredIds, []);
+  assert.deepEqual(
+    topic.stories.map((story) => story.id),
+    [id],
+  );
+  assert.equal(topic.qualityRejections?.length, 1);
 });

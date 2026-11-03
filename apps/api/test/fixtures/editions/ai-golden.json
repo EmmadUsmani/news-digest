@@ -112,13 +112,6 @@
             "rationale": "Relevant science reporting."
           },
           {
-            "id": "00000000-0000-4000-8000-000000000882",
-            "relevance": 0,
-            "importance": 0,
-            "event": "Betting promotion",
-            "rationale": "Unrelated promotion."
-          },
-          {
             "id": "00000000-0000-4000-8000-000000000881",
             "relevance": 9,
             "importance": 7,
