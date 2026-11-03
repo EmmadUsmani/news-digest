@@ -1,13 +1,3 @@
-## 2026-11-03: iteration 448 — verify real saved X media on both viewports
-
-- Started clean on main; zero alerts and healthy API/DB/Redis. No leftover work.
-- Added explicit read-only saved-edition browser verifier; app writes/Reddit blocked, no provider calls or new editions. Reports actual official embeds/media separately from fallback and third-party errors.
-- Nov 3 scheduled edition: all 11 X iframes loaded on desktop/mobile; nine posts/14 loaded media images per viewport. Video previews visible; playback untested. World remains empty; open-X/Bluesky acceptance stays pending.
-- Captured eight viewport screenshots (four topics × desktop/mobile); inspected NBA desktop and Tech/AI/Gaming mobile. Initial X bundle TypeError reported; final run had zero app/widget errors and no horizontal overflow.
-- Updated SOURCES/TASKS; archived iteration 433 to keep PROGRESS bounded. No app runtime/config changes, so no service restart under STEERING 22.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (282 unit/176 isolated integration), pnpm build and git diff --check passed. pnpm obs health/sources/jobs --check passed; zero dangling Docker volumes.
-- Next: Nov 4 open-X/Bluesky selection evidence, World yield and latency/full-AI evidence.
-
 ## 2026-11-03: iteration 449 — recognize active past-tense NBA results
 
 - Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis and 32 healthy sources. Scheduled social/latency evidence still awaits Nov 4; progressed item 19.
@@ -162,3 +152,13 @@
 - API/worker restarted; immediate health probe preceded startup, then pnpm obs health --check passed and root returned HTTP 200. Rolling article/X counts: Tech 335/73, NBA 144/54, Gaming 275/15, World 230/1; no new paid calls, editions or Reddit requests.
 - Updated TASKS/RANKING and archived iterations 446–447 to keep PROGRESS bounded. No UI/handbook flow change.
 - Next: Nov 4 open-X/Bluesky selections/screenshots, World yield and full-AI/latency evidence; broader grouping and independent labels remain open.
+
+## 2026-11-03: iteration 464 — match dated NBA jersey ceremonies
+
+- Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis and 32 healthy source connections. Nov 4 scheduled social/latency evidence remains pending; advanced item 19 offline.
+- Default-off grouping now requires matching full player name, NBA franchise, jersey number and ceremony date. Missing years resolve to the next occurrence; conflicting/invalid/past dates, uncertainty and career retirements stay separate, including before lexical fallback.
+- Recovered the dated Westbrook pair; withheld the previously lexical-matched month-only syndicated pair. Benchmark remains 35/57 positives, zero/41 false merges, unknown merges or sampled membership variation. Labels are agent-reviewed, not independent; production grouping remains disabled.
+- Initial check caught stale expected benchmark totals after tightening fallback; corrected them. Final pnpm format, pnpm lint:fix, pnpm check passed (300 unit/176 isolated integration), as did pnpm build. Final historical-year parsing guard passed 11/11 targeted tests and an API rebuild.
+- Updated TASKS/RANKING; archived iteration 448 to keep PROGRESS bounded. No UI/handbook flow change, paid calls, new editions or Reddit requests.
+- Live rolling article/X counts: Tech 332/73, NBA 142/54, Gaming 274/14, World 228/1. Next: Nov 4 open-X/Bluesky selections/screenshots, World yield and full-AI/latency evidence; independent grouping labels/activation remain open.
+- Restarted API/worker; startup retry and pnpm obs health --check passed, root HTTP 200, both units active, zero alerts and zero dangling Docker volumes.
