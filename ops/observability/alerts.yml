@@ -37,6 +37,13 @@ groups:
           severity: warning
         annotations:
           summary: Host available memory is below 10 percent
+      - alert: ObservabilityMemoryBudget
+        expr: (news_digest_unit_memory_bytes{scope="system",unit=~"obs-.*"} / news_digest_unit_memory_limit_bytes{scope="system",unit=~"obs-.*"} > 0.9) and (news_digest_unit_memory_limit_bytes > 0)
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Observability service exceeds 90 percent of its configured memory ceiling
   - name: app-outcomes
     interval: 30s
     rules:

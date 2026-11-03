@@ -12,7 +12,7 @@ for scope, units in [
 ]:
     result = subprocess.run(
         ['systemctl', *(['--user'] if scope == 'user' else []), 'show', *units,
-         '--property=Id,ActiveState,MemoryCurrent,CPUUsageNSec,TasksCurrent,NRestarts'],
+         '--property=Id,ActiveState,MemoryCurrent,MemoryMax,CPUUsageNSec,TasksCurrent,NRestarts'],
         check=True, capture_output=True, text=True, timeout=5,
     )
     for block in result.stdout.strip().split('\n\n'):
@@ -24,6 +24,7 @@ for scope, units in [
         rows.append(f'news_digest_unit_active{labels} {int(fields.get("ActiveState") == "active")}')
         for field, metric, factor in [
             ('MemoryCurrent', 'memory_bytes', 1),
+            ('MemoryMax', 'memory_limit_bytes', 1),
             ('CPUUsageNSec', 'cpu_seconds_total', 1e-9),
             ('TasksCurrent', 'tasks', 1),
             ('NRestarts', 'restarts_total', 1),

@@ -131,3 +131,44 @@ tests:
         alertname: RecentJobFailures
         groupname: app-outcomes
         exp_alerts: []
+  - name: service memory budget threshold duration recovery and isolation
+    interval: 30s
+    input_series:
+      - series: 'news_digest_unit_memory_bytes{scope="system",unit="obs-grafana.service"}'
+        values: '90 91+0x10 80'
+      - series: 'news_digest_unit_memory_limit_bytes{scope="system",unit="obs-grafana.service"}'
+        values: '100+0x12'
+      - series: 'news_digest_unit_memory_bytes{scope="user",unit="news-digest-api.service"}'
+        values: '99+0x12'
+      - series: 'news_digest_unit_memory_limit_bytes{scope="user",unit="news-digest-api.service"}'
+        values: '100+0x12'
+      - series: 'news_digest_unit_memory_bytes{scope="system",unit="obs-node.service"}'
+        values: '99+0x12'
+      - series: 'news_digest_unit_memory_limit_bytes{scope="system",unit="obs-node.service"}'
+        values: '0+0x12'
+      - series: 'news_digest_unit_memory_bytes{scope="system",unit="obs-logs.service"}'
+        values: '99+0x12'
+    alert_rule_test:
+      - eval_time: 0m
+        alertname: ObservabilityMemoryBudget
+        groupname: host-and-services
+        exp_alerts: []
+      - eval_time: 5m
+        alertname: ObservabilityMemoryBudget
+        groupname: host-and-services
+        exp_alerts: []
+      - eval_time: 5m30s
+        alertname: ObservabilityMemoryBudget
+        groupname: host-and-services
+        exp_alerts:
+          - exp_labels:
+              scope: system
+              unit: obs-grafana.service
+              severity: warning
+              alertgroup: host-and-services
+            exp_annotations:
+              summary: Observability service exceeds 90 percent of its configured memory ceiling
+      - eval_time: 6m
+        alertname: ObservabilityMemoryBudget
+        groupname: host-and-services
+        exp_alerts: []

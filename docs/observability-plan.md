@@ -389,3 +389,12 @@ remain separate from readiness. JSON stays unchanged; filters cannot hide an
 unhealthy queue during this check. Offline failure cases and live read-only probe.
 
 O9 incremental progress (413): recent failed worker attempts (ten-minute window, one-minute hold) and sustained API 5xx rate (>5%, at least 20 requests/five minutes, two-minute hold) now have local rules and offline threshold/expiry tests. Retained job failures do not imply a new failure. Missed-edition, spend and per-service budgets remain open.
+
+O9 incremental progress (414): monitored observability services now warn after
+five minutes above 90% of their configured systemd memory ceiling. Unit snapshots
+export finite MemoryMax values; rules follow deployed limits rather than copied
+constants. Offline cases verify the strict threshold, duration, recovery, app
+exclusion and missing/zero ceilings. CPU quotas remain enforced by systemd;
+missed-edition and spend rules remain open. The rule exposed metrics-store memory
+pressure; reduced its cache/Go targets and reset saved caches without removing
+stored samples.

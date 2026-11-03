@@ -12,32 +12,7 @@ Earlier entry: [iteration 396](docs/progress-archive/2026-11-03-iteration-396.md
 
 Earlier entry: [iteration 397](docs/progress-archive/2026-11-03-iteration-397.md).
 
-## 2026-11-03: iteration 402 — bounded historical metric queries
-
-- Started clean on main; no leftover work. Health/services green, all 32 sources have successful collection without current errors; no failed digest/social jobs. Two historical ingestion failures remain. Scheduled evidence stays gated on 15:00 UTC.
-- Added `pnpm obs metric <PromQL> --since 1h --step 60s` for timestamped history from the local metrics store. Seven-day window, minimum 30s step and maximum 1,000 evaluation timestamps per series; default step 60s. Series count remains query-dependent; handbook advises label filters. Instant queries unchanged.
-- Offline tests cover encoding, exact time bounds, limits, malformed/duplicate options before network access and matrix response preservation. `pnpm exec tsx scripts/check-observability.ts --verify-cli` passed against four available queues/eight scrape targets, including a real five-minute range with bounded samples; zero mutations.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (249 unit/172 integration), `pnpm build`, handbook 09 and `git diff --check` passed. Initial lint caught test input stringification; corrected before the successful full run. No UI/diagram change or screenshots needed.
-- Updated handbook/plan/TASKS; archived iteration 391. Only CLI/tests/docs changed, so no service restart under STEERING 22. Read-only edition timing still reports retained scheduled worker 856 ms fallback, not fresh AI latency evidence.
-- No paid calls, Reddit requests or production-content/cap/schedule/activation changes. Next: collect/ack Nov 3 scheduled cost/yield/AI timing first; O7 top queries, O8 per-iteration metrics and O9 alerts remain.
-
-## 2026-11-03: iteration 403 — retained scheduled edition timing history
-
-- Started clean on main; no leftover work. Health/services green, all 32 sources without current errors; no failed digest/social jobs. Two historical ingestion failures remain. Scheduled evidence/activation still waits for 15:00 UTC.
-- Read-only edition timing report accepts `--scheduled-only --limit 20` (default three), filters before edition/ledger reads, orders scheduled history by intended schedule and reports retained/selected counts. Completed/failure bounds are separate; mixed history still preserves the latest settled scheduled completion beyond the limit. Queue retention remains the historical bound.
-- Offline cases cover invalid/duplicate options, limits, filtering/order, unchanged defaults and preserved scheduled evidence. `pnpm exec tsx scripts/check-observability.ts --verify-timing` passed: 18 retained jobs, 17 readable scheduled editions, zero mutations. Historical timings do not establish today's AI speed.
-- Handbook operations check passed (17 pages/one unchanged diagram); no UI/diagram changes or screenshots needed. Archived iteration 392; updated handbook/plan/TASKS. No running service code/config changed, so no restart under STEERING 22.
-- `pnpm format`, `pnpm lint:fix` `pnpm check` (250 unit/172 integration tests), `pnpm build` and `git diff --check` passed. Initial formatting check caught the new archive's extra blank line; corrected before the successful rerun.
-- No paid calls, Reddit requests or production-content/cap/schedule/activation changes. Next: collect/ack Nov 3 scheduled cost/yield/AI timing first; O7 top queries, O8 harness metrics and O9 alerts remain.
-
-## 2026-11-03: iteration 404 — scrape-target health at the command line
-
-- Started clean on main; no leftover work. Health/services green, all 32 sources without current errors, no failed digest/social jobs; two historical ingestion failures remain. Scheduled evidence and activation wait for 15:00 UTC.
-- Added read-only `pnpm obs targets`: registered collector health and scrape age, down/stale/unknown distinction, unhealthy-first ordering, maximum 50 rows with total/unhealthy/omitted counts. Stale means over 120 seconds at the current 30-second cadence; empty lists are unhealthy. Scrape error bodies are omitted; JSON health does not change exit status.
-- Offline tests cover the freshness boundary, missing/future times, malformed responses, output limits, endpoint selection and invalid options before network access. `pnpm exec tsx scripts/check-observability.ts --verify-cli` passed against eight healthy scrape targets/four queues, with normal retained worker correlation and zero mutations.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (251 unit/172 integration), `pnpm build`, handbook 09 and `git diff --check` passed. No UI/diagram changes or screenshots needed.
-- Updated handbook/plan/TASKS and archived iteration 393. CLI/tests/docs only; no service restart under STEERING 22. No paid calls, Reddit requests or production content/cap/schedule/activation changes.
-- Next: collect and acknowledge Nov 3 scheduled cost/yield/AI timing first. Alert engine, top queries and harness counters remain open.
+Earlier entries: [iterations 402–404](docs/progress-archive/2026-11-03-iterations-402-404.md).
 
 ## 2026-11-03: iteration 405 — compact source collection health
 
@@ -123,3 +98,13 @@ Earlier entry: [iteration 397](docs/progress-archive/2026-11-03-iteration-397.md
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (261 unit/172 integration), `pnpm build`, vmalert dry-run/unittest, `check-observability.ts --verify-alerts`, handbook 09 and `git diff --check` passed. Zero dangling Docker volumes.
 - Deployed rule config and restarted only obs-alerts; seven rules healthy, zero pending/firing. Live /healthz green; latest real free collection verified ten posts. No app/DB/Redis restart, paid calls, Reddit requests or UI changes.
 - Updated handbook, plan and TASKS. Next: scheduled Nov 3 cost/yield/AI timing and acks first; otherwise missed-edition/spend/per-service-budget alerts before O7/O8/O10.
+
+## 2026-11-03: iteration 414 — observability memory budget warnings
+
+- Started clean on main; no leftover work. Health, 32 sources and scheduled queues healthy; latest free collection verified ten real X posts. Scheduled AI/X evidence still awaits 15:00 UTC.
+- Added a five-minute warning above 90% of each observability unit's actual MemoryMax; collector exports finite ceilings. Offline cases cover threshold, duration, recovery, app exclusion and zero/missing limits. Eight ceilings verified live.
+- Rule exposed VictoriaMetrics near its 112 MiB ceiling. Reduced cache allowance 32→16 MiB and Go target 80→64 MiB; reset expendable saved caches (moved to /tmp), preserving stored metric history. Only collector, evaluator and metrics service changed/restarted; app/Postgres/Redis untouched.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (261 unit/172 integration), `pnpm build`, vmalert dry-run/unittest and handbook 09 passed. Runtime metrics/rule checks initially raced slow startup; reruns passed.
+- `check-observability.ts --verify-o4` confirms eight targets and retained metrics; metrics-store memory settled around 50 MiB after cache reset. Eight deployed alert rules healthy, zero pending/firing after natural recovery. Health/services/targets green; zero dangling Docker volumes.
+- Updated handbook, observability plan and TASKS; archived iterations 402–404 to keep PROGRESS under 25 KB. No UI, paid calls or Reddit requests.
+- Next: scheduled Nov 3 cost/yield/AI timing and acks first; otherwise remaining O9 missed-edition/spend rules, then O7/O8/O10.

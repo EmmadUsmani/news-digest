@@ -452,5 +452,16 @@ responses above 5% over five minutes must persist for two minutes, with at least
 below the alert threshold even when a request fails. Missing metrics are handled
 by the scrape alerts rather than treated as successful requests.
 
-Missed-edition, spend and per-service budget alerts are still
+For each monitored observability service, memory above 90% of its configured
+systemd `MemoryMax` ceiling for five minutes raises a warning. The collector
+reads the ceiling alongside current cgroup memory every 30 seconds, so changing
+a unit limit changes the threshold without editing a rule. Unlimited, missing
+and zero ceilings do not trigger this rule. App units are excluded. CPU limits
+remain enforced by systemd; this rule measures memory pressure before the hard
+ceiling can kill a process. VictoriaMetrics uses a 16 MiB internal cache budget
+and a 64 MiB Go memory target within its existing 112 MiB systemd ceiling. Its expendable query-result cache
+is reset on startup so an older, larger saved cache cannot defeat the reduced
+budget; stored metric samples are preserved.
+
+Missed-edition and spend alerts are still
 pending in the [observability plan](../../observability-plan.md).

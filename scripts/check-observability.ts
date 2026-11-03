@@ -32,6 +32,7 @@ async function main() {
       'ScrapeTargetDown',
       'UnitSnapshotStale',
       'HostMemoryPressure',
+      'ObservabilityMemoryBudget',
       'RecentJobFailures',
       'ApiServerErrorRate',
     ]) {
@@ -40,10 +41,23 @@ async function main() {
       assert.equal(rule.health, 'ok');
       assert.ok(!rule.lastError);
     }
+    const unitMetrics = await fetch('http://127.0.0.1:9100/metrics');
+    assert.equal(unitMetrics.ok, true);
+    const snapshot = await unitMetrics.text();
+    const budgetUnits = [
+      ...snapshot.matchAll(
+        /^news_digest_unit_memory_limit_bytes\{[^\n]*unit="(obs-[^"]+)"[^\n]*\} ([^\n]+)$/gm,
+      ),
+    ];
+    assert.ok(budgetUnits.length >= 8, 'Missing observability memory ceilings');
+    for (const [, unit, value] of budgetUnits) {
+      assert.ok(Number.isFinite(Number(value)) && Number(value) > 0, unit);
+    }
     const alerts = JSON.parse(await runObs(['alerts']));
     console.log(
       JSON.stringify({
         alertRules: rules.length,
+        budgetUnits: budgetUnits.length,
         firing: alerts.firing,
         pending: alerts.pending,
         mutations: 0,
