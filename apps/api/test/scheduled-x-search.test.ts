@@ -176,3 +176,90 @@ void test('a slow first search prevents later topics from spending after the win
   );
   assert.equal(calls, 1);
 });
+
+void test('topic edits during a search stop stale paid plans in either search mode', async () => {
+  for (const mode of ['account-list', 'open-topic'] as const) {
+    for (const change of [
+      'disable',
+      'add',
+      'handles',
+      'guidance',
+      'name',
+    ] as const) {
+      let calls = 0;
+      const original = [candidates[0], { ...candidates[0], id: 'second' }];
+      const result = await runScheduledXSearch(
+        async () => profile,
+        async () => {
+          const current = structuredClone(original);
+          if (!calls) return current;
+          if (change === 'disable') return current.slice(0, 1);
+          if (change === 'add')
+            return [...current, { ...current[0], id: 'new' }];
+          if (change === 'handles') current[1].handles = ['Changed'];
+          if (change === 'guidance')
+            current[1].guidance = 'Changed topic intent';
+          if (change === 'name') current[1].name = 'Changed name';
+          return current;
+        },
+        async () => {
+          calls++;
+          return 'executed';
+        },
+        () => new Date('2026-11-03T14:30:00Z'),
+        mode,
+      );
+      assert.equal(calls, 1, `${mode}: ${change}`);
+      assert.deepEqual(result, {
+        skipped: 'Topics changed',
+        results: ['executed'],
+      });
+    }
+  }
+});
+
+void test('coverage updates do not invalidate scheduled discovery', async () => {
+  let reads = 0;
+  let calls = 0;
+  await runScheduledXSearch(
+    async () => profile,
+    async () => [
+      { ...candidates[0], freePosts: reads++ },
+      { ...candidates[0], id: 'second', freePosts: reads },
+    ],
+    async () => {
+      calls++;
+    },
+    () => new Date('2026-11-03T14:30:00Z'),
+  );
+  assert.equal(calls, 2);
+});
+
+void test('topic recheck latency cannot bypass the search window or schedule guard', async () => {
+  for (const changed of ['time', 'schedule'] as const) {
+    let reads = 0;
+    let calls = 0;
+    const result = await runScheduledXSearch(
+      async () =>
+        reads > 1 && changed === 'schedule'
+          ? { ...profile, schedule: { ...profile.schedule, postBudget: 0 } }
+          : profile,
+      async () => {
+        reads++;
+        return candidates;
+      },
+      async () => {
+        calls++;
+      },
+      () =>
+        new Date(
+          reads > 1 && changed === 'time'
+            ? '2026-11-03T14:56:00Z'
+            : '2026-11-03T14:30:00Z',
+        ),
+    );
+    assert.equal(calls, 0);
+    if (changed === 'schedule')
+      assert.deepEqual(result, { skipped: 'Schedule changed', results: [] });
+  }
+});

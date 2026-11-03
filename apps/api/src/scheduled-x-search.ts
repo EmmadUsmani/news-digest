@@ -9,6 +9,18 @@ import {
 
 type Plan = NonNullable<ReturnType<typeof planScheduledSearch>>;
 
+// Coverage changes naturally during collection; only configuration invalidates a tick.
+function topicSettings(topics: ScheduledSearchTopic[]) {
+  return JSON.stringify(
+    topics.map(({ id, name, guidance, handles }) => ({
+      id,
+      name,
+      guidance,
+      handles,
+    })),
+  );
+}
+
 // Re-read settings after coverage I/O. Never execute a plan for replaced settings.
 // Only consider this UTC day's edition: midnight editions wait until midnight,
 // so one edition cannot consume both the previous and current day's admission.
@@ -34,12 +46,17 @@ export async function runScheduledXSearch(
   )
     return { skipped: 'Outside search window' };
   const candidates = await topics(now);
+  const settings = topicSettings(candidates);
   const results: unknown[] = [];
   // Stable sort preserves owner order on ties. Recheck settings and time before
   // every call: a slow search must not spend after the pre-edition window.
   for (const topic of [...candidates].sort(
     (a, b) => a.freePosts - b.freePosts,
   )) {
+    // Topics can be disabled, deleted or edited while an earlier HTTP call runs.
+    // Recheck the whole enabled set so a newly added topic waits for a fresh tick.
+    if (topicSettings(await topics(clock())) !== settings)
+      return { skipped: 'Topics changed', results };
     const current = await loadProfile();
     if (
       current.id !== profile.id ||
