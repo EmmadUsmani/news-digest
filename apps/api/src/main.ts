@@ -11,6 +11,7 @@ import {
   logger,
   requestLogging,
 } from './libs/observability/logging';
+import { startQueueMetrics } from './libs/observability/queue-metrics';
 import { startRuntimeMetrics } from './libs/observability/runtime-metrics';
 import { mountJobsBrowser } from './modules/operations/adapters/jobs-browser';
 import { OperationsStatus } from './modules/operations/adapters/operations.status';
@@ -33,7 +34,9 @@ async function bootstrap() {
   app.use(httpMetrics(registry));
   // Registered before routes and static files: /docs/* and /db/* go to the tools.
   app.use(proxyInternalTools(internalTools));
-  mountJobsBrowser(app, app.get(OperationsStatus).queues);
+  const queues = app.get(OperationsStatus).queues;
+  mountJobsBrowser(app, queues);
+  startQueueMetrics(registry, queues);
   app.enableShutdownHooks();
   await app.listen(Number(process.env.PORT ?? 8000), '0.0.0.0');
 }

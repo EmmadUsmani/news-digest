@@ -9,6 +9,34 @@ import { checkMetricStore } from './lib/check-metric-store';
 import { testEnvironment } from './test-suites';
 
 async function main() {
+  if (process.argv.includes('--verify-queue-metrics')) {
+    execFileSync(
+      'pnpm',
+      [
+        'exec',
+        'tsx',
+        '--test',
+        '--test-reporter=dot',
+        'apps/api/test/queue-metrics.test.ts',
+      ],
+      { env: testEnvironment(), stdio: 'pipe', timeout: 120_000 },
+    );
+    const response = await fetch('http://127.0.0.1:9464/metrics');
+    assert.equal(response.status, 200);
+    const body = await response.text();
+    for (const queue of [
+      'operations',
+      'ingestion',
+      'digest-generation',
+      'social-collection',
+    ]) {
+      for (const metric of ['jobs', 'schedulers', 'paused'])
+        assert.ok(
+          body.includes(`news_digest_queue_${metric}{queue="${queue}"`),
+          `Missing ${queue} ${metric}`,
+        );
+    }
+  }
   if (process.argv.includes('--verify-external-http-metrics')) {
     execFileSync(
       'pnpm',

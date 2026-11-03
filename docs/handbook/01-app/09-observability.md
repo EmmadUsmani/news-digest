@@ -211,11 +211,18 @@ semantic validation. HTTP success does not imply valid provider content.
 Anthropic rejection retries and Bluesky login/refresh/search requests count
 separately. This metric does not represent token usage or spending; use the ledger
 for costs. No URLs, hosts, credentials or post IDs enter labels. Samples reset on
-restart; interrupted attempts are absent. Queue state metrics remain unfinished.
+restart; interrupted attempts are absent. Queue snapshots are described below.
 
 The worker records `news_digest_job_duration_seconds` for every settled processor
 attempt in the four queues. Counts distinguish completed and failed attempts;
 retries count separately. Queue and job names use fixed allowlists, with unknown
 values grouped as `other`. IDs, payloads and errors never enter labels. Histograms
 reset on worker restart and do not represent retained queue totals or jobs killed
-before settling. Queue state and schedule details remain in the jobs browser.
+before settling. The API reads retained job counts by state, recurring schedule counts and pause
+state through its existing queue connections on each scrape. These gauges use
+only four fixed queue names and six states. Completed/failed counts reflect
+retention limits, not lifetime totals; delayed includes future scheduled jobs.
+Each gauge is a separate snapshot, so a busy queue can change between reads.
+A Redis read error fails the scrape with HTTP 503 rather than serving stale
+queue values; the next successful scrape recovers. Schedule definitions and job
+details remain in the jobs browser.

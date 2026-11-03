@@ -67,6 +67,30 @@ export async function checkMetricStore() {
     ).some((sample) => Number(sample.value[1]) > 0),
     'Missing successful scheduled heartbeat job metrics',
   );
+  for (const queue of [
+    'operations',
+    'ingestion',
+    'digest-generation',
+    'social-collection',
+  ]) {
+    for (const metric of ['jobs', 'schedulers', 'paused']) {
+      const samples = await query(
+        `news_digest_queue_${metric}{service="api",queue="${queue}"}`,
+      );
+      assert.equal(
+        samples.length,
+        metric === 'jobs' ? 6 : 1,
+        `Missing queue ${queue} ${metric}`,
+      );
+      assert.ok(
+        samples.every(
+          (sample) =>
+            Number.isFinite(Number(sample.value[1])) &&
+            Number(sample.value[1]) >= 0,
+        ),
+      );
+    }
+  }
   for (const metric of [
     'node_cpu_seconds_total',
     'node_memory_MemAvailable_bytes',

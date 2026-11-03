@@ -155,7 +155,7 @@ only when its check passes.
     - the retention period and the 2 GB cap are set.
 - [x] **O3 Jobs UI.** bull-board at `/queues/`, read-only. Iteration 356: four existing queue connections, 35 live schedules, hidden mutation controls and HTTP write barrier. `--verify-o3` checks queues/schedules/read-only enforcement; desktop/mobile screenshots verify overview and scheduler navigation. No new service, polling collector or production pipeline change.
 - [x] **O4 Metrics store and host.** Iteration 357: SHA-256-pinned VictoriaMetrics 1.155.0/node_exporter 1.12.1, loopback-only store/exporter, private `/metrics/vmui/`. Host samples and nine explicit app/agent/observability units expose active state, CPU, memory, tasks and restarts; atomic textfile snapshots every 30 s. Retention 30 days, hard 700 MB filesystem and 50 MB free-space ingestion guard. Bounded memory/CPU/query concurrency; `--verify-o4`, installer reconciliation and desktop/mobile real-sample checks pass. No agent-control edits or product/provider changes.
-- [ ] **O5 App metrics.** `prom-client` endpoints on all Node services, plus
+- [x] **O5 App metrics.** `prom-client` endpoints on all Node services, plus
       queue metrics. Done when HTTP, event-loop, external-call and job metrics
       are scraped.
   - Iteration 358: API/worker runtime metrics on separate loopback listeners
@@ -177,6 +177,11 @@ only when its check passes.
   - Iteration 363: Anthropic/xAI/Bluesky fetch attempts added to the fixed-target
     histogram; durations end at headers, retries/auth requests counted separately.
     Offline transport identity, status/error and privacy checks; queue-state metrics remain.
+  - Iteration 364: API scrape-time retained queue jobs by six states, recurring
+    schedule counts and pause state on existing connections. Fixed queue labels;
+    failed reads return a failed scrape, with offline recovery/privacy verification.
+    `--verify-queue-metrics --verify-o4` checks runtime and stored samples across
+    all four queues. All O5 families are scraped; paid-provider paths verified offline.
 - [ ] **O6 Dashboards.**
   - **Scope:** Grafana at `/grafana/`, with datasources and dashboards
     provisioned from `ops/observability/grafana/`.
