@@ -201,10 +201,9 @@ export async function runObs(
     return JSON.stringify(targetSummary(await response.json(), Date.now()));
   }
   if (args[0] === 'jobs') {
-    const status = (await response.json()) as Pick<
-      OperationsStatus,
-      'checkedAt' | 'queues'
-    >;
+    const status = operationsStatusSchema
+      .pick({ checkedAt: true, queues: true })
+      .parse(await response.json());
     const options = jobOptions(args.slice(1));
     return JSON.stringify({
       checkedAt: status.checkedAt,

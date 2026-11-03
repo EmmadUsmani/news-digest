@@ -85,13 +85,13 @@ void test('obs reads only local endpoints, preserves metrics and reports backend
     calls.push(url as string);
     assert.ok(init?.signal);
     return Response.json({
-      checkedAt: 'now',
+      checkedAt: '2026-11-03T12:00:00Z',
       queues: [],
       privateOtherField: true,
     });
   };
   assert.deepEqual(JSON.parse(await runObs(['jobs'], read)), {
-    checkedAt: 'now',
+    checkedAt: '2026-11-03T12:00:00Z',
     queues: [],
   });
   const expression = 'sum(rate(a[5m]))';
@@ -114,6 +114,13 @@ void test('obs reads only local endpoints, preserves metrics and reports backend
 void test('obs bounds retained job output after filtering while preserving queue health and counts', async () => {
   const runs = Array.from({ length: 12 }, (_, i) => ({
     id: String(i),
+    attempts: 1,
+    scheduledAt: null,
+    startedAt: null,
+    durationMs: null,
+    finishedAt: null,
+    editionId: null,
+    skipped: null,
     state: i % 2 ? 'failed' : 'completed',
   }));
   let calls = 0;
@@ -122,18 +129,23 @@ void test('obs bounds retained job output after filtering while preserving queue
     assert.equal(url, 'http://127.0.0.1:8000/api/status');
     assert.equal(init?.method, undefined);
     return Response.json({
-      checkedAt: 'now',
+      checkedAt: '2026-11-03T12:00:00Z',
       queues: [
         {
           name: 'digest-generation',
           available: true,
+          workers: 1,
+          paused: false,
           counts: { failed: 99 },
-          nextRun: 'later',
+          nextRun: '2026-11-03T15:00:00Z',
           runs,
         },
         {
           name: 'ingestion',
           available: false,
+          workers: 0,
+          paused: false,
+          nextRun: null,
           counts: { failed: 2 },
           runs: [],
         },
@@ -168,7 +180,7 @@ void test('obs bounds retained job output after filtering while preserving queue
   assert.equal(filtered.queues[0].matchingRuns, 6);
   assert.equal(filtered.queues[0].omittedRuns, 4);
   assert.deepEqual(filtered.queues[0].counts, { failed: 99 });
-  assert.equal(filtered.queues[0].nextRun, 'later');
+  assert.equal(filtered.queues[0].nextRun, '2026-11-03T15:00:00Z');
   const empty = JSON.parse(
     await runObs(['jobs', '--queue', 'ingestion', '--state', 'failed'], read),
   );
@@ -587,4 +599,48 @@ void test('health rejects invalid options, HTTP failures and inconsistent or mal
     }),
     /connection refused/,
   );
+});
+
+void test('jobs validates the complete queue snapshot before applying filters', async () => {
+  const queue = {
+    name: 'ingestion',
+    available: true,
+    workers: 1,
+    paused: false,
+    counts: { failed: 0 },
+    nextRun: null,
+    runs: [],
+  };
+  for (const body of [
+    null,
+    {},
+    { checkedAt: 'invalid', queues: [] },
+    {
+      checkedAt: '2026-11-03T12:00:00Z',
+      queues: [{ ...queue, available: 'true' }],
+    },
+    { checkedAt: '2026-11-03T12:00:00Z', queues: [{ ...queue, runs: [{}] }] },
+    {
+      checkedAt: '2026-11-03T12:00:00Z',
+      queues: [{ ...queue, counts: { failed: '0' } }],
+    },
+  ]) {
+    await assert.rejects(
+      runObs(['jobs', '--queue', 'digest-generation'], async () =>
+        Response.json(body),
+      ),
+    );
+  }
+  const result = JSON.parse(
+    await runObs(['jobs'], async () =>
+      Response.json({
+        checkedAt: '2026-11-03T12:00:00Z',
+        privateField: 'hidden',
+        queues: [{ ...queue, privateField: 'hidden' }],
+      }),
+    ),
+  );
+  assert.equal(result.privateField, undefined);
+  assert.equal(result.queues[0].privateField, undefined);
+  assert.equal(result.queues[0].available, true);
 });

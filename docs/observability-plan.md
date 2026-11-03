@@ -376,3 +376,8 @@ directly, validates HTTP/status/dependency consistency and preserves degraded
 503 summaries. It works independently of the metrics store and uses the existing
 ten-second timeout. Malformed responses and transport failures remain errors;
 no provider calls or production changes.
+
+O5 incremental progress (409): jobs validates the Status timestamp and complete
+queue/run schema before filtering, rejects malformed snapshots and omits unknown
+fields. Offline malformed/filtered-queue tests and live four-queue verification;
+no additional reads, provider calls or production changes.

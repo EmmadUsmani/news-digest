@@ -410,6 +410,8 @@ or provider calls. These commands also work over SSH:
 Log results default to 40 records and are capped at 200. Edition filtering does
 not expand to related job/run IDs; older records may lack edition attribution.
 Job and queue log filters match whole field values; use both because different queues can reuse job IDs. Retries share a job ID, so this includes their retained records too. These filters can combine with errors, service, edition and message filters; they do not fetch related jobs or infer missing attribution.
+Job responses validate the snapshot timestamp, queue health, counts and run fields
+before filtering; malformed responses fail and unrecognized fields are omitted.
 Job limits range from 1 to 20 per queue. Filters apply before the limit and keep
 queue availability, counts and next-run information. Output includes retained,
 matching and omitted run counts for the status snapshot. It preserves the API's
