@@ -1362,3 +1362,10 @@ Status and topic settings now describe the active capped, weakest-first daily
 account-list searches 5–30 minutes before publication. Topics need enabled status,
 post slots and curated accounts. Open search remains pending item 15 acknowledgement;
 saving accounts does not initiate discovery. No provider or Reddit requests.
+
+Scheduled open-search preparation (iteration 281): the planner/tick can explicitly
+use open-topic requests, including topics with empty or invalid curated lists.
+Requests omit handles and preserve weakest-first order, daily admission identity
+and the pre-edition window. Production still defaults to account-list search
+until the first scheduled item 15 run is reported and acknowledged. Fixture-only
+verification made no provider requests.

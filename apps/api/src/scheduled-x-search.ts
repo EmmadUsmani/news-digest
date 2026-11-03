@@ -4,6 +4,7 @@ import { budgetDaySlot } from './modules/profiles/adapters/budget-day-slot';
 import {
   planScheduledSearch,
   type ScheduledSearchTopic,
+  type ScheduledSearchType,
 } from './modules/social/domain/scheduled-search';
 
 type Plan = NonNullable<ReturnType<typeof planScheduledSearch>>;
@@ -16,6 +17,7 @@ export async function runScheduledXSearch(
   topics: (now: Date) => Promise<ScheduledSearchTopic[]>,
   execute: (plan: Plan, runId: string) => Promise<unknown>,
   clock: () => Date = () => new Date(),
+  searchType: ScheduledSearchType = 'account-list',
 ) {
   const profile = await loadProfile();
   const now = clock();
@@ -44,7 +46,7 @@ export async function runScheduledXSearch(
       JSON.stringify(current.schedule) !== JSON.stringify(profile.schedule)
     )
       return { skipped: 'Schedule changed', results };
-    const plan = planScheduledSearch([topic], clock(), edition);
+    const plan = planScheduledSearch([topic], clock(), edition, searchType);
     if (!plan || plan.scheduledDay !== now.toISOString().slice(0, 10)) continue;
     results.push(
       await execute(plan, `scheduled-x:${profile.id}:${edition.getTime()}`),

@@ -18,6 +18,35 @@ const profile = {
 const candidates = [
   { id: 'nba', name: 'NBA', guidance: '', handles: ['NBA'], freePosts: 0 },
 ];
+void test('open scheduled discovery covers topics without valid curated handles, weakest first', async () => {
+  const order: string[] = [];
+  const runIds: string[] = [];
+  await runScheduledXSearch(
+    async () => profile,
+    async () => [
+      { ...candidates[0], id: 'listed', freePosts: 2 },
+      { ...candidates[0], id: 'empty', handles: [] },
+      { ...candidates[0], id: 'invalid', handles: ['@invalid'], freePosts: 1 },
+      { ...candidates[0], id: 'bad-coverage', handles: [], freePosts: -1 },
+    ],
+    async (plan, runId) => {
+      order.push(plan.topic.id);
+      runIds.push(runId);
+      assert.equal(Object.hasOwn(plan.request, 'handles'), false);
+      assert.equal(plan.request.topic, 'NBA');
+      assert.equal(plan.scheduledDay, '2026-11-03');
+    },
+    () => new Date('2026-11-03T14:30:00Z'),
+    'open-topic',
+  );
+  assert.deepEqual(order, ['empty', 'invalid', 'listed']);
+  assert.equal(new Set(runIds).size, 1);
+  assert.equal(
+    runIds[0],
+    `scheduled-x:owner:${Date.parse('2026-11-03T15:00:00Z')}`,
+  );
+});
+
 void test('scheduled X tick uses saved timezone, scarce topic and durable day identity', async () => {
   const result = await runScheduledXSearch(
     async () => ({

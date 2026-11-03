@@ -330,3 +330,14 @@ Iteration 252: [archive](docs/progress-archive/2026-11-02-iteration-252.md).
 - Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (131 unit/166 integration), `pnpm build`, `git diff --check`.
 - Restarted API/worker/docs/schema; health and real source/edition checks passed.
 - Archived iterations 262–263; next: Nov 3 scheduled cost/yield and AI timing evidence before open-search switch.
+
+## 2026-11-03: iteration 281 — prepare scheduled open-topic eligibility
+
+- Started clean on main; no leftover work; all four services and health healthy.
+- Planner/tick now accept explicit open-topic mode, without requiring or sending curated handles; production default remains account-list until item 15 acknowledgement.
+- Open-mode fixtures cover empty/invalid lists, weakest-first order, invalid coverage exclusion and unchanged daily/run identity; existing timing/settings safeguards retained.
+- Verified targeted scheduler tests (8), `pnpm format`, `pnpm lint:fix`, `pnpm check` (132 unit/166 integration), `pnpm build` and `git diff --check`.
+- Read-only evidence: 32 sources without errors; Nov 3 edition queued for 15:00 UTC; no Anthropic spend today at inspection.
+- Restarted API/worker/docs/schema; all active, health OK, SPA/docs/db 200; no source errors.
+- No paid provider or Reddit requests; no live schedule/settings changes.
+- Next: observe scheduled X calls and AI edition, acknowledge items 15/13/7 with actual cost/yield/timing, then enable open-topic mode in `scheduled-social.ts`.
