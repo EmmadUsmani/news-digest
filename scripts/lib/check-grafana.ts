@@ -244,7 +244,7 @@ export async function checkGrafana() {
       await page.setViewportSize({
         width: 1440,
         height: ['nd-product', 'nd-runtime'].includes(dashboard.uid)
-          ? 1800
+          ? 2100
           : 1100,
       });
       const errors: string[] = [];
@@ -291,7 +291,7 @@ export async function checkGrafana() {
         // A first canvas can paint while the other queries are still pending.
         await page
           .getByText('worker', { exact: true })
-          .nth(8)
+          .nth(10)
           .waitFor({ state: 'visible' });
         await page
           .getByText('worker minor', { exact: true })
@@ -445,6 +445,38 @@ export async function checkGrafana() {
     );
     await page.screenshot({
       path: 'docs/screenshots/grafana-runtime-work-mobile.png',
+    });
+    for (let attempt = 0; attempt < 22; attempt++) {
+      if (
+        await page
+          .getByRole('heading', { name: 'Event-loop delay p99', exact: true })
+          .count()
+      )
+        break;
+      await page.mouse.wheel(0, 500);
+      await page.waitForTimeout(300);
+    }
+    const delayPanel = page.getByRole('region', {
+      name: 'Event-loop delay p99',
+    });
+    await page
+      .getByRole('heading', { name: 'Event-loop delay p99', exact: true })
+      .scrollIntoViewIfNeeded();
+    await delayPanel
+      .getByText('worker', { exact: true })
+      .waitFor({ state: 'visible' });
+    await delayPanel.evaluate((panel) =>
+      panel.scrollIntoView({ block: 'start' }),
+    );
+    await page.waitForTimeout(1500);
+    assert.equal(
+      await page
+        .locator('[data-testid="data-testid Panel status error"]')
+        .count(),
+      0,
+    );
+    await page.screenshot({
+      path: 'docs/screenshots/grafana-runtime-delay-mobile.png',
     });
     await page.goto(`${base}/d/nd-errors?kiosk`, { waitUntil: 'networkidle' });
     await page

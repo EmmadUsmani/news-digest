@@ -232,7 +232,10 @@ Open [/grafana/](/grafana/) and choose **Dashboards → News Digest** for Host,
 Services, App runtime, HTTP, Jobs, Errors and logs, Product and Database. The operational dashboards use the local metrics store; Host shows CPU,
 memory, disk and network, Services shows unit and Node health, App runtime shows
 API, worker, docs and schema resident memory, used/allocated V8 heap, open file descriptors and
-GC pause time per second, CPU use and active handles, libuv requests and resources.
+GC pause time per second, CPU use, active handles, libuv requests and resources,
+and event-loop p99/maximum delay. Delay summarizes samples since the previous
+scrape, with an approximately 10 ms sampling floor even when idle. It is not
+HTTP latency or a percentile over the selected dashboard range.
 CPU is a percentage of one core and can exceed 100% across threads. Handles
 include sockets and servers; libuv requests are pending native work, not HTTP
 requests. Resource counts include timers and other asynchronous resources. Allocated heap is not a hard limit; descriptors are

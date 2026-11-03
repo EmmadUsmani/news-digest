@@ -1,9 +1,9 @@
 {
   "uid": "nd-runtime",
   "title": "App runtime",
-  "description": "API, worker, docs and schema process metrics. Resident memory includes native allocations; V8 allocated heap is not its hard limit. GC is cumulative pause time per wall second, not latency per collection. File descriptors are process-wide, not database connections. Missing samples mean unavailable telemetry. CPU is percent of one core and can exceed 100% across threads. Active handles are open event-loop handles; active requests are libuv work, not HTTP request counts.",
+  "description": "API, worker, docs and schema process metrics. Resident memory includes native allocations; V8 allocated heap is not its hard limit. GC is cumulative pause time per wall second, not latency per collection. File descriptors are process-wide, not database connections. Missing samples mean unavailable telemetry. CPU is percent of one core and can exceed 100% across threads. Active handles are open event-loop handles; active requests are libuv work, not HTTP request counts. Event-loop p99 and maximum are delay samples since the previous scrape, with an approximately 10 ms sampling floor; they are not HTTP latency or percentiles over the dashboard range.",
   "schemaVersion": 41,
-  "version": 2,
+  "version": 3,
   "editable": false,
   "tags": ["news-digest"],
   "timezone": "utc",
@@ -352,6 +352,78 @@
           "placement": "bottom"
         }
       }
+    },
+    {
+      "id": 11,
+      "title": "Event-loop delay p99",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 40,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "news_digest_nodejs_eventloop_lag_p99_seconds",
+          "legendFormat": "{{service}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "min": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      },
+      "description": "Delay since the previous scrape, measured with approximately 10 ms resolution. A healthy idle process can show about 10 ms. This is not HTTP request latency or a percentile over the selected time range."
+    },
+    {
+      "id": 12,
+      "title": "Event-loop delay maximum",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 40,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "news_digest_nodejs_eventloop_lag_max_seconds",
+          "legendFormat": "{{service}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "min": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      },
+      "description": "Delay since the previous scrape, measured with approximately 10 ms resolution. A healthy idle process can show about 10 ms. This is not HTTP request latency or a percentile over the selected time range."
     }
   ],
   "links": [

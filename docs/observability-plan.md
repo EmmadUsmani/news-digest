@@ -197,6 +197,7 @@ only when its check passes.
     logs, Product, Agent.
   - **Done when:** every dashboard renders with no panel errors (screenshot
     check).
+  - Iteration 373: App runtime adds event-loop p99 and maximum delay for all four Node services, using existing scrapes. Panels explain the per-scrape window and approximately 10 ms sampling floor; desktop/mobile verification covers delay. No app changes.
 - [ ] **O7 Database and Redis.**
   - **Scope:** postgres_exporter, `pg_stat_statements`, slow-query log and
     redis_exporter. The Postgres restart is scheduled at least 2 h away from
