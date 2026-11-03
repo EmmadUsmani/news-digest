@@ -2,45 +2,6 @@
 
 Earlier entries: [progress archive](docs/progress-archive/).
 
-## 2026-11-03: iteration 416 — provider cap warnings
-
-- Started clean on main; no leftover work. Health, 32 sources and four queues healthy; two historical ingestion failures unchanged. Scheduled evidence still awaits 15:00 UTC.
-- Added read-only UTC daily/monthly ledger spend plus all outstanding pending/uncertain holds, including older holds, for Anthropic/xAI. Column-only monetary/status/time grants; no prompts, keys or provider calls. Empty ledgers export zero.
-- Added >=90% configured-cap warning with two-minute hold; joins existing ceiling metrics by provider/period. Zero/missing caps do not infer allowance; this does not measure prepaid credit or scheduled reserve availability.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (261 unit/174 integration), `pnpm build`, vmalert dry-run/unittest, handbook 09, `check-observability.ts --verify-alerts`/`--verify-o4` and `git diff --check` passed. Isolated SQL fixtures cover UTC boundaries, empty ledgers, older holds and failed-call release; zero dangling Docker volumes.
-- Restarted only obs-postgres and obs-alerts. Ten rules healthy, zero active alerts; four provider/period gauges and scrape-error zero verified live. Eight scrape targets healthy; latest real free collection completed. No app/Postgres/Redis restart, paid calls, Reddit requests or UI changes.
-- Updated handbook, observability plan and TASKS. Next: Nov 3 scheduled AI timing/cost/X yield and acks first; otherwise missing-schedule detection, then O7/O8/O10.
-
-## 2026-11-03: iteration 417 — lost digest scheduler warning
-
-- Started clean on main; no leftover work. Health, 32 sources and scheduled queues healthy; two historical ingestion failures unchanged. Nov 3 AI/X evidence awaits 15:00 UTC.
-- Added two-minute warning when the daily digest queue has zero recurring schedulers or is paused. Uses existing API queue gauges; no new collector. Missing lifecycle after a registered scheduler advances remains open.
-- Offline evaluator cases verify threshold/hold/recovery, healthy/missing samples and queue/scrape-job isolation. Runtime check now requires digest scheduler/pause samples from the actual API exporter.
-- Deployed config and restarted only obs-alerts before 14:30 UTC; eleven healthy rules, zero active alerts. Eight scrape targets healthy; latest free collection verified ten real X posts without errors. No app/DB/Redis restart, paid calls, Reddit requests or UI changes.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (261 unit/174 integration), `pnpm build`, vmalert dry-run/unittest, handbook 09, observability --verify-alerts/--verify-o4 and health checks passed. Initial check stopped on archive formatting; fixed and full rerun green. Zero dangling Docker volumes.
-- Updated handbook, plan and TASKS; archived iterations 405–407 to keep PROGRESS below 25 KB.
-- Next: Nov 3 scheduled AI timing/cost/X yield and acks first; otherwise missing lifecycle/publication detection, then O7/O8/O10.
-
-## 2026-11-03: iteration 418 — stalled registered scheduler warning
-
-- Started clean on main; no leftover work. Health, 32 sources and four queues healthy; two historical ingestion failures unchanged. Nov 3 scheduled AI/X evidence still awaits 15:00 UTC.
-- Added warning when the digest scheduler's next run remains >15 minutes overdue for two minutes. Uses existing API timestamp; excludes other queues/exporters and zero/absent values. Schedule advancement clears it; missing lifecycle after advancement remains open.
-- Offline evaluator verifies strict threshold, hold, recovery and future/zero/absent samples. Corrected test timestamps to vmalert's documented 2000-01-01 epoch before passing.
-- Deployed and restarted only obs-alerts at 14:23 UTC. Twelve healthy rules, no active alerts; eight scrape targets healthy. Latest free collection verified ten real X posts, no errors; no provider calls or Reddit requests initiated.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, vmalert dry-run/unittest, handbook 09, observability `--verify-alerts`/`--verify-o4`, health/status and `git diff --check` passed (261 unit/174 integration); zero dangling Docker volumes.
-- Updated handbook, observability plan and TASKS. No edition behavior, UI or app/DB/Redis restart.
-- Next: scheduled Nov 3 AI timing/cost/X yield and acks first; otherwise missing lifecycle/publication detection, then O7/O8/O10.
-
-## 2026-11-03: iteration 419 — incomplete schedule metrics warning
-
-- Started clean on main; no leftover work. Health, 32 sources and four queues healthy; two historical ingestion failures unchanged. Scheduled evidence still awaits 15:00 UTC.
-- Added two-minute warning when a successful API scrape lacks any digest scheduler count, pause or next-run gauge. This closes a silent partial-exporter failure; missing lifecycle/publication after advancement remains open.
-- Offline evaluator covers each missing gauge, healthy/down scrapes, hold, recovery and unrelated queue/exporter isolation. Runtime verification requires the thirteenth rule.
-- Deployed and restarted only obs-alerts at 14:29:08 UTC, before freeze. Thirteen healthy rules, zero active alerts; eight scrape targets healthy. No app/DB/Redis restart, paid calls, Reddit requests, UI or edition changes.
-- Latest free social collection verified ten real X posts without errors. Updated handbook, plan and TASKS.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, vmalert dry-run/unittest, handbook 09, observability `--verify-alerts`/`--verify-o4`, health/jobs/sources and `git diff --check`; zero dangling Docker volumes.
-- Next: Nov 3 scheduled AI timing/cost/X yield and acks first; otherwise missing lifecycle/publication detection, then O7/O8/O10.
-
 ## 2026-11-03: iteration 425 — first scheduled AI/X evidence
 
 - Started clean on main; no leftover work. Health, 32 sources, services and queues healthy; zero alerts; two historical ingestion failures unchanged.
@@ -160,3 +121,15 @@ Earlier entries: [progress archive](docs/progress-archive/).
 - Restarted only changed obs-postgres/obs-alerts; app/DB/Redis unchanged. check-observability.ts --verify-alerts verifies 15 healthy rules and persisted recording output; uncached read avoids initial negative query cache.
 - Final health/alerts green; latest real edition remains 19 stories/11 X posts; articles/stored X present across four topics. Zero dangling volumes; git diff --check passed.
 - Next: scheduled Bluesky/open-X picks and latency evidence take priority; otherwise O7 top queries. Grouping activation/independent labels remain open.
+
+## 2026-11-03: iteration 436 — bounded top statement timing
+
+- Started clean on main; no leftovers. Zero alerts/healthy services. Scheduled social/latency evidence still pending; advanced O7 under items 24/25.
+- Enabled pg_stat_statements with 1,000 shared entries, top-level queries only and utility tracking off. Restricted function exposes current-DB statement IDs/numeric execution statistics, excluding monitoring roles; no SQL/usernames or new metric labels.
+- Added current top-20 total/mean timing tables to Database; documented cumulative/reset/eviction limits and planning-time exclusion. Raw slow-statement logging stays disabled to avoid private SQL values; O7 remains open.
+- First install checked idle publication and next run Nov 4 15:00 (>2 h), then restarted only Postgres, retaining container/log paths. Second reconciliation did not restart it. Compose retains configuration on recreation; Grafana picked up its changed provisioned dashboard.
+- Isolated privilege/privacy regression passed; pnpm check passed (272 unit/175 integration). pnpm format, pnpm lint:fix, pnpm build, bash -n and docker compose config --quiet passed. Corrected intermediate formatting failure before successful full check.
+- check-observability.ts --verify-grafana --grafana-database-only passed: 11/11 populated panels, restricted Viewer/DB grants, real desktop/mobile screenshots inspected. Initial checks caught provisioning reload lag and mobile lazy rendering; final checks pass.
+- check-handbook.ts 09-observability passed; no diagram edits. Health/alerts green; 32 healthy sources/four available queues, all-topic articles/X storage. Latest real edition unchanged: 19 stories/11 X posts. No paid calls/new editions.
+- Archived iterations 416–419 to keep PROGRESS small. Zero dangling Docker volumes; git diff --check passed. No API/worker restart under item 22 because their runtime code/config is unchanged.
+- Next: scheduled Bluesky/open-X picks and latency evidence first; otherwise finish O7 with safe duration-only slow-query evidence, then O8/O10.

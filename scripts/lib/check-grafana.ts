@@ -406,7 +406,7 @@ export async function checkGrafana() {
       page.on('pageerror', listener);
       await page.setViewportSize({
         width: 1440,
-        height: dashboard.uid === 'nd-database' ? 2200 : 1100,
+        height: dashboard.uid === 'nd-database' ? 3100 : 1100,
       });
       await page.goto(`${base}/d/${dashboard.uid}?kiosk`, {
         waitUntil: 'networkidle',
@@ -479,6 +479,24 @@ export async function checkGrafana() {
       });
     }
     if (process.argv.includes('--grafana-database-only')) {
+      const stats = execFileSync(
+        'docker',
+        [
+          'compose',
+          'exec',
+          '-T',
+          'postgres',
+          'psql',
+          '-U',
+          'grafana_product',
+          '-d',
+          'news_digest',
+          '-Atc',
+          'SELECT count(*) > 0 AND bool_and(calls > 0 AND total_ms >= 0 AND mean_ms >= 0) FROM public.observability_query_stats()',
+        ],
+        { encoding: 'utf8' },
+      ).trim();
+      assert.equal(stats, 't');
       await page.setViewportSize({ width: 390, height: 1000 });
       await page.goto(`${base}/d/nd-database?kiosk`, {
         waitUntil: 'networkidle',
@@ -505,6 +523,38 @@ export async function checkGrafana() {
       );
       await page.screenshot({
         path: 'docs/screenshots/grafana-database-history-mobile.png',
+      });
+      for (let attempt = 0; attempt < 30; attempt++) {
+        if (
+          await page
+            .getByRole('heading', {
+              name: 'Top statements by total execution time',
+              exact: true,
+            })
+            .count()
+        )
+          break;
+        await page.mouse.wheel(0, 450);
+        await page.waitForTimeout(300);
+      }
+      await page
+        .getByRole('heading', {
+          name: 'Top statements by total execution time',
+          exact: true,
+        })
+        .scrollIntoViewIfNeeded();
+      await page
+        .getByRole('columnheader', { name: 'Statement ID', exact: true })
+        .first()
+        .waitFor();
+      await page
+        .getByRole('heading', {
+          name: 'Top statements by total execution time',
+          exact: true,
+        })
+        .evaluate((element) => element.scrollIntoView({ block: 'start' }));
+      await page.screenshot({
+        path: 'docs/screenshots/grafana-database-queries-mobile.png',
       });
       return {
         dashboards: checked,

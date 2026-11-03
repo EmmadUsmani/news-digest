@@ -214,6 +214,7 @@ only when its check passes.
 - [ ] **O7 Database and Redis.**
   - Iteration 395: pinned postgres_exporter v0.20.1, aggregate stat_database only, restricted read-only login without table/statistics-reader grants, two connections/3s statements; loopback 30s scrape and 32 MB/2% CPU limits. Live metrics/role/privacy checks included in `--verify-o4`. No database restart. Iteration 396 adds four historical Database charts (connections, commit/rollback rates and temporary writes), verified through Grafana plus desktop/mobile screenshots. Top queries remain open.
   - Iteration 374: Redis collector and O6 Redis dashboard shipped. Pinned/checksummed redis_exporter v1.96.0, loopback INFO-only, 30-second scraping, 32 MB/2% CPU ceiling; no key scanning, app or Redis restart. Eight panels and desktop/mobile checked. Postgres exporter/top queries remain open.
+  - Iteration 436: bounded top-level pg_stat_statements (1,000 shared entries), restricted numeric-only function and live top-20 total/mean tables by statement ID. No query text/usernames or metric-cardinality growth. Deployment checks idle publication and >2 h clearance before first restart; isolated permissions/privacy tests and live desktop/mobile verification. Raw slow-statement logging remains disabled to avoid private SQL values; O7 stays open pending a safe duration-only alternative.
   - **Scope:** postgres_exporter, `pg_stat_statements`, slow-query log and
     redis_exporter. The Postgres restart is scheduled at least 2 h away from
     the edition.

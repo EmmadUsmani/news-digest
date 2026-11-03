@@ -16,6 +16,13 @@ async function main() {
     // Mount image-declared data volumes as tmpfs, including on interrupted runs.
     const postgres = await new GenericContainer('postgres:17-alpine')
       .withEnvironment({ POSTGRES_HOST_AUTH_METHOD: 'trust' })
+      .withCommand([
+        'postgres',
+        '-c',
+        'shared_preload_libraries=pg_stat_statements',
+        '-c',
+        'pg_stat_statements.track_utility=off',
+      ])
       .withTmpFs({ '/var/lib/postgresql/data': 'rw' })
       .withExposedPorts(5432)
       .withWaitStrategy(

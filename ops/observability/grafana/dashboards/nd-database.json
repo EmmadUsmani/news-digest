@@ -1,7 +1,7 @@
 {
   "uid": "nd-database",
   "title": "Database",
-  "description": "Historical aggregate Postgres metrics follow the time picker; SQL tables show current statistics independently. Counters reset with statistics resets; estimates are not exact row counts. No query text or session details. Top query timing awaits pg_stat_statements (O7).",
+  "description": "Historical aggregate metrics follow the time picker. Current tables and bounded top statement IDs show cumulative statistics, independently of the time picker. No query text or usernames.",
   "schemaVersion": 41,
   "version": 1,
   "editable": false,
@@ -349,6 +349,182 @@
         "legend": {
           "displayMode": "list",
           "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 20,
+      "title": "Top statements by total execution time",
+      "description": "Current cumulative execution statistics since per-entry reset; not filtered by the time picker. IDs identify normalized statements; SQL text and usernames are withheld. Planning time excluded; monitoring roles excluded. Entries may be evicted from the 1,000-statement shared limit.",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "product-postgres"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 40,
+        "w": 12,
+        "h": 10
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT query_id AS \"Statement ID\", calls AS \"Calls\", round(total_ms::numeric,2) AS \"Total ms\", round(mean_ms::numeric,3) AS \"Mean ms\", rows AS \"Rows\", shared_hits AS \"Buffer hits\", shared_reads AS \"Buffer reads\", stats_since AS \"Since (UTC)\" FROM public.observability_query_stats() ORDER BY total_ms DESC, query_id LIMIT 20",
+          "editorMode": "code",
+          "sql": {
+            "limit": 100
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Statement ID"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 160
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Calls"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 60
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Total ms"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 90
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Mean ms"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 90
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 21,
+      "title": "Top statements by mean execution time",
+      "description": "Current cumulative execution statistics since per-entry reset; not filtered by the time picker. IDs identify normalized statements; SQL text and usernames are withheld. Planning time excluded; monitoring roles excluded. Entries may be evicted from the 1,000-statement shared limit.",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "product-postgres"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 40,
+        "w": 12,
+        "h": 10
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT query_id AS \"Statement ID\", calls AS \"Calls\", round(total_ms::numeric,2) AS \"Total ms\", round(mean_ms::numeric,3) AS \"Mean ms\", rows AS \"Rows\", shared_hits AS \"Buffer hits\", shared_reads AS \"Buffer reads\", stats_since AS \"Since (UTC)\" FROM public.observability_query_stats() ORDER BY mean_ms DESC, query_id LIMIT 20",
+          "editorMode": "code",
+          "sql": {
+            "limit": 100
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Statement ID"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 160
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Calls"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 60
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Total ms"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 90
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Mean ms"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 90
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
         }
       }
     }

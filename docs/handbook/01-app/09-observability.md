@@ -380,11 +380,34 @@ has a 32 MB memory ceiling, a 2% CPU ceiling and low scheduling priority.
 `bash ops/observability/install-redis.sh` reconciles its binary, unit and scraper
 config; it reloads the metrics store without restarting Redis or the app.
 
+## Statement timing
+
+The Database dashboard lists the twenty most expensive normalized statement IDs
+by total and mean execution time, with calls, rows, buffer reads/hits and the
+per-entry observation start. These are current cumulative statistics, independent
+of the time picker. Planning time is excluded. IDs identify statements without
+exposing SQL text or usernames; the two monitoring logins are excluded.
+
+Postgres preloads `pg_stat_statements`, tracks top-level statements only and
+retains at most 1,000 entries across the server. Entries can be evicted; resets
+and restarts can break continuity. A narrowly granted function exposes only the
+current database's numeric statistics to Grafana, without statistics-reader
+membership. No statement IDs enter the metric store. Raw slow-statement logging
+is disabled because SQL text can contain private values.
+
+`bash ops/observability/install-query-stats.sh` enables this separately from the
+exporter. Its first installation restarts Postgres only after checking the live
+publication queue is idle and the next edition is more than two hours away.
+It retains the container and log paths. Later reconciliations need no restart;
+fresh Compose containers carry the same preload configuration. Apply the query
+statistics SQL after creating the Grafana role. Verify with
+`pnpm exec tsx scripts/check-observability.ts --verify-grafana --grafana-database-only`.
+
 ## Postgres metrics
 
 A pinned postgres_exporter reads aggregate database statistics through a dedicated
 read-only login with two allowed connections and a three-second query timeout.
-It has no application-table access or statistics-reader membership. Only the
+It has only the named-column schedule/spend grants described below and no statistics-reader membership. Only the
 `stat_database` collector runs: connections, transactions, cache blocks, deadlocks
 and database-wide timing counters. Query text, user labels and statement IDs are
 not exported. Counters cover each database since its statistics reset; they do
