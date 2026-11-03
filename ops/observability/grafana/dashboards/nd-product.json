@@ -249,8 +249,8 @@
     },
     {
       "id": 7,
-      "title": "Source article coverage (rolling 24 hours)",
-      "description": "Distinct articles published in the last 24 hours and attributed to each source, including sources with zero. Multiple sources may cite the same article; these counts must not be summed as unique topic coverage. Last response count includes older and duplicate items and is not new-item yield.",
+      "title": "Source article coverage (24 hours and 7 days)",
+      "description": "Distinct retained articles by publication time, attributed to each source, including zero counts. Seven-day counts include the last 24 hours. Multiple sources may cite the same article; do not sum these as unique topic coverage. Includes disabled sources/topics. Last response count includes older and duplicate items and is not new-item yield. Fixed rolling windows ignore the time picker.",
       "type": "table",
       "datasource": {
         "type": "grafana-postgresql-datasource",
@@ -267,7 +267,7 @@
           "refId": "A",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT s.name AS \"Source\", count(DISTINCT i.id)::int AS \"Articles (24h)\", s.last_item_count AS \"Last response items\", s.last_success AS \"Last success (UTC)\", (s.last_error IS NOT NULL) AS \"Current error\" FROM content_sources s LEFT JOIN content_observations o ON o.source_id=s.id LEFT JOIN content_items i ON i.id=o.item_id AND i.published_at >= now()-interval '24 hours' AND i.published_at <= now() GROUP BY s.id,s.name,s.last_item_count,s.last_success,s.last_error ORDER BY \"Articles (24h)\",\"Source\"",
+          "rawSql": "SELECT coalesce(t.name,'Shared / all topics') AS \"Topic\", s.name AS \"Source\", count(DISTINCT i.id) FILTER (WHERE i.published_at >= now()-interval '24 hours')::int AS \"Articles (24h)\", count(DISTINCT i.id)::int AS \"Articles (7d)\", s.last_item_count AS \"Last response items\", s.last_success AS \"Last success (UTC)\", (s.last_error IS NOT NULL) AS \"Current error\" FROM content_sources s LEFT JOIN topics t ON t.id=s.topic_id LEFT JOIN content_observations o ON o.source_id=s.id LEFT JOIN content_items i ON i.id=o.item_id AND i.published_at >= now()-interval '7 days' AND i.published_at <= now() GROUP BY t.id,t.name,s.id,s.name,s.last_item_count,s.last_success,s.last_error ORDER BY \"Topic\",\"Articles (24h)\",\"Articles (7d)\",\"Source\"",
           "editorMode": "code",
           "sql": {
             "limit": 100

@@ -283,6 +283,7 @@ export async function checkGrafana() {
       if (dashboard.uid === 'nd-product') {
         for (const name of [
           'Articles (24h)',
+          'Articles (7d)',
           'AI story topics',
           'Charged ($)',
         ]) {
@@ -338,7 +339,7 @@ export async function checkGrafana() {
       if (
         await page
           .getByRole('heading', {
-            name: 'Source article coverage (rolling 24 hours)',
+            name: 'Source article coverage (24 hours and 7 days)',
             exact: true,
           })
           .count()
@@ -349,10 +350,19 @@ export async function checkGrafana() {
     }
     await page
       .getByRole('heading', {
-        name: 'Source article coverage (rolling 24 hours)',
+        name: 'Source article coverage (24 hours and 7 days)',
         exact: true,
       })
       .scrollIntoViewIfNeeded();
+    await page
+      .getByRole('columnheader', { name: 'Articles (7d)', exact: true })
+      .scrollIntoViewIfNeeded();
+    await page
+      .getByRole('heading', {
+        name: 'Source article coverage (24 hours and 7 days)',
+        exact: true,
+      })
+      .evaluate((node) => node.scrollIntoView({ block: 'start' }));
     await page.waitForTimeout(1500);
     await page.screenshot({
       path: 'docs/screenshots/grafana-product-coverage-mobile.png',

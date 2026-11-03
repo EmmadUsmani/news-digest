@@ -251,11 +251,12 @@ retained structured events; it does not collect browser errors.
 Product reads retained Postgres data every five minutes: settled UTC day/month
 spend and all outstanding holds, latest edition story/post modes, source freshness,
 rolling 24-hour distinct articles and X citation verification, seven reserve
-lifecycle rows, per-source 24-hour article coverage (including zero counts), and the
+lifecycle rows, per-source 24-hour and seven-day article coverage grouped by topic (including zero counts), and the
 latest seven retained edition snapshots with story/post totals and AI topic counts.
 A separate table matches Anthropic ledger calls to those edition IDs, showing charges
 and unresolved holds. Zero calls may mean cached or fallback work. It excludes X
 discovery and unpublished attempts, so it is not total scheduled-run spend.
+Seven-day article counts include the last 24 hours and use publication time, not discovery time.
 Source response counts include duplicates and older items; they are not new-item yield.
 Edition creation time is not worker duration. These table windows are explicit and ignore the Grafana time picker.
 AI mode can use cached work; verified citations are not incremental discovery yield.
