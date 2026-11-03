@@ -283,6 +283,8 @@ Do this before any other item, and ack it when done.
 - **Tests:** batching, concurrency limits, cache reuse and the async job flow
   must all run on fixtures or fakes (item 4).
 
+ack: 2026-11-03 item 7 measurement — iteration 425 observed the scheduled edition (777fdd95-0bcd-4ca7-9ea6-36c654effcca): 231.829 s worker duration, 748 article candidates, $0.339524 Anthropic/43 calls. The under-60-second target is NOT met; keep item 7 open. Three story sections used AI, NBA stories fell back despite complete triage, and World selected no posts. Investigate editor validation/admission and latency offline before another paid run.
+
 ## 8. PARKED by the owner (see item 14): Reddit, the owner's #2 social source (2026-11-02)
 
 None has been built yet: every stored social post is from X. Do it right after
@@ -399,6 +401,8 @@ $0.48 cap. The scheduled edition is the product; it must get AI editing first.
 - Ack here once Nov 3's scheduled edition runs with AI editing, with its cost
   and duration.
 
+ack: 2026-11-03 item 13 measured, partial — iteration 425 verified the scheduled reserve protected the entire $0.482788 daily cap while running, then released with zero holds on publication at 15:03:51.856 UTC. Edition 777fdd95-0bcd-4ca7-9ea6-36c654effcca cost $0.339524 and took 231.829 s. Outcome is mixed: Tech/AI, Gaming and World stories AI-edited; NBA stories non-AI. Reserve behavior verified; full-AI acceptance remains open rather than claiming completion.
+
 ## 14. Owner decision: park Reddit, move to scheduled X search (2026-11-02)
 
 Reddit has returned 403 to the VM on every attempt. Reports say Reddit ends RSS
@@ -444,6 +448,8 @@ about $0.02 each, so four a day is about $0.10, well inside the caps.
   verified posts for the first week.
 - **Tests:** use fakes only; no paid calls to verify admission.
 - Ack here after the first full scheduled run, with per-topic cost and yield.
+
+ack: 2026-11-03 item 15 — iteration 425 read the first full scheduled account-list run: World $0.036680/5 new verified posts, Gaming $0.036815/5, NBA $0.037582/5, Tech/AI $0.025979/3; total $0.137056, 18 fetched/new verified, zero holds. All four calls succeeded, no outside-list additions. Daily/first-week reporting continues under item 9; no extra paid verification.
 
 ## 16. NEXT PRIORITY: open X discovery, not just account lists (2026-11-02)
 

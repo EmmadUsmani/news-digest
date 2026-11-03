@@ -1550,3 +1550,20 @@ X/Reddit selection, through the publisher's database snapshot. Only
 under item 23. Existing X picks and total topic budgets are preserved. Fake
 caller checks cover the default-off path and explicit transaction-scoped selection;
 this adds no collection, live model calls or evidence of real editorial yield.
+
+## First full scheduled X run — iteration 425 (2026-11-03)
+
+Read-only ledger report confirms four successful account-list searches before
+the 15:00 UTC edition: World $0.036680/5 newly verified posts, Gaming
+$0.036815/5, NBA $0.037582/5, Tech/AI $0.025979/3. Total $0.137056 for
+18 fetched posts and 18 incremental official-oEmbed-verified additions; no
+unresolved holds or outside-list additions. These are discovery yields, not
+virality or editorial-quality measurements. No extra paid verification ran.
+
+Scheduled edition `777fdd95-0bcd-4ca7-9ea6-36c654effcca` published with
+4/4/3/0 X posts for Tech/AI, NBA, Gaming and World respectively. World
+discovery succeeded but produced no selected posts. The saved World social
+triage contains one candidate (relevance 3, importance 2; insufficient context),
+so discovery yield must not be read as eligible in-window editorial coverage.
+Investigate candidate eligibility separately. Desktop/mobile screenshots: `docs/screenshots/scheduled-nov3-*.png`.
+Open search, Bluesky inclusion and grouping remain switched off.

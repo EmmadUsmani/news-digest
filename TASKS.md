@@ -9,7 +9,7 @@ Fix failures and stalled sources first.
 - [x] STEERING 21 (295): handbook/schema checks green; acknowledged.
 
 - [ ] STEERING 16 (next implementation): open per-topic X search without handle restrictions; reported engagement/velocity, then budget-permitting story reactions and secondary account lists. Keep caps; item 15's first scheduled run is acknowledged before switching. Report search type, cost/yield and outside-list accounts; finish with real editions/screenshots.
-  - Open/engagement reporting and durable optional execution are wired and fake-tested (271–294). Production remains account-list pending scheduled evidence/acks; activation remains. Iteration 296 adds daily topic/type cost and incremental-yield summaries with explicit unknowns.
+  - Open/engagement reporting and durable optional execution are wired and fake-tested (271–294). Item 15 acknowledged (425); production remains account-list while item 13 mixed outcome and item 7 latency need fixing; activation remains. Iteration 296 adds daily topic/type cost and incremental-yield summaries with explicit unknowns.
 
 - [ ] STEERING 17 (315, advanced under item 22): reviewed four editable X lists (11/10/12/11), rationale in docs/SOURCES.md; API/browser verified. Item 23 arrived before push: restored original live lists (8/8/9/9); activate reviewed lists after the Nov 3 run is acknowledged.
 - [ ] STEERING 18 (325): authenticated Bluesky discovery, engagement/semantic editing, storage/cards and edition caller prepared. Owner login configured; production inclusion off until Nov 3 evidence/acks.
@@ -17,19 +17,19 @@ Fix failures and stalled sources first.
 
 - [x] STEERING 20 (270): priorities recorded; ESPN empty-feed label fixed.
 
-- [ ] STEERING 15: scheduled X search for every enabled topic daily, weakest first; atomic per-topic/day admission, optional second search only below three verified additions and within projected caps. Fake tests only; acknowledge after first full scheduled run with per-topic cost/yield. Implemented: weakest-first coverage, atomic admission, $0.10 projections; second searches disabled. Next: Nov 3 scheduled cost/yield and ack.
+- [x] STEERING 15 (425): first scheduled daily per-topic account-list run acknowledged; $0.137056/18 new verified across four topics. Atomic admission and weakest-first $0.10 projections verified; second searches disabled. Daily reporting continues under item 9.
 
 - [ ] STEERING 13 TOP PRIORITY before Nov 3 15:00 UTC: reserve configurable Anthropic budget for the scheduled edition under the shared ledger lock; limit all other spend until completion/failure; expose reserve/manual limits and scheduled AI/fallback outcome. Fake/Testcontainers verification only. Measure next scheduled edition cost/duration for item 7.
-  - Reserve lifecycle/admission, fencing and UI implemented; production uses 1.5x headroom. Next: Nov 3 AI cost/duration and ack.
+  - Reserve lifecycle/admission, fencing and UI implemented; production uses 1.5x headroom. Nov 3 measured (425): $0.339524, 231.829 s, reserve released/zero holds; mixed outcome (NBA story fallback), so full-AI acceptance remains open.
 
 - [x] STEERING 14 (211): Reddit parked and unscheduled; no HTTP requests. Social completion requires X only. Priority: 13, 7 timing, 9 X, 10 coverage; 2/4 lower.
 
 - [ ] STEERING 7, first: async BullMQ creation/regeneration, window dedupe, progress UI and last-run duration. Fake job/publication flows verified; measure live provider timing against <60s/current-volume and <2min/1,500-item targets. Repository fake baseline is documented; not a live latency claim. Iteration 282 adds per-edition settled ledger cost/holds and reserve outcome to the read-only timing report, excluding unrelated jobs and unpublished retries.
-  - Read-only `scripts/report-edition-timing.ts` links duration/modes/candidates/budget. Iterations 387–388 preserve settled scheduled evidence past newer manual/upcoming jobs and report failures; partial edition/ledger reads retain other evidence and exit nonzero; offsets are not pure queue wait. Prior scheduled run: 856 ms worker, 32 ms start offset/888 ms completion offset, non-AI fallback. Next: Nov 3 15:00 UTC AI timing, no paid trial.
+  - Read-only `scripts/report-edition-timing.ts` links duration/modes/candidates/budget. Iterations 387–388 preserve settled scheduled evidence past newer manual/upcoming jobs and report failures; partial edition/ledger reads retain other evidence and exit nonzero; offsets are not pure queue wait. Prior scheduled run: 856 ms worker, 32 ms start offset/888 ms completion offset, non-AI fallback. Nov 3 measured (425): 231.829 s/748 article candidates/43 calls, misses target; investigate NBA editor fallback and latency offline, no paid trial.
 - [ ] STEERING 8, PARKED by owner under item 14: curated editable Reddit communities, public rate-limited JSON/RSS ingestion, social storage/cards and X citation extraction; real posts across four topics. Respect access denial; no bypass.
   - Prepared storage/cards/editorial wiring (168–176), synthetic verification only. Access 403; no requests until owner re-enables.
 - [ ] STEERING 9, after 13/7 (no Reddit dependency): schedule capped direct xAI discovery before digest; report daily spend and verified yield for first week. Item 14 removes the Reddit prerequisite.
-  - Cost/yield reporting, durable admission, weakest-topic planning and official verification implemented. Worker searches 5–30 minutes before publication; seven-day report available. Next: first automatic run and first-week spend/yield.
+  - Cost/yield reporting, durable admission, weakest-topic planning and official verification implemented. Worker searches 5–30 minutes before publication; seven-day report available. First automatic run verified (425): $0.137056/18 new verified posts. Continue first-week spend/yield.
 - [x] STEERING 10: per-topic coverage on Status and live baseline (iteration 177); reassess before adding sources.
 - [x] STEERING 11 (166): restored daily 07:00 America/Los_Angeles P1D; all schedule verification isolated.
 - [ ] STEERING 4 (lower priority): fingerprinted LlmPort replay and separate verification spend are implemented (178–182); real raw-response golden remains open. Do not re-record unchanged prompts or spend merely to test replay. See docs/DATABASE-VERIFICATION.md.
@@ -44,7 +44,7 @@ M0–M2; M3/M6/M7 foundations implemented.
   - Audit work closed for now under STEERING 5: existing recorded/synthetic coverage is summarized in docs/RANKING.md. Resume only for a real unsupported digest summary.
   - Deferred: scheduled Message Batches, cross-process cache coordination, full-article retrieval and larger editor shortlists.
 - [ ] M4 Social posts (current priority; STEERING 6):
-  - Next: observe the first scheduled semantic social edition and measure relevant Gaming discovery. Scheduled X holds use $0.10 per topic under STEERING 15; manual holds retain the full day. Semantic selection is not a virality measurement.
+  - Nov 3 edition (425): X picks Tech/AI 4, NBA 4, Gaming 3, World 0; investigate World eligibility. Scheduled X holds use $0.10 per topic under STEERING 15; manual holds retain the full day. Semantic selection is not a virality measurement.
   - [x] SocialPost storage, bounded discovery, immutable selections and official X embeds (iterations 87–143).
   - Reddit per-topic communities and faithful cards; no bot-protection workarounds. Bluesky optional; YouTube deferred.
   - [x] Direct capped xAI adapter and ledger implemented; scheduled use remains STEERING 9. Never use gateway.

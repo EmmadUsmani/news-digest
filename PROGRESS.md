@@ -16,24 +16,9 @@ Earlier entries: [iterations 402–404](docs/progress-archive/2026-11-03-iterati
 
 Earlier entries: [iterations 405–407](docs/progress-archive/2026-11-03-iterations-405-407.md).
 
-## 2026-11-03: iteration 408 — direct API dependency health probe
+Earlier entry: [iteration 408](docs/progress-archive/2026-11-03-iteration-408.md).
 
-- Started clean on main; no leftover work. Live API/dependencies, 32 sources, 12 units/eight collectors and four queues healthy; no failed digest/social jobs. Two historical ingestion failures remain. Scheduled evidence still waits for 15:00 UTC.
-- Added read-only `pnpm obs health [--check]`, independent of metrics: validates `/healthz` HTTP/status/dependency consistency, retains valid degraded 503 JSON, omits extra fields and uses the existing ten-second timeout. Opt-in unhealthy exit 1; transport/malformed responses remain errors.
-- Offline tests cover all dependency combinations, inconsistent statuses, invalid options, malformed JSON and connection failure. `pnpm exec tsx scripts/check-observability.ts --verify-cli`, live `pnpm obs health --check`, `pnpm build`, handbook 09 and read-only timing report passed. No paid calls or new AI timing claim.
-- First `pnpm check` stopped on formatting of the newly archived progress entry; formatted it and reran checks. `pnpm format`, `pnpm lint:fix`, final `pnpm check` (258 unit/172 integration) and `git diff --check` passed.
-- Updated handbook/plan/TASKS; archived iteration 397. CLI/tests/docs only: no service restart under STEERING 22, UI changes or screenshots. No production content/cap/schedule/activation changes or Reddit requests.
-- Next: collect/ack scheduled cost/yield/AI timing first; top queries, harness counters and alert engine remain open.
-
-## 2026-11-03: iteration 409 — validate job query snapshots
-
-- Started clean on main; no leftover work. Live API/dependencies, 32 sources, 12 units/eight collectors and four queues healthy; no failed digest/social jobs. Two historical ingestion failures remain. Scheduled evidence remains pending at 13:22 UTC.
-- Jobs CLI now validates the Status timestamp and complete queue/run schema before filtering, rejects malformed data even in excluded queues, and omits unknown fields. Existing output limits and queue counts are preserved; no extra requests.
-- Offline tests cover invalid timestamps, queue flags, counts and runs plus unknown-field omission. Updated older synthetic fixtures to the actual API contract.
-- Verification: focused CLI tests and `pnpm exec tsx scripts/check-observability.ts --verify-cli` passed (four queues/eight targets, zero mutations). `pnpm obs health --check` and live failed-job query passed.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (259 unit/172 integration), `pnpm build`, handbook 09 and `git diff --check` passed. No UI/diagram changes or screenshots needed.
-- Updated handbook/plan/TASKS and archived oldest entry. CLI/tests/docs only: no service restart under STEERING 22, UI changes, paid calls, Reddit requests or production content/cap/schedule changes.
-- Next: scheduled cost/yield/AI timing and acks take priority when available; top queries, harness counters and alerts remain open.
+Earlier entry: [iteration 409](docs/progress-archive/2026-11-03-iteration-409.md).
 
 ## 2026-11-03: iteration 410 — queue readiness exit status
 
@@ -131,3 +116,15 @@ Earlier entries: [iterations 405–407](docs/progress-archive/2026-11-03-iterati
 - Latest free social collection verified ten real X posts without errors. Updated handbook, plan and TASKS.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, vmalert dry-run/unittest, handbook 09, observability `--verify-alerts`/`--verify-o4`, health/jobs/sources and `git diff --check`; zero dangling Docker volumes.
 - Next: Nov 3 scheduled AI timing/cost/X yield and acks first; otherwise missing lifecycle/publication detection, then O7/O8/O10.
+
+## 2026-11-03: iteration 425 — first scheduled AI/X evidence
+
+- Started clean on main; no leftover work. Health, 32 sources, services and queues healthy; zero alerts; two historical ingestion failures unchanged.
+- Observed Nov 3 scheduled edition `777fdd95-0bcd-4ca7-9ea6-36c654effcca`: 15:00:00.057 start, 15:03:51.886 finish, 231.829 s worker duration, 748 article candidates. Item 7 speed target missed; remains open.
+- Anthropic: $0.339524/43 settled calls, zero holds. Entire $0.482788 day protected while running; reserve released after publication. Partial item 13 ack: mixed outcome, NBA story fallback despite complete triage; other three story sections AI. Full-AI acceptance remains open.
+- First full scheduled X run/item 15 acknowledged: World $0.036680/5 new verified, Gaming $0.036815/5, NBA $0.037582/5, Tech/AI $0.025979/3; total $0.137056/18 fetched and incremental verified, zero holds/outside-list additions. Continue first-week reporting.
+- Published X picks: Tech/AI 4, NBA 4, Gaming 3, World 0. World saved triage has one low-context candidate (relevance 3); discovery yield does not establish in-window selection coverage.
+- Read-only Playwright checked four topics/11 real X cards and no page errors on desktop/mobile; inspected screenshots in docs/screenshots/scheduled-nov3-*.png. No embed/media-success claim.
+- Verification: read-only report-edition-timing.ts --scheduled-only --limit 1 and report-x-discovery.ts 2026-11-03; pnpm obs alerts/health --check/sources/jobs; pnpm format, pnpm lint:fix, pnpm check and pnpm build; git diff --check. All passed; zero dangling Docker volumes.
+- Updated TASKS, SOURCES and steering evidence; archived iterations 408–409 to keep this file small. No production code/config changes, restarts, extra paid calls or Reddit requests.
+- Next: fix item 7 latency and NBA editor fallback using saved responses/fixtures; investigate World candidate eligibility. Keep open X/Bluesky/grouping disabled while those results are resolved; do not claim items 13/7 complete.
