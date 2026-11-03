@@ -1,32 +1,6 @@
 # Progress
 
-Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md).
-
-## 2026-11-02: iteration 273 — persist reported X engagement
-
-- Started clean on main; API/worker, health and all 32 sources healthy.
-- Search orchestration passes citation-bound model reports into transactional citation storage.
-- Migration 045 adds nullable JSONB per search citation; provenance/time/unknown counts survive.
-- Reports remain separate from official oEmbed verification and social-post metrics; no ranking/display claim.
-- Isolated test checks zero counts, missing fields, uncited report exclusion and immutable retries.
-- No paid discovery, Anthropic or Reddit requests; scheduled account-list path unchanged.
-- Verified: `pnpm format`, `pnpm lint:fix`, `pnpm check` (127 unit/165 integration), `pnpm build`.
-- Applied `pnpm migrate`; API/worker restarted active, health OK, SPA 200, latest four-topic edition accessible.
-- Archived iteration 253 to keep PROGRESS bounded; no leftover work to recover.
-- Next: engagement/age ranking plus relevance, search-type reporting; Nov 3 scheduled evidence pending.
-
-## 2026-11-02: iteration 274 — reported engagement shortlist
-
-- Started clean on main; health/services and 32 sources healthy; latest edition has four topics.
-- Verified X preliminary candidates/fallback now rank on reported engagement and lifetime age proxy, then recency.
-- Existing topic/safety/time gates and dedupe remain; reports cannot populate verified metrics.
-- Latest topic-bound observation must precede window end; frozen reasons preserve unknown/zero counts and unverified provenance.
-- Added v3 fallback method; updated synthetic golden labels only; no LLM re-recording.
-- No paid provider or Reddit requests; scheduled account-list path unchanged pending Nov 3 evidence.
-- Verified: targeted tests; `pnpm format`, `pnpm lint:fix`, `pnpm check` (129 unit/165 integration), `pnpm build`, `git diff --check`.
-- API/worker restarted active; health OK, SPA 200, latest four-topic edition accessible; all 32 sources returning data without errors.
-- Archived iteration 254; no leftover work to recover.
-- Next: combine semantic ranking with engagement, add search-type reporting; observe Nov 3 scheduled runs.
+Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md).
 
 ## 2026-11-02: iteration 275 — semantic engagement shortlist
 
@@ -249,3 +223,16 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Restarted API/worker/docs/schema; all active, health OK, SPA/docs/db HTTP 200.
 - Read-only Nov 3 X report: zero calls/cost/holds; scheduled evidence still due before the 15:00 UTC edition. No paid provider or Reddit requests.
 - Next: observe scheduled evidence/acks, switch open search, connect persisted followup snapshots to scheduler execution.
+
+## 2026-11-03: iteration 293 — optional X scheduler orchestration
+
+- Started clean on main; four services and health healthy, 32 sources error-free and no failed digests.
+- Connected open-mode scheduler orchestration to injected persisted completion/yield, article-story readers and parent-aware optional execution.
+- Every enabled topic needs exactly one durable completed primary; reactions precede account fallbacks, with weakest-first order inside each path.
+- Rechecks enabled topic settings, saved schedule, UTC day and pre-edition window after evidence/story I/O and before each optional attempt.
+- Fake tests cover restart recovery despite rejected duplicate primary admissions, durable parents, reaction priority, missing/duplicate evidence, delayed I/O and configuration changes.
+- Production remains account-list pending item 15 evidence/ack; production dependency wiring and open-mode activation remain.
+- Archived iterations 273–274 to keep PROGRESS bounded. Historical GamesRadar/DeepMind failed ingestion jobs have newer successful collections; no current outage.
+- Verified: 11 targeted tests; `pnpm format`, `pnpm lint:fix`, `pnpm check` (155 unit/168 integration), `pnpm build`, `git diff --check`.
+- Restarted API/worker/docs/schema; all active, health OK and SPA/docs/db HTTP 200. Latest social collection verified 10 posts without errors.
+- No paid provider or Reddit requests; Nov 3 X spend remains zero. Next: scheduled evidence/acks, then open-mode production wiring and activation.

@@ -2,6 +2,10 @@ import type { ProfileSettings } from '@digest/contracts';
 
 import { budgetDaySlot } from './modules/profiles/adapters/budget-day-slot';
 import {
+  type FollowupTopic,
+  runSearchFollowups,
+} from './modules/social/application/search-followups';
+import {
   planScheduledSearch,
   type ScheduledSearchTopic,
   type ScheduledSearchType,
@@ -30,6 +34,23 @@ export async function runScheduledXSearch(
   execute: (plan: Plan, runId: string) => Promise<unknown>,
   clock: () => Date = () => new Date(),
   searchType: ScheduledSearchType = 'account-list',
+  followups?: {
+    completed: (day: string) => Promise<
+      {
+        topicId: string;
+        openCallId: string;
+        openVerifiedAdditions: number;
+      }[]
+    >;
+    stories: (topicId: string, end: Date) => Promise<FollowupTopic['stories']>;
+    execute: (
+      plan: Plan,
+      runId: string,
+      parentId: string,
+    ) => Promise<{
+      state: 'completed' | 'failed' | 'budget-blocked';
+    }>;
+  },
 ) {
   const profile = await loadProfile();
   const now = clock();
@@ -68,6 +89,62 @@ export async function runScheduledXSearch(
     results.push(
       await execute(plan, `scheduled-x:${profile.id}:${edition.getTime()}`),
     );
+  }
+  if (searchType === 'open-topic' && followups && candidates.length > 0) {
+    const day = now.toISOString().slice(0, 10);
+    // Load durable evidence after all primary attempts, including after restart.
+    // Missing/ambiguous evidence for any enabled topic blocks every followup.
+    const completed = await followups.completed(day);
+    if (
+      candidates.some(
+        ({ id }) => completed.filter((row) => row.topicId === id).length !== 1,
+      )
+    )
+      return results;
+    const plans: FollowupTopic[] = [];
+    for (const topic of [...candidates].sort(
+      (a, b) => a.freePosts - b.freePosts,
+    )) {
+      const plan = planScheduledSearch([topic], now, edition, 'open-topic');
+      if (!plan) return results;
+      const evidence = completed.find((row) => row.topicId === topic.id)!;
+      plans.push({
+        id: topic.id,
+        request: plan.request,
+        openCallId: evidence.openCallId,
+        openState: 'completed',
+        openVerifiedAdditions: evidence.openVerifiedAdditions,
+        stories: await followups.stories(topic.id, now),
+        handles: topic.handles,
+      });
+    }
+    const optional = await runSearchFollowups(
+      plans,
+      async () => {
+        if (topicSettings(await topics(clock())) !== settings) return false;
+        const current = await loadProfile();
+        const instant = clock();
+        return (
+          current.id === profile.id &&
+          JSON.stringify(current.schedule) ===
+            JSON.stringify(profile.schedule) &&
+          instant.toISOString().slice(0, 10) === day &&
+          planScheduledSearch(candidates, instant, edition, 'open-topic') !==
+            null
+        );
+      },
+      async (topicId, request, parentId) =>
+        followups.execute(
+          {
+            topic: candidates.find((topic) => topic.id === topicId)!,
+            request,
+            scheduledDay: day,
+          },
+          `scheduled-x:${profile.id}:${edition.getTime()}`,
+          parentId,
+        ),
+    );
+    results.push(...optional);
   }
   return results;
 }

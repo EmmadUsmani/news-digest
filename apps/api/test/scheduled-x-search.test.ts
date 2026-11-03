@@ -263,3 +263,111 @@ void test('topic recheck latency cannot bypass the search window or schedule gua
       assert.deepEqual(result, { skipped: 'Schedule changed', results: [] });
   }
 });
+
+void test('open scheduler recovers durable parents and runs reactions before account fallbacks', async () => {
+  const enabled = [
+    candidates[0],
+    { ...candidates[0], id: 'ai', name: 'AI', freePosts: 2 },
+  ];
+  const calls: string[] = [];
+  const parent = (index: number) =>
+    `00000000-0000-4000-8000-00000000000${index}`;
+  await runScheduledXSearch(
+    async () => profile,
+    async () => enabled,
+    async (plan) => {
+      calls.push(`primary:${plan.topic.id}`);
+      return { state: 'budget-blocked' };
+    },
+    () => new Date('2026-11-03T14:30:00Z'),
+    'open-topic',
+    {
+      completed: async (day) => {
+        assert.equal(day, '2026-11-03');
+        assert.deepEqual(calls, ['primary:nba', 'primary:ai']);
+        return enabled.map((topic, index) => ({
+          topicId: topic.id,
+          openCallId: parent(index),
+          openVerifiedAdditions: 0,
+        }));
+      },
+      stories: async (id) =>
+        id === 'ai'
+          ? [{ id: 'launch', title: 'A new model launch', importance: 10 }]
+          : [],
+      execute: async (plan, runId, parentId) => {
+        assert.equal(plan.scheduledDay, '2026-11-03');
+        assert.equal(
+          runId,
+          `scheduled-x:owner:${Date.parse('2026-11-03T15:00:00Z')}`,
+        );
+        assert.equal(parentId, parent(plan.topic.id === 'nba' ? 0 : 1));
+        if (plan.topic.id === 'ai') {
+          assert.equal(plan.request.handles, undefined);
+          assert.equal(plan.request.reactionStory?.id, 'launch');
+        } else assert.deepEqual(plan.request.handles, ['NBA']);
+        calls.push(`optional:${plan.topic.id}`);
+        return { state: 'completed' };
+      },
+    },
+  );
+  assert.deepEqual(calls, [
+    'primary:nba',
+    'primary:ai',
+    'optional:ai',
+    'optional:nba',
+  ]);
+});
+
+void test('scheduler followups fail closed on missing evidence, late I/O and changed settings', async () => {
+  for (const scenario of [
+    'missing',
+    'duplicate',
+    'late',
+    'topics',
+    'schedule',
+    'account-list',
+  ] as const) {
+    let changed = false;
+    let instant = new Date('2026-11-03T14:30:00Z');
+    let optional = 0;
+    let storyReads = 0;
+    await runScheduledXSearch(
+      async () =>
+        changed && scenario === 'schedule'
+          ? { ...profile, id: 'replacement' }
+          : profile,
+      async () => (changed && scenario === 'topics' ? [] : candidates),
+      async () => undefined,
+      () => instant,
+      scenario === 'account-list' ? 'account-list' : 'open-topic',
+      {
+        completed: async () => {
+          changed = true;
+          const row = {
+            topicId: 'nba',
+            openCallId: '00000000-0000-4000-8000-000000000001',
+            openVerifiedAdditions: 0,
+          };
+          return scenario === 'missing'
+            ? []
+            : scenario === 'duplicate'
+              ? [row, row]
+              : [row];
+        },
+        stories: async () => {
+          storyReads++;
+          if (scenario === 'late') instant = new Date('2026-11-03T14:56:00Z');
+          return [];
+        },
+        execute: async () => {
+          optional++;
+          return { state: 'completed' };
+        },
+      },
+    );
+    assert.equal(optional, 0, scenario);
+    if (['missing', 'duplicate', 'account-list'].includes(scenario))
+      assert.equal(storyReads, 0, scenario);
+  }
+});
