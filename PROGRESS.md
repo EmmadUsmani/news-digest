@@ -1,152 +1,6 @@
 # Progress
 
-Dated entries of 15 lines or fewer, newest last. Record what changed, how it
-was verified (commands and results) and what's next. When this file passes
-about 25 KB, keep about 20 entries and move older entries to `docs/progress-archive/`.
-
-Earlier bootstrap and iterations 7–16: [archive](docs/progress-archive/2026-11-01-iterations-7-16.md).
-
-Earlier iterations 17–22: [archive](docs/progress-archive/2026-11-01-iterations-17-22.md).
-
-Earlier iterations 23–37: [archive](docs/progress-archive/2026-11-01-iterations-23-37.md).
-
-Earlier iterations 51–60: [archive](docs/progress-archive/2026-11-01-iterations-51-60.md).
-
-Earlier iterations 61–72: [archive](docs/progress-archive/2026-11-02-iterations-61-72.md).
-
-Earlier iterations 87–100: [archive](docs/progress-archive/2026-11-02-iterations-87-100.md).
-Earlier iterations 101–123: [archive](docs/progress-archive/2026-11-02-iterations-101-123.md).
-Earlier iterations 124–132: [archive](docs/progress-archive/2026-11-02-iterations-124-132.md).
-
-Earlier iterations 133–134: [archive](docs/progress-archive/2026-11-02-iterations-133-134.md).
-
-Earlier iterations 135–136: [archive](docs/progress-archive/2026-11-02-iterations-135-136.md).
-
-Earlier iterations 137–138: [archive](docs/progress-archive/2026-11-02-iterations-137-138.md).
-
-Earlier iterations 139–140: [archive](docs/progress-archive/2026-11-02-iterations-139-140.md).
-
-Earlier iterations 141–142: [archive](docs/progress-archive/2026-11-02-iterations-141-142.md).
-
-Earlier iteration 143: [archive](docs/progress-archive/2026-11-02-iteration-143.md).
-
-Earlier iteration 157: [archive](docs/progress-archive/2026-11-02-iteration-157.md).
-
-Earlier iterations 161–162: [archive](docs/progress-archive/2026-11-02-iterations-161-162.md).
-
-Earlier iterations 163–164: [archive](docs/progress-archive/2026-11-02-iterations-163-164.md).
-
-Earlier iteration 165: [archive](docs/progress-archive/2026-11-02-iteration-165.md).
-
-Iteration 166: [archive](docs/progress-archive/2026-11-02-iteration-166.md).
-
-Earlier iterations 169–170: [archive](docs/progress-archive/2026-11-02-iterations-169-170.md).
-
-Earlier iterations 171–172: [archive](docs/progress-archive/2026-11-02-iterations-171-172.md).
-
-Earlier iterations 173–174: [archive](docs/progress-archive/2026-11-02-iterations-173-174.md).
-
-Earlier iterations 175–176: [archive](docs/progress-archive/2026-11-02-iterations-175-176.md).
-
-Iteration 177: [archive](docs/progress-archive/2026-11-02-iteration-177.md).
-
-Iteration 178: [archive](docs/progress-archive/2026-11-02-iteration-178.md).
-
-Iteration 179: [archive](docs/progress-archive/2026-11-02-iteration-179.md).
-
-Iteration 180: [archive](docs/progress-archive/2026-11-02-iteration-180.md).
-
-Earlier iteration 181: [archive](docs/progress-archive/2026-11-02-iteration-181.md).
-
-Earlier iteration 182: [archive](docs/progress-archive/2026-11-02-iteration-182.md).
-
-Iteration 183: [archive](docs/progress-archive/2026-11-02-iteration-183.md).
-
-Iteration 184: [archive](docs/progress-archive/2026-11-02-iteration-184.md).
-
-Iteration 186: [archive](docs/progress-archive/2026-11-02-iteration-186.md).
-
-Iteration 187: [archive](docs/progress-archive/2026-11-02-iteration-187.md).
-
-Iteration 188: [archive](docs/progress-archive/2026-11-02-iteration-188.md).
-
-Iteration 189: [archive](docs/progress-archive/2026-11-02-iteration-189.md).
-
-Iteration 192: [archive](docs/progress-archive/2026-11-02-iteration-192.md).
-
-Earlier iteration 195: [archive](docs/progress-archive/2026-11-02-iteration-195.md).
-
-Earlier iterations 198–199: [archive](docs/progress-archive/2026-11-02-iterations-198-199.md).
-
-Earlier iterations 200–201: [archive](docs/progress-archive/2026-11-02-iterations-200-201.md).
-
-Earlier iterations 202–203: [archive](docs/progress-archive/2026-11-02-iterations-202-203.md).
-
-Iterations 204–205: [archive](docs/progress-archive/2026-11-02-iterations-204-205.md).
-
-Earlier iteration 206: [archive](docs/progress-archive/2026-11-02-iteration-206.md).
-
-Iteration 207: [archive](docs/progress-archive/iteration-207.md).
-
-Iteration 208: [archive](docs/progress-archive/iteration-208.md).
-
-Earlier iteration 210: [archive](docs/progress-archive/2026-11-02-iteration-210.md).
-
-Iteration 212: [archive](docs/progress-archive/2026-11-02-iteration-212.md).
-
-Earlier iteration 213: [archive](docs/progress-archive/2026-11-02-iteration-213.md).
-
-Archived iteration 216: [entry](docs/progress-archive/2026-11-02-iteration-216.md).
-
-Iteration 217: [archive](docs/progress-archive/2026-11-02-iteration-217.md).
-
-Earlier iteration 218: [archive](docs/progress-archive/2026-11-02-iteration-218.md).
-
-Earlier iteration 219: [archive](docs/progress-archive/2026-11-02-iteration-219.md).
-
-Iteration 221: [archive](docs/progress-archive/2026-11-02-iteration-221.md).
-
-Earlier iteration 229: [archive](docs/progress-archive/2026-11-02-iteration-229.md).
-
-Iteration 232: [archive](docs/progress-archive/2026-11-02-iteration-232.md).
-
-Earlier iteration 244: [archive](docs/progress-archive/2026-11-02-iteration-244.md).
-
-Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
-
-Iteration 252: [archive](docs/progress-archive/2026-11-02-iteration-252.md).
-
-Earlier iteration 264: [archive](docs/progress-archive/2026-11-02-iteration-264.md).
-
-Iterations 267–268: [archive](docs/progress-archive/2026-11-02-iterations-267-268.md).
-
-## 2026-11-02: iteration 269 — X verification eligibility
-
-- Started clean on main; API/worker, health and all 32 sources healthy; no leftover work.
-- Two retained ingestion failures are historical; current sources have recovered.
-- Scheduled priorities await Nov 3 evidence; advanced isolated STEERING 2a.
-- Pins ten-post search verification bounds, numeric-ID priority and exact daily retry expiry.
-- Pins verified-post exclusion, recent null/error checks, topic disable/re-enable, zero budget and deletion.
-- Non-UTC transaction in disposable PostgreSQL only; no source, Reddit or paid calls.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 164 integration), `pnpm build`, `git diff --check`.
-- API/worker restarted; health, SPA and latest edition checked after build.
-- Updated TASKS/database notes; archived iteration 249 to keep PROGRESS bounded.
-- Next: observe Nov 3 scheduled X per-topic cost/yield and AI edition cost/duration.
-
-## 2026-11-02: iteration 270 — scheduled free-post coverage
-
-- Started clean on main; API/worker, health and all 32 sources healthy; no leftover work.
-- Two retained ingestion failures are historical; sources currently report no errors.
-- Scheduled priorities await Nov 3 evidence; advanced isolated STEERING 2a.
-- Pins scheduled topic payload/order and exact 24-hour boundaries in a non-UTC session.
-- Free coverage follows river reassignment; paid/Reddit evidence cannot inflate it.
-- Unverified/undated posts and disabled, zero-budget or deleted topics stay excluded.
-- Disposable PostgreSQL only; no source, Reddit or paid provider verification calls.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 164 integration), `pnpm build`, `git diff --check`.
-- API/worker restarted; health, SPA and latest four-topic/20-story/10-post edition checked.
-- Initial push rejected: owner added STEERING 16–20; fetched and merged without rewriting history.
-- Recorded new priorities, corrected ESPN label; no more DB characterization. Archived iteration 250.
-- Next: open X discovery (16), plus Nov 3 scheduled X cost/yield and AI cost/duration.
+Earlier entries and archive index: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md).
 
 ## 2026-11-02: iteration 271 — open X adapter preparation
 
@@ -330,3 +184,17 @@ Iterations 267–268: [archive](docs/progress-archive/2026-11-02-iterations-267-
 - Read-only reports: no Nov 3 X calls; scheduled reserve pending at $0.482788 with zero other-spend allowance; latest scheduled edition is Nov 2 fallback (856 ms).
 - No paid provider or Reddit requests. Scheduled X/AI evidence remains pending Nov 3 14:30–15:00 UTC; no premature acknowledgement.
 - Next: collect scheduled cost/yield and AI timing, acknowledge 15/13/7, enable open search, then durable optional admission and scheduler wiring.
+
+## 2026-11-03: iteration 286 — bound low-yield X followups
+
+- Started clean on main; all four services/health healthy, no leftover work.
+- Prepared optional runner now requires 0–2 verified additions from the first open search; missing/invalid counts cannot authorize calls.
+- At most one optional attempt per topic, including failure; highest-priority reaction wins, accounts fill topics without valid reactions.
+- All open searches must complete first; production remains unchanged pending scheduled evidence and durable optional admission/article wiring.
+- Six fake tests cover yield boundaries/invalid counts, failure allowance, reaction priority, budget/settings stops and input immutability.
+- Verification: targeted tests (6 passed), `pnpm format`, `pnpm lint:fix`, `pnpm check` (144 unit/167 integration), `pnpm build`, `git diff --check`.
+- Restarted API/worker/docs/schema; all active, health OK, SPA/docs/db 200, 32 sources error-free; latest social collection completed.
+- Latest real edition has five X posts each for Tech/AI and NBA, zero Gaming/World; social milestone remains incomplete.
+- Read-only reports: Nov 3 X calls/cost zero; reserve pending at $0.482788, other-spend allowance zero; latest scheduled run remains Nov 2 fallback (856 ms).
+- No paid provider or Reddit requests. Archived iterations 269–270 and prior archive index; compacted task preparation history.
+- Next: Nov 3 14:30–15:00 UTC scheduled evidence/acks, open-search switch, then durable optional admission and article wiring.

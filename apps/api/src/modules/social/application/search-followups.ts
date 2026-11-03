@@ -8,6 +8,8 @@ export interface FollowupTopic {
   id: string;
   request: XSearchRequest;
   openState: 'completed' | 'failed' | 'budget-blocked' | 'pending';
+  // Incremental verified additions attributed to the first open search.
+  openVerifiedAdditions: number;
   stories: ReactionStory[];
   handles: string[];
 }
@@ -35,13 +37,23 @@ export async function runSearchFollowups(
     new Set(topics.map((topic) => topic.id)).size !== topics.length
   )
     return [];
-  const reactions = topics.flatMap((topic) =>
-    planStoryReactions(topic.request, topic.stories).map(({ request }) => ({
-      topicId: topic.id,
-      request,
-    })),
+  // Missing/invalid yield must never authorize another paid search. This is
+  // only planning: durable topic/day admission remains required at execution.
+  const eligible = topics.filter(
+    ({ openVerifiedAdditions }) =>
+      Number.isSafeInteger(openVerifiedAdditions) &&
+      openVerifiedAdditions >= 0 &&
+      openVerifiedAdditions < 3,
   );
-  const accounts = topics
+  const reactions = eligible.flatMap((topic) =>
+    planStoryReactions(topic.request, topic.stories)
+      .slice(0, 1)
+      .map(({ request }) => ({
+        topicId: topic.id,
+        request,
+      })),
+  );
+  const accounts = eligible
     .filter(
       ({ handles }) =>
         handles.length > 0 &&
@@ -55,8 +67,12 @@ export async function runSearchFollowups(
       request: { ...topic.request, handles: [...topic.handles] },
     }));
   const results = [];
+  const attempted = new Set<string>();
   for (const plan of [...reactions, ...accounts]) {
+    if (attempted.has(plan.topicId)) continue;
     if (!(await canContinue())) break;
+    // Failed/uncertain attempts also consume the one optional attempt.
+    attempted.add(plan.topicId);
     const result = await execute(plan.topicId, plan.request);
     results.push({ ...plan, state: result.state });
     // A rejected projection must not trigger a cascade of optional attempts.

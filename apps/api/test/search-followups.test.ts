@@ -15,6 +15,7 @@ const topics: FollowupTopic[] = ['NBA', 'Gaming'].map((id) => ({
     toDate: '2026-11-03',
   },
   openState: 'completed',
+  openVerifiedAdditions: 0,
   stories: [{ id: `${id}-event`, title: `${id} event`, importance: 1 }],
   handles: [id],
 }));
@@ -36,12 +37,7 @@ void test('optional searches wait for every open search, then prioritize reactio
     );
   }
   await runSearchFollowups(topics, async () => true, execute);
-  assert.deepEqual(calls, [
-    'NBA:reaction',
-    'Gaming:reaction',
-    'NBA:accounts',
-    'Gaming:accounts',
-  ]);
+  assert.deepEqual(calls, ['NBA:reaction', 'Gaming:reaction']);
 });
 
 void test('optional searches stop on budget denial or changed schedule/window', async () => {
@@ -111,4 +107,60 @@ void test('followups reject restricted or already specialized base requests', as
       [],
     );
   }
+});
+
+void test('only low-yield open searches qualify; invalid or missing counts fail closed', async () => {
+  for (const openVerifiedAdditions of [
+    0,
+    1,
+    2,
+    3,
+    4,
+    -1,
+    0.5,
+    NaN,
+    Infinity,
+    undefined,
+  ]) {
+    let calls = 0;
+    const results = await runSearchFollowups(
+      [{ ...topics[0], openVerifiedAdditions } as FollowupTopic],
+      async () => true,
+      async () => {
+        calls++;
+        return { state: 'completed' };
+      },
+    );
+    const allowed = [0, 1, 2].includes(openVerifiedAdditions as number);
+    assert.equal(calls, allowed ? 1 : 0);
+    assert.equal(results.length, calls);
+  }
+});
+
+void test('one optional attempt per topic, including failures; accounts fill topics without stories', async () => {
+  const input = structuredClone(topics);
+  input[0].stories.push({
+    id: 'bigger',
+    title: 'Biggest event',
+    importance: 2,
+  });
+  input[1].stories = [];
+  const before = structuredClone(input);
+  const results = await runSearchFollowups(
+    input,
+    async () => true,
+    async () => ({ state: 'failed' }),
+  );
+  assert.deepEqual(
+    results.map(({ topicId, request }) => ({
+      topicId,
+      story: request.reactionStory?.id,
+      handles: request.handles,
+    })),
+    [
+      { topicId: 'NBA', story: 'bigger', handles: undefined },
+      { topicId: 'Gaming', story: undefined, handles: ['Gaming'] },
+    ],
+  );
+  assert.deepEqual(input, before);
 });

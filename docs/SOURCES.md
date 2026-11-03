@@ -1378,3 +1378,11 @@ and no image/video understanding. Migration 047 allows `story-reactions` in the
 existing capped ledger and daily report. No reaction searches are scheduled yet:
 execution still needs open discovery for every topic first, remaining-budget
 admission and article-pipeline wiring. Tests are synthetic; no live calls.
+
+Optional-search preparation (iteration 286): the runner requires a valid incremental
+verified-addition count from each topic's completed open search. Only 0–2 additions
+qualify for one optional attempt per topic. The highest-priority story reaction
+wins; account search fills only topics without a valid reaction. Failed attempts
+also consume that allowance. Every topic's open search must finish first; ledger
+admission and schedule guards still apply. This is synthetic-tested preparation;
+production optional searches remain disabled pending durable admission/wiring.
