@@ -595,3 +595,17 @@ rerunning the full suite, restarting services and committing a status note.
 - **Don't restart services** unless code or config they run has changed, or
   they are unhealthy.
 - No ack needed; the next commits show it.
+
+## 23. Protect the Nov 3 scheduled run (2026-11-03)
+
+The 15:00 UTC run is the evidence for items 13, 7 and 15 and the gate for
+activating item 16. It must test today's production behavior.
+- **Build and test freely overnight**, but anything that changes what a
+  production edition contains or costs stays **switched off in production**
+  until that run's results are recorded and acked. This includes Bluesky
+  posts in editions, story grouping and ranking changes, and open X search.
+  Use a setting or flag that is off by default.
+- **Bug fixes for the current pipeline are still fine.** Keep the services
+  green, and finish deploys and restarts by 14:30 UTC.
+- **Item 18 waiting on a Bluesky login is "blocked"** under item 22: build
+  it against fixtures, then start item 19 instead of idling.
