@@ -8,9 +8,9 @@ import type { XDiscoveryLedger } from './modules/social/domain/x-discovery-ledge
 import type { XSearchPort } from './modules/social/domain/x-search.port';
 import { runScheduledXSearch } from './scheduled-x-search';
 
-// Keep production account-list discovery until the first scheduled run is
-// acknowledged under STEERING 15. Activation is a separate reviewed change.
-export const scheduledXSearchType = 'account-list' as const;
+// The Nov 3 account-list run is recorded and acknowledged under STEERING 15.
+// Open discovery is primary; durable admission gates any optional followups.
+export const scheduledXSearchType = 'open-topic' as const;
 
 export function runScheduledXRuntime(
   dependencies: {

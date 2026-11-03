@@ -104,15 +104,18 @@ function fixture(verificationErrors = 0) {
   return { dependencies, events };
 }
 
-void test('production runtime defaults to account lists and leaves open dependencies idle', async () => {
+void test('explicit account-list runtime leaves open dependencies idle', async () => {
   const { dependencies, events } = fixture();
-  await runScheduledXRuntime(dependencies, () => now);
+  await runScheduledXRuntime(dependencies, () => now, 'account-list');
   assert.deepEqual(events, ['accounts', 'settle', 'save', 'verify']);
 });
 
-void test('open runtime persists and verifies primary before reading evidence and executing parented reactions', async () => {
+void test('production defaults to open search without curated handles, verifying before parented reactions', async () => {
   const { dependencies, events } = fixture();
-  await runScheduledXRuntime(dependencies, () => now, 'open-topic');
+  const loadTopics = dependencies.searches.scheduledTopics;
+  dependencies.searches.scheduledTopics = async (at) =>
+    (await loadTopics(at)).map((topic) => ({ ...topic, handles: [] }));
+  await runScheduledXRuntime(dependencies, () => now);
   assert.deepEqual(events, [
     'open',
     'settle',

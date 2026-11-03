@@ -25,6 +25,9 @@ async function main() {
           { exact: false },
         )
         .waitFor();
+      assert.ok(
+        (await usage.innerText()).includes('without account restrictions'),
+      );
       await usage.scrollIntoViewIfNeeded();
       await page.screenshot({
         path: `docs/screenshots/status-x-schedule-${name}.png`,
@@ -35,7 +38,7 @@ async function main() {
         .click();
       const help = page.locator('#x-accounts-help');
       await help
-        .getByText('scope the current scheduled X searches', { exact: false })
+        .getByText('support secondary searches', { exact: false })
         .waitFor();
       assert.ok(
         (await help.innerText()).includes('within the shared spending caps'),

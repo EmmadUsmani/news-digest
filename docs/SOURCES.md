@@ -1574,3 +1574,15 @@ Publication still rejects out-of-window posts; no new paid search or improved
 World yield is claimed. The one saved triage candidate came from other discovery.
 Desktop/mobile screenshots: `docs/screenshots/scheduled-nov3-*.png`.
 Open search, Bluesky inclusion and grouping remain switched off.
+
+## Open scheduled X discovery activated — iteration 430 (2026-11-03)
+
+Following the recorded/acknowledged Nov 3 account-list run (STEERING 15),
+production now selects open-topic discovery without handle restrictions.
+Topics with post slots remain eligible with empty curated lists. All primary
+searches must finish verification before a low-yield topic (0–2 new verified
+posts) can receive one parented followup: story reactions first, otherwise
+curated accounts. Durable admission, official oEmbed verification, exact-time
+window guidance and $0.40/day/$12/month caps are unchanged. Current curated
+lists remain unchanged. No immediate search or paid verification was run;
+open-search yield, outside-list picks and relevance await scheduled evidence.

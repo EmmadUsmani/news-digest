@@ -5,7 +5,7 @@ Fix failures and stalled sources first. [Completed markers](docs/progress-archiv
 ## Immediate owner priorities (STEERING overrides older milestone notes)
 
 - [ ] STEERING 16 (next implementation): open per-topic X search without handle restrictions; reported engagement/velocity, then budget-permitting story reactions and secondary account lists. Keep caps; item 15's first scheduled run is acknowledged before switching. Report search type, cost/yield and outside-list accounts; finish with real editions/screenshots.
-  - Open/engagement reporting and durable optional execution are wired and fake-tested (271–294). Item 15 acknowledged (425); production remains account-list while item 13 mixed outcome and item 7 latency need fixing; activation remains. Iteration 296 adds daily topic/type cost and incremental-yield summaries with explicit unknowns.
+  - Open/engagement reporting and durable optional execution are wired and fake-tested (271–294). Item 15 acknowledged (425); open-topic production activated (430), including durable low-yield followups. Next scheduled cost/yield/outside-list picks remain unverified; items 13/7 still await provider evidence. Iteration 296 adds daily topic/type cost and incremental-yield summaries with explicit unknowns.
 
 - [ ] STEERING 17 (315, advanced under item 22): reviewed four editable X lists (11/10/12/11), rationale in docs/SOURCES.md; API/browser verified. Item 23 arrived before push: restored original live lists (8/8/9/9); activate reviewed lists after the Nov 3 run is acknowledged.
 - [ ] STEERING 18 (325): authenticated Bluesky discovery, engagement/semantic editing, storage/cards and edition caller prepared. Owner login configured; production inclusion off until Nov 3 evidence/acks.

@@ -27,23 +27,26 @@ flowchart LR
   posts --> sel["Per-topic selection<br/>(AI triage + editor, or rules)"] --> ed(["Edition"])
 ```
 
-| Path                    | Cost                    | Strength                                | Weakness                                       |
-| ----------------------- | ----------------------- | --------------------------------------- | ---------------------------------------------- |
-| Free (rivers, articles) | $0                      | Not tied to any account list            | Lags: a post appears only once media embeds it |
-| Paid (xAI search)       | ~$0.02 per search today | Searches X directly, before the edition | Currently limited to curated accounts          |
+| Path                    | Cost                   | Strength                                | Weakness                                          |
+| ----------------------- | ---------------------- | --------------------------------------- | ------------------------------------------------- |
+| Free (rivers, articles) | $0                     | Not tied to any account list            | Lags: a post appears only once media embeds it    |
+| Paid (xAI search)       | $0.026–$0.038 on Nov 3 | Searches X directly, before the edition | Reported engagement is not independently verified |
 
-> [!IMPORTANT]
-> **In progress (STEERING item 16):** open X search with no account
-> restriction, per topic plus reactions to the day's top stories, ranked by
-> engagement and velocity. Account-list search becomes a secondary input.
-> The worker dependencies are connected, but production keeps account-list
-> searches until the first scheduled run is measured and acknowledged.
+Scheduled paid discovery searches each topic without account restrictions,
+weakest coverage first, 5–30 minutes before the edition. It requests original,
+engaging posts within the edition window. Once all topics have completed and
+verified their primary searches, a topic with fewer than three new verified
+posts may receive one followup: a top-story reaction search first, otherwise a
+curated-account search. Shared budget and durable daily admission still gate
+every call. Activation follows the acknowledged Nov 3 account-list run; open
+search yield and outside-list picks await the next scheduled run.
 
 Curated accounts are editable in **Manage topics → Edit → X accounts**, up to
 20 unique handles per topic. They mix first-party announcements with builders,
 reporters, players and developers; the [source inventory](../../SOURCES.md)
-records the review and choices. They are search inputs, not an allowlist for free
-harvesting or a guarantee of relevance. Changes persist and also change the
+records the review and choices. They support secondary searches; an empty list
+does not disable primary discovery. Disable the topic or its post slots to exclude it from discovery.
+They do not guarantee relevance. Changes persist and also change the
 report's comparison against current account lists.
 
 ## Verification and safety

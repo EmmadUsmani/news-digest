@@ -361,11 +361,11 @@ export function TopicSettings({
             </label>
             <p id="x-accounts-help">
               Up to 20 unique handles; an initial @ is optional. These accounts
-              scope the current scheduled X searches before each daily edition,
-              within the shared spending caps. The topic must be enabled and
-              have post slots. Saving does not fetch posts or start a search.
-              Leave empty to disable scheduled X searches for this topic. Free
-              link discovery still uses the topic’s connected sources.
+              support secondary searches within the shared spending caps. Daily
+              topic searches have no account restrictions and also run when this
+              list is empty. The topic must be enabled and have post slots.
+              Saving does not fetch posts or start a search. Free link discovery
+              still uses the topic’s connected sources.
             </p>
             <label>
               Reddit communities · one per line
