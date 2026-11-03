@@ -27,7 +27,8 @@ supervisor lines use collection time, including the initial backfill.
 `obs-logs` and `obs-shipper` are system units outside the app health gate.
 Their memory limits are 160/80 MiB, CPU quotas 3%/1% of one core, nice level
 10 and low CPU/IO weights. The mount helper `obs-log-volume` creates no
-background process. Metrics and dashboards are not installed yet.
+background process. Host metrics are collected separately below; Grafana dashboards
+are not installed yet.
 
 Install or reconcile with `ops/observability/install.sh`: pinned official
 releases are SHA-256 checked. Re-run after recreating production containers
@@ -151,3 +152,37 @@ with the app's Status panel for current source health.
 queues, their schedules and the write barrier without creating jobs.
 `pnpm exec tsx scripts/smoke-queues.ts` checks desktop/mobile navigation and
 saves screenshots using real retained jobs and schedules.
+
+## Host and service metrics
+
+Open [/metrics/vmui/](/metrics/vmui/) to query real host and unit samples.
+VictoriaMetrics listens on loopback port 8428, scrapes every 30 seconds and
+keeps 30 days. A separate 700 MB filesystem bounds disk use; ingestion stops
+with 50 MB free rather than filling the host. Capacity can shorten usable
+history. Existing data survives reconciliation. Port 9100 serves node_exporter;
+only the metrics store UI is forwarded through the private app login.
+
+| Samples        | Coverage                                                                                                             |
+| -------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Host           | CPU, available memory, filesystem space, disk/network traffic, load and pressure                                     |
+| System units   | `obs-*` state/tasks/restarts from node_exporter                                                                      |
+| Unit resources | Four app units, the agent unit and four observability daemons: active state, memory, CPU seconds, tasks and restarts |
+
+A 30-second timer reads explicit user/system units and atomically publishes a
+textfile. Its timestamp (`news_digest_unit_snapshot_timestamp_seconds`) makes
+stale snapshots visible. CPU counters reset when a unit restarts; use `rate()`.
+`news_digest_unit_memory_bytes` shows memory for each unit; `up` shows scrape
+health. No agent-control files are read or modified by this collector.
+
+Reconcile with `ops/observability/install-metrics.sh`. Official VictoriaMetrics
+1.155.0 and node_exporter 1.12.1 releases are SHA-256 pinned. The store/exporter
+have 112/40 MiB memory ceilings and 1%/0.5% CPU ceilings; the brief snapshot
+helper has 32 MiB/2%, a 20-second timeout and a 30-second cadence. All lose
+CPU/IO contention to the app. The store limits query concurrency and memory.
+No app, DB, Redis or log unit is restarted by this installer.
+
+`pnpm exec tsx scripts/check-observability.ts --verify-o4` checks targets,
+host/unit samples, freshness, retention, disk and resource limits.
+`pnpm exec tsx scripts/smoke-metrics.ts` checks desktop/mobile rendering with
+real unit samples. For API outages, forward localhost 8428 over SSH and open
+`/metrics/vmui/`. Node application metrics and dashboards are separate work.

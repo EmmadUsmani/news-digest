@@ -1,0 +1,19 @@
+[Unit]
+Description=Host and system-unit Prometheus exporter
+[Service]
+User=exedev
+ExecStart=/opt/news-digest-observability/node_exporter --web.listen-address=127.0.0.1:9100 --collector.disable-defaults --collector.cpu --collector.meminfo --collector.filesystem --collector.diskstats --collector.netdev --collector.loadavg --collector.time --collector.uname --collector.stat --collector.pressure --collector.systemd --collector.systemd.unit-include=obs-.* --collector.systemd.enable-task-metrics --collector.systemd.enable-restarts-metrics --collector.textfile --collector.textfile.directory=/var/lib/news-digest-node-textfile
+Environment=GOMAXPROCS=1 GOMEMLIMIT=20MiB
+Restart=always
+RestartSec=5
+MemoryMax=40M
+CPUQuota=0.5%
+CPUWeight=10
+IOWeight=10
+Nice=10
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+[Install]
+WantedBy=multi-user.target

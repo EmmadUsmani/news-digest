@@ -154,9 +154,7 @@ only when its check passes.
     - a test line from each service can be queried within 60 s;
     - the retention period and the 2 GB cap are set.
 - [x] **O3 Jobs UI.** bull-board at `/queues/`, read-only. Iteration 356: four existing queue connections, 35 live schedules, hidden mutation controls and HTTP write barrier. `--verify-o3` checks queues/schedules/read-only enforcement; desktop/mobile screenshots verify overview and scheduler navigation. No new service, polling collector or production pipeline change.
-- [ ] **O4 Metrics store and host.** VictoriaMetrics, node_exporter and
-      `/metrics/`. Done when host and per-unit metrics are queryable and 30-day
-      retention is set.
+- [x] **O4 Metrics store and host.** Iteration 357: SHA-256-pinned VictoriaMetrics 1.155.0/node_exporter 1.12.1, loopback-only store/exporter, private `/metrics/vmui/`. Host samples and nine explicit app/agent/observability units expose active state, CPU, memory, tasks and restarts; atomic textfile snapshots every 30 s. Retention 30 days, hard 700 MB filesystem and 50 MB free-space ingestion guard. Bounded memory/CPU/query concurrency; `--verify-o4`, installer reconciliation and desktop/mobile real-sample checks pass. No agent-control edits or product/provider changes.
 - [ ] **O5 App metrics.** `prom-client` endpoints on all Node services, plus
       queue metrics. Done when HTTP, event-loop, external-call and job metrics
       are scraped.

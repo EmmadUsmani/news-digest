@@ -13,6 +13,7 @@ export const internalTools: InternalTool[] = [
   { prefix: '/docs', port: Number(process.env.DOCS_SITE_PORT ?? 8100) },
   { prefix: '/db', port: Number(process.env.SCHEMA_EXPLORER_PORT ?? 8200) },
   { prefix: '/logs', port: 9428, preservePrefix: true },
+  { prefix: '/metrics', port: 8428, preservePrefix: true },
 ];
 
 export function proxyInternalTools(tools: InternalTool[], host = '127.0.0.1') {

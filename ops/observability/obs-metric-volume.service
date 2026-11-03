@@ -1,0 +1,15 @@
+[Unit]
+Description=Hard 700 MB local metrics filesystem
+Before=obs-metrics.service
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+MemoryMax=32M
+CPUQuota=1%
+CPUWeight=10
+IOWeight=10
+Nice=10
+ExecStart=/bin/sh -c 'mountpoint -q /var/lib/news-digest-metrics || mount -t ext4 -o loop,nosuid,nodev,noexec /var/lib/news-digest-observability/metrics.ext4 /var/lib/news-digest-metrics'
+ExecStart=/usr/bin/install -d -o exedev -g exedev /var/lib/news-digest-metrics/data
+[Install]
+WantedBy=multi-user.target

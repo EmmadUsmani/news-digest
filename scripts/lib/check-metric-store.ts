@@ -1,0 +1,137 @@
+import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
+import { statfsSync, statSync } from 'node:fs';
+import { uptime } from 'node:os';
+
+const store = 'http://127.0.0.1:8428/metrics';
+type Sample = { metric: Record<string, string>; value: [number, string] };
+async function query(expression: string): Promise<Sample[]> {
+  const response = await fetch(
+    `${store}/api/v1/query?${new URLSearchParams({ query: expression })}`,
+    { signal: AbortSignal.timeout(15_000) },
+  );
+  assert.equal(response.status, 200);
+  const body = (await response.json()) as {
+    status: string;
+    data: { result: Sample[] };
+  };
+  assert.equal(body.status, 'success');
+  return body.data.result;
+}
+
+export async function checkMetricStore() {
+  const flags = await (await fetch(`${store}/flags`)).text();
+  for (const flag of [
+    '-httpListenAddr="127.0.0.1:8428"',
+    '-retentionPeriod="30d"',
+    '-storage.minFreeDiskSpaceBytes="50MB"',
+  ])
+    assert.ok(flags.includes(flag), `Missing metrics flag: ${flag}`);
+  assert.equal(
+    statSync('/var/lib/news-digest-observability/metrics.ext4').size,
+    700_000_000,
+  );
+  const fs = statfsSync('/var/lib/news-digest-metrics');
+  assert.ok(fs.blocks * fs.bsize <= 700_000_000);
+  const targets = await query('up');
+  assert.equal(targets.length, 2);
+  for (const target of targets)
+    assert.equal(target.value[1], '1', `Target down: ${target.metric.job}`);
+  for (const metric of [
+    'node_cpu_seconds_total',
+    'node_memory_MemAvailable_bytes',
+    'node_filesystem_avail_bytes',
+    'node_disk_read_bytes_total',
+    'node_network_receive_bytes_total',
+    'node_load1',
+    'node_pressure_memory_waiting_seconds_total',
+  ]) {
+    assert.ok((await query(metric)).length, `No host samples: ${metric}`);
+  }
+  assert.equal((await query('node_scrape_collector_success == 0')).length, 0);
+  assert.equal(
+    (await query('node_textfile_scrape_error')).at(0)?.value[1],
+    '0',
+  );
+  const snapshots = await query('news_digest_unit_snapshot_timestamp_seconds');
+  assert.ok(
+    snapshots.length && Date.now() / 1000 - Number(snapshots[0].value[1]) < 100,
+    'Unit snapshot is stale',
+  );
+  for (const unit of [
+    'news-digest-api',
+    'news-digest-worker',
+    'news-digest-docs',
+    'news-digest-schema',
+    'news-digest-agent',
+    'obs-logs',
+    'obs-shipper',
+    'obs-metrics',
+    'obs-node',
+  ]) {
+    const labels = `{unit="${unit}.service"}`;
+    assert.equal(
+      (await query(`news_digest_unit_active${labels}`))[0]?.value[1],
+      '1',
+      `${unit} not active`,
+    );
+    for (const metric of [
+      'memory_bytes',
+      'cpu_seconds_total',
+      'tasks',
+      'restarts_total',
+    ]) {
+      assert.equal(
+        (await query(`news_digest_unit_${metric}${labels}`)).length,
+        1,
+        `Missing ${unit} ${metric}`,
+      );
+    }
+  }
+  const resources = ['obs-logs', 'obs-shipper', 'obs-metrics', 'obs-node'].map(
+    (unit) => {
+      const fields = Object.fromEntries(
+        execFileSync(
+          'systemctl',
+          [
+            'show',
+            unit,
+            '-p',
+            'ActiveState,MemoryCurrent,MemoryMax,CPUUsageNSec,ActiveEnterTimestampMonotonic,Nice,CPUWeight,IOWeight,CPUQuotaPerSecUSec',
+          ],
+          { encoding: 'utf8' },
+        )
+          .trim()
+          .split('\n')
+          .map((line) => line.split('=')),
+      );
+      assert.equal(fields.ActiveState, 'active');
+      assert.equal(fields.Nice, '10');
+      assert.equal(fields.CPUWeight, '10');
+      assert.equal(fields.IOWeight, '10');
+      assert.ok(Number(fields.MemoryCurrent) < Number(fields.MemoryMax));
+      assert.notEqual(fields.CPUQuotaPerSecUSec, 'infinity');
+      const age = uptime() - Number(fields.ActiveEnterTimestampMonotonic) / 1e6;
+      return {
+        unit,
+        memoryMiB: Math.round(Number(fields.MemoryCurrent) / 1048576),
+        averageCpuPercentSinceStart:
+          Math.round((Number(fields.CPUUsageNSec) / 1e9 / age) * 1000) / 10,
+      };
+    },
+  );
+  const page = await fetch('http://127.0.0.1:8000/metrics/vmui/');
+  assert.equal(page.status, 200);
+  assert.match(await page.text(), /VictoriaMetrics/);
+  return {
+    targets: targets.length,
+    units: 9,
+    retentionDays: 30,
+    diskAllocatedMiB: Math.round(
+      (statSync('/var/lib/news-digest-observability/metrics.ext4').blocks *
+        512) /
+        1048576,
+    ),
+    resources,
+  };
+}

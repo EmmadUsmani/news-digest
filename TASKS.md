@@ -1,10 +1,10 @@
 # Tasks
 
-Fix regressions, broken services and stalled sources first.
+Fix failures and stalled sources first.
 
 ## Immediate owner priorities (STEERING overrides older milestone notes)
 
-- [x] STEERING 21 (295): all 16 handbook pages/21 diagrams and 24-table metadata check pass; owner approval acknowledged.
+- [x] STEERING 21 (295): handbook/schema checks green; acknowledged.
 
 - [ ] STEERING 16 (next implementation): open per-topic X search without handle restrictions; reported engagement/velocity, then budget-permitting story reactions and secondary account lists. Keep caps; item 15's first scheduled run is acknowledged before switching. Report search type, cost/yield and outside-list accounts; finish with real editions/screenshots.
   - Open/engagement reporting and durable optional execution are wired and fake-tested (271–294). Production remains account-list pending scheduled evidence/acks; activation remains. Iteration 296 adds daily topic/type cost and incremental-yield summaries with explicit unknowns.
@@ -13,7 +13,7 @@ Fix regressions, broken services and stalled sources first.
 - [ ] STEERING 18 (325): authenticated Bluesky discovery, engagement/semantic editing, storage/cards and edition caller prepared. Owner login configured; production inclusion off until Nov 3 evidence/acks.
 - [ ] STEERING 19: default-off event grouping wired through ranking and immutable editions (333–342), with recorded fallback/synthetic-AI publication tests. Reviewed 60 pairs/two dates: lexical 6/32, opt-in studio/game 13/32 positives, 0/28 false merges. Guards reject historical, uncertain, ambiguous and facility/product claims. Broader paraphrase recall, independent labels and activation remain open; syndication does not prove outlet independence.
 
-- [x] STEERING 20 (270): priorities recorded; no further database characterization while 16–19 remain open. ESPN source label corrected to empty-response replacement, not owner parking.
+- [x] STEERING 20 (270): priorities recorded; ESPN empty-feed label fixed.
 
 - [ ] STEERING 15: scheduled X search for every enabled topic daily, weakest first; atomic per-topic/day admission, optional second search only below three verified additions and within projected caps. Fake tests only; acknowledge after first full scheduled run with per-topic cost/yield. Implemented: weakest-first coverage, atomic admission, $0.10 projections; second searches disabled. Next: Nov 3 scheduled cost/yield and ack.
 
@@ -32,8 +32,8 @@ Fix regressions, broken services and stalled sources first.
 - [x] STEERING 11 (166): restored daily 07:00 America/Los_Angeles P1D; all schedule verification isolated.
 - [ ] STEERING 4 (lower priority): fingerprinted LlmPort replay and separate verification spend are implemented (178–182); real raw-response golden remains open. Do not re-record unchanged prompts or spend merely to test replay. See docs/DATABASE-VERIFICATION.md.
 
-Completed detail: [archive](docs/progress-archive/2026-11-02-tasks-through-143.md).
-M0–M2 and foundational M3/M6/M7 functionality are implemented; remaining work follows.
+History: [archive](docs/progress-archive/2026-11-02-tasks-through-143.md).
+M0–M2; M3/M6/M7 foundations implemented.
 
 ## Remaining milestones
 
@@ -67,7 +67,7 @@ M0–M2 and foundational M3/M6/M7 functionality are implemented; remaining work 
   - retention/backup
   - resilience
 
-- [ ] STEERING 2a (lower priority): finish repository/HTTP characterization before ORM. Disposable Postgres/Redis, fresh migrations, HTTP/worker flows, fallback and synthetic-AI goldens implemented (183–270). Coverage and remaining gaps: [database verification](docs/DATABASE-VERIFICATION.md). Never touch live DB; finish 2a before ORM. Recorded-response golden remains open.
+- [ ] STEERING 2a (lower priority): finish repository/HTTP characterization before ORM. Isolated DB/Redis, migrations, HTTP/worker and synthetic-AI goldens implemented (183–270); gaps: [database verification](docs/DATABASE-VERIFICATION.md). No live DB; finish 2a before ORM. Recorded-response golden open.
 - [ ] STEERING 2b (only after 2a is green): record Drizzle decision/schema parity, back up live DB, gradually replace raw SQL behind ports and enforce boundaries.
 
-- [ ] STEERING 24 (background): implement [observability plan](docs/observability-plan.md) only while product work is blocked. O1 structured logging completed (354); O2 bounded local log store/shipping and private browser completed (355). Seven actual sources, redaction, fresh delivery and desktop/mobile UI verified. O3 read-only `/queues/` completed (356): all four queues/35 schedules and desktop/mobile checks, HTTP writes rejected. Next: scheduled evidence/acks first, otherwise O4 metrics store/host. Keep resource limits and scheduled-run protection.
+- [ ] STEERING 24 (background): follow [observability plan](docs/observability-plan.md) only while product work is blocked. O1 logging (354), O2 bounded logs/private browser (355), O3 read-only four-queue/35-schedule browser (356) and O4 host/nine-unit metrics, 30-day retention/700 MB cap (357) verified live and desktop/mobile. Next: scheduled evidence/acks first; otherwise O5 app/queue metrics. Preserve resource limits and scheduled-run protection.

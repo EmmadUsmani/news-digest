@@ -1,0 +1,17 @@
+[Unit]
+Description=Read-only app user-unit resource snapshot
+[Service]
+Type=oneshot
+User=exedev
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+ExecStart=/usr/bin/python3 /opt/news-digest-observability/unit-metrics.py
+MemoryMax=32M
+CPUQuota=2%
+CPUWeight=10
+IOWeight=10
+Nice=10
+TimeoutStartSec=20
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/var/lib/news-digest-node-textfile

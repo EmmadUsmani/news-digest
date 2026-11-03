@@ -5,9 +5,13 @@ import { uptime } from 'node:os';
 
 import { checkJobsBrowser } from './lib/check-jobs-browser';
 import { checkLogStore } from './lib/check-log-store';
+import { checkMetricStore } from './lib/check-metric-store';
 import { testEnvironment } from './test-suites';
 
 async function main() {
+  const metricStore = process.argv.includes('--verify-o4')
+    ? await checkMetricStore()
+    : undefined;
   const jobsBrowser = process.argv.includes('--verify-o3')
     ? await checkJobsBrowser()
     : undefined;
@@ -218,6 +222,7 @@ async function main() {
       resources,
       logStore,
       jobsBrowser,
+      metricStore,
     }),
   );
 }
