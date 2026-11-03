@@ -406,6 +406,20 @@
       "right": "b79dbac3-169b-4fff-a25f-70e754c4d5ca",
       "sameEvent": true,
       "reason": "Identical distinctive investment-column headline and excerpt within one hour, differing only by publisher suffix; same syndicated content for deduplication. Not a discrete news event or evidence of independent reporting; original attribution is not verified from these Google News records."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "e9fabd3c-98d9-458b-8cd0-94424c5d212e",
+      "right": "c8de0e97-9ab0-4f83-b5e2-ce79ad2b4455",
+      "sameEvent": true,
+      "reason": "Agent review of recorded title/excerpt: same Nagoshi Studio closure after NetEase funding loss. Closure is explicit; game cancellation remains qualified. No independent publisher verification."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "f0703d80-c31c-4799-91cc-5060a004228c",
+      "right": "c8de0e97-9ab0-4f83-b5e2-ce79ad2b4455",
+      "sameEvent": true,
+      "reason": "Agent review of recorded title/excerpt: same Nagoshi Studio closure after NetEase funding loss. Closure is explicit; game cancellation remains qualified. No independent publisher verification."
     }
   ]
 }

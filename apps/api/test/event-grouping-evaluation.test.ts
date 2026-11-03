@@ -9,8 +9,8 @@ import { sameEventWithGameScore } from '../src/modules/digests/domain/game-event
 
 void test('recorded strict event labels expose false merges and missed paraphrases', () => {
   const result = evaluateEventGrouping();
-  assert.equal(result.pairs, 58);
-  assert.equal(result.positives, 30);
+  assert.equal(result.pairs, 60);
+  assert.equal(result.positives, 32);
   assert.equal(result.negatives, 28);
   assert.equal(result.falsePositives, 0);
   assert.ok(
@@ -24,7 +24,7 @@ void test('recorded strict event labels expose false merges and missed paraphras
   const gaming = result.windows.find((window) =>
     window.window.includes('gaming'),
   )!;
-  assert.equal(gaming.positives, 8);
+  assert.equal(gaming.positives, 10);
   assert.equal(gaming.negatives, 12);
   assert.equal(gaming.truePositives, 0);
   assert.equal(gaming.falsePositives, 0);

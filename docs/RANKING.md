@@ -818,3 +818,24 @@ with no unknown or negative merges in either input direction. This closes the
 observed label gap, not the general precision question: labels remain agent
 reviewed, Gaming still has no merges, and outlet independence needs separate
 verification. No matcher, production grouping or ranking behavior changed.
+
+## Iteration 332: opt-in studio closure identity
+
+The offline `--studio-closures` evaluator adds a deliberately narrow rule:
+matching single-word proper studio names directly followed by an explicit
+closure assertion in the title or feed excerpt, within 36 hours. Negation,
+rumors, modal uncertainty, reopening language, multiple studio identities and
+multiword-name suffix collisions reject the identity. Funding loss or game
+cancellation alone does not establish a studio closure. The rule composes
+with the prepared NBA matcher; production has no caller.
+
+Two additional agent-reviewed pairs connect the recorded Eurogamer and Game
+Developer Nagoshi closure reports to GameSpot's explicit studio-closure
+headline. Game cancellation remains qualified in that headline; the label
+concerns the studio closure only. No publisher fetch or independent review.
+The selected set is now **60 pairs: 32 positive, 28 negative**. Lexical matching
+finds 6/32, game-only 10/32, studio/game 13/32; all have zero labeled false
+merges. Gaming improves from 0/10 to 3/10 positives. All 13 full-window merged
+pairs have positive labels and reverse-input membership agrees. This modest
+recall gain is specific to the selected examples; it does not establish
+general precision, arbitrary-order stability or independent outlet coverage.
