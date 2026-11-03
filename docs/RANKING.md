@@ -754,3 +754,30 @@ Synthetic regression cases cover both argument orders and reversed outcomes.
 The recorded benchmark remains 4/11 positives and 0/10 false merges; these
 regressions are synthetic, not additional real-world precision evidence.
 Production still uses the original lexical matcher.
+
+## Iteration 329: second-date and Gaming event evidence
+
+The offline command now evaluates **55 pairs** from November 1 and 2 across
+five recorded topic windows. Two new selected snapshots contain stored NBA and
+Gaming publisher-feed items from November 2 UTC, read without changing live
+data or fetching publisher pages. Headlines, URLs, source labels and timestamps
+are retained; excerpts are capped at 600 characters. Each added pair has an
+explicit agent-reviewed reason. This is development evidence, not independent
+fact verification or a representative precision estimate.
+
+The lexical baseline merges **4/27** positive pairs with **0/28** false merges
+(observed precision 4/4, recall 14.8%). The opt-in game matcher merges **7/27**
+with **0/28** false merges (precision 7/7, recall 25.9%). The three additional
+matches in the new NBA window are also matched by the lexical baseline; the
+new scoreless game recaps remain misses. Syndicated reports contribute positive
+matches and do not establish independent reporting. Gaming contributes eight
+positive pairs and twelve negatives; neither matcher finds any Gaming positive.
+
+New negatives distinguish weekly awards for different players, current versus
+retrospective events, separate game announcements sharing publisher templates,
+different developments from one Zelda interview, AI upload reports on different
+stores, and separate guides for one game. Per-window counts appear in the report.
+Regression tests cover all negative labels and both argument orders for the
+opt-in matcher. Conservative paraphrase recall and independent review remain
+open. Production grouping and ranking behavior are unchanged and gated under
+STEERING 23.

@@ -1,0 +1,208 @@
+{
+  "provenance": "Read-only snapshot of stored publisher-feed candidates recorded 2026-11-03. Selected for strict event-identity review; no article-page or independent fact verification. Excerpts truncated to 600 characters; other candidate fields retained. Offline only, never seed into production.",
+  "windowStart": "2026-11-02T00:00:00.000Z",
+  "windowEnd": "2026-11-03T00:00:00.000Z",
+  "topic": "nba",
+  "candidates": [
+    {
+      "id": "477d65b1-573e-433a-af29-bc66ae5752d9",
+      "title": "Victor Wembanyama named Western Conference Player of the Week",
+      "url": "https://sports.yahoo.com/articles/victor-wembanyama-named-western-conference-225733356.html",
+      "excerpt": "Wemby’s recent dominant play got the recognition it deserved from the league.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T22:57:33.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "ced9fb55-e884-4ee6-a61a-362020a8164f",
+      "title": "Bucks exercise rookie-scale options on Kel’el Ware, Kasparas Jakučionis",
+      "url": "https://sports.yahoo.com/articles/bucks-exercise-rookie-scale-options-214546013.html",
+      "excerpt": "Jon Horst and the Bucks convert on the layup.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T21:45:46.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "6d972a0d-2fac-4e25-b4c0-4c1f034b4899",
+      "title": "Victor Wembanyama: Spurs’ Game 4 loss to Knicks ‘the most intense heartbreak moment in my career’",
+      "url": "https://sports.yahoo.com/articles/victor-wembanyama-spurs-game-4-212432087.html",
+      "excerpt": "Spurs star Victor Wembanyama didn't sugarcoat his feelings about San Antonio's loss to the Knicks in the 2026 NBA Finals.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T21:24:32.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "61c7ac26-4768-495a-8447-3fe507bfaaf7",
+      "title": "Jayson Tatum named Eastern Conference Player of the Week for 14th time in career",
+      "url": "https://sports.yahoo.com/articles/jayson-tatum-named-eastern-conference-210851947.html",
+      "excerpt": "Tatum averaged 30.3 points and seven assists during Boston's perfect 4-0 week, moving one award shy of Larry Bird.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T21:08:51.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "9003ba23-ca74-43a1-9397-57504486634f",
+      "title": "Thunder To Retire Russell Westbrook’s Jersey On Feb. 7",
+      "url": "https://www.hoopsrumors.com/2026/11/thunder-to-retire-russell-westbrooks-jersey-on-feb-7.html",
+      "excerpt": "The Thunder will retire Russell Westbrook’s No. 0 jersey when they host New York on February 7, 2027, the team announced today (Twitter video link). Westbrook ended his 18-year playing career over the summer when he decided to retire. In about three months, his jersey will hang in the rafters of the Paycom Center (it […]",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T20:00:25.000Z",
+      "sources": ["Hoops Rumors"],
+      "points": 0
+    },
+    {
+      "id": "6ad062c8-0d9e-4843-92b7-d16385ee473d",
+      "title": "Russell Westbrook number retirement: OKC Thunder to hang No. 0 from the rafters in February",
+      "url": "https://www.cbssports.com/nba/news/russell-westbrook-thunder-number-retirement/",
+      "excerpt": "Westbrook's number will go in the Paycom Center rafters on Feb. 7 when OKC hosts the Knicks",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T19:46:50.000Z",
+      "sources": ["CBS Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "b50957a1-e9e8-4600-a64a-8d0688ee633f",
+      "title": "Thunder announce that they'll retire Russell Westbrook's jersey No. 0 in February",
+      "url": "https://sports.yahoo.com/nba/breaking-news/article/thunder-announce-that-theyll-retire-russell-westbrooks-jersey-no-0-in-february-191108608.html",
+      "excerpt": "Westbrook wiped back tears when the announcement was made.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T19:10:59.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "fda182c0-67f6-4fd5-9b26-25072411ed71",
+      "title": "Thunder announce they'll retire Russell Westbrook's No. 0 jersey in February",
+      "url": "https://sports.yahoo.com/nba/breaking-news/article/thunder-announce-theyll-retire-russell-westbrooks-no-0-jersey-in-february-200739502.html",
+      "excerpt": "Westbrook wiped back tears when the announcement was made.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T19:10:59.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "b449116b-1515-444c-a308-a841c3e7c1ee",
+      "title": "Week in Review: Wembanyama explodes back into form to lead Spurs to undefeated week",
+      "url": "https://sports.yahoo.com/articles/week-review-wembanyama-explodes-back-190002769.html",
+      "excerpt": "The Spurs aren’t 100% back in form, but they’re taking advantage of an easy stretch to work on it.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T19:00:02.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "757d88c7-c99d-46d0-ac15-416bbfe5a686",
+      "title": "Bucks Exercise 2027/28 Options On Ware, Jakucionis",
+      "url": "https://www.hoopsrumors.com/2026/11/bucks-exercising-2027-28-options-on-ware-jakucionis.html",
+      "excerpt": "1:30 pm: Both options have been officially picked up, per RealGM’s log of NBA transactions. 12:47 pm: The Bucks are exercising their rookie scale team options for next season on Kel’el Ware and Kasparas Jakucionis, league sources tell Michael Scotto of HoopsHype (Twitter link). Milwaukee had until the end of the day on Monday to […]",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T18:47:28.000Z",
+      "sources": ["Hoops Rumors"],
+      "points": 0
+    },
+    {
+      "id": "38d4ec52-d028-4df4-bbfc-b39429565cd1",
+      "title": "Yaxel Lendeborg drops 37 points in win over Clippers, most for a Warriors rookie since Stephen Curry",
+      "url": "https://sports.yahoo.com/nba/article/yaxel-lendeborg-drops-37-points-in-win-over-clippers-most-for-a-warriors-rookie-since-stephen-curry-153509778.html",
+      "excerpt": "Yaxel Lendeborg looks like a future star in his brief debut with the Warriors.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T15:35:09.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "0ace195a-9c07-4a47-b6b2-2c9d08c363b8",
+      "title": "NBA schedule includes no games on Election Day. Here's why",
+      "url": "https://sports.yahoo.com/articles/nba-schedule-includes-no-games-105626735.html",
+      "excerpt": "The league is encouraging the basketball community to vote and participate in civic engagement.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T10:56:26.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "7a94c0fe-54ea-4cd1-9b31-6b92b06b560d",
+      "title": "NBA schedule includes no games on Election Day. Here's why",
+      "url": "https://sports.yahoo.com/articles/nba-schedule-includes-no-games-105626282.html",
+      "excerpt": "The league is encouraging the basketball community to vote and participate in civic engagement.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T10:56:26.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "7f244cae-1318-4826-9aba-2e0f17b009fc",
+      "title": "Yaxel Lendeborg bounces back with big night as Warriors beat Clippers",
+      "url": "https://sports.yahoo.com/articles/yaxel-lendeborg-bounces-back-big-040835659.html",
+      "excerpt": "Golden State Warriors forward Yaxel Lendeborg managed to bounce back in a big way against the LA Clippers on Sunday, Nov. 1.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T04:08:35.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "d186ed28-f2fd-4421-a647-0b9ee418694f",
+      "title": "Yaxel Lendeborg scores 37, carries Warriors to 124-112 win over Clippers",
+      "url": "https://sports.yahoo.com/articles/yaxel-lendeborg-scores-37-carries-035902318.html",
+      "excerpt": "Yaxel Lendeborg carried the Golden State Warriors to a 124-112 victory over the Los Angeles Clippers.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T03:59:02.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "c3e9767e-3755-4c0c-9c91-74a3701aa7d5",
+      "title": "Hawks rookie Kingston Flemings suspended one game for elbow to the head",
+      "url": "https://sports.yahoo.com/articles/hawks-rookie-kingston-flemings-suspended-032029607.html",
+      "excerpt": "Kingston Flemings was ejected from Atlanta's loss to the New Orleans Pelicans for throwing an elbow, and the league added onto his punishment.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T03:20:29.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "9c125447-431a-4090-a87e-86dd0e4187f7",
+      "title": "NBA Suspends Hawks’ Kingston Flemings For One Game",
+      "url": "https://www.hoopsrumors.com/2026/11/nba-suspends-hawks-kingston-flemings-for-one-game.html",
+      "excerpt": "The NBA has announced a one-game suspension without pay for Hawks guard Kingston Flemings, per an official press release (via Twitter). The suspension stems from an incident that occurred late in the fourth quarter of Atlanta’s game against the Pelicans on Saturday, when the rookie point guard elbowed Pelicans wing Bryce McGowens in the head. […]",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T02:02:18.000Z",
+      "sources": ["Hoops Rumors"],
+      "points": 0
+    },
+    {
+      "id": "81600743-e716-4190-a5c6-62476cfa697d",
+      "title": "NBA suspends Hawks rookie Kingston Flemings for 'intentionally elbowing' Pelicans' Bryce McGowens",
+      "url": "https://sports.yahoo.com/nba/breaking-news/article/nba-suspends-hawks-rookie-kingston-flemings-for-intentionally-elbowing-pelicans-bryce-mcgowens-015705861.html",
+      "excerpt": "Flemings will miss Monday’s game against the Indiana Pacers without pay.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T01:57:05.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "e0590106-91d2-4095-8414-e6ba5a52969a",
+      "title": "NBA suspends Hawks rookie Kingston Flemings for 'intentionally elbowing' Pelicans' Bryce McGowens in the head",
+      "url": "https://sports.yahoo.com/nba/breaking-news/article/nba-suspends-hawks-rookie-kingston-flemings-for-intentionally-elbowing-pelicans-bryce-mcgowens-in-the-head-021248121.html",
+      "excerpt": "Flemings will miss Monday's game against the Indiana Pacers without pay.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T01:57:05.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "25c97a00-3068-4e92-9166-20783c324748",
+      "title": "Nets get first win of season with strong defensive effort, beating Pacers, 98-90",
+      "url": "https://sports.yahoo.com/articles/nets-first-win-season-strong-005628327.html",
+      "excerpt": "It’s true. The Brooklyn Nets have won a ball game.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T00:56:28.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    }
+  ]
+}

@@ -22,8 +22,8 @@ const item = (
 void test('opt-in game matcher improves recorded recall without recorded false merges', () => {
   const baseline = evaluateEventGrouping();
   const prepared = evaluateEventGrouping(sameEventWithGameScore);
-  assert.equal(baseline.truePositives, 1);
-  assert.equal(prepared.truePositives, 4);
+  assert.equal(baseline.truePositives, 4);
+  assert.equal(prepared.truePositives, 7);
   assert.equal(prepared.falsePositives, 0);
   assert.equal(prepared.precision, 1);
 });

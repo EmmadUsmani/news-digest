@@ -1,5 +1,5 @@
 {
-  "note": "Agent-reviewed headline/excerpt labels over recorded November 1 items. Not independent fact verification or a representative quality estimate. Related developments stay separate unless the specific event matches.",
+  "note": "Agent-reviewed headline/excerpt labels over recorded November 1 and 2 Tech/NBA/World/Gaming items. Not independent fact verification or a representative quality estimate. Related developments stay separate unless the specific event matches; syndicated matches do not prove outlet independence.",
   "pairs": [
     {
       "window": "ranking-nba-2026-11-01.json",
@@ -20,14 +20,14 @@
       "left": "330af28c-5f48-4cb8-8b99-005029bda3a5",
       "right": "277cccbe-ae81-45bb-aa9f-c5ac3301ce3d",
       "sameEvent": true,
-      "reason": "Same 121\u2013111 Spurs victory; alternate team naming."
+      "reason": "Same 121–111 Spurs victory; alternate team naming."
     },
     {
       "window": "ranking-nba-2026-11-01.json",
       "left": "86e51c7d-61a5-48e7-8da9-b7e805ed692d",
       "right": "c4b2ce66-9bf4-471e-9aa9-7cabae13a1d3",
       "sameEvent": true,
-      "reason": "Same 136\u2013111 Cavaliers win over Milwaukee."
+      "reason": "Same 136–111 Cavaliers win over Milwaukee."
     },
     {
       "window": "ranking-nba-2026-11-01.json",
@@ -90,7 +90,7 @@
       "left": "bddb7e26-e09f-4190-9b41-98de64585125",
       "right": "86e51c7d-61a5-48e7-8da9-b7e805ed692d",
       "sameEvent": false,
-      "reason": "Spurs\u2013Wolves and Cavaliers\u2013Bucks are distinct games despite similar scores."
+      "reason": "Spurs–Wolves and Cavaliers–Bucks are distinct games despite similar scores."
     },
     {
       "window": "ranking-nba-2026-11-01.json",
@@ -147,6 +147,244 @@
       "right": "d2b3bf0b-6545-4b9e-b856-86ea3f1e6004",
       "sameEvent": false,
       "reason": "Crypto heist attribution and Brazilian court sanctions are unrelated incidents."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "9003ba23-ca74-43a1-9397-57504486634f",
+      "right": "6ad062c8-0d9e-4843-92b7-d16385ee473d",
+      "sameEvent": true,
+      "reason": "Same announced February 7 Westbrook jersey-retirement ceremony; date is explicit in both excerpts."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "b50957a1-e9e8-4600-a64a-8d0688ee633f",
+      "right": "fda182c0-67f6-4fd5-9b26-25072411ed71",
+      "sameEvent": true,
+      "reason": "Syndicated report of the same Westbrook retirement announcement; not independent outlet evidence."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "ced9fb55-e884-4ee6-a61a-362020a8164f",
+      "right": "757d88c7-c99d-46d0-ac15-416bbfe5a686",
+      "sameEvent": true,
+      "reason": "Same Bucks option exercise for Ware and Jakucionis."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "38d4ec52-d028-4df4-bbfc-b39429565cd1",
+      "right": "d186ed28-f2fd-4421-a647-0b9ee418694f",
+      "sameEvent": true,
+      "reason": "Same November 1 Warriors win over the Clippers and Lendeborg 37-point performance."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "7f244cae-1318-4826-9aba-2e0f17b009fc",
+      "right": "d186ed28-f2fd-4421-a647-0b9ee418694f",
+      "sameEvent": true,
+      "reason": "Same November 1 Warriors-Clippers result; one recap omits the score."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "c3e9767e-3755-4c0c-9c91-74a3701aa7d5",
+      "right": "9c125447-431a-4090-a87e-86dd0e4187f7",
+      "sameEvent": true,
+      "reason": "Same one-game suspension of Kingston Flemings for the Pelicans elbow incident."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "81600743-e716-4190-a5c6-62476cfa697d",
+      "right": "e0590106-91d2-4095-8414-e6ba5a52969a",
+      "sameEvent": true,
+      "reason": "Syndicated Flemings suspension report; not independent outlet evidence."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "0ace195a-9c07-4a47-b6b2-2c9d08c363b8",
+      "right": "7a94c0fe-54ea-4cd1-9b31-6b92b06b560d",
+      "sameEvent": true,
+      "reason": "Identical syndicated explanation of the Election Day schedule; not independent reporting."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "477d65b1-573e-433a-af29-bc66ae5752d9",
+      "right": "61c7ac26-4768-495a-8447-3fe507bfaaf7",
+      "sameEvent": false,
+      "reason": "Different players and conference awards despite identical weekly-award wording."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "477d65b1-573e-433a-af29-bc66ae5752d9",
+      "right": "6d972a0d-2fac-4e25-b4c0-4c1f034b4899",
+      "sameEvent": false,
+      "reason": "Current weekly award versus retrospective Finals-loss interview about the same player."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "6d972a0d-2fac-4e25-b4c0-4c1f034b4899",
+      "right": "b449116b-1515-444c-a308-a841c3e7c1ee",
+      "sameEvent": false,
+      "reason": "Retrospective Finals loss versus current regular-season weekly performance."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "9003ba23-ca74-43a1-9397-57504486634f",
+      "right": "9c125447-431a-4090-a87e-86dd0e4187f7",
+      "sameEvent": false,
+      "reason": "Jersey-retirement announcement and player suspension are unrelated league events."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "d186ed28-f2fd-4421-a647-0b9ee418694f",
+      "right": "25c97a00-3068-4e92-9166-20783c324748",
+      "sameEvent": false,
+      "reason": "Different teams and games: Warriors-Clippers versus Nets-Pacers."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "ced9fb55-e884-4ee6-a61a-362020a8164f",
+      "right": "477d65b1-573e-433a-af29-bc66ae5752d9",
+      "sameEvent": false,
+      "reason": "Contract option exercise and weekly player award are separate announcements."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "acafe162-52fb-41b4-8b83-7043211b24e4",
+      "right": "a24d9ae9-9ed5-483b-b9b5-a62e377878a0",
+      "sameEvent": true,
+      "reason": "Same GOG explanation of the Dune 2 re-release rights problem."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "e9fabd3c-98d9-458b-8cd0-94424c5d212e",
+      "right": "f0703d80-c31c-4799-91cc-5060a004228c",
+      "sameEvent": true,
+      "reason": "Same Nagoshi Studio closure following loss of NetEase funding."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "1ca1e4c4-5d01-4058-ae64-05132cf6145c",
+      "right": "c8de0e97-9ab0-4f83-b5e2-ce79ad2b4455",
+      "sameEvent": true,
+      "reason": "Same studio closure and cancellation of Gang of Dragon."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "988e803d-b162-4a5b-a502-ce489c3d7aee",
+      "right": "fb6b8a8d-e05c-4e88-99b2-681c7d31fb7b",
+      "sameEvent": true,
+      "reason": "Same new Anthropic rule against Claude game clones."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "fb6b8a8d-e05c-4e88-99b2-681c7d31fb7b",
+      "right": "96f79f60-18b1-415e-b6b0-5cba8eaf96a2",
+      "sameEvent": true,
+      "reason": "Same Claude Code anti-cloning rule update."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "18c45e13-3de6-4ecb-9e18-722138596d29",
+      "right": "d77b0179-d77a-489e-9755-794c15b1b940",
+      "sameEvent": true,
+      "reason": "Same producer explanation that remaking Ocarina teaches junior staff classic design insights."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "28ad8ef0-6da7-481f-a648-5c179560e2bb",
+      "right": "e466302e-c186-49c8-891e-48ecd8576837",
+      "sameEvent": true,
+      "reason": "Same rejected fast-travel addition during Ocarina remake development."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "28ad8ef0-6da7-481f-a648-5c179560e2bb",
+      "right": "09479cfd-2125-4c0e-b7f3-81acd902bbe6",
+      "sameEvent": true,
+      "reason": "Same fast-travel feature cut to preserve exploration; related interview details stay separate below."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "606b64d6-7be4-41cb-a108-9b2a0adb250b",
+      "right": "bd8af3c0-56ac-4a93-94b6-e4b075ad2384",
+      "sameEvent": false,
+      "reason": "Separate measurements of AI uploads on Itch.io and Steam, not the same store or report."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "fb6b8a8d-e05c-4e88-99b2-681c7d31fb7b",
+      "right": "606b64d6-7be4-41cb-a108-9b2a0adb250b",
+      "sameEvent": false,
+      "reason": "Anti-cloning policy change versus separate report of Itch.io upload volume."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "18c45e13-3de6-4ecb-9e18-722138596d29",
+      "right": "28ad8ef0-6da7-481f-a648-5c179560e2bb",
+      "sameEvent": false,
+      "reason": "Same game/interview, but remake motivation and rejected fast-travel feature are distinct developments."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "28ad8ef0-6da7-481f-a648-5c179560e2bb",
+      "right": "72397d99-93cf-4d52-b3de-8f6882751542",
+      "sameEvent": false,
+      "reason": "Fast-travel cut versus released art sketches; shared game does not establish event identity."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "72397d99-93cf-4d52-b3de-8f6882751542",
+      "right": "19c15bc2-3442-4314-8936-96f3b77ac1ca",
+      "sameEvent": false,
+      "reason": "Design sketches versus identification of the development studio."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "984a3022-6629-4550-81a0-303f3336ac37",
+      "right": "832c2ed9-8f2a-4b03-83ad-3582482480d7",
+      "sameEvent": false,
+      "reason": "Launch review and subsequent bug-fix patch are distinct developments."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "cdf2b7c6-ed70-4af2-8b9f-0d33cbe55d66",
+      "right": "299919a9-cb2d-4a18-83d1-009b54faab31",
+      "sameEvent": false,
+      "reason": "Same publisher and announcement template, but different games and developers."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "d7e275ae-c5a6-4f69-8d5c-50c89c719696",
+      "right": "2a002813-be27-4d73-83dc-584c1783c078",
+      "sameEvent": false,
+      "reason": "Same publisher and announcement template, but different games and developers."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "45a82a40-0180-4ba7-9661-84302479a7f8",
+      "right": "238b488d-13d7-4e55-a6b1-ee430d2a1c84",
+      "sameEvent": false,
+      "reason": "New game announcement versus another game demo date, despite shared publisher."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "a0afa98c-27bd-4bd3-8276-1e3b6e59f80e",
+      "right": "ebaf1fe4-c6c9-4e9e-b434-2a8b330ec21d",
+      "sameEvent": false,
+      "reason": "Different gameplay guides, ability respec versus collectible locations; neither is a shared news event."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "ebaf1fe4-c6c9-4e9e-b434-2a8b330ec21d",
+      "right": "1d16cf22-3fe8-4b82-b2ba-a9d86d3f4cb3",
+      "sameEvent": false,
+      "reason": "Different guides about the same game, collectible locations versus accessory selection."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "13269230-cd33-48c6-b682-ea5ff8be094f",
+      "right": "95dde458-05fc-4bc5-961d-8b48c61c09bf",
+      "sameEvent": false,
+      "reason": "New Thief campaign developer details versus console physical-edition packaging."
     }
   ]
 }

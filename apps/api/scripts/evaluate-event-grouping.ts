@@ -22,7 +22,10 @@ export function evaluateEventGrouping(matches = sameEvent) {
   const seen = new Set<string>();
   const windows = new Map<string, Candidate[]>();
   const pairs = fixture.pairs.map((pair) => {
-    if (!/^ranking-(tech|nba|world)-2026-11-01\.json$/.test(pair.window))
+    if (
+      !/^ranking-(tech|nba|world)-2026-11-01\.json$/.test(pair.window) &&
+      !/^event-grouping-(nba|gaming)-2026-11-02\.json$/.test(pair.window)
+    )
       throw new Error('Unknown recorded window');
     if (!windows.has(pair.window))
       windows.set(
@@ -73,6 +76,20 @@ export function evaluateEventGrouping(matches = sameEvent) {
         ? truePositives / (truePositives + falsePositives)
         : null,
     recall: positives ? truePositives / positives : null,
+    windows: [...windows.keys()].map((window) => {
+      const labeled = pairs.filter((pair) => pair.window === window);
+      return {
+        window,
+        positives: labeled.filter((pair) => pair.sameEvent).length,
+        negatives: labeled.filter((pair) => !pair.sameEvent).length,
+        truePositives: labeled.filter(
+          (pair) => pair.sameEvent && pair.predictedSameEvent,
+        ).length,
+        falsePositives: labeled.filter(
+          (pair) => !pair.sameEvent && pair.predictedSameEvent,
+        ).length,
+      };
+    }),
     disagreements: pairs.filter(
       (pair) => pair.sameEvent !== pair.predictedSameEvent,
     ),

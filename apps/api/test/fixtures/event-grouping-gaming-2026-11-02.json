@@ -1,0 +1,318 @@
+{
+  "provenance": "Read-only snapshot of stored publisher-feed candidates recorded 2026-11-03. Selected for strict event-identity review; no article-page or independent fact verification. Excerpts truncated to 600 characters; other candidate fields retained. Offline only, never seed into production.",
+  "windowStart": "2026-11-02T00:00:00.000Z",
+  "windowEnd": "2026-11-03T00:00:00.000Z",
+  "topic": "gaming",
+  "candidates": [
+    {
+      "id": "acafe162-52fb-41b4-8b83-7043211b24e4",
+      "title": "GOG Explains How One Of The Most Important PC Games Ever Made Is Trapped In Licensing Hell",
+      "url": "https://kotaku.com/gog-explains-how-one-of-the-most-important-pc-games-ever-made-is-trapped-in-licensing-hell-2000752406",
+      "excerpt": "Dune 2: The Building of a Dynasty was a very influential RTS that is owned by at least four different companies",
+      "imageUrl": "https://kotaku.com/app/uploads/2026/11/Dune2-westwood-1280x720.jpg",
+      "publishedAt": "2026-11-02T22:00:23.000Z",
+      "sources": ["Kotaku"],
+      "points": 0
+    },
+    {
+      "id": "984a3022-6629-4550-81a0-303f3336ac37",
+      "title": "Enshrouded 1.0 review",
+      "url": "https://www.pcgamer.com/games/survival-crafting/enshrouded-1-0-review/",
+      "excerpt": "The fog of war clears around Embervale, revealing a survival crafting masterpiece.",
+      "imageUrl": "https://cdn.mos.cms.futurecdn.net/MZ4wF5Y8utwbJf8qNmV9SA-1920-80.png",
+      "publishedAt": "2026-11-02T21:47:58.000Z",
+      "sources": ["PC Gamer"],
+      "points": 0
+    },
+    {
+      "id": "e9fabd3c-98d9-458b-8cd0-94424c5d212e",
+      "title": "Yakuza creator's new studio and its debut game Gang of Dragon are no more after losing funding from NetEase",
+      "url": "https://www.eurogamer.net/yakuza-creator-new-studio-closed-netease",
+      "excerpt": "Nagoshi Studio has officially shut down and its first game called Gang of Dragon is seemingly no more, months after publisher NetEase pulled funding from the Yakuza-like project. Read more",
+      "imageUrl": "https://assetsio.gnwcdn.com/Screenshot-2026-03-07-at-17.05.06.png?auto=webp&format=jpg&quality=85&width=690",
+      "publishedAt": "2026-11-02T20:30:09.000Z",
+      "sources": ["Eurogamer"],
+      "points": 0
+    },
+    {
+      "id": "f0703d80-c31c-4799-91cc-5060a004228c",
+      "title": "Toshihiro Nagoshi's post-Sega game studio, Nagoshi Studio, shuts down after NetEase funding cuts",
+      "url": "https://www.gamedeveloper.com/business/nagoshi-studio-toshihiro-nagoshi-s-game-development-studio-after-leaving-sega-closes-as-netease-cuts-its-funding",
+      "excerpt": "Founded in 2021, the studio was working on a game funded by NetEase announced just under a year ago, but the studio has reportedly collapsed.",
+      "imageUrl": "https://eu-images.contentstack.com/v3/assets/blt740a130ae3c5d529/bltad52dee3e8c29c8e/6ae8d5a4605218006443abe7/gangofdragonsteam.jpg?disable=upscale&quality=80&width=720",
+      "publishedAt": "2026-11-02T19:15:00.000Z",
+      "sources": ["Game Developer"],
+      "points": 0
+    },
+    {
+      "id": "988e803d-b162-4a5b-a502-ce489c3d7aee",
+      "title": "Anthropic Builds World's Tiniest Dam Against AI Clone Game Flood",
+      "url": "https://aftermath.site/anthropic-claude-game-clone-ai-rules/",
+      "excerpt": "Some new rules aim to stop Claude from copying existing games",
+      "imageUrl": "https://storage.ghost.io/c/30/f5/30f5b1bb-84ee-4c26-b446-fb9a5e512994/content/images/2026/11/shutterstock_2684714309-1.jpg",
+      "publishedAt": "2026-11-02T18:48:02.000Z",
+      "sources": ["Aftermath"],
+      "points": 0
+    },
+    {
+      "id": "606b64d6-7be4-41cb-a108-9b2a0adb250b",
+      "title": "The number of game pages doubles on Itch.io as AI games flood the store",
+      "url": "https://www.gamedeveloper.com/pc/number-of-game-pages-doubles-on-itch-io-as-ai-clones-flood-the-store",
+      "excerpt": "The indie video game store that prides itself as an open marketplace is being deluged by game pages, doubling the usual number without a proportional increase in sales.",
+      "imageUrl": "https://eu-images.contentstack.com/v3/assets/blt740a130ae3c5d529/blt8e5eeb04d80d43e7/6ae8ce8d1b7efb35e8ec7357/itch.iorobots.jpg?disable=upscale&quality=80&width=720",
+      "publishedAt": "2026-11-02T18:30:00.000Z",
+      "sources": ["Game Developer"],
+      "points": 0
+    },
+    {
+      "id": "18c45e13-3de6-4ecb-9e18-722138596d29",
+      "title": "Ocarina of Time began remake so young devs would understand \"how significant\" the N64 classic was",
+      "url": "https://www.gamesradar.com/games/the-legend-of-zelda/nintendo-started-the-ocarina-of-time-remake-because-zelda-veteran-eiji-aonuma-wanted-young-devs-to-understand-just-how-significant-the-n64-classic-was/",
+      "excerpt": "\"By actually rebuilding it as a full remake, it may trigger new insights that they can carry forward into future development\"",
+      "imageUrl": "https://cdn.mos.cms.futurecdn.net/kuybpfMuYpkHd7b3kADkE4-1920-80.png",
+      "publishedAt": "2026-11-02T18:16:05.000Z",
+      "sources": ["GamesRadar+"],
+      "points": 0
+    },
+    {
+      "id": "28ad8ef0-6da7-481f-a648-5c179560e2bb",
+      "title": "Nintendo tried adding fast travel to The Legend of Zelda: Ocarina of Time remake, before devs realised \"we were missing out on the moments of discovery\"",
+      "url": "https://www.eurogamer.net/nintendo-fast-travel-legend-of-zelda-ocarina-of-time-remake",
+      "excerpt": "The Legend of Zelda: Ocarina of Time is being wrapped up in all kinds of modern touches for its imminent Nintendo Switch 2 remake (that owl seems to be less chatty , for starters), but there's at least one quality-of-life feature borrowed from Breath of the Wild that the developers felt was better left on the cutting room floor: fast travel. Read more",
+      "imageUrl": "https://assetsio.gnwcdn.com/Ocarina-of-Time-Link.png?auto=webp&format=jpg&quality=85&width=690",
+      "publishedAt": "2026-11-02T18:01:38.000Z",
+      "sources": ["Eurogamer"],
+      "points": 0
+    },
+    {
+      "id": "13269230-cd33-48c6-b682-ea5ff8be094f",
+      "title": "Thief Remastered's new expansion is being made by the legendary Black Parade mod team, and it's out next month",
+      "url": "https://www.pcgamer.com/games/fps/thief-remastereds-new-expansion-is-being-made-by-the-legendary-black-parade-mod-team-and-its-out-next-month/",
+      "excerpt": "It's a big day for PC gaming old heads.",
+      "imageUrl": "https://cdn.mos.cms.futurecdn.net/UmXn7GB6fZw97kbHjw9zNW-1920-80.jpg",
+      "publishedAt": "2026-11-02T17:53:01.000Z",
+      "sources": ["PC Gamer"],
+      "points": 0
+    },
+    {
+      "id": "fb6b8a8d-e05c-4e88-99b2-681c7d31fb7b",
+      "title": "Anthropic adds rule to stop Claude Code recreating existing games",
+      "url": "https://www.gamesindustry.biz/anthropic-adds-rule-to-stop-claude-code-recreating-existing-games",
+      "excerpt": "Anthropic has updated its AI coding tool Claude Code so it stops building clones of existing video games. Read more",
+      "imageUrl": "https://assetsio.gnwcdn.com/Screenshot-2026-11-02-at-17.44.04.png?auto=webp&format=jpg&quality=85&width=690",
+      "publishedAt": "2026-11-02T17:50:20.000Z",
+      "sources": ["GamesIndustry.biz"],
+      "points": 0
+    },
+    {
+      "id": "bd8af3c0-56ac-4a93-94b6-e4b075ad2384",
+      "title": "Nearly 50 percent of all of last month’s Steam releases admit to containing AI slop",
+      "url": "https://www.destructoid.com/nearly-50-percent-steam-oct-26-admit-ai-slop/",
+      "excerpt": "Slop til you drop. The post Nearly 50 percent of all of last month’s Steam releases admit to containing AI slop appeared first on Destructoid .",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T17:43:18.000Z",
+      "sources": ["Destructoid"],
+      "points": 0
+    },
+    {
+      "id": "45a82a40-0180-4ba7-9661-84302479a7f8",
+      "title": "Dark visual novel PRIMA MATERIA announced for PC",
+      "url": "https://www.gematsu.com/2026/11/dark-visual-novel-prima-materia-announced-for-pc",
+      "excerpt": "Publisher Top Hat Studios and Synergia developer Radi Art have announced PRIMA MATERIA, a dark …",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T17:16:58.000Z",
+      "sources": ["Gematsu"],
+      "points": 0
+    },
+    {
+      "id": "238b488d-13d7-4e55-a6b1-ee430d2a1c84",
+      "title": "DELIVERY MUST COMPLETE demo launches in January 2027",
+      "url": "https://www.gematsu.com/2026/11/delivery-must-complete-demo-launches-in-january-2027",
+      "excerpt": "Publisher Top Hat Studios and developer Yoyoyollie will release a demo for cel-shaded aerial roguelike …",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T17:16:02.000Z",
+      "sources": ["Gematsu"],
+      "points": 0
+    },
+    {
+      "id": "cdf2b7c6-ed70-4af2-8b9f-0d33cbe55d66",
+      "title": "3D action adventure game Ryn: And the Thread of Life to be published by Top Hat Studios",
+      "url": "https://www.gematsu.com/2026/11/3d-action-adventure-game-ryn-and-the-thread-of-life-to-be-published-by-top-hat-studios",
+      "excerpt": "Top Hat Studios will publish Innombrable-developed 3D action adventure game Ryn: And the Thread of …",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T17:14:11.000Z",
+      "sources": ["Gematsu"],
+      "points": 0
+    },
+    {
+      "id": "299919a9-cb2d-4a18-83d1-009b54faab31",
+      "title": "Roguelike deckbuilder My Ransomware Can’t Be This Cute?! to be published by Top Hat Studios",
+      "url": "https://www.gematsu.com/2026/11/roguelike-deckbuilder-my-ransomware-cant-be-this-cute-to-be-published-by-top-hat-studios",
+      "excerpt": "Top Hat Studios will publish The Seppuku Commission-developed roguelike deckbuilder My Ransomware Can’t Be This …",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T17:10:49.000Z",
+      "sources": ["Gematsu"],
+      "points": 0
+    },
+    {
+      "id": "d7e275ae-c5a6-4f69-8d5c-50c89c719696",
+      "title": "2D pixel action game RGB: Execution to be published by Top Hat Studios",
+      "url": "https://www.gematsu.com/2026/11/2d-pixel-action-game-rgb-execution-to-be-published-by-top-hat-studios",
+      "excerpt": "Top Hat Studios will publish Purechito-developed 2D pixel action game RGB: Execution when it launches …",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T17:06:35.000Z",
+      "sources": ["Gematsu"],
+      "points": 0
+    },
+    {
+      "id": "2a002813-be27-4d73-83dc-584c1783c078",
+      "title": "Retro-inspired horror anthology Spooky Tales to be published by Top Hat Studios",
+      "url": "https://www.gematsu.com/2026/11/retro-inspired-horror-anthology-spooky-tales-to-be-published-by-top-hat-studios",
+      "excerpt": "Top Hat Studios will publish Liminal Road-developed retro-inspired horror anthology Spooky Tales when it launches …",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T17:04:12.000Z",
+      "sources": ["Gematsu"],
+      "points": 0
+    },
+    {
+      "id": "1ca1e4c4-5d01-4058-ae64-05132cf6145c",
+      "title": "Yakuza creator's studio, and the game it was working on, are now officially gone",
+      "url": "https://www.pcgamer.com/gaming-industry/yakuza-creators-studio-and-the-game-it-was-working-on-are-now-officially-gone/",
+      "excerpt": "Nagoshi Studio revealed Gang of Dragon less than a year ago, but it ran into trouble just a few months later.",
+      "imageUrl": "https://cdn.mos.cms.futurecdn.net/i3DAVyqvrV3ByeT2bejUdX-1920-80.jpg",
+      "publishedAt": "2026-11-02T16:59:36.000Z",
+      "sources": ["PC Gamer"],
+      "points": 0
+    },
+    {
+      "id": "95dde458-05fc-4bc5-961d-8b48c61c09bf",
+      "title": "Nightdive is reviving the iconic trapezoid big box for Thief: Remastered's special edition… but only on console",
+      "url": "https://www.pcgamer.com/games/fps/nightdive-is-reviving-the-iconic-trapezoid-big-box-for-thief-remastereds-special-edition-but-only-on-console/",
+      "excerpt": "The injustice of it all.",
+      "imageUrl": "https://cdn.mos.cms.futurecdn.net/3meaKbyyLVsEttiSTvqaLj-1920-80.jpg",
+      "publishedAt": "2026-11-02T16:47:29.000Z",
+      "sources": ["PC Gamer"],
+      "points": 0
+    },
+    {
+      "id": "d77b0179-d77a-489e-9755-794c15b1b940",
+      "title": "Zelda producer: Ocarina of Time remake helps junior staff learn classic insights",
+      "url": "https://www.gamedeveloper.com/production/zelda-producer-ocarina-of-time-remake-helps-junior-staff-learn-classic-insights",
+      "excerpt": "The latest The Legend of Zelda title remakes one of the series' most beloved games, which Eiji Aonuma chose to pursue to help junior staff think about the modern games differently.",
+      "imageUrl": "https://eu-images.contentstack.com/v3/assets/blt740a130ae3c5d529/blt6ce93ee9f28d1a85/6ae8b58f605218594c43ab90/zeldaootremake.png?disable=upscale&quality=80&width=720",
+      "publishedAt": "2026-11-02T16:33:26.000Z",
+      "sources": ["Game Developer"],
+      "points": 0
+    },
+    {
+      "id": "72397d99-93cf-4d52-b3de-8f6882751542",
+      "title": "Nintendo Shares Ocarina Of Time Switch 2 Design Sketches",
+      "url": "https://www.nintendolife.com/news/2026/11/nintendo-shares-ocarina-of-time-switch-2-design-sketches",
+      "excerpt": "Ink's awakening. The latest Ask the Developer interviews are positively packed with interesting tidbits about the making of Ocarina of Time on Switch 2. One such story is all about the game's reimagined visuals, which Nintendo was even kind enough to share some initial sketches of. According to Art Director Aya Shida, the team was consciously fighting a battle between making the game more realistic with the improved power of the Switch 2, and retaining the spirit of the original — a somewhat dark world, filled with weird characters. She therefore relied on phrases like “a puppet-show feel” and",
+      "imageUrl": "https://images.nintendolife.com/5c64028d519f8/large.jpg",
+      "publishedAt": "2026-11-02T16:30:00.000Z",
+      "sources": ["Nintendo Life"],
+      "points": 0
+    },
+    {
+      "id": "a0afa98c-27bd-4bd3-8276-1e3b6e59f80e",
+      "title": "Phantom Blade Zero Guide – How To Unlock Abilities And Respec",
+      "url": "https://gamingbolt.com/phantom-blade-zero-guide-how-to-unlock-abilities-and-respec",
+      "excerpt": "Learn how the Abilities are unlocked in Phantom Blade Zero with this guide, as well as how to reset them and what happens in New Game Plus cycles.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T16:28:52.000Z",
+      "sources": ["GamingBolt"],
+      "points": 0
+    },
+    {
+      "id": "ebaf1fe4-c6c9-4e9e-b434-2a8b330ec21d",
+      "title": "Phantom Blade Zero Guide – All 5 Long Pillar Locations And Their Rewards",
+      "url": "https://gamingbolt.com/phantom-blade-zero-guide-all-5-long-pillar-locations-and-their-rewards",
+      "excerpt": "A guide to locating all five of the Long Pillars in Phantom Blade Zero, and what rewards they will grant you upon completion.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T16:28:49.000Z",
+      "sources": ["GamingBolt"],
+      "points": 0
+    },
+    {
+      "id": "1d16cf22-3fe8-4b82-b2ba-a9d86d3f4cb3",
+      "title": "Phantom Blade Zero Guide – The Best Accessories And Where To Find Them",
+      "url": "https://gamingbolt.com/phantom-blade-zero-guide-the-best-accessories-and-where-to-find-them",
+      "excerpt": "Use this guide to select the best Accessories for your limit of six slots and tweak your build to perfection in Phantom Blade Zero.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T16:22:44.000Z",
+      "sources": ["GamingBolt"],
+      "points": 0
+    },
+    {
+      "id": "a24d9ae9-9ed5-483b-b9b5-a62e377878a0",
+      "title": "Classic PC strategy game Dune 2 is a ‘holy grail’ re-release but it’s a licensing nightmare, GOG says",
+      "url": "https://www.videogameschronicle.com/news/classic-pc-strategy-game-dune-2-is-a-holy-grail-re-release-but-its-a-licensing-nightmare-gog-says/",
+      "excerpt": "A tangled web of rights holders means a re-release would be complicated",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T15:53:48.000Z",
+      "sources": ["Video Games Chronicle"],
+      "points": 0
+    },
+    {
+      "id": "e466302e-c186-49c8-891e-48ecd8576837",
+      "title": "Zelda: Ocarina Of Time Remake Devs Tried Adding Even More Fast Travel Points, But That Sucked",
+      "url": "https://kotaku.com/zelda-ocarina-of-time-remake-devs-tried-adding-even-more-fast-travel-points-but-that-sucked-2000752346",
+      "excerpt": "Kids these days",
+      "imageUrl": "https://kotaku.com/app/uploads/2026/09/ocarina-jabu-jabu-new-1280x720.jpg",
+      "publishedAt": "2026-11-02T15:45:46.000Z",
+      "sources": ["Kotaku"],
+      "points": 0
+    },
+    {
+      "id": "832c2ed9-8f2a-4b03-83ad-3582482480d7",
+      "title": "Enshrouded’s First Patch Following Early Access Exit Brings Several Bug Fixes and Changes",
+      "url": "https://gamingbolt.com/enshroudeds-first-patch-following-early-access-exit-brings-several-bug-fixes-and-changes",
+      "excerpt": "Ranged players can breath a sigh of relief since bosses now stay engaged in combat for longer despite their distance from a player.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-02T15:41:45.000Z",
+      "sources": ["GamingBolt"],
+      "points": 0
+    },
+    {
+      "id": "96f79f60-18b1-415e-b6b0-5cba8eaf96a2",
+      "title": "Claude Code Just Got A New Rule: Stop Copying Other People’s Games",
+      "url": "https://www.gamespot.com/articles/claude-code-just-got-a-new-rule-stop-copying-other-people-games/",
+      "excerpt": "AI clones and vibe-coded copycat games have become a huge headache for developers recently, but it looks like an update to Anthropic's Claude Code's \"rules\" has been pushed out. Listed under \"tengu_heron_brook,\" the tweak to the AI now directs it not to copy games and assets, and users cannot disable this setting. Spotted by Chasm on X (via Game Developer ), the full rule reads, \"Do build original games, games in a genre, and games from the user’s own designs and assets. Don't build a recreation of a specific existing game, even if it is renamed or called original\". Anthropic's Addy Osmani add",
+      "imageUrl": "https://www.gamespot.com/wp-content/uploads/2026/11/Star-Wars-Clone-Army.jpg?w=300",
+      "publishedAt": "2026-11-02T15:36:59.000Z",
+      "sources": ["GameSpot"],
+      "points": 0
+    },
+    {
+      "id": "c8de0e97-9ab0-4f83-b5e2-ce79ad2b4455",
+      "title": "Yakuza Spiritual Successor Gang Of Dragon Seemingly Cancelled As Nagoshi Studio Is Closed",
+      "url": "https://kotaku.com/yakuza-spiritual-successor-gang-of-dragon-seemingly-cancelled-as-nagoshi-studio-is-closed-2000752132",
+      "excerpt": "After months of speculation, the studio officially shut its doors on October 31st",
+      "imageUrl": "https://kotaku.com/app/uploads/2026/11/IMG_6456-1280x711.jpeg",
+      "publishedAt": "2026-11-02T15:30:40.000Z",
+      "sources": ["Kotaku"],
+      "points": 0
+    },
+    {
+      "id": "09479cfd-2125-4c0e-b7f3-81acd902bbe6",
+      "title": "Zelda: Ocarina of Time remake had a Breath of the Wild QoL feature, but it was cut for ruining vibes",
+      "url": "https://www.gamesradar.com/games/the-legend-of-zelda/zelda-ocarina-of-time-remake-had-a-breath-of-the-wild-quality-of-life-feature-until-the-series-producer-made-devs-take-it-out-because-it-ruined-important-moments/",
+      "excerpt": "Eiji Aonuma says \"we were reminded once again just how important those moments are\" to Ocarina of Time's structure",
+      "imageUrl": "https://cdn.mos.cms.futurecdn.net/NDcwNmpWzv7jvUSJ8HxNqZ-1920-80.jpg",
+      "publishedAt": "2026-11-02T15:25:25.000Z",
+      "sources": ["GamesRadar+"],
+      "points": 0
+    },
+    {
+      "id": "19c15bc2-3442-4314-8936-96f3b77ac1ca",
+      "title": "We Finally Know Who Made The Zelda: Ocarina Of Time Remake",
+      "url": "https://www.gamespot.com/articles/we-finally-know-who-made-the-zelda-ocarina-of-time-remake/",
+      "excerpt": "Fans have speculated on which studio is leading the development of The Legend of Zelda: Ocarina of Time remake since it was first announced, and a new Ask the Developer feature from Nintendo appears to give us the answer. The interviewees in Nintendo's online feature include longtime Zelda producer Eiji Aonuma and several members of Nintendo Entertainment Planning & Development (EPD) Production Group No. 3, which is the team behind the mainline Zelda games. In other words, the usual Zelda people are making the new Zelda game, as opposed to another studio like Monolith Soft or Grezzo. Those oth",
+      "imageUrl": "https://www.gamespot.com/wp-content/uploads/2026/11/NS2_TheLegendofZeldaOcarinaofTime_scrn_07.jpg?w=300",
+      "publishedAt": "2026-11-02T15:24:50.000Z",
+      "sources": ["GameSpot"],
+      "points": 0
+    }
+  ]
+}
