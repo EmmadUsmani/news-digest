@@ -1628,3 +1628,24 @@ zero semantic relevance: semantic triage/editorial selection has not been run
 by this report. These are stored official API observations, not new inserts,
 measured growth, platform-wide counts or published selections. Scheduled
 Bluesky editorial yield and screenshots remain pending.
+
+## Saved-edition media evidence — iteration 448 (2026-11-03)
+
+Read-only Playwright verification of the Nov 3 scheduled edition
+`777fdd95-0bcd-4ca7-9ea6-36c654effcca` loaded all 11 official X embeds
+on both desktop (1440 px) and mobile (390 px). Nine posts had loaded
+`/media/` images (14 images per viewport, including quoted-post media).
+Screenshots also show official video previews; playback was not exercised.
+World still has zero posts. This is rendering evidence for the existing
+account-list edition, not acceptance of open discovery, Bluesky selections,
+virality, or all-four-topic coverage.
+
+Run explicitly with `pnpm exec tsx scripts/verify-saved-posts.ts <edition-uuid>`.
+The script reads an existing immutable edition, blocks app writes and Reddit,
+checks card counts and horizontal overflow, and reports each X iframe/media
+outcome. It makes real official-widget requests; it is not part of offline tests.
+An initial run observed a TypeError inside X's embed bundle; the final run had
+zero app or widget errors. Third-party errors are reported separately and do
+not establish an app failure. Media availability can change after capture.
+Viewport screenshots (first visible posts, not full sections) are stored as
+`docs/screenshots/saved-777fdd95-*-desktop.png` and `*-mobile.png`.

@@ -37,7 +37,7 @@ M0–M2; M3/M6/M7 foundations implemented.
   - Reddit per-topic communities and faithful cards; no bot-protection workarounds. Bluesky optional; YouTube deferred.
   - [x] Direct capped xAI adapter and ledger implemented; scheduled use remains STEERING 9. Never use gateway.
   - [x] Semantic triage/editor and citation-based story links implemented; semantic same-event links and virality validation remain open.
-  - Finish with real X posts across four topics and desktop/mobile screenshots.
+  - Finish with real X posts across four topics. Nov 3 embeds/media verified desktop/mobile (448); open-X/Bluesky selection screenshots await next edition.
 - [ ] M5 ranking quality:
   - Semantic event clustering and verified outlet independence remain unfinished.
   - explainable scores

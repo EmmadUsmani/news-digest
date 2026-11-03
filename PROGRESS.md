@@ -1,14 +1,3 @@
-## 2026-11-03: iteration 433 — enable Bluesky edition inclusion
-
-- Started clean on main; no leftover work. Health green and zero alerts.
-- Activated the prepared stored-Bluesky publisher by default after Nov 3 acknowledgments; explicit BLUESKY_EDITIONS_ENABLED=0 disables it. Production has no override.
-- Existing X/other picks stay intact; Bluesky fills only remaining topic slots using existing budgeted services. Hourly collection unchanged.
-- Fake publisher tests cover default transaction-scoped selection, preserved X picks and disabled storage/AI; targeted suite 7/7. Updated SOURCES, TASKS and social handbook.
-- No paid calls or new editions; real selections, per-topic yield and screenshots await the next scheduled edition. Item 18 remains open.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (270 unit/174 isolated integration), pnpm build and check-handbook.ts 05-social-posts passed. No diagram edits; zero dangling Docker volumes.
-- Restarted API/worker with rebuilt code. pnpm obs health --check and alerts passed at 15:59 UTC; existing edition unchanged at 19 stories/11 real X posts. git diff --check passed.
-- Next: measure scheduled Bluesky picks/screenshots, X cost/yield and compact-triage latency; inspect NBA diagnostics if fallback recurs. No live editorial-quality claim.
-
 ## 2026-11-03: iteration 434 — check grouping across input permutations
 
 - Started clean on main; no leftover work. Zero alerts, health green, 32 healthy sources and four available queues. Scheduled Bluesky/open-X evidence is still pending; progressed item 19 offline.
@@ -156,3 +145,13 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build passed (282 unit/176 isolated integration tests); git diff --check passed. No UI/layout or handbook-described flow change.
 - Restarted API/worker. pnpm obs health/sources/jobs --check passed; 32 healthy sources, four available queues, root HTTP 200, zero dangling volumes. Existing scheduled edition unchanged; no paid calls, new editions or Reddit requests.
 - Next: Nov 4 scheduled X/Bluesky selections/screenshots, World yield and latency/full-AI evidence; broader grouping recall and independent labels remain open.
+
+## 2026-11-03: iteration 448 — verify real saved X media on both viewports
+
+- Started clean on main; zero alerts and healthy API/DB/Redis. No leftover work.
+- Added explicit read-only saved-edition browser verifier; app writes/Reddit blocked, no provider calls or new editions. Reports actual official embeds/media separately from fallback and third-party errors.
+- Nov 3 scheduled edition: all 11 X iframes loaded on desktop/mobile; nine posts/14 loaded media images per viewport. Video previews visible; playback untested. World remains empty; open-X/Bluesky acceptance stays pending.
+- Captured eight viewport screenshots (four topics × desktop/mobile); inspected NBA desktop and Tech/AI/Gaming mobile. Initial X bundle TypeError reported; final run had zero app/widget errors and no horizontal overflow.
+- Updated SOURCES/TASKS; archived iteration 433 to keep PROGRESS bounded. No app runtime/config changes, so no service restart under STEERING 22.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (282 unit/176 isolated integration), pnpm build and git diff --check passed. pnpm obs health/sources/jobs --check passed; zero dangling Docker volumes.
+- Next: Nov 4 open-X/Bluesky selection evidence, World yield and latency/full-AI evidence.
