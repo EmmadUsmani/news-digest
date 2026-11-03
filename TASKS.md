@@ -32,7 +32,7 @@ M0–M2; M3/M6/M7 foundations implemented.
   - Audit work closed for now under STEERING 5: existing recorded/synthetic coverage is summarized in docs/RANKING.md. Resume only for a real unsupported digest summary.
   - Deferred: scheduled Message Batches, cross-process cache coordination, full-article retrieval and larger editor shortlists.
 - [ ] M4 Social posts (current priority; STEERING 6):
-  - Nov 3 edition (425): X picks Tech/AI 4, NBA 4, Gaming 3, World 0; investigate World eligibility. Scheduled X holds use $0.10 per topic under STEERING 15; manual holds retain the full day. Semantic selection is not a virality measurement.
+  - Nov 3 edition (425): X picks Tech/AI 4, NBA 4, Gaming 3, World 0; World eligibility traced (428): all five scheduled discoveries predate edition start; fixed date-only search bounds to include current UTC day with exact-time prompt. Next scheduled World yield remains unverified. Scheduled X holds use $0.10 per topic under STEERING 15; manual holds retain the full day. Semantic selection is not a virality measurement.
   - [x] SocialPost storage, bounded discovery, immutable selections and official X embeds (iterations 87–143).
   - Reddit per-topic communities and faithful cards; no bot-protection workarounds. Bluesky optional; YouTube deferred.
   - [x] Direct capped xAI adapter and ledger implemented; scheduled use remains STEERING 9. Never use gateway.

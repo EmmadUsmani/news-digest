@@ -1,6 +1,7 @@
 import type { ProfileSettings } from '@digest/contracts';
 
 import { budgetDaySlot } from './modules/profiles/adapters/budget-day-slot';
+import { coverageWindow } from './modules/profiles/domain/schedule';
 import {
   type FollowupTopic,
   runSearchFollowups,
@@ -66,6 +67,9 @@ export async function runScheduledXSearch(
     remaining > 30 * 60000
   )
     return { skipped: 'Outside search window' };
+  const window = coverageWindow(edition, profile.schedule.coverageWindow);
+  if (!window.ok) return { skipped: 'Invalid coverage window' };
+  const coverageStart = window.value.windowStart;
   const candidates = await topics(now);
   const settings = topicSettings(candidates);
   const results: unknown[] = [];
@@ -84,7 +88,13 @@ export async function runScheduledXSearch(
       JSON.stringify(current.schedule) !== JSON.stringify(profile.schedule)
     )
       return { skipped: 'Schedule changed', results };
-    const plan = planScheduledSearch([topic], clock(), edition, searchType);
+    const plan = planScheduledSearch(
+      [topic],
+      clock(),
+      edition,
+      searchType,
+      coverageStart,
+    );
     if (!plan || plan.scheduledDay !== now.toISOString().slice(0, 10)) continue;
     results.push(
       await execute(plan, `scheduled-x:${profile.id}:${edition.getTime()}`),
@@ -105,7 +115,13 @@ export async function runScheduledXSearch(
     for (const topic of [...candidates].sort(
       (a, b) => a.freePosts - b.freePosts,
     )) {
-      const plan = planScheduledSearch([topic], now, edition, 'open-topic');
+      const plan = planScheduledSearch(
+        [topic],
+        now,
+        edition,
+        'open-topic',
+        coverageStart,
+      );
       if (!plan) return results;
       const evidence = completed.find((row) => row.topicId === topic.id)!;
       plans.push({
@@ -129,8 +145,13 @@ export async function runScheduledXSearch(
           JSON.stringify(current.schedule) ===
             JSON.stringify(profile.schedule) &&
           instant.toISOString().slice(0, 10) === day &&
-          planScheduledSearch(candidates, instant, edition, 'open-topic') !==
-            null
+          planScheduledSearch(
+            candidates,
+            instant,
+            edition,
+            'open-topic',
+            coverageStart,
+          ) !== null
         );
       },
       async (topicId, request, parentId) =>

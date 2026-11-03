@@ -8,6 +8,8 @@ export interface XSearchRequest {
   handles?: string[];
   // Optional event context for budget-permitting unrestricted reactions.
   reactionStory?: { id: string; title: string };
+  // Exact UTC interval inside the date-only tool bounds (end is exclusive).
+  publicationWindow?: { start: string; end: string };
   fromDate: string;
   toDate: string;
 }

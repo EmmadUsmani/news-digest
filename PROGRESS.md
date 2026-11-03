@@ -122,3 +122,13 @@ Earlier entries: [progress archive](docs/progress-archive/).
 - Verification: pnpm format, pnpm lint:fix, final pnpm check (263 unit/174 isolated integration), pnpm build, targeted triage.test.ts, check-handbook.ts 04-edition-pipeline and git diff --check passed. Zero dangling Docker volumes.
 - Restarted API/worker; pnpm obs health --check and alerts passed at 15:24:58 UTC. Existing edition GET retains 19 stories/11 real X posts. No UI changes, Reddit requests or new editions.
 - Next: inspect next scheduled triage output/cost/duration and truncation/validation rates; resolve NBA editor fallback and World eligibility offline. Items 13/7 remain open; no speed-target claim or paid trial.
+
+## 2026-11-03: iteration 428 — align scheduled X search with edition coverage
+
+- Started clean on main; no leftover work. Health, 32 sources and all queues healthy; zero alerts; two historical ingestion failures unchanged.
+- Read-only World investigation: all five scheduled discoveries were published Nov 2 03:00–13:10 UTC, before the edition's Nov 2 15:00 start. The lone eligible candidate from other discovery says “Some of this morning's arrests”; saved relevance 3/importance 2 appropriately rejected it.
+- Fixed scheduled date-only search bounds to include the partial current UTC day. Exact UTC publication interval is supplied in the prompt, from configured edition start through search time, capped at the latest 24 hours. Timestamp/safety/relevance gates still decide publication; spending caps, one-search/five-result limits and disabled features unchanged.
+- Fake regression coverage checks current-day bounds, midnight, configured six-hour windows, recent-day cap and invalid intervals. Initial full check caught optional follow-up request type narrowing; explicit port return type fixed it. No paid calls, Reddit requests, new editions or UI changes.
+- Updated SOURCES, TASKS and owner schedule handbook. Verification: targeted scheduled tests 17/17, pnpm format, pnpm lint:fix, final pnpm check (267 unit/174 isolated integration), pnpm build, check-handbook.ts 03-jobs-and-schedules and git diff --check passed. Zero dangling Docker volumes.
+- Restarted API/worker; health passed at 15:32:40 UTC, zero alerts. Existing edition GET retains 19 stories/11 real X posts; no improved World-yield claim before the next scheduled search.
+- Next: observe corrected scheduled World yield and compact triage output/latency; NBA fallback rejection needs the new validation diagnostics. Items 13/7 remain open; open X/Bluesky/grouping remain disabled.

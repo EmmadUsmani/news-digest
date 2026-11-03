@@ -52,6 +52,15 @@ export function xSearchBody(request: XSearchRequest) {
     !date(request.toDate) ||
     request.fromDate >= request.toDate ||
     Date.parse(request.toDate) - Date.parse(request.fromDate) > 7 * 86400000 ||
+    (request.publicationWindow !== undefined &&
+      (!Number.isFinite(Date.parse(request.publicationWindow.start)) ||
+        !Number.isFinite(Date.parse(request.publicationWindow.end)) ||
+        Date.parse(request.publicationWindow.start) >=
+          Date.parse(request.publicationWindow.end) ||
+        Date.parse(request.publicationWindow.start) <
+          Date.parse(request.fromDate) ||
+        Date.parse(request.publicationWindow.end) >
+          Date.parse(request.toDate))) ||
     !request.topic.trim() ||
     request.topic.length > 200 ||
     request.guidance.length > 4000 ||
@@ -98,6 +107,9 @@ export function xSearchBody(request: XSearchRequest) {
             : request.handles === undefined
               ? 'Find up to five of the most-engaged, fastest-rising original X posts about the topic in the specified dates, from any account. Use keyword and semantic topic relevance; include small or unknown accounts when their posts are strong. '
               : 'Find up to five interesting original X posts in the specified dates and accounts. ') +
+          (request.publicationWindow
+            ? 'Return only posts published within publicationWindow: start inclusive, end exclusive, in UTC. Prioritize the newest strong posts inside that interval. '
+            : '') +
           'Use one search only, request at most five results. Do not search profiles, fetch threads, ' +
           'parent posts or quoted posts. Prefer demos, highlights, reveals and first-hand reporting; avoid bait, ' +
           'crypto, giveaways and routine news reposts. Return a JSON array of objects with url, published_at (ISO UTC), ' +
@@ -107,6 +119,9 @@ export function xSearchBody(request: XSearchRequest) {
           JSON.stringify({
             topic: request.topic,
             guidance: request.guidance,
+            ...(request.publicationWindow
+              ? { publicationWindow: request.publicationWindow }
+              : {}),
             ...(request.reactionStory ? { story: request.reactionStory } : {}),
           }),
       },

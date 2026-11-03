@@ -371,3 +371,25 @@ void test('scheduler followups fail closed on missing evidence, late I/O and cha
       assert.equal(storyReads, 0, scenario);
   }
 });
+
+void test('scheduled discovery honors a short configured edition coverage window', async () => {
+  let calls = 0;
+  await runScheduledXSearch(
+    async () => ({
+      ...profile,
+      schedule: { ...profile.schedule, coverageWindow: 'PT6H' },
+    }),
+    async () => candidates,
+    async (plan) => {
+      calls++;
+      assert.deepEqual(plan.request.publicationWindow, {
+        start: '2026-11-03T09:00:00.000Z',
+        end: '2026-11-03T14:30:00.000Z',
+      });
+      assert.equal(plan.request.fromDate, '2026-11-03');
+      assert.equal(plan.request.toDate, '2026-11-04');
+    },
+    () => new Date('2026-11-03T14:30:00Z'),
+  );
+  assert.equal(calls, 1);
+});

@@ -1565,5 +1565,12 @@ Scheduled edition `777fdd95-0bcd-4ca7-9ea6-36c654effcca` published with
 discovery succeeded but produced no selected posts. The saved World social
 triage contains one candidate (relevance 3, importance 2; insufficient context),
 so discovery yield must not be read as eligible in-window editorial coverage.
-Investigate candidate eligibility separately. Desktop/mobile screenshots: `docs/screenshots/scheduled-nov3-*.png`.
+Read-only investigation (iteration 428) found all five new World posts outside
+the edition interval: published Nov 2 03:00–13:10 UTC, before its 15:00 start.
+The scheduled search used Nov 2–3 date-only bounds, omitting Nov 3's partial day.
+The corrected request includes that day and supplies exact UTC times from the
+configured edition start through search time (at most the latest 24 hours).
+Publication still rejects out-of-window posts; no new paid search or improved
+World yield is claimed. The one saved triage candidate came from other discovery.
+Desktop/mobile screenshots: `docs/screenshots/scheduled-nov3-*.png`.
 Open search, Bluesky inclusion and grouping remain switched off.

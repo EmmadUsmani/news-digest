@@ -70,3 +70,10 @@ sequenceDiagram
   a reason rather than publishing a stale edition.
 - **Idempotency:** each scheduled slot has a unique key, so a retry can never
   publish two editions for the same morning.
+
+Scheduled X discovery searches the available part of the edition's coverage
+window, up to the latest 24 hours. Date-only search bounds include the current
+partial UTC day; the prompt supplies exact start/end times and asks for recent
+strong posts. Posts still pass verified timestamp and relevance gates before
+publication. Discovery stops at search time, so posts arriving in the remaining
+5–30 minutes before publication may be missed.
