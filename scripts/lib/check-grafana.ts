@@ -204,7 +204,9 @@ export async function checkGrafana() {
         (!process.argv.includes('--grafana-database-only') ||
           file === 'nd-database.json') &&
         (!process.argv.includes('--grafana-jobs-only') ||
-          file === 'nd-jobs.json'),
+          file === 'nd-jobs.json') &&
+        (!process.argv.includes('--grafana-agent-only') ||
+          file === 'nd-agent.json'),
     )) {
       const dashboard = JSON.parse(
         readFileSync(`ops/observability/grafana/dashboards/${file}`, 'utf8'),
@@ -234,6 +236,11 @@ export async function checkGrafana() {
         const result = await response.json();
         assert.equal(result.status, 'success', panel.title);
         if (result.data.result.length > 0) populated++;
+        if (dashboard.uid === 'nd-agent') {
+          assert.ok(result.data.result.length > 0, panel.title);
+          for (const series of result.data.result)
+            assert.ok(Number.isFinite(Number(series.value[1])), panel.title);
+        }
         if (dashboard.uid === 'nd-database') {
           assert.ok(result.data.result.length > 0, panel.title);
           for (const series of result.data.result) {
@@ -294,7 +301,7 @@ export async function checkGrafana() {
             );
           }
         }
-        if (dashboard.uid === 'nd-agent') {
+        if (dashboard.uid === 'nd-agent' && panel.id <= 6) {
           assert.equal(result.data.result.length, 1, panel.title);
           const sample = result.data.result[0];
           const value = Number(sample.value[1]);
@@ -406,7 +413,9 @@ export async function checkGrafana() {
       page.on('pageerror', listener);
       await page.setViewportSize({
         width: 1440,
-        height: dashboard.uid === 'nd-database' ? 3100 : 1100,
+        height: ['nd-database', 'nd-agent'].includes(dashboard.uid)
+          ? 3100
+          : 1100,
       });
       await page.goto(`${base}/d/${dashboard.uid}?kiosk`, {
         waitUntil: 'networkidle',
@@ -477,6 +486,49 @@ export async function checkGrafana() {
         panels: dashboard.panels.length,
         populated,
       });
+    }
+    if (process.argv.includes('--grafana-agent-only')) {
+      await page.setViewportSize({ width: 390, height: 1000 });
+      await page.goto(`${base}/d/nd-agent?kiosk`, { waitUntil: 'networkidle' });
+      for (const title of [
+        'Reported iteration',
+        'Weekly quota used (last observation)',
+        'Status reads successful',
+        'Reported iteration start',
+      ]) {
+        const heading = page.getByRole('heading', { name: title, exact: true });
+        for (
+          let attempt = 0;
+          attempt < 20 && !(await heading.count());
+          attempt++
+        ) {
+          await page.mouse.wheel(0, 400);
+          await page.waitForTimeout(300);
+        }
+        await heading.scrollIntoViewIfNeeded();
+        await heading.waitFor({ state: 'visible' });
+      }
+      assert.equal(
+        await page
+          .locator('[data-testid="data-testid Panel status error"]')
+          .count(),
+        0,
+      );
+      await page.evaluate(() => window.scrollTo(0, 0));
+      await page.mouse.wheel(0, -10000);
+      await page.waitForTimeout(500);
+      await page
+        .getByRole('heading', { name: 'Reported iteration', exact: true })
+        .scrollIntoViewIfNeeded();
+      await page.waitForTimeout(1500);
+      await page.screenshot({
+        path: 'docs/screenshots/grafana-nd-agent-mobile.png',
+      });
+      return {
+        dashboards: checked,
+        viewer: true,
+        memoryMiB: Math.round(Number(fields.MemoryCurrent) / 1048576),
+      };
     }
     if (process.argv.includes('--grafana-database-only')) {
       const stats = execFileSync(

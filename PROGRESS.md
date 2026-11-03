@@ -142,3 +142,14 @@ Earlier entries: [progress archive](docs/progress-archive/).
 - pnpm format, pnpm lint:fix, pnpm check (275 unit/176 isolated integration), pnpm build, bash -n and check-handbook.ts 09-observability passed. Corrected initial test-wrapper lint failure; no UI/diagram changes.
 - Installed only changed collector scripts; ran existing obs-unit-metrics service successfully. No app/DB/Redis restarts or paid calls. Health green, zero alerts/dangling volumes; 32 healthy sources/four available queues, articles and stored X across all topics.
 - TASKS/plan/handbook updated; archived iteration 425 to keep PROGRESS small. O8 remains open: dashboard, duration/token/commit/pacing evidence next; scheduled product evidence still takes priority, then O10.
+
+## 2026-11-03: iteration 439 — supervisor status dashboard
+
+- Started clean on main; no leftovers. Health/alerts green; product acceptance still awaits next scheduled edition. Advanced O8 under items 24/25.
+- Agent dashboard adds eight read-only panels: reported iteration, previous exit code, no-progress streak, weekly quota, heartbeat/quota observation ages, per-file read success and reported UTC start. Existing six cgroup panels retained.
+- Missing status displays Unknown; observations can be stale, reads do not prove freshness and heartbeat age is not liveness. No inferred duration/tokens/commits/pacing; protected harness files unchanged.
+- Extended check-observability Grafana verification with agent-only mode, finite populated samples and desktop/mobile screenshots; inspected both. Final --verify-o8 --verify-grafana --grafana-agent-only passed 14/14 panels, Viewer grants and memory ceiling (205 MiB).
+- Initial checks caught provisioning reload lag, an obsolete unit-label assertion and mobile lazy rendering; corrected checker and final browser verification passed.
+- pnpm format, pnpm lint:fix, pnpm check (275 unit/176 isolated integration), pnpm build and check-handbook.ts 09-observability passed; git diff --check clean. No diagram changes.
+- Installed only dashboard JSON; Grafana hot-loaded it without restart. App/DB/Redis unchanged. Zero alerts/dangling volumes; healthy sources/queues and all-topic articles/stored X. Latest real edition remains 19 stories/11 posts; no paid calls/new editions.
+- TASKS/plan/handbook updated. O8 remains open for available duration/token/commit/pacing evidence; next scheduled social/latency evidence takes priority, then O10 browser errors.

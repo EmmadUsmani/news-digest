@@ -354,8 +354,8 @@ Verify with `pnpm exec tsx scripts/check-observability.ts --verify-grafana
 panel query responses and populated dashboards, renders desktop/mobile views
 with Playwright and saves screenshots in `docs/screenshots/`. No paid calls
 or content jobs are triggered. Reader privileges and denied access to cache/article
-text are also checked. Database top-query timing and per-iteration agent
-measurements remain pending.
+text are also checked. Database top-query timing and available supervisor status are included;
+agent tokens, commits and pacing measurements remain unavailable.
 
 Agent supervisor shows the build unit's active state, cgroup memory, CPU,
 task count and automatic restarts since activation, using existing unit samples.
@@ -364,8 +364,10 @@ measurements. Active state does not prove an iteration is making progress;
 automatic restarts do not count completed iterations. The shared unit snapshot
 age shows collector freshness. The collector also reads only the bounded heartbeat and quota status files:
 iteration number, previous exit code, no-progress streak, iteration start/finish
-and status timestamps, plus weekly quota when known. These gauges appear in
-the local metrics query API; dashboard panels are pending. Read-success gauges
+and status timestamps, plus weekly quota when known. The dashboard shows reported iteration, previous exit code, no-progress streak,
+weekly quota, heartbeat/quota observation ages, per-file read success and the
+reported start in UTC. Missing values say “Unknown”; they are never filled with zero.
+Start is a timestamp, not elapsed runtime. These gauges also appear in the local metrics query API. Read-success gauges
 are independent for the two files; malformed input removes that file's samples.
 Heartbeat age can grow during an active iteration, so it is not a liveness test.
 The previous exit code describes the preceding iteration. Quota has its own

@@ -1,9 +1,9 @@
 {
   "uid": "nd-agent",
   "title": "Agent supervisor",
-  "description": "Existing systemd cgroup measurements for the build supervisor and its child processes. Active means the unit is running, not that an iteration is progressing. No iteration, token, quota or commit measurements are collected. Snapshot age is shared with all unit metrics.",
+  "description": "Read-only supervisor status and systemd cgroup measurements. Status can be stale during a running iteration; read success is not freshness or progress. Previous exit code belongs to the previous run. Tokens, commits, pacing waits and iteration duration are not available.",
   "schemaVersion": 41,
-  "version": 1,
+  "version": 2,
   "editable": false,
   "tags": ["news-digest"],
   "timezone": "utc",
@@ -14,6 +14,342 @@
   },
   "panels": [
     {
+      "id": 7,
+      "title": "Reported iteration",
+      "description": "Last iteration reported by the heartbeat; not a live progress counter.",
+      "type": "stat",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 5
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "news_digest_harness_iteration",
+          "instant": true,
+          "legendFormat": "reported"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "Unknown"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "orientation": "auto"
+      }
+    },
+    {
+      "id": 8,
+      "title": "Previous iteration exit code",
+      "description": "Previous run result, not the outcome of the reported running iteration. Zero means success.",
+      "type": "stat",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 0,
+        "w": 12,
+        "h": 5
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "news_digest_harness_previous_exit_code",
+          "instant": true,
+          "legendFormat": "reported"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "Unknown"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "orientation": "auto"
+      }
+    },
+    {
+      "id": 9,
+      "title": "Consecutive no-progress reports",
+      "description": "Supervisor-reported streak; its definition belongs to the supervisor.",
+      "type": "stat",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 5,
+        "w": 12,
+        "h": 5
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "news_digest_harness_no_progress_streak",
+          "instant": true,
+          "legendFormat": "reported"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "Unknown"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "orientation": "auto"
+      }
+    },
+    {
+      "id": 10,
+      "title": "Weekly quota used (last observation)",
+      "description": "May be stale; inspect quota observation age. Missing data is unknown, not zero.",
+      "type": "stat",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 5,
+        "w": 12,
+        "h": 5
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "news_digest_harness_weekly_used_percent",
+          "instant": true,
+          "legendFormat": "reported"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "noValue": "Unknown"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "orientation": "auto"
+      }
+    },
+    {
+      "id": 11,
+      "title": "Heartbeat observation age",
+      "description": "Age of the status observation. An old heartbeat does not prove the supervisor is stalled.",
+      "type": "stat",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 10,
+        "w": 12,
+        "h": 5
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "clamp_min(time() - news_digest_harness_heartbeat_timestamp_seconds, 0)",
+          "instant": true,
+          "legendFormat": "reported"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "noValue": "Unknown"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "orientation": "auto"
+      }
+    },
+    {
+      "id": 12,
+      "title": "Quota observation age",
+      "description": "Age of the quota observation; collector reads do not refresh it.",
+      "type": "stat",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 10,
+        "w": 12,
+        "h": 5
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "clamp_min(time() - news_digest_harness_usage_timestamp_seconds, 0)",
+          "instant": true,
+          "legendFormat": "reported"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "noValue": "Unknown"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "orientation": "auto"
+      }
+    },
+    {
+      "id": 13,
+      "title": "Status reads successful",
+      "description": "One means the bounded file was read and validated, not that its contents are fresh. Zero means unavailable or invalid.",
+      "type": "stat",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 15,
+        "w": 12,
+        "h": 5
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "news_digest_harness_status_read_success",
+          "instant": true,
+          "legendFormat": "{{source}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "Unknown"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "orientation": "auto"
+      }
+    },
+    {
+      "id": 14,
+      "title": "Reported iteration start",
+      "description": "Heartbeat start timestamp in UTC. This is not iteration duration or a progress signal.",
+      "type": "stat",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 15,
+        "w": 12,
+        "h": 5
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "news_digest_harness_iteration_started_timestamp_seconds * 1000",
+          "instant": true,
+          "legendFormat": "reported"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "dateTimeAsIso",
+          "noValue": "Unknown"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "auto",
+        "orientation": "auto"
+      }
+    },
+    {
       "id": 1,
       "title": "Supervisor active",
       "type": "timeseries",
@@ -23,7 +359,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 0,
+        "y": 20,
         "w": 12,
         "h": 8
       },
@@ -58,7 +394,7 @@
       },
       "gridPos": {
         "x": 12,
-        "y": 0,
+        "y": 20,
         "w": 12,
         "h": 8
       },
@@ -93,7 +429,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 8,
+        "y": 28,
         "w": 12,
         "h": 8
       },
@@ -128,7 +464,7 @@
       },
       "gridPos": {
         "x": 12,
-        "y": 8,
+        "y": 28,
         "w": 12,
         "h": 8
       },
@@ -163,7 +499,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 16,
+        "y": 36,
         "w": 12,
         "h": 8
       },
@@ -198,7 +534,7 @@
       },
       "gridPos": {
         "x": 12,
-        "y": 16,
+        "y": 36,
         "w": 12,
         "h": 8
       },
