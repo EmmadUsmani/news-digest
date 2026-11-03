@@ -149,3 +149,36 @@ void test('ambiguous or implausible two-team scores cannot use lexical fallback'
     true,
   );
 });
+
+void test('past-tense active victories group without admitting passive or reversed outcomes', () => {
+  const lead = item('Cavaliers 136, Bucks 111: final score');
+  const recap = item('Cavs defeated the Bucks 136-111 in overtime');
+  for (const [a, b] of [
+    [lead, recap],
+    [recap, lead],
+  ]) {
+    assert.equal(sameEventWithGameScore(a, b), true);
+    assert.deepEqual(clusterCandidates([a, b], sameEventWithGameScore), [
+      [a, b],
+    ]);
+  }
+  for (const title of [
+    'Bucks defeated the Cavs 136-111 in overtime',
+    'Cavs were defeated by Bucks 136-111',
+    'Cavs were defeated in overtime by Bucks 136-111',
+    'Cavs defeated the Bucks 136-111 last season',
+    'Cavs could have defeated the Bucks 136-111',
+    'Cavs defeated the Bucks 111-136',
+    'Cavs beat Bucks 136-111 after being defeated',
+    'Cavs defeated Bucks 136-111 after being defeated',
+  ]) {
+    const other = item(title);
+    for (const [a, b] of [
+      [lead, other],
+      [other, lead],
+    ]) {
+      assert.equal(sameEventWithGameScore(a, b), false, title);
+      assert.equal(clusterCandidates([a, b], sameEventWithGameScore).length, 2);
+    }
+  }
+});

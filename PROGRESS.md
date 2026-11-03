@@ -1,14 +1,3 @@
-## 2026-11-03: iteration 434 — check grouping across input permutations
-
-- Started clean on main; no leftover work. Zero alerts, health green, 32 healthy sources and four available queues. Scheduled Bluesky/open-X evidence is still pending; progressed item 19 offline.
-- Extended the grouping evaluator beyond forward/reverse order: exhaustive permutations for up to six candidates; original/reverse plus 32 reproducible shuffles for larger windows. Reports unstable pair membership, worst false/unknown merges and positive-match range; caches pure directional comparisons.
-- Synthetic four-item regression proves forward/reverse agreement can conceal a labeled false merge. Covers bounded deterministic sampling, unknown merges and empty input too.
-- Recorded studio/game evaluation: five windows × 34 orders, no observed unstable, negative or unknown merges. Still 13/32 positive pairs and zero labeled false merges; no recall gain, independent labels or general order-stability claim. Production matcher/activation unchanged.
-- Verification: targeted grouping suites 18/18 before caching; pnpm format, pnpm lint:fix and pnpm check passed (272 unit/174 isolated integration). Final cached evaluator reproduced recorded results; pnpm build passed. git diff --check and zero dangling Docker volumes.
-- Updated TASKS and RANKING. No UI or handbook behavior change. No paid calls/new editions; current real edition remains 19 stories/11 X posts, with articles and stored X posts across all topics.
-- No restart under STEERING 22: deployed runtime source/config unchanged. Final health/alerts checked before push.
-- Next: scheduled Bluesky selections/screenshots and open-X cost/yield; item 19 still needs broader paraphrase recall and independent labels before activation.
-
 ## 2026-11-03: iteration 435 — detect missing scheduled lifecycles
 
 - Started clean on main; no leftovers. Health green/zero alerts. Social acceptance awaits scheduled evidence; advanced O9 under items 24/25.
@@ -155,3 +144,13 @@
 - Updated SOURCES/TASKS; archived iteration 433 to keep PROGRESS bounded. No app runtime/config changes, so no service restart under STEERING 22.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (282 unit/176 isolated integration), pnpm build and git diff --check passed. pnpm obs health/sources/jobs --check passed; zero dangling Docker volumes.
 - Next: Nov 4 open-X/Bluesky selection evidence, World yield and latency/full-AI evidence.
+
+## 2026-11-03: iteration 449 — recognize active past-tense NBA results
+
+- Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis and 32 healthy sources. Scheduled social/latency evidence still awaits Nov 4; progressed item 19.
+- Opt-in game grouping accepts active “defeated” results with explicit matching teams/scores. Passive “defeated by”, intervening overtime wording, multiple defeat claims, reversed outcomes, historical and uncertain reports stay separate.
+- Synthetic tests verify both input orders and resulting cluster membership. Recorded pair evaluation remains unchanged; no real-report recall gain or independent quality claim. Production activation remains open.
+- Updated TASKS/RANKING; archived iteration 434 to keep PROGRESS bounded. No UI or handbook-described flow change.
+- Verification: targeted game/evaluation tests 12/12; pnpm format, pnpm lint:fix, pnpm check (283 unit/176 isolated integration), pnpm build and final API rebuild passed; git diff --check passed.
+- Restarted API/worker; first immediate health probe raced startup, retry passed. Root HTTP 200, pnpm obs health/jobs --check passed, zero alerts/dangling Docker volumes.
+- No paid calls, new editions or Reddit requests. Next: Nov 4 open-X/Bluesky selections/screenshots, World yield and latency/full-AI evidence; broader grouping recall/independent labels remain open.

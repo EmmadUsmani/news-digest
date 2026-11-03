@@ -82,12 +82,18 @@ function gameIdentity(title: string): string | null | false {
     if (score[0] < score[1]) return false;
     const between = text.slice(position(first), position(second));
     if (
-      !/\b(win|wins|beat|beats|defeat|defeats|tame|tames|haunt|haunts)\b/.test(
+      !/\b(win|wins|beat|beats|defeat|defeats|defeated|tame|tames|haunt|haunts)\b/.test(
         between,
       )
     )
       return false;
-    if (/\b(lose|loses|loss|fall|falls|fell|lost|beaten|defeated)\b/.test(text))
+    if (
+      /\b(lose|loses|loss|fall|falls|fell|lost|beaten)\b/.test(text) ||
+      /\bdefeated\b.*\bby\b/.test(between) ||
+      (/\bdefeated\b/.test(text) &&
+        ((text.match(/\bdefeated\b/g) ?? []).length !== 1 ||
+          !/\bdefeated\b/.test(between)))
+    )
       return false;
   }
   return [
@@ -105,7 +111,7 @@ export function sameEventWithGameScore(a: Candidate, b: Candidate): boolean {
   const left = gameIdentity(a.title);
   const right = gameIdentity(b.title);
   if (left === false || right === false) return false;
-  // Explicit outcomes take precedence over lexical overlap (which sorts numbers).
+  // Explicit outcomes take precedence over lexical overlap.
   if (left !== null || right !== null)
     return delta <= 18 * 3600000 && left !== null && left === right;
   return sameEvent(a, b);

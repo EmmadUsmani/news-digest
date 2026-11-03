@@ -996,3 +996,15 @@ still finds 13/32 positive pairs and rejects all 28 labeled negatives. This is
 bounded order testing on the existing agent-labeled dataset, not independent
 review, improved recall or proof of stability for every possible input order.
 Production matching and the grouping activation setting are unchanged.
+
+## Iteration 449: past-tense NBA victories
+
+The opt-in game-score matcher accepts an active “Cavs defeated the Bucks
+136–111” result alongside the equivalent explicit team-score report. Passive
+“defeated by” claims remain ineligible, including intervening overtime wording;
+reversed winners, reversed scores, historical and uncertain claims stay separate.
+Synthetic tests cover both input orders and final cluster membership. The
+recorded evaluation remains 13/32 positive pairs for the combined studio/game
+matcher, with zero labeled false merges; this change adds synthetic paraphrase
+coverage, not a measured gain on real reports. Production activation and
+independent review remain open.
