@@ -1,23 +1,3 @@
-## 2026-11-03: iteration 448 — verify real saved X media on both viewports
-
-- Started clean on main; zero alerts and healthy API/DB/Redis. No leftover work.
-- Added explicit read-only saved-edition browser verifier; app writes/Reddit blocked, no provider calls or new editions. Reports actual official embeds/media separately from fallback and third-party errors.
-- Nov 3 scheduled edition: all 11 X iframes loaded on desktop/mobile; nine posts/14 loaded media images per viewport. Video previews visible; playback untested. World remains empty; open-X/Bluesky acceptance stays pending.
-- Captured eight viewport screenshots (four topics × desktop/mobile); inspected NBA desktop and Tech/AI/Gaming mobile. Initial X bundle TypeError reported; final run had zero app/widget errors and no horizontal overflow.
-- Updated SOURCES/TASKS; archived iteration 433 to keep PROGRESS bounded. No app runtime/config changes, so no service restart under STEERING 22.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (282 unit/176 isolated integration), pnpm build and git diff --check passed. pnpm obs health/sources/jobs --check passed; zero dangling Docker volumes.
-- Next: Nov 4 open-X/Bluesky selection evidence, World yield and latency/full-AI evidence.
-
-## 2026-11-03: iteration 449 — recognize active past-tense NBA results
-
-- Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis and 32 healthy sources. Scheduled social/latency evidence still awaits Nov 4; progressed item 19.
-- Opt-in game grouping accepts active “defeated” results with explicit matching teams/scores. Passive “defeated by”, intervening overtime wording, multiple defeat claims, reversed outcomes, historical and uncertain reports stay separate.
-- Synthetic tests verify both input orders and resulting cluster membership. Recorded pair evaluation remains unchanged; no real-report recall gain or independent quality claim. Production activation remains open.
-- Updated TASKS/RANKING; archived iteration 434 to keep PROGRESS bounded. No UI or handbook-described flow change.
-- Verification: targeted game/evaluation tests 12/12; pnpm format, pnpm lint:fix, pnpm check (283 unit/176 isolated integration), pnpm build and final API rebuild passed; git diff --check passed.
-- Restarted API/worker; first immediate health probe raced startup, retry passed. Root HTTP 200, pnpm obs health/jobs --check passed, zero alerts/dangling Docker volumes.
-- No paid calls, new editions or Reddit requests. Next: Nov 4 open-X/Bluesky selections/screenshots, World yield and latency/full-AI evidence; broader grouping recall/independent labels remain open.
-
 ## 2026-11-03: iteration 450 — measure Gaming grouping on a third date
 
 - Started clean on main; no leftovers. Zero alerts; health and all 32 sources green. Scheduled social/latency evidence remains pending.
@@ -170,3 +150,13 @@
 - Immediately reverted all c5f53d2 changes, including its new matcher/tests/docs, before pushing. Production never enabled that matcher. Existing wording rules remain pending removal after the owner's Nov 4 scheduled-run priority; TASKS now records the replacement AI approach.
 - No paid calls, new editions or Reddit requests. Next: Nov 4 latency/NBA fallback and social evidence first, then STEERING 26 removal, AI grouping evaluation and conditional activation.
 - Reverted-state verification: pnpm format, pnpm lint:fix, pnpm check (297 unit/176 isolated integration), pnpm build and git diff --check passed. API/worker restarted on the restored code; health passed after startup retry, root HTTP 200, zero alerts/dangling volumes.
+
+## 2026-11-03: iteration 465 — widen the weakest article topic with RealGM
+
+- Started clean on main; zero alerts and healthy API/DB/Redis. Nov 4 evidence remains pending; respected STEERING 26's grouping-removal gate and progressed item 10.
+- Coverage before adding a source: Tech 329/6, NBA 140/3, Gaming 273/18, World 226/5 (rolling articles/connected sources). NBA was weakest.
+- Added public RealGM Basketball RSS via migration 050, connected to the original NBA topic only if it still exists. Mixed leagues and repeated original reporting remain explicit relevance/independence caveats; no article crawling. RSS directory returned 403, no bypass.
+- Recorded two unmodified NBA entries; parser verification covers titles, EST dates, plain excerpts, media and absent author/X citations. No tests use live sources.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (297 unit/177 isolated integration), pnpm build and git diff --check passed. Handbook check passed (one diagram); visually inspected PNG. Zero dangling Docker volumes.
+- Applied live migration and restarted API/worker. Normal worker stored 31 real items at 19:24:45 UTC; NBA now 150 rolling articles/four healthy sources. Health passed; root HTTP 200. No paid calls, new editions or Reddit requests.
+- Updated SOURCES/TASKS/handbook; archived iterations 448–449 to keep PROGRESS bounded. Final fetch brought owner clarification 04bca35; merged it and updated TASKS. Next: offline item 7 fixes, then grouping removal/AI pass now; verify Nov 4 when it runs.

@@ -8,7 +8,7 @@ time window.
 ```mermaid
 flowchart LR
   subgraph collect["1 · Collect (all day)"]
-    rss["32 RSS feeds<br/>+ Hacker News"] -->|every 30 min| articles[("Articles")]
+    rss["Publisher feeds<br/>+ Hacker News"] -->|every 30 min| articles[("Articles")]
     rivers["Articles & news rivers<br/>(Techmeme, Memeorandum)"] -->|hourly| xlinks[("X posts")]
     xai["xAI X search<br/>(paid, capped)"] -->|daily, before edition| xlinks
   end
@@ -32,6 +32,9 @@ flowchart LR
   settings do.
 - **AI is optional and capped.** If the AI budget runs out, the edition still
   publishes using non-AI ranking, and the page says so.
+- **NBA reporting** includes CBS, Yahoo, Hoops Rumors and RealGM Basketball.
+  RealGM also carries other basketball leagues; topic ranking filters relevance.
+  Multiple publishers may repeat the same original report.
 - **Every external call goes through a port.** Feeds, AI, X and queues sit
   behind interfaces, so tests use fakes and never touch live services.
 

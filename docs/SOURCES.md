@@ -1649,3 +1649,24 @@ zero app or widget errors. Third-party errors are reported separately and do
 not establish an app failure. Media availability can change after capture.
 Viewport screenshots (first visible posts, not full sections) are stored as
 `docs/screenshots/saved-777fdd95-*-desktop.png` and `*-mobile.png`.
+
+## NBA coverage expansion — iteration 465 (2026-11-03)
+
+The pre-change rolling 24-hour status snapshot had Tech/AI 329 articles from
+6 sources, NBA 140/3, Gaming 273/18 and World 226/5. NBA was the weakest
+article topic, so added **RealGM Basketball** at
+`https://basketball.realgm.com/rss/wiretap/0/0.xml`. Its public RSS returned
+HTTP 200 and 31 dated items at verification, including NBA contracts, injuries,
+results and transactions. No article-page crawling is enabled. The site RSS
+directory returned 403; no bypass attempted.
+
+This is a mixed basketball feed, including WNBA/college reports: NBA topic
+ranking must still reject irrelevant items. RealGM often summarizes other
+reporters; a second publisher is not evidence of independent reporting.
+Recorded fixture `realgm.xml` contains two original NBA entries and checks
+EST-to-UTC dates, plain excerpts and absence of invented authors/X citations.
+Tests use that recording, never the live endpoint. **Status: live.** Migration
+050 applied and the normal worker stored all 31 items at 19:24:45 UTC, with no
+source error. Post-collection NBA coverage was 150 rolling articles and four
+connected/healthy sources; these are stored observations, not fixture counts.
+No AI calls or edition generation were needed to collect the feed.

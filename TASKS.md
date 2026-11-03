@@ -9,8 +9,8 @@ Fix failures and stalled sources first. [Completed markers](docs/progress-archiv
 
 - [x] STEERING 17 (431): editable secondary X lists activated; scheduled effectiveness pending.
 - [ ] STEERING 18 (325): authenticated Bluesky discovery, engagement/semantic editing, storage/cards and edition caller prepared. Owner login configured; Nov 3 gate acknowledged. Hourly bounded official collection added (432); edition inclusion enabled by default (433), with explicit off switch. Next: measure scheduled real selections/screenshots. Reports expose immutable platform picks (443) and fresh stored Bluesky candidates across four topics (444); selection evidence pending.
-- [ ] STEERING 26 supersedes 19: after checking/fixing Nov 4 scheduled latency/NBA fallback, remove all wording-rule grouping and its flag/tests; retain generic grouping plumbing, coverage links and recorded labels. Production must do no grouping until the validated, ledger/cache-backed one-Haiku-call-per-topic AI pass ships. Then evaluate within the owner's $0.10/time-window limit and activate only at zero wrong merges with recall above 13/32. See STEERING 26 for the full scope. No further wording rules.
-  - Iteration 464's new jersey matcher was reverted immediately when concurrent owner steering was fetched; existing rule removal awaits the stated Nov 4 priority gate.
+- [ ] STEERING 26 supersedes 19: investigate/fix latency/NBA fallback offline now, then remove all wording-rule grouping and its flag/tests; retain generic grouping plumbing, coverage links and recorded labels. Production must do no grouping until the validated, ledger/cache-backed one-Haiku-call-per-topic AI pass ships. Then evaluate within the owner's $0.10/time-window limit and activate only at zero wrong merges with recall above 13/32. See STEERING 26 for the full scope. No further wording rules.
+  - Iteration 464's new jersey matcher was reverted immediately when concurrent owner steering was fetched; owner clarification now requires offline item 7 fixes and rule removal before Nov 4; only live verification waits.
 
 - [ ] STEERING 13 TOP PRIORITY before Nov 3 15:00 UTC: reserve configurable Anthropic budget for the scheduled edition under the shared ledger lock; limit all other spend until completion/failure; expose reserve/manual limits and scheduled AI/fallback outcome. Fake/Testcontainers verification only. Measure next scheduled edition cost/duration for item 7.
   - Reserve/fencing/UI implemented with 1.5x headroom. Nov 3 (425): $0.339524, 231.829 s, zero holds; NBA fallback leaves full-AI acceptance open.
@@ -52,7 +52,7 @@ M0–M2; M3/M6/M7 foundations implemented.
   - Next: durable recovery beyond retained Redis jobs.
     `DigestPublished` event plus notification port with a log/in-app adapter.
 - [ ] Ongoing:
-  - widen sources per topic (Reddit, Bluesky, more publishers)
+  - widen sources per topic (Reddit, Bluesky, more publishers); item 10: NBA was weakest (140 articles/3 sources), RealGM Basketball added in 465; mixed-league relevance and reporting independence remain caveats.
   - precision tuning
   - UI polish
   - retention/backup

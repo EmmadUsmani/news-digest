@@ -23,6 +23,7 @@ void test('recorded RSS and Atom normalize real headlines, dates and safe links'
     'gamesradar.xml',
     'gamespot.xml',
     'hoopsrumors.xml',
+    'realgm.xml',
     'destructoid.xml',
     'al-jazeera.xml',
     'aftermath.xml',
@@ -480,4 +481,29 @@ void test('recorded Insider Gaming feed retains reporting dates and leaves page 
     items.every((item) => new URL(item.url).hostname === 'insider-gaming.com'),
   );
   assert.ok(items.every((item) => item.xLinks.length === 0));
+});
+
+void test('recorded RealGM feed retains NBA reporting, EST dates and excerpts without invented citations', async () => {
+  const items = parseFeed(await fixture('realgm.xml'));
+  assert.equal(items.length, 2);
+  assert.equal(
+    items[0].title,
+    'Dalen Terry, Thunder Agree To Two-Year Contract',
+  );
+  assert.equal(items[0].publishedAt, '2026-11-03T14:06:43.000Z');
+  assert.equal(items[1].publishedAt, '2026-11-02T21:36:41.000Z');
+  assert.equal(
+    items[0].imageUrl,
+    'https://basketball.realgm.com/images/nba/4.2/wiretap/photos/2006/Terry_Dalen_chi_221114.jpg',
+  );
+  assert.ok(items[0].excerpt?.includes('two-year contract'));
+  assert.ok(items[1].excerpt?.includes('Wembanyama'));
+  assert.ok(
+    items.every(
+      (item) => new URL(item.url).hostname === 'basketball.realgm.com',
+    ),
+  );
+  assert.ok(items.every((item) => !item.excerpt?.includes('<p>')));
+  assert.ok(items.every((item) => item.author === null));
+  assert.ok(items.every((item) => item.xLinks?.length === 0));
 });
