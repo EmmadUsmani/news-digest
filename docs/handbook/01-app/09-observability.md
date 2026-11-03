@@ -195,5 +195,11 @@ process CPU/RAM, heap, garbage collection, event-loop lag and active handles.
 The only added label is a fixed service name; content and request identifiers
 are excluded. These listeners are separate from the public API and are not
 forwarded by it. A listener failure is logged without stopping the app.
-HTTP, provider and queue metrics and the docs/schema runtime endpoints remain
+The API also records HTTP duration histograms, whose counts give request volume,
+by method, route template, status and completion/disconnect. Requests without
+a route template share one static/unmatched label; URLs, queries and IDs are omitted. The separate
+metrics listener is excluded. Query `news_digest_http_request_duration_seconds_count`
+for volume or its histogram buckets for latency. Samples reset on API restart.
+
+Provider and queue metrics and the docs/schema runtime endpoints remain
 unfinished; their journal records are available today.

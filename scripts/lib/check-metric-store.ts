@@ -51,6 +51,14 @@ export async function checkMetricStore() {
       assert.ok(Number.isFinite(Number(samples[0].value[1])));
     }
   }
+  assert.ok(
+    (
+      await query(
+        'news_digest_http_request_duration_seconds_count{service="api",route="/healthz",method="GET",status="200",outcome="finished"}',
+      )
+    ).some((sample) => Number(sample.value[1]) > 0),
+    'Missing successful API health request metrics',
+  );
   for (const metric of [
     'node_cpu_seconds_total',
     'node_memory_MemAvailable_bytes',

@@ -4,6 +4,7 @@ import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app';
 import { internalTools, proxyInternalTools } from './internal-tools';
+import { httpMetrics } from './libs/observability/http-metrics';
 import {
   installFatalLogging,
   logger,
@@ -15,7 +16,7 @@ import { OperationsStatus } from './modules/operations/adapters/operations.statu
 
 async function bootstrap() {
   installFatalLogging();
-  startRuntimeMetrics('api', 9464);
+  const { registry } = startRuntimeMetrics('api', 9464);
   const app = await NestFactory.create(AppModule, {
     logger: {
       log: (message: unknown) => logger.info({ message }, 'Nest'),
@@ -27,6 +28,7 @@ async function bootstrap() {
     },
   });
   app.use(requestLogging());
+  app.use(httpMetrics(registry));
   // Registered before routes and static files: /docs/* and /db/* go to the tools.
   app.use(proxyInternalTools(internalTools));
   mountJobsBrowser(app, app.get(OperationsStatus).queues);

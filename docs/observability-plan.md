@@ -160,7 +160,10 @@ only when its check passes.
       are scraped.
   - Iteration 358: API/worker runtime metrics on separate loopback listeners
     (9464/9465), fixed service labels and 30-second scraping. Remaining:
-    docs/schema runtimes, HTTP, external-call and queue/job metrics.
+    docs/schema runtimes, external-call and queue/job metrics.
+  - Iteration 359: API HTTP duration/count histogram uses route templates, bounded
+    methods/statuses and completion/disconnect; offline privacy/deduplication
+    coverage and runtime health-request sample checks.
 - [ ] **O6 Dashboards.**
   - **Scope:** Grafana at `/grafana/`, with datasources and dashboards
     provisioned from `ops/observability/grafana/`.
