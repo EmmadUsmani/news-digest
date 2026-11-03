@@ -247,9 +247,12 @@ export async function checkGrafana() {
         );
       await page.setViewportSize({
         width: 1440,
-        height: ['nd-product', 'nd-runtime', 'nd-redis'].includes(dashboard.uid)
-          ? 2100
-          : 1100,
+        height:
+          dashboard.uid === 'nd-product'
+            ? 2500
+            : ['nd-runtime', 'nd-redis'].includes(dashboard.uid)
+              ? 2100
+              : 1100,
       });
       const errors: string[] = [];
       page.on('response', (response) => {
@@ -377,6 +380,41 @@ export async function checkGrafana() {
     await page.waitForTimeout(1500);
     await page.screenshot({
       path: 'docs/screenshots/grafana-product-cost-mobile.png',
+    });
+    for (let attempt = 0; attempt < 12; attempt++) {
+      if (
+        await page
+          .getByRole('heading', {
+            name: 'Edition worker mean duration (since worker start)',
+            exact: true,
+          })
+          .count()
+      )
+        break;
+      await page.mouse.wheel(0, 500);
+      await page.waitForTimeout(300);
+    }
+    const timing = page.locator(
+      '[data-testid="data-testid Panel header Edition worker mean duration (since worker start)"]',
+    );
+    await page
+      .getByRole('heading', {
+        name: 'Edition worker mean duration (since worker start)',
+        exact: true,
+      })
+      .scrollIntoViewIfNeeded();
+    await page.waitForTimeout(1500);
+    assert.equal(
+      await page
+        .locator('[data-testid="data-testid Panel status error"]')
+        .count(),
+      0,
+    );
+    await timing.waitFor({ state: 'visible' });
+    await timing.evaluate((node) => node.scrollIntoView({ block: 'start' }));
+    await page.waitForTimeout(1000);
+    await page.screenshot({
+      path: 'docs/screenshots/grafana-product-timing-mobile.png',
     });
     await page.goto(`${base}/d/nd-database?kiosk`, {
       waitUntil: 'networkidle',

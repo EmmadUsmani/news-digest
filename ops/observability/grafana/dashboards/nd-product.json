@@ -363,6 +363,78 @@
           "show": false
         }
       }
+    },
+    {
+      "id": 10,
+      "title": "Edition worker mean duration (since worker start)",
+      "description": "Mean settled processor attempt time since the current worker started, split by job name and outcome. Includes cached, fallback and reused editions; not a cold AI latency measurement. Excludes queue wait; retries count separately. No data until an attempt is observed; killed attempts are absent.",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 50,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum by (name, outcome) (news_digest_job_duration_seconds_sum{queue=\"digest-generation\"}) / (sum by (name, outcome) (news_digest_job_duration_seconds_count{queue=\"digest-generation\"}) > 0)",
+          "legendFormat": "{{name}} {{outcome}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "min": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 11,
+      "title": "Edition worker attempts (since worker start)",
+      "description": "Settled attempts since the current worker started, split by job name and outcome. Retries count separately, and completion can reuse an existing edition. Not the number of published editions. No samples means no observed attempts, not zero failures. Counters reset on worker restart.",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 50,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum by (name, outcome) (news_digest_job_duration_seconds_count{queue=\"digest-generation\"})",
+          "legendFormat": "{{name}} {{outcome}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "min": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
     }
   ],
   "links": [

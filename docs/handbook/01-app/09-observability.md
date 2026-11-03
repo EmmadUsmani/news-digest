@@ -259,8 +259,15 @@ discovery and unpublished attempts, so it is not total scheduled-run spend.
 Source response counts include duplicates and older items; they are not new-item yield.
 Edition creation time is not worker duration. These table windows are explicit and ignore the Grafana time picker.
 AI mode can use cached work; verified citations are not incremental discovery yield.
-Configured caps, reserve amounts, available funds and worker duration remain in the
-app's **Source & run status** panel; Product does not infer them from ledger rows.
+Product also graphs mean worker attempt duration and settled
+attempt counts since the current worker started, by job name and outcome, using
+existing worker metrics. These include
+cached, fallback and reused editions; retries count separately and queue wait is
+excluded. No data means no observed settled attempts, not zero failures. This does
+not establish cold AI latency. Counters reset on restart. The time picker controls
+the graph's displayed range.
+Configured caps, reserve amounts, available funds and individual run durations remain
+in the app's **Source & run status** panel; Product does not infer caps from ledger rows.
 
 Database uses the same restricted Postgres connection for current system statistics:
 connections, transactions, deadlocks, temporary bytes, shared-buffer hit ratio,

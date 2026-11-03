@@ -198,6 +198,11 @@ only when its check passes.
   - **Done when:** every dashboard renders with no panel errors (screenshot
     check).
   - Iteration 373: App runtime adds event-loop p99 and maximum delay for all four Node services, using existing scrapes. Panels explain the per-scrape window and approximately 10 ms sampling floor; desktop/mobile verification covers delay. No app changes.
+    O6 incremental progress (375): Product graphs rolling 24-hour edition worker mean
+    attempt duration and estimated attempt counts by name/outcome from existing metrics.
+    No samples before observed attempts; cached/fallback/reused work and retries are
+    included, queue wait excluded. Individual run timing and caps remain in app Status.
+
 - [ ] **O7 Database and Redis.**
   - Iteration 374: Redis collector and O6 Redis dashboard shipped. Pinned/checksummed redis_exporter v1.96.0, loopback INFO-only, 30-second scraping, 32 MB/2% CPU ceiling; no key scanning, app or Redis restart. Eight panels and desktop/mobile checked. Postgres exporter/top queries remain open.
   - **Scope:** postgres_exporter, `pg_stat_statements`, slow-query log and
