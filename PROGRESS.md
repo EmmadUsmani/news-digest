@@ -1,13 +1,3 @@
-## 2026-11-03: iteration 438 — read-only harness status metrics
-
-- Started clean on main; no leftovers. Zero alerts/healthy services; product acceptance awaits scheduled evidence. Advanced O8 under items 24/25.
-- Existing unit collector now bridges bounded heartbeat/quota JSON into its atomic node_exporter textfile. Protected harness files unchanged; no logs/transcripts/free text/run IDs read or exposed.
-- Exposes iteration, previous exit code, no-progress streak, start/optional finish and observation timestamps, plus weekly quota when available. Per-file read-success; invalid/missing input removes that source's samples. Heartbeat age is not liveness, and quota can be stale.
-- Offline tests cover privacy, missing/malformed/oversized/deep input, invalid quota and window identity. Added to normal unit suite and check-observability.ts --verify-o8; live exporter and metric-store delivery verified.
-- pnpm format, pnpm lint:fix, pnpm check (275 unit/176 isolated integration), pnpm build, bash -n and check-handbook.ts 09-observability passed. Corrected initial test-wrapper lint failure; no UI/diagram changes.
-- Installed only changed collector scripts; ran existing obs-unit-metrics service successfully. No app/DB/Redis restarts or paid calls. Health green, zero alerts/dangling volumes; 32 healthy sources/four available queues, articles and stored X across all topics.
-- TASKS/plan/handbook updated; archived iteration 425 to keep PROGRESS small. O8 remains open: dashboard, duration/token/commit/pacing evidence next; scheduled product evidence still takes priority, then O10.
-
 ## 2026-11-03: iteration 439 — supervisor status dashboard
 
 - Started clean on main; no leftovers. Health/alerts green; product acceptance still awaits next scheduled edition. Advanced O8 under items 24/25.
@@ -160,3 +150,14 @@
 - Verification: targeted grouping 20/20; pnpm format, pnpm lint:fix, pnpm check (290 unit/176 isolated integration), pnpm build and git diff --check passed. Initial full check found an old 16-match assertion; updated to 19 before rerunning.
 - Restarted API/worker; health/root/jobs/sources checks passed, zero alerts/dangling volumes. Hourly social collection and latest scheduled edition remain healthy.
 - No paid calls, new editions or Reddit requests. Next: Nov 4 social selections, World yield and latency/full-AI evidence; broader Gaming recall/independent labels remain open.
+
+## 2026-11-03: iteration 454 — reset oversized metrics storage caches
+
+- Started clean on main; no leftovers. App healthy/all 32 sources flowing, but metrics-store memory warning pending (about 105/112 MiB). Fixed this before product work.
+- Query-only startup reset left oversized saved storage lookup caches resident. Service now creates VictoriaMetrics' documented reset_cache_on_startup marker, clearing all expendable caches while retaining stored samples.
+- Rejected 80/96 MiB soft-limit experiments: reclaim pressure caused slow queries/scrape failures. Removed soft limits and restored original 16 MiB cache/64 MiB Go targets; hard ceiling remains 112 MiB.
+- Restarted only obs-metrics; observed about 40–52 MiB afterward, zero reclaim pressure/OOM/automatic restarts and eight successful scrape targets. Restart/stale-sample checks initially failed; final recovery verified separately. Zero alerts after recovery.
+- Final scripts/check-observability.ts --verify-o4 passed (8 targets/11 units); 18 read-only queries over three minutes peaked at 52.2 MiB/3.5 s, ending at 42.2 MiB/0.002 s with all targets up. Five early samples still contained prior down states.
+- pnpm format, pnpm lint:fix, pnpm check (290 unit/176 isolated integration), pnpm build, systemd-analyze verify, handbook check (17 pages/25 tables) and git diff --check passed. Zero dangling Docker volumes.
+- Updated affected handbook/observability plan/TASKS; archived iteration 438 to keep PROGRESS bounded. No UI changes, paid calls, new editions or Reddit requests.
+- Next: Nov 4 social selections/screenshots, World yield and latency/full-AI evidence; grouping recall/independent labels remain open. Monitor cache memory across longer uptime.

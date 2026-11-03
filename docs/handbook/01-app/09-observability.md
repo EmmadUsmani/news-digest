@@ -522,9 +522,11 @@ a unit limit changes the threshold without editing a rule. Unlimited, missing
 and zero ceilings do not trigger this rule. App units are excluded. CPU limits
 remain enforced by systemd; this rule measures memory pressure before the hard
 ceiling can kill a process. VictoriaMetrics uses a 16 MiB internal cache budget
-and a 64 MiB Go memory target within its existing 112 MiB systemd ceiling. Its expendable query-result cache
-is reset on startup so an older, larger saved cache cannot defeat the reduced
-budget; stored metric samples are preserved.
+and a 64 MiB Go memory target within its existing 112 MiB systemd ceiling.
+Before each startup, the service creates the [documented](https://docs.victoriametrics.com/victoriametrics/single-server-victoriametrics/#cache-tuning) `cache/reset_cache_on_startup`
+marker so all expendable caches start fresh. Resetting only query results leaves
+older storage lookup caches able to exceed the reduced budget. Stored metric
+samples are preserved; initial queries rebuild their caches.
 
 The Postgres exporter reads only schedule time and lifecycle state to report the
 latest due record within 48 hours. Pending, running, retrying or failed records

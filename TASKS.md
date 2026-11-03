@@ -61,3 +61,4 @@ M0–M2; M3/M6/M7 foundations implemented.
 - [ ] STEERING 2b (only after 2a is green): record Drizzle decision/schema parity, back up live DB, gradually replace raw SQL behind ports and enforce boundaries.
 
 - [ ] STEERING 24/25 (background while product blocked): [observability plan](docs/observability-plan.md). O1–O10 verified through metadata-only browser errors (442). O8 unavailable counters stay uninferred. O11 tracing requires overhead evidence/decision note; stop CLI/dashboard refinements. Product evidence takes priority.
+  - Memory warning recovery (454): metrics-store resets all expendable caches on startup; oversized saved storage caches survived the previous query-only reset. Limits unchanged.
