@@ -1,13 +1,3 @@
-## 2026-11-03: iteration 452 — distinguish preload hardware variants
-
-- Started clean on main; no leftovers. Zero alerts and healthy API/DB/Redis; scheduled social/latency evidence remains pending. Advanced item 19.
-- Opt-in preload grouping distinguishes PS5 Pro, Xbox One, Xbox Series X/S and Switch 2. Normalizes PlayStation 4/5 aliases, deduplicates repeated mentions and compares platform sets without order dependence.
-- Synthetic bidirectional pairs verify hardware conflicts and equivalent mentions. Recorded benchmark remains 16/47 positives, zero/41 false merges; no new real-report recall claim. Production grouping remains disabled.
-- Updated TASKS/RANKING; no UI or handbook-described production flow change.
-- Verification: targeted preload tests 3/3; pnpm format, pnpm lint:fix, pnpm check (287 unit/176 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
-- Restarted API/worker. Immediate probe raced startup; retry and pnpm obs health --check passed, root HTTP 200, zero alerts. pnpm obs jobs --check passed; hourly social runs completed.
-- No paid calls, new editions or Reddit requests. Next: Nov 4 social selections/screenshots, World yield and latency/full-AI evidence; broader Gaming recall/independent labels remain open.
-
 ## 2026-11-03: iteration 453 — group explicit game-title reveals
 
 - Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis and all 32 sources. Scheduled social/latency evidence remains pending; advanced item 19.
@@ -161,3 +151,14 @@
 - Final pnpm format, pnpm lint:fix, pnpm check (259 unit/177 isolated integration), pnpm build and git diff --check passed. Handbook check passed; corrected and visually inspected the pipeline diagram.
 - Restarted API/worker; health passed after startup retry, root HTTP 200, all 33 sources healthy, zero alerts/dangling volumes. No paid calls, new editions or Reddit requests.
 - Updated TASKS/RANKING/handbook and acknowledged removal in STEERING; archived iteration 451 to bound PROGRESS. Next: ledger/cache-backed one-Haiku-call-per-topic AI grouping, then gated evaluation; Nov 4 scheduled latency/NBA and social evidence takes priority when available.
+
+## 2026-11-03: iteration 468 — inactive budgeted AI grouping component
+
+- Started clean on main; no leftovers, zero alerts, healthy API/DB/Redis and 33 sources. Nov 4 provider/social evidence remains pending.
+- Added an inactive one-topic, 2–40 article AI grouping component with bounded title/outlet/time/excerpt input and strict known/unique ID validation. Mixed-topic inputs never spend; invalid/unavailable/over-budget responses keep articles separate.
+- Uses the existing ledger and request cache; added opt-out from JSON repairs to enforce one provider call for grouping. Existing editorial repair defaults remain unchanged. No production caller, grouping activation or ranking bonus.
+- Nine fake-provider cases verify validation, budget refusal, cache reuse/invalidation, settlement and no repair. No paid calls, new editions or Reddit requests.
+- Updated TASKS/RANKING; archived iteration 452 to keep PROGRESS bounded. Production flow unchanged, so no handbook/UI changes.
+- Verification: targeted tests 9/9; pnpm format, pnpm lint:fix, pnpm check (268 unit/177 isolated integration), pnpm build and git diff --check passed. First check caught floating promises in new tests; fixed explicitly. Zero dangling volumes.
+- Restarted API/worker; pnpm obs health --check passed, root HTTP 200, zero alerts. Healthy sources and completed scheduled digest/hourly social jobs confirmed; no fresh edition generated.
+- Next: add approved shared-link/X prompt hints and evaluation wiring; run the owner's capped quality evaluation before any activation. Nov 4 NBA/full-AI/latency and social selection evidence still takes priority when available.

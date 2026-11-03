@@ -1217,3 +1217,21 @@ baseline: no predicted merges, null precision and zero recall. Rule-specific CLI
 options no longer exist. These results are not an AI grouping evaluation. The
 next step is a ledger/cache-backed Haiku pass, validated and evaluated before
 activation under STEERING 26's cost and precision gates.
+
+## Iteration 468: AI grouping component, inactive
+
+`EventGrouping` accepts one topic's ranked shortlist (2–40 articles), with
+identity, title, outlet, time and a bounded excerpt. It asks the configured
+Haiku model for same-event ID groups, prioritizing precision and omitting
+singletons. Known, unique IDs and topic-isolated inputs are mandatory; invalid
+answers discard the entire result. Budget refusal/provider failures also keep
+articles separate. The existing ledger and request cache handle reservations,
+actual usage and reuse; repairs are disabled for this operation so invalid
+output cannot cause a second paid call. Other editorial operations retain
+repair behavior.
+
+This component has no production caller and no effect on editions or ranking.
+Fake-provider tests establish validation, accounting and cache behavior only.
+Approved shared-link/X hints, evaluation tooling and the capped labelled-day
+quality evaluation remain unfinished. No live quality, cost or latency claim is
+made; activation still requires STEERING 26's zero-wrong-merge/recall gate.

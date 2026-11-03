@@ -60,6 +60,7 @@ export class BudgetedLlm {
   async json<T>(
     request: LlmRequest,
     validate: (value: unknown) => T,
+    options: { repair?: boolean } = {},
   ): Promise<T | null> {
     if (
       !Number.isSafeInteger(request.maxOutputTokens) ||
@@ -74,24 +75,26 @@ export class BudgetedLlm {
     if (inputBound >= 100000)
       throw new Error('Split prompt below 100k token bound');
     const key = llmFingerprint(request);
-    const existing = this.pending.get(key);
+    const pendingKey = `${key}:${options.repair !== false}`;
+    const existing = this.pending.get(pendingKey);
     if (existing) {
       const result = await existing;
       return result === null ? null : validate(result);
     }
-    const work = this.resolve(request, key, validate);
-    this.pending.set(key, work);
+    const work = this.resolve(request, key, validate, options.repair !== false);
+    this.pending.set(pendingKey, work);
     try {
       return await work;
     } finally {
       // Refusals and errors must not become a permanent in-memory cache.
-      this.pending.delete(key);
+      this.pending.delete(pendingKey);
     }
   }
   private async resolve<T>(
     request: LlmRequest,
     key: string,
     validate: (value: unknown) => T,
+    repair: boolean,
   ): Promise<T | null> {
     const cached = await this.ledger.cached(key);
     if (cached !== undefined) {
@@ -104,7 +107,7 @@ export class BudgetedLlm {
     }
     // Each repair is separately reserved and recorded. Only rejected rate-limit requests may retry inside the adapter.
     let feedback = '';
-    for (let attempt = 0; attempt < 2; attempt++) {
+    for (let attempt = 0; attempt < (repair ? 2 : 1); attempt++) {
       const current = attempt
         ? {
             ...request,
