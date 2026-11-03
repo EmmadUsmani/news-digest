@@ -2,54 +2,6 @@
 
 Earlier entries: [progress archive](docs/progress-archive/).
 
-## 2026-11-03: iteration 411 — prevent test data volume leaks
-
-- Started clean on main; no leftover work. Push access restored; fetched and merged owner commit `e52c008` without rewriting history. STEERING 25 makes the disk leak urgent and O9 alerts next.
-- Testcontainers Postgres and Redis now mount their image-declared data directories as tmpfs. No production database, service, schedule, content or budget changes.
-- Interrupted a real runner with SIGKILL after both containers started; inspected no volume mounts, cleaned up only that run's containers, and confirmed zero dangling volumes. Full-run Docker inspection confirmed both tmpfs paths.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (260 unit/172 integration), `pnpm build`, handbook 08 and `git diff --check` passed. Dangling volumes remained zero after the full check; no pruning needed. Disk 42% used.
-- Live health/dependencies and queue readiness passed; real free social collection continues (latest observed 10 verified posts). Scheduled digest/social queues have no failures; two historical ingestion failures remain.
-- Updated test documentation, handbook and TASKS; no diagrams/UI changed. No restart needed under item 22: only test runner/docs changed. No paid calls or Reddit requests.
-- Next: O9 alerts (including disk and iteration-start `pnpm obs alerts`), then O7/O8/O10. Scheduled Nov 3 cost/yield/AI timing and acks take priority when available.
-
-## 2026-11-03: iteration 412 — local host and service alerts
-
-- Started clean on main; no leftover work. Health, four queues and 32 sources healthy; two historical ingestion failures remain. Scheduled evidence still awaits 15:00 UTC; production content/cost behavior unchanged.
-- Installed loopback-only vmalert with 48 MiB/1% ceilings and no notification receiver. Five rules cover >80% disk use, inactive units, failed scrapes, stale/missing unit snapshots and host memory pressure; unit inventory now includes the evaluator (13 total).
-- Added bounded `pnpm obs alerts` pending/firing output with response validation and an iteration-start AGENTS instruction. Updated handbook, plan and TASKS; O9 remains open for job/error-rate/missed-edition/spend/per-service-budget rules.
-- A temporary synthetic rule fired through the deployed evaluator and CLI, then was removed in cleanup; five production rules healthy, zero active alerts. Offline disk tests verify threshold, sustained duration and recovery. Evaluator sampled ~4 MiB; disk 43% used.
-- Verification: `pnpm format`, `pnpm lint:fix`, another format pass after import sorting, `pnpm check` (261 unit/172 integration), `pnpm build`, `check-observability.ts --verify-alerts`/`--verify-cli`, handbook 09 and `git diff --check` passed. First check stopped at formatting; corrected before rerunning.
-- API/worker/docs/schema remain active; health and all sources green. Latest real free collection verified 10 posts; digest/social failures zero; dangling Docker volumes zero. Only alert service installed/reloaded and unit collector refreshed; no app/DB/Redis restart, UI changes, paid calls or Reddit requests.
-- Next: scheduled Nov 3 cost/yield/AI timing and acks when available; otherwise finish remaining O9 alert rules before O7/O8/O10.
-
-## 2026-11-03: iteration 413 — job and API error alerts
-
-- Started clean on main; no leftover work. Health, 32 sources and four queues healthy; two historical ingestion failures remain. Scheduled evidence still awaits 15:00 UTC.
-- Added local recent-worker-failure and sustained API 5xx rules: ten-minute failed-attempt increase/one-minute hold; >5% 5xx with >=20 requests in five minutes/two-minute hold. No notifications or production-content/cost changes.
-- Offline vmalert cases cover sustained thresholds, recovery/expiry, low traffic, exact 5% boundary, historical counters and resets. Used increase_prometheus after tests exposed default MetricsQL first-sample counting; retained historical failures must not fire.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (261 unit/172 integration), `pnpm build`, vmalert dry-run/unittest, `check-observability.ts --verify-alerts`, handbook 09 and `git diff --check` passed. Zero dangling Docker volumes.
-- Deployed rule config and restarted only obs-alerts; seven rules healthy, zero pending/firing. Live /healthz green; latest real free collection verified ten posts. No app/DB/Redis restart, paid calls, Reddit requests or UI changes.
-- Updated handbook, plan and TASKS. Next: scheduled Nov 3 cost/yield/AI timing and acks first; otherwise missed-edition/spend/per-service-budget alerts before O7/O8/O10.
-
-## 2026-11-03: iteration 414 — observability memory budget warnings
-
-- Started clean on main; no leftover work. Health, 32 sources and scheduled queues healthy; latest free collection verified ten real X posts. Scheduled AI/X evidence still awaits 15:00 UTC.
-- Added a five-minute warning above 90% of each observability unit's actual MemoryMax; collector exports finite ceilings. Offline cases cover threshold, duration, recovery, app exclusion and zero/missing limits. Eight ceilings verified live.
-- Rule exposed VictoriaMetrics near its 112 MiB ceiling. Reduced cache allowance 32→16 MiB and Go target 80→64 MiB; reset expendable saved caches (moved to /tmp), preserving stored metric history. Only collector, evaluator and metrics service changed/restarted; app/Postgres/Redis untouched.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (261 unit/172 integration), `pnpm build`, vmalert dry-run/unittest and handbook 09 passed. Runtime metrics/rule checks initially raced slow startup; reruns passed.
-- `check-observability.ts --verify-o4` confirms eight targets and retained metrics; metrics-store memory settled around 50 MiB after cache reset. Eight deployed alert rules healthy, zero pending/firing after natural recovery. Health/services/targets green; zero dangling Docker volumes.
-- Updated handbook, observability plan and TASKS; archived iterations 402–404 to keep PROGRESS under 25 KB. No UI, paid calls or Reddit requests.
-- Next: scheduled Nov 3 cost/yield/AI timing and acks first; otherwise remaining O9 missed-edition/spend rules, then O7/O8/O10.
-
-## 2026-11-03: iteration 415 — overdue recorded schedule alert
-
-- Started clean on main; no leftover work. Health, 32 sources and four queues healthy; two historical ingestion failures unchanged. Scheduled evidence still awaits 15:00 UTC.
-- Added read-only Postgres-exporter schedule lifecycle aggregate and warning after latest due unresolved/failed record exceeds 15 minutes plus two-minute hold. Newer success clears old failures; future records cannot hide overdue work. Success includes fallback; missing records/publication integrity remain outside coverage.
-- Column-only schedule grants, existing read-only role/timeouts and resource ceilings retained. Restarted only obs-postgres and obs-alerts; no app/Postgres/Redis restart, provider calls, Reddit requests or production edition changes.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (261 unit/173 integration), `pnpm build`, vmalert dry-run/unittest, `check-observability.ts --verify-alerts`/`--verify-o4`, handbook 09 and `git diff --check` passed. SQL fixture cases run against isolated Testcontainers; zero dangling Docker volumes.
-- Nine deployed rules healthy, zero pending/firing; live schedule metric zero and exporter scrape error zero. Eight scrape targets healthy; latest free collection verified ten real posts without errors. Updated handbook, plan and TASKS.
-- Next: scheduled Nov 3 cost/yield/AI timing and acks first; otherwise O9 spend and missing-schedule detection before O7/O8/O10.
-
 ## 2026-11-03: iteration 416 — provider cap warnings
 
 - Started clean on main; no leftover work. Health, 32 sources and four queues healthy; two historical ingestion failures unchanged. Scheduled evidence still awaits 15:00 UTC.
@@ -154,3 +106,14 @@ Earlier entries: [progress archive](docs/progress-archive/).
 - Restarted API/worker with rebuilt code; pnpm obs health --check and alerts passed at 15:41 UTC. Existing edition GET retains 19 stories/11 real X posts.
 - pnpm exec tsx scripts/smoke-x-schedule-copy.ts passed desktop/mobile with no browser errors or horizontal overflow; refreshed four screenshots and inspected mobile Status/desktop settings.
 - Next: measure scheduled open-search cost/yield/outside-list picks, compact triage latency and corrected World window; inspect NBA completion/validation diagnostics if fallback recurs. Items 13/7/16 remain open; no live quality or latency claim.
+
+## 2026-11-03: iteration 431 — activate reviewed secondary X account lists
+
+- Started clean on main; no leftover work. Zero alerts, health green, 32 healthy sources and four working queues; two historical ingestion failures unchanged.
+- Followed items 20/22 after Nov 3 evidence/acks: activated item 17's already-reviewed editable lists (Tech/AI 11, NBA 10, Gaming 12, World 11). Open-topic search stays primary; these lists support optional secondary searches under unchanged caps.
+- Saved through topic HTTP API and read back all four lists. Asserted every other topic field and latest edition unchanged. No paid calls, discovery triggers, Reddit requests or new editions.
+- Added read-only scripts/smoke-reviewed-x-accounts.ts: compares documented lists with live API/settings across desktop/mobile, checks errors/overflow and refreshes eight screenshots. Passed; visually inspected desktop Tech and mobile NBA.
+- Updated SOURCES, TASKS and item 17 ack; archived iterations 411–415 to keep PROGRESS below 25 KB. No handbook behavior change.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (268 unit/174 isolated integration), pnpm build passed. Initial check stopped on newly archived Markdown formatting; corrected before successful full rerun. Browser script initially needed the repo's async-main wrapper; corrected before verification.
+- No restart under STEERING 22: production binaries unchanged and topic settings are read from DB. Health/source/jobs checks passed; existing edition preserved. Final health at 15:49:59 UTC, alerts and git diff --check passed; zero dangling Docker volumes.
+- Next: item 18 Bluesky production inclusion; continue scheduled open-search cost/yield/outside-list evidence and triage/NBA fallback diagnostics. No account-list quality or latency claim.

@@ -513,6 +513,8 @@ ack: 2026-11-03 item 17 — iteration 315 followed item 22: reviewed and saved a
 
 ack: 2026-11-03 item 17 follow-up — owner item 23 arrived before push; restored and read back the original live lists (8/8/9/9). Reviewed lists and screenshots remain documented, pending activation after the Nov 3 run is measured and acknowledged.
 
+ack: 2026-11-03 item 17 activation — iteration 431 saved and read back the reviewed 11/10/12/11 lists after the Nov 3 run was measured and acknowledged. Read-only desktop/mobile checks match all four live lists; open-topic search remains primary. No paid calls; effectiveness awaits scheduled evidence.
+
 ## 18. NEXT: Bluesky as the #3 social source, open discovery first (2026-11-02)
 
 After items 16–17. Use the official public AT Protocol / Bluesky API only;
