@@ -1186,3 +1186,14 @@ the GamesRadar+ vague-feature headline separate: its recorded excerpt does not
 identify fast travel. The benchmark reaches 34/57 positives, zero/41 false
 merges, no unknown merged pairs or sampled membership variation. These are
 agent-reviewed labels, not independent validation. Production remains disabled.
+
+## Iteration 463: explicit Water Temple remake adjustments
+
+The default-off matcher joins the recorded GamesRadar+/Kotaku reports about
+fixing Ocarina of Time's Water Temple in the remake. It requires the full game
+identity, the specific dungeon and adjustment assertion, and explicit excerpt
+evidence of the remake or quoted rationale. Other dungeons/games, uncertainty,
+historical titles, missing evidence and invalid/out-of-window times stay separate.
+The benchmark reaches 35/57 positives and zero/41 false merges, with no unknown
+cluster pairs or sampled membership variation. Labels remain agent-reviewed,
+not independent validation. Production grouping stays disabled.

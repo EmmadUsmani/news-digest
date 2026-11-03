@@ -1,7 +1,10 @@
 import { sameEventWithGameScore } from './game-event';
 import { samePreloadOverview } from './preload-event';
 import type { Candidate } from './rank';
-import { sameAbandonedFastTravel } from './remake-event';
+import {
+  sameAbandonedFastTravel,
+  sameWaterTempleAdjustment,
+} from './remake-event';
 import { sameTitleReveal } from './title-reveal-event';
 
 // Offline/opt-in only. Require a named studio directly followed by a closure
@@ -92,6 +95,7 @@ export function sameEventWithStudioClosure(
   }
   return (
     sameAbandonedFastTravel(a, b) ||
+    sameWaterTempleAdjustment(a, b) ||
     sameTitleReveal(a, b) ||
     samePreloadOverview(a, b) ||
     sameEventWithGameScore(a, b)

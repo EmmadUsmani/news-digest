@@ -1,22 +1,3 @@
-## 2026-11-03: iteration 446 — preserve numeric roles in headline groups
-
-- Started clean on main; no leftovers. Zero alerts and healthy API/DB/Redis; scheduled social/latency evidence still awaits Nov 4.
-- Headline matching no longer sorts numeric tokens: reversed scores and reversed version transitions cannot pass the numeric guard. This conservatively sacrifices some paraphrase recall rather than merging conflicting events.
-- Synthetic regressions verify both input orders, separate cluster membership and two retained story slots; matching score sequences still group. Targeted clustering/evaluation tests: 12 passed. These are not live reports or general quality measurements.
-- Updated TASKS and RANKING; archived iteration 431 to keep PROGRESS below 25 KB. No UI or handbook-described flow change.
-- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build passed (281 unit/176 isolated integration tests). pnpm obs health/sources/jobs --check passed after API/worker restart; 32 healthy sources and collection jobs completing.
-- No paid calls, new editions or Reddit requests. Broader grouping recall and independent labels remain open; next scheduled X/Bluesky selections, World yield, screenshots and latency/full-AI evidence take priority.
-
-## 2026-11-03: iteration 447 — preserve directed headline participants
-
-- Started clean on main; no leftovers. Zero alerts; API/DB/Redis and all 32 sources healthy. Scheduled product evidence still pending; progressed item 19.
-- Fixed lexical grouping merging reversed winners, buyers and lawsuit participants. Shared meaningful tokens cannot cross sides of a small directed-action vocabulary; ambiguous multiple actions refuse non-identical matches. Conservative guard can miss paraphrases; no general semantic identity claim.
-- Synthetic regressions pin both input orders, separate clusters/two story slots and retained matches with minor wording differences. Targeted grouping/evaluation tests: 13 passed. Updated RANKING and compacted TASKS; archived iteration 432 to keep PROGRESS bounded.
-- First full check found tokenizer return-type inference incompatible with indexOf; explicit string-array return fixed it before final verification.
-- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build passed (282 unit/176 isolated integration tests); git diff --check passed. No UI/layout or handbook-described flow change.
-- Restarted API/worker. pnpm obs health/sources/jobs --check passed; 32 healthy sources, four available queues, root HTTP 200, zero dangling volumes. Existing scheduled edition unchanged; no paid calls, new editions or Reddit requests.
-- Next: Nov 4 scheduled X/Bluesky selections/screenshots, World yield and latency/full-AI evidence; broader grouping recall and independent labels remain open.
-
 ## 2026-11-03: iteration 448 — verify real saved X media on both viewports
 
 - Started clean on main; zero alerts and healthy API/DB/Redis. No leftover work.
@@ -171,3 +152,13 @@
 - Updated TASKS/RANKING; archived iteration 445 to keep PROGRESS below 25 KB. No UI/handbook flow change, paid calls, new editions or Reddit requests.
 - Next: Nov 4 open-X/Bluesky selections/screenshots, World yield and latency/full-AI evidence; broader grouping recall and independent labels remain open.
 - Restarted API/worker; pnpm obs health --check passed, root HTTP 200, both units active and zero alerts. Live rolling article/X counts: Tech 333/74, NBA 145/56, Gaming 274/15, World 230/1; latest social collection completed.
+
+## 2026-11-03: iteration 463 — group explicit Water Temple remake adjustments
+
+- Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis and all 32 source connections. Scheduled social/latency evidence awaits Nov 4; advanced item 19.
+- Default-off grouping joins explicit same-game Water Temple adjustment reports with quoted rationale/remake excerpt evidence. Other games/dungeons, uncertainty, historical titles, missing evidence and invalid/out-of-window dates stay separate.
+- Recorded GamesRadar+/Kotaku pair recovered: 35/57 positives, zero/41 false merges, unknown merges or sampled membership variation. Agent labels remain non-independent; production grouping stays disabled.
+- Targeted suites passed 10/10. First full check found two stale benchmark totals; updated them. Final pnpm format, pnpm lint:fix, pnpm check (297 unit/176 isolated integration), pnpm build and git diff --check passed; zero dangling volumes.
+- API/worker restarted; immediate health probe preceded startup, then pnpm obs health --check passed and root returned HTTP 200. Rolling article/X counts: Tech 335/73, NBA 144/54, Gaming 275/15, World 230/1; no new paid calls, editions or Reddit requests.
+- Updated TASKS/RANKING and archived iterations 446–447 to keep PROGRESS bounded. No UI/handbook flow change.
+- Next: Nov 4 open-X/Bluesky selections/screenshots, World yield and full-AI/latency evidence; broader grouping and independent labels remain open.

@@ -2,7 +2,10 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import type { Candidate } from '../src/modules/digests/domain/rank';
-import { sameAbandonedFastTravel } from '../src/modules/digests/domain/remake-event';
+import {
+  sameAbandonedFastTravel,
+  sameWaterTempleAdjustment,
+} from '../src/modules/digests/domain/remake-event';
 
 const item = (title: string): Candidate => ({
   id: title,
@@ -60,4 +63,35 @@ void test('remake experiments stay separate from other games, features, uncertai
       candidate.title,
     );
   }
+});
+
+void test('Water Temple adjustment requires full game identity, quoted rationale and remake context', () => {
+  const a = {
+    ...item(
+      'OG Zelda: Ocarina of Time dev responsible for the infamous water temple used the remake to atone',
+    ),
+    excerpt:
+      '15 years after remaking the game for 3DS purely to "do something about the water temple" with some overdue homework',
+  };
+  const b = {
+    ...item(
+      'The Director Of The Original Zelda: Ocarina Of Time Calls Fixing The Infamous Water Temple ‘Overdue Homework’',
+    ),
+    excerpt: 'I had the team make some adjustments in this version',
+  };
+  assert.equal(sameWaterTempleAdjustment(a, b), true);
+  assert.equal(sameWaterTempleAdjustment(b, a), true);
+  for (const bad of [
+    { ...b, title: b.title.replace('Ocarina Of Time', 'Majoras Mask') },
+    { ...b, title: b.title.replace('Water Temple', 'Fire Temple') },
+    { ...b, title: b.title + '?' },
+    { ...b, title: 'Previously ' + b.title },
+    { ...b, excerpt: 'The original dungeon was difficult' },
+    { ...b, publishedAt: 'invalid' },
+    { ...b, publishedAt: '2026-11-04T00:00:01Z' },
+  ]) {
+    assert.equal(sameWaterTempleAdjustment(a, bad), false, bad.title);
+    assert.equal(sameWaterTempleAdjustment(bad, a), false, bad.title);
+  }
+  assert.equal(sameWaterTempleAdjustment({ ...a, excerpt: '' }, b), false);
 });

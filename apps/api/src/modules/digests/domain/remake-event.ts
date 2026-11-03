@@ -36,3 +36,50 @@ export function sameAbandonedFastTravel(a: Candidate, b: Candidate): boolean {
     delta <= 36 * 3600000
   );
 }
+
+// These reports concern a specific dungeon adjustment, not every change made
+// to a remake. Require the shared quoted rationale and explicit remake context.
+function waterTempleAdjustment(candidate: Candidate): string | null {
+  const title = candidate.title.normalize('NFKC').toLowerCase();
+  if (
+    /[?？]|\b(not|never|rumou?r|reportedly|might|could|may|would|if|previously|last year|years? ago|will)\b/.test(
+      title,
+    )
+  )
+    return null;
+  const short =
+    /^og (.+?) dev responsible for the infamous water temple used the remake to atone$/.exec(
+      title,
+    );
+  const quoted =
+    /^the director of the original (.+?) calls fixing the infamous water temple [‘']overdue homework[’']$/.exec(
+      title,
+    );
+  if (!short && !quoted) return null;
+  if (
+    short &&
+    !/\b(?:overdue homework|do something about the water temple)\b/i.test(
+      candidate.excerpt,
+    )
+  )
+    return null;
+  if (
+    quoted &&
+    !/\b(?:remake|remaking|this version)\b/i.test(candidate.excerpt)
+  )
+    return null;
+  const identity = (short ?? quoted)![1];
+  if (!/^[\p{L}\p{N} :'-]{3,100}$/u.test(identity)) return null;
+  return identity.replace(/^the legend of zelda:/, 'zelda:');
+}
+
+export function sameWaterTempleAdjustment(a: Candidate, b: Candidate): boolean {
+  const left = waterTempleAdjustment(a);
+  const delta = Math.abs(Date.parse(a.publishedAt) - Date.parse(b.publishedAt));
+  return (
+    left !== null &&
+    left === waterTempleAdjustment(b) &&
+    Number.isFinite(delta) &&
+    delta <= 36 * 3600000
+  );
+}
