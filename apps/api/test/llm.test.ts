@@ -12,6 +12,7 @@ import {
 } from '../src/modules/curation/adapters/anthropic';
 import { llmConfig } from '../src/modules/curation/adapters/config';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
+import { llmFingerprint } from '../src/modules/curation/application/llm-fingerprint';
 import { LlmValidationFailure } from '../src/modules/curation/application/validation-failure';
 import {
   budgetAllowance,
@@ -436,8 +437,39 @@ void test('validation diagnostics distinguish parse, schema and semantic failure
   for (const entry of cases) {
     const provider = fake([entry.text, entry.text]);
     const ledger = new MemoryLedger();
-    const llm = new BudgetedLlm(provider.llm, ledger);
+    const lines: string[] = [];
+    const log = createLogger(
+      'test',
+      {
+        write: (line) => {
+          lines.push(line);
+        },
+      },
+      [],
+    );
+    const llm = new BudgetedLlm(provider.llm, ledger, log);
     assert.equal(await llm.json(request, entry.validate), null);
+    const events = lines
+      .map((line) => JSON.parse(line) as Record<string, unknown>)
+      .filter((line) => line.event === 'llm.validation');
+    assert.deepEqual(
+      events.map(({ attempt, category }) => ({ attempt, category })),
+      [
+        { attempt: 'initial', category: entry.category },
+        { attempt: 'repair', category: entry.category },
+      ],
+    );
+    assert.ok(
+      events.every(
+        (event) =>
+          event.runId === request.runId && event.model === request.model.id,
+      ),
+    );
+    assert.match(String(events[0].requestFingerprint), /^[a-f0-9]{64}$/);
+    assert.equal(events[0].requestFingerprint, events[1].requestFingerprint);
+    assert.ok(!lines.join('').includes('secret'));
+    assert.ok(!lines.join('').includes(request.prompt));
+    assert.ok(!lines.join('').includes(request.instructions));
     assert.deepEqual(llm.validationDiagnostics(), [
       { attempt: 'initial', category: entry.category },
       { attempt: 'repair', category: entry.category },
@@ -462,9 +494,23 @@ void test('validation diagnostic storage is bounded and callers cannot mutate it
 void test('diagnostics survive successful repair/cache reuse and classify invalid cached values without new calls', async () => {
   const provider = fake(['invalid', '{"ok":true}']);
   const ledger = new MemoryLedger();
-  const llm = new BudgetedLlm(provider.llm, ledger);
+  const lines: string[] = [];
+  const log = createLogger(
+    'test',
+    {
+      write: (line) => {
+        lines.push(line);
+      },
+    },
+    [],
+  );
+  const llm = new BudgetedLlm(provider.llm, ledger, log);
   assert.deepEqual(await llm.json(request, valid), { ok: true });
   assert.deepEqual(await llm.json(request, valid), { ok: true });
+  assert.equal(
+    lines.filter((line) => JSON.parse(line).event === 'llm.validation').length,
+    1,
+  );
   assert.deepEqual(llm.validationDiagnostics(), [
     { attempt: 'initial', category: 'invalid-json' },
   ]);
@@ -478,6 +524,13 @@ void test('diagnostics survive successful repair/cache reuse and classify invali
     attempt: 'cache',
     category: 'invalid-schema',
   });
+  const rejected = lines
+    .map((line) => JSON.parse(line) as Record<string, unknown>)
+    .filter((line) => line.event === 'llm.validation');
+  assert.equal(rejected.length, 2);
+  assert.equal(rejected[1].attempt, 'cache');
+  assert.equal(rejected[1].category, 'invalid-schema');
+  assert.equal(rejected[0].requestFingerprint, rejected[1].requestFingerprint);
   assert.equal(provider.count(), 2);
 });
 
@@ -578,6 +631,17 @@ void test('429 retries share one reservation and successful usage is recorded on
         entry.target === 'anthropic' &&
         entry.runId === request.runId &&
         typeof entry.durationMs === 'number',
+    ),
+  );
+  assert.ok(
+    entries.every(
+      (entry) =>
+        entry.requestFingerprint ===
+        llmFingerprint({
+          ...request,
+          prompt: 'private-prompt',
+          instructions: 'private-instructions',
+        }),
     ),
   );
   assert.equal(entries[2].costMicros, ledger.calls[0].cost);

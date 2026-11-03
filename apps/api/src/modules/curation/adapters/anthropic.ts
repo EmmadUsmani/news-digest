@@ -2,6 +2,7 @@ import Anthropic from '@anthropic-ai/sdk';
 
 import { measuredFetch } from '../../../libs/observability/external-metrics';
 import { logger } from '../../../libs/observability/logging';
+import { llmFingerprint } from '../application/llm-fingerprint';
 import { costMicros } from '../domain/budget';
 import {
   LlmPort,
@@ -71,6 +72,7 @@ export class AnthropicLlmAdapter extends LlmPort {
         target: 'anthropic',
         model: request.model.id,
         purpose: request.purpose,
+        requestFingerprint: llmFingerprint(request),
         runId: request.runId,
         attempt: attempt + 1,
       };

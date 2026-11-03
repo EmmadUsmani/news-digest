@@ -20,11 +20,12 @@ export class BudgetedLlm {
     return this.failures.map((failure) => ({ ...failure }));
   }
   private recordFailure(
+    request: LlmRequest,
     error: unknown,
     attempt: ValidationDiagnostic['attempt'],
     invalidJson = false,
   ) {
-    this.failures.push({
+    const diagnostic: ValidationDiagnostic = {
       attempt,
       category: invalidJson
         ? 'invalid-json'
@@ -33,7 +34,21 @@ export class BudgetedLlm {
           : error instanceof ZodError
             ? 'invalid-schema'
             : 'validator-error',
-    });
+    };
+    this.failures.push(diagnostic);
+    // Persist only fixed categories and identifiers, never rejected output,
+    // source text, exception messages, schema details or repair feedback.
+    this.log.info(
+      {
+        event: 'llm.validation',
+        target: 'anthropic',
+        runId: request.runId,
+        model: request.model.id,
+        requestFingerprint: llmFingerprint(request),
+        ...diagnostic,
+      },
+      'LLM response rejected',
+    );
     if (this.failures.length > 32) this.failures.shift();
   }
   private readonly pending = new Map<string, Promise<unknown>>();
@@ -83,7 +98,7 @@ export class BudgetedLlm {
       try {
         return validate(cached);
       } catch (error) {
-        this.recordFailure(error, 'cache');
+        this.recordFailure(request, error, 'cache');
         throw error;
       }
     }
@@ -178,7 +193,12 @@ export class BudgetedLlm {
       try {
         decoded = JSON.parse(response.text) as unknown;
       } catch (error) {
-        this.recordFailure(error, attempt ? 'repair' : 'initial', true);
+        this.recordFailure(
+          request,
+          error,
+          attempt ? 'repair' : 'initial',
+          true,
+        );
         feedback = '';
         continue;
       }
@@ -187,7 +207,7 @@ export class BudgetedLlm {
       } catch (error) {
         // Only application-owned feedback is sent: never raw provider output,
         // schema errors, source text or exception messages.
-        this.recordFailure(error, attempt ? 'repair' : 'initial');
+        this.recordFailure(request, error, attempt ? 'repair' : 'initial');
         feedback = error instanceof LlmValidationFailure ? error.feedback : '';
         continue;
       }

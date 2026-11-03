@@ -37,17 +37,18 @@ Read status with `systemctl status obs-logs obs-shipper`; query locally at
 forward to localhost port 9428 provides access at `/logs/select/vmui/`.
 Stopping the log units preserves their data and the mounted volume.
 
-| Activity              | What the journal records                                                                                                                |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| HTTP requests         | Generated request ID, method, route template, status, elapsed milliseconds and completion or disconnect                                 |
-| Queue jobs            | Queue and job IDs, attempt number, start, finish or failure, elapsed milliseconds                                                       |
-| Feed/HN/X embed calls | Target category, HTTP status when received, success/redirect/failure and elapsed milliseconds; cached reads produce no call entry       |
-| Anthropic calls       | Model, purpose, run ID, attempt, duration, success or failure, failure HTTP status and successful token usage/computed microdollar cost |
-| xAI calls             | Model, search type, HTTP status, duration, outcome, safe failure reason and successful token/fetched-item/citation counts               |
-| Bluesky calls         | Login, refresh or search, HTTP status when received, duration and outcome; no account, token, query, URL or response content            |
-| X discovery budgets   | Admission/refusal and estimate by run/topic/search type; settled cost, released/uncertain holds and provider credit block               |
-| Anthropic budgets     | Admission/refusal and estimate per attempt; settled cost or released/uncertain failure hold, with run and inherited job context         |
-| Errors                | Error message, stack and cause; fatal exceptions and unhandled rejections exit unsuccessfully so systemd can recover the service        |
+| Activity              | What the journal records                                                                                                                              |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| HTTP requests         | Generated request ID, method, route template, status, elapsed milliseconds and completion or disconnect                                               |
+| Queue jobs            | Queue and job IDs, attempt number, start, finish or failure, elapsed milliseconds                                                                     |
+| Feed/HN/X embed calls | Target category, HTTP status when received, success/redirect/failure and elapsed milliseconds; cached reads produce no call entry                     |
+| Anthropic calls       | Model, purpose, run ID, attempt, duration, success or failure, failure HTTP status and successful token usage/computed microdollar cost               |
+| Anthropic validation  | Rejected JSON/schema/selection/absence-support or validator category, initial/repair/cache phase, run/model and request fingerprint; no rejected text |
+| xAI calls             | Model, search type, HTTP status, duration, outcome, safe failure reason and successful token/fetched-item/citation counts                             |
+| Bluesky calls         | Login, refresh or search, HTTP status when received, duration and outcome; no account, token, query, URL or response content                          |
+| X discovery budgets   | Admission/refusal and estimate by run/topic/search type; settled cost, released/uncertain holds and provider credit block                             |
+| Anthropic budgets     | Admission/refusal and estimate per attempt; settled cost or released/uncertain failure hold, with run and inherited job context                       |
+| Errors                | Error message, stack and cause; fatal exceptions and unhandled rejections exit unsuccessfully so systemd can recover the service                      |
 
 The API returns `X-Request-Id` so a browser request can be matched to its
 journal entry. Request context and job context remain separate when work
@@ -86,6 +87,15 @@ Budget entries follow successful ledger operations. Refusals do not identify the
 limiting cap; the ledger remains authoritative. Cache reuse adds no admission.
 Repairs reserve separately, and transport failures retain uncertain holds. No
 prompt, response, purpose or provider error text is included in budget entries.
+
+Validation entries distinguish a successful HTTP response from usable editorial
+output. HTTP entries include their request fingerprint to link calls to rejections.
+Initial and repair failures share the original request fingerprint;
+invalid cached values use the same identifier. Successful validation and cache
+reuse add no rejection entry. Categories are fixed; exception messages, schema
+details, prompts, responses and repair feedback are omitted. Rejections still
+incur their settled provider cost. These entries cannot explain older runs that
+predate validation logging.
 
 X discovery budget entries omit topic names, guidance, handles and provider text.
 A refusal may also mean durable scheduled admission was already consumed; no

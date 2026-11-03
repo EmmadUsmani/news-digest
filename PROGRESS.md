@@ -20,15 +20,7 @@ Earlier entry: [iteration 408](docs/progress-archive/2026-11-03-iteration-408.md
 
 Earlier entry: [iteration 409](docs/progress-archive/2026-11-03-iteration-409.md).
 
-## 2026-11-03: iteration 410 — queue readiness exit status
-
-- Started clean on main; no leftover work. API/dependencies, 32 sources, 12 units/eight collectors healthy; digest/social queues have no failures. Two historical ingestion failures remain; scheduled evidence awaits 15:00 UTC.
-- Added read-only `pnpm obs jobs --check`: all four queues must appear exactly once, be available/unpaused and have workers. Preserves JSON, ignores historical failure counts and rejects filters so a scoped view cannot hide an outage.
-- Offline cases cover unavailable/paused/unstaffed queues, missing/duplicate queues, malformed responses and preserved default behavior; 16 focused CLI tests passed.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (260 unit/172 integration), `pnpm build`, handbook 09, live queue readiness and `scripts/check-observability.ts --verify-cli` all passed; zero mutations.
-- Updated handbook/plan/TASKS; archived iteration 399. CLI/tests/docs only: no service restart under STEERING 22, screenshots, paid calls, Reddit requests or production-content/cap/schedule changes.
-- Commit `147f1bc` verified locally; `git push origin main` failed HTTP 403: exe.dev GitHub integration not found or attached to this VM. Remote unchanged; push remains blocked.
-- Next: restore GitHub integration/push, then scheduled cost/yield/AI timing and acks first when available; observability top queries, harness counters and alerts remain open.
+Earlier entry: [iteration 410](docs/progress-archive/2026-11-03-iteration-410.md).
 
 ## 2026-11-03: iteration 411 — prevent test data volume leaks
 
@@ -128,3 +120,13 @@ Earlier entry: [iteration 409](docs/progress-archive/2026-11-03-iteration-409.md
 - Verification: read-only report-edition-timing.ts --scheduled-only --limit 1 and report-x-discovery.ts 2026-11-03; pnpm obs alerts/health --check/sources/jobs; pnpm format, pnpm lint:fix, pnpm check and pnpm build; git diff --check. All passed; zero dangling Docker volumes.
 - Updated TASKS, SOURCES and steering evidence; archived iterations 408–409 to keep this file small. No production code/config changes, restarts, extra paid calls or Reddit requests.
 - Next: fix item 7 latency and NBA editor fallback using saved responses/fixtures; investigate World candidate eligibility. Keep open X/Bluesky/grouping disabled while those results are resolved; do not claim items 13/7 complete.
+
+## 2026-11-03: iteration 426 — preserve editorial rejection evidence
+
+- Started clean on main; no leftover work. Health, 32 sources and queues healthy; no alerts; two historical ingestion failures unchanged.
+- Read-only Nov 3 journal analysis: all 43 calls admitted, no budget refusals. Article triage: 17 calls, 133,175 output tokens, 517,143 ms aggregate; all inference: 811,368 ms. Four slots imply ~203 s at observed call times, before other work; reducing output/provider work is necessary for item 7.
+- Rejected responses were not cached and validation categories were memory-only, so the NBA rejection cause cannot be reconstructed from saved responses. Added structured llm.validation events with fixed category, initial/repair/cache phase, run/model and original request fingerprint; external call fingerprints link initial rejections to purpose/timing. No prompts, rejected text, schema details or error messages logged.
+- Fake tests cover parse/schema/selection/absence/validator categories, successful repair/cache silence, invalid-cache logging, fingerprint correlation and content exclusion. Corrected a test expectation to hash its customized private fixture request; targeted 21/21 passed.
+- Updated handbook/TASKS; archived iteration 410 to keep this file small. No UI/edition behavior changes, paid calls or Reddit requests. NBA fallback, World eligibility and items 13/7 remain open.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (261 unit/174 isolated integration), pnpm build, targeted llm.test.ts (21), check-handbook.ts 09-observability and git diff --check passed; real edition GET still returns 19 stories/11 X posts. Zero dangling Docker volumes.
+- Next: reduce triage output/provider work using saved scores/fakes, then resolve NBA rejection and World eligibility; no paid trial. Items 13/7 stay open.
