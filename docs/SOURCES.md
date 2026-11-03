@@ -1603,3 +1603,14 @@ First automatic pass completed at 15:54 UTC: Tech/AI `AI` 50 fetched/submitted,
 NBA `NBA` 49, Gaming `game` 48, World `World news & politics` 45.
 Readback found 81/82/82/74 window observations including earlier probes; these
 are stored API observations, not new-row counts or editorial/virality evidence.
+
+## Bluesky edition activation — iteration 433 (2026-11-03)
+
+Following the acknowledged Nov 3 protected run, stored Bluesky inclusion is
+enabled by default. `BLUESKY_EDITIONS_ENABLED=0` disables it (`1` or unset
+enables it). Selection retains X/other picks and fills only unused topic slots
+through the existing budgeted Haiku/Sonnet services; incomplete editing adds no
+posts. Hourly collection is unchanged. Fake publisher verification covers default
+activation and the off switch. No paid verification or new edition was triggered;
+real per-topic editorial yield and screenshots await the next scheduled edition.
+This supersedes the historical default-off notes above.

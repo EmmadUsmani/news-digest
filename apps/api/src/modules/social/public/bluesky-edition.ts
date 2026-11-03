@@ -11,12 +11,12 @@ import type { BlueskyRepository } from '../domain/bluesky';
 import { editBlueskyPosts } from './bluesky-editor';
 import type { SocialSelectionServices } from './editorial-selection';
 
-// Only the exact opt-in enables inclusion. Production must keep this unset until
-// the protected scheduled run has been measured and acknowledged.
+// The protected Nov 3 run is acknowledged. Enable stored-post inclusion by
+// default; an explicit non-1 value remains an operational off switch.
 export function blueskyEditionsEnabled(
   value = process.env.BLUESKY_EDITIONS_ENABLED,
 ) {
-  return value === '1';
+  return value === undefined || value === '1';
 }
 
 export function selectEditionBlueskyPosts(

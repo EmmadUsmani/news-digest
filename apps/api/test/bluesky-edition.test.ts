@@ -200,7 +200,7 @@ void test('incomplete triage and duplicate final selections preserve existing pi
   }
 });
 
-void test('publisher opt-in is exact and disabled caller never queries or edits', async () => {
+void test('publisher off switch prevents storage and AI work', async () => {
   const previous = process.env.BLUESKY_EDITIONS_ENABLED;
   try {
     for (const value of ['', '0', 'true', 'yes', ' 1']) {
@@ -217,16 +217,17 @@ void test('publisher opt-in is exact and disabled caller never queries or edits'
       assert.deepEqual(h.calls, []);
     }
     delete process.env.BLUESKY_EDITIONS_ENABLED;
-    assert.equal(blueskyEditionsEnabled(), false);
+    assert.equal(blueskyEditionsEnabled(), true);
   } finally {
     if (previous === undefined) delete process.env.BLUESKY_EDITIONS_ENABLED;
     else process.env.BLUESKY_EDITIONS_ENABLED = previous;
   }
 });
-void test('enabled publisher reads using its transaction and preserves primary picks', async () => {
+void test('default publisher reads using its transaction and preserves primary picks', async () => {
   const previous = process.env.BLUESKY_EDITIONS_ENABLED;
   try {
-    process.env.BLUESKY_EDITIONS_ENABLED = '1';
+    delete process.env.BLUESKY_EDITIONS_ENABLED;
+    assert.equal(blueskyEditionsEnabled('1'), true);
     const h = harness();
     const unavailable = await selectEditionBlueskyPosts(
       {

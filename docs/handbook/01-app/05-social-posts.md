@@ -103,21 +103,19 @@ API counts still do not establish measured growth or account-relative reach.
 Bluesky final editing selects at most ten shortlisted observations without rewriting
 the original text, media or counts. Refused or invalid selections produce no picks.
 Its separate editorial prompt and budget-ledger purpose do not change X editing;
-production inclusion remains disabled by default.
+edition inclusion uses the existing shared AI budget.
 
 Prepared Bluesky cards show the full saved text, author, publication time, observed
 likes/reposts/replies and observation time, with editorial context when present.
 Images link to the original full-size media; video previews link to the post on
 Bluesky rather than loading a streaming player. Images load lazily with their
 original alt text. Cards use no third-party widget script. Production editions
-still exclude Bluesky; desktop/mobile screenshots are synthetic browser replays.
+have not yet demonstrated Bluesky picks; existing desktop/mobile screenshots are synthetic browser replays.
 
 Explicit edition preparation can read stored observations at the edition cutoff,
-run the isolated editor and create validated text/media/count snapshots. Its gate
-defaults off. The edition publisher calls it after X/Reddit selection, using the
-same database transaction and existing budgeted AI services. Only the exact
-process setting `BLUESKY_EDITIONS_ENABLED=1` enables it; production must keep
-that setting unset until production inclusion is activated. The protected Nov 3 run has been acknowledged.
+run the isolated editor and create validated text/media/count snapshots. It is enabled by default. The edition publisher calls it after X/Reddit selection, using the
+same database transaction and existing budgeted AI services. An explicit
+`BLUESKY_EDITIONS_ENABLED=0` disables inclusion; unset or `1` enables it. The protected Nov 3 run has been acknowledged.
 The edition selector itself does not collect posts; it reads hourly observations. Existing picks are retained;
 Bluesky can use only the remaining topic slots. Disabled or full selections do
 not read storage or call AI; refused or incomplete editing adds no posts.

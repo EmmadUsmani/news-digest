@@ -127,3 +127,14 @@ Earlier entries: [progress archive](docs/progress-archive/).
 - Restarted worker with rebuilt code. First automatic pass completed 15:54 UTC: Tech/AI 50, NBA 49, Gaming 48, World 45 fetched/submitted. Stored window readback 81/82/82/74 includes earlier probes, not new-insert counts or editorial evidence.
 - Updated SOURCES, TASKS and social/schedule handbook pages. No UI change. Existing edition remains 19 stories/11 X posts; health green, zero alerts and zero dangling Docker volumes.
 - Next: activate Bluesky edition inclusion under existing budget, then verify actual scheduled selections/screenshots. Continue scheduled X yield and triage/NBA fallback evidence; no paid verification run.
+
+## 2026-11-03: iteration 433 — enable Bluesky edition inclusion
+
+- Started clean on main; no leftover work. Health green and zero alerts.
+- Activated the prepared stored-Bluesky publisher by default after Nov 3 acknowledgments; explicit BLUESKY_EDITIONS_ENABLED=0 disables it. Production has no override.
+- Existing X/other picks stay intact; Bluesky fills only remaining topic slots using existing budgeted services. Hourly collection unchanged.
+- Fake publisher tests cover default transaction-scoped selection, preserved X picks and disabled storage/AI; targeted suite 7/7. Updated SOURCES, TASKS and social handbook.
+- No paid calls or new editions; real selections, per-topic yield and screenshots await the next scheduled edition. Item 18 remains open.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (270 unit/174 isolated integration), pnpm build and check-handbook.ts 05-social-posts passed. No diagram edits; zero dangling Docker volumes.
+- Restarted API/worker with rebuilt code. pnpm obs health --check and alerts passed at 15:59 UTC; existing edition unchanged at 19 stories/11 real X posts. git diff --check passed.
+- Next: measure scheduled Bluesky picks/screenshots, X cost/yield and compact-triage latency; inspect NBA diagnostics if fallback recurs. No live editorial-quality claim.
