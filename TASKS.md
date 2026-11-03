@@ -1,12 +1,8 @@
 # Tasks
 
-Fix failures and stalled sources first.
-
-- [x] STEERING 25 disk leak (411): test Postgres/Redis data uses tmpfs; full check and interrupted-run volume checks pass. Next background work: O9 alerts, including disk; stop refining existing CLI/dashboards.
+Fix failures and stalled sources first. [Completed markers](docs/progress-archive/2026-11-03-completed-task-markers-427.md).
 
 ## Immediate owner priorities (STEERING overrides older milestone notes)
-
-- [x] STEERING 21 (295): handbook/schema checks green; acknowledged.
 
 - [ ] STEERING 16 (next implementation): open per-topic X search without handle restrictions; reported engagement/velocity, then budget-permitting story reactions and secondary account lists. Keep caps; item 15's first scheduled run is acknowledged before switching. Report search type, cost/yield and outside-list accounts; finish with real editions/screenshots.
   - Open/engagement reporting and durable optional execution are wired and fake-tested (271–294). Item 15 acknowledged (425); production remains account-list while item 13 mixed outcome and item 7 latency need fixing; activation remains. Iteration 296 adds daily topic/type cost and incremental-yield summaries with explicit unknowns.
@@ -15,23 +11,15 @@ Fix failures and stalled sources first.
 - [ ] STEERING 18 (325): authenticated Bluesky discovery, engagement/semantic editing, storage/cards and edition caller prepared. Owner login configured; production inclusion off until Nov 3 evidence/acks.
 - [ ] STEERING 19: default-off event grouping wired through ranking and immutable editions (333–342), with recorded fallback/synthetic-AI publication tests. Reviewed 60 pairs/two dates: lexical 6/32, opt-in studio/game 13/32 positives, 0/28 false merges. Guards reject historical, uncertain, ambiguous and facility/product claims. Broader paraphrase recall, independent labels and activation remain open; syndication does not prove outlet independence.
 
-- [x] STEERING 20 (270): priorities recorded; ESPN empty-feed label fixed.
-
-- [x] STEERING 15 (425): first scheduled daily per-topic account-list run acknowledged; $0.137056/18 new verified across four topics. Atomic admission and weakest-first $0.10 projections verified; second searches disabled. Daily reporting continues under item 9.
-
 - [ ] STEERING 13 TOP PRIORITY before Nov 3 15:00 UTC: reserve configurable Anthropic budget for the scheduled edition under the shared ledger lock; limit all other spend until completion/failure; expose reserve/manual limits and scheduled AI/fallback outcome. Fake/Testcontainers verification only. Measure next scheduled edition cost/duration for item 7.
   - Reserve lifecycle/admission, fencing and UI implemented; production uses 1.5x headroom. Nov 3 measured (425): $0.339524, 231.829 s, reserve released/zero holds; mixed outcome (NBA story fallback), so full-AI acceptance remains open.
 
-- [x] STEERING 14 (211): Reddit parked and unscheduled; no HTTP requests. Social completion requires X only. Priority: 13, 7 timing, 9 X, 10 coverage; 2/4 lower.
-
-- [ ] STEERING 7, first: async BullMQ creation/regeneration, window dedupe, progress UI and last-run duration. Fake job/publication flows verified; measure live provider timing against <60s/current-volume and <2min/1,500-item targets. Repository fake baseline is documented; not a live latency claim. Iteration 282 adds per-edition settled ledger cost/holds and reserve outcome to the read-only timing report, excluding unrelated jobs and unpublished retries.
-  - Read-only `scripts/report-edition-timing.ts` links duration/modes/candidates/budget. Iterations 387–388 preserve settled scheduled evidence past newer manual/upcoming jobs and report failures; partial edition/ledger reads retain other evidence and exit nonzero; offsets are not pure queue wait. Prior scheduled run: 856 ms worker, 32 ms start offset/888 ms completion offset, non-AI fallback. Nov 3 measured (425): 231.829 s/748 article candidates/43 calls, misses target; investigate NBA editor fallback and latency offline, no paid trial. Iteration 426: triage produced 133,175 tokens/517 s aggregate; all calls 811 s (four-slot lower bound ~203 s). Safe run/model/fingerprint validation logging now preserves future rejection categories; past rejected responses were not cached. Next: reduce triage output work using saved scores/fakes.
+- [ ] STEERING 7, first: async BullMQ creation/regeneration, window dedupe, progress UI and last-run duration. Fake job/publication flows verified; measure live provider timing against <60s/current-volume and <2min/1,500-item targets. Fake timings are not live latency evidence.
+  - Read-only `scripts/report-edition-timing.ts` links duration/modes/candidates/budget. Retains settled scheduled evidence and partial-read failures; offsets include work, not pure queue wait. Nov 3 measured (425): 231.829 s/748 article candidates/43 calls, misses target; investigate NBA editor fallback and latency offline, no paid trial. Iteration 426: triage produced 133,175 tokens/517 s aggregate; all calls 811 s (four-slot lower bound ~203 s). Safe run/model/fingerprint validation logging now preserves future rejection categories; past rejected responses were not cached. Iteration 427 requests compact event/rationale text and cuts a 50-UUID-item output reservation from 15,000 to 9,964 tokens, preserving per-item caches. Provider latency/output/validation impact awaits the next scheduled run; no paid trial.
 - [ ] STEERING 8, PARKED by owner under item 14: curated editable Reddit communities, public rate-limited JSON/RSS ingestion, social storage/cards and X citation extraction; real posts across four topics. Respect access denial; no bypass.
   - Prepared storage/cards/editorial wiring (168–176), synthetic verification only. Access 403; no requests until owner re-enables.
 - [ ] STEERING 9, after 13/7 (no Reddit dependency): schedule capped direct xAI discovery before digest; report daily spend and verified yield for first week. Item 14 removes the Reddit prerequisite.
   - Cost/yield reporting, durable admission, weakest-topic planning and official verification implemented. Worker searches 5–30 minutes before publication; seven-day report available. First automatic run verified (425): $0.137056/18 new verified posts. Continue first-week spend/yield.
-- [x] STEERING 10: per-topic coverage on Status and live baseline (iteration 177); reassess before adding sources.
-- [x] STEERING 11 (166): restored daily 07:00 America/Los_Angeles P1D; all schedule verification isolated.
 - [ ] STEERING 4 (lower priority): fingerprinted LlmPort replay and separate verification spend are implemented (178–182); real raw-response golden remains open. Do not re-record unchanged prompts or spend merely to test replay. See docs/DATABASE-VERIFICATION.md.
 
 History: [archive](docs/progress-archive/2026-11-02-tasks-through-143.md).
@@ -72,4 +60,4 @@ M0–M2; M3/M6/M7 foundations implemented.
 - [ ] STEERING 2a (lower priority): finish repository/HTTP characterization before ORM. Isolated DB/Redis, migrations, HTTP/worker and synthetic-AI goldens implemented (183–270); gaps: [database verification](docs/DATABASE-VERIFICATION.md). No live DB; finish 2a before ORM. Recorded-response golden open.
 - [ ] STEERING 2b (only after 2a is green): record Drizzle decision/schema parity, back up live DB, gradually replace raw SQL behind ports and enforce boundaries.
 
-- [ ] STEERING 24/25 (background while product blocked): [observability plan](docs/observability-plan.md). O1–O6 and read-only CLI verified (343–410). O9 started (412): disk/service/scrape/snapshot/host-memory rules and iteration-start `pnpm obs alerts` installed; synthetic firing verified. Iteration 413 adds recent-job-failure/API-error-rate rules. Iteration 414 adds per-service memory-ceiling alerts. Iteration 415 adds overdue recorded-schedule alerts (missing-record detection remains). Iteration 416 adds UTC provider spend/hold cap warnings. Iteration 417 alerts on absent digest scheduler/paused queue. Iteration 418 detects a registered scheduler whose next run stalls overdue. Iteration 419 detects incomplete digest schedule gauges on successful API scrapes. Next: missing lifecycle after a registered schedule advances; then O7 top queries, O8 harness counters, O10 browser errors. Stop refining existing CLI/dashboards. Preserve resource caps and scheduled-run protection.
+- [ ] STEERING 24/25 (background while product blocked): [observability plan](docs/observability-plan.md). O1–O6/read-only CLI verified; O9 has disk, host/service memory, service/scrape/snapshot, failed-job/API-error, spend/hold and scheduler health alerts (412–419). Next: missing lifecycle after a registered schedule advances; then O7 top queries, O8 harness counters, O10 browser errors. Stop refining existing CLI/dashboards. Preserve resource caps and scheduled-run protection.

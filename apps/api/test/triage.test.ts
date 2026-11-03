@@ -210,9 +210,9 @@ void test('new triage requests and their single repair carry explicit field cons
     };
     assert.equal(
       body.outputLimits.rationale,
-      '1–300 characters; one concise sentence',
+      '1–100 characters; one short factual phrase',
     );
-    assert.equal(body.outputLimits.event, '1–160 characters');
+    assert.equal(body.outputLimits.event, '1–80 characters; short event label');
   }
   assert.equal(h.values.size, 0, 'Overlong output still fails closed');
 });
@@ -317,7 +317,8 @@ void test('article and social batches overlap up to four calls and preserve orde
     assert.equal(requests.length, 4);
     for (const request of requests) {
       assert.equal(JSON.parse(request.prompt).candidates.length, 50);
-      assert.equal(request.maxOutputTokens, 15000);
+      assert.ok(request.maxOutputTokens >= 8000);
+      assert.ok(request.maxOutputTokens < 10000);
     }
     releases.reverse().forEach((release) => release());
     const result = await pending;
@@ -386,4 +387,40 @@ void test('escaped large batches obey byte ceiling and stop scheduling after ref
     result.unscoredIds,
     pool.map((c) => c.id),
   );
+});
+
+void test('compact triage bounds output reservations while preserving full candidate coverage', async () => {
+  for (const kind of ['article', 'social'] as const) {
+    const h = harness(undefined, kind);
+    const batch = Array.from({ length: 50 }, (_, i) => ({
+      ...candidates[0],
+      id: `00000000-0000-0000-0000-${String(i).padStart(12, '0')}`,
+    }));
+    const result = await h.service.score(topic, batch, 'compact');
+    assert.equal(h.calls.length, 1);
+    assert.deepEqual(
+      result.scores.map((s) => s.id),
+      batch.map((c) => c.id),
+    );
+    assert.deepEqual(result.unscoredIds, []);
+    assert.ok(h.calls[0].maxOutputTokens < 10000);
+    assert.match(h.calls[0].prompt, /Compact JSON only/);
+    await h.service.score(topic, batch.slice().reverse(), 'replay');
+    assert.equal(h.calls.length, 1, 'All validated scores remain reusable');
+  }
+});
+
+void test('long escaped IDs receive output headroom without changing their identity', async () => {
+  const h = harness();
+  const batch = Array.from({ length: 50 }, (_, i) => ({
+    ...candidates[0],
+    id: '\u0000'.repeat(190) + String(i),
+  }));
+  const result = await h.service.score(topic, batch, 'escaped-ids');
+  assert.equal(h.calls[0].maxOutputTokens, 16000);
+  assert.deepEqual(
+    result.scores.map((s) => s.id),
+    batch.map((c) => c.id),
+  );
+  assert.deepEqual(result.unscoredIds, []);
 });

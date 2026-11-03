@@ -41,6 +41,10 @@ flowchart TB
 
 - **Caching:** triage results are cached per item and prompt, so
   regenerating an edition only pays for new items.
+- **Triage throughput:** article and social scoring use batches of up to 50
+  candidates and request short event labels and factual explanations. Output
+  reservations grow with batch and identifier size. This limits reserved spend;
+  actual provider speed and cost are measured from scheduled editions.
 - **Graceful degradation:** if triage can't finish within the budget, that
   topic uses non-AI ranking. The edition still publishes, and the snapshot
   records why.

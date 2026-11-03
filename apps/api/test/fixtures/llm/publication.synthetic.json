@@ -3,7 +3,7 @@
   "provenance": "Authored synthetic publication responses; no provider calls or live content.",
   "records": [
     {
-      "fingerprint": "dd31832fee908bb533c6be359008ed28a1200b9a2c0839780c1d9c9895479785",
+      "fingerprint": "13b0669734ee2008b4c7529fe10ada79b13c1f5034a70d7fef66ea4ee078944d",
       "model": "claude-haiku-5-5",
       "response": {
         "text": "{\"items\":[{\"id\":\"00000000-0000-4000-8000-000000000099\",\"relevance\":9,\"importance\":8,\"event\":\"Model launch\",\"rationale\":\"Relevant new tool.\"}]}",

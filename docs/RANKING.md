@@ -598,9 +598,22 @@ a real digest shows an unsupported summary; social posts now take priority.
 Article and social triage use up to 50 candidates per call and four concurrent
 calls per scoring invocation. Escaped UTF-8 payloads split earlier to keep
 instructions, prompt and framing within a conservative 60 KB bound. Output
-reservations scale with batch size (up to 15,000 tokens). Existing instruction
+reservations scale with batch size and serialized ID size (up to 16,000 tokens). Existing instruction
 prompt caching and validated per-item cache keys remain unchanged. A refusal
 stops new batches; in-flight calls complete and retain valid scores.
+
+Iteration 427 requests compact JSON, event labels of at most 80 characters and
+rationales of at most 100 characters, rather than 160/300. A 50-item UUID batch
+reserves 9,964 output tokens instead of 15,000 (33.6% less); this is an admission
+ceiling reduction, not measured provider savings or latency. Existing per-item
+scores remain reusable: scoring instructions and cache keys are unchanged, and
+validation still accepts historical 160/300-character fields. The wire prompt
+and response-cache fingerprint change. The authored synthetic publication fixture
+was re-fingerprinted offline for the changed prompt; response bodies and the
+golden edition are unchanged. No provider responses were re-recorded. Long
+escaped IDs retain additional headroom up to the existing 16,000-token ceiling.
+The next scheduled run must establish actual output volume, validation success,
+cost and duration; the 60-second target remains open.
 
 Offline tests cover overlapping calls, ordering, cache reuse, changed inputs,
 invalid outputs, byte bounds and refusal. A synthetic 1,500-item run in sequential

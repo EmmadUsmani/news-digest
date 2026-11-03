@@ -111,11 +111,13 @@ export class CandidateTriage {
       JSON.stringify({
         topic: compactTopic,
         outputLimits: {
-          event: '1–160 characters',
-          rationale: '1–300 characters; one concise sentence',
+          event: '1–80 characters; short event label',
+          rationale: '1–100 characters; one short factual phrase',
           relevance: 'integer 0–10',
           importance: 'integer 0–10',
         },
+        outputStyle:
+          'Compact JSON only. No analysis, markdown or repeated source text. Keep event and rationale brief; do not fill their character limits.',
         candidates: batch.map((e) => e.item),
       });
     // UTF-8 bytes conservatively bound tokens, including escaped Unicode and
@@ -160,7 +162,24 @@ export class CandidateTriage {
           runId,
           instructions: activeInstructions,
           prompt: promptFor(batch),
-          maxOutputTokens: Math.min(16000, Math.max(1400, batch.length * 300)),
+          // Keep room for JSON framing, scores and brief explanations. IDs can
+          // contain escaped Unicode, so include their full serialized byte size.
+          // This changes only the wire verbosity; validated per-item caches and
+          // the historical score schema remain compatible.
+          maxOutputTokens: Math.min(
+            16000,
+            Math.max(
+              1400,
+              64 +
+                batch.reduce(
+                  (tokens, { item }) =>
+                    tokens +
+                    160 +
+                    Buffer.byteLength(JSON.stringify(item.id), 'utf8'),
+                  0,
+                ),
+            ),
+          ),
         },
         validate,
       );
