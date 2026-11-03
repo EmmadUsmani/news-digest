@@ -224,6 +224,10 @@ export async function checkGrafana() {
           dashboard.panels.length,
           `${dashboard.title}: missing live samples`,
         );
+      await page.setViewportSize({
+        width: 1440,
+        height: dashboard.uid === 'nd-product' ? 1800 : 1100,
+      });
       const errors: string[] = [];
       page.on('response', (response) => {
         if (
@@ -250,6 +254,14 @@ export async function checkGrafana() {
         0,
       );
       assert.deepEqual(errors, []);
+      if (dashboard.uid === 'nd-product') {
+        for (const name of ['Articles (24h)', 'AI story topics']) {
+          const column = page.getByRole('columnheader', { name, exact: true });
+          await column.scrollIntoViewIfNeeded();
+          await column.waitFor({ state: 'visible' });
+        }
+      }
+
       if (!['nd-product', 'nd-database'].includes(dashboard.uid))
         await page.locator('canvas').first().waitFor({ state: 'visible' });
       await page.screenshot({
@@ -280,6 +292,30 @@ export async function checkGrafana() {
     );
     await page.screenshot({
       path: 'docs/screenshots/grafana-product-mobile.png',
+    });
+    // Grafana virtualizes panels below the mobile viewport.
+    for (let attempt = 0; attempt < 10; attempt++) {
+      if (
+        await page
+          .getByRole('heading', {
+            name: 'Source article coverage (rolling 24 hours)',
+            exact: true,
+          })
+          .count()
+      )
+        break;
+      await page.mouse.wheel(0, 500);
+      await page.waitForTimeout(300);
+    }
+    await page
+      .getByRole('heading', {
+        name: 'Source article coverage (rolling 24 hours)',
+        exact: true,
+      })
+      .scrollIntoViewIfNeeded();
+    await page.waitForTimeout(1500);
+    await page.screenshot({
+      path: 'docs/screenshots/grafana-product-coverage-mobile.png',
     });
     await page.goto(`${base}/d/nd-database?kiosk`, {
       waitUntil: 'networkidle',

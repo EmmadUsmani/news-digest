@@ -3,7 +3,7 @@
   "title": "Product",
   "description": "Read-only retained product evidence from Postgres. Tables are current snapshots, independent of the Grafana time picker; each title states its window. No provider calls or content jobs. Use app Status for configured caps, reserve amounts and live budget availability.",
   "schemaVersion": 41,
-  "version": 1,
+  "version": 2,
   "editable": false,
   "tags": ["news-digest"],
   "timezone": "utc",
@@ -229,6 +229,84 @@
           "format": "table",
           "rawQuery": true,
           "rawSql": "SELECT budget_day::text AS \"Day (UTC)\", scheduled_at AS \"Scheduled (UTC)\", state AS \"State\", attempt AS \"Attempt\" FROM scheduled_ai_budget_days ORDER BY budget_day DESC LIMIT 7",
+          "editorMode": "code",
+          "sql": {
+            "limit": 100
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 7,
+      "title": "Source article coverage (rolling 24 hours)",
+      "description": "Distinct articles published in the last 24 hours and attributed to each source, including sources with zero. Multiple sources may cite the same article; these counts must not be summed as unique topic coverage. Last response count includes older and duplicate items and is not new-item yield.",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "product-postgres"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 24,
+        "w": 24,
+        "h": 10
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT s.name AS \"Source\", count(DISTINCT i.id)::int AS \"Articles (24h)\", s.last_item_count AS \"Last response items\", s.last_success AS \"Last success (UTC)\", (s.last_error IS NOT NULL) AS \"Current error\" FROM content_sources s LEFT JOIN content_observations o ON o.source_id=s.id LEFT JOIN content_items i ON i.id=o.item_id AND i.published_at >= now()-interval '24 hours' AND i.published_at <= now() GROUP BY s.id,s.name,s.last_item_count,s.last_success,s.last_error ORDER BY \"Articles (24h)\",\"Source\"",
+          "editorMode": "code",
+          "sql": {
+            "limit": 100
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 8,
+      "title": "Recent retained editions (latest seven)",
+      "description": "Immutable edition snapshots, including manual editions and older revisions. Created time is publication storage time, not worker duration. AI topic counts describe recorded editorial modes, which may reuse cache; no live latency or fresh-provider claim.",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "product-postgres"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 34,
+        "w": 24,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT d.created_at AS \"Created (UTC)\", totals.* FROM (SELECT created_at,snapshot FROM digest_previews ORDER BY created_at DESC LIMIT 7) d CROSS JOIN LATERAL (SELECT count(*)::int AS \"Topics\", sum(jsonb_array_length(coalesce(t->'stories','[]'::jsonb)))::int AS \"Stories\", sum(jsonb_array_length(coalesce(t->'posts','[]'::jsonb)))::int AS \"Posts\", count(*) FILTER (WHERE t->'editorial'->>'mode'='ai')::int AS \"AI story topics\", count(*) FILTER (WHERE t->'postEditorial'->>'mode'='ai')::int AS \"AI post topics\" FROM jsonb_array_elements(d.snapshot->'topics') t) totals ORDER BY d.created_at DESC",
           "editorMode": "code",
           "sql": {
             "limit": 100
