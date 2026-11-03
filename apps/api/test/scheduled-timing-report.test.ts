@@ -1,9 +1,12 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
+import { selectedSocialPostSchema } from '@digest/contracts';
+
 import {
   collectTimingEvidence,
   scheduledTiming,
+  selectedPostEvidence,
   timingEvidence,
   timingOptions,
 } from '../../../scripts/lib/scheduled-timing';
@@ -229,4 +232,60 @@ void test('timing history validates options and selects scheduled runs before li
   );
   assert.equal(mixed.latestScheduled?.id, 'job-28');
   assert.equal(runs[0].id, 'job-0');
+});
+
+void test('post evidence distinguishes absent snapshots from empty selections', () => {
+  assert.equal(selectedPostEvidence(undefined), null);
+  assert.deepEqual(selectedPostEvidence([]), {
+    counts: { x: 0, reddit: 0, bluesky: 0 },
+    selections: [],
+  });
+});
+
+void test('post evidence preserves platform counts and saved engagement without inferring virality', () => {
+  const base = {
+    externalId: 'fixture',
+    url: 'https://x.com/example/status/123',
+    author: 'example',
+    authorUrl: 'https://x.com/example',
+    publishedAt: '2026-11-03T12:00:00Z',
+    text: 'Private fixture text',
+    reasons: [],
+  };
+  const posts = [
+    { ...base, platform: 'x', metrics: {} },
+    { ...base, platform: 'x', metrics: { likes: 0 } },
+    {
+      ...base,
+      platform: 'bluesky',
+      url: 'https://bsky.app/profile/example/post/123',
+      observedAt: '2026-11-03T13:00:00Z',
+      metrics: { likes: 12, reposts: 3, replies: 1 },
+    },
+    {
+      ...base,
+      platform: 'reddit',
+      title: 'Fixture',
+      subreddit: 'example',
+      thumbnail: null,
+      externalUrl: null,
+      observedAt: '2026-11-03T13:00:00Z',
+      metrics: { score: 10, comments: 2, upvoteRatio: 0.9 },
+    },
+  ].map((post) => selectedSocialPostSchema.parse(post));
+  const evidence = selectedPostEvidence(posts)!;
+  assert.deepEqual(evidence.counts, { x: 2, reddit: 1, bluesky: 1 });
+  assert.deepEqual(
+    evidence.selections.map((post) => post.metrics),
+    posts.map((post) => post.metrics),
+  );
+  assert.deepEqual(
+    evidence.selections.map((post) => post.observedAt),
+    [null, null, '2026-11-03T13:00:00Z', '2026-11-03T13:00:00Z'],
+  );
+  assert.equal(evidence.selections[2].url, posts[2].url);
+  assert.equal(
+    JSON.stringify(evidence).includes('Private fixture text'),
+    false,
+  );
 });

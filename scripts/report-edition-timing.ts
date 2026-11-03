@@ -6,6 +6,7 @@ import { readEditionCost } from '../apps/api/src/modules/curation/database/editi
 import {
   collectTimingEvidence,
   scheduledTiming,
+  selectedPostEvidence,
   timingEvidence,
   timingOptions,
 } from './lib/scheduled-timing';
@@ -60,6 +61,7 @@ async function main() {
                 }
               : null,
             postCount: topic.posts?.length ?? 0,
+            postEvidence: selectedPostEvidence(topic.posts),
             postEditorial: topic.postEditorial
               ? {
                   mode: topic.postEditorial.mode,
@@ -103,6 +105,8 @@ async function main() {
           .map(({ id, state, scheduledAt }) => ({ id, state, scheduledAt })),
         costNote:
           'Microdollars attributed by edition UUID, not time overlap. Successful calls are settled cost; pending/uncertain calls retain holds. Cache hits have no new call. Failed unpublished attempts have different UUIDs and are excluded; this is not total scheduled retry spend.',
+        postEvidenceNote:
+          'Platform counts and selected links come from immutable editions, not current discovery inventory. Missing historical posts are null; an explicit empty selection has zero counts. Engagement is the saved snapshot, not current or independently verified virality. Missing metrics and observation times remain unknown. Selection does not prove which search discovered a post or outside-list yield.',
         evidenceComplete: collected.complete,
         unavailable: collected.unavailable.map((run) => ({
           ...run,

@@ -63,6 +63,8 @@ wait or fresh AI latency. A failed edition or charge read preserves the other
 runs and the unavailable job’s timing, marks evidence incomplete and exits
 nonzero; it does not imply a failed digest. The report never starts a job or calls a provider.
 
+The timing report also includes per-platform selected-post counts and original links, authors, publication times and saved engagement from each immutable edition. Missing historical selections are unknown; an explicit empty selection has zero counts. Missing metrics or observation times remain unknown. These snapshots do not establish current virality, discovery search attribution or outside-list yield.
+
 ## How code reaches production
 
 There is no separate CI/CD. The build agent works directly on the VM:

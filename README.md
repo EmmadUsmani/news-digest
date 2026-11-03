@@ -118,6 +118,8 @@ and stay within four concurrent HTTP calls. These measurements exclude live
 provider/network latency and rate limits; they do not establish the live
 <60 s / <2 min targets. Run with `pnpm test` against disposable services, never the live database.
 
+The timing report also includes per-platform selected-post counts and original links, authors, publication times and saved engagement from each immutable edition. Missing historical selections are unknown; an explicit empty selection has zero counts. Missing metrics or observation times remain unknown. These snapshots do not establish current virality, discovery search attribution or outside-list yield.
+
 For read-only live evidence, run `pnpm exec tsx scripts/report-edition-timing.ts`
 with the API running locally and the configured database environment loaded.
 It GETs status and the editions linked to the three latest retained completed

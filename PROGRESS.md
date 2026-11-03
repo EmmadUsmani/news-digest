@@ -2,16 +2,6 @@
 
 Earlier entries: [progress archive](docs/progress-archive/).
 
-## 2026-11-03: iteration 429 — distinguish provider truncation from validation rejection
-
-- Started clean on main; no leftover work. Zero alerts and healthy DB/Redis/API; existing edition retains 19 stories/11 real X posts.
-- NBA's historical rejected response cannot be reconstructed. Added allowlisted completion reason and requested output ceiling to successful Anthropic HTTP logs, correlated by request fingerprint. Future output-limit/refusal responses can be separated from normal completion and subsequent parse/schema/semantic rejection.
-- Unknown/null reasons become `unknown`; no response text, stop sequence or arbitrary provider reason is logged. HTTP success still does not imply usable editorial output. No selection, cache, budget, retry or provider changes; no paid calls or Reddit requests.
-- Fake-provider regression covers normal completion, output limit, refusal, null/unrecognized reasons, fingerprint/usage correlation and private-content exclusion (22 targeted tests passed). Updated TASKS and owner observability handbook.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (268 unit/174 isolated integration), pnpm build, check-handbook.ts 09-observability and git diff --check passed; zero dangling Docker volumes.
-- Restarted API/worker with rebuilt code; pnpm obs health --check passed at 15:37:37 UTC, zero alerts; edition GET still returns 19 stories/11 posts. No UI change.
-- Next: measure compact triage latency/output and corrected World search yield on the next scheduled run; inspect NBA completion/validation diagnostics if it falls back again. Items 13/7 stay open; no latency or full-AI acceptance claim.
-
 ## 2026-11-03: iteration 430 — activate scheduled open X discovery
 
 - Started clean on main; no leftover work. Zero alerts, 32 healthy sources and four working queues; two historical ingestion failures unchanged.
@@ -153,3 +143,14 @@ Earlier entries: [progress archive](docs/progress-archive/).
 - Verification: pnpm format, pnpm lint:fix, pnpm check (277 unit/176 isolated integration), pnpm build, check-handbook.ts 09-observability, verify-browser-errors.ts, check-observability.ts --verify-o10 and git diff --check passed. No layout/screenshots or diagrams changed.
 - Restarted API only for its code/web assets; worker/DB/Redis unchanged. Health green, 32 healthy sources/four available queues, articles/stored X across all topics; latest edition remains Nov 3 15:03 UTC/four topics. Zero alerts/dangling volumes.
 - Next: scheduled open-X/Bluesky selections and latency/full-AI evidence take priority. O1–O10 complete within documented limits; O11 is optional, not an implementation commitment.
+
+## 2026-11-03: iteration 443 — immutable social selection evidence
+
+- Started clean on main; no leftovers. Alerts/health green; next scheduled edition is Nov 4 15:00 UTC. No paid calls or new editions.
+- Timing report now includes per-platform counts, selected links/authors/publication times and saved engagement from immutable editions; historical missing selections remain null, empty selections have zero counts, and absent observation times stay unknown. No inferred virality, search attribution or outside-list yield.
+- Two offline regressions cover historical absence versus explicit empty selections and mixed-platform saved metrics (including unknown versus zero), timestamps and omission of post text. Eight targeted report tests pass.
+- Read-only production report passed: Nov 3 X counts 4/4/3/0, Bluesky zero; 231.829 s duration unchanged. These preactivation snapshots do not verify next scheduled open-X/Bluesky selections.
+- README/operations handbook and TASKS updated; archived iteration 429 to keep PROGRESS bounded. Initial full check caught archive formatting introduced during verification; formatted archive and reran.
+- Verification: pnpm format, pnpm lint:fix, pnpm check, pnpm build, check-handbook.ts 08-operations, scheduled-only timing report, obs health --check and git diff --check. All passed: 279 unit/176 isolated integration tests; zero dangling Docker volumes.
+- No running-service code/config changed; services remain running under STEERING 22. Healthy DB/Redis, 32 sources/four available queues and real articles/stored X across all topics.
+- Next: scheduled real platform selections/screenshots, World yield and latency/full-AI acceptance; no new live acceptance claimed.

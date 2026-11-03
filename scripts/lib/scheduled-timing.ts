@@ -1,4 +1,22 @@
-import type { OperationsStatus } from '@digest/contracts';
+import type { OperationsStatus, SelectedSocialPost } from '@digest/contracts';
+
+// Read the immutable selection, never today's mutable social-post inventory.
+export function selectedPostEvidence(posts: SelectedSocialPost[] | undefined) {
+  if (posts === undefined) return null;
+  const counts = { x: 0, reddit: 0, bluesky: 0 };
+  for (const post of posts) counts[post.platform]++;
+  return {
+    counts,
+    selections: posts.map((post) => ({
+      platform: post.platform,
+      url: post.url,
+      author: post.author,
+      publishedAt: post.publishedAt,
+      metrics: post.metrics,
+      observedAt: 'observedAt' in post ? post.observedAt : null,
+    })),
+  };
+}
 
 // Signed offsets from the scheduler's intended time, not queue-wait measurements.
 export function scheduledTiming(run: {
