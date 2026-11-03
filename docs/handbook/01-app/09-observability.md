@@ -362,8 +362,15 @@ task count and automatic restarts since activation, using existing unit samples.
 The cgroup includes child processes, so builds and tests contribute to these
 measurements. Active state does not prove an iteration is making progress;
 automatic restarts do not count completed iterations. The shared unit snapshot
-age shows collector freshness. No iteration, token, quota or commit counters
-are collected, and this dashboard does not read Codex transcripts.
+age shows collector freshness. The collector also reads only the bounded heartbeat and quota status files:
+iteration number, previous exit code, no-progress streak, iteration start/finish
+and status timestamps, plus weekly quota when known. These gauges appear in
+the local metrics query API; dashboard panels are pending. Read-success gauges
+are independent for the two files; malformed input removes that file's samples.
+Heartbeat age can grow during an active iteration, so it is not a liveness test.
+The previous exit code describes the preceding iteration. Quota has its own
+observation timestamp and can be stale. No logs, transcripts, free-text fields,
+run IDs, token totals or commit counts are read.
 
 ## Redis metrics
 

@@ -11,6 +11,50 @@ import { runObs, runObsCli } from './lib/obs-query';
 import { testEnvironment } from './test-suites';
 
 async function main() {
+  if (process.argv.includes('--verify-o8')) {
+    execFileSync('python3', ['ops/observability/test-harness-metrics.py'], {
+      stdio: 'pipe',
+      timeout: 10_000,
+    });
+    const response = await fetch('http://127.0.0.1:9100/metrics', {
+      signal: AbortSignal.timeout(10_000),
+    });
+    assert.equal(response.status, 200);
+    const metrics = await response.text();
+    for (const source of ['heartbeat', 'usage']) {
+      assert.match(
+        metrics,
+        new RegExp(
+          `^news_digest_harness_status_read_success\\{source="${source}"\\} 1$`,
+          'm',
+        ),
+      );
+    }
+    for (const name of [
+      'iteration',
+      'previous_exit_code',
+      'no_progress_streak',
+      'heartbeat_timestamp_seconds',
+      'iteration_started_timestamp_seconds',
+      'usage_timestamp_seconds',
+    ]) {
+      assert.match(
+        metrics,
+        new RegExp(`^news_digest_harness_${name} [0-9.e+]+$`, 'm'),
+      );
+    }
+    const stored = await fetch(
+      'http://127.0.0.1:8428/metrics/api/v1/query?query=news_digest_harness_iteration',
+      { signal: AbortSignal.timeout(10_000) },
+    );
+    assert.equal(stored.status, 200);
+    const sample = (await stored.json()) as { data: { result: unknown[] } };
+    assert.ok(
+      sample.data.result.length > 0,
+      'Harness samples must reach the metric store',
+    );
+    // A running iteration can have an old heartbeat; successful reads do not imply freshness.
+  }
   if (process.argv.includes('--verify-alerts')) {
     assert.match(
       execFileSync('systemctl', ['cat', 'obs-alerts.service'], {

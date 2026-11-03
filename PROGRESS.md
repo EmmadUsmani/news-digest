@@ -2,18 +2,6 @@
 
 Earlier entries: [progress archive](docs/progress-archive/).
 
-## 2026-11-03: iteration 425 — first scheduled AI/X evidence
-
-- Started clean on main; no leftover work. Health, 32 sources, services and queues healthy; zero alerts; two historical ingestion failures unchanged.
-- Observed Nov 3 scheduled edition `777fdd95-0bcd-4ca7-9ea6-36c654effcca`: 15:00:00.057 start, 15:03:51.886 finish, 231.829 s worker duration, 748 article candidates. Item 7 speed target missed; remains open.
-- Anthropic: $0.339524/43 settled calls, zero holds. Entire $0.482788 day protected while running; reserve released after publication. Partial item 13 ack: mixed outcome, NBA story fallback despite complete triage; other three story sections AI. Full-AI acceptance remains open.
-- First full scheduled X run/item 15 acknowledged: World $0.036680/5 new verified, Gaming $0.036815/5, NBA $0.037582/5, Tech/AI $0.025979/3; total $0.137056/18 fetched and incremental verified, zero holds/outside-list additions. Continue first-week reporting.
-- Published X picks: Tech/AI 4, NBA 4, Gaming 3, World 0. World saved triage has one low-context candidate (relevance 3); discovery yield does not establish in-window selection coverage.
-- Read-only Playwright checked four topics/11 real X cards and no page errors on desktop/mobile; inspected screenshots in docs/screenshots/scheduled-nov3-*.png. No embed/media-success claim.
-- Verification: read-only report-edition-timing.ts --scheduled-only --limit 1 and report-x-discovery.ts 2026-11-03; pnpm obs alerts/health --check/sources/jobs; pnpm format, pnpm lint:fix, pnpm check and pnpm build; git diff --check. All passed; zero dangling Docker volumes.
-- Updated TASKS, SOURCES and steering evidence; archived iterations 408–409 to keep this file small. No production code/config changes, restarts, extra paid calls or Reddit requests.
-- Next: fix item 7 latency and NBA editor fallback using saved responses/fixtures; investigate World candidate eligibility. Keep open X/Bluesky/grouping disabled while those results are resolved; do not claim items 13/7 complete.
-
 ## 2026-11-03: iteration 426 — preserve editorial rejection evidence
 
 - Started clean on main; no leftover work. Health, 32 sources and queues healthy; no alerts; two historical ingestion failures unchanged.
@@ -144,3 +132,13 @@ Earlier entries: [progress archive](docs/progress-archive/).
 - Added slow-call suite to check-observability.ts --verify-o1; post-restart --verify-o1 --verify-o2 passed ten offline suites, request/worker logs, redaction and log-store delivery. Restarted only API/worker; no DB/Redis restart.
 - TASKS/plan/handbook updated; O7 complete with documented limits. Health green, zero alerts/dangling volumes, 32 healthy sources/four available queues, all-topic articles/X storage. Latest real edition unchanged: 19 stories/11 X posts. No paid calls/new editions.
 - Next: scheduled social/latency evidence first; otherwise O8 harness metrics, then O10 browser errors. Grouping activation/independent labels remain open.
+
+## 2026-11-03: iteration 438 — read-only harness status metrics
+
+- Started clean on main; no leftovers. Zero alerts/healthy services; product acceptance awaits scheduled evidence. Advanced O8 under items 24/25.
+- Existing unit collector now bridges bounded heartbeat/quota JSON into its atomic node_exporter textfile. Protected harness files unchanged; no logs/transcripts/free text/run IDs read or exposed.
+- Exposes iteration, previous exit code, no-progress streak, start/optional finish and observation timestamps, plus weekly quota when available. Per-file read-success; invalid/missing input removes that source's samples. Heartbeat age is not liveness, and quota can be stale.
+- Offline tests cover privacy, missing/malformed/oversized/deep input, invalid quota and window identity. Added to normal unit suite and check-observability.ts --verify-o8; live exporter and metric-store delivery verified.
+- pnpm format, pnpm lint:fix, pnpm check (275 unit/176 isolated integration), pnpm build, bash -n and check-handbook.ts 09-observability passed. Corrected initial test-wrapper lint failure; no UI/diagram changes.
+- Installed only changed collector scripts; ran existing obs-unit-metrics service successfully. No app/DB/Redis restarts or paid calls. Health green, zero alerts/dangling volumes; 32 healthy sources/four available queues, articles and stored X across all topics.
+- TASKS/plan/handbook updated; archived iteration 425 to keep PROGRESS small. O8 remains open: dashboard, duration/token/commit/pacing evidence next; scheduled product evidence still takes priority, then O10.

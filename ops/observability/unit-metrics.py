@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 """Read only explicit user units; write a single atomic node_exporter textfile."""
+import importlib.util
 import os
 from pathlib import Path
 import subprocess
 import time
 
-rows = []
+spec = importlib.util.spec_from_file_location('harness_metrics', Path(__file__).with_name('harness-metrics.py'))
+harness = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(harness)
+rows = harness.collect(Path.home() / 'agent-control/status')
 for scope, units in [
     ('user', [f'news-digest-{role}.service' for role in ['api', 'worker', 'docs', 'schema', 'agent']]),
     ('system', [f'obs-{role}.service' for role in ['alerts', 'logs', 'shipper', 'metrics', 'node', 'grafana', 'redis', 'postgres']]),

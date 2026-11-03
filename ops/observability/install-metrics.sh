@@ -15,7 +15,7 @@ tar -xzf "$obs_tmp/node.tgz" -C "$obs_tmp"
 sudo install -d /opt/news-digest-observability /etc/news-digest-observability /var/lib/news-digest-observability /var/lib/news-digest-metrics
 sudo install -m 755 "$obs_tmp/victoria-metrics-prod" /opt/news-digest-observability/
 sudo install -m 755 "$obs_tmp/node_exporter-1.12.1.linux-amd64/node_exporter" /opt/news-digest-observability/
-sudo install -m 755 ops/observability/unit-metrics.py /opt/news-digest-observability/
+sudo install -m 755 ops/observability/harness-metrics.py ops/observability/unit-metrics.py /opt/news-digest-observability/
 sudo install -d -o exedev -g exedev /var/lib/news-digest-node-textfile
 if [[ ! -e /var/lib/news-digest-observability/metrics.ext4 ]]; then
   sudo truncate -s 700000000 /var/lib/news-digest-observability/metrics.ext4
