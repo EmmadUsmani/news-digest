@@ -1,17 +1,8 @@
 # Progress
 
-Archived: [iteration 299](docs/progress-archive/2026-11-03-iteration-299.md), [iteration 298](docs/progress-archive/2026-11-03-iteration-298.md), [iteration 297](docs/progress-archive/2026-11-03-iteration-297.md), [iteration 296](docs/progress-archive/2026-11-03-iteration-296.md), [iteration 295](docs/progress-archive/2026-11-03-iteration-295.md), [iteration 294](docs/progress-archive/2026-11-03-iteration-294.md), [iteration 293](docs/progress-archive/2026-11-03-iteration-293.md), [iteration 292](docs/progress-archive/2026-11-03-iteration-292.md), [iteration 291](docs/progress-archive/2026-11-03-iteration-291.md), [iteration 290](docs/progress-archive/2026-11-03-iteration-290.md), [iteration 288](docs/progress-archive/2026-11-03-iteration-288.md), [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md), [286](docs/progress-archive/2026-11-03-iteration-286.md).
+Archived: [iteration 300](docs/progress-archive/2026-11-03-iteration-300.md), [iteration 299](docs/progress-archive/2026-11-03-iteration-299.md), [iteration 298](docs/progress-archive/2026-11-03-iteration-298.md), [iteration 297](docs/progress-archive/2026-11-03-iteration-297.md), [iteration 296](docs/progress-archive/2026-11-03-iteration-296.md), [iteration 295](docs/progress-archive/2026-11-03-iteration-295.md), [iteration 294](docs/progress-archive/2026-11-03-iteration-294.md), [iteration 293](docs/progress-archive/2026-11-03-iteration-293.md), [iteration 292](docs/progress-archive/2026-11-03-iteration-292.md), [iteration 291](docs/progress-archive/2026-11-03-iteration-291.md), [iteration 290](docs/progress-archive/2026-11-03-iteration-290.md), [iteration 288](docs/progress-archive/2026-11-03-iteration-288.md), [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md), [286](docs/progress-archive/2026-11-03-iteration-286.md).
 
 Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md), [283](docs/progress-archive/2026-11-03-iteration-283.md), [284](docs/progress-archive/2026-11-03-iteration-284.md).
-
-## 2026-11-03: iteration 300 — distinguish recovered ingestion failures
-
-- Started clean on main; no leftover work. All four services and `/healthz` healthy; all 32 sources have successful recent collections and no current errors.
-- Investigated two retained ingestion failures: GamesRadar collection and DeepMind XML failures are historical; both subsequently succeeded (01:20 and 01:24 UTC). No retry, source change or deletion of failure evidence needed.
-- Read-only X report at 01:41 UTC: zero Nov 3 calls/cost/holds. Timing report: 15:00 UTC edition delayed as expected; 482,788-micro reserve pending, zero other Anthropic allowance.
-- Items 13/7/15 still await scheduled evidence; item 16 activation remains gated. No application/settings changes, paid calls or Reddit requests. Archived iteration 282 to keep progress bounded.
-- Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`; restarted API/worker/docs/schema, all active; health/app/docs/db/status HTTP 200.
-- Next: observe scheduled X per-topic cost/yield and 15:00 UTC edition AI cost/duration, acknowledge required results, then activate open search.
 
 ## 2026-11-03: iteration 301 — readiness and weakest-topic baseline
 
@@ -174,3 +165,12 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Read-only timing/X reports: Nov 3 15:00 UTC run pending, reserve 482,788 micros, other Anthropic allowance zero; X cost/holds zero. Item 13/7/15 acks and item 16 activation remain gated.
 - Updated source evidence/handbook; archived iteration 299 to keep progress bounded. App/health/docs/db HTTP 200. No restart: no running service code/config path changed; handbook reads disk per request (item 22).
 - Next: Bluesky persistence, semantic selection and cards behind disabled edition inclusion; scheduled evidence takes priority when available.
+
+## 2026-11-03: iteration 318 — Bluesky media observations for future cards
+
+- Started clean on main; no leftover work. Four services/health healthy, 32 sources without current errors, no failed digest jobs; two retained ingestion failures remain recovered. Nov 3 15:00 UTC run still pending.
+- Added isolated official embed-view parsing for images and videos: thumbnail/full-size/playlist URLs and alt text, including author media attached to quotes. Ignore quote-only/external embeds, reject unsafe URL schemes/credentials, and omit malformed media without discarding valid posts. No media downloads.
+- Free authenticated live probe at 03:32 UTC: Tech/AI/NBA/Gaming/World candidates 47/50/49/48, with images 10/5/20/5 and videos 1/15/2/2. Unreviewed discovery only; no storage or edition inclusion. No paid calls or Reddit requests.
+- Verification: targeted media/search tests (8 passed); `pnpm format`, `pnpm lint:fix`, `pnpm check` (174 unit/168 integration), `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 05-social-posts` (16 pages, 1 diagram, 24 tables, no errors), `git diff --check`.
+- Initial full check caught archive formatting; corrected it and full rerun passed. Updated source evidence/handbook and TASKS; archived iteration 300 to bound progress. No UI or diagram change. App/health/status/docs/db HTTP 200; no restart because running service paths/config are unchanged (STEERING 22).
+- Next: Bluesky persistence, semantic selection and faithful cards, keeping inclusion off until scheduled evidence/acks. Scheduled results take priority when available.

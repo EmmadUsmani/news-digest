@@ -1482,3 +1482,12 @@ so conservative screening correctly excludes all candidates pending semantic
 selection. These counts are not relevance judgments or live stored content.
 The probe reads current topic policies from the local API; observation cutoffs
 follow each search response, while publication times remain search-window bounded.
+
+Iteration 318 media probe, 2026-11-03 03:32 UTC: raw candidates Tech/AI
+47, NBA 50, Gaming 49, World 48; candidates with images 10/5/20/5 and
+video 1/15/2/2 respectively. The adapter now preserves official image
+thumbnail/full-size URLs, video playlist/thumbnail URLs and alt text,
+including the author's media attached to a quote. Quote-only and external-link
+embeds are excluded; invalid media is omitted without dropping the post.
+No media files are downloaded. These are unreviewed discovery observations,
+not stored or published posts; faithful cards and persistence remain unfinished.

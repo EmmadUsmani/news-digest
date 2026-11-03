@@ -60,6 +60,12 @@ async function main() {
         withEngagement: posts.filter((post) =>
           Object.values(post.metrics).some((count) => count > 0),
         ).length,
+        withImages: posts.filter((post) =>
+          post.media?.some((media) => media.type === 'image'),
+        ).length,
+        withVideo: posts.filter((post) =>
+          post.media?.some((media) => media.type === 'video'),
+        ).length,
         phraseEligibleShortlist: shortlist.length,
         observationCutoff: observedCutoff,
         semanticReviewed: false,

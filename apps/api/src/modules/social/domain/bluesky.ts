@@ -7,8 +7,14 @@ export interface BlueskyPost {
   text: string;
   publishedAt: string;
   observedAt: string;
+  // Optional until stored observations/cards support media. No remote media fetches.
+  media?: BlueskyMedia[];
   metrics: { likes: number; reposts: number; replies: number };
 }
 export interface BlueskySearchPort {
   search(query: string, since: Date, until: Date): Promise<BlueskyPost[]>;
 }
+
+export type BlueskyMedia =
+  | { type: 'image'; thumbnail: string; fullsize: string; alt: string }
+  | { type: 'video'; thumbnail: string | null; playlist: string; alt: string };

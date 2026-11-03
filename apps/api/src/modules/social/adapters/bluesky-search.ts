@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import type { BlueskyPost, BlueskySearchPort } from '../domain/bluesky';
+import { blueskyMedia } from './bluesky-media';
 
 const sessionSchema = z.object({
   accessJwt: z.string().min(1),
@@ -21,6 +22,7 @@ const postSchema = z.object({
     text: z.string().max(30000),
     createdAt: z.string().datetime(),
   }),
+  embed: z.unknown().optional(),
   likeCount: z.number().int().nonnegative().default(0),
   repostCount: z.number().int().nonnegative().default(0),
   replyCount: z.number().int().nonnegative().default(0),
@@ -210,6 +212,7 @@ export class BlueskySearch implements BlueskySearchPort {
           text: p.record.text,
           publishedAt: time.toISOString(),
           observedAt: new Date(this.now()).toISOString(),
+          media: blueskyMedia(p.embed),
           metrics: {
             likes: p.likeCount,
             reposts: p.repostCount,

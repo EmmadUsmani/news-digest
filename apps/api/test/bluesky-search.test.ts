@@ -22,6 +22,16 @@ const post = {
   uri: 'at://did:plc:author/app.bsky.feed.post/abc123',
   author: { did: 'did:plc:author', handle: 'writer.bsky.social' },
   record: { text: 'A new game demo', createdAt: '2026-11-02T12:00:00Z' },
+  embed: {
+    $type: 'app.bsky.embed.images#view',
+    images: [
+      {
+        thumb: 'https://cdn.bsky.app/t.jpg',
+        fullsize: 'https://cdn.bsky.app/f.jpg',
+        alt: 'Demo',
+      },
+    ],
+  },
   likeCount: 42,
   repostCount: 8,
   replyCount: 3,
@@ -82,6 +92,7 @@ void test('Bluesky open search uses account PDS, bounds pagination, filters wind
   ]);
   const posts = await client.search('game demo', since, until);
   assert.equal(posts.length, 1);
+  assert.equal(posts[0].media?.[0].type, 'image');
   assert.deepEqual(posts[0].metrics, { likes: 42, reposts: 8, replies: 3 });
   assert.equal(
     posts[0].url,
