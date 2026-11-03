@@ -4,19 +4,6 @@ Archived: [iteration 288](docs/progress-archive/2026-11-03-iteration-288.md), [i
 
 Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md), [283](docs/progress-archive/2026-11-03-iteration-283.md), [284](docs/progress-archive/2026-11-03-iteration-284.md).
 
-## 2026-11-03: iteration 289 — optional X executor admission
-
-- Started clean on main; four services and health healthy; no leftover work.
-- Extended the ledger port and search executor to carry an optional parent call ID into durable atomic admission for reaction/account searches.
-- Reject malformed optional requests before side effects; existing settlement-before-persistence and uncertain-call handling remain in force.
-- Fake tests cover both search types, denied admission/no HTTP, success, uncertain HTTP, persistence failure after settlement and invalid parent/context.
-- Preparation only: production remains account-list pending item 15 scheduled evidence/ack; verification completion and optional scheduler wiring remain.
-- Verification: targeted tests (2 passed), `pnpm format`, `pnpm lint:fix`, `pnpm check` (148 unit/168 integration), `pnpm build`, `git diff --check`.
-- Restarted API/worker/docs/schema; all active, health OK and SPA/docs/db 200; 32 sources error-free and latest social collection completed (10 verified).
-- Two retained ingestion failures are older Nov 1/2 jobs; sources have recovered. No failed digest runs or stalled collection found.
-- Read-only X report: Nov 3 zero calls/cost; Anthropic reserve pending at $0.482788, other-spend allowance zero. Scheduled evidence is not due yet.
-- No paid provider or Reddit requests. Next: observe Nov 3 scheduled evidence/acks, switch open search, finish verification completion and optional scheduler wiring.
-
 ## 2026-11-03: iteration 290 — scheduled X verification completion
 
 - Started clean on main; no leftover work; services/health healthy and all 32 sources error-free.
@@ -198,3 +185,12 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Items 13/7/15 await actual scheduled evidence; item 16 activation remains gated by item 15 acknowledgement. No app/settings changes, paid calls or Reddit requests. Archived iteration 288 to keep progress bounded.
 - Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `git diff --check`; restarted all four services, active; health/app/status/docs/db HTTP 200.
 - Next: measure scheduled X per-topic cost/yield and 15:00 edition AI cost/duration, acknowledge results, then activate open search.
+
+## 2026-11-03: iteration 307 — scheduled evidence remains gated
+
+- Started clean on main; no leftover work. All four services active; database/Redis healthy, workers on every queue, all 32 sources healthy.
+- Read-only status at 02:11 UTC: rolling-day verified X posts Tech/AI 50, NBA 32, Gaming 19, World 3. Retained ingestion failures remain historical/recovered.
+- `pnpm exec tsx scripts/report-x-discovery.ts 2026-11-03`: zero calls/cost/holds; `pnpm exec tsx scripts/report-edition-timing.ts`: next edition 15:00 UTC, 482,788-micro reserve pending, other Anthropic allowance zero.
+- Items 13/7/15 need scheduled evidence; item 16 activation requires item 15 acknowledgement. No application/settings changes, paid calls or Reddit requests. Archived iteration 289 to bound progress size.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `git diff --check`; four services restarted and active; health/app/status/docs/db HTTP 200. No UI change.
+- Next: measure scheduled per-topic X cost/yield and 15:00 edition AI cost/duration, acknowledge results, then activate open search.
