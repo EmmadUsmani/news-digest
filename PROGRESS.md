@@ -1,14 +1,3 @@
-## 2026-11-03: iteration 457 — recover game-title identity from explicit excerpts
-
-- Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis, all 32 sources flowing and scheduled collectors healthy. Next scheduled social/latency evidence remains pending; advanced item 19.
-- Opt-in grouping accepts an official-title headline without its subtitle only when one explicit excerpt naming assertion supplies the full matching franchise/sequel/subtitle. Missing/conflicting identities, uncertainty/history and the 36-hour bound remain guarded; production grouping stays disabled.
-- Recorded Nintendo Life Sentinel excerpt joins five matched reveals. Three added agent-reviewed labels complete five newly recovered pairs: benchmark 98 pairs, combined 31/57 positives, zero/41 false merges, unknown merges or membership variation across 34 orders/window. Labels are not independent validation.
-- Targeted grouping 21/21 passed after correcting recorded label counts (two pairs were already labeled). Initial full check stopped on archive formatting; corrected and reran successfully.
-- pnpm format, pnpm lint:fix, pnpm check (291 unit/176 isolated integration), pnpm build and git diff --check passed. Zero dangling Docker volumes.
-- Restarted API/worker; pnpm obs health --check passed, root HTTP 200, both units active, zero alerts. pnpm obs sources --check and pnpm obs jobs --check passed before deploy.
-- Updated TASKS/RANKING; archived iteration 441 to keep PROGRESS bounded. No UI/handbook production-flow change, paid calls, new editions or Reddit requests.
-- Next: Nov 4 social selections/screenshots, World yield and latency/full-AI evidence; broader Gaming recall/independent labels remain open.
-
 ## 2026-11-03: iteration 458 — reject trailing excerpt uncertainty in title grouping
 
 - Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis, all sources flowing and scheduled collectors healthy. Next scheduled social/latency evidence remains pending; advanced item 19.
@@ -163,3 +152,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (282 unit/177 isolated integration), pnpm build and git diff --check passed. Root HTTP 200; health/sources/jobs checks pass, zero alerts.
 - Services unchanged: no restart under STEERING 22 because running code/config did not change.
 - Next: durable once-only live entrypoint and unseen-day labels before the owner-capped evaluation. Activation requires zero wrong merges and recall above 13/32; Nov 4 provider/social evidence takes priority when available.
+
+## 2026-11-03: iteration 473 — durable once-only evaluation guard
+
+- Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis and all 33 sources; Nov 4 scheduled provider/social evidence remains pending.
+- Added VM-local evaluation harness: exclusive fixed item-26 claim and file/directory fsync before execution; claim survives crashes, provider errors and report-write failures. Successful reports use exclusive owner-only files and fsync.
+- Three temporary-directory/fake-callback tests cover concurrent admission, repeated invocation, empty crash markers, uncertain provider failure, saved output permissions and report-write failure. No paid calls, new editions, Reddit requests or grouping activation.
+- Live caller must use one preprovisioned persistent directory plus existing ledger/time/cost admission. This is not distributed authorization; live wiring and unseen-day labels remain unfinished.
+- Updated TASKS/RANKING; archived iteration 457 to bound PROGRESS. No production flow/UI/handbook change.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (285 unit/177 isolated integration), pnpm build and git diff --check passed. Zero dangling Docker volumes.
+- Root HTTP 200; pnpm obs health/sources/jobs checks passed, all 33 sources healthy, zero alerts. No restart under STEERING 22: running service code/config unchanged.
+- Next: fixed-state live entrypoint and unseen-day labels, then owner-capped once-only evaluation. Nov 4 scheduled evidence takes priority when available.

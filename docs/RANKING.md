@@ -1304,3 +1304,19 @@ reservations, concurrency, refusal, failures, settlement and budgeted cache reus
 This is a per-execution guard, not durable authorization for repeated executions.
 A once-only live entrypoint and new-day labels remain necessary before any paid
 evaluation. No provider calls or production changes were made.
+
+## Iteration 473: durable once-only execution guard
+
+The evaluation-only harness exclusively creates and fsyncs one fixed item-26
+claim before invoking the supplied runner. Concurrent invocations, subsequent
+processes and empty crash markers all fail closed. The claim survives provider
+errors and report-write failures; successful output is exclusively saved with
+owner-only permissions and fsynced. Changing run IDs or UTC days does not reset
+the fixed claim. Tests use temporary directories and fake callbacks only.
+
+This guard is local to this VM, not distributed admission. The eventual live
+entrypoint must use one already provisioned persistent directory, perform
+preflight validation before claiming, and retain the shared ledger/time/cost
+checks. It must never choose a new directory or delete a claim to retry. Live
+wiring and unseen-day labels remain unfinished; no paid calls or production
+activation occurred.
