@@ -581,3 +581,29 @@ AI editing or content quality. The check reads metrics and database aggregates;
 it never enqueues a job or calls a provider. The evaluator writes recording-rule
 results and alert state to the existing loopback metric store, within its
 existing retention and resource limits.
+
+## Browser errors
+
+The web app reports uncaught errors and unhandled promise rejections to
+`POST /api/browser-errors`. Each page sends at most five reports, with no
+retry; the API accepts at most 20 valid reports per minute across all clients
+per process. Excess reports return 429 and are dropped. Restarting the API
+resets this in-memory limit. Normal request body size limits also apply.
+
+Reports contain the event kind, a fixed error-type category, optional same-origin
+JavaScript asset basename and line/column. Messages, stacks, rejection values,
+page URLs and user content are omitted. Rejections use Unknown type. This
+limits diagnosis to locating a failing bundle position; third-party failures
+may have no source location. The endpoint validates an exact field allowlist.
+
+Find warnings using `event:browser.error` in the log browser. They share the
+existing journal shipping, retention and resource limits. Reporting failures
+are swallowed so they do not create another report. The private proxy login
+still protects the app; the global cap does not trust forwarded client IPs.
+
+`pnpm exec tsx scripts/verify-browser-errors.ts` explicitly creates synthetic
+browser errors without private text leaving the page, and checks both event
+types and the five-report cap. After shipping, run
+`pnpm exec tsx scripts/check-observability.ts --verify-o10` to verify retained
+records read-only. These probes are synthetic operational evidence, not product
+content.

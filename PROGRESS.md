@@ -2,16 +2,6 @@
 
 Earlier entries: [progress archive](docs/progress-archive/).
 
-## 2026-11-03: iteration 428 — align scheduled X search with edition coverage
-
-- Started clean on main; no leftover work. Health, 32 sources and all queues healthy; zero alerts; two historical ingestion failures unchanged.
-- Read-only World investigation: all five scheduled discoveries were published Nov 2 03:00–13:10 UTC, before the edition's Nov 2 15:00 start. The lone eligible candidate from other discovery says “Some of this morning's arrests”; saved relevance 3/importance 2 appropriately rejected it.
-- Fixed scheduled date-only search bounds to include the partial current UTC day. Exact UTC publication interval is supplied in the prompt, from configured edition start through search time, capped at the latest 24 hours. Timestamp/safety/relevance gates still decide publication; spending caps, one-search/five-result limits and disabled features unchanged.
-- Fake regression coverage checks current-day bounds, midnight, configured six-hour windows, recent-day cap and invalid intervals. Initial full check caught optional follow-up request type narrowing; explicit port return type fixed it. No paid calls, Reddit requests, new editions or UI changes.
-- Updated SOURCES, TASKS and owner schedule handbook. Verification: targeted scheduled tests 17/17, pnpm format, pnpm lint:fix, final pnpm check (267 unit/174 isolated integration), pnpm build, check-handbook.ts 03-jobs-and-schedules and git diff --check passed. Zero dangling Docker volumes.
-- Restarted API/worker; health passed at 15:32:40 UTC, zero alerts. Existing edition GET retains 19 stories/11 real X posts; no improved World-yield claim before the next scheduled search.
-- Next: observe corrected scheduled World yield and compact triage output/latency; NBA fallback rejection needs the new validation diagnostics. Items 13/7 remain open; open X/Bluesky/grouping remain disabled.
-
 ## 2026-11-03: iteration 429 — distinguish provider truncation from validation rejection
 
 - Started clean on main; no leftover work. Zero alerts and healthy DB/Redis/API; existing edition retains 19 stories/11 real X posts.
@@ -151,3 +141,15 @@ Earlier entries: [progress archive](docs/progress-archive/).
 - pnpm format, pnpm lint:fix, pnpm check, pnpm build, check-observability.ts --verify-o8 --verify-grafana --grafana-agent-only and check-handbook.ts 09-observability passed. No diagram changes.
 - Healthy sources/queues, real articles and stored X across four topics; latest real edition remains Nov 3 15:03 UTC with four topics. Zero alerts/dangling volumes. No paid calls or new editions.
 - TASKS/plan/handbook updated. Next: scheduled social/latency evidence first; otherwise O10 browser errors. O8 is complete with the documented unavailable-counter limits.
+
+## 2026-11-03: iteration 442 — bounded browser error reports
+
+- Started clean on main; no leftovers. Zero alerts/healthy services; next scheduled product evidence remains pending. Completed O10 under items 24/25.
+- Web app reports uncaught errors and unhandled rejections, capped at five per page with no retries. API validates a strict metadata allowlist and accepts 20/minute globally per process; no client/IP map or new service.
+- Reports omit message, stack, rejection value, page URL and user content. Only fixed error categories, optional same-origin bundle basename and bounded line/column are retained; rejection type is Unknown.
+- Added two offline validation/rate-window tests, explicit Playwright synthetic probe and read-only --verify-o10 retained-log check. Probe verified both real browser event types, private text omission and page cap; both event types reached VictoriaLogs.
+- Initial probe exposed CommonJS top-level-await incompatibility; wrapped entry point and reran successfully. Initial lint issues corrected. No visual layout change or diagram change.
+- Updated handbook, observability plan and TASKS; archived iteration 428 to preserve bounded PROGRESS size. No paid calls, new editions, Reddit requests or protected-file edits.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (277 unit/176 isolated integration), pnpm build, check-handbook.ts 09-observability, verify-browser-errors.ts, check-observability.ts --verify-o10 and git diff --check passed. No layout/screenshots or diagrams changed.
+- Restarted API only for its code/web assets; worker/DB/Redis unchanged. Health green, 32 healthy sources/four available queues, articles/stored X across all topics; latest edition remains Nov 3 15:03 UTC/four topics. Zero alerts/dangling volumes.
+- Next: scheduled open-X/Bluesky selections and latency/full-AI evidence take priority. O1–O10 complete within documented limits; O11 is optional, not an implementation commitment.

@@ -246,10 +246,11 @@ only when its check passes.
     start of each iteration, cheaply.
 
   - **Done when:** a test alert fires and `obs alerts` shows it.
-- [ ] **O10 Browser errors.**
+- [x] **O10 Browser errors.**
   - **Scope:** the web app reports `error` and `unhandledrejection` events
     to a rate-limited API endpoint that logs them.
   - **Done when:** a test browser error can be found in the logs.
+  - Iteration 442: browser error/rejection listeners, five reports/page and global 20/minute API cap; strict metadata-only reports omit private text. Real Playwright synthetic events reached VictoriaLogs; `--verify-o10` checks retained records read-only. Explicit probe: `scripts/verify-browser-errors.ts`.
 - [ ] **O11 Optional.** Lightweight tracing, or a Caddy front door so the UIs
       work while the API is down. Only with measured overhead within budget and
       a decision note.

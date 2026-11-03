@@ -14,6 +14,7 @@ import {
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
+import { installBrowserErrors } from './browser-errors';
 import { DigestPreview } from './DigestPreview';
 import { ScheduleSettings } from './ScheduleSettings';
 import { StatusPanel } from './StatusPanel';
@@ -190,6 +191,7 @@ export function App() {
     </main>
   );
 }
+installBrowserErrors();
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <App />

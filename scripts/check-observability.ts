@@ -11,6 +11,42 @@ import { runObs, runObsCli } from './lib/obs-query';
 import { testEnvironment } from './test-suites';
 
 async function main() {
+  if (process.argv.includes('--verify-o10')) {
+    const response = await fetch(
+      'http://127.0.0.1:9428/logs/select/logsql/query',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          query: '_time:1h event:browser.error',
+          limit: '10',
+        }),
+        signal: AbortSignal.timeout(10_000),
+      },
+    );
+    assert.equal(response.status, 200);
+    const rows = (await response.text())
+      .trim()
+      .split('\n')
+      .filter(Boolean)
+      .map((line) => JSON.parse(line) as Record<string, unknown>);
+    assert.ok(
+      rows.some((row) => row.kind === 'error'),
+      'Run the explicit browser probe first; error must reach retained logs',
+    );
+    assert.ok(
+      rows.some((row) => row.kind === 'unhandledrejection'),
+      'Rejection must reach retained logs',
+    );
+    for (const row of rows) {
+      assert.ok(!JSON.stringify(row).includes('PRIVATE_BROWSER_PROBE'));
+      for (const key of ['message', 'stack', 'url', 'reason'])
+        assert.equal(row[key], undefined);
+    }
+    console.log(
+      'O10: bounded browser error and rejection records found in local log store.',
+    );
+  }
   if (process.argv.includes('--verify-o8')) {
     execFileSync('python3', ['ops/observability/test-harness-metrics.py'], {
       stdio: 'pipe',
