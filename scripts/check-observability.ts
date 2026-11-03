@@ -103,6 +103,9 @@ async function main() {
     JSON.stringify({
       requestLog: 'ok',
       workerJobLog: 'ok',
+      externalCallsInJournalSample: logs.filter(
+        (line) => line.event === 'external.call',
+      ).length,
       resources,
       extraServices: 0,
       extraLogStoreBytes: 0,

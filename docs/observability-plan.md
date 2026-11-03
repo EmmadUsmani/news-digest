@@ -138,7 +138,7 @@ Do roughly in this order. Each piece must be useful on its own and is done
 only when its check passes.
 
 - [ ] **O1 Structured logging.**
-  - API/worker JSON request, job and fatal-error logging with context and redaction shipped in iteration 343. External-call instrumentation remains before O1 can be ticked.
+  - API/worker JSON request, job and fatal-error logging with context and redaction shipped in iteration 343. Feed/Hacker News HTTP attempts added in iteration 344 (status, outcome, duration and inherited context; no URLs/bodies). Other provider calls, budget decisions and edition steps remain before O1 can be ticked.
   - **Scope:** pino, request logs, correlation IDs, redaction, error handlers
     and external-call logs in the API and worker. Replace stray
     `console.*` calls.

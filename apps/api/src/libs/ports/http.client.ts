@@ -3,9 +3,11 @@ import { request } from 'node:https';
 import { brotliDecompressSync, gunzipSync, inflateSync } from 'node:zlib';
 
 import type { HttpPort } from '../../modules/ingestion/domain/ports';
+import { logger } from '../observability/logging';
 import { publicAddress, publicFeedUrl } from './public-url';
 // One worker uses this shared client. Domains are serialized with a one-second floor.
 export class SharedHttpClient implements HttpPort {
+  constructor(private readonly log = logger) {}
   private readonly next = new Map<string, number>();
   private readonly cache = new Map<string, { until: number; body: string }>();
   private readonly locks = new Map<string, Promise<unknown>>();
@@ -30,6 +32,46 @@ export class SharedHttpClient implements HttpPort {
       setTimeout(resolve, Math.max(0, (this.next.get(host) ?? 0) - Date.now())),
     );
     this.next.set(host, Date.now() + 1000);
+    const started = performance.now();
+    let status: number | undefined;
+    try {
+      const result = await this.fetchNetwork(url, host, (value) => {
+        status = value;
+      });
+      this.log.info(
+        {
+          event: 'external.call',
+          target:
+            host === 'hacker-news.firebaseio.com' ? 'hacker-news' : 'feed',
+          status,
+          outcome: typeof result === 'string' ? 'success' : 'redirect',
+          durationMs: Math.round(performance.now() - started),
+        },
+        'External HTTP call',
+      );
+      return result;
+    } catch (error) {
+      // Provider URLs and errors may include arbitrary credentials or response text.
+      this.log.warn(
+        {
+          event: 'external.call',
+          target:
+            host === 'hacker-news.firebaseio.com' ? 'hacker-news' : 'feed',
+          status,
+          outcome: 'failure',
+          durationMs: Math.round(performance.now() - started),
+          errorType: error instanceof Error ? error.name : 'UnknownError',
+        },
+        'External HTTP call',
+      );
+      throw error;
+    }
+  }
+  private async fetchNetwork(
+    url: string,
+    host: string,
+    received: (status: number) => void,
+  ): Promise<string | { redirect: string }> {
     const response = await new Promise<import('node:http').IncomingMessage>(
       (resolve, reject) => {
         const req = request(
@@ -63,6 +105,7 @@ export class SharedHttpClient implements HttpPort {
       },
     );
     const status = response.statusCode ?? 0;
+    received(status);
     if ([301, 302, 303, 307, 308].includes(status)) {
       response.destroy();
       if (!response.headers.location) throw new Error('Invalid feed redirect');
