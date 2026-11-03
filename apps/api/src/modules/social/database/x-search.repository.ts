@@ -27,6 +27,37 @@ export class PostgresXSearchRepository implements XSearchRepository {
     );
     return rows;
   }
+  // Persisted evidence for followup planning after a worker restart. Absence,
+  // unfinished verification and historical unknown attribution all fail closed.
+  // Admission must still revalidate this evidence under the shared ledger lock.
+  async completedOpenSearches(day: string) {
+    if (
+      !/^\d{4}-\d{2}-\d{2}$/.test(day) ||
+      !Number.isFinite(Date.parse(day)) ||
+      new Date(day).toISOString().slice(0, 10) !== day
+    )
+      throw new Error('Expected a valid UTC date (YYYY-MM-DD)');
+    const { rows } = await this.db.query<{
+      topicId: string;
+      openCallId: string;
+      openVerifiedAdditions: number;
+    }>(
+      `SELECT t.id AS "topicId",c.id AS "openCallId",
+        (SELECT count(*)::int FROM x_search_citations x JOIN social_posts p
+          ON p.platform='x' AND p.external_id=x.external_id
+          WHERE x.call_id=c.id AND x.topic_id=t.id AND x.new_candidate)
+          AS "openVerifiedAdditions"
+       FROM topics t JOIN x_discovery_calls c ON c.requested_topic->>'id'=t.id::text
+       WHERE t.enabled AND t.post_budget > 0 AND c.scheduled_day=$1::date
+         AND c.optional_parent_id IS NULL AND c.search_type='open-topic'
+         AND c.status='succeeded' AND c.verification_completed_at IS NOT NULL
+         AND NOT EXISTS(SELECT 1 FROM x_search_citations x
+           WHERE x.call_id=c.id AND x.new_candidate IS NULL)
+       ORDER BY t.position,t.id`,
+      [day],
+    );
+    return rows;
+  }
   async verificationCandidates(callId: string): Promise<string[]> {
     const { rows } = await this.db.query<{ external_id: string }>(
       `SELECT c.external_id FROM x_search_citations c

@@ -3,6 +3,7 @@ import { test } from 'node:test';
 
 import { database } from '../src/libs/db/connections';
 import { PostgresXDiscoveryLedger } from '../src/modules/social/database/x-discovery.ledger';
+import { PostgresXSearchRepository } from '../src/modules/social/database/x-search.repository';
 import {
   validateXCaps,
   xDiscoveryCost,
@@ -426,12 +427,25 @@ void test('optional X admission waits for all verified open runs and consumes on
         'story-reactions',
         parents[index],
       );
+    const snapshots = new PostgresXSearchRepository(restartedDb);
+    assert.deepEqual(await snapshots.completedOpenSearches(day), []);
+    await assert.rejects(snapshots.completedOpenSearches('2026-02-30'));
+    assert.deepEqual(await snapshots.completedOpenSearches('2000-01-01'), []);
     assert.equal(await optional(ledger), null);
     for (const id of parents.slice(0, -1))
       await ledger.completeVerification(id);
     assert.equal(await optional(ledger), null);
     await ledger.completeVerification(parents.at(-1)!);
     await ledger.completeVerification(parents[0]); // Idempotent after restart.
+
+    assert.deepEqual(
+      await snapshots.completedOpenSearches(day),
+      topics.map((topic, index) => ({
+        topicId: topic.id,
+        openCallId: parents[index],
+        openVerifiedAdditions: 0,
+      })),
+    );
 
     // Three new verified additions exclude the topic; old citations do not count.
     for (const externalId of externalIds) {
@@ -444,6 +458,10 @@ void test('optional X admission waits for all verified open runs and consumes on
         [parents[0], topics[0].id, externalId],
       );
     }
+    assert.equal(
+      (await snapshots.completedOpenSearches(day))[0].openVerifiedAdditions,
+      3,
+    );
     assert.equal(await optional(ledger), null);
     await db.query(
       'UPDATE x_search_citations SET new_candidate=false WHERE call_id=$1 AND external_id=$2',
@@ -454,9 +472,19 @@ void test('optional X admission waits for all verified open runs and consumes on
       [parents[0], externalIds[0]],
     );
     assert.equal(await optional(ledger), null);
+    assert.equal(
+      (await snapshots.completedOpenSearches(day)).some(
+        (row) => row.openCallId === parents[0],
+      ),
+      false,
+    );
     await db.query(
       'UPDATE x_search_citations SET new_candidate=false WHERE call_id=$1 AND external_id=$2',
       [parents[0], externalIds[0]],
+    );
+    assert.equal(
+      (await snapshots.completedOpenSearches(day))[0].openVerifiedAdditions,
+      2,
     );
     // A budget denial does not consume the optional slot.
     assert.equal(await optional(ledger, 0, 400001), null);

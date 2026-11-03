@@ -237,3 +237,15 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Read-only status: 32 sources error-free, no failed digests; latest social collection completed with 10 verified posts, zero errors.
 - Nov 3 X spend zero; Anthropic reserve pending at $0.482788 with other-spend allowance zero; next edition 15:00 UTC.
 - No paid provider or Reddit requests. Next: scheduled evidence/acks, open-search switch, persisted followup snapshots and scheduler wiring.
+
+## 2026-11-03: iteration 292 — persisted open-search followup evidence
+
+- Started clean on main; no leftover work. Four services/health healthy; 32 sources error-free and no retained failed jobs.
+- Added a read-only repository reader for durable completed primary open-search IDs and incremental currently verified additions per enabled topic/day.
+- Missing/unfinished verification, failed calls and unknown historical attribution cannot produce a completed planning snapshot; ledger admission still revalidates under its lock.
+- Extended disposable-DB integration assertions for restart recovery, zero/three/two additions, unknown attribution and invalid/other dates; no external calls.
+- Production remains account-list pending item 15 scheduled evidence/ack; optional scheduler wiring remains unfinished.
+- Verified: `pnpm format`, `pnpm lint:fix`, `pnpm check` (153 unit/168 integration), `pnpm build`, `git diff --check`.
+- Restarted API/worker/docs/schema; all active, health OK, SPA/docs/db HTTP 200.
+- Read-only Nov 3 X report: zero calls/cost/holds; scheduled evidence still due before the 15:00 UTC edition. No paid provider or Reddit requests.
+- Next: observe scheduled evidence/acks, switch open search, connect persisted followup snapshots to scheduler execution.
