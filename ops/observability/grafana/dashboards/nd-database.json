@@ -1,7 +1,7 @@
 {
   "uid": "nd-database",
   "title": "Database",
-  "description": "Current Postgres statistics for news_digest, independent of the time picker. Counters are cumulative since statistics reset; estimates are not exact row counts. No query text or session details. Top query timing awaits pg_stat_statements (O7).",
+  "description": "Historical aggregate Postgres metrics follow the time picker; SQL tables show current statistics independently. Counters reset with statistics resets; estimates are not exact row counts. No query text or session details. Top query timing awaits pg_stat_statements (O7).",
   "schemaVersion": 41,
   "version": 1,
   "editable": false,
@@ -181,7 +181,7 @@
       "gridPos": {
         "x": 0,
         "y": 16,
-        "w": 12,
+        "w": 24,
         "h": 8
       },
       "targets": [
@@ -205,6 +205,150 @@
         "cellHeight": "sm",
         "footer": {
           "show": false
+        }
+      }
+    },
+    {
+      "id": 6,
+      "title": "Transaction rate",
+      "description": "Five-minute commit rate, including monitoring queries; resets are handled by rate().",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 24,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "rate(pg_stat_database_xact_commit{datname=\"news_digest\"}[5m])",
+          "legendFormat": "commits/s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ops",
+          "min": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 7,
+      "title": "Rollback rate",
+      "description": "Five-minute rollback rate across all clients. Rollbacks do not necessarily indicate an application failure.",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 24,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "rate(pg_stat_database_xact_rollback{datname=\"news_digest\"}[5m])",
+          "legendFormat": "rollbacks/s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ops",
+          "min": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 8,
+      "title": "Database connections",
+      "description": "Current connections to news_digest, including monitoring clients.",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 32,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "pg_stat_database_numbackends{datname=\"news_digest\"}",
+          "legendFormat": "connections"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "min": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 9,
+      "title": "Temporary write rate",
+      "description": "Five-minute temporary-file write rate; excludes ordinary table writes and WAL. Zero is a valid measurement.",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 32,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "rate(pg_stat_database_temp_bytes{datname=\"news_digest\"}[5m])",
+          "legendFormat": "temporary bytes/s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Bps",
+          "min": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
         }
       }
     }

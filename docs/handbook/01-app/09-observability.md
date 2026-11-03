@@ -361,4 +361,8 @@ the existing service metrics. `bash ops/observability/install-postgres.sh`
 reconciles the pinned binary, restricted login, unit and scrape configuration
 without restarting Postgres or the app. `scripts/check-observability.ts --verify-o4`
 checks collection, exported labels, reader restrictions and service limits.
-The Database dashboard continues to use its existing read-only SQL tables.
+The Database dashboard keeps its current read-only SQL tables and adds historical
+connections, commit/rollback rates and temporary-file write rates for news_digest.
+These charts follow the time picker; rates use five-minute windows and handle
+counter resets. Monitoring queries contribute to activity. Zero temporary writes
+is a valid measurement; these charts do not identify slow queries.

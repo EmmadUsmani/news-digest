@@ -201,6 +201,8 @@ export async function checkGrafana() {
     ).filter(
       (file) =>
         file.endsWith('.json') &&
+        (!process.argv.includes('--grafana-database-only') ||
+          file === 'nd-database.json') &&
         (!process.argv.includes('--grafana-jobs-only') ||
           file === 'nd-jobs.json'),
     )) {
@@ -232,6 +234,14 @@ export async function checkGrafana() {
         const result = await response.json();
         assert.equal(result.status, 'success', panel.title);
         if (result.data.result.length > 0) populated++;
+        if (dashboard.uid === 'nd-database') {
+          assert.ok(result.data.result.length > 0, panel.title);
+          for (const series of result.data.result) {
+            assert.equal(series.metric.datname, 'news_digest');
+            assert.ok(Number.isFinite(Number(series.value[1])), panel.title);
+            assert.ok(Number(series.value[1]) >= 0, panel.title);
+          }
+        }
         if (
           dashboard.uid === 'nd-jobs' &&
           panel.title === 'Next registered publication / social run'
@@ -394,6 +404,10 @@ export async function checkGrafana() {
       });
       const listener = (error: Error) => errors.push(error.message);
       page.on('pageerror', listener);
+      await page.setViewportSize({
+        width: 1440,
+        height: dashboard.uid === 'nd-database' ? 2200 : 1100,
+      });
       await page.goto(`${base}/d/${dashboard.uid}?kiosk`, {
         waitUntil: 'networkidle',
         timeout: 60_000,
@@ -435,6 +449,12 @@ export async function checkGrafana() {
         }
       }
 
+      if (dashboard.uid === 'nd-database') {
+        await page
+          .getByRole('columnheader', { name: 'Connections', exact: true })
+          .waitFor();
+        await page.locator('canvas').first().waitFor({ state: 'visible' });
+      }
       if (!['nd-product', 'nd-database'].includes(dashboard.uid))
         await page.locator('canvas').first().waitFor({ state: 'visible' });
       if (dashboard.uid === 'nd-runtime') {
@@ -457,6 +477,40 @@ export async function checkGrafana() {
         panels: dashboard.panels.length,
         populated,
       });
+    }
+    if (process.argv.includes('--grafana-database-only')) {
+      await page.setViewportSize({ width: 390, height: 1000 });
+      await page.goto(`${base}/d/nd-database?kiosk`, {
+        waitUntil: 'networkidle',
+      });
+      for (let attempt = 0; attempt < 20; attempt++) {
+        if (
+          await page
+            .getByRole('heading', { name: 'Transaction rate', exact: true })
+            .count()
+        )
+          break;
+        await page.mouse.wheel(0, 450);
+        await page.waitForTimeout(300);
+      }
+      await page
+        .getByRole('heading', { name: 'Transaction rate', exact: true })
+        .scrollIntoViewIfNeeded();
+      await page.locator('canvas').first().waitFor({ state: 'visible' });
+      assert.equal(
+        await page
+          .locator('[data-testid="data-testid Panel status error"]')
+          .count(),
+        0,
+      );
+      await page.screenshot({
+        path: 'docs/screenshots/grafana-database-history-mobile.png',
+      });
+      return {
+        dashboards: checked,
+        viewer: true,
+        memoryMiB: Math.round(Number(fields.MemoryCurrent) / 1048576),
+      };
     }
     if (process.argv.includes('--grafana-jobs-only')) {
       await captureJobsTiming();
