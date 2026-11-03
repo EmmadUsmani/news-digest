@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
+import type { Job } from 'bullmq';
 import { z } from 'zod';
 
+import { createLogger, logJob } from '../src/libs/observability/logging';
 import {
   AnthropicLlmAdapter,
   isProviderSpendLimit,
@@ -491,6 +493,16 @@ void test('rate-limit delays honor seconds and HTTP dates, with bounded fallback
 });
 
 void test('429 retries share one reservation and successful usage is recorded once', async () => {
+  const lines: string[] = [];
+  const log = createLogger(
+    'test',
+    {
+      write: (line: string) => {
+        lines.push(line);
+      },
+    },
+    [],
+  );
   let calls = 0;
   const waits: number[] = [];
   const adapter = new AnthropicLlmAdapter(
@@ -501,7 +513,10 @@ void test('429 retries share one reservation and successful usage is recorded on
         return new Response(
           JSON.stringify({
             type: 'error',
-            error: { type: 'rate_limit_error', message: 'Rate limited' },
+            error: {
+              type: 'rate_limit_error',
+              message: 'private-provider-body',
+            },
           }),
           {
             status: 429,
@@ -526,12 +541,54 @@ void test('429 retries share one reservation and successful usage is recorded on
       waits.push(ms);
       return Promise.resolve();
     },
+    log,
   );
   const ledger = new MemoryLedger();
   assert.deepEqual(
-    await new BudgetedLlm(adapter, ledger).json(request, valid),
+    await logJob(
+      'digest-generation',
+      () =>
+        new BudgetedLlm(adapter, ledger).json(
+          {
+            ...request,
+            prompt: 'private-prompt',
+            instructions: 'private-instructions',
+          },
+          valid,
+        ),
+      log,
+    )({ id: 'logged-job', name: 'edition', attemptsMade: 0 } as Job),
     { ok: true },
   );
+  const entries = lines
+    .map((line) => JSON.parse(line) as Record<string, unknown>)
+    .filter((line) => line.event === 'external.call');
+  assert.deepEqual(
+    entries.map((entry) => [entry.attempt, entry.outcome, entry.status]),
+    [
+      [1, 'failure', 429],
+      [2, 'failure', 429],
+      [3, 'success', undefined],
+    ],
+  );
+  assert.ok(
+    entries.every(
+      (entry) =>
+        entry.jobId === 'logged-job' &&
+        entry.target === 'anthropic' &&
+        entry.runId === request.runId &&
+        typeof entry.durationMs === 'number',
+    ),
+  );
+  assert.equal(entries[2].costMicros, ledger.calls[0].cost);
+  assert.deepEqual(entries[2].usage, {
+    input: 40,
+    cacheWrite: 0,
+    cacheRead: 0,
+    output: 8,
+  });
+  assert.ok(!lines.join('').includes('private-'));
+  assert.ok(!lines.join('').includes('offline-fixture-key'));
   assert.equal(calls, 3);
   assert.deepEqual(waits, [3000, 3000]);
   assert.equal(ledger.calls.length, 1);

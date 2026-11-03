@@ -1,5 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 
+import { logger } from '../../../libs/observability/logging';
+import { costMicros } from '../domain/budget';
 import {
   LlmPort,
   type LlmRequest,
@@ -44,6 +46,7 @@ export class AnthropicLlmAdapter extends LlmPort {
     fetch?: typeof globalThis.fetch,
     private readonly wait: (ms: number) => Promise<void> = (ms) =>
       new Promise((resolve) => setTimeout(resolve, ms)),
+    private readonly log = logger,
   ) {
     super();
     // Only explicit, rejected rate-limit requests may retry within a reservation.
@@ -61,6 +64,15 @@ export class AnthropicLlmAdapter extends LlmPort {
   }
   private async completeWithRetries(request: LlmRequest): Promise<LlmResponse> {
     for (let attempt = 0; ; attempt++) {
+      const started = performance.now();
+      const fields = {
+        event: 'external.call',
+        target: 'anthropic',
+        model: request.model.id,
+        purpose: request.purpose,
+        runId: request.runId,
+        attempt: attempt + 1,
+      };
       try {
         const response = await this.client.messages.create({
           model: request.model.id,
@@ -74,18 +86,40 @@ export class AnthropicLlmAdapter extends LlmPort {
           ],
           messages: [{ role: 'user', content: request.prompt }],
         });
+        const usage = {
+          input: response.usage.input_tokens,
+          cacheWrite: response.usage.cache_creation_input_tokens ?? 0,
+          cacheRead: response.usage.cache_read_input_tokens ?? 0,
+          output: response.usage.output_tokens,
+        };
+        this.log.info(
+          {
+            ...fields,
+            outcome: 'success',
+            durationMs: Math.round(performance.now() - started),
+            usage,
+            costMicros: costMicros(usage, request.model),
+          },
+          'External HTTP call',
+        );
         return {
           text: response.content
             .flatMap((part) => (part.type === 'text' ? [part.text] : []))
             .join('\n'),
-          usage: {
-            input: response.usage.input_tokens,
-            cacheWrite: response.usage.cache_creation_input_tokens ?? 0,
-            cacheRead: response.usage.cache_read_input_tokens ?? 0,
-            output: response.usage.output_tokens,
-          },
+          usage,
         };
       } catch (error) {
+        // Never log SDK errors: they can contain request headers and response bodies.
+        this.log.info(
+          {
+            ...fields,
+            status:
+              error instanceof Anthropic.APIError ? error.status : undefined,
+            outcome: 'failure',
+            durationMs: Math.round(performance.now() - started),
+          },
+          'External HTTP call',
+        );
         if (
           error instanceof Anthropic.APIError &&
           isProviderSpendLimit(

@@ -216,3 +216,7 @@ Each piece ends with:
 - an update to the handbook's Observability page, which the first piece
   creates in the App section, and to `schema-meta.json` if a read-only role
   or table changes.
+
+O1 incremental progress (345): Anthropic attempts include retry outcomes, run context,
+token usage and computed cost. Provider bodies/prompts are omitted; ledger remains
+authoritative. Other providers, budget decisions and edition steps remain open.
