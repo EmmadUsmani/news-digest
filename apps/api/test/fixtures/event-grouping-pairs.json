@@ -623,6 +623,20 @@
       "right": "705b94d8-f43d-4edb-9045-e17abe39cb75",
       "sameEvent": true,
       "reason": "Both explicitly report the official Sentinel title announcement. Agent-reviewed headlines/excerpts, not independent validation."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "141faa31-16c2-4cf0-a142-1bf5b35e5837",
+      "right": "83b43cd2-61cd-40c4-8dfd-6e93bf2b4f28",
+      "sameEvent": true,
+      "reason": "Same official Sentinel title reveal, with successor framing. Agent-reviewed stored headlines/excerpts, not independent validation."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "33918da0-5e59-40b6-a34a-fdbdeb6fe369",
+      "right": "83b43cd2-61cd-40c4-8dfd-6e93bf2b4f28",
+      "sameEvent": true,
+      "reason": "Same official Sentinel title reveal, with successor framing. Agent-reviewed stored headlines/excerpts, not independent validation."
     }
   ]
 }

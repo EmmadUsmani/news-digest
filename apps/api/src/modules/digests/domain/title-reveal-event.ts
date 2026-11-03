@@ -11,9 +11,15 @@ function revealedTitle(candidate: Candidate): string | null {
     )
   )
     return null;
+  // A successor framing still names the announced game after "as".
+  // Anchor both ends so a trailer, release date or other event cannot qualify.
+  const reframed = /^.+? successor finally re-revealed as (.+)$/.exec(title);
+  const announcement = reframed
+    ? `${reframed[1]} is finally made official`
+    : title;
   const match =
     /^(?:the )?([\p{L}][\p{L} '-]{1,60} (?:[1-9]\d?|ii|iii|iv|v|vi|vii|viii|ix|x): [\p{L}][\p{L} '-]{1,50}?) (?:[–—-] official (?:name|title) reveal trailer|is finally made official|title officially revealed)(?:$|[,.:])/u.exec(
-      title,
+      announcement,
     );
   if (!match) return null;
   const numerals: Record<string, string> = {

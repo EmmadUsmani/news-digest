@@ -1074,3 +1074,17 @@ The benchmark now has 89 pairs (48 positive/41 negative): lexical 6/48, game-onl
 zero unknown merges or membership variation across 34 deterministic orders each.
 These agent-reviewed labels are not independent validation; the narrow supported
 headline forms still miss broader paraphrases and do not establish outlet independence.
+
+## Iteration 455: successor framing in title reveals
+
+The opt-in title-reveal matcher also accepts “successor finally re-revealed as”
+headlines when they name the complete sequel and subtitle. Existing uncertainty,
+historical language and time guards still apply. Different sequel/subtitle names
+and release-date announcements stay separate. Production grouping stays disabled.
+
+The stored Push Square Sentinel headline/excerpt describes the same official title
+announcement as the three previously matched stories. Two newly reviewed positive
+pairs complete its labels; these are agent judgments, not independent validation.
+The 91-pair benchmark now has 50 positives and 41 negatives: lexical 6/50, game-only
+10/50, combined opt-in 22/50, zero labeled false merges. All six windows retain zero
+unknown merges and no membership variation across 34 deterministic orders each.

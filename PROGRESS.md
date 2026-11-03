@@ -1,14 +1,3 @@
-## 2026-11-03: iteration 439 — supervisor status dashboard
-
-- Started clean on main; no leftovers. Health/alerts green; product acceptance still awaits next scheduled edition. Advanced O8 under items 24/25.
-- Agent dashboard adds eight read-only panels: reported iteration, previous exit code, no-progress streak, weekly quota, heartbeat/quota observation ages, per-file read success and reported UTC start. Existing six cgroup panels retained.
-- Missing status displays Unknown; observations can be stale, reads do not prove freshness and heartbeat age is not liveness. No inferred duration/tokens/commits/pacing; protected harness files unchanged.
-- Extended check-observability Grafana verification with agent-only mode, finite populated samples and desktop/mobile screenshots; inspected both. Final --verify-o8 --verify-grafana --grafana-agent-only passed 14/14 panels, Viewer grants and memory ceiling (205 MiB).
-- Initial checks caught provisioning reload lag, an obsolete unit-label assertion and mobile lazy rendering; corrected checker and final browser verification passed.
-- pnpm format, pnpm lint:fix, pnpm check (275 unit/176 isolated integration), pnpm build and check-handbook.ts 09-observability passed; git diff --check clean. No diagram changes.
-- Installed only dashboard JSON; Grafana hot-loaded it without restart. App/DB/Redis unchanged. Zero alerts/dangling volumes; healthy sources/queues and all-topic articles/stored X. Latest real edition remains 19 stories/11 posts; no paid calls/new editions.
-- TASKS/plan/handbook updated. O8 remains open for available duration/token/commit/pacing evidence; next scheduled social/latency evidence takes priority, then O10 browser errors.
-
 ## 2026-11-03: iteration 440 — bounded supervisor completion and retry observations
 
 - Started clean on main; no leftovers. Health/alerts green; scheduled social/latency acceptance still awaits the next run. Advanced O8 under items 24/25.
@@ -161,3 +150,14 @@
 - pnpm format, pnpm lint:fix, pnpm check (290 unit/176 isolated integration), pnpm build, systemd-analyze verify, handbook check (17 pages/25 tables) and git diff --check passed. Zero dangling Docker volumes.
 - Updated affected handbook/observability plan/TASKS; archived iteration 438 to keep PROGRESS bounded. No UI changes, paid calls, new editions or Reddit requests.
 - Next: Nov 4 social selections/screenshots, World yield and latency/full-AI evidence; grouping recall/independent labels remain open. Monitor cache memory across longer uptime.
+
+## 2026-11-03: iteration 455 — recognize successor-framed title reveals
+
+- Started clean on main; no leftovers. Zero alerts and healthy API/DB/Redis, sources and scheduled collectors. Next scheduled social/latency evidence remains pending; advanced item 19.
+- Opt-in game-title grouping now accepts “successor finally re-revealed as” with full sequel/subtitle identity, existing uncertainty/history exclusions and a 36-hour bound. Production grouping remains disabled.
+- Stored Push Square Sentinel report joins three title-reveal reports. Reviewed two missing positive pairs: benchmark 91 pairs, combined 22/50 positives, zero/41 false merges, zero unknown merges/order variation across 34 orders/window. Agent labels are not independent validation.
+- Added synthetic guards for different sequels/subtitles, release-date news, rumors and history. Targeted tests initially exposed an outdated fixture-count assertion; corrected before rerun.
+- Verification: targeted grouping 20/20; pnpm format, pnpm lint:fix, pnpm check (290 unit/176 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
+- Restarted API/worker; pnpm obs health --check passed, root HTTP 200, zero alerts. pnpm obs jobs --check and pnpm obs sources --check passed before deploy.
+- Updated TASKS/RANKING; archived iteration 439 to keep PROGRESS bounded. No production flow/UI change, paid calls, new editions or Reddit requests.
+- Next: Nov 4 social selections/screenshots, World yield and latency/full-AI evidence; broader Gaming recall/independent labels remain open.

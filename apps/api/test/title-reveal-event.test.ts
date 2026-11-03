@@ -23,6 +23,7 @@ void test('explicit title reveals match full sequel and subtitle across numeral 
   );
   for (const title of [
     'Example Quest 6: Horizon is finally made official',
+    "Old Quest's Successor Finally Re-Revealed as The Example Quest VI: Horizon",
     'The Example Quest 6: Horizon Title Officially Revealed, Set 5 Years After Example Quest',
   ]) {
     const other = item(title);
@@ -42,6 +43,24 @@ void test('title reveals reject different identities, secondary news, uncertaint
     'The Example Quest VI: Horizon – Official Name Reveal Trailer',
   );
   for (const other of [
+    item(
+      "Old Quest's Successor Finally Re-Revealed as Example Quest 7: Horizon",
+    ),
+    item(
+      "Old Quest's Successor Finally Re-Revealed as Example Quest 6: Sunset",
+    ),
+    item(
+      "Old Quest's Successor Finally Re-Revealed as Example Quest 6: Horizon release date",
+    ),
+    item(
+      "Old Quest's Successor Finally Re-Revealed as Example Quest 6: Horizon, rumor",
+    ),
+    item(
+      "Old Quest's Successor Finally Re-Revealed as Example Quest 6: Horizon in 2020",
+    ),
+    item(
+      "Old Quest's Successor Finally Re-Revealed as Example Quest 6: Horizon years ago",
+    ),
     item('Example Quest 7: Horizon is finally made official'),
     item('Other Quest 6: Horizon is finally made official'),
     item('Example Quest 6: Sunset is finally made official'),
@@ -63,7 +82,7 @@ void test('title reveals reject different identities, secondary news, uncertaint
 
 void test('recorded title-reveal clusters preserve labels and membership in both directions', () => {
   const result = evaluateEventGrouping(sameEventWithStudioClosure);
-  assert.equal(result.truePositives, 19);
+  assert.equal(result.truePositives, 22);
   assert.equal(result.falsePositives, 0);
   assert.deepEqual(
     evaluateEventGrouping((a, b) => sameEventWithStudioClosure(b, a)),

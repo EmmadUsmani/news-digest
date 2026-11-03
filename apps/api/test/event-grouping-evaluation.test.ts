@@ -9,8 +9,8 @@ import { sameEventWithGameScore } from '../src/modules/digests/domain/game-event
 
 void test('recorded strict event labels expose false merges and missed paraphrases', () => {
   const result = evaluateEventGrouping();
-  assert.equal(result.pairs, 89);
-  assert.equal(result.positives, 48);
+  assert.equal(result.pairs, 91);
+  assert.equal(result.positives, 50);
   assert.equal(result.negatives, 41);
   assert.equal(result.falsePositives, 0);
   assert.ok(
@@ -166,11 +166,11 @@ void test('November 3 Gaming reveals expose recall gaps without merging separate
     const window = result.windows.find(
       (row) => row.window === 'event-grouping-gaming-2026-11-03.json',
     )!;
-    assert.equal(window.positives, 16);
+    assert.equal(window.positives, 18);
     assert.equal(window.negatives, 13);
     assert.equal(window.truePositives, 0);
     assert.equal(window.falsePositives, 0);
-    assert.equal(window.membership.missedPositivePairs, 16);
+    assert.equal(window.membership.missedPositivePairs, 18);
     assert.equal(window.membership.permutationCheck.orderSensitivePairs, 0);
     assert.equal(window.membership.permutationCheck.maxFalsePositives, 0);
     assert.equal(window.membership.permutationCheck.maxUnlabeledMergedPairs, 0);
