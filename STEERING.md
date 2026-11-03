@@ -546,6 +546,10 @@ no scraping.
 
 ## 19. NEXT: group duplicate stories (2026-11-02)
 
+> **Superseded by item 26 (2026-11-03):** no wording rules in code; grouping
+> is decided by an AI pass. The bullets below about non-AI clustering no
+> longer apply.
+
 After item 18. An edition shouldn't show near-duplicate stories from
 different outlets about the same event.
 - **Cluster articles about the same event:** shared links or X citations,
@@ -670,3 +674,60 @@ for the owner and query APIs plus an `obs` CLI for the agent.
     other alerts in the plan, and `obs alerts` at iteration start.
   - Grafana uses about 280 MB, which puts the stack slightly over budget.
     Trim it if that's easy (disable unused plugins and features).
+
+## 26. Story grouping: remove wording rules, use AI (2026-11-03)
+
+Supersedes item 19's approach. **The owner does not want hand-written wording
+rules for grouping anywhere in the codebase.**
+
+**Priority:** first check the Nov 4 scheduled run and fix item 7 (NBA's AI
+fallback and the 232 s edition). Then do this item, removal first.
+
+**1. Remove (small, do it first):**
+- `sameEvent`'s word-overlap, verb-list and number-order logic in
+  `domain/cluster.ts`;
+- `studio-event.ts`, `game-event.ts`, `preload-event.ts`,
+  `remake-event.ts`, `title-reveal-event.ts` and their tests;
+- `EDITION_EVENT_GROUPING_ENABLED`, and the rule-specific parts of
+  `scripts/evaluate-event-grouping.ts`.
+- **Keep:**
+  - the generic plumbing that groups by any matcher;
+  - the edition's "also covered by" coverage links;
+  - the 60 labelled pairs in `event-grouping-pairs.json`, as the evaluation
+    set.
+- **Until the AI pass ships, production does no grouping.** Same-URL dedupe
+  at ingestion stays. Update RANKING.md, the handbook and the golden
+  fixtures to match.
+
+**2. Build the AI pass:**
+- **One Haiku call per topic** over the ranked shortlist (about 25–40
+  candidates: id, title, outlet, time, short excerpt). It returns groups of
+  ids that report the same real-world event. The instructions say that when
+  unsure, it keeps them separate, because precision matters more than
+  recall.
+- **Hints, owner-approved:** pairs that share an outbound link or cite the
+  same X post are passed in the prompt as hints. The model decides; code
+  never merges on them.
+- **Validate the answer:**
+  - only known ids;
+  - each id in at most one group;
+  - nothing across topics.
+- **If the answer is invalid, or AI is unavailable or over budget, skip
+  grouping;** the edition still publishes.
+- **Budget:** part of the edition's normal AI budget, through the ledger
+  and `llm_cache`. Measure its real cost and resize the scheduled reserve if
+  needed.
+- **Ranking:** cluster size as a ranking signal comes later, only after
+  activation proves accurate.
+
+**3. Evaluate, then activate:**
+- **Run it once offline,** capped at $0.10 and outside 13:00–16:00 UTC,
+  on:
+  - the 60 labelled pairs;
+  - one newly labelled recent day it hasn't seen.
+- **Report precision and recall.** Activate only with **zero wrong merges**
+  and recall clearly above the old 13/32. Then show a real edition with
+  screenshots.
+- **If it can't meet that, park item 19:** say so here, and leave no
+  grouping code behind except the generic plumbing.
+- Ack here when the removal ships, and again at activation or parking.
