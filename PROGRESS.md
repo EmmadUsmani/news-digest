@@ -6,24 +6,7 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 
 Earlier entries: [iteration 385](docs/progress-archive/2026-11-03-iteration-385.md), [iteration 386](docs/progress-archive/2026-11-03-iteration-386.md).
 
-## 2026-11-03: iteration 389 — social-platform selection visibility
-
-- Started clean on main; no leftover work. Services/health green, 32 sources without current errors. Nov 3 scheduled evidence/acks remain due 15:00 UTC.
-- Product dashboard adds per-topic X/Bluesky/Reddit/other selections for seven recent immutable editions, including manual revisions. Empty/missing post arrays retain zero rows; unknown platforms remain separate. Selection counts are not engagement or discovery yield.
-- Uses existing restricted reader grants; no provider calls, production content/config changes or service restarts. Updated handbook/observability plan; archived iteration 377.
-- Read-only SQL fixture returned expected mixed counts (2/1/1/2, total 6) and zero counts for empty/missing arrays. Live query, Viewer permissions and desktop/mobile browser checks verified with `pnpm exec tsx scripts/check-observability.ts --verify-grafana`.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (238 unit/172 integration), `pnpm build`, handbook 09 and `git diff --check` passed.
-- Live edition timing evidence complete; prior scheduled outcome remains fallback, not fresh AI timing. No paid calls, Reddit requests, cap/schedule or activation changes.
-- Next: collect and ack Nov 3 scheduled cost/yield/AI timing; activation stays gated.
-
-## 2026-11-03: iteration 390 — recent edition selection history
-
-- Started clean on main; no leftover work. Services/health green, 32 sources without current errors and no failed digest jobs; two historical ingestion failures remain recovered. Nov 3 scheduled evidence/acks still due 15:00 UTC.
-- Product selection coverage now spans seven immutable editions with edition identity/time and stored story candidate counts, alongside picks, scored/unscored counts and editorial outcomes. Includes manual revisions; absent post candidate counts/editorial metadata stay unknown, empty selections are zero.
-- Read-only SQL fixture verified six populated/empty/missing story/post rows. Live queries and restricted Viewer permissions passed `pnpm exec tsx scripts/check-observability.ts --verify-grafana`; desktop/mobile screenshots reviewed, including a focused mobile candidate-column check.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (238 unit/172 integration), `pnpm build`, handbook 09 and `git diff --check` passed; final formatting/lint repeated after screenshot-scroll adjustment.
-- Updated handbook/observability plan/TASKS; existing reader grants suffice. Grafana reloaded its dashboard; no running application code/config changed, so no service restarts. No provider calls or content/cap/schedule/activation changes.
-- Next: collect and ack Nov 3 scheduled cost/yield/AI timing; production activation stays gated.
+Earlier entries: [iterations 389–390](docs/progress-archive/2026-11-03-iterations-389-390.md).
 
 ## 2026-11-03: iteration 391 — supervisor resource dashboard
 
@@ -120,3 +103,12 @@ Earlier entries: [iteration 385](docs/progress-archive/2026-11-03-iteration-385.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (247 unit/172 integration) and `pnpm build` passed. Handbook 09 and `git diff --check` passed. No UI/diagram changes; no screenshots needed.
 - Updated handbook/plan/TASKS; archived iteration 388. No running service code/config changed, so no restart under STEERING 22. No paid calls, Reddit requests or production-content/cap/schedule/activation changes.
 - Next: collect/ack Nov 3 scheduled cost/yield/AI timing first; O7 top queries, O8 per-iteration metrics and O9 alerts remain.
+
+## 2026-11-03: iteration 401 — follow worker jobs through retained logs
+
+- Started clean on main; no leftover work. Health/services green, all 32 sources collecting without current errors, no failed digest/social jobs; two historical ingestion failures remain. Scheduled evidence/activation remains gated on 15:00 UTC.
+- Added exact `--job` and `--queue` log/error filters to `pnpm obs`, combining with existing bounded time/service/edition/message queries. IDs are escaped and bounded; queue names validated before network access. Retries share the job ID; no inferred attribution, related-job expansion or provider calls.
+- Offline tests cover recurring IDs, query operators, backslashes, invalid/duplicate options and errors filtering. `pnpm exec tsx scripts/check-observability.ts --verify-cli` passed against four healthy queues/eight scrape targets, correlated two real worker records and confirmed an absent ID returns none.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (248 unit/172 integration), `pnpm build`, handbook 09 and `git diff --check` passed. No UI/diagram changes or screenshots needed.
+- Updated handbook/plan/TASKS; archived iterations 389–390. Only CLI/tests/docs changed, so no service restart under STEERING 22. Read-only edition timing evidence remains complete: retained scheduled worker 856 ms fallback, not a fresh AI latency claim; next run 15:00 UTC.
+- No paid calls, Reddit requests or production-content/cap/schedule/activation changes. Next: collect/ack Nov 3 scheduled cost/yield/AI timing first; O7 top queries, O8 per-iteration metrics and O9 alerts remain.

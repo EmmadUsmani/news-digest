@@ -79,6 +79,54 @@ async function main() {
       .map((line) => JSON.parse(line));
     assert.ok(logs.length > 0 && logs.length <= 2);
     assert.ok(logs.every((line) => line.service === 'worker'));
+    const jobSamples = (
+      await runObs([
+        'logs',
+        '--service',
+        'worker',
+        '--grep',
+        'Job finished',
+        '--limit',
+        '2',
+      ])
+    )
+      .trim()
+      .split('\n')
+      .filter(Boolean)
+      .map((line) => JSON.parse(line));
+    const job = jobSamples.find((line) => line.jobId && line.queue);
+    assert.ok(job, 'No recent completed worker job for correlation check');
+    const correlated = (
+      await runObs([
+        'logs',
+        '--queue',
+        job.queue,
+        '--job',
+        job.jobId,
+        '--limit',
+        '20',
+      ])
+    )
+      .trim()
+      .split('\n')
+      .filter(Boolean)
+      .map((line) => JSON.parse(line));
+    assert.ok(correlated.length > 0 && correlated.length <= 20);
+    assert.ok(
+      correlated.every(
+        (line) => line.jobId === job.jobId && line.queue === job.queue,
+      ),
+    );
+    const absent = await runObs([
+      'logs',
+      '--queue',
+      job.queue,
+      '--job',
+      `${job.jobId}-absent`,
+      '--limit',
+      '1',
+    ]);
+    assert.equal(absent.trim(), '', 'Job filter must not match an ID prefix');
     await runObs(['errors', '--since', '5m', '--limit', '1']);
     console.log(
       JSON.stringify({
@@ -86,6 +134,7 @@ async function main() {
         queues: jobs.queues.length,
         scrapeTargets: metrics.data.result.length,
         workerLogs: logs.length,
+        correlatedJobLogs: correlated.length,
         mutations: 0,
       }),
     );

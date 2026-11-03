@@ -395,6 +395,7 @@ or provider calls. These commands also work over SSH:
 - `pnpm obs logs --service worker --since 1h --limit 40` shows newest logs first.
 - `pnpm obs errors --since 1h` selects error and fatal records.
 - `pnpm obs logs --edition UUID` finds records explicitly attributed to an edition.
+- `pnpm obs logs --queue digest-generation --job ID` follows one job across worker and provider records that carry its identity.
 - `pnpm obs logs --grep 'Job finished'` matches message text literally.
 - `pnpm obs metric 'up'` runs an instant PromQL query.
 - `pnpm obs jobs` shows all queue summaries, next scheduled times and up to five retained runs per queue.
@@ -402,6 +403,7 @@ or provider calls. These commands also work over SSH:
 
 Log results default to 40 records and are capped at 200. Edition filtering does
 not expand to related job/run IDs; older records may lack edition attribution.
+Job and queue log filters match whole field values; use both because different queues can reuse job IDs. Retries share a job ID, so this includes their retained records too. These filters can combine with errors, service, edition and message filters; they do not fetch related jobs or infer missing attribution.
 Job limits range from 1 to 20 per queue. Filters apply before the limit and keep
 queue availability, counts and next-run information. Output includes retained,
 matching and omitted run counts for the status snapshot. It preserves the API's

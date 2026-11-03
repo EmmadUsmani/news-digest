@@ -38,6 +38,13 @@ void test('obs rejects malformed inputs before any network access', async () => 
     ['logs', '--since', '1h | delete'],
     ['logs', '--service', 'other'],
     ['logs', '--edition', 'invalid'],
+    ['logs', '--queue', 'unknown'],
+    ['logs', '--job', ''],
+    ['logs', '--job', '   '],
+    ['logs', '--job', 'a'.repeat(201)],
+    ['logs', '--job', 'line\nbreak'],
+    ['logs', '--job'],
+    ['errors', '--job', '1', '--job', '2'],
     ['logs', '--limit', '201'],
     ['logs', '--limit', '0'],
     ['logs', '--since'],
@@ -149,4 +156,32 @@ void test('obs bounds retained job output after filtering while preserving queue
   assert.equal(empty.queues[0].matchingRuns, 0);
   assert.equal(empty.queues[0].counts.failed, 2);
   assert.equal(calls, 3);
+});
+
+void test('obs correlates job logs with an exact queue and escaped job identity', () => {
+  for (const job of [
+    '42',
+    'repeat:heartbeat:1793700000000',
+    '" | limit 9999',
+    'a\\b',
+  ]) {
+    const request = obsRequest([
+      'logs',
+      '--queue',
+      'operations',
+      '--job',
+      job,
+      '--limit',
+      '3',
+    ]);
+    const query = (request.init?.body as URLSearchParams).get('query');
+    assert.equal(
+      query,
+      `_time:1h queue:="operations" jobId:=${JSON.stringify(job)} | sort by (_time) desc | limit 3`,
+    );
+  }
+  const request = obsRequest(['errors', '--job', '42']);
+  const query = (request.init?.body as URLSearchParams).get('query')!;
+  assert.match(query, /level:in/);
+  assert.ok(query.includes('jobId:="42"'));
 });

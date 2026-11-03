@@ -1,5 +1,12 @@
 import type { OperationsStatus } from '@digest/contracts';
 
+const queueNames = [
+  'operations',
+  'ingestion',
+  'digest-generation',
+  'social-collection',
+];
+
 // Only local, read-only query endpoints. Never schedule work or read credentials.
 export function obsRequest(args: string[]): {
   url: string;
@@ -16,16 +23,22 @@ export function obsRequest(args: string[]): {
     };
   if (command !== 'logs' && command !== 'errors')
     throw new Error(
-      'Use: pnpm obs logs|errors [--since 1h] [--service worker] [--edition UUID] [--grep text] [--limit 40]; pnpm obs jobs [--queue name] [--state failed] [--limit 5]; pnpm obs metric <PromQL>',
+      'Use: pnpm obs logs|errors [--since 1h] [--service worker] [--edition UUID] [--queue name] [--job ID] [--grep text] [--limit 40]; pnpm obs jobs [--queue name] [--state failed] [--limit 5]; pnpm obs metric <PromQL>',
     );
   const options = new Map<string, string>();
   for (let i = 0; i < rest.length; i += 2) {
     const key = rest[i];
     const value = rest[i + 1];
     if (
-      !['--since', '--service', '--edition', '--grep', '--limit'].includes(
-        key,
-      ) ||
+      ![
+        '--since',
+        '--service',
+        '--edition',
+        '--queue',
+        '--job',
+        '--grep',
+        '--limit',
+      ].includes(key) ||
       value === undefined ||
       options.has(key)
     )
@@ -66,6 +79,17 @@ export function obsRequest(args: string[]): {
     )
       throw new Error('Invalid edition UUID');
     filters.push(`editionId:${JSON.stringify(edition)}`);
+  }
+  const queue = options.get('--queue');
+  if (queue !== undefined) {
+    if (!queueNames.includes(queue)) throw new Error('Unknown queue');
+    filters.push(`queue:=${JSON.stringify(queue)}`);
+  }
+  const job = options.get('--job');
+  if (job !== undefined) {
+    if (!job.trim() || job.length > 200 || /[\u0000-\u001f\u007f]/.test(job))
+      throw new Error('--job must contain 1–200 characters without controls');
+    filters.push(`jobId:=${JSON.stringify(job)}`);
   }
   const grep = options.get('--grep');
   if (grep !== undefined) {
@@ -137,15 +161,7 @@ function jobOptions(args: string[]) {
     options.set(key, value);
   }
   const queue = options.get('--queue');
-  if (
-    queue !== undefined &&
-    ![
-      'operations',
-      'ingestion',
-      'digest-generation',
-      'social-collection',
-    ].includes(queue)
-  )
+  if (queue !== undefined && !queueNames.includes(queue))
     throw new Error('Unknown queue');
   const state = options.get('--state');
   if (

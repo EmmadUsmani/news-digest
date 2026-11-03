@@ -223,6 +223,7 @@ only when its check passes.
 - [ ] **O9 Alerts and `obs` CLI.**
   - Iteration 399: `pnpm obs` ships read-only logs/errors, instant metrics and queue-state queries. Literal message/service/edition filters, bounded log results and offline/runtime verification; alerts and start-of-iteration instructions remain pending. No O9 completion claim.
   - Iteration 400: queue/state filters and bounded job history (five default, twenty maximum per queue), with snapshot/matching/omitted counts; queue health and aggregate counts survive filtering. Offline and runtime CLI checks cover limits and selection.
+  - Iteration 401: exact job/queue log filters correlate retained attempts and inherited provider records without expanding IDs or enqueuing work. Escaping/validation tests and live positive/absent-ID queries verify selection; retries share an identity.
   - **Scope:** vmalert rules for:
     - disk over 80%;
     - a `news-digest-*` or `obs-*` unit down;
