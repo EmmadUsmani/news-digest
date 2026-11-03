@@ -250,7 +250,7 @@ export async function checkGrafana() {
         0,
       );
       assert.deepEqual(errors, []);
-      if (dashboard.uid !== 'nd-product')
+      if (!['nd-product', 'nd-database'].includes(dashboard.uid))
         await page.locator('canvas').first().waitFor({ state: 'visible' });
       await page.screenshot({
         path: `docs/screenshots/grafana-${dashboard.uid}-desktop.png`,
@@ -280,6 +280,25 @@ export async function checkGrafana() {
     );
     await page.screenshot({
       path: 'docs/screenshots/grafana-product-mobile.png',
+    });
+    await page.goto(`${base}/d/nd-database?kiosk`, {
+      waitUntil: 'networkidle',
+    });
+    await page
+      .getByRole('heading', {
+        name: 'Database activity since statistics reset',
+        exact: true,
+      })
+      .waitFor();
+    await page.waitForTimeout(1500);
+    assert.equal(
+      await page
+        .locator('[data-testid="data-testid Panel status error"]')
+        .count(),
+      0,
+    );
+    await page.screenshot({
+      path: 'docs/screenshots/grafana-database-mobile.png',
     });
     await page.goto(`${base}/d/nd-host?kiosk`, { waitUntil: 'networkidle' });
     await page

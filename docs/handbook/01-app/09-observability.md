@@ -229,7 +229,7 @@ details remain in the jobs browser.
 ## Grafana dashboards
 
 Open [/grafana/](/grafana/) and choose **Dashboards → News Digest** for Host,
-Services, HTTP, Jobs, Errors and logs, and Product. The operational dashboards use the local metrics store; Host shows CPU,
+Services, HTTP, Jobs, Errors and logs, Product and Database. The operational dashboards use the local metrics store; Host shows CPU,
 memory, disk and network, Services shows unit and Node health, HTTP shows
 request and external-attempt rates and latency, and Jobs shows retained queue
 state, schedules and processor attempts. Dashboard descriptions explain what
@@ -246,6 +246,14 @@ lifecycle rows. These table windows are explicit and ignore the Grafana time pic
 AI mode can use cached work; verified citations are not incremental discovery yield.
 Configured caps, reserve amounts, available funds and worker duration remain in the
 app's **Source & run status** panel; Product does not infer them from ledger rows.
+
+Database uses the same restricted Postgres connection for current system statistics:
+connections, transactions, deadlocks, temporary bytes, shared-buffer hit ratio,
+allocated table/index sizes, estimated live/dead rows, vacuum/analyze timestamps
+and aggregate locks. Counters are cumulative since the displayed statistics reset;
+row counts are estimates, and null maintenance dates mean no retained observation.
+These snapshots ignore the time picker and reveal no SQL or session details.
+Top-query timing requires the later database instrumentation work.
 
 Grafana is a loopback-only service on port 3001, forwarded through the private
 app. Anonymous access is Viewer access behind the exe.dev login; login and
@@ -271,5 +279,5 @@ Verify with `pnpm exec tsx scripts/check-observability.ts --verify-grafana
 panel query responses and populated dashboards, renders desktop/mobile views
 with Playwright and saves screenshots in `docs/screenshots/`. No paid calls
 or content jobs are triggered. Reader privileges and denied access to cache/article
-text are also checked. Database, Redis and agent
-dashboards remain pending their data connections and later observability work.
+text are also checked. Redis and agent dashboards remain pending their data
+connections and later observability work; Database top-query timing is also pending.

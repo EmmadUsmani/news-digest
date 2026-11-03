@@ -1,0 +1,219 @@
+{
+  "uid": "nd-database",
+  "title": "Database",
+  "description": "Current Postgres statistics for news_digest, independent of the time picker. Counters are cumulative since statistics reset; estimates are not exact row counts. No query text or session details. Top query timing awaits pg_stat_statements (O7).",
+  "schemaVersion": 41,
+  "version": 1,
+  "editable": false,
+  "tags": ["news-digest"],
+  "timezone": "utc",
+  "refresh": "5m",
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "panels": [
+    {
+      "id": 1,
+      "title": "Database activity since statistics reset",
+      "description": "Database-wide cumulative counters; cache ratio covers shared buffer hits only, not operating-system cache. Null ratio means no blocks observed.",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "product-postgres"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT numbackends AS \"Connections\", xact_commit AS \"Commits\", xact_rollback AS \"Rollbacks\", deadlocks AS \"Deadlocks\", temp_bytes AS \"Temporary bytes\", round(100.0*blks_hit/nullif(blks_hit+blks_read,0),2) AS \"Buffer hit %\", stats_reset AS \"Statistics reset (UTC)\" FROM pg_stat_database WHERE datname=current_database()",
+          "editorMode": "code",
+          "sql": {
+            "limit": 100
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 2,
+      "title": "Current database and relation sizes",
+      "description": "Allocated main, index and TOAST storage; excludes WAL and other databases.",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "product-postgres"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT pg_database_size(current_database()) AS \"Database bytes\", coalesce(sum(pg_table_size(relid)),0) AS \"Tables and TOAST bytes\", coalesce(sum(pg_indexes_size(relid)),0) AS \"Index bytes\" FROM pg_stat_user_tables",
+          "editorMode": "code",
+          "sql": {
+            "limit": 100
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 3,
+      "title": "Largest relations and row estimates",
+      "description": "Twenty largest user tables, including indexes and TOAST. Live/dead rows are statistics estimates. Scan counters reset with statistics.",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "product-postgres"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 8,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT relname AS \"Table\", pg_total_relation_size(relid) AS \"Total bytes\", pg_indexes_size(relid) AS \"Index bytes\", n_live_tup AS \"Estimated live rows\", n_dead_tup AS \"Estimated dead rows\", seq_scan AS \"Sequential scans\", idx_scan AS \"Index scans\" FROM pg_stat_user_tables ORDER BY pg_total_relation_size(relid) DESC,relname LIMIT 20",
+          "editorMode": "code",
+          "sql": {
+            "limit": 100
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 4,
+      "title": "Vacuum and analyze snapshots",
+      "description": "Twenty tables with the largest estimated dead-row counts. Null timestamps mean no retained observation; they do not prove maintenance never ran.",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "product-postgres"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 8,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT relname AS \"Table\", n_dead_tup AS \"Estimated dead rows\", last_vacuum AS \"Manual vacuum (UTC)\", last_autovacuum AS \"Autovacuum (UTC)\", last_analyze AS \"Manual analyze (UTC)\", last_autoanalyze AS \"Autoanalyze (UTC)\" FROM pg_stat_user_tables ORDER BY n_dead_tup DESC,relname LIMIT 20",
+          "editorMode": "code",
+          "sql": {
+            "limit": 100
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 5,
+      "title": "Current locks by type and mode",
+      "description": "Aggregated granted and waiting locks for this database. No SQL, process IDs, users or session details. Empty result means no observed matching locks.",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "product-postgres"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 16,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT locktype AS \"Type\", mode AS \"Mode\", count(*) FILTER (WHERE granted) AS \"Granted\", count(*) FILTER (WHERE NOT granted) AS \"Waiting\" FROM pg_locks WHERE database=(SELECT oid FROM pg_database WHERE datname=current_database()) GROUP BY locktype,mode ORDER BY locktype,mode",
+          "editorMode": "code",
+          "sql": {
+            "limit": 100
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    }
+  ],
+  "links": [
+    {
+      "title": "App Status",
+      "url": "/",
+      "targetBlank": true
+    }
+  ]
+}

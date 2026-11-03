@@ -109,3 +109,12 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (232 unit/172 integration), `pnpm build`, handbook 09, installer shell syntax and `git diff --check` passed. Final `--verify-grafana --verify-o4`: 31 queries valid, 28 populated, six targets healthy; Product desktop/mobile captures visually inspected.
 - Restarted Grafana only for datasource provisioning; dashboards hot-reload. App/docs/schema/DB/Redis unchanged. Grafana ~133 MiB; combined observability ~356 MiB/~1.8% startup-average CPU. Retained real edition: four topics, 20 stories, 10 posts. No paid calls, Reddit requests or production content/spending-setting changes.
 - Next: scheduled evidence/acks first; otherwise remaining O6 Database/Redis/Agent connections and Product cap/timing coverage. Production activation stays gated.
+
+## 2026-11-03: iteration 368 — read-only Database dashboard
+
+- Started clean on main; no leftover work. App units/health green, no current source errors or failed digest jobs; two retained ingestion failures have recovered sources. Scheduled evidence remains due Nov 3 15:00 UTC.
+- Advanced O6 with five Database tables: activity/cache, allocated storage, relation sizes/row estimates, vacuum/analyze and aggregate locks. Existing restricted reader, no extra grants, SQL/session details or DB restart. Statistics are current snapshots with explicit cumulative/estimate/null caveats; top queries remain O7.
+- Extended Grafana read-only verification for table rendering and Database mobile capture; inspected desktop/mobile screenshots. Updated handbook/plan/TASKS. Redis/Agent and full Product cap/timing coverage remain open.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, handbook 09 and `git diff --check` passed. Initial `pnpm check` passed all 232 unit/172 integration assertions but exited 143 after coverage; repeat `pnpm check` passed with exit 0 (232 unit/172 integration). Initial Grafana check preceded the 30-second provisioning reload; final `--verify-grafana --verify-o4` passed all 36 queries (33 populated), five Database tables and six healthy scrape targets.
+- Grafana hot-reloaded the installed dashboard; no service code/config restart needed. Health green, retained real scheduled edition four topics/20 stories/10 posts. No paid calls, Reddit requests or production content/spending-setting changes.
+- Next: scheduled evidence/acks first; otherwise remaining O6 dashboards. Production activation stays gated.

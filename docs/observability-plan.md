@@ -186,6 +186,7 @@ only when its check passes.
   - Iteration 365: provisioned pinned Grafana with local metrics datasource and Host, Services, HTTP and Jobs dashboards; private `/grafana/`, Viewer-only access, bounded resources. `--verify-grafana` verifies panel queries and browser screenshots. Database, Redis, Product and Agent dashboards remain open; O6 is not complete.
   - Iteration 366: Errors and logs dashboard adds six existing-metric panels and links to retained logs/queues. No new collection or browser error reporting; verified with live queries and screenshots.
   - Iteration 367: Product adds six read-only Postgres tables for spend/holds, edition modes, source freshness, article coverage, X verification and reserve lifecycle. Dedicated column-granted reader, two Grafana connections (three role connections including verification) and five-second timeout. Configured caps/reserve amounts and worker timing remain in app Status; no inferred budget values. Database/Redis/Agent dashboards remain open.
+  - Iteration 368: Database adds five read-only current-statistics tables for activity/cache, size, row estimates, maintenance and aggregate locks. Same restricted reader; no SQL/session details, new grants or DB restart. Desktop/mobile and all live queries verified. Top queries remain O7; Redis/Agent and full Product coverage remain open.
   - **Scope:** Grafana at `/grafana/`, with datasources and dashboards
     provisioned from `ops/observability/grafana/`.
   - **Dashboards:** Host, Services, HTTP, Jobs, Database, Redis, Errors and
