@@ -12,15 +12,6 @@ Earlier entry: [iteration 396](docs/progress-archive/2026-11-03-iteration-396.md
 
 Earlier entry: [iteration 397](docs/progress-archive/2026-11-03-iteration-397.md).
 
-## 2026-11-03: iteration 400 — bounded queue triage CLI
-
-- Started clean on main; no leftover work. Health/services green, all 32 sources have successful collection and no current errors; no failed digest/social jobs. Two historical ingestion failures remain. Scheduled evidence stays gated on 15:00 UTC.
-- `pnpm obs jobs` now defaults to five retained runs per queue (maximum twenty); `--queue`, `--state` and `--limit` filter the existing read-only status snapshot. Filters precede limits; queue health/counts/next-run remain visible, with retained/matching/omitted counts. Empty run details do not erase aggregate failures or prove absent jobs.
-- Offline coverage verifies limits, filter order, rejected inputs before network access, unavailable queues and preserved counts. `pnpm exec tsx scripts/check-observability.ts --verify-cli` passed against four available queues, eight healthy scrape targets and bounded worker logs; filtered live ingestion still reports its two failures despite empty run details.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (247 unit/172 integration) and `pnpm build` passed. Handbook 09 and `git diff --check` passed. No UI/diagram changes; no screenshots needed.
-- Updated handbook/plan/TASKS; archived iteration 388. No running service code/config changed, so no restart under STEERING 22. No paid calls, Reddit requests or production-content/cap/schedule/activation changes.
-- Next: collect/ack Nov 3 scheduled cost/yield/AI timing first; O7 top queries, O8 per-iteration metrics and O9 alerts remain.
-
 ## 2026-11-03: iteration 401 — follow worker jobs through retained logs
 
 - Started clean on main; no leftover work. Health/services green, all 32 sources collecting without current errors, no failed digest/social jobs; two historical ingestion failures remain. Scheduled evidence/activation remains gated on 15:00 UTC.
@@ -112,3 +103,13 @@ Earlier entry: [iteration 397](docs/progress-archive/2026-11-03-iteration-397.md
 - Updated handbook/plan/TASKS; archived iteration 399. CLI/tests/docs only: no service restart under STEERING 22, screenshots, paid calls, Reddit requests or production-content/cap/schedule changes.
 - Commit `147f1bc` verified locally; `git push origin main` failed HTTP 403: exe.dev GitHub integration not found or attached to this VM. Remote unchanged; push remains blocked.
 - Next: restore GitHub integration/push, then scheduled cost/yield/AI timing and acks first when available; observability top queries, harness counters and alerts remain open.
+
+## 2026-11-03: iteration 411 — prevent test data volume leaks
+
+- Started clean on main; no leftover work. Push access restored; fetched and merged owner commit `e52c008` without rewriting history. STEERING 25 makes the disk leak urgent and O9 alerts next.
+- Testcontainers Postgres and Redis now mount their image-declared data directories as tmpfs. No production database, service, schedule, content or budget changes.
+- Interrupted a real runner with SIGKILL after both containers started; inspected no volume mounts, cleaned up only that run's containers, and confirmed zero dangling volumes. Full-run Docker inspection confirmed both tmpfs paths.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (260 unit/172 integration), `pnpm build`, handbook 08 and `git diff --check` passed. Dangling volumes remained zero after the full check; no pruning needed. Disk 42% used.
+- Live health/dependencies and queue readiness passed; real free social collection continues (latest observed 10 verified posts). Scheduled digest/social queues have no failures; two historical ingestion failures remain.
+- Updated test documentation, handbook and TASKS; no diagrams/UI changed. No restart needed under item 22: only test runner/docs changed. No paid calls or Reddit requests.
+- Next: O9 alerts (including disk and iteration-start `pnpm obs alerts`), then O7/O8/O10. Scheduled Nov 3 cost/yield/AI timing and acks take priority when available.

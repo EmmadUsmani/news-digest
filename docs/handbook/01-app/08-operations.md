@@ -84,3 +84,7 @@ flowchart LR
 
 Rules: tests never call live external services. AI responses come from fakes
 or recorded fixtures. Live checks are opt-in and budgeted.
+
+Integration-test database storage uses memory-backed tmpfs mounts. Test runs do
+not create anonymous Docker data volumes, including when interrupted; the test
+containers never use production data.

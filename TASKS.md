@@ -2,6 +2,8 @@
 
 Fix failures and stalled sources first.
 
+- [x] STEERING 25 disk leak (411): test Postgres/Redis data uses tmpfs; full check and interrupted-run volume checks pass. Next background work: O9 alerts, including disk; stop refining existing CLI/dashboards.
+
 ## Immediate owner priorities (STEERING overrides older milestone notes)
 
 - [x] STEERING 21 (295): handbook/schema checks green; acknowledged.
@@ -70,4 +72,4 @@ M0–M2; M3/M6/M7 foundations implemented.
 - [ ] STEERING 2a (lower priority): finish repository/HTTP characterization before ORM. Isolated DB/Redis, migrations, HTTP/worker and synthetic-AI goldens implemented (183–270); gaps: [database verification](docs/DATABASE-VERIFICATION.md). No live DB; finish 2a before ORM. Recorded-response golden open.
 - [ ] STEERING 2b (only after 2a is green): record Drizzle decision/schema parity, back up live DB, gradually replace raw SQL behind ports and enforce boundaries.
 
-- [ ] STEERING 24 (background, only while product is blocked): [observability plan](docs/observability-plan.md). O1–O5 verified; nine O6 dashboards cover host/services/HTTP/jobs/errors/product/database/Redis/runtime. Restricted DB/Redis collection, scheduled/manual worker timing, edition log correlation and read-only `pnpm obs` shipped. Iterations 400–402 add bounded job history, exact job/queue log correlation and bounded metric history. Remaining: O7 top queries, O8 per-iteration metrics, O9 alerts, O10 browser errors; iterations 403–406 add bounded retained scheduled timing history, scrape-target/source health and scoped unit-health triage; iteration 407 adds opt-in health-check exit status; iteration 408 adds direct API/dependency health probes; iteration 409 validates job snapshots before filtering; iteration 410 adds opt-in queue readiness checks; durable history beyond queue retention remains open. Scheduled evidence/acks first; preserve caps and run protection.
+- [ ] STEERING 24/25 (background while product blocked): [observability plan](docs/observability-plan.md). O1–O6 and read-only CLI verified (343–410). Next: O9 alerts, including disk and iteration-start `pnpm obs alerts`; then O7 top queries, O8 harness counters, O10 browser errors. Stop refining existing CLI/dashboards. Preserve resource caps and scheduled-run protection.

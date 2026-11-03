@@ -13,8 +13,10 @@ async function main() {
   const containers: StartedTestContainer[] = [];
   try {
     // Match compose.yaml's images and major versions. No live volumes or ports.
+    // Mount image-declared data volumes as tmpfs, including on interrupted runs.
     const postgres = await new GenericContainer('postgres:17-alpine')
       .withEnvironment({ POSTGRES_HOST_AUTH_METHOD: 'trust' })
+      .withTmpFs({ '/var/lib/postgresql/data': 'rw' })
       .withExposedPorts(5432)
       .withWaitStrategy(
         Wait.forLogMessage('database system is ready to accept connections', 2),
@@ -22,6 +24,7 @@ async function main() {
       .start();
     containers.push(postgres);
     const redis = await new GenericContainer('redis:7-alpine')
+      .withTmpFs({ '/data': 'rw' })
       .withExposedPorts(6379)
       .withWaitStrategy(Wait.forLogMessage('Ready to accept connections'))
       .start();
