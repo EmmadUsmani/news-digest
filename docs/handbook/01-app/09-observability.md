@@ -386,3 +386,21 @@ connections, commit/rollback rates and temporary-file write rates for news_diges
 These charts follow the time picker; rates use five-minute windows and handle
 counter resets. Monitoring queries contribute to activity. Zero temporary writes
 is a valid measurement; these charts do not identify slow queries.
+
+## Read-only command line
+
+From the project directory, `pnpm obs` queries the local stores without credentials
+or provider calls. These commands also work over SSH:
+
+- `pnpm obs logs --service worker --since 1h --limit 40` shows newest logs first.
+- `pnpm obs errors --since 1h` selects error and fatal records.
+- `pnpm obs logs --edition UUID` finds records explicitly attributed to an edition.
+- `pnpm obs logs --grep 'Job finished'` matches message text literally.
+- `pnpm obs metric 'up'` runs an instant PromQL query.
+- `pnpm obs jobs` shows retained queue state, runs and next scheduled times.
+
+Log results default to 40 records and are capped at 200. Edition filtering does
+not expand to related job/run IDs; older records may lack edition attribution.
+No matching records does not prove a run never happened. Queue state depends on
+the API; log and metric queries work directly against their local stores.
+Backend failures exit unsuccessfully. Alerts are not installed yet.

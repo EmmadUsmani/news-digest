@@ -221,6 +221,7 @@ only when its check passes.
 - [ ] **O8 Agent harness metrics.** The textfile is written by
       `control.py`/`run.sh`. Done when the Agent dashboard is populated.
 - [ ] **O9 Alerts and `obs` CLI.**
+  - Iteration 399: `pnpm obs` ships read-only logs/errors, instant metrics and queue-state queries. Literal message/service/edition filters, bounded log results and offline/runtime verification; alerts and start-of-iteration instructions remain pending. No O9 completion claim.
   - **Scope:** vmalert rules for:
     - disk over 80%;
     - a `news-digest-*` or `obs-*` unit down;

@@ -7,9 +7,64 @@ import { checkGrafana } from './lib/check-grafana';
 import { checkJobsBrowser } from './lib/check-jobs-browser';
 import { checkLogStore } from './lib/check-log-store';
 import { checkMetricStore } from './lib/check-metric-store';
+import { runObs } from './lib/obs-query';
 import { testEnvironment } from './test-suites';
 
 async function main() {
+  if (process.argv.includes('--verify-cli')) {
+    execFileSync(
+      'pnpm',
+      [
+        'exec',
+        'tsx',
+        '--test',
+        '--test-reporter=dot',
+        'apps/api/test/obs-cli.test.ts',
+      ],
+      { env: testEnvironment(), stdio: 'pipe', timeout: 120_000 },
+    );
+    const jobs = JSON.parse(await runObs(['jobs']));
+    assert.equal(jobs.queues.length, 4);
+    assert.ok(
+      jobs.queues.every((queue: { available: boolean }) => queue.available),
+    );
+    const metrics = JSON.parse(await runObs(['metric', 'up']));
+    assert.equal(metrics.status, 'success');
+    assert.ok(metrics.data.result.length > 0);
+    assert.ok(
+      metrics.data.result.every(
+        (sample: { value: [number, string] }) => sample.value[1] === '1',
+      ),
+    );
+    const logs = (
+      await runObs([
+        'logs',
+        '--service',
+        'worker',
+        '--since',
+        '1h',
+        '--limit',
+        '2',
+      ])
+    )
+      .trim()
+      .split('\n')
+      .filter(Boolean)
+      .map((line) => JSON.parse(line));
+    assert.ok(logs.length > 0 && logs.length <= 2);
+    assert.ok(logs.every((line) => line.service === 'worker'));
+    await runObs(['errors', '--since', '5m', '--limit', '1']);
+    console.log(
+      JSON.stringify({
+        cli: 'ok',
+        queues: jobs.queues.length,
+        scrapeTargets: metrics.data.result.length,
+        workerLogs: logs.length,
+        mutations: 0,
+      }),
+    );
+    return;
+  }
   if (process.argv.includes('--verify-job-metrics')) {
     execFileSync(
       'pnpm',
