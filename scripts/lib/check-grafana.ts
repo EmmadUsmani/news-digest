@@ -561,7 +561,7 @@ export async function checkGrafana() {
       .scrollIntoViewIfNeeded();
     await page.waitForTimeout(1500);
     await page
-      .getByRole('columnheader', { name: 'Purpose', exact: true })
+      .getByRole('columnheader', { name: 'Ledger elapsed (s)', exact: true })
       .waitFor();
     await page.screenshot({
       path: 'docs/screenshots/grafana-product-anthropic-calls-desktop.png',
@@ -573,6 +573,13 @@ export async function checkGrafana() {
         exact: true,
       })
       .evaluate((node) => node.scrollIntoView({ block: 'start' }));
+    // The grid virtualizes columns: scroll before locating offscreen headers.
+    await page.locator('.rdg').evaluate((node) => {
+      node.scrollLeft = 800;
+    });
+    await page
+      .getByRole('columnheader', { name: 'Ledger elapsed (s)', exact: true })
+      .waitFor();
     await page.waitForTimeout(1000);
     await page.screenshot({
       path: 'docs/screenshots/grafana-product-anthropic-calls-mobile.png',

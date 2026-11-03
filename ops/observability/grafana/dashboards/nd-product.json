@@ -655,7 +655,7 @@
     {
       "id": 14,
       "title": "Recent Anthropic calls (latest 30 in seven days)",
-      "description": "Individual ledger admissions, including unpublished attempts. Run IDs identify the request context and may not match a published edition. Model and purpose are recorded at admission. Settled charges and pending/uncertain holds are separate; missing cost remains unknown. Cache hits and refused admissions have no row. Fixed seven-day creation window ignores the time picker.",
+      "description": "Individual ledger admissions, including unpublished attempts. Run IDs identify the request context and may not match a published edition. Model and purpose are recorded at admission. Settled charges and pending/uncertain holds are separate; missing cost remains unknown. Cache hits and refused admissions have no row. Fixed seven-day creation window ignores the time picker. Outcome time records settlement or failure, including uncertain outcomes. Ledger elapsed runs from reservation to that write and includes local work; it is not provider HTTP latency or total edition duration. Pending outcomes stay blank; uncertain calls retain their holds.",
       "type": "table",
       "datasource": {
         "type": "grafana-postgresql-datasource",
@@ -672,7 +672,7 @@
           "refId": "A",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT created_at AS \"Created (UTC)\", run_id AS \"Run\", model AS \"Model\", purpose AS \"Purpose\", status AS \"Status\", cost_micros / 1000000.0 AS \"Settled USD\", CASE WHEN status IN ('pending','uncertain') THEN reserved_micros ELSE 0 END / 1000000.0 AS \"Held USD\" FROM llm_calls WHERE created_at >= now() - interval '7 days' ORDER BY created_at DESC, id DESC LIMIT 30",
+          "rawSql": "SELECT created_at AS \"Created (UTC)\", run_id AS \"Run\", model AS \"Model\", purpose AS \"Purpose\", status AS \"Status\", completed_at AS \"Outcome recorded (UTC)\", extract(epoch FROM (completed_at-created_at)) AS \"Ledger elapsed (s)\", cost_micros / 1000000.0 AS \"Settled USD\", CASE WHEN status IN ('pending','uncertain') THEN reserved_micros ELSE 0 END / 1000000.0 AS \"Held USD\" FROM llm_calls WHERE created_at >= now() - interval '7 days' ORDER BY created_at DESC, id DESC LIMIT 30",
           "editorMode": "code",
           "sql": {
             "limit": 100
@@ -685,7 +685,20 @@
             "minWidth": 150
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Outcome recorded (UTC)"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 210
+              }
+            ]
+          }
+        ]
       },
       "options": {
         "showHeader": true,

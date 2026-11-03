@@ -28,3 +28,4 @@ GRANT SELECT (budget_day, scheduled_at, state, attempt, updated_at) ON scheduled
 GRANT SELECT (id, requested_topic, search_type, posts_fetched, profiles_fetched) ON x_discovery_calls TO grafana_product;
 GRANT SELECT (completed_at, error_code) ON x_discovery_calls TO grafana_product;
 GRANT SELECT (id, model, purpose) ON llm_calls TO grafana_product;
+GRANT SELECT (completed_at) ON llm_calls TO grafana_product;

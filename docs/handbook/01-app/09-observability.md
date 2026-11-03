@@ -264,7 +264,7 @@ The latest edition selection table shows story/post picks, stored triage and uns
 
 Edition creation time is not worker duration. These table windows are explicit and ignore the Grafana time picker.
 AI mode can use cached work; verified citations are not incremental discovery yield.
-A separate Anthropic history lists the latest 30 admissions in seven days, including unpublished attempts, with run ID, model, purpose, status, settled charge and unresolved hold. Missing cost stays unknown. Cache reuse and refused admissions create no row; a run ID does not guarantee a published edition.
+A separate Anthropic history lists the latest 30 admissions in seven days, including unpublished attempts, with run ID, model, purpose, status, settled charge and unresolved hold. Outcome time records settlement or failure; reservation-to-outcome seconds include local work and do not measure provider HTTP latency or edition duration. Pending outcomes stay blank, and uncertain outcomes retain holds. Missing cost stays unknown. Cache reuse and refused admissions create no row; a run ID does not guarantee a published edition.
 
 Product also graphs mean worker attempt duration and settled
 attempt counts since the current worker started, by job name and outcome, using
