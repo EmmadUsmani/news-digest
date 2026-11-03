@@ -67,11 +67,11 @@ prove the scheduler covered every topic.
 
 ## Other platforms
 
-| Platform | Status                                                                                                                                                                                                                                        |
-| -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Reddit   | **Parked.** Built, but Reddit blocks public access and ends RSS on Nov 13. The only way back is the official API with owner credentials.                                                                                                      |
-| Bluesky  | **Preparation only:** authenticated discovery, phrase-filtered engagement/age shortlist and storage for timestamped text/media/count snapshots. Explicit free collection is available; scheduled collection and edition inclusion remain off. |
-| YouTube  | **Deferred** by the owner.                                                                                                                                                                                                                    |
+| Platform | Status                                                                                                                                                                                                                                                        |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Reddit   | **Parked.** Built, but Reddit blocks public access and ends RSS on Nov 13. The only way back is the official API with owner credentials.                                                                                                                      |
+| Bluesky  | **Preparation only:** authenticated discovery, phrase-filtered and semantic engagement/age shortlists, plus storage for timestamped text/media/count snapshots. Explicit free collection is available; scheduled collection and edition inclusion remain off. |
+| YouTube  | **Deferred** by the owner.                                                                                                                                                                                                                                    |
 
 Bluesky storage retains each topic's observations separately, so a later count
 cannot overwrite the evidence available at an earlier cutoff. Current post
@@ -84,3 +84,10 @@ and rate-limit backoff across topics and stops on search or storage failure.
 The report distinguishes fetched/submitted posts from stored window observations;
 replays and disabled topics may produce no new rows. Running the probe without
 its `--store` option remains read-only. Stored API counts are observations, not independent verification of reach.
+
+An isolated semantic shortlist can screen at most 50 safe observations with the
+budgeted social triage service. It can recover relevant posts without a configured
+keyword, requires complete scores, and orders qualifying posts by interestingness,
+relevance and observed engagement/age. Missing or malformed scores produce no
+semantic picks. This preparation does not call the final editor or publish posts;
+API counts still do not establish measured growth or account-relative reach.

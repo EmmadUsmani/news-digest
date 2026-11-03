@@ -1,7 +1,7 @@
 import type { RelevancePolicy } from '@digest/contracts';
 
 import type { BlueskyPost } from './bluesky';
-import { assessPostEligibility } from './eligibility';
+import { assessPostEligibility, assessPostSafety } from './eligibility';
 
 // Preparation only: no edition caller. X preference and editorial selection
 // must be preserved when this platform's shortlist is eventually published.
@@ -11,6 +11,36 @@ export function rankBlueskyPosts(
   start: Date,
   end: Date,
   budget: number,
+) {
+  return rankObservations(
+    posts,
+    policy,
+    start,
+    end,
+    budget,
+    assessPostEligibility,
+  );
+}
+
+// Semantic preparation still applies all safety/window/snapshot gates, but
+// leaves positive relevance to triage. Never used by production editions.
+export function rankSafeBlueskyPosts(
+  posts: BlueskyPost[],
+  policy: RelevancePolicy,
+  start: Date,
+  end: Date,
+  budget: number,
+) {
+  return rankObservations(posts, policy, start, end, budget, assessPostSafety);
+}
+
+function rankObservations(
+  posts: BlueskyPost[],
+  policy: RelevancePolicy,
+  start: Date,
+  end: Date,
+  budget: number,
+  assess: typeof assessPostEligibility,
 ) {
   if (
     !Number.isFinite(start.getTime()) ||
@@ -44,7 +74,7 @@ export function rankBlueskyPosts(
   }
   return [...latest.values()]
     .flatMap((post) => {
-      const relevance = assessPostEligibility(post, policy, start, end);
+      const relevance = assess(post, policy, start, end);
       if (!relevance.eligible) return [];
       const engagement =
         post.metrics.likes + 2 * post.metrics.reposts + post.metrics.replies;

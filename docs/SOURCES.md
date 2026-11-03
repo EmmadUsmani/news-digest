@@ -1517,3 +1517,10 @@ Phrase shortlists capped at five were **5/5/5/0**. World has no positive phrase
 rules; semantic review is unfinished. These are discovery observations, not
 editorial picks or verified virality. Production edition inclusion remains off.
 No paid calls, Reddit requests or media downloads.
+
+Iteration 321 adds an isolated semantic shortlist over up to 50 safe Bluesky
+observations. Fake-only verification recovers a relevant post without a topic
+phrase, excludes high-engagement irrelevant posts and fails closed on incomplete
+or malformed triage. Existing budgeted social triage is injected; no live LLM
+calls, new API collection or production edition caller. Final editing, cards and
+real editorial yield remain pending; the 189 stored observations are unreviewed.
