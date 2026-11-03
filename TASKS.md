@@ -4,7 +4,7 @@ Fix failures and stalled sources first. [Completed markers](docs/progress-archiv
 
 ## Immediate owner priorities (STEERING overrides older milestone notes)
 
-- [ ] STEERING 27: World date bounds fixed (428); NBA rejection awaits logs. Hard-exclusion prefilter ships (481); then fewer triage candidates; restore AI grouping with same-story definition and relabel/evaluate ($0.05 cap). No new sources/features before Nov 4 evidence; grouping stays off until checked, then Nov 5 activation if passing. Item 27 overrides older parking/order notes below.
+- [ ] STEERING 27: World date bounds fixed (428); NBA rejection awaits logs. Hard-exclusion prefilter ships (481); then fewer triage candidates; inactive same-story AI pass restored (482); relabel/evaluate remains ($0.05 cap). No new sources/features before Nov 4 evidence; grouping stays off until checked, then Nov 5 activation if passing. Item 27 overrides older parking/order notes below.
 
 - [ ] STEERING 16 (next implementation): open per-topic X search without handle restrictions; reported engagement/velocity, then budget-permitting story reactions and secondary account lists. Keep caps; item 15's first scheduled run is acknowledged before switching. Report search type, cost/yield and outside-list accounts; finish with real editions/screenshots.
   - Open/engagement reporting and durable optional execution are wired and fake-tested (271–294). Item 15 acknowledged (425); open-topic production activated (430), including durable low-yield followups. Next scheduled cost/yield/outside-list picks remain unverified; items 13/7 still await provider evidence. Iteration 296 adds daily topic/type cost and incremental-yield summaries with explicit unknowns.

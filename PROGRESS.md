@@ -163,3 +163,12 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (263 unit/182 isolated integration), pnpm build, filtered handbook check (17 pages/one unchanged diagram/25 tables), git diff --check passed.
 - Restarted API/worker; pnpm obs health --check passed, root HTTP 200, zero alerts/dangling volumes. Live rolling article counts Tech/NBA/Gaming/World: 329/161/281/222, all 36 sources healthy.
 - Next: further bounded offline triage reduction if warranted, then item 27 same-story grouping restoration/relabel/evaluation; keep grouping off. Nov 4 scheduled evidence takes priority, including NBA/World outcomes and latency.
+
+## 2026-11-03: iteration 482 — restore inactive same-story AI pass
+
+- Started clean on main; no leftovers. Health passed; pending API metrics scrape alert cleared and metrics returned 200 without intervention.
+- Item 27: restored the inactive budgeted/cached AI component and fake tests from before 364cb1b. New same-story prompt includes direct follow-ups, reactions and consequences; unrelated stories sharing entities/themes stay separate.
+- New story-grouping-v3 purpose/instructions invalidate old same-event cache results. Known-ID, unique-membership, single-topic, shortlist, budget and provider-failure safeguards retained; no wording matcher or production caller.
+- No paid calls, new editions, sources, Reddit requests or grouping activation. Fake prompt/validation tests are not semantic accuracy evidence.
+- Updated TASKS, RANKING and affected handbook prose. Next: relabel 138 pairs plus 57 previously unlabelled merges, then one $0.05-capped evaluation outside 13:00–16:00 UTC; production stays off pending Nov 4 review.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (276 unit/182 isolated integration), pnpm build, filtered handbook check (17 pages/one unchanged diagram/25 tables) and git diff --check passed.

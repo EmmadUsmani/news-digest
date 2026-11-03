@@ -1,10 +1,13 @@
 # Ranking evaluation
 
-Current grouping state (STEERING 26, iteration 467): production keeps articles
-separate. Wording matchers and their flag have been removed; only generic
-grouping/coverage plumbing remains. Canonical-URL ingestion dedupe continues.
-The iteration sections below record historical experiments, including superseded
-scoring and grouping behavior; the iteration 467 entry describes the removal.
+Current grouping state (STEERING 27, iteration 482): production keeps articles
+separate. The inactive AI pass is restored with a same-story definition that
+includes direct follow-ups, reactions and consequences, while keeping separate
+stories that only share people, organizations or themes apart. No production
+caller exists. Relabeling and the new capped evaluation remain pending; the
+Nov 4 run must be checked before any conditional Nov 5 activation.
+Wording matchers remain removed. Canonical-URL ingestion dedupe continues.
+The iteration sections below record historical experiments and superseded states.
 
 `signals-v1` is a preliminary baseline, not an editorial quality claim.
 For each enabled topic/window, examine at most the 200 most recent candidates:
@@ -1423,3 +1426,18 @@ relevance recovery. Candidate totals and quality omissions retain all loaded
 inputs; unscored IDs track incomplete scoring among admitted candidates only.
 This reduces unnecessary scoring without an arbitrary top-N cutoff; live latency
 and cost effects await the scheduled edition. No paid verification was used.
+
+## Iteration 482: inactive same-story AI pass restored
+
+Restored the budgeted, cached grouping component from before `364cb1b`, with
+STEERING 27's broader story definition. Prompt/purpose version `story-grouping-v3`
+separates its cache entries from the previous same-event judgments. Shared links
+and X citations remain hints only. Known IDs, unique membership, one-topic
+inputs and bounded shortlists are validated; invalid output, unavailable AI or
+refused budget keeps stories separate without repair calls.
+
+Fake-provider tests cover these safeguards and the revised prompt contract.
+They do not establish semantic accuracy. There is no production caller, paid
+runner, paid call or activation in this step. Next: relabel the 138 pairs and
+57 previously unlabelled merges, then run the single $0.05-capped evaluation
+outside 13:00–16:00 UTC. Historical item 26 numbers use the old definition.
