@@ -3,7 +3,36 @@ import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { uptime } from 'node:os';
 
+import { testEnvironment } from './test-suites';
+
 async function main() {
+  const verifyO1 = process.argv.includes('--verify-o1');
+  if (verifyO1) {
+    // Forced fatal errors run in disposable children; never crash a live service.
+    // Provider suites use injected fakes and the same disabled environment as CI.
+    const suites = [
+      'logging',
+      'external-http-logging',
+      'llm',
+      'x-search-logging',
+      'bluesky-search',
+      'x-budget-logging',
+      'reserve-logging',
+      'reserve-lifecycle-logging',
+      'edition-logging',
+    ];
+    execFileSync(
+      'pnpm',
+      [
+        'exec',
+        'tsx',
+        '--test',
+        '--test-reporter=dot',
+        ...suites.map((name) => `apps/api/test/${name}.test.ts`),
+      ],
+      { env: testEnvironment(), stdio: 'pipe', timeout: 120_000 },
+    );
+  }
   const response = await fetch('http://127.0.0.1:8000/healthz', {
     signal: AbortSignal.timeout(10_000),
   });
@@ -64,6 +93,29 @@ async function main() {
     ),
     'Worker must have completed a logged job (allow the heartbeat to run after restart)',
   );
+  const runtimeRecords = logs.filter((line) =>
+    ['api', 'worker'].includes(String(line.service)),
+  );
+  for (const line of runtimeRecords) {
+    assert.equal(typeof line.level, 'number', 'JSON severity required');
+    assert.equal(typeof line.time, 'number', 'JSON timestamp required');
+    if (line.event === 'http.request') {
+      assert.equal(typeof line.requestId, 'string');
+      assert.equal(typeof line.method, 'string');
+      assert.equal(typeof line.route, 'string');
+      assert.equal(typeof line.status, 'number');
+      assert.equal(typeof line.durationMs, 'number');
+    }
+    if (
+      ['job.start', 'job.finish', 'job.failure'].includes(String(line.event))
+    ) {
+      assert.equal(typeof line.jobId, 'string');
+      assert.equal(typeof line.queue, 'string');
+      if (line.event === 'job.start')
+        assert.equal(typeof line.attempt, 'number');
+      else assert.equal(typeof line.durationMs, 'number');
+    }
+  }
   const resources = ['api', 'worker'].map((role) => {
     const output = execFileSync(
       'systemctl',
@@ -101,6 +153,10 @@ async function main() {
   });
   console.log(
     JSON.stringify({
+      offlineO1Proof: verifyO1
+        ? 'passed (9 suites; includes redaction and forced fatal children)'
+        : 'not requested',
+      validatedRuntimeRecords: runtimeRecords.length,
       requestLog: 'ok',
       workerJobLog: 'ok',
       externalCallsInJournalSample: logs.filter(

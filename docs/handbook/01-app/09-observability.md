@@ -37,7 +37,8 @@ serialization, including error stacks. API and worker logs can be read with
 The journal also contains older plain-text entries from earlier versions.
 
 > [!NOTE]
-> External-call instrumentation and the remaining monitoring tools are unfinished.
+> Structured API/worker logging is complete. The log store, dashboards, metrics
+> and browser error reporting remain planned.
 > See the [approved observability plan](../../observability-plan.md).
 
 xAI outcomes include response parsing and usage validation. Failed attempts have no
@@ -80,3 +81,12 @@ its duration includes database locking and cleanup, but excludes queue wait.
 Failures identify the last observed overall stage without exception text or
 content. A publishing-stage entry means publication is starting, not that its
 transaction committed. Existing job progress reporting still runs normally.
+
+The read-only runtime check is `pnpm exec tsx scripts/check-observability.ts`.
+It matches a health request to the journal, checks completed worker jobs and
+validates the fields in sampled structured records. Add `--verify-o1` to also
+run offline coverage for all provider categories, budgets and edition stages,
+including secret redaction and forced fatal errors in disposable child processes.
+It never enqueues a job, publishes an edition or calls a paid provider. An empty
+provider or edition count means no event was observed in the journal sample;
+it does not claim that path ran live. Migration command output remains plain text.

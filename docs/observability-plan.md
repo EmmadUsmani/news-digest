@@ -137,8 +137,8 @@ Notes on serving:
 Do roughly in this order. Each piece must be useful on its own and is done
 only when its check passes.
 
-- [ ] **O1 Structured logging.**
-  - API/worker JSON request, job and fatal-error logging with context and redaction shipped in iteration 343. Feed/Hacker News HTTP attempts added in iteration 344 (status, outcome, duration and inherited context; no URLs/bodies). Other provider calls, budget decisions and edition steps remain before O1 can be ticked.
+- [x] **O1 Structured logging.**
+  - Completed in iterations 343–354: API/worker request/job/fatal logs, all six provider targets, budget/reserve decisions and edition stages. `pnpm exec tsx scripts/check-observability.ts --verify-o1` verifies runtime fields and nine offline suites, including forced fatal children and redaction. Provider/edition paths absent from the live sample are verified offline; no paid run is triggered. Migration CLI console output is outside API/worker runtime scope.
   - **Scope:** pino, request logs, correlation IDs, redaction, error handlers
     and external-call logs in the API and worker. Replace stray
     `console.*` calls.
@@ -264,3 +264,10 @@ Topic names, content and exception messages are omitted. Offline tests cover
 repeated snapshots, progress callbacks, reuse and failures; the runtime checker
 reports observed edition events without triggering a paid run. Final O1 scope
 verification remains before ticking completion.
+
+O1 completion (354): runtime checker validates service/severity/time and request/job
+fields, and optionally runs nine offline logging suites with disabled provider
+credentials and DB/Redis. Forced exceptions/rejections run only in child processes.
+Runtime sample: 470 structured records, feed/HN/oEmbed calls and reserve lifecycle
+entries; no fresh paid provider or edition events. API/worker measured 46/59 MiB
+and 0.6/0.9% average CPU since startup; no added services or log-store disk.
