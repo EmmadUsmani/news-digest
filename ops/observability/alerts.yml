@@ -75,3 +75,10 @@ groups:
           severity: warning
         annotations:
           summary: Provider UTC spend and outstanding holds reach 90 percent of the configured cap
+      - alert: DigestScheduleUnavailable
+        expr: (news_digest_queue_schedulers{job="app-api",queue="digest-generation"} == 0) or (news_digest_queue_paused{job="app-api",queue="digest-generation"} == 1)
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: Daily digest queue has no registered schedule or is paused

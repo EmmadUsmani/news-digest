@@ -463,7 +463,7 @@ and a 64 MiB Go memory target within its existing 112 MiB systemd ceiling. Its e
 is reset on startup so an older, larger saved cache cannot defeat the reduced
 budget; stored metric samples are preserved.
 
-Spend alerts and detection of entirely missing schedule records are still
+Detection of entirely missing schedule lifecycle records is still
 pending in the [observability plan](../../observability-plan.md).
 
 The Postgres exporter reads only schedule time and lifecycle state to report the
@@ -484,3 +484,10 @@ ceilings do not infer available funds. This is a cap warning, not an estimate of
 prepaid xAI credit, scheduled reserve availability or a budget admission decision.
 Only ledger timestamps, status and monetary columns are granted to the exporter;
 provider prompts, responses and keys are excluded. No external notification is sent.
+
+The daily digest queue also warns after two minutes with no registered recurring
+schedule or while paused. This uses the API's existing queue metrics and
+assumes the owner's daily schedule should remain enabled. Other queues and worker
+metrics do not trigger it. A missing lifecycle after a registered schedule
+advances still requires separate publication checks; this rule detects a lost
+scheduler, not every missing edition. Scrape failures have their own alert.

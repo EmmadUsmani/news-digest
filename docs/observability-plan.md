@@ -411,3 +411,10 @@ read-only UTC settled ledger spend plus all unresolved holds to existing daily/
 monthly configured ceilings. Empty ledgers emit zero; missing/zero caps are not
 inferred. Offline threshold/hold/recovery/join cases and isolated SQL fixtures
 cover both providers and UTC boundaries. Missing-schedule detection remains open.
+
+O9 incremental progress (417): daily digest scheduler absence (zero registered
+schedules) or a paused digest queue now warns after two minutes, using existing
+API queue gauges. Offline hold/recovery and queue/job isolation verified.
+No app/DB/Redis restart or new collector. Missing lifecycle records after an
+otherwise registered schedule advances remain open; scheduler presence alone
+does not prove publication.

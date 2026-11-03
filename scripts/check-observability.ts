@@ -17,6 +17,18 @@ async function main() {
       ['unittest', '-files=alerts.test.yml'],
       { cwd: 'ops/observability', stdio: 'pipe', timeout: 30_000 },
     );
+    const queueResponse = await fetch('http://127.0.0.1:9464/metrics');
+    assert.equal(queueResponse.ok, true);
+    const queueMetrics = await queueResponse.text();
+    for (const metric of ['schedulers', 'paused']) {
+      assert.match(
+        queueMetrics,
+        new RegExp(
+          `^news_digest_queue_${metric}\\{[^\\n]*queue="digest-generation"[^\\n]*\\} \\d`,
+          'm',
+        ),
+      );
+    }
     const exporter = await fetch('http://127.0.0.1:9187/metrics');
     assert.equal(exporter.ok, true);
     const exporterMetrics = await exporter.text();
@@ -66,6 +78,7 @@ async function main() {
       'ApiServerErrorRate',
       'ScheduledEditionUnsettled',
       'ProviderSpendNearCap',
+      'DigestScheduleUnavailable',
     ]) {
       const rule = rules.find((row: { name: string }) => row.name === name);
       assert.ok(rule, `Missing ${name}`);

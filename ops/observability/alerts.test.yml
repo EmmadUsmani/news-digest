@@ -247,3 +247,81 @@ tests:
         alertname: ProviderSpendNearCap
         groupname: app-outcomes
         exp_alerts: []
+  - name: digest missing schedule hold and recovery
+    interval: 30s
+    input_series:
+      - series: 'news_digest_queue_schedulers{job="app-api",queue="digest-generation"}'
+        values: '1 0 0 0 0 0 1'
+      - series: 'news_digest_queue_schedulers{job="app-api",queue="social-collection"}'
+        values: '1 0 0 0 0 0 1'
+      - series: 'news_digest_queue_schedulers{job="app-worker",queue="digest-generation"}'
+        values: '1 0 0 0 0 0 1'
+    alert_rule_test:
+      - eval_time: 2m
+        alertname: DigestScheduleUnavailable
+        groupname: app-outcomes
+        exp_alerts: []
+      - eval_time: 2m30s
+        alertname: DigestScheduleUnavailable
+        groupname: app-outcomes
+        exp_alerts:
+          - exp_labels:
+              job: app-api
+              queue: digest-generation
+              severity: warning
+              alertgroup: app-outcomes
+            exp_annotations:
+              summary: Daily digest queue has no registered schedule or is paused
+      - eval_time: 3m
+        alertname: DigestScheduleUnavailable
+        groupname: app-outcomes
+        exp_alerts: []
+  - name: digest paused queue hold and recovery
+    interval: 30s
+    input_series:
+      - series: 'news_digest_queue_paused{job="app-api",queue="digest-generation"}'
+        values: '0 1 1 1 1 1 0'
+      - series: 'news_digest_queue_paused{job="app-api",queue="social-collection"}'
+        values: '0 1 1 1 1 1 0'
+      - series: 'news_digest_queue_paused{job="app-worker",queue="digest-generation"}'
+        values: '0 1 1 1 1 1 0'
+    alert_rule_test:
+      - eval_time: 2m
+        alertname: DigestScheduleUnavailable
+        groupname: app-outcomes
+        exp_alerts: []
+      - eval_time: 2m30s
+        alertname: DigestScheduleUnavailable
+        groupname: app-outcomes
+        exp_alerts:
+          - exp_labels:
+              job: app-api
+              queue: digest-generation
+              severity: warning
+              alertgroup: app-outcomes
+            exp_annotations:
+              summary: Daily digest queue has no registered schedule or is paused
+      - eval_time: 3m
+        alertname: DigestScheduleUnavailable
+        groupname: app-outcomes
+        exp_alerts: []
+  - name: healthy daily digest and absent queue samples do not warn
+    interval: 30s
+    input_series:
+      - series: 'news_digest_queue_schedulers{job="app-api",queue="digest-generation"}'
+        values: '1+0x10'
+      - series: 'news_digest_queue_paused{job="app-api",queue="digest-generation"}'
+        values: '0+0x10'
+    alert_rule_test:
+      - eval_time: 5m
+        alertname: DigestScheduleUnavailable
+        groupname: app-outcomes
+        exp_alerts: []
+  - name: scrape outage belongs to scrape alert
+    interval: 30s
+    input_series: []
+    alert_rule_test:
+      - eval_time: 5m
+        alertname: DigestScheduleUnavailable
+        groupname: app-outcomes
+        exp_alerts: []
