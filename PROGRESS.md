@@ -123,3 +123,12 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (238 unit/172 integration), `pnpm build`, handbook 09 and `git diff --check` passed.
 - Live edition timing evidence complete; prior scheduled outcome remains fallback, not fresh AI timing. No paid calls, Reddit requests, cap/schedule or activation changes.
 - Next: collect and ack Nov 3 scheduled cost/yield/AI timing; activation stays gated.
+
+## 2026-11-03: iteration 390 — recent edition selection history
+
+- Started clean on main; no leftover work. Services/health green, 32 sources without current errors and no failed digest jobs; two historical ingestion failures remain recovered. Nov 3 scheduled evidence/acks still due 15:00 UTC.
+- Product selection coverage now spans seven immutable editions with edition identity/time and stored story candidate counts, alongside picks, scored/unscored counts and editorial outcomes. Includes manual revisions; absent post candidate counts/editorial metadata stay unknown, empty selections are zero.
+- Read-only SQL fixture verified six populated/empty/missing story/post rows. Live queries and restricted Viewer permissions passed `pnpm exec tsx scripts/check-observability.ts --verify-grafana`; desktop/mobile screenshots reviewed, including a focused mobile candidate-column check.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (238 unit/172 integration), `pnpm build`, handbook 09 and `git diff --check` passed; final formatting/lint repeated after screenshot-scroll adjustment.
+- Updated handbook/observability plan/TASKS; existing reader grants suffice. Grafana reloaded its dashboard; no running application code/config changed, so no service restarts. No provider calls or content/cap/schedule/activation changes.
+- Next: collect and ack Nov 3 scheduled cost/yield/AI timing; production activation stays gated.

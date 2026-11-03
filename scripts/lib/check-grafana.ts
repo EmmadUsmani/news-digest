@@ -313,6 +313,7 @@ export async function checkGrafana() {
           'Articles (7d)',
           'AI story topics',
           'Charged ($)',
+          'Candidates',
           'Scored',
           'Unscored',
           'Reason',
@@ -518,7 +519,7 @@ export async function checkGrafana() {
       if (
         await page
           .getByRole('heading', {
-            name: 'Latest edition selection coverage',
+            name: 'Edition selection coverage (latest seven editions)',
             exact: true,
           })
           .count()
@@ -528,7 +529,7 @@ export async function checkGrafana() {
       await page.waitForTimeout(300);
     }
     const selection = page.getByRole('heading', {
-      name: 'Latest edition selection coverage',
+      name: 'Edition selection coverage (latest seven editions)',
       exact: true,
     });
     await selection.scrollIntoViewIfNeeded();
@@ -539,7 +540,7 @@ export async function checkGrafana() {
           element.scrollWidth > element.clientWidth &&
           element.clientWidth > 200
         )
-          element.scrollLeft = 280;
+          element.scrollLeft = 500;
       }
     });
     await page.waitForTimeout(1500);

@@ -442,8 +442,8 @@
     },
     {
       "id": 12,
-      "title": "Latest edition selection coverage",
-      "description": "Latest retained immutable edition, including manual editions. Scored counts are stored triage rows and can come from cache; unscored counts are recorded IDs, not all rejected candidates. Missing editorial metadata stays blank. Reasons describe the stored selection outcome, not live provider health.",
+      "title": "Edition selection coverage (latest seven editions)",
+      "description": "Latest seven retained immutable editions, including manual editions and older revisions, in stored topic order. Candidates are the stored story candidate count; post candidate counts are not recorded and stay blank. Scored counts are stored triage rows and can come from cache; unscored counts are recorded IDs, not all rejected candidates. Missing editorial metadata stays blank; missing selections count as zero. Reasons describe the stored selection outcome, not live provider health. Fixed edition limit ignores the time picker.",
       "type": "table",
       "datasource": {
         "type": "grafana-postgresql-datasource",
@@ -460,7 +460,7 @@
           "refId": "A",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT t->>'name' AS \"Topic\", section.kind AS \"Section\", section.selected AS \"Selected\", jsonb_array_length(section.editorial->'triage') AS \"Scored\", jsonb_array_length(section.editorial->'unscoredIds') AS \"Unscored\", section.editorial->>'mode' AS \"Mode\", section.editorial->>'reason' AS \"Reason\" FROM (SELECT snapshot FROM digest_previews ORDER BY created_at DESC,id DESC LIMIT 1) d CROSS JOIN LATERAL jsonb_array_elements(d.snapshot->'topics') WITH ORDINALITY AS topics(t, position) CROSS JOIN LATERAL (VALUES ('Stories', jsonb_array_length(t->'stories'), t->'editorial'), ('Posts', jsonb_array_length(t->'posts'), t->'postEditorial')) AS section(kind,selected,editorial) ORDER BY topics.position, section.kind DESC",
+          "rawSql": "SELECT d.id::text AS \"Edition\", d.created_at AS \"Created (UTC)\", t->>'name' AS \"Topic\", section.kind AS \"Section\", CASE WHEN section.kind='Stories' THEN (t->>'candidateCount')::int END AS \"Candidates\", section.selected AS \"Selected\", jsonb_array_length(section.editorial->'triage') AS \"Scored\", jsonb_array_length(section.editorial->'unscoredIds') AS \"Unscored\", section.editorial->>'mode' AS \"Mode\", section.editorial->>'reason' AS \"Reason\" FROM (SELECT id,created_at,snapshot FROM digest_previews ORDER BY created_at DESC,id DESC LIMIT 7) d CROSS JOIN LATERAL jsonb_array_elements(d.snapshot->'topics') WITH ORDINALITY AS topics(t, position) CROSS JOIN LATERAL (VALUES ('Stories', coalesce(jsonb_array_length(t->'stories'),0), t->'editorial'), ('Posts', coalesce(jsonb_array_length(t->'posts'),0), t->'postEditorial')) AS section(kind,selected,editorial) ORDER BY d.created_at DESC,d.id DESC,topics.position, section.kind DESC",
           "editorMode": "code",
           "sql": {
             "limit": 100

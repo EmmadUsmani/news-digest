@@ -260,7 +260,7 @@ and unresolved holds. Zero calls may mean cached or fallback work. It excludes X
 discovery and unpublished attempts, so it is not total scheduled-run spend.
 Seven-day article counts include the last 24 hours and use publication time, not discovery time.
 Source response counts include duplicates and older items; they are not new-item yield.
-The latest edition selection table shows story/post picks, stored triage and unscored counts, modes and reasons per topic. Missing editorial metadata stays blank; triage can be cached, and unscored IDs are not all rejected candidates.
+The selection table shows story/post picks, stored triage and unscored counts, modes and reasons per topic across the latest seven immutable editions, including manual editions and revisions. Story candidate counts help compare coverage; post candidate counts are unavailable and stay blank. Missing selections count as zero and missing editorial metadata stays blank. Triage can be cached, and unscored IDs are not all rejected candidates. The edition limit ignores the time picker.
 
 A social-platform table counts X, Bluesky, Reddit and other selected posts per topic in the latest seven editions, including manual editions and revisions. Topics with no posts remain visible with zeros. These counts describe stored selections, not platform activity, engagement or incremental discovery yield.
 
