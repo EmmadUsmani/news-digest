@@ -110,4 +110,5 @@ Earlier entry: [iteration 397](docs/progress-archive/2026-11-03-iteration-397.md
 - Offline cases cover unavailable/paused/unstaffed queues, missing/duplicate queues, malformed responses and preserved default behavior; 16 focused CLI tests passed.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (260 unit/172 integration), `pnpm build`, handbook 09, live queue readiness and `scripts/check-observability.ts --verify-cli` all passed; zero mutations.
 - Updated handbook/plan/TASKS; archived iteration 399. CLI/tests/docs only: no service restart under STEERING 22, screenshots, paid calls, Reddit requests or production-content/cap/schedule changes.
-- Next: scheduled cost/yield/AI timing and acks first when available; observability top queries, harness counters and alerts remain open.
+- Commit `147f1bc` verified locally; `git push origin main` failed HTTP 403: exe.dev GitHub integration not found or attached to this VM. Remote unchanged; push remains blocked.
+- Next: restore GitHub integration/push, then scheduled cost/yield/AI timing and acks first when available; observability top queries, harness counters and alerts remain open.
