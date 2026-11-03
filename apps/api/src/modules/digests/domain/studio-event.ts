@@ -24,9 +24,17 @@ function closedStudio(candidate: Candidate): string | null | false {
     )
   )
     return false;
+  // An object after the verb describes a facility/product closure, not the
+  // whole studio. Block lexical fallback for these narrower announcements.
+  if (
+    /\b(?:clos(?:ed|es|ing)|shut(?:s|ting)? down) (?:its |the |a |an )?(?:offices?|branches?|divisions?|servers?|websites?|stores?|alpha|beta|playtest|test|applications|submissions)\b/i.test(
+      text,
+    )
+  )
+    return false;
   const matches = [
     ...text.matchAll(
-      /\b([A-Z][a-zA-Z]+(?: [A-Z][a-zA-Z]+)* Studios?),? (?:[Hh]as |[Ii]s |[Ww]as )?(?:[Oo]fficially )?(?:[Ss]hut down|[Ss]huts down|[Cc]eased operations|[Cc]eases operations|[Ss]hut its doors|[Ss]huts its doors|[Cc]losed its doors|[Cc]loses its doors|[Cc]losed|[Cc]loses)\b/g,
+      /\b([A-Z][a-zA-Z]+(?: [A-Z][a-zA-Z]+)* Studios?),? (?:[Hh]as |[Ii]s |[Ww]as )?(?:[Oo]fficially )?(?:[Ss]hut down|[Ss]huts down|[Ss]hutting down|[Cc]easing operations|[Cc]losing its doors|[Cc]eased operations|[Cc]eases operations|[Ss]hut its doors|[Ss]huts its doors|[Cc]losed its doors|[Cc]loses its doors|[Cc]losed|[Cc]loses)\b/g,
     ),
   ];
   // A publication timestamp does not date the event. Historical retrospectives

@@ -178,3 +178,41 @@ void test('explicit closure paraphrases group while temporary and beta closures 
     }
   }
 });
+
+void test('ongoing studio shutdown assertions exclude facility and product closures', () => {
+  const lead = item('Silver Copper Studio shuts down');
+  for (const assertion of [
+    'is shutting down',
+    'is officially shutting down',
+    'is ceasing operations',
+    'is closing its doors',
+  ]) {
+    const other = item(`Silver Copper Studio ${assertion}`);
+    assert.equal(sameEventWithStudioClosure(lead, other), true, assertion);
+    assert.equal(sameEventWithStudioClosure(other, lead), true, assertion);
+    assert.equal(
+      sameEventWithStudioClosure(lead, {
+        ...item('Developer confirms shutdown'),
+        excerpt: other.title,
+      }),
+      true,
+      assertion,
+    );
+  }
+  for (const assertion of [
+    'is shutting down its servers',
+    'shuts down a division',
+    'is shutting down its beta',
+    'closes its office',
+    'closed the website',
+    'is closing its doors temporarily',
+    'was shutting down in 2020',
+    'may be shutting down',
+    'is not shutting down',
+  ]) {
+    const other = item(`Silver Copper Studio ${assertion}`);
+    assert.equal(sameEventWithStudioClosure(lead, other), false, assertion);
+    assert.equal(sameEventWithStudioClosure(other, lead), false, assertion);
+    assert.equal(sameEventWithStudioClosure(other, other), false, assertion);
+  }
+});

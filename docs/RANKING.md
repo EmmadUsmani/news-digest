@@ -939,3 +939,14 @@ cover title/excerpt paraphrases, symmetry, distinct studios, historical and
 uncertain assertions, and identical non-closure headlines. The recorded
 benchmark remains 13/32 positives with zero labeled false merges; this adds no
 independent labels or measured real-world recall claim. Production stays off.
+
+## Iteration 341: ongoing shutdown assertions
+
+The opt-in studio matcher recognizes “is shutting down,” “is ceasing
+operations,” and “is closing its doors,” retaining the same identity and
+36-hour checks. Office, division, server, website, store and test closures
+refuse lexical fallback: closing a part of a company does not establish that
+the company closed. Synthetic tests check symmetry, excerpt assertions,
+negation, uncertainty and history. The recorded benchmark remains 13/32
+positives and zero labeled false merges; independent evidence is still open.
+Production grouping stays off pending the scheduled-run gate.
