@@ -1739,3 +1739,22 @@ returned 404; TalkBasket `/feed` returned 403 (no bypass). Sporting News
 connect malformed links. Yardbarker `/rss/sport/nba` returned stale, off-topic
 other-sport entries; only the numeric NBA feed above is used. Hoops Rumors was
 already connected; its successful probe adds no new source.
+
+## Iteration 480 — free X links from Yardbarker NBA pages
+
+Migration 054 opts the existing Yardbarker NBA feed into exact-host article
+discovery at `www.yardbarker.com`. A public Westbrook jersey-retirement article
+returned HTTP 200 and two named X embeds: `okcthunder/2117331372586979462`
+and `swishcultures_/2117355643342631418`. The recorded embed fragments pin
+canonical post IDs and named verification URLs without fetching X in tests.
+These are citations, not verified posts, independent reporting or measured
+virality. The existing eight-page hourly rotation, host checks and one-day
+publisher failure cooldown apply; no recursive crawling or paid search added.
+A Basketball Insiders game-report page returned 200 but no X status links;
+its article discovery remains off. No Reddit requests or bypasses.
+
+**Status: live.** Migration applied. The normal capped candidate pass checked
+eight pages (two Yardbarker), finding no links or errors. An explicit one-page
+check of the stored Westbrook article then persisted both citations at
+20:54:25 UTC without error. Neither check published an edition or called an LLM;
+post verification and selection remain separate.

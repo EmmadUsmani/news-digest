@@ -493,6 +493,25 @@ void test('recorded Insider Gaming article preserves named firmware citation', a
   ]);
 });
 
+void test('recorded Yardbarker NBA embeds preserve team and highlight citations without fetching X', async () => {
+  const html = await readFile(
+    'apps/api/test/fixtures/yardbarker-article-x.html',
+    'utf8',
+  );
+  const pages = new RiverDiscovery({ get: async () => html });
+  assert.deepEqual(
+    await pages.collect('https://www.yardbarker.com/recorded'),
+    [
+      ['okcthunder', '2117331372586979462'],
+      ['swishcultures_', '2117355643342631418'],
+    ].map(([handle, externalId]) => ({
+      externalId,
+      url: `https://x.com/i/web/status/${externalId}`,
+      verificationUrl: `https://twitter.com/${handle}/status/${externalId}`,
+    })),
+  );
+});
+
 void test('publisher candidate limit preserves publisher diversity, topic position and tied ID ordering', async () => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
   const adapter = new PostgresArticleDiscoveryRepository();
