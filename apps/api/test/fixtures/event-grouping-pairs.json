@@ -665,6 +665,27 @@
       "right": "c3fbd471-1be1-44ff-a7c2-8cc3767b1c7e",
       "sameEvent": true,
       "reason": "Both headline/excerpt pairs announce the official Elder Scrolls VI: Sentinel title in the November 3 Bethesda anniversary reveal; agent-reviewed, not independent verification."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "a022abd8-dea2-4eb2-a47f-857583668af6",
+      "right": "141faa31-16c2-4cf0-a142-1bf5b35e5837",
+      "sameEvent": true,
+      "reason": "Nintendo Life headline announces an official title; its stored excerpt explicitly names The Elder Scrolls VI: Sentinel, the same November 3 reveal. Agent-reviewed, not independent verification."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "a022abd8-dea2-4eb2-a47f-857583668af6",
+      "right": "33918da0-5e59-40b6-a34a-fdbdeb6fe369",
+      "sameEvent": true,
+      "reason": "Nintendo Life headline announces an official title; its stored excerpt explicitly names The Elder Scrolls VI: Sentinel, the same November 3 reveal. Agent-reviewed, not independent verification."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "a022abd8-dea2-4eb2-a47f-857583668af6",
+      "right": "705b94d8-f43d-4edb-9045-e17abe39cb75",
+      "sameEvent": true,
+      "reason": "Nintendo Life headline announces an official title; its stored excerpt explicitly names The Elder Scrolls VI: Sentinel, the same November 3 reveal. Agent-reviewed, not independent verification."
     }
   ]
 }

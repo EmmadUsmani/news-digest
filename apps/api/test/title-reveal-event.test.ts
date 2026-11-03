@@ -104,7 +104,7 @@ void test('title reveals reject different identities, secondary news, uncertaint
 
 void test('recorded title-reveal clusters preserve labels and membership in both directions', () => {
   const result = evaluateEventGrouping(sameEventWithStudioClosure);
-  assert.equal(result.truePositives, 26);
+  assert.equal(result.truePositives, 31);
   assert.equal(result.falsePositives, 0);
   assert.deepEqual(
     evaluateEventGrouping((a, b) => sameEventWithStudioClosure(b, a)),
@@ -115,4 +115,41 @@ void test('recorded title-reveal clusters preserve labels and membership in both
     assert.equal(window.membership.permutationCheck.maxUnlabeledMergedPairs, 0);
     assert.equal(window.membership.permutationCheck.orderSensitivePairs, 0);
   }
+});
+
+void test('headline without subtitle needs an explicit matching naming assertion in the excerpt', () => {
+  const lead = item(
+    'The Example Quest VI: Horizon – Official Name Reveal Trailer',
+  );
+  const other = {
+    ...item("'The Example Quest 6' Finally Has An Official Title"),
+    excerpt:
+      'As revealed by its director, the next game in the series is titled The Example Quest VI: Horizon (the previously reported name).',
+  };
+  assert.equal(sameTitleReveal(lead, other), true);
+  assert.equal(sameTitleReveal(other, lead), true);
+  for (const excerpt of [
+    '',
+    'The next game in the series is titled Other Quest VI: Horizon.',
+    'The next game in the series is titled The Example Quest VII: Horizon.',
+    'The next game in the series is titled The Example Quest VI: Sunset.',
+    'Rumor: the next game in the series is titled The Example Quest VI: Horizon.',
+    'Reportedly the next game in the series is titled The Example Quest VI: Horizon.',
+    'Previously the next game in the series is titled The Example Quest VI: Horizon.',
+    'In 2020 the next game in the series is titled The Example Quest VI: Horizon.',
+    'It is not true that the next game in the series is titled The Example Quest VI: Horizon.',
+    'If the next game in the series is titled The Example Quest VI: Horizon.',
+    'The next game in the series is titled The Example Quest VI: Horizon. The next game in the series is titled The Example Quest VI: Sunset.',
+  ]) {
+    const rejected = { ...other, excerpt };
+    assert.equal(sameTitleReveal(lead, rejected), false, excerpt);
+    assert.equal(sameTitleReveal(rejected, lead), false, excerpt);
+  }
+  for (const title of [
+    "'The Example Quest 7' Finally Has An Official Title",
+    "'The Example Quest 6' Finally Has An Official Title?",
+    "'The Example Quest 6' Finally Has An Official Title, rumor",
+    "'The Example Quest 6' Finally Has A Release Date",
+  ])
+    assert.equal(sameTitleReveal(lead, { ...other, title }), false, title);
 });

@@ -1,13 +1,3 @@
-## 2026-11-03: iteration 441 — supervisor duration and retry presentation
-
-- Started clean on main; no leftovers. Alerts/health green; product acceptance still awaits the next scheduled edition. Finished O8 within available bounded-status scope under items 24/25.
-- Agent dashboard adds optional completed-iteration duration and reported next-retry UTC panels. Missing samples display Unknown; running iterations remove duration, brief completions may be missed, and retry timestamps can be stale. Tokens/commits/cumulative pacing remain unavailable and uninferred.
-- Read-only checker accepts missing optional samples but requires finite values when present, instant queries and explicit Unknown configuration. Desktop/mobile Playwright checks and three inspected screenshots cover the panels; 16 queries successful, 14 currently populated, two honestly unknown. Viewer grants and Grafana memory (197 MiB) verified.
-- Initial browser check caught provisioning reload lag; rerun passed after hot reload. Installed dashboard JSON only; no service restart needed under STEERING 22. Protected harness files unchanged.
-- pnpm format, pnpm lint:fix, pnpm check, pnpm build, check-observability.ts --verify-o8 --verify-grafana --grafana-agent-only and check-handbook.ts 09-observability passed. No diagram changes.
-- Healthy sources/queues, real articles and stored X across four topics; latest real edition remains Nov 3 15:03 UTC with four topics. Zero alerts/dangling volumes. No paid calls or new editions.
-- TASKS/plan/handbook updated. Next: scheduled social/latency evidence first; otherwise O10 browser errors. O8 is complete with the documented unavailable-counter limits.
-
 ## 2026-11-03: iteration 442 — bounded browser error reports
 
 - Started clean on main; no leftovers. Zero alerts/healthy services; next scheduled product evidence remains pending. Completed O10 under items 24/25.
@@ -162,3 +152,14 @@
 - Restarted API/worker; first immediate probe raced startup, retry passed pnpm obs health --check and root HTTP 200; both units active, zero alerts.
 - Updated TASKS/RANKING; archived iteration 440 to keep PROGRESS bounded. No UI/handbook production-flow change, paid calls, new editions or Reddit requests.
 - Next: Nov 4 social selections/screenshots, World yield and latency/full-AI evidence; grouping recall/independent labels remain open.
+
+## 2026-11-03: iteration 457 — recover game-title identity from explicit excerpts
+
+- Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis, all 32 sources flowing and scheduled collectors healthy. Next scheduled social/latency evidence remains pending; advanced item 19.
+- Opt-in grouping accepts an official-title headline without its subtitle only when one explicit excerpt naming assertion supplies the full matching franchise/sequel/subtitle. Missing/conflicting identities, uncertainty/history and the 36-hour bound remain guarded; production grouping stays disabled.
+- Recorded Nintendo Life Sentinel excerpt joins five matched reveals. Three added agent-reviewed labels complete five newly recovered pairs: benchmark 98 pairs, combined 31/57 positives, zero/41 false merges, unknown merges or membership variation across 34 orders/window. Labels are not independent validation.
+- Targeted grouping 21/21 passed after correcting recorded label counts (two pairs were already labeled). Initial full check stopped on archive formatting; corrected and reran successfully.
+- pnpm format, pnpm lint:fix, pnpm check (291 unit/176 isolated integration), pnpm build and git diff --check passed. Zero dangling Docker volumes.
+- Restarted API/worker; pnpm obs health --check passed, root HTTP 200, both units active, zero alerts. pnpm obs sources --check and pnpm obs jobs --check passed before deploy.
+- Updated TASKS/RANKING; archived iteration 441 to keep PROGRESS bounded. No UI/handbook production-flow change, paid calls, new editions or Reddit requests.
+- Next: Nov 4 social selections/screenshots, World yield and latency/full-AI evidence; broader Gaming recall/independent labels remain open.

@@ -1102,3 +1102,20 @@ positive pairs complete the five-story cluster; these labels are not independent
 verification. The 95-pair benchmark has 54 positives and 41 negatives: lexical
 6/54, game-only 10/54, combined opt-in 26/54, zero labeled false merges. All
 windows retain zero unknown merges and no variation across 34 orders each.
+
+## Iteration 457: title identity from an explicit excerpt
+
+The opt-in matcher now accepts “Game N finally has an official title” when
+its excerpt contains exactly one explicit “the next game in the series is
+titled [full sequel: subtitle]” assertion. Franchise and sequel must match
+the headline; numeral normalization, uncertainty/history exclusions and the
+36-hour bound apply. Missing, conflicting or different identities stay separate.
+Production grouping remains disabled.
+
+The recorded Nintendo Life excerpt explicitly names The Elder Scrolls VI:
+Sentinel, joining the five matched reveals. Two of its five positive pairs
+were already labeled; three added agent-reviewed labels complete the cluster.
+The 98-pair benchmark has 57 positives and 41 negatives: lexical 6/57,
+game-only 10/57, combined opt-in 31/57, zero labeled false merges. All windows
+retain zero unknown merges and no variation across 34 orders each. These labels
+are not independent validation or a general quality estimate.

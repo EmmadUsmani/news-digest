@@ -1,5 +1,23 @@
 import type { Candidate } from './rank';
 
+function normalizeNumeral(value: string): string {
+  const numerals: Record<string, string> = {
+    ii: '2',
+    iii: '3',
+    iv: '4',
+    v: '5',
+    vi: '6',
+    vii: '7',
+    viii: '8',
+    ix: '9',
+    x: '10',
+  };
+  return value.replace(
+    /\b(ii|iii|iv|v|vi|vii|viii|ix|x)(?=:|$)/,
+    (_, numeral: string) => numerals[numeral],
+  );
+}
+
 // Opt-in: require an explicit named sequel/subtitle and a title announcement.
 // Do not infer the event from a franchise mention or a generic new trailer.
 function revealedTitle(candidate: Candidate): string | null {
@@ -18,7 +36,36 @@ function revealedTitle(candidate: Candidate): string | null {
     /^[\p{L}][\p{L} '-]{1,60} officially confirms (.+) as its next game$/u.exec(
       title,
     );
-  const identity = reframed?.[1] ?? confirmed?.[1];
+  // A headline may omit the subtitle. Accept it only when the excerpt makes
+  // one explicit naming assertion for that exact franchise and sequel.
+  const unnamed =
+    /^(?:'|“)?((?:the )?[\p{L}][\p{L} '-]{1,60} (?:[1-9]\d?|ii|iii|iv|v|vi|vii|viii|ix|x))(?:'|”)? finally has an official title$/u.exec(
+      title,
+    );
+  let excerptIdentity: string | undefined;
+  if (unnamed) {
+    const excerpt = candidate.excerpt.normalize('NFKC').toLowerCase();
+    const assertions = [
+      ...excerpt.matchAll(
+        /\bthe next game in the series is titled ([\p{L}][\p{L} '-]{1,60} (?:[1-9]\d?|ii|iii|iv|v|vi|vii|viii|ix|x): [\p{L}][\p{L} '-]{1,50}?)(?=\s*\(|[.!?]|$)/gu,
+      ),
+    ];
+    if (assertions.length !== 1) return null;
+    const assertion = assertions[0];
+    const sentence = excerpt.slice(0, assertion.index).split(/[.!?]/).at(-1)!;
+    if (
+      /\b(not|never|rumou?r|reportedly|might|could|may|would|should|if|unless|allegedly|previously|last year|years? ago|in (?:19|20)\d{2})\b/.test(
+        sentence,
+      )
+    )
+      return null;
+    const normalizeBase = (value: string) =>
+      normalizeNumeral(value.replace(/^the /, ''));
+    if (normalizeBase(unnamed[1]) !== normalizeBase(assertion[1].split(':')[0]))
+      return null;
+    excerptIdentity = assertion[1];
+  }
+  const identity = reframed?.[1] ?? confirmed?.[1] ?? excerptIdentity;
   const announcement = identity
     ? `${identity} is finally made official`
     : title;
@@ -27,21 +74,7 @@ function revealedTitle(candidate: Candidate): string | null {
       announcement,
     );
   if (!match) return null;
-  const numerals: Record<string, string> = {
-    ii: '2',
-    iii: '3',
-    iv: '4',
-    v: '5',
-    vi: '6',
-    vii: '7',
-    viii: '8',
-    ix: '9',
-    x: '10',
-  };
-  return match[1].replace(
-    /\b(ii|iii|iv|v|vi|vii|viii|ix|x):/,
-    (_, numeral: string) => `${numerals[numeral]}:`,
-  );
+  return normalizeNumeral(match[1]);
 }
 
 export function sameTitleReveal(a: Candidate, b: Candidate): boolean {
