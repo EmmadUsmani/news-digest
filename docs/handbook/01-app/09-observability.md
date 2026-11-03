@@ -397,6 +397,7 @@ or provider calls. These commands also work over SSH:
 - `pnpm obs logs --edition UUID` finds records explicitly attributed to an edition.
 - `pnpm obs logs --queue digest-generation --job ID` follows one job across worker and provider records that carry its identity.
 - `pnpm obs logs --grep 'Job finished'` matches message text literally.
+- `pnpm obs targets` summarizes collector health and last-scrape age directly from the metrics store.
 - `pnpm obs metric 'up'` runs an instant PromQL query.
 - `pnpm obs metric 'up' --since 1h --step 60s` returns historical samples with timestamps.
 - `pnpm obs jobs` shows all queue summaries, next scheduled times and up to five retained runs per queue.
@@ -413,4 +414,5 @@ no run details, so an empty filtered history can coexist with failed-job counts.
 No matching records does not prove a run never happened. Queue state depends on
 the API; log and metric queries work directly against their local stores.
 Metric history accepts positive integer durations in seconds, minutes, hours or days, up to seven days. The default step is 60 seconds; steps must be at least 30 seconds and produce at most 1,000 evaluation timestamps per series. Use a larger step for long windows. This bounds timestamps, not series count; use specific label filters to keep output small. Missing samples remain missing, and range results do not establish what happened before retention began.
+Target health reports down, stale (more than 120 seconds since the last scrape), unknown (missing/invalid/future scrape time or unrecognized health), or up. Collectors currently scrape every 30 seconds. Unhealthy targets come first; output includes at most 50 targets with totals and omitted counts. An empty target list is unhealthy. This checks registered collectors, not missing configuration, app health or individual sources. Health is a JSON field; a successful query exits normally even when targets are unhealthy. Provider response bodies and scrape error text are omitted.
 Backend failures exit unsuccessfully. Alerts are not installed yet.

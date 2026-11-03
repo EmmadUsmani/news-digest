@@ -16,6 +16,10 @@ export function obsRequest(
   init?: RequestInit;
 } {
   const [command, ...rest] = args;
+  if (command === 'targets') {
+    if (rest.length) throw new Error('targets accepts no options');
+    return { url: 'http://127.0.0.1:8428/metrics/api/v1/targets' };
+  }
   if (command === 'jobs') {
     jobOptions(rest);
     return { url: 'http://127.0.0.1:8000/api/status' };
@@ -23,7 +27,7 @@ export function obsRequest(
   if (command === 'metric') return metricRequest(rest, now);
   if (command !== 'logs' && command !== 'errors')
     throw new Error(
-      'Use: pnpm obs logs|errors [--since 1h] [--service worker] [--edition UUID] [--queue name] [--job ID] [--grep text] [--limit 40]; pnpm obs jobs [--queue name] [--state failed] [--limit 5]; pnpm obs metric <PromQL> [--since 1h] [--step 60s]',
+      'Use: pnpm obs targets; pnpm obs logs|errors [--since 1h] [--service worker] [--edition UUID] [--queue name] [--job ID] [--grep text] [--limit 40]; pnpm obs jobs [--queue name] [--state failed] [--limit 5]; pnpm obs metric <PromQL> [--since 1h] [--step 60s]',
     );
   const options = new Map<string, string>();
   for (let i = 0; i < rest.length; i += 2) {
@@ -119,6 +123,9 @@ export async function runObs(
   });
   if (!response.ok)
     throw new Error(`Local query failed: HTTP ${response.status}`);
+  if (args[0] === 'targets') {
+    return JSON.stringify(targetSummary(await response.json(), Date.now()));
+  }
   if (args[0] === 'jobs') {
     const status = (await response.json()) as Pick<
       OperationsStatus,
@@ -225,4 +232,61 @@ function metricRequest(args: string[], now: number) {
   params.set('end', String(end));
   params.set('step', String(step));
   return { url: `http://127.0.0.1:8428/metrics/api/v1/query_range?${params}` };
+}
+
+// The configured collectors scrape every 30 seconds. Allow four intervals.
+export function targetSummary(body: unknown, now: number) {
+  const result = body as {
+    status?: string;
+    data?: {
+      activeTargets?: Array<{
+        health?: string;
+        lastScrape?: string;
+        labels?: { job?: string; instance?: string };
+      }>;
+    };
+  } | null;
+  if (
+    result?.status !== 'success' ||
+    !Array.isArray(result.data?.activeTargets)
+  )
+    throw new Error('Invalid local target response');
+  const targets = result.data.activeTargets.map((target) => {
+    const scrapedAt = Date.parse(target.lastScrape ?? '');
+    const age =
+      Number.isFinite(scrapedAt) && scrapedAt <= now
+        ? (now - scrapedAt) / 1000
+        : null;
+    const state =
+      target.health === 'down'
+        ? 'down'
+        : age === null
+          ? 'unknown'
+          : age > 120
+            ? 'stale'
+            : target.health === 'up'
+              ? 'up'
+              : 'unknown';
+    return {
+      job: target.labels?.job ?? null,
+      instance: target.labels?.instance ?? null,
+      state,
+      lastScrape: age === null ? null : target.lastScrape,
+      ageSeconds: age,
+    };
+  });
+  targets.sort(
+    (a, b) =>
+      Number(a.state === 'up') - Number(b.state === 'up') ||
+      (a.job ?? '').localeCompare(b.job ?? ''),
+  );
+  return {
+    checkedAt: new Date(now).toISOString(),
+    healthy:
+      targets.length > 0 && targets.every((target) => target.state === 'up'),
+    total: targets.length,
+    unhealthy: targets.filter((target) => target.state !== 'up').length,
+    omitted: Math.max(0, targets.length - 50),
+    targets: targets.slice(0, 50),
+  };
 }

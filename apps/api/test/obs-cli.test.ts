@@ -1,7 +1,11 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { obsRequest, runObs } from '../../../scripts/lib/obs-query';
+import {
+  obsRequest,
+  runObs,
+  targetSummary,
+} from '../../../scripts/lib/obs-query';
 
 void test('obs log filters escape query operators and bound results', () => {
   const request = obsRequest([
@@ -28,6 +32,7 @@ void test('obs log filters escape query operators and bound results', () => {
 void test('obs rejects malformed inputs before any network access', async () => {
   for (const args of [
     ['alerts'],
+    ['targets', '--url', 'https://example.com'],
     ['jobs', '--limit', '21'],
     ['jobs', '--limit', '0'],
     ['jobs', '--queue', 'unknown'],
@@ -231,4 +236,81 @@ void test('obs metric history preserves expressions and bounds evaluation timest
     ),
     body,
   );
+});
+
+void test('obs target health distinguishes failed, stale, absent and future scrapes', async () => {
+  const now = Date.parse('2026-11-03T12:00:00Z');
+  const summary = targetSummary(
+    {
+      status: 'success',
+      data: {
+        activeTargets: [
+          {
+            health: 'up',
+            lastScrape: '2026-11-03T11:58:00Z',
+            labels: { job: 'healthy' },
+          },
+          {
+            health: 'up',
+            lastScrape: '2026-11-03T11:57:59Z',
+            labels: { job: 'stale' },
+          },
+          {
+            health: 'down',
+            lastScrape: '2026-11-03T11:59:59Z',
+            lastError: 'private error',
+          },
+          { health: 'up' },
+          { health: 'up', lastScrape: '2026-11-03T12:00:01Z' },
+        ],
+      },
+    },
+    now,
+  );
+  assert.equal(summary.healthy, false);
+  assert.equal(summary.unhealthy, 4);
+  assert.deepEqual(summary.targets.map((target) => target.state).sort(), [
+    'down',
+    'stale',
+    'unknown',
+    'unknown',
+    'up',
+  ]);
+  assert.equal(summary.targets.at(-1)?.job, 'healthy');
+  assert.ok(!JSON.stringify(summary).includes('private error'));
+  assert.equal(
+    targetSummary({ status: 'success', data: { activeTargets: [] } }, now)
+      .healthy,
+    false,
+  );
+  for (const body of [
+    null,
+    {},
+    { status: 'error' },
+    { status: 'success', data: {} },
+  ])
+    assert.throws(
+      () => targetSummary(body, now),
+      /Invalid local target response/,
+    );
+  const bounded = targetSummary(
+    {
+      status: 'success',
+      data: {
+        activeTargets: Array.from({ length: 60 }, () => ({ health: 'down' })),
+      },
+    },
+    now,
+  );
+  assert.equal(bounded.total, 60);
+  assert.equal(bounded.unhealthy, 60);
+  assert.equal(bounded.targets.length, 50);
+  assert.equal(bounded.omitted, 10);
+  const output = JSON.parse(
+    await runObs(['targets'], async (url) => {
+      assert.equal(url, 'http://127.0.0.1:8428/metrics/api/v1/targets');
+      return Response.json({ status: 'success', data: { activeTargets: [] } });
+    }),
+  );
+  assert.equal(output.total, 0);
 });

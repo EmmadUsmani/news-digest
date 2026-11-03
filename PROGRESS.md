@@ -8,16 +8,6 @@ Earlier entries: [iteration 385](docs/progress-archive/2026-11-03-iteration-385.
 
 Earlier entries: [iterations 389–390](docs/progress-archive/2026-11-03-iterations-389-390.md).
 
-## 2026-11-03: iteration 393 — next scheduled runs in Grafana
-
-- Started clean on main; no leftover work. Health green, 32 sources without current errors and no failed digest jobs. Nov 3 evidence/acks remain due 15:00 UTC; activation stays gated.
-- Jobs dashboard now shows earliest registered digest/social recurring run in UTC. API scrapes two bounded ascending one-row scheduler reads; missing/invalid dates remove samples, Redis failures fail the scrape and recover. Due time does not guarantee worker start/completion.
-- Offline tests cover timestamp conversion, bounded reads, ingestion exclusion, invalid/missing dates and failure recovery. Live metric/status comparison and desktop/mobile screenshots verified 15:00 digest and 12:38 social schedules.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (239 unit/172 integration), `pnpm build`, handbook 09 and read-only edition timing report passed. No fresh AI timing claim; retained scheduled result remains 856 ms fallback.
-- Live `pnpm exec tsx scripts/check-observability.ts --verify-grafana` passed all ten dashboards and Viewer permissions. First probe found the old provisioned dashboard; copied the updated file and reran successfully. Unrelated regenerated screenshots discarded.
-- Updated handbook/plan/TASKS; archived iteration 380. API restarted healthy; Grafana dashboard provision copied for hot reload. No paid calls, Reddit requests or production content/cap/schedule/activation changes.
-- Next: collect/ack Nov 3 scheduled cost/yield/AI timing; individual edition duration and per-iteration harness metrics remain open.
-
 ## 2026-11-03: iteration 394 — latest completed run timing in Grafana
 
 - Started clean on main; no leftover work. Health/services green, 32 sources without current errors and no failed digest jobs; two historical ingestion failures remain. Scheduled evidence/acks still due 15:00 UTC.
@@ -110,3 +100,12 @@ Earlier entries: [iterations 389–390](docs/progress-archive/2026-11-03-iterati
 - Handbook operations check passed (17 pages/one unchanged diagram); no UI/diagram changes or screenshots needed. Archived iteration 392; updated handbook/plan/TASKS. No running service code/config changed, so no restart under STEERING 22.
 - `pnpm format`, `pnpm lint:fix` `pnpm check` (250 unit/172 integration tests), `pnpm build` and `git diff --check` passed. Initial formatting check caught the new archive's extra blank line; corrected before the successful rerun.
 - No paid calls, Reddit requests or production-content/cap/schedule/activation changes. Next: collect/ack Nov 3 scheduled cost/yield/AI timing first; O7 top queries, O8 harness metrics and O9 alerts remain.
+
+## 2026-11-03: iteration 404 — scrape-target health at the command line
+
+- Started clean on main; no leftover work. Health/services green, all 32 sources without current errors, no failed digest/social jobs; two historical ingestion failures remain. Scheduled evidence and activation wait for 15:00 UTC.
+- Added read-only `pnpm obs targets`: registered collector health and scrape age, down/stale/unknown distinction, unhealthy-first ordering, maximum 50 rows with total/unhealthy/omitted counts. Stale means over 120 seconds at the current 30-second cadence; empty lists are unhealthy. Scrape error bodies are omitted; JSON health does not change exit status.
+- Offline tests cover the freshness boundary, missing/future times, malformed responses, output limits, endpoint selection and invalid options before network access. `pnpm exec tsx scripts/check-observability.ts --verify-cli` passed against eight healthy scrape targets/four queues, with normal retained worker correlation and zero mutations.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (251 unit/172 integration), `pnpm build`, handbook 09 and `git diff --check` passed. No UI/diagram changes or screenshots needed.
+- Updated handbook/plan/TASKS and archived iteration 393. CLI/tests/docs only; no service restart under STEERING 22. No paid calls, Reddit requests or production content/cap/schedule/activation changes.
+- Next: collect and acknowledge Nov 3 scheduled cost/yield/AI timing first. Alert engine, top queries and harness counters remain open.

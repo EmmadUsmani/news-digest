@@ -226,6 +226,7 @@ only when its check passes.
   - Iteration 401: exact job/queue log filters correlate retained attempts and inherited provider records without expanding IDs or enqueuing work. Escaping/validation tests and live positive/absent-ID queries verify selection; retries share an identity.
   - Iteration 402: metric history via `--since`/`--step`, capped at seven days and 1,000 evaluation timestamps per series; offline boundary tests and a live retained-sample check. Series count remains query-dependent.
   - Iteration 403: read-only edition timing accepts `--scheduled-only --limit 20`, with pre-read selection, separate completed/failure bounds and retained/selected counts. Offline validation and `--verify-timing` cover real retained editions; queue retention still bounds historical evidence.
+  - Iteration 404: `pnpm obs targets` reports registered scrape health and age, distinguishes stale/unknown/down, puts unhealthy targets first and bounds output at 50 with totals. Offline boundary/error tests and live eight-target verification; no alert engine or O9 completion claim.
   - **Scope:** vmalert rules for:
     - disk over 80%;
     - a `news-digest-*` or `obs-*` unit down;
