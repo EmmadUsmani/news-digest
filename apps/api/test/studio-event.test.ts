@@ -99,3 +99,37 @@ void test('studio closure does not infer current events from questions, uncertai
     true,
   );
 });
+
+void test('multiword studio closures match full identities without suffix collisions', () => {
+  const lead = item('Silver Copper Studio shuts down after funding cuts');
+  for (const title of [
+    'Silver Copper Studio is closed',
+    'The Silver Copper Studio has officially shut down',
+    'As Silver Copper Studio closes, staff share memories',
+  ]) {
+    const other = item(title);
+    assert.equal(sameEventWithStudioClosure(lead, other), true, title);
+    assert.equal(sameEventWithStudioClosure(other, lead), true, title);
+  }
+  for (const title of [
+    'Copper Studio is closed',
+    'Gold Copper Studio is closed',
+    'Bright Silver Copper Studio is closed',
+    'Silver Copper Studios is closed',
+    'Silver Copper Studio is closed and Gold Studio is closed',
+    'Silver Copper Studio was closed in 2020',
+    'Silver Copper Studio is reportedly closed',
+    'Silver Copper Studio will shut down',
+  ]) {
+    const other = item(title);
+    assert.equal(sameEventWithStudioClosure(lead, other), false, title);
+    assert.equal(sameEventWithStudioClosure(other, lead), false, title);
+  }
+  assert.equal(
+    sameEventWithStudioClosure(lead, {
+      ...item('Developer confirms closure'),
+      excerpt: 'Silver Copper Studio has shut down.',
+    }),
+    true,
+  );
+});

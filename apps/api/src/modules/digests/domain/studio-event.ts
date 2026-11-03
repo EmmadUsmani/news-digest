@@ -15,7 +15,7 @@ function closedStudio(candidate: Candidate): string | null | false {
   if (/\breportedly\b/i.test(candidate.title)) return false;
   const matches = [
     ...text.matchAll(
-      /\b([A-Z][a-zA-Z]+ Studios?),? (?:[Hh]as |[Ii]s |[Ww]as )?(?:[Oo]fficially )?(?:[Ss]hut down|[Ss]huts down|[Cc]losed|[Cc]loses)\b/g,
+      /\b([A-Z][a-zA-Z]+(?: [A-Z][a-zA-Z]+)* Studios?),? (?:[Hh]as |[Ii]s |[Ww]as )?(?:[Oo]fficially )?(?:[Ss]hut down|[Ss]huts down|[Cc]losed|[Cc]loses)\b/g,
     ),
   ];
   // A publication timestamp does not date the event. Historical retrospectives
@@ -31,15 +31,14 @@ function closedStudio(candidate: Candidate): string | null | false {
     )
   )
     return false;
-  // Do not mistake the last word of a multiword studio name for its identity.
-  if (
-    matches.some((match) => {
-      const prefix = text.slice(0, match.index);
-      return /[A-Z][a-zA-Z]+ $/.test(prefix) && !/\b(?:As|The) $/.test(prefix);
-    })
-  )
-    return false;
-  const names = new Set(matches.map((match) => match[1].toLowerCase()));
+  // Keep the entire proper name: matching only its final word would conflate
+  // Copper Studio with Silver Copper Studio. Leading sentence connectives
+  // are not part of the identity, preserving the existing single-word rule.
+  const names = new Set(
+    matches.map((match) =>
+      match[1].split(/\bAs /).at(-1)!.replace(/^The /, '').toLowerCase(),
+    ),
+  );
   return names.size === 1 ? [...names][0] : names.size > 1 ? false : null;
 }
 

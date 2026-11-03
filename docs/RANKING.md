@@ -916,3 +916,14 @@ could share a story slot. Seven synthetic cases now keep separate slots in
 both argument orders; scoreless coverage retains lexical matching. The recorded
 benchmark remains unchanged. This is a conservative guard, not new independent
 quality evidence; production event grouping remains off.
+
+## Iteration 339: retain complete multiword studio identities
+
+The default-off matcher now recognizes multiword proper studio names directly
+followed by closure assertions, retaining the full name instead of rejecting
+it or matching only its last word. Sentence connectives `As` and `The` retain
+the existing behavior. Synthetic tests cover matching headlines/excerpts,
+suffix collisions, different prefixes, singular/plural names, multiple
+closures and existing historical/uncertainty guards. The recorded benchmark
+remains 13/32 positive pairs, zero labeled false merges; this adds no independent
+labels or measured real-world recall gain. Production grouping stays off.
