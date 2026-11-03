@@ -68,3 +68,5 @@ M0–M2 and foundational M3/M6/M7 functionality are implemented; remaining work 
 
 - [ ] STEERING 2a (lower priority): finish repository/HTTP characterization before ORM. Disposable Postgres/Redis, fresh migrations, HTTP/worker flows, fallback and synthetic-AI goldens implemented (183–270). Coverage and remaining gaps: [database verification](docs/DATABASE-VERIFICATION.md). Never touch live DB; finish 2a before ORM. Recorded-response golden remains open.
 - [ ] STEERING 2b (only after 2a is green): record Drizzle decision/schema parity, back up live DB, gradually replace raw SQL behind ports and enforce boundaries.
+
+- [ ] STEERING 24 (low priority/background): implement owner-approved [observability plan](docs/observability-plan.md) O1–O11 one verified piece at a time, only when product work is done or blocked. Keep resource limits, local-only free tools and scheduled-run protection.
