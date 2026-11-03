@@ -651,6 +651,49 @@
           "show": false
         }
       }
+    },
+    {
+      "id": 14,
+      "title": "Recent Anthropic calls (latest 30 in seven days)",
+      "description": "Individual ledger admissions, including unpublished attempts. Run IDs identify the request context and may not match a published edition. Model and purpose are recorded at admission. Settled charges and pending/uncertain holds are separate; missing cost remains unknown. Cache hits and refused admissions have no row. Fixed seven-day creation window ignores the time picker.",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "product-postgres"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 93,
+        "w": 24,
+        "h": 10
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT created_at AS \"Created (UTC)\", run_id AS \"Run\", model AS \"Model\", purpose AS \"Purpose\", status AS \"Status\", cost_micros / 1000000.0 AS \"Settled USD\", CASE WHEN status IN ('pending','uncertain') THEN reserved_micros ELSE 0 END / 1000000.0 AS \"Held USD\" FROM llm_calls WHERE created_at >= now() - interval '7 days' ORDER BY created_at DESC, id DESC LIMIT 30",
+          "editorMode": "code",
+          "sql": {
+            "limit": 100
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "minWidth": 150
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
     }
   ],
   "links": [

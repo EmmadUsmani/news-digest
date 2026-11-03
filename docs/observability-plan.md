@@ -329,3 +329,5 @@ O6 incremental progress (380): Product provider spend includes succeeded/failed 
 O6 incremental progress (381): Product adds the latest 30 X discovery calls in seven days, with reservation-time topic/search type, current status, settled cost/holds and reported fetched counts. Null counts stay unknown; fetched posts are not verified yield. Restricted reader gains only the five required operational columns.
 
 O6 incremental progress (382): X call history adds safe failure reason, recorded outcome time and reservation-to-outcome elapsed seconds. Pending values stay blank; uncertain outcomes retain holds. Ledger elapsed includes local work, not provider HTTP latency or subsequent official verification. Reader gains only two operational columns.
+
+O6 incremental progress (383): Product adds the latest 30 Anthropic ledger admissions in seven days, including unpublished attempts, with run/model/purpose/status, settled cost and unresolved hold. Cache hits and refused requests are absent; null cost is unknown. Reader gains only ID/model/purpose columns.

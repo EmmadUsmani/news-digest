@@ -249,7 +249,7 @@ export async function checkGrafana() {
         width: 1440,
         height:
           dashboard.uid === 'nd-product'
-            ? 3400
+            ? 3800
             : ['nd-runtime', 'nd-redis'].includes(dashboard.uid)
               ? 2100
               : 1100,
@@ -549,6 +549,33 @@ export async function checkGrafana() {
       .waitFor();
     await page.screenshot({
       path: 'docs/screenshots/grafana-product-x-calls-desktop.png',
+    });
+    await page.goto(`${base}/d/nd-product?kiosk&viewPanel=panel-14`, {
+      waitUntil: 'networkidle',
+    });
+    await page
+      .getByRole('heading', {
+        name: 'Recent Anthropic calls (latest 30 in seven days)',
+        exact: true,
+      })
+      .scrollIntoViewIfNeeded();
+    await page.waitForTimeout(1500);
+    await page
+      .getByRole('columnheader', { name: 'Purpose', exact: true })
+      .waitFor();
+    await page.screenshot({
+      path: 'docs/screenshots/grafana-product-anthropic-calls-desktop.png',
+    });
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page
+      .getByRole('heading', {
+        name: 'Recent Anthropic calls (latest 30 in seven days)',
+        exact: true,
+      })
+      .evaluate((node) => node.scrollIntoView({ block: 'start' }));
+    await page.waitForTimeout(1000);
+    await page.screenshot({
+      path: 'docs/screenshots/grafana-product-anthropic-calls-mobile.png',
     });
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(`${base}/d/nd-database?kiosk`, {
