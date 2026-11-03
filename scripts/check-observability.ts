@@ -18,6 +18,7 @@ async function main() {
         '--test',
         '--test-reporter=dot',
         'apps/api/test/external-http-logging.test.ts',
+        'apps/api/test/provider-metrics.test.ts',
       ],
       { env: testEnvironment(), stdio: 'pipe', timeout: 120_000 },
     );

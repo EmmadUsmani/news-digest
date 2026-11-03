@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+import { measuredFetch } from '../../../libs/observability/external-metrics';
 import { logger } from '../../../libs/observability/logging';
 import type { BlueskyPost, BlueskySearchPort } from '../domain/bluesky';
 import { blueskyMedia } from './bluesky-media';
@@ -42,7 +43,9 @@ export class BlueskySearch implements BlueskySearchPort {
     private readonly wait: (ms: number) => Promise<void> = (ms) =>
       new Promise((resolve) => setTimeout(resolve, ms)),
     private readonly log = logger,
-  ) {}
+  ) {
+    this.transport = measuredFetch('bluesky', transport);
+  }
 
   search(query: string, since: Date, until: Date): Promise<BlueskyPost[]> {
     if (

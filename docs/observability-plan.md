@@ -174,6 +174,9 @@ only when its check passes.
     official X embeds, with bounded target/status/outcome labels. Offline cache,
     redirect, failure and privacy assertions plus live registry checks via
     `--verify-external-http-metrics`. Anthropic/xAI/Bluesky and queue-state metrics remain.
+  - Iteration 363: Anthropic/xAI/Bluesky fetch attempts added to the fixed-target
+    histogram; durations end at headers, retries/auth requests counted separately.
+    Offline transport identity, status/error and privacy checks; queue-state metrics remain.
 - [ ] **O6 Dashboards.**
   - **Scope:** Grafana at `/grafana/`, with datasources and dashboards
     provisioned from `ops/observability/grafana/`.

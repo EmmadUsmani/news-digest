@@ -1,5 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk';
 
+import { measuredFetch } from '../../../libs/observability/external-metrics';
 import { logger } from '../../../libs/observability/logging';
 import { costMicros } from '../domain/budget';
 import {
@@ -55,7 +56,7 @@ export class AnthropicLlmAdapter extends LlmPort {
       apiKey,
       maxRetries: 0,
       timeout: 60000,
-      fetch,
+      fetch: measuredFetch('anthropic', fetch ?? globalThis.fetch),
     });
   }
   complete(request: LlmRequest): Promise<LlmResponse> {

@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+import { measuredFetch } from '../../../libs/observability/external-metrics';
 import { logger } from '../../../libs/observability/logging';
 import { extractXLinks } from '../../ingestion/public/discovery';
 import {
@@ -121,6 +122,7 @@ export class DirectXSearch implements XSearchPort {
     private readonly send: typeof fetch = fetch,
     private readonly log = logger,
   ) {
+    this.send = measuredFetch('xai', send);
     if (!key.trim()) throw new Error('X search key unavailable');
   }
   async search(request: XSearchRequest) {
