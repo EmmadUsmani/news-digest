@@ -8,7 +8,10 @@ const queueNames = [
 ];
 
 // Only local, read-only query endpoints. Never schedule work or read credentials.
-export function obsRequest(args: string[]): {
+export function obsRequest(
+  args: string[],
+  now = Date.now(),
+): {
   url: string;
   init?: RequestInit;
 } {
@@ -17,13 +20,10 @@ export function obsRequest(args: string[]): {
     jobOptions(rest);
     return { url: 'http://127.0.0.1:8000/api/status' };
   }
-  if (command === 'metric' && rest.length === 1 && rest[0].trim())
-    return {
-      url: `http://127.0.0.1:8428/metrics/api/v1/query?${new URLSearchParams({ query: rest[0] })}`,
-    };
+  if (command === 'metric') return metricRequest(rest, now);
   if (command !== 'logs' && command !== 'errors')
     throw new Error(
-      'Use: pnpm obs logs|errors [--since 1h] [--service worker] [--edition UUID] [--queue name] [--job ID] [--grep text] [--limit 40]; pnpm obs jobs [--queue name] [--state failed] [--limit 5]; pnpm obs metric <PromQL>',
+      'Use: pnpm obs logs|errors [--since 1h] [--service worker] [--edition UUID] [--queue name] [--job ID] [--grep text] [--limit 40]; pnpm obs jobs [--queue name] [--state failed] [--limit 5]; pnpm obs metric <PromQL> [--since 1h] [--step 60s]',
     );
   const options = new Map<string, string>();
   for (let i = 0; i < rest.length; i += 2) {
@@ -181,4 +181,48 @@ function jobOptions(args: string[]) {
   if (!/^\d+$/.test(limit) || Number(limit) < 1 || Number(limit) > 20)
     throw new Error('--limit must be 1–20 for jobs');
   return { queue, state, limit: Number(limit) };
+}
+
+// Range queries have at most 1,000 evaluation timestamps per returned series.
+function metricRequest(args: string[], now: number) {
+  const [query, ...rest] = args;
+  if (!query?.trim()) throw new Error('Metric query is required');
+  const options = new Map<string, string>();
+  for (let i = 0; i < rest.length; i += 2) {
+    const key = rest[i];
+    const value = rest[i + 1];
+    if (
+      !['--since', '--step'].includes(key) ||
+      value === undefined ||
+      options.has(key)
+    )
+      throw new Error('Invalid or duplicate metric option');
+    options.set(key, value);
+  }
+  const params = new URLSearchParams({ query });
+  if (!options.size)
+    return { url: `http://127.0.0.1:8428/metrics/api/v1/query?${params}` };
+  const since = options.get('--since');
+  if (!since) throw new Error('--step requires --since');
+  const seconds = (value: string) => {
+    const match = /^([1-9]\d{0,5})([smhd])$/.exec(value);
+    if (!match)
+      throw new Error(
+        'Metric durations require positive integers and s/m/h/d units',
+      );
+    return Number(match[1]) * { s: 1, m: 60, h: 3600, d: 86400 }[match[2]]!;
+  };
+  const window = seconds(since);
+  if (window > 7 * 86400)
+    throw new Error('Metric history is limited to 7 days');
+  const step = seconds(options.get('--step') ?? '60s');
+  if (step < 30 || step > window || Math.floor(window / step) + 1 > 1000)
+    throw new Error(
+      'Metric step must be at least 30s, no longer than the window, and return at most 1000 timestamps',
+    );
+  const end = Math.floor(now / 1000);
+  params.set('start', String(end - window));
+  params.set('end', String(end));
+  params.set('step', String(step));
+  return { url: `http://127.0.0.1:8428/metrics/api/v1/query_range?${params}` };
 }

@@ -54,6 +54,18 @@ async function main() {
       filteredJobs.queues[0].retainedRuns >=
         filteredJobs.queues[0].matchingRuns,
     );
+    const history = JSON.parse(
+      await runObs(['metric', 'up', '--since', '5m', '--step', '30s']),
+    );
+    assert.equal(history.status, 'success');
+    assert.equal(history.data.resultType, 'matrix');
+    assert.ok(history.data.result.length > 0);
+    assert.ok(
+      history.data.result.every(
+        (series: { values: unknown[] }) =>
+          series.values.length > 0 && series.values.length <= 11,
+      ),
+    );
     const metrics = JSON.parse(await runObs(['metric', 'up']));
     assert.equal(metrics.status, 'success');
     assert.ok(metrics.data.result.length > 0);

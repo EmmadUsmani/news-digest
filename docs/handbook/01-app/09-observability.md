@@ -398,6 +398,7 @@ or provider calls. These commands also work over SSH:
 - `pnpm obs logs --queue digest-generation --job ID` follows one job across worker and provider records that carry its identity.
 - `pnpm obs logs --grep 'Job finished'` matches message text literally.
 - `pnpm obs metric 'up'` runs an instant PromQL query.
+- `pnpm obs metric 'up' --since 1h --step 60s` returns historical samples with timestamps.
 - `pnpm obs jobs` shows all queue summaries, next scheduled times and up to five retained runs per queue.
 - `pnpm obs jobs --queue digest-generation --state failed --limit 2` narrows the returned run history.
 
@@ -411,4 +412,5 @@ run order; this is not a search of all Redis jobs. Some queues expose counts but
 no run details, so an empty filtered history can coexist with failed-job counts.
 No matching records does not prove a run never happened. Queue state depends on
 the API; log and metric queries work directly against their local stores.
+Metric history accepts positive integer durations in seconds, minutes, hours or days, up to seven days. The default step is 60 seconds; steps must be at least 30 seconds and produce at most 1,000 evaluation timestamps per series. Use a larger step for long windows. This bounds timestamps, not series count; use specific label filters to keep output small. Missing samples remain missing, and range results do not establish what happened before retention began.
 Backend failures exit unsuccessfully. Alerts are not installed yet.

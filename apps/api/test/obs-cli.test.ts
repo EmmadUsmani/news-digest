@@ -35,6 +35,15 @@ void test('obs rejects malformed inputs before any network access', async () => 
     ['jobs', '--state'],
     ['jobs', '--state', 'failed', '--state', 'active'],
     ['metric'],
+    ['metric', 'up', '--step', '60s'],
+    ['metric', 'up', '--since', '8d'],
+    ['metric', 'up', '--since', '1h', '--step', '1s'],
+    ['metric', 'up', '--since', '1h', '--step', '2h'],
+    ['metric', 'up', '--since', '1d'],
+    ['metric', 'up', '--since', '1h', '--since', '2h'],
+    ['metric', 'up', '--since', '1h | delete'],
+    ['metric', 'up', '--since'],
+    ['metric', 'up', '--url', 'https://example.com'],
     ['logs', '--since', '1h | delete'],
     ['logs', '--service', 'other'],
     ['logs', '--edition', 'invalid'],
@@ -184,4 +193,42 @@ void test('obs correlates job logs with an exact queue and escaped job identity'
   const query = (request.init?.body as URLSearchParams).get('query')!;
   assert.match(query, /level:in/);
   assert.ok(query.includes('jobId:="42"'));
+});
+
+void test('obs metric history preserves expressions and bounds evaluation timestamps', async () => {
+  const query = 'sum(rate(a{label="a&b"}[5m]))';
+  const now = Date.parse('2026-11-03T12:00:00.999Z');
+  const url = new URL(obsRequest(['metric', query, '--since', '1h'], now).url);
+  assert.equal(url.origin, 'http://127.0.0.1:8428');
+  assert.equal(url.pathname, '/metrics/api/v1/query_range');
+  assert.equal(url.searchParams.get('query'), query);
+  assert.equal(url.searchParams.get('end'), String(Math.floor(now / 1000)));
+  assert.equal(
+    url.searchParams.get('start'),
+    String(Math.floor(now / 1000) - 3600),
+  );
+  assert.equal(url.searchParams.get('step'), '60');
+  const bounded = new URL(
+    obsRequest(['metric', 'up', '--since', '7d', '--step', '1h'], now).url,
+  );
+  assert.equal(bounded.searchParams.get('step'), '3600');
+  assert.doesNotThrow(() => obsRequest(['metric', 'up', '--since', '999m']));
+  assert.throws(() => obsRequest(['metric', 'up', '--since', '1000m']));
+  const body = {
+    status: 'success',
+    data: { resultType: 'matrix', result: [] },
+  };
+  assert.deepEqual(
+    JSON.parse(
+      await runObs(['metric', 'up', '--since', '1h'], async (input) => {
+        assert.equal(typeof input, 'string');
+        assert.equal(
+          new URL(input as string).pathname,
+          '/metrics/api/v1/query_range',
+        );
+        return Response.json(body);
+      }),
+    ),
+    body,
+  );
 });
