@@ -373,3 +373,167 @@ void test('scheduled topic projections share the budget lock and cap; retries ca
     await db.end();
   }
 });
+
+void test('optional X admission waits for all verified open runs and consumes one durable low-yield slot', async () => {
+  const db = database();
+  const restartedDb = database();
+  const ledger = new PostgresXDiscoveryLedger(db);
+  const restarted = new PostgresXDiscoveryLedger(restartedDb);
+  const ids: string[] = [];
+  const day = new Date().toISOString().slice(0, 10);
+  const externalIds = ['288001', '288002', '288003'];
+  try {
+    const { rows: topics } = await db.query<{ id: string; name: string }>(
+      'SELECT id,name FROM topics WHERE enabled AND post_budget > 0 ORDER BY position',
+    );
+    assert.ok(topics.length >= 2);
+    const parents: string[] = [];
+    for (const topic of topics) {
+      const id = await ledger.reserve(
+        'grok-4.3',
+        'optional-fixture',
+        100000,
+        topic,
+        day,
+        'open-topic',
+      );
+      assert.ok(id);
+      ids.push(id);
+      parents.push(id);
+      await assert.rejects(ledger.completeVerification(id), /not completed/);
+      await ledger.settle(
+        id,
+        {
+          inputTokens: 0,
+          outputTokens: 0,
+          postsFetched: 0,
+          profilesFetched: 0,
+        },
+        price,
+      );
+    }
+    const optional = (
+      instance: PostgresXDiscoveryLedger,
+      index = 0,
+      estimate = 100000,
+    ) =>
+      instance.reserve(
+        'grok-4.3',
+        'optional-fixture',
+        estimate,
+        topics[index],
+        day,
+        'story-reactions',
+        parents[index],
+      );
+    assert.equal(await optional(ledger), null);
+    for (const id of parents.slice(0, -1))
+      await ledger.completeVerification(id);
+    assert.equal(await optional(ledger), null);
+    await ledger.completeVerification(parents.at(-1)!);
+    await ledger.completeVerification(parents[0]); // Idempotent after restart.
+
+    // Three new verified additions exclude the topic; old citations do not count.
+    for (const externalId of externalIds) {
+      await db.query(
+        "INSERT INTO social_posts(platform,external_id,canonical_url,author,author_url,embed_html) VALUES('x',$1,'https://x.com/a/status/' || $1,'fixture','https://x.com/a','<p>fixture</p>')",
+        [externalId],
+      );
+      await db.query(
+        "INSERT INTO x_search_citations(call_id,topic_id,external_id,canonical_url,new_candidate) VALUES($1,$2,$3,'https://x.com/a/status/' || $3,true)",
+        [parents[0], topics[0].id, externalId],
+      );
+    }
+    assert.equal(await optional(ledger), null);
+    await db.query(
+      'UPDATE x_search_citations SET new_candidate=false WHERE call_id=$1 AND external_id=$2',
+      [parents[0], externalIds[0]],
+    );
+    await db.query(
+      'UPDATE x_search_citations SET new_candidate=NULL WHERE call_id=$1 AND external_id=$2',
+      [parents[0], externalIds[0]],
+    );
+    assert.equal(await optional(ledger), null);
+    await db.query(
+      'UPDATE x_search_citations SET new_candidate=false WHERE call_id=$1 AND external_id=$2',
+      [parents[0], externalIds[0]],
+    );
+    // A budget denial does not consume the optional slot.
+    assert.equal(await optional(ledger, 0, 400001), null);
+    const attempts = await Promise.all([optional(ledger), optional(restarted)]);
+    const admitted = attempts.filter((id): id is string => id !== null);
+    assert.equal(admitted.length, 1);
+    ids.push(...admitted);
+    // Indexes protect the optional slot even from a writer bypassing the lock.
+    await assert.rejects(
+      db.query(
+        `INSERT INTO x_discovery_calls(id,model,run_id,status,reserved_micros,scheduled_day,requested_topic,search_type,optional_parent_id)
+         VALUES($1,'fixture','bypass-optional','failed',1,$2,$3,'account-list',$4)`,
+        [crypto.randomUUID(), day, topics[0], parents[0]],
+      ),
+      { code: '23505' },
+    );
+    await ledger.fail(admitted[0], 'rejected');
+    assert.equal(await optional(restarted), null);
+    // The other topic has its own slot, but cannot reuse a different parent.
+    assert.equal(
+      await ledger.reserve(
+        'grok-4.3',
+        'wrong-parent',
+        100000,
+        topics[1],
+        day,
+        'account-list',
+        parents[0],
+      ),
+      null,
+    );
+    const second = await optional(restarted, 1);
+    assert.ok(second);
+    ids.push(second);
+    await restarted.fail(second, 'uncertain');
+    assert.equal(await optional(ledger, 1), null);
+    // Existing scheduled calls cannot acquire another first slot.
+    assert.equal(
+      await ledger.reserve(
+        'grok-4.3',
+        'first-again',
+        100000,
+        topics[0],
+        day,
+        'open-topic',
+      ),
+      null,
+    );
+    await assert.rejects(
+      ledger.reserve(
+        'grok-4.3',
+        'bad-type',
+        100000,
+        topics[0],
+        day,
+        'open-topic',
+        parents[0],
+      ),
+      /Invalid optional/,
+    );
+  } finally {
+    await db.query(
+      'DELETE FROM x_search_citations WHERE call_id=ANY($1::uuid[])',
+      [ids],
+    );
+    await db.query(
+      'DELETE FROM x_discovery_calls WHERE optional_parent_id=ANY($1::uuid[])',
+      [ids],
+    );
+    await db.query('DELETE FROM x_discovery_calls WHERE id=ANY($1::uuid[])', [
+      ids,
+    ]);
+    await db.query(
+      "DELETE FROM social_posts WHERE platform='x' AND external_id=ANY($1::text[])",
+      [externalIds],
+    );
+    await db.end();
+    await restartedDb.end();
+  }
+});

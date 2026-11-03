@@ -79,6 +79,7 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
     requestedTopic?: { id: string; name: string },
     scheduledDay?: string,
     searchType?: 'open-topic' | 'account-list' | 'story-reactions',
+    optionalParentId?: string,
   ) {
     if (
       !model.trim() ||
@@ -103,6 +104,13 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
       !['open-topic', 'account-list', 'story-reactions'].includes(searchType)
     )
       throw new Error('Invalid X discovery search type');
+    if (
+      optionalParentId !== undefined &&
+      (!/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(optionalParentId) ||
+        scheduledDay === undefined ||
+        !['account-list', 'story-reactions'].includes(searchType ?? ''))
+    )
+      throw new Error('Invalid optional X discovery reservation');
     return this.transaction(async (client) => {
       // A topic/day is consumed before HTTP, including rejected/uncertain calls.
       // Restart/retry cannot spend again or shift an obsolete job into today.
@@ -112,9 +120,27 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
         } = await client.query<{ allowed: boolean }>(
           `SELECT $1::date = (clock_timestamp() AT TIME ZONE 'UTC')::date
            AND NOT EXISTS(SELECT 1 FROM x_discovery_calls WHERE scheduled_day=$1::date
-             AND requested_topic->>'id'=$2)
+             AND requested_topic->>'id'=$2
+             AND (optional_parent_id IS NULL)=($3::uuid IS NULL))
+           AND ($3::uuid IS NULL OR (
+             EXISTS(SELECT 1 FROM topics WHERE id::text=$2 AND enabled AND post_budget > 0)
+             AND EXISTS(SELECT 1 FROM x_discovery_calls p WHERE p.id=$3
+               AND p.scheduled_day=$1::date AND p.requested_topic->>'id'=$2
+               AND p.optional_parent_id IS NULL AND p.search_type='open-topic'
+               AND p.status='succeeded' AND p.verification_completed_at IS NOT NULL
+               AND NOT EXISTS(SELECT 1 FROM x_search_citations c
+                 WHERE c.call_id=p.id AND c.new_candidate IS NULL)
+               AND (SELECT count(*) FROM x_search_citations c JOIN social_posts s
+                 ON s.platform='x' AND s.external_id=c.external_id
+                 WHERE c.call_id=p.id AND c.topic_id::text=$2 AND c.new_candidate) < 3)
+             AND NOT EXISTS(SELECT 1 FROM topics t WHERE t.enabled AND t.post_budget > 0
+               AND NOT EXISTS(SELECT 1 FROM x_discovery_calls p
+                 WHERE p.scheduled_day=$1::date AND p.requested_topic->>'id'=t.id::text
+                   AND p.optional_parent_id IS NULL AND p.search_type='open-topic'
+                   AND p.status='succeeded' AND p.verification_completed_at IS NOT NULL))
+           ))
            AS allowed`,
-          [scheduledDay, requestedTopic?.id ?? null],
+          [scheduledDay, requestedTopic?.id ?? null, optionalParentId ?? null],
         );
         if (!admission.allowed) return null;
       }
@@ -122,8 +148,8 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
       if (totals.availableMicros < estimateMicros) return null;
       const id = crypto.randomUUID();
       await client.query(
-        `INSERT INTO x_discovery_calls(id,model,run_id,status,reserved_micros,requested_topic,scheduled_day,search_type)
-        VALUES($1,$2,$3,'pending',$4,$5,$6,$7)`,
+        `INSERT INTO x_discovery_calls(id,model,run_id,status,reserved_micros,requested_topic,scheduled_day,search_type,optional_parent_id)
+        VALUES($1,$2,$3,'pending',$4,$5,$6,$7,$8)`,
         [
           id,
           model,
@@ -132,9 +158,24 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
           requestedTopic ?? null,
           scheduledDay ?? null,
           searchType ?? null,
+          optionalParentId ?? null,
         ],
       );
       return id;
+    });
+  }
+  // Future scheduler calls this only after citation persistence and bounded
+  // official verification finish. Settlement alone cannot authorize a followup.
+  async completeVerification(id: string) {
+    await this.transaction(async (client) => {
+      const result = await client.query(
+        `UPDATE x_discovery_calls SET verification_completed_at=COALESCE(
+          verification_completed_at,clock_timestamp())
+         WHERE id=$1 AND status='succeeded' AND search_type='open-topic'
+           AND scheduled_day IS NOT NULL AND optional_parent_id IS NULL RETURNING id`,
+        [id],
+      );
+      if (!result.rowCount) throw new Error('X open search is not completed');
     });
   }
   async settle(id: string, usage: XDiscoveryUsage, price: XDiscoveryPrice) {

@@ -8,7 +8,7 @@ Fix regressions, broken services and stalled sources before starting new work.
 - [x] Status smoke repair (280): desktop/mobile telemetry and synthetic failures pass.
 
 - [ ] STEERING 16 (next implementation): open per-topic X search without handle restrictions; reported engagement/velocity, then budget-permitting story reactions and secondary account lists. Keep caps; item 15's first scheduled run is acknowledged before switching. Report search type, cost/yield and outside-list accounts; finish with real editions/screenshots.
-  - Prepared open/engagement reporting (271–278), scheduler eligibility (281), reactions/followups and stale-topic cancellation (283–285). Iteration 286 bounds low-yield followups; 287 adds a read-only article-pipeline boundary for reaction stories using shared window/relevance/quality/ranking/clustering. Production remains account-list; durable optional admission and scheduler wiring await scheduled evidence/acks.
+  - Open/engagement reporting, eligibility, low-yield followups and article-ranked reaction stories prepared (271–287). Iteration 288 adds atomic optional topic/day admission with completed-verification markers and database yield checks. Production remains account-list pending scheduled evidence/acks; optional port/execution and scheduler wiring remain.
 
 - [ ] STEERING 17 (after 16): improve editable curated X accounts and document choices.
 - [ ] STEERING 18 (after 17): official Bluesky open discovery, engagement ranking and cards; fixtures first if authentication blocks live search.
