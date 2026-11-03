@@ -60,7 +60,19 @@ for (const mode of ['non-ai', 'ai'] as const) {
           return {
             text: JSON.stringify(
               request.purpose === 'candidate-triage-v1'
-                ? responses.triage
+                ? {
+                    items: responses.triage.items.map(
+                      (item: { id: string }) => ({
+                        ...item,
+                        id: String(
+                          JSON.parse(request.prompt).candidates.findIndex(
+                            (candidate: { originalId: string }) =>
+                              candidate.originalId === item.id,
+                          ),
+                        ),
+                      }),
+                    ),
+                  }
                 : responses.editor,
             ),
             usage: { input: 100, output: 100, cacheRead: 0, cacheWrite: 0 },

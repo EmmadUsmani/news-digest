@@ -1,13 +1,3 @@
-## 2026-11-03: iteration 450 — measure Gaming grouping on a third date
-
-- Started clean on main; no leftovers. Zero alerts; health and all 32 sources green. Scheduled social/latency evidence remains pending.
-- Recorded 23 real stored Gaming feed candidates from Nov 3 via read-only candidate loading; no publisher-page/provider calls. Added 26 agent-reviewed pairs across GTA preload, Elder Scrolls reveal and Zelda Water Temple reports, with distinct-development negatives.
-- All three matchers miss all 13 new positives and reject all 13 negatives. Expanded benchmark: 86 pairs/three dates; lexical 6/45, game 10/45, combined 13/45 positives, zero labeled false merges. Agent labels are not independent validation.
-- New snapshot has no unknown merges or input-order variation across 34 deterministic orders. Updated TASKS/RANKING and archived iteration 435 to keep PROGRESS bounded.
-- Verification: targeted grouping 20/20; pnpm check passed (284 unit/176 isolated integration), pnpm build and git diff --check passed. pnpm format/lint:fix run. First full check caught archive formatting; corrected before final verification.
-- No runtime/config/UI changes; no restart under STEERING 22. Root HTTP 200; health/jobs checks passed; zero alerts/dangling volumes. No paid calls, new editions or Reddit requests.
-- Next: improve Gaming paraphrase recall using recorded evidence; independent labels/activation remain open. Nov 4 X/Bluesky selections, World yield and latency/full-AI evidence take priority when available.
-
 ## 2026-11-03: iteration 451 — group conservative Gaming preload overviews
 
 - Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis and all 32 sources. Scheduled social/latency evidence remains pending; advanced item 19.
@@ -160,3 +150,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (297 unit/177 isolated integration), pnpm build and git diff --check passed. Handbook check passed (one diagram); visually inspected PNG. Zero dangling Docker volumes.
 - Applied live migration and restarted API/worker. Normal worker stored 31 real items at 19:24:45 UTC; NBA now 150 rolling articles/four healthy sources. Health passed; root HTTP 200. No paid calls, new editions or Reddit requests.
 - Updated SOURCES/TASKS/handbook; archived iterations 448–449 to keep PROGRESS bounded. Final fetch brought owner clarification 04bca35; merged it and updated TASKS. Next: offline item 7 fixes, then grouping removal/AI pass now; verify Nov 4 when it runs.
+
+## 2026-11-03: iteration 466 — reduce repeated triage ID output offline
+
+- Started clean on main; zero alerts, healthy API/DB/Redis and source ingestion. No leftover work. Followed item 26's offline item 7 priority.
+- Article/social triage now uses batch-local wire IDs, restored to original IDs before per-item caching. Original identity remains in input so whole-request caches cannot confuse identical text belonging to different items; scoring instructions/item cache keys remain unchanged.
+- A 50-UUID batch reserves 8,254 output tokens versus 9,964 (17% less); this is a reservation/output-work reduction, not measured live latency. Long escaped IDs also need less output headroom.
+- Fake tests caught and resolved the whole-request cache identity collision and cover aliases across byte-split batches, reordered results, cache reuse and invalid IDs. Targeted suite: 11/11 passed.
+- NBA's rejected responses were not retained, so its exact rejection remains unknown; next-run validation/stop-reason logging is already present. No paid calls, new editions or Reddit requests.
+- Initial full check found two synthetic fixtures still returning full wire IDs; adapted the authored golden response mapping and updated the synthetic replay fingerprint/body for the changed prompt. Published goldens remain unchanged; no recording/provider spend.
+- Final pnpm format, pnpm lint:fix, pnpm check (297 unit/177 isolated integration), pnpm build and git diff --check passed. Zero dangling volumes. Restarted API/worker; health passed, root HTTP 200, all 33 sources healthy, zero alerts.
+- Archived iteration 450 to keep PROGRESS bounded. Next: continue offline NBA/latency diagnosis, then remove wording grouping under item 26; verify real speed/full-AI and social selections on Nov 4. No live latency or full-AI acceptance claimed.

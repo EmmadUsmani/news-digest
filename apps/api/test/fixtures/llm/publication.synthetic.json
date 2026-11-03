@@ -3,10 +3,10 @@
   "provenance": "Authored synthetic publication responses; no provider calls or live content.",
   "records": [
     {
-      "fingerprint": "13b0669734ee2008b4c7529fe10ada79b13c1f5034a70d7fef66ea4ee078944d",
+      "fingerprint": "4029c0f146309e047c6937d86360100aa94c6bf6fe5ab77979f5170ca3427ac1",
       "model": "claude-haiku-5-5",
       "response": {
-        "text": "{\"items\":[{\"id\":\"00000000-0000-4000-8000-000000000099\",\"relevance\":9,\"importance\":8,\"event\":\"Model launch\",\"rationale\":\"Relevant new tool.\"}]}",
+        "text": "{\"items\":[{\"id\":\"0\",\"relevance\":9,\"importance\":8,\"event\":\"Model launch\",\"rationale\":\"Relevant new tool.\"}]}",
         "usage": {
           "input": 100,
           "cacheWrite": 0,

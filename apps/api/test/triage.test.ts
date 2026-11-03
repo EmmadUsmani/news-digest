@@ -403,21 +403,33 @@ void test('compact triage bounds output reservations while preserving full candi
       batch.map((c) => c.id),
     );
     assert.deepEqual(result.unscoredIds, []);
-    assert.ok(h.calls[0].maxOutputTokens < 10000);
+    assert.equal(h.calls[0].maxOutputTokens, 8254);
     assert.match(h.calls[0].prompt, /Compact JSON only/);
     await h.service.score(topic, batch.slice().reverse(), 'replay');
     assert.equal(h.calls.length, 1, 'All validated scores remain reusable');
   }
 });
 
-void test('long escaped IDs receive output headroom without changing their identity', async () => {
+void test('long escaped IDs use compact wire aliases without changing cached identity', async () => {
   const h = harness();
   const batch = Array.from({ length: 50 }, (_, i) => ({
     ...candidates[0],
     id: '\u0000'.repeat(190) + String(i),
   }));
   const result = await h.service.score(topic, batch, 'escaped-ids');
-  assert.equal(h.calls[0].maxOutputTokens, 16000);
+  assert.ok(h.calls[0].maxOutputTokens < 8500);
+  const wire = h.calls.flatMap((call) => {
+    const entries = JSON.parse(call.prompt).candidates;
+    assert.deepEqual(
+      entries.map((c: { id: string }) => c.id),
+      entries.map((_: unknown, i: number) => String(i)),
+    );
+    return entries;
+  });
+  assert.deepEqual(
+    wire.map((c: { originalId: string }) => c.originalId),
+    batch.map((c) => c.id),
+  );
   assert.deepEqual(
     result.scores.map((s) => s.id),
     batch.map((c) => c.id),

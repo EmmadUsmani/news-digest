@@ -117,8 +117,12 @@ export class CandidateTriage {
           importance: 'integer 0–10',
         },
         outputStyle:
-          'Compact JSON only. No analysis, markdown or repeated source text. Keep event and rationale brief; do not fill their character limits.',
-        candidates: batch.map((e) => e.item),
+          'Return the batch-local id, never originalId (identity context only). Compact JSON only. No analysis, markdown or repeated source text. Keep event and rationale brief; do not fill their character limits.',
+        candidates: batch.map((e, index) => ({
+          ...e.item,
+          originalId: e.item.id,
+          id: String(index),
+        })),
       });
     // UTF-8 bytes conservatively bound tokens, including escaped Unicode and
     // framing. Typical batches contain 50 items; long excerpts split earlier.
@@ -142,7 +146,7 @@ export class CandidateTriage {
     let cursor = 0;
     let stopped = false;
     const scoreBatch = async (batch: typeof entries): Promise<boolean> => {
-      const ids = new Set(batch.map((e) => e.item.id));
+      const ids = new Set(batch.map((_, index) => String(index)));
       const validate = (value: unknown) => {
         const parsed = z
           .object({ items: z.array(scoreSchema).length(batch.length) })
@@ -162,20 +166,19 @@ export class CandidateTriage {
           runId,
           instructions: activeInstructions,
           prompt: promptFor(batch),
-          // Keep room for JSON framing, scores and brief explanations. IDs can
-          // contain escaped Unicode, so include their full serialized byte size.
-          // This changes only the wire verbosity; validated per-item caches and
-          // the historical score schema remain compatible.
+          // Batch-local IDs reduce repeated UUID output. Restore original IDs
+          // before item caching; the scoring instructions and cache keys stay
+          // unchanged. Whole-request caches remain keyed by the wire prompt.
           maxOutputTokens: Math.min(
             16000,
             Math.max(
               1400,
               64 +
                 batch.reduce(
-                  (tokens, { item }) =>
+                  (tokens, _, index) =>
                     tokens +
                     160 +
-                    Buffer.byteLength(JSON.stringify(item.id), 'utf8'),
+                    Buffer.byteLength(JSON.stringify(String(index)), 'utf8'),
                   0,
                 ),
             ),
@@ -185,8 +188,11 @@ export class CandidateTriage {
       );
       // Stop this run on refusal/failure; report every missing ID explicitly.
       if (!result) return false;
-      for (const entry of batch) {
-        const score = result.items.find((s) => s.id === entry.item.id)!;
+      for (const [index, entry] of batch.entries()) {
+        const score = {
+          ...result.items.find((s) => s.id === String(index))!,
+          id: entry.item.id,
+        };
         await this.cache.cache(entry.key, score);
         scores.set(score.id, score);
       }
