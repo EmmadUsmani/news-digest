@@ -16,12 +16,18 @@ item 15 is acknowledged; these lists then become optional secondary inputs.
 | Gaming                | PlayStation, Xbox, NintendoAmerica, Steam: platform announcements; geoffkeighley: reveals; Wario64: discovery leads; jasonschreier: studio reporting | stephentotilo: games reporting; tomwarren: Xbox/platform reporting; LarAtLarian, ConcernedApe, NoMansSky: developers' first-hand announcements and clips | IGN: publisher overlap; gameawards: overlaps geoffkeighley's event coverage                      |
 | World news & politics | Reuters, AP, BBCWorld, AFP: broad reporting; UNHumanRights: primary human-rights statements; ZelenskyyUa: Ukrainian government statements            | clarissaward, NickPatonWalsh, RichardEngel: field reporting; ragipsoylu: Turkey/regional reporting; NikaMelkozerova: Ukrainian reporting                 | BBCBreaking: overlaps BBCWorld; NPR: article-feed overlap; UN: broad institutional announcements |
 
-Current lists (case-insensitive unique handles; all below the 20-account cap):
+Reviewed lists, held for activation after the Nov 3 scheduled run (case-insensitive unique handles; all below the 20-account cap):
 
 - **Tech & AI (11):** [OpenAI](https://x.com/OpenAI), [AnthropicAI](https://x.com/AnthropicAI), [GoogleDeepMind](https://x.com/GoogleDeepMind), [sama](https://x.com/sama), [karpathy](https://x.com/karpathy), [simonw](https://x.com/simonw), [huggingface](https://x.com/huggingface), [swyx](https://x.com/swyx), [soumith](https://x.com/soumith), [fchollet](https://x.com/fchollet), [bcherny](https://x.com/bcherny).
 - **NBA (10):** [NBA](https://x.com/NBA), [ShamsCharania](https://x.com/ShamsCharania), [ChrisBHaynes](https://x.com/ChrisBHaynes), [TheSteinLine](https://x.com/TheSteinLine), [TimBontemps](https://x.com/TimBontemps), [espn_macmahon](https://x.com/espn_macmahon), [WindhorstESPN](https://x.com/WindhorstESPN), [KingJames](https://x.com/KingJames), [StephenCurry30](https://x.com/StephenCurry30), [Giannis_An34](https://x.com/Giannis_An34).
 - **Gaming (12):** [PlayStation](https://x.com/PlayStation), [Xbox](https://x.com/Xbox), [NintendoAmerica](https://x.com/NintendoAmerica), [Steam](https://x.com/Steam), [geoffkeighley](https://x.com/geoffkeighley), [Wario64](https://x.com/Wario64), [jasonschreier](https://x.com/jasonschreier), [stephentotilo](https://x.com/stephentotilo), [tomwarren](https://x.com/tomwarren), [LarAtLarian](https://x.com/LarAtLarian), [ConcernedApe](https://x.com/ConcernedApe), [NoMansSky](https://x.com/NoMansSky).
 - **World news & politics (11):** [Reuters](https://x.com/Reuters), [AP](https://x.com/AP), [BBCWorld](https://x.com/BBCWorld), [AFP](https://x.com/AFP), [UNHumanRights](https://x.com/UNHumanRights), [ZelenskyyUa](https://x.com/ZelenskyyUa), [clarissaward](https://x.com/clarissaward), [NickPatonWalsh](https://x.com/NickPatonWalsh), [ragipsoylu](https://x.com/ragipsoylu), [RichardEngel](https://x.com/RichardEngel), [NikaMelkozerova](https://x.com/NikaMelkozerova).
+
+Owner item 23 arrived during this review. The reviewed lists were saved and
+browser-checked, then the original live lists (8/8/9/9 handles) were restored
+and read back to protect the scheduled run. The screenshots show the interim
+reviewed settings, not the final active lists. Activate the reviewed lists only
+after the Nov 3 run is measured and acknowledged.
 
 The live topic settings are the source of truth. Change them under **Manage
 topics → Edit → X accounts** (one handle per line). This review does not install

@@ -505,6 +505,8 @@ docs/SOURCES.md. This supplements item 16 and never replaces it.
 
 ack: 2026-11-03 item 17 — iteration 315 followed item 22: reviewed and saved all four editable curated lists (11/10/12/11 handles), added builders/reporters/players/developers, documented every retained/added/removed group in docs/SOURCES.md, verified API readback and desktop/mobile editing views. No paid search; effectiveness awaits scheduled evidence.
 
+ack: 2026-11-03 item 17 follow-up — owner item 23 arrived before push; restored and read back the original live lists (8/8/9/9). Reviewed lists and screenshots remain documented, pending activation after the Nov 3 run is measured and acknowledged.
+
 ## 18. NEXT: Bluesky as the #3 social source, open discovery first (2026-11-02)
 
 After items 16–17. Use the official public AT Protocol / Bluesky API only;

@@ -1,20 +1,8 @@
 # Progress
 
-Archived: [iteration 295](docs/progress-archive/2026-11-03-iteration-295.md), [iteration 294](docs/progress-archive/2026-11-03-iteration-294.md), [iteration 293](docs/progress-archive/2026-11-03-iteration-293.md), [iteration 292](docs/progress-archive/2026-11-03-iteration-292.md), [iteration 291](docs/progress-archive/2026-11-03-iteration-291.md), [iteration 290](docs/progress-archive/2026-11-03-iteration-290.md), [iteration 288](docs/progress-archive/2026-11-03-iteration-288.md), [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md), [286](docs/progress-archive/2026-11-03-iteration-286.md).
+Archived: [iteration 296](docs/progress-archive/2026-11-03-iteration-296.md), [iteration 295](docs/progress-archive/2026-11-03-iteration-295.md), [iteration 294](docs/progress-archive/2026-11-03-iteration-294.md), [iteration 293](docs/progress-archive/2026-11-03-iteration-293.md), [iteration 292](docs/progress-archive/2026-11-03-iteration-292.md), [iteration 291](docs/progress-archive/2026-11-03-iteration-291.md), [iteration 290](docs/progress-archive/2026-11-03-iteration-290.md), [iteration 288](docs/progress-archive/2026-11-03-iteration-288.md), [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md), [286](docs/progress-archive/2026-11-03-iteration-286.md).
 
 Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md), [283](docs/progress-archive/2026-11-03-iteration-283.md), [284](docs/progress-archive/2026-11-03-iteration-284.md).
-
-## 2026-11-03: iteration 296 — daily X topic/type summaries
-
-- Started clean on main; four services/health healthy, 32 error-free sources and no retained failed jobs.
-- Read-only X report now groups cost/holds, fetched posts and incremental verified/outside-list post yield by reservation-time topic ID and search type, including empty/failed calls.
-- Unknown charges/fetched counts stay explicit; unattributed historical calls are not assigned inferred topics/types/yield. Same-topic yield avoids attributing unrelated citations.
-- Three fake-only tests cover grouping, zero yield, failed calls, unknowns, historical attribution, cross-topic citations and topic renames; updated source inventory/social handbook.
-- Initial checks found missing `void` on test promises; fixed before final verification. Removed redundant completed task markers to keep TASKS under 8 KB.
-- Read-only live reports: Nov 3 zero X calls/cost/holds; Nov 2 historical call remains $0.023382, unattributed. Scheduled edition remains 15:00 UTC with 482,788-micro reserve pending and zero other allowance.
-- No paid provider or Reddit requests; open mode stays gated on item 15 scheduled evidence/acknowledgement.
-- Verified: targeted 3 tests; `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `git diff --check`; social handbook/24-table metadata check passed.
-- Restarted API/worker/docs/schema; all active, health OK, SPA/docs/db HTTP 200. Next: scheduled X/edition evidence and required acknowledgements, then activate open search.
 
 ## 2026-11-03: iteration 297 — scheduled-run readiness evidence
 
@@ -185,11 +173,12 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 ## 2026-11-03: iteration 315 — curated X account review under new owner steering
 
 - Started clean on main. Initial status-only commit push was rejected because origin gained owner item 22; fetched and merged `58d8dd3` without rewriting history, then moved to item 17 as instructed.
-- Completed item 17: live lists now 11 Tech/AI, 10 NBA, 12 Gaming and 11 World handles. Retained primary sources; added builders, reporters, players and developers; removed redundant institutional/aggregator inputs.
+- Prepared item 17 lists: 11 Tech/AI, 10 NBA, 12 Gaming and 11 World handles; primary sources plus builders, reporters, players/developers. Saved and verified, then restored originals after newer owner item 23 arrived.
 - Documented retained/added/removed account choices and limitations in docs/SOURCES.md; handbook explains editing and current-list report effects. No automatic reset of owner edits; accounts remain editable.
 - API contract validation and save/readback passed for all four topics; comparison confirmed no other topic fields changed. Playwright verified all four saved lists at desktop/mobile, no page errors/overflow; screenshots saved as curated-x-accounts-{desktop,mobile}.png.
 - `pnpm exec tsx scripts/check-handbook.ts 05-social-posts`: 16 pages, 1 diagram, 24 tables, no errors. Diagram unchanged.
 - Before the owner update: `pnpm check` passed 163 unit/168 integration, typecheck/lint/boundaries; `pnpm build` passed; all four services restarted healthy, health/app/status/docs/db HTTP 200. Formatting rerun fixed the archived entry before checks passed.
-- After settings/docs: `pnpm format`, `pnpm lint:fix`, `git diff --check`; no further restart needed. All 32 sources healthy; no paid calls or Reddit requests. Archived iteration 295.
+- After settings/docs: `pnpm format`, `pnpm lint:fix`, `git diff --check`; no further restart needed. All 32 sources healthy; no paid calls or Reddit requests. Archived iterations 295–296.
 - Scheduled evidence still pending at 02:54 UTC: zero Nov 3 X calls/cost/holds; 15:00 edition reserve 482,788 micros, other Anthropic allowance zero. Items 13/7/15 acknowledgement and item 16 activation stay gated.
-- Next: item 18 official Bluesky discovery while waiting; return to scheduled evidence as soon as available. Account choices are editorial, not freshly verified profiles or measured virality claims.
+- Second push rejected on newer owner commits; merged `221fc1e` (items 23/18 auth). Restored/read back original live accounts 8/8/9/9; reviewed lists/screenshots are staged evidence, not final active settings. No scheduled calls occurred during the interim edit.
+- Next: build/test item 18 with configured Bluesky login, keep edition inclusion off; activate reviewed lists/open search only after scheduled evidence/acks. Account choices are editorial, not measured virality claims.
