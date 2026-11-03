@@ -33,9 +33,107 @@ export async function checkGrafana() {
   assert.equal(permissions['datasources:write'], undefined);
   assert.equal(permissions['org.users:write'], undefined);
   const sources = await (await fetch(`${base}/api/datasources`)).json();
-  assert.equal(sources.length, 1);
-  assert.equal(sources[0].uid, 'local-metrics');
-  assert.equal(sources[0].readOnly, true);
+  assert.equal(sources.length, 2);
+  for (const uid of ['local-metrics', 'product-postgres'])
+    assert.equal(
+      sources.find((source: { uid: string }) => source.uid === uid)?.readOnly,
+      true,
+    );
+  // Verify the actual login has no write grants or role memberships. These
+  // statements inspect privileges and provoke denied reads, never mutate data.
+  const grants = execFileSync(
+    'docker',
+    [
+      'compose',
+      'exec',
+      '-T',
+      'postgres',
+      'psql',
+      '-U',
+      'grafana_product',
+      '-d',
+      'news_digest',
+      '-At',
+      '-v',
+      'ON_ERROR_STOP=1',
+      '-c',
+      `SELECT current_setting('default_transaction_read_only') = 'on'
+      AND current_setting('statement_timeout') = '5s'
+      AND (SELECT rolconnlimit = 3 FROM pg_roles WHERE rolname=current_user)
+      AND NOT EXISTS (SELECT FROM pg_roles WHERE rolname=current_user AND
+        (rolsuper OR rolcreatedb OR rolcreaterole OR rolreplication OR rolbypassrls))
+      AND NOT EXISTS (SELECT FROM pg_auth_members WHERE member=(SELECT oid FROM pg_roles WHERE rolname=current_user))
+      AND NOT EXISTS (SELECT FROM pg_tables WHERE schemaname='public' AND
+        (has_table_privilege(current_user, schemaname||'.'||tablename, 'INSERT,UPDATE,DELETE,TRUNCATE,TRIGGER')
+         OR has_any_column_privilege(current_user, schemaname||'.'||tablename, 'INSERT,UPDATE')))
+      AND NOT has_schema_privilege(current_user, 'public', 'CREATE');`,
+    ],
+    { encoding: 'utf8' },
+  ).trim();
+  assert.equal(
+    grants,
+    't',
+    'Product role must have no write/elevated privileges',
+  );
+  for (const query of [
+    'SELECT * FROM llm_cache LIMIT 0',
+    'SELECT excerpt FROM content_items LIMIT 0',
+  ]) {
+    assert.throws(
+      () =>
+        execFileSync(
+          'docker',
+          [
+            'compose',
+            'exec',
+            '-T',
+            'postgres',
+            'psql',
+            '-U',
+            'grafana_product',
+            '-d',
+            'news_digest',
+            '-v',
+            'ON_ERROR_STOP=1',
+            '-c',
+            query,
+          ],
+          { stdio: 'pipe' },
+        ),
+      /Command failed/,
+    );
+  }
+  async function productQuery(rawSql: string) {
+    const response = await fetch(`${base}/api/ds/query`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        from: String(Date.now() - 86400000),
+        to: String(Date.now()),
+        queries: [
+          {
+            refId: 'A',
+            datasource: {
+              uid: 'product-postgres',
+              type: 'grafana-postgresql-datasource',
+            },
+            rawSql,
+            format: 'table',
+            rawQuery: true,
+            intervalMs: 300000,
+            maxDataPoints: 100,
+          },
+        ],
+      }),
+    });
+    assert.equal(response.status, 200, rawSql);
+    const result = (await response.json()).results.A;
+    assert.equal(result.error, undefined, rawSql);
+    assert.ok(result.frames?.length, rawSql);
+    return result.frames.some((frame: { data: { values: unknown[][] } }) =>
+      frame.data.values.some((values) => values.length > 0),
+    );
+  }
   const unit = execFileSync(
     'systemctl',
     [
@@ -78,6 +176,16 @@ export async function checkGrafana() {
       assert.deepEqual(provisioned.dashboard.panels, dashboard.panels);
       let populated = 0;
       for (const panel of dashboard.panels) {
+        if (panel.datasource.uid === 'product-postgres') {
+          const hasRows = await productQuery(panel.targets[0].rawSql);
+          if (hasRows) populated++;
+          if (!panel.title.startsWith('X citation'))
+            assert.ok(
+              hasRows,
+              `${panel.title}: missing retained product evidence`,
+            );
+          continue;
+        }
         const expression = panel.targets[0].expr;
         const response = await fetch(
           `${base}/api/datasources/proxy/uid/local-metrics/api/v1/query?${new URLSearchParams({ query: expression })}`,
@@ -142,7 +250,8 @@ export async function checkGrafana() {
         0,
       );
       assert.deepEqual(errors, []);
-      await page.locator('canvas').first().waitFor({ state: 'visible' });
+      if (dashboard.uid !== 'nd-product')
+        await page.locator('canvas').first().waitFor({ state: 'visible' });
       await page.screenshot({
         path: `docs/screenshots/grafana-${dashboard.uid}-desktop.png`,
         fullPage: true,
@@ -155,6 +264,23 @@ export async function checkGrafana() {
       });
     }
     await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(`${base}/d/nd-product?kiosk`, { waitUntil: 'networkidle' });
+    await page
+      .getByRole('heading', {
+        name: 'Provider spend and outstanding holds (UTC)',
+        exact: true,
+      })
+      .waitFor();
+    await page.waitForTimeout(1500);
+    assert.equal(
+      await page
+        .locator('[data-testid="data-testid Panel status error"]')
+        .count(),
+      0,
+    );
+    await page.screenshot({
+      path: 'docs/screenshots/grafana-product-mobile.png',
+    });
     await page.goto(`${base}/d/nd-host?kiosk`, { waitUntil: 'networkidle' });
     await page
       .getByRole('heading', { name: 'CPU used', exact: true })

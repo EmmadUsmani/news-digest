@@ -1,0 +1,258 @@
+{
+  "uid": "nd-product",
+  "title": "Product",
+  "description": "Read-only retained product evidence from Postgres. Tables are current snapshots, independent of the Grafana time picker; each title states its window. No provider calls or content jobs. Use app Status for configured caps, reserve amounts and live budget availability.",
+  "schemaVersion": 41,
+  "version": 1,
+  "editable": false,
+  "tags": ["news-digest"],
+  "timezone": "utc",
+  "refresh": "5m",
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "panels": [
+    {
+      "id": 1,
+      "title": "Provider spend and outstanding holds (UTC)",
+      "description": "Settled spend is attributed to call creation in UTC. Holds include all pending/uncertain calls, including earlier days. Caps and live available funds are in app Status; holds are not additional settled spend.",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "product-postgres"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH calls AS (SELECT 'Anthropic' AS provider, created_at, status, cost_micros, reserved_micros FROM llm_calls UNION ALL SELECT 'X discovery', created_at, status, cost_micros, reserved_micros FROM x_discovery_calls) SELECT provider AS \"Provider\", coalesce(sum(cost_micros) FILTER (WHERE created_at >= date_trunc('day', now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC'),0)/1000000.0 AS \"Today ($)\", coalesce(sum(cost_micros) FILTER (WHERE created_at >= date_trunc('month', now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC'),0)/1000000.0 AS \"Month ($)\", coalesce(sum(reserved_micros) FILTER (WHERE status IN ('pending','uncertain')),0)/1000000.0 AS \"Holds ($)\" FROM calls GROUP BY provider ORDER BY \"Provider\"",
+          "editorMode": "code",
+          "sql": {
+            "limit": 100
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 2,
+      "title": "Latest edition editorial modes",
+      "description": "Latest retained immutable edition, including manual editions. AI mode may reuse cached work; it does not prove a fresh paid call. Worker timing is in Jobs and app Status.",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "product-postgres"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT d.created_at AS \"Created (UTC)\", t->>'name' AS \"Topic\", t->'editorial'->>'mode' AS \"Stories\", t->'postEditorial'->>'mode' AS \"Posts\" FROM (SELECT created_at, snapshot FROM digest_previews ORDER BY created_at DESC LIMIT 1) d CROSS JOIN LATERAL jsonb_array_elements(d.snapshot->'topics') t",
+          "editorMode": "code",
+          "sql": {
+            "limit": 100
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 3,
+      "title": "Source freshness and current errors",
+      "description": "Current source snapshots; no error messages or source URLs are returned. A successful empty response may contain no new items.",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "product-postgres"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 8,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT name AS \"Source\", last_success AS \"Last success (UTC)\", last_item_count AS \"Items\", CASE WHEN last_error IS NULL THEN 'no current error' ELSE 'error (see Status)' END AS \"State\" FROM content_sources ORDER BY last_success ASC NULLS FIRST, name LIMIT 100",
+          "editorMode": "code",
+          "sql": {
+            "limit": 100
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 4,
+      "title": "Distinct articles per topic (rolling 24 hours)",
+      "description": "Publication timestamps, deduplicated within each topic. Includes disabled topics and sources; this is retained ingestion coverage, not edition picks.",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "product-postgres"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 8,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT t.name AS topic, count(DISTINCT i.id)::int AS articles FROM topics t LEFT JOIN content_sources s ON s.topic_id=t.id LEFT JOIN content_observations o ON o.source_id=s.id LEFT JOIN content_items i ON i.id=o.item_id AND i.published_at >= now()-interval '24 hours' AND i.published_at <= now() GROUP BY t.id,t.name ORDER BY t.name",
+          "editorMode": "code",
+          "sql": {
+            "limit": 100
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 5,
+      "title": "X citation verification (rolling 24 hours)",
+      "description": "Distinct cited IDs per topic from direct X discovery. Verification means a retained official embed exists now; not incremental yield or engagement. Empty means no citations in this window.",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "product-postgres"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 16,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT coalesce(t.name,'deleted/unknown') AS topic, count(DISTINCT c.external_id)::int AS cited_posts, count(DISTINCT c.external_id) FILTER (WHERE p.external_id IS NOT NULL)::int AS verified_posts FROM x_search_citations c LEFT JOIN topics t ON t.id=c.topic_id LEFT JOIN social_posts p ON p.platform='x' AND p.external_id=c.external_id WHERE c.discovered_at >= now()-interval '24 hours' GROUP BY t.name ORDER BY topic",
+          "editorMode": "code",
+          "sql": {
+            "limit": 100
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 6,
+      "title": "Scheduled reserve lifecycle (latest seven days)",
+      "description": "Durable lifecycle only. Protected reserve amount, cap and current availability are read from configuration by app Status, not inferred here. Pending is not a missed run before its scheduled time.",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "product-postgres"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 16,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT budget_day::text AS \"Day (UTC)\", scheduled_at AS \"Scheduled (UTC)\", state AS \"State\", attempt AS \"Attempt\" FROM scheduled_ai_budget_days ORDER BY budget_day DESC LIMIT 7",
+          "editorMode": "code",
+          "sql": {
+            "limit": 100
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    }
+  ],
+  "links": [
+    {
+      "title": "App Status",
+      "url": "/",
+      "targetBlank": true
+    }
+  ]
+}

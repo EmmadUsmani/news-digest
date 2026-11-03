@@ -1,5 +1,5 @@
 {
-  "$comment": "Light metadata for the DB schema explorer (apps/schema-explorer). The schema itself comes from live introspection; this file only adds groups, short notes and relations that have no foreign key. Tables missing here appear under 'Unassigned'.",
+  "$comment": "Light metadata for the DB schema explorer (apps/schema-explorer). The schema itself comes from live introspection; this file only adds groups, short notes and relations that have no foreign key. The operational grafana_product role has column-level SELECT grants only and adds no tables or implicit relations. Tables missing here appear under 'Unassigned'.",
   "groups": [
     {
       "id": "settings",

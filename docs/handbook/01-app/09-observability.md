@@ -229,7 +229,7 @@ details remain in the jobs browser.
 ## Grafana dashboards
 
 Open [/grafana/](/grafana/) and choose **Dashboards → News Digest** for Host,
-Services, HTTP, Jobs and Errors and logs. These use the local metrics store; Host shows CPU,
+Services, HTTP, Jobs, Errors and logs, and Product. The operational dashboards use the local metrics store; Host shows CPU,
 memory, disk and network, Services shows unit and Node health, HTTP shows
 request and external-attempt rates and latency, and Jobs shows retained queue
 state, schedules and processor attempts. Dashboard descriptions explain what
@@ -239,13 +239,25 @@ Errors and logs brings together API 5xx, external HTTP failures, failed processo
 attempts, retained failed jobs and unit restarts/state. Its Logs link opens the
 retained structured events; it does not collect browser errors.
 
+Product reads retained Postgres data every five minutes: settled UTC day/month
+spend and all outstanding holds, latest edition story/post modes, source freshness,
+rolling 24-hour distinct articles and X citation verification, and seven reserve
+lifecycle rows. These table windows are explicit and ignore the Grafana time picker.
+AI mode can use cached work; verified citations are not incremental discovery yield.
+Configured caps, reserve amounts, available funds and worker duration remain in the
+app's **Source & run status** panel; Product does not infer them from ledger rows.
+
 Grafana is a loopback-only service on port 3001, forwarded through the private
 app. Anonymous access is Viewer access behind the exe.dev login; login and
 signup are disabled, and no initial administrator is created. Dashboards and
-the single local metrics datasource are provisioned from the repository and
+the local metrics and read-only product datasources are provisioned from the repository and
 cannot be edited in the UI. Live websocket connections, analytics, updates,
-plugin installation/key retrieval and Grafana alerting are disabled. No app database
-credentials are supplied. Grafana's local SQLite file stores its own settings.
+plugin installation/key retrieval and Grafana alerting are disabled. Grafana's local
+SQLite file stores its own settings. Product uses a dedicated `grafana_product`
+Postgres login with named-column SELECT grants, no write grants or role memberships,
+two Grafana connections (three role connections including verification) and a
+five-second query timeout. It uses the existing loopback-only
+Compose trust authentication; no application credentials are supplied.
 
 `ops/observability/install-grafana.sh` reconciles the SHA-256-pinned Grafana
 12.4.14 release and provisioning. The `obs-grafana` system unit has a 256 MiB
@@ -258,5 +270,6 @@ Verify with `pnpm exec tsx scripts/check-observability.ts --verify-grafana
 --verify-o4` (one command). It checks health, Viewer access, provisioning, all
 panel query responses and populated dashboards, renders desktop/mobile views
 with Playwright and saves screenshots in `docs/screenshots/`. No paid calls
-or content jobs are triggered. Database, Redis, product and agent
+or content jobs are triggered. Reader privileges and denied access to cache/article
+text are also checked. Database, Redis and agent
 dashboards remain pending their data connections and later observability work.
