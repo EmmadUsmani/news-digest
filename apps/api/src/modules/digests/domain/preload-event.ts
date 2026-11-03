@@ -76,6 +76,71 @@ function datedPreload(candidate: Candidate): string | null {
   return `${match[1]} ${sequel}:${year}-${month + 1}-${day}`;
 }
 
+// Revised schedules must agree on the new start AND install size. Never use
+// this evidence to join an original schedule to an announcement moving it.
+function revisedPreload(candidate: Candidate): string | null {
+  const title = candidate.title.normalize('NFKC').toLowerCase();
+  const excerpt = candidate.excerpt.normalize('NFKC').toLowerCase();
+  if (
+    /[?？]|\b(not|never|denies|denied|rumou?r|reportedly|might|could|may|would|should|if|unless|allegedly|last year|years? ago|cancelled?|canceled?|delayed?|later)\b/.test(
+      `${title}. ${excerpt}`,
+    )
+  )
+    return null;
+  if (
+    /\b(?:19|20)\d{2}\b/.test(`${title}. ${excerpt}`) ||
+    /\b(previously|formerly|once)\b/.test(excerpt)
+  )
+    return null;
+  const game = "([\\p{L}][\\p{L} '-]{1,60} [1-9]\\d?)";
+  const dated = new RegExp(
+    `^${game} pre-loading moved up to ([a-z]+) (\\d{1,2})(?:st|nd|rd|th)?, (\\d{1,4}) ?gb space required$`,
+    'u',
+  ).exec(title);
+  const confirmed = new RegExp(
+    `^[\\p{L}][\\p{L} '-]{1,40} confirms ${game} is (\\d{1,4}) ?gb, pre-loading opens earlier than previously announced for digital$`,
+    'u',
+  ).exec(title);
+  if (!dated && !confirmed) return null;
+  const name = (dated ?? confirmed)![1];
+  // The excerpt must directly assign the new date to the same named game.
+  const start = confirmed
+    ? new RegExp(
+        `^${name} pre-loading opens ([a-z]+) (\\d{1,2})(?:st|nd|rd|th)?(?: for some)?$`,
+        'u',
+      ).exec(excerpt)
+    : null;
+  if (confirmed && !start) return null;
+  const monthName = dated ? dated[2] : start![1];
+  const day = Number(dated ? dated[3] : start![2]);
+  const size = Number(dated ? dated[4] : confirmed![2]);
+  const month = [
+    'january',
+    'february',
+    'march',
+    'april',
+    'may',
+    'june',
+    'july',
+    'august',
+    'september',
+    'october',
+    'november',
+    'december',
+  ].indexOf(monthName);
+  const year = new Date(candidate.publishedAt).getUTCFullYear();
+  const date = new Date(Date.UTC(year, month, day));
+  if (
+    month < 0 ||
+    !Number.isFinite(year) ||
+    date.getUTCMonth() !== month ||
+    date.getUTCDate() !== day ||
+    size <= 0
+  )
+    return null;
+  return `${name}:${year}-${month + 1}-${day}:${size}gb:earlier`;
+}
+
 export function samePreloadOverview(a: Candidate, b: Candidate): boolean {
   // Match the longest hardware name first, preserving editions and generations.
   // Deduplicate repeated mentions so repetition alone cannot split an overview.
@@ -94,10 +159,12 @@ export function samePreloadOverview(a: Candidate, b: Candidate): boolean {
   if (ap && bp && ap !== bp) return false;
   const left = preloadOverview(a);
   const dated = datedPreload(a);
+  const revised = revisedPreload(a);
   const delta = Math.abs(Date.parse(a.publishedAt) - Date.parse(b.publishedAt));
   return (
     ((left !== null && left === preloadOverview(b)) ||
-      (dated !== null && dated === datedPreload(b))) &&
+      (dated !== null && dated === datedPreload(b)) ||
+      (revised !== null && revised === revisedPreload(b))) &&
     Number.isFinite(delta) &&
     delta <= 36 * 3600000
   );

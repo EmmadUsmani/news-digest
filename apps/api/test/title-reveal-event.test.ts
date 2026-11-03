@@ -104,7 +104,7 @@ void test('title reveals reject different identities, secondary news, uncertaint
 
 void test('recorded title-reveal clusters preserve labels and membership in both directions', () => {
   const result = evaluateEventGrouping(sameEventWithStudioClosure);
-  assert.equal(result.truePositives, 32);
+  assert.equal(result.truePositives, 33);
   assert.equal(result.falsePositives, 0);
   assert.deepEqual(
     evaluateEventGrouping((a, b) => sameEventWithStudioClosure(b, a)),

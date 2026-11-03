@@ -82,7 +82,7 @@ void test('preload platforms preserve hardware variants and normalize equivalent
 void test('opt-in preload rule improves recorded recall without unknown or incorrect cluster merges', () => {
   const result = evaluateEventGrouping(sameEventWithStudioClosure);
   assert.equal(result.falsePositives, 0);
-  assert.equal(result.truePositives, 32);
+  assert.equal(result.truePositives, 33);
   for (const window of result.windows) {
     assert.equal(window.membership.permutationCheck.maxFalsePositives, 0);
     assert.equal(window.membership.permutationCheck.maxUnlabeledMergedPairs, 0);
@@ -123,4 +123,66 @@ void test('dated preload starts normalize numeral and date order without merging
     ),
     true,
   );
+});
+
+void test('revised preload dates require matching game, install size and earlier start', () => {
+  const lead = {
+    ...item(
+      'Example Publisher confirms Example Quest 6 is 212GB, pre-loading opens earlier than previously announced for digital',
+    ),
+    excerpt: 'Example Quest 6 pre-loading opens November 10 for some',
+  };
+  const equivalent = item(
+    'Example Quest 6 Pre-Loading Moved Up to November 10th, 212 GB Space Required',
+  );
+  assert.equal(samePreloadOverview(lead, equivalent), true);
+  assert.equal(samePreloadOverview(equivalent, lead), true);
+  for (const other of [
+    {
+      ...equivalent,
+      title: equivalent.title.replace('November 10th', 'November 11th'),
+    },
+    { ...equivalent, title: equivalent.title.replace('212 GB', '213 GB') },
+    { ...equivalent, title: equivalent.title.replace('Quest 6', 'Quest 7') },
+    {
+      ...equivalent,
+      title: equivalent.title.replace('November 10th', 'November 31st'),
+    },
+    {
+      ...equivalent,
+      title: equivalent.title.replace('Moved Up', 'Moved Back'),
+    },
+    {
+      ...equivalent,
+      title: equivalent.title.replace('November 10th', 'November 10th 2027'),
+    },
+    { ...equivalent, excerpt: 'Reportedly confirmed.' },
+    { ...equivalent, excerpt: 'This happened last year.' },
+    { ...equivalent, excerpt: 'This was announced in 2025.' },
+    { ...equivalent, excerpt: 'Previously confirmed.' },
+    { ...equivalent, publishedAt: 'invalid' },
+    { ...equivalent, publishedAt: '2026-11-05T12:00:00Z' },
+    item('Example Quest 6 pre-download begins November 10'),
+    item('Example Quest 6 preload date and times confirmed'),
+  ]) {
+    assert.equal(samePreloadOverview(lead, other), false, other.title);
+    assert.equal(samePreloadOverview(other, lead), false, other.title);
+  }
+  for (const excerpt of [
+    '',
+    'Other Quest 6 pre-loading opens November 10 for some',
+    'Example Quest 6 pre-loading opens November 11 for some',
+    'Example Quest 6 pre-loading opens November 10 for some, according to a rumor',
+  ]) {
+    assert.equal(
+      samePreloadOverview({ ...lead, excerpt }, equivalent),
+      false,
+      excerpt,
+    );
+    assert.equal(
+      samePreloadOverview(equivalent, { ...lead, excerpt }),
+      false,
+      excerpt,
+    );
+  }
 });

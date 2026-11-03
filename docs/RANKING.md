@@ -1144,3 +1144,19 @@ The existing 98 agent-reviewed pairs now yield 32/57 positives with zero/41
 false merges, no unknown merged pairs and no membership variation across the
 bounded input orders. These labels are not independent validation. Production
 grouping remains disabled; no provider calls were made.
+
+## Iteration 460: revised preload schedules
+
+The opt-in matcher distinguishes an earlier revised preload from the original
+start announcement. It requires the same explicitly named numbered game, new
+calendar date and install size, plus a moved-up/earlier assertion on both sides.
+A publisher confirmation may supply its new start from an excerpt only when
+the excerpt directly names the same game. Uncertainty, history, conflicting
+size/date/game, invalid dates, explicit years and the 36-hour bound remain
+guarded. Original starts and undated overviews do not join revised schedules.
+The current phrase patterns are deliberately narrow and do not infer aliases.
+
+This recovers the existing GamesRadar+/GamingBolt revised GTA 6 schedule pair:
+33/57 recorded positive pairs, zero/41 false merges, no unknown cluster pairs
+or membership variation across the sampled orders. Labels remain agent-reviewed,
+not independent validation. Production grouping stays disabled. No paid calls.

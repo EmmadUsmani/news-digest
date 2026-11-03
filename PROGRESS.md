@@ -1,13 +1,3 @@
-## 2026-11-03: iteration 444 — stored Bluesky coverage evidence
-
-- Started clean on main; no leftovers. Alerts/health green; scheduled social/latency acceptance still awaits Nov 4 15:00 UTC. No paid calls, new editions or Reddit requests.
-- Added read-only Bluesky coverage report over a repeatable-read/read-only DB transaction and topic GET. Reports bounded observations/distinct posts, freshness, safe engaged candidates, phrase shortlist and three saved link/metric examples per topic; no post text, collection or inference.
-- At 17:05 UTC: Tech/AI 124 observations/77 distinct posts, NBA 121/51, Gaming 118/48, World 114/73. All freshest observations 16:54 UTC; no read caps reached. Safe candidates capped at 50: 50/49/48/50; phrase shortlist 5/5/5/0. These are stored candidate observations, not new inserts, semantic review, editorial selections or measured growth.
-- README, operations handbook, SOURCES and TASKS explain limits; archived iteration 430 to keep PROGRESS bounded. No diagrams or UI changed; no screenshots needed.
-- Verification: pnpm format, pnpm lint:fix, pnpm check, pnpm build, check-handbook.ts 08-operations, report-bluesky-coverage.ts (live stored reads and invalid-argument rejection), scheduled-only timing report, obs health/sources/jobs --check and git diff --check passed (279 unit/176 isolated integration tests; zero dangling volumes).
-- No running-service code/config changed; services remain running under STEERING 22. Healthy sources/four available queues; latest scheduled edition still Nov 3. No new live editorial acceptance claimed.
-- Next: scheduled open-X/Bluesky selection/screenshots, World yield, and latency/full-AI evidence. World phrase-filter zero alone does not establish semantic irrelevance.
-
 ## 2026-11-03: iteration 445 — require known event timing for headline merges
 
 - Started clean on main; no leftovers. Zero alerts and healthy API/DB/Redis. Scheduled product acceptance remains pending Nov 4; continued item 19 correctness work.
@@ -161,3 +151,14 @@
 - Restarted API/worker; immediate probe raced startup, retry passed pnpm obs health --check and root HTTP 200; both units active, zero alerts.
 - Updated TASKS/RANKING. No UI/handbook production-flow change, paid calls, new editions or Reddit requests.
 - Next: Nov 4 social selections/screenshots, World yield and latency/full-AI evidence; grouping recall/independent labels remain open.
+
+## 2026-11-03: iteration 460 — group matching revised preload schedules
+
+- Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis, all sources flowing and scheduled collectors healthy. Next scheduled social/latency evidence remains pending; advanced item 19.
+- Opt-in preload grouping now matches explicitly earlier revised schedules only with the same numbered game, new calendar date and install size. An excerpt date must directly name the same game; original starts/undated overviews stay separate.
+- Recovered the existing GamesRadar+/GamingBolt revised GTA 6 schedule pair: 33/57 positives, zero/41 false merges, unknown cluster pairs or membership variation. Agent-reviewed labels are not independent validation; production grouping remains disabled.
+- Added bidirectional guards for conflicting dates/sizes/games, invalid dates, history/uncertainty, missing/wrong-game excerpt evidence and time bounds. Targeted grouping suites passed 16/16.
+- Initial checks caught two stale benchmark assertions and archive formatting; corrected both. Final pnpm format, pnpm lint:fix, pnpm check (293 unit/176 isolated integration), pnpm build and git diff --check passed.
+- Restarted API/worker; pnpm obs health --check passed, root HTTP 200, both units active, zero alerts and no dangling Docker volumes.
+- Compacted TASKS/RANKING and archived iteration 444 to keep PROGRESS bounded. No UI/handbook production-flow change, paid calls, new editions or Reddit requests.
+- Next: Nov 4 social selections/screenshots, World yield and latency/full-AI evidence; broader grouping recall/independent labels remain open.
