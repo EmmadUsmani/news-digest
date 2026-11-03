@@ -4,6 +4,7 @@ import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app';
 import { internalTools, proxyInternalTools } from './internal-tools';
+import { startExternalMetrics } from './libs/observability/external-metrics';
 import { httpMetrics } from './libs/observability/http-metrics';
 import {
   installFatalLogging,
@@ -17,6 +18,7 @@ import { OperationsStatus } from './modules/operations/adapters/operations.statu
 async function bootstrap() {
   installFatalLogging();
   const { registry } = startRuntimeMetrics('api', 9464);
+  startExternalMetrics(registry);
   const app = await NestFactory.create(AppModule, {
     logger: {
       log: (message: unknown) => logger.info({ message }, 'Nest'),

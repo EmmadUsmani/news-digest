@@ -9,6 +9,28 @@ import { checkMetricStore } from './lib/check-metric-store';
 import { testEnvironment } from './test-suites';
 
 async function main() {
+  if (process.argv.includes('--verify-external-http-metrics')) {
+    execFileSync(
+      'pnpm',
+      [
+        'exec',
+        'tsx',
+        '--test',
+        '--test-reporter=dot',
+        'apps/api/test/external-http-logging.test.ts',
+      ],
+      { env: testEnvironment(), stdio: 'pipe', timeout: 120_000 },
+    );
+    for (const port of [9464, 9465]) {
+      const response = await fetch(`http://127.0.0.1:${port}/metrics`);
+      assert.equal(response.status, 200);
+      assert.ok(
+        (await response.text()).includes(
+          '# TYPE news_digest_external_call_duration_seconds histogram',
+        ),
+      );
+    }
+  }
   const metricStore = process.argv.includes('--verify-o4')
     ? await checkMetricStore()
     : undefined;

@@ -201,8 +201,13 @@ a route template share one static/unmatched label; URLs, queries and IDs are omi
 metrics listener is excluded. Query `news_digest_http_request_duration_seconds_count`
 for volume or its histogram buckets for latency. Samples reset on API restart.
 
-Provider and queue metrics remain unfinished; their journal records are
-available today.
+Shared HTTP network attempts expose `news_digest_external_call_duration_seconds`
+in API and worker, with fixed feed, Hacker News and official X embed targets,
+HTTP status (or unknown), and success/redirect/failure. Counts exclude cache hits
+and rate-limit waiting; redirects count each network hop. Duration includes body
+reading and decoding. No URLs, hosts or post IDs enter labels. Samples reset on
+restart; interrupted attempts are absent. Anthropic, xAI and Bluesky metrics and
+queue state metrics remain unfinished; their journal records are available today.
 
 The worker records `news_digest_job_duration_seconds` for every settled processor
 attempt in the four queues. Counts distinguish completed and failed attempts;

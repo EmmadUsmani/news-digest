@@ -3,6 +3,7 @@ import { request } from 'node:https';
 import { brotliDecompressSync, gunzipSync, inflateSync } from 'node:zlib';
 
 import type { HttpPort } from '../../modules/ingestion/domain/ports';
+import { recordExternalAttempt } from '../observability/external-metrics';
 import { logger } from '../observability/logging';
 import { publicAddress, publicFeedUrl } from './public-url';
 // One worker uses this shared client. Domains are serialized with a one-second floor.
@@ -44,6 +45,12 @@ export class SharedHttpClient implements HttpPort {
       const result = await this.fetchNetwork(url, host, (value) => {
         status = value;
       });
+      recordExternalAttempt(
+        target,
+        status,
+        typeof result === 'string' ? 'success' : 'redirect',
+        (performance.now() - started) / 1000,
+      );
       this.log.info(
         {
           event: 'external.call',
@@ -56,6 +63,12 @@ export class SharedHttpClient implements HttpPort {
       );
       return result;
     } catch (error) {
+      recordExternalAttempt(
+        target,
+        status,
+        'failure',
+        (performance.now() - started) / 1000,
+      );
       // Provider URLs and errors may include arbitrary credentials or response text.
       this.log.warn(
         {

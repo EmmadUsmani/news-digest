@@ -170,6 +170,10 @@ only when its check passes.
   - Iteration 361: worker job attempt duration/count by allowlisted queue/name and
     completion/failure; retries counted separately. Offline behavior/privacy coverage
     and scraped scheduled heartbeat assertion. Provider and queue-state metrics remain.
+  - Iteration 362: shared HTTP attempt duration/count for feed, Hacker News and
+    official X embeds, with bounded target/status/outcome labels. Offline cache,
+    redirect, failure and privacy assertions plus live registry checks via
+    `--verify-external-http-metrics`. Anthropic/xAI/Bluesky and queue-state metrics remain.
 - [ ] **O6 Dashboards.**
   - **Scope:** Grafana at `/grafana/`, with datasources and dashboards
     provisioned from `ops/observability/grafana/`.

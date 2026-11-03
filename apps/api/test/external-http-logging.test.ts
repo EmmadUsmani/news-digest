@@ -5,11 +5,15 @@ import { Readable } from 'node:stream';
 import { mock, test } from 'node:test';
 
 import type { Job } from 'bullmq';
+import { Registry } from 'prom-client';
 
+import { startExternalMetrics } from '../src/libs/observability/external-metrics';
 import { createLogger, logJob } from '../src/libs/observability/logging';
 import { SharedHttpClient } from '../src/libs/ports/http.client';
 
 void test('shared HTTP logs actual attempts, status, failures and job context without URLs or bodies', async () => {
+  const registry = new Registry();
+  startExternalMetrics(registry);
   const lines: string[] = [];
   const log = createLogger(
     'test',
@@ -116,6 +120,27 @@ void test('shared HTTP logs actual attempts, status, failures and job context wi
         [undefined, 'failure'],
       ],
     );
+    const counts = (await registry.getMetricsAsJSON())[0].values.filter((v) =>
+      v.metricName?.endsWith('_count'),
+    );
+    assert.equal(
+      counts.reduce((sum, v) => sum + v.value, 0),
+      5,
+    );
+    for (const call of calls) {
+      assert.ok(
+        counts.some(
+          (v) =>
+            v.labels.target === call.target &&
+            v.labels.status === String(call.status ?? 'unknown') &&
+            v.labels.outcome === call.outcome,
+        ),
+      );
+    }
+    assert.doesNotMatch(
+      await registry.metrics(),
+      /private-|publisher.org|https:\/\//,
+    );
     assert.equal(calls[0].jobId, 'job-123');
     assert.equal(calls[0].queue, 'ingestion');
     assert.ok(
@@ -129,6 +154,8 @@ void test('shared HTTP logs actual attempts, status, failures and job context wi
 });
 
 void test('shared HTTP distinguishes official X embeds and HN without exposing post URLs', async () => {
+  const registry = new Registry();
+  startExternalMetrics(registry);
   const lines: string[] = [];
   const log = createLogger(
     'test',
@@ -194,6 +221,27 @@ void test('shared HTTP distinguishes official X embeds and HN without exposing p
         ['feed', 200, 'success'],
         ['feed', 200, 'success'],
       ],
+    );
+    const counts = (await registry.getMetricsAsJSON())[0].values.filter((v) =>
+      v.metricName?.endsWith('_count'),
+    );
+    assert.equal(
+      counts.reduce((sum, v) => sum + v.value, 0),
+      5,
+    );
+    for (const call of calls) {
+      assert.ok(
+        counts.some(
+          (v) =>
+            v.labels.target === call.target &&
+            v.labels.status === String(call.status ?? 'unknown') &&
+            v.labels.outcome === call.outcome,
+        ),
+      );
+    }
+    assert.doesNotMatch(
+      await registry.metrics(),
+      /private-|publisher.org|https:\/\//,
     );
     assert.equal(calls[0].jobId, 'embed-job');
     assert.equal(calls[0].queue, 'social-collection');
