@@ -1,22 +1,8 @@
 # Progress
 
-Archived: [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md), [286](docs/progress-archive/2026-11-03-iteration-286.md).
+Archived: [iteration 288](docs/progress-archive/2026-11-03-iteration-288.md), [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md), [286](docs/progress-archive/2026-11-03-iteration-286.md).
 
 Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md), [283](docs/progress-archive/2026-11-03-iteration-283.md), [284](docs/progress-archive/2026-11-03-iteration-284.md).
-
-## 2026-11-03: iteration 288 — durable optional X admission
-
-- Started clean on main; all four services/health healthy; no leftover work.
-- Added migration 048: separate first/optional topic/day unique slots, parent-call references and durable verification-completion markers.
-- Optional admission uses the shared budget lock, requires all enabled topics' open searches/verification complete, a matching successful parent and fewer than three new verified additions; unknown baselines fail closed.
-- Rejected/uncertain optional calls consume their slot across processes/restarts; denied projections do not. Existing first-search admission remains unchanged.
-- Preparation only: production stays account-list pending item 15 acknowledgement; optional port/execution and scheduler wiring remain open.
-- Test covers concurrent admission, index bypass, incomplete verification, three-post threshold, unknown baseline, budget denial, wrong parent and failed/uncertain retries.
-- First full check exposed fixture cleanup ordering; corrected citation deletion before parent calls and reran verification.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (146 unit/168 integration), `pnpm build`, `git diff --check`.
-- Applied migration 048; restarted API/worker/docs/schema; health and SPA/docs/db 200; 32 sources error-free and latest social collection completed.
-- Read-only evidence: Nov 3 X calls/cost zero; Anthropic reserve pending at $0.482788, other-spend allowance zero; next edition 15:00 UTC.
-- No paid provider or Reddit requests. Next: scheduled evidence/acks, open-search switch, then optional execution/scheduler wiring.
 
 ## 2026-11-03: iteration 289 — optional X executor admission
 
@@ -203,3 +189,12 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - No application/settings changes or paid/Reddit calls. Items 13/7/15 require actual scheduled evidence; item 16 activation remains gated. Archived oldest progress entry to keep this file under 25 KB.
 - Next: record scheduled per-topic cost/yield and edition AI cost/duration, acknowledge evidence, then activate open search.
 - Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, and `git diff --check`; restarted all four services, active; health/app/status/docs/db HTTP 200.
+
+## 2026-11-03: iteration 306 — scheduled gate and source health verified
+
+- Started clean on main; no leftover work. All four services active; database/Redis healthy and workers on every queue.
+- Read-only status at 02:07 UTC: all 32 sources healthy; rolling-day verified X posts Tech/AI 50, NBA 32, Gaming 19, World 3.
+- `pnpm exec tsx scripts/report-x-discovery.ts 2026-11-03`: zero calls/cost/holds. `pnpm exec tsx scripts/report-edition-timing.ts`: next edition 15:00 UTC; 482,788-micro reserve pending, other Anthropic allowance zero.
+- Items 13/7/15 await actual scheduled evidence; item 16 activation remains gated by item 15 acknowledgement. No app/settings changes, paid calls or Reddit requests. Archived iteration 288 to keep progress bounded.
+- Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `git diff --check`; restarted all four services, active; health/app/status/docs/db HTTP 200.
+- Next: measure scheduled X per-topic cost/yield and 15:00 edition AI cost/duration, acknowledge results, then activate open search.
