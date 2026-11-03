@@ -4,15 +4,6 @@ Archived: [iteration 367](docs/progress-archive/2026-11-03-iteration-367.md), [i
 
 Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md), [283](docs/progress-archive/2026-11-03-iteration-283.md), [284](docs/progress-archive/2026-11-03-iteration-284.md).
 
-## 2026-11-03: iteration 368 — read-only Database dashboard
-
-- Started clean on main; no leftover work. App units/health green, no current source errors or failed digest jobs; two retained ingestion failures have recovered sources. Scheduled evidence remains due Nov 3 15:00 UTC.
-- Advanced O6 with five Database tables: activity/cache, allocated storage, relation sizes/row estimates, vacuum/analyze and aggregate locks. Existing restricted reader, no extra grants, SQL/session details or DB restart. Statistics are current snapshots with explicit cumulative/estimate/null caveats; top queries remain O7.
-- Extended Grafana read-only verification for table rendering and Database mobile capture; inspected desktop/mobile screenshots. Updated handbook/plan/TASKS. Redis/Agent and full Product cap/timing coverage remain open.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, handbook 09 and `git diff --check` passed. Initial `pnpm check` passed all 232 unit/172 integration assertions but exited 143 after coverage; repeat `pnpm check` passed with exit 0 (232 unit/172 integration). Initial Grafana check preceded the 30-second provisioning reload; final `--verify-grafana --verify-o4` passed all 36 queries (33 populated), five Database tables and six healthy scrape targets.
-- Grafana hot-reloaded the installed dashboard; no service code/config restart needed. Health green, retained real scheduled edition four topics/20 stories/10 posts. No paid calls, Reddit requests or production content/spending-setting changes.
-- Next: scheduled evidence/acks first; otherwise remaining O6 dashboards. Production activation stays gated.
-
 ## 2026-11-03: iteration 369 — source coverage and edition history
 
 - Started clean on main; no leftover work. Four app services/health green, no current source errors or failed digest jobs. Two retained ingestion failures have recovered sources; Nov 3 15:00 UTC evidence remains pending.
@@ -122,4 +113,14 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (232 unit/172 integration, exit 0), `pnpm build`, handbook 09 and `git diff --check` passed. Observability Grafana/O4 check passed: 62 queries/57 populated, seven scrape targets.
 - Inspected final desktop/mobile outcome captures; corrected probes to scroll virtualized mobile columns and await rendered text. Discarded unrelated regenerated screenshots. Updated handbook/plan/TASKS; archived iteration 367.
 - Grafana hot-reloaded; no service code/config restart needed. No content, schedule, caps or production activation changes.
+- Next: scheduled evidence/acks first; otherwise remaining O6 Product caps/individual timings or O7 Postgres collection. Activation stays gated.
+
+## 2026-11-03: iteration 381 — X discovery call history
+
+- Started clean on main; no leftover work. Services/health green, 32 sources without current errors and no retained failed digest jobs. Scheduled evidence remains due 15:00 UTC.
+- Product now shows latest 30 X calls in seven days: reservation-time topic/search type, current status, settled cost, unresolved hold and reported fetched post/profile counts. Unknowns stay blank/unattributed; fetched counts are not verified yield. Added five operational reader columns; no content access or data writes.
+- Restricted-role Python/psql CTE probes passed mixed/empty histories, nulls, hold/settled separation, cutoff and limit; live history has one legacy call with unknown topic/type. Corrected the probe's denied blanket SELECT to named allowed columns.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (232 unit/172 integration), `pnpm build`, handbook 09 and `git diff --check` passed. Browser probe needed a taller full-dashboard capture; focused desktop/mobile X history screenshots inspected.
+- `check-observability.ts --verify-grafana --verify-o4` passed: 63 queries/58 populated, seven healthy scrape targets; Grafana 181 MiB. Discarded unrelated regenerated captures.
+- Handbook/plan/TASKS updated; compacted background task history and archived iteration 368. Grafana hot-reloaded; no service code/config restart required. No paid calls, Reddit requests, content, schedule, caps or activation changes.
 - Next: scheduled evidence/acks first; otherwise remaining O6 Product caps/individual timings or O7 Postgres collection. Activation stays gated.

@@ -249,7 +249,7 @@ export async function checkGrafana() {
         width: 1440,
         height:
           dashboard.uid === 'nd-product'
-            ? 2900
+            ? 3400
             : ['nd-runtime', 'nd-redis'].includes(dashboard.uid)
               ? 2100
               : 1100,
@@ -511,6 +511,35 @@ export async function checkGrafana() {
     await page.screenshot({
       path: 'docs/screenshots/grafana-product-selection-mobile.png',
     });
+    await page.goto(`${base}/d/nd-product?kiosk&viewPanel=panel-13`, {
+      waitUntil: 'networkidle',
+    });
+    await page
+      .getByRole('heading', {
+        name: 'Recent X discovery calls (latest 30 in seven days)',
+        exact: true,
+      })
+      .waitFor();
+    await page
+      .getByRole('columnheader', { name: 'Requested topic', exact: true })
+      .waitFor();
+    assert.equal(
+      await page
+        .locator('[data-testid="data-testid Panel status error"]')
+        .count(),
+      0,
+    );
+    await page.screenshot({
+      path: 'docs/screenshots/grafana-product-x-calls-mobile.png',
+    });
+    await page.setViewportSize({ width: 1440, height: 1100 });
+    await page
+      .getByRole('columnheader', { name: 'Profiles fetched', exact: true })
+      .waitFor();
+    await page.screenshot({
+      path: 'docs/screenshots/grafana-product-x-calls-desktop.png',
+    });
+    await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(`${base}/d/nd-database?kiosk`, {
       waitUntil: 'networkidle',
     });

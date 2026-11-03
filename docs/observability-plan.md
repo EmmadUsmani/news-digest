@@ -325,3 +325,5 @@ and available funds remain in app Status. Synthetic read-only SQL and live
 queries cover empty and mixed-state ledgers.
 
 O6 incremental progress (380): Product provider spend includes succeeded/failed call counts for the UTC creation day. Current ledger outcomes only; cache reuse and refused admissions create no row, and uncertain transport failures remain separate. Existing reader grants only.
+
+O6 incremental progress (381): Product adds the latest 30 X discovery calls in seven days, with reservation-time topic/search type, current status, settled cost/holds and reported fetched counts. Null counts stay unknown; fetched posts are not verified yield. Restricted reader gains only the five required operational columns.

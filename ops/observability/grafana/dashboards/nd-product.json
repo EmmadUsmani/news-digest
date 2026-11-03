@@ -563,6 +563,78 @@
           "show": false
         }
       }
+    },
+    {
+      "id": 13,
+      "title": "Recent X discovery calls (latest 30 in seven days)",
+      "description": "Reservation-time topic and search type, current ledger status and provider-reported fetched counts. Null means unknown, not zero. Settled cost and unresolved holds are separate. Includes manual and scheduled calls; cached/refused requests have no row. Fetched posts include repeats and thread/parent posts; these are not verified additions or selection quality. Fixed seven-day window ignores time picker.",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "product-postgres"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 83,
+        "w": 24,
+        "h": 10
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT created_at AS \"Created (UTC)\", coalesce(requested_topic->>'name','Unattributed') AS \"Requested topic\", coalesce(search_type,'unknown') AS \"Search type\", status AS \"Status\", cost_micros / 1000000.0 AS \"Settled USD\", CASE WHEN status IN ('pending','uncertain') THEN reserved_micros ELSE 0 END / 1000000.0 AS \"Held USD\", posts_fetched AS \"Posts fetched\", profiles_fetched AS \"Profiles fetched\" FROM x_discovery_calls WHERE created_at >= now() - interval '7 days' ORDER BY created_at DESC, id DESC LIMIT 30",
+          "editorMode": "code",
+          "sql": {
+            "limit": 100
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Settled USD"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "currencyUSD"
+              },
+              {
+                "id": "decimals",
+                "value": 4
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Held USD"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "currencyUSD"
+              },
+              {
+                "id": "decimals",
+                "value": 4
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
     }
   ],
   "links": [
