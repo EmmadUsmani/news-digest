@@ -6,7 +6,8 @@ import {
   runSearchFollowups,
 } from '../src/modules/social/application/search-followups';
 
-const topics: FollowupTopic[] = ['NBA', 'Gaming'].map((id) => ({
+const topics: FollowupTopic[] = ['NBA', 'Gaming'].map((id, index) => ({
+  openCallId: `00000000-0000-0000-0000-00000000000${index}`,
   id,
   request: {
     topic: id,
@@ -163,4 +164,51 @@ void test('one optional attempt per topic, including failures; accounts fill top
     ],
   );
   assert.deepEqual(input, before);
+});
+
+void test('followups preserve the durable parent for reactions and accounts', async () => {
+  const input = structuredClone(topics);
+  input[1].stories = [];
+  const calls: string[] = [];
+  const results = await runSearchFollowups(
+    input,
+    async () => true,
+    async (id, request, parent) => {
+      assert.equal(parent, input.find((topic) => topic.id === id)!.openCallId);
+      assert.equal(Boolean(request.reactionStory), id === 'NBA');
+      calls.push(parent);
+      return { state: 'completed' };
+    },
+  );
+  assert.deepEqual(
+    calls,
+    input.map(({ openCallId }) => openCallId),
+  );
+  assert.deepEqual(
+    results.map(({ optionalParentId }) => optionalParentId),
+    calls,
+  );
+});
+
+void test('missing, malformed or reused primary calls cannot authorize followups', async () => {
+  for (const openCallId of [
+    undefined,
+    '',
+    'not-a-call',
+    topics[0].openCallId.toUpperCase(),
+  ]) {
+    let checks = 0;
+    const results = await runSearchFollowups(
+      [topics[0], { ...topics[1], openCallId } as FollowupTopic],
+      async () => {
+        checks++;
+        return true;
+      },
+      async () => {
+        throw new Error('must not execute');
+      },
+    );
+    assert.deepEqual(results, []);
+    assert.equal(checks, 0);
+  }
 });

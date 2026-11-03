@@ -7,6 +7,8 @@ import type { XSearchRequest } from '../domain/x-search.port';
 export interface FollowupTopic {
   id: string;
   request: XSearchRequest;
+  // Durable completed primary call; execution revalidates it under the ledger lock.
+  openCallId: string;
   openState: 'completed' | 'failed' | 'budget-blocked' | 'pending';
   // Incremental verified additions attributed to the first open search.
   openVerifiedAdditions: number;
@@ -23,6 +25,7 @@ export async function runSearchFollowups(
   execute: (
     topicId: string,
     request: XSearchRequest,
+    optionalParentId: string,
   ) => Promise<{ state: 'completed' | 'failed' | 'budget-blocked' }>,
 ) {
   if (
@@ -30,11 +33,16 @@ export async function runSearchFollowups(
     topics.some(
       (topic) =>
         !topic.id.trim() ||
+        !/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(
+          topic.openCallId,
+        ) ||
         topic.openState !== 'completed' ||
         topic.request.handles !== undefined ||
         topic.request.reactionStory !== undefined,
     ) ||
-    new Set(topics.map((topic) => topic.id)).size !== topics.length
+    new Set(topics.map((topic) => topic.id)).size !== topics.length ||
+    new Set(topics.map((topic) => topic.openCallId.toLowerCase())).size !==
+      topics.length
   )
     return [];
   // Missing/invalid yield must never authorize another paid search. This is
@@ -50,6 +58,7 @@ export async function runSearchFollowups(
       .slice(0, 1)
       .map(({ request }) => ({
         topicId: topic.id,
+        optionalParentId: topic.openCallId,
         request,
       })),
   );
@@ -64,6 +73,7 @@ export async function runSearchFollowups(
     )
     .map((topic) => ({
       topicId: topic.id,
+      optionalParentId: topic.openCallId,
       request: { ...topic.request, handles: [...topic.handles] },
     }));
   const results = [];
@@ -73,7 +83,11 @@ export async function runSearchFollowups(
     if (!(await canContinue())) break;
     // Failed/uncertain attempts also consume the one optional attempt.
     attempted.add(plan.topicId);
-    const result = await execute(plan.topicId, plan.request);
+    const result = await execute(
+      plan.topicId,
+      plan.request,
+      plan.optionalParentId,
+    );
     results.push({ ...plan, state: result.state });
     // A rejected projection must not trigger a cascade of optional attempts.
     if (result.state === 'budget-blocked') break;

@@ -80,6 +80,7 @@ void test('reaction stories reuse article filters, ranking, clustering and the e
           fromDate: '2026-11-02',
           toDate: '2026-11-03',
         },
+        openCallId: '00000000-0000-0000-0000-000000000001',
         openState: 'completed',
         openVerifiedAdditions: 0,
         stories,

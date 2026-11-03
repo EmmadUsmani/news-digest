@@ -1,33 +1,6 @@
 # Progress
 
-Earlier entries and archive index: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md).
-
-## 2026-11-02: iteration 271 — open X adapter preparation
-
-- Started clean on main; health/API/worker healthy, 32 sources without current errors.
-- Historical ingestion failures retained; no current digest/source regression found.
-- STEERING 16: omitted handles enable open topic search; supplied lists stay validated.
-- Open prompt seeks engaged/rising originals using topic guidance and keyword/semantic relevance.
-- Synthetic outside-list citations retain usage billing and official verification routing.
-- Account-list schedule stays until item 15's first scheduled run is acknowledged.
-- No paid provider or Reddit requests; no new live discovery/engagement claim.
-- Verified: 4 targeted tests; `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit/165 integration), `pnpm build`.
-- API/worker restarted; health, SPA and latest four-topic edition checked; `git diff --check` clean.
-- Archived oldest progress entry to keep orientation bounded.
-- Next: engagement provenance/storage/ranking, then scheduled switch after Nov 3 evidence.
-
-## 2026-11-02: iteration 272 — reported X engagement contract
-
-- Started clean on main; API/worker and health healthy; 32 sources without current errors.
-- STEERING 16: compact search output requests known counts and post timestamps.
-- Adapter returns citation-bound observations with `reported_by: xai_search` and local observed-at time.
-- Missing counts remain absent; explicit zero survives; invalid/uncited/duplicate reports are rejected.
-- Malformed/incomplete output retains billable usage and cannot create engagement observations.
-- No paid or Reddit requests; reports remain unverified and are not yet persisted or ranked.
-- Verified: three targeted tests; `pnpm format`, `pnpm lint:fix`, `pnpm check` (127 unit/165 integration), `pnpm build`, `git diff --check`.
-- API/worker restarted; health, SPA HTTP 200 and four-topic latest edition checked.
-- Archived iteration 252; started clean. Push rejected by owner STEERING update; merged it (Reddit stays parked, official OAuth API only).
-- Next: persist reported observations and rank by engagement/age plus relevance; Nov 3 scheduled evidence still pending.
+Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md).
 
 ## 2026-11-02: iteration 273 — persist reported X engagement
 
@@ -250,3 +223,17 @@ Earlier entries and archive index: [iterations 269–270](docs/progress-archive/
 - Restarted API/worker/docs/schema; all active, health OK, SPA/docs/db HTTP 200; latest social collection completed.
 - Read-only reports: Nov 3 X calls zero; Anthropic reserve pending at $0.482788, other-spend allowance zero; edition due 15:00 UTC.
 - No paid provider or Reddit requests. Next: scheduled evidence/acks, switch open search, wire optional scheduler with persisted parents/yield.
+
+## 2026-11-03: iteration 291 — optional X planner parent forwarding
+
+- Started clean on main; no leftover work; four services and health healthy.
+- Followup planning now requires a distinct valid durable primary call ID for every topic and forwards that parent to reaction/account execution and results.
+- Missing, malformed or reused parents stop planning before schedule checks or execution; the ledger remains responsible for atomic persisted eligibility and caps.
+- Fake tests cover parent forwarding for both paths and invalid/reused parents; production remains account-list pending item 15 evidence/ack.
+- Archived iterations 271–272 to keep PROGRESS below 25 KB; preserved their archive links.
+- Verified: 10 targeted tests; `pnpm format`, `pnpm lint:fix`, `pnpm check` (153 unit/168 integration), `pnpm build`, `git diff --check`.
+- Restarted API/worker/docs/schema; all active, health OK and SPA/docs/schema HTTP 200.
+- First full check stopped on formatting of the new archive; formatted it and reran checks.
+- Read-only status: 32 sources error-free, no failed digests; latest social collection completed with 10 verified posts, zero errors.
+- Nov 3 X spend zero; Anthropic reserve pending at $0.482788 with other-spend allowance zero; next edition 15:00 UTC.
+- No paid provider or Reddit requests. Next: scheduled evidence/acks, open-search switch, persisted followup snapshots and scheduler wiring.
