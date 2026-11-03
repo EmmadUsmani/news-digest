@@ -1,5 +1,7 @@
 import Redis from 'ioredis';
 import { Pool } from 'pg';
+
+import { observeClientQueries } from './slow-queries';
 function assertTestIsolation() {
   if (
     process.env.NODE_TEST_CONTEXT &&
@@ -12,12 +14,14 @@ function assertTestIsolation() {
 }
 export function database() {
   assertTestIsolation();
-  return new Pool({
+  const pool = new Pool({
     connectionString:
       process.env.DATABASE_URL ??
       'postgres://postgres@127.0.0.1:5432/news_digest',
     connectionTimeoutMillis: 3000,
   });
+  pool.on('connect', observeClientQueries);
+  return pool;
 }
 export function redis() {
   assertTestIsolation();

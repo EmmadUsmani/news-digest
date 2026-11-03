@@ -29,6 +29,7 @@ const integration = new Set([
   'scheduled-budget.test.ts',
   'schedule-alert.test.ts',
   'query-stats.test.ts',
+  'slow-query-database.test.ts',
   'settings.test.ts',
   'social-candidates.test.ts',
   'social-eligibility.test.ts',

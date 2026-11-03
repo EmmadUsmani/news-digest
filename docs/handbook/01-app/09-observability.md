@@ -395,6 +395,20 @@ current database's numeric statistics to Grafana, without statistics-reader
 membership. No statement IDs enter the metric store. Raw slow-statement logging
 is disabled because SQL text can contain private values.
 
+API and worker database clients instead log settled calls taking at least 250 ms
+as `database.slow_query`. Records contain duration, success/failure and the number
+of suppressed slow calls since the previous emitted record, with existing request
+or job context. No SQL, parameters, results or database errors enter these records.
+Each process emits at most ten records per minute across all its pools; suppressed
+counts are reported on the next emitted slow call, which may be in a later minute.
+The normal log store retention applies. Search Logs for `database.slow_query`.
+
+These are client-observed durations, including network, decoding and any queue on
+an acquired client, but excluding pool acquisition. Promise and callback calls,
+including transactions, are covered; custom streaming Query objects and calls
+from other tools are excluded. They are thresholded samples rather than a complete
+server slow-query log, and have no SQL identifier to join to the statement tables.
+
 `bash ops/observability/install-query-stats.sh` enables this separately from the
 exporter. Its first installation restarts Postgres only after checking the live
 publication queue is idle and the next edition is more than two hours away.

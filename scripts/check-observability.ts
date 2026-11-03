@@ -497,6 +497,7 @@ async function main() {
     // Provider suites use injected fakes and the same disabled environment as CI.
     const suites = [
       'logging',
+      'slow-queries',
       'external-http-logging',
       'llm',
       'x-search-logging',
@@ -644,7 +645,7 @@ async function main() {
   console.log(
     JSON.stringify({
       offlineO1Proof: verifyO1
-        ? 'passed (9 suites; includes redaction and forced fatal children)'
+        ? 'passed (10 suites; includes redaction and forced fatal children)'
         : 'not requested',
       validatedRuntimeRecords: runtimeRecords.length,
       requestLog: 'ok',
