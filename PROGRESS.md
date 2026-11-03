@@ -116,32 +116,6 @@ Iteration 245: [archive](docs/progress-archive/2026-11-02-iteration-245.md).
 
 Iteration 252: [archive](docs/progress-archive/2026-11-02-iteration-252.md).
 
-## 2026-11-02: iteration 262 — river final-write recovery
-
-- Started clean on main; services, health, 32 sources and four queues healthy; no leftover work.
-- Priority 15/13/7/9 evidence awaits Nov 3; advanced isolated STEERING 2a.
-- Rejects the final river source-health write after existing/new citation upserts; the full snapshot survives unchanged.
-- Valid retry clears the error, preserves first-seen times and verification URLs, and repeated batches dedupe.
-- Disposable PostgreSQL only; no provider, source or Reddit requests for verification.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 157 integration), `pnpm build`, `git diff --check`.
-- Initial full suite passed; refined failure injection to the final write rather than duplicating existing mid-batch coverage, then reran checks.
-- Updated TASKS/database notes; archived iteration 242 to keep PROGRESS bounded.
-- Restarted API/worker; health, SPA, source/queue health and four-topic content checked.
-- Next: observe Nov 3 scheduled X cost/yield and AI edition cost/duration before acknowledging 15/13/7.
-
-## 2026-11-02: iteration 263 — topic post reader scope
-
-- Started clean on main; services, health, 32 sources and four queues healthy; no leftover work.
-- Priority 15/13/7/9 evidence awaits Nov 3; advanced isolated STEERING 2a.
-- Pins exact post payloads, descending dates, ID ties, null dates last and river-source deduplication.
-- Unverified/unrelated posts stay excluded; reassignment, disabled-topic reads and source/topic deletion preserve scope.
-- Disposable PostgreSQL only; no provider, source or Reddit requests for verification.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 158 integration), `pnpm build`, `git diff --check`.
-- First check caught documentation formatting; formatted and reran checks.
-- Updated TASKS/database notes; archived iteration 243 to keep PROGRESS bounded.
-- Restarted API/worker; health, SPA, source/queue health and four-topic latest content checked.
-- Next: observe Nov 3 scheduled X cost/yield and AI edition cost/duration before acknowledging 15/13/7.
-
 ## 2026-11-02: iteration 264 — verification URL precedence
 
 - Started clean on main; API/worker, health, 32 sources and four queues healthy; no leftover work.
@@ -345,3 +319,14 @@ Iteration 252: [archive](docs/progress-archive/2026-11-02-iteration-252.md).
 - Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (130 unit/166 integration), `pnpm build`, `git diff --check`.
 - API/worker restarted; health OK, SPA 200; 32 sources without errors, latest edition four topics.
 - Archived iteration 261; next: Nov 3 scheduled search cost/yield and AI edition timing before open-search switch.
+
+## 2026-11-03: iteration 280 — restore broad Status browser verification
+
+- Started clean on main; no leftover work; all four services and health healthy, docs/db routes 200.
+- Repaired stale heading, coverage-card count and scheduled-X copy assertions in the broad Status smoke.
+- Removed the requirement for paid spend today; synthetic runs now include duration and select the digest queue by name.
+- Validate synthetic responses before browser replay so schema drift fails immediately; no provider or Reddit requests.
+- Desktop/mobile live telemetry, edition navigation, refresh errors and synthetic failure rendering passed; refreshed ten screenshots.
+- Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (131 unit/166 integration), `pnpm build`, `git diff --check`.
+- Restarted API/worker/docs/schema; health and real source/edition checks passed.
+- Archived iterations 262–263; next: Nov 3 scheduled cost/yield and AI timing evidence before open-search switch.

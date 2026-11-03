@@ -1,3 +1,4 @@
+// Read-only live telemetry plus explicitly synthetic failure responses; no provider calls.
 import assert from 'node:assert/strict';
 
 import { operationsStatusSchema, sourceCatalogSchema } from '@digest/contracts';
@@ -15,7 +16,7 @@ async function smoke() {
       await page.goto('http://localhost:8000');
       await page.getByText('Source & run status', { exact: true }).click();
       await page
-        .getByRole('heading', { name: 'Recent automatic runs', exact: true })
+        .getByRole('heading', { name: 'Recent edition runs', exact: true })
         .waitFor();
       await page
         .getByText('After an outage, queued runs up to six hours late', {
@@ -47,7 +48,9 @@ async function smoke() {
       );
       assert.equal(
         await page.locator('.status-grid article').count(),
-        status.sources.length + status.queues.length,
+        status.sources.length +
+          status.queues.length +
+          (status.coverage?.topics.length ?? 0),
       );
       await page
         .getByRole('button', { name: 'Refresh status', exact: true })
@@ -100,7 +103,7 @@ async function smoke() {
       assert.equal(status.xDiscovery.monthlyMicros, 12000000);
       await xUsage
         .getByText(
-          'Paid X discovery runs only through explicit manual commands',
+          'Paid X discovery is scheduled 5–30 minutes before the edition',
           {
             exact: false,
           },
@@ -120,8 +123,8 @@ async function smoke() {
         .waitFor();
       assert.ok(status.llm.monthlyCapMicros <= 14000000);
       assert.ok(
-        status.llm.todayMicros > 0,
-        'Real live probe spend must be visible',
+        status.llm.todayMicros >= 0,
+        'Daily usage must remain valid even before any paid calls',
       );
       await usagePanel
         .getByText('This month (UTC):', { exact: false })
@@ -171,13 +174,18 @@ async function smoke() {
     const live = operationsStatusSchema.parse(
       await (await page.request.get('http://localhost:8000/api/status')).json(),
     );
-    live.queues[2].runs = [
+    const digestQueue = live.queues.find(
+      (queue) => queue.name === 'digest-generation',
+    )!;
+    digestQueue.runs = [
       {
         id: 'synthetic-missed-run',
         state: 'completed',
         attempts: 1,
         scheduledAt: '2020-01-01T00:00:00.000Z',
+        startedAt: null,
         finishedAt: live.checkedAt,
+        durationMs: null,
         editionId: null,
         skipped:
           'Missed run: more than six hours late; generate a custom window to recover coverage',
@@ -193,8 +201,11 @@ async function smoke() {
     live.sources[2].active = false;
     live.queues[0].workers = 0;
     live.queues[1].available = false;
-    live.queues[2].paused = true;
-    await page.route('**/api/status', (route) => route.fulfill({ json: live }));
+    digestQueue.paused = true;
+    const synthetic = operationsStatusSchema.parse(live);
+    await page.route('**/api/status', (route) =>
+      route.fulfill({ json: synthetic }),
+    );
     await page.goto('http://localhost:8000');
     await page.getByText('Source & run status', { exact: true }).click();
     await page
