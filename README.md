@@ -121,7 +121,11 @@ provider/network latency and rate limits; they do not establish the live
 For read-only live evidence, run `pnpm exec tsx scripts/report-edition-timing.ts`
 with the API running locally and the configured database environment loaded.
 It GETs status and the editions linked to the three latest retained completed
-jobs and SELECTs their provider ledger entries; it never enqueues work or calls an LLM.
+jobs plus the latest settled scheduled job’s edition when completed, and SELECTs their provider ledger entries; it never enqueues work or calls an LLM.
+The latest retained scheduled job and latest settled scheduled outcome are shown
+separately, alongside up to three
+failed jobs; absence is not proof that no scheduled run occurred. Failures have no
+inferred edition cost or failure reason (use logs for the latter).
 The report includes final-attempt worker duration, signed schedule-to-start and
 schedule-to-completion offsets (positive means later; manual/missing timestamps
 stay null), edition creation/window,

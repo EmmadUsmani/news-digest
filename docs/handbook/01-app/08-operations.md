@@ -46,7 +46,11 @@ supervisor also checks it after every iteration.
 
 The read-only edition timing report (`pnpm exec tsx scripts/report-edition-timing.ts`,
 with the configured database environment loaded) joins retained completed jobs,
-published editions and their provider charges. It separates final-attempt worker
+published editions and their provider charges. It preserves the latest retained
+settled scheduled result even after newer manual completions or an upcoming job,
+and shows pending or failed
+scheduled jobs plus recent failures. Missing retained evidence does not prove
+that a run never happened; failure details remain in logs. It separates final-attempt worker
 duration from signed offsets between the intended schedule and start/completion.
 Positive offsets mean later; manual runs have no schedule offset. These offsets
 include scheduling delay and earlier retries, so they do not measure pure queue

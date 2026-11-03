@@ -1,7 +1,10 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { scheduledTiming } from '../../../scripts/lib/scheduled-timing';
+import {
+  scheduledTiming,
+  timingEvidence,
+} from '../../../scripts/lib/scheduled-timing';
 
 void test('scheduled offsets include pre-worker delay and preserve early starts', () => {
   assert.deepEqual(
@@ -52,4 +55,54 @@ void test('schedule offsets handle UTC day boundaries and equivalent timezone of
     }),
     { scheduledStartDelayMs: 1000, scheduledCompletionDelayMs: 3000 },
   );
+});
+
+void test('scheduled evidence survives newer manual completions and unordered input', () => {
+  const run = (
+    id: string,
+    day: number,
+    scheduled = false,
+    state = 'completed',
+  ) => ({
+    id,
+    state,
+    attempts: 1,
+    scheduledAt: scheduled ? `2026-11-0${day}T15:00:00Z` : null,
+    startedAt: `2026-11-0${day}T15:00:01Z`,
+    finishedAt: `2026-11-0${day}T15:00:10Z`,
+    durationMs: 9000,
+    editionId: state === 'completed' ? id : null,
+    skipped: null,
+  });
+  const scheduled = run('scheduled', 2, true);
+  const manuals = [run('m1', 3), run('m2', 4), run('m3', 5)];
+  const input = [manuals[0], scheduled, manuals[2], manuals[1]];
+  const evidence = timingEvidence(input);
+  assert.deepEqual(
+    evidence.completed.map((item) => item.id),
+    ['m3', 'm2', 'm1', 'scheduled'],
+  );
+  assert.equal(evidence.latestScheduled?.id, 'scheduled');
+  assert.equal(input[0]?.id, 'm1');
+  for (const state of ['failed', 'active', 'waiting', 'delayed']) {
+    const next = timingEvidence([...input, run('next', 6, true, state)]);
+    assert.equal(next.latestScheduled?.state, state);
+    assert.deepEqual(
+      next.completed.map((item) => item.id),
+      state === 'failed' ? ['m3', 'm2', 'm1'] : ['m3', 'm2', 'm1', 'scheduled'],
+    );
+    assert.equal(
+      next.latestScheduledOutcome?.id,
+      state === 'failed' ? 'next' : 'scheduled',
+    );
+    assert.equal(next.failed.length, state === 'failed' ? 1 : 0);
+  }
+  assert.equal(timingEvidence([scheduled]).completed.length, 1);
+  assert.equal(timingEvidence(manuals).latestScheduled, null);
+  assert.deepEqual(timingEvidence([]), {
+    completed: [],
+    latestScheduled: null,
+    latestScheduledOutcome: null,
+    failed: [],
+  });
 });
