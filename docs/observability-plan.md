@@ -402,7 +402,10 @@ missed-edition and spend rules remain open. The rule exposed metrics-store memor
 pressure; reduced its cache/Go targets and reset saved caches without removing
 stored samples. Iteration 454 resets all expendable caches with the documented
 startup marker: resetting query results alone retained oversized storage lookup
-caches. Memory targets, hard ceiling and warning threshold remain unchanged.
+caches. Iteration 504 lowers the Go runtime target from 64 to 48 MiB after
+renewed sustained memory pressure, leaving headroom for charged filesystem cache
+and native memory. The 112 MiB hard ceiling and warning threshold remain unchanged;
+cache-refill behavior still needs monitoring.
 
 O9 incremental progress (415): read-only Postgres exporter aggregates the latest
 due scheduled-budget lifecycle within 48 hours. Unresolved/failed records over

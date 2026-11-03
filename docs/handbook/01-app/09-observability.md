@@ -522,7 +522,10 @@ a unit limit changes the threshold without editing a rule. Unlimited, missing
 and zero ceilings do not trigger this rule. App units are excluded. CPU limits
 remain enforced by systemd; this rule measures memory pressure before the hard
 ceiling can kill a process. VictoriaMetrics uses a 16 MiB internal cache budget
-and a 64 MiB Go memory target within its existing 112 MiB systemd ceiling.
+and a 48 MiB Go memory target within its existing 112 MiB systemd ceiling.
+The Go target leaves room for filesystem cache and native memory, which count
+toward the service ceiling but are outside the Go heap. It is a soft runtime
+target, not a guarantee of total service memory.
 Before each startup, the service creates the [documented](https://docs.victoriametrics.com/victoriametrics/single-server-victoriametrics/#cache-tuning) `cache/reset_cache_on_startup`
 marker so all expendable caches start fresh. Resetting only query results leaves
 older storage lookup caches able to exceed the reduced budget. Stored metric

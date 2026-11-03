@@ -153,3 +153,13 @@
 - Updated TASKS and RANKING. No restart under STEERING 22: only offline scripts/tests/docs changed.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (291 unit/182 isolated integration), pnpm build, offline cap report, targeted tests and git diff --check passed. Docker dangling volumes remain zero.
 - Next: Nov 4 scheduled evidence review takes priority; NBA rejection still awaits logs. Grouping remains off, with conditional Nov 5 activation only after that review. No additional paid evaluations.
+
+## 2026-11-03: iteration 504 — reduce metrics-store memory pressure
+
+- Started clean on main; no leftover work. Triage found a firing ObservabilityMemoryBudget warning (about 101 MiB against 112 MiB ceiling). Healthz/root and all 36 sources healthy; all four queues staffed, digest queue zero failures.
+- Metrics-store cgroup included about 46 MiB filesystem cache alongside runtime memory. Reduced its Go soft target 64→48 MiB, preserving cache budget, hard ceiling, alert threshold and stored samples. Updated handbook, observability plan and TASKS.
+- Installed the committed unit configuration and restarted only obs-metrics; no app/DB/Redis restarts. Initial verification encountered startup connection refusal and stale scrape/unit snapshots; subsequent --verify-o4 passed with eight targets and eleven units.
+- Post-restart sampled service memory 22–47 MiB through 23:17 UTC; zero automatic restarts, zero firing/pending alerts. This short observation does not establish long-term cache-refill behavior; monitor subsequent iterations.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (291 unit/182 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts observability, pnpm obs health --check and git diff --check passed. Docker dangling volumes remain zero.
+- No provider calls, editions, source changes, feature activation or UI/schema changes; screenshots unnecessary. Grouping stays off.
+- Next: monitor memory after cache refill, then review Nov 4 scheduled open-X/Bluesky picks, duration, NBA validation and World posts; conditional grouping activation for Nov 5 only after that review.
