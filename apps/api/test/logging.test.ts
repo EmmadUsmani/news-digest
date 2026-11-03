@@ -192,3 +192,57 @@ void test('request logs normalize multi-path router templates', () => {
   response.emit('finish');
   assert.equal(records()[0].route, '/ | /queue/:name');
 });
+
+void test('digest completion links only a valid returned edition and retains attempt attribution', async () => {
+  const { log, records, lines } = capture();
+  const editionId = '12345678-1234-4234-8234-123456789abc';
+  const scheduled = {
+    ...job('scheduled'),
+    name: 'generate',
+    opts: { prevMillis: 123 },
+    data: { editionId: 'untrusted-payload', secret: 'never-log-payload' },
+  } as Job;
+  const result = { editionId, privateField: 'never-log-result' };
+  assert.equal(
+    await logJob('digest-generation', async () => result, log)(scheduled),
+    result,
+  );
+  const [start, finish] = records();
+  assert.equal(start.editionId, undefined);
+  assert.equal(finish.editionId, editionId);
+  for (const entry of [start, finish]) {
+    assert.equal(entry.trigger, 'scheduled');
+    assert.equal(entry.attempt, 2);
+    assert.equal(entry.jobName, 'generate');
+    assert.equal(entry.jobId, 'scheduled');
+  }
+  for (const value of [
+    { skipped: 'not due' },
+    undefined,
+    editionId,
+    { editionId: 'private-invalid-id' },
+  ]) {
+    await logJob('digest-generation', async () => value, log)(scheduled);
+    assert.equal(records().at(-1).editionId, undefined);
+  }
+  await logJob('ingestion', async () => result, log)(scheduled);
+  assert.equal(records().at(-1).editionId, undefined);
+  const error = new Error('synthetic failure');
+  await assert.rejects(
+    logJob(
+      'digest-generation',
+      async () => {
+        throw error;
+      },
+      log,
+    )({ ...scheduled, name: 'on-demand' } as Job),
+    (err) => err === error,
+  );
+  assert.equal(records().at(-1).trigger, 'manual');
+  assert.equal(records().at(-1).attempt, 2);
+  assert.equal(records().at(-1).editionId, undefined);
+  assert.doesNotMatch(
+    lines.join(''),
+    /never-log|private-invalid|untrusted-payload/,
+  );
+});

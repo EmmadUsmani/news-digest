@@ -137,11 +137,15 @@ export function logJob<R>(
         job.opts?.prevMillis,
         job.repeatJobKey,
       );
+      const attempt = {
+        jobName: job.name,
+        attempt: job.attemptsMade + 1,
+        trigger,
+      };
       log.info(
         {
           event: 'job.start',
-          jobName: job.name,
-          attempt: job.attemptsMade + 1,
+          ...attempt,
         },
         'Job started',
       );
@@ -157,6 +161,8 @@ export function logJob<R>(
         log.info(
           {
             event: 'job.finish',
+            ...attempt,
+            ...completedEdition(queue, result),
             durationMs: Math.round(performance.now() - started),
           },
           'Job finished',
@@ -173,6 +179,7 @@ export function logJob<R>(
         log.error(
           {
             event: 'job.failure',
+            ...attempt,
             err,
             durationMs: Math.round(performance.now() - started),
           },
@@ -181,4 +188,19 @@ export function logJob<R>(
         throw err;
       }
     });
+}
+
+// Only the digest processor's successful result can identify its edition.
+// Reused editions are valid correlations, not proof of a fresh publication.
+function completedEdition(
+  queue: string,
+  result: unknown,
+): { editionId?: string } {
+  if (queue !== 'digest-generation' || !result || typeof result !== 'object')
+    return {};
+  const id = 'editionId' in result ? result.editionId : undefined;
+  return typeof id === 'string' &&
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)
+    ? { editionId: id }
+    : {};
 }

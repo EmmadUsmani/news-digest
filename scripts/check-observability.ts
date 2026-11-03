@@ -52,6 +52,51 @@ async function main() {
       'Normal recurring heartbeat must have scheduled attribution',
     );
   }
+  if (process.argv.includes('--verify-job-correlation')) {
+    execFileSync(
+      'pnpm',
+      [
+        'exec',
+        'tsx',
+        '--test',
+        '--test-reporter=dot',
+        'apps/api/test/logging.test.ts',
+        'apps/api/test/job-metrics.test.ts',
+      ],
+      { env: testEnvironment(), stdio: 'pipe', timeout: 120_000 },
+    );
+    // A heartbeat runs once a minute; shipping can follow its completion.
+    // Retry reads only, without scheduling a job or writing a synthetic record.
+    let line = '';
+    const deadline = Date.now() + 60_000;
+    do {
+      const response = await fetch(
+        'http://127.0.0.1:9428/logs/select/logsql/query',
+        {
+          method: 'POST',
+          body: new URLSearchParams({
+            query:
+              '_time:5m service:worker event:job.finish queue:operations trigger:scheduled | limit 1',
+          }),
+          signal: AbortSignal.timeout(10_000),
+        },
+      );
+      assert.equal(response.status, 200);
+      line = (await response.text()).trim().split('\n')[0];
+      if (line) break;
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    } while (Date.now() < deadline);
+    assert.ok(
+      line,
+      'Wait for a normal heartbeat and journal shipping; never enqueue verification work',
+    );
+    const record = JSON.parse(line) as Record<string, string>;
+    assert.equal(record.jobName, 'heartbeat');
+    assert.ok(Number(record.attempt) >= 1);
+    assert.ok(Number(record.durationMs) >= 0);
+    assert.ok(record.jobId);
+    assert.equal(record.editionId, undefined);
+  }
   const grafana = process.argv.includes('--verify-grafana')
     ? await checkGrafana()
     : undefined;

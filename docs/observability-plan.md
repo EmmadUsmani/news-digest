@@ -350,3 +350,10 @@ O6 incremental progress (391): Agent supervisor dashboard uses existing unit sam
 O6 incremental progress (392): Per-edition Anthropic ledger shows earliest admission, latest recorded outcome and settled span. No calls, missing outcomes or pending/uncertain holds leave the span blank. Includes gaps/overlapping calls; excludes cache hits and unpublished attempts, and is not worker duration or summed HTTP latency. Existing restricted grants only.
 
 O6 incremental progress (393): Jobs shows the earliest registered digest/social recurring run in UTC. Bounded ascending one-row scheduler reads share existing Redis connections; absent/invalid times remove samples, Redis failures fail the scrape. Due times do not guarantee start or completion. No job IDs, payloads or schedule definitions enter metrics.
+
+O1 incremental progress (398): all worker lifecycle logs retain trigger, name and
+attempt; successful digest finish logs add only a validated returned edition UUID.
+This correlates attempts and edition ledger records without metric-ID labels or
+payload logging. Reused editions remain explicitly possible; failed/skipped jobs
+have no inferred edition. `--verify-job-correlation` checks offline digest cases and
+normal heartbeat delivery to VictoriaLogs; no paid run or backfilled attribution.

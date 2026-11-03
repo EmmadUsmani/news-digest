@@ -4,17 +4,7 @@ Archived: [iteration 384](docs/progress-archive/2026-11-03-iteration-384.md), [i
 
 Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md), [283](docs/progress-archive/2026-11-03-iteration-283.md), [284](docs/progress-archive/2026-11-03-iteration-284.md).
 
-Earlier entry: [iteration 385](docs/progress-archive/2026-11-03-iteration-385.md).
-
-## 2026-11-03: iteration 386 — scheduled timing offsets
-
-- Started clean on main; no leftover work. Health/services green, no source errors or retained failed jobs. Scheduled evidence/acks remain due 15:00 UTC.
-- Read-only edition timing report adds signed schedule-to-final-start/completion offsets. Positive means later; manual/missing timestamps stay null. Includes scheduler delay/prior retries, not pure queue wait or cold AI latency; edition reuse remains explicit.
-- Three offline tests cover delay, early start, missing/invalid/manual timestamps, timezone equivalence and UTC day boundaries. No provider calls or production writes.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (236 unit/172 integration), `pnpm build`, handbook 08 and `git diff --check` passed.
-- Live `pnpm exec tsx scripts/report-edition-timing.ts` passed: latest retained run 32 ms start offset, 888 ms completion offset, 856 ms worker; four topics/10 posts, all story modes non-AI. This is not scheduled AI evidence. `/healthz` healthy.
-- Updated README/handbook/TASKS; archived iteration 374. No runtime changes or service restarts required; no caps, schedule, Reddit requests or activation changes.
-- Next: collect and ack Nov 3 scheduled cost/yield/AI timing at 15:00 UTC; activation stays gated.
+Earlier entries: [iteration 385](docs/progress-archive/2026-11-03-iteration-385.md), [iteration 386](docs/progress-archive/2026-11-03-iteration-386.md).
 
 ## 2026-11-03: iteration 387 — preserve scheduled timing evidence
 
@@ -123,3 +113,12 @@ Earlier entry: [iteration 385](docs/progress-archive/2026-11-03-iteration-385.md
 - Restarted changed API/worker; health green. First runtime check caught interval jobs lacking `prevMillis`; added BullMQ recurring-key support and regression coverage. Final `--verify-job-metrics` passed against scheduled heartbeat/ingestion samples and healthy runtime logs. Updated handbook/plan/TASKS; archived iteration 385.
 - Retained scheduled result remains 856 ms fallback; scheduled attempt attribution does not prove a fresh publication or provider latency. No paid calls, Reddit requests or product/cap/schedule/activation changes.
 - Next: collect/ack Nov 3 scheduled cost/yield/AI timing; then activation work. Observability still needs individual-edition attribution, per-iteration metrics and top queries.
+
+## 2026-11-03: iteration 398 — correlate completed worker attempts with editions
+
+- Started clean on main; no leftover work. Health/services green, 32 current sources without errors, no failed digest/social jobs; two historical ingestion failures remain. Scheduled evidence/activation still gated on 15:00 UTC.
+- Worker start/finish/failure logs now retain trigger, job name and attempt. Successful digest finishes add only a valid returned edition UUID, linking worker timing to edition/ledger evidence. Skips/failures/invalid IDs infer no edition; reused IDs do not prove fresh publication. No metric ID labels or payload/result logging.
+- Offline tests cover attribution, result/error identity, skipped/invalid/non-digest results and privacy. New `check-observability.ts --verify-job-correlation` also checks normal heartbeat delivery to VictoriaLogs; first probe preceded heartbeat, so added bounded read-only polling and reran successfully.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (243 unit/172 integration), `pnpm build`, handbook 09, runtime correlation verification and `git diff --check` passed. No UI/diagram changes or screenshots needed.
+- Restarted changed API/worker; `/healthz` green and live source successes current. Read-only edition timing report passed; retained scheduled result remains 856 ms fallback, with no fresh AI latency claim. Updated handbook/plan/TASKS; archived iteration 386.
+- No paid calls, Reddit requests or production-content/cap/schedule/activation changes. Next: collect/ack Nov 3 scheduled cost/yield/AI timing, then activation; historical edition timing metrics, per-iteration metrics and top queries remain open.

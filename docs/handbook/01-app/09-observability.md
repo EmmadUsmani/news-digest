@@ -212,6 +212,16 @@ separately. This metric does not represent token usage or spending; use the ledg
 for costs. No URLs, hosts, credentials or post IDs enter labels. Samples reset on
 restart; interrupted attempts are absent. Queue snapshots are described below.
 
+Worker start, finish and failure logs retain the same job ID, job name, attempt
+number and scheduled/manual/unknown trigger. A successful digest finish also
+records the returned edition ID, linking worker duration to the immutable edition
+and its ledger calls. Skipped jobs, failed attempts and invalid IDs have no edition
+link. Reused editions keep their ID: a completion log does not prove fresh
+publication or provider work. Payloads and complete results are never logged.
+These fields apply to new attempts; old logs cannot be reconstructed. Verify with
+`pnpm exec tsx scripts/check-observability.ts --verify-job-correlation`, using
+offline digest tests and a normal heartbeat delivered to the log store.
+
 The worker records `news_digest_job_duration_seconds` for every settled processor
 attempt in the four queues. Counts distinguish completed and failed attempts;
 retries count separately. Queue and job names use fixed allowlists, with unknown
