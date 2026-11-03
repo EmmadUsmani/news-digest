@@ -24,6 +24,7 @@ void test('recorded RSS and Atom normalize real headlines, dates and safe links'
     'gamespot.xml',
     'hoopsrumors.xml',
     'realgm.xml',
+    'sbnation-nba.xml',
     'destructoid.xml',
     'al-jazeera.xml',
     'aftermath.xml',
@@ -506,4 +507,56 @@ void test('recorded RealGM feed retains NBA reporting, EST dates and excerpts wi
   assert.ok(items.every((item) => !item.excerpt?.includes('<p>')));
   assert.ok(items.every((item) => item.author === null));
   assert.ok(items.every((item) => item.xLinks?.length === 0));
+});
+
+void test('recorded SB Nation NBA Atom preserves dates, authors and embedded highlight citations', async () => {
+  const items = parseFeed(await fixture('sbnation-nba.xml'));
+  assert.equal(items.length, 2);
+  assert.equal(
+    items[0].title,
+    'Draymond Green tackles opponent, brawls with another for 26th career ejection',
+  );
+  assert.equal(items[0].publishedAt, '2026-11-03T15:11:29.000Z');
+  assert.equal(items[1].publishedAt, '2026-11-03T13:00:00.000Z');
+  assert.deepEqual(
+    items.map((item) => item.author),
+    ['James Dator', "Ricky O'Donnell"],
+  );
+  assert.deepEqual(
+    items.map((item) => item.xLinks),
+    [
+      [
+        {
+          externalId: '2117481817821286446',
+          verificationUrl:
+            'https://twitter.com/ESPNNBA/status/2117481817821286446',
+          url: 'https://x.com/i/web/status/2117481817821286446',
+        },
+      ],
+      [
+        {
+          externalId: '2117106779997753358',
+          verificationUrl: 'https://twitter.com/NBA/status/2117106779997753358',
+          url: 'https://x.com/i/web/status/2117106779997753358',
+        },
+      ],
+    ],
+  );
+  assert.ok(
+    items.every(
+      (item) =>
+        new URL(item.url).hostname === 'www.sbnation.com' &&
+        new URL(item.url).pathname.startsWith('/nba/'),
+    ),
+  );
+  assert.ok(items[0].excerpt.includes('double technical'));
+  assert.ok(
+    items.every(
+      (item) =>
+        item.excerpt.length > 0 &&
+        item.excerpt.length <= 1500 &&
+        !item.excerpt.includes('<p>'),
+    ),
+  );
+  assert.ok(items.every((item) => item.imageUrl === null));
 });

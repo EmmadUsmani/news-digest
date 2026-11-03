@@ -1670,3 +1670,31 @@ Tests use that recording, never the live endpoint. **Status: live.** Migration
 source error. Post-collection NBA coverage was 150 rolling articles and four
 connected/healthy sources; these are stored observations, not fixture counts.
 No AI calls or edition generation were needed to collect the feed.
+
+## NBA coverage and highlight harvesting — iteration 477 (2026-11-03)
+
+Pre-change rolling-day coverage: Tech/AI 329 articles / 6 healthy sources,
+NBA 151/4, Gaming 282/18 and World 224/5. NBA remains the weakest article
+topic. **SB Nation NBA** (`https://www.sbnation.com/rss/nba/index.xml`)
+returned HTTP 200 with ten dated Atom entries, two from the last 24 hours.
+These include authored NBA analysis and highlight reporting, with 18 distinct
+embedded X post IDs across the ten entries. Those are discovery links, not
+verified posts or proof of virality. Existing official embed verification
+controls eligibility; no article-page crawling is added. Multiple publishers
+may repeat the same original event or report.
+
+Migration 051 connects this feed to the original NBA topic. A two-entry
+recorded fixture pins original publication times, authors, plain excerpts and
+the ESPN/NBA highlight citations. Tests never fetch the live feed.
+**Status: live.** Migration 051 applied; the normal worker stored ten items
+at 20:36:15 UTC, with no source error. The stored snapshot contains 21 distinct
+X citations (the earlier bounded feed probe contained 18). These are harvested
+links, not 21 new verified posts. NBA then had 152 rolling-day articles and
+five connected/healthy sources; all 34 app sources were healthy. No edition
+or paid inference call was triggered by this change.
+
+Other bounded public-feed checks: HoopsHype `/feed/` and NBC
+`/nba/probasketballtalk.rss` returned 404; SLAM `/feed/` returned 403.
+No bypass or repeated probes. Basketball Insiders `/feed/` returned 200 with
+25 dated items (two recent); not connected in this step, prioritizing SB
+Nation's highlight links and authored coverage.

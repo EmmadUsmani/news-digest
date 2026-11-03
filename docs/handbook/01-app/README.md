@@ -32,7 +32,9 @@ flowchart LR
   settings do.
 - **AI is optional and capped.** If the AI budget runs out, the edition still
   publishes using non-AI ranking, and the page says so.
-- **NBA reporting** includes CBS, Yahoo, Hoops Rumors and RealGM Basketball.
+- **NBA reporting** includes CBS, Yahoo, Hoops Rumors, RealGM Basketball
+  and SB Nation NBA. SB Nation also supplies embedded X highlight links for
+  free discovery; posts still need official embed verification.
   RealGM also carries other basketball leagues; topic ranking filters relevance.
   Multiple publishers may repeat the same original report.
 - **Every external call goes through a port.** Feeds, AI, X and queues sit

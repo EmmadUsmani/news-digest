@@ -51,7 +51,7 @@ M0–M2; M3/M6/M7 foundations implemented.
   - Next: durable recovery beyond retained Redis jobs.
     `DigestPublished` event plus notification port with a log/in-app adapter.
 - [ ] Ongoing:
-  - widen sources per topic (Reddit, Bluesky, more publishers); item 10: NBA was weakest (140 articles/3 sources), RealGM Basketball added in 465; mixed-league relevance and reporting independence remain caveats.
+  - widen sources per topic (Reddit, Bluesky, more publishers); item 10: NBA was weakest (140 articles/3 sources), RealGM added in 465; SB Nation NBA feed and free highlight citations added in 477. Relevance and reporting independence remain caveats.
   - precision tuning
   - UI polish
   - retention/backup

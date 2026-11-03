@@ -1,22 +1,3 @@
-## 2026-11-03: iteration 461 — separate future studio closures
-
-- Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis and 32 healthy source connections. Nov 4 scheduled social/latency evidence remains pending; advanced item 19.
-- Opt-in studio grouping now excludes relative future closures (“tomorrow”, “next week/month/year”) before or after assertions in titles/excerpts, including identical-headline fallback. Separate future background sentences stay accepted.
-- Bidirectional synthetic regression guards pass; recorded evaluation remains 33/57 positives, zero/41 false merges and no unknown merges or sampled membership variation. Agent labels are not independent validation; production grouping stays disabled.
-- pnpm format, pnpm lint:fix, pnpm check (294 unit/176 isolated integration), pnpm build and git diff --check passed; no dangling Docker volumes.
-- Restarted API/worker; pnpm obs health --check passed, root HTTP 200 and zero alerts. Updated TASKS/RANKING. No UI or handbook flow change, paid calls, new editions or Reddit requests.
-- Next: Nov 4 open-X/Bluesky selections/screenshots, World yield and latency/full-AI evidence; broader grouping recall and independent labels remain open.
-
-## 2026-11-03: iteration 462 — group rejected remake fast-travel experiments
-
-- Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis and all 32 source connections. Scheduled social/latency evidence still awaits Nov 4; advanced item 19.
-- Default-off grouping now matches explicit rejected fast-travel experiments for the same remake, retaining full game identity and normalizing the established Zelda franchise alias. Other games/mechanics, shipped features, uncertainty, historical titles and invalid/out-of-window times stay separate.
-- Recovered the recorded Eurogamer/Kotaku Ocarina of Time pair: 34/57 positives, zero/41 false merges, unknown merges or sampled membership variation. Vague GamesRadar+ feature coverage remains separate without explicit fast-travel evidence. Labels remain agent-reviewed, not independent validation; production grouping stays disabled.
-- Targeted grouping tests passed 19/19. Initial full check caught formatting in the newly archived progress entry; corrected it. Final pnpm format, pnpm lint:fix, pnpm check (296 unit/176 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
-- Updated TASKS/RANKING; archived iteration 445 to keep PROGRESS below 25 KB. No UI/handbook flow change, paid calls, new editions or Reddit requests.
-- Next: Nov 4 open-X/Bluesky selections/screenshots, World yield and latency/full-AI evidence; broader grouping recall and independent labels remain open.
-- Restarted API/worker; pnpm obs health --check passed, root HTTP 200, both units active and zero alerts. Live rolling article/X counts: Tech 333/74, NBA 145/56, Gaming 274/15, World 230/1; latest social collection completed.
-
 ## 2026-11-03: iteration 463 — group explicit Water Temple remake adjustments
 
 - Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis and all 32 source connections. Scheduled social/latency evidence awaits Nov 4; advanced item 19.
@@ -163,3 +144,14 @@
 - Targeted tests 8/8, saved-membership CLI, handbook check (one unchanged diagram/25 assigned tables), pnpm build and git diff --check passed. Initial full check caught archive formatting during preparation; fixed before final check. Final pnpm check passed (263 unit/177 isolated integration), including typecheck/lint/format/boundaries.
 - No restart under STEERING 22: removed code was inactive, running code/config unchanged; handbook serves edited source. API/worker/docs/schema active; healthz HTTP 200 and zero dangling volumes.
 - Next: prioritize Nov 4 scheduled NBA/speed, open-X/Bluesky evidence; grouping remains parked unless owner reopens it.
+
+## 2026-11-03: iteration 477 — add NBA coverage and free X highlights
+
+- Started clean on main; no leftovers. Zero alerts and healthy services/sources. Nov 4 scheduled NBA/speed/social evidence remains pending; rejected Nov 3 responses were not retained, so their cause remains unknown. Grouping stays parked.
+- Advanced item 10: pre-change NBA was weakest at 151 articles/four healthy sources, versus Tech 329/6, Gaming 282/18 and World 224/5. Added public SB Nation NBA Atom feed via migration 051.
+- Recorded two real entries; fixture tests pin authors, publication offsets, plain excerpts and embedded ESPN/NBA X links. Initial unfiltered targeted run correctly refused its DB test outside isolation; reran the two fixture tests successfully, with DB coverage delegated to pnpm check.
+- Bounded research: HoopsHype/NBC endpoints 404, SLAM 403 (no bypass); Basketball Insiders returned 25 entries but was not added. No Reddit requests, paid inference or new edition.
+- Applied migration and restarted worker to register source schedule. Normal collection stored ten articles and 21 distinct X citations at 20:36:15 UTC; initial feed probe had 18. Citations are not verified posts or independent reporting. NBA now 152 rolling articles/five healthy sources; all 34 sources healthy.
+- Updated SOURCES/TASKS and owner handbook; archived iterations 461–462 to keep PROGRESS bounded. No table/relationship metadata change or UI change.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (263 unit/178 isolated integration), pnpm build, handbook check (17 pages/one unchanged diagram/25 assigned tables), two targeted fixture tests and git diff --check passed. Zero dangling Docker volumes.
+- Worker/API/docs/schema active; health --check passed, root HTTP 200, saved edition schema/content valid (19 stories/11 posts), zero alerts. Next: Nov 4 scheduled provider timing/NBA fallback and open-X/Bluesky selection evidence.
