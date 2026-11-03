@@ -182,11 +182,14 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `git diff --check`; restarted all four services, active; health/app/status/docs/db HTTP 200. No UI change.
 - Next: observe scheduled X per-topic cost/yield and edition AI cost/duration, acknowledge results, then activate open search.
 
-## 2026-11-03: iteration 315 — scheduled evidence still pending; ingestion advancing
+## 2026-11-03: iteration 315 — curated X account review under new owner steering
 
-- Started clean on main; no leftover work. API/worker/docs/schema active; database/Redis healthy, queues staffed, no retained failed digest runs.
-- Read-only status at 02:54 UTC: all 32 sources healthy; rolling-day articles Tech/AI 332, NBA 115, Gaming 288, World 226; verified X posts 53/32/16/3.
-- `pnpm exec tsx scripts/report-x-discovery.ts 2026-11-03`: zero calls/cost/holds. `pnpm exec tsx scripts/report-edition-timing.ts`: next edition 15:00 UTC, 482,788-micro reserve pending, other Anthropic allowance zero.
-- Items 13/7/15 await scheduled evidence; item 16 activation remains gated by item 15 acknowledgement. No application/settings changes, paid calls or Reddit requests. Archived iteration 295 to bound progress.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `git diff --check`; all passed. Restarted four services; active; health/app/status/docs/db HTTP 200. No UI change.
-- Next: observe scheduled per-topic X cost/yield and edition AI cost/duration, acknowledge results, then activate open search.
+- Started clean on main. Initial status-only commit push was rejected because origin gained owner item 22; fetched and merged `58d8dd3` without rewriting history, then moved to item 17 as instructed.
+- Completed item 17: live lists now 11 Tech/AI, 10 NBA, 12 Gaming and 11 World handles. Retained primary sources; added builders, reporters, players and developers; removed redundant institutional/aggregator inputs.
+- Documented retained/added/removed account choices and limitations in docs/SOURCES.md; handbook explains editing and current-list report effects. No automatic reset of owner edits; accounts remain editable.
+- API contract validation and save/readback passed for all four topics; comparison confirmed no other topic fields changed. Playwright verified all four saved lists at desktop/mobile, no page errors/overflow; screenshots saved as curated-x-accounts-{desktop,mobile}.png.
+- `pnpm exec tsx scripts/check-handbook.ts 05-social-posts`: 16 pages, 1 diagram, 24 tables, no errors. Diagram unchanged.
+- Before the owner update: `pnpm check` passed 163 unit/168 integration, typecheck/lint/boundaries; `pnpm build` passed; all four services restarted healthy, health/app/status/docs/db HTTP 200. Formatting rerun fixed the archived entry before checks passed.
+- After settings/docs: `pnpm format`, `pnpm lint:fix`, `git diff --check`; no further restart needed. All 32 sources healthy; no paid calls or Reddit requests. Archived iteration 295.
+- Scheduled evidence still pending at 02:54 UTC: zero Nov 3 X calls/cost/holds; 15:00 edition reserve 482,788 micros, other Anthropic allowance zero. Items 13/7/15 acknowledgement and item 16 activation stay gated.
+- Next: item 18 official Bluesky discovery while waiting; return to scheduled evidence as soon as available. Account choices are editorial, not freshly verified profiles or measured virality claims.

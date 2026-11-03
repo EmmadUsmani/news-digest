@@ -1,5 +1,38 @@
 # Content source inventory
 
+### Curated X account review — 2026-11-03 (iteration 315)
+
+These are editable search inputs, selected for first-hand posts, reporting and
+product demonstrations. They are not an endorsement of every post, a measured
+virality ranking, or a claim that these accounts were freshly verified. No X
+profile fetch or paid search was made for this review. Each discovered post
+still needs the official oEmbed check. Open search remains the main path once
+item 15 is acknowledged; these lists then become optional secondary inputs.
+
+| Topic                 | Retained accounts and purpose                                                                                                                        | Added accounts and purpose                                                                                                                               | Removed from the previous defaults                                                               |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| Tech & AI             | OpenAI, AnthropicAI, GoogleDeepMind, huggingface: first-party releases and demos; sama, karpathy, simonw: builders' observations and experiments     | swyx: AI engineering developments; soumith: ML tooling/research; fchollet: research and evaluation; bcherny: coding-agent development                    | GoogleAI: overlaps the retained GoogleDeepMind primary source                                    |
+| NBA                   | NBA: official highlights; ShamsCharania, ChrisBHaynes, TheSteinLine, TimBontemps: reporting and insider news                                         | espn_macmahon, WindhorstESPN: beat/league reporting; KingJames, StephenCurry30, Giannis_An34: players' first-hand reactions                              | NBAOfficial and NBAPR: officiating/PR focus; BleacherReport: broad aggregator                    |
+| Gaming                | PlayStation, Xbox, NintendoAmerica, Steam: platform announcements; geoffkeighley: reveals; Wario64: discovery leads; jasonschreier: studio reporting | stephentotilo: games reporting; tomwarren: Xbox/platform reporting; LarAtLarian, ConcernedApe, NoMansSky: developers' first-hand announcements and clips | IGN: publisher overlap; gameawards: overlaps geoffkeighley's event coverage                      |
+| World news & politics | Reuters, AP, BBCWorld, AFP: broad reporting; UNHumanRights: primary human-rights statements; ZelenskyyUa: Ukrainian government statements            | clarissaward, NickPatonWalsh, RichardEngel: field reporting; ragipsoylu: Turkey/regional reporting; NikaMelkozerova: Ukrainian reporting                 | BBCBreaking: overlaps BBCWorld; NPR: article-feed overlap; UN: broad institutional announcements |
+
+Current lists (case-insensitive unique handles; all below the 20-account cap):
+
+- **Tech & AI (11):** [OpenAI](https://x.com/OpenAI), [AnthropicAI](https://x.com/AnthropicAI), [GoogleDeepMind](https://x.com/GoogleDeepMind), [sama](https://x.com/sama), [karpathy](https://x.com/karpathy), [simonw](https://x.com/simonw), [huggingface](https://x.com/huggingface), [swyx](https://x.com/swyx), [soumith](https://x.com/soumith), [fchollet](https://x.com/fchollet), [bcherny](https://x.com/bcherny).
+- **NBA (10):** [NBA](https://x.com/NBA), [ShamsCharania](https://x.com/ShamsCharania), [ChrisBHaynes](https://x.com/ChrisBHaynes), [TheSteinLine](https://x.com/TheSteinLine), [TimBontemps](https://x.com/TimBontemps), [espn_macmahon](https://x.com/espn_macmahon), [WindhorstESPN](https://x.com/WindhorstESPN), [KingJames](https://x.com/KingJames), [StephenCurry30](https://x.com/StephenCurry30), [Giannis_An34](https://x.com/Giannis_An34).
+- **Gaming (12):** [PlayStation](https://x.com/PlayStation), [Xbox](https://x.com/Xbox), [NintendoAmerica](https://x.com/NintendoAmerica), [Steam](https://x.com/Steam), [geoffkeighley](https://x.com/geoffkeighley), [Wario64](https://x.com/Wario64), [jasonschreier](https://x.com/jasonschreier), [stephentotilo](https://x.com/stephentotilo), [tomwarren](https://x.com/tomwarren), [LarAtLarian](https://x.com/LarAtLarian), [ConcernedApe](https://x.com/ConcernedApe), [NoMansSky](https://x.com/NoMansSky).
+- **World news & politics (11):** [Reuters](https://x.com/Reuters), [AP](https://x.com/AP), [BBCWorld](https://x.com/BBCWorld), [AFP](https://x.com/AFP), [UNHumanRights](https://x.com/UNHumanRights), [ZelenskyyUa](https://x.com/ZelenskyyUa), [clarissaward](https://x.com/clarissaward), [NickPatonWalsh](https://x.com/NickPatonWalsh), [ragipsoylu](https://x.com/ragipsoylu), [RichardEngel](https://x.com/RichardEngel), [NikaMelkozerova](https://x.com/NikaMelkozerova).
+
+The live topic settings are the source of truth. Change them under **Manage
+topics → Edit → X accounts** (one handle per line). This review does not install
+an automatic reset: later owner edits persist. Account-list search uses topic
+guidance, so off-topic player posts, Wario64 sales/promotions and institutional
+PR should not qualify just because their author is on a list. Reporting and
+political statements remain subject to source support and topic relevance.
+Outside-list discovery counts use the current lists and may change after this
+edit; they do not preserve historical account membership. Search cost/yield
+must be evaluated from the scheduled runs before calling these lists effective.
+
 Iteration 213: `pnpm exec tsx scripts/report-x-discovery.ts YYYY-MM-DD` reads
 UTC-day X ledger cost/holds and each call's topic citations with current official
 verification counts. It performs no network requests or paid discovery. Counts

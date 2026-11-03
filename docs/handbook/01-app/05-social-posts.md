@@ -39,6 +39,13 @@ flowchart LR
 > The worker dependencies are connected, but production keeps account-list
 > searches until the first scheduled run is measured and acknowledged.
 
+Curated accounts are editable in **Manage topics → Edit → X accounts**, up to
+20 unique handles per topic. They mix first-party announcements with builders,
+reporters, players and developers; the [source inventory](../../SOURCES.md)
+records the review and choices. They are search inputs, not an allowlist for free
+harvesting or a guarantee of relevance. Changes persist and also change the
+report's comparison against current account lists.
+
 ## Verification and safety
 
 - **Official only:** posts are confirmed with X's public **oEmbed** endpoint,
