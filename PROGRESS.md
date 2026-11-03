@@ -1,13 +1,3 @@
-## 2026-11-03: iteration 440 — bounded supervisor completion and retry observations
-
-- Started clean on main; no leftovers. Health/alerts green; scheduled social/latency acceptance still awaits the next run. Advanced O8 under items 24/25.
-- Read-only collector exports completed-iteration seconds only when the same heartbeat has valid start/finish timestamps, plus next-retry UTC timestamp when supplied. No protected harness edits or log/transcript reads.
-- Running iterations remove duration; brief completion states can fall between snapshots. Retry can be stale and does not prove an active wait. Tokens/commits/cumulative pacing remain unavailable; dashboard presentation stays open.
-- Four offline Python cases cover timezone arithmetic, running reset, malformed/negative duration, invalid retry, privacy and independent source failures. Live --verify-o8 passes optional finite/unique sample checks; current running heartbeat correctly exposes neither optional sample. No live completed duration/retry claimed.
-- pnpm format, pnpm lint:fix, pnpm check (275 unit/176 isolated integration), pnpm build, python3 ops/observability/test-harness-metrics.py, check-observability.ts --verify-o8 and check-handbook.ts 09-observability passed. No UI/diagram changes.
-- Installed only harness-metrics.py and ran obs-unit-metrics.service; timer active. App/DB/Redis unchanged. Zero alerts/dangling volumes; 32 healthy sources, queues available, all-topic articles/stored X. Latest real edition remains 19 stories/11 X posts; no paid calls/new editions.
-- TASKS/plan/handbook updated; archived iterations 426–427 to keep PROGRESS small. Next: scheduled product evidence first; otherwise O8 duration/retry presentation, then O10 browser errors.
-
 ## 2026-11-03: iteration 441 — supervisor duration and retry presentation
 
 - Started clean on main; no leftovers. Alerts/health green; product acceptance still awaits the next scheduled edition. Finished O8 within available bounded-status scope under items 24/25.
@@ -161,3 +151,14 @@
 - Restarted API/worker; pnpm obs health --check passed, root HTTP 200, zero alerts. pnpm obs jobs --check and pnpm obs sources --check passed before deploy.
 - Updated TASKS/RANKING; archived iteration 439 to keep PROGRESS bounded. No production flow/UI change, paid calls, new editions or Reddit requests.
 - Next: Nov 4 social selections/screenshots, World yield and latency/full-AI evidence; broader Gaming recall/independent labels remain open.
+
+## 2026-11-03: iteration 456 — group publisher-confirmed game title reveals
+
+- Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis, all 32 sources flowing and scheduled collectors healthy. Next scheduled social/latency evidence is pending; advanced item 19.
+- Opt-in title grouping now accepts publisher “officially confirms [full sequel: subtitle] as its next game” announcements. Full identity, uncertainty/history and 36-hour guards remain; production grouping stays disabled.
+- Recorded Insider Gaming Sentinel report joins four title reveals. Four newly agent-reviewed positive pairs complete the cluster: benchmark 95 pairs, combined 26/54 positives, zero/41 false merges, unknown merges or membership variation across 34 orders/window. Labels are not independent validation.
+- Synthetic guards cover different sequels/subtitles, release-date news, expansions, rumors, historical and prospective claims. Targeted suite 20/20; updated old recorded positive-count assertions before full verification.
+- pnpm format, pnpm lint:fix, pnpm check (290 unit/176 isolated integration), pnpm build and git diff --check passed. Zero dangling Docker volumes.
+- Restarted API/worker; first immediate probe raced startup, retry passed pnpm obs health --check and root HTTP 200; both units active, zero alerts.
+- Updated TASKS/RANKING; archived iteration 440 to keep PROGRESS bounded. No UI/handbook production-flow change, paid calls, new editions or Reddit requests.
+- Next: Nov 4 social selections/screenshots, World yield and latency/full-AI evidence; grouping recall/independent labels remain open.

@@ -637,6 +637,34 @@
       "right": "83b43cd2-61cd-40c4-8dfd-6e93bf2b4f28",
       "sameEvent": true,
       "reason": "Same official Sentinel title reveal, with successor framing. Agent-reviewed stored headlines/excerpts, not independent validation."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "141faa31-16c2-4cf0-a142-1bf5b35e5837",
+      "right": "c3fbd471-1be1-44ff-a7c2-8cc3767b1c7e",
+      "sameEvent": true,
+      "reason": "Both headline/excerpt pairs announce the official Elder Scrolls VI: Sentinel title in the November 3 Bethesda anniversary reveal; agent-reviewed, not independent verification."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "33918da0-5e59-40b6-a34a-fdbdeb6fe369",
+      "right": "c3fbd471-1be1-44ff-a7c2-8cc3767b1c7e",
+      "sameEvent": true,
+      "reason": "Both headline/excerpt pairs announce the official Elder Scrolls VI: Sentinel title in the November 3 Bethesda anniversary reveal; agent-reviewed, not independent verification."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "705b94d8-f43d-4edb-9045-e17abe39cb75",
+      "right": "c3fbd471-1be1-44ff-a7c2-8cc3767b1c7e",
+      "sameEvent": true,
+      "reason": "Both headline/excerpt pairs announce the official Elder Scrolls VI: Sentinel title in the November 3 Bethesda anniversary reveal; agent-reviewed, not independent verification."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "83b43cd2-61cd-40c4-8dfd-6e93bf2b4f28",
+      "right": "c3fbd471-1be1-44ff-a7c2-8cc3767b1c7e",
+      "sameEvent": true,
+      "reason": "Both headline/excerpt pairs announce the official Elder Scrolls VI: Sentinel title in the November 3 Bethesda anniversary reveal; agent-reviewed, not independent verification."
     }
   ]
 }

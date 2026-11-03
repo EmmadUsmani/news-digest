@@ -1088,3 +1088,17 @@ pairs complete its labels; these are agent judgments, not independent validation
 The 91-pair benchmark now has 50 positives and 41 negatives: lexical 6/50, game-only
 10/50, combined opt-in 22/50, zero labeled false merges. All six windows retain zero
 unknown merges and no membership variation across 34 deterministic orders each.
+
+## Iteration 456: publisher confirmation of a full game title
+
+The opt-in title-reveal matcher accepts “Publisher officially confirms [full
+sequel: subtitle] as its next game”. It retains the complete game identity,
+uncertainty/history exclusions and 36-hour bound. Different sequels, subtitles,
+release-date announcements and expansions stay separate. Production stays off.
+
+The recorded Insider Gaming headline and excerpt explicitly confirm the same
+Sentinel title as the four matched announcements. Four added agent-reviewed
+positive pairs complete the five-story cluster; these labels are not independent
+verification. The 95-pair benchmark has 54 positives and 41 negatives: lexical
+6/54, game-only 10/54, combined opt-in 26/54, zero labeled false merges. All
+windows retain zero unknown merges and no variation across 34 orders each.

@@ -23,6 +23,7 @@ void test('explicit title reveals match full sequel and subtitle across numeral 
   );
   for (const title of [
     'Example Quest 6: Horizon is finally made official',
+    'Example Studio Officially Confirms The Example Quest VI: Horizon as Its Next Game',
     "Old Quest's Successor Finally Re-Revealed as The Example Quest VI: Horizon",
     'The Example Quest 6: Horizon Title Officially Revealed, Set 5 Years After Example Quest',
   ]) {
@@ -61,6 +62,27 @@ void test('title reveals reject different identities, secondary news, uncertaint
     item(
       "Old Quest's Successor Finally Re-Revealed as Example Quest 6: Horizon years ago",
     ),
+    item(
+      'Example Studio Officially Confirms Example Quest 7: Horizon as Its Next Game',
+    ),
+    item(
+      'Example Studio Officially Confirms Example Quest 6: Sunset as Its Next Game',
+    ),
+    item(
+      'Example Studio Officially Confirms Example Quest 6: Horizon release date as Its Next Game',
+    ),
+    item(
+      'Example Studio Officially Confirms Example Quest 6: Horizon as Its Next Game, rumor',
+    ),
+    item(
+      'Example Studio Officially Confirms Example Quest 6: Horizon as Its Next Game years ago',
+    ),
+    item(
+      'Example Studio Will Officially Confirm Example Quest 6: Horizon as Its Next Game',
+    ),
+    item(
+      'Example Studio Officially Confirms Example Quest 6: Horizon as Its Next Expansion',
+    ),
     item('Example Quest 7: Horizon is finally made official'),
     item('Other Quest 6: Horizon is finally made official'),
     item('Example Quest 6: Sunset is finally made official'),
@@ -82,7 +104,7 @@ void test('title reveals reject different identities, secondary news, uncertaint
 
 void test('recorded title-reveal clusters preserve labels and membership in both directions', () => {
   const result = evaluateEventGrouping(sameEventWithStudioClosure);
-  assert.equal(result.truePositives, 22);
+  assert.equal(result.truePositives, 26);
   assert.equal(result.falsePositives, 0);
   assert.deepEqual(
     evaluateEventGrouping((a, b) => sameEventWithStudioClosure(b, a)),

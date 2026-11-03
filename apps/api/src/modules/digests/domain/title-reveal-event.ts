@@ -11,11 +11,16 @@ function revealedTitle(candidate: Candidate): string | null {
     )
   )
     return null;
-  // A successor framing still names the announced game after "as".
+  // Successor framing and publisher confirmation still name the full game.
   // Anchor both ends so a trailer, release date or other event cannot qualify.
   const reframed = /^.+? successor finally re-revealed as (.+)$/.exec(title);
-  const announcement = reframed
-    ? `${reframed[1]} is finally made official`
+  const confirmed =
+    /^[\p{L}][\p{L} '-]{1,60} officially confirms (.+) as its next game$/u.exec(
+      title,
+    );
+  const identity = reframed?.[1] ?? confirmed?.[1];
+  const announcement = identity
+    ? `${identity} is finally made official`
     : title;
   const match =
     /^(?:the )?([\p{L}][\p{L} '-]{1,60} (?:[1-9]\d?|ii|iii|iv|v|vi|vii|viii|ix|x): [\p{L}][\p{L} '-]{1,50}?) (?:[–—-] official (?:name|title) reveal trailer|is finally made official|title officially revealed)(?:$|[,.:])/u.exec(
