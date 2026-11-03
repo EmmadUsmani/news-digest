@@ -12,6 +12,7 @@ import type { LlmPort } from '../src/modules/curation/domain/llm.port';
 import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
 import { PostgresPreviewRepository } from '../src/modules/digests/database/preview.repository';
 import type { PreviewRepository } from '../src/modules/digests/domain/preview.repository';
+import type { Candidate, rank } from '../src/modules/digests/domain/rank';
 
 const fixture = (name: string) =>
   JSON.parse(
@@ -154,6 +155,161 @@ for (const mode of ['non-ai', 'ai'] as const) {
         source,
       ]);
       for (const row of original)
+        await adapter.db.query('UPDATE topics SET enabled=$2 WHERE id=$1', [
+          row.id,
+          row.enabled,
+        ]);
+      await adapter.onModuleDestroy();
+    }
+  });
+}
+
+for (const mode of ['fallback', 'synthetic-ai'] as const) {
+  void test(`${mode} opt-in grouping survives publication, flag changes and snapshot retrieval`, async () => {
+    assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+    assert.equal(process.env.ANTHROPIC_API_KEY, '');
+    const adapter = new PostgresPreviewRepository();
+    const previousFlag = process.env.EDITION_EVENT_GROUPING_ENABLED;
+    const topic = '00000000-0000-4000-8000-000000000889';
+    const source = 'grouping-recorded-publisher';
+    const recorded = JSON.parse(
+      readFileSync(
+        new URL(
+          'fixtures/event-grouping-gaming-2026-11-02.json',
+          import.meta.url,
+        ),
+        'utf8',
+      ),
+    ) as { candidates: Candidate[] };
+    const items = recorded.candidates.filter((item) =>
+      [
+        'e9fabd3c-98d9-458b-8cd0-94424c5d212e',
+        'f0703d80-c31c-4799-91cc-5060a004228c',
+        'c8de0e97-9ab0-4f83-b5e2-ce79ad2b4455',
+      ].includes(item.id),
+    );
+    assert.equal(items.length, 3);
+    const originals = (await adapter.db.query('SELECT id,enabled FROM topics'))
+      .rows;
+    if (mode === 'synthetic-ai') {
+      Object.defineProperty(adapter, 'editorial', {
+        value: {
+          triage: {
+            async score(_context: unknown, candidates: Candidate[]) {
+              return {
+                scores: candidates.map((item) => ({
+                  id: item.id,
+                  relevance: 9,
+                  importance: 8,
+                  event: 'Studio closure',
+                  rationale: 'Recorded closure reporting.',
+                })),
+                unscoredIds: [],
+              };
+            },
+          },
+          editor: {
+            async edit(
+              _context: unknown,
+              ranked: ReturnType<typeof rank>,
+              budget: number,
+            ) {
+              return {
+                model: 'synthetic-grouping-editor',
+                stories: ranked.slice(0, budget).map((item) => ({
+                  id: item.id,
+                  evidenceIds: [item.id],
+                  headline: item.title,
+                  summary: 'Synthetic test summary.',
+                  whyItMatters: 'Synthetic context.',
+                  rationale: 'Test selection.',
+                })),
+              };
+            },
+          },
+        },
+      });
+    } else {
+      Object.defineProperty(adapter, 'editorial', { value: null });
+    }
+    try {
+      await adapter.db.query('UPDATE topics SET enabled=false');
+      await adapter.db.query(
+        `INSERT INTO topics(id,profile_id,name,description,include_guidance,position,story_budget,post_budget) VALUES($1,'00000000-0000-4000-8000-000000000001','Grouping Gaming','Recorded offline fixture','',100,5,0)`,
+        [topic],
+      );
+      await adapter.db.query(
+        `INSERT INTO content_sources(id,topic_id,name,kind,url) VALUES($1,$2,'Recorded fixture','feed','https://example.org/grouping/feed')`,
+        [source, topic],
+      );
+      await adapter.db.query(
+        'INSERT INTO topic_source_connections(topic_id,source_id) VALUES($1,$2)',
+        [topic, source],
+      );
+      for (const item of items) {
+        await adapter.db.query(
+          'INSERT INTO content_items(id,canonical_url,title,excerpt,published_at,engagement) VALUES($1,$2,$3,$4,$5,$6)',
+          [
+            item.id,
+            item.url,
+            item.title,
+            item.excerpt,
+            item.publishedAt,
+            { points: item.points },
+          ],
+        );
+        await adapter.db.query(
+          'INSERT INTO content_observations(source_id,item_id) VALUES($1,$2)',
+          [source, item.id],
+        );
+      }
+      const publish = async () =>
+        digestPreviewSchema.parse(
+          await adapter.generate(
+            new Date('2026-11-02'),
+            new Date('2026-11-03'),
+          ),
+        );
+      delete process.env.EDITION_EVENT_GROUPING_ENABLED;
+      const baseline = await publish();
+      assert.equal(baseline.topics[0].stories.length, 3);
+      process.env.EDITION_EVENT_GROUPING_ENABLED = '1';
+      const grouped = await publish();
+      assert.equal(grouped.topics[0].stories.length, 1);
+      const story = grouped.topics[0].stories[0];
+      assert.deepEqual(
+        story.coverage.map((item) => item.id).sort(),
+        items.map((item) => item.id).sort(),
+      );
+      assert.equal(story.id, baseline.topics[0].stories[0].id);
+      assert.equal(story.score, baseline.topics[0].stories[0].score);
+      assert.equal(
+        grouped.topics[0].editorial?.mode,
+        mode === 'fallback' ? 'non-ai' : 'ai',
+      );
+      delete process.env.EDITION_EVENT_GROUPING_ENABLED;
+      const restored = await publish();
+      assert.deepEqual(restored.topics, baseline.topics);
+      assert.notEqual(grouped.id, baseline.id);
+      for (const edition of [baseline, grouped, restored])
+        assert.deepEqual(await adapter.find(edition.id), edition);
+    } finally {
+      if (previousFlag === undefined)
+        delete process.env.EDITION_EVENT_GROUPING_ENABLED;
+      else process.env.EDITION_EVENT_GROUPING_ENABLED = previousFlag;
+      await adapter.db.query(
+        'DELETE FROM content_observations WHERE source_id=$1',
+        [source],
+      );
+      await adapter.db.query(
+        'DELETE FROM content_items WHERE id=ANY($1::uuid[])',
+        [items.map((item) => item.id)],
+      );
+      await adapter.db.query('DELETE FROM topics WHERE id=$1', [topic]);
+      await adapter.db.query('DELETE FROM content_sources WHERE id=$1', [
+        source,
+      ]);
+      for (const row of originals)
         await adapter.db.query('UPDATE topics SET enabled=$2 WHERE id=$1', [
           row.id,
           row.enabled,

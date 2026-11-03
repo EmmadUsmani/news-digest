@@ -884,3 +884,13 @@ shortlist remain unchanged; grouped coverage never admits unscored or rejected
 items. This does not broaden label evidence, establish outlet independence or
 activate the feature. Tests pin exact opt-in, baseline equivalence and coverage
 exclusion for semantically rejected/unscored items.
+
+## Iteration 336: persisted opt-in grouping
+
+Disposable-database publication tests seed the three recorded Nagoshi closure
+reports and generate editions with the flag unset, enabled, then unset again.
+Both fallback and synthetic semantic-editor paths preserve all three coverage
+links in one grouped story, retain the lead and score, and restore the baseline
+when disabled. Reading every saved edition after the flag changes returns its
+original snapshot. These tests use no live providers and do not establish
+outlet independence or broaden the reviewed event labels. Production remains off.

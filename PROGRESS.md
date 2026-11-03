@@ -4,16 +4,6 @@ Archived: [iteration 321](docs/progress-archive/2026-11-03-iteration-321.md), [i
 
 Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md), [283](docs/progress-archive/2026-11-03-iteration-283.md), [284](docs/progress-archive/2026-11-03-iteration-284.md).
 
-## 2026-11-03: iteration 323 — faithful Bluesky cards prepared
-
-- Started clean on main; no leftover work. Four services/health healthy; 32 sources without current errors, staffed queues and no failed digest runs. Nov 3 15:00 UTC scheduled evidence remains pending.
-- Added discriminated Bluesky snapshot contract and faithful cards: full original text, author/time, saved likes/reposts/replies and observation time, context/rationale, lazy images with alt text/full-size links and video links with optional previews. No streaming player or widget script.
-- Production candidate collection and edition inclusion remain off under item 23; existing X/Reddit behavior unchanged. No paid calls, new collection or Reddit requests.
-- Synthetic `pnpm exec tsx scripts/smoke-bluesky-cards.ts` passed desktop/mobile: image/text-only cards, video without preview, metrics/original links, literal markup, invalid media/timestamps, no widget calls, page errors or horizontal overflow. Saved and visually inspected both screenshots; these are not real editorial picks.
-- Updated TASKS, source evidence and handbook; archived iterations 309–310 to bound progress. Next: prepare gated Bluesky edition wiring; scheduled evidence/acks take priority when available.
-- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (184 unit/170 integration passed, typecheck/lint/format/boundaries), `pnpm build`, handbook check (16 pages, 1 unchanged diagram, 25 tables), `git diff --check`. Initial check caught a late contract formatting edit; corrected before the successful full rerun.
-- Restarted API/worker for contract/editor types and rebuilt web; four services active, health database/Redis OK, app/docs/db HTTP 200. Live edition still has 20 stories and 10 X posts, zero Bluesky posts.
-
 ## 2026-11-03: iteration 324 — default-off Bluesky edition preparation
 
 - Started clean on main; no leftover work. Four app services/health healthy, all 32 sources without current errors, no failed digest runs; Nov 3 15:00 UTC evidence remains pending.
@@ -128,3 +118,13 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Verification: targeted tests 5/5; `pnpm exec tsx scripts/check-handbook.ts 04-edition-pipeline` passed; `pnpm format`, `pnpm lint:fix`, `pnpm check` (206 unit/170 integration), `pnpm build`, `git diff --check` passed.
 - Restarted API/worker for runtime changes. All four services active; `/healthz` database/Redis OK, app/docs/db HTTP 200, queues available and sources without current errors. Retained real edition: 20 stories/10 X posts; grouping remains off.
 - Next: scheduled evidence/acks take priority when available, then activate eligible social features; independent grouping evidence and opt-in end-to-end publication remain before activation.
+
+## 2026-11-03: iteration 336 — verify persisted opt-in story grouping
+
+- Started clean on main; no leftover work. Four services, health, sources and queues healthy; Nov 3 15:00 UTC evidence remains pending.
+- Added disposable-Postgres publication tests for fallback and synthetic-AI editing using three recorded Gaming closure reports. Exact opt-in preserves all coverage links, lead and score; disabling restores baseline and readback preserves every immutable edition across flag changes.
+- Initial tests exposed fixture setup mistakes (headline-only selection missed a report; topic seed omitted required guidance); corrected and targeted publication tests passed 4/4 before the full rerun.
+- Updated TASKS/RANKING and archived iteration 323 to keep PROGRESS bounded. No runtime, source, schema or UI changes; no paid calls or Reddit requests. Independent labels and production activation remain open.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (206 unit/172 integration passed), `pnpm build`, `git diff --check`; targeted disposable publication suite 4/4.
+- Health database/Redis OK; app/docs/db HTTP 200. Retained real edition: 20 stories/10 X posts. No restart under item 22 because only tests/docs changed; grouping remains off.
+- Next: scheduled evidence/acks at 15:00 UTC take priority, then eligible social activation; broader independent grouping evidence remains required.
