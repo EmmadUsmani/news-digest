@@ -1,28 +1,6 @@
 # Progress
 
-Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md).
-
-## 2026-11-02: iteration 279 — accurate scheduled X guidance
-
-- Started clean on main; no leftover work; API/worker and health healthy.
-- Fixed Status/settings claims that automatic paid X discovery was off; describe active timing, eligibility, curated accounts and shared caps.
-- Open search remains gated on Nov 3 item 15 evidence; no provider or Reddit requests.
-- Added read-only desktop/mobile Playwright guidance check and four screenshots; no topic or schedule writes.
-- Broad `smoke-status.ts` hit its pre-existing stale "Recent automatic runs" heading; focused `pnpm exec tsx scripts/smoke-x-schedule-copy.ts` passed.
-- Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (130 unit/166 integration), `pnpm build`, `git diff --check`.
-- API/worker restarted; health OK, SPA 200; 32 sources without errors, latest edition four topics.
-- Archived iteration 261; next: Nov 3 scheduled search cost/yield and AI edition timing before open-search switch.
-
-## 2026-11-03: iteration 280 — restore broad Status browser verification
-
-- Started clean on main; no leftover work; all four services and health healthy, docs/db routes 200.
-- Repaired stale heading, coverage-card count and scheduled-X copy assertions in the broad Status smoke.
-- Removed the requirement for paid spend today; synthetic runs now include duration and select the digest queue by name.
-- Validate synthetic responses before browser replay so schema drift fails immediately; no provider or Reddit requests.
-- Desktop/mobile live telemetry, edition navigation, refresh errors and synthetic failure rendering passed; refreshed ten screenshots.
-- Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (131 unit/166 integration), `pnpm build`, `git diff --check`.
-- Restarted API/worker/docs/schema; health and real source/edition checks passed.
-- Archived iterations 262–263; next: Nov 3 scheduled cost/yield and AI timing evidence before open-search switch.
+Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md).
 
 ## 2026-11-03: iteration 281 — prepare scheduled open-topic eligibility
 
@@ -223,3 +201,14 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - No paid provider or Reddit requests; open mode stays gated on item 15 scheduled evidence/acknowledgement.
 - Verified: targeted 3 tests; `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `git diff --check`; social handbook/24-table metadata check passed.
 - Restarted API/worker/docs/schema; all active, health OK, SPA/docs/db HTTP 200. Next: scheduled X/edition evidence and required acknowledgements, then activate open search.
+
+## 2026-11-03: iteration 297 — scheduled-run readiness evidence
+
+- Started clean on main; four services/health healthy, 32 sources without errors, all queues available with workers and no retained failed jobs.
+- Read-only X/timing reports at 01:27 UTC: zero Nov 3 X calls/cost/holds; 15:00 UTC edition queued, 482,788-micro reserve pending, zero other Anthropic allowance.
+- Items 13/7/15 await actual scheduled evidence; item 16 activation stays gated on item 15 acknowledgement. No production settings or application code changed.
+- Refreshed ten desktop/mobile Status screenshots using real telemetry; synthetic error checks remain explicitly synthetic. Archived iterations 279–280 to keep PROGRESS bounded.
+- First browser run overlapped build asset replacement and timed out on navigation; rerun after build passed all real telemetry, edition links and synthetic failure checks.
+- Verified: `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `pnpm exec tsx scripts/smoke-status.ts`, `git diff --check`.
+- Restarted API/worker/docs/schema; all active, health OK and app/docs/db HTTP 200.
+- No paid provider or Reddit requests. Next: observe scheduled X cost/yield and 15:00 AI cost/duration, acknowledge results, then activate open search.
