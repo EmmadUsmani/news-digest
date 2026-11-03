@@ -72,6 +72,13 @@
       "tables": ["reddit_topic_posts", "reddit_x_citations"]
     },
     {
+      "id": "bluesky",
+      "name": "Bluesky (preparation)",
+      "color": "#0284c7",
+      "description": "Official API observation storage; collection and edition inclusion remain off.",
+      "tables": ["bluesky_observations"]
+    },
+    {
       "id": "system",
       "name": "System",
       "color": "#64748b",
@@ -92,7 +99,7 @@
     "llm_cache": "Cached model responses keyed by a fingerprint of model + prompt, so regenerations only pay for new items.",
     "llm_provider_blocks": "Records that the provider refused calls this month (e.g. the workspace spend limit).",
     "scheduled_ai_budget_days": "Per UTC day: the AI budget held back for the scheduled edition and how that run ended.",
-    "social_posts": "A verified social post (mostly X) with author, time, metrics and the official embed HTML.",
+    "social_posts": "A social post: verified X embeds, parked Reddit cards, or Bluesky API observations (collection off).",
     "x_link_citations": "An article that links to an X post. The main free discovery signal.",
     "article_x_discovery_checks": "Which article pages have been scanned for X links (and when).",
     "social_discovery_sources": "News 'rivers' (Techmeme, Memeorandum) scanned for X links.",
@@ -103,7 +110,8 @@
     "x_discovery_provider_block": "Set when xAI refuses calls (e.g. credits depleted); stops further paid searches.",
     "reddit_topic_posts": "Reddit posts per topic (parked; empty).",
     "reddit_x_citations": "Reddit posts that link to X posts (parked; empty).",
-    "schema_migrations": "Which SQL files in migrations/ have been applied."
+    "schema_migrations": "Which SQL files in migrations/ have been applied.",
+    "bluesky_observations": "Immutable per-topic Bluesky snapshots with observation time, engagement, text and media."
   },
   "relations": [
     {

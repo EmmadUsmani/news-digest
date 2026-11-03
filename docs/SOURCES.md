@@ -1472,8 +1472,8 @@ log-scaled weighted engagement (likes + 2×reposts + replies) and lifetime
 engagement/hour. It selects the latest valid observation before the cutoff,
 deduplicates post IDs and never pads with zero-engagement posts. This is phrase
 screening and an age proxy, not semantic review, measured growth or
-account-relative reach. Persistence, semantic selection and cards remain
-unfinished.
+account-relative reach. Observation storage is implemented separately; collection, semantic selection
+and cards remain unfinished.
 
 Iteration 317 live shortlist probe, 2026-11-03 03:28 UTC, same preceding-day
 queries: raw yields Tech/AI 47, NBA 50, Gaming 49, World 48; phrase-eligible
@@ -1491,3 +1491,12 @@ including the author's media attached to a quote. Quote-only and external-link
 embeds are excluded; invalid media is omitted without dropping the post.
 No media files are downloaded. These are unreviewed discovery observations,
 not stored or published posts; faithful cards and persistence remain unfinished.
+
+Iteration 319 adds isolated PostgreSQL storage for platform `bluesky`, plus
+immutable per-topic text/media/metrics snapshots keyed by observation time.
+Older responses cannot overwrite newer current metadata. Reads accept a
+publication window and an independent observation cutoff; topic disable/delete
+is respected. Disposable-database tests cover replay, out-of-order snapshots,
+window bounds, rollback and topic isolation. No live collection has written to
+this storage; the probe remains read-only and production edition inclusion is
+off. This is storage preparation, not a live ingestion claim.

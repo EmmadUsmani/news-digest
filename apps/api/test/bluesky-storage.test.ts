@@ -1,0 +1,144 @@
+import assert from 'node:assert/strict';
+import { test } from 'node:test';
+
+import { PostgresBlueskyRepository } from '../src/modules/social/database/bluesky.repository';
+import type { BlueskyPost } from '../src/modules/social/domain/bluesky';
+
+const topic = '00000000-0000-4000-8000-000000000012';
+const other = '00000000-0000-4000-8000-000000000013';
+const start = new Date('2026-10-01T00:00:00Z');
+const end = new Date('2026-10-02T00:00:00Z');
+const post: BlueskyPost = {
+  platform: 'bluesky',
+  externalId: 'at://did:plc:synthetic/app.bsky.feed.post/abc123',
+  url: 'https://bsky.app/profile/synthetic.test/post/abc123',
+  author: 'synthetic.test',
+  text: 'Synthetic NBA highlight',
+  publishedAt: start.toISOString(),
+  observedAt: '2026-10-01T12:00:00.000Z',
+  metrics: { likes: 10, reposts: 2, replies: 1 },
+  media: [
+    {
+      type: 'image',
+      thumbnail: 'https://cdn.bsky.app/thumb.jpg',
+      fullsize: 'https://cdn.bsky.app/full.jpg',
+      alt: 'Synthetic image',
+    },
+  ],
+};
+
+void test('Bluesky storage keeps immutable topic snapshots, cutoff/window bounds and newest current metadata', async () => {
+  const repo = new PostgresBlueskyRepository();
+  const later = {
+    ...post,
+    observedAt: '2026-10-01T13:00:00.000Z',
+    metrics: { ...post.metrics, likes: 20 },
+  };
+  try {
+    await repo.store(topic, [later, post, post]);
+    await repo.store(topic, [{ ...post, text: 'conflicting replay' }]);
+    assert.deepEqual(
+      await repo.observations(topic, start, end, new Date(post.observedAt)),
+      [post],
+    );
+    assert.deepEqual(await repo.observations(topic, start, end, end), [
+      later,
+      post,
+    ]);
+    assert.deepEqual(await repo.observations(other, start, end, end), []);
+    assert.deepEqual(
+      await repo.observations(topic, new Date('2026-09-30'), start, end),
+      [],
+    );
+    assert.deepEqual(
+      await repo.observations(
+        topic,
+        start,
+        end,
+        new Date('2026-10-01T11:59:59Z'),
+      ),
+      [],
+    );
+    await repo.store(other, [post]);
+    assert.deepEqual(await repo.observations(other, start, end, end), [post]);
+    const current = (
+      await repo.db.query(
+        "SELECT metrics,bluesky_metadata FROM social_posts WHERE platform='bluesky' AND external_id=$1",
+        [post.externalId],
+      )
+    ).rows[0];
+    assert.equal(current.metrics.likes, 20);
+    assert.deepEqual(current.bluesky_metadata, {
+      text: post.text,
+      media: post.media,
+    });
+    await assert.rejects(repo.observations(topic, end, start, end), /Invalid/);
+  } finally {
+    await repo.db.query(
+      "DELETE FROM social_posts WHERE platform='bluesky' AND external_id=$1",
+      [post.externalId],
+    );
+    await repo.db.end();
+  }
+});
+
+void test('Bluesky storage rolls back complete batches and respects topic disable/delete', async () => {
+  const repo = new PostgresBlueskyRepository();
+  const id = '11111111-1111-4111-8111-111111111319';
+  try {
+    await repo.db.query(
+      "INSERT INTO topics(id,profile_id,name,description,include_guidance,exclude_guidance,position) VALUES($1,'00000000-0000-4000-8000-000000000001','Synthetic Bluesky','','','',999)",
+      [id],
+    );
+    await assert.rejects(
+      repo.store(id, [post, { ...post, externalId: 'bad-id' }]),
+    );
+    assert.deepEqual(await repo.observations(id, start, end, end), []);
+    assert.equal(
+      (
+        await repo.db.query(
+          "SELECT 1 FROM social_posts WHERE platform='bluesky' AND external_id=$1",
+          [post.externalId],
+        )
+      ).rowCount,
+      0,
+    );
+    await assert.rejects(
+      repo.store(id, [
+        post,
+        { ...post, metrics: { likes: -1, reposts: 0, replies: 0 } },
+      ]),
+      /Invalid/,
+    );
+    await repo.store(id, [post]);
+    await repo.db.query('UPDATE topics SET enabled=false WHERE id=$1', [id]);
+    await repo.store(id, [{ ...post, observedAt: '2026-10-01T14:00:00Z' }]);
+    assert.deepEqual(await repo.observations(id, start, end, end), []);
+    assert.equal(
+      (
+        await repo.db.query(
+          'SELECT 1 FROM bluesky_observations WHERE topic_id=$1',
+          [id],
+        )
+      ).rowCount,
+      1,
+    );
+    await repo.db.query('DELETE FROM topics WHERE id=$1', [id]);
+    assert.equal(
+      (
+        await repo.db.query(
+          'SELECT 1 FROM bluesky_observations WHERE topic_id=$1',
+          [id],
+        )
+      ).rowCount,
+      0,
+    );
+  } finally {
+    await repo.db.query('DELETE FROM topics WHERE id=$1', [id]);
+    await repo.db.query(
+      "DELETE FROM social_posts WHERE platform='bluesky' AND external_id=$1",
+      [post.externalId],
+    );
+    await repo.db.end();
+  }
+});

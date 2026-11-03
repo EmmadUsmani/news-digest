@@ -7,7 +7,7 @@ export interface BlueskyPost {
   text: string;
   publishedAt: string;
   observedAt: string;
-  // Optional until stored observations/cards support media. No remote media fetches.
+  // Official media URLs only; no remote media fetches.
   media?: BlueskyMedia[];
   metrics: { likes: number; reposts: number; replies: number };
 }
@@ -18,3 +18,14 @@ export interface BlueskySearchPort {
 export type BlueskyMedia =
   | { type: 'image'; thumbnail: string; fullsize: string; alt: string }
   | { type: 'video'; thumbnail: string | null; playlist: string; alt: string };
+
+// Observation storage is isolated from edition candidates and scheduling.
+export interface BlueskyRepository {
+  store(topicId: string, posts: BlueskyPost[]): Promise<void>;
+  observations(
+    topicId: string,
+    start: Date,
+    end: Date,
+    cutoff: Date,
+  ): Promise<BlueskyPost[]>;
+}

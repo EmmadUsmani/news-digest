@@ -67,8 +67,15 @@ prove the scheduler covered every topic.
 
 ## Other platforms
 
-| Platform | Status                                                                                                                                                                               |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Reddit   | **Parked.** Built, but Reddit blocks public access and ends RSS on Nov 13. The only way back is the official API with owner credentials.                                             |
-| Bluesky  | **Discovery probe only:** authenticated official API, open topic search and phrase-filtered engagement/age shortlist with image/video metadata; no storage or edition inclusion yet. |
-| YouTube  | **Deferred** by the owner.                                                                                                                                                           |
+| Platform | Status                                                                                                                                                                                       |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Reddit   | **Parked.** Built, but Reddit blocks public access and ends RSS on Nov 13. The only way back is the official API with owner credentials.                                                     |
+| Bluesky  | **Preparation only:** authenticated discovery, phrase-filtered engagement/age shortlist and storage for timestamped text/media/count snapshots. Collection and edition inclusion remain off. |
+| YouTube  | **Deferred** by the owner.                                                                                                                                                                   |
+
+Bluesky storage retains each topic's observations separately, so a later count
+cannot overwrite the evidence available at an earlier cutoff. Current post
+metadata follows the newest observation, even if older responses arrive late.
+Disabled topics are excluded from reads and writes; deleting a topic removes
+its observations. No production collector or edition selector uses this storage
+yet. Stored API counts are observations, not independent verification of reach.
