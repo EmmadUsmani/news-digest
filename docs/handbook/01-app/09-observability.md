@@ -27,8 +27,7 @@ supervisor lines use collection time, including the initial backfill.
 `obs-logs` and `obs-shipper` are system units outside the app health gate.
 Their memory limits are 160/80 MiB, CPU quotas 3%/1% of one core, nice level
 10 and low CPU/IO weights. The mount helper `obs-log-volume` creates no
-background process. Host metrics are collected separately below; Grafana dashboards
-are not installed yet.
+background process. Host metrics and Grafana dashboards are described below.
 
 Install or reconcile with `ops/observability/install.sh`: pinned official
 releases are SHA-256 checked. Re-run after recreating production containers
@@ -72,7 +71,7 @@ The journal also contains older plain-text entries from earlier versions.
 
 > [!NOTE]
 > Structured API/worker logging and local log collection are installed.
-> Dashboards and browser error reporting remain planned.
+> Additional dashboards and browser error reporting remain planned.
 > See the [approved observability plan](../../observability-plan.md).
 
 xAI outcomes include response parsing and usage validation. Failed attempts have no
@@ -166,7 +165,7 @@ only the metrics store UI is forwarded through the private app login.
 | -------------- | -------------------------------------------------------------------------------------------------------------------- |
 | Host           | CPU, available memory, filesystem space, disk/network traffic, load and pressure                                     |
 | System units   | `obs-*` state/tasks/restarts from node_exporter                                                                      |
-| Unit resources | Four app units, the agent unit and four observability daemons: active state, memory, CPU seconds, tasks and restarts |
+| Unit resources | Four app units, the agent unit and five observability daemons: active state, memory, CPU seconds, tasks and restarts |
 
 A 30-second timer reads explicit user/system units and atomically publishes a
 textfile. Its timestamp (`news_digest_unit_snapshot_timestamp_seconds`) makes
@@ -226,3 +225,35 @@ Each gauge is a separate snapshot, so a busy queue can change between reads.
 A Redis read error fails the scrape with HTTP 503 rather than serving stale
 queue values; the next successful scrape recovers. Schedule definitions and job
 details remain in the jobs browser.
+
+## Grafana dashboards
+
+Open [/grafana/](/grafana/) and choose **Dashboards → News Digest** for Host,
+Services, HTTP and Jobs. These use the local metrics store; Host shows CPU,
+memory, disk and network, Services shows unit and Node health, HTTP shows
+request and external-attempt rates and latency, and Jobs shows retained queue
+state, schedules and processor attempts. Dashboard descriptions explain what
+the measurements count. Empty panels mean no observed samples, rather than
+zero failures. Retained job counts are snapshots, not lifetime totals.
+
+Grafana is a loopback-only service on port 3001, forwarded through the private
+app. Anonymous access is Viewer access behind the exe.dev login; login and
+signup are disabled, and no initial administrator is created. Dashboards and
+the single local metrics datasource are provisioned from the repository and
+cannot be edited in the UI. Live websocket connections, analytics, updates,
+plugin installation/key retrieval and Grafana alerting are disabled. No app database
+credentials are supplied. Grafana's local SQLite file stores its own settings.
+
+`ops/observability/install-grafana.sh` reconciles the SHA-256-pinned Grafana
+12.4.14 release and provisioning. The `obs-grafana` system unit has a 256 MiB
+memory ceiling and 2% CPU quota, with low scheduling priority. Its first
+startup migrates its own SQLite database and can take several minutes at that
+quota. It never migrates or restarts the app database. Reconcile existing
+configuration by copying the repository provisioning or rerunning the installer.
+
+Verify with `pnpm exec tsx scripts/check-observability.ts --verify-grafana
+--verify-o4` (one command). It checks health, Viewer access, provisioning, all
+panel query responses and populated dashboards, renders desktop/mobile views
+with Playwright and saves screenshots in `docs/screenshots/`. No paid calls
+or content jobs are triggered. Database, Redis, product, log/error and agent
+dashboards remain pending their data connections and later observability work.

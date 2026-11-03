@@ -14,6 +14,7 @@ export const internalTools: InternalTool[] = [
   { prefix: '/db', port: Number(process.env.SCHEMA_EXPLORER_PORT ?? 8200) },
   { prefix: '/logs', port: 9428, preservePrefix: true },
   { prefix: '/metrics', port: 8428, preservePrefix: true },
+  { prefix: '/grafana', port: 3001, preservePrefix: true },
 ];
 
 export function proxyInternalTools(tools: InternalTool[], host = '127.0.0.1') {

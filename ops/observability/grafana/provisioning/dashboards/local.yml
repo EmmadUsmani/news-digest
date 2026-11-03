@@ -1,0 +1,11 @@
+apiVersion: 1
+providers:
+  - name: local
+    orgId: 1
+    folder: News Digest
+    type: file
+    disableDeletion: true
+    allowUiUpdates: false
+    updateIntervalSeconds: 30
+    options:
+      path: /etc/news-digest-observability/grafana/dashboards

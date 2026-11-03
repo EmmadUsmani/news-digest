@@ -3,12 +3,16 @@ import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { uptime } from 'node:os';
 
+import { checkGrafana } from './lib/check-grafana';
 import { checkJobsBrowser } from './lib/check-jobs-browser';
 import { checkLogStore } from './lib/check-log-store';
 import { checkMetricStore } from './lib/check-metric-store';
 import { testEnvironment } from './test-suites';
 
 async function main() {
+  const grafana = process.argv.includes('--verify-grafana')
+    ? await checkGrafana()
+    : undefined;
   if (process.argv.includes('--verify-queue-metrics')) {
     execFileSync(
       'pnpm',
@@ -274,6 +278,7 @@ async function main() {
       logStore,
       jobsBrowser,
       metricStore,
+      grafana,
     }),
   );
 }

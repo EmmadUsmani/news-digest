@@ -1,0 +1,22 @@
+[Unit]
+Description=Private read-only Grafana dashboards
+After=network.target obs-metrics.service
+[Service]
+User=exedev
+WorkingDirectory=/opt/news-digest-observability/grafana
+ExecStart=/opt/news-digest-observability/grafana/bin/grafana server --homepath=/opt/news-digest-observability/grafana --config=/etc/news-digest-observability/grafana/grafana.ini
+Environment=GOMAXPROCS=1 GOMEMLIMIT=160MiB
+Restart=always
+RestartSec=5
+MemoryMax=256M
+CPUQuota=2%
+CPUWeight=10
+IOWeight=10
+Nice=10
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/news-digest-grafana
+[Install]
+WantedBy=multi-user.target

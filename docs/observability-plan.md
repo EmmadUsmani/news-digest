@@ -183,6 +183,7 @@ only when its check passes.
     `--verify-queue-metrics --verify-o4` checks runtime and stored samples across
     all four queues. All O5 families are scraped; paid-provider paths verified offline.
 - [ ] **O6 Dashboards.**
+  - Iteration 365: provisioned pinned Grafana with local metrics datasource and Host, Services, HTTP and Jobs dashboards; private `/grafana/`, Viewer-only access, bounded resources. `--verify-grafana` verifies panel queries and browser screenshots. Database, Redis, Errors/logs, Product and Agent dashboards remain open; O6 is not complete.
   - **Scope:** Grafana at `/grafana/`, with datasources and dashboards
     provisioned from `ops/observability/grafana/`.
   - **Dashboards:** Host, Services, HTTP, Jobs, Database, Redis, Errors and
