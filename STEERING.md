@@ -568,11 +568,13 @@ The owner and Claude added system documentation and two internal tools:
 - `apps/api/src/internal-tools.ts`: the API forwards `/docs/*` and `/db/*`
   to those services.
 
-Rules for now:
-- **Keep them running and green.** They are part of `pnpm check`, the health
-  check and the restart routine like any other `news-digest-*` service.
-- **Don't edit `docs/handbook/` or `docs/schema-meta.json` yet,** except to fix
-  a broken link or check. The owner is still designing the doc format.
-  Maintenance rules will come in a later steering item. Until then, new
-  tables simply appear as "Unassigned" in the explorer.
-- **Don't spend iterations improving these tools** unless they break.
+**Update (2026-11-03): the owner approved the handbook and the explorer.**
+- **The "don't edit" rule is lifted.** Maintaining `docs/handbook/` and
+  `docs/schema-meta.json` is now a standing duty: see AGENTS.md, "Owner
+  handbook and DB explorer metadata".
+- **Keep both services running and green,** like any other `news-digest-*`
+  service.
+- **Don't spend iterations adding features to the docs site or explorer
+  tools** unless they break or the owner asks.
+- **Ack here once you've confirmed** `scripts/check-handbook.ts` passes, and
+  you've assigned any tables added since 2026-11-02.

@@ -82,6 +82,32 @@ pace.
   side quests, repeated audits and speculative refactors.
 - **Never trade correctness for tokens:** always verify the code you changed.
 
+## Owner handbook and DB explorer metadata
+
+`docs/handbook/` explains the system to the **owner**: a technical reader who
+doesn't read the code. It is **not agent memory**. Task status, plans and logs
+belong in TASKS.md and PROGRESS.md, never in the handbook. Follow
+`docs/handbook/about-these-docs.md` (style rules and diagram checklist).
+
+- **You are its editor.** Keep it true and readable as the system changes:
+  add, rewrite, merge, split or delete pages and diagrams as needed, and
+  remove anything stale. Describe how things work now, at system level
+  (components, flows, jobs, data, budgets, operations), not code level.
+- **Same commit as the change:** when a change alters what a page describes
+  (a service, queue, schedule, external system, data flow, budget rule, table
+  group, URL, or agent-harness behavior), update the page in that commit. Bug
+  fixes and internal refactors usually need no doc change.
+- **DB explorer metadata:** when a migration adds, renames or drops a table or
+  a relationship without a foreign key, update `docs/schema-meta.json` (group,
+  one-line note, implicit relations) in the same commit. Target: no warnings
+  and no "Unassigned" tables.
+- **Verify** with `pnpm exec tsx scripts/check-handbook.ts [page-filter]`
+  (render errors, broken links, metadata drift). Look at the PNGs of the
+  diagrams you changed (in `/tmp/handbook-diagrams/`): no line may cross
+  another line, a box or a title.
+- **Keep it cheap:** edit only the affected pages. Don't re-read the whole
+  handbook each iteration.
+
 ## Git
 
 - Work on `main`. Small clear commits. Push after every verified step.

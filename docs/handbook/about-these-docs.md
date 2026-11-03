@@ -1,8 +1,9 @@
 # About these docs
 
-How the handbook is built and the conventions every page follows. This is a
-draft for the owner to review. Once agreed, the build agent will be told to
-maintain the docs to these rules.
+How the handbook is built and the conventions every page follows. The build
+agent maintains the handbook and `docs/schema-meta.json` to these rules
+(AGENTS.md, "Owner handbook and DB explorer metadata"). The audience is the
+owner, not the agent: these pages are not agent memory.
 
 ## How it works
 
@@ -62,9 +63,12 @@ look at it rendered and check that:
 Inline SVG is allowed for the rare diagram Mermaid can't express. Callouts use
 GitHub syntax: `> [!NOTE]`, `> [!TIP]`, `> [!IMPORTANT]`, `> [!WARNING]`.
 
-## When a page must be updated (proposed agent rule)
+## When a page must be updated
 
 - Updating a page is **part of the change** that makes it wrong: a new service,
   queue, external system, table group, budget rule or harness behavior.
 - New tables get a group and a one-line note in `docs/schema-meta.json`.
 - Bug fixes and internal refactors usually need **no** doc change.
+- Check with `pnpm exec tsx scripts/check-handbook.ts`. It catches render
+  errors, broken links and metadata drift, and saves each diagram as a PNG
+  for a visual check.
