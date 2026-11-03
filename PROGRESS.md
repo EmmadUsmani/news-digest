@@ -191,3 +191,12 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Items 13/7/15 await actual scheduled evidence; item 16 activation remains gated by item 15 acknowledgement. No application/settings changes, paid calls or Reddit requests. Archived iteration 292 to bound progress size.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check`; passed (163 unit/168 integration tests); four services restarted; health/app/status/docs/db HTTP 200. No UI change.
 - Next: measure scheduled per-topic X cost/yield and edition AI cost/duration, acknowledge results, then activate open search.
+
+## 2026-11-03: iteration 312 — live ingestion healthy; scheduled evidence pending
+
+- Started clean on main; no leftover work. Four app services active, database/Redis healthy and all queues staffed.
+- Read-only status at 02:41 UTC: all 32 connected sources healthy; rolling-day articles Tech/AI 332, NBA 115, Gaming 288, World 223; verified X posts 53/33/17/3.
+- `pnpm exec tsx scripts/report-x-discovery.ts 2026-11-03`: zero calls/cost/holds. `pnpm exec tsx scripts/report-edition-timing.ts`: next edition 15:00 UTC, 482,788-micro reserve pending, other Anthropic allowance zero.
+- Items 13/7/15 await scheduled evidence; item 16 activation stays gated by item 15 acknowledgement. No application/settings changes, paid calls or Reddit requests.
+- Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `git diff --check`; restarted four services, active; health/app/status/docs/db HTTP 200. No UI change.
+- Next: record scheduled X per-topic cost/yield and edition AI cost/duration, acknowledge results, then activate open search.
