@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+import { logger } from '../../../libs/observability/logging';
 import type { BlueskyPost, BlueskySearchPort } from '../domain/bluesky';
 import { blueskyMedia } from './bluesky-media';
 
@@ -40,6 +41,7 @@ export class BlueskySearch implements BlueskySearchPort {
     private readonly now: () => number = Date.now,
     private readonly wait: (ms: number) => Promise<void> = (ms) =>
       new Promise((resolve) => setTimeout(resolve, ms)),
+    private readonly log = logger,
   ) {}
 
   search(query: string, since: Date, until: Date): Promise<BlueskyPost[]> {
@@ -63,47 +65,72 @@ export class BlueskySearch implements BlueskySearchPort {
   private async request(url: string, token?: string, body?: unknown) {
     await this.wait(Math.max(0, this.next - this.now()));
     this.next = this.now() + 1000;
-    const response = await this.transport(url, {
-      method: body ? 'POST' : 'GET',
-      redirect: 'error',
-      signal: AbortSignal.timeout(20000),
-      headers: {
-        'User-Agent': 'NewsDigest/1.0 (personal feed reader)',
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        ...(body ? { 'Content-Type': 'application/json' } : {}),
-      },
-      ...(body ? { body: JSON.stringify(body) } : {}),
-    });
-    if (!response.ok) {
-      const retry = response.headers.get('retry-after') ?? '';
-      const delay = /^\d+$/.test(retry)
-        ? Number(retry) * 1000
-        : Date.parse(retry) - this.now();
-      if (response.status === 429 || response.status >= 500)
-        this.next =
-          this.now() + Math.max(60000, Number.isFinite(delay) ? delay : 0);
-      await response.body?.cancel();
-      return { status: response.status, data: null };
-    }
-    const reader = response.body?.getReader();
-    if (!reader) throw new Error('Empty Bluesky response');
-    const chunks: Uint8Array[] = [];
-    let size = 0;
+    const started = performance.now();
+    let status: number | undefined;
+    let outcome = 'failure';
+    const operation = url.endsWith('/com.atproto.server.createSession')
+      ? 'login'
+      : url.endsWith('/com.atproto.server.refreshSession')
+        ? 'refresh'
+        : 'search';
     try {
-      for (;;) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        size += value.length;
-        if (size > 2_000_000) throw new Error('Bluesky response exceeds 2 MB');
-        chunks.push(value);
+      const response = await this.transport(url, {
+        method: body ? 'POST' : 'GET',
+        redirect: 'error',
+        signal: AbortSignal.timeout(20000),
+        headers: {
+          'User-Agent': 'NewsDigest/1.0 (personal feed reader)',
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          ...(body ? { 'Content-Type': 'application/json' } : {}),
+        },
+        ...(body ? { body: JSON.stringify(body) } : {}),
+      });
+      status = response.status;
+      if (!response.ok) {
+        const retry = response.headers.get('retry-after') ?? '';
+        const delay = /^\d+$/.test(retry)
+          ? Number(retry) * 1000
+          : Date.parse(retry) - this.now();
+        if (response.status === 429 || response.status >= 500)
+          this.next =
+            this.now() + Math.max(60000, Number.isFinite(delay) ? delay : 0);
+        await response.body?.cancel();
+        return { status: response.status, data: null };
       }
+      const reader = response.body?.getReader();
+      if (!reader) throw new Error('Empty Bluesky response');
+      const chunks: Uint8Array[] = [];
+      let size = 0;
+      try {
+        for (;;) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          size += value.length;
+          if (size > 2_000_000)
+            throw new Error('Bluesky response exceeds 2 MB');
+          chunks.push(value);
+        }
+      } finally {
+        await reader.cancel();
+      }
+      const data = JSON.parse(
+        Buffer.concat(chunks).toString('utf8'),
+      ) as unknown;
+      outcome = 'success';
+      return { status: response.status, data };
     } finally {
-      await reader.cancel();
+      this.log.info(
+        {
+          event: 'external.call',
+          target: 'bluesky',
+          operation,
+          status,
+          outcome,
+          durationMs: Math.round(performance.now() - started),
+        },
+        'Bluesky attempt',
+      );
     }
-    return {
-      status: response.status,
-      data: JSON.parse(Buffer.concat(chunks).toString('utf8')) as unknown,
-    };
   }
 
   private async authenticate(refresh = false) {

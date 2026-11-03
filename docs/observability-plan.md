@@ -230,3 +230,8 @@ O1 incremental progress (347): xAI attempts log model/search type, status, durat
 outcome and safe failure reason, plus successful token/fetched-item/citation counts.
 Malformed responses and transport failures are covered with synthetic tests; no
 request/provider text is logged. Discovery ledger remains authoritative for cost.
+
+O1 incremental progress (348): Bluesky login, refresh and search attempts log
+status, duration and outcome with inherited context. No credentials, queries,
+URLs, response content or provider exceptions are logged. Budget decisions and
+edition steps remain before O1 completion.

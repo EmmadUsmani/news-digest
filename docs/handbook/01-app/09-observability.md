@@ -11,6 +11,7 @@ or monitoring service is installed.
 | Feed/HN/X embed calls | Target category, HTTP status when received, success/redirect/failure and elapsed milliseconds; cached reads produce no call entry       |
 | Anthropic calls       | Model, purpose, run ID, attempt, duration, success or failure, failure HTTP status and successful token usage/computed microdollar cost |
 | xAI calls             | Model, search type, HTTP status, duration, outcome, safe failure reason and successful token/fetched-item/citation counts               |
+| Bluesky calls         | Login, refresh or search, HTTP status when received, duration and outcome; no account, token, query, URL or response content            |
 | Errors                | Error message, stack and cause; fatal exceptions and unhandled rejections exit unsuccessfully so systemd can recover the service        |
 
 The API returns `X-Request-Id` so a browser request can be matched to its
@@ -40,3 +41,7 @@ The journal also contains older plain-text entries from earlier versions.
 xAI outcomes include response parsing and usage validation. Failed attempts have no
 inferred usage; configured prices and settled costs stay in the discovery ledger.
 Search topics, account lists, guidance, citations and provider text are omitted.
+
+Bluesky outcomes cover HTTP and JSON reading; session and post validation follow
+a successful attempt. Session reuse adds no login entry. Refreshes and pagination
+produce separate attempts, with rate-limit waiting excluded from duration.

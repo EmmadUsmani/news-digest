@@ -4,16 +4,6 @@ Archived: [iteration 332](docs/progress-archive/2026-11-03-iteration-332.md), [i
 
 Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md), [283](docs/progress-archive/2026-11-03-iteration-283.md), [284](docs/progress-archive/2026-11-03-iteration-284.md).
 
-## 2026-11-03: iteration 333 — reject ambiguous studio closure assertions
-
-- Started clean on main; no leftover work. Four services/health healthy, active sources without current errors, queues available; Nov 3 scheduled evidence remains due at 15:00 UTC.
-- Hardened the unused studio matcher against questions, conditional/attributed uncertainty, prospective and historical closure claims. Rejected named-studio claims cannot fall through to lexical matching, even for identical titles; explicit closure years are conservatively rejected while founding years remain allowed.
-- Added symmetric synthetic regressions, including historical excerpt evidence. Recorded benchmark unchanged: 13/32 positives, zero labeled false merges; these agent labels still do not establish general precision or independence.
-- Updated RANKING/TASKS and archived iteration 320 to keep PROGRESS bounded. No production caller/config/UI/handbook/source changes, paid calls or Reddit requests.
-- Verification: targeted studio tests 3/3; offline `evaluate-event-grouping.ts --studio-closures`; `pnpm format`, `pnpm lint:fix`, `pnpm check` (201 unit/170 integration passed), `pnpm build`, `git diff --check`. Initial targeted failures exposed lexical fallthrough and overbroad excerpt guards; corrected before full verification.
-- App/docs/db/health HTTP 200; retained edition has 20 stories/10 X posts. Rolling articles/X: Tech 331/60, NBA 116/31, Gaming 286/7, World 228/2. No restart under item 22: changed matcher has no runtime caller.
-- Next: broader paraphrase/independent evidence before gated grouping wiring; scheduled evidence and acks take priority.
-
 ## 2026-11-03: iteration 334 — prepare opt-in ranked event grouping
 
 - Started clean on main; no leftover work. Four services/health healthy, active sources without current errors. Two retained ingestion failures have recovered sources; no failed digest jobs. Nov 3 15:00 UTC evidence remains pending.
@@ -153,3 +143,13 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Verification: targeted test 1/1; `pnpm format`, `pnpm lint:fix`, `pnpm check` (219 unit/172 integration), `pnpm build`, handbook 09 check and `git diff --check` passed. Initial test found nonexistent context helper and token-field redaction; fixed by using real job wrapper and numeric usage fields.
 - Restarted worker for runtime change; health/docs/db HTTP 200, retained real edition four topics/20 stories/10 posts. Observability request/job checks pass; sampled 14 feed calls, zero xAI calls (synthetic verification only). No added services/storage.
 - Next: scheduled evidence/acks first; otherwise remaining O1 instrumentation while activation remains gated.
+
+## 2026-11-03: iteration 348 — redacted Bluesky attempt logs
+
+- Started clean on main; no leftover work. Four app services/health green, 32 sources without current errors and no failed digest jobs. Scheduled evidence remains pending; retained ingestion failures have recovered sources.
+- Advanced approved background O1: Bluesky login/refresh/search attempts log HTTP status, duration and outcome with inherited context. Waiting/session reuse adds no attempt. No credentials, queries, URLs, response content or provider exception text logged.
+- Synthetic tests cover refresh, successful search, HTTP rejection, malformed JSON, transport/stream failure, local rejection and redaction/context. No live provider calls, paid calls or Reddit requests; production gates unchanged.
+- Updated handbook, observability plan/checker and TASKS; archived iteration 333. O1 budget decisions and edition steps remain open.
+- Verification: targeted Bluesky tests 7/7; `pnpm format`, `pnpm lint:fix`, `pnpm check` (220 unit/172 integration), `pnpm build`, handbook 09 check and `git diff --check`. Initial full check caught archive formatting after file rename; formatted and reran.
+- Restarted worker for runtime change; health/docs/db HTTP 200, 32 sources without errors, zero failed digest jobs. Retained real edition four topics/20 stories/10 posts. Observability request/job checks pass; sampled 19 feed attempts and zero Bluesky attempts (synthetic verification only). No added services/storage.
+- Next: scheduled evidence/acks first; otherwise continue remaining O1 instrumentation while activation remains gated.

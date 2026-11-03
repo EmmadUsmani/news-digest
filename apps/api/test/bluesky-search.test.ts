@@ -195,3 +195,93 @@ void test('Bluesky rejects oversized responses and mismatched post authors', asy
   ]);
   assert.deepEqual(await mismatch.client.search('games', since, until), []);
 });
+
+void test('Bluesky logs bounded attempt metadata without credentials, queries or response content', async () => {
+  const { createLogger, logJob } =
+    await import('../src/libs/observability/logging');
+  const lines: string[] = [];
+  const log = createLogger(
+    'test',
+    {
+      write: (line: string) => {
+        lines.push(line);
+      },
+    },
+    [],
+  );
+  const responses: (Response | Error)[] = [
+    new Response(JSON.stringify(session)),
+    new Response('{}', { status: 401 }),
+    new Response(JSON.stringify(session)),
+    new Response(JSON.stringify({ posts: [post] })),
+    new Response('private-provider-text', { status: 429 }),
+    new Response('private-invalid-json'),
+    new Error('private-transport-error'),
+    new Response(
+      new ReadableStream({
+        start(controller) {
+          controller.error(new Error('private-stream-error'));
+        },
+      }),
+    ),
+  ];
+  const client = new BlueskySearch(
+    { handle: 'private-owner', password: 'private-password' },
+    async () => {
+      const response = responses.shift();
+      assert.ok(response);
+      if (response instanceof Error) throw response;
+      return response;
+    },
+    () => until.getTime(),
+    async () => {},
+    log,
+  );
+  await logJob(
+    'social-collection',
+    async () => {
+      assert.equal(
+        (await client.search('private-query', since, until)).length,
+        1,
+      );
+      for (let i = 0; i < 4; i++)
+        await assert.rejects(client.search('private-query', since, until));
+      await assert.rejects(client.search('', since, until));
+    },
+    log,
+  )({
+    id: 'fixture-job',
+    name: 'fixture',
+    attemptsMade: 0,
+  } as import('bullmq').Job);
+  const attempts = lines
+    .map((line) => JSON.parse(line))
+    .filter((line) => line.event === 'external.call');
+  assert.deepEqual(
+    attempts.map(({ operation, status, outcome }) => ({
+      operation,
+      status,
+      outcome,
+    })),
+    [
+      { operation: 'login', status: 200, outcome: 'success' },
+      { operation: 'search', status: 401, outcome: 'failure' },
+      { operation: 'refresh', status: 200, outcome: 'success' },
+      { operation: 'search', status: 200, outcome: 'success' },
+      { operation: 'search', status: 429, outcome: 'failure' },
+      { operation: 'search', status: 200, outcome: 'failure' },
+      { operation: 'search', status: undefined, outcome: 'failure' },
+      { operation: 'search', status: 200, outcome: 'failure' },
+    ],
+  );
+  for (const entry of attempts) {
+    assert.equal(entry.target, 'bluesky');
+    assert.equal(entry.queue, 'social-collection');
+    assert.equal(entry.jobId, 'fixture-job');
+    assert.ok(entry.durationMs >= 0);
+  }
+  assert.doesNotMatch(
+    lines.join(''),
+    /private-|accessJwt|refreshJwt|writer.bsky|game demo|https:|Bearer/,
+  );
+});

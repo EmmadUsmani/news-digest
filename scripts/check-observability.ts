@@ -107,7 +107,7 @@ async function main() {
         (line) => line.event === 'external.call',
       ).length,
       externalCallsByTarget: Object.fromEntries(
-        ['feed', 'hacker-news', 'anthropic', 'x-oembed', 'xai'].map(
+        ['feed', 'hacker-news', 'anthropic', 'x-oembed', 'xai', 'bluesky'].map(
           (target) => [
             target,
             logs.filter(
