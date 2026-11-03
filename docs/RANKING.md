@@ -781,3 +781,22 @@ Regression tests cover all negative labels and both argument orders for the
 opt-in matcher. Conservative paraphrase recall and independent review remain
 open. Production grouping and ranking behavior are unchanged and gated under
 STEERING 23.
+
+## Iteration 330: full-window cluster membership
+
+The offline evaluator now runs complete-link clustering over every recorded
+candidate in each window, rather than reporting only isolated pair decisions.
+It counts all within-cluster pairs, labeled correct/incorrect merges, missed
+positive pairs and unlabelled merges. Unlabelled pairs include IDs and titles
+for review and never count toward labeled precision. Reversing candidate order
+also reports membership differences; this is one order probe, not a proof of
+order independence for every permutation or future window.
+
+With `--game-scores`, the five windows yield ten merged pairs: seven labeled
+positives and **three unreviewed pairs**, with no labeled negative merges.
+Forward and reverse membership agree in these windows. Thus the earlier 7/7
+pairwise precision claim does not establish correctness of all actual merges.
+Gaming still has no merges. Synthetic tests demonstrate overlapping A–B/B–C
+matches with a negative A–C label, order-sensitive complete-link assignment,
+and explicit unknown/incorrect merge accounting. These tests do not add real
+precision evidence. Production grouping and ranking remain unchanged.

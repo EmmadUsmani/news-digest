@@ -1,7 +1,10 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { evaluateEventGrouping } from '../scripts/evaluate-event-grouping';
+import {
+  evaluateClusterMembership,
+  evaluateEventGrouping,
+} from '../scripts/evaluate-event-grouping';
 import { sameEventWithGameScore } from '../src/modules/digests/domain/game-event';
 
 void test('recorded strict event labels expose false merges and missed paraphrases', () => {
@@ -35,4 +38,64 @@ void test('opt-in grouping preserves recorded negative labels in both argument o
   assert.equal(forward.truePositives, 7);
   assert.equal(forward.falsePositives, 0);
   assert.deepEqual(reversed, forward);
+});
+
+void test('cluster evaluation separates unknown merges and exposes complete-link order sensitivity', () => {
+  const candidates = ['a', 'b', 'c'].map((id) => ({
+    id,
+    title: id,
+    url: `https://example.org/${id}`,
+    excerpt: '',
+    publishedAt: '2026-11-02T12:00:00Z',
+    sources: ['Fixture'],
+    points: 0,
+  }));
+  // A-B and B-C match pairwise; A-C must never be chained into one cluster.
+  const result = evaluateClusterMembership(
+    candidates,
+    [
+      { left: 'a', right: 'b', sameEvent: true },
+      { left: 'a', right: 'c', sameEvent: false },
+    ],
+    (a, b) => [a.id, b.id].sort().join('') !== 'ac',
+  );
+  assert.equal(result.clusters, 2);
+  assert.equal(result.truePositives, 1);
+  assert.equal(result.falsePositives, 0);
+  assert.equal(result.unlabeledMergedPairs, 0);
+  assert.equal(result.reverse.unlabeledMergedPairs, 1);
+  assert.equal(result.reverse.labeledPrecision, null);
+  assert.equal(result.reverse.missedPositivePairs, 1);
+  assert.equal(result.orderSensitivePairs, 2);
+  const incorrect = evaluateClusterMembership(
+    candidates,
+    [{ left: 'a', right: 'c', sameEvent: false }],
+    () => true,
+  );
+  assert.equal(incorrect.mergedPairs, 3);
+  assert.equal(incorrect.falsePositives, 1);
+  assert.equal(incorrect.unlabeledMergedPairs, 2);
+  assert.equal(incorrect.labeledPrecision, 0);
+});
+
+void test('recorded full-window cluster membership reports sparse label coverage', () => {
+  const result = evaluateEventGrouping(sameEventWithGameScore);
+  const memberships = result.windows.map((window) => window.membership);
+  assert.equal(
+    memberships.reduce((sum, row) => sum + row.mergedPairs, 0),
+    10,
+  );
+  assert.equal(
+    memberships.reduce((sum, row) => sum + row.unlabeledMergedPairs, 0),
+    3,
+  );
+  for (const row of memberships) {
+    assert.equal(row.falsePositives, 0);
+    assert.equal(row.reverse.falsePositives, 0);
+    assert.equal(row.orderSensitivePairs, 0);
+    assert.equal(
+      row.mergedPairs,
+      row.truePositives + row.falsePositives + row.unlabeledMergedPairs,
+    );
+  }
 });
