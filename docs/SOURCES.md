@@ -117,7 +117,7 @@ verification: 20:38 UTC; two queued passes preserved the same 669-item total.
 | X official oEmbed                        | all                   | live                       |                            10 | Named status URLs verified; /i/web/status URLs return 404                                                                                                  |
 | X official API                           | all                   | needs key                  |                             0 | Owner token and hard read cap required                                                                                                                     |
 | Reddit NBA RSS                           | NBA                   | blocked                    |                             0 | https://www.reddit.com/r/nba/.rss returned HTTP 403 (iteration 31); no bypass attempted; NBA top JSON also 403 in iteration 89; other communities untested |
-| Bluesky public API                       | all                   | not yet tried              |                             0 | Check topical relevance                                                                                                                                    |
+| Bluesky public API                       | all                   | probed; not yet stored     |                             0 | Check topical relevance                                                                                                                                    |
 
 Ingestion runs immediately on first scheduling and every 30 minutes thereafter.
 Each run fetches at most 60 entries/feed and the first 20 HN stories; deleted,
@@ -1441,3 +1441,29 @@ wins; account search fills only topics without a valid reaction. Failed attempts
 also consume that allowance. Every topic's open search must finish first; ledger
 admission and schedule guards still apply. This is synthetic-tested preparation;
 production optional searches remain disabled pending durable admission/wiring.
+
+### Bluesky authenticated discovery (iteration 316)
+
+Official `com.atproto.server.createSession` on bsky.social and account-PDS
+`app.bsky.feed.searchPosts` work with the owner-provided app password. The
+standalone `pnpm exec tsx scripts/probe-bluesky.ts` reuses one in-memory session,
+refreshes once on access expiry, serializes requests with a one-second floor,
+honors Retry-After and limits each query to two 25-post pages. It prints aggregate
+counts only; it does not write to the database or create editions.
+
+Live probe on 2026-11-03 at 03:21 UTC, preceding 24 hours, `sort=top`:
+
+| Topic   | Probe query             | Distinct in-window candidates | With engagement |
+| ------- | ----------------------- | ----------------------------: | --------------: |
+| Tech/AI | artificial intelligence |                            47 |              47 |
+| NBA     | NBA                     |                            50 |              50 |
+| Gaming  | game                    |                            49 |              49 |
+| World   | world news              |                            47 |              47 |
+
+These are raw search yields, not reviewed relevance or virality measurements.
+No posts are stored yet, so this source does **not** qualify as live ingestion.
+Search terms need topic-guidance refinement before collection. Authentication
+currently accepts official hosted PDS endpoints only; custom PDS accounts are
+unsupported. Missing credentials fail closed; no anonymous endpoint is probed.
+Production has no wiring to this adapter: edition inclusion remains off under
+STEERING 23. Persistence, observed engagement ranking and cards remain unfinished.

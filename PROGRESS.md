@@ -1,30 +1,8 @@
 # Progress
 
-Archived: [iteration 296](docs/progress-archive/2026-11-03-iteration-296.md), [iteration 295](docs/progress-archive/2026-11-03-iteration-295.md), [iteration 294](docs/progress-archive/2026-11-03-iteration-294.md), [iteration 293](docs/progress-archive/2026-11-03-iteration-293.md), [iteration 292](docs/progress-archive/2026-11-03-iteration-292.md), [iteration 291](docs/progress-archive/2026-11-03-iteration-291.md), [iteration 290](docs/progress-archive/2026-11-03-iteration-290.md), [iteration 288](docs/progress-archive/2026-11-03-iteration-288.md), [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md), [286](docs/progress-archive/2026-11-03-iteration-286.md).
+Archived: [iteration 298](docs/progress-archive/2026-11-03-iteration-298.md), [iteration 297](docs/progress-archive/2026-11-03-iteration-297.md), [iteration 296](docs/progress-archive/2026-11-03-iteration-296.md), [iteration 295](docs/progress-archive/2026-11-03-iteration-295.md), [iteration 294](docs/progress-archive/2026-11-03-iteration-294.md), [iteration 293](docs/progress-archive/2026-11-03-iteration-293.md), [iteration 292](docs/progress-archive/2026-11-03-iteration-292.md), [iteration 291](docs/progress-archive/2026-11-03-iteration-291.md), [iteration 290](docs/progress-archive/2026-11-03-iteration-290.md), [iteration 288](docs/progress-archive/2026-11-03-iteration-288.md), [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md), [286](docs/progress-archive/2026-11-03-iteration-286.md).
 
 Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md), [283](docs/progress-archive/2026-11-03-iteration-283.md), [284](docs/progress-archive/2026-11-03-iteration-284.md).
-
-## 2026-11-03: iteration 297 — scheduled-run readiness evidence
-
-- Started clean on main; four services/health healthy, 32 sources without errors, all queues available with workers and no retained failed jobs.
-- Read-only X/timing reports at 01:27 UTC: zero Nov 3 X calls/cost/holds; 15:00 UTC edition queued, 482,788-micro reserve pending, zero other Anthropic allowance.
-- Items 13/7/15 await actual scheduled evidence; item 16 activation stays gated on item 15 acknowledgement. No production settings or application code changed.
-- Refreshed ten desktop/mobile Status screenshots using real telemetry; synthetic error checks remain explicitly synthetic. Archived iterations 279–280 to keep PROGRESS bounded.
-- First browser run overlapped build asset replacement and timed out on navigation; rerun after build passed all real telemetry, edition links and synthetic failure checks.
-- Verified: `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `pnpm exec tsx scripts/smoke-status.ts`, `git diff --check`.
-- Restarted API/worker/docs/schema; all active, health OK and app/docs/db HTTP 200.
-- No paid provider or Reddit requests. Next: observe scheduled X cost/yield and 15:00 AI cost/duration, acknowledge results, then activate open search.
-
-## 2026-11-03: iteration 298 — first-week X evidence report
-
-- Started clean on main; four services/health healthy, 32 sources returning data without errors, all queues available with workers and no retained failed jobs.
-- Added read-only `scripts/report-x-week.ts [end-day]`: seven inclusive UTC days, explicit empty days, daily and whole-week topic/type cost/holds, fetched counts, unknown counters and incremental verified/outside-list yield.
-- Reuses existing daily evidence and attribution; no provider requests, new discovery, settings writes or inferred historical topics. Current verification/list and incomplete-day caveats remain explicit.
-- Updated README, source inventory and social handbook; recorded reporting support under item 9. Items 13/7/15 still await scheduled evidence; open search remains gated.
-- Live report through Nov 3: only Nov 2 historical $0.023382 call (unattributed); Nov 3 zero calls/holds. Scheduled edition remains 15:00 UTC with 482,788-micro reserve pending and zero other allowance.
-- Verified weekly output against all seven daily reports; rejected four invalid dates; checked leap-day and year boundaries. No paid provider or Reddit requests.
-- Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, social handbook/24-table metadata check and `git diff --check`; archived iteration 281 to keep PROGRESS bounded.
-- Restarted all four services; active, health OK, app/docs/db/edition endpoints HTTP 200. No UI change. Next: observe scheduled X/edition evidence, acknowledge required items, then activate open search.
 
 ## 2026-11-03: iteration 299 — scheduled evidence gate rechecked
 
@@ -182,3 +160,14 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Scheduled evidence still pending at 02:54 UTC: zero Nov 3 X calls/cost/holds; 15:00 edition reserve 482,788 micros, other Anthropic allowance zero. Items 13/7/15 acknowledgement and item 16 activation stay gated.
 - Second push rejected on newer owner commits; merged `221fc1e` (items 23/18 auth). Restored/read back original live accounts 8/8/9/9; reviewed lists/screenshots are staged evidence, not final active settings. No scheduled calls occurred during the interim edit.
 - Next: build/test item 18 with configured Bluesky login, keep edition inclusion off; activate reviewed lists/open search only after scheduled evidence/acks. Account choices are editorial, not measured virality claims.
+
+## 2026-11-03: iteration 316 — authenticated Bluesky discovery, isolated from editions
+
+- Started clean on main; no leftover work. Four services and health healthy, 32 active sources without errors, all queues available, no failed digest jobs; latest published edition retains four topics.
+- Added Bluesky discovery port/adapter: official login, account-PDS top search, reused in-memory session/one refresh, serialized requests, Retry-After backoff, two 25-post pages, bounded response size and strict time/author validation. Official hosted PDS only; missing credentials fail closed.
+- Added explicit free live probe (aggregate output only, no DB writes). Nov 3 03:21 UTC preceding-day yields: Tech/AI 47, NBA 50, Gaming 49, World 47; all had engagement. These are raw candidates, not relevance/virality evidence or live stored content.
+- Six fake-only tests cover session reuse, pagination/dedupe/window bounds, refresh, rate limits, endpoint safety, oversized payloads and safe auth errors. No Anthropic/xAI calls or Reddit requests.
+- Production has no collector/edition wiring to the adapter, preserving item 23. Documented probe evidence/limitations in SOURCES and updated social handbook; no UI or diagram changes.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 05-social-posts` (16 pages, 1 diagram, 24 tables, no errors), `git diff --check`. Full check passed 169 unit/168 integration tests plus typecheck, lint, formatting and boundaries.
+- No services restarted: their runtime wiring/config is unchanged (item 22). Archived iterations 297–298 to keep PROGRESS under 25 KB.
+- Next: persist Bluesky observations behind an off-by-default inclusion flag, add topic relevance/engagement velocity ranking and cards; measure/ack Nov 3 scheduled evidence first when available.

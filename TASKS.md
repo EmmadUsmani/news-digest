@@ -10,7 +10,7 @@ Fix regressions, broken services and stalled sources first.
   - Open/engagement reporting and durable optional execution are wired and fake-tested (271–294). Production remains account-list pending scheduled evidence/acks; activation remains. Iteration 296 adds daily topic/type cost and incremental-yield summaries with explicit unknowns.
 
 - [ ] STEERING 17 (315, advanced under item 22): reviewed four editable X lists (11/10/12/11), rationale in docs/SOURCES.md; API/browser verified. Item 23 arrived before push: restored original live lists (8/8/9/9); activate reviewed lists after the Nov 3 run is acknowledged.
-- [ ] STEERING 18 (next under items 22/23): official Bluesky open discovery, engagement ranking and cards; owner login configured. Build/test live, keep production edition inclusion off until Nov 3 scheduled evidence is acknowledged.
+- [ ] STEERING 18 (316: authenticated discovery adapter/probe verified; persistence, relevance/velocity ranking and cards next): official Bluesky open discovery, engagement ranking and cards; owner login configured. Build/test live, keep production edition inclusion off until Nov 3 scheduled evidence is acknowledged.
 - [ ] STEERING 19 (after 18): conservative event grouping with fixture precision, one story per event and additional outlet links.
 - [x] STEERING 20 (270): priorities recorded; no further database characterization while 16–19 remain open. ESPN source label corrected to empty-response replacement, not owner parking.
 

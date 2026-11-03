@@ -70,5 +70,5 @@ prove the scheduler covered every topic.
 | Platform | Status                                                                                                                                   |
 | -------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | Reddit   | **Parked.** Built, but Reddit blocks public access and ends RSS on Nov 13. The only way back is the official API with owner credentials. |
-| Bluesky  | **Planned** (STEERING item 18): official public API, open topic search first.                                                            |
+| Bluesky  | **Discovery probe only:** authenticated official API, open topic search and engagement counts; no storage or edition inclusion yet.      |
 | YouTube  | **Deferred** by the owner.                                                                                                               |
