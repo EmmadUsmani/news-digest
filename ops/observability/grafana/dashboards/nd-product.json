@@ -332,7 +332,7 @@
     {
       "id": 9,
       "title": "AI ledger by edition (latest seven)",
-      "description": "Anthropic ledger matched by edition UUID, never timestamp overlap. Settled charges include failed calls with recorded cost; holds are pending/uncertain reservations. Zero calls may mean cached or fallback work. Excludes X discovery and unpublished attempts/retries; not total scheduled-run spend. Created time is not worker duration.",
+      "description": "Anthropic ledger matched by edition UUID, never timestamp overlap. Settled charges include failed calls with recorded cost; holds are pending/uncertain reservations. Zero calls may mean cached or fallback work. Excludes X discovery and unpublished attempts/retries; not total scheduled-run spend. Created time is not worker duration. First admission and last recorded outcome bound the matched calls, including gaps and concurrent calls. Settled ledger span is blank when there are no calls, a missing outcome, or any pending/uncertain hold. It is neither summed provider latency nor worker/queue duration; cache hits add no calls.",
       "type": "table",
       "datasource": {
         "type": "grafana-postgresql-datasource",
@@ -349,7 +349,7 @@
           "refId": "A",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT d.created_at AS \"Created (UTC)\", left(d.id::text,8) AS \"Edition\", count(c.run_id)::int AS \"Calls\", count(c.run_id) FILTER (WHERE c.status IN ('pending','uncertain'))::int AS \"Unresolved\", coalesce(sum(c.cost_micros),0)/1000000.0 AS \"Charged ($)\", coalesce(sum(c.reserved_micros) FILTER (WHERE c.status IN ('pending','uncertain')),0)/1000000.0 AS \"Holds ($)\" FROM (SELECT id,created_at FROM digest_previews ORDER BY created_at DESC,id DESC LIMIT 7) d LEFT JOIN llm_calls c ON c.run_id=d.id::text GROUP BY d.id,d.created_at ORDER BY d.created_at DESC,d.id DESC",
+          "rawSql": "SELECT d.created_at AS \"Created (UTC)\", left(d.id::text,8) AS \"Edition\", count(c.run_id)::int AS \"Calls\", count(c.run_id) FILTER (WHERE c.status IN ('pending','uncertain'))::int AS \"Unresolved\", coalesce(sum(c.cost_micros),0)/1000000.0 AS \"Charged ($)\", coalesce(sum(c.reserved_micros) FILTER (WHERE c.status IN ('pending','uncertain')),0)/1000000.0 AS \"Holds ($)\", min(c.created_at) AS \"First admission (UTC)\", max(c.completed_at) AS \"Last recorded outcome (UTC)\", CASE WHEN count(c.run_id)>0 AND count(c.completed_at)=count(c.run_id) AND count(c.run_id) FILTER (WHERE c.status IN ('pending','uncertain'))=0 THEN extract(epoch FROM max(c.completed_at)-min(c.created_at)) END AS \"Settled ledger span (s)\" FROM (SELECT id,created_at FROM digest_previews ORDER BY created_at DESC,id DESC LIMIT 7) d LEFT JOIN llm_calls c ON c.run_id=d.id::text GROUP BY d.id,d.created_at ORDER BY d.created_at DESC,d.id DESC",
           "editorMode": "code",
           "sql": {
             "limit": 100
@@ -357,8 +357,61 @@
         }
       ],
       "fieldConfig": {
-        "defaults": {},
-        "overrides": []
+        "defaults": {
+          "custom": {
+            "width": 100
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Created (UTC)"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 220
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "First admission (UTC)"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 220
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Last recorded outcome (UTC)"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 220
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Settled ledger span (s)"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 200
+              }
+            ]
+          }
+        ]
       },
       "options": {
         "showHeader": true,

@@ -326,6 +326,9 @@ export async function checkGrafana() {
           'Articles (7d)',
           'AI story topics',
           'Charged ($)',
+          'First admission (UTC)',
+          'Last recorded outcome (UTC)',
+          'Settled ledger span (s)',
           'Candidates',
           'Scored',
           'Unscored',
@@ -490,6 +493,22 @@ export async function checkGrafana() {
       .scrollIntoViewIfNeeded();
     // Mobile table columns are horizontally virtualized by Grafana.
     await page.waitForTimeout(1500);
+    await page.evaluate(() => {
+      for (const element of document.querySelectorAll<HTMLElement>('div')) {
+        if (
+          element.scrollWidth > element.clientWidth &&
+          element.clientWidth > 200
+        )
+          element.scrollLeft = element.scrollWidth;
+      }
+    });
+    await page
+      .getByRole('columnheader', {
+        name: 'Settled ledger span (s)',
+        exact: true,
+      })
+      .scrollIntoViewIfNeeded();
+    await page.waitForTimeout(300);
     await page.screenshot({
       path: 'docs/screenshots/grafana-product-cost-mobile.png',
     });
