@@ -10,6 +10,7 @@ or monitoring service is installed.
 | Queue jobs            | Queue and job IDs, attempt number, start, finish or failure, elapsed milliseconds                                                       |
 | Feed/HN/X embed calls | Target category, HTTP status when received, success/redirect/failure and elapsed milliseconds; cached reads produce no call entry       |
 | Anthropic calls       | Model, purpose, run ID, attempt, duration, success or failure, failure HTTP status and successful token usage/computed microdollar cost |
+| xAI calls             | Model, search type, HTTP status, duration, outcome, safe failure reason and successful token/fetched-item/citation counts               |
 | Errors                | Error message, stack and cause; fatal exceptions and unhandled rejections exit unsuccessfully so systemd can recover the service        |
 
 The API returns `X-Request-Id` so a browser request can be matched to its
@@ -35,3 +36,7 @@ The journal also contains older plain-text entries from earlier versions.
 > [!NOTE]
 > External-call instrumentation and the remaining monitoring tools are unfinished.
 > See the [approved observability plan](../../observability-plan.md).
+
+xAI outcomes include response parsing and usage validation. Failed attempts have no
+inferred usage; configured prices and settled costs stay in the discovery ledger.
+Search topics, account lists, guidance, citations and provider text are omitted.

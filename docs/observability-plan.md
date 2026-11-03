@@ -225,3 +225,8 @@ O1 incremental progress (346): official X oEmbed HTTP attempts now have their ow
 `x-oembed` target, including failures, with cache omission and inherited context.
 Mocked tests verify categorization and omission of post URLs and embed bodies.
 HTTP success does not assert subsequent embed validation success.
+
+O1 incremental progress (347): xAI attempts log model/search type, status, duration,
+outcome and safe failure reason, plus successful token/fetched-item/citation counts.
+Malformed responses and transport failures are covered with synthetic tests; no
+request/provider text is logged. Discovery ledger remains authoritative for cost.

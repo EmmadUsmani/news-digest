@@ -107,12 +107,15 @@ async function main() {
         (line) => line.event === 'external.call',
       ).length,
       externalCallsByTarget: Object.fromEntries(
-        ['feed', 'hacker-news', 'anthropic', 'x-oembed'].map((target) => [
-          target,
-          logs.filter(
-            (line) => line.event === 'external.call' && line.target === target,
-          ).length,
-        ]),
+        ['feed', 'hacker-news', 'anthropic', 'x-oembed', 'xai'].map(
+          (target) => [
+            target,
+            logs.filter(
+              (line) =>
+                line.event === 'external.call' && line.target === target,
+            ).length,
+          ],
+        ),
       ),
       resources,
       extraServices: 0,

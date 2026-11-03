@@ -143,3 +143,13 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Verification: targeted HTTP tests 2/2; `pnpm format`, `pnpm lint:fix`, `pnpm check` (218 unit/172 integration), `pnpm build`, handbook 09 check, checker and `git diff --check` passed. Initial targeted command caught a mock Buffer error (fixed) and isolation guard rejection (integration test rerun through full check).
 - Restarted worker for runtime change; health DB/Redis OK, app/docs/db HTTP 200; retained real edition four topics/20 stories/10 posts. Checker sample: 10 feed calls, zero X embeds (mock verification only); API/worker ~47/41 MiB, startup-average CPU ~0.5/1.9%.
 - Next: scheduled evidence/acks first; otherwise remaining O1 providers, budget decisions and edition steps while activation remains gated.
+
+## 2026-11-03: iteration 347 — redacted xAI attempt logs
+
+- Started clean on main; no leftover work. Four app services/health green, 32 sources without current errors and no failed digest jobs; scheduled Nov 3 evidence remains pending.
+- Advanced approved background O1: direct xAI attempts log model/search type, HTTP status, elapsed time, outcome and safe failure reason; successful validated responses include token/fetched-item/citation counts. Discovery ledger remains authoritative for cost.
+- Synthetic tests cover success, credit exhaustion, rejection, server error, malformed JSON/usage, transport and stream failures, inherited job context and omission of key/prompt/provider text. Local request rejection logs no external attempt. No paid calls or Reddit requests; production gates unchanged.
+- Updated handbook, observability plan/checker and TASKS; O1 remains open for Bluesky, budget decisions and edition steps.
+- Verification: targeted test 1/1; `pnpm format`, `pnpm lint:fix`, `pnpm check` (219 unit/172 integration), `pnpm build`, handbook 09 check and `git diff --check` passed. Initial test found nonexistent context helper and token-field redaction; fixed by using real job wrapper and numeric usage fields.
+- Restarted worker for runtime change; health/docs/db HTTP 200, retained real edition four topics/20 stories/10 posts. Observability request/job checks pass; sampled 14 feed calls, zero xAI calls (synthetic verification only). No added services/storage.
+- Next: scheduled evidence/acks first; otherwise remaining O1 instrumentation while activation remains gated.

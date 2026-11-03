@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+import { logger } from '../../../libs/observability/logging';
 import { extractXLinks } from '../../ingestion/public/discovery';
 import {
   XSearchError,
@@ -118,11 +119,63 @@ export class DirectXSearch implements XSearchPort {
   constructor(
     private readonly key: string,
     private readonly send: typeof fetch = fetch,
+    private readonly log = logger,
   ) {
     if (!key.trim()) throw new Error('X search key unavailable');
   }
   async search(request: XSearchRequest) {
     const body = xSearchBody(request);
+    const started = performance.now();
+    let status: number | undefined;
+    const fields = {
+      event: 'external.call',
+      target: 'xai',
+      model: body.model,
+      searchType: request.reactionStory
+        ? 'story-reactions'
+        : request.handles === undefined
+          ? 'open'
+          : 'account-list',
+    };
+    try {
+      const result = await this.perform(body, (value) => {
+        status = value;
+      });
+      this.log.info(
+        {
+          ...fields,
+          status,
+          outcome: 'success',
+          durationMs: Math.round(performance.now() - started),
+          usage: {
+            input: result.usage.inputTokens,
+            output: result.usage.outputTokens,
+          },
+          postsFetched: result.usage.postsFetched,
+          profilesFetched: result.usage.profilesFetched,
+          citedLinks: result.links.length,
+        },
+        'External xAI call',
+      );
+      return result;
+    } catch (error) {
+      this.log.warn(
+        {
+          ...fields,
+          status,
+          outcome: 'failure',
+          durationMs: Math.round(performance.now() - started),
+          reason: error instanceof XSearchError ? error.reason : 'uncertain',
+        },
+        'External xAI call',
+      );
+      throw error;
+    }
+  }
+  private async perform(
+    body: ReturnType<typeof xSearchBody>,
+    received: (status: number) => void,
+  ) {
     let response: Response;
     let raw: string;
     try {
@@ -136,6 +189,7 @@ export class DirectXSearch implements XSearchPort {
         },
         body: JSON.stringify(body),
       });
+      received(response.status);
       const reader = response.body?.getReader();
       if (!reader) throw new Error('Empty response');
       const chunks: Uint8Array[] = [];
