@@ -9,9 +9,9 @@ import { sameEventWithGameScore } from '../src/modules/digests/domain/game-event
 
 void test('recorded strict event labels expose false merges and missed paraphrases', () => {
   const result = evaluateEventGrouping();
-  assert.equal(result.pairs, 60);
-  assert.equal(result.positives, 32);
-  assert.equal(result.negatives, 28);
+  assert.equal(result.pairs, 86);
+  assert.equal(result.positives, 45);
+  assert.equal(result.negatives, 41);
   assert.equal(result.falsePositives, 0);
   assert.ok(
     result.truePositives > 0,
@@ -20,7 +20,7 @@ void test('recorded strict event labels expose false merges and missed paraphras
   assert.equal(result.truePositives + result.falseNegatives, result.positives);
   assert.equal(result.precision, 1);
   assert.equal(result.disagreements.length, result.falseNegatives);
-  assert.equal(result.windows.length, 5);
+  assert.equal(result.windows.length, 6);
   const gaming = result.windows.find((window) =>
     window.window.includes('gaming'),
   )!;
@@ -158,4 +158,21 @@ void test('large-window permutation sampling is bounded, reproducible and labels
     maxMatchedPositivePairs: 0,
   });
   assert.equal(evaluateClusterMembership([], []).permutationCheck.orders, 1);
+});
+
+void test('November 3 Gaming reveals expose recall gaps without merging separate developments', () => {
+  for (const matches of [undefined, sameEventWithGameScore]) {
+    const result = evaluateEventGrouping(matches);
+    const window = result.windows.find(
+      (row) => row.window === 'event-grouping-gaming-2026-11-03.json',
+    )!;
+    assert.equal(window.positives, 13);
+    assert.equal(window.negatives, 13);
+    assert.equal(window.truePositives, 0);
+    assert.equal(window.falsePositives, 0);
+    assert.equal(window.membership.missedPositivePairs, 13);
+    assert.equal(window.membership.permutationCheck.orderSensitivePairs, 0);
+    assert.equal(window.membership.permutationCheck.maxFalsePositives, 0);
+    assert.equal(window.membership.permutationCheck.maxUnlabeledMergedPairs, 0);
+  }
 });

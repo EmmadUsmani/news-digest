@@ -1,0 +1,238 @@
+{
+  "provenance": "Read-only snapshot of stored publisher-feed candidates recorded 2026-11-03. Selected headline/excerpt event labels are agent-reviewed, not independent verification or a representative sample. Excerpts truncated to 600 characters. Offline only; never seed into production.",
+  "windowStart": "2026-11-03T00:00:00.000Z",
+  "windowEnd": "2026-11-04T00:00:00.000Z",
+  "topic": "gaming",
+  "candidates": [
+    {
+      "id": "9dc752b5-f931-4a4a-aae2-2fb1e088222d",
+      "title": "OG Zelda: Ocarina of Time dev responsible for the infamous water temple used the remake to atone",
+      "url": "https://www.gamesradar.com/games/the-legend-of-zelda/zelda-dev-responsible-for-ocarina-of-times-infamous-water-temple-used-the-remake-to-atone-for-his-sins-i-had-some-overdue-homework/",
+      "excerpt": "15 years after remaking the game for 3DS purely to \"do something about the water temple\"",
+      "imageUrl": "https://cdn.mos.cms.futurecdn.net/YeG8Yv3MXJ7C5jGSfdXhE7-1920-80.png",
+      "publishedAt": "2026-11-03T17:11:58.000Z",
+      "sources": ["GamesRadar+"],
+      "points": 0
+    },
+    {
+      "id": "d24b4550-b2a4-4207-a611-b3c60427151d",
+      "title": "GTA 6 Pre-Load Times, Install Size, And Global Release Times Confirmed",
+      "url": "https://kotaku.com/gta-6-pre-load-times-install-size-and-global-release-times-confirmed-2000752787",
+      "excerpt": "Here's how to make sure you're ready for the big day",
+      "imageUrl": "https://kotaku.com/app/uploads/2026/11/gta-6-preloads.jpg",
+      "publishedAt": "2026-11-03T17:00:58.000Z",
+      "sources": ["Kotaku"],
+      "points": 0
+    },
+    {
+      "id": "ba60cf83-8985-4ba0-aff9-d8bc37aebeb6",
+      "title": "GTA 6 pre-load dates and file size: When can you download the game on PS5",
+      "url": "https://www.destructoid.com/gta-6-pre-load-dates-and-file-size-when-can-you-download-the-game-on-ps5/",
+      "excerpt": "Likely to be big! The post GTA 6 pre-load dates and file size: When can you download the game on PS5 appeared first on Destructoid .",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T16:58:35.000Z",
+      "sources": ["Destructoid"],
+      "points": 0
+    },
+    {
+      "id": "6a56b2e2-34f7-49b1-981e-e0d4bd27df50",
+      "title": "Grand Theft Auto 6 to Receive “More Info” From PlayStation Closer to Launch",
+      "url": "https://gamingbolt.com/grand-theft-auto-6-to-receive-more-info-from-playstation-closer-to-launch",
+      "excerpt": "PlayStation could finally detail the title's PS5 Pro specifications and exclusive features before it arrives on November 19th.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T16:50:39.000Z",
+      "sources": ["GamingBolt"],
+      "points": 0
+    },
+    {
+      "id": "7227eb0b-a3ca-4e78-9147-65582717dedb",
+      "title": "GTA 6 Has Made Over $750 Million in Pre-Sales",
+      "url": "https://insider-gaming.com/gta-6-has-made-over-750-million-in-pre-sales/",
+      "excerpt": "An analytics firm reports that GTA 6 has already generated over $750 million in pre-order sales. Here are more details. The post GTA 6 Has Made Over $750 Million in Pre-Sales appeared first on Insider Gaming .",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T16:39:12.000Z",
+      "sources": ["Insider Gaming"],
+      "points": 0
+    },
+    {
+      "id": "78126db5-b41e-4d4a-b397-0aa272a0c7d4",
+      "title": "The Director Of The Original Zelda: Ocarina Of Time Calls Fixing The Infamous Water Temple ‘Overdue Homework’",
+      "url": "https://kotaku.com/original-zelda-ocarina-of-time-director-calls-the-infamous-water-temple-overdue-homework-for-the-remake-2000752762",
+      "excerpt": "'Since it became well known for its difficulty in the original game, I had the team make some adjustments in this version'",
+      "imageUrl": "https://kotaku.com/app/uploads/2026/09/ocarina-water-temple-new-1280x720.jpg",
+      "publishedAt": "2026-11-03T16:30:32.000Z",
+      "sources": ["Kotaku"],
+      "points": 0
+    },
+    {
+      "id": "d4f46200-653d-4788-a45a-3ee8490b82ae",
+      "title": "Nintendo explains why Zelda: Ocarina of Time remake’s auto jump was hard to drop",
+      "url": "https://www.videogameschronicle.com/news/nintendo-explains-why-zelda-ocarina-of-time-remakes-auto-jump-was-hard-to-drop/",
+      "excerpt": "A simple decision to let players jump whenever they wanted has big implications for Zelda: Ocarina of Time remake",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T16:27:58.000Z",
+      "sources": ["Video Games Chronicle"],
+      "points": 0
+    },
+    {
+      "id": "572f9405-0d7b-40cd-894f-9b2e6581cd92",
+      "title": "The Elder Scrolls 6: Sentinel is Still “Over 2 Years Away” Despite Recent Reveal – Rumor",
+      "url": "https://gamingbolt.com/the-elder-scrolls-6-sentinel-is-still-over-2-years-away-despite-recent-reveal-rumor",
+      "excerpt": "Bloomberg's Jason Schreier reminds fans that the sequel was \"only announced in 2018\" to \"soften the blow of Fallout 76.\"",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T16:23:55.000Z",
+      "sources": ["GamingBolt"],
+      "points": 0
+    },
+    {
+      "id": "564a90fc-6cf0-4d56-bd37-f5383521e992",
+      "title": "GTA 6 preload date and times confirmed",
+      "url": "https://www.gamesradar.com/games/grand-theft-auto/gta-6-preload-date-times/",
+      "excerpt": "You can start preloading GTA 6 from November 10, and these are the details you need to know",
+      "imageUrl": "https://cdn.mos.cms.futurecdn.net/q9VEvTmjqXdkuDN5ZDPPxh-1920-80.jpg",
+      "publishedAt": "2026-11-03T16:10:21.000Z",
+      "sources": ["GamesRadar+"],
+      "points": 0
+    },
+    {
+      "id": "24b7cd22-5a81-4504-a342-2a53aa7cc797",
+      "title": "The Elder Scrolls 6: Sentinel is Still “Years Away”",
+      "url": "https://insider-gaming.com/the-elder-scrolls-6-sentinel-is-still-years-away/",
+      "excerpt": "The Elder Scrolls 6 is officially called 'Sentinel,' but just because its name is real doesn't mean the game is coming anytime soon. The post The Elder Scrolls 6: Sentinel is Still “Years Away” appeared first on Insider Gaming .",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T16:09:12.000Z",
+      "sources": ["Insider Gaming"],
+      "points": 0
+    },
+    {
+      "id": "4757cb95-6b6b-4280-9f2d-98afc8c5c57f",
+      "title": "Eight years later, Elder Scrolls 6 finally has an official title, but still no release date anywhere in sight",
+      "url": "https://www.destructoid.com/eight-years-later-elder-scrolls-6-official-title-no-release-date/",
+      "excerpt": "See you soon. Or maybe not. Probably not. The post Eight years later, Elder Scrolls 6 finally has an official title, but still no release date anywhere in sight appeared first on Destructoid .",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T16:08:56.000Z",
+      "sources": ["Destructoid"],
+      "points": 0
+    },
+    {
+      "id": "40e8a001-ad5e-487b-8071-eae863928a69",
+      "title": "\"I Had Some Overdue Homework\" - Ocarina Of Time Remake Features More Water Temple Tweaks",
+      "url": "https://www.nintendolife.com/news/2026/11/i-had-some-overdue-homework-ocarina-of-time-remake-features-more-water-temple-tweaks",
+      "excerpt": "Yes, Aonuma knows how much you hate those Iron Boots. It's no secret that Eiji Aonuma can see the issues with Ocarina of Time 's Water Temple. The series producer spoke about it when the game launched on 3DS, and it continues to haunt him today, as he's brought it up once again in the latest Ask the Developer interview. \"I had some overdue homework: I wanted to do something about the Water Temple I created 28 years ago,\" Aonuma-san says of the Switch 2 remake. He touches on all the dungeon's much-discussed sticking points (the item menu annoyances, confusing layout, etc.), and confirms that he",
+      "imageUrl": "https://images.nintendolife.com/f5eeb0750eb6e/large.jpg",
+      "publishedAt": "2026-11-03T16:00:00.000Z",
+      "sources": ["Nintendo Life"],
+      "points": 0
+    },
+    {
+      "id": "141faa31-16c2-4cf0-a142-1bf5b35e5837",
+      "title": "The Elder Scrolls VI: Sentinel – Official Name Reveal Trailer",
+      "url": "https://www.gamespot.com/videos/the-elder-scrolls-vi-sentinel-official-name-reveal-trailer/",
+      "excerpt": "“The scroll offered only a shimmer, a veil thinly lifted to my eyes. A future lost. A victory undone. Sands of time scattered by fate.” Yazar, Moth Priest to High Queen Iradne of Hammerfell (4E 206) Your next journey to Tamriel will be in The Elder Scrolls VI: Sentinel.",
+      "imageUrl": "https://www.gamespot.com/wp-content/uploads/2026/11/11.jpg?w=300",
+      "publishedAt": "2026-11-03T15:41:17.000Z",
+      "sources": ["GameSpot"],
+      "points": 0
+    },
+    {
+      "id": "33918da0-5e59-40b6-a34a-fdbdeb6fe369",
+      "title": "The Elder Scrolls 6: Sentinel is finally made official",
+      "url": "https://www.pcgamer.com/games/the-elder-scrolls/the-elder-scrolls-6-sentinel-is-finally-made-official/",
+      "excerpt": "The long-awaited title of the next Elder Scrolls game was revealed in a video marking Bethesda Softworks' 40th anniversary.",
+      "imageUrl": "https://cdn.mos.cms.futurecdn.net/52NsFuQkWyucm27va26VpP-1920-80.jpg",
+      "publishedAt": "2026-11-03T15:33:59.000Z",
+      "sources": ["PC Gamer"],
+      "points": 0
+    },
+    {
+      "id": "705b94d8-f43d-4edb-9045-e17abe39cb75",
+      "title": "The Elder Scrolls 6: Sentinel Title Officially Revealed, Set 5 Years After Skyrim",
+      "url": "https://gamingbolt.com/the-elder-scrolls-6-sentinel-title-officially-revealed-set-5-years-after-skyrim",
+      "excerpt": "A quote from Yazar to Iradne, the High Queen of Hammerfell, also points to the latter as the setting for Bethesda's new fantasy RPG.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T15:30:02.000Z",
+      "sources": ["GamingBolt"],
+      "points": 0
+    },
+    {
+      "id": "83b43cd2-61cd-40c4-8dfd-6e93bf2b4f28",
+      "title": "Skyrim's Successor Finally Re-Revealed as The Elder Scrolls 6: Sentinel",
+      "url": "https://www.pushsquare.com/news/2026/11/skyrims-successor-finally-re-revealed-as-the-elder-scrolls-6-sentinel",
+      "excerpt": "Bethesda unveils its next RPG. It's official: The Elder Scrolls 6: Sentinel is the full title of Bethesda's next open world RPG. The subtitle has been announced as part of the developer's 40th anniversary celebrations. Confirmation comes via a very brief trailer at the end of the company's new video, which you can watch below. Read the full article on pushsquare.com",
+      "imageUrl": "https://images.pushsquare.com/936316ed90ab1/large.jpg",
+      "publishedAt": "2026-11-03T15:30:00.000Z",
+      "sources": ["Push Square"],
+      "points": 0
+    },
+    {
+      "id": "11dfec46-094f-4a80-a725-61680185c5d9",
+      "title": "Grand Theft Auto VI pre-download begins November 10",
+      "url": "https://blog.playstation.com/2026/11/03/grand-theft-auto-vi-pre-download-begins-november-10/",
+      "excerpt": "Grand Theft Auto VI launches November 19 on PlayStation 5, with pre-download available starting November 10. Whether you’re returning to the series or jumping in for the first time, here are a few key steps you can take now to prepare for launch day. Step 1: Set up your PlayStation account Make sure your PlayStation […]",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T15:28:13.000Z",
+      "sources": ["PlayStation Blog"],
+      "points": 0
+    },
+    {
+      "id": "5fb58f18-6a35-4dd7-8a3c-67503c4b9e72",
+      "title": "Grand Theft Auto 6 pre-load begins on 10th November, file size and regional timings released",
+      "url": "https://www.eurogamer.net/grand-theft-auto-6-pre-load-date",
+      "excerpt": "Rockstar Games have revealed the pre-load date and time for Grand Theft Auto 6 . You better be prepared to clear out some storage space, and burn the midnight oil. Read more",
+      "imageUrl": "https://assetsio.gnwcdn.com/gta-6-pre-load.jpg?auto=webp&format=jpg&quality=85&width=690",
+      "publishedAt": "2026-11-03T15:26:02.000Z",
+      "sources": ["Eurogamer"],
+      "points": 0
+    },
+    {
+      "id": "12b8a4ca-1d57-4185-b8dd-5babf2869883",
+      "title": "Rockstar confirms GTA 6 is 212GB, pre-loading opens earlier than previously announced for digital",
+      "url": "https://www.gamesradar.com/games/grand-theft-auto/rockstar-confirms-gta-6-is-212gb-pre-loading-opens-earlier-than-previously-announced-for-digital-orders/",
+      "excerpt": "GTA 6 pre-loading opens November 10 for some",
+      "imageUrl": "https://cdn.mos.cms.futurecdn.net/P7o56UBF2Qm89JJ8jjy8r6-1920-80.jpg",
+      "publishedAt": "2026-11-03T15:24:03.000Z",
+      "sources": ["GamesRadar+"],
+      "points": 0
+    },
+    {
+      "id": "a022abd8-dea2-4eb2-a47f-857583668af6",
+      "title": "'The Elder Scrolls 6' Finally Has An Official Title",
+      "url": "https://www.nintendolife.com/news/2026/11/the-elder-scrolls-6-finally-has-an-official-title",
+      "excerpt": "And a title logo. We forget quite how long we have been waiting for official news from the next entry in Bethesda's The Elder Scrolls series, and now the studio has finally, finally lifted the lid on its title. As revealed by Todd Howard himself in a new studio 40th anniversary video, the next game in the series is titled The Elder Scrolls VI: Sentinel (yep, the very same name that was reported last week). Read the full article on nintendolife.com",
+      "imageUrl": "https://images.nintendolife.com/5adec4802ebe3/large.jpg",
+      "publishedAt": "2026-11-03T15:20:00.000Z",
+      "sources": ["Nintendo Life"],
+      "points": 0
+    },
+    {
+      "id": "87940db7-eab6-4850-8db5-b2fe45882c81",
+      "title": "GTA 6 Pre-Loading Moved Up to November 10th, 212 GB Space Required",
+      "url": "https://gamingbolt.com/gta-6-pre-loading-moved-up-to-november-10th-212-gb-space-required",
+      "excerpt": "Besides its longest story and largest world yet, the open-world sequel arguably requires more space than any Rockstar title in history.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T15:16:11.000Z",
+      "sources": ["GamingBolt"],
+      "points": 0
+    },
+    {
+      "id": "3ec3cdd4-9613-4dd9-b61e-3236728fab34",
+      "title": "Elder Scrolls 6 Gets Its First New Teaser Trailer In Over 8 Years, But Still No Release Date",
+      "url": "https://kotaku.com/elder-scrolls-6-gets-a-new-teaser-confirming-its-name-but-still-no-release-date-2000752777",
+      "excerpt": "It has been nearly a decade since Todd Howard and Bethesda first announced the upcoming RPG",
+      "imageUrl": "https://kotaku.com/app/uploads/2022/11/0407dbd6733ade377dbe7b96f7672094.jpg",
+      "publishedAt": "2026-11-03T15:12:48.000Z",
+      "sources": ["Kotaku"],
+      "points": 0
+    },
+    {
+      "id": "c3fbd471-1be1-44ff-a7c2-8cc3767b1c7e",
+      "title": "Bethesda Officially Confirms The Elder Scrolls 6: Sentinel as Its Next Game",
+      "url": "https://insider-gaming.com/elder-scrolls-6-sentinel-reveal/",
+      "excerpt": "Bethesda has officially confirmed that the next Elder Scrolls game will be called Elder Scrolls VI: Sentinel. The post Bethesda Officially Confirms The Elder Scrolls 6: Sentinel as Its Next Game appeared first on Insider Gaming .",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T15:08:29.000Z",
+      "sources": ["Insider Gaming"],
+      "points": 0
+    }
+  ]
+}

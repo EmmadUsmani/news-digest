@@ -1,14 +1,3 @@
-## 2026-11-03: iteration 435 — detect missing scheduled lifecycles
-
-- Started clean on main; no leftovers. Health green/zero alerts. Social acceptance awaits scheduled evidence; advanced O9 under items 24/25.
-- Added latest due lifecycle timestamp aggregate and observed-due recording rule, retained 48 hours across scheduler advances. Warns after two minutes without a matching/newer due record; future rows cannot mask it.
-- Enabled evaluator remote-write to the existing local metric store. Requires pre-advance scrape history; canceled schedules can warn. Lifecycle existence does not prove publication. Handbook/plan/TASKS updated.
-- Verified offline rules (advance, existing record, retention/recovery, zero/absent metrics) and isolated SQL time/state boundaries. Targeted 2/2 passed after correcting omitted isolation flag; guard prevented DB access on the first attempt.
-- pnpm format, pnpm lint:fix, pnpm check (272 unit/174 isolated integration), pnpm build and handbook 09-observability passed. No diagram/UI changes or paid calls.
-- Restarted only changed obs-postgres/obs-alerts; app/DB/Redis unchanged. check-observability.ts --verify-alerts verifies 15 healthy rules and persisted recording output; uncached read avoids initial negative query cache.
-- Final health/alerts green; latest real edition remains 19 stories/11 X posts; articles/stored X present across four topics. Zero dangling volumes; git diff --check passed.
-- Next: scheduled Bluesky/open-X picks and latency evidence take priority; otherwise O7 top queries. Grouping activation/independent labels remain open.
-
 ## 2026-11-03: iteration 436 — bounded top statement timing
 
 - Started clean on main; no leftovers. Zero alerts/healthy services. Scheduled social/latency evidence still pending; advanced O7 under items 24/25.
@@ -154,3 +143,13 @@
 - Verification: targeted game/evaluation tests 12/12; pnpm format, pnpm lint:fix, pnpm check (283 unit/176 isolated integration), pnpm build and final API rebuild passed; git diff --check passed.
 - Restarted API/worker; first immediate health probe raced startup, retry passed. Root HTTP 200, pnpm obs health/jobs --check passed, zero alerts/dangling Docker volumes.
 - No paid calls, new editions or Reddit requests. Next: Nov 4 open-X/Bluesky selections/screenshots, World yield and latency/full-AI evidence; broader grouping recall/independent labels remain open.
+
+## 2026-11-03: iteration 450 — measure Gaming grouping on a third date
+
+- Started clean on main; no leftovers. Zero alerts; health and all 32 sources green. Scheduled social/latency evidence remains pending.
+- Recorded 23 real stored Gaming feed candidates from Nov 3 via read-only candidate loading; no publisher-page/provider calls. Added 26 agent-reviewed pairs across GTA preload, Elder Scrolls reveal and Zelda Water Temple reports, with distinct-development negatives.
+- All three matchers miss all 13 new positives and reject all 13 negatives. Expanded benchmark: 86 pairs/three dates; lexical 6/45, game 10/45, combined 13/45 positives, zero labeled false merges. Agent labels are not independent validation.
+- New snapshot has no unknown merges or input-order variation across 34 deterministic orders. Updated TASKS/RANKING and archived iteration 435 to keep PROGRESS bounded.
+- Verification: targeted grouping 20/20; pnpm check passed (284 unit/176 isolated integration), pnpm build and git diff --check passed. pnpm format/lint:fix run. First full check caught archive formatting; corrected before final verification.
+- No runtime/config/UI changes; no restart under STEERING 22. Root HTTP 200; health/jobs checks passed; zero alerts/dangling volumes. No paid calls, new editions or Reddit requests.
+- Next: improve Gaming paraphrase recall using recorded evidence; independent labels/activation remain open. Nov 4 X/Bluesky selections, World yield and latency/full-AI evidence take priority when available.

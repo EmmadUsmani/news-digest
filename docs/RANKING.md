@@ -1008,3 +1008,23 @@ recorded evaluation remains 13/32 positive pairs for the combined studio/game
 matcher, with zero labeled false merges; this change adds synthetic paraphrase
 coverage, not a measured gain on real reports. Production activation and
 independent review remain open.
+
+## Iteration 450: third-date Gaming recall check
+
+A read-only snapshot adds 23 stored publisher-feed candidates from November 3
+and 26 agent-reviewed headline/excerpt pairs: 13 same-event, 13 distinct-event.
+The positive pairs cover the GTA 6 preload announcement, the official Elder
+Scrolls VI: Sentinel title/trailer reveal, and Aonuma's Water Temple revisions.
+Negative pairs distinguish preload news from presale revenue and prospective
+PlayStation details, title reveals from development-timeline reports, and Water
+Temple changes from auto-jump design. No article pages or providers were called.
+
+All three matchers miss all 13 new positive pairs, while rejecting all 13
+negatives. The full benchmark is now 86 pairs: 45 positive and 41 negative.
+Lexical matching finds 6/45, game-only 10/45, combined studio/game 13/45, with
+zero labeled false merges. This exposes a substantial Gaming recall gap; the
+previous 13/32 result applied only to the earlier selected windows. No unknown
+full-window merges or input-order variation appeared in the new 23-candidate
+snapshot across 34 deterministic orders. These labels remain agent-reviewed
+and selected, with no independent quality or outlet-independence claim.
+Production behavior and grouping activation are unchanged.

@@ -1,5 +1,5 @@
 {
-  "note": "Agent-reviewed headline/excerpt labels over recorded November 1 and 2 Tech/NBA/World/Gaming items. Not independent fact verification or a representative quality estimate. Related developments stay separate unless the specific event matches; syndicated matches do not prove outlet independence.",
+  "note": "Agent-reviewed headline/excerpt labels over recorded November 1–3 Tech/NBA/World/Gaming items. Not independent fact verification or a representative quality estimate. Related developments stay separate unless the specific event matches; syndicated matches do not prove outlet independence.",
   "pairs": [
     {
       "window": "ranking-nba-2026-11-01.json",
@@ -420,6 +420,188 @@
       "right": "c8de0e97-9ab0-4f83-b5e2-ce79ad2b4455",
       "sameEvent": true,
       "reason": "Agent review of recorded title/excerpt: same Nagoshi Studio closure after NetEase funding loss. Closure is explicit; game cancellation remains qualified. No independent publisher verification."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "9dc752b5-f931-4a4a-aae2-2fb1e088222d",
+      "right": "78126db5-b41e-4d4a-b397-0aa272a0c7d4",
+      "sameEvent": true,
+      "reason": "Same Water Temple revision discussed by Aonuma in the remake interview."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "78126db5-b41e-4d4a-b397-0aa272a0c7d4",
+      "right": "40e8a001-ad5e-487b-8071-eae863928a69",
+      "sameEvent": true,
+      "reason": "Same Water Temple revision discussed by Aonuma in the remake interview."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "9dc752b5-f931-4a4a-aae2-2fb1e088222d",
+      "right": "40e8a001-ad5e-487b-8071-eae863928a69",
+      "sameEvent": true,
+      "reason": "Same Water Temple revision discussed by Aonuma in the remake interview."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "d24b4550-b2a4-4207-a611-b3c60427151d",
+      "right": "564a90fc-6cf0-4d56-bd37-f5383521e992",
+      "sameEvent": true,
+      "reason": "Same announced GTA 6 preload date, timing and storage details."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "564a90fc-6cf0-4d56-bd37-f5383521e992",
+      "right": "11dfec46-094f-4a80-a725-61680185c5d9",
+      "sameEvent": true,
+      "reason": "Same announced GTA 6 preload date, timing and storage details."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "11dfec46-094f-4a80-a725-61680185c5d9",
+      "right": "5fb58f18-6a35-4dd7-8a3c-67503c4b9e72",
+      "sameEvent": true,
+      "reason": "Same announced GTA 6 preload date, timing and storage details."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "12b8a4ca-1d57-4185-b8dd-5babf2869883",
+      "right": "87940db7-eab6-4850-8db5-b2fe45882c81",
+      "sameEvent": true,
+      "reason": "Same announced GTA 6 preload date, timing and storage details."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "141faa31-16c2-4cf0-a142-1bf5b35e5837",
+      "right": "33918da0-5e59-40b6-a34a-fdbdeb6fe369",
+      "sameEvent": true,
+      "reason": "Same official Elder Scrolls VI: Sentinel title/trailer reveal; different headline focus."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "33918da0-5e59-40b6-a34a-fdbdeb6fe369",
+      "right": "705b94d8-f43d-4edb-9045-e17abe39cb75",
+      "sameEvent": true,
+      "reason": "Same official Elder Scrolls VI: Sentinel title/trailer reveal; different headline focus."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "705b94d8-f43d-4edb-9045-e17abe39cb75",
+      "right": "83b43cd2-61cd-40c4-8dfd-6e93bf2b4f28",
+      "sameEvent": true,
+      "reason": "Same official Elder Scrolls VI: Sentinel title/trailer reveal; different headline focus."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "83b43cd2-61cd-40c4-8dfd-6e93bf2b4f28",
+      "right": "a022abd8-dea2-4eb2-a47f-857583668af6",
+      "sameEvent": true,
+      "reason": "Same official Elder Scrolls VI: Sentinel title/trailer reveal; different headline focus."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "a022abd8-dea2-4eb2-a47f-857583668af6",
+      "right": "c3fbd471-1be1-44ff-a7c2-8cc3767b1c7e",
+      "sameEvent": true,
+      "reason": "Same official Elder Scrolls VI: Sentinel title/trailer reveal; different headline focus."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "4757cb95-6b6b-4280-9f2d-98afc8c5c57f",
+      "right": "3ec3cdd4-9613-4dd9-b61e-3236728fab34",
+      "sameEvent": true,
+      "reason": "Same official Elder Scrolls VI: Sentinel title/trailer reveal; different headline focus."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "d24b4550-b2a4-4207-a611-b3c60427151d",
+      "right": "6a56b2e2-34f7-49b1-981e-e0d4bd27df50",
+      "sameEvent": false,
+      "reason": "Preload announcement is distinct from prospective PlayStation details or presale-revenue reporting."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "d24b4550-b2a4-4207-a611-b3c60427151d",
+      "right": "7227eb0b-a3ca-4e78-9147-65582717dedb",
+      "sameEvent": false,
+      "reason": "Preload announcement is distinct from prospective PlayStation details or presale-revenue reporting."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "564a90fc-6cf0-4d56-bd37-f5383521e992",
+      "right": "7227eb0b-a3ca-4e78-9147-65582717dedb",
+      "sameEvent": false,
+      "reason": "Preload announcement is distinct from prospective PlayStation details or presale-revenue reporting."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "11dfec46-094f-4a80-a725-61680185c5d9",
+      "right": "6a56b2e2-34f7-49b1-981e-e0d4bd27df50",
+      "sameEvent": false,
+      "reason": "Preload announcement is distinct from prospective PlayStation details or presale-revenue reporting."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "141faa31-16c2-4cf0-a142-1bf5b35e5837",
+      "right": "572f9405-0d7b-40cd-894f-9b2e6581cd92",
+      "sameEvent": false,
+      "reason": "Official title/trailer announcement is distinct from reporting on the remaining development timeline."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "33918da0-5e59-40b6-a34a-fdbdeb6fe369",
+      "right": "24b7cd22-5a81-4504-a342-2a53aa7cc797",
+      "sameEvent": false,
+      "reason": "Official title/trailer announcement is distinct from reporting on the remaining development timeline."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "705b94d8-f43d-4edb-9045-e17abe39cb75",
+      "right": "572f9405-0d7b-40cd-894f-9b2e6581cd92",
+      "sameEvent": false,
+      "reason": "Official title/trailer announcement is distinct from reporting on the remaining development timeline."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "c3fbd471-1be1-44ff-a7c2-8cc3767b1c7e",
+      "right": "24b7cd22-5a81-4504-a342-2a53aa7cc797",
+      "sameEvent": false,
+      "reason": "Official title/trailer announcement is distinct from reporting on the remaining development timeline."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "9dc752b5-f931-4a4a-aae2-2fb1e088222d",
+      "right": "d4f46200-653d-4788-a45a-3ee8490b82ae",
+      "sameEvent": false,
+      "reason": "Water Temple revisions are distinct from the remake auto-jump design decision."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "78126db5-b41e-4d4a-b397-0aa272a0c7d4",
+      "right": "d4f46200-653d-4788-a45a-3ee8490b82ae",
+      "sameEvent": false,
+      "reason": "Water Temple revisions are distinct from the remake auto-jump design decision."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "40e8a001-ad5e-487b-8071-eae863928a69",
+      "right": "d4f46200-653d-4788-a45a-3ee8490b82ae",
+      "sameEvent": false,
+      "reason": "Water Temple revisions are distinct from the remake auto-jump design decision."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "d24b4550-b2a4-4207-a611-b3c60427151d",
+      "right": "141faa31-16c2-4cf0-a142-1bf5b35e5837",
+      "sameEvent": false,
+      "reason": "Different games and different reported events; shared gaming topic is insufficient."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "7227eb0b-a3ca-4e78-9147-65582717dedb",
+      "right": "572f9405-0d7b-40cd-894f-9b2e6581cd92",
+      "sameEvent": false,
+      "reason": "Different games and different reported events; shared gaming topic is insufficient."
     }
   ]
 }
