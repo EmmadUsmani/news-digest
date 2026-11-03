@@ -323,3 +323,5 @@ providers remain visible with zero totals when their ledgers are empty; no
 unresolved calls means no age. Existing reader grants only; configured caps
 and available funds remain in app Status. Synthetic read-only SQL and live
 queries cover empty and mixed-state ledgers.
+
+O6 incremental progress (380): Product provider spend includes succeeded/failed call counts for the UTC creation day. Current ledger outcomes only; cache reuse and refused admissions create no row, and uncertain transport failures remain separate. Existing reader grants only.

@@ -253,7 +253,7 @@ spend and all outstanding holds, latest edition story/post modes, source freshne
 rolling 24-hour distinct articles and X citation verification, seven reserve
 lifecycle rows, per-source 24-hour and seven-day article coverage grouped by topic (including zero counts), and the
 latest seven retained edition snapshots with story/post totals and AI topic counts.
-Provider rows remain visible when a ledger is empty. Pending and uncertain call counts cover all days; oldest hold age starts at call creation, not the last retry, and stays blank when no unresolved calls exist.
+Provider rows remain visible when a ledger is empty. Succeeded and failed call counts use the UTC creation day and current ledger status. Failed counts cover released ledger failures; uncertain transport outcomes stay separate. Cache hits and budget refusals create no call row. Pending and uncertain call counts cover all days; oldest hold age starts at call creation, not the last retry, and stays blank when no unresolved calls exist.
 A separate table matches Anthropic ledger calls to those edition IDs, showing charges
 and unresolved holds. Zero calls may mean cached or fallback work. It excludes X
 discovery and unpublished attempts, so it is not total scheduled-run spend.

@@ -16,7 +16,7 @@
     {
       "id": 1,
       "title": "Provider spend and outstanding holds (UTC)",
-      "description": "Settled spend is attributed to call creation in UTC. Holds include all pending/uncertain calls, including earlier days. Caps and live available funds are in app Status; holds are not additional settled spend. Pending and uncertain counts include all days; oldest hold age uses call creation time, not a retry heartbeat. Empty provider ledgers show zero totals with no hold age.",
+      "description": "Settled spend is attributed to call creation in UTC. Holds include all pending/uncertain calls, including earlier days. Caps and live available funds are in app Status; holds are not additional settled spend. Pending and uncertain counts include all days; oldest hold age uses call creation time, not a retry heartbeat. Empty provider ledgers show zero totals with no hold age. Succeeded/failed counts use the call creation UTC day and current ledger status, not completion time. Failed means a released ledger failure; transport-uncertain calls remain separate. Cache hits and budget refusals create no call row.",
       "type": "table",
       "datasource": {
         "type": "grafana-postgresql-datasource",
@@ -25,7 +25,7 @@
       "gridPos": {
         "x": 0,
         "y": 0,
-        "w": 12,
+        "w": 24,
         "h": 8
       },
       "targets": [
@@ -33,7 +33,7 @@
           "refId": "A",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "WITH providers(provider) AS (VALUES ('Anthropic'),('X discovery')), calls AS (SELECT 'Anthropic' AS provider, created_at, status, cost_micros, reserved_micros FROM llm_calls UNION ALL SELECT 'X discovery', created_at, status, cost_micros, reserved_micros FROM x_discovery_calls) SELECT providers.provider AS \"Provider\", coalesce(sum(cost_micros) FILTER (WHERE created_at >= date_trunc('day', now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC'),0)/1000000.0 AS \"Today ($)\", coalesce(sum(cost_micros) FILTER (WHERE created_at >= date_trunc('month', now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC'),0)/1000000.0 AS \"Month ($)\", coalesce(sum(reserved_micros) FILTER (WHERE status IN ('pending','uncertain')),0)/1000000.0 AS \"Holds ($)\", count(*) FILTER (WHERE status='pending')::int AS \"Pending\", count(*) FILTER (WHERE status='uncertain')::int AS \"Uncertain\", extract(epoch FROM (now()-min(created_at) FILTER (WHERE status IN ('pending','uncertain'))))/3600 AS \"Oldest hold (h)\" FROM providers LEFT JOIN calls USING (provider) GROUP BY providers.provider ORDER BY \"Provider\"",
+          "rawSql": "WITH providers(provider) AS (VALUES ('Anthropic'),('X discovery')), calls AS (SELECT 'Anthropic' AS provider, created_at, status, cost_micros, reserved_micros FROM llm_calls UNION ALL SELECT 'X discovery', created_at, status, cost_micros, reserved_micros FROM x_discovery_calls) SELECT providers.provider AS \"Provider\", coalesce(sum(cost_micros) FILTER (WHERE created_at >= date_trunc('day', now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC'),0)/1000000.0 AS \"Today ($)\", coalesce(sum(cost_micros) FILTER (WHERE created_at >= date_trunc('month', now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC'),0)/1000000.0 AS \"Month ($)\", coalesce(sum(reserved_micros) FILTER (WHERE status IN ('pending','uncertain')),0)/1000000.0 AS \"Holds ($)\", count(*) FILTER (WHERE status='succeeded' AND created_at >= date_trunc('day', now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC')::int AS \"Succeeded today\", count(*) FILTER (WHERE status='failed' AND created_at >= date_trunc('day', now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC')::int AS \"Failed today\", count(*) FILTER (WHERE status='pending')::int AS \"Pending\", count(*) FILTER (WHERE status='uncertain')::int AS \"Uncertain\", extract(epoch FROM (now()-min(created_at) FILTER (WHERE status IN ('pending','uncertain'))))/3600 AS \"Oldest hold (h)\" FROM providers LEFT JOIN calls USING (provider) GROUP BY providers.provider ORDER BY \"Provider\"",
           "editorMode": "code",
           "sql": {
             "limit": 100
@@ -66,9 +66,9 @@
         "uid": "product-postgres"
       },
       "gridPos": {
-        "x": 12,
-        "y": 0,
-        "w": 12,
+        "x": 0,
+        "y": 8,
+        "w": 24,
         "h": 8
       },
       "targets": [
@@ -106,7 +106,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 8,
+        "y": 16,
         "w": 12,
         "h": 8
       },
@@ -145,7 +145,7 @@
       },
       "gridPos": {
         "x": 12,
-        "y": 8,
+        "y": 16,
         "w": 12,
         "h": 8
       },
@@ -184,7 +184,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 16,
+        "y": 24,
         "w": 24,
         "h": 8
       },
@@ -223,7 +223,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 24,
+        "y": 32,
         "w": 24,
         "h": 7
       },
@@ -262,7 +262,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 31,
+        "y": 39,
         "w": 24,
         "h": 10
       },
@@ -301,7 +301,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 41,
+        "y": 49,
         "w": 24,
         "h": 8
       },
@@ -340,7 +340,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 49,
+        "y": 57,
         "w": 24,
         "h": 8
       },
@@ -379,7 +379,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 57,
+        "y": 65,
         "w": 12,
         "h": 8
       },
@@ -415,7 +415,7 @@
       },
       "gridPos": {
         "x": 12,
-        "y": 57,
+        "y": 65,
         "w": 12,
         "h": 8
       },
@@ -451,7 +451,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 65,
+        "y": 73,
         "w": 24,
         "h": 10
       },
