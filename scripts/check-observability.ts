@@ -10,6 +10,48 @@ import { checkMetricStore } from './lib/check-metric-store';
 import { testEnvironment } from './test-suites';
 
 async function main() {
+  if (process.argv.includes('--verify-job-metrics')) {
+    execFileSync(
+      'pnpm',
+      [
+        'exec',
+        'tsx',
+        '--test',
+        '--test-reporter=dot',
+        'apps/api/test/job-metrics.test.ts',
+      ],
+      { env: testEnvironment(), stdio: 'pipe', timeout: 120_000 },
+    );
+    const response = await fetch('http://127.0.0.1:9465/metrics', {
+      signal: AbortSignal.timeout(10_000),
+    });
+    assert.equal(response.status, 200);
+    const body = await response.text();
+    assert.ok(
+      body.includes('# TYPE news_digest_job_duration_seconds histogram'),
+    );
+    const counts = body
+      .split('\n')
+      .filter((line) =>
+        line.startsWith('news_digest_job_duration_seconds_count{'),
+      );
+    assert.ok(
+      counts.length > 0,
+      'Wait for a normal worker attempt after restart; never enqueue verification work',
+    );
+    for (const line of counts) {
+      assert.match(line, /trigger="(scheduled|manual|unknown)"/);
+      assert.match(line, /outcome="(completed|failed)"/);
+    }
+    assert.ok(
+      counts.some(
+        (line) =>
+          line.includes('queue="operations"') &&
+          line.includes('trigger="scheduled"'),
+      ),
+      'Normal recurring heartbeat must have scheduled attribution',
+    );
+  }
   const grafana = process.argv.includes('--verify-grafana')
     ? await checkGrafana()
     : undefined;

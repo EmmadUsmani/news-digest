@@ -4,15 +4,7 @@ Archived: [iteration 384](docs/progress-archive/2026-11-03-iteration-384.md), [i
 
 Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md), [283](docs/progress-archive/2026-11-03-iteration-283.md), [284](docs/progress-archive/2026-11-03-iteration-284.md).
 
-## 2026-11-03: iteration 385 — configured provider ceilings
-
-- Started clean on main; no leftover work. Services/health green, 32 sources without current errors, no failed digest/social jobs; two historical ingestion failures remain recovered. Scheduled evidence/acks due 15:00 UTC.
-- Product graphs API startup-configured Anthropic/X daily and monthly ceilings in USD, with exact legend values. Fixed provider/period labels; no database reads, ledger locks or provider calls. Explicitly distinguishes ceilings from paced allowance, holds, reserve and available funds.
-- Collector tests cover custom caps, enforced hard maxima, zero budgets and credential exclusion. Initial check caught a missing test `void`; corrected. Browser probes initially preceded first scrape/provision reload and needed a taller dashboard viewport; final checks passed.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (233 unit/172 integration), `pnpm build`, handbook 09 and `git diff --check` passed. Grafana/O4: 65 queries/61 populated, seven healthy scrape targets; Grafana 201 MiB. Final legend change separately checked against provisioning and browser.
-- Desktop/mobile ceiling screenshots inspected; discarded unrelated regenerated captures. Updated handbook/plan/TASKS and archived iterations 372–373.
-- Restarted changed API, healthy; Grafana hot-reloaded. Retained real edition still has four topics, 20 stories/10 posts. No paid calls, Reddit requests, cap/schedule or production activation changes.
-- Next: 15:00 scheduled evidence/acks first; otherwise remaining O6 individual edition timing/Agent or O7 Postgres collection. Activation stays gated.
+Earlier entry: [iteration 385](docs/progress-archive/2026-11-03-iteration-385.md).
 
 ## 2026-11-03: iteration 386 — scheduled timing offsets
 
@@ -121,3 +113,13 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (240 unit/172 integration), `pnpm build`, handbook 09 and read-only edition timing report passed. First full check stopped on concurrent-edit formatting; formatted and reran successfully. No new scheduled AI timing claim.
 - Updated handbook/plan/TASKS; archived iteration 384. Grafana provision hot-reloaded; no application code/config changed, so no app restart. No paid calls, Reddit requests or content/cap/schedule/activation changes.
 - Next: collect/ack Nov 3 scheduled cost/yield/AI timing first; otherwise top queries and per-iteration metrics.
+
+## 2026-11-03: iteration 397 — worker timing by trigger
+
+- Started clean on main; no leftover work. Health/services green, all 32 sources current without errors, no failed digest/social jobs; two historical ingestion failures remain. Scheduled evidence/activation still gated on 15:00 UTC.
+- Worker timing histograms now distinguish scheduled/manual/unknown triggers using scheduler metadata and the on-demand digest branch. Retries count separately; missing metadata stays unknown. No IDs/payloads/new ledger reads; previous samples lack the label.
+- Offline tests verify attribution, retries/failures, unchanged result/error propagation and private bounded labels. New `check-observability.ts --verify-job-metrics` checks those tests and normal recurring heartbeat samples without enqueueing jobs.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (242 unit/172 integration), `pnpm build`, handbook 09 and read-only edition timing report passed. No UI/diagram changes; no screenshots needed.
+- Restarted changed API/worker; health green. First runtime check caught interval jobs lacking `prevMillis`; added BullMQ recurring-key support and regression coverage. Final `--verify-job-metrics` passed against scheduled heartbeat/ingestion samples and healthy runtime logs. Updated handbook/plan/TASKS; archived iteration 385.
+- Retained scheduled result remains 856 ms fallback; scheduled attempt attribution does not prove a fresh publication or provider latency. No paid calls, Reddit requests or product/cap/schedule/activation changes.
+- Next: collect/ack Nov 3 scheduled cost/yield/AI timing; then activation work. Observability still needs individual-edition attribution, per-iteration metrics and top queries.

@@ -215,7 +215,17 @@ restart; interrupted attempts are absent. Queue snapshots are described below.
 The worker records `news_digest_job_duration_seconds` for every settled processor
 attempt in the four queues. Counts distinguish completed and failed attempts;
 retries count separately. Queue and job names use fixed allowlists, with unknown
-values grouped as `other`. IDs, payloads and errors never enter labels. Histograms
+values grouped as `other`. The bounded `trigger` label distinguishes `scheduled`
+(BullMQ recurring-job key or valid scheduler timestamp), `manual` (on-demand digest branch) and
+`unknown` (missing or invalid scheduler metadata). This applies to attempts
+observed since deployment; older samples have no trigger label. Scheduled attempts
+can reuse an edition or finish without publishing, so this is not edition or
+provider latency. For example, `sum by (trigger, outcome)
+(news_digest_job_duration_seconds_count{queue="digest-generation",trigger!=""})`
+separates observed digest attempts without mixing older unattributed samples.
+Verify with `pnpm exec tsx scripts/check-observability.ts --verify-job-metrics`;
+it uses offline worker tests and a normal recurring heartbeat, never a paid job.
+IDs, payloads and errors never enter labels. Histograms
 reset on worker restart and do not represent retained queue totals or jobs killed
 before settling. The API reads retained job counts by state, recurring schedule counts and pause
 state through its existing queue connections on each scrape. These gauges use

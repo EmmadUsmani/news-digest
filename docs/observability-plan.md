@@ -209,6 +209,8 @@ only when its check passes.
 
   - Iteration 394: Jobs adds latest retained completed digest/social worker duration and UTC finish time, including manual/skipped jobs; bounded completed-only reads and queue labels, no job IDs. Not scheduled-edition attribution or provider latency.
 
+  - Iteration 397: worker attempt histograms add bounded scheduled/manual/unknown trigger attribution. Scheduler metadata and on-demand digest branch distinguish triggers; missing metadata stays unknown, retries remain separate. Offline tests and normal recurring-heartbeat runtime check verify it without enqueueing work. Historical samples lack the label; scheduled attribution does not prove publication or provider latency. Individual edition attribution remains open.
+
 - [ ] **O7 Database and Redis.**
   - Iteration 395: pinned postgres_exporter v0.20.1, aggregate stat_database only, restricted read-only login without table/statistics-reader grants, two connections/3s statements; loopback 30s scrape and 32 MB/2% CPU limits. Live metrics/role/privacy checks included in `--verify-o4`. No database restart. Iteration 396 adds four historical Database charts (connections, commit/rollback rates and temporary writes), verified through Grafana plus desktop/mobile screenshots. Top queries remain open.
   - Iteration 374: Redis collector and O6 Redis dashboard shipped. Pinned/checksummed redis_exporter v1.96.0, loopback INFO-only, 30-second scraping, 32 MB/2% CPU ceiling; no key scanning, app or Redis restart. Eight panels and desktop/mobile checked. Postgres exporter/top queries remain open.
