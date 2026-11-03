@@ -514,9 +514,16 @@ no scraping.
   - Curated accounts are secondary.
   - Bluesky returns real like, repost and reply counts: store them and rank
     on engagement, velocity and relevance.
-- **Auth:** if search requires authentication, add exact steps to
-  NEEDS_FROM_HUMAN.md (an app password stored in `~/.config/news-digest/env`).
-  Build and test the rest against fixtures meanwhile.
+- **Auth (owner provided, 2026-11-03):** `BLUESKY_HANDLE` and
+  `BLUESKY_APP_PASSWORD` (an app password, no DM access) are in
+  `~/.config/news-digest/env`. Log in with `com.atproto.server.createSession`
+  on `https://bsky.social`, reuse and refresh the session rather than logging
+  in per request, and send searches to the account's PDS with the token.
+  Verified then: login 200, and logged-in `searchPosts` with `sort=top` and
+  `since` returns 25 posts per page, cursor pagination included.
+  Logged-out search on `public.api.bsky.app` returns 403 and `api.bsky.app`
+  is undocumented; use them only as a fallback when the variables are
+  missing. Never log the password or tokens.
 - **Fetching:** respect rate limits and back off. Store posts as `SocialPost`
   with platform `bluesky`.
 - **Rendering:** Bluesky's official embed or a faithful card.
@@ -607,5 +614,5 @@ activating item 16. It must test today's production behavior.
   Use a setting or flag that is off by default.
 - **Bug fixes for the current pipeline are still fine.** Keep the services
   green, and finish deploys and restarts by 14:30 UTC.
-- **Item 18 waiting on a Bluesky login is "blocked"** under item 22: build
-  it against fixtures, then start item 19 instead of idling.
+- **Item 18 has its Bluesky login,** so it isn't blocked: build and test it
+  live, but keep Bluesky out of production editions until the run is acked.
