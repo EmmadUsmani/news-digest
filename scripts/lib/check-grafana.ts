@@ -276,7 +276,7 @@ export async function checkGrafana() {
         width: 1440,
         height:
           dashboard.uid === 'nd-product'
-            ? 4300
+            ? 4700
             : ['nd-runtime', 'nd-redis'].includes(dashboard.uid)
               ? 2100
               : 1100,
@@ -318,6 +318,9 @@ export async function checkGrafana() {
           'Reason',
           'Updated (UTC)',
           'Open overdue (min)',
+          'X picks',
+          'Bluesky picks',
+          'Total picks',
         ]) {
           const column = page.getByRole('columnheader', { name, exact: true });
           await column.scrollIntoViewIfNeeded();
@@ -636,6 +639,45 @@ export async function checkGrafana() {
     await page.waitForTimeout(1000);
     await page.screenshot({
       path: 'docs/screenshots/grafana-product-caps-desktop.png',
+    });
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(`${base}/d/nd-product?kiosk&viewPanel=panel-16`, {
+      waitUntil: 'networkidle',
+    });
+    await page
+      .getByRole('heading', {
+        name: 'Selected social platforms by topic (latest seven editions)',
+        exact: true,
+      })
+      .waitFor();
+    const platformTotal = page.getByRole('columnheader', {
+      name: 'Total picks',
+      exact: true,
+    });
+    for (let attempt = 0; attempt < 20; attempt++) {
+      if (await platformTotal.isVisible()) break;
+      await page.locator('.rdg').evaluateAll((grids) => {
+        for (const grid of grids) grid.scrollLeft = grid.scrollWidth;
+      });
+      await page.waitForTimeout(300);
+    }
+    await platformTotal.waitFor({ state: 'visible' });
+    await page.waitForTimeout(1500);
+    await page.screenshot({
+      path: 'docs/screenshots/grafana-product-platforms-mobile.png',
+    });
+    await page.setViewportSize({ width: 1440, height: 1100 });
+    await page
+      .getByRole('columnheader', { name: 'Total picks', exact: true })
+      .waitFor();
+    assert.equal(
+      await page
+        .locator('[data-testid="data-testid Panel status error"]')
+        .count(),
+      0,
+    );
+    await page.screenshot({
+      path: 'docs/screenshots/grafana-product-platforms-desktop.png',
     });
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(`${base}/d/nd-database?kiosk`, {

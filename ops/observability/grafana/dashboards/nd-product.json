@@ -744,6 +744,45 @@
           "calcs": ["lastNotNull"]
         }
       }
+    },
+    {
+      "id": 16,
+      "title": "Selected social platforms by topic (latest seven editions)",
+      "description": "Counts from immutable edition snapshots, including manual editions and older revisions. Zero means no selected post of that platform in the stored topic, not no activity or discovery. Missing posts count as zero; unknown platforms are separate. These are selections, not engagement, verified discovery yield or account-list coverage.",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "product-postgres"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 111,
+        "w": 24,
+        "h": 10
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT d.id::text AS \"Edition\", d.created_at AS \"Created (UTC)\", t->>'name' AS \"Topic\", count(p) FILTER (WHERE p->>'platform'='x')::int AS \"X picks\", count(p) FILTER (WHERE p->>'platform'='bluesky')::int AS \"Bluesky picks\", count(p) FILTER (WHERE p->>'platform'='reddit')::int AS \"Reddit picks\", count(p) FILTER (WHERE p IS NOT NULL AND coalesce(p->>'platform','') NOT IN ('x','bluesky','reddit'))::int AS \"Other picks\", count(p)::int AS \"Total picks\" FROM (SELECT id,created_at,snapshot FROM digest_previews ORDER BY created_at DESC,id DESC LIMIT 7) d CROSS JOIN LATERAL jsonb_array_elements(d.snapshot->'topics') WITH ORDINALITY topics(t,position) LEFT JOIN LATERAL jsonb_array_elements(coalesce(t->'posts','[]'::jsonb)) p ON true GROUP BY d.id,d.created_at,t,topics.position ORDER BY d.created_at DESC,d.id DESC,topics.position",
+          "editorMode": "code",
+          "sql": {
+            "limit": 100
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
     }
   ],
   "links": [

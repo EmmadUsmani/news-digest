@@ -335,3 +335,5 @@ O6 incremental progress (383): Product adds the latest 30 Anthropic ledger admis
 O6 incremental progress (384): Anthropic history adds recorded outcome time and reservation-to-outcome seconds. Pending values stay blank; uncertain outcomes retain holds. Ledger elapsed includes local work and is not HTTP latency or edition duration. Reader gains only completed_at.
 
 O6 incremental progress (385): Product graphs API startup-configured Anthropic/X daily and monthly ceilings in USD. Fixed provider/period labels, no database or ledger locks and no provider calls. Ceilings are not the paced daily allowance, reserve or available funds; these remain on Status.
+
+O6 incremental progress (389): Product shows per-topic X/Bluesky/Reddit/other selection counts in the latest seven immutable editions. Quiet topics stay visible with zero counts; missing posts are zero and unknown platforms stay separate. Counts describe selections, not engagement or discovery yield. Existing reader grants only; no provider calls or production-content changes.

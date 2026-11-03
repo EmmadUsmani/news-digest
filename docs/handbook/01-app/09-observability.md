@@ -262,6 +262,8 @@ Seven-day article counts include the last 24 hours and use publication time, not
 Source response counts include duplicates and older items; they are not new-item yield.
 The latest edition selection table shows story/post picks, stored triage and unscored counts, modes and reasons per topic. Missing editorial metadata stays blank; triage can be cached, and unscored IDs are not all rejected candidates.
 
+A social-platform table counts X, Bluesky, Reddit and other selected posts per topic in the latest seven editions, including manual editions and revisions. Topics with no posts remain visible with zeros. These counts describe stored selections, not platform activity, engagement or incremental discovery yield.
+
 Edition creation time is not worker duration. These table windows are explicit and ignore the Grafana time picker.
 AI mode can use cached work; verified citations are not incremental discovery yield.
 A separate Anthropic history lists the latest 30 admissions in seven days, including unpublished attempts, with run ID, model, purpose, status, settled charge and unresolved hold. Outcome time records settlement or failure; reservation-to-outcome seconds include local work and do not measure provider HTTP latency or edition duration. Pending outcomes stay blank, and uncertain outcomes retain holds. Missing cost stays unknown. Cache reuse and refused admissions create no row; a run ID does not guarantee a published edition.
