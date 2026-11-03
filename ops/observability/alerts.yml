@@ -61,6 +61,17 @@ groups:
           severity: warning
         annotations:
           summary: API 5xx responses exceed five percent with at least twenty requests in five minutes
+      # The offset retains a pre-run observation after BullMQ advances its next time.
+      # Persist observed due times so a missing lifecycle remains visible for 48 hours.
+      - record: news_digest_schedule_observed_due_timestamp_seconds
+        expr: max(news_digest_queue_next_scheduled_timestamp_seconds{job="app-api",queue="digest-generation"} offset 20m <= time() - 900 and news_digest_queue_next_scheduled_timestamp_seconds{job="app-api",queue="digest-generation"} offset 20m > 0) or vector(0)
+      - alert: ScheduledLifecycleMissing
+        expr: max(max_over_time(news_digest_schedule_observed_due_timestamp_seconds[48h])) > on () max(news_digest_schedule_latest_due_timestamp_seconds)
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: Observed digest due time has no matching or newer durable lifecycle record
       - alert: ScheduledEditionUnsettled
         expr: news_digest_schedule_unsettled_seconds > 900
         for: 2m

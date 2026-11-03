@@ -427,3 +427,12 @@ new collector. Missing lifecycle/publication after a schedule advances remains o
 
 Iteration 419 adds a two-minute warning for successful API scrapes missing any
 digest scheduling gauge, with offline hold, recovery and isolation cases.
+
+O9 incremental progress (435): a recording rule preserves observed digest due
+times across scheduler advances for 48 hours. A two-minute warning compares them
+to the latest due durable lifecycle timestamp; future rows cannot mask a missing
+run. Offline rules cover advance, existing record, retention and recovery;
+isolated SQL tests cover state/time boundaries. Pre-advance scrape history is
+required; schedule edits can warn for canceled runs. Publication integrity remains
+separate. Evaluator remote-write persists rule results and alert state in the existing
+local metric store. No app, database or Redis restart and no provider calls.

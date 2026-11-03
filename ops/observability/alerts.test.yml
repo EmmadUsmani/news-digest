@@ -534,3 +534,83 @@ tests:
         alertname: DigestScheduleMetricsMissing
         groupname: app-outcomes
         exp_alerts: []
+  - name: missing lifecycle after advance
+    interval: 30s
+    input_series:
+      - series: 'news_digest_queue_next_scheduled_timestamp_seconds{job="app-api",instance="api",queue="digest-generation"}'
+        values: '300+0x9 90000+0x90'
+      - series: 'news_digest_schedule_latest_due_timestamp_seconds{job="postgres",instance="db"}'
+        values: '0+0x100'
+    alert_rule_test:
+      - eval_time: 21m
+        alertname: ScheduledLifecycleMissing
+        groupname: app-outcomes
+        exp_alerts: []
+      - eval_time: 24m
+        alertname: ScheduledLifecycleMissing
+        groupname: app-outcomes
+        exp_alerts:
+          - exp_labels:
+              severity: warning
+              alertgroup: app-outcomes
+            exp_annotations:
+              summary: Observed digest due time has no matching or newer durable lifecycle record
+  - name: existing lifecycle after advance
+    interval: 30s
+    input_series:
+      - series: 'news_digest_queue_next_scheduled_timestamp_seconds{job="app-api",instance="api",queue="digest-generation"}'
+        values: '300+0x9 90000+0x90'
+      - series: 'news_digest_schedule_latest_due_timestamp_seconds{job="postgres",instance="db"}'
+        values: '300+0x100'
+    alert_rule_test:
+      - eval_time: 21m
+        alertname: ScheduledLifecycleMissing
+        groupname: app-outcomes
+        exp_alerts: []
+      - eval_time: 24m
+        alertname: ScheduledLifecycleMissing
+        groupname: app-outcomes
+        exp_alerts: []
+  - name: missing lifecycle retention and recovery
+    interval: 30s
+    input_series:
+      - series: 'news_digest_schedule_observed_due_timestamp_seconds{job="app-api",instance="api",queue="digest-generation"}'
+        values: '300+0x10 stale'
+      - series: 'news_digest_schedule_latest_due_timestamp_seconds{job="postgres",instance="db"}'
+        values: '0+0x120 300+0x10'
+    alert_rule_test:
+      - eval_time: 1h
+        alertname: ScheduledLifecycleMissing
+        groupname: app-outcomes
+        exp_alerts:
+          - exp_labels:
+              severity: warning
+              alertgroup: app-outcomes
+            exp_annotations:
+              summary: Observed digest due time has no matching or newer durable lifecycle record
+      - eval_time: 1h2m
+        alertname: ScheduledLifecycleMissing
+        groupname: app-outcomes
+        exp_alerts: []
+  - name: invalid zero schedule does not imply a missed run
+    interval: 30s
+    input_series:
+      - series: 'news_digest_queue_next_scheduled_timestamp_seconds{job="app-api",instance="api",queue="digest-generation"}'
+        values: '0+0x100'
+      - series: 'news_digest_schedule_latest_due_timestamp_seconds{job="postgres",instance="db"}'
+        values: '0+0x100'
+    alert_rule_test:
+      - eval_time: 30m
+        alertname: ScheduledLifecycleMissing
+        groupname: app-outcomes
+        exp_alerts: []
+  - name: missing lifecycle metrics remain unknown
+    interval: 30s
+    input_series:
+      - series: 'news_digest_schedule_observed_due_timestamp_seconds{job="app-api",instance="api",queue="digest-generation"}'
+        values: '300+0x100'
+    alert_rule_test:
+      - eval_time: 30m
+        alertname: ScheduledLifecycleMissing
+        groupname: app-outcomes
+        exp_alerts: []

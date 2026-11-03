@@ -478,9 +478,6 @@ and a 64 MiB Go memory target within its existing 112 MiB systemd ceiling. Its e
 is reset on startup so an older, larger saved cache cannot defeat the reduced
 budget; stored metric samples are preserved.
 
-Detection of entirely missing schedule lifecycle records is still
-pending in the [observability plan](../../observability-plan.md).
-
 The Postgres exporter reads only schedule time and lifecycle state to report the
 latest due record within 48 hours. Pending, running, retrying or failed records
 more than fifteen minutes overdue raise a warning after two minutes. Success
@@ -503,9 +500,8 @@ provider prompts, responses and keys are excluded. No external notification is s
 The daily digest queue also warns after two minutes with no registered recurring
 schedule or while paused. This uses the API's existing queue metrics and
 assumes the owner's daily schedule should remain enabled. Other queues and worker
-metrics do not trigger it. A missing lifecycle after a registered schedule
-advances still requires separate publication checks; this rule detects a lost
-scheduler, not every missing edition. Scrape failures have their own alert.
+metrics do not trigger it. This rule detects a lost scheduler; the lifecycle
+check below covers observed due times even after the scheduler advances. Scrape failures have their own alert.
 
 A registered digest scheduler also warns when its next-run timestamp remains
 more than fifteen minutes in the past for two minutes. Advancing that timestamp
@@ -518,3 +514,22 @@ A successful API scrape with any digest scheduling gauge missing (scheduler
 count, paused state or next-run timestamp) warns after two minutes. This catches
 partial exporter failures that the scrape-down and value-based rules cannot
 see. Recovery clears the warning; a failed scrape uses the scrape-down alert.
+
+A separate lifecycle warning compares observed digest due times with the latest
+due database lifecycle record, regardless of its state. The evaluator looks at
+the scheduler timestamp from twenty minutes earlier, allowing fifteen minutes
+for the run to register before recording it as due. It retains the latest such
+observation in the local metric store for 48 hours and warns after a further two minutes if no matching
+or newer due lifecycle exists. Future database rows cannot satisfy this check;
+an unresolved existing row uses the unsettled-run warning above.
+
+This depends on collecting the next-run timestamp before it advances. New
+installations or gaps covering that observation can miss a run; missing database
+metrics do not infer missing records. Changing or canceling a schedule after its
+old timestamp was observed can warn for that canceled run until a newer durable
+run exists or the observation ages out. Treat the warning as a reason to inspect
+the schedule and run history. A lifecycle row alone does not prove publication,
+AI editing or content quality. The check reads metrics and database aggregates;
+it never enqueues a job or calls a provider. The evaluator writes recording-rule
+results and alert state to the existing loopback metric store, within its
+existing retention and resource limits.

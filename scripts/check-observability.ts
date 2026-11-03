@@ -12,6 +12,13 @@ import { testEnvironment } from './test-suites';
 
 async function main() {
   if (process.argv.includes('--verify-alerts')) {
+    assert.match(
+      execFileSync('systemctl', ['cat', 'obs-alerts.service'], {
+        encoding: 'utf8',
+      }),
+      /-remoteWrite.url=http:\/\/127\.0\.0\.1:8428\/metrics(?: |$)/m,
+      'Recording rules require persistence in the local metric store',
+    );
     execFileSync(
       '/opt/news-digest-observability/vmalert-tool-prod',
       ['unittest', '-files=alerts.test.yml'],
@@ -39,6 +46,10 @@ async function main() {
     assert.match(
       exporterMetrics,
       /^news_digest_schedule_unsettled_seconds(?:\{[^\n]*\})? \d/m,
+    );
+    assert.match(
+      exporterMetrics,
+      /^news_digest_schedule_latest_due_timestamp_seconds(?:\{[^\n]*\})? \d/m,
     );
     const commitments = [
       ...exporterMetrics.matchAll(
@@ -81,6 +92,8 @@ async function main() {
       'RecentJobFailures',
       'ApiServerErrorRate',
       'ScheduledEditionUnsettled',
+      'ScheduledLifecycleMissing',
+      'news_digest_schedule_observed_due_timestamp_seconds',
       'ProviderSpendNearCap',
       'DigestScheduleUnavailable',
       'DigestScheduleStalled',
@@ -91,6 +104,16 @@ async function main() {
       assert.equal(rule.health, 'ok');
       assert.ok(!rule.lastError);
     }
+    const recordedResponse = await fetch(
+      'http://127.0.0.1:8428/metrics/api/v1/query?query=news_digest_schedule_observed_due_timestamp_seconds&nocache=1',
+    );
+    assert.equal(recordedResponse.ok, true);
+    const recorded = await recordedResponse.json();
+    assert.equal(recorded.status, 'success');
+    assert.ok(
+      recorded.data.result.length > 0,
+      'Due-time recording rule was not persisted',
+    );
     const unitMetrics = await fetch('http://127.0.0.1:9100/metrics');
     assert.equal(unitMetrics.ok, true);
     const snapshot = await unitMetrics.text();

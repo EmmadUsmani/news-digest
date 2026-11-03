@@ -6,7 +6,13 @@ import { database } from '../src/libs/db/connections';
 
 void test('schedule alert aggregate respects due time, states and newer success', async () => {
   const pool = database();
+  const client = await pool.connect();
   try {
+    await client.query('BEGIN');
+    const clock = await client.query(
+      'SELECT extract(epoch FROM now()) AS seconds',
+    );
+    const now = Number(clock.rows[0].seconds);
     const queryFile = readFileSync(
       'ops/observability/product-queries.yml',
       'utf8',
@@ -15,29 +21,36 @@ void test('schedule alert aggregate respects due time, states and newer success'
       .split('  query: |\n')[1]
       .split('  metrics:')[0]
       .trim();
-    for (const [rows, expected] of [
-      ["(now() + interval '1 hour', 'pending')", 0],
-      ["(now() - interval '20 minutes', 'pending')", 1200],
-      ["(now() - interval '20 minutes', 'running')", 1200],
-      ["(now() - interval '20 minutes', 'retrying')", 1200],
-      ["(now() - interval '20 minutes', 'failed')", 1200],
-      ["(now() - interval '20 minutes', 'succeeded')", 0],
-      ["(now() - interval '49 hours', 'failed')", 0],
+    for (const [rows, expected, latestAge] of [
+      ["(now() + interval '1 hour', 'pending')", 0, null],
+      ["(now() - interval '20 minutes', 'pending')", 1200, 1200],
+      ["(now() - interval '20 minutes', 'running')", 1200, 1200],
+      ["(now() - interval '20 minutes', 'retrying')", 1200, 1200],
+      ["(now() - interval '20 minutes', 'failed')", 1200, 1200],
+      ["(now() - interval '20 minutes', 'succeeded')", 0, 1200],
+      ["(now() - interval '49 hours', 'failed')", 0, 176400],
       [
         "(now() - interval '20 minutes', 'pending'), (now() + interval '1 hour', 'pending')",
+        1200,
         1200,
       ],
       [
         "(now() - interval '25 hours', 'failed'), (now() - interval '20 minutes', 'succeeded')",
         0,
+        1200,
       ],
     ] as const) {
-      const result = await pool.query(
+      const result = await client.query(
         `WITH scheduled_ai_budget_days(scheduled_at, state) AS (VALUES ${rows}) ${query}`,
       );
       assert.equal(Number(result.rows[0].unsettled_seconds), expected);
+      const timestamp = Number(result.rows[0].latest_due_timestamp_seconds);
+      if (latestAge === null) assert.equal(timestamp, 0);
+      else assert.ok(Math.abs(timestamp - (now - latestAge)) < 0.00001);
     }
   } finally {
+    await client.query('ROLLBACK');
+    client.release();
     await pool.end();
   }
 });
