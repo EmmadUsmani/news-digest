@@ -257,3 +257,10 @@ O1 incremental progress (352): reserve lifecycle transactions log committed
 observations and applied/unchanged fenced transitions, including retries and
 publication reconciliation. Rollbacks produce no lifecycle entry; edition
 content and outcome reasons are omitted. Edition steps remain before O1 completion.
+
+O1 incremental progress (353): edition attempts now log start, deduplicated overall
+and topic stages, returned publication/reuse and failure with elapsed time.
+Topic names, content and exception messages are omitted. Offline tests cover
+repeated snapshots, progress callbacks, reuse and failures; the runtime checker
+reports observed edition events without triggering a paid run. Final O1 scope
+verification remains before ticking completion.

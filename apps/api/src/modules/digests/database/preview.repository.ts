@@ -16,6 +16,7 @@ import {
   selectTopicPosts,
   selectTopicRedditPosts,
 } from '../../social/public/selection';
+import { observeEdition } from '../adapters/edition-logging';
 import { editionEventMatcher } from '../adapters/event-grouping';
 import { parallelTopics } from '../application/parallel-topics';
 import { editorialShortlist } from '../domain/editorial-shortlist';
@@ -81,7 +82,12 @@ export class PostgresPreviewRepository
   ): Promise<DigestPreview> {
     const runId = crypto.randomUUID();
     return withEditionRun(scheduledKey, runId, () =>
-      this.generateEdition(start, end, runId, scheduledKey, reportProgress),
+      observeEdition(
+        runId,
+        (report) =>
+          this.generateEdition(start, end, runId, scheduledKey, report),
+        reportProgress,
+      ),
     );
   }
   private async generateEdition(

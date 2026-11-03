@@ -72,3 +72,11 @@ attempt and requested state. `applied` means a fenced transition changed a row;
 `unchanged` means no eligible row matched. Registration reports `observed` and
 the stored state because the first registration wins. Reads are silent, and
 edition content and outcome explanations are omitted.
+
+Edition attempts log their run ID, overall stages and per-topic stage transitions
+using topic IDs. Repeated progress snapshots do not repeat unchanged stages.
+A finish identifies the returned edition and distinguishes publication from reuse;
+its duration includes database locking and cleanup, but excludes queue wait.
+Failures identify the last observed overall stage without exception text or
+content. A publishing-stage entry means publication is starting, not that its
+transaction committed. Existing job progress reporting still runs normally.

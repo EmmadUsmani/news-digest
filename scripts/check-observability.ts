@@ -135,6 +135,17 @@ async function main() {
           typeof line.event === 'string' &&
           line.event.startsWith('budget.'),
       ).length,
+      editionEventsInJournalSample: Object.fromEntries(
+        [
+          'edition.start',
+          'edition.step',
+          'edition.finish',
+          'edition.failure',
+        ].map((event) => [
+          event,
+          logs.filter((line) => line.event === event).length,
+        ]),
+      ),
       resources,
       extraServices: 0,
       extraLogStoreBytes: 0,

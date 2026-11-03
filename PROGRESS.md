@@ -4,16 +4,6 @@ Archived: [iteration 338](docs/progress-archive/2026-11-03-iteration-338.md), [i
 
 Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md), [283](docs/progress-archive/2026-11-03-iteration-283.md), [284](docs/progress-archive/2026-11-03-iteration-284.md).
 
-## 2026-11-03: iteration 339 — preserve multiword studio identities
-
-- Started clean on main; no leftover work. Services/health healthy, 32 sources without current errors, no failed digest jobs; Nov 3 scheduled evidence still pending.
-- Default-off grouping now matches full multiword proper studio names, preserving suffix/prefix distinctions instead of rejecting all multiword names. Synthetic regressions cover matching title/excerpt identities, collisions, multiple closures and uncertainty/history.
-- Initial targeted run caught a recorded title-case `As` connective regression; preserved the existing connective handling. Targeted suite then passed 4/4; recorded benchmark remains 13/32 positives and zero labeled false merges. No independent-label or real-world recall claim.
-- Updated TASKS/RANKING; archived iteration 325 to bound PROGRESS. No source/schema/UI changes, paid calls or Reddit requests; production grouping remains off.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (209 unit/172 integration), `pnpm build`, `git diff --check` passed.
-- API/worker restarted; all four services active, health database/Redis OK, app/docs/db HTTP 200. Retained real edition has four topics, 20 stories and 10 X posts.
-- Next: scheduled evidence/acks take priority, then eligible social activation; independent grouping evidence remains open.
-
 ## 2026-11-03: iteration 340 — explicit studio closure paraphrases
 
 - Started clean on main; no leftover work. Four app services/health healthy, 32 sources without current errors; no failed digest runs. Two retained ingestion failures have recovered sources. Nov 3 15:00 UTC evidence remains pending.
@@ -144,3 +134,13 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Verification: targeted test 1/1; `pnpm format`, `pnpm lint:fix`, `pnpm check` (224 unit/172 integration), `pnpm build`, handbook 09 check and `git diff --check` passed. Corrected a generic typing error and archived-entry formatting caught during checks.
 - Restarted API/worker for runtime change; health DB/Redis OK, docs/db HTTP 200. Observability check passed with live reserve lifecycle entries; API/worker sampled 47/40 MiB and startup-average CPU 2.1/1.6%. Retained real edition: four topics/20 stories/10 posts.
 - Next: scheduled evidence/acks first; otherwise O1 edition-step instrumentation while activation stays gated.
+
+## 2026-11-03: iteration 353 — edition pipeline observation logs
+
+- Started clean on main; no leftover work. Four app services/health green, all 32 sources returning data without current errors, no failed digest jobs; scheduled evidence remains pending.
+- Advanced background O1: edition start, deduplicated overall/topic stages, returned publication/reuse and failure log run/topic/edition IDs and elapsed time. Content, names and exception messages omitted; progress callbacks preserved.
+- Offline coverage verifies repeated snapshots, callback delivery/failure, reuse and generation failures. No paid calls or Reddit requests; production content/cost gates unchanged.
+- Updated handbook, plan, runtime checker and TASKS; archived iteration 339. Final O1 scope verification remains before completion; no new services/storage.
+- Verification: focused logging test 1/1; `pnpm format`, `pnpm lint:fix`, `pnpm check` (225 unit/172 integration), `pnpm build`, handbook 09 check and `git diff --check` passed.
+- Restarted API/worker for runtime code; four services active, health DB/Redis OK, docs/db HTTP 200. Observability checker passed request/job checks; zero live edition events yet (offline coverage only). Retained edition: four topics/20 stories/10 posts.
+- Next: scheduled evidence/acks first; otherwise final O1 scope verification before advancing observability. Production activation remains gated.
