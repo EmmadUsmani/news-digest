@@ -194,6 +194,19 @@ export async function checkGrafana() {
         const result = await response.json();
         assert.equal(result.status, 'success', panel.title);
         if (result.data.result.length > 0) populated++;
+        if (dashboard.uid === 'nd-agent') {
+          assert.equal(result.data.result.length, 1, panel.title);
+          const sample = result.data.result[0];
+          const value = Number(sample.value[1]);
+          assert.ok(Number.isFinite(value) && value >= 0, panel.title);
+          if (panel.id === 6) {
+            assert.ok(value < 120, 'Unit snapshot must be fresh');
+          } else {
+            assert.equal(sample.metric.unit, 'news-digest-agent.service');
+            assert.equal(sample.metric.scope, 'user');
+            if (panel.id === 1) assert.equal(value, 1);
+          }
+        }
         if (dashboard.uid === 'nd-product' && panel.id === 15) {
           assert.equal(
             result.data.result.length,
@@ -813,6 +826,20 @@ export async function checkGrafana() {
     );
     await page.screenshot({
       path: 'docs/screenshots/grafana-errors-mobile.png',
+    });
+    await page.goto(`${base}/d/nd-agent?kiosk`, { waitUntil: 'networkidle' });
+    await page
+      .getByRole('heading', { name: 'Supervisor active', exact: true })
+      .waitFor();
+    await page.locator('canvas').first().waitFor({ state: 'visible' });
+    assert.equal(
+      await page
+        .locator('[data-testid="data-testid Panel status error"]')
+        .count(),
+      0,
+    );
+    await page.screenshot({
+      path: 'docs/screenshots/grafana-agent-mobile.png',
     });
   } finally {
     await browser.close();

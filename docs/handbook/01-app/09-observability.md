@@ -229,7 +229,7 @@ details remain in the jobs browser.
 ## Grafana dashboards
 
 Open [/grafana/](/grafana/) and choose **Dashboards → News Digest** for Host,
-Services, App runtime, HTTP, Jobs, Errors and logs, Product, Database and Redis. The operational dashboards use the local metrics store; Host shows CPU,
+Services, App runtime, HTTP, Jobs, Errors and logs, Product, Database, Redis and Agent supervisor. The operational dashboards use the local metrics store; Host shows CPU,
 memory, disk and network, Services shows unit and Node health, App runtime shows
 API, worker, docs and schema resident memory, used/allocated V8 heap, open file descriptors and
 GC pause time per second, CPU use, active handles, libuv requests and resources,
@@ -319,8 +319,16 @@ Verify with `pnpm exec tsx scripts/check-observability.ts --verify-grafana
 panel query responses and populated dashboards, renders desktop/mobile views
 with Playwright and saves screenshots in `docs/screenshots/`. No paid calls
 or content jobs are triggered. Reader privileges and denied access to cache/article
-text are also checked. Redis and agent dashboards remain pending their data
-connections and later observability work; Database top-query timing is also pending.
+text are also checked. Database top-query timing and per-iteration agent
+measurements remain pending.
+
+Agent supervisor shows the build unit's active state, cgroup memory, CPU,
+task count and automatic restarts since activation, using existing unit samples.
+The cgroup includes child processes, so builds and tests contribute to these
+measurements. Active state does not prove an iteration is making progress;
+automatic restarts do not count completed iterations. The shared unit snapshot
+age shows collector freshness. No iteration, token, quota or commit counters
+are collected, and this dashboard does not read Codex transcripts.
 
 ## Redis metrics
 
