@@ -1717,3 +1717,25 @@ plain excerpts and the absence of invented X citations. Tests use no live HTTP.
 **Status: live.** Migration 052 applied; the normal worker stored 25 articles
 at 20:41:07 UTC, with no source error. No paid call or edition was triggered.
 All 35 sources are healthy.
+
+## Iteration 479 — Yardbarker NBA and rejected feed candidates
+
+Pre-change rolling-day articles/healthy sources: Tech/AI 327/6, NBA 156/6,
+Gaming 280/18, World 224/5. NBA remains weakest for articles; World has no
+rolling-day verified X posts. No extra paid discovery or edition was requested.
+
+`https://www.yardbarker.com/rss/sport/3` returned HTTP 200 with 20 dated NBA
+entries, including recent reports. Migration 053 connects **Yardbarker NBA**
+to the original NBA topic if it still exists. This feed includes syndication,
+commentary and speculation; its publisher count does not establish independent
+reporting. Recorded fixtures preserve bylines, offset dates, images and links;
+tests make no HTTP requests. **Status: live.** Normal worker collection stored
+20 articles at 20:46:53 UTC with no error. NBA rolling-day coverage rose to
+166 articles/seven healthy sources; all 36 sources are healthy.
+
+Bounded rejected candidates: NBA `/news/feed` and Sports Illustrated `/feed/nba`
+returned 404; TalkBasket `/feed` returned 403 (no bypass). Sporting News
+`/us/rss/nba` returned 20 entries but article URLs had a trailing `>`; do not
+connect malformed links. Yardbarker `/rss/sport/nba` returned stale, off-topic
+other-sport entries; only the numeric NBA feed above is used. Hoops Rumors was
+already connected; its successful probe adds no new source.

@@ -26,6 +26,7 @@ void test('recorded RSS and Atom normalize real headlines, dates and safe links'
     'realgm.xml',
     'sbnation-nba.xml',
     'basketball-insiders.xml',
+    'yardbarker-nba.xml',
     'destructoid.xml',
     'al-jazeera.xml',
     'aftermath.xml',
@@ -585,6 +586,39 @@ void test('recorded Basketball Insiders feed preserves authored game reporting a
         item.excerpt.length > 0 &&
         item.excerpt.length <= 1500 &&
         !item.excerpt.includes('<p>'),
+    ),
+  );
+  assert.ok(items.every((item) => item.xLinks.length === 0));
+});
+
+void test('recorded Yardbarker NBA feed preserves bylines, offset dates and syndicated links', async () => {
+  const items = parseFeed(await fixture('yardbarker-nba.xml'));
+  assert.equal(items.length, 2);
+  assert.equal(
+    items[0].title,
+    'Zero doubt: Russell Westbrook feted by Thunder after legendary 18-year career',
+  );
+  assert.deepEqual(
+    items.map((item) => item.author),
+    ['Andrew Wright, Yardbarker', 'Ty Bronicel, Yardbarker'],
+  );
+  assert.deepEqual(
+    items.map((item) => item.publishedAt),
+    ['2026-11-02T22:00:38.000Z', '2026-11-02T17:36:18.000Z'],
+  );
+  assert.ok(items[0].excerpt.includes('Oklahoma City'));
+  assert.ok(
+    items.every(
+      (item) =>
+        new URL(item.url).hostname === 'www.yardbarker.com' &&
+        new URL(item.url).pathname.startsWith('/nba/articles/') &&
+        item.excerpt.length > 0 &&
+        item.excerpt.length <= 1500,
+    ),
+  );
+  assert.ok(
+    items.every((item) =>
+      item.imageUrl?.startsWith('http://www.yardbarker.com/media/'),
     ),
   );
   assert.ok(items.every((item) => item.xLinks.length === 0));

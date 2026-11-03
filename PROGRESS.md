@@ -148,3 +148,14 @@
 - Updated SOURCES/TASKS and affected handbook page; shortened completed task marker and archived iterations 463–464 to keep orientation files bounded. No table/relationship or UI change.
 - Verification: two targeted fixture tests, pnpm check (263 unit/179 isolated integration), pnpm build, handbook check (17 pages/14 unchanged diagrams/25 assigned tables), pnpm format, pnpm lint:fix and git diff --check passed.
 - API/worker/docs/schema active; pnpm obs health --check passed, root HTTP 200, zero alerts/dangling volumes. Next: Nov 4 scheduled speed/NBA fallback and open-X/Bluesky selection evidence.
+
+## 2026-11-03: iteration 479 — add NBA syndication coverage
+
+- Started clean on main; no leftovers. Zero alerts; priority provider/social evidence still awaits Nov 4. Grouping stays parked. No paid calls, new editions or Reddit requests.
+- Item 10 baseline articles/healthy sources: Tech 327/6, NBA 156/6, Gaming 280/18, World 224/5. Added Yardbarker NBA numeric public RSS via migration 053 without recreating a deleted topic.
+- Feed returned 20 dated NBA entries; normal worker stored all 20 at 20:46:53 UTC without error. NBA rolling-day coverage reached 166 articles/seven healthy sources; all 36 sources healthy. Syndication/commentary is not independent reporting.
+- Two recorded entries pin bylines, EST-to-UTC dates, excerpts, media links and no invented X citations. Tests never use live HTTP. Documented rejected candidates: NBA/SI 404, TalkBasket 403, Sporting News malformed links, named Yardbarker path stale/off-topic. No bypass.
+- Updated SOURCES, TASKS and affected handbook prose; no diagrams, tables/relationships or UI changed.
+- Verification: two targeted fixture tests; pnpm check passed (263 unit/180 isolated integration, typecheck/lint/format/boundaries); pnpm build, handbook check (17 pages/14 unchanged diagrams/25 assigned tables), pnpm format, pnpm lint:fix and git diff --check passed. Zero dangling volumes.
+- Migration applied and worker restarted for source configuration. API/worker/docs/schema active; pnpm obs health --check passed, root HTTP 200. No further restart under STEERING 22: running application code unchanged.
+- Next: Nov 4 scheduled latency/NBA fallback, open-X and Bluesky selections/screenshots; avoid extra paid verification.

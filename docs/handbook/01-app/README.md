@@ -33,10 +33,11 @@ flowchart LR
 - **AI is optional and capped.** If the AI budget runs out, the edition still
   publishes using non-AI ranking, and the page says so.
 - **NBA reporting** includes CBS, Yahoo, Hoops Rumors, RealGM Basketball,
-  SB Nation NBA and Basketball Insiders. SB Nation also supplies embedded X
+  SB Nation NBA, Basketball Insiders and Yardbarker NBA. SB Nation also supplies embedded X
   highlight links for free discovery; posts still need official embed verification.
   RealGM also carries other basketball leagues; topic ranking filters relevance.
-  Multiple publishers may repeat the same original report.
+  Yardbarker includes syndicated reports. Multiple publishers may repeat the
+  same original report.
 - **Every external call goes through a port.** Feeds, AI, X and queues sit
   behind interfaces, so tests use fakes and never touch live services.
 

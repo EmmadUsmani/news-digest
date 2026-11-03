@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
+  <channel>
+    <title>Yardbarker: NBA</title>
+    <link>http://www.yardbarker.com/nba</link>
+    <description>Recent articles about NBA</description>
+    <language>en-us</language>
+    <item>
+      <title>Zero doubt: Russell Westbrook feted by Thunder after legendary 18-year career</title>
+      <description>There is no denying that Russell Westbrook is one of the greatest players in Oklahoma City Thunder history.</description>
+      <pubDate>02 Nov 2026 17:00:38 -0500</pubDate>
+      <link>https://www.yardbarker.com/nba/articles/zero_doubt_russell_westbrook_feted_by_thunder_after_legendary_18_year_career/s1_13132_44506881</link>
+      <guid>https://www.yardbarker.com/nba/articles/zero_doubt_russell_westbrook_feted_by_thunder_after_legendary_18_year_career/s1_13132_44506881</guid>
+      <author>Andrew Wright, Yardbarker</author>
+      <media:content url="http://www.yardbarker.com/media/6/d/6de7dbb35ccb905b9bdb3b4bfbfb7f9b71224fd5/thumb_16x9/russell-westbrook-gets-deserved-honor-thunder.jpg?v=1">
+        <media:credit> USA TODAY Sports </media:credit>
+        <media:title> Oklahoma City Thunder guard Russell Westbrook. </media:title>
+      </media:content>
+      <category>NBA</category>
+      <category>Oklahoma City Thunder</category>
+      <category>Russell Westbrook</category>
+    </item>
+    <item>
+      <title>Kings' Darius Acuff Jr. ties NBA rookie record, passes NBA legend amid historic stretch</title>
+      <description>Acuff made history for the second game in a row.</description>
+      <pubDate>02 Nov 2026 12:36:18 -0500</pubDate>
+      <link>https://www.yardbarker.com/nba/articles/kings_darius_acuff_jr_ties_nba_rookie_record_passes_nba_legend_amid_historic_stretch/s1_13132_44499661</link>
+      <guid>https://www.yardbarker.com/nba/articles/kings_darius_acuff_jr_ties_nba_rookie_record_passes_nba_legend_amid_historic_stretch/s1_13132_44499661</guid>
+      <author>Ty Bronicel, Yardbarker</author>
+      <media:content url="http://www.yardbarker.com/media/c/7/c76cdb8ce7db00a25527f00fca8bf5ed4ac90433/thumb_16x9/kings-darius-acuff-jr-ties-nba-rookie-record.jpg?v=1">
+        <media:credit> IMAGN IMAGES via Reuters Connect </media:credit>
+        <media:title> Sacramento Kings guard Darius Acuff Jr. </media:title>
+      </media:content>
+      <category>NBA</category>
+      <category>Sacramento Kings</category>
+      <category>Darius Acuff</category>
+    </item>
+    </channel>
+</rss>
