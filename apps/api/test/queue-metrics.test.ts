@@ -11,6 +11,9 @@ void test('queue scrapes refresh retained state, reject failed scrapes and recov
   let active = 2;
   const queue = {
     name: 'ingestion',
+    async getJobs() {
+      return [];
+    },
     async getJobCounts(...states: string[]) {
       assert.deepEqual(states, [
         'waiting',
@@ -63,6 +66,9 @@ void test('next scheduled time reads only earliest digest/social schedule, remov
   let fail = false;
   const queue = {
     name: 'digest-generation',
+    async getJobs() {
+      return [];
+    },
     async getJobCounts() {
       return {};
     },
@@ -105,5 +111,80 @@ void test('next scheduled time reads only earliest digest/social schedule, remov
   assert.match(
     await registry.metrics(),
     /news_digest_queue_next_scheduled_timestamp_seconds\{queue="digest-generation"\} 1793804400/,
+  );
+});
+
+void test('latest completed timing is bounded, excludes queue wait and clears invalid or removed jobs', async () => {
+  const registry = new Registry();
+  let job: { processedOn?: number; finishedOn?: number } | undefined = {
+    processedOn: 10000,
+    finishedOn: 12500,
+  };
+  let fail = false;
+  const queue = {
+    name: 'digest-generation',
+    async getJobCounts() {
+      return {};
+    },
+    async getJobSchedulersCount() {
+      return 0;
+    },
+    async getJobSchedulers() {
+      return [];
+    },
+    async isPaused() {
+      return false;
+    },
+    async getJobs(types: string[], start: number, end: number, asc: boolean) {
+      assert.deepEqual([types, start, end, asc], [['completed'], 0, 0, false]);
+      if (fail) throw new Error('offline');
+      return job ? [job] : [];
+    },
+  };
+  startQueueMetrics(registry, [
+    queue,
+    {
+      ...queue,
+      name: 'ingestion',
+      async getJobs() {
+        throw new Error('must not read ingestion jobs');
+      },
+    },
+  ]);
+  let metrics = await registry.metrics();
+  assert.match(
+    metrics,
+    /news_digest_queue_latest_completed_duration_seconds\{queue="digest-generation"\} 2.5/,
+  );
+  assert.match(
+    metrics,
+    /news_digest_queue_latest_completed_finished_timestamp_seconds\{queue="digest-generation"\} 12.5/,
+  );
+  for (job of [
+    undefined,
+    {},
+    { processedOn: 10000 },
+    { processedOn: NaN, finishedOn: 12000 },
+    { processedOn: 10000, finishedOn: Infinity },
+    { processedOn: 0, finishedOn: 1000 },
+    { processedOn: 12000, finishedOn: 10000 },
+  ]) {
+    assert.doesNotMatch(
+      await registry.metrics(),
+      /news_digest_queue_latest_completed_\w+_seconds\{/,
+    );
+  }
+  fail = true;
+  await assert.rejects(registry.metrics(), /offline/);
+  fail = false;
+  job = { processedOn: 20000, finishedOn: 20000 };
+  metrics = await registry.metrics();
+  assert.match(
+    metrics,
+    /news_digest_queue_latest_completed_duration_seconds\{queue="digest-generation"\} 0/,
+  );
+  assert.match(
+    metrics,
+    /news_digest_queue_latest_completed_finished_timestamp_seconds\{queue="digest-generation"\} 20/,
   );
 });

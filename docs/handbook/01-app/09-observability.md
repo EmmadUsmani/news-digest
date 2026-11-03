@@ -241,7 +241,7 @@ include sockets and servers; libuv requests are pending native work, not HTTP
 requests. Resource counts include timers and other asynchronous resources. Allocated heap is not a hard limit; descriptors are
 process-wide and do not measure database connections. HTTP shows
 request and external-attempt rates and latency, and Jobs shows retained queue
-state, schedules, the next registered digest/social run in UTC and processor attempts. Dashboard descriptions explain what
+state, schedules, the next registered digest/social run in UTC and processor attempts. Latest retained completed digest/social jobs show worker duration and completion time, including manual and skipped/no-op runs. Duration excludes queue wait and includes local work; it does not identify the scheduled edition or measure provider latency. Missing or invalid timings stay unknown. Dashboard descriptions explain what
 the measurements count. Empty panels mean no observed samples, rather than
 zero failures. Retained job counts are snapshots, not lifetime totals.
 Errors and logs brings together API 5xx, external HTTP failures, failed processor

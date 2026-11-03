@@ -225,6 +225,92 @@
         "justifyMode": "auto",
         "orientation": "horizontal"
       }
+    },
+    {
+      "id": 7,
+      "title": "Latest completed run duration",
+      "description": "Latest retained completed digest/social job, including manual runs and skipped/no-op jobs. Excludes queue wait; includes local work. Not necessarily the scheduled edition or AI/provider latency. Completion time shows freshness; absent/invalid records stay unknown.",
+      "type": "stat",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 29,
+        "w": 24,
+        "h": 5
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "news_digest_queue_latest_completed_duration_seconds",
+          "instant": true,
+          "legendFormat": "{{queue}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "noValue": "No completed timing observed"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name",
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal"
+      }
+    },
+    {
+      "id": 8,
+      "title": "Latest completed run finished (UTC)",
+      "description": "Latest retained completed digest/social job, including manual runs and skipped/no-op jobs. Excludes queue wait; includes local work. Not necessarily the scheduled edition or AI/provider latency. Completion time shows freshness; absent/invalid records stay unknown.",
+      "type": "stat",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "local-metrics"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 34,
+        "w": 24,
+        "h": 5
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "news_digest_queue_latest_completed_finished_timestamp_seconds * 1000",
+          "instant": true,
+          "legendFormat": "{{queue}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "dateTimeAsIso",
+          "noValue": "No completed timing observed"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name",
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal"
+      }
     }
   ],
   "links": [

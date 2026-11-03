@@ -163,9 +163,47 @@ export async function checkGrafana() {
     const page = await browser.newPage({
       viewport: { width: 1440, height: 1100 },
     });
+    async function captureJobsTiming() {
+      await page.goto(`${base}/d/nd-jobs?orgId=1&kiosk`, {
+        waitUntil: 'networkidle',
+      });
+      await page.setViewportSize({ width: 390, height: 1000 });
+      for (let attempt = 0; attempt < 18; attempt++) {
+        if (
+          await page
+            .getByText('Latest completed run duration', { exact: true })
+            .count()
+        )
+          break;
+        await page.mouse.wheel(0, 500);
+        await page.waitForTimeout(300);
+      }
+      await page
+        .getByText('Latest completed run duration', { exact: true })
+        .waitFor();
+      await page
+        .getByText('Latest completed run duration', { exact: true })
+        .evaluate((element) => element.scrollIntoView({ block: 'start' }));
+      await page.mouse.wheel(0, 500);
+      await page.waitForTimeout(2500);
+      assert.equal(
+        await page
+          .locator('[data-testid="data-testid Panel status error"]')
+          .count(),
+        0,
+      );
+      await page.screenshot({
+        path: 'docs/screenshots/grafana-jobs-timing-mobile.png',
+      });
+    }
     for (const file of readdirSync(
       'ops/observability/grafana/dashboards',
-    ).filter((file) => file.endsWith('.json'))) {
+    ).filter(
+      (file) =>
+        file.endsWith('.json') &&
+        (!process.argv.includes('--grafana-jobs-only') ||
+          file === 'nd-jobs.json'),
+    )) {
       const dashboard = JSON.parse(
         readFileSync(`ops/observability/grafana/dashboards/${file}`, 'utf8'),
       );
@@ -214,6 +252,35 @@ export async function checkGrafana() {
               Number(sample.value[1]),
               Date.parse(next),
               `${queue}: dashboard/status schedule mismatch`,
+            );
+          }
+        }
+        if (dashboard.uid === 'nd-jobs' && [7, 8].includes(panel.id)) {
+          const status = await (
+            await fetch('http://127.0.0.1:8000/api/status')
+          ).json();
+          for (const sample of result.data.result) {
+            const runs =
+              status.queues.find(
+                (q: { name: string }) => q.name === sample.metric.queue,
+              )?.runs ?? [];
+            const latest = runs
+              .filter(
+                (r: { state: string; finishedAt: string | null }) =>
+                  r.state === 'completed' && r.finishedAt,
+              )
+              .sort((a: { finishedAt: string }, b: { finishedAt: string }) =>
+                b.finishedAt.localeCompare(a.finishedAt),
+              )[0];
+            assert.ok(
+              latest,
+              'completed metric needs a retained completed job',
+            );
+            assert.equal(
+              Number(sample.value[1]),
+              panel.id === 7
+                ? latest.durationMs / 1000
+                : Date.parse(latest.finishedAt),
             );
           }
         }
@@ -313,7 +380,7 @@ export async function checkGrafana() {
         height:
           dashboard.uid === 'nd-product'
             ? 4700
-            : ['nd-runtime', 'nd-redis'].includes(dashboard.uid)
+            : ['nd-runtime', 'nd-redis', 'nd-jobs'].includes(dashboard.uid)
               ? 2100
               : 1100,
       });
@@ -390,6 +457,14 @@ export async function checkGrafana() {
         panels: dashboard.panels.length,
         populated,
       });
+    }
+    if (process.argv.includes('--grafana-jobs-only')) {
+      await captureJobsTiming();
+      return {
+        dashboards: checked,
+        viewer: true,
+        memoryMiB: Math.round(Number(fields.MemoryCurrent) / 1048576),
+      };
     }
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(`${base}/d/nd-product?kiosk`, { waitUntil: 'networkidle' });
@@ -883,6 +958,7 @@ export async function checkGrafana() {
     await page.screenshot({
       path: 'docs/screenshots/grafana-agent-mobile.png',
     });
+    await captureJobsTiming();
   } finally {
     await browser.close();
   }

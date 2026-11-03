@@ -207,6 +207,8 @@ only when its check passes.
 
 - Iteration 377: Product adds latest-edition story/post selection counts, stored triage/unscored coverage, modes and reasons per topic. Missing metadata remains blank; no fresh-call or rejected-candidate inference. Existing restricted grants only.
 
+  - Iteration 394: Jobs adds latest retained completed digest/social worker duration and UTC finish time, including manual/skipped jobs; bounded completed-only reads and queue labels, no job IDs. Not scheduled-edition attribution or provider latency.
+
 - [ ] **O7 Database and Redis.**
   - Iteration 374: Redis collector and O6 Redis dashboard shipped. Pinned/checksummed redis_exporter v1.96.0, loopback INFO-only, 30-second scraping, 32 MB/2% CPU ceiling; no key scanning, app or Redis restart. Eight panels and desktop/mobile checked. Postgres exporter/top queries remain open.
   - **Scope:** postgres_exporter, `pg_stat_statements`, slow-query log and

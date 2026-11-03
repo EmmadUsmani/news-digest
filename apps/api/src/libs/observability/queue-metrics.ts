@@ -17,6 +17,12 @@ const names = new Set([
 interface QueueReader {
   name: string;
   getJobCounts(...states: string[]): Promise<Record<string, number>>;
+  getJobs(
+    types: ['completed'],
+    start: number,
+    end: number,
+    asc: boolean,
+  ): Promise<{ processedOn?: number; finishedOn?: number }[]>;
   getJobSchedulersCount(): Promise<number>;
   isPaused(): Promise<boolean>;
   getJobSchedulers(
@@ -26,7 +32,7 @@ interface QueueReader {
   ): Promise<{ next?: number }[]>;
 }
 
-// Read through existing connections at scrape time. No job payloads or mutations.
+// Read through existing connections at scrape time. Never export job payloads or mutate queues.
 export function startQueueMetrics(
   registry: Registry,
   queues: readonly QueueReader[],
@@ -90,6 +96,49 @@ export function startQueueMetrics(
       }
     },
   });
+  // Two bounded reads per queue keep each gauge's collection independent.
+  // No IDs, payloads or edition content enter the metric labels.
+  for (const field of ['duration', 'finished_timestamp'] as const) {
+    new Gauge({
+      name: `news_digest_queue_latest_completed_${field}_seconds`,
+      help:
+        field === 'duration'
+          ? 'Latest retained completed job finish minus processor start; excludes queue wait, includes local work. Any trigger; not necessarily a publication.'
+          : 'Finish time of latest retained completed job in Unix seconds; any trigger. Absent without valid timing.',
+      labelNames: ['queue'],
+      registers: [registry],
+      async collect() {
+        const snapshots = await Promise.all(
+          allowed
+            .filter((queue) =>
+              ['digest-generation', 'social-collection'].includes(queue.name),
+            )
+            .map(async (queue) => ({
+              queue: queue.name,
+              jobs: await queue.getJobs(['completed'], 0, 0, false),
+            })),
+        );
+        this.reset();
+        for (const { queue, jobs } of snapshots) {
+          const job = jobs[0];
+          const started = job?.processedOn;
+          const finished = job?.finishedOn;
+          if (
+            typeof started === 'number' &&
+            Number.isFinite(started) &&
+            started > 0 &&
+            typeof finished === 'number' &&
+            Number.isFinite(finished) &&
+            finished >= started
+          )
+            this.set(
+              { queue },
+              (field === 'duration' ? finished - started : finished) / 1000,
+            );
+        }
+      },
+    });
+  }
   new Gauge({
     name: 'news_digest_queue_paused',
     help: 'Whether the queue is paused.',
