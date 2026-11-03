@@ -1341,3 +1341,23 @@ sends article facts only, and reports each window separately, so the fresh
 sample can be assessed apart from older development labels. No paid calls
 were made; live entrypoint wiring and the once-only capped evaluation remain
 pending. Production still performs no event grouping.
+
+## Iteration 475: fixed-state live evaluation entrypoint
+
+`pnpm exec tsx scripts/run-event-grouping-evaluation.ts` is the explicit paid
+entrypoint, requiring `LLM_LIVE=1` and the configured secrets environment.
+It accepts no arguments or state-directory override. The preprovisioned
+`/home/exedev/.local/state/news-digest/item-26` directory must be owned by the
+current user, mode 0700, and resolve without symlinks. It is outside the repo
+and survives builds and service restarts. Never delete its claim to retry.
+
+Before claiming, the caller validates the recorded plan, configuration, UTC
+admission, directory and database connectivity. It then composes the configured
+Anthropic Haiku adapter, shared verification ledger/cache, conservative $0.10
+execution ceiling and durable once-only guard. The ordinary verification cap
+and scheduled reserve can further restrict spending. Reports retain run/model
+identity, start time, memberships and per-window metrics. Failure consumes the
+claim once execution starts; inspect the ledger/report without paid retries.
+No production app or scheduler imports this script. This iteration provisioned
+the directory and tested preflight rejection, but made no paid calls. Grouping
+remains disabled; evaluation and activation evidence are still pending.

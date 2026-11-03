@@ -1,14 +1,3 @@
-## 2026-11-03: iteration 459 — match explicit dated preload starts
-
-- Started clean on main; no leftovers. Worker metrics alert was transient after the prior restart and cleared; API/DB/Redis, all 32 sources and scheduled collectors healthy.
-- Opt-in preload grouping now matches explicit start dates across pre-load/pre-download wording, Roman/Arabic sequel numbers and month/day order. Recorded PlayStation Blog/Eurogamer announcements recover one existing positive pair.
-- Different dates/games, invalid calendar days, uncertainty, schedule changes, explicit years and undated overviews remain excluded. Existing hardware and 36-hour bounds remain. Publication UTC year supplies omitted years.
-- Benchmark: 32/57 positives, zero/41 false merges, unknown merges or membership variation. Labels remain agent-reviewed, not independent validation; production grouping stays disabled.
-- Targeted grouping suites 15/15; final preload guards 4/4. pnpm format, pnpm lint:fix, pnpm check (292 unit/176 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
-- Restarted API/worker; immediate probe raced startup, retry passed pnpm obs health --check and root HTTP 200; both units active, zero alerts.
-- Updated TASKS/RANKING. No UI/handbook production-flow change, paid calls, new editions or Reddit requests.
-- Next: Nov 4 social selections/screenshots, World yield and latency/full-AI evidence; grouping recall/independent labels remain open.
-
 ## 2026-11-03: iteration 460 — group matching revised preload schedules
 
 - Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis, all sources flowing and scheduled collectors healthy. Next scheduled social/latency evidence remains pending; advanced item 19.
@@ -164,3 +153,13 @@
 - Updated TASKS/RANKING; archived iteration 458 to keep PROGRESS bounded. No production service/config/UI change; no restart under STEERING 22.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (285 unit/177 isolated integration), pnpm build, 10 targeted tests, offline --plan and git diff --check pass. Initial format-check failure after timestamp removal fixed before rerun. Root HTTP 200; health/sources/jobs checks pass, zero alerts/dangling volumes.
 - Next: fixed persistent-state live entrypoint, then the owner-capped once-only evaluation; report fresh-window results separately. Check Nov 4 scheduled evidence first when available.
+
+## 2026-11-03: iteration 475 — fixed persistent grouping evaluation entrypoint
+
+- Started clean on main; no leftovers. Zero alerts; API/DB/Redis and all 33 sources healthy. Nov 4 scheduled provider/social evidence remains pending.
+- Wired explicit live entrypoint to configured Haiku, shared verification ledger/cache, $0.10 conservative ceiling, per-reservation UTC exclusion and durable once-only claim/report.
+- Fixed state path outside the repo; provisioned private persistent directory. No CLI/env directory override. Preflight checks ownership, mode, symlinks, labels, configuration, time and DB before claiming.
+- Temporary-directory test verifies valid private state and rejection of missing/shared/symlinked state. No-opt-in CLI exits 1 without creating a claim; sanitized failure output exposes no SDK/DB exception text.
+- No paid evaluation, new editions, Reddit requests or production activation. Updated TASKS/RANKING; archived iteration 459 to keep PROGRESS bounded.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (286 unit/177 isolated integration), pnpm build, targeted preflight test and git diff --check passed. HTTP root 200; health/sources/jobs checks pass; zero alerts/dangling volumes.
+- No restart under STEERING 22: running service code/config unchanged. Next: once-only capped evaluation, then accuracy gate; Nov 4 scheduled evidence takes priority when available.
