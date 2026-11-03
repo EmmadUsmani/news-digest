@@ -1,14 +1,3 @@
-## 2026-11-03: iteration 455 — recognize successor-framed title reveals
-
-- Started clean on main; no leftovers. Zero alerts and healthy API/DB/Redis, sources and scheduled collectors. Next scheduled social/latency evidence remains pending; advanced item 19.
-- Opt-in game-title grouping now accepts “successor finally re-revealed as” with full sequel/subtitle identity, existing uncertainty/history exclusions and a 36-hour bound. Production grouping remains disabled.
-- Stored Push Square Sentinel report joins three title-reveal reports. Reviewed two missing positive pairs: benchmark 91 pairs, combined 22/50 positives, zero/41 false merges, zero unknown merges/order variation across 34 orders/window. Agent labels are not independent validation.
-- Added synthetic guards for different sequels/subtitles, release-date news, rumors and history. Targeted tests initially exposed an outdated fixture-count assertion; corrected before rerun.
-- Verification: targeted grouping 20/20; pnpm format, pnpm lint:fix, pnpm check (290 unit/176 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
-- Restarted API/worker; pnpm obs health --check passed, root HTTP 200, zero alerts. pnpm obs jobs --check and pnpm obs sources --check passed before deploy.
-- Updated TASKS/RANKING; archived iteration 439 to keep PROGRESS bounded. No production flow/UI change, paid calls, new editions or Reddit requests.
-- Next: Nov 4 social selections/screenshots, World yield and latency/full-AI evidence; broader Gaming recall/independent labels remain open.
-
 ## 2026-11-03: iteration 456 — group publisher-confirmed game title reveals
 
 - Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis, all 32 sources flowing and scheduled collectors healthy. Next scheduled social/latency evidence is pending; advanced item 19.
@@ -163,3 +152,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (274 unit/177 isolated integration), pnpm build and git diff --check passed. Zero dangling Docker volumes.
 - Restarted API/worker; health/root/source/job/alert checks passed. All 33 sources healthy; retained scheduled digest and hourly social jobs healthy.
 - Next: bounded AI evaluation runner and unseen recent-day labels, then the owner's $0.10/outside-13–16-UTC evaluation. Activation still requires zero wrong merges and recall clearly above 13/32; Nov 4 evidence takes priority when available.
+
+## 2026-11-03: iteration 471 — bounded recorded-window evaluation runner
+
+- Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis and 33 sources; Nov 4 scheduled provider/social evidence remains pending.
+- Added offline `--plan` and injectable serial evaluation runner: six topic/day windows, at most 40 candidates each, all labelled endpoints preserved before filling in recorded order. Label-aware samples are not production ranking evidence.
+- Runner sends only article facts through the existing grouping component, returns saved memberships plus the all-pair quality report, and rejects invalid memberships before another window. No retries or provider permutation reruns.
+- Three targeted tests pass with a fake provider, including six calls, full cache reuse and immediate invalid-output stop. No paid calls, production activation, new editions or Reddit requests.
+- Updated TASKS/RANKING; archived iteration 455 to keep PROGRESS bounded. Live capped entrypoint/time gate and unseen-day labels remain next; no handbook/UI flow changed.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (277 unit/177 isolated integration), pnpm build, offline --plan and git diff --check passed. Zero dangling Docker volumes.
+- Live root HTTP 200; pnpm obs health/sources/jobs --check pass, zero alerts. No service restart: running service code/config unchanged, per STEERING 22.
+- Next: add owner-capped live evaluation admission and new-day labels; evaluate before activation. Check Nov 4 NBA/full-AI/latency and social evidence when available.

@@ -1265,3 +1265,25 @@ labelled precision with unlabelled merges is insufficient activation evidence.
 Synthetic saved groups verify the evaluator, not AI quality. The owner-capped
 real evaluation and a newly labelled unseen day remain pending; production still
 keeps articles separate.
+
+## Iteration 471: bounded evaluation shortlists and orchestration
+
+`pnpm exec tsx scripts/evaluate-event-grouping.ts --plan` previews six recorded
+window shortlists without a provider or database. Each includes every labelled
+pair endpoint, then fills to at most 40 candidates in recorded order. November 1
+windows contain more than 40 articles, so this is an explicitly label-aware
+sample, not evidence about production shortlist ranking or general quality.
+No labels, reasons or expected groups enter the model input.
+
+The evaluation runner accepts the existing budgeted grouping component and
+processes windows sequentially, once per topic/day, with no provider reruns for
+permutation checks. It returns saved memberships, shortlist counts and the full
+existing precision/recall and all-pair report. Invalid memberships stop the run
+before another request. Fake-provider tests exercise all six windows and confirm
+cache reuse on a repeated run. Empty groups remain conservative abstentions;
+they do not prove a successful provider response or quality acceptance.
+
+There is no live entrypoint yet. A capped ledger/explicit live opt-in and time
+gate, plus newly labelled unseen-day evidence, are still required before the
+owner-authorized evaluation. This iteration made no paid calls and leaves
+production grouping disabled.
