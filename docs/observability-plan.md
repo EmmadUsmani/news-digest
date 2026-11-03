@@ -247,3 +247,8 @@ failure holds log run/topic IDs and search type after ledger operations. Credit
 exhaustion records the provider block; request content is omitted. Offline
 coverage includes ledger/storage errors and higher input pricing. Scheduled
 reserve decisions and edition steps remain open.
+
+O1 incremental progress (351): Anthropic reserve admission logs report the locked
+policy state, protected funds, effective availability and committed admission
+outcome without request content. Separate early verification-cap refusals do not
+evaluate the reserve. Reserve lifecycle transitions and edition steps remain open.

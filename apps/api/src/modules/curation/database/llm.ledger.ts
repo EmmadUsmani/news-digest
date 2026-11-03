@@ -1,5 +1,6 @@
 import type { Pool, PoolClient } from 'pg';
 
+import { logger } from '../../../libs/observability/logging';
 import {
   budgetAllowance,
   type BudgetCaps,
@@ -33,6 +34,7 @@ export class PostgresLlmLedger implements LlmLedger {
     readonly caps: BudgetCaps,
     readonly verification = false,
     readonly scheduled?: ScheduledLedgerAdmission,
+    private readonly log = logger,
   ) {}
   async reserve(request: LlmRequest, estimate: number): Promise<string | null> {
     if (!Number.isSafeInteger(estimate) || estimate <= 0)
@@ -79,6 +81,7 @@ export class PostgresLlmLedger implements LlmLedger {
         }
       }
       let available = allowance.available;
+      let reserveDecision: Record<string, unknown> | undefined;
       if (this.scheduled) {
         const {
           rows: [slot],
@@ -106,7 +109,7 @@ export class PostgresLlmLedger implements LlmLedger {
           slot.run_id === context.runId &&
           slot.attempt === context.attempt &&
           request.runId === context.editionRunId;
-        available = scheduledReserveAllowance(
+        const reserve = scheduledReserveAllowance(
           {
             dailyCap: allowance.dailyCap,
             available: allowance.available,
@@ -117,7 +120,23 @@ export class PostgresLlmLedger implements LlmLedger {
             scheduledRun,
           },
           this.scheduled.policy,
-        ).availableMicros;
+        );
+        available = reserve.availableMicros;
+        reserveDecision = {
+          event: 'budget.reserve-decision',
+          target: 'anthropic',
+          budgetDay: now.toISOString().slice(0, 10),
+          state: slot?.state ?? (noOccurrence ? 'not-scheduled' : 'pending'),
+          scheduledRun,
+          estimateMicros: estimate,
+          dailyCapMicros: allowance.dailyCap,
+          availableMicros: available,
+          reserveMicros: reserve.reserveMicros,
+          otherSpendLimitMicros: reserve.otherSpendLimitMicros,
+          limitedByReserve: reserve.limitedByReserve,
+          reserveInsufficient:
+            available < estimate && allowance.available >= estimate,
+        };
       }
       const allocation = this.caps.modelAllocation;
       let modelAvailable = Infinity;
@@ -138,6 +157,11 @@ export class PostgresLlmLedger implements LlmLedger {
       }
       if (blocked.rowCount || Math.min(available, modelAvailable) < estimate) {
         await client.query('COMMIT');
+        if (reserveDecision)
+          this.log.info(
+            { ...reserveDecision, outcome: 'refused' },
+            'Scheduled reserve admission',
+          );
         return null;
       }
       const id = crypto.randomUUID();
@@ -146,6 +170,11 @@ export class PostgresLlmLedger implements LlmLedger {
         [id, request.model.id, purpose, request.runId, estimate],
       );
       await client.query('COMMIT');
+      if (reserveDecision)
+        this.log.info(
+          { ...reserveDecision, outcome: 'admitted' },
+          'Scheduled reserve admission',
+        );
       return id;
     } catch (error) {
       await client.query('ROLLBACK');

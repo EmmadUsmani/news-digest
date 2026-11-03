@@ -58,3 +58,10 @@ A refusal may also mean durable scheduled admission was already consumed; no
 cap or refusal cause is inferred. Settlement logs precede citation persistence,
 so a storage failure does not hide a charge. Credit exhaustion releases that
 call’s hold while blocking further discovery in the ledger.
+
+Anthropic reserve admission logs include the UTC budget day, lifecycle state,
+scheduled eligibility, protected reserve, other-spend limit and effective
+available funds. They distinguish a reserve shortfall from the final admission
+result: another cap or provider block may also refuse the call. These entries
+follow the ledger transaction commit and omit request content and purpose.
+Verification calls rejected by their separate early cap do not reach this log.
