@@ -63,7 +63,8 @@ flowchart TB
 > Production keeps articles separate. An inactive AI pass can group the same
 > news story, including direct follow-ups, reactions and consequences. Stories
 > that only share people, organizations or themes must stay separate. It has no
-> production caller; revised labels and evaluation are pending. Activation also
+> production caller. Revised same-story labels are reviewed, but the restored
+> prompt still awaits its capped evaluation. Activation also
 > waits for the Nov 4 scheduled run review. Same-URL dedupe still happens during
 > ingestion. The generic grouping
 > plumbing and “also covered by” links remain available; historical editions keep

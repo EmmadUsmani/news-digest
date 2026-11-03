@@ -1,10 +1,11 @@
 # Ranking evaluation
 
-Current grouping state (STEERING 27, iteration 482): production keeps articles
+Current grouping state (STEERING 27, iteration 483): production keeps articles
 separate. The inactive AI pass is restored with a same-story definition that
 includes direct follow-ups, reactions and consequences, while keeping separate
 stories that only share people, organizations or themes apart. No production
-caller exists. Relabeling and the new capped evaluation remain pending; the
+caller exists. The 195-pair same-story review is complete; the new capped
+evaluation remains pending. The
 Nov 4 run must be checked before any conditional Nov 5 activation.
 Wording matchers remain removed. Canonical-URL ingestion dedupe continues.
 The iteration sections below record historical experiments and superseded states.
@@ -1441,3 +1442,51 @@ They do not establish semantic accuracy. There is no production caller, paid
 runner, paid call or activation in this step. Next: relabel the 138 pairs and
 57 previously unlabelled merges, then run the single $0.05-capped evaluation
 outside 13:00–16:00 UTC. Historical item 26 numbers use the old definition.
+
+## Iteration 483: retrospective same-story review
+
+`same-story-pairs.json` preserves a separate review of all 138 original pairs
+and all 57 previously unlabelled merged pairs. Original strict-event labels and
+saved predictions are unchanged. The legacy `sameEvent` field means same story
+in this fixture. Each row records its original index (or null for the 57 added
+pairs), rationale and whether its boundary is borderline.
+
+The review changes 23 negative labels to positive: the two owner examples,
+direct reactions to LeBron’s fan-wine incident, previews/results of one exact
+game, Sentinel-reveal follow-ups and shared developer-interview coverage. The
+European protest roundup explicitly overlaps the German violence report.
+Ten labels flag uncertain boundaries, including sparse rookie-record/advice
+and remaster-expansion/packaging links retained as negatives. Shared wars,
+players, games or publishers alone still do not establish a story connection.
+All 57 added pairs are same-story: specific games/previews, the endorsement,
+German protests, Binance recovery, retirement/suspension announcements, studio
+closure, cloning policy, fast travel, preload details and Sentinel reveal.
+
+Offline replay of the **old prompt’s saved output**, using the revised labels:
+
+| Recorded sample | Matched positive pairs | Wrong merges | Unknown merges |
+| --------------- | ---------------------: | -----------: | -------------: |
+| Nov 1 NBA       |                  21/22 |            0 |              0 |
+| Nov 1 World     |                    5/6 |            0 |              0 |
+| Nov 1 Tech/AI   |                    5/5 |            0 |              0 |
+| Nov 2 NBA       |                  17/17 |            0 |              0 |
+| Nov 2 Gaming    |                  14/18 |            0 |              0 |
+| Nov 3 Gaming    |                  52/59 |            0 |              0 |
+| Nov 3 NBA       |                  21/30 |            0 |              0 |
+
+Precision is **135/135 (100%)**, recall **135/157 (85.99%)**, with 38
+negative labels and zero borderline merged pairs out of 135 merges. The broader
+labels explain the lower recall; predictions have not changed. These selected,
+retrospectively agent-reviewed labels are neither independent nor representative.
+This does **not** validate the restored prompt or authorize production activation.
+The single new $0.05-capped evaluation remains pending, as does the Nov 4 review.
+
+Reproduce without network, database or provider access:
+
+```sh
+pnpm exec tsx scripts/evaluate-event-grouping.ts --same-story --memberships apps/api/test/fixtures/event-grouping-evaluation-2026-11-03.json
+```
+
+Omit `--same-story` to reproduce the historical strict-event failure. Regression
+checks pin every original pair’s identity, all 57 added reviews, zero unknown
+saved merges, the historical failure and clear-unrelated/borderline reporting.

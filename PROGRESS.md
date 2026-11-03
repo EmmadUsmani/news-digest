@@ -1,57 +1,3 @@
-## 2026-11-03: iteration 467 — remove wording-based story grouping
-
-- Started clean on main; no leftovers, zero alerts, healthy API/DB/Redis and 33 sources. Continued STEERING 26 after iteration 466's offline triage reduction; NBA rejection/live speed still need scheduled evidence.
-- Removed word-overlap/action/number-order matching, all five game/studio/preload/remake/title-reveal rule modules, their flag, rule tests and CLI options. Production now does no grouping, including identical titles; canonical-URL ingestion dedupe stays.
-- Kept generic complete-link matcher plumbing, coverage links and every recorded label unchanged. Disabled baseline: 98 pairs, zero merges, null precision/zero recall; this is not AI quality evidence.
-- Updated publication coverage golden for three separate recorded Gaming stories in fallback/synthetic-AI modes. Full checks exposed two old duplicate-title assumptions in reaction/ranking tests; updated them. One check also caught archived Markdown formatting; corrected it.
-- Final pnpm format, pnpm lint:fix, pnpm check (259 unit/177 isolated integration), pnpm build and git diff --check passed. Handbook check passed; corrected and visually inspected the pipeline diagram.
-- Restarted API/worker; health passed after startup retry, root HTTP 200, all 33 sources healthy, zero alerts/dangling volumes. No paid calls, new editions or Reddit requests.
-- Updated TASKS/RANKING/handbook and acknowledged removal in STEERING; archived iteration 451 to bound PROGRESS. Next: ledger/cache-backed one-Haiku-call-per-topic AI grouping, then gated evaluation; Nov 4 scheduled latency/NBA and social evidence takes priority when available.
-
-## 2026-11-03: iteration 468 — inactive budgeted AI grouping component
-
-- Started clean on main; no leftovers, zero alerts, healthy API/DB/Redis and 33 sources. Nov 4 provider/social evidence remains pending.
-- Added an inactive one-topic, 2–40 article AI grouping component with bounded title/outlet/time/excerpt input and strict known/unique ID validation. Mixed-topic inputs never spend; invalid/unavailable/over-budget responses keep articles separate.
-- Uses the existing ledger and request cache; added opt-out from JSON repairs to enforce one provider call for grouping. Existing editorial repair defaults remain unchanged. No production caller, grouping activation or ranking bonus.
-- Nine fake-provider cases verify validation, budget refusal, cache reuse/invalidation, settlement and no repair. No paid calls, new editions or Reddit requests.
-- Updated TASKS/RANKING; archived iteration 452 to keep PROGRESS bounded. Production flow unchanged, so no handbook/UI changes.
-- Verification: targeted tests 9/9; pnpm format, pnpm lint:fix, pnpm check (268 unit/177 isolated integration), pnpm build and git diff --check passed. First check caught floating promises in new tests; fixed explicitly. Zero dangling volumes.
-- Restarted API/worker; pnpm obs health --check passed, root HTTP 200, zero alerts. Healthy sources and completed scheduled digest/hourly social jobs confirmed; no fresh edition generated.
-- Next: add approved shared-link/X prompt hints and evaluation wiring; run the owner's capped quality evaluation before any activation. Nov 4 NBA/full-AI/latency and social selection evidence still takes priority when available.
-
-## 2026-11-03: iteration 469 — bounded shared-reference grouping hints
-
-- Started clean on main; no leftovers, zero alerts, healthy API/DB/Redis and all 33 sources. Nov 4 scheduled latency/NBA/social evidence remains pending.
-- Inactive grouping v2 accepts bounded optional outbound links; exact shared links and normalized X post IDs become prompt hints only. Model decides membership; no automatic merges, extraction/caller wiring or production activation.
-- Deduplicates article citations, strips fragments, rejects credentials/non-HTTP references and bounds link count/length. Prompt explicitly warns that shared references can cover distinct events; changed hints invalidate the existing request cache.
-- Targeted fake tests 12/12 cover X aliases, unrelated links, no model merge despite hints, bounds and cache changes. No paid calls, new editions or Reddit requests.
-- Updated TASKS/RANKING; archived iteration 453 to keep PROGRESS bounded. No production flow/UI/handbook change.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (271 unit/177 isolated integration), pnpm build and git diff --check passed. First check found archived Markdown formatting; fixed before rerun.
-- Pushed f4e5757; restarted API/worker. pnpm obs health --check passed, root HTTP 200, zero alerts; sources 33/33 healthy and scheduled digest queue healthy.
-- Next: evaluation/caller wiring and owner-capped labelled-day evaluation; activation requires zero wrong merges and recall above 13/32. Check Nov 4 scheduled provider/social evidence first when available.
-
-## 2026-11-03: iteration 470 — offline saved AI membership evaluation
-
-- Started clean on main; no leftovers, zero alerts, healthy API/DB/Redis and all 33 sources. Nov 4 scheduled provider/social evidence remains pending.
-- Added offline `--memberships` input to the recorded grouping evaluator. Strict per-window IDs, unique membership and group sizes reject malformed/cross-window output; omitted windows/articles stay separate.
-- Preserved all-pair cluster review, unlabelled merge reporting and order checks alongside labelled precision/recall. No provider calls, production caller, grouping activation, new editions or Reddit requests.
-- Seven targeted fake/saved-output tests pass, including wrong merges, unlabelled pairs and invalid membership. CLI synthetic example: 1 TP, 0 FP, precision 1, recall 1/57; evaluator verification only, not AI quality. Disabled baseline remains 98 pairs/zero merges.
-- Updated TASKS/RANKING; archived iteration 454 to bound PROGRESS. No production flow/UI/handbook change.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (274 unit/177 isolated integration), pnpm build and git diff --check passed. Zero dangling Docker volumes.
-- Restarted API/worker; health/root/source/job/alert checks passed. All 33 sources healthy; retained scheduled digest and hourly social jobs healthy.
-- Next: bounded AI evaluation runner and unseen recent-day labels, then the owner's $0.10/outside-13–16-UTC evaluation. Activation still requires zero wrong merges and recall clearly above 13/32; Nov 4 evidence takes priority when available.
-
-## 2026-11-03: iteration 471 — bounded recorded-window evaluation runner
-
-- Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis and 33 sources; Nov 4 scheduled provider/social evidence remains pending.
-- Added offline `--plan` and injectable serial evaluation runner: six topic/day windows, at most 40 candidates each, all labelled endpoints preserved before filling in recorded order. Label-aware samples are not production ranking evidence.
-- Runner sends only article facts through the existing grouping component, returns saved memberships plus the all-pair quality report, and rejects invalid memberships before another window. No retries or provider permutation reruns.
-- Three targeted tests pass with a fake provider, including six calls, full cache reuse and immediate invalid-output stop. No paid calls, production activation, new editions or Reddit requests.
-- Updated TASKS/RANKING; archived iteration 455 to keep PROGRESS bounded. Live capped entrypoint/time gate and unseen-day labels remain next; no handbook/UI flow changed.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (277 unit/177 isolated integration), pnpm build, offline --plan and git diff --check passed. Zero dangling Docker volumes.
-- Live root HTTP 200; pnpm obs health/sources/jobs --check pass, zero alerts. No service restart: running service code/config unchanged, per STEERING 22.
-- Next: add owner-capped live evaluation admission and new-day labels; evaluate before activation. Check Nov 4 NBA/full-AI/latency and social evidence when available.
-
 ## 2026-11-03: iteration 472 — fail-closed grouping evaluation admission
 
 - Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis and all 33 sources; Nov 4 scheduled evidence remains pending.
@@ -172,3 +118,15 @@
 - No paid calls, new editions, sources, Reddit requests or grouping activation. Fake prompt/validation tests are not semantic accuracy evidence.
 - Updated TASKS, RANKING and affected handbook prose. Next: relabel 138 pairs plus 57 previously unlabelled merges, then one $0.05-capped evaluation outside 13:00–16:00 UTC; production stays off pending Nov 4 review.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (276 unit/182 isolated integration), pnpm build, filtered handbook check (17 pages/one unchanged diagram/25 tables) and git diff --check passed.
+
+## 2026-11-03: iteration 483 — review same-story labels without changing history
+
+- Started clean on main; zero alerts and healthy healthz. No leftover work, paid calls, editions, new sources, Reddit requests or production grouping activation.
+- Reviewed all 138 original pairs plus 57 previously unlabelled saved merges under item 27. New separate same-story fixture keeps original pair indices, reasons and ten borderline flags; strict-event labels and saved memberships remain untouched.
+- Broader definition changes 23 negatives to positives; all 57 added pairs are same-story. Shared entities/themes alone remain insufficient. Agent retrospective review is not independent or representative quality evidence.
+- Offline old-output replay: precision 135/135 (100%), recall 135/157 (85.99%), zero unrelated/borderline/unknown merges. These numbers do not validate the restored prompt; no provider call occurred.
+- Added --same-story offline evaluator and unrelated/borderline counts. Regression pins every original pair identity, all added labels, new metrics, historical failure and negative/borderline reporting. Targeted test initially caught a syntax typo; corrected, 9/9 pass.
+- Updated RANKING, affected handbook and TASKS; archived iterations 467–471 to keep PROGRESS bounded. No source/schema/UI change; no screenshots needed.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (277 unit/182 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts edition-pipeline and git diff --check passed.
+- Health check passed; root HTTP 200, all 36 sources healthy; live rolling articles Tech/NBA/Gaming/World 327/162/283/221. Digest queue has zero failures; zero alerts. No service restart under STEERING 22: only offline evaluator/tests/docs changed.
+- Next: wire/run the single new $0.05-capped restored-prompt evaluation outside 13:00–16:00 UTC with a distinct durable item-27 guard; never delete/reuse the consumed item-26 claim. Grouping stays off pending Nov 4 review and conditional Nov 5 activation.

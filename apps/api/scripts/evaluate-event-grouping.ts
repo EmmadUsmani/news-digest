@@ -137,10 +137,19 @@ export function evaluateClusterMembership(
 export function evaluateEventGrouping(
   matches = noGrouping,
   memberships?: Record<string, string[][]>,
+  definition: 'strict-event' | 'same-story' = 'strict-event',
 ) {
   const root = join(__dirname, '../test/fixtures');
   const fixture = JSON.parse(
-    readFileSync(join(root, 'event-grouping-pairs.json'), 'utf8'),
+    readFileSync(
+      join(
+        root,
+        definition === 'same-story'
+          ? 'same-story-pairs.json'
+          : 'event-grouping-pairs.json',
+      ),
+      'utf8',
+    ),
   ) as {
     note: string;
     pairs: {
@@ -149,6 +158,7 @@ export function evaluateEventGrouping(
       right: string;
       sameEvent: boolean;
       reason: string;
+      borderline?: boolean;
     }[];
   };
   const seen = new Set<string>();
@@ -240,6 +250,12 @@ export function evaluateEventGrouping(
     truePositives,
     falsePositives,
     falseNegatives: positives - truePositives,
+    borderlineMergedPairs: pairs.filter(
+      (pair) => pair.borderline && pair.predictedSameEvent,
+    ).length,
+    clearlyUnrelatedMergedPairs: pairs.filter(
+      (pair) => !pair.sameEvent && !pair.borderline && pair.predictedSameEvent,
+    ).length,
     precision:
       truePositives + falsePositives
         ? truePositives / (truePositives + falsePositives)

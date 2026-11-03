@@ -1,0 +1,1760 @@
+{
+  "note": "Iteration 483 agent review of recorded headlines/excerpts under STEERING 27 same-story definition: direct follow-ups, reactions and consequences belong together; shared entities/themes alone do not. All 138 original pairs reviewed plus all 57 previously unlabelled merges from the old item-26 run. Original strict-event labels and memberships are unchanged. This is retrospective, selected, agent-labelled evidence, not independent review or a fresh-model accuracy estimate. sameEvent is retained as the evaluator field name but means same story here. borderline flags uncertain story boundaries, including negatives; no transitive labels inferred. No new provider call.",
+  "pairs": [
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "6a28cba6-ad23-4fa9-9abd-f845e1d8ee70",
+      "right": "07653a65-36c3-43ec-b4a9-96cd135520f9",
+      "sameEvent": true,
+      "reason": "Both describe the Spurs win over Minnesota; analysis versus highlights does not create a new event.",
+      "originalPairIndex": 0,
+      "borderline": false
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "bddb7e26-e09f-4190-9b41-98de64585125",
+      "right": "330af28c-5f48-4cb8-8b99-005029bda3a5",
+      "sameEvent": true,
+      "reason": "Same teams, score and Halloween game.",
+      "originalPairIndex": 1,
+      "borderline": false
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "330af28c-5f48-4cb8-8b99-005029bda3a5",
+      "right": "277cccbe-ae81-45bb-aa9f-c5ac3301ce3d",
+      "sameEvent": true,
+      "reason": "Same 121–111 Spurs victory; alternate team naming.",
+      "originalPairIndex": 2,
+      "borderline": false
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "86e51c7d-61a5-48e7-8da9-b7e805ed692d",
+      "right": "c4b2ce66-9bf4-471e-9aa9-7cabae13a1d3",
+      "sameEvent": true,
+      "reason": "Same 136–111 Cavaliers win over Milwaukee.",
+      "originalPairIndex": 3,
+      "borderline": false
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "c4b2ce66-9bf4-471e-9aa9-7cabae13a1d3",
+      "right": "20a298f7-d298-4d9e-9239-cd0352954280",
+      "sameEvent": true,
+      "reason": "Same Cavaliers victory, with the latter focusing on its leading players.",
+      "originalPairIndex": 4,
+      "borderline": false
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "604ee7fe-21cb-45ad-bcc0-e0c9972696f9",
+      "right": "3b278726-17f7-42ab-a75b-ec8f399986c5",
+      "sameEvent": true,
+      "reason": "Same Maxey 38-point Sixers win over Charlotte.",
+      "originalPairIndex": 5,
+      "borderline": false
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "6a96b8fc-70b6-43cc-b78a-b83b977d59f2",
+      "right": "5b3858e8-6ef4-44b0-8edd-bfbc5f331d0c",
+      "sameEvent": true,
+      "reason": "Same Jeanie Buss allegation about siblings and Lakers control.",
+      "originalPairIndex": 6,
+      "borderline": false
+    },
+    {
+      "window": "ranking-world-2026-11-01.json",
+      "left": "7ddbc32d-6295-4891-9b36-f1272b6f55a6",
+      "right": "62e4f02d-3507-43d0-96f0-4478694741d2",
+      "sameEvent": true,
+      "reason": "Both report the Cambridge scientist killed in the Spanish train crash.",
+      "originalPairIndex": 7,
+      "borderline": false
+    },
+    {
+      "window": "ranking-world-2026-11-01.json",
+      "left": "6cdda6f3-6358-4913-9570-3f704aa12100",
+      "right": "60367c27-1931-4851-9a33-58de96ee4bc2",
+      "sameEvent": true,
+      "reason": "Both describe the Indian opposition Delhi rally.",
+      "originalPairIndex": 8,
+      "borderline": false
+    },
+    {
+      "window": "ranking-tech-2026-11-01.json",
+      "left": "d2b3bf0b-6545-4b9e-b856-86ea3f1e6004",
+      "right": "609f1891-d771-4ea9-940f-e79d2ce93a74",
+      "sameEvent": true,
+      "reason": "Same Brazilian court sanctions for prompt injection in a filing.",
+      "originalPairIndex": 9,
+      "borderline": false
+    },
+    {
+      "window": "ranking-tech-2026-11-01.json",
+      "left": "c0ea84bf-d982-4201-90c0-fa940a269198",
+      "right": "fc997ea3-1e67-42ca-a821-5c25c0c79cc3",
+      "sameEvent": true,
+      "reason": "Identical syndicated investment headline, not independent reporting.",
+      "originalPairIndex": 10,
+      "borderline": false
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "257469cf-68c2-43cf-a89a-e459edcdc1b2",
+      "right": "bbd4a224-4fdb-4543-9a99-ca707996b855",
+      "sameEvent": false,
+      "reason": "Dallas beating Houston and Houston beating Oklahoma City are different games.",
+      "originalPairIndex": 11,
+      "borderline": false
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "bddb7e26-e09f-4190-9b41-98de64585125",
+      "right": "86e51c7d-61a5-48e7-8da9-b7e805ed692d",
+      "sameEvent": false,
+      "reason": "Spurs–Wolves and Cavaliers–Bucks are distinct games despite similar scores.",
+      "originalPairIndex": 12,
+      "borderline": false
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "1b60adc1-f62a-4289-8827-d083507bc6cf",
+      "right": "4be67498-148c-4687-a96b-a441c8513dd6",
+      "sameEvent": false,
+      "reason": "The excerpt does not explicitly connect Christie’s general team advice to the nine-three-pointer game. Same player and current season alone are insufficient; sparse text makes the boundary uncertain.",
+      "originalPairIndex": 13,
+      "borderline": true
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "6a96b8fc-70b6-43cc-b78a-b83b977d59f2",
+      "right": "9f6437ce-0290-4c43-87be-4ee35c684c63",
+      "sameEvent": false,
+      "reason": "Lakers ownership dispute differs from a player social post.",
+      "originalPairIndex": 14,
+      "borderline": false
+    },
+    {
+      "window": "ranking-world-2026-11-01.json",
+      "left": "8b8b19dd-fcb5-4f0e-8c6e-16a47c95828f",
+      "right": "c300ecd3-4ef5-448f-8fc2-aed8739f477b",
+      "sameEvent": false,
+      "reason": "Common UK geography does not link Commonwealth reparations and EU student funding.",
+      "originalPairIndex": 15,
+      "borderline": false
+    },
+    {
+      "window": "ranking-world-2026-11-01.json",
+      "left": "20a24bed-c0ff-4801-bfd7-67aabbb6ea06",
+      "right": "b2135263-8e91-4822-b62f-441c791de7d1",
+      "sameEvent": false,
+      "reason": "Russian strikes on Ukraine and Ukrainian refinery attacks in Russia are distinct events.",
+      "originalPairIndex": 16,
+      "borderline": false
+    },
+    {
+      "window": "ranking-world-2026-11-01.json",
+      "left": "4555bc0f-4562-403c-a432-23b32f063598",
+      "right": "515cc3ad-cc24-4b4b-942d-9d0e767f5be6",
+      "sameEvent": true,
+      "reason": "The European protest-violence roundup explicitly includes the German violence covered by the other report; overlapping incident coverage, though the roundup also covers other countries.",
+      "originalPairIndex": 17,
+      "borderline": true
+    },
+    {
+      "window": "ranking-world-2026-11-01.json",
+      "left": "9ca38897-820e-4a3c-9ff3-14d17fcb7855",
+      "right": "37aeb6b8-78db-45c7-b14f-594c9b6bf141",
+      "sameEvent": false,
+      "reason": "Alaska election-certification litigation differs from a candidate-name ballot dispute.",
+      "originalPairIndex": 18,
+      "borderline": false
+    },
+    {
+      "window": "ranking-tech-2026-11-01.json",
+      "left": "d0a0ace1-7e79-4347-bfc6-bb93f4c44798",
+      "right": "0c63c2ba-9b3f-4542-b6a6-504cadc5ce9f",
+      "sameEvent": true,
+      "reason": "Owner item 27 explicitly treats the ignored Flock cancellations and the chief unplugging cameras as the same story, including its direct consequence.",
+      "originalPairIndex": 19,
+      "borderline": false
+    },
+    {
+      "window": "ranking-tech-2026-11-01.json",
+      "left": "971b7af9-fa2f-495c-b325-ea321259b664",
+      "right": "d2b3bf0b-6545-4b9e-b856-86ea3f1e6004",
+      "sameEvent": false,
+      "reason": "Crypto heist attribution and Brazilian court sanctions are unrelated incidents.",
+      "originalPairIndex": 20,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "9003ba23-ca74-43a1-9397-57504486634f",
+      "right": "6ad062c8-0d9e-4843-92b7-d16385ee473d",
+      "sameEvent": true,
+      "reason": "Same announced February 7 Westbrook jersey-retirement ceremony; date is explicit in both excerpts.",
+      "originalPairIndex": 21,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "b50957a1-e9e8-4600-a64a-8d0688ee633f",
+      "right": "fda182c0-67f6-4fd5-9b26-25072411ed71",
+      "sameEvent": true,
+      "reason": "Syndicated report of the same Westbrook retirement announcement; not independent outlet evidence.",
+      "originalPairIndex": 22,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "ced9fb55-e884-4ee6-a61a-362020a8164f",
+      "right": "757d88c7-c99d-46d0-ac15-416bbfe5a686",
+      "sameEvent": true,
+      "reason": "Same Bucks option exercise for Ware and Jakucionis.",
+      "originalPairIndex": 23,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "38d4ec52-d028-4df4-bbfc-b39429565cd1",
+      "right": "d186ed28-f2fd-4421-a647-0b9ee418694f",
+      "sameEvent": true,
+      "reason": "Same November 1 Warriors win over the Clippers and Lendeborg 37-point performance.",
+      "originalPairIndex": 24,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "7f244cae-1318-4826-9aba-2e0f17b009fc",
+      "right": "d186ed28-f2fd-4421-a647-0b9ee418694f",
+      "sameEvent": true,
+      "reason": "Same November 1 Warriors-Clippers result; one recap omits the score.",
+      "originalPairIndex": 25,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "c3e9767e-3755-4c0c-9c91-74a3701aa7d5",
+      "right": "9c125447-431a-4090-a87e-86dd0e4187f7",
+      "sameEvent": true,
+      "reason": "Same one-game suspension of Kingston Flemings for the Pelicans elbow incident.",
+      "originalPairIndex": 26,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "81600743-e716-4190-a5c6-62476cfa697d",
+      "right": "e0590106-91d2-4095-8414-e6ba5a52969a",
+      "sameEvent": true,
+      "reason": "Syndicated Flemings suspension report; not independent outlet evidence.",
+      "originalPairIndex": 27,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "0ace195a-9c07-4a47-b6b2-2c9d08c363b8",
+      "right": "7a94c0fe-54ea-4cd1-9b31-6b92b06b560d",
+      "sameEvent": true,
+      "reason": "Identical syndicated explanation of the Election Day schedule; not independent reporting.",
+      "originalPairIndex": 28,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "477d65b1-573e-433a-af29-bc66ae5752d9",
+      "right": "61c7ac26-4768-495a-8447-3fe507bfaaf7",
+      "sameEvent": false,
+      "reason": "Different players and conference awards despite identical weekly-award wording.",
+      "originalPairIndex": 29,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "477d65b1-573e-433a-af29-bc66ae5752d9",
+      "right": "6d972a0d-2fac-4e25-b4c0-4c1f034b4899",
+      "sameEvent": false,
+      "reason": "Current weekly award versus retrospective Finals-loss interview about the same player.",
+      "originalPairIndex": 30,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "6d972a0d-2fac-4e25-b4c0-4c1f034b4899",
+      "right": "b449116b-1515-444c-a308-a841c3e7c1ee",
+      "sameEvent": false,
+      "reason": "Retrospective Finals loss versus current regular-season weekly performance.",
+      "originalPairIndex": 31,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "9003ba23-ca74-43a1-9397-57504486634f",
+      "right": "9c125447-431a-4090-a87e-86dd0e4187f7",
+      "sameEvent": false,
+      "reason": "Jersey-retirement announcement and player suspension are unrelated league events.",
+      "originalPairIndex": 32,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "d186ed28-f2fd-4421-a647-0b9ee418694f",
+      "right": "25c97a00-3068-4e92-9166-20783c324748",
+      "sameEvent": false,
+      "reason": "Different teams and games: Warriors-Clippers versus Nets-Pacers.",
+      "originalPairIndex": 33,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "ced9fb55-e884-4ee6-a61a-362020a8164f",
+      "right": "477d65b1-573e-433a-af29-bc66ae5752d9",
+      "sameEvent": false,
+      "reason": "Contract option exercise and weekly player award are separate announcements.",
+      "originalPairIndex": 34,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "acafe162-52fb-41b4-8b83-7043211b24e4",
+      "right": "a24d9ae9-9ed5-483b-b9b5-a62e377878a0",
+      "sameEvent": true,
+      "reason": "Same GOG explanation of the Dune 2 re-release rights problem.",
+      "originalPairIndex": 35,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "e9fabd3c-98d9-458b-8cd0-94424c5d212e",
+      "right": "f0703d80-c31c-4799-91cc-5060a004228c",
+      "sameEvent": true,
+      "reason": "Same Nagoshi Studio closure following loss of NetEase funding.",
+      "originalPairIndex": 36,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "1ca1e4c4-5d01-4058-ae64-05132cf6145c",
+      "right": "c8de0e97-9ab0-4f83-b5e2-ce79ad2b4455",
+      "sameEvent": true,
+      "reason": "Same studio closure and cancellation of Gang of Dragon.",
+      "originalPairIndex": 37,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "988e803d-b162-4a5b-a502-ce489c3d7aee",
+      "right": "fb6b8a8d-e05c-4e88-99b2-681c7d31fb7b",
+      "sameEvent": true,
+      "reason": "Same new Anthropic rule against Claude game clones.",
+      "originalPairIndex": 38,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "fb6b8a8d-e05c-4e88-99b2-681c7d31fb7b",
+      "right": "96f79f60-18b1-415e-b6b0-5cba8eaf96a2",
+      "sameEvent": true,
+      "reason": "Same Claude Code anti-cloning rule update.",
+      "originalPairIndex": 39,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "18c45e13-3de6-4ecb-9e18-722138596d29",
+      "right": "d77b0179-d77a-489e-9755-794c15b1b940",
+      "sameEvent": true,
+      "reason": "Same producer explanation that remaking Ocarina teaches junior staff classic design insights.",
+      "originalPairIndex": 40,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "28ad8ef0-6da7-481f-a648-5c179560e2bb",
+      "right": "e466302e-c186-49c8-891e-48ecd8576837",
+      "sameEvent": true,
+      "reason": "Same rejected fast-travel addition during Ocarina remake development.",
+      "originalPairIndex": 41,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "28ad8ef0-6da7-481f-a648-5c179560e2bb",
+      "right": "09479cfd-2125-4c0e-b7f3-81acd902bbe6",
+      "sameEvent": true,
+      "reason": "Same rejected fast-travel feature, cut to preserve exploration; direct coverage of one design decision.",
+      "originalPairIndex": 42,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "606b64d6-7be4-41cb-a108-9b2a0adb250b",
+      "right": "bd8af3c0-56ac-4a93-94b6-e4b075ad2384",
+      "sameEvent": false,
+      "reason": "Separate measurements of AI uploads on Itch.io and Steam, not the same store or report.",
+      "originalPairIndex": 43,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "fb6b8a8d-e05c-4e88-99b2-681c7d31fb7b",
+      "right": "606b64d6-7be4-41cb-a108-9b2a0adb250b",
+      "sameEvent": false,
+      "reason": "Anti-cloning policy change versus separate report of Itch.io upload volume.",
+      "originalPairIndex": 44,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "18c45e13-3de6-4ecb-9e18-722138596d29",
+      "right": "28ad8ef0-6da7-481f-a648-5c179560e2bb",
+      "sameEvent": true,
+      "reason": "Different facets of the same Ocarina remake developer-interview story: motivation and rejected fast travel. Broader than one design decision.",
+      "originalPairIndex": 45,
+      "borderline": true
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "28ad8ef0-6da7-481f-a648-5c179560e2bb",
+      "right": "72397d99-93cf-4d52-b3de-8f6882751542",
+      "sameEvent": true,
+      "reason": "Fast-travel discussion and design sketches are facets of the same newly published remake developer interview; the connection is the interview, not just the game.",
+      "originalPairIndex": 46,
+      "borderline": true
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "72397d99-93cf-4d52-b3de-8f6882751542",
+      "right": "19c15bc2-3442-4314-8936-96f3b77ac1ca",
+      "sameEvent": true,
+      "reason": "Design sketches and studio identification both report the same new Ask the Developer feature. Different facets make this a broader story boundary.",
+      "originalPairIndex": 47,
+      "borderline": true
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "984a3022-6629-4550-81a0-303f3336ac37",
+      "right": "832c2ed9-8f2a-4b03-83ad-3582482480d7",
+      "sameEvent": true,
+      "reason": "The first post-1.0 bug-fix patch is a direct follow-up to the Enshrouded release covered by the launch review.",
+      "originalPairIndex": 48,
+      "borderline": true
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "cdf2b7c6-ed70-4af2-8b9f-0d33cbe55d66",
+      "right": "299919a9-cb2d-4a18-83d1-009b54faab31",
+      "sameEvent": false,
+      "reason": "Same publisher and announcement template, but different games and developers.",
+      "originalPairIndex": 49,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "d7e275ae-c5a6-4f69-8d5c-50c89c719696",
+      "right": "2a002813-be27-4d73-83dc-584c1783c078",
+      "sameEvent": false,
+      "reason": "Same publisher and announcement template, but different games and developers.",
+      "originalPairIndex": 50,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "45a82a40-0180-4ba7-9661-84302479a7f8",
+      "right": "238b488d-13d7-4e55-a6b1-ee430d2a1c84",
+      "sameEvent": false,
+      "reason": "New game announcement versus another game demo date, despite shared publisher.",
+      "originalPairIndex": 51,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "a0afa98c-27bd-4bd3-8276-1e3b6e59f80e",
+      "right": "ebaf1fe4-c6c9-4e9e-b434-2a8b330ec21d",
+      "sameEvent": false,
+      "reason": "Different gameplay guides, ability respec versus collectible locations; neither is a shared news event.",
+      "originalPairIndex": 52,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "ebaf1fe4-c6c9-4e9e-b434-2a8b330ec21d",
+      "right": "1d16cf22-3fe8-4b82-b2ba-a9d86d3f4cb3",
+      "sameEvent": false,
+      "reason": "Different guides about the same game, collectible locations versus accessory selection.",
+      "originalPairIndex": 53,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "13269230-cd33-48c6-b682-ea5ff8be094f",
+      "right": "95dde458-05fc-4bc5-961d-8b48c61c09bf",
+      "sameEvent": false,
+      "reason": "Expansion developer and special-edition packaging share a remaster, but the excerpts do not establish the same announcement or a direct follow-up. Keep separate; sparse announcement context makes the boundary uncertain.",
+      "originalPairIndex": 54,
+      "borderline": true
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "bddb7e26-e09f-4190-9b41-98de64585125",
+      "right": "277cccbe-ae81-45bb-aa9f-c5ac3301ce3d",
+      "sameEvent": true,
+      "reason": "Same San Antonio–Minnesota Halloween game: both recorded headlines give the Spurs win and identical 121–111 score, within three hours.",
+      "originalPairIndex": 55,
+      "borderline": false
+    },
+    {
+      "window": "ranking-tech-2026-11-01.json",
+      "left": "c0ea84bf-d982-4201-90c0-fa940a269198",
+      "right": "b79dbac3-169b-4fff-a25f-70e754c4d5ca",
+      "sameEvent": true,
+      "reason": "Identical distinctive investment-column headline and excerpt within one hour, differing only by publisher suffix; same syndicated content for deduplication. Not a discrete news event or evidence of independent reporting; original attribution is not verified from these Google News records.",
+      "originalPairIndex": 56,
+      "borderline": false
+    },
+    {
+      "window": "ranking-tech-2026-11-01.json",
+      "left": "fc997ea3-1e67-42ca-a821-5c25c0c79cc3",
+      "right": "b79dbac3-169b-4fff-a25f-70e754c4d5ca",
+      "sameEvent": true,
+      "reason": "Identical distinctive investment-column headline and excerpt within one hour, differing only by publisher suffix; same syndicated content for deduplication. Not a discrete news event or evidence of independent reporting; original attribution is not verified from these Google News records.",
+      "originalPairIndex": 57,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "e9fabd3c-98d9-458b-8cd0-94424c5d212e",
+      "right": "c8de0e97-9ab0-4f83-b5e2-ce79ad2b4455",
+      "sameEvent": true,
+      "reason": "Agent review of recorded title/excerpt: same Nagoshi Studio closure after NetEase funding loss. Closure is explicit; game cancellation remains qualified. No independent publisher verification.",
+      "originalPairIndex": 58,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "f0703d80-c31c-4799-91cc-5060a004228c",
+      "right": "c8de0e97-9ab0-4f83-b5e2-ce79ad2b4455",
+      "sameEvent": true,
+      "reason": "Agent review of recorded title/excerpt: same Nagoshi Studio closure after NetEase funding loss. Closure is explicit; game cancellation remains qualified. No independent publisher verification.",
+      "originalPairIndex": 59,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "9dc752b5-f931-4a4a-aae2-2fb1e088222d",
+      "right": "78126db5-b41e-4d4a-b397-0aa272a0c7d4",
+      "sameEvent": true,
+      "reason": "Same Water Temple revision discussed by Aonuma in the remake interview.",
+      "originalPairIndex": 60,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "78126db5-b41e-4d4a-b397-0aa272a0c7d4",
+      "right": "40e8a001-ad5e-487b-8071-eae863928a69",
+      "sameEvent": true,
+      "reason": "Same Water Temple revision discussed by Aonuma in the remake interview.",
+      "originalPairIndex": 61,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "9dc752b5-f931-4a4a-aae2-2fb1e088222d",
+      "right": "40e8a001-ad5e-487b-8071-eae863928a69",
+      "sameEvent": true,
+      "reason": "Same Water Temple revision discussed by Aonuma in the remake interview.",
+      "originalPairIndex": 62,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "d24b4550-b2a4-4207-a611-b3c60427151d",
+      "right": "564a90fc-6cf0-4d56-bd37-f5383521e992",
+      "sameEvent": true,
+      "reason": "Same announced GTA 6 preload date, timing and storage details.",
+      "originalPairIndex": 63,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "564a90fc-6cf0-4d56-bd37-f5383521e992",
+      "right": "11dfec46-094f-4a80-a725-61680185c5d9",
+      "sameEvent": true,
+      "reason": "Same announced GTA 6 preload date, timing and storage details.",
+      "originalPairIndex": 64,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "11dfec46-094f-4a80-a725-61680185c5d9",
+      "right": "5fb58f18-6a35-4dd7-8a3c-67503c4b9e72",
+      "sameEvent": true,
+      "reason": "Same announced GTA 6 preload date, timing and storage details.",
+      "originalPairIndex": 65,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "12b8a4ca-1d57-4185-b8dd-5babf2869883",
+      "right": "87940db7-eab6-4850-8db5-b2fe45882c81",
+      "sameEvent": true,
+      "reason": "Same announced GTA 6 preload date, timing and storage details.",
+      "originalPairIndex": 66,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "141faa31-16c2-4cf0-a142-1bf5b35e5837",
+      "right": "33918da0-5e59-40b6-a34a-fdbdeb6fe369",
+      "sameEvent": true,
+      "reason": "Same official Elder Scrolls VI: Sentinel title/trailer reveal; different headline focus.",
+      "originalPairIndex": 67,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "33918da0-5e59-40b6-a34a-fdbdeb6fe369",
+      "right": "705b94d8-f43d-4edb-9045-e17abe39cb75",
+      "sameEvent": true,
+      "reason": "Same official Elder Scrolls VI: Sentinel title/trailer reveal; different headline focus.",
+      "originalPairIndex": 68,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "705b94d8-f43d-4edb-9045-e17abe39cb75",
+      "right": "83b43cd2-61cd-40c4-8dfd-6e93bf2b4f28",
+      "sameEvent": true,
+      "reason": "Same official Elder Scrolls VI: Sentinel title/trailer reveal; different headline focus.",
+      "originalPairIndex": 69,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "83b43cd2-61cd-40c4-8dfd-6e93bf2b4f28",
+      "right": "a022abd8-dea2-4eb2-a47f-857583668af6",
+      "sameEvent": true,
+      "reason": "Same official Elder Scrolls VI: Sentinel title/trailer reveal; different headline focus.",
+      "originalPairIndex": 70,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "a022abd8-dea2-4eb2-a47f-857583668af6",
+      "right": "c3fbd471-1be1-44ff-a7c2-8cc3767b1c7e",
+      "sameEvent": true,
+      "reason": "Same official Elder Scrolls VI: Sentinel title/trailer reveal; different headline focus.",
+      "originalPairIndex": 71,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "4757cb95-6b6b-4280-9f2d-98afc8c5c57f",
+      "right": "3ec3cdd4-9613-4dd9-b61e-3236728fab34",
+      "sameEvent": true,
+      "reason": "Same official Elder Scrolls VI: Sentinel title/trailer reveal; different headline focus.",
+      "originalPairIndex": 72,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "d24b4550-b2a4-4207-a611-b3c60427151d",
+      "right": "6a56b2e2-34f7-49b1-981e-e0d4bd27df50",
+      "sameEvent": false,
+      "reason": "Preload announcement is distinct from prospective PlayStation details or presale-revenue reporting.",
+      "originalPairIndex": 73,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "d24b4550-b2a4-4207-a611-b3c60427151d",
+      "right": "7227eb0b-a3ca-4e78-9147-65582717dedb",
+      "sameEvent": false,
+      "reason": "Preload announcement is distinct from prospective PlayStation details or presale-revenue reporting.",
+      "originalPairIndex": 74,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "564a90fc-6cf0-4d56-bd37-f5383521e992",
+      "right": "7227eb0b-a3ca-4e78-9147-65582717dedb",
+      "sameEvent": false,
+      "reason": "Preload announcement is distinct from prospective PlayStation details or presale-revenue reporting.",
+      "originalPairIndex": 75,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "11dfec46-094f-4a80-a725-61680185c5d9",
+      "right": "6a56b2e2-34f7-49b1-981e-e0d4bd27df50",
+      "sameEvent": false,
+      "reason": "Preload announcement is distinct from prospective PlayStation details or presale-revenue reporting.",
+      "originalPairIndex": 76,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "141faa31-16c2-4cf0-a142-1bf5b35e5837",
+      "right": "572f9405-0d7b-40cd-894f-9b2e6581cd92",
+      "sameEvent": true,
+      "reason": "Development-timeline reporting explicitly responds to the recent Sentinel reveal; a direct follow-up to that reveal.",
+      "originalPairIndex": 77,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "33918da0-5e59-40b6-a34a-fdbdeb6fe369",
+      "right": "24b7cd22-5a81-4504-a342-2a53aa7cc797",
+      "sameEvent": true,
+      "reason": "The timeline report explicitly qualifies the newly official Sentinel title; direct follow-up to the reveal.",
+      "originalPairIndex": 78,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "705b94d8-f43d-4edb-9045-e17abe39cb75",
+      "right": "572f9405-0d7b-40cd-894f-9b2e6581cd92",
+      "sameEvent": true,
+      "reason": "The timeline report explicitly responds to the recent Sentinel reveal; direct follow-up despite different headline focus.",
+      "originalPairIndex": 79,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "c3fbd471-1be1-44ff-a7c2-8cc3767b1c7e",
+      "right": "24b7cd22-5a81-4504-a342-2a53aa7cc797",
+      "sameEvent": true,
+      "reason": "The timeline report explicitly qualifies the newly official Sentinel title; direct follow-up to the reveal.",
+      "originalPairIndex": 80,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "9dc752b5-f931-4a4a-aae2-2fb1e088222d",
+      "right": "d4f46200-653d-4788-a45a-3ee8490b82ae",
+      "sameEvent": true,
+      "reason": "Water Temple and auto-jump decisions are facets of the same remake developer-interview story, broader than a single design decision.",
+      "originalPairIndex": 81,
+      "borderline": true
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "78126db5-b41e-4d4a-b397-0aa272a0c7d4",
+      "right": "d4f46200-653d-4788-a45a-3ee8490b82ae",
+      "sameEvent": true,
+      "reason": "Water Temple and auto-jump decisions are facets of the same remake developer-interview story, broader than a single design decision.",
+      "originalPairIndex": 82,
+      "borderline": true
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "40e8a001-ad5e-487b-8071-eae863928a69",
+      "right": "d4f46200-653d-4788-a45a-3ee8490b82ae",
+      "sameEvent": true,
+      "reason": "Both cover design decisions explained in the remake developer interview; shared reporting occasion rather than only a shared game.",
+      "originalPairIndex": 83,
+      "borderline": true
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "d24b4550-b2a4-4207-a611-b3c60427151d",
+      "right": "141faa31-16c2-4cf0-a142-1bf5b35e5837",
+      "sameEvent": false,
+      "reason": "Different games and different reported events; shared gaming topic is insufficient.",
+      "originalPairIndex": 84,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "7227eb0b-a3ca-4e78-9147-65582717dedb",
+      "right": "572f9405-0d7b-40cd-894f-9b2e6581cd92",
+      "sameEvent": false,
+      "reason": "Different games and different reported events; shared gaming topic is insufficient.",
+      "originalPairIndex": 85,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "d24b4550-b2a4-4207-a611-b3c60427151d",
+      "right": "ba60cf83-8985-4ba0-aff9-d8bc37aebeb6",
+      "sameEvent": true,
+      "reason": "Both are same-day GTA 6 preload schedule/file-size overviews; PS5 download guidance covers the same announcement. Agent-reviewed headlines/excerpts, not independent verification.",
+      "originalPairIndex": 86,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "564a90fc-6cf0-4d56-bd37-f5383521e992",
+      "right": "ba60cf83-8985-4ba0-aff9-d8bc37aebeb6",
+      "sameEvent": true,
+      "reason": "Both are same-day GTA 6 preload schedule/file-size overviews; PS5 download guidance covers the same announcement. Agent-reviewed headlines/excerpts, not independent verification.",
+      "originalPairIndex": 87,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "141faa31-16c2-4cf0-a142-1bf5b35e5837",
+      "right": "705b94d8-f43d-4edb-9045-e17abe39cb75",
+      "sameEvent": true,
+      "reason": "Both explicitly report the official Sentinel title announcement. Agent-reviewed headlines/excerpts, not independent validation.",
+      "originalPairIndex": 88,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "141faa31-16c2-4cf0-a142-1bf5b35e5837",
+      "right": "83b43cd2-61cd-40c4-8dfd-6e93bf2b4f28",
+      "sameEvent": true,
+      "reason": "Same official Sentinel title reveal, with successor framing. Agent-reviewed stored headlines/excerpts, not independent validation.",
+      "originalPairIndex": 89,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "33918da0-5e59-40b6-a34a-fdbdeb6fe369",
+      "right": "83b43cd2-61cd-40c4-8dfd-6e93bf2b4f28",
+      "sameEvent": true,
+      "reason": "Same official Sentinel title reveal, with successor framing. Agent-reviewed stored headlines/excerpts, not independent validation.",
+      "originalPairIndex": 90,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "141faa31-16c2-4cf0-a142-1bf5b35e5837",
+      "right": "c3fbd471-1be1-44ff-a7c2-8cc3767b1c7e",
+      "sameEvent": true,
+      "reason": "Both headline/excerpt pairs announce the official Elder Scrolls VI: Sentinel title in the November 3 Bethesda anniversary reveal; agent-reviewed, not independent verification.",
+      "originalPairIndex": 91,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "33918da0-5e59-40b6-a34a-fdbdeb6fe369",
+      "right": "c3fbd471-1be1-44ff-a7c2-8cc3767b1c7e",
+      "sameEvent": true,
+      "reason": "Both headline/excerpt pairs announce the official Elder Scrolls VI: Sentinel title in the November 3 Bethesda anniversary reveal; agent-reviewed, not independent verification.",
+      "originalPairIndex": 92,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "705b94d8-f43d-4edb-9045-e17abe39cb75",
+      "right": "c3fbd471-1be1-44ff-a7c2-8cc3767b1c7e",
+      "sameEvent": true,
+      "reason": "Both headline/excerpt pairs announce the official Elder Scrolls VI: Sentinel title in the November 3 Bethesda anniversary reveal; agent-reviewed, not independent verification.",
+      "originalPairIndex": 93,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "83b43cd2-61cd-40c4-8dfd-6e93bf2b4f28",
+      "right": "c3fbd471-1be1-44ff-a7c2-8cc3767b1c7e",
+      "sameEvent": true,
+      "reason": "Both headline/excerpt pairs announce the official Elder Scrolls VI: Sentinel title in the November 3 Bethesda anniversary reveal; agent-reviewed, not independent verification.",
+      "originalPairIndex": 94,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "a022abd8-dea2-4eb2-a47f-857583668af6",
+      "right": "141faa31-16c2-4cf0-a142-1bf5b35e5837",
+      "sameEvent": true,
+      "reason": "Nintendo Life headline announces an official title; its stored excerpt explicitly names The Elder Scrolls VI: Sentinel, the same November 3 reveal. Agent-reviewed, not independent verification.",
+      "originalPairIndex": 95,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "a022abd8-dea2-4eb2-a47f-857583668af6",
+      "right": "33918da0-5e59-40b6-a34a-fdbdeb6fe369",
+      "sameEvent": true,
+      "reason": "Nintendo Life headline announces an official title; its stored excerpt explicitly names The Elder Scrolls VI: Sentinel, the same November 3 reveal. Agent-reviewed, not independent verification.",
+      "originalPairIndex": 96,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "a022abd8-dea2-4eb2-a47f-857583668af6",
+      "right": "705b94d8-f43d-4edb-9045-e17abe39cb75",
+      "sameEvent": true,
+      "reason": "Nintendo Life headline announces an official title; its stored excerpt explicitly names The Elder Scrolls VI: Sentinel, the same November 3 reveal. Agent-reviewed, not independent verification.",
+      "originalPairIndex": 97,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "bc338528-32a4-467e-b292-9f774144751c",
+      "right": "57cf4885-721c-4220-8904-704f5edb1076",
+      "sameEvent": true,
+      "reason": "Same Dalen Terry two-year Thunder signing; prior teams and contract detail are facets of that transaction.",
+      "originalPairIndex": 98,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "bc338528-32a4-467e-b292-9f774144751c",
+      "right": "03631ab3-601f-4d61-a7c4-d6b531301605",
+      "sameEvent": true,
+      "reason": "Same Dalen Terry two-year Thunder signing; prior teams and contract detail are facets of that transaction.",
+      "originalPairIndex": 99,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "bc338528-32a4-467e-b292-9f774144751c",
+      "right": "fb567b89-53d6-4205-8504-5a808d6da66a",
+      "sameEvent": true,
+      "reason": "Same Dalen Terry two-year Thunder signing; prior teams and contract detail are facets of that transaction.",
+      "originalPairIndex": 100,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "bc338528-32a4-467e-b292-9f774144751c",
+      "right": "894a1ca5-0df6-4715-9d84-ef550f22cf56",
+      "sameEvent": true,
+      "reason": "Same Dalen Terry two-year Thunder signing; prior teams and contract detail are facets of that transaction.",
+      "originalPairIndex": 101,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "57cf4885-721c-4220-8904-704f5edb1076",
+      "right": "03631ab3-601f-4d61-a7c4-d6b531301605",
+      "sameEvent": true,
+      "reason": "Same Dalen Terry two-year Thunder signing; prior teams and contract detail are facets of that transaction.",
+      "originalPairIndex": 102,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "57cf4885-721c-4220-8904-704f5edb1076",
+      "right": "fb567b89-53d6-4205-8504-5a808d6da66a",
+      "sameEvent": true,
+      "reason": "Same Dalen Terry two-year Thunder signing; prior teams and contract detail are facets of that transaction.",
+      "originalPairIndex": 103,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "57cf4885-721c-4220-8904-704f5edb1076",
+      "right": "894a1ca5-0df6-4715-9d84-ef550f22cf56",
+      "sameEvent": true,
+      "reason": "Same Dalen Terry two-year Thunder signing; prior teams and contract detail are facets of that transaction.",
+      "originalPairIndex": 104,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "03631ab3-601f-4d61-a7c4-d6b531301605",
+      "right": "fb567b89-53d6-4205-8504-5a808d6da66a",
+      "sameEvent": true,
+      "reason": "Same Dalen Terry two-year Thunder signing; prior teams and contract detail are facets of that transaction.",
+      "originalPairIndex": 105,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "03631ab3-601f-4d61-a7c4-d6b531301605",
+      "right": "894a1ca5-0df6-4715-9d84-ef550f22cf56",
+      "sameEvent": true,
+      "reason": "Same Dalen Terry two-year Thunder signing; prior teams and contract detail are facets of that transaction.",
+      "originalPairIndex": 106,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "fb567b89-53d6-4205-8504-5a808d6da66a",
+      "right": "894a1ca5-0df6-4715-9d84-ef550f22cf56",
+      "sameEvent": true,
+      "reason": "Same Dalen Terry two-year Thunder signing; prior teams and contract detail are facets of that transaction.",
+      "originalPairIndex": 107,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "d94b581a-a059-462d-b2b2-8c1f883dcd1d",
+      "right": "b443a230-fea4-4d6b-831d-b665b4701439",
+      "sameEvent": true,
+      "reason": "Same LeBron fan-wine incident during the Sixers-Bulls game; explanation and video describe the incident.",
+      "originalPairIndex": 108,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "d94b581a-a059-462d-b2b2-8c1f883dcd1d",
+      "right": "0b2127f1-ad04-4f34-aa7e-5adb1ff23431",
+      "sameEvent": true,
+      "reason": "Same LeBron fan-wine incident during the Sixers-Bulls game; explanation and video describe the incident.",
+      "originalPairIndex": 109,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "b443a230-fea4-4d6b-831d-b665b4701439",
+      "right": "0b2127f1-ad04-4f34-aa7e-5adb1ff23431",
+      "sameEvent": true,
+      "reason": "Same LeBron fan-wine incident during the Sixers-Bulls game; explanation and video describe the incident.",
+      "originalPairIndex": 110,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "1a89e4ee-97f3-40bc-967a-0672ea474005",
+      "right": "a2c615e7-5569-4ca0-9771-a18753acaa4e",
+      "sameEvent": true,
+      "reason": "Same Knicks 103–90 Nets result and fourth-quarter comeback from opposing team perspectives.",
+      "originalPairIndex": 111,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "1a89e4ee-97f3-40bc-967a-0672ea474005",
+      "right": "cf2492b7-913d-49ed-b0d3-e19da85f4a77",
+      "sameEvent": true,
+      "reason": "Same Knicks 103–90 Nets result and fourth-quarter comeback from opposing team perspectives.",
+      "originalPairIndex": 112,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "1a89e4ee-97f3-40bc-967a-0672ea474005",
+      "right": "175f901f-8634-4088-9f7f-9eb4f7d10bac",
+      "sameEvent": true,
+      "reason": "Same Knicks 103–90 Nets result and fourth-quarter comeback from opposing team perspectives.",
+      "originalPairIndex": 113,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "a2c615e7-5569-4ca0-9771-a18753acaa4e",
+      "right": "cf2492b7-913d-49ed-b0d3-e19da85f4a77",
+      "sameEvent": true,
+      "reason": "Same Knicks 103–90 Nets result and fourth-quarter comeback from opposing team perspectives.",
+      "originalPairIndex": 114,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "a2c615e7-5569-4ca0-9771-a18753acaa4e",
+      "right": "175f901f-8634-4088-9f7f-9eb4f7d10bac",
+      "sameEvent": true,
+      "reason": "Same Knicks 103–90 Nets result and fourth-quarter comeback from opposing team perspectives.",
+      "originalPairIndex": 115,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "cf2492b7-913d-49ed-b0d3-e19da85f4a77",
+      "right": "175f901f-8634-4088-9f7f-9eb4f7d10bac",
+      "sameEvent": true,
+      "reason": "Same Knicks 103–90 Nets result and fourth-quarter comeback from opposing team perspectives.",
+      "originalPairIndex": 116,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "f356a592-4d9e-484f-a1d0-9b15ed0be480",
+      "right": "5f33ecab-c31d-4e97-81b3-0821488803b6",
+      "sameEvent": true,
+      "reason": "Same Spurs victory over Utah; highlights and final-score recap describe the November 2 game.",
+      "originalPairIndex": 117,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "d94b581a-a059-462d-b2b2-8c1f883dcd1d",
+      "right": "4b34bfc6-3e6b-45ca-a5fa-1e65652247b0",
+      "sameEvent": true,
+      "reason": "Portnoy directly reacts to the same LeBron fan-wine incident; reactions belong with the original story.",
+      "originalPairIndex": 118,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "b443a230-fea4-4d6b-831d-b665b4701439",
+      "right": "4b34bfc6-3e6b-45ca-a5fa-1e65652247b0",
+      "sameEvent": true,
+      "reason": "Portnoy directly reacts to the incident LeBron explains; same story under the owner definition.",
+      "originalPairIndex": 119,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "0b2127f1-ad04-4f34-aa7e-5adb1ff23431",
+      "right": "4b34bfc6-3e6b-45ca-a5fa-1e65652247b0",
+      "sameEvent": true,
+      "reason": "Portnoy commentary directly concerns this fan-wine interaction; same story including reactions.",
+      "originalPairIndex": 120,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "ec122266-39ac-43bc-b75f-c1772a16ba1b",
+      "right": "0f1d30ae-48a7-4404-8a82-8e11884499fa",
+      "sameEvent": true,
+      "reason": "Owner item 27 explicitly includes teammates reacting to Draymond’s ejection in the ejection story.",
+      "originalPairIndex": 121,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "f356a592-4d9e-484f-a1d0-9b15ed0be480",
+      "right": "1b3c5b98-7a7c-42b9-8c2c-bd6c0352c968",
+      "sameEvent": true,
+      "reason": "Preview and highlights concern the same specific Spurs-Jazz fixture; the final result is the direct continuation of its pregame coverage.",
+      "originalPairIndex": 122,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "5f33ecab-c31d-4e97-81b3-0821488803b6",
+      "right": "1b3c5b98-7a7c-42b9-8c2c-bd6c0352c968",
+      "sameEvent": true,
+      "reason": "Preview and 119–97 result concern the same specific Spurs-Jazz fixture, not separate games.",
+      "originalPairIndex": 123,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "1a89e4ee-97f3-40bc-967a-0672ea474005",
+      "right": "2477f5b6-421c-4762-9bc5-4ea613e0f983",
+      "sameEvent": true,
+      "reason": "The dated Knicks-Nets discussion thread and recap concern the same November 2 game; pregame discussion continues into the result.",
+      "originalPairIndex": 124,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "a2c615e7-5569-4ca0-9771-a18753acaa4e",
+      "right": "2477f5b6-421c-4762-9bc5-4ea613e0f983",
+      "sameEvent": true,
+      "reason": "The dated Knicks-Nets thread and 103–90 recap concern the same November 2 game.",
+      "originalPairIndex": 125,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "cf2492b7-913d-49ed-b0d3-e19da85f4a77",
+      "right": "2477f5b6-421c-4762-9bc5-4ea613e0f983",
+      "sameEvent": true,
+      "reason": "The dated Knicks-Nets thread and Nets loss concern the same November 2 game.",
+      "originalPairIndex": 126,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "175f901f-8634-4088-9f7f-9eb4f7d10bac",
+      "right": "2477f5b6-421c-4762-9bc5-4ea613e0f983",
+      "sameEvent": true,
+      "reason": "The dated Knicks-Nets thread and fourth-quarter comeback concern the same November 2 game.",
+      "originalPairIndex": 127,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "bc338528-32a4-467e-b292-9f774144751c",
+      "right": "ec122266-39ac-43bc-b75f-c1772a16ba1b",
+      "sameEvent": false,
+      "reason": "Thunder signing and Warriors-Suns ejection are different events.",
+      "originalPairIndex": 128,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "57cf4885-721c-4220-8904-704f5edb1076",
+      "right": "1a89e4ee-97f3-40bc-967a-0672ea474005",
+      "sameEvent": false,
+      "reason": "Thunder roster transaction and Knicks game result are different events.",
+      "originalPairIndex": 129,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "03631ab3-601f-4d61-a7c4-d6b531301605",
+      "right": "d94b581a-a059-462d-b2b2-8c1f883dcd1d",
+      "sameEvent": false,
+      "reason": "Thunder signing and LeBron’s fan interaction are different events.",
+      "originalPairIndex": 130,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "fb567b89-53d6-4205-8504-5a808d6da66a",
+      "right": "5f33ecab-c31d-4e97-81b3-0821488803b6",
+      "sameEvent": false,
+      "reason": "Thunder signing and Spurs-Jazz result are different events.",
+      "originalPairIndex": 131,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "894a1ca5-0df6-4715-9d84-ef550f22cf56",
+      "right": "0f1d30ae-48a7-4404-8a82-8e11884499fa",
+      "sameEvent": false,
+      "reason": "Thunder signing and Warriors’ response to an ejection are different events.",
+      "originalPairIndex": 132,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "d94b581a-a059-462d-b2b2-8c1f883dcd1d",
+      "right": "ec122266-39ac-43bc-b75f-c1772a16ba1b",
+      "sameEvent": false,
+      "reason": "LeBron’s fan interaction and Draymond’s ejection are different events.",
+      "originalPairIndex": 133,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "b443a230-fea4-4d6b-831d-b665b4701439",
+      "right": "1a89e4ee-97f3-40bc-967a-0672ea474005",
+      "sameEvent": false,
+      "reason": "Fan-wine incident and Knicks-Nets result are different events.",
+      "originalPairIndex": 134,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "f356a592-4d9e-484f-a1d0-9b15ed0be480",
+      "right": "1a89e4ee-97f3-40bc-967a-0672ea474005",
+      "sameEvent": false,
+      "reason": "Spurs-Jazz and Knicks-Nets are separate games.",
+      "originalPairIndex": 135,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "5f33ecab-c31d-4e97-81b3-0821488803b6",
+      "right": "cf2492b7-913d-49ed-b0d3-e19da85f4a77",
+      "sameEvent": false,
+      "reason": "Spurs-Jazz and Knicks-Nets are separate games.",
+      "originalPairIndex": 136,
+      "borderline": false
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "ec122266-39ac-43bc-b75f-c1772a16ba1b",
+      "right": "2477f5b6-421c-4762-9bc5-4ea613e0f983",
+      "sameEvent": false,
+      "reason": "Warriors-Suns ejection and Knicks-Nets pregame discussion are different events.",
+      "originalPairIndex": 137,
+      "borderline": false
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "6a28cba6-ad23-4fa9-9abd-f845e1d8ee70",
+      "right": "bddb7e26-e09f-4190-9b41-98de64585125",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Spurs–Timberwolves Halloween game, including highlights and analysis.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "6a28cba6-ad23-4fa9-9abd-f845e1d8ee70",
+      "right": "330af28c-5f48-4cb8-8b99-005029bda3a5",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Spurs–Timberwolves Halloween game, including highlights and analysis.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "6a28cba6-ad23-4fa9-9abd-f845e1d8ee70",
+      "right": "277cccbe-ae81-45bb-aa9f-c5ac3301ce3d",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Spurs–Timberwolves Halloween game, including highlights and analysis.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "07653a65-36c3-43ec-b4a9-96cd135520f9",
+      "right": "bddb7e26-e09f-4190-9b41-98de64585125",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Spurs–Timberwolves Halloween game, including highlights and analysis.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "07653a65-36c3-43ec-b4a9-96cd135520f9",
+      "right": "330af28c-5f48-4cb8-8b99-005029bda3a5",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Spurs–Timberwolves Halloween game, including highlights and analysis.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "07653a65-36c3-43ec-b4a9-96cd135520f9",
+      "right": "277cccbe-ae81-45bb-aa9f-c5ac3301ce3d",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Spurs–Timberwolves Halloween game, including highlights and analysis.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "2469bb14-ed25-4b19-8c84-f4cb26cc9aba",
+      "right": "86e51c7d-61a5-48e7-8da9-b7e805ed692d",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Cavaliers–Bucks Halloween result, including player grades and analysis.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "2469bb14-ed25-4b19-8c84-f4cb26cc9aba",
+      "right": "c4b2ce66-9bf4-471e-9aa9-7cabae13a1d3",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Cavaliers–Bucks Halloween result, including player grades and analysis.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "2469bb14-ed25-4b19-8c84-f4cb26cc9aba",
+      "right": "20a298f7-d298-4d9e-9239-cd0352954280",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Cavaliers–Bucks Halloween result, including player grades and analysis.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "86e51c7d-61a5-48e7-8da9-b7e805ed692d",
+      "right": "20a298f7-d298-4d9e-9239-cd0352954280",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Cavaliers–Bucks Halloween result, including player grades and analysis.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "9d729909-280c-4d3b-8b75-91f8e6a3c943",
+      "right": "604ee7fe-21cb-45ad-bcc0-e0c9972696f9",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Sixers–Hornets Halloween comeback and Maxey performance.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "9d729909-280c-4d3b-8b75-91f8e6a3c943",
+      "right": "3b278726-17f7-42ab-a75b-ec8f399986c5",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Sixers–Hornets Halloween comeback and Maxey performance.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "10613a67-0e78-4946-b41d-e8e343368599",
+      "right": "3d88640c-4d29-4458-93a3-abbb35f2aa9a",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same specific Celtics–Magic November 1 fixture; starter availability is part of the game-preview story.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "1ebbd7da-afd1-4951-8cc0-ebd04e08d0d3",
+      "right": "2c9ff804-512f-40d2-a210-520d01eab511",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same specific Lakers–Raptors fixture, previewed from opposing team perspectives.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "ranking-world-2026-11-01.json",
+      "left": "14ae4702-0b9c-4773-a246-8c3906e01c3e",
+      "right": "0cb26249-faf9-4444-a9be-efa610a0deba",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Haley Stevens endorsement of Mike Rogers after losing to El-Sayed.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "ranking-world-2026-11-01.json",
+      "left": "4555bc0f-4562-403c-a432-23b32f063598",
+      "right": "1028efb0-d04c-4eed-8969-0bcb3d55fb9e",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same German cost-of-living protests turning violent in the named cities.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "ranking-world-2026-11-01.json",
+      "left": "012504c8-f5ab-474e-a6b8-cdc722ee949d",
+      "right": "7ff10b67-1f43-45dc-8bdd-43821166c575",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Binance hack recovery; resumed withdrawals directly follow covering 90 percent of losses.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "9003ba23-ca74-43a1-9397-57504486634f",
+      "right": "b50957a1-e9e8-4600-a64a-8d0688ee633f",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Westbrook number-retirement announcement and February 7 ceremony.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "9003ba23-ca74-43a1-9397-57504486634f",
+      "right": "fda182c0-67f6-4fd5-9b26-25072411ed71",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Westbrook number-retirement announcement and February 7 ceremony.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "6ad062c8-0d9e-4843-92b7-d16385ee473d",
+      "right": "b50957a1-e9e8-4600-a64a-8d0688ee633f",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Westbrook number-retirement announcement and February 7 ceremony.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "6ad062c8-0d9e-4843-92b7-d16385ee473d",
+      "right": "fda182c0-67f6-4fd5-9b26-25072411ed71",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Westbrook number-retirement announcement and February 7 ceremony.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "38d4ec52-d028-4df4-bbfc-b39429565cd1",
+      "right": "7f244cae-1318-4826-9aba-2e0f17b009fc",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Warriors–Clippers win and Lendeborg 37-point performance.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "c3e9767e-3755-4c0c-9c91-74a3701aa7d5",
+      "right": "81600743-e716-4190-a5c6-62476cfa697d",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Flemings one-game suspension for elbowing McGowens.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "c3e9767e-3755-4c0c-9c91-74a3701aa7d5",
+      "right": "e0590106-91d2-4095-8414-e6ba5a52969a",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Flemings one-game suspension for elbowing McGowens.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "9c125447-431a-4090-a87e-86dd0e4187f7",
+      "right": "81600743-e716-4190-a5c6-62476cfa697d",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Flemings one-game suspension for elbowing McGowens.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-nba-2026-11-02.json",
+      "left": "9c125447-431a-4090-a87e-86dd0e4187f7",
+      "right": "e0590106-91d2-4095-8414-e6ba5a52969a",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Flemings one-game suspension for elbowing McGowens.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "e9fabd3c-98d9-458b-8cd0-94424c5d212e",
+      "right": "1ca1e4c4-5d01-4058-ae64-05132cf6145c",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Nagoshi Studio closure after NetEase funding loss, including the consequence for Gang of Dragon.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "f0703d80-c31c-4799-91cc-5060a004228c",
+      "right": "1ca1e4c4-5d01-4058-ae64-05132cf6145c",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Nagoshi Studio closure after NetEase funding loss, including the consequence for Gang of Dragon.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "988e803d-b162-4a5b-a502-ce489c3d7aee",
+      "right": "96f79f60-18b1-415e-b6b0-5cba8eaf96a2",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same new Claude Code rule against cloning existing games.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-02.json",
+      "left": "09479cfd-2125-4c0e-b7f3-81acd902bbe6",
+      "right": "e466302e-c186-49c8-891e-48ecd8576837",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Ocarina remake fast-travel feature cut to preserve discovery.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "d24b4550-b2a4-4207-a611-b3c60427151d",
+      "right": "11dfec46-094f-4a80-a725-61680185c5d9",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same GTA 6 November 10 preload announcement, including file size and regional download guidance.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "d24b4550-b2a4-4207-a611-b3c60427151d",
+      "right": "5fb58f18-6a35-4dd7-8a3c-67503c4b9e72",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same GTA 6 November 10 preload announcement, including file size and regional download guidance.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "d24b4550-b2a4-4207-a611-b3c60427151d",
+      "right": "12b8a4ca-1d57-4185-b8dd-5babf2869883",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same GTA 6 November 10 preload announcement, including file size and regional download guidance.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "d24b4550-b2a4-4207-a611-b3c60427151d",
+      "right": "87940db7-eab6-4850-8db5-b2fe45882c81",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same GTA 6 November 10 preload announcement, including file size and regional download guidance.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "ba60cf83-8985-4ba0-aff9-d8bc37aebeb6",
+      "right": "11dfec46-094f-4a80-a725-61680185c5d9",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same GTA 6 November 10 preload announcement, including file size and regional download guidance.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "ba60cf83-8985-4ba0-aff9-d8bc37aebeb6",
+      "right": "5fb58f18-6a35-4dd7-8a3c-67503c4b9e72",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same GTA 6 November 10 preload announcement, including file size and regional download guidance.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "ba60cf83-8985-4ba0-aff9-d8bc37aebeb6",
+      "right": "12b8a4ca-1d57-4185-b8dd-5babf2869883",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same GTA 6 November 10 preload announcement, including file size and regional download guidance.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "ba60cf83-8985-4ba0-aff9-d8bc37aebeb6",
+      "right": "87940db7-eab6-4850-8db5-b2fe45882c81",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same GTA 6 November 10 preload announcement, including file size and regional download guidance.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "564a90fc-6cf0-4d56-bd37-f5383521e992",
+      "right": "5fb58f18-6a35-4dd7-8a3c-67503c4b9e72",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same GTA 6 November 10 preload announcement, including file size and regional download guidance.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "564a90fc-6cf0-4d56-bd37-f5383521e992",
+      "right": "12b8a4ca-1d57-4185-b8dd-5babf2869883",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same GTA 6 November 10 preload announcement, including file size and regional download guidance.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "564a90fc-6cf0-4d56-bd37-f5383521e992",
+      "right": "87940db7-eab6-4850-8db5-b2fe45882c81",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same GTA 6 November 10 preload announcement, including file size and regional download guidance.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "11dfec46-094f-4a80-a725-61680185c5d9",
+      "right": "12b8a4ca-1d57-4185-b8dd-5babf2869883",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same GTA 6 November 10 preload announcement, including file size and regional download guidance.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "11dfec46-094f-4a80-a725-61680185c5d9",
+      "right": "87940db7-eab6-4850-8db5-b2fe45882c81",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same GTA 6 November 10 preload announcement, including file size and regional download guidance.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "5fb58f18-6a35-4dd7-8a3c-67503c4b9e72",
+      "right": "12b8a4ca-1d57-4185-b8dd-5babf2869883",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same GTA 6 November 10 preload announcement, including file size and regional download guidance.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "5fb58f18-6a35-4dd7-8a3c-67503c4b9e72",
+      "right": "87940db7-eab6-4850-8db5-b2fe45882c81",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same GTA 6 November 10 preload announcement, including file size and regional download guidance.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "141faa31-16c2-4cf0-a142-1bf5b35e5837",
+      "right": "3ec3cdd4-9613-4dd9-b61e-3236728fab34",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Sentinel name/trailer reveal, including reporting that the reveal still gives no release date.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "141faa31-16c2-4cf0-a142-1bf5b35e5837",
+      "right": "4757cb95-6b6b-4280-9f2d-98afc8c5c57f",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Sentinel name/trailer reveal, including reporting that the reveal still gives no release date.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "33918da0-5e59-40b6-a34a-fdbdeb6fe369",
+      "right": "3ec3cdd4-9613-4dd9-b61e-3236728fab34",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Sentinel name/trailer reveal, including reporting that the reveal still gives no release date.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "33918da0-5e59-40b6-a34a-fdbdeb6fe369",
+      "right": "4757cb95-6b6b-4280-9f2d-98afc8c5c57f",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Sentinel name/trailer reveal, including reporting that the reveal still gives no release date.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "705b94d8-f43d-4edb-9045-e17abe39cb75",
+      "right": "3ec3cdd4-9613-4dd9-b61e-3236728fab34",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Sentinel name/trailer reveal, including reporting that the reveal still gives no release date.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "705b94d8-f43d-4edb-9045-e17abe39cb75",
+      "right": "4757cb95-6b6b-4280-9f2d-98afc8c5c57f",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Sentinel name/trailer reveal, including reporting that the reveal still gives no release date.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "83b43cd2-61cd-40c4-8dfd-6e93bf2b4f28",
+      "right": "3ec3cdd4-9613-4dd9-b61e-3236728fab34",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Sentinel name/trailer reveal, including reporting that the reveal still gives no release date.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "83b43cd2-61cd-40c4-8dfd-6e93bf2b4f28",
+      "right": "4757cb95-6b6b-4280-9f2d-98afc8c5c57f",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Sentinel name/trailer reveal, including reporting that the reveal still gives no release date.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "a022abd8-dea2-4eb2-a47f-857583668af6",
+      "right": "3ec3cdd4-9613-4dd9-b61e-3236728fab34",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Sentinel name/trailer reveal, including reporting that the reveal still gives no release date.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "a022abd8-dea2-4eb2-a47f-857583668af6",
+      "right": "4757cb95-6b6b-4280-9f2d-98afc8c5c57f",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Sentinel name/trailer reveal, including reporting that the reveal still gives no release date.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "3ec3cdd4-9613-4dd9-b61e-3236728fab34",
+      "right": "c3fbd471-1be1-44ff-a7c2-8cc3767b1c7e",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Sentinel name/trailer reveal, including reporting that the reveal still gives no release date.",
+      "originalPairIndex": null
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "c3fbd471-1be1-44ff-a7c2-8cc3767b1c7e",
+      "right": "4757cb95-6b6b-4280-9f2d-98afc8c5c57f",
+      "sameEvent": true,
+      "borderline": false,
+      "reason": "Same Sentinel name/trailer reveal, including reporting that the reveal still gives no release date.",
+      "originalPairIndex": null
+    }
+  ]
+}

@@ -257,3 +257,89 @@ void test('once-only paid evaluation remains reproducible and fails the activati
   assert.equal(fresh.truePositives, 20);
   assert.equal(fresh.falsePositives, 1);
 });
+
+void test('same-story review covers every original label and previously unknown merge without changing historical evidence', () => {
+  const fixture = (name: string) =>
+    JSON.parse(readFileSync(join(__dirname, 'fixtures', name), 'utf8'));
+  const original = fixture('event-grouping-pairs.json').pairs as {
+    window: string;
+    left: string;
+    right: string;
+    sameEvent: boolean;
+  }[];
+  const reviewed = fixture('same-story-pairs.json')
+    .pairs as ((typeof original)[number] & {
+    originalPairIndex: number | null;
+    reason: string;
+    borderline: boolean;
+  })[];
+  assert.equal(reviewed.length, 195);
+  original.forEach((pair, index) => {
+    const review = reviewed.filter((item) => item.originalPairIndex === index);
+    assert.equal(review.length, 1);
+    assert.equal(review[0].window, pair.window);
+    assert.equal(review[0].left, pair.left);
+    assert.equal(review[0].right, pair.right);
+  });
+  assert.equal(
+    reviewed.filter((pair) => pair.originalPairIndex === null).length,
+    57,
+  );
+  assert.equal(reviewed.filter((pair) => pair.borderline).length, 10);
+  assert.ok(
+    reviewed.every(
+      (pair) => pair.reason.trim() && typeof pair.borderline === 'boolean',
+    ),
+  );
+
+  const memberships = fixture(
+    'event-grouping-evaluation-2026-11-03.json',
+  ) as Record<string, string[][]>;
+  const result = evaluateEventGrouping(undefined, memberships, 'same-story');
+  assert.equal(result.pairs, 195);
+  assert.equal(result.positives, 157);
+  assert.equal(result.negatives, 38);
+  assert.equal(result.truePositives, 135);
+  assert.equal(result.falsePositives, 0);
+  assert.equal(result.falseNegatives, 22);
+  assert.equal(result.precision, 1);
+  assert.equal(result.recall, 135 / 157);
+  assert.equal(result.borderlineMergedPairs, 0);
+  assert.equal(result.clearlyUnrelatedMergedPairs, 0);
+  assert.ok(
+    result.windows.every(
+      (window) => window.membership.unlabeledMergedPairs === 0,
+    ),
+  );
+  // Broadening the story boundary changes labels, not the recorded prediction.
+  const strict = evaluateEventGrouping(undefined, memberships);
+  assert.equal(strict.falsePositives, 2);
+  assert.equal(strict.truePositives, 76);
+  assert.equal(strict.pairs, 138);
+  // A clearly unrelated games pair must still fail with the new labels.
+  const negative = reviewed.find(
+    (pair) => !pair.sameEvent && !pair.borderline,
+  )!;
+  const unrelated = evaluateEventGrouping(
+    undefined,
+    {
+      [negative.window]: [[negative.left, negative.right]],
+    },
+    'same-story',
+  );
+  assert.equal(unrelated.clearlyUnrelatedMergedPairs, 1);
+  assert.equal(unrelated.falsePositives, 1);
+  const borderline = reviewed.find(
+    (pair) => pair.borderline && pair.sameEvent,
+  )!;
+  assert.equal(
+    evaluateEventGrouping(
+      undefined,
+      {
+        [borderline.window]: [[borderline.left, borderline.right]],
+      },
+      'same-story',
+    ).borderlineMergedPairs,
+    1,
+  );
+});
