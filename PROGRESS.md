@@ -1,13 +1,3 @@
-## 2026-11-03: iteration 445 — require known event timing for headline merges
-
-- Started clean on main; no leftovers. Zero alerts and healthy API/DB/Redis. Scheduled product acceptance remains pending Nov 4; continued item 19 correctness work.
-- Fixed base headline matcher treating NaN timestamp differences as within 36 hours. Unknown timing now refuses merges even for identical titles; valid matching behavior and opt-in activation unchanged.
-- Regression checks cover invalid/missing timestamps, both input orders, isolated cluster membership, exact 36-hour limits, one millisecond outside and equivalent UTC offsets. Targeted grouping tests: 17 passed.
-- Verification: pnpm format, pnpm lint:fix, pnpm check, pnpm build and git diff --check passed: 280 unit/176 isolated integration tests; zero dangling volumes.
-- No paid calls, new editions, Reddit requests, UI/layout changes or handbook-described flow changes.
-- Restarted API/worker for the changed matcher. Immediate health probe raced startup; retry passed with healthy DB/Redis, all 32 sources and four queues. Existing real collection continues; no new scheduled edition claimed.
-- Next: Nov 4 scheduled X/Bluesky selections, World yield, screenshots and latency/full-AI evidence; broader grouping recall and independent labels remain open.
-
 ## 2026-11-03: iteration 446 — preserve numeric roles in headline groups
 
 - Started clean on main; no leftovers. Zero alerts and healthy API/DB/Redis; scheduled social/latency evidence still awaits Nov 4.
@@ -171,3 +161,13 @@
 - pnpm format, pnpm lint:fix, pnpm check (294 unit/176 isolated integration), pnpm build and git diff --check passed; no dangling Docker volumes.
 - Restarted API/worker; pnpm obs health --check passed, root HTTP 200 and zero alerts. Updated TASKS/RANKING. No UI or handbook flow change, paid calls, new editions or Reddit requests.
 - Next: Nov 4 open-X/Bluesky selections/screenshots, World yield and latency/full-AI evidence; broader grouping recall and independent labels remain open.
+
+## 2026-11-03: iteration 462 — group rejected remake fast-travel experiments
+
+- Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis and all 32 source connections. Scheduled social/latency evidence still awaits Nov 4; advanced item 19.
+- Default-off grouping now matches explicit rejected fast-travel experiments for the same remake, retaining full game identity and normalizing the established Zelda franchise alias. Other games/mechanics, shipped features, uncertainty, historical titles and invalid/out-of-window times stay separate.
+- Recovered the recorded Eurogamer/Kotaku Ocarina of Time pair: 34/57 positives, zero/41 false merges, unknown merges or sampled membership variation. Vague GamesRadar+ feature coverage remains separate without explicit fast-travel evidence. Labels remain agent-reviewed, not independent validation; production grouping stays disabled.
+- Targeted grouping tests passed 19/19. Initial full check caught formatting in the newly archived progress entry; corrected it. Final pnpm format, pnpm lint:fix, pnpm check (296 unit/176 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
+- Updated TASKS/RANKING; archived iteration 445 to keep PROGRESS below 25 KB. No UI/handbook flow change, paid calls, new editions or Reddit requests.
+- Next: Nov 4 open-X/Bluesky selections/screenshots, World yield and latency/full-AI evidence; broader grouping recall and independent labels remain open.
+- Restarted API/worker; pnpm obs health --check passed, root HTTP 200, both units active and zero alerts. Live rolling article/X counts: Tech 333/74, NBA 145/56, Gaming 274/15, World 230/1; latest social collection completed.

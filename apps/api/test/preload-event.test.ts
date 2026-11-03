@@ -82,7 +82,7 @@ void test('preload platforms preserve hardware variants and normalize equivalent
 void test('opt-in preload rule improves recorded recall without unknown or incorrect cluster merges', () => {
   const result = evaluateEventGrouping(sameEventWithStudioClosure);
   assert.equal(result.falsePositives, 0);
-  assert.equal(result.truePositives, 33);
+  assert.equal(result.truePositives, 34);
   for (const window of result.windows) {
     assert.equal(window.membership.permutationCheck.maxFalsePositives, 0);
     assert.equal(window.membership.permutationCheck.maxUnlabeledMergedPairs, 0);

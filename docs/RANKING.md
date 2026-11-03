@@ -1171,3 +1171,18 @@ Separate sentences about future games or staff meetings remain accepted.
 Bidirectional synthetic guards pass. The recorded benchmark remains 33/57
 positives with zero/41 false merges; agent labels are not independent
 validation. Production grouping remains disabled.
+
+## Iteration 462: rejected remake fast-travel experiments
+
+The default-off matcher joins explicit reports about the same remake's
+abandoned fast-travel experiment. It requires a complete game identity and
+rejection wording, retaining subtitles and sequel numbers. The established
+“The Legend of Zelda”/“Zelda” alias is normalized. Shipped features, other
+mechanics, uncertainty, historical reports and vague quality-of-life headlines
+are excluded; publication times must be valid and within 36 hours.
+
+This recovers the recorded Eurogamer/Kotaku Ocarina of Time pair, while leaving
+the GamesRadar+ vague-feature headline separate: its recorded excerpt does not
+identify fast travel. The benchmark reaches 34/57 positives, zero/41 false
+merges, no unknown merged pairs or sampled membership variation. These are
+agent-reviewed labels, not independent validation. Production remains disabled.
