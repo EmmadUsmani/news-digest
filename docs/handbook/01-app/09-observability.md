@@ -229,12 +229,15 @@ details remain in the jobs browser.
 ## Grafana dashboards
 
 Open [/grafana/](/grafana/) and choose **Dashboards → News Digest** for Host,
-Services, HTTP and Jobs. These use the local metrics store; Host shows CPU,
+Services, HTTP, Jobs and Errors and logs. These use the local metrics store; Host shows CPU,
 memory, disk and network, Services shows unit and Node health, HTTP shows
 request and external-attempt rates and latency, and Jobs shows retained queue
 state, schedules and processor attempts. Dashboard descriptions explain what
 the measurements count. Empty panels mean no observed samples, rather than
 zero failures. Retained job counts are snapshots, not lifetime totals.
+Errors and logs brings together API 5xx, external HTTP failures, failed processor
+attempts, retained failed jobs and unit restarts/state. Its Logs link opens the
+retained structured events; it does not collect browser errors.
 
 Grafana is a loopback-only service on port 3001, forwarded through the private
 app. Anonymous access is Viewer access behind the exe.dev login; login and
@@ -255,5 +258,5 @@ Verify with `pnpm exec tsx scripts/check-observability.ts --verify-grafana
 --verify-o4` (one command). It checks health, Viewer access, provisioning, all
 panel query responses and populated dashboards, renders desktop/mobile views
 with Playwright and saves screenshots in `docs/screenshots/`. No paid calls
-or content jobs are triggered. Database, Redis, product, log/error and agent
+or content jobs are triggered. Database, Redis, product and agent
 dashboards remain pending their data connections and later observability work.

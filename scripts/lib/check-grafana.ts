@@ -88,6 +88,28 @@ export async function checkGrafana() {
         if (result.data.result.length > 0) populated++;
       }
       assert.ok(populated > 0, `${dashboard.title}: all panels empty`);
+      if (dashboard.uid === 'nd-errors') {
+        // Retained queue/unit gauges exist even when no failures were observed.
+        for (const title of [
+          'Retained failed jobs',
+          'Unit restarts since activation',
+          'Inactive units',
+        ]) {
+          const panel = dashboard.panels.find(
+            (candidate: { title: string }) => candidate.title === title,
+          );
+          assert.ok(panel, title);
+          const result = await (
+            await fetch(
+              `${base}/api/datasources/proxy/uid/local-metrics/api/v1/query?${new URLSearchParams({ query: panel.targets[0].expr })}`,
+            )
+          ).json();
+          assert.ok(
+            result.data.result.length > 0,
+            `${title}: missing live gauges`,
+          );
+        }
+      }
       if (['nd-host', 'nd-services', 'nd-jobs'].includes(dashboard.uid))
         assert.equal(
           populated,
@@ -146,6 +168,20 @@ export async function checkGrafana() {
     await page.waitForTimeout(1500);
     await page.screenshot({
       path: 'docs/screenshots/grafana-host-mobile.png',
+    });
+    await page.goto(`${base}/d/nd-errors?kiosk`, { waitUntil: 'networkidle' });
+    await page
+      .getByRole('heading', { name: 'API 5xx per second', exact: true })
+      .waitFor();
+    await page.waitForTimeout(1500);
+    assert.equal(
+      await page
+        .locator('[data-testid="data-testid Panel status error"]')
+        .count(),
+      0,
+    );
+    await page.screenshot({
+      path: 'docs/screenshots/grafana-errors-mobile.png',
     });
   } finally {
     await browser.close();
