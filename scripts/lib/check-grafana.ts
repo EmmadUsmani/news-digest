@@ -243,7 +243,9 @@ export async function checkGrafana() {
         );
       await page.setViewportSize({
         width: 1440,
-        height: dashboard.uid === 'nd-product' ? 1800 : 1100,
+        height: ['nd-product', 'nd-runtime'].includes(dashboard.uid)
+          ? 1800
+          : 1100,
       });
       const errors: string[] = [];
       page.on('response', (response) => {
@@ -289,7 +291,7 @@ export async function checkGrafana() {
         // A first canvas can paint while the other queries are still pending.
         await page
           .getByText('worker', { exact: true })
-          .nth(4)
+          .nth(8)
           .waitFor({ state: 'visible' });
         await page
           .getByText('worker minor', { exact: true })
@@ -419,6 +421,30 @@ export async function checkGrafana() {
     );
     await page.screenshot({
       path: 'docs/screenshots/grafana-runtime-mobile.png',
+    });
+    // Runtime panels below the mobile viewport are virtualized.
+    for (let attempt = 0; attempt < 22; attempt++) {
+      if (
+        await page
+          .getByRole('heading', { name: 'Process CPU (one core)', exact: true })
+          .count()
+      )
+        break;
+      await page.mouse.wheel(0, 500);
+      await page.waitForTimeout(300);
+    }
+    await page
+      .getByRole('heading', { name: 'Process CPU (one core)', exact: true })
+      .scrollIntoViewIfNeeded();
+    await page.waitForTimeout(1500);
+    assert.equal(
+      await page
+        .locator('[data-testid="data-testid Panel status error"]')
+        .count(),
+      0,
+    );
+    await page.screenshot({
+      path: 'docs/screenshots/grafana-runtime-work-mobile.png',
     });
     await page.goto(`${base}/d/nd-errors?kiosk`, { waitUntil: 'networkidle' });
     await page
