@@ -134,7 +134,10 @@ export function evaluateClusterMembership(
   };
 }
 
-export function evaluateEventGrouping(matches = noGrouping) {
+export function evaluateEventGrouping(
+  matches = noGrouping,
+  memberships?: Record<string, string[][]>,
+) {
   const root = join(__dirname, '../test/fixtures');
   const fixture = JSON.parse(
     readFileSync(join(root, 'event-grouping-pairs.json'), 'utf8'),
@@ -150,6 +153,7 @@ export function evaluateEventGrouping(matches = noGrouping) {
   };
   const seen = new Set<string>();
   const windows = new Map<string, Candidate[]>();
+  const windowMatchers = new Map<string, typeof matches>();
   const pairs = fixture.pairs.map((pair) => {
     if (
       !/^ranking-(tech|nba|world)-2026-11-01\.json$/.test(pair.window) &&
@@ -167,6 +171,36 @@ export function evaluateEventGrouping(matches = noGrouping) {
         ).candidates,
       );
     const candidates = windows.get(pair.window)!;
+    if (!windowMatchers.has(pair.window)) {
+      if (!memberships) windowMatchers.set(pair.window, matches);
+      else {
+        const groups = Object.hasOwn(memberships, pair.window)
+          ? memberships[pair.window]
+          : [];
+        if (!Array.isArray(groups)) throw new Error('Invalid saved groups');
+        const knownIds = new Set(candidates.map((item) => item.id));
+        const membership = new Map<string, number>();
+        groups.forEach((group, index) => {
+          if (!Array.isArray(group) || group.length < 2 || group.length > 40)
+            throw new Error('Invalid saved group size');
+          for (const id of group) {
+            if (
+              typeof id !== 'string' ||
+              !knownIds.has(id) ||
+              membership.has(id)
+            )
+              throw new Error('Unknown or duplicate saved membership');
+            membership.set(id, index);
+          }
+        });
+        windowMatchers.set(
+          pair.window,
+          (a, b) =>
+            membership.has(a.id) &&
+            membership.get(a.id) === membership.get(b.id),
+        );
+      }
+    }
     const left = candidates.find((item) => item.id === pair.left);
     const right = candidates.find((item) => item.id === pair.right);
     const key = [pair.window, ...[pair.left, pair.right].sort()].join(':');
@@ -183,9 +217,14 @@ export function evaluateEventGrouping(matches = noGrouping) {
     return {
       ...pair,
       titles: [left.title, right.title],
-      predictedSameEvent: matches(left, right),
+      predictedSameEvent: windowMatchers.get(pair.window)!(left, right),
     };
   });
+  if (
+    memberships &&
+    Object.keys(memberships).some((window) => !windows.has(window))
+  )
+    throw new Error('Unknown saved membership window');
   const truePositives = pairs.filter(
     (pair) => pair.sameEvent && pair.predictedSameEvent,
   ).length;
@@ -213,7 +252,7 @@ export function evaluateEventGrouping(matches = noGrouping) {
         membership: evaluateClusterMembership(
           windows.get(window)!,
           labeled,
-          matches,
+          windowMatchers.get(window),
         ),
         positives: labeled.filter((pair) => pair.sameEvent).length,
         negatives: labeled.filter((pair) => !pair.sameEvent).length,

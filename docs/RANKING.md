@@ -1248,3 +1248,20 @@ explicitly warns that one link can cover separate events. Prompt/cache version
 changed; fake tests verify citation dedupe, X aliases, unrelated links, empty
 model decisions and cache invalidation. No production caller or paid call was
 added. Extraction/caller wiring and the quality evaluation remain open.
+
+## Iteration 470: offline saved-membership evaluation
+
+`pnpm exec tsx scripts/evaluate-event-grouping.ts --memberships /path/to/groups.json`
+now scores saved AI groups against the unchanged 98 recorded labels. The file is
+an object mapping recorded fixture filenames to arrays of groups of article IDs;
+for example `{"ranking-nba-2026-11-01.json":[["article-id-a","article-id-b"]]}`.
+Omitted windows and omitted articles stay separate. Unknown windows, IDs from
+another window, singletons and duplicate membership are rejected. This command
+reads local files only; it cannot call a provider or activate production grouping.
+
+Reports retain labelled precision/recall, all within-cluster pair checks,
+unlabelled merged pairs requiring review, and order-stability checks. A perfect
+labelled precision with unlabelled merges is insufficient activation evidence.
+Synthetic saved groups verify the evaluator, not AI quality. The owner-capped
+real evaluation and a newly labelled unseen day remain pending; production still
+keeps articles separate.

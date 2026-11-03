@@ -1,4 +1,6 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import test from 'node:test';
 
 import {
@@ -122,4 +124,102 @@ void test('large-window permutation sampling is bounded, reproducible and labels
     maxMatchedPositivePairs: 0,
   });
   assert.equal(evaluateClusterMembership([], []).permutationCheck.orders, 1);
+});
+
+void test('saved AI memberships score labels and all within-group pairs without provider calls', () => {
+  const baseline = evaluateEventGrouping();
+  const pair = baseline.disagreements[0];
+  const saved = { [pair.window]: [[pair.left, pair.right]] };
+  const result = evaluateEventGrouping(undefined, saved);
+  assert.equal(result.truePositives, 1);
+  assert.equal(result.falsePositives, 0);
+  assert.equal(result.precision, 1);
+  assert.equal(result.recall, 1 / baseline.positives);
+  const membership = result.windows.find(
+    (item) => item.window === pair.window,
+  )!.membership;
+  assert.equal(membership.mergedPairs, 1);
+  assert.equal(membership.unlabeledMergedPairs, 0);
+  assert.equal(membership.permutationCheck.orderSensitivePairs, 0);
+  assert.deepEqual(evaluateEventGrouping(undefined, {}), baseline);
+});
+
+void test('saved AI memberships reject unknown windows, IDs and repeated membership', () => {
+  const pair = evaluateEventGrouping().disagreements[0];
+  for (const groups of [
+    [[pair.left]],
+    [[pair.left, 'unknown']],
+    [[pair.left, pair.left]],
+    [
+      [pair.left, pair.right],
+      [pair.left, pair.right],
+    ],
+  ]) {
+    assert.throws(() =>
+      evaluateEventGrouping(undefined, { [pair.window]: groups }),
+    );
+  }
+  assert.throws(() => evaluateEventGrouping(undefined, { 'unknown.json': [] }));
+  // An ID known in a different recorded topic/window is still invalid here.
+  const other = evaluateEventGrouping().disagreements.find(
+    (item) => item.window !== pair.window,
+  )!;
+  assert.throws(() =>
+    evaluateEventGrouping(undefined, {
+      [pair.window]: [[pair.left, other.left]],
+    }),
+  );
+});
+
+void test('saved AI groups expose wrong and unlabelled merges rather than inflating precision', () => {
+  const fixture = JSON.parse(
+    readFileSync(join(__dirname, 'fixtures/event-grouping-pairs.json'), 'utf8'),
+  ) as {
+    pairs: {
+      window: string;
+      left: string;
+      right: string;
+      sameEvent: boolean;
+    }[];
+  };
+  const negative = fixture.pairs.find((pair) => !pair.sameEvent)!;
+  const result = evaluateEventGrouping(undefined, {
+    [negative.window]: [[negative.left, negative.right]],
+  });
+  assert.equal(result.falsePositives, 1);
+  assert.equal(result.precision, 0);
+  const window = negative.window;
+  const recorded = JSON.parse(
+    readFileSync(join(__dirname, 'fixtures', window), 'utf8'),
+  ) as {
+    candidates: { id: string }[];
+  };
+  const key = (a: string, b: string) => JSON.stringify([a, b].sort());
+  const known = new Set(
+    fixture.pairs
+      .filter((pair) => pair.window === window)
+      .map((pair) => key(pair.left, pair.right)),
+  );
+  const left = recorded.candidates[0].id;
+  const right = recorded.candidates.find(
+    (item) => item.id !== left && !known.has(key(left, item.id)),
+  )!.id;
+  const unknown = evaluateEventGrouping(undefined, {
+    [window]: [[left, right]],
+  });
+  assert.equal(unknown.precision, null);
+  assert.equal(
+    unknown.windows.find((item) => item.window === window)!.membership
+      .unlabeledMergedPairs,
+    1,
+  );
+  assert.throws(() =>
+    evaluateEventGrouping(
+      undefined,
+      JSON.parse(JSON.stringify({ [window]: null })) as Record<
+        string,
+        string[][]
+      >,
+    ),
+  );
 });

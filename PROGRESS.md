@@ -1,14 +1,3 @@
-## 2026-11-03: iteration 454 — reset oversized metrics storage caches
-
-- Started clean on main; no leftovers. App healthy/all 32 sources flowing, but metrics-store memory warning pending (about 105/112 MiB). Fixed this before product work.
-- Query-only startup reset left oversized saved storage lookup caches resident. Service now creates VictoriaMetrics' documented reset_cache_on_startup marker, clearing all expendable caches while retaining stored samples.
-- Rejected 80/96 MiB soft-limit experiments: reclaim pressure caused slow queries/scrape failures. Removed soft limits and restored original 16 MiB cache/64 MiB Go targets; hard ceiling remains 112 MiB.
-- Restarted only obs-metrics; observed about 40–52 MiB afterward, zero reclaim pressure/OOM/automatic restarts and eight successful scrape targets. Restart/stale-sample checks initially failed; final recovery verified separately. Zero alerts after recovery.
-- Final scripts/check-observability.ts --verify-o4 passed (8 targets/11 units); 18 read-only queries over three minutes peaked at 52.2 MiB/3.5 s, ending at 42.2 MiB/0.002 s with all targets up. Five early samples still contained prior down states.
-- pnpm format, pnpm lint:fix, pnpm check (290 unit/176 isolated integration), pnpm build, systemd-analyze verify, handbook check (17 pages/25 tables) and git diff --check passed. Zero dangling Docker volumes.
-- Updated affected handbook/observability plan/TASKS; archived iteration 438 to keep PROGRESS bounded. No UI changes, paid calls, new editions or Reddit requests.
-- Next: Nov 4 social selections/screenshots, World yield and latency/full-AI evidence; grouping recall/independent labels remain open. Monitor cache memory across longer uptime.
-
 ## 2026-11-03: iteration 455 — recognize successor-framed title reveals
 
 - Started clean on main; no leftovers. Zero alerts and healthy API/DB/Redis, sources and scheduled collectors. Next scheduled social/latency evidence remains pending; advanced item 19.
@@ -163,3 +152,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (271 unit/177 isolated integration), pnpm build and git diff --check passed. First check found archived Markdown formatting; fixed before rerun.
 - Pushed f4e5757; restarted API/worker. pnpm obs health --check passed, root HTTP 200, zero alerts; sources 33/33 healthy and scheduled digest queue healthy.
 - Next: evaluation/caller wiring and owner-capped labelled-day evaluation; activation requires zero wrong merges and recall above 13/32. Check Nov 4 scheduled provider/social evidence first when available.
+
+## 2026-11-03: iteration 470 — offline saved AI membership evaluation
+
+- Started clean on main; no leftovers, zero alerts, healthy API/DB/Redis and all 33 sources. Nov 4 scheduled provider/social evidence remains pending.
+- Added offline `--memberships` input to the recorded grouping evaluator. Strict per-window IDs, unique membership and group sizes reject malformed/cross-window output; omitted windows/articles stay separate.
+- Preserved all-pair cluster review, unlabelled merge reporting and order checks alongside labelled precision/recall. No provider calls, production caller, grouping activation, new editions or Reddit requests.
+- Seven targeted fake/saved-output tests pass, including wrong merges, unlabelled pairs and invalid membership. CLI synthetic example: 1 TP, 0 FP, precision 1, recall 1/57; evaluator verification only, not AI quality. Disabled baseline remains 98 pairs/zero merges.
+- Updated TASKS/RANKING; archived iteration 454 to bound PROGRESS. No production flow/UI/handbook change.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (274 unit/177 isolated integration), pnpm build and git diff --check passed. Zero dangling Docker volumes.
+- Restarted API/worker; health/root/source/job/alert checks passed. All 33 sources healthy; retained scheduled digest and hourly social jobs healthy.
+- Next: bounded AI evaluation runner and unseen recent-day labels, then the owner's $0.10/outside-13–16-UTC evaluation. Activation still requires zero wrong merges and recall clearly above 13/32; Nov 4 evidence takes priority when available.
