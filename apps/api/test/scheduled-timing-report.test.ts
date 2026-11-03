@@ -5,6 +5,7 @@ import {
   collectTimingEvidence,
   scheduledTiming,
   timingEvidence,
+  timingOptions,
 } from '../../../scripts/lib/scheduled-timing';
 
 void test('scheduled offsets include pre-worker delay and preserve early starts', () => {
@@ -153,4 +154,79 @@ void test('partial timing reads retain other editions and unavailable job timing
     unavailable: [],
     complete: true,
   });
+});
+
+void test('timing history validates options and selects scheduled runs before limiting reads', () => {
+  assert.deepEqual(timingOptions([]), { limit: 3, scheduledOnly: false });
+  assert.deepEqual(timingOptions(['--scheduled-only', '--limit', '20']), {
+    limit: 20,
+    scheduledOnly: true,
+  });
+  for (const args of [
+    ['--limit'],
+    ['--limit', '0'],
+    ['--limit', '21'],
+    ['--limit', '1.5'],
+    ['--limit', '1e1'],
+    ['--limit', '1', '--limit', '2'],
+    ['--scheduled-only', '--scheduled-only'],
+    ['--scheduled-only', 'false'],
+    ['--unknown'],
+  ])
+    assert.throws(() => timingOptions(args));
+  const runs = Array.from({ length: 30 }, (_, index) => ({
+    id: `job-${index}`,
+    state: index % 5 === 0 ? 'failed' : 'completed',
+    attempts: 1,
+    scheduledAt: index % 2 === 0 ? new Date(index * 1000).toISOString() : null,
+    startedAt: new Date(index * 1000 + 100).toISOString(),
+    finishedAt: new Date(index * 1000 + 200).toISOString(),
+    durationMs: 100,
+    editionId: index % 5 === 0 ? null : `edition-${index}`,
+    skipped: null,
+  }));
+  const history = timingEvidence(
+    runs,
+    timingOptions(['--limit', '20', '--scheduled-only']),
+  );
+  assert.deepEqual(
+    history.completed.map((run) => run.id),
+    [
+      'job-28',
+      'job-26',
+      'job-24',
+      'job-22',
+      'job-18',
+      'job-16',
+      'job-14',
+      'job-12',
+      'job-8',
+      'job-6',
+      'job-4',
+      'job-2',
+    ],
+  );
+  assert.deepEqual(
+    history.failed.map((run) => run.id),
+    ['job-20', 'job-10', 'job-0'],
+  );
+  const bounded = timingEvidence(
+    runs,
+    timingOptions(['--scheduled-only', '--limit', '1']),
+  );
+  assert.deepEqual(
+    bounded.completed.map((run) => run.id),
+    ['job-28'],
+  );
+  assert.deepEqual(
+    bounded.failed.map((run) => run.id),
+    ['job-20'],
+  );
+  const mixed = timingEvidence(runs, timingOptions(['--limit', '1']));
+  assert.deepEqual(
+    mixed.completed.map((run) => run.id),
+    ['job-29', 'job-28'],
+  );
+  assert.equal(mixed.latestScheduled?.id, 'job-28');
+  assert.equal(runs[0].id, 'job-0');
 });

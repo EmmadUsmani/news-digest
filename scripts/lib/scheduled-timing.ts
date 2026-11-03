@@ -17,9 +17,29 @@ export function scheduledTiming(run: {
   };
 }
 
+export function timingOptions(args: string[]) {
+  let limit = 3;
+  let scheduledOnly = false;
+  const seen = new Set<string>();
+  for (let i = 0; i < args.length; i++) {
+    const key = args[i];
+    if (seen.has(key)) throw new Error('Duplicate timing option');
+    seen.add(key);
+    if (key === '--scheduled-only') scheduledOnly = true;
+    else if (key === '--limit') {
+      const value = args[++i] ?? '';
+      if (!/^\d+$/.test(value) || Number(value) < 1 || Number(value) > 20)
+        throw new Error('--limit must be 1–20');
+      limit = Number(value);
+    } else throw new Error('Unknown timing option');
+  }
+  return { limit, scheduledOnly };
+}
+
 // Select by timestamps explicitly: status can mix jobs in different queue states.
 export function timingEvidence(
   runs: OperationsStatus['queues'][number]['runs'],
+  options = timingOptions([]),
 ) {
   const latest = [...runs].sort((a, b) => {
     const time = (run: (typeof runs)[number]) =>
@@ -33,9 +53,10 @@ export function timingEvidence(
   const latestScheduledOutcome =
     scheduled.find((run) => ['completed', 'failed'].includes(run.state)) ??
     null;
-  const completed = latest
+  const selected = options.scheduledOnly ? scheduled : latest;
+  const completed = selected
     .filter((run) => run.state === 'completed' && run.editionId)
-    .slice(0, 3);
+    .slice(0, options.limit);
   if (
     latestScheduledOutcome?.state === 'completed' &&
     latestScheduledOutcome.editionId &&
@@ -47,7 +68,9 @@ export function timingEvidence(
     completed,
     latestScheduled,
     latestScheduledOutcome,
-    failed: latest.filter((run) => run.state === 'failed').slice(0, 3),
+    failed: selected
+      .filter((run) => run.state === 'failed')
+      .slice(0, options.limit),
   };
 }
 

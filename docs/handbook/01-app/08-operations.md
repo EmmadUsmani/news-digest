@@ -49,7 +49,12 @@ with the configured database environment loaded) joins retained completed jobs,
 published editions and their provider charges. It preserves the latest retained
 settled scheduled result even after newer manual completions or an upcoming job,
 and shows pending or failed
-scheduled jobs plus recent failures. Missing retained evidence does not prove
+scheduled jobs plus recent failures. Add `--scheduled-only --limit 20` to compare
+retained scheduled history (newest intended schedule first). The default limit is
+three; completed and failed lists are limited separately, up to twenty each.
+The latest settled scheduled completion is preserved even if that adds one run
+to a mixed manual/scheduled list. Selection happens before edition/charge reads;
+queue retention still limits history. The report includes selection counts. Missing retained evidence does not prove
 that a run never happened; failure details remain in logs. It separates final-attempt worker
 duration from signed offsets between the intended schedule and start/completion.
 Positive offsets mean later; manual runs have no schedule offset. These offsets

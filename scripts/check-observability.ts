@@ -11,6 +11,52 @@ import { runObs } from './lib/obs-query';
 import { testEnvironment } from './test-suites';
 
 async function main() {
+  if (process.argv.includes('--verify-timing')) {
+    execFileSync(
+      'pnpm',
+      [
+        'exec',
+        'tsx',
+        '--test',
+        '--test-reporter=dot',
+        'apps/api/test/scheduled-timing-report.test.ts',
+      ],
+      { env: testEnvironment(), stdio: 'pipe', timeout: 120_000 },
+    );
+    const report = JSON.parse(
+      execFileSync(
+        'pnpm',
+        [
+          'exec',
+          'tsx',
+          'scripts/report-edition-timing.ts',
+          '--scheduled-only',
+          '--limit',
+          '20',
+        ],
+        { encoding: 'utf8', timeout: 120_000 },
+      ),
+    );
+    assert.equal(report.evidenceComplete, true);
+    assert.equal(report.selection.scheduledOnly, true);
+    assert.equal(report.selection.limit, 20);
+    assert.ok(report.runs.length > 0 && report.runs.length <= 20);
+    assert.ok(
+      report.runs.every(
+        (run: { scheduledAt: string | null }) => run.scheduledAt,
+      ),
+    );
+    assert.equal(report.runs.length, report.selection.selectedCompletedJobs);
+    console.log(
+      JSON.stringify({
+        timingHistory: 'ok',
+        retainedJobs: report.selection.retainedJobs,
+        scheduledEditions: report.runs.length,
+        mutations: 0,
+      }),
+    );
+    return;
+  }
   if (process.argv.includes('--verify-cli')) {
     execFileSync(
       'pnpm',
