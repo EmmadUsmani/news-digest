@@ -56,3 +56,46 @@ void test('recorded studio closure improves Gaming recall with fully labeled clu
     assert.equal(window.membership.orderSensitivePairs, 0);
   }
 });
+
+void test('studio closure does not infer current events from questions, uncertainty or retrospectives', () => {
+  const current = item('Copper Studio is closed');
+  for (const title of [
+    'Copper Studio is closed?',
+    'Copper Studio is closed？',
+    'If Copper Studio is closed, who owns the games?',
+    'Copper Studio is closed, allegedly',
+    'Copper Studio is reportedly closed',
+    'Copper Studio is closed unless new funding arrives',
+    'Copper Studio is closed: what would happen to its games?',
+    'Copper Studio was closed years ago',
+    'Copper Studio was closed last year',
+    'Copper Studio was closed in 2020',
+    'Copper Studio was closed on October 31, 2020',
+    'Copper Studio was previously closed',
+    'Copper Studio is closed in a plan expected to take effect tomorrow',
+  ]) {
+    const uncertain = item(title);
+    assert.equal(sameEventWithStudioClosure(current, uncertain), false, title);
+    assert.equal(sameEventWithStudioClosure(uncertain, current), false, title);
+    // Identical uncertain titles must not fall through to lexical matching.
+    assert.equal(
+      sameEventWithStudioClosure(uncertain, uncertain),
+      false,
+      title,
+    );
+  }
+  assert.equal(
+    sameEventWithStudioClosure(current, {
+      ...item('Remembering the developer'),
+      excerpt: 'Copper Studio was closed years ago.',
+    }),
+    false,
+  );
+  assert.equal(
+    sameEventWithStudioClosure(current, {
+      ...current,
+      excerpt: 'Founded in 2021, the studio has shut its doors.',
+    }),
+    true,
+  );
+});

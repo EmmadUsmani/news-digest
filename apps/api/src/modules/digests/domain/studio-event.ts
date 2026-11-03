@@ -3,19 +3,34 @@ import type { Candidate } from './rank';
 
 // Offline/opt-in only. Require a named studio directly followed by a closure
 // assertion, rather than inferring closure from funding cuts or a cancelled game.
-function closedStudio(candidate: Candidate): string | null {
+function closedStudio(candidate: Candidate): string | null | false {
   const text = `${candidate.title}. ${candidate.excerpt}`.normalize('NFKC');
+  if (!/\b[A-Z][a-zA-Z]+ Studios?\b/.test(text)) return null;
   if (
-    /\b(not|never|denies|denied|rumou?r|might|could|may|reopens?|reopened)\b/i.test(
+    /[?？]|\b(not|never|denies|denied|rumou?r|might|could|may|would|should|if|unless|allegedly|reopens?|reopened)\b/i.test(
       text,
     )
   )
-    return null;
+    return false;
+  if (/\breportedly\b/i.test(candidate.title)) return false;
   const matches = [
     ...text.matchAll(
       /\b([A-Z][a-zA-Z]+ Studios?),? (?:[Hh]as |[Ii]s |[Ww]as )?(?:[Oo]fficially )?(?:[Ss]hut down|[Ss]huts down|[Cc]losed|[Cc]loses)\b/g,
     ),
   ];
+  // A publication timestamp does not date the event. Historical retrospectives
+  // and prospective claims need stronger evidence than this narrow rule has.
+  if (
+    /\b(?:years? ago|last year|previously|formerly|once|will|plans? to|set to|expected to)\b/i.test(
+      candidate.title,
+    ) ||
+    matches.some((match) =>
+      /^[^.!?]{0,60}\b(?:(?:19|20)\d{2}|years? ago|last year)\b/.test(
+        text.slice(match.index + match[0].length),
+      ),
+    )
+  )
+    return false;
   // Do not mistake the last word of a multiword studio name for its identity.
   if (
     matches.some((match) => {
@@ -23,9 +38,9 @@ function closedStudio(candidate: Candidate): string | null {
       return /[A-Z][a-zA-Z]+ $/.test(prefix) && !/\b(?:As|The) $/.test(prefix);
     })
   )
-    return null;
+    return false;
   const names = new Set(matches.map((match) => match[1].toLowerCase()));
-  return names.size === 1 ? [...names][0] : null;
+  return names.size === 1 ? [...names][0] : names.size > 1 ? false : null;
 }
 
 export function sameEventWithStudioClosure(
@@ -34,6 +49,7 @@ export function sameEventWithStudioClosure(
 ): boolean {
   const left = closedStudio(a);
   const right = closedStudio(b);
+  if (left === false || right === false) return false;
   if (left !== null || right !== null) {
     const delta = Math.abs(
       Date.parse(a.publishedAt) - Date.parse(b.publishedAt),

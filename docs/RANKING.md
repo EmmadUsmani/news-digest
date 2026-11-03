@@ -839,3 +839,19 @@ merges. Gaming improves from 0/10 to 3/10 positives. All 13 full-window merged
 pairs have positive labels and reverse-input membership agrees. This modest
 recall gain is specific to the selected examples; it does not establish
 general precision, arbitrary-order stability or independent outlet coverage.
+
+## Iteration 333: reject uncertain and historical studio closures
+
+The unused studio matcher now rejects questions, conditional and attributed
+uncertainty, prospective language, and historical closure references. Explicit
+years immediately following a closure assertion are conservatively rejected:
+publication time alone cannot establish when the closure happened. A founding
+year in a separate excerpt does not invalidate a current closure headline.
+These guards apply to named-studio candidates, preserving unrelated game and
+lexical comparisons. Rejected claims cannot fall through to lexical matching,
+even when the two uncertain headlines are identical.
+
+Synthetic adversarial cases cover these boundaries and symmetry. The recorded
+benchmark remains 13/32 positive matches and zero labeled false merges, with
+all observed cluster merges labeled. These tests add safety examples, not
+independent or general precision evidence. Production remains unchanged.
