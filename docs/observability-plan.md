@@ -316,3 +316,10 @@ and 0.6/0.9% average CPU since startup; no added services or log-store disk.
 O6 incremental progress (378): Product reserve lifecycle shows its last durable update
 and minutes past schedule for open states. Settled rows have no overdue value;
 this is neither a heartbeat nor a failure/worker-duration measurement.
+
+O6 incremental progress (379): Product provider spend adds pending/uncertain call
+counts across all days and oldest unresolved hold age from call creation. Both
+providers remain visible with zero totals when their ledgers are empty; no
+unresolved calls means no age. Existing reader grants only; configured caps
+and available funds remain in app Status. Synthetic read-only SQL and live
+queries cover empty and mixed-state ledgers.

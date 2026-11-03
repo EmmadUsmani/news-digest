@@ -16,7 +16,7 @@
     {
       "id": 1,
       "title": "Provider spend and outstanding holds (UTC)",
-      "description": "Settled spend is attributed to call creation in UTC. Holds include all pending/uncertain calls, including earlier days. Caps and live available funds are in app Status; holds are not additional settled spend.",
+      "description": "Settled spend is attributed to call creation in UTC. Holds include all pending/uncertain calls, including earlier days. Caps and live available funds are in app Status; holds are not additional settled spend. Pending and uncertain counts include all days; oldest hold age uses call creation time, not a retry heartbeat. Empty provider ledgers show zero totals with no hold age.",
       "type": "table",
       "datasource": {
         "type": "grafana-postgresql-datasource",
@@ -33,7 +33,7 @@
           "refId": "A",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "WITH calls AS (SELECT 'Anthropic' AS provider, created_at, status, cost_micros, reserved_micros FROM llm_calls UNION ALL SELECT 'X discovery', created_at, status, cost_micros, reserved_micros FROM x_discovery_calls) SELECT provider AS \"Provider\", coalesce(sum(cost_micros) FILTER (WHERE created_at >= date_trunc('day', now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC'),0)/1000000.0 AS \"Today ($)\", coalesce(sum(cost_micros) FILTER (WHERE created_at >= date_trunc('month', now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC'),0)/1000000.0 AS \"Month ($)\", coalesce(sum(reserved_micros) FILTER (WHERE status IN ('pending','uncertain')),0)/1000000.0 AS \"Holds ($)\" FROM calls GROUP BY provider ORDER BY \"Provider\"",
+          "rawSql": "WITH providers(provider) AS (VALUES ('Anthropic'),('X discovery')), calls AS (SELECT 'Anthropic' AS provider, created_at, status, cost_micros, reserved_micros FROM llm_calls UNION ALL SELECT 'X discovery', created_at, status, cost_micros, reserved_micros FROM x_discovery_calls) SELECT providers.provider AS \"Provider\", coalesce(sum(cost_micros) FILTER (WHERE created_at >= date_trunc('day', now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC'),0)/1000000.0 AS \"Today ($)\", coalesce(sum(cost_micros) FILTER (WHERE created_at >= date_trunc('month', now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC'),0)/1000000.0 AS \"Month ($)\", coalesce(sum(reserved_micros) FILTER (WHERE status IN ('pending','uncertain')),0)/1000000.0 AS \"Holds ($)\", count(*) FILTER (WHERE status='pending')::int AS \"Pending\", count(*) FILTER (WHERE status='uncertain')::int AS \"Uncertain\", extract(epoch FROM (now()-min(created_at) FILTER (WHERE status IN ('pending','uncertain'))))/3600 AS \"Oldest hold (h)\" FROM providers LEFT JOIN calls USING (provider) GROUP BY providers.provider ORDER BY \"Provider\"",
           "editorMode": "code",
           "sql": {
             "limit": 100
@@ -41,7 +41,11 @@
         }
       ],
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "custom": {
+            "minWidth": 140
+          }
+        },
         "overrides": []
       },
       "options": {

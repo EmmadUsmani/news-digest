@@ -339,6 +339,22 @@ export async function checkGrafana() {
     await page.screenshot({
       path: 'docs/screenshots/grafana-product-mobile.png',
     });
+    await page.evaluate(() => {
+      for (const element of document.querySelectorAll<HTMLElement>('div')) {
+        if (
+          element.scrollWidth > element.clientWidth &&
+          element.clientWidth > 200
+        )
+          element.scrollLeft = element.scrollWidth;
+      }
+    });
+    for (const name of ['Pending', 'Uncertain', 'Oldest hold (h)'])
+      await page
+        .getByRole('columnheader', { name, exact: true })
+        .waitFor({ state: 'visible' });
+    await page.screenshot({
+      path: 'docs/screenshots/grafana-product-holds-mobile.png',
+    });
     const reserve = page.getByRole('heading', {
       name: 'Scheduled reserve lifecycle (latest seven days)',
       exact: true,

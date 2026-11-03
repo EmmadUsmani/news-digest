@@ -113,3 +113,13 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - `check-observability.ts --verify-grafana --verify-o4` passed: 62 valid queries/57 populated. Desktop/mobile reserve screenshots inspected; discarded unrelated regenerated captures. Handbook/plan/TASKS updated.
 - Dashboard hot-reloaded; no app/DB/Redis restart needed. No paid calls, Reddit requests or production content/spending-setting changes.
 - Next: scheduled evidence/acks first; otherwise remaining O6 Agent/Product caps or O7 Postgres collection. Production activation stays gated.
+
+## 2026-11-03: iteration 379 — unresolved provider holds
+
+- Started clean on main; no leftover work. App services/health green, all 32 sources returning items without current errors, no failed digest runs; two historical ingestion failures remain recovered. Nov 3 15:00 UTC evidence/acks pending.
+- Product provider spend now shows all-day pending/uncertain call counts and oldest unresolved hold age from call creation; both providers remain visible with zero totals for empty ledgers. No unresolved calls means blank age. Existing reader grants only; no budget/admission changes.
+- Read-only restricted-role SQL verified live zero unresolved holds, synthetic mixed pending/uncertain/completed calls and fully empty ledgers. Initial verifier compared numeric strings too strictly; corrected it to compare numeric values and reran successfully. No production data writes.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (232 unit/172 integration, exit 0), `pnpm build`, handbook 09 and `git diff --check` passed. `check-observability.ts --verify-grafana --verify-o4`: 62 valid queries/57 populated; seven healthy scrape targets.
+- Inspected desktop/mobile captures, widened columns after mobile review, then repeated targeted Playwright column/error checks and saved final hold screenshots. Discarded unrelated regenerated screenshots. Updated handbook/plan/TASKS.
+- Dashboard hot-reloaded; no app/DB/Redis code/config restart needed. Read-only edition timing report confirms next run at 15:00 UTC and retained 856 ms fallback run; no paid calls or content/spending-setting changes.
+- Next: scheduled evidence/acks first; otherwise remaining O6 Agent/Product caps or O7 Postgres collection. Activation stays gated.
