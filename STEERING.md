@@ -682,6 +682,13 @@ rules for grouping anywhere in the codebase.**
 
 **Priority:** first check the Nov 4 scheduled run and fix item 7 (NBA's AI
 fallback and the 232 s edition). Then do this item, removal first.
+- **Clarification (2026-11-03 19:30 UTC): don't wait for the Nov 4 run.**
+  Under item 22, waiting for it only blocks the *verification*. Now:
+  1. Investigate and fix item 7 offline with recorded data.
+  2. Do the removal below.
+  3. Then build the AI pass.
+
+  Check the Nov 4 run when it happens; that takes priority again then.
 
 **1. Remove (small, do it first):**
 - `sameEvent`'s word-overlap, verb-list and number-order logic in
