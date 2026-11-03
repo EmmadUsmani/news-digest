@@ -8,6 +8,7 @@ export interface XDiscoveryLedger {
     requestedTopic?: { id: string; name: string },
     scheduledDay?: string,
     searchType?: 'open-topic' | 'account-list' | 'story-reactions',
+    optionalParentId?: string,
   ): Promise<string | null>;
   settle(
     id: string,

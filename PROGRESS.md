@@ -224,3 +224,16 @@ Earlier entries and archive index: [iterations 269–270](docs/progress-archive/
 - Applied migration 048; restarted API/worker/docs/schema; health and SPA/docs/db 200; 32 sources error-free and latest social collection completed.
 - Read-only evidence: Nov 3 X calls/cost zero; Anthropic reserve pending at $0.482788, other-spend allowance zero; next edition 15:00 UTC.
 - No paid provider or Reddit requests. Next: scheduled evidence/acks, open-search switch, then optional execution/scheduler wiring.
+
+## 2026-11-03: iteration 289 — optional X executor admission
+
+- Started clean on main; four services and health healthy; no leftover work.
+- Extended the ledger port and search executor to carry an optional parent call ID into durable atomic admission for reaction/account searches.
+- Reject malformed optional requests before side effects; existing settlement-before-persistence and uncertain-call handling remain in force.
+- Fake tests cover both search types, denied admission/no HTTP, success, uncertain HTTP, persistence failure after settlement and invalid parent/context.
+- Preparation only: production remains account-list pending item 15 scheduled evidence/ack; verification completion and optional scheduler wiring remain.
+- Verification: targeted tests (2 passed), `pnpm format`, `pnpm lint:fix`, `pnpm check` (148 unit/168 integration), `pnpm build`, `git diff --check`.
+- Restarted API/worker/docs/schema; all active, health OK and SPA/docs/db 200; 32 sources error-free and latest social collection completed (10 verified).
+- Two retained ingestion failures are older Nov 1/2 jobs; sources have recovered. No failed digest runs or stalled collection found.
+- Read-only X report: Nov 3 zero calls/cost; Anthropic reserve pending at $0.482788, other-spend allowance zero. Scheduled evidence is not due yet.
+- No paid provider or Reddit requests. Next: observe Nov 3 scheduled evidence/acks, switch open search, finish verification completion and optional scheduler wiring.

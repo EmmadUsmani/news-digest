@@ -16,7 +16,17 @@ export async function searchX(
   repository: XSearchRepository,
   price: XDiscoveryPrice,
   scheduledDay?: string,
+  optionalParentId?: string,
 ) {
+  // Reject malformed optional requests before admission or any external effects.
+  // The ledger still checks the persisted parent, yield, completion and caps.
+  if (
+    optionalParentId !== undefined &&
+    (!/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(optionalParentId) ||
+      scheduledDay === undefined ||
+      (request.handles === undefined && request.reactionStory === undefined))
+  )
+    throw new Error('Invalid optional X search');
   // Scheduled searches project $0.10 per topic (roughly 5x observed cost).
   // Manual calls retain the full-day hold. Neither is a provider-side ceiling:
   // fetched items are unbounded; actual charges settle before the next search.
@@ -31,6 +41,7 @@ export async function searchX(
       : request.handles === undefined
         ? 'open-topic'
         : 'account-list',
+    optionalParentId,
   );
   if (!callId) return { state: 'budget-blocked' as const, citations: 0 };
   let result;
