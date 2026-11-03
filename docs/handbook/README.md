@@ -10,6 +10,7 @@ There are two parts:
 ```mermaid
 flowchart LR
   owner(["👤 Owner"])
+  reader(["👥 End users"])
   subgraph vm["VM: news-digest.exe.xyz"]
     direction LR
     subgraph factory["Agent factory"]
@@ -25,7 +26,7 @@ flowchart LR
   repo[("GitHub repo<br/>code + steering")]
   owner -- "STEERING.md" --> repo
   codex <-- "pull / push" --> repo
-  owner -- "reads digest" --> api
+  reader -- "read the digest" --> api
   worker -- "fetch news,<br/>call AI" --> ext["RSS · Hacker News<br/>Anthropic · xAI · X"]
 ```
 
