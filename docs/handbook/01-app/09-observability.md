@@ -131,3 +131,23 @@ An isolated dummy-input Fluent Bit child checks redaction without reading live
 logs or calling providers. Existing records from quieter services prove their
 collection, not recent activity. File shipping also redacts configured credential
 values, nested credential fields, bearer tokens and URL passwords.
+
+## Jobs browser
+
+Open [/queues/](/queues/) for the four live BullMQ queues, counts by state,
+retained job progress, results and failures. **Schedulers** lists all recurring
+jobs, their interval, next run and last retained run. On mobile, open the
+**Overview** dropdown to select Schedulers or a queue. Times use the browser's
+local timezone. A next-run time is a plan, not evidence that a job succeeded.
+
+The browser runs inside the API and shares its existing queue connections;
+it adds no service or background collector. The private exe.dev login protects
+access. It is read-only: retry, pause, remove and scheduling controls are hidden,
+and the API rejects all methods except GET and HEAD under `/queues/`.
+Retained failures may describe sources that have since recovered; compare
+with the app's Status panel for current source health.
+
+`pnpm exec tsx scripts/check-observability.ts --verify-o3` checks all four
+queues, their schedules and the write barrier without creating jobs.
+`pnpm exec tsx scripts/smoke-queues.ts` checks desktop/mobile navigation and
+saves screenshots using real retained jobs and schedules.

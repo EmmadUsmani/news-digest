@@ -9,6 +9,8 @@ import {
   logger,
   requestLogging,
 } from './libs/observability/logging';
+import { mountJobsBrowser } from './modules/operations/adapters/jobs-browser';
+import { OperationsStatus } from './modules/operations/adapters/operations.status';
 
 async function bootstrap() {
   installFatalLogging();
@@ -25,6 +27,7 @@ async function bootstrap() {
   app.use(requestLogging());
   // Registered before routes and static files: /docs/* and /db/* go to the tools.
   app.use(proxyInternalTools(internalTools));
+  mountJobsBrowser(app, app.get(OperationsStatus).queues);
   app.enableShutdownHooks();
   await app.listen(Number(process.env.PORT ?? 8000), '0.0.0.0');
 }

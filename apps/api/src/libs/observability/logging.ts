@@ -81,7 +81,7 @@ export function installFatalLogging(log = logger) {
 
 export function requestLogging(log = logger) {
   return (
-    req: { method?: string; route?: { path?: string } },
+    req: { method?: string; route?: { path?: string | string[] } },
     res: {
       statusCode: number;
       setHeader(name: string, value: string): void;
@@ -103,7 +103,9 @@ export function requestLogging(log = logger) {
             {
               event: 'http.request',
               method: req.method,
-              route: req.route?.path ?? 'unmatched-or-static',
+              route: Array.isArray(req.route?.path)
+                ? req.route.path.join(' | ')
+                : (req.route?.path ?? 'unmatched-or-static'),
               status: res.statusCode,
               outcome,
               durationMs: Math.round(performance.now() - started),

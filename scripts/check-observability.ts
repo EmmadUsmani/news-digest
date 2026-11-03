@@ -3,10 +3,14 @@ import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { uptime } from 'node:os';
 
+import { checkJobsBrowser } from './lib/check-jobs-browser';
 import { checkLogStore } from './lib/check-log-store';
 import { testEnvironment } from './test-suites';
 
 async function main() {
+  const jobsBrowser = process.argv.includes('--verify-o3')
+    ? await checkJobsBrowser()
+    : undefined;
   const verifyO1 = process.argv.includes('--verify-o1');
   const logStore = process.argv.includes('--verify-o2')
     ? await checkLogStore()
@@ -106,7 +110,12 @@ async function main() {
     if (line.event === 'http.request') {
       assert.equal(typeof line.requestId, 'string');
       assert.equal(typeof line.method, 'string');
-      assert.equal(typeof line.route, 'string');
+      // Earlier journal entries can contain Express multi-path route arrays.
+      assert.ok(
+        typeof line.route === 'string' ||
+          (Array.isArray(line.route) &&
+            line.route.every((path) => typeof path === 'string')),
+      );
       assert.equal(typeof line.status, 'number');
       assert.equal(typeof line.durationMs, 'number');
     }
@@ -208,6 +217,7 @@ async function main() {
       ),
       resources,
       logStore,
+      jobsBrowser,
     }),
   );
 }

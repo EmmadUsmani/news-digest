@@ -177,3 +177,18 @@ void test('fatal handlers log redacted stacks and exit unsuccessfully for except
     assert.match(record.err.stack, /Error: \[REDACTED\]/);
   }
 });
+
+void test('request logs normalize multi-path router templates', () => {
+  const { log, records } = capture();
+  const response = Object.assign(new EventEmitter(), {
+    statusCode: 200,
+    setHeader: () => {},
+  });
+  requestLogging(log)(
+    { method: 'GET', route: { path: ['/', '/queue/:name'] } },
+    response,
+    () => {},
+  );
+  response.emit('finish');
+  assert.equal(records()[0].route, '/ | /queue/:name');
+});

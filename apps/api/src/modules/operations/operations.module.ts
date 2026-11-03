@@ -11,6 +11,10 @@ class OperationsController {
 }
 @Module({
   controllers: [OperationsController],
-  providers: [{ provide: OperationsReader, useClass: OperationsStatus }],
+  providers: [
+    OperationsStatus,
+    { provide: OperationsReader, useExisting: OperationsStatus },
+  ],
+  exports: [OperationsStatus],
 })
 export class OperationsModule {}

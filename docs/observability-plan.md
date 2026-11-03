@@ -153,8 +153,7 @@ only when its check passes.
   - **Done when:**
     - a test line from each service can be queried within 60 s;
     - the retention period and the 2 GB cap are set.
-- [ ] **O3 Jobs UI.** bull-board at `/queues/`, read-only. Done when every
-      queue and its scheduled jobs are visible.
+- [x] **O3 Jobs UI.** bull-board at `/queues/`, read-only. Iteration 356: four existing queue connections, 35 live schedules, hidden mutation controls and HTTP write barrier. `--verify-o3` checks queues/schedules/read-only enforcement; desktop/mobile screenshots verify overview and scheduler navigation. No new service, polling collector or production pipeline change.
 - [ ] **O4 Metrics store and host.** VictoriaMetrics, node_exporter and
       `/metrics/`. Done when host and per-unit metrics are queryable and 30-day
       retention is set.
