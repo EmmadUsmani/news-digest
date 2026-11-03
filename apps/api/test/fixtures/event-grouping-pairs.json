@@ -1,0 +1,152 @@
+{
+  "note": "Agent-reviewed headline/excerpt labels over recorded November 1 items. Not independent fact verification or a representative quality estimate. Related developments stay separate unless the specific event matches.",
+  "pairs": [
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "6a28cba6-ad23-4fa9-9abd-f845e1d8ee70",
+      "right": "07653a65-36c3-43ec-b4a9-96cd135520f9",
+      "sameEvent": true,
+      "reason": "Both describe the Spurs win over Minnesota; analysis versus highlights does not create a new event."
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "bddb7e26-e09f-4190-9b41-98de64585125",
+      "right": "330af28c-5f48-4cb8-8b99-005029bda3a5",
+      "sameEvent": true,
+      "reason": "Same teams, score and Halloween game."
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "330af28c-5f48-4cb8-8b99-005029bda3a5",
+      "right": "277cccbe-ae81-45bb-aa9f-c5ac3301ce3d",
+      "sameEvent": true,
+      "reason": "Same 121\u2013111 Spurs victory; alternate team naming."
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "86e51c7d-61a5-48e7-8da9-b7e805ed692d",
+      "right": "c4b2ce66-9bf4-471e-9aa9-7cabae13a1d3",
+      "sameEvent": true,
+      "reason": "Same 136\u2013111 Cavaliers win over Milwaukee."
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "c4b2ce66-9bf4-471e-9aa9-7cabae13a1d3",
+      "right": "20a298f7-d298-4d9e-9239-cd0352954280",
+      "sameEvent": true,
+      "reason": "Same Cavaliers victory, with the latter focusing on its leading players."
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "604ee7fe-21cb-45ad-bcc0-e0c9972696f9",
+      "right": "3b278726-17f7-42ab-a75b-ec8f399986c5",
+      "sameEvent": true,
+      "reason": "Same Maxey 38-point Sixers win over Charlotte."
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "6a96b8fc-70b6-43cc-b78a-b83b977d59f2",
+      "right": "5b3858e8-6ef4-44b0-8edd-bfbc5f331d0c",
+      "sameEvent": true,
+      "reason": "Same Jeanie Buss allegation about siblings and Lakers control."
+    },
+    {
+      "window": "ranking-world-2026-11-01.json",
+      "left": "7ddbc32d-6295-4891-9b36-f1272b6f55a6",
+      "right": "62e4f02d-3507-43d0-96f0-4478694741d2",
+      "sameEvent": true,
+      "reason": "Both report the Cambridge scientist killed in the Spanish train crash."
+    },
+    {
+      "window": "ranking-world-2026-11-01.json",
+      "left": "6cdda6f3-6358-4913-9570-3f704aa12100",
+      "right": "60367c27-1931-4851-9a33-58de96ee4bc2",
+      "sameEvent": true,
+      "reason": "Both describe the Indian opposition Delhi rally."
+    },
+    {
+      "window": "ranking-tech-2026-11-01.json",
+      "left": "d2b3bf0b-6545-4b9e-b856-86ea3f1e6004",
+      "right": "609f1891-d771-4ea9-940f-e79d2ce93a74",
+      "sameEvent": true,
+      "reason": "Same Brazilian court sanctions for prompt injection in a filing."
+    },
+    {
+      "window": "ranking-tech-2026-11-01.json",
+      "left": "c0ea84bf-d982-4201-90c0-fa940a269198",
+      "right": "fc997ea3-1e67-42ca-a821-5c25c0c79cc3",
+      "sameEvent": true,
+      "reason": "Identical syndicated investment headline, not independent reporting."
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "257469cf-68c2-43cf-a89a-e459edcdc1b2",
+      "right": "bbd4a224-4fdb-4543-9a99-ca707996b855",
+      "sameEvent": false,
+      "reason": "Dallas beating Houston and Houston beating Oklahoma City are different games."
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "bddb7e26-e09f-4190-9b41-98de64585125",
+      "right": "86e51c7d-61a5-48e7-8da9-b7e805ed692d",
+      "sameEvent": false,
+      "reason": "Spurs\u2013Wolves and Cavaliers\u2013Bucks are distinct games despite similar scores."
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "1b60adc1-f62a-4289-8827-d083507bc6cf",
+      "right": "4be67498-148c-4687-a96b-a441c8513dd6",
+      "sameEvent": false,
+      "reason": "A specific rookie shooting record differs from general team advice about that rookie."
+    },
+    {
+      "window": "ranking-nba-2026-11-01.json",
+      "left": "6a96b8fc-70b6-43cc-b78a-b83b977d59f2",
+      "right": "9f6437ce-0290-4c43-87be-4ee35c684c63",
+      "sameEvent": false,
+      "reason": "Lakers ownership dispute differs from a player social post."
+    },
+    {
+      "window": "ranking-world-2026-11-01.json",
+      "left": "8b8b19dd-fcb5-4f0e-8c6e-16a47c95828f",
+      "right": "c300ecd3-4ef5-448f-8fc2-aed8739f477b",
+      "sameEvent": false,
+      "reason": "Common UK geography does not link Commonwealth reparations and EU student funding."
+    },
+    {
+      "window": "ranking-world-2026-11-01.json",
+      "left": "20a24bed-c0ff-4801-bfd7-67aabbb6ea06",
+      "right": "b2135263-8e91-4822-b62f-441c791de7d1",
+      "sameEvent": false,
+      "reason": "Russian strikes on Ukraine and Ukrainian refinery attacks in Russia are distinct events."
+    },
+    {
+      "window": "ranking-world-2026-11-01.json",
+      "left": "4555bc0f-4562-403c-a432-23b32f063598",
+      "right": "515cc3ad-cc24-4b4b-942d-9d0e767f5be6",
+      "sameEvent": false,
+      "reason": "German protests and a French petrol-bomb investigation are different national incidents."
+    },
+    {
+      "window": "ranking-world-2026-11-01.json",
+      "left": "9ca38897-820e-4a3c-9ff3-14d17fcb7855",
+      "right": "37aeb6b8-78db-45c7-b14f-594c9b6bf141",
+      "sameEvent": false,
+      "reason": "Alaska election-certification litigation differs from a candidate-name ballot dispute."
+    },
+    {
+      "window": "ranking-tech-2026-11-01.json",
+      "left": "d0a0ace1-7e79-4347-bfc6-bb93f4c44798",
+      "right": "0c63c2ba-9b3f-4542-b6a6-504cadc5ce9f",
+      "sameEvent": false,
+      "reason": "A general cancellation pattern and one chief unplugging cameras are related developments, insufficient for strict event identity."
+    },
+    {
+      "window": "ranking-tech-2026-11-01.json",
+      "left": "971b7af9-fa2f-495c-b325-ea321259b664",
+      "right": "d2b3bf0b-6545-4b9e-b856-86ea3f1e6004",
+      "sameEvent": false,
+      "reason": "Crypto heist attribution and Brazilian court sanctions are unrelated incidents."
+    }
+  ]
+}

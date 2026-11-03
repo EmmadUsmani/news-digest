@@ -120,3 +120,12 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Updated TASKS, source evidence and handbook; archived iterations 313–314 to bound progress. Next: activate only after the Nov 3 scheduled evidence/acks; otherwise proceed to default-off story grouping under item 19.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (191 unit/170 integration passed; typecheck/lint/format/boundaries), `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 05-social-posts` (16 pages, one unchanged diagram, 25 tables), `git diff --check`. Initial check/build caught nullable AI services; fixed and full verification rerun passed.
 - Live checks: source success at 04:12 UTC, 2,096 stored items, current edition 20 stories/10 X posts; scheduled reserve intact. API/worker restarted for caller/shared reader changes; four app services active and app/docs/db/health healthy.
+
+## 2026-11-03: iteration 326 — strict event-grouping benchmark
+
+- Started clean on main; no leftover work. Four app services/health healthy, 32 sources without errors, available queues with no retained failed runs. Nov 3 15:00 UTC evidence remains pending.
+- Prepared item 19's offline benchmark: 21 explicit agent-reviewed pairs reference existing real November 1 Tech/NBA/World recordings. Strict event identity differs from broader ranking coverage labels; each pair records its reason.
+- Current lexical baseline: 1/11 true same-event merges, 0/10 false merges, precision 1/1 and recall 9.1%. Sole positive is syndication; no claim of general precision or independent reporting. Report lists missed paraphrases and titles.
+- Added offline evaluation command and regression test; documented limits and next work in RANKING/TASKS. No production behavior/config changes, collection, paid calls or Reddit requests.
+- Verification: targeted test, `pnpm format`, `pnpm lint:fix`, full `pnpm check` (192 unit/170 integration passed, typecheck/lint/format/boundaries), `pnpm build`, `git diff --check`.
+- App/docs/db/health HTTP 200. No service restart: no runtime code/config changed (item 22). Next: default-off conservative grouping with the benchmark; scheduled evidence/acks take priority when available.

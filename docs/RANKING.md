@@ -695,3 +695,30 @@ unverified explanation without populating official metrics. AI snapshots use
 `verified-semantic-engagement-v3`; historical v2 snapshots remain accepted.
 Fake-service tests show high-engagement candidates entering the shortlist while
 low-relevance/low-interest candidates remain excluded; no live quality claim.
+
+## Iteration 326: strict event-grouping baseline
+
+Run `pnpm exec tsx scripts/evaluate-event-grouping.ts` offline. It reads 21
+explicit pair labels referencing the existing November 1 Tech, NBA and World
+recordings, reports pair precision/recall and lists disagreements with titles
+and reasons. No network, database, inference or production selection changes.
+
+The agent reviewed these pairs for strict event identity: matching games and
+scores, the same lawsuit/allegation, the same rally or the same crash. A broad
+controversy and one specific response stay separate, as do separate national
+protests, different games and different election disputes. Existing ranking
+event labels are broader editorial coverage labels and are not reused as
+strict merge truth. Syndicated identical headlines may match without proving
+independent reporting. Labels describe the recorded reports, not verified facts.
+
+The current lexical matcher merges **1 of 11** same-event pairs and **0 of 10**
+different-event pairs: precision 1/1 (100%), recall 1/11 (9.1%). The sole match
+is a syndicated investment headline; it provides little evidence about safe
+paraphrase merging. The ten missed matches include NBA scores, alternate team
+names and cross-outlet paraphrases. This small, deliberately selected,
+agent-labeled single-date set is a development baseline, not an independent or
+general quality estimate. Gaming, other dates, larger negative sets and
+independent review remain gaps. The test prevents false merges on these pairs
+while the report makes missed paraphrases visible. Any production grouping or
+ranking change remains gated off under STEERING 23 until scheduled evidence is
+recorded and acknowledged.
