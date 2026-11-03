@@ -1,5 +1,7 @@
 import type { Pool } from 'pg';
 
+import { summarizeDiscovery } from '../domain/discovery-summary';
+
 interface DiscoveryCallEvidence {
   id: string;
   runId: string;
@@ -92,6 +94,9 @@ export async function readXDiscoveryReport(
   return {
     day,
     calls: rows,
+    byTopicAndSearchType: summarizeDiscovery(rows),
+    summaryNote:
+      'Groups use reservation-time topic IDs and recorded search types; the first snapshot supplies the name. Missing topic snapshots remain unattributed and have no summarized yield. Costs and holds count once per call; yield includes only citations matching the requested topic. Known cost/fetched sums are incomplete when their unknown-call counters are nonzero. Yield and outside-list counts use current verification/lists, count posts rather than accounts, and do not establish relevance or causation.',
     costMicros: rows.reduce((total, row) => total + (row.costMicros ?? 0), 0),
     heldMicros: rows.reduce((total, row) => total + row.heldMicros, 0),
     note: 'selectedInDay counts cited posts appearing in at least one same-topic edition published after the call and before the UTC day ends, once per call/topic despite repeated editions. It is not incremental selection or causal attribution; later-day editions are excluded. Outside-list selection uses current verified authors/lists, not historical membership. Outside-list counts compare officially verified author URLs against all current topic account lists (including disabled topics), case-insensitively; they are post counts, not distinct accounts. Unknown authors are excluded. List edits and verification changes can change these counts; no historical list membership is claimed. Search type is captured before HTTP; historical types remain unknown. Costs counted once per call; Requested topic is a reservation-time snapshot, including zero-yield calls; historical calls without a snapshot remain unattributed. New candidates were absent from verified storage and all earlier X search citations at save time; newVerifiedNow counts those currently verified, once across searches. Historical baselines remain unknown. Discovery and verification counts alone do not establish causation, relevance or edition picks.',

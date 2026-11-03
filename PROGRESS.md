@@ -211,3 +211,15 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Verified: full handbook check, `pnpm format`, `pnpm lint:fix`, `pnpm check` (160 unit/168 integration), `pnpm build`, `git diff --check`.
 - Restarted all four services; active, health OK, app/docs/db HTTP 200.
 - No paid provider or Reddit requests. Next: observe scheduled X cost/yield and AI edition timing, acknowledge required items, then activate open search.
+
+## 2026-11-03: iteration 296 — daily X topic/type summaries
+
+- Started clean on main; four services/health healthy, 32 error-free sources and no retained failed jobs.
+- Read-only X report now groups cost/holds, fetched posts and incremental verified/outside-list post yield by reservation-time topic ID and search type, including empty/failed calls.
+- Unknown charges/fetched counts stay explicit; unattributed historical calls are not assigned inferred topics/types/yield. Same-topic yield avoids attributing unrelated citations.
+- Three fake-only tests cover grouping, zero yield, failed calls, unknowns, historical attribution, cross-topic citations and topic renames; updated source inventory/social handbook.
+- Initial checks found missing `void` on test promises; fixed before final verification. Removed redundant completed task markers to keep TASKS under 8 KB.
+- Read-only live reports: Nov 3 zero X calls/cost/holds; Nov 2 historical call remains $0.023382, unattributed. Scheduled edition remains 15:00 UTC with 482,788-micro reserve pending and zero other allowance.
+- No paid provider or Reddit requests; open mode stays gated on item 15 scheduled evidence/acknowledgement.
+- Verified: targeted 3 tests; `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `git diff --check`; social handbook/24-table metadata check passed.
+- Restarted API/worker/docs/schema; all active, health OK, SPA/docs/db HTTP 200. Next: scheduled X/edition evidence and required acknowledgements, then activate open search.

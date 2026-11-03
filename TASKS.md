@@ -5,11 +5,10 @@ Fix regressions, broken services and stalled sources before starting new work.
 
 ## Immediate owner priorities (STEERING overrides older milestone notes)
 
-- [x] Status smoke repair (280): desktop/mobile checks pass.
 - [x] STEERING 21 (295): all 16 handbook pages/21 diagrams and 24-table metadata check pass; owner approval acknowledged.
 
 - [ ] STEERING 16 (next implementation): open per-topic X search without handle restrictions; reported engagement/velocity, then budget-permitting story reactions and secondary account lists. Keep caps; item 15's first scheduled run is acknowledged before switching. Report search type, cost/yield and outside-list accounts; finish with real editions/screenshots.
-  - Open/engagement reporting and durable optional execution are wired and fake-tested (271–294). Production remains account-list pending scheduled evidence/acks; activation remains.
+  - Open/engagement reporting and durable optional execution are wired and fake-tested (271–294). Production remains account-list pending scheduled evidence/acks; activation remains. Iteration 296 adds daily topic/type cost and incremental-yield summaries with explicit unknowns.
 
 - [ ] STEERING 17 (after 16): improve editable curated X accounts and document choices.
 - [ ] STEERING 18 (after 17): official Bluesky open discovery, engagement ranking and cards; fixtures first if authentication blocks live search.
@@ -23,8 +22,6 @@ Fix regressions, broken services and stalled sources before starting new work.
 
 - [x] STEERING 14 (211): Reddit parked and unscheduled; no HTTP requests. Social completion requires X only. Priority: 13, 7 timing, 9 X, 10 coverage; 2/4 lower.
 
-- [x] STEERING 12: shrink orientation files (154).
-- [x] STEERING 7 infrastructure (155–165): [batching, async jobs and fake timing](docs/progress-archive/2026-11-02-tasks-155-165.md).
 - [ ] STEERING 7, first: async BullMQ creation/regeneration, window dedupe, progress UI and last-run duration. Fake job/publication flows verified; measure live provider timing against <60s/current-volume and <2min/1,500-item targets. Repository fake baseline is documented; not a live latency claim. Iteration 282 adds per-edition settled ledger cost/holds and reserve outcome to the read-only timing report, excluding unrelated jobs and unpublished retries.
   - Read-only `scripts/report-edition-timing.ts` links retained durations to edition modes/candidates and budget. Iteration 169's scheduled run: 856 ms, four topics, non-AI fallback; not AI latency evidence. Next run Nov 3 15:00 UTC; use it for timing, without a paid trial.
 - [ ] STEERING 8, PARKED by owner under item 14: curated editable Reddit communities, public rate-limited JSON/RSS ingestion, social storage/cards and X citation extraction; real posts across four topics. Respect access denial; no bypass.

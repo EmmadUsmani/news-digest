@@ -12,6 +12,16 @@ topic and search type even for failures or empty results. Historical search type
 stay null; no type is inferred from run IDs. Scheduled account-list discovery
 remains enabled pending the first scheduled-run acknowledgement before switching.
 
+Iteration 296: `byTopicAndSearchType` summarizes reservation-time topic IDs
+and recorded search types, including empty and failed calls. It counts each
+call's settled cost and hold once, and sums same-topic incremental verified
+posts and outside-list incremental verified posts. Unknown costs/fetched counts
+have explicit call counters; summed known values are not complete totals while
+those counters are nonzero. Historical calls without a requested-topic snapshot
+stay in an unattributed group; inspect their per-call citation evidence instead.
+Topic renames group by stable ID; the displayed name is the first call's snapshot.
+Current verification/list caveats below apply to these summaries too.
+
 Iteration 277: the daily report adds `outsideListVerifiedNow` and
 `outsideListNewVerifiedNow` per topic/call, counting posts whose official author
 URL is absent from **all current** curated topic lists, including disabled topics.

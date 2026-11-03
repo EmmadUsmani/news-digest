@@ -49,6 +49,13 @@ flowchart LR
   $12/month. The xAI account is prepaid ($15), so it can't overspend even if
   the app is wrong.
 
+The daily discovery report groups spend, fetched posts and new verified yield
+by topic and search type, including searches with no results. Unknown charges
+and fetched counts remain explicit. Outside-list yield compares current verified
+authors with all current account lists; it counts posts and can change when
+lists or verification change. It does not measure relevance or historical list
+membership.
+
 ## Other platforms
 
 | Platform | Status                                                                                                                                   |
