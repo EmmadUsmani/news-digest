@@ -16,7 +16,8 @@ GRANT CONNECT ON DATABASE news_digest TO grafana_product;
 GRANT USAGE ON SCHEMA public TO grafana_product;
 -- Explicit column allowlist, no blanket table SELECT or future-table grants.
 GRANT SELECT (created_at, status, cost_micros, reserved_micros) ON llm_calls, x_discovery_calls TO grafana_product;
-GRANT SELECT (created_at, snapshot) ON digest_previews TO grafana_product;
+GRANT SELECT (run_id) ON llm_calls TO grafana_product;
+GRANT SELECT (id, created_at, snapshot) ON digest_previews TO grafana_product;
 GRANT SELECT (id, name) ON topics TO grafana_product;
 GRANT SELECT (id, topic_id, name, last_success, last_attempt, last_item_count, last_error) ON content_sources TO grafana_product;
 GRANT SELECT (source_id, item_id) ON content_observations TO grafana_product;

@@ -4,16 +4,6 @@ Archived: [iteration 357](docs/progress-archive/2026-11-03-iteration-357.md), [i
 
 Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md), [283](docs/progress-archive/2026-11-03-iteration-283.md), [284](docs/progress-archive/2026-11-03-iteration-284.md).
 
-## 2026-11-03: iteration 358 — API and worker runtime metrics
-
-- Started clean on main; no leftover work. All four app units/health green, 32 sources without current errors and no failed digest jobs. Scheduled evidence remains pending; retained edition still has four topics/20 stories/10 posts.
-- Started O5 with pinned prom-client API/worker runtime registries on separate loopback-only ports 9464/9465. Fixed service labels expose process CPU/RAM, heap, GC, event-loop lag and handles; other paths/methods rejected. Listener errors log without stopping the app.
-- Added both 30-second scrape targets and runtime sample assertions to `check-observability.ts --verify-o4`. Disabled query caching after early checks returned stale target counts; final runtime check passes with four healthy targets. No new daemon, paid call, Reddit request or edition content/spend change.
-- Updated handbook/plan/TASKS; O5 remains open for docs/schema runtime, HTTP, provider and queue/job metrics. No UI or diagram change.
-- Verification: focused runtime test passed; `pnpm format`, `pnpm lint:fix`, `pnpm check` (228 unit/172 integration), `pnpm build`, handbook 09 check and `git diff --check` passed. Initial lint caught a missing void on the test promise; fixed before final check.
-- Restarted API/worker and metrics store for changed code/config; DB/Redis untouched. Loopback bindings confirmed with `ss`, runtime endpoint GETs and health passed. Four observability daemons sampled ~201 MiB RAM/~0.8% startup-average CPU combined, metrics volume ~22 MiB allocated; API/worker ~53/44 MiB.
-- Next: scheduled evidence/acks first; otherwise continue O5. Production activation stays gated.
-
 ## 2026-11-03: iteration 359 — API HTTP metrics
 
 - Started clean on main; no leftover work. Four app units and DB/Redis health green, 32 sources without current errors and no failed digest jobs. Two retained ingestion failures have recovered sources; scheduled evidence remains pending.
@@ -116,3 +106,11 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, handbook 09 and `git diff --check` passed. Initial `pnpm check` exited 143 during integration; an intermediate rerun caught in-flight JSON formatting. Final detached systemd `pnpm check` passed (232 unit/172 integration, exit 0).
 - Runtime `check-observability.ts --verify-grafana --verify-o4`: 38 queries valid, 35 populated; 32 source rows/seven edition rows. Desktop/mobile screenshots inspected. Final six scrape targets healthy; Grafana ~132 MiB, observability daemons ~373 MiB; latest scheduled edition four topics/20 stories/10 posts. Final query additionally preserves separate snapshots sharing a timestamp.
 - Grafana dashboard hot-reloads; app/DB/Redis unchanged, no restarts needed. No paid calls, Reddit requests or production content/spending-setting changes. Next: scheduled evidence/acks first; otherwise remaining O6 coverage. Production activation stays gated.
+
+## 2026-11-03: iteration 370 — edition-attributed AI ledger
+
+- Started clean on main; no leftover work. App units/health and queues green, no current source errors or failed digest jobs. Nov 3 15:00 UTC evidence remains pending.
+- Advanced O6 Product with seven retained editions' Anthropic call counts, charges and unresolved holds, matched by edition UUID. Explicitly excludes X discovery and unpublished attempts; zero calls may mean cache/fallback. Reader adds only edition/run ID SELECT columns; no content/provider/config changes.
+- Updated handbook/plan/TASKS; archived iteration 358. Grafana hot-reloads; DB/Redis/app services need no restart.
+- Verification: `pnpm format`, `pnpm lint:fix`, detached `pnpm check` (232 unit/172 integration, exit 0), `pnpm build`, handbook 09 and `git diff --check` passed. Final `check-observability.ts --verify-grafana --verify-o4`: 39 valid queries/36 populated, six healthy targets; desktop/mobile captures inspected.
+- Initial mobile cost-column assertion failed because Grafana virtualizes horizontal columns; retained desktop column assertion and mobile panel capture. No paid calls or Reddit requests. Next: scheduled evidence/acks first; otherwise remaining O6 dashboards/caps/timing. Production activation stays gated.

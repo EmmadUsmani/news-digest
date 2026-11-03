@@ -255,7 +255,11 @@ export async function checkGrafana() {
       );
       assert.deepEqual(errors, []);
       if (dashboard.uid === 'nd-product') {
-        for (const name of ['Articles (24h)', 'AI story topics']) {
+        for (const name of [
+          'Articles (24h)',
+          'AI story topics',
+          'Charged ($)',
+        ]) {
           const column = page.getByRole('columnheader', { name, exact: true });
           await column.scrollIntoViewIfNeeded();
           await column.waitFor({ state: 'visible' });
@@ -316,6 +320,30 @@ export async function checkGrafana() {
     await page.waitForTimeout(1500);
     await page.screenshot({
       path: 'docs/screenshots/grafana-product-coverage-mobile.png',
+    });
+    for (let attempt = 0; attempt < 12; attempt++) {
+      if (
+        await page
+          .getByRole('heading', {
+            name: 'AI ledger by edition (latest seven)',
+            exact: true,
+          })
+          .count()
+      )
+        break;
+      await page.mouse.wheel(0, 500);
+      await page.waitForTimeout(300);
+    }
+    await page
+      .getByRole('heading', {
+        name: 'AI ledger by edition (latest seven)',
+        exact: true,
+      })
+      .scrollIntoViewIfNeeded();
+    // Mobile table columns are horizontally virtualized by Grafana.
+    await page.waitForTimeout(1500);
+    await page.screenshot({
+      path: 'docs/screenshots/grafana-product-cost-mobile.png',
     });
     await page.goto(`${base}/d/nd-database?kiosk`, {
       waitUntil: 'networkidle',

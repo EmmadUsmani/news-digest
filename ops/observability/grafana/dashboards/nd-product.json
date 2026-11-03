@@ -3,7 +3,7 @@
   "title": "Product",
   "description": "Read-only retained product evidence from Postgres. Tables are current snapshots, independent of the Grafana time picker; each title states its window. No provider calls or content jobs. Use app Status for configured caps, reserve amounts and live budget availability.",
   "schemaVersion": 41,
-  "version": 2,
+  "version": 3,
   "editable": false,
   "tags": ["news-digest"],
   "timezone": "utc",
@@ -307,6 +307,45 @@
           "format": "table",
           "rawQuery": true,
           "rawSql": "SELECT d.created_at AS \"Created (UTC)\", totals.* FROM (SELECT created_at,snapshot FROM digest_previews ORDER BY created_at DESC LIMIT 7) d CROSS JOIN LATERAL (SELECT count(*)::int AS \"Topics\", sum(jsonb_array_length(coalesce(t->'stories','[]'::jsonb)))::int AS \"Stories\", sum(jsonb_array_length(coalesce(t->'posts','[]'::jsonb)))::int AS \"Posts\", count(*) FILTER (WHERE t->'editorial'->>'mode'='ai')::int AS \"AI story topics\", count(*) FILTER (WHERE t->'postEditorial'->>'mode'='ai')::int AS \"AI post topics\" FROM jsonb_array_elements(d.snapshot->'topics') t) totals ORDER BY d.created_at DESC",
+          "editorMode": "code",
+          "sql": {
+            "limit": 100
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 9,
+      "title": "AI ledger by edition (latest seven)",
+      "description": "Anthropic ledger matched by edition UUID, never timestamp overlap. Settled charges include failed calls with recorded cost; holds are pending/uncertain reservations. Zero calls may mean cached or fallback work. Excludes X discovery and unpublished attempts/retries; not total scheduled-run spend. Created time is not worker duration.",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "product-postgres"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 42,
+        "w": 24,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT d.created_at AS \"Created (UTC)\", left(d.id::text,8) AS \"Edition\", count(c.run_id)::int AS \"Calls\", count(c.run_id) FILTER (WHERE c.status IN ('pending','uncertain'))::int AS \"Unresolved\", coalesce(sum(c.cost_micros),0)/1000000.0 AS \"Charged ($)\", coalesce(sum(c.reserved_micros) FILTER (WHERE c.status IN ('pending','uncertain')),0)/1000000.0 AS \"Holds ($)\" FROM (SELECT id,created_at FROM digest_previews ORDER BY created_at DESC,id DESC LIMIT 7) d LEFT JOIN llm_calls c ON c.run_id=d.id::text GROUP BY d.id,d.created_at ORDER BY d.created_at DESC,d.id DESC",
           "editorMode": "code",
           "sql": {
             "limit": 100
