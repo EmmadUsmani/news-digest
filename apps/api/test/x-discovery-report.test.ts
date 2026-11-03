@@ -118,6 +118,17 @@ void test('X reservation snapshots attribute failed and zero-yield calls after t
         perProfile: 0.01,
       },
     );
+    const reaction = await ledger.reserve(
+      'fixture',
+      runId,
+      400000,
+      snapshot,
+      undefined,
+      'story-reactions',
+    );
+    assert.ok(reaction);
+    calls.push(reaction);
+    await ledger.fail(reaction, 'rejected');
     await db.query("UPDATE topics SET name='Renamed' WHERE id=$1", [topicId]);
     await db.query('DELETE FROM topics WHERE id=$1', [topicId]);
     // Pin the report date independently of the clock or UTC midnight.
@@ -126,10 +137,10 @@ void test('X reservation snapshots attribute failed and zero-yield calls after t
       [runId],
     );
     const report = await readXDiscoveryReport(db, '2033-02-01');
-    assert.equal(report.calls.length, 2);
+    assert.equal(report.calls.length, 3);
     assert.deepEqual(
       new Set(report.calls.map((call) => call.searchType)),
-      new Set(['open-topic', 'account-list']),
+      new Set(['open-topic', 'account-list', 'story-reactions']),
     );
     for (const call of report.calls) {
       assert.deepEqual(call.requestedTopic, snapshot);

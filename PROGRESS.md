@@ -118,31 +118,6 @@ Iteration 252: [archive](docs/progress-archive/2026-11-02-iteration-252.md).
 
 Earlier iteration 264: [archive](docs/progress-archive/2026-11-02-iteration-264.md).
 
-## 2026-11-02: iteration 265 — verification candidate priority and bounds
-
-- Started clean on main; API/worker, health, 32 sources and four queues healthy; no leftover work.
-- Priority 15/13/7/9 evidence awaits Nov 3; advanced isolated STEERING 2a.
-- Pins citation breadth before freshness, offset timestamp ordering, numeric-ID ties and exact result prefixes.
-- Fifty-five discoveries verify the one-to-fifty request clamp, including negative/zero and oversized requests.
-- Transactional disposable-PostgreSQL fixtures only; no provider, source or Reddit verification requests.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 160 integration), `pnpm build`, `git diff --check`.
-- Updated TASKS/database notes; archived iteration 245 to keep PROGRESS bounded.
-- Restarted API/worker; health recovered after startup; latest edition has four topics, 20 stories and 10 posts.
-- Next: observe Nov 3 scheduled X per-topic cost/yield and AI edition cost/duration before acknowledging 15/13/7.
-
-## 2026-11-02: iteration 266 — river source lifecycle
-
-- Started clean on main; API/worker, health, 32 sources and four queues healthy; no leftover work.
-- Scheduled priorities await Nov 3 evidence; advanced isolated STEERING 2a.
-- Pins source ordering/payloads, enabled-topic filtering, re-enablement and source/topic deletion.
-- Repeated and unknown-source failures retain successful timestamps, counts and sibling state; errors remain retryable.
-- Transactional disposable-PostgreSQL fixtures only; no provider, source or Reddit verification requests.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (124 unit, 161 integration), `pnpm build`, `git diff --check`.
-- First check caught archive formatting; formatted and reran successfully.
-- Updated TASKS/database notes; archived iteration 246 to keep PROGRESS bounded.
-- Restarted API/worker; health, SPA, latest four-topic edition and source/queue health verified.
-- Next: observe Nov 3 scheduled X cost/yield and AI edition cost/duration before acknowledging 15/13/7.
-
 ## 2026-11-02: iteration 267 — concurrent verified-post refresh
 
 - Started clean on main; API/worker, health, 32 sources and four queues healthy; no leftover work.
@@ -342,3 +317,15 @@ Earlier iteration 264: [archive](docs/progress-archive/2026-11-02-iteration-264.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (132 unit/167 integration), `pnpm build`, `git diff --check`; initial check caught archive formatting, corrected before rerun.
 - Restarted API/worker/docs/schema; health OK, SPA/docs/db 200, 32 sources without errors; no paid provider or Reddit requests.
 - Archived iteration 264; next: collect Nov 3 scheduled X cost/yield and AI timing, acknowledge 15/13/7, then switch to open search.
+
+## 2026-11-03: iteration 283 — prepare bounded top-story X reactions
+
+- Started clean on main; no leftover work; all four services and health healthy, 32 sources without errors.
+- Added a pure top-two story planner with importance ordering, ID/title dedupe and bounded context; inputs must belong to the topic/window.
+- Direct adapter supports unrestricted event reactions as data, retaining one turn/five requested results and existing exclusions; no scheduler wiring yet.
+- Migration 047 and ledger/report distinguish `story-reactions`; existing shared caps/admission remain in force.
+- Synthetic unit coverage checks planning, prompt constraints, injection-as-data and budget denial; disposable integration checks persisted report attribution.
+- Read-only reports: Nov 3 X calls zero; reserve pending at $0.482788 with zero other-spend allowance; Nov 2 fallback 856 ms, zero edition provider calls.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (135 unit/167 integration), `pnpm build`, `git diff --check`; initial check caught added-test import ordering, fixed before rerun.
+- Applied migration 047; restarted API/worker/docs/schema; health OK, SPA/docs/db 200, 32 sources error-free.
+- No paid provider or Reddit requests. Archived iterations 265–266; next: Nov 3 scheduled evidence/acks, open-search switch, then priority/budget wiring for reactions.

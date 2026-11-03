@@ -78,7 +78,7 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
     estimateMicros: number,
     requestedTopic?: { id: string; name: string },
     scheduledDay?: string,
-    searchType?: 'open-topic' | 'account-list',
+    searchType?: 'open-topic' | 'account-list' | 'story-reactions',
   ) {
     if (
       !model.trim() ||
@@ -100,7 +100,7 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
       throw new Error('Scheduled X discovery requires a topic');
     if (
       searchType !== undefined &&
-      !['open-topic', 'account-list'].includes(searchType)
+      !['open-topic', 'account-list', 'story-reactions'].includes(searchType)
     )
       throw new Error('Invalid X discovery search type');
     return this.transaction(async (client) => {

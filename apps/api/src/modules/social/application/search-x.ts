@@ -26,7 +26,11 @@ export async function searchX(
     scheduledDay === undefined ? 400000 : 100000,
     { id: topicId, name: request.topic },
     scheduledDay,
-    request.handles === undefined ? 'open-topic' : 'account-list',
+    request.reactionStory !== undefined
+      ? 'story-reactions'
+      : request.handles === undefined
+        ? 'open-topic'
+        : 'account-list',
   );
   if (!callId) return { state: 'budget-blocked' as const, citations: 0 };
   let result;

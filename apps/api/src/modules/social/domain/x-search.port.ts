@@ -6,6 +6,8 @@ export interface XSearchRequest {
   guidance: string;
   // Omit for open topic discovery; supplied lists must contain 1–20 handles.
   handles?: string[];
+  // Optional event context for budget-permitting unrestricted reactions.
+  reactionStory?: { id: string; title: string };
   fromDate: string;
   toDate: string;
 }

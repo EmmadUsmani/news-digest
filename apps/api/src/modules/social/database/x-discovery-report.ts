@@ -4,7 +4,7 @@ interface DiscoveryCallEvidence {
   id: string;
   runId: string;
   requestedTopic: { id: string; name: string } | null;
-  searchType: 'open-topic' | 'account-list' | null;
+  searchType: 'open-topic' | 'account-list' | 'story-reactions' | null;
   status: string;
   createdAt: Date;
   costMicros: number | null;

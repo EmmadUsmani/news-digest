@@ -1369,3 +1369,12 @@ Requests omit handles and preserve weakest-first order, daily admission identity
 and the pre-edition window. Production still defaults to account-list search
 until the first scheduled item 15 run is reported and acknowledged. Fixture-only
 verification made no provider requests.
+
+Top-story reaction preparation (iteration 283): a pure planner selects at most two
+distinct high-importance stories from caller-supplied topic/window candidates.
+The direct adapter accepts bounded story context as data, searches without handle
+restrictions and keeps one turn, five requested results, no profile/thread fetches
+and no image/video understanding. Migration 047 allows `story-reactions` in the
+existing capped ledger and daily report. No reaction searches are scheduled yet:
+execution still needs open discovery for every topic first, remaining-budget
+admission and article-pipeline wiring. Tests are synthetic; no live calls.
