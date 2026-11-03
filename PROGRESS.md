@@ -1,21 +1,8 @@
 # Progress
 
-Archived: [iteration 293](docs/progress-archive/2026-11-03-iteration-293.md), [iteration 292](docs/progress-archive/2026-11-03-iteration-292.md), [iteration 291](docs/progress-archive/2026-11-03-iteration-291.md), [iteration 290](docs/progress-archive/2026-11-03-iteration-290.md), [iteration 288](docs/progress-archive/2026-11-03-iteration-288.md), [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md), [286](docs/progress-archive/2026-11-03-iteration-286.md).
+Archived: [iteration 294](docs/progress-archive/2026-11-03-iteration-294.md), [iteration 293](docs/progress-archive/2026-11-03-iteration-293.md), [iteration 292](docs/progress-archive/2026-11-03-iteration-292.md), [iteration 291](docs/progress-archive/2026-11-03-iteration-291.md), [iteration 290](docs/progress-archive/2026-11-03-iteration-290.md), [iteration 288](docs/progress-archive/2026-11-03-iteration-288.md), [iteration 285](docs/progress-archive/2026-11-03-iteration-285.md), [286](docs/progress-archive/2026-11-03-iteration-286.md).
 
 Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterations-269-270.md), [271–272](docs/progress-archive/2026-11-03-iterations-271-272.md), [273–274](docs/progress-archive/2026-11-03-iterations-273-274.md), [275–276](docs/progress-archive/2026-11-03-iterations-275-276.md), [277–278](docs/progress-archive/2026-11-03-iterations-277-278.md), [279–280](docs/progress-archive/2026-11-03-iterations-279-280.md), [282](docs/progress-archive/2026-11-03-iteration-282.md), [283](docs/progress-archive/2026-11-03-iteration-283.md), [284](docs/progress-archive/2026-11-03-iteration-284.md).
-
-## 2026-11-03: iteration 294 — production X dependency wiring
-
-- Started clean on main; four services/health healthy, all 32 sources error-free and no failed digests; retained historical ingestion failures remain recovered.
-- Worker now connects persisted open completion/yield, article-ranked reaction stories, parent-aware search and official verification through one shared runtime.
-- Production defaults to account-list; open-topic activation still waits for the first scheduled item 15 run and acknowledgement.
-- Five fake-only runtime tests cover default mode, completion-before-followup order, durable parent forwarding, verification errors, budget rejection and persistence failure.
-- Updated social handbook and TASKS; archived iterations 275–276 to keep PROGRESS bounded.
-- Initial full check stopped on archive formatting; corrected and reran successfully.
-- Verified: `pnpm format`, `pnpm lint:fix`, `pnpm check` (160 unit/168 integration), `pnpm build`, `git diff --check`; handbook social page/24-table metadata check passed.
-- Restarted API/worker/docs/schema; all active, health OK and SPA/docs/db HTTP 200; latest real edition has four story sections, Gaming/World posts still empty.
-- Read-only Nov 3 X report: zero calls/cost/holds; scheduled reserve pending, latest social collection verified 10 posts without errors.
-- No paid provider or Reddit requests. Next: measure Nov 3 scheduled X/edition evidence, acknowledge required items, then activate open mode.
 
 ## 2026-11-03: iteration 295 — handbook ownership acknowledgement
 
@@ -195,4 +182,13 @@ Earlier entries: [iterations 269–270](docs/progress-archive/2026-11-03-iterati
 - `pnpm exec tsx scripts/report-x-discovery.ts 2026-11-03`: zero calls/cost/holds; `pnpm exec tsx scripts/report-edition-timing.ts`: next edition 15:00 UTC, 482,788-micro reserve pending, other Anthropic allowance zero.
 - Items 13/7/15 still require scheduled evidence; owner item 16 explicitly requires item 15 acknowledgement before activation. No application/settings changes, paid calls or Reddit requests. Archived iteration 293 to keep progress bounded.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `git diff --check`; four services restarted, active; health/app/status/docs/db HTTP 200. No UI change.
+- Next: observe scheduled X per-topic cost/yield and edition AI cost/duration, acknowledge results, then activate open search.
+
+## 2026-11-03: iteration 314 — healthy operation; scheduled evidence pending
+
+- Started clean on main; no leftover work. API/worker/docs/schema active; database/Redis healthy and all queues staffed.
+- Read-only status at 02:50 UTC: all 32 sources healthy; rolling-day articles Tech/AI 332, NBA 115, Gaming 288, World 223; verified X posts 53/33/17/3. No retained failed digest runs.
+- `pnpm exec tsx scripts/report-x-discovery.ts 2026-11-03`: zero calls/cost/holds. `pnpm exec tsx scripts/report-edition-timing.ts`: next edition 15:00 UTC, 482,788-micro reserve pending; other Anthropic allowance zero.
+- Items 13/7/15 await actual scheduled evidence; item 16 activation remains gated by item 15 acknowledgement. No application/settings changes, paid calls or Reddit requests. Archived iteration 294 to bound progress.
+- Verified `pnpm format`, `pnpm lint:fix`, `pnpm check` (163 unit/168 integration), `pnpm build`, `git diff --check`; restarted all four services, active; health/app/status/docs/db HTTP 200. No UI change.
 - Next: observe scheduled X per-topic cost/yield and edition AI cost/duration, acknowledge results, then activate open search.
