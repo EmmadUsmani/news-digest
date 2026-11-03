@@ -52,10 +52,18 @@ function revealedTitle(candidate: Candidate): string | null {
     ];
     if (assertions.length !== 1) return null;
     const assertion = assertions[0];
+    // Qualifiers can follow the asserted name, including inside parentheses.
+    // Scope them to this sentence so unrelated background dates stay harmless.
     const sentence = excerpt.slice(0, assertion.index).split(/[.!?]/).at(-1)!;
+    const suffix = excerpt
+      .slice(assertion.index + assertion[0].length)
+      .split(/[.!?]/)[0];
     if (
       /\b(not|never|rumou?r|reportedly|might|could|may|would|should|if|unless|allegedly|previously|last year|years? ago|in (?:19|20)\d{2})\b/.test(
         sentence,
+      ) ||
+      /\b(not|never|rumou?r|reportedly|might|could|may|would|should|if|unless|allegedly|last year|years? ago|in (?:19|20)\d{2})\b/.test(
+        suffix,
       )
     )
       return null;

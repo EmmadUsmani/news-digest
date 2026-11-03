@@ -1119,3 +1119,13 @@ The 98-pair benchmark has 57 positives and 41 negatives: lexical 6/57,
 game-only 10/57, combined opt-in 31/57, zero labeled false merges. All windows
 retain zero unknown merges and no variation across 34 orders each. These labels
 are not independent validation or a general quality estimate.
+
+## Iteration 458: qualifiers after excerpt naming assertions
+
+The opt-in title-reveal matcher now checks uncertainty and historical qualifiers
+after the asserted name within the same sentence, including parentheses. This
+prevents an excerpt dated “in 2020” or qualified “according to a rumor” from
+establishing a current title reveal. Separate background sentences and “the
+previously reported name” remain accepted. Synthetic bidirectional guards pass;
+the recorded benchmark stays 31/57 positive pairs and 0/41 false merges. These
+agent-reviewed labels are not independent validation. Production remains off.

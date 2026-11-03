@@ -1,15 +1,3 @@
-## 2026-11-03: iteration 442 — bounded browser error reports
-
-- Started clean on main; no leftovers. Zero alerts/healthy services; next scheduled product evidence remains pending. Completed O10 under items 24/25.
-- Web app reports uncaught errors and unhandled rejections, capped at five per page with no retries. API validates a strict metadata allowlist and accepts 20/minute globally per process; no client/IP map or new service.
-- Reports omit message, stack, rejection value, page URL and user content. Only fixed error categories, optional same-origin bundle basename and bounded line/column are retained; rejection type is Unknown.
-- Added two offline validation/rate-window tests, explicit Playwright synthetic probe and read-only --verify-o10 retained-log check. Probe verified both real browser event types, private text omission and page cap; both event types reached VictoriaLogs.
-- Initial probe exposed CommonJS top-level-await incompatibility; wrapped entry point and reran successfully. Initial lint issues corrected. No visual layout change or diagram change.
-- Updated handbook, observability plan and TASKS; archived iteration 428 to preserve bounded PROGRESS size. No paid calls, new editions, Reddit requests or protected-file edits.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (277 unit/176 isolated integration), pnpm build, check-handbook.ts 09-observability, verify-browser-errors.ts, check-observability.ts --verify-o10 and git diff --check passed. No layout/screenshots or diagrams changed.
-- Restarted API only for its code/web assets; worker/DB/Redis unchanged. Health green, 32 healthy sources/four available queues, articles/stored X across all topics; latest edition remains Nov 3 15:03 UTC/four topics. Zero alerts/dangling volumes.
-- Next: scheduled open-X/Bluesky selections and latency/full-AI evidence take priority. O1–O10 complete within documented limits; O11 is optional, not an implementation commitment.
-
 ## 2026-11-03: iteration 443 — immutable social selection evidence
 
 - Started clean on main; no leftovers. Alerts/health green; next scheduled edition is Nov 4 15:00 UTC. No paid calls or new editions.
@@ -163,3 +151,13 @@
 - Restarted API/worker; pnpm obs health --check passed, root HTTP 200, both units active, zero alerts. pnpm obs sources --check and pnpm obs jobs --check passed before deploy.
 - Updated TASKS/RANKING; archived iteration 441 to keep PROGRESS bounded. No UI/handbook production-flow change, paid calls, new editions or Reddit requests.
 - Next: Nov 4 social selections/screenshots, World yield and latency/full-AI evidence; broader Gaming recall/independent labels remain open.
+
+## 2026-11-03: iteration 458 — reject trailing excerpt uncertainty in title grouping
+
+- Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis, all sources flowing and scheduled collectors healthy. Next scheduled social/latency evidence remains pending; advanced item 19.
+- Opt-in title-reveal grouping now checks qualifiers after excerpt naming assertions within the same sentence, including parentheses. Historical dates, rumor and conditional claims cannot supply a current title identity.
+- Added bidirectional synthetic guards and a positive background-date control. Initial targeted run exposed overbroad rejection of “previously reported name”; narrowed suffix checks and reran successfully (4/4).
+- Recorded benchmark unchanged: 31/57 positives and zero/41 false merges. Agent labels are not independent validation; production grouping remains disabled.
+- pnpm format, pnpm lint:fix, pnpm check (291 unit/176 isolated integration), pnpm build and git diff --check passed. Zero dangling Docker volumes.
+- Restarted API/worker; pnpm obs health --check passed, root HTTP 200, zero alerts. Updated TASKS/RANKING; archived iteration 442 to keep PROGRESS bounded.
+- No UI or handbook production-flow change, paid calls, new editions or Reddit requests. Next: Nov 4 social selections/screenshots, World yield and latency/full-AI evidence; grouping recall/independent labels remain open.

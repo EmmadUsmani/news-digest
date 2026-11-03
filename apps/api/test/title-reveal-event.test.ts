@@ -139,12 +139,25 @@ void test('headline without subtitle needs an explicit matching naming assertion
     'In 2020 the next game in the series is titled The Example Quest VI: Horizon.',
     'It is not true that the next game in the series is titled The Example Quest VI: Horizon.',
     'If the next game in the series is titled The Example Quest VI: Horizon.',
+    'The next game in the series is titled The Example Quest VI: Horizon (in 2020).',
+    'The next game in the series is titled The Example Quest VI: Horizon (according to a rumor).',
+    'The next game in the series is titled The Example Quest VI: Horizon (if the report is true).',
+    'The next game in the series is titled The Example Quest VI: Horizon (years ago).',
     'The next game in the series is titled The Example Quest VI: Horizon. The next game in the series is titled The Example Quest VI: Sunset.',
   ]) {
     const rejected = { ...other, excerpt };
     assert.equal(sameTitleReveal(lead, rejected), false, excerpt);
     assert.equal(sameTitleReveal(rejected, lead), false, excerpt);
   }
+  assert.equal(
+    sameTitleReveal(lead, {
+      ...other,
+      excerpt:
+        'The studio was founded in 2020. The next game in the series is titled The Example Quest VI: Horizon. Its previous game released years ago.',
+    }),
+    true,
+    'background dates in other sentences do not date the naming assertion',
+  );
   for (const title of [
     "'The Example Quest 7' Finally Has An Official Title",
     "'The Example Quest 6' Finally Has An Official Title?",
