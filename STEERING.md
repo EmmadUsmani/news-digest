@@ -742,3 +742,53 @@ fallback and the 232 s edition). Then do this item, removal first.
 ack: 2026-11-03 item 26 removal — iteration 467 removes wording matchers, their flag and rule-specific tests/CLI options. Production does no grouping; generic plumbing, coverage links and recorded labels remain. AI pass and activation evidence remain open.
 
 ack: 2026-11-03 item 26 parking — iteration 476 ran the once-only seven-window Haiku evaluation at 20:25–20:26 UTC: 7 successful calls, $0.008275; 138 labelled pairs, precision 76/78 (97.44%), recall 76/77 (98.70%), two wrong merges. Fresh NBA window: 20/20 positives, one wrong merge. Zero-wrong-merge gate failed, so item 19 is parked; inactive AI pass and paid runner removed, production keeps stories separate. Frozen memberships/labels and generic offline evaluator remain; no retries or activation.
+
+## 27. Tonight's order; un-park grouping as "same story" (2026-11-03)
+
+The Nov 4 07:00 PT edition is the first with open X search, the reviewed
+lists, Bluesky and the compact triage output all live. Keep it a clean
+read, and spend tonight on the daily-quality bugs.
+
+**Order:**
+1. **Item 7 bugs, offline, now:**
+   - **World selected no social posts on Nov 3.** Find out why: was it
+     collection, relevance, verification or the selection rules? Fix it.
+   - **NBA stories fall back to non-AI every day.** Find the cause from the
+     recorded data and the new validation logs, and fix what you can before
+     the run.
+   - **Edition time is 232 s against a 60 s target.** The next lever after
+     compact output is triaging fewer of the 748 candidates, for example a
+     tighter non-AI prefilter per topic.
+
+   These fixes may ship to production, deployed and verified by 14:30 UTC.
+2. **Item 19/26 un-parked: grouping by "same story"** (owner decision).
+   The two "wrong" merges in the evaluation were the same story: an ejection
+   plus teammates' reaction, and a cancellation trend plus one chief's
+   action.
+   - **New definition:** articles about the same news story within the
+     edition window go together, including direct follow-ups, reactions and
+     consequences. Clearly separate events that merely share people,
+     teams, companies or a theme stay apart.
+   - **Restore the inactive AI pass** from git history (it was removed in
+     `364cb1b`), with the new definition in the prompt. No wording rules.
+   - **Relabel against the new definition:**
+     - the 138 pairs;
+     - the 57 previously unlabelled merged pairs.
+   - **Run one capped evaluation:** $0.05 at most, outside 13:00–16:00 UTC.
+   - **Pass:** no merges of clearly unrelated stories, and at most about 1
+     in 20 merges borderline. Report precision and recall.
+   - **Keep it switched off in production until the Nov 4 run is checked.**
+     If it passed, turn it on for the **Nov 5** edition and show
+     screenshots. If it failed, park it again with the numbers.
+3. **Nov 4 run (takes priority as soon as it happens).** Check and ack:
+   - open X (cost, yield, outside-list authors);
+   - Bluesky posts in the edition;
+   - the reviewed lists;
+   - edition time;
+   - NBA AI or fallback, and its cause from the logs;
+   - World social posts.
+4. Then observability (item 24) in the background.
+
+**Until the Nov 4 run is checked:**
+- No new sources, and no other new production feature or activation.
+- Item 7 bug fixes are fine (see step 1).
