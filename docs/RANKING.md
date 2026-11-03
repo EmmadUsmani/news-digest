@@ -1534,3 +1534,25 @@ pnpm exec tsx scripts/evaluate-event-grouping.ts --same-story --memberships apps
 Restored fake tests cover single consumption, crash/failure persistence, state
 ownership, time and budget gates, concurrent reservation bounds, shared ledger
 refusal, cache/settlement, all labelled endpoints and invalid membership stops.
+
+## Iteration 485: admission loss from smaller triage pools
+
+`pnpm exec tsx apps/api/scripts/evaluate-triage-cap.ts` compares newest-first
+caps of 20, 30, 40 and 50 against current hard-exclusion admission on the three
+recorded November 1 windows. Required include phrases remain advisory so semantic
+recovery is preserved. Labels only measure admission; they never drive the cap.
+
+| Topic     | After hard exclusions | Lost target events at 20 / 30 / 40 / 50 |
+| --------- | --------------------- | --------------------------------------- |
+| NBA       | 43                    | 2 / 1 / 0 / 0                           |
+| World     | 46                    | 1 / 0 / 0 / 0                           |
+| Tech & AI | 53                    | 3 / 2 / 1 / 1                           |
+
+All five targets per topic are reachable before the cap. Even cap 50 loses the
+reported Memdoor multi-model coding result in Tech. NBA and World already fit
+one cold 50-item batch; smaller caps reduce tokens without reducing their batch
+count. Tech drops from two theoretical cold batches to one, at a target loss.
+These are recorded excerpts and existing agent labels, not live latency or a
+representative quality estimate. Cache hits and input/output size affect actual
+calls and duration. Gaming and current 200-item pools remain unmeasured. No paid
+calls or production cap: a simple recency cutoff lacks a safe quality basis.

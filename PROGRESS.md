@@ -142,3 +142,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (289 unit/182 isolated integration), pnpm build, filtered handbook check (17 pages/one unchanged diagram/25 tables), git diff --check passed.
 - Root HTTP 200, health check passed; all 36 sources healthy, digest queue zero failures, zero alerts. Live article counts Tech/NBA/Gaming/World 326/161/284/220. No restart under STEERING 22: runtime/config unchanged.
 - Updated TASKS, RANKING and affected handbook. No schema/source/UI changes; screenshots unnecessary. Next: Nov 4 scheduled evidence review; conditional grouping activation for Nov 5 only, no more paid evaluations.
+
+## 2026-11-03: iteration 485 — assess smaller triage pools offline
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, all 36 connected sources healthy; digest queue zero failures. Live rolling articles Tech/NBA/Gaming/World 326/162/285/220.
+- Added a fully offline recency-cap evaluator using three existing recorded November 1 windows and labels; existing hard exclusions, semantic recovery, exact window bounds and deterministic ties are preserved.
+- Cap 20 loses 6/15 reachable target events; cap 50 still loses the Tech Memdoor result. NBA/World already fit one cold batch after hard exclusions; Tech's two-to-one reduction costs a target. No production cap is justified by this sample.
+- Reports baseline-missing vs newly lost events, article losses and theoretical cold batches separately. Recorded admission recall is not live latency or editorial quality; Gaming/current 200-item pools remain unmeasured.
+- Targeted tests 2/2 passed after correcting fixture topic-name expectations. No provider calls, editions, sources, feature activation, schema or UI changes; no handbook/source updates or screenshots needed.
+- Updated TASKS and RANKING. No restart under STEERING 22: only offline scripts/tests/docs changed.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (291 unit/182 isolated integration), pnpm build, offline cap report, targeted tests and git diff --check passed. Docker dangling volumes remain zero.
+- Next: Nov 4 scheduled evidence review takes priority; NBA rejection still awaits logs. Grouping remains off, with conditional Nov 5 activation only after that review. No additional paid evaluations.
