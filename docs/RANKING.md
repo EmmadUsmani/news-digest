@@ -1320,3 +1320,24 @@ preflight validation before claiming, and retain the shared ledger/time/cost
 checks. It must never choose a new directory or delete a claim to retry. Live
 wiring and unseen-day labels remain unfinished; no paid calls or production
 activation occurred.
+
+## Iteration 474: fresh NBA topic/day labels
+
+A read-only November 3 NBA snapshot adds 19 real stored publisher-feed items
+and 40 newly agent-reviewed pairs (20 same event, 20 separate). The labels
+cover the Dalen Terry signing, LeBron’s fan-wine incident, two completed
+games, and hard negatives for previews and subsequent third-party reactions.
+All within-group positive pairs are labelled, including the five-item signing.
+The snippets are recorded source claims, not independently verified facts.
+
+These labels were frozen before any grouping-provider evaluation and without
+changing the grouping prompt. This is a fresh topic/day sample, not a wholly
+untouched calendar date: November 3 Gaming already appears in development
+fixtures. Selection is deliberate and label-aware, not a representative quality
+estimate. No claim of independent review or live grouping accuracy is made.
+The original 60 labels remain intact; the combined set now has 138 labels
+across seven windows. The bounded runner preserves all 19 fresh endpoints,
+sends article facts only, and reports each window separately, so the fresh
+sample can be assessed apart from older development labels. No paid calls
+were made; live entrypoint wiring and the once-only capped evaluation remain
+pending. Production still performs no event grouping.

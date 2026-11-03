@@ -9,13 +9,13 @@ import { llmConfig } from '../src/modules/curation/adapters/config';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import { EventGrouping } from '../src/modules/curation/application/event-grouping';
 
-void test('evaluation plans six bounded windows without losing labelled endpoints', () => {
+void test('evaluation plans seven bounded windows without losing labelled endpoints', () => {
   const plan = eventGroupingEvaluationPlan();
-  assert.equal(plan.length, 6);
+  assert.equal(plan.length, 7);
   assert.deepEqual(plan, eventGroupingEvaluationPlan());
   assert.deepEqual(
     plan.map((entry) => entry.candidates.length),
-    [40, 40, 40, 20, 31, 23],
+    [40, 40, 40, 20, 31, 23, 19],
   );
   for (const entry of plan) {
     assert.ok(entry.labelledCandidates <= entry.candidates.length);
@@ -58,16 +58,16 @@ void test('runner uses the real budgeted grouping component with a fake provider
     llmConfig({}).haiku,
   );
   const result = await runEventGroupingEvaluation(grouping, 'fake-evaluation');
-  assert.equal(calls, 6);
-  assert.equal(result.report.pairs, 98);
+  assert.equal(calls, 7);
+  assert.equal(result.report.pairs, 138);
   assert.equal(result.report.truePositives, 0);
   assert.equal(result.report.falsePositives, 0);
-  assert.equal(Object.keys(result.memberships).length, 6);
+  assert.equal(Object.keys(result.memberships).length, 7);
   assert.deepEqual(
     await runEventGroupingEvaluation(grouping, 'fake-cached'),
     result,
   );
-  assert.equal(calls, 6);
+  assert.equal(calls, 7);
 });
 
 void test('runner stops before the next window when supplied output is invalid', async () => {

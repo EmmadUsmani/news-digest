@@ -10,15 +10,22 @@ import {
 
 void test('recorded strict event labels expose false merges and missed paraphrases', () => {
   const result = evaluateEventGrouping();
-  assert.equal(result.pairs, 98);
-  assert.equal(result.positives, 57);
-  assert.equal(result.negatives, 41);
+  assert.equal(result.pairs, 138);
+  assert.equal(result.positives, 77);
+  assert.equal(result.negatives, 61);
   assert.equal(result.falsePositives, 0);
   assert.equal(result.truePositives, 0);
   assert.equal(result.truePositives + result.falseNegatives, result.positives);
   assert.equal(result.precision, null);
   assert.equal(result.disagreements.length, result.falseNegatives);
-  assert.equal(result.windows.length, 6);
+  assert.equal(result.windows.length, 7);
+  const freshNba = result.windows.find(
+    (entry) => entry.window === 'event-grouping-nba-2026-11-03.json',
+  )!;
+  assert.equal(freshNba.positives, 20);
+  assert.equal(freshNba.negatives, 20);
+  assert.equal(freshNba.membership.mergedPairs, 0);
+
   const gaming = result.windows.find((window) =>
     window.window.includes('gaming'),
   )!;

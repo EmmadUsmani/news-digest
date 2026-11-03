@@ -1,0 +1,198 @@
+{
+  "provenance": "Read-only stored publisher-feed snapshot recorded 2026-11-03 in iteration 474. Newly agent-labelled NBA day, not supplied to a grouping provider or used to tune its prompt before labelling. Selected headline/excerpt sample, not independent fact verification or representative ranking evidence. The calendar date overlaps the earlier Gaming development window; this is a fresh topic/day sample, not a wholly untouched calendar-day benchmark. Offline only; never seed into production. Excerpts truncated to 600 characters.",
+  "windowStart": "2026-11-03T00:00:00.000Z",
+  "windowEnd": "2026-11-04T00:00:00.000Z",
+  "topic": "nba",
+  "candidates": [
+    {
+      "id": "bc338528-32a4-467e-b292-9f774144751c",
+      "title": "Former Arizona wing Dalen Terry signs with Thunder",
+      "url": "https://sports.yahoo.com/articles/former-arizona-wing-dalen-terry-194228927.html",
+      "excerpt": "Dalen Terry is on an NBA roster after starting the season on the sidelines. The former Arizona Wildcats wing has signed a two-year deal with the Oklahoma City Thunder, according to ESPN\u2019s Shams Charania. The contract comes at a good time for both sides: Terry was without an NBA team after getting by the Golden [\u2026]",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T19:42:28.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "57cf4885-721c-4220-8904-704f5edb1076",
+      "title": "Thunder sign Dalen Terry out of G League to provide depth at forward",
+      "url": "https://sports.yahoo.com/articles/thunder-sign-dalen-terry-g-161739771.html",
+      "excerpt": "Terry, the No. 18 pick in the 2022 NBA Draft, played for the Bulls and 76ers.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T16:17:39.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "03631ab3-601f-4d61-a7c4-d6b531301605",
+      "title": "Thunder sign former Bulls first-round pick off Warriors G-League roster",
+      "url": "https://sports.yahoo.com/articles/thunder-sign-former-bulls-first-155359946.html",
+      "excerpt": "The Oklahoma City Thunder signed wing Dalen Terry away from the Golden State Warriors G-League affiliate.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T15:53:59.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "fb567b89-53d6-4205-8504-5a808d6da66a",
+      "title": "Dalen Terry, Thunder Agree To Two-Year Deal",
+      "url": "https://www.hoopsrumors.com/2026/11/dalen-terry-thunder-agree-to-two-year-deal.html",
+      "excerpt": "Free agent wing Dalen Terry has reached an agreement to sign a standard, two-year contract with the Thunder, reports Shams Charania of ESPN. Terry had been in training camp with Golden State this fall on a non-guaranteed Exhibit 9 contract before being waived at the end of the preseason. As Charania notes, the former first-round [\u2026]",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T14:23:14.000Z",
+      "sources": ["Hoops Rumors"],
+      "points": 0
+    },
+    {
+      "id": "894a1ca5-0df6-4715-9d84-ef550f22cf56",
+      "title": "Dalen Terry, Thunder Agree To Two-Year Contract",
+      "url": "https://basketball.realgm.com/wiretap/288020/Dalen-Terry-Thunder-Agree-To-Two-Year-Contract",
+      "excerpt": "The Oklahoma City Thunder and veteran wing Dalen Terry have agreed to a two-year contract. Terry will fill the Thunder's open roster spot and will give the team some much needed depth. Last season, Terry split the campaign between the Chicago Bulls and Philadelphia 76ers. Terry was traded by the Bulls to the New York Knicks at the trade deadline, then he signed a two-way contract with the Sixers. From there, the 6-foot-7 wing signed a standard contract with Philadelphia. The Thunder are currently down six players due to injuries. That includes Jalen Williams and Cason Wallace, who are expected",
+      "imageUrl": "https://basketball.realgm.com/images/nba/4.2/wiretap/photos/2006/Terry_Dalen_chi_221114.jpg",
+      "publishedAt": "2026-11-03T14:06:43.000Z",
+      "sources": ["RealGM Basketball"],
+      "points": 0
+    },
+    {
+      "id": "d94b581a-a059-462d-b2b2-8c1f883dcd1d",
+      "title": "Watch LeBron take a swig of a fan's drink during the game",
+      "url": "https://sports.yahoo.com/articles/watch-lebron-swig-fans-drink-154906037.html",
+      "excerpt": "\"I wanted to see if it was worth it on my arm and how good it was. It was all right.\"",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T15:49:06.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "b443a230-fea4-4d6b-831d-b665b4701439",
+      "title": "LeBron James explains why he sipped a 76ers fan's wine during win vs. Bulls",
+      "url": "https://www.cbssports.com/nba/news/lebron-james-76ers-fans-wine/",
+      "excerpt": "LeBron chased a ball into the crowd and bumped into a fan, spilled his wine and then did a taste test",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T15:13:55.000Z",
+      "sources": ["CBS Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "0b2127f1-ad04-4f34-aa7e-5adb1ff23431",
+      "title": "LeBron James is having fun in Philly and one fan's wine can prove it",
+      "url": "https://sports.yahoo.com/articles/lebron-james-having-fun-philly-023002205.html",
+      "excerpt": "LeBron James took fan interaction to a whole new level on Monday night.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T02:30:02.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "ec122266-39ac-43bc-b75f-c1772a16ba1b",
+      "title": "Draymond Green gets first ejection of season after sparking Warriors-Suns scuffle",
+      "url": "https://www.cbssports.com/nba/news/draymond-green-gets-first-ejection-of-season-after-sparking-warriors-suns-scuffle/",
+      "excerpt": "'He was just tweaking all game,' Dillon Brooks said of Green after the game",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T14:54:10.000Z",
+      "sources": ["CBS Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "0f1d30ae-48a7-4404-8a82-8e11884499fa",
+      "title": "Warriors \u2018loved\u2019 Draymond Green\u2019s ejection: \u2018Lit a fire in all of us\u2019",
+      "url": "https://sports.yahoo.com/articles/warriors-loved-draymond-green-ejection-144339083.html",
+      "excerpt": "Green\u2019s ejection 2 minutes into the second half Monday night awakened the sleep-walking Warriors.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T14:43:39.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "4b34bfc6-3e6b-45ca-a5fa-1e65652247b0",
+      "title": "Dave Portnoy trolls LeBron\u2019s controversial mid-game sip of wine: \u2018Checked into AA\u2019",
+      "url": "https://sports.yahoo.com/articles/dave-portnoy-trolls-lebron-controversial-153411529.html",
+      "excerpt": "Barstool Sports boss Dave Portnoy wasn't entertained by LeBron James' decision to help himself to a fan's red wine during the Sixers' 126-107 victory over the Bulls Monday night.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T15:34:11.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "f356a592-4d9e-484f-a1d0-9b15ed0be480",
+      "title": "Highlights: Spurs harmonize on both ends in win over the Jazz",
+      "url": "https://sports.yahoo.com/articles/highlights-spurs-harmonize-both-ends-150844715.html",
+      "excerpt": "It was the best of times, it was the best of times.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T15:08:44.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "5f33ecab-c31d-4e97-81b3-0821488803b6",
+      "title": "San Antonio vs. Utah, Final Score: Two impressive Spurs quarters are plenty versus Jazz, 119-97",
+      "url": "https://sports.yahoo.com/articles/san-antonio-vs-utah-final-041239459.html",
+      "excerpt": "San Antonio outscored Utah 62-36 in the first and third quarters to claim its fifth straight victory",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T04:12:39.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "1b3c5b98-7a7c-42b9-8c2c-bd6c0352c968",
+      "title": "It\u2019s time for Basketball: San Antonio Spurs vs Utah Jazz",
+      "url": "https://sports.yahoo.com/articles/time-basketball-san-antonio-spurs-010000510.html",
+      "excerpt": "The Spur face the Jazz for the second time in less than a week",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T01:00:00.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "1a89e4ee-97f3-40bc-967a-0672ea474005",
+      "title": "Knicks turn it up in fourth for convincing win to continue domination of Nets",
+      "url": "https://sports.yahoo.com/articles/knicks-turn-fourth-convincing-win-033458440.html",
+      "excerpt": "But then the defending champs woke up. OG Anunoby caught fire, Josh Hart provided a spark and the Knicks ultimately cakewalked to a 103-90 victory over the Nets Monday at MSG.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T03:34:58.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "a2c615e7-5569-4ca0-9771-a18753acaa4e",
+      "title": "Knicks 103, Nets 90: Scenes from ShamWow, Clarkson, and Kolek sparking life into a dead game",
+      "url": "https://sports.yahoo.com/articles/knicks-103-nets-90-scenes-032406322.html",
+      "excerpt": "Landry Shamet carried the sleepy Knicks until a fourth-quarter wake-up call sent Brooklyn home with a 103\u201390 loss.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T03:24:06.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "cf2492b7-913d-49ed-b0d3-e19da85f4a77",
+      "title": "Nets disastrous fourth quarter spoils near upset vs Knicks, lose 103-90",
+      "url": "https://sports.yahoo.com/articles/nets-disastrous-fourth-quarter-spoils-032009785.html",
+      "excerpt": "Back to the losing column we go",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T03:20:09.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "175f901f-8634-4088-9f7f-9eb4f7d10bac",
+      "title": "Knicks mount fourth-quarter comeback for 103-90 defeat of Nets",
+      "url": "https://sports.yahoo.com/articles/knicks-mount-fourth-quarter-comeback-031613072.html",
+      "excerpt": "The Knicks beat the Nets at Madison Square Garden Monday night, 103-90, extending their winning streak over their crosstown rivals to 15.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T03:16:13.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "2477f5b6-421c-4762-9bc5-4ea613e0f983",
+      "title": "Game Discussion Thread: Knicks vs. Nets, November 2, 2026",
+      "url": "https://sports.yahoo.com/articles/game-discussion-thread-knicks-vs-000000819.html",
+      "excerpt": "The rebuilding Nets stop by to check out our cool new banners in the rafters.",
+      "imageUrl": null,
+      "publishedAt": "2026-11-03T00:00:00.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    }
+  ]
+}

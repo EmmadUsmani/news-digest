@@ -158,7 +158,7 @@ export function evaluateEventGrouping(
     if (
       !/^ranking-(tech|nba|world)-2026-11-01\.json$/.test(pair.window) &&
       !/^event-grouping-(nba|gaming)-2026-11-02\.json$/.test(pair.window) &&
-      pair.window !== 'event-grouping-gaming-2026-11-03.json'
+      !/^event-grouping-(nba|gaming)-2026-11-03\.json$/.test(pair.window)
     )
       throw new Error('Unknown recorded window');
     if (!windows.has(pair.window))

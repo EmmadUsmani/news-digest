@@ -686,6 +686,286 @@
       "right": "705b94d8-f43d-4edb-9045-e17abe39cb75",
       "sameEvent": true,
       "reason": "Nintendo Life headline announces an official title; its stored excerpt explicitly names The Elder Scrolls VI: Sentinel, the same November 3 reveal. Agent-reviewed, not independent verification."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "bc338528-32a4-467e-b292-9f774144751c",
+      "right": "57cf4885-721c-4220-8904-704f5edb1076",
+      "sameEvent": true,
+      "reason": "Same Dalen Terry two-year Thunder signing; prior teams and contract detail are facets of that transaction."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "bc338528-32a4-467e-b292-9f774144751c",
+      "right": "03631ab3-601f-4d61-a7c4-d6b531301605",
+      "sameEvent": true,
+      "reason": "Same Dalen Terry two-year Thunder signing; prior teams and contract detail are facets of that transaction."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "bc338528-32a4-467e-b292-9f774144751c",
+      "right": "fb567b89-53d6-4205-8504-5a808d6da66a",
+      "sameEvent": true,
+      "reason": "Same Dalen Terry two-year Thunder signing; prior teams and contract detail are facets of that transaction."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "bc338528-32a4-467e-b292-9f774144751c",
+      "right": "894a1ca5-0df6-4715-9d84-ef550f22cf56",
+      "sameEvent": true,
+      "reason": "Same Dalen Terry two-year Thunder signing; prior teams and contract detail are facets of that transaction."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "57cf4885-721c-4220-8904-704f5edb1076",
+      "right": "03631ab3-601f-4d61-a7c4-d6b531301605",
+      "sameEvent": true,
+      "reason": "Same Dalen Terry two-year Thunder signing; prior teams and contract detail are facets of that transaction."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "57cf4885-721c-4220-8904-704f5edb1076",
+      "right": "fb567b89-53d6-4205-8504-5a808d6da66a",
+      "sameEvent": true,
+      "reason": "Same Dalen Terry two-year Thunder signing; prior teams and contract detail are facets of that transaction."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "57cf4885-721c-4220-8904-704f5edb1076",
+      "right": "894a1ca5-0df6-4715-9d84-ef550f22cf56",
+      "sameEvent": true,
+      "reason": "Same Dalen Terry two-year Thunder signing; prior teams and contract detail are facets of that transaction."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "03631ab3-601f-4d61-a7c4-d6b531301605",
+      "right": "fb567b89-53d6-4205-8504-5a808d6da66a",
+      "sameEvent": true,
+      "reason": "Same Dalen Terry two-year Thunder signing; prior teams and contract detail are facets of that transaction."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "03631ab3-601f-4d61-a7c4-d6b531301605",
+      "right": "894a1ca5-0df6-4715-9d84-ef550f22cf56",
+      "sameEvent": true,
+      "reason": "Same Dalen Terry two-year Thunder signing; prior teams and contract detail are facets of that transaction."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "fb567b89-53d6-4205-8504-5a808d6da66a",
+      "right": "894a1ca5-0df6-4715-9d84-ef550f22cf56",
+      "sameEvent": true,
+      "reason": "Same Dalen Terry two-year Thunder signing; prior teams and contract detail are facets of that transaction."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "d94b581a-a059-462d-b2b2-8c1f883dcd1d",
+      "right": "b443a230-fea4-4d6b-831d-b665b4701439",
+      "sameEvent": true,
+      "reason": "Same LeBron fan-wine incident during the Sixers-Bulls game; explanation and video describe the incident."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "d94b581a-a059-462d-b2b2-8c1f883dcd1d",
+      "right": "0b2127f1-ad04-4f34-aa7e-5adb1ff23431",
+      "sameEvent": true,
+      "reason": "Same LeBron fan-wine incident during the Sixers-Bulls game; explanation and video describe the incident."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "b443a230-fea4-4d6b-831d-b665b4701439",
+      "right": "0b2127f1-ad04-4f34-aa7e-5adb1ff23431",
+      "sameEvent": true,
+      "reason": "Same LeBron fan-wine incident during the Sixers-Bulls game; explanation and video describe the incident."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "1a89e4ee-97f3-40bc-967a-0672ea474005",
+      "right": "a2c615e7-5569-4ca0-9771-a18753acaa4e",
+      "sameEvent": true,
+      "reason": "Same Knicks 103–90 Nets result and fourth-quarter comeback from opposing team perspectives."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "1a89e4ee-97f3-40bc-967a-0672ea474005",
+      "right": "cf2492b7-913d-49ed-b0d3-e19da85f4a77",
+      "sameEvent": true,
+      "reason": "Same Knicks 103–90 Nets result and fourth-quarter comeback from opposing team perspectives."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "1a89e4ee-97f3-40bc-967a-0672ea474005",
+      "right": "175f901f-8634-4088-9f7f-9eb4f7d10bac",
+      "sameEvent": true,
+      "reason": "Same Knicks 103–90 Nets result and fourth-quarter comeback from opposing team perspectives."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "a2c615e7-5569-4ca0-9771-a18753acaa4e",
+      "right": "cf2492b7-913d-49ed-b0d3-e19da85f4a77",
+      "sameEvent": true,
+      "reason": "Same Knicks 103–90 Nets result and fourth-quarter comeback from opposing team perspectives."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "a2c615e7-5569-4ca0-9771-a18753acaa4e",
+      "right": "175f901f-8634-4088-9f7f-9eb4f7d10bac",
+      "sameEvent": true,
+      "reason": "Same Knicks 103–90 Nets result and fourth-quarter comeback from opposing team perspectives."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "cf2492b7-913d-49ed-b0d3-e19da85f4a77",
+      "right": "175f901f-8634-4088-9f7f-9eb4f7d10bac",
+      "sameEvent": true,
+      "reason": "Same Knicks 103–90 Nets result and fourth-quarter comeback from opposing team perspectives."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "f356a592-4d9e-484f-a1d0-9b15ed0be480",
+      "right": "5f33ecab-c31d-4e97-81b3-0821488803b6",
+      "sameEvent": true,
+      "reason": "Same Spurs victory over Utah; highlights and final-score recap describe the November 2 game."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "d94b581a-a059-462d-b2b2-8c1f883dcd1d",
+      "right": "4b34bfc6-3e6b-45ca-a5fa-1e65652247b0",
+      "sameEvent": false,
+      "reason": "Portnoy’s subsequent reaction is a separate development from the fan-wine incident."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "b443a230-fea4-4d6b-831d-b665b4701439",
+      "right": "4b34bfc6-3e6b-45ca-a5fa-1e65652247b0",
+      "sameEvent": false,
+      "reason": "A third-party reaction is separate from LeBron’s account of the original incident."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "0b2127f1-ad04-4f34-aa7e-5adb1ff23431",
+      "right": "4b34bfc6-3e6b-45ca-a5fa-1e65652247b0",
+      "sameEvent": false,
+      "reason": "The original fan interaction is separate from Portnoy’s later commentary."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "ec122266-39ac-43bc-b75f-c1772a16ba1b",
+      "right": "0f1d30ae-48a7-4404-8a82-8e11884499fa",
+      "sameEvent": false,
+      "reason": "The ejection and teammates’ subsequent response are distinct developments."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "f356a592-4d9e-484f-a1d0-9b15ed0be480",
+      "right": "1b3c5b98-7a7c-42b9-8c2c-bd6c0352c968",
+      "sameEvent": false,
+      "reason": "Pregame matchup coverage is separate from the completed Spurs-Jazz result."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "5f33ecab-c31d-4e97-81b3-0821488803b6",
+      "right": "1b3c5b98-7a7c-42b9-8c2c-bd6c0352c968",
+      "sameEvent": false,
+      "reason": "A preview does not report the completed 119–97 game result."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "1a89e4ee-97f3-40bc-967a-0672ea474005",
+      "right": "2477f5b6-421c-4762-9bc5-4ea613e0f983",
+      "sameEvent": false,
+      "reason": "Pregame discussion is separate from the Knicks-Nets final result."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "a2c615e7-5569-4ca0-9771-a18753acaa4e",
+      "right": "2477f5b6-421c-4762-9bc5-4ea613e0f983",
+      "sameEvent": false,
+      "reason": "Pregame discussion is separate from the Knicks-Nets final result."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "cf2492b7-913d-49ed-b0d3-e19da85f4a77",
+      "right": "2477f5b6-421c-4762-9bc5-4ea613e0f983",
+      "sameEvent": false,
+      "reason": "Pregame discussion is separate from the Knicks-Nets final result."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "175f901f-8634-4088-9f7f-9eb4f7d10bac",
+      "right": "2477f5b6-421c-4762-9bc5-4ea613e0f983",
+      "sameEvent": false,
+      "reason": "Pregame discussion is separate from the Knicks-Nets final result."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "bc338528-32a4-467e-b292-9f774144751c",
+      "right": "ec122266-39ac-43bc-b75f-c1772a16ba1b",
+      "sameEvent": false,
+      "reason": "Thunder signing and Warriors-Suns ejection are different events."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "57cf4885-721c-4220-8904-704f5edb1076",
+      "right": "1a89e4ee-97f3-40bc-967a-0672ea474005",
+      "sameEvent": false,
+      "reason": "Thunder roster transaction and Knicks game result are different events."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "03631ab3-601f-4d61-a7c4-d6b531301605",
+      "right": "d94b581a-a059-462d-b2b2-8c1f883dcd1d",
+      "sameEvent": false,
+      "reason": "Thunder signing and LeBron’s fan interaction are different events."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "fb567b89-53d6-4205-8504-5a808d6da66a",
+      "right": "5f33ecab-c31d-4e97-81b3-0821488803b6",
+      "sameEvent": false,
+      "reason": "Thunder signing and Spurs-Jazz result are different events."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "894a1ca5-0df6-4715-9d84-ef550f22cf56",
+      "right": "0f1d30ae-48a7-4404-8a82-8e11884499fa",
+      "sameEvent": false,
+      "reason": "Thunder signing and Warriors’ response to an ejection are different events."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "d94b581a-a059-462d-b2b2-8c1f883dcd1d",
+      "right": "ec122266-39ac-43bc-b75f-c1772a16ba1b",
+      "sameEvent": false,
+      "reason": "LeBron’s fan interaction and Draymond’s ejection are different events."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "b443a230-fea4-4d6b-831d-b665b4701439",
+      "right": "1a89e4ee-97f3-40bc-967a-0672ea474005",
+      "sameEvent": false,
+      "reason": "Fan-wine incident and Knicks-Nets result are different events."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "f356a592-4d9e-484f-a1d0-9b15ed0be480",
+      "right": "1a89e4ee-97f3-40bc-967a-0672ea474005",
+      "sameEvent": false,
+      "reason": "Spurs-Jazz and Knicks-Nets are separate games."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "5f33ecab-c31d-4e97-81b3-0821488803b6",
+      "right": "cf2492b7-913d-49ed-b0d3-e19da85f4a77",
+      "sameEvent": false,
+      "reason": "Spurs-Jazz and Knicks-Nets are separate games."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-03.json",
+      "left": "ec122266-39ac-43bc-b75f-c1772a16ba1b",
+      "right": "2477f5b6-421c-4762-9bc5-4ea613e0f983",
+      "sameEvent": false,
+      "reason": "Warriors-Suns ejection and Knicks-Nets pregame discussion are different events."
     }
   ]
 }

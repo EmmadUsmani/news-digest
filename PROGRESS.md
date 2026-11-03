@@ -1,13 +1,3 @@
-## 2026-11-03: iteration 458 — reject trailing excerpt uncertainty in title grouping
-
-- Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis, all sources flowing and scheduled collectors healthy. Next scheduled social/latency evidence remains pending; advanced item 19.
-- Opt-in title-reveal grouping now checks qualifiers after excerpt naming assertions within the same sentence, including parentheses. Historical dates, rumor and conditional claims cannot supply a current title identity.
-- Added bidirectional synthetic guards and a positive background-date control. Initial targeted run exposed overbroad rejection of “previously reported name”; narrowed suffix checks and reran successfully (4/4).
-- Recorded benchmark unchanged: 31/57 positives and zero/41 false merges. Agent labels are not independent validation; production grouping remains disabled.
-- pnpm format, pnpm lint:fix, pnpm check (291 unit/176 isolated integration), pnpm build and git diff --check passed. Zero dangling Docker volumes.
-- Restarted API/worker; pnpm obs health --check passed, root HTTP 200, zero alerts. Updated TASKS/RANKING; archived iteration 442 to keep PROGRESS bounded.
-- No UI or handbook production-flow change, paid calls, new editions or Reddit requests. Next: Nov 4 social selections/screenshots, World yield and latency/full-AI evidence; grouping recall/independent labels remain open.
-
 ## 2026-11-03: iteration 459 — match explicit dated preload starts
 
 - Started clean on main; no leftovers. Worker metrics alert was transient after the prior restart and cleared; API/DB/Redis, all 32 sources and scheduled collectors healthy.
@@ -163,3 +153,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (285 unit/177 isolated integration), pnpm build and git diff --check passed. Zero dangling Docker volumes.
 - Root HTTP 200; pnpm obs health/sources/jobs checks passed, all 33 sources healthy, zero alerts. No restart under STEERING 22: running service code/config unchanged.
 - Next: fixed-state live entrypoint and unseen-day labels, then owner-capped once-only evaluation. Nov 4 scheduled evidence takes priority when available.
+
+## 2026-11-03: iteration 474 — fresh NBA grouping evaluation labels
+
+- Started clean on main; no leftovers. Zero alerts; API/DB/Redis and all 33 sources healthy. Nov 4 scheduled provider/social evidence remains pending.
+- Recorded 19 real stored November 3 NBA articles with bounded excerpts and 40 new agent-reviewed pairs (20 same/20 separate), before grouping-provider inference and without prompt tuning.
+- Positive cliques cover the Terry signing, fan-wine incident and two game results; hard negatives distinguish previews, third-party reactions and separate events. All 98 previous labels remain unchanged.
+- Explicit limitation: fresh topic/day, not an untouched calendar day (Gaming development data also includes Nov 3); selected agent labels are not independent or representative quality evidence.
+- Runner/evaluator now cover seven bounded windows and 138 labels; fake provider/cache tests and per-window counts pass. No paid calls, production grouping, new editions or Reddit requests.
+- Updated TASKS/RANKING; archived iteration 458 to keep PROGRESS bounded. No production service/config/UI change; no restart under STEERING 22.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (285 unit/177 isolated integration), pnpm build, 10 targeted tests, offline --plan and git diff --check pass. Initial format-check failure after timestamp removal fixed before rerun. Root HTTP 200; health/sources/jobs checks pass, zero alerts/dangling volumes.
+- Next: fixed persistent-state live entrypoint, then the owner-capped once-only evaluation; report fresh-window results separately. Check Nov 4 scheduled evidence first when available.
