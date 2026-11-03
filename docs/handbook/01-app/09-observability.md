@@ -203,3 +203,10 @@ for volume or its histogram buckets for latency. Samples reset on API restart.
 
 Provider and queue metrics remain unfinished; their journal records are
 available today.
+
+The worker records `news_digest_job_duration_seconds` for every settled processor
+attempt in the four queues. Counts distinguish completed and failed attempts;
+retries count separately. Queue and job names use fixed allowlists, with unknown
+values grouped as `other`. IDs, payloads and errors never enter labels. Histograms
+reset on worker restart and do not represent retained queue totals or jobs killed
+before settling. Queue state and schedule details remain in the jobs browser.

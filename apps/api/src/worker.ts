@@ -2,6 +2,7 @@ import './libs/observability/worker-logging';
 
 import { Queue, Worker } from 'bullmq';
 
+import { startJobMetrics } from './libs/observability/job-metrics';
 import {
   installFatalLogging,
   logger,
@@ -17,6 +18,7 @@ import { startScheduledDigests } from './scheduled-digests';
 import { startScheduledSocial } from './scheduled-social';
 installFatalLogging();
 const runtimeMetrics = startRuntimeMetrics('worker', 9465);
+startJobMetrics(runtimeMetrics.registry);
 const stopScheduledDigests = startScheduledDigests();
 const connection = { host: '127.0.0.1', port: 6379 };
 // Operations telemetry remains separate from content collection.

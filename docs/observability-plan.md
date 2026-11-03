@@ -167,6 +167,9 @@ only when its check passes.
   - Iteration 360: docs/schema runtime listeners on loopback 9466/9467,
     fixed labels and 30-second scraping; offline listener/privacy coverage and
     live assertions for all four Node services.
+  - Iteration 361: worker job attempt duration/count by allowlisted queue/name and
+    completion/failure; retries counted separately. Offline behavior/privacy coverage
+    and scraped scheduled heartbeat assertion. Provider and queue-state metrics remain.
 - [ ] **O6 Dashboards.**
   - **Scope:** Grafana at `/grafana/`, with datasources and dashboards
     provisioned from `ops/observability/grafana/`.

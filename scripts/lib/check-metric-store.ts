@@ -59,6 +59,14 @@ export async function checkMetricStore() {
     ).some((sample) => Number(sample.value[1]) > 0),
     'Missing successful API health request metrics',
   );
+  assert.ok(
+    (
+      await query(
+        'news_digest_job_duration_seconds_count{service="worker",queue="operations",name="heartbeat",outcome="completed"}',
+      )
+    ).some((sample) => Number(sample.value[1]) > 0),
+    'Missing successful scheduled heartbeat job metrics',
+  );
   for (const metric of [
     'node_cpu_seconds_total',
     'node_memory_MemAvailable_bytes',

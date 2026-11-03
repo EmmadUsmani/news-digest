@@ -4,6 +4,8 @@ import { randomUUID } from 'node:crypto';
 import type { Job } from 'bullmq';
 import pino, { type DestinationStream, type Logger } from 'pino';
 
+import { recordJobAttempt } from './job-metrics';
+
 const context = new AsyncLocalStorage<Record<string, string>>();
 const sensitive =
   /authorization|cookie|password|secret|token|api.?key|database_url|redis_url/i;
@@ -139,6 +141,12 @@ export function logJob<R>(
       );
       try {
         const result = await processJob(job);
+        recordJobAttempt(
+          queue,
+          job.name,
+          'completed',
+          (performance.now() - started) / 1000,
+        );
         log.info(
           {
             event: 'job.finish',
@@ -148,6 +156,12 @@ export function logJob<R>(
         );
         return result;
       } catch (err) {
+        recordJobAttempt(
+          queue,
+          job.name,
+          'failed',
+          (performance.now() - started) / 1000,
+        );
         log.error(
           {
             event: 'job.failure',
