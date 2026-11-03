@@ -1543,3 +1543,10 @@ editing. Disabled/full selections do no storage or AI work; failures add no pick
 Five fake-only tests cover the gate, bounded slots, snapshot independence and
 incomplete/refused responses. No production caller, new collection or paid calls;
 real editorial yield remains unmeasured and production inclusion remains off.
+
+Iteration 325 wires the stored-observation preparation into publication after
+X/Reddit selection, through the publisher's database snapshot. Only
+`BLUESKY_EDITIONS_ENABLED=1` enables reads and editing; production remains unset
+under item 23. Existing X picks and total topic budgets are preserved. Fake
+caller checks cover the default-off path and explicit transaction-scoped selection;
+this adds no collection, live model calls or evidence of real editorial yield.

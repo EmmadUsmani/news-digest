@@ -3,7 +3,11 @@ import { test } from 'node:test';
 
 import type { SelectedSocialPost } from '@digest/contracts';
 
-import { prepareBlueskyEditionPosts } from '../src/modules/social/public/bluesky-edition';
+import {
+  blueskyEditionsEnabled,
+  prepareBlueskyEditionPosts,
+  selectEditionBlueskyPosts,
+} from '../src/modules/social/public/bluesky-edition';
 import type { SocialSelectionServices } from '../src/modules/social/public/editorial-selection';
 
 const start = new Date('2026-11-02T12:00:00Z');
@@ -193,5 +197,66 @@ void test('incomplete triage and duplicate final selections preserve existing pi
     });
     assert.equal(result.status, 'incomplete');
     assert.deepEqual(result.posts, [xPost]);
+  }
+});
+
+void test('publisher opt-in is exact and disabled caller never queries or edits', async () => {
+  const previous = process.env.BLUESKY_EDITIONS_ENABLED;
+  try {
+    for (const value of ['', '0', 'true', 'yes', ' 1']) {
+      process.env.BLUESKY_EDITIONS_ENABLED = value;
+      assert.equal(blueskyEditionsEnabled(), false);
+      const h = harness();
+      const db = {
+        query: async () => {
+          assert.fail('Disabled edition queried Bluesky');
+        },
+      };
+      const result = await selectEditionBlueskyPosts(db, h.services, h.input);
+      assert.deepEqual(result.posts, [xPost]);
+      assert.deepEqual(h.calls, []);
+    }
+    delete process.env.BLUESKY_EDITIONS_ENABLED;
+    assert.equal(blueskyEditionsEnabled(), false);
+  } finally {
+    if (previous === undefined) delete process.env.BLUESKY_EDITIONS_ENABLED;
+    else process.env.BLUESKY_EDITIONS_ENABLED = previous;
+  }
+});
+void test('enabled publisher reads using its transaction and preserves primary picks', async () => {
+  const previous = process.env.BLUESKY_EDITIONS_ENABLED;
+  try {
+    process.env.BLUESKY_EDITIONS_ENABLED = '1';
+    const h = harness();
+    const unavailable = await selectEditionBlueskyPosts(
+      {
+        query: async () => {
+          assert.fail('No AI services must not read');
+        },
+      },
+      null,
+      h.input,
+    );
+    assert.equal(unavailable.status, 'unavailable');
+    assert.deepEqual(unavailable.posts, [xPost]);
+    const db = {
+      query: async (_sql: string, args: unknown[]) => {
+        assert.deepEqual(args, ['games', start, end, end]);
+        h.calls.push('transaction-read');
+        return { rows: [{ snapshot: observation }] };
+      },
+    };
+    const result = await selectEditionBlueskyPosts(
+      db as unknown as Parameters<typeof selectEditionBlueskyPosts>[0],
+      h.services,
+      h.input,
+    );
+    assert.deepEqual(h.calls, ['transaction-read', 'triage', 'edit']);
+    assert.equal(result.posts.length, 2);
+    assert.deepEqual(result.posts[0], xPost);
+    assert.equal(result.posts[1].platform, 'bluesky');
+  } finally {
+    if (previous === undefined) delete process.env.BLUESKY_EDITIONS_ENABLED;
+    else process.env.BLUESKY_EDITIONS_ENABLED = previous;
   }
 });

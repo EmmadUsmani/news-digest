@@ -1,7 +1,9 @@
+import type { PoolClient } from 'pg';
+
 import { database } from '../../../libs/db/connections';
 import type { BlueskyPost, BlueskyRepository } from '../domain/bluesky';
 
-// Explicit storage only. No worker, scheduler or edition path calls this adapter.
+// Collection writes are explicit; edition reads use the publisher transaction.
 export class PostgresBlueskyRepository implements BlueskyRepository {
   readonly db = database();
   async store(topicId: string, posts: BlueskyPost[]) {
@@ -56,17 +58,27 @@ export class PostgresBlueskyRepository implements BlueskyRepository {
     }
   }
   async observations(topicId: string, start: Date, end: Date, cutoff: Date) {
-    if (
-      ![start, end, cutoff].every((d) => Number.isFinite(d.getTime())) ||
-      start >= end
-    )
-      throw new Error('Invalid Bluesky observation window');
-    const result = await this.db.query<{ snapshot: BlueskyPost }>(
-      `SELECT o.snapshot FROM bluesky_observations o JOIN topics t ON t.id=o.topic_id
+    return readBlueskyObservations(this.db, topicId, start, end, cutoff);
+  }
+}
+
+export async function readBlueskyObservations(
+  db: Pick<PoolClient, 'query'>,
+  topicId: string,
+  start: Date,
+  end: Date,
+  cutoff: Date,
+) {
+  if (
+    ![start, end, cutoff].every((d) => Number.isFinite(d.getTime())) ||
+    start >= end
+  )
+    throw new Error('Invalid Bluesky observation window');
+  const result = await db.query<{ snapshot: BlueskyPost }>(
+    `SELECT o.snapshot FROM bluesky_observations o JOIN topics t ON t.id=o.topic_id
       WHERE t.id=$1 AND t.enabled AND o.published_at >= $2 AND o.published_at < $3 AND o.observed_at <= $4
       ORDER BY o.published_at DESC,o.external_id,o.observed_at DESC LIMIT 5000`,
-      [topicId, start, end, cutoff],
-    );
-    return result.rows.map((row) => row.snapshot);
-  }
+    [topicId, start, end, cutoff],
+  );
+  return result.rows.map((row) => row.snapshot);
 }

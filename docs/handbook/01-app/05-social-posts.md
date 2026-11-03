@@ -95,7 +95,7 @@ API counts still do not establish measured growth or account-relative reach.
 Bluesky final editing selects at most ten shortlisted observations without rewriting
 the original text, media or counts. Refused or invalid selections produce no picks.
 Its separate editorial prompt and budget-ledger purpose do not change X editing;
-no production edition or scheduler calls this preparation path.
+production inclusion remains disabled by default.
 
 Prepared Bluesky cards show the full saved text, author, publication time, observed
 likes/reposts/replies and observation time, with editorial context when present.
@@ -106,6 +106,10 @@ still exclude Bluesky; desktop/mobile screenshots are synthetic browser replays.
 
 Explicit edition preparation can read stored observations at the edition cutoff,
 run the isolated editor and create validated text/media/count snapshots. Its gate
-defaults off and it has no production caller. Existing picks are retained;
+defaults off. The edition publisher calls it after X/Reddit selection, using the
+same database transaction and existing budgeted AI services. Only the exact
+process setting `BLUESKY_EDITIONS_ENABLED=1` enables it; production must keep
+that setting unset until the protected Nov 3 scheduled run is acknowledged.
+This does not collect new posts or schedule Bluesky requests. Existing picks are retained;
 Bluesky can use only the remaining topic slots. Disabled or full selections do
 not read storage or call AI; refused or incomplete editing adds no posts.

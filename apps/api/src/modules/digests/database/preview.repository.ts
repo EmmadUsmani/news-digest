@@ -9,6 +9,7 @@ import { Injectable, OnModuleDestroy } from '@nestjs/common';
 import { database } from '../../../libs/db/connections';
 import { editorialServices } from '../../curation/public/editorial';
 import { withEditionRun } from '../../curation/public/scheduled-context';
+import { selectEditionBlueskyPosts } from '../../social/public/bluesky-edition';
 import { linkCitingStories } from '../../social/public/citing-stories';
 import { editTopicPosts } from '../../social/public/editorial-selection';
 import {
@@ -296,6 +297,28 @@ export class PostgresPreviewRepository
           Number(topic.post_budget),
           runId,
         );
+        const bluesky = await selectEditionBlueskyPosts(
+          client,
+          this.editorial,
+          {
+            topic: {
+              id: String(topic.id),
+              name: String(topic.name),
+              description: String(topic.description),
+              guidance: `${topic.include_guidance}\nExclude: ${topic.exclude_guidance}`,
+            },
+            policy,
+            start,
+            end,
+            budget: Number(topic.post_budget),
+            selectedPosts: postSelection.posts,
+            runId,
+          },
+        );
+        if (bluesky.posts.length > postSelection.posts.length) {
+          postSelection.postEditorial.reason += ` Bluesky additions were separately AI edited (${bluesky.model}); the preceding selection details describe X/Reddit.`;
+        }
+        postSelection.posts = bluesky.posts;
         postSelection.posts = await linkCitingStories(
           client,
           postSelection.posts,

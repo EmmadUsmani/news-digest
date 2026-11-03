@@ -3,14 +3,41 @@ import {
   selectedBlueskyPostSchema,
   type SelectedSocialPost,
 } from '@digest/contracts';
+import type { PoolClient } from 'pg';
 
 import type { TriageTopic } from '../../curation/public/editorial';
+import { readBlueskyObservations } from '../database/bluesky.repository';
 import type { BlueskyRepository } from '../domain/bluesky';
 import { editBlueskyPosts } from './bluesky-editor';
 import type { SocialSelectionServices } from './editorial-selection';
 
-// Explicit preparation seam, with no production caller. The gate must be
-// deliberately enabled by a future publisher after the scheduled-run ack.
+// Only the exact opt-in enables inclusion. Production must keep this unset until
+// the protected scheduled run has been measured and acknowledged.
+export function blueskyEditionsEnabled(
+  value = process.env.BLUESKY_EDITIONS_ENABLED,
+) {
+  return value === '1';
+}
+
+export function selectEditionBlueskyPosts(
+  db: Pick<PoolClient, 'query'>,
+  services: SocialSelectionServices | null,
+  input: Omit<Parameters<typeof prepareBlueskyEditionPosts>[2], 'enabled'>,
+) {
+  if (!services)
+    return Promise.resolve({
+      status: blueskyEditionsEnabled()
+        ? ('unavailable' as const)
+        : ('disabled' as const),
+      posts: structuredClone(input.selectedPosts),
+      model: null,
+    });
+  return prepareBlueskyEditionPosts(
+    { observations: (...args) => readBlueskyObservations(db, ...args) },
+    services,
+    { ...input, enabled: blueskyEditionsEnabled() },
+  );
+}
 export async function prepareBlueskyEditionPosts(
   repository: Pick<BlueskyRepository, 'observations'>,
   services: SocialSelectionServices,
