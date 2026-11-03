@@ -23,8 +23,9 @@ import {
   type ReportEditionProgress,
 } from '../domain/preview.repository';
 import { qualityRejection } from '../domain/quality';
-import { Candidate, rank } from '../domain/rank';
+import { rank } from '../domain/rank';
 import { assessRelevance } from '../domain/relevance';
+import { loadArticleCandidates } from './article-candidates';
 const profileId = '00000000-0000-4000-8000-000000000001';
 @Injectable()
 export class PostgresPreviewRepository
@@ -135,16 +136,12 @@ export class PostgresPreviewRepository
       await report();
       const selections = await parallelTopics(topics, async (topic) => {
         // Limit candidate work per topic, selecting the most recent 200 in the exact window.
-        const candidates: Candidate[] = (
-          await client.query(
-            `SELECT i.id,i.title,i.canonical_url AS url,i.excerpt,i.image_url AS "imageUrl",i.published_at AS "publishedAt",array_agg(DISTINCT s.name ORDER BY s.name) AS sources,i.engagement->>'points' AS points FROM content_items i JOIN content_observations o ON o.item_id=i.id JOIN content_sources s ON s.id=o.source_id JOIN topic_source_connections c ON c.source_id=s.id WHERE c.topic_id=$1 AND i.published_at >= $2 AND i.published_at < $3 GROUP BY i.id ORDER BY i.published_at DESC,i.id LIMIT 200`,
-            [topic.id, start, end],
-          )
-        ).rows.map((row) => ({
-          ...row,
-          publishedAt: row.publishedAt.toISOString(),
-          points: Number(row.points ?? 0),
-        }));
+        const candidates = await loadArticleCandidates(
+          client,
+          topic.id,
+          start,
+          end,
+        );
         const policy = relevancePolicySchema.parse(topic.relevance_policy);
         const eligible = candidates.filter(
           (item) => assessRelevance(item, policy).eligible,
