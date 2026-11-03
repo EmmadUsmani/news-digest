@@ -1,15 +1,3 @@
-## 2026-11-03: iteration 436 — bounded top statement timing
-
-- Started clean on main; no leftovers. Zero alerts/healthy services. Scheduled social/latency evidence still pending; advanced O7 under items 24/25.
-- Enabled pg_stat_statements with 1,000 shared entries, top-level queries only and utility tracking off. Restricted function exposes current-DB statement IDs/numeric execution statistics, excluding monitoring roles; no SQL/usernames or new metric labels.
-- Added current top-20 total/mean timing tables to Database; documented cumulative/reset/eviction limits and planning-time exclusion. Raw slow-statement logging stays disabled to avoid private SQL values; O7 remains open.
-- First install checked idle publication and next run Nov 4 15:00 (>2 h), then restarted only Postgres, retaining container/log paths. Second reconciliation did not restart it. Compose retains configuration on recreation; Grafana picked up its changed provisioned dashboard.
-- Isolated privilege/privacy regression passed; pnpm check passed (272 unit/175 integration). pnpm format, pnpm lint:fix, pnpm build, bash -n and docker compose config --quiet passed. Corrected intermediate formatting failure before successful full check.
-- check-observability.ts --verify-grafana --grafana-database-only passed: 11/11 populated panels, restricted Viewer/DB grants, real desktop/mobile screenshots inspected. Initial checks caught provisioning reload lag and mobile lazy rendering; final checks pass.
-- check-handbook.ts 09-observability passed; no diagram edits. Health/alerts green; 32 healthy sources/four available queues, all-topic articles/X storage. Latest real edition unchanged: 19 stories/11 X posts. No paid calls/new editions.
-- Archived iterations 416–419 to keep PROGRESS small. Zero dangling Docker volumes; git diff --check passed. No API/worker restart under item 22 because their runtime code/config is unchanged.
-- Next: scheduled Bluesky/open-X picks and latency evidence first; otherwise finish O7 with safe duration-only slow-query evidence, then O8/O10.
-
 ## 2026-11-03: iteration 437 — private slow database-call evidence
 
 - Started clean on main; no leftovers. Zero alerts/healthy services. Product acceptance still awaits scheduled evidence; completed O7 under items 24/25.
@@ -153,3 +141,13 @@
 - Verification: targeted grouping 20/20; pnpm check passed (284 unit/176 isolated integration), pnpm build and git diff --check passed. pnpm format/lint:fix run. First full check caught archive formatting; corrected before final verification.
 - No runtime/config/UI changes; no restart under STEERING 22. Root HTTP 200; health/jobs checks passed; zero alerts/dangling volumes. No paid calls, new editions or Reddit requests.
 - Next: improve Gaming paraphrase recall using recorded evidence; independent labels/activation remain open. Nov 4 X/Bluesky selections, World yield and latency/full-AI evidence take priority when available.
+
+## 2026-11-03: iteration 451 — group conservative Gaming preload overviews
+
+- Started clean on main; no leftovers. Zero alerts, healthy API/DB/Redis and all 32 sources. Scheduled social/latency evidence remains pending; advanced item 19.
+- Opt-in matcher groups same-game preload dates/times overviews; refuses uncertainty/history, schedule changes, concrete suffix numbers and conflicting explicit platforms. No aliases inferred; production grouping stays disabled.
+- Three recorded GTA 6 overviews group; reviewed/added two previously unlabeled positive pairs. Benchmark now 88 pairs: combined 16/47 positives, zero/41 false merges; no unknown merges or membership variation across 34 orders per window. Agent labels are not independent verification.
+- Updated TASKS/RANKING; archived iteration 436 to keep PROGRESS bounded. No UI or handbook-described production flow change.
+- Verification: targeted grouping 16/16; pnpm format, pnpm lint:fix, pnpm check (286 unit/176 isolated integration), pnpm build and git diff --check passed.
+- Restarted API/worker; health/jobs checks passed, root HTTP 200, zero alerts/dangling Docker volumes. Existing scheduled edition and hourly social collection remain healthy.
+- No paid calls, new editions or Reddit requests. Next: Nov 4 social selections, World yield and latency/full-AI evidence; broader grouping recall and independent labels remain open.

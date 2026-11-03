@@ -1028,3 +1028,21 @@ full-window merges or input-order variation appeared in the new 23-candidate
 snapshot across 34 deterministic orders. These labels remain agent-reviewed
 and selected, with no independent quality or outlet-independence claim.
 Production behavior and grouping activation are unchanged.
+
+## Iteration 451: conservative preload overview grouping
+
+The opt-in matcher now groups headlines that start with the same explicit game
+name followed by preload dates/times. Hyphenation is normalized; no franchise
+aliases or inferred names are used. Questions, uncertain/historical reports,
+schedule changes, secondary announcements, concrete numbers after the game name
+(except PS4/PS5), conflicting explicit platforms and invalid/out-of-window times
+are excluded from this rule. Existing lexical fallback is unchanged.
+
+Three Nov 3 GTA 6 schedule overviews now group. Reviewed the two previously
+unlabeled within-cluster pairs and added positive labels based on the stored
+headlines/excerpts. Across 88 pairs (47 positive/41 negative), lexical remains
+6/47, game-only 10/47 and combined opt-in matching improves to 16/47, with zero
+labeled false merges. All six windows have zero unknown/false cluster merges
+and no membership variation across 34 deterministic orders. These agent labels
+are not independent validation; grouping remains disabled in production. Alias,
+explicit-date and broader Gaming paraphrase recall remain unfinished.

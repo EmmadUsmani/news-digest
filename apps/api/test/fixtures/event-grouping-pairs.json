@@ -602,6 +602,20 @@
       "right": "572f9405-0d7b-40cd-894f-9b2e6581cd92",
       "sameEvent": false,
       "reason": "Different games and different reported events; shared gaming topic is insufficient."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "d24b4550-b2a4-4207-a611-b3c60427151d",
+      "right": "ba60cf83-8985-4ba0-aff9-d8bc37aebeb6",
+      "sameEvent": true,
+      "reason": "Both are same-day GTA 6 preload schedule/file-size overviews; PS5 download guidance covers the same announcement. Agent-reviewed headlines/excerpts, not independent verification."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-03.json",
+      "left": "564a90fc-6cf0-4d56-bd37-f5383521e992",
+      "right": "ba60cf83-8985-4ba0-aff9-d8bc37aebeb6",
+      "sameEvent": true,
+      "reason": "Both are same-day GTA 6 preload schedule/file-size overviews; PS5 download guidance covers the same announcement. Agent-reviewed headlines/excerpts, not independent verification."
     }
   ]
 }
