@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 520 — support production-sized offline triage pools
-
-- Started clean on main; no leftover work. Healthy healthz/root, zero alerts, 36 error-free sources (3,193 stored items) and four available queues. Nov 4 edition remains scheduled for 15:00 UTC.
-- Fixed offline incremental replay failing above the triage entry point's 200-candidate bound: split complete pools into bounded invocations without dropping articles or changing production code/config.
-- Synthetic 1,500-item arrival/pool regression scores each article once despite shifted chunk boundaries; 1,499 remain eligible, one pretriaged article counts as waste. Cold replay scores 1,499 once. This is accounting/scale verification, not real arrival/waste/cost/latency evidence.
-- Existing recorded hourly minimum-25 replay stays at 153 scored articles, six requests and 47 edition-time items. No paid calls, activation, source changes, schema or UI changes; screenshots/handbook changes unnecessary.
-- Updated TASKS and RANKING. Verification: targeted replay tests 6/6, recorded CLI, pnpm format, pnpm lint:fix, pnpm check (301 unit/183 isolated integration), pnpm build, git diff --check, healthz/root, status and pnpm obs alerts passed; no dangling Docker volumes.
-- Services left running under STEERING 22 because only offline scripts/tests/docs changed; running application code matches main. Next: real arrival/pool evidence and bounded scheduler batching; Nov 4 scheduled review takes priority.
-
 ## 2026-11-04: iteration 521 — replay real first-fetch arrivals
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 error-free sources. Nov 4 scheduled evidence remains future work.
@@ -167,3 +158,11 @@
 - No worker import, production timer, activation or paid calls. Updated TASKS/RANKING; no live flow, source, schema or UI change. Services stay running under STEERING 22 because their code is unchanged.
 - Verification: targeted tests 4/4; pnpm format, pnpm lint:fix, pnpm check (342 unit/185 isolated integration), pnpm build and git diff --check passed. Root HTTP 200, healthz healthy, zero dangling Docker volumes.
 - Next: production dependency/lifecycle wiring behind the Nov 4 review gate; longer-span comparisons and actual scored-work waste evidence remain open.
+
+## 2026-11-04: iteration 539 — prepare incremental runtime dependency composition
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 sources with no current errors and zero failed digest jobs. Nov 4 review still pending.
+- Composed caller-owned database, settings reader, shared article pool, reserve-safe scheduler and draining timer. Default-off constructs no timer and reads no settings/content; scheduler identity persists across ticks.
+- Two offline contract tests pass. No worker import, production activation or paid calls; no live latency/waste claim. Next: worker-owned settings/database lifecycle wiring after the review gate permits activation.
+- Updated TASKS/RANKING and archived iteration 520 to keep this file small. No source/schema/UI or live handbook flow changes; services stay running under STEERING 22.
+- Verification: targeted tests 2/2; pnpm format, pnpm lint:fix, pnpm check (344 unit/185 isolated integration), pnpm build and git diff --check passed. Initial checks caught two unbound-method lint errors; fixed before the successful full rerun. Root HTTP 200, healthz healthy and zero dangling Docker volumes.

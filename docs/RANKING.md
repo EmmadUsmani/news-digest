@@ -1981,3 +1981,15 @@ Offline tests cover overlap, draining, error recovery, reporter failure and
 invalid intervals. No timer is running in production, no paid calls were made,
 and this supplies no live speed or scored-work waste evidence. Activation
 remains gated on the November 4 edition review.
+
+## Iteration 539: prepared runtime dependency composition
+
+`prepareIncrementalTriageRuntime` joins the shared database pool, current-settings
+reader, article pool loader, reserve-safe scheduler and draining timer. The
+caller owns the database and must await the returned stop function before
+closing it. The scheduler is composed once so topic rotation survives ticks.
+Default-off returns without allocating a timer or reading settings/content.
+Offline tests verify that gate and the settings/scheduler/timer contract.
+The production worker still does not import this runtime; no activation, paid
+calls or live latency/waste evidence is claimed. Worker-owned settings and
+database lifecycle wiring remain, subject to the Nov 4 review gate.
