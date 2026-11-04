@@ -61,13 +61,14 @@ export class RecordingLlmAdapter implements LlmPort {
   constructor(private readonly provider: LlmPort) {}
   async complete(request: LlmRequest): Promise<LlmResponse> {
     const fingerprint = llmFingerprint(request);
+    const model = request.model.id;
     const sequence = this.nextSequence++;
     this.pending++;
     try {
       const response = await this.provider.complete(request);
       this.records.set(
         sequence,
-        recordSchema.parse({ fingerprint, model: request.model.id, response }),
+        recordSchema.parse({ fingerprint, model, response }),
       );
       return response;
     } finally {

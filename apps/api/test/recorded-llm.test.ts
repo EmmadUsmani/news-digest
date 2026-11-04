@@ -161,3 +161,40 @@ void test('failed and malformed provider responses release the snapshot guard', 
     assert.deepEqual(recorder.snapshot('Synthetic failures').records, []);
   }
 });
+
+void test('recording keeps model metadata paired with the invocation fingerprint', async () => {
+  const original = structuredClone(request);
+  const mutable = structuredClone(request);
+  let finish!: (response: {
+    text: string;
+    usage: {
+      input: number;
+      output: number;
+      cacheWrite: number;
+      cacheRead: number;
+    };
+  }) => void;
+  const recorder = new RecordingLlmAdapter({
+    complete() {
+      return new Promise((resolve) => {
+        finish = resolve;
+      });
+    },
+  });
+  const pending = recorder.complete(mutable);
+  mutable.model.id = 'changed-while-pending';
+  mutable.prompt = 'changed-while-pending';
+  finish({
+    text: 'original response',
+    usage: { input: 1, output: 1, cacheWrite: 0, cacheRead: 0 },
+  });
+  await pending;
+  const snapshot = recorder.snapshot(
+    'Synthetic mutable-request regression; no inference.',
+  );
+  assert.equal(snapshot.records[0].model, original.model.id);
+  assert.equal(snapshot.records[0].fingerprint, llmFingerprint(original));
+  const replay = new ReplayLlmAdapter(snapshot);
+  assert.equal((await replay.complete(original)).text, 'original response');
+  await assert.rejects(replay.complete(mutable), /Missing LLM replay/);
+});

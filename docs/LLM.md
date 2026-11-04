@@ -399,7 +399,9 @@ including invalid JSON needed to exercise repair paths.
 `RecordingLlmAdapter` captures only successful transport responses, fingerprint
 and model, never headers, keys, request text or thrown provider errors. Concurrent
 calls are saved in invocation order, even when they finish in reverse order;
-failed calls leave no response in the recording. Snapshot export refuses while
+failed calls leave no response in the recording. Model metadata is captured
+at invocation alongside the fingerprint, so later caller mutations cannot
+produce an inconsistent replay record. Snapshot export refuses while
 any requests are still pending, so callers must await all calls (including
 failures) before saving a complete recording. The
 explicit historical recorder saves these under `apps/api/test/fixtures/llm/`

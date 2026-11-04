@@ -1,15 +1,3 @@
-## 2026-11-04: iteration 605 — historical Drizzle migration baseline
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC review pending.
-- Committed the generated schema snapshot/journal after migrations 001–055 with a no-op baseline SQL file; historical migrations still create schema and seed data. Added an offline drizzle-kit generation config.
-- Added snapshot-to-schema and real CLI zero-diff generation gates using a temporary copy. No production migration, activation, source change, paid call or owner grant change.
-- First full check exposed drizzle-kit's absolute output-path bug in the new test and forced mirror-database teardown failure. Used relative output and normal DROP DATABASE; catalog and baseline gates passed on rerun. Existing characterization assertions unchanged.
-- Updated TASKS, architecture, decision and handbook stack; archived iteration 590. Generated migration execution remains unwired; private pg_dump required before first new migration.
-- Verification: pnpm format, pnpm lint:fix, final pnpm check (364 unit/204 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
-- Restarted API/worker outside freeze; active and healthz healthy. Saved edition byte-identical, LLM/X budget snapshots unchanged. Read-only Playwright rendered four real saved-edition topics without page errors after scoping a duplicate heading locator; no UI changes.
-- Final snapshot: 36 sources without current errors, zero failed digest jobs and zero alerts.
-- Next: prioritize Nov 4 15:00 UTC edition review; otherwise connect generated migrations to the atomic historical runner, preserving history, data and owner grants.
-
 ## 2026-11-04: iteration 606 — connect generated migrations to the atomic runner
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC review pending.
@@ -178,3 +166,12 @@
 - Verification: targeted recording tests 5/5; pnpm format, pnpm lint:fix, pnpm check (366 unit/205 isolated integration), pnpm build and git diff --check passed.
 - Explicit recording tool only; no running-service code/config changes, so no restart under STEERING 22. No paid calls, prompt changes, new recordings or production activations.
 - Next: Nov 4 15:00 UTC edition review; grouping and incremental triage remain off pending that review. Real raw-response golden remains open.
+
+## 2026-11-04: iteration 623 — preserve recording model identity across awaits
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 healthy sources and all 13 monitored services active.
+- Fixed a recording race: model metadata is now captured alongside the invocation fingerprint before awaiting the provider; later caller mutations cannot leave an unreplayable model/fingerprint pair.
+- Added an offline regression mutating both model and prompt during a pending call, then replaying the original request and rejecting the changed request. Updated LLM documentation and TASKS; archived iteration 605 to keep PROGRESS bounded.
+- Verification: targeted recording tests 6/6; pnpm format, pnpm lint:fix, pnpm check (367 unit/205 isolated integration), pnpm build and git diff --check passed.
+- Only the explicit historical recording script imports this adapter; no running-service code/config changes, so no restart under STEERING 22. No paid calls, recordings, prompt changes or production activations.
+- Next: Nov 4 15:00 UTC edition review takes priority; grouping and incremental triage remain off. Real raw-response golden stays open.
