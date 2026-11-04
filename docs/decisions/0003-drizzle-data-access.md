@@ -121,3 +121,9 @@ The topic repository uses typed Drizzle CRUD, connections and transactions.
 Parent/topic row locks and the catalog advisory lock preserve concurrent writes;
 ordered source aggregation, window ranking and bulk ordinality retain documented
 SQL templates. Existing limits, JSON settings and deletion ordering are preserved.
+
+The X verification/discovery repository uses typed Drizzle reads, upserts and
+transactions. Its citation-union/window-ranking candidate query retains a
+documented SQL template to preserve topic fairness and refresh priority.
+Topic post timestamps map back to Dates; missing-time updates remain conditional,
+and citation failures roll back with native PostgreSQL errors.

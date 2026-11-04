@@ -146,3 +146,14 @@
 - Updated TASKS, architecture, decision and handbook stack; archived iteration 572 to keep PROGRESS bounded. Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes. Topic statements 98.94% covered.
 - Restarted API/worker outside freeze; both active, healthz healthy. Playwright root: 63 article elements, zero page errors. All 36 sources without current errors, zero failed digest jobs and zero alerts.
 - Next: prioritize Nov 4 15:00 UTC edition review; otherwise continue remaining ORM adapters or migration baseline. Private pg_dump before first new migration.
+
+## 2026-11-04: iteration 587 — convert X verification/discovery to Drizzle
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC edition review pending.
+- Converted social repository topic reads, discovery sources/citations, verification URL unions, post/check upserts and missing-time recovery to typed Drizzle. Candidate citation/window-ranking query retains a documented template for topic fairness and refresh priority.
+- Preserved transaction rollback/native errors, citation URL coalescing, immutable discovery fields, conditional missing-time updates and Date return values. No migration, activation or paid call; owner grants untouched.
+- Read-only old/new live comparison matched 623 topic-post associations across four topics, discovery sources, 20 verification URLs and candidate limits 1/8/50. Temporary comparison files removed.
+- Initial typecheck caught existing string timestamp contracts; fixed before checks. First full check stopped on handbook table formatting; formatted and reran successfully. Existing test assertions unchanged; social repository statement coverage 100%.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
+- Updated TASKS, architecture, decision and handbook stack. Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Post-restart Playwright rendered four digest sections/19 article elements with zero page errors; 36 sources without errors, zero failed digest jobs and alerts.
+- Next: prioritize Nov 4 15:00 UTC edition review; otherwise continue remaining ORM adapters or migration baseline. Private pg_dump before first new migration.

@@ -1,4 +1,30 @@
+import {
+  and,
+  desc,
+  DrizzleQueryError,
+  eq,
+  exists,
+  isNotNull,
+  isNull,
+  or,
+  sql,
+} from 'drizzle-orm';
+import { drizzle } from 'drizzle-orm/node-postgres';
+import { unionAll } from 'drizzle-orm/pg-core';
+
 import { database } from '../../../libs/db/connections';
+import {
+  redditTopicPosts,
+  redditXCitations,
+  socialDiscoveryCitations,
+  socialDiscoverySources,
+  socialPosts,
+  topics,
+  topicSourceConnections,
+  xEmbedChecks,
+  xLinkCitations,
+  xSearchCitations,
+} from '../../../libs/db/schema';
 import type { SocialPost } from '../domain/posts';
 import { xPostTime } from '../domain/x-post-time';
 
@@ -6,30 +32,97 @@ export class PostgresSocialRepository {
   readonly db = database();
   async topicPosts(topicId: string) {
     // Source association is discovery scope only; relevance must use post text.
-    const result = await this.db.query<{
-      externalId: string;
-      publishedAt: Date | null;
-      embedHtml: string;
-    }>(
-      `SELECT p.external_id AS "externalId",p.published_at AS "publishedAt",p.embed_html AS "embedHtml"
-       FROM social_posts p WHERE p.platform='x' AND (
-         EXISTS(SELECT 1 FROM x_link_citations c JOIN topic_source_connections t ON t.source_id=c.source_id
-                WHERE c.external_id=p.external_id AND t.topic_id=$1)
-         OR EXISTS(SELECT 1 FROM social_discovery_citations c JOIN social_discovery_sources s ON s.id=c.source_id
-                   WHERE c.external_id=p.external_id AND s.topic_id=$1)
-         OR EXISTS(SELECT 1 FROM reddit_x_citations c JOIN reddit_topic_posts r ON r.external_id=c.reddit_id
-                   WHERE c.external_id=p.external_id AND r.topic_id=$1)
-         OR EXISTS(SELECT 1 FROM x_search_citations c WHERE c.external_id=p.external_id AND c.topic_id=$1)
-       ) ORDER BY p.published_at DESC NULLS LAST,p.external_id`,
-      [topicId],
-    );
-    return result.rows;
+    const orm = drizzle(this.db);
+    const rows = await orm
+      .select({
+        externalId: socialPosts.externalId,
+        publishedAt: socialPosts.publishedAt,
+        embedHtml: socialPosts.embedHtml,
+      })
+      .from(socialPosts)
+      .where(
+        and(
+          eq(socialPosts.platform, 'x'),
+          or(
+            exists(
+              orm
+                .select({ id: xLinkCitations.externalId })
+                .from(xLinkCitations)
+                .innerJoin(
+                  topicSourceConnections,
+                  eq(topicSourceConnections.sourceId, xLinkCitations.sourceId),
+                )
+                .where(
+                  and(
+                    eq(xLinkCitations.externalId, socialPosts.externalId),
+                    eq(topicSourceConnections.topicId, topicId),
+                  ),
+                ),
+            ),
+            exists(
+              orm
+                .select({ id: socialDiscoveryCitations.externalId })
+                .from(socialDiscoveryCitations)
+                .innerJoin(
+                  socialDiscoverySources,
+                  eq(
+                    socialDiscoverySources.id,
+                    socialDiscoveryCitations.sourceId,
+                  ),
+                )
+                .where(
+                  and(
+                    eq(
+                      socialDiscoveryCitations.externalId,
+                      socialPosts.externalId,
+                    ),
+                    eq(socialDiscoverySources.topicId, topicId),
+                  ),
+                ),
+            ),
+            exists(
+              orm
+                .select({ id: redditXCitations.externalId })
+                .from(redditXCitations)
+                .innerJoin(
+                  redditTopicPosts,
+                  eq(redditTopicPosts.externalId, redditXCitations.redditId),
+                )
+                .where(
+                  and(
+                    eq(redditXCitations.externalId, socialPosts.externalId),
+                    eq(redditTopicPosts.topicId, topicId),
+                  ),
+                ),
+            ),
+            exists(
+              orm
+                .select({ id: xSearchCitations.externalId })
+                .from(xSearchCitations)
+                .where(
+                  and(
+                    eq(xSearchCitations.externalId, socialPosts.externalId),
+                    eq(xSearchCitations.topicId, topicId),
+                  ),
+                ),
+            ),
+          ),
+        ),
+      )
+      .orderBy(
+        sql`${socialPosts.publishedAt} desc nulls last`,
+        socialPosts.externalId,
+      );
+    return rows.map((row) => ({
+      ...row,
+      publishedAt: row.publishedAt === null ? null : new Date(row.publishedAt),
+    }));
   }
   async candidates(limit: number): Promise<string[]> {
-    // Spend bounded checks across enabled topics before taking another from one.
-    // Unverified discoveries precede refreshes; citation breadth is not independence.
-    const result = await this.db.query<{ external_id: string }>(
-      `WITH citations AS (
+    // Unioned citation provenance, window ranks and grouped minimum ordering preserve
+    // topic fairness and prioritize unverified discoveries over refreshes.
+    const result = await drizzle(this.db).execute<{ external_id: string }>(
+      sql`WITH citations AS (
          SELECT c.external_id,c.source_id,c.last_seen_at,t.topic_id
          FROM x_link_citations c JOIN topic_source_connections t ON t.source_id=c.source_id
          UNION ALL
@@ -58,101 +151,166 @@ export class PostgresSocialRepository {
        ) SELECT external_id FROM ranked
        GROUP BY external_id
        ORDER BY min(refresh),min(topic_rank),max(sources) DESC,max(last_seen) DESC,
-                length(external_id) DESC,external_id DESC LIMIT $1`,
-      [Math.min(50, Math.max(1, limit))],
+                length(external_id) DESC,external_id DESC LIMIT ${Math.min(50, Math.max(1, limit))}`,
     );
     return result.rows.map((row) => row.external_id);
   }
   async discoverySources() {
-    return (
-      await this.db.query<{ id: string; url: string }>(
-        `SELECT s.id,s.url FROM social_discovery_sources s JOIN topics t ON t.id=s.topic_id
-       WHERE t.enabled ORDER BY s.id`,
-      )
-    ).rows;
+    return drizzle(this.db)
+      .select({
+        id: socialDiscoverySources.id,
+        url: socialDiscoverySources.url,
+      })
+      .from(socialDiscoverySources)
+      .innerJoin(topics, eq(topics.id, socialDiscoverySources.topicId))
+      .where(eq(topics.enabled, true))
+      .orderBy(socialDiscoverySources.id);
   }
   async discovered(
     sourceId: string,
     links: { externalId: string; url: string; verificationUrl?: string }[],
   ) {
-    const client = await this.db.connect();
-    try {
-      await client.query('BEGIN');
-      for (const link of links) {
-        await client.query(
-          `INSERT INTO social_discovery_citations(source_id,external_id,canonical_url,verification_url) VALUES($1,$2,$3,$4)
-           ON CONFLICT(source_id,external_id) DO UPDATE SET last_seen_at=now(),verification_url=COALESCE(EXCLUDED.verification_url,social_discovery_citations.verification_url)`,
-          [sourceId, link.externalId, link.url, link.verificationUrl ?? null],
-        );
-      }
-      await client.query(
-        `UPDATE social_discovery_sources SET last_success=now(),last_error=NULL,last_link_count=$2 WHERE id=$1`,
-        [sourceId, links.length],
-      );
-      await client.query('COMMIT');
-    } catch (error) {
-      await client.query('ROLLBACK');
-      throw error;
-    } finally {
-      client.release();
-    }
+    await drizzle(this.db)
+      .transaction(async (tx) => {
+        for (const link of links) {
+          await tx
+            .insert(socialDiscoveryCitations)
+            .values({
+              sourceId,
+              externalId: link.externalId,
+              canonicalUrl: link.url,
+              verificationUrl: link.verificationUrl ?? null,
+            })
+            .onConflictDoUpdate({
+              target: [
+                socialDiscoveryCitations.sourceId,
+                socialDiscoveryCitations.externalId,
+              ],
+              set: {
+                lastSeenAt: sql`now()`,
+                verificationUrl: sql`coalesce(excluded.verification_url, ${socialDiscoveryCitations.verificationUrl})`,
+              },
+            });
+        }
+        await tx
+          .update(socialDiscoverySources)
+          .set({
+            lastSuccess: sql`now()`,
+            lastError: null,
+            lastLinkCount: links.length,
+          })
+          .where(eq(socialDiscoverySources.id, sourceId));
+      })
+      .catch((error: unknown) => {
+        // Preserve native PostgreSQL errors after the transaction has rolled back.
+        throw error instanceof DrizzleQueryError && error.cause
+          ? error.cause
+          : error;
+      });
   }
   async discoveryFailed(sourceId: string) {
-    await this.db.query(
-      `UPDATE social_discovery_sources SET last_error='Public discovery page unavailable' WHERE id=$1`,
-      [sourceId],
-    );
+    await drizzle(this.db)
+      .update(socialDiscoverySources)
+      .set({ lastError: 'Public discovery page unavailable' })
+      .where(eq(socialDiscoverySources.id, sourceId));
   }
   async verificationUrl(externalId: string): Promise<string | undefined> {
-    const result = await this.db.query<{ verification_url: string }>(
-      `SELECT verification_url FROM (
-        SELECT verification_url,last_seen_at FROM x_link_citations WHERE external_id=$1
-        UNION ALL SELECT verification_url,last_seen_at FROM social_discovery_citations WHERE external_id=$1
-        UNION ALL SELECT verification_url,last_seen_at FROM reddit_x_citations WHERE external_id=$1
-        UNION ALL SELECT verification_url,discovered_at FROM x_search_citations WHERE external_id=$1
-       ) c WHERE verification_url IS NOT NULL ORDER BY last_seen_at DESC LIMIT 1`,
-      [externalId],
-    );
-    return result.rows[0]?.verification_url;
+    const orm = drizzle(this.db);
+    const citations = unionAll(
+      orm
+        .select({
+          url: xLinkCitations.verificationUrl,
+          seen: xLinkCitations.lastSeenAt,
+        })
+        .from(xLinkCitations)
+        .where(eq(xLinkCitations.externalId, externalId)),
+      orm
+        .select({
+          url: socialDiscoveryCitations.verificationUrl,
+          seen: socialDiscoveryCitations.lastSeenAt,
+        })
+        .from(socialDiscoveryCitations)
+        .where(eq(socialDiscoveryCitations.externalId, externalId)),
+      orm
+        .select({
+          url: redditXCitations.verificationUrl,
+          seen: redditXCitations.lastSeenAt,
+        })
+        .from(redditXCitations)
+        .where(eq(redditXCitations.externalId, externalId)),
+      orm
+        .select({
+          url: xSearchCitations.verificationUrl,
+          seen: xSearchCitations.discoveredAt,
+        })
+        .from(xSearchCitations)
+        .where(eq(xSearchCitations.externalId, externalId)),
+    ).as('citations');
+    const rows = await orm
+      .select({ url: citations.url })
+      .from(citations)
+      .where(isNotNull(citations.url))
+      .orderBy(desc(citations.seen))
+      .limit(1);
+    return rows[0]?.url ?? undefined;
   }
   async store(post: SocialPost) {
-    await this.db.query(
-      `INSERT INTO social_posts(platform,external_id,canonical_url,author,author_url,published_at,metrics,embed_html)
-       VALUES($1,$2,$3,$4,$5,$6,$7,$8) ON CONFLICT(platform,external_id)
-       DO UPDATE SET published_at=COALESCE(EXCLUDED.published_at,social_posts.published_at),author=EXCLUDED.author,author_url=EXCLUDED.author_url,embed_html=EXCLUDED.embed_html,verified_at=now()`,
-      [
-        post.platform,
-        post.externalId,
-        post.url,
-        post.author,
-        post.authorUrl,
-        post.publishedAt,
-        post.metrics,
-        post.embedHtml,
-      ],
-    );
+    await drizzle(this.db)
+      .insert(socialPosts)
+      .values({
+        platform: post.platform,
+        externalId: post.externalId,
+        canonicalUrl: post.url,
+        author: post.author,
+        authorUrl: post.authorUrl,
+        publishedAt: post.publishedAt,
+        metrics: post.metrics,
+        embedHtml: post.embedHtml,
+      })
+      .onConflictDoUpdate({
+        target: [socialPosts.platform, socialPosts.externalId],
+        set: {
+          publishedAt: sql`coalesce(excluded.published_at, ${socialPosts.publishedAt})`,
+          author: post.author,
+          authorUrl: post.authorUrl,
+          embedHtml: post.embedHtml,
+          verifiedAt: sql`now()`,
+        },
+      });
   }
   async refreshMissingTimes(now = new Date()): Promise<number> {
-    const posts = await this.db.query<{ external_id: string }>(
-      "SELECT external_id FROM social_posts WHERE platform='x' AND published_at IS NULL",
-    );
-    let updated = 0;
-    for (const post of posts.rows) {
-      const time = xPostTime(post.external_id, now);
-      if (!time) continue;
-      const result = await this.db.query(
-        "UPDATE social_posts SET published_at=$2 WHERE platform='x' AND external_id=$1 AND published_at IS NULL",
-        [post.external_id, time],
+    const orm = drizzle(this.db);
+    const posts = await orm
+      .select({ externalId: socialPosts.externalId })
+      .from(socialPosts)
+      .where(
+        and(eq(socialPosts.platform, 'x'), isNull(socialPosts.publishedAt)),
       );
+    let updated = 0;
+    for (const post of posts) {
+      const time = xPostTime(post.externalId, now);
+      if (!time) continue;
+      const result = await orm
+        .update(socialPosts)
+        .set({ publishedAt: time })
+        .where(
+          and(
+            eq(socialPosts.platform, 'x'),
+            eq(socialPosts.externalId, post.externalId),
+            isNull(socialPosts.publishedAt),
+          ),
+        );
       updated += result.rowCount ?? 0;
     }
     return updated;
   }
   async checked(externalId: string, error: string | null) {
-    await this.db.query(
-      `INSERT INTO x_embed_checks(external_id,error) VALUES($1,$2)
-      ON CONFLICT(external_id) DO UPDATE SET checked_at=now(),error=EXCLUDED.error`,
-      [externalId, error],
-    );
+    await drizzle(this.db)
+      .insert(xEmbedChecks)
+      .values({ externalId, error })
+      .onConflictDoUpdate({
+        target: xEmbedChecks.externalId,
+        set: { checkedAt: sql`now()`, error },
+      });
   }
 }
