@@ -329,3 +329,86 @@ void test('Bluesky observation limit retains the newest 5000 snapshots before ap
     await repo.db.end();
   }
 });
+
+void test('concurrent Bluesky collections retain both topic histories and newest complete metadata', async () => {
+  const first = new PostgresBlueskyRepository();
+  const second = new PostgresBlueskyRepository();
+  const original: BlueskyPost = {
+    ...post,
+    externalId: post.externalId + 'concurrent',
+  };
+  const newer: BlueskyPost = {
+    ...original,
+    author: 'newer.test',
+    url: 'https://bsky.app/profile/newer.test/post/abc123concurrent',
+    text: 'Newer synthetic collection',
+    observedAt: '2026-10-01T14:00:00.000Z',
+    metrics: { likes: 99, reposts: 12, replies: 7 },
+    media: [],
+  };
+  const older: BlueskyPost = {
+    ...original,
+    author: 'older.test',
+    text: 'Older synthetic collection',
+    observedAt: '2026-10-01T13:00:00.000Z',
+    metrics: { likes: 20, reposts: 3, replies: 2 },
+  };
+  const current = async () =>
+    (
+      await first.db.query(
+        "SELECT canonical_url,author,author_url,published_at,metrics,verified_at,bluesky_metadata FROM social_posts WHERE platform='bluesky' AND external_id=$1",
+        [original.externalId],
+      )
+    ).rows;
+  try {
+    // Exercise both invocation orders; each pair uses separate connections.
+    for (const reverse of [false, true]) {
+      await first.store(topic, [original]);
+      await Promise.all(
+        reverse
+          ? [second.store(other, [older]), first.store(topic, [newer])]
+          : [first.store(topic, [newer]), second.store(other, [older])],
+      );
+      assert.deepEqual(await current(), [
+        {
+          canonical_url: newer.url,
+          author: newer.author,
+          author_url: 'https://bsky.app/profile/newer.test',
+          published_at: new Date(newer.publishedAt),
+          metrics: newer.metrics,
+          verified_at: new Date(newer.observedAt),
+          bluesky_metadata: { text: newer.text, media: [] },
+        },
+      ]);
+      assert.deepEqual(await first.observations(topic, start, end, end), [
+        newer,
+        original,
+      ]);
+      assert.deepEqual(await second.observations(other, start, end, end), [
+        older,
+      ]);
+      await Promise.all([
+        first.store(topic, [newer, original]),
+        second.store(other, [older]),
+      ]);
+      assert.equal((await current()).length, 1);
+      assert.deepEqual(await first.observations(topic, start, end, end), [
+        newer,
+        original,
+      ]);
+      assert.deepEqual(await second.observations(other, start, end, end), [
+        older,
+      ]);
+      await first.db.query(
+        "DELETE FROM social_posts WHERE platform='bluesky' AND external_id=$1",
+        [original.externalId],
+      );
+    }
+  } finally {
+    await first.db.query(
+      "DELETE FROM social_posts WHERE platform='bluesky' AND external_id=$1",
+      [original.externalId],
+    );
+    await Promise.all([first.db.end(), second.db.end()]);
+  }
+});

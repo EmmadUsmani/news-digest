@@ -512,3 +512,11 @@ ordered before limiting; the cap counts snapshots rather than distinct posts.
 An earlier observation cutoff returns both eligible oldest snapshots, proving
 filtering precedes the limit. The other topic receives none. Disposable
 PostgreSQL only; no Bluesky or paid provider requests occur.
+
+## Concurrent Bluesky collection (iteration 557)
+
+`bluesky-storage.test.ts` races independent repository instances collecting
+newer and older snapshots of one post for different topics, in both invocation
+orders. Current metadata retains the entire newest payload; each topic keeps
+only its own immutable history. Concurrent replays retain one current row and
+no duplicate observations. Disposable PostgreSQL only; no provider requests.

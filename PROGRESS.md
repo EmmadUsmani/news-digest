@@ -157,3 +157,11 @@
 - Updated TASKS/database verification notes; archived iterations 537–538 to keep PROGRESS below 25 KB. No production/source/schema/UI/handbook flow changes or paid calls; no restart under STEERING 22.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/190 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes. Initial check found new documentation formatting; corrected before passing rerun.
 - Next: review Nov 4 scheduled evidence first; incremental triage/grouping activation stays gated. Continue remaining repository characterization and recorded-response golden when product work is blocked.
+
+## 2026-11-04: iteration 557 — characterize concurrent Bluesky collection
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 healthy sources and zero failed digest jobs; Nov 4 15:00 UTC review remains pending.
+- Added isolated repository coverage racing independent collectors across topics in both invocation orders: newest complete metadata wins, topic histories stay separate, concurrent replay dedupes rows and snapshots.
+- Updated TASKS/database verification notes. No production/source/schema/UI/handbook flow changes or paid calls; no restart under STEERING 22 because only tests/docs changed.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/191 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes. New concurrency test passed.
+- Next: review Nov 4 scheduled evidence first; incremental triage/grouping activation stays gated. Remaining repository characterization and recorded-response golden remain open.
