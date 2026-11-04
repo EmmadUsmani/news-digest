@@ -53,11 +53,7 @@ export class CandidateTriage {
     private readonly kind: 'article' | 'social' = 'article',
   ) {}
 
-  async score(
-    topic: TriageTopic,
-    candidates: TriageCandidate[],
-    runId: string,
-  ): Promise<TriageResult> {
+  private entries(topic: TriageTopic, candidates: TriageCandidate[]) {
     if (
       topic.id.length > 200 ||
       candidates.some((c) => c.id.length > 200) ||
@@ -67,8 +63,6 @@ export class CandidateTriage {
       throw new Error('Expected at most 200 unique candidates');
     const activeInstructions =
       this.kind === 'social' ? socialInstructions : instructions;
-    const purpose =
-      this.kind === 'social' ? 'social-triage-v1' : 'candidate-triage-v1';
     const compactTopic = {
       id: topic.id,
       name: topic.name.slice(0, 200),
@@ -98,6 +92,33 @@ export class CandidateTriage {
           .digest('hex');
       return { item, key };
     });
+    return { activeInstructions, compactTopic, entries };
+  }
+
+  // Read-only cache probe: the same fingerprint and validation as score().
+  // Callers chunk large pools; no provider request or cache write occurs here.
+  async pending(topic: TriageTopic, candidates: TriageCandidate[]) {
+    const { entries } = this.entries(topic, candidates);
+    const pending: TriageCandidate[] = [];
+    for (const [index, entry] of entries.entries()) {
+      const parsed = scoreSchema.safeParse(await this.cache.cached(entry.key));
+      if (!parsed.success || parsed.data.id !== entry.item.id)
+        pending.push(candidates[index]);
+    }
+    return pending;
+  }
+
+  async score(
+    topic: TriageTopic,
+    candidates: TriageCandidate[],
+    runId: string,
+  ): Promise<TriageResult> {
+    const { activeInstructions, compactTopic, entries } = this.entries(
+      topic,
+      candidates,
+    );
+    const purpose =
+      this.kind === 'social' ? 'social-triage-v1' : 'candidate-triage-v1';
     const scores = new Map<string, TriageScore>();
     const missing: typeof entries = [];
     for (const entry of entries) {

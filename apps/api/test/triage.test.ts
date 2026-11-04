@@ -3,6 +3,7 @@ import { test } from 'node:test';
 
 import { llmConfig } from '../src/modules/curation/adapters/config';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
+import { incrementalTriagePass } from '../src/modules/curation/application/incremental-triage-pass';
 import {
   CandidateTriage,
   type TriageCandidate,
@@ -435,4 +436,159 @@ void test('long escaped IDs use compact wire aliases without changing cached ide
     batch.map((c) => c.id),
   );
   assert.deepEqual(result.unscoredIds, []);
+});
+
+void test('bounded background passes probe the item cache, carry backlog and retry refused items', async () => {
+  const h = harness();
+  const pool = Array.from({ length: 450 }, (_, i) => ({
+    ...candidates[0],
+    id: String(i),
+  }));
+  const options = { minimumPending: 25, maximumItems: 25 };
+  const first = await incrementalTriagePass(
+    h.service,
+    topic,
+    pool,
+    'background',
+    options,
+  );
+  assert.equal(first.pendingItems, 450);
+  assert.equal(first.scoredIds.length, 25);
+  assert.equal(first.deferredItems, 425);
+  const second = await incrementalTriagePass(
+    h.service,
+    topic,
+    pool,
+    'background',
+    options,
+  );
+  assert.equal(second.pendingItems, 425);
+  assert.equal(second.scoredIds.length, 25);
+  assert.equal(
+    second.attemptedIds.some((id) => first.attemptedIds.includes(id)),
+    false,
+  );
+  assert.equal(h.calls.length, 2);
+  const small = pool.slice(50, 60);
+  const waiting = await incrementalTriagePass(
+    h.service,
+    topic,
+    small,
+    'background',
+    options,
+  );
+  assert.equal(waiting.deferredItems, 10);
+  assert.deepEqual(waiting.attemptedIds, []);
+  assert.equal(h.calls.length, 2);
+  h.refuse();
+  const refused = await incrementalTriagePass(
+    h.service,
+    topic,
+    pool,
+    'background',
+    options,
+  );
+  assert.equal(refused.unscoredIds.length, 25);
+  const retry = await incrementalTriagePass(
+    h.service,
+    topic,
+    pool,
+    'background',
+    options,
+  );
+  assert.deepEqual(retry.attemptedIds, refused.attemptedIds);
+  assert.equal(retry.pendingItems, 400);
+});
+
+void test('pending cache probe matches scoring fingerprints and rejects corrupt identities without spending', async () => {
+  const h = harness();
+  await h.service.score(topic, candidates, 'edition');
+  assert.deepEqual(await h.service.pending(topic, candidates), []);
+  assert.equal(
+    (
+      await h.service.pending(
+        { ...topic, guidance: 'Changed guidance' },
+        candidates,
+      )
+    ).length,
+    candidates.length,
+  );
+  const changed = candidates.map((c, i) =>
+    i === 0 ? { ...c, title: 'Updated title' } : c,
+  );
+  assert.deepEqual(
+    (await h.service.pending(topic, changed)).map((c) => c.id),
+    ['0'],
+  );
+  const [key, value] = [...h.values].find(([key]) =>
+    key.startsWith('triage-item-v1:'),
+  )!;
+  h.values.set(key, { ...(value as object), id: 'wrong' });
+  assert.equal((await h.service.pending(topic, candidates)).length, 1);
+  h.values.set(key, { id: '0', relevance: 99 });
+  assert.equal((await h.service.pending(topic, candidates)).length, 1);
+  assert.equal(h.calls.length, 1);
+});
+
+void test('background pass rejects invalid bounds and duplicate pools before cache or provider access', async () => {
+  const h = harness();
+  for (const options of [
+    { minimumPending: 0, maximumItems: 25 },
+    { minimumPending: 25, maximumItems: 24 },
+    { minimumPending: 1, maximumItems: 201 },
+    { minimumPending: 1, maximumItems: 1.5 },
+  ])
+    await assert.rejects(
+      incrementalTriagePass(
+        h.service,
+        topic,
+        candidates,
+        'background',
+        options,
+      ),
+      /Expected/,
+    );
+  await assert.rejects(
+    incrementalTriagePass(
+      h.service,
+      topic,
+      [candidates[0], candidates[0]],
+      'background',
+      { minimumPending: 1, maximumItems: 25 },
+    ),
+    /unique/,
+  );
+  assert.equal(h.calls.length, 0);
+  assert.equal(h.values.size, 0);
+});
+
+void test('edition scoring flushes a below-minimum tail and reuses background scores', async () => {
+  const h = harness();
+  const pool = Array.from({ length: 60 }, (_, i) => ({
+    ...candidates[0],
+    id: String(i),
+  }));
+  const options = { minimumPending: 25, maximumItems: 25 };
+  await incrementalTriagePass(h.service, topic, pool, 'background', options);
+  await incrementalTriagePass(h.service, topic, pool, 'background', options);
+  const tail = await incrementalTriagePass(
+    h.service,
+    topic,
+    pool,
+    'background',
+    options,
+  );
+  assert.equal(tail.pendingItems, 10);
+  assert.equal(tail.attemptedIds.length, 0);
+  const edition = await h.service.score(topic, pool, 'edition');
+  assert.equal(edition.scores.length, 60);
+  assert.deepEqual(edition.unscoredIds, []);
+  assert.deepEqual(
+    h.calls.map(
+      (call) =>
+        (JSON.parse(call.prompt) as { candidates: unknown[] }).candidates
+          .length,
+    ),
+    [25, 25, 10],
+  );
 });

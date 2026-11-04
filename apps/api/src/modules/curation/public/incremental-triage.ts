@@ -35,5 +35,9 @@ export function incrementalTriageServices(
     new AnthropicLlmAdapter(env.ANTHROPIC_API_KEY),
     ledger,
   );
-  return backgroundTriage(new CandidateTriage(llm, ledger, config.haiku));
+  const triage = new CandidateTriage(llm, ledger, config.haiku);
+  return {
+    pending: triage.pending.bind(triage),
+    ...backgroundTriage(triage),
+  };
 }

@@ -1702,3 +1702,23 @@ so individual topics can pretriage more or fewer items than the unbounded
 replay. These are synthetic scores over real exported content; global fetch
 times remain an imperfect topic-arrival proxy. Historical pool waste, provider
 latency, settled cost and quality remain unmeasured. No paid calls were made.
+
+## Iteration 523: cache-aware bounded pass preparation
+
+`incrementalTriagePass` prepares background orchestration over a caller-supplied
+eligible pool. It probes the same validated per-item cache fingerprints used by
+edition scoring, in chunks of at most 200, waits for a minimum pending count,
+and scores at most the configured maximum (1–200). Input order is preserved;
+excess work remains for later calls. Invalid bounds and duplicate pool IDs fail
+before cache/provider access. The reserve-safe prepared service exposes the
+read-only probe alongside its background scorer.
+
+Fake-provider regressions cover a 450-item backlog, disjoint successive passes,
+refused items remaining pending, corrupt cache identities, changed title/topic
+fingerprints, and a 60-item pool scored in 25/25 background batches followed by
+an uncapped 10-item edition tail. These are accounting checks, not live latency,
+settled cost, historical waste or quality evidence. Cache probing and scoring are
+not atomic: eventual scheduler wiring must serialize passes, enforce the cutoff
+and supply current eligible pools. No collector/scheduler invokes this code;
+the setting remains off by default pending the Nov 4 review. Historical pool
+measurement and durable scheduler admission remain open.

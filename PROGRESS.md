@@ -146,3 +146,12 @@
 - Regression verifies backlog carryover, cutoff, complete final scoring and invalid bounds. Updated TASKS/RANKING; no paid calls, production activation, schema, source, UI or handbook flow changes.
 - Verification: targeted replay tests 7/7; recorded fixture CLI and all four real-export CLIs; pnpm format, pnpm lint:fix, pnpm check (303 unit/183 isolated integration), pnpm build, git diff --check; live root/healthz/status healthy, 3,200 stored source items and zero alerts. No dangling Docker volumes.
 - Services left running under STEERING 22 because only offline tooling/tests/docs changed. Next: historical pool evidence and scheduler wiring; Nov 4 edition review takes priority before activation.
+
+## 2026-11-04: iteration 523 — prepare cache-aware bounded background passes
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 sources without current errors and four available queues; Nov 4 scheduled review remains pending.
+- Added a read-only pending probe sharing edition scoring's unchanged fingerprints/validation, plus prepared bounded pass orchestration: chunk large pool probes, wait for minimum uncached work, carry backlog and leave refused scores pending.
+- Fake-provider tests cover 450-item backlog, disjoint passes, budget-refusal retries, changed text/topic and corrupt-cache invalidation. A 60-item pool scores 25/25 before edition and flushes the 10-item tail once.
+- No scheduler caller, activation or paid calls. Serialization, cutoff enforcement, historical eligible-pool/waste evidence and live cost/latency remain open; no schema/source/UI or handbook flow changes.
+- Updated TASKS/RANKING. Verification: targeted tests 17/17; pnpm format, pnpm lint:fix, pnpm check (307 unit/183 isolated integration), pnpm build, git diff --check; no dangling Docker volumes.
+- Rebuilt/restarted API and worker because shared triage code changed; healthz/root/status healthy, 36 error-free sources/four available queues and zero alerts after restart. Next: serialized scheduler wiring/cutoff and pool evidence; Nov 4 edition review takes priority.
