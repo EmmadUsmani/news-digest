@@ -520,3 +520,11 @@ newer and older snapshots of one post for different topics, in both invocation
 orders. Current metadata retains the entire newest payload; each topic keeps
 only its own immutable history. Concurrent replays retain one current row and
 no duplicate observations. Disposable PostgreSQL only; no provider requests.
+
+## Bluesky configuration race (iteration 558)
+
+`bluesky-storage.test.ts` holds a topic configuration lock, starts collection
+through the repository and observes the collector blocked in PostgreSQL. Both
+concurrent disable and deletion commit before collection resumes. Neither case
+creates a current post or an immutable observation. This pins eligibility
+rechecking after lock waits using disposable PostgreSQL, without provider calls.

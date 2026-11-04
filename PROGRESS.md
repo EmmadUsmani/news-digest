@@ -1,11 +1,3 @@
-## 2026-11-04: iteration 539 — prepare incremental runtime dependency composition
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 sources with no current errors and zero failed digest jobs. Nov 4 review still pending.
-- Composed caller-owned database, settings reader, shared article pool, reserve-safe scheduler and draining timer. Default-off constructs no timer and reads no settings/content; scheduler identity persists across ticks.
-- Two offline contract tests pass. No worker import, production activation or paid calls; no live latency/waste claim. Next: worker-owned settings/database lifecycle wiring after the review gate permits activation.
-- Updated TASKS/RANKING and archived iteration 520 to keep this file small. No source/schema/UI or live handbook flow changes; services stay running under STEERING 22.
-- Verification: targeted tests 2/2; pnpm format, pnpm lint:fix, pnpm check (344 unit/185 isolated integration), pnpm build and git diff --check passed. Initial checks caught two unbound-method lint errors; fixed before the successful full rerun. Root HTTP 200, healthz healthy and zero dangling Docker volumes.
-
 ## 2026-11-04: iteration 540 — prepare worker resource ownership
 
 - Started clean on main; no leftover work. Zero alerts, healthy root/healthz, 36 sources with recent nonempty successful collections and no current errors; no failed digest jobs. Nov 4 scheduled review remains pending.
@@ -165,3 +157,11 @@
 - Updated TASKS/database verification notes. No production/source/schema/UI/handbook flow changes or paid calls; no restart under STEERING 22 because only tests/docs changed.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/191 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes. New concurrency test passed.
 - Next: review Nov 4 scheduled evidence first; incremental triage/grouping activation stays gated. Remaining repository characterization and recorded-response golden remain open.
+
+## 2026-11-04: iteration 558 — characterize Bluesky configuration races
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and zero failed digest jobs. Recent hourly collections completed; Nov 4 15:00 UTC review remains pending.
+- Added isolated repository coverage that observes a collector blocked behind a topic lock, then commits disable or deletion. Collection resumes without creating current posts or immutable observations in either case.
+- Updated TASKS/database verification notes; archived iteration 539 to keep PROGRESS small. No production/source/schema/UI/handbook flow changes or paid calls; no restart under STEERING 22.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/192 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes. Initial check caught archive formatting; corrected before passing rerun.
+- Next: review Nov 4 scheduled evidence first; production incremental triage/grouping activation remains gated. Repository characterization and recorded-response golden remain open.

@@ -412,3 +412,81 @@ void test('concurrent Bluesky collections retain both topic histories and newest
     await Promise.all([first.db.end(), second.db.end()]);
   }
 });
+
+void test('Bluesky collection rechecks topic eligibility after a concurrent disable or deletion', async () => {
+  const repo = new PostgresBlueskyRepository();
+  const id = '11111111-1111-4111-8111-111111111558';
+  const editor = await repo.db.connect();
+  let collecting: Promise<void> | undefined;
+  try {
+    const {
+      rows: [{ pid }],
+    } = await editor.query<{ pid: number }>('SELECT pg_backend_pid() AS pid');
+    for (const action of ['disable', 'delete'] as const) {
+      await repo.db.query(
+        "INSERT INTO topics(id,profile_id,name,description,include_guidance,exclude_guidance,position) VALUES($1,'00000000-0000-4000-8000-000000000001','Synthetic concurrent configuration','','','',999)",
+        [id],
+      );
+      await editor.query('BEGIN');
+      await editor.query('SELECT id FROM topics WHERE id=$1 FOR UPDATE', [id]);
+      collecting = repo.store(id, [post]);
+      // Observe an actual database lock wait rather than relying on a fixed delay.
+      let blocked = false;
+      for (let attempt = 0; attempt < 200; attempt++) {
+        const result = await repo.db.query(
+          'SELECT 1 FROM pg_stat_activity WHERE $1::int = ANY(pg_blocking_pids(pid))',
+          [pid],
+        );
+        if (result.rowCount) {
+          blocked = true;
+          break;
+        }
+        await new Promise((resolve) => setTimeout(resolve, 10));
+      }
+      assert.equal(
+        blocked,
+        true,
+        'collector must wait for the configuration transaction',
+      );
+      await editor.query(
+        action === 'disable'
+          ? 'UPDATE topics SET enabled=false WHERE id=$1'
+          : 'DELETE FROM topics WHERE id=$1',
+        [id],
+      );
+      await editor.query('COMMIT');
+      await collecting;
+      collecting = undefined;
+      assert.deepEqual(await repo.observations(id, start, end, end), []);
+      assert.equal(
+        (
+          await repo.db.query(
+            'SELECT 1 FROM bluesky_observations WHERE topic_id=$1',
+            [id],
+          )
+        ).rowCount,
+        0,
+      );
+      assert.equal(
+        (
+          await repo.db.query(
+            "SELECT 1 FROM social_posts WHERE platform='bluesky' AND external_id=$1",
+            [post.externalId],
+          )
+        ).rowCount,
+        0,
+      );
+      await repo.db.query('DELETE FROM topics WHERE id=$1', [id]);
+    }
+  } finally {
+    await editor.query('ROLLBACK');
+    await collecting;
+    editor.release();
+    await repo.db.query('DELETE FROM topics WHERE id=$1', [id]);
+    await repo.db.query(
+      "DELETE FROM social_posts WHERE platform='bluesky' AND external_id=$1",
+      [post.externalId],
+    );
+    await repo.db.end();
+  }
+});

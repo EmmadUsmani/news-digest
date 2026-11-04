@@ -58,7 +58,7 @@ Fix failures and stalled sources first. [Completed markers](docs/progress-archiv
   - retention/backup
   - resilience
 
-- [ ] STEERING 2a (lower priority): finish repository/HTTP characterization before ORM. Isolated DB/Redis, migrations, HTTP/worker and synthetic-AI goldens implemented (183–270); gaps: [database verification](docs/DATABASE-VERIFICATION.md). Bluesky refresh rollback/retry and exact observation boundaries and 5,000-snapshot cap and concurrent cross-topic refresh characterized (554–557). Finish 2a before ORM; recorded-response golden open.
+- [ ] STEERING 2a (lower priority): finish repository/HTTP characterization before ORM. Isolated DB/Redis, migrations, HTTP/worker and synthetic-AI goldens implemented (183–270); gaps: [database verification](docs/DATABASE-VERIFICATION.md). Bluesky refresh rollback/retry and exact observation boundaries and 5,000-snapshot cap and concurrent cross-topic refresh and configuration disable/delete races characterized (554–558). Finish 2a before ORM; recorded-response golden open.
 - [ ] STEERING 2b (only after 2a is green): record Drizzle decision/schema parity, back up live DB, gradually replace raw SQL behind ports and enforce boundaries.
 
 - [ ] STEERING 24/25 (background while product blocked): [observability plan](docs/observability-plan.md). O1–O10 verified through metadata-only browser errors (442). O8 unavailable counters stay uninferred. Iteration 514 adds the duration-only slow-call view linked from Database. O11 tracing requires overhead evidence/decision note; stop CLI/dashboard refinements. Product evidence takes priority.
