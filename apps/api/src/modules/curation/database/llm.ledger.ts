@@ -1,4 +1,13 @@
-import { and, eq, gte, inArray, ne, or, sql } from 'drizzle-orm';
+import {
+  and,
+  DrizzleQueryError,
+  eq,
+  gte,
+  inArray,
+  ne,
+  or,
+  sql,
+} from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import type { Pool, PoolClient } from 'pg';
 
@@ -45,14 +54,28 @@ export class PostgresLlmLedger implements LlmLedger {
     readonly scheduled?: ScheduledLedgerAdmission,
     private readonly log = logger,
   ) {}
+  private async transaction<T>(work: (client: PoolClient) => Promise<T>) {
+    const client = await this.db.connect();
+    try {
+      return await drizzle(client).transaction(async (tx) => {
+        // Shared across processes and repairs; never hold this lock during HTTP.
+        // Transaction-scoped advisory locks have no query-builder equivalent.
+        await tx.execute(sql`SELECT pg_advisory_xact_lock(756282)`);
+        return work(client);
+      });
+    } catch (error) {
+      throw error instanceof DrizzleQueryError && error.cause
+        ? error.cause
+        : error;
+    } finally {
+      client.release();
+    }
+  }
   async reserve(request: LlmRequest, estimate: number): Promise<string | null> {
     if (!Number.isSafeInteger(estimate) || estimate <= 0)
       throw new Error('Invalid reservation');
-    const client = await this.db.connect();
-    try {
-      await client.query('BEGIN');
-      // Every process uses the same transaction lock; never hold it during HTTP.
-      await client.query('SELECT pg_advisory_xact_lock(756282)');
+    let reserveDecision: Record<string, unknown> | undefined;
+    const id = await this.transaction(async (client) => {
       const orm = drizzle(client);
       const now = await readReserveClock(client);
       const period = utcBudgetPeriod(now);
@@ -101,12 +124,10 @@ export class PostgresLlmLedger implements LlmLedger {
           eq(llmCalls.purpose, 'verification'),
         );
         if (verificationUsed + estimate > 50000) {
-          await client.query('COMMIT');
           return null;
         }
       }
       let available = allowance.available;
-      let reserveDecision: Record<string, unknown> | undefined;
       if (this.scheduled) {
         const [slot] = await orm
           .select({
@@ -181,15 +202,8 @@ export class PostgresLlmLedger implements LlmLedger {
           allocation.dailyFraction,
         );
       }
-      if (blocked.length || Math.min(available, modelAvailable) < estimate) {
-        await client.query('COMMIT');
-        if (reserveDecision)
-          this.log.info(
-            { ...reserveDecision, outcome: 'refused' },
-            'Scheduled reserve admission',
-          );
+      if (blocked.length || Math.min(available, modelAvailable) < estimate)
         return null;
-      }
       const id = crypto.randomUUID();
       await orm.insert(llmCalls).values({
         id,
@@ -199,19 +213,14 @@ export class PostgresLlmLedger implements LlmLedger {
         status: 'pending',
         reservedMicros: estimate,
       });
-      await client.query('COMMIT');
-      if (reserveDecision)
-        this.log.info(
-          { ...reserveDecision, outcome: 'admitted' },
-          'Scheduled reserve admission',
-        );
       return id;
-    } catch (error) {
-      await client.query('ROLLBACK');
-      throw error;
-    } finally {
-      client.release();
-    }
+    });
+    if (reserveDecision)
+      this.log.info(
+        { ...reserveDecision, outcome: id === null ? 'refused' : 'admitted' },
+        'Scheduled reserve admission',
+      );
+    return id;
   }
   async settle(id: string, usage: TokenUsage, cost: number) {
     await drizzle(this.db)
@@ -233,10 +242,7 @@ export class PostgresLlmLedger implements LlmLedger {
     providerLimit: boolean,
     uncertain: boolean,
   ) {
-    const client = await this.db.connect();
-    try {
-      await client.query('BEGIN');
-      await client.query('SELECT pg_advisory_xact_lock(756282)');
+    await this.transaction(async (client) => {
       const orm = drizzle(client);
       await orm
         .update(llmCalls)
@@ -255,13 +261,7 @@ export class PostgresLlmLedger implements LlmLedger {
             errorCode: code,
           })
           .onConflictDoNothing();
-      await client.query('COMMIT');
-    } catch (error) {
-      await client.query('ROLLBACK');
-      throw error;
-    } finally {
-      client.release();
-    }
+    });
   }
   async cached(key: string): Promise<unknown> {
     const [row] = await drizzle(this.db)

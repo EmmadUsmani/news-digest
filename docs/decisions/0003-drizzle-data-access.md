@@ -184,3 +184,10 @@ client. Its transaction-scoped advisory lock remains shared by API, worker and
 explicit discovery; every ledger query uses that same client. Drizzle commits or
 rolls back before client release, and wrapped query errors expose their original
 PostgreSQL cause. Existing ledger characterization assertions remain unchanged.
+
+Anthropic LLM ledger admission and failure now use Drizzle-managed transactions
+on the checked-out client, retaining the shared advisory lock and all budget
+reads/writes on that client. Admission decisions are logged only after a successful
+commit; refusals commit without inserting a call. Rollback releases the client,
+and wrapped driver errors retain their original PostgreSQL cause. Existing
+budget, rollback and logging characterization assertions are preserved.

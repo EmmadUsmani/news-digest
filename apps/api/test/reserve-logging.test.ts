@@ -33,7 +33,7 @@ void test('reserve logs report committed policy and admission without request co
         release() {},
         async query(query: string | { text: string }) {
           const sql = typeof query === 'string' ? query : query.text;
-          if (sql === 'COMMIT') {
+          if (sql.toUpperCase() === 'COMMIT') {
             if (scenario === 'rollback')
               throw new Error('private database failure');
             committed = true;

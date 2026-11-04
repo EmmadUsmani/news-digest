@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 585 — convert LLM usage reads to Drizzle
-
-- Started clean on main; no leftover work. Healthy healthz, zero alerts, 36 sources without current errors and zero failed digest jobs. Retained ingestion/social failures have newer successful collection; Nov 4 edition review remains pending.
-- Converted usage totals, purposes, models, provider blocks and model allocation reads to typed Drizzle. Filtered aggregates retain documented templates; unresolved holds still count across budget periods and caller transaction clients remain supported.
-- Read-only old/new comparison in one live repeatable-read transaction matched both plain and model-allocation caps exactly. Database-clock probe caught Drizzle timestamp strings; explicit date conversion fixed it. Initial typechecks caught clock builder/nullability issues, corrected before final checks.
-- Existing characterization assertions unchanged; usage reader statement coverage 100%. No migrations, activations or paid calls.
-- Updated TASKS, architecture, decision and handbook stack; archived iterations 570–571 to keep PROGRESS bounded.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
-- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Playwright root rendered 63 article elements with zero page errors; 36 sources without errors, zero failed digest jobs and zero alerts.
-- Next: prioritize Nov 4 15:00 UTC scheduled review; otherwise continue remaining ORM adapters or migration baseline. Private pg_dump before first new migration.
-
 ## 2026-11-04: iteration 586 — convert topic repository to Drizzle
 
 - Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC edition evidence pending.
@@ -149,4 +138,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
 - Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical and X budget snapshot unchanged. Read-only Playwright rendered four topics/19 stories without page errors; zero alerts, source errors or failed digest jobs.
 - Push: first attempt rejected by Git integration with `fatal error in commit_refs_rules`; immediate retry pushed d75df35 successfully.
+- Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters/transaction infrastructure or historical migration baseline. Private pg_dump before first new migration.
+
+## 2026-11-04: iteration 600 — Drizzle Anthropic ledger transactions
+
+- Started clean on main; no leftover work. Healthy healthz, 36 sources without current errors and zero failed digest jobs. Initial pending metrics-memory warning cleared on the next snapshot; Nov 4 15:00 UTC review remains pending.
+- Converted Anthropic ledger admission/failure transaction control to Drizzle on the same checked-out client, preserving the shared budget lock, rollback, client release and original PostgreSQL error causes. Admission/refusal logs remain after successful commit.
+- Existing characterization assertions unchanged; logging stub accepts Drizzle transaction-command casing. No migration, activation, source change or paid call; owner database grants untouched.
+- Updated TASKS, architecture, decision and handbook stack; archived iteration 585. First full check stopped on archive formatting; corrected and reran green.
+- Verification: pnpm format, pnpm lint:fix, targeted reserve-logging test, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
+- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical and X budget snapshot unchanged. Read-only Playwright rendered without page errors; zero current source errors or failed digest jobs.
 - Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters/transaction infrastructure or historical migration baseline. Private pg_dump before first new migration.
