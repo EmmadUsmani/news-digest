@@ -2576,3 +2576,20 @@ with the existing aggregate. Skipped passes report zero when snapshots exist;
 without complete pool snapshots, these fields remain unknown (`null`). Edition
 passes use `null` because they are not preparation. These are synthetic cache
 work counts, not measured provider dollars, expiry waste or live latency.
+
+## Iteration 646: Nov 4 scheduled outcome checked
+
+[Full edition evidence](edition-reviews/2026-11-04.md): 701 article candidates,
+151.532 s and $0.291162, with NBA still non-AI. Exact reconstructed NBA editor
+fingerprints match four live `unsupported-absence` rejections: initial and
+repair for both Sonnet and Haiku. NBA triage is complete; rejected sentences
+were not stored, so their factual validity cannot be inferred. The fallback
+includes a quiz and overlapping power rankings. The run's 43 Anthropic HTTP
+calls total 506,615 ms, giving a four-slot aggregate lower bound of 126,654 ms;
+no higher-concurrency speed prediction is claimed.
+
+None of today's 19 paid open-X discoveries was selected. World posts remain
+empty; Tech's first selected Bluesky post duplicates an X selection. The Nov 4
+review gate is checked, with full-AI, speed and social-quality acceptance open.
+Same-story grouping and incremental triage remain off; fix NBA before claiming
+item 7 complete or proceeding with grouping activation for Nov 5.

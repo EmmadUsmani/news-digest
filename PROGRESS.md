@@ -1,23 +1,3 @@
-## 2026-11-04: iteration 629 — expose per-call output saturation
-
-- Started clean on main; no leftover work. Healthz healthy and zero alerts; Nov 4 scheduled evidence remains pending.
-- Extended the offline output report with peak per-call utilization and the count reaching/exceeding recorded limits. Aggregate utilization can hide individual saturated calls; neither metric infers truncation.
-- Added a synthetic low-aggregate/saturated-call regression including failed calls, above-limit usage and missing metadata; Nov 3 limits remain unknown. No paid calls or production changes.
-- Updated TASKS and RANKING; archived iteration 611 to keep PROGRESS bounded. No handbook system behavior changed.
-- Verification: targeted output tests 5/5 and offline CLI; pnpm format, pnpm lint:fix, pnpm check (376 unit/205 isolated integration), pnpm build and git diff --check passed. Final healthz healthy, zero alerts and zero dangling Docker volumes.
-- Offline tool only; no running-service code/config changed, so no restart under STEERING 22. Grouping and incremental triage remain off.
-- Next: review Nov 4 15:00 UTC edition for social picks, NBA validation, timing/cost and completion metadata.
-
-## 2026-11-04: iteration 630 — reject inexact replay token counts
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts and no failed user services. Nov 4 scheduled evidence remains pending.
-- Recording/replay fixture validation now rejects token counts above JavaScript's safe-integer boundary instead of accepting inexact usage metadata.
-- Added synthetic regressions for all four usage fields: negative, fractional, non-finite and unsafe values fail closed; the maximum safe integer round-trips. Rejected recordings leave no partial record. No paid calls or fixture re-recording.
-- Updated TASKS; archived iteration 612 to keep PROGRESS bounded. No production wiring, prompt, source, setting or handbook behavior changes.
-- Verification: targeted replay tests 8/8; pnpm format, pnpm lint:fix, pnpm check (377 unit/205 isolated integration), pnpm build and git diff --check passed. Initial format check caught archived-entry whitespace; corrected before rerunning check.
-- Final healthz healthy, zero alerts and zero dangling Docker volumes. Offline adapter only: no service restart under STEERING 22; grouping/incremental triage remain off.
-- Next: review Nov 4 15:00 UTC edition for social picks, NBA validation and live timing/cost.
-
 ## 2026-11-04: iteration 631 — connect default-off background triage
 
 - Started clean on main; no leftover work. Healthz healthy, zero alerts, no failed user services and 36 sources without current errors.
@@ -171,3 +151,14 @@
 - Archived iterations 627–628 to keep PROGRESS bounded. No source/prompt/config/schema change, inference, re-verification or scraping. No restart under STEERING 22; grouping/incremental triage remain off.
 - Verification: read-only reports and independent timestamp/cost assertions passed; pnpm format, pnpm lint:fix, pnpm check (388 unit/205 isolated integration), pnpm build and git diff --check passed. Healthz healthy; zero alerts.
 - Next: prioritize the Nov 4 15:00 UTC edition's immutable selections, NBA fallback/logs, timing/cost and activation gates. Successful discovery counts must not substitute for quality.
+
+## 2026-11-04: iteration 646 — review scheduled edition and prove NBA fallback cause
+
+- Started clean on main; no leftover work. Healthz healthy and zero alerts; observed scheduled publication without production changes or extra paid calls.
+- Edition 3bf10f5b-4c00-48b2-85bd-8e6dac7e3238: 701 article candidates, 14 stories/15 posts, 151.532 s, $0.291162/43 Anthropic calls, zero holds; protected $0.487477 reserve released with mixed outcome. Still misses speed/full-AI acceptance.
+- Reconstructed NBA requests with inert editor callback and saved scores; exact fingerprints prove Sonnet+Haiku initial/repair unsupported-absence rejections. NBA triage complete; rejected text unavailable. Fallback includes quiz/overlapping rankings.
+- Immutable X picks Tech/NBA/Gaming/World 4/5/5/0; none of 19 paid discoveries selected. Eleven selected posts outside current lists lack saved engagement reports. Read back reviewed 11/10/12/11 lists.
+- First selected Tech Bluesky post has observed 767 likes/329 replies/342 reposts; duplicates a selected X post. World remains empty. Saved desktop/mobile topic-post screenshots; 14 iframe mounts, one Bluesky card, no page errors/overflow. Offscreen widgets may be blank in full captures.
+- Added durable edition review; updated STEERING ack, TASKS, SOURCES, RANKING and NEEDS_FROM_HUMAN. Archived iterations 629–630; no handbook/schema/runtime change.
+- Verification: pnpm check (388 unit/205 isolated integration), pnpm build, read-only report-edition-timing/capture-triage-pool, citation join, exact NBA fingerprints and Playwright checks passed. pnpm format, pnpm lint:fix, format:check and git diff --check passed.
+- No restart under STEERING 22: only docs/screenshots changed. Grouping/incremental triage remain off; next fix NBA validation/fallback quality, then useful World/open-X yield and gated Nov 5 activation assessment.

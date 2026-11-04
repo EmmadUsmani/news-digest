@@ -22,6 +22,7 @@ $0.149447 for 19 newly verified posts, but six predate the edition window,
 all five NBA results promote betting, and available reported engagement
 never exceeds 12 likes. See [source measurements](docs/SOURCES.md#first-scheduled-open-x-discovery--iteration-645-2026-11-04).
 This is weak discovery yield, not evidence of viral picks. Keep existing
-caps and inspect the imminent edition before deciding whether prompt/search
-changes suffice. No unofficial data provider, scraping workaround or new
+caps. The [scheduled edition review](docs/edition-reviews/2026-11-04.md)
+found none of those discoveries selected and World still empty. Improve
+search quality within the existing authorization before considering new access. No unofficial data provider, scraping workaround or new
 paid verification is authorized or needed for that review.

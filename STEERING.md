@@ -793,6 +793,8 @@ read, and spend tonight on the daily-quality bugs.
 - No new sources, and no other new production feature or activation.
 - Item 7 bug fixes are fine (see step 1).
 
+ack: 2026-11-04 item 27 scheduled review — iteration 646 checked edition 3bf10f5b-4c00-48b2-85bd-8e6dac7e3238: 151.532 s, $0.291162 Anthropic, mixed outcome, reserve released/zero holds. NBA Sonnet and Haiku each failed initial+repair unsupported-absence validation, proved by exact request fingerprints; no unscored NBA candidates. X picks Tech/NBA/Gaming/World 4/5/5/0, none from today's $0.149447/19-post open discovery; 11 selected posts outside current lists but no saved engagement reports. One Tech Bluesky pick with observed 767 likes/329 replies/342 reposts duplicates a selected X post. Reviewed 11/10/12/11 lists read back; desktop/mobile screenshots saved. World still empty; viral/all-topic and full-AI/speed acceptance remain open. See docs/edition-reviews/2026-11-04.md. No activation in this review; grouping/incremental triage remain off, NBA repair takes priority.
+
 ## 28. Never idle: work allowed before the Nov 4 run (2026-11-03)
 
 Iterations 486–507 exited with no work for about two hours. Item 27 was

@@ -1876,3 +1876,17 @@ coverage. Nov 4 is incomplete. Current-list comparisons can change over time.
 Next: inspect the scheduled edition's immutable picks and social triage before
 changing discovery. In-window quantity alone misses this quality failure;
 keep the existing budget caps and require post-selection quality evidence.
+
+## Nov 4 edition selections — iteration 646
+
+The [immutable edition review](edition-reviews/2026-11-04.md) checks the
+scheduled discovery against actual picks: **none of the 19 paid discoveries
+were selected**. Tech/NBA/Gaming/World have 4/5/5/0 X posts; 11 selected posts
+are outside all current curated lists, but none has a usable saved engagement
+report. World remains empty despite four in-window discoveries. NBA's five
+betting promotions were all scored below the social relevance/importance gate.
+The first selected Bluesky post appears in Tech with observed 767 likes,
+329 replies and 342 reposts, but duplicates a selected X post. Desktop/mobile
+screenshots and the current 11/10/12/11 account-list readback are recorded in
+the review. Discovery counts do not establish viral yield or paid-search value.
+No source, search prompt, configuration or budget changed.
