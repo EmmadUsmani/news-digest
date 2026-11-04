@@ -44,6 +44,19 @@ and reported counts alone do not prove X honored the operators.
 The runner must supply saved triage/review labels; this report creates none.
 All current report tests use synthetic evidence, not live experiment results.
 
+Run the offline command against a saved JSON array of `XExperimentEvidence`
+records (the interface is in `scripts/lib/x-experiment-report.ts`):
+
+```sh
+pnpm exec tsx apps/api/scripts/report-x-experiment.ts /private/path/evidence.json > /private/path/report.json
+```
+
+It validates the complete input before writing JSON to stdout, preserves unknown
+labels as `null`, and exits nonzero on invalid input without echoing its contents.
+It reads no secrets and imports no application services. It neither modifies the
+evidence nor selects a winner. Keep input and output outside the repository;
+reports contain saved queries and post IDs. An empty array reports no calls.
+
 ## Provider bound investigation (Nov 4)
 
 The [official X Search documentation](https://docs.x.ai/developers/tools/x-search)
