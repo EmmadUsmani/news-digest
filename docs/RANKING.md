@@ -1684,3 +1684,21 @@ There were 14/5/10/8 synthetic requests and zero repeated scoring. This measures
 first-fetch availability under current source membership, not provider latency,
 settled spend, historical pool waste or production edition quality. Exports live
 under `/tmp/triage-arrivals-521/` on this VM; no new production setting is enabled.
+
+## Iteration 522: bounded background work replay
+
+The offline incremental CLI accepts `--maximum-items-per-pass=25` alongside
+`--minimum-pending=25 --stop-before-edition-hours=2`. This bounds new items
+per background tick, leaving backlog for later ticks; it never caps final
+edition scoring. Omit the maximum to retain the previous replay behavior.
+The report includes bounded passes and peak pending items. This is an offline
+scheduling experiment, with no production scheduler or setting activation.
+
+On the iteration 521 Nov 3 first-fetch exports, hourly bounded passes
+pretriaged Tech/NBA/Gaming/World 275/125/250/200 items, leaving 51/31/44/34
+for edition time (160 total). Total synthetic requests were 13/6/12/9,
+with zero repeated scoring. Bounding changes which ticks meet the minimum,
+so individual topics can pretriage more or fewer items than the unbounded
+replay. These are synthetic scores over real exported content; global fetch
+times remain an imperfect topic-arrival proxy. Historical pool waste, provider
+latency, settled cost and quality remain unmeasured. No paid calls were made.

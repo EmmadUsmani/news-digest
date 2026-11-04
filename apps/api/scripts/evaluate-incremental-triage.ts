@@ -25,6 +25,7 @@ export async function evaluateIncrementalTriage(
   intervalHours: number,
   minimumPendingItems = 1,
   stopBeforeEditionHours = 0,
+  maximumItemsPerPass?: number,
 ) {
   if (
     !Number.isInteger(intervalHours) ||
@@ -40,6 +41,11 @@ export async function evaluateIncrementalTriage(
     stopBeforeEditionHours > 24
   )
     throw new Error('Pretriage cutoff must be 0–24 hours');
+  if (
+    maximumItemsPerPass !== undefined &&
+    (!Number.isInteger(maximumItemsPerPass) || maximumItemsPerPass < 1)
+  )
+    throw new Error('Maximum items per pass must be a positive integer');
   const start = Date.parse(window.windowStart);
   const end = Date.parse(window.windowEnd);
   if (!Number.isFinite(start) || !Number.isFinite(end) || start >= end)
@@ -162,6 +168,8 @@ export async function evaluateIncrementalTriage(
     }
   };
   let deferredPasses = 0;
+  let boundedPasses = 0;
+  let peakPendingItems = 0;
   // Publication time is an optimistic availability proxy: fixtures lack ingestion times.
   for (
     let tick = start + intervalHours * 3600000;
@@ -170,15 +178,22 @@ export async function evaluateIncrementalTriage(
   ) {
     const pool = poolAt(tick);
     const pending = pool.filter((c) => !allScoredIds.has(c.id));
+    peakPendingItems = Math.max(peakPendingItems, pending.length);
     if (pending.length < minimumPendingItems) {
       if (pending.length) deferredPasses++;
       continue;
     }
-    pool.forEach((c) => {
+    const selected =
+      maximumItemsPerPass === undefined
+        ? pool
+        : pending.slice(0, maximumItemsPerPass);
+    if (maximumItemsPerPass !== undefined && pending.length > selected.length)
+      boundedPasses++;
+    selected.forEach((c) => {
       preScoredIds.add(c.id);
       allScoredIds.add(c.id);
     });
-    await scorePool(pool, 'offline-incremental');
+    await scorePool(selected, 'offline-incremental');
   }
   const before = { requests, scoredItems };
   finalPool.forEach((c) => allScoredIds.add(c.id));
@@ -188,6 +203,9 @@ export async function evaluateIncrementalTriage(
     intervalHours,
     minimumPendingItems,
     stopBeforeEditionHours,
+    maximumItemsPerPass: maximumItemsPerPass ?? null,
+    boundedPasses,
+    peakPendingItems,
     deferredPasses,
     candidates: finalPool.length,
     availability: arrivalMode ? 'recorded-arrival' : 'publication-proxy',
@@ -213,6 +231,7 @@ export async function evaluateIncrementalTriage(
 export async function recordedIncrementalTriage(
   minimumPendingItems = 1,
   stopBeforeEditionHours = 0,
+  maximumItemsPerPass?: number,
 ) {
   const results = [];
   for (const topic of ['nba', 'world', 'tech']) {
@@ -229,6 +248,7 @@ export async function recordedIncrementalTriage(
           interval,
           minimumPendingItems,
           stopBeforeEditionHours,
+          maximumItemsPerPass,
         ),
       );
   }
@@ -247,6 +267,12 @@ if (require.main === module) {
       .find((arg) => arg.startsWith('--stop-before-edition-hours='))
       ?.split('=')[1] ?? 0,
   );
+  const maximumItemsPerPassArg = args.find((arg) =>
+    arg.startsWith('--maximum-items-per-pass='),
+  );
+  const maximumItemsPerPass = maximumItemsPerPassArg
+    ? Number(maximumItemsPerPassArg.split('=')[1])
+    : undefined;
   void (
     inputPath
       ? Promise.all(
@@ -256,10 +282,15 @@ if (require.main === module) {
               interval,
               minimumPending,
               stopBeforeEdition,
+              maximumItemsPerPass,
             ),
           ),
         )
-      : recordedIncrementalTriage(minimumPending, stopBeforeEdition)
+      : recordedIncrementalTriage(
+          minimumPending,
+          stopBeforeEdition,
+          maximumItemsPerPass,
+        )
   ).then((results) =>
     console.log(
       JSON.stringify(

@@ -261,3 +261,33 @@ void test('production-sized pools preserve cache reuse and waste across chunk bo
   assert.equal(cold.wasteItems, 0);
   assert.equal(cold.repeatScoring, 0);
 });
+
+void test('bounded background passes leave backlog for later ticks and never cap the edition', async () => {
+  const window = {
+    topic: 'Backlog',
+    windowStart: '2026-11-01T00:00:00Z',
+    windowEnd: '2026-11-01T04:00:00Z',
+    candidates: Array.from({ length: 125 }, (_, index) => ({
+      id: `backlog-${index}`,
+      title: `Article ${index}`,
+      excerpt: null,
+      sources: [],
+      publishedAt: '2026-11-01T00:00:00Z',
+    })),
+  };
+  const bounded = await evaluateIncrementalTriage(window, 1, 25, 0, 30);
+  assert.equal(bounded.preEditionItems, 90);
+  assert.equal(bounded.editionItems, 35);
+  assert.equal(bounded.boundedPasses, 3);
+  assert.equal(bounded.peakPendingItems, 125);
+  assert.equal(bounded.totalScoredItems, 125);
+  assert.equal(bounded.repeatScoring, 0);
+  const cutoff = await evaluateIncrementalTriage(window, 1, 25, 2, 30);
+  assert.equal(cutoff.preEditionItems, 30);
+  assert.equal(cutoff.editionItems, 95);
+  for (const maximum of [0, -1, 1.5, NaN, Infinity])
+    await assert.rejects(
+      evaluateIncrementalTriage(window, 1, 25, 0, maximum),
+      /Maximum items/,
+    );
+});
