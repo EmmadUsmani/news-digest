@@ -178,3 +178,9 @@ transaction; lifecycle logs follow commit, and failures roll back before client
 release. Constraint errors retain their underlying PostgreSQL identity. The
 isolated nested-fixture harness accepts both driver query forms and transaction
 keyword casing; characterization assertions remain unchanged.
+
+X discovery ledger transaction control now uses Drizzle on the checked-out
+client. Its transaction-scoped advisory lock remains shared by API, worker and
+explicit discovery; every ledger query uses that same client. Drizzle commits or
+rolls back before client release, and wrapped query errors expose their original
+PostgreSQL cause. Existing ledger characterization assertions remain unchanged.

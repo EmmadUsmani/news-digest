@@ -1,6 +1,7 @@
 import {
   and,
   count,
+  DrizzleQueryError,
   eq,
   exists,
   gt,
@@ -45,15 +46,17 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
   private async transaction<T>(work: (client: PoolClient) => Promise<T>) {
     const client = await this.db.connect();
     try {
-      await client.query('BEGIN');
-      // Shared across API, worker and explicit discovery commands. Never hold during HTTP.
-      await client.query('SELECT pg_advisory_xact_lock(756283)');
-      const result = await work(client);
-      await client.query('COMMIT');
-      return result;
+      return await drizzle(client).transaction(async (tx) => {
+        // Shared across API, worker and explicit discovery commands. Never hold during HTTP.
+        // Transaction-scoped advisory locks have no query-builder equivalent.
+        await tx.execute(sql`SELECT pg_advisory_xact_lock(756283)`);
+        // All ledger queries stay bound to this same checked-out transaction client.
+        return work(client);
+      });
     } catch (error) {
-      await client.query('ROLLBACK');
-      throw error;
+      throw error instanceof DrizzleQueryError && error.cause
+        ? error.cause
+        : error;
     } finally {
       client.release();
     }

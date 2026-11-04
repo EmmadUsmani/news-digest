@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 584 — convert incremental-triage admission to Drizzle
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and zero failed digest jobs. Retained ingestion/social failures remain with current successful collection; Nov 4 edition review pending.
-- Converted session advisory acquisition/release to Drizzle on the same checked-out client. PostgreSQL lock functions retain documented SQL templates; contention, error listening, destruction of failed sessions and idempotent cleanup unchanged.
-- Existing isolated characterization passed unchanged, including independent workers, loader failure, terminated backend and stale cleanup preserving a successor lock. No migration, activation or paid call; incremental triage stays off.
-- Updated TASKS, architecture, decision and handbook stack; archived iterations 568–569 to keep PROGRESS bounded.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed. No dangling Docker volumes.
-- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Playwright rendered four topics/19 cards with zero page errors; 36 sources without current errors, zero failed digest jobs and zero alerts.
-- Next: prioritize Nov 4 15:00 UTC edition review; otherwise continue remaining ORM adapters or migration baseline. Private pg_dump before first new migration.
-
 ## 2026-11-04: iteration 585 — convert LLM usage reads to Drizzle
 
 - Started clean on main; no leftover work. Healthy healthz, zero alerts, 36 sources without current errors and zero failed digest jobs. Retained ingestion/social failures have newer successful collection; Nov 4 edition review remains pending.
@@ -149,3 +139,13 @@
 - Verification: pnpm format, pnpm lint:fix, targeted reserve-lifecycle-logging test, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
 - Restarted API/worker outside freeze; both active, healthz healthy and saved edition byte-identical. Read-only Playwright rendered four topics/19 articles without page errors; no current source errors or failed digest jobs.
 - Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM transaction infrastructure or historical migration baseline. Private pg_dump before first new migration.
+
+## 2026-11-04: iteration 599 — Drizzle X discovery ledger transactions
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and zero failed digest jobs. Retained social failures have subsequent successful collections; Nov 4 15:00 UTC review remains pending.
+- Converted X discovery ledger transaction control to Drizzle on the same checked-out client. Shared X advisory lock, all ledger queries, rollback, client release and original PostgreSQL error causes remain intact.
+- Existing characterization assertions unchanged; ledger statements 100% covered. No migration, activation, source change or paid call; owner database grants untouched.
+- Updated TASKS, architecture, decision and handbook stack; archived iteration 584 to keep PROGRESS bounded.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
+- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical and X budget snapshot unchanged. Read-only Playwright rendered four topics/19 stories without page errors; zero alerts, source errors or failed digest jobs.
+- Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters/transaction infrastructure or historical migration baseline. Private pg_dump before first new migration.
