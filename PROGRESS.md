@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 591 — convert budget-day schedule reader to Drizzle
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 error-free sources and zero failed digest jobs; Nov 4 15:00 UTC review remains pending.
-- Moved the budget-day schedule projection from its public facade into a typed Drizzle database reader. Reuses the admission transaction and preserves FOR SHARE locking, UTC/DST occurrence resolution and missing-schedule failure; no migration or budget-policy change.
-- Existing characterization assertions unchanged: concurrent schedule updates remain blocked, DST-day admission stays correct and missing schedules release connections safely. No paid calls, activation, source change or owner grant change.
-- Updated TASKS, architecture, decision and handbook stack; archived iteration 576 to keep PROGRESS bounded.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
-- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Read-only Playwright root rendered four digest sections/19 articles without page errors; zero alerts. Latest Bluesky 07:54 UTC and free-social 07:38 UTC runs completed.
-- Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters or historical migration baseline. Private pg_dump before first new migration.
-
 ## 2026-11-04: iteration 592 — convert reserve-status snapshot reads to Drizzle
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 healthy sources and zero failed digest jobs; Nov 4 15:00 UTC edition review remains pending.
@@ -154,3 +144,14 @@
 - Restarted API/worker outside freeze; active and healthz healthy. Saved edition byte-identical, LLM/X budget snapshots unchanged. Read-only Playwright rendered four real saved-edition topics without page errors after scoping a duplicate heading locator; no UI changes.
 - Final snapshot: 36 sources without current errors, zero failed digest jobs and zero alerts.
 - Next: prioritize Nov 4 15:00 UTC edition review; otherwise connect generated migrations to the atomic historical runner, preserving history, data and owner grants.
+
+## 2026-11-04: iteration 606 — connect generated migrations to the atomic runner
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC review pending.
+- Extracted the existing migration transaction/lock into a reusable runner. Historical SQL executes first, then generated SQL in journal order; generated names use a drizzle/ prefix in the existing ledger. No second ledger or schema change.
+- Added isolated migration coverage for seed preservation, multi-statement generated DDL/data, concurrent reruns, unchanged ledger timestamps, atomic DDL/data/ledger rollback and recovery. Existing characterization assertions unchanged.
+- Took a private mode-600 pg_dump at ~/.local/state/news-digest/backups/iteration-606-before-drizzle.dump; archive catalog readable. Applied only the SELECT 1 baseline with pnpm migrate; second run applied nothing. Owner grants unchanged.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
+- Saved edition byte-identical and LLM/X budget snapshots unchanged. Read-only Playwright rendered all four real saved-edition topics without page errors. Healthz healthy, 36 error-free sources, zero failed digest jobs and zero alerts.
+- Updated TASKS, architecture, decision and handbook stack; archived iteration 591. No runtime service code/config changed, so services stayed running under STEERING 22; migration CLI deployed directly. No paid calls or activation.
+- Next: prioritize Nov 4 15:00 UTC review; otherwise finish remaining ORM adapters/final raw-SQL audit. Keep private backups before new schema migrations and preserve owner grants.

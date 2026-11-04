@@ -224,7 +224,11 @@ Together with catalog parity and the read-only push gate, this proves the
 baseline describes the historical migrated database. When introducing a schema
 change, advance the snapshot assertion to its latest generated snapshot.
 
-`pnpm migrate` still runs only the historical SQL directory. Wiring generated
-migrations into that atomic, advisory-locked runner is a separate remaining step;
-no generated migration has been applied to production. Before the first new
+`pnpm migrate` applies historical SQL first, then generated SQL in journal order,
+inside the same transaction and advisory lock. The existing ledger records generated
+filenames with a `drizzle/` prefix. Repeat runs skip applied entries; any failure
+rolls back all SQL and ledger writes from that run. The baseline executes only
+`SELECT 1`; no new schema or data migration is introduced. Before the first new
 migration, take a private `pg_dump` backup and preserve the owner login grants.
+Use this runner rather than the standalone Drizzle migrator; it preserves historical
+seed migrations and avoids a second migration ledger.

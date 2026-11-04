@@ -67,4 +67,7 @@ runtime PostgreSQL driver imports and direct query calls outside the shared
 database library; adapters and public facades may still import connection types.
 The owner console retains its SQL helper. Historical SQL migrations still create and seed the database. A committed Drizzle
 baseline matches their resulting schema; offline checks require zero differences.
-Generated migrations are not yet connected to the migration runner.
+The migration runner applies historical SQL first, then generated migrations in
+journal order, under one transaction and lock. Both use the existing migration
+ledger; generated filenames have a `drizzle/` prefix. A failed run rolls back
+all its changes. The baseline makes no schema or content changes.

@@ -20,6 +20,7 @@ const integration = new Set([
   'incremental-triage-lock.test.ts',
   'incremental-triage-composition.test.ts',
   'model-allocation.test.ts',
+  'migration-runner.test.ts',
   'operations.test.ts',
   'preview-history.test.ts',
   'profile-repository.test.ts',

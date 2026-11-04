@@ -14,8 +14,8 @@ connection type imports remain available to adapters and public facades.
 The owner console still exposes its explicitly requested SQL helper. See the
 [decision and migration gate](decisions/0003-drizzle-data-access.md).
 The committed Drizzle baseline records the schema after migrations 001–055;
-offline generation is checked for zero differences. Generated migration execution
-is not connected yet. Explicit SQL migrations remain authoritative: `schema_migrations` records
+offline generation is checked for zero differences. The atomic runner applies historical SQL first, then generated SQL in Drizzle journal order.
+Generated entries use a `drizzle/` prefix in the existing ledger; no second ledger is created. `schema_migrations` records
 applied filenames, and migrations run atomically under a transaction advisory
 lock. Run `pnpm migrate` from the repository root before starting services.
 
