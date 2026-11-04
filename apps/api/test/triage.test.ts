@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { test } from 'node:test';
 
 import { llmConfig } from '../src/modules/curation/adapters/config';
@@ -892,5 +893,59 @@ void test('byte accounting preserves full-serialization batch boundaries in both
           Buffer.byteLength(call.instructions + call.prompt) + 2048 <= 60000,
         );
     }
+  }
+});
+
+void test('shared context hashing retains legacy item keys for escaped and truncated inputs', async () => {
+  for (const kind of ['article', 'social'] as const) {
+    const h = harness(undefined, kind);
+    const unusualTopic = {
+      id: 'topic\"\\雪',
+      name: '雪'.repeat(210),
+      description: 'quoted \" text\n'.repeat(250),
+      guidance: '🚀'.repeat(1100),
+    };
+    const pool = Array.from({ length: 200 }, (_, i) => ({
+      id: `item-${i}-雪`,
+      title: 'escaped \" \\ 🚀'.repeat(80),
+      excerpt: i % 2 ? null : 'line\n雪'.repeat(500),
+      sources: Array.from({ length: 10 }, (_, n) => `${n}雪`.repeat(100)),
+    }));
+    await h.service.score(unusualTopic, pool, 'legacy-keys');
+    const request = h.calls[0];
+    const compactTopic = JSON.parse(request.prompt).topic;
+    for (const candidate of pool) {
+      const item = {
+        id: candidate.id,
+        title: candidate.title.slice(0, 500),
+        excerpt: candidate.excerpt?.slice(0, 1800) ?? null,
+        sources: candidate.sources
+          .slice(0, 8)
+          .map((source) => source.slice(0, 120)),
+      };
+      const key =
+        (kind === 'social' ? 'social-triage-item-v1:' : 'triage-item-v1:') +
+        createHash('sha256')
+          .update(
+            JSON.stringify({
+              instructions: request.instructions,
+              model: request.model.id,
+              topic: compactTopic,
+              item,
+            }),
+          )
+          .digest('hex');
+      assert.equal(
+        (h.values.get(key) as { id: string } | undefined)?.id,
+        candidate.id,
+      );
+    }
+    const calls = h.calls.length;
+    assert.deepEqual(
+      await h.service.pending(unusualTopic, pool.slice().reverse()),
+      [],
+    );
+    await h.service.score(unusualTopic, pool.slice().reverse(), 'warm');
+    assert.equal(h.calls.length, calls);
   }
 });

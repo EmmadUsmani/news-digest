@@ -173,3 +173,15 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (409 unit/207 isolated integration), pnpm build and git diff --check passed.
 - Restarted API/worker active; healthz healthy, zero alerts, four available queues and 36 nonempty sources without errors. Saved edition remains four topics/14 stories/15 posts.
 - Next: Nov 5 grouping/cost/accuracy/latency/screenshots, NBA full-AI acceptance, World posts and Bluesky repair tail. Incremental triage remains off.
+
+## 2026-11-04: iteration 669 — reuse triage fingerprint context
+
+- Started clean on main; no leftover work. Zero alerts and healthy healthz/database/Redis.
+- Article/social triage now serializes and hashes shared instructions/model/topic once per pool, copying hash state for each candidate.
+- Existing JSON bytes/cache keys, prompts, models, budgets and candidate coverage unchanged; incremental triage remains off.
+- Differential synthetic regression covers 200 escaped/Unicode/truncated candidates per mode, reverse-order probes and warm scoring without new calls.
+- Local synthetic 60,000-fingerprint benchmark: legacy 1,718 ms, shared context 536 ms. CPU preparation only; no measured live edition speed improvement or paid calls.
+- Updated TASKS/RANKING; internal optimization needs no handbook/schema/SOURCES changes.
+- Verification: targeted triage 23/23; pnpm format, pnpm lint:fix, pnpm check (410 unit/207 isolated integration), pnpm build and git diff --check passed.
+- Restarted API/worker active; healthz healthy, zero alerts, all 36 sources without current errors. Saved edition remains four topics/14 stories/15 posts.
+- Next: Nov 5 grouping admission/accuracy/cost/latency/screenshots, NBA full-AI outcome, World posts and Bluesky repair tail.

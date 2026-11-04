@@ -2831,3 +2831,14 @@ prompts/cache keys, support checks, model order, output limits and one repair
 per model are unchanged. Fake X/Bluesky tests recover on repair for each
 violation, reuse the valid cache and retain four-call maximum failure. No paid
 calls or measured live latency improvement; compare the Nov 5 repair tail.
+
+### Shared-context triage fingerprints (iteration 669)
+
+Article and social item fingerprints now serialize and hash the common topic,
+model and instructions once per pool, then copy that hash state per item.
+The JSON bytes and resulting cache keys remain identical to the former
+whole-object algorithm. Differential tests cover 200 escaped/Unicode and
+truncated candidates per mode, reversed probes and warm scoring. A local
+synthetic benchmark of 60,000 candidate fingerprints took 1,718 ms before
+and 536 ms with shared context; this measures CPU preparation only, not
+provider or live edition latency. No paid calls or prompt changes.

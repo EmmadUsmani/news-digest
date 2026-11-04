@@ -72,6 +72,15 @@ export class CandidateTriage {
       description: topic.description.slice(0, 2000),
       guidance: topic.guidance.slice(0, 2000),
     };
+    // Preserve the existing JSON bytes while hashing shared context only once.
+    // copy() keeps each item independent, including reordered cache probes.
+    const contextHash = createHash('sha256').update(
+      JSON.stringify({
+        instructions: activeInstructions,
+        model: this.model.id,
+        topic: compactTopic,
+      }).slice(0, -1) + ',"item":',
+    );
     const entries = candidates.map((candidate) => {
       const item = {
         id: candidate.id,
@@ -83,15 +92,9 @@ export class CandidateTriage {
         (this.kind === 'social'
           ? 'social-triage-item-v1:'
           : 'triage-item-v1:') +
-        createHash('sha256')
-          .update(
-            JSON.stringify({
-              instructions: activeInstructions,
-              model: this.model.id,
-              topic: compactTopic,
-              item,
-            }),
-          )
+        contextHash
+          .copy()
+          .update(JSON.stringify(item) + '}')
           .digest('hex');
       return { item, key };
     });
