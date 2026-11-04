@@ -1739,3 +1739,25 @@ changes during reads, retries, and loader/cache/provider/configuration failures.
 This is worker-local admission, not a cross-process lock. No timer invokes the
 runner; production activation, durable admission, eligible-pool capture and
 historical waste evidence remain open. No paid calls or latency claims.
+
+## Iteration 525: prospective eligible-pool capture
+
+`pnpm exec tsx scripts/capture-triage-pool.ts START END OUTPUT_FILE` captures
+current edition-loader inputs in a consistent read-only transaction, using the
+same newest-200 query and hard quality/excluded-phrase admission as edition
+triage. Missing required phrases remain eligible for semantic recovery; zero
+story budgets admit nothing. It stores current text, topic guidance/policy,
+publication times and eligibility, timestamped by the database transaction.
+Windows must have started and span at most 48 hours; the end may be future so
+successive captures can target the **same upcoming edition window**. Files are
+exclusive-created with mode 600; keep them outside the repo. No cache, provider,
+queue or configuration writes occur.
+
+At 2026-11-04 01:07 UTC, the Nov 3 15:00–Nov 4 15:00 UTC window contained
+Tech/NBA/Gaming/World 172/53/175/94 candidates, with 172/52/174/94 eligible.
+The private capture is `/tmp/triage-pool-525.json`. This is current eligibility,
+not historical arrival or actual pretriaged work. A later capture for that same
+window can establish pool churn; eligibility loss becomes measured waste only
+when joined to actual scoring. Source membership/text/settings are observed now,
+not reconstructed. No spend, latency or quality claim follows from this capture.
+The existing global-first-fetch export remains a separate, weaker arrival proxy.

@@ -119,3 +119,12 @@
 - Updated TASKS/RANKING; archived iterations 483–504 to keep PROGRESS under 25 KB. No source/schema/UI or handbook flow changes; screenshots unnecessary.
 - Verification: targeted runner/replay tests 10/10; pnpm format, pnpm lint:fix and pnpm build passed. pnpm check passed (310 unit/183 isolated integration), git diff --check and live root/healthz/status passed; zero alerts and no dangling Docker volumes. Initial check caught archive formatting; corrected and reran.
 - Services left running under STEERING 22: the new runner is not imported by running code, and existing runtime code/config is unchanged. Next: scheduler wiring and pool evidence; Nov 4 edition review takes priority.
+
+## 2026-11-04: iteration 525 — capture prospective eligible triage pools
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 error-free sources and four available queues. Nov 4 review remains pending.
+- Added read-only capture using the production newest-200 loader and edition hard-exclusion admission, retaining semantic recovery and zero-story-budget behavior. Consistent DB timestamp/text/settings identify each prospective observation; no backdated eligibility claims.
+- Captured Nov 3 15:00–Nov 4 15:00 UTC at 01:07 UTC: Tech/NBA/Gaming/World candidates 172/53/175/94; eligible 172/52/174/94. Private mode-600 file /tmp/triage-pool-525.json; exclusive-create overwrite refusal verified.
+- Capture alone measures current eligibility, not actual scored-work waste, cost or latency. Compare later snapshots for this same window, then join actual scoring. No paid calls, activation, source/schema/UI or handbook flow changes.
+- Verification: targeted capture tests 2/2; live capture/stat/overwrite refusal; pnpm format, pnpm lint:fix, pnpm check (312 unit/183 isolated integration), pnpm build and git diff --check passed; no dangling Docker volumes. Services stay running under STEERING 22: only offline tooling/tests/docs changed.
+- Updated TASKS/RANKING. Next: same-window pool comparison, scheduler wiring and actual waste evidence; Nov 4 scheduled edition review takes priority.
