@@ -447,3 +447,50 @@ void test('social triage requires exact unique candidate coverage and bounded in
     );
   }
 });
+
+void test('invalid social editor picks retain gated fallback without restoring excluded candidates', async () => {
+  const selections = (ids: string[]) =>
+    ids.map((id) => ({
+      id,
+      whyItMatters: 'Synthetic context',
+      rationale: 'Synthetic choice',
+    }));
+  for (const ids of [['0'], ['13'], ['unknown'], ['1', '1'], ['1', '2', '3']]) {
+    const result = await editTopicPosts(
+      {
+        socialTriage: {
+          async score(_topic, candidates) {
+            return {
+              scores: candidates.map((candidate) => ({
+                id: candidate.id,
+                relevance: candidate.id === '0' ? 5 : 8,
+                importance: candidate.id === '13' ? 4 : 7,
+                event: 'fixture',
+                rationale: 'Synthetic score',
+              })),
+              unscoredIds: [],
+            };
+          },
+        },
+        socialEditor: {
+          async edit(_topic, candidates) {
+            assert.ok(!candidates.some((candidate) => candidate.id === '0'));
+            assert.ok(!candidates.some((candidate) => candidate.id === '13'));
+            return { model: 'fake', posts: selections(ids) };
+          },
+        },
+      },
+      topic,
+      posts,
+      [posts[0], posts[1]],
+      2,
+      'test',
+    );
+    assert.deepEqual(result.posts, [posts[1]]);
+    assert.equal(result.postEditorial.mode, 'non-ai');
+    assert.equal(result.postEditorial.model, null);
+    assert.equal(result.postSelectionMethod, 'verified-lexical-engagement-v3');
+    assert.match(result.postEditorial.reason, /invalid shortlist IDs/);
+    assert.equal(posts[1].whyItMatters, undefined);
+  }
+});

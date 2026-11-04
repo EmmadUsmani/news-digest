@@ -189,6 +189,16 @@ export async function editTopicPosts<T extends EditorialPost>(
     runId,
   );
   if (!edited) return result;
+  const shortlistIds = new Set(shortlist.map((post) => post.id));
+  if (
+    edited.posts.length > Math.min(20, budget) ||
+    new Set(edited.posts.map((post) => post.id)).size !== edited.posts.length ||
+    edited.posts.some((post) => !shortlistIds.has(post.id))
+  ) {
+    editorial.reason =
+      'Non-AI selection: social editor returned invalid shortlist IDs, duplicates or excess picks; retained only lexical fallback posts passing completed semantic relevance and interestingness gates.';
+    return result;
+  }
   // Reserve about 70% of slots for qualifying X candidates. If the editor
   // declines them, leave slots empty rather than substituting Reddit filler.
   const xCount = shortlist.filter((p) => p.platform === 'x').length;

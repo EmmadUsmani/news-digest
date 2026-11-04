@@ -2733,3 +2733,9 @@ fallback and skip final editing, matching Bluesky's existing completeness
 check. Missing IDs are included in immutable unscored metadata even if the
 triage adapter omitted them. Synthetic malformed-result tests verify this;
 no live failure or selection improvement is claimed.
+
+Iteration 660 validates final X/Reddit editor selections against the actual
+shortlist, rather than the full triage pool. Unknown IDs, triage-rejected IDs,
+qualifying IDs outside the bounded shortlist, duplicate picks and over-budget
+results retain the gated fallback with a non-AI explanation. Synthetic tests
+cover these cases; no live selection effect or additional paid call is claimed.

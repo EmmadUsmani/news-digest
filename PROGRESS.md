@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 644 — attribute preparation waste to each replay pass
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts; Nov 4 scheduled edition pending.
-- Offline incremental replay now attributes reusable/wasted score versions to their originating background passes using actual item-cache writes and final probe keys. Reverted inputs credit the original pass; missing pool snapshots remain unknown.
-- Synthetic two-item replay reconciles three wasted versions: one from the first pass, two from the second, none from the cached third pass. These are work counts, not paid usage, expiry waste or live latency.
-- Targeted replay tests 13/13 pass; CLI verifies 48 rotation scenarios retain unknown waste without snapshots and reconcile scoring totals. Updated TASKS/RANKING; archived iteration 626 to keep PROGRESS bounded.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (388 unit/205 isolated integration), pnpm build and git diff --check passed. First check caught archive formatting; formatted it and reran successfully.
-- Healthz healthy and zero alerts; no paid calls, sources, prompts, schema or production configuration changed. Offline tools only; no restart under STEERING 22.
-- Next: Nov 4 15:00 UTC edition review for open-X/Bluesky/World selections, NBA fallback and timing/cost; incremental triage/grouping remain off.
-
 ## 2026-11-04: iteration 645 — measure first scheduled open-X quality
 
 - Started clean on main; no leftover work. Healthz healthy, zero alerts and no failed user services. Scheduled edition remains pending.
@@ -166,4 +156,14 @@
 - No paid calls, prompts, models, caps, configuration, sources, UI or schema changes; no claim this caused Nov 4's selection. No handbook/SOURCES update needed for this bug fix.
 - Updated TASKS/RANKING; archived iteration 643. Verification: targeted tests 7/7, pnpm format, pnpm lint:fix, pnpm check (400 unit/207 isolated integration), pnpm build and git diff --check passed.
 - Restarted API/worker: both active; healthz/database/Redis healthy after startup retry, zero alerts/failed user services; saved four-topic/15-post edition readable.
+- Next: Nov 5 grouping/cost/latency/screenshots, NBA full-AI acceptance and World social coverage; incremental triage stays off.
+
+## 2026-11-04: iteration 660 — validate final social picks against their shortlist
+
+- Started clean on main; no leftover work. Zero alerts and healthy healthz/database/Redis.
+- X/Reddit orchestration now rejects final editor IDs outside the actual shortlist, duplicate IDs and over-budget results, preserving only the fallback that passed completed triage.
+- Synthetic regression covers rejected candidates, qualifying candidates outside the shortlist, unknown IDs, duplicate/excess picks, fallback identity and untouched input. Targeted tests 8/8.
+- No paid calls, source/configuration/model/schema/UI changes or claim of live selection improvement; no handbook/SOURCES changes needed. Updated TASKS/RANKING; archived oldest progress entry.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (401 unit/207 isolated integration), pnpm build and git diff --check passed.
+- Restarted API/worker: both active; healthz/database/Redis healthy, zero alerts/failed user services; saved four-topic/14-story/15-post edition readable.
 - Next: Nov 5 grouping/cost/latency/screenshots, NBA full-AI acceptance and World social coverage; incremental triage stays off.
