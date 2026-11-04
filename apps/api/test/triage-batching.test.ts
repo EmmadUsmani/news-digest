@@ -317,3 +317,55 @@ void test('supplied warm social pools expose fragmentation without counting prep
       /Warm IDs/,
     );
 });
+
+void test('long Unicode context and excerpts expose byte-limited batches and repeated context', async () => {
+  const topic = {
+    id: 'unicode',
+    name: 'Topic',
+    description: '界'.repeat(3000),
+    guidance: '界'.repeat(3000),
+  };
+  const candidates = Array.from({ length: 50 }, (_, i) => ({
+    id: String(i),
+    title: 'Post',
+    excerpt: '界'.repeat(1800),
+    sources: [],
+  }));
+  const row = await evaluateTriageBatching(
+    topic,
+    candidates,
+    200,
+    [],
+    'social',
+  );
+  assert.ok(row.requests > 1);
+  assert.equal(row.batchFill.fullItemLimit, 0);
+  assert.ok(row.maximumConservativeInputBytes <= 60000);
+  assert.equal(row.scoredItems, 50);
+  assert.equal(row.repeatRequests, 0);
+  const compactTopic = {
+    ...topic,
+    description: topic.description.slice(0, 2000),
+    guidance: topic.guidance.slice(0, 2000),
+  };
+  assert.equal(
+    row.inputComposition.topic,
+    Buffer.byteLength(JSON.stringify(compactTopic)) * row.requests,
+  );
+  assert.equal(
+    Object.values(row.inputComposition).reduce((sum, n) => sum + n, 0),
+    row.inputBytes,
+  );
+  const short = await evaluateTriageBatching(
+    { ...topic, description: '', guidance: '' },
+    candidates,
+    200,
+    [],
+    'social',
+  );
+  assert.ok(short.requests < row.requests);
+  assert.ok(short.inputComposition.topic < row.inputComposition.topic);
+  const empty = await evaluateTriageBatching(topic, [], 200);
+  assert.equal(empty.maximumConservativeInputBytes, 0);
+  assert.equal(empty.inputComposition.topic, 0);
+});

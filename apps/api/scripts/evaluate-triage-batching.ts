@@ -35,6 +35,7 @@ export async function evaluateTriageBatching(
     items: number;
     inputBytes: number;
     instructionBytes: number;
+    topicBytes: number;
     excerptBytes: number;
     titleBytes: number;
     sourceBytes: number;
@@ -47,6 +48,7 @@ export async function evaluateTriageBatching(
     {
       async json(request, validate) {
         const prompt = JSON.parse(request.prompt) as {
+          topic: TriageTopic;
           candidates: {
             id: string;
             excerpt: string | null;
@@ -57,6 +59,7 @@ export async function evaluateTriageBatching(
         const bytes = (value: unknown) =>
           Buffer.byteLength(JSON.stringify(value));
         const instructionBytes = Buffer.byteLength(request.instructions);
+        const topicBytes = bytes(prompt.topic);
         const excerptBytes = prompt.candidates.reduce(
           (sum, item) => sum + bytes(item.excerpt),
           0,
@@ -72,11 +75,13 @@ export async function evaluateTriageBatching(
         requests.push({
           purpose: request.purpose,
           instructionBytes,
+          topicBytes,
           excerptBytes,
           titleBytes,
           sourceBytes,
           framingBytes:
             Buffer.byteLength(request.prompt) -
+            topicBytes -
             excerptBytes -
             titleBytes -
             sourceBytes,
@@ -212,11 +217,18 @@ export async function evaluateTriageBatching(
     inputBytes: requests.reduce((sum, request) => sum + request.inputBytes, 0),
     inputComposition: {
       instructions: requests.reduce((sum, r) => sum + r.instructionBytes, 0),
+      topic: requests.reduce((sum, r) => sum + r.topicBytes, 0),
       excerpts: requests.reduce((sum, r) => sum + r.excerptBytes, 0),
       titles: requests.reduce((sum, r) => sum + r.titleBytes, 0),
       sources: requests.reduce((sum, r) => sum + r.sourceBytes, 0),
       framing: requests.reduce((sum, r) => sum + r.framingBytes, 0),
     },
+    // Same 2,048-byte schema allowance used by the real splitter. This is
+    // conservative input sizing, not provider token usage or a split reason.
+    maximumConservativeInputBytes: Math.max(
+      0,
+      ...requests.map((r) => r.inputBytes + 2048),
+    ),
     maximumInputBytes: Math.max(0, ...requests.map((r) => r.inputBytes)),
     reservedOutputTokens: requests.reduce(
       (sum, request) => sum + request.reservedOutputTokens,

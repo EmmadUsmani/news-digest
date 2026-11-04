@@ -169,3 +169,22 @@ admission, with synthetic scores. The article fixtures have empty topic
 guidance. They do not measure actual social pools, provider concurrency,
 latency, cost or editorial quality. Keep production batching unchanged
 until the Nov 5 evidence can be compared.
+
+## Context and byte pressure (iteration 681)
+
+The batching evaluator now separates serialized topic context from framing and
+reports maximum conservative input bytes (wire input plus the splitter's 2,048-byte
+schema allowance). This measures bytes, not tokens or observed split causes.
+
+A synthetic social pool of 50 posts, each with a 1,800-character Unicode excerpt
+(`界` repeated), uses five 10-item calls with empty description/guidance. Adding
+3,000 characters each of description and guidance (both clipped to the production
+2,000-character limit) produces six 8-item calls and one 2-item call. Total input
+rises from 281,035 to 368,053 bytes; repeated serialized topic context rises from
+310 to 84,434 bytes. Maximum conservative input is 58,257 versus 59,317 bytes,
+both below 60,000. All 50 items score and the repeat pass makes zero calls.
+
+This isolates context pressure on the real splitter using synthetic responses.
+It does not establish actual social pool sizes, provider latency or a reason to
+shorten owner guidance. Regression coverage checks context clipping, UTF-8 byte
+accounting, complete cache reuse and empty inputs. Production is unchanged.
