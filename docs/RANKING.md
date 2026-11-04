@@ -2780,3 +2780,9 @@ missing rows in reverse order, then checks scoring, probes and read failure for
 both article and social modes. Isolated PostgreSQL coverage checks mixed hits,
 missing/duplicate keys and empty input. This reduces database round trips;
 no paid calls or live edition duration improvement are claimed.
+
+Iteration 665 carries this optional capability through the incremental scoring
+evidence wrapper, preserving the ledger receiver. Cold/warm/changed-input
+scoring uses bulk reads while only successful new writes enter work evidence;
+read failures propagate and single-key adapters remain supported. The prepared
+incremental runtime remains disabled; no live latency improvement is claimed.

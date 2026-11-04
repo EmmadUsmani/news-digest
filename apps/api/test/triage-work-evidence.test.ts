@@ -10,8 +10,15 @@ import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
 
 void test('actual item writes produce report-compatible evidence while warm cache hits do not', async () => {
   const values = new Map<string, unknown>();
+  let bulkReads = 0;
   const ledger: LlmLedger = {
     cached: (key) => Promise.resolve(values.get(key)),
+    cachedMany: (keys) => {
+      bulkReads++;
+      return Promise.resolve(
+        new Map(keys.map((key) => [key, values.get(key)])),
+      );
+    },
     cache: (key, value) => {
       values.set(key, value);
       return Promise.resolve();
@@ -85,6 +92,7 @@ void test('actual item writes produce report-compatible evidence while warm cach
     finalPool: changed.attempts(),
     attempts: [...cold.attempts(), ...warm.attempts(), ...changed.attempts()],
   });
+  assert.equal(bulkReads, 3);
   assert.equal(report.attempts, 2);
   assert.equal(report.successfulScorings, 2);
   assert.equal(report.changedFingerprint, 1);
@@ -119,4 +127,38 @@ void test('evidence excludes failed writes and other cache kinds and preserves p
   snapshot[0].articleId = 'mutated';
   assert.equal(evidence.attempts()[0].articleId, 'article');
   assert.equal(evidence.attempts().length, 1);
+});
+
+void test('evidence preserves receiver-bound bulk reads and read failures without recording work', async () => {
+  const ledger = {
+    values: new Map<string, unknown>([['hit', { id: 'article' }]]),
+    cached: () => Promise.reject(new Error('single lookup must not run')),
+    async cachedMany(keys: string[]) {
+      if (keys.includes('fail')) throw new Error('bulk storage failed');
+      return new Map(
+        keys
+          .filter((key) => this.values.has(key))
+          .map((key) => [key, this.values.get(key)]),
+      );
+    },
+    cache: () => Promise.resolve(),
+  };
+  const evidence = triageWorkEvidence(ledger, {
+    topicId: 'topic',
+    attemptId: 'bulk',
+  });
+  assert.deepEqual(
+    await evidence.cache.cachedMany!(['hit', 'missing']),
+    ledger.values,
+  );
+  await assert.rejects(
+    evidence.cache.cachedMany!(['fail']),
+    /bulk storage failed/,
+  );
+  assert.deepEqual(evidence.attempts(), []);
+  const singleOnly = triageWorkEvidence(
+    { cached: async () => null, cache: async () => {} },
+    { topicId: 'topic', attemptId: 'single' },
+  );
+  assert.equal(singleOnly.cache.cachedMany, undefined);
 });

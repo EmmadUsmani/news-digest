@@ -6,9 +6,9 @@ const scoreIdentity = z.object({ id: z.string().min(1) });
 
 // Create one recorder per scoring invocation, never one shared across topics.
 // Observe item writes, not returned scores: returned scores include cache hits.
-// This prepared adapter has no production caller or persistent storage yet.
+// Reads pass through unchanged; only successful article writes are evidence.
 export function triageWorkEvidence(
-  cache: Pick<LlmLedger, 'cached' | 'cache'>,
+  cache: Pick<LlmLedger, 'cached' | 'cachedMany' | 'cache'>,
   context: { topicId: string; attemptId: string },
   now: () => number = Date.now,
 ) {
@@ -27,6 +27,7 @@ export function triageWorkEvidence(
   return {
     cache: {
       cached: cache.cached.bind(cache),
+      cachedMany: cache.cachedMany?.bind(cache),
       async cache(key: string, value: unknown) {
         // Whole-request and social caches are not article scoring evidence.
         const article = /^triage-item-v1:[a-f0-9]{64}$/.test(key)

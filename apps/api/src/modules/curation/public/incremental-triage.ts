@@ -26,9 +26,9 @@ export function backgroundTriage(triage: Pick<CandidateTriage, 'score'>) {
 // One recorder per invocation, including overlapping topics. Export partial
 // writes on scoring failure; propagate export errors so evidence loss is visible.
 export function evidencedBackgroundTriage(
-  cache: Pick<LlmLedger, 'cached' | 'cache'>,
+  cache: Pick<LlmLedger, 'cached' | 'cachedMany' | 'cache'>,
   create: (
-    cache: Pick<LlmLedger, 'cached' | 'cache'>,
+    cache: Pick<LlmLedger, 'cached' | 'cachedMany' | 'cache'>,
   ) => Pick<CandidateTriage, 'score'>,
   persist: (
     rows: ReturnType<ReturnType<typeof triageWorkEvidence>['attempts']>,
