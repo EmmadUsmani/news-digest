@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 699 — retain confirmed promotions in experiment reports
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/services and 36 healthy sources; no failed retained digest jobs. Nov 5 checks remain future; paid experiment remains blocked on a supported per-call cost bound.
-- Fixed offline zero-promotion reporting: a confirmed promotion remains a failure beside unreviewed posts, including per-style comparison totals. Missing review still keeps eligible yield unknown.
-- Added synthetic regressions for both post orders, unknown-only controls and comparison aggregation. No provider calls or production behavior/config changes.
-- Verification: targeted report/comparison tests 20/20, standalone strict tsc, pnpm format, pnpm lint:fix, pnpm check (455 unit/209 isolated integration), pnpm build and git diff --check passed.
-- Updated TASKS and experiment reference; archived iteration 682 to bound PROGRESS. SOURCES/handbook unchanged: offline reporting only. No restart under STEERING 22; healthy running services do not import this helper.
-- Next: Nov 5 grouping/NBA AI/cost/latency/screenshots; paid X dispatch awaits supported bound or owner decision.
-
 ## 2026-11-04: iteration 700 — isolate topic-create browser verification
 
 - Started clean on main; no leftover work. Zero alerts, healthz/database/Redis healthy, 36 healthy sources and no failed retained digest jobs; Nov 5 scheduled evidence still future and paid X dispatch remains blocked on supported cost bound.
@@ -131,3 +122,12 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (470 unit/213 isolated integration), pnpm build, handbook validation (18 pages/22 diagrams/26 tables) and git diff --check passed. Initial check caught an extra blank line in the newly archived entry; formatted it and reran.
 - Updated TASKS and experiment review/reference; archived iteration 698 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source/runtime change or new owner blocker. No restart under STEERING 22; services run unchanged main code.
 - Next: second non-overlapping experiment day, threshold calibration/model comparison within shared caps; Nov 5 grouping/NBA full-AI/cost/latency/screenshots take priority when due. Fixed A/B remains off pending decision.
+
+## 2026-11-04: iteration 713 — recover X experiment publication times
+
+- Started clean on main; no leftover work. Zero alerts, healthz/database/Redis green, reader HTTP 200, all 36 sources active/nonempty/error-free, no failed retained digest jobs; Nov 5 scheduled checks remain future.
+- Recovered 17 missing timestamps offline from X Snowflake IDs in a separate private evidence copy. All 47 UTC dates agree with saved official embed labels; all 30 prior timestamps agree within one second. Exact script/audit/evidence/report saved mode 600; original evidence, scores, promotion labels and budget journal untouched.
+- In-window: current 10/13, trending 27/32, reactions 0/2. Both reaction citations predate Nov 3 21:00 UTC, despite passing triage. In-window relevance ≥6 counts are 3/6/0; existing visible-text promotion clearance gives 1/5/0, with 2/1/0 unresolved. No winner: raw promotions, unknown Gaming outcome, malformed trending query and second-day requirement remain.
+- No HTTP/provider calls for recovery, ingestion, production parameters/models or activation. Updated TASKS and experiment references/review; archived iteration 699. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no runtime/source change or new owner blocker. No restart under STEERING 22; running code unchanged.
+- Verification: private recovery assertions and offline report passed; pnpm format, pnpm lint:fix, pnpm check (470 unit/213 isolated integration), pnpm build, handbook validation and git diff --check passed.
+- Next: second non-overlapping experiment day, then threshold calibration/model comparison within shared caps; Nov 5 grouping/NBA AI/cost/latency/screenshots take priority when due. Fixed A/B remains off.

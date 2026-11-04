@@ -113,3 +113,35 @@ exact topic/post ID; `triaged-report-712.json` is the unchanged offline reporter
 output. All files are mode 600. Original round evidence, reviewed evidence,
 manual labels and the X experiment budget journal are unchanged. The Anthropic
 verification cost is separate from xAI experiment spend and its retained hold.
+
+## Publication-time recovery (iteration 713)
+
+Recovered the 17 missing timestamps offline from each X Snowflake post ID:
+`(BigInt(id) >> 22n) + 1288834974657n` gives Unix milliseconds. All 47
+derived UTC dates match their saved official oEmbed date labels; all 30
+previously supplied timestamps agree within one second. Only missing values
+were filled in a separate evidence copy. No HTTP, AI calls or production changes.
+
+| Style     | In-window citations | In-window and relevance ≥6 | Also manually clear of explicit promotion | Promotion unresolved among passing |
+| --------- | ------------------: | -------------------------: | ----------------------------------------: | ---------------------------------: |
+| Current   |               10/13 |                          3 |                                         1 |                                  2 |
+| Trending  |               27/32 |                          6 |                                         5 |                                  1 |
+| Reactions |                 0/2 |                          0 |                                         0 |                                  0 |
+
+Both reaction citations predate the window start, Nov 3 at 21:00 UTC:
+Tech's `2117672152724083113` is Nov 3 17:36:00.312 UTC; Gaming's
+`2117633212402827289` is Nov 3 15:01:16.216 UTC. Their passing relevance
+scores therefore produce no eligible in-window yield. Date-only provider
+filters and matching tool operators did not enforce the exact edition window.
+The current production eligibility check remains necessary.
+
+The promotion column is the existing manual visible-text review, not final
+editor acceptance. Current/trending still contain definite promotions in their
+raw pools. Missing promotion labels, Gaming's unknown call, the malformed
+trending query and the absent second news day still prevent a style decision.
+No thresholds, model or fixed-schedule activation were changed.
+
+Private `recover-timestamps-713.py`, `timestamp-audit-713.json`,
+`dated-evidence-713.json` and `dated-report-713.json` preserve the exact
+recovery, provenance and unchanged offline reporter output (mode 600).
+Original evidence, scores, labels and admission journal remain untouched.

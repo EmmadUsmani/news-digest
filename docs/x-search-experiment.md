@@ -271,3 +271,10 @@ Round 1's [saved-candidate review](edition-reviews/2026-11-04-x-experiment-revie
 now includes existing Haiku social-triage scores for all 47 citations. The four
 verification calls cost $0.003209; promotion/time unknowns still prevent a
 complete eligible-yield result. Original evidence and X admission spend are unchanged.
+
+Iteration 713 [recovered missing publication times](edition-reviews/2026-11-04-x-experiment-review.md#publication-time-recovery-iteration-713)
+offline from post IDs, cross-checked against all saved official embed dates
+and existing timestamps. Both reaction citations fall before the window;
+current has 10/13 and trending 27/32 in-window citations. Separate private
+dated evidence preserves originals. Promotion unknowns and second-day coverage
+remain open; no paid calls or winner decision.
