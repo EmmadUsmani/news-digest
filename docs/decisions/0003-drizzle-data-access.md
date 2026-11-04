@@ -156,4 +156,7 @@ PostgreSQL wall clock uses a documented SQL template; reserve policy is unchange
 LLM ledger settlement, failure and cache operations use typed Drizzle updates,
 inserts and projections. Failure handling retains the existing client transaction
 and shared advisory lock; pending-only transitions, UTC provider blocks and
-first-writer cache semantics remain unchanged. Admission SQL remains to convert.
+first-writer cache semantics remain unchanged. Reservation admission now uses typed
+projections and inserts under the same client transaction and lock. Conditional
+sums use SQL templates for CASE expressions, preserving earlier pending/uncertain
+reservations, verification/model limits and scheduled reserve admission.

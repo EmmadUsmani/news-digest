@@ -40,18 +40,13 @@ void test('reserve logs report committed policy and admission without request co
           }
           if (sql.includes('clock_timestamp() AS now'))
             return { rows: [{ now: new Date('2026-11-03T06:00:00Z') }] };
-          if (sql.includes('FROM llm_provider_blocks'))
-            return { rows: [], rowCount: scenario === 'blocked' ? 1 : 0 };
-          if (sql.includes('AS month,'))
-            return { rows: [{ month: 0, today: 0 }] };
-          if (sql.includes('SELECT run_id,state,attempt'))
+          if (sql.includes('from "llm_provider_blocks"'))
+            return { rows: scenario === 'blocked' ? [['2026-11-01']] : [] };
+          if (sql.includes('sum(case when')) return { rows: [[0, 0]] };
+          if (sql.includes('from "scheduled_ai_budget_days"'))
             return {
               rows: [
-                {
-                  run_id: 'slot',
-                  state: scenario === 'released' ? 'succeeded' : 'running',
-                  attempt: 1,
-                },
+                ['slot', scenario === 'released' ? 'succeeded' : 'running', 1],
               ],
             };
           return { rows: [], rowCount: 1 };

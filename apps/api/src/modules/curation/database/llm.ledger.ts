@@ -1,8 +1,13 @@
-import { and, eq, sql } from 'drizzle-orm';
+import { and, eq, gte, inArray, ne, or, sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import type { Pool, PoolClient } from 'pg';
 
-import { llmCache, llmCalls, llmProviderBlocks } from '../../../libs/db/schema';
+import {
+  llmCache,
+  llmCalls,
+  llmProviderBlocks,
+  scheduledAiBudgetDays,
+} from '../../../libs/db/schema';
 import { logger } from '../../../libs/observability/logging';
 import {
   budgetAllowance,
@@ -18,6 +23,7 @@ import {
   type ScheduledReservePolicy,
 } from '../domain/scheduled-reserve';
 import { readFullAiEditionCosts } from './edition-cost.reader';
+import { readReserveClock } from './reserve-status.reader';
 
 // Supplied by trusted composition, never by request purpose or HTTP input.
 export interface ScheduledLedgerAdmission {
@@ -47,38 +53,54 @@ export class PostgresLlmLedger implements LlmLedger {
       await client.query('BEGIN');
       // Every process uses the same transaction lock; never hold it during HTTP.
       await client.query('SELECT pg_advisory_xact_lock(756282)');
-      const {
-        rows: [clock],
-      } = await client.query<{ now: Date }>('SELECT clock_timestamp() AS now');
-      const now = clock.now;
+      const orm = drizzle(client);
+      const now = await readReserveClock(client);
       const period = utcBudgetPeriod(now);
-      const blocked = await client.query(
-        'SELECT 1 FROM llm_provider_blocks WHERE month_start=$1',
-        [period.monthStart],
-      );
-      const {
-        rows: [totals],
-      } = await client.query<UsageTotals>(
-        `
-        SELECT COALESCE(sum(CASE WHEN created_at >= $1 OR status IN ('pending','uncertain') THEN COALESCE(cost_micros,reserved_micros) ELSE 0 END),0)::float8 AS month,
-        COALESCE(sum(CASE WHEN created_at >= $2 OR status IN ('pending','uncertain') THEN COALESCE(cost_micros,reserved_micros) ELSE 0 END),0)::float8 AS today
-        FROM llm_calls WHERE status <> 'failed'`,
-        [period.monthStart, period.dayStart],
-      );
+      const blocked = await orm
+        .select({ monthStart: llmProviderBlocks.monthStart })
+        .from(llmProviderBlocks)
+        .where(
+          eq(
+            llmProviderBlocks.monthStart,
+            period.monthStart.toISOString().slice(0, 10),
+          ),
+        );
+      const outstanding = inArray(llmCalls.status, ['pending', 'uncertain']);
+      const amount = sql`coalesce(${llmCalls.costMicros}, ${llmCalls.reservedMicros})`;
+      // Conditional sums retain outstanding reservations from earlier budget periods;
+      // Drizzle has no CASE expression builder. Cast sums to float8 as before.
+      const periodTotal = (start: Date) =>
+        sql<number>`coalesce(sum(case when ${llmCalls.createdAt} >= ${start.toISOString()} or ${outstanding} then ${amount} else 0 end), 0)::float8`;
+      const [totals] = await orm
+        .select({
+          month: periodTotal(period.monthStart),
+          today: periodTotal(period.dayStart),
+        })
+        .from(llmCalls)
+        .where(ne(llmCalls.status, 'failed'));
+      const usedSince = async (start: Date, filter: ReturnType<typeof eq>) => {
+        const [usage] = await orm
+          .select({ used: sql<number>`coalesce(sum(${amount}), 0)::float8` })
+          .from(llmCalls)
+          .where(
+            and(
+              filter,
+              ne(llmCalls.status, 'failed'),
+              or(gte(llmCalls.createdAt, start.toISOString()), outstanding),
+            ),
+          );
+        return usage.used;
+      };
       const allowance = budgetAllowance(now, totals, this.caps);
       // Share the existing lock across processes and repairs. Verification is
       // stricter than the per-iteration owner limit: $0.05 for the whole UTC day.
       const purpose = this.verification ? 'verification' : request.purpose;
       if (purpose === 'verification') {
-        const {
-          rows: [verification],
-        } = await client.query<{ used: number }>(
-          `SELECT COALESCE(sum(COALESCE(cost_micros,reserved_micros)),0)::float8 AS used
-           FROM llm_calls WHERE purpose='verification' AND status <> 'failed'
-           AND (created_at >= $1 OR status IN ('pending','uncertain'))`,
-          [period.dayStart],
+        const verificationUsed = await usedSince(
+          period.dayStart,
+          eq(llmCalls.purpose, 'verification'),
         );
-        if (verification.used + estimate > 50000) {
+        if (verificationUsed + estimate > 50000) {
           await client.query('COMMIT');
           return null;
         }
@@ -86,16 +108,19 @@ export class PostgresLlmLedger implements LlmLedger {
       let available = allowance.available;
       let reserveDecision: Record<string, unknown> | undefined;
       if (this.scheduled) {
-        const {
-          rows: [slot],
-        } = await client.query<{
-          run_id: string;
-          state: ScheduledEditionState;
-          attempt: number;
-        }>(
-          `SELECT run_id,state,attempt FROM scheduled_ai_budget_days WHERE budget_day=$1`,
-          [period.dayStart],
-        );
+        const [slot] = await orm
+          .select({
+            run_id: scheduledAiBudgetDays.runId,
+            state: scheduledAiBudgetDays.state,
+            attempt: scheduledAiBudgetDays.attempt,
+          })
+          .from(scheduledAiBudgetDays)
+          .where(
+            eq(
+              scheduledAiBudgetDays.budgetDay,
+              period.dayStart.toISOString().slice(0, 10),
+            ),
+          );
         const context = this.scheduled.context();
         const noOccurrence =
           !slot &&
@@ -119,7 +144,9 @@ export class PostgresLlmLedger implements LlmLedger {
             todayUsed: totals.today,
             recentFullAiEditionCosts: await readFullAiEditionCosts(client, now),
             // Missing lifecycle state fails closed until the scheduler reconciles it.
-            state: slot?.state ?? (noOccurrence ? 'not-scheduled' : 'pending'),
+            state:
+              (slot?.state as ScheduledEditionState | undefined) ??
+              (noOccurrence ? 'not-scheduled' : 'pending'),
             scheduledRun,
           },
           this.scheduled.policy,
@@ -144,21 +171,17 @@ export class PostgresLlmLedger implements LlmLedger {
       const allocation = this.caps.modelAllocation;
       let modelAvailable = Infinity;
       if (allocation && request.model.id === allocation.model) {
-        const {
-          rows: [modelTotals],
-        } = await client.query<{ today: number }>(
-          `SELECT COALESCE(sum(COALESCE(cost_micros,reserved_micros)),0)::float8 AS today
-           FROM llm_calls WHERE model=$1 AND status <> 'failed'
-           AND (created_at >= $2 OR status IN ('pending','uncertain'))`,
-          [allocation.model, period.dayStart],
+        const modelUsed = await usedSince(
+          period.dayStart,
+          eq(llmCalls.model, allocation.model),
         );
         modelAvailable = modelBudgetAvailable(
           allowance.dailyCap,
-          modelTotals.today,
+          modelUsed,
           allocation.dailyFraction,
         );
       }
-      if (blocked.rowCount || Math.min(available, modelAvailable) < estimate) {
+      if (blocked.length || Math.min(available, modelAvailable) < estimate) {
         await client.query('COMMIT');
         if (reserveDecision)
           this.log.info(
@@ -168,10 +191,14 @@ export class PostgresLlmLedger implements LlmLedger {
         return null;
       }
       const id = crypto.randomUUID();
-      await client.query(
-        `INSERT INTO llm_calls(id,model,purpose,run_id,status,reserved_micros) VALUES($1,$2,$3,$4,'pending',$5)`,
-        [id, request.model.id, purpose, request.runId, estimate],
-      );
+      await orm.insert(llmCalls).values({
+        id,
+        model: request.model.id,
+        purpose,
+        runId: request.runId,
+        status: 'pending',
+        reservedMicros: estimate,
+      });
       await client.query('COMMIT');
       if (reserveDecision)
         this.log.info(
