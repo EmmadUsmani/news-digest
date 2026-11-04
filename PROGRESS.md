@@ -1,22 +1,3 @@
-## 2026-11-04: iteration 632 — reject incomplete incremental activation
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources without errors and four available queues with no failed runs. Nov 4 evidence remains pending.
-- Explicitly enabled incremental triage now fails startup for missing, empty or whitespace-only Anthropic credentials instead of silently staying idle. Default-off behavior is unchanged.
-- Offline regression uses a database proxy that fails on access; no provider calls, activation, prompts, sources, schema or UI changes. Updated TASKS, RANKING and Jobs & schedules; archived iteration 613 to keep PROGRESS bounded.
-- Verification: targeted admission/worker tests 7/7; pnpm format, pnpm lint:fix, pnpm check (377 unit/205 isolated integration), pnpm build, handbook jobs check (17 pages/two unchanged diagrams/25 tables) and git diff --check passed; zero dangling Docker volumes.
-- Restarted worker only; final healthz/alerts and saved Nov 3 real edition checked. No Postgres/Redis restart; incremental triage and grouping remain off.
-- Next: review Nov 4 15:00 UTC edition for open-X/Bluesky picks, World posts, NBA validation and live timing/cost before activation.
-
-## 2026-11-04: iteration 633 — stop incremental cache reads at cutoff
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts and 36 sources without current errors. Two retained ingestion failure counters have no matching reported runs; no worker errors in the last hour.
-- Default-off incremental runner now checks cutoff before every cache chunk and detects a boundary crossed during an empty read. Later chunks and scoring stop; in-flight reads can finish and shared admission is released.
-- Synthetic regression covers a 601-item scan crossing exact cutoff, admission release and a subsequent single empty read. No paid calls, activation, prompt, source, schema or UI changes.
-- Updated TASKS/RANKING; archived iteration 614 to keep PROGRESS bounded. Internal cutoff fix needs no handbook change.
-- Verification: runner tests 6/6; pnpm format, pnpm lint:fix, pnpm check (378 unit/205 isolated integration), pnpm build and git diff --check passed. Initial full check caught archived-entry whitespace; corrected and reran.
-- Restarted worker only; final healthz healthy, zero alerts/failed units/dangling volumes. Saved Nov 3 edition still serves 19 real stories/11 X posts. No Postgres/Redis restart.
-- Next: Nov 4 15:00 UTC edition review for open-X/Bluesky picks, World posts, NBA validation and live timing/cost before activation.
-
 ## 2026-11-04: iteration 634 — measure pending-threshold tradeoff offline
 
 - Started clean on main; no leftover work. Healthz healthy, zero alerts, current sources healthy and retained queues available. Nov 4 scheduled evidence remains pending.
@@ -172,3 +153,14 @@
 - Verification: targeted tests 44/44; pnpm format, pnpm lint:fix, pnpm check (392 unit/205 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
 - Restarted API/worker; both active, healthz database/Redis healthy, latest four-topic edition readable, zero alerts and no failed user services.
 - Next: use future scheduled rejection labels if NBA still fails; assess Nov 5 same-story grouping activation against the passed gate, then useful World/open-X yield and reserve-safe incremental triage.
+
+## 2026-11-04: iteration 649 — wire bounded opt-in story grouping
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 active sources without current errors and fresh ingestion.
+- Replayed the saved same-story evaluation without calls: frozen-label precision 141/141, recall 141/157, zero clearly unrelated/one borderline merged pair; supplemental reviewed gate remains 155 pairs.
+- Added default-off publication composition (`LLM_STORY_GROUPING_ENABLED=1` to opt in): group only the existing ten-item semantic shortlist after complete triage, then edit ranked explicit memberships through the shared ledger/cache and edition run identity.
+- Invalid/overlapping membership, provider failure or refused budget preserves separate articles. No title rules, transitive joins, extra candidates, repairs or coverage score bonuses; immutable coverage links survive editing/storage.
+- Fake tests cover configuration, inputs, failure and coverage; isolated publication regression checks persisted grouped coverage. Updated TASKS/RANKING and handbook pipeline; archived iterations 632–633. No schema/UI/source changes or paid calls.
+- Verification: targeted grouping tests 16/16; pnpm format, pnpm lint:fix, pnpm check (395 unit/206 isolated integration), pnpm build, edition-pipeline handbook check (17 pages/one unchanged diagram/25 tables) and git diff --check passed.
+- Restarted API/worker; both active, healthz database/Redis healthy, latest four-topic edition readable and zero alerts. Confirmed production grouping switch absent/default off; incremental triage remains off.
+- Next: activate evaluated grouping for Nov 5 under item 27 after checking admission/headroom, then capture real grouped edition/screenshots; continue World/open-X quality and reserve-safe incremental assessment. NBA live full-AI acceptance awaits the next scheduled run.

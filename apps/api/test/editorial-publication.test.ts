@@ -54,6 +54,7 @@ async function harness(
     quiet?: boolean;
     disabled?: boolean;
     supporting?: boolean;
+    grouping?: boolean;
     hardExcluded?: boolean;
     parallel?: boolean;
     reddit?: boolean;
@@ -214,6 +215,19 @@ async function harness(
                 };
               },
             },
+            grouping: options.grouping
+              ? {
+                  async group(
+                    _topic: string,
+                    items: { id: string }[],
+                    runId: string,
+                  ) {
+                    assert.equal(items.length, 2);
+                    assert.ok(runId);
+                    return [items.map((item) => item.id)];
+                  },
+                }
+              : null,
             editor: {
               async edit(_topic: unknown, shortlist: unknown[]) {
                 if (options.parallel) {
@@ -223,9 +237,22 @@ async function harness(
                 }
                 assert.equal(
                   shortlist.length,
-                  options.supporting ? 2 : 1,
+                  options.supporting && !options.grouping ? 2 : 1,
                   'Semantic relevance recovers lexical false negatives',
                 );
+                if (options.grouping) {
+                  const lead = shortlist[0] as { id: string };
+                  return {
+                    ...edit,
+                    stories: [
+                      {
+                        ...edit.stories[0],
+                        id: lead.id,
+                        evidenceIds: [lead.id],
+                      },
+                    ],
+                  };
+                }
                 return options.refused
                   ? null
                   : options.quiet
@@ -379,4 +406,15 @@ void test('publication skips hard exclusions before triage while preserving sema
     [id],
   );
   assert.equal(topic.qualityRejections?.length, 1);
+});
+
+void test('opted-in publication persists grouped coverage in one edited story slot', async () => {
+  const topic = (await harness({ supporting: true, grouping: true })).topics[0];
+  assert.equal(topic.editorial?.mode, 'ai');
+  assert.equal(topic.stories.length, 1);
+  assert.equal(topic.stories[0].coverage?.length, 2);
+  assert.deepEqual(
+    new Set(topic.stories[0].coverage?.map((item) => item.url)),
+    new Set([candidate.url, 'https://example.org/support']),
+  );
 });

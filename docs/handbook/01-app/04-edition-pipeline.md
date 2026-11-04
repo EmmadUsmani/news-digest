@@ -60,13 +60,12 @@ flowchart TB
   edition by its id.
 
 > [!NOTE]
-> Production keeps articles separate. An inactive AI pass can group the same
-> news story, including direct follow-ups, reactions and consequences. Stories
-> that only share people, organizations or themes must stay separate. It has no
-> production caller. The once-only capped evaluation found no clearly unrelated
-> merges in its recorded sample; one merged pair was borderline. This is
-> agent-reviewed evidence, not a general quality estimate. Activation still
-> waits for the Nov 4 scheduled run review and is conditional for Nov 5. Same-URL dedupe still happens during
-> ingestion. The generic grouping
-> plumbing and “also covered by” links remain available; historical editions keep
-> their original coverage. Source labels do not establish independent reporting.
+> Production keeps articles separate by default. Setting
+> `LLM_STORY_GROUPING_ENABLED=1` enables a bounded Haiku pass over each topic's
+> ten-item semantic shortlist before editing, using the ordinary shared budget
+> and cache. It groups the same news story, including direct follow-ups,
+> reactions and consequences; shared people or themes alone do not qualify.
+> Failed, invalid or budget-refused grouping keeps articles separate. Grouped
+> articles share one story slot and retain their coverage links without a score
+> bonus. Source labels do not establish independent reporting. Same-URL dedupe
+> still happens during ingestion; historical editions keep their original coverage.

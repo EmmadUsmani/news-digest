@@ -62,7 +62,7 @@ function sharedReferences(candidates: GroupingCandidate[]) {
     .map(([url, ids]) => ({ url, ids }));
 }
 
-// Deliberately has no production caller until the owner's evaluation gate passes.
+// Publication opts in explicitly after the owner's recorded evaluation gate.
 export class EventGrouping {
   constructor(
     private readonly llm: Pick<BudgetedLlm, 'json'>,

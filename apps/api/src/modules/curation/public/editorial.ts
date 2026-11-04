@@ -4,6 +4,7 @@ import { AnthropicLlmAdapter } from '../adapters/anthropic';
 import { llmConfig } from '../adapters/config';
 import { BudgetedLlm } from '../application/budgeted-llm';
 import { ShortlistEditor } from '../application/editor';
+import { EventGrouping } from '../application/event-grouping';
 import { SocialPostEditor } from '../application/social-editor';
 import { CandidateTriage } from '../application/triage';
 import { configuredLlmLedger } from './ledger';
@@ -20,12 +21,14 @@ const services = new WeakMap<
     editor: ShortlistEditor;
     socialTriage: CandidateTriage;
     socialEditor: SocialPostEditor;
+    grouping: EventGrouping | null;
     validationDiagnostics: BudgetedLlm['validationDiagnostics'];
   }
 >();
 
 // Public composition boundary shared by manual and scheduled publication.
 export function editorialServices(db: Pool) {
+  const groupingEnabled = storyGroupingEnabled();
   const key = process.env.ANTHROPIC_API_KEY;
   if (!key) return null;
   const existing = services.get(db);
@@ -37,11 +40,19 @@ export function editorialServices(db: Pool) {
     validationDiagnostics: () => llm.validationDiagnostics(),
     triage: new CandidateTriage(llm, ledger, config.haiku),
     editor: new ShortlistEditor(llm, config.sonnet, config.haiku),
+    grouping: groupingEnabled ? new EventGrouping(llm, config.haiku) : null,
     socialTriage: new CandidateTriage(llm, ledger, config.haiku, 'social'),
     socialEditor: new SocialPostEditor(llm, config.sonnet, config.haiku),
   };
   services.set(db, result);
   return result;
+}
+
+export function storyGroupingEnabled(env: NodeJS.ProcessEnv = process.env) {
+  const value = env.LLM_STORY_GROUPING_ENABLED ?? '0';
+  if (!['0', '1'].includes(value))
+    throw new Error('Invalid LLM_STORY_GROUPING_ENABLED');
+  return value === '1';
 }
 
 export type {

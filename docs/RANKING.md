@@ -1,13 +1,15 @@
 # Ranking evaluation
 
-Current grouping state (STEERING 27, iteration 483): production keeps articles
-separate. The inactive AI pass is restored with a same-story definition that
-includes direct follow-ups, reactions and consequences, while keeping separate
-stories that only share people, organizations or themes apart. No production
-caller exists. The 195-pair same-story review is complete; the new capped
-evaluation remains pending. The
-Nov 4 run must be checked before any conditional Nov 5 activation.
-Wording matchers remain removed. Canonical-URL ingestion dedupe continues.
+Current grouping state (STEERING 27, iteration 649): publication now has a
+bounded AI grouping path, disabled unless `LLM_STORY_GROUPING_ENABLED=1`.
+It groups only the existing ten-item semantic shortlist after complete triage,
+using the evaluated same-story prompt and the shared Haiku budget ledger.
+The recorded sample passed: frozen-label precision 141/141, recall 141/157;
+supplemental review found zero clearly unrelated and one borderline pair among
+155 merges. This is agent-reviewed sample evidence, not general accuracy.
+Nov 4 has been checked; Nov 5 activation and screenshots remain the next step.
+Production still keeps articles separate. Wording matchers remain removed;
+canonical-URL ingestion dedupe continues.
 The iteration sections below record historical experiments and superseded states.
 
 `signals-v1` is a preliminary baseline, not an editorial quality claim.
@@ -2619,3 +2621,23 @@ repair prompts, fingerprints, provider calls and budget rules. Fake-provider
 tests verify field propagation, all three marker classes, repair attempts and
 rejection of untrusted runtime labels. Nov 4's exact rejected wording remains
 unavailable; no new live inference was run to reproduce it.
+
+## Iteration 649: opt-in publication grouping path
+
+Publication composes the evaluated Haiku grouping pass behind a strict,
+default-off `LLM_STORY_GROUPING_ENABLED` switch. After complete triage, it sends
+only the existing semantic shortlist (at most ten articles), then ranks explicit
+memberships into story slots before editing. No extra candidates, title rules,
+transitive joins or coverage score bonuses are introduced. Coverage links are
+preserved in the immutable snapshot; editor evidence remains restricted to the
+ranked candidates supplied to it. No grouping runs for incomplete triage or
+zero story budgets. Disabled, failed, refused or invalid grouping leaves each
+article separate. All calls use the ordinary shared ledger/cache and edition
+run identity, including reserve and daily/monthly admission; no additional funds
+or paid verification calls are introduced. No repairs are added.
+
+Fake tests cover configuration, bounded inputs, invalid/overlapping membership,
+provider failure, preserved coverage and unchanged scores. The isolated
+publication test checks grouped coverage survives editing and persistence.
+The switch remains off; activation, budget impact, live quality and screenshots
+must be checked separately before claiming the Nov 5 grouping milestone.

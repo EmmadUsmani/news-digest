@@ -20,6 +20,7 @@ import {
   selectTopicRedditPosts,
 } from '../../social/public/selection';
 import { observeEdition } from '../adapters/edition-logging';
+import { groupShortlist } from '../application/group-shortlist';
 import { parallelTopics } from '../application/parallel-topics';
 import { articleTriageInput } from '../domain/article-triage-input';
 import { editorialShortlist } from '../domain/editorial-shortlist';
@@ -230,7 +231,7 @@ export class PostgresPreviewRepository
                 'Non-AI ranking: incomplete triage or editor unavailable within caps.';
               // Partial semantic coverage must never silently displace unscored news.
               if (triage.unscoredIds.length === 0) {
-                const { shortlist, ranked } = editorialShortlist(
+                const { shortlist } = editorialShortlist(
                   candidates,
                   triage.scores,
                   policy,
@@ -238,6 +239,13 @@ export class PostgresPreviewRepository
                   end,
                 );
                 await topicStage(topic.id, 'editing');
+                const matches = await groupShortlist(
+                  this.editorial.grouping,
+                  topic.id,
+                  shortlist,
+                  runId,
+                );
+                const ranked = rank(shortlist, start, end, 10, matches);
                 const result = await this.editorial.editor.edit(
                   context,
                   ranked,
