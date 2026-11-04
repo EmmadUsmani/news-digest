@@ -127,3 +127,11 @@
 - Compatibility does not prove cached/scored work, waste, spend or latency. Updated TASKS/RANKING; scheduler wiring and successful-scoring joins remain next, with Nov 4 edition review first when available.
 - No activation, paid calls, UI/schema/source or handbook flow changes. Services stay running under STEERING 22 because only offline tooling/tests/docs changed.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (320 unit/184 isolated integration), pnpm build, live read-only capture/comparison and git diff --check passed. Initial offline-stub require-await lint failure corrected before passing rerun; archived iterations 512–514 to keep orientation small.
+
+## 2026-11-04: iteration 529 — join successful triage work to final fingerprints
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/root/api/status, 36 error-free sources and four available queues. Nov 4 review remains pending.
+- Added offline scoring-evidence CLI: successful attempts join final eligible fingerprints by topic/article; separates absent articles, changed inputs, repeat compatible scores and failed attempts. Rejects duplicate evidence, pre-final observations and out-of-window scoring.
+- Synthetic regressions only; no production scoring exporter, actual waste/cost/latency observation, paid calls or activation. Compatibility does not prove cache consumption. TASKS/RANKING document the input contract and limits.
+- Verification: targeted regressions 3/3; pnpm format, pnpm lint:fix, pnpm check (323 unit/184 isolated integration), pnpm build and git diff --check passed; no dangling Docker volumes. Initial status probe used a nonexistent route; correct /api/status is healthy.
+- Services remain running under STEERING 22: only offline tooling/tests/docs changed. Next: scheduler/export wiring and actual scoring evidence; Nov 4 scheduled review takes priority when available.

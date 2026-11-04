@@ -1819,3 +1819,27 @@ articles. Private latest capture: `/tmp/triage-pool-528.json` (mode 600). This r
 14-minute observation does not establish final-edition reuse, scored-work waste,
 provider cost or latency. Scheduler wiring and joins to successful scoring remain open.
 No production setting or service flow changed.
+
+## Iteration 529: successful-scoring work evidence join
+
+`pnpm exec tsx scripts/report-triage-work.ts /private/scoring-evidence.json`
+compares observed background scoring results with the final eligible triage
+pool. The JSON contains `windowStart`, `windowEnd`, `finalPoolObservedAt`,
+`finalPool` and `attempts`. Pool entries have `topicId`, `articleId` and the
+production cache `fingerprint`; attempts add `attemptId`, `completedAt` and
+`outcome` (`scored` or `unscored`). An attempt ID identifies one scoring
+invocation; duplicate article evidence within that invocation is rejected.
+
+Only successful scores count as scored work. The report separates final-pool
+absences, changed fingerprints, compatible scores and repeated compatible
+scoring. Topic IDs prevent cross-topic cache reuse claims. Unscored attempts
+remain separate because failed calls can still cost money. Final membership
+means the eligible triage pool, not the editor's selected stories. The final
+observation must be at or after window end; background completions must precede
+it and fall inside the window.
+
+This is an offline input contract and join, with synthetic regression coverage;
+there is no production scoring exporter or scheduler caller yet. Do not feed
+prospective captures in as successful scoring. Compatibility does not prove
+actual cache consumption; these counts establish neither spend nor latency.
+No actual incremental scores exist yet and no measured waste claim is made.
