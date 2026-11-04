@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 522 — bound offline background triage passes
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors; Nov 4 edition remains scheduled for 15:00 UTC.
-- Offline replay now accepts --maximum-items-per-pass, carries excess pending work to later ticks, reports bounded passes/peak backlog and leaves final edition scoring uncapped. Default behavior is unchanged.
-- Nov 3 first-fetch exports, hourly/minimum-25/max-25/two-hour cutoff: Tech/NBA/Gaming/World pretriaged 275/125/250/200, edition remainder 51/31/44/34 (160 total), requests 13/6/12/9, zero repeats. Global fetch times still do not prove topic arrival; historical waste, settled cost, quality and latency remain unknown.
-- Regression verifies backlog carryover, cutoff, complete final scoring and invalid bounds. Updated TASKS/RANKING; no paid calls, production activation, schema, source, UI or handbook flow changes.
-- Verification: targeted replay tests 7/7; recorded fixture CLI and all four real-export CLIs; pnpm format, pnpm lint:fix, pnpm check (303 unit/183 isolated integration), pnpm build, git diff --check; live root/healthz/status healthy, 3,200 stored source items and zero alerts. No dangling Docker volumes.
-- Services left running under STEERING 22 because only offline tooling/tests/docs changed. Next: historical pool evidence and scheduler wiring; Nov 4 edition review takes priority before activation.
-
 ## 2026-11-04: iteration 523 — prepare cache-aware bounded background passes
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 sources without current errors and four available queues; Nov 4 scheduled review remains pending.
@@ -164,3 +155,12 @@
 - Four offline lifecycle tests and one isolated persisted-settings/topic integration test pass. No production worker import, activation or paid requests; no live latency/waste claim. Next: gated worker connection after review, longer-span pool/waste evidence.
 - Updated TASKS/RANKING; archived iteration 521 to keep PROGRESS small. No source/schema/UI or live handbook flow change. Services stay running under STEERING 22 because prepared code has no production caller.
 - Verification: targeted tests 4/4; pnpm format, pnpm lint:fix, pnpm check (348 unit/186 isolated integration), pnpm build, git diff --check; root HTTP 200, healthz healthy, zero alerts and zero dangling Docker volumes. Initial test synchronization and cleanup-error typing failures fixed before successful full checks.
+
+## 2026-11-04: iteration 541 — respect ranked pools in offline triage replay
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 nonempty successful sources without current errors and no failed digest jobs. Historical social failure is the already investigated Nov 3 23:54 event; Nov 4 review remains pending.
+- Fixed bounded offline replay to consume snapshot ranking instead of candidate catalogue order, avoiding incorrect remainder/waste estimates. Changing-rank regression proves catalogue-order independence; all eight targeted offline tests pass.
+- Production incremental triage remains off; no paid calls or actual waste/latency claim. No running code/config changed, so no restart under STEERING 22.
+- Updated TASKS/RANKING; archived iteration 522 to keep PROGRESS small. No source/schema/UI or handbook flow changes.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (349 unit/186 isolated integration), pnpm build, targeted replay (8/8) and git diff --check passed; root HTTP 200 and healthy healthz. Zero dangling Docker volumes.
+- Next: Nov 4 scheduled review first, then gated worker connection and actual scored-work waste evidence.

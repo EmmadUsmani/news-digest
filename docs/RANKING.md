@@ -2006,3 +2006,13 @@ Connections close only after scoring drains. Offline lifecycle tests cover these
 paths; isolated database verification checks persisted settings and topic IDs.
 The production worker does not import this entry point. Activation still awaits
 the Nov 4 edition review; no paid scoring or live waste/latency claim is made.
+
+## Iteration 541: preserve ranked pool order in offline replay
+
+The incremental replay now consumes each recorded snapshot's candidate order
+when selecting a bounded batch. Previously it used catalogue order, which could
+score a lower-ranked article and distort edition remainder and waste estimates.
+A synthetic changing-rank regression verifies two useful background scores,
+zero edition remainder and zero waste, independently of catalogue ordering.
+The eight offline replay tests pass. This corrects simulation accounting only;
+production remains off and no actual scoring, cost or latency was measured.

@@ -291,3 +291,43 @@ void test('bounded background passes leave backlog for later ticks and never cap
       /Maximum items/,
     );
 });
+
+void test('bounded replay follows changing snapshot rank rather than catalogue order', async () => {
+  const window = {
+    topic: 'Synthetic ranked pools',
+    windowStart: '2026-11-01T00:00:00Z',
+    windowEnd: '2026-11-01T03:00:00Z',
+    candidates: ['discarded', 'retained', 'new-leader'].map((id) => ({
+      id,
+      title: id,
+      excerpt: null,
+      sources: [],
+      publishedAt: '2026-11-01T00:00:00Z',
+    })),
+    poolSnapshots: [
+      { at: '2026-11-01T00:00:00Z', candidateIds: ['retained', 'discarded'] },
+      {
+        at: '2026-11-01T02:00:00Z',
+        candidateIds: ['new-leader', 'discarded', 'retained'],
+      },
+      { at: '2026-11-01T03:00:00Z', candidateIds: ['retained', 'new-leader'] },
+    ],
+  };
+  const row = await evaluateIncrementalTriage(window, 1, 1, 0, 1);
+  assert.equal(row.preEditionItems, 2);
+  assert.equal(row.editionItems, 0);
+  assert.equal(row.wasteItems, 0);
+  assert.equal(row.totalScoredItems, 2);
+  assert.equal(row.repeatScoring, 0);
+  // Catalogue permutations cannot alter the scheduling or waste estimate.
+  assert.deepEqual(
+    await evaluateIncrementalTriage(
+      { ...window, candidates: [...window.candidates].reverse() },
+      1,
+      1,
+      0,
+      1,
+    ),
+    row,
+  );
+});

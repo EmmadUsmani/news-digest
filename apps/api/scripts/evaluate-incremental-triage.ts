@@ -92,14 +92,15 @@ export async function evaluateIncrementalTriage(
       }))
   )
     throw new Error('Invalid pool snapshots');
+  const byId = new Map(candidates.map((c) => [c.id, c]));
   const poolAt = (at: number) => {
     const snapshot = snapshots?.filter((s) => Date.parse(s.at) <= at).at(-1);
-    const ids = snapshot ? new Set(snapshot.candidateIds) : undefined;
-    return candidates.filter(
-      (c) =>
-        Date.parse(c.availableAt ?? c.publishedAt) < at &&
-        (!snapshots || (ids?.has(c.id) ?? false)),
-    );
+    // Snapshot order is the shared pool's ranking order. A bounded pass must
+    // consume that order, not the order of the exported candidate catalogue.
+    const pool = snapshots
+      ? (snapshot?.candidateIds ?? []).map((id) => byId.get(id)!)
+      : candidates;
+    return pool.filter((c) => Date.parse(c.availableAt ?? c.publishedAt) < at);
   };
   const finalPool = poolAt(end);
   const preScoredIds = new Set<string>();
