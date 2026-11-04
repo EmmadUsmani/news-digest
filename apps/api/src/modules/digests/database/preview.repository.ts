@@ -113,9 +113,11 @@ export class PostgresPreviewRepository
     try {
       // Lock before opening the snapshot so a retry sees the committed prior run.
       if (scheduledKey)
-        await session.execute(
-          sql`SELECT pg_advisory_lock(hashtextextended(${scheduledKey},0))`,
-        );
+        await session
+          .select({
+            lock: sql`pg_advisory_lock(hashtextextended(${scheduledKey},0))`,
+          })
+          .from(sql`(values (1)) as singleton(value)`);
       // Keep the session lock outside the repeatable-read snapshot for retry visibility.
       return await session.transaction(
         async (tx) => {
@@ -400,9 +402,11 @@ export class PostgresPreviewRepository
     } finally {
       try {
         if (scheduledKey)
-          await session.execute(
-            sql`SELECT pg_advisory_unlock(hashtextextended(${scheduledKey},0))`,
-          );
+          await session
+            .select({
+              unlock: sql`pg_advisory_unlock(hashtextextended(${scheduledKey},0))`,
+            })
+            .from(sql`(values (1)) as singleton(value)`);
       } finally {
         client.release();
       }

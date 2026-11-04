@@ -252,7 +252,8 @@ The same topic-fair order prioritizes unverified discoveries before refreshes,
 retains all four citation channels and clamps the requested limit to 1–50.
 Existing repository characterization assertions remain unchanged.
 
-Curation clock and advisory-lock reads use Drizzle select builders. Each selects
+Curation clock reads and curation, digest-publication and social advisory-lock
+statements use Drizzle select builders. Each selects
 from a single-row VALUES expression because Drizzle requires a FROM source; this
 executes each PostgreSQL function exactly once without reading a table. Database
 wall-clock semantics, session/client ownership, transaction lock scope and

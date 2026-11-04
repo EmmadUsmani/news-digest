@@ -228,7 +228,9 @@ export class PostgresXSearchRepository implements XSearchRepository {
     await drizzle(this.db)
       .transaction(async (tx) => {
         // Serialize first-search attribution across concurrent search saves.
-        await tx.execute(sql`SELECT pg_advisory_xact_lock(756284)`);
+        await tx
+          .select({ lock: sql`pg_advisory_xact_lock(756284)` })
+          .from(sql`(values (1)) as singleton(value)`);
         for (const link of links) {
           const post = tx
             .select({ id: socialPosts.externalId })

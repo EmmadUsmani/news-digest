@@ -48,8 +48,9 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
     try {
       return await drizzle(client).transaction(async (tx) => {
         // Shared across API, worker and explicit discovery commands. Never hold during HTTP.
-        // Transaction-scoped advisory locks have no query-builder equivalent.
-        await tx.execute(sql`SELECT pg_advisory_xact_lock(756283)`);
+        await tx
+          .select({ lock: sql`pg_advisory_xact_lock(756283)` })
+          .from(sql`(values (1)) as singleton(value)`);
         // All ledger queries stay bound to this same checked-out transaction client.
         return work(client);
       });
