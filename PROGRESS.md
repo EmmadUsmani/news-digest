@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 611 — typed per-topic X discovery evidence
-
-- Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC edition review remains pending.
-- Converted per-topic X report joins/grouping and correlated edition-membership lookup to Drizzle builders. SQL expressions retain PostgreSQL JSON expansion/aggregation and filtered counts.
-- Read-only old/new comparison caught ambiguous CTE handle aliases; explicitly qualified them, then matched complete Nov 2–4 reports (1/4/0 calls) in one repeatable-read snapshot. Existing characterization assertions unchanged.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
-- Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical, Anthropic/X spend unchanged. Read-only Playwright rendered four real saved topics without page errors; 36 sources without current errors, zero failed digest jobs and zero alerts.
-- Updated TASKS and ORM decision; archived iteration 596 to keep PROGRESS bounded. No migration, source, activation, owner grant or paid call changes; no handbook system behavior changed.
-- Next: prioritize Nov 4 edition review; otherwise final raw-SQL audit and remaining ORM adapters. Keep private backups before new migrations and preserve owner grants.
-
 ## 2026-11-04: iteration 612 — typed curation clocks and advisory locks
 
 - Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC edition review remains pending.
@@ -174,3 +164,13 @@
 - Verification: targeted output tests 4/4 and offline CLI; pnpm format, pnpm lint:fix, pnpm check (375 unit/205 isolated integration), pnpm build and git diff --check passed. Final healthz healthy, zero alerts and zero dangling Docker volumes.
 - Offline tool only: no running-service code/config changed, so no restart under STEERING 22. Grouping and incremental triage remain off.
 - Next: Nov 4 15:00 UTC edition review takes priority: World posts, open-X/Bluesky selections, NBA validation and live timing/cost; compare the new completion metadata with this baseline.
+
+## 2026-11-04: iteration 629 — expose per-call output saturation
+
+- Started clean on main; no leftover work. Healthz healthy and zero alerts; Nov 4 scheduled evidence remains pending.
+- Extended the offline output report with peak per-call utilization and the count reaching/exceeding recorded limits. Aggregate utilization can hide individual saturated calls; neither metric infers truncation.
+- Added a synthetic low-aggregate/saturated-call regression including failed calls, above-limit usage and missing metadata; Nov 3 limits remain unknown. No paid calls or production changes.
+- Updated TASKS and RANKING; archived iteration 611 to keep PROGRESS bounded. No handbook system behavior changed.
+- Verification: targeted output tests 5/5 and offline CLI; pnpm format, pnpm lint:fix, pnpm check (376 unit/205 isolated integration), pnpm build and git diff --check passed. Final healthz healthy, zero alerts and zero dangling Docker volumes.
+- Offline tool only; no running-service code/config changed, so no restart under STEERING 22. Grouping and incremental triage remain off.
+- Next: review Nov 4 15:00 UTC edition for social picks, NBA validation, timing/cost and completion metadata.

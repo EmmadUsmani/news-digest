@@ -76,6 +76,8 @@ void test('partial metadata uses paired limits only and retains failed work', ()
     pairedOutputTokens: 40,
     pairedOutputLimit: 200,
     outputLimitUtilization: 0.2,
+    callsAtOrAboveOutputLimit: 0,
+    maxOutputLimitUtilization: 0.4,
     reportedMaxTokenStops: 1,
     callsWithoutCompletionReason: 3,
   });
@@ -119,4 +121,46 @@ void test('invalid metadata and unsafe aggregates fail closed', () => {
         ]),
       /overflow/,
     );
+});
+
+void test('per-call saturation remains visible when aggregate utilization is low', () => {
+  const [row] = evaluateCallOutput([
+    {
+      purpose: 'triage',
+      durationMs: 1,
+      outcome: 'success',
+      usage: { output: 100 },
+      outputLimit: 100,
+    },
+    {
+      purpose: 'triage',
+      durationMs: 1,
+      outcome: 'success',
+      usage: { output: 0 },
+      outputLimit: 9900,
+    },
+    {
+      purpose: 'triage',
+      durationMs: 1,
+      outcome: 'failure',
+      usage: { output: 110 },
+      outputLimit: 100,
+    },
+    { purpose: 'triage', durationMs: 1, outcome: 'success', outputLimit: 100 },
+  ]);
+  assert.equal(row.outputLimitUtilization, 210 / 10100);
+  assert.equal(row.callsAtOrAboveOutputLimit, 2);
+  assert.equal(row.maxOutputLimitUtilization, 1.1);
+  assert.equal(row.reportedMaxTokenStops, 0);
+  assert.equal(row.callsWithoutCompletionReason, 4);
+  const [unknown] = evaluateCallOutput([
+    {
+      purpose: 'triage',
+      durationMs: 1,
+      outcome: 'success',
+      usage: { output: 100 },
+    },
+  ]);
+  assert.equal(unknown.callsAtOrAboveOutputLimit, null);
+  assert.equal(unknown.maxOutputLimitUtilization, null);
 });

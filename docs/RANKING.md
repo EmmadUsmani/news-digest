@@ -2323,6 +2323,10 @@ output limits or completion reasons: reservation utilization and truncation
 cannot be established, and HTTP success does not explain NBA validation.
 The report keeps unknown usage distinct from observed zero, includes failed
 work, and computes utilization only for calls with both usage and limits.
+It also reports the highest per-call utilization and the count reaching or
+exceeding the limit, so a low aggregate cannot hide a saturated call. Both
+remain unknown without paired evidence; reaching a limit alone does not prove
+truncation.
 It can consume the newer allowlisted metadata when the Nov 4 run is available;
 a reported `max_tokens` stop is counted without inferring stops from token totals.
 No prompts, production limits, concurrency or activation changed; no paid calls.

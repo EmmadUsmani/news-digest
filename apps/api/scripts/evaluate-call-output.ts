@@ -56,6 +56,17 @@ export function evaluateCallOutput(input: unknown) {
         outputLimitUtilization: paired.length
           ? pairedOutputTokens / pairedOutputLimit
           : null,
+        callsAtOrAboveOutputLimit: paired.length
+          ? paired.filter((call) => call.usage!.output >= call.outputLimit!)
+              .length
+          : null,
+        maxOutputLimitUtilization: paired.length
+          ? paired.reduce(
+              (maximum, call) =>
+                Math.max(maximum, call.usage!.output / call.outputLimit!),
+              0,
+            )
+          : null,
         reportedMaxTokenStops: selected.filter(
           (call) => call.completionReason === 'max_tokens',
         ).length,
@@ -69,7 +80,7 @@ export function evaluateCallOutput(input: unknown) {
 if (require.main === module) {
   console.log(
     JSON.stringify({
-      note: 'Recorded provider metadata only. Missing usage, limits and completion reasons stay unknown. Utilization uses only calls with both usage and limits; it is not reserved budget, avoidable work or a latency prediction. Failed calls retain duration and any recorded usage. HTTP success does not prove editorial validation. No inference, production changes or prompt edits.',
+      note: 'Recorded provider metadata only. Missing usage, limits and completion reasons stay unknown. Utilization uses only calls with both usage and limits; reaching a limit does not prove truncation; it is not reserved budget, avoidable work or a latency prediction. Failed calls retain duration and any recorded usage. HTTP success does not prove editorial validation. No inference, production changes or prompt edits.',
       purposes: evaluateCallOutput(
         JSON.parse(readFileSync(process.argv[2], 'utf8')),
       ),
