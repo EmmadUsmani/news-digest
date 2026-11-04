@@ -217,3 +217,40 @@ void test('runner preserves work and cleanup failures together and permits the n
     }
   }
 });
+
+void test('cache scan crossing cutoff skips later chunks and releases admission', async () => {
+  let now = 0;
+  let reads = 0;
+  let releases = 0;
+  const runner = new IncrementalTriageRunner(
+    {
+      pending: async () => {
+        reads++;
+        now = 900;
+        return [];
+      },
+      score: async () => assert.fail('scored after cutoff'),
+    },
+    () => ({ nextEditionAt: 1000, cutoffMs: 100 }),
+    () => now,
+    {
+      acquire: async () => async () => {
+        releases++;
+      },
+    },
+  );
+  const candidates = Array.from({ length: 601 }, (_, id) => ({
+    ...input.candidates[0],
+    id: String(id),
+  }));
+  const result = await runner.run(
+    async () => ({ ...input, candidates }),
+    options,
+  );
+  assert.equal(result.status, 'cutoff');
+  assert.equal(reads, 1);
+  assert.equal(releases, 1);
+  now = 0;
+  assert.equal((await runner.run(load, options)).status, 'cutoff');
+  assert.equal(releases, 2);
+});

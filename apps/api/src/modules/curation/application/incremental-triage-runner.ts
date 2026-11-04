@@ -58,7 +58,17 @@ export class IncrementalTriageRunner {
       let cutoff = false;
       const result = await incrementalTriagePass(
         {
-          pending: this.triage.pending.bind(this.triage),
+          pending: async (...args) => {
+            // Do not keep scanning later cache chunks once publication's
+            // quiet period begins. An already-started read may finish.
+            if (!this.beforeCutoff()) {
+              cutoff = true;
+              return [];
+            }
+            const pending = await this.triage.pending(...args);
+            if (!this.beforeCutoff()) cutoff = true;
+            return pending;
+          },
           score: (...args) => {
             // Pool/cache reads can cross the boundary or a schedule change.
             // Already-started calls may finish; no new score starts at cutoff.

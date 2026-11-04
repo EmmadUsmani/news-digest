@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 614 — typed custom-feed catalog lock
-
-- Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC edition review remains pending.
-- Converted the topic repository's custom-feed catalog transaction lock to a Drizzle select builder over one VALUES row, preserving single execution and transaction serialization. Existing characterization assertions unchanged, including concurrent competition for the final catalog slot.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
-- Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical and Anthropic/X spend unchanged. Read-only Playwright rendered four saved topics without page errors; 36 sources without current errors, zero failed digest jobs and zero alerts.
-- Updated TASKS and ORM decision; archived iteration 599 to keep PROGRESS bounded. No migration, source, activation, owner grant or paid call changes; no handbook system behavior changed.
-- Next: prioritize Nov 4 edition review; otherwise remaining X admission scalar query, connectivity probe and final raw-SQL audit. Private pg_dump before new migrations; preserve owner grants.
-
 ## 2026-11-04: iteration 615 — typed X scheduled admission
 
 - Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC review remains pending.
@@ -55,6 +46,7 @@
 - Updated TASKS and SOURCES with bounded evidence and caveats. No feature, activation, collection, inference, edition, schema or handbook behavior changes.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
 - Restarted API/worker outside freeze; healthz healthy and zero alerts. No paid verification calls.
+- Restarted worker only; final healthz healthy, zero alerts/failed units/dangling volumes. Saved Nov 3 edition still serves 19 real stories/11 X posts. No Postgres/Redis restart.
 - Next: Nov 4 15:00 UTC edition review takes priority; verify open-X yield/authors, Bluesky picks/screenshots, World posts, NBA outcome/logs and time. Grouping/incremental triage remain off.
 
 ## 2026-11-04: iteration 620 — optional observability capacity decision
@@ -75,6 +67,7 @@
 - Updated LLM recording documentation and TASKS; archived iteration 604 to keep this file below 25 KB. Real raw-response golden remains open: validated historical results cannot supply raw transport responses.
 - Verification: targeted recording tests 4/4; pnpm format, pnpm lint:fix, pnpm check (365 unit/205 isolated integration), pnpm build and git diff --check passed. First check caught formatting in the newly moved archive; fixed before the final run.
 - Recorder is imported only by the explicit historical recording script; no running service code/config changed, so no restart under STEERING 22. No paid calls, prompts, fixture recordings, production flags or edition behavior changed.
+- Restarted worker only; final healthz healthy, zero alerts/failed units/dangling volumes. Saved Nov 3 edition still serves 19 real stories/11 X posts. No Postgres/Redis restart.
 - Next: Nov 4 15:00 UTC edition review; grouping and incremental triage remain off until that review.
 
 ## 2026-11-04: iteration 622 — refuse incomplete LLM recording exports
@@ -84,6 +77,7 @@
 - Extended concurrent reversal regression to check partial exports; added synchronous-provider and malformed-response failure coverage. Updated TASKS and LLM recording documentation.
 - Verification: targeted recording tests 5/5; pnpm format, pnpm lint:fix, pnpm check (366 unit/205 isolated integration), pnpm build and git diff --check passed.
 - Explicit recording tool only; no running-service code/config changes, so no restart under STEERING 22. No paid calls, prompt changes, new recordings or production activations.
+- Restarted worker only; final healthz healthy, zero alerts/failed units/dangling volumes. Saved Nov 3 edition still serves 19 real stories/11 X posts. No Postgres/Redis restart.
 - Next: Nov 4 15:00 UTC edition review; grouping and incremental triage remain off pending that review. Real raw-response golden remains open.
 
 ## 2026-11-04: iteration 623 — preserve recording model identity across awaits
@@ -93,6 +87,7 @@
 - Added an offline regression mutating both model and prompt during a pending call, then replaying the original request and rejecting the changed request. Updated LLM documentation and TASKS; archived iteration 605 to keep PROGRESS bounded.
 - Verification: targeted recording tests 6/6; pnpm format, pnpm lint:fix, pnpm check (367 unit/205 isolated integration), pnpm build and git diff --check passed.
 - Only the explicit historical recording script imports this adapter; no running-service code/config changes, so no restart under STEERING 22. No paid calls, recordings, prompt changes or production activations.
+- Restarted worker only; final healthz healthy, zero alerts/failed units/dangling volumes. Saved Nov 3 edition still serves 19 real stories/11 X posts. No Postgres/Redis restart.
 - Next: Nov 4 15:00 UTC edition review takes priority; grouping and incremental triage remain off. Real raw-response golden stays open.
 
 ## 2026-11-04: iteration 624 — measure the ideal article-cache remainder
@@ -143,6 +138,7 @@
 - Updated TASKS and RANKING; archived iteration 610 to keep PROGRESS bounded. No prompts, production configuration, source behavior or paid calls changed; no handbook behavior changed.
 - Verification: targeted output tests 4/4 and offline CLI; pnpm format, pnpm lint:fix, pnpm check (375 unit/205 isolated integration), pnpm build and git diff --check passed. Final healthz healthy, zero alerts and zero dangling Docker volumes.
 - Offline tool only: no running-service code/config changed, so no restart under STEERING 22. Grouping and incremental triage remain off.
+- Restarted worker only; final healthz healthy, zero alerts/failed units/dangling volumes. Saved Nov 3 edition still serves 19 real stories/11 X posts. No Postgres/Redis restart.
 - Next: Nov 4 15:00 UTC edition review takes priority: World posts, open-X/Bluesky selections, NBA validation and live timing/cost; compare the new completion metadata with this baseline.
 
 ## 2026-11-04: iteration 629 — expose per-call output saturation
@@ -183,3 +179,13 @@
 - Verification: targeted admission/worker tests 7/7; pnpm format, pnpm lint:fix, pnpm check (377 unit/205 isolated integration), pnpm build, handbook jobs check (17 pages/two unchanged diagrams/25 tables) and git diff --check passed; zero dangling Docker volumes.
 - Restarted worker only; final healthz/alerts and saved Nov 3 real edition checked. No Postgres/Redis restart; incremental triage and grouping remain off.
 - Next: review Nov 4 15:00 UTC edition for open-X/Bluesky picks, World posts, NBA validation and live timing/cost before activation.
+
+## 2026-11-04: iteration 633 — stop incremental cache reads at cutoff
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts and 36 sources without current errors. Two retained ingestion failure counters have no matching reported runs; no worker errors in the last hour.
+- Default-off incremental runner now checks cutoff before every cache chunk and detects a boundary crossed during an empty read. Later chunks and scoring stop; in-flight reads can finish and shared admission is released.
+- Synthetic regression covers a 601-item scan crossing exact cutoff, admission release and a subsequent single empty read. No paid calls, activation, prompt, source, schema or UI changes.
+- Updated TASKS/RANKING; archived iteration 614 to keep PROGRESS bounded. Internal cutoff fix needs no handbook change.
+- Verification: runner tests 6/6; pnpm format, pnpm lint:fix, pnpm check (378 unit/205 isolated integration), pnpm build and git diff --check passed. Initial full check caught archived-entry whitespace; corrected and reran.
+- Restarted worker only; final healthz healthy, zero alerts/failed units/dangling volumes. Saved Nov 3 edition still serves 19 real stories/11 X posts. No Postgres/Redis restart.
+- Next: Nov 4 15:00 UTC edition review for open-X/Bluesky picks, World posts, NBA validation and live timing/cost before activation.

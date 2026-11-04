@@ -2353,3 +2353,11 @@ The default-off path still returns before reading credentials or touching the
 database. Offline regressions use an inaccessible database proxy and no provider.
 Production remains off pending the Nov 4 review; no timing or cost claim follows
 from this configuration fix.
+
+## Iteration 633: stop background cache scans at cutoff
+
+The default-off incremental runner now checks the publication cutoff before
+each cache chunk, and records a cutoff crossed during an empty cache read.
+An in-flight read can finish; later chunks and scoring do not start. Shared
+admission is released normally. Synthetic tests cover a 601-item scan crossing
+the exact cutoff and a single empty chunk crossing it. No activation or paid calls.
