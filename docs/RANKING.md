@@ -1969,3 +1969,15 @@ rotation, the 25-item limit, unavailable topics, settings failure recovery,
 overlap and publication-crossing cutoff. No worker imports this adapter, no
 timer is installed, and production dependency wiring remains open. There are
 no paid requests, activation or actual scored-work waste/latency measurements.
+
+## Iteration 538: prepared timer lifecycle
+
+`prepareIncrementalTriageTimer` prepares bounded periodic invocation without
+connecting it to the production worker. It skips overlapping calls, reports
+failures and allows the next interval to recover. Its stop function clears the
+timer and awaits active work, so a future worker can drain scoring before
+closing the database. The timer is unreferenced and does not tick immediately.
+Offline tests cover overlap, draining, error recovery, reporter failure and
+invalid intervals. No timer is running in production, no paid calls were made,
+and this supplies no live speed or scored-work waste evidence. Activation
+remains gated on the November 4 edition review.

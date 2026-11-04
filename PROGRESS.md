@@ -159,3 +159,11 @@
 - Updated TASKS/RANKING; archived iteration 519 to keep PROGRESS below 25 KB. No production flow/source/schema/UI changes; services stay running under STEERING 22.
 - Verification: targeted tests 4/4; pnpm format, pnpm lint:fix, pnpm check (338 unit/185 isolated integration), pnpm build and git diff --check passed. Root HTTP 200, healthz healthy, zero dangling Docker volumes. Initial lint caught missing void on test promises; fixed before rerun.
 - Next: production dependency/timer wiring behind the Nov 4 gate, longer-span pool comparisons and actual scored-work evidence; scheduled review takes priority.
+
+## 2026-11-04: iteration 538 — prepare incremental timer lifecycle
+
+- Started clean on main; no leftover work. Zero alerts; healthz healthy, 36 sources with successful ingestion/no current errors and zero failed digest jobs. Nov 4 review remains pending.
+- Added prepared periodic lifecycle: skips overlap, reports failures and recovers, validates Node timer bounds, drains active scoring on stop before future DB shutdown. Four offline tests cover shutdown, recovery and reporter failure.
+- No worker import, production timer, activation or paid calls. Updated TASKS/RANKING; no live flow, source, schema or UI change. Services stay running under STEERING 22 because their code is unchanged.
+- Verification: targeted tests 4/4; pnpm format, pnpm lint:fix, pnpm check (342 unit/185 isolated integration), pnpm build and git diff --check passed. Root HTTP 200, healthz healthy, zero dangling Docker volumes.
+- Next: production dependency/lifecycle wiring behind the Nov 4 review gate; longer-span comparisons and actual scored-work waste evidence remain open.
