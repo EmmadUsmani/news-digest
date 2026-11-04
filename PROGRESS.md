@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 683 — offline failed-batch recovery measurement
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis and 36 healthy nonempty sources; no failed retained digest jobs. Next edition Nov 5 15:00 UTC.
-- Added offline first-call refusal/throw probe through real article/social triage loops, with explicit recovery and a final cache-only pass. No provider, DB or secret access; no production retry change or paid calls.
-- Synthetic 200-item pool: size-200 caller passes retain 150 sibling scores after failure and recover with one 50-item call; size-25 passes retain zero and recover with eight 25-item calls. Total requested items 250 vs 225; all 200 score successfully once, repeat zero calls. No live latency/cost/failure-rate claim.
-- Updated TASKS/concurrency evidence; archived iterations 667–668 to keep PROGRESS small. SOURCES/handbook unchanged because runtime/source behavior is unchanged.
-- Verification: targeted recovery tests 2/2, standalone strict tsc, pnpm format, pnpm lint:fix, pnpm check (435 unit/209 isolated integration), pnpm build and git diff --check passed. Initial lint/check caught require-await in fake cache methods; fixed before final checks.
-- Final healthz healthy, zero alerts and 36 healthy nonempty sources. No restart under STEERING 22: running services do not import the offline probe.
-- X experiment remains blocked on supported per-call bound or owner decision. Next: Nov 5 grouping/NBA/cost/latency/screenshots; compare actual batching/repair evidence before tuning.
-
 ## 2026-11-04: iteration 685 — saved X experiment budget/time diagnostics
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 healthy sources and no failed digest jobs in inspected history.
@@ -153,3 +143,12 @@
 - Kept desktop/mobile required-name, create/reload, source-less display, order and overflow checks. Request counts prove native validation prevents creation. Replay is synthetic browser behavior, not server persistence evidence; isolated HTTP tests retain server coverage.
 - Playwright passed and desktop/mobile screenshots reviewed. No paid calls, production writes or app changes. SOURCES/handbook unchanged; no restart under STEERING 22 because running code is unchanged.
 - Verification: pnpm format, pnpm lint:fix, standalone strict tsc, Playwright, pnpm check (455 unit/209 isolated integration), pnpm build and git diff --check passed. Next: Nov 5 grouping/NBA AI/cost/latency/screenshots; other older topic browser scripts may still need write isolation.
+
+## 2026-11-04: iteration 701 — isolate topic-deletion browser verification
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 active error-free article sources and zero retained failed digest jobs. Latest hourly Bluesky recovery completed; Nov 5 evidence remains future.
+- Replaced topic-delete smoke production creates, source writes, deletes and digest generation with browser-only synthetic topic replay. Unknown browser writes are rejected; direct API requests only read live topics and the saved edition.
+- Desktop/mobile Playwright checks passed: cancel sends no delete, HTTP failure preserves the topic, retry removes it, reload and order remain correct, no overflow. Screenshots updated and reviewed. Server deletion behavior remains covered by isolated HTTP/repository tests; replay is not server-persistence evidence.
+- Verification: `pnpm exec tsx scripts/smoke-topic-delete.ts`, strict tsc with repository path mapping, `pnpm format`, `pnpm lint:fix`, `pnpm check` (455 unit/209 isolated integration), `pnpm build` and `git diff --check` passed. Initial standalone tsc lacked workspace alias/Node type mapping; corrected with a temporary config extending repository settings.
+- Updated TASKS; archived iteration 683 to bound PROGRESS. SOURCES/handbook unchanged for browser verification only. No paid calls or production configuration changes. No restart under STEERING 22: running services do not import this script.
+- Next: Nov 5 grouping/NBA AI/cost/latency/screenshots; paid X experiment blocked on a documented per-call bound. Other older topic browser scripts still need write isolation.
