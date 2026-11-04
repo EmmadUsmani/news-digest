@@ -98,7 +98,12 @@ function integer(value: number) {
   return Number.isSafeInteger(value) && value >= 0;
 }
 function timestamp(value: string) {
-  return value.trim() !== '' && Number.isFinite(Date.parse(value));
+  // Local-time and date-only strings change eligibility with the host timezone.
+  return (
+    /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(
+      value,
+    ) && Number.isFinite(Date.parse(value))
+  );
 }
 
 // Offline only. Labels must come from saved triage/review evidence; this helper

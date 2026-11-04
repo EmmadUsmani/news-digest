@@ -220,3 +220,32 @@ void test('trending does not require story OR and invalid expected settings are 
     assert.throws(() => xExperimentReport([call]));
   }
 });
+
+void test('saved eligibility requires timezone-qualified instants in windows and posts', () => {
+  for (const ambiguous of [
+    '2026-11-03',
+    '2026-11-03T15:00:00',
+    'November 3, 2026 15:00 UTC',
+  ]) {
+    for (const field of ['start', 'end', 'publishedAt'] as const) {
+      const call = evidence();
+      if (field === 'publishedAt') call.posts[0].publishedAt = ambiguous;
+      else call.window[field] = ambiguous;
+      assert.throws(
+        () => xExperimentReport([call]),
+        /Invalid experiment/,
+        field,
+      );
+    }
+  }
+  const call = evidence();
+  call.window.start = '2026-11-03T07:00:00-08:00';
+  call.window.end = '2026-11-04T16:00:00+01:00';
+  call.posts[0].publishedAt = '2026-11-03T07:00:00.000-08:00';
+  call.posts[2].publishedAt = '2026-11-04T16:00:00+01:00';
+  const [report] = xExperimentReport([call]);
+  assert.equal(report.inWindow, 2);
+  assert.equal(report.eligiblePosts, 1);
+  call.posts[0].publishedAt = null;
+  assert.equal(xExperimentReport([call])[0].eligiblePosts, null);
+});

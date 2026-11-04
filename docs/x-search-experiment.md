@@ -28,6 +28,8 @@ tool inputs; reports fetched versus returned posts, observed median/maximum
 likes, window and relevance ≥6 shares, promotions, and in-window,
 triage-passing, non-promotional posts per dollar. Likes remain provider-reported.
 
+Window boundaries and known publication timestamps require ISO instants with
+`Z` or an explicit UTC offset; local-time and date-only values are rejected.
 Missing timestamps, triage scores or promotion reviews remain unknown and
 prevent a complete eligible-yield result. Missing likes are counted separately;
 medians use observed counts only. Duplicate request/post IDs are rejected within

@@ -44,6 +44,18 @@ void test('saved report rejects malformed evidence without coercing labels or dr
     ],
     [{ ...evidence()[0], expectedSearch: { minFaves: 50 } }],
     [{ ...evidence()[0], window: { start: 'invalid', end: 'invalid' } }],
+    [
+      {
+        ...evidence()[0],
+        window: { start: '2026-11-03T15:00:00', end: '2026-11-04T15:00:00Z' },
+      },
+    ],
+    [
+      {
+        ...evidence()[0],
+        posts: [{ ...evidence()[0].posts[0], publishedAt: '2026-11-03' }],
+      },
+    ],
     [...evidence(), ...evidence()],
   ])
     assert.throws(() => reportSavedXExperiment(input));

@@ -144,3 +144,11 @@
 - Verification: standalone strict tsc, offline aggregate/count/cache assertions, invalid-input exit/no-stdout check and targeted batching tests 9/9 passed. Initial mixed targeted command correctly refused five integration tests without isolated services; full check runs them with disposable services.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (444 unit/209 isolated integration), pnpm build, handbook validation and git diff --check passed. Zero dangling Docker volumes, final healthz healthy and zero alerts.
 - X paid experiment remains blocked on supported per-call cost bound or owner decision. Next: Nov 5 grouping/NBA AI/cost/latency/screenshots. No restart under STEERING 22: services do not import this offline script.
+
+## 2026-11-04: iteration 689 — timezone-stable X experiment eligibility
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz and 13 services, all 36 sources healthy; no failed retained digest runs. Next edition Nov 5 15:00 UTC.
+- Offline X report now rejects timezone-free/date-only window and publication timestamps; accepts explicit offsets and preserves inclusive-start/exclusive-end eligibility and unknown publication dates. Prevents host timezone from changing measured yield. Production unchanged; no paid calls.
+- Verification: targeted report/comparison/CLI 18/18; report tests 7/7 under TZ=America/Los_Angeles; pnpm format, pnpm lint:fix, pnpm check (445 unit/209 isolated integration), pnpm build, handbook validation and git diff --check passed.
+- Updated TASKS/experiment reference. SOURCES/handbook unchanged: no source/runtime change. No restart under STEERING 22 for this offline helper.
+- Paid X dispatch still awaits a supported cost bound or owner decision. Next: Nov 5 grouping/NBA AI/cost/latency/screenshots.
