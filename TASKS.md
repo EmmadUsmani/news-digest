@@ -61,7 +61,7 @@ Fix failures and stalled sources first. [Completed markers](docs/progress-archiv
 - [ ] STEERING 2a (lower priority): finish repository/HTTP characterization before ORM. Isolated DB/Redis, migrations, HTTP/worker and synthetic-AI goldens implemented (183–270); gaps: [database verification](docs/DATABASE-VERIFICATION.md). Bluesky refresh rollback/retry and exact observation boundaries and 5,000-snapshot cap and concurrent cross-topic refresh and configuration disable/delete races characterized (554–558). Finish 2a before ORM; recorded-response golden open.
 - [ ] STEERING 2b (only after 2a is green): record Drizzle decision/schema parity, back up live DB, gradually replace raw SQL behind ports and enforce boundaries.
 
-- [ ] Full Grafana verification (560): desktop checks pass after viewport fix; Agent mobile times out waiting for Supervisor active. Inspect navigation/scroll state; focused Jobs check passes.
+- [x] Full Grafana verification (561): scroll to mount virtualized Agent mobile Supervisor panels; all ten dashboard checks and desktop/mobile sweep pass. Refreshed Agent mobile screenshot.
 
 - [x] Fix social next-run mismatch (560): Status now reads the earliest recurring schedule, matching metrics; isolated two-schedule regression added.
 

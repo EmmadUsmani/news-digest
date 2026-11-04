@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 542 — report observed triage work per topic
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 nonempty successful sources without current errors and zero failed digest jobs. Nov 4 scheduled review remains pending.
-- Added sorted per-topic counts to offline scoring-evidence report, preserving global totals. Includes scoring-only/final-only topics, repeated compatible scores, changed fingerprints, absent items and unscored attempts.
-- Four targeted tests pass; regression verifies all counts reconcile, topic isolation and input-order independence. Synthetic evidence only; no paid calls, production activation or actual waste/latency claim.
-- Updated TASKS/RANKING; archived iteration 523 to keep PROGRESS small. No source/schema/UI or handbook flow changes; no restart under STEERING 22 because running code/config is unchanged.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (350 unit/186 isolated integration), pnpm build, targeted report tests (4/4), git diff --check; root HTTP 200 and healthy healthz, zero dangling Docker volumes.
-- Next: Nov 4 scheduled review first; then gated worker connection and actual scored-work waste evidence.
-
 ## 2026-11-04: iteration 543 — measure longer real triage-pool compatibility
 
 - Started clean on main; no leftovers. Zero alerts, healthy healthz/root, all 36 sources returning nonempty collections; no failed digest jobs. Nov 4 review remains pending.
@@ -167,3 +158,12 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/193 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes. API restarted; healthz and live Status passed.
 - Full check-observability --verify-grafana passed desktop checks then timed out on Agent mobile Supervisor active; follow-up recorded. Final alerts clear; archived iteration 541 to keep PROGRESS small.
 - No paid calls, production feature activation or source changes. Next: prioritize Nov 4 15:00 edition evidence; grouping/incremental triage stay gated.
+
+## 2026-11-04: iteration 561 — finish Grafana mobile verification
+
+- Started clean on main; no leftover work. Healthz passed, 36 healthy sources, zero alerts; recent free-social and Bluesky collection jobs completed. Nov 4 15:00 UTC evidence remains pending.
+- Fixed Agent mobile verification waiting on an unmounted Supervisor panel: bounded scrolling now mounts the virtualized panel before locating it, matching the existing Runtime approach.
+- Full read-only `pnpm exec tsx scripts/check-observability.ts --verify-grafana` passed all ten dashboards and desktop/mobile captures. Inspected and retained Agent mobile screenshot; discarded unrelated screenshot refreshes.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/193 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes and final alerts clear.
+- Updated TASKS; archived iteration 542 to keep PROGRESS small. No running code/config changed, so no restart under STEERING 22; no paid calls or production activation.
+- Next: prioritize Nov 4 scheduled edition review; grouping/incremental triage remain gated. Repository characterization remains available while waiting.

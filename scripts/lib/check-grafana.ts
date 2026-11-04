@@ -1119,9 +1119,18 @@ export async function checkGrafana() {
       path: 'docs/screenshots/grafana-errors-mobile.png',
     });
     await page.goto(`${base}/d/nd-agent?kiosk`, { waitUntil: 'networkidle' });
-    await page
-      .getByRole('heading', { name: 'Supervisor active', exact: true })
-      .waitFor();
+    // Supervisor panels follow the harness observations and are virtualized
+    // below the mobile viewport. Scroll to mount them before waiting.
+    const supervisorHeading = page.getByRole('heading', {
+      name: 'Supervisor active',
+      exact: true,
+    });
+    for (let attempt = 0; attempt < 22; attempt++) {
+      if (await supervisorHeading.count()) break;
+      await page.mouse.wheel(0, 500);
+      await page.waitForTimeout(300);
+    }
+    await supervisorHeading.scrollIntoViewIfNeeded();
     await page.locator('canvas').first().waitFor({ state: 'visible' });
     assert.equal(
       await page
