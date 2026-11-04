@@ -128,11 +128,14 @@ void test('concurrent recordings replay in request order despite reversed comple
   const failed = recorder.complete(request);
   const failure = assert.rejects(failed, /provider failed/);
   const last = recorder.complete(request);
+  assert.throws(() => recorder.snapshot('Incomplete'), /requests are pending/);
   const usage = { input: 1, output: 1, cacheWrite: 0, cacheRead: 0 };
   pending[2].resolve({ text: 'last', usage });
   await last;
+  assert.throws(() => recorder.snapshot('Incomplete'), /requests are pending/);
   pending[1].reject(new Error('provider failed'));
   await failure;
+  assert.throws(() => recorder.snapshot('Incomplete'), /requests are pending/);
   pending[0].resolve({ text: 'first', usage });
   await first;
   const replay = new ReplayLlmAdapter(
@@ -141,4 +144,20 @@ void test('concurrent recordings replay in request order despite reversed comple
   assert.equal((await replay.complete(request)).text, 'first');
   assert.equal((await replay.complete(request)).text, 'last');
   await assert.rejects(replay.complete(request), /Missing LLM replay/);
+});
+
+void test('failed and malformed provider responses release the snapshot guard', async () => {
+  for (const complete of [
+    () => {
+      throw new Error('synchronous provider failure');
+    },
+    async () => ({
+      text: 'invalid usage',
+      usage: { input: -1, output: 1, cacheWrite: 0, cacheRead: 0 },
+    }),
+  ]) {
+    const recorder = new RecordingLlmAdapter({ complete });
+    await assert.rejects(recorder.complete(request));
+    assert.deepEqual(recorder.snapshot('Synthetic failures').records, []);
+  }
 });

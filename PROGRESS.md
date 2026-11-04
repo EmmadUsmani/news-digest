@@ -169,3 +169,12 @@
 - Verification: targeted recording tests 4/4; pnpm format, pnpm lint:fix, pnpm check (365 unit/205 isolated integration), pnpm build and git diff --check passed. First check caught formatting in the newly moved archive; fixed before the final run.
 - Recorder is imported only by the explicit historical recording script; no running service code/config changed, so no restart under STEERING 22. No paid calls, prompts, fixture recordings, production flags or edition behavior changed.
 - Next: Nov 4 15:00 UTC edition review; grouping and incremental triage remain off until that review.
+
+## 2026-11-04: iteration 622 — refuse incomplete LLM recording exports
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 healthy sources and retained job checks green.
+- Recording snapshots now refuse while provider calls are pending, preventing silently truncated replay fixtures. Settled failures release the guard without being recorded.
+- Extended concurrent reversal regression to check partial exports; added synchronous-provider and malformed-response failure coverage. Updated TASKS and LLM recording documentation.
+- Verification: targeted recording tests 5/5; pnpm format, pnpm lint:fix, pnpm check (366 unit/205 isolated integration), pnpm build and git diff --check passed.
+- Explicit recording tool only; no running-service code/config changes, so no restart under STEERING 22. No paid calls, prompt changes, new recordings or production activations.
+- Next: Nov 4 15:00 UTC edition review; grouping and incremental triage remain off pending that review. Real raw-response golden remains open.

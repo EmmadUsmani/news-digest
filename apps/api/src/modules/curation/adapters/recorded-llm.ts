@@ -57,18 +57,28 @@ export class ReplayLlmAdapter implements LlmPort {
 export class RecordingLlmAdapter implements LlmPort {
   private readonly records = new Map<number, LlmRecording['records'][number]>();
   private nextSequence = 0;
+  private pending = 0;
   constructor(private readonly provider: LlmPort) {}
   async complete(request: LlmRequest): Promise<LlmResponse> {
     const fingerprint = llmFingerprint(request);
     const sequence = this.nextSequence++;
-    const response = await this.provider.complete(request);
-    this.records.set(
-      sequence,
-      recordSchema.parse({ fingerprint, model: request.model.id, response }),
-    );
-    return response;
+    this.pending++;
+    try {
+      const response = await this.provider.complete(request);
+      this.records.set(
+        sequence,
+        recordSchema.parse({ fingerprint, model: request.model.id, response }),
+      );
+      return response;
+    } finally {
+      this.pending--;
+    }
   }
   snapshot(provenance: string): LlmRecording {
+    if (this.pending > 0)
+      throw new Error(
+        'Cannot snapshot LLM recording while requests are pending',
+      );
     return structuredClone(
       llmRecordingSchema.parse({
         version: 1,
