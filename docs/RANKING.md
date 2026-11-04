@@ -2715,8 +2715,7 @@ Final social editing now receives bounded saved engagement evidence: X ranking e
 
 When social triage completes but editing is unavailable within caps or fails
 validation, lexical fallback now retains only posts meeting the same relevance
-(6/10) and interestingness (4/10) gates used for the editor shortlist. Rejected
-or missing-score posts cannot return through degradation. Incomplete triage
+(6/10) and interestingness (4/10) gates used for the editor shortlist. Rejected posts cannot return through degradation. Incomplete triage
 still retains the original lexical fallback; no unavailable score is treated
 as a rejection. The stored explanation distinguishes this gated fallback.
 Synthetic tests cover both thresholds, absent scores, an empty fallback result,
@@ -2725,3 +2724,12 @@ claim that the Nov 4 edition used it or that future World coverage improves.
 No paid calls, model changes or additional selection requests.
 
 Iteration 658 corrects Bluesky instruction specialization: it replaces only platform provenance, retaining the shared engagement-evidence guidance. The previous broad replacement incorrectly said engagement was absent despite the timestamped API counts added in iteration 656. Saved counts remain advisory; missing counts, growth, usual reach, virality and unseen media retain their uncertainty rules. Fake-request regression verifies the actual Bluesky prompt and evidence. No paid calls; live selection effects remain unmeasured.
+
+Iteration 659 requires exact triage coverage before applying those completed
+semantic gates to X/Reddit selection: every candidate must have exactly one
+score, with integer relevance and interestingness in 0–10 and no unknown IDs.
+Missing, duplicate, foreign or invalid scores retain the original lexical
+fallback and skip final editing, matching Bluesky's existing completeness
+check. Missing IDs are included in immutable unscored metadata even if the
+triage adapter omitted them. Synthetic malformed-result tests verify this;
+no live failure or selection improvement is claimed.

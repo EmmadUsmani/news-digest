@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 643 — explain incremental replay backlog by pass
-
-- Started clean on main; no leftover work. Healthz healthy and zero alerts; Nov 4 edition pending.
-- Added per-tick/final-pass replay traces: pending/pool/scored/request counts and scored/cached/threshold/rotation/cutoff outcomes. No production code/config or paid calls.
-- Hourly offset-1 rotation with threshold/cap 25 and two-hour cutoff: World/Tech last assigned ticks have 22/24 pending, defer, and leave all 47/54 for publication; NBA prepares 25 and leaves 27. Publication proxies and synthetic scores do not establish live cost/speed.
-- Targeted incremental replay tests 13/13 pass, including backlog/threshold traces, cutoff precedence, cached passes and request/item reconciliation.
-- Updated TASKS/RANKING; archived iteration 625 to keep PROGRESS bounded. No source/handbook/schema change.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (388 unit/205 isolated integration), pnpm build and git diff --check passed. Healthz healthy, zero alerts/dangling volumes; saved edition remains four topics/19 stories/11 posts.
-- Offline tools only; no restart under STEERING 22. Incremental triage/grouping remain off; next priority is Nov 4 scheduled edition review.
-
 ## 2026-11-04: iteration 644 — attribute preparation waste to each replay pass
 
 - Started clean on main; no leftover work. Healthz healthy, zero alerts; Nov 4 scheduled edition pending.
@@ -166,3 +156,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (399 unit/207 isolated integration), pnpm build and git diff --check passed; no dangling Docker volumes or failed user services.
 - Pushed d04ca00; systemctl --user restart news-digest-api news-digest-worker: both active; curl /healthz healthy after startup retry; pnpm obs alerts zero; saved edition readable with four topics/14 stories/15 posts.
 - Next: Nov 5 grouping/cost/latency/screenshots, NBA full-AI and World coverage; incremental triage stays off.
+
+## 2026-11-04: iteration 659 — require complete social triage coverage
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 sources without current errors; saved edition has four topics/14 stories/15 posts.
+- X/Reddit orchestration now requires exactly one valid score per candidate, no foreign IDs, and integer relevance/interestingness in 0–10 before using completed semantic gates, matching Bluesky's existing check.
+- Missing, duplicate, foreign and invalid scores skip final editing and retain the original lexical fallback. Missing candidate IDs are exposed even when the adapter's unscored list omitted them.
+- Synthetic regression covers missing/duplicate/unknown IDs and negative, oversized, fractional, NaN and infinite scores. Updated prior fallback test to supply genuinely complete coverage.
+- No paid calls, prompts, models, caps, configuration, sources, UI or schema changes; no claim this caused Nov 4's selection. No handbook/SOURCES update needed for this bug fix.
+- Updated TASKS/RANKING; archived iteration 643. Verification: targeted tests 7/7, pnpm format, pnpm lint:fix, pnpm check (400 unit/207 isolated integration), pnpm build and git diff --check passed.
+- Restarted API/worker: both active; healthz/database/Redis healthy after startup retry, zero alerts/failed user services; saved four-topic/15-post edition readable.
+- Next: Nov 5 grouping/cost/latency/screenshots, NBA full-AI acceptance and World social coverage; incremental triage stays off.

@@ -107,9 +107,31 @@ export async function editTopicPosts<T extends EditorialPost>(
   );
   editorial.triage = triage.scores;
   editorial.unscoredIds = triage.unscoredIds;
-  if (triage.unscoredIds.length) {
+  const expectedIds = new Set(candidates.map(editorialId));
+  const scoredIds = new Set(triage.scores.map((score) => score.id));
+  if (
+    triage.unscoredIds.length ||
+    triage.scores.length !== expectedIds.size ||
+    scoredIds.size !== expectedIds.size ||
+    triage.scores.some(
+      (score) =>
+        !expectedIds.has(score.id) ||
+        !Number.isInteger(score.relevance) ||
+        score.relevance < 0 ||
+        score.relevance > 10 ||
+        !Number.isInteger(score.importance) ||
+        score.importance < 0 ||
+        score.importance > 10,
+    )
+  ) {
+    editorial.unscoredIds = [
+      ...new Set([
+        ...triage.unscoredIds,
+        ...[...expectedIds].filter((id) => !scoredIds.has(id)),
+      ]),
+    ];
     editorial.reason =
-      'Non-AI selection: social triage is incomplete; retained lexical fallback.';
+      'Non-AI selection: social triage is incomplete or invalid; retained lexical fallback.';
     return result;
   }
   // Completed relevance gates also constrain degradation: an unavailable

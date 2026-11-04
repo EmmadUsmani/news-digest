@@ -119,9 +119,9 @@ void test('incomplete triage and exhausted editor retain lexical fallback; quiet
   assert.equal(quiet.postEditorial.model, null);
   assert.match(quiet.postEditorial.reason, /No verified posts/);
   assert.match(incomplete.postEditorial.reason, /triage is incomplete/);
-  assert.match(unavailable.postEditorial.reason, /editor unavailable/);
+  assert.match(unavailable.postEditorial.reason, /triage is incomplete/);
   await editTopicPosts(services, topic, posts, [], 0, 'test');
-  assert.equal(editorCalls, 1);
+  assert.equal(editorCalls, 0);
 });
 
 void test('empty and disabled post sections skip both social AI services', async () => {
@@ -365,7 +365,7 @@ void test('unavailable social editor cannot restore posts rejected by completed 
       },
     },
   };
-  const fallback = posts.slice(0, 4);
+  const fallback = posts.slice(0, 3);
   const result = await editTopicPosts(
     services,
     topic,
@@ -382,7 +382,7 @@ void test('unavailable social editor cannot restore posts rejected by completed 
   assert.equal(result.postSelectionMethod, 'verified-lexical-engagement-v3');
   assert.deepEqual(
     fallback,
-    posts.slice(0, 4),
+    posts.slice(0, 3),
     'fallback input remains untouched',
   );
   const rejected = await editTopicPosts(
@@ -394,4 +394,56 @@ void test('unavailable social editor cannot restore posts rejected by completed 
     'test',
   );
   assert.deepEqual(rejected.posts, []);
+});
+
+void test('social triage requires exact unique candidate coverage and bounded integer scores', async () => {
+  const valid = posts.slice(0, 2).map((post) => ({
+    id: post.externalId,
+    relevance: 8,
+    importance: 7,
+    event: 'fixture',
+    rationale: 'Synthetic score',
+  }));
+  const cases = [
+    [],
+    [valid[0]],
+    [valid[0], valid[0]],
+    [valid[0], { ...valid[1], id: 'unknown' }],
+    ...['relevance', 'importance'].flatMap((field) =>
+      [-1, 11, 6.5, NaN, Infinity].map((value) => [
+        valid[0],
+        { ...valid[1], [field]: value },
+      ]),
+    ),
+  ];
+  for (const scores of cases) {
+    const result = await editTopicPosts(
+      {
+        socialTriage: {
+          async score() {
+            return { scores, unscoredIds: [] };
+          },
+        },
+        socialEditor: {
+          async edit() {
+            throw new Error('Invalid triage reached editor');
+          },
+        },
+      },
+      topic,
+      posts.slice(0, 2),
+      [posts[1]],
+      1,
+      'test',
+    );
+    assert.deepEqual(result.posts, [posts[1]]);
+    assert.equal(result.postEditorial.mode, 'non-ai');
+    assert.match(result.postEditorial.reason, /incomplete or invalid/);
+    assert.deepEqual(
+      result.postEditorial.unscoredIds,
+      valid
+        .filter((s) => !scores.some((score) => score.id === s.id))
+        .map((s) => s.id),
+    );
+  }
 });
