@@ -1660,3 +1660,27 @@ chunk boundaries, and counts one pretriaged article removed from the final pool
 as waste. A cold replay scores the remaining 1,499 articles. This verifies scale
 and accounting only; it supplies no real arrival, waste, spend or latency evidence.
 Production configuration and scheduling are unchanged.
+
+## Iteration 521: read-only first-fetch arrival evidence
+
+`pnpm exec tsx scripts/export-triage-arrivals.ts START END OUTPUT_DIRECTORY`
+exports one replay JSON per enabled topic from a consistent read-only database
+transaction. Windows must be completed and at most 48 hours. Output files are
+created exclusively with mode 600; use a fresh directory outside the repo.
+No models, queues, settings or content are written. The export includes every
+currently source-associated article in the publication window, without a cap.
+
+`availableAt` is the immutable global `content_items.fetched_at`, **not** the
+first observation for that topic. Source connections and article text are current,
+not historical. Arrivals before publication are excluded and counted explicitly;
+no timestamps are invented. No historical eligible-pool snapshots exist here,
+so waste stays unknown and these pools are not production shortlists.
+
+Read-only live export for Nov 3 00:00–Nov 4 00:00 UTC found Tech/NBA/Gaming/World
+332/159/296/236 articles, including 6/3/2/2 first fetched after window end; none
+had arrival before publication. Offline hourly replay, minimum 25 and two-hour
+cutoff, pretriaged 288/120/248/194 and left 38/36/46/40 edition-time articles.
+There were 14/5/10/8 synthetic requests and zero repeated scoring. This measures
+first-fetch availability under current source membership, not provider latency,
+settled spend, historical pool waste or production edition quality. Exports live
+under `/tmp/triage-arrivals-521/` on this VM; no new production setting is enabled.
