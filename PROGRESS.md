@@ -169,3 +169,4 @@
 - Verification: targeted triage tests 20/20; pnpm format, pnpm lint:fix, pnpm check (404 unit/207 isolated integration), pnpm build and git diff --check pass. Corrected an initial test-only unbound-method lint error before the passing full check.
 - Restarted API/worker: active; healthz healthy after startup retry, saved edition four topics/14 stories/15 posts; 36 nonempty successful sources, zero errors/alerts.
 - Next: Nov 5 grouping/cost/latency/screenshots, NBA full-AI acceptance and World posts; incremental triage stays off.
+- Initial push rejected (remote advanced); merged owner docs/instructions commit e1899d7 without conflicts or history rewriting. Application files unchanged by merge. Merged checker found Operations 101/100 prose lines; shortened its test note without changing policy.

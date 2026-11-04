@@ -107,5 +107,4 @@ flowchart LR
 | Everything             | `pnpm check`            | Both suites plus typecheck, lint, format and boundaries   |
 | Smoke (live, explicit) | `scripts/smoke-*.ts`    | Real browser/UI checks against the running app            |
 
-Tests never call live external services. AI responses come from fakes or
-recorded fixtures, and live checks are opt-in and budgeted.
+Tests use fake or recorded AI responses, never live external services.
