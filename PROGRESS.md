@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 549 — replay triage input invalidation
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz and all queues available; scheduled Nov 4 review remains ahead at 15:00 UTC.
-- Offline replay previously treated article IDs as scored forever. Added timestamped scoring-input updates and real cache probes so headline/excerpt/source changes create pending work; updates persist through pool removal/return.
-- Added invalidatedPreEditionItems alongside membership-only waste and repeatScoring. Synthetic regression: three versions, two repeated scores, one invalidated edition item, zero membership loss; truncation-only changes reuse cache.
-- Existing recorded windows retain hourly NBA/World/Tech edition remainders 0/5/2, with zero repeat scores or invalidations. No paid calls, activation or live waste/cost/latency claim.
-- Updated TASKS/RANKING; archived iteration 529. Only offline tooling/tests/docs changed, so no restart under STEERING 22; no handbook/source/schema flow change.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (356 unit/187 isolated integration), pnpm build, recorded replay and git diff --check passed; root HTTP 200, healthy healthz, 36 nonempty/error-free sources, zero failed digest jobs, alerts and dangling volumes.
-- Next: Nov 4 scheduled review first; gated worker connection and actual scoring/final-pool waste evidence thereafter.
-
 ## 2026-11-04: iteration 550 — measure offline scoring-version waste
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 nonempty/error-free sources and four available queues; Nov 4 scheduled review remains ahead.
@@ -178,3 +168,12 @@
 - Updated TASKS/database verification and archived iteration 548. No provider calls or production changes; no restart under STEERING 22.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/199 isolated integration) and pnpm build passed. Final healthz/alerts green and zero dangling Docker volumes.
 - Next: Nov 4 scheduled review first; otherwise close the three concrete prerequisite gaps before starting 2b.
+
+## 2026-11-04: iteration 569 — usage failure cleanup before ORM
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 sources without current errors and no failed digest jobs; Nov 4 15:00 UTC review still pending.
+- Added isolated PostgreSQL regression for missing default schedule, both directly and through usage reporting. Failure must return the only pooled client and release the shared ledger lock to an independent session; restoring the schedule permits retry.
+- Updated TASKS/database verification; the remaining concrete 2a prerequisite is social engagement as-of/tied-call ordering. No ORM conversion or provider calls.
+- Archived iteration 549 to keep PROGRESS small. No source/schema/UI/handbook flow change; no service restart under STEERING 22 because running code/config is unchanged.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/200 isolated integration), pnpm build and git diff --check passed. API/worker active, healthz healthy, zero alerts and dangling Docker volumes.
+- Next: Nov 4 scheduled edition review first; otherwise close social engagement snapshot ordering before 2b.

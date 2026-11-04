@@ -75,14 +75,18 @@ from zero against the disposable database. Health's `SELECT 1` is exercised by
 repository query to translate into an ORM builder. Instrumentation stays in
 `libs/db`; operations remains in the conversion inventory above.
 
-Concrete prerequisite follow-ups remain: `readLlmUsage`'s rollback/release path
-(lines 104–107) and missing-schedule failure in `hasBudgetDayOccurrence` have no
-direct isolated assertions. Social selection's correlated engagement query also
-needs explicit as-of observation and tied-call ordering assertions: the existing
+Iteration 569 adds a direct missing-schedule assertion and exercises the same
+failure through `readLlmUsage` against isolated PostgreSQL. A one-connection pool
+must return its checkout after rejection; a separate session must acquire the
+shared ledger lock, proving rollback released it. Restoring the schedule permits
+a successful usage read on the same pooled session. The fixture restores both
+the saved schedule and today's lifecycle rows.
+
+The remaining concrete prerequisite is social selection's correlated engagement
+query: add explicit as-of observation and tied-call ordering assertions. Existing
 social selection tests do not assert `xSearchRanking` or `reportedEngagement`.
-These are specific conversion risks, not a reason to chase coverage percentages
-or add unrelated characterization. Keep 2a open until reconciled. The unexecuted
-`configuredLlmCaps` export (usage lines 96–97) is not a database query gap.
+Keep 2a open until reconciled; do not chase coverage percentages or unrelated
+characterization. The unexecuted `configuredLlmCaps` export is not a database gap.
 
 ## Baseline: iteration 223, November 2, 2026
 
