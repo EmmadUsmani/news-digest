@@ -1,5 +1,11 @@
+import { and, eq, inArray, isNotNull, isNull, sql } from 'drizzle-orm';
+import { drizzle } from 'drizzle-orm/node-postgres';
 import type { Pool, PoolClient } from 'pg';
 
+import {
+  xDiscoveryCalls,
+  xDiscoveryProviderBlock,
+} from '../../../libs/db/schema';
 import {
   validateXCaps,
   type XDiscoveryCaps,
@@ -168,35 +174,48 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
   // official verification finish. Settlement alone cannot authorize a followup.
   async completeVerification(id: string) {
     await this.transaction(async (client) => {
-      const result = await client.query(
-        `UPDATE x_discovery_calls SET verification_completed_at=COALESCE(
-          verification_completed_at,clock_timestamp())
-         WHERE id=$1 AND status='succeeded' AND search_type='open-topic'
-           AND scheduled_day IS NOT NULL AND optional_parent_id IS NULL RETURNING id`,
-        [id],
-      );
-      if (!result.rowCount) throw new Error('X open search is not completed');
+      const result = await drizzle(client)
+        .update(xDiscoveryCalls)
+        .set({
+          verificationCompletedAt: sql`coalesce(${xDiscoveryCalls.verificationCompletedAt}, clock_timestamp())`,
+        })
+        .where(
+          and(
+            eq(xDiscoveryCalls.id, id),
+            eq(xDiscoveryCalls.status, 'succeeded'),
+            eq(xDiscoveryCalls.searchType, 'open-topic'),
+            isNotNull(xDiscoveryCalls.scheduledDay),
+            isNull(xDiscoveryCalls.optionalParentId),
+          ),
+        )
+        .returning({ id: xDiscoveryCalls.id });
+      if (!result.length) throw new Error('X open search is not completed');
     });
   }
   async settle(id: string, usage: XDiscoveryUsage, price: XDiscoveryPrice) {
     const cost = xDiscoveryCost(usage, price);
     await this.transaction(async (client) => {
-      const result = await client.query(
-        `UPDATE x_discovery_calls SET status='succeeded',
-        completed_at=clock_timestamp(),cost_micros=$2,input_tokens=$3,output_tokens=$4,
-        posts_fetched=$5,profiles_fetched=$6,
-        error_code=CASE WHEN $2 > reserved_micros THEN 'estimate-exceeded' ELSE NULL END
-        WHERE id=$1 AND status IN ('pending','uncertain') RETURNING id`,
-        [
-          id,
-          cost,
-          usage.inputTokens,
-          usage.outputTokens,
-          usage.postsFetched,
-          usage.profilesFetched,
-        ],
-      );
-      if (!result.rowCount)
+      const result = await drizzle(client)
+        .update(xDiscoveryCalls)
+        .set({
+          status: 'succeeded',
+          completedAt: sql`clock_timestamp()`,
+          costMicros: cost,
+          inputTokens: usage.inputTokens,
+          outputTokens: usage.outputTokens,
+          postsFetched: usage.postsFetched,
+          profilesFetched: usage.profilesFetched,
+          // Compare the final provider charge with the persisted hold atomically.
+          errorCode: sql`case when ${cost} > ${xDiscoveryCalls.reservedMicros} then 'estimate-exceeded' else null end`,
+        })
+        .where(
+          and(
+            eq(xDiscoveryCalls.id, id),
+            inArray(xDiscoveryCalls.status, ['pending', 'uncertain']),
+          ),
+        )
+        .returning({ id: xDiscoveryCalls.id });
+      if (!result.length)
         throw new Error('X discovery reservation is not open');
     });
   }
@@ -205,16 +224,28 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
     reason: 'credits-depleted' | 'rejected' | 'uncertain',
   ) {
     await this.transaction(async (client) => {
-      const result = await client.query(
-        `UPDATE x_discovery_calls SET status=$2,
-        completed_at=clock_timestamp(),error_code=$3 WHERE id=$1 AND status='pending' RETURNING id`,
-        [id, reason === 'uncertain' ? 'uncertain' : 'failed', reason],
-      );
-      if (!result.rowCount)
+      const orm = drizzle(client);
+      const result = await orm
+        .update(xDiscoveryCalls)
+        .set({
+          status: reason === 'uncertain' ? 'uncertain' : 'failed',
+          completedAt: sql`clock_timestamp()`,
+          errorCode: reason,
+        })
+        .where(
+          and(
+            eq(xDiscoveryCalls.id, id),
+            eq(xDiscoveryCalls.status, 'pending'),
+          ),
+        )
+        .returning({ id: xDiscoveryCalls.id });
+      if (!result.length)
         throw new Error('X discovery reservation is not open');
       if (reason === 'credits-depleted')
-        await client.query(`INSERT INTO x_discovery_provider_block(singleton,error_code)
-        VALUES(true,'credits-depleted') ON CONFLICT DO NOTHING`);
+        await orm
+          .insert(xDiscoveryProviderBlock)
+          .values({ singleton: true, errorCode: 'credits-depleted' })
+          .onConflictDoNothing();
     });
   }
 }

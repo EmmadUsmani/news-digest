@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 580 — convert edition-cost reader to Drizzle
-
-- Started clean on main; no leftover work. Healthy healthz, zero alerts, 36 error-free sources and zero failed digest jobs; older ingestion/social failures have subsequent successes. Nov 4 scheduled review remains pending.
-- Converted run-attributed cost and full-AI measurement queries to typed Drizzle aggregates/joins, preserving transaction clients, completeness, verification/unresolved exclusions, 30-day bounds, ordering and limits. JSON array checks retain a documented SQL predicate.
-- Existing DB characterization assertions unchanged. Updated the logging unit stub to accept node-postgres query objects after its string-only implementation failed; targeted regression and final full check pass.
-- Updated TASKS, architecture, decision and handbook stack; archived iteration 563. No migration, source/feature activation or paid call.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
-- Read-only live probe returned Nov 3 cost 339,524 micros/43 calls and zero qualifying full-AI measurements. Initial probe omitted the app's default DB URL; reran successfully through its database factory.
-- Restarted API/worker outside freeze; both active, healthz healthy, root HTTP 200, published edition byte-identical, 36 error-free sources, zero failed digest jobs and zero alerts.
-- Next: prioritize Nov 4 scheduled review when due; otherwise remaining ORM adapters or historical migration baseline. Private pg_dump before first new migration.
-
 ## 2026-11-04: iteration 581 — convert topic coverage to Drizzle
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 healthy sources and zero failed digest jobs. Latest Bluesky/free-social collections succeeded; Nov 4 scheduled review remains pending.
@@ -154,4 +143,13 @@
 - Updated TASKS, architecture, decision and handbook stack; archived iteration 579. No migration, activation, source change or paid call.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed. Ledger statement coverage 97.13%; zero dangling Docker volumes.
 - Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Read-only Playwright rendered four digest topics/19 article entries without page errors; zero alerts.
+- Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters or historical migration baseline. Private pg_dump before first new migration.
+
+## 2026-11-04: iteration 595 — convert X discovery ledger completion writes
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC review remains pending.
+- Converted verification completion, settlement, failure transitions and depleted-credit block inserts to Drizzle. Preserved the client transaction/shared lock, first verification timestamp, terminal-state guards, uncertain settlement and estimate-exceeded comparison. Admission/totals remain for a later step.
+- Existing characterization tests unchanged; no migration, activation, source change or paid call. Updated TASKS, architecture, decision and handbook stack; archived iteration 580 to keep PROGRESS bounded.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
+- Restarted API/worker outside freeze; both active, healthz healthy and saved edition byte-identical. Read-only Playwright rendered 19 article elements without page errors; zero alerts. Latest free-social run completed 08:54 UTC.
 - Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters or historical migration baseline. Private pg_dump before first new migration.

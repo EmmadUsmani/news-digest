@@ -160,3 +160,9 @@ first-writer cache semantics remain unchanged. Reservation admission now uses ty
 projections and inserts under the same client transaction and lock. Conditional
 sums use SQL templates for CASE expressions, preserving earlier pending/uncertain
 reservations, verification/model limits and scheduled reserve admission.
+
+X discovery ledger verification completion, settlement and failure writes use typed
+Drizzle updates and provider-block inserts. The existing shared advisory lock and
+client transaction remain; terminal-state guards, uncertain settlement, persisted
+hold comparisons and first verification timestamps are unchanged. Admission and
+usage totals still use SQL pending their separate conversion.
