@@ -894,3 +894,56 @@ the NBA posts were betting promotions, World got roundups, and the best had
   machinery once the new schedule ships. No new prompt wording rules.
 - **Acks:** one after the experiment decision (with its numbers), and one
   after 3 editions meet the plan's done criteria.
+
+## 31. Owner decision: run the X experiment now (2026-11-04)
+
+This resolves the "X comparison dispatch blocker" in NEEDS_FROM_HUMAN.md.
+The owner **accepts the same per-call exposure production X search already
+has.** No hard per-request cap is needed. The prepaid balance is the hard
+ceiling.
+- **Reserve $0.15 per experiment call** (about 4× the most expensive call so
+  far), using the existing reserve-then-settle ledger.
+- **Before each call,** don't start it if its reservation could push the
+  total past $1.00 per UTC day or $2.50 overall.
+- **After each call,** check the cumulative settled spend.
+- **If any call settles above its $0.15 reservation, stop the experiment**
+  and report the numbers. Going over by one call is accepted.
+- **Run round 1 tonight,** outside 13:00–16:00 UTC, with the machinery that
+  already exists.
+  - **Stop adding experiment safeguards:** no more fencing, claims or
+    validation layers. Item 30's time limit applies, and the harness is
+    already past it.
+  - **Next steps:** the second day, threshold calibration and the model
+    round follow per the plan.
+- Remove the blocker from NEEDS_FROM_HUMAN.md, and ack here with round 1's
+  numbers.
+
+## 32. Tonight's queue: X schedule switched off, nightly DB backups (2026-11-04)
+
+These go after item 31's round 1 and before the fallback list (item 28).
+1. **Build the new X search schedule now, switched off** (item 30, plan step 3).
+   - Build the fixed A/B schedule (story reactions and topic trending) using
+     the stored per-topic thresholds and exclusions, behind a setting that
+     is **off by default**.
+   - Prepare removal of the old follow-up and optional-slot machinery in the
+     same change, to take effect when the setting flips.
+   - Only the parameters wait for the experiment: style weighting, final
+     thresholds and model.
+   - Switch it on only after the experiment decision is acked. Never between
+     13:00 and 16:00 UTC.
+2. **Nightly database backups (small).**
+   - A worker job, or a systemd timer, running `pg_dump` of `news_digest`
+     nightly, away from 13:00–16:00 UTC.
+     - Compressed custom format.
+     - Written to `~/backups/news-digest/`, mode 700, outside the repo.
+     - Keep 7 days.
+   - **Prove a restore works:** restore the latest dump into a throwaway
+     Postgres container, compare row counts for the main tables, then remove
+     the container. Do this once now, then weekly.
+   - **Alert** (vmalert, item 24) when no successful backup exists in the
+     last 26 hours.
+   - Document it in the handbook Operations page: where backups are, and how
+     to restore.
+   - Backups must not contain or print secrets beyond the data itself.
+   - **Off-VM copies are out of scope.** They need an owner decision on
+     where to store them.
