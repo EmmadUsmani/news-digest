@@ -135,3 +135,12 @@
 - Synthetic regressions only; no production scoring exporter, actual waste/cost/latency observation, paid calls or activation. Compatibility does not prove cache consumption. TASKS/RANKING document the input contract and limits.
 - Verification: targeted regressions 3/3; pnpm format, pnpm lint:fix, pnpm check (323 unit/184 isolated integration), pnpm build and git diff --check passed; no dangling Docker volumes. Initial status probe used a nonexistent route; correct /api/status is healthy.
 - Services remain running under STEERING 22: only offline tooling/tests/docs changed. Next: scheduler/export wiring and actual scoring evidence; Nov 4 scheduled review takes priority when available.
+
+## 2026-11-04: iteration 530 — prepare bounded multi-topic triage ticks
+
+- Started clean on main; no leftover work. Zero alerts; healthz/status healthy, 36 sources without current errors and four available queues. Nov 4 review remains pending.
+- Added prepared round-robin scheduler: one topic per tick bounds total work; overlap skips, completed/error passes rotate, busy/cutoff preserves turn. Current topic membership is supplied each tick; duplicate/blank IDs and loader identity mismatch fail safely.
+- Three fake regressions cover work bounds, membership changes, overlap, failure recovery, contention/cutoff and invalid inputs. No production timer/pool caller, export, activation or paid calls; no live speed/cost/waste claim.
+- Updated TASKS/RANKING. Services remain running under STEERING 22 because prepared code is not imported by running code; no UI/schema/source/handbook flow change.
+- Next: production caller/export wiring with shared admission and reserve-safe services; Nov 4 edition review takes priority when available.
+- Verification: targeted tests 3/3; pnpm format, pnpm lint:fix, pnpm check (326 unit/184 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.

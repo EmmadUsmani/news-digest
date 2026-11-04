@@ -1843,3 +1843,21 @@ there is no production scoring exporter or scheduler caller yet. Do not feed
 prospective captures in as successful scoring. Compatibility does not prove
 actual cache consumption; these counts establish neither spend nor latency.
 No actual incremental scores exist yet and no measured waste claim is made.
+
+## Iteration 530: bounded multi-topic scheduler preparation
+
+The prepared `IncrementalTriageScheduler` processes one topic per tick through
+an injected `IncrementalTriageRunner`. The item bound applies to the entire tick,
+rather than being multiplied by the number of topics. It rotates through the
+current topic list after completed passes and failures, so a failing topic does
+not starve the others. Busy/cutoff results preserve the next turn; overlapping
+ticks skip immediately without queuing work. Removing the last-served topic
+restarts rotation at the beginning of the current list. Duplicate/blank topic
+IDs and loader identity mismatches are rejected.
+
+Three fake-only regressions cover bounded work, topic changes, overlap,
+failure recovery, contention/cutoff turns and invalid input. This is prepared
+orchestration, with no timer, production pool caller, scoring export or paid
+calls. The eventual caller must use the reserve-safe scorer and shared database
+admission, reload current enabled topics/settings, and keep activation off until
+the Nov 4 review. No live speed, cost or waste measurement is claimed.
