@@ -107,3 +107,8 @@ and failure characterization tests remain unchanged.
 The shared article-candidate loader uses typed joins, window filters, grouping
 and limits for publication, reaction discovery and incremental triage. Its
 ordered distinct source-name array retains a PostgreSQL aggregate template.
+
+The incremental-triage admission adapter binds Drizzle to its checked-out client.
+Session advisory lock functions retain SQL templates because no query builder
+represents them. Contention, idempotent release, provider-work error listening
+and destroying failed sessions preserve the existing characterization behavior.

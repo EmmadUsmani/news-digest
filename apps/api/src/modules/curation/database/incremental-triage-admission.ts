@@ -1,3 +1,5 @@
+import { sql } from 'drizzle-orm';
+import { drizzle } from 'drizzle-orm/node-postgres';
 import type { Pool } from 'pg';
 
 import type { IncrementalTriageAdmission } from '../application/incremental-triage-runner';
@@ -21,10 +23,12 @@ export class PostgresIncrementalTriageAdmission implements IncrementalTriageAdmi
       client.release(destroy);
       client.removeListener('error', onError);
     };
+    // Advisory locks are PostgreSQL session operations without a query builder.
+    // Bind Drizzle to this checked-out client so acquisition and release share it.
+    const session = drizzle(client);
     try {
-      const result = await client.query<{ acquired: boolean }>(
-        'SELECT pg_try_advisory_lock($1) AS acquired',
-        [lockId],
+      const result = await session.execute<{ acquired: boolean }>(
+        sql`SELECT pg_try_advisory_lock(${lockId}) AS acquired`,
       );
       if (!result.rows[0].acquired) {
         dispose();
@@ -40,7 +44,7 @@ export class PostgresIncrementalTriageAdmission implements IncrementalTriageAdmi
       released = true;
       try {
         if (sessionError) throw sessionError;
-        await client.query('SELECT pg_advisory_unlock($1)', [lockId]);
+        await session.execute(sql`SELECT pg_advisory_unlock(${lockId})`);
       } catch (error) {
         dispose(true);
         throw error;

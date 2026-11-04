@@ -1,21 +1,3 @@
-## 2026-11-04: iteration 568 — expose public SQL coverage and concrete ORM gaps
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts; Nov 4 edition review remains pending.
-- Expanded isolated integration coverage to all six SQL-bearing public facades, previously absent from the report. All source database adapters appear; documented health/console/migration coverage separately.
-- Reconciled facade results with actual assertions. Concrete remaining 2a risks: usage rollback/release, missing schedule, social engagement as-of observation and tied-call ordering. No ORM conversion or unrelated characterization added.
-- Updated TASKS/database verification and archived iteration 548. No provider calls or production changes; no restart under STEERING 22.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/199 isolated integration) and pnpm build passed. Final healthz/alerts green and zero dangling Docker volumes.
-- Next: Nov 4 scheduled review first; otherwise close the three concrete prerequisite gaps before starting 2b.
-
-## 2026-11-04: iteration 569 — usage failure cleanup before ORM
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 sources without current errors and no failed digest jobs; Nov 4 15:00 UTC review still pending.
-- Added isolated PostgreSQL regression for missing default schedule, both directly and through usage reporting. Failure must return the only pooled client and release the shared ledger lock to an independent session; restoring the schedule permits retry.
-- Updated TASKS/database verification; the remaining concrete 2a prerequisite is social engagement as-of/tied-call ordering. No ORM conversion or provider calls.
-- Archived iteration 549 to keep PROGRESS small. No source/schema/UI/handbook flow change; no service restart under STEERING 22 because running code/config is unchanged.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/200 isolated integration), pnpm build and git diff --check passed. API/worker active, healthz healthy, zero alerts and dangling Docker volumes.
-- Next: Nov 4 scheduled edition review first; otherwise close social engagement snapshot ordering before 2b.
-
 ## 2026-11-04: iteration 570 — recover rejected Bluesky sessions; close ORM prerequisite
 
 - Started clean on main; no leftover work. Zero alerts and healthy healthz; 36 sources healthy and no failed digest jobs. Nov 4 15:00 UTC evidence pending.
@@ -164,3 +146,13 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed. Loader statement coverage 100%; zero dangling Docker volumes.
 - Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Playwright found 19 rendered list cards and zero page errors; 36 sources without current errors, zero failed digest jobs and zero alerts.
 - Next: prioritize Nov 4 scheduled review at 15:00 UTC; otherwise continue remaining ORM adapters or migration baseline. Private pg_dump before first new migration.
+
+## 2026-11-04: iteration 584 — convert incremental-triage admission to Drizzle
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and zero failed digest jobs. Retained ingestion/social failures remain with current successful collection; Nov 4 edition review pending.
+- Converted session advisory acquisition/release to Drizzle on the same checked-out client. PostgreSQL lock functions retain documented SQL templates; contention, error listening, destruction of failed sessions and idempotent cleanup unchanged.
+- Existing isolated characterization passed unchanged, including independent workers, loader failure, terminated backend and stale cleanup preserving a successor lock. No migration, activation or paid call; incremental triage stays off.
+- Updated TASKS, architecture, decision and handbook stack; archived iterations 568–569 to keep PROGRESS bounded.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed. No dangling Docker volumes.
+- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Playwright rendered four topics/19 cards with zero page errors; 36 sources without current errors, zero failed digest jobs and zero alerts.
+- Next: prioritize Nov 4 15:00 UTC edition review; otherwise continue remaining ORM adapters or migration baseline. Private pg_dump before first new migration.
