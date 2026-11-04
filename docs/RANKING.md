@@ -2126,3 +2126,26 @@ Previously cleanup hid the work failure. Single failures retain their original
 identity. Fake regressions cover each stage, falsy thrown values, release count
 and next-tick recovery. No provider calls or production activation occurred;
 this improves diagnosis, not fencing of already-started requests.
+
+## Iteration 549: replay scoring-input changes
+
+The offline incremental replay accepts optional `candidateUpdates` on each
+`poolSnapshots` entry: full scoring inputs (`id`, `title`, `excerpt`, `sources`)
+for existing candidates. Updates persist across later observations and pool
+removal; publication and arrival times retain their original values. Unknown or
+duplicate update IDs and malformed scoring fields are rejected.
+
+Pending work now uses `CandidateTriage.pending` and its actual compact-input
+fingerprints rather than an ID-only set. `invalidatedPreEditionItems` counts
+final-pool articles scored earlier whose current inputs still need scoring at
+publication. `repeatScoring` counts additional versions scored for previously
+seen article IDs; `wasteItems` continues to count membership loss only. Neither
+metric is settled provider spend or full version-level waste accounting.
+
+A synthetic regression scores two successive versions before publication and a
+third at publication after removal and return: three scored items, two repeat
+scores, one invalidated final item, zero membership waste. Changes beyond the
+500-character title bound reuse the cache. Existing recorded November 1 windows
+have no updates and retain their hourly edition remainders (NBA 0, World 5,
+Tech/AI 2), with zero repeats or invalidations. No production activation, paid
+requests or live cost/latency evidence.

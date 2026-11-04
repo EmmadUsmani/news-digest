@@ -331,3 +331,106 @@ void test('bounded replay follows changing snapshot rank rather than catalogue o
     row,
   );
 });
+
+void test('replay rescores changed article inputs and carries updates across pool removal', async () => {
+  const article = {
+    id: 'changing',
+    title: 'Original',
+    excerpt: null,
+    sources: ['Outlet'],
+    publishedAt: '2026-11-01T00:00:00Z',
+  };
+  const changed = { ...article, title: 'Updated headline' };
+  const window = {
+    topic: 'Changing inputs',
+    windowStart: '2026-11-01T00:00:00Z',
+    windowEnd: '2026-11-01T05:00:00Z',
+    candidates: [article],
+    poolSnapshots: [
+      { at: '2026-11-01T00:00:00Z', candidateIds: [article.id] },
+      {
+        at: '2026-11-01T01:30:00Z',
+        candidateIds: [article.id],
+        candidateUpdates: [changed],
+      },
+      // A repeated observation is a cache hit, even with extra ignored fields.
+      {
+        at: '2026-11-01T02:30:00Z',
+        candidateIds: [article.id],
+        candidateUpdates: [changed],
+      },
+      {
+        at: '2026-11-01T03:30:00Z',
+        candidateIds: [],
+        candidateUpdates: [{ ...changed, excerpt: 'New facts' }],
+      },
+      { at: '2026-11-01T05:00:00Z', candidateIds: [article.id] },
+    ],
+  };
+  const row = await evaluateIncrementalTriage(window, 1, 1, 0, 1);
+  assert.equal(row.preEditionItems, 2);
+  assert.equal(row.preEditionRequests, 2);
+  assert.equal(row.editionItems, 1);
+  assert.equal(row.totalScoredItems, 3);
+  assert.equal(row.repeatScoring, 2);
+  assert.equal(row.invalidatedPreEditionItems, 1);
+  assert.equal(row.wasteItems, 0); // Membership alone hides obsolete scores.
+  const cold = await evaluateIncrementalTriage(window, 24);
+  assert.equal(cold.totalScoredItems, 1);
+  assert.equal(cold.invalidatedPreEditionItems, 0);
+  for (const candidateUpdates of [
+    [{ ...changed, id: 'unknown' }],
+    [changed, changed],
+    [{ ...changed, sources: [42] }],
+  ]) {
+    await assert.rejects(
+      evaluateIncrementalTriage(
+        {
+          ...window,
+          poolSnapshots: [
+            {
+              at: window.windowStart,
+              candidateIds: [article.id],
+              candidateUpdates,
+            },
+          ],
+          // Deliberately malformed external snapshot input.
+        } as unknown as Parameters<typeof evaluateIncrementalTriage>[0],
+        1,
+      ),
+      /snapshots/,
+    );
+  }
+});
+
+void test('replay uses compact scoring fingerprints rather than raw input equality', async () => {
+  const article = {
+    id: 'compact',
+    title: 'A'.repeat(500) + ' first suffix',
+    excerpt: null,
+    sources: [],
+    publishedAt: '2026-11-01T00:00:00Z',
+  };
+  const row = await evaluateIncrementalTriage(
+    {
+      topic: 'Compact inputs',
+      windowStart: '2026-11-01T00:00:00Z',
+      windowEnd: '2026-11-01T03:00:00Z',
+      candidates: [article],
+      poolSnapshots: [
+        { at: '2026-11-01T00:00:00Z', candidateIds: [article.id] },
+        {
+          at: '2026-11-01T01:30:00Z',
+          candidateIds: [article.id],
+          candidateUpdates: [
+            { ...article, title: 'A'.repeat(500) + ' second suffix' },
+          ],
+        },
+      ],
+    },
+    1,
+  );
+  assert.equal(row.totalScoredItems, 1);
+  assert.equal(row.repeatScoring, 0);
+  assert.equal(row.invalidatedPreEditionItems, 0);
+});

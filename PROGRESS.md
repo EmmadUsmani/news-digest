@@ -1,11 +1,3 @@
-## 2026-11-04: iteration 529 — join successful triage work to final fingerprints
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/root/api/status, 36 error-free sources and four available queues. Nov 4 review remains pending.
-- Added offline scoring-evidence CLI: successful attempts join final eligible fingerprints by topic/article; separates absent articles, changed inputs, repeat compatible scores and failed attempts. Rejects duplicate evidence, pre-final observations and out-of-window scoring.
-- Synthetic regressions only; no production scoring exporter, actual waste/cost/latency observation, paid calls or activation. Compatibility does not prove cache consumption. TASKS/RANKING document the input contract and limits.
-- Verification: targeted regressions 3/3; pnpm format, pnpm lint:fix, pnpm check (323 unit/184 isolated integration), pnpm build and git diff --check passed; no dangling Docker volumes. Initial status probe used a nonexistent route; correct /api/status is healthy.
-- Services remain running under STEERING 22: only offline tooling/tests/docs changed. Next: scheduler/export wiring and actual scoring evidence; Nov 4 scheduled review takes priority when available.
-
 ## 2026-11-04: iteration 530 — prepare bounded multi-topic triage ticks
 
 - Started clean on main; no leftover work. Zero alerts; healthz/status healthy, 36 sources without current errors and four available queues. Nov 4 review remains pending.
@@ -173,3 +165,13 @@
 - Condensed the incremental-triage TASKS history into current state; archived iteration 528. No source/schema/UI or handbook flow change. No restart under STEERING 22: prepared runner remains outside production worker imports.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (354 unit/187 isolated integration), pnpm build and git diff --check passed; root HTTP 200, healthy healthz, zero alerts/dangling volumes. Initial lint rejected intentional non-Error throws; added narrow documented test exceptions before rerunning checks.
 - Next: Nov 4 scheduled review first; gated worker connection and actual scoring/final-pool waste measurements thereafter.
+
+## 2026-11-04: iteration 549 — replay triage input invalidation
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz and all queues available; scheduled Nov 4 review remains ahead at 15:00 UTC.
+- Offline replay previously treated article IDs as scored forever. Added timestamped scoring-input updates and real cache probes so headline/excerpt/source changes create pending work; updates persist through pool removal/return.
+- Added invalidatedPreEditionItems alongside membership-only waste and repeatScoring. Synthetic regression: three versions, two repeated scores, one invalidated edition item, zero membership loss; truncation-only changes reuse cache.
+- Existing recorded windows retain hourly NBA/World/Tech edition remainders 0/5/2, with zero repeat scores or invalidations. No paid calls, activation or live waste/cost/latency claim.
+- Updated TASKS/RANKING; archived iteration 529. Only offline tooling/tests/docs changed, so no restart under STEERING 22; no handbook/source/schema flow change.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (356 unit/187 isolated integration), pnpm build, recorded replay and git diff --check passed; root HTTP 200, healthy healthz, 36 nonempty/error-free sources, zero failed digest jobs, alerts and dangling volumes.
+- Next: Nov 4 scheduled review first; gated worker connection and actual scoring/final-pool waste evidence thereafter.

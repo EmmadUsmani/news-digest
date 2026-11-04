@@ -17,7 +17,12 @@ export interface RecordedWindow {
     availableAt?: string;
   })[];
   // Complete eligible pools at each observed time; the latest pool persists.
-  poolSnapshots?: { at: string; candidateIds: string[] }[];
+  poolSnapshots?: {
+    at: string;
+    candidateIds: string[];
+    // Changed scoring inputs take effect at this observation and persist.
+    candidateUpdates?: TriageCandidate[];
+  }[];
 }
 
 export async function evaluateIncrementalTriage(
@@ -87,18 +92,40 @@ export async function evaluateIncrementalTriage(
           (index > 0 && at <= Date.parse(snapshots[index - 1].at)) ||
           new Set(snapshot.candidateIds).size !==
             snapshot.candidateIds.length ||
-          snapshot.candidateIds.some((id) => !known.has(id))
+          snapshot.candidateIds.some((id) => !known.has(id)) ||
+          (snapshot.candidateUpdates !== undefined &&
+            (!Array.isArray(snapshot.candidateUpdates) ||
+              new Set(snapshot.candidateUpdates.map((c) => c.id)).size !==
+                snapshot.candidateUpdates.length ||
+              snapshot.candidateUpdates.some(
+                (c) =>
+                  !known.has(c.id) ||
+                  typeof c.title !== 'string' ||
+                  (c.excerpt !== null && typeof c.excerpt !== 'string') ||
+                  !Array.isArray(c.sources) ||
+                  c.sources.some((source) => typeof source !== 'string'),
+              )))
         );
       }))
   )
     throw new Error('Invalid pool snapshots');
   const byId = new Map(candidates.map((c) => [c.id, c]));
   const poolAt = (at: number) => {
-    const snapshot = snapshots?.filter((s) => Date.parse(s.at) <= at).at(-1);
+    const observed = snapshots?.filter((s) => Date.parse(s.at) <= at);
+    const snapshot = observed?.at(-1);
+    const versions = new Map(byId);
+    for (const observation of observed ?? [])
+      for (const update of observation.candidateUpdates ?? [])
+        versions.set(update.id, {
+          ...versions.get(update.id)!,
+          title: update.title,
+          excerpt: update.excerpt,
+          sources: update.sources,
+        });
     // Snapshot order is the shared pool's ranking order. A bounded pass must
     // consume that order, not the order of the exported candidate catalogue.
     const pool = snapshots
-      ? (snapshot?.candidateIds ?? []).map((id) => byId.get(id)!)
+      ? (snapshot?.candidateIds ?? []).map((id) => versions.get(id)!)
       : candidates;
     return pool.filter((c) => Date.parse(c.availableAt ?? c.publishedAt) < at);
   };
@@ -168,6 +195,14 @@ export async function evaluateIncrementalTriage(
       if (result.unscoredIds.length) throw new Error('Incomplete scoring');
     }
   };
+  const pendingPool = async (pool: TriageCandidate[]) => {
+    const pending: TriageCandidate[] = [];
+    for (let offset = 0; offset < pool.length; offset += 200)
+      pending.push(
+        ...(await triage.pending(topic, pool.slice(offset, offset + 200))),
+      );
+    return pending;
+  };
   let deferredPasses = 0;
   let boundedPasses = 0;
   let peakPendingItems = 0;
@@ -178,7 +213,7 @@ export async function evaluateIncrementalTriage(
     tick += intervalHours * 3600000
   ) {
     const pool = poolAt(tick);
-    const pending = pool.filter((c) => !allScoredIds.has(c.id));
+    const pending = await pendingPool(pool);
     peakPendingItems = Math.max(peakPendingItems, pending.length);
     if (pending.length < minimumPendingItems) {
       if (pending.length) deferredPasses++;
@@ -197,6 +232,9 @@ export async function evaluateIncrementalTriage(
     await scorePool(selected, 'offline-incremental');
   }
   const before = { requests, scoredItems };
+  const invalidatedPreEditionItems = (await pendingPool(finalPool)).filter(
+    (c) => preScoredIds.has(c.id),
+  ).length;
   finalPool.forEach((c) => allScoredIds.add(c.id));
   await scorePool(finalPool, 'offline-edition');
   return {
@@ -222,6 +260,7 @@ export async function evaluateIncrementalTriage(
     promptBytes,
     reservedOutputTokens,
     repeatScoring: scoredItems - allScoredIds.size,
+    invalidatedPreEditionItems,
     wasteItems: snapshots
       ? [...preScoredIds].filter((id) => !finalPool.some((c) => c.id === id))
           .length
