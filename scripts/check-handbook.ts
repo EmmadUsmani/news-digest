@@ -18,6 +18,7 @@ const filter = process.argv[2];
 const maxProseLines = 100;
 const proseLines = (file: string) =>
   readFileSync(file, 'utf8')
+    .trimEnd()
     .split('\n')
     .reduce(
       (acc, line) =>
