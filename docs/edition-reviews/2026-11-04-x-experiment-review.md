@@ -1,9 +1,10 @@
 # Nov 4 X experiment: visible-text review
 
 Iteration 710 reviewed round 1 using the saved responses and official X oEmbed.
-**No style or model decision:** social-triage scores remain unavailable, Gaming
+**No style or model decision:** the initial review had no social-triage scores; iteration 712 added them below. Gaming
 current has an unknown outcome, and a second independent news day is required.
-Production fixed A/B scheduling remains off. No paid calls were made.
+Production fixed A/B scheduling remains off. The initial iteration-710 review
+made no paid calls; iteration-712 scoring spend is recorded below.
 
 ## Promotion findings
 
@@ -72,9 +73,43 @@ Private evidence is beside the original round in
 The original evidence and admission journal were preserved. The offline report
 command in [experiment preparation](../x-search-experiment.md#offline-report)
 accepts the reviewed evidence and original `rounds.json` without modification.
-All relevance fields remain unknown; no eligible-post-per-dollar result exists.
+The initial reviewed evidence keeps relevance unknown. Iteration 712 saved a separate scored copy below; no complete eligible-post-per-dollar result exists.
 
 Next: the second non-overlapping news day, then threshold calibration and model
 comparison within the shared $1/day and $2.50 total experiment admission limits.
 The original $0.15 Gaming hold remains charged. Nov 5 scheduled acceptance takes
 priority when due; no experiment calls during 13:00–16:00 UTC.
+
+## Saved-candidate social triage (iteration 712)
+
+The existing production `CandidateTriage` social instructions scored all 47
+unique cited posts with the configured Haiku model, `claude-haiku-5-5`.
+Inputs were the paragraph text from the saved official oEmbed responses and
+current saved topic descriptions/guidance. Four live calls cost **$0.003209**,
+recorded in the app ledger as `purpose=verification`, run
+`iteration-712-x-experiment`. Shared app/reserve admission and the verification
+cap applied; repairs were disabled. No X calls or ingestion occurred.
+
+| Topic     | Current relevance ≥6 | Trending relevance ≥6 | Reactions relevance ≥6 |
+| --------- | -------------------: | --------------------: | ---------------------: |
+| Tech & AI |                  4/5 |                   0/8 |                    1/1 |
+| NBA       |                  0/4 |                   2/8 |                    0/0 |
+| Gaming    |      Unknown outcome |                   2/8 |                    1/1 |
+| World     |                  1/4 |                   2/8 |                    0/0 |
+| Total     |                 5/13 |                  6/32 |                    2/2 |
+
+These are relevance scores for supplied visible text, including truncated posts;
+media and absent text were not inferred. Relevance alone does not clear promotion,
+window, interestingness or final editor acceptance. All original promotion labels
+remain unchanged: current has two definite promotions, trending four; reactions
+has one unresolved label. Publication time remains unknown for 10 current,
+five trending and both reaction posts. No complete eligible yield or winner can
+be reported, even though both reaction citations passed relevance.
+
+Private `triage-text-712.json`, `triage-scores-712.json`,
+`triage-calls-712.json` and `triage-runner-712.ts` preserve the inputs, scores,
+usage/fingerprints and exact runner. `triaged-evidence-712.json` joins scores by
+exact topic/post ID; `triaged-report-712.json` is the unchanged offline reporter's
+output. All files are mode 600. Original round evidence, reviewed evidence,
+manual labels and the X experiment budget journal are unchanged. The Anthropic
+verification cost is separate from xAI experiment spend and its retained hold.

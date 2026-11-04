@@ -266,3 +266,8 @@ original round's historical state. Prepared inputs and queries from round 1
 remain unchanged. Repeating that window does not count as the second news day.
 Private evidence: `cached-inputs-711.json` beside the original round. No paid
 rerun, threshold adjustment, new wording rule or winner decision.
+
+Round 1's [saved-candidate review](edition-reviews/2026-11-04-x-experiment-review.md#saved-candidate-social-triage-iteration-712)
+now includes existing Haiku social-triage scores for all 47 citations. The four
+verification calls cost $0.003209; promotion/time unknowns still prevent a
+complete eligible-yield result. Original evidence and X admission spend are unchanged.

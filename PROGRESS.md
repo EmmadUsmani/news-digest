@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 698 — repair bodyless Bluesky session refresh
-
-- Started clean on main; no leftover work. Healthz/services and 36 article sources healthy, zero alerts; triage found the 20:54 hourly Bluesky job failed on refresh HTTP 400. No failed digest jobs; Nov 5 checks remain future.
-- Reproduced against the official PDS: refresh POST with JSON `{}` returns HTTP 400 InvalidRequest; bodyless POST returns 200. Fixed the adapter to select POST independently of its body; login/search limits and bounded recovery unchanged.
-- Strengthened fixture assertions for refresh method, absent body/content type and between-page recovery. `pnpm exec tsx --test apps/api/test/bluesky-search.test.ts`: 10/10 pass.
-- Free adapter probe with simulated access expiry completed a real official refresh and fetched 49 real posts, without storage or paid calls; not a natural-expiry observation. Credentials/tokens never printed.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (453 unit/209 isolated integration), `pnpm build`, handbook (17 pages/22 diagrams/26 tables) and `git diff --check` passed. No UI change.
-- Restarted worker and retried only the failed hourly Bluesky job once: completed at 21:16 UTC, fetched/submitted 49 real observations per topic (196 total). These are observations, not unique new posts. Healthz/database/Redis remain green, zero alerts.
-- Updated TASKS and SOURCES; handbook unchanged for this request-format bug fix. No caps/models/providers changed. Long-lived natural refresh remains to observe.
-- Next: Nov 5 grouping/NBA AI/cost/latency/screenshots; paid X experiment remains blocked on a supported cost bound.
-
 ## 2026-11-04: iteration 699 — retain confirmed promotions in experiment reports
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/services and 36 healthy sources; no failed retained digest jobs. Nov 5 checks remain future; paid experiment remains blocked on a supported per-call cost bound.
@@ -132,3 +121,13 @@
 - Verification: targeted triage/reaction tests 27/27; pnpm format, pnpm lint:fix, pnpm check (470 unit/213 isolated integration), pnpm build, handbook (18 pages/22 diagrams/26 tables) and git diff --check passed. Initial lint found async-without-await stubs; fixed and reran. Isolated DB checks cover cache reads and semantic recovery/policy fallback.
 - Updated TASKS, experiment reference and Social posts handbook; archived iteration 697. SOURCES/NEEDS_FROM_HUMAN unchanged. Rebuilt/restarted API and worker; healthz green, reader HTTP 200, zero alerts.
 - Next: second independent experiment day, then calibration/model comparison within shared caps; Nov 5 grouping/NBA full-AI/cost/latency/screenshots take priority. No winner or production activation.
+
+## 2026-11-04: iteration 712 — score saved X experiment candidates
+
+- Started clean on main; no leftover work. Zero alerts, healthz/database/Redis green, all 36 active sources nonempty/error-free, zero failed retained digest jobs; Nov 5 acceptance remains future.
+- Scored all 47 saved round-1 citations with production CandidateTriage social instructions and configured Haiku using saved official oEmbed paragraph text and current topic guidance. Four explicit live verification calls, repairs disabled, cost $0.003209; read back four succeeded ledger rows with purpose=verification and exact total. Existing shared app/reserve and $0.05 verification admission applied.
+- Relevance ≥6: current 5/13, trending 6/32, reactions 2/2; by topic Tech 5/14, NBA 2/12, Gaming 3/9, World 3/12. Truncated/media-dependent text not inferred. Six definite promotions/15 unresolved labels unchanged; 17 missing publication times and Gaming's unknown outcome still prevent complete eligible yield or a winner.
+- Saved private text, candidates/scores, exact runner, usage/fingerprints and separately joined evidence/report (600). Offline reporter and exact topic/post coverage assertions passed. Original evidence, manual promotion labels and X admission journal/hold unchanged. No X calls, ingestion, production parameter/provider/model changes or activation.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (470 unit/213 isolated integration), pnpm build, handbook validation (18 pages/22 diagrams/26 tables) and git diff --check passed. Initial check caught an extra blank line in the newly archived entry; formatted it and reran.
+- Updated TASKS and experiment review/reference; archived iteration 698 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source/runtime change or new owner blocker. No restart under STEERING 22; services run unchanged main code.
+- Next: second non-overlapping experiment day, threshold calibration/model comparison within shared caps; Nov 5 grouping/NBA full-AI/cost/latency/screenshots take priority when due. Fixed A/B remains off pending decision.
