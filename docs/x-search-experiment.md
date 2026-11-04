@@ -88,6 +88,29 @@ unknown unless a violation is already known. This checks only supplied evidence;
 it does not replace the admission journal, outstanding holds or a complete ledger.
 Structural coverage remains separate from budget/time compliance.
 
+## Prepare real article inputs without dispatch
+
+```sh
+pnpm exec tsx apps/api/scripts/prepare-x-experiment.ts START END > /private/path/inputs.json
+```
+
+START and END require explicit timezones. The read-only repeatable-read snapshot
+uses enabled owner topics, saved thresholds/exclusions and the existing reaction
+story pipeline: up to 200 stored articles per topic, relevance/quality filters,
+then heuristic ranking. It saves two distinct ranked titles and prepared bodies
+for current, trending and reaction styles with an identical precise window.
+Provider date filters enclose that window; the requested end remains exclusive.
+Fewer than two distinct titles blocks that topic's reaction request explicitly.
+Missing settings fail the whole snapshot before output. No AI calls, cache
+writes, admission or dispatch occur. Store the output privately; it contains
+article IDs, titles and request prompts. Current observations/settings may
+postdate END; this does not reconstruct a historical snapshot or establish
+comparison eligibility. A runner must still enforce admission and dispatch gates.
+
+Iteration 691's Nov 3–4 15:00 UTC snapshot returned two distinct ranked titles
+for each of Tech, NBA, Gaming and World, with saved A/B thresholds 50/500,
+100/1000, 50/500 and 200/2000 respectively. No experiment calls were made.
+
 ## Provider bound investigation (Nov 4)
 
 The [official X Search documentation](https://docs.x.ai/developers/tools/x-search)
