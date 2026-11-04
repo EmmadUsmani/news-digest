@@ -46,6 +46,7 @@ export class IncrementalTriageRunner {
     if (!this.beforeCutoff()) return { status: 'cutoff' as const };
     this.running = true;
     let release: (() => Promise<void>) | null = null;
+    let failure: { error: unknown } | undefined;
     try {
       if (this.admission) {
         release = await this.admission.acquire();
@@ -80,9 +81,19 @@ export class IncrementalTriageRunner {
         status: cutoff ? ('cutoff' as const) : ('completed' as const),
         result,
       };
+    } catch (error) {
+      failure = { error };
+      throw error;
     } finally {
       try {
         await release?.();
+      } catch (cleanupError) {
+        if (failure)
+          throw new AggregateError(
+            [failure.error, cleanupError],
+            'Incremental triage and admission cleanup failed',
+          );
+        throw cleanupError;
       } finally {
         this.running = false;
       }

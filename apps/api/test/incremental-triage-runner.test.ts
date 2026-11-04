@@ -163,3 +163,57 @@ void test('shared admission rechecks cutoff and recovers from acquire and releas
   assert.equal((await runner.run(load, options)).status, 'completed');
   assert.equal(releases, 3);
 });
+
+void test('runner preserves work and cleanup failures together and permits the next tick', async () => {
+  for (const stage of ['loader', 'cache', 'provider']) {
+    // Even a falsy thrown value must survive cleanup failure.
+    for (const original of [new Error(stage), undefined]) {
+      const cleanupError = new Error('session lost');
+      let failing = true;
+      let releases = 0;
+      const runner = new IncrementalTriageRunner(
+        {
+          pending: async (_topic, candidates) => {
+            if (failing && stage === 'cache') {
+              // eslint-disable-next-line @typescript-eslint/only-throw-error -- exercise non-Error failures from dependencies
+              throw original;
+            }
+            return candidates;
+          },
+          score: async (...args) => {
+            if (failing && stage === 'provider') {
+              // eslint-disable-next-line @typescript-eslint/only-throw-error -- exercise non-Error failures from dependencies
+              throw original;
+            }
+            return refused(...args);
+          },
+        },
+        () => ({ nextEditionAt: 1000, cutoffMs: 100 }),
+        () => 0,
+        {
+          acquire: async () => async () => {
+            releases++;
+            if (failing) throw cleanupError;
+          },
+        },
+      );
+      await assert.rejects(
+        runner.run(async () => {
+          if (stage === 'loader') {
+            // eslint-disable-next-line @typescript-eslint/only-throw-error -- exercise non-Error failures from dependencies
+            throw original;
+          }
+          return input;
+        }, options),
+        (error) => {
+          assert.ok(error instanceof AggregateError);
+          assert.deepEqual(error.errors, [original, cleanupError]);
+          return true;
+        },
+      );
+      failing = false;
+      assert.equal((await runner.run(load, options)).status, 'completed');
+      assert.equal(releases, 2);
+    }
+  }
+});

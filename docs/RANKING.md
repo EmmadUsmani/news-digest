@@ -2117,3 +2117,12 @@ session error and removes its listener. The isolated session-termination test
 now relies on the adapter's listener, with no test error handler masking this
 path, and verifies listener removal and successor-lock safety. This does not
 fence already-started provider requests. No worker activation or paid calls.
+
+## Iteration 548: preserve work and admission-cleanup errors
+
+The inactive incremental runner reports both failures in an `AggregateError`
+when loading, cache reads or scoring fails together with admission cleanup.
+Previously cleanup hid the work failure. Single failures retain their original
+identity. Fake regressions cover each stage, falsy thrown values, release count
+and next-tick recovery. No provider calls or production activation occurred;
+this improves diagnosis, not fencing of already-started requests.

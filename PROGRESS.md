@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 528 — compare prospective triage cache compatibility
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/root/status, 36 error-free sources, four available queues and latest Bluesky collection completed.
-- Added offline fingerprint comparison through production pending-cache probing with an empty local cache and explicit constant model. Reports retained input changes and potentially unusable prior fingerprints; no provider/database calls or cache writes.
-- At 01:21 UTC all 492 eligible entries from 01:07 remain fingerprint-compatible; NBA adds three. Private mode-600 capture /tmp/triage-pool-528.json. Four regressions cover changed text/sources/guidance, truncation, eligibility and invalid evidence.
-- Compatibility does not prove cached/scored work, waste, spend or latency. Updated TASKS/RANKING; scheduler wiring and successful-scoring joins remain next, with Nov 4 edition review first when available.
-- No activation, paid calls, UI/schema/source or handbook flow changes. Services stay running under STEERING 22 because only offline tooling/tests/docs changed.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (320 unit/184 isolated integration), pnpm build, live read-only capture/comparison and git diff --check passed. Initial offline-stub require-await lint failure corrected before passing rerun; archived iterations 512–514 to keep orientation small.
-
 ## 2026-11-04: iteration 529 — join successful triage work to final fingerprints
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/root/api/status, 36 error-free sources and four available queues. Nov 4 review remains pending.
@@ -173,3 +164,12 @@
 - Updated TASKS/RANKING and archived iteration 527. No schema/source/UI or handbook flow changes. No restart under STEERING 22: this adapter remains outside the production worker import graph.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (353 unit/187 isolated integration), pnpm build and git diff --check passed. Initial archive formatting failure corrected before final full check.
 - Next: Nov 4 scheduled review first; gated worker connection and actual scoring/final-pool waste evidence thereafter.
+
+## 2026-11-04: iteration 548 — preserve simultaneous triage failures
+
+- Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 edition review remains pending.
+- Fixed prepared runner cleanup hiding loader/cache/provider failures when admission release also fails. AggregateError now retains both original values, including a thrown undefined; single failures retain existing behavior.
+- Regression covers all three work stages plus next-tick recovery and exactly-once release. No provider calls or activation; admission still cannot fence in-flight provider work.
+- Condensed the incremental-triage TASKS history into current state; archived iteration 528. No source/schema/UI or handbook flow change. No restart under STEERING 22: prepared runner remains outside production worker imports.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (354 unit/187 isolated integration), pnpm build and git diff --check passed; root HTTP 200, healthy healthz, zero alerts/dangling volumes. Initial lint rejected intentional non-Error throws; added narrow documented test exceptions before rerunning checks.
+- Next: Nov 4 scheduled review first; gated worker connection and actual scoring/final-pool waste measurements thereafter.
