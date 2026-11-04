@@ -62,7 +62,7 @@ export class OperationsStatus
                   )
                 : Promise.resolve([]),
               ['digest-generation', 'social-collection'].includes(queue.name)
-                ? queue.getJobSchedulers(0, 9)
+                ? queue.getJobSchedulers(0, 0, true)
                 : Promise.resolve([]),
               queue.isPaused(),
             ],

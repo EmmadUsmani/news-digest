@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 541 — respect ranked pools in offline triage replay
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 nonempty successful sources without current errors and no failed digest jobs. Historical social failure is the already investigated Nov 3 23:54 event; Nov 4 review remains pending.
-- Fixed bounded offline replay to consume snapshot ranking instead of candidate catalogue order, avoiding incorrect remainder/waste estimates. Changing-rank regression proves catalogue-order independence; all eight targeted offline tests pass.
-- Production incremental triage remains off; no paid calls or actual waste/latency claim. No running code/config changed, so no restart under STEERING 22.
-- Updated TASKS/RANKING; archived iteration 522 to keep PROGRESS small. No source/schema/UI or handbook flow changes.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (349 unit/186 isolated integration), pnpm build, targeted replay (8/8) and git diff --check passed; root HTTP 200 and healthy healthz. Zero dangling Docker volumes.
-- Next: Nov 4 scheduled review first, then gated worker connection and actual scored-work waste evidence.
-
 ## 2026-11-04: iteration 542 — report observed triage work per topic
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 nonempty successful sources without current errors and zero failed digest jobs. Nov 4 scheduled review remains pending.
@@ -166,3 +157,13 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/192 isolated integration), pnpm build, handbook 09-observability check and focused check-observability --verify-grafana --grafana-database-only passed; zero dangling Docker volumes.
 - Full Grafana verification twice failed on retained social-collection next-run metric versus current Status; recorded an open task. Generated unchanged-layout screenshots discarded. Restart 502s temporarily triggered the rolling API error alert; final snapshot has zero alerts.
 - No paid calls or edition changes. Next: investigate schedule metric freshness, monitor memory, then prioritize Nov 4 15:00 scheduled edition evidence.
+
+## 2026-11-04: iteration 560 — report the earliest recurring social run
+
+- Started clean on main; no leftover work. Healthz passed, 36 sources without current errors; pending API error alert cleared without intervention.
+- Traced repeated Grafana/Status mismatch to Status reading BullMQ schedulers descending: it reported the later of two social schedules. Read only the earliest schedule, matching metrics; no schedule or edition behavior changed.
+- Added isolated two-schedule regression including removal of the earliest schedule. Initial test cleanup used optional id instead of scheduler key; corrected and reran successfully.
+- Removed duplicate browser viewport shrink hiding lower Jobs/Product panels; focused Grafana check passed all 8 populated panels, with refreshed desktop/mobile screenshots.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/193 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes. API restarted; healthz and live Status passed.
+- Full check-observability --verify-grafana passed desktop checks then timed out on Agent mobile Supervisor active; follow-up recorded. Final alerts clear; archived iteration 541 to keep PROGRESS small.
+- No paid calls, production feature activation or source changes. Next: prioritize Nov 4 15:00 edition evidence; grouping/incremental triage stay gated.

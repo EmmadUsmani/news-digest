@@ -71,6 +71,47 @@ void test('operations preserves healthy telemetry when one queue is unavailable 
   }
 });
 
+void test('operations reports the earliest social run across multiple registered schedules', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const status = new OperationsStatus();
+  const queue = status.queues.find(
+    (entry) => entry.name === 'social-collection',
+  )!;
+  const ids = [randomUUID(), randomUUID()];
+  try {
+    await queue.pause();
+    const first = Date.now() + 3_600_000;
+    for (const [index, id] of ids.entries()) {
+      await queue.upsertJobScheduler(
+        id,
+        { pattern: '0 * * * *', startDate: first + index * 86_400_000 },
+        { name: 'collect', data: {} },
+      );
+    }
+    const schedules = await queue.getJobSchedulers(0, -1, true);
+    assert.equal(schedules.length, 2);
+    assert.ok(schedules[0].next! < schedules[1].next!);
+    const result = operationsStatusSchema.parse(
+      JSON.parse(JSON.stringify(await status.read())),
+    );
+    assert.equal(
+      result.queues.find((entry) => entry.name === queue.name)!.nextRun,
+      new Date(schedules[0].next!).toISOString(),
+    );
+    await queue.removeJobScheduler(schedules[0].key);
+    const remaining = await status.read();
+    assert.equal(
+      remaining.queues.find((entry) => entry.name === queue.name)!.nextRun,
+      new Date(schedules[1].next!).toISOString(),
+    );
+  } finally {
+    for (const id of ids) await queue.removeJobScheduler(id);
+    await queue.resume();
+    await queue.obliterate({ force: true });
+    await status.onModuleDestroy();
+  }
+});
+
 void test('operations reports persisted sources and bounded queue telemetry without job payloads', async () => {
   const status = new OperationsStatus();
   try {

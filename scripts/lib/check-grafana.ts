@@ -408,9 +408,11 @@ export async function checkGrafana() {
         height:
           dashboard.uid === 'nd-product'
             ? 4700
-            : ['nd-runtime', 'nd-redis', 'nd-jobs'].includes(dashboard.uid)
-              ? 2100
-              : 1100,
+            : ['nd-database', 'nd-agent'].includes(dashboard.uid)
+              ? 3100
+              : ['nd-runtime', 'nd-redis', 'nd-jobs'].includes(dashboard.uid)
+                ? 2100
+                : 1100,
       });
       const errors: string[] = [];
       page.on('response', (response) => {
@@ -422,12 +424,6 @@ export async function checkGrafana() {
       });
       const listener = (error: Error) => errors.push(error.message);
       page.on('pageerror', listener);
-      await page.setViewportSize({
-        width: 1440,
-        height: ['nd-database', 'nd-agent'].includes(dashboard.uid)
-          ? 3100
-          : 1100,
-      });
       await page.goto(`${base}/d/${dashboard.uid}?kiosk`, {
         waitUntil: 'networkidle',
         timeout: 60_000,
