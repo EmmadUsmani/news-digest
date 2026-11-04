@@ -14,12 +14,46 @@ async function smoke() {
   const latest = await (
     await api.get(base + '/api/digest-previews/latest')
   ).json();
+  assert.ok(topics.length >= 2, 'Reorder replay requires two topics');
+  let replayTopics = structuredClone(topics);
+  let failOrder = true;
+  let writes = 0;
+  // Browser writes are replayed; APIRequestContext is used only for live reads.
+  await context.route('**/api/**', async (route) => {
+    const request = route.request();
+    const path = new URL(request.url()).pathname;
+    if (path === '/api/topics' && request.method() === 'GET') {
+      await route.fulfill({ json: replayTopics });
+      return;
+    }
+    if (path === '/api/topics/order' && request.method() === 'PUT') {
+      const input = request.postDataJSON() as { ids: string[] };
+      assert.deepEqual([...input.ids].sort(), [...ids].sort());
+      writes++;
+      if (failOrder) {
+        await route.fulfill({ status: 503, body: 'Unavailable' });
+      } else {
+        replayTopics = input.ids.map((id, position) => ({
+          ...topics.find((topic) => topic.id === id)!,
+          position,
+        }));
+        await route.fulfill({ json: replayTopics });
+      }
+      return;
+    }
+    assert.equal(request.method(), 'GET', `Unexpected browser write: ${path}`);
+    await route.continue();
+  });
   try {
     for (const [name, width, height] of [
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
     ] as const) {
-      const page = await browser.newPage({ viewport: { width, height } });
+      replayTopics = structuredClone(topics);
+      failOrder = true;
+      const writesBefore = writes;
+      const page = await context.newPage();
+      await page.setViewportSize({ width, height });
       await page.goto(base);
       await page.getByText('Manage topics', { exact: true }).click();
       assert.equal(
@@ -39,12 +73,32 @@ async function smoke() {
         .click();
       await page
         .getByRole('status')
+        .filter({ hasText: 'Could not save topic order.' })
+        .waitFor();
+      assert.deepEqual(replayTopics, topics);
+      assert.equal(writes, writesBefore + 1);
+      assert.equal(
+        await page
+          .locator('.topic-settings li')
+          .first()
+          .locator('span')
+          .innerText(),
+        `${topics[0].name} · Enabled`,
+      );
+      failOrder = false;
+      await page
+        .getByRole('button', {
+          name: `Move ${topics[0].name} down`,
+          exact: true,
+        })
+        .click();
+      await page
+        .getByRole('status')
         .filter({ hasText: 'Topic order saved.' })
         .waitFor();
       const expected = [ids[1], ids[0], ...ids.slice(2)];
-      const persisted = topicSchema
-        .array()
-        .parse(await (await api.get(base + '/api/topics')).json());
+      const persisted = topicSchema.array().parse(replayTopics);
+      assert.equal(writes, writesBefore + 2);
       assert.deepEqual(
         persisted.map((t) => t.id),
         expected,
@@ -76,61 +130,24 @@ async function smoke() {
       await page
         .locator('.topic-settings')
         .screenshot({ path: `docs/screenshots/topic-order-${name}.png` });
-      const end = new Date(),
-        start = new Date(end.getTime() - 86400000);
-      const edition = await (
-        await api.post(base + '/api/digest-previews', {
-          data: {
-            windowStart: start.toISOString(),
-            windowEnd: end.toISOString(),
-          },
-        })
-      ).json();
-      assert.deepEqual(
-        edition.topics.map((t: { id: string }) => t.id),
-        expected,
-      );
-      if (latest)
-        assert.deepEqual(
-          await (
-            await api.get(base + '/api/digest-previews/' + latest.id)
-          ).json(),
-          latest,
-        );
-      assert.equal(
-        (await api.put(base + '/api/topics/order', { data: { ids } })).status(),
-        200,
-      );
       await page.close();
     }
-    for (const invalid of [
-      [],
-      ids.slice(1),
-      [...ids, ids[0]],
-      ['bad', ...ids.slice(1)],
-      ['00000000-0000-4000-8000-999999999999', ...ids.slice(1)],
-    ]) {
-      assert.equal(
-        (
-          await api.put(base + '/api/topics/order', { data: { ids: invalid } })
-        ).status(),
-        400,
-      );
-      assert.deepEqual(
-        (await (await api.get(base + '/api/topics')).json()).map(
-          (t: { id: string }) => t.id,
-        ),
-        ids,
-      );
-    }
     console.log(
-      'Topic reorder desktop/mobile, persistence, new-edition order, immutable history and invalid atomicity passed',
+      'Topic reorder desktop/mobile browser replay: failure, retry, reload, positions and overflow passed; no production writes or generation',
     );
   } finally {
-    assert.equal(
-      (await api.put(base + '/api/topics/order', { data: { ids } })).status(),
-      200,
+    assert.deepEqual(
+      await (await api.get(base + '/api/topics')).json(),
+      topics,
+      'Browser replay must not change live topics',
     );
+    if (latest)
+      assert.deepEqual(
+        await (
+          await api.get(base + '/api/digest-previews/' + latest.id)
+        ).json(),
+        latest,
+      );
     await browser.close();
   }
 }

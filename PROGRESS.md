@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 685 — saved X experiment budget/time diagnostics
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 healthy sources and no failed digest jobs in inspected history.
-- Offline comparison now reports supplied-call total spend against $2.50, assigned UTC-day totals against $1 and dispatches during 13:00–16:00 UTC. Multiple rounds share daily accounting; unassigned calls count toward total but leave compliance unknown. Empty evidence is unknown; known violations stay false.
-- Structural two-day coverage remains separate. Saved evidence cannot establish complete ledger spend or outstanding holds; no dispatch, paid calls or production changes.
-- Added UTC-offset/blackout boundaries, shared-day spend, exact caps, overflow, empty/unassigned evidence and CLI output checks. Initial full check caught stale CLI output expectation; updated and targeted comparison/CLI tests passed 10/10.
-- Verification: standalone strict tsc, pnpm format, pnpm lint:fix, pnpm check (443 unit/209 isolated integration), pnpm build and git diff --check passed. Final healthz healthy and zero alerts.
-- Updated TASKS/experiment reference; archived iterations 669–670 to keep PROGRESS small. SOURCES/handbook unchanged because source/runtime behavior is unchanged. No restart under STEERING 22: services do not import this offline helper.
-- X paid dispatch still needs supported cost bound or owner decision. Next: Nov 5 grouping admission/accuracy, NBA AI, cost, latency and screenshots.
-
 ## 2026-11-04: iteration 686 — real-text Bluesky batching measurement
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis; all 36 sources nonempty without errors, zero failed retained digest jobs. Next edition Nov 5 15:00 UTC.
@@ -152,3 +142,12 @@
 - Verification: `pnpm exec tsx scripts/smoke-topic-delete.ts`, strict tsc with repository path mapping, `pnpm format`, `pnpm lint:fix`, `pnpm check` (455 unit/209 isolated integration), `pnpm build` and `git diff --check` passed. Initial standalone tsc lacked workspace alias/Node type mapping; corrected with a temporary config extending repository settings.
 - Updated TASKS; archived iteration 683 to bound PROGRESS. SOURCES/handbook unchanged for browser verification only. No paid calls or production configuration changes. No restart under STEERING 22: running services do not import this script.
 - Next: Nov 5 grouping/NBA AI/cost/latency/screenshots; paid X experiment blocked on a documented per-call bound. Other older topic browser scripts still need write isolation.
+
+## 2026-11-04: iteration 702 — isolate topic-reorder browser verification
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 healthy article sources and no failed retained digest jobs. Nov 5 evidence remains future; paid X dispatch still lacks a documented per-call bound.
+- Replaced topic-reorder production PUTs and digest generation with browser-only replay. Unknown browser writes fail; direct API requests only read live topics and the saved edition for unchanged-state assertions.
+- Desktop/mobile checks cover failed save preserving order, successful retry, contiguous positions, reload, grid order and overflow. Screenshots reviewed. This verifies browser behavior; isolated HTTP/repository tests retain server persistence and invalid-order atomicity coverage.
+- Verification: `pnpm exec tsx scripts/smoke-topic-order.ts` and strict standalone tsc passed; `pnpm format`, `pnpm lint:fix`, `pnpm check` (455 unit/209 isolated integration), `pnpm build` and `git diff --check` passed.
+- Updated TASKS; archived iteration 685 to bound PROGRESS. SOURCES/handbook unchanged: verification script only. No paid calls or production changes; no restart under STEERING 22 because running services do not import this script.
+- Next: Nov 5 grouping/NBA AI/cost/latency/screenshots; older topic account/source scripts still need production-write isolation.
