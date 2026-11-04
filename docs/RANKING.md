@@ -2696,3 +2696,15 @@ validation, original post text, candidate limits, call counts, model order and
 budget caps are unchanged. Existing fake editor tests verify identity, cache
 reuse, fallback, bounded context and validation; no paid replay or live quality
 measurement was performed.
+
+## Iteration 655: incremental admission decision after Nov 4
+
+[The read-only assessment](edition-reviews/2026-11-04-incremental-admission.md)
+finds no qualifying full-AI edition cost measurements. The pending Nov 5
+reserve therefore protects the whole projected daily cap, leaving zero
+background allowance; today's released $0.196315 would fund only the earlier
+UTC portion of the next window. Keep incremental triage off without weakening
+the scheduled reserve. A private prospective pool capture records 65 eligible
+articles across all four topics and zero matching current cache rows. This is
+not a final pool, scoring, cache consumption, waste or latency measurement.
+Reassess after full-AI acceptance supplies reserve evidence. No paid calls.

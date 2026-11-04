@@ -31,9 +31,14 @@ flowchart TB
 - **Reserve:** until the morning edition runs, manual editions and tests
   can't eat into its share. The UI says when a manual run is limited by this.
 - **Background triage:** its prepared entry point is disabled by default
-  (`LLM_INCREMENTAL_TRIAGE_ENABLED=0`) and has no scheduled job yet. Enabling
-  it requires reserve protection. It shares the daily ledger and item cache,
-  clears scheduled-edition privileges, and leaves refused items for the edition.
+  (`LLM_INCREMENTAL_TRIAGE_ENABLED=0`). When enabled, the worker checks once
+  a minute, rotates topics and prepares at most 25 pending articles per pass,
+  stopping two hours before publication. It requires reserve protection, shares
+  the daily ledger and item cache, clears scheduled-edition privileges, and
+  leaves refused items for the edition. Without an explicit reserve amount or
+  a measured complete AI edition, the reserve protects the whole daily cap
+  until the scheduled run finishes;
+  background work then has no allowance before publication.
 - **Model split:** Sonnet (the expensive editor) is capped at 80% of the day,
   leaving room for Haiku triage.
 
