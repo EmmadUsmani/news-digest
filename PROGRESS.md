@@ -1,22 +1,3 @@
-## 2026-11-04: iteration 559 — reclaim Grafana filesystem cache
-
-- Started clean on main; no leftover work. Healthz passed; pending Grafana memory warning took priority over background tests.
-- Grafana used ~255 MiB of its 256 MiB ceiling: ~105 MiB anonymous and ~149 MiB filesystem cache. Added MemoryHigh=208M, retaining hard memory/CPU ceilings; updated the handbook and deployed/restarted only Grafana.
-- After dashboard queries: ~202 MiB, zero automatic restarts; Grafana memory alert cleared. This is short-run evidence, not sustained-memory acceptance.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/192 isolated integration), pnpm build, handbook 09-observability check and focused check-observability --verify-grafana --grafana-database-only passed; zero dangling Docker volumes.
-- Full Grafana verification twice failed on retained social-collection next-run metric versus current Status; recorded an open task. Generated unchanged-layout screenshots discarded. Restart 502s temporarily triggered the rolling API error alert; final snapshot has zero alerts.
-- No paid calls or edition changes. Next: investigate schedule metric freshness, monitor memory, then prioritize Nov 4 15:00 scheduled edition evidence.
-
-## 2026-11-04: iteration 560 — report the earliest recurring social run
-
-- Started clean on main; no leftover work. Healthz passed, 36 sources without current errors; pending API error alert cleared without intervention.
-- Traced repeated Grafana/Status mismatch to Status reading BullMQ schedulers descending: it reported the later of two social schedules. Read only the earliest schedule, matching metrics; no schedule or edition behavior changed.
-- Added isolated two-schedule regression including removal of the earliest schedule. Initial test cleanup used optional id instead of scheduler key; corrected and reran successfully.
-- Removed duplicate browser viewport shrink hiding lower Jobs/Product panels; focused Grafana check passed all 8 populated panels, with refreshed desktop/mobile screenshots.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/193 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes. API restarted; healthz and live Status passed.
-- Full check-observability --verify-grafana passed desktop checks then timed out on Agent mobile Supervisor active; follow-up recorded. Final alerts clear; archived iteration 541 to keep PROGRESS small.
-- No paid calls, production feature activation or source changes. Next: prioritize Nov 4 15:00 edition evidence; grouping/incremental triage stay gated.
-
 ## 2026-11-04: iteration 561 — finish Grafana mobile verification
 
 - Started clean on main; no leftover work. Healthz passed, 36 healthy sources, zero alerts; recent free-social and Bluesky collection jobs completed. Nov 4 15:00 UTC evidence remains pending.
@@ -171,4 +152,15 @@
 - Updated TASKS/architecture/decision/handbook stack; archived iterations 557–558. Reddit collection remains parked; no migration, activation, paid calls or UI changes.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, handbook stack check and git diff --check passed.
 - Rebuilt/restarted API and worker outside edition freeze; both active, healthz healthy, root HTTP 200, 36 healthy sources and zero alerts. Latest real edition response byte-identical across restart (four topics, 19 stories).
+- Next: prioritize Nov 4 scheduled review when due; otherwise historical migration baseline or remaining individual ORM repositories. Private pg_dump required before first new migration.
+
+## 2026-11-04: iteration 577 — convert publisher-article discovery to Drizzle
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources without current errors and no failed digest jobs. Nov 4 scheduled review remains pending.
+- Converted publisher-article X citation/check recording to typed transactional Drizzle upserts; preserved enabled-source rechecks, conflict metadata, atomic rollback and PostgreSQL errors. Complex two-window fairness query uses a documented Drizzle SQL template.
+- Existing characterization tests unchanged. Typecheck caught execute-result constraints and insert-select SQL aliases; fixed. Formatting caught the new progress archive; fixed before final green check.
+- Updated TASKS, architecture, decision and handbook stack; archived iterations 559–560. No migration, activation, source change or paid call.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, handbook stack check and git diff --check passed; zero dangling Docker volumes.
+- Read-only converted live candidate query returned eight articles across five publisher hosts. Latest free collection before restart checked eight pages, found two citations and reported zero discovery errors.
+- Rebuilt/restarted API and worker outside freeze; both active, healthz healthy, root HTTP 200, 36 error-free sources, zero failed digest jobs and zero alerts. Latest real edition response byte-identical across restart.
 - Next: prioritize Nov 4 scheduled review when due; otherwise historical migration baseline or remaining individual ORM repositories. Private pg_dump required before first new migration.

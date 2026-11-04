@@ -31,6 +31,13 @@ PostgreSQL JSON set expansion and ordered distinct aggregation use typed SQL
 expressions. Existing Reddit characterization tests remain unchanged; collection
 stays parked under the owner's access restrictions.
 
+The publisher-article X discovery adapter uses typed transactional citation and
+check upserts. Its two window rankings and grouped minimum ordering remain a
+Drizzle SQL template to preserve publisher/topic fairness and host backoff.
+Writes recheck enabled source connections, preserve citation metadata on conflict
+and roll back the check together with citations. Existing characterization tests
+remain unchanged.
+
 `libs/db/schema.ts` maps all 25 public tables, including the historical migration
 ledger, from migrations 001–055. The isolated `schema-parity` test creates an
 empty comparison database from Drizzle's generated DDL, compares PostgreSQL's
