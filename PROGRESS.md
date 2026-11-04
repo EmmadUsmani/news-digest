@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 552 — replay observed provider concurrency bounds
-
-- Started clean on main; no leftover work. Zero alerts; healthy healthz/root, 36 sources and four available queues; no failed digest jobs. Nov 4 15:00 UTC review remains pending.
-- Preserved timing-only evidence from Nov 3 scheduled edition: 43 HTTP calls/811,368 ms, including 17 article-triage calls/517,143 ms. Journal filtered by exact run ID; no prompts, responses or secrets retained. HTTP success does not imply editorial validation success.
-- Added offline concurrency sensitivity CLI: all-ready fixed-duration lower bounds and hypothetical longest-first schedules at 1/2/4/8/16 slots. Eight-slot all-call lower bound is 101.421 s; dependencies, admission/rate limits and changing latency are omitted. No production prediction, concurrency change, paid calls or activation.
-- Regressions cover recorded totals, failed-call time, scope isolation, order independence, empty evidence and invalid/overflowing durations. Updated TASKS/RANKING; archived iterations 533–534. No source/schema/UI/handbook flow change.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (362 unit/187 isolated integration), pnpm build, recorded replay and git diff --check passed; zero dangling Docker volumes. No restart under STEERING 22: only offline tooling, fixtures, tests and docs changed.
-- Next: Nov 4 scheduled review first; then gated worker connection and actual scoring-waste/latency/cost evidence. Concurrency alone at eight slots cannot meet 60 s at the old durations.
-
 ## 2026-11-04: iteration 553 — measure offline triage input composition
 
 - Started clean on main; no leftover work. Healthy healthz/root, zero alerts, 36 nonempty/error-free sources and four available queues; no failed digest jobs. Latest hourly social collections completed.
@@ -178,3 +169,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/201 isolated integration), pnpm build, handbook check for 01-stack-and-runtime and git diff --check passed; zero dangling Docker volumes.
 - Rebuilt/restarted API and worker well outside edition freeze. Both active; healthz healthy, root HTTP 200, zero alerts; live GET /api/profile byte-identical before/after restart, including owner's 07:00 Los Angeles schedule.
 - Next: verify hourly Bluesky recovery and Nov 4 scheduled edition when due; otherwise complete full Drizzle schema mapping/parity before migration tooling adoption.
+
+## 2026-11-04: iteration 572 — complete Drizzle schema and catalog parity
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 error-free sources and no failed digest jobs; scheduled Nov 4 review pending at 15:00 UTC.
+- Mapped all 25 public tables from migrations 001–055, including the migration ledger. Isolated test generates an empty database from Drizzle DDL and compares every column/default, constraint and index to the migrated database; existing characterization tests unchanged.
+- Corrected introspection's empty-string default, boolean check, regex escaping, composite FK ordering and index operator classes. Drizzle-kit 0.31.11 still falsely proposes six drop/recreate statements for three identical FKs; programmatic push also drops query parameters. Read-only CLI probe applied nothing; zero-diff/adoption gate remains open. No live migration/grant changes or paid calls.
+- Normal 05:54:43 UTC Bluesky job completed in 8.204 s; read-only report confirms fresh stored observations across all four topics. First scheduled recovery verified; sustained collection and real edition selections remain pending.
+- Updated TASKS/SOURCES/database verification/decision; archived iteration 552. No UI or handbook flow change.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/202 isolated integration), pnpm build, handbook stack check and git diff --check passed; zero dangling Docker volumes. Initial parity failures exposed the corrected mapping/tooling defects.
+- Rebuilt/restarted API and worker outside the edition freeze; both active, healthz healthy, root HTTP 200, zero alerts. Live profile response byte-identical before/after restart.
+- Next: scheduled edition review when due; otherwise resolve Drizzle introspection gate before migration baseline adoption, then convert remaining repositories individually.

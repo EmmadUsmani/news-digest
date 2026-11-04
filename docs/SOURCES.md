@@ -1787,3 +1787,13 @@ HTTP 400. A failed refresh now clears the cached session, allowing the next
 collection to sign in again rather than reusing rejected tokens indefinitely.
 The failed attempt still fails without an immediate login retry. Fake-response
 coverage proves next-call recovery; sustained live recovery remains unverified.
+
+## Iteration 572 — first scheduled Bluesky recovery (2026-11-04)
+
+The normal hourly job started at 05:54:43.900 UTC and completed at
+05:54:52.104 UTC (8.204 s), after the 04:54 rejected-refresh failure.
+Read-only stored-observation reporting confirms fresh observations for all four
+topics, newest timestamps 05:54:46–05:54:52 UTC.
+This verifies one scheduled recovery after the session reset fix; sustained
+hourly collection and selection in the Nov 4 edition remain to verify.
+No manual collection or paid provider calls were made for this observation.

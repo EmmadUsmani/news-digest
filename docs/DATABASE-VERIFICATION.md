@@ -644,3 +644,13 @@ an explicit transaction client. Uncommitted topic disabling and snapshot deletio
 are visible to that reader while independent repository reads retain committed
 configuration and history. Rollback restores both reads. Disposable PostgreSQL
 only; no provider requests or production changes.
+
+## ORM schema parity (iteration 572)
+
+`pnpm test:integration` includes a complete 25-table Drizzle parity test against
+the fresh migrations. It builds a second empty database from generated DDL and
+compares PostgreSQL catalog definitions for columns, defaults, constraints and
+indexes with no differences. It never uses the live database.
+The separate drizzle-kit zero-diff gate remains open because its introspection
+misorders three composite foreign keys; see the Drizzle decision for evidence. Historical SQL migration execution stays
+unchanged; future migration baseline adoption is a separate step.

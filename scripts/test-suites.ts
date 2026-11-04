@@ -30,6 +30,7 @@ const integration = new Set([
   'reserve-status.test.ts',
   'river-discovery.test.ts',
   'scheduled-digests.test.ts',
+  'schema-parity.test.ts',
   'scheduled-budget.test.ts',
   'schedule-alert.test.ts',
   'query-stats.test.ts',
