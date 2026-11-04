@@ -1635,3 +1635,19 @@ cutoff). All 153 articles are scored once in six requests; prompt bytes remain
 to edition time without increasing the request count in these windows. These
 are publication-proxy, synthetic-score measurements, not live spend or latency.
 No production schedule, setting, reserve or feature is changed.
+
+## Iteration 519: reserve-safe background triage entry point
+
+`incrementalTriageServices` is prepared behind `LLM_INCREMENTAL_TRIAGE_ENABLED`
+(default `0`); no collection or scheduler path invokes it. Enabling requires
+`LLM_SCHEDULED_RESERVE_ENABLED=1`. It uses the normal configured Anthropic
+ledger and Haiku per-item cache; a dedicated request coordinator avoids joining
+scheduled in-flight work. The background boundary clears inherited scheduled
+context, even when called inside an edition worker. Reserve denial leaves items
+unscored for the edition, without making a provider call.
+
+Isolated Postgres + fake-provider coverage checks full-reserve refusal inside a
+claimed edition, ordinary-budget admission, settled purpose, and cache reuse by
+a different edition with no new call. This establishes admission/cache behavior,
+not real cost, waste or latency. No production flag was enabled; arrival/pool
+capture and scheduler batching remain unfinished pending the Nov 4 review.

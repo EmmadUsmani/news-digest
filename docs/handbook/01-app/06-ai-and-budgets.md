@@ -30,6 +30,10 @@ flowchart TB
   $1. Unspent money rolls forward.
 - **Reserve:** until the morning edition runs, manual editions and tests
   can't eat into its share. The UI says when a manual run is limited by this.
+- **Background triage:** its prepared entry point is disabled by default
+  (`LLM_INCREMENTAL_TRIAGE_ENABLED=0`) and has no scheduled job yet. Enabling
+  it requires reserve protection. It shares the daily ledger and item cache,
+  clears scheduled-edition privileges, and leaves refused items for the edition.
 - **Model split:** Sonnet (the expensive editor) is capped at 80% of the day,
   leaving room for Haiku triage.
 

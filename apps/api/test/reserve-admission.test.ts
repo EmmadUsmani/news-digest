@@ -3,8 +3,11 @@ import { test } from 'node:test';
 
 import { database } from '../src/libs/db/connections';
 import { llmConfig } from '../src/modules/curation/adapters/config';
+import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
+import { CandidateTriage } from '../src/modules/curation/application/triage';
 import { PostgresLlmLedger } from '../src/modules/curation/database/llm.ledger';
 import { PostgresScheduledBudgetRepository } from '../src/modules/curation/database/scheduled-budget.repository';
+import { backgroundTriage } from '../src/modules/curation/public/incremental-triage';
 import { configuredLlmLedger } from '../src/modules/curation/public/ledger';
 import {
   scheduledLedgerContext,
@@ -352,6 +355,125 @@ void test('verified no-occurrence releases missing slots only and locks the save
     await db.query('DELETE FROM scheduled_ai_budget_days WHERE run_id=$1', [
       runId,
     ]);
+    await db.end();
+  }
+});
+
+void test('background triage cannot spend an inherited reserve and editions reuse its admitted item scores', async () => {
+  const db = database();
+  const budgets = new PostgresScheduledBudgetRepository(db);
+  const {
+    rows: [clock],
+  } = await db.query<{ now: Date }>('SELECT clock_timestamp() AS now');
+  const day = clock.now.toISOString().slice(0, 10);
+  const runId = `pretriage-${crypto.randomUUID()}`;
+  const {
+    rows: [baseline],
+  } = await db.query<{ used: number }>(
+    `SELECT COALESCE(sum(COALESCE(cost_micros,reserved_micros)),0)::float8 AS used
+     FROM llm_calls WHERE status <> 'failed'
+     AND (created_at >= $1::date OR status IN ('pending','uncertain'))`,
+    [day],
+  );
+  const policy = { configuredMicros: baseline.used + 100000, headroom: 1.5 };
+  const ledger = new PostgresLlmLedger(
+    db,
+    { monthly: 30e6, dailyMax: baseline.used + 100000 },
+    false,
+    { policy, context: scheduledLedgerContext },
+  );
+  let calls = 0;
+  const model = llmConfig({}).haiku;
+  const llm = new BudgetedLlm(
+    {
+      async complete(request) {
+        calls++;
+        assert.equal(request.purpose, 'candidate-triage-v1');
+        assert.equal(scheduledLedgerContext(), undefined);
+        const input = JSON.parse(request.prompt) as {
+          candidates: { id: string }[];
+        };
+        return {
+          text: JSON.stringify({
+            items: input.candidates.map((c) => ({
+              id: c.id,
+              relevance: 8,
+              importance: 7,
+              event: 'Recorded event',
+              rationale: 'Fixture facts',
+            })),
+          }),
+          usage: { input: 10, output: 10, cacheRead: 0, cacheWrite: 0 },
+        };
+      },
+    },
+    ledger,
+  );
+  const triage = new CandidateTriage(llm, ledger, model);
+  const background = backgroundTriage(triage);
+  const topic = {
+    id: runId,
+    name: 'Tech',
+    description: 'Software',
+    guidance: '',
+  };
+  const candidates = [
+    {
+      id: 'article',
+      title: 'Software release',
+      excerpt: 'Fixture report',
+      sources: ['Fixture'],
+    },
+  ];
+  try {
+    await budgets.register(clock.now, runId);
+    const claimed = await budgets.claim(runId);
+    assert.ok(claimed);
+    // Even an accidental call inside a genuine scheduled edition cannot borrow its reserve.
+    const denied = await withScheduledAttempt(runId, claimed.attempt, () =>
+      withEditionRun(runId, runId, () =>
+        background.score(topic, candidates, runId),
+      ),
+    );
+    assert.deepEqual(denied.unscoredIds, ['article']);
+    assert.equal(calls, 0);
+    // Leave ordinary daily funds available; all spending still goes through the same ledger lock.
+    policy.configuredMicros = 80000;
+    const admitted = await background.score(topic, candidates, runId);
+    assert.equal(admitted.scores.length, 1);
+    assert.equal(calls, 1);
+    // A different edition run reuses per-item scores even when no ordinary funds remain.
+    policy.configuredMicros = baseline.used + 100000;
+    const edition = new CandidateTriage(
+      new BudgetedLlm(
+        {
+          async complete() {
+            throw new Error('Cached edition must not call provider');
+          },
+        },
+        ledger,
+      ),
+      ledger,
+      model,
+    );
+    assert.deepEqual(
+      await edition.score(topic, candidates, `${runId}-edition`),
+      admitted,
+    );
+    assert.equal(calls, 1);
+    const { rows } = await db.query(
+      'SELECT status, purpose FROM llm_calls WHERE run_id=$1',
+      [runId],
+    );
+    assert.deepEqual(rows, [
+      { status: 'succeeded', purpose: 'candidate-triage-v1' },
+    ]);
+  } finally {
+    await db.query('DELETE FROM llm_calls WHERE run_id=$1', [runId]);
+    await db.query(
+      'DELETE FROM scheduled_ai_budget_days WHERE budget_day=$1 AND run_id=$2',
+      [day, runId],
+    );
     await db.end();
   }
 });

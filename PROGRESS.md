@@ -1,48 +1,3 @@
-## 2026-11-03: iteration 479 — add NBA syndication coverage
-
-- Started clean on main; no leftovers. Zero alerts; priority provider/social evidence still awaits Nov 4. Grouping stays parked. No paid calls, new editions or Reddit requests.
-- Item 10 baseline articles/healthy sources: Tech 327/6, NBA 156/6, Gaming 280/18, World 224/5. Added Yardbarker NBA numeric public RSS via migration 053 without recreating a deleted topic.
-- Feed returned 20 dated NBA entries; normal worker stored all 20 at 20:46:53 UTC without error. NBA rolling-day coverage reached 166 articles/seven healthy sources; all 36 sources healthy. Syndication/commentary is not independent reporting.
-- Two recorded entries pin bylines, EST-to-UTC dates, excerpts, media links and no invented X citations. Tests never use live HTTP. Documented rejected candidates: NBA/SI 404, TalkBasket 403, Sporting News malformed links, named Yardbarker path stale/off-topic. No bypass.
-- Updated SOURCES, TASKS and affected handbook prose; no diagrams, tables/relationships or UI changed.
-- Verification: two targeted fixture tests; pnpm check passed (263 unit/180 isolated integration, typecheck/lint/format/boundaries); pnpm build, handbook check (17 pages/14 unchanged diagrams/25 assigned tables), pnpm format, pnpm lint:fix and git diff --check passed. Zero dangling volumes.
-- Migration applied and worker restarted for source configuration. API/worker/docs/schema active; pnpm obs health --check passed, root HTTP 200. No further restart under STEERING 22: running application code unchanged.
-- Next: Nov 4 scheduled latency/NBA fallback, open-X and Bluesky selections/screenshots; avoid extra paid verification.
-
-## 2026-11-03: iteration 480 — harvest NBA team and highlight X citations
-
-- Started clean on main; no leftovers. Zero alerts and healthy services. Nov 4 latency/NBA fallback and social selection evidence remain pending; grouping stays parked.
-- Enabled free exact-host Yardbarker NBA article discovery through migration 054, using existing eight-page hourly rotation, host validation and one-day failure cooldown. No new feed, recursive crawl, paid calls, editions or Reddit requests.
-- Public Westbrook article returned 200 with OKC team and Swish Cultures clip embeds. Recorded unmodified embed fragments; offline test pins canonical IDs/named verification URLs. Initial assertion expected x.com; corrected it to the adapter's existing twitter.com normalization.
-- Applied migration. Normal bounded pass checked eight pages/two Yardbarker, zero links/errors. Explicit one-page collection of the stored researched article persisted two real citations at 20:54:25 UTC, zero errors. Citations are not verified posts, virality or edition selections.
-- Basketball Insiders article returned 200 but no X links; discovery left off. NBA remains weakest for articles (166), World weakest for verified X (zero); no extra paid discovery.
-- Updated SOURCES/TASKS and affected handbook; archived iterations 465–466 to keep PROGRESS bounded. No table/relationship, diagram or UI change.
-- Verification: targeted fixture test, pnpm format, pnpm lint:fix, pnpm check (263 unit/181 isolated integration), pnpm build, filtered handbook check (17 pages/one unchanged diagram/25 assigned tables) and git diff --check passed; zero dangling volumes.
-- API/worker/docs/schema active; pnpm obs health --check passed, root HTTP 200, zero alerts. No restart under STEERING 22: application code unchanged; publisher host configuration is read each pass.
-- Push rejected by concurrent owner commit 09c9fa0 (STEERING 27); merged without rewriting history. Owner freezes new sources/features until Nov 4 evidence. Migration 055 disables the just-added Yardbarker host; existing feed and real citations remain. Fixture remains prepared; live host confirmed null, repeated pnpm check passed (263 unit/181 integration), handbook rechecked.
-- Next under item 27: offline World social/NBA fallback fixes, tighter triage prefilter, then restore/relabel same-story AI grouping; production grouping stays off until Nov 4 evidence and conditional Nov 5 activation.
-
-## 2026-11-03: iteration 481 — skip hard exclusions before article triage
-
-- Started clean on main; zero alerts, services and healthz healthy. No leftovers, paid calls, new editions, source changes, Reddit requests or grouping activation.
-- Item 27 offline step: article triage now skips existing quality-rule rejections and explicit excluded topic phrases, matching final-shortlist gates. Missing include phrases still reach semantic triage; no arbitrary top-N cutoff.
-- Recorded Nov 1 NBA fixture admits 43/52 articles (nine unnecessary scores avoided). This is offline workload evidence, not measured live speed/cost improvement.
-- Regression pins skipped inputs, semantic recovery, AI publication, original candidate totals/quality omissions and complete admitted coverage. Synthetic golden now omits the skipped betting score; selected stories unchanged.
-- First direct test invocation correctly refused without isolated services; first full check found stale synthetic golden response (181/182 integration). Updated synthetic response/expected metadata; no real response re-recording.
-- Updated RANKING, affected handbook and TASKS. World date-bound fix already shipped (428); original NBA rejected responses were not retained, so cause still awaits next-run validation logs.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (263 unit/182 isolated integration), pnpm build, filtered handbook check (17 pages/one unchanged diagram/25 tables), git diff --check passed.
-- Restarted API/worker; pnpm obs health --check passed, root HTTP 200, zero alerts/dangling volumes. Live rolling article counts Tech/NBA/Gaming/World: 329/161/281/222, all 36 sources healthy.
-- Next: further bounded offline triage reduction if warranted, then item 27 same-story grouping restoration/relabel/evaluation; keep grouping off. Nov 4 scheduled evidence takes priority, including NBA/World outcomes and latency.
-
-## 2026-11-03: iteration 482 — restore inactive same-story AI pass
-
-- Started clean on main; no leftovers. Health passed; pending API metrics scrape alert cleared and metrics returned 200 without intervention.
-- Item 27: restored the inactive budgeted/cached AI component and fake tests from before 364cb1b. New same-story prompt includes direct follow-ups, reactions and consequences; unrelated stories sharing entities/themes stay separate.
-- New story-grouping-v3 purpose/instructions invalidate old same-event cache results. Known-ID, unique-membership, single-topic, shortlist, budget and provider-failure safeguards retained; no wording matcher or production caller.
-- No paid calls, new editions, sources, Reddit requests or grouping activation. Fake prompt/validation tests are not semantic accuracy evidence.
-- Updated TASKS, RANKING and affected handbook prose. Next: relabel 138 pairs plus 57 previously unlabelled merges, then one $0.05-capped evaluation outside 13:00–16:00 UTC; production stays off pending Nov 4 review.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (276 unit/182 isolated integration), pnpm build, filtered handbook check (17 pages/one unchanged diagram/25 tables) and git diff --check passed.
-
 ## 2026-11-03: iteration 483 — review same-story labels without changing history
 
 - Started clean on main; zero alerts and healthy healthz. No leftover work, paid calls, editions, new sources, Reddit requests or production grouping activation.
@@ -153,3 +108,13 @@
 - Updated TASKS/RANKING; handbook/schema/UI unchanged. No paid calls, editions, sources or feature activation; grouping stays off. No screenshots needed.
 - Verification: targeted tests 5/5, cutoff CLI, pnpm format, pnpm lint:fix, pnpm check (298 unit/182 isolated integration), pnpm build, git diff --check, healthz/root, status and pnpm obs alerts passed; zero dangling Docker volumes.
 - Services stay running under STEERING 22: only offline scripts/tests/docs changed, so running application code matches main. Initial status probe used an incorrect path (404); canonical /api/status succeeded.
+
+## 2026-11-04: iteration 519 — prepare reserve-safe background triage
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, all 36 sources error-free and all four queues available; Nov 4 edition evidence is still future work.
+- Added an incremental triage entry point behind LLM_INCREMENTAL_TRIAGE_ENABLED=0. No collector/scheduler invokes it. Enabling requires scheduled reserve enforcement; background work clears inherited edition privileges and has a separate request coordinator while sharing the normal ledger/item cache.
+- Unit tests cover disabled/invalid configuration and async context restoration. Isolated Postgres plus fake provider verifies full-reserve refusal inside a genuine claimed edition, ordinary-budget admission/settlement, and a different edition reusing cached scores without another call.
+- No paid calls, source changes, production activation, UI or schema changes. Real arrival/pool waste, batching and scheduled latency remain unmeasured; grouping remains off pending Nov 4 review.
+- Updated TASKS, RANKING and budget handbook; archived iterations 479–482 to keep PROGRESS under 25 KB. No diagrams or UI changed; screenshots unnecessary.
+- Verification: targeted tests 2/2; pnpm format, pnpm lint:fix, pnpm check (300 unit/183 isolated integration), pnpm build, handbook check (17 pages/two unchanged diagrams, 25 tables), git diff --check. Zero dangling Docker volumes.
+- Rebuilt/restarted API and worker; healthz/root healthy, zero alerts, 36 error-free sources/four available queues after restart. Next: recorded arrival/pool evidence and bounded scheduler batching, with activation gated on Nov 4 review.
