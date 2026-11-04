@@ -5,7 +5,7 @@ import { test } from 'node:test';
 import { evaluateCallConcurrency } from '../scripts/evaluate-call-concurrency';
 
 void test('Nov 3 recorded calls rule out a 60-second eight-slot lower bound', () => {
-  const [all, triage] = evaluateCallConcurrency(
+  const [all, triage, remainder] = evaluateCallConcurrency(
     JSON.parse(
       readFileSync(
         new URL(
@@ -20,6 +20,13 @@ void test('Nov 3 recorded calls rule out a 60-second eight-slot lower bound', ()
   assert.equal(all.totalMs, 811368);
   assert.equal(triage.calls, 17);
   assert.equal(triage.totalMs, 517143);
+  assert.equal(remainder.calls, 26);
+  assert.equal(remainder.totalMs, 294225);
+  assert.equal(remainder.totalMs + triage.totalMs, all.totalMs);
+  assert.equal(
+    remainder.concurrency.find((row) => row.slots === 4)!.lowerBoundMs,
+    73557,
+  );
   assert.equal(
     all.concurrency.find((row) => row.slots === 8)!.lowerBoundMs,
     101421,
@@ -32,7 +39,7 @@ void test('concurrency bounds retain failed work and isolate article triage', ()
     purpose: index < 4 ? 'candidate-triage-v1' : 'story-editor',
     outcome: index === 0 ? 'error' : 'success',
   }));
-  const [all, triage] = evaluateCallConcurrency(input);
+  const [all, triage, remainder] = evaluateCallConcurrency(input);
   assert.equal(all.totalMs, 35);
   assert.equal(all.failedCalls, 1);
   assert.equal(triage.totalMs, 30);
@@ -56,7 +63,28 @@ void test('concurrency bounds retain failed work and isolate article triage', ()
   assert.deepEqual(evaluateCallConcurrency([...input].reverse()), [
     all,
     triage,
+    remainder,
   ]);
+});
+
+void test('ideal article cache retains social triage, editing and unknown failed work', () => {
+  const [all, triage, remainder] = evaluateCallConcurrency([
+    { purpose: 'candidate-triage-v1', durationMs: 100, outcome: 'success' },
+    { purpose: 'social-triage-v1', durationMs: 20, outcome: 'success' },
+    { purpose: 'story-editor', durationMs: 30, outcome: 'success' },
+    { purpose: 'future-purpose', durationMs: 40, outcome: 'error' },
+  ]);
+  assert.equal(remainder.calls, 3);
+  assert.equal(remainder.failedCalls, 1);
+  assert.equal(remainder.totalMs, 90);
+  assert.equal(remainder.longestMs, 40);
+  assert.equal(remainder.calls + triage.calls, all.calls);
+  assert.equal(remainder.totalMs + triage.totalMs, all.totalMs);
+  assert.deepEqual(remainder.concurrency[1], {
+    slots: 2,
+    lowerBoundMs: 45,
+    independentLongestFirstMs: 50,
+  });
 });
 
 void test('empty evidence stays zero and invalid or overflowing durations fail', () => {

@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 606 — connect generated migrations to the atomic runner
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC review pending.
-- Extracted the existing migration transaction/lock into a reusable runner. Historical SQL executes first, then generated SQL in journal order; generated names use a drizzle/ prefix in the existing ledger. No second ledger or schema change.
-- Added isolated migration coverage for seed preservation, multi-statement generated DDL/data, concurrent reruns, unchanged ledger timestamps, atomic DDL/data/ledger rollback and recovery. Existing characterization assertions unchanged.
-- Took a private mode-600 pg_dump at ~/.local/state/news-digest/backups/iteration-606-before-drizzle.dump; archive catalog readable. Applied only the SELECT 1 baseline with pnpm migrate; second run applied nothing. Owner grants unchanged.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
-- Saved edition byte-identical and LLM/X budget snapshots unchanged. Read-only Playwright rendered all four real saved-edition topics without page errors. Healthz healthy, 36 error-free sources, zero failed digest jobs and zero alerts.
-- Updated TASKS, architecture, decision and handbook stack; archived iteration 591. No runtime service code/config changed, so services stayed running under STEERING 22; migration CLI deployed directly. No paid calls or activation.
-- Next: prioritize Nov 4 15:00 UTC review; otherwise finish remaining ORM adapters/final raw-SQL audit. Keep private backups before new schema migrations and preserve owner grants.
-
 ## 2026-11-04: iteration 607 — typed latest-content query
 
 - Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC review remains pending.
@@ -175,3 +164,13 @@
 - Verification: targeted recording tests 6/6; pnpm format, pnpm lint:fix, pnpm check (367 unit/205 isolated integration), pnpm build and git diff --check passed.
 - Only the explicit historical recording script imports this adapter; no running-service code/config changes, so no restart under STEERING 22. No paid calls, recordings, prompt changes or production activations.
 - Next: Nov 4 15:00 UTC edition review takes priority; grouping and incremental triage remain off. Real raw-response golden stays open.
+
+## 2026-11-04: iteration 624 — measure the ideal article-cache remainder
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and no failed digest jobs. Retained 04:54 Bluesky failure is historical; later hourly jobs completed.
+- Extended the offline concurrency tool with an ideal article-cache scenario: remove only candidate-triage calls, retaining social/editorial, failed and unknown-purpose work. Added partition/failure regressions and pinned the recorded Nov 3 result.
+- Recorded result: 26 remaining calls, 294,225 ms aggregate HTTP time; four-slot lower bound 73,557 ms, longest-first 75,650 ms. Article pretriage alone cannot meet 60 s at four slots with these fixed observations; dependencies and non-provider work are excluded, so this is not a production speed prediction.
+- Updated TASKS and RANKING; archived iteration 606 to keep PROGRESS bounded. No prompts, paid calls, fixture recordings, production settings or provider concurrency changes.
+- Verification: pnpm exec tsx --test apps/api/test/call-concurrency.test.ts (4/4); offline CLI; pnpm format, pnpm lint:fix, pnpm check (368 unit/205 isolated integration), pnpm build and git diff --check passed. Healthz healthy; zero dangling Docker volumes.
+- Offline analysis only; no running-service code/config changed, so no restart under STEERING 22. Grouping and incremental triage remain off.
+- Next: review Nov 4 15:00 UTC edition as soon as available; inspect open-X/Bluesky picks, World coverage, NBA validation and live timing before activation decisions.

@@ -19,6 +19,10 @@ export function evaluateCallConcurrency(input: unknown) {
       scope: 'article-triage',
       calls: calls.filter((call) => call.purpose === 'candidate-triage-v1'),
     },
+    {
+      scope: 'ideal-article-cache-remainder',
+      calls: calls.filter((call) => call.purpose !== 'candidate-triage-v1'),
+    },
   ].map(({ scope, calls: selected }) => {
     const durations = selected.map((call) => call.durationMs);
     const totalMs = durations.reduce((sum, duration) => sum + duration, 0);
@@ -51,7 +55,7 @@ export function evaluateCallConcurrency(input: unknown) {
 if (require.main === module) {
   console.log(
     JSON.stringify({
-      note: 'Fixed observed HTTP durations only. All calls assumed independent and ready immediately. Lower bounds omit dependencies, rate limits, budget admission, cache/DB/queue work and latency changes under load. Longest-first is a hypothetical order, not an optimal schedule or a prediction. Failed calls retain elapsed time; omitted calls cannot be inferred. No production concurrency change or paid calls.',
+      note: 'Fixed observed HTTP durations only. All calls assumed independent and ready immediately. Lower bounds omit dependencies, rate limits, budget admission, cache/DB/queue work and latency changes under load. Longest-first is a hypothetical order, not an optimal schedule or a prediction. The ideal article-cache remainder removes only candidate-triage-v1 calls, assuming every article score is already cached; social triage, editing, failures and unknown purposes remain. Removed work still costs time and budget before publication; this is neither measured cache readiness nor an edition speedup prediction. Failed calls retain elapsed time; omitted calls cannot be inferred. No production concurrency change or paid calls.',
       results: evaluateCallConcurrency(
         JSON.parse(readFileSync(process.argv[2], 'utf8')),
       ),

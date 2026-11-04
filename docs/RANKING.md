@@ -2223,6 +2223,25 @@ output and incremental cache preparation remain relevant. Production concurrency
 is unchanged; no paid calls or activation occurred. Missing or failed requests
 must not be silently removed when preparing future evidence.
 
+## Iteration 624: ideal article-cache remainder
+
+The same offline concurrency command now reports `ideal-article-cache-remainder`:
+it removes only the 17 `candidate-triage-v1` calls, as if every article score
+were already cached before publication. All social triage, editorial calls and
+unknown purposes remain, including any failed HTTP requests. This is an ideal
+cache scenario, not measured incremental-worker readiness.
+
+The Nov 3 recording leaves 26 calls totaling 294,225 ms. With four slots, even
+the dependency-free lower bound is 73,557 ms (longest-first: 75,650 ms), above
+the 60-second target. Eight slots yield a 36,779 ms lower bound (longest-first:
+38,261 ms), which does not establish that production could meet the target:
+phase dependencies, budget admission, rate limits and non-provider work remain
+excluded, and observed durations may change under load. Article pretriage alone
+therefore cannot meet 60 seconds at four slots with these fixed observations.
+It moves 517,143 ms of aggregate HTTP work earlier; it does not eliminate its
+cost, prove cache reuse or measure unused-score waste. No production flag,
+concurrency, prompt or provider call changed.
+
 ## Iteration 553: offline triage input composition
 
 The batching replay also partitions actual serialized input bytes into instructions,
