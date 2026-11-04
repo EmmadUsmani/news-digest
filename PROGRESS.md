@@ -1,11 +1,3 @@
-## 2026-11-04: iteration 540 — prepare worker resource ownership
-
-- Started clean on main; no leftover work. Zero alerts, healthy root/healthz, 36 sources with recent nonempty successful collections and no current errors; no failed digest jobs. Nov 4 scheduled review remains pending.
-- Added prepared worker entry point owning scoring DB and existing settings/topic repositories. Disabled mode allocates nothing; current settings filter enabled topics. Startup failures clean up, repeated shutdowns share one drain, and connections close after scoring stops.
-- Four offline lifecycle tests and one isolated persisted-settings/topic integration test pass. No production worker import, activation or paid requests; no live latency/waste claim. Next: gated worker connection after review, longer-span pool/waste evidence.
-- Updated TASKS/RANKING; archived iteration 521 to keep PROGRESS small. No source/schema/UI or live handbook flow change. Services stay running under STEERING 22 because prepared code has no production caller.
-- Verification: targeted tests 4/4; pnpm format, pnpm lint:fix, pnpm check (348 unit/186 isolated integration), pnpm build, git diff --check; root HTTP 200, healthz healthy, zero alerts and zero dangling Docker volumes. Initial test synchronization and cleanup-error typing failures fixed before successful full checks.
-
 ## 2026-11-04: iteration 541 — respect ranked pools in offline triage replay
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 nonempty successful sources without current errors and no failed digest jobs. Historical social failure is the already investigated Nov 3 23:54 event; Nov 4 review remains pending.
@@ -165,3 +157,12 @@
 - Updated TASKS/database verification notes; archived iteration 539 to keep PROGRESS small. No production/source/schema/UI/handbook flow changes or paid calls; no restart under STEERING 22.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/192 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes. Initial check caught archive formatting; corrected before passing rerun.
 - Next: review Nov 4 scheduled evidence first; production incremental triage/grouping activation remains gated. Repository characterization and recorded-response golden remain open.
+
+## 2026-11-04: iteration 559 — reclaim Grafana filesystem cache
+
+- Started clean on main; no leftover work. Healthz passed; pending Grafana memory warning took priority over background tests.
+- Grafana used ~255 MiB of its 256 MiB ceiling: ~105 MiB anonymous and ~149 MiB filesystem cache. Added MemoryHigh=208M, retaining hard memory/CPU ceilings; updated the handbook and deployed/restarted only Grafana.
+- After dashboard queries: ~202 MiB, zero automatic restarts; Grafana memory alert cleared. This is short-run evidence, not sustained-memory acceptance.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/192 isolated integration), pnpm build, handbook 09-observability check and focused check-observability --verify-grafana --grafana-database-only passed; zero dangling Docker volumes.
+- Full Grafana verification twice failed on retained social-collection next-run metric versus current Status; recorded an open task. Generated unchanged-layout screenshots discarded. Restart 502s temporarily triggered the rolling API error alert; final snapshot has zero alerts.
+- No paid calls or edition changes. Next: investigate schedule metric freshness, monitor memory, then prioritize Nov 4 15:00 scheduled edition evidence.

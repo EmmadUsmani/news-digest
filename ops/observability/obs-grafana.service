@@ -8,6 +8,7 @@ ExecStart=/opt/news-digest-observability/grafana/bin/grafana server --homepath=/
 Environment=GOMAXPROCS=1 GOMEMLIMIT=160MiB
 Restart=always
 RestartSec=5
+MemoryHigh=208M
 MemoryMax=256M
 CPUQuota=2%
 CPUWeight=10

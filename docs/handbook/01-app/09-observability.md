@@ -346,7 +346,9 @@ Compose trust authentication; no application credentials are supplied.
 
 `ops/observability/install-grafana.sh` reconciles the SHA-256-pinned Grafana
 12.4.14 release and provisioning. The `obs-grafana` system unit has a 256 MiB
-memory ceiling and 2% CPU quota, with low scheduling priority. Its first
+memory ceiling, a 208 MiB soft reclaim threshold and 2% CPU quota, with low
+scheduling priority. The soft threshold reclaims filesystem cache before the
+service reaches its memory warning or hard ceiling. Its first
 startup migrates its own SQLite database and can take several minutes at that
 quota. It never migrates or restarts the app database. Reconcile existing
 configuration by copying the repository provisioning or rerunning the installer.
