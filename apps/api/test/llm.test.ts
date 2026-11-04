@@ -11,6 +11,7 @@ import {
   rateLimitDelay,
 } from '../src/modules/curation/adapters/anthropic';
 import { llmConfig } from '../src/modules/curation/adapters/config';
+import { assertAbsenceSupport } from '../src/modules/curation/application/absence-support';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import { llmFingerprint } from '../src/modules/curation/application/llm-fingerprint';
 import { LlmValidationFailure } from '../src/modules/curation/application/validation-failure';
@@ -914,4 +915,80 @@ void test('provider completion logs distinguish truncation and refusal without r
     assert.equal(entry.outcome, 'success');
     assert.ok(!lines.join('').includes('private-'));
   }
+});
+
+void test('absence diagnostics retain only fixed field and marker categories through repair', async () => {
+  for (const [text, marker] of [
+    ['Secret subject has no details.', 'negative-word'],
+    ["Secret subject hasn't replied.", 'negative-contraction'],
+    ['Secret subject details remain limited.', 'absence-phrase'],
+  ] as const) {
+    const lines: string[] = [];
+    const log = createLogger(
+      'test',
+      {
+        write: (line) => {
+          lines.push(line);
+        },
+      },
+      [],
+    );
+    const llm = new BudgetedLlm(
+      fake(['{}', '{}']).llm,
+      new MemoryLedger(),
+      log,
+    );
+    assert.equal(
+      await llm.json(request, () => assertAbsenceSupport(text, [], 'summary')),
+      null,
+    );
+    const expected = ['initial', 'repair'].map((attempt) => ({
+      attempt,
+      category: 'unsupported-absence',
+      field: 'summary',
+      absenceMarker: marker,
+    }));
+    assert.deepEqual(llm.validationDiagnostics(), expected);
+    const events = lines
+      .map((line) => JSON.parse(line) as Record<string, unknown>)
+      .filter((line) => line.event === 'llm.validation');
+    assert.deepEqual(
+      events.map(({ attempt, category, field, absenceMarker }) => ({
+        attempt,
+        category,
+        field,
+        absenceMarker,
+      })),
+      expected,
+    );
+    assert.ok(!lines.join('').includes('Secret'));
+    assert.ok(!JSON.stringify(llm.validationDiagnostics()).includes('Secret'));
+  }
+});
+
+void test('validation diagnostic labels reject untrusted runtime values', async () => {
+  const lines: string[] = [];
+  const log = createLogger(
+    'test',
+    {
+      write: (line) => {
+        lines.push(line);
+      },
+    },
+    [],
+  );
+  const llm = new BudgetedLlm(fake(['{}', '{}']).llm, new MemoryLedger(), log);
+  await llm.json(request, () => {
+    const error = new LlmValidationFailure('unsupported-absence');
+    Object.assign(error, {
+      field: 'secret field',
+      absenceMarker: 'secret marker',
+    });
+    throw error;
+  });
+  assert.deepEqual(llm.validationDiagnostics(), [
+    { attempt: 'initial', category: 'unsupported-absence' },
+    { attempt: 'repair', category: 'unsupported-absence' },
+  ]);
+  assert.ok(!lines.join('').includes('secret'));
 });

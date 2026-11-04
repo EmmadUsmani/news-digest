@@ -91,8 +91,12 @@ export class SocialPostEditor {
       for (const post of parsed.posts) {
         const original = compact.find((c) => c.id === post.id);
         if (!original) throw new Error('Unknown social post');
-        assertAbsenceSupport(post.whyItMatters, [original.text]);
-        assertAbsenceSupport(post.rationale, [original.text]);
+        assertAbsenceSupport(
+          post.whyItMatters,
+          [original.text],
+          'whyItMatters',
+        );
+        assertAbsenceSupport(post.rationale, [original.text], 'rationale');
       }
       return parsed;
     };

@@ -331,7 +331,12 @@ void test('attribution-dropping absence claims are rejected in every editor fiel
     assert.ok(await h.editor.edit(topic, evidence, 1, 'attribution-repair'));
     assert.equal(h.calls.length, 2);
     assert.deepEqual(h.diagnostics(), [
-      { attempt: 'initial', category: 'unsupported-absence' },
+      {
+        attempt: 'initial',
+        category: 'unsupported-absence',
+        field,
+        absenceMarker: 'negative-word',
+      },
     ]);
   }
 });

@@ -35,6 +35,23 @@ export class BudgetedLlm {
             ? 'invalid-schema'
             : 'validator-error',
     };
+    if (
+      error instanceof LlmValidationFailure &&
+      error.code === 'unsupported-absence'
+    ) {
+      if (
+        ['headline', 'summary', 'whyItMatters', 'rationale', 'brief'].includes(
+          error.field ?? '',
+        )
+      )
+        diagnostic.field = error.field;
+      if (
+        ['negative-word', 'negative-contraction', 'absence-phrase'].includes(
+          error.absenceMarker ?? '',
+        )
+      )
+        diagnostic.absenceMarker = error.absenceMarker;
+    }
     this.failures.push(diagnostic);
     // Persist only fixed categories and identifiers, never rejected output,
     // source text, exception messages, schema details or repair feedback.

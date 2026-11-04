@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 631 — connect default-off background triage
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts, no failed user services and 36 sources without current errors.
-- Connected the prepared incremental-triage worker entry point and shutdown drain. Startup errors stop the worker; tick errors are logged. Disabled mode allocates no scoring resources or timer.
-- Production enable setting is unset (default off); Nov 4 review remains the activation gate. No paid calls, prompt changes, grouping activation or database/Redis restart.
-- Updated TASKS, RANKING, stale composition comments and the Jobs & schedules handbook page.
-- Verification: targeted lifecycle tests 10/10; pnpm format, pnpm lint:fix, pnpm check (377 unit/205 isolated integration), pnpm build, handbook check (17 pages/two unchanged diagrams/25 tables) and git diff --check passed.
-- Restarted only news-digest-worker; running-process gate confirmed off. Healthz healthy, zero alerts/failed units/dangling Docker volumes; immutable Nov 3 edition still serves real stories/posts. No UI changes.
-- Next: Nov 4 15:00 UTC review of open-X/Bluesky selections, World posts, NBA validation and timing/cost; then consider incremental-triage activation and measure real waste.
-
 ## 2026-11-04: iteration 632 — reject incomplete incremental activation
 
 - Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources without errors and four available queues with no failed runs. Nov 4 evidence remains pending.
@@ -172,3 +162,13 @@
 - Verification: targeted tests 15/15; pnpm format, pnpm lint:fix, pnpm check (390 unit/205 isolated integration), pnpm build and git diff --check passed.
 - Restarted API/worker after build; both active, healthz database/Redis healthy, published four-topic edition readable, zero alerts. No paid calls or new edition generated.
 - Next: assess remaining NBA repair diagnostics and gated Nov 5 grouping activation; useful World/open-X yield and edition latency remain open.
+
+## 2026-11-04: iteration 648 — retain bounded NBA rejection context
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts; 36 active sources with recent successful ingestion and no current errors, latest four-topic edition readable.
+- Article/social absence failures now identify the failed editorial field and first marker class (word/contraction/phrase) in existing bounded diagnostics and validation logs. Runtime allowlists reject arbitrary labels; no model/source text is retained.
+- Fake-provider tests verify all article fields, marker classes, initial/repair propagation and untrusted-label exclusion. Acceptance rules, prompts, fingerprints and budgets are unchanged; today's NBA rejected wording remains unknown.
+- Updated TASKS/RANKING; archived iteration 631 to keep PROGRESS bounded. No paid calls, UI/schema changes, new editions or grouping/incremental activation.
+- Verification: targeted tests 44/44; pnpm format, pnpm lint:fix, pnpm check (392 unit/205 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
+- Restarted API/worker; both active, healthz database/Redis healthy, latest four-topic edition readable, zero alerts and no failed user services.
+- Next: use future scheduled rejection labels if NBA still fails; assess Nov 5 same-story grouping activation against the passed gate, then useful World/open-X yield and reserve-safe incremental triage.

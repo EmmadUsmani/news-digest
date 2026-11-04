@@ -2605,3 +2605,17 @@ and attribution preservation. This is a demonstrated false-positive repair,
 not proof of the Nov 4 NBA failure's wording: rejected responses were not saved.
 No prompt, provider, budget or immutable edition changed; scheduled full-AI
 acceptance remains open until a later real run.
+
+### Iteration 648: bounded NBA rejection diagnostics
+
+Future absence-support rejections identify the editorial field (headline,
+summary, whyItMatters, rationale or brief) and the first matching marker class
+(negative word, negative contraction or absence phrase). Both the retained
+32-entry diagnostics and `llm.validation` logs use runtime-allowlisted labels;
+no rejected sentence, source text or exception message is retained. Article
+and social editors attach these labels to the existing initial/repair/cache
+failure path. These are diagnostic additions, with unchanged acceptance,
+repair prompts, fingerprints, provider calls and budget rules. Fake-provider
+tests verify field propagation, all three marker classes, repair attempts and
+rejection of untrusted runtime labels. Nov 4's exact rejected wording remains
+unavailable; no new live inference was run to reproduce it.

@@ -92,18 +92,18 @@ export class ShortlistEditor {
       for (const story of parsed.stories) {
         const evidence = evidenceFor(story.evidenceIds);
         for (const field of [
-          story.headline,
-          story.summary,
-          story.whyItMatters,
-          story.rationale,
-        ])
-          assertAbsenceSupport(field, evidence);
+          'headline',
+          'summary',
+          'whyItMatters',
+          'rationale',
+        ] as const)
+          assertAbsenceSupport(story[field], evidence, field);
       }
       const selectedEvidence = evidenceFor(
         parsed.stories.flatMap((s) => s.evidenceIds),
       );
       for (const bullet of parsed.brief)
-        assertAbsenceSupport(bullet, selectedEvidence);
+        assertAbsenceSupport(bullet, selectedEvidence, 'brief');
       return parsed;
     };
     const prompt = JSON.stringify({
