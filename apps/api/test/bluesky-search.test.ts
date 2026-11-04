@@ -285,3 +285,52 @@ void test('Bluesky logs bounded attempt metadata without credentials, queries or
     /private-|accessJwt|refreshJwt|writer.bsky|game demo|https:|Bearer/,
   );
 });
+
+void test('Bluesky refreshes HTTP 400 ExpiredToken between pages without losing the cursor', async () => {
+  const { client, calls } = fixture([
+    { data: session },
+    { data: { posts: [post], cursor: 'page-two' } },
+    {
+      status: 400,
+      data: { error: 'ExpiredToken', message: 'private-token-detail' },
+    },
+    { data: { ...session, accessJwt: 'renewed' } },
+    { data: { posts: [post] } },
+  ]);
+  assert.equal((await client.search('games', since, until)).length, 1);
+  assert.equal(calls.length, 5);
+  assert.equal(new URL(calls[4].url).searchParams.get('cursor'), 'page-two');
+  assert.equal(
+    (calls[4].init?.headers as Record<string, string>).Authorization,
+    'Bearer renewed',
+  );
+});
+
+void test('Bluesky bounds HTTP 400 recovery to one explicit expiry and ignores arbitrary error bodies', async () => {
+  for (const data of [
+    { error: 'InvalidRequest' },
+    { message: 'ExpiredToken' },
+    { error: 'ExpiredToken', padding: 'x'.repeat(4096) },
+  ]) {
+    const { client, calls } = fixture([
+      { data: session },
+      { status: 400, data },
+    ]);
+    await assert.rejects(
+      client.search('games', since, until),
+      /^Error: Bluesky search HTTP 400$/,
+    );
+    assert.equal(calls.length, 2);
+  }
+  const { client, calls } = fixture([
+    { data: session },
+    { status: 400, data: { error: 'ExpiredToken' } },
+    { data: session },
+    { status: 400, data: { error: 'ExpiredToken' } },
+  ]);
+  await assert.rejects(
+    client.search('games', since, until),
+    /^Error: Bluesky search HTTP 400$/,
+  );
+  assert.equal(calls.length, 4);
+});

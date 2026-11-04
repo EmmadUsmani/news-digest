@@ -97,8 +97,38 @@ export class BlueskySearch implements BlueskySearchPort {
         if (response.status === 429 || response.status >= 500)
           this.next =
             this.now() + Math.max(60000, Number.isFinite(delay) ? delay : 0);
-        await response.body?.cancel();
-        return { status: response.status, data: null };
+        // AT Protocol reports expired access JWTs as HTTP 400, not only 401.
+        // Read a bounded error code; never retain or log provider messages.
+        let expiredToken = false;
+        const reader = response.body?.getReader();
+        if (reader) {
+          const chunks: Uint8Array[] = [];
+          let size = 0;
+          try {
+            for (;;) {
+              const { done, value } = await reader.read();
+              if (done) {
+                try {
+                  const data: unknown = JSON.parse(
+                    Buffer.concat(chunks).toString('utf8'),
+                  );
+                  expiredToken = z
+                    .object({ error: z.literal('ExpiredToken') })
+                    .safeParse(data).success;
+                } catch {
+                  // Non-JSON errors remain ordinary HTTP failures.
+                }
+                break;
+              }
+              size += value.length;
+              if (size > 4096) break;
+              chunks.push(value);
+            }
+          } finally {
+            await reader.cancel();
+          }
+        }
+        return { status: response.status, data: null, expiredToken };
       }
       const reader = response.body?.getReader();
       if (!reader) throw new Error('Empty Bluesky response');
@@ -207,7 +237,11 @@ export class BlueskySearch implements BlueskySearchPort {
         url.toString(),
         this.session!.accessJwt,
       );
-      if (response.status === 401 && !refreshed) {
+      if (
+        !refreshed &&
+        (response.status === 401 ||
+          (response.status === 400 && response.expiredToken))
+      ) {
         await this.authenticate(true);
         refreshed = true;
         url.host = new URL(this.session!.pds).host;

@@ -1762,3 +1762,20 @@ check of the stored Westbrook article then persisted both citations at
 20:54:25 UTC without error. Neither check published an edition or called an LLM;
 post verification and selection remain separate. Retained citations are real
 observations; this does not establish scheduled discovery or selected-post yield.
+
+## Bluesky session-expiry recovery — iteration 513 (2026-11-04)
+
+The adapter now recognizes AT Protocol's HTTP 400 `ExpiredToken` as well as
+HTTP 401, refreshes the session once per search and retries the same page.
+It reads at most 4 KiB of error JSON and retains only the expiry flag; provider
+messages and tokens are never logged. Other 400s and repeated expiry stop.
+The Nov 3 23:54 hourly failure followed a successful page; its HTTP-only logs
+cannot prove the error code. The official PDS implementation confirms that
+expired JWTs use HTTP 400 `ExpiredToken`. Pagination/repeated-expiry coverage
+uses synthetic transport responses, not live expiry evidence.
+
+Post-deploy verification: the restarted worker completed one explicit free
+collection through the normal queue, storing 50 Tech/AI, 48 NBA, 49 Gaming and
+46 World observations. A separate read-only probe returned 193 posts. These
+are live collection results, not evidence of live token-expiry recovery or
+edition selection. No paid calls or edition generation were triggered.
