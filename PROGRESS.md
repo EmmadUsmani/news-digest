@@ -163,3 +163,13 @@
 - Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical, provider spend unchanged, zero source errors/alerts. Read-only Playwright verified all four saved topic names without page errors after correcting heading selectors.
 - Archived oldest progress entry. No paid verification calls, source requests added, live migration execution or owner grant changes.
 - Next: prioritize Nov 4 edition evidence/acks; grouping and incremental triage stay off pending review. Private pg_dump before any new migration.
+
+## 2026-11-04: iteration 619 — sustained Bluesky collection evidence
+
+- Started clean on main; no leftover work. Healthz healthy and zero alerts; Nov 4 edition not due yet.
+- Verified seven consecutive scheduled Bluesky completions, 05:54–11:54 UTC (8.154–8.360 s), 56 search HTTP 200s and no failed attempts. Deployment restarts caused seven fresh logins: long-lived refresh remains unverified.
+- Read-only stored report at 12:01 UTC: distinct posts Tech/AI 52, NBA 55, Gaming 71, World 77; all four topics fresh through 11:54. World has 46 safe engaged candidates but no lexical shortlist; semantic selection remains pending.
+- Updated TASKS and SOURCES with bounded evidence and caveats. No feature, activation, collection, inference, edition, schema or handbook behavior changes.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
+- Restarted API/worker outside freeze; healthz healthy and zero alerts. No paid verification calls.
+- Next: Nov 4 15:00 UTC edition review takes priority; verify open-X yield/authors, Bluesky picks/screenshots, World posts, NBA outcome/logs and time. Grouping/incremental triage remain off.

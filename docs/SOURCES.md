@@ -1797,3 +1797,28 @@ topics, newest timestamps 05:54:46–05:54:52 UTC.
 This verifies one scheduled recovery after the session reset fix; sustained
 hourly collection and selection in the Nov 4 edition remain to verify.
 No manual collection or paid provider calls were made for this observation.
+
+## Iteration 619 — sustained scheduled Bluesky collection (2026-11-04)
+
+Read-only worker journal review confirms seven consecutive hourly jobs completed
+from 05:54 through 11:54 UTC, each in 8.154–8.360 seconds. All 56 search
+attempts and seven logins returned HTTP 200; no Bluesky attempt failed in that
+interval. Frequent deployment restarts caused fresh logins, so this verifies
+continued scheduled collection after recovery, not long-lived token refresh.
+
+The stored-observation report at 12:01 UTC covers the preceding 24-hour publication
+window; no topic reached the 5,000-observation read cap:
+
+| Topic                 | Observations | Distinct posts | Safe engaged candidates (cap 50) | Phrase shortlist (cap 5) |
+| --------------------- | -----------: | -------------: | -------------------------------: | -----------------------: |
+| Tech & AI             |          517 |             52 |                               50 |                        5 |
+| NBA                   |          529 |             55 |                               47 |                        5 |
+| Gaming                |          559 |             71 |                               50 |                        5 |
+| World news & politics |          685 |             77 |                               46 |                        0 |
+
+Newest observations span 11:54:46–11:54:52 UTC. Counts describe stored real
+API results, not semantic acceptance or editorial picks. World's empty lexical
+shortlist does not establish that its engaged candidates are irrelevant: the
+edition uses semantic selection. Nov 4 edition inclusion and screenshots remain
+pending. Verification used `scripts/report-bluesky-coverage.ts` and the existing
+worker journal only; no collection, inference or edition was triggered.
