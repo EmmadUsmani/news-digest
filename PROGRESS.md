@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 650 — activate evaluated grouping for Nov 5
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources without current errors and all four queues available.
-- Enabled production LLM_STORY_GROUPING_ENABLED=1 after the Nov 4 review and passed same-story gate; confirmed both restarted API/worker processes received it. Code default remains off; incremental triage remains off.
-- Conservative four-topic grouping reservation bound $0.058192 plus Nov 4 edition $0.291162 fits current $0.487477 cap; no pending holds. Existing 1.5x reserve already protects the full daily cap, so no budget/model/provider changes. Actual future admission/cost is not guaranteed.
-- Updated TASKS/RANKING, handbook and steering activation ack; archived iteration 634 to keep PROGRESS bounded. No paid calls, new editions, UI changes or screenshots claiming real grouping.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (395 unit/206 isolated integration), pnpm build, edition-pipeline handbook check (17 pages/one unchanged diagram/25 tables), git diff --check. Initial format check caught the newly archived entry; formatted it and reran check.
-- Restarted API/worker; healthz database/Redis healthy, saved four-topic Nov 4 edition readable, zero alerts/failed user units/dangling Docker volumes.
-- Next: Nov 5 real grouping admission/cost/accuracy, persisted coverage, latency and desktop/mobile screenshots; NBA full-AI and World/open-X quality remain open.
-
 ## 2026-11-04: iteration 651 — correct low-quality open-X discovery instructions
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources with recent successful ingestion/no current errors and readable four-topic Nov 4 edition.
@@ -170,3 +160,15 @@
 - Verification: targeted tests 16/16; pnpm format, pnpm lint:fix, pnpm check (405 unit/207 isolated integration), pnpm build and git diff --check passed.
 - Restarted API/worker; both active, healthz healthy, zero alerts; saved edition remains four topics/14 stories/15 posts.
 - Next: Nov 5 grouping/cost/latency/screenshots, NBA full-AI acceptance and World posts; background triage remains off.
+
+## 2026-11-04: iteration 666 — atomic triage cache writes
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis and 36 nonempty successful sources without current errors.
+- Article/social triage now persists each validated batch in one atomic insert-only query instead of up to 50 sequential writes; optional single-key adapters remain compatible.
+- Existing cache values, fingerprints, prompts, score validation, budgets and models unchanged. Failed batches remain retryable; sibling writes drain before errors return.
+- Incremental evidence forwards bulk writes with the ledger receiver and records only committed article work; duplicate guards recover after failed batches. Incremental triage stays off.
+- Synthetic tests cover original IDs, warm reuse, retries, sibling draining and evidence; isolated PostgreSQL covers conflicts, duplicate keys, empty input and whole-batch rollback.
+- Updated TASKS/RANKING; archived iteration 650 to keep PROGRESS bounded. Internal persistence only; no source/schema/UI/system-flow changes requiring handbook/SOURCES edits.
+- Verification: targeted tests 25/25; pnpm format, pnpm lint:fix, pnpm check (407 unit/207 isolated integration), pnpm build and git diff --check passed. No paid calls or claimed live speed improvement.
+- Restarted API/worker; both active, healthz healthy, zero alerts/failed services. Saved edition remains four topics/14 stories/15 posts; all 36 sources successful/nonempty, zero errors.
+- Next: Nov 5 grouping/cost/latency/screenshots, NBA full-AI acceptance and World posts; background triage stays disabled.

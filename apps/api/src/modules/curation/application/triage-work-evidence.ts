@@ -8,7 +8,7 @@ const scoreIdentity = z.object({ id: z.string().min(1) });
 // Observe item writes, not returned scores: returned scores include cache hits.
 // Reads pass through unchanged; only successful article writes are evidence.
 export function triageWorkEvidence(
-  cache: Pick<LlmLedger, 'cached' | 'cachedMany' | 'cache'>,
+  cache: Pick<LlmLedger, 'cached' | 'cachedMany' | 'cache' | 'cacheMany'>,
   context: { topicId: string; attemptId: string },
   now: () => number = Date.now,
 ) {
@@ -28,6 +28,38 @@ export function triageWorkEvidence(
     cache: {
       cached: cache.cached.bind(cache),
       cachedMany: cache.cachedMany?.bind(cache),
+      cacheMany: cache.cacheMany
+        ? async (entries: { key: string; response: unknown }[]) => {
+            const articles = entries.flatMap(({ key, response }) =>
+              /^triage-item-v1:[a-f0-9]{64}$/.test(key)
+                ? [{ article: scoreIdentity.parse(response).id, key }]
+                : [],
+            );
+            const ids = articles.map(({ article }) => article);
+            if (
+              new Set(ids).size !== ids.length ||
+              ids.some((id) => seen.has(id))
+            )
+              throw new Error('Duplicate article write within scoring attempt');
+            for (const id of ids) seen.add(id);
+            try {
+              await cache.cacheMany!(entries);
+            } catch (error) {
+              for (const id of ids) seen.delete(id);
+              throw error;
+            }
+            const completedAt = new Date(now()).toISOString();
+            for (const { article, key } of articles)
+              rows.push({
+                topicId,
+                attemptId,
+                articleId: article,
+                fingerprint: key,
+                completedAt,
+                outcome: 'scored',
+              });
+          }
+        : undefined,
       async cache(key: string, value: unknown) {
         // Whole-request and social caches are not article scoring evidence.
         const article = /^triage-item-v1:[a-f0-9]{64}$/.test(key)

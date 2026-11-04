@@ -48,7 +48,10 @@ Return ONLY JSON {"items":[{"id":"provided id","relevance":0,"importance":0,"eve
 export class CandidateTriage {
   constructor(
     private readonly llm: Pick<BudgetedLlm, 'json'>,
-    private readonly cache: Pick<LlmLedger, 'cached' | 'cachedMany' | 'cache'>,
+    private readonly cache: Pick<
+      LlmLedger,
+      'cached' | 'cachedMany' | 'cache' | 'cacheMany'
+    >,
     private readonly model: ModelPrice,
     private readonly kind: 'article' | 'social' = 'article',
   ) {}
@@ -222,13 +225,21 @@ export class CandidateTriage {
       );
       // Stop this run on refusal/failure; report every missing ID explicitly.
       if (!result) return false;
-      for (const [index, entry] of batch.entries()) {
-        const score = {
+      const writes = batch.map((entry, index) => ({
+        key: entry.key,
+        response: {
           ...result.items.find((s) => s.id === String(index))!,
           id: entry.item.id,
-        };
-        await this.cache.cache(entry.key, score);
-        scores.set(score.id, score);
+        },
+      }));
+      if (this.cache.cacheMany) {
+        await this.cache.cacheMany(writes);
+        for (const { response } of writes) scores.set(response.id, response);
+      } else {
+        for (const { key, response } of writes) {
+          await this.cache.cache(key, response);
+          scores.set(response.id, response);
+        }
       }
       return true;
     };

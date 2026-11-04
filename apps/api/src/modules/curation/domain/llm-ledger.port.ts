@@ -13,4 +13,6 @@ export interface LlmLedger {
   // Optional bulk lookup; missing keys are omitted, values still need validation.
   cachedMany?(keys: string[]): Promise<Map<string, unknown>>;
   cache(key: string, response: unknown): Promise<void>;
+  // Atomic insert-only batch; existing keys keep their first successful value.
+  cacheMany?(entries: { key: string; response: unknown }[]): Promise<void>;
 }

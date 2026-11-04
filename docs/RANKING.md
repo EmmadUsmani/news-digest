@@ -2786,3 +2786,19 @@ evidence wrapper, preserving the ledger receiver. Cold/warm/changed-input
 scoring uses bulk reads while only successful new writes enter work evidence;
 read failures propagate and single-key adapters remain supported. The prepared
 incremental runtime remains disabled; no live latency improvement is claimed.
+
+### Iteration 666: atomic triage cache writes
+
+Article and social triage save each validated provider batch with one optional
+bulk cache operation, replacing up to 50 sequential item inserts. PostgreSQL
+uses one atomic insert with conflict-ignore semantics: existing responses stay
+immutable, duplicate keys keep the first supplied response, and an invalid JSON
+value rolls back the entire batch. Single-write adapters retain their behavior.
+Fingerprints, prompts, output limits, scores and budgets are unchanged.
+
+The incremental evidence wrapper forwards bulk writes and records article work
+only after commit; failed writes release duplicate guards for retry. Synthetic
+checks cover original-ID restoration, warm reuse, retry after atomic failure,
+sibling write draining and committed-only evidence. Isolated PostgreSQL checks
+cover conflicts, duplicate keys, empty input and whole-batch rollback. No paid
+calls or measured live edition speed improvement; incremental triage stays off.

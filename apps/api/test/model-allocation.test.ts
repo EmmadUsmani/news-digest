@@ -191,6 +191,25 @@ void test('concurrent cache writers preserve one complete immutable JSON respons
     assert.equal(bulk.has('missing-cache-key'), false);
     bulk.clear();
     assert.equal((await ledgers[1].cachedMany([key])).size, 1);
+    await ledgers[0].cacheMany([]);
+    await ledgers[0].cacheMany([
+      { key, response: { replacement: true } },
+      { key: otherKey, response: { replacement: true } },
+    ]);
+    assert.deepEqual(await ledgers[1].cached(key), winner);
+    await db.query('DELETE FROM llm_cache WHERE cache_key=$1', [otherKey]);
+    await assert.rejects(
+      ledgers[0].cacheMany([
+        { key: otherKey, response: { valid: true } },
+        { key: otherKey + '-bad', response: { invalid: '\u0000' } },
+      ]),
+    );
+    assert.equal(await ledgers[1].cached(otherKey), undefined);
+    await ledgers[0].cacheMany([
+      { key: otherKey, response: { first: true } },
+      { key: otherKey, response: { second: true } },
+    ]);
+    assert.deepEqual(await ledgers[1].cached(otherKey), { first: true });
   } finally {
     await db.query('DELETE FROM llm_cache WHERE cache_key=ANY($1::text[])', [
       [key, otherKey],

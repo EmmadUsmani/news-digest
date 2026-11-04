@@ -11,6 +11,7 @@ import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
 void test('actual item writes produce report-compatible evidence while warm cache hits do not', async () => {
   const values = new Map<string, unknown>();
   let bulkReads = 0;
+  let bulkWrites = 0;
   const ledger: LlmLedger = {
     cached: (key) => Promise.resolve(values.get(key)),
     cachedMany: (keys) => {
@@ -21,6 +22,11 @@ void test('actual item writes produce report-compatible evidence while warm cach
     },
     cache: (key, value) => {
       values.set(key, value);
+      return Promise.resolve();
+    },
+    cacheMany: (entries) => {
+      bulkWrites++;
+      for (const { key, response } of entries) values.set(key, response);
       return Promise.resolve();
     },
     reserve: () => Promise.resolve('hold'),
@@ -93,6 +99,7 @@ void test('actual item writes produce report-compatible evidence while warm cach
     attempts: [...cold.attempts(), ...warm.attempts(), ...changed.attempts()],
   });
   assert.equal(bulkReads, 3);
+  assert.equal(bulkWrites, 2);
   assert.equal(report.attempts, 2);
   assert.equal(report.successfulScorings, 2);
   assert.equal(report.changedFingerprint, 1);
@@ -161,4 +168,53 @@ void test('evidence preserves receiver-bound bulk reads and read failures withou
     { topicId: 'topic', attemptId: 'single' },
   );
   assert.equal(singleOnly.cache.cachedMany, undefined);
+});
+
+void test('atomic bulk evidence forwards the receiver and records only committed article writes', async () => {
+  const storage = {
+    fail: true,
+    calls: 0,
+    cached: () => Promise.resolve(null),
+    cache: () => Promise.resolve(),
+    async cacheMany(_entries: { key: string; response: unknown }[]) {
+      this.calls++;
+      if (this.fail) throw new Error('atomic failure');
+    },
+  };
+  const evidence = triageWorkEvidence(
+    storage,
+    { topicId: 't', attemptId: 'a' },
+    () => 0,
+  );
+  const entries = [
+    { key: 'triage-item-v1:' + 'a'.repeat(64), response: { id: 'one' } },
+    { key: 'triage-item-v1:' + 'b'.repeat(64), response: { id: 'two' } },
+    {
+      key: 'social-triage-item-v1:' + 'c'.repeat(64),
+      response: { id: 'social' },
+    },
+  ];
+  await assert.rejects(evidence.cache.cacheMany!(entries), /atomic failure/);
+  assert.deepEqual(evidence.attempts(), []);
+  storage.fail = false;
+  await assert.rejects(
+    evidence.cache.cacheMany!([entries[0], entries[0]]),
+    /Duplicate/,
+  );
+  assert.equal(storage.calls, 1);
+  await evidence.cache.cacheMany!(entries);
+  assert.equal(storage.calls, 2);
+  assert.deepEqual(
+    evidence.attempts().map((r) => r.articleId),
+    ['one', 'two'],
+  );
+  await assert.rejects(
+    evidence.cache.cache(entries[0].key, entries[0].response),
+    /Duplicate/,
+  );
+  const singleOnly = triageWorkEvidence(
+    { cached: storage.cached, cache: storage.cache },
+    { topicId: 't', attemptId: 'single' },
+  );
+  assert.equal(singleOnly.cache.cacheMany, undefined);
 });

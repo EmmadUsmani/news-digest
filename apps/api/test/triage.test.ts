@@ -800,3 +800,47 @@ void test('bulk cache reads preserve exact validation, identity and misses for s
     );
   }
 });
+
+void test('bulk item writes preserve original IDs, warm reuse and drain sibling batches on failure', async () => {
+  for (const kind of ['article', 'social'] as const) {
+    const h = harness(undefined, kind);
+    const pool = Array.from({ length: 200 }, (_, i) => ({
+      ...candidates[0],
+      id: `original-${i}`,
+    }));
+    let writes = 0;
+    let settled = 0;
+    let fail = true;
+    const failure = new Error('atomic batch failed');
+    h.ledger.cacheMany = async (entries) => {
+      writes++;
+      const first = writes === 1;
+      await new Promise((resolve) => setTimeout(resolve, first ? 1 : 10));
+      settled++;
+      if (fail && first) throw failure;
+      for (const { key, response } of entries) h.values.set(key, response);
+    };
+    await assert.rejects(
+      h.service.score(topic, pool, 'failed'),
+      (e) => e === failure,
+    );
+    assert.equal(writes, 4);
+    assert.equal(settled, 4, 'Failure must wait for sibling cache commits');
+    assert.equal((await h.service.pending(topic, pool)).length, 50);
+    fail = false;
+    const recovered = await h.service.score(topic, pool, 'recovered');
+    assert.equal(writes, 5);
+    assert.deepEqual(
+      new Set(recovered.scores.map((s) => s.id)),
+      new Set(pool.map((c) => c.id)),
+    );
+    assert.deepEqual(recovered.unscoredIds, []);
+    const calls = h.calls.length;
+    assert.equal(
+      (await h.service.score(topic, pool, 'warm')).scores.length,
+      200,
+    );
+    assert.equal(writes, 5);
+    assert.equal(h.calls.length, calls);
+  }
+});

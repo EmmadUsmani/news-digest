@@ -280,6 +280,13 @@ export class PostgresLlmLedger implements LlmLedger {
       .where(inArray(llmCache.cacheKey, [...new Set(keys)]));
     return new Map(rows.map((row) => [row.key, row.response]));
   }
+  async cacheMany(entries: { key: string; response: unknown }[]) {
+    if (entries.length === 0) return;
+    await drizzle(this.db)
+      .insert(llmCache)
+      .values(entries.map(({ key, response }) => ({ cacheKey: key, response })))
+      .onConflictDoNothing();
+  }
   async cache(key: string, response: unknown) {
     await drizzle(this.db)
       .insert(llmCache)
