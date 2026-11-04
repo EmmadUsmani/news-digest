@@ -2641,3 +2641,26 @@ provider failure, preserved coverage and unchanged scores. The isolated
 publication test checks grouped coverage survives editing and persistence.
 The switch remains off; activation, budget impact, live quality and screenshots
 must be checked separately before claiming the Nov 5 grouping milestone.
+
+## Iteration 650: activate evaluated grouping for Nov 5
+
+After the Nov 4 edition review and the passed same-story evaluation, production
+sets `LLM_STORY_GROUPING_ENABLED=1`; code still defaults off. No new edition
+was requested. The existing four-topic publication path permits at most four
+grouping calls with no repair. Each input admission bound is below 100,000
+UTF-8 bytes including framing; the ledger conservatively charges that bound
+at the current Haiku cache-write rate ($0.125/M), plus 4,096 output tokens
+at $0.50/M: at most $0.014548 per call, $0.058192 across four topics.
+Nov 4 settled spend is $0.291162, with no holds and $0.196315 headroom.
+That edition cost plus the grouping bound is $0.349354, below the current
+$0.487477 daily cap. Existing 1.5x historical reserve sizing is already capped
+at the full daily allowance, so increasing its configured amount cannot
+protect more. Daily/monthly admission still applies to every call; this is
+a conservative planning bound, not a promise that future volume or concurrent
+editor reservations will fit. No budget or model configuration changed.
+
+Nov 5 must establish actual grouping requests/charges or refused admission,
+validate persisted coverage and same-story accuracy, compare edition latency,
+and capture desktop/mobile screenshots of real grouped stories. Today's
+immutable edition remains unchanged. NBA full-AI acceptance and World social
+coverage remain unresolved. Incremental triage remains off.

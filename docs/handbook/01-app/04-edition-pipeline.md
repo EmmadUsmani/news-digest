@@ -60,8 +60,9 @@ flowchart TB
   edition by its id.
 
 > [!NOTE]
-> Production keeps articles separate by default. Setting
-> `LLM_STORY_GROUPING_ENABLED=1` enables a bounded Haiku pass over each topic's
+> Production enabled `LLM_STORY_GROUPING_ENABLED=1` on Nov 4 for the Nov 5
+> scheduled edition. The code default remains off; set the switch to `0` to
+> disable it. The enabled switch adds a bounded Haiku pass over each topic's
 > ten-item semantic shortlist before editing, using the ordinary shared budget
 > and cache. It groups the same news story, including direct follow-ups,
 > reactions and consequences; shared people or themes alone do not qualify.

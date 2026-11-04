@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 634 — measure pending-threshold tradeoff offline
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts, current sources healthy and retained queues available. Nov 4 scheduled evidence remains pending.
-- Compared pending thresholds 1/10/25 with fixed 25-item pass cap and two-hour cutoff on three recorded Nov 1 windows; synthetic scores, no external calls.
-- Threshold 25 versus 1 cuts 46→7 requests and 116,120→68,264 prompt bytes, but increases edition remainder 32→53. Every variant scores all 153 articles once; waste, billed cost and live latency remain unknown.
-- Documented reproduction, per-topic remainders and limits in RANKING/TASKS: independent hourly topic passes do not model the rotating worker, and publication times are arrival proxies. No setting, prompt, source or feature activation.
-- Archived iterations 615–616 to keep PROGRESS below 25 KB. No handbook system behavior changed.
-- Verification: replay aggregate assertions, incremental tests 11/11, pnpm format, pnpm lint:fix, pnpm check (378 unit/205 isolated integration), pnpm build and git diff --check passed.
-- Restarted worker only; healthz healthy, zero alerts/failed units/dangling volumes. Saved Nov 3 edition serves four topics/19 stories/11 X posts. No Postgres/Redis restart or paid calls.
-- Next: review Nov 4 15:00 UTC edition for open-X/Bluesky picks, World posts, NBA validation and timing/cost before activation; use actual arrival/cache evidence to choose a threshold.
-
 ## 2026-11-04: iteration 635 — replay rotating topic capacity offline
 
 - Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources without current errors and four available queues with no failed retained runs. Nov 4 evidence remains pending.
@@ -164,3 +153,13 @@
 - Verification: targeted grouping tests 16/16; pnpm format, pnpm lint:fix, pnpm check (395 unit/206 isolated integration), pnpm build, edition-pipeline handbook check (17 pages/one unchanged diagram/25 tables) and git diff --check passed.
 - Restarted API/worker; both active, healthz database/Redis healthy, latest four-topic edition readable and zero alerts. Confirmed production grouping switch absent/default off; incremental triage remains off.
 - Next: activate evaluated grouping for Nov 5 under item 27 after checking admission/headroom, then capture real grouped edition/screenshots; continue World/open-X quality and reserve-safe incremental assessment. NBA live full-AI acceptance awaits the next scheduled run.
+
+## 2026-11-04: iteration 650 — activate evaluated grouping for Nov 5
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources without current errors and all four queues available.
+- Enabled production LLM_STORY_GROUPING_ENABLED=1 after the Nov 4 review and passed same-story gate; confirmed both restarted API/worker processes received it. Code default remains off; incremental triage remains off.
+- Conservative four-topic grouping reservation bound $0.058192 plus Nov 4 edition $0.291162 fits current $0.487477 cap; no pending holds. Existing 1.5x reserve already protects the full daily cap, so no budget/model/provider changes. Actual future admission/cost is not guaranteed.
+- Updated TASKS/RANKING, handbook and steering activation ack; archived iteration 634 to keep PROGRESS bounded. No paid calls, new editions, UI changes or screenshots claiming real grouping.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (395 unit/206 isolated integration), pnpm build, edition-pipeline handbook check (17 pages/one unchanged diagram/25 tables), git diff --check. Initial format check caught the newly archived entry; formatted it and reran check.
+- Restarted API/worker; healthz database/Redis healthy, saved four-topic Nov 4 edition readable, zero alerts/failed user units/dangling Docker volumes.
+- Next: Nov 5 real grouping admission/cost/accuracy, persisted coverage, latency and desktop/mobile screenshots; NBA full-AI and World/open-X quality remain open.
