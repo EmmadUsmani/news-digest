@@ -1939,3 +1939,17 @@ parameters; existing isolated edition goldens verify publication behavior.
 There is still no worker/timer caller or activation, and no actual background
 scoring, paid verification or waste/latency measurement. Current schedule and
 window derivation remain the next caller responsibility.
+
+## Iteration 536: prepared current-schedule window boundary
+
+`incrementalTriageWindow` resolves the next configured local publication time
+with the same cron parser/timezone behavior as the scheduler, then derives the
+edition coverage window and a two-hour background cutoff. Each invocation uses
+its supplied current settings. At the exact publication instant it retains that
+slot so the runner cannot evade the cutoff by moving to tomorrow. Coverage is
+elapsed time across DST, matching edition generation.
+
+Offline tests cover local/UTC schedules, changed settings, the exact slot and
+next millisecond, DST coverage and invalid settings/time. No production caller,
+timer, activation or paid request was added; actual scored-work waste and live
+latency remain unmeasured.
