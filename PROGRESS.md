@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 576 — convert Reddit repository to Drizzle
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 healthy sources and no failed digest jobs; Nov 4 scheduled review remains pending.
-- Converted Reddit communities, transactional storage/citation replacement/topic associations and edition reads to Drizzle. Preserved case-insensitive configuration, atomic rollback, PostgreSQL errors, seven-day lookback, exclusive end, stable ordering and publisher transaction reuse.
-- Existing repository characterization assertions unchanged. Publication query stub now accepts Drizzle query configurations/array rows. First integration run caught insert-select default-column requirements and that stub; fixed before final green run.
-- Updated TASKS/architecture/decision/handbook stack; archived iterations 557–558. Reddit collection remains parked; no migration, activation, paid calls or UI changes.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, handbook stack check and git diff --check passed.
-- Rebuilt/restarted API and worker outside edition freeze; both active, healthz healthy, root HTTP 200, 36 healthy sources and zero alerts. Latest real edition response byte-identical across restart (four topics, 19 stories).
-- Next: prioritize Nov 4 scheduled review when due; otherwise historical migration baseline or remaining individual ORM repositories. Private pg_dump required before first new migration.
-
 ## 2026-11-04: iteration 577 — convert publisher-article discovery to Drizzle
 
 - Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources without current errors and no failed digest jobs. Nov 4 scheduled review remains pending.
@@ -157,4 +147,14 @@
 - No migration, activation, source, paid call or owner grant change. Updated TASKS, architecture, decision and handbook stack; archived iteration 575 to keep PROGRESS bounded.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; reader statement coverage 100%, zero dangling Docker volumes.
 - Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Playwright root rendered four digest sections/19 article elements with zero page errors; zero alerts.
+- Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters or historical migration baseline. Private pg_dump before first new migration.
+
+## 2026-11-04: iteration 591 — convert budget-day schedule reader to Drizzle
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 error-free sources and zero failed digest jobs; Nov 4 15:00 UTC review remains pending.
+- Moved the budget-day schedule projection from its public facade into a typed Drizzle database reader. Reuses the admission transaction and preserves FOR SHARE locking, UTC/DST occurrence resolution and missing-schedule failure; no migration or budget-policy change.
+- Existing characterization assertions unchanged: concurrent schedule updates remain blocked, DST-day admission stays correct and missing schedules release connections safely. No paid calls, activation, source change or owner grant change.
+- Updated TASKS, architecture, decision and handbook stack; archived iteration 576 to keep PROGRESS bounded.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
+- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Read-only Playwright root rendered four digest sections/19 articles without page errors; zero alerts. Latest Bluesky 07:54 UTC and free-social 07:38 UTC runs completed.
 - Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters or historical migration baseline. Private pg_dump before first new migration.

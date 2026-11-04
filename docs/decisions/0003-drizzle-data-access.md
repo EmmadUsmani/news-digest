@@ -143,3 +143,7 @@ Reaction-story and incremental-triage topic settings now use a shared database
 adapter with typed Drizzle projections and independent post/story budget filters.
 The public facades retain validation and ranking, and reuse the caller connection
 so transaction-local topic changes remain visible.
+
+The budget-day schedule reader uses a typed Drizzle projection inside the caller's
+admission transaction, retaining `FOR SHARE` to block concurrent schedule edits.
+The public facade still resolves UTC-day occurrences and reports missing schedules.
