@@ -894,3 +894,26 @@ the NBA posts were betting promotions, World got roundups, and the best had
   machinery once the new schedule ships. No new prompt wording rules.
 - **Acks:** one after the experiment decision (with its numbers), and one
   after 3 editions meet the plan's done criteria.
+
+## 31. Owner decision: run the X experiment now (2026-11-04)
+
+This resolves the "X comparison dispatch blocker" in NEEDS_FROM_HUMAN.md.
+The owner **accepts the same per-call exposure production X search already
+has.** No hard per-request cap is needed. The prepaid balance is the hard
+ceiling.
+- **Reserve $0.15 per experiment call** (about 4× the most expensive call so
+  far), using the existing reserve-then-settle ledger.
+- **Before each call,** don't start it if its reservation could push the
+  total past $1.00 per UTC day or $2.50 overall.
+- **After each call,** check the cumulative settled spend.
+- **If any call settles above its $0.15 reservation, stop the experiment**
+  and report the numbers. Going over by one call is accepted.
+- **Run round 1 tonight,** outside 13:00–16:00 UTC, with the machinery that
+  already exists.
+  - **Stop adding experiment safeguards:** no more fencing, claims or
+    validation layers. Item 30's time limit applies, and the harness is
+    already past it.
+  - **Next steps:** the second day, threshold calibration and the model
+    round follow per the plan.
+- Remove the blocker from NEEDS_FROM_HUMAN.md, and ack here with round 1's
+  numbers.
