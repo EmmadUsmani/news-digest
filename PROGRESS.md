@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 654 — discourage repeated moments within social selections
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and four available queues; Nov 4 saved edition readable.
-- Acted on Nov 4 Tech's five posts about the same story: shared social editor explicitly compares candidates, chooses one strongest post per repeated announcement/clip/scoop/moment, and returns fewer picks rather than repetitions.
-- Different authors, commentary and rewording alone do not establish distinct developments; distinct developments about a shared subject remain eligible. Applies within X/Reddit and Bluesky selections, alongside existing cross-platform context.
-- Semantic guidance only: no deterministic dedupe claim, paid calls, source requests, new edition or UI change. Actual repetition reduction remains unmeasured. Model order, call limits, validation and budget caps unchanged; changed instructions isolate prior cached selections.
-- Updated TASKS/RANKING; archived iteration 638. Bug fix leaves system flows/source inventory unchanged; no handbook/schema changes needed.
-- Verification: existing social-editor tests 6/6; pnpm format, pnpm lint:fix, pnpm check (397 unit/207 isolated integration), pnpm build and git diff --check passed. First full check stopped on archive formatting; corrected and reran successfully.
-- Restarted API/worker; both active, healthz database/Redis healthy, saved four-topic edition readable, zero alerts/failed user services; fresh source success observed at 15:58 UTC.
-- Next: Nov 5 grouping/cost/latency/screenshots, NBA full-AI acceptance, scheduled discovery quality/World coverage and actual within/cross-platform repetition.
-
 ## 2026-11-04: iteration 655 — assess incremental triage without weakening the reserve
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without errors and four available queues.
@@ -186,3 +175,14 @@
 - Verification: targeted replay 3/3; pnpm format, pnpm lint:fix, pnpm check (413 unit/207 isolated integration), pnpm build and git diff --check passed. First check found archive formatting; corrected and reran successfully.
 - Live saved edition remains four topics/14 stories/15 posts. Services unchanged and healthy, so no restart under STEERING 22.
 - Next: Nov 5 grouping admission/accuracy/cost/latency/screenshots, NBA full-AI acceptance and World posts; offline response-length measurement if still waiting.
+
+## 2026-11-04: iteration 671 — measure cached triage field lengths
+
+- Started clean on main; no leftover work. Zero alerts and healthy healthz/database/Redis.
+- Added read-only aggregate triage-length report: parameterized half-open cache creation window, read-only transaction, 15-second query timeout; no text/IDs or paid calls.
+- Nov 4 15:00–15:03 UTC cache sample: 689 article/227 social scores, all event/rationale strings. Article p95 46/58 characters; social 43/53; no prompt-guidance or schema-limit overruns.
+- Successful cached fields are already short; do not infer token shares or speedups, or tighten limits from this sample. Reused cache entries, failed attempts and repairs are absent; exact edition membership is not established.
+- Updated TASKS/concurrency evidence; archived iteration 654 to keep PROGRESS bounded. No runtime/handbook/schema/SOURCES changes; incremental triage stays off.
+- Verification: real read-only sample, empty future window and invalid timestamp rejection; pnpm format, pnpm lint:fix, pnpm check (413 unit/207 isolated integration), pnpm build and git diff --check passed.
+- API/worker active, healthz healthy, zero alerts, 36 nonempty sources without errors and four available queues. No restart under STEERING 22: runtime/config unchanged.
+- Next: Nov 5 grouping admission/accuracy/cost/latency/screenshots, NBA full-AI acceptance, World posts and Bluesky repairs.

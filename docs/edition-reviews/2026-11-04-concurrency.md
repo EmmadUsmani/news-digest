@@ -106,3 +106,32 @@ rejected by application validation; these fields alone cannot label repairs
 or decide which calls could be removed. No prompts or response text were
 exported. Current call shapes have changed since this edition; compare the
 Nov 5 record before tuning concurrency or response sizes.
+
+## Cached triage field lengths (iteration 671)
+
+Read-only measurement of per-item cache entries created in
+`[2026-11-04T15:00:00Z, 2026-11-04T15:03:00Z)`:
+
+```sh
+pnpm exec tsx apps/api/scripts/report-triage-lengths.ts 2026-11-04T15:00:00Z 2026-11-04T15:03:00Z
+```
+
+| Kind    | Field     | Scores | Mean characters | Median | p95 | Maximum |
+| ------- | --------- | -----: | --------------: | -----: | --: | ------: |
+| Article | Event     |    689 |           33.32 |     33 |  46 |      55 |
+| Article | Rationale |    689 |           41.81 |     42 |  58 |      71 |
+| Social  | Event     |    227 |           30.31 |     30 |  43 |      52 |
+| Social  | Rationale |    227 |           34.79 |     33 |  53 |      75 |
+
+All fields were strings; none exceeded prompt guidance (80/100 characters)
+or schema limits (160/300). Successful cached fields are already short, so
+this measurement supplies no evidence of runaway rationale/event verbosity.
+Do not tighten schema limits or change batch sizes from token totals alone.
+Compare Nov 5 timing and repair outcomes before changing production prompts.
+
+This is a creation-time cache sample, not the exact edition pool or raw wire
+output. Reused entries and failed/repair responses are absent. Character
+counts use PostgreSQL Unicode code points; schema checks use JavaScript
+UTF-16 lengths. These counts are not token counts or a speedup estimate.
+The report uses a read-only transaction and 15-second query timeout and emits
+only aggregate lengths, never text or candidate identifiers. No paid calls.
