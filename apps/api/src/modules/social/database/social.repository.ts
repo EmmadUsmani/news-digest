@@ -6,6 +6,7 @@ import {
   exists,
   isNotNull,
   isNull,
+  lt,
   or,
   sql,
 } from 'drizzle-orm';
@@ -119,42 +120,139 @@ export class PostgresSocialRepository {
     }));
   }
   async candidates(limit: number): Promise<string[]> {
-    // Unioned citation provenance, window ranks and grouped minimum ordering preserve
-    // topic fairness and prioritize unverified discoveries over refreshes.
-    const result = await drizzle(this.db).execute<{ external_id: string }>(
-      sql`WITH citations AS (
-         SELECT c.external_id,c.source_id,c.last_seen_at,t.topic_id
-         FROM x_link_citations c JOIN topic_source_connections t ON t.source_id=c.source_id
-         UNION ALL
-         SELECT c.external_id,'river:' || c.source_id,c.last_seen_at,s.topic_id
-         FROM social_discovery_citations c JOIN social_discovery_sources s ON s.id=c.source_id
-         UNION ALL
-         SELECT c.external_id,'reddit:' || lower(p.reddit_metadata->>'subreddit'),c.last_seen_at,r.topic_id
-         FROM reddit_x_citations c JOIN reddit_topic_posts r ON r.external_id=c.reddit_id
-         JOIN social_posts p ON p.platform='reddit' AND p.external_id=c.reddit_id
-         UNION ALL
-         SELECT c.external_id,'x-search',c.discovered_at,c.topic_id FROM x_search_citations c
-       ), eligible AS (
-         SELECT c.external_id,c.topic_id,
-                CASE WHEN p.external_id IS NULL THEN 0 ELSE 1 END AS refresh,
-                count(DISTINCT c.source_id) AS sources,max(c.last_seen_at) AS last_seen
-         FROM citations c JOIN topics t ON t.id=c.topic_id AND t.enabled
-         LEFT JOIN x_embed_checks v ON v.external_id=c.external_id
-         LEFT JOIN social_posts p ON p.platform='x' AND p.external_id=c.external_id
-         WHERE v.checked_at IS NULL OR v.checked_at < now() - interval '1 day'
-         GROUP BY c.external_id,c.topic_id,p.external_id
-       ), ranked AS (
-         SELECT *,row_number() OVER (
-           PARTITION BY refresh,topic_id
-           ORDER BY sources DESC,last_seen DESC,length(external_id) DESC,external_id DESC
-         ) AS topic_rank FROM eligible
-       ) SELECT external_id FROM ranked
-       GROUP BY external_id
-       ORDER BY min(refresh),min(topic_rank),max(sources) DESC,max(last_seen) DESC,
-                length(external_id) DESC,external_id DESC LIMIT ${Math.min(50, Math.max(1, limit))}`,
+    const db = drizzle(this.db);
+    const citations = db.$with('citations').as(
+      unionAll(
+        db
+          .select({
+            externalId: xLinkCitations.externalId,
+            sourceId: xLinkCitations.sourceId,
+            lastSeenAt: xLinkCitations.lastSeenAt,
+            topicId: sql<string | null>`${topicSourceConnections.topicId}`.as(
+              'topic_id',
+            ),
+          })
+          .from(xLinkCitations)
+          .innerJoin(
+            topicSourceConnections,
+            eq(topicSourceConnections.sourceId, xLinkCitations.sourceId),
+          ),
+        db
+          .select({
+            externalId: socialDiscoveryCitations.externalId,
+            sourceId: sql<string>`'river:' || ${socialDiscoveryCitations.sourceId}`,
+            lastSeenAt: socialDiscoveryCitations.lastSeenAt,
+            topicId: socialDiscoverySources.topicId,
+          })
+          .from(socialDiscoveryCitations)
+          .innerJoin(
+            socialDiscoverySources,
+            eq(socialDiscoverySources.id, socialDiscoveryCitations.sourceId),
+          ),
+        db
+          .select({
+            externalId: redditXCitations.externalId,
+            sourceId: sql<string>`'reddit:' || lower(${socialPosts.redditMetadata}->>'subreddit')`,
+            lastSeenAt: redditXCitations.lastSeenAt,
+            topicId: redditTopicPosts.topicId,
+          })
+          .from(redditXCitations)
+          .innerJoin(
+            redditTopicPosts,
+            eq(redditTopicPosts.externalId, redditXCitations.redditId),
+          )
+          .innerJoin(
+            socialPosts,
+            and(
+              eq(socialPosts.platform, 'reddit'),
+              eq(socialPosts.externalId, redditXCitations.redditId),
+            ),
+          ),
+        db
+          .select({
+            externalId: xSearchCitations.externalId,
+            sourceId: sql<string>`'x-search'`,
+            lastSeenAt: xSearchCitations.discoveredAt,
+            topicId: xSearchCitations.topicId,
+          })
+          .from(xSearchCitations),
+      ),
     );
-    return result.rows.map((row) => row.external_id);
+    const eligible = db.$with('eligible').as(
+      db
+        .select({
+          externalId: citations.externalId,
+          topicId: citations.topicId,
+          refresh:
+            sql<number>`case when ${socialPosts.externalId} is null then 0 else 1 end`.as(
+              'refresh',
+            ),
+          sources: sql<number>`count(distinct ${citations.sourceId})`.as(
+            'sources',
+          ),
+          lastSeen: sql<string>`max(${citations.lastSeenAt})`.as('last_seen'),
+        })
+        .from(citations)
+        .innerJoin(
+          topics,
+          and(eq(topics.id, citations.topicId), eq(topics.enabled, true)),
+        )
+        .leftJoin(
+          xEmbedChecks,
+          eq(xEmbedChecks.externalId, citations.externalId),
+        )
+        .leftJoin(
+          socialPosts,
+          and(
+            eq(socialPosts.platform, 'x'),
+            eq(socialPosts.externalId, citations.externalId),
+          ),
+        )
+        .where(
+          or(
+            isNull(xEmbedChecks.checkedAt),
+            lt(xEmbedChecks.checkedAt, sql`now() - interval '1 day'`),
+          ),
+        )
+        .groupBy(
+          citations.externalId,
+          citations.topicId,
+          socialPosts.externalId,
+        ),
+    );
+    const ranked = db.$with('ranked').as(
+      db
+        .select({
+          externalId: eligible.externalId,
+          refresh: eligible.refresh,
+          sources: eligible.sources,
+          lastSeen: eligible.lastSeen,
+          // Window functions are SQL expressions; builders handle the surrounding CTEs.
+          topicRank: sql<number>`row_number() over (
+            partition by ${eligible.refresh}, ${eligible.topicId}
+            order by ${eligible.sources} desc, ${eligible.lastSeen} desc,
+              length(${eligible.externalId}) desc, ${eligible.externalId} desc
+          )`.as('topic_rank'),
+        })
+        .from(eligible),
+    );
+    const rows = await db
+      .with(citations, eligible, ranked)
+      .select({ externalId: ranked.externalId })
+      .from(ranked)
+      .groupBy(ranked.externalId)
+      .orderBy(
+        sql`min(${ranked.refresh})`,
+        sql`min(${ranked.topicRank})`,
+        desc(sql`max(${ranked.sources})`),
+        desc(sql`max(${ranked.lastSeen})`),
+        desc(sql`length(${ranked.externalId})`),
+        desc(ranked.externalId),
+      )
+      .limit(Math.min(50, Math.max(1, limit)));
+    return rows.map((row) => row.externalId);
   }
+
   async discoverySources() {
     return drizzle(this.db)
       .select({

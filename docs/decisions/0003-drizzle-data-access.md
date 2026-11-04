@@ -239,3 +239,10 @@ aggregation, ordering and the five-item limit. A small SQL expression wraps the
 query in PostgreSQL JSON aggregation, preserving empty topics and timestamp
 serialization. Existing repository and HTTP characterization assertions remain
 unchanged.
+
+The social repository's embed-verification candidate selection now uses typed
+Drizzle CTEs, unions, joins and grouping. SQL expressions remain for PostgreSQL
+window ranking, aggregate ordering, provenance labels and the one-day cooldown.
+The same topic-fair order prioritizes unverified discoveries before refreshes,
+retains all four citation channels and clamps the requested limit to 1–50.
+Existing repository characterization assertions remain unchanged.

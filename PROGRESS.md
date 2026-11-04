@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 593 — convert LLM ledger completion and cache operations
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC edition review remains pending.
-- Converted settlement, failure transitions, provider-block inserts and cache reads/inserts to typed Drizzle. Preserved pending-only updates, database transaction time, UTC month, shared failure lock/rollback and first-writer JSON cache semantics. Reservation SQL remains to convert.
-- Existing characterization assertions unchanged; no migration, activation, source change or paid call. Updated TASKS, architecture, decision and handbook stack; archived iteration 578 to keep PROGRESS bounded.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed. Ledger statement coverage 96.83%; zero dangling Docker volumes.
-- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Read-only Playwright rendered 63 article elements without page errors; zero alerts. Initial latest-edition probe used an incorrect route (404), corrected to /api/digest-previews/latest.
-- Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters or historical migration baseline. Private pg_dump before first new migration.
-
 ## 2026-11-04: iteration 594 — convert LLM reservation admission to Drizzle
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 healthy sources and zero failed digest jobs; Nov 4 15:00 UTC edition review remains pending.
@@ -155,3 +146,13 @@
 - Restarted API/worker outside freeze; live content JSON exactly matches the prior snapshot, saved edition unchanged and LLM/X spend totals unchanged. Read-only Playwright rendered four real saved-edition topics without page errors.
 - Healthz healthy, 36 sources without current errors, zero failed digest jobs and zero alerts. Updated TASKS and ORM decision; archived iteration 592 to keep PROGRESS bounded. No handbook system behavior changed.
 - Next: prioritize Nov 4 edition review; otherwise remaining ORM adapters and final SQL audit. Keep private backups before new migrations and preserve owner grants.
+
+## 2026-11-04: iteration 608 — typed social verification candidates
+
+- Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC edition review remains pending.
+- Converted social verification candidate CTEs, citation unions, joins, filters and final grouping/ordering to Drizzle builders. SQL expressions retain window ranking, aggregates, provenance labels and cooldown arithmetic.
+- Preserved topic fairness, unverified-before-refresh priority, all four citation channels, deduplication and 1–50 limit bounds. Existing characterization assertions unchanged; live old/new comparison matched ordered IDs at requested limits 0, 1, 4, 50 and 500.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
+- Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical, Anthropic/X spending unchanged. Read-only Playwright rendered four real saved-edition topics without page errors; 36 sources without current errors and zero failed digest jobs.
+- Updated TASKS and ORM decision; archived iteration 593 to keep PROGRESS bounded. No schema, source, activation, owner grant or paid call changes; no handbook system behavior changed.
+- Next: prioritize Nov 4 edition review; otherwise publisher article-discovery adapter and final SQL audit. Keep private backups before new migrations and preserve owner grants.
