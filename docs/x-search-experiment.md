@@ -199,3 +199,18 @@ only the keyword placeholder. This corrects the ambiguous concatenation in
 round 1; saved round-1 requests and results remain unchanged. The current
 baseline request is unchanged. No paid rerun was made. Actual tool-call
 compliance still needs checking on the next independent news day.
+
+## Disabled schedule preparation — iteration 705
+
+A pure planner now prepares A requests from the top two or three distinct
+ranked article titles, followed by B requests. It takes stored thresholds and
+exclusions without defaults, reuses the pre-edition window, and projects the
+caller-supplied reservation against available budget. A comes first; B drops
+from the quietest article pools first. Missing settings skip the topic; fewer
+than two distinct stories skip A. Both styles use the comparison request
+builder, including the code-built operator suffix.
+
+This is preparation only, off by default and disconnected from running services.
+The runtime setting, durable A/B admission and executor wiring remain to build;
+the old follow-up path remains active until replaced. The experiment decision
+still gates activation. No paid searches or production configuration changes.

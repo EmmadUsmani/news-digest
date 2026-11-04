@@ -1,17 +1,12 @@
+import type { FixedSearchSettings } from '../domain/fixed-search-schedule';
 import type { XSearchRequest } from '../domain/x-search.port';
 import { xSearchBody } from './x-search';
-
-interface ComparisonSettings {
-  reactionMinFaves: number;
-  trendingMinFaves: number;
-  exclusions: string[];
-}
 
 // Request construction only: no provider calls, admission or production activation.
 export function xSearchComparisonBody(
   request: XSearchRequest,
   style: 'current' | 'trending' | 'reactions',
-  settings: ComparisonSettings,
+  settings: FixedSearchSettings,
   rankedStoryTitles: string[],
 ) {
   if (request.handles !== undefined || request.reactionStory !== undefined)

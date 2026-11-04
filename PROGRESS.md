@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 688 — measure stored X triage batching
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 nonempty sources without current errors, no failed retained digest jobs; next edition Nov 5 15:00 UTC.
-- Added read-only repeatable-read report using production verified X semantic-candidate selection and actual stored text/topic context with offline fake scoring. Aggregates only; no provider calls, cache writes or runtime change.
-- Nov 3–4 15:00 UTC publication window: Tech/NBA/Gaming/World pools 96/24/32/11. Sizes 50 and 200 both use five fake requests/53,346 input bytes; all 163 items scored once, repartitioned repeats zero calls. Existing production caller already permits Tech's two-request concurrency. No additional request-count gain; no live speedup claim.
-- Current citations/verification can postdate END; historical edition pool/cache is not reconstructed. Updated TASKS/concurrency evidence; archived iteration 673 to bound PROGRESS. SOURCES/handbook unchanged because source/runtime behavior is unchanged.
-- Verification: standalone strict tsc, offline aggregate/count/cache assertions, invalid-input exit/no-stdout check and targeted batching tests 9/9 passed. Initial mixed targeted command correctly refused five integration tests without isolated services; full check runs them with disposable services.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (444 unit/209 isolated integration), pnpm build, handbook validation and git diff --check passed. Zero dangling Docker volumes, final healthz healthy and zero alerts.
-- X paid experiment remains blocked on supported per-call cost bound or owner decision. Next: Nov 5 grouping/NBA AI/cost/latency/screenshots. No restart under STEERING 22: services do not import this offline script.
-
 ## 2026-11-04: iteration 689 — timezone-stable X experiment eligibility
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz and 13 services, all 36 sources healthy; no failed retained digest runs. Next edition Nov 5 15:00 UTC.
@@ -152,3 +142,11 @@
 - Initial lint found three floating test declarations from iteration 703; marked them explicitly void. Targeted comparison/input/runner tests 11/11 and standalone strict tsc passed.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (458 unit/209 isolated integration) and pnpm build passed. Updated TASKS/experiment reference; archived iteration 687 to bound PROGRESS. SOURCES/handbook unchanged for experimental request formatting only.
 - No restart under STEERING 22: production services do not import the comparison helper. Next: disabled fixed A/B schedule, private nightly backups, World article-pool review and second independent comparison day; Nov 5 scheduled acceptance takes priority when due.
+
+## 2026-11-04: iteration 705 — prepare disabled fixed A/B search plans
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/services, 36 healthy nonempty sources and zero retained failed digest jobs; next edition Nov 5 15:00 UTC.
+- Added default-off pure schedule planner: reactions for top 2–3 distinct ranked stories precede trending; stored thresholds/exclusions have no fallback defaults. Uses existing pre-edition/window rules without new AI calls.
+- Budget projection keeps A first and drops B from quiet article pools first. Missing settings skip topics; fewer than two distinct stories skip A. Shares configuration type with comparison request builder; tests construct both request styles with exact operators/window.
+- Preparation only: no runtime caller, paid calls or production changes. Runtime setting, durable A/B admission, executor wiring and old followup removal remain; experiment decision gates activation. Backups follow this disabled-schedule work.
+- Verification: `pnpm exec tsx --test apps/api/test/fixed-search-schedule.test.ts apps/api/test/x-search-comparison.test.ts` (9/9), `pnpm format`, `pnpm lint:fix`, `pnpm check` (463 unit/209 isolated integration), `pnpm build` and `git diff --check` passed. Updated TASKS/experiment reference; archived iteration 688 to bound PROGRESS. SOURCES/handbook unchanged because operating sources/services are unchanged. No restart under STEERING 22: services import neither helper.
