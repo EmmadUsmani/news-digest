@@ -150,4 +150,4 @@
 - Desktop/mobile checks cover failed save preserving order, successful retry, contiguous positions, reload, grid order and overflow. Screenshots reviewed. This verifies browser behavior; isolated HTTP/repository tests retain server persistence and invalid-order atomicity coverage.
 - Verification: `pnpm exec tsx scripts/smoke-topic-order.ts` and strict standalone tsc passed; `pnpm format`, `pnpm lint:fix`, `pnpm check` (455 unit/209 isolated integration), `pnpm build` and `git diff --check` passed.
 - Updated TASKS; archived iteration 685 to bound PROGRESS. SOURCES/handbook unchanged: verification script only. No paid calls or production changes; no restart under STEERING 22 because running services do not import this script.
-- Next: Nov 5 grouping/NBA AI/cost/latency/screenshots; older topic account/source scripts still need production-write isolation.
+- Initial push rejected: owner added STEERING 31–32 remotely. Fetched and merged without rewriting history; removed resolved human blocker and updated TASKS. Next: authorized X round 1 tonight ($0.15 reserve/call), then disabled A/B schedule and backups; Nov 5 acceptance still takes priority when due.
