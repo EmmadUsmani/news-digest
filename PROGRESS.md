@@ -115,3 +115,12 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (293 unit/182 isolated integration), pnpm build, pnpm typecheck, filtered handbook check, smoke-slow-queries.ts, --verify-grafana --grafana-database-only (11 live data panels), healthz, source status, alerts and git diff --check passed. Dangling Docker volumes zero.
 - Deployed only the provisioned dashboard; Grafana hot-reloaded it and API verified equality with repo panels. No service restart required; no app/config behavior, provider spend, editions or feature activation. Discarded unrelated regenerated dashboard screenshots deliberately.
 - Next: monitor hourly Bluesky recovery and observability cache refill; review Nov 4 scheduled open-X/Bluesky, World picks, NBA validation and latency before conditional Nov 5 grouping activation.
+
+## 2026-11-04: iteration 515 — measure incremental triage cache reuse offline
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts, all 36 sources error-free (latest success 00:12:57 UTC). Nov 4 edition evidence is still future work.
+- Added offline recorded-window replay using real CandidateTriage batching/item cache and synthetic scores, with 1/3/6/24-hour passes. No DB, HTTP, keys, production setting or activation. Updated TASKS and RANKING; system behavior/handbook unchanged.
+- All 153 in-window articles scored once at every cadence. Hourly passes leave 7 edition items versus 153 cold, but create 50 total requests versus 5 cold. Prompt bytes 121,066 versus 65,824; reserved output tokens 70,000 versus 27,070. Neither measure is actual token usage/spend.
+- Publication times are optimistic availability proxies; ingestion lag, discarded-pool waste, Gaming, production latency and reserve admission remain unmeasured. No quality or equal-cost claim. Next: off-by-default budget-safe implementation and recorded arrival/pool evidence.
+- Verification: targeted replay tests 2/2; pnpm format, pnpm lint:fix, pnpm check (295 unit/182 isolated integration), pnpm build and git diff --check passed. Initial fake-adapter lint and overly broad reservation assertion corrected before green full check.
+- Rebuilt and restarted API/worker; healthz recovered healthy, zero alerts, no dangling Docker volumes. No paid calls, editions, new sources, UI/schema changes or feature activation; screenshots unnecessary. Grouping stays off pending Nov 4 review.

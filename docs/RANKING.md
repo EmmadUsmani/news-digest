@@ -1556,3 +1556,32 @@ These are recorded excerpts and existing agent labels, not live latency or a
 representative quality estimate. Cache hits and input/output size affect actual
 calls and duration. Gaming and current 200-item pools remain unmeasured. No paid
 calls or production cap: a simple recency cutoff lacks a safe quality basis.
+
+## Iteration 515: incremental triage cache experiment
+
+`pnpm exec tsx apps/api/scripts/evaluate-incremental-triage.ts` runs the real
+triage batching and item cache with synthetic scores over three recorded November
+1 windows. Every in-window candidate is retained, including items the later hard
+prefilter could exclude. Publication time stands in for availability because the
+fixtures lack ingestion timestamps. The experiment is optimistic about arrivals;
+it measures cache reuse and request fragmentation, not quality or live speed.
+
+| Topic     | Candidates | Edition items, hourly / 3-hour / 6-hour / cold | Total requests, hourly / cold |
+| --------- | ---------- | ---------------------------------------------- | ----------------------------- |
+| NBA       | 52         | 0 / 2 / 9 / 52                                 | 18 / 2                        |
+| World     | 47         | 5 / 18 / 25 / 47                               | 15 / 1                        |
+| Tech & AI | 54         | 2 / 12 / 30 / 54                               | 17 / 2                        |
+
+All cadences score each unchanged candidate once through the existing per-item
+cache, despite growing pools and changed batch-local IDs. Hourly passes move most
+items earlier but create many smaller requests, repeating prompt framing and
+minimum output reservations; equal item counts do not prove equal cost. Across
+these windows, hourly passes send 121,066 instruction/prompt UTF-8 bytes versus
+65,824 cold, and reserve 70,000 output tokens versus 27,070 cold. These are wire
+bytes and upper-bound reservations, not provider token usage or settled spend. Waste
+from articles absent from the eventual edition pool is explicitly unknown: these
+fixtures contain only one window and no ingestion or pool-change history. Gaming,
+production arrival lag, budget admission and reserve interactions are unmeasured.
+This is an offline experiment only; no scheduler, setting or activation ships.
+A production implementation must stay off by default, respect the shared ledger
+and scheduled reserve, and measure discarded pretriaged items before activation.
