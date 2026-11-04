@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 587 — convert X verification/discovery to Drizzle
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC edition review pending.
-- Converted social repository topic reads, discovery sources/citations, verification URL unions, post/check upserts and missing-time recovery to typed Drizzle. Candidate citation/window-ranking query retains a documented template for topic fairness and refresh priority.
-- Preserved transaction rollback/native errors, citation URL coalescing, immutable discovery fields, conditional missing-time updates and Date return values. No migration, activation or paid call; owner grants untouched.
-- Read-only old/new live comparison matched 623 topic-post associations across four topics, discovery sources, 20 verification URLs and candidate limits 1/8/50. Temporary comparison files removed.
-- Initial typecheck caught existing string timestamp contracts; fixed before checks. First full check stopped on handbook table formatting; formatted and reran successfully. Existing test assertions unchanged; social repository statement coverage 100%.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
-- Updated TASKS, architecture, decision and handbook stack. Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Post-restart Playwright rendered four digest sections/19 article elements with zero page errors; 36 sources without errors, zero failed digest jobs and alerts.
-- Next: prioritize Nov 4 15:00 UTC edition review; otherwise continue remaining ORM adapters or migration baseline. Private pg_dump before first new migration.
-
 ## 2026-11-04: iteration 588 — convert operations source status to Drizzle
 
 - Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 error-free sources and zero failed digest jobs; Nov 4 15:00 UTC edition review pending.
@@ -150,3 +139,14 @@
 - Restarted API/worker outside freeze; both active and healthz healthy. Saved edition byte-identical, LLM reserve and X snapshot unchanged. Read-only Playwright rendered four topics/19 stories without page errors; zero current source errors or failed digest jobs. A pending metrics-memory warning cleared on the 09:54 UTC snapshot; final alerts zero.
 - Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters/transaction infrastructure or historical migration baseline. Private pg_dump before first new migration.
 - Push: initial d30f491 push rejected by Git integration with Internal Server Error; retry successfully pushed d30f491 without changing history.
+
+## 2026-11-04: iteration 602 — Drizzle digest publication transaction
+
+- Started clean on main; no leftover work. Healthy healthz, 36 active sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC review pending.
+- Converted digest publication to a Drizzle-managed repeatable-read transaction on the checked-out client. Scheduled session locking still precedes the snapshot; commit/rollback precedes unlock/release, preserving retry visibility and dedupe.
+- Existing characterization assertions unchanged; logging stub normalizes transaction-command casing. No migration, activation, source change or paid call; owner database grants untouched.
+- Updated TASKS, architecture, decision and handbook stack; archived iteration 587.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes. Direct targeted test invocation was blocked by the isolation guard; full isolated suite passed.
+- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical and LLM/X budget snapshots unchanged. Read-only Playwright rendered all four topics without page errors after correcting the check's topic label; no UI change.
+- Final service snapshot: zero current source errors or failed digest jobs. Metrics-memory warning recurred after testing; restarted the unhealthy metrics service to clear expendable caches, reducing memory from 103 MiB to 34 MiB. Alert recovery awaits fresh evaluation.
+- Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters or historical migration baseline. Private pg_dump before first new migration.

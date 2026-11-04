@@ -81,7 +81,9 @@ async function harness(
       args?: unknown[],
     ) {
       const sql = typeof input === 'string' ? input : input.text;
-      calls.push(sql);
+      calls.push(
+        /^(begin|commit|rollback)\b/i.test(sql) ? sql.toUpperCase() : sql,
+      );
       if (sql.includes('from "social_posts" inner join "reddit_topic_posts"')) {
         assert.ok(options.reddit);
         return {

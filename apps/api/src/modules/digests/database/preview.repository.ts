@@ -5,7 +5,7 @@ import {
   type SelectedSocialPost,
 } from '@digest/contracts';
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
-import { and, asc, desc, eq, sql } from 'drizzle-orm';
+import { and, asc, desc, DrizzleQueryError, eq, sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/node-postgres';
 
 import { database } from '../../../libs/db/connections';
@@ -109,289 +109,298 @@ export class PostgresPreviewRepository
     reportProgress?: ReportEditionProgress,
   ): Promise<DigestPreview> {
     const client = await this.db.connect();
-    const tx = drizzle(client);
+    const session = drizzle(client);
     try {
       // Lock before opening the snapshot so a retry sees the committed prior run.
       if (scheduledKey)
-        await tx.execute(
+        await session.execute(
           sql`SELECT pg_advisory_lock(hashtextextended(${scheduledKey},0))`,
         );
       // Keep the session lock outside the repeatable-read snapshot for retry visibility.
-      await tx.execute(sql`BEGIN ISOLATION LEVEL REPEATABLE READ`);
-      if (scheduledKey) {
-        const [prior] = await tx
-          .select({ snapshot: digestPreviews.snapshot })
-          .from(digestPreviews)
-          .where(eq(digestPreviews.scheduledKey, scheduledKey));
-        if (prior) {
-          await tx.execute(sql`COMMIT`);
-          return prior.snapshot as DigestPreview;
-        }
-      }
-      const topics = await tx
-        .select({
-          id: topicTable.id,
-          name: topicTable.name,
-          description: topicTable.description,
-          include_guidance: topicTable.includeGuidance,
-          exclude_guidance: topicTable.excludeGuidance,
-          story_budget: topicTable.storyBudget,
-          post_budget: topicTable.postBudget,
-          relevance_policy: topicTable.relevancePolicy,
-        })
-        .from(topicTable)
-        .where(
-          and(
-            eq(topicTable.profileId, profileId),
-            eq(topicTable.enabled, true),
-          ),
-        )
-        .orderBy(asc(topicTable.position), asc(topicTable.id));
-      const progress: EditionProgress = {
-        stage: 'topics',
-        topics: topics.map((topic) => ({
-          id: String(topic.id),
-          name: String(topic.name),
-          stage: 'triage',
-        })),
-      };
-      const report = async () => {
-        if (reportProgress) await reportProgress(structuredClone(progress));
-      };
-      const topicStage = async (
-        id: string,
-        stage: EditionProgress['topics'][number]['stage'],
-      ) => {
-        progress.topics.find((topic) => topic.id === String(id))!.stage = stage;
-        await report();
-      };
-      await report();
-      const selections = await parallelTopics(topics, async (topic) => {
-        // Limit candidate work per topic, selecting the most recent 200 in the exact window.
-        const candidates = await loadArticleCandidates(
-          client,
-          topic.id,
-          start,
-          end,
-        );
-        const policy = relevancePolicySchema.parse(topic.relevance_policy);
-        const eligible = candidates.filter(
-          (item) => assessRelevance(item, policy).eligible,
-        );
-        const qualityRejections = candidates.flatMap((item) => {
-          const rejection = qualityRejection(item);
-          return rejection
-            ? [{ id: item.id, title: item.title, ...rejection }]
-            : [];
-        });
-        let stories: DigestPreview['topics'][number]['stories'] = rank(
-          eligible,
-          start,
-          end,
-          topic.story_budget,
-        ).map((story) => ({
-          ...story,
-          reasons: [...story.reasons, assessRelevance(story, policy).reason],
-        }));
-        let relevanceRejectedCount = candidates.filter(
-          (c) => !qualityRejection(c) && !assessRelevance(c, policy).eligible,
-        ).length;
-        const editorial: NonNullable<
-          DigestPreview['topics'][number]['editorial']
-        > = {
-          mode: 'non-ai',
-          model: null,
-          brief: [],
-          triage: [],
-          unscoredIds: candidates.map((c) => c.id),
-          reason:
-            topic.story_budget === 0
-              ? 'Non-AI ranking: topic story budget is zero.'
-              : 'Non-AI ranking: editorial service unavailable.',
-        };
-        if (this.editorial && topic.story_budget > 0) {
-          const { topic: context, candidates: triageCandidates } =
-            articleTriageInput(topic, candidates);
-          const triage = await this.editorial.triage.score(
-            context,
-            triageCandidates,
-            runId,
-          );
-          editorial.triage = triage.scores;
-          editorial.unscoredIds = triage.unscoredIds;
-          editorial.reason =
-            'Non-AI ranking: incomplete triage or editor unavailable within caps.';
-          // Partial semantic coverage must never silently displace unscored news.
-          if (triage.unscoredIds.length === 0) {
-            const { shortlist, ranked } = editorialShortlist(
-              candidates,
-              triage.scores,
-              policy,
+      return await session.transaction(
+        async (tx) => {
+          if (scheduledKey) {
+            const [prior] = await tx
+              .select({ snapshot: digestPreviews.snapshot })
+              .from(digestPreviews)
+              .where(eq(digestPreviews.scheduledKey, scheduledKey));
+            if (prior) {
+              return prior.snapshot as DigestPreview;
+            }
+          }
+          const topics = await tx
+            .select({
+              id: topicTable.id,
+              name: topicTable.name,
+              description: topicTable.description,
+              include_guidance: topicTable.includeGuidance,
+              exclude_guidance: topicTable.excludeGuidance,
+              story_budget: topicTable.storyBudget,
+              post_budget: topicTable.postBudget,
+              relevance_policy: topicTable.relevancePolicy,
+            })
+            .from(topicTable)
+            .where(
+              and(
+                eq(topicTable.profileId, profileId),
+                eq(topicTable.enabled, true),
+              ),
+            )
+            .orderBy(asc(topicTable.position), asc(topicTable.id));
+          const progress: EditionProgress = {
+            stage: 'topics',
+            topics: topics.map((topic) => ({
+              id: String(topic.id),
+              name: String(topic.name),
+              stage: 'triage',
+            })),
+          };
+          const report = async () => {
+            if (reportProgress) await reportProgress(structuredClone(progress));
+          };
+          const topicStage = async (
+            id: string,
+            stage: EditionProgress['topics'][number]['stage'],
+          ) => {
+            progress.topics.find((topic) => topic.id === String(id))!.stage =
+              stage;
+            await report();
+          };
+          await report();
+          const selections = await parallelTopics(topics, async (topic) => {
+            // Limit candidate work per topic, selecting the most recent 200 in the exact window.
+            const candidates = await loadArticleCandidates(
+              client,
+              topic.id,
               start,
               end,
             );
-            await topicStage(topic.id, 'editing');
-            const result = await this.editorial.editor.edit(
-              context,
-              ranked,
-              Math.min(10, topic.story_budget),
+            const policy = relevancePolicySchema.parse(topic.relevance_policy);
+            const eligible = candidates.filter(
+              (item) => assessRelevance(item, policy).eligible,
+            );
+            const qualityRejections = candidates.flatMap((item) => {
+              const rejection = qualityRejection(item);
+              return rejection
+                ? [{ id: item.id, title: item.title, ...rejection }]
+                : [];
+            });
+            let stories: DigestPreview['topics'][number]['stories'] = rank(
+              eligible,
+              start,
+              end,
+              topic.story_budget,
+            ).map((story) => ({
+              ...story,
+              reasons: [
+                ...story.reasons,
+                assessRelevance(story, policy).reason,
+              ],
+            }));
+            let relevanceRejectedCount = candidates.filter(
+              (c) =>
+                !qualityRejection(c) && !assessRelevance(c, policy).eligible,
+            ).length;
+            const editorial: NonNullable<
+              DigestPreview['topics'][number]['editorial']
+            > = {
+              mode: 'non-ai',
+              model: null,
+              brief: [],
+              triage: [],
+              unscoredIds: candidates.map((c) => c.id),
+              reason:
+                topic.story_budget === 0
+                  ? 'Non-AI ranking: topic story budget is zero.'
+                  : 'Non-AI ranking: editorial service unavailable.',
+            };
+            if (this.editorial && topic.story_budget > 0) {
+              const { topic: context, candidates: triageCandidates } =
+                articleTriageInput(topic, candidates);
+              const triage = await this.editorial.triage.score(
+                context,
+                triageCandidates,
+                runId,
+              );
+              editorial.triage = triage.scores;
+              editorial.unscoredIds = triage.unscoredIds;
+              editorial.reason =
+                'Non-AI ranking: incomplete triage or editor unavailable within caps.';
+              // Partial semantic coverage must never silently displace unscored news.
+              if (triage.unscoredIds.length === 0) {
+                const { shortlist, ranked } = editorialShortlist(
+                  candidates,
+                  triage.scores,
+                  policy,
+                  start,
+                  end,
+                );
+                await topicStage(topic.id, 'editing');
+                const result = await this.editorial.editor.edit(
+                  context,
+                  ranked,
+                  Math.min(10, topic.story_budget),
+                  runId,
+                );
+                if (result) {
+                  stories = result.stories.map((edit) => {
+                    const original = ranked.find((s) => s.id === edit.id)!;
+                    const score = triage.scores.find((s) => s.id === edit.id)!;
+                    return {
+                      ...original,
+                      title: edit.headline,
+                      evidence: edit.evidenceIds.map((id) => {
+                        const source = ranked.find((item) => item.id === id)!;
+                        return {
+                          id: source.id,
+                          title: source.title,
+                          url: source.url,
+                          excerpt: source.excerpt,
+                          sources: source.sources,
+                          publishedAt: source.publishedAt,
+                        };
+                      }),
+                      summary: edit.summary,
+                      whyItMatters: edit.whyItMatters,
+                      reasons: [
+                        ...original.reasons,
+                        `Semantic relevance ${score.relevance}/10; importance ${score.importance}/10: ${score.rationale}`,
+                        `Editor: ${edit.rationale}`,
+                      ],
+                    };
+                  });
+                  relevanceRejectedCount = candidates.filter(
+                    (c) =>
+                      !qualityRejection(c) &&
+                      !shortlist.some((s) => s.id === c.id),
+                  ).length;
+                  editorial.mode = 'ai';
+                  editorial.model = result.model;
+                  // Derive the published brief only from selected headlines. A model's
+                  // free-form brief can mention candidates it ultimately omitted.
+                  editorial.brief = result.stories
+                    .slice(0, 4)
+                    .map((story) => story.headline);
+                  editorial.reason =
+                    'AI edited from supplied headlines and excerpts; full articles were not fetched.';
+                }
+              }
+            }
+            await topicStage(topic.id, 'posts');
+            const redditPosts = await selectTopicRedditPosts(
+              client,
+              topic.id,
+              policy,
+              start,
+              end,
+              Number(topic.post_budget) > 0 ? 200 : 0,
+            );
+            const posts: SelectedSocialPost[] = await selectTopicPosts(
+              client,
+              topic.id,
+              policy,
+              start,
+              end,
+              Number(topic.post_budget),
+            );
+            posts.push(...redditPosts);
+            const postCandidates: SelectedSocialPost[] =
+              topic.post_budget > 0
+                ? await selectTopicPosts(
+                    client,
+                    topic.id,
+                    policy,
+                    start,
+                    end,
+                    200,
+                    'semantic-candidates',
+                  )
+                : [];
+            postCandidates.push(...redditPosts);
+            const postSelection = await editTopicPosts(
+              this.editorial,
+              {
+                id: String(topic.id),
+                name: String(topic.name),
+                description: String(topic.description),
+                guidance: `${topic.include_guidance}\nExclude: ${topic.exclude_guidance}`,
+              },
+              postCandidates,
+              posts,
+              Number(topic.post_budget),
               runId,
             );
-            if (result) {
-              stories = result.stories.map((edit) => {
-                const original = ranked.find((s) => s.id === edit.id)!;
-                const score = triage.scores.find((s) => s.id === edit.id)!;
-                return {
-                  ...original,
-                  title: edit.headline,
-                  evidence: edit.evidenceIds.map((id) => {
-                    const source = ranked.find((item) => item.id === id)!;
-                    return {
-                      id: source.id,
-                      title: source.title,
-                      url: source.url,
-                      excerpt: source.excerpt,
-                      sources: source.sources,
-                      publishedAt: source.publishedAt,
-                    };
-                  }),
-                  summary: edit.summary,
-                  whyItMatters: edit.whyItMatters,
-                  reasons: [
-                    ...original.reasons,
-                    `Semantic relevance ${score.relevance}/10; importance ${score.importance}/10: ${score.rationale}`,
-                    `Editor: ${edit.rationale}`,
-                  ],
-                };
-              });
-              relevanceRejectedCount = candidates.filter(
-                (c) =>
-                  !qualityRejection(c) && !shortlist.some((s) => s.id === c.id),
-              ).length;
-              editorial.mode = 'ai';
-              editorial.model = result.model;
-              // Derive the published brief only from selected headlines. A model's
-              // free-form brief can mention candidates it ultimately omitted.
-              editorial.brief = result.stories
-                .slice(0, 4)
-                .map((story) => story.headline);
-              editorial.reason =
-                'AI edited from supplied headlines and excerpts; full articles were not fetched.';
-            }
-          }
-        }
-        await topicStage(topic.id, 'posts');
-        const redditPosts = await selectTopicRedditPosts(
-          client,
-          topic.id,
-          policy,
-          start,
-          end,
-          Number(topic.post_budget) > 0 ? 200 : 0,
-        );
-        const posts: SelectedSocialPost[] = await selectTopicPosts(
-          client,
-          topic.id,
-          policy,
-          start,
-          end,
-          Number(topic.post_budget),
-        );
-        posts.push(...redditPosts);
-        const postCandidates: SelectedSocialPost[] =
-          topic.post_budget > 0
-            ? await selectTopicPosts(
-                client,
-                topic.id,
+            const bluesky = await selectEditionBlueskyPosts(
+              client,
+              this.editorial,
+              {
+                topic: {
+                  id: String(topic.id),
+                  name: String(topic.name),
+                  description: String(topic.description),
+                  guidance: `${topic.include_guidance}\nExclude: ${topic.exclude_guidance}`,
+                },
                 policy,
                 start,
                 end,
-                200,
-                'semantic-candidates',
-              )
-            : [];
-        postCandidates.push(...redditPosts);
-        const postSelection = await editTopicPosts(
-          this.editorial,
-          {
-            id: String(topic.id),
-            name: String(topic.name),
-            description: String(topic.description),
-            guidance: `${topic.include_guidance}\nExclude: ${topic.exclude_guidance}`,
-          },
-          postCandidates,
-          posts,
-          Number(topic.post_budget),
-          runId,
-        );
-        const bluesky = await selectEditionBlueskyPosts(
-          client,
-          this.editorial,
-          {
-            topic: {
-              id: String(topic.id),
-              name: String(topic.name),
-              description: String(topic.description),
-              guidance: `${topic.include_guidance}\nExclude: ${topic.exclude_guidance}`,
-            },
-            policy,
-            start,
-            end,
-            budget: Number(topic.post_budget),
-            selectedPosts: postSelection.posts,
-            runId,
-          },
-        );
-        if (bluesky.posts.length > postSelection.posts.length) {
-          postSelection.postEditorial.reason += ` Bluesky additions were separately AI edited (${bluesky.model}); the preceding selection details describe X/Reddit.`;
-        }
-        postSelection.posts = bluesky.posts;
-        postSelection.posts = await linkCitingStories(
-          client,
-          postSelection.posts,
-          stories,
-        );
-        await topicStage(topic.id, 'ready');
-        return {
-          ...postSelection,
-          editorial,
-          qualityRejections,
-          relevancePolicy: policy,
-          relevanceRejectedCount,
-          id: topic.id,
-          name: topic.name,
-          candidateCount: candidates.length,
-          stories,
-        };
-      });
-      progress.stage = 'publishing';
-      await report();
-      const snapshot: DigestPreview = {
-        id: runId,
-        createdAt: new Date().toISOString(),
-        windowStart: start.toISOString(),
-        windowEnd: end.toISOString(),
-        method: 'editorial-v1',
-        topics: selections,
-      };
-      await tx.insert(digestPreviews).values({
-        id: snapshot.id,
-        profileId,
-        createdAt: snapshot.createdAt,
-        windowStart: start.toISOString(),
-        windowEnd: end.toISOString(),
-        snapshot,
-        scheduledKey: scheduledKey ?? null,
-      });
-      await tx.execute(sql`COMMIT`);
-      return snapshot;
+                budget: Number(topic.post_budget),
+                selectedPosts: postSelection.posts,
+                runId,
+              },
+            );
+            if (bluesky.posts.length > postSelection.posts.length) {
+              postSelection.postEditorial.reason += ` Bluesky additions were separately AI edited (${bluesky.model}); the preceding selection details describe X/Reddit.`;
+            }
+            postSelection.posts = bluesky.posts;
+            postSelection.posts = await linkCitingStories(
+              client,
+              postSelection.posts,
+              stories,
+            );
+            await topicStage(topic.id, 'ready');
+            return {
+              ...postSelection,
+              editorial,
+              qualityRejections,
+              relevancePolicy: policy,
+              relevanceRejectedCount,
+              id: topic.id,
+              name: topic.name,
+              candidateCount: candidates.length,
+              stories,
+            };
+          });
+          progress.stage = 'publishing';
+          await report();
+          const snapshot: DigestPreview = {
+            id: runId,
+            createdAt: new Date().toISOString(),
+            windowStart: start.toISOString(),
+            windowEnd: end.toISOString(),
+            method: 'editorial-v1',
+            topics: selections,
+          };
+          await tx.insert(digestPreviews).values({
+            id: snapshot.id,
+            profileId,
+            createdAt: snapshot.createdAt,
+            windowStart: start.toISOString(),
+            windowEnd: end.toISOString(),
+            snapshot,
+            scheduledKey: scheduledKey ?? null,
+          });
+          return snapshot;
+        },
+        { isolationLevel: 'repeatable read' },
+      );
     } catch (error) {
-      await tx.execute(sql`ROLLBACK`);
-      throw error;
+      throw error instanceof DrizzleQueryError && error.cause
+        ? error.cause
+        : error;
     } finally {
       try {
         if (scheduledKey)
-          await tx.execute(
+          await session.execute(
             sql`SELECT pg_advisory_unlock(hashtextextended(${scheduledKey},0))`,
           );
       } finally {
