@@ -4,6 +4,7 @@ import type { ModelPrice } from '../domain/llm.port';
 import { assertAbsenceSupport } from './absence-support';
 import type { BudgetedLlm } from './budgeted-llm';
 import type { TriageTopic } from './triage';
+import { LlmValidationFailure } from './validation-failure';
 
 export interface SocialEditorialCandidate {
   id: string;
@@ -108,10 +109,11 @@ export class SocialPostEditor {
         parsed.posts.length > budget ||
         new Set(parsed.posts.map((p) => p.id)).size !== parsed.posts.length
       )
-        throw new Error('Invalid social selection');
+        throw new LlmValidationFailure('invalid-social-selection');
       for (const post of parsed.posts) {
         const original = compact.find((c) => c.id === post.id);
-        if (!original) throw new Error('Unknown social post');
+        if (!original)
+          throw new LlmValidationFailure('invalid-social-selection');
         assertAbsenceSupport(
           post.whyItMatters,
           [original.text],

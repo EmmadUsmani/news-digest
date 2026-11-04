@@ -1,6 +1,8 @@
 // Fixed application-owned repair hints. Never interpolate model/source text.
 const feedback = {
   'invalid-selection': '',
+  'invalid-social-selection':
+    '\nThe previous response failed the post-selection check. Return the complete corrected JSON with a posts array. Use only IDs from candidates, each at most once, and return at most the supplied budget. Do not return IDs from alreadySelected or original IDs replaced by candidate aliases. Fewer posts or an empty array are acceptable; do not pad.',
   'unsupported-absence':
     '\nThe previous response failed the absence-support check. Review ALL headlines, summaries, significance, rationales and brief bullets. Remove sentences containing not, never, no, without, unconfirmed, unverified, unavailable, unknown or negative contractions unless the whole sentence repeats cited supplied text verbatim. Return the complete corrected JSON; shorter supported text is acceptable.',
 } as const;
@@ -59,6 +61,7 @@ export type ValidationDiagnostic = {
     | 'invalid-json'
     | 'invalid-schema'
     | 'invalid-selection'
+    | 'invalid-social-selection'
     | 'unsupported-absence'
     | 'validator-error';
 };

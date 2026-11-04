@@ -2813,3 +2813,21 @@ keys and provider requests. Differential synthetic checks compare every prompt
 against the former full-serialization algorithm in article and social modes,
 with 200 short or Unicode/escaped long candidates. No paid calls or measured
 live latency improvement; incremental triage remains disabled.
+
+### Iteration 668: repair invalid social selections
+
+Nov 4 journal evidence for request
+`80f66b954fef88d7ecabe7c50ce6136bb4e576fa25e0547906788ef0273e2c64`
+links a `bluesky-social-editor-v1` Sonnet call (6,758 ms) to initial and repair
+`validator-error` rejections. The social validator throws those errors for
+unknown candidate IDs, duplicate IDs or excess picks; schema and absence
+failures have separate categories. The rejected output was not saved, so the
+specific violation and topic are unknown. This is not evidence of an outage.
+
+Those checks now emit `invalid-social-selection` with a fixed repair hint:
+use candidate IDs once, respect the budget and aliases, and allow fewer or
+zero picks. No rejected text, IDs or error messages enter feedback. Initial
+prompts/cache keys, support checks, model order, output limits and one repair
+per model are unchanged. Fake X/Bluesky tests recover on repair for each
+violation, reuse the valid cache and retain four-call maximum failure. No paid
+calls or measured live latency improvement; compare the Nov 5 repair tail.

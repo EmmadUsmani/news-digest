@@ -292,3 +292,45 @@ void test('social editor compacts long IDs without collisions and restores ident
   assert.equal(await invalid.editor.edit(topic, input, 1, 'invalid'), null);
   assert.equal(invalid.calls.length, 4);
 });
+
+void test('social selection repairs receive fixed ID/budget guidance and recover without fallback', async () => {
+  const privateId = 'untrusted-id-do-not-copy-into-repair';
+  const second = { ...post, id: 'two' };
+  for (const platform of ['x', 'bluesky'] as const) {
+    for (const invalid of [
+      { posts: [{ ...post, id: privateId }] },
+      { posts: [post, post] },
+      { posts: [post, second] },
+    ]) {
+      const h = harness([invalid, valid]);
+      const input = [
+        { ...candidates[0], platform },
+        { ...candidates[0], id: 'two', platform },
+      ];
+      const result = await h.editor.edit(topic, input, 1, 'repair');
+      assert.deepEqual(result, { ...valid, model: 'claude-sonnet-5-5' });
+      assert.equal(h.calls.length, 2);
+      const repair = h.calls[1].prompt.slice(h.calls[0].prompt.length);
+      assert.match(repair, /only IDs from candidates, each at most once/);
+      assert.match(repair, /at most the supplied budget/);
+      assert.match(repair, /empty array are acceptable/);
+      assert.ok(!repair.includes(privateId));
+      assert.deepEqual(h.diagnostics(), [
+        { attempt: 'initial', category: 'invalid-social-selection' },
+      ]);
+      await h.editor.edit(topic, input, 1, 'cached');
+      assert.equal(h.calls.length, 2);
+    }
+  }
+  const invalid = harness([{ posts: [{ ...post, id: privateId }] }]);
+  assert.equal(
+    await invalid.editor.edit(topic, candidates, 1, 'invalid'),
+    null,
+  );
+  assert.equal(invalid.calls.length, 4);
+  assert.ok(
+    invalid
+      .diagnostics()
+      .every((d) => d.category === 'invalid-social-selection'),
+  );
+});
