@@ -149,7 +149,7 @@ admission transaction, retaining `FOR SHARE` to block concurrent schedule edits.
 The public facade still resolves UTC-day occurrences and reports missing schedules.
 
 Reserve-status snapshot reads use typed Drizzle day-state and latest-completed
-outcome projections. The public usage facade retains the repeatable-read
+outcome projections. The usage database adapter retains the repeatable-read
 transaction and ledger advisory lock, passing its client to every reader. The
 PostgreSQL wall clock uses a documented SQL template; reserve policy is unchanged.
 
@@ -191,3 +191,8 @@ reads/writes on that client. Admission decisions are logged only after a success
 commit; refusals commit without inserting a call. Rollback releases the client,
 and wrapped driver errors retain their original PostgreSQL cause. Existing
 budget, rollback and logging characterization assertions are preserved.
+
+The usage snapshot now lives in a database adapter with a Drizzle-managed
+repeatable-read transaction. The public facade delegates without ORM imports.
+Every reader uses the checked-out client under the same Anthropic advisory
+lock; rollback, client release and original PostgreSQL errors are preserved.
