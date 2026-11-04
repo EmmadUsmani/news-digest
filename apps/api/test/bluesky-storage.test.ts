@@ -230,3 +230,70 @@ void test('Bluesky failed refresh restores existing metadata and observations be
     await repo.db.end();
   }
 });
+
+void test('Bluesky observation windows preserve millisecond bounds and stable snapshot ordering', async () => {
+  const repo = new PostgresBlueskyRepository();
+  const make = (
+    suffix: string,
+    publishedAt: string,
+    observedAt = '2026-10-02T12:00:00.000Z',
+  ): BlueskyPost => ({
+    ...post,
+    externalId: post.externalId + suffix,
+    publishedAt,
+    observedAt,
+  });
+  const lower = make('bounda', '2026-09-30T17:00:00-07:00');
+  const tied = make('boundb', start.toISOString());
+  const latest = make('boundc', '2026-10-01T23:59:59.999Z');
+  const before = make('boundd', '2026-09-30T23:59:59.999Z');
+  const upper = make('bounde', end.toISOString());
+  const refresh = {
+    ...lower,
+    text: 'Later immutable snapshot',
+    observedAt: '2026-10-02T12:00:00.001Z',
+  };
+  const rows = [upper, tied, before, refresh, latest, lower];
+  try {
+    await repo.store(topic, rows);
+    const cutoff = new Date(lower.observedAt);
+    assert.deepEqual(await repo.observations(topic, start, end, cutoff), [
+      latest,
+      lower,
+      tied,
+    ]);
+    assert.deepEqual(
+      await repo.observations(
+        topic,
+        start,
+        end,
+        new Date(cutoff.getTime() - 1),
+      ),
+      [],
+    );
+    assert.deepEqual(
+      await repo.observations(topic, start, end, new Date(refresh.observedAt)),
+      [latest, refresh, lower, tied],
+    );
+    assert.deepEqual(
+      await repo.observations(topic, end, new Date(end.getTime() + 1), cutoff),
+      [upper],
+    );
+    for (const args of [
+      [new Date(NaN), end, end],
+      [start, new Date(NaN), end],
+      [start, end, new Date(NaN)],
+      [start, start, end],
+    ])
+      await assert.rejects(
+        repo.observations(topic, args[0], args[1], args[2]),
+        /Invalid Bluesky observation window/,
+      );
+  } finally {
+    await repo.db.query(
+      "DELETE FROM social_posts WHERE platform='bluesky' AND external_id=ANY($1::text[])",
+      [rows.map((row) => row.externalId)],
+    );
+    await repo.db.end();
+  }
+});

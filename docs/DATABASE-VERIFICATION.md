@@ -494,3 +494,12 @@ updates metadata and adds exactly the expected observations; repeating it is
 idempotent and leaves the other topic's history unchanged. Assertions exercise
 the repository against disposable PostgreSQL, with no Bluesky or LLM requests.
 Recorded-response golden and other repository behavior gaps remain open.
+
+## Bluesky observation time boundaries (iteration 555)
+
+`bluesky-storage.test.ts` pins inclusive publication start, exclusive end,
+inclusive observation cutoff and one-millisecond neighbors. An offset timestamp
+at the start represents the same instant as UTC. Shuffled writes preserve
+publication-descending, external-ID and newest-observation ordering, including
+multiple immutable snapshots of one post. Invalid dates in every window argument
+and an empty window reject. Disposable PostgreSQL only; no provider requests.

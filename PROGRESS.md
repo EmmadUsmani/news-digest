@@ -158,3 +158,11 @@
 - Updated TASKS/database verification notes and archived iterations 535–536. No production, source, schema, UI or handbook flow change; no paid calls. No restart under STEERING 22 because only tests/docs changed.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/188 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes. Initial verification found doc formatting and invalid synthetic post IDs; corrected before the passing run.
 - Next: Nov 4 scheduled review first; incremental triage activation and live waste/latency/cost evidence remain gated. Recorded-response golden and other repository characterization gaps remain open.
+
+## 2026-11-04: iteration 555 — pin Bluesky observation boundaries
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 error-free sources and four available queues; zero failed digest jobs. Recent hourly social collections completed; Nov 4 15:00 review remains pending.
+- Added isolated repository coverage for inclusive/exclusive publication bounds, exact millisecond observation cutoffs, offset timestamps, deterministic snapshot ordering and invalid window dates. No production changes or paid calls.
+- Updated TASKS/database verification notes. No source/schema/UI/handbook flow change; no restart under STEERING 22 because only tests/docs changed.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/189 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes. First run correctly rejected synthetic observations preceding publication; fixture corrected before the passing run.
+- Next: review Nov 4 scheduled edition first; production incremental triage/grouping activation and live cost/latency evidence remain gated. Other repository characterization and recorded-response golden remain open.
