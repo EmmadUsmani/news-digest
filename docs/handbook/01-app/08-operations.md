@@ -75,6 +75,27 @@ what was actually published.
 
 The timing report also includes per-platform selected-post counts and original links, authors, publication times and saved engagement from each immutable edition. Missing historical selections are unknown; an explicit empty selection has zero counts. Missing metrics or observation times remain unknown. These snapshots do not establish current virality, discovery search attribution or outside-list yield.
 
+## Connect to the database from your laptop
+
+Use your own client (Beekeeper Studio, DBeaver) through its built-in SSH
+tunnel. No port is opened on the VM.
+
+| Setting       | Value                                                           |
+| ------------- | --------------------------------------------------------------- |
+| SSH host      | `news-digest.exe.xyz`, port 22, user `exedev`, your SSH key     |
+| DB host, port | `127.0.0.1`, `5432` (as seen from the VM)                       |
+| Database      | `news_digest`                                                   |
+| Read-only     | user `owner_ro`: can't write or change schema, 60 s query limit |
+| Read-write    | user `owner_rw`: can change rows, but can't change schema       |
+
+Passwords live only in the VM's env file. To see them, run this in your own
+terminal:
+`ssh news-digest.exe.xyz 'grep ^OWNER_DB_ ~/.config/news-digest/env'`.
+
+> [!TIP]
+> Make read-only your default connection. Save read-write as a second
+> connection, colored red.
+
 ## How code reaches production
 
 There is no separate CI/CD. The build agent works directly on the VM:
