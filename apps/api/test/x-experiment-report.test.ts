@@ -200,6 +200,39 @@ void test('missing or unreadable tool evidence cannot establish execution compli
     false,
   );
 });
+void test('unreadable sibling evidence cannot hide a confirmed execution violation', () => {
+  const call = evidence();
+  call.expectedSearch = { minFaves: 100, exclusions: ['-bet'] };
+  const valid = searchCall(`play OR trade ${suffix}`);
+  const unknown = { name: 'x_keyword_search', input: 'bad-json' };
+  for (const invalid of [
+    searchCall(`play OR trade ${suffix}`, 'Latest'),
+    searchCall(
+      'play OR trade -filter:replies -filter:retweets lang:en -bet min_faves:50',
+    ),
+    searchCall('play OR trade -filter:replies lang:en -bet min_faves:100'),
+    searchCall(
+      'play OR trade -filter:replies -filter:retweets lang:en min_faves:100',
+    ),
+    searchCall(`play trade ${suffix}`),
+  ]) {
+    for (const records of [
+      [invalid, unknown],
+      [unknown, valid, invalid],
+      [invalid, null, valid],
+    ]) {
+      call.actualToolCalls = records;
+      assert.equal(
+        xExperimentReport([call])[0].searchExecution!.inputsMatch,
+        false,
+      );
+    }
+  }
+  call.actualToolCalls = [valid, unknown];
+  assert.equal(xExperimentReport([call])[0].searchExecution!.inputsMatch, null);
+  call.actualToolCalls = [valid];
+  assert.equal(xExperimentReport([call])[0].searchExecution!.inputsMatch, true);
+});
 void test('trending does not require story OR and invalid expected settings are rejected', () => {
   const call = evidence();
   call.style = 'trending';

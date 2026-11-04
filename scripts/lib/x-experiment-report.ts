@@ -73,17 +73,19 @@ function searchExecution(call: XExperimentEvidence) {
   return {
     expected,
     queries,
-    inputsMatch:
-      !queries.length || observed.length !== queries.length
+    // Missing evidence cannot erase a violation in another saved search.
+    inputsMatch: observed.some(
+      (query) =>
+        !query.top ||
+        !query.threshold ||
+        !query.filters ||
+        !query.exclusions ||
+        query.storyOr === false,
+    )
+      ? false
+      : !queries.length || observed.length !== queries.length
         ? null
-        : observed.every(
-            (query) =>
-              query.top &&
-              query.threshold &&
-              query.filters &&
-              query.exclusions &&
-              query.storyOr !== false,
-          ),
+        : true,
     // A low reported count contradicts the threshold; passing counts alone
     // cannot establish that the operator works. Unknown counts stay explicit.
     returnedBelowThreshold: call.posts.filter(

@@ -40,7 +40,9 @@ each. No winner is selected from an incomplete single-day comparison.
 With `expectedSearch` settings, the report also checks every saved adapter
 `{name, input}` record for keyword search, Top, the exact threshold, filters,
 exclusions and story OR. Missing/unreadable inputs remain unknown; assistant
-prose and requested settings never count as execution evidence. It separately
+prose and requested settings never count as execution evidence. A confirmed
+violation stays false even when another tool record is unreadable; unknown
+evidence cannot erase an observed failure. It separately
 counts returned posts below the threshold and unknown likes. Matching inputs
 and reported counts alone do not prove X honored the operators.
 

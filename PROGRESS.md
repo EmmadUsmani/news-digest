@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 679 — X experiment execution diagnostics and dispatch blocker
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 healthy nonempty sources and no failed digest jobs; Nov 5 15:00 UTC remains next scheduled edition. Retained ingestion/social failures coexist with successful current collection.
-- Offline report now checks actual adapter tool inputs for keyword search, Top, exact threshold, filters, exclusions and story OR. Missing/unreadable evidence stays unknown; quoted operators do not count. Reports below-threshold returned likes and missing likes separately; does not claim X honored operators.
-- Six synthetic report tests pass, including multiple calls, conflicts, quotes, malformed/missing inputs and threshold contradictions. No paid calls or production discovery/model/provider/schedule/budget changes.
-- Official Responses docs exclude reasoning/function tokens from max_output_tokens; billing docs say postpaid limits do not cap prepaid usage. No documented hard per-call bound found. Reported dispatch blocker in NEEDS_FROM_HUMAN rather than extending preparation indefinitely or changing billing.
-- Updated experiment requirements/TASKS, compacted completed speed notes and archived iterations 663–664. SOURCES/handbook unchanged: no source or running-system behavior change.
-- Verification: targeted tests 6/6, standalone report/test TypeScript check, pnpm format, pnpm lint:fix, pnpm check (429 unit/209 isolated integration), pnpm build and git diff --check passed. Initial check stopped on new archive formatting; corrected before passing full check.
-- Final healthz healthy and zero alerts. No restart under STEERING 22: running services do not import the offline report.
-- Next: Nov 5 grouping/NBA/cost/latency/screenshots take priority when available. Paid experiment requires a supported cost bound or owner decision; otherwise continue independent offline speed/replay work, not repeated provider-bound audits.
-
 ## 2026-11-04: iteration 680 — offline batch fill and warm social dispatch
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 sources without current errors and no failed retained digest jobs. Next edition Nov 5 15:00 UTC.
@@ -154,3 +143,12 @@
 - Verification: targeted comparison tests 10/10; pnpm format, pnpm lint:fix, pnpm check (452 unit/209 isolated integration), pnpm build, handbook validation and git diff --check passed.
 - Updated TASKS and experiment reference. SOURCES/owner handbook unchanged: no source/runtime changes. No service restart under STEERING 22 for offline tooling.
 - Next: Nov 5 grouping/NBA AI/cost/latency/screenshots. Paid X dispatch remains blocked on supported cost bound/owner decision.
+
+## 2026-11-04: iteration 696 — preserve confirmed X experiment violations
+
+- Started clean on main; no leftover work. Zero alerts and healthy healthz/database/Redis; 36 nonempty sources without current errors and no failed retained digest jobs. Nov 5 15:00 UTC checks remain future.
+- Fixed offline execution compliance: a malformed/unreadable sibling tool record no longer masks a confirmed sort, threshold, filter, exclusion or story-OR violation. Known failure takes precedence; valid plus missing evidence remains unknown.
+- Added synthetic regressions for all five violation types, mixed record order and valid/unknown controls. No provider calls, production behavior or configuration changes.
+- Verification: targeted report tests 8/8, standalone strict tsc, pnpm format, pnpm lint:fix, pnpm check (453 unit/209 isolated integration) and pnpm build passed. Handbook validation (17 pages/22 diagrams/26 tables) and git diff --check passed.
+- Updated TASKS and experiment reference; archived iteration 679 to bound PROGRESS. SOURCES/handbook unchanged: no source/runtime change. No restart under STEERING 22 for offline tooling.
+- Next: Nov 5 grouping/NBA AI/cost/latency/screenshots; paid X dispatch remains blocked on a supported cost bound or owner decision.
