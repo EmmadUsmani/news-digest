@@ -4,6 +4,8 @@ Fix failures and stalled sources first. [Completed markers](docs/progress-archiv
 
 ## Immediate owner priorities (STEERING overrides older milestone notes)
 
+- [ ] Triage Nov 3 23:54 UTC Bluesky hourly search HTTP 400; previous 22:54 run succeeded. Search refresh currently handles HTTP 401 only; establish the provider error before changing retry behavior.
+
 - [ ] STEERING 27: World date bounds fixed (428); NBA rejection awaits logs. Hard-exclusion prefilter ships (481); then fewer triage candidates; inactive same-story AI pass restored (482); 195 pairs relabelled (483), old saved output 135/135 precision and 135/157 recall; restored-prompt evaluation passed sampled gate (484): $0.008393/7 calls, labelled precision 141/141, recall 141/157; 14 additional merges reviewed same-story, one borderline/155 merges. No new sources/features before Nov 4 evidence; grouping stays off until checked, then Nov 5 activation if passing. Item 27 overrides older parking/order notes below.
 
 - [ ] STEERING 16 (next implementation): open per-topic X search without handle restrictions; reported engagement/velocity, then budget-permitting story reactions and secondary account lists. Keep caps; item 15's first scheduled run is acknowledged before switching. Report search type, cost/yield and outside-list accounts; finish with real editions/screenshots.
@@ -58,4 +60,4 @@ Fix failures and stalled sources first. [Completed markers](docs/progress-archiv
 - [ ] STEERING 2b (only after 2a is green): record Drizzle decision/schema parity, back up live DB, gradually replace raw SQL behind ports and enforce boundaries.
 
 - [ ] STEERING 24/25 (background while product blocked): [observability plan](docs/observability-plan.md). O1–O10 verified through metadata-only browser errors (442). O8 unavailable counters stay uninferred. O11 tracing requires overhead evidence/decision note; stop CLI/dashboard refinements. Product evidence takes priority.
-  - Memory warning recovery (454): metrics-store resets all expendable caches on startup; oversized saved storage caches survived the previous query-only reset. Iteration 504 lowers the Go target to 48 MiB after renewed memory warning; hard ceiling/alert threshold unchanged. Monitor cache refill.
+  - Memory warning recovery (454): metrics-store resets all expendable caches on startup; oversized saved storage caches survived the previous query-only reset. Iteration 504 lowers the Go target to 48 MiB after renewed memory warning; hard ceiling/alert threshold unchanged. Monitor cache refill. Iteration 512 adds a 128 MiB soft reclaim threshold to the log store after filesystem-cache pressure; hard 160 MiB ceiling unchanged.

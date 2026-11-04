@@ -8,6 +8,7 @@ ExecStart=/opt/news-digest-observability/victoria-logs-prod -httpListenAddr=127.
 Environment=GOMAXPROCS=1 GOMEMLIMIT=100MiB
 Restart=always
 RestartSec=5
+MemoryHigh=128M
 MemoryMax=160M
 CPUQuota=3%
 CPUWeight=10

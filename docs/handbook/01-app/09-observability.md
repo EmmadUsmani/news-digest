@@ -25,7 +25,9 @@ after a crash. Existing journal/container timestamps are retained; plain
 supervisor lines use collection time, including the initial backfill.
 
 `obs-logs` and `obs-shipper` are system units outside the app health gate.
-Their memory limits are 160/80 MiB, CPU quotas 3%/1% of one core, nice level
+The log store starts reclaiming memory at 128 MiB, including filesystem cache;
+reclaim can slow log writes and queries under pressure. Its hard ceiling remains
+160 MiB. The store/shipper memory limits are 160/80 MiB, CPU quotas 3%/1% of one core, nice level
 10 and low CPU/IO weights. The mount helper `obs-log-volume` creates no
 background process. Host metrics and Grafana dashboards are described below.
 

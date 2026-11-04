@@ -163,3 +163,12 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (291 unit/182 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts observability, pnpm obs health --check and git diff --check passed. Docker dangling volumes remain zero.
 - No provider calls, editions, source changes, feature activation or UI/schema changes; screenshots unnecessary. Grouping stays off.
 - Next: monitor memory after cache refill, then review Nov 4 scheduled open-X/Bluesky picks, duration, NBA validation and World posts; conditional grouping activation for Nov 5 only after that review.
+
+## 2026-11-04: iteration 512 — reclaim log-store filesystem cache before hard limit
+
+- Started clean on main; no leftover work. Healthz/root healthy; pending log-store memory warning triggered triage (about 144 MiB, including 98 MiB file cache and 40 MiB anonymous memory).
+- Added systemd MemoryHigh=128M below the unchanged 160 MiB hard ceiling; reclaim may slow log IO. Runtime O2 verification now asserts the deployed threshold. Updated affected handbook/observability plan and TASKS.
+- Installed unit, reloaded systemd and restarted only obs-logs. Fresh journal delivery verified in 2.056 s; all seven log sources present, isolated redaction passed. Post-restart memory about 10–12 MiB, zero automatic restarts; alerts cleared; cache-refill behavior remains unproven.
+- Found Bluesky hourly collection HTTP 400 at Nov 3 23:54 (22:54 succeeded); recorded next-priority triage, without speculative retries. All four queues available/staffed; digest queue zero failures. Ingestion retains two historical failures.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (291 unit/182 isolated integration passed), pnpm build, O2 runtime check, filtered handbook check (17 pages/one unchanged diagram/25 tables), health/root and git diff --check. Docker dangling volumes zero.
+- No paid calls, editions, new sources, app configuration or UI changes. Grouping stays off. Next: diagnose Bluesky error, monitor log cache refill, then Nov 4 scheduled evidence.

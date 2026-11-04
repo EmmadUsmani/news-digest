@@ -444,3 +444,9 @@ isolated SQL tests cover state/time boundaries. Pre-advance scrape history is
 required; schedule edits can warn for canceled runs. Publication integrity remains
 separate. Evaluator remote-write persists rule results and alert state in the existing
 local metric store. No app, database or Redis restart and no provider calls.
+
+O9 resource recovery (512): logs cgroup reached about 144 MiB, including
+98 MiB filesystem cache versus 40 MiB anonymous memory. Set MemoryHigh=128M
+to reclaim before the unchanged 160 MiB ceiling; the Go target alone does not
+control charged filesystem cache. Reclaim may slow log IO; runtime O2 checks
+assert the deployed threshold and fresh journal delivery.

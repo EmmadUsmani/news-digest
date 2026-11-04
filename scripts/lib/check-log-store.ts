@@ -84,6 +84,8 @@ export async function checkLogStore() {
           '-p',
           'MemoryMax',
           '-p',
+          'MemoryHigh',
+          '-p',
           'CPUQuotaPerSecUSec',
           '-p',
           'Nice',
@@ -103,6 +105,8 @@ export async function checkLogStore() {
         .map((line) => line.split('=')),
     );
     assert.equal(fields.ActiveState, 'active');
+    if (unit === 'obs-logs')
+      assert.equal(Number(fields.MemoryHigh), 128 * 1024 * 1024);
     assert.equal(fields.Nice, '10');
     assert.equal(fields.CPUWeight, '10');
     assert.equal(fields.IOWeight, '10');
