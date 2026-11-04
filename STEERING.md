@@ -917,3 +917,33 @@ ceiling.
     round follow per the plan.
 - Remove the blocker from NEEDS_FROM_HUMAN.md, and ack here with round 1's
   numbers.
+
+## 32. Tonight's queue: X schedule switched off, nightly DB backups (2026-11-04)
+
+These go after item 31's round 1 and before the fallback list (item 28).
+1. **Build the new X search schedule now, switched off** (item 30, plan step 3).
+   - Build the fixed A/B schedule (story reactions and topic trending) using
+     the stored per-topic thresholds and exclusions, behind a setting that
+     is **off by default**.
+   - Prepare removal of the old follow-up and optional-slot machinery in the
+     same change, to take effect when the setting flips.
+   - Only the parameters wait for the experiment: style weighting, final
+     thresholds and model.
+   - Switch it on only after the experiment decision is acked. Never between
+     13:00 and 16:00 UTC.
+2. **Nightly database backups (small).**
+   - A worker job, or a systemd timer, running `pg_dump` of `news_digest`
+     nightly, away from 13:00–16:00 UTC.
+     - Compressed custom format.
+     - Written to `~/backups/news-digest/`, mode 700, outside the repo.
+     - Keep 7 days.
+   - **Prove a restore works:** restore the latest dump into a throwaway
+     Postgres container, compare row counts for the main tables, then remove
+     the container. Do this once now, then weekly.
+   - **Alert** (vmalert, item 24) when no successful backup exists in the
+     last 26 hours.
+   - Document it in the handbook Operations page: where backups are, and how
+     to restore.
+   - Backups must not contain or print secrets beyond the data itself.
+   - **Off-VM copies are out of scope.** They need an owner decision on
+     where to store them.
