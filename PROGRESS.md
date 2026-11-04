@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 623 — preserve recording model identity across awaits
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 healthy sources and all 13 monitored services active.
-- Fixed a recording race: model metadata is now captured alongside the invocation fingerprint before awaiting the provider; later caller mutations cannot leave an unreplayable model/fingerprint pair.
-- Added an offline regression mutating both model and prompt during a pending call, then replaying the original request and rejecting the changed request. Updated LLM documentation and TASKS; archived iteration 605 to keep PROGRESS bounded.
-- Verification: targeted recording tests 6/6; pnpm format, pnpm lint:fix, pnpm check (367 unit/205 isolated integration), pnpm build and git diff --check passed.
-- Only the explicit historical recording script imports this adapter; no running-service code/config changes, so no restart under STEERING 22. No paid calls, recordings, prompt changes or production activations.
-- Restarted worker only; final healthz healthy, zero alerts/failed units/dangling volumes. Saved Nov 3 edition still serves 19 real stories/11 X posts. No Postgres/Redis restart.
-- Next: Nov 4 15:00 UTC edition review takes priority; grouping and incremental triage remain off. Real raw-response golden stays open.
-
 ## 2026-11-04: iteration 624 — measure the ideal article-cache remainder
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and no failed digest jobs. Retained 04:54 Bluesky failure is historical; later hourly jobs completed.
@@ -182,3 +172,13 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (385 unit/205 isolated integration), pnpm build and git diff --check passed. An initial format check caught the new archive file; formatted it and reran the full check successfully.
 - API/worker restarted at 14:21 UTC; healthz healthy, zero alerts/failed units/dangling volumes. Saved Nov 3 edition remains four topics/19 stories/11 posts. No Postgres/Redis restart.
 - Next: review Nov 4 15:00 UTC edition for open-X/Bluesky selections, World posts, NBA validation and timing/cost. Incremental triage/grouping stay off pending review.
+
+## 2026-11-04: iteration 641 — measure partially warm triage cache fragmentation
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 healthy sources/13 services, and all four queues available; Nov 4 edition remains pending.
+- Extended offline batching replay with validated warmed candidate IDs, real item-cache preparation using synthetic scores, and separate publication-only request totals. CLI compares cold/prefix-half/alternating-half patterns.
+- Recorded half-warm NBA/World/Tech pools leave 26/23/27 candidates: chunk 50 still needs 2/1/2 calls, chunk 200 needs 1/1/1. Synthetic 200-item pools show identical hit counts can leave two versus four requests depending on placement. These are sensitivity models, not measured hit rates, cost or latency.
+- Five targeted batching tests pass, covering remaining-item accounting, fragmented/prefix caches, all-warm zero work, invalid IDs and cache preservation. Updated TASKS/RANKING; archived iteration 623 to keep PROGRESS bounded.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (386 unit/205 isolated integration), pnpm build and git diff --check passed.
+- Offline tools/tests/docs only; no running code/config changed, so no restart under STEERING 22. No paid calls, prompts, source/handbook/schema changes or production activation.
+- Live saved Nov 3 edition remains four topics/19 stories/11 posts; zero alerts. Next: Nov 4 15:00 UTC evidence review for open-X/Bluesky/World selections, NBA validation and timing/cost before activation decisions.

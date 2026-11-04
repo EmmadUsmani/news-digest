@@ -107,3 +107,50 @@ void test('capacity rounds respect sequential caller passes and partial final pa
     Math.ceil(byteSplit.requestsPerPass[0] / 4),
   );
 });
+
+void test('warm cache placement changes caller barriers without losing remaining candidates', async () => {
+  const topic = { id: 'test', name: 'test', description: '', guidance: '' };
+  const candidates = Array.from({ length: 200 }, (_, i) => ({
+    id: String(i),
+    title: 'Short',
+    excerpt: null,
+    sources: [],
+  }));
+  const clustered = candidates.slice(0, 100).map(({ id }) => id);
+  const scattered = candidates
+    .filter((_, i) => i % 2 === 0)
+    .map(({ id }) => id);
+  const packed = await evaluateTriageBatching(topic, candidates, 50, clustered);
+  const spread = await evaluateTriageBatching(topic, candidates, 50, scattered);
+  assert.deepEqual(packed.requestsPerPass, [0, 0, 1, 1]);
+  assert.deepEqual(spread.requestsPerPass, [1, 1, 1, 1]);
+  for (const row of [packed, spread]) {
+    assert.equal(row.warmedCandidates, 100);
+    assert.equal(row.remainingCandidates, 100);
+    assert.equal(row.scoredItems, 100);
+    assert.equal(row.repeatRequests, 0);
+  }
+  const combined = await evaluateTriageBatching(
+    topic,
+    candidates,
+    200,
+    scattered,
+  );
+  assert.deepEqual(combined.requestsPerPass, [2]);
+  assert.equal(combined.equalDurationRounds[2].rounds, 1);
+  const warm = await evaluateTriageBatching(
+    topic,
+    candidates,
+    200,
+    candidates.map(({ id }) => id),
+  );
+  assert.equal(warm.requests, 0);
+  assert.equal(warm.scoredItems, 0);
+  assert.equal(warm.inputBytes, 0);
+  assert.equal(warm.remainingCandidates, 0);
+  for (const ids of [['missing'], ['0', '0']])
+    await assert.rejects(
+      evaluateTriageBatching(topic, candidates, 200, ids),
+      /Warm IDs/,
+    );
+});

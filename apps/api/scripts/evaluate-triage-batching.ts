@@ -14,11 +14,18 @@ export async function evaluateTriageBatching(
   topic: TriageTopic,
   candidates: TriageCandidate[],
   chunkSize: number,
+  warmedIds: readonly string[] = [],
 ) {
   if (!Number.isInteger(chunkSize) || chunkSize < 1 || chunkSize > 200)
     throw new Error('Chunk size must be 1–200');
   if (new Set(candidates.map((item) => item.id)).size !== candidates.length)
     throw new Error('Duplicate candidate');
+  const candidateIds = new Set(candidates.map((item) => item.id));
+  if (
+    new Set(warmedIds).size !== warmedIds.length ||
+    warmedIds.some((id) => !candidateIds.has(id))
+  )
+    throw new Error('Warm IDs must be unique members of the candidate pool');
   const cache = new Map<string, TriageScore>();
   const requests: {
     items: number;
@@ -94,6 +101,17 @@ export async function evaluateTriageBatching(
     },
     llmConfig({}).haiku,
   );
+  // Populate the real item cache with synthetic scores, then exclude that
+  // preparation from publication request measurements. No paid calls occur.
+  const warmed = new Set(warmedIds);
+  const preparation = candidates.filter((item) => warmed.has(item.id));
+  for (let offset = 0; offset < preparation.length; offset += 200)
+    await triage.score(
+      topic,
+      preparation.slice(offset, offset + 200),
+      'offline-warmup',
+    );
+  requests.length = 0;
   const requestsPerPass: number[] = [];
   const score = async (size: number) => {
     for (let offset = 0; offset < candidates.length; offset += size) {
@@ -113,6 +131,8 @@ export async function evaluateTriageBatching(
   return {
     chunkSize,
     candidates: candidates.length,
+    warmedCandidates: warmedIds.length,
+    remainingCandidates: candidates.length - warmedIds.length,
     requests: coldRequests,
     requestsPerPass: coldPasses,
     // Equal-duration, independent calls only. Caller passes remain sequential.
@@ -146,7 +166,9 @@ export async function evaluateTriageBatching(
   };
 }
 
-export async function recordedTriageBatching() {
+export async function recordedTriageBatching(
+  warmPattern: 'none' | 'prefix-half' | 'alternating-half' = 'none',
+) {
   const results = [];
   for (const name of ['nba', 'world', 'tech']) {
     const window = JSON.parse(
@@ -171,21 +193,35 @@ export async function recordedTriageBatching() {
       description: '',
       guidance: '',
     };
+    const warmedIds = candidates
+      .filter((_, index) =>
+        warmPattern === 'prefix-half'
+          ? index < Math.ceil(candidates.length / 2)
+          : warmPattern === 'alternating-half'
+            ? index % 2 === 0
+            : false,
+      )
+      .map(({ id }) => id);
     for (const size of [10, 25, 50, 200])
       results.push({
         topic: window.topic,
-        ...(await evaluateTriageBatching(topic, candidates, size)),
+        warmPattern,
+        ...(await evaluateTriageBatching(topic, candidates, size, warmedIds)),
       });
   }
   return results;
 }
 
 if (require.main === module) {
-  void recordedTriageBatching().then((results) =>
+  void Promise.all(
+    (['none', 'prefix-half', 'alternating-half'] as const).map(
+      recordedTriageBatching,
+    ),
+  ).then((groups) =>
     console.log(
       JSON.stringify({
         note: 'Recorded excerpts with empty topic guidance and synthetic scores. Bytes are not tokens; output reservations are not usage. Chunk size bounds each sequential caller pass; production still splits internally at 50 items/60,000 conservative bytes and permits four requests per pass. No latency, cost or quality measurement; no production change.',
-        results,
+        results: groups.flat(),
       }),
     ),
   );

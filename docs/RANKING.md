@@ -2504,3 +2504,22 @@ hide the serialization introduced by smaller caller chunks. This does not
 establish the best setting for larger pools or actual arrivals. Synthetic
 regressions cover a partial final pass (201 items), byte-bound splitting,
 empty work and cache-preserving repartitioning. No paid calls or activation.
+
+## Iteration 641: partially warm item caches and caller barriers
+
+`pnpm exec tsx apps/api/scripts/evaluate-triage-batching.ts` now compares
+cold, prefix-half and alternating-half synthetic cache preparation on the same
+three recorded Nov 1 windows. Preparation uses the real item fingerprints but
+synthetic scores, excluded from publication request totals. These patterns are
+sensitivity probes, not observed incremental-triage hit rates or paid usage.
+
+Both half-warm patterns leave NBA 26, World 23 and Tech 27 candidates. At caller
+chunk 50, publication still needs 2/1/2 requests (the cold counts), because
+remaining items straddle caller boundaries. Chunk 200 consolidates each topic
+into one request, versus cold counts 2/1/2. Fewer remaining items alone therefore
+do not establish fewer requests or lower latency. A synthetic 200-item probe
+also shows placement matters: 100 prefix cache hits leave two requests at chunk
+50; 100 alternating hits leave four. All-warm pools make no requests, and
+repartitioned repeat scoring retains every cache hit. No production setting,
+prompt, feature activation or provider call changed; bytes/rounds are not cost
+or live timing evidence.
