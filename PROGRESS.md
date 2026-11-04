@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 620 — optional observability capacity decision
-
-- Started clean on main; no leftover work. Healthz healthy and zero alerts; Nov 4 15:00 UTC edition evidence not yet available.
-- Assessed O11 against 24-hour local metrics: eight units at 422.10 MiB currently, aggregate sampled peak 548.72 MiB; mean CPU 1.435% of one core, maximum five-minute rate 2.550%.
-- Decision 0004 defers tracing and a second proxy, retaining correlation logs/SSH access. Documents reproducible queries, missing samples, restarts/configuration changes, excluded overhead and isolated benchmark criteria; no candidate overhead claim.
-- Updated plan/TASKS and corrected the handbook's stale planned-dashboard/browser-error note. Archived iteration 602 to keep PROGRESS below 25 KB.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts observability and git diff --check passed.
-- Runtime observability check validated 476 structured records; latest immutable Nov 3 edition serves four topics; 36 sources without current errors, no retained failed digest jobs, zero alerts or dangling Docker volumes.
-- Documentation only; no service restart per STEERING 22, no paid calls or source/edition/configuration changes. Handbook reads files per request.
-- Next: Nov 4 scheduled edition review takes priority; grouping and incremental triage stay off pending that review. O11 remains optional/deferred, not installed.
-
 ## 2026-11-04: iteration 621 — deterministic concurrent LLM recordings
 
 - Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources without current errors and no retained failed digest jobs.
@@ -181,3 +170,14 @@
 - Verification: replay assertions, pnpm format, pnpm lint:fix, pnpm check (381 unit/205 isolated integration), pnpm build and git diff --check passed.
 - Restarted worker; healthz healthy, zero alerts/failed units/dangling volumes. Saved Nov 3 edition serves four topics/19 stories/11 posts. No Postgres/Redis restart or paid calls.
 - Next: review Nov 4 15:00 UTC edition for open-X/Bluesky picks, World posts, NBA validation and timing/cost; keep incremental triage/grouping off until review.
+
+## 2026-11-04: iteration 638 — drain failed concurrent triage before releasing admission
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts, 13 healthy services and 36 healthy sources; Nov 4 edition still pending.
+- Fixed thrown provider/cache batch failures returning before sibling calls and cache writes settle. Stop queued batches on exception; await every worker, preserving a single error or aggregating concurrent failures.
+- This keeps background admission and caller resources held through in-flight work; successful sibling results remain cached. Applies to article/social triage without changing prompts, budgets, concurrency or feature settings.
+- Regressions cover one/two thrown failures, delayed successful siblings, retained cache writes and no queued batch starts; targeted triage tests 18/18 passed.
+- Updated TASKS; archived iteration 620 to keep PROGRESS bounded. Internal fix needs no handbook/schema/source update; no paid calls or production activation.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (383 unit/205 isolated integration), pnpm build and git diff --check passed; targeted triage 18/18.
+- API/worker restarted at 14:08 UTC; healthz healthy, zero alerts/failed units/dangling volumes. Saved Nov 3 edition intact: four topics/19 stories/11 posts. No Postgres/Redis restart.
+- Next: review Nov 4 15:00 UTC edition for open-X/Bluesky selections, World social, NBA validation and timing/cost; incremental triage/grouping remain off until review.

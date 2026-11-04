@@ -629,3 +629,75 @@ void test('batch admission stops new work after cache reads and preserves comple
   );
   assert.deepEqual(completed.unscoredIds, []);
 });
+
+for (const failureCount of [1, 2])
+  void test(`triage drains siblings before returning ${failureCount} thrown batch failures`, async () => {
+    const pool = Array.from({ length: 200 }, (_, i) => ({
+      ...candidates[0],
+      id: String(i),
+      excerpt: '\u0000'.repeat(1800),
+    }));
+    const values = new Map<string, unknown>();
+    const releases: (() => void)[] = [];
+    const failure = new Error('cache or provider failed');
+    let calls = 0;
+    const service = new CandidateTriage(
+      {
+        async json(request, validate) {
+          const index = calls++;
+          await new Promise<void>((resolve) => releases.push(resolve));
+          if (index < failureCount) throw failure;
+          return validate({
+            items: JSON.parse(request.prompt).candidates.map(score),
+          });
+        },
+      },
+      {
+        async cached(key) {
+          return values.get(key);
+        },
+        async cache(key, value) {
+          values.set(key, value);
+        },
+      },
+      llmConfig({}).haiku,
+    );
+    let settled = false;
+    const running = service.score(topic, pool, 'failure');
+    const rejected = assert.rejects(running, (error) =>
+      failureCount === 1
+        ? error === failure
+        : error instanceof AggregateError &&
+          error.errors.length === failureCount &&
+          error.errors.every((item) => item === failure),
+    );
+    void running.then(
+      () => {
+        settled = true;
+      },
+      () => {
+        settled = true;
+      },
+    );
+    await new Promise<void>((resolve) => setImmediate(resolve));
+    assert.equal(calls, 4);
+    releases[0]();
+    await new Promise<void>((resolve) => setImmediate(resolve));
+    assert.equal(
+      settled,
+      false,
+      'Caller must retain admission while siblings run',
+    );
+    releases.slice(1).forEach((release) => release());
+    await rejected;
+    assert.equal(
+      calls,
+      4,
+      'Failure stops batches queued beyond the initial four',
+    );
+    assert.ok(
+      values.size > 0,
+      'Successful siblings finish their item cache writes',
+    );
+    assert.ok(values.size < pool.length);
+  });

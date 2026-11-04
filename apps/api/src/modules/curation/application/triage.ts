@@ -231,12 +231,28 @@ export class CandidateTriage {
           break;
         }
         const current = batches[cursor++];
-        if (!(await scoreBatch(current))) stopped = true;
+        try {
+          if (!(await scoreBatch(current))) stopped = true;
+        } catch (error) {
+          stopped = true;
+          throw error;
+        }
       }
     };
-    await Promise.all(
+    // Keep admission and caller resources until every started batch settles,
+    // including cache writes. A thrown failure must not orphan sibling work.
+    const outcomes = await Promise.allSettled(
       Array.from({ length: Math.min(4, batches.length) }, worker),
     );
+    const failures = outcomes.filter(
+      (outcome) => outcome.status === 'rejected',
+    );
+    if (failures.length === 1) throw failures[0].reason;
+    if (failures.length > 1)
+      throw new AggregateError(
+        failures.map((failure): unknown => failure.reason),
+        'Concurrent triage batches failed',
+      );
     return {
       scores: candidates.flatMap((c) => {
         const value = scores.get(c.id);
