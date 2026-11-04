@@ -1,3 +1,5 @@
+import { xPostTime } from '../../apps/api/src/modules/social/domain/x-post-time';
+
 export interface XExperimentEvidence {
   requestId: string;
   topicId: string;
@@ -146,29 +148,40 @@ export function xExperimentReport(calls: XExperimentEvidence[]) {
         throw new Error('Invalid experiment post evidence');
       ids.add(post.id);
     }
-    const likes = call.posts
+    // Decode only missing dates; preserve supplied evidence and report provenance.
+    // An ID timestamp is metadata, not proof that the post exists or was verified.
+    const posts = call.posts.map((post) => ({
+      ...post,
+      publishedAt: post.publishedAt ?? xPostTime(post.id),
+    }));
+    const publicationTime = {
+      supplied: call.posts.filter((post) => post.publishedAt !== null).length,
+      fromPostId: posts.filter(
+        (post, index) =>
+          call.posts[index].publishedAt === null && post.publishedAt !== null,
+      ).length,
+      unknown: posts.filter((post) => post.publishedAt === null).length,
+    };
+    const likes = posts
       .flatMap((post) => (post.likes === null ? [] : [post.likes]))
       .sort((a, b) => a - b);
-    const n = call.posts.length;
+    const n = posts.length;
     const inside = (post: XExperimentEvidence['posts'][number]) =>
       post.publishedAt !== null &&
       Date.parse(post.publishedAt) >= start &&
       Date.parse(post.publishedAt) < end;
-    const inWindow = call.posts.filter(inside).length;
-    const triagePassing = call.posts.filter(
+    const inWindow = posts.filter(inside).length;
+    const triagePassing = posts.filter(
       (post) => post.relevance !== null && post.relevance >= 6,
     ).length;
-    const promotions = call.posts.filter(
-      (post) => post.promotion === true,
-    ).length;
+    const promotions = posts.filter((post) => post.promotion === true).length;
     const unknown = {
-      publishedAt: call.posts.filter((post) => post.publishedAt === null)
-        .length,
+      publishedAt: posts.filter((post) => post.publishedAt === null).length,
       likes: n - likes.length,
-      relevance: call.posts.filter((post) => post.relevance === null).length,
-      promotion: call.posts.filter((post) => post.promotion === null).length,
+      relevance: posts.filter((post) => post.relevance === null).length,
+      promotion: posts.filter((post) => post.promotion === null).length,
     };
-    const eligible = call.posts.filter(
+    const eligible = posts.filter(
       (post) =>
         inside(post) &&
         post.relevance !== null &&
@@ -186,6 +199,7 @@ export function xExperimentReport(calls: XExperimentEvidence[]) {
       costMicros: call.costMicros,
       postsFetched: call.postsFetched,
       returnedPosts: n,
+      publicationTime,
       actualToolCalls: call.actualToolCalls,
       searchExecution: searchExecution(call),
       reportedLikes: {

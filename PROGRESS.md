@@ -1,20 +1,3 @@
-## 2026-11-04: iteration 700 — isolate topic-create browser verification
-
-- Started clean on main; no leftover work. Zero alerts, healthz/database/Redis healthy, 36 healthy sources and no failed retained digest jobs; Nov 5 scheduled evidence still future and paid X dispatch remains blocked on supported cost bound.
-- Replaced topic-create smoke production POSTs, direct SQL deletion and digest generation with browser-only topic replay. Unknown browser API writes are rejected; direct API requests only read live topics/edition for unchanged-state assertions.
-- Kept desktop/mobile required-name, create/reload, source-less display, order and overflow checks. Request counts prove native validation prevents creation. Replay is synthetic browser behavior, not server persistence evidence; isolated HTTP tests retain server coverage.
-- Playwright passed and desktop/mobile screenshots reviewed. No paid calls, production writes or app changes. SOURCES/handbook unchanged; no restart under STEERING 22 because running code is unchanged.
-- Verification: pnpm format, pnpm lint:fix, standalone strict tsc, Playwright, pnpm check (455 unit/209 isolated integration), pnpm build and git diff --check passed. Next: Nov 5 grouping/NBA AI/cost/latency/screenshots; other older topic browser scripts may still need write isolation.
-
-## 2026-11-04: iteration 701 — isolate topic-deletion browser verification
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 active error-free article sources and zero retained failed digest jobs. Latest hourly Bluesky recovery completed; Nov 5 evidence remains future.
-- Replaced topic-delete smoke production creates, source writes, deletes and digest generation with browser-only synthetic topic replay. Unknown browser writes are rejected; direct API requests only read live topics and the saved edition.
-- Desktop/mobile Playwright checks passed: cancel sends no delete, HTTP failure preserves the topic, retry removes it, reload and order remain correct, no overflow. Screenshots updated and reviewed. Server deletion behavior remains covered by isolated HTTP/repository tests; replay is not server-persistence evidence.
-- Verification: `pnpm exec tsx scripts/smoke-topic-delete.ts`, strict tsc with repository path mapping, `pnpm format`, `pnpm lint:fix`, `pnpm check` (455 unit/209 isolated integration), `pnpm build` and `git diff --check` passed. Initial standalone tsc lacked workspace alias/Node type mapping; corrected with a temporary config extending repository settings.
-- Updated TASKS; archived iteration 683 to bound PROGRESS. SOURCES/handbook unchanged for browser verification only. No paid calls or production configuration changes. No restart under STEERING 22: running services do not import this script.
-- Next: Nov 5 grouping/NBA AI/cost/latency/screenshots; paid X experiment blocked on a documented per-call bound. Other older topic browser scripts still need write isolation.
-
 ## 2026-11-04: iteration 702 — isolate topic-reorder browser verification
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 healthy article sources and no failed retained digest jobs. Nov 5 evidence remains future; paid X dispatch still lacks a documented per-call bound.
@@ -131,3 +114,12 @@
 - No HTTP/provider calls for recovery, ingestion, production parameters/models or activation. Updated TASKS and experiment references/review; archived iteration 699. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no runtime/source change or new owner blocker. No restart under STEERING 22; running code unchanged.
 - Verification: private recovery assertions and offline report passed; pnpm format, pnpm lint:fix, pnpm check (470 unit/213 isolated integration), pnpm build, handbook validation and git diff --check passed.
 - Next: second non-overlapping experiment day, then threshold calibration/model comparison within shared caps; Nov 5 grouping/NBA AI/cost/latency/screenshots take priority when due. Fixed A/B remains off.
+
+## 2026-11-04: iteration 714 — recover dates automatically in X experiment reports
+
+- Started clean on main; no leftover work. Zero alerts, healthz/database/Redis green, reader HTTP 200, 36 healthy sources and no failed retained digest runs. Nov 5 scheduled acceptance remains future.
+- Offline reports now fill missing publication times with the existing production Snowflake decoder and count supplied/ID-derived/unknown dates. Supplied dates and input evidence remain unchanged; legacy/invalid/future IDs remain unknown. Date metadata does not establish post existence or official verification.
+- Replayed all 11 settled round-1 calls: exactly 17 automatic recoveries; per-call window/eligible-yield/unknown metrics and the entire comparison match the separate iteration-713 recovery. Saved private automatic-dates-report-714.json (600); originals and admission journal untouched. No paid calls, parameter changes or activation.
+- Verification: targeted report/CLI/comparison tests 23/23; pnpm format, pnpm lint:fix, pnpm check (471 unit/213 isolated integration), pnpm build, handbook validation and git diff --check passed. Initial targeted run caught an overbroad edit of postsFetched; corrected and reran successfully.
+- Updated TASKS and experiment reference; archived iterations 700–701 to bound PROGRESS. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no runtime/source change or new owner blocker. No restart under STEERING 22; running services do not import this offline report.
+- Next: second independent experiment day, threshold calibration/model comparison under shared caps; Nov 5 grouping/NBA AI/cost/latency/screenshots take priority. Production fixed A/B remains off.

@@ -298,3 +298,50 @@ void test('confirmed promotions remain failures beside unreviewed posts in eithe
     assert.equal(xExperimentReport([call])[0].zeroPromotions, null);
   }
 });
+
+void test('missing Snowflake dates measure exact boundaries without changing saved evidence', () => {
+  const call = evidence();
+  const idAt = (time: string) =>
+    ((BigInt(Date.parse(time)) - 1288834974657n) << 22n).toString();
+  call.posts = [
+    call.window.start,
+    call.window.end,
+    '2026-11-03T14:59:59.999Z',
+    '2026-11-04T14:59:59.999Z',
+  ].map((time) => ({
+    id: idAt(time),
+    publishedAt: null,
+    likes: 100,
+    relevance: 8,
+    promotion: false,
+  }));
+  const original = structuredClone(call);
+  const [report] = xExperimentReport([call]);
+  assert.equal(report.inWindow, 2);
+  assert.equal(report.inWindowShare, 0.5);
+  assert.equal(report.eligiblePosts, 2);
+  assert.deepEqual(report.publicationTime, {
+    supplied: 0,
+    fromPostId: 4,
+    unknown: 0,
+  });
+  assert.deepEqual(call, original);
+
+  // Saved times take precedence, even when the ID would imply another window.
+  call.posts[0].publishedAt = call.window.end;
+  call.posts.push({ ...call.posts[0], id: '123', publishedAt: null });
+  call.posts.push({
+    ...call.posts[0],
+    id: '9223372036854775808',
+    publishedAt: null,
+  });
+  const [mixed] = xExperimentReport([call]);
+  assert.equal(mixed.inWindow, 1);
+  assert.equal(mixed.inWindowShare, null);
+  assert.equal(mixed.eligiblePosts, null);
+  assert.deepEqual(mixed.publicationTime, {
+    supplied: 1,
+    fromPostId: 3,
+    unknown: 2,
+  });
+});

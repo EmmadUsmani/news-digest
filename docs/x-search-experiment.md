@@ -46,6 +46,11 @@ evidence cannot erase an observed failure. It separately
 counts returned posts below the threshold and unknown likes. Matching inputs
 and reported counts alone do not prove X honored the operators.
 
+Missing publication times are decoded from modern X Snowflake IDs with the same
+helper as production. Supplied times remain unchanged; `publicationTime` counts
+supplied, ID-derived and unknown dates per call. Legacy, invalid and future IDs
+stay undated. This metadata does not verify post existence or official embeds.
+
 The runner must supply saved triage/review labels; this report creates none.
 All current report tests use synthetic evidence, not live experiment results.
 
