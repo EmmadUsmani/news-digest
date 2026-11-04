@@ -251,9 +251,12 @@ only when its check passes.
     to a rate-limited API endpoint that logs them.
   - **Done when:** a test browser error can be found in the logs.
   - Iteration 442: browser error/rejection listeners, five reports/page and global 20/minute API cap; strict metadata-only reports omit private text. Real Playwright synthetic events reached VictoriaLogs; `--verify-o10` checks retained records read-only. Explicit probe: `scripts/verify-browser-errors.ts`.
-- [ ] **O11 Optional.** Lightweight tracing, or a Caddy front door so the UIs
-      work while the API is down. Only with measured overhead within budget and
-      a decision note.
+- [ ] **O11 Optional, deferred after capacity assessment (620).** Keep correlation
+      logs and SSH fallback. The observed 24-hour aggregate memory peak was
+      548.72 MiB against the approximate 500 MiB target; no additional service
+      is approved by this assessment. See [capacity decision](decisions/0004-observability-capacity.md)
+      for baseline, limitations and criteria for reconsideration. Any tracing
+      or Caddy installation still needs measured marginal overhead within budget.
 
 ## Verification
 

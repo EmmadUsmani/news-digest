@@ -1,15 +1,3 @@
-## 2026-11-04: iteration 602 — Drizzle digest publication transaction
-
-- Started clean on main; no leftover work. Healthy healthz, 36 active sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC review pending.
-- Converted digest publication to a Drizzle-managed repeatable-read transaction on the checked-out client. Scheduled session locking still precedes the snapshot; commit/rollback precedes unlock/release, preserving retry visibility and dedupe.
-- Existing characterization assertions unchanged; logging stub normalizes transaction-command casing. No migration, activation, source change or paid call; owner database grants untouched.
-- Updated TASKS, architecture, decision and handbook stack; archived iteration 587.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes. Direct targeted test invocation was blocked by the isolation guard; full isolated suite passed.
-- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical and LLM/X budget snapshots unchanged. Read-only Playwright rendered all four topics without page errors after correcting the check's topic label; no UI change.
-- Final service snapshot: zero current source errors or failed digest jobs. Metrics-memory warning recurred after testing; restarted the unhealthy metrics service to clear expendable caches, reducing memory from 103 MiB to 34 MiB. Fresh evaluation at 10:04 UTC cleared the alert; final alerts zero.
-- Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters or historical migration baseline. Private pg_dump before first new migration.
-- Push: initial 493be5b push rejected by Git integration with `fatal error in commit_refs_rules`; retry successfully pushed 493be5b without rewriting history.
-
 ## 2026-11-04: iteration 604 — enforce the direct PostgreSQL boundary
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC review pending.
@@ -173,3 +161,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
 - Restarted API/worker outside freeze; healthz healthy and zero alerts. No paid verification calls.
 - Next: Nov 4 15:00 UTC edition review takes priority; verify open-X yield/authors, Bluesky picks/screenshots, World posts, NBA outcome/logs and time. Grouping/incremental triage remain off.
+
+## 2026-11-04: iteration 620 — optional observability capacity decision
+
+- Started clean on main; no leftover work. Healthz healthy and zero alerts; Nov 4 15:00 UTC edition evidence not yet available.
+- Assessed O11 against 24-hour local metrics: eight units at 422.10 MiB currently, aggregate sampled peak 548.72 MiB; mean CPU 1.435% of one core, maximum five-minute rate 2.550%.
+- Decision 0004 defers tracing and a second proxy, retaining correlation logs/SSH access. Documents reproducible queries, missing samples, restarts/configuration changes, excluded overhead and isolated benchmark criteria; no candidate overhead claim.
+- Updated plan/TASKS and corrected the handbook's stale planned-dashboard/browser-error note. Archived iteration 602 to keep PROGRESS below 25 KB.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts observability and git diff --check passed.
+- Runtime observability check validated 476 structured records; latest immutable Nov 3 edition serves four topics; 36 sources without current errors, no retained failed digest jobs, zero alerts or dangling Docker volumes.
+- Documentation only; no service restart per STEERING 22, no paid calls or source/edition/configuration changes. Handbook reads files per request.
+- Next: Nov 4 scheduled edition review takes priority; grouping and incremental triage stay off pending that review. O11 remains optional/deferred, not installed.

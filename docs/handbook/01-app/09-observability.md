@@ -74,8 +74,10 @@ The journal also contains older plain-text entries from earlier versions.
 
 > [!NOTE]
 > Structured API/worker logging and local log collection are installed.
-> Additional dashboards and browser error reporting remain planned.
-> See the [approved observability plan](../../observability-plan.md).
+> Dashboards and bounded browser error reporting are installed (described below).
+> Tracing and an independent proxy are deferred; correlation IDs and SSH forwards
+> remain the diagnostic and outage-access paths. See the
+> [capacity decision](../../decisions/0004-observability-capacity.md).
 
 xAI outcomes include response parsing and usage validation. Failed attempts have no
 inferred usage; configured prices and settled costs stay in the discovery ledger.
