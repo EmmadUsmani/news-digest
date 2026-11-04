@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 635 — replay rotating topic capacity offline
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources without current errors and four available queues with no failed retained runs. Nov 4 evidence remains pending.
-- Added optional rotating topic slots to the offline replay, with per-phase metadata/pass counts and validated positions; existing independent scheduling stays the default.
-- Compared thresholds 1/10/25 across four positions with hourly global ticks, 25-item cap and two-hour cutoff. World leaves all 47 candidates for publication in two positions at threshold 25; per-topic envelopes are not aggregate edition estimates.
-- Synthetic responses use real request/cache logic; all final candidates scored once. Publication times remain arrival proxies; waste, cost, provider duration and real timer/admission behavior remain unknown. No paid calls or production activation.
-- Updated TASKS/RANKING; archived iteration 617 to keep PROGRESS bounded. No system behavior or handbook change.
-- Verification: targeted replay tests 12/12, aggregate replay assertions, pnpm format, pnpm lint:fix, pnpm check (379 unit/205 isolated integration), pnpm build and git diff --check passed.
-- Restarted worker only; healthz/alerts and saved Nov 3 edition (four topics/19 stories/11 posts) verified. No Postgres/Redis restart; zero dangling volumes/failed units.
-- Next: review Nov 4 15:00 UTC open-X/Bluesky selections, World posts, NBA validation and timing/cost; keep incremental triage/grouping off until review.
-
 ## 2026-11-04: iteration 636 — enforce background cutoff before scorer batches
 
 - Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 healthy sources and 13 healthy services. Retained historical social failures coexist with successful current collection; Nov 4 edition evidence remains pending.
@@ -163,3 +152,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (395 unit/206 isolated integration), pnpm build, edition-pipeline handbook check (17 pages/one unchanged diagram/25 tables), git diff --check. Initial format check caught the newly archived entry; formatted it and reran check.
 - Restarted API/worker; healthz database/Redis healthy, saved four-topic Nov 4 edition readable, zero alerts/failed user units/dangling Docker volumes.
 - Next: Nov 5 real grouping admission/cost/accuracy, persisted coverage, latency and desktop/mobile screenshots; NBA full-AI and World/open-X quality remain open.
+
+## 2026-11-04: iteration 651 — correct low-quality open-X discovery instructions
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources with recent successful ingestion/no current errors and readable four-topic Nov 4 edition.
+- Acted on Nov 4's 0/19 selected paid discoveries: shared X prompt excludes betting/tipster promotions, memberships, affiliate offers, engagement requests and generic roundups; seeks concrete original topic content and distinct moments, allowing fewer or zero results instead of filler.
+- Models/providers, search/turn/result limits, official verification, exact window and budget caps unchanged. No paid calls, new edition, source requests or UI changes; actual yield improvement remains unproven.
+- Extended prompt/transport fixture coverage; empty results preserve fetched-post usage without adapter retry. Initial direct whole-file test hit five isolation guards; no live DB access occurred. Correctly scoped adapter tests passed 4/4; full isolated suite then passed.
+- Updated TASKS/SOURCES; archived iteration 635 to keep PROGRESS bounded. Handbook system flow unchanged by this discovery bug fix.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (395 unit/207 isolated integration), pnpm build and git diff --check passed.
+- Restarted API/worker: both active; healthz database/Redis healthy, saved four-topic edition readable, zero alerts/failed user services/dangling Docker volumes.
+- Next: measure scheduled discovery quality and immutable picks; Nov 5 grouping admission/cost/accuracy/latency/screenshots, NBA full-AI and World coverage remain open.

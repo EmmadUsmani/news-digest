@@ -86,6 +86,13 @@ void test('open X discovery omits account restrictions and accepts cited outside
     body.input[0].content,
     /crypto, giveaways and routine news reposts/,
   );
+  assert.match(
+    body.input[0].content,
+    /Exclude betting picks, odds, tipster promotions/,
+  );
+  assert.match(body.input[0].content, /first-hand world-event reporting/);
+  assert.match(body.input[0].content, /including an empty array/);
+  assert.match(body.input[0].content, /never pad/);
   const response = fixture();
   response.output[0].content[0].annotations = [
     {
@@ -106,6 +113,23 @@ void test('open X discovery omits account restrictions and accepts cited outside
   );
   assert.equal(result.usage.postsFetched, 12);
   assert.equal(result.usage.profilesFetched, 1);
+});
+
+void test('an empty quality-filtered X result retains fetched-post charges without retrying', async () => {
+  const response = fixture();
+  response.output[0].content[0].text = '[]';
+  response.output[0].content[0].annotations = [];
+  let calls = 0;
+  const adapter = new DirectXSearch('offline-fixture', async () => {
+    calls++;
+    return new Response(JSON.stringify(response));
+  });
+  const result = await adapter.search({ ...request, handles: undefined });
+  assert.deepEqual(result.links, []);
+  assert.deepEqual(result.reportedEngagement, []);
+  assert.equal(result.usage.postsFetched, 12);
+  assert.equal(result.usage.inputTokens, 1000);
+  assert.equal(calls, 1);
 });
 
 void test('X request restricts accounts, whole UTC dates, one round, model and media; validates before HTTP', async () => {

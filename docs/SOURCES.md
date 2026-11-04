@@ -1890,3 +1890,19 @@ The first selected Bluesky post appears in Tech with observed 767 likes,
 screenshots and the current 11/10/12/11 account-list readback are recorded in
 the review. Discovery counts do not establish viral yield or paid-search value.
 No source, search prompt, configuration or budget changed.
+
+## Open-X quality correction — iteration 651 (2026-11-04)
+
+After the immutable review found 0/19 paid discoveries selected, tightened the
+shared direct-search prompt to exclude betting/tipster promotions, memberships,
+affiliate offers, engagement requests and generic hashtag roundups. It asks for
+concrete original topic content and distinct moments, and explicitly permits
+fewer results or an empty array rather than filler or out-of-window posts.
+This changes discovery instructions, not a keyword filter or editorial acceptance.
+
+The model, one-search/one-turn limit, five-result ceiling, date bounds, official
+oEmbed verification and spending caps are unchanged. Synthetic transport checks
+confirm empty results still report fetched-post usage without adapter retries.
+No paid evaluation or new collection ran; the next scheduled search and immutable
+edition must establish whether useful yield improves. This is not evidence of
+viral yield or resolved World coverage.
