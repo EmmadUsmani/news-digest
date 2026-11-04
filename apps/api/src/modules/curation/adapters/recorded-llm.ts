@@ -13,10 +13,10 @@ const recordSchema = z.object({
   response: z.object({
     text: z.string(),
     usage: z.object({
-      input: z.number().int().nonnegative(),
-      cacheWrite: z.number().int().nonnegative(),
-      cacheRead: z.number().int().nonnegative(),
-      output: z.number().int().nonnegative(),
+      input: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER),
+      cacheWrite: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER),
+      cacheRead: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER),
+      output: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER),
     }),
   }),
 });

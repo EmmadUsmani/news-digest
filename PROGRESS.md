@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 612 — typed curation clocks and advisory locks
-
-- Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC edition review remains pending.
-- Converted curation clock reads and session/transaction advisory-lock statements to Drizzle select builders; a singleton VALUES source executes each PostgreSQL function once. Preserved database wall clock, shared client/lock scope, contention and cleanup behavior.
-- Typecheck caught unsupported FROM-less projections; corrected with the singleton source. Updated logging stub for Drizzle array rows; all assertions and repository characterization tests unchanged.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes. Targeted reserve-logging test passed after stub correction.
-- Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical, Anthropic/X spend unchanged. Read-only Playwright rendered four real saved topics without page errors; 36 sources without current errors, zero failed digest jobs and zero alerts.
-- Updated TASKS and ORM decision; archived iteration 597 to keep PROGRESS bounded. No migration, source, activation, owner grant or paid call changes; no handbook system behavior changed.
-- Next: prioritize Nov 4 edition review; otherwise remaining digest/social lock statements and final raw-SQL audit. Keep private backups before new migrations and preserve owner grants.
-
 ## 2026-11-04: iteration 613 — typed digest and social advisory locks
 
 - Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC edition review remains pending.
@@ -174,3 +164,13 @@
 - Verification: targeted output tests 5/5 and offline CLI; pnpm format, pnpm lint:fix, pnpm check (376 unit/205 isolated integration), pnpm build and git diff --check passed. Final healthz healthy, zero alerts and zero dangling Docker volumes.
 - Offline tool only; no running-service code/config changed, so no restart under STEERING 22. Grouping and incremental triage remain off.
 - Next: review Nov 4 15:00 UTC edition for social picks, NBA validation, timing/cost and completion metadata.
+
+## 2026-11-04: iteration 630 — reject inexact replay token counts
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts and no failed user services. Nov 4 scheduled evidence remains pending.
+- Recording/replay fixture validation now rejects token counts above JavaScript's safe-integer boundary instead of accepting inexact usage metadata.
+- Added synthetic regressions for all four usage fields: negative, fractional, non-finite and unsafe values fail closed; the maximum safe integer round-trips. Rejected recordings leave no partial record. No paid calls or fixture re-recording.
+- Updated TASKS; archived iteration 612 to keep PROGRESS bounded. No production wiring, prompt, source, setting or handbook behavior changes.
+- Verification: targeted replay tests 8/8; pnpm format, pnpm lint:fix, pnpm check (377 unit/205 isolated integration), pnpm build and git diff --check passed. Initial format check caught archived-entry whitespace; corrected before rerunning check.
+- Final healthz healthy, zero alerts and zero dangling Docker volumes. Offline adapter only: no service restart under STEERING 22; grouping/incremental triage remain off.
+- Next: review Nov 4 15:00 UTC edition for social picks, NBA validation and live timing/cost.

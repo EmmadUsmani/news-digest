@@ -233,3 +233,65 @@ void test('recording isolates delayed provider inputs from caller mutations', as
   assert.equal((await replay.complete(request)).text, request.prompt);
   await assert.rejects(replay.complete(mutable), /Missing LLM replay/);
 });
+
+void test('recording and replay reject inexact or invalid token usage', async () => {
+  for (const field of ['input', 'cacheWrite', 'cacheRead', 'output'] as const) {
+    for (const invalid of [
+      -1,
+      0.5,
+      Number.MAX_SAFE_INTEGER + 1,
+      Infinity,
+      NaN,
+    ]) {
+      const response = {
+        text: 'Synthetic response',
+        usage: {
+          input: 0,
+          cacheWrite: 0,
+          cacheRead: 0,
+          output: 0,
+          [field]: invalid,
+        },
+      };
+      const recorder = new RecordingLlmAdapter({
+        complete: () => Promise.resolve(response),
+      });
+      await assert.rejects(recorder.complete(request));
+      assert.deepEqual(
+        recorder.snapshot('Synthetic invalid usage').records,
+        [],
+      );
+      assert.throws(
+        () =>
+          new ReplayLlmAdapter({
+            version: 1,
+            provenance: 'Synthetic invalid usage',
+            records: [
+              {
+                fingerprint: llmFingerprint(request),
+                model: request.model.id,
+                response,
+              },
+            ],
+          }),
+      );
+    }
+  }
+  const response = {
+    text: 'Synthetic boundary response',
+    usage: {
+      input: Number.MAX_SAFE_INTEGER,
+      cacheWrite: 0,
+      cacheRead: 0,
+      output: 0,
+    },
+  };
+  const recorder = new RecordingLlmAdapter({
+    complete: () => Promise.resolve(response),
+  });
+  await recorder.complete(request);
+  const replay = new ReplayLlmAdapter(
+    recorder.snapshot('Synthetic exact boundary'),
+  );
+  assert.deepEqual(await replay.complete(request), response);
+});
