@@ -1,6 +1,16 @@
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
+import { and, asc, DrizzleQueryError, eq, exists, sql } from 'drizzle-orm';
+import { drizzle } from 'drizzle-orm/node-postgres';
 
 import { database } from '../../../libs/db/connections';
+import {
+  contentItems,
+  contentObservations,
+  contentSources,
+  topics,
+  topicSourceConnections,
+  xLinkCitations,
+} from '../../../libs/db/schema';
 import { ContentItem, ContentRepository, Source } from '../domain/ports';
 import { extractXLinks } from '../domain/x-links';
 @Injectable()
@@ -9,90 +19,152 @@ export class PostgresContentRepository
   implements OnModuleDestroy
 {
   readonly db = database();
+  private readonly orm = drizzle(this.db);
   async sources(): Promise<Source[]> {
-    return (
-      await this.db.query(
-        `SELECT s.id,s.topic_id AS "topicId",s.name,s.kind,s.url FROM content_sources s WHERE EXISTS (SELECT 1 FROM topic_source_connections c JOIN topics t ON t.id=c.topic_id WHERE c.source_id=s.id AND t.enabled) ORDER BY s.id`,
+    return this.orm
+      .select({
+        id: contentSources.id,
+        topicId: contentSources.topicId,
+        name: contentSources.name,
+        kind: contentSources.kind,
+        url: contentSources.url,
+      })
+      .from(contentSources)
+      .where(
+        exists(
+          this.orm
+            .select({ id: topicSourceConnections.sourceId })
+            .from(topicSourceConnections)
+            .innerJoin(topics, eq(topics.id, topicSourceConnections.topicId))
+            .where(
+              and(
+                eq(topicSourceConnections.sourceId, contentSources.id),
+                eq(topics.enabled, true),
+              ),
+            ),
+        ),
       )
-    ).rows;
+      .orderBy(asc(contentSources.id)) as Promise<Source[]>;
   }
   async store(source: Source, items: ContentItem[]) {
-    const client = await this.db.connect();
-    try {
-      await client.query('BEGIN');
-      for (const item of items) {
-        const row = await client.query(
-          `INSERT INTO content_items(canonical_url,title,excerpt,author,published_at,image_url,engagement) VALUES($1,$2,$3,$4,$5,$6,$7) ON CONFLICT(canonical_url) DO UPDATE SET title=EXCLUDED.title,excerpt=EXCLUDED.excerpt,engagement=content_items.engagement || EXCLUDED.engagement RETURNING id`,
-          [
-            item.url,
-            item.title,
-            item.excerpt,
-            item.author,
-            item.publishedAt,
-            item.imageUrl,
-            item.engagement,
-          ],
-        );
-        await client.query(
-          'INSERT INTO content_observations(source_id,item_id) VALUES($1,$2) ON CONFLICT DO NOTHING',
-          [source.id, row.rows[0].id],
-        );
-        // Revalidate at the persistence boundary; source content is untrusted.
-        const links = extractXLinks(
-          [
-            item.url,
-            ...(item.xLinks ?? []).map(
-              (link) => link.verificationUrl ?? link.url,
-            ),
-          ].join(' '),
-        );
-        for (const link of links) {
-          await client.query(
-            `INSERT INTO x_link_citations(external_id,item_id,source_id,canonical_url,citing_engagement,verification_url)
-             VALUES($1,$2,$3,$4,$5,$6) ON CONFLICT(external_id,item_id,source_id)
-             DO UPDATE SET last_seen_at=now(),citing_engagement=EXCLUDED.citing_engagement,verification_url=COALESCE(EXCLUDED.verification_url,x_link_citations.verification_url)`,
+    await this.orm
+      .transaction(async (tx) => {
+        for (const item of items) {
+          const [row] = await tx
+            .insert(contentItems)
+            .values({
+              canonicalUrl: item.url,
+              title: item.title,
+              excerpt: item.excerpt,
+              author: item.author,
+              publishedAt: item.publishedAt,
+              imageUrl: item.imageUrl,
+              engagement: item.engagement,
+            })
+            .onConflictDoUpdate({
+              target: contentItems.canonicalUrl,
+              set: {
+                title: sql`excluded.title`,
+                excerpt: sql`excluded.excerpt`,
+                engagement: sql`${contentItems.engagement} || excluded.engagement`,
+              },
+            })
+            .returning({ id: contentItems.id });
+          await tx
+            .insert(contentObservations)
+            .values({ sourceId: source.id, itemId: row.id })
+            .onConflictDoNothing();
+          // Revalidate at the persistence boundary; source content is untrusted.
+          const links = extractXLinks(
             [
-              link.externalId,
-              row.rows[0].id,
-              source.id,
-              link.url,
-              item.engagement,
-              link.verificationUrl ?? null,
-            ],
+              item.url,
+              ...(item.xLinks ?? []).map(
+                (link) => link.verificationUrl ?? link.url,
+              ),
+            ].join(' '),
           );
+          for (const link of links) {
+            await tx
+              .insert(xLinkCitations)
+              .values({
+                externalId: link.externalId,
+                itemId: row.id,
+                sourceId: source.id,
+                canonicalUrl: link.url,
+                citingEngagement: item.engagement,
+                verificationUrl: link.verificationUrl ?? null,
+              })
+              .onConflictDoUpdate({
+                target: [
+                  xLinkCitations.externalId,
+                  xLinkCitations.itemId,
+                  xLinkCitations.sourceId,
+                ],
+                set: {
+                  lastSeenAt: sql`now()`,
+                  citingEngagement: sql`excluded.citing_engagement`,
+                  verificationUrl: sql`coalesce(excluded.verification_url, ${xLinkCitations.verificationUrl})`,
+                },
+              });
+          }
         }
-      }
-      await client.query(
-        'UPDATE content_sources SET last_attempt=now(),last_success=now(),last_error=NULL,last_item_count=$2 WHERE id=$1',
-        [source.id, items.length],
-      );
-      await client.query('COMMIT');
-    } catch (error) {
-      await client.query('ROLLBACK');
-      throw error;
-    } finally {
-      client.release();
-    }
+        await tx
+          .update(contentSources)
+          .set({
+            lastAttempt: sql`now()`,
+            lastSuccess: sql`now()`,
+            lastError: null,
+            lastItemCount: items.length,
+          })
+          .where(eq(contentSources.id, source.id));
+      })
+      .catch((error: unknown) => {
+        if (error instanceof DrizzleQueryError && error.cause)
+          throw error.cause;
+        throw error;
+      });
   }
   async failed(source: Source, message: string) {
-    await this.db.query(
-      'UPDATE content_sources SET last_attempt=now(),last_error=$2 WHERE id=$1',
-      [source.id, message.slice(0, 300)],
-    );
+    await this.orm
+      .update(contentSources)
+      .set({ lastAttempt: sql`now()`, lastError: message.slice(0, 300) })
+      .where(eq(contentSources.id, source.id));
   }
   async latest() {
     return (
-      await this.db.query(
-        `SELECT t.id AS "topicId", COALESCE((SELECT jsonb_agg(r) FROM (SELECT i.id,i.title,i.canonical_url AS url,i.published_at AS "publishedAt", min(s.name) AS source FROM content_items i JOIN content_observations o ON o.item_id=i.id JOIN content_sources s ON s.id=o.source_id JOIN topic_source_connections c ON c.source_id=s.id WHERE c.topic_id=t.id AND i.canonical_url NOT LIKE '%/betting/%' GROUP BY i.id ORDER BY i.published_at DESC LIMIT 5) r),'[]') AS items FROM topics t WHERE t.enabled ORDER BY t.position`,
-      )
-    ).rows;
+      // Nested per-topic top-five JSON aggregation preserves PostgreSQL timestamp JSON
+      // and aggregation semantics that the query builder cannot express directly.
+      (
+        await this.orm.execute(
+          sql`SELECT t.id AS "topicId", COALESCE((SELECT jsonb_agg(r) FROM (SELECT i.id,i.title,i.canonical_url AS url,i.published_at AS "publishedAt", min(s.name) AS source FROM content_items i JOIN content_observations o ON o.item_id=i.id JOIN content_sources s ON s.id=o.source_id JOIN topic_source_connections c ON c.source_id=s.id WHERE c.topic_id=t.id AND i.canonical_url NOT LIKE '%/betting/%' GROUP BY i.id ORDER BY i.published_at DESC LIMIT 5) r),'[]') AS items FROM topics t WHERE t.enabled ORDER BY t.position`,
+        )
+      ).rows
+    );
   }
   async status() {
-    return (
-      await this.db.query(
-        `SELECT s.id,s.name,s.url,s.topic_id AS "topicId",s.last_attempt AS "lastAttempt",s.last_success AS "lastSuccess",s.last_error AS error,s.last_item_count AS "lastItemCount",count(o.item_id)::int AS "storedItems" FROM content_sources s LEFT JOIN content_observations o ON o.source_id=s.id GROUP BY s.id ORDER BY s.id`,
+    return this.orm
+      .select({
+        id: contentSources.id,
+        name: contentSources.name,
+        url: contentSources.url,
+        topicId: contentSources.topicId,
+        lastAttempt: sql`${contentSources.lastAttempt}`.mapWith(
+          (value: string) => new Date(value),
+        ),
+        lastSuccess: sql`${contentSources.lastSuccess}`.mapWith(
+          (value: string) => new Date(value),
+        ),
+        error: contentSources.lastError,
+        lastItemCount: contentSources.lastItemCount,
+        storedItems: sql<number>`count(${contentObservations.itemId})::int`,
+      })
+      .from(contentSources)
+      .leftJoin(
+        contentObservations,
+        eq(contentObservations.sourceId, contentSources.id),
       )
-    ).rows;
+      .groupBy(contentSources.id)
+      .orderBy(asc(contentSources.id));
   }
   async onModuleDestroy() {
     await this.db.end();

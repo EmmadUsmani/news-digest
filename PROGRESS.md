@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 562 — characterize equal-time Bluesky conflicts
-
-- Started clean on main; no leftover work. Healthz passed, all 36 sources have no current errors, digest queue has zero failed jobs and alerts are clear. Nov 4 scheduled evidence remains pending.
-- Added isolated repository regression: equal-time conflicts preserve first current metadata and independently preserve each topic's first snapshot; missing media normalizes to an empty current array. A one-millisecond-newer observation leaves the other topic's history unchanged.
-- Initial verification caught documentation formatting and an invalid synthetic post ID; both corrected. No production code changes or provider requests.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/194 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes. Final alerts clear.
-- Updated TASKS/database verification notes and archived iteration 543 to keep PROGRESS small. No restart under STEERING 22: running code/config unchanged.
-- Next: prioritize Nov 4 15:00 UTC edition review; grouping and incremental triage remain gated. Repository characterization and recorded-response golden remain open.
-
 ## 2026-11-04: iteration 563 — characterize Bluesky topic lifecycle
 
 - Started clean on main; no leftover work. Healthz passed, 36 sources healthy, no failed digest jobs and zero alerts; retained source/social failures are historical. Nov 4 scheduled review remains pending.
@@ -166,3 +157,13 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, handbook stack check and git diff --check passed; X-search statement coverage 100%, zero dangling Docker volumes.
 - Rebuilt/restarted API and worker outside the freeze; both active, healthz healthy, root HTTP 200, latest real edition byte-identical across restart, 36 error-free sources and zero failed digest jobs/alerts.
 - Archived iteration 561 to keep PROGRESS bounded. Next: prioritize Nov 4 scheduled review when due; otherwise historical migration baseline or remaining individual ORM adapters. Private pg_dump before first new migration.
+
+## 2026-11-04: iteration 579 — convert ingestion repository to Drizzle
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 healthy sources and no failed digest jobs; Nov 4 scheduled review remains pending.
+- Converted source eligibility/health reads and transactional item, observation and X citation upserts to Drizzle. Nested top-five JSON aggregation retains a documented SQL template; atomic rollback, engagement merging and citation validation preserved.
+- Existing characterization assertions unchanged. First integration run caught timestamp decoding and wrapped PostgreSQL errors; fixed Date mapping and error-cause propagation before final green run.
+- Updated TASKS, architecture, decision and handbook stack; archived iteration 562. No migration, source/feature activation, UI change or paid call.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, handbook stack check and git diff --check passed.
+- Rebuilt/restarted API and worker outside freeze; both active, healthz healthy and root HTTP 200. Converted live reads return five articles per topic, 36 error-free sources/3,357 observations, unchanged published edition bytes, zero alerts and zero dangling Docker volumes.
+- Next: prioritize Nov 4 scheduled review when due; otherwise historical migration baseline or remaining ORM adapters. Private pg_dump before first new migration.

@@ -80,3 +80,9 @@ migrations and take a private `pg_dump` backup before the first new migration.
 Keep owner read-only/read-write grants intact. Convert remaining repositories
 one at a time, retaining the unchanged 2a suite; enforce the final direct-pg ban
 only once legacy adapters have been removed.
+
+The ingestion adapter uses typed transactional upserts for items, observations
+and X citations, plus typed source eligibility and health reads. Its nested
+per-topic top-five JSON aggregation uses a documented Drizzle SQL template to
+preserve PostgreSQL JSON timestamp representation and grouping semantics.
+Existing ingestion characterization tests remain unchanged.
