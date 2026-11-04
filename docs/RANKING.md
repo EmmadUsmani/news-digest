@@ -2060,3 +2060,20 @@ window above. Inputs contain current article text and stay outside git.
 Neither observation is the final edition pool. No background scores, cache
 hits, paid-work waste, cost or latency were measured. Incremental triage remains
 off; final-pool joins to observed scoring are still required after activation.
+
+## Iteration 544: attribute prospective cache invalidation
+
+`compare-triage-cache.ts` now partitions changed retained fingerprints into
+article-only, topic-only and combined article/topic changes. It computes
+counterfactual keys through the production triage implementation: old articles
+with new topic instructions, and new articles with old topic instructions.
+This respects prompt truncation and avoids treating every raw field edit as
+an invalidation. The three counts sum to changed retained fingerprints;
+removed or newly ineligible items remain in the separate loss counts.
+
+Replaying the iteration 543 inputs attributes all eight changed keys to article
+inputs (Tech 2, World 6); topic-only and combined counts are zero. Private output:
+`/tmp/triage-cache-544.json`, using the reproduction command above. Five offline
+regressions cover isolated/combined changes, ignored truncated text, eligibility
+loss and reconciliation. These are prospective key comparisons, not actual
+scored-work waste or paid-call evidence. No activation or provider requests.

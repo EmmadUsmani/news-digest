@@ -76,6 +76,32 @@ export async function compareTriageCache(
   const membership = comparePools(before, after);
   const oldKeys = await fingerprints(before, model);
   const newKeys = await fingerprints(after, model);
+  const beforeCapture = schema.parse(before);
+  const afterCapture = schema.parse(after);
+  // Counterfactual keys use the real triage identity, including its truncation.
+  // Raw field differences alone do not establish cache invalidation.
+  const topicOnlyKeys = await fingerprints(
+    {
+      pools: beforeCapture.pools.map((pool) => ({
+        ...pool,
+        topic:
+          afterCapture.pools.find((p) => p.topic.id === pool.topic.id)?.topic ??
+          pool.topic,
+      })),
+    },
+    model,
+  );
+  const articleOnlyKeys = await fingerprints(
+    {
+      pools: afterCapture.pools.map((pool) => ({
+        ...pool,
+        topic:
+          beforeCapture.pools.find((p) => p.topic.id === pool.topic.id)
+            ?.topic ?? pool.topic,
+      })),
+    },
+    model,
+  );
   return {
     ...membership,
     model,
@@ -87,10 +113,25 @@ export async function compareTriageCache(
       const compatible = [...previous].filter(
         ([id, key]) => current.get(id) === key,
       ).length;
+      const causes = { articleOnly: 0, topicOnly: 0, articleAndTopic: 0 };
+      for (const [id, key] of previous) {
+        if (!current.has(id) || current.get(id) === key) continue;
+        const topicChanged = topicOnlyKeys.get(topic.topicId)?.get(id) !== key;
+        const articleChanged =
+          articleOnlyKeys.get(topic.topicId)?.get(id) !== key;
+        if (topicChanged && articleChanged) causes.articleAndTopic++;
+        else if (topicChanged) causes.topicOnly++;
+        else if (articleChanged) causes.articleOnly++;
+        else
+          throw new Error(
+            'Changed fingerprint has no attributable input change',
+          );
+      }
       return {
         ...topic,
         compatibleFingerprints: compatible,
         changedRetainedFingerprints: topic.retainedEligible - compatible,
+        changedFingerprintCauses: causes,
         potentiallyUnusablePriorFingerprints: previous.size - compatible,
       };
     }),

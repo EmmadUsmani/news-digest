@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 524 — serialize prepared background triage and enforce cutoff
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 error-free sources and four available queues. Nov 4 scheduled review remains pending.
-- Prepared worker-local runner skips overlapping ticks before pool loading; one shared instance serializes all topics. It checks current schedule/clock before and after pool loading and again before scoring after cache reads; exact cutoff refuses scoring. In-flight calls may finish.
-- Fake regressions cover concurrent ticks, schedule changes across cache reads, cutoff retries and loader/cache/provider/configuration failures releasing admission. No timer wiring, cross-process lock, activation or paid calls; eligible-pool/waste measurement remains open.
-- Updated TASKS/RANKING; archived iterations 483–504 to keep PROGRESS under 25 KB. No source/schema/UI or handbook flow changes; screenshots unnecessary.
-- Verification: targeted runner/replay tests 10/10; pnpm format, pnpm lint:fix and pnpm build passed. pnpm check passed (310 unit/183 isolated integration), git diff --check and live root/healthz/status passed; zero alerts and no dangling Docker volumes. Initial check caught archive formatting; corrected and reran.
-- Services left running under STEERING 22: the new runner is not imported by running code, and existing runtime code/config is unchanged. Next: scheduler wiring and pool evidence; Nov 4 edition review takes priority.
-
 ## 2026-11-04: iteration 525 — capture prospective eligible triage pools
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 error-free sources and four available queues. Nov 4 review remains pending.
@@ -173,3 +164,12 @@
 - Updated TASKS/RANKING with counts, interpretation and limits. No source/schema/UI or handbook flow changes; no restart under STEERING 22 because running code/config is unchanged.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (350 unit/186 isolated integration), pnpm build and git diff --check passed; root HTTP 200, healthy healthz, zero dangling Docker volumes.
 - Next: Nov 4 scheduled review first; gated worker connection and actual scoring/final-pool waste evidence thereafter.
+
+## 2026-11-04: iteration 544 — attribute prospective cache invalidation
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 successful sources without current errors and no failed digest jobs. Two retained historical ingestion failures remain; Nov 4 review is pending.
+- Offline cache comparator partitions changed retained keys into article-only, topic-only and combined causes using production-key counterfactuals, respecting prompt truncation. Five targeted tests pass, including reconciliation and eligibility loss.
+- Replayed private 525/543 captures to `/tmp/triage-cache-544.json`: all eight changes are article-only (2 Tech/6 World); zero topic-only or combined. No actual scored-work waste, cost, latency, activation or paid calls.
+- Updated TASKS/RANKING and archived iteration 524 to keep PROGRESS small. No source/schema/UI or handbook flow changes. No restart under STEERING 22 because running code/config is unchanged.
+- Next: Nov 4 scheduled review first, then gated worker connection and actual scoring/final-pool waste measurements.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (351 unit/186 isolated integration), pnpm build, targeted comparator tests (5/5) and git diff --check passed; root HTTP 200, healthy healthz and zero alerts.

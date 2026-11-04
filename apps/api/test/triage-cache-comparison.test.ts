@@ -114,3 +114,34 @@ void test('excerpt, source and required-phrase changes invalidate the production
     3,
   );
 });
+
+void test('invalidation causes reconcile using production keys rather than raw field changes', async () => {
+  const before = capture(1);
+  const after = capture(2);
+  after.pools[0].topic.description = 'Updated topic';
+  after.pools[0].candidates[0].title = 'Updated title';
+  before.pools[0].candidates[1].excerpt = 'x'.repeat(10000) + 'before';
+  after.pools[0].candidates[1].excerpt = 'x'.repeat(10000) + 'after';
+  after.pools[0].candidates[2].triageEligible = false;
+  const topic = (await compareTriageCache(before, after, 'fixture-model'))
+    .topics[0];
+  assert.deepEqual(topic.changedFingerprintCauses, {
+    articleOnly: 0,
+    topicOnly: 1,
+    articleAndTopic: 1,
+  });
+  assert.equal(
+    Object.values(topic.changedFingerprintCauses).reduce((a, b) => a + b, 0),
+    topic.changedRetainedFingerprints,
+  );
+  assert.equal(topic.potentiallyUnusablePriorFingerprints, 3);
+  after.pools[0].topic.description = before.pools[0].topic.description;
+  const article = (await compareTriageCache(before, after, 'fixture-model'))
+    .topics[0];
+  assert.deepEqual(article.changedFingerprintCauses, {
+    articleOnly: 1,
+    topicOnly: 0,
+    articleAndTopic: 0,
+  });
+  assert.equal(article.compatibleFingerprints, 1);
+});
