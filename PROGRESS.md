@@ -1,23 +1,3 @@
-## 2026-11-04: iteration 615 — typed X scheduled admission
-
-- Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC review remains pending.
-- Converted the X discovery ledger admission scalar query to a Drizzle select builder over one VALUES row; preserved current UTC day, consumed-attempt and optional-parent/completed-topic gates in the same transaction. Existing characterization assertions unchanged.
-- Initial typecheck rejected an optional and() projection; added an explicit boolean SQL expression and reran verification successfully.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build and git diff --check passed.
-- Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical and Anthropic/X spend unchanged. Read-only Playwright rendered four saved topics without page errors; sources have no current errors, zero alerts.
-- Updated TASKS and ORM decision; no migration, source, activation, owner grant or paid call changes; no handbook system behavior changed.
-- Next: prioritize Nov 4 edition review; otherwise connectivity probe and final raw-SQL audit. Private pg_dump before new migrations; preserve owner grants.
-
-## 2026-11-04: iteration 616 — typed database connectivity probe
-
-- Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC review remains pending.
-- Converted the constant connectivity probe to a Drizzle select builder over one VALUES row, without application-table access. Existing HTTP health characterization remains unchanged.
-- Runtime query/execute audit found only historical migration-runner driver SQL in libs/db; remaining adapter SELECT expressions implement PostgreSQL JSON expansion/aggregation. Migration infrastructure review remains open.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
-- Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical and Anthropic/X spend unchanged. Read-only Playwright rendered four topics without errors; zero current source errors, failed digest jobs or alerts.
-- Updated TASKS and ORM decision; archived iteration 600 to keep PROGRESS bounded. No migration, source, activation, owner grant or paid call changes; no handbook system behavior changed.
-- Next: prioritize Nov 4 edition review; otherwise review historical migration-runner SQL and finish item 2b acceptance. Private pg_dump before new migrations; preserve owner grants.
-
 ## 2026-11-04: iteration 617 — typed migration ledger
 
 - Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC review remains pending.
@@ -189,3 +169,14 @@
 - Verification: runner tests 6/6; pnpm format, pnpm lint:fix, pnpm check (378 unit/205 isolated integration), pnpm build and git diff --check passed. Initial full check caught archived-entry whitespace; corrected and reran.
 - Restarted worker only; final healthz healthy, zero alerts/failed units/dangling volumes. Saved Nov 3 edition still serves 19 real stories/11 X posts. No Postgres/Redis restart.
 - Next: Nov 4 15:00 UTC edition review for open-X/Bluesky picks, World posts, NBA validation and live timing/cost before activation.
+
+## 2026-11-04: iteration 634 — measure pending-threshold tradeoff offline
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts, current sources healthy and retained queues available. Nov 4 scheduled evidence remains pending.
+- Compared pending thresholds 1/10/25 with fixed 25-item pass cap and two-hour cutoff on three recorded Nov 1 windows; synthetic scores, no external calls.
+- Threshold 25 versus 1 cuts 46→7 requests and 116,120→68,264 prompt bytes, but increases edition remainder 32→53. Every variant scores all 153 articles once; waste, billed cost and live latency remain unknown.
+- Documented reproduction, per-topic remainders and limits in RANKING/TASKS: independent hourly topic passes do not model the rotating worker, and publication times are arrival proxies. No setting, prompt, source or feature activation.
+- Archived iterations 615–616 to keep PROGRESS below 25 KB. No handbook system behavior changed.
+- Verification: replay aggregate assertions, incremental tests 11/11, pnpm format, pnpm lint:fix, pnpm check (378 unit/205 isolated integration), pnpm build and git diff --check passed.
+- Restarted worker only; healthz healthy, zero alerts/failed units/dangling volumes. Saved Nov 3 edition serves four topics/19 stories/11 X posts. No Postgres/Redis restart or paid calls.
+- Next: review Nov 4 15:00 UTC edition for open-X/Bluesky picks, World posts, NBA validation and timing/cost before activation; use actual arrival/cache evidence to choose a threshold.

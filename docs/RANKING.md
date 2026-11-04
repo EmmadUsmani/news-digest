@@ -2361,3 +2361,38 @@ each cache chunk, and records a cutoff crossed during an empty cache read.
 An in-flight read can finish; later chunks and scoring do not start. Shared
 admission is released normally. Synthetic tests cover a 601-item scan crossing
 the exact cutoff and a single empty chunk crossing it. No activation or paid calls.
+
+## Iteration 634: pending threshold versus edition remainder
+
+Offline replay compares minimum pending thresholds of 1, 10 and 25 while
+keeping the prepared worker's 25-item pass cap and two-hour cutoff fixed.
+Reproduce each variant with
+`pnpm exec tsx apps/api/scripts/evaluate-incremental-triage.ts --minimum-pending=1 --stop-before-edition-hours=2 --maximum-items-per-pass=25`
+(substitute 10 or 25), selecting the rows with `intervalHours: 1`.
+The three Nov 1 recorded windows contain 153 articles in total.
+
+| Minimum pending | Background items | Edition remainder | Background requests | Total requests | Input UTF-8 bytes | Reserved output tokens |
+| --------------- | ---------------: | ----------------: | ------------------: | -------------: | ----------------: | ---------------------: |
+| 1               |              121 |                32 |                  43 |             46 |           116,120 |                 66,628 |
+| 10              |              102 |                51 |                   9 |             12 |            74,345 |                 26,102 |
+| 25              |              100 |                53 |                   4 |              7 |            68,264 |                 26,488 |
+
+Relative to threshold 1, threshold 25 removes 39 requests (84.8%) and
+41.2% of input bytes, while leaving 21 more articles for publication-time
+triage. Threshold 10 leaves two fewer articles than 25 but adds five
+requests. Remainders differ by topic: NBA 2/6/2, World 18/25/22 and
+Tech/AI 12/20/29 at thresholds 1/10/25. Waiting for a full batch therefore
+does not produce a monotonic remainder for every topic.
+
+These are synthetic scoring responses through the real request builder and
+in-memory cache, using publication times as optimistic arrival proxies.
+Every variant scores all 153 articles once. There are no observed pool
+snapshots, so waste remains unknown. Each topic receives an independent
+hourly pass here; the actual timer rotates topics and this is not a worker
+schedule replay. Topic guidance is empty, Gaming is absent, and the recorded
+volume is smaller than Nov 3. Bytes and reserved output are not billed
+tokens or spend; request counts cannot establish a live duration.
+
+Keep the prepared minimum of 1 and production activation off pending the
+Nov 4 review. A higher threshold is an option to test against actual arrival
+and cache evidence, not a production recommendation from this experiment.
