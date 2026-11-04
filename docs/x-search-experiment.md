@@ -214,3 +214,13 @@ This is preparation only, off by default and disconnected from running services.
 The runtime setting, durable A/B admission and executor wiring remain to build;
 the old follow-up path remains active until replaced. The experiment decision
 still gates activation. No paid searches or production configuration changes.
+
+## Direct adapter preparation — iteration 706
+
+The direct xAI adapter accepts explicit fixed A/B request configuration and
+uses the same request builder as the experiment. Legacy requests retain their
+existing body. Both paths preserve provider usage, citations and actual tool
+inputs; fake HTTP checks cover A/B dispatch and rejection before dispatch.
+No scheduler supplies this configuration yet. Runtime settings, durable A/B
+admission and scheduler replacement remain; activation still requires the
+experiment decision. No provider calls were made for this preparation.

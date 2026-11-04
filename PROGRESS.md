@@ -1,11 +1,3 @@
-## 2026-11-04: iteration 689 — timezone-stable X experiment eligibility
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz and 13 services, all 36 sources healthy; no failed retained digest runs. Next edition Nov 5 15:00 UTC.
-- Offline X report now rejects timezone-free/date-only window and publication timestamps; accepts explicit offsets and preserves inclusive-start/exclusive-end eligibility and unknown publication dates. Prevents host timezone from changing measured yield. Production unchanged; no paid calls.
-- Verification: targeted report/comparison/CLI 18/18; report tests 7/7 under TZ=America/Los_Angeles; pnpm format, pnpm lint:fix, pnpm check (445 unit/209 isolated integration), pnpm build, handbook validation and git diff --check passed.
-- Updated TASKS/experiment reference. SOURCES/handbook unchanged: no source/runtime change. No restart under STEERING 22 for this offline helper.
-- Paid X dispatch still awaits a supported cost bound or owner decision. Next: Nov 5 grouping/NBA AI/cost/latency/screenshots.
-
 ## 2026-11-04: iteration 690 — fence X experiment dispatch after reservation
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, all 36 sources nonempty without current errors; no failed retained digest jobs. Next edition Nov 5 15:00 UTC.
@@ -151,3 +143,13 @@
 - Preparation only: no runtime caller, paid calls or production changes. Runtime setting, durable A/B admission, executor wiring and old followup removal remain; experiment decision gates activation. Backups follow this disabled-schedule work.
 - Verification: `pnpm exec tsx --test apps/api/test/fixed-search-schedule.test.ts apps/api/test/x-search-comparison.test.ts` (9/9), `pnpm format`, `pnpm lint:fix`, `pnpm check` (463 unit/209 isolated integration), `pnpm build` and `git diff --check` passed. Updated TASKS/experiment reference; archived iteration 688 to bound PROGRESS. SOURCES/handbook unchanged because operating sources/services are unchanged. No restart under STEERING 22: services import neither helper.
 - Initial push rejected because owner added STEERING 33/UI spec remotely. Fetched and merged without rewriting history; added the UI rebuild to TASKS after 30–32/Nov 5 checks and before fallback work. Remote changes are instructions/spec only; verified application code unchanged.
+
+## 2026-11-04: iteration 706 — prepare direct fixed A/B dispatch
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 healthy article sources and zero retained failed digest jobs; next edition Nov 5 15:00 UTC.
+- Direct xAI adapter now accepts explicit fixed A/B configuration through its port. Extracted the unchanged legacy body builder so production and experiment share exact operators/thresholds without circular imports. No scheduler supplies the new configuration yet.
+- Fake HTTP checks verify both styles dispatch the experiment body and retain fetched usage, citations and actual tool inputs; invalid settings/legacy handle combinations fail before dispatch. No paid calls, activation or configuration changes.
+- Initial broad direct test invocation included DB tests outside their disposable harness; reran the two new tests explicitly (2/2) and planner/comparison tests (9/9). Initial lint rejected test body stringification; corrected its type guard.
+- Updated TASKS/experiment reference; archived iteration 689 to bound PROGRESS. SOURCES/handbook unchanged: operating sources, schedule and data flow remain unchanged.
+- Verification: `pnpm format`, `pnpm lint:fix`, targeted tests 11/11, `pnpm check` (463 unit/211 isolated integration), `pnpm build` and `git diff --check` passed. API/worker restarted for changed adapter imports; healthz/database/Redis and all 36 sources healthy afterward.
+- Next: runtime setting, durable A/B admission and scheduler wiring/removal; then private nightly backups with restore proof. Experiment decision still gates activation; Nov 5 scheduled acceptance takes priority when due.

@@ -3,13 +3,9 @@ import {
   type ScheduledSearchTopic,
 } from './scheduled-search';
 import type { ReactionStory } from './story-reactions';
-import type { XSearchRequest } from './x-search.port';
+import type { FixedSearchSettings, XSearchRequest } from './x-search.port';
 
-export interface FixedSearchSettings {
-  reactionMinFaves: number;
-  trendingMinFaves: number;
-  exclusions: string[];
-}
+export type { FixedSearchSettings } from './x-search.port';
 
 export interface FixedSearchTopic extends ScheduledSearchTopic {
   settings: FixedSearchSettings | null;

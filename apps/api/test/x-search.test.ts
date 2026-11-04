@@ -932,3 +932,85 @@ void test('actual custom tool calls survive empty or invalid citation content wi
   );
   assert.deepEqual((await empty.search(request)).toolCalls, []);
 });
+
+void test('direct adapter sends fixed A/B operators and preserves settlement evidence without live calls', async () => {
+  const { xSearchComparisonBody } =
+    await import('../src/modules/social/adapters/x-search-comparison');
+  for (const style of ['reactions', 'trending'] as const) {
+    const fixed = {
+      ...request,
+      handles: undefined,
+      fixedSearch: {
+        style,
+        settings: {
+          reactionMinFaves: 100,
+          trendingMinFaves: 1000,
+          exclusions: ['-odds'],
+        },
+        rankedStoryTitles:
+          style === 'reactions' ? ['First story', 'Second story'] : [],
+      },
+    };
+    let calls = 0;
+    const send: typeof fetch = async (url, init) => {
+      calls++;
+      assert.equal(url, 'https://api.x.ai/v1/responses');
+      assert.deepEqual(
+        JSON.parse(typeof init?.body === 'string' ? init.body : ''),
+        xSearchComparisonBody(
+          fixed,
+          style,
+          fixed.fixedSearch.settings,
+          fixed.fixedSearch.rankedStoryTitles,
+        ),
+      );
+      return new Response(
+        JSON.stringify({
+          ...fixture(),
+          output: [
+            ...fixture().output,
+            {
+              type: 'custom_tool_call',
+              name: 'x_keyword_search',
+              input: 'actual query',
+            },
+          ],
+        }),
+      );
+    };
+    const result = await new DirectXSearch('fixture-key', send).search(fixed);
+    assert.equal(calls, 1);
+    assert.equal(result.usage.postsFetched, 12);
+    assert.equal(result.links.length, 1);
+    assert.deepEqual(result.toolCalls, [
+      { name: 'x_keyword_search', input: 'actual query' },
+    ]);
+  }
+});
+
+void test('invalid fixed settings fail before any provider dispatch', async () => {
+  let calls = 0;
+  const search = new DirectXSearch('fixture-key', async () => {
+    calls++;
+    return new Response();
+  });
+  const fixedSearch = {
+    style: 'reactions' as const,
+    settings: {
+      reactionMinFaves: 100,
+      trendingMinFaves: 1000,
+      exclusions: ['-odds'],
+    },
+    rankedStoryTitles: ['Only one story'],
+  };
+  await assert.rejects(
+    search.search({ ...request, handles: undefined, fixedSearch }),
+  );
+  await assert.rejects(
+    search.search({
+      ...request,
+      fixedSearch: { ...fixedSearch, rankedStoryTitles: ['One', 'Two'] },
+    }),
+  );
+  assert.equal(calls, 0);
+});

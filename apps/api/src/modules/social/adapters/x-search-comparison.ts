@@ -1,6 +1,6 @@
 import type { FixedSearchSettings } from '../domain/fixed-search-schedule';
 import type { XSearchRequest } from '../domain/x-search.port';
-import { xSearchBody } from './x-search';
+import { baseXSearchBody } from './x-search-body';
 
 // Request construction only: no provider calls, admission or production activation.
 export function xSearchComparisonBody(
@@ -11,7 +11,7 @@ export function xSearchComparisonBody(
 ) {
   if (request.handles !== undefined || request.reactionStory !== undefined)
     throw new Error('Comparison requires an open-topic request');
-  const body = xSearchBody(request);
+  const body = baseXSearchBody(request);
   if (style === 'current') return body;
   if (
     !['trending', 'reactions'].includes(style) ||

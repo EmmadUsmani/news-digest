@@ -1,7 +1,19 @@
 import type { DiscoveredLink } from './collection.port';
 import type { XDiscoveryUsage } from './x-discovery-budget';
 
+export interface FixedSearchSettings {
+  reactionMinFaves: number;
+  trendingMinFaves: number;
+  exclusions: string[];
+}
+
 export interface XSearchRequest {
+  // Supplied only by the disabled fixed A/B scheduler once admission is wired.
+  fixedSearch?: {
+    style: 'reactions' | 'trending';
+    settings: FixedSearchSettings;
+    rankedStoryTitles: string[];
+  };
   topic: string;
   guidance: string;
   // Omit for open topic discovery; supplied lists must contain 1–20 handles.
