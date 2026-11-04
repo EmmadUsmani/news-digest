@@ -1,19 +1,3 @@
-## 2026-11-04: iteration 555 — pin Bluesky observation boundaries
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 error-free sources and four available queues; zero failed digest jobs. Recent hourly social collections completed; Nov 4 15:00 review remains pending.
-- Added isolated repository coverage for inclusive/exclusive publication bounds, exact millisecond observation cutoffs, offset timestamps, deterministic snapshot ordering and invalid window dates. No production changes or paid calls.
-- Updated TASKS/database verification notes. No source/schema/UI/handbook flow change; no restart under STEERING 22 because only tests/docs changed.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/189 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes. First run correctly rejected synthetic observations preceding publication; fixture corrected before the passing run.
-- Next: review Nov 4 scheduled edition first; production incremental triage/grouping activation and live cost/latency evidence remain gated. Other repository characterization and recorded-response golden remain open.
-
-## 2026-11-04: iteration 556 — characterize Bluesky snapshot capacity
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 healthy sources and zero failed digest jobs. Historical ingestion/social failures remain retained; next edition is Nov 4 15:00 UTC.
-- Added isolated repository coverage with 5,001 immutable snapshots: exactly the newest 5,000 survive the read cap, filtering precedes limiting, and another topic receives none. The cap counts observations, not distinct posts.
-- Updated TASKS/database verification notes; archived iterations 537–538 to keep PROGRESS below 25 KB. No production/source/schema/UI/handbook flow changes or paid calls; no restart under STEERING 22.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/190 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes. Initial check found new documentation formatting; corrected before passing rerun.
-- Next: review Nov 4 scheduled evidence first; incremental triage/grouping activation stays gated. Continue remaining repository characterization and recorded-response golden when product work is blocked.
-
 ## 2026-11-04: iteration 557 — characterize concurrent Bluesky collection
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 healthy sources and zero failed digest jobs; Nov 4 15:00 UTC review remains pending.
@@ -184,3 +168,13 @@
 - Read-only stored Bluesky report exercised converted reader before/after restart: four topics have real stored posts (after: Tech 49, NBA 51, Gaming 64, World 70). Counts use a moving 24-hour window; newest observations remain 05:54 UTC, so sustained hourly recovery still awaits evidence.
 - Rebuilt/restarted API and worker outside edition freeze; both active, healthz healthy, root HTTP 200, latest real edition four topics, zero alerts. Profile response byte-identical before/after, preserving owner schedule.
 - Next: scheduled Nov 4 review when due; otherwise historical migration baseline and remaining individual ORM adapters.
+
+## 2026-11-04: iteration 575 — convert scheduled budget lifecycle to Drizzle
+
+- Started clean on main; no leftover work. Zero alerts, 36 error-free sources and no failed digest jobs; Nov 4 15:00 UTC review remains pending.
+- Converted scheduled-budget reads and compare-and-swap writes to Drizzle, preserving shared Anthropic advisory locking, rollback/client release, first identity, attempt fencing, publication recovery and Date/JSON mapping.
+- Existing 203 integration characterization tests unchanged. First check found the lifecycle logging unit stub assumed SQL strings; adapted it to query configurations/array rows, retaining assertions. Targeted test passed.
+- Updated TASKS/architecture/decision; archived iterations 555–556. No migration, source, UI or handbook flow changes; no paid calls.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, handbook stack check and git diff --check passed; zero dangling Docker volumes.
+- Rebuilt/restarted API and worker outside the edition freeze; both active, healthz healthy, root HTTP 200, latest real edition four topics, zero alerts. Owner profile and reserve responses byte-identical across restart; pending reserve remains $0.487477.
+- Next: prioritize scheduled Nov 4 review; otherwise historical migration baseline and remaining individual ORM adapters. Back up live DB before the first new migration.

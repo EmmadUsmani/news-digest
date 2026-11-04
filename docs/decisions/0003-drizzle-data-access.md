@@ -17,6 +17,13 @@ upsert and append-only snapshots; reads retain the publisher transaction,
 exclusive window end, inclusive observation cutoff and stable ordering. Existing
 Bluesky characterization tests remain unchanged.
 
+The scheduled-budget adapter uses typed reads and compare-and-swap writes. It
+retains the shared Anthropic advisory lock, transaction rollback and client
+release, first-registration identity, recovery attempt fencing and publication
+snapshot reconciliation. Its mapper preserves Date timestamps and JSON outcomes;
+database failures retain the original PostgreSQL error after rollback. Existing
+scheduled-budget characterization tests remain unchanged.
+
 `libs/db/schema.ts` maps all 25 public tables, including the historical migration
 ledger, from migrations 001–055. The isolated `schema-parity` test creates an
 empty comparison database from Drizzle's generated DDL, compares PostgreSQL's

@@ -1,6 +1,12 @@
 import type { DigestPreview } from '@digest/contracts';
-import type { Pool, PoolClient } from 'pg';
+import { and, DrizzleQueryError, eq, inArray, or, sql } from 'drizzle-orm';
+import { drizzle, type NodePgDatabase } from 'drizzle-orm/node-postgres';
+import type { Pool } from 'pg';
 
+import {
+  digestPreviews,
+  scheduledAiBudgetDays as days,
+} from '../../../libs/db/schema';
 import { logger } from '../../../libs/observability/logging';
 import type {
   ScheduledBudgetDay,
@@ -9,8 +15,43 @@ import type {
 } from '../domain/scheduled-budget.port';
 import { scheduledOutcome } from '../domain/scheduled-budget-outcome';
 
-const fields = `budget_day::text AS "budgetDay", scheduled_at AS "scheduledAt",
- run_id AS "runId", state, attempt, outcome`;
+// clock_timestamp() below preserves the actual transition time, rather than transaction start.
+const fields = {
+  budgetDay: days.budgetDay,
+  scheduledAt: days.scheduledAt,
+  runId: days.runId,
+  state: days.state,
+  attempt: days.attempt,
+  outcome: days.outcome,
+};
+function toDay(
+  row:
+    | {
+        budgetDay: string;
+        scheduledAt: string;
+        runId: string;
+        state: string;
+        attempt: number;
+        outcome: unknown;
+      }
+    | undefined,
+): ScheduledBudgetDay | null {
+  return row
+    ? {
+        ...row,
+        scheduledAt: new Date(row.scheduledAt),
+        state: row.state as ScheduledBudgetDay['state'],
+        outcome: row.outcome as ScheduledBudgetOutcome | null,
+      }
+    : null;
+}
+const pending = (budgetDay: string, runId: string) =>
+  and(
+    eq(days.budgetDay, budgetDay),
+    eq(days.runId, runId),
+    eq(days.state, 'pending'),
+    eq(days.attempt, 0),
+  );
 
 export class PostgresScheduledBudgetRepository implements ScheduledBudgetRepository {
   constructor(
@@ -21,15 +62,17 @@ export class PostgresScheduledBudgetRepository implements ScheduledBudgetReposit
   private async locked<
     T extends boolean | ScheduledBudgetDay | null | undefined,
   >(
-    action: (client: PoolClient) => Promise<T>,
+    action: (client: NodePgDatabase) => Promise<T>,
     transition: Record<string, unknown>,
   ) {
     const client = await this.db.connect();
     try {
       await client.query('BEGIN');
       // Same lock as Anthropic admission: lifecycle and spend cannot race.
-      await client.query('SELECT pg_advisory_xact_lock(756282)');
-      const result = await action(client);
+      const db = drizzle(client);
+      // Transaction-scoped advisory locks have no query-builder equivalent.
+      await db.execute(sql`SELECT pg_advisory_xact_lock(756282)`);
+      const result = await action(db);
       await client.query('COMMIT');
       this.log.info(
         {
@@ -55,7 +98,9 @@ export class PostgresScheduledBudgetRepository implements ScheduledBudgetReposit
       return result;
     } catch (error) {
       await client.query('ROLLBACK');
-      throw error;
+      throw error instanceof DrizzleQueryError && error.cause
+        ? error.cause
+        : error;
     } finally {
       client.release();
     }
@@ -67,28 +112,31 @@ export class PostgresScheduledBudgetRepository implements ScheduledBudgetReposit
     const day = scheduledAt.toISOString().slice(0, 10);
     return this.locked(
       async (client) => {
-        await client.query(
-          `INSERT INTO scheduled_ai_budget_days(budget_day,scheduled_at,run_id)
-         VALUES($1,$2,$3) ON CONFLICT (budget_day) DO NOTHING`,
-          [day, scheduledAt, runId],
-        );
-        const result = await client.query<ScheduledBudgetDay>(
-          `SELECT ${fields} FROM scheduled_ai_budget_days WHERE budget_day=$1`,
-          [day],
-        );
+        await client
+          .insert(days)
+          .values({
+            budgetDay: day,
+            scheduledAt: scheduledAt.toISOString(),
+            runId,
+          })
+          .onConflictDoNothing({ target: days.budgetDay });
+        const [row] = await client
+          .select(fields)
+          .from(days)
+          .where(eq(days.budgetDay, day));
         // First registration wins, including across restarts and settings changes.
-        return result.rows[0];
+        return toDay(row)!;
       },
       { operation: 'register', budgetDay: day },
     );
   }
 
   async read(budgetDay: string) {
-    const result = await this.db.query<ScheduledBudgetDay>(
-      `SELECT ${fields} FROM scheduled_ai_budget_days WHERE budget_day=$1`,
-      [budgetDay],
-    );
-    return result.rows[0] ?? null;
+    const [row] = await drizzle(this.db)
+      .select(fields)
+      .from(days)
+      .where(eq(days.budgetDay, budgetDay));
+    return toDay(row);
   }
 
   async reconcilePending(
@@ -107,13 +155,16 @@ export class PostgresScheduledBudgetRepository implements ScheduledBudgetReposit
       throw new Error('Invalid scheduled budget reconciliation');
     return this.locked(
       async (client) => {
-        const result = await client.query(
-          `UPDATE scheduled_ai_budget_days SET scheduled_at=$3,run_id=$4,
-         updated_at=clock_timestamp()
-         WHERE budget_day=$1 AND run_id=$2 AND state='pending' AND attempt=0`,
-          [budgetDay, expectedRunId, scheduledAt, runId],
-        );
-        return result.rowCount === 1;
+        const result = await client
+          .update(days)
+          .set({
+            scheduledAt: scheduledAt.toISOString(),
+            runId,
+            updatedAt: sql`clock_timestamp()`,
+          })
+          .where(pending(budgetDay, expectedRunId))
+          .returning({ runId: days.runId });
+        return result.length === 1;
       },
       { operation: 'reconcile-pending', budgetDay, runId, expectedRunId },
     );
@@ -124,12 +175,11 @@ export class PostgresScheduledBudgetRepository implements ScheduledBudgetReposit
       throw new Error('Invalid scheduled budget removal');
     return this.locked(
       async (client) => {
-        const result = await client.query(
-          `DELETE FROM scheduled_ai_budget_days
-         WHERE budget_day=$1 AND run_id=$2 AND state='pending' AND attempt=0`,
-          [budgetDay, expectedRunId],
-        );
-        return result.rowCount === 1;
+        const result = await client
+          .delete(days)
+          .where(pending(budgetDay, expectedRunId))
+          .returning({ runId: days.runId });
+        return result.length === 1;
       },
       { operation: 'remove-pending', budgetDay, runId: expectedRunId },
     );
@@ -140,13 +190,12 @@ export class PostgresScheduledBudgetRepository implements ScheduledBudgetReposit
       throw new Error('Invalid missed scheduled budget identity');
     return this.locked(
       async (client) => {
-        const result = await client.query(
-          `UPDATE scheduled_ai_budget_days SET state='failed',
-         updated_at=clock_timestamp()
-         WHERE budget_day=$1 AND run_id=$2 AND state='pending' AND attempt=0`,
-          [budgetDay, expectedRunId],
-        );
-        return result.rowCount === 1;
+        const result = await client
+          .update(days)
+          .set({ state: 'failed', updatedAt: sql`clock_timestamp()` })
+          .where(pending(budgetDay, expectedRunId))
+          .returning({ runId: days.runId });
+        return result.length === 1;
       },
       {
         operation: 'miss-pending',
@@ -170,20 +219,29 @@ export class PostgresScheduledBudgetRepository implements ScheduledBudgetReposit
       throw new Error('Invalid published scheduled budget identity');
     return this.locked(
       async (client) => {
-        const edition = await client.query<{ snapshot: DigestPreview }>(
-          'SELECT snapshot FROM digest_previews WHERE scheduled_key=$1',
-          [expectedRunId],
-        );
-        if (!edition.rows[0]) return false;
-        const outcome = scheduledOutcome(edition.rows[0].snapshot);
-        const result = await client.query(
-          `UPDATE scheduled_ai_budget_days SET state='succeeded',outcome=$4,
-         updated_at=clock_timestamp()
-         WHERE budget_day=$1 AND run_id=$2 AND attempt=$3
-         AND state IN ('pending','running','retrying')`,
-          [budgetDay, expectedRunId, expectedAttempt, JSON.stringify(outcome)],
-        );
-        return result.rowCount === 1;
+        const [edition] = await client
+          .select({ snapshot: digestPreviews.snapshot })
+          .from(digestPreviews)
+          .where(eq(digestPreviews.scheduledKey, expectedRunId));
+        if (!edition) return false;
+        const outcome = scheduledOutcome(edition.snapshot as DigestPreview);
+        const result = await client
+          .update(days)
+          .set({
+            state: 'succeeded',
+            outcome,
+            updatedAt: sql`clock_timestamp()`,
+          })
+          .where(
+            and(
+              eq(days.budgetDay, budgetDay),
+              eq(days.runId, expectedRunId),
+              eq(days.attempt, expectedAttempt),
+              inArray(days.state, ['pending', 'running', 'retrying']),
+            ),
+          )
+          .returning({ runId: days.runId });
+        return result.length === 1;
       },
       {
         operation: 'reconcile-published',
@@ -203,14 +261,29 @@ export class PostgresScheduledBudgetRepository implements ScheduledBudgetReposit
       throw new Error('Invalid scheduled budget recovery attempt');
     return this.locked(
       async (client) => {
-        const result = await client.query<ScheduledBudgetDay>(
-          `UPDATE scheduled_ai_budget_days SET state='running',attempt=attempt+1,
-         updated_at=clock_timestamp() WHERE run_id=$1 AND
-         (state IN ('pending','retrying') OR (state='running' AND attempt=$2))
-         RETURNING ${fields}`,
-          [runId, recoverAttempt ?? null],
-        );
-        return result.rows[0] ?? null;
+        const result = await client
+          .update(days)
+          .set({
+            state: 'running',
+            attempt: sql`${days.attempt} + 1`,
+            updatedAt: sql`clock_timestamp()`,
+          })
+          .where(
+            and(
+              eq(days.runId, runId),
+              or(
+                inArray(days.state, ['pending', 'retrying']),
+                recoverAttempt === undefined
+                  ? undefined
+                  : and(
+                      eq(days.state, 'running'),
+                      eq(days.attempt, recoverAttempt),
+                    ),
+              ),
+            ),
+          )
+          .returning(fields);
+        return toDay(result[0]);
       },
       { operation: 'claim', runId, recoverAttempt },
     );
@@ -231,12 +304,22 @@ export class PostgresScheduledBudgetRepository implements ScheduledBudgetReposit
       throw new Error('Invalid scheduled budget transition');
     return this.locked(
       async (client) => {
-        const result = await client.query(
-          `UPDATE scheduled_ai_budget_days SET state=$3,outcome=$4,
-         updated_at=clock_timestamp() WHERE run_id=$1 AND attempt=$2 AND state='running'`,
-          [runId, attempt, state, outcome ? JSON.stringify(outcome) : null],
-        );
-        return result.rowCount === 1;
+        const result = await client
+          .update(days)
+          .set({
+            state,
+            outcome: outcome ?? null,
+            updatedAt: sql`clock_timestamp()`,
+          })
+          .where(
+            and(
+              eq(days.runId, runId),
+              eq(days.attempt, attempt),
+              eq(days.state, 'running'),
+            ),
+          )
+          .returning({ runId: days.runId });
+        return result.length === 1;
       },
       { operation: 'finish-attempt', runId, attempt, requestedState: state },
     );

@@ -12,20 +12,26 @@ void test('reserve lifecycle logs only committed observations and fenced transit
     let committed = false;
     const day = {
       budgetDay: '2026-11-03',
+      scheduledAt: '2026-11-03T15:00:00Z',
       runId: 'slot',
       state: 'running',
       attempt: 2,
+      outcome: null,
     };
     const db = {
       connect: async () => ({
         release() {},
-        async query(sql: string) {
-          if (sql.includes('SELECT snapshot'))
+        async query(query: string | { text: string; rowMode?: string }) {
+          const sql = typeof query === 'string' ? query : query.text;
+          const arrays = typeof query !== 'string' && query.rowMode === 'array';
+          if (sql.includes('"snapshot"'))
             return {
               rows:
                 scenario === 'stale'
                   ? []
-                  : [{ snapshot: { id: 'edition', topics: [] } }],
+                  : arrays
+                    ? [[{ id: 'edition', topics: [] }]]
+                    : [{ snapshot: { id: 'edition', topics: [] } }],
             };
           if (sql === 'BEGIN') committed = false;
           if (sql === 'COMMIT') {
@@ -34,7 +40,8 @@ void test('reserve lifecycle logs only committed observations and fenced transit
             committed = true;
           }
           return {
-            rows: scenario === 'stale' ? [] : [day],
+            rows:
+              scenario === 'stale' ? [] : [arrays ? Object.values(day) : day],
             rowCount: scenario === 'stale' ? 0 : 1,
           };
         },
