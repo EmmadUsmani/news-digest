@@ -1927,3 +1927,14 @@ HTTP 400 with `{}` and HTTP 200 without a body. An adapter probe with simulated
 access expiry then completed a real refresh and fetched 49 real posts without
 storing them; it made no paid calls. Scheduled collection recovery is recorded
 in PROGRESS.md.
+
+## X comparison round 1 — iteration 703 (2026-11-04)
+
+Twelve experimental cells dispatched outside protected hours; eleven settled
+for $0.382331 and 47 fetched/cited posts. Gaming current has an unknown outcome
+and retains $0.15; it was not retried. Trending reported materially larger like
+counts but all four queries joined the topic to the reply filter. Reaction
+operator inputs matched; only two posts were returned. Relevance/promotion
+reviews and full comparison coverage remain incomplete, so no winner or source
+activation. These posts are not verified or stored production content.
+See [experiment results](x-search-experiment.md#round-1--nov-4-iteration-703).

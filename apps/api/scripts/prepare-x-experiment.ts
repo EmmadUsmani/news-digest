@@ -51,7 +51,7 @@ async function main() {
         JSON.stringify({
           window,
           capturedAt: new Date().toISOString(),
-          note: 'Current stored article observations and topic settings; heuristic ranking, no new AI calls. Not a historical snapshot or dispatch authorization. Paid dispatch remains blocked on a supported cost bound.',
+          note: 'Current stored article observations and topic settings; heuristic ranking, no new AI calls. Not a historical snapshot or dispatch authorization. Dispatch requires STEERING 31 authorization, the separate experiment journal and explicit live opt-in.',
           topics: prepared,
         }),
       );

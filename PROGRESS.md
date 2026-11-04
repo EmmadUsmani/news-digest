@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 686 — real-text Bluesky batching measurement
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis; all 36 sources nonempty without errors, zero failed retained digest jobs. Next edition Nov 5 15:00 UTC.
-- Added read-only stored-observation report with one repeatable-read snapshot, production Bluesky safety/ranking shortlist and actual topic/text inputs to offline fake scoring. Prints aggregates only; no provider calls, cache writes or runtime changes.
-- Nov 3–4 15:00 UTC window: 497/630/636/682 observations yield Tech/NBA/Gaming/World shortlists 50/47/50/50. Caller sizes 50 and 200 both dispatch four fake requests, 64,827 input bytes; 197 items scored once, repartitioned repeat zero calls. Larger caller limit offers no batching gain for this pool; no live latency/cost/quality claim.
-- Updated TASKS and concurrency evidence with command/results/limitations. SOURCES/handbook unchanged because source/runtime behavior is unchanged.
-- Verification: targeted batching/shortlist tests 12/12, standalone strict tsc, invalid-input exit/no-output check and stored-pool count/cache/size assertions passed; pnpm format, pnpm lint:fix, pnpm check (443 unit/209 isolated integration), pnpm build and git diff --check passed. Final healthz healthy and zero alerts.
-- X experiment still awaits supported cost bound or owner decision. Next: Nov 5 grouping/NBA AI/cost/latency/screenshots, then compare real repair/cache evidence before tuning. No restart under STEERING 22: services do not import the new script.
-
 ## 2026-11-04: iteration 687 — require independent X comparison news windows
 
 - Started clean on main; no leftover work. Zero alerts; healthy services, healthz/database/Redis and all 36 sources. No failed retained digest jobs; latest scheduled edition completed, next Nov 5 15:00 UTC.
@@ -151,3 +142,13 @@
 - Verification: `pnpm exec tsx scripts/smoke-topic-order.ts` and strict standalone tsc passed; `pnpm format`, `pnpm lint:fix`, `pnpm check` (455 unit/209 isolated integration), `pnpm build` and `git diff --check` passed.
 - Updated TASKS; archived iteration 685 to bound PROGRESS. SOURCES/handbook unchanged: verification script only. No paid calls or production changes; no restart under STEERING 22 because running services do not import this script.
 - Initial push rejected: owner added STEERING 31–32 remotely. Fetched and merged without rewriting history; removed resolved human blocker and updated TASKS. Next: authorized X round 1 tonight ($0.15 reserve/call), then disabled A/B schedule and backups; Nov 5 acceptance still takes priority when due.
+
+## 2026-11-04: iteration 703 — dispatch authorized X comparison round 1
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 healthy article sources and zero retained failed digest runs. Nov 5 acceptance remains future.
+- Added explicit-opt-in direct-xAI runner using existing $0.15 reservations/claims/settlements and one private shared journal. Saves raw requests/responses/usage without headers or keys; no production ingestion/config changes. Continue mode visits only never-attempted cells within the original hour.
+- Twelve cells attempted at 21:46–21:53 UTC; eleven settled/$0.382331/47 fetched. Gaming current returned no response at the 60 s transport deadline; $0.15 hold retained, never retried. Charged total $0.532331; maximum known call $0.056935. No overrun or paid retry.
+- Trending: 32 fetched/$0.226258, observed median/max likes 1714/16089; current: 13/$0.101068, 8/42; reactions: 2/$0.055005, likes unknown. All trending queries omit the separator before the reply filter; reaction operator inputs match. World reaction article pool includes NFL. Unknown reviews and missing baseline cell prevent a winner.
+- Private evidence/report: ~/.local/state/news-digest/x-experiment/2026-11-04T21-46-02-565Z/. Report excludes unknown costs; journal retains their holds. No production activation; current raw responses are not verified/ingested posts.
+- Verification: strict standalone tsc for runner/preparer/test; synthetic runner/budget/request tests 13/13 and runner/report/comparison 23/23; pnpm format, pnpm lint:fix, pnpm check (455 unit/209 isolated integration), pnpm build, live offline-report CLI and git diff --check passed. Three new runner tests cover settlement, overrun stop and continuation without unknown-call retries; no test provider calls.
+- Updated TASKS/SOURCES/experiment reference and acked STEERING 31; archived iteration 686. No restart under STEERING 22: running services do not import these scripts. Next: disabled A/B schedule, backups; offline query/article-pool review and second independent news day; Nov 5 scheduled acceptance takes priority when due.

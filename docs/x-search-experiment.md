@@ -1,7 +1,7 @@
 # X search experiment preparation
 
 The [owner-approved plan](x-search-plan.md) defines the comparison and decision rule.
-The experiment has not run. Production discovery is unchanged.
+Round 1 dispatch is authorized by STEERING 31. Production discovery is unchanged.
 
 ## Implemented admission
 
@@ -124,32 +124,69 @@ describes `max_turns` as reducing search rounds, not bounding fetched posts.
 It counts repeated, parent, quoted and thread posts and profiles; its example
 reports 44 posts and three profiles for two search calls. Requested result
 counts and prompt instructions therefore do not establish a hard cost bound.
-Paid dispatch remains unwired pending a defensible provider-enforced bound.
-No experiment calls have been made.
+STEERING 31 accepts this per-call exposure and authorizes a $0.15 reservation
+per call. A provider-enforced per-request bound is no longer a dispatch prerequisite.
+The existing journal enforces $1/day and $2.50 total admission. Any settlement
+above $0.15 stops the experiment; unknown outcomes retain their holds.
 
-The [Responses reference](https://docs.x.ai/developers/rest-api-reference/inference/responses.md)
-explicitly excludes reasoning and function-call tokens from `max_output_tokens`.
-Its `search_parameters.max_search_results` describes a separate search interface,
-not a fetched-item limit on the `x_search` tool. The
-[billing reference](https://docs.x.ai/developers/rest-api-reference/management/billing.md)
-says the postpaid spending limit does **not** limit prepaid-credit usage.
-These documented controls do not supply the missing experiment cost bound.
-The $5 top-up's shared prepaid balance cannot enforce the separate $1/day or
-$2.50 experiment limits. Do not change account billing or invent a request
-parameter. This dispatch blocker is reported in NEEDS_FROM_HUMAN.md; independent
-offline work and Nov 5 scheduled acceptance checks can continue.
+## Live runner
 
-## Remaining runner requirements
+Load the configured secrets environment, prepare the inputs above, then run:
 
-- Use one fixed journal path outside the repo for every run and process.
-- Derive a defensible per-call cost reservation from provider limits before
-  making calls. Admission alone cannot cap an individual provider response.
-- Reserve before each paid call; invoke `claimDispatch` immediately before
-  dispatch. Its durable single-use claim rechecks the time exclusion and UTC
-  budget day. A crash after claiming retains the hold and prevents retry, even
-  if the request was never sent. The runner is not wired; this does not remove
-  the provider-bound blocker. Never retry a call with an unknown outcome.
-- Persist request, response, exact tool inputs and usage evidence outside the
-  repo. Do not ingest experiment posts into production discovery.
-- Wire the same-window four-topic comparison, offline scoring and reports,
-  then run the two-day comparison within the approved caps.
+```sh
+X_EXPERIMENT_LIVE=1 pnpm exec tsx apps/api/scripts/run-x-experiment.ts /private/path/inputs.json
+```
+
+The runner uses Grok 4.3 for the four-topic current/trending/reactions comparison,
+within one hour. It reserves $0.15 and claims dispatch through the existing
+journal before each request, settles known token/post/profile usage, and stops
+on any error or over-reservation settlement. It never retries automatically. To continue only never-attempted cells within
+the same hour, append the existing round directory name as a second argument.
+Previously saved requests are skipped, including unknown outcomes; their holds
+remain charged. The completed manifest lists settled calls only, so unknown
+cells remain gaps in comparison coverage.
+
+All runs share `~/.local/state/news-digest/x-experiment/budget.json`.
+Private timestamped directories hold the prepared inputs, dispatched requests,
+raw responses, actual usage and completed round manifest. Directory mode is 700;
+files are 600. Keys and request headers are never saved. Calls are separate from
+production discovery and do not ingest posts or write the production ledger.
+
+Saved responses still need offline evidence extraction, social relevance scoring
+and promotion reviews. Unknown labels must remain unknown; dispatch completion
+does not establish a winner. Repeat on a second non-overlapping news day, then
+calibrate thresholds and compare the cheaper model under the plan's limits.
+
+## Round 1 — Nov 4, iteration 703
+
+Window: Nov 3 21:00 through Nov 4 21:00 UTC. Twelve cells dispatched at
+21:46–21:53 UTC (440.773 seconds between first and last dispatch).
+Eleven settled for **$0.382331**; Gaming current has no response and retains
+**$0.15**, for **$0.532331 charged**. It was never retried. The runner stopped
+on the transport failure, then continued only never-attempted cells. No known
+call exceeded its reservation; maximum settlement was $0.056935.
+
+| Style           | Settled calls | Fetched / cited |      Cost | Observed median / max likes |
+| --------------- | ------------: | --------------: | --------: | --------------------------: |
+| Current         |             3 |         13 / 13 | $0.101068 |                      8 / 42 |
+| Topic trending  |             4 |         32 / 32 | $0.226258 |                1714 / 16089 |
+| Story reactions |             4 |           2 / 2 | $0.055005 |                     unknown |
+
+Counts are provider-reported; experiment posts were not verified or ingested.
+Trending has five unknown like counts; current has eight. Relevance and
+promotion labels remain unknown. All four trending tool inputs used Top and
+correct thresholds, but joined the topic directly to `-filter:replies`, failing
+the exact filter check. All four reaction tool inputs match Top, thresholds,
+filters, exclusions and OR; this does not establish X's execution semantics.
+World reaction inputs include an off-topic NFL title from heuristic article
+ranking; inspect the prepared article pool before selecting production parameters.
+
+**No winner:** Gaming current is unresolved, reviews are incomplete and the
+trending query construction needs correction. No extra paid retry or threshold
+change was made. The next independent news day, calibration and model comparison
+remain open under the original caps; the unknown hold stays charged.
+
+Evidence: `~/.local/state/news-digest/x-experiment/2026-11-04T21-46-02-565Z/`.
+It includes raw responses, requests, settlements, `evidence.json`, `rounds.json`
+and `report.json`. The offline report deliberately excludes unknown cost from
+settled totals; the admission journal remains authoritative for charged holds.

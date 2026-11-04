@@ -918,6 +918,8 @@ ceiling.
 - Remove the blocker from NEEDS_FROM_HUMAN.md, and ack here with round 1's
   numbers.
 
+ack: 2026-11-04 item 31 round 1 — iteration 703 dispatched all 12 cells at 21:46–21:53 UTC against Nov 3–4 21:00 UTC. Eleven settled calls cost $0.382331, fetched 47 posts; Gaming current returned no response at the 60 s transport deadline and retains $0.15 (total charged $0.532331), never retried. No settled call exceeded $0.15 (maximum $0.056935). Trending: 32 fetched/$0.226258, observed median/max likes 1714/16089; current: 13/$0.101068, 8/42; reactions: 2/$0.055005, likes unknown. All trending inputs joined the topic directly to -filter:replies; reaction Top/threshold/filters/OR matched. Coverage and reviews remain incomplete; no winner or production activation. Private raw evidence and offline report saved; details in docs/x-search-experiment.md. Next: disabled schedule/backups, offline query construction and review, second independent day under unchanged experiment caps.
+
 ## 32. Tonight's queue: X schedule switched off, nightly DB backups (2026-11-04)
 
 These go after item 31's round 1 and before the fallback list (item 28).
