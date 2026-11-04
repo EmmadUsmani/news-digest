@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 674 — persist actual X search execution traces
-
-- Started clean on main; no leftover work. Zero alerts; healthy healthz/database/Redis, 36 nonempty sources without current errors and four available queues.
-- Read STEERING 30 and full X search plan; completed its tool-call instrumentation slice. Store exact provider-reported custom-tool function/input pairs atomically with settlement cost, including responses with unusable citations. Never infer queries from prompts/prose.
-- Added nullable JSONB migration 056, Drizzle schema/baseline, schema metadata and Social posts handbook description. Nine historical calls remain NULL; per-topic threshold settings and experiments remain next.
-- Synthetic protocol tests cover keyword/semantic calls, exact query/sort input, malformed/missing tool calls, empty citations, orchestration forwarding and isolated ledger persistence. No paid calls or production search/schedule/model/budget changes.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (415 unit/208 isolated integration), pnpm build, git diff --check and social-posts handbook check passed.
-- Saved private mode-600 pg_dump outside repo; pg_restore listing readable. Applied pnpm migrate; owner_ro SELECT/owner_rw UPDATE privileges remain valid for the new column.
-- Restarted API/worker active; healthz healthy, zero alerts, 36 nonempty sources without errors and four available queues. Updated TASKS; archived iteration 657. SOURCES unchanged: no source behavior change.
-- Next: per-topic X thresholds/exclusions, then separately capped two-day comparison under the approved plan. Nov 5 grouping/NBA checks retain priority.
-
 ## 2026-11-04: iteration 675 — store approved per-topic X search settings
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz and 36 current sources; saved edition has four topics/14 stories/15 posts.
@@ -152,3 +141,12 @@
 - Verification: targeted report/comparison/CLI 18/18; report tests 7/7 under TZ=America/Los_Angeles; pnpm format, pnpm lint:fix, pnpm check (445 unit/209 isolated integration), pnpm build, handbook validation and git diff --check passed.
 - Updated TASKS/experiment reference. SOURCES/handbook unchanged: no source/runtime change. No restart under STEERING 22 for this offline helper.
 - Paid X dispatch still awaits a supported cost bound or owner decision. Next: Nov 5 grouping/NBA AI/cost/latency/screenshots.
+
+## 2026-11-04: iteration 690 — fence X experiment dispatch after reservation
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, all 36 sources nonempty without current errors; no failed retained digest jobs. Next edition Nov 5 15:00 UTC.
+- Added durable single-use claimDispatch to experiment admission: rechecks protected UTC hours and reservation day immediately before dispatch, refuses settled/unknown/repeated requests and existing overruns. Crash after claim retains the hold and forbids retries. Existing journals remain readable.
+- Six targeted tests cover blackout/day rollover, restart/retry fencing, retained budget, settlement, overruns and damaged dispatch evidence. No provider calls, runner wiring or production changes; supported per-call cost bound still required.
+- Verification: targeted budget tests 6/6, standalone strict tsc, pnpm format, pnpm lint:fix, pnpm check (447 unit/209 isolated integration), pnpm build, handbook validation (17 pages/22 diagrams/26 tables) and git diff --check passed.
+- Updated TASKS/experiment reference; compressed prior batching detail and archived iteration 674 to bound orientation files. SOURCES/handbook unchanged: no source/runtime behavior change. No restart under STEERING 22 for the offline helper.
+- Next: Nov 5 grouping/NBA AI/cost/latency/screenshots; paid X experiment awaits supported cost bound or owner decision.

@@ -15,6 +15,7 @@ interface Entry {
   day: string;
   reservedMicros: number;
   actualMicros: number | null;
+  dispatchedAt?: string;
 }
 interface Journal {
   version: 1;
@@ -40,6 +41,16 @@ function validate(value: Journal) {
     ids.add(entry.id);
     money(entry.reservedMicros);
     if (entry.actualMicros !== null) money(entry.actualMicros);
+    if (entry.dispatchedAt !== undefined) {
+      const instant = new Date(entry.dispatchedAt);
+      if (
+        !Number.isFinite(instant.getTime()) ||
+        instant.toISOString() !== entry.dispatchedAt ||
+        entry.dispatchedAt.slice(0, 10) !== entry.day ||
+        (instant.getUTCHours() >= 13 && instant.getUTCHours() < 16)
+      )
+        throw new Error('Invalid experiment dispatch');
+    }
   }
 }
 
@@ -123,6 +134,35 @@ export class XExperimentBudget {
           'X experiment budget exhausted or reservation exceeded',
         );
       journal.entries.push({ id, day, reservedMicros, actualMicros: null });
+    });
+  }
+
+  // Claim immediately before sending. A crash after this write keeps the hold
+  // and forbids retries, even if no response (or no request) was observed.
+  claimDispatch(id: string, now = new Date()) {
+    if (!Number.isFinite(now.getTime()))
+      throw new Error('Invalid experiment dispatch time');
+    if (now.getUTCHours() >= 13 && now.getUTCHours() < 16)
+      throw new Error('X experiment forbidden between 13:00 and 16:00 UTC');
+    this.update((journal) => {
+      const entry = journal.entries.find((candidate) => candidate.id === id);
+      if (!entry || entry.actualMicros !== null || entry.dispatchedAt)
+        throw new Error(
+          'Unknown, settled or already dispatched experiment request',
+        );
+      if (entry.day !== now.toISOString().slice(0, 10))
+        throw new Error(
+          'Experiment reservation belongs to a different UTC day',
+        );
+      if (
+        journal.entries.some(
+          (candidate) =>
+            candidate.actualMicros !== null &&
+            candidate.actualMicros > candidate.reservedMicros,
+        )
+      )
+        throw new Error('Experiment reservation exceeded');
+      entry.dispatchedAt = now.toISOString();
     });
   }
 

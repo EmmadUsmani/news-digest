@@ -82,3 +82,51 @@ void test('contention, stale locks and damaged journals fail closed without repl
       assert.equal(readFileSync(path, 'utf8'), contents);
     }
   }));
+
+void test('dispatch rechecks UTC boundaries and persists a single-use claim across restarts', () =>
+  fixture((path, budget) => {
+    budget.reserve('before', 500_000, day(4, 12));
+    const original = readFileSync(path, 'utf8');
+    for (const instant of [day(4, 13), day(4, 15), day(5, 16), new Date(NaN)]) {
+      assert.throws(() => budget.claimDispatch('before', instant));
+      assert.equal(readFileSync(path, 'utf8'), original);
+    }
+    budget.claimDispatch('before', day(4, 16));
+    assert.equal(
+      JSON.parse(readFileSync(path, 'utf8')).entries[0].dispatchedAt,
+      day(4, 16).toISOString(),
+    );
+    const restarted = new XExperimentBudget(path);
+    assert.throws(
+      () => restarted.claimDispatch('before', day(4, 17)),
+      /already/,
+    );
+    assert.throws(() => restarted.claimDispatch('missing', day(4)), /Unknown/);
+    restarted.reserve('remaining', 500_000, day(4));
+    assert.throws(() => restarted.reserve('extra', 1, day(4)), /budget/);
+    restarted.settle('before', 100_000);
+    assert.throws(() => restarted.claimDispatch('before', day(4)), /settled/);
+  }));
+
+void test('dispatch refuses existing overrun and corrupt dispatch evidence', () =>
+  fixture((path, budget) => {
+    budget.reserve('one', 100, day(4));
+    budget.reserve('two', 100, day(4));
+    budget.settle('one', 101);
+    assert.throws(() => budget.claimDispatch('two', day(4)), /exceeded/);
+    const journal = JSON.parse(readFileSync(path, 'utf8'));
+    for (const dispatchedAt of [
+      'invalid',
+      '2026-11-05T18:00:00.000Z',
+      '2026-11-04T13:00:00.000Z',
+    ]) {
+      journal.entries[1].dispatchedAt = dispatchedAt;
+      const contents = JSON.stringify(journal);
+      writeFileSync(path, contents);
+      assert.throws(
+        () => budget.claimDispatch('two', day(4)),
+        /Invalid experiment dispatch/,
+      );
+      assert.equal(readFileSync(path, 'utf8'), contents);
+    }
+  }));
