@@ -23,6 +23,7 @@ export interface RecordedWindow {
 export async function evaluateIncrementalTriage(
   window: RecordedWindow,
   intervalHours: number,
+  minimumPendingItems = 1,
 ) {
   if (
     !Number.isInteger(intervalHours) ||
@@ -30,6 +31,8 @@ export async function evaluateIncrementalTriage(
     intervalHours > 24
   )
     throw new Error('Interval must be 1–24 hours');
+  if (!Number.isInteger(minimumPendingItems) || minimumPendingItems < 1)
+    throw new Error('Minimum pending items must be a positive integer');
   const start = Date.parse(window.windowStart);
   const end = Date.parse(window.windowEnd);
   if (!Number.isFinite(start) || !Number.isFinite(end) || start >= end)
@@ -139,6 +142,7 @@ export async function evaluateIncrementalTriage(
     description: '',
     guidance: '',
   };
+  let deferredPasses = 0;
   // Publication time is an optimistic availability proxy: fixtures lack ingestion times.
   for (
     let tick = start + intervalHours * 3600000;
@@ -146,6 +150,11 @@ export async function evaluateIncrementalTriage(
     tick += intervalHours * 3600000
   ) {
     const pool = poolAt(tick);
+    const pending = pool.filter((c) => !allScoredIds.has(c.id));
+    if (pending.length < minimumPendingItems) {
+      if (pending.length) deferredPasses++;
+      continue;
+    }
     pool.forEach((c) => {
       preScoredIds.add(c.id);
       allScoredIds.add(c.id);
@@ -161,6 +170,8 @@ export async function evaluateIncrementalTriage(
   return {
     topic: window.topic,
     intervalHours,
+    minimumPendingItems,
+    deferredPasses,
     candidates: finalPool.length,
     availability: arrivalMode ? 'recorded-arrival' : 'publication-proxy',
     unavailableAtEdition: candidates.filter(
@@ -182,7 +193,7 @@ export async function evaluateIncrementalTriage(
   };
 }
 
-export async function recordedIncrementalTriage() {
+export async function recordedIncrementalTriage(minimumPendingItems = 1) {
   const results = [];
   for (const topic of ['nba', 'world', 'tech']) {
     const window = JSON.parse(
@@ -192,25 +203,32 @@ export async function recordedIncrementalTriage() {
       ),
     ) as RecordedWindow;
     for (const interval of [1, 3, 6, 24])
-      results.push(await evaluateIncrementalTriage(window, interval));
+      results.push(
+        await evaluateIncrementalTriage(window, interval, minimumPendingItems),
+      );
   }
   return results;
 }
 
-if (require.main === module)
+if (require.main === module) {
+  const args = process.argv.slice(2);
+  const inputPath = args.find((arg) => !arg.startsWith('--'));
+  const minimumPending = Number(
+    args.find((arg) => arg.startsWith('--minimum-pending='))?.split('=')[1] ??
+      1,
+  );
   void (
-    process.argv[2]
+    inputPath
       ? Promise.all(
           [1, 3, 6, 24].map((interval) =>
             evaluateIncrementalTriage(
-              JSON.parse(
-                readFileSync(process.argv[2], 'utf8'),
-              ) as RecordedWindow,
+              JSON.parse(readFileSync(inputPath, 'utf8')) as RecordedWindow,
               interval,
+              minimumPending,
             ),
           ),
         )
-      : recordedIncrementalTriage()
+      : recordedIncrementalTriage(minimumPending)
   ).then((results) =>
     console.log(
       JSON.stringify(
@@ -223,3 +241,4 @@ if (require.main === module)
       ),
     ),
   );
+}

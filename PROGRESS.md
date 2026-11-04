@@ -133,3 +133,13 @@
 - Updated TASKS and RANKING. No paid calls, DB writes, sources, scheduler/settings, production behavior or activation. Grouping stays off. No handbook/schema/UI changes; screenshots unnecessary.
 - Verification: targeted replay tests 3/3; pnpm format, pnpm lint:fix, pnpm check, pnpm build, recorded replay CLI, healthz/root, source/queue status, pnpm obs alerts and git diff --check. Full suite passed: 296 unit and 182 isolated integration tests; no dangling Docker volumes.
 - Services left running under STEERING 22: only offline scripts/tests/docs changed, so deployed application code still matches main. Next: capture real arrival/pool evidence and prepare off-by-default reserve-safe pretriage; Nov 4 scheduled review takes priority when available.
+
+## 2026-11-04: iteration 517 — reduce offline pretriage request fragmentation
+
+- Started clean on main; no leftover work. Healthz/root healthy, zero alerts, all 36 sources error-free; newest success 00:26:03 UTC, 3,181 stored source items. Nov 4 scheduled evidence remains future work.
+- Added offline minimum-pending gate and CLI option; counts uncached available items, defers small passes, and always flushes the edition remainder. Default replay unchanged; no production scheduler, setting or activation.
+- Recorded hourly replay at minimum 25: six requests versus 50 ungated (five cold), all 153 items scored once, 47 edition items versus seven ungated. NBA/World/Tech remainders 0/22/25. Prompt bytes 67,051; reserved output tokens 25,416. Neither is settled spend or live latency.
+- Regression covers cache-miss gating, deferred passes, unconditional final flush and invalid thresholds. Recorded windows retain every article; real arrival/pool waste and reserve-safe budget admission remain unmeasured.
+- Updated TASKS and RANKING; handbook/schema/UI unchanged, screenshots unnecessary. No paid calls, editions, source changes or feature activation; grouping remains off pending Nov 4 review.
+- Verification: targeted replay tests 4/4, threshold CLI, pnpm format, pnpm lint:fix, pnpm check, pnpm build, healthz/root, source/queue status, pnpm obs alerts and git diff --check. Full suite passed: 297 unit and 182 isolated integration tests; zero dangling Docker volumes.
+- Services stay running under STEERING 22: only offline files changed, so running application code matches main. Next: real arrival/pool evidence and off-by-default reserve-safe pretriage; Nov 4 scheduled review takes priority.

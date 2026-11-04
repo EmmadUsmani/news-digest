@@ -151,3 +151,45 @@ void test('arrival and pool replay counts waste, late arrivals and returning cac
     /arrival/,
   );
 });
+
+void test('minimum pending gate counts cache misses and flushes every edition remainder', async () => {
+  const candidates = Array.from({ length: 5 }, (_, i) => ({
+    id: String(i),
+    title: String(i),
+    excerpt: null,
+    sources: [],
+    publishedAt: `2026-11-01T0${i}:00:00Z`,
+  }));
+  const window = {
+    topic: 'Synthetic gate',
+    windowStart: '2026-11-01T00:00:00Z',
+    windowEnd: '2026-11-01T06:00:00Z',
+    candidates,
+  };
+  const row = await evaluateIncrementalTriage(window, 1, 3);
+  assert.equal(row.preEditionItems, 3);
+  assert.equal(row.preEditionRequests, 1);
+  assert.equal(row.editionItems, 2);
+  assert.equal(row.totalRequests, 2);
+  assert.equal(row.deferredPasses, 4);
+  assert.equal(row.totalScoredItems, 5);
+  assert.equal(row.repeatScoring, 0);
+  const cold = await evaluateIncrementalTriage(window, 1, 100);
+  assert.equal(cold.preEditionItems, 0);
+  assert.equal(cold.editionItems, 5);
+  for (const invalid of [0, -1, 1.5, NaN])
+    await assert.rejects(
+      evaluateIncrementalTriage(window, 1, invalid),
+      /Minimum pending/,
+    );
+  const baseline = await recordedIncrementalTriage();
+  const gated = await recordedIncrementalTriage(25);
+  for (const row of gated) {
+    const previous = baseline.find(
+      (r) => r.topic === row.topic && r.intervalHours === row.intervalHours,
+    )!;
+    assert.equal(row.totalScoredItems, previous.totalScoredItems);
+    assert.equal(row.repeatScoring, 0);
+    assert.ok(row.totalRequests <= previous.totalRequests);
+  }
+});

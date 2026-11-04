@@ -1607,3 +1607,17 @@ the edition, and a returning article reused from cache. These are test outcomes,
 not measurements of production ingestion lag or waste. The three existing
 recorded windows still lack those observations; their results are unchanged.
 No collection, scheduling, production setting or activation is added.
+
+Iteration 517 adds an offline `--minimum-pending=25` option (with or without
+an input JSON path). At each tick it waits for at least that many **uncached**
+items in the currently available pool; edition time always flushes the remainder.
+This defers work rather than dropping candidates. The default remains one.
+On the three recorded windows, hourly passes with a 25-item minimum make six
+requests total instead of 50, with 47 edition-time items instead of seven.
+NBA/World/Tech edition remainders are 0/22/25, with two total requests each.
+Prompt bytes total 67,051 and reserved output tokens 25,416; neither is actual
+provider usage or cost. All 153 items are scored once. Compared with five cold
+requests, this trades less edition work for one additional request. The gate
+counts pending items rather than pool size, so cached items cannot repeatedly
+trigger small batches. Real arrival/pool evidence, budget admission and live
+latency remain unmeasured; no production setting or activation is added.
