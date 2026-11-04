@@ -5,6 +5,7 @@ import { z } from 'zod';
 import type { ModelPrice } from '../domain/llm.port';
 import type { LlmLedger } from '../domain/llm-ledger.port';
 import type { BudgetedLlm } from './budgeted-llm';
+import { LlmValidationFailure } from './validation-failure';
 
 export interface TriageTopic {
   id: string;
@@ -201,14 +202,15 @@ export class CandidateTriage {
       const ids = new Set(batch.map((_, index) => String(index)));
       const validate = (value: unknown) => {
         const parsed = z
-          .object({ items: z.array(scoreSchema).length(batch.length) })
+          .object({ items: z.array(scoreSchema) })
           .strict()
           .parse(value);
         if (
+          parsed.items.length !== batch.length ||
           new Set(parsed.items.map((s) => s.id)).size !== ids.size ||
           parsed.items.some((s) => !ids.has(s.id))
         )
-          throw new Error('Triage must cover each requested ID exactly once');
+          throw new LlmValidationFailure('invalid-triage-coverage');
         return parsed;
       };
       const result = await this.llm.json(

@@ -2842,3 +2842,17 @@ truncated candidates per mode, reversed probes and warm scoring. A local
 synthetic benchmark of 60,000 candidate fingerprints took 1,718 ms before
 and 536 ms with shared context; this measures CPU preparation only, not
 provider or live edition latency. No paid calls or prompt changes.
+
+## Triage coverage repair (iteration 672)
+
+Article and social triage now classify well-formed score arrays with missing,
+duplicate, extra or non-batch IDs as `invalid-triage-coverage`. The existing
+single budgeted repair gets fixed guidance to return every batch-local ID
+exactly once, including low-relevance items, rather than using original IDs.
+Schema-invalid scores still fail schema validation. No rejected text or IDs
+enter feedback or diagnostic logs. Initial prompts and cache identity stay
+unchanged; successful repairs restore original IDs before item caching.
+
+Offline fake-provider checks cover all four defects for both kinds, complete
+recovery and subsequent cache reuse. No production failure count or speedup
+is inferred; the next scheduled edition supplies the live evidence.

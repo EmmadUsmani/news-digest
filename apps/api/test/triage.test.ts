@@ -48,7 +48,7 @@ function harness(
     {
       async complete(request) {
         calls.push(request);
-        const prompt = JSON.parse(request.prompt) as {
+        const prompt = JSON.parse(request.prompt.split('\nReturn only')[0]) as {
           candidates: TriageCandidate[];
         };
         const items = prompt.candidates.map(score);
@@ -292,7 +292,7 @@ void test('article and social batches overlap up to four calls and preserve orde
           peak = Math.max(peak, active);
           await new Promise<void>((resolve) => releases.push(resolve));
           active--;
-          const body = JSON.parse(request.prompt) as {
+          const body = JSON.parse(request.prompt.split('\nReturn only')[0]) as {
             candidates: TriageCandidate[];
           };
           return validate({ items: body.candidates.map(score).reverse() });
@@ -947,5 +947,47 @@ void test('shared context hashing retains legacy item keys for escaped and trunc
     );
     await h.service.score(unusualTopic, pool.slice().reverse(), 'warm');
     assert.equal(h.calls.length, calls);
+  }
+});
+
+void test('article and social coverage repairs explain wire IDs and recover complete batches', async () => {
+  for (const kind of ['article', 'social'] as const) {
+    for (const defect of [
+      'missing',
+      'duplicate',
+      'original',
+      'extra',
+    ] as const) {
+      let attempts = 0;
+      const h = harness((items) => {
+        if (++attempts > 1) return { items };
+        if (defect === 'missing') return { items: items.slice(1) };
+        if (defect === 'duplicate') return { items: [items[0], items[0]] };
+        if (defect === 'extra')
+          return { items: [...items, { ...items[0], id: 'invented' }] };
+        return {
+          items: items.map((item) => ({ ...item, id: 'private-original-id' })),
+        };
+      }, kind);
+      const pool = candidates
+        .slice(0, 2)
+        .map((item, index) => ({ ...item, id: `original-${index}` }));
+      const result = await h.service.score(topic, pool, 'repair-coverage');
+      assert.deepEqual(result.unscoredIds, []);
+      assert.deepEqual(
+        result.scores.map(({ id }) => id),
+        pool.map(({ id }) => id),
+      );
+      assert.equal(h.calls.length, 2);
+      assert.doesNotMatch(h.calls[0].instructions, /previous response failed/);
+      assert.match(h.calls[1].prompt, /triage coverage check/);
+      assert.match(
+        h.calls[1].prompt,
+        /EVERY batch-local candidate id exactly once/,
+      );
+      assert.doesNotMatch(h.calls[1].prompt, /private-original-id/);
+      await h.service.score(topic, pool, 'warm-after-repair');
+      assert.equal(h.calls.length, 2, 'Corrected original IDs are cached');
+    }
   }
 });

@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 655 — assess incremental triage without weakening the reserve
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without errors and four available queues.
-- Read-only live assessment finds zero qualifying fully AI-edited editions; the pending reserve consequently protects the whole daily cap. Nov 5 projection: $0.495028 with no further spend, $0.487477 if today's $0.196315 remainder is spent; background allowance $0 in both cases.
-- Kept incremental triage off: today's released funds cover only the pre-midnight portion of tomorrow's window. No reserve reduction, paid calls, source requests, new jobs or production configuration changes.
-- Captured next-window pool privately at 16:06:50 UTC: Tech/NBA/Gaming/World 25/3/25/12 eligible articles, zero matching current fingerprint cache rows. This is prospective inventory, not final membership, actual scoring, waste or latency. Initial ad-hoc cache lookup used the wrong schema property; corrected it and reran successfully, without writes.
-- Added reproducible admission assessment, updated TASKS/RANKING and corrected stale handbook timer description; archived iteration 639. Source inventory and schema unchanged.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (397 unit/207 isolated integration), pnpm build, handbook check (17 pages/two unchanged diagrams/25 tables), private capture permissions and git diff --check passed.
-- Restarted API/worker; both active, healthz/database/Redis healthy, saved four-topic edition readable, 36 sources without errors, four queues available and zero alerts/failed user units/dangling Docker volumes.
-- Next: Nov 5 grouping/cost/accuracy/screenshots, NBA full-AI and World posts; compare private baseline with final same-window capture and reassess background headroom after full-AI evidence.
-
 ## 2026-11-04: iteration 656 — give the final social editor saved engagement evidence
 
 - Started clean on main; no leftover work. Zero alerts and healthy healthz/database/Redis; API and worker active.
@@ -186,3 +175,14 @@
 - Verification: real read-only sample, empty future window and invalid timestamp rejection; pnpm format, pnpm lint:fix, pnpm check (413 unit/207 isolated integration), pnpm build and git diff --check passed.
 - API/worker active, healthz healthy, zero alerts, 36 nonempty sources without errors and four available queues. No restart under STEERING 22: runtime/config unchanged.
 - Next: Nov 5 grouping admission/accuracy/cost/latency/screenshots, NBA full-AI acceptance, World posts and Bluesky repairs.
+
+## 2026-11-04: iteration 672 — explain triage coverage repairs
+
+- Started clean on main; no leftover work. Zero alerts and healthy healthz/database/Redis.
+- Article/social missing, duplicate, extra and original-ID score arrays now emit a fixed coverage diagnostic and specific single-repair guidance; no rejected text/IDs enter feedback.
+- Initial prompts, cache identity, candidate coverage, models, budgets and concurrency unchanged. Schema-invalid scores still fail closed; no paid calls or measured live speedup.
+- Fake-provider regression covers eight defect/kind cases, corrected original-ID mapping and warm-cache reuse; targeted triage 24/24 passed. Fixed harness parsing so transport repairs actually reach its fake provider.
+- Updated TASKS/RANKING; archived iteration 655 to keep PROGRESS bounded. No handbook/schema/SOURCES changes needed for this internal repair.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (414 unit/207 isolated integration), pnpm build and git diff --check passed.
+- Restarted API/worker active; initial immediate probe preceded listener startup, retry healthy with database/Redis. Zero alerts, 36 nonempty sources without errors; saved edition remains four topics/14 stories/15 posts.
+- Next: Nov 5 grouping admission/accuracy/cost/latency/screenshots, NBA full-AI outcome, World posts and Bluesky repair tail.

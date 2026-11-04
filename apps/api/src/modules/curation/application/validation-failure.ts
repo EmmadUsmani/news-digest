@@ -1,6 +1,8 @@
 // Fixed application-owned repair hints. Never interpolate model/source text.
 const feedback = {
   'invalid-selection': '',
+  'invalid-triage-coverage':
+    '\nThe previous response failed the triage coverage check. Return the complete corrected JSON with an items array containing EVERY batch-local candidate id exactly once. Use id, never originalId; omit no candidates and invent no IDs. Score unrelated candidates too, using low relevance instead of leaving them out.',
   'invalid-social-selection':
     '\nThe previous response failed the post-selection check. Return the complete corrected JSON with a posts array. Use only IDs from candidates, each at most once, and return at most the supplied budget. Do not return IDs from alreadySelected or original IDs replaced by candidate aliases. Fewer posts or an empty array are acceptable; do not pad.',
   'unsupported-absence':
@@ -62,6 +64,7 @@ export type ValidationDiagnostic = {
     | 'invalid-schema'
     | 'invalid-selection'
     | 'invalid-social-selection'
+    | 'invalid-triage-coverage'
     | 'unsupported-absence'
     | 'validator-error';
 };
