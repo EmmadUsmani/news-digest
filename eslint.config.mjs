@@ -59,6 +59,40 @@ export default tseslint.config(
       ],
     },
   },
+  {
+    files: ['apps/api/src/**/*.ts'],
+    ignores: ['apps/api/src/libs/db/**'],
+    rules: {
+      '@typescript-eslint/no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            {
+              name: 'pg',
+              allowTypeImports: true,
+              message:
+                'Construct PostgreSQL clients only in libs/db; use Drizzle in database adapters.',
+            },
+          ],
+        },
+      ],
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector:
+            "CallExpression[callee.type='MemberExpression'][callee.property.name='query']",
+          message:
+            'Direct SQL queries belong in libs/db; use Drizzle in database adapters.',
+        },
+        {
+          selector:
+            "CallExpression[callee.type='MemberExpression'][callee.computed=true][callee.property.value='query']",
+          message:
+            'Direct SQL queries belong in libs/db; use Drizzle in database adapters.',
+        },
+      ],
+    },
+  },
   // Legacy pg rows, XML/JSON and BullMQ payloads require boundary schemas.
   // Keep this migration separate from formatting; narrow/remove with STEERING 2a/2b.
   {

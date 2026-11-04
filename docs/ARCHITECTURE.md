@@ -8,8 +8,10 @@ connections: this is a single-owner VM, not a deployment for untrusted local use
 
 Data access is moving incrementally to Drizzle ORM over the existing `pg` pools.
 Converted adapters cover profiles, Bluesky, Reddit, publisher-article discovery,
-X-search, X verification/discovery, social selection/citation reads, operations source status, ingestion, edition costs, topic coverage, digest previews (with ORM-managed publication transactions), article candidates and reaction/incremental topic settings and budget-day schedule reads and reserve-status snapshot reads, incremental-triage admission, LLM usage reads (with ORM-managed repeatable-read snapshots) and ledger reservation/settlement/failure/cache operations (with ORM-managed admission/failure transactions), X discovery daily evidence reports and ledger ORM-managed transactions, scheduled admission, totals/reservation inserts and completion/failure writes, topics and scheduled budgets (including Drizzle-managed lifecycle transactions); other
-adapters still use SQL. ORM imports stay inside database adapters and `libs/db`. See the
+X-search, X verification/discovery, social selection/citation reads, operations source status, ingestion, edition costs, topic coverage, digest previews (with ORM-managed publication transactions), article candidates and reaction/incremental topic settings and budget-day schedule reads and reserve-status snapshot reads, incremental-triage admission, LLM usage reads (with ORM-managed repeatable-read snapshots) and ledger reservation/settlement/failure/cache operations (with ORM-managed admission/failure transactions), X discovery daily evidence reports and ledger ORM-managed transactions, scheduled admission, totals/reservation inserts and completion/failure writes, topics and scheduled budgets (including Drizzle-managed lifecycle transactions); health and console startup probes use a shared Drizzle connectivity check. ORM imports stay inside database adapters and `libs/db`.
+ESLint forbids runtime `pg` imports and direct `.query()` calls outside `libs/db`;
+connection type imports remain available to adapters and public facades.
+The owner console still exposes its explicitly requested SQL helper. See the
 [decision and migration gate](decisions/0003-drizzle-data-access.md).
 Explicit SQL migrations remain authoritative: `schema_migrations` records
 applied filenames, and migrations run atomically under a transaction advisory

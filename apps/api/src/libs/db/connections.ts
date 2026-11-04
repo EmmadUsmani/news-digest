@@ -1,3 +1,5 @@
+import { sql } from 'drizzle-orm';
+import { drizzle } from 'drizzle-orm/node-postgres';
 import Redis from 'ioredis';
 import { Pool } from 'pg';
 
@@ -29,4 +31,9 @@ export function redis() {
     maxRetriesPerRequest: 1,
     connectTimeout: 3000,
   });
+}
+
+export async function checkDatabase(pool: Pool): Promise<void> {
+  // A constant probe deliberately checks connectivity without reading app tables.
+  await drizzle(pool).execute(sql`SELECT 1`);
 }

@@ -78,8 +78,11 @@ Before adopting drizzle-kit migrations, keep the complete schema parity test gre
 isolated container and define the historical migration baseline. Preserve historical SQL
 migrations and take a private `pg_dump` backup before the first new migration.
 Keep owner read-only/read-write grants intact. Convert remaining repositories
-one at a time, retaining the unchanged 2a suite; enforce the final direct-pg ban
-only once legacy adapters have been removed.
+one at a time, retaining the unchanged 2a suite; ESLint now bans runtime `pg` imports and direct `.query()` calls outside
+`libs/db`, while allowing connection type imports. Health and console startup
+use a shared Drizzle connectivity probe. The interactive owner console retains
+its explicitly requested `db.query` binding; migrations retain driver access
+inside `libs/db`.
 
 The ingestion adapter uses typed transactional upserts for items, observations
 and X citations, plus typed source eligibility and health reads. Its nested

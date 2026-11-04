@@ -9,7 +9,7 @@ async function main() {
   process.loadEnvFile(join(homedir(), '.config/news-digest/env'));
   const bindings = await createConsole();
   try {
-    await bindings.db.query('SELECT 1');
+    await bindings.db.check();
     const history = join(homedir(), '.local/state/news-digest/console-history');
     await mkdir(dirname(history), { recursive: true, mode: 0o700 });
     console.log(

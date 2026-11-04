@@ -13,7 +13,7 @@ import {
 import { CqrsModule } from '@nestjs/cqrs';
 import { ServeStaticModule } from '@nestjs/serve-static';
 
-import { database, redis } from './libs/db/connections';
+import { checkDatabase, database, redis } from './libs/db/connections';
 import { DigestsModule } from './modules/digests/digests.module';
 import { IngestionModule } from './modules/ingestion/ingestion.module';
 import { OperationsModule } from './modules/operations/operations.module';
@@ -28,7 +28,7 @@ class HealthService implements OnModuleDestroy {
   }
   async check() {
     const checks = await Promise.allSettled([
-      this.db.query('SELECT 1'),
+      checkDatabase(this.db),
       this.cache.ping(),
     ]);
     const database = checks[0].status === 'fulfilled';

@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import { Module } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
-import { database } from './libs/db/connections';
+import { checkDatabase, database } from './libs/db/connections';
 import { PostgresPreviewRepository } from './modules/digests/database/preview.repository';
 import { PreviewRepository } from './modules/digests/domain/preview.repository';
 import { PostgresContentRepository } from './modules/ingestion/database/content.repository';
@@ -63,7 +63,11 @@ const ConsoleDatabase = Symbol('ConsoleDatabase');
       provide: ConsoleDatabase,
       useFactory: () => {
         const db = database();
-        return { query: db.query.bind(db), onModuleDestroy: () => db.end() };
+        return {
+          query: db.query.bind(db),
+          check: () => checkDatabase(db),
+          onModuleDestroy: () => db.end(),
+        };
       },
     },
   ],
@@ -77,9 +81,10 @@ export async function createConsole() {
   return {
     app,
     get: app.get.bind(app),
-    db: app.get<{ query: ReturnType<typeof database>['query'] }>(
-      ConsoleDatabase,
-    ),
+    db: app.get<{
+      query: ReturnType<typeof database>['query'];
+      check: () => Promise<void>;
+    }>(ConsoleDatabase),
     ...Object.fromEntries(
       Object.entries(repositories).map(([name, token]) => [
         name,

@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 589 — convert social selection/citation reads to Drizzle
-
-- Started clean on main; no leftover work. Healthy healthz, zero alerts, 36 error-free sources and zero failed digest jobs. Recent social collections completed; two historical Bluesky failures remain retained.
-- Moved social selection and citing-story reads into a typed Drizzle database adapter. Preserved publisher transaction reuse, four citation paths, half-open windows, engagement cutoff/tie ordering, 500-post cap and distinct selected-story links; ranking unchanged.
-- Read-only old/new comparison matched 91 live posts across all four topics in one repeatable-read snapshot. No migration, activation, source, paid call or owner grant change.
-- Initial typecheck caught the partial-client type; aligned with existing adapter casting. First full suite found one object-row unit stub; updated to Drizzle array rows without changing assertions. Targeted ranking tests passed.
-- Updated TASKS, architecture, decision and handbook stack; archived iteration 574 to keep PROGRESS bounded.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; selection reader statement coverage 100%, zero dangling Docker volumes.
-- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Playwright root: four digest sections/19 article elements, zero page errors; zero alerts.
-- Next: prioritize Nov 4 15:00 UTC edition review; otherwise continue remaining ORM adapters or migration baseline. Private pg_dump before first new migration.
-
 ## 2026-11-04: iteration 590 — convert article topic settings reads to Drizzle
 
 - Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 healthy sources and zero failed digest jobs; Nov 4 15:00 UTC review remains pending.
@@ -151,3 +140,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
 - Restarted API/worker outside freeze; active and healthz healthy. Saved edition byte-identical and budget snapshots unchanged. Read-only Playwright rendered four topics without page errors; 36 sources without current errors, zero failed digest jobs and zero alerts.
 - Next: prioritize Nov 4 15:00 UTC edition review; otherwise historical migration baseline or remaining ORM infrastructure. Private pg_dump before first new migration.
+
+## 2026-11-04: iteration 604 — enforce the direct PostgreSQL boundary
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC review pending.
+- Moved health and console startup probes to shared Drizzle connectivity checking in libs/db. Console retains its owner-requested SQL helper and shutdown behavior.
+- ESLint now rejects runtime pg imports and direct dot/bracket query calls outside libs/db; connection type imports remain allowed. Explicit positive/negative lint probes passed; no application direct query calls remain outside libs/db.
+- Initial typecheck caught the console's query-only wrapper; added its connectivity method without exposing the pool. Final full check passed. No migration, activation, source change or paid call; owner grants untouched.
+- Updated TASKS, architecture, decision and handbook stack; archived iteration 589.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
+- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical and LLM/X budget snapshots unchanged. Read-only Playwright rendered four digest topics without page errors; 36 error-free sources, zero failed digest jobs and zero alerts.
+- Next: prioritize Nov 4 15:00 UTC edition review; otherwise historical Drizzle migration baseline. Private pg_dump before first new migration.

@@ -61,3 +61,9 @@ flowchart LR
   are edited in the app.
 - App service definitions are tracked in `ops/services/*.service`; observability
   units and configuration live in `ops/observability/`.
+
+Health and console startup use a shared Drizzle connectivity probe. ESLint blocks
+runtime PostgreSQL driver imports and direct query calls outside the shared
+database library; adapters and public facades may still import connection types.
+The owner console retains its SQL helper. Historical SQL migrations remain
+authoritative while the Drizzle migration baseline is unfinished.
