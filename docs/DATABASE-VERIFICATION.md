@@ -545,3 +545,11 @@ without changing another topic's history or the shared current post. Recreating
 the topic with the same identifier starts empty; collecting an older snapshot
 cannot replace newer current metadata. Disposable PostgreSQL only; no provider
 requests.
+
+## Bluesky snapshot-write failure (iteration 564)
+
+`bluesky-storage.test.ts` injects a snapshot-table constraint failure after the
+current-post upsert. Current metadata and both topics' immutable histories remain
+unchanged. Removing the constraint permits retry and idempotent replay, while the
+other topic retains its original snapshot. Disposable PostgreSQL only; no provider
+requests or production changes.

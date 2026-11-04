@@ -627,3 +627,75 @@ void test('Bluesky topic lifecycle restores retained history and isolates deleti
     await repo.db.end();
   }
 });
+
+void test('Bluesky snapshot insert failure rolls back current metadata and permits retry', async () => {
+  const repo = new PostgresBlueskyRepository();
+  const original = { ...post, externalId: post.externalId + 'snapshotfailure' };
+  const refreshed = {
+    ...original,
+    observedAt: '2026-10-01T14:00:00.000Z',
+    author: 'updated.test',
+    text: 'Updated synthetic snapshot',
+    metrics: { likes: 90, reposts: 8, replies: 4 },
+  };
+  const current = async () =>
+    (
+      await repo.db.query(
+        "SELECT * FROM social_posts WHERE platform='bluesky' AND external_id=$1",
+        [original.externalId],
+      )
+    ).rows;
+  try {
+    await repo.store(topic, [original]);
+    await repo.store(other, [original]);
+    const before = await current();
+    // Fail after the current-post upsert, at the final immutable snapshot write.
+    await repo.db
+      .query(`ALTER TABLE bluesky_observations ADD CONSTRAINT test_snapshot_failure
+      CHECK (external_id <> '${original.externalId}' OR observed_at <> '2026-10-01T14:00:00Z'::timestamptz)`);
+    await assert.rejects(
+      repo.store(topic, [refreshed]),
+      /test_snapshot_failure/,
+    );
+    assert.deepEqual(await current(), before);
+    assert.deepEqual(await repo.observations(topic, start, end, end), [
+      original,
+    ]);
+    assert.deepEqual(await repo.observations(other, start, end, end), [
+      original,
+    ]);
+    await repo.db.query(
+      'ALTER TABLE bluesky_observations DROP CONSTRAINT test_snapshot_failure',
+    );
+    await repo.store(topic, [refreshed]);
+    assert.deepEqual(await repo.observations(topic, start, end, end), [
+      refreshed,
+      original,
+    ]);
+    const after = await current();
+    assert.equal(after[0].author, refreshed.author);
+    assert.deepEqual(after[0].metrics, refreshed.metrics);
+    assert.deepEqual(after[0].bluesky_metadata, {
+      text: refreshed.text,
+      media: refreshed.media,
+    });
+    await repo.store(topic, [refreshed]);
+    assert.deepEqual(await current(), after);
+    assert.deepEqual(await repo.observations(topic, start, end, end), [
+      refreshed,
+      original,
+    ]);
+    assert.deepEqual(await repo.observations(other, start, end, end), [
+      original,
+    ]);
+  } finally {
+    await repo.db.query(
+      'ALTER TABLE bluesky_observations DROP CONSTRAINT IF EXISTS test_snapshot_failure',
+    );
+    await repo.db.query(
+      "DELETE FROM social_posts WHERE platform='bluesky' AND external_id=$1",
+      [original.externalId],
+    );
+    await repo.db.end();
+  }
+});

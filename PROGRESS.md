@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 545 — join final captures to observed scoring exports
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 nonempty error-free sources; latest Bluesky collection succeeded with zero discovery/verification errors. Retained Nov 3 token failure is historical. Nov 4 review remains pending.
-- Added offline `report-captured-triage-work.ts`: derives production fingerprints from final eligible captures and joins atomic scoring exports into the per-topic waste report. Rejects early observations, duplicate pool identities/score evidence and malformed records.
-- Seven targeted tests pass, including synthetic end-to-end retained/changed/excluded/repeated work. CLI rejects the real early 543 capture as a final observation. No actual scoring, provider calls, production activation or cost/latency claims.
-- Updated TASKS/RANKING and archived iteration 525. No source/schema/UI or handbook flow changes; no restart under STEERING 22 because running code/config is unchanged.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (353 unit/186 isolated integration), pnpm build and git diff --check; root HTTP 200, healthy healthz, zero dangling Docker volumes.
-- Next: Nov 4 scheduled review first; gated worker connection and actual scoring/final-pool waste evidence thereafter.
-
 ## 2026-11-04: iteration 546 — verify admission recovery after database session loss
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 nonempty error-free sources and no failed digest jobs. Nov 4 review remains pending.
@@ -167,3 +158,11 @@
 - Updated TASKS/database verification notes; archived iteration 544 to keep PROGRESS small. No restart under STEERING 22: running code/config unchanged.
 - Final checks: pnpm build and git diff --check passed; healthz healthy, zero alerts and zero dangling Docker volumes.
 - Next: prioritize Nov 4 15:00 UTC edition review; grouping/incremental triage remain gated. Repository characterization and recorded-response golden remain open.
+
+## 2026-11-04: iteration 564 — characterize final Bluesky snapshot failure
+
+- Started clean on main; no leftover work. Healthz passed, 36 sources have no current errors, no failed digest jobs and zero alerts. Nov 4 scheduled evidence remains pending.
+- Added isolated snapshot-table constraint failure after the current-post upsert. Rollback preserves current metadata and both topic histories; removing the constraint permits retry and idempotent replay without changing the other topic.
+- Updated TASKS and database verification notes. No provider requests, production changes or restart required under STEERING 22.
+- Verification: pnpm format, pnpm lint:fix and pnpm check passed (363 unit/196 isolated integration); pnpm build and git diff --check passed. Archived iteration 545 to keep PROGRESS small.
+- Next: prioritize Nov 4 15:00 UTC edition review; grouping/incremental triage stay gated. Repository characterization and recorded-response golden remain open.
