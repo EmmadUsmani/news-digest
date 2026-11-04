@@ -85,14 +85,18 @@ lang:en`, plus per-topic exclusions (NBA: `-odds -parlay -picks -bet`).
    - Store Grok's actual tool calls per discovery call.
    - Add the per-topic settings (thresholds, exclusions).
    - Update `schema-meta.json`.
-2. **Experiment, capped at $1.00 of xAI credit in total.**
-   - **Spend limits:** no more than $0.50 per UTC day, recorded apart from
+2. **Experiment, capped at $2.50 of xAI credit in total.**
+   - **Spend limits:** no more than $1.00 per UTC day, recorded apart from
      production spend. Not between 13:00 and 16:00 UTC.
    - **Round 1 (Grok 4.3):** three styles across all four topics against the
      same window, within one hour:
      1. the current search;
      2. B;
      3. A.
+   - **Use the larger budget for confidence, not breadth:**
+     - Repeat round 1 on a **second day**, so one news day doesn't decide.
+     - Try one lower and one higher `min_faves` per topic for the winning
+       style, to calibrate the starting thresholds.
    - **Round 2 (model):** the winning style on the cheapest current xAI
      model that supports `x_search`. Check the official model table for it.
    - **Measured for each style and model:**

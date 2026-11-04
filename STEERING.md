@@ -880,9 +880,13 @@ the NBA posts were betting promotions, World got roundups, and the best had
   - Story-reaction search is primary, topic-trending search secondary.
   - Code builds the operators and thresholds; Grok writes only keywords.
   - Store the queries Grok actually ran.
-- **Experiment budget** (the owner added $5 of xAI credit): at most $1.00 in
-  total and $0.50 per UTC day for the experiment, recorded apart from
+- **Experiment budget** (the owner added $5 of xAI credit): at most $2.50 in
+  total and $1.00 per UTC day for the experiment, recorded apart from
   production spend. Never between 13:00 and 16:00 UTC.
+  - **Raised 2026-11-04 by the owner, from $1.00/$0.50.** Use the extra to
+    repeat the comparison on a second day and to calibrate thresholds, as
+    in the plan.
+  - Leave at least half of the top-up untouched.
 - **Model:** the owner has no attachment to Grok 4.3. Pick the cheapest
   model that passes the plan's decision rule.
 - **Production stays $0.40/day and $12/month.**
