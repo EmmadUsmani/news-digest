@@ -6,10 +6,13 @@ PostgreSQL 17 and Redis 7 bind only to VM loopback through Docker Compose.
 Volumes survive container replacement. PostgreSQL currently trusts loopback
 connections: this is a single-owner VM, not a deployment for untrusted local users.
 
-Use `pg` with explicit SQL migrations: it keeps SQL visible, requires no generated
-client, and supports transactions and advisory locks. `schema_migrations` records
-applied filenames. Migrations run atomically under a transaction advisory lock;
-run from repository root using `pnpm migrate` before starting services.
+Data access is moving incrementally to Drizzle ORM over the existing `pg` pools.
+The profile repository uses its typed query builder; other adapters still use
+SQL. ORM imports stay inside database adapters and `libs/db`. See the
+[decision and migration gate](decisions/0003-drizzle-data-access.md).
+Explicit SQL migrations remain authoritative: `schema_migrations` records
+applied filenames, and migrations run atomically under a transaction advisory
+lock. Run `pnpm migrate` from the repository root before starting services.
 
 Future contexts live under `apps/api/src/modules/<context>` with domain,
 application use cases, repository ports/adapters and transport controllers.

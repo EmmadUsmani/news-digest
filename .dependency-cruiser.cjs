@@ -1,6 +1,12 @@
 module.exports = {
   forbidden: [
     {
+      name: 'orm-only-in-database-adapters',
+      severity: 'error',
+      from: { path: 'apps/api/src/', pathNot: '/database/|/libs/db/' },
+      to: { path: '(^|/)drizzle-orm(/|$)|(^|/)drizzle-kit(/|$)' },
+    },
+    {
       name: 'domain-is-independent',
       severity: 'error',
       from: { path: '/domain/' },

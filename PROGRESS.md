@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 551 — compare offline triage batch overhead
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 nonempty/error-free sources and four available queues. Nov 4 scheduled review remains pending at 15:00 UTC.
-- Added offline 10/25/50/200-item caller comparison using real CandidateTriage request construction, synthetic replies and in-memory cache; no provider, DB, environment or production changes.
-- Recorded 153 articles: 10-item chunks require 17 requests/80,479 input bytes versus current batching's 5/65,824 (+22.3% bytes); output reservations rise 3.1%. 50/200 request shapes match here, but sequential passes differ from four-way request scheduling. No latency/cost/quality claim.
-- Regression verifies all candidates score once, repartitioning reuses every cache entry, Unicode excerpts split at the byte bound, and invalid chunks/duplicate IDs fail. Keep production batching unchanged.
-- Updated TASKS/RANKING and archived iterations 531–532; no source/schema/UI/handbook flow change. No service restart under STEERING 22: only offline scripts/tests/docs changed.
-- Verification: targeted tests 2/2; pnpm format, pnpm lint:fix, pnpm check (359 unit/187 isolated integration), pnpm build and git diff --check passed. Initial lint rejected unnecessary async fake methods; replaced with resolved promises before final checks.
-- Live: root HTTP 200, healthz healthy, zero alerts/dangling volumes; latest hourly social collections completed. Retained Nov 3 23:54 social failure is the already-investigated item 18 incident, not a new failure; zero failed digest jobs.
-- Next: Nov 4 scheduled review first; then gated activation/worker connection and actual waste/latency/cost evidence. No paid calls or activation this iteration.
-
 ## 2026-11-04: iteration 552 — replay observed provider concurrency bounds
 
 - Started clean on main; no leftover work. Zero alerts; healthy healthz/root, 36 sources and four available queues; no failed digest jobs. Nov 4 15:00 UTC review remains pending.
@@ -179,3 +168,13 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/201 isolated integration), pnpm build and git diff --check passed. Early checks caught formatting while edits were still in flight; final check rerun after formatting.
 - Rebuilt/restarted API and worker for adapter fix; final healthz/alerts green. No schema, UI or handbook flow changes.
 - Next: verify hourly Bluesky recovery, then Nov 4 scheduled review when due; otherwise STEERING 29 first ORM conversion.
+
+## 2026-11-04: iteration 571 — first Drizzle repository conversion
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and no failed digest jobs. Nov 4 scheduled evidence remains pending at 15:00 UTC.
+- Converted profile schedule reads/updates to Drizzle query builder over the existing observed, test-isolated pg pool; explicit domain mapping, missing-row errors and shutdown preserved. Existing 2a tests unchanged; removed profile unsafe-row lint exemptions.
+- Added Drizzle/drizzle-kit, mapped the two profile tables and enforced ORM import boundaries in ESLint/dependency-cruiser. Decision documents partial schema: migration generation stays disabled until full-schema zero-diff proof. No migrations, schema changes or owner grant changes.
+- Updated architecture/handbook/TASKS; archived iteration 551. No paid calls. Stored Bluesky latest observations remain 03:54 UTC; next hourly recovery still pending, not claimed verified.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/201 isolated integration), pnpm build, handbook check for 01-stack-and-runtime and git diff --check passed; zero dangling Docker volumes.
+- Rebuilt/restarted API and worker well outside edition freeze. Both active; healthz healthy, root HTTP 200, zero alerts; live GET /api/profile byte-identical before/after restart, including owner's 07:00 Los Angeles schedule.
+- Next: verify hourly Bluesky recovery and Nov 4 scheduled edition when due; otherwise complete full Drizzle schema mapping/parity before migration tooling adoption.

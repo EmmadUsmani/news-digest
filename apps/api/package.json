@@ -19,6 +19,7 @@
     "@nestjs/serve-static": "^5.0.4",
     "bullmq": "^5.61.2",
     "cron-parser": "4.9.0",
+    "drizzle-orm": "^0.45.4",
     "entities": "^9.0.0",
     "fast-xml-parser": "^5.11.2",
     "ioredis": "^5.8.2",
@@ -30,6 +31,7 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@types/pg": "^8.15.5"
+    "@types/pg": "^8.15.5",
+    "drizzle-kit": "^0.31.11"
   }
 }

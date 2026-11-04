@@ -62,7 +62,7 @@ Fix failures and stalled sources first. [Completed markers](docs/progress-archiv
 
 - [x] STEERING 2a (570): isolated Postgres/Redis, fresh migrations, repository/HTTP/worker characterization, synthetic edition golden and coverage inventory verified. Final prerequisite gaps closed: SQL facades (567–568), usage rollback/client/lock release (569), social engagement cutoff/tie/topic ordering (570). See [database verification](docs/DATABASE-VERIFICATION.md); item 4's real-response recording stays separate.
 
-- [ ] STEERING 2b (only after 2a is green): record Drizzle decision/schema parity, back up live DB, gradually replace raw SQL behind ports and enforce boundaries.
+- [ ] STEERING 2b: first Drizzle conversion is profiles (571), with unchanged characterization suite and ORM import boundaries. Next: complete full-schema mapping and isolated drizzle-kit zero-diff proof before migration generation; back up live DB before first new migration, then convert remaining repositories individually. Existing SQL migrations remain authoritative.
 
 - [x] Full Grafana verification (561): scroll to mount virtualized Agent mobile Supervisor panels; all ten dashboard checks and desktop/mobile sweep pass. Refreshed Agent mobile screenshot.
 

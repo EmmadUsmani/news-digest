@@ -42,6 +42,23 @@ export default tseslint.config(
     },
   },
 
+  {
+    files: ['apps/api/src/**/*.ts'],
+    ignores: ['apps/api/src/**/database/**', 'apps/api/src/libs/db/**'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            'drizzle-orm',
+            'drizzle-orm/*',
+            'drizzle-kit',
+            'drizzle-kit/*',
+          ],
+        },
+      ],
+    },
+  },
   // Legacy pg rows, XML/JSON and BullMQ payloads require boundary schemas.
   // Keep this migration separate from formatting; narrow/remove with STEERING 2a/2b.
   {
@@ -52,7 +69,6 @@ export default tseslint.config(
       'apps/api/src/modules/ingestion/adapters/hn.adapter.ts',
       'apps/api/src/modules/ingestion/database/content.repository.ts',
       'apps/api/src/modules/operations/adapters/operations.status.ts',
-      'apps/api/src/modules/profiles/database/profile.repository.ts',
       'apps/api/src/modules/topics/database/topic.repository.ts',
       'apps/api/src/scheduled-digests.ts',
       'apps/api/src/worker.ts',
