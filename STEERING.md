@@ -949,3 +949,42 @@ These go after item 31's round 1 and before the fallback list (item 28).
    - Backups must not contain or print secrets beyond the data itself.
    - **Off-VM copies are out of scope.** They need an owner decision on
      where to store them.
+
+## 33. MID-LOW: UI rebuild, reader edition + admin (2026-11-04)
+
+The owner finds the current UI busy and low quality. The home page is about
+23,000 px tall, and most of it is admin data and system caveats.
+**Build exactly [docs/ui-spec.md](docs/ui-spec.md)** (owner-approved).
+- **Priority:** after items 30–32 (X search, X schedule, backups) and the
+  Nov 5 checks. Ahead of the item 28 fallback list (speed, observability).
+- **Stack (owner decisions):**
+  - a client-side SPA only, no SSR;
+  - **TanStack Router** with a code-based route tree;
+  - **TanStack Query**;
+  - **Tailwind v4 + shadcn/ui**;
+  - Inter, self-hosted.
+- **Structure:**
+  - the reader sees only the edition (`/`, `/editions`, `/editions/:id`),
+    with a contents sidebar;
+  - **everything else goes under `/admin`,** gated server-side by
+    `X-ExeDev-Email` in `ADMIN_EMAILS`. That covers status, sources, spend,
+    scores, settings, the edition inspector and on-demand editions;
+  - **settings and on-demand editions are admin-only.** The reader has no
+    settings.
+- **Reader copy:** no "why it matters", "auto-ranked", scores or other
+  system language. The spec lists the forbidden terms, and a test enforces
+  them.
+- **Build order:** the spec's five shippable steps, in order. **The reader
+  page must never break between steps.**
+  - **Step 2 (admin gate):** check how proxied requests arrive before
+    trusting loopback.
+  - Keep the agent's own scripts working.
+- **Done when:**
+  - every route has desktop and mobile screenshots, light and dark, in
+    `docs/screenshots/ui/`;
+  - the forbidden-terms test and the admin-404 test pass;
+  - the edition page is about 3 desktop screens per topic or less.
+  - Ack here with screenshots linked.
+- **Guardrails:** no reader features beyond the spec, no other UI libraries,
+  and no hand-written component CSS where shadcn has a component. Update the
+  handbook (Stack & runtime, Operations) within its length limit.
