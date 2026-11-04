@@ -2281,3 +2281,22 @@ These windows have empty topic guidance. Removing all repeated instructions
 would save at most 5.6% here; shortening excerpts could affect relevance and
 has not been quality-tested. No prompt edits, token/cost/latency inference,
 paid calls or production change. Use the existing batching CLI to reproduce.
+
+## Iteration 626: capacity needed for the timing targets
+
+The offline concurrency report now includes necessary provider-capacity bounds
+for 60 and 120 seconds. These assume fixed recorded durations, independent calls
+and no other work; they do not establish a feasible schedule or production speed.
+An individual call longer than the target makes the fixed-duration slot bound
+unavailable, even when aggregate capacity fits. Empty evidence means zero work,
+not a successful edition.
+
+For Nov 3, all 43 calls require at least 14 slots by aggregate capacity for
+60 seconds (7 for 120 seconds). With ideal article caching, the remainder still
+requires at least 5 slots for 60 seconds. Keeping four slots instead requires
+removing at least 54,225 ms of aggregate HTTP work, about 18.4% of the remainder,
+before a 60-second result is even possible. This reduction is an aggregate work
+bound, not 54 seconds of wall-clock savings. Dependencies and non-provider work
+can require further reductions. The 120-second remainder bound is 3 slots; that
+does not prove the target at 1,500 candidates, which this recording did not cover.
+No production concurrency, cache activation, prompts or provider calls changed.

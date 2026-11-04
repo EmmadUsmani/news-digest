@@ -22,6 +22,14 @@ void test('Nov 3 recorded calls rule out a 60-second eight-slot lower bound', ()
   assert.equal(triage.totalMs, 517143);
   assert.equal(remainder.calls, 26);
   assert.equal(remainder.totalMs, 294225);
+  assert.deepEqual(remainder.targets[0], {
+    targetMs: 60000,
+    minimumSlotsByCapacity: 5,
+    longestCallExcessMs: 0,
+    fourSlotAggregateReductionMs: 54225,
+  });
+  assert.equal(all.targets[0].minimumSlotsByCapacity, 14);
+  assert.equal(all.targets[1].minimumSlotsByCapacity, 7);
   assert.deepEqual(remainder.purposes, [
     {
       purpose: 'shortlist-editor-v4',
@@ -54,6 +62,34 @@ void test('Nov 3 recorded calls rule out a 60-second eight-slot lower bound', ()
     all.concurrency.find((row) => row.slots === 8)!.lowerBoundMs,
     101421,
   );
+});
+
+void test('target capacity distinguishes long calls, aggregate pressure and empty work', () => {
+  const [long] = evaluateCallConcurrency([
+    { purpose: 'editor', durationMs: 60001, outcome: 'error' },
+  ]);
+  assert.deepEqual(long.targets[0], {
+    targetMs: 60000,
+    minimumSlotsByCapacity: null,
+    longestCallExcessMs: 1,
+    fourSlotAggregateReductionMs: 0,
+  });
+  assert.equal(long.targets[1].minimumSlotsByCapacity, 1);
+  const [full] = evaluateCallConcurrency(
+    Array.from({ length: 4 }, () => ({
+      purpose: 'editor',
+      durationMs: 60000,
+      outcome: 'success',
+    })),
+  );
+  assert.equal(full.targets[0].minimumSlotsByCapacity, 4);
+  assert.equal(full.targets[0].fourSlotAggregateReductionMs, 0);
+  for (const empty of evaluateCallConcurrency([])) {
+    assert.ok(empty.targets.every((row) => row.minimumSlotsByCapacity === 0));
+    assert.ok(
+      empty.targets.every((row) => row.fourSlotAggregateReductionMs === 0),
+    );
+  }
 });
 
 void test('concurrency bounds retain failed work and isolate article triage', () => {

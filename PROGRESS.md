@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 608 — typed social verification candidates
-
-- Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC edition review remains pending.
-- Converted social verification candidate CTEs, citation unions, joins, filters and final grouping/ordering to Drizzle builders. SQL expressions retain window ranking, aggregates, provenance labels and cooldown arithmetic.
-- Preserved topic fairness, unverified-before-refresh priority, all four citation channels, deduplication and 1–50 limit bounds. Existing characterization assertions unchanged; live old/new comparison matched ordered IDs at requested limits 0, 1, 4, 50 and 500.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
-- Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical, Anthropic/X spending unchanged. Read-only Playwright rendered four real saved-edition topics without page errors; 36 sources without current errors and zero failed digest jobs.
-- Updated TASKS and ORM decision; archived iteration 593 to keep PROGRESS bounded. No schema, source, activation, owner grant or paid call changes; no handbook system behavior changed.
-- Next: prioritize Nov 4 edition review; otherwise publisher article-discovery adapter and final SQL audit. Keep private backups before new migrations and preserve owner grants.
-
 ## 2026-11-04: iteration 609 — typed publisher article-discovery candidates
 
 - Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC edition review remains pending.
@@ -174,3 +164,13 @@
 - Verification: targeted concurrency tests 5/5; offline CLI; pnpm format, pnpm lint:fix, pnpm check (369 unit/205 isolated integration), pnpm build and git diff --check passed. First check stopped on new archive formatting; corrected and reran successfully.
 - Healthz healthy and zero alerts after checks. Offline tool only: no running-service code/config changed, so no restart under STEERING 22; no paid calls, prompts, sources or production activations.
 - Next: prioritize Nov 4 scheduled edition review (World posts, open-X/Bluesky, NBA validation and live timing). Grouping and incremental triage remain off pending that review.
+
+## 2026-11-04: iteration 626 — quantify provider capacity for timing targets
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources without current errors and no failed digest jobs; retained Bluesky failure is the historical 04:54 event.
+- Extended the offline concurrency report with necessary 60/120-second capacity bounds, individual-call excess and aggregate work reduction at four slots; tested empty evidence, exact capacity, long failed calls and recorded totals.
+- Nov 3 fixed durations require at least 14 slots by capacity for 60 s. Even ideal article caching requires at least 5, or at least 54,225 ms (18.4%) less aggregate work at four slots. These are necessary conditions only; dependencies/non-provider work remain, and 120 s figures do not establish 1,500-item performance.
+- Updated TASKS and RANKING; archived iteration 608 to keep PROGRESS bounded. No paid calls, prompts, recordings, production settings or activations changed.
+- Verification: targeted concurrency tests 6/6 and offline CLI; pnpm format, pnpm lint:fix, pnpm check (370 unit/205 isolated integration), pnpm build and git diff --check passed. Final healthz healthy, zero alerts and zero dangling Docker volumes.
+- Offline tool only; no running-service code/config changed, so no restart under STEERING 22. Grouping and incremental triage remain off.
+- Next: Nov 4 15:00 UTC scheduled review takes priority: World posts, open-X/Bluesky selections, NBA validation and live timing/cost.

@@ -34,6 +34,15 @@ export function evaluateCallConcurrency(input: unknown) {
       failedCalls: selected.filter((call) => call.outcome === 'error').length,
       totalMs,
       longestMs,
+      targets: [60_000, 120_000].map((targetMs) => ({
+        targetMs,
+        // Necessary capacity only: indivisible calls and dependencies can
+        // require more slots. A call longer than the target cannot fit at all.
+        minimumSlotsByCapacity:
+          longestMs > targetMs ? null : Math.ceil(totalMs / targetMs),
+        longestCallExcessMs: Math.max(0, longestMs - targetMs),
+        fourSlotAggregateReductionMs: Math.max(0, totalMs - 4 * targetMs),
+      })),
       purposes: [...new Set(selected.map((call) => call.purpose))]
         .map((purpose) => {
           const matching = selected.filter((call) => call.purpose === purpose);
@@ -70,7 +79,7 @@ export function evaluateCallConcurrency(input: unknown) {
 if (require.main === module) {
   console.log(
     JSON.stringify({
-      note: 'Fixed observed HTTP durations only. All calls assumed independent and ready immediately. Lower bounds omit dependencies, rate limits, budget admission, cache/DB/queue work and latency changes under load. Longest-first is a hypothetical order, not an optimal schedule or a prediction. The ideal article-cache remainder removes only candidate-triage-v1 calls, assuming every article score is already cached; social triage, editing, failures and unknown purposes remain. Removed work still costs time and budget before publication; this is neither measured cache readiness nor an edition speedup prediction. Failed calls retain elapsed time; omitted calls cannot be inferred. No production concurrency change or paid calls.',
+      note: 'Fixed observed HTTP durations only. All calls assumed independent and ready immediately. Lower bounds omit dependencies, rate limits, budget admission, cache/DB/queue work and latency changes under load. Longest-first is a hypothetical order, not an optimal schedule or a prediction. The ideal article-cache remainder removes only candidate-triage-v1 calls, assuming every article score is already cached; social triage, editing, failures and unknown purposes remain. Removed work still costs time and budget before publication; this is neither measured cache readiness nor an edition speedup prediction. Failed calls retain elapsed time; omitted calls cannot be inferred. Target capacity figures are necessary conditions only, not sufficient schedules: minimum slots can be null when a single call exceeds the target; aggregate reduction and longest-call excess are separate constraints and must not be added. Zero slots means no recorded work. No production concurrency change or paid calls.',
       results: evaluateCallConcurrency(
         JSON.parse(readFileSync(process.argv[2], 'utf8')),
       ),
