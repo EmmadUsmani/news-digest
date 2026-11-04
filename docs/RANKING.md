@@ -2396,3 +2396,33 @@ tokens or spend; request counts cannot establish a live duration.
 Keep the prepared minimum of 1 and production activation off pending the
 Nov 4 review. A higher threshold is an option to test against actual arrival
 and cache evidence, not a production recommendation from this experiment.
+
+## Iteration 635: rotating-topic sensitivity offline
+
+The replay now accepts `--rotation-topics=4`, assigning each recorded topic
+one of four possible turn positions on the common interval grid. Reproduce:
+`pnpm exec tsx apps/api/scripts/evaluate-incremental-triage.ts --minimum-pending=1 --stop-before-edition-hours=2 --maximum-items-per-pass=25 --rotation-topics=4`
+(substitute 10 or 25). Select `intervalHours: 1`. The first position runs at
+hours 1, 5, 9, 13, 17 and 21; the others rotate after it. Exact cutoff ticks
+are excluded. Every position scores each final candidate once through the
+real cache/request builder with synthetic responses.
+
+| Minimum pending | NBA remainder range | World remainder range | Tech/AI remainder range | Per-topic total request ranges (NBA / World / Tech) |
+| --------------- | ------------------: | --------------------: | ----------------------: | --------------------------------------------------- |
+| 1               |                 2–9 |                 18–25 |                   12–30 | 6–7 / 5–7 / 5–7                                     |
+| 10              |                 2–9 |                 18–34 |                   12–30 | 3–5 / 2–3 / 2–3                                     |
+| 25              |                2–27 |                 22–47 |                   29–54 | 2–3 / 1–2 / 2                                       |
+
+These are independent per-topic phase envelopes, not an aggregate edition:
+topics cannot all occupy the same turn. Gaming has no recorded fixture here;
+the fourth slot represents its capacity consumption without scoring it.
+Unlike independent hourly passes, rotation can leave an entire small topic
+unprepared: World at threshold 25 in positions 2 or 3 has all 47 candidates
+remaining at publication. This strengthens the case for measuring actual
+arrival and turn timing before choosing a threshold.
+
+This is a deterministic capacity sensitivity experiment, not a replay of the
+live timer: it omits provider durations, overlapping ticks, restarts, budget
+admission and changing topic membership. Publication times remain optimistic
+arrival proxies; pool churn, waste, billed cost and live latency remain
+unknown. Production settings and activation stay unchanged.

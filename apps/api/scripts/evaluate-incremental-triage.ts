@@ -31,6 +31,7 @@ export async function evaluateIncrementalTriage(
   minimumPendingItems = 1,
   stopBeforeEditionHours = 0,
   maximumItemsPerPass?: number,
+  rotation?: { topicCount: number; topicIndex: number },
 ) {
   if (
     !Number.isInteger(intervalHours) ||
@@ -51,6 +52,15 @@ export async function evaluateIncrementalTriage(
     (!Number.isInteger(maximumItemsPerPass) || maximumItemsPerPass < 1)
   )
     throw new Error('Maximum items per pass must be a positive integer');
+  if (
+    rotation &&
+    (!Number.isSafeInteger(rotation.topicCount) ||
+      rotation.topicCount < 1 ||
+      !Number.isSafeInteger(rotation.topicIndex) ||
+      rotation.topicIndex < 0 ||
+      rotation.topicIndex >= rotation.topicCount)
+  )
+    throw new Error('Invalid topic rotation');
   const start = Date.parse(window.windowStart);
   const end = Date.parse(window.windowEnd);
   if (!Number.isFinite(start) || !Number.isFinite(end) || start >= end)
@@ -204,6 +214,7 @@ export async function evaluateIncrementalTriage(
       );
     return pending;
   };
+  let scheduledPasses = 0;
   let deferredPasses = 0;
   let boundedPasses = 0;
   let peakPendingItems = 0;
@@ -213,6 +224,11 @@ export async function evaluateIncrementalTriage(
     tick < end - stopBeforeEditionHours * 3600000;
     tick += intervalHours * 3600000
   ) {
+    const tickIndex =
+      Math.round((tick - start) / (intervalHours * 3600000)) - 1;
+    if (rotation && tickIndex % rotation.topicCount !== rotation.topicIndex)
+      continue;
+    scheduledPasses++;
     const pool = poolAt(tick);
     const pending = await pendingPool(pool);
     peakPendingItems = Math.max(peakPendingItems, pending.length);
@@ -253,6 +269,8 @@ export async function evaluateIncrementalTriage(
   return {
     topic: window.topic,
     intervalHours,
+    rotation: rotation ?? null,
+    scheduledPasses,
     minimumPendingItems,
     stopBeforeEditionHours,
     maximumItemsPerPass: maximumItemsPerPass ?? null,
@@ -296,7 +314,14 @@ export async function recordedIncrementalTriage(
   minimumPendingItems = 1,
   stopBeforeEditionHours = 0,
   maximumItemsPerPass?: number,
+  rotationTopics = 1,
 ) {
+  if (
+    !Number.isSafeInteger(rotationTopics) ||
+    rotationTopics < 1 ||
+    rotationTopics > 24
+  )
+    throw new Error('Rotation topics must be 1–24');
   const results = [];
   for (const topic of ['nba', 'world', 'tech']) {
     const window = JSON.parse(
@@ -306,15 +331,19 @@ export async function recordedIncrementalTriage(
       ),
     ) as RecordedWindow;
     for (const interval of [1, 3, 6, 24])
-      results.push(
-        await evaluateIncrementalTriage(
-          window,
-          interval,
-          minimumPendingItems,
-          stopBeforeEditionHours,
-          maximumItemsPerPass,
-        ),
-      );
+      for (let topicIndex = 0; topicIndex < rotationTopics; topicIndex++)
+        results.push(
+          await evaluateIncrementalTriage(
+            window,
+            interval,
+            minimumPendingItems,
+            stopBeforeEditionHours,
+            maximumItemsPerPass,
+            rotationTopics > 1
+              ? { topicCount: rotationTopics, topicIndex }
+              : undefined,
+          ),
+        );
   }
   return results;
 }
@@ -337,6 +366,14 @@ if (require.main === module) {
   const maximumItemsPerPass = maximumItemsPerPassArg
     ? Number(maximumItemsPerPassArg.split('=')[1])
     : undefined;
+  const rotationTopics = Number(
+    args.find((arg) => arg.startsWith('--rotation-topics='))?.split('=')[1] ??
+      1,
+  );
+  if (inputPath && rotationTopics !== 1)
+    throw new Error(
+      'Rotation comparison uses the recorded windows; omit input path',
+    );
   void (
     inputPath
       ? Promise.all(
@@ -354,6 +391,7 @@ if (require.main === module) {
           minimumPending,
           stopBeforeEdition,
           maximumItemsPerPass,
+          rotationTopics,
         )
   ).then((results) =>
     console.log(

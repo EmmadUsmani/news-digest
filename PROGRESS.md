@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 617 — typed migration ledger
-
-- Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC review remains pending.
-- Converted historical/generated migration ledger reads/inserts and advisory transaction lock to Drizzle builders on the same dedicated client. Driver SQL remains only for transaction control, bootstrap DDL and multi-statement migration-file execution, documented beside the code.
-- Existing migration characterization unchanged: concurrent reruns, ordering, stable ledger timestamps, atomic DDL/data/ledger rollback and recovery all pass.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build and git diff --check passed.
-- Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical and Anthropic/X spend unchanged. Read-only Playwright rendered four topics without errors; zero current source errors, failed digest jobs or alerts.
-- Updated TASKS and ORM decision; archived the oldest progress entry. No new migration, live migration execution, source, activation, owner grant or paid call changes; no handbook system behavior changed.
-- Next: Nov 4 edition review takes priority; otherwise final item 2b acceptance and architecture notes. Private pg_dump before any new migration.
-
 ## 2026-11-04: iteration 618 — ORM acceptance and architecture notes
 
 - Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC product review remains pending.
@@ -180,3 +170,14 @@
 - Verification: replay aggregate assertions, incremental tests 11/11, pnpm format, pnpm lint:fix, pnpm check (378 unit/205 isolated integration), pnpm build and git diff --check passed.
 - Restarted worker only; healthz healthy, zero alerts/failed units/dangling volumes. Saved Nov 3 edition serves four topics/19 stories/11 X posts. No Postgres/Redis restart or paid calls.
 - Next: review Nov 4 15:00 UTC edition for open-X/Bluesky picks, World posts, NBA validation and timing/cost before activation; use actual arrival/cache evidence to choose a threshold.
+
+## 2026-11-04: iteration 635 — replay rotating topic capacity offline
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources without current errors and four available queues with no failed retained runs. Nov 4 evidence remains pending.
+- Added optional rotating topic slots to the offline replay, with per-phase metadata/pass counts and validated positions; existing independent scheduling stays the default.
+- Compared thresholds 1/10/25 across four positions with hourly global ticks, 25-item cap and two-hour cutoff. World leaves all 47 candidates for publication in two positions at threshold 25; per-topic envelopes are not aggregate edition estimates.
+- Synthetic responses use real request/cache logic; all final candidates scored once. Publication times remain arrival proxies; waste, cost, provider duration and real timer/admission behavior remain unknown. No paid calls or production activation.
+- Updated TASKS/RANKING; archived iteration 617 to keep PROGRESS bounded. No system behavior or handbook change.
+- Verification: targeted replay tests 12/12, aggregate replay assertions, pnpm format, pnpm lint:fix, pnpm check (379 unit/205 isolated integration), pnpm build and git diff --check passed.
+- Restarted worker only; healthz/alerts and saved Nov 3 edition (four topics/19 stories/11 posts) verified. No Postgres/Redis restart; zero dangling volumes/failed units.
+- Next: review Nov 4 15:00 UTC open-X/Bluesky selections, World posts, NBA validation and timing/cost; keep incremental triage/grouping off until review.

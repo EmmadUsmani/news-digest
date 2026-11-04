@@ -488,3 +488,48 @@ void test('version waste counts removed versions and recognizes reverted cached 
   assert.equal(unknown.wastedPreEditionVersions, null);
   assert.equal(unknown.reusablePreEditionVersions, null);
 });
+
+void test('rotation replay gives one topic each tick and preserves cutoff and cache', async () => {
+  const window = {
+    topic: 'Synthetic',
+    windowStart: '2026-11-01T00:00:00Z',
+    windowEnd: '2026-11-01T08:00:00Z',
+    candidates: Array.from({ length: 7 }, (_, hour) => ({
+      id: `item-${hour}`,
+      title: 'Title',
+      excerpt: null,
+      sources: [],
+      publishedAt: `2026-11-01T0${hour}:00:00Z`,
+    })),
+  };
+  const rows = await Promise.all(
+    [0, 1, 2, 3].map((topicIndex) =>
+      evaluateIncrementalTriage(window, 1, 1, 2, 25, {
+        topicCount: 4,
+        topicIndex,
+      }),
+    ),
+  );
+  assert.deepEqual(
+    rows.map((r) => r.scheduledPasses),
+    [2, 1, 1, 1],
+  );
+  assert.deepEqual(
+    rows.map((r) => r.preEditionItems),
+    [5, 2, 3, 4],
+  );
+  for (const row of rows) {
+    assert.equal(row.totalScoredItems, 7);
+    assert.equal(row.repeatScoring, 0);
+  }
+  for (const rotation of [
+    { topicCount: 0, topicIndex: 0 },
+    { topicCount: 4, topicIndex: 4 },
+    { topicCount: 4, topicIndex: -1 },
+    { topicCount: 1.5, topicIndex: 0 },
+  ])
+    await assert.rejects(
+      evaluateIncrementalTriage(window, 1, 1, 2, 25, rotation),
+      /rotation/,
+    );
+});
