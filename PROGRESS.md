@@ -1,24 +1,3 @@
-## 2026-11-04: iteration 570 — recover rejected Bluesky sessions; close ORM prerequisite
-
-- Started clean on main; no leftover work. Zero alerts and healthy healthz; 36 sources healthy and no failed digest jobs. Nov 4 15:00 UTC evidence pending.
-- Triage found a newer 04:54 Bluesky failure: search HTTP 400 followed by refresh HTTP 400. Clear cached session on rejected refresh so the next collection signs in again; no immediate login retry. Fake next-call recovery passes.
-- Free read-only official probe authenticated and returned Tech/AI 48, NBA 48, Gaming 49 and World 50 real posts; no writes or paid calls. Sustained hourly recovery remains to verify.
-- Added isolated PostgreSQL assertions for engagement cutoff (inclusive/non-UTC), ascending call UUID ties, older fallback, topic isolation and null/future reports; reported counts remain separate from verified metrics.
-- Identified 2a prerequisite reconciliation is complete; next iteration can begin one ORM conversion with the suite green. Updated TASKS/database verification/SOURCES; archived iteration 550.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/201 isolated integration), pnpm build and git diff --check passed. Early checks caught formatting while edits were still in flight; final check rerun after formatting.
-- Rebuilt/restarted API and worker for adapter fix; final healthz/alerts green. No schema, UI or handbook flow changes.
-- Next: verify hourly Bluesky recovery, then Nov 4 scheduled review when due; otherwise STEERING 29 first ORM conversion.
-
-## 2026-11-04: iteration 571 — first Drizzle repository conversion
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and no failed digest jobs. Nov 4 scheduled evidence remains pending at 15:00 UTC.
-- Converted profile schedule reads/updates to Drizzle query builder over the existing observed, test-isolated pg pool; explicit domain mapping, missing-row errors and shutdown preserved. Existing 2a tests unchanged; removed profile unsafe-row lint exemptions.
-- Added Drizzle/drizzle-kit, mapped the two profile tables and enforced ORM import boundaries in ESLint/dependency-cruiser. Decision documents partial schema: migration generation stays disabled until full-schema zero-diff proof. No migrations, schema changes or owner grant changes.
-- Updated architecture/handbook/TASKS; archived iteration 551. No paid calls. Stored Bluesky latest observations remain 03:54 UTC; next hourly recovery still pending, not claimed verified.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/201 isolated integration), pnpm build, handbook check for 01-stack-and-runtime and git diff --check passed; zero dangling Docker volumes.
-- Rebuilt/restarted API and worker well outside edition freeze. Both active; healthz healthy, root HTTP 200, zero alerts; live GET /api/profile byte-identical before/after restart, including owner's 07:00 Los Angeles schedule.
-- Next: verify hourly Bluesky recovery and Nov 4 scheduled edition when due; otherwise complete full Drizzle schema mapping/parity before migration tooling adoption.
-
 ## 2026-11-04: iteration 572 — complete Drizzle schema and catalog parity
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 error-free sources and no failed digest jobs; scheduled Nov 4 review pending at 15:00 UTC.
@@ -156,3 +135,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed. No dangling Docker volumes.
 - Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Playwright rendered four topics/19 cards with zero page errors; 36 sources without current errors, zero failed digest jobs and zero alerts.
 - Next: prioritize Nov 4 15:00 UTC edition review; otherwise continue remaining ORM adapters or migration baseline. Private pg_dump before first new migration.
+
+## 2026-11-04: iteration 585 — convert LLM usage reads to Drizzle
+
+- Started clean on main; no leftover work. Healthy healthz, zero alerts, 36 sources without current errors and zero failed digest jobs. Retained ingestion/social failures have newer successful collection; Nov 4 edition review remains pending.
+- Converted usage totals, purposes, models, provider blocks and model allocation reads to typed Drizzle. Filtered aggregates retain documented templates; unresolved holds still count across budget periods and caller transaction clients remain supported.
+- Read-only old/new comparison in one live repeatable-read transaction matched both plain and model-allocation caps exactly. Database-clock probe caught Drizzle timestamp strings; explicit date conversion fixed it. Initial typechecks caught clock builder/nullability issues, corrected before final checks.
+- Existing characterization assertions unchanged; usage reader statement coverage 100%. No migrations, activations or paid calls.
+- Updated TASKS, architecture, decision and handbook stack; archived iterations 570–571 to keep PROGRESS bounded.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
+- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Playwright root rendered 63 article elements with zero page errors; 36 sources without errors, zero failed digest jobs and zero alerts.
+- Next: prioritize Nov 4 15:00 UTC scheduled review; otherwise continue remaining ORM adapters or migration baseline. Private pg_dump before first new migration.

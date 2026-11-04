@@ -1,6 +1,24 @@
 import type { LlmUsage } from '@digest/contracts';
+import {
+  and,
+  asc,
+  count,
+  desc,
+  eq,
+  gte,
+  inArray,
+  isNotNull,
+  ne,
+  or,
+  sql,
+} from 'drizzle-orm';
+import { drizzle } from 'drizzle-orm/node-postgres';
 import type { Pool, PoolClient } from 'pg';
 
+import {
+  llmCalls as calls,
+  llmProviderBlocks as blocks,
+} from '../../../libs/db/schema';
 import {
   budgetAllowance,
   type BudgetCaps,
@@ -13,27 +31,30 @@ export async function readUsage(
   caps: BudgetCaps,
   snapshotTime?: Date,
 ): Promise<LlmUsage> {
+  const orm = drizzle(db);
+  // PostgreSQL clock and filtered sums have no equivalent query-builder operation.
   const now =
     snapshotTime ??
-    (await db.query<{ now: Date }>('SELECT clock_timestamp() AS now')).rows[0]
-      .now;
+    new Date(
+      (await orm.execute<{ now: string }>(sql`SELECT clock_timestamp() AS now`))
+        .rows[0].now,
+    );
   const period = utcBudgetPeriod(now);
-  const totals = (
-    await db.query<{
-      monthMicros: number;
-      todayMicros: number;
-      monthReservedMicros: number;
-      todayReservedMicros: number;
-    }>(
-      `
-    SELECT COALESCE(sum(cost_micros) FILTER (WHERE created_at >= $1),0)::float8 AS "monthMicros",
-    COALESCE(sum(cost_micros) FILTER (WHERE created_at >= $2),0)::float8 AS "todayMicros",
-    COALESCE(sum(reserved_micros) FILTER (WHERE status IN ('pending','uncertain')),0)::float8 AS "monthReservedMicros",
-    COALESCE(sum(reserved_micros) FILTER (WHERE status IN ('pending','uncertain')),0)::float8 AS "todayReservedMicros"
-    FROM llm_calls`,
-      [period.monthStart, period.dayStart],
-    )
-  ).rows[0];
+  const month = gte(calls.createdAt, period.monthStart.toISOString());
+  const day = gte(calls.createdAt, period.dayStart.toISOString());
+  const unresolved = inArray(calls.status, ['pending', 'uncertain']);
+  const monthCost = sql<number>`COALESCE(sum(${calls.costMicros}) FILTER (WHERE ${month}),0)::float8`;
+  const dayCost = sql<number>`COALESCE(sum(${calls.costMicros}) FILTER (WHERE ${day}),0)::float8`;
+  // Unresolved holds count across all dates, including earlier budget periods.
+  const reserved = sql<number>`COALESCE(sum(${calls.reservedMicros}) FILTER (WHERE ${unresolved}),0)::float8`;
+  const [totals] = await orm
+    .select({
+      monthMicros: monthCost,
+      todayMicros: dayCost,
+      monthReservedMicros: reserved,
+      todayReservedMicros: reserved,
+    })
+    .from(calls);
   const allowance = budgetAllowance(
     now,
     {
@@ -42,53 +63,57 @@ export async function readUsage(
     },
     caps,
   );
-  const models = (
-    await db.query<{ model: string; calls: number; costMicros: number }>(
-      `SELECT model,count(*)::int AS calls,COALESCE(sum(cost_micros),0)::float8 AS "costMicros" FROM llm_calls WHERE created_at >= $1 GROUP BY model ORDER BY model`,
-      [period.monthStart],
-    )
-  ).rows;
-  const purposes = (
-    await db.query<{
-      purpose: string;
-      todayMicros: number;
-      monthMicros: number;
-      reservedMicros: number;
-    }>(
-      `SELECT purpose,
-       COALESCE(sum(cost_micros) FILTER (WHERE created_at >= $2),0)::float8 AS "todayMicros",
-       COALESCE(sum(cost_micros) FILTER (WHERE created_at >= $1),0)::float8 AS "monthMicros",
-       COALESCE(sum(reserved_micros) FILTER (WHERE status IN ('pending','uncertain')),0)::float8 AS "reservedMicros"
-       FROM llm_calls WHERE created_at >= $1 OR status IN ('pending','uncertain')
-       GROUP BY purpose ORDER BY purpose`,
-      [period.monthStart, period.dayStart],
-    )
-  ).rows;
-  const last = (
-    await db.query<{ code: string; at: Date }>(
-      `SELECT error_code AS code,completed_at AS at FROM llm_calls WHERE error_code IS NOT NULL ORDER BY completed_at DESC LIMIT 1`,
-    )
-  ).rows[0];
-  const block = await db.query(
-    'SELECT 1 FROM llm_provider_blocks WHERE month_start=$1',
-    [period.monthStart],
-  );
+  const models = await orm
+    .select({
+      model: calls.model,
+      calls: count(),
+      costMicros: sql<number>`COALESCE(sum(${calls.costMicros}),0)::float8`,
+    })
+    .from(calls)
+    .where(month)
+    .groupBy(calls.model)
+    .orderBy(asc(calls.model));
+  const purposes = await orm
+    .select({
+      purpose: calls.purpose,
+      todayMicros: dayCost,
+      monthMicros: monthCost,
+      reservedMicros: reserved,
+    })
+    .from(calls)
+    .where(or(month, unresolved))
+    .groupBy(calls.purpose)
+    .orderBy(asc(calls.purpose));
+  const [last] = await orm
+    .select({ code: calls.errorCode, at: calls.completedAt })
+    .from(calls)
+    .where(isNotNull(calls.errorCode))
+    .orderBy(desc(calls.completedAt))
+    .limit(1);
+  const block = await orm
+    .select({ month: blocks.monthStart })
+    .from(blocks)
+    .where(eq(blocks.monthStart, period.monthStart.toISOString().slice(0, 10)));
   let modelAllocation;
   if (caps.modelAllocation) {
     const allocation = caps.modelAllocation;
-    const used = (
-      await db.query<{ used: number }>(
-        `SELECT COALESCE(sum(COALESCE(cost_micros,reserved_micros)),0)::float8 AS used
-       FROM llm_calls WHERE model=$1 AND status <> 'failed'
-       AND (created_at >= $2 OR status IN ('pending','uncertain'))`,
-        [allocation.model, period.dayStart],
-      )
-    ).rows[0].used;
+    const [{ used }] = await orm
+      .select({
+        used: sql<number>`COALESCE(sum(COALESCE(${calls.costMicros},${calls.reservedMicros})),0)::float8`,
+      })
+      .from(calls)
+      .where(
+        and(
+          eq(calls.model, allocation.model),
+          ne(calls.status, 'failed'),
+          or(day, unresolved),
+        ),
+      );
     modelAllocation = {
       model: allocation.model,
       dailyCapMicros: Math.floor(allowance.dailyCap * allocation.dailyFraction),
       usedMicros: used,
-      availableMicros: block.rowCount
+      availableMicros: block.length
         ? 0
         : Math.min(
             allowance.available,
@@ -106,9 +131,12 @@ export async function readUsage(
     modelAllocation,
     dailyCapMicros: allowance.dailyCap,
     monthlyCapMicros: caps.monthly,
-    availableMicros: block.rowCount ? 0 : allowance.available,
-    blockedUntil: block.rowCount ? period.nextMonth.toISOString() : null,
+    availableMicros: block.length ? 0 : allowance.available,
+    blockedUntil: block.length ? period.nextMonth.toISOString() : null,
     models,
-    lastError: last ? { code: last.code, at: last.at.toISOString() } : null,
+    lastError:
+      last?.code != null
+        ? { code: last.code, at: new Date(last.at!).toISOString() }
+        : null,
   };
 }

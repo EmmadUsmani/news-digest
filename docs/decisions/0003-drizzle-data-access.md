@@ -112,3 +112,7 @@ The incremental-triage admission adapter binds Drizzle to its checked-out client
 Session advisory lock functions retain SQL templates because no query builder
 represents them. Contention, idempotent release, provider-work error listening
 and destroying failed sessions preserve the existing characterization behavior.
+
+The LLM usage reader uses typed Drizzle filters, grouping and ordering. Filtered
+PostgreSQL sums retain documented templates. All unresolved holds continue to
+count across budget periods, and reads accept the caller's transaction client.
