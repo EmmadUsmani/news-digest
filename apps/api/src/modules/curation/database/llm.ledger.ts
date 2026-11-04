@@ -59,8 +59,10 @@ export class PostgresLlmLedger implements LlmLedger {
     try {
       return await drizzle(client).transaction(async (tx) => {
         // Shared across processes and repairs; never hold this lock during HTTP.
-        // Transaction-scoped advisory locks have no query-builder equivalent.
-        await tx.execute(sql`SELECT pg_advisory_xact_lock(756282)`);
+        // PostgreSQL advisory locking remains a function expression.
+        await tx
+          .select({ lock: sql`pg_advisory_xact_lock(756282)` })
+          .from(sql`(values (1)) as singleton(value)`);
         return work(client);
       });
     } catch (error) {

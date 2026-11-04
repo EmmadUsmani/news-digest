@@ -23,14 +23,16 @@ export class PostgresIncrementalTriageAdmission implements IncrementalTriageAdmi
       client.release(destroy);
       client.removeListener('error', onError);
     };
-    // Advisory locks are PostgreSQL session operations without a query builder.
+    // Advisory locks remain PostgreSQL function expressions in typed projections.
     // Bind Drizzle to this checked-out client so acquisition and release share it.
     const session = drizzle(client);
     try {
-      const result = await session.execute<{ acquired: boolean }>(
-        sql`SELECT pg_try_advisory_lock(${lockId}) AS acquired`,
-      );
-      if (!result.rows[0].acquired) {
+      const [result] = await session
+        .select({
+          acquired: sql<boolean>`pg_try_advisory_lock(${lockId})`,
+        })
+        .from(sql`(values (1)) as singleton(value)`);
+      if (!result.acquired) {
         dispose();
         return null;
       }
@@ -44,7 +46,11 @@ export class PostgresIncrementalTriageAdmission implements IncrementalTriageAdmi
       released = true;
       try {
         if (sessionError) throw sessionError;
-        await session.execute(sql`SELECT pg_advisory_unlock(${lockId})`);
+        await session
+          .select({
+            unlocked: sql<boolean>`pg_advisory_unlock(${lockId})`,
+          })
+          .from(sql`(values (1)) as singleton(value)`);
       } catch (error) {
         dispose(true);
         throw error;

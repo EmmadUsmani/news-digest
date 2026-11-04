@@ -115,8 +115,7 @@ and limits for publication, reaction discovery and incremental triage. Its
 ordered distinct source-name array retains a PostgreSQL aggregate template.
 
 The incremental-triage admission adapter binds Drizzle to its checked-out client.
-Session advisory lock functions retain SQL templates because no query builder
-represents them. Contention, idempotent release, provider-work error listening
+Session advisory lock functions remain SQL expressions in typed projections. Contention, idempotent release, provider-work error listening
 and destroying failed sessions preserve the existing characterization behavior.
 
 The LLM usage reader uses typed Drizzle filters, grouping and ordering. Filtered
@@ -252,3 +251,9 @@ window ranking, aggregate ordering, provenance labels and the one-day cooldown.
 The same topic-fair order prioritizes unverified discoveries before refreshes,
 retains all four citation channels and clamps the requested limit to 1–50.
 Existing repository characterization assertions remain unchanged.
+
+Curation clock and advisory-lock reads use Drizzle select builders. Each selects
+from a single-row VALUES expression because Drizzle requires a FROM source; this
+executes each PostgreSQL function exactly once without reading a table. Database
+wall-clock semantics, session/client ownership, transaction lock scope and
+existing characterization assertions remain unchanged.

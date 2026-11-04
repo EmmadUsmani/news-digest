@@ -38,8 +38,8 @@ void test('reserve logs report committed policy and admission without request co
               throw new Error('private database failure');
             committed = true;
           }
-          if (sql.includes('clock_timestamp() AS now'))
-            return { rows: [{ now: new Date('2026-11-03T06:00:00Z') }] };
+          if (sql.includes('clock_timestamp()'))
+            return { rows: [[new Date('2026-11-03T06:00:00Z')]] };
           if (sql.includes('from "llm_provider_blocks"'))
             return { rows: scenario === 'blocked' ? [['2026-11-01']] : [] };
           if (sql.includes('sum(case when')) return { rows: [[0, 0]] };

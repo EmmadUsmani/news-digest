@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 597 — convert scheduled X admission to Drizzle
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources returning items without current errors and zero failed digest jobs; recent social collections succeeded after retained historical failures. Nov 4 15:00 UTC review remains pending.
-- Converted scheduled X admission to typed correlated Drizzle subqueries: consumed topic/day attempts, enabled topics, completed open parents, classified citations, fewer than three new verified posts and all-topic completion. Preserved the client transaction/shared budget lock, UTC database clock and optional-slot semantics.
-- Existing characterization assertions unchanged. Initial typecheck caught alias-column and projection typing; corrected before green full check. No migration, activation, source change or paid call.
-- Updated TASKS, architecture, decision and handbook stack; archived iteration 582 to keep PROGRESS bounded.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
-- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical and live X budget unchanged. Read-only Playwright rendered 63 article elements without page errors; zero alerts and no source errors. Initial status probe used an incorrect route (404), corrected to /api/status.
-- Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters/transaction infrastructure or historical migration baseline. Private pg_dump before first new migration.
-
 ## 2026-11-04: iteration 598 — Drizzle scheduled-budget transactions
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources returning items without current errors and zero failed digest jobs; Nov 4 15:00 UTC review pending.
@@ -158,3 +148,13 @@
 - Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical, Anthropic/X spend unchanged. Read-only Playwright rendered four real saved topics without page errors; 36 sources without current errors, zero failed digest jobs and zero alerts.
 - Updated TASKS and ORM decision; archived iteration 596 to keep PROGRESS bounded. No migration, source, activation, owner grant or paid call changes; no handbook system behavior changed.
 - Next: prioritize Nov 4 edition review; otherwise final raw-SQL audit and remaining ORM adapters. Keep private backups before new migrations and preserve owner grants.
+
+## 2026-11-04: iteration 612 — typed curation clocks and advisory locks
+
+- Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC edition review remains pending.
+- Converted curation clock reads and session/transaction advisory-lock statements to Drizzle select builders; a singleton VALUES source executes each PostgreSQL function once. Preserved database wall clock, shared client/lock scope, contention and cleanup behavior.
+- Typecheck caught unsupported FROM-less projections; corrected with the singleton source. Updated logging stub for Drizzle array rows; all assertions and repository characterization tests unchanged.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes. Targeted reserve-logging test passed after stub correction.
+- Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical, Anthropic/X spend unchanged. Read-only Playwright rendered four real saved topics without page errors; 36 sources without current errors, zero failed digest jobs and zero alerts.
+- Updated TASKS and ORM decision; archived iteration 597 to keep PROGRESS bounded. No migration, source, activation, owner grant or paid call changes; no handbook system behavior changed.
+- Next: prioritize Nov 4 edition review; otherwise remaining digest/social lock statements and final raw-SQL audit. Keep private backups before new migrations and preserve owner grants.

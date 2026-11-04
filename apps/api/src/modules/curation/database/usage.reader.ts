@@ -32,12 +32,15 @@ export async function readUsage(
   snapshotTime?: Date,
 ): Promise<LlmUsage> {
   const orm = drizzle(db);
-  // PostgreSQL clock and filtered sums have no equivalent query-builder operation.
+  // PostgreSQL clock and filtered sums remain function/aggregate expressions.
   const now =
     snapshotTime ??
     new Date(
-      (await orm.execute<{ now: string }>(sql`SELECT clock_timestamp() AS now`))
-        .rows[0].now,
+      (
+        await orm
+          .select({ now: sql<string>`clock_timestamp()` })
+          .from(sql`(values (1)) as singleton(value)`)
+      )[0].now,
     );
   const period = utcBudgetPeriod(now);
   const month = gte(calls.createdAt, period.monthStart.toISOString());

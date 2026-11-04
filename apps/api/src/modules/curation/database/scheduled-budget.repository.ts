@@ -69,8 +69,10 @@ export class PostgresScheduledBudgetRepository implements ScheduledBudgetReposit
     try {
       const result = await drizzle(client).transaction(async (tx) => {
         // Same lock as Anthropic admission: lifecycle and spend cannot race.
-        // Transaction-scoped advisory locks have no query-builder equivalent.
-        await tx.execute(sql`SELECT pg_advisory_xact_lock(756282)`);
+        // PostgreSQL advisory locking remains a function expression.
+        await tx
+          .select({ lock: sql`pg_advisory_xact_lock(756282)` })
+          .from(sql`(values (1)) as singleton(value)`);
         return action(tx);
       });
       this.log.info(

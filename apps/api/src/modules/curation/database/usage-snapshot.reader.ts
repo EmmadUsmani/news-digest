@@ -24,8 +24,10 @@ export async function readLlmUsageSnapshot(
   try {
     return await drizzle(client).transaction(
       async (tx) => {
-        // Transaction-scoped advisory locking has no query-builder equivalent.
-        await tx.execute(sql`SELECT pg_advisory_xact_lock(756282)`);
+        // PostgreSQL advisory locking is a function expression in a typed projection.
+        await tx
+          .select({ lock: sql`pg_advisory_xact_lock(756282)` })
+          .from(sql`(values (1)) as singleton(value)`);
         const now = await readReserveClock(client);
         const budgetDay = now.toISOString().slice(0, 10);
         const usage = await readUsage(client, llmConfig(env).caps, now);

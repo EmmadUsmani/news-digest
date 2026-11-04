@@ -8,11 +8,13 @@ import type { ScheduledEditionState } from '../domain/scheduled-reserve';
 
 // All reads reuse the facade's ledger-locked repeatable-read snapshot.
 export async function readReserveClock(client: PoolClient): Promise<Date> {
-  // PostgreSQL's wall clock has no query-builder equivalent.
-  const { rows } = await drizzle(client).execute<{ now: string }>(
-    sql`SELECT clock_timestamp() AS now`,
-  );
-  return new Date(rows[0].now);
+  // Keep the database wall clock rather than the transaction-start timestamp.
+  const [row] = await drizzle(client)
+    .select({
+      now: sql<string>`clock_timestamp()`,
+    })
+    .from(sql`(values (1)) as singleton(value)`);
+  return new Date(row.now);
 }
 
 export async function readReserveDayState(
