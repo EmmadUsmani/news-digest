@@ -20,6 +20,33 @@ separate from the production database ledger. Amounts are integer USD micros.
 Updates use an exclusive directory lock, private temporary file, file sync,
 atomic rename and directory sync on the VM's local filesystem.
 
+## Offline report
+
+`scripts/lib/x-experiment-report.ts` summarizes saved call evidence without
+HTTP or model calls. It preserves topic, model, style, exact window and actual
+tool inputs; reports fetched versus returned posts, observed median/maximum
+likes, window and relevance ≥6 shares, promotions, and in-window,
+triage-passing, non-promotional posts per dollar. Likes remain provider-reported.
+
+Missing timestamps, triage scores or promotion reviews remain unknown and
+prevent a complete eligible-yield result. Missing likes are counted separately;
+medians use observed counts only. Duplicate request/post IDs are rejected within
+a call/report, while a post appearing in different styles remains measurable in
+each. No winner is selected from an incomplete single-day comparison.
+
+The runner must supply saved triage/review labels; this report creates none.
+All current report tests use synthetic evidence, not live experiment results.
+
+## Provider bound investigation (Nov 4)
+
+The [official X Search documentation](https://docs.x.ai/developers/tools/x-search)
+describes `max_turns` as reducing search rounds, not bounding fetched posts.
+It counts repeated, parent, quoted and thread posts and profiles; its example
+reports 44 posts and three profiles for two search calls. Requested result
+counts and prompt instructions therefore do not establish a hard cost bound.
+Paid dispatch remains unwired pending a defensible provider-enforced bound.
+No experiment calls have been made.
+
 ## Remaining runner requirements
 
 - Use one fixed journal path outside the repo for every run and process.
