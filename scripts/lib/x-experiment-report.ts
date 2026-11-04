@@ -7,6 +7,7 @@ export interface XExperimentEvidence {
   costMicros: number;
   postsFetched: number;
   actualToolCalls: unknown[];
+  expectedSearch?: { minFaves: number; exclusions: string[] };
   posts: {
     id: string;
     publishedAt: string | null;
@@ -14,6 +15,83 @@ export interface XExperimentEvidence {
     relevance: number | null;
     promotion: boolean | null;
   }[];
+}
+
+// These checks describe saved tool inputs, not whether X honored an operator.
+// Only the adapter's actual { name, input } records count as execution evidence.
+function searchExecution(call: XExperimentEvidence) {
+  const expected = call.expectedSearch;
+  if (!expected || call.style === 'current') return null;
+  if (
+    !Number.isSafeInteger(expected.minFaves) ||
+    expected.minFaves < 0 ||
+    expected.exclusions.some((value) => !/^-[a-zA-Z0-9_]+$/.test(value))
+  )
+    throw new Error('Invalid expected experiment search');
+  const queries = call.actualToolCalls.map((raw) => {
+    let value: unknown;
+    const record = raw as { name?: unknown; input?: unknown } | null;
+    try {
+      value =
+        typeof record?.input === 'string' ? JSON.parse(record.input) : null;
+    } catch {
+      value = null;
+    }
+    const args = value as { query?: unknown; mode?: unknown } | null;
+    if (
+      record?.name !== 'x_keyword_search' ||
+      typeof args?.query !== 'string' ||
+      typeof args.mode !== 'string'
+    )
+      return { observed: false as const };
+    // Remove quoted text before checking operators: a quoted "OR" or
+    // "min_faves:100" is a search term, not evidence of an operator.
+    const unquoted = args.query.replace(/"(?:\\.|[^"\\])*"/g, ' ');
+    if (unquoted.includes('"')) return { observed: false as const };
+    const tokens = unquoted.split(/\s+/).filter(Boolean);
+    const thresholds = tokens.filter((token) => token.startsWith('min_faves:'));
+    return {
+      observed: true as const,
+      query: args.query,
+      mode: args.mode,
+      top: args.mode === 'Top',
+      threshold:
+        thresholds.length === 1 &&
+        thresholds[0] === `min_faves:${expected.minFaves}`,
+      filters:
+        ['-filter:replies', '-filter:retweets', 'lang:en'].every((token) =>
+          tokens.includes(token),
+        ) &&
+        !tokens.includes('filter:replies') &&
+        !tokens.includes('filter:retweets') &&
+        tokens.filter((token) => token.startsWith('lang:')).length === 1,
+      exclusions: expected.exclusions.every((token) => tokens.includes(token)),
+      storyOr: call.style === 'reactions' ? tokens.includes('OR') : null,
+    };
+  });
+  const observed = queries.filter((query) => query.observed);
+  return {
+    expected,
+    queries,
+    inputsMatch:
+      !queries.length || observed.length !== queries.length
+        ? null
+        : observed.every(
+            (query) =>
+              query.top &&
+              query.threshold &&
+              query.filters &&
+              query.exclusions &&
+              query.storyOr !== false,
+          ),
+    // A low reported count contradicts the threshold; passing counts alone
+    // cannot establish that the operator works. Unknown counts stay explicit.
+    returnedBelowThreshold: call.posts.filter(
+      (post) => post.likes !== null && post.likes < expected.minFaves,
+    ).length,
+    returnedWithUnknownLikes: call.posts.filter((post) => post.likes === null)
+      .length,
+  };
 }
 
 function integer(value: number) {
@@ -102,6 +180,7 @@ export function xExperimentReport(calls: XExperimentEvidence[]) {
       postsFetched: call.postsFetched,
       returnedPosts: n,
       actualToolCalls: call.actualToolCalls,
+      searchExecution: searchExecution(call),
       reportedLikes: {
         observed: likes.length,
         median: likes.length

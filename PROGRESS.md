@@ -1,26 +1,3 @@
-## 2026-11-04: iteration 663 — compact long social-editor wire IDs
-
-- Started clean on main; no leftover work. Zero alerts and healthy healthz/database/Redis.
-- Social editor replaces long platform IDs with collision-safe request aliases and restores original IDs after fresh/cached validation; source IDs cannot bypass wire validation.
-- Eight targeted tests pass, including alias collisions, input immutability, cache hits/new caller identity and invalid-ID repairs/fallback. Output cap/models/budgets/selection checks unchanged.
-- Lower output reservations deferred: character limits alone do not establish a smaller safe token bound. No paid calls or claimed live speed/cost improvement.
-- Updated TASKS/RANKING. Internal serialization change; no source/schema/UI/system-flow change or handbook/SOURCES update needed.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (403 unit/207 isolated integration), pnpm build and git diff --check passed. Archived iteration 647 to keep PROGRESS bounded.
-- Restarted API/worker: both active; healthz/database/Redis healthy, zero alerts/failed user services; saved four-topic/14-story/15-post edition readable. All 36 active sources had nonempty successful collection and no errors.
-- Next: Nov 5 grouping/cost/latency/screenshots, NBA full-AI acceptance and World posts; incremental triage stays off.
-
-## 2026-11-04: iteration 664 — batch triage cache lookups
-
-- Started clean on main; no leftover work. Zero alerts; healthz/database/Redis healthy and all 36 sources returning nonempty successful collections.
-- Article/social triage and pending probes now resolve up to 200 item-cache keys with one PostgreSQL query; empty pools read nothing. Optional port capability preserves single-key adapters.
-- Fingerprints, exact score/identity validation, prompts, provider batching and budgets unchanged. Read failures propagate before provider calls; no paid calls or claimed live latency improvement.
-- Synthetic bulk-read regression covers reversed mixed hits, malformed/wrong-ID/missing rows, empty pools and failure for both modes; isolated DB coverage includes missing/duplicate keys and empty input.
-- Updated TASKS/RANKING; archived iteration 648 to keep PROGRESS bounded. Internal cache access only; no source/schema/UI/system-flow change or handbook/SOURCES update needed.
-- Verification: targeted triage tests 20/20; pnpm format, pnpm lint:fix, pnpm check (404 unit/207 isolated integration), pnpm build and git diff --check pass. Corrected an initial test-only unbound-method lint error before the passing full check.
-- Restarted API/worker: active; healthz healthy after startup retry, saved edition four topics/14 stories/15 posts; 36 nonempty successful sources, zero errors/alerts.
-- Next: Nov 5 grouping/cost/latency/screenshots, NBA full-AI acceptance and World posts; incremental triage stays off.
-- Initial push rejected (remote advanced); merged owner docs/instructions commit e1899d7 without conflicts or history rewriting. Application files unchanged by merge. Merged checker found Operations 101/100 prose lines; shortened its test note without changing policy.
-
 ## 2026-11-04: iteration 665 — preserve bulk reads through triage evidence
 
 - Started clean on main; no leftover work. Zero alerts; healthz/database/Redis healthy, all 36 active sources successful/nonempty without current errors.
@@ -176,3 +153,14 @@
 - Updated TASKS and experiment requirements; archived iteration 662; SOURCES/handbook/NEEDS_FROM_HUMAN unchanged because production behavior and owner access requirements are unchanged.
 - Verification: targeted tests 3/3, standalone helper TypeScript check, pnpm format, pnpm lint:fix, pnpm check (426 unit/209 isolated integration), pnpm build and git diff --check passed. Final healthz healthy and zero alerts.
 - No restart under STEERING 22: running services do not import the new offline report. Next: establish provider-enforced cost bound, wire fixed-path runner/evidence capture and complete approved two-day comparison; Nov 5 grouping/NBA checks retain priority.
+
+## 2026-11-04: iteration 679 — X experiment execution diagnostics and dispatch blocker
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 healthy nonempty sources and no failed digest jobs; Nov 5 15:00 UTC remains next scheduled edition. Retained ingestion/social failures coexist with successful current collection.
+- Offline report now checks actual adapter tool inputs for keyword search, Top, exact threshold, filters, exclusions and story OR. Missing/unreadable evidence stays unknown; quoted operators do not count. Reports below-threshold returned likes and missing likes separately; does not claim X honored operators.
+- Six synthetic report tests pass, including multiple calls, conflicts, quotes, malformed/missing inputs and threshold contradictions. No paid calls or production discovery/model/provider/schedule/budget changes.
+- Official Responses docs exclude reasoning/function tokens from max_output_tokens; billing docs say postpaid limits do not cap prepaid usage. No documented hard per-call bound found. Reported dispatch blocker in NEEDS_FROM_HUMAN rather than extending preparation indefinitely or changing billing.
+- Updated experiment requirements/TASKS, compacted completed speed notes and archived iterations 663–664. SOURCES/handbook unchanged: no source or running-system behavior change.
+- Verification: targeted tests 6/6, standalone report/test TypeScript check, pnpm format, pnpm lint:fix, pnpm check (429 unit/209 isolated integration), pnpm build and git diff --check passed. Initial check stopped on new archive formatting; corrected before passing full check.
+- Final healthz healthy and zero alerts. No restart under STEERING 22: running services do not import the offline report.
+- Next: Nov 5 grouping/NBA/cost/latency/screenshots take priority when available. Paid experiment requires a supported cost bound or owner decision; otherwise continue independent offline speed/replay work, not repeated provider-bound audits.

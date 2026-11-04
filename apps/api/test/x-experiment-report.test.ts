@@ -128,3 +128,95 @@ void test('invalid or duplicated evidence cannot silently inflate comparisons', 
     assert.throws(() => xExperimentReport([call]));
   }
 });
+
+function searchCall(query: string, mode = 'Top') {
+  return { name: 'x_keyword_search', input: JSON.stringify({ query, mode }) };
+}
+const suffix = '-filter:replies -filter:retweets lang:en -bet min_faves:100';
+void test('execution report checks actual adapter inputs and separates reported threshold contradictions', () => {
+  const call = evidence();
+  call.expectedSearch = { minFaves: 100, exclusions: ['-bet'] };
+  call.actualToolCalls = [searchCall(`play OR trade ${suffix}`)];
+  call.posts.push({ ...call.posts[0], id: '5', likes: null });
+  const result = xExperimentReport([call])[0].searchExecution!;
+  assert.equal(result.inputsMatch, true);
+  assert.equal(result.returnedBelowThreshold, 1);
+  assert.equal(result.returnedWithUnknownLikes, 1);
+  assert.deepEqual(result.expected, call.expectedSearch);
+  for (const query of [
+    `play trade ${suffix}`,
+    `play "OR" trade ${suffix}`,
+    `play OR trade "${suffix}"`,
+    `play OR trade min_faves:50 ${suffix}`,
+    `play OR trade lang:es ${suffix}`,
+    `play OR trade filter:replies ${suffix}`,
+    'play OR trade -filter:replies -filter:retweets lang:en min_faves:100',
+  ]) {
+    call.actualToolCalls = [searchCall(query)];
+    assert.equal(
+      xExperimentReport([call])[0].searchExecution!.inputsMatch,
+      false,
+      query,
+    );
+  }
+  call.actualToolCalls = [searchCall(`play OR trade ${suffix}`, 'Latest')];
+  assert.equal(
+    xExperimentReport([call])[0].searchExecution!.inputsMatch,
+    false,
+  );
+});
+void test('missing or unreadable tool evidence cannot establish execution compliance', () => {
+  const call = evidence();
+  assert.equal(xExperimentReport([call])[0].searchExecution, null);
+  call.expectedSearch = { minFaves: 100, exclusions: ['-bet'] };
+  for (const calls of [
+    [],
+    [{ name: 'x_keyword_search', input: 'bad-json' }],
+    [
+      {
+        name: 'x_keyword_search',
+        arguments: { query: `play OR trade ${suffix}`, mode: 'Top' },
+      },
+    ],
+    [
+      searchCall(`play OR trade ${suffix}`),
+      { name: 'x_semantic_search', input: '{}' },
+    ],
+    [searchCall(`play OR trade "${suffix}`)],
+    [null, 42, 'assistant prose'],
+  ]) {
+    call.actualToolCalls = calls;
+    assert.equal(
+      xExperimentReport([call])[0].searchExecution!.inputsMatch,
+      null,
+    );
+  }
+  call.actualToolCalls = [
+    searchCall(`play OR trade ${suffix}`),
+    searchCall('play OR trade', 'Latest'),
+  ];
+  assert.equal(
+    xExperimentReport([call])[0].searchExecution!.inputsMatch,
+    false,
+  );
+});
+void test('trending does not require story OR and invalid expected settings are rejected', () => {
+  const call = evidence();
+  call.style = 'trending';
+  call.expectedSearch = { minFaves: 100, exclusions: ['-bet'] };
+  call.actualToolCalls = [searchCall(`play ${suffix}`)];
+  const result = xExperimentReport([call])[0].searchExecution!;
+  assert.equal(result.inputsMatch, true);
+  assert.equal(result.queries[0].observed && result.queries[0].storyOr, null);
+  call.style = 'current';
+  assert.equal(xExperimentReport([call])[0].searchExecution, null);
+  call.style = 'reactions';
+  for (const settings of [
+    { minFaves: -1, exclusions: [] },
+    { minFaves: 0.5, exclusions: [] },
+    { minFaves: 100, exclusions: ['-bet OR spam'] },
+  ]) {
+    call.expectedSearch = settings;
+    assert.throws(() => xExperimentReport([call]));
+  }
+});

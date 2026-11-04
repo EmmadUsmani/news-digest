@@ -34,6 +34,13 @@ medians use observed counts only. Duplicate request/post IDs are rejected within
 a call/report, while a post appearing in different styles remains measurable in
 each. No winner is selected from an incomplete single-day comparison.
 
+With `expectedSearch` settings, the report also checks every saved adapter
+`{name, input}` record for keyword search, Top, the exact threshold, filters,
+exclusions and story OR. Missing/unreadable inputs remain unknown; assistant
+prose and requested settings never count as execution evidence. It separately
+counts returned posts below the threshold and unknown likes. Matching inputs
+and reported counts alone do not prove X honored the operators.
+
 The runner must supply saved triage/review labels; this report creates none.
 All current report tests use synthetic evidence, not live experiment results.
 
@@ -46,6 +53,18 @@ reports 44 posts and three profiles for two search calls. Requested result
 counts and prompt instructions therefore do not establish a hard cost bound.
 Paid dispatch remains unwired pending a defensible provider-enforced bound.
 No experiment calls have been made.
+
+The [Responses reference](https://docs.x.ai/developers/rest-api-reference/inference/responses.md)
+explicitly excludes reasoning and function-call tokens from `max_output_tokens`.
+Its `search_parameters.max_search_results` describes a separate search interface,
+not a fetched-item limit on the `x_search` tool. The
+[billing reference](https://docs.x.ai/developers/rest-api-reference/management/billing.md)
+says the postpaid spending limit does **not** limit prepaid-credit usage.
+These documented controls do not supply the missing experiment cost bound.
+The $5 top-up's shared prepaid balance cannot enforce the separate $1/day or
+$2.50 experiment limits. Do not change account billing or invent a request
+parameter. This dispatch blocker is reported in NEEDS_FROM_HUMAN.md; independent
+offline work and Nov 5 scheduled acceptance checks can continue.
 
 ## Remaining runner requirements
 
