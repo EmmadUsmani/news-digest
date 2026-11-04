@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 647 — avoid absence rejection for numeric ranks
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts; 36 active sources with no errors and fresh ingestion.
-- Fixed demonstrated lexical false positive: “No. 1” rank abbreviations no longer assert absence. Sentence splitting preserves the rank in full evidence so real negative claims still require attribution and scope.
-- Synthetic guard/editor regressions accept numeric ranks in one provider call, reject true negatives and prevent dropping the rank/attribution from negative evidence. This does not prove the unavailable rejected Nov 4 wording caused fallback.
-- Updated TASKS/RANKING; no prompts, budgets, provider, schema or immutable editions changed. Grouping/incremental triage remain off; full-AI acceptance stays open.
-- Verification: targeted tests 15/15; pnpm format, pnpm lint:fix, pnpm check (390 unit/205 isolated integration), pnpm build and git diff --check passed.
-- Restarted API/worker after build; both active, healthz database/Redis healthy, published four-topic edition readable, zero alerts. No paid calls or new edition generated.
-- Next: assess remaining NBA repair diagnostics and gated Nov 5 grouping activation; useful World/open-X yield and edition latency remain open.
-
 ## 2026-11-04: iteration 648 — retain bounded NBA rejection context
 
 - Started clean on main; no leftover work. Healthz healthy, zero alerts; 36 active sources with recent successful ingestion and no current errors, latest four-topic edition readable.
@@ -167,3 +157,14 @@
 - Independent Python journal arithmetic verified call count, total duration, non-triage bound and tail. No paid calls, production tuning, source/schema/UI changes or handbook update.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (402 unit/207 isolated integration), pnpm build and git diff --check passed; final alert snapshot zero. Archived iteration 646 to keep PROGRESS bounded.
 - Documentation-only step; healthy services keep running under STEERING 22. Next: compare Nov 5 repair counts/overlap/tail and grouping evidence before choosing a speed experiment.
+
+## 2026-11-04: iteration 663 — compact long social-editor wire IDs
+
+- Started clean on main; no leftover work. Zero alerts and healthy healthz/database/Redis.
+- Social editor replaces long platform IDs with collision-safe request aliases and restores original IDs after fresh/cached validation; source IDs cannot bypass wire validation.
+- Eight targeted tests pass, including alias collisions, input immutability, cache hits/new caller identity and invalid-ID repairs/fallback. Output cap/models/budgets/selection checks unchanged.
+- Lower output reservations deferred: character limits alone do not establish a smaller safe token bound. No paid calls or claimed live speed/cost improvement.
+- Updated TASKS/RANKING. Internal serialization change; no source/schema/UI/system-flow change or handbook/SOURCES update needed.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (403 unit/207 isolated integration), pnpm build and git diff --check passed. Archived iteration 647 to keep PROGRESS bounded.
+- Restarted API/worker: both active; healthz/database/Redis healthy, zero alerts/failed user services; saved four-topic/14-story/15-post edition readable. All 36 active sources had nonempty successful collection and no errors.
+- Next: Nov 5 grouping/cost/latency/screenshots, NBA full-AI acceptance and World posts; incremental triage stays off.

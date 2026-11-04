@@ -2749,3 +2749,18 @@ production editor returned an empty result with model `none`, which orchestratio
 labelled AI-edited. This changes selection provenance, not paid-call volume:
 the production editor already skipped LLM requests for empty pools. Synthetic
 coverage checks both rejection thresholds and prevents any editor invocation.
+
+### Iteration 663: compact long social-editor identities
+
+Social editing replaces IDs longer than 32 characters (notably Bluesky AT URIs)
+with short request-local aliases. Existing short IDs are reserved before aliases
+are allocated, preventing collisions. Only supplied wire IDs validate; selections
+are mapped back to exact original IDs after fresh or cached response validation.
+Post text, engagement evidence, budgets, model order, absence validation and the
+4,000-token output limit stay unchanged. Whole-request cache fingerprints change
+when wire prompts change; no paid cache warming was performed. Synthetic tests
+cover collisions, exact identity restoration, unchanged inputs, cache hits and
+rejection of an original long ID returned instead of its wire alias. This reduces
+serialized ID bytes, not a measured token/cost/latency improvement. Lowering the
+output cap was deferred because field character limits do not establish a safe
+smaller token bound for arbitrary text.

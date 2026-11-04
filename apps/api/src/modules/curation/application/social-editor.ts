@@ -82,13 +82,26 @@ export class SocialPostEditor {
       );
     if (budget === 0 || candidates.length === 0)
       return { posts: [], model: 'none' };
-    const compact = candidates.map((c) => ({
-      ...c,
-      text: c.text.slice(0, 1200),
-      author: c.author.slice(0, 200),
-      publishedAt: c.publishedAt.slice(0, 40),
-      engagementEvidence: c.engagementEvidence?.slice(0, 1200),
-    }));
+    // Long platform URIs carry no editorial evidence. Keep short existing IDs,
+    // and map bounded aliases back only after the cached wire result validates.
+    const originalIds = new Set(candidates.map((c) => c.id));
+    const aliases = new Map<string, string>();
+    const compact = candidates.map((c, index) => {
+      let id = c.id;
+      if (id.length > 32) {
+        id = `post${index + 1}`;
+        while (originalIds.has(id)) id = `_${id}`;
+      }
+      aliases.set(id, c.id);
+      return {
+        ...c,
+        id,
+        text: c.text.slice(0, 1200),
+        author: c.author.slice(0, 200),
+        publishedAt: c.publishedAt.slice(0, 40),
+        engagementEvidence: c.engagementEvidence?.slice(0, 1200),
+      };
+    });
     const validate = (value: unknown) => {
       const parsed = selectionSchema.parse(value);
       if (
@@ -150,7 +163,14 @@ export class SocialPostEditor {
         },
         validate,
       );
-      if (result) return { ...result, model: model.id };
+      if (result)
+        return {
+          posts: result.posts.map((post) => ({
+            ...post,
+            id: aliases.get(post.id)!,
+          })),
+          model: model.id,
+        };
     }
     return null;
   }

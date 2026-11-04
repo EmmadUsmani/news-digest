@@ -255,3 +255,40 @@ void test('engagement evidence reaches the editor bounded and changes cached sel
     1200,
   );
 });
+
+void test('social editor compacts long IDs without collisions and restores identities on cache hits', async () => {
+  const longId = `bluesky:at://did:plc:${'a'.repeat(40)}/app.bsky.feed.post/123`;
+  const input = [
+    { ...candidates[0], id: longId, platform: 'bluesky' as const },
+    { ...candidates[0], id: 'post1', text: 'A distinct launch.' },
+    { ...candidates[0], id: '_post1', text: 'Another distinct launch.' },
+  ];
+  const before = structuredClone(input);
+  const output = { posts: [{ ...post, id: '__post1' }] };
+  const h = harness([output]);
+  const first = await h.editor.edit(topic, input, 1, 'compact');
+  assert.equal(first?.posts[0].id, longId);
+  assert.deepEqual(input, before);
+  const wire = JSON.parse(h.calls[0].prompt).candidates;
+  assert.deepEqual(
+    wire.map((c: { id: string }) => c.id),
+    ['__post1', 'post1', '_post1'],
+  );
+  assert.ok(!h.calls[0].prompt.includes(longId));
+  assert.equal(h.calls[0].maxOutputTokens, 4000);
+  assert.deepEqual(await h.editor.edit(topic, input, 1, 'cached'), first);
+  assert.equal(h.calls.length, 1);
+
+  // A wire cache stores aliases, so equivalent evidence can restore a new
+  // original identity without leaking the previous caller's ID.
+  const renamed = structuredClone(input);
+  renamed[0].id = longId.replace('/123', '/456');
+  const reused = await h.editor.edit(topic, renamed, 1, 'renamed');
+  assert.equal(reused?.posts[0].id, renamed[0].id);
+  assert.equal(h.calls.length, 1);
+
+  // Source IDs are not valid wire selections, even if they belong to input.
+  const invalid = harness([{ posts: [{ ...post, id: longId }] }]);
+  assert.equal(await invalid.editor.edit(topic, input, 1, 'invalid'), null);
+  assert.equal(invalid.calls.length, 4);
+});
