@@ -1651,3 +1651,12 @@ claimed edition, ordinary-budget admission, settled purpose, and cache reuse by
 a different edition with no new call. This establishes admission/cache behavior,
 not real cost, waste or latency. No production flag was enabled; arrival/pool
 capture and scheduler batching remain unfinished pending the Nov 4 review.
+
+Iteration 520 bounds offline replay invocations to 200 candidates, matching the
+triage entry point, while retaining the complete pool. Previously a growing
+pool above 200 failed before it could be measured. A synthetic 1,500-item
+arrival/pool regression scores every article once, reuses scores despite shifted
+chunk boundaries, and counts one pretriaged article removed from the final pool
+as waste. A cold replay scores the remaining 1,499 articles. This verifies scale
+and accounting only; it supplies no real arrival, waste, spend or latency evidence.
+Production configuration and scheduling are unchanged.

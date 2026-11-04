@@ -149,6 +149,18 @@ export async function evaluateIncrementalTriage(
     description: '',
     guidance: '',
   };
+  // Match the application entry point's 200-candidate bound without dropping
+  // any candidates. Item cache keys remain independent of chunk membership.
+  const scorePool = async (pool: TriageCandidate[], runId: string) => {
+    for (let offset = 0; offset < pool.length; offset += 200) {
+      const result = await triage.score(
+        topic,
+        pool.slice(offset, offset + 200),
+        runId,
+      );
+      if (result.unscoredIds.length) throw new Error('Incomplete scoring');
+    }
+  };
   let deferredPasses = 0;
   // Publication time is an optimistic availability proxy: fixtures lack ingestion times.
   for (
@@ -166,14 +178,11 @@ export async function evaluateIncrementalTriage(
       preScoredIds.add(c.id);
       allScoredIds.add(c.id);
     });
-    const result = await triage.score(topic, pool, 'offline-incremental');
-    if (result.unscoredIds.length)
-      throw new Error('Incomplete incremental scoring');
+    await scorePool(pool, 'offline-incremental');
   }
   const before = { requests, scoredItems };
   finalPool.forEach((c) => allScoredIds.add(c.id));
-  const final = await triage.score(topic, finalPool, 'offline-edition');
-  if (final.unscoredIds.length) throw new Error('Incomplete edition scoring');
+  await scorePool(finalPool, 'offline-edition');
   return {
     topic: window.topic,
     intervalHours,
