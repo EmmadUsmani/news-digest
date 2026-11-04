@@ -528,3 +528,11 @@ through the repository and observes the collector blocked in PostgreSQL. Both
 concurrent disable and deletion commit before collection resumes. Neither case
 creates a current post or an immutable observation. This pins eligibility
 rechecking after lock waits using disposable PostgreSQL, without provider calls.
+
+## Bluesky equal-time conflicts (iteration 562)
+
+`bluesky-storage.test.ts` pins first-write retention when conflicting observations
+share a timestamp: current metadata stays intact, while each topic independently
+retains its first immutable snapshot. Missing media normalizes to an empty array
+in current metadata. A one-millisecond-newer observation adds history only to its
+own topic. Disposable PostgreSQL only; no provider requests.

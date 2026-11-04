@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 543 — measure longer real triage-pool compatibility
-
-- Started clean on main; no leftovers. Zero alerts, healthy healthz/root, all 36 sources returning nonempty collections; no failed digest jobs. Nov 4 review remains pending.
-- Read-only capture `/tmp/triage-pool-543.json` extends the same edition-window observation from 01:07 to 02:40 UTC (93m36s). Retains all 492 earlier eligible IDs, adds 32; 484 compatible fingerprints, eight changed (2 Tech/6 World), unchanged settings. Title/excerpt updates demonstrate that membership alone overstates reuse.
-- Reproduced with `pnpm exec tsx scripts/compare-triage-cache.ts /tmp/triage-pool-525.json /tmp/triage-pool-543.json claude-haiku-5-5`; Node assertions reconcile totals and every topic. Private captures stay outside git. No actual scored-work waste, cache-hit, cost or latency measurement; no paid calls or activation.
-- Updated TASKS/RANKING with counts, interpretation and limits. No source/schema/UI or handbook flow changes; no restart under STEERING 22 because running code/config is unchanged.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (350 unit/186 isolated integration), pnpm build and git diff --check passed; root HTTP 200, healthy healthz, zero dangling Docker volumes.
-- Next: Nov 4 scheduled review first; gated worker connection and actual scoring/final-pool waste evidence thereafter.
-
 ## 2026-11-04: iteration 544 — attribute prospective cache invalidation
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 successful sources without current errors and no failed digest jobs. Two retained historical ingestion failures remain; Nov 4 review is pending.
@@ -167,3 +158,12 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/193 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes and final alerts clear.
 - Updated TASKS; archived iteration 542 to keep PROGRESS small. No running code/config changed, so no restart under STEERING 22; no paid calls or production activation.
 - Next: prioritize Nov 4 scheduled edition review; grouping/incremental triage remain gated. Repository characterization remains available while waiting.
+
+## 2026-11-04: iteration 562 — characterize equal-time Bluesky conflicts
+
+- Started clean on main; no leftover work. Healthz passed, all 36 sources have no current errors, digest queue has zero failed jobs and alerts are clear. Nov 4 scheduled evidence remains pending.
+- Added isolated repository regression: equal-time conflicts preserve first current metadata and independently preserve each topic's first snapshot; missing media normalizes to an empty current array. A one-millisecond-newer observation leaves the other topic's history unchanged.
+- Initial verification caught documentation formatting and an invalid synthetic post ID; both corrected. No production code changes or provider requests.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/194 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes. Final alerts clear.
+- Updated TASKS/database verification notes and archived iteration 543 to keep PROGRESS small. No restart under STEERING 22: running code/config unchanged.
+- Next: prioritize Nov 4 15:00 UTC edition review; grouping and incremental triage remain gated. Repository characterization and recorded-response golden remain open.

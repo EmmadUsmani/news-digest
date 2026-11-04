@@ -490,3 +490,68 @@ void test('Bluesky collection rechecks topic eligibility after a concurrent disa
     await repo.db.end();
   }
 });
+
+void test('Bluesky equal-time conflicts preserve first current metadata and independent topic snapshots', async () => {
+  const repo = new PostgresBlueskyRepository();
+  const first: BlueskyPost = {
+    ...post,
+    externalId: 'at://did:plc:synthetic/app.bsky.feed.post/equaltime',
+    media: undefined,
+  };
+  const conflicting: BlueskyPost = {
+    ...first,
+    author: 'other.test',
+    url: 'https://bsky.app/profile/other.test/post/equaltime',
+    text: 'Conflicting synthetic observation',
+    metrics: { likes: 99, reposts: 8, replies: 4 },
+    media: post.media,
+  };
+  // JSON storage omits optional undefined fields.
+  const storedFirst = JSON.parse(JSON.stringify(first)) as BlueskyPost;
+  try {
+    await repo.store(topic, [first]);
+    await repo.store(topic, [conflicting]);
+    await repo.store(other, [conflicting]);
+    await repo.store(other, [first]);
+    assert.deepEqual(await repo.observations(topic, start, end, end), [
+      storedFirst,
+    ]);
+    assert.deepEqual(await repo.observations(other, start, end, end), [
+      conflicting,
+    ]);
+    const current = (
+      await repo.db.query(
+        "SELECT canonical_url,author,author_url,metrics,bluesky_metadata FROM social_posts WHERE platform='bluesky' AND external_id=$1",
+        [first.externalId],
+      )
+    ).rows;
+    assert.deepEqual(current, [
+      {
+        canonical_url: first.url,
+        author: first.author,
+        author_url: 'https://bsky.app/profile/synthetic.test',
+        metrics: first.metrics,
+        bluesky_metadata: { text: first.text, media: [] },
+      },
+    ]);
+    const newer = { ...conflicting, observedAt: '2026-10-01T12:00:00.001Z' };
+    await repo.store(other, [newer]);
+    assert.deepEqual(await repo.observations(other, start, end, end), [
+      newer,
+      conflicting,
+    ]);
+    assert.deepEqual(await repo.observations(topic, start, end, end), [
+      storedFirst,
+    ]);
+  } finally {
+    await repo.db.query(
+      'DELETE FROM bluesky_observations WHERE external_id=$1',
+      [first.externalId],
+    );
+    await repo.db.query(
+      "DELETE FROM social_posts WHERE platform='bluesky' AND external_id=$1",
+      [first.externalId],
+    );
+    await repo.db.end();
+  }
+});
