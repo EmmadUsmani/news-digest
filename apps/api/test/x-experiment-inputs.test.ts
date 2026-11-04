@@ -76,3 +76,37 @@ void test('window validation requires explicit zones and keeps midnight exclusiv
   });
   assert.equal(result.requests.trending.tools[0].to_date, '2026-11-05');
 });
+
+void test('reaction preparation rejects unusable articles before ranking and deduplicates IDs', () => {
+  const result = prepareXExperimentTopic(
+    topic,
+    settings,
+    [
+      { id: 'a', title: 'Original title', importance: 10 },
+      { id: 'a', title: 'Updated title', importance: 20 },
+      { id: '', title: 'Missing identity', importance: 100 },
+      { id: 'long-id'.repeat(30), title: 'Long identity', importance: 100 },
+      { id: 'long-title', title: 'x'.repeat(501), importance: 100 },
+      { id: 'blank', title: '  ', importance: 100 },
+      { id: 'nan', title: 'Invalid score', importance: NaN },
+      { id: 'infinite', title: 'Infinite score', importance: Infinity },
+    ],
+    window,
+  );
+  assert.equal(result.ready, false);
+  assert.equal(result.requests.reactions, null);
+  assert.deepEqual(result.rankedStories, [
+    { id: 'a', title: 'Updated title', importance: 20 },
+  ]);
+  const ready = prepareXExperimentTopic(
+    topic,
+    settings,
+    [
+      ...result.rankedStories,
+      { id: 'b', title: 'Second article', importance: 1 },
+    ],
+    window,
+  );
+  assert.equal(ready.ready, true);
+  assert.ok(ready.requests.reactions);
+});

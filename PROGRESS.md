@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 677 — durable X experiment admission
-
-- Started clean on main; no leftover work. Zero alerts; healthz/database/Redis healthy, 36 nonempty sources with no current errors, no failed digest jobs and Nov 5 15:00 UTC next scheduled edition. Two retained ingestion failures have no current source errors.
-- Added standalone private-file experiment journal with exclusive locking, fsync/atomic updates, $1 UTC-day/$2.50 lifetime admission and 13:00–16:00 UTC blackout. Unique request reservations survive restart; unknown outcomes never auto-release.
-- Known usage settles once; provider overruns are recorded and stop future admissions. Locked/stale or malformed journals fail closed without overwriting evidence. No paid calls or production search, schedule, model, provider or budget changes.
-- Four offline tests cover UTC boundaries/invalid amounts, persisted daily/lifetime holds, settlement/headroom/overrun stop, duplicate requests and damaged/locked journals. Targeted 4/4 and explicit helper/test TypeScript check passed.
-- Updated TASKS and added docs/x-search-experiment.md for runner requirements; archived iterations 660–661. SOURCES/handbook unchanged: helper is not connected to any production flow.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (423 unit/209 isolated integration), pnpm build and git diff --check passed.
-- No service restart under STEERING 22: running services do not import this standalone helper.
-- Next: wire one fixed external journal path, justify provider per-call reservation bound, add runner/evidence reporting and perform approved two-day comparison. Admission alone cannot bound a provider response. Nov 5 grouping/NBA checks retain priority.
-
 ## 2026-11-04: iteration 678 — offline X experiment evidence report
 
 - Started clean on main; no leftover work. Healthz/database/Redis healthy, zero alerts, 36 nonempty sources with no current errors and no failed digest jobs. Next scheduled edition remains Nov 5 15:00 UTC.
@@ -148,3 +137,12 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (450 unit/209 isolated integration), pnpm build, strict standalone smoke-script tsc with workspace paths, handbook validation (17 pages/22 diagrams/26 tables) and git diff --check passed. Initial smoke top-level await corrected to CommonJS-compatible entry; standalone tsc config corrected for workspace aliases/types.
 - Updated TASKS and owner handbook; archived iteration 676 to bound PROGRESS. SOURCES unchanged: no collection changes. API restarted after commit to serve rebuilt UI; worker unchanged.
 - Next: Nov 5 grouping/NBA AI/cost/latency/screenshots take priority; X experiment awaits supported cost bound or owner decision. M6 broader acceptance stays open.
+
+## 2026-11-04: iteration 693 — require usable reaction experiment articles
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 nonempty sources without current errors and no failed retained digest jobs; next edition Nov 5 15:00 UTC.
+- Offline X experiment preparation now rejects blank/oversized article identities and titles and nonfinite scores before ranking; repeated article IDs retain only their highest-ranked version. Reaction readiness requires two usable distinct articles, preventing false readiness from updated titles on one article.
+- Added regression coverage for duplicate IDs, invalid fields/scores and recovery with a second usable article. No provider calls or production discovery/configuration changes.
+- Verification: targeted inputs 4/4; pnpm format, pnpm lint:fix, pnpm check (451 unit/209 isolated integration), pnpm build, handbook validation (17 pages/22 diagrams/26 tables) and git diff --check passed.
+- Updated TASKS and archived iteration 677 to bound PROGRESS. SOURCES/handbook unchanged: no source/runtime change. No restart under STEERING 22 for offline tooling.
+- Next: Nov 5 grouping/NBA AI/cost/latency/screenshots. Paid X dispatch still requires supported cost bound/owner decision.

@@ -30,13 +30,22 @@ export function prepareXExperimentTopic(
 ) {
   const publicationWindow = experimentWindow(window.start, window.end);
   const seen = new Set<string>();
-  const rankedStories = [...stories]
+  const seenIds = new Set<string>();
+  const rankedStories = stories
+    .filter(
+      (story) =>
+        story.id.trim() &&
+        story.id.length <= 200 &&
+        story.title.trim() &&
+        story.title.length <= 500 &&
+        Number.isFinite(story.importance),
+    )
     .sort((a, b) => b.importance - a.importance)
     .filter((story) => {
       const key = story.title.trim().replace(/\s+/g, ' ').toLowerCase();
-      if (!key || !Number.isFinite(story.importance) || seen.has(key))
-        return false;
+      if (seen.has(key) || seenIds.has(story.id)) return false;
       seen.add(key);
+      seenIds.add(story.id);
       return true;
     })
     .slice(0, 3);
@@ -61,7 +70,7 @@ export function prepareXExperimentTopic(
     ready,
     blockedReason: ready
       ? null
-      : 'Fewer than two distinct ranked article titles in the window',
+      : 'Fewer than two usable distinct ranked articles in the window',
     requests: {
       current: xSearchComparisonBody(request, 'current', settings, []),
       trending: xSearchComparisonBody(request, 'trending', settings, []),
