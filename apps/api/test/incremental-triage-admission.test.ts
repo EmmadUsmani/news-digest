@@ -5,6 +5,7 @@ import type { Pool } from 'pg';
 
 import {
   backgroundTriage,
+  evidencedBackgroundTriage,
   incrementalTriageServices,
 } from '../src/modules/curation/public/incremental-triage';
 import {
@@ -33,6 +34,15 @@ void test('incremental triage defaults off before accessing database or credenti
     () =>
       incrementalTriageServices(db, { LLM_INCREMENTAL_TRIAGE_ENABLED: '1' }),
     /requires/,
+  );
+  assert.throws(
+    () =>
+      incrementalTriageServices(db, {
+        LLM_INCREMENTAL_TRIAGE_ENABLED: '1',
+        LLM_SCHEDULED_RESERVE_ENABLED: '1',
+        ANTHROPIC_API_KEY: 'fake-not-used',
+      }),
+    /absolute evidence directory/,
   );
   assert.equal(
     incrementalTriageServices(db, {
@@ -64,4 +74,56 @@ void test('background triage clears inherited scheduled context across async wor
     }),
   );
   assert.equal(scheduledLedgerContext(), undefined);
+});
+
+void test('background scoring exports isolated successful writes and exposes partial and export failures', async () => {
+  const exports: { topicId: string; attemptId: string; articleId: string }[][] =
+    [];
+  const cache = {
+    cached: () => Promise.resolve(null),
+    cache: () => Promise.resolve(),
+  };
+  let exportFails = false;
+  const scoringError = new Error('scoring failed');
+  const exportError = new Error('export failed');
+  const scorer = evidencedBackgroundTriage(
+    cache,
+    (observed) => ({
+      async score(topic) {
+        assert.equal(scheduledLedgerContext(), undefined);
+        await observed.cache('triage-item-v1:' + 'a'.repeat(64), {
+          id: topic.id,
+        });
+        if (topic.id === 'partial') throw scoringError;
+        return { scores: [], unscoredIds: [] };
+      },
+    }),
+    async (rows) => {
+      if (exportFails) throw exportError;
+      exports.push(rows);
+    },
+  );
+  const score = (id: string) =>
+    scorer.score(
+      { id, name: id, description: '', guidance: '' },
+      [],
+      'shared-run',
+    );
+  await withScheduledAttempt('slot', 1, () =>
+    Promise.all([score('one'), score('two')]),
+  );
+  assert.deepEqual(
+    exports.map((rows) => rows.map((row) => row.articleId)).sort(),
+    [['one'], ['two']],
+  );
+  assert.notEqual(exports[0][0].attemptId, exports[1][0].attemptId);
+  await assert.rejects(score('partial'), (error) => error === scoringError);
+  assert.equal(exports[2][0].articleId, 'partial');
+  exportFails = true;
+  await assert.rejects(score('one'), (error) => error === exportError);
+  await assert.rejects(score('partial'), (error) => {
+    assert.ok(error instanceof AggregateError);
+    assert.deepEqual(error.errors, [scoringError, exportError]);
+    return true;
+  });
 });

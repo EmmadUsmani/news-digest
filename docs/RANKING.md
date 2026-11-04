@@ -1896,3 +1896,19 @@ final eligible fingerprint pool for `report-triage-work.ts`. Fake cache writes
 exercise export, private permissions, concurrent publication and the report
 join. No production caller or timer invokes this adapter yet, and incremental
 triage remains off. These tests are not actual waste, cost or latency evidence.
+
+## Iteration 533: service-level evidence wiring, still inactive
+
+The prepared incremental service now creates a separate write recorder for
+each scoring invocation and exports its successful writes, including partial
+successes when scoring throws. Random attempt IDs distinguish invocations
+sharing a run ID. Export errors propagate; simultaneous scoring/export failures
+retain both errors. The wrapper clears scheduled privilege throughout scoring
+and export. Pending probes still use the unmodified production cache.
+
+When enabled with credentials, the service requires an absolute
+`LLM_INCREMENTAL_TRIAGE_EVIDENCE_DIRECTORY` naming an existing private directory
+outside the repo. The directory must be provisioned before activation. No timer
+or pool caller invokes the service yet; the setting stays off by default. Fake
+regressions cover concurrent topic isolation, partial evidence and both failure
+paths. No paid calls, actual background scores or waste measurements occurred.
