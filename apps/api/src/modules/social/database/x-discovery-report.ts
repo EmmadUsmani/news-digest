@@ -1,3 +1,5 @@
+import { DrizzleQueryError, sql } from 'drizzle-orm';
+import { drizzle } from 'drizzle-orm/node-postgres';
 import type { Pool } from 'pg';
 
 import { summarizeDiscovery } from '../domain/discovery-summary';
@@ -43,8 +45,13 @@ export async function readXDiscoveryReport(
     new Date(day).toISOString().slice(0, 10) !== day
   )
     throw new Error('Expected a valid UTC date (YYYY-MM-DD)');
-  const { rows } = await db.query<DiscoveryCallEvidence>(
-    `
+  // Lateral JSON expansion, correlated edition membership and filtered aggregates
+  // stay in a typed SQL template: the builder cannot express this report directly.
+  const result = await drizzle(db as Pool)
+    .execute<
+      Omit<DiscoveryCallEvidence, 'createdAt'> & { createdAt: Date | string }
+    >(
+      sql`
     WITH curated AS (
       SELECT DISTINCT lower(regexp_replace(handle, '^@', '')) AS handle
       FROM topics CROSS JOIN LATERAL jsonb_array_elements_text(accounts) AS handle
@@ -79,18 +86,28 @@ export async function readXDiscoveryReport(
           CROSS JOIN LATERAL jsonb_array_elements(d.snapshot->'topics') topic
           CROSS JOIN LATERAL jsonb_array_elements(topic->'posts') post
           WHERE d.created_at >= c.created_at
-            AND d.created_at < ($1::date + 1)::timestamp AT TIME ZONE 'UTC'
+            AND d.created_at < (${day}::date + 1)::timestamp AT TIME ZONE 'UTC'
             AND topic->>'id'=s.topic_id::text
             AND post->>'platform'='x' AND post->>'externalId'=s.external_id
         ) AS selected) picked
         WHERE s.call_id=c.id GROUP BY s.topic_id,t.name
       ) y),'[]'::jsonb) AS topics
     FROM x_discovery_calls c
-    WHERE c.created_at >= $1::date::timestamp AT TIME ZONE 'UTC'
-      AND c.created_at < ($1::date + 1)::timestamp AT TIME ZONE 'UTC'
+    WHERE c.created_at >= ${day}::date::timestamp AT TIME ZONE 'UTC'
+      AND c.created_at < (${day}::date + 1)::timestamp AT TIME ZONE 'UTC'
     ORDER BY c.created_at,c.id`,
-    [day],
-  );
+    )
+    .catch((error: unknown) => {
+      // Keep the adapter's native PostgreSQL errors for existing callers.
+      throw error instanceof DrizzleQueryError && error.cause
+        ? error.cause
+        : error;
+    });
+  // Drizzle leaves execute() timestamps as strings; retain the report's Date API.
+  const rows: DiscoveryCallEvidence[] = result.rows.map((row) => ({
+    ...row,
+    createdAt: new Date(row.createdAt),
+  }));
   return {
     day,
     calls: rows,

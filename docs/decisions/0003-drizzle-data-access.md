@@ -198,3 +198,9 @@ The usage snapshot now lives in a database adapter with a Drizzle-managed
 repeatable-read transaction. The public facade delegates without ORM imports.
 Every reader uses the checked-out client under the same Anthropic advisory
 lock; rollback, client release and original PostgreSQL errors are preserved.
+
+X discovery daily evidence now executes through Drizzle's typed SQL template.
+Its CTEs, lateral JSON expansion and correlated edition membership retain the
+existing report query because these aggregates cannot be expressed directly
+with the query builder. UTC boundaries remain bound parameters; the caller's
+pool or checked-out client is reused and native PostgreSQL errors are preserved.

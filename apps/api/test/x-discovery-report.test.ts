@@ -38,6 +38,11 @@ void test('X daily evidence preserves zero-yield calls, counts cost once and use
       ('x','887712','https://x.com/a/status/887712','a','https://x.com/a',NULL,'fixture')`);
     const report = await readXDiscoveryReport(client, '2032-01-02');
     assert.equal(report.calls.length, 4);
+    assert.ok(report.calls[0].createdAt instanceof Date);
+    assert.equal(
+      report.calls[0].createdAt.toISOString(),
+      '2032-01-02T00:00:00.000Z',
+    );
     assert.equal(report.costMicros, 50000);
     assert.equal(report.heldMicros, 400000);
     assert.deepEqual(report.calls[0].topics, [

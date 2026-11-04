@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 588 — convert operations source status to Drizzle
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 error-free sources and zero failed digest jobs; Nov 4 15:00 UTC edition review pending.
-- Moved operations source reads into a database adapter using typed Drizzle joins, counts and correlated enabled-topic existence. Preserved empty sources, ordering, observation counts and HTTP UTC timestamps; queue telemetry unchanged.
-- Read-only old/new comparison matched all 36 live source rows in one repeatable-read snapshot. No migration, activation, paid call or UI change; owner grants untouched.
-- Existing characterization assertions unchanged; new reader statement coverage 100%. Initial typechecks caught timestamp contract and untyped EXISTS results; fixed with UTC normalization and boolean decoder. First otherwise-green check stopped on newly archived progress formatting; corrected before final run.
-- Updated TASKS, architecture, decision and handbook stack; archived iteration 573 to keep PROGRESS bounded.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
-- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Playwright root: 63 article elements, zero page errors. All 36 sources error-free, zero failed digest jobs and zero alerts.
-- Next: prioritize Nov 4 15:00 UTC edition review; otherwise continue remaining ORM adapters or migration baseline. Private pg_dump before first new migration.
-
 ## 2026-11-04: iteration 589 — convert social selection/citation reads to Drizzle
 
 - Started clean on main; no leftover work. Healthy healthz, zero alerts, 36 error-free sources and zero failed digest jobs. Recent social collections completed; two historical Bluesky failures remain retained.
@@ -151,3 +140,14 @@
 - Final service snapshot: zero current source errors or failed digest jobs. Metrics-memory warning recurred after testing; restarted the unhealthy metrics service to clear expendable caches, reducing memory from 103 MiB to 34 MiB. Fresh evaluation at 10:04 UTC cleared the alert; final alerts zero.
 - Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters or historical migration baseline. Private pg_dump before first new migration.
 - Push: initial 493be5b push rejected by Git integration with `fatal error in commit_refs_rules`; retry successfully pushed 493be5b without rewriting history.
+
+## 2026-11-04: iteration 603 — Drizzle X discovery evidence report
+
+- Started clean on main; no leftover work. Zero alerts, healthy services, 36 sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC review pending.
+- Converted daily X discovery evidence to Drizzle typed SQL; lateral JSON/correlated aggregates retain the existing query with bound UTC dates. Caller connection reuse and native PostgreSQL error causes remain intact.
+- Read-only old/new comparison matched three live UTC days/five calls in one repeatable-read snapshot. It caught Drizzle string timestamps; restored Date values and pinned that contract in the existing isolated report test.
+- Initial check caught the in-progress timestamp edit/type constraint; final full check passed. No migration, activation, source change or paid call; owner grants untouched.
+- Updated TASKS, architecture, decision and handbook stack; archived iteration 588 to keep PROGRESS bounded.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
+- Restarted API/worker outside freeze; active and healthz healthy. Saved edition byte-identical and budget snapshots unchanged. Read-only Playwright rendered four topics without page errors; 36 sources without current errors, zero failed digest jobs and zero alerts.
+- Next: prioritize Nov 4 15:00 UTC edition review; otherwise historical migration baseline or remaining ORM infrastructure. Private pg_dump before first new migration.
