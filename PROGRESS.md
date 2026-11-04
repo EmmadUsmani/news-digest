@@ -185,5 +185,6 @@
 - Targeted `pnpm exec tsx --test apps/api/test/triage-batching.test.ts`: 7/7; default CLI: 36 article rows, zero repeat requests; supplied social CLI and missing-file rejection checked.
 - Updated TASKS/RANKING; archived iteration 656 to keep PROGRESS bounded. No affected handbook/source/schema behavior.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (415 unit/207 isolated integration), pnpm build and git diff --check passed. Live: API/worker active, 36 sources/zero current errors, four-topic saved edition, zero alerts.
-- Runtime/config unchanged: no restart under STEERING 22.
-- Next: Nov 5 grouping admission/accuracy/cost/latency/screenshots, NBA full-AI, World posts; capture actual social inputs before batching changes.
+- Runtime/config unchanged: no restart under STEERING 22. Push initially rejected by new owner commits; fetched and merged docs-only changes without rewriting history.
+- Read new STEERING 30 and plan opening; added X search redesign as next product priority. Full plan still needs reading before implementation; production/experiment budgets remain separate.
+- Next: STEERING 30 X search plan; Nov 5 grouping/NBA checks take priority when available.

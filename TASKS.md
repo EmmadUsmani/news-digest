@@ -5,6 +5,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Immediate owner priorities
 
+- [ ] STEERING 30: top product priority after breakages/Nov 5 checks: follow [X search plan](docs/x-search-plan.md) exactly. Story reactions primary; X-side Top/operators/thresholds; persist actual queries. Experiment cap $2.50 total/$1 per UTC day, outside 13:00–16:00 UTC; production caps unchanged. Replaces optional/followup machinery when shipped.
+
 - [ ] STEERING 27: verify Nov 5 scheduled grouping admission, accuracy, cost, latency and desktop/mobile screenshots. Nov 4 review: 151.532 s/$0.291162, NBA fallback, World no posts, paid open-X picks 0/19 ([review](docs/edition-reviews/2026-11-04.md)).
   - Same-story pass enabled for Nov 5 (650), following passed sampled gate: labelled precision 141/141, recall 141/157; zero clearly unrelated and one borderline among 155 reviewed merges. Four-call reservation bound $0.058192; reserve protects full daily cap. No wording grouping rules. Actual grouped edition remains unverified.
 - [ ] STEERING 13: full-AI scheduled acceptance remains open. Reserve/fencing/UI implemented; Nov 3 $0.339524/231.829 s, Nov 4 $0.291162/151.532 s, reserve released/zero holds. NBA Sonnet and Haiku initial+repair failures proved by fingerprints, all candidates scored. Numeric No. rank false positives fixed (647), bounded diagnostics (648) and field-specific repair hints (653) shipped. Await actual NBA outcome; rejected wording unavailable.

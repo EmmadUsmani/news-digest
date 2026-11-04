@@ -864,3 +864,33 @@ Nov 4 checks). When product work is blocked, the order is:
 - **Moved content:** the removed caveats and test details are in git
   history. Put anything still needed in PROGRESS.md or the `docs/`
   references, not in the owner pages.
+
+## 30. NEXT, top product priority: X search quality (2026-11-04)
+
+Open X search is live, but on Nov 4 none of its 19 posts made the edition:
+the NBA posts were betting promotions, World got roundups, and the best had
+12 likes. The owner approved a redesign.
+**Follow [docs/x-search-plan.md](docs/x-search-plan.md) exactly.**
+- **Priority:** this ranks above item 7 speed work and observability. Breakages,
+  the Nov 5 checks of item 27 (grouping, NBA AI) and the morning-edition
+  protections still come first.
+- **Design:**
+  - X ranks and filters, using Top sort, `min_faves` and the
+    reply/retweet/language filters.
+  - Story-reaction search is primary, topic-trending search secondary.
+  - Code builds the operators and thresholds; Grok writes only keywords.
+  - Store the queries Grok actually ran.
+- **Experiment budget** (the owner added $5 of xAI credit): at most $2.50 in
+  total and $1.00 per UTC day for the experiment, recorded apart from
+  production spend. Never between 13:00 and 16:00 UTC.
+  - **Raised 2026-11-04 by the owner, from $1.00/$0.50.** Use the extra to
+    repeat the comparison on a second day and to calibrate thresholds, as
+    in the plan.
+  - Leave at least half of the top-up untouched.
+- **Model:** the owner has no attachment to Grok 4.3. Pick the cheapest
+  model that passes the plan's decision rule.
+- **Production stays $0.40/day and $12/month.**
+- **Replace, don't add:** delete the old follow-up and optional-slot
+  machinery once the new schedule ships. No new prompt wording rules.
+- **Acks:** one after the experiment decision (with its numbers), and one
+  after 3 editions meet the plan's done criteria.
