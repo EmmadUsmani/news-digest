@@ -32,8 +32,9 @@ expressions. Existing Reddit characterization tests remain unchanged; collection
 stays parked under the owner's access restrictions.
 
 The publisher-article X discovery adapter uses typed transactional citation and
-check upserts. Its two window rankings and grouped minimum ordering remain a
-Drizzle SQL template to preserve publisher/topic fairness and host backoff.
+check upserts. Candidate CTEs, joins, host-backoff subquery, filters and grouped ordering use
+typed builders; window ranks, aggregate minima and interval/host expressions
+remain SQL expressions to preserve publisher/topic fairness and host backoff.
 Writes recheck enabled source connections, preserve citation metadata on conflict
 and roll back the check together with citations. Existing characterization tests
 remain unchanged.
