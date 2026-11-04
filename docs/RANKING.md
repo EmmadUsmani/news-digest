@@ -2802,3 +2802,14 @@ checks cover original-ID restoration, warm reuse, retry after atomic failure,
 sibling write draining and committed-only evidence. Isolated PostgreSQL checks
 cover conflicts, duplicate keys, empty input and whole-batch rollback. No paid
 calls or measured live edition speed improvement; incremental triage stays off.
+
+### Iteration 667: linear batch-size accounting
+
+Triage measures each serialized wire item once while packing batches, adding
+commas and the fixed prompt framing exactly. A split resets batch-local IDs
+before sizing the first item. This replaces repeated serialization of growing
+prompts while preserving the 50-item/60,000-byte limits, exact prompts, cache
+keys and provider requests. Differential synthetic checks compare every prompt
+against the former full-serialization algorithm in article and social modes,
+with 200 short or Unicode/escaped long candidates. No paid calls or measured
+live latency improvement; incremental triage remains disabled.

@@ -844,3 +844,53 @@ void test('bulk item writes preserve original IDs, warm reuse and drain sibling 
     assert.equal(h.calls.length, calls);
   }
 });
+
+void test('byte accounting preserves full-serialization batch boundaries in both modes', async () => {
+  for (const kind of ['article', 'social'] as const) {
+    for (const long of [false, true]) {
+      const h = harness(undefined, kind);
+      const pool = Array.from({ length: 200 }, (_, index) => ({
+        id: `item-${index}-界`,
+        title: `Quoted "title" ${index}\n`,
+        excerpt: long ? (index % 2 ? '界' : '\\"\n').repeat(600) : null,
+        sources: ['Outlet\t界'],
+      }));
+      const result = await h.service.score(topic, pool, 'byte-boundaries');
+      assert.equal(result.scores.length, pool.length);
+      const template = JSON.parse(h.calls[0].prompt) as Record<string, unknown>;
+      const wire = (items: typeof pool) =>
+        JSON.stringify({
+          ...template,
+          candidates: items.map((item, index) => ({
+            ...item,
+            originalId: item.id,
+            id: String(index),
+          })),
+        });
+      const expected: string[] = [];
+      let batch: typeof pool = [];
+      for (const item of pool) {
+        const next = [...batch, item];
+        if (
+          batch.length &&
+          (next.length > 50 ||
+            Buffer.byteLength(h.calls[0].instructions + wire(next)) + 2048 >
+              60000)
+        ) {
+          expected.push(wire(batch));
+          batch = [];
+        }
+        batch.push(item);
+      }
+      if (batch.length) expected.push(wire(batch));
+      assert.deepEqual(
+        h.calls.map((call) => call.prompt),
+        expected,
+      );
+      for (const call of h.calls)
+        assert.ok(
+          Buffer.byteLength(call.instructions + call.prompt) + 2048 <= 60000,
+        );
+    }
+  }
+});

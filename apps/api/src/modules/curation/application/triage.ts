@@ -144,6 +144,11 @@ export class CandidateTriage {
         scores.set(entry.item.id, parsed.data);
       else missing.push(entry);
     }
+    const wireItem = (entry: (typeof entries)[number], index: number) => ({
+      ...entry.item,
+      originalId: entry.item.id,
+      id: String(index),
+    });
     const promptFor = (batch: typeof entries) =>
       JSON.stringify({
         topic: compactTopic,
@@ -155,28 +160,35 @@ export class CandidateTriage {
         },
         outputStyle:
           'Return the batch-local id, never originalId (identity context only). Compact JSON only. No analysis, markdown or repeated source text. Keep event and rationale brief; do not fill their character limits.',
-        candidates: batch.map((e, index) => ({
-          ...e.item,
-          originalId: e.item.id,
-          id: String(index),
-        })),
+        candidates: batch.map(wireItem),
       });
     // UTF-8 bytes conservatively bound tokens, including escaped Unicode and
     // framing. Typical batches contain 50 items; long excerpts split earlier.
     const batches: (typeof entries)[] = [];
     let batch: typeof entries = [];
+    // An empty prompt already includes the array brackets. Each item adds its
+    // serialized bytes plus one comma after the first; indices reset on splits.
+    const baseBytes =
+      Buffer.byteLength(activeInstructions + promptFor([]), 'utf8') + 2048;
+    let batchBytes = baseBytes;
     for (const entry of missing) {
-      const next = [...batch, entry];
+      let itemBytes = Buffer.byteLength(
+        JSON.stringify(wireItem(entry, batch.length)),
+        'utf8',
+      );
       if (
         batch.length &&
-        (next.length > 50 ||
-          Buffer.byteLength(activeInstructions + promptFor(next), 'utf8') +
-            2048 >
-            60000)
+        (batch.length >= 50 || batchBytes + 1 + itemBytes > 60000)
       ) {
         batches.push(batch);
         batch = [];
+        batchBytes = baseBytes;
+        itemBytes = Buffer.byteLength(
+          JSON.stringify(wireItem(entry, 0)),
+          'utf8',
+        );
       }
+      batchBytes += itemBytes + (batch.length ? 1 : 0);
       batch.push(entry);
     }
     if (batch.length) batches.push(batch);

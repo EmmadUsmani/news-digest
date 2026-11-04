@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 651 — correct low-quality open-X discovery instructions
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources with recent successful ingestion/no current errors and readable four-topic Nov 4 edition.
-- Acted on Nov 4's 0/19 selected paid discoveries: shared X prompt excludes betting/tipster promotions, memberships, affiliate offers, engagement requests and generic roundups; seeks concrete original topic content and distinct moments, allowing fewer or zero results instead of filler.
-- Models/providers, search/turn/result limits, official verification, exact window and budget caps unchanged. No paid calls, new edition, source requests or UI changes; actual yield improvement remains unproven.
-- Extended prompt/transport fixture coverage; empty results preserve fetched-post usage without adapter retry. Initial direct whole-file test hit five isolation guards; no live DB access occurred. Correctly scoped adapter tests passed 4/4; full isolated suite then passed.
-- Updated TASKS/SOURCES; archived iteration 635 to keep PROGRESS bounded. Handbook system flow unchanged by this discovery bug fix.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (395 unit/207 isolated integration), pnpm build and git diff --check passed.
-- Restarted API/worker: both active; healthz database/Redis healthy, saved four-topic edition readable, zero alerts/failed user services/dangling Docker volumes.
-- Next: measure scheduled discovery quality and immutable picks; Nov 5 grouping admission/cost/accuracy/latency/screenshots, NBA full-AI and World coverage remain open.
-
 ## 2026-11-04: iteration 652 — give Bluesky editing cross-platform context
 
 - Started clean on main; no leftover work. Zero alerts, healthy database/Redis, 36 active sources without current errors and four available queues.
@@ -172,3 +161,14 @@
 - Verification: targeted tests 25/25; pnpm format, pnpm lint:fix, pnpm check (407 unit/207 isolated integration), pnpm build and git diff --check passed. No paid calls or claimed live speed improvement.
 - Restarted API/worker; both active, healthz healthy, zero alerts/failed services. Saved edition remains four topics/14 stories/15 posts; all 36 sources successful/nonempty, zero errors.
 - Next: Nov 5 grouping/cost/latency/screenshots, NBA full-AI acceptance and World posts; background triage stays disabled.
+
+## 2026-11-04: iteration 667 — linear triage batch sizing
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis and 36 nonempty successful sources without current errors.
+- Replaced repeated full-prompt serialization while packing triage batches with exact UTF-8 item/framing/comma accounting; batch-local indices reset on splits.
+- Preserves article/social prompts, 50-item/60,000-byte boundaries, fingerprints, provider requests, models and budgets. Incremental triage stays off; no paid calls or measured live latency improvement.
+- Differential synthetic regression compares every actual prompt against the former full-serialization algorithm for 200 short and Unicode/escaped long candidates in both modes.
+- Updated TASKS/RANKING; archived iteration 651 to keep PROGRESS bounded. Internal batch preparation only; no handbook/schema/SOURCES changes needed.
+- Verification: targeted tests 28/28; pnpm format, pnpm lint:fix, pnpm check (408 unit/207 isolated integration), pnpm build and git diff --check passed.
+- Restarted API/worker: both active, healthz healthy, zero alerts; saved edition four topics/14 stories/15 posts; all 36 sources nonempty with zero errors.
+- Next: Nov 5 grouping admission/cost/accuracy/latency/screenshots, NBA full-AI acceptance and World posts; background triage remains disabled.
