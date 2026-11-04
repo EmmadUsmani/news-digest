@@ -142,3 +142,12 @@
 - Updated TASKS/RANKING; no source/schema/UI/handbook flow changes. Services remain running under STEERING 22 because this module has no production caller.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (330 unit/185 isolated integration), pnpm build and git diff --check passed; root/healthz healthy and zero dangling Docker volumes.
 - Next: exact edition-pool and current-schedule caller wiring; longer-span pool/scored-work evidence. Nov 4 scheduled review takes priority when available.
+
+## 2026-11-04: iteration 535 — prepare exact edition-pool boundary
+
+- Started clean on main; no leftover work. Zero alerts; healthz healthy, 36 sources without current errors, recent successful ingestion and no failed digest jobs. Nov 4 15:00 UTC review remains pending.
+- Added read-only incremental pool boundary using the edition's current-window newest-200 query and current enabled/positive-story-budget topic settings; invalid windows fail before DB access, unavailable topics return null.
+- Extracted shared edition/background input builder to preserve guidance, hard exclusions, semantic recovery and cache fingerprints. Prepared loader has no worker/timer caller; no activation, paid calls or actual waste/latency claim.
+- Updated TASKS/RANKING; no source/schema/UI/handbook flow changes. Next: current-schedule/timer wiring and longer-span scored-work evidence; Nov 4 review takes priority.
+- Verification: targeted loader test 1/1; pnpm format, pnpm lint:fix and pnpm check passed (331 unit/185 isolated integration), including edition goldens.
+- pnpm build and git diff --check passed; API/worker restarted (shared edition import changed), root HTTP 200 and healthz healthy; zero dangling Docker volumes.

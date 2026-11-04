@@ -1924,3 +1924,18 @@ Isolated Postgres tests use a fake scorer to verify contention, the item bound,
 cutoff and recovery. No timer or production pool loader invokes this factory;
 there are no paid calls, activation or measured waste/latency results. Future
 worker wiring must supply the current schedule and exact edition candidate pool.
+
+## Iteration 535: exact edition-pool boundary, still inactive
+
+`loadIncrementalTriagePool` loads the scheduled window through the edition's
+existing newest-200 query, rereads the topic's enabled/story-budget settings,
+and returns no pool for missing, disabled or zero-story topics. Invalid windows
+fail before database access. A shared pure input builder now supplies both this
+boundary and edition generation with identical guidance and hard-exclusion
+admission, retaining articles without required phrases for semantic recovery.
+This extraction preserves edition behavior and per-item fingerprints. Fixture
+regression covers guidance, exclusion, semantic recovery and exact query
+parameters; existing isolated edition goldens verify publication behavior.
+There is still no worker/timer caller or activation, and no actual background
+scoring, paid verification or waste/latency measurement. Current schedule and
+window derivation remain the next caller responsibility.

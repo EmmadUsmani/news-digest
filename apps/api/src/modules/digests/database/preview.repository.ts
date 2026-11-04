@@ -18,6 +18,7 @@ import {
 } from '../../social/public/selection';
 import { observeEdition } from '../adapters/edition-logging';
 import { parallelTopics } from '../application/parallel-topics';
+import { articleTriageInput } from '../domain/article-triage-input';
 import { editorialShortlist } from '../domain/editorial-shortlist';
 import {
   type EditionProgress,
@@ -185,19 +186,8 @@ export class PostgresPreviewRepository
               : 'Non-AI ranking: editorial service unavailable.',
         };
         if (this.editorial && topic.story_budget > 0) {
-          const context = {
-            id: String(topic.id),
-            name: String(topic.name),
-            description: String(topic.description),
-            guidance: `${topic.include_guidance}\nExclude: ${topic.exclude_guidance}\nRequired phrases: ${policy.includeAny.join(', ')}\nExcluded phrases: ${policy.excludeAny.join(', ')}`,
-          };
-          // Skip only hard exclusions shared with the final shortlist. Missing
-          // include phrases must still reach semantic triage for relevance recovery.
-          const triageCandidates = candidates.filter(
-            (item) =>
-              !qualityRejection(item) &&
-              assessRelevance(item, { ...policy, includeAny: [] }).eligible,
-          );
+          const { topic: context, candidates: triageCandidates } =
+            articleTriageInput(topic, candidates);
           const triage = await this.editorial.triage.score(
             context,
             triageCandidates,
