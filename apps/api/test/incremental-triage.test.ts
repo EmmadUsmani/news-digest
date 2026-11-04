@@ -193,3 +193,35 @@ void test('minimum pending gate counts cache misses and flushes every edition re
     assert.ok(row.totalRequests <= previous.totalRequests);
   }
 });
+
+void test('pretriage cutoff excludes its boundary and always flushes at edition time', async () => {
+  const window = {
+    topic: 'Synthetic cutoff',
+    windowStart: '2026-11-01T00:00:00Z',
+    windowEnd: '2026-11-01T04:00:00Z',
+    candidates: [0, 1, 2, 3].map((hour) => ({
+      id: String(hour),
+      title: String(hour),
+      excerpt: null,
+      sources: [],
+      publishedAt: `2026-11-01T0${hour}:00:00Z`,
+    })),
+  };
+  const unrestricted = await evaluateIncrementalTriage(window, 1);
+  const cutoff = await evaluateIncrementalTriage(window, 1, 1, 2);
+  assert.equal(unrestricted.preEditionItems, 3);
+  assert.equal(cutoff.preEditionItems, 1);
+  assert.equal(cutoff.editionItems, 3);
+  assert.equal(cutoff.totalScoredItems, 4);
+  assert.equal(cutoff.repeatScoring, 0);
+  const fractional = await evaluateIncrementalTriage(window, 1, 1, 1.5);
+  assert.equal(fractional.preEditionItems, 2);
+  const fullyReserved = await evaluateIncrementalTriage(window, 1, 1, 24);
+  assert.equal(fullyReserved.preEditionRequests, 0);
+  assert.equal(fullyReserved.editionItems, 4);
+  for (const invalid of [-1, 25, NaN, Infinity])
+    await assert.rejects(
+      evaluateIncrementalTriage(window, 1, 1, invalid),
+      /cutoff/,
+    );
+});

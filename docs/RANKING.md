@@ -1621,3 +1621,17 @@ requests, this trades less edition work for one additional request. The gate
 counts pending items rather than pool size, so cached items cannot repeatedly
 trigger small batches. Real arrival/pool evidence, budget admission and live
 latency remain unmeasured; no production setting or activation is added.
+
+Iteration 518 adds `--stop-before-edition-hours=2` to the offline replay.
+Pretriage ticks at or after that cutoff are skipped; edition time still scores
+all remaining candidates. The cutoff is relative to each window end, accepts
+fractional hours, and defaults to zero. It models a quiet period, not ledger
+admission: it does not prove the normal budget can fund earlier passes or that
+the scheduled reserve is protected.
+With hourly ticks, minimum 25 and a two-hour cutoff, the recorded NBA/World/Tech
+windows leave 26/22/25 items for edition time (73 total versus 47 without the
+cutoff). All 153 articles are scored once in six requests; prompt bytes remain
+67,051 and reserved output tokens 25,416. Stopping earlier moves NBA's last batch
+to edition time without increasing the request count in these windows. These
+are publication-proxy, synthetic-score measurements, not live spend or latency.
+No production schedule, setting, reserve or feature is changed.

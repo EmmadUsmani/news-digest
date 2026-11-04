@@ -143,3 +143,13 @@
 - Updated TASKS and RANKING; handbook/schema/UI unchanged, screenshots unnecessary. No paid calls, editions, source changes or feature activation; grouping remains off pending Nov 4 review.
 - Verification: targeted replay tests 4/4, threshold CLI, pnpm format, pnpm lint:fix, pnpm check, pnpm build, healthz/root, source/queue status, pnpm obs alerts and git diff --check. Full suite passed: 297 unit and 182 isolated integration tests; zero dangling Docker volumes.
 - Services stay running under STEERING 22: only offline files changed, so running application code matches main. Next: real arrival/pool evidence and off-by-default reserve-safe pretriage; Nov 4 scheduled review takes priority.
+
+## 2026-11-04: iteration 518 — measure an offline pretriage cutoff
+
+- Started clean on main; no leftover work. Healthz/root healthy, zero alerts; all 36 sources error-free, 3,183 stored source items, all four queues available. Nov 4 edition remains future evidence.
+- Added offline `--stop-before-edition-hours` (default zero): skip pretriage at/after the relative cutoff, always flush remaining items at edition time. Accepts fractional hours; rejects invalid bounds. No production code/config or activation.
+- Hourly recorded replay, minimum 25, two-hour cutoff: NBA/World/Tech edition remainders 26/22/25 (73 versus 47 without cutoff). All 153 articles scored once in six requests; 67,051 prompt bytes and 25,416 reserved output tokens unchanged.
+- These use synthetic scores and publication proxies, not live latency, settled spend or ledger admission. A quiet period alone does not establish reserve safety. Real arrival/pool evidence and off-by-default budget-safe implementation remain next; Nov 4 review takes priority when available.
+- Updated TASKS/RANKING; handbook/schema/UI unchanged. No paid calls, editions, sources or feature activation; grouping stays off. No screenshots needed.
+- Verification: targeted tests 5/5, cutoff CLI, pnpm format, pnpm lint:fix, pnpm check (298 unit/182 isolated integration), pnpm build, git diff --check, healthz/root, status and pnpm obs alerts passed; zero dangling Docker volumes.
+- Services stay running under STEERING 22: only offline scripts/tests/docs changed, so running application code matches main. Initial status probe used an incorrect path (404); canonical /api/status succeeded.
