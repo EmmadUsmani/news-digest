@@ -1,21 +1,3 @@
-## 2026-11-04: iteration 531 — prepare actual triage item-write evidence
-
-- Started clean on main; no leftover work. Zero alerts; healthy healthz/status, 36 sources without current errors and four available queues. Nov 4 review remains pending.
-- Added per-invocation item-cache observation with exact production fingerprint, original article ID and completion time. Records successful writes only; excludes warm hits, request/social cache writes and failed persistence; retains partial successes.
-- Two fake-provider/cache regressions exercise real CandidateTriage and the offline report join, changed inputs, failures and snapshot isolation. Initial test used the wrong report field name; corrected before verification.
-- No production caller, persistent export, paid calls or activation; no measured waste/cost/latency claim. TASKS/RANKING updated; no source/schema/UI/handbook flow changes.
-- Verification: targeted tests 2/2; pnpm format, pnpm lint:fix, pnpm check (328 unit/184 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
-- Services remain running under STEERING 22 because this prepared adapter is not imported by running code. Next: caller/private export wiring and final eligible fingerprints; scheduled Nov 4 review takes priority.
-
-## 2026-11-04: iteration 532 — prepare private scoring-evidence persistence
-
-- Started clean on main; no leftover work. Zero alerts; healthz healthy, 36 sources without current errors and four available queues. Nov 4 edition review remains pending.
-- Added bounded private evidence exporter: mode-600 files, synced temporary writes and exclusive atomic publication; concurrent exports remain distinct. Invalid/duplicate rows rejected, extra fields stripped, empty snapshots skipped and failures propagated.
-- Fake cache-write regression verifies persistence, permissions, concurrency and final-pool report compatibility. No production caller, paid calls, activation or actual waste/cost/latency measurement.
-- Updated TASKS/RANKING; no source/schema/UI/handbook flow changes. Services remain running under STEERING 22 because prepared adapter is not imported by running code.
-- Next: caller/export wiring and actual scored-work evidence; Nov 4 scheduled review takes priority when available.
-- Verification: targeted exporter test 1/1; pnpm format, pnpm lint:fix, pnpm check (329 unit/184 isolated integration), pnpm build and git diff --check passed; live root/healthz healthy, zero dangling Docker volumes.
-
 ## 2026-11-04: iteration 533 — wire service-level incremental scoring exports
 
 - Started clean on main; no leftover work. Zero alerts; healthz/status healthy, 36 sources without current errors, four available queues and recent successful collections. Nov 4 15:00 UTC edition remains pending.
@@ -175,3 +157,14 @@
 - Updated TASKS/RANKING and archived iteration 530. No source/schema/UI/handbook flow change; no restart under STEERING 22 because only offline tooling/tests/docs changed.
 - Verification: targeted replay tests 11/11; pnpm format, pnpm lint:fix, pnpm check (357 unit/187 isolated integration), pnpm build, recorded replay and git diff --check passed. Recorded hourly remainders remain NBA 0/World 5/Tech 2; zero alerts/dangling Docker volumes.
 - Next: Nov 4 scheduled review first; gated worker connection and actual scoring/final-window waste evidence thereafter.
+
+## 2026-11-04: iteration 551 — compare offline triage batch overhead
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 nonempty/error-free sources and four available queues. Nov 4 scheduled review remains pending at 15:00 UTC.
+- Added offline 10/25/50/200-item caller comparison using real CandidateTriage request construction, synthetic replies and in-memory cache; no provider, DB, environment or production changes.
+- Recorded 153 articles: 10-item chunks require 17 requests/80,479 input bytes versus current batching's 5/65,824 (+22.3% bytes); output reservations rise 3.1%. 50/200 request shapes match here, but sequential passes differ from four-way request scheduling. No latency/cost/quality claim.
+- Regression verifies all candidates score once, repartitioning reuses every cache entry, Unicode excerpts split at the byte bound, and invalid chunks/duplicate IDs fail. Keep production batching unchanged.
+- Updated TASKS/RANKING and archived iterations 531–532; no source/schema/UI/handbook flow change. No service restart under STEERING 22: only offline scripts/tests/docs changed.
+- Verification: targeted tests 2/2; pnpm format, pnpm lint:fix, pnpm check (359 unit/187 isolated integration), pnpm build and git diff --check passed. Initial lint rejected unnecessary async fake methods; replaced with resolved promises before final checks.
+- Live: root HTTP 200, healthz healthy, zero alerts/dangling volumes; latest hourly social collections completed. Retained Nov 3 23:54 social failure is the already-investigated item 18 incident, not a new failure; zero failed digest jobs.
+- Next: Nov 4 scheduled review first; then gated activation/worker connection and actual waste/latency/cost evidence. No paid calls or activation this iteration.

@@ -2166,3 +2166,32 @@ reverts the other: four pre-edition scores, one reusable version, two removed
 versions and one obsolete retained version. Edition work is zero. The earlier
 three-version invalidation case now reports two wasted pre-edition versions.
 Production remains off pending the Nov 4 review; no provider calls were made.
+
+## Iteration 551: offline triage batch-size comparison
+
+Run `pnpm exec tsx apps/api/scripts/evaluate-triage-batching.ts` to compare
+10/25/50/200-candidate caller chunks through the real request builder, with
+synthetic responses and an in-memory item cache. The three recorded Nov 1
+windows contain 153 in-window articles. Topic descriptions/guidance are empty
+in this experiment, so request sizes do not exactly reproduce production.
+
+| Caller chunk | Requests | Input UTF-8 bytes | Reserved output tokens |
+| ------------ | -------: | ----------------: | ---------------------: |
+| 10           |       17 |            80,479 |                 27,916 |
+| 25           |        8 |            69,487 |                 27,232 |
+| 50           |        5 |            65,824 |                 27,070 |
+| 200          |        5 |            65,824 |                 27,070 |
+
+Smaller chunks increase repeated prompt overhead: 10-item passes use 22.3%
+more input bytes and 3.1% more output reservation than the current 200-item
+caller bound. The internal 50-item limit makes the 50/200 request shapes equal
+for these short excerpts. This does **not** make their scheduling equivalent:
+caller passes are sequential, while each pass allows four concurrent requests.
+No durations were simulated or measured, so this supplies no evidence that
+smaller batches improve latency. Keep production batching unchanged pending
+provider evidence. Bytes are not token usage; reservations are not spend.
+
+All variants cover every candidate exactly once and reuse every item score
+when repartitioned. A separate long-Unicode-excerpt regression verifies that
+the conservative 60,000-byte bound splits a nominal 50-item pass. No live
+provider calls, production cache writes, settings changes or activation occurred.
