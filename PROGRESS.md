@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 547 — contain admission session errors
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, all 36 sources nonempty/error-free and no failed digest jobs; latest social collection completed. Retained ingestion/social failures are historical; Nov 4 review remains pending.
-- Fixed the prepared admission adapter's missing checked-out client error listener: database loss during scoring is contained, failed clients are destroyed and cleanup reports the session error. No activation or provider calls.
-- Isolated backend-termination regression no longer installs a masking test error handler; verifies adapter listener removal, successor safety and pool recovery. Initial cleanup assertion incorrectly counted pg internal listeners; corrected to track only adapter-owned listeners.
-- Updated TASKS/RANKING and archived iteration 527. No schema/source/UI or handbook flow changes. No restart under STEERING 22: this adapter remains outside the production worker import graph.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (353 unit/187 isolated integration), pnpm build and git diff --check passed. Initial archive formatting failure corrected before final full check.
-- Next: Nov 4 scheduled review first; gated worker connection and actual scoring/final-pool waste evidence thereafter.
-
 ## 2026-11-04: iteration 548 — preserve simultaneous triage failures
 
 - Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 edition review remains pending.
@@ -177,3 +168,13 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/198 isolated integration), pnpm build and git diff --check passed. Final healthz green, zero alerts and dangling Docker volumes.
 - No service restart under STEERING 22: console-only entry points are not loaded by running services.
 - Next: Nov 4 15:00 UTC edition review first; otherwise STEERING 29 ORM prerequisite review, then one repository conversion with 2a green.
+
+## 2026-11-04: iteration 567 — ORM prerequisite query inventory
+
+- Started clean on main; no leftover work. Healthz healthy and zero alerts; Nov 4 15:00 UTC edition evidence pending.
+- Reviewed ORM prerequisites under STEERING 29. Inventoried adapter suites and SQL outside database directories; these facades must be included in the eventual conversion.
+- Found incremental-triage/reaction topic reads had only fake query tests. Added isolated PostgreSQL coverage for independent budgets, disabled/deleted topics, transactional configuration, source dedupe, exact non-UTC windows and semantic versus lexical eligibility.
+- Clarified that the existing synthetic fixed-input edition golden satisfies the 2a golden clause; real raw-response recording remains a separate item 4 gap. 2a source/behavior reconciliation stays open; no premature ORM start.
+- Updated TASKS/database verification notes and archived iteration 547. No provider calls, production changes or restart under STEERING 22.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/199 isolated integration), pnpm build, final pnpm typecheck/format:check and git diff --check passed. Live healthz/alerts green, 36 sources error-free, zero dangling Docker volumes.
+- Next: Nov 4 scheduled review first; otherwise finish concrete ORM prerequisite reconciliation, avoiding unrelated characterization tests.

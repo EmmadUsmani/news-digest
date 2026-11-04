@@ -8,6 +8,51 @@ Postgres (`/var/lib/postgresql/data`) and Redis (`/data`) use tmpfs, so their
 image-declared data directories cannot leave anonymous disk volumes behind, even
 if the runner is killed. Test data is ephemeral and disappears with the containers.
 
+## ORM prerequisite review (iteration 567)
+
+STEERING 29 stops broad characterization work. Add tests only for a concrete
+query boundary needed by the ORM conversion; a green suite alone does not
+certify that every SQL statement is covered. The current source inventory is:
+
+| Adapter group                                  | Existing isolated suite anchors                                                                      |
+| ---------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| Profiles and topics                            | `profile-repository`, `topic-repository`, `settings`, `api-http`                                     |
+| Content ingestion                              | `content-repository`, `ingestion`                                                                    |
+| Edition candidates and snapshots               | `edition-golden`, `editorial-publication`, `preview-history`, `digests`, `article-pool-database`     |
+| LLM ledger, usage and edition costs            | `model-allocation`, `usage-purpose`, `verification-budget`, `reserve-status`                         |
+| Scheduled budget and incremental admission     | `scheduled-budget`, `reserve-admission`, `incremental-triage-lock`, `incremental-triage-composition` |
+| Publisher/river X discovery and verified posts | `article-discovery`, `river-discovery`, `social-candidates`, `social-selection`, `citing-stories`    |
+| Paid X search, ledger and reports              | `x-search`, `x-discovery-ledger`, `x-discovery-report`                                               |
+| Reddit and Bluesky storage                     | `reddit-collection`, `reddit-communities`, `bluesky-storage`                                         |
+| Operations, coverage and DB instrumentation    | `operations`, `topic-coverage`, `query-stats`, `slow-query-database`                                 |
+
+Names above refer to `apps/api/test/<name>.test.ts`. They identify where to
+validate a conversion, not a claim of exhaustive query coverage. The runner's
+coverage globs omit SQL in public facades. Include these in the conversion
+inventory: `curation/public/usage.ts`, `profiles/public/budget-day.ts`,
+`digests/public/incremental-triage-pool.ts`, `digests/public/reaction-stories.ts`,
+`social/public/selection.ts` and `social/public/citing-stories.ts`. Also account
+for health SQL in `app.ts`, direct operations SQL, and the console's intentional
+owner SQL helper. Removing SQL only from `database/` would leave the ORM work
+unfinished.
+
+The two article-pool facades previously had fake-only query tests.
+`article-pool-database.test.ts` now uses real isolated PostgreSQL to pin their
+independent story/post budget gates, disabled/deleted configuration, shared-source
+dedupe, half-open timestamp window in a non-UTC session, hard exclusions and
+semantic recovery versus lexical reaction filtering. Every write rolls back;
+neither the default-off worker nor any inference is activated.
+
+The fixed-input synthetic AI edition golden already satisfies the fixed-content
+golden part of 2a. Item 4's **real raw-response recording** is a separate open
+requirement: all three files under `fixtures/llm/` are explicitly synthetic.
+Do not re-label those or spend merely to replace them. Before declaring 2a
+complete, reconcile the full source inventory with current coverage and concrete
+behavior assertions, including these public facades. Then record Drizzle's
+decision/schema parity and convert one repository per commit. Preserve owner
+login grants, back up before the first new migration, and observe the two-hour
+edition deployment freeze from STEERING 29.
+
 ## Baseline: iteration 223, November 2, 2026
 
 All 122 integration tests passed. The report includes all 16 source database

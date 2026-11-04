@@ -4,6 +4,7 @@ import { readdirSync } from 'node:fs';
 // Keep mixed unit/integration files here until their cases are split.
 const integration = new Set([
   'article-discovery.test.ts',
+  'article-pool-database.test.ts',
   'bluesky-storage.test.ts',
   'api-http.test.ts',
   'citing-stories.test.ts',
