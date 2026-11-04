@@ -14,3 +14,14 @@ Editorial provider/model question resolved by STEERING item 3: use Anthropic
 with configured Haiku triage and Sonnet editing. The owner installed and verified
 the key; implementation and budget enforcement are agent work, with no further
 owner input required.
+
+## X discovery quality evidence (2026-11-04, iteration 645)
+
+No immediate owner action requested. First scheduled open searches cost
+$0.149447 for 19 newly verified posts, but six predate the edition window,
+all five NBA results promote betting, and available reported engagement
+never exceeds 12 likes. See [source measurements](docs/SOURCES.md#first-scheduled-open-x-discovery--iteration-645-2026-11-04).
+This is weak discovery yield, not evidence of viral picks. Keep existing
+caps and inspect the imminent edition before deciding whether prompt/search
+changes suffice. No unofficial data provider, scraping workaround or new
+paid verification is authorized or needed for that review.

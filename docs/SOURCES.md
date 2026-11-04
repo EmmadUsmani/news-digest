@@ -1822,3 +1822,57 @@ shortlist does not establish that its engaged candidates are irrelevant: the
 edition uses semantic selection. Nov 4 edition inclusion and screenshots remain
 pending. Verification used `scripts/report-bluesky-coverage.ts` and the existing
 worker journal only; no collection, inference or edition was triggered.
+
+## First scheduled open X discovery — iteration 645 (2026-11-04)
+
+Read-only review at 14:50 UTC of the four completed scheduled searches
+(14:30–14:33 UTC), before the edition. Direct Grok discovery spent $0.149447
+for 19 fetched and newly official-oEmbed-verified posts, zero profiles and no
+outstanding holds. All 19 posts are outside the **current** curated lists;
+this counts posts, not distinct accounts or historical list membership.
+
+| Topic   |      Cost | New verified | In Nov 3 15:00–Nov 4 15:00 UTC window | Reported engagement available | Highest reported likes |
+| ------- | --------: | -----------: | ------------------------------------: | ----------------------------: | ---------------------: |
+| World   | $0.033193 |            4 |                                     4 |                             4 |                      4 |
+| NBA     | $0.039028 |            5 |                                     5 |                             5 |                     12 |
+| Gaming  | $0.038493 |            5 |                                     1 |                             1 |                      5 |
+| Tech/AI | $0.038733 |            5 |                                     3 |                             3 |                      1 |
+
+Window membership uses stored post timestamps; counts are discovery inventory,
+not immutable edition picks. Six verified posts predate the window despite
+the prompt's exact UTC interval: four Gaming and two Tech. World now has
+four in-window discoveries, unlike Nov 3, but selection is still unproven.
+
+Stored official embed text exposes weak quality: **all five NBA posts promote
+betting**, rather than highlights or insider reporting. Examples:
+[Dirty Bubble Bets](https://x.com/i/web/status/2117987961715220573) promotes
+a moneyline bet; [Brandon Brown](https://x.com/i/web/status/2117987853615747225)
+promotes a six-pick play, paid membership discount and like/repost requests.
+World examples are generic roundups or news-account promotion:
+[WorldOrderWatcher](https://x.com/i/web/status/2117972019497119773)
+is a source list with hashtags and zero reported likes.
+Tech includes two low-engagement promotional posts from the same author,
+[Francis CGL](https://x.com/i/web/status/2117946862854447231), plus
+[a networking reply](https://x.com/i/web/status/2117671469748785153).
+These observations do not independently verify the posts' factual claims.
+
+There is no demonstrated viral yield: available single xAI-reported snapshots
+have at most 12 likes, and six posts lack parsed engagement. Official oEmbed
+confirms rendering, not popularity, relevance or media quality. No velocity,
+account-relative reach or independent engagement measurement is available.
+The app's stored verified-post metrics remain empty; reported observations
+are retained separately in discovery citations.
+
+Reproduce costs/yield with env loaded privately:
+`pnpm exec tsx scripts/report-x-discovery.ts 2026-11-04` and
+`pnpm exec tsx scripts/report-x-week.ts 2026-11-04`.
+A read-only join of today's discovery calls/citations to verified X posts
+supplied timestamps, reported engagement and stored official embed text;
+no extra provider calls, re-verification or X scraping ran.
+The seven-day ledger totals $0.309885 across nine calls, including one
+unattributed Nov 2 call ($0.023382); empty earlier days are not successful
+coverage. Nov 4 is incomplete. Current-list comparisons can change over time.
+
+Next: inspect the scheduled edition's immutable picks and social triage before
+changing discovery. In-window quantity alone misses this quality failure;
+keep the existing budget caps and require post-selection quality evidence.

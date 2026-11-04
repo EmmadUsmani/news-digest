@@ -1,24 +1,3 @@
-## 2026-11-04: iteration 627 — isolate recorded provider inputs
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz and no failed systemd user services. Nov 4 15:00 UTC edition evidence remains pending.
-- Fixed the opt-in LLM recorder to clone the complete invocation before fingerprinting and dispatch. A provider that reads inputs asynchronously now sees the original prompt, instructions, model, token limit and billing metadata even if the caller mutates its request.
-- Added a delayed-provider regression that verifies original inputs and successful original-fingerprint replay; changed requests still fail closed. Synthetic responses only, no paid calls or fixture re-recording.
-- Updated TASKS; archived iteration 609 to keep PROGRESS bounded. No production adapter wiring, prompts, settings or activations changed; no handbook behavior changed.
-- Verification: targeted recorded-LLM tests 7/7; pnpm format, pnpm lint:fix and pnpm check passed (371 unit/205 isolated integration). Build and final health checked before commit; zero dangling Docker volumes.
-- Offline adapter only, unused by production services: no restart under STEERING 22. Grouping and incremental triage remain off.
-- Next: review Nov 4 scheduled edition for World posts, open-X/Bluesky selections, NBA validation and live timing/cost.
-
-## 2026-11-04: iteration 628 — baseline provider output usage
-
-- Started clean on main; no leftover work. Healthy healthz, zero alerts and 36 sources without current errors. Social collection completed at 12:54 UTC; retained 04:54 failure is historical.
-- Added an offline per-purpose output report with paired usage/limit utilization, explicit unknowns, failed-work retention, completion-reason coverage and safe-integer checks.
-- Exported only allowlisted metadata from the 43 Nov 3 scheduled calls, without inference or response bodies: article triage 133,175 output tokens; remaining calls 57,488 (editors 35,825). No output limits/stop reasons were recorded, so reservation utilization and truncation remain unknown.
-- Updated TASKS and RANKING; archived iteration 610 to keep PROGRESS bounded. No prompts, production configuration, source behavior or paid calls changed; no handbook behavior changed.
-- Verification: targeted output tests 4/4 and offline CLI; pnpm format, pnpm lint:fix, pnpm check (375 unit/205 isolated integration), pnpm build and git diff --check passed. Final healthz healthy, zero alerts and zero dangling Docker volumes.
-- Offline tool only: no running-service code/config changed, so no restart under STEERING 22. Grouping and incremental triage remain off.
-- Restarted worker only; final healthz healthy, zero alerts/failed units/dangling volumes. Saved Nov 3 edition still serves 19 real stories/11 X posts. No Postgres/Redis restart.
-- Next: Nov 4 15:00 UTC edition review takes priority: World posts, open-X/Bluesky selections, NBA validation and live timing/cost; compare the new completion metadata with this baseline.
-
 ## 2026-11-04: iteration 629 — expose per-call output saturation
 
 - Started clean on main; no leftover work. Healthz healthy and zero alerts; Nov 4 scheduled evidence remains pending.
@@ -182,3 +161,13 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (388 unit/205 isolated integration), pnpm build and git diff --check passed. First check caught archive formatting; formatted it and reran successfully.
 - Healthz healthy and zero alerts; no paid calls, sources, prompts, schema or production configuration changed. Offline tools only; no restart under STEERING 22.
 - Next: Nov 4 15:00 UTC edition review for open-X/Bluesky/World selections, NBA fallback and timing/cost; incremental triage/grouping remain off.
+
+## 2026-11-04: iteration 645 — measure first scheduled open-X quality
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts and no failed user services. Scheduled edition remains pending.
+- Reviewed four completed Nov 4 open-topic searches via read-only discovery/day/week reports and a stored citation/post join: $0.149447, 19 newly verified posts, all outside current curated lists, zero profiles/holds.
+- Only 13/19 fit the edition window: World 4/4, NBA 5/5, Gaming 1/5, Tech 3/5. All five NBA embeds promote betting; available xAI-reported likes peak at 12. World timestamps recover in-window coverage, not proven editorial quality.
+- Added reproducible cost/window/quality evidence and linked examples in SOURCES; updated TASKS and NEEDS_FROM_HUMAN with the weakness and no immediate owner request. Seven-day recorded spend $0.309885/9 calls; incomplete day and unattributed Nov 2 call identified.
+- Archived iterations 627–628 to keep PROGRESS bounded. No source/prompt/config/schema change, inference, re-verification or scraping. No restart under STEERING 22; grouping/incremental triage remain off.
+- Verification: read-only reports and independent timestamp/cost assertions passed; pnpm format, pnpm lint:fix, pnpm check (388 unit/205 isolated integration), pnpm build and git diff --check passed. Healthz healthy; zero alerts.
+- Next: prioritize the Nov 4 15:00 UTC edition's immutable selections, NBA fallback/logs, timing/cost and activation gates. Successful discovery counts must not substitute for quality.
