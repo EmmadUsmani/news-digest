@@ -1718,7 +1718,24 @@ refused items remaining pending, corrupt cache identities, changed title/topic
 fingerprints, and a 60-item pool scored in 25/25 background batches followed by
 an uncapped 10-item edition tail. These are accounting checks, not live latency,
 settled cost, historical waste or quality evidence. Cache probing and scoring are
-not atomic: eventual scheduler wiring must serialize passes, enforce the cutoff
-and supply current eligible pools. No collector/scheduler invokes this code;
+not atomic: the prepared runner serializes worker-local passes and enforces the
+cutoff; eventual scheduler wiring must supply current eligible pools. No collector/scheduler invokes this code;
 the setting remains off by default pending the Nov 4 review. Historical pool
 measurement and durable scheduler admission remain open.
+
+## Iteration 524: serialized background admission and cutoff
+
+The prepared `IncrementalTriageRunner` admits one pass across all topics per
+instance, skips overlapping ticks without loading or queueing stale pools, and
+releases admission after success or failure. It checks the current schedule
+before loading, after loading, and immediately before scoring after cache reads.
+The cutoff boundary is exclusive. Invalid timing fails closed; work refused at
+the cutoff remains unscored for the edition. Already-started provider calls can
+finish after the cutoff. The caller must provide the next scheduled edition and
+cutoff duration from current settings, and use the reserve-safe scorer.
+
+Three fake-only regressions cover overlapping ticks, exact boundary and schedule
+changes during reads, retries, and loader/cache/provider/configuration failures.
+This is worker-local admission, not a cross-process lock. No timer invokes the
+runner; production activation, durable admission, eligible-pool capture and
+historical waste evidence remain open. No paid calls or latency claims.

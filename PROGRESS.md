@@ -1,48 +1,3 @@
-## 2026-11-03: iteration 483 — review same-story labels without changing history
-
-- Started clean on main; zero alerts and healthy healthz. No leftover work, paid calls, editions, new sources, Reddit requests or production grouping activation.
-- Reviewed all 138 original pairs plus 57 previously unlabelled saved merges under item 27. New separate same-story fixture keeps original pair indices, reasons and ten borderline flags; strict-event labels and saved memberships remain untouched.
-- Broader definition changes 23 negatives to positives; all 57 added pairs are same-story. Shared entities/themes alone remain insufficient. Agent retrospective review is not independent or representative quality evidence.
-- Offline old-output replay: precision 135/135 (100%), recall 135/157 (85.99%), zero unrelated/borderline/unknown merges. These numbers do not validate the restored prompt; no provider call occurred.
-- Added --same-story offline evaluator and unrelated/borderline counts. Regression pins every original pair identity, all added labels, new metrics, historical failure and negative/borderline reporting. Targeted test initially caught a syntax typo; corrected, 9/9 pass.
-- Updated RANKING, affected handbook and TASKS; archived iterations 467–471 to keep PROGRESS bounded. No source/schema/UI change; no screenshots needed.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (277 unit/182 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts edition-pipeline and git diff --check passed.
-- Health check passed; root HTTP 200, all 36 sources healthy; live rolling articles Tech/NBA/Gaming/World 327/162/283/221. Digest queue has zero failures; zero alerts. No service restart under STEERING 22: only offline evaluator/tests/docs changed.
-- Next: wire/run the single new $0.05-capped restored-prompt evaluation outside 13:00–16:00 UTC with a distinct durable item-27 guard; never delete/reuse the consumed item-26 claim. Grouping stays off pending Nov 4 review and conditional Nov 5 activation.
-
-## 2026-11-03: iteration 484 — once-only same-story evaluation
-
-- Started clean on main; no leftovers, healthz healthy and zero alerts. No production changes, editions, new sources, Reddit requests or grouping activation.
-- Restored explicit paid runner with a distinct durable item-27 claim; consumed item-26 claim untouched. Configured Haiku only, $0.05 ceiling, live opt-in, verification tagging/shared ledger and excluded UTC hours enforced; no retries or repairs.
-- Run item-27-evaluation-9c53e904-c472-4528-8252-aeb4653d2571: seven successful calls, $0.008393, zero holds. Frozen 195 labels: precision 141/141 (100%), recall 141/157 (89.81%), zero false positives; one borderline merged pair.
-- Saved fresh memberships; separately reviewed all 14 unknown merged pairs (13 Sentinel reveal/timing follow-ups; one European-protest roundup explicitly covering Germany). All same-story; original labels/output untouched.
-- Complete review: zero clearly unrelated, 1/155 borderline (0.65%), passing sampled gate. Supplemental-label precision 155/155, recall 155/171 (90.64%); retrospective agent review is not independent or general production quality evidence.
-- Targeted restored tests initially caught old $0.10 reservation expectations; corrected for $0.05, 12/12 pass. Saved replay and exact supplemental-review coverage assertions passed without provider calls.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (289 unit/182 isolated integration), pnpm build, filtered handbook check (17 pages/one unchanged diagram/25 tables), git diff --check passed.
-- Root HTTP 200, health check passed; all 36 sources healthy, digest queue zero failures, zero alerts. Live article counts Tech/NBA/Gaming/World 326/161/284/220. No restart under STEERING 22: runtime/config unchanged.
-- Updated TASKS, RANKING and affected handbook. No schema/source/UI changes; screenshots unnecessary. Next: Nov 4 scheduled evidence review; conditional grouping activation for Nov 5 only, no more paid evaluations.
-
-## 2026-11-03: iteration 485 — assess smaller triage pools offline
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, all 36 connected sources healthy; digest queue zero failures. Live rolling articles Tech/NBA/Gaming/World 326/162/285/220.
-- Added a fully offline recency-cap evaluator using three existing recorded November 1 windows and labels; existing hard exclusions, semantic recovery, exact window bounds and deterministic ties are preserved.
-- Cap 20 loses 6/15 reachable target events; cap 50 still loses the Tech Memdoor result. NBA/World already fit one cold batch after hard exclusions; Tech's two-to-one reduction costs a target. No production cap is justified by this sample.
-- Reports baseline-missing vs newly lost events, article losses and theoretical cold batches separately. Recorded admission recall is not live latency or editorial quality; Gaming/current 200-item pools remain unmeasured.
-- Targeted tests 2/2 passed after correcting fixture topic-name expectations. No provider calls, editions, sources, feature activation, schema or UI changes; no handbook/source updates or screenshots needed.
-- Updated TASKS and RANKING. No restart under STEERING 22: only offline scripts/tests/docs changed.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (291 unit/182 isolated integration), pnpm build, offline cap report, targeted tests and git diff --check passed. Docker dangling volumes remain zero.
-- Next: Nov 4 scheduled evidence review takes priority; NBA rejection still awaits logs. Grouping remains off, with conditional Nov 5 activation only after that review. No additional paid evaluations.
-
-## 2026-11-03: iteration 504 — reduce metrics-store memory pressure
-
-- Started clean on main; no leftover work. Triage found a firing ObservabilityMemoryBudget warning (about 101 MiB against 112 MiB ceiling). Healthz/root and all 36 sources healthy; all four queues staffed, digest queue zero failures.
-- Metrics-store cgroup included about 46 MiB filesystem cache alongside runtime memory. Reduced its Go soft target 64→48 MiB, preserving cache budget, hard ceiling, alert threshold and stored samples. Updated handbook, observability plan and TASKS.
-- Installed the committed unit configuration and restarted only obs-metrics; no app/DB/Redis restarts. Initial verification encountered startup connection refusal and stale scrape/unit snapshots; subsequent --verify-o4 passed with eight targets and eleven units.
-- Post-restart sampled service memory 22–47 MiB through 23:17 UTC; zero automatic restarts, zero firing/pending alerts. This short observation does not establish long-term cache-refill behavior; monitor subsequent iterations.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (291 unit/182 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts observability, pnpm obs health --check and git diff --check passed. Docker dangling volumes remain zero.
-- No provider calls, editions, source changes, feature activation or UI/schema changes; screenshots unnecessary. Grouping stays off.
-- Next: monitor memory after cache refill, then review Nov 4 scheduled open-X/Bluesky picks, duration, NBA validation and World posts; conditional grouping activation for Nov 5 only after that review.
-
 ## 2026-11-04: iteration 512 — reclaim log-store filesystem cache before hard limit
 
 - Started clean on main; no leftover work. Healthz/root healthy; pending log-store memory warning triggered triage (about 144 MiB, including 98 MiB file cache and 40 MiB anonymous memory).
@@ -155,3 +110,12 @@
 - No scheduler caller, activation or paid calls. Serialization, cutoff enforcement, historical eligible-pool/waste evidence and live cost/latency remain open; no schema/source/UI or handbook flow changes.
 - Updated TASKS/RANKING. Verification: targeted tests 17/17; pnpm format, pnpm lint:fix, pnpm check (307 unit/183 isolated integration), pnpm build, git diff --check; no dangling Docker volumes.
 - Rebuilt/restarted API and worker because shared triage code changed; healthz/root/status healthy, 36 error-free sources/four available queues and zero alerts after restart. Next: serialized scheduler wiring/cutoff and pool evidence; Nov 4 edition review takes priority.
+
+## 2026-11-04: iteration 524 — serialize prepared background triage and enforce cutoff
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 error-free sources and four available queues. Nov 4 scheduled review remains pending.
+- Prepared worker-local runner skips overlapping ticks before pool loading; one shared instance serializes all topics. It checks current schedule/clock before and after pool loading and again before scoring after cache reads; exact cutoff refuses scoring. In-flight calls may finish.
+- Fake regressions cover concurrent ticks, schedule changes across cache reads, cutoff retries and loader/cache/provider/configuration failures releasing admission. No timer wiring, cross-process lock, activation or paid calls; eligible-pool/waste measurement remains open.
+- Updated TASKS/RANKING; archived iterations 483–504 to keep PROGRESS under 25 KB. No source/schema/UI or handbook flow changes; screenshots unnecessary.
+- Verification: targeted runner/replay tests 10/10; pnpm format, pnpm lint:fix and pnpm build passed. pnpm check passed (310 unit/183 isolated integration), git diff --check and live root/healthz/status passed; zero alerts and no dangling Docker volumes. Initial check caught archive formatting; corrected and reran.
+- Services left running under STEERING 22: the new runner is not imported by running code, and existing runtime code/config is unchanged. Next: scheduler wiring and pool evidence; Nov 4 edition review takes priority.
