@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 525 — capture prospective eligible triage pools
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 error-free sources and four available queues. Nov 4 review remains pending.
-- Added read-only capture using the production newest-200 loader and edition hard-exclusion admission, retaining semantic recovery and zero-story-budget behavior. Consistent DB timestamp/text/settings identify each prospective observation; no backdated eligibility claims.
-- Captured Nov 3 15:00–Nov 4 15:00 UTC at 01:07 UTC: Tech/NBA/Gaming/World candidates 172/53/175/94; eligible 172/52/174/94. Private mode-600 file /tmp/triage-pool-525.json; exclusive-create overwrite refusal verified.
-- Capture alone measures current eligibility, not actual scored-work waste, cost or latency. Compare later snapshots for this same window, then join actual scoring. No paid calls, activation, source/schema/UI or handbook flow changes.
-- Verification: targeted capture tests 2/2; live capture/stat/overwrite refusal; pnpm format, pnpm lint:fix, pnpm check (312 unit/183 isolated integration), pnpm build and git diff --check passed; no dangling Docker volumes. Services stay running under STEERING 22: only offline tooling/tests/docs changed.
-- Updated TASKS/RANKING. Next: same-window pool comparison, scheduler wiring and actual waste evidence; Nov 4 scheduled edition review takes priority.
-
 ## 2026-11-04: iteration 526 — compare successive eligible triage pools
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/root/status, 36 error-free sources and four available queues. Nov 4 edition review remains pending.
@@ -173,3 +164,12 @@
 - Updated TASKS/RANKING and archived iteration 524 to keep PROGRESS small. No source/schema/UI or handbook flow changes. No restart under STEERING 22 because running code/config is unchanged.
 - Next: Nov 4 scheduled review first, then gated worker connection and actual scoring/final-pool waste measurements.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (351 unit/186 isolated integration), pnpm build, targeted comparator tests (5/5) and git diff --check passed; root HTTP 200, healthy healthz and zero alerts.
+
+## 2026-11-04: iteration 545 — join final captures to observed scoring exports
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 nonempty error-free sources; latest Bluesky collection succeeded with zero discovery/verification errors. Retained Nov 3 token failure is historical. Nov 4 review remains pending.
+- Added offline `report-captured-triage-work.ts`: derives production fingerprints from final eligible captures and joins atomic scoring exports into the per-topic waste report. Rejects early observations, duplicate pool identities/score evidence and malformed records.
+- Seven targeted tests pass, including synthetic end-to-end retained/changed/excluded/repeated work. CLI rejects the real early 543 capture as a final observation. No actual scoring, provider calls, production activation or cost/latency claims.
+- Updated TASKS/RANKING and archived iteration 525. No source/schema/UI or handbook flow changes; no restart under STEERING 22 because running code/config is unchanged.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (353 unit/186 isolated integration), pnpm build and git diff --check; root HTTP 200, healthy healthz, zero dangling Docker volumes.
+- Next: Nov 4 scheduled review first; gated worker connection and actual scoring/final-pool waste evidence thereafter.

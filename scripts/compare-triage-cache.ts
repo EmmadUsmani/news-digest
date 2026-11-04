@@ -31,10 +31,14 @@ const schema = z.object({
   ),
 });
 
-async function fingerprints(input: unknown, model: string) {
+export async function triageFingerprints(input: unknown, model: string) {
+  if (!model.trim()) throw new Error('Expected explicit triage model ID');
   const capture = schema.parse(input);
   const result = new Map<string, Map<string, string>>();
   for (const { topic, candidates } of capture.pools) {
+    if (result.has(topic.id)) throw new Error('Duplicate capture topic');
+    if (new Set(candidates.map((c) => c.id)).size !== candidates.length)
+      throw new Error('Duplicate capture article');
     const eligible = candidates.filter((c) => c.triageEligible);
     const keys: string[] = [];
     const triage = new CandidateTriage(
@@ -74,13 +78,13 @@ export async function compareTriageCache(
 ) {
   if (!model.trim()) throw new Error('Expected explicit triage model ID');
   const membership = comparePools(before, after);
-  const oldKeys = await fingerprints(before, model);
-  const newKeys = await fingerprints(after, model);
+  const oldKeys = await triageFingerprints(before, model);
+  const newKeys = await triageFingerprints(after, model);
   const beforeCapture = schema.parse(before);
   const afterCapture = schema.parse(after);
   // Counterfactual keys use the real triage identity, including its truncation.
   // Raw field differences alone do not establish cache invalidation.
-  const topicOnlyKeys = await fingerprints(
+  const topicOnlyKeys = await triageFingerprints(
     {
       pools: beforeCapture.pools.map((pool) => ({
         ...pool,
@@ -91,7 +95,7 @@ export async function compareTriageCache(
     },
     model,
   );
-  const articleOnlyKeys = await fingerprints(
+  const articleOnlyKeys = await triageFingerprints(
     {
       pools: afterCapture.pools.map((pool) => ({
         ...pool,

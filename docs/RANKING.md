@@ -2077,3 +2077,22 @@ inputs (Tech 2, World 6); topic-only and combined counts are zero. Private outpu
 regressions cover isolated/combined changes, ignored truncated text, eligibility
 loss and reconciliation. These are prospective key comparisons, not actual
 scored-work waste or paid-call evidence. No activation or provider requests.
+
+## Iteration 545: join final captures to exported score evidence
+
+`pnpm exec tsx scripts/report-captured-triage-work.ts FINAL_CAPTURE TRIAGE_MODEL_ID SCORE_EXPORT...`
+joins the existing private pool-capture format and one or more atomic scoring
+exports directly into the observed-work report. It derives eligible article
+fingerprints through production triage code, with an explicit model, and
+retains per-topic counts, repeated writes, changed inputs and absent items.
+It rejects pre-window-end observations, duplicate topics/articles, duplicate
+scoring evidence, malformed exports and out-of-window writes.
+
+Use a capture taken at the edition boundary: a later capture reflects later
+text/settings and is not proof of the exact pool consumed by publication.
+Inputs must describe the same window and scoring configuration; the records
+do not independently prove their provenance. Compatible keys do not prove
+cache consumption. This iteration verifies the join with synthetic records
+only; no actual scored-work waste, cost or latency was measured, and no worker
+was connected or activated. The early private 525/543 captures are deliberately
+rejected as final-pool observations. No provider or database calls are made.
