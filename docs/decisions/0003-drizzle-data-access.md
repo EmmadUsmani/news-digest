@@ -232,3 +232,10 @@ rolls back all SQL and ledger writes from that run. The baseline executes only
 migration, take a private `pg_dump` backup and preserve the owner login grants.
 Use this runner rather than the standalone Drizzle migrator; it preserves historical
 seed migrations and avoids a second migration ledger.
+
+The content repository's per-topic latest-items read uses a correlated Drizzle
+query builder for joins, betting exclusion, item deduplication, source-name
+aggregation, ordering and the five-item limit. A small SQL expression wraps the
+query in PostgreSQL JSON aggregation, preserving empty topics and timestamp
+serialization. Existing repository and HTTP characterization assertions remain
+unchanged.

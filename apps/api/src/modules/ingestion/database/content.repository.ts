@@ -1,5 +1,14 @@
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
-import { and, asc, DrizzleQueryError, eq, exists, sql } from 'drizzle-orm';
+import {
+  and,
+  asc,
+  desc,
+  DrizzleQueryError,
+  eq,
+  exists,
+  notLike,
+  sql,
+} from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/node-postgres';
 
 import { database } from '../../../libs/db/connections';
@@ -131,16 +140,49 @@ export class PostgresContentRepository
       .where(eq(contentSources.id, source.id));
   }
   async latest() {
-    return (
-      // Nested per-topic top-five JSON aggregation preserves PostgreSQL timestamp JSON
-      // and aggregation semantics that the query builder cannot express directly.
-      (
-        await this.orm.execute(
-          sql`SELECT t.id AS "topicId", COALESCE((SELECT jsonb_agg(r) FROM (SELECT i.id,i.title,i.canonical_url AS url,i.published_at AS "publishedAt", min(s.name) AS source FROM content_items i JOIN content_observations o ON o.item_id=i.id JOIN content_sources s ON s.id=o.source_id JOIN topic_source_connections c ON c.source_id=s.id WHERE c.topic_id=t.id AND i.canonical_url NOT LIKE '%/betting/%' GROUP BY i.id ORDER BY i.published_at DESC LIMIT 5) r),'[]') AS items FROM topics t WHERE t.enabled ORDER BY t.position`,
-        )
-      ).rows
-    );
+    const latestItems = this.orm
+      .select({
+        id: contentItems.id,
+        title: contentItems.title,
+        url: sql`${contentItems.canonicalUrl}`.as('url'),
+        // Keep PostgreSQL's JSON timestamp representation, rather than mapping to Date.
+        publishedAt: sql`${contentItems.publishedAt}`.as('publishedAt'),
+        source: sql<string>`min(${contentSources.name})`.as('source'),
+      })
+      .from(contentItems)
+      .innerJoin(
+        contentObservations,
+        eq(contentObservations.itemId, contentItems.id),
+      )
+      .innerJoin(
+        contentSources,
+        eq(contentSources.id, contentObservations.sourceId),
+      )
+      .innerJoin(
+        topicSourceConnections,
+        eq(topicSourceConnections.sourceId, contentSources.id),
+      )
+      .where(
+        and(
+          eq(topicSourceConnections.topicId, topics.id),
+          notLike(contentItems.canonicalUrl, '%/betting/%'),
+        ),
+      )
+      .groupBy(contentItems.id)
+      .orderBy(desc(contentItems.publishedAt))
+      .limit(5);
+    return this.orm
+      .select({
+        topicId: topics.id,
+        // Drizzle has no nested row-to-JSON aggregation builder. The correlated
+        // query above owns joins, filters, grouping, ordering and the topic limit.
+        items: sql`(select coalesce(jsonb_agg(r), '[]'::jsonb) from (${latestItems}) r)`,
+      })
+      .from(topics)
+      .where(eq(topics.enabled, true))
+      .orderBy(asc(topics.position));
   }
+
   async status() {
     return this.orm
       .select({

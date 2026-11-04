@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 592 — convert reserve-status snapshot reads to Drizzle
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 healthy sources and zero failed digest jobs; Nov 4 15:00 UTC edition review remains pending.
-- Moved usage-report database clock, budget-day state and latest completed outcome reads into a typed Drizzle database adapter. Preserved the facade's repeatable-read transaction, shared ledger lock, reserve policy, ordering and rollback/client release.
-- Existing characterization assertions unchanged. Read-only old/new comparison matched live day state, last outcome and database clock; temporary script removed. No migration, activation, source change or paid call.
-- Updated TASKS, architecture, decision and handbook stack; archived iteration 577 to keep PROGRESS bounded.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; reader statement coverage 100%, zero dangling Docker volumes.
-- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Read-only Playwright confirmed four digest topics/15 digest articles and no page errors; corrected the initial section selector to match article markup. Zero alerts; latest free-social run completed 08:39 UTC.
-- Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters or historical migration baseline. Private pg_dump before first new migration.
-
 ## 2026-11-04: iteration 593 — convert LLM ledger completion and cache operations
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC edition review remains pending.
@@ -155,3 +145,13 @@
 - Saved edition byte-identical and LLM/X budget snapshots unchanged. Read-only Playwright rendered all four real saved-edition topics without page errors. Healthz healthy, 36 error-free sources, zero failed digest jobs and zero alerts.
 - Updated TASKS, architecture, decision and handbook stack; archived iteration 591. No runtime service code/config changed, so services stayed running under STEERING 22; migration CLI deployed directly. No paid calls or activation.
 - Next: prioritize Nov 4 15:00 UTC review; otherwise finish remaining ORM adapters/final raw-SQL audit. Keep private backups before new schema migrations and preserve owner grants.
+
+## 2026-11-04: iteration 607 — typed latest-content query
+
+- Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC review remains pending.
+- Converted the content repository's latest-items joins, filters, grouping, source aggregation, ordering and per-topic five-item limit to Drizzle builders. Only nested JSON aggregation remains a documented SQL expression.
+- Preserved empty topics and PostgreSQL JSON timestamp representation; existing characterization assertions unchanged. No schema, source, activation, owner grant or paid call changes.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build and git diff --check passed.
+- Restarted API/worker outside freeze; live content JSON exactly matches the prior snapshot, saved edition unchanged and LLM/X spend totals unchanged. Read-only Playwright rendered four real saved-edition topics without page errors.
+- Healthz healthy, 36 sources without current errors, zero failed digest jobs and zero alerts. Updated TASKS and ORM decision; archived iteration 592 to keep PROGRESS bounded. No handbook system behavior changed.
+- Next: prioritize Nov 4 edition review; otherwise remaining ORM adapters and final SQL audit. Keep private backups before new migrations and preserve owner grants.
