@@ -2,17 +2,30 @@
 // running services. Usage:
 //   pnpm exec tsx scripts/check-handbook.ts            # every page
 //   pnpm exec tsx scripts/check-handbook.ts data-model # pages whose path matches
-// Fails on Mermaid render errors, broken handbook links, schema-meta warnings
-// or unassigned tables. Saves a PNG per diagram (dark mode, as the owner reads
-// it) to /tmp/handbook-diagrams/ so changed diagrams can be inspected for
-// crossings and overlapping labels.
-import { mkdirSync, rmSync } from 'node:fs';
+// Fails on Mermaid render errors, broken handbook links, pages (or README.md)
+// over 100 lines outside code blocks, schema-meta warnings or unassigned
+// tables. Saves a PNG per diagram (dark mode, as the owner reads it) to
+// /tmp/handbook-diagrams/ so changed diagrams can be inspected for crossings
+// and overlapping labels.
+import { mkdirSync, readFileSync, rmSync } from 'node:fs';
 
 import { chromium } from 'playwright';
 
 const base = process.env.APP_URL ?? 'http://localhost:8000';
 const out = '/tmp/handbook-diagrams';
 const filter = process.argv[2];
+// Owner docs stay short: lines outside code blocks (diagrams, commands).
+const maxProseLines = 100;
+const proseLines = (file: string) =>
+  readFileSync(file, 'utf8')
+    .split('\n')
+    .reduce(
+      (acc, line) =>
+        line.startsWith('```')
+          ? { ...acc, code: !acc.code }
+          : { ...acc, n: acc.n + (acc.code ? 0 : 1) },
+      { code: false, n: 0 },
+    ).n;
 
 interface TreePage {
   path: string;
@@ -36,6 +49,17 @@ async function main() {
   const known = new Set(pages.map((p) => p.path));
   rmSync(out, { recursive: true, force: true });
   mkdirSync(out, { recursive: true });
+
+  for (const file of [
+    'README.md',
+    ...pages.map((p) => `docs/handbook/${p.path}`),
+  ]) {
+    const n = proseLines(file);
+    if (n > maxProseLines)
+      problems.push(
+        `${file}: ${n} lines outside code blocks (max ${maxProseLines}); cut or split it`,
+      );
+  }
 
   const browser = await chromium.launch({ headless: true });
   try {

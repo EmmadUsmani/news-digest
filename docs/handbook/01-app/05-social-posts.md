@@ -1,8 +1,7 @@
 # Social posts
 
-Each topic shows a few social posts next to its stories. Today these are X
-posts and, where selected, Bluesky posts. X is the owner's #1 social source;
-Reddit is parked. Bluesky collection and edition inclusion are enabled.
+Each topic shows a few social posts next to its stories: X posts, the #1
+source, and Bluesky posts. Reddit is parked.
 
 ## How X posts are found
 
@@ -16,7 +15,7 @@ flowchart LR
     art["Article pages<br/>from our feeds"]
   end
   subgraph paid["Paid discovery (daily, capped)"]
-    xs["xAI x_search<br/>one search per topic,<br/>weakest topic first"]
+    xs["xAI x_search<br/>open search per topic,<br/>weakest topic first"]
   end
   riv -- "X links on page" --> cit[("Citations<br/>post id + where seen")]
   art -- "X links in article" --> cit
@@ -32,96 +31,51 @@ flowchart LR
 | Free (rivers, articles) | $0                     | Not tied to any account list            | Lags: a post appears only once media embeds it    |
 | Paid (xAI search)       | $0.026–$0.038 on Nov 3 | Searches X directly, before the edition | Reported engagement is not independently verified |
 
-Scheduled paid discovery searches each topic without account restrictions,
-weakest coverage first, 5–30 minutes before the edition. It requests original,
-engaging posts within the edition window. Once all topics have completed and
-verified their primary searches, a topic with fewer than three new verified
-posts may receive one followup: a top-story reaction search first, otherwise a
-curated-account search. Shared budget and durable daily admission still gate
-every call. Activation follows the acknowledged Nov 3 account-list run; open
-search yield and outside-list picks await the next scheduled run.
+- **Open search:** 5–30 minutes before the edition, one search per topic with
+  no account restriction, weakest topic first. It asks for original, engaging
+  posts in the edition window.
+- **Follow-up:** a topic with fewer than three new verified posts can get one
+  more search. It looks for reactions to a top story first, otherwise it
+  searches the topic's curated accounts.
+- **Curated accounts:** edit them in **Manage topics → Edit → X accounts**
+  (up to 20 per topic). They only feed the follow-up search. The reviewed
+  choices are recorded in [Sources](../../SOURCES.md).
+- **Reports:** `scripts/report-x-discovery.ts` (one day) and
+  `report-x-week.ts` (seven days) show spend and new verified posts by topic
+  and search type, including posts from authors outside the account lists.
 
-Curated accounts are editable in **Manage topics → Edit → X accounts**, up to
-20 unique handles per topic. They mix first-party announcements with builders,
-reporters, players and developers; the [source inventory](../../SOURCES.md)
-records the review and choices. They support secondary searches; an empty list
-does not disable primary discovery. Disable the topic or its post slots to exclude it from discovery.
-They do not guarantee relevance. Changes persist and also change the
-report's comparison against current account lists.
+## How Bluesky posts are found
 
-The final social editor receives saved engagement evidence alongside post text.
-For X, this is the bounded ranking explanation with unverified xAI counts and
-observation time when available; missing reports stay unknown. For Bluesky, it
-receives the timestamped API counts. Counts are advisory: relevance and distinct
-content still matter, and a single snapshot establishes neither measured growth
-nor account-relative reach.
+- **Collected hourly** through the official API, using the owner's app
+  password: one search per enabled topic, up to 50 posts each. If the login
+  is missing, collection is skipped.
+- **Counts are snapshots:** each observation is stored with its likes,
+  reposts, replies and time. An edition sees the counts as they were at its
+  cutoff.
+- **At edition time:** AI triage screens up to 50 candidates, then the editor
+  fills the topic's remaining post slots (X picks come first). It skips
+  posts that repeat something already picked from X.
+- **Cards** are drawn by the app, with no Bluesky script: full text, author,
+  time, counts and images. Videos link to the post.
+- **Controls:** `BLUESKY_EDITIONS_ENABLED=0` turns inclusion off.
+  `scripts/report-bluesky-coverage.ts` shows stored posts per topic.
 
 ## Verification and safety
 
-- **Official only:** posts are confirmed with X's public **oEmbed** endpoint,
-  and the page renders X's official embed. The app never scrapes x.com.
-- **Engagement numbers** from xAI are stored as "reported by xAI", not as
-  verified facts.
-- **Budget:** paid search has its own ledger and caps: $0.40/day and
+- **Official only:** X posts are confirmed with X's public **oEmbed**
+  endpoint and rendered with X's official embed. Bluesky uses the official
+  API. The app never scrapes either site.
+- **Engagement numbers are hints, not facts.** xAI's counts are stored as
+  "reported by xAI", and Bluesky's as timestamped API counts. The editor
+  sees them, but relevance and distinct content come first.
+- **Budget:** paid X search has its own ledger and caps: $0.40/day and
   $12/month. The xAI account is prepaid ($15), so it can't overspend even if
-  the app is wrong.
-
-The daily discovery report groups spend, fetched posts and new verified yield
-by topic and search type, including searches with no results. Unknown charges
-and fetched counts remain explicit. Outside-list yield compares current verified
-authors with all current account lists; it counts posts and can change when
-lists or verification change. It does not measure relevance or historical list
-membership. The seven-day report adds daily and whole-week summaries, including
-days with no recorded calls. Today can be incomplete; an empty day does not
-prove the scheduler covered every topic.
+  the app is wrong. Bluesky is free; its AI triage and editing use the
+  normal AI budget.
 
 ## Other platforms
 
-| Platform | Status                                                                                                                                                                                                                                         |
-| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Reddit   | **Parked.** Built, but Reddit blocks public access and ends RSS on Nov 13. The only way back is the official API with owner credentials.                                                                                                       |
-| Bluesky  | **Enabled:** authenticated discovery, phrase-filtered and semantic engagement/age shortlists, isolated final editing, plus storage for timestamped text/media/count snapshots. Hourly free collection is active; edition inclusion is enabled. |
-| YouTube  | **Deferred** by the owner.                                                                                                                                                                                                                     |
-
-Bluesky storage retains each topic's observations separately, so a later count
-cannot overwrite the evidence available at an earlier cutoff. Current post
-metadata follows the newest observation, even if older responses arrive late.
-Disabled topics are excluded from reads and writes; deleting a topic removes
-its observations. The social worker collects observations hourly through the official authenticated API.
-Each pass uses one query for each enabled topic with a positive post budget,
-up to four topics and 50 observations each. The first nonempty configured query
-is used, otherwise the first relevance term, otherwise the topic name.
-One shared session serves the pass; search or storage failure stops it with no
-automatic retry. Missing credentials skip collection. Completed queue jobs retain
-per-topic fetched/submitted counts for 48 runs. Edition inclusion remains off. An explicit collection pass can search the four configured topics over a
-24-hour window and store up to 50 observations per topic. It shares one login
-and rate-limit backoff across topics and stops on search or storage failure.
-The report distinguishes fetched/submitted posts from stored window observations;
-replays and disabled topics may produce no new rows. Running the probe without
-its `--store` option remains read-only. Stored API counts are observations, not independent verification of reach.
-
-An isolated semantic shortlist can screen at most 50 safe observations with the
-budgeted social triage service. It can recover relevant posts without a configured
-keyword, requires complete scores, and orders qualifying posts by interestingness,
-relevance and observed engagement/age. Missing or malformed scores produce no
-semantic picks. This preparation does not call the final editor or publish posts;
-API counts still do not establish measured growth or account-relative reach.
-
-Bluesky final editing selects at most ten shortlisted observations without rewriting
-the original text, media or counts. Refused or invalid selections produce no picks.
-Its separate editorial prompt and budget-ledger purpose do not change X editing;
-edition inclusion uses the existing shared AI budget.
-
-Prepared Bluesky cards show the full saved text, author, publication time, observed
-likes/reposts/replies and observation time, with editorial context when present.
-Images link to the original full-size media; video previews link to the post on
-Bluesky rather than loading a streaming player. Images load lazily with their
-original alt text. Cards use no third-party widget script. The Nov 4 edition includes a Tech Bluesky pick; desktop/mobile evidence is recorded in the [edition review](../../edition-reviews/2026-11-04.md).
-
-Explicit edition preparation can read stored observations at the edition cutoff,
-run the isolated editor and create validated text/media/count snapshots. It is enabled by default. The edition publisher calls it after X/Reddit selection, using the
-same database transaction and existing budgeted AI services. An explicit
-`BLUESKY_EDITIONS_ENABLED=0` disables inclusion; unset or `1` enables it. The protected Nov 3 run has been acknowledged.
-The edition selector itself does not collect posts; it reads hourly observations. Existing picks are retained;
-Bluesky can use only the remaining topic slots. Its editor receives bounded text and author context from existing picks and is instructed to skip repeated announcements, clips or moments across platforms while allowing distinct developments. This is semantic editorial guidance, not a guaranteed duplicate detector. Disabled or full selections do
-not read storage or call AI; refused or incomplete editing adds no posts.
+| Platform | Status                                                                                                                                   |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Reddit   | **Parked.** Built, but Reddit blocks public access and ends RSS on Nov 13. The only way back is the official API with owner credentials. |
+| YouTube  | **Deferred** by the owner.                                                                                                               |

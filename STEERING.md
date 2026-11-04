@@ -855,6 +855,12 @@ Nov 4 checks). When product work is blocked, the order is:
   as another role, grant these logins access too.
 - Never print the passwords.
 
-**Docs tightening** (the README and the handbook Observability page) is
-reserved for Claude. Don't rewrite or expand those two meanwhile, apart from
-factual fixes.
+**Docs tightening: done by Claude (2026-11-04).**
+- **Rewritten:** README (465 → 92 lines), Observability (620 → 104), Social
+  posts and Operations.
+- **The editor role resumes** under the new "Short and plain" rule in
+  AGENTS.md. `check-handbook.ts` now fails any page, or the README, over 100
+  lines outside code blocks.
+- **Moved content:** the removed caveats and test details are in git
+  history. Put anything still needed in PROGRESS.md or the `docs/`
+  references, not in the owner pages.

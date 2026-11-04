@@ -105,6 +105,18 @@ belong in TASKS.md and PROGRESS.md, never in the handbook. Follow
   (render errors, broken links, metadata drift). Look at the PNGs of the
   diagrams you changed (in `/tmp/handbook-diagrams/`): no line may cross
   another line, a box or a title.
+- **Short and plain (owner request, 2026-11-04):** the README and the
+  handbook pages were rewritten because they had grown into long lists of
+  caveats.
+  - **What goes in:** how things work and how to use them, as tables and
+    bullets.
+  - **What stays out:** test evidence, measurement caveats ("this does not
+    prove…"), edge cases and per-iteration history. Those belong in
+    PROGRESS.md, `docs/RANKING.md` or `docs/DATABASE-VERIFICATION.md`.
+  - **README.md is a landing page,** not a manual.
+  - **Length limit:** `check-handbook.ts` fails a page, or the README, over
+    100 lines outside code blocks. When one grows, cut or split it; don't
+    append.
 - **Keep it cheap:** edit only the affected pages. Don't re-read the whole
   handbook each iteration.
 
