@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 621 — deterministic concurrent LLM recordings
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources without current errors and no retained failed digest jobs.
-- Fixed RecordingLlmAdapter to preserve invocation order when concurrent identical requests finish out of order; failed calls remain omitted. Offline regression reverses completions with a failed middle call, then verifies exact replay order and exhaustion.
-- Updated LLM recording documentation and TASKS; archived iteration 604 to keep this file below 25 KB. Real raw-response golden remains open: validated historical results cannot supply raw transport responses.
-- Verification: targeted recording tests 4/4; pnpm format, pnpm lint:fix, pnpm check (365 unit/205 isolated integration), pnpm build and git diff --check passed. First check caught formatting in the newly moved archive; fixed before the final run.
-- Recorder is imported only by the explicit historical recording script; no running service code/config changed, so no restart under STEERING 22. No paid calls, prompts, fixture recordings, production flags or edition behavior changed.
-- Restarted worker only; final healthz healthy, zero alerts/failed units/dangling volumes. Saved Nov 3 edition still serves 19 real stories/11 X posts. No Postgres/Redis restart.
-- Next: Nov 4 15:00 UTC edition review; grouping and incremental triage remain off until that review.
-
 ## 2026-11-04: iteration 622 — refuse incomplete LLM recording exports
 
 - Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 healthy sources and retained job checks green.
@@ -181,3 +171,13 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (383 unit/205 isolated integration), pnpm build and git diff --check passed; targeted triage 18/18.
 - API/worker restarted at 14:08 UTC; healthz healthy, zero alerts/failed units/dangling volumes. Saved Nov 3 edition intact: four topics/19 stories/11 posts. No Postgres/Redis restart.
 - Next: review Nov 4 15:00 UTC edition for open-X/Bluesky selections, World social, NBA validation and timing/cost; incremental triage/grouping remain off until review.
+
+## 2026-11-04: iteration 639 — stop triage after admission guard exceptions
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts, all four queues available and 36 sources; Nov 4 edition still pending.
+- Moved the per-batch cutoff/admission guard inside shared failure handling. A thrown schedule/clock lookup now stops sibling workers from starting queued provider calls while already-started work drains and caches.
+- Regression covers a guard throwing before any provider call and after one starts, exact error propagation, cached sibling scores and recovery with no repeat scoring; targeted triage 19/19 passed.
+- Updated TASKS; archived iteration 621 to keep PROGRESS bounded. Internal bug fix needs no handbook/schema/source update. No paid calls, prompt changes or production feature activation.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (384 unit/205 isolated integration), pnpm build and git diff --check passed.
+- API/worker restarted at 14:12 UTC; healthz healthy, zero alerts/failed user units/dangling volumes. Saved Nov 3 edition intact: four topics/19 stories/11 posts. No Postgres/Redis restart.
+- Next: review Nov 4 15:00 UTC edition for open-X/Bluesky selections, World posts, NBA validation and timing/cost; incremental triage/grouping remain off until review.

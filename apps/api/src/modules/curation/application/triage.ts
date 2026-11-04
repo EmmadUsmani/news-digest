@@ -226,12 +226,12 @@ export class CandidateTriage {
       while (!stopped && cursor < batches.length) {
         // Background callers recheck publication cutoff after cache reads and
         // before every new batch. Already-started calls still settle/cache.
-        if (!canStartBatch()) {
-          stopped = true;
-          break;
-        }
-        const current = batches[cursor++];
         try {
+          if (!canStartBatch()) {
+            stopped = true;
+            break;
+          }
+          const current = batches[cursor++];
           if (!(await scoreBatch(current))) stopped = true;
         } catch (error) {
           stopped = true;

@@ -701,3 +701,32 @@ for (const failureCount of [1, 2])
     );
     assert.ok(values.size < pool.length);
   });
+
+void test('throwing batch admission stops sibling workers before more provider calls', async () => {
+  for (const allowed of [0, 1]) {
+    const h = harness();
+    const pool = Array.from({ length: 200 }, (_, i) => ({
+      ...candidates[0],
+      id: String(i),
+    }));
+    const failure = new Error('schedule lookup failed');
+    let admissions = 0;
+    await assert.rejects(
+      h.service.score(topic, pool, 'guard-failure', () => {
+        if (admissions++ === allowed) throw failure;
+        return true;
+      }),
+      (error) => error === failure,
+    );
+    assert.equal(admissions, allowed + 1);
+    assert.equal(h.calls.length, allowed);
+    assert.equal(
+      [...h.values.keys()].filter((key) => key.startsWith('triage-item-v1:'))
+        .length,
+      allowed * 50,
+    );
+    const recovered = await h.service.score(topic, pool, 'recovered');
+    assert.equal(recovered.scores.length, pool.length);
+    assert.equal(h.calls.length, 4);
+  }
+});
