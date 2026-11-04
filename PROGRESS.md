@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 596 — convert X discovery totals and reservation inserts
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and zero failed digest jobs; retained social failures have later successful collections. Nov 4 15:00 UTC review remains pending.
-- Converted budget totals/provider-block projection and pending reservation inserts to Drizzle under the same client transaction/shared lock. Documented conditional PostgreSQL aggregates preserve UTC day/month bounds, failed exclusion and older pending/uncertain holds. Scheduled optional-search admission remains SQL.
-- Existing characterization tests unchanged; no migration, activation, source change or paid call. Initial typecheck caught the provider-block singleton column name; corrected before full check. Updated TASKS, architecture, decision and handbook stack; archived iteration 581.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
-- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical and live X budget snapshot unchanged. Read-only Playwright rendered 63 article elements without page errors; zero alerts and no source errors.
-- Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters/admission or historical migration baseline. Private pg_dump before first new migration.
-
 ## 2026-11-04: iteration 597 — convert scheduled X admission to Drizzle
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources returning items without current errors and zero failed digest jobs; recent social collections succeeded after retained historical failures. Nov 4 15:00 UTC review remains pending.
@@ -157,3 +148,13 @@
 - Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical, Anthropic/X spend unchanged. Read-only Playwright rendered four real saved topics without page errors; 36 sources without current errors, zero failed digest jobs and zero alerts.
 - Updated TASKS and ORM decision; archived iteration 595 to keep PROGRESS bounded. No migration, source, activation, owner grant or paid call changes; no handbook system behavior changed.
 - Next: prioritize Nov 4 edition review; otherwise finish remaining report SQL builders and final raw-SQL audit. Keep private backups before new migrations and preserve owner grants.
+
+## 2026-11-04: iteration 611 — typed per-topic X discovery evidence
+
+- Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC edition review remains pending.
+- Converted per-topic X report joins/grouping and correlated edition-membership lookup to Drizzle builders. SQL expressions retain PostgreSQL JSON expansion/aggregation and filtered counts.
+- Read-only old/new comparison caught ambiguous CTE handle aliases; explicitly qualified them, then matched complete Nov 2–4 reports (1/4/0 calls) in one repeatable-read snapshot. Existing characterization assertions unchanged.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
+- Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical, Anthropic/X spend unchanged. Read-only Playwright rendered four real saved topics without page errors; 36 sources without current errors, zero failed digest jobs and zero alerts.
+- Updated TASKS and ORM decision; archived iteration 596 to keep PROGRESS bounded. No migration, source, activation, owner grant or paid call changes; no handbook system behavior changed.
+- Next: prioritize Nov 4 edition review; otherwise final raw-SQL audit and remaining ORM adapters. Keep private backups before new migrations and preserve owner grants.

@@ -205,9 +205,11 @@ lock; rollback, client release and original PostgreSQL errors are preserved.
 
 X discovery daily evidence uses typed builders for the curated-handle and
 verified-post CTEs, call projection, UTC-day bounds and ordering. The per-topic
-JSON aggregate retains lateral expansion, correlated edition membership and
-filtered counts as a documented SQL expression. Correlated outer columns are
-explicitly qualified because single-table Drizzle projections otherwise strip
+report joins, grouping and correlated edition-membership lookup also use typed
+builders. SQL expressions remain for PostgreSQL set-returning JSON expansion,
+JSON aggregation and filtered counts. CTE handle aliases are explicitly qualified
+inside expressions and joins to prevent ambiguous column references. Correlated
+outer columns are explicitly qualified because single-table Drizzle projections otherwise strip
 qualifiers and permit inner columns to shadow them. The caller's pool or
 checked-out client is reused, native PostgreSQL errors are preserved, and
 existing report characterization assertions remain unchanged.

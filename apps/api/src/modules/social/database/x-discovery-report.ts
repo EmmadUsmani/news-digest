@@ -1,11 +1,13 @@
-import { and, DrizzleQueryError, eq, gte, lt, sql } from 'drizzle-orm';
+import { and, DrizzleQueryError, eq, exists, gte, lt, sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import type { Pool } from 'pg';
 
 import {
+  digestPreviews,
   socialPosts,
   topics,
   xDiscoveryCalls as calls,
+  xSearchCitations as citations,
 } from '../../../libs/db/schema';
 import { summarizeDiscovery } from '../domain/discovery-summary';
 
@@ -76,12 +78,86 @@ export async function readXDiscoveryReport(
       .from(socialPosts)
       .where(eq(socialPosts.platform, 'x')),
   );
-  // Lateral JSON expansion, correlated edition membership and filtered aggregates
-  // stay in a SQL expression; the surrounding CTEs and call query use builders.
-  // Qualify correlated columns explicitly: single-table selects otherwise strip
-  // table qualifiers inside SQL expressions, allowing inner columns to shadow them.
+  // Qualify outer call columns because single-table projections can strip
+  // qualifiers inside SQL expressions, allowing inner columns to shadow them.
   const callId = sql`${sql.identifier('x_discovery_calls')}.${sql.identifier('id')}`;
   const callCreatedAt = sql`${sql.identifier('x_discovery_calls')}.${sql.identifier('created_at')}`;
+  // PostgreSQL set-returning JSON expansion has no query-builder equivalent.
+  const editionTopic = sql`jsonb_array_elements(${digestPreviews.snapshot}->'topics') topic`;
+  const editionPost = sql`jsonb_array_elements(topic->'posts') post`;
+  const selected = exists(
+    orm
+      .select({ id: digestPreviews.id })
+      .from(digestPreviews)
+      .crossJoin(editionTopic)
+      .crossJoin(editionPost)
+      .where(
+        and(
+          gte(digestPreviews.createdAt, callCreatedAt),
+          lt(
+            digestPreviews.createdAt,
+            sql`(${day}::date + 1)::timestamp AT TIME ZONE 'UTC'`,
+          ),
+          eq(sql`topic->>'id'`, sql`${citations.topicId}::text`),
+          eq(sql`post->>'platform'`, 'x'),
+          eq(sql`post->>'externalId'`, citations.externalId),
+        ),
+      ),
+  );
+  // Drizzle SQL aliases do not carry CTE qualification in embedded expressions.
+  const verifiedHandle = sql`${sql.identifier('verified')}.${sql.identifier('handle')}`;
+  const curatedHandle = sql`${sql.identifier('curated')}.${sql.identifier('handle')}`;
+  const outsideList = sql`${verifiedHandle} IS NOT NULL AND ${curatedHandle} IS NULL`;
+  const perTopic = orm
+    .select({
+      topicId: sql<string | null>`${citations.topicId}`.as('topicId'),
+      name: topics.name,
+      citations: sql<number>`count(*)::int`.as('citations'),
+      selectedInDay: sql<number>`count(*) FILTER (WHERE ${selected})::int`.as(
+        'selectedInDay',
+      ),
+      outsideListSelectedInDay:
+        sql<number>`count(*) FILTER (WHERE ${selected} AND ${outsideList})::int`.as(
+          'outsideListSelectedInDay',
+        ),
+      outsideListVerifiedNow:
+        sql<number>`count(${verified.externalId}) FILTER (WHERE ${outsideList})::int`.as(
+          'outsideListVerifiedNow',
+        ),
+      outsideListNewVerifiedNow:
+        sql<number>`count(${verified.externalId}) FILTER (WHERE ${citations.newCandidate} AND ${outsideList})::int`.as(
+          'outsideListNewVerifiedNow',
+        ),
+      unknownAuthorVerifiedNow:
+        sql<number>`count(${verified.externalId}) FILTER (WHERE ${verifiedHandle} IS NULL)::int`.as(
+          'unknownAuthorVerifiedNow',
+        ),
+      newCandidates:
+        sql<number>`count(*) FILTER (WHERE ${citations.newCandidate})::int`.as(
+          'newCandidates',
+        ),
+      newVerifiedNow:
+        sql<number>`count(${verified.externalId}) FILTER (WHERE ${citations.newCandidate})::int`.as(
+          'newVerifiedNow',
+        ),
+      unknownBaseline:
+        sql<number>`count(*) FILTER (WHERE ${citations.newCandidate} IS NULL)::int`.as(
+          'unknownBaseline',
+        ),
+      verifiedNow: sql<number>`count(${verified.externalId})::int`.as(
+        'verifiedNow',
+      ),
+      datedNow:
+        sql<number>`count(${verified.externalId}) FILTER (WHERE ${verified.publishedAt} IS NOT NULL)::int`.as(
+          'datedNow',
+        ),
+    })
+    .from(citations)
+    .leftJoin(topics, eq(topics.id, citations.topicId))
+    .leftJoin(verified, eq(verified.externalId, citations.externalId))
+    .leftJoin(curated, eq(curatedHandle, verifiedHandle))
+    .where(eq(citations.callId, callId))
+    .groupBy(citations.topicId, topics.name);
   const rows = await orm
     .with(curated, verified)
     .select({
@@ -98,34 +174,11 @@ export async function readXDiscoveryReport(
       postsFetched: sql<number | null>`${calls.postsFetched}::float8`,
       profilesFetched: sql<number | null>`${calls.profilesFetched}::float8`,
       errorCode: calls.errorCode,
-      topics: sql<DiscoveryCallEvidence['topics']>`
-      COALESCE((SELECT jsonb_agg(y ORDER BY y."topicId" NULLS LAST) FROM (
-        SELECT s.topic_id AS "topicId",t.name,
-          count(*)::int AS citations,
-          count(*) FILTER (WHERE picked.selected)::int AS "selectedInDay",
-          count(*) FILTER (WHERE picked.selected AND p.handle IS NOT NULL AND a.handle IS NULL)::int AS "outsideListSelectedInDay",
-          count(p.external_id) FILTER (WHERE p.handle IS NOT NULL AND a.handle IS NULL)::int AS "outsideListVerifiedNow",
-          count(p.external_id) FILTER (WHERE s.new_candidate AND p.handle IS NOT NULL AND a.handle IS NULL)::int AS "outsideListNewVerifiedNow",
-          count(p.external_id) FILTER (WHERE p.handle IS NULL)::int AS "unknownAuthorVerifiedNow",
-          count(*) FILTER (WHERE s.new_candidate)::int AS "newCandidates",
-          count(p.external_id) FILTER (WHERE s.new_candidate)::int AS "newVerifiedNow",
-          count(*) FILTER (WHERE s.new_candidate IS NULL)::int AS "unknownBaseline",
-          count(p.external_id)::int AS "verifiedNow",
-          count(p.external_id) FILTER (WHERE p.published_at IS NOT NULL)::int AS "datedNow"
-        FROM x_search_citations s LEFT JOIN topics t ON t.id=s.topic_id
-        LEFT JOIN verified p ON p.external_id=s.external_id
-        LEFT JOIN curated a ON a.handle=p.handle
-        CROSS JOIN LATERAL (SELECT EXISTS (
-          SELECT 1 FROM digest_previews d
-          CROSS JOIN LATERAL jsonb_array_elements(d.snapshot->'topics') topic
-          CROSS JOIN LATERAL jsonb_array_elements(topic->'posts') post
-          WHERE d.created_at >= ${callCreatedAt}
-            AND d.created_at < (${day}::date + 1)::timestamp AT TIME ZONE 'UTC'
-            AND topic->>'id'=s.topic_id::text
-            AND post->>'platform'='x' AND post->>'externalId'=s.external_id
-        ) AS selected) picked
-        WHERE s.call_id=${callId} GROUP BY s.topic_id,t.name
-      ) y),'[]'::jsonb)`,
+      // JSON aggregation preserves the report's nested shape and empty arrays.
+      topics: sql<DiscoveryCallEvidence['topics']>`COALESCE((
+        SELECT jsonb_agg(y ORDER BY y."topicId" NULLS LAST)
+        FROM (${perTopic}) y
+      ),'[]'::jsonb)`,
     })
     .from(calls)
     .where(
