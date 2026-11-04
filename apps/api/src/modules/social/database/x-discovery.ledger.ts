@@ -1,10 +1,27 @@
-import { and, eq, inArray, isNotNull, isNull, ne, sql } from 'drizzle-orm';
+import {
+  and,
+  count,
+  eq,
+  exists,
+  gt,
+  inArray,
+  isNotNull,
+  isNull,
+  lt,
+  ne,
+  notExists,
+  sql,
+} from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/node-postgres';
+import { alias, type AnyPgColumn } from 'drizzle-orm/pg-core';
 import type { Pool, PoolClient } from 'pg';
 
 import {
+  socialPosts,
+  topics,
   xDiscoveryCalls,
   xDiscoveryProviderBlock,
+  xSearchCitations,
 } from '../../../libs/db/schema';
 import {
   validateXCaps,
@@ -119,32 +136,115 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
       // A topic/day is consumed before HTTP, including rejected/uncertain calls.
       // Restart/retry cannot spend again or shift an obsolete job into today.
       if (scheduledDay !== undefined) {
+        const orm = drizzle(client);
+        const calls = xDiscoveryCalls;
+        const parent = alias(calls, 'parent');
+        const topicId = requestedTopic?.id ?? '';
+        const enabledTopics = and(
+          eq(topics.enabled, true),
+          gt(topics.postBudget, 0),
+        );
+        // JSON topic ids and the UTC database wall clock need SQL expressions;
+        // all admission subqueries remain typed and share the budget lock.
+        const topicMatches = (column: AnyPgColumn) =>
+          eq(sql`${column}->>'id'`, topicId);
+        const completedOpenParent = and(
+          eq(parent.scheduledDay, scheduledDay),
+          isNull(parent.optionalParentId),
+          eq(parent.searchType, 'open-topic'),
+          eq(parent.status, 'succeeded'),
+          isNotNull(parent.verificationCompletedAt),
+        );
+        const unclassifiedCitations = orm
+          .select({ id: xSearchCitations.callId })
+          .from(xSearchCitations)
+          .where(
+            and(
+              eq(xSearchCitations.callId, parent.id),
+              isNull(xSearchCitations.newCandidate),
+            ),
+          );
+        const newVerifiedPosts = orm
+          .select({ count: count() })
+          .from(xSearchCitations)
+          .innerJoin(
+            socialPosts,
+            and(
+              eq(socialPosts.platform, 'x'),
+              eq(socialPosts.externalId, xSearchCitations.externalId),
+            ),
+          )
+          .where(
+            and(
+              eq(xSearchCitations.callId, parent.id),
+              eq(sql`${xSearchCitations.topicId}::text`, topicId),
+              eq(xSearchCitations.newCandidate, true),
+            ),
+          );
+        const eligibleParent = orm
+          .select({ id: parent.id })
+          .from(parent)
+          .where(
+            and(
+              eq(
+                parent.id,
+                optionalParentId ?? '00000000-0000-0000-0000-000000000000',
+              ),
+              completedOpenParent,
+              topicMatches(parent.requestedTopic),
+              notExists(unclassifiedCitations),
+              lt(newVerifiedPosts, 3),
+            ),
+          );
+        const completedTopicSearch = orm
+          .select({ id: parent.id })
+          .from(parent)
+          .where(
+            and(
+              completedOpenParent,
+              eq(sql`${parent.requestedTopic}->>'id'`, sql`${topics.id}::text`),
+            ),
+          );
+        const unfinishedTopics = orm
+          .select({ id: topics.id })
+          .from(topics)
+          .where(and(enabledTopics, notExists(completedTopicSearch)));
+        const consumedAttempt = orm
+          .select({ id: calls.id })
+          .from(calls)
+          .where(
+            and(
+              eq(calls.scheduledDay, scheduledDay),
+              topicMatches(calls.requestedTopic),
+              optionalParentId === undefined
+                ? isNull(calls.optionalParentId)
+                : isNotNull(calls.optionalParentId),
+            ),
+          );
         const {
           rows: [admission],
-        } = await client.query<{ allowed: boolean }>(
-          `SELECT $1::date = (clock_timestamp() AT TIME ZONE 'UTC')::date
-           AND NOT EXISTS(SELECT 1 FROM x_discovery_calls WHERE scheduled_day=$1::date
-             AND requested_topic->>'id'=$2
-             AND (optional_parent_id IS NULL)=($3::uuid IS NULL))
-           AND ($3::uuid IS NULL OR (
-             EXISTS(SELECT 1 FROM topics WHERE id::text=$2 AND enabled AND post_budget > 0)
-             AND EXISTS(SELECT 1 FROM x_discovery_calls p WHERE p.id=$3
-               AND p.scheduled_day=$1::date AND p.requested_topic->>'id'=$2
-               AND p.optional_parent_id IS NULL AND p.search_type='open-topic'
-               AND p.status='succeeded' AND p.verification_completed_at IS NOT NULL
-               AND NOT EXISTS(SELECT 1 FROM x_search_citations c
-                 WHERE c.call_id=p.id AND c.new_candidate IS NULL)
-               AND (SELECT count(*) FROM x_search_citations c JOIN social_posts s
-                 ON s.platform='x' AND s.external_id=c.external_id
-                 WHERE c.call_id=p.id AND c.topic_id::text=$2 AND c.new_candidate) < 3)
-             AND NOT EXISTS(SELECT 1 FROM topics t WHERE t.enabled AND t.post_budget > 0
-               AND NOT EXISTS(SELECT 1 FROM x_discovery_calls p
-                 WHERE p.scheduled_day=$1::date AND p.requested_topic->>'id'=t.id::text
-                   AND p.optional_parent_id IS NULL AND p.search_type='open-topic'
-                   AND p.status='succeeded' AND p.verification_completed_at IS NOT NULL))
-           ))
-           AS allowed`,
-          [scheduledDay, requestedTopic?.id ?? null, optionalParentId ?? null],
+        } = await orm.execute<{ allowed: boolean }>(
+          sql`select ${and(
+            sql`${scheduledDay}::date = (clock_timestamp() AT TIME ZONE 'UTC')::date`,
+            notExists(consumedAttempt),
+            optionalParentId === undefined
+              ? undefined
+              : and(
+                  exists(
+                    orm
+                      .select({ id: topics.id })
+                      .from(topics)
+                      .where(
+                        and(
+                          eq(sql`${topics.id}::text`, topicId),
+                          enabledTopics,
+                        ),
+                      ),
+                  ),
+                  exists(eligibleParent),
+                  notExists(unfinishedTopics),
+                ),
+          )} as allowed`,
         );
         if (!admission.allowed) return null;
       }

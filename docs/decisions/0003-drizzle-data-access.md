@@ -167,4 +167,7 @@ client transaction remain; terminal-state guards, uncertain settlement, persiste
 hold comparisons and first verification timestamps are unchanged. Usage totals now use typed Drizzle projections with documented PostgreSQL
 FILTER/UTC wall-clock templates, retaining older pending/uncertain holds and
 provider blocks. Reservation inserts use the same transaction client; scheduled
-optional-search admission still uses SQL pending its separate conversion.
+optional-search admission now uses typed correlated subqueries for consumed attempts,
+completed parent verification, low incremental yield and all-topic coverage. A SQL
+template projects their combined predicate without a FROM clause and compares the
+UTC database wall clock; JSON topic-id expressions preserve existing semantics.
