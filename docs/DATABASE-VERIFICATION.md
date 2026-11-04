@@ -654,5 +654,6 @@ indexes with no differences. It never uses the live database.
 The real strict/verbose drizzle-kit CLI also must report zero changes over fresh
 migrations, with PostgreSQL-enforced read-only connection options. A pinned pnpm
 patch preserves composite foreign-key column pairs and order during introspection;
-see the Drizzle decision. Historical SQL migration execution stays unchanged;
-future migration baseline adoption is a separate step.
+see the Drizzle decision. Historical SQL runs first, followed by generated
+Drizzle migrations in the same ledger. Offline generation compares the latest
+snapshot with the schema; a new migration must leave both parity gates green.

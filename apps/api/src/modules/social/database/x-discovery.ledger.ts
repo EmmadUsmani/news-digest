@@ -11,6 +11,7 @@ import {
   lt,
   ne,
   notExists,
+  or,
   sql,
 } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/node-postgres';
@@ -32,7 +33,10 @@ import {
   type XDiscoveryPrice,
   type XDiscoveryUsage,
 } from '../domain/x-discovery-budget';
-import type { XDiscoveryLedger } from '../domain/x-discovery-ledger.port';
+import type {
+  XDiscoveryLedger,
+  XDiscoverySearchType,
+} from '../domain/x-discovery-ledger.port';
 import type { XSearchToolCall } from '../domain/x-search.port';
 
 export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
@@ -104,7 +108,7 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
     estimateMicros: number,
     requestedTopic?: { id: string; name: string },
     scheduledDay?: string,
-    searchType?: 'open-topic' | 'account-list' | 'story-reactions',
+    searchType?: XDiscoverySearchType,
     optionalParentId?: string,
   ) {
     if (
@@ -127,7 +131,13 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
       throw new Error('Scheduled X discovery requires a topic');
     if (
       searchType !== undefined &&
-      !['open-topic', 'account-list', 'story-reactions'].includes(searchType)
+      ![
+        'open-topic',
+        'account-list',
+        'story-reactions',
+        'fixed-reactions',
+        'fixed-trending',
+      ].includes(searchType)
     )
       throw new Error('Invalid X discovery search type');
     if (
@@ -137,6 +147,10 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
         !['account-list', 'story-reactions'].includes(searchType ?? ''))
     )
       throw new Error('Invalid optional X discovery reservation');
+    const fixed =
+      searchType === 'fixed-reactions' || searchType === 'fixed-trending';
+    if (fixed && (scheduledDay === undefined || optionalParentId !== undefined))
+      throw new Error('Fixed X discovery requires a scheduled primary slot');
     return this.transaction(async (client) => {
       // A topic/day is consumed before HTTP, including rejected/uncertain calls.
       // Restart/retry cannot spend again or shift an obsolete job into today.
@@ -221,9 +235,19 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
             and(
               eq(calls.scheduledDay, scheduledDay),
               topicMatches(calls.requestedTopic),
-              optionalParentId === undefined
-                ? isNull(calls.optionalParentId)
-                : isNotNull(calls.optionalParentId),
+              fixed
+                ? or(
+                    eq(calls.searchType, searchType),
+                    isNull(calls.searchType),
+                    inArray(calls.searchType, [
+                      'open-topic',
+                      'account-list',
+                      'story-reactions',
+                    ]),
+                  )
+                : optionalParentId === undefined
+                  ? isNull(calls.optionalParentId)
+                  : isNotNull(calls.optionalParentId),
             ),
           );
         const [admission] = await orm

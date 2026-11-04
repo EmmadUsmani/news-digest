@@ -10,12 +10,13 @@ import {
   xSearchCitations as citations,
 } from '../../../libs/db/schema';
 import { summarizeDiscovery } from '../domain/discovery-summary';
+import type { XDiscoverySearchType } from '../domain/x-discovery-ledger.port';
 
 interface DiscoveryCallEvidence {
   id: string;
   runId: string;
   requestedTopic: { id: string; name: string } | null;
-  searchType: 'open-topic' | 'account-list' | 'story-reactions' | null;
+  searchType: XDiscoverySearchType | null;
   status: string;
   createdAt: Date;
   costMicros: number | null;

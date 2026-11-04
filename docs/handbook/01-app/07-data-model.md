@@ -136,5 +136,5 @@ foreign key, because a citation is stored before the post is verified.
   when several sources publish it. `content_observations` records who saw it.
 - **Money is integer micro-dollars** (`*_micros`, 1,000,000 = $1) to avoid
   rounding errors.
-- **Migrations** are plain SQL files in `migrations/`, applied in order and
-  recorded in `schema_migrations`.
+- **Migrations** start with the historical SQL in `migrations/`, then the
+  generated Drizzle SQL in `drizzle/`. Both use `schema_migrations`.

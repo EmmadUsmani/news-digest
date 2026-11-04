@@ -1,6 +1,13 @@
 import type { XDiscoveryPrice, XDiscoveryUsage } from './x-discovery-budget';
 import type { XSearchToolCall } from './x-search.port';
 
+export type XDiscoverySearchType =
+  | 'open-topic'
+  | 'account-list'
+  | 'story-reactions'
+  | 'fixed-reactions'
+  | 'fixed-trending';
+
 export interface XDiscoveryLedger {
   reserve(
     model: string,
@@ -8,7 +15,7 @@ export interface XDiscoveryLedger {
     estimateMicros: number,
     requestedTopic?: { id: string; name: string },
     scheduledDay?: string,
-    searchType?: 'open-topic' | 'account-list' | 'story-reactions',
+    searchType?: XDiscoverySearchType,
     optionalParentId?: string,
   ): Promise<string | null>;
   settle(

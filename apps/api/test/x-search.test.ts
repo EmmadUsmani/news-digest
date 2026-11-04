@@ -1014,3 +1014,56 @@ void test('invalid fixed settings fail before any provider dispatch', async () =
   );
   assert.equal(calls, 0);
 });
+
+void test('fixed A/B application dispatch records distinct scheduled ledger types', async () => {
+  for (const style of ['reactions', 'trending'] as const) {
+    const fixedRequest = {
+      ...request,
+      handles: undefined,
+      fixedSearch: {
+        style,
+        settings: {
+          reactionMinFaves: 100,
+          trendingMinFaves: 1000,
+          exclusions: [],
+        },
+        rankedStoryTitles:
+          style === 'reactions' ? ['Story one', 'Story two'] : [],
+      },
+    };
+    const result = await searchX(
+      'topic',
+      'fixed-run',
+      fixedRequest,
+      {
+        search: async () => {
+          throw new Error('must not dispatch denied slot');
+        },
+      },
+      {
+        reserve: async (_model, _run, estimate, topic, day, type, parent) => {
+          assert.equal(estimate, 100000);
+          assert.equal(topic?.id, 'topic');
+          assert.equal(day, '2026-11-05');
+          assert.equal(type, `fixed-${style}`);
+          assert.equal(parent, undefined);
+          return null;
+        },
+        settle: async () => {
+          throw new Error('must not settle denied slot');
+        },
+        fail: async () => {
+          throw new Error('must not fail denied slot');
+        },
+      },
+      {
+        save: async () => {
+          throw new Error('must not save denied slot');
+        },
+      },
+      price,
+      '2026-11-05',
+    );
+    assert.equal(result.state, 'budget-blocked');
+  }
+});

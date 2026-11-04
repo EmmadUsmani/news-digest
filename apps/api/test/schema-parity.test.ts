@@ -115,9 +115,13 @@ void test('drizzle-kit CLI proposes zero changes to the migrated isolated databa
   }
 });
 
-void test('historical Drizzle baseline matches the schema and offline CLI generates no migration', async () => {
+void test('latest Drizzle snapshot matches the schema and offline CLI generates no migration', async () => {
+  const snapshots = (await readdir(resolve('drizzle/meta')))
+    .filter((name) => /^\d+_snapshot\.json$/.test(name))
+    .sort();
+  const snapshot = snapshots.at(-1)!;
   const baseline = JSON.parse(
-    await readFile(resolve('drizzle/meta/0000_snapshot.json'), 'utf8'),
+    await readFile(resolve('drizzle/meta', snapshot), 'utf8'),
   ) as ReturnType<typeof generateDrizzleJson>;
   assert.deepEqual(
     await generateMigration(baseline, generateDrizzleJson(schema)),

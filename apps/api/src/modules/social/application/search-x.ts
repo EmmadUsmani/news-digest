@@ -36,11 +36,15 @@ export async function searchX(
   // Manual calls retain the full-day hold. Neither is a provider-side ceiling:
   // fetched items are unbounded; actual charges settle before the next search.
   const searchType =
-    request.reactionStory !== undefined
-      ? 'story-reactions'
-      : request.handles === undefined
-        ? 'open-topic'
-        : 'account-list';
+    request.fixedSearch !== undefined
+      ? request.fixedSearch.style === 'reactions'
+        ? 'fixed-reactions'
+        : 'fixed-trending'
+      : request.reactionStory !== undefined
+        ? 'story-reactions'
+        : request.handles === undefined
+          ? 'open-topic'
+          : 'account-list';
   const estimateMicros = scheduledDay === undefined ? 400000 : 100000;
   const fields = { target: 'xai', runId, topic: topicId, searchType };
   const callId = await ledger.reserve(

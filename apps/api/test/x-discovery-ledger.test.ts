@@ -576,3 +576,75 @@ void test('optional X admission waits for all verified open runs and consumes on
     await restartedDb.end();
   }
 });
+
+void test('fixed A/B admission is independent, durable and cannot mix with legacy scheduled slots', async () => {
+  const db = database();
+  const restartedDb = database();
+  const ledger = new PostgresXDiscoveryLedger(db);
+  const restarted = new PostgresXDiscoveryLedger(restartedDb);
+  const ids: string[] = [];
+  const {
+    rows: [dates],
+  } = await db.query<{ day: string }>(
+    "SELECT to_char(clock_timestamp() AT TIME ZONE 'UTC','YYYY-MM-DD') AS day",
+  );
+  const reserve = async (
+    instance: PostgresXDiscoveryLedger,
+    topic: string,
+    style: 'fixed-reactions' | 'fixed-trending' | 'open-topic',
+  ) => {
+    const id = await instance.reserve(
+      'grok-4.3',
+      crypto.randomUUID(),
+      100000,
+      { id: topic, name: topic },
+      dates.day,
+      style,
+    );
+    if (id) ids.push(id);
+    return id;
+  };
+  try {
+    await assert.rejects(
+      ledger.reserve(
+        'grok-4.3',
+        'invalid',
+        100000,
+        { id: 'fixed', name: 'fixed' },
+        undefined,
+        'fixed-trending',
+      ),
+      /requires a scheduled/,
+    );
+    const attempts = await Promise.all([
+      reserve(ledger, 'fixed', 'fixed-reactions'),
+      reserve(restarted, 'fixed', 'fixed-reactions'),
+    ]);
+    const admitted = attempts.filter((id): id is string => id !== null);
+    assert.equal(admitted.length, 1);
+    await ledger.fail(admitted[0], 'rejected');
+    assert.equal(await reserve(restarted, 'fixed', 'fixed-reactions'), null);
+    const trending = await reserve(restarted, 'fixed', 'fixed-trending');
+    assert.ok(trending);
+    await restarted.fail(trending, 'uncertain');
+    assert.equal(await reserve(ledger, 'fixed', 'fixed-trending'), null);
+    assert.equal(await reserve(ledger, 'fixed', 'open-topic'), null);
+    const legacy = await reserve(ledger, 'legacy', 'open-topic');
+    assert.ok(legacy);
+    await ledger.fail(legacy, 'rejected');
+    assert.equal(await reserve(restarted, 'legacy', 'fixed-reactions'), null);
+    assert.equal(await reserve(restarted, 'legacy', 'fixed-trending'), null);
+    assert.equal((await ledger.status()).reservedMicros, 100000);
+    // The ordinary shared daily budget still applies to distinct fixed slots.
+    const hold = await ledger.reserve('grok-4.3', 'budget-fixture', 300000);
+    assert.ok(hold);
+    ids.push(hold);
+    assert.equal(await reserve(ledger, 'new-topic', 'fixed-reactions'), null);
+  } finally {
+    await db.query('DELETE FROM x_discovery_calls WHERE id=ANY($1::uuid[])', [
+      ids,
+    ]);
+    await db.end();
+    await restartedDb.end();
+  }
+});

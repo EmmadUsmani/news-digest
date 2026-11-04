@@ -1,21 +1,3 @@
-## 2026-11-04: iteration 690 — fence X experiment dispatch after reservation
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, all 36 sources nonempty without current errors; no failed retained digest jobs. Next edition Nov 5 15:00 UTC.
-- Added durable single-use claimDispatch to experiment admission: rechecks protected UTC hours and reservation day immediately before dispatch, refuses settled/unknown/repeated requests and existing overruns. Crash after claim retains the hold and forbids retries. Existing journals remain readable.
-- Six targeted tests cover blackout/day rollover, restart/retry fencing, retained budget, settlement, overruns and damaged dispatch evidence. No provider calls, runner wiring or production changes; supported per-call cost bound still required.
-- Verification: targeted budget tests 6/6, standalone strict tsc, pnpm format, pnpm lint:fix, pnpm check (447 unit/209 isolated integration), pnpm build, handbook validation (17 pages/22 diagrams/26 tables) and git diff --check passed.
-- Updated TASKS/experiment reference; compressed prior batching detail and archived iteration 674 to bound orientation files. SOURCES/handbook unchanged: no source/runtime behavior change. No restart under STEERING 22 for the offline helper.
-- Next: Nov 5 grouping/NBA AI/cost/latency/screenshots; paid X experiment awaits supported cost bound or owner decision.
-
-## 2026-11-04: iteration 691 — prepare real reaction-search comparison inputs
-
-- Started clean on main; no leftover work. Zero alerts and healthy healthz/database/Redis.
-- Added read-only repeatable-read preparation CLI using existing relevance/quality/ranking article pipeline and saved topic thresholds. Produces current/trending/reaction request bodies with one precise window, ranked article identities and explicit missing-story blockers; no provider calls, admission, cache writes or production changes.
-- Real Nov 3–4 15:00 UTC window: all four topics supply two distinct ranked titles; A/B thresholds Tech 50/500, NBA 100/1000, Gaming 50/500, World 200/2000. Private snapshot outside repo; current observations are not historical reconstruction.
-- Verification: targeted input tests 3/3, standalone strict tsc, invalid CLI timestamp rejection/no stdout, pnpm format, pnpm lint:fix, pnpm check (450 unit/209 isolated integration), pnpm build, handbook validation (17 pages/22 diagrams/26 tables) and git diff --check passed. Final healthz healthy and zero alerts.
-- TASKS/experiment reference updated; archived iteration 675 to bound PROGRESS. SOURCES/handbook unchanged because no source/runtime change. No restart under STEERING 22 for offline tooling.
-- Paid X dispatch remains blocked on supported cost bound/owner decision. Next: Nov 5 grouping/NBA AI/cost/latency/screenshots.
-
 ## 2026-11-04: iteration 692 — direct topic availability controls
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 healthy sources and no failed retained digest runs. Nov 5 checks are future; paid X dispatch remains blocked on documented per-call cost bound.
@@ -153,3 +135,13 @@
 - Updated TASKS/experiment reference; archived iteration 689 to bound PROGRESS. SOURCES/handbook unchanged: operating sources, schedule and data flow remain unchanged.
 - Verification: `pnpm format`, `pnpm lint:fix`, targeted tests 11/11, `pnpm check` (463 unit/211 isolated integration), `pnpm build` and `git diff --check` passed. API/worker restarted for changed adapter imports; healthz/database/Redis and all 36 sources healthy afterward.
 - Next: runtime setting, durable A/B admission and scheduler wiring/removal; then private nightly backups with restore proof. Experiment decision still gates activation; Nov 5 scheduled acceptance takes priority when due.
+
+## 2026-11-04: iteration 707 — durable fixed A/B search admission
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 nonempty sources without current errors and no retained failed digest jobs; latest Nov 4 edition has four topics.
+- Added fixed-reactions/fixed-trending ledger types and unique topic/day/style slots under unchanged shared caps. Rejected/uncertain attempts remain consumed across restarts; fixed and legacy scheduled paths cannot mix on a topic/day. Application dispatch records the correct style; runtime remains disconnected/off.
+- Generated the first post-baseline Drizzle migration and snapshot; parity now checks the latest snapshot while retaining the historical baseline integrity check. Updated affected handbook migration description, schema metadata and experiment/task reference; archived iterations 690–691.
+- Verification: focused application test 1/1, planner/comparison tests 9/9, pnpm format, pnpm lint:fix, pnpm check (463 unit/213 isolated integration), pnpm build and git diff --check passed. Initial check found an unnecessary type assertion; removed it and reran successfully. No test provider calls.
+- Saved private custom-format pre-migration pg_dump outside repo (directory 700/file 600); pg_restore --list passed. This is not restore proof or the requested nightly backup system. Applied drizzle/0001 migration; content/social/edition/X-ledger row counts unchanged.
+- Restarted API/worker; healthz/database/Redis, all 36 sources and zero-alert/failed-digest checks passed. Handbook validation passed after migration (17 pages/3 diagrams/26 tables, no metadata warnings). SOURCES unchanged: operating discovery and sources unchanged. No paid calls or activation.
+- Next: default-off runtime setting, scheduler wiring and old followup replacement; then nightly private backups with real restore proof/stale alert. Experiment decision gates activation; Nov 5 scheduled checks take priority when due.
