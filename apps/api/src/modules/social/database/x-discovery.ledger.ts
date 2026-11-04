@@ -225,31 +225,31 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
                 : isNotNull(calls.optionalParentId),
             ),
           );
-        const {
-          rows: [admission],
-        } = await orm.execute<{ allowed: boolean }>(
-          sql`select ${and(
-            sql`${scheduledDay}::date = (clock_timestamp() AT TIME ZONE 'UTC')::date`,
-            notExists(consumedAttempt),
-            optionalParentId === undefined
-              ? undefined
-              : and(
-                  exists(
-                    orm
-                      .select({ id: topics.id })
-                      .from(topics)
-                      .where(
-                        and(
-                          eq(sql`${topics.id}::text`, topicId),
-                          enabledTopics,
+        const [admission] = await orm
+          .select({
+            allowed: sql<boolean>`${and(
+              sql`${scheduledDay}::date = (clock_timestamp() AT TIME ZONE 'UTC')::date`,
+              notExists(consumedAttempt),
+              optionalParentId === undefined
+                ? undefined
+                : and(
+                    exists(
+                      orm
+                        .select({ id: topics.id })
+                        .from(topics)
+                        .where(
+                          and(
+                            eq(sql`${topics.id}::text`, topicId),
+                            enabledTopics,
+                          ),
                         ),
-                      ),
+                    ),
+                    exists(eligibleParent),
+                    notExists(unfinishedTopics),
                   ),
-                  exists(eligibleParent),
-                  notExists(unfinishedTopics),
-                ),
-          )} as allowed`,
-        );
+            )}`,
+          })
+          .from(sql`(values (1)) as singleton(value)`);
         if (!admission.allowed) return null;
       }
       const totals = await this.totals(client);

@@ -258,3 +258,8 @@ from a single-row VALUES expression because Drizzle requires a FROM source; this
 executes each PostgreSQL function exactly once without reading a table. Database
 wall-clock semantics, session/client ownership, transaction lock scope and
 existing characterization assertions remain unchanged.
+
+X discovery scheduled admission uses a Drizzle select builder over a single-row
+VALUES source. The shared transaction retains the current-UTC-day check,
+consumed-attempt exclusion and optional-parent/completed-topic gates; existing
+characterization assertions remain unchanged.

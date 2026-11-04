@@ -156,3 +156,13 @@
 - Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical and Anthropic/X spend unchanged. Read-only Playwright rendered four saved topics without page errors; 36 sources without current errors, zero failed digest jobs and zero alerts.
 - Updated TASKS and ORM decision; archived iteration 599 to keep PROGRESS bounded. No migration, source, activation, owner grant or paid call changes; no handbook system behavior changed.
 - Next: prioritize Nov 4 edition review; otherwise remaining X admission scalar query, connectivity probe and final raw-SQL audit. Private pg_dump before new migrations; preserve owner grants.
+
+## 2026-11-04: iteration 615 — typed X scheduled admission
+
+- Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC review remains pending.
+- Converted the X discovery ledger admission scalar query to a Drizzle select builder over one VALUES row; preserved current UTC day, consumed-attempt and optional-parent/completed-topic gates in the same transaction. Existing characterization assertions unchanged.
+- Initial typecheck rejected an optional and() projection; added an explicit boolean SQL expression and reran verification successfully.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build and git diff --check passed.
+- Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical and Anthropic/X spend unchanged. Read-only Playwright rendered four saved topics without page errors; sources have no current errors, zero alerts.
+- Updated TASKS and ORM decision; no migration, source, activation, owner grant or paid call changes; no handbook system behavior changed.
+- Next: prioritize Nov 4 edition review; otherwise connectivity probe and final raw-SQL audit. Private pg_dump before new migrations; preserve owner grants.
