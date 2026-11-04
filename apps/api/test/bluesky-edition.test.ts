@@ -241,10 +241,18 @@ void test('default publisher reads using its transaction and preserves primary p
     assert.equal(unavailable.status, 'unavailable');
     assert.deepEqual(unavailable.posts, [xPost]);
     const db = {
-      query: async (_sql: string, args: unknown[]) => {
-        assert.deepEqual(args, ['games', start, end, end]);
+      query: async (config: { rowMode: string }, args: unknown[]) => {
+        assert.equal(config.rowMode, 'array');
+        assert.deepEqual(args, [
+          'games',
+          true,
+          start.toISOString(),
+          end.toISOString(),
+          end.toISOString(),
+          5000,
+        ]);
         h.calls.push('transaction-read');
-        return { rows: [{ snapshot: observation }] };
+        return { rows: [[observation]] };
       },
     };
     const result = await selectEditionBlueskyPosts(

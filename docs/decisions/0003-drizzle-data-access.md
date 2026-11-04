@@ -11,6 +11,12 @@ and replace the complete schedule with the same missing-row errors and database
 constraints. The existing repository and HTTP characterization suite remains
 unchanged. Rows are mapped explicitly to the existing domain contract.
 
+The Bluesky adapter also uses the query builder for collection and edition reads.
+Its transaction retains the topic share lock, conditional latest-observation
+upsert and append-only snapshots; reads retain the publisher transaction,
+exclusive window end, inclusive observation cutoff and stable ordering. Existing
+Bluesky characterization tests remain unchanged.
+
 `libs/db/schema.ts` maps all 25 public tables, including the historical migration
 ledger, from migrations 001–055. The isolated `schema-parity` test creates an
 empty comparison database from Drizzle's generated DDL, compares PostgreSQL's
