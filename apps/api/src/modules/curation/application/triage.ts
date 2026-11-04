@@ -112,6 +112,7 @@ export class CandidateTriage {
     topic: TriageTopic,
     candidates: TriageCandidate[],
     runId: string,
+    canStartBatch: () => boolean = () => true,
   ): Promise<TriageResult> {
     const { activeInstructions, compactTopic, entries } = this.entries(
       topic,
@@ -223,6 +224,12 @@ export class CandidateTriage {
     // and retain valid results. Never abandon their ledger reservations.
     const worker = async () => {
       while (!stopped && cursor < batches.length) {
+        // Background callers recheck publication cutoff after cache reads and
+        // before every new batch. Already-started calls still settle/cache.
+        if (!canStartBatch()) {
+          stopped = true;
+          break;
+        }
         const current = batches[cursor++];
         if (!(await scoreBatch(current))) stopped = true;
       }

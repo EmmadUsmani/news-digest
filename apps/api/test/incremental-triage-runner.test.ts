@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
+import { llmConfig } from '../src/modules/curation/adapters/config';
 import { IncrementalTriageRunner } from '../src/modules/curation/application/incremental-triage-runner';
 import type { TriageCandidate } from '../src/modules/curation/application/triage';
+import { CandidateTriage } from '../src/modules/curation/application/triage';
 
 const options = { minimumPending: 1, maximumItems: 25 };
 const input = {
@@ -253,4 +255,37 @@ void test('cache scan crossing cutoff skips later chunks and releases admission'
   now = 0;
   assert.equal((await runner.run(load, options)).status, 'cutoff');
   assert.equal(releases, 2);
+});
+
+void test('scorer cache read crossing cutoff starts no provider batch and releases admission', async () => {
+  let now = 0;
+  let releases = 0;
+  let reads = 0;
+  const triage = new CandidateTriage(
+    { json: async () => assert.fail('provider batch began after cutoff') },
+    {
+      cached: async () => {
+        // First read is pending(); second is score() rechecking the cache.
+        if (++reads === 2) now = 900;
+        return undefined;
+      },
+      cache: async () => assert.fail('unexpected cache write'),
+    },
+    llmConfig({}).haiku,
+  );
+  const runner = new IncrementalTriageRunner(
+    triage,
+    () => ({ nextEditionAt: 1000, cutoffMs: 100 }),
+    () => now,
+    {
+      acquire: async () => async () => {
+        releases++;
+      },
+    },
+  );
+  const result = await runner.run(load, options);
+  assert.equal(result.status, 'cutoff');
+  assert.deepEqual(result.result?.unscoredIds, ['article']);
+  assert.equal(reads, 2);
+  assert.equal(releases, 1);
 });

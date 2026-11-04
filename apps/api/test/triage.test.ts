@@ -592,3 +592,40 @@ void test('edition scoring flushes a below-minimum tail and reuses background sc
     [25, 25, 10],
   );
 });
+
+void test('batch admission stops new work after cache reads and preserves completed batches', async () => {
+  const pool = Array.from({ length: 200 }, (_, i) => ({
+    ...candidates[0],
+    id: String(i),
+  }));
+  const h = harness();
+  // Model a cutoff crossed during the scorer's own asynchronous cache scan.
+  const blocked = await h.service.score(topic, pool, 'cutoff', () => false);
+  assert.equal(h.calls.length, 0);
+  assert.deepEqual(
+    blocked.unscoredIds,
+    pool.map((c) => c.id),
+  );
+  let admissions = 0;
+  const partial = await h.service.score(
+    topic,
+    pool,
+    'partial',
+    () => ++admissions === 1,
+  );
+  assert.equal(h.calls.length, 1);
+  assert.equal(partial.scores.length, 50);
+  assert.deepEqual(
+    partial.unscoredIds,
+    pool.slice(50).map((c) => c.id),
+  );
+  // An in-flight successful batch was cached; the next pass pays only for
+  // untouched candidates and retains original candidate order.
+  const completed = await h.service.score(topic, pool, 'next');
+  assert.equal(h.calls.length, 4);
+  assert.deepEqual(
+    completed.scores.map((s) => s.id),
+    pool.map((c) => c.id),
+  );
+  assert.deepEqual(completed.unscoredIds, []);
+});

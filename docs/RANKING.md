@@ -2426,3 +2426,15 @@ live timer: it omits provider durations, overlapping ticks, restarts, budget
 admission and changing topic membership. Publication times remain optimistic
 arrival proxies; pool churn, waste, billed cost and live latency remain
 unknown. Production settings and activation stay unchanged.
+
+## Iteration 636: cutoff admission inside the scorer
+
+The inactive background runner now supplies a live cutoff predicate to article
+triage. The scorer checks it after its own cache scan and before each provider
+batch, including later batches after an earlier call finishes. Previously the
+runner checked only before entering the scorer, allowing cache reads to cross
+the cutoff before provider work began. Already-started calls still finish and
+cache valid results; untouched IDs remain explicitly unscored for a later pass.
+Normal edition scoring has no additional gate. Synthetic tests cover blocked
+admission, partial cache retention, subsequent completion and runner admission
+release. No paid calls, production activation or latency claim.

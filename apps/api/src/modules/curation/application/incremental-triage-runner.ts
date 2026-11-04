@@ -79,7 +79,11 @@ export class IncrementalTriageRunner {
                 unscoredIds: args[1].map((candidate) => candidate.id),
               });
             }
-            return this.triage.score(...args);
+            return this.triage.score(args[0], args[1], args[2], () => {
+              if (this.beforeCutoff()) return true;
+              cutoff = true;
+              return false;
+            });
           },
         },
         topic,
