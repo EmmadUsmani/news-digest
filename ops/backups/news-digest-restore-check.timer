@@ -1,0 +1,8 @@
+[Unit]
+Description=Weekly database restore proof on Sunday at 03:20 UTC
+[Timer]
+OnCalendar=Sun *-*-* 03:20:00 UTC
+Persistent=true
+Unit=news-digest-restore-check.service
+[Install]
+WantedBy=timers.target

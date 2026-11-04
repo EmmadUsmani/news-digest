@@ -1,21 +1,3 @@
-## 2026-11-04: iteration 693 — require usable reaction experiment articles
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 nonempty sources without current errors and no failed retained digest jobs; next edition Nov 5 15:00 UTC.
-- Offline X experiment preparation now rejects blank/oversized article identities and titles and nonfinite scores before ranking; repeated article IDs retain only their highest-ranked version. Reaction readiness requires two usable distinct articles, preventing false readiness from updated titles on one article.
-- Added regression coverage for duplicate IDs, invalid fields/scores and recovery with a second usable article. No provider calls or production discovery/configuration changes.
-- Verification: targeted inputs 4/4; pnpm format, pnpm lint:fix, pnpm check (451 unit/209 isolated integration), pnpm build, handbook validation (17 pages/22 diagrams/26 tables) and git diff --check passed.
-- Updated TASKS and archived iteration 677 to bound PROGRESS. SOURCES/handbook unchanged: no source/runtime change. No restart under STEERING 22 for offline tooling.
-- Next: Nov 5 grouping/NBA AI/cost/latency/screenshots. Paid X dispatch still requires supported cost bound/owner decision.
-
-## 2026-11-04: iteration 694 — preserve the reader’s saved-edition selection
-
-- Started clean on main; no leftover work. Zero alerts and healthy healthz/database/Redis. Paid X experiment remains blocked; Nov 5 scheduled checks are future.
-- Fixed a digest-page race: an initial latest-edition response could overwrite a saved edition opened from history, leaving the URL and displayed content inconsistent. Superseded initial errors are ignored too; publication invalidates older loads.
-- Desktop/mobile Playwright delayed-success and delayed-error checks passed using real stored editions and browser-only GET interception, with no writes, generation or provider calls. Saved history screenshots; no horizontal overflow.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (451 unit/209 isolated integration), pnpm build, standalone smoke-script strict tsc, handbook (17 pages/22 diagrams/26 tables) and git diff --check passed. Corrected initial smoke-script formatting failure; final full check passed.
-- Updated TASKS and archived iteration 678 to bound PROGRESS; SOURCES/handbook unchanged because this is a UI race fix. Rebuilt and restarted API to serve corrected UI; worker unchanged.
-- Next: Nov 5 grouping/NBA AI/cost/latency/screenshots. Paid X dispatch still requires a supported cost bound or owner decision.
-
 ## 2026-11-04: iteration 695 — require closed windows for X comparisons
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, all 36 sources healthy/nonempty and no failed retained digest runs; next edition Nov 5 15:00 UTC.
@@ -146,3 +128,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (468 unit/213 isolated integration), pnpm build, handbook validation (17 pages/2 diagrams/26 tables, no warnings) and git diff --check passed.
 - Updated TASKS, experiment reference and affected schedule handbook; archived iteration 692. SOURCES unchanged: active sources and production discovery behavior unchanged. API/worker restarted; healthz, all 36 sources and alerts green, zero failed digest jobs; worker opt-in still off.
 - Next: nightly private backups with real throwaway-container restore proof and 26-hour stale alert; then experiment review/second day. Experiment decision gates activation; Nov 5 scheduled acceptance takes priority when due.
+
+## 2026-11-04: iteration 709 — private nightly backups and restore proof
+
+- Started clean on main; no leftover work. Alerts/healthz green, all 36 sources healthy/nonempty, zero retained failed digest jobs; next edition Nov 5 15:00 UTC.
+- Installed 02:20 UTC nightly custom-format pg_dump and Sunday 03:20 UTC isolated restore-check user timers. Both skip 13:00–16:00 UTC; private directory/files 700/600, seven-day retention, no off-VM copies or secrets in logs.
+- Dump and all 26 application-table counts share an exported repeatable-read snapshot. Atomic completion manifest/checksum and success metric follow successful dump only; failed dumps never prune or advance freshness.
+- Real service restore into network-isolated postgres:17-alpine matched 26 tables/22,191 rows; disposable container/volumes removed. Weekly proof receipt stays private. Initial manual backup exposed conflicting subprocess capture options; fixed before installation.
+- Added DatabaseBackupStale to local vmalert for missing or >26-hour success; fake cases cover absent, overdue and recovered. Initial recovery test used epoch-zero timestamps; corrected to vmalert's documented Jan 2000 start. Four Python safeguard checks cover retention, partial files, corrupt dumps and failed dumps, included in the unit suite.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (469 unit/213 isolated integration), pnpm build, handbook validation (18 pages/22 diagrams/26 tables), systemd unit verification and git diff --check. Initial full check caught missing void on the Node test; fixed and reran. check-observability --verify-alerts passed (16 rules, zero alerts).
+- Updated TASKS/STEERING acknowledgement and affected Operations/schedule handbook; split restore instructions to keep pages short; archived iteration 693. SOURCES/NEEDS_FROM_HUMAN unchanged. No app/runtime/provider changes; API/worker restart unnecessary under STEERING 22. Alert service restarted; backup/restore services ran successfully.
+- Next: offline experiment review/second independent day under existing caps; Nov 5 grouping/NBA AI/cost/latency/screenshots take priority when due. Fixed X scheduling stays off until the experiment decision.

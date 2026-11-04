@@ -1,0 +1,8 @@
+[Unit]
+Description=Private news-digest database backup
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /home/exedev/news-digest/ops/backups/database.py backup
+TimeoutStartSec=10min
+Nice=10
+UMask=0077

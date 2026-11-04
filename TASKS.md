@@ -5,9 +5,7 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Immediate owner priorities
 
-- [ ] STEERING 32: build new fixed A/B schedule off by default, followed by nightly private DB backups with restore proof and stale-backup alert. STEERING 31 round 1 dispatched (703): 11 settled/$0.382331, one unknown Gaming current/$0.15 hold, never retry; no winner.
-
-  - Schedule preparation (705): default-off pure A/B planner, ranked 2–3-story A requests and stored operators, primary-first budget projection, quiet-topic B dropped first; fake tests pass. Direct adapter A/B dispatch and shared experiment/production request builder verified (706). Durable per-topic/day A/B ledger admission and shared caps verified (707). Default-off worker runtime wired (708): X_FIXED_SEARCH_ENABLED=1 replaces legacy searches/followups with A/B, shared caps and verification. Production remains off pending experiment decision; nightly backups are next.
+- [x] STEERING 32 (705–709): default-off fixed A/B runtime prepared; production remains off pending experiment decision. Private nightly backups, seven-day retention, weekly isolated restore proof and 26-hour vmalert deployed. First restore matched all 26 application tables; details in [Operations](docs/handbook/01-app/10-backups.md).
 
 - [ ] STEERING 30: after breakages/Nov 5 checks: follow [X search plan](docs/x-search-plan.md) exactly. Story reactions primary; X-side filters; save actual queries. Experiment cap $2.50 total/$1 per UTC day, outside 13:00–16:00 UTC; production caps unchanged. Replaces optional/followup machinery when shipped.
 

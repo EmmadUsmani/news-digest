@@ -29,8 +29,7 @@ journalctl --user -u news-digest-worker -n 100     # recent worker logs
 docker compose ps                                  # Postgres + Redis
 ```
 
-The monitoring stack runs as separate `obs-*` **system** units, outside the
-app's health gate.
+Backups: `~/backups/news-digest/`; [nightly timers and restore](10-backups.md).
 
 ## How to tell if things are healthy
 

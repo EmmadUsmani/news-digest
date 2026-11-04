@@ -23,6 +23,13 @@ groups:
           severity: critical
         annotations:
           summary: Metrics scrape target is unavailable
+      - alert: DatabaseBackupStale
+        expr: (time() - news_digest_database_backup_success_timestamp_seconds > 93600) or absent(news_digest_database_backup_success_timestamp_seconds)
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: No successful database backup in the last 26 hours
       - alert: UnitSnapshotStale
         expr: (time() - news_digest_unit_snapshot_timestamp_seconds > 120) or absent(news_digest_unit_snapshot_timestamp_seconds)
         for: 1m

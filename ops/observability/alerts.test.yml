@@ -614,3 +614,44 @@ tests:
         alertname: ScheduledLifecycleMissing
         groupname: app-outcomes
         exp_alerts: []
+  - name: backup absent
+    interval: 30s
+    input_series: []
+    alert_rule_test:
+      - eval_time: 1m
+        alertname: DatabaseBackupStale
+        groupname: host-and-services
+        exp_alerts:
+          - exp_labels:
+              severity: warning
+            exp_annotations:
+              summary: No successful database backup in the last 26 hours
+  - name: backup crosses 26 hour threshold
+    interval: 30s
+    input_series:
+      - series: 'news_digest_database_backup_success_timestamp_seconds{job="host"}'
+        values: '946591230+0x8'
+    alert_rule_test:
+      - eval_time: 30s
+        alertname: DatabaseBackupStale
+        groupname: host-and-services
+        exp_alerts: []
+      - eval_time: 2m
+        alertname: DatabaseBackupStale
+        groupname: host-and-services
+        exp_alerts:
+          - exp_labels:
+              severity: warning
+              job: host
+            exp_annotations:
+              summary: No successful database backup in the last 26 hours
+  - name: recent backup clears stale alert
+    interval: 30s
+    input_series:
+      - series: 'news_digest_database_backup_success_timestamp_seconds{job="host"}'
+        values: '946590800 946590800 946684860+30x20'
+    alert_rule_test:
+      - eval_time: 5m
+        alertname: DatabaseBackupStale
+        groupname: host-and-services
+        exp_alerts: []

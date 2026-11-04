@@ -1,6 +1,6 @@
 # Jobs & schedules
 
-All background work runs in the **worker** process. It uses BullMQ queues on
+App background work runs in the **worker** process. It uses BullMQ queues on
 Redis (retried, visible on the Status page) plus a few in-process timers.
 
 ## What runs when
@@ -15,6 +15,9 @@ Redis (retried, visible on the Status page) plus a few in-process timers.
 | On-demand edition       | `digest-generation`  | When you click "create edition"   | Same pipeline, for any time window, with live progress                                                                                        |
 | Budget/schedule refresh | timer (every 10 s)   | Continuous                        | Sync the cron from settings; manage the AI reserve                                                                                            |
 | Heartbeat               | `operations`         | Every minute                      | Proves the worker is alive (shown on Status)                                                                                                  |
+
+Private [database backups](10-backups.md) use separate systemd user timers:
+nightly at 02:20 UTC, with a restore check Sunday at 03:20 UTC.
 
 The worker also has an optional incremental article-triage timer, disabled by
 default. Enabling `LLM_INCREMENTAL_TRIAGE_ENABLED=1` requires the scheduled

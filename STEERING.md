@@ -950,6 +950,8 @@ These go after item 31's round 1 and before the fallback list (item 28).
    - **Off-VM copies are out of scope.** They need an owner decision on
      where to store them.
 
+ack: 2026-11-04 item 32 — iterations 705–708 prepared fixed A/B scheduling behind X_FIXED_SEARCH_ENABLED=1, off in production pending the experiment decision. Iteration 709 installed private nightly custom-format backups at 02:20 UTC, seven-day retention, Sunday 03:20 UTC disposable-container restore checks and the 26-hour vmalert. The first service restore matched all 26 application tables and 22,191 rows against the dump's exported snapshot; the container was removed. Backups are in ~/backups/news-digest/ (700/600), with no off-VM copies or paid calls. Operations links the restore instructions.
+
 ## 33. MID-LOW: UI rebuild, reader edition + admin (2026-11-04)
 
 The owner finds the current UI busy and low quality. The home page is about
