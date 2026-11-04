@@ -1,24 +1,3 @@
-## 2026-11-04: iteration 660 — validate final social picks against their shortlist
-
-- Started clean on main; no leftover work. Zero alerts and healthy healthz/database/Redis.
-- X/Reddit orchestration now rejects final editor IDs outside the actual shortlist, duplicate IDs and over-budget results, preserving only the fallback that passed completed triage.
-- Synthetic regression covers rejected candidates, qualifying candidates outside the shortlist, unknown IDs, duplicate/excess picks, fallback identity and untouched input. Targeted tests 8/8.
-- No paid calls, source/configuration/model/schema/UI changes or claim of live selection improvement; no handbook/SOURCES changes needed. Updated TASKS/RANKING; archived oldest progress entry.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (401 unit/207 isolated integration), pnpm build and git diff --check passed.
-- Restarted API/worker: both active; healthz/database/Redis healthy, zero alerts/failed user services; saved four-topic/14-story/15-post edition readable.
-- Next: Nov 5 grouping/cost/latency/screenshots, NBA full-AI acceptance and World social coverage; incremental triage stays off.
-
-## 2026-11-04: iteration 661 — explain fully rejected social pools
-
-- Started clean on main; no leftover work. Zero alerts and healthy healthz/database/Redis.
-- Completed social triage rejecting every candidate now stops before final editing, retains scores and explains the empty selection without claiming an AI editor/model.
-- Production editor already avoided paid calls for empty pools; this fixes orchestration/provenance, with no claimed cost savings or live coverage improvement.
-- Synthetic regression covers relevance and interestingness rejection and fails on any final editor call; targeted tests 9/9.
-- Updated TASKS/RANKING; archived iteration 645 to keep PROGRESS bounded. No source, schema, UI, configuration or system-flow change; no handbook/SOURCES update needed.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (402 unit/207 isolated integration), pnpm build and git diff --check passed.
-- Restarted API/worker: both active; curl healthz healthy after startup retry; pnpm obs alerts zero; no failed user services; latest edition readable with four topics/14 stories/15 posts.
-- No paid calls. Next: Nov 5 grouping/cost/latency/screenshots, NBA full-AI acceptance and World social coverage; incremental triage stays off.
-
 ## 2026-11-04: iteration 662 — bound edition-speed options from saved calls
 
 - Started clean on main; no leftover work. Zero alerts; healthz/database/Redis healthy.
@@ -186,3 +165,14 @@
 - Verification: targeted tests 4/4, pnpm format, pnpm lint:fix, pnpm check (419 unit/209 isolated integration), pnpm build and git diff --check passed. Initial lint failure for missing void test markers corrected before final checks.
 - Updated TASKS; archived iteration 659. No source/UI/schema/handbook behavior changes, paid calls or production schedule/model/budget changes. No service restart under STEERING 22: new helper is not imported by running services.
 - Next: separately capped experiment runner/admission and results reporting, then two-day same-window comparison under STEERING 30. Nov 5 grouping/NBA checks retain priority.
+
+## 2026-11-04: iteration 677 — durable X experiment admission
+
+- Started clean on main; no leftover work. Zero alerts; healthz/database/Redis healthy, 36 nonempty sources with no current errors, no failed digest jobs and Nov 5 15:00 UTC next scheduled edition. Two retained ingestion failures have no current source errors.
+- Added standalone private-file experiment journal with exclusive locking, fsync/atomic updates, $1 UTC-day/$2.50 lifetime admission and 13:00–16:00 UTC blackout. Unique request reservations survive restart; unknown outcomes never auto-release.
+- Known usage settles once; provider overruns are recorded and stop future admissions. Locked/stale or malformed journals fail closed without overwriting evidence. No paid calls or production search, schedule, model, provider or budget changes.
+- Four offline tests cover UTC boundaries/invalid amounts, persisted daily/lifetime holds, settlement/headroom/overrun stop, duplicate requests and damaged/locked journals. Targeted 4/4 and explicit helper/test TypeScript check passed.
+- Updated TASKS and added docs/x-search-experiment.md for runner requirements; archived iterations 660–661. SOURCES/handbook unchanged: helper is not connected to any production flow.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (423 unit/209 isolated integration), pnpm build and git diff --check passed.
+- No service restart under STEERING 22: running services do not import this standalone helper.
+- Next: wire one fixed external journal path, justify provider per-call reservation bound, add runner/evidence reporting and perform approved two-day comparison. Admission alone cannot bound a provider response. Nov 5 grouping/NBA checks retain priority.
