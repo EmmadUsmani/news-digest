@@ -1,8 +1,12 @@
 import { readdir, readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
+import { eq, sql } from 'drizzle-orm';
+import { drizzle } from 'drizzle-orm/node-postgres';
 import type { Pool } from 'pg';
 import { z } from 'zod';
+
+import { schemaMigrations } from './schema';
 
 export async function applyMigrations(
   pool: Pool,
@@ -10,26 +14,30 @@ export async function applyMigrations(
   generatedDirectory = resolve(process.cwd(), 'drizzle'),
 ) {
   const client = await pool.connect();
+  const db = drizzle(client);
   try {
+    // Driver SQL is limited to transaction control, bootstrap DDL and migration
+    // files: the ledger does not exist until bootstrap, and files may contain
+    // multiple statements that must execute together on this locked client.
     await client.query('BEGIN');
-    await client.query('SELECT pg_advisory_xact_lock(756281)');
+    await db
+      .select({ locked: sql`pg_advisory_xact_lock(756281)` })
+      .from(sql`(values (1)) as singleton(value)`);
     await client.query(
       'CREATE TABLE IF NOT EXISTS schema_migrations (name text PRIMARY KEY, applied_at timestamptz NOT NULL DEFAULT now())',
     );
     for (const name of (await readdir(historicalDirectory))
       .filter((n) => n.endsWith('.sql'))
       .sort()) {
-      const existing = await client.query(
-        'SELECT 1 FROM schema_migrations WHERE name=$1',
-        [name],
-      );
-      if (existing.rowCount) continue;
+      const existing = await db
+        .select({ name: schemaMigrations.name })
+        .from(schemaMigrations)
+        .where(eq(schemaMigrations.name, name));
+      if (existing.length) continue;
       await client.query(
         await readFile(resolve(historicalDirectory, name), 'utf8'),
       );
-      await client.query('INSERT INTO schema_migrations(name) VALUES($1)', [
-        name,
-      ]);
+      await db.insert(schemaMigrations).values({ name });
       console.log('Applied', name);
     }
     const journal = z
@@ -48,17 +56,15 @@ export async function applyMigrations(
       );
     for (const { tag } of journal.entries) {
       const name = `drizzle/${tag}.sql`;
-      const existing = await client.query(
-        'SELECT 1 FROM schema_migrations WHERE name=$1',
-        [name],
-      );
-      if (existing.rowCount) continue;
+      const existing = await db
+        .select({ name: schemaMigrations.name })
+        .from(schemaMigrations)
+        .where(eq(schemaMigrations.name, name));
+      if (existing.length) continue;
       await client.query(
         await readFile(resolve(generatedDirectory, `${tag}.sql`), 'utf8'),
       );
-      await client.query('INSERT INTO schema_migrations(name) VALUES($1)', [
-        name,
-      ]);
+      await db.insert(schemaMigrations).values({ name });
       console.log('Applied', name);
     }
     await client.query('COMMIT');

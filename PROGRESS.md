@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 601 — Drizzle LLM usage snapshot transaction
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 active sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC review pending.
-- Moved the public LLM usage snapshot into a database adapter with a Drizzle-managed repeatable-read transaction. All readers retain the same checked-out client and Anthropic advisory lock; rollback, client release and original PostgreSQL errors remain intact.
-- Existing characterization assertions unchanged, including failed-read rollback, lock release and single-client retry; snapshot adapter statements 100% covered. No migration, activation, source change or paid call; owner database grants untouched.
-- Updated TASKS, architecture, decision and handbook stack; archived iteration 586. First full check stopped on PROGRESS formatting after archival; corrected and reran green.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
-- Restarted API/worker outside freeze; both active and healthz healthy. Saved edition byte-identical, LLM reserve and X snapshot unchanged. Read-only Playwright rendered four topics/19 stories without page errors; zero current source errors or failed digest jobs. A pending metrics-memory warning cleared on the 09:54 UTC snapshot; final alerts zero.
-- Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters/transaction infrastructure or historical migration baseline. Private pg_dump before first new migration.
-- Push: initial d30f491 push rejected by Git integration with Internal Server Error; retry successfully pushed d30f491 without changing history.
-
 ## 2026-11-04: iteration 602 — Drizzle digest publication transaction
 
 - Started clean on main; no leftover work. Healthy healthz, 36 active sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC review pending.
@@ -165,3 +154,13 @@
 - Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical and Anthropic/X spend unchanged. Read-only Playwright rendered four topics without errors; zero current source errors, failed digest jobs or alerts.
 - Updated TASKS and ORM decision; archived iteration 600 to keep PROGRESS bounded. No migration, source, activation, owner grant or paid call changes; no handbook system behavior changed.
 - Next: prioritize Nov 4 edition review; otherwise review historical migration-runner SQL and finish item 2b acceptance. Private pg_dump before new migrations; preserve owner grants.
+
+## 2026-11-04: iteration 617 — typed migration ledger
+
+- Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC review remains pending.
+- Converted historical/generated migration ledger reads/inserts and advisory transaction lock to Drizzle builders on the same dedicated client. Driver SQL remains only for transaction control, bootstrap DDL and multi-statement migration-file execution, documented beside the code.
+- Existing migration characterization unchanged: concurrent reruns, ordering, stable ledger timestamps, atomic DDL/data/ledger rollback and recovery all pass.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build and git diff --check passed.
+- Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical and Anthropic/X spend unchanged. Read-only Playwright rendered four topics without errors; zero current source errors, failed digest jobs or alerts.
+- Updated TASKS and ORM decision; archived the oldest progress entry. No new migration, live migration execution, source, activation, owner grant or paid call changes; no handbook system behavior changed.
+- Next: Nov 4 edition review takes priority; otherwise final item 2b acceptance and architecture notes. Private pg_dump before any new migration.

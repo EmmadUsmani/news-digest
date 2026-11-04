@@ -268,5 +268,9 @@ The database connectivity probe uses a typed select builder over a singleton
 VALUES source, retaining its constant-only check without application-table access.
 A runtime audit found no remaining direct query/execute calls in database
 adapters; remaining nested SELECT expressions implement PostgreSQL JSON expansion
-or aggregation. The historical migration runner still uses direct driver SQL
-inside `libs/db` and is the remaining infrastructure audit item.
+or aggregation. The migration runner uses typed ledger reads/inserts and a builder-based
+advisory transaction lock on its dedicated client. Direct driver SQL is limited
+to transaction control, bootstrap ledger DDL and execution of historical/generated
+migration files (which may contain multiple statements). These infrastructure
+operations remain inside `libs/db`; unchanged isolated tests verify concurrent
+reruns, journal ordering, stable ledger timestamps and atomic DDL/data rollback.
