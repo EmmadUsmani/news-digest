@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 577 — convert publisher-article discovery to Drizzle
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources without current errors and no failed digest jobs. Nov 4 scheduled review remains pending.
-- Converted publisher-article X citation/check recording to typed transactional Drizzle upserts; preserved enabled-source rechecks, conflict metadata, atomic rollback and PostgreSQL errors. Complex two-window fairness query uses a documented Drizzle SQL template.
-- Existing characterization tests unchanged. Typecheck caught execute-result constraints and insert-select SQL aliases; fixed. Formatting caught the new progress archive; fixed before final green check.
-- Updated TASKS, architecture, decision and handbook stack; archived iterations 559–560. No migration, activation, source change or paid call.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, handbook stack check and git diff --check passed; zero dangling Docker volumes.
-- Read-only converted live candidate query returned eight articles across five publisher hosts. Latest free collection before restart checked eight pages, found two citations and reported zero discovery errors.
-- Rebuilt/restarted API and worker outside freeze; both active, healthz healthy, root HTTP 200, 36 error-free sources, zero failed digest jobs and zero alerts. Latest real edition response byte-identical across restart.
-- Next: prioritize Nov 4 scheduled review when due; otherwise historical migration baseline or remaining individual ORM repositories. Private pg_dump required before first new migration.
-
 ## 2026-11-04: iteration 578 — convert X-search repository to Drizzle
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and zero failed digest jobs; Nov 4 scheduled review remains pending.
@@ -157,4 +146,14 @@
 - Updated TASKS, architecture, decision and handbook stack; archived iteration 576 to keep PROGRESS bounded.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
 - Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Read-only Playwright root rendered four digest sections/19 articles without page errors; zero alerts. Latest Bluesky 07:54 UTC and free-social 07:38 UTC runs completed.
+- Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters or historical migration baseline. Private pg_dump before first new migration.
+
+## 2026-11-04: iteration 592 — convert reserve-status snapshot reads to Drizzle
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 healthy sources and zero failed digest jobs; Nov 4 15:00 UTC edition review remains pending.
+- Moved usage-report database clock, budget-day state and latest completed outcome reads into a typed Drizzle database adapter. Preserved the facade's repeatable-read transaction, shared ledger lock, reserve policy, ordering and rollback/client release.
+- Existing characterization assertions unchanged. Read-only old/new comparison matched live day state, last outcome and database clock; temporary script removed. No migration, activation, source change or paid call.
+- Updated TASKS, architecture, decision and handbook stack; archived iteration 577 to keep PROGRESS bounded.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; reader statement coverage 100%, zero dangling Docker volumes.
+- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Read-only Playwright confirmed four digest topics/15 digest articles and no page errors; corrected the initial section selector to match article markup. Zero alerts; latest free-social run completed 08:39 UTC.
 - Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters or historical migration baseline. Private pg_dump before first new migration.

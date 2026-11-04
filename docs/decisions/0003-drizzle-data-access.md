@@ -147,3 +147,8 @@ so transaction-local topic changes remain visible.
 The budget-day schedule reader uses a typed Drizzle projection inside the caller's
 admission transaction, retaining `FOR SHARE` to block concurrent schedule edits.
 The public facade still resolves UTC-day occurrences and reports missing schedules.
+
+Reserve-status snapshot reads use typed Drizzle day-state and latest-completed
+outcome projections. The public usage facade retains the repeatable-read
+transaction and ledger advisory lock, passing its client to every reader. The
+PostgreSQL wall clock uses a documented SQL template; reserve policy is unchanged.

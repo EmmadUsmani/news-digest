@@ -3,12 +3,13 @@ import type { Pool } from 'pg';
 import { hasBudgetDayOccurrence } from '../../profiles/public/budget-day';
 import { llmConfig, scheduledReserveConfig } from '../adapters/config';
 import { readFullAiEditionCosts } from '../database/edition-cost.reader';
-import { readUsage } from '../database/usage.reader';
-import type { ScheduledBudgetOutcome } from '../domain/scheduled-budget.port';
 import {
-  type ScheduledEditionState,
-  scheduledReserveAllowance,
-} from '../domain/scheduled-reserve';
+  readLastReserveOutcome,
+  readReserveClock,
+  readReserveDayState,
+} from '../database/reserve-status.reader';
+import { readUsage } from '../database/usage.reader';
+import { scheduledReserveAllowance } from '../domain/scheduled-reserve';
 
 // A single ledger-locked snapshot keeps displayed totals and lifecycle state
 // consistent with admission. This is visibility only; it never reserves funds.
@@ -21,19 +22,12 @@ export async function readLlmUsage(
   try {
     await client.query('BEGIN ISOLATION LEVEL REPEATABLE READ');
     await client.query('SELECT pg_advisory_xact_lock(756282)');
-    const now = (
-      await client.query<{ now: Date }>('SELECT clock_timestamp() AS now')
-    ).rows[0].now;
+    const now = await readReserveClock(client);
     const budgetDay = now.toISOString().slice(0, 10);
     const usage = await readUsage(client, llmConfig(env).caps, now);
-    const slot = (
-      await client.query<{ state: ScheduledEditionState }>(
-        'SELECT state FROM scheduled_ai_budget_days WHERE budget_day=$1',
-        [budgetDay],
-      )
-    ).rows[0];
+    const slot = await readReserveDayState(client, budgetDay);
     const state =
-      slot?.state ??
+      slot ??
       ((await hasBudgetDayOccurrence(client, budgetDay))
         ? 'pending'
         : 'not-scheduled');
@@ -62,19 +56,7 @@ export async function readLlmUsage(
           },
           { configuredMicros: 0, headroom: 1 },
         );
-    const last = (
-      await client.query<{
-        budgetDay: string;
-        scheduledAt: Date;
-        state: 'succeeded' | 'failed';
-        outcome: ScheduledBudgetOutcome | null;
-      }>(
-        `SELECT budget_day::text AS "budgetDay",scheduled_at AS "scheduledAt",state,outcome
-       FROM scheduled_ai_budget_days WHERE state IN ('succeeded','failed')
-       AND scheduled_at <= $1 ORDER BY scheduled_at DESC LIMIT 1`,
-        [now],
-      )
-    ).rows[0];
+    const last = await readLastReserveOutcome(client, now);
     await client.query('COMMIT');
     return {
       ...usage,
