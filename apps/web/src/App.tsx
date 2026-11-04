@@ -1,65 +1,22 @@
-import type {
-  ContentGroup,
-  Health,
-  ProfileSettings,
-  Topic,
-} from '@digest/contracts';
-import {
-  contentGroupSchema,
-  profileSettingsSchema,
-  topicSchema,
-} from '@digest/contracts';
-import React from 'react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { DigestPreview } from './DigestPreview';
+import {
+  contentQuery,
+  healthQuery,
+  profileQuery,
+  topicsQuery,
+} from './queries';
 import { ScheduleSettings } from './ScheduleSettings';
 import { StatusPanel } from './StatusPanel';
 import { TopicSettings } from './TopicSettings';
 export function App() {
-  const [content, setContent] = React.useState<ContentGroup[]>([]);
-  const [contentError, setContentError] = React.useState(false);
-  React.useEffect(() => {
-    fetch('/api/content')
-      .then((r) => {
-        if (!r.ok) throw new Error();
-        return r.json();
-      })
-      .then((data) => setContent(contentGroupSchema.array().parse(data)))
-      .catch(() => setContentError(true));
-  }, []);
-  const [topics, setTopics] = React.useState<Topic[]>([]);
-  const [profile, setProfile] = React.useState<ProfileSettings | null>(null);
-  const [settingsError, setSettingsError] = React.useState(false);
-  React.useEffect(() => {
-    Promise.all([
-      fetch('/api/topics')
-        .then((r) => {
-          if (!r.ok) throw new Error();
-          return r.json();
-        })
-        .then((data) => topicSchema.array().parse(data)),
-      fetch('/api/profile')
-        .then((r) => {
-          if (!r.ok) throw new Error();
-          return r.json();
-        })
-        .then((data) => profileSettingsSchema.parse(data)),
-    ])
-      .then(([topics, profile]) => {
-        setTopics(topics);
-        setProfile(profile);
-      })
-      .catch(() => setSettingsError(true));
-  }, []);
-  const [health, setHealth] = React.useState<Health | null>(null);
-  React.useEffect(() => {
-    fetch('/healthz')
-      .then((r) => r.json())
-      .then(setHealth)
-      .catch(() =>
-        setHealth({ status: 'degraded', database: false, redis: false }),
-      );
-  }, []);
+  const queryClient = useQueryClient();
+  const { data: content = [], isError: contentError } = useQuery(contentQuery);
+  const { data: topics = [], isError: topicsError } = useQuery(topicsQuery);
+  const { data: profile, isError: profileError } = useQuery(profileQuery);
+  const { data: health, isError: healthError } = useQuery(healthQuery);
+  const settingsError = topicsError || profileError;
   return (
     <main>
       <header>
@@ -91,25 +48,25 @@ export function App() {
               <TopicSettings
                 defaults={profile?.schedule}
                 topics={topics}
-                onReordered={setTopics}
+                onReordered={(saved) => {
+                  queryClient.setQueryData(topicsQuery.queryKey, saved);
+                  void queryClient.invalidateQueries({
+                    queryKey: contentQuery.queryKey,
+                  });
+                }}
                 onSaved={(saved) => {
-                  setTopics((current) =>
-                    current.some((topic) => topic.id === saved.id)
-                      ? current.map((topic) =>
-                          topic.id === saved.id ? saved : topic,
-                        )
-                      : [...current, saved],
+                  queryClient.setQueryData(
+                    topicsQuery.queryKey,
+                    (current = []) =>
+                      current.some((topic) => topic.id === saved.id)
+                        ? current.map((topic) =>
+                            topic.id === saved.id ? saved : topic,
+                          )
+                        : [...current, saved],
                   );
-                  fetch('/api/content')
-                    .then((r) => {
-                      if (!r.ok) throw new Error();
-                      return r.json();
-                    })
-                    .then((data) => {
-                      setContent(contentGroupSchema.array().parse(data));
-                      setContentError(false);
-                    })
-                    .catch(() => setContentError(true));
+                  void queryClient.invalidateQueries({
+                    queryKey: contentQuery.queryKey,
+                  });
                 }}
               />
               <div className="topic-grid">
@@ -168,19 +125,30 @@ export function App() {
                   ))}
               </div>
               {profile && (
-                <ScheduleSettings profile={profile} onSaved={setProfile} />
+                <ScheduleSettings
+                  profile={profile}
+                  onSaved={(saved) =>
+                    queryClient.setQueryData(profileQuery.queryKey, saved)
+                  }
+                />
               )}
             </>
           )}
         </section>
         <StatusPanel />
         <aside aria-live="polite">
-          <span className={health?.status === 'ok' ? 'dot good' : 'dot'} />
-          {health
-            ? health.status === 'ok'
-              ? 'System online · Database and queue connected'
-              : 'System needs attention'
-            : 'Checking system status…'}
+          <span
+            className={
+              !healthError && health?.status === 'ok' ? 'dot good' : 'dot'
+            }
+          />
+          {healthError
+            ? 'System needs attention'
+            : health
+              ? health.status === 'ok'
+                ? 'System online · Database and queue connected'
+                : 'System needs attention'
+              : 'Checking system status…'}
         </aside>
       </section>
       <footer>A little less noise. A clearer view.</footer>

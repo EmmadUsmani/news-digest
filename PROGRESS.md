@@ -116,3 +116,13 @@
 - Viewed desktop/mobile routing screenshots in docs/screenshots/ui/. Discarded unrelated telemetry screenshot churn from broad smoke checks. HTTPS app hostname resolves to private 10.42.0.42 and refuses port 443 from this VM; proxy access unverified, localhost endpoints/browser checks pass.
 - Compacted TASKS and archived iterations 704–705; updated affected handbook pages; SOURCES/NEEDS_FROM_HUMAN unchanged (no source or new owner requirement). No paid calls, model/provider/budget changes or fixed A/B activation.
 - Next: finish foundations (Tailwind v4/shadcn, Inter/theme and query hooks), then admin gate; return first to Nov 5 scheduled acceptance and second-day X experiment when due.
+
+## 2026-11-04: iteration 718 — shared query resources for UI foundations
+
+- Started clean on main; no leftover work. Zero alerts, local health/database/Redis green, 36 sources healthy, zero failed digest jobs; next edition Nov 5 15:00 UTC. Scheduled acceptance and second independent X day remain future.
+- Replaced App's manual fetch effects with shared TanStack Query resources for topics, profile, incoming content and health. All responses parse shared contracts, requests accept cancellation, route loaders prefetch with ensureQueryData, and settings callbacks update/invalidate caches. Edition/status fetching remains for a later foundation slice.
+- Browser check proves one request per shared resource under StrictMode and fresh-cache reuse across client navigation. Explicit malformed content/health responses are rejected without hiding topics or edition. Saved/viewed desktop/mobile screenshots in docs/screenshots/ui/; existing layout preserved.
+- Desktop/mobile routing, delayed edition selection, topic create/delete/order/availability and schedule checks passed; writes replayed in browser only, real stored content read unchanged. One immediate post-restart browser attempt raced readiness; health checked and rerun passed.
+- Verification passed: pnpm format, pnpm lint:fix, pnpm check (475 unit/213 isolated integration), pnpm build, final web typecheck/build, check-handbook.ts 01-stack-and-runtime and git diff --check. Updated stack handbook; discarded unrelated smoke screenshot churn. SOURCES/NEEDS_FROM_HUMAN unchanged: no source or new owner requirement.
+- Restarted API for changed served assets; worker unchanged under STEERING 22. No paid calls, model/provider/budget changes or fixed A/B activation.
+- Next: finish foundation edition/status query migration and Tailwind v4/shadcn, Inter/theme, then admin gate. Second independent X experiment day and Nov 5 scheduled grouping/NBA AI/cost/latency checks take priority when due.

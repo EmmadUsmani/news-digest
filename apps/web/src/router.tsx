@@ -10,6 +10,12 @@ import {
 import { z } from 'zod';
 
 import { App } from './App';
+import {
+  contentQuery,
+  healthQuery,
+  profileQuery,
+  topicsQuery,
+} from './queries';
 
 export const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: 60_000 } },
@@ -30,6 +36,15 @@ const rootRoute = createRootRouteWithContext<{ queryClient: QueryClient }>()({
     </main>
   ),
 });
+// Auxiliary data failures remain local to their panels, never hiding the edition.
+function loadPageData({ context }: { context: { queryClient: QueryClient } }) {
+  void Promise.allSettled([
+    context.queryClient.ensureQueryData(contentQuery),
+    context.queryClient.ensureQueryData(topicsQuery),
+    context.queryClient.ensureQueryData(profileQuery),
+    context.queryClient.ensureQueryData(healthQuery),
+  ]);
+}
 const latestRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/',
@@ -43,11 +58,13 @@ const latestRoute = createRoute({
         replace: true,
       });
   },
+  loader: loadPageData,
   component: App,
 });
 const editionRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/editions/$id',
+  loader: loadPageData,
   component: App,
 });
 
