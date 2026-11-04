@@ -210,3 +210,34 @@ passes preserve successful sibling work but expose more items to one failed
 request than size-25 passes. This does not measure provider repair attempts,
 actual failure frequency, latency or billed usage, or propose automatic retries.
 Production batching and retry behavior remain unchanged.
+
+## Stored Bluesky pool batching (iteration 686)
+
+`report-bluesky-batching.ts` reads stored observations in one repeatable-read,
+read-only transaction, applies the production safety/ranking shortlist with
+current topic settings, and passes the actual text/context to the offline fake
+scorer. It prints aggregates only. Reproduce on the VM:
+
+```sh
+node --env-file=$HOME/.config/news-digest/env --import tsx apps/api/scripts/report-bluesky-batching.ts 2026-11-03T15:00:00Z 2026-11-04T15:00:00Z
+```
+
+| Topic     | Stored observations | Shortlist | Calls at size 10 / 25 / 50 / 200 | Input bytes at size 50 |
+| --------- | ------------------: | --------: | -------------------------------- | ---------------------: |
+| Tech & AI |                 497 |        50 | 5 / 2 / 1 / 1                    |                 16,323 |
+| NBA       |                 630 |        47 | 5 / 2 / 1 / 1                    |                 13,597 |
+| Gaming    |                 636 |        50 | 5 / 2 / 1 / 1                    |                 15,128 |
+| World     |                 682 |        50 | 5 / 2 / 1 / 1                    |                 19,779 |
+
+All 197 shortlisted items were scored once per experiment; repartitioned repeat
+passes made zero calls. Size 200 matched size 50 exactly: four requests and
+64,827 input bytes overall. Thus these real-text Bluesky pools do not offer a
+batching win from raising the caller limit beyond 50. Smaller caller passes
+repeat instructions/context and increase requests. Keep production unchanged.
+
+These are stored real observations with synthetic scores, not live model
+results. Current settings and a cold in-memory cache do not reconstruct the
+historical edition's exact pool/cache. The observation reader caps each topic
+at 5,000 rows (none saturated here). Bytes are not tokens; this measures no
+provider latency, billed cost, semantic quality or X-post batching. Compare
+Nov 5 actual call/repair/cache evidence before changing runtime settings.
