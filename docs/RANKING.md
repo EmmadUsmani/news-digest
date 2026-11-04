@@ -1877,5 +1877,22 @@ a scoring exception, and persist the rows privately before discarding it. Rows
 feed `report-triage-work.ts`; they do not represent failed/unscored attempts,
 provider spend, or proof that the final edition consumed a cache entry. Fake
 provider tests exercise real triage/cache behavior, warm hits, changed inputs,
-failed writes and the offline report join. There is no production caller, file
-export, activation or actual scored-work measurement yet.
+failed writes and the offline report join. There is no production caller, activation or actual scored-work measurement yet.
+
+## Iteration 532: prepared private scoring-evidence export
+
+`exportTriageEvidence` persists a successful-write snapshot to an existing
+absolute private directory outside the repository. Each export has a random
+filename and mode 600. It writes and syncs a temporary file before publishing
+with an exclusive hard link, so readers see a complete file and concurrent
+exports cannot replace one another. Temporary files are removed on completion.
+The bounded schema accepts at most 200 rows, strips extra fields and rejects
+invalid fingerprints or duplicate attempt/article identities. Empty snapshots
+create no file. Failures propagate; a future caller must retain the snapshot
+and report persistence failures rather than silently losing evidence.
+
+The JSON contains only `attempts`; combine these with window bounds and the
+final eligible fingerprint pool for `report-triage-work.ts`. Fake cache writes
+exercise export, private permissions, concurrent publication and the report
+join. No production caller or timer invokes this adapter yet, and incremental
+triage remains off. These tests are not actual waste, cost or latency evidence.

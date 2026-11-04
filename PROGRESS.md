@@ -153,3 +153,12 @@
 - No production caller, persistent export, paid calls or activation; no measured waste/cost/latency claim. TASKS/RANKING updated; no source/schema/UI/handbook flow changes.
 - Verification: targeted tests 2/2; pnpm format, pnpm lint:fix, pnpm check (328 unit/184 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
 - Services remain running under STEERING 22 because this prepared adapter is not imported by running code. Next: caller/private export wiring and final eligible fingerprints; scheduled Nov 4 review takes priority.
+
+## 2026-11-04: iteration 532 — prepare private scoring-evidence persistence
+
+- Started clean on main; no leftover work. Zero alerts; healthz healthy, 36 sources without current errors and four available queues. Nov 4 edition review remains pending.
+- Added bounded private evidence exporter: mode-600 files, synced temporary writes and exclusive atomic publication; concurrent exports remain distinct. Invalid/duplicate rows rejected, extra fields stripped, empty snapshots skipped and failures propagated.
+- Fake cache-write regression verifies persistence, permissions, concurrency and final-pool report compatibility. No production caller, paid calls, activation or actual waste/cost/latency measurement.
+- Updated TASKS/RANKING; no source/schema/UI/handbook flow changes. Services remain running under STEERING 22 because prepared adapter is not imported by running code.
+- Next: caller/export wiring and actual scored-work evidence; Nov 4 scheduled review takes priority when available.
+- Verification: targeted exporter test 1/1; pnpm format, pnpm lint:fix, pnpm check (329 unit/184 isolated integration), pnpm build and git diff --check passed; live root/healthz healthy, zero dangling Docker volumes.
