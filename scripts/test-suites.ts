@@ -8,6 +8,7 @@ const integration = new Set([
   'api-http.test.ts',
   'citing-stories.test.ts',
   'content-repository.test.ts',
+  'console.test.ts',
   'digests.test.ts',
   'edition-jobs.test.ts',
   'edition-golden.test.ts',

@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 546 — verify admission recovery after database session loss
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 nonempty error-free sources and no failed digest jobs. Nov 4 review remains pending.
-- Added isolated Postgres regression terminating only its dedicated test backend: session lock releases, another worker acquires it, stale cleanup cannot unlock the successor, and the original pool replaces its dead client and reacquires admission.
-- Recovery is not provider-call fencing: an in-flight request may outlive the session. No provider calls, production activation or cost/latency claims; incremental triage stays off.
-- Updated TASKS/RANKING and archived iteration 526. No source/schema/UI or handbook flow changes. No restart under STEERING 22: only tests/docs changed.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (353 unit/187 isolated integration), pnpm build and git diff --check passed; root HTTP 200, healthy healthz, zero alerts and dangling Docker volumes.
-- Next: Nov 4 scheduled review first; gated worker connection and actual scoring/final-pool waste evidence thereafter.
-
 ## 2026-11-04: iteration 547 — contain admission session errors
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/root, all 36 sources nonempty/error-free and no failed digest jobs; latest social collection completed. Retained ingestion/social failures are historical; Nov 4 review remains pending.
@@ -175,3 +166,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/197 isolated integration) and pnpm build passed. Final healthz healthy, alerts clear and zero dangling Docker volumes.
 - Next: prioritize Nov 4 15:00 UTC edition review; grouping and incremental triage remain gated. Repository characterization and recorded-response golden remain open.
 - Push initially rejected because owner commit 13d9e7d arrived; merged without rewriting history. New STEERING 29 prioritizes production console during downtime and stops further characterization beyond ORM needs. Next iteration follows that queue.
+
+## 2026-11-04: iteration 566 — production console
+
+- Started clean on main; no leftover work. Healthz and alerts green; 36 sources error-free. Nov 4 scheduled evidence still pending.
+- Followed STEERING 29: pnpm console loads the owner env file and starts an isolated Nest application context with repositories, tokens, app/get and db.query, a production prompt and history outside the repo.
+- Isolated regression blocks startup timers, listeners and network connections, then checks real repository/SQL bindings against disposable Postgres. Initial alias/token overwrite and import ordering caught and fixed.
+- Live read-only REPL smoke returned four topics and matching repository token/alias; history mode 600. No provider calls, schema changes or edition activation.
+- Updated TASKS and handbook Operations; check-handbook passed (17 pages, one unchanged diagram, 25 tables). Archived iteration 546 to keep PROGRESS small.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/198 isolated integration), pnpm build and git diff --check passed. Final healthz green, zero alerts and dangling Docker volumes.
+- No service restart under STEERING 22: console-only entry points are not loaded by running services.
+- Next: Nov 4 15:00 UTC edition review first; otherwise STEERING 29 ORM prerequisite review, then one repository conversion with 2a green.

@@ -31,6 +31,24 @@ The log store and shipper are separate **system** units (`obs-logs` and
 `obs-shipper`), outside the app health gate. Use `systemctl status obs-logs
 obs-shipper` and see [Observability](09-observability.md) for limits and recovery.
 
+## Production console
+
+Run `pnpm console` from `~/news-digest` on the VM. It loads
+`~/.config/news-digest/env` and opens a Node REPL with a `[PRODUCTION]` prompt.
+This is live access: repository methods and SQL can change production data.
+Console startup creates a separate Nest application context, without an HTTP
+listener, queue workers, schedulers or timers.
+
+Bindings include `app`, `get(Token)`, `db.query(sql, parameters)` and repositories
+named `profiles`, `topics`, `content`, `digests`, `social`, `reddit`, `bluesky`.
+The repository tokens are also available, for example `get(TopicRepository)`.
+Use `await topics.listDefault()` or `await db.query('SELECT current_database()')`.
+Explicitly calling digest generation can spend the normal app AI budget.
+
+Exit with `.exit` or Ctrl-D to close database pools. REPL history persists outside
+the repository at `~/.local/state/news-digest/console-history`; avoid entering
+secrets, since commands are saved there.
+
 ## How to tell if things are healthy
 
 The **Status page** in the app is the dashboard. It shows:

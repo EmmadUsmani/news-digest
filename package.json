@@ -19,7 +19,8 @@
     "evaluate:recorded-support": "tsx apps/api/scripts/evaluate-recorded-support.ts",
     "test:unit": "tsx scripts/test-unit.ts",
     "test:integration": "tsx scripts/test-isolated.ts",
-    "obs": "tsx scripts/obs.ts"
+    "obs": "tsx scripts/obs.ts",
+    "console": "pnpm --filter @digest/api exec tsx src/console-main.ts"
   },
   "devDependencies": {
     "@types/node": "^22.18.0",

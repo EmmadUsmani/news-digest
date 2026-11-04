@@ -58,6 +58,8 @@ Fix failures and stalled sources first. [Completed markers](docs/progress-archiv
   - retention/backup
   - resilience
 
+- [x] STEERING 29 production console (566): isolated Nest context, live prompt, env loading, external history and repository/SQL bindings; startup listener/timer regression and isolated DB smoke test.
+
 - [ ] STEERING 2a (lower priority): finish repository/HTTP characterization before ORM. Isolated DB/Redis, migrations, HTTP/worker and synthetic-AI goldens implemented (183–270); gaps: [database verification](docs/DATABASE-VERIFICATION.md). Bluesky refresh rollback/retry and exact observation boundaries and 5,000-snapshot cap and concurrent cross-topic refresh and configuration disable/delete races characterized (554–558); equal-time conflicts and independent topic snapshots pinned (562); disable/re-enable and delete/recreate lifecycle pinned (563). Snapshot-insert failure rollback/retry pinned (564); publisher transaction visibility/rollback pinned (565). Finish 2a before ORM; recorded-response golden open.
 - [ ] STEERING 2b (only after 2a is green): record Drizzle decision/schema parity, back up live DB, gradually replace raw SQL behind ports and enforce boundaries.
 
