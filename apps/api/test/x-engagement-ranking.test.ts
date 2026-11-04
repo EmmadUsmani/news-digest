@@ -68,9 +68,20 @@ void test('verified shortlist applies engagement before budget and duplicate che
     reportedEngagement:
       likes === undefined ? null : { ...report, externalId, likes },
   }));
-  const db = { query: async () => ({ rows }) } as unknown as Parameters<
-    typeof selectTopicPosts
-  >[0];
+  const db = {
+    query: async () => ({
+      rows: rows.map((row) => [
+        row.externalId,
+        row.url,
+        row.author,
+        row.authorUrl,
+        row.publishedAt.toISOString(),
+        row.embedHtml,
+        row.metrics,
+        row.reportedEngagement,
+      ]),
+    }),
+  } as unknown as Parameters<typeof selectTopicPosts>[0];
   const posts = await selectTopicPosts(
     db,
     'topic',

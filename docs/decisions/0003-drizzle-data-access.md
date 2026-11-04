@@ -132,3 +132,9 @@ The operations source-status reader uses typed Drizzle joins, counts and a
 correlated enabled-topic existence check. It preserves empty sources, source
 ordering, observation counts and UTC timestamps without counting topic links
 as additional observations. Queue telemetry remains unchanged.
+
+Social selection and citing-story reads use a database adapter with typed Drizzle
+filters, correlated citation existence, a scalar engagement subquery and distinct
+story links. The JSON observation-time cast retains a documented SQL expression.
+The publisher client, half-open window, observation cutoff/tie ordering and
+500-candidate limit are preserved; selection and ranking rules are unchanged.

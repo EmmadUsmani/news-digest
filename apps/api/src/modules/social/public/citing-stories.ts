@@ -1,6 +1,8 @@
 import type { DigestPreview, SelectedSocialPost } from '@digest/contracts';
 import type { PoolClient } from 'pg';
 
+import { readStoryCitations } from '../database/selection.reader';
+
 // Citation provenance is an explicit relationship, not a semantic same-event claim.
 // Only selected stories in this topic may become internal edition links.
 export async function linkCitingStories(
@@ -16,15 +18,12 @@ export async function linkCitingStories(
       ...(story.evidence ?? []).map((item) => item.id),
     ]);
   const ids = [...new Set(stories.flatMap((story) => [...members(story)]))];
-  const { rows } = await db.query<{ externalId: string; itemId: string }>(
-    `SELECT DISTINCT external_id AS "externalId",item_id AS "itemId"
-     FROM x_link_citations WHERE external_id=ANY($1::text[]) AND item_id=ANY($2::uuid[])`,
-    [
-      posts
-        .filter((post) => post.platform === 'x')
-        .map((post) => post.externalId),
-      ids,
-    ],
+  const rows = await readStoryCitations(
+    db,
+    posts
+      .filter((post) => post.platform === 'x')
+      .map((post) => post.externalId),
+    ids,
   );
   return posts.map((post) => ({
     ...post,

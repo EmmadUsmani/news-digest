@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 574 — convert Bluesky repository to Drizzle
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz and 36 healthy sources; no failed digest jobs. Nov 4 15:00 UTC edition review remains pending.
-- Converted Bluesky collection and edition reads to typed Drizzle builders/transactions. Preserved topic share locks, atomic rollback, newer-only metadata, immutable snapshot dedupe, exact window/cutoff boundaries, deterministic ordering and publisher transaction reuse.
-- Existing 203 database characterization tests unchanged. Updated one unit query stub for Drizzle's array-row protocol; snapshot failure regression caught wrapped errors, so collection rethrows the original PostgreSQL cause after rollback.
-- Updated TASKS/architecture/decision; archived iteration 554. No migration, source, UI or handbook flow changes; no paid calls. Historical migration baseline adoption remains open.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, targeted publisher tests (7), git diff --check passed; zero dangling Docker volumes. Earlier checks caught archive formatting, unit stub shape and wrapped database errors; fixed before final green run.
-- Read-only stored Bluesky report exercised converted reader before/after restart: four topics have real stored posts (after: Tech 49, NBA 51, Gaming 64, World 70). Counts use a moving 24-hour window; newest observations remain 05:54 UTC, so sustained hourly recovery still awaits evidence.
-- Rebuilt/restarted API and worker outside edition freeze; both active, healthz healthy, root HTTP 200, latest real edition four topics, zero alerts. Profile response byte-identical before/after, preserving owner schedule.
-- Next: scheduled Nov 4 review when due; otherwise historical migration baseline and remaining individual ORM adapters.
-
 ## 2026-11-04: iteration 575 — convert scheduled budget lifecycle to Drizzle
 
 - Started clean on main; no leftover work. Zero alerts, 36 error-free sources and no failed digest jobs; Nov 4 15:00 UTC review remains pending.
@@ -157,4 +146,15 @@
 - Updated TASKS, architecture, decision and handbook stack; archived iteration 573 to keep PROGRESS bounded.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
 - Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Playwright root: 63 article elements, zero page errors. All 36 sources error-free, zero failed digest jobs and zero alerts.
+- Next: prioritize Nov 4 15:00 UTC edition review; otherwise continue remaining ORM adapters or migration baseline. Private pg_dump before first new migration.
+
+## 2026-11-04: iteration 589 — convert social selection/citation reads to Drizzle
+
+- Started clean on main; no leftover work. Healthy healthz, zero alerts, 36 error-free sources and zero failed digest jobs. Recent social collections completed; two historical Bluesky failures remain retained.
+- Moved social selection and citing-story reads into a typed Drizzle database adapter. Preserved publisher transaction reuse, four citation paths, half-open windows, engagement cutoff/tie ordering, 500-post cap and distinct selected-story links; ranking unchanged.
+- Read-only old/new comparison matched 91 live posts across all four topics in one repeatable-read snapshot. No migration, activation, source, paid call or owner grant change.
+- Initial typecheck caught the partial-client type; aligned with existing adapter casting. First full suite found one object-row unit stub; updated to Drizzle array rows without changing assertions. Targeted ranking tests passed.
+- Updated TASKS, architecture, decision and handbook stack; archived iteration 574 to keep PROGRESS bounded.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; selection reader statement coverage 100%, zero dangling Docker volumes.
+- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Playwright root: four digest sections/19 article elements, zero page errors; zero alerts.
 - Next: prioritize Nov 4 15:00 UTC edition review; otherwise continue remaining ORM adapters or migration baseline. Private pg_dump before first new migration.
