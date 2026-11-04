@@ -218,6 +218,11 @@ export async function checkGrafana() {
       assert.deepEqual(provisioned.dashboard.panels, dashboard.panels);
       let populated = 0;
       for (const panel of dashboard.panels) {
+        if (panel.type === 'text') {
+          assert.equal(panel.options.mode, 'markdown');
+          assert.ok(panel.options.content.length > 0);
+          continue;
+        }
         if (panel.datasource.uid === 'product-postgres') {
           const hasRows = await productQuery(panel.targets[0].rawSql);
           if (hasRows) populated++;

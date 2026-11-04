@@ -527,6 +527,21 @@
           "show": false
         }
       }
+    },
+    {
+      "id": 22,
+      "title": "Slow database calls",
+      "type": "text",
+      "gridPos": {
+        "x": 0,
+        "y": 50,
+        "w": 24,
+        "h": 5
+      },
+      "options": {
+        "mode": "markdown",
+        "content": "[Open duration-only slow calls from the last 24 hours](/logs/select/vmui/#/?g0.range_input=24h&g0.relative_time=last_24_hours&query=event%3Adatabase.slow_query). Use the Logs time picker to change this window; it is independent of this dashboard.\n\nCalls taking at least **250 ms** show `durationMs`, `outcome` and `suppressed`, with service and available request/job context. At most ten records per minute per process; suppressed calls are counted in the next emitted record. **No results means no retained matching records**, not proof of no slow calls.\n\nClient timings include network/decoding and exclude pool acquisition. Streaming queries and non-app clients are excluded. SQL and parameters are withheld; these records cannot be joined to statement IDs above."
+      }
     }
   ],
   "links": [

@@ -414,7 +414,11 @@ of suppressed slow calls since the previous emitted record, with existing reques
 or job context. No SQL, parameters, results or database errors enter these records.
 Each process emits at most ten records per minute across all its pools; suppressed
 counts are reported on the next emitted slow call, which may be in a later minute.
-The normal log store retention applies. Search Logs for `database.slow_query`.
+The normal log store retention applies. The Database dashboard’s **Slow database
+calls** panel links to Logs with `event:database.slow_query` and a rolling
+24-hour window. Change the Logs time picker for another window; the Database
+dashboard time picker does not carry over. Empty results mean no retained matching
+records, not proof that every call was fast.
 
 These are client-observed durations, including network, decoding and any queue on
 an acquired client, but excluding pool acquisition. Promise and callback calls,

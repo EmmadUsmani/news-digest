@@ -106,3 +106,12 @@
 - Updated TASKS, SOURCES and jobs handbook; archived iterations 472–478 to keep PROGRESS below 25 KB. No UI/schema/feature activation; screenshots unnecessary.
 - Verification: targeted Bluesky tests 9/9; pnpm format, pnpm lint:fix, pnpm check (293 unit/182 isolated integration), pnpm build, filtered handbook check, healthz/root, pnpm obs alerts and git diff --check passed. Docker dangling volumes zero.
 - Next: monitor hourly collection and log/metrics cache refill; Nov 4 scheduled evidence remains priority. Grouping stays off until review, with conditional Nov 5 activation only afterward.
+
+## 2026-11-04: iteration 514 — expose retained slow database calls
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts and all 36 sources error-free; newest source success 00:11:29 UTC. Nov 4 scheduled evidence remains future work.
+- Added Database dashboard panel linking directly to duration-only slow-call logs with a rolling 24-hour window. Explains threshold, suppression, timing exclusions, independent time picker and empty-results limits; no SQL/parameters or new collection.
+- Added read-only desktop/mobile smoke and four inspected screenshots; no matching retained slow-call records in the window. Fixed Grafana verification to recognize static text panels. Updated handbook, plan and stale resolved Bluesky triage task.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (293 unit/182 isolated integration), pnpm build, pnpm typecheck, filtered handbook check, smoke-slow-queries.ts, --verify-grafana --grafana-database-only (11 live data panels), healthz, source status, alerts and git diff --check passed. Dangling Docker volumes zero.
+- Deployed only the provisioned dashboard; Grafana hot-reloaded it and API verified equality with repo panels. No service restart required; no app/config behavior, provider spend, editions or feature activation. Discarded unrelated regenerated dashboard screenshots deliberately.
+- Next: monitor hourly Bluesky recovery and observability cache refill; review Nov 4 scheduled open-X/Bluesky, World picks, NBA validation and latency before conditional Nov 5 grouping activation.

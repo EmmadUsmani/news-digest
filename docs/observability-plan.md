@@ -450,3 +450,9 @@ O9 resource recovery (512): logs cgroup reached about 144 MiB, including
 to reclaim before the unchanged 160 MiB ceiling; the Go target alone does not
 control charged filesystem cache. Reclaim may slow log IO; runtime O2 checks
 assert the deployed threshold and fresh journal delivery.
+
+O7 slow-call view (514): Database links directly to the retained duration-only
+`database.slow_query` records with a rolling 24-hour Logs window. Panel documents
+threshold, sampling/suppression, excluded clients and independent time picker.
+Read-only desktop/mobile verification accepts empty retained results; no slow
+queries are generated and no SQL or parameters are exposed.
