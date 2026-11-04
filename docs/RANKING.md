@@ -2523,3 +2523,21 @@ also shows placement matters: 100 prefix cache hits leave two requests at chunk
 repartitioned repeat scoring retains every cache hit. No production setting,
 prompt, feature activation or provider call changed; bytes/rounds are not cost
 or live timing evidence.
+
+The batching replay now reports `preparation` and `combined` request counts,
+serialized input bytes, scored items and output reservations alongside the
+publication-only totals. This includes the work shifted before publication;
+it is not a dollar estimate (bytes are not tokens, reservations are not usage,
+and provider prompt-cache discounts are not modeled). Warmup uses synthetic
+scores and packs the supplied warmed IDs into 200-item caller passes; it does
+not model hourly arrival fragmentation or items that expire unused.
+
+At chunk 200, the recorded cold NBA/World/Tech pools require 2/1/2 requests
+and 16,889/27,640/21,295 input bytes. Either synthetic half-warm pattern leaves
+one publication request per topic, but preparation plus publication requires
+2/2/2 requests and 16,881/28,881/21,289 bytes. World therefore shifts work
+without reducing publication request count and adds 1,241 input bytes; NBA
+and Tech mostly shift one existing request earlier. Small byte differences
+also reflect batch-local wire IDs. These small recorded pools demonstrate
+why publication-only savings cannot establish a total-cost improvement.
+No live hit rates, latency, waste, spending or production setting changed.

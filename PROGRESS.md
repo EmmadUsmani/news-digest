@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 624 — measure the ideal article-cache remainder
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and no failed digest jobs. Retained 04:54 Bluesky failure is historical; later hourly jobs completed.
-- Extended the offline concurrency tool with an ideal article-cache scenario: remove only candidate-triage calls, retaining social/editorial, failed and unknown-purpose work. Added partition/failure regressions and pinned the recorded Nov 3 result.
-- Recorded result: 26 remaining calls, 294,225 ms aggregate HTTP time; four-slot lower bound 73,557 ms, longest-first 75,650 ms. Article pretriage alone cannot meet 60 s at four slots with these fixed observations; dependencies and non-provider work are excluded, so this is not a production speed prediction.
-- Updated TASKS and RANKING; archived iteration 606 to keep PROGRESS bounded. No prompts, paid calls, fixture recordings, production settings or provider concurrency changes.
-- Verification: pnpm exec tsx --test apps/api/test/call-concurrency.test.ts (4/4); offline CLI; pnpm format, pnpm lint:fix, pnpm check (368 unit/205 isolated integration), pnpm build and git diff --check passed. Healthz healthy; zero dangling Docker volumes.
-- Offline analysis only; no running-service code/config changed, so no restart under STEERING 22. Grouping and incremental triage remain off.
-- Next: review Nov 4 15:00 UTC edition as soon as available; inspect open-X/Bluesky picks, World coverage, NBA validation and live timing before activation decisions.
-
 ## 2026-11-04: iteration 625 — attribute the recorded provider remainder
 
 - Started clean on main; no leftover work. Healthz healthy, zero alerts, source/service checks green and retained collection jobs completing. Nov 4 15:00 UTC edition evidence remains pending.
@@ -182,3 +172,13 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (386 unit/205 isolated integration), pnpm build and git diff --check passed.
 - Offline tools/tests/docs only; no running code/config changed, so no restart under STEERING 22. No paid calls, prompts, source/handbook/schema changes or production activation.
 - Live saved Nov 3 edition remains four topics/19 stories/11 posts; zero alerts. Next: Nov 4 15:00 UTC evidence review for open-X/Bluesky/World selections, NBA validation and timing/cost before activation decisions.
+
+## 2026-11-04: iteration 642 — count cache preparation in offline batching overhead
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources and all four queues available. Nov 4 scheduled edition remains pending.
+- Offline batching now reports preparation and combined request/input/output-reservation totals alongside publication work, using the real item cache and synthetic scores.
+- At chunk 200, half-warm NBA/World/Tech publication needs 1/1/1 requests, but preparation plus publication needs 2/2/2 versus cold 2/1/2. World adds 1,241 input bytes; NBA/Tech mostly shift work earlier. Bytes/reservations are not billed usage; hourly fragmentation, expired unused items and live latency remain unmeasured.
+- Six targeted batching tests pass, including cold/partial/all-warm overhead accounting and exact combined-item preservation. Updated TASKS/RANKING; archived iteration 624 to keep PROGRESS bounded.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (387 unit/205 isolated integration), pnpm build and git diff --check passed.
+- Offline tools/tests/docs only; no running-service code/config changed, so no restart under STEERING 22. No paid calls, prompts, sources, schema or production activation changed.
+- Next: review Nov 4 15:00 UTC edition for open-X/Bluesky/World selections, NBA validation and timing/cost before activation decisions. Incremental triage and grouping stay off.

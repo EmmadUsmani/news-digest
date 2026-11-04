@@ -154,3 +154,51 @@ void test('warm cache placement changes caller barriers without losing remaining
       /Warm IDs/,
     );
 });
+
+void test('warming overhead includes preparation as well as publication work', async () => {
+  const topic = { id: 'test', name: 'test', description: '', guidance: '' };
+  const candidates = Array.from({ length: 50 }, (_, i) => ({
+    id: String(i),
+    title: 'Short',
+    excerpt: null,
+    sources: [],
+  }));
+  const cold = await evaluateTriageBatching(topic, candidates, 200);
+  const half = await evaluateTriageBatching(
+    topic,
+    candidates,
+    200,
+    candidates.slice(0, 25).map(({ id }) => id),
+  );
+  assert.equal(cold.preparation.requests, 0);
+  assert.deepEqual(cold.combined, {
+    requests: cold.requests,
+    scoredItems: cold.scoredItems,
+    inputBytes: cold.inputBytes,
+    reservedOutputTokens: cold.reservedOutputTokens,
+  });
+  assert.equal(half.preparation.requests, 1);
+  assert.equal(half.preparation.scoredItems, 25);
+  assert.equal(half.requests, 1);
+  assert.equal(half.combined.requests, 2);
+  assert.equal(half.combined.scoredItems, candidates.length);
+  assert.equal(
+    half.combined.inputBytes,
+    half.preparation.inputBytes + half.inputBytes,
+  );
+  assert.equal(
+    half.combined.reservedOutputTokens,
+    half.preparation.reservedOutputTokens + half.reservedOutputTokens,
+  );
+  assert.ok(half.combined.inputBytes > cold.combined.inputBytes);
+  const warm = await evaluateTriageBatching(
+    topic,
+    candidates,
+    200,
+    candidates.map(({ id }) => id),
+  );
+  assert.equal(warm.requests, 0);
+  assert.equal(warm.combined.requests, cold.requests);
+  assert.equal(warm.combined.inputBytes, cold.inputBytes);
+  assert.equal(warm.combined.scoredItems, candidates.length);
+});

@@ -111,6 +111,7 @@ export async function evaluateTriageBatching(
       preparation.slice(offset, offset + 200),
       'offline-warmup',
     );
+  const preparationRequests = [...requests];
   requests.length = 0;
   const requestsPerPass: number[] = [];
   const score = async (size: number) => {
@@ -130,6 +131,32 @@ export async function evaluateTriageBatching(
   await score(chunkSize === 200 ? 25 : 200);
   return {
     chunkSize,
+    // Include warmup when assessing overhead; publication savings alone omit
+    // work shifted earlier. Synthetic output reservations are not billed usage.
+    preparation: {
+      requests: preparationRequests.length,
+      scoredItems: preparationRequests.reduce((sum, r) => sum + r.items, 0),
+      inputBytes: preparationRequests.reduce((sum, r) => sum + r.inputBytes, 0),
+      reservedOutputTokens: preparationRequests.reduce(
+        (sum, r) => sum + r.reservedOutputTokens,
+        0,
+      ),
+    },
+    combined: {
+      requests: preparationRequests.length + coldRequests,
+      scoredItems: [...preparationRequests, ...requests].reduce(
+        (sum, r) => sum + r.items,
+        0,
+      ),
+      inputBytes: [...preparationRequests, ...requests].reduce(
+        (sum, r) => sum + r.inputBytes,
+        0,
+      ),
+      reservedOutputTokens: [...preparationRequests, ...requests].reduce(
+        (sum, r) => sum + r.reservedOutputTokens,
+        0,
+      ),
+    },
     candidates: candidates.length,
     warmedCandidates: warmedIds.length,
     remainingCandidates: candidates.length - warmedIds.length,
