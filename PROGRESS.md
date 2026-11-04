@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 678 — offline X experiment evidence report
-
-- Started clean on main; no leftover work. Healthz/database/Redis healthy, zero alerts, 36 nonempty sources with no current errors and no failed digest jobs. Next scheduled edition remains Nov 5 15:00 UTC.
-- Added offline per-call comparison report preserving topic/model/style/window and actual tool inputs. Measures fetched/returned counts, reported like median/max, exact-window and relevance ≥6 shares, promotions and qualifying non-promotional posts per dollar.
-- Unknown timestamps, triage scores and promotion reviews remain explicit and suppress complete yield; missing likes stay separate. Duplicate request/post evidence is rejected. Three synthetic tests cover boundaries, metrics, unknowns, empty/free calls and invalid evidence; no live-result or winner claim.
-- Checked official X Search docs: max_turns reduces rounds, not fetched-post count; repeated/parent/quoted/thread posts and profiles count. Prompt result counts do not justify a hard per-call reservation. Paid dispatch remains unwired; no paid calls, production/model/provider/schedule/budget changes.
-- Updated TASKS and experiment requirements; archived iteration 662; SOURCES/handbook/NEEDS_FROM_HUMAN unchanged because production behavior and owner access requirements are unchanged.
-- Verification: targeted tests 3/3, standalone helper TypeScript check, pnpm format, pnpm lint:fix, pnpm check (426 unit/209 isolated integration), pnpm build and git diff --check passed. Final healthz healthy and zero alerts.
-- No restart under STEERING 22: running services do not import the new offline report. Next: establish provider-enforced cost bound, wire fixed-path runner/evidence capture and complete approved two-day comparison; Nov 5 grouping/NBA checks retain priority.
-
 ## 2026-11-04: iteration 679 — X experiment execution diagnostics and dispatch blocker
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 healthy nonempty sources and no failed digest jobs; Nov 5 15:00 UTC remains next scheduled edition. Retained ingestion/social failures coexist with successful current collection.
@@ -146,3 +136,12 @@
 - Verification: targeted inputs 4/4; pnpm format, pnpm lint:fix, pnpm check (451 unit/209 isolated integration), pnpm build, handbook validation (17 pages/22 diagrams/26 tables) and git diff --check passed.
 - Updated TASKS and archived iteration 677 to bound PROGRESS. SOURCES/handbook unchanged: no source/runtime change. No restart under STEERING 22 for offline tooling.
 - Next: Nov 5 grouping/NBA AI/cost/latency/screenshots. Paid X dispatch still requires supported cost bound/owner decision.
+
+## 2026-11-04: iteration 694 — preserve the reader’s saved-edition selection
+
+- Started clean on main; no leftover work. Zero alerts and healthy healthz/database/Redis. Paid X experiment remains blocked; Nov 5 scheduled checks are future.
+- Fixed a digest-page race: an initial latest-edition response could overwrite a saved edition opened from history, leaving the URL and displayed content inconsistent. Superseded initial errors are ignored too; publication invalidates older loads.
+- Desktop/mobile Playwright delayed-success and delayed-error checks passed using real stored editions and browser-only GET interception, with no writes, generation or provider calls. Saved history screenshots; no horizontal overflow.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (451 unit/209 isolated integration), pnpm build, standalone smoke-script strict tsc, handbook (17 pages/22 diagrams/26 tables) and git diff --check passed. Corrected initial smoke-script formatting failure; final full check passed.
+- Updated TASKS and archived iteration 678 to bound PROGRESS; SOURCES/handbook unchanged because this is a UI race fix. Rebuilt and restarted API to serve corrected UI; worker unchanged.
+- Next: Nov 5 grouping/NBA AI/cost/latency/screenshots. Paid X dispatch still requires a supported cost bound or owner decision.

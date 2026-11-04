@@ -9,6 +9,7 @@ import React from 'react';
 
 import { TopPosts } from './TopPosts';
 export function DigestPreview() {
+  const editionRequest = React.useRef(0);
   const [preview, setPreview] = React.useState<Preview | null>(null);
   const [windowChoice, setWindowChoice] = React.useState('24');
   const [customStart, setCustomStart] = React.useState('');
@@ -84,6 +85,7 @@ export function DigestPreview() {
           if (!edition.ok) throw new Error();
           const saved = digestPreviewSchema.parse(await edition.json());
           if (cancelled) return;
+          editionRequest.current++;
           setPreview(saved);
           window.history.replaceState(null, '', `?edition=${saved.id}`);
           setOffset(0);
@@ -126,6 +128,7 @@ export function DigestPreview() {
       .catch(() => setHistoryError(true));
   }, [offset, revision]);
   React.useEffect(() => {
+    const request = ++editionRequest.current;
     const id = new URLSearchParams(window.location.search).get('edition');
     fetch(
       id
@@ -135,9 +138,12 @@ export function DigestPreview() {
       .then(async (r) => {
         if (!r.ok) throw new Error();
         const data = await r.json();
-        setPreview(data ? digestPreviewSchema.parse(data) : null);
+        if (request === editionRequest.current)
+          setPreview(data ? digestPreviewSchema.parse(data) : null);
       })
-      .catch(() => setError(true))
+      .catch(() => {
+        if (request === editionRequest.current) setError(true);
+      })
       .finally(() => setLoaded(true));
   }, []);
   async function generate() {
@@ -185,12 +191,14 @@ export function DigestPreview() {
     }
   }
   async function openEdition(id?: string) {
+    const request = ++editionRequest.current;
     setBusy(true);
     setError(false);
     try {
       const response = await fetch(`/api/digest-previews/${id ?? 'latest'}`);
       if (!response.ok) throw new Error();
       const data = await response.json();
+      if (request !== editionRequest.current) return;
       setPreview(data ? digestPreviewSchema.parse(data) : null);
       window.history.replaceState(
         null,
