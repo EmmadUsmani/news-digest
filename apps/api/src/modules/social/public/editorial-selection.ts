@@ -139,6 +139,12 @@ export async function editTopicPosts<T extends EditorialPost>(
   const qualifyingScores = triage.scores.filter(
     (s) => s.relevance >= 6 && s.importance >= 4,
   );
+  if (qualifyingScores.length === 0) {
+    result.posts = [];
+    editorial.reason =
+      'No social posts passed completed semantic relevance and interestingness gates; no final editor call was needed.';
+    return result;
+  }
   const qualifyingIds = new Set(qualifyingScores.map((s) => s.id));
   const qualifyingFallback = fallback.filter((p) =>
     qualifyingIds.has(editorialId(p)),

@@ -494,3 +494,49 @@ void test('invalid social editor picks retain gated fallback without restoring e
     assert.equal(posts[1].whyItMatters, undefined);
   }
 });
+
+void test('completed triage rejecting every post stays empty without claiming final AI editing', async () => {
+  for (const score of [
+    { relevance: 5, importance: 8 },
+    { relevance: 8, importance: 3 },
+  ]) {
+    const services: SocialSelectionServices = {
+      socialTriage: {
+        async score(_topic, candidates) {
+          return {
+            scores: candidates.map(({ id }) => ({
+              id,
+              ...score,
+              event: 'fixture',
+              rationale: 'Below selection threshold',
+            })),
+            unscoredIds: [],
+          };
+        },
+      },
+      socialEditor: {
+        async edit() {
+          throw new Error('Rejected pool must not reach final editor');
+        },
+      },
+    };
+    const result = await editTopicPosts(
+      services,
+      topic,
+      posts,
+      [posts[0]],
+      5,
+      'test',
+    );
+    assert.deepEqual(result.posts, []);
+    assert.equal(result.postEditorial.mode, 'non-ai');
+    assert.equal(result.postEditorial.model, null);
+    assert.equal(result.postEditorial.triage.length, posts.length);
+    assert.deepEqual(result.postEditorial.unscoredIds, []);
+    assert.match(
+      result.postEditorial.reason,
+      /No social posts passed completed semantic/,
+    );
+    assert.match(result.postEditorial.reason, /no final editor call/);
+  }
+});

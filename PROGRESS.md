@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 645 — measure first scheduled open-X quality
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts and no failed user services. Scheduled edition remains pending.
-- Reviewed four completed Nov 4 open-topic searches via read-only discovery/day/week reports and a stored citation/post join: $0.149447, 19 newly verified posts, all outside current curated lists, zero profiles/holds.
-- Only 13/19 fit the edition window: World 4/4, NBA 5/5, Gaming 1/5, Tech 3/5. All five NBA embeds promote betting; available xAI-reported likes peak at 12. World timestamps recover in-window coverage, not proven editorial quality.
-- Added reproducible cost/window/quality evidence and linked examples in SOURCES; updated TASKS and NEEDS_FROM_HUMAN with the weakness and no immediate owner request. Seven-day recorded spend $0.309885/9 calls; incomplete day and unattributed Nov 2 call identified.
-- Archived iterations 627–628 to keep PROGRESS bounded. No source/prompt/config/schema change, inference, re-verification or scraping. No restart under STEERING 22; grouping/incremental triage remain off.
-- Verification: read-only reports and independent timestamp/cost assertions passed; pnpm format, pnpm lint:fix, pnpm check (388 unit/205 isolated integration), pnpm build and git diff --check passed. Healthz healthy; zero alerts.
-- Next: prioritize the Nov 4 15:00 UTC edition's immutable selections, NBA fallback/logs, timing/cost and activation gates. Successful discovery counts must not substitute for quality.
-
 ## 2026-11-04: iteration 646 — review scheduled edition and prove NBA fallback cause
 
 - Started clean on main; no leftover work. Healthz healthy and zero alerts; observed scheduled publication without production changes or extra paid calls.
@@ -167,3 +157,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (401 unit/207 isolated integration), pnpm build and git diff --check passed.
 - Restarted API/worker: both active; healthz/database/Redis healthy, zero alerts/failed user services; saved four-topic/14-story/15-post edition readable.
 - Next: Nov 5 grouping/cost/latency/screenshots, NBA full-AI acceptance and World social coverage; incremental triage stays off.
+
+## 2026-11-04: iteration 661 — explain fully rejected social pools
+
+- Started clean on main; no leftover work. Zero alerts and healthy healthz/database/Redis.
+- Completed social triage rejecting every candidate now stops before final editing, retains scores and explains the empty selection without claiming an AI editor/model.
+- Production editor already avoided paid calls for empty pools; this fixes orchestration/provenance, with no claimed cost savings or live coverage improvement.
+- Synthetic regression covers relevance and interestingness rejection and fails on any final editor call; targeted tests 9/9.
+- Updated TASKS/RANKING; archived iteration 645 to keep PROGRESS bounded. No source, schema, UI, configuration or system-flow change; no handbook/SOURCES update needed.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (402 unit/207 isolated integration), pnpm build and git diff --check passed.
+- Restarted API/worker: both active; curl healthz healthy after startup retry; pnpm obs alerts zero; no failed user services; latest edition readable with four topics/14 stories/15 posts.
+- No paid calls. Next: Nov 5 grouping/cost/latency/screenshots, NBA full-AI acceptance and World social coverage; incremental triage stays off.

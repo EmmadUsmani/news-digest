@@ -2739,3 +2739,13 @@ shortlist, rather than the full triage pool. Unknown IDs, triage-rejected IDs,
 qualifying IDs outside the bounded shortlist, duplicate picks and over-budget
 results retain the gated fallback with a non-AI explanation. Synthetic tests
 cover these cases; no live selection effect or additional paid call is claimed.
+
+## Fully rejected social pools (iteration 661)
+
+When complete social triage leaves no candidate above both selection thresholds,
+selection stops before final editing. The saved result keeps all triage scores
+and explains that no post qualified, with no final editor model. Previously the
+production editor returned an empty result with model `none`, which orchestration
+labelled AI-edited. This changes selection provenance, not paid-call volume:
+the production editor already skipped LLM requests for empty pools. Synthetic
+coverage checks both rejection thresholds and prevents any editor invocation.
