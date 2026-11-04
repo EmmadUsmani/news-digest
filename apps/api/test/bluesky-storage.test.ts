@@ -297,3 +297,35 @@ void test('Bluesky observation windows preserve millisecond bounds and stable sn
     await repo.db.end();
   }
 });
+
+void test('Bluesky observation limit retains the newest 5000 snapshots before applying an earlier cutoff', async () => {
+  const repo = new PostgresBlueskyRepository();
+  const base = {
+    ...post,
+    externalId: 'at://did:plc:synthetic/app.bsky.feed.post/limit123',
+  };
+  const rows = Array.from({ length: 5001 }, (_, index) => ({
+    ...base,
+    observedAt: new Date(Date.parse(post.observedAt) + index).toISOString(),
+    metrics: { ...post.metrics, likes: index },
+  }));
+  try {
+    // Ascending insertion ensures the read must order before limiting.
+    await repo.store(topic, rows);
+    const retained = await repo.observations(topic, start, end, end);
+    assert.equal(retained.length, 5000);
+    assert.deepEqual(retained, rows.slice(1).reverse());
+    // The cap applies to snapshots, not distinct posts. Filtering occurs first.
+    assert.deepEqual(
+      await repo.observations(topic, start, end, new Date(rows[1].observedAt)),
+      [rows[1], rows[0]],
+    );
+    assert.deepEqual(await repo.observations(other, start, end, end), []);
+  } finally {
+    await repo.db.query(
+      "DELETE FROM social_posts WHERE platform='bluesky' AND external_id=$1",
+      [base.externalId],
+    );
+    await repo.db.end();
+  }
+});

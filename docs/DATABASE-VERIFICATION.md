@@ -503,3 +503,12 @@ at the start represents the same instant as UTC. Shuffled writes preserve
 publication-descending, external-ID and newest-observation ordering, including
 multiple immutable snapshots of one post. Invalid dates in every window argument
 and an empty window reject. Disposable PostgreSQL only; no provider requests.
+
+## Bluesky snapshot capacity (iteration 556)
+
+`bluesky-storage.test.ts` stores 5,001 immutable observations of one synthetic
+post through the repository. Reads retain exactly the newest 5,000 snapshots,
+ordered before limiting; the cap counts snapshots rather than distinct posts.
+An earlier observation cutoff returns both eligible oldest snapshots, proving
+filtering precedes the limit. The other topic receives none. Disposable
+PostgreSQL only; no Bluesky or paid provider requests occur.

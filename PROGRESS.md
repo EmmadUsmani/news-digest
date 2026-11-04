@@ -1,20 +1,3 @@
-## 2026-11-04: iteration 537 — prepare settings/pool tick composition
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and four available queues; no failed digest jobs. Nov 4 review still pending.
-- Joined current settings, pinned publication windows and lazy topic pools to a persistent bounded scheduler. Default-off avoids reads; overlap skips, settings failures recover, unavailable topics produce empty work.
-- Pinned cutoff to the loaded window so publication-crossing pool reads cannot shift it to tomorrow. Four offline regressions pass; no paid requests, activation or worker/timer caller.
-- Updated TASKS/RANKING; archived iteration 519 to keep PROGRESS below 25 KB. No production flow/source/schema/UI changes; services stay running under STEERING 22.
-- Verification: targeted tests 4/4; pnpm format, pnpm lint:fix, pnpm check (338 unit/185 isolated integration), pnpm build and git diff --check passed. Root HTTP 200, healthz healthy, zero dangling Docker volumes. Initial lint caught missing void on test promises; fixed before rerun.
-- Next: production dependency/timer wiring behind the Nov 4 gate, longer-span pool comparisons and actual scored-work evidence; scheduled review takes priority.
-
-## 2026-11-04: iteration 538 — prepare incremental timer lifecycle
-
-- Started clean on main; no leftover work. Zero alerts; healthz healthy, 36 sources with successful ingestion/no current errors and zero failed digest jobs. Nov 4 review remains pending.
-- Added prepared periodic lifecycle: skips overlap, reports failures and recovers, validates Node timer bounds, drains active scoring on stop before future DB shutdown. Four offline tests cover shutdown, recovery and reporter failure.
-- No worker import, production timer, activation or paid calls. Updated TASKS/RANKING; no live flow, source, schema or UI change. Services stay running under STEERING 22 because their code is unchanged.
-- Verification: targeted tests 4/4; pnpm format, pnpm lint:fix, pnpm check (342 unit/185 isolated integration), pnpm build and git diff --check passed. Root HTTP 200, healthz healthy, zero dangling Docker volumes.
-- Next: production dependency/lifecycle wiring behind the Nov 4 review gate; longer-span comparisons and actual scored-work waste evidence remain open.
-
 ## 2026-11-04: iteration 539 — prepare incremental runtime dependency composition
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 sources with no current errors and zero failed digest jobs. Nov 4 review still pending.
@@ -166,3 +149,11 @@
 - Updated TASKS/database verification notes. No source/schema/UI/handbook flow change; no restart under STEERING 22 because only tests/docs changed.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/189 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes. First run correctly rejected synthetic observations preceding publication; fixture corrected before the passing run.
 - Next: review Nov 4 scheduled edition first; production incremental triage/grouping activation and live cost/latency evidence remain gated. Other repository characterization and recorded-response golden remain open.
+
+## 2026-11-04: iteration 556 — characterize Bluesky snapshot capacity
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 healthy sources and zero failed digest jobs. Historical ingestion/social failures remain retained; next edition is Nov 4 15:00 UTC.
+- Added isolated repository coverage with 5,001 immutable snapshots: exactly the newest 5,000 survive the read cap, filtering precedes limiting, and another topic receives none. The cap counts observations, not distinct posts.
+- Updated TASKS/database verification notes; archived iterations 537–538 to keep PROGRESS below 25 KB. No production/source/schema/UI/handbook flow changes or paid calls; no restart under STEERING 22.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/190 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes. Initial check found new documentation formatting; corrected before passing rerun.
+- Next: review Nov 4 scheduled evidence first; incremental triage/grouping activation stays gated. Continue remaining repository characterization and recorded-response golden when product work is blocked.
