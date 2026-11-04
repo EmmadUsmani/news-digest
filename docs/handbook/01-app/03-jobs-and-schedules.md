@@ -16,6 +16,16 @@ Redis (retried, visible on the Status page) plus a few in-process timers.
 | Budget/schedule refresh | timer (every 10 s)   | Continuous                        | Sync the cron from settings; manage the AI reserve                                                                                            |
 | Heartbeat               | `operations`         | Every minute                      | Proves the worker is alive (shown on Status)                                                                                                  |
 
+The worker also has an optional incremental article-triage timer, disabled by
+default. Enabling `LLM_INCREMENTAL_TRIAGE_ENABLED=1` requires the scheduled
+budget reserve and an absolute `LLM_INCREMENTAL_TRIAGE_EVIDENCE_DIRECTORY`.
+Once a minute it checks the saved schedule and enabled topics, rotates through
+one topic and scores at most 25 uncached articles. It uses the normal budget
+without access to the scheduled reserve and starts no new scoring within two
+hours of publication. It saves cache-write evidence for measuring unused work. Shutdown drains active work
+before closing its database connections. It remains off pending the Nov 4
+edition review; no daytime scoring is running.
+
 ## A normal day (times in Pacific)
 
 ```mermaid

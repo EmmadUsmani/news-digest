@@ -5,7 +5,7 @@ import { prepareIncrementalTriageTimer } from './incremental-triage-timer';
 import { incrementalTriageScheduler } from './modules/curation/public/incremental-triage-scheduler';
 import { loadIncrementalTriagePool } from './modules/digests/public/incremental-triage-pool';
 
-// Prepared dependency composition only; the production worker has no caller.
+// Dependency composition for the optional worker timer.
 // The caller owns the pool and must await stop before closing it.
 export function prepareIncrementalTriageRuntime(
   deps: {

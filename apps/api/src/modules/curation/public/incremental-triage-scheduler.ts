@@ -6,7 +6,7 @@ import type { CandidateTriage } from '../application/triage';
 import { PostgresIncrementalTriageAdmission } from '../database/incremental-triage-admission';
 import { incrementalTriageServices } from './incremental-triage';
 
-// Composition boundary for the future worker caller. Shared admission is
+// Composition boundary for the optional worker caller. Shared admission is
 // mandatory here, even though the application runner also supports offline use.
 export function composeIncrementalTriageScheduler(
   db: Pool,

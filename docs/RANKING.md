@@ -2330,3 +2330,17 @@ truncation.
 It can consume the newer allowlisted metadata when the Nov 4 run is available;
 a reported `max_tokens` stop is counted without inferring stops from token totals.
 No prompts, production limits, concurrency or activation changed; no paid calls.
+
+## Iteration 631: connect the disabled incremental-triage worker
+
+The production worker now calls the prepared entry point and drains it during
+shutdown. Disabled mode still allocates no scoring resources or timer. Startup
+configuration failures log an error and shut down the worker; tick failures are
+reported without stopping ingestion. Shutdown waits for startup before draining.
+
+`LLM_INCREMENTAL_TRIAGE_ENABLED` remains unset in production (default off), so
+no background scoring or paid calls begin. Activation still requires the Nov 4
+edition review. The existing reserve-safe ledger, shared admission, 25-item
+limit, two-hour cutoff and private evidence export requirements are unchanged.
+This connection establishes lifecycle readiness, not cache readiness, measured
+scoring waste or a latency improvement.

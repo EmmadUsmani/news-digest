@@ -5,8 +5,8 @@ export interface IncrementalTriageAdmission {
   acquire(): Promise<null | (() => Promise<void>)>;
 }
 
-// Prepared runner; no timer invokes it yet. Use one instance for all topics.
-// A future scheduler must supply shared admission for multiple workers.
+// Use one runner instance for all topics. The worker composition supplies
+// shared admission to prevent overlapping work across multiple workers.
 export class IncrementalTriageRunner {
   private running = false;
 

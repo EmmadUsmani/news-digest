@@ -4,7 +4,7 @@ type Runner = Pick<IncrementalTriageRunner, 'run'>;
 type Load = Parameters<Runner['run']>[0];
 type Options = Parameters<Runner['run']>[1];
 
-// Prepared tick orchestration only: no production timer is installed.
+// Tick orchestration for the default-off incremental-triage timer.
 // One topic per tick bounds total work, rather than multiplying the per-pass
 // item limit by topic count. Rotate even after failure to avoid starvation.
 export class IncrementalTriageScheduler {

@@ -174,3 +174,13 @@
 - Verification: targeted replay tests 8/8; pnpm format, pnpm lint:fix, pnpm check (377 unit/205 isolated integration), pnpm build and git diff --check passed. Initial format check caught archived-entry whitespace; corrected before rerunning check.
 - Final healthz healthy, zero alerts and zero dangling Docker volumes. Offline adapter only: no service restart under STEERING 22; grouping/incremental triage remain off.
 - Next: review Nov 4 15:00 UTC edition for social picks, NBA validation and live timing/cost.
+
+## 2026-11-04: iteration 631 — connect default-off background triage
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts, no failed user services and 36 sources without current errors.
+- Connected the prepared incremental-triage worker entry point and shutdown drain. Startup errors stop the worker; tick errors are logged. Disabled mode allocates no scoring resources or timer.
+- Production enable setting is unset (default off); Nov 4 review remains the activation gate. No paid calls, prompt changes, grouping activation or database/Redis restart.
+- Updated TASKS, RANKING, stale composition comments and the Jobs & schedules handbook page.
+- Verification: targeted lifecycle tests 10/10; pnpm format, pnpm lint:fix, pnpm check (377 unit/205 isolated integration), pnpm build, handbook check (17 pages/two unchanged diagrams/25 tables) and git diff --check passed.
+- Restarted only news-digest-worker; running-process gate confirmed off. Healthz healthy, zero alerts/failed units/dangling Docker volumes; immutable Nov 3 edition still serves real stories/posts. No UI changes.
+- Next: Nov 4 15:00 UTC review of open-X/Bluesky selections, World posts, NBA validation and timing/cost; then consider incremental-triage activation and measure real waste.

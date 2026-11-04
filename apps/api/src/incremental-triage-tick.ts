@@ -5,7 +5,7 @@ import type { loadIncrementalTriagePool } from './modules/digests/public/increme
 import { incrementalTriageWindow } from './modules/profiles/adapters/incremental-triage-window';
 import type { ScheduleConfig } from './modules/profiles/domain/schedule';
 
-// Prepared composition only. No worker imports this module and no timer starts.
+// Tick composition for the optional worker timer.
 // Keep one scheduler across ticks so round-robin state survives settings reads.
 export function prepareIncrementalTriageTick(deps: {
   settings(): Promise<{ schedule: ScheduleConfig; topicIds: string[] }>;

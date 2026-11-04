@@ -1,4 +1,4 @@
-// Prepared lifecycle only: the production worker does not import this module.
+// Lifecycle for the optional incremental-triage worker timer.
 // Await shutdown before closing the database used by an in-flight tick.
 export function prepareIncrementalTriageTimer(deps: {
   tick(): Promise<unknown>;

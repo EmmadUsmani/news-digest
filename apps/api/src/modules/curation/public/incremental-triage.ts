@@ -60,7 +60,7 @@ export function evidencedBackgroundTriage(
   });
 }
 
-// Prepared entry point only: no collector or scheduler invokes it yet.
+// Optional worker entry point; background scoring remains disabled by default.
 export function incrementalTriageServices(
   db: Pool,
   env: NodeJS.ProcessEnv = process.env,

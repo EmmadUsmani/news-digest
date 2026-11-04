@@ -36,8 +36,8 @@ function workerResources() {
   };
 }
 
-// Prepared worker entry point. Do not import from worker.ts until the Nov 4
-// edition review permits activation. Disabled mode allocates no resources.
+// Worker entry point; activation remains gated by the default-off setting.
+// Disabled mode allocates no resources.
 export async function prepareIncrementalTriageWorker(
   onError: (error: unknown) => void,
   env: NodeJS.ProcessEnv = process.env,

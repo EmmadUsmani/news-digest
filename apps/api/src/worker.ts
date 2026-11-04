@@ -2,6 +2,7 @@ import './libs/observability/worker-logging';
 
 import { Queue, Worker } from 'bullmq';
 
+import { prepareIncrementalTriageWorker } from './incremental-triage-worker';
 import { startExternalMetrics } from './libs/observability/external-metrics';
 import { startJobMetrics } from './libs/observability/job-metrics';
 import {
@@ -44,6 +45,15 @@ void queue.upsertJobScheduler(
 const repository = new PostgresContentRepository();
 const http = new SharedHttpClient();
 const stopScheduledSocial = startScheduledSocial(http);
+// Disabled by default: no background scoring resources or timer are allocated.
+const incrementalTriageReady = prepareIncrementalTriageWorker((err) =>
+  logger.error({ err }, 'Incremental triage tick failed'),
+);
+void incrementalTriageReady.catch((err) => {
+  logger.error({ err }, 'Incremental triage startup failed');
+  process.exitCode = 1;
+  void stop();
+});
 const adapters = {
   feed: new FeedAdapter(http),
   hn: new HackerNewsAdapter(http),
@@ -89,6 +99,10 @@ const sourceRefresh = setInterval(() => {
 async function stop() {
   runtimeMetrics.server.close();
   clearInterval(sourceRefresh);
+  // A startup failure already cleaned up its owned resources. Drain a successful
+  // startup before shutting down the other worker services.
+  const stopIncrementalTriage = await incrementalTriageReady.catch(() => null);
+  if (stopIncrementalTriage) await stopIncrementalTriage();
   await stopScheduledDigests();
   await stopScheduledSocial();
   await ingestionWorker.close();
