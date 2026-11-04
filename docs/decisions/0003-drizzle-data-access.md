@@ -24,6 +24,13 @@ snapshot reconciliation. Its mapper preserves Date timestamps and JSON outcomes;
 database failures retain the original PostgreSQL error after rollback. Existing
 scheduled-budget characterization tests remain unchanged.
 
+The Reddit adapter uses typed transactional upserts, citation replacement and
+configuration-checked topic associations. Edition reads retain the publisher's
+transaction, seven-day lookback, exclusive end and deterministic ordering.
+PostgreSQL JSON set expansion and ordered distinct aggregation use typed SQL
+expressions. Existing Reddit characterization tests remain unchanged; collection
+stays parked under the owner's access restrictions.
+
 `libs/db/schema.ts` maps all 25 public tables, including the historical migration
 ledger, from migrations 001–055. The isolated `schema-parity` test creates an
 empty comparison database from Drizzle's generated DDL, compares PostgreSQL's

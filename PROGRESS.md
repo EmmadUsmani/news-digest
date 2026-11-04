@@ -1,19 +1,3 @@
-## 2026-11-04: iteration 557 — characterize concurrent Bluesky collection
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 healthy sources and zero failed digest jobs; Nov 4 15:00 UTC review remains pending.
-- Added isolated repository coverage racing independent collectors across topics in both invocation orders: newest complete metadata wins, topic histories stay separate, concurrent replay dedupes rows and snapshots.
-- Updated TASKS/database verification notes. No production/source/schema/UI/handbook flow changes or paid calls; no restart under STEERING 22 because only tests/docs changed.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/191 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes. New concurrency test passed.
-- Next: review Nov 4 scheduled evidence first; incremental triage/grouping activation stays gated. Remaining repository characterization and recorded-response golden remain open.
-
-## 2026-11-04: iteration 558 — characterize Bluesky configuration races
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and zero failed digest jobs. Recent hourly collections completed; Nov 4 15:00 UTC review remains pending.
-- Added isolated repository coverage that observes a collector blocked behind a topic lock, then commits disable or deletion. Collection resumes without creating current posts or immutable observations in either case.
-- Updated TASKS/database verification notes; archived iteration 539 to keep PROGRESS small. No production/source/schema/UI/handbook flow changes or paid calls; no restart under STEERING 22.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/192 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes. Initial check caught archive formatting; corrected before passing rerun.
-- Next: review Nov 4 scheduled evidence first; production incremental triage/grouping activation remains gated. Repository characterization and recorded-response golden remain open.
-
 ## 2026-11-04: iteration 559 — reclaim Grafana filesystem cache
 
 - Started clean on main; no leftover work. Healthz passed; pending Grafana memory warning took priority over background tests.
@@ -178,3 +162,13 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, handbook stack check and git diff --check passed; zero dangling Docker volumes.
 - Rebuilt/restarted API and worker outside the edition freeze; both active, healthz healthy, root HTTP 200, latest real edition four topics, zero alerts. Owner profile and reserve responses byte-identical across restart; pending reserve remains $0.487477.
 - Next: prioritize scheduled Nov 4 review; otherwise historical migration baseline and remaining individual ORM adapters. Back up live DB before the first new migration.
+
+## 2026-11-04: iteration 576 — convert Reddit repository to Drizzle
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 healthy sources and no failed digest jobs; Nov 4 scheduled review remains pending.
+- Converted Reddit communities, transactional storage/citation replacement/topic associations and edition reads to Drizzle. Preserved case-insensitive configuration, atomic rollback, PostgreSQL errors, seven-day lookback, exclusive end, stable ordering and publisher transaction reuse.
+- Existing repository characterization assertions unchanged. Publication query stub now accepts Drizzle query configurations/array rows. First integration run caught insert-select default-column requirements and that stub; fixed before final green run.
+- Updated TASKS/architecture/decision/handbook stack; archived iterations 557–558. Reddit collection remains parked; no migration, activation, paid calls or UI changes.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, handbook stack check and git diff --check passed.
+- Rebuilt/restarted API and worker outside edition freeze; both active, healthz healthy, root HTTP 200, 36 healthy sources and zero alerts. Latest real edition response byte-identical across restart (four topics, 19 stories).
+- Next: prioritize Nov 4 scheduled review when due; otherwise historical migration baseline or remaining individual ORM repositories. Private pg_dump required before first new migration.

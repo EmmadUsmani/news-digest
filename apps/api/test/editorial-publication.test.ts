@@ -76,9 +76,13 @@ async function harness(
   });
   const calls: string[] = [];
   const client = {
-    async query(sql: string, args?: unknown[]) {
+    async query(
+      input: string | { text: string; rowMode?: string },
+      args?: unknown[],
+    ) {
+      const sql = typeof input === 'string' ? input : input.text;
       calls.push(sql);
-      if (sql.includes('FROM social_posts p JOIN reddit_topic_posts')) {
+      if (sql.includes('from "social_posts" inner join "reddit_topic_posts"')) {
         assert.ok(options.reddit);
         return {
           rows: Array.from({ length: 6 }, (_, i) => ({
@@ -105,7 +109,7 @@ async function harness(
               externalUrl: null,
             },
             citesX: false,
-          })),
+          })).map((row) => Object.values(row)),
         };
       }
       if (sql.includes('FROM topics'))
