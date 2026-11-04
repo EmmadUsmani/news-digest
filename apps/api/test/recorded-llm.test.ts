@@ -198,3 +198,38 @@ void test('recording keeps model metadata paired with the invocation fingerprint
   assert.equal((await replay.complete(original)).text, 'original response');
   await assert.rejects(replay.complete(mutable), /Missing LLM replay/);
 });
+
+void test('recording isolates delayed provider inputs from caller mutations', async () => {
+  const mutable = structuredClone(request);
+  let release!: () => void;
+  const gate = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  let observed: LlmRequest | undefined;
+  const recorder = new RecordingLlmAdapter({
+    async complete(input) {
+      await gate;
+      observed = structuredClone(input);
+      return {
+        text: input.prompt,
+        usage: { input: 1, output: 1, cacheWrite: 0, cacheRead: 0 },
+      };
+    },
+  });
+  const pending = recorder.complete(mutable);
+  mutable.prompt = 'Changed prompt';
+  mutable.instructions = 'Changed instructions';
+  mutable.maxOutputTokens++;
+  mutable.model.id = 'changed-model';
+  mutable.model.input++;
+  mutable.purpose = 'changed-purpose';
+  mutable.runId = 'changed-run';
+  release();
+  assert.equal((await pending).text, request.prompt);
+  assert.deepEqual(observed, request);
+  const replay = new ReplayLlmAdapter(
+    recorder.snapshot('Synthetic delayed provider inputs; no inference.'),
+  );
+  assert.equal((await replay.complete(request)).text, request.prompt);
+  await assert.rejects(replay.complete(mutable), /Missing LLM replay/);
+});

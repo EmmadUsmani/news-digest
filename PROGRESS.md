@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 609 — typed publisher article-discovery candidates
-
-- Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC edition review remains pending.
-- Converted publisher candidate CTEs, joins, correlated host-backoff subquery, filters, grouping and ordering to Drizzle builders. SQL expressions retain window ranks, aggregate minima and interval/host calculations.
-- Preserved publisher/topic fairness, exact host opt-in, cooldowns, enabled-topic checks and eight-item bound. Existing characterization assertions unchanged; live read-only old/new comparison matched all eight ordered candidates.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
-- Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical, Anthropic/X spend totals unchanged. Read-only Playwright rendered all four real saved-edition topics without page errors; 36 sources without current errors, zero failed digest jobs and zero alerts.
-- Updated TASKS and ORM decision; archived iteration 594 to keep PROGRESS bounded. No schema, source, activation, owner grant or paid call changes; no handbook system behavior changed.
-- Next: prioritize Nov 4 edition review; otherwise final raw-SQL audit and remaining ORM adapters. Keep private backups before new migrations and preserve owner grants.
-
 ## 2026-11-04: iteration 610 — typed X discovery report queries
 
 - Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC edition review remains pending.
@@ -174,3 +164,13 @@
 - Verification: targeted concurrency tests 6/6 and offline CLI; pnpm format, pnpm lint:fix, pnpm check (370 unit/205 isolated integration), pnpm build and git diff --check passed. Final healthz healthy, zero alerts and zero dangling Docker volumes.
 - Offline tool only; no running-service code/config changed, so no restart under STEERING 22. Grouping and incremental triage remain off.
 - Next: Nov 4 15:00 UTC scheduled review takes priority: World posts, open-X/Bluesky selections, NBA validation and live timing/cost.
+
+## 2026-11-04: iteration 627 — isolate recorded provider inputs
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz and no failed systemd user services. Nov 4 15:00 UTC edition evidence remains pending.
+- Fixed the opt-in LLM recorder to clone the complete invocation before fingerprinting and dispatch. A provider that reads inputs asynchronously now sees the original prompt, instructions, model, token limit and billing metadata even if the caller mutates its request.
+- Added a delayed-provider regression that verifies original inputs and successful original-fingerprint replay; changed requests still fail closed. Synthetic responses only, no paid calls or fixture re-recording.
+- Updated TASKS; archived iteration 609 to keep PROGRESS bounded. No production adapter wiring, prompts, settings or activations changed; no handbook behavior changed.
+- Verification: targeted recorded-LLM tests 7/7; pnpm format, pnpm lint:fix and pnpm check passed (371 unit/205 isolated integration). Build and final health checked before commit; zero dangling Docker volumes.
+- Offline adapter only, unused by production services: no restart under STEERING 22. Grouping and incremental triage remain off.
+- Next: review Nov 4 scheduled edition for World posts, open-X/Bluesky selections, NBA validation and live timing/cost.
