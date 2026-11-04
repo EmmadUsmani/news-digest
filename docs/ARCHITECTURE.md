@@ -7,8 +7,9 @@ Volumes survive container replacement. PostgreSQL currently trusts loopback
 connections: this is a single-owner VM, not a deployment for untrusted local users.
 
 Data access is moving incrementally to Drizzle ORM over the existing `pg` pools.
-The profile, Bluesky, Reddit, publisher-article discovery, X-search, ingestion, edition-cost reads and scheduled-budget repositories use its typed query builder; other adapters
-still use SQL. ORM imports stay inside database adapters and `libs/db`. See the
+Converted adapters cover profiles, Bluesky, Reddit, publisher-article discovery,
+X-search, ingestion, edition costs, topic coverage and scheduled budgets; other
+adapters still use SQL. ORM imports stay inside database adapters and `libs/db`. See the
 [decision and migration gate](decisions/0003-drizzle-data-access.md).
 Explicit SQL migrations remain authoritative: `schema_migrations` records
 applied filenames, and migrations run atomically under a transaction advisory

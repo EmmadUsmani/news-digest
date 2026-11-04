@@ -1,11 +1,3 @@
-## 2026-11-04: iteration 564 — characterize final Bluesky snapshot failure
-
-- Started clean on main; no leftover work. Healthz passed, 36 sources have no current errors, no failed digest jobs and zero alerts. Nov 4 scheduled evidence remains pending.
-- Added isolated snapshot-table constraint failure after the current-post upsert. Rollback preserves current metadata and both topic histories; removing the constraint permits retry and idempotent replay without changing the other topic.
-- Updated TASKS and database verification notes. No provider requests, production changes or restart required under STEERING 22.
-- Verification: pnpm format, pnpm lint:fix and pnpm check passed (363 unit/196 isolated integration); pnpm build and git diff --check passed. Archived iteration 545 to keep PROGRESS small.
-- Next: prioritize Nov 4 15:00 UTC edition review; grouping/incremental triage stay gated. Repository characterization and recorded-response golden remain open.
-
 ## 2026-11-04: iteration 565 — pin Bluesky publisher transaction reads
 
 - Started clean on main; no leftover work. Healthz and alerts green; Nov 4 scheduled evidence remains pending.
@@ -169,3 +161,14 @@
 - Read-only live probe returned Nov 3 cost 339,524 micros/43 calls and zero qualifying full-AI measurements. Initial probe omitted the app's default DB URL; reran successfully through its database factory.
 - Restarted API/worker outside freeze; both active, healthz healthy, root HTTP 200, published edition byte-identical, 36 error-free sources, zero failed digest jobs and zero alerts.
 - Next: prioritize Nov 4 scheduled review when due; otherwise remaining ORM adapters or historical migration baseline. Private pg_dump before first new migration.
+
+## 2026-11-04: iteration 581 — convert topic coverage to Drizzle
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 healthy sources and zero failed digest jobs. Latest Bluesky/free-social collections succeeded; Nov 4 scheduled review remains pending.
+- Converted topic-coverage discovery unions and correlated counts to typed Drizzle, preserving distinct routes, disabled/empty topics, source-health bounds, publication windows and ordering. Explicit numeric decoding preserves count types.
+- Existing characterization assertions unchanged, including non-UTC sessions and both DST transitions. Typecheck caught nullable union topics; a read-only live comparison caught an ambiguous platform alias, fixed before final verification.
+- Live old/new comparison in one repeatable-read transaction matched all four topics exactly: article counts 313/120/295/276, X posts 67/18/7/1. No data writes, migrations, activation or paid calls.
+- Updated TASKS, architecture, decision and handbook stack; archived iteration 564 to keep PROGRESS bounded.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; topic-coverage statement coverage 100%, zero dangling Docker volumes.
+- Restarted API/worker outside freeze; both active, healthz healthy, root HTTP 200, live Status coverage valid, 36 sources without errors and zero alerts. Published edition byte-identical after restart.
+- Next: prioritize Nov 4 scheduled review at 15:00 UTC; otherwise continue remaining ORM adapters or historical migration baseline. Private pg_dump before first new migration.

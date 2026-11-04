@@ -91,3 +91,7 @@ The edition-cost reader uses typed Drizzle grouped aggregates for run-attributed
 spend and full-AI measurements. JSON snapshot completeness remains a documented
 SQL predicate; the caller’s transaction client is preserved for budget locking.
 Existing edition-cost and scheduled-budget characterization tests are unchanged.
+
+The topic-coverage reader uses typed Drizzle unions and correlated aggregates.
+Distinct discovery routes, source-health bounds and elapsed 24-hour windows
+retain their existing characterization tests, including non-UTC and DST cases.
