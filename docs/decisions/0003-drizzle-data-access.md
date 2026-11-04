@@ -116,3 +116,8 @@ and destroying failed sessions preserve the existing characterization behavior.
 The LLM usage reader uses typed Drizzle filters, grouping and ordering. Filtered
 PostgreSQL sums retain documented templates. All unresolved holds continue to
 count across budget periods, and reads accept the caller's transaction client.
+
+The topic repository uses typed Drizzle CRUD, connections and transactions.
+Parent/topic row locks and the catalog advisory lock preserve concurrent writes;
+ordered source aggregation, window ranking and bulk ordinality retain documented
+SQL templates. Existing limits, JSON settings and deletion ordering are preserved.

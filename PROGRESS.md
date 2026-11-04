@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 572 — complete Drizzle schema and catalog parity
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 error-free sources and no failed digest jobs; scheduled Nov 4 review pending at 15:00 UTC.
-- Mapped all 25 public tables from migrations 001–055, including the migration ledger. Isolated test generates an empty database from Drizzle DDL and compares every column/default, constraint and index to the migrated database; existing characterization tests unchanged.
-- Corrected introspection's empty-string default, boolean check, regex escaping, composite FK ordering and index operator classes. Drizzle-kit 0.31.11 still falsely proposes six drop/recreate statements for three identical FKs; programmatic push also drops query parameters. Read-only CLI probe applied nothing; zero-diff/adoption gate remains open. No live migration/grant changes or paid calls.
-- Normal 05:54:43 UTC Bluesky job completed in 8.204 s; read-only report confirms fresh stored observations across all four topics. First scheduled recovery verified; sustained collection and real edition selections remain pending.
-- Updated TASKS/SOURCES/database verification/decision; archived iteration 552. No UI or handbook flow change.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/202 isolated integration), pnpm build, handbook stack check and git diff --check passed; zero dangling Docker volumes. Initial parity failures exposed the corrected mapping/tooling defects.
-- Rebuilt/restarted API and worker outside the edition freeze; both active, healthz healthy, root HTTP 200, zero alerts. Live profile response byte-identical before/after restart.
-- Next: scheduled edition review when due; otherwise resolve Drizzle introspection gate before migration baseline adoption, then convert remaining repositories individually.
-
 ## 2026-11-04: iteration 573 — repair Drizzle composite-key introspection
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 error-free sources and no failed digest jobs; Nov 4 15:00 UTC edition remains pending.
@@ -146,3 +135,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
 - Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Playwright root rendered 63 article elements with zero page errors; 36 sources without errors, zero failed digest jobs and zero alerts.
 - Next: prioritize Nov 4 15:00 UTC scheduled review; otherwise continue remaining ORM adapters or migration baseline. Private pg_dump before first new migration.
+
+## 2026-11-04: iteration 586 — convert topic repository to Drizzle
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC edition evidence pending.
+- Converted topic CRUD, catalog/feed registration, connections and ordering to typed Drizzle. Preserved parent/topic row locks, catalog advisory lock, limits, JSON omission behavior and transaction rollback; native constraint errors remain exposed.
+- Ordered source JSON, window positions and bulk ordinality retain documented SQL templates. No migration, activation, paid call or UI change; owner database grants untouched.
+- Existing assertions unchanged. Initial typecheck caught an aliased field type; first integration run found an unqualified derived position during deletion (and three downstream failures from unrestored test settings). Qualified the field; fresh full check passes all cases.
+- Read-only new repository comparison matched all four live topics. After deployment, topic values match (JSON key order differs), and saved edition is byte-identical.
+- Updated TASKS, architecture, decision and handbook stack; archived iteration 572 to keep PROGRESS bounded. Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes. Topic statements 98.94% covered.
+- Restarted API/worker outside freeze; both active, healthz healthy. Playwright root: 63 article elements, zero page errors. All 36 sources without current errors, zero failed digest jobs and zero alerts.
+- Next: prioritize Nov 4 15:00 UTC edition review; otherwise continue remaining ORM adapters or migration baseline. Private pg_dump before first new migration.
