@@ -128,3 +128,12 @@
 - Capture alone measures current eligibility, not actual scored-work waste, cost or latency. Compare later snapshots for this same window, then join actual scoring. No paid calls, activation, source/schema/UI or handbook flow changes.
 - Verification: targeted capture tests 2/2; live capture/stat/overwrite refusal; pnpm format, pnpm lint:fix, pnpm check (312 unit/183 isolated integration), pnpm build and git diff --check passed; no dangling Docker volumes. Services stay running under STEERING 22: only offline tooling/tests/docs changed.
 - Updated TASKS/RANKING. Next: same-window pool comparison, scheduler wiring and actual waste evidence; Nov 4 scheduled edition review takes priority.
+
+## 2026-11-04: iteration 526 — compare successive eligible triage pools
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/root/status, 36 error-free sources and four available queues. Nov 4 edition review remains pending.
+- Added offline same-window comparison with per-topic retained/new/lost eligibility, absent versus now-ineligible losses, topic additions/removals and setting changes. Rejects mismatched/reversed captures, malformed evidence and duplicate IDs.
+- Captured /tmp/triage-pool-526.json (mode 600) at 01:11:49 UTC; comparison with iteration 525's 01:07:11 observation retains all 492 eligible candidates and adds 3 NBA. Short observation only; no actual scored-work waste, final membership, cache reuse, spend or latency claim.
+- Updated TASKS/RANKING; no paid calls, activation, source/schema/UI or handbook flow changes. Services stay running under STEERING 22: only offline tooling/tests/docs changed.
+- Verification: targeted comparison tests 3/3; live read-only capture/comparison; pnpm format, pnpm lint:fix, pnpm check (315 unit/183 isolated integration), pnpm build and git diff --check passed; no dangling Docker volumes.
+- Next: longer-span same-window pool comparisons, scheduler wiring and actual scoring/waste joins; Nov 4 scheduled edition review takes priority.

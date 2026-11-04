@@ -1761,3 +1761,21 @@ window can establish pool churn; eligibility loss becomes measured waste only
 when joined to actual scoring. Source membership/text/settings are observed now,
 not reconstructed. No spend, latency or quality claim follows from this capture.
 The existing global-first-fetch export remains a separate, weaker arrival proxy.
+
+## Iteration 526: compare successive prospective pools
+
+`pnpm exec tsx scripts/compare-triage-pools.ts BEFORE_CAPTURE AFTER_CAPTURE`
+reads only local capture files and reports per-topic retained, added and lost
+eligible IDs. Loss is split between absent candidates and candidates still
+present but no longer eligible; added/removed topics and changed topic settings
+are explicit. It rejects different windows, nonchronological observations,
+duplicate IDs and malformed capture structure. It emits counts, not article text.
+
+Comparing `/tmp/triage-pool-525.json` (01:07:11 UTC) with
+`/tmp/triage-pool-526.json` (01:11:49 UTC), for the same Nov 4 edition window,
+retained all 492 previously eligible candidates and added three NBA candidates.
+No observed eligibility losses or topic-setting changes occurred in this short
+interval. This does not establish day-long stability, unchanged scoring inputs,
+cache reuse, final-edition membership, actual scored-work waste or provider cost.
+Continue capturing this window before/at publication and join actual scoring
+before quantifying waste. No provider calls or production activation occurred.
