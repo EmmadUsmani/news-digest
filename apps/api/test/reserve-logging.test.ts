@@ -31,7 +31,8 @@ void test('reserve logs report committed policy and admission without request co
     const db = {
       connect: async () => ({
         release() {},
-        async query(sql: string) {
+        async query(query: string | { text: string }) {
+          const sql = typeof query === 'string' ? query : query.text;
           if (sql === 'COMMIT') {
             if (scenario === 'rollback')
               throw new Error('private database failure');

@@ -1,4 +1,11 @@
+import { and, desc, eq, gte, lte, sql } from 'drizzle-orm';
+import { drizzle } from 'drizzle-orm/node-postgres';
 import type { Pool, PoolClient } from 'pg';
+
+import {
+  digestPreviews as editions,
+  llmCalls as calls,
+} from '../../../libs/db/schema';
 
 // Accept the caller's transaction client so admission can read measurements
 // while holding the same ledger lock. No provider calls or ledger mutations.
@@ -14,29 +21,55 @@ export async function readFullAiEditionCosts(
     limit > 100
   )
     throw new Error('Invalid edition cost measurement range');
-  const result = await db.query<{ cost: string }>(
-    `SELECT calls.cost FROM digest_previews d
-     CROSS JOIN LATERAL (
-       SELECT sum(cost_micros) FILTER (WHERE status='succeeded') AS cost,
-         bool_or(status IN ('pending','uncertain')) AS unresolved,
-         bool_or(purpose='verification') AS verification
-       FROM llm_calls WHERE run_id=d.id::text
-     ) calls
-     WHERE d.created_at >= $1::timestamptz - interval '30 days'
-       AND d.created_at <= $1 AND d.snapshot->>'method'='editorial-v1'
-       AND jsonb_typeof(d.snapshot->'topics')='array'
-       AND jsonb_array_length(d.snapshot->'topics') > 0
-       AND NOT EXISTS (
-         SELECT 1 FROM jsonb_array_elements(d.snapshot->'topics') topic
-         WHERE topic->'editorial'->>'mode' IS DISTINCT FROM 'ai'
-           OR topic->'postEditorial'->>'mode' IS DISTINCT FROM 'ai'
-           OR topic->'editorial'->'unscoredIds' IS DISTINCT FROM '[]'::jsonb
-           OR topic->'postEditorial'->'unscoredIds' IS DISTINCT FROM '[]'::jsonb
-       ) AND calls.unresolved=false AND calls.verification=false AND calls.cost > 0
-     ORDER BY d.created_at DESC,d.id DESC LIMIT $2`,
-    [now, limit],
-  );
-  return result.rows.map(({ cost }) => {
+  const orm = drizzle(db);
+  const measured = orm
+    .select({
+      runId: calls.runId,
+      cost: sql<string>`sum(${calls.costMicros}) FILTER (WHERE ${calls.status}='succeeded')`.as(
+        'cost',
+      ),
+      unresolved:
+        sql<boolean>`bool_or(${calls.status} IN ('pending','uncertain'))`.as(
+          'unresolved',
+        ),
+      verification: sql<boolean>`bool_or(${calls.purpose}='verification')`.as(
+        'verification',
+      ),
+    })
+    .from(calls)
+    .groupBy(calls.runId)
+    .as('measured');
+  const result = await orm
+    .select({ cost: measured.cost })
+    .from(editions)
+    .innerJoin(measured, eq(measured.runId, sql`${editions.id}::text`))
+    .where(
+      and(
+        gte(
+          editions.createdAt,
+          sql`${now.toISOString()}::timestamptz - interval '30 days'`,
+        ),
+        lte(editions.createdAt, now.toISOString()),
+        eq(measured.unresolved, false),
+        eq(measured.verification, false),
+        sql`${measured.cost} > 0`,
+        // JSON array expansion and per-topic completeness have no query-builder
+        // equivalent. Keep the immutable snapshot checks inside this adapter.
+        sql`${editions.snapshot}->>'method'='editorial-v1'
+        AND jsonb_typeof(${editions.snapshot}->'topics')='array'
+        AND jsonb_array_length(${editions.snapshot}->'topics') > 0
+        AND NOT EXISTS (
+          SELECT 1 FROM jsonb_array_elements(${editions.snapshot}->'topics') topic
+          WHERE topic->'editorial'->>'mode' IS DISTINCT FROM 'ai'
+            OR topic->'postEditorial'->>'mode' IS DISTINCT FROM 'ai'
+            OR topic->'editorial'->'unscoredIds' IS DISTINCT FROM '[]'::jsonb
+            OR topic->'postEditorial'->'unscoredIds' IS DISTINCT FROM '[]'::jsonb
+        )`,
+      ),
+    )
+    .orderBy(desc(editions.createdAt), desc(editions.id))
+    .limit(limit);
+  return result.map(({ cost }) => {
     const value = Number(cost);
     if (!Number.isSafeInteger(value) || value <= 0)
       throw new Error('Invalid measured edition cost');
@@ -50,25 +83,21 @@ export async function readEditionCost(
   db: Pool | PoolClient,
   editionId: string,
 ) {
-  const { rows } = await db.query<{
-    model: string;
-    purpose: string;
-    calls: number;
-    succeeded: number;
-    failed: number;
-    unresolved: number;
-    costMicros: number;
-    reservedMicros: number;
-  }>(
-    `SELECT model,purpose,count(*)::int AS calls,
-      count(*) FILTER (WHERE status='succeeded')::int AS succeeded,
-      count(*) FILTER (WHERE status='failed')::int AS failed,
-      count(*) FILTER (WHERE status IN ('pending','uncertain'))::int AS unresolved,
-      COALESCE(sum(cost_micros),0)::float8 AS "costMicros",
-      COALESCE(sum(reserved_micros) FILTER (WHERE status IN ('pending','uncertain')),0)::float8 AS "reservedMicros"
-     FROM llm_calls WHERE run_id=$1 GROUP BY model,purpose ORDER BY model,purpose`,
-    [editionId],
-  );
+  const rows = await drizzle(db)
+    .select({
+      model: calls.model,
+      purpose: calls.purpose,
+      calls: sql<number>`count(*)::int`,
+      succeeded: sql<number>`count(*) FILTER (WHERE ${calls.status}='succeeded')::int`,
+      failed: sql<number>`count(*) FILTER (WHERE ${calls.status}='failed')::int`,
+      unresolved: sql<number>`count(*) FILTER (WHERE ${calls.status} IN ('pending','uncertain'))::int`,
+      costMicros: sql<number>`COALESCE(sum(${calls.costMicros}),0)::float8`,
+      reservedMicros: sql<number>`COALESCE(sum(${calls.reservedMicros}) FILTER (WHERE ${calls.status} IN ('pending','uncertain')),0)::float8`,
+    })
+    .from(calls)
+    .where(eq(calls.runId, editionId))
+    .groupBy(calls.model, calls.purpose)
+    .orderBy(calls.model, calls.purpose);
   return {
     costMicros: rows.reduce((sum, row) => sum + row.costMicros, 0),
     reservedMicros: rows.reduce((sum, row) => sum + row.reservedMicros, 0),

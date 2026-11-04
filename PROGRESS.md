@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 563 — characterize Bluesky topic lifecycle
-
-- Started clean on main; no leftover work. Healthz passed, 36 sources healthy, no failed digest jobs and zero alerts; retained source/social failures are historical. Nov 4 scheduled review remains pending.
-- Added isolated repository regression for disable/re-enable history retention, skipped disabled writes, resumed collection and delete/recreate isolation. Another topic's snapshots and newer shared current metadata survive deletion and older replay.
-- Verification: pnpm format, pnpm lint:fix and pnpm check passed (363 unit/195 isolated integration). Initial check caught archive formatting, corrected before rerun. No provider requests or production changes.
-- Updated TASKS/database verification notes; archived iteration 544 to keep PROGRESS small. No restart under STEERING 22: running code/config unchanged.
-- Final checks: pnpm build and git diff --check passed; healthz healthy, zero alerts and zero dangling Docker volumes.
-- Next: prioritize Nov 4 15:00 UTC edition review; grouping/incremental triage remain gated. Repository characterization and recorded-response golden remain open.
-
 ## 2026-11-04: iteration 564 — characterize final Bluesky snapshot failure
 
 - Started clean on main; no leftover work. Healthz passed, 36 sources have no current errors, no failed digest jobs and zero alerts. Nov 4 scheduled evidence remains pending.
@@ -167,3 +158,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, handbook stack check and git diff --check passed.
 - Rebuilt/restarted API and worker outside freeze; both active, healthz healthy and root HTTP 200. Converted live reads return five articles per topic, 36 error-free sources/3,357 observations, unchanged published edition bytes, zero alerts and zero dangling Docker volumes.
 - Next: prioritize Nov 4 scheduled review when due; otherwise historical migration baseline or remaining ORM adapters. Private pg_dump before first new migration.
+
+## 2026-11-04: iteration 580 — convert edition-cost reader to Drizzle
+
+- Started clean on main; no leftover work. Healthy healthz, zero alerts, 36 error-free sources and zero failed digest jobs; older ingestion/social failures have subsequent successes. Nov 4 scheduled review remains pending.
+- Converted run-attributed cost and full-AI measurement queries to typed Drizzle aggregates/joins, preserving transaction clients, completeness, verification/unresolved exclusions, 30-day bounds, ordering and limits. JSON array checks retain a documented SQL predicate.
+- Existing DB characterization assertions unchanged. Updated the logging unit stub to accept node-postgres query objects after its string-only implementation failed; targeted regression and final full check pass.
+- Updated TASKS, architecture, decision and handbook stack; archived iteration 563. No migration, source/feature activation or paid call.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
+- Read-only live probe returned Nov 3 cost 339,524 micros/43 calls and zero qualifying full-AI measurements. Initial probe omitted the app's default DB URL; reran successfully through its database factory.
+- Restarted API/worker outside freeze; both active, healthz healthy, root HTTP 200, published edition byte-identical, 36 error-free sources, zero failed digest jobs and zero alerts.
+- Next: prioritize Nov 4 scheduled review when due; otherwise remaining ORM adapters or historical migration baseline. Private pg_dump before first new migration.
