@@ -2664,3 +2664,16 @@ validate persisted coverage and same-story accuracy, compare edition latency,
 and capture desktop/mobile screenshots of real grouped stories. Today's
 immutable edition remains unchanged. NBA full-AI acceptance and World social
 coverage remain unresolved. Incremental triage remains off.
+
+### Iteration 653: field-specific absence repair guidance
+
+The existing single repair now names the rejected editorial field using a
+closed mapping of application-owned text. It gives field-appropriate guidance
+for rewriting supported facts, including significance, selection rationale and
+brief bullets. It still asks the model to review every field and return the
+complete JSON. Unknown runtime field labels receive only generic guidance; no
+rejected response, source sentence or exception text is added. Acceptance,
+model order, reservations and call limits are unchanged. Fake editor tests
+verify repaired responses, the field hints and rejection of untrusted labels.
+This addresses the generic feedback in the demonstrated Nov 4 NBA repair
+failure; actual full-AI acceptance awaits the next scheduled edition.

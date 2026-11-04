@@ -5,6 +5,30 @@ const feedback = {
     '\nThe previous response failed the absence-support check. Review ALL headlines, summaries, significance, rationales and brief bullets. Remove sentences containing not, never, no, without, unconfirmed, unverified, unavailable, unknown or negative contractions unless the whole sentence repeats cited supplied text verbatim. Return the complete corrected JSON; shorter supported text is acceptable.',
 } as const;
 
+// Select fixed text only; even malformed runtime labels cannot enter a prompt.
+const fieldFeedback = new Map<string, string>([
+  [
+    'headline',
+    '\nThe rejected field was headline. Rewrite headlines using supported positive facts.',
+  ],
+  [
+    'summary',
+    '\nThe rejected field was summary. Rewrite summaries using supported positive facts.',
+  ],
+  [
+    'whyItMatters',
+    '\nThe rejected field was whyItMatters. Explain significance using supplied facts without inventing missing information.',
+  ],
+  [
+    'rationale',
+    '\nThe rejected field was rationale. Explain selection using supplied facts without claims about absent information.',
+  ],
+  [
+    'brief',
+    '\nThe rejected field was brief. Rewrite brief bullets using supported positive facts from selected stories.',
+  ],
+]);
+
 export type ValidationField =
   'headline' | 'summary' | 'whyItMatters' | 'rationale' | 'brief';
 export type AbsenceMarker =
@@ -18,7 +42,11 @@ export class LlmValidationFailure extends Error {
     readonly absenceMarker?: AbsenceMarker,
   ) {
     super(code);
-    this.feedback = feedback[code];
+    this.feedback =
+      feedback[code] +
+      (code === 'unsupported-absence'
+        ? (fieldFeedback.get(field ?? '') ?? '')
+        : '');
   }
 }
 

@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 637 — measure incremental per-pass capacity offline
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts/failed units and all four queues available. Nov 4 scheduled evidence remains pending.
-- Compared per-pass caps 10/25/50/100/200 with minimum pending 1, two-hour cutoff and four rotating positions on three recorded Nov 1 windows; no external calls.
-- At hourly global ticks, caps 25–200 produce identical edition remainders, request counts and prompt bytes. Cap 10 increases NBA/World/Tech remainder in some positions without reducing requests. This measures pass capacity, not provider batch size or live speed.
-- All 240 replay rows assert every final candidate scored once, zero repeat scoring and unknown waste. Small publication-proxy windows cannot establish actual capacity, cost or latency.
-- Updated TASKS/RANKING with reproduction, per-position results and limits; archived iteration 619 to keep PROGRESS bounded. No source, prompt, setting, feature activation or handbook behavior change.
-- Verification: replay assertions, pnpm format, pnpm lint:fix, pnpm check (381 unit/205 isolated integration), pnpm build and git diff --check passed.
-- Restarted worker; healthz healthy, zero alerts/failed units/dangling volumes. Saved Nov 3 edition serves four topics/19 stories/11 posts. No Postgres/Redis restart or paid calls.
-- Next: review Nov 4 15:00 UTC edition for open-X/Bluesky picks, World posts, NBA validation and timing/cost; keep incremental triage/grouping off until review.
-
 ## 2026-11-04: iteration 638 — drain failed concurrent triage before releasing admission
 
 - Started clean on main; no leftover work. Healthz healthy, zero alerts, 13 healthy services and 36 healthy sources; Nov 4 edition still pending.
@@ -164,3 +153,13 @@
 - Verification: targeted editor/edition tests 16/16; pnpm format, pnpm lint:fix, pnpm check (396 unit/207 isolated integration), pnpm build, social handbook check (17 pages/one unchanged diagram/25 tables), git diff --check.
 - Restarted API/worker; both active, healthz database/Redis healthy, saved four-topic Nov 4 edition readable, fresh ingestion through 15:48 UTC, zero alerts/failed user services.
 - Next: scheduled discovery yield and Nov 5 grouping/cost/latency/screenshots; NBA full-AI, World coverage and live cross-platform duplicate behavior remain open.
+
+## 2026-11-04: iteration 653 — target absence repair guidance to the rejected field
+
+- Started clean on main; no leftover work. Zero alerts, healthy database/Redis, 36 sources without current errors and four available queues; saved Nov 4 four-topic edition readable.
+- Nov 4 NBA's failed generic absence repairs motivate fixed field-specific guidance: headline/summary, significance, rationale or brief. Unknown runtime labels receive only generic feedback; no model/source text enters hints.
+- Validation, model order, initial prompts/cache keys, budgets and one-repair limit unchanged. No paid calls, new edition or UI changes; live NBA full-AI outcome remains unmeasured.
+- Updated TASKS/RANKING; archived iteration 637 to keep PROGRESS bounded. Internal repair change needs no handbook/source inventory update.
+- Verification: targeted editor tests 13/13; pnpm format, pnpm lint:fix, pnpm check (397 unit/207 isolated integration), pnpm build and git diff --check passed.
+- Restarted API/worker; both active, healthz database/Redis healthy, saved four-topic edition readable, zero alerts/failed user services.
+- Next: Nov 5 grouping admission/cost/accuracy/latency/screenshots, NBA full-AI acceptance, scheduled discovery yield and World posts.

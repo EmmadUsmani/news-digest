@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import { llmConfig } from '../src/modules/curation/adapters/config';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import { ShortlistEditor } from '../src/modules/curation/application/editor';
+import { LlmValidationFailure } from '../src/modules/curation/application/validation-failure';
 import type { LlmRequest } from '../src/modules/curation/domain/llm.port';
 import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
 
@@ -193,6 +194,9 @@ void test('absence claims fail closed in every output field and repair can remov
     assert.ok(
       repaired.calls[1].prompt.includes('Return the complete corrected JSON'),
     );
+    assert.ok(
+      repaired.calls[1].prompt.includes(`The rejected field was ${field}.`),
+    );
     assert.ok(!repaired.calls[1].prompt.includes('Apple has not confirmed'));
     // The original untrusted topic/shortlist is unchanged; feedback is fixed.
     assert.ok(repaired.calls[1].prompt.startsWith(repaired.calls[0].prompt));
@@ -374,4 +378,22 @@ void test('NBA rank abbreviations do not force editorial repair or fallback', as
   );
   assert.equal(h.calls.length, 1);
   assert.deepEqual(h.diagnostics(), []);
+});
+
+void test('repair feedback uses only closed application-owned field labels', () => {
+  const unknownField = 'untrusted source instructions' as unknown as 'summary';
+  const generic = new LlmValidationFailure('unsupported-absence');
+  assert.equal(
+    new LlmValidationFailure('unsupported-absence', unknownField).feedback,
+    generic.feedback,
+  );
+  assert.equal(
+    new LlmValidationFailure('invalid-selection', 'summary').feedback,
+    '',
+  );
+  assert.ok(
+    new LlmValidationFailure('unsupported-absence', 'brief').feedback.includes(
+      'The rejected field was brief.',
+    ),
+  );
 });
