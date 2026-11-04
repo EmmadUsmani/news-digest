@@ -1,4 +1,4 @@
-import { and, eq, inArray, isNotNull, isNull, sql } from 'drizzle-orm';
+import { and, eq, inArray, isNotNull, isNull, ne, sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import type { Pool, PoolClient } from 'pg';
 
@@ -42,25 +42,23 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
     }
   }
   private async totals(client: Pool | PoolClient) {
-    const {
-      rows: [totals],
-    } = await client.query<{
-      todayMicros: number;
-      monthMicros: number;
-      reservedMicros: number;
-      blocked: boolean;
-    }>(`
-      SELECT
-        COALESCE(sum(COALESCE(cost_micros,reserved_micros)) FILTER (
-          WHERE created_at >= date_trunc('day',clock_timestamp() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC'
-          OR status IN ('pending','uncertain')),0)::float8 AS "todayMicros",
-        COALESCE(sum(COALESCE(cost_micros,reserved_micros)) FILTER (
-          WHERE created_at >= date_trunc('month',clock_timestamp() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC'
-          OR status IN ('pending','uncertain')),0)::float8 AS "monthMicros",
-        COALESCE(sum(reserved_micros) FILTER (WHERE status IN ('pending','uncertain')),0)::float8 AS "reservedMicros",
-        EXISTS(SELECT 1 FROM x_discovery_provider_block) AS blocked
-      FROM x_discovery_calls WHERE status <> 'failed'
-    `);
+    const calls = xDiscoveryCalls;
+    // Conditional aggregates retain PostgreSQL FILTER and UTC wall-clock bounds;
+    // earlier pending/uncertain holds count against both periods.
+    const [totals] = await drizzle(client)
+      .select({
+        todayMicros: sql<number>`coalesce(sum(coalesce(${calls.costMicros}, ${calls.reservedMicros})) filter (
+          where ${calls.createdAt} >= date_trunc('day',clock_timestamp() at time zone 'UTC') at time zone 'UTC'
+          or ${calls.status} in ('pending','uncertain')),0)::float8`,
+        monthMicros: sql<number>`coalesce(sum(coalesce(${calls.costMicros}, ${calls.reservedMicros})) filter (
+          where ${calls.createdAt} >= date_trunc('month',clock_timestamp() at time zone 'UTC') at time zone 'UTC'
+          or ${calls.status} in ('pending','uncertain')),0)::float8`,
+        reservedMicros: sql<number>`coalesce(sum(${calls.reservedMicros}) filter (
+          where ${calls.status} in ('pending','uncertain')),0)::float8`,
+        blocked: sql<boolean>`exists(${drizzle(client).select({ singleton: xDiscoveryProviderBlock.singleton }).from(xDiscoveryProviderBlock)})`,
+      })
+      .from(calls)
+      .where(ne(calls.status, 'failed'));
     return {
       ...totals,
       ...this.caps,
@@ -153,20 +151,19 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
       const totals = await this.totals(client);
       if (totals.availableMicros < estimateMicros) return null;
       const id = crypto.randomUUID();
-      await client.query(
-        `INSERT INTO x_discovery_calls(id,model,run_id,status,reserved_micros,requested_topic,scheduled_day,search_type,optional_parent_id)
-        VALUES($1,$2,$3,'pending',$4,$5,$6,$7,$8)`,
-        [
+      await drizzle(client)
+        .insert(xDiscoveryCalls)
+        .values({
           id,
           model,
           runId,
-          estimateMicros,
-          requestedTopic ?? null,
-          scheduledDay ?? null,
-          searchType ?? null,
-          optionalParentId ?? null,
-        ],
-      );
+          status: 'pending',
+          reservedMicros: estimateMicros,
+          requestedTopic: requestedTopic ?? null,
+          scheduledDay: scheduledDay ?? null,
+          searchType: searchType ?? null,
+          optionalParentId: optionalParentId ?? null,
+        });
       return id;
     });
   }

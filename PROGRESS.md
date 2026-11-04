@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 581 — convert topic coverage to Drizzle
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 healthy sources and zero failed digest jobs. Latest Bluesky/free-social collections succeeded; Nov 4 scheduled review remains pending.
-- Converted topic-coverage discovery unions and correlated counts to typed Drizzle, preserving distinct routes, disabled/empty topics, source-health bounds, publication windows and ordering. Explicit numeric decoding preserves count types.
-- Existing characterization assertions unchanged, including non-UTC sessions and both DST transitions. Typecheck caught nullable union topics; a read-only live comparison caught an ambiguous platform alias, fixed before final verification.
-- Live old/new comparison in one repeatable-read transaction matched all four topics exactly: article counts 313/120/295/276, X posts 67/18/7/1. No data writes, migrations, activation or paid calls.
-- Updated TASKS, architecture, decision and handbook stack; archived iteration 564 to keep PROGRESS bounded.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; topic-coverage statement coverage 100%, zero dangling Docker volumes.
-- Restarted API/worker outside freeze; both active, healthz healthy, root HTTP 200, live Status coverage valid, 36 sources without errors and zero alerts. Published edition byte-identical after restart.
-- Next: prioritize Nov 4 scheduled review at 15:00 UTC; otherwise continue remaining ORM adapters or historical migration baseline. Private pg_dump before first new migration.
-
 ## 2026-11-04: iteration 582 — convert digest preview repository to Drizzle
 
 - Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources without errors and no failed digest jobs. Latest hourly Bluesky collection succeeded; Nov 4 scheduled review remains pending.
@@ -153,3 +142,12 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
 - Restarted API/worker outside freeze; both active, healthz healthy and saved edition byte-identical. Read-only Playwright rendered 19 article elements without page errors; zero alerts. Latest free-social run completed 08:54 UTC.
 - Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters or historical migration baseline. Private pg_dump before first new migration.
+
+## 2026-11-04: iteration 596 — convert X discovery totals and reservation inserts
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and zero failed digest jobs; retained social failures have later successful collections. Nov 4 15:00 UTC review remains pending.
+- Converted budget totals/provider-block projection and pending reservation inserts to Drizzle under the same client transaction/shared lock. Documented conditional PostgreSQL aggregates preserve UTC day/month bounds, failed exclusion and older pending/uncertain holds. Scheduled optional-search admission remains SQL.
+- Existing characterization tests unchanged; no migration, activation, source change or paid call. Initial typecheck caught the provider-block singleton column name; corrected before full check. Updated TASKS, architecture, decision and handbook stack; archived iteration 581.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
+- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical and live X budget snapshot unchanged. Read-only Playwright rendered 63 article elements without page errors; zero alerts and no source errors.
+- Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters/admission or historical migration baseline. Private pg_dump before first new migration.

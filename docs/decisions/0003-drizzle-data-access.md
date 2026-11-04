@@ -164,5 +164,7 @@ reservations, verification/model limits and scheduled reserve admission.
 X discovery ledger verification completion, settlement and failure writes use typed
 Drizzle updates and provider-block inserts. The existing shared advisory lock and
 client transaction remain; terminal-state guards, uncertain settlement, persisted
-hold comparisons and first verification timestamps are unchanged. Admission and
-usage totals still use SQL pending their separate conversion.
+hold comparisons and first verification timestamps are unchanged. Usage totals now use typed Drizzle projections with documented PostgreSQL
+FILTER/UTC wall-clock templates, retaining older pending/uncertain holds and
+provider blocks. Reservation inserts use the same transaction client; scheduled
+optional-search admission still uses SQL pending its separate conversion.
