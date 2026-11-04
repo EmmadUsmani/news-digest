@@ -284,3 +284,41 @@ void test('saved spend accepts exact caps, rejects overflow and leaves empty evi
   });
   assert.throws(() => xExperimentComparison(evidence, manifest), /overflow/);
 });
+
+void test('every search must start after its full news window is available', () => {
+  for (const startedAt of [
+    '2026-11-05T17:59:59.999Z',
+    '2026-11-05T10:59:59.999-07:00',
+    '2026-11-04T19:00:00Z',
+  ]) {
+    const first = fixture();
+    const second = fixture('05');
+    second.round.calls.forEach((call) => {
+      call.startedAt = '2026-11-05T18:00:00Z';
+    });
+    second.round.calls[0].startedAt = startedAt;
+    const report = xExperimentComparison(
+      [...first.evidence, ...second.evidence],
+      [first.round, second.round],
+    );
+    assert.deepEqual(report.rounds[1].prematureRequestIds, [
+      second.evidence[0].requestId,
+    ]);
+    assert.equal(report.rounds[1].complete, false);
+    assert.equal(report.twoDayCoverage, false);
+    assert.ok(
+      report.rounds[1].styles.every(
+        (style) => style.eligiblePostsPerDollar === null,
+      ),
+    );
+    // Timing-invalid calls still count against the saved spend guardrails.
+    assert.equal(report.guardrails.totalCostMicros, 1_200_000);
+  }
+  const data = fixture();
+  data.round.calls.forEach((call) => {
+    call.startedAt = '2026-11-04T11:00:00-07:00';
+  });
+  const report = xExperimentComparison(data.evidence, [data.round]);
+  assert.deepEqual(report.rounds[0].prematureRequestIds, []);
+  assert.equal(report.rounds[0].complete, true);
+});

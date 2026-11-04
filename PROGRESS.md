@@ -145,3 +145,12 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (451 unit/209 isolated integration), pnpm build, standalone smoke-script strict tsc, handbook (17 pages/22 diagrams/26 tables) and git diff --check passed. Corrected initial smoke-script formatting failure; final full check passed.
 - Updated TASKS and archived iteration 678 to bound PROGRESS; SOURCES/handbook unchanged because this is a UI race fix. Rebuilt and restarted API to serve corrected UI; worker unchanged.
 - Next: Nov 5 grouping/NBA AI/cost/latency/screenshots. Paid X dispatch still requires a supported cost bound or owner decision.
+
+## 2026-11-04: iteration 695 — require closed windows for X comparisons
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, all 36 sources healthy/nonempty and no failed retained digest runs; next edition Nov 5 15:00 UTC.
+- Offline X comparison reports now list searches dispatched before their edition window ended and exclude those rounds from comparable yield and two-day coverage. Their costs remain included in all spend guardrails.
+- Added synthetic regressions for one premature call, future windows, equivalent UTC offsets and dispatch exactly at the exclusive window end. No provider calls or production/config changes.
+- Verification: targeted comparison tests 10/10; pnpm format, pnpm lint:fix, pnpm check (452 unit/209 isolated integration), pnpm build, handbook validation and git diff --check passed.
+- Updated TASKS and experiment reference. SOURCES/owner handbook unchanged: no source/runtime changes. No service restart under STEERING 22 for offline tooling.
+- Next: Nov 5 grouping/NBA AI/cost/latency/screenshots. Paid X dispatch remains blocked on supported cost bound/owner decision.

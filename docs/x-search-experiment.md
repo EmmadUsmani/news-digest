@@ -69,7 +69,10 @@ pnpm exec tsx apps/api/scripts/report-x-experiment.ts /private/path/evidence.jso
 Each round has `model`, four distinct `topicIds`, and `calls` containing
 `requestId` and timezone-qualified `startedAt` (saved dispatch time). A complete
 round requires exactly one call per topic/style, the same model and edition
-window, dispatches within one hour and one UTC day. Missing/duplicate cells,
+window, dispatches within one hour and one UTC day, and every search starting
+at or after its window end. Premature calls are listed by request ID and block
+complete-round coverage and comparable yield, while still counting toward spend.
+Missing/duplicate cells,
 window mismatch and elapsed time are reported; unknown/reused request IDs or
 mislabelled topics/models fail validation. Unassigned evidence is listed.
 `twoDayCoverage` requires complete rounds for the same model and four topics on

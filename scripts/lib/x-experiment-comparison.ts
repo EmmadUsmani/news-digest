@@ -33,6 +33,7 @@ export function xExperimentComparison(
     const windows = new Set<string>();
     const days = new Set<string>();
     const times: number[] = [];
+    const prematureRequestIds: string[] = [];
     const calls = round.calls.map((saved) => {
       const call = reports.get(saved.requestId);
       const time = Date.parse(saved.startedAt);
@@ -54,6 +55,8 @@ export function xExperimentComparison(
       dailyCosts.set(day, dailyCost);
       if (dispatched.getUTCHours() >= 13 && dispatched.getUTCHours() < 16)
         forbiddenRequestIds.push(call.requestId);
+      if (time < Date.parse(call.window.end))
+        prematureRequestIds.push(call.requestId);
       times.push(time);
       days.add(new Date(time).toISOString().slice(0, 10));
       windows.add(
@@ -75,6 +78,7 @@ export function xExperimentComparison(
       ? Math.max(...times) - Math.min(...times)
       : null;
     const complete =
+      prematureRequestIds.length === 0 &&
       missing.length === 0 &&
       duplicateCells.length === 0 &&
       windows.size === 1 &&
@@ -87,6 +91,7 @@ export function xExperimentComparison(
       utcDay: days.size === 1 ? [...days][0] : null,
       spanMs,
       sameWindow: windows.size === 1,
+      prematureRequestIds,
       window:
         windows.size === 1
           ? {
