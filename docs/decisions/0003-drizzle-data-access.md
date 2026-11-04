@@ -38,6 +38,12 @@ Writes recheck enabled source connections, preserve citation metadata on conflic
 and roll back the check together with citations. Existing characterization tests
 remain unchanged.
 
+The X-search adapter uses typed CTE/union and correlated counts for scheduled
+coverage, completed-search evidence and verification candidates. Citation writes
+retain the shared first-attribution advisory lock, conflict-ignore behavior,
+JSON engagement reports and atomic rollback with original PostgreSQL errors.
+Existing X-search characterization tests remain unchanged.
+
 `libs/db/schema.ts` maps all 25 public tables, including the historical migration
 ledger, from migrations 001–055. The isolated `schema-parity` test creates an
 empty comparison database from Drizzle's generated DDL, compares PostgreSQL's

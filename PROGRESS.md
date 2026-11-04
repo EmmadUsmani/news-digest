@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 561 — finish Grafana mobile verification
-
-- Started clean on main; no leftover work. Healthz passed, 36 healthy sources, zero alerts; recent free-social and Bluesky collection jobs completed. Nov 4 15:00 UTC evidence remains pending.
-- Fixed Agent mobile verification waiting on an unmounted Supervisor panel: bounded scrolling now mounts the virtualized panel before locating it, matching the existing Runtime approach.
-- Full read-only `pnpm exec tsx scripts/check-observability.ts --verify-grafana` passed all ten dashboards and desktop/mobile captures. Inspected and retained Agent mobile screenshot; discarded unrelated screenshot refreshes.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/193 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes and final alerts clear.
-- Updated TASKS; archived iteration 542 to keep PROGRESS small. No running code/config changed, so no restart under STEERING 22; no paid calls or production activation.
-- Next: prioritize Nov 4 scheduled edition review; grouping/incremental triage remain gated. Repository characterization remains available while waiting.
-
 ## 2026-11-04: iteration 562 — characterize equal-time Bluesky conflicts
 
 - Started clean on main; no leftover work. Healthz passed, all 36 sources have no current errors, digest queue has zero failed jobs and alerts are clear. Nov 4 scheduled evidence remains pending.
@@ -164,3 +155,14 @@
 - Read-only converted live candidate query returned eight articles across five publisher hosts. Latest free collection before restart checked eight pages, found two citations and reported zero discovery errors.
 - Rebuilt/restarted API and worker outside freeze; both active, healthz healthy, root HTTP 200, 36 error-free sources, zero failed digest jobs and zero alerts. Latest real edition response byte-identical across restart.
 - Next: prioritize Nov 4 scheduled review when due; otherwise historical migration baseline or remaining individual ORM repositories. Private pg_dump required before first new migration.
+
+## 2026-11-04: iteration 578 — convert X-search repository to Drizzle
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and zero failed digest jobs; Nov 4 scheduled review remains pending.
+- Converted scheduled coverage CTE/union, completed-open-search evidence, topic/verification reads and citation writes to typed Drizzle. Preserved inclusive start/exclusive end, cooldown/order/limit, unknown-attribution exclusion, shared advisory lock, conflict-ignore, JSON reports and atomic rollback with PostgreSQL errors.
+- Existing characterization assertions unchanged. Typecheck caught nullable union topics and untyped account JSON; corrected explicit projection types before verification.
+- Updated TASKS, architecture, decision and handbook stack. No migration, source/feature activation, UI change or paid call.
+- Read-only converted live queries returned four topics (67/19/7/1 free X posts), reviewed handle counts 11/10/12/11 and a valid topic lookup. Latest free collection checked eight articles/found two citations with zero errors.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, handbook stack check and git diff --check passed; X-search statement coverage 100%, zero dangling Docker volumes.
+- Rebuilt/restarted API and worker outside the freeze; both active, healthz healthy, root HTTP 200, latest real edition byte-identical across restart, 36 error-free sources and zero failed digest jobs/alerts.
+- Archived iteration 561 to keep PROGRESS bounded. Next: prioritize Nov 4 scheduled review when due; otherwise historical migration baseline or remaining individual ORM adapters. Private pg_dump before first new migration.
