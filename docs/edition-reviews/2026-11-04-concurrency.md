@@ -241,3 +241,35 @@ historical edition's exact pool/cache. The observation reader caps each topic
 at 5,000 rows (none saturated here). Bytes are not tokens; this measures no
 provider latency, billed cost, semantic quality or X-post batching. Compare
 Nov 5 actual call/repair/cache evidence before changing runtime settings.
+
+## Stored X pool batching (iteration 688)
+
+`report-x-batching.ts` uses the production verified X semantic-candidate
+selector in a repeatable-read, read-only transaction. It passes stored real
+text and current topic context to the offline fake scorer, printing aggregates
+only. Reproduce on the VM:
+
+```sh
+node --env-file=$HOME/.config/news-digest/env --import tsx apps/api/scripts/report-x-batching.ts 2026-11-03T15:00:00Z 2026-11-04T15:00:00Z
+```
+
+| Topic     | Candidates | Calls at size 10 / 25 / 50 / 200 | Input bytes at size 50 |
+| --------- | ---------: | -------------------------------- | ---------------------: |
+| Tech & AI |         96 | 10 / 4 / 2 / 2                   |                 29,388 |
+| NBA       |         24 | 3 / 1 / 1 / 1                    |                  9,102 |
+| Gaming    |         32 | 4 / 2 / 1 / 1                    |                 10,410 |
+| World     |         11 | 2 / 1 / 1 / 1                    |                  4,446 |
+
+All 163 items were scored exactly once per comparison; repartitioned repeats
+made zero requests. Sizes 50 and 200 both use five requests and 53,346 input
+bytes. The Tech pool exposes two simultaneous fake requests at size 200 versus
+one at size 50; production already supplies up to 200 X candidates, so this
+concurrency is already available. Raising the caller limit offers no additional
+request-count gain in this pool. Keep production unchanged.
+
+This is not the historical edition pool: current citations and verification
+can have arrived after the window cutoff; only publication time and reported
+engagement use that cutoff. Current topic settings, a cold in-memory cache and
+synthetic scores cannot establish actual cache incidence, provider admission,
+latency, cost or quality. The production selector caps each topic at 200;
+none reached it here. Compare Nov 5 actual evidence before runtime tuning.
