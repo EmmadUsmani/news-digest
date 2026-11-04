@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 622 — refuse incomplete LLM recording exports
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 healthy sources and retained job checks green.
-- Recording snapshots now refuse while provider calls are pending, preventing silently truncated replay fixtures. Settled failures release the guard without being recorded.
-- Extended concurrent reversal regression to check partial exports; added synchronous-provider and malformed-response failure coverage. Updated TASKS and LLM recording documentation.
-- Verification: targeted recording tests 5/5; pnpm format, pnpm lint:fix, pnpm check (366 unit/205 isolated integration), pnpm build and git diff --check passed.
-- Explicit recording tool only; no running-service code/config changes, so no restart under STEERING 22. No paid calls, prompt changes, new recordings or production activations.
-- Restarted worker only; final healthz healthy, zero alerts/failed units/dangling volumes. Saved Nov 3 edition still serves 19 real stories/11 X posts. No Postgres/Redis restart.
-- Next: Nov 4 15:00 UTC edition review; grouping and incremental triage remain off pending that review. Real raw-response golden remains open.
-
 ## 2026-11-04: iteration 623 — preserve recording model identity across awaits
 
 - Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 healthy sources and all 13 monitored services active.
@@ -181,3 +171,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (384 unit/205 isolated integration), pnpm build and git diff --check passed.
 - API/worker restarted at 14:12 UTC; healthz healthy, zero alerts/failed user units/dangling volumes. Saved Nov 3 edition intact: four topics/19 stories/11 posts. No Postgres/Redis restart.
 - Next: review Nov 4 15:00 UTC edition for open-X/Bluesky selections, World posts, NBA validation and timing/cost; incremental triage/grouping remain off until review.
+
+## 2026-11-04: iteration 640 — measure caller barriers in offline triage batching
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources and all four queues available; Nov 4 edition pending.
+- Offline batching now reports cold provider requests per sequential caller pass and equal-duration capacity rounds at one/two/four slots, excluding cache-only repeat work.
+- Recorded Nov 1 NBA/Tech windows each need two requests: chunk 50 serializes them; chunk 200 permits overlap. Two/four slots tie in these small windows. World needs one request. These are capacity models, not live timing/cost or optimal-setting evidence.
+- Four targeted tests pass, including 201-item partial passes, byte-bound splitting, empty work and cache-preserving repartitioning. No paid calls, production code/settings or feature activation.
+- Updated TASKS/RANKING; archived iteration 622 to keep PROGRESS bounded. No source/handbook/schema behavior change.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (385 unit/205 isolated integration), pnpm build and git diff --check passed. An initial format check caught the new archive file; formatted it and reran the full check successfully.
+- API/worker restarted at 14:21 UTC; healthz healthy, zero alerts/failed units/dangling volumes. Saved Nov 3 edition remains four topics/19 stories/11 posts. No Postgres/Redis restart.
+- Next: review Nov 4 15:00 UTC edition for open-X/Bluesky selections, World posts, NBA validation and timing/cost. Incremental triage/grouping stay off pending review.

@@ -72,3 +72,38 @@ void test('composition counts serialized Unicode and escapes in the actual wire 
     row.inputBytes,
   );
 });
+
+void test('capacity rounds respect sequential caller passes and partial final passes', async () => {
+  const topic = { id: 'test', name: 'test', description: '', guidance: '' };
+  const candidates = Array.from({ length: 201 }, (_, i) => ({
+    id: String(i),
+    title: 'Short',
+    excerpt: null,
+    sources: [],
+  }));
+  const large = await evaluateTriageBatching(topic, candidates, 200);
+  assert.deepEqual(large.requestsPerPass, [4, 1]);
+  assert.deepEqual(large.equalDurationRounds, [
+    { slots: 1, rounds: 5 },
+    { slots: 2, rounds: 3 },
+    { slots: 4, rounds: 2 },
+  ]);
+  const small = await evaluateTriageBatching(topic, candidates, 50);
+  assert.deepEqual(small.requestsPerPass, [1, 1, 1, 1, 1]);
+  assert.ok(small.equalDurationRounds.every(({ rounds }) => rounds === 5));
+  const empty = await evaluateTriageBatching(topic, [], 200);
+  assert.deepEqual(empty.requestsPerPass, []);
+  assert.ok(empty.equalDurationRounds.every(({ rounds }) => rounds === 0));
+  const byteSplit = await evaluateTriageBatching(
+    topic,
+    candidates
+      .slice(0, 50)
+      .map((candidate) => ({ ...candidate, excerpt: '界'.repeat(1800) })),
+    50,
+  );
+  assert.ok(byteSplit.requestsPerPass[0] > 1);
+  assert.equal(
+    byteSplit.equalDurationRounds[2].rounds,
+    Math.ceil(byteSplit.requestsPerPass[0] / 4),
+  );
+});

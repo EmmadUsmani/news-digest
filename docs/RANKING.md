@@ -2477,3 +2477,30 @@ synthetic; publication times remain arrival proxies. Independent position
 comparisons are not simultaneous editions or measured production turns.
 No configuration, source, prompt or activation changed; the Nov 4 review
 and actual arrival/cache evidence remain prerequisites to choosing settings.
+
+## Iteration 640: caller barriers and provider capacity
+
+The offline batching report now emits cold `requestsPerPass` and
+`equalDurationRounds` at 1, 2 and 4 provider slots. Rounds sum
+`ceil(requests / slots)` separately for each sequential caller pass; they
+cannot pool spare slots across caller barriers. Cache-only repeat passes are
+excluded. This models equal-duration independent calls, not provider latency,
+queue contention, cost or quality. Production settings remain unchanged.
+
+Reproduce: `pnpm exec tsx apps/api/scripts/evaluate-triage-batching.ts`.
+The same recorded Nov 1 windows and empty guidance from iteration 553 apply.
+
+| Caller chunk | NBA requests / four-slot rounds | World requests / four-slot rounds | Tech/AI requests / four-slot rounds |
+| ------------ | ------------------------------- | --------------------------------- | ----------------------------------- |
+| 10           | 6 / 6                           | 5 / 5                             | 6 / 6                               |
+| 25           | 3 / 3                           | 2 / 2                             | 3 / 3                               |
+| 50           | 2 / 2                           | 1 / 1                             | 2 / 2                               |
+| 200          | 2 / 1                           | 1 / 1                             | 2 / 1                               |
+
+At chunk 200, two slots already reach the same modeled rounds as four in
+these small windows. At chunk 50 or below, additional slots cannot help
+because every caller pass makes just one request. Thus request counts alone
+hide the serialization introduced by smaller caller chunks. This does not
+establish the best setting for larger pools or actual arrivals. Synthetic
+regressions cover a partial final pass (201 items), byte-bound splitting,
+empty work and cache-preserving repartitioning. No paid calls or activation.

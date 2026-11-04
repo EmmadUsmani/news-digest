@@ -94,22 +94,36 @@ export async function evaluateTriageBatching(
     },
     llmConfig({}).haiku,
   );
+  const requestsPerPass: number[] = [];
   const score = async (size: number) => {
     for (let offset = 0; offset < candidates.length; offset += size) {
       const batch = candidates.slice(offset, offset + size);
+      const before = requests.length;
       const result = await triage.score(topic, batch, 'offline-batching');
+      requestsPerPass.push(requests.length - before);
       if (result.unscoredIds.length || result.scores.length !== batch.length)
         throw new Error('Incomplete synthetic scoring');
     }
   };
   await score(chunkSize);
   const coldRequests = requests.length;
+  const coldPasses = [...requestsPerPass];
   // Repartitioning must retain all item-cache hits, independent of wire IDs.
   await score(chunkSize === 200 ? 25 : 200);
   return {
     chunkSize,
     candidates: candidates.length,
     requests: coldRequests,
+    requestsPerPass: coldPasses,
+    // Equal-duration, independent calls only. Caller passes remain sequential.
+    // These capacity rounds are not measured time or a feasible live schedule.
+    equalDurationRounds: [1, 2, 4].map((slots) => ({
+      slots,
+      rounds: coldPasses.reduce(
+        (sum, count) => sum + Math.ceil(count / slots),
+        0,
+      ),
+    })),
     repeatRequests: requests.length - coldRequests,
     scoredItems: requests.reduce((sum, request) => sum + request.items, 0),
     inputBytes: requests.reduce((sum, request) => sum + request.inputBytes, 0),
