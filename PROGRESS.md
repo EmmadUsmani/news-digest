@@ -1,21 +1,3 @@
-## 2026-11-04: iteration 695 — require closed windows for X comparisons
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, all 36 sources healthy/nonempty and no failed retained digest runs; next edition Nov 5 15:00 UTC.
-- Offline X comparison reports now list searches dispatched before their edition window ended and exclude those rounds from comparable yield and two-day coverage. Their costs remain included in all spend guardrails.
-- Added synthetic regressions for one premature call, future windows, equivalent UTC offsets and dispatch exactly at the exclusive window end. No provider calls or production/config changes.
-- Verification: targeted comparison tests 10/10; pnpm format, pnpm lint:fix, pnpm check (452 unit/209 isolated integration), pnpm build, handbook validation and git diff --check passed.
-- Updated TASKS and experiment reference. SOURCES/owner handbook unchanged: no source/runtime changes. No service restart under STEERING 22 for offline tooling.
-- Next: Nov 5 grouping/NBA AI/cost/latency/screenshots. Paid X dispatch remains blocked on supported cost bound/owner decision.
-
-## 2026-11-04: iteration 696 — preserve confirmed X experiment violations
-
-- Started clean on main; no leftover work. Zero alerts and healthy healthz/database/Redis; 36 nonempty sources without current errors and no failed retained digest jobs. Nov 5 15:00 UTC checks remain future.
-- Fixed offline execution compliance: a malformed/unreadable sibling tool record no longer masks a confirmed sort, threshold, filter, exclusion or story-OR violation. Known failure takes precedence; valid plus missing evidence remains unknown.
-- Added synthetic regressions for all five violation types, mixed record order and valid/unknown controls. No provider calls, production behavior or configuration changes.
-- Verification: targeted report tests 8/8, standalone strict tsc, pnpm format, pnpm lint:fix, pnpm check (453 unit/209 isolated integration) and pnpm build passed. Handbook validation (17 pages/22 diagrams/26 tables) and git diff --check passed.
-- Updated TASKS and experiment reference; archived iteration 679 to bound PROGRESS. SOURCES/handbook unchanged: no source/runtime change. No restart under STEERING 22 for offline tooling.
-- Next: Nov 5 grouping/NBA AI/cost/latency/screenshots; paid X dispatch remains blocked on a supported cost bound or owner decision.
-
 ## 2026-11-04: iteration 697 — preserve refreshed edition history
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 sources without current errors and no failed retained digest jobs. Next edition Nov 5 15:00 UTC; paid X experiment still blocked on supported cost bound.
@@ -139,3 +121,13 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (469 unit/213 isolated integration), pnpm build, handbook validation (18 pages/22 diagrams/26 tables), systemd unit verification and git diff --check. Initial full check caught missing void on the Node test; fixed and reran. check-observability --verify-alerts passed (16 rules, zero alerts).
 - Updated TASKS/STEERING acknowledgement and affected Operations/schedule handbook; split restore instructions to keep pages short; archived iteration 693. SOURCES/NEEDS_FROM_HUMAN unchanged. No app/runtime/provider changes; API/worker restart unnecessary under STEERING 22. Alert service restarted; backup/restore services ran successfully.
 - Next: offline experiment review/second independent day under existing caps; Nov 5 grouping/NBA AI/cost/latency/screenshots take priority when due. Fixed X scheduling stays off until the experiment decision.
+
+## 2026-11-04: iteration 710 — review saved X experiment candidates
+
+- Started clean on main; no leftover work. Zero alerts, healthz/database/Redis healthy, all 36 sources active/nonempty without errors, all queues available with workers; next edition Nov 5 15:00 UTC.
+- Retrieved official oEmbed for all 47 saved experiment citations, privately (47 successes, no errors). Manual visible-text promotion review: six definite promotions, 26 without explicit promotion in visible text, 15 unresolved. Truncated/media-dependent cases and every social-triage score remain unknown; no fabricated AI scores or winner.
+- Found giveaways in Tech/Gaming trending and betting content in NBA current/trending. Saved reviewed evidence/report separately; original responses/journal unchanged. Gaming's unknown $0.15 hold remains charged. No paid calls, ingestion, production parameter changes or fixed-schedule activation.
+- Read-only repeatable-read World snapshot reproduces 200/200 eligible candidates: empty required phrases admit Guardian US NFL article, ranked first by recency (9.94 vs midterms 9.93). Recorded exact policy, pool and ranked evidence privately; no new relevance rules or owner-setting edits.
+- Added detailed experiment review and linked it from TASKS/experiment reference; archived iterations 695–696 to bound PROGRESS. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source/runtime changes or new owner blocker. No service restart under STEERING 22 because only documentation changed.
+- Verification: private review coverage/assertions and offline report command passed; pnpm format, pnpm lint:fix, pnpm check (469 unit/213 isolated integration), pnpm build, handbook link/metadata check (18 pages/26 tables) and git diff --check passed.
+- Next: second independent news day, threshold calibration/model comparison within shared experiment caps; Nov 5 grouping/NBA full-AI/cost/latency/screenshots take priority when due. Production fixed A/B remains off pending decision.

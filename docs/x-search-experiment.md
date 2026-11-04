@@ -237,3 +237,12 @@ Iteration 708 wires the worker runtime behind `X_FIXED_SEARCH_ENABLED=1`
 A before B, live budget checks, exact article windows, settings/time rechecks
 and the same reserve/settle/verify pipeline. Consumed A slots cannot hide B on
 later ticks. Production remains off; experiment decision still gates activation.
+
+## Visible-text review — iteration 710
+
+[Round-1 review](edition-reviews/2026-11-04-x-experiment-review.md) records
+47 successful official oEmbed lookups, six definite promotions and the World
+article-pool diagnosis. Private reviewed evidence preserves unknown social
+triage scores and unresolved promotions; original responses remain unchanged.
+Current/trending raw candidates fail the zero-promotion check. No winner,
+paid rerun, production activation or parameter changes.
