@@ -159,3 +159,12 @@
 - Regressions cover recorded totals, failed-call time, scope isolation, order independence, empty evidence and invalid/overflowing durations. Updated TASKS/RANKING; archived iterations 533–534. No source/schema/UI/handbook flow change.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (362 unit/187 isolated integration), pnpm build, recorded replay and git diff --check passed; zero dangling Docker volumes. No restart under STEERING 22: only offline tooling, fixtures, tests and docs changed.
 - Next: Nov 4 scheduled review first; then gated worker connection and actual scoring-waste/latency/cost evidence. Concurrency alone at eight slots cannot meet 60 s at the old durations.
+
+## 2026-11-04: iteration 553 — measure offline triage input composition
+
+- Started clean on main; no leftover work. Healthy healthz/root, zero alerts, 36 nonempty/error-free sources and four available queues; no failed digest jobs. Latest hourly social collections completed.
+- Extended the existing recorded batching replay with additive serialized-byte composition: instructions, excerpts, titles, source arrays and framing. Unicode/escaping/null regressions verify exact accounting; no prompt or production changes.
+- Current caller setting across 153 recorded articles: 65,824 input bytes; excerpts 45.8%, titles 17.7%, sources 5.2%, instructions 5.6%, framing 25.8%. Empty topic guidance limits representativeness; bytes are not tokens. No paid calls or speed/quality claim.
+- Updated TASKS/RANKING. No source/schema/UI/handbook flow change; no restart under STEERING 22 because only offline scripts/tests/docs changed.
+- Verification: targeted batching tests 3/3; pnpm format, pnpm lint:fix, pnpm check (363 unit/187 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
+- Next: review Nov 4 15:00 UTC edition first; gated incremental worker connection and actual waste/latency/cost evidence thereafter. Removing repeated instructions alone offers limited input-byte savings here.

@@ -23,15 +23,49 @@ export async function evaluateTriageBatching(
   const requests: {
     items: number;
     inputBytes: number;
+    instructionBytes: number;
+    excerptBytes: number;
+    titleBytes: number;
+    sourceBytes: number;
+    framingBytes: number;
     reservedOutputTokens: number;
   }[] = [];
   const triage = new CandidateTriage(
     {
       json(request, validate) {
         const prompt = JSON.parse(request.prompt) as {
-          candidates: { id: string }[];
+          candidates: {
+            id: string;
+            excerpt: string | null;
+            title: string;
+            sources: string[];
+          }[];
         };
+        const bytes = (value: unknown) =>
+          Buffer.byteLength(JSON.stringify(value));
+        const instructionBytes = Buffer.byteLength(request.instructions);
+        const excerptBytes = prompt.candidates.reduce(
+          (sum, item) => sum + bytes(item.excerpt),
+          0,
+        );
+        const titleBytes = prompt.candidates.reduce(
+          (sum, item) => sum + bytes(item.title),
+          0,
+        );
+        const sourceBytes = prompt.candidates.reduce(
+          (sum, item) => sum + bytes(item.sources),
+          0,
+        );
         requests.push({
+          instructionBytes,
+          excerptBytes,
+          titleBytes,
+          sourceBytes,
+          framingBytes:
+            Buffer.byteLength(request.prompt) -
+            excerptBytes -
+            titleBytes -
+            sourceBytes,
           items: prompt.candidates.length,
           inputBytes: Buffer.byteLength(request.instructions + request.prompt),
           reservedOutputTokens: request.maxOutputTokens,
@@ -79,6 +113,13 @@ export async function evaluateTriageBatching(
     repeatRequests: requests.length - coldRequests,
     scoredItems: requests.reduce((sum, request) => sum + request.items, 0),
     inputBytes: requests.reduce((sum, request) => sum + request.inputBytes, 0),
+    inputComposition: {
+      instructions: requests.reduce((sum, r) => sum + r.instructionBytes, 0),
+      excerpts: requests.reduce((sum, r) => sum + r.excerptBytes, 0),
+      titles: requests.reduce((sum, r) => sum + r.titleBytes, 0),
+      sources: requests.reduce((sum, r) => sum + r.sourceBytes, 0),
+      framing: requests.reduce((sum, r) => sum + r.framingBytes, 0),
+    },
     maximumInputBytes: Math.max(0, ...requests.map((r) => r.inputBytes)),
     reservedOutputTokens: requests.reduce(
       (sum, request) => sum + request.reservedOutputTokens,

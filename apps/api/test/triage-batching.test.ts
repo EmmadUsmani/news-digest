@@ -11,6 +11,14 @@ void test('recorded batch comparison preserves candidates and cache across parti
   assert.equal(rows.length, 12);
   for (const row of rows) {
     assert.equal(row.scoredItems, row.candidates);
+    assert.equal(
+      Object.values(row.inputComposition).reduce(
+        (sum, value) => sum + value,
+        0,
+      ),
+      row.inputBytes,
+    );
+    assert.ok(row.inputComposition.framing > 0);
     assert.equal(row.repeatRequests, 0);
     const baseline = rows.find(
       (r) => r.topic === row.topic && r.chunkSize === 200,
@@ -44,4 +52,23 @@ void test('byte limit splits large excerpts even below caller chunk size', async
     /Duplicate/,
   );
   assert.equal((await evaluateTriageBatching(topic, [], 25)).requests, 0);
+});
+
+void test('composition counts serialized Unicode and escapes in the actual wire input', async () => {
+  const row = await evaluateTriageBatching(
+    { id: 'test', name: 'test', description: '', guidance: '' },
+    [
+      { id: 'one', title: 'A"界', excerpt: 'line\n界', sources: ['Outlet'] },
+      { id: 'two', title: 'Other', excerpt: null, sources: [] },
+    ],
+    25,
+  );
+  const bytes = (value: unknown) => Buffer.byteLength(JSON.stringify(value));
+  assert.equal(row.inputComposition.excerpts, bytes('line\n界') + bytes(null));
+  assert.equal(row.inputComposition.titles, bytes('A"界') + bytes('Other'));
+  assert.equal(row.inputComposition.sources, bytes(['Outlet']) + bytes([]));
+  assert.equal(
+    Object.values(row.inputComposition).reduce((sum, value) => sum + value, 0),
+    row.inputBytes,
+  );
 });

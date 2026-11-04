@@ -2222,3 +2222,19 @@ constraints; 16 slots supplies no evidence of achieving the target. Compact
 output and incremental cache preparation remain relevant. Production concurrency
 is unchanged; no paid calls or activation occurred. Missing or failed requests
 must not be silently removed when preparing future evidence.
+
+## Iteration 553: offline triage input composition
+
+The batching replay also partitions actual serialized input bytes into instructions,
+excerpt values, title values, source arrays and remaining framing. Value counts
+include JSON quoting/escaping (and `null` excerpts); framing includes topic,
+output instructions, identity fields, field names and JSON punctuation. The
+parts sum exactly to the request input size, including multibyte text.
+
+At the current 200-item caller setting, the three recorded windows total
+65,824 bytes: excerpts 30,116 (45.8%), titles 11,681 (17.7%), sources 3,393
+(5.2%), repeated instructions 3,665 (5.6%), and framing 16,969 (25.8%).
+These windows have empty topic guidance. Removing all repeated instructions
+would save at most 5.6% here; shortening excerpts could affect relevance and
+has not been quality-tested. No prompt edits, token/cost/latency inference,
+paid calls or production change. Use the existing batching CLI to reproduce.
