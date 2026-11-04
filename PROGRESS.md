@@ -174,3 +174,4 @@
 - Updated TASKS and database verification notes. No provider requests or production changes; no restart under STEERING 22.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/197 isolated integration) and pnpm build passed. Final healthz healthy, alerts clear and zero dangling Docker volumes.
 - Next: prioritize Nov 4 15:00 UTC edition review; grouping and incremental triage remain gated. Repository characterization and recorded-response golden remain open.
+- Push initially rejected because owner commit 13d9e7d arrived; merged without rewriting history. New STEERING 29 prioritizes production console during downtime and stops further characterization beyond ORM needs. Next iteration follows that queue.
