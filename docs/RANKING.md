@@ -2764,3 +2764,19 @@ rejection of an original long ID returned instead of its wire alias. This reduce
 serialized ID bytes, not a measured token/cost/latency improvement. Lowering the
 output cap was deferred because field character limits do not establish a safe
 smaller token bound for arbitrary text.
+
+### Iteration 664: bulk triage cache reads
+
+Article and social triage now use an optional ledger bulk-read capability for
+both scoring and read-only pending probes. The PostgreSQL adapter resolves a
+bounded pool (at most 200 items) with one query instead of one per candidate;
+empty pools do no reads. Adapters without this capability retain single-key
+reads. Item fingerprints, score schema, exact identity checks and missing-item
+provider batching are unchanged. A bulk-read failure propagates before any
+provider request rather than silently converting cached hits into paid misses.
+
+Synthetic coverage mixes valid hits, wrong identities, malformed responses and
+missing rows in reverse order, then checks scoring, probes and read failure for
+both article and social modes. Isolated PostgreSQL coverage checks mixed hits,
+missing/duplicate keys and empty input. This reduces database round trips;
+no paid calls or live edition duration improvement are claimed.

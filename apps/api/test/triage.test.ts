@@ -63,6 +63,7 @@ function harness(
     service: new CandidateTriage(llm, ledger, llmConfig({}).haiku, kind),
     calls,
     values,
+    ledger,
     refuse: () => {
       available = false;
     },
@@ -728,5 +729,74 @@ void test('throwing batch admission stops sibling workers before more provider c
     const recovered = await h.service.score(topic, pool, 'recovered');
     assert.equal(recovered.scores.length, pool.length);
     assert.equal(h.calls.length, 4);
+  }
+});
+
+void test('bulk cache reads preserve exact validation, identity and misses for scoring and probes', async () => {
+  for (const kind of ['article', 'social'] as const) {
+    const h = harness(undefined, kind);
+    await h.service.score(topic, candidates, 'seed');
+    const keys = [...h.values.keys()].filter((key) =>
+      key.startsWith(
+        kind === 'social' ? 'social-triage-item-v1:' : 'triage-item-v1:',
+      ),
+    );
+    assert.equal(keys.length, candidates.length);
+    // Same schema but wrong identity, malformed data, and an absent row must
+    // all remain pending; database row order must not determine identity.
+    h.values.set(keys[0], { ...score(candidates[0]), id: 'foreign' });
+    h.values.set(keys[1], { broken: true });
+    h.values.delete(keys[2]);
+    const batches: string[][] = [];
+    h.ledger.cachedMany = async (requested) => {
+      batches.push(requested);
+      return new Map(
+        requested
+          .slice()
+          .reverse()
+          .filter((key) => h.values.has(key))
+          .map((key) => [key, h.values.get(key)]),
+      );
+    };
+    const singleRead = h.ledger.cached.bind(h.ledger);
+    h.ledger.cached = async (key) => {
+      assert.ok(!keys.includes(key), 'Item cache must use one bulk lookup');
+      return singleRead(key);
+    };
+    const reordered = candidates.slice().reverse();
+    assert.deepEqual(
+      await h.service.pending(topic, reordered),
+      candidates.slice(0, 3).reverse(),
+    );
+    assert.equal(batches.length, 1);
+    const result = await h.service.score(topic, reordered, 'bulk');
+    assert.equal(batches.length, 2);
+    assert.equal(h.calls.length, 2);
+    assert.equal(JSON.parse(h.calls[1].prompt).candidates.length, 3);
+    assert.deepEqual(result.unscoredIds, []);
+    assert.deepEqual(
+      new Set(result.scores.map((item) => item.id)),
+      new Set(candidates.map((item) => item.id)),
+    );
+    assert.deepEqual(await h.service.pending(topic, candidates), []);
+    const beforeEmpty = batches.length;
+    assert.deepEqual(await h.service.pending(topic, []), []);
+    assert.deepEqual(await h.service.score(topic, [], 'empty'), {
+      scores: [],
+      unscoredIds: [],
+    });
+    assert.equal(batches.length, beforeEmpty);
+    h.ledger.cachedMany = async () => {
+      throw new Error('bulk unavailable');
+    };
+    await assert.rejects(
+      h.service.score(topic, candidates, 'failed-read'),
+      /bulk unavailable/,
+    );
+    assert.equal(
+      h.calls.length,
+      2,
+      'Read failure must not turn hits into paid misses',
+    );
   }
 });

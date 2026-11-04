@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 648 — retain bounded NBA rejection context
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts; 36 active sources with recent successful ingestion and no current errors, latest four-topic edition readable.
-- Article/social absence failures now identify the failed editorial field and first marker class (word/contraction/phrase) in existing bounded diagnostics and validation logs. Runtime allowlists reject arbitrary labels; no model/source text is retained.
-- Fake-provider tests verify all article fields, marker classes, initial/repair propagation and untrusted-label exclusion. Acceptance rules, prompts, fingerprints and budgets are unchanged; today's NBA rejected wording remains unknown.
-- Updated TASKS/RANKING; archived iteration 631 to keep PROGRESS bounded. No paid calls, UI/schema changes, new editions or grouping/incremental activation.
-- Verification: targeted tests 44/44; pnpm format, pnpm lint:fix, pnpm check (392 unit/205 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
-- Restarted API/worker; both active, healthz database/Redis healthy, latest four-topic edition readable, zero alerts and no failed user services.
-- Next: use future scheduled rejection labels if NBA still fails; assess Nov 5 same-story grouping activation against the passed gate, then useful World/open-X yield and reserve-safe incremental triage.
-
 ## 2026-11-04: iteration 649 — wire bounded opt-in story grouping
 
 - Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 active sources without current errors and fresh ingestion.
@@ -167,4 +157,15 @@
 - Updated TASKS/RANKING. Internal serialization change; no source/schema/UI/system-flow change or handbook/SOURCES update needed.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (403 unit/207 isolated integration), pnpm build and git diff --check passed. Archived iteration 647 to keep PROGRESS bounded.
 - Restarted API/worker: both active; healthz/database/Redis healthy, zero alerts/failed user services; saved four-topic/14-story/15-post edition readable. All 36 active sources had nonempty successful collection and no errors.
+- Next: Nov 5 grouping/cost/latency/screenshots, NBA full-AI acceptance and World posts; incremental triage stays off.
+
+## 2026-11-04: iteration 664 — batch triage cache lookups
+
+- Started clean on main; no leftover work. Zero alerts; healthz/database/Redis healthy and all 36 sources returning nonempty successful collections.
+- Article/social triage and pending probes now resolve up to 200 item-cache keys with one PostgreSQL query; empty pools read nothing. Optional port capability preserves single-key adapters.
+- Fingerprints, exact score/identity validation, prompts, provider batching and budgets unchanged. Read failures propagate before provider calls; no paid calls or claimed live latency improvement.
+- Synthetic bulk-read regression covers reversed mixed hits, malformed/wrong-ID/missing rows, empty pools and failure for both modes; isolated DB coverage includes missing/duplicate keys and empty input.
+- Updated TASKS/RANKING; archived iteration 648 to keep PROGRESS bounded. Internal cache access only; no source/schema/UI/system-flow change or handbook/SOURCES update needed.
+- Verification: targeted triage tests 20/20; pnpm format, pnpm lint:fix, pnpm check (404 unit/207 isolated integration), pnpm build and git diff --check pass. Corrected an initial test-only unbound-method lint error before the passing full check.
+- Restarted API/worker: active; healthz healthy after startup retry, saved edition four topics/14 stories/15 posts; 36 nonempty successful sources, zero errors/alerts.
 - Next: Nov 5 grouping/cost/latency/screenshots, NBA full-AI acceptance and World posts; incremental triage stays off.

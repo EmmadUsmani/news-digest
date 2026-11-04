@@ -10,5 +10,7 @@ export interface LlmLedger {
     uncertain: boolean,
   ): Promise<void>;
   cached(key: string): Promise<unknown>;
+  // Optional bulk lookup; missing keys are omitted, values still need validation.
+  cachedMany?(keys: string[]): Promise<Map<string, unknown>>;
   cache(key: string, response: unknown): Promise<void>;
 }

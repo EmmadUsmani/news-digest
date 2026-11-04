@@ -48,7 +48,7 @@ Return ONLY JSON {"items":[{"id":"provided id","relevance":0,"importance":0,"eve
 export class CandidateTriage {
   constructor(
     private readonly llm: Pick<BudgetedLlm, 'json'>,
-    private readonly cache: Pick<LlmLedger, 'cached' | 'cache'>,
+    private readonly cache: Pick<LlmLedger, 'cached' | 'cachedMany' | 'cache'>,
     private readonly model: ModelPrice,
     private readonly kind: 'article' | 'social' = 'article',
   ) {}
@@ -95,13 +95,24 @@ export class CandidateTriage {
     return { activeInstructions, compactTopic, entries };
   }
 
+  private async cachedEntries(entries: { key: string }[]) {
+    if (entries.length === 0) return new Map<string, unknown>();
+    if (this.cache.cachedMany)
+      return this.cache.cachedMany(entries.map((entry) => entry.key));
+    const values = new Map<string, unknown>();
+    for (const entry of entries)
+      values.set(entry.key, await this.cache.cached(entry.key));
+    return values;
+  }
+
   // Read-only cache probe: the same fingerprint and validation as score().
   // Callers chunk large pools; no provider request or cache write occurs here.
   async pending(topic: TriageTopic, candidates: TriageCandidate[]) {
     const { entries } = this.entries(topic, candidates);
+    const values = await this.cachedEntries(entries);
     const pending: TriageCandidate[] = [];
     for (const [index, entry] of entries.entries()) {
-      const parsed = scoreSchema.safeParse(await this.cache.cached(entry.key));
+      const parsed = scoreSchema.safeParse(values.get(entry.key));
       if (!parsed.success || parsed.data.id !== entry.item.id)
         pending.push(candidates[index]);
     }
@@ -122,8 +133,9 @@ export class CandidateTriage {
       this.kind === 'social' ? 'social-triage-v1' : 'candidate-triage-v1';
     const scores = new Map<string, TriageScore>();
     const missing: typeof entries = [];
+    const values = await this.cachedEntries(entries);
     for (const entry of entries) {
-      const cached = await this.cache.cached(entry.key);
+      const cached = values.get(entry.key);
       const parsed = scoreSchema.safeParse(cached);
       if (parsed.success && parsed.data.id === entry.item.id)
         scores.set(entry.item.id, parsed.data);
