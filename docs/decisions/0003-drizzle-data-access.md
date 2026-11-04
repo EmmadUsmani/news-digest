@@ -263,3 +263,10 @@ X discovery scheduled admission uses a Drizzle select builder over a single-row
 VALUES source. The shared transaction retains the current-UTC-day check,
 consumed-attempt exclusion and optional-parent/completed-topic gates; existing
 characterization assertions remain unchanged.
+
+The database connectivity probe uses a typed select builder over a singleton
+VALUES source, retaining its constant-only check without application-table access.
+A runtime audit found no remaining direct query/execute calls in database
+adapters; remaining nested SELECT expressions implement PostgreSQL JSON expansion
+or aggregation. The historical migration runner still uses direct driver SQL
+inside `libs/db` and is the remaining infrastructure audit item.

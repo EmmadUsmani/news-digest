@@ -35,5 +35,7 @@ export function redis() {
 
 export async function checkDatabase(pool: Pool): Promise<void> {
   // A constant probe deliberately checks connectivity without reading app tables.
-  await drizzle(pool).execute(sql`SELECT 1`);
+  await drizzle(pool)
+    .select({ value: sql<number>`1` })
+    .from(sql`(values (1)) as singleton(value)`);
 }

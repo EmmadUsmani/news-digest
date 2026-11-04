@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 600 — Drizzle Anthropic ledger transactions
-
-- Started clean on main; no leftover work. Healthy healthz, 36 sources without current errors and zero failed digest jobs. Initial pending metrics-memory warning cleared on the next snapshot; Nov 4 15:00 UTC review remains pending.
-- Converted Anthropic ledger admission/failure transaction control to Drizzle on the same checked-out client, preserving the shared budget lock, rollback, client release and original PostgreSQL error causes. Admission/refusal logs remain after successful commit.
-- Existing characterization assertions unchanged; logging stub accepts Drizzle transaction-command casing. No migration, activation, source change or paid call; owner database grants untouched.
-- Updated TASKS, architecture, decision and handbook stack; archived iteration 585. First full check stopped on archive formatting; corrected and reran green.
-- Verification: pnpm format, pnpm lint:fix, targeted reserve-logging test, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
-- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical and X budget snapshot unchanged. Read-only Playwright rendered without page errors; zero current source errors or failed digest jobs.
-- Push: Git integration initially rejected main with Internal Server Error; immediate retry successfully pushed 18e3eb6.
-- Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters/transaction infrastructure or historical migration baseline. Private pg_dump before first new migration.
-
 ## 2026-11-04: iteration 601 — Drizzle LLM usage snapshot transaction
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 active sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC review pending.
@@ -166,3 +155,13 @@
 - Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical and Anthropic/X spend unchanged. Read-only Playwright rendered four saved topics without page errors; sources have no current errors, zero alerts.
 - Updated TASKS and ORM decision; no migration, source, activation, owner grant or paid call changes; no handbook system behavior changed.
 - Next: prioritize Nov 4 edition review; otherwise connectivity probe and final raw-SQL audit. Private pg_dump before new migrations; preserve owner grants.
+
+## 2026-11-04: iteration 616 — typed database connectivity probe
+
+- Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC review remains pending.
+- Converted the constant connectivity probe to a Drizzle select builder over one VALUES row, without application-table access. Existing HTTP health characterization remains unchanged.
+- Runtime query/execute audit found only historical migration-runner driver SQL in libs/db; remaining adapter SELECT expressions implement PostgreSQL JSON expansion/aggregation. Migration infrastructure review remains open.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
+- Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical and Anthropic/X spend unchanged. Read-only Playwright rendered four topics without errors; zero current source errors, failed digest jobs or alerts.
+- Updated TASKS and ORM decision; archived iteration 600 to keep PROGRESS bounded. No migration, source, activation, owner grant or paid call changes; no handbook system behavior changed.
+- Next: prioritize Nov 4 edition review; otherwise review historical migration-runner SQL and finish item 2b acceptance. Private pg_dump before new migrations; preserve owner grants.
