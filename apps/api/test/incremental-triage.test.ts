@@ -533,3 +533,52 @@ void test('rotation replay gives one topic each tick and preserves cutoff and ca
       /rotation/,
     );
 });
+
+void test('pass trace explains bounded backlog, threshold deferral and final remainder', async () => {
+  const window = {
+    topic: 'Trace',
+    windowStart: '2026-11-01T00:00:00Z',
+    windowEnd: '2026-11-01T04:00:00Z',
+    candidates: Array.from({ length: 5 }, (_, i) => ({
+      id: String(i),
+      title: 'Title',
+      excerpt: null,
+      sources: [],
+      publishedAt: '2026-11-01T00:00:00Z',
+    })),
+  };
+  const row = await evaluateIncrementalTriage(window, 1, 2, 0, 2);
+  assert.deepEqual(
+    row.passes.map((p) => [p.pendingItems, p.scoredItems, p.outcome]),
+    [
+      [5, 2, 'scored'],
+      [3, 2, 'scored'],
+      [1, 0, 'threshold'],
+      [1, 1, 'scored'],
+    ],
+  );
+  assert.equal(row.passes.at(-1)?.phase, 'edition');
+  assert.equal(row.passes.at(-1)?.at, '2026-11-01T04:00:00.000Z');
+  assert.equal(
+    row.passes.reduce((sum, p) => sum + p.requests, 0),
+    row.totalRequests,
+  );
+  assert.equal(
+    row.passes.reduce((sum, p) => sum + p.scoredItems, 0),
+    row.totalScoredItems,
+  );
+  const rotated = await evaluateIncrementalTriage(window, 1, 1, 1, 2, {
+    topicCount: 2,
+    topicIndex: 1,
+  });
+  assert.deepEqual(
+    rotated.passes.map((p) => p.outcome),
+    ['rotation', 'scored', 'cutoff', 'scored'],
+  );
+  assert.equal(rotated.passes[2].pendingItems, 3);
+  const cached = await evaluateIncrementalTriage(window, 1);
+  assert.deepEqual(
+    cached.passes.map((p) => p.outcome),
+    ['scored', 'cached', 'cached', 'cached'],
+  );
+});

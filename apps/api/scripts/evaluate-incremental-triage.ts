@@ -214,6 +214,15 @@ export async function evaluateIncrementalTriage(
       );
     return pending;
   };
+  const passes: {
+    at: string;
+    phase: 'background' | 'edition';
+    outcome: 'scored' | 'cached' | 'threshold' | 'rotation' | 'cutoff';
+    poolItems: number;
+    pendingItems: number;
+    scoredItems: number;
+    requests: number;
+  }[] = [];
   let scheduledPasses = 0;
   let deferredPasses = 0;
   let boundedPasses = 0;
@@ -221,19 +230,37 @@ export async function evaluateIncrementalTriage(
   // Publication time is an optimistic availability proxy: fixtures lack ingestion times.
   for (
     let tick = start + intervalHours * 3600000;
-    tick < end - stopBeforeEditionHours * 3600000;
+    tick < end;
     tick += intervalHours * 3600000
   ) {
     const tickIndex =
       Math.round((tick - start) / (intervalHours * 3600000)) - 1;
-    if (rotation && tickIndex % rotation.topicCount !== rotation.topicIndex)
-      continue;
-    scheduledPasses++;
     const pool = poolAt(tick);
     const pending = await pendingPool(pool);
+    const pass = {
+      at: new Date(tick).toISOString(),
+      phase: 'background' as const,
+      outcome: 'scored' as (typeof passes)[number]['outcome'],
+      poolItems: pool.length,
+      pendingItems: pending.length,
+      scoredItems: 0,
+      requests: 0,
+    };
+    passes.push(pass);
+    // Cutoff takes precedence: no background topic may run in this period.
+    if (tick >= end - stopBeforeEditionHours * 3600000) {
+      pass.outcome = 'cutoff';
+      continue;
+    }
+    if (rotation && tickIndex % rotation.topicCount !== rotation.topicIndex) {
+      pass.outcome = 'rotation';
+      continue;
+    }
+    scheduledPasses++;
     peakPendingItems = Math.max(peakPendingItems, pending.length);
     if (pending.length < minimumPendingItems) {
       if (pending.length) deferredPasses++;
+      pass.outcome = pending.length ? 'threshold' : 'cached';
       continue;
     }
     const selected =
@@ -251,7 +278,10 @@ export async function evaluateIncrementalTriage(
         candidate.id,
         (preScoredVersions.get(candidate.id) ?? 0) + 1,
       );
+    const beforePass = { requests, scoredItems };
     await scorePool(selected, 'offline-incremental');
+    pass.requests = requests - beforePass.requests;
+    pass.scoredItems = scoredItems - beforePass.scoredItems;
   }
   const before = { requests, scoredItems };
   const finalPending = await pendingPool(finalPool);
@@ -266,8 +296,18 @@ export async function evaluateIncrementalTriage(
   ).length;
   finalPool.forEach((c) => allScoredIds.add(c.id));
   await scorePool(finalPool, 'offline-edition');
+  passes.push({
+    at: new Date(end).toISOString(),
+    phase: 'edition',
+    outcome: finalPending.length ? 'scored' : 'cached',
+    poolItems: finalPool.length,
+    pendingItems: finalPending.length,
+    requests: requests - before.requests,
+    scoredItems: scoredItems - before.scoredItems,
+  });
   return {
     topic: window.topic,
+    passes,
     intervalHours,
     rotation: rotation ?? null,
     scheduledPasses,

@@ -2541,3 +2541,23 @@ and Tech mostly shift one existing request earlier. Small byte differences
 also reflect batch-local wire IDs. These small recorded pools demonstrate
 why publication-only savings cannot establish a total-cost improvement.
 No live hit rates, latency, waste, spending or production setting changed.
+
+### Per-pass incremental backlog trace (iteration 643)
+
+The offline incremental replay now reports every background tick and the final
+publication pass: time, eligible pool size, pending count, actually scored items,
+provider-shaped requests, and outcome (scored, cached, threshold, rotation or
+cutoff). Cutoff takes precedence over rotation. Skipped ticks only inspect the
+synthetic cache; they perform no scoring and do not change the scheduling totals.
+Trace request/item totals reconcile with the aggregate report.
+
+Reproduce with `pnpm exec tsx apps/api/scripts/evaluate-incremental-triage.ts
+--minimum-pending=25 --stop-before-edition-hours=2
+--maximum-items-per-pass=25 --rotation-topics=4` (one shell line).
+At hourly interval/rotation offset 1, World's last eligible assigned tick has
+22 pending items and Tech's has 24: both defer under the threshold of 25.
+Their publication passes therefore score all 47/54 candidates. NBA scores 25
+at its 06:15 tick, then defers pending counts of 7 and 18; publication scores 27. This explains the earlier aggregate rotation sensitivity rather than
+measuring an observed production backlog. Fixture publication times remain
+optimistic arrival proxies, scores are synthetic, and no billed cost or live
+latency is established. Production settings remain unchanged.
