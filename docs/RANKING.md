@@ -1912,3 +1912,15 @@ outside the repo. The directory must be provisioned before activation. No timer
 or pool caller invokes the service yet; the setting stays off by default. Fake
 regressions cover concurrent topic isolation, partial evidence and both failure
 paths. No paid calls, actual background scores or waste measurements occurred.
+
+## Iteration 534: shared-admission scheduler composition, still inactive
+
+The prepared public scheduler factory composes the reserve-safe, evidence-writing
+service with the bounded round-robin scheduler and mandatory Postgres admission.
+It scores at most 25 pending items from one topic per tick. Separate worker
+instances share the lock before loading pools; scoring failures release it.
+The default-off factory returns before reading the schedule or database.
+Isolated Postgres tests use a fake scorer to verify contention, the item bound,
+cutoff and recovery. No timer or production pool loader invokes this factory;
+there are no paid calls, activation or measured waste/latency results. Future
+worker wiring must supply the current schedule and exact edition candidate pool.
