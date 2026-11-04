@@ -200,7 +200,7 @@ export function StatusPanel() {
                   {run.editionId && (
                     <>
                       {' '}
-                      · <a href={`?edition=${run.editionId}`}>Open edition</a>
+                      · <a href={`/editions/${run.editionId}`}>Open edition</a>
                     </>
                   )}
                 </li>

@@ -58,7 +58,7 @@ async function smoke() {
         await page.getByText('Browse saved editions', { exact: true }).click();
         await page.getByText('Edition ready.', { exact: true }).waitFor();
         const newest = page.locator(
-          `.edition-history a[href="?edition=${history.entries[0].id}"]`,
+          `.edition-history a[href="/editions/${history.entries[0].id}"]`,
         );
         await newest.waitFor();
         const delayed = page.waitForResponse('**/api/digest-previews?offset=0');

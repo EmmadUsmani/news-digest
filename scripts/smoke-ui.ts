@@ -100,9 +100,9 @@ async function smoke() {
       const older = history.entries[1];
       assert.ok(older);
       await page
-        .locator(`.edition-history a[href="?edition=${older.id}"]`)
+        .locator(`.edition-history a[href="/editions/${older.id}"]`)
         .click();
-      await page.waitForURL(`**/?edition=${older.id}`);
+      await page.waitForURL(`**/editions/${older.id}`);
       await page.reload();
       await page
         .locator('.period')

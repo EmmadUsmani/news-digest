@@ -5,10 +5,13 @@ import {
   type PreviewHistory,
   previewHistorySchema,
 } from '@digest/contracts';
+import { useNavigate, useParams } from '@tanstack/react-router';
 import React from 'react';
 
 import { TopPosts } from './TopPosts';
 export function DigestPreview() {
+  const navigate = useNavigate();
+  const { id: selectedEditionId } = useParams({ strict: false });
   const editionRequest = React.useRef(0);
   const [preview, setPreview] = React.useState<Preview | null>(null);
   const [windowChoice, setWindowChoice] = React.useState('24');
@@ -87,7 +90,11 @@ export function DigestPreview() {
           if (cancelled) return;
           editionRequest.current++;
           setPreview(saved);
-          window.history.replaceState(null, '', `?edition=${saved.id}`);
+          void navigate({
+            to: '/editions/$id',
+            params: { id: saved.id },
+            replace: true,
+          });
           setOffset(0);
           setRevision((value) => value + 1);
           setJobMessage('Edition ready.');
@@ -116,7 +123,7 @@ export function DigestPreview() {
       cancelled = true;
       clearTimeout(timer);
     };
-  }, [jobId]);
+  }, [jobId, navigate]);
   React.useEffect(() => {
     let cancelled = false;
     setHistory(null);
@@ -136,7 +143,7 @@ export function DigestPreview() {
   }, [offset, revision]);
   React.useEffect(() => {
     const request = ++editionRequest.current;
-    const id = new URLSearchParams(window.location.search).get('edition');
+    const id = selectedEditionId;
     fetch(
       id
         ? `/api/digest-previews/${encodeURIComponent(id)}`
@@ -152,7 +159,7 @@ export function DigestPreview() {
         if (request === editionRequest.current) setError(true);
       })
       .finally(() => setLoaded(true));
-  }, []);
+  }, [selectedEditionId]);
   async function generate() {
     if (working) return;
     const end = windowChoice === 'custom' ? new Date(customEnd) : new Date();
@@ -207,10 +214,10 @@ export function DigestPreview() {
       const data = await response.json();
       if (request !== editionRequest.current) return;
       setPreview(data ? digestPreviewSchema.parse(data) : null);
-      window.history.replaceState(
-        null,
-        '',
-        id ? `?edition=${id}` : window.location.pathname,
+      void navigate(
+        id
+          ? { to: '/editions/$id', params: { id }, replace: true }
+          : { to: '/', replace: true },
       );
     } catch {
       setError(true);
@@ -321,7 +328,7 @@ export function DigestPreview() {
               {history.entries.map((entry) => (
                 <li key={entry.id}>
                   <a
-                    href={`?edition=${entry.id}`}
+                    href={`/editions/${entry.id}`}
                     aria-current={entry.id === preview?.id ? 'page' : undefined}
                     onClick={(event) => {
                       if (

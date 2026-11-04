@@ -1,5 +1,7 @@
 # Operations
 
+Saved editions use `/editions/<id>`; old `/?edition=<id>` links redirect there.
+
 ## URLs
 
 All of these are behind the exe.dev login.

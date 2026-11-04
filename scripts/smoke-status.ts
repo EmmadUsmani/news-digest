@@ -148,7 +148,7 @@ async function smoke() {
       const edition = page.locator('.run-list a').first();
       if (await edition.count()) {
         await edition.click();
-        await page.waitForURL('**/?edition=*');
+        await page.waitForURL('**/editions/*');
         await page
           .locator('.period')
           .filter({ hasText: 'Saved edition' })

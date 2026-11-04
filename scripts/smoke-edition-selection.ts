@@ -38,10 +38,10 @@ async function smoke() {
         });
         await page.getByText('Browse saved editions', { exact: true }).click();
         const selected = page.locator(
-          `.edition-history a[href="?edition=${entry.id}"]`,
+          `.edition-history a[href="/editions/${entry.id}"]`,
         );
         await selected.click();
-        await page.waitForURL(`**/?edition=${entry.id}`);
+        await page.waitForURL(`**/editions/${entry.id}`);
         assert.equal(await selected.getAttribute('aria-current'), 'page');
         const delayed = page.waitForResponse('**/api/digest-previews/latest');
         release();

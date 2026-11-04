@@ -1,21 +1,3 @@
-## 2026-11-04: iteration 704 — preserve X query operator separator
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 nonempty sources without errors, zero retained failed digest jobs; next edition Nov 5 15:00 UTC.
-- Corrected the round-1 trending concatenation defect in comparison request construction: operator suffix includes its leading space and a code-built query template exposes the keyword substitution point. Both A/B styles use it; current baseline and saved round-1 evidence stay unchanged.
-- Regression checks substitute single-word, multi-word and OR keywords and preserve filters/exclusions/thresholds. No paid calls or production activation; actual next-round tool compliance remains unverified.
-- Initial lint found three floating test declarations from iteration 703; marked them explicitly void. Targeted comparison/input/runner tests 11/11 and standalone strict tsc passed.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (458 unit/209 isolated integration) and pnpm build passed. Updated TASKS/experiment reference; archived iteration 687 to bound PROGRESS. SOURCES/handbook unchanged for experimental request formatting only.
-- No restart under STEERING 22: production services do not import the comparison helper. Next: disabled fixed A/B schedule, private nightly backups, World article-pool review and second independent comparison day; Nov 5 scheduled acceptance takes priority when due.
-
-## 2026-11-04: iteration 705 — prepare disabled fixed A/B search plans
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/services, 36 healthy nonempty sources and zero retained failed digest jobs; next edition Nov 5 15:00 UTC.
-- Added default-off pure schedule planner: reactions for top 2–3 distinct ranked stories precede trending; stored thresholds/exclusions have no fallback defaults. Uses existing pre-edition/window rules without new AI calls.
-- Budget projection keeps A first and drops B from quiet article pools first. Missing settings skip topics; fewer than two distinct stories skip A. Shares configuration type with comparison request builder; tests construct both request styles with exact operators/window.
-- Preparation only: no runtime caller, paid calls or production changes. Runtime setting, durable A/B admission, executor wiring and old followup removal remain; experiment decision gates activation. Backups follow this disabled-schedule work.
-- Verification: `pnpm exec tsx --test apps/api/test/fixed-search-schedule.test.ts apps/api/test/x-search-comparison.test.ts` (9/9), `pnpm format`, `pnpm lint:fix`, `pnpm check` (463 unit/209 isolated integration), `pnpm build` and `git diff --check` passed. Updated TASKS/experiment reference; archived iteration 688 to bound PROGRESS. SOURCES/handbook unchanged because operating sources/services are unchanged. No restart under STEERING 22: services import neither helper.
-- Initial push rejected because owner added STEERING 33/UI spec remotely. Fetched and merged without rewriting history; added the UI rebuild to TASKS after 30–32/Nov 5 checks and before fallback work. Remote changes are instructions/spec only; verified application code unchanged.
-
 ## 2026-11-04: iteration 706 — prepare direct fixed A/B dispatch
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 healthy article sources and zero retained failed digest jobs; next edition Nov 5 15:00 UTC.
@@ -123,3 +105,14 @@
 - Updated TASKS and experiment review; archived iterations 702–703 to bound PROGRESS. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source/runtime change or new owner blocker. No restart under STEERING 22.
 - Verification: pnpm format, pnpm lint:fix, pnpm check, pnpm build, handbook validation and git diff --check passed.
 - Next: second independent experiment day, threshold calibration and model round within shared caps; Nov 5 grouping/NBA AI/cost/latency/screenshots take priority when due. Fixed A/B remains off pending decision.
+
+## 2026-11-04: iteration 717 — UI foundations: routing and saved-edition deep links
+
+- Started clean on main; no leftover work. Zero alerts, local health/database/Redis green, 36 active sources with zero errors and zero failed digest jobs. Second independent X news day and Nov 5 scheduled checks remain future; progressed STEERING 33 under item 22.
+- Preserved current page inside code-based TanStack Router with TanStack Query provider (60-second stale default). Added canonical /editions/:id, validated legacy-link redirect, route error/retry and not-found screens. Current fetching stays unchanged; Tailwind/shadcn, Inter/theme and resource hooks remain in foundations.
+- Server history fallback now excludes API roots and all specified tool/proxy prefixes. Edition/history/status links and existing smoke selectors use canonical routes. No admin pages or authorization behavior changed; those follow foundations per the spec.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (475 unit/213 isolated integration), pnpm build, check-handbook.ts and git diff --check passed. Handbook initially exceeded 100 lines; shortened the addition and revalidated.
+- Restarted news-digest-api for changed runtime; local health green. smoke-ui-routing, smoke-edition-selection, smoke-edition-history, smoke-ui and smoke-status passed desktop/mobile using real stored content; history completion/failure checks remain explicitly simulated, with no writes or provider calls.
+- Viewed desktop/mobile routing screenshots in docs/screenshots/ui/. Discarded unrelated telemetry screenshot churn from broad smoke checks. HTTPS app hostname resolves to private 10.42.0.42 and refuses port 443 from this VM; proxy access unverified, localhost endpoints/browser checks pass.
+- Compacted TASKS and archived iterations 704–705; updated affected handbook pages; SOURCES/NEEDS_FROM_HUMAN unchanged (no source or new owner requirement). No paid calls, model/provider/budget changes or fixed A/B activation.
+- Next: finish foundations (Tailwind v4/shadcn, Inter/theme and query hooks), then admin gate; return first to Nov 5 scheduled acceptance and second-day X experiment when due.

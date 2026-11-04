@@ -61,7 +61,20 @@ class HealthController {
     CqrsModule.forRoot(),
     ServeStaticModule.forRoot({
       rootPath: resolve(__dirname, '../../web/dist'),
-      exclude: ['/healthz', '/api/{*path}'],
+      exclude: [
+        '/api',
+        '/api/{*path}',
+        ...[
+          'healthz',
+          'docs',
+          'db',
+          'grafana',
+          'logs',
+          'metrics',
+          'queues',
+          '__exe.dev',
+        ].flatMap((path) => [`/${path}`, `/${path}/{*rest}`]),
+      ],
     }),
   ],
   controllers: [HealthController],
