@@ -42,3 +42,34 @@ void test('absence support accepts complete sentences within multi-sentence inpu
     LlmValidationFailure,
   );
 });
+
+void test('numeric No. ranks are not absence claims, but negatives retain full sentence scope', () => {
+  for (const text of [
+    'The No. 1 prospect leads the rankings.',
+    'He moves to no. 12 in the draft.',
+    'NO. 3 rises after the game.',
+  ])
+    assert.doesNotThrow(() => assertAbsenceSupport(text, []));
+  for (const claim of [
+    'The No. 1 prospect has not signed.',
+    'No. 1 is unknown.',
+    'No signing was announced.',
+    'No. There is a signing.',
+  ])
+    assert.throws(() => assertAbsenceSupport(claim, []), LlmValidationFailure);
+  const evidence = 'The No. 1 prospect has not signed, according to his agent.';
+  assert.doesNotThrow(() => assertAbsenceSupport(evidence, [evidence]));
+  assert.throws(
+    () =>
+      assertAbsenceSupport(
+        '1 prospect has not signed, according to his agent.',
+        [evidence],
+      ),
+    LlmValidationFailure,
+  );
+  assert.throws(
+    () =>
+      assertAbsenceSupport('The No. 1 prospect has not signed.', [evidence]),
+    LlmValidationFailure,
+  );
+});

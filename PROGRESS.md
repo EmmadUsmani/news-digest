@@ -162,3 +162,13 @@
 - Added durable edition review; updated STEERING ack, TASKS, SOURCES, RANKING and NEEDS_FROM_HUMAN. Archived iterations 629–630; no handbook/schema/runtime change.
 - Verification: pnpm check (388 unit/205 isolated integration), pnpm build, read-only report-edition-timing/capture-triage-pool, citation join, exact NBA fingerprints and Playwright checks passed. pnpm format, pnpm lint:fix, format:check and git diff --check passed.
 - No restart under STEERING 22: only docs/screenshots changed. Grouping/incremental triage remain off; next fix NBA validation/fallback quality, then useful World/open-X yield and gated Nov 5 activation assessment.
+
+## 2026-11-04: iteration 647 — avoid absence rejection for numeric ranks
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts; 36 active sources with no errors and fresh ingestion.
+- Fixed demonstrated lexical false positive: “No. 1” rank abbreviations no longer assert absence. Sentence splitting preserves the rank in full evidence so real negative claims still require attribution and scope.
+- Synthetic guard/editor regressions accept numeric ranks in one provider call, reject true negatives and prevent dropping the rank/attribution from negative evidence. This does not prove the unavailable rejected Nov 4 wording caused fallback.
+- Updated TASKS/RANKING; no prompts, budgets, provider, schema or immutable editions changed. Grouping/incremental triage remain off; full-AI acceptance stays open.
+- Verification: targeted tests 15/15; pnpm format, pnpm lint:fix, pnpm check (390 unit/205 isolated integration), pnpm build and git diff --check passed.
+- Restarted API/worker after build; both active, healthz database/Redis healthy, published four-topic edition readable, zero alerts. No paid calls or new edition generated.
+- Next: assess remaining NBA repair diagnostics and gated Nov 5 grouping activation; useful World/open-X yield and edition latency remain open.

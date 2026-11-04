@@ -335,3 +335,38 @@ void test('attribution-dropping absence claims are rejected in every editor fiel
     ]);
   }
 });
+
+void test('NBA rank abbreviations do not force editorial repair or fallback', async () => {
+  const ranked = {
+    ...valid,
+    brief: [
+      'The No. 1 prospect leads the draft board.',
+      'The draft board changes.',
+    ],
+    stories: [
+      {
+        ...story,
+        headline: 'A new No. 1 prospect',
+        summary: 'The No. 1 prospect leads the draft board.',
+        rationale: 'A change at No. 1.',
+      },
+    ],
+  };
+  const h = harness([ranked]);
+  assert.ok(
+    await h.editor.edit(
+      topic,
+      [
+        {
+          ...candidates[0],
+          title: 'Draft board updated',
+          excerpt: 'The top prospect leads the revised draft board.',
+        },
+      ],
+      1,
+      'nba-rank',
+    ),
+  );
+  assert.equal(h.calls.length, 1);
+  assert.deepEqual(h.diagnostics(), []);
+});

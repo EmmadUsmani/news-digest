@@ -2593,3 +2593,15 @@ empty; Tech's first selected Bluesky post duplicates an X selection. The Nov 4
 review gate is checked, with full-AI, speed and social-quality acceptance open.
 Same-story grouping and incremental triage remain off; fix NBA before claiming
 item 7 complete or proceeding with grouping activation for Nov 5.
+
+### Iteration 647: numeric rank abbreviation false positive
+
+The lexical absence guard now distinguishes numeric ranks such as “No. 1”
+from negative claims. Sentence splitting keeps that abbreviation attached to
+its number, so genuinely negative ranked sentences still require complete
+verbatim cited evidence, including attribution and scope. Synthetic guard and
+editor tests cover rank acceptance without repairs, retained negative rejection
+and attribution preservation. This is a demonstrated false-positive repair,
+not proof of the Nov 4 NBA failure's wording: rejected responses were not saved.
+No prompt, provider, budget or immutable edition changed; scheduled full-AI
+acceptance remains open until a later real run.
