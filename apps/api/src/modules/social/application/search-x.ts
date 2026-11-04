@@ -92,7 +92,7 @@ export async function searchX(
           outputPerMillion: price.outputPerMillion * 2,
         }
       : price;
-  await ledger.settle(callId, result.usage, billedPrice);
+  await ledger.settle(callId, result.usage, billedPrice, result.toolCalls);
   log.info(
     {
       ...fields,

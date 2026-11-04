@@ -1,4 +1,5 @@
 import type { XDiscoveryPrice, XDiscoveryUsage } from './x-discovery-budget';
+import type { XSearchToolCall } from './x-search.port';
 
 export interface XDiscoveryLedger {
   reserve(
@@ -14,6 +15,7 @@ export interface XDiscoveryLedger {
     id: string,
     usage: XDiscoveryUsage,
     price: XDiscoveryPrice,
+    toolCalls?: XSearchToolCall[],
   ): Promise<void>;
   fail(
     id: string,

@@ -105,7 +105,7 @@
     "social_discovery_sources": "News 'rivers' (Techmeme, Memeorandum) scanned for X links.",
     "social_discovery_citations": "X posts seen on a river page.",
     "x_embed_checks": "Results of checking a post through X's official oEmbed (verification).",
-    "x_discovery_calls": "Ledger of paid xAI x_search calls: reservation, cost, posts fetched and the topic searched.",
+    "x_discovery_calls": "Ledger of paid xAI x_search calls: reservation, cost, posts fetched, topic and actual provider-reported search tool inputs.",
     "x_search_citations": "X posts returned by a paid search, with engagement as reported by xAI.",
     "x_discovery_provider_block": "Set when xAI refuses calls (e.g. credits depleted); stops further paid searches.",
     "reddit_topic_posts": "Reddit posts per topic (parked; empty).",

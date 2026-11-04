@@ -13,9 +13,15 @@ export interface XSearchRequest {
   fromDate: string;
   toDate: string;
 }
+// Exact provider-reported tool input; absent fields stay unknown.
+export interface XSearchToolCall {
+  name: string;
+  input: string;
+}
 export interface XSearchPort {
   search(request: XSearchRequest): Promise<{
     usage: XDiscoveryUsage;
+    toolCalls?: XSearchToolCall[];
     links: DiscoveredLink[];
     reportedEngagement?: XReportedEngagement[];
   }>;

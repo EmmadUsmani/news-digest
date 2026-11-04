@@ -33,6 +33,7 @@ import {
   type XDiscoveryUsage,
 } from '../domain/x-discovery-budget';
 import type { XDiscoveryLedger } from '../domain/x-discovery-ledger.port';
+import type { XSearchToolCall } from '../domain/x-search.port';
 
 export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
   readonly caps: Readonly<XDiscoveryCaps>;
@@ -293,12 +294,18 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
       if (!result.length) throw new Error('X open search is not completed');
     });
   }
-  async settle(id: string, usage: XDiscoveryUsage, price: XDiscoveryPrice) {
+  async settle(
+    id: string,
+    usage: XDiscoveryUsage,
+    price: XDiscoveryPrice,
+    toolCalls?: XSearchToolCall[],
+  ) {
     const cost = xDiscoveryCost(usage, price);
     await this.transaction(async (client) => {
       const result = await drizzle(client)
         .update(xDiscoveryCalls)
         .set({
+          toolCalls: toolCalls ?? null,
           status: 'succeeded',
           completedAt: sql`clock_timestamp()`,
           costMicros: cost,

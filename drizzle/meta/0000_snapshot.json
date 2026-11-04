@@ -1639,6 +1639,12 @@
           "type": "uuid",
           "primaryKey": false,
           "notNull": false
+        },
+        "tool_calls": {
+          "name": "tool_calls",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {

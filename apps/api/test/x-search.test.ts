@@ -274,14 +274,33 @@ void test('X orchestration refuses blocked budgets, settles before citation pers
       events.push('reserve');
       return 'id';
     },
-    settle: async () => {
+    settle: async (
+      _id: string,
+      _usage: unknown,
+      _price: unknown,
+      calls?: unknown,
+    ) => {
+      assert.deepEqual(calls, [
+        { name: 'x_keyword_search', input: '{"query":"NBA","mode":"Top"}' },
+      ]);
       events.push('settle');
     },
     fail: async (_id: string, reason: string) => {
       events.push(reason);
     },
   };
-  const adapter = new DirectXSearch('fixture', fake(fixture()));
+  const traced = {
+    ...fixture(),
+    output: [
+      ...fixture().output,
+      {
+        type: 'custom_tool_call',
+        name: 'x_keyword_search',
+        input: '{"query":"NBA","mode":"Top"}',
+      },
+    ],
+  };
+  const adapter = new DirectXSearch('fixture', fake(traced));
   const repository = {
     save: async () => {
       events.push('save');
@@ -878,4 +897,38 @@ void test('X search verification pins ten-post priority, exact retry boundary an
     client.release();
     await social.db.end();
   }
+});
+
+void test('actual custom tool calls survive empty or invalid citation content without inferring queries', async () => {
+  const input = JSON.stringify({
+    query: '(NBA OR basketball) min_faves:100',
+    mode: 'Top',
+  });
+  const response = fixture();
+  const output: unknown[] = [
+    { type: 'custom_tool_call', name: 'x_keyword_search', input },
+    {
+      type: 'custom_tool_call',
+      name: 'x_semantic_search',
+      input: '{"query":"NBA"}',
+    },
+    { type: 'custom_tool_call', name: 'incomplete' },
+    { type: 'message', role: 'assistant', content: 'invalid citation shape' },
+  ];
+  const adapter = new DirectXSearch(
+    'fixture-key',
+    async () => new Response(JSON.stringify({ ...response, output })),
+  );
+  const result = await adapter.search(request);
+  assert.deepEqual(result.toolCalls, [
+    { name: 'x_keyword_search', input },
+    { name: 'x_semantic_search', input: '{"query":"NBA"}' },
+  ]);
+  assert.deepEqual(result.links, []);
+  assert.equal(result.usage.postsFetched, 12);
+  const empty = new DirectXSearch(
+    'fixture-key',
+    async () => new Response(JSON.stringify(fixture())),
+  );
+  assert.deepEqual((await empty.search(request)).toolCalls, []);
 });

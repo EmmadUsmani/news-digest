@@ -68,6 +68,8 @@ flowchart LR
 - **Engagement numbers are hints, not facts.** xAI's counts are stored as
   "reported by xAI", and Bluesky's as timestamped API counts. The editor
   sees them, but relevance and distinct content come first.
+- **Search tracing:** each paid call stores the actual search functions and
+  inputs returned by xAI alongside its cost. Old calls have no trace.
 - **Budget:** paid X search has its own ledger and caps: $0.40/day and
   $12/month. The xAI account is prepaid ($15), so it can't overspend even if
   the app is wrong. Bluesky is free; its AI triage and editing use the

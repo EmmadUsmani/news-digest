@@ -401,6 +401,7 @@ export const xDiscoveryCalls = pgTable(
       mode: 'string',
     }),
     optionalParentId: uuid('optional_parent_id'),
+    toolCalls: jsonb('tool_calls'),
   },
   (table) => [
     index('x_discovery_calls_created_at').using(

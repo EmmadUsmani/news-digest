@@ -286,6 +286,24 @@ export class DirectXSearch implements XSearchPort {
         profilesFetched: usage.server_side_tool_usage_details.x_users_fetched,
       },
       links,
+      // Read independently of citation validation: paid calls with no usable
+      // citations still need their actual queries for diagnosis. Never infer
+      // execution from the requested prompt or assistant prose.
+      toolCalls: z.object({ output: z.array(z.unknown()) }).safeParse(parsed)
+        .success
+        ? (parsed as { output: unknown[] }).output.flatMap((item) => {
+            const call = z
+              .object({
+                type: z.literal('custom_tool_call'),
+                name: z.string(),
+                input: z.string(),
+              })
+              .safeParse(item);
+            return call.success
+              ? [{ name: call.data.name, input: call.data.input }]
+              : [];
+          })
+        : [],
       reportedEngagement: readReportedEngagement(texts, links, new Date()),
     };
   }

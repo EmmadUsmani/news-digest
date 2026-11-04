@@ -58,7 +58,18 @@ void test('X ledger serializes separate caps, retains uncertainty, reconciles us
     const accepted = concurrent.filter((id): id is string => id !== null);
     assert.equal(accepted.length, 2);
     assert.equal(await reserve(1), null);
-    await ledger.settle(accepted[0], usage, price);
+    const toolCalls = [
+      {
+        name: 'x_keyword_search',
+        input: '{"query":"NBA min_faves:100","mode":"Top"}',
+      },
+    ];
+    await ledger.settle(accepted[0], usage, price, toolCalls);
+    const stored = await db.query(
+      'SELECT tool_calls FROM x_discovery_calls WHERE id=$1',
+      [accepted[0]],
+    );
+    assert.deepEqual(stored.rows[0].tool_calls, toolCalls);
     assert.equal((await ledger.status()).availableMicros, 84996);
     await assert.rejects(ledger.settle(accepted[0], usage, price));
     await ledger.fail(accepted[1], 'uncertain');
