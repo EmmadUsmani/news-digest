@@ -1797,3 +1797,25 @@ This is mutual exclusion while the database session survives, not fencing of
 already-started provider calls after a connection failure. No scheduler invokes
 the runner, and incremental triage remains off; future wiring must supply the
 shared admission adapter. No paid calls or measured waste/latency claim.
+
+## Iteration 528: prospective triage cache compatibility
+
+`pnpm exec tsx scripts/compare-triage-cache.ts BEFORE_CAPTURE AFTER_CAPTURE TRIAGE_MODEL_ID`
+compares eligible article fingerprints through the production `CandidateTriage.pending`
+probe with a local empty cache. It uses the edition topic guidance, current prompt,
+model and truncation rules. No database, provider request or cache write is possible.
+The explicit model is held constant across both observations; this does not recover
+historical prompts or models. Incomplete captures are rejected.
+
+Reports separate compatible fingerprints, changed fingerprints among retained IDs,
+and prior fingerprints potentially unusable because eligibility or inputs changed.
+Text, source and guidance changes can invalidate scores even when IDs remain eligible;
+changes outside production truncation limits do not. Compatible fingerprints do not
+prove an entry exists, and potential waste is not actual paid/scored work.
+
+The Nov 4 same-window captures at 01:07:11 and 01:21:12 UTC retain all 492 eligible
+articles with compatible fingerprints under `claude-haiku-5-5`; NBA adds three eligible
+articles. Private latest capture: `/tmp/triage-pool-528.json` (mode 600). This roughly
+14-minute observation does not establish final-edition reuse, scored-work waste,
+provider cost or latency. Scheduler wiring and joins to successful scoring remain open.
+No production setting or service flow changed.

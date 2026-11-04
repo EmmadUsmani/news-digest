@@ -1,31 +1,3 @@
-## 2026-11-04: iteration 512 — reclaim log-store filesystem cache before hard limit
-
-- Started clean on main; no leftover work. Healthz/root healthy; pending log-store memory warning triggered triage (about 144 MiB, including 98 MiB file cache and 40 MiB anonymous memory).
-- Added systemd MemoryHigh=128M below the unchanged 160 MiB hard ceiling; reclaim may slow log IO. Runtime O2 verification now asserts the deployed threshold. Updated affected handbook/observability plan and TASKS.
-- Installed unit, reloaded systemd and restarted only obs-logs. Fresh journal delivery verified in 2.056 s; all seven log sources present, isolated redaction passed. Post-restart memory about 10–12 MiB, zero automatic restarts; alerts cleared; cache-refill behavior remains unproven.
-- Found Bluesky hourly collection HTTP 400 at Nov 3 23:54 (22:54 succeeded); recorded next-priority triage, without speculative retries. All four queues available/staffed; digest queue zero failures. Ingestion retains two historical failures.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (291 unit/182 isolated integration passed), pnpm build, O2 runtime check, filtered handbook check (17 pages/one unchanged diagram/25 tables), health/root and git diff --check. Docker dangling volumes zero.
-- No paid calls, editions, new sources, app configuration or UI changes. Grouping stays off. Next: diagnose Bluesky error, monitor log cache refill, then Nov 4 scheduled evidence.
-
-## 2026-11-04: iteration 513 — recover Bluesky HTTP 400 token expiry
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/root. Prior 23:54 hourly collection failed HTTP 400 after a successful first page; historical logs omit provider error code.
-- Official PDS auth implementation reports expired JWTs as HTTP 400 ExpiredToken. Adapter previously refreshed only 401; now recognizes the explicit code in at most 4 KiB of error JSON, refreshes once and retries the same page. No response messages/tokens logged or retry loops.
-- Added synthetic tests for expiry between pages, cursor/token preservation, unrelated/oversized error bodies and repeated expiry. The historical failure's cause remains probable, not proven; sustained expiry recovery awaits observation.
-- Free read-only probe returned 193 real posts (48/48/49/48); no writes. Restarted only the changed worker, then one explicit social-collection recovery job stored 193 real observations (Tech/NBA/Gaming/World 50/48/49/46). No AI/provider spend or edition generation.
-- Updated TASKS, SOURCES and jobs handbook; archived iterations 472–478 to keep PROGRESS below 25 KB. No UI/schema/feature activation; screenshots unnecessary.
-- Verification: targeted Bluesky tests 9/9; pnpm format, pnpm lint:fix, pnpm check (293 unit/182 isolated integration), pnpm build, filtered handbook check, healthz/root, pnpm obs alerts and git diff --check passed. Docker dangling volumes zero.
-- Next: monitor hourly collection and log/metrics cache refill; Nov 4 scheduled evidence remains priority. Grouping stays off until review, with conditional Nov 5 activation only afterward.
-
-## 2026-11-04: iteration 514 — expose retained slow database calls
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts and all 36 sources error-free; newest source success 00:11:29 UTC. Nov 4 scheduled evidence remains future work.
-- Added Database dashboard panel linking directly to duration-only slow-call logs with a rolling 24-hour window. Explains threshold, suppression, timing exclusions, independent time picker and empty-results limits; no SQL/parameters or new collection.
-- Added read-only desktop/mobile smoke and four inspected screenshots; no matching retained slow-call records in the window. Fixed Grafana verification to recognize static text panels. Updated handbook, plan and stale resolved Bluesky triage task.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (293 unit/182 isolated integration), pnpm build, pnpm typecheck, filtered handbook check, smoke-slow-queries.ts, --verify-grafana --grafana-database-only (11 live data panels), healthz, source status, alerts and git diff --check passed. Dangling Docker volumes zero.
-- Deployed only the provisioned dashboard; Grafana hot-reloaded it and API verified equality with repo panels. No service restart required; no app/config behavior, provider spend, editions or feature activation. Discarded unrelated regenerated dashboard screenshots deliberately.
-- Next: monitor hourly Bluesky recovery and observability cache refill; review Nov 4 scheduled open-X/Bluesky, World picks, NBA validation and latency before conditional Nov 5 grouping activation.
-
 ## 2026-11-04: iteration 515 — measure incremental triage cache reuse offline
 
 - Started clean on main; no leftover work. Healthz healthy, zero alerts, all 36 sources error-free (latest success 00:12:57 UTC). Nov 4 edition evidence is still future work.
@@ -146,3 +118,12 @@
 - Session lock is not provider-call fencing after DB disconnection. No scheduler wiring, activation or paid calls; setting remains off. No schema/source/UI or handbook flow changes.
 - Updated TASKS/RANKING. pnpm format, pnpm lint:fix, pnpm check (316 unit/184 isolated integration), pnpm build and git diff --check passed; live root/healthz/status healthy, four queues available, zero dangling Docker volumes.
 - Services stay running under STEERING 22 because prepared code is not imported by running code. Next: scheduler wiring and longer-span eligibility/scored-work evidence; Nov 4 edition review takes priority.
+
+## 2026-11-04: iteration 528 — compare prospective triage cache compatibility
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/root/status, 36 error-free sources, four available queues and latest Bluesky collection completed.
+- Added offline fingerprint comparison through production pending-cache probing with an empty local cache and explicit constant model. Reports retained input changes and potentially unusable prior fingerprints; no provider/database calls or cache writes.
+- At 01:21 UTC all 492 eligible entries from 01:07 remain fingerprint-compatible; NBA adds three. Private mode-600 capture /tmp/triage-pool-528.json. Four regressions cover changed text/sources/guidance, truncation, eligibility and invalid evidence.
+- Compatibility does not prove cached/scored work, waste, spend or latency. Updated TASKS/RANKING; scheduler wiring and successful-scoring joins remain next, with Nov 4 edition review first when available.
+- No activation, paid calls, UI/schema/source or handbook flow changes. Services stay running under STEERING 22 because only offline tooling/tests/docs changed.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (320 unit/184 isolated integration), pnpm build, live read-only capture/comparison and git diff --check passed. Initial offline-stub require-await lint failure corrected before passing rerun; archived iterations 512–514 to keep orientation small.
