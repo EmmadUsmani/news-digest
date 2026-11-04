@@ -8,7 +8,7 @@ export interface FixedSearchSettings {
 }
 
 export interface XSearchRequest {
-  // Supplied only by the disabled fixed A/B scheduler once admission is wired.
+  // Supplied only by the opt-in fixed A/B scheduler.
   fixedSearch?: {
     style: 'reactions' | 'trending';
     settings: FixedSearchSettings;

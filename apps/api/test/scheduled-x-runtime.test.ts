@@ -161,3 +161,63 @@ void test('completion persistence failure aborts optional execution', async () =
   );
   assert.deepEqual(events, ['open', 'settle', 'save', 'verify']);
 });
+
+void test('fixed runtime dispatches A/B ledger types and bypasses all legacy followups', async () => {
+  const { dependencies, events } = fixture();
+  const styles: string[] = [];
+  dependencies.fixed = {
+    enabled: () => true,
+    settings: async () => ({
+      reactionMinFaves: 100,
+      trendingMinFaves: 200,
+      exclusions: ['-crypto'],
+    }),
+    stories: async () => [
+      { id: 'one', title: 'First NBA story', importance: 10 },
+      { id: 'two', title: 'Second NBA story', importance: 9 },
+    ],
+    availableMicros: async () => 400000,
+  };
+  dependencies.ledger.reserve = async (
+    _model,
+    _run,
+    _estimate,
+    _topic,
+    _day,
+    type,
+    parent,
+  ) => {
+    assert.equal(parent, undefined);
+    styles.push(type!);
+    return parentId;
+  };
+  dependencies.search.search = async (request) => {
+    assert.equal(request.handles, undefined);
+    assert.equal(request.reactionStory, undefined);
+    assert.equal(request.fixedSearch?.settings.trendingMinFaves, 200);
+    events.push(request.fixedSearch.style);
+    return {
+      links: [],
+      usage: {
+        inputTokens: 0,
+        outputTokens: 0,
+        postsFetched: 0,
+        profilesFetched: 0,
+      },
+    };
+  };
+  await runScheduledXRuntime(dependencies, () => now);
+  assert.deepEqual(styles, ['fixed-reactions', 'fixed-trending']);
+  assert.deepEqual(events, [
+    'reactions',
+    'settle',
+    'save',
+    'verify',
+    'complete',
+    'trending',
+    'settle',
+    'save',
+    'verify',
+    'complete',
+  ]);
+});

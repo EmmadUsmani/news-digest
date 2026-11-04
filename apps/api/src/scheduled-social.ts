@@ -17,6 +17,7 @@ import { PostgresSocialRepository } from './modules/social/database/social.repos
 import { PostgresXDiscoveryLedger } from './modules/social/database/x-discovery.ledger';
 import { PostgresXSearchRepository } from './modules/social/database/x-search.repository';
 import { PostgresTopicRepository } from './modules/topics/database/topic.repository';
+import { fixedXSearchEnabled } from './scheduled-fixed-x-search';
 import { runScheduledXRuntime } from './scheduled-x-runtime';
 
 export function startScheduledSocial(http: SharedHttpClient) {
@@ -32,6 +33,13 @@ export function startScheduledSocial(http: SharedHttpClient) {
     try {
       await runScheduledXRuntime({
         profile: () => profiles.getDefault(),
+        fixed: {
+          enabled: () => fixedXSearchEnabled(),
+          settings: (topicId) => repository.searchSettings(topicId),
+          stories: (topicId, start, end) =>
+            loadReactionStories(repository.db, topicId, start, end),
+          availableMicros: async () => (await ledger.status()).availableMicros,
+        },
         searches,
         search: new DirectXSearch(process.env.XAI_API_KEY),
         ledger,

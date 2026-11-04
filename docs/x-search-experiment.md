@@ -232,5 +232,8 @@ topic and UTC day, under the existing shared production caps. Rejected and
 uncertain calls consume their slot across restarts. Fixed calls need no optional
 parent; legacy and fixed schedules cannot both consume a topic on the same day.
 The generated Drizzle migration preserves existing calls and legacy admission.
-No scheduler supplies fixed requests yet; runtime settings and replacement
-remain, with activation gated by the experiment decision.
+Iteration 708 wires the worker runtime behind `X_FIXED_SEARCH_ENABLED=1`
+(default off). Enabling replaces the legacy open/followup path entirely, with
+A before B, live budget checks, exact article windows, settings/time rechecks
+and the same reserve/settle/verify pipeline. Consumed A slots cannot hide B on
+later ticks. Production remains off; experiment decision still gates activation.

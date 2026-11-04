@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 692 — direct topic availability controls
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 healthy sources and no failed retained digest runs. Nov 5 checks are future; paid X dispatch remains blocked on documented per-call cost bound.
-- Added Enable/Disable buttons to Manage topics using the existing validated update endpoint. Updates incoming cards immediately, refreshes content through the existing save flow, reports errors and permits retry; unavailable during editing/deletion to protect pending work.
-- Desktop/mobile Playwright checks passed for failure/retry, disable/enable, preserved settings, editor protection and no horizontal overflow. PUT responses were simulated; real topic settings were read back unchanged. Saved screenshots explicitly show this simulated state; no digest generation or provider calls.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (450 unit/209 isolated integration), pnpm build, strict standalone smoke-script tsc with workspace paths, handbook validation (17 pages/22 diagrams/26 tables) and git diff --check passed. Initial smoke top-level await corrected to CommonJS-compatible entry; standalone tsc config corrected for workspace aliases/types.
-- Updated TASKS and owner handbook; archived iteration 676 to bound PROGRESS. SOURCES unchanged: no collection changes. API restarted after commit to serve rebuilt UI; worker unchanged.
-- Next: Nov 5 grouping/NBA AI/cost/latency/screenshots take priority; X experiment awaits supported cost bound or owner decision. M6 broader acceptance stays open.
-
 ## 2026-11-04: iteration 693 — require usable reaction experiment articles
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 nonempty sources without current errors and no failed retained digest jobs; next edition Nov 5 15:00 UTC.
@@ -145,3 +136,13 @@
 - Saved private custom-format pre-migration pg_dump outside repo (directory 700/file 600); pg_restore --list passed. This is not restore proof or the requested nightly backup system. Applied drizzle/0001 migration; content/social/edition/X-ledger row counts unchanged.
 - Restarted API/worker; healthz/database/Redis, all 36 sources and zero-alert/failed-digest checks passed. Handbook validation passed after migration (17 pages/3 diagrams/26 tables, no metadata warnings). SOURCES unchanged: operating discovery and sources unchanged. No paid calls or activation.
 - Next: default-off runtime setting, scheduler wiring and old followup replacement; then nightly private backups with real restore proof/stale alert. Experiment decision gates activation; Nov 5 scheduled checks take priority when due.
+
+## 2026-11-04: iteration 708 — wire default-off fixed A/B discovery
+
+- Started clean on main; no leftover work. Zero alerts, healthz/database/Redis healthy, 36 healthy nonempty sources and zero failed retained digest jobs; next edition Nov 5 15:00 UTC.
+- Added exact worker opt-in X_FIXED_SEARCH_ENABLED=1 (default off). Fixed A/B replaces legacy open/followup execution when enabled; stored thresholds/exclusions, ranked article windows, shared caps, reserve/settle and verification remain mandatory. Production flag confirmed off; no paid calls or activation.
+- A precedes B; live balance checks drop quiet-topic B first. Consumed A slots do not hide affordable B on restart. Settings, enabled topics and time are rechecked before every call; slow work cannot spend after the window closes.
+- Fake-only targeted tests passed 10/10, including composed ledger style/verification, budget ordering, restart slots, config changes and cutoff. Initial fixture omitted story budget/verification completion; corrected. Full check initially rejected duplicate type import; combined imports and reran.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (468 unit/213 isolated integration), pnpm build, handbook validation (17 pages/2 diagrams/26 tables, no warnings) and git diff --check passed.
+- Updated TASKS, experiment reference and affected schedule handbook; archived iteration 692. SOURCES unchanged: active sources and production discovery behavior unchanged. API/worker restarted; healthz, all 36 sources and alerts green, zero failed digest jobs; worker opt-in still off.
+- Next: nightly private backups with real throwaway-container restore proof and 26-hour stale alert; then experiment review/second day. Experiment decision gates activation; Nov 5 scheduled acceptance takes priority when due.

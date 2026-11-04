@@ -22,8 +22,8 @@ export interface FixedSearchPlan {
   rankedStoryTitles: string[];
 }
 
-// Preparation only, deliberately disconnected from production execution until
-// the experiment decision. Ledger admission remains mandatory before each call.
+// Runtime opt-in stays off until the experiment decision. Ledger admission
+// remains mandatory before each call.
 export function planFixedSearchSchedule(input: {
   enabled?: boolean;
   topics: FixedSearchTopic[];
