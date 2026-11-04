@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 656 — give the final social editor saved engagement evidence
-
-- Started clean on main; no leftover work. Zero alerts and healthy healthz/database/Redis; API and worker active.
-- Found final social editing discarded engagement even though shortlist ranking used it. X candidates now carry the existing bounded ranking explanation, preserving unverified search provenance and explicit unknown counts; Bluesky carries timestamped API likes/reposts/replies.
-- Shared editor treats counts as advisory alongside relevance/distinct content, never proof of truth, measured growth, account-relative reach or virality. Evidence is bounded at 1,200 characters and participates in request/cache identity.
-- No paid calls, new discovery requests, configuration/model/cap changes, edition generation or UI change. Actual selection improvement remains unmeasured until the next scheduled edition.
-- Updated TASKS/RANKING and affected handbook page; archived iteration 640. Source inventory and schema unchanged.
-- Verification: targeted social tests 15/15; pnpm format, pnpm lint:fix, pnpm check (398 unit/207 isolated integration), pnpm build, handbook check (17 pages/one unchanged diagram/25 tables) and git diff --check passed.
-- Restarted API/worker; both active, healthz/database/Redis healthy, saved four-topic edition readable, zero alerts/failed user services.
-- Next: Nov 5 grouping/cost/accuracy/screenshots, NBA full-AI acceptance, World posts and evidence-informed social picks; incremental triage stays off.
-
 ## 2026-11-04: iteration 657 — keep rejected social posts out of degraded selection
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and four available queues; saved edition has four topics/14 stories/15 posts.
@@ -186,3 +175,15 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (414 unit/207 isolated integration), pnpm build and git diff --check passed.
 - Restarted API/worker active; initial immediate probe preceded listener startup, retry healthy with database/Redis. Zero alerts, 36 nonempty sources without errors; saved edition remains four topics/14 stories/15 posts.
 - Next: Nov 5 grouping admission/accuracy/cost/latency/screenshots, NBA full-AI outcome, World posts and Bluesky repair tail.
+
+## 2026-11-04: iteration 673 — extend offline batching to social pools
+
+- Started clean on main; no leftover work. Zero alerts and healthy healthz/database/Redis.
+- Offline batching now accepts validated local article/social inputs with supplied topic context; invokes the real kind-specific triage prompt, purpose and cache namespace. Existing recorded article mode preserved.
+- Reports aggregate shape only; synthetic provider/cache stay in process, with no database/environment/provider dependency or paid calls. Invalid input exits with a bounded diagnostic.
+- Synthetic 101-post social probe: caller sizes 10/25/50/200 produced 11/5/3/3 requests; 50/200 share bytes but have sequential `[1,1,1]` versus concurrent-capable `[3]` barriers. No live latency/quality/cost claim or production change.
+- Targeted `pnpm exec tsx --test apps/api/test/triage-batching.test.ts`: 7/7; default CLI: 36 article rows, zero repeat requests; supplied social CLI and missing-file rejection checked.
+- Updated TASKS/RANKING; archived iteration 656 to keep PROGRESS bounded. No affected handbook/source/schema behavior.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (415 unit/207 isolated integration), pnpm build and git diff --check passed. Live: API/worker active, 36 sources/zero current errors, four-topic saved edition, zero alerts.
+- Runtime/config unchanged: no restart under STEERING 22.
+- Next: Nov 5 grouping admission/accuracy/cost/latency/screenshots, NBA full-AI, World posts; capture actual social inputs before batching changes.

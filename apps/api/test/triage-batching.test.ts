@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import {
   evaluateTriageBatching,
   recordedTriageBatching,
+  suppliedTriageBatching,
 } from '../scripts/evaluate-triage-batching';
 
 void test('recorded batch comparison preserves candidates and cache across partitions', async () => {
@@ -201,4 +202,56 @@ void test('warming overhead includes preparation as well as publication work', a
   assert.equal(warm.combined.requests, cold.requests);
   assert.equal(warm.combined.inputBytes, cold.inputBytes);
   assert.equal(warm.combined.scoredItems, candidates.length);
+});
+
+void test('supplied social pools use social instructions and retain every candidate across partitions', async () => {
+  const topic = {
+    id: 'social',
+    name: 'Social',
+    description: 'Demos',
+    guidance: 'Original posts',
+  };
+  const candidates = Array.from({ length: 101 }, (_, i) => ({
+    id: `bluesky:synthetic-${i}`,
+    title: 'Official Bluesky API post observation',
+    excerpt: 'Synthetic demo with \"quotes\" and 界',
+    sources: [],
+  }));
+  const rows = await suppliedTriageBatching({
+    kind: 'social',
+    topic,
+    candidates,
+  });
+  for (const row of rows) {
+    assert.equal(row.kind, 'social');
+    assert.deepEqual(row.purposes, ['social-triage-v1']);
+    assert.equal(row.scoredItems, candidates.length);
+    assert.equal(row.repeatRequests, 0);
+    assert.equal(
+      Object.values(row.inputComposition).reduce((a, b) => a + b, 0),
+      row.inputBytes,
+    );
+  }
+  assert.deepEqual(rows[3].requestsPerPass, [3]);
+  const article = await evaluateTriageBatching(topic, candidates, 200);
+  assert.deepEqual(article.purposes, ['candidate-triage-v1']);
+  assert.notEqual(
+    rows[3].inputComposition.instructions,
+    article.inputComposition.instructions,
+  );
+  const warm = await evaluateTriageBatching(
+    topic,
+    candidates,
+    200,
+    candidates.map((c) => c.id),
+    'social',
+  );
+  assert.equal(warm.requests, 0);
+  assert.equal(warm.preparation.scoredItems, candidates.length);
+  for (const invalid of [
+    { kind: 'unknown', topic, candidates },
+    { kind: 'social', topic, candidates: [...candidates, candidates[0]] },
+    { kind: 'social', topic, candidates: [{ ...candidates[0], excerpt: 42 }] },
+  ])
+    await assert.rejects(suppliedTriageBatching(invalid));
 });

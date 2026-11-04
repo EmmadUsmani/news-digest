@@ -2856,3 +2856,28 @@ unchanged; successful repairs restore original IDs before item caching.
 Offline fake-provider checks cover all four defects for both kinds, complete
 recovery and subsequent cache reuse. No production failure count or speedup
 is inferred; the next scheduled edition supplies the live evidence.
+
+## Offline social batching inputs (iteration 673)
+
+The batching evaluator accepts a local JSON file for either triage kind:
+
+```sh
+pnpm exec tsx apps/api/scripts/evaluate-triage-batching.ts /tmp/social-pool.json
+```
+
+Input has `kind` (`social` or `article`), `topic` (`id`, `name`,
+`description`, `guidance`) and `candidates` (`id`, `title`, nullable
+`excerpt`, `sources`). Use the actual pre-triage projection and topic context
+when comparing a captured pool. It validates unique IDs and reports aggregate
+request bytes, purposes and caller barriers without printing candidate text.
+No database, environment, provider or cache outside the process is accessed.
+Without a file, the existing recorded article comparisons still run.
+
+The real `CandidateTriage` implementation selects the corresponding instructions,
+purpose and cache namespace; synthetic scores only exercise request shape and
+warm-cache reuse. A synthetic 101-post Bluesky-shaped pool produced 11/5/3/3
+requests at caller sizes 10/25/50/200, respectively. Sizes 50 and 200 used the
+same bytes and three requests, but caller passes were `[1,1,1]` versus `[3]`.
+This is no measurement of real social pools, provider latency, cost, selection
+quality or a feasible production schedule. Actual pool capture and scheduled
+latency comparison remain necessary; production batching is unchanged.

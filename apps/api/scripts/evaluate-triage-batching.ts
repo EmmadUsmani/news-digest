@@ -2,6 +2,8 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
+import { z } from 'zod';
+
 import { llmConfig } from '../src/modules/curation/adapters/config';
 import {
   CandidateTriage,
@@ -15,6 +17,7 @@ export async function evaluateTriageBatching(
   candidates: TriageCandidate[],
   chunkSize: number,
   warmedIds: readonly string[] = [],
+  kind: 'article' | 'social' = 'article',
 ) {
   if (!Number.isInteger(chunkSize) || chunkSize < 1 || chunkSize > 200)
     throw new Error('Chunk size must be 1–200');
@@ -28,6 +31,7 @@ export async function evaluateTriageBatching(
     throw new Error('Warm IDs must be unique members of the candidate pool');
   const cache = new Map<string, TriageScore>();
   const requests: {
+    purpose: string;
     items: number;
     inputBytes: number;
     instructionBytes: number;
@@ -64,6 +68,7 @@ export async function evaluateTriageBatching(
           0,
         );
         requests.push({
+          purpose: request.purpose,
           instructionBytes,
           excerptBytes,
           titleBytes,
@@ -100,6 +105,7 @@ export async function evaluateTriageBatching(
       },
     },
     llmConfig({}).haiku,
+    kind,
   );
   // Populate the real item cache with synthetic scores, then exclude that
   // preparation from publication request measurements. No paid calls occur.
@@ -130,6 +136,10 @@ export async function evaluateTriageBatching(
   // Repartitioning must retain all item-cache hits, independent of wire IDs.
   await score(chunkSize === 200 ? 25 : 200);
   return {
+    kind,
+    purposes: [
+      ...new Set([...preparationRequests, ...requests].map((r) => r.purpose)),
+    ],
     chunkSize,
     // Include warmup when assessing overhead; publication savings alone omit
     // work shifted earlier. Synthetic output reservations are not billed usage.
@@ -239,17 +249,67 @@ export async function recordedTriageBatching(
   return results;
 }
 
+// Explicit local input permits social request-shape analysis without adding a
+// database/provider dependency or relabelling article fixtures as social posts.
+const inputSchema = z
+  .object({
+    kind: z.enum(['article', 'social']),
+    topic: z
+      .object({
+        id: z.string().min(1).max(200),
+        name: z.string(),
+        description: z.string(),
+        guidance: z.string(),
+      })
+      .strict(),
+    candidates: z
+      .array(
+        z
+          .object({
+            id: z.string().min(1).max(200),
+            title: z.string(),
+            excerpt: z.string().nullable(),
+            sources: z.array(z.string()),
+          })
+          .strict(),
+      )
+      .max(10000),
+  })
+  .strict();
+
+export async function suppliedTriageBatching(input: unknown) {
+  const { kind, topic, candidates } = inputSchema.parse(input);
+  const results = [];
+  for (const size of [10, 25, 50, 200])
+    results.push(
+      await evaluateTriageBatching(topic, candidates, size, [], kind),
+    );
+  return results;
+}
+
 if (require.main === module) {
-  void Promise.all(
-    (['none', 'prefix-half', 'alternating-half'] as const).map(
-      recordedTriageBatching,
-    ),
-  ).then((groups) =>
-    console.log(
-      JSON.stringify({
-        note: 'Recorded excerpts with empty topic guidance and synthetic scores. Bytes are not tokens; output reservations are not usage. Chunk size bounds each sequential caller pass; production still splits internally at 50 items/60,000 conservative bytes and permits four requests per pass. No latency, cost or quality measurement; no production change.',
-        results: groups.flat(),
-      }),
-    ),
-  );
+  const inputPath = process.argv[2];
+  const work = async () =>
+    inputPath
+      ? suppliedTriageBatching(JSON.parse(readFileSync(inputPath, 'utf8')))
+      : Promise.all(
+          (['none', 'prefix-half', 'alternating-half'] as const).map(
+            recordedTriageBatching,
+          ),
+        ).then((groups) => groups.flat());
+  void work()
+    .then((results) =>
+      console.log(
+        JSON.stringify({
+          note: `${inputPath ? 'Supplied local candidates and topic context' : 'Recorded article excerpts with empty topic guidance'}. Synthetic scores only. Bytes are not tokens; output reservations are not usage. Chunk size bounds each sequential caller pass; production still splits internally at 50 items/60,000 conservative bytes and permits four requests per pass. No latency, cost or quality measurement; no production change.`,
+          results,
+        }),
+      ),
+    )
+    .catch(() => {
+      console.error(
+        'Batching evaluation failed: expected valid local kind/topic/candidates input',
+      );
+      process.exitCode = 1;
+    });
 }
