@@ -322,3 +322,76 @@ void test('reported engagement changes semantic shortlist admission without bypa
     2,
   );
 });
+
+void test('unavailable social editor cannot restore posts rejected by completed triage', async () => {
+  const services: SocialSelectionServices = {
+    socialTriage: {
+      async score() {
+        return {
+          scores: [
+            {
+              id: '0',
+              relevance: 5,
+              importance: 9,
+              event: 'fixture',
+              rationale: 'Off topic',
+            },
+            {
+              id: '1',
+              relevance: 9,
+              importance: 3,
+              event: 'fixture',
+              rationale: 'Filler',
+            },
+            {
+              id: '2',
+              relevance: 6,
+              importance: 4,
+              event: 'fixture',
+              rationale: 'Qualifies at threshold',
+            },
+          ],
+          unscoredIds: [],
+        };
+      },
+    },
+    socialEditor: {
+      async edit(_topic, candidates) {
+        assert.deepEqual(
+          candidates.map((p) => p.id),
+          ['2'],
+        );
+        return null;
+      },
+    },
+  };
+  const fallback = posts.slice(0, 4);
+  const result = await editTopicPosts(
+    services,
+    topic,
+    fallback,
+    fallback,
+    3,
+    'test',
+  );
+  assert.deepEqual(result.posts, [posts[2]]);
+  assert.equal(result.postEditorial.mode, 'non-ai');
+  assert.equal(result.postEditorial.model, null);
+  assert.equal(result.postEditorial.triage.length, 3);
+  assert.match(result.postEditorial.reason, /completed semantic/);
+  assert.equal(result.postSelectionMethod, 'verified-lexical-engagement-v3');
+  assert.deepEqual(
+    fallback,
+    posts.slice(0, 4),
+    'fallback input remains untouched',
+  );
+  const rejected = await editTopicPosts(
+    services,
+    topic,
+    fallback,
+    [posts[0], posts[1]],
+    3,
+    'test',
+  );
+  assert.deepEqual(rejected.posts, []);
+});

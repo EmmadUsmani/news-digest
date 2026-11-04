@@ -112,12 +112,27 @@ export async function editTopicPosts<T extends EditorialPost>(
       'Non-AI selection: social triage is incomplete; retained lexical fallback.';
     return result;
   }
+  // Completed relevance gates also constrain degradation: an unavailable
+  // editor must not restore posts that triage rejected as off-topic or filler.
+  const qualifyingScores = triage.scores.filter(
+    (s) => s.relevance >= 6 && s.importance >= 4,
+  );
+  const qualifyingIds = new Set(qualifyingScores.map((s) => s.id));
+  const qualifyingFallback = fallback.filter((p) =>
+    qualifyingIds.has(editorialId(p)),
+  );
+  result.posts = preferX(
+    qualifyingFallback,
+    qualifyingFallback.filter((p) => p.platform === 'x').length,
+    budget,
+  );
+  editorial.reason =
+    'Non-AI selection: social editor unavailable within caps; retained only lexical fallback posts passing completed semantic relevance and interestingness gates.';
   const engagement = (id: string) => {
     const post = candidates.find((p) => editorialId(p) === id);
     return post?.platform === 'x' ? (post.xSearchRanking?.bonus ?? 0) : 0;
   };
-  const shortlist = triage.scores
-    .filter((s) => s.relevance >= 6 && s.importance >= 4)
+  const shortlist = qualifyingScores
     .sort(
       (a, b) =>
         b.importance + engagement(b.id) - (a.importance + engagement(a.id)) ||

@@ -2710,3 +2710,16 @@ not a final pool, scoring, cache consumption, waste or latency measurement.
 Reassess after full-AI acceptance supplies reserve evidence. No paid calls.
 
 Final social editing now receives bounded saved engagement evidence: X ranking explanations retain unverified search provenance and unknown-count semantics; Bluesky supplies timestamped API counts. Counts are advisory and do not establish growth, account-relative reach or virality. Fake request/cache and caller propagation checks cover this path; selection quality still awaits the next scheduled edition.
+
+## Social fallback respects completed triage (iteration 657)
+
+When social triage completes but editing is unavailable within caps or fails
+validation, lexical fallback now retains only posts meeting the same relevance
+(6/10) and interestingness (4/10) gates used for the editor shortlist. Rejected
+or missing-score posts cannot return through degradation. Incomplete triage
+still retains the original lexical fallback; no unavailable score is treated
+as a rejection. The stored explanation distinguishes this gated fallback.
+Synthetic tests cover both thresholds, absent scores, an empty fallback result,
+identity and input preservation. This fixes a degradation path; it does not
+claim that the Nov 4 edition used it or that future World coverage improves.
+No paid calls, model changes or additional selection requests.
