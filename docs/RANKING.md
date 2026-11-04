@@ -1779,3 +1779,21 @@ interval. This does not establish day-long stability, unchanged scoring inputs,
 cache reuse, final-edition membership, actual scored-work waste or provider cost.
 Continue capturing this window before/at publication and join actual scoring
 before quantifying waste. No provider calls or production activation occurred.
+
+## Iteration 527: prepared cross-process background admission
+
+`IncrementalTriageRunner` accepts an optional admission port. The prepared
+Postgres adapter takes one nonblocking session advisory lock across all topics,
+on a dedicated connection, separately from the budget transaction lock. A busy
+worker skips before loading the pool. The runner rechecks the schedule cutoff
+after admission and releases on completion, cutoff or failure. Unlock failure
+destroys the connection; normal release is idempotent. Postgres releases session
+locks when the connection closes, including worker termination.
+
+Isolated Postgres tests exercise independent pools contending for the lock,
+busy-loader avoidance, repeated release and recovery after loader failure.
+Fake tests cover admission/release errors and crossing cutoff during admission.
+This is mutual exclusion while the database session survives, not fencing of
+already-started provider calls after a connection failure. No scheduler invokes
+the runner, and incremental triage remains off; future wiring must supply the
+shared admission adapter. No paid calls or measured waste/latency claim.

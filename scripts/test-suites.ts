@@ -15,6 +15,7 @@ const integration = new Set([
   'editorial-publication.test.ts',
   'infrastructure.test.ts',
   'ingestion.test.ts',
+  'incremental-triage-lock.test.ts',
   'model-allocation.test.ts',
   'operations.test.ts',
   'preview-history.test.ts',

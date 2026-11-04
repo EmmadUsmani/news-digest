@@ -127,3 +127,39 @@ void test('runner releases admission after loader, cache, provider and configura
     assert.equal((await runner.run(load, options)).status, 'completed');
   }
 });
+
+void test('shared admission rechecks cutoff and recovers from acquire and release errors', async () => {
+  let now = 0;
+  let mode = 'acquire-error';
+  let releases = 0;
+  const runner = new IncrementalTriageRunner(
+    { pending: async (_topic, candidates) => candidates, score: refused },
+    () => ({ nextEditionAt: 1000, cutoffMs: 100 }),
+    () => now,
+    {
+      acquire: async () => {
+        if (mode === 'acquire-error') throw new Error('acquire failed');
+        if (mode === 'cutoff') now = 900;
+        return async () => {
+          releases++;
+          if (mode === 'release-error') throw new Error('release failed');
+        };
+      },
+    },
+  );
+  await assert.rejects(runner.run(load, options), /acquire failed/);
+  mode = 'cutoff';
+  assert.deepEqual(
+    await runner.run(async () => {
+      throw new Error('loaded after admission crossed cutoff');
+    }, options),
+    { status: 'cutoff' },
+  );
+  assert.equal(releases, 1);
+  now = 0;
+  mode = 'release-error';
+  await assert.rejects(runner.run(load, options), /release failed/);
+  mode = 'success';
+  assert.equal((await runner.run(load, options)).status, 'completed');
+  assert.equal(releases, 3);
+});

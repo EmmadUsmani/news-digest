@@ -1,8 +1,12 @@
 import { incrementalTriagePass } from './incremental-triage-pass';
 import type { CandidateTriage, TriageCandidate, TriageTopic } from './triage';
 
-// Prepared worker-local admission only; no timer invokes this runner yet.
-// Use one instance for all topics. This is not a distributed scheduler lock.
+export interface IncrementalTriageAdmission {
+  acquire(): Promise<null | (() => Promise<void>)>;
+}
+
+// Prepared runner; no timer invokes it yet. Use one instance for all topics.
+// A future scheduler must supply shared admission for multiple workers.
 export class IncrementalTriageRunner {
   private running = false;
 
@@ -13,6 +17,7 @@ export class IncrementalTriageRunner {
       cutoffMs: number;
     },
     private readonly now: () => number = Date.now,
+    private readonly admission?: IncrementalTriageAdmission,
   ) {}
 
   private beforeCutoff() {
@@ -40,7 +45,13 @@ export class IncrementalTriageRunner {
     if (this.running) return { status: 'busy' as const };
     if (!this.beforeCutoff()) return { status: 'cutoff' as const };
     this.running = true;
+    let release: (() => Promise<void>) | null = null;
     try {
+      if (this.admission) {
+        release = await this.admission.acquire();
+        if (!release) return { status: 'busy' as const };
+      }
+      if (!this.beforeCutoff()) return { status: 'cutoff' as const };
       const { topic, candidates, runId } = await load();
       if (!this.beforeCutoff()) return { status: 'cutoff' as const };
       let cutoff = false;
@@ -70,7 +81,11 @@ export class IncrementalTriageRunner {
         result,
       };
     } finally {
-      this.running = false;
+      try {
+        await release?.();
+      } finally {
+        this.running = false;
+      }
     }
   }
 }
