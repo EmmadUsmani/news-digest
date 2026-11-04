@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 590 — convert article topic settings reads to Drizzle
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 healthy sources and zero failed digest jobs; Nov 4 15:00 UTC review remains pending.
-- Moved reaction-story and incremental-triage topic settings into a shared typed Drizzle database reader. Preserved independent post/story budgets, enabled filters, transaction reuse, guidance, validation and ranking.
-- Existing PostgreSQL characterization assertions unchanged; unit stubs now supply positional Drizzle rows/bound filters. Three targeted tests passed. Read-only old/new comparison matched both reads for all four live topics; temporary script removed after correcting its CommonJS async wrapper.
-- No migration, activation, source, paid call or owner grant change. Updated TASKS, architecture, decision and handbook stack; archived iteration 575 to keep PROGRESS bounded.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; reader statement coverage 100%, zero dangling Docker volumes.
-- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Playwright root rendered four digest sections/19 article elements with zero page errors; zero alerts.
-- Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters or historical migration baseline. Private pg_dump before first new migration.
-
 ## 2026-11-04: iteration 591 — convert budget-day schedule reader to Drizzle
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 error-free sources and zero failed digest jobs; Nov 4 15:00 UTC review remains pending.
@@ -152,3 +142,15 @@
 - Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical and LLM/X budget snapshots unchanged. Read-only Playwright rendered four digest topics without page errors; 36 error-free sources, zero failed digest jobs and zero alerts.
 - Next: prioritize Nov 4 15:00 UTC edition review; otherwise historical Drizzle migration baseline. Private pg_dump before first new migration.
 - Push: Git integration rejected two pushes of 082145b with `Internal Server Error` at 10:20–10:21 UTC; local services run the verified commit. Recording the failure before a final retry; no history or remote changes.
+
+## 2026-11-04: iteration 605 — historical Drizzle migration baseline
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC review pending.
+- Committed the generated schema snapshot/journal after migrations 001–055 with a no-op baseline SQL file; historical migrations still create schema and seed data. Added an offline drizzle-kit generation config.
+- Added snapshot-to-schema and real CLI zero-diff generation gates using a temporary copy. No production migration, activation, source change, paid call or owner grant change.
+- First full check exposed drizzle-kit's absolute output-path bug in the new test and forced mirror-database teardown failure. Used relative output and normal DROP DATABASE; catalog and baseline gates passed on rerun. Existing characterization assertions unchanged.
+- Updated TASKS, architecture, decision and handbook stack; archived iteration 590. Generated migration execution remains unwired; private pg_dump required before first new migration.
+- Verification: pnpm format, pnpm lint:fix, final pnpm check (364 unit/204 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
+- Restarted API/worker outside freeze; active and healthz healthy. Saved edition byte-identical, LLM/X budget snapshots unchanged. Read-only Playwright rendered four real saved-edition topics without page errors after scoping a duplicate heading locator; no UI changes.
+- Final snapshot: 36 sources without current errors, zero failed digest jobs and zero alerts.
+- Next: prioritize Nov 4 15:00 UTC edition review; otherwise connect generated migrations to the atomic historical runner, preserving history, data and owner grants.

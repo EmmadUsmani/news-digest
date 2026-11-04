@@ -72,10 +72,10 @@ The programmatic `pushSchema` helper still drops query parameters during
 introspection, so use the CLI for this gate; no programmatic workaround is applied.
 
 Existing SQL migrations remain authoritative; no production schema change or
-new migration is part of this mapping. Migration generation is not yet exposed
-as an application command.
-Before adopting drizzle-kit migrations, keep the complete schema parity test green on a freshly migrated
-isolated container and define the historical migration baseline. Preserve historical SQL
+new production migration is part of this mapping. Offline generation uses the
+committed baseline described below.
+Before adopting generated migration execution, keep the complete schema parity
+test green on a freshly migrated isolated container. Preserve historical SQL
 migrations and take a private `pg_dump` backup before the first new migration.
 Keep owner read-only/read-write grants intact. Convert remaining repositories
 one at a time, retaining the unchanged 2a suite; ESLint now bans runtime `pg` imports and direct `.query()` calls outside
@@ -207,3 +207,24 @@ Its CTEs, lateral JSON expansion and correlated edition membership retain the
 existing report query because these aggregates cannot be expressed directly
 with the query builder. UTC boundaries remain bound parameters; the caller's
 pool or checked-out client is reused and native PostgreSQL errors are preserved.
+
+## Historical migration baseline
+
+`drizzle/meta/0000_snapshot.json` records the complete schema after historical
+SQL migrations 001–055, including `schema_migrations`. The accompanying baseline
+SQL is deliberately a no-op: the historical migrations remain required for both
+schema creation and seed data. Do not use this baseline to initialize a database
+with the Drizzle migrator alone.
+
+Generate future schema diffs offline with
+`pnpm --filter @digest/api exec drizzle-kit generate --name <change>`.
+The isolated gate compares the committed snapshot with the current schema and
+runs the real generate CLI in a temporary copy, requiring no new migration.
+Together with catalog parity and the read-only push gate, this proves the
+baseline describes the historical migrated database. When introducing a schema
+change, advance the snapshot assertion to its latest generated snapshot.
+
+`pnpm migrate` still runs only the historical SQL directory. Wiring generated
+migrations into that atomic, advisory-locked runner is a separate remaining step;
+no generated migration has been applied to production. Before the first new
+migration, take a private `pg_dump` backup and preserve the owner login grants.

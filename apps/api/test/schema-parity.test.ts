@@ -1,9 +1,16 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
-import { mkdtemp, rm, writeFile } from 'node:fs/promises';
+import {
+  cp,
+  mkdtemp,
+  readdir,
+  readFile,
+  rm,
+  writeFile,
+} from 'node:fs/promises';
 import { tmpdir } from 'node:os';
-import { join, resolve } from 'node:path';
+import { join, relative, resolve } from 'node:path';
 import { test } from 'node:test';
 
 import { generateDrizzleJson, generateMigration } from 'drizzle-kit/api';
@@ -52,7 +59,7 @@ void test('complete Drizzle schema matches every migrated PostgreSQL column, con
     }
   } finally {
     await mirror.end();
-    if (created) await pool.query(`DROP DATABASE "${mirrorName}" WITH (FORCE)`);
+    if (created) await pool.query(`DROP DATABASE "${mirrorName}"`);
     await pool.end();
   }
 });
@@ -103,6 +110,55 @@ void test('drizzle-kit CLI proposes zero changes to the migrated isolated databa
     assert.equal(result.status, 0, output);
     assert.match(output, /No changes detected/, output);
     assert.doesNotMatch(output, /ALTER TABLE|DROP TABLE|CREATE TABLE/);
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
+void test('historical Drizzle baseline matches the schema and offline CLI generates no migration', async () => {
+  const baseline = JSON.parse(
+    await readFile(resolve('drizzle/meta/0000_snapshot.json'), 'utf8'),
+  ) as ReturnType<typeof generateDrizzleJson>;
+  assert.deepEqual(
+    await generateMigration(baseline, generateDrizzleJson(schema)),
+    [],
+  );
+  const directory = await mkdtemp(join(tmpdir(), 'digest-drizzle-baseline-'));
+  try {
+    const out = join(directory, 'drizzle');
+    await cp(resolve('drizzle'), out, { recursive: true });
+    const config = join(directory, 'drizzle.config.js');
+    await writeFile(
+      config,
+      `module.exports = ${JSON.stringify({
+        dialect: 'postgresql',
+        schema: resolve('apps/api/src/libs/db/schema.ts'),
+        out: relative(resolve('apps/api'), out),
+      })};`,
+    );
+    const before = await readdir(out, { recursive: true });
+    const result = spawnSync(
+      'pnpm',
+      [
+        '--filter',
+        '@digest/api',
+        'exec',
+        'drizzle-kit',
+        'generate',
+        '--config',
+        config,
+      ],
+      { encoding: 'utf8', timeout: 60000 },
+    );
+    assert.ifError(result.error);
+    const output = result.stdout + result.stderr;
+    assert.equal(result.status, 0, output);
+    assert.match(output, /No schema changes/, output);
+    assert.deepEqual(await readdir(out, { recursive: true }), before);
+    assert.equal(
+      await readFile(join(out, 'meta/0000_snapshot.json'), 'utf8'),
+      await readFile(resolve('drizzle/meta/0000_snapshot.json'), 'utf8'),
+    );
   } finally {
     await rm(directory, { recursive: true, force: true });
   }

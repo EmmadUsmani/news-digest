@@ -13,7 +13,9 @@ ESLint forbids runtime `pg` imports and direct `.query()` calls outside `libs/db
 connection type imports remain available to adapters and public facades.
 The owner console still exposes its explicitly requested SQL helper. See the
 [decision and migration gate](decisions/0003-drizzle-data-access.md).
-Explicit SQL migrations remain authoritative: `schema_migrations` records
+The committed Drizzle baseline records the schema after migrations 001–055;
+offline generation is checked for zero differences. Generated migration execution
+is not connected yet. Explicit SQL migrations remain authoritative: `schema_migrations` records
 applied filenames, and migrations run atomically under a transaction advisory
 lock. Run `pnpm migrate` from the repository root before starting services.
 

@@ -65,5 +65,6 @@ flowchart LR
 Health and console startup use a shared Drizzle connectivity probe. ESLint blocks
 runtime PostgreSQL driver imports and direct query calls outside the shared
 database library; adapters and public facades may still import connection types.
-The owner console retains its SQL helper. Historical SQL migrations remain
-authoritative while the Drizzle migration baseline is unfinished.
+The owner console retains its SQL helper. Historical SQL migrations still create and seed the database. A committed Drizzle
+baseline matches their resulting schema; offline checks require zero differences.
+Generated migrations are not yet connected to the migration runner.
