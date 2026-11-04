@@ -83,6 +83,7 @@ on a later dispatch day cannot satisfy the second-news-day requirement. Round
 summaries include the normalized window (or null if inconsistent). This checks
 structural coverage only, not operator behavior,
 threshold calibration or model acceptance, and never selects a winner.
+Confirmed promotions fail the zero-promotion check even beside unreviewed posts.
 Per-style totals retain unknown review labels; comparable yield per dollar is
 withheld for incomplete rounds. Current tests use synthetic rounds only.
 

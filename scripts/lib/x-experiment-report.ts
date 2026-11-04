@@ -208,7 +208,7 @@ export function xExperimentReport(calls: XExperimentEvidence[]) {
         complete && call.costMicros > 0
           ? (eligible * 1_000_000) / call.costMicros
           : null,
-      zeroPromotions: unknown.promotion ? null : promotions === 0,
+      zeroPromotions: promotions > 0 ? false : unknown.promotion ? null : true,
     };
   });
 }

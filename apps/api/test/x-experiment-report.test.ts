@@ -282,3 +282,19 @@ void test('saved eligibility requires timezone-qualified instants in windows and
   call.posts[0].publishedAt = null;
   assert.equal(xExperimentReport([call])[0].eligiblePosts, null);
 });
+
+void test('confirmed promotions remain failures beside unreviewed posts in either order', () => {
+  for (const reverse of [false, true]) {
+    const call = evidence();
+    call.posts[0].promotion = null;
+    if (reverse) call.posts.reverse();
+    const [report] = xExperimentReport([call]);
+    assert.equal(report.zeroPromotions, false);
+    assert.equal(report.promotions, 1);
+    assert.equal(report.unknown.promotion, 1);
+    assert.equal(report.eligiblePosts, null);
+    assert.equal(report.eligiblePostsPerDollar, null);
+    call.posts = call.posts.filter((post) => post.promotion !== true);
+    assert.equal(xExperimentReport([call])[0].zeroPromotions, null);
+  }
+});

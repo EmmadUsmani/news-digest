@@ -322,3 +322,18 @@ void test('every search must start after its full news window is available', () 
   assert.deepEqual(report.rounds[0].prematureRequestIds, []);
   assert.equal(report.rounds[0].complete, true);
 });
+
+void test('mixed confirmed and unreviewed promotions fail the per-style comparison', () => {
+  const data = fixture();
+  data.evidence[0].posts[0].promotion = null;
+  data.evidence[0].posts.push({
+    ...data.evidence[0].posts[0],
+    id: '2',
+    promotion: true,
+  });
+  const style = xExperimentComparison(data.evidence, [data.round]).rounds[0]
+    .styles[0];
+  assert.equal(style.zeroPromotions, false);
+  assert.equal(style.eligiblePosts, null);
+  assert.equal(style.eligiblePostsPerDollar, null);
+});

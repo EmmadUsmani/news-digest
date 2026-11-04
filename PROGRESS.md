@@ -1,11 +1,3 @@
-## 2026-11-04: iteration 682 — saved X experiment report command
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 healthy nonempty sources and zero failed digest jobs; next edition Nov 5 15:00 UTC.
-- Added offline CLI for saved X experiment evidence: strict input validation, unknown labels preserved, JSON output, no winner selection or application/provider imports. Invalid inputs fail without echoing private contents; saved evidence remains unchanged.
-- Updated TASKS and experiment usage docs. No source/runtime behavior change; SOURCES/handbook unchanged. No paid calls; existing dispatch cost-bound blocker remains.
-- Verification: targeted report tests 8/8, standalone strict tsc, pnpm format, pnpm lint:fix, pnpm check (433 unit/209 isolated integration), pnpm build and git diff --check passed. Final healthz healthy and zero alerts.
-- No restart under STEERING 22: running services do not import the offline command. Next: Nov 5 grouping/NBA/cost/latency/screenshots; paid experiment awaits supported bound or owner decision.
-
 ## 2026-11-04: iteration 683 — offline failed-batch recovery measurement
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis and 36 healthy nonempty sources; no failed retained digest jobs. Next edition Nov 5 15:00 UTC.
@@ -153,3 +145,12 @@
 - Restarted worker and retried only the failed hourly Bluesky job once: completed at 21:16 UTC, fetched/submitted 49 real observations per topic (196 total). These are observations, not unique new posts. Healthz/database/Redis remain green, zero alerts.
 - Updated TASKS and SOURCES; handbook unchanged for this request-format bug fix. No caps/models/providers changed. Long-lived natural refresh remains to observe.
 - Next: Nov 5 grouping/NBA AI/cost/latency/screenshots; paid X experiment remains blocked on a supported cost bound.
+
+## 2026-11-04: iteration 699 — retain confirmed promotions in experiment reports
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/services and 36 healthy sources; no failed retained digest jobs. Nov 5 checks remain future; paid experiment remains blocked on a supported per-call cost bound.
+- Fixed offline zero-promotion reporting: a confirmed promotion remains a failure beside unreviewed posts, including per-style comparison totals. Missing review still keeps eligible yield unknown.
+- Added synthetic regressions for both post orders, unknown-only controls and comparison aggregation. No provider calls or production behavior/config changes.
+- Verification: targeted report/comparison tests 20/20, standalone strict tsc, pnpm format, pnpm lint:fix, pnpm check (455 unit/209 isolated integration), pnpm build and git diff --check passed.
+- Updated TASKS and experiment reference; archived iteration 682 to bound PROGRESS. SOURCES/handbook unchanged: offline reporting only. No restart under STEERING 22; healthy running services do not import this helper.
+- Next: Nov 5 grouping/NBA AI/cost/latency/screenshots; paid X dispatch awaits supported bound or owner decision.
