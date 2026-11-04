@@ -2149,3 +2149,20 @@ scores, one invalidated final item, zero membership waste. Changes beyond the
 have no updates and retain their hourly edition remainders (NBA 0, World 5,
 Tech/AI 2), with zero repeats or invalidations. No production activation, paid
 requests or live cost/latency evidence.
+
+## Iteration 550: version-level offline waste
+
+Replay now partitions pre-edition scored versions into reusable final inputs,
+versions belonging to removed articles, and obsolete versions of retained
+articles. `wastedPreEditionVersions` is the latter two combined;
+`reusablePreEditionVersions`, `removedPreEditionVersions` and
+`obsoletePreEditionVersions` expose the partition. Counts use real cache probes,
+so reverting to an earlier cached headline reuses that version. All four fields
+are null without observed pool snapshots: a publication proxy cannot establish
+waste. These are synthetic scoring counts, not provider spend or live waste.
+
+A regression scores two versions each of two articles, removes one article and
+reverts the other: four pre-edition scores, one reusable version, two removed
+versions and one obsolete retained version. Edition work is zero. The earlier
+three-version invalidation case now reports two wasted pre-edition versions.
+Production remains off pending the Nov 4 review; no provider calls were made.

@@ -132,6 +132,7 @@ export async function evaluateIncrementalTriage(
   const finalPool = poolAt(end);
   const preScoredIds = new Set<string>();
   const allScoredIds = new Set<string>();
+  const preScoredVersions = new Map<string, number>();
   const cache = new Map<string, unknown>();
   let requests = 0;
   let scoredItems = 0;
@@ -229,11 +230,23 @@ export async function evaluateIncrementalTriage(
       preScoredIds.add(c.id);
       allScoredIds.add(c.id);
     });
+    for (const candidate of await pendingPool(selected))
+      preScoredVersions.set(
+        candidate.id,
+        (preScoredVersions.get(candidate.id) ?? 0) + 1,
+      );
     await scorePool(selected, 'offline-incremental');
   }
   const before = { requests, scoredItems };
-  const invalidatedPreEditionItems = (await pendingPool(finalPool)).filter(
-    (c) => preScoredIds.has(c.id),
+  const finalPending = await pendingPool(finalPool);
+  const reusablePreEditionVersions = finalPool.length - finalPending.length;
+  const finalIds = new Set(finalPool.map((c) => c.id));
+  const removedPreEditionVersions = [...preScoredVersions].reduce(
+    (total, [id, count]) => total + (finalIds.has(id) ? 0 : count),
+    0,
+  );
+  const invalidatedPreEditionItems = finalPending.filter((c) =>
+    preScoredIds.has(c.id),
   ).length;
   finalPool.forEach((c) => allScoredIds.add(c.id));
   await scorePool(finalPool, 'offline-edition');
@@ -261,6 +274,17 @@ export async function evaluateIncrementalTriage(
     reservedOutputTokens,
     repeatScoring: scoredItems - allScoredIds.size,
     invalidatedPreEditionItems,
+    // Version counts describe synthetic scoring work, never provider dollars.
+    reusablePreEditionVersions: snapshots ? reusablePreEditionVersions : null,
+    removedPreEditionVersions: snapshots ? removedPreEditionVersions : null,
+    obsoletePreEditionVersions: snapshots
+      ? before.scoredItems -
+        removedPreEditionVersions -
+        reusablePreEditionVersions
+      : null,
+    wastedPreEditionVersions: snapshots
+      ? before.scoredItems - reusablePreEditionVersions
+      : null,
     wasteItems: snapshots
       ? [...preScoredIds].filter((id) => !finalPool.some((c) => c.id === id))
           .length

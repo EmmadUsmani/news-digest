@@ -375,6 +375,10 @@ void test('replay rescores changed article inputs and carries updates across poo
   assert.equal(row.repeatScoring, 2);
   assert.equal(row.invalidatedPreEditionItems, 1);
   assert.equal(row.wasteItems, 0); // Membership alone hides obsolete scores.
+  assert.equal(row.wastedPreEditionVersions, 2);
+  assert.equal(row.obsoletePreEditionVersions, 2);
+  assert.equal(row.removedPreEditionVersions, 0);
+  assert.equal(row.reusablePreEditionVersions, 0);
   const cold = await evaluateIncrementalTriage(window, 24);
   assert.equal(cold.totalScoredItems, 1);
   assert.equal(cold.invalidatedPreEditionItems, 0);
@@ -433,4 +437,54 @@ void test('replay uses compact scoring fingerprints rather than raw input equali
   assert.equal(row.totalScoredItems, 1);
   assert.equal(row.repeatScoring, 0);
   assert.equal(row.invalidatedPreEditionItems, 0);
+});
+
+void test('version waste counts removed versions and recognizes reverted cached inputs', async () => {
+  const original = {
+    id: 'kept',
+    title: 'Original',
+    excerpt: null,
+    sources: [],
+  };
+  const removed = { ...original, id: 'removed' };
+  const window = {
+    topic: 'Version accounting',
+    windowStart: '2026-11-01T00:00:00Z',
+    windowEnd: '2026-11-01T04:00:00Z',
+    candidates: [original, removed].map((c) => ({
+      ...c,
+      publishedAt: '2026-11-01T00:00:00Z',
+    })),
+    poolSnapshots: [
+      { at: '2026-11-01T00:00:00Z', candidateIds: ['kept', 'removed'] },
+      {
+        at: '2026-11-01T01:30:00Z',
+        candidateIds: ['kept', 'removed'],
+        candidateUpdates: [original, removed].map((c) => ({
+          ...c,
+          title: 'Changed',
+        })),
+      },
+      {
+        at: '2026-11-01T02:30:00Z',
+        candidateIds: ['kept'],
+        candidateUpdates: [original],
+      },
+    ],
+  };
+  const row = await evaluateIncrementalTriage(window, 1);
+  assert.equal(row.preEditionItems, 4);
+  assert.equal(row.editionItems, 0);
+  assert.equal(row.invalidatedPreEditionItems, 0);
+  assert.equal(row.wasteItems, 1);
+  assert.equal(row.reusablePreEditionVersions, 1);
+  assert.equal(row.removedPreEditionVersions, 2);
+  assert.equal(row.obsoletePreEditionVersions, 1);
+  assert.equal(row.wastedPreEditionVersions, 3);
+  const cold = await evaluateIncrementalTriage(window, 24);
+  assert.equal(cold.wastedPreEditionVersions, 0);
+  const { poolSnapshots: _snapshots, ...unobserved } = window;
+  const unknown = await evaluateIncrementalTriage(unobserved, 1);
+  assert.equal(unknown.wastedPreEditionVersions, null);
+  assert.equal(unknown.reusablePreEditionVersions, null);
 });

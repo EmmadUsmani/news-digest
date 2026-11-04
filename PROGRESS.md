@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 530 — prepare bounded multi-topic triage ticks
-
-- Started clean on main; no leftover work. Zero alerts; healthz/status healthy, 36 sources without current errors and four available queues. Nov 4 review remains pending.
-- Added prepared round-robin scheduler: one topic per tick bounds total work; overlap skips, completed/error passes rotate, busy/cutoff preserves turn. Current topic membership is supplied each tick; duplicate/blank IDs and loader identity mismatch fail safely.
-- Three fake regressions cover work bounds, membership changes, overlap, failure recovery, contention/cutoff and invalid inputs. No production timer/pool caller, export, activation or paid calls; no live speed/cost/waste claim.
-- Updated TASKS/RANKING. Services remain running under STEERING 22 because prepared code is not imported by running code; no UI/schema/source/handbook flow change.
-- Next: production caller/export wiring with shared admission and reserve-safe services; Nov 4 edition review takes priority when available.
-- Verification: targeted tests 3/3; pnpm format, pnpm lint:fix, pnpm check (326 unit/184 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
-
 ## 2026-11-04: iteration 531 — prepare actual triage item-write evidence
 
 - Started clean on main; no leftover work. Zero alerts; healthy healthz/status, 36 sources without current errors and four available queues. Nov 4 review remains pending.
@@ -175,3 +166,12 @@
 - Updated TASKS/RANKING; archived iteration 529. Only offline tooling/tests/docs changed, so no restart under STEERING 22; no handbook/source/schema flow change.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (356 unit/187 isolated integration), pnpm build, recorded replay and git diff --check passed; root HTTP 200, healthy healthz, 36 nonempty/error-free sources, zero failed digest jobs, alerts and dangling volumes.
 - Next: Nov 4 scheduled review first; gated worker connection and actual scoring/final-pool waste evidence thereafter.
+
+## 2026-11-04: iteration 550 — measure offline scoring-version waste
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 nonempty/error-free sources and four available queues; Nov 4 scheduled review remains ahead.
+- Offline replay now partitions pre-edition versions into reusable final inputs, removed-article versions and obsolete retained versions, with a combined wasted-version count. Real cache probes recognize input reversion; missing pool snapshots leave waste unknown.
+- Synthetic regression: four scores across two articles, one reusable version, two removed versions and one obsolete retained version; zero edition work. Earlier invalidation case reports two wasted versions. No paid calls, activation or live spend/latency claim.
+- Updated TASKS/RANKING and archived iteration 530. No source/schema/UI/handbook flow change; no restart under STEERING 22 because only offline tooling/tests/docs changed.
+- Verification: targeted replay tests 11/11; pnpm format, pnpm lint:fix, pnpm check (357 unit/187 isolated integration), pnpm build, recorded replay and git diff --check passed. Recorded hourly remainders remain NBA 0/World 5/Tech 2; zero alerts/dangling Docker volumes.
+- Next: Nov 4 scheduled review first; gated worker connection and actual scoring/final-window waste evidence thereafter.
