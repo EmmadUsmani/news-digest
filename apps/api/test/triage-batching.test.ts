@@ -84,6 +84,14 @@ void test('capacity rounds respect sequential caller passes and partial final pa
   }));
   const large = await evaluateTriageBatching(topic, candidates, 200);
   assert.deepEqual(large.requestsPerPass, [4, 1]);
+  assert.deepEqual(large.batchItemsPerPass, [[50, 50, 50, 50], [1]]);
+  assert.equal(large.observedFakePeakRequests, 4);
+  assert.deepEqual(large.batchFill, {
+    fullItemLimit: 4,
+    belowItemLimit: 1,
+    minimumItems: 1,
+    maximumItems: 50,
+  });
   assert.deepEqual(large.equalDurationRounds, [
     { slots: 1, rounds: 5 },
     { slots: 2, rounds: 3 },
@@ -94,6 +102,8 @@ void test('capacity rounds respect sequential caller passes and partial final pa
   assert.ok(small.equalDurationRounds.every(({ rounds }) => rounds === 5));
   const empty = await evaluateTriageBatching(topic, [], 200);
   assert.deepEqual(empty.requestsPerPass, []);
+  assert.deepEqual(empty.batchItemsPerPass, []);
+  assert.equal(empty.observedFakePeakRequests, 0);
   assert.ok(empty.equalDurationRounds.every(({ rounds }) => rounds === 0));
   const byteSplit = await evaluateTriageBatching(
     topic,
@@ -233,6 +243,8 @@ void test('supplied social pools use social instructions and retain every candid
     );
   }
   assert.deepEqual(rows[3].requestsPerPass, [3]);
+  assert.deepEqual(rows[3].batchItemsPerPass, [[50, 50, 1]]);
+  assert.equal(rows[3].observedFakePeakRequests, 3);
   const article = await evaluateTriageBatching(topic, candidates, 200);
   assert.deepEqual(article.purposes, ['candidate-triage-v1']);
   assert.notEqual(
@@ -254,4 +266,54 @@ void test('supplied social pools use social instructions and retain every candid
     { kind: 'social', topic, candidates: [{ ...candidates[0], excerpt: 42 }] },
   ])
     await assert.rejects(suppliedTriageBatching(invalid));
+});
+
+void test('supplied warm social pools expose fragmentation without counting preparation as dispatch', async () => {
+  const topic = { id: 'social', name: 'Social', description: '', guidance: '' };
+  const candidates = Array.from({ length: 200 }, (_, i) => ({
+    id: `synthetic-${i}`,
+    title: 'Synthetic post',
+    excerpt: null,
+    sources: [],
+  }));
+  const warmedIds = candidates.filter((_, i) => i % 2 === 0).map((p) => p.id);
+  const rows = await suppliedTriageBatching({
+    kind: 'social',
+    topic,
+    candidates,
+    warmedIds,
+  });
+  const small = rows.find((row) => row.chunkSize === 50)!;
+  const large = rows.find((row) => row.chunkSize === 200)!;
+  assert.deepEqual(small.batchItemsPerPass, [[25], [25], [25], [25]]);
+  assert.equal(small.observedFakePeakRequests, 1);
+  assert.deepEqual(large.batchItemsPerPass, [[50, 50]]);
+  assert.equal(large.observedFakePeakRequests, 2);
+  for (const row of rows) {
+    assert.equal(row.scoredItems, 100);
+    assert.equal(row.preparation.scoredItems, 100);
+    assert.equal(row.combined.scoredItems, 200);
+    assert.equal(row.repeatRequests, 0);
+  }
+  const warm = (
+    await suppliedTriageBatching({
+      kind: 'social',
+      topic,
+      candidates,
+      warmedIds: candidates.map((p) => p.id),
+    })
+  )[3];
+  assert.equal(warm.observedFakePeakRequests, 0);
+  assert.deepEqual(warm.batchItemsPerPass, [[]]);
+  assert.equal(warm.batchFill.maximumItems, 0);
+  for (const invalid of [['unknown'], ['synthetic-0', 'synthetic-0']])
+    await assert.rejects(
+      suppliedTriageBatching({
+        kind: 'social',
+        topic,
+        candidates,
+        warmedIds: invalid,
+      }),
+      /Warm IDs/,
+    );
 });

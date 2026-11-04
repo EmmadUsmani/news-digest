@@ -41,9 +41,11 @@ export async function evaluateTriageBatching(
     framingBytes: number;
     reservedOutputTokens: number;
   }[] = [];
+  let activeRequests = 0;
+  let peakRequests = 0;
   const triage = new CandidateTriage(
     {
-      json(request, validate) {
+      async json(request, validate) {
         const prompt = JSON.parse(request.prompt) as {
           candidates: {
             id: string;
@@ -82,8 +84,13 @@ export async function evaluateTriageBatching(
           inputBytes: Buffer.byteLength(request.instructions + request.prompt),
           reservedOutputTokens: request.maxOutputTokens,
         });
-        return Promise.resolve(
-          validate({
+        activeRequests++;
+        peakRequests = Math.max(peakRequests, activeRequests);
+        // Yield so the real triage workers overlap. This measures dispatched
+        // fake calls, not provider slots, throughput or elapsed live time.
+        await new Promise<void>((resolve) => setImmediate(resolve));
+        try {
+          return validate({
             items: prompt.candidates.map(({ id }) => ({
               id,
               relevance: 5,
@@ -91,8 +98,10 @@ export async function evaluateTriageBatching(
               event: 'Synthetic event',
               rationale: 'Offline request-shape probe',
             })),
-          }),
-        );
+          });
+        } finally {
+          activeRequests--;
+        }
       },
     },
     {
@@ -119,6 +128,8 @@ export async function evaluateTriageBatching(
     );
   const preparationRequests = [...requests];
   requests.length = 0;
+  peakRequests = 0;
+  const batchesPerPass: number[][] = [];
   const requestsPerPass: number[] = [];
   const score = async (size: number) => {
     for (let offset = 0; offset < candidates.length; offset += size) {
@@ -126,6 +137,9 @@ export async function evaluateTriageBatching(
       const before = requests.length;
       const result = await triage.score(topic, batch, 'offline-batching');
       requestsPerPass.push(requests.length - before);
+      batchesPerPass.push(
+        requests.slice(before).map((request) => request.items),
+      );
       if (result.unscoredIds.length || result.scores.length !== batch.length)
         throw new Error('Incomplete synthetic scoring');
     }
@@ -133,6 +147,8 @@ export async function evaluateTriageBatching(
   await score(chunkSize);
   const coldRequests = requests.length;
   const coldPasses = [...requestsPerPass];
+  const coldBatches = [...batchesPerPass];
+  const coldPeakRequests = peakRequests;
   // Repartitioning must retain all item-cache hits, independent of wire IDs.
   await score(chunkSize === 200 ? 25 : 200);
   return {
@@ -172,6 +188,16 @@ export async function evaluateTriageBatching(
     remainingCandidates: candidates.length - warmedIds.length,
     requests: coldRequests,
     requestsPerPass: coldPasses,
+    batchItemsPerPass: coldBatches,
+    observedFakePeakRequests: coldPeakRequests,
+    batchFill: {
+      fullItemLimit: requests.filter((r) => r.items === 50).length,
+      belowItemLimit: requests.filter((r) => r.items < 50).length,
+      minimumItems: requests.length
+        ? Math.min(...requests.map((r) => r.items))
+        : 0,
+      maximumItems: Math.max(0, ...requests.map((r) => r.items)),
+    },
     // Equal-duration, independent calls only. Caller passes remain sequential.
     // These capacity rounds are not measured time or a feasible live schedule.
     equalDurationRounds: [1, 2, 4].map((slots) => ({
@@ -262,6 +288,7 @@ const inputSchema = z
         guidance: z.string(),
       })
       .strict(),
+    warmedIds: z.array(z.string().min(1).max(200)).default([]),
     candidates: z
       .array(
         z
@@ -278,11 +305,11 @@ const inputSchema = z
   .strict();
 
 export async function suppliedTriageBatching(input: unknown) {
-  const { kind, topic, candidates } = inputSchema.parse(input);
+  const { kind, topic, candidates, warmedIds } = inputSchema.parse(input);
   const results = [];
   for (const size of [10, 25, 50, 200])
     results.push(
-      await evaluateTriageBatching(topic, candidates, size, [], kind),
+      await evaluateTriageBatching(topic, candidates, size, warmedIds, kind),
     );
   return results;
 }
@@ -301,7 +328,7 @@ if (require.main === module) {
     .then((results) =>
       console.log(
         JSON.stringify({
-          note: `${inputPath ? 'Supplied local candidates and topic context' : 'Recorded article excerpts with empty topic guidance'}. Synthetic scores only. Bytes are not tokens; output reservations are not usage. Chunk size bounds each sequential caller pass; production still splits internally at 50 items/60,000 conservative bytes and permits four requests per pass. No latency, cost or quality measurement; no production change.`,
+          note: `${inputPath ? 'Supplied local candidates and topic context' : 'Recorded article excerpts with empty topic guidance'}. Synthetic scores only. Bytes are not tokens; output reservations are not usage. Chunk size bounds each sequential caller pass; production still splits internally at 50 items/60,000 conservative bytes and permits four requests per pass. Observed peak covers fake dispatch only, before provider admission. Batch fill below 50 can reflect bytes, cache hits or caller boundaries; no split cause inferred. No latency, cost or quality measurement; no production change.`,
           results,
         }),
       ),

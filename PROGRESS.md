@@ -1,26 +1,3 @@
-## 2026-11-04: iteration 665 — preserve bulk reads through triage evidence
-
-- Started clean on main; no leftover work. Zero alerts; healthz/database/Redis healthy, all 36 active sources successful/nonempty without current errors.
-- Fixed incremental scoring evidence wrapper dropping the optional bulk-cache capability from iteration 664; receiver-bound pass-through preserves failures and single-key compatibility.
-- Cold/warm/changed-input scoring now verifies three bulk reads; warm hits produce no work evidence. Regression also covers receiver binding, missing keys, read failure and single-key adapters.
-- Incremental triage stays disabled; no paid calls, activation, model/budget changes or claimed live speed improvement.
-- Updated TASKS/RANKING; archived iteration 649 to keep PROGRESS bounded. Internal cache forwarding only; no handbook/schema/SOURCES changes needed.
-- Verification: targeted tests 16/16; pnpm format, pnpm lint:fix, pnpm check (405 unit/207 isolated integration), pnpm build and git diff --check passed.
-- Restarted API/worker; both active, healthz healthy, zero alerts; saved edition remains four topics/14 stories/15 posts.
-- Next: Nov 5 grouping/cost/latency/screenshots, NBA full-AI acceptance and World posts; background triage remains off.
-
-## 2026-11-04: iteration 666 — atomic triage cache writes
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis and 36 nonempty successful sources without current errors.
-- Article/social triage now persists each validated batch in one atomic insert-only query instead of up to 50 sequential writes; optional single-key adapters remain compatible.
-- Existing cache values, fingerprints, prompts, score validation, budgets and models unchanged. Failed batches remain retryable; sibling writes drain before errors return.
-- Incremental evidence forwards bulk writes with the ledger receiver and records only committed article work; duplicate guards recover after failed batches. Incremental triage stays off.
-- Synthetic tests cover original IDs, warm reuse, retries, sibling draining and evidence; isolated PostgreSQL covers conflicts, duplicate keys, empty input and whole-batch rollback.
-- Updated TASKS/RANKING; archived iteration 650 to keep PROGRESS bounded. Internal persistence only; no source/schema/UI/system-flow changes requiring handbook/SOURCES edits.
-- Verification: targeted tests 25/25; pnpm format, pnpm lint:fix, pnpm check (407 unit/207 isolated integration), pnpm build and git diff --check passed. No paid calls or claimed live speed improvement.
-- Restarted API/worker; both active, healthz healthy, zero alerts/failed services. Saved edition remains four topics/14 stories/15 posts; all 36 sources successful/nonempty, zero errors.
-- Next: Nov 5 grouping/cost/latency/screenshots, NBA full-AI acceptance and World posts; background triage stays disabled.
-
 ## 2026-11-04: iteration 667 — linear triage batch sizing
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis and 36 nonempty successful sources without current errors.
@@ -164,3 +141,13 @@
 - Verification: targeted tests 6/6, standalone report/test TypeScript check, pnpm format, pnpm lint:fix, pnpm check (429 unit/209 isolated integration), pnpm build and git diff --check passed. Initial check stopped on new archive formatting; corrected before passing full check.
 - Final healthz healthy and zero alerts. No restart under STEERING 22: running services do not import the offline report.
 - Next: Nov 5 grouping/NBA/cost/latency/screenshots take priority when available. Paid experiment requires a supported cost bound or owner decision; otherwise continue independent offline speed/replay work, not repeated provider-bound audits.
+
+## 2026-11-04: iteration 680 — offline batch fill and warm social dispatch
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 sources without current errors and no failed retained digest jobs. Next edition Nov 5 15:00 UTC.
+- Offline batching evaluator now reports actual per-pass request item counts, full/partial batch fill and overlapping fake calls through the real worker loop. Supplied article/social pools accept validated warm IDs; preparation stays separately counted.
+- Recorded Nov 1 article cold pools at caller size 200: NBA 52 items → 50/2 (peak two fake calls), World 47 → 47 (peak one), Tech 54 → 50/4 (peak two). No live latency or quality claim.
+- Synthetic 200-post social pool, alternating half warm: size-50 passes produce four sequential 25-item calls; size-200 pass produces two concurrent 50-item calls. All pending/prepared items preserved; repeat pass and fully warm pools issue zero calls.
+- Added regression coverage for dispatch/fill, warm social fragmentation, empty/warm inputs and invalid warm IDs. Updated TASKS and concurrency evidence; SOURCES/handbook unchanged because no running-system/source behavior changed.
+- Verification: targeted tsx triage-batching tests 8/8; standalone tsc --strict check passed (initial ad-hoc command omitted strict mode; corrected). pnpm format, pnpm lint:fix, pnpm check (430 unit/209 isolated integration), pnpm build and git diff --check passed. Archived iterations 665–666 to keep this file small.
+- No paid calls or production code/config changes; no restart under STEERING 22. X experiment remains blocked on a supported cost bound or owner decision. Next: prioritize Nov 5 grouping/NBA/cost/latency/screenshots; compare actual batching before production tuning.

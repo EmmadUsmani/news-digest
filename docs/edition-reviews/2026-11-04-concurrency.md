@@ -135,3 +135,37 @@ counts use PostgreSQL Unicode code points; schema checks use JavaScript
 UTF-16 lengths. These counts are not token counts or a speedup estimate.
 The report uses a read-only transaction and 15-second query timeout and emits
 only aggregate lengths, never text or candidate identifiers. No paid calls.
+
+## Observed offline batch dispatch (iteration 680)
+
+`evaluate-triage-batching.ts` now reports each caller pass's actual request
+item counts, full/partial batches and peak overlapping fake requests. The
+fake yields before returning, exercising the production triage worker loop.
+Supplied local article or social input accepts optional `warmedIds`, checked
+for uniqueness and pool membership; preparation remains separately counted.
+
+```sh
+pnpm exec tsx apps/api/scripts/evaluate-triage-batching.ts
+pnpm exec tsx apps/api/scripts/evaluate-triage-batching.ts /path/to/local-pool.json
+```
+
+Recorded Nov 1 article fixtures, cold cache, caller size 200:
+
+| Topic   | Candidates | Request item counts | Peak fake calls |
+| ------- | ---------: | ------------------- | --------------: |
+| NBA     |         52 | 50, 2               |               2 |
+| World   |         47 | 47                  |               1 |
+| Tech/AI |         54 | 50, 4               |               2 |
+
+Synthetic social probe: 200 short posts, every other item warmed. Caller
+size 50 dispatches four sequential 25-item requests (peak one); size 200
+dispatches two 50-item requests (peak two). Both preserve all 100 pending
+items, count 100 preparation items, and issue zero repeat-pass requests.
+Fully warm pools dispatch zero publication requests. Byte-heavy inputs
+still split below 50; the report does not infer why a partial batch formed.
+
+These are request-shape and fake-worker observations before provider
+admission, with synthetic scores. The article fixtures have empty topic
+guidance. They do not measure actual social pools, provider concurrency,
+latency, cost or editorial quality. Keep production batching unchanged
+until the Nov 5 evidence can be compared.
