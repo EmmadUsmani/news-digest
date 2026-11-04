@@ -1,0 +1,153 @@
+[
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 26666,
+    "outcome": "success"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 28335,
+    "outcome": "success"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 29711,
+    "outcome": "success"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 33465,
+    "outcome": "success"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 25519,
+    "outcome": "success"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 30295,
+    "outcome": "success"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 32695,
+    "outcome": "success"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 30183,
+    "outcome": "success"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 27964,
+    "outcome": "success"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 29375,
+    "outcome": "success"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 30504,
+    "outcome": "success"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 33730,
+    "outcome": "success"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 25919,
+    "outcome": "success"
+  },
+  {
+    "purpose": "shortlist-editor-v4",
+    "durationMs": 15654,
+    "outcome": "success"
+  },
+  {
+    "purpose": "shortlist-editor-v4",
+    "durationMs": 14716,
+    "outcome": "success"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 35369,
+    "outcome": "success"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 38509,
+    "outcome": "success"
+  },
+  {
+    "purpose": "shortlist-editor-v4",
+    "durationMs": 15602,
+    "outcome": "success"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 29587,
+    "outcome": "success"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 29317,
+    "outcome": "success"
+  },
+  { "purpose": "social-triage-v1", "durationMs": 22486, "outcome": "success" },
+  {
+    "purpose": "shortlist-editor-v4",
+    "durationMs": 10509,
+    "outcome": "success"
+  },
+  { "purpose": "social-triage-v1", "durationMs": 20692, "outcome": "success" },
+  {
+    "purpose": "shortlist-editor-v4",
+    "durationMs": 10815,
+    "outcome": "success"
+  },
+  {
+    "purpose": "shortlist-editor-v4",
+    "durationMs": 15864,
+    "outcome": "success"
+  },
+  { "purpose": "social-editor-v2", "durationMs": 7792, "outcome": "success" },
+  {
+    "purpose": "shortlist-editor-v4",
+    "durationMs": 19935,
+    "outcome": "success"
+  },
+  { "purpose": "social-triage-v1", "durationMs": 2114, "outcome": "success" },
+  { "purpose": "social-triage-v1", "durationMs": 6768, "outcome": "success" },
+  { "purpose": "social-editor-v2", "durationMs": 10012, "outcome": "success" },
+  { "purpose": "social-editor-v2", "durationMs": 5785, "outcome": "success" },
+  { "purpose": "social-triage-v1", "durationMs": 23679, "outcome": "success" },
+  {
+    "purpose": "shortlist-editor-v4",
+    "durationMs": 17447,
+    "outcome": "success"
+  },
+  { "purpose": "social-editor-v2", "durationMs": 4681, "outcome": "success" },
+  { "purpose": "social-editor-v2", "durationMs": 10122, "outcome": "success" },
+  { "purpose": "social-editor-v2", "durationMs": 4765, "outcome": "success" },
+  {
+    "purpose": "shortlist-editor-v4",
+    "durationMs": 12705,
+    "outcome": "success"
+  },
+  { "purpose": "social-editor-v2", "durationMs": 6280, "outcome": "success" },
+  { "purpose": "social-editor-v2", "durationMs": 7769, "outcome": "success" },
+  {
+    "purpose": "shortlist-editor-v4",
+    "durationMs": 10808,
+    "outcome": "success"
+  },
+  { "purpose": "social-triage-v1", "durationMs": 8031, "outcome": "success" },
+  { "purpose": "social-editor-v2", "durationMs": 3790, "outcome": "success" },
+  { "purpose": "social-editor-v2", "durationMs": 5404, "outcome": "success" }
+]

@@ -2195,3 +2195,30 @@ All variants cover every candidate exactly once and reuse every item score
 when repartitioned. A separate long-Unicode-excerpt regression verifies that
 the conservative 60,000-byte bound splits a nominal 50-item pass. No live
 provider calls, production cache writes, settings changes or activation occurred.
+
+## Iteration 552: concurrency sensitivity from recorded HTTP durations
+
+Run `pnpm exec tsx apps/api/scripts/evaluate-call-concurrency.ts
+apps/api/test/fixtures/edition-call-durations-2026-11-03.json` (one line).
+The fixture preserves only purpose, duration and HTTP outcome from the worker
+journal, Nov 3 15:00–15:04 UTC, filtered by edition/run ID
+`777fdd95-0bcd-4ca7-9ea6-36c654effcca`. No response bodies, prompts or credentials
+are stored. Its 43 calls total 811,368 ms; the 17 article-triage calls total
+517,143 ms. HTTP success does not establish editorial validation success.
+
+| Slots | All-call lower bound | Independent longest-first schedule |
+| ----: | -------------------: | ---------------------------------: |
+|     4 |           202,842 ms |                         204,729 ms |
+|     8 |           101,421 ms |                         104,149 ms |
+|    16 |            50,711 ms |                          52,008 ms |
+
+The lower bound is the larger of total duration divided by slots (rounded up)
+and the longest call. The hypothetical schedule assumes every call is ready
+immediately and assigns longest calls first. Real topic/phase dependencies,
+admission, rate limits, non-provider work and changing latency under load are
+omitted. This is neither an optimal schedule nor a production speed prediction.
+Eight slots cannot reach 60 seconds at these fixed durations even before those
+constraints; 16 slots supplies no evidence of achieving the target. Compact
+output and incremental cache preparation remain relevant. Production concurrency
+is unchanged; no paid calls or activation occurred. Missing or failed requests
+must not be silently removed when preparing future evidence.

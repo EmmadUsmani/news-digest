@@ -1,21 +1,3 @@
-## 2026-11-04: iteration 533 — wire service-level incremental scoring exports
-
-- Started clean on main; no leftover work. Zero alerts; healthz/status healthy, 36 sources without current errors, four available queues and recent successful collections. Nov 4 15:00 UTC edition remains pending.
-- Wired per-invocation write evidence and private export into the prepared reserve-safe service; random attempt IDs isolate concurrent topics. Partial successful writes export on scoring failure; export failures propagate and dual failures retain both errors.
-- Enabling with credentials now requires an absolute evidence-directory setting. No production timer/pool caller, activation, paid calls or actual scored-work/waste measurement; no live behavior, UI, source, schema or handbook flow change.
-- Updated TASKS/RANKING; archived iterations 515–518 to keep PROGRESS below 25 KB. Initial full check caught archive formatting; fixed and reran successfully.
-- Verification: targeted tests 3/3; pnpm format, pnpm lint:fix, pnpm check (330 unit/184 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
-- Services remain running under STEERING 22 because this module has no production caller. Next: scheduler/pool composition and longer-span evidence; scheduled Nov 4 review takes priority.
-
-## 2026-11-04: iteration 534 — compose shared-admission incremental scheduler
-
-- Started clean on main; no leftover work. Zero alerts; healthy healthz/status, 36 sources without current errors, four available queues and recent successful collection. Nov 4 scheduled review remains pending.
-- Added prepared public scheduler factory joining reserve-safe evidence-writing services, bounded round-robin ticks and mandatory Postgres admission. Default-off returns before schedule/database access; no timer or production pool caller.
-- Isolated fake-scorer/Postgres regression verifies independent-worker contention skips pool loading, 25-item bound, scoring-failure lock release/recovery and cutoff. No paid calls, activation or actual waste/latency measurement.
-- Updated TASKS/RANKING; no source/schema/UI/handbook flow changes. Services remain running under STEERING 22 because this module has no production caller.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (330 unit/185 isolated integration), pnpm build and git diff --check passed; root/healthz healthy and zero dangling Docker volumes.
-- Next: exact edition-pool and current-schedule caller wiring; longer-span pool/scored-work evidence. Nov 4 scheduled review takes priority when available.
-
 ## 2026-11-04: iteration 535 — prepare exact edition-pool boundary
 
 - Started clean on main; no leftover work. Zero alerts; healthz healthy, 36 sources without current errors, recent successful ingestion and no failed digest jobs. Nov 4 15:00 UTC review remains pending.
@@ -168,3 +150,12 @@
 - Verification: targeted tests 2/2; pnpm format, pnpm lint:fix, pnpm check (359 unit/187 isolated integration), pnpm build and git diff --check passed. Initial lint rejected unnecessary async fake methods; replaced with resolved promises before final checks.
 - Live: root HTTP 200, healthz healthy, zero alerts/dangling volumes; latest hourly social collections completed. Retained Nov 3 23:54 social failure is the already-investigated item 18 incident, not a new failure; zero failed digest jobs.
 - Next: Nov 4 scheduled review first; then gated activation/worker connection and actual waste/latency/cost evidence. No paid calls or activation this iteration.
+
+## 2026-11-04: iteration 552 — replay observed provider concurrency bounds
+
+- Started clean on main; no leftover work. Zero alerts; healthy healthz/root, 36 sources and four available queues; no failed digest jobs. Nov 4 15:00 UTC review remains pending.
+- Preserved timing-only evidence from Nov 3 scheduled edition: 43 HTTP calls/811,368 ms, including 17 article-triage calls/517,143 ms. Journal filtered by exact run ID; no prompts, responses or secrets retained. HTTP success does not imply editorial validation success.
+- Added offline concurrency sensitivity CLI: all-ready fixed-duration lower bounds and hypothetical longest-first schedules at 1/2/4/8/16 slots. Eight-slot all-call lower bound is 101.421 s; dependencies, admission/rate limits and changing latency are omitted. No production prediction, concurrency change, paid calls or activation.
+- Regressions cover recorded totals, failed-call time, scope isolation, order independence, empty evidence and invalid/overflowing durations. Updated TASKS/RANKING; archived iterations 533–534. No source/schema/UI/handbook flow change.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (362 unit/187 isolated integration), pnpm build, recorded replay and git diff --check passed; zero dangling Docker volumes. No restart under STEERING 22: only offline tooling, fixtures, tests and docs changed.
+- Next: Nov 4 scheduled review first; then gated worker connection and actual scoring-waste/latency/cost evidence. Concurrency alone at eight slots cannot meet 60 s at the old durations.
