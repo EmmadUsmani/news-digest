@@ -148,4 +148,5 @@
 - Updated TASKS, architecture, decision and handbook stack; archived iteration 585. First full check stopped on archive formatting; corrected and reran green.
 - Verification: pnpm format, pnpm lint:fix, targeted reserve-logging test, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
 - Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical and X budget snapshot unchanged. Read-only Playwright rendered without page errors; zero current source errors or failed digest jobs.
+- Push: Git integration initially rejected main with Internal Server Error; immediate retry successfully pushed 18e3eb6.
 - Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters/transaction infrastructure or historical migration baseline. Private pg_dump before first new migration.
