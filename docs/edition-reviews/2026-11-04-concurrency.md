@@ -69,3 +69,40 @@ shipped fixes and grouping activation. If it still misses the target, assess
 avoided repair work and smaller prompts offline before any bounded
 concurrency experiment. The <60-second/current-volume and <2-minute/1,500-item
 targets remain unfulfilled; this run had 701 article candidates.
+
+## Recorded token work (iteration 670)
+
+The same 43 calls retain allowlisted usage, model, completion reason and
+output limit in `apps/api/test/fixtures/edition-call-usage-2026-11-04.json`.
+Replay without database access or paid calls:
+
+```sh
+pnpm exec tsx apps/api/scripts/evaluate-call-tokens.ts apps/api/test/fixtures/edition-call-usage-2026-11-04.json
+```
+
+| Purpose / model         | Calls | HTTP ms | Input tokens including cache | Output tokens |
+| ----------------------- | ----: | ------: | ---------------------------: | ------------: |
+| Article triage / Haiku  |    14 |  243105 |                       133969 |         68220 |
+| Social triage / Haiku   |     7 |   83826 |                        33772 |         20867 |
+| Story editor / Sonnet   |     6 |   74774 |                        18180 |         10559 |
+| X editor / Sonnet       |     6 |   40349 |                         9106 |          3716 |
+| Story editor / Haiku    |     2 |   23087 |                         6215 |          5608 |
+| Bluesky editor / Sonnet |     4 |   20908 |                         7433 |          2021 |
+| Bluesky editor / Haiku  |     4 |   20566 |                         7433 |          4041 |
+
+All 43 calls have usage and none stopped at the output-token limit. Combined
+article/social triage emitted 89,087 of 115,032 output tokens (77.4%) and
+consumed 326,931 of 506,615 aggregate HTTP ms (64.5%). This makes the actual
+length of triage event/rationale strings a useful next offline measurement;
+merely raising output limits has no truncation evidence here. Smaller batch
+sizes repeat input and add calls, so require a measured tradeoff before any
+production change. Do not extrapolate a speedup from token shares.
+
+The tool separates purpose and model, counts missing usage as unknown,
+retains failed HTTP time, and reports uncached/cache-write/cache-read input
+separately. Its output-token/HTTP-second ratio includes prefill and network
+wait, not measured decoding speed. HTTP success includes responses later
+rejected by application validation; these fields alone cannot label repairs
+or decide which calls could be removed. No prompts or response text were
+exported. Current call shapes have changed since this edition; compare the
+Nov 5 record before tuning concurrency or response sizes.

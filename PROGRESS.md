@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 653 — target absence repair guidance to the rejected field
-
-- Started clean on main; no leftover work. Zero alerts, healthy database/Redis, 36 sources without current errors and four available queues; saved Nov 4 four-topic edition readable.
-- Nov 4 NBA's failed generic absence repairs motivate fixed field-specific guidance: headline/summary, significance, rationale or brief. Unknown runtime labels receive only generic feedback; no model/source text enters hints.
-- Validation, model order, initial prompts/cache keys, budgets and one-repair limit unchanged. No paid calls, new edition or UI changes; live NBA full-AI outcome remains unmeasured.
-- Updated TASKS/RANKING; archived iteration 637 to keep PROGRESS bounded. Internal repair change needs no handbook/source inventory update.
-- Verification: targeted editor tests 13/13; pnpm format, pnpm lint:fix, pnpm check (397 unit/207 isolated integration), pnpm build and git diff --check passed.
-- Restarted API/worker; both active, healthz database/Redis healthy, saved four-topic edition readable, zero alerts/failed user services.
-- Next: Nov 5 grouping admission/cost/accuracy/latency/screenshots, NBA full-AI acceptance, scheduled discovery yield and World posts.
-
 ## 2026-11-04: iteration 654 — discourage repeated moments within social selections
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and four available queues; Nov 4 saved edition readable.
@@ -185,3 +175,14 @@
 - Verification: targeted triage 23/23; pnpm format, pnpm lint:fix, pnpm check (410 unit/207 isolated integration), pnpm build and git diff --check passed.
 - Restarted API/worker active; healthz healthy, zero alerts, all 36 sources without current errors. Saved edition remains four topics/14 stories/15 posts.
 - Next: Nov 5 grouping admission/accuracy/cost/latency/screenshots, NBA full-AI outcome, World posts and Bluesky repair tail.
+
+## 2026-11-04: iteration 670 — replay recorded token work before latency tuning
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis and all 36 sources nonempty without current errors.
+- Added offline call-usage evaluator and allowlisted Nov 4 metadata for all 43 Anthropic calls; no prompts, response text, secrets, database access or paid calls.
+- Groups by purpose/model, separates cache input, retains failed time, counts unknown usage explicitly and rejects invalid/overflowing totals. HTTP token ratios are not decode throughput or predicted speedups.
+- Nov 4: triage emitted 89,087/115,032 output tokens (77.4%) and used 326,931/506,615 aggregate HTTP ms (64.5%); zero output-limit stops. Measure actual event/rationale lengths before changing batches; compare Nov 5's changed pipeline.
+- Updated TASKS and concurrency review; archived iteration 653 to keep PROGRESS bounded. No runtime/handbook/schema/SOURCES changes; incremental triage remains off.
+- Verification: targeted replay 3/3; pnpm format, pnpm lint:fix, pnpm check (413 unit/207 isolated integration), pnpm build and git diff --check passed. First check found archive formatting; corrected and reran successfully.
+- Live saved edition remains four topics/14 stories/15 posts. Services unchanged and healthy, so no restart under STEERING 22.
+- Next: Nov 5 grouping admission/accuracy/cost/latency/screenshots, NBA full-AI acceptance and World posts; offline response-length measurement if still waiting.
