@@ -507,6 +507,17 @@ void test('pending cache probe matches scoring fingerprints and rejects corrupt 
   await h.service.score(topic, candidates, 'edition');
   assert.deepEqual(await h.service.pending(topic, candidates), []);
   assert.equal(
+    (await h.service.cachedScores(topic, candidates)).length,
+    candidates.length,
+  );
+  assert.deepEqual(
+    await h.service.cachedScores(
+      { ...topic, guidance: 'Changed guidance' },
+      candidates,
+    ),
+    [],
+  );
+  assert.equal(
     (
       await h.service.pending(
         { ...topic, guidance: 'Changed guidance' },
@@ -527,6 +538,10 @@ void test('pending cache probe matches scoring fingerprints and rejects corrupt 
   )!;
   h.values.set(key, { ...(value as object), id: 'wrong' });
   assert.equal((await h.service.pending(topic, candidates)).length, 1);
+  assert.equal(
+    (await h.service.cachedScores(topic, candidates)).length,
+    candidates.length - 1,
+  );
   h.values.set(key, { id: '0', relevance: 99 });
   assert.equal((await h.service.pending(topic, candidates)).length, 1);
   assert.equal(h.calls.length, 1);

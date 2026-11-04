@@ -101,9 +101,13 @@ pnpm exec tsx apps/api/scripts/prepare-x-experiment.ts START END > /private/path
 ```
 
 START and END require explicit timezones. The read-only repeatable-read snapshot
-uses enabled owner topics, saved thresholds/exclusions and the existing reaction
-story pipeline: up to 200 stored articles per topic, relevance/quality filters,
-then heuristic ranking. It saves two distinct ranked titles and prepared bodies
+uses enabled owner topics, saved thresholds/exclusions and up to 200 stored
+articles per topic. Exact-fingerprint cached article triage excludes saved
+relevance below 6 and ranks scored articles by importance, then relevance.
+Unscored articles follow in heuristic order under the saved relevance policy.
+Quality and window filters still apply. The request builder receives ordinal
+priorities; saved AI scores remain separate in `articleRanking`. It saves up to three distinct titles,
+the full ranking with cached/heuristic score provenance, and prepared bodies
 for current, trending and reaction styles with an identical precise window.
 Provider date filters enclose that window; the requested end remains exclusive.
 Fewer than two distinct titles blocks that topic's reaction request explicitly.
@@ -246,3 +250,19 @@ article-pool diagnosis. Private reviewed evidence preserves unknown social
 triage scores and unresolved promotions; original responses remain unchanged.
 Current/trending raw candidates fail the zero-promotion check. No winner,
 paid rerun, production activation or parameter changes.
+
+## Cached reaction inputs — iteration 711
+
+Experiment preparation now reads saved article-triage scores in the same
+read-only snapshot, using the edition's exact topic/model/content fingerprint.
+Changed guidance, content or model cannot reuse stale scores; corrupt or
+wrong-identity cache entries remain unscored. No provider or cache writes.
+The production reaction loader and fixed-schedule flag are unchanged.
+
+On the original Nov 3–4 21:00 UTC window, World's first three titles now cover
+the midterm result (saved relevance 10, importance 9), replacing the NFL lead.
+The current snapshot has 80 cached eligible World articles; it is not the
+original round's historical state. Prepared inputs and queries from round 1
+remain unchanged. Repeating that window does not count as the second news day.
+Private evidence: `cached-inputs-711.json` beside the original round. No paid
+rerun, threshold adjustment, new wording rule or winner decision.

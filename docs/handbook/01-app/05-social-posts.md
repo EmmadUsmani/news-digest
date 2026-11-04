@@ -78,7 +78,8 @@ flowchart LR
 > [!NOTE]
 > Per-topic reaction/trending like thresholds and exclusion operators are stored
 > in `x_search_topic_settings` for the [approved comparison](../../x-search-plan.md).
-> Current production searches keep their existing behavior.
+> Experiment article inputs reuse saved AI triage scores before heuristic
+> ranking. Current production searches keep their existing behavior.
 
 ## Other platforms
 

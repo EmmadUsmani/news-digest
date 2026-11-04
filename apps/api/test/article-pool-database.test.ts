@@ -2,6 +2,8 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { database } from '../src/libs/db/connections';
+import { triageCacheReader } from '../src/modules/curation/database/triage-cache.reader';
+import { loadExperimentReactionStories } from '../src/modules/digests/public/experiment-reaction-stories';
 import { loadIncrementalTriagePool } from '../src/modules/digests/public/incremental-triage-pool';
 import { loadReactionStories } from '../src/modules/digests/public/reaction-stories';
 
@@ -66,6 +68,49 @@ void test('article pool readers honor independent budgets, transaction configura
     const reactions = await loadReactionStories(client, topic, start, end);
     assert.deepEqual(
       reactions.map((item) => item.id),
+      [rows[0].id],
+    );
+    const cache = triageCacheReader(client);
+    const cachedValue = { id: rows[1].id, relevance: 9, importance: 8 };
+    await client.query(
+      'INSERT INTO llm_cache(cache_key,response) VALUES($1,$2)',
+      ['fixture-reaction-cache-711', cachedValue],
+    );
+    assert.deepEqual(
+      await cache.cached('fixture-reaction-cache-711'),
+      cachedValue,
+    );
+    assert.deepEqual(
+      await cache.cachedMany([
+        'fixture-reaction-cache-711',
+        'missing-711',
+        'fixture-reaction-cache-711',
+      ]),
+      new Map([['fixture-reaction-cache-711', cachedValue]]),
+    );
+    assert.deepEqual(await cache.cachedMany([]), new Map());
+    assert.equal(await cache.cached('missing-711'), undefined);
+    const semantic = await loadExperimentReactionStories(
+      client,
+      topic,
+      start,
+      end,
+      () =>
+        Promise.resolve([
+          cachedValue,
+          { id: rows[0].id, relevance: 2, importance: 10 },
+        ]),
+    );
+    assert.deepEqual(
+      semantic.map((item) => item.id),
+      [rows[1].id],
+    );
+    assert.deepEqual(
+      (
+        await loadExperimentReactionStories(client, topic, start, end, () =>
+          Promise.resolve([]),
+        )
+      ).map((item) => item.id),
       [rows[0].id],
     );
     await client.query('UPDATE topics SET story_budget=0 WHERE id=$1', [topic]);

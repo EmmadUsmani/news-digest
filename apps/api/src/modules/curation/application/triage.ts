@@ -112,6 +112,18 @@ export class CandidateTriage {
     return values;
   }
 
+  // Read-only scores use the exact scoring fingerprint and identity validation.
+  async cachedScores(topic: TriageTopic, candidates: TriageCandidate[]) {
+    const { entries } = this.entries(topic, candidates);
+    const values = await this.cachedEntries(entries);
+    return entries.flatMap((entry) => {
+      const parsed = scoreSchema.safeParse(values.get(entry.key));
+      return parsed.success && parsed.data.id === entry.item.id
+        ? [parsed.data]
+        : [];
+    });
+  }
+
   // Read-only cache probe: the same fingerprint and validation as score().
   // Callers chunk large pools; no provider request or cache write occurs here.
   async pending(topic: TriageTopic, candidates: TriageCandidate[]) {

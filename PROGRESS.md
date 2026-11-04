@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 697 — preserve refreshed edition history
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 sources without current errors and no failed retained digest jobs. Next edition Nov 5 15:00 UTC; paid X experiment still blocked on supported cost bound.
-- Fixed saved-history refresh: an obsolete request can no longer replace refreshed entries or show an outdated failure after a background edition completes.
-- Browser regression reproduced the missing newest entry before deployment. Desktop/mobile delayed-success and delayed-failure checks now pass using real stored editions and simulated browser-only job completion; no jobs, writes or provider calls. Saved and reviewed screenshots; no horizontal overflow.
-- Verification: pnpm format, pnpm lint:fix, pnpm build, standalone smoke-script strict tsc and Playwright passed. pnpm check passed (453 unit/209 isolated integration); handbook passed (17 pages/22 diagrams/26 tables), as did git diff --check. Corrected smoke-script formatting and standalone tsc path setup; retried a handbook render timeout successfully.
-- Updated TASKS; archived iteration 680 to bound PROGRESS. SOURCES/handbook unchanged: UI race fix only. Rebuilt and restarted API; worker unchanged.
-- Next: Nov 5 grouping/NBA AI/cost/latency/screenshots. No cap, model, provider or production pipeline changes.
-
 ## 2026-11-04: iteration 698 — repair bodyless Bluesky session refresh
 
 - Started clean on main; no leftover work. Healthz/services and 36 article sources healthy, zero alerts; triage found the 20:54 hourly Bluesky job failed on refresh HTTP 400. No failed digest jobs; Nov 5 checks remain future.
@@ -131,3 +122,13 @@
 - Added detailed experiment review and linked it from TASKS/experiment reference; archived iterations 695–696 to bound PROGRESS. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source/runtime changes or new owner blocker. No service restart under STEERING 22 because only documentation changed.
 - Verification: private review coverage/assertions and offline report command passed; pnpm format, pnpm lint:fix, pnpm check (469 unit/213 isolated integration), pnpm build, handbook link/metadata check (18 pages/26 tables) and git diff --check passed.
 - Next: second independent news day, threshold calibration/model comparison within shared experiment caps; Nov 5 grouping/NBA full-AI/cost/latency/screenshots take priority when due. Production fixed A/B remains off pending decision.
+
+## 2026-11-04: iteration 711 — reuse saved triage for experiment reaction inputs
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 healthy sources and zero failed retained digest jobs; Nov 5 15:00 UTC review remains future.
+- Experiment preparation now reads exact-fingerprint article triage in its read-only snapshot. Saved relevance below 6 is excluded; scored articles rank by importance/relevance before unscored heuristic fallback under the saved relevance policy. No new wording rules or paid calls.
+- Preserved cache/model/topic/content identity validation and score provenance; missing/corrupt scores stay unscored. Production reaction loader, thresholds, providers and fixed-schedule flag unchanged. Original round evidence untouched.
+- Saved private cached-inputs-711.json (600) beside round 1: World's first three titles now cover midterms, each saved relevance 10/importance 9; 80 cached eligible World articles. This current snapshot is not historical or a second independent news day.
+- Verification: targeted triage/reaction tests 27/27; pnpm format, pnpm lint:fix, pnpm check (470 unit/213 isolated integration), pnpm build, handbook (18 pages/22 diagrams/26 tables) and git diff --check passed. Initial lint found async-without-await stubs; fixed and reran. Isolated DB checks cover cache reads and semantic recovery/policy fallback.
+- Updated TASKS, experiment reference and Social posts handbook; archived iteration 697. SOURCES/NEEDS_FROM_HUMAN unchanged. Rebuilt/restarted API and worker; healthz green, reader HTTP 200, zero alerts.
+- Next: second independent experiment day, then calibration/model comparison within shared caps; Nov 5 grouping/NBA full-AI/cost/latency/screenshots take priority. No winner or production activation.

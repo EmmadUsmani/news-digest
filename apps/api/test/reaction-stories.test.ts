@@ -3,11 +3,52 @@ import test from 'node:test';
 
 import type { PoolClient } from 'pg';
 
+import { cachedReactionStories } from '../src/modules/digests/domain/cached-reaction-stories';
 import { loadReactionStories } from '../src/modules/digests/public/reaction-stories';
 import { runSearchFollowups } from '../src/modules/social/application/search-followups';
 
 const start = new Date('2026-11-02T00:00:00Z');
 const end = new Date('2026-11-03T00:00:00Z');
+void test('experiment reactions reject cached off-topic stories and prioritize saved importance without new calls', () => {
+  const candidates = [
+    { id: 'nfl', title: 'Football trade', publishedAt: '2026-11-02T23:59:00Z' },
+    {
+      id: 'world',
+      title: 'Election result',
+      publishedAt: '2026-11-02T12:00:00Z',
+    },
+    {
+      id: 'unscored',
+      title: 'Unscored report',
+      publishedAt: '2026-11-02T23:58:00Z',
+    },
+    { id: 'major', title: 'Major event', publishedAt: '2026-11-02T01:00:00Z' },
+    { id: 'outside', title: 'Outside window', publishedAt: end.toISOString() },
+  ].map((row) => ({
+    ...row,
+    url: `https://example.com/${row.id}`,
+    excerpt: 'Reported facts',
+    sources: ['Fixture'],
+    points: 0,
+  }));
+  const scores = [
+    { id: 'nfl', relevance: 2, importance: 10 },
+    { id: 'world', relevance: 8, importance: 7 },
+    { id: 'major', relevance: 6, importance: 10 },
+    { id: 'outside', relevance: 10, importance: 10 },
+  ];
+  const result = cachedReactionStories(candidates, scores, start, end);
+  assert.deepEqual(
+    result.map((row) => row.id),
+    ['major', 'world', 'unscored'],
+  );
+  assert.deepEqual(result[0].cachedScore, scores[2]);
+  assert.equal(result[2].cachedScore, null);
+  assert.deepEqual(
+    cachedReactionStories(candidates, [], start, end).map((row) => row.id),
+    ['nfl', 'unscored', 'world', 'major'],
+  );
+});
 const article = (
   id: string,
   title: string,
