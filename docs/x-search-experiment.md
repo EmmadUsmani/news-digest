@@ -99,6 +99,26 @@ unknown unless a violation is already known. This checks only supplied evidence;
 it does not replace the admission journal, outstanding holds or a complete ledger.
 Structural coverage remains separate from budget/time compliance.
 
+## Extract a saved round without dispatch
+
+```sh
+pnpm exec tsx apps/api/scripts/extract-x-experiment.ts /private/path/round-directory > /private/path/evidence.json
+```
+
+Reads the runner's `round.json`, prepared settings, requests, responses and
+settlements. It extracts all cited X IDs (including more than five per call),
+reported counts/dates and actual tool calls into the offline report format.
+Only assistant URL citations create candidates; prose URLs do not. Duplicate
+metric observations remain unknown. Relevance and promotion labels stay null.
+Unknown-outcome calls absent from the settled manifest remain absent; their
+budget holds stay in the admission journal. The command performs no network,
+provider, database or journal writes. Invalid input produces no partial stdout.
+Store output privately and separately from reviewed/scored evidence.
+
+Iteration 715 replayed round 1: all 11 calls/47 posts match the original
+costs, fetched counts, tool calls and post fields exactly. Private output is
+`extracted-evidence-715.json` beside the original round, mode 600.
+
 ## Prepare real article inputs without dispatch
 
 ```sh

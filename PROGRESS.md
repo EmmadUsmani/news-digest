@@ -123,3 +123,12 @@
 - Verification: targeted report/CLI/comparison tests 23/23; pnpm format, pnpm lint:fix, pnpm check (471 unit/213 isolated integration), pnpm build, handbook validation and git diff --check passed. Initial targeted run caught an overbroad edit of postsFetched; corrected and reran successfully.
 - Updated TASKS and experiment reference; archived iterations 700–701 to bound PROGRESS. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no runtime/source change or new owner blocker. No restart under STEERING 22; running services do not import this offline report.
 - Next: second independent experiment day, threshold calibration/model comparison under shared caps; Nov 5 grouping/NBA AI/cost/latency/screenshots take priority. Production fixed A/B remains off.
+
+## 2026-11-04: iteration 715 — reproducible saved X response extraction
+
+- Started clean on main; no leftover work. Zero alerts, healthz/database/Redis green, reader HTTP 200, all 36 sources healthy, no failed retained digest jobs; next edition Nov 5 15:00 UTC.
+- Added an offline saved-round extractor: joins settled manifest, original requests/settings/responses and settlements; emits all cited posts, actual tool inputs and fetched usage for the existing reporter. Prose cannot add candidates; duplicate metrics and absent review labels stay unknown. No provider calls, ingestion, journal writes or production changes.
+- Replayed round 1: all 11 calls/47 posts exactly match original costs, fetched counts, tool calls and post fields. Saved private extracted-evidence-715.json (600); originals and retained Gaming hold untouched.
+- Verification: four targeted tests passed; pnpm format, pnpm lint:fix, pnpm check (475 unit/213 isolated integration), pnpm build, handbook validation and git diff --check passed. Initial lint caught four missing void test declarations; corrected before rerunning full check.
+- Updated TASKS and experiment reference. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no runtime/source change or new owner blocker. No restart under STEERING 22; running services do not import the offline extractor.
+- Next: second independent experiment day, then threshold calibration/model comparison under shared caps. Nov 5 grouping/NBA AI/cost/latency/screenshots take priority; production fixed A/B remains off.
