@@ -10,17 +10,6 @@
 - Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters or historical migration baseline. Private pg_dump before first new migration.
 - Push: initial 493be5b push rejected by Git integration with `fatal error in commit_refs_rules`; retry successfully pushed 493be5b without rewriting history.
 
-## 2026-11-04: iteration 603 — Drizzle X discovery evidence report
-
-- Started clean on main; no leftover work. Zero alerts, healthy services, 36 sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC review pending.
-- Converted daily X discovery evidence to Drizzle typed SQL; lateral JSON/correlated aggregates retain the existing query with bound UTC dates. Caller connection reuse and native PostgreSQL error causes remain intact.
-- Read-only old/new comparison matched three live UTC days/five calls in one repeatable-read snapshot. It caught Drizzle string timestamps; restored Date values and pinned that contract in the existing isolated report test.
-- Initial check caught the in-progress timestamp edit/type constraint; final full check passed. No migration, activation, source change or paid call; owner grants untouched.
-- Updated TASKS, architecture, decision and handbook stack; archived iteration 588 to keep PROGRESS bounded.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
-- Restarted API/worker outside freeze; active and healthz healthy. Saved edition byte-identical and budget snapshots unchanged. Read-only Playwright rendered four topics without page errors; 36 sources without current errors, zero failed digest jobs and zero alerts.
-- Next: prioritize Nov 4 15:00 UTC edition review; otherwise historical migration baseline or remaining ORM infrastructure. Private pg_dump before first new migration.
-
 ## 2026-11-04: iteration 604 — enforce the direct PostgreSQL boundary
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC review pending.
@@ -164,3 +153,13 @@
 - Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical and Anthropic/X spend unchanged. Read-only Playwright rendered four topics without errors; zero current source errors, failed digest jobs or alerts.
 - Updated TASKS and ORM decision; archived the oldest progress entry. No new migration, live migration execution, source, activation, owner grant or paid call changes; no handbook system behavior changed.
 - Next: Nov 4 edition review takes priority; otherwise final item 2b acceptance and architecture notes. Private pg_dump before any new migration.
+
+## 2026-11-04: iteration 618 — ORM acceptance and architecture notes
+
+- Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC product review remains pending.
+- Closed STEERING 2b acceptance; replaced the architecture conversion inventory with the completed ORM boundary, and updated handbook/README factual data-access notes. No schema, production feature or activation changes.
+- Runtime query audit: direct driver SQL only in libs/db migration infrastructure; owner console helper preserved. Typed PostgreSQL expressions remain documented exceptions.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build, git diff --check and handbook code-structure check (25 tables, no metadata warnings) passed.
+- Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical, provider spend unchanged, zero source errors/alerts. Read-only Playwright verified all four saved topic names without page errors after correcting heading selectors.
+- Archived oldest progress entry. No paid verification calls, source requests added, live migration execution or owner grant changes.
+- Next: prioritize Nov 4 edition evidence/acks; grouping and incremental triage stay off pending review. Private pg_dump before any new migration.

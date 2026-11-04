@@ -27,6 +27,8 @@ pnpm check
 ```
 
 `pnpm check` runs typechecks, ESLint, dependency boundaries and both test suites.
+Application persistence uses Drizzle ORM in database adapters; see the
+[architecture and migration workflow](docs/ARCHITECTURE.md).
 `pnpm test:unit` runs fast offline tests without Docker, with database access
 blocked. `pnpm test:integration` uses Testcontainers to start fresh PostgreSQL
 17/Redis 7 containers matching `compose.yaml`, applies every migration from zero

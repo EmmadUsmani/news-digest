@@ -67,7 +67,7 @@ flowchart LR
 | `domain/`      | Pure rules and types, plus **ports** (interfaces for I/O)       |
 | `application/` | Use cases that orchestrate domain rules through ports           |
 | `adapters/`    | Port implementations for external systems (Anthropic, xAI, RSS) |
-| `database/`    | Port implementations in SQL (Postgres)                          |
+| `database/`    | Postgres ports implemented with Drizzle ORM                     |
 | `public/`      | The only entry point other contexts may import                  |
 
 ## Enforced rules
@@ -79,3 +79,10 @@ when:
   network library;
 - **cross-context reach-in:** a context imports another context's internals
   instead of its `public/` folder.
+
+Application storage queries and transactions use Drizzle ORM in `database/`
+adapters and shared `libs/db` plumbing. Adapters map stored rows into domain
+values. Lint and dependency checks keep the ORM outside application and domain
+layers, and prohibit direct PostgreSQL queries outside `libs/db`. PostgreSQL
+JSON and advisory-lock expressions remain typed SQL inside these adapters.
+Migration-file execution and the owner's console SQL helper stay in `libs/db`.

@@ -6,13 +6,19 @@ PostgreSQL 17 and Redis 7 bind only to VM loopback through Docker Compose.
 Volumes survive container replacement. PostgreSQL currently trusts loopback
 connections: this is a single-owner VM, not a deployment for untrusted local users.
 
-Data access is moving incrementally to Drizzle ORM over the existing `pg` pools.
-Converted adapters cover profiles, Bluesky, Reddit, publisher-article discovery,
-X-search, X verification/discovery, social selection/citation reads, operations source status, ingestion, edition costs, topic coverage, digest previews (with ORM-managed publication transactions), article candidates and reaction/incremental topic settings and budget-day schedule reads and reserve-status snapshot reads, incremental-triage admission, LLM usage reads (with ORM-managed repeatable-read snapshots) and ledger reservation/settlement/failure/cache operations (with ORM-managed admission/failure transactions), X discovery daily evidence reports and ledger ORM-managed transactions, scheduled admission, totals/reservation inserts and completion/failure writes, topics and scheduled budgets (including Drizzle-managed lifecycle transactions); health and console startup probes use a shared Drizzle connectivity check. ORM imports stay inside database adapters and `libs/db`.
-ESLint forbids runtime `pg` imports and direct `.query()` calls outside `libs/db`;
+Application data access uses Drizzle ORM over the existing `pg` pools. Each
+context's database adapters map typed rows to domain values; application and
+domain code reach storage through ports. Drizzle also owns publication,
+ledger and budget transactions, preserving the existing client and advisory-lock
+scope. PostgreSQL-specific JSON expansion, aggregation and locking expressions
+use documented typed SQL templates inside database adapters or `libs/db`.
+ESLint and dependency-cruiser restrict ORM imports to those locations. ESLint
+also forbids runtime `pg` imports and direct `.query()` calls outside `libs/db`;
 connection type imports remain available to adapters and public facades.
-The owner console still exposes its explicitly requested SQL helper. See the
-[decision and migration gate](decisions/0003-drizzle-data-access.md).
+The owner console exposes its explicitly requested SQL helper. The migration
+runner retains driver SQL for transaction control, bootstrap ledger DDL and
+execution of migration files. These are infrastructure exceptions, not
+application queries. See the [decision and migration gate](decisions/0003-drizzle-data-access.md).
 The committed Drizzle baseline records the schema after migrations 001–055;
 offline generation is checked for zero differences. The atomic runner applies historical SQL first, then generated SQL in Drizzle journal order.
 Generated entries use a `drizzle/` prefix in the existing ledger; no second ledger is created. `schema_migrations` records

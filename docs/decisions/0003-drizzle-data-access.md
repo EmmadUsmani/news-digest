@@ -274,3 +274,14 @@ to transaction control, bootstrap ledger DDL and execution of historical/generat
 migration files (which may contain multiple statements). These infrastructure
 operations remain inside `libs/db`; unchanged isolated tests verify concurrent
 reruns, journal ordering, stable ledger timestamps and atomic DDL/data rollback.
+
+## Acceptance (2026-11-04, iteration 618)
+
+The application conversion is complete. Schema/catalog parity, drizzle-kit
+zero-diff checks and the unchanged repository/HTTP characterization suite cover
+the converted data paths. Runtime driver query calls are confined to `libs/db`;
+documented PostgreSQL expressions remain inside typed ORM queries. Architecture
+and owner code-structure notes describe the completed boundary. Live acceptance
+checks preserve the saved edition byte-for-byte, provider spending and healthy
+services, with all four saved topics rendered in the browser. No new schema
+migration or feature activation is part of acceptance.
