@@ -2016,3 +2016,15 @@ A synthetic changing-rank regression verifies two useful background scores,
 zero edition remainder and zero waste, independently of catalogue ordering.
 The eight offline replay tests pass. This corrects simulation accounting only;
 production remains off and no actual scoring, cost or latency was measured.
+
+## Iteration 542: per-topic observed scoring accounting
+
+The offline `report-triage-work.ts` report now includes a sorted `topics`
+breakdown with the same counts as the overall result. Topics seen only in
+scoring or only in the final pool remain visible; an article shared across
+topics cannot borrow another topic's score. Every topic count sums to its
+overall counterpart, including repeated compatible scores, changed fingerprints,
+absent articles, unscored attempts and final-pool remainder. Synthetic regression
+coverage verifies reconciliation and input-order independence. This prepares
+per-topic waste assessment from future observed scores; it supplies no live
+waste, spend, cache-consumption or latency evidence. Production remains off.

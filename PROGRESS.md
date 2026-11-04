@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 523 — prepare cache-aware bounded background passes
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 sources without current errors and four available queues; Nov 4 scheduled review remains pending.
-- Added a read-only pending probe sharing edition scoring's unchanged fingerprints/validation, plus prepared bounded pass orchestration: chunk large pool probes, wait for minimum uncached work, carry backlog and leave refused scores pending.
-- Fake-provider tests cover 450-item backlog, disjoint passes, budget-refusal retries, changed text/topic and corrupt-cache invalidation. A 60-item pool scores 25/25 before edition and flushes the 10-item tail once.
-- No scheduler caller, activation or paid calls. Serialization, cutoff enforcement, historical eligible-pool/waste evidence and live cost/latency remain open; no schema/source/UI or handbook flow changes.
-- Updated TASKS/RANKING. Verification: targeted tests 17/17; pnpm format, pnpm lint:fix, pnpm check (307 unit/183 isolated integration), pnpm build, git diff --check; no dangling Docker volumes.
-- Rebuilt/restarted API and worker because shared triage code changed; healthz/root/status healthy, 36 error-free sources/four available queues and zero alerts after restart. Next: serialized scheduler wiring/cutoff and pool evidence; Nov 4 edition review takes priority.
-
 ## 2026-11-04: iteration 524 — serialize prepared background triage and enforce cutoff
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 error-free sources and four available queues. Nov 4 scheduled review remains pending.
@@ -164,3 +155,12 @@
 - Updated TASKS/RANKING; archived iteration 522 to keep PROGRESS small. No source/schema/UI or handbook flow changes.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (349 unit/186 isolated integration), pnpm build, targeted replay (8/8) and git diff --check passed; root HTTP 200 and healthy healthz. Zero dangling Docker volumes.
 - Next: Nov 4 scheduled review first, then gated worker connection and actual scored-work waste evidence.
+
+## 2026-11-04: iteration 542 — report observed triage work per topic
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 nonempty successful sources without current errors and zero failed digest jobs. Nov 4 scheduled review remains pending.
+- Added sorted per-topic counts to offline scoring-evidence report, preserving global totals. Includes scoring-only/final-only topics, repeated compatible scores, changed fingerprints, absent items and unscored attempts.
+- Four targeted tests pass; regression verifies all counts reconcile, topic isolation and input-order independence. Synthetic evidence only; no paid calls, production activation or actual waste/latency claim.
+- Updated TASKS/RANKING; archived iteration 523 to keep PROGRESS small. No source/schema/UI or handbook flow changes; no restart under STEERING 22 because running code/config is unchanged.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (350 unit/186 isolated integration), pnpm build, targeted report tests (4/4), git diff --check; root HTTP 200 and healthy healthz, zero dangling Docker volumes.
+- Next: Nov 4 scheduled review first; then gated worker connection and actual scored-work waste evidence.

@@ -47,31 +47,53 @@ export function reportTriageWork(input: unknown) {
     if (attempts.has(attemptKey)) throw new Error('Duplicate scoring evidence');
     attempts.add(attemptKey);
   }
-  const successful = data.attempts.filter((row) => row.outcome === 'scored');
-  const reusable = successful.filter(
-    (row) => final.get(key(row)) === row.fingerprint,
-  );
-  const absent = successful.filter((row) => !final.has(key(row)));
-  const changed = successful.filter(
-    (row) => final.has(key(row)) && final.get(key(row)) !== row.fingerprint,
-  );
-  const reusableArticles = new Set(reusable.map(key));
+  const summarize = (
+    pool: typeof data.finalPool,
+    work: typeof data.attempts,
+  ) => {
+    const final = new Map(pool.map((row) => [key(row), row.fingerprint]));
+    const successful = work.filter((row) => row.outcome === 'scored');
+    const reusable = successful.filter(
+      (row) => final.get(key(row)) === row.fingerprint,
+    );
+    const absent = successful.filter((row) => !final.has(key(row)));
+    const changed = successful.filter(
+      (row) => final.has(key(row)) && final.get(key(row)) !== row.fingerprint,
+    );
+    const reusableArticles = new Set(reusable.map(key));
+    return {
+      attempts: work.length,
+      unscoredAttempts: work.length - successful.length,
+      successfulScorings: successful.length,
+      reusableScorings: reusable.length,
+      reusableArticles: reusableArticles.size,
+      repeatedReusableScorings: reusable.length - reusableArticles.size,
+      absentFromFinalPool: absent.length,
+      changedFingerprint: changed.length,
+      unusableScorings: absent.length + changed.length,
+      finalPoolItems: final.size,
+      finalPoolWithoutReusableScore: final.size - reusableArticles.size,
+    };
+  };
+  const topicIds = [
+    ...new Set([
+      ...data.finalPool.map((row) => row.topicId),
+      ...data.attempts.map((row) => row.topicId),
+    ]),
+  ].sort();
   return {
     windowStart: data.windowStart,
     windowEnd: data.windowEnd,
     evidence:
       'Observed successful scoring versus final eligible fingerprints. Compatibility is not proof of cache consumption. No cost or latency attribution; unscored attempts may still incur spend.',
-    attempts: data.attempts.length,
-    unscoredAttempts: data.attempts.length - successful.length,
-    successfulScorings: successful.length,
-    reusableScorings: reusable.length,
-    reusableArticles: reusableArticles.size,
-    repeatedReusableScorings: reusable.length - reusableArticles.size,
-    absentFromFinalPool: absent.length,
-    changedFingerprint: changed.length,
-    unusableScorings: absent.length + changed.length,
-    finalPoolItems: final.size,
-    finalPoolWithoutReusableScore: final.size - reusableArticles.size,
+    ...summarize(data.finalPool, data.attempts),
+    topics: topicIds.map((topicId) => ({
+      topicId,
+      ...summarize(
+        data.finalPool.filter((row) => row.topicId === topicId),
+        data.attempts.filter((row) => row.topicId === topicId),
+      ),
+    })),
   };
 }
 

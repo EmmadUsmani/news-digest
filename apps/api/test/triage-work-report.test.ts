@@ -92,3 +92,56 @@ void test('empty observed pools count all successful work as unusable without in
   assert.equal(report.finalPoolWithoutReusableScore, 0);
   assert.equal('cost' in report, false);
 });
+
+void test('topic breakdown includes scoring-only and final-only topics and reconciles to totals', () => {
+  const data = evidence();
+  const input = {
+    ...data,
+    attempts: [...data.attempts, { ...attempt('a'), topicId: 'world' }],
+  };
+  const report = reportTriageWork(input);
+  assert.deepEqual(
+    report.topics.map((topic) => topic.topicId),
+    ['nba', 'tech', 'world'],
+  );
+  const [nba, tech, world] = report.topics;
+  assert.equal(nba.finalPoolWithoutReusableScore, 1);
+  assert.equal(nba.attempts, 0);
+  assert.equal(tech.reusableArticles, 1);
+  assert.equal(tech.repeatedReusableScorings, 1);
+  assert.equal(tech.changedFingerprint, 1);
+  assert.equal(tech.unscoredAttempts, 1);
+  assert.equal(world.absentFromFinalPool, 1);
+  assert.equal(world.finalPoolItems, 0);
+  for (const field of [
+    'attempts',
+    'unscoredAttempts',
+    'successfulScorings',
+    'reusableScorings',
+    'reusableArticles',
+    'repeatedReusableScorings',
+    'absentFromFinalPool',
+    'changedFingerprint',
+    'unusableScorings',
+    'finalPoolItems',
+    'finalPoolWithoutReusableScore',
+  ] as const) {
+    assert.equal(
+      report.topics.reduce((sum, topic) => sum + topic[field], 0),
+      report[field],
+      field,
+    );
+  }
+  assert.deepEqual(
+    reportTriageWork({
+      ...input,
+      finalPool: [...input.finalPool].reverse(),
+      attempts: [...input.attempts].reverse(),
+    }),
+    report,
+  );
+  assert.deepEqual(
+    reportTriageWork({ ...data, finalPool: [], attempts: [] }).topics,
+    [],
+  );
+});
