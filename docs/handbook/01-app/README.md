@@ -27,6 +27,8 @@ flowchart LR
 
 - **Topics are configuration, not code.** Each topic has guidance, sources,
   story/post budgets and X accounts, all editable in the app's settings.
+  In **Manage topics**, use **Disable** or **Enable** beside a topic to pause
+  or resume it. Changes affect incoming articles and new editions.
 - **Editions are immutable snapshots.** An edition copies everything it shows
   into one JSON record, so old editions never change when sources or
   settings do.

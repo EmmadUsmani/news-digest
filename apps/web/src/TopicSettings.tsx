@@ -45,6 +45,30 @@ export function TopicSettings({
       setBusy(false);
     }
   }
+  async function toggle(topic: Topic) {
+    setBusy(true);
+    setMessage('');
+    try {
+      const response = await fetch(`/api/topics/${topic.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...topicUpdateSchema.strip().parse(topic),
+          enabled: !topic.enabled,
+        }),
+      });
+      if (!response.ok) throw new Error();
+      const saved = topicSchema.parse(await response.json());
+      onSaved(saved);
+      setMessage(
+        `${saved.name} ${saved.enabled ? 'enabled' : 'disabled'}. Changes apply to incoming articles and new editions.`,
+      );
+    } catch {
+      setMessage('Could not change topic availability. Try again.');
+    } finally {
+      setBusy(false);
+    }
+  }
   async function move(index: number, delta: number) {
     const ordered = [...topics];
     [ordered[index], ordered[index + delta]] = [
@@ -182,6 +206,13 @@ export function TopicSettings({
               onClick={() => void move(index, 1)}
             >
               ↓
+            </button>
+            <button
+              type="button"
+              disabled={busy || editing !== null || deleting !== null}
+              onClick={() => void toggle(topic)}
+            >
+              {topic.enabled ? 'Disable' : 'Enable'} {topic.name}
             </button>
             <button
               type="button"

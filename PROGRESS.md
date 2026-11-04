@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 676 — prepare fixed-filter X comparison requests
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 healthy sources and no failed digest jobs; next edition scheduled Nov 5 15:00 UTC.
-- Added offline-only comparison request builder: exact current baseline plus A/B requests using Top sort, fixed reply/retweet/language filters, supplied database thresholds/exclusions and two–three supplied ranked story titles joined with OR.
-- Preserves tool dates/exact publication window, disables media understanding, requests eight results with max_turns 2 and rejects unsafe exclusions/invalid thresholds/missing reaction context before calls. Does not select stories or execute requests.
-- Four synthetic tests cover baseline equivalence, filters/thresholds, invalid inputs and exact windows. No claim operators work through the live tool; that remains an experiment measurement.
-- Verification: targeted tests 4/4, pnpm format, pnpm lint:fix, pnpm check (419 unit/209 isolated integration), pnpm build and git diff --check passed. Initial lint failure for missing void test markers corrected before final checks.
-- Updated TASKS; archived iteration 659. No source/UI/schema/handbook behavior changes, paid calls or production schedule/model/budget changes. No service restart under STEERING 22: new helper is not imported by running services.
-- Next: separately capped experiment runner/admission and results reporting, then two-day same-window comparison under STEERING 30. Nov 5 grouping/NBA checks retain priority.
-
 ## 2026-11-04: iteration 677 — durable X experiment admission
 
 - Started clean on main; no leftover work. Zero alerts; healthz/database/Redis healthy, 36 nonempty sources with no current errors, no failed digest jobs and Nov 5 15:00 UTC next scheduled edition. Two retained ingestion failures have no current source errors.
@@ -149,3 +139,12 @@
 - Verification: targeted input tests 3/3, standalone strict tsc, invalid CLI timestamp rejection/no stdout, pnpm format, pnpm lint:fix, pnpm check (450 unit/209 isolated integration), pnpm build, handbook validation (17 pages/22 diagrams/26 tables) and git diff --check passed. Final healthz healthy and zero alerts.
 - TASKS/experiment reference updated; archived iteration 675 to bound PROGRESS. SOURCES/handbook unchanged because no source/runtime change. No restart under STEERING 22 for offline tooling.
 - Paid X dispatch remains blocked on supported cost bound/owner decision. Next: Nov 5 grouping/NBA AI/cost/latency/screenshots.
+
+## 2026-11-04: iteration 692 — direct topic availability controls
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 healthy sources and no failed retained digest runs. Nov 5 checks are future; paid X dispatch remains blocked on documented per-call cost bound.
+- Added Enable/Disable buttons to Manage topics using the existing validated update endpoint. Updates incoming cards immediately, refreshes content through the existing save flow, reports errors and permits retry; unavailable during editing/deletion to protect pending work.
+- Desktop/mobile Playwright checks passed for failure/retry, disable/enable, preserved settings, editor protection and no horizontal overflow. PUT responses were simulated; real topic settings were read back unchanged. Saved screenshots explicitly show this simulated state; no digest generation or provider calls.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (450 unit/209 isolated integration), pnpm build, strict standalone smoke-script tsc with workspace paths, handbook validation (17 pages/22 diagrams/26 tables) and git diff --check passed. Initial smoke top-level await corrected to CommonJS-compatible entry; standalone tsc config corrected for workspace aliases/types.
+- Updated TASKS and owner handbook; archived iteration 676 to bound PROGRESS. SOURCES unchanged: no collection changes. API restarted after commit to serve rebuilt UI; worker unchanged.
+- Next: Nov 5 grouping/NBA AI/cost/latency/screenshots take priority; X experiment awaits supported cost bound or owner decision. M6 broader acceptance stays open.
