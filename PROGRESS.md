@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 526 — compare successive eligible triage pools
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/root/status, 36 error-free sources and four available queues. Nov 4 edition review remains pending.
-- Added offline same-window comparison with per-topic retained/new/lost eligibility, absent versus now-ineligible losses, topic additions/removals and setting changes. Rejects mismatched/reversed captures, malformed evidence and duplicate IDs.
-- Captured /tmp/triage-pool-526.json (mode 600) at 01:11:49 UTC; comparison with iteration 525's 01:07:11 observation retains all 492 eligible candidates and adds 3 NBA. Short observation only; no actual scored-work waste, final membership, cache reuse, spend or latency claim.
-- Updated TASKS/RANKING; no paid calls, activation, source/schema/UI or handbook flow changes. Services stay running under STEERING 22: only offline tooling/tests/docs changed.
-- Verification: targeted comparison tests 3/3; live read-only capture/comparison; pnpm format, pnpm lint:fix, pnpm check (315 unit/183 isolated integration), pnpm build and git diff --check passed; no dangling Docker volumes.
-- Next: longer-span same-window pool comparisons, scheduler wiring and actual scoring/waste joins; Nov 4 scheduled edition review takes priority.
-
 ## 2026-11-04: iteration 527 — prepare cross-process incremental triage admission
 
 - Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 scheduled review remains pending.
@@ -172,4 +163,13 @@
 - Seven targeted tests pass, including synthetic end-to-end retained/changed/excluded/repeated work. CLI rejects the real early 543 capture as a final observation. No actual scoring, provider calls, production activation or cost/latency claims.
 - Updated TASKS/RANKING and archived iteration 525. No source/schema/UI or handbook flow changes; no restart under STEERING 22 because running code/config is unchanged.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (353 unit/186 isolated integration), pnpm build and git diff --check; root HTTP 200, healthy healthz, zero dangling Docker volumes.
+- Next: Nov 4 scheduled review first; gated worker connection and actual scoring/final-pool waste evidence thereafter.
+
+## 2026-11-04: iteration 546 — verify admission recovery after database session loss
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 nonempty error-free sources and no failed digest jobs. Nov 4 review remains pending.
+- Added isolated Postgres regression terminating only its dedicated test backend: session lock releases, another worker acquires it, stale cleanup cannot unlock the successor, and the original pool replaces its dead client and reacquires admission.
+- Recovery is not provider-call fencing: an in-flight request may outlive the session. No provider calls, production activation or cost/latency claims; incremental triage stays off.
+- Updated TASKS/RANKING and archived iteration 526. No source/schema/UI or handbook flow changes. No restart under STEERING 22: only tests/docs changed.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (353 unit/187 isolated integration), pnpm build and git diff --check passed; root HTTP 200, healthy healthz, zero alerts and dangling Docker volumes.
 - Next: Nov 4 scheduled review first; gated worker connection and actual scoring/final-pool waste evidence thereafter.

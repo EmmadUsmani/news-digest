@@ -2096,3 +2096,13 @@ cache consumption. This iteration verifies the join with synthetic records
 only; no actual scored-work waste, cost or latency was measured, and no worker
 was connected or activated. The early private 525/543 captures are deliberately
 rejected as final-pool observations. No provider or database calls are made.
+
+## Iteration 546: recover incremental admission after session loss
+
+A disposable-Postgres regression terminates only the backend owned by the
+prepared admission test. It verifies that another worker acquires the released
+session lock, stale cleanup fails without unlocking that successor, and the
+original pool replaces its dead connection and can acquire admission again.
+No provider call occurs. This is recovery evidence, not fencing: a provider
+request already in flight can outlive its database session, so session loss
+can still permit overlapping scoring. Incremental triage remains inactive.
