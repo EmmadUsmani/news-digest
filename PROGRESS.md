@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 519 — prepare reserve-safe background triage
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, all 36 sources error-free and all four queues available; Nov 4 edition evidence is still future work.
-- Added an incremental triage entry point behind LLM_INCREMENTAL_TRIAGE_ENABLED=0. No collector/scheduler invokes it. Enabling requires scheduled reserve enforcement; background work clears inherited edition privileges and has a separate request coordinator while sharing the normal ledger/item cache.
-- Unit tests cover disabled/invalid configuration and async context restoration. Isolated Postgres plus fake provider verifies full-reserve refusal inside a genuine claimed edition, ordinary-budget admission/settlement, and a different edition reusing cached scores without another call.
-- No paid calls, source changes, production activation, UI or schema changes. Real arrival/pool waste, batching and scheduled latency remain unmeasured; grouping remains off pending Nov 4 review.
-- Updated TASKS, RANKING and budget handbook; archived iterations 479–482 to keep PROGRESS under 25 KB. No diagrams or UI changed; screenshots unnecessary.
-- Verification: targeted tests 2/2; pnpm format, pnpm lint:fix, pnpm check (300 unit/183 isolated integration), pnpm build, handbook check (17 pages/two unchanged diagrams, 25 tables), git diff --check. Zero dangling Docker volumes.
-- Rebuilt/restarted API and worker; healthz/root healthy, zero alerts, 36 error-free sources/four available queues after restart. Next: recorded arrival/pool evidence and bounded scheduler batching, with activation gated on Nov 4 review.
-
 ## 2026-11-04: iteration 520 — support production-sized offline triage pools
 
 - Started clean on main; no leftover work. Healthy healthz/root, zero alerts, 36 error-free sources (3,193 stored items) and four available queues. Nov 4 edition remains scheduled for 15:00 UTC.
@@ -160,3 +150,12 @@
 - Updated TASKS/RANKING; no live flow, source, schema, UI or handbook change. Services remain running under STEERING 22 because prepared adapter has no production caller.
 - Verification: targeted tests 3/3; pnpm format, pnpm lint:fix, pnpm check (334 unit/185 isolated integration), pnpm build and git diff --check passed; root HTTP 200 and zero dangling Docker volumes.
 - Next: timer/pool composition; actual scored-work evidence after activation gate. Nov 4 scheduled review takes priority when available.
+
+## 2026-11-04: iteration 537 — prepare settings/pool tick composition
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and four available queues; no failed digest jobs. Nov 4 review still pending.
+- Joined current settings, pinned publication windows and lazy topic pools to a persistent bounded scheduler. Default-off avoids reads; overlap skips, settings failures recover, unavailable topics produce empty work.
+- Pinned cutoff to the loaded window so publication-crossing pool reads cannot shift it to tomorrow. Four offline regressions pass; no paid requests, activation or worker/timer caller.
+- Updated TASKS/RANKING; archived iteration 519 to keep PROGRESS below 25 KB. No production flow/source/schema/UI changes; services stay running under STEERING 22.
+- Verification: targeted tests 4/4; pnpm format, pnpm lint:fix, pnpm check (338 unit/185 isolated integration), pnpm build and git diff --check passed. Root HTTP 200, healthz healthy, zero dangling Docker volumes. Initial lint caught missing void on test promises; fixed before rerun.
+- Next: production dependency/timer wiring behind the Nov 4 gate, longer-span pool comparisons and actual scored-work evidence; scheduled review takes priority.

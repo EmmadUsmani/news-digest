@@ -1953,3 +1953,19 @@ Offline tests cover local/UTC schedules, changed settings, the exact slot and
 next millisecond, DST coverage and invalid settings/time. No production caller,
 timer, activation or paid request was added; actual scored-work waste and live
 latency remain unmeasured.
+
+## Iteration 537: prepared settings/pool tick composition
+
+`prepareIncrementalTriageTick` joins current settings, the scheduled window and
+lazy topic pools to one persistent bounded scheduler. Disabled composition
+returns before settings/clock/pool reads. An outer guard skips overlapping
+settings reads, releases on failure, and preserves round-robin state. A topic
+removed or disabled during loading contributes empty work. Each tick pins its
+cutoff to its pool window: a slow read crossing publication cannot move the
+cutoff to tomorrow. Each load receives a separate background run identifier.
+
+Four offline tests cover disabled reads, current schedule changes, topic
+rotation, the 25-item limit, unavailable topics, settings failure recovery,
+overlap and publication-crossing cutoff. No worker imports this adapter, no
+timer is installed, and production dependency wiring remains open. There are
+no paid requests, activation or actual scored-work waste/latency measurements.
