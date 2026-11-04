@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 619 — sustained Bluesky collection evidence
-
-- Started clean on main; no leftover work. Healthz healthy and zero alerts; Nov 4 edition not due yet.
-- Verified seven consecutive scheduled Bluesky completions, 05:54–11:54 UTC (8.154–8.360 s), 56 search HTTP 200s and no failed attempts. Deployment restarts caused seven fresh logins: long-lived refresh remains unverified.
-- Read-only stored report at 12:01 UTC: distinct posts Tech/AI 52, NBA 55, Gaming 71, World 77; all four topics fresh through 11:54. World has 46 safe engaged candidates but no lexical shortlist; semantic selection remains pending.
-- Updated TASKS and SOURCES with bounded evidence and caveats. No feature, activation, collection, inference, edition, schema or handbook behavior changes.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
-- Restarted API/worker outside freeze; healthz healthy and zero alerts. No paid verification calls.
-- Restarted worker only; final healthz healthy, zero alerts/failed units/dangling volumes. Saved Nov 3 edition still serves 19 real stories/11 X posts. No Postgres/Redis restart.
-- Next: Nov 4 15:00 UTC edition review takes priority; verify open-X yield/authors, Bluesky picks/screenshots, World posts, NBA outcome/logs and time. Grouping/incremental triage remain off.
-
 ## 2026-11-04: iteration 620 — optional observability capacity decision
 
 - Started clean on main; no leftover work. Healthz healthy and zero alerts; Nov 4 15:00 UTC edition evidence not yet available.
@@ -181,3 +170,14 @@
 - Verification: targeted tests 23/23; pnpm format, pnpm lint:fix, pnpm check (381 unit/205 isolated integration), pnpm build and git diff --check passed. Strengthened final regression also passed targeted tests, API typecheck and ESLint.
 - Restarted API/worker; healthz healthy, zero alerts/failed user units/dangling volumes. Saved Nov 3 edition still serves four topics/19 stories/11 X posts. No Postgres/Redis restart.
 - Next: review Nov 4 15:00 UTC edition for open-X/Bluesky picks, World posts, NBA validation and timing/cost before activation.
+
+## 2026-11-04: iteration 637 — measure incremental per-pass capacity offline
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts/failed units and all four queues available. Nov 4 scheduled evidence remains pending.
+- Compared per-pass caps 10/25/50/100/200 with minimum pending 1, two-hour cutoff and four rotating positions on three recorded Nov 1 windows; no external calls.
+- At hourly global ticks, caps 25–200 produce identical edition remainders, request counts and prompt bytes. Cap 10 increases NBA/World/Tech remainder in some positions without reducing requests. This measures pass capacity, not provider batch size or live speed.
+- All 240 replay rows assert every final candidate scored once, zero repeat scoring and unknown waste. Small publication-proxy windows cannot establish actual capacity, cost or latency.
+- Updated TASKS/RANKING with reproduction, per-position results and limits; archived iteration 619 to keep PROGRESS bounded. No source, prompt, setting, feature activation or handbook behavior change.
+- Verification: replay assertions, pnpm format, pnpm lint:fix, pnpm check (381 unit/205 isolated integration), pnpm build and git diff --check passed.
+- Restarted worker; healthz healthy, zero alerts/failed units/dangling volumes. Saved Nov 3 edition serves four topics/19 stories/11 posts. No Postgres/Redis restart or paid calls.
+- Next: review Nov 4 15:00 UTC edition for open-X/Bluesky picks, World posts, NBA validation and timing/cost; keep incremental triage/grouping off until review.

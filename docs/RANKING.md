@@ -2438,3 +2438,42 @@ cache valid results; untouched IDs remain explicitly unscored for a later pass.
 Normal edition scoring has no additional gate. Synthetic tests cover blocked
 admission, partial cache retention, subsequent completion and runner admission
 release. No paid calls, production activation or latency claim.
+
+## Iteration 637: incremental pass capacity sensitivity
+
+Increasing the per-pass item cap above 25 does not reduce the edition
+remainder in the three small recorded Nov 1 windows at any tested hourly
+turn position. Reducing it to 10 leaves more work at publication. This tests the
+number of items admitted per background pass, **not** the scorer's provider
+batch size, concurrency, billed cost or live latency.
+
+Reproduce each cap (10, 25, 50, 100, 200) with:
+
+```sh
+pnpm exec tsx apps/api/scripts/evaluate-incremental-triage.ts --minimum-pending=1 --stop-before-edition-hours=2 --maximum-items-per-pass=25 --rotation-topics=4
+```
+
+Change only `--maximum-items-per-pass`. The table uses `intervalHours=1`
+(hourly global ticks, each topic every fourth tick), with positions 0–3
+listed in order. Other settings match iteration 635.
+
+| Per-pass cap | NBA edition remainder | World edition remainder | Tech/AI edition remainder |
+| ------------ | --------------------- | ----------------------- | ------------------------- |
+| 10           | 2 / 10 / 10 / 6       | 19 / 25 / 25 / 22       | 27 / 35 / 34 / 32         |
+| 25           | 2 / 9 / 6 / 3         | 18 / 25 / 25 / 22       | 12 / 30 / 25 / 20         |
+| 50, 100, 200 | 2 / 9 / 6 / 3         | 18 / 25 / 25 / 22       | 12 / 30 / 25 / 20         |
+
+All hourly comparisons retain the same request counts at each position:
+NBA 7/6/6/6, World 7/6/5/6, Tech/AI 7/5/6/6 (background plus edition).
+Prompt bytes are identical for caps 25–200. The smaller cap mostly moves
+items between requests rather than removing requests. These small windows
+provide no evidence that raising the cap above 25 would accelerate the real
+edition; they also cannot rule out a benefit on larger actual arrival pools.
+
+Assertions over all 240 replay rows (five caps, three topics, four intervals,
+four positions) confirmed every final candidate scored once, zero repeat
+scoring, and unknown waste without arrival/pool evidence. Scores are
+synthetic; publication times remain arrival proxies. Independent position
+comparisons are not simultaneous editions or measured production turns.
+No configuration, source, prompt or activation changed; the Nov 4 review
+and actual arrival/cache evidence remain prerequisites to choosing settings.
