@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
+import { prepareIncrementalTriageWorker } from '../src/incremental-triage-worker';
 import { database } from '../src/libs/db/connections';
 import {
   composeIncrementalTriageScheduler,
@@ -105,5 +106,38 @@ void test('composed schedulers share admission, bound work and recover after sco
     assert.equal(loads, 3);
   } finally {
     await Promise.all([firstDb.end(), secondDb.end()]);
+  }
+});
+
+void test('prepared worker reads current persisted schedule and only enabled topics without scoring', async () => {
+  const db = database();
+  let stop: (() => Promise<void>) | undefined;
+  try {
+    stop = await prepareIncrementalTriageWorker(
+      () => assert.fail('unexpected runtime error'),
+      { LLM_INCREMENTAL_TRIAGE_ENABLED: '1' },
+      undefined,
+      (deps) => async () => {
+        const actual = await deps.settings();
+        const schedule = await db.query(
+          `SELECT cadence,timezone,coverage_window AS "coverageWindow",story_budget AS "storyBudget",post_budget AS "postBudget" FROM digest_schedules WHERE profile_id=$1`,
+          ['00000000-0000-4000-8000-000000000001'],
+        );
+        const topics = await db.query(
+          'SELECT id FROM topics WHERE profile_id=$1 AND enabled ORDER BY position,id',
+          ['00000000-0000-4000-8000-000000000001'],
+        );
+        assert.deepEqual(actual.schedule, schedule.rows[0]);
+        assert.deepEqual(
+          actual.topicIds,
+          topics.rows.map((row: { id: string }) => row.id),
+        );
+        assert.ok(actual.topicIds.length > 0);
+      },
+    );
+    await stop();
+    await stop();
+  } finally {
+    await db.end();
   }
 });

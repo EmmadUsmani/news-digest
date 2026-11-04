@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 521 — replay real first-fetch arrivals
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 error-free sources. Nov 4 scheduled evidence remains future work.
-- Added read-only repeatable-read export: completed windows up to 48 hours, all source-associated candidates, per-topic exclusive mode-600 files outside repo; no model/job/settings writes. Tests reject invalid/future/oversized windows before DB access.
-- Live Nov 3 UTC export: Tech/NBA/Gaming/World 332/159/296/236 articles; 6/3/2/2 arrived after midnight, none before publication. Global first fetch is not first topic observation; text/connections are current. No historical eligible-pool snapshots, so waste remains unknown.
-- Offline hourly/minimum-25/two-hour-cutoff replay pretriaged 288/120/248/194, leaving 38/36/46/40 edition-time articles; 14/5/10/8 synthetic requests, zero repeat scoring. Not provider latency, settled cost or quality evidence. Exports: /tmp/triage-arrivals-521/.
-- Updated TASKS/RANKING. No paid calls, feature activation, source/schema/UI or handbook flow changes; screenshots unnecessary. Next: historical pool evidence and bounded scheduler batching; Nov 4 review takes priority.
-- Verification: targeted test 1/1; live export and all four replay CLIs; pnpm format, pnpm lint:fix, pnpm check (302 unit/183 isolated integration), pnpm build, git diff --check, healthz/root and pnpm obs alerts passed. Initial check caught a missing void test marker; fixed and reran. Zero dangling Docker volumes.
-- Services left running under STEERING 22: only tooling/tests/docs changed, so application code matches main.
-
 ## 2026-11-04: iteration 522 — bound offline background triage passes
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors; Nov 4 edition remains scheduled for 15:00 UTC.
@@ -166,3 +156,11 @@
 - Two offline contract tests pass. No worker import, production activation or paid calls; no live latency/waste claim. Next: worker-owned settings/database lifecycle wiring after the review gate permits activation.
 - Updated TASKS/RANKING and archived iteration 520 to keep this file small. No source/schema/UI or live handbook flow changes; services stay running under STEERING 22.
 - Verification: targeted tests 2/2; pnpm format, pnpm lint:fix, pnpm check (344 unit/185 isolated integration), pnpm build and git diff --check passed. Initial checks caught two unbound-method lint errors; fixed before the successful full rerun. Root HTTP 200, healthz healthy and zero dangling Docker volumes.
+
+## 2026-11-04: iteration 540 — prepare worker resource ownership
+
+- Started clean on main; no leftover work. Zero alerts, healthy root/healthz, 36 sources with recent nonempty successful collections and no current errors; no failed digest jobs. Nov 4 scheduled review remains pending.
+- Added prepared worker entry point owning scoring DB and existing settings/topic repositories. Disabled mode allocates nothing; current settings filter enabled topics. Startup failures clean up, repeated shutdowns share one drain, and connections close after scoring stops.
+- Four offline lifecycle tests and one isolated persisted-settings/topic integration test pass. No production worker import, activation or paid requests; no live latency/waste claim. Next: gated worker connection after review, longer-span pool/waste evidence.
+- Updated TASKS/RANKING; archived iteration 521 to keep PROGRESS small. No source/schema/UI or live handbook flow change. Services stay running under STEERING 22 because prepared code has no production caller.
+- Verification: targeted tests 4/4; pnpm format, pnpm lint:fix, pnpm check (348 unit/186 isolated integration), pnpm build, git diff --check; root HTTP 200, healthz healthy, zero alerts and zero dangling Docker volumes. Initial test synchronization and cleanup-error typing failures fixed before successful full checks.

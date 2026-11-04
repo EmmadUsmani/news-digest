@@ -1993,3 +1993,16 @@ Offline tests verify that gate and the settings/scheduler/timer contract.
 The production worker still does not import this runtime; no activation, paid
 calls or live latency/waste evidence is claimed. Worker-owned settings and
 database lifecycle wiring remain, subject to the Nov 4 review gate.
+
+## Iteration 540: prepared worker resource ownership
+
+`prepareIncrementalTriageWorker` owns the scoring pool and the existing profile
+and topic repositories. Each tick reads the current saved schedule and enabled
+topics in repository order. These reads are separate snapshots; the pool loader
+still rechecks topic availability before scoring. Disabled mode allocates no
+resources. Startup failure closes all allocated resources and preserves cleanup
+errors; concurrent or repeated shutdown calls share one drain and close operation.
+Connections close only after scoring drains. Offline lifecycle tests cover these
+paths; isolated database verification checks persisted settings and topic IDs.
+The production worker does not import this entry point. Activation still awaits
+the Nov 4 edition review; no paid scoring or live waste/latency claim is made.
