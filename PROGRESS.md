@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 646 — review scheduled edition and prove NBA fallback cause
-
-- Started clean on main; no leftover work. Healthz healthy and zero alerts; observed scheduled publication without production changes or extra paid calls.
-- Edition 3bf10f5b-4c00-48b2-85bd-8e6dac7e3238: 701 article candidates, 14 stories/15 posts, 151.532 s, $0.291162/43 Anthropic calls, zero holds; protected $0.487477 reserve released with mixed outcome. Still misses speed/full-AI acceptance.
-- Reconstructed NBA requests with inert editor callback and saved scores; exact fingerprints prove Sonnet+Haiku initial/repair unsupported-absence rejections. NBA triage complete; rejected text unavailable. Fallback includes quiz/overlapping rankings.
-- Immutable X picks Tech/NBA/Gaming/World 4/5/5/0; none of 19 paid discoveries selected. Eleven selected posts outside current lists lack saved engagement reports. Read back reviewed 11/10/12/11 lists.
-- First selected Tech Bluesky post has observed 767 likes/329 replies/342 reposts; duplicates a selected X post. World remains empty. Saved desktop/mobile topic-post screenshots; 14 iframe mounts, one Bluesky card, no page errors/overflow. Offscreen widgets may be blank in full captures.
-- Added durable edition review; updated STEERING ack, TASKS, SOURCES, RANKING and NEEDS_FROM_HUMAN. Archived iterations 629–630; no handbook/schema/runtime change.
-- Verification: pnpm check (388 unit/205 isolated integration), pnpm build, read-only report-edition-timing/capture-triage-pool, citation join, exact NBA fingerprints and Playwright checks passed. pnpm format, pnpm lint:fix, format:check and git diff --check passed.
-- No restart under STEERING 22: only docs/screenshots changed. Grouping/incremental triage remain off; next fix NBA validation/fallback quality, then useful World/open-X yield and gated Nov 5 activation assessment.
-
 ## 2026-11-04: iteration 647 — avoid absence rejection for numeric ranks
 
 - Started clean on main; no leftover work. Healthz healthy, zero alerts; 36 active sources with no errors and fresh ingestion.
@@ -168,3 +157,13 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (402 unit/207 isolated integration), pnpm build and git diff --check passed.
 - Restarted API/worker: both active; curl healthz healthy after startup retry; pnpm obs alerts zero; no failed user services; latest edition readable with four topics/14 stories/15 posts.
 - No paid calls. Next: Nov 5 grouping/cost/latency/screenshots, NBA full-AI acceptance and World social coverage; incremental triage stays off.
+
+## 2026-11-04: iteration 662 — bound edition-speed options from saved calls
+
+- Started clean on main; no leftover work. Zero alerts; healthz/database/Redis healthy.
+- Added a reproducible offline Nov 4 concurrency assessment: 43 successful calls/506,615 aggregate HTTP ms, observed peak four slots, longest call 20,073 ms.
+- Eight slots have a fixed-duration optimistic bound of 63.327 s; removing all article triage still leaves 65.878 s at four slots. Neither alone establishes the 60-second target.
+- Purpose timing locates Bluesky editing at the publication tail (39 ms before completion); overlapping purposes are not claimed as sequential stages or per-topic critical paths.
+- Independent Python journal arithmetic verified call count, total duration, non-triage bound and tail. No paid calls, production tuning, source/schema/UI changes or handbook update.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (402 unit/207 isolated integration), pnpm build and git diff --check passed; final alert snapshot zero. Archived iteration 646 to keep PROGRESS bounded.
+- Documentation-only step; healthy services keep running under STEERING 22. Next: compare Nov 5 repair counts/overlap/tail and grouping evidence before choosing a speed experiment.
