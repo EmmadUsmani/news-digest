@@ -112,7 +112,7 @@ async function harness(
           })).map((row) => Object.values(row)),
         };
       }
-      if (sql.includes('FROM topics'))
+      if (sql.includes('from "topics"'))
         return {
           rows: Array.from(
             { length: options.parallel ? 4 : 1 },
@@ -129,7 +129,7 @@ async function harness(
                 excludeAny: options.hardExcluded ? ['cryptocurrency'] : [],
               },
             }),
-          ),
+          ).map((row) => Object.values(row)),
         };
       if (sql.includes('FROM content_items'))
         return {
@@ -147,7 +147,8 @@ async function harness(
               ? [candidate, support]
               : [candidate],
         };
-      if (sql.startsWith('INSERT')) stored.push(args?.[5]);
+      if (sql.startsWith('insert into "digest_previews"'))
+        stored.push(JSON.parse(String(args?.[5])));
       return { rows: [] };
     },
     release() {},

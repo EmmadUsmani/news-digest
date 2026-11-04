@@ -1,23 +1,3 @@
-## 2026-11-04: iteration 565 — pin Bluesky publisher transaction reads
-
-- Started clean on main; no leftover work. Healthz and alerts green; Nov 4 scheduled evidence remains pending.
-- Added isolated regression through the publisher-facing observation reader: transaction-local topic disabling and snapshot deletion are visible only inside that transaction; rollback restores reads. Independent repository reads retain committed configuration/history.
-- Updated TASKS and database verification notes. No provider requests or production changes; no restart under STEERING 22.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/197 isolated integration) and pnpm build passed. Final healthz healthy, alerts clear and zero dangling Docker volumes.
-- Next: prioritize Nov 4 15:00 UTC edition review; grouping and incremental triage remain gated. Repository characterization and recorded-response golden remain open.
-- Push initially rejected because owner commit 13d9e7d arrived; merged without rewriting history. New STEERING 29 prioritizes production console during downtime and stops further characterization beyond ORM needs. Next iteration follows that queue.
-
-## 2026-11-04: iteration 566 — production console
-
-- Started clean on main; no leftover work. Healthz and alerts green; 36 sources error-free. Nov 4 scheduled evidence still pending.
-- Followed STEERING 29: pnpm console loads the owner env file and starts an isolated Nest application context with repositories, tokens, app/get and db.query, a production prompt and history outside the repo.
-- Isolated regression blocks startup timers, listeners and network connections, then checks real repository/SQL bindings against disposable Postgres. Initial alias/token overwrite and import ordering caught and fixed.
-- Live read-only REPL smoke returned four topics and matching repository token/alias; history mode 600. No provider calls, schema changes or edition activation.
-- Updated TASKS and handbook Operations; check-handbook passed (17 pages, one unchanged diagram, 25 tables). Archived iteration 546 to keep PROGRESS small.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/198 isolated integration), pnpm build and git diff --check passed. Final healthz green, zero alerts and dangling Docker volumes.
-- No service restart under STEERING 22: console-only entry points are not loaded by running services.
-- Next: Nov 4 15:00 UTC edition review first; otherwise STEERING 29 ORM prerequisite review, then one repository conversion with 2a green.
-
 ## 2026-11-04: iteration 567 — ORM prerequisite query inventory
 
 - Started clean on main; no leftover work. Healthz healthy and zero alerts; Nov 4 15:00 UTC edition evidence pending.
@@ -172,3 +152,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; topic-coverage statement coverage 100%, zero dangling Docker volumes.
 - Restarted API/worker outside freeze; both active, healthz healthy, root HTTP 200, live Status coverage valid, 36 sources without errors and zero alerts. Published edition byte-identical after restart.
 - Next: prioritize Nov 4 scheduled review at 15:00 UTC; otherwise continue remaining ORM adapters or historical migration baseline. Private pg_dump before first new migration.
+
+## 2026-11-04: iteration 582 — convert digest preview repository to Drizzle
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources without errors and no failed digest jobs. Latest hourly Bluesky collection succeeded; Nov 4 scheduled review remains pending.
+- Converted latest/find/history, enabled-topic selection and snapshot publication to typed Drizzle. Preserved session lock before repeatable-read snapshot, scheduled dedupe, rollback, unlock and client release; candidate loaders unchanged.
+- Read-only live old/new latest/find/history comparison matched exactly, including pagination and ISO timestamps. Existing characterization assertions unchanged. No migration, activation or paid call.
+- Updated TASKS, architecture, decision and handbook stack; archived iterations 565–566. Initial check stopped on new archive formatting; corrected before final verification.
+- Publication stub initially recognized only raw-SQL topic reads/inserts; adapted its query-object array rows/JSON parameters without changing assertions. Eight targeted publication tests then passed against isolated services; direct unisolated invocation was correctly blocked by the test guard.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
+- Restarted API/worker outside freeze; both active, healthz healthy, published edition byte-identical. Playwright rendered 15 story cards with zero page errors; 36 sources without errors, zero failed digest jobs and zero alerts.
+- Next: prioritize Nov 4 15:00 UTC edition review; otherwise continue remaining ORM adapters/candidate loaders or migration baseline. Private pg_dump before first new migration.

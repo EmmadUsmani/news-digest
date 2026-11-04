@@ -5,8 +5,11 @@ import {
   type SelectedSocialPost,
 } from '@digest/contracts';
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
+import { and, asc, desc, eq, sql } from 'drizzle-orm';
+import { drizzle } from 'drizzle-orm/node-postgres';
 
 import { database } from '../../../libs/db/connections';
+import { digestPreviews, topics as topicTable } from '../../../libs/db/schema';
 import { editorialServices } from '../../curation/public/editorial';
 import { withEditionRun } from '../../curation/public/scheduled-context';
 import { selectEditionBlueskyPosts } from '../../social/public/bluesky-edition';
@@ -36,40 +39,48 @@ export class PostgresPreviewRepository
   implements OnModuleDestroy
 {
   readonly db = database();
+  private readonly orm = drizzle(this.db);
   readonly editorial = editorialServices(this.db);
   async latest(): Promise<DigestPreview | null> {
-    return (
-      (
-        await this.db.query(
-          'SELECT snapshot FROM digest_previews WHERE profile_id=$1 ORDER BY created_at DESC,id DESC LIMIT 1',
-          [profileId],
-        )
-      ).rows[0]?.snapshot ?? null
-    );
+    const [row] = await this.orm
+      .select({ snapshot: digestPreviews.snapshot })
+      .from(digestPreviews)
+      .where(eq(digestPreviews.profileId, profileId))
+      .orderBy(desc(digestPreviews.createdAt), desc(digestPreviews.id))
+      .limit(1);
+    return (row?.snapshot as DigestPreview | undefined) ?? null;
   }
   async find(id: string): Promise<DigestPreview | null> {
-    return (
-      (
-        await this.db.query(
-          'SELECT snapshot FROM digest_previews WHERE profile_id=$1 AND id=$2',
-          [profileId, id],
-        )
-      ).rows[0]?.snapshot ?? null
-    );
+    const [row] = await this.orm
+      .select({ snapshot: digestPreviews.snapshot })
+      .from(digestPreviews)
+      .where(
+        and(eq(digestPreviews.profileId, profileId), eq(digestPreviews.id, id)),
+      );
+    return (row?.snapshot as DigestPreview | undefined) ?? null;
   }
   async history(offset: number): Promise<PreviewHistory> {
-    const rows = (
-      await this.db.query(
-        `SELECT id,created_at AS "createdAt",window_start AS "windowStart",window_end AS "windowEnd",snapshot->>'method' AS method FROM digest_previews WHERE profile_id=$1 ORDER BY created_at DESC,id DESC LIMIT 21 OFFSET $2`,
-        [profileId, offset],
-      )
-    ).rows;
+    const rows = await this.orm
+      .select({
+        id: digestPreviews.id,
+        createdAt: digestPreviews.createdAt,
+        windowStart: digestPreviews.windowStart,
+        windowEnd: digestPreviews.windowEnd,
+        method: sql<
+          PreviewHistory['entries'][number]['method']
+        >`${digestPreviews.snapshot}->>'method'`,
+      })
+      .from(digestPreviews)
+      .where(eq(digestPreviews.profileId, profileId))
+      .orderBy(desc(digestPreviews.createdAt), desc(digestPreviews.id))
+      .limit(21)
+      .offset(offset);
     return {
       entries: rows.slice(0, 20).map((row) => ({
         ...row,
-        createdAt: row.createdAt.toISOString(),
-        windowStart: row.windowStart.toISOString(),
-        windowEnd: row.windowEnd.toISOString(),
+        createdAt: new Date(row.createdAt).toISOString(),
+        windowStart: new Date(row.windowStart).toISOString(),
+        windowEnd: new Date(row.windowEnd).toISOString(),
       })),
       hasMore: rows.length > 20,
     };
@@ -98,31 +109,44 @@ export class PostgresPreviewRepository
     reportProgress?: ReportEditionProgress,
   ): Promise<DigestPreview> {
     const client = await this.db.connect();
+    const tx = drizzle(client);
     try {
       // Lock before opening the snapshot so a retry sees the committed prior run.
       if (scheduledKey)
-        await client.query('SELECT pg_advisory_lock(hashtextextended($1,0))', [
-          scheduledKey,
-        ]);
-      await client.query('BEGIN ISOLATION LEVEL REPEATABLE READ');
+        await tx.execute(
+          sql`SELECT pg_advisory_lock(hashtextextended(${scheduledKey},0))`,
+        );
+      // Keep the session lock outside the repeatable-read snapshot for retry visibility.
+      await tx.execute(sql`BEGIN ISOLATION LEVEL REPEATABLE READ`);
       if (scheduledKey) {
-        const prior = (
-          await client.query(
-            'SELECT snapshot FROM digest_previews WHERE scheduled_key=$1',
-            [scheduledKey],
-          )
-        ).rows[0];
+        const [prior] = await tx
+          .select({ snapshot: digestPreviews.snapshot })
+          .from(digestPreviews)
+          .where(eq(digestPreviews.scheduledKey, scheduledKey));
         if (prior) {
-          await client.query('COMMIT');
-          return prior.snapshot;
+          await tx.execute(sql`COMMIT`);
+          return prior.snapshot as DigestPreview;
         }
       }
-      const topics = (
-        await client.query(
-          'SELECT id,name,description,include_guidance,exclude_guidance,story_budget,post_budget,relevance_policy FROM topics WHERE profile_id=$1 AND enabled ORDER BY position,id',
-          [profileId],
+      const topics = await tx
+        .select({
+          id: topicTable.id,
+          name: topicTable.name,
+          description: topicTable.description,
+          include_guidance: topicTable.includeGuidance,
+          exclude_guidance: topicTable.excludeGuidance,
+          story_budget: topicTable.storyBudget,
+          post_budget: topicTable.postBudget,
+          relevance_policy: topicTable.relevancePolicy,
+        })
+        .from(topicTable)
+        .where(
+          and(
+            eq(topicTable.profileId, profileId),
+            eq(topicTable.enabled, true),
+          ),
         )
-      ).rows;
+        .orderBy(asc(topicTable.position), asc(topicTable.id));
       const progress: EditionProgress = {
         stage: 'topics',
         topics: topics.map((topic) => ({
@@ -350,29 +374,25 @@ export class PostgresPreviewRepository
         method: 'editorial-v1',
         topics: selections,
       };
-      await client.query(
-        'INSERT INTO digest_previews(id,profile_id,created_at,window_start,window_end,snapshot,scheduled_key) VALUES($1,$2,$3,$4,$5,$6,$7)',
-        [
-          snapshot.id,
-          profileId,
-          snapshot.createdAt,
-          start,
-          end,
-          snapshot,
-          scheduledKey ?? null,
-        ],
-      );
-      await client.query('COMMIT');
+      await tx.insert(digestPreviews).values({
+        id: snapshot.id,
+        profileId,
+        createdAt: snapshot.createdAt,
+        windowStart: start.toISOString(),
+        windowEnd: end.toISOString(),
+        snapshot,
+        scheduledKey: scheduledKey ?? null,
+      });
+      await tx.execute(sql`COMMIT`);
       return snapshot;
     } catch (error) {
-      await client.query('ROLLBACK');
+      await tx.execute(sql`ROLLBACK`);
       throw error;
     } finally {
       try {
         if (scheduledKey)
-          await client.query(
-            'SELECT pg_advisory_unlock(hashtextextended($1,0))',
-            [scheduledKey],
+          await tx.execute(
+            sql`SELECT pg_advisory_unlock(hashtextextended(${scheduledKey},0))`,
           );
       } finally {
         client.release();

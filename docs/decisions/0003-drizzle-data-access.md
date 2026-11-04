@@ -95,3 +95,11 @@ Existing edition-cost and scheduled-budget characterization tests are unchanged.
 The topic-coverage reader uses typed Drizzle unions and correlated aggregates.
 Distinct discovery routes, source-health bounds and elapsed 24-hour windows
 retain their existing characterization tests, including non-UTC and DST cases.
+
+The digest preview repository uses typed Drizzle reads and snapshot inserts.
+Session advisory locks still precede the repeatable-read transaction, preserving
+scheduled retry visibility and publication dedupe. Transaction-control and lock
+commands use SQL templates because they operate on the existing session; JSON
+method extraction uses PostgreSQL's JSON operator. Article/social candidate
+loaders remain separate conversion work. Existing publication, history, golden
+and failure characterization tests remain unchanged.
