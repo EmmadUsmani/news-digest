@@ -2028,3 +2028,35 @@ absent articles, unscored attempts and final-pool remainder. Synthetic regressio
 coverage verifies reconciliation and input-order independence. This prepares
 per-topic waste assessment from future observed scores; it supplies no live
 waste, spend, cache-consumption or latency evidence. Production remains off.
+
+## Iteration 543: longer real-pool compatibility observation
+
+Read-only production captures for the Nov 3 15:00–Nov 4 15:00 UTC edition
+window now span Nov 4 01:07:11.668–02:40:47.716 UTC (93 minutes 36 seconds).
+The existing offline fingerprint comparator uses `claude-haiku-5-5` and the
+current production prompt for both captures; no provider or cache writes occur.
+
+| Topic                 | Earlier eligible | Later eligible | Added | Lost | Compatible earlier fingerprints | Changed earlier fingerprints |
+| --------------------- | ---------------: | -------------: | ----: | ---: | ------------------------------: | ---------------------------: |
+| Tech & AI             |              172 |            178 |     6 |    0 |                             170 |                            2 |
+| NBA                   |               52 |             62 |    10 |    0 |                              52 |                            0 |
+| Gaming                |              174 |            175 |     1 |    0 |                             174 |                            0 |
+| World news & politics |               94 |            109 |    15 |    0 |                              88 |                            6 |
+| Total                 |              492 |            524 |    32 |    0 |                             484 |                            8 |
+
+All earlier eligible IDs remain eligible and topic settings are unchanged, but
+8/492 earlier fingerprints (1.63%) are incompatible. Comparing captured input
+fields finds two title and two excerpt changes in Tech, four title and five
+excerpt changes in World, and no source-list changes. Field counts overlap;
+production fingerprints, rather than field counts, determine compatibility.
+This observation demonstrates why retained membership alone overstates potential
+reuse. It does not establish how often updates happen over a full day.
+
+Private inputs: `/tmp/triage-pool-525.json`, `/tmp/triage-pool-543.json`;
+comparison: `/tmp/triage-cache-543.json`. Reproduce with
+`pnpm exec tsx scripts/compare-triage-cache.ts /tmp/triage-pool-525.json /tmp/triage-pool-543.json claude-haiku-5-5`.
+The later pool was captured with `scripts/capture-triage-pool.ts` using the
+window above. Inputs contain current article text and stay outside git.
+Neither observation is the final edition pool. No background scores, cache
+hits, paid-work waste, cost or latency were measured. Incremental triage remains
+off; final-pool joins to observed scoring are still required after activation.
