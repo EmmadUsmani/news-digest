@@ -1,5 +1,8 @@
+import { and, eq, sql } from 'drizzle-orm';
+import { drizzle } from 'drizzle-orm/node-postgres';
 import type { Pool, PoolClient } from 'pg';
 
+import { llmCache, llmCalls, llmProviderBlocks } from '../../../libs/db/schema';
 import { logger } from '../../../libs/observability/logging';
 import {
   budgetAllowance,
@@ -184,10 +187,18 @@ export class PostgresLlmLedger implements LlmLedger {
     }
   }
   async settle(id: string, usage: TokenUsage, cost: number) {
-    await this.db.query(
-      `UPDATE llm_calls SET status='succeeded',completed_at=now(),cost_micros=$2,input_tokens=$3,cache_write_tokens=$4,cache_read_tokens=$5,output_tokens=$6 WHERE id=$1 AND status='pending'`,
-      [id, cost, usage.input, usage.cacheWrite, usage.cacheRead, usage.output],
-    );
+    await drizzle(this.db)
+      .update(llmCalls)
+      .set({
+        status: 'succeeded',
+        completedAt: sql`now()`,
+        costMicros: cost,
+        inputTokens: usage.input,
+        cacheWriteTokens: usage.cacheWrite,
+        cacheReadTokens: usage.cacheRead,
+        outputTokens: usage.output,
+      })
+      .where(and(eq(llmCalls.id, id), eq(llmCalls.status, 'pending')));
   }
   async fail(
     id: string,
@@ -199,15 +210,24 @@ export class PostgresLlmLedger implements LlmLedger {
     try {
       await client.query('BEGIN');
       await client.query('SELECT pg_advisory_xact_lock(756282)');
-      await client.query(
-        `UPDATE llm_calls SET status=$2,completed_at=now(),error_code=$3 WHERE id=$1 AND status='pending'`,
-        [id, uncertain ? 'uncertain' : 'failed', code],
-      );
+      const orm = drizzle(client);
+      await orm
+        .update(llmCalls)
+        .set({
+          status: uncertain ? 'uncertain' : 'failed',
+          completedAt: sql`now()`,
+          errorCode: code,
+        })
+        .where(and(eq(llmCalls.id, id), eq(llmCalls.status, 'pending')));
       if (providerLimit)
-        await client.query(
-          `INSERT INTO llm_provider_blocks(month_start,error_code) VALUES(date_trunc('month',now() AT TIME ZONE 'UTC')::date,$1) ON CONFLICT DO NOTHING`,
-          [code],
-        );
+        await orm
+          .insert(llmProviderBlocks)
+          .values({
+            // UTC month calculation must use the transaction's database clock.
+            monthStart: sql`date_trunc('month',now() AT TIME ZONE 'UTC')::date`,
+            errorCode: code,
+          })
+          .onConflictDoNothing();
       await client.query('COMMIT');
     } catch (error) {
       await client.query('ROLLBACK');
@@ -217,16 +237,16 @@ export class PostgresLlmLedger implements LlmLedger {
     }
   }
   async cached(key: string): Promise<unknown> {
-    const result = await this.db.query<{ response: unknown }>(
-      'SELECT response FROM llm_cache WHERE cache_key=$1',
-      [key],
-    );
-    return result.rows[0]?.response;
+    const [row] = await drizzle(this.db)
+      .select({ response: llmCache.response })
+      .from(llmCache)
+      .where(eq(llmCache.cacheKey, key));
+    return row?.response;
   }
   async cache(key: string, response: unknown) {
-    await this.db.query(
-      'INSERT INTO llm_cache(cache_key,response) VALUES($1,$2) ON CONFLICT DO NOTHING',
-      [key, JSON.stringify(response)],
-    );
+    await drizzle(this.db)
+      .insert(llmCache)
+      .values({ cacheKey: key, response })
+      .onConflictDoNothing();
   }
 }

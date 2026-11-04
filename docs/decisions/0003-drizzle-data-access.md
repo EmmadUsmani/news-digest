@@ -152,3 +152,8 @@ Reserve-status snapshot reads use typed Drizzle day-state and latest-completed
 outcome projections. The public usage facade retains the repeatable-read
 transaction and ledger advisory lock, passing its client to every reader. The
 PostgreSQL wall clock uses a documented SQL template; reserve policy is unchanged.
+
+LLM ledger settlement, failure and cache operations use typed Drizzle updates,
+inserts and projections. Failure handling retains the existing client transaction
+and shared advisory lock; pending-only transitions, UTC provider blocks and
+first-writer cache semantics remain unchanged. Admission SQL remains to convert.
