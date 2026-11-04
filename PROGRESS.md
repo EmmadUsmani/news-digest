@@ -1,26 +1,3 @@
-## 2026-11-04: iteration 667 — linear triage batch sizing
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis and 36 nonempty successful sources without current errors.
-- Replaced repeated full-prompt serialization while packing triage batches with exact UTF-8 item/framing/comma accounting; batch-local indices reset on splits.
-- Preserves article/social prompts, 50-item/60,000-byte boundaries, fingerprints, provider requests, models and budgets. Incremental triage stays off; no paid calls or measured live latency improvement.
-- Differential synthetic regression compares every actual prompt against the former full-serialization algorithm for 200 short and Unicode/escaped long candidates in both modes.
-- Updated TASKS/RANKING; archived iteration 651 to keep PROGRESS bounded. Internal batch preparation only; no handbook/schema/SOURCES changes needed.
-- Verification: targeted tests 28/28; pnpm format, pnpm lint:fix, pnpm check (408 unit/207 isolated integration), pnpm build and git diff --check passed.
-- Restarted API/worker: both active, healthz healthy, zero alerts; saved edition four topics/14 stories/15 posts; all 36 sources nonempty with zero errors.
-- Next: Nov 5 grouping admission/cost/accuracy/latency/screenshots, NBA full-AI acceptance and World posts; background triage remains disabled.
-
-## 2026-11-04: iteration 668 — repair invalid social selections
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, all 36 sources successful/nonempty with no current errors.
-- Nov 4 journal fingerprint links a Bluesky Sonnet request to initial+repair validator-error failures; social code narrows these to unknown IDs, duplicates or excess picks. Rejected output/topic/precise violation remain unknown.
-- Those checks now emit invalid-social-selection and fixed application-owned repair guidance for candidate IDs, aliases, uniqueness, budget and optional empty picks; no rejected text/IDs enter feedback.
-- Initial prompts/cache keys, support checks, budgets/models/output limits and one repair per model unchanged. No paid calls or measured live latency improvement.
-- Fake X/Bluesky tests cover each violation recovering on repair, warm cache reuse and the unchanged four-call maximum. Targeted social/story/LLM tests 46/46 passed.
-- Updated RANKING and compacted TASKS below 8 KB; archived iteration 652 to keep PROGRESS bounded. Internal repair change needs no handbook/schema/SOURCES update.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (409 unit/207 isolated integration), pnpm build and git diff --check passed.
-- Restarted API/worker active; healthz healthy, zero alerts, four available queues and 36 nonempty sources without errors. Saved edition remains four topics/14 stories/15 posts.
-- Next: Nov 5 grouping/cost/accuracy/latency/screenshots, NBA full-AI acceptance, World posts and Bluesky repair tail. Incremental triage remains off.
-
 ## 2026-11-04: iteration 669 — reuse triage fingerprint context
 
 - Started clean on main; no leftover work. Zero alerts and healthy healthz/database/Redis.
@@ -168,3 +145,13 @@
 - Updated TASKS and experiment usage docs. No source/runtime behavior change; SOURCES/handbook unchanged. No paid calls; existing dispatch cost-bound blocker remains.
 - Verification: targeted report tests 8/8, standalone strict tsc, pnpm format, pnpm lint:fix, pnpm check (433 unit/209 isolated integration), pnpm build and git diff --check passed. Final healthz healthy and zero alerts.
 - No restart under STEERING 22: running services do not import the offline command. Next: Nov 5 grouping/NBA/cost/latency/screenshots; paid experiment awaits supported bound or owner decision.
+
+## 2026-11-04: iteration 683 — offline failed-batch recovery measurement
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis and 36 healthy nonempty sources; no failed retained digest jobs. Next edition Nov 5 15:00 UTC.
+- Added offline first-call refusal/throw probe through real article/social triage loops, with explicit recovery and a final cache-only pass. No provider, DB or secret access; no production retry change or paid calls.
+- Synthetic 200-item pool: size-200 caller passes retain 150 sibling scores after failure and recover with one 50-item call; size-25 passes retain zero and recover with eight 25-item calls. Total requested items 250 vs 225; all 200 score successfully once, repeat zero calls. No live latency/cost/failure-rate claim.
+- Updated TASKS/concurrency evidence; archived iterations 667–668 to keep PROGRESS small. SOURCES/handbook unchanged because runtime/source behavior is unchanged.
+- Verification: targeted recovery tests 2/2, standalone strict tsc, pnpm format, pnpm lint:fix, pnpm check (435 unit/209 isolated integration), pnpm build and git diff --check passed. Initial lint/check caught require-await in fake cache methods; fixed before final checks.
+- Final healthz healthy, zero alerts and 36 healthy nonempty sources. No restart under STEERING 22: running services do not import the offline probe.
+- X experiment remains blocked on supported per-call bound or owner decision. Next: Nov 5 grouping/NBA/cost/latency/screenshots; compare actual batching/repair evidence before tuning.

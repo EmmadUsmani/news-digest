@@ -188,3 +188,25 @@ This isolates context pressure on the real splitter using synthetic responses.
 It does not establish actual social pool sizes, provider latency or a reason to
 shorten owner guidance. Regression coverage checks context clipping, UTF-8 byte
 accounting, complete cache reuse and empty inputs. Production is unchanged.
+
+## Failed-batch recovery probe (iteration 683)
+
+Run `pnpm exec tsx apps/api/scripts/evaluate-triage-recovery.ts` for a synthetic
+200-item pool through the real article/social triage loops. The first request
+returns no result or throws; the caller stops after an incomplete pass, then
+explicitly retries the pool using the same item cache.
+
+| Caller size | Initial requests | Cached after failure | Recovery requests | Total requested items |
+| ----------: | ---------------- | -------------------: | ----------------- | --------------------: |
+|          25 | 25               |                    0 | eight × 25        |                   225 |
+|          50 | 50               |                    0 | four × 50         |                   250 |
+|         200 | four × 50        |                  150 | one × 50          |                   250 |
+
+Both content kinds and failure modes produce these counts. In-flight siblings
+settle before the initial pass returns, including thrown failures. All 200
+items eventually score exactly once successfully; failed work accounts for the
+extra requested items. A further repeat issues zero calls. Thus larger caller
+passes preserve successful sibling work but expose more items to one failed
+request than size-25 passes. This does not measure provider repair attempts,
+actual failure frequency, latency or billed usage, or propose automatic retries.
+Production batching and retry behavior remain unchanged.
