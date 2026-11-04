@@ -57,6 +57,24 @@ It reads no secrets and imports no application services. It neither modifies the
 evidence nor selects a winner. Keep input and output outside the repository;
 reports contain saved queries and post IDs. An empty array reports no calls.
 
+Optionally supply a second JSON array describing comparison rounds:
+
+```sh
+pnpm exec tsx apps/api/scripts/report-x-experiment.ts /private/path/evidence.json /private/path/rounds.json > /private/path/report.json
+```
+
+Each round has `model`, four distinct `topicIds`, and `calls` containing
+`requestId` and timezone-qualified `startedAt` (saved dispatch time). A complete
+round requires exactly one call per topic/style, the same model and edition
+window, dispatches within one hour and one UTC day. Missing/duplicate cells,
+window mismatch and elapsed time are reported; unknown/reused request IDs or
+mislabelled topics/models fail validation. Unassigned evidence is listed.
+`twoDayCoverage` requires complete rounds for the same model and four topics on
+different UTC days. It checks structural coverage only, not operator behavior,
+threshold calibration or model acceptance, and never selects a winner.
+Per-style totals retain unknown review labels; comparable yield per dollar is
+withheld for incomplete rounds. Current tests use synthetic rounds only.
+
 ## Provider bound investigation (Nov 4)
 
 The [official X Search documentation](https://docs.x.ai/developers/tools/x-search)

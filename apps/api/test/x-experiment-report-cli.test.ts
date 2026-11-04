@@ -86,6 +86,15 @@ void test('offline CLI reads evidence without changing it and fails without expo
       reportSavedXExperiment(evidence()),
     );
     assert.equal(readFileSync(path, 'utf8'), saved);
+    const roundsPath = join(directory, 'rounds.json');
+    writeFileSync(roundsPath, '[]', { mode: 0o600 });
+    const comparison = run(path, roundsPath);
+    assert.equal(comparison.status, 0, comparison.stderr);
+    assert.deepEqual(JSON.parse(comparison.stdout).comparison, {
+      rounds: [],
+      unassignedRequestIds: ['synthetic'],
+      twoDayCoverage: false,
+    });
     writeFileSync(path, 'private-invalid-payload');
     for (const args of [
       [],

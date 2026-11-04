@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 
 import { z } from 'zod';
 
+import { xExperimentComparison } from '../../../scripts/lib/x-experiment-comparison';
 import { xExperimentReport } from '../../../scripts/lib/x-experiment-report';
 
 const count = z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER);
@@ -39,24 +40,51 @@ const evidenceSchema = z.array(
     .strict(),
 );
 
-export function reportSavedXExperiment(input: unknown) {
+const roundsSchema = z.array(
+  z
+    .object({
+      model: z.string().min(1),
+      topicIds: z.array(z.string().min(1)),
+      calls: z.array(
+        z
+          .object({ requestId: z.string().min(1), startedAt: z.string() })
+          .strict(),
+      ),
+    })
+    .strict(),
+);
+
+export function reportSavedXExperiment(input: unknown, rounds?: unknown) {
+  const evidence = evidenceSchema.parse(input);
   return {
     note: 'Saved evidence only; no provider calls, production ingestion or winner selection. Missing labels remain unknown. Tool inputs do not prove X honored operators.',
-    calls: xExperimentReport(evidenceSchema.parse(input)),
+    calls: xExperimentReport(evidence),
+    ...(rounds === undefined
+      ? {}
+      : {
+          comparison: xExperimentComparison(
+            evidence,
+            roundsSchema.parse(rounds),
+          ),
+        }),
   };
 }
 
 if (require.main === module) {
   try {
-    if (process.argv.length !== 3) throw new Error('Expected one input path');
+    if (process.argv.length !== 3 && process.argv.length !== 4)
+      throw new Error('Expected evidence and optional rounds paths');
     const report = reportSavedXExperiment(
       JSON.parse(readFileSync(process.argv[2], 'utf8')),
+      process.argv[3]
+        ? JSON.parse(readFileSync(process.argv[3], 'utf8'))
+        : undefined,
     );
     console.log(JSON.stringify(report));
   } catch {
     // Never echo saved provider bodies, paths or unvalidated input on failure.
     console.error(
-      'X experiment report failed: supply one valid saved-evidence JSON array path',
+      'X experiment report failed: supply a valid saved-evidence JSON array path and optional rounds JSON array path',
     );
     process.exitCode = 1;
   }

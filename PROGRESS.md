@@ -155,3 +155,12 @@
 - Verification: targeted recovery tests 2/2, standalone strict tsc, pnpm format, pnpm lint:fix, pnpm check (435 unit/209 isolated integration), pnpm build and git diff --check passed. Initial lint/check caught require-await in fake cache methods; fixed before final checks.
 - Final healthz healthy, zero alerts and 36 healthy nonempty sources. No restart under STEERING 22: running services do not import the offline probe.
 - X experiment remains blocked on supported per-call bound or owner decision. Next: Nov 5 grouping/NBA/cost/latency/screenshots; compare actual batching/repair evidence before tuning.
+
+## 2026-11-04: iteration 684 — offline X comparison coverage gate
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis and 36 healthy nonempty sources; zero failed digest jobs. Next edition Nov 5 15:00 UTC.
+- Added optional saved-round manifest to the offline X report CLI. Checks four topics/three styles, same model/window, dispatches within one hour/UTC day, and repeat coverage on a second day. Lists unassigned evidence; rejects reused/unknown requests and mislabelled metadata.
+- Per-style cost/yield keeps unknown reviews visible; incomplete rounds get no comparable yield ratio. Coverage is structural only: no winner, operator acceptance or live experiment claim. No paid calls or production changes.
+- Verification: targeted report/comparison/CLI tests 13/13; standalone strict tsc; pnpm format, pnpm lint:fix, pnpm check (440 unit/209 isolated integration), pnpm build and git diff --check passed.
+- Updated TASKS and experiment reference; SOURCES/handbook unchanged because runtime/source behavior is unchanged. Final healthz healthy, zero alerts and 36 healthy sources. No restart under STEERING 22: services do not import this offline command.
+- Paid dispatch still needs supported cost bound or owner decision. Next: Nov 5 grouping/NBA AI/cost/latency/screenshots; then complete capped two-day comparison when dispatch is unblocked.
