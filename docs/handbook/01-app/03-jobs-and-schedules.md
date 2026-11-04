@@ -18,7 +18,9 @@ Redis (retried, visible on the Status page) plus a few in-process timers.
 
 The worker also has an optional incremental article-triage timer, disabled by
 default. Enabling `LLM_INCREMENTAL_TRIAGE_ENABLED=1` requires the scheduled
-budget reserve and an absolute `LLM_INCREMENTAL_TRIAGE_EVIDENCE_DIRECTORY`.
+budget reserve, an Anthropic API key and an absolute
+`LLM_INCREMENTAL_TRIAGE_EVIDENCE_DIRECTORY`. Missing or blank credentials
+stop worker startup when this setting is enabled.
 Once a minute it checks the saved schedule and enabled topics, rotates through
 one topic and scores at most 25 uncached articles. It uses the normal budget
 without access to the scheduled reserve and starts no new scoring within two

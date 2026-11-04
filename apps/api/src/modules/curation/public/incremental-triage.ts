@@ -71,7 +71,8 @@ export function incrementalTriageServices(
   if (enabled === '0') return null;
   if (!scheduledReserveConfig(env).enabled)
     throw new Error('Incremental triage requires the scheduled budget reserve');
-  if (!env.ANTHROPIC_API_KEY) return null;
+  if (!env.ANTHROPIC_API_KEY?.trim())
+    throw new Error('Incremental triage requires ANTHROPIC_API_KEY');
   const directory = env.LLM_INCREMENTAL_TRIAGE_EVIDENCE_DIRECTORY;
   if (!directory || !isAbsolute(directory))
     throw new Error(

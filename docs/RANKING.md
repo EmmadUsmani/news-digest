@@ -2344,3 +2344,12 @@ edition review. The existing reserve-safe ledger, shared admission, 25-item
 limit, two-hour cutoff and private evidence export requirements are unchanged.
 This connection establishes lifecycle readiness, not cache readiness, measured
 scoring waste or a latency improvement.
+
+## Iteration 632: reject incomplete incremental activation
+
+Explicitly enabled background triage now rejects missing, empty or whitespace-only
+Anthropic credentials at startup instead of silently returning a disabled service.
+The default-off path still returns before reading credentials or touching the
+database. Offline regressions use an inaccessible database proxy and no provider.
+Production remains off pending the Nov 4 review; no timing or cost claim follows
+from this configuration fix.

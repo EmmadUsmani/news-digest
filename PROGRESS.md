@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 613 — typed digest and social advisory locks
-
-- Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC edition review remains pending.
-- Converted digest publication session lock/unlock and social X attribution/budget transaction locks to Drizzle select builders over a singleton VALUES source. Preserved single execution, snapshot/retry visibility, checked-out client ownership and lock scope.
-- Existing characterization assertions unchanged; no migration, feature activation, source change, owner grant or paid call changes.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
-- Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical and Anthropic/X spend unchanged. Read-only Playwright rendered four saved topics without page errors; 36 sources without current errors, zero failed digest jobs and zero alerts.
-- Updated TASKS and ORM decision; archived iteration 598 to keep PROGRESS bounded. No handbook system behavior changed.
-- Next: prioritize Nov 4 edition review; otherwise final raw-SQL audit and remaining adapters. Private pg_dump before new migrations; preserve owner grants.
-
 ## 2026-11-04: iteration 614 — typed custom-feed catalog lock
 
 - Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC edition review remains pending.
@@ -184,3 +174,12 @@
 - Verification: targeted lifecycle tests 10/10; pnpm format, pnpm lint:fix, pnpm check (377 unit/205 isolated integration), pnpm build, handbook check (17 pages/two unchanged diagrams/25 tables) and git diff --check passed.
 - Restarted only news-digest-worker; running-process gate confirmed off. Healthz healthy, zero alerts/failed units/dangling Docker volumes; immutable Nov 3 edition still serves real stories/posts. No UI changes.
 - Next: Nov 4 15:00 UTC review of open-X/Bluesky selections, World posts, NBA validation and timing/cost; then consider incremental-triage activation and measure real waste.
+
+## 2026-11-04: iteration 632 — reject incomplete incremental activation
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources without errors and four available queues with no failed runs. Nov 4 evidence remains pending.
+- Explicitly enabled incremental triage now fails startup for missing, empty or whitespace-only Anthropic credentials instead of silently staying idle. Default-off behavior is unchanged.
+- Offline regression uses a database proxy that fails on access; no provider calls, activation, prompts, sources, schema or UI changes. Updated TASKS, RANKING and Jobs & schedules; archived iteration 613 to keep PROGRESS bounded.
+- Verification: targeted admission/worker tests 7/7; pnpm format, pnpm lint:fix, pnpm check (377 unit/205 isolated integration), pnpm build, handbook jobs check (17 pages/two unchanged diagrams/25 tables) and git diff --check passed; zero dangling Docker volumes.
+- Restarted worker only; final healthz/alerts and saved Nov 3 real edition checked. No Postgres/Redis restart; incremental triage and grouping remain off.
+- Next: review Nov 4 15:00 UTC edition for open-X/Bluesky picks, World posts, NBA validation and live timing/cost before activation.

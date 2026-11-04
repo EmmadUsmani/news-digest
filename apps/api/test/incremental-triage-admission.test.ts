@@ -44,13 +44,16 @@ void test('incremental triage defaults off before accessing database or credenti
       }),
     /absolute evidence directory/,
   );
-  assert.equal(
-    incrementalTriageServices(db, {
-      LLM_INCREMENTAL_TRIAGE_ENABLED: '1',
-      LLM_SCHEDULED_RESERVE_ENABLED: '1',
-    }),
-    null,
-  );
+  for (const key of [undefined, '', '   '])
+    assert.throws(
+      () =>
+        incrementalTriageServices(db, {
+          LLM_INCREMENTAL_TRIAGE_ENABLED: '1',
+          LLM_SCHEDULED_RESERVE_ENABLED: '1',
+          ANTHROPIC_API_KEY: key,
+        }),
+      /^Error: Incremental triage requires ANTHROPIC_API_KEY$/,
+    );
 });
 
 void test('background triage clears inherited scheduled context across async work and restores its caller', async () => {
