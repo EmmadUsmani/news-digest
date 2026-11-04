@@ -1,21 +1,3 @@
-## 2026-11-04: iteration 535 — prepare exact edition-pool boundary
-
-- Started clean on main; no leftover work. Zero alerts; healthz healthy, 36 sources without current errors, recent successful ingestion and no failed digest jobs. Nov 4 15:00 UTC review remains pending.
-- Added read-only incremental pool boundary using the edition's current-window newest-200 query and current enabled/positive-story-budget topic settings; invalid windows fail before DB access, unavailable topics return null.
-- Extracted shared edition/background input builder to preserve guidance, hard exclusions, semantic recovery and cache fingerprints. Prepared loader has no worker/timer caller; no activation, paid calls or actual waste/latency claim.
-- Updated TASKS/RANKING; no source/schema/UI/handbook flow changes. Next: current-schedule/timer wiring and longer-span scored-work evidence; Nov 4 review takes priority.
-- Verification: targeted loader test 1/1; pnpm format, pnpm lint:fix and pnpm check passed (331 unit/185 isolated integration), including edition goldens.
-- pnpm build and git diff --check passed; API/worker restarted (shared edition import changed), root HTTP 200 and healthz healthy; zero dangling Docker volumes.
-
-## 2026-11-04: iteration 536 — prepare current-schedule triage window
-
-- Started clean on main; no leftover work. Zero operational alerts; healthz reports database/Redis healthy. Nov 4 15:00 UTC scheduled review remains pending.
-- Added prepared current-settings cron/timezone boundary producing edition coverage and two-hour incremental cutoff. Exact publication instant retains its slot; elapsed coverage survives DST.
-- Offline tests cover settings changes, local/UTC times, exact-slot rollover, DST and invalid input. No timer/caller, activation, paid requests or live waste/latency claim.
-- Updated TASKS/RANKING; no live flow, source, schema, UI or handbook change. Services remain running under STEERING 22 because prepared adapter has no production caller.
-- Verification: targeted tests 3/3; pnpm format, pnpm lint:fix, pnpm check (334 unit/185 isolated integration), pnpm build and git diff --check passed; root HTTP 200 and zero dangling Docker volumes.
-- Next: timer/pool composition; actual scored-work evidence after activation gate. Nov 4 scheduled review takes priority when available.
-
 ## 2026-11-04: iteration 537 — prepare settings/pool tick composition
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and four available queues; no failed digest jobs. Nov 4 review still pending.
@@ -168,3 +150,11 @@
 - Updated TASKS/RANKING. No source/schema/UI/handbook flow change; no restart under STEERING 22 because only offline scripts/tests/docs changed.
 - Verification: targeted batching tests 3/3; pnpm format, pnpm lint:fix, pnpm check (363 unit/187 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
 - Next: review Nov 4 15:00 UTC edition first; gated incremental worker connection and actual waste/latency/cost evidence thereafter. Removing repeated instructions alone offers limited input-byte savings here.
+
+## 2026-11-04: iteration 554 — characterize Bluesky refresh rollback
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 error-free sources and four available queues. Nov 4 scheduled review remains pending at 15:00 UTC.
+- Added isolated repository regression: a late invalid engagement count rolls back an existing metadata refresh, a new post and all new observations, preserving both topics' histories. Valid retry succeeds; repeating it is idempotent.
+- Updated TASKS/database verification notes and archived iterations 535–536. No production, source, schema, UI or handbook flow change; no paid calls. No restart under STEERING 22 because only tests/docs changed.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/188 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes. Initial verification found doc formatting and invalid synthetic post IDs; corrected before the passing run.
+- Next: Nov 4 scheduled review first; incremental triage activation and live waste/latency/cost evidence remain gated. Recorded-response golden and other repository characterization gaps remain open.

@@ -483,3 +483,14 @@ undated and unverified posts. Reassigning a river moves free coverage even when
 paid-search and stored Reddit evidence preserve Status coverage. Disabled,
 zero-budget and deleted topics leave the search plan. Disposable PostgreSQL
 only; no source, Reddit or paid provider requests occur.
+
+## Bluesky refresh rollback and retry (iteration 554)
+
+`bluesky-storage.test.ts` rejects a later fractional engagement count after a
+batch has refreshed an existing verified post and inserted another. The prior
+current metadata and both topics' immutable observation histories survive;
+neither the new post nor the refreshed observation persists. A valid retry
+updates metadata and adds exactly the expected observations; repeating it is
+idempotent and leaves the other topic's history unchanged. Assertions exercise
+the repository against disposable PostgreSQL, with no Bluesky or LLM requests.
+Recorded-response golden and other repository behavior gaps remain open.

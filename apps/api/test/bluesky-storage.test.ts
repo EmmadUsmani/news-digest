@@ -142,3 +142,91 @@ void test('Bluesky storage rolls back complete batches and respects topic disabl
     await repo.db.end();
   }
 });
+
+void test('Bluesky failed refresh restores existing metadata and observations before an idempotent retry', async () => {
+  const repo = new PostgresBlueskyRepository();
+  const original = { ...post, externalId: post.externalId + 'rollback' };
+  const inserted = { ...post, externalId: post.externalId + 'insert' };
+  const refreshed: BlueskyPost = {
+    ...original,
+    author: 'updated.test',
+    text: 'Updated synthetic observation',
+    observedAt: '2026-10-01T14:00:00.000Z',
+    metrics: { likes: 25, reposts: 4, replies: 3 },
+    media: [],
+  };
+  const current = async () =>
+    (
+      await repo.db.query(
+        "SELECT canonical_url,author,author_url,published_at,metrics,embed_html,verified_at,bluesky_metadata FROM social_posts WHERE platform='bluesky' AND external_id=$1",
+        [original.externalId],
+      )
+    ).rows[0];
+  try {
+    await repo.store(topic, [original]);
+    await repo.store(other, [original]);
+    const before = await current();
+    await assert.rejects(
+      repo.store(topic, [
+        refreshed,
+        inserted,
+        {
+          ...post,
+          externalId: post.externalId + 'invalid',
+          metrics: { likes: 0.5, reposts: 0, replies: 0 },
+        },
+      ]),
+      /Invalid Bluesky observation/,
+    );
+    assert.deepEqual(await current(), before);
+    assert.deepEqual(await repo.observations(topic, start, end, end), [
+      original,
+    ]);
+    assert.deepEqual(await repo.observations(other, start, end, end), [
+      original,
+    ]);
+    assert.equal(
+      (
+        await repo.db.query(
+          "SELECT 1 FROM social_posts WHERE platform='bluesky' AND external_id=$1",
+          [inserted.externalId],
+        )
+      ).rowCount,
+      0,
+    );
+
+    await repo.store(topic, [refreshed, inserted]);
+    const after = await current();
+    assert.equal(after.author, refreshed.author);
+    assert.deepEqual(after.metrics, refreshed.metrics);
+    assert.deepEqual(after.bluesky_metadata, {
+      text: refreshed.text,
+      media: [],
+    });
+    const observations = await repo.observations(topic, start, end, end);
+    assert.equal(observations.length, 3);
+    assert.deepEqual(
+      observations.filter((p) => p.externalId === original.externalId),
+      [refreshed, original],
+    );
+    assert.deepEqual(
+      observations.filter((p) => p.externalId === inserted.externalId),
+      [inserted],
+    );
+    await repo.store(topic, [refreshed, inserted]);
+    assert.deepEqual(await current(), after);
+    assert.deepEqual(
+      await repo.observations(topic, start, end, end),
+      observations,
+    );
+    assert.deepEqual(await repo.observations(other, start, end, end), [
+      original,
+    ]);
+  } finally {
+    await repo.db.query(
+      "DELETE FROM social_posts WHERE platform='bluesky' AND external_id=ANY($1::text[])",
+      [[original.externalId, inserted.externalId, post.externalId + 'invalid']],
+    );
+    await repo.db.end();
+  }
+});
