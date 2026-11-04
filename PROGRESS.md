@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 548 — preserve simultaneous triage failures
-
-- Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 edition review remains pending.
-- Fixed prepared runner cleanup hiding loader/cache/provider failures when admission release also fails. AggregateError now retains both original values, including a thrown undefined; single failures retain existing behavior.
-- Regression covers all three work stages plus next-tick recovery and exactly-once release. No provider calls or activation; admission still cannot fence in-flight provider work.
-- Condensed the incremental-triage TASKS history into current state; archived iteration 528. No source/schema/UI or handbook flow change. No restart under STEERING 22: prepared runner remains outside production worker imports.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (354 unit/187 isolated integration), pnpm build and git diff --check passed; root HTTP 200, healthy healthz, zero alerts/dangling volumes. Initial lint rejected intentional non-Error throws; added narrow documented test exceptions before rerunning checks.
-- Next: Nov 4 scheduled review first; gated worker connection and actual scoring/final-pool waste measurements thereafter.
-
 ## 2026-11-04: iteration 549 — replay triage input invalidation
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz and all queues available; scheduled Nov 4 review remains ahead at 15:00 UTC.
@@ -178,3 +169,12 @@
 - Updated TASKS/database verification notes and archived iteration 547. No provider calls, production changes or restart under STEERING 22.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/199 isolated integration), pnpm build, final pnpm typecheck/format:check and git diff --check passed. Live healthz/alerts green, 36 sources error-free, zero dangling Docker volumes.
 - Next: Nov 4 scheduled review first; otherwise finish concrete ORM prerequisite reconciliation, avoiding unrelated characterization tests.
+
+## 2026-11-04: iteration 568 — expose public SQL coverage and concrete ORM gaps
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts; Nov 4 edition review remains pending.
+- Expanded isolated integration coverage to all six SQL-bearing public facades, previously absent from the report. All source database adapters appear; documented health/console/migration coverage separately.
+- Reconciled facade results with actual assertions. Concrete remaining 2a risks: usage rollback/release, missing schedule, social engagement as-of observation and tied-call ordering. No ORM conversion or unrelated characterization added.
+- Updated TASKS/database verification and archived iteration 548. No provider calls or production changes; no restart under STEERING 22.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/199 isolated integration) and pnpm build passed. Final healthz/alerts green and zero dangling Docker volumes.
+- Next: Nov 4 scheduled review first; otherwise close the three concrete prerequisite gaps before starting 2b.

@@ -65,6 +65,12 @@ async function main() {
       '--test-coverage-include=apps/api/**/database/**',
       '--test-coverage-include=apps/api/**/libs/db/**',
       '--test-coverage-include=apps/api/**/operations/adapters/operations.status.*',
+      '--test-coverage-include=apps/api/**/curation/public/usage.*',
+      '--test-coverage-include=apps/api/**/profiles/public/budget-day.*',
+      '--test-coverage-include=apps/api/**/digests/public/incremental-triage-pool.*',
+      '--test-coverage-include=apps/api/**/digests/public/reaction-stories.*',
+      '--test-coverage-include=apps/api/**/social/public/selection.*',
+      '--test-coverage-include=apps/api/**/social/public/citing-stories.*',
       ...testFiles('integration'),
     ]);
   } finally {

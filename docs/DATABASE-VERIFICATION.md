@@ -27,8 +27,8 @@ certify that every SQL statement is covered. The current source inventory is:
 | Operations, coverage and DB instrumentation    | `operations`, `topic-coverage`, `query-stats`, `slow-query-database`                                 |
 
 Names above refer to `apps/api/test/<name>.test.ts`. They identify where to
-validate a conversion, not a claim of exhaustive query coverage. The runner's
-coverage globs omit SQL in public facades. Include these in the conversion
+validate a conversion, not a claim of exhaustive query coverage. Since iteration
+568 the runner reports SQL in public facades too. Include these in the conversion
 inventory: `curation/public/usage.ts`, `profiles/public/budget-day.ts`,
 `digests/public/incremental-triage-pool.ts`, `digests/public/reaction-stories.ts`,
 `social/public/selection.ts` and `social/public/citing-stories.ts`. Also account
@@ -52,6 +52,37 @@ behavior assertions, including these public facades. Then record Drizzle's
 decision/schema parity and convert one repository per commit. Preserve owner
 login grants, back up before the first new migration, and observe the two-hour
 edition deployment freeze from STEERING 29.
+
+## Public query coverage reconciliation (iteration 568)
+
+The expanded integration report measures these **source** boundaries separately
+from their compiled HTTP counterparts. All 363 unit and 199 integration tests
+pass. Percentages describe execution, not complete behavior characterization.
+
+| Public SQL boundary                         | Lines / branches | Existing behavior assertions                                                                                      |
+| ------------------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `curation/public/usage.ts`                  | 94.39% / 70.00%  | `reserve-status`: pending/running/retry, disabled policy, completed fallback and immutable outcome                |
+| `profiles/public/budget-day.ts`             | 100% / 60.00%    | `reserve-admission`: no-occurrence day, occurrence day, schedule row lock and concurrent settings                 |
+| `digests/public/incremental-triage-pool.ts` | 100% / 71.43%    | `article-pool-database`: budgets, disabled/deleted topic, transaction visibility, exact windows and semantic pool |
+| `digests/public/reaction-stories.ts`        | 100% / 77.78%    | `article-pool-database`: independent post budget, deduped sources, lexical rules and window ordering              |
+| `social/public/selection.ts`                | 100% / 91.67%    | `social-selection`: scoped verified posts, window end exclusion, duplicate routes, budgets and frozen snapshots   |
+| `social/public/citing-stories.ts`           | 100% / 85.71%    | `citing-stories`: selected lead/coverage/evidence only, topic isolation and frozen titles                         |
+
+Every current source `database/` adapter appears in this run, including the
+default-off incremental admission adapter. `libs/db/migrate.ts` runs separately
+from zero against the disposable database. Health's `SELECT 1` is exercised by
+`api-http`; the intentional console SQL escape hatch by `console`. Neither is a
+repository query to translate into an ORM builder. Instrumentation stays in
+`libs/db`; operations remains in the conversion inventory above.
+
+Concrete prerequisite follow-ups remain: `readLlmUsage`'s rollback/release path
+(lines 104–107) and missing-schedule failure in `hasBudgetDayOccurrence` have no
+direct isolated assertions. Social selection's correlated engagement query also
+needs explicit as-of observation and tied-call ordering assertions: the existing
+social selection tests do not assert `xSearchRanking` or `reportedEngagement`.
+These are specific conversion risks, not a reason to chase coverage percentages
+or add unrelated characterization. Keep 2a open until reconciled. The unexecuted
+`configuredLlmCaps` export (usage lines 96–97) is not a database query gap.
 
 ## Baseline: iteration 223, November 2, 2026
 
