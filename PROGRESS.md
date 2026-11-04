@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 599 — Drizzle X discovery ledger transactions
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and zero failed digest jobs. Retained social failures have subsequent successful collections; Nov 4 15:00 UTC review remains pending.
-- Converted X discovery ledger transaction control to Drizzle on the same checked-out client. Shared X advisory lock, all ledger queries, rollback, client release and original PostgreSQL error causes remain intact.
-- Existing characterization assertions unchanged; ledger statements 100% covered. No migration, activation, source change or paid call; owner database grants untouched.
-- Updated TASKS, architecture, decision and handbook stack; archived iteration 584 to keep PROGRESS bounded.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
-- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical and X budget snapshot unchanged. Read-only Playwright rendered four topics/19 stories without page errors; zero alerts, source errors or failed digest jobs.
-- Push: first attempt rejected by Git integration with `fatal error in commit_refs_rules`; immediate retry pushed d75df35 successfully.
-- Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters/transaction infrastructure or historical migration baseline. Private pg_dump before first new migration.
-
 ## 2026-11-04: iteration 600 — Drizzle Anthropic ledger transactions
 
 - Started clean on main; no leftover work. Healthy healthz, 36 sources without current errors and zero failed digest jobs. Initial pending metrics-memory warning cleared on the next snapshot; Nov 4 15:00 UTC review remains pending.
@@ -158,3 +147,12 @@
 - Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical and Anthropic/X spend unchanged. Read-only Playwright rendered four saved topics without page errors; 36 sources without current errors, zero failed digest jobs and zero alerts.
 - Updated TASKS and ORM decision; archived iteration 598 to keep PROGRESS bounded. No handbook system behavior changed.
 - Next: prioritize Nov 4 edition review; otherwise final raw-SQL audit and remaining adapters. Private pg_dump before new migrations; preserve owner grants.
+
+## 2026-11-04: iteration 614 — typed custom-feed catalog lock
+
+- Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC edition review remains pending.
+- Converted the topic repository's custom-feed catalog transaction lock to a Drizzle select builder over one VALUES row, preserving single execution and transaction serialization. Existing characterization assertions unchanged, including concurrent competition for the final catalog slot.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
+- Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical and Anthropic/X spend unchanged. Read-only Playwright rendered four saved topics without page errors; 36 sources without current errors, zero failed digest jobs and zero alerts.
+- Updated TASKS and ORM decision; archived iteration 599 to keep PROGRESS bounded. No migration, source, activation, owner grant or paid call changes; no handbook system behavior changed.
+- Next: prioritize Nov 4 edition review; otherwise remaining X admission scalar query, connectivity probe and final raw-SQL audit. Private pg_dump before new migrations; preserve owner grants.

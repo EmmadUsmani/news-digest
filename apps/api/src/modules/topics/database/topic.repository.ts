@@ -83,10 +83,12 @@ export class PostgresTopicRepository
   ): Promise<Topic | null | false> {
     const outcome = await this.preserveErrors(() =>
       this.db.transaction(async (tx) => {
-        // PostgreSQL advisory locks have no query-builder equivalent.
-        await tx.execute(
-          sql`select pg_advisory_xact_lock(hashtext('custom-feed-catalog'))`,
-        );
+        // A singleton source executes the PostgreSQL lock function exactly once.
+        await tx
+          .select({
+            lock: sql`pg_advisory_xact_lock(hashtext('custom-feed-catalog'))`,
+          })
+          .from(sql`(values (1)) as singleton(value)`);
         const topic = await tx
           .select({ id: topics.id })
           .from(topics)
