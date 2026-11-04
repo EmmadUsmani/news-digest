@@ -103,3 +103,42 @@ void test('malformed recordings and mismatched model metadata fail closed', asyn
   snapshot.records[0].response.usage.input = -1;
   assert.throws(() => new ReplayLlmAdapter(snapshot));
 });
+
+void test('concurrent recordings replay in request order despite reversed completion and failures', async () => {
+  const pending: {
+    resolve: (response: {
+      text: string;
+      usage: {
+        input: number;
+        output: number;
+        cacheWrite: number;
+        cacheRead: number;
+      };
+    }) => void;
+    reject: (error: Error) => void;
+  }[] = [];
+  const recorder = new RecordingLlmAdapter({
+    complete() {
+      return new Promise((resolve, reject) =>
+        pending.push({ resolve, reject }),
+      );
+    },
+  });
+  const first = recorder.complete(request);
+  const failed = recorder.complete(request);
+  const failure = assert.rejects(failed, /provider failed/);
+  const last = recorder.complete(request);
+  const usage = { input: 1, output: 1, cacheWrite: 0, cacheRead: 0 };
+  pending[2].resolve({ text: 'last', usage });
+  await last;
+  pending[1].reject(new Error('provider failed'));
+  await failure;
+  pending[0].resolve({ text: 'first', usage });
+  await first;
+  const replay = new ReplayLlmAdapter(
+    recorder.snapshot('Synthetic concurrent responses; no inference.'),
+  );
+  assert.equal((await replay.complete(request)).text, 'first');
+  assert.equal((await replay.complete(request)).text, 'last');
+  await assert.rejects(replay.complete(request), /Missing LLM replay/);
+});

@@ -397,7 +397,9 @@ Each replay instance starts fresh. Response text and usage are preserved,
 including invalid JSON needed to exercise repair paths.
 
 `RecordingLlmAdapter` captures only successful transport responses, fingerprint
-and model, never headers, keys, request text or thrown provider errors. The
+and model, never headers, keys, request text or thrown provider errors. Concurrent
+calls are saved in invocation order, even when they finish in reverse order;
+failed calls leave no response in the recording. The
 explicit historical recorder saves these under `apps/api/test/fixtures/llm/`
 even if subsequent editorial validation fails. Existing opt-in, immutable
 snapshot refusal and verification budget guards still apply. Review captured

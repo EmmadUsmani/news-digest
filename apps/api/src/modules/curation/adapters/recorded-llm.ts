@@ -55,12 +55,15 @@ export class ReplayLlmAdapter implements LlmPort {
 // Recording is opt-in at the caller; this wrapper never stores keys, headers,
 // request prompts or provider errors. Save only to a new, reviewed fixture file.
 export class RecordingLlmAdapter implements LlmPort {
-  private readonly records: LlmRecording['records'] = [];
+  private readonly records = new Map<number, LlmRecording['records'][number]>();
+  private nextSequence = 0;
   constructor(private readonly provider: LlmPort) {}
   async complete(request: LlmRequest): Promise<LlmResponse> {
     const fingerprint = llmFingerprint(request);
+    const sequence = this.nextSequence++;
     const response = await this.provider.complete(request);
-    this.records.push(
+    this.records.set(
+      sequence,
       recordSchema.parse({ fingerprint, model: request.model.id, response }),
     );
     return response;
@@ -70,7 +73,9 @@ export class RecordingLlmAdapter implements LlmPort {
       llmRecordingSchema.parse({
         version: 1,
         provenance,
-        records: this.records,
+        records: [...this.records.entries()]
+          .sort(([left], [right]) => left - right)
+          .map(([, record]) => record),
       }),
     );
   }

@@ -1,15 +1,3 @@
-## 2026-11-04: iteration 604 — enforce the direct PostgreSQL boundary
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC review pending.
-- Moved health and console startup probes to shared Drizzle connectivity checking in libs/db. Console retains its owner-requested SQL helper and shutdown behavior.
-- ESLint now rejects runtime pg imports and direct dot/bracket query calls outside libs/db; connection type imports remain allowed. Explicit positive/negative lint probes passed; no application direct query calls remain outside libs/db.
-- Initial typecheck caught the console's query-only wrapper; added its connectivity method without exposing the pool. Final full check passed. No migration, activation, source change or paid call; owner grants untouched.
-- Updated TASKS, architecture, decision and handbook stack; archived iteration 589.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
-- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical and LLM/X budget snapshots unchanged. Read-only Playwright rendered four digest topics without page errors; 36 error-free sources, zero failed digest jobs and zero alerts.
-- Next: prioritize Nov 4 15:00 UTC edition review; otherwise historical Drizzle migration baseline. Private pg_dump before first new migration.
-- Push: Git integration rejected two pushes of 082145b with `Internal Server Error` at 10:20–10:21 UTC; local services run the verified commit. Recording the failure before a final retry; no history or remote changes.
-
 ## 2026-11-04: iteration 605 — historical Drizzle migration baseline
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC review pending.
@@ -172,3 +160,12 @@
 - Runtime observability check validated 476 structured records; latest immutable Nov 3 edition serves four topics; 36 sources without current errors, no retained failed digest jobs, zero alerts or dangling Docker volumes.
 - Documentation only; no service restart per STEERING 22, no paid calls or source/edition/configuration changes. Handbook reads files per request.
 - Next: Nov 4 scheduled edition review takes priority; grouping and incremental triage stay off pending that review. O11 remains optional/deferred, not installed.
+
+## 2026-11-04: iteration 621 — deterministic concurrent LLM recordings
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources without current errors and no retained failed digest jobs.
+- Fixed RecordingLlmAdapter to preserve invocation order when concurrent identical requests finish out of order; failed calls remain omitted. Offline regression reverses completions with a failed middle call, then verifies exact replay order and exhaustion.
+- Updated LLM recording documentation and TASKS; archived iteration 604 to keep this file below 25 KB. Real raw-response golden remains open: validated historical results cannot supply raw transport responses.
+- Verification: targeted recording tests 4/4; pnpm format, pnpm lint:fix, pnpm check (365 unit/205 isolated integration), pnpm build and git diff --check passed. First check caught formatting in the newly moved archive; fixed before the final run.
+- Recorder is imported only by the explicit historical recording script; no running service code/config changed, so no restart under STEERING 22. No paid calls, prompts, fixture recordings, production flags or edition behavior changed.
+- Next: Nov 4 15:00 UTC edition review; grouping and incremental triage remain off until that review.
