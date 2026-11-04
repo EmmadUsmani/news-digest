@@ -8,15 +8,6 @@
 - Final healthz healthy, zero alerts and 36 healthy nonempty sources. No restart under STEERING 22: running services do not import the offline probe.
 - X experiment remains blocked on supported per-call bound or owner decision. Next: Nov 5 grouping/NBA/cost/latency/screenshots; compare actual batching/repair evidence before tuning.
 
-## 2026-11-04: iteration 684 — offline X comparison coverage gate
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis and 36 healthy nonempty sources; zero failed digest jobs. Next edition Nov 5 15:00 UTC.
-- Added optional saved-round manifest to the offline X report CLI. Checks four topics/three styles, same model/window, dispatches within one hour/UTC day, and repeat coverage on a second day. Lists unassigned evidence; rejects reused/unknown requests and mislabelled metadata.
-- Per-style cost/yield keeps unknown reviews visible; incomplete rounds get no comparable yield ratio. Coverage is structural only: no winner, operator acceptance or live experiment claim. No paid calls or production changes.
-- Verification: targeted report/comparison/CLI tests 13/13; standalone strict tsc; pnpm format, pnpm lint:fix, pnpm check (440 unit/209 isolated integration), pnpm build and git diff --check passed.
-- Updated TASKS and experiment reference; SOURCES/handbook unchanged because runtime/source behavior is unchanged. Final healthz healthy, zero alerts and 36 healthy sources. No restart under STEERING 22: services do not import this offline command.
-- Paid dispatch still needs supported cost bound or owner decision. Next: Nov 5 grouping/NBA AI/cost/latency/screenshots; then complete capped two-day comparison when dispatch is unblocked.
-
 ## 2026-11-04: iteration 685 — saved X experiment budget/time diagnostics
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 healthy sources and no failed digest jobs in inspected history.
@@ -154,3 +145,11 @@
 - Verification: targeted report/comparison tests 20/20, standalone strict tsc, pnpm format, pnpm lint:fix, pnpm check (455 unit/209 isolated integration), pnpm build and git diff --check passed.
 - Updated TASKS and experiment reference; archived iteration 682 to bound PROGRESS. SOURCES/handbook unchanged: offline reporting only. No restart under STEERING 22; healthy running services do not import this helper.
 - Next: Nov 5 grouping/NBA AI/cost/latency/screenshots; paid X dispatch awaits supported bound or owner decision.
+
+## 2026-11-04: iteration 700 — isolate topic-create browser verification
+
+- Started clean on main; no leftover work. Zero alerts, healthz/database/Redis healthy, 36 healthy sources and no failed retained digest jobs; Nov 5 scheduled evidence still future and paid X dispatch remains blocked on supported cost bound.
+- Replaced topic-create smoke production POSTs, direct SQL deletion and digest generation with browser-only topic replay. Unknown browser API writes are rejected; direct API requests only read live topics/edition for unchanged-state assertions.
+- Kept desktop/mobile required-name, create/reload, source-less display, order and overflow checks. Request counts prove native validation prevents creation. Replay is synthetic browser behavior, not server persistence evidence; isolated HTTP tests retain server coverage.
+- Playwright passed and desktop/mobile screenshots reviewed. No paid calls, production writes or app changes. SOURCES/handbook unchanged; no restart under STEERING 22 because running code is unchanged.
+- Verification: pnpm format, pnpm lint:fix, standalone strict tsc, Playwright, pnpm check (455 unit/209 isolated integration), pnpm build and git diff --check passed. Next: Nov 5 grouping/NBA AI/cost/latency/screenshots; other older topic browser scripts may still need write isolation.

@@ -1,21 +1,47 @@
 import assert from 'node:assert/strict';
+import { randomUUID } from 'node:crypto';
 
 import { topicSchema, topicUpdateSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
-import { database } from '../apps/api/src/libs/db/connections';
 const base = 'http://localhost:8000';
 async function smoke() {
   const browser = await chromium.launch();
   const context = await browser.newContext();
-  const db = database();
-  const created: string[] = [];
   const original = topicSchema
     .array()
     .parse(await (await context.request.get(`${base}/api/topics`)).json());
   const latest = await (
     await context.request.get(`${base}/api/digest-previews/latest`)
   ).json();
+  const replayTopics = structuredClone(original);
+  let creates = 0;
+  // Browser writes stay in memory; APIRequestContext below only reads live state.
+  await context.route('**/api/**', async (route) => {
+    const request = route.request();
+    const path = new URL(request.url()).pathname;
+    if (path === '/api/topics' && request.method() === 'GET') {
+      await route.fulfill({ json: replayTopics });
+      return;
+    }
+    if (path === '/api/topics' && request.method() === 'POST') {
+      const input = topicUpdateSchema.parse(request.postDataJSON());
+      const saved = topicSchema.parse({
+        ...input,
+        id: randomUUID(),
+        profileId: original[0].profileId,
+        position: replayTopics.length,
+        sources: [],
+        queries: [],
+      });
+      replayTopics.push(saved);
+      creates++;
+      await route.fulfill({ status: 201, json: saved });
+      return;
+    }
+    assert.equal(request.method(), 'GET', `Unexpected browser write: ${path}`);
+    await route.continue();
+  });
   try {
     for (const [device, width, height] of [
       ['desktop', 1440, 1100],
@@ -42,8 +68,9 @@ async function smoke() {
         .getByRole('button', { name: 'Create topic', exact: true })
         .click();
       assert.equal(
-        (await (await context.request.get(`${base}/api/topics`)).json()).length,
-        original.length,
+        creates,
+        device === 'desktop' ? 0 : 1,
+        'Required validation must prevent a replayed creation request',
       );
       await form
         .getByLabel('Name', { exact: true })
@@ -66,7 +93,7 @@ async function smoke() {
       const response = await responsePromise;
       assert.equal(response.status(), 201);
       const saved = topicSchema.parse(await response.json());
-      created.push(saved.id);
+      assert.equal(creates, device === 'desktop' ? 1 : 2);
       assert.equal(saved.position, original.length);
       assert.deepEqual(saved.sources, []);
       assert.deepEqual(saved.relevancePolicy.includeAny, [
@@ -99,59 +126,30 @@ async function smoke() {
         ),
         true,
       );
-      // A source-less topic cannot invent content or change a saved edition.
-      const end = new Date(),
-        start = new Date(end.getTime() - 86400000);
-      const edition = await (
-        await context.request.post(`${base}/api/digest-previews`, {
-          data: {
-            windowStart: start.toISOString(),
-            windowEnd: end.toISOString(),
-          },
-        })
-      ).json();
-      const section = edition.topics.find(
-        (topic: { id: string }) => topic.id === saved.id,
-      );
-      assert.ok(section);
-      assert.deepEqual(section.stories, []);
-      assert.equal(section.candidateCount, 0);
-      if (latest)
-        assert.deepEqual(
-          await (
-            await context.request.get(
-              `${base}/api/digest-previews/${latest.id}`,
-            )
-          ).json(),
-          latest,
-        );
-      await db.query('DELETE FROM topics WHERE id=$1', [saved.id]);
+      // Replay checks browser behavior; server behavior belongs to isolated API tests.
+      replayTopics.splice(original.length);
       await page.close();
-    }
-    const input = topicUpdateSchema.strip().parse(original[0]);
-    for (const invalid of [
-      { ...input, name: ' ' },
-      { ...input, storyBudget: 21 },
-      { ...input, profileId: original[0].profileId },
-      { ...input, relevancePolicy: { includeAny: [''], excludeAny: [] } },
-    ]) {
-      assert.equal(
-        (
-          await context.request.post(`${base}/api/topics`, { data: invalid })
-        ).status(),
-        400,
-      );
     }
     assert.deepEqual(
       await (await context.request.get(`${base}/api/topics`)).json(),
       original,
     );
     console.log(
-      'Topic creation desktop/mobile: validation, persistence, source-less state, ordering and immutable editions passed',
+      'Topic creation desktop/mobile: browser-only create/reload, required validation, source-less state and order passed; live topics/editions unchanged',
     );
   } finally {
-    await db.query('DELETE FROM topics WHERE id=ANY($1::uuid[])', [created]);
-    await db.end();
+    assert.deepEqual(
+      await (await context.request.get(`${base}/api/topics`)).json(),
+      original,
+      'Browser replay must never change live topics',
+    );
+    if (latest)
+      assert.deepEqual(
+        await (
+          await context.request.get(`${base}/api/digest-previews/${latest.id}`)
+        ).json(),
+        latest,
+      );
     await browser.close();
   }
 }
