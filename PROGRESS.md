@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 687 — require independent X comparison news windows
-
-- Started clean on main; no leftover work. Zero alerts; healthy services, healthz/database/Redis and all 36 sources. No failed retained digest jobs; latest scheduled edition completed, next Nov 5 15:00 UTC.
-- Fixed offline comparison coverage: different dispatch days no longer qualify when they repeat the same or overlapping news window. Round summaries expose normalized windows, or null for inconsistent/empty rounds. Adjacent windows qualify in either input order.
-- Synthetic regressions cover same-window reuse, timezone-equivalent reuse, partial overlap and adjacent independent windows; no live experiment or paid calls. Production unchanged.
-- Verification: targeted comparison/CLI 11/11, standalone strict tsc, pnpm format, pnpm lint:fix, pnpm check (444 unit/209 isolated integration), pnpm build, handbook validation and git diff --check passed. Initial check caught archive formatting; reformatted and complete rerun passed.
-- Updated TASKS/experiment reference; archived iterations 671–672 to keep PROGRESS bounded. SOURCES/handbook unchanged because runtime/source behavior is unchanged. Final healthz healthy and zero alerts; no restart under STEERING 22 for this offline helper.
-- X paid dispatch still needs supported cost bound or owner decision. Next: Nov 5 grouping/NBA AI/cost/latency/screenshots, then capped two-day comparison when unblocked.
-
 ## 2026-11-04: iteration 688 — measure stored X triage batching
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 nonempty sources without current errors, no failed retained digest jobs; next edition Nov 5 15:00 UTC.
@@ -152,3 +143,12 @@
 - Private evidence/report: ~/.local/state/news-digest/x-experiment/2026-11-04T21-46-02-565Z/. Report excludes unknown costs; journal retains their holds. No production activation; current raw responses are not verified/ingested posts.
 - Verification: strict standalone tsc for runner/preparer/test; synthetic runner/budget/request tests 13/13 and runner/report/comparison 23/23; pnpm format, pnpm lint:fix, pnpm check (455 unit/209 isolated integration), pnpm build, live offline-report CLI and git diff --check passed. Three new runner tests cover settlement, overrun stop and continuation without unknown-call retries; no test provider calls.
 - Updated TASKS/SOURCES/experiment reference and acked STEERING 31; archived iteration 686. No restart under STEERING 22: running services do not import these scripts. Next: disabled A/B schedule, backups; offline query/article-pool review and second independent news day; Nov 5 scheduled acceptance takes priority when due.
+
+## 2026-11-04: iteration 704 — preserve X query operator separator
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 nonempty sources without errors, zero retained failed digest jobs; next edition Nov 5 15:00 UTC.
+- Corrected the round-1 trending concatenation defect in comparison request construction: operator suffix includes its leading space and a code-built query template exposes the keyword substitution point. Both A/B styles use it; current baseline and saved round-1 evidence stay unchanged.
+- Regression checks substitute single-word, multi-word and OR keywords and preserve filters/exclusions/thresholds. No paid calls or production activation; actual next-round tool compliance remains unverified.
+- Initial lint found three floating test declarations from iteration 703; marked them explicitly void. Targeted comparison/input/runner tests 11/11 and standalone strict tsc passed.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (458 unit/209 isolated integration) and pnpm build passed. Updated TASKS/experiment reference; archived iteration 687 to bound PROGRESS. SOURCES/handbook unchanged for experimental request formatting only.
+- No restart under STEERING 22: production services do not import the comparison helper. Next: disabled fixed A/B schedule, private nightly backups, World article-pool review and second independent comparison day; Nov 5 scheduled acceptance takes priority when due.

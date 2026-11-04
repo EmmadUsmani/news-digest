@@ -190,3 +190,12 @@ Evidence: `~/.local/state/news-digest/x-experiment/2026-11-04T21-46-02-565Z/`.
 It includes raw responses, requests, settlements, `evidence.json`, `rounds.json`
 and `report.json`. The offline report deliberately excludes unknown cost from
 settled totals; the admission journal remains authoritative for charged holds.
+
+## Query separator correction — iteration 704
+
+New comparison requests include a code-built `queryTemplate` with the space
+before `-filter:replies` preserved inside the operator suffix. Grok replaces
+only the keyword placeholder. This corrects the ambiguous concatenation in
+round 1; saved round-1 requests and results remain unchanged. The current
+baseline request is unchanged. No paid rerun was made. Actual tool-call
+compliance still needs checking on the next independent news day.

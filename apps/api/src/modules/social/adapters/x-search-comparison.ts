@@ -34,13 +34,17 @@ export function xSearchComparisonBody(
     style === 'reactions'
       ? settings.reactionMinFaves
       : settings.trendingMinFaves;
-  const suffix = [
-    '-filter:replies',
-    '-filter:retweets',
-    'lang:en',
-    ...settings.exclusions,
-    `min_faves:${threshold}`,
-  ].join(' ');
+  // The separator is part of the suffix: round 1 appended the first filter
+  // directly to the topic, changing the query's meaning.
+  const suffix =
+    ' ' +
+    [
+      '-filter:replies',
+      '-filter:retweets',
+      'lang:en',
+      ...settings.exclusions,
+      `min_faves:${threshold}`,
+    ].join(' ');
   return {
     ...body,
     max_turns: 2,
@@ -52,7 +56,8 @@ export function xSearchComparisonBody(
           (style === 'reactions'
             ? "'s ranked story titles, joined with OR. "
             : '. ') +
-          'Run x_keyword_search in Top mode with exactly the supplied suffix appended. ' +
+          'Run x_keyword_search in Top mode using queryTemplate: replace only <keywords> with the keyword phrases. ' +
+          'Preserve the space before -filter:replies and every supplied operator exactly. ' +
           'Request eight results. Do not search profiles or fetch threads, parent posts or quoted posts. ' +
           'Return a JSON array with url, published_at (ISO UTC), likes, reposts, replies and views, citing each post URL. ' +
           'Use only returned counts and times; omit unknown fields. Empty results are valid; never lower the threshold. ' +
@@ -61,6 +66,7 @@ export function xSearchComparisonBody(
             topic: request.topic,
             ...(style === 'reactions' ? { rankedStoryTitles } : {}),
             suffix,
+            queryTemplate: `<keywords>${suffix}`,
             publicationWindow: request.publicationWindow ?? {
               start: `${request.fromDate}T00:00:00.000Z`,
               end: `${request.toDate}T00:00:00.000Z`,

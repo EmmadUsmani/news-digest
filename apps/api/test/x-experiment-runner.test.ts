@@ -86,7 +86,7 @@ global.fetch = async (url, options) => {
   };
 }
 
-test('experiment runner settles all twelve synthetic calls separately from production', () => {
+void test('experiment runner settles all twelve synthetic calls separately from production', () => {
   const f = fixture('success');
   try {
     const result = f.run();
@@ -105,7 +105,7 @@ test('experiment runner settles all twelve synthetic calls separately from produ
   }
 });
 
-test('experiment runner stops immediately on a settled reservation overrun', () => {
+void test('experiment runner stops immediately on a settled reservation overrun', () => {
   const f = fixture('overrun');
   try {
     assert.equal(f.run().status, 1);
@@ -118,7 +118,7 @@ test('experiment runner stops immediately on a settled reservation overrun', () 
   }
 });
 
-test('continuing an interrupted round never retries its unknown paid call', () => {
+void test('continuing an interrupted round never retries its unknown paid call', () => {
   const f = fixture('unknown');
   try {
     assert.equal(f.run().status, 1);

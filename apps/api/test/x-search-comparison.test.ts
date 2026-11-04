@@ -36,7 +36,7 @@ void test('comparison fixes operators and thresholds independently of keyword da
     const data = JSON.parse(content.slice(content.indexOf('\n') + 1));
     assert.equal(
       data.suffix,
-      '-filter:replies -filter:retweets lang:en -odds -parlay -picks -bet min_faves:' +
+      ' -filter:replies -filter:retweets lang:en -odds -parlay -picks -bet min_faves:' +
         (style === 'reactions' ? 100 : 1000),
     );
     assert.deepEqual(
@@ -44,6 +44,13 @@ void test('comparison fixes operators and thresholds independently of keyword da
       style === 'reactions' ? titles : undefined,
     );
     assert.match(content, /x_keyword_search in Top mode/);
+    assert.equal(data.queryTemplate, `<keywords>${data.suffix}`);
+    // Reproduce round 1's single-word and multi-word keyword substitutions.
+    for (const keywords of ['NBA', 'Tech AI', '(trade OR playoffs)']) {
+      const query = data.queryTemplate.replace('<keywords>', keywords);
+      assert.ok(query.startsWith(`${keywords} -filter:replies `));
+      assert.equal(query.slice(keywords.length), data.suffix);
+    }
     if (style === 'reactions') assert.match(content, /joined with OR/);
     assert.deepEqual(data.publicationWindow, {
       start: '2026-11-03T00:00:00.000Z',
@@ -118,6 +125,6 @@ void test('comparison carries exact publication window and permits explicit zero
   assert.deepEqual(data.publicationWindow, publicationWindow);
   assert.equal(
     data.suffix,
-    '-filter:replies -filter:retweets lang:en min_faves:0',
+    ' -filter:replies -filter:retweets lang:en min_faves:0',
   );
 });
