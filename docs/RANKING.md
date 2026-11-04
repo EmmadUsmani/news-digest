@@ -1861,3 +1861,21 @@ orchestration, with no timer, production pool caller, scoring export or paid
 calls. The eventual caller must use the reserve-safe scorer and shared database
 admission, reload current enabled topics/settings, and keep activation off until
 the Nov 4 review. No live speed, cost or waste measurement is claimed.
+
+## Iteration 531: prepared successful item-write observation
+
+`triageWorkEvidence` decorates the item cache for one article-scoring invocation.
+Its `attempts()` snapshot uses the exact production cache fingerprint and
+original article ID after a successful item write, with topic, attempt ID and
+completion time. Returned scores are deliberately not the observation point: they
+include cache hits. Whole-request and social cache writes are excluded. Failed
+writes produce no successful evidence; earlier successful writes remain available
+when later work fails. Snapshots contain no article text or provider responses.
+
+The caller must create a recorder per invocation, retain its snapshot even after
+a scoring exception, and persist the rows privately before discarding it. Rows
+feed `report-triage-work.ts`; they do not represent failed/unscored attempts,
+provider spend, or proof that the final edition consumed a cache entry. Fake
+provider tests exercise real triage/cache behavior, warm hits, changed inputs,
+failed writes and the offline report join. There is no production caller, file
+export, activation or actual scored-work measurement yet.
