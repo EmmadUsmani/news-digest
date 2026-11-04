@@ -2723,3 +2723,5 @@ Synthetic tests cover both thresholds, absent scores, an empty fallback result,
 identity and input preservation. This fixes a degradation path; it does not
 claim that the Nov 4 edition used it or that future World coverage improves.
 No paid calls, model changes or additional selection requests.
+
+Iteration 658 corrects Bluesky instruction specialization: it replaces only platform provenance, retaining the shared engagement-evidence guidance. The previous broad replacement incorrectly said engagement was absent despite the timestamped API counts added in iteration 656. Saved counts remain advisory; missing counts, growth, usual reach, virality and unseen media retain their uncertainty rules. Fake-request regression verifies the actual Bluesky prompt and evidence. No paid calls; live selection effects remain unmeasured.

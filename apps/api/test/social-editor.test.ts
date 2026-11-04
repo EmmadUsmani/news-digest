@@ -138,12 +138,41 @@ void test('Bluesky editor uses isolated purpose and observation instructions', a
   const h = harness();
   await h.editor.edit(
     topic,
-    [{ ...candidates[0], platform: 'bluesky' }],
+    [
+      {
+        ...candidates[0],
+        platform: 'bluesky',
+        engagementEvidence:
+          'Bluesky API observation: likes 767, reposts 342, replies 329.',
+      },
+    ],
     1,
     'bluesky',
   );
   assert.equal(h.calls[0].purpose, 'bluesky-social-editor-v1');
   assert.match(h.calls[0].instructions, /official API observations/);
+  assert.match(
+    h.calls[0].instructions,
+    /Use supplied engagementEvidence as advisory/,
+  );
+  assert.match(
+    h.calls[0].instructions,
+    /Bluesky counts are timestamped API observations/,
+  );
+  assert.match(h.calls[0].instructions, /Missing counts are unknown, not zero/);
+  assert.match(
+    h.calls[0].instructions,
+    /does not establish measured growth, account-relative reach or virality/,
+  );
+  assert.match(
+    h.calls[0].instructions,
+    /Never infer virality or describe unseen video/,
+  );
+  assert.doesNotMatch(h.calls[0].instructions, /Engagement.*not supplied/);
+  assert.equal(
+    JSON.parse(h.calls[0].prompt).candidates[0].engagementEvidence,
+    'Bluesky API observation: likes 767, reposts 342, replies 329.',
+  );
   assert.doesNotMatch(
     h.calls[0].instructions,
     /X posts come from verified embeds/,

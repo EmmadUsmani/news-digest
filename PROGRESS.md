@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 642 — count cache preparation in offline batching overhead
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources and all four queues available. Nov 4 scheduled edition remains pending.
-- Offline batching now reports preparation and combined request/input/output-reservation totals alongside publication work, using the real item cache and synthetic scores.
-- At chunk 200, half-warm NBA/World/Tech publication needs 1/1/1 requests, but preparation plus publication needs 2/2/2 versus cold 2/1/2. World adds 1,241 input bytes; NBA/Tech mostly shift work earlier. Bytes/reservations are not billed usage; hourly fragmentation, expired unused items and live latency remain unmeasured.
-- Six targeted batching tests pass, including cold/partial/all-warm overhead accounting and exact combined-item preservation. Updated TASKS/RANKING; archived iteration 624 to keep PROGRESS bounded.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (387 unit/205 isolated integration), pnpm build and git diff --check passed.
-- Offline tools/tests/docs only; no running-service code/config changed, so no restart under STEERING 22. No paid calls, prompts, sources, schema or production activation changed.
-- Next: review Nov 4 15:00 UTC edition for open-X/Bluesky/World selections, NBA validation and timing/cost before activation decisions. Incremental triage and grouping stay off.
-
 ## 2026-11-04: iteration 643 — explain incremental replay backlog by pass
 
 - Started clean on main; no leftover work. Healthz healthy and zero alerts; Nov 4 edition pending.
@@ -165,3 +155,12 @@
 - Verification: targeted orchestration tests 6/6; pnpm format, pnpm lint:fix, pnpm check (399 unit/207 isolated integration), pnpm build and git diff --check passed. Initial full check caught archive formatting; corrected before rerun.
 - Restarted API/worker; both active, healthz/database/Redis healthy, saved four-topic/15-post edition readable, zero alerts and no failed user services.
 - Next: Nov 5 grouping/cost/latency/screenshots, NBA full-AI acceptance, World coverage and actual social selection quality; incremental triage stays off.
+
+## 2026-11-04: iteration 658 — preserve Bluesky engagement guidance in final editing
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and all four queues available.
+- Found Bluesky instruction specialization discarded shared engagement guidance and said counts were absent despite iteration 656 supplying timestamped API evidence. Narrowed the replacement to platform provenance; counts remain advisory alongside relevance and interestingness.
+- Preserved unknown-count, measured-growth, account-relative reach, virality and unseen-media limits. Regression checks the actual fake-provider instructions and serialized evidence; seven targeted editor tests pass.
+- No paid calls, discovery requests, configuration changes or new edition. Live selection effects await the scheduled run; NBA full-AI, World coverage and grouping acceptance remain open.
+- Updated TASKS/RANKING; archived iteration 642. Bug fix changes no source, schema, UI or system flow, so no handbook/SOURCES update.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (399 unit/207 isolated integration), pnpm build and git diff --check passed; no dangling Docker volumes or failed user services.

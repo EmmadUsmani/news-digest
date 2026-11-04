@@ -141,8 +141,8 @@ export class SocialPostEditor {
               : '') +
             (candidates.some((c) => c.platform === 'bluesky')
               ? instructions.replace(
-                  /X posts come from verified embeds;.*?Preserve uncertainty and attribution\./,
-                  'Bluesky posts are official API observations, not fact-checked claims. Select exceptional posts without padding. Engagement, velocity, usual reach and media contents are not supplied to this editor. Never infer virality or describe unseen video/image contents. Preserve uncertainty and attribution.',
+                  /X posts come from verified embeds;.*?do not pad\./,
+                  'Bluesky posts are official API observations, not fact-checked claims. Select exceptional posts without padding.',
                 )
               : instructions),
           prompt,

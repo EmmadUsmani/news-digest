@@ -34,6 +34,7 @@ Fix failures and stalled sources first. [Completed markers](docs/progress-archiv
   - Audit work closed for now under STEERING 5: existing recorded/synthetic coverage is summarized in docs/RANKING.md. Resume only for a real unsupported digest summary.
   - Deferred: scheduled Message Batches, cross-process cache coordination, full-article retrieval and larger editor shortlists.
 - [ ] M4 Social posts (current priority; STEERING 6):
+  - Bluesky editor evidence guidance corrected (658): retains timestamped counts as advisory and unknown growth/reach/media limits; live quality still awaits scheduled selection.
   - Nov 4 edition (646): X picks Tech/AI 4, NBA 5, Gaming 5, World 0; one Tech Bluesky pick; World eligibility traced (428): all five scheduled discoveries predate edition start; fixed date-only search bounds to include current UTC day with exact-time prompt. Nov 4 World adds four in-window discoveries but selects none. Scheduled X holds use $0.10 per topic under STEERING 15; manual holds retain the full day. Semantic selection is not a virality measurement.
   - [x] SocialPost storage, bounded discovery, immutable selections and official X embeds (iterations 87–143).
   - Reddit per-topic communities and faithful cards; no bot-protection workarounds. Bluesky optional; YouTube deferred.
