@@ -22,6 +22,29 @@ void test('Nov 3 recorded calls rule out a 60-second eight-slot lower bound', ()
   assert.equal(triage.totalMs, 517143);
   assert.equal(remainder.calls, 26);
   assert.equal(remainder.totalMs, 294225);
+  assert.deepEqual(remainder.purposes, [
+    {
+      purpose: 'shortlist-editor-v4',
+      calls: 10,
+      failedCalls: 0,
+      totalMs: 144055,
+      longestMs: 19935,
+    },
+    {
+      purpose: 'social-triage-v1',
+      calls: 6,
+      failedCalls: 0,
+      totalMs: 83770,
+      longestMs: 23679,
+    },
+    {
+      purpose: 'social-editor-v2',
+      calls: 10,
+      failedCalls: 0,
+      totalMs: 66400,
+      longestMs: 10122,
+    },
+  ]);
   assert.equal(remainder.totalMs + triage.totalMs, all.totalMs);
   assert.equal(
     remainder.concurrency.find((row) => row.slots === 4)!.lowerBoundMs,
@@ -108,4 +131,31 @@ void test('empty evidence stays zero and invalid or overflowing durations fail',
       })),
     ),
   );
+});
+
+void test('purpose totals partition elapsed work without dropping failures or unknown purposes', () => {
+  const [all] = evaluateCallConcurrency([
+    { purpose: 'social', durationMs: 10, outcome: 'success' },
+    { purpose: 'social', durationMs: 20, outcome: 'error' },
+    { purpose: 'unknown', durationMs: 30, outcome: 'error' },
+    { purpose: 'zero', durationMs: 0, outcome: 'success' },
+  ]);
+  assert.deepEqual(all.purposes, [
+    { purpose: 'social', calls: 2, failedCalls: 1, totalMs: 30, longestMs: 20 },
+    {
+      purpose: 'unknown',
+      calls: 1,
+      failedCalls: 1,
+      totalMs: 30,
+      longestMs: 30,
+    },
+    { purpose: 'zero', calls: 1, failedCalls: 0, totalMs: 0, longestMs: 0 },
+  ]);
+  for (const field of ['calls', 'failedCalls', 'totalMs'] as const) {
+    assert.equal(
+      all.purposes.reduce((sum, row) => sum + row[field], 0),
+      all[field],
+    );
+  }
+  assert.deepEqual(evaluateCallConcurrency([])[0].purposes, []);
 });

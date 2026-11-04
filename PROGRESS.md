@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 607 — typed latest-content query
-
-- Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC review remains pending.
-- Converted the content repository's latest-items joins, filters, grouping, source aggregation, ordering and per-topic five-item limit to Drizzle builders. Only nested JSON aggregation remains a documented SQL expression.
-- Preserved empty topics and PostgreSQL JSON timestamp representation; existing characterization assertions unchanged. No schema, source, activation, owner grant or paid call changes.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build and git diff --check passed.
-- Restarted API/worker outside freeze; live content JSON exactly matches the prior snapshot, saved edition unchanged and LLM/X spend totals unchanged. Read-only Playwright rendered four real saved-edition topics without page errors.
-- Healthz healthy, 36 sources without current errors, zero failed digest jobs and zero alerts. Updated TASKS and ORM decision; archived iteration 592 to keep PROGRESS bounded. No handbook system behavior changed.
-- Next: prioritize Nov 4 edition review; otherwise remaining ORM adapters and final SQL audit. Keep private backups before new migrations and preserve owner grants.
-
 ## 2026-11-04: iteration 608 — typed social verification candidates
 
 - Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC edition review remains pending.
@@ -174,3 +164,13 @@
 - Verification: pnpm exec tsx --test apps/api/test/call-concurrency.test.ts (4/4); offline CLI; pnpm format, pnpm lint:fix, pnpm check (368 unit/205 isolated integration), pnpm build and git diff --check passed. Healthz healthy; zero dangling Docker volumes.
 - Offline analysis only; no running-service code/config changed, so no restart under STEERING 22. Grouping and incremental triage remain off.
 - Next: review Nov 4 15:00 UTC edition as soon as available; inspect open-X/Bluesky picks, World coverage, NBA validation and live timing before activation decisions.
+
+## 2026-11-04: iteration 625 — attribute the recorded provider remainder
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts, source/service checks green and retained collection jobs completing. Nov 4 15:00 UTC edition evidence remains pending.
+- Added exact-purpose call/failure/aggregate/longest-duration breakdowns to the offline concurrency report, retaining unknown purposes and failed HTTP work with deterministic ordering.
+- Nov 3 ideal article-cache remainder: story editing 144,055 ms (49.0%), social triage 83,770 ms (28.5%), social editing 66,400 ms (22.6%). Editorial work is 71.5%; HTTP success does not establish output validation or explain NBA fallback/retries.
+- Pinned recorded totals and synthetic partition/failure/zero-duration coverage; updated TASKS and RANKING. Archived iteration 607 to keep PROGRESS bounded.
+- Verification: targeted concurrency tests 5/5; offline CLI; pnpm format, pnpm lint:fix, pnpm check (369 unit/205 isolated integration), pnpm build and git diff --check passed. First check stopped on new archive formatting; corrected and reran successfully.
+- Healthz healthy and zero alerts after checks. Offline tool only: no running-service code/config changed, so no restart under STEERING 22; no paid calls, prompts, sources or production activations.
+- Next: prioritize Nov 4 scheduled edition review (World posts, open-X/Bluesky, NBA validation and live timing). Grouping and incremental triage remain off pending that review.

@@ -2242,6 +2242,30 @@ It moves 517,143 ms of aggregate HTTP work earlier; it does not eliminate its
 cost, prove cache reuse or measure unused-score waste. No production flag,
 concurrency, prompt or provider call changed.
 
+## Iteration 625: where the remaining HTTP time goes
+
+The offline concurrency report now includes exact-purpose totals (calls,
+failures, aggregate HTTP milliseconds and longest call), ordered by aggregate
+time. Unknown purposes and failures remain visible; these totals partition
+recorded work rather than infer missing calls or explain retries.
+
+For the Nov 3 ideal article-cache remainder:
+
+| Purpose                                         | Calls | Aggregate HTTP time | Share of remainder |
+| ----------------------------------------------- | ----: | ------------------: | -----------------: |
+| Story shortlist editing (`shortlist-editor-v4`) |    10 |          144,055 ms |              49.0% |
+| Social triage (`social-triage-v1`)              |     6 |           83,770 ms |              28.5% |
+| Social editing (`social-editor-v2`)             |    10 |           66,400 ms |              22.6% |
+
+All 26 recorded remainder calls report success at the HTTP layer. That does
+not establish successful output validation or explain NBA fallback. Story and
+social editing together account for 210,455 ms (71.5%) of the remainder:
+optimizing article triage alone leaves most of this work untouched. These are
+aggregate durations, not sequential edition phases or avoidable overhead;
+the report has no topic, attempt or dependency identity. Use the Nov 4 logs
+and edition evidence before attributing the ten calls per editor to retries
+or changing any production behavior. No paid calls or production changes.
+
 ## Iteration 553: offline triage input composition
 
 The batching replay also partitions actual serialized input bytes into instructions,

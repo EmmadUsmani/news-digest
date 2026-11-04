@@ -34,6 +34,21 @@ export function evaluateCallConcurrency(input: unknown) {
       failedCalls: selected.filter((call) => call.outcome === 'error').length,
       totalMs,
       longestMs,
+      purposes: [...new Set(selected.map((call) => call.purpose))]
+        .map((purpose) => {
+          const matching = selected.filter((call) => call.purpose === purpose);
+          return {
+            purpose,
+            calls: matching.length,
+            failedCalls: matching.filter((call) => call.outcome === 'error')
+              .length,
+            totalMs: matching.reduce((sum, call) => sum + call.durationMs, 0),
+            longestMs: Math.max(...matching.map((call) => call.durationMs)),
+          };
+        })
+        .sort(
+          (a, b) => b.totalMs - a.totalMs || a.purpose.localeCompare(b.purpose),
+        ),
       concurrency: [1, 2, 4, 8, 16].map((slots) => {
         const workers = Array<number>(slots).fill(0);
         // Longest-first is an optimistic alternative order, not production
