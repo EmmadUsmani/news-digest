@@ -82,11 +82,14 @@ shared ledger lock, proving rollback released it. Restoring the schedule permits
 a successful usage read on the same pooled session. The fixture restores both
 the saved schedule and today's lifecycle rows.
 
-The remaining concrete prerequisite is social selection's correlated engagement
-query: add explicit as-of observation and tied-call ordering assertions. Existing
-social selection tests do not assert `xSearchRanking` or `reportedEngagement`.
-Keep 2a open until reconciled; do not chase coverage percentages or unrelated
-characterization. The unexecuted `configuredLlmCaps` export is not a database gap.
+Iteration 570 closes the remaining concrete social selection gap against isolated
+PostgreSQL: latest observation at or before the edition cutoff (including an
+equivalent non-UTC timestamp), ascending call UUID for equal instants regardless
+of insertion order, older-observation fallback, future and other-topic exclusion,
+and null reports. Assertions inspect the public selection's `xSearchRanking`;
+reported counts never become verified metrics. The identified 2a prerequisite
+reconciliation is complete; keep this suite green through each ORM conversion.
+The unexecuted `configuredLlmCaps` export is not a database gap.
 
 ## Baseline: iteration 223, November 2, 2026
 

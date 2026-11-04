@@ -1779,3 +1779,11 @@ collection through the normal queue, storing 50 Tech/AI, 48 NBA, 49 Gaming and
 46 World observations. A separate read-only probe returned 193 posts. These
 are live collection results, not evidence of live token-expiry recovery or
 edition selection. No paid calls or edition generation were triggered.
+
+## Iteration 570 — rejected Bluesky refresh recovery (2026-11-04)
+
+The 04:54 UTC hourly collection failed after search HTTP 400 followed by refresh
+HTTP 400. A failed refresh now clears the cached session, allowing the next
+collection to sign in again rather than reusing rejected tokens indefinitely.
+The failed attempt still fails without an immediate login retry. Fake-response
+coverage proves next-call recovery; sustained live recovery remains unverified.

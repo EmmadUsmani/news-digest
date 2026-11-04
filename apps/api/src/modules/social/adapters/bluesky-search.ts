@@ -182,8 +182,12 @@ export class BlueskySearch implements BlueskySearchPort {
               password: this.credentials.password,
             },
           );
-    if (response.status !== 200)
+    if (response.status !== 200) {
+      // A rejected refresh must not poison every later hourly collection.
+      // Let this attempt fail; the next collection authenticates from scratch.
+      if (refresh) this.session = undefined;
       throw new Error(`Bluesky authentication HTTP ${response.status}`);
+    }
     const parsed = sessionSchema.safeParse(response.data);
     if (!parsed.success) throw new Error('Invalid Bluesky session');
     const endpoint = parsed.data.didDoc.service.find(

@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 550 — measure offline scoring-version waste
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 nonempty/error-free sources and four available queues; Nov 4 scheduled review remains ahead.
-- Offline replay now partitions pre-edition versions into reusable final inputs, removed-article versions and obsolete retained versions, with a combined wasted-version count. Real cache probes recognize input reversion; missing pool snapshots leave waste unknown.
-- Synthetic regression: four scores across two articles, one reusable version, two removed versions and one obsolete retained version; zero edition work. Earlier invalidation case reports two wasted versions. No paid calls, activation or live spend/latency claim.
-- Updated TASKS/RANKING and archived iteration 530. No source/schema/UI/handbook flow change; no restart under STEERING 22 because only offline tooling/tests/docs changed.
-- Verification: targeted replay tests 11/11; pnpm format, pnpm lint:fix, pnpm check (357 unit/187 isolated integration), pnpm build, recorded replay and git diff --check passed. Recorded hourly remainders remain NBA 0/World 5/Tech 2; zero alerts/dangling Docker volumes.
-- Next: Nov 4 scheduled review first; gated worker connection and actual scoring/final-window waste evidence thereafter.
-
 ## 2026-11-04: iteration 551 — compare offline triage batch overhead
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 nonempty/error-free sources and four available queues. Nov 4 scheduled review remains pending at 15:00 UTC.
@@ -177,3 +168,14 @@
 - Archived iteration 549 to keep PROGRESS small. No source/schema/UI/handbook flow change; no service restart under STEERING 22 because running code/config is unchanged.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/200 isolated integration), pnpm build and git diff --check passed. API/worker active, healthz healthy, zero alerts and dangling Docker volumes.
 - Next: Nov 4 scheduled edition review first; otherwise close social engagement snapshot ordering before 2b.
+
+## 2026-11-04: iteration 570 — recover rejected Bluesky sessions; close ORM prerequisite
+
+- Started clean on main; no leftover work. Zero alerts and healthy healthz; 36 sources healthy and no failed digest jobs. Nov 4 15:00 UTC evidence pending.
+- Triage found a newer 04:54 Bluesky failure: search HTTP 400 followed by refresh HTTP 400. Clear cached session on rejected refresh so the next collection signs in again; no immediate login retry. Fake next-call recovery passes.
+- Free read-only official probe authenticated and returned Tech/AI 48, NBA 48, Gaming 49 and World 50 real posts; no writes or paid calls. Sustained hourly recovery remains to verify.
+- Added isolated PostgreSQL assertions for engagement cutoff (inclusive/non-UTC), ascending call UUID ties, older fallback, topic isolation and null/future reports; reported counts remain separate from verified metrics.
+- Identified 2a prerequisite reconciliation is complete; next iteration can begin one ORM conversion with the suite green. Updated TASKS/database verification/SOURCES; archived iteration 550.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/201 isolated integration), pnpm build and git diff --check passed. Early checks caught formatting while edits were still in flight; final check rerun after formatting.
+- Rebuilt/restarted API and worker for adapter fix; final healthz/alerts green. No schema, UI or handbook flow changes.
+- Next: verify hourly Bluesky recovery, then Nov 4 scheduled review when due; otherwise STEERING 29 first ORM conversion.

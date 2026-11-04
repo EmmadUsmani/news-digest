@@ -334,3 +334,24 @@ void test('Bluesky bounds HTTP 400 recovery to one explicit expiry and ignores a
   );
   assert.equal(calls.length, 4);
 });
+
+void test('Bluesky discards a rejected refresh so the next collection can sign in again', async () => {
+  const { client, calls } = fixture([
+    { data: session },
+    { status: 400, data: { error: 'ExpiredToken' } },
+    { status: 400, data: { error: 'InvalidToken' } },
+    { data: { ...session, accessJwt: 'new-session' } },
+    { data: { posts: [post] } },
+  ]);
+  await assert.rejects(
+    client.search('games', since, until),
+    /^Error: Bluesky authentication HTTP 400$/,
+  );
+  assert.equal(calls.length, 3); // No immediate sign-in retry storm.
+  assert.equal((await client.search('games', since, until)).length, 1);
+  assert.ok(calls[3].url.endsWith('/com.atproto.server.createSession'));
+  assert.equal(
+    (calls[4].init?.headers as Record<string, string>).Authorization,
+    'Bearer new-session',
+  );
+});

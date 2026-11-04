@@ -5,6 +5,7 @@ import { digestPreviewSchema } from '@digest/contracts';
 
 import { PostgresPreviewRepository } from '../src/modules/digests/database/preview.repository';
 import { PostgresSocialRepository } from '../src/modules/social/database/social.repository';
+import { selectTopicPosts } from '../src/modules/social/public/selection';
 
 void test('editions freeze scoped screened posts, honor budgets and preserve scheduled retries after post refresh', async () => {
   const repository = new PostgresPreviewRepository();
@@ -361,6 +362,103 @@ void test('new editions preserve distinct claims and clip links while removing c
       [ids],
     );
     await social.db.end();
+    await repository.onModuleDestroy();
+  }
+});
+
+void test('X selection uses latest topic engagement at cutoff and ascending call ID for tied observations', async () => {
+  const repository = new PostgresPreviewRepository();
+  const db = await repository.db.connect();
+  const topicId = '00000000-0000-4000-8000-000000000011';
+  const otherTopic = '00000000-0000-4000-8000-000000000012';
+  const externalId = '999700000000000001';
+  const start = new Date('2026-10-23T00:00:00Z');
+  const end = new Date('2026-10-24T00:00:00Z');
+  const callIds = Array.from(
+    { length: 6 },
+    (_, i) => `99970000-0000-4000-8000-${String(i + 1).padStart(12, '0')}`,
+  );
+  try {
+    await db.query('BEGIN');
+    await db.query(
+      `INSERT INTO social_posts(platform,external_id,canonical_url,author,author_url,published_at,metrics,embed_html)
+       VALUES('x',$1,$2,'Fixture','https://x.com/fixture',$3,'{}','<p>AI demo launch</p>')`,
+      [externalId, `https://x.com/fixture/status/${externalId}`, start],
+    );
+    // Insert the higher tied call first, so physical insertion order cannot win.
+    const observations = [
+      { index: 1, topic: topicId, at: end.toISOString(), likes: 222 },
+      { index: 0, topic: topicId, at: '2026-10-23T17:00:00-07:00', likes: 111 },
+      { index: 2, topic: topicId, at: '2026-10-23T23:59:59.999Z', likes: 333 },
+      {
+        index: 3,
+        topic: topicId,
+        at: '2026-10-24T00:00:00.001Z',
+        likes: 999999,
+      },
+      { index: 4, topic: otherTopic, at: end.toISOString(), likes: 888888 },
+      { index: 5, topic: topicId, at: null, likes: 0 },
+    ];
+    for (const observation of observations) {
+      const callId = callIds[observation.index];
+      await db.query(
+        `INSERT INTO x_discovery_calls(id,model,run_id,status,reserved_micros,cost_micros)
+         VALUES($1,'synthetic-fixture','engagement-order-test','succeeded',1,0)`,
+        [callId],
+      );
+      await db.query(
+        `INSERT INTO x_search_citations(call_id,topic_id,external_id,canonical_url,reported_engagement)
+         VALUES($1,$2,$3,$4,$5)`,
+        [
+          callId,
+          observation.topic,
+          externalId,
+          `https://x.com/fixture/status/${externalId}`,
+          observation.at === null
+            ? null
+            : {
+                externalId,
+                reported_by: 'xai_search',
+                observedAt: observation.at,
+                likes: observation.likes,
+              },
+        ],
+      );
+    }
+    const select = () =>
+      selectTopicPosts(
+        db,
+        topicId,
+        { includeAny: ['AI'], excludeAny: [] },
+        start,
+        end,
+        5,
+      );
+    const [selected] = await select();
+    assert.equal(selected.externalId, externalId);
+    assert.match(selected.xSearchRanking!.reason, /likes 111,/);
+    assert.match(selected.xSearchRanking!.reason, /2026-10-23T17:00:00-07:00/);
+    assert.ok(selected.xSearchRanking!.bonus > 0);
+    assert.deepEqual(selected.metrics, {}); // Reported counts never become verified metrics.
+    await db.query('DELETE FROM x_search_citations WHERE call_id=$1', [
+      callIds[0],
+    ]);
+    assert.match((await select())[0].xSearchRanking!.reason, /likes 222,/);
+    await db.query('DELETE FROM x_search_citations WHERE call_id=$1', [
+      callIds[1],
+    ]);
+    assert.match((await select())[0].xSearchRanking!.reason, /likes 333,/);
+    await db.query('DELETE FROM x_search_citations WHERE call_id=$1', [
+      callIds[2],
+    ]);
+    assert.deepEqual((await select())[0].xSearchRanking, {
+      bonus: 0,
+      reason:
+        'No usable X search engagement report; unknown counts are not zero.',
+    });
+  } finally {
+    await db.query('ROLLBACK');
+    db.release();
     await repository.onModuleDestroy();
   }
 });
