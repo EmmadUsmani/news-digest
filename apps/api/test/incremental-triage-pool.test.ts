@@ -16,8 +16,8 @@ void test('background pool preserves edition guidance, semantic recovery and exa
       values: unknown[],
     ) => {
       calls.push(
-        typeof _sql === 'string'
-          ? values
+        values.length === 3 && values[1] === true
+          ? [values[0]]
           : [
               values[0],
               new Date(String(values[1])),
@@ -26,20 +26,17 @@ void test('background pool preserves edition guidance, semantic recovery and exa
       );
       return {
         rows:
-          values.length === 1
+          values[1] === true
             ? enabled
               ? [
-                  {
-                    id: 'nba',
-                    name: 'NBA',
-                    description: 'Basketball',
-                    include_guidance: 'Include playoffs',
-                    exclude_guidance: 'Skip rumors',
-                    relevance_policy: {
-                      includeAny: ['NBA'],
-                      excludeAny: ['rumor'],
-                    },
-                  },
+                  [
+                    'nba',
+                    'NBA',
+                    'Basketball',
+                    'Include playoffs',
+                    'Skip rumors',
+                    { includeAny: ['NBA'], excludeAny: ['rumor'] },
+                  ],
                 ]
               : []
             : ['Team wins championship', 'NBA rumor spreads', 'NBA best bets']

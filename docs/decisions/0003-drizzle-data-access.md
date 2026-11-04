@@ -138,3 +138,8 @@ filters, correlated citation existence, a scalar engagement subquery and distinc
 story links. The JSON observation-time cast retains a documented SQL expression.
 The publisher client, half-open window, observation cutoff/tie ordering and
 500-candidate limit are preserved; selection and ranking rules are unchanged.
+
+Reaction-story and incremental-triage topic settings now use a shared database
+adapter with typed Drizzle projections and independent post/story budget filters.
+The public facades retain validation and ranking, and reuse the caller connection
+so transaction-local topic changes remain visible.

@@ -2,6 +2,7 @@ import { relevancePolicySchema } from '@digest/contracts';
 import type { PoolClient } from 'pg';
 
 import { loadArticleCandidates } from '../database/article-candidates';
+import { readReactionTopic } from '../database/article-topic.reader';
 import { rank } from '../domain/rank';
 import { assessRelevance } from '../domain/relevance';
 
@@ -20,12 +21,7 @@ export async function loadReactionStories(
     start >= end
   )
     throw new Error('Invalid reaction story topic or window');
-  const {
-    rows: [topic],
-  } = await db.query<{ relevance_policy: unknown }>(
-    `SELECT relevance_policy FROM topics WHERE id=$1 AND enabled AND post_budget > 0`,
-    [topicId],
-  );
+  const topic = await readReactionTopic(db, topicId);
   if (!topic) return [];
   const policy = relevancePolicySchema.parse(topic.relevance_policy);
   const candidates = await loadArticleCandidates(db, topicId, start, end);

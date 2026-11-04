@@ -30,8 +30,8 @@ function fixture(enabled = true) {
       values: unknown[],
     ) => {
       calls.push(
-        typeof _sql === 'string'
-          ? values
+        values.length === 3 && values[1] === true
+          ? [values[0]]
           : [
               values[0],
               new Date(String(values[1])),
@@ -42,14 +42,7 @@ function fixture(enabled = true) {
         rows:
           calls.length === 1
             ? enabled
-              ? [
-                  {
-                    relevance_policy: {
-                      includeAny: ['NBA'],
-                      excludeAny: ['rumor'],
-                    },
-                  },
-                ]
+              ? [[{ includeAny: ['NBA'], excludeAny: ['rumor'] }]]
               : []
             : [
                 article('best', 'NBA team wins championship', undefined, 1000),

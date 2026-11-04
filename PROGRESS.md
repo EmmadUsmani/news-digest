@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 575 — convert scheduled budget lifecycle to Drizzle
-
-- Started clean on main; no leftover work. Zero alerts, 36 error-free sources and no failed digest jobs; Nov 4 15:00 UTC review remains pending.
-- Converted scheduled-budget reads and compare-and-swap writes to Drizzle, preserving shared Anthropic advisory locking, rollback/client release, first identity, attempt fencing, publication recovery and Date/JSON mapping.
-- Existing 203 integration characterization tests unchanged. First check found the lifecycle logging unit stub assumed SQL strings; adapted it to query configurations/array rows, retaining assertions. Targeted test passed.
-- Updated TASKS/architecture/decision; archived iterations 555–556. No migration, source, UI or handbook flow changes; no paid calls.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, handbook stack check and git diff --check passed; zero dangling Docker volumes.
-- Rebuilt/restarted API and worker outside the edition freeze; both active, healthz healthy, root HTTP 200, latest real edition four topics, zero alerts. Owner profile and reserve responses byte-identical across restart; pending reserve remains $0.487477.
-- Next: prioritize scheduled Nov 4 review; otherwise historical migration baseline and remaining individual ORM adapters. Back up live DB before the first new migration.
-
 ## 2026-11-04: iteration 576 — convert Reddit repository to Drizzle
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 healthy sources and no failed digest jobs; Nov 4 scheduled review remains pending.
@@ -158,3 +148,13 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; selection reader statement coverage 100%, zero dangling Docker volumes.
 - Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Playwright root: four digest sections/19 article elements, zero page errors; zero alerts.
 - Next: prioritize Nov 4 15:00 UTC edition review; otherwise continue remaining ORM adapters or migration baseline. Private pg_dump before first new migration.
+
+## 2026-11-04: iteration 590 — convert article topic settings reads to Drizzle
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 healthy sources and zero failed digest jobs; Nov 4 15:00 UTC review remains pending.
+- Moved reaction-story and incremental-triage topic settings into a shared typed Drizzle database reader. Preserved independent post/story budgets, enabled filters, transaction reuse, guidance, validation and ranking.
+- Existing PostgreSQL characterization assertions unchanged; unit stubs now supply positional Drizzle rows/bound filters. Three targeted tests passed. Read-only old/new comparison matched both reads for all four live topics; temporary script removed after correcting its CommonJS async wrapper.
+- No migration, activation, source, paid call or owner grant change. Updated TASKS, architecture, decision and handbook stack; archived iteration 575 to keep PROGRESS bounded.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; reader statement coverage 100%, zero dangling Docker volumes.
+- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Playwright root rendered four digest sections/19 article elements with zero page errors; zero alerts.
+- Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters or historical migration baseline. Private pg_dump before first new migration.
