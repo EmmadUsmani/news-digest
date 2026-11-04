@@ -28,15 +28,16 @@ flowchart LR
 
 ## Style rules
 
-| Rule                       | Meaning                                                                                |
-| -------------------------- | -------------------------------------------------------------------------------------- |
-| **System, not code**       | Explain what parts exist, what they do and how they connect. No function-level detail. |
-| **Diagram first**          | Most pages open with a diagram. Prose explains what the diagram can't.                 |
-| **Short**                  | Aim for about one screen of text per page. Split pages rather than grow them.          |
-| **Tables over paragraphs** | Use a table for comparisons, inventories and "who does what".                          |
-| **Plain words**            | Write for a technical reader who doesn't read the code. Define a term once.            |
-| **Current state**          | Describe how things are now. Plans go in short `[!NOTE]` callouts linking to STEERING. |
-| **No duplication**         | Link to the schema explorer, `docs/decisions/` or other pages instead of copying.      |
+| Rule                       | Meaning                                                                                                        |
+| -------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| **System, not code**       | Explain what parts exist, what they do and how they connect. No function-level detail.                         |
+| **Diagram first**          | Most pages open with a diagram. Prose explains what the diagram can't.                                         |
+| **Short**                  | About one screen per page; at most 100 lines outside code blocks (checked). Split pages rather than grow them. |
+| **How, not evidence**      | No test evidence, measurement caveats or edge cases. Those go in PROGRESS or the docs/ references.             |
+| **Tables over paragraphs** | Use a table for comparisons, inventories and "who does what".                                                  |
+| **Plain words**            | Write for a technical reader who doesn't read the code. Define a term once.                                    |
+| **Current state**          | Describe how things are now. Plans go in short `[!NOTE]` callouts linking to STEERING.                         |
+| **No duplication**         | Link to the schema explorer, `docs/decisions/` or other pages instead of copying.                              |
 
 ## Diagram toolkit (Mermaid)
 
