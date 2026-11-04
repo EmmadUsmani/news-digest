@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 638 — drain failed concurrent triage before releasing admission
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts, 13 healthy services and 36 healthy sources; Nov 4 edition still pending.
-- Fixed thrown provider/cache batch failures returning before sibling calls and cache writes settle. Stop queued batches on exception; await every worker, preserving a single error or aggregating concurrent failures.
-- This keeps background admission and caller resources held through in-flight work; successful sibling results remain cached. Applies to article/social triage without changing prompts, budgets, concurrency or feature settings.
-- Regressions cover one/two thrown failures, delayed successful siblings, retained cache writes and no queued batch starts; targeted triage tests 18/18 passed.
-- Updated TASKS; archived iteration 620 to keep PROGRESS bounded. Internal fix needs no handbook/schema/source update; no paid calls or production activation.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (383 unit/205 isolated integration), pnpm build and git diff --check passed; targeted triage 18/18.
-- API/worker restarted at 14:08 UTC; healthz healthy, zero alerts/failed units/dangling volumes. Saved Nov 3 edition intact: four topics/19 stories/11 posts. No Postgres/Redis restart.
-- Next: review Nov 4 15:00 UTC edition for open-X/Bluesky selections, World social, NBA validation and timing/cost; incremental triage/grouping remain off until review.
-
 ## 2026-11-04: iteration 639 — stop triage after admission guard exceptions
 
 - Started clean on main; no leftover work. Healthz healthy, zero alerts, all four queues available and 36 sources; Nov 4 edition still pending.
@@ -163,3 +152,14 @@
 - Verification: targeted editor tests 13/13; pnpm format, pnpm lint:fix, pnpm check (397 unit/207 isolated integration), pnpm build and git diff --check passed.
 - Restarted API/worker; both active, healthz database/Redis healthy, saved four-topic edition readable, zero alerts/failed user services.
 - Next: Nov 5 grouping admission/cost/accuracy/latency/screenshots, NBA full-AI acceptance, scheduled discovery yield and World posts.
+
+## 2026-11-04: iteration 654 — discourage repeated moments within social selections
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and four available queues; Nov 4 saved edition readable.
+- Acted on Nov 4 Tech's five posts about the same story: shared social editor explicitly compares candidates, chooses one strongest post per repeated announcement/clip/scoop/moment, and returns fewer picks rather than repetitions.
+- Different authors, commentary and rewording alone do not establish distinct developments; distinct developments about a shared subject remain eligible. Applies within X/Reddit and Bluesky selections, alongside existing cross-platform context.
+- Semantic guidance only: no deterministic dedupe claim, paid calls, source requests, new edition or UI change. Actual repetition reduction remains unmeasured. Model order, call limits, validation and budget caps unchanged; changed instructions isolate prior cached selections.
+- Updated TASKS/RANKING; archived iteration 638. Bug fix leaves system flows/source inventory unchanged; no handbook/schema changes needed.
+- Verification: existing social-editor tests 6/6; pnpm format, pnpm lint:fix, pnpm check (397 unit/207 isolated integration), pnpm build and git diff --check passed. First full check stopped on archive formatting; corrected and reran successfully.
+- Restarted API/worker; both active, healthz database/Redis healthy, saved four-topic edition readable, zero alerts/failed user services; fresh source success observed at 15:58 UTC.
+- Next: Nov 5 grouping/cost/latency/screenshots, NBA full-AI acceptance, scheduled discovery quality/World coverage and actual within/cross-platform repetition.

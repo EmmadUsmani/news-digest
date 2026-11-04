@@ -2677,3 +2677,22 @@ model order, reservations and call limits are unchanged. Fake editor tests
 verify repaired responses, the field hints and rejection of untrusted labels.
 This addresses the generic feedback in the demonstrated Nov 4 NBA repair
 failure; actual full-AI acceptance awaits the next scheduled edition.
+
+## Within-selection social repetition (iteration 654)
+
+The Nov 4 Tech section selected five posts about the same story. The shared
+social editor now explicitly compares candidates before choosing: select the
+strongest single post for a repeated announcement, clip, scoop or moment,
+including repetitions within one platform. A new author, commentary or
+rewording alone does not add a distinct development; distinct developments
+about the same subject may still qualify. Return fewer posts rather than
+filling slots with repetitions. This supplements the existing cross-platform
+context supplied to Bluesky.
+
+This is semantic prompt guidance, not a deterministic duplicate detector or a
+claim that future editions will be diverse. Changed instructions naturally
+change request fingerprints; cached old selections are not reused. Selection
+validation, original post text, candidate limits, call counts, model order and
+budget caps are unchanged. Existing fake editor tests verify identity, cache
+reuse, fallback, bounded context and validation; no paid replay or live quality
+measurement was performed.
