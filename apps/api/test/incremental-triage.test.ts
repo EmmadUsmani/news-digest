@@ -14,6 +14,7 @@ void test('recorded incremental replay reuses item cache across growing batches'
     assert.equal(row.totalScoredItems, row.candidates);
     assert.equal(row.preEditionItems + row.editionItems, row.candidates);
     assert.equal(row.wasteItems, null);
+    assert.ok(row.passes.every((pass) => pass.wastedVersions === null));
     const cold = rows.find(
       (r) => r.topic === row.topic && r.intervalHours === 24,
     )!;
@@ -481,6 +482,19 @@ void test('version waste counts removed versions and recognizes reverted cached 
   assert.equal(row.removedPreEditionVersions, 2);
   assert.equal(row.obsoletePreEditionVersions, 1);
   assert.equal(row.wastedPreEditionVersions, 3);
+  assert.deepEqual(
+    row.passes.map((pass) => [pass.reusableVersions, pass.wastedVersions]),
+    [
+      [1, 1],
+      [0, 2],
+      [0, 0],
+      [null, null],
+    ],
+  );
+  assert.equal(
+    row.passes.reduce((sum, pass) => sum + (pass.wastedVersions ?? 0), 0),
+    row.wastedPreEditionVersions,
+  );
   const cold = await evaluateIncrementalTriage(window, 24);
   assert.equal(cold.wastedPreEditionVersions, 0);
   const { poolSnapshots: _snapshots, ...unobserved } = window;

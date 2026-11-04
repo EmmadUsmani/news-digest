@@ -144,6 +144,9 @@ export async function evaluateIncrementalTriage(
   const allScoredIds = new Set<string>();
   const preScoredVersions = new Map<string, number>();
   const cache = new Map<string, unknown>();
+  let writtenKeys: Set<string> | undefined;
+  let finalReadKeys: Set<string> | undefined;
+  const passKeys = new Map<number, Set<string>>();
   let requests = 0;
   let scoredItems = 0;
   let promptBytes = 0;
@@ -179,9 +182,11 @@ export async function evaluateIncrementalTriage(
     },
     {
       cached(key) {
+        finalReadKeys?.add(key);
         return Promise.resolve(cache.get(key));
       },
       cache(key, value) {
+        writtenKeys?.add(key);
         cache.set(key, value);
         return Promise.resolve();
       },
@@ -222,6 +227,8 @@ export async function evaluateIncrementalTriage(
     pendingItems: number;
     scoredItems: number;
     requests: number;
+    reusableVersions: number | null;
+    wastedVersions: number | null;
   }[] = [];
   let scheduledPasses = 0;
   let deferredPasses = 0;
@@ -245,6 +252,8 @@ export async function evaluateIncrementalTriage(
       pendingItems: pending.length,
       scoredItems: 0,
       requests: 0,
+      reusableVersions: snapshots ? 0 : null,
+      wastedVersions: snapshots ? 0 : null,
     };
     passes.push(pass);
     // Cutoff takes precedence: no background topic may run in this period.
@@ -279,12 +288,25 @@ export async function evaluateIncrementalTriage(
         (preScoredVersions.get(candidate.id) ?? 0) + 1,
       );
     const beforePass = { requests, scoredItems };
+    writtenKeys = new Set<string>();
     await scorePool(selected, 'offline-incremental');
+    passKeys.set(passes.length - 1, writtenKeys);
+    writtenKeys = undefined;
     pass.requests = requests - beforePass.requests;
     pass.scoredItems = scoredItems - beforePass.scoredItems;
   }
   const before = { requests, scoredItems };
+  finalReadKeys = new Set<string>();
   const finalPending = await pendingPool(finalPool);
+  if (snapshots)
+    for (const [index, keys] of passKeys) {
+      const reusable = [...keys].filter((key) =>
+        finalReadKeys!.has(key),
+      ).length;
+      passes[index].reusableVersions = reusable;
+      passes[index].wastedVersions = keys.size - reusable;
+    }
+  finalReadKeys = undefined;
   const reusablePreEditionVersions = finalPool.length - finalPending.length;
   const finalIds = new Set(finalPool.map((c) => c.id));
   const removedPreEditionVersions = [...preScoredVersions].reduce(
@@ -304,6 +326,8 @@ export async function evaluateIncrementalTriage(
     pendingItems: finalPending.length,
     requests: requests - before.requests,
     scoredItems: scoredItems - before.scoredItems,
+    reusableVersions: null,
+    wastedVersions: null,
   });
   return {
     topic: window.topic,

@@ -2561,3 +2561,18 @@ at its 06:15 tick, then defers pending counts of 7 and 18; publication scores 27
 measuring an observed production backlog. Fixture publication times remain
 optimistic arrival proxies, scores are synthetic, and no billed cost or live
 latency is established. Production settings remain unchanged.
+
+### Attribute preparation waste to passes (iteration 644)
+
+Each background replay pass now reports `reusableVersions` and
+`wastedVersions` against the final publication pool. Attribution uses the
+actual item-cache keys written by that pass and read by the final cache probe,
+so reverted scoring inputs credit the original pass, not the latest pass for
+that article. A synthetic two-article replay prepares both original and changed
+versions, then publishes only the original kept article: pass one has one
+reusable/one wasted version, pass two zero reusable/two wasted versions.
+The cached third pass produces neither; the three wasted versions reconcile
+with the existing aggregate. Skipped passes report zero when snapshots exist;
+without complete pool snapshots, these fields remain unknown (`null`). Edition
+passes use `null` because they are not preparation. These are synthetic cache
+work counts, not measured provider dollars, expiry waste or live latency.

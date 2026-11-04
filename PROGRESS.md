@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 626 — quantify provider capacity for timing targets
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources without current errors and no failed digest jobs; retained Bluesky failure is the historical 04:54 event.
-- Extended the offline concurrency report with necessary 60/120-second capacity bounds, individual-call excess and aggregate work reduction at four slots; tested empty evidence, exact capacity, long failed calls and recorded totals.
-- Nov 3 fixed durations require at least 14 slots by capacity for 60 s. Even ideal article caching requires at least 5, or at least 54,225 ms (18.4%) less aggregate work at four slots. These are necessary conditions only; dependencies/non-provider work remain, and 120 s figures do not establish 1,500-item performance.
-- Updated TASKS and RANKING; archived iteration 608 to keep PROGRESS bounded. No paid calls, prompts, recordings, production settings or activations changed.
-- Verification: targeted concurrency tests 6/6 and offline CLI; pnpm format, pnpm lint:fix, pnpm check (370 unit/205 isolated integration), pnpm build and git diff --check passed. Final healthz healthy, zero alerts and zero dangling Docker volumes.
-- Offline tool only; no running-service code/config changed, so no restart under STEERING 22. Grouping and incremental triage remain off.
-- Next: Nov 4 15:00 UTC scheduled review takes priority: World posts, open-X/Bluesky selections, NBA validation and live timing/cost.
-
 ## 2026-11-04: iteration 627 — isolate recorded provider inputs
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz and no failed systemd user services. Nov 4 15:00 UTC edition evidence remains pending.
@@ -182,3 +172,13 @@
 - Updated TASKS/RANKING; archived iteration 625 to keep PROGRESS bounded. No source/handbook/schema change.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (388 unit/205 isolated integration), pnpm build and git diff --check passed. Healthz healthy, zero alerts/dangling volumes; saved edition remains four topics/19 stories/11 posts.
 - Offline tools only; no restart under STEERING 22. Incremental triage/grouping remain off; next priority is Nov 4 scheduled edition review.
+
+## 2026-11-04: iteration 644 — attribute preparation waste to each replay pass
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts; Nov 4 scheduled edition pending.
+- Offline incremental replay now attributes reusable/wasted score versions to their originating background passes using actual item-cache writes and final probe keys. Reverted inputs credit the original pass; missing pool snapshots remain unknown.
+- Synthetic two-item replay reconciles three wasted versions: one from the first pass, two from the second, none from the cached third pass. These are work counts, not paid usage, expiry waste or live latency.
+- Targeted replay tests 13/13 pass; CLI verifies 48 rotation scenarios retain unknown waste without snapshots and reconcile scoring totals. Updated TASKS/RANKING; archived iteration 626 to keep PROGRESS bounded.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (388 unit/205 isolated integration), pnpm build and git diff --check passed. First check caught archive formatting; formatted it and reran successfully.
+- Healthz healthy and zero alerts; no paid calls, sources, prompts, schema or production configuration changed. Offline tools only; no restart under STEERING 22.
+- Next: Nov 4 15:00 UTC edition review for open-X/Bluesky/World selections, NBA fallback and timing/cost; incremental triage/grouping remain off.
