@@ -65,7 +65,12 @@ export class BlueskySearch implements BlueskySearchPort {
     return result;
   }
 
-  private async request(url: string, token?: string, body?: unknown) {
+  private async request(
+    url: string,
+    token?: string,
+    body?: unknown,
+    method: 'GET' | 'POST' = body ? 'POST' : 'GET',
+  ) {
     await this.wait(Math.max(0, this.next - this.now()));
     this.next = this.now() + 1000;
     const started = performance.now();
@@ -78,7 +83,7 @@ export class BlueskySearch implements BlueskySearchPort {
         : 'search';
     try {
       const response = await this.transport(url, {
-        method: body ? 'POST' : 'GET',
+        method,
         redirect: 'error',
         signal: AbortSignal.timeout(20000),
         headers: {
@@ -167,12 +172,14 @@ export class BlueskySearch implements BlueskySearchPort {
   }
 
   private async authenticate(refresh = false) {
+    // refreshSession is a bodyless POST; hosted PDS rejects even JSON {}.
     const response =
       refresh && this.session
         ? await this.request(
             `${this.session.pds}/xrpc/com.atproto.server.refreshSession`,
             this.session.refreshJwt,
-            {},
+            undefined,
+            'POST',
           )
         : await this.request(
             'https://bsky.social/xrpc/com.atproto.server.createSession',

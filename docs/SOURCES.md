@@ -1916,3 +1916,14 @@ across platforms while allowing distinct developments. Existing picks remain
 unchanged and only candidate IDs can be returned. Fake tests verify context
 propagation, bounds and cache isolation; no live calls or new source requests.
 Actual duplicate reduction awaits the next scheduled edition.
+
+## Bluesky session refresh correction — iteration 698 (2026-11-04)
+
+The 20:54 UTC hourly collection failed because the hosted PDS rejects a JSON
+body on `com.atproto.server.refreshSession`. The adapter now sends a bodyless
+POST with the refresh bearer token. Login, search limits, backoff and the
+one-refresh-per-search limit are unchanged. A free official API probe reproduced
+HTTP 400 with `{}` and HTTP 200 without a body. An adapter probe with simulated
+access expiry then completed a real refresh and fetched 49 real posts without
+storing them; it made no paid calls. Scheduled collection recovery is recorded
+in PROGRESS.md.

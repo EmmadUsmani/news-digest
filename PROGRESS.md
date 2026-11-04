@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 681 — offline topic context and byte pressure
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 nonempty sources without current errors, no failed retained digest jobs; next edition Nov 5 15:00 UTC.
-- Offline batching report separates serialized topic bytes from framing and reports maximum conservative wire input plus the real splitter's 2,048-byte allowance. No production changes or paid calls.
-- Synthetic 50-post Unicode pool: empty context yields five 10-item calls/281,035 input bytes; long clipped context yields six 8-item calls plus two items/368,053 bytes. Repeated topic bytes 310 vs 84,434; both remain under 60,000 conservative bytes per call. No live speed/cost claim or guidance change.
-- Regression covers real splitting, clipped context, UTF-8 accounting, complete scoring/cache reuse and empty pools. Updated TASKS and concurrency evidence; SOURCES/handbook unchanged because running-system/source behavior is unchanged.
-- Verification: targeted tsx batching tests 9/9 and standalone strict tsc passed. pnpm format, pnpm lint:fix, pnpm check (431 unit/209 isolated integration), pnpm build and git diff --check passed. Final healthz healthy and zero alerts.
-- No restart under STEERING 22: services do not import this offline evaluator. X experiment still requires supported per-call bound or owner decision; Nov 5 grouping/NBA/cost/latency/screenshots remain next.
-
 ## 2026-11-04: iteration 682 — saved X experiment report command
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 healthy nonempty sources and zero failed digest jobs; next edition Nov 5 15:00 UTC.
@@ -151,3 +142,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm build, standalone smoke-script strict tsc and Playwright passed. pnpm check passed (453 unit/209 isolated integration); handbook passed (17 pages/22 diagrams/26 tables), as did git diff --check. Corrected smoke-script formatting and standalone tsc path setup; retried a handbook render timeout successfully.
 - Updated TASKS; archived iteration 680 to bound PROGRESS. SOURCES/handbook unchanged: UI race fix only. Rebuilt and restarted API; worker unchanged.
 - Next: Nov 5 grouping/NBA AI/cost/latency/screenshots. No cap, model, provider or production pipeline changes.
+
+## 2026-11-04: iteration 698 — repair bodyless Bluesky session refresh
+
+- Started clean on main; no leftover work. Healthz/services and 36 article sources healthy, zero alerts; triage found the 20:54 hourly Bluesky job failed on refresh HTTP 400. No failed digest jobs; Nov 5 checks remain future.
+- Reproduced against the official PDS: refresh POST with JSON `{}` returns HTTP 400 InvalidRequest; bodyless POST returns 200. Fixed the adapter to select POST independently of its body; login/search limits and bounded recovery unchanged.
+- Strengthened fixture assertions for refresh method, absent body/content type and between-page recovery. `pnpm exec tsx --test apps/api/test/bluesky-search.test.ts`: 10/10 pass.
+- Free adapter probe with simulated access expiry completed a real official refresh and fetched 49 real posts, without storage or paid calls; not a natural-expiry observation. Credentials/tokens never printed.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (453 unit/209 isolated integration), `pnpm build`, handbook (17 pages/22 diagrams/26 tables) and `git diff --check` passed. No UI change.
+- Restarted worker and retried only the failed hourly Bluesky job once: completed at 21:16 UTC, fetched/submitted 49 real observations per topic (196 total). These are observations, not unique new posts. Healthz/database/Redis remain green, zero alerts.
+- Updated TASKS and SOURCES; handbook unchanged for this request-format bug fix. No caps/models/providers changed. Long-lived natural refresh remains to observe.
+- Next: Nov 5 grouping/NBA AI/cost/latency/screenshots; paid X experiment remains blocked on a supported cost bound.

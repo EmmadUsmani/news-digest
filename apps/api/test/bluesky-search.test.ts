@@ -118,6 +118,13 @@ void test('Bluesky refreshes expired access once and retries with new token', as
     { data: { posts: [post] } },
   ]);
   assert.equal((await client.search('games', since, until)).length, 1);
+  assert.ok(calls[2].url.endsWith('/com.atproto.server.refreshSession'));
+  assert.equal(calls[2].init?.method, 'POST');
+  assert.equal(calls[2].init?.body, undefined);
+  assert.equal(
+    (calls[2].init?.headers as Record<string, string>)['Content-Type'],
+    undefined,
+  );
   assert.equal(
     (calls[2].init?.headers as Record<string, string>).Authorization,
     'Bearer refresh',
@@ -299,6 +306,8 @@ void test('Bluesky refreshes HTTP 400 ExpiredToken between pages without losing 
   ]);
   assert.equal((await client.search('games', since, until)).length, 1);
   assert.equal(calls.length, 5);
+  assert.equal(calls[3].init?.method, 'POST');
+  assert.equal(calls[3].init?.body, undefined);
   assert.equal(new URL(calls[4].url).searchParams.get('cursor'), 'page-two');
   assert.equal(
     (calls[4].init?.headers as Record<string, string>).Authorization,
