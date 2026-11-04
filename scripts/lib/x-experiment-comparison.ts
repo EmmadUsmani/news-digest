@@ -19,6 +19,8 @@ export function xExperimentComparison(
     xExperimentReport(evidence).map((call) => [call.requestId, call]),
   );
   const used = new Set<string>();
+  const dailyCosts = new Map<string, number>();
+  const forbiddenRequestIds: string[] = [];
   const summaries = rounds.map((round) => {
     if (
       !round.model.trim() ||
@@ -44,6 +46,14 @@ export function xExperimentComparison(
       )
         throw new Error('Invalid comparison round evidence');
       used.add(saved.requestId);
+      const dispatched = new Date(time);
+      const day = dispatched.toISOString().slice(0, 10);
+      const dailyCost = (dailyCosts.get(day) ?? 0) + call.costMicros;
+      if (!Number.isSafeInteger(dailyCost))
+        throw new Error('Comparison cost overflow');
+      dailyCosts.set(day, dailyCost);
+      if (dispatched.getUTCHours() >= 13 && dispatched.getUTCHours() < 16)
+        forbiddenRequestIds.push(call.requestId);
       times.push(time);
       days.add(new Date(time).toISOString().slice(0, 10));
       windows.add(
@@ -111,11 +121,41 @@ export function xExperimentComparison(
       }),
     };
   });
+  const totalCostMicros = evidence.reduce(
+    (sum, call) => sum + call.costMicros,
+    0,
+  );
+  if (!Number.isSafeInteger(totalCostMicros))
+    throw new Error('Comparison cost overflow');
+  const unassignedRequestIds = evidence
+    .filter((call) => !used.has(call.requestId))
+    .map((call) => call.requestId);
+  const days = [...dailyCosts]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([utcDay, costMicros]) => ({
+      utcDay,
+      costMicros,
+      withinCap: costMicros <= 1_000_000,
+    }));
   return {
+    // Saved calls only: this cannot establish completeness of the spend ledger
+    // or account for outstanding reservations. Unassigned calls lack timing.
+    guardrails: {
+      totalCostMicros,
+      totalWithinCap: totalCostMicros <= 2_500_000,
+      days,
+      forbiddenRequestIds,
+      compliant:
+        totalCostMicros > 2_500_000 ||
+        days.some((day) => !day.withinCap) ||
+        forbiddenRequestIds.length
+          ? false
+          : !evidence.length || unassignedRequestIds.length
+            ? null
+            : true,
+    },
     rounds: summaries,
-    unassignedRequestIds: evidence
-      .filter((call) => !used.has(call.requestId))
-      .map((call) => call.requestId),
+    unassignedRequestIds,
     // Structural coverage only. Operator behavior, calibration and cheaper-model
     // acceptance still need review; this helper never chooses a winner.
     twoDayCoverage: summaries.some(

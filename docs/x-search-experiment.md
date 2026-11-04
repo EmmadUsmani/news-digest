@@ -75,6 +75,13 @@ threshold calibration or model acceptance, and never selects a winner.
 Per-style totals retain unknown review labels; comparable yield per dollar is
 withheld for incomplete rounds. Current tests use synthetic rounds only.
 
+`guardrails` reports saved-call total spend against $2.50, assigned UTC-day
+spend against $1, and dispatches during 13:00–16:00 UTC. All rounds share
+the daily totals. Unassigned calls count toward total spend but leave compliance
+unknown unless a violation is already known. This checks only supplied evidence;
+it does not replace the admission journal, outstanding holds or a complete ledger.
+Structural coverage remains separate from budget/time compliance.
+
 ## Provider bound investigation (Nov 4)
 
 The [official X Search documentation](https://docs.x.ai/developers/tools/x-search)

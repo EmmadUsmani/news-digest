@@ -174,3 +174,74 @@ void test('equivalent timezones and valid empty search results preserve round co
   assert.equal(report.rounds[0].styles[0].eligiblePosts, 3);
   assert.equal(report.rounds[0].styles[0].zeroPromotions, true);
 });
+
+void test('saved guardrails use UTC boundaries and include all rounds in daily spend', () => {
+  for (const [startedAt, compliant] of [
+    ['2026-11-04T12:59:59Z', true],
+    ['2026-11-04T06:00:00-07:00', false],
+    ['2026-11-04T15:59:59Z', false],
+    ['2026-11-04T16:00:00Z', true],
+  ] as const) {
+    const data = fixture();
+    data.round.calls.forEach((call) => {
+      call.startedAt = startedAt;
+    });
+    const report = xExperimentComparison(data.evidence, [data.round]);
+    assert.equal(report.guardrails.compliant, compliant);
+    assert.equal(
+      report.guardrails.forbiddenRequestIds.length,
+      compliant ? 0 : 12,
+    );
+  }
+  const first = fixture();
+  const second = fixture('05');
+  second.round.calls.forEach((call) => {
+    call.startedAt = '2026-11-04T20:00:00Z';
+  });
+  const report = xExperimentComparison(
+    [...first.evidence, ...second.evidence],
+    [first.round, second.round],
+  );
+  assert.equal(report.guardrails.totalCostMicros, 1_200_000);
+  assert.equal(report.guardrails.totalWithinCap, true);
+  assert.equal(report.guardrails.days[0].withinCap, false);
+  assert.equal(report.guardrails.compliant, false);
+});
+
+void test('unassigned evidence counts toward total cap but cannot establish daily compliance', () => {
+  const data = fixture();
+  data.round.calls.pop();
+  let report = xExperimentComparison(data.evidence, [data.round]);
+  assert.equal(report.guardrails.totalCostMicros, 600_000);
+  assert.equal(report.guardrails.compliant, null);
+  data.evidence[11].costMicros = 2_000_001;
+  report = xExperimentComparison(data.evidence, [data.round]);
+  assert.equal(report.guardrails.totalWithinCap, false);
+  assert.equal(report.guardrails.compliant, false);
+});
+
+void test('saved spend accepts exact caps, rejects overflow and leaves empty evidence unknown', () => {
+  assert.equal(xExperimentComparison([], []).guardrails.compliant, null);
+  const rounds = ['04', '05', '06'].map((day) => fixture(day));
+  rounds.forEach((data, index) => {
+    data.evidence.forEach((call) => {
+      call.costMicros = 0;
+    });
+    data.evidence[0].costMicros = index === 2 ? 500_000 : 1_000_000;
+  });
+  const evidence = rounds.flatMap((data) => data.evidence);
+  const manifest = rounds.map((data) => data.round);
+  assert.equal(
+    xExperimentComparison(evidence, manifest).guardrails.compliant,
+    true,
+  );
+  evidence[24].costMicros++;
+  assert.equal(
+    xExperimentComparison(evidence, manifest).guardrails.compliant,
+    false,
+  );
+  evidence.forEach((call) => {
+    call.costMicros = Number.MAX_SAFE_INTEGER;
+  });
+  assert.throws(() => xExperimentComparison(evidence, manifest), /overflow/);
+});

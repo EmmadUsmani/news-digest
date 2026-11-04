@@ -91,6 +91,13 @@ void test('offline CLI reads evidence without changing it and fails without expo
     const comparison = run(path, roundsPath);
     assert.equal(comparison.status, 0, comparison.stderr);
     assert.deepEqual(JSON.parse(comparison.stdout).comparison, {
+      guardrails: {
+        totalCostMicros: 50_000,
+        totalWithinCap: true,
+        days: [],
+        forbiddenRequestIds: [],
+        compliant: null,
+      },
       rounds: [],
       unassignedRequestIds: ['synthetic'],
       twoDayCoverage: false,
