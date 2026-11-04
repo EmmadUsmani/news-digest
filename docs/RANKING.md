@@ -1585,3 +1585,25 @@ production arrival lag, budget admission and reserve interactions are unmeasured
 This is an offline experiment only; no scheduler, setting or activation ships.
 A production implementation must stay off by default, respect the shared ledger
 and scheduled reserve, and measure discarded pretriaged items before activation.
+
+Iteration 516 extends the same offline runner with an optional JSON input path:
+`pnpm exec tsx apps/api/scripts/evaluate-incremental-triage.ts /path/to/window.json`.
+The existing window format accepts `availableAt` on every candidate (first
+observed availability, no earlier than publication), and `poolSnapshots`, an
+ordered array of `{ at, candidateIds }` complete eligible pools. The latest
+snapshot persists until replaced; no pool is inferred before the first snapshot.
+Arrivals exactly at a pass boundary wait until the next pass, including items
+arriving at edition time. Snapshot membership changes apply at their timestamp.
+Unknown IDs, duplicate IDs, unordered snapshots and partial arrival evidence
+are rejected. All IDs must refer to in-window candidates.
+
+The report distinguishes arrival evidence from publication proxies, counts
+articles unavailable at edition time, and reports waste as distinct articles
+scored before the edition but absent from its final available pool. It also
+checks cache reuse when an article disappears and returns. Without snapshots,
+waste remains unknown. A synthetic four-article regression demonstrates one
+wasted score, one edition-time arrival missed, one late article scored during
+the edition, and a returning article reused from cache. These are test outcomes,
+not measurements of production ingestion lag or waste. The three existing
+recorded windows still lack those observations; their results are unchanged.
+No collection, scheduling, production setting or activation is added.

@@ -124,3 +124,12 @@
 - Publication times are optimistic availability proxies; ingestion lag, discarded-pool waste, Gaming, production latency and reserve admission remain unmeasured. No quality or equal-cost claim. Next: off-by-default budget-safe implementation and recorded arrival/pool evidence.
 - Verification: targeted replay tests 2/2; pnpm format, pnpm lint:fix, pnpm check (295 unit/182 isolated integration), pnpm build and git diff --check passed. Initial fake-adapter lint and overly broad reservation assertion corrected before green full check.
 - Rebuilt and restarted API/worker; healthz recovered healthy, zero alerts, no dangling Docker volumes. No paid calls, editions, new sources, UI/schema changes or feature activation; screenshots unnecessary. Grouping stays off pending Nov 4 review.
+
+## 2026-11-04: iteration 516 — replay arrival lag and discarded triage pools offline
+
+- Started clean on main; no leftover work. Healthz/root healthy, zero alerts, all 36 sources error-free; newest success 00:21:35 UTC and 3,180 stored source items. Nov 4 scheduled evidence remains future work.
+- Extended offline incremental replay with optional complete arrival times and ordered pool snapshots, plus a JSON input path. Counts unavailable-at-edition articles, distinct wasted pretriage and repeated scoring; disappearing/returning articles reuse cache. Invalid/partial evidence is rejected.
+- Synthetic regression: one wasted score, one edition-boundary arrival unavailable, one late article scored at edition, zero repeat scores. These are synthetic results, not real lag/waste evidence. Existing three recorded windows remain unchanged (153 scored once; seven hourly edition items); their waste stays unknown.
+- Updated TASKS and RANKING. No paid calls, DB writes, sources, scheduler/settings, production behavior or activation. Grouping stays off. No handbook/schema/UI changes; screenshots unnecessary.
+- Verification: targeted replay tests 3/3; pnpm format, pnpm lint:fix, pnpm check, pnpm build, recorded replay CLI, healthz/root, source/queue status, pnpm obs alerts and git diff --check. Full suite passed: 296 unit and 182 isolated integration tests; no dangling Docker volumes.
+- Services left running under STEERING 22: only offline scripts/tests/docs changed, so deployed application code still matches main. Next: capture real arrival/pool evidence and prepare off-by-default reserve-safe pretriage; Nov 4 scheduled review takes priority when available.
