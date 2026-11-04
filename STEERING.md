@@ -820,3 +820,37 @@ read as gating everything on the Nov 4 run. That was not the intent.
   1. Observability (item 24).
   2. Offline item 7 speed work.
   3. Items 2a/2b and 4.
+
+## 29. Downtime queue: console, ORM; owner DB logins (2026-11-04)
+
+These rank **below all product work** (items 7, 16–18, 26–28 and the
+Nov 4 checks). When product work is blocked, the order is:
+1. **Prod console (small).** Add `pnpm console` for use on the VM.
+   - **What it does:** boots a Nest *application context* (no HTTP
+     listener, no BullMQ workers, schedulers or timers) with the env file
+     loaded, then opens a Node REPL. It exposes `app`, `get(Token)`,
+     the repositories and a `db.query` helper.
+   - **Prompt:** it shows that it is connected to production.
+   - **History:** goes to a file outside the repo.
+   - **Done when:** it's documented in the handbook Operations page, and a
+     test proves no worker or timer starts.
+2. **ORM refactor (item 2b)**, as specified there, one repository per
+   commit with the 2a suite green.
+   - Never deploy within 2 h of the scheduled edition.
+   - Back up with `pg_dump` before the first new migration.
+3. **Remaining observability pieces** (item 24).
+4. **Stop adding new characterization tests** beyond what 2b needs
+   (item 20).
+
+**Owner database logins** (done by Claude on 2026-11-04):
+- `owner_ro`: read-only, with a 60 s statement timeout.
+- `owner_rw`: can change rows, but can't change schema.
+- Their passwords are in the env file as `OWNER_DB_*`.
+- Default privileges cover new tables created by `postgres`.
+- **Keep them working through the ORM work.** If migrations create tables
+  as another role, grant these logins access too.
+- Never print the passwords.
+
+**Docs tightening** (the README and the handbook Observability page) is
+reserved for Claude. Don't rewrite or expand those two meanwhile, apart from
+factual fixes.
