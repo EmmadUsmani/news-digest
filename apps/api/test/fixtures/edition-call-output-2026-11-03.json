@@ -1,0 +1,346 @@
+[
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 26666,
+    "outcome": "success",
+    "usage": {
+      "output": 7265
+    }
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 28335,
+    "outcome": "success",
+    "usage": {
+      "output": 7343
+    }
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 29711,
+    "outcome": "success",
+    "usage": {
+      "output": 7987
+    }
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 33465,
+    "outcome": "success",
+    "usage": {
+      "output": 8961
+    }
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 25519,
+    "outcome": "success",
+    "usage": {
+      "output": 6656
+    }
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 30295,
+    "outcome": "success",
+    "usage": {
+      "output": 7208
+    }
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 32695,
+    "outcome": "success",
+    "usage": {
+      "output": 7798
+    }
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 30183,
+    "outcome": "success",
+    "usage": {
+      "output": 8390
+    }
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 27964,
+    "outcome": "success",
+    "usage": {
+      "output": 7237
+    }
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 29375,
+    "outcome": "success",
+    "usage": {
+      "output": 7157
+    }
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 30504,
+    "outcome": "success",
+    "usage": {
+      "output": 7872
+    }
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 33730,
+    "outcome": "success",
+    "usage": {
+      "output": 8725
+    }
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 25919,
+    "outcome": "success",
+    "usage": {
+      "output": 6582
+    }
+  },
+  {
+    "purpose": "shortlist-editor-v4",
+    "durationMs": 15654,
+    "outcome": "success",
+    "usage": {
+      "output": 2326
+    }
+  },
+  {
+    "purpose": "shortlist-editor-v4",
+    "durationMs": 14716,
+    "outcome": "success",
+    "usage": {
+      "output": 2227
+    }
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 35369,
+    "outcome": "success",
+    "usage": {
+      "output": 9029
+    }
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 38509,
+    "outcome": "success",
+    "usage": {
+      "output": 9211
+    }
+  },
+  {
+    "purpose": "shortlist-editor-v4",
+    "durationMs": 15602,
+    "outcome": "success",
+    "usage": {
+      "output": 2373
+    }
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 29587,
+    "outcome": "success",
+    "usage": {
+      "output": 8214
+    }
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "durationMs": 29317,
+    "outcome": "success",
+    "usage": {
+      "output": 7540
+    }
+  },
+  {
+    "purpose": "social-triage-v1",
+    "durationMs": 22486,
+    "outcome": "success",
+    "usage": {
+      "output": 6307
+    }
+  },
+  {
+    "purpose": "shortlist-editor-v4",
+    "durationMs": 10509,
+    "outcome": "success",
+    "usage": {
+      "output": 2498
+    }
+  },
+  {
+    "purpose": "social-triage-v1",
+    "durationMs": 20692,
+    "outcome": "success",
+    "usage": {
+      "output": 5525
+    }
+  },
+  {
+    "purpose": "shortlist-editor-v4",
+    "durationMs": 10815,
+    "outcome": "success",
+    "usage": {
+      "output": 2687
+    }
+  },
+  {
+    "purpose": "shortlist-editor-v4",
+    "durationMs": 15864,
+    "outcome": "success",
+    "usage": {
+      "output": 2201
+    }
+  },
+  {
+    "purpose": "social-editor-v2",
+    "durationMs": 7792,
+    "outcome": "success",
+    "usage": {
+      "output": 1019
+    }
+  },
+  {
+    "purpose": "shortlist-editor-v4",
+    "durationMs": 19935,
+    "outcome": "success",
+    "usage": {
+      "output": 2409
+    }
+  },
+  {
+    "purpose": "social-triage-v1",
+    "durationMs": 2114,
+    "outcome": "success",
+    "usage": {
+      "output": 241
+    }
+  },
+  {
+    "purpose": "social-triage-v1",
+    "durationMs": 6768,
+    "outcome": "success",
+    "usage": {
+      "output": 1520
+    }
+  },
+  {
+    "purpose": "social-editor-v2",
+    "durationMs": 10012,
+    "outcome": "success",
+    "usage": {
+      "output": 1282
+    }
+  },
+  {
+    "purpose": "social-editor-v2",
+    "durationMs": 5785,
+    "outcome": "success",
+    "usage": {
+      "output": 1207
+    }
+  },
+  {
+    "purpose": "social-triage-v1",
+    "durationMs": 23679,
+    "outcome": "success",
+    "usage": {
+      "output": 6202
+    }
+  },
+  {
+    "purpose": "shortlist-editor-v4",
+    "durationMs": 17447,
+    "outcome": "success",
+    "usage": {
+      "output": 2561
+    }
+  },
+  {
+    "purpose": "social-editor-v2",
+    "durationMs": 4681,
+    "outcome": "success",
+    "usage": {
+      "output": 574
+    }
+  },
+  {
+    "purpose": "social-editor-v2",
+    "durationMs": 10122,
+    "outcome": "success",
+    "usage": {
+      "output": 2341
+    }
+  },
+  {
+    "purpose": "social-editor-v2",
+    "durationMs": 4765,
+    "outcome": "success",
+    "usage": {
+      "output": 511
+    }
+  },
+  {
+    "purpose": "shortlist-editor-v4",
+    "durationMs": 12705,
+    "outcome": "success",
+    "usage": {
+      "output": 2927
+    }
+  },
+  {
+    "purpose": "social-editor-v2",
+    "durationMs": 6280,
+    "outcome": "success",
+    "usage": {
+      "output": 1239
+    }
+  },
+  {
+    "purpose": "social-editor-v2",
+    "durationMs": 7769,
+    "outcome": "success",
+    "usage": {
+      "output": 1750
+    }
+  },
+  {
+    "purpose": "shortlist-editor-v4",
+    "durationMs": 10808,
+    "outcome": "success",
+    "usage": {
+      "output": 2708
+    }
+  },
+  {
+    "purpose": "social-triage-v1",
+    "durationMs": 8031,
+    "outcome": "success",
+    "usage": {
+      "output": 1868
+    }
+  },
+  {
+    "purpose": "social-editor-v2",
+    "durationMs": 3790,
+    "outcome": "success",
+    "usage": {
+      "output": 379
+    }
+  },
+  {
+    "purpose": "social-editor-v2",
+    "durationMs": 5404,
+    "outcome": "success",
+    "usage": {
+      "output": 606
+    }
+  }
+]

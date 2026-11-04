@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 610 — typed X discovery report queries
-
-- Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC edition review remains pending.
-- Converted curated-handle/verified-post CTEs and the report's call projection, UTC bounds and ordering to Drizzle builders. The documented per-topic lateral JSON/selection aggregate remains a SQL expression.
-- Read-only old/new comparison caught stripped outer-column qualification; explicitly qualified correlated references, then matched complete Nov 2–4 reports (1/4/0 calls) within one repeatable-read snapshot. Existing characterization assertions unchanged.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/205 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
-- Restarted API/worker outside freeze; healthz healthy, saved edition byte-identical, Anthropic/X spend unchanged. Read-only Playwright rendered four real saved topics without page errors; 36 sources without current errors, zero failed digest jobs and zero alerts.
-- Updated TASKS and ORM decision; archived iteration 595 to keep PROGRESS bounded. No migration, source, activation, owner grant or paid call changes; no handbook system behavior changed.
-- Next: prioritize Nov 4 edition review; otherwise finish remaining report SQL builders and final raw-SQL audit. Keep private backups before new migrations and preserve owner grants.
-
 ## 2026-11-04: iteration 611 — typed per-topic X discovery evidence
 
 - Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 15:00 UTC edition review remains pending.
@@ -174,3 +164,13 @@
 - Verification: targeted recorded-LLM tests 7/7; pnpm format, pnpm lint:fix and pnpm check passed (371 unit/205 isolated integration). Build and final health checked before commit; zero dangling Docker volumes.
 - Offline adapter only, unused by production services: no restart under STEERING 22. Grouping and incremental triage remain off.
 - Next: review Nov 4 scheduled edition for World posts, open-X/Bluesky selections, NBA validation and live timing/cost.
+
+## 2026-11-04: iteration 628 — baseline provider output usage
+
+- Started clean on main; no leftover work. Healthy healthz, zero alerts and 36 sources without current errors. Social collection completed at 12:54 UTC; retained 04:54 failure is historical.
+- Added an offline per-purpose output report with paired usage/limit utilization, explicit unknowns, failed-work retention, completion-reason coverage and safe-integer checks.
+- Exported only allowlisted metadata from the 43 Nov 3 scheduled calls, without inference or response bodies: article triage 133,175 output tokens; remaining calls 57,488 (editors 35,825). No output limits/stop reasons were recorded, so reservation utilization and truncation remain unknown.
+- Updated TASKS and RANKING; archived iteration 610 to keep PROGRESS bounded. No prompts, production configuration, source behavior or paid calls changed; no handbook behavior changed.
+- Verification: targeted output tests 4/4 and offline CLI; pnpm format, pnpm lint:fix, pnpm check (375 unit/205 isolated integration), pnpm build and git diff --check passed. Final healthz healthy, zero alerts and zero dangling Docker volumes.
+- Offline tool only: no running-service code/config changed, so no restart under STEERING 22. Grouping and incremental triage remain off.
+- Next: Nov 4 15:00 UTC edition review takes priority: World posts, open-X/Bluesky selections, NBA validation and live timing/cost; compare the new completion metadata with this baseline.

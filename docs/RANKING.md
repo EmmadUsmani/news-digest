@@ -2300,3 +2300,29 @@ bound, not 54 seconds of wall-clock savings. Dependencies and non-provider work
 can require further reductions. The 120-second remainder bound is 3 slots; that
 does not prove the target at 1,500 candidates, which this recording did not cover.
 No production concurrency, cache activation, prompts or provider calls changed.
+
+## Iteration 628: recorded output-token baseline
+
+Run `pnpm exec tsx apps/api/scripts/evaluate-call-output.ts
+apps/api/test/fixtures/edition-call-output-2026-11-03.json` (one line).
+The fixture contains only purpose, HTTP outcome/duration and output-token usage
+from the same 43 Nov 3 worker calls and run ID documented above. This is a
+metadata export, not re-recorded inference or raw model responses.
+
+| Purpose        | Calls | Output tokens |
+| -------------- | ----: | ------------: |
+| Article triage |    17 |       133,175 |
+| Story editing  |    10 |        24,917 |
+| Social triage  |     6 |        21,663 |
+| Social editing |    10 |        10,908 |
+
+Ideal article caching leaves 57,488 output tokens at publication in this
+recording, including 35,825 from editors. These totals are emitted work, not
+avoidable tokens or a prediction of latency savings. Nov 3 did not record
+output limits or completion reasons: reservation utilization and truncation
+cannot be established, and HTTP success does not explain NBA validation.
+The report keeps unknown usage distinct from observed zero, includes failed
+work, and computes utilization only for calls with both usage and limits.
+It can consume the newer allowlisted metadata when the Nov 4 run is available;
+a reported `max_tokens` stop is counted without inferring stops from token totals.
+No prompts, production limits, concurrency or activation changed; no paid calls.
