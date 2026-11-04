@@ -75,6 +75,11 @@ flowchart LR
   the app is wrong. Bluesky is free; its AI triage and editing use the
   normal AI budget.
 
+> [!NOTE]
+> Per-topic reaction/trending like thresholds and exclusion operators are stored
+> in `x_search_topic_settings` for the [approved comparison](../../x-search-plan.md).
+> Current production searches keep their existing behavior.
+
 ## Other platforms
 
 | Platform | Status                                                                                                                                   |

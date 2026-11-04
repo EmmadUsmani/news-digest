@@ -10,7 +10,8 @@
         "profiles",
         "digest_schedules",
         "topics",
-        "topic_source_connections"
+        "topic_source_connections",
+        "x_search_topic_settings"
       ]
     },
     {
@@ -111,7 +112,8 @@
     "reddit_topic_posts": "Reddit posts per topic (parked; empty).",
     "reddit_x_citations": "Reddit posts that link to X posts (parked; empty).",
     "schema_migrations": "Which SQL files in migrations/ have been applied.",
-    "bluesky_observations": "Immutable per-topic Bluesky snapshots with observation time, engagement, text and media."
+    "bluesky_observations": "Immutable per-topic Bluesky snapshots with observation time, engagement, text and media.",
+    "x_search_topic_settings": "Per-topic X search reaction/trending like thresholds and exclusion operators."
   },
   "relations": [
     {

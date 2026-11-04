@@ -829,3 +829,61 @@ void test('concurrent verified post refreshes retain identity and publish one co
     await Promise.all([first.db.end(), second.db.end()]);
   }
 });
+
+void test('X search settings seed approved topics, reject negative thresholds and cascade on deletion', async () => {
+  const repository = new PostgresSocialRepository();
+  const id = crypto.randomUUID();
+  try {
+    for (const [suffix, reaction, trending, exclusions] of [
+      ['011', 50, 500, []],
+      ['012', 100, 1000, ['-odds', '-parlay', '-picks', '-bet']],
+      ['013', 50, 500, []],
+      ['014', 200, 2000, []],
+    ] as const) {
+      assert.deepEqual(
+        await repository.searchSettings(
+          `00000000-0000-4000-8000-${suffix.padStart(12, '0')}`,
+        ),
+        {
+          topicId: `00000000-0000-4000-8000-${suffix.padStart(12, '0')}`,
+          reactionMinFaves: reaction,
+          trendingMinFaves: trending,
+          exclusions,
+        },
+      );
+    }
+    assert.equal(await repository.searchSettings(id), null);
+    await repository.db.query(
+      `INSERT INTO topics (id,profile_id,name,description,include_guidance,exclude_guidance,position)
+      VALUES ($1,'00000000-0000-4000-8000-000000000001','Settings fixture','','','',999)`,
+      [id],
+    );
+    for (const values of [
+      [-1, 500],
+      [50, -1],
+    ]) {
+      await assert.rejects(
+        repository.db.query(
+          'INSERT INTO x_search_topic_settings (topic_id,reaction_min_faves,trending_min_faves,exclusions) VALUES ($1,$2,$3,ARRAY[]::text[])',
+          [id, ...values],
+        ),
+        { code: '23514' },
+      );
+    }
+    await repository.db.query(
+      'INSERT INTO x_search_topic_settings (topic_id,reaction_min_faves,trending_min_faves,exclusions) VALUES ($1,0,0,ARRAY[]::text[])',
+      [id],
+    );
+    assert.deepEqual(await repository.searchSettings(id), {
+      topicId: id,
+      reactionMinFaves: 0,
+      trendingMinFaves: 0,
+      exclusions: [],
+    });
+    await repository.db.query('DELETE FROM topics WHERE id=$1', [id]);
+    assert.equal(await repository.searchSettings(id), null);
+  } finally {
+    await repository.db.query('DELETE FROM topics WHERE id=$1', [id]);
+    await repository.db.end();
+  }
+});

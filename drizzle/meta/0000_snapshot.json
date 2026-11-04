@@ -2085,6 +2085,62 @@
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
+    },
+    "public.x_search_topic_settings": {
+      "name": "x_search_topic_settings",
+      "schema": "",
+      "columns": {
+        "topic_id": {
+          "name": "topic_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "reaction_min_faves": {
+          "name": "reaction_min_faves",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "trending_min_faves": {
+          "name": "trending_min_faves",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "exclusions": {
+          "name": "exclusions",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "x_search_topic_settings_topic_id_fkey": {
+          "name": "x_search_topic_settings_topic_id_fkey",
+          "tableFrom": "x_search_topic_settings",
+          "tableTo": "topics",
+          "columnsFrom": ["topic_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "x_search_topic_settings_reaction_min_faves_check": {
+          "name": "x_search_topic_settings_reaction_min_faves_check",
+          "value": "reaction_min_faves >= 0"
+        },
+        "x_search_topic_settings_trending_min_faves_check": {
+          "name": "x_search_topic_settings_trending_min_faves_check",
+          "value": "trending_min_faves >= 0"
+        }
+      },
+      "isRLSEnabled": false
     }
   },
   "enums": {},

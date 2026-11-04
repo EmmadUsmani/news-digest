@@ -7,7 +7,7 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 - [ ] STEERING 30: top product priority after breakages/Nov 5 checks: follow [X search plan](docs/x-search-plan.md) exactly. Story reactions primary; X-side Top/operators/thresholds; persist actual queries. Experiment cap $2.50 total/$1 per UTC day, outside 13:00–16:00 UTC; production caps unchanged. Replaces optional/followup machinery when shipped.
 
-  - Instrumentation (674): actual provider custom-tool function/input pairs now settle atomically beside cost, including calls with unusable citations; historical traces unknown. Per-topic threshold settings and capped comparison remain next; production search/schedule unchanged.
+  - Instrumentation (674): actual provider custom-tool function/input pairs now settle atomically beside cost, including calls with unusable citations; historical traces unknown. Per-topic threshold settings completed (675): approved A/B minima and NBA exclusions stored with topic deletion cleanup; missing custom-topic settings remain explicit. Capped comparison remains next; production search/schedule unchanged.
 
 - [ ] STEERING 27: verify Nov 5 scheduled grouping admission, accuracy, cost, latency and desktop/mobile screenshots. Nov 4 review: 151.532 s/$0.291162, NBA fallback, World no posts, paid open-X picks 0/19 ([review](docs/edition-reviews/2026-11-04.md)).
   - Same-story pass enabled for Nov 5 (650), following passed sampled gate: labelled precision 141/141, recall 141/157; zero clearly unrelated and one borderline among 155 reviewed merges. Four-call reservation bound $0.058192; reserve protects full daily cap. No wording grouping rules. Actual grouped edition remains unverified.

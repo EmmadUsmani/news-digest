@@ -1,4 +1,4 @@
-// Full public schema from migrations 001–055, including the migration ledger.
+// Full public schema from migrations 001–057, including the migration ledger.
 // SQL migrations remain authoritative; the isolated parity test never applies a plan.
 import { sql } from 'drizzle-orm';
 import {
@@ -810,6 +810,31 @@ export const socialPosts = pgTable(
     check(
       'social_posts_check2',
       sql`(platform <> 'bluesky'::text) OR ((bluesky_metadata IS NOT NULL) AND (jsonb_typeof(bluesky_metadata) = 'object'::text))`,
+    ),
+  ],
+);
+
+export const xSearchTopicSettings = pgTable(
+  'x_search_topic_settings',
+  {
+    topicId: uuid('topic_id').primaryKey().notNull(),
+    reactionMinFaves: integer('reaction_min_faves').notNull(),
+    trendingMinFaves: integer('trending_min_faves').notNull(),
+    exclusions: text().array().notNull(),
+  },
+  (table) => [
+    foreignKey({
+      columns: [table.topicId],
+      foreignColumns: [topics.id],
+      name: 'x_search_topic_settings_topic_id_fkey',
+    }).onDelete('cascade'),
+    check(
+      'x_search_topic_settings_reaction_min_faves_check',
+      sql`reaction_min_faves >= 0`,
+    ),
+    check(
+      'x_search_topic_settings_trending_min_faves_check',
+      sql`trending_min_faves >= 0`,
     ),
   ],
 );

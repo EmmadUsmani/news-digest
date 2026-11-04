@@ -25,12 +25,21 @@ import {
   xEmbedChecks,
   xLinkCitations,
   xSearchCitations,
+  xSearchTopicSettings,
 } from '../../../libs/db/schema';
 import type { SocialPost } from '../domain/posts';
 import { xPostTime } from '../domain/x-post-time';
 
 export class PostgresSocialRepository {
   readonly db = database();
+  // Missing configuration stays explicit; callers must not silently invent thresholds.
+  async searchSettings(topicId: string) {
+    const [settings] = await drizzle(this.db)
+      .select()
+      .from(xSearchTopicSettings)
+      .where(eq(xSearchTopicSettings.topicId, topicId));
+    return settings ?? null;
+  }
   async topicPosts(topicId: string) {
     // Source association is discovery scope only; relevance must use post text.
     const orm = drizzle(this.db);

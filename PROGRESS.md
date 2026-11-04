@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 658 — preserve Bluesky engagement guidance in final editing
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and all four queues available.
-- Found Bluesky instruction specialization discarded shared engagement guidance and said counts were absent despite iteration 656 supplying timestamped API evidence. Narrowed the replacement to platform provenance; counts remain advisory alongside relevance and interestingness.
-- Preserved unknown-count, measured-growth, account-relative reach, virality and unseen-media limits. Regression checks the actual fake-provider instructions and serialized evidence; seven targeted editor tests pass.
-- No paid calls, discovery requests, configuration changes or new edition. Live selection effects await the scheduled run; NBA full-AI, World coverage and grouping acceptance remain open.
-- Updated TASKS/RANKING; archived iteration 642. Bug fix changes no source, schema, UI or system flow, so no handbook/SOURCES update.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (399 unit/207 isolated integration), pnpm build and git diff --check passed; no dangling Docker volumes or failed user services.
-- Pushed d04ca00; systemctl --user restart news-digest-api news-digest-worker: both active; curl /healthz healthy after startup retry; pnpm obs alerts zero; saved edition readable with four topics/14 stories/15 posts.
-- Next: Nov 5 grouping/cost/latency/screenshots, NBA full-AI and World coverage; incremental triage stays off.
-
 ## 2026-11-04: iteration 659 — require complete social triage coverage
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 sources without current errors; saved edition has four topics/14 stories/15 posts.
@@ -188,3 +177,13 @@
 - Saved private mode-600 pg_dump outside repo; pg_restore listing readable. Applied pnpm migrate; owner_ro SELECT/owner_rw UPDATE privileges remain valid for the new column.
 - Restarted API/worker active; healthz healthy, zero alerts, 36 nonempty sources without errors and four available queues. Updated TASKS; archived iteration 657. SOURCES unchanged: no source behavior change.
 - Next: per-topic X thresholds/exclusions, then separately capped two-day comparison under the approved plan. Nov 5 grouping/NBA checks retain priority.
+
+## 2026-11-04: iteration 675 — store approved per-topic X search settings
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz and 36 current sources; saved edition has four topics/14 stories/15 posts.
+- Added migration 057 and Drizzle schema/baseline for per-topic reaction/trending like thresholds and exclusions. Seeded only surviving original topics with approved values; NBA has four betting exclusions. Topic deletion cascades; missing settings return null.
+- Database regression checks all four seed values, missing configuration, nonnegative checks, explicit empty exclusions and deletion cleanup. Initial full checks exposed Drizzle CLI drift for equivalent empty-array defaults; removed the default in favor of explicit lists.
+- Updated TASKS, schema metadata and Social posts handbook; archived iteration 658. No source behavior change, paid calls, model/provider/cap/schedule change or production search activation; SOURCES unchanged.
+- Verification: pnpm format, pnpm lint:fix, final pnpm check (415 unit/209 isolated integration), pnpm build and git diff --check passed; zero CLI/catalog/baseline schema drift. Handbook check passed (26 assigned tables, no warnings).
+- Saved private mode-600 pg_dump outside repo and verified pg_restore listing. Applied pnpm migrate; four settings rows and owner_ro SELECT/owner_rw UPDATE grants verified. Restarted API/worker active; healthz/database/Redis healthy, zero alerts, 36 current sources and unchanged four-topic/14-story/15-post saved edition.
+- Next: separately capped two-day X comparison under the approved plan; Nov 5 grouping/NBA checks retain priority.
