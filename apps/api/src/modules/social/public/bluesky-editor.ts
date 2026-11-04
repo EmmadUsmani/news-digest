@@ -1,11 +1,11 @@
-import type { RelevancePolicy } from '@digest/contracts';
+import type { RelevancePolicy, SelectedSocialPost } from '@digest/contracts';
 
 import type { TriageTopic } from '../../curation/public/editorial';
 import type { BlueskyPost } from '../domain/bluesky';
 import { shortlistBlueskyPosts } from './bluesky-shortlist';
 import type { SocialSelectionServices } from './editorial-selection';
 
-// Explicit preparation only. No publication or scheduler caller.
+// Supplements existing edition picks without displacing them.
 export async function editBlueskyPosts(
   services: SocialSelectionServices,
   topic: TriageTopic,
@@ -15,6 +15,7 @@ export async function editBlueskyPosts(
   end: Date,
   budget: number,
   runId: string,
+  alreadySelected: SelectedSocialPost[] = [],
 ) {
   if (!Number.isInteger(budget) || budget < 0 || budget > 20)
     throw new Error('Expected Bluesky editorial budget 0–20');
@@ -48,6 +49,11 @@ export async function editBlueskyPosts(
     })),
     budget,
     runId,
+    alreadySelected.map(({ platform, text, author }) => ({
+      platform,
+      text,
+      author,
+    })),
   );
   if (!edited) return empty('unavailable');
   if (

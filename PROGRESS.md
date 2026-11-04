@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 636 — enforce background cutoff before scorer batches
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 healthy sources and 13 healthy services. Retained historical social failures coexist with successful current collection; Nov 4 edition evidence remains pending.
-- Fixed default-off background scoring starting provider batches after its own cache scan crossed cutoff. Runner now supplies a live per-batch gate; later batches stop while in-flight results finish/cache and untouched IDs remain unscored.
-- Regression uses the real scorer crossing exact cutoff during cache recheck; verifies no provider call and admission release. Partial-batch regression verifies retained cache and later completion.
-- Updated TASKS/RANKING; archived iteration 618 to keep PROGRESS bounded. Internal bug fix needs no handbook change; no source, schema, prompt, feature activation or paid calls.
-- Verification: targeted tests 23/23; pnpm format, pnpm lint:fix, pnpm check (381 unit/205 isolated integration), pnpm build and git diff --check passed. Strengthened final regression also passed targeted tests, API typecheck and ESLint.
-- Restarted API/worker; healthz healthy, zero alerts/failed user units/dangling volumes. Saved Nov 3 edition still serves four topics/19 stories/11 X posts. No Postgres/Redis restart.
-- Next: review Nov 4 15:00 UTC edition for open-X/Bluesky picks, World posts, NBA validation and timing/cost before activation.
-
 ## 2026-11-04: iteration 637 — measure incremental per-pass capacity offline
 
 - Started clean on main; no leftover work. Healthz healthy, zero alerts/failed units and all four queues available. Nov 4 scheduled evidence remains pending.
@@ -163,3 +153,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (395 unit/207 isolated integration), pnpm build and git diff --check passed.
 - Restarted API/worker: both active; healthz database/Redis healthy, saved four-topic edition readable, zero alerts/failed user services/dangling Docker volumes.
 - Next: measure scheduled discovery quality and immutable picks; Nov 5 grouping admission/cost/accuracy/latency/screenshots, NBA full-AI and World coverage remain open.
+
+## 2026-11-04: iteration 652 — give Bluesky editing cross-platform context
+
+- Started clean on main; no leftover work. Zero alerts, healthy database/Redis, 36 active sources without current errors and four available queues.
+- Nov 4's duplicate X/Bluesky pick exposed isolated editing: Bluesky had no visibility of existing picks. Added existing text/platform/author context, capped at 20 posts with 1,200-character text/200-character authors; no extra provider calls.
+- Explicit semantic guidance avoids repeated announcements/clips/moments across platforms while permitting distinct developments. Existing picks remain immutable; only candidate IDs pass validation. Prompt fingerprints include context, isolating cached choices.
+- Fake tests cover edition-to-editor propagation, context bounds, changed-context cache misses, repeat-context hits and refusal of non-candidate IDs. No paid calls, source requests, new editions or UI changes; actual duplicate reduction remains unmeasured.
+- Updated TASKS/SOURCES and affected social handbook; archived iteration 636; corrected stale preparation-only/synthetic-only descriptions using the saved Nov 4 review.
+- Verification: targeted editor/edition tests 16/16; pnpm format, pnpm lint:fix, pnpm check (396 unit/207 isolated integration), pnpm build, social handbook check (17 pages/one unchanged diagram/25 tables), git diff --check.
+- Restarted API/worker; both active, healthz database/Redis healthy, saved four-topic Nov 4 edition readable, fresh ingestion through 15:48 UTC, zero alerts/failed user services.
+- Next: scheduled discovery yield and Nov 5 grouping/cost/latency/screenshots; NBA full-AI, World coverage and live cross-platform duplicate behavior remain open.

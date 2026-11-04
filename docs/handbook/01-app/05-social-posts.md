@@ -70,11 +70,11 @@ prove the scheduler covered every topic.
 
 ## Other platforms
 
-| Platform | Status                                                                                                                                                                                                                                                   |
-| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Reddit   | **Parked.** Built, but Reddit blocks public access and ends RSS on Nov 13. The only way back is the official API with owner credentials.                                                                                                                 |
-| Bluesky  | **Preparation only:** authenticated discovery, phrase-filtered and semantic engagement/age shortlists, isolated final editing, plus storage for timestamped text/media/count snapshots. Hourly free collection is active; edition inclusion remains off. |
-| YouTube  | **Deferred** by the owner.                                                                                                                                                                                                                               |
+| Platform | Status                                                                                                                                                                                                                                         |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Reddit   | **Parked.** Built, but Reddit blocks public access and ends RSS on Nov 13. The only way back is the official API with owner credentials.                                                                                                       |
+| Bluesky  | **Enabled:** authenticated discovery, phrase-filtered and semantic engagement/age shortlists, isolated final editing, plus storage for timestamped text/media/count snapshots. Hourly free collection is active; edition inclusion is enabled. |
+| YouTube  | **Deferred** by the owner.                                                                                                                                                                                                                     |
 
 Bluesky storage retains each topic's observations separately, so a later count
 cannot overwrite the evidence available at an earlier cutoff. Current post
@@ -109,13 +109,12 @@ Prepared Bluesky cards show the full saved text, author, publication time, obser
 likes/reposts/replies and observation time, with editorial context when present.
 Images link to the original full-size media; video previews link to the post on
 Bluesky rather than loading a streaming player. Images load lazily with their
-original alt text. Cards use no third-party widget script. Production editions
-have not yet demonstrated Bluesky picks; existing desktop/mobile screenshots are synthetic browser replays.
+original alt text. Cards use no third-party widget script. The Nov 4 edition includes a Tech Bluesky pick; desktop/mobile evidence is recorded in the [edition review](../../edition-reviews/2026-11-04.md).
 
 Explicit edition preparation can read stored observations at the edition cutoff,
 run the isolated editor and create validated text/media/count snapshots. It is enabled by default. The edition publisher calls it after X/Reddit selection, using the
 same database transaction and existing budgeted AI services. An explicit
 `BLUESKY_EDITIONS_ENABLED=0` disables inclusion; unset or `1` enables it. The protected Nov 3 run has been acknowledged.
 The edition selector itself does not collect posts; it reads hourly observations. Existing picks are retained;
-Bluesky can use only the remaining topic slots. Disabled or full selections do
+Bluesky can use only the remaining topic slots. Its editor receives bounded text and author context from existing picks and is instructed to skip repeated announcements, clips or moments across platforms while allowing distinct developments. This is semantic editorial guidance, not a guaranteed duplicate detector. Disabled or full selections do
 not read storage or call AI; refused or incomplete editing adds no posts.

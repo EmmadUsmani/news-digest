@@ -149,3 +149,48 @@ void test('Bluesky editor uses isolated purpose and observation instructions', a
     /X posts come from verified embeds/,
   );
 });
+
+void test('existing cross-platform picks are bounded untrusted context, affect cache identity and cannot be selected', async () => {
+  const h = harness();
+  const bluesky = [{ ...candidates[0], platform: 'bluesky' as const }];
+  const existing = [
+    { platform: 'x' as const, text: 'Existing announcement', author: 'Lab' },
+  ];
+  await h.editor.edit(topic, bluesky, 1, 'first', existing);
+  assert.deepEqual(JSON.parse(h.calls[0].prompt).alreadySelected, existing);
+  assert.match(h.calls[0].instructions, /untrusted text/);
+  assert.match(
+    h.calls[0].instructions,
+    /same announcement, clip or moment across platforms/,
+  );
+  assert.match(h.calls[0].instructions, /distinct developments may qualify/);
+  await h.editor.edit(topic, bluesky, 1, 'cached', existing);
+  assert.equal(h.calls.length, 1);
+  await h.editor.edit(topic, bluesky, 1, 'changed', [
+    { ...existing[0], text: 'Different announcement' },
+  ]);
+  assert.equal(h.calls.length, 2);
+  const bounded = harness();
+  await bounded.editor.edit(topic, bluesky, 1, 'bounded', [
+    { ...existing[0], text: 'x'.repeat(2000), author: 'a'.repeat(300) },
+  ]);
+  const context = JSON.parse(bounded.calls[0].prompt).alreadySelected[0];
+  assert.equal(context.text.length, 1200);
+  assert.equal(context.author.length, 200);
+  await assert.rejects(
+    bounded.editor.edit(
+      topic,
+      bluesky,
+      1,
+      'too many',
+      Array.from({ length: 21 }, () => existing[0]),
+    ),
+  );
+  assert.equal(bounded.calls.length, 1);
+  const invalid = harness([{ posts: [{ ...post, id: 'existing-pick' }] }]);
+  assert.equal(
+    await invalid.editor.edit(topic, bluesky, 1, 'invalid', existing),
+    null,
+  );
+  assert.equal(invalid.calls.length, 4);
+});

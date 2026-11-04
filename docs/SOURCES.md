@@ -1906,3 +1906,13 @@ confirm empty results still report fetched-post usage without adapter retries.
 No paid evaluation or new collection ran; the next scheduled search and immutable
 edition must establish whether useful yield improves. This is not evidence of
 viral yield or resolved World coverage.
+
+### Iteration 652: cross-platform editorial context
+
+The Nov 4 Tech Bluesky pick repeated a selected X post. Edition preparation now
+supplies existing selections' bounded text, platform and author to the Bluesky
+editor, which is instructed to avoid the same announcement, clip or moment
+across platforms while allowing distinct developments. Existing picks remain
+unchanged and only candidate IDs can be returned. Fake tests verify context
+propagation, bounds and cache isolation; no live calls or new source requests.
+Actual duplicate reduction awaits the next scheduled edition.

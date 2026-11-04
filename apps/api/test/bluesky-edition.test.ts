@@ -78,8 +78,11 @@ function harness() {
       },
     },
     socialEditor: {
-      edit: async (_topic, candidates, budget) => {
+      edit: async (_topic, candidates, budget, _runId, alreadySelected) => {
         calls.push('edit');
+        assert.deepEqual(alreadySelected, [
+          { platform: 'x', text: xPost.text, author: xPost.author },
+        ]);
         assert.equal(budget, 1);
         return {
           model: 'fake',

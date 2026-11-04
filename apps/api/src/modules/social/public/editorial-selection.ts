@@ -29,6 +29,10 @@ export interface SocialSelectionServices {
       candidates: SocialEditorialCandidate[],
       budget: number,
       runId: string,
+      alreadySelected?: Pick<
+        SocialEditorialCandidate,
+        'platform' | 'text' | 'author'
+      >[],
     ): Promise<SocialEditorialResult | null>;
   };
 }

@@ -105,6 +105,7 @@ export async function prepareBlueskyEditionPosts(
     input.end,
     remaining,
     input.runId,
+    input.selectedPosts,
   );
   if (edited.status !== 'complete') return unchanged(edited.status);
   const additions = edited.posts.map(
