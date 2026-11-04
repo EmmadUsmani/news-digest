@@ -1,0 +1,100 @@
+diff --git a/api.js b/api.js
+index f4ecb91959f62fc938416a0585458c0a710af161..d12cb55cf3836032919ea1e3b1b248cdb7c3ddd2 100644
+--- a/api.js
++++ b/api.js
+@@ -23236,16 +23236,18 @@ WHERE
+             pg_catalog.pg_constraint con
+             JOIN pg_catalog.pg_class rel ON rel.oid = con.conrelid
+             JOIN pg_catalog.pg_namespace nsp ON nsp.oid = con.connamespace
+-            LEFT JOIN pg_catalog.pg_attribute att ON att.attnum = ANY (con.conkey)
++            LEFT JOIN LATERAL unnest(con.conkey, con.confkey) WITH ORDINALITY AS key_columns(column_from, column_to, position) ON true
++            LEFT JOIN pg_catalog.pg_attribute att ON att.attnum = key_columns.column_from
+               AND att.attrelid = con.conrelid
+             LEFT JOIN pg_catalog.pg_class frel ON frel.oid = con.confrelid
+             LEFT JOIN pg_catalog.pg_namespace fnsp ON fnsp.oid = frel.relnamespace
+-            LEFT JOIN pg_catalog.pg_attribute fatt ON fatt.attnum = ANY (con.confkey)
++            LEFT JOIN pg_catalog.pg_attribute fatt ON fatt.attnum = key_columns.column_to
+               AND fatt.attrelid = con.confrelid
+           WHERE
+             nsp.nspname = '${tableSchema}'
+             AND rel.relname = '${tableName}'
+-            AND con.contype IN ('f');`
++            AND con.contype IN ('f')
++          ORDER BY con.conname, key_columns.position;`
+             );
+             foreignKeysCount += tableForeignKeys.length;
+             if (progressCallback) {
+diff --git a/api.mjs b/api.mjs
+index a940272dfb05accf57a472c46c52652ec9ad0080..5c27ae36043387076d3b592db697e5c102e9408d 100644
+--- a/api.mjs
++++ b/api.mjs
+@@ -23252,16 +23252,18 @@ WHERE
+             pg_catalog.pg_constraint con
+             JOIN pg_catalog.pg_class rel ON rel.oid = con.conrelid
+             JOIN pg_catalog.pg_namespace nsp ON nsp.oid = con.connamespace
+-            LEFT JOIN pg_catalog.pg_attribute att ON att.attnum = ANY (con.conkey)
++            LEFT JOIN LATERAL unnest(con.conkey, con.confkey) WITH ORDINALITY AS key_columns(column_from, column_to, position) ON true
++            LEFT JOIN pg_catalog.pg_attribute att ON att.attnum = key_columns.column_from
+               AND att.attrelid = con.conrelid
+             LEFT JOIN pg_catalog.pg_class frel ON frel.oid = con.confrelid
+             LEFT JOIN pg_catalog.pg_namespace fnsp ON fnsp.oid = frel.relnamespace
+-            LEFT JOIN pg_catalog.pg_attribute fatt ON fatt.attnum = ANY (con.confkey)
++            LEFT JOIN pg_catalog.pg_attribute fatt ON fatt.attnum = key_columns.column_to
+               AND fatt.attrelid = con.confrelid
+           WHERE
+             nsp.nspname = '${tableSchema}'
+             AND rel.relname = '${tableName}'
+-            AND con.contype IN ('f');`
++            AND con.contype IN ('f')
++          ORDER BY con.conname, key_columns.position;`
+             );
+             foreignKeysCount += tableForeignKeys.length;
+             if (progressCallback) {
+diff --git a/bin.cjs b/bin.cjs
+index c28f3e4732f0d911237dc1eb1bc466cefaa1b976..867f04f6443c6d0245855a73157a8dbb43eb39f9 100755
+--- a/bin.cjs
++++ b/bin.cjs
+@@ -17794,16 +17794,18 @@ WHERE
+             pg_catalog.pg_constraint con
+             JOIN pg_catalog.pg_class rel ON rel.oid = con.conrelid
+             JOIN pg_catalog.pg_namespace nsp ON nsp.oid = con.connamespace
+-            LEFT JOIN pg_catalog.pg_attribute att ON att.attnum = ANY (con.conkey)
++            LEFT JOIN LATERAL unnest(con.conkey, con.confkey) WITH ORDINALITY AS key_columns(column_from, column_to, position) ON true
++            LEFT JOIN pg_catalog.pg_attribute att ON att.attnum = key_columns.column_from
+               AND att.attrelid = con.conrelid
+             LEFT JOIN pg_catalog.pg_class frel ON frel.oid = con.confrelid
+             LEFT JOIN pg_catalog.pg_namespace fnsp ON fnsp.oid = frel.relnamespace
+-            LEFT JOIN pg_catalog.pg_attribute fatt ON fatt.attnum = ANY (con.confkey)
++            LEFT JOIN pg_catalog.pg_attribute fatt ON fatt.attnum = key_columns.column_to
+               AND fatt.attrelid = con.confrelid
+           WHERE
+             nsp.nspname = '${tableSchema}'
+             AND rel.relname = '${tableName}'
+-            AND con.contype IN ('f');`
++            AND con.contype IN ('f')
++          ORDER BY con.conname, key_columns.position;`
+             );
+             foreignKeysCount += tableForeignKeys.length;
+             if (progressCallback) {
+@@ -83403,16 +83405,18 @@ WHERE
+ 					    pg_catalog.pg_constraint con
+ 					    JOIN pg_catalog.pg_class rel ON rel.oid = con.conrelid
+ 					    JOIN pg_catalog.pg_namespace nsp ON nsp.oid = con.connamespace
+-					    LEFT JOIN pg_catalog.pg_attribute att ON att.attnum = ANY (con.conkey)
++					    LEFT JOIN LATERAL unnest(con.conkey, con.confkey) WITH ORDINALITY AS key_columns(column_from, column_to, position) ON true
++            LEFT JOIN pg_catalog.pg_attribute att ON att.attnum = key_columns.column_from
+ 					      AND att.attrelid = con.conrelid
+ 					    LEFT JOIN pg_catalog.pg_class frel ON frel.oid = con.confrelid
+ 					    LEFT JOIN pg_catalog.pg_namespace fnsp ON fnsp.oid = frel.relnamespace
+-					    LEFT JOIN pg_catalog.pg_attribute fatt ON fatt.attnum = ANY (con.confkey)
++					    LEFT JOIN pg_catalog.pg_attribute fatt ON fatt.attnum = key_columns.column_to
+ 					      AND fatt.attrelid = con.confrelid
+ 					  WHERE
+ 					    nsp.nspname = '${tableSchema}'
+ 					    AND rel.relname = '${tableName}'
+-					    AND con.contype IN ('f');`
++					    AND con.contype IN ('f')
++          ORDER BY con.conname, key_columns.position;`
+             );
+             foreignKeysCount += tableForeignKeys.length;
+             if (progressCallback) {

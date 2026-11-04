@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  drizzle-kit@0.31.11:
+    hash: 67bec6679f44febfd0bf052fbf3e2f24ebb11d5e7066119c549bf5f147fbeecc
+    path: patches/drizzle-kit@0.31.11.patch
+
 importers:
 
   .:
@@ -122,7 +127,7 @@ importers:
         version: 8.23.1
       drizzle-kit:
         specifier: ^0.31.11
-        version: 0.31.11
+        version: 0.31.11(patch_hash=67bec6679f44febfd0bf052fbf3e2f24ebb11d5e7066119c549bf5f147fbeecc)
 
   apps/docs-site:
     dependencies:
@@ -4206,7 +4211,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-kit@0.31.11:
+  drizzle-kit@0.31.11(patch_hash=67bec6679f44febfd0bf052fbf3e2f24ebb11d5e7066119c549bf5f147fbeecc):
     dependencies:
       '@drizzle-team/brocli': 0.10.2
       '@esbuild-kit/esm-loader': 2.6.5

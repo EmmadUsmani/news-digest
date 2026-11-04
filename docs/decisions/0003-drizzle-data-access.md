@@ -24,16 +24,19 @@ boolean check expression, composite foreign-key column ordering, regex escaping
 and multi-column index operator classes. Do not treat future generated mappings
 as verified until the catalog comparison passes.
 
-**Drizzle-kit zero-diff gate remains open.** With 0.31.11, an isolated strict,
-verbose CLI push using PostgreSQL-enforced read-only mode proposed six statements:
-drop/recreate the composite foreign keys on `reddit_topic_posts`,
-`bluesky_observations` and `reddit_x_citations`. The proposed definitions are
-identical to the migrated definitions; introspection incorrectly reorders their
-columns. The generated-DDL catalog comparison proves the mapping is correct.
-Nothing was applied. The programmatic `pushSchema` helper also drops query
-parameters during introspection, so it is unsuitable for this check. Resolve
-these tooling issues before adopting generated migrations; do not change real
-foreign keys to accommodate the faulty introspection.
+**Drizzle-kit zero-diff gate passes with a pinned pnpm patch (iteration 573).**
+Version 0.31.11 joined source and target FK columns independently with `ANY`,
+creating a Cartesian product and losing composite-key order. The patch unnests
+`conkey` and `confkey` together with ordinality and orders by constraint/position,
+preserving each source/target pair. It covers the CLI and both API module builds.
+Remove the patch only when an upstream version passes the same regression.
+
+The isolated suite also runs the real strict/verbose CLI push planner against
+fresh migrations with PostgreSQL-enforced read-only connection options. It must
+report "No changes detected" and propose no table DDL. The independent generated-DDL
+catalog comparison remains required because the planner ignores some differences.
+The programmatic `pushSchema` helper still drops query parameters during
+introspection, so use the CLI for this gate; no programmatic workaround is applied.
 
 Existing SQL migrations remain authoritative; no production schema change or
 new migration is part of this mapping. Migration generation is not yet exposed

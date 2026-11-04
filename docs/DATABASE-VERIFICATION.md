@@ -651,6 +651,8 @@ only; no provider requests or production changes.
 the fresh migrations. It builds a second empty database from generated DDL and
 compares PostgreSQL catalog definitions for columns, defaults, constraints and
 indexes with no differences. It never uses the live database.
-The separate drizzle-kit zero-diff gate remains open because its introspection
-misorders three composite foreign keys; see the Drizzle decision for evidence. Historical SQL migration execution stays
-unchanged; future migration baseline adoption is a separate step.
+The real strict/verbose drizzle-kit CLI also must report zero changes over fresh
+migrations, with PostgreSQL-enforced read-only connection options. A pinned pnpm
+patch preserves composite foreign-key column pairs and order during introspection;
+see the Drizzle decision. Historical SQL migration execution stays unchanged;
+future migration baseline adoption is a separate step.

@@ -1,5 +1,9 @@
 import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
+import { mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join, resolve } from 'node:path';
 import { test } from 'node:test';
 
 import { generateDrizzleJson, generateMigration } from 'drizzle-kit/api';
@@ -50,5 +54,56 @@ void test('complete Drizzle schema matches every migrated PostgreSQL column, con
     await mirror.end();
     if (created) await pool.query(`DROP DATABASE "${mirrorName}" WITH (FORCE)`);
     await pool.end();
+  }
+});
+
+void test('drizzle-kit CLI proposes zero changes to the migrated isolated database', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const directory = await mkdtemp(join(tmpdir(), 'digest-drizzle-'));
+  try {
+    const config = join(directory, 'drizzle.config.js');
+    const readOnlyUrl = new URL(process.env.DATABASE_URL!);
+    readOnlyUrl.searchParams.set(
+      'options',
+      '-c default_transaction_read_only=on',
+    );
+    await writeFile(
+      config,
+      `module.exports = ${JSON.stringify({
+        dialect: 'postgresql',
+        schema: resolve('apps/api/src/libs/db/schema.ts'),
+        dbCredentials: { url: readOnlyUrl.toString() },
+        strict: true,
+        verbose: true,
+      })};`,
+    );
+    const result = spawnSync(
+      'pnpm',
+      [
+        '--filter',
+        '@digest/api',
+        'exec',
+        'drizzle-kit',
+        'push',
+        '--config',
+        config,
+      ],
+      {
+        encoding: 'utf8',
+        timeout: 60000,
+        env: {
+          ...process.env,
+          PGOPTIONS: '-c default_transaction_read_only=on',
+        },
+        input: '',
+      },
+    );
+    assert.ifError(result.error);
+    const output = result.stdout + result.stderr;
+    assert.equal(result.status, 0, output);
+    assert.match(output, /No changes detected/, output);
+    assert.doesNotMatch(output, /ALTER TABLE|DROP TABLE|CREATE TABLE/);
+  } finally {
+    await rm(directory, { recursive: true, force: true });
   }
 });

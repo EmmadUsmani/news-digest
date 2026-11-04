@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 553 — measure offline triage input composition
-
-- Started clean on main; no leftover work. Healthy healthz/root, zero alerts, 36 nonempty/error-free sources and four available queues; no failed digest jobs. Latest hourly social collections completed.
-- Extended the existing recorded batching replay with additive serialized-byte composition: instructions, excerpts, titles, source arrays and framing. Unicode/escaping/null regressions verify exact accounting; no prompt or production changes.
-- Current caller setting across 153 recorded articles: 65,824 input bytes; excerpts 45.8%, titles 17.7%, sources 5.2%, instructions 5.6%, framing 25.8%. Empty topic guidance limits representativeness; bytes are not tokens. No paid calls or speed/quality claim.
-- Updated TASKS/RANKING. No source/schema/UI/handbook flow change; no restart under STEERING 22 because only offline scripts/tests/docs changed.
-- Verification: targeted batching tests 3/3; pnpm format, pnpm lint:fix, pnpm check (363 unit/187 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes.
-- Next: review Nov 4 15:00 UTC edition first; gated incremental worker connection and actual waste/latency/cost evidence thereafter. Removing repeated instructions alone offers limited input-byte savings here.
-
 ## 2026-11-04: iteration 554 — characterize Bluesky refresh rollback
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 error-free sources and four available queues. Nov 4 scheduled review remains pending at 15:00 UTC.
@@ -180,3 +171,13 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/202 isolated integration), pnpm build, handbook stack check and git diff --check passed; zero dangling Docker volumes. Initial parity failures exposed the corrected mapping/tooling defects.
 - Rebuilt/restarted API and worker outside the edition freeze; both active, healthz healthy, root HTTP 200, zero alerts. Live profile response byte-identical before/after restart.
 - Next: scheduled edition review when due; otherwise resolve Drizzle introspection gate before migration baseline adoption, then convert remaining repositories individually.
+
+## 2026-11-04: iteration 573 — repair Drizzle composite-key introspection
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 error-free sources and no failed digest jobs; Nov 4 15:00 UTC edition remains pending.
+- Fixed drizzle-kit 0.31.11's independent ANY joins with paired unnest/ordinality and ordered FK columns, via a pinned pnpm patch covering CLI/CommonJS/ESM. No application/schema/live data changes or paid calls.
+- Added real strict/verbose CLI regression against fresh isolated migrations, with PostgreSQL-enforced read-only URL options; it reports zero changes. Existing generated-DDL catalog parity and characterization tests unchanged. Programmatic push parameter loss remains avoided by using the CLI.
+- Updated TASKS/database verification/decision; archived iteration 553. Historical SQL migrations remain authoritative; migration baseline adoption is next, with private pg_dump required before first new migration.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build and git diff --check passed. First full check caught lint's import formatting; reformatted and reran. Separate initial integration run also passed 203 tests; zero dangling Docker volumes.
+- Live root HTTP 200, latest real edition has four topics, sources and digest queue healthy. No restart under STEERING 22: only development tooling/tests/docs changed.
+- Next: historical migration baseline, then individual ORM repositories; prioritize scheduled Nov 4 edition review when due.
