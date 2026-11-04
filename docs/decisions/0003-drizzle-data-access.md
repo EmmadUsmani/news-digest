@@ -171,3 +171,10 @@ optional-search admission now uses typed correlated subqueries for consumed atte
 completed parent verification, low incremental yield and all-topic coverage. A SQL
 template projects their combined predicate without a FROM clause and compares the
 UTC database wall clock; JSON topic-id expressions preserve existing semantics.
+
+Scheduled-budget lifecycle writes now use Drizzle-managed transactions on the
+checked-out client. The shared Anthropic advisory lock stays inside the
+transaction; lifecycle logs follow commit, and failures roll back before client
+release. Constraint errors retain their underlying PostgreSQL identity. The
+isolated nested-fixture harness accepts both driver query forms and transaction
+keyword casing; characterization assertions remain unchanged.

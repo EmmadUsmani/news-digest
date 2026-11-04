@@ -901,17 +901,22 @@ void test('published scheduled snapshots recover pending/running/retry slots bef
   await client.query('SAVEPOINT fixture');
   // Lifecycle transactions nest in one disposable fixture transaction.
   const nested = {
-    query: (sql: string, values?: unknown[]) =>
-      client.query(
-        sql === 'BEGIN'
+    query: (query: string | { text: string }, values?: unknown[]) => {
+      const text = typeof query === 'string' ? query : query.text;
+      const control = text.toUpperCase();
+      const mapped =
+        control === 'BEGIN'
           ? 'SAVEPOINT lifecycle'
-          : sql === 'COMMIT'
+          : control === 'COMMIT'
             ? 'RELEASE SAVEPOINT lifecycle'
-            : sql === 'ROLLBACK'
+            : control === 'ROLLBACK'
               ? 'ROLLBACK TO SAVEPOINT lifecycle'
-              : sql,
+              : text;
+      return client.query(
+        typeof query === 'string' ? mapped : { ...query, text: mapped },
         values,
-      ),
+      );
+    },
     release() {},
   };
   const repo = new PostgresScheduledBudgetRepository({

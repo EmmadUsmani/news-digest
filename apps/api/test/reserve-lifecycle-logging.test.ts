@@ -33,8 +33,8 @@ void test('reserve lifecycle logs only committed observations and fenced transit
                     ? [[{ id: 'edition', topics: [] }]]
                     : [{ snapshot: { id: 'edition', topics: [] } }],
             };
-          if (sql === 'BEGIN') committed = false;
-          if (sql === 'COMMIT') {
+          if (sql.toUpperCase() === 'BEGIN') committed = false;
+          if (sql.toUpperCase() === 'COMMIT') {
             if (scenario === 'rollback')
               throw new Error('private database error');
             committed = true;

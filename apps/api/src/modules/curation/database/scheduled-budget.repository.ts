@@ -67,13 +67,12 @@ export class PostgresScheduledBudgetRepository implements ScheduledBudgetReposit
   ) {
     const client = await this.db.connect();
     try {
-      await client.query('BEGIN');
-      // Same lock as Anthropic admission: lifecycle and spend cannot race.
-      const db = drizzle(client);
-      // Transaction-scoped advisory locks have no query-builder equivalent.
-      await db.execute(sql`SELECT pg_advisory_xact_lock(756282)`);
-      const result = await action(db);
-      await client.query('COMMIT');
+      const result = await drizzle(client).transaction(async (tx) => {
+        // Same lock as Anthropic admission: lifecycle and spend cannot race.
+        // Transaction-scoped advisory locks have no query-builder equivalent.
+        await tx.execute(sql`SELECT pg_advisory_xact_lock(756282)`);
+        return action(tx);
+      });
       this.log.info(
         {
           event: 'budget.reserve-lifecycle',
@@ -97,7 +96,6 @@ export class PostgresScheduledBudgetRepository implements ScheduledBudgetReposit
       );
       return result;
     } catch (error) {
-      await client.query('ROLLBACK');
       throw error instanceof DrizzleQueryError && error.cause
         ? error.cause
         : error;

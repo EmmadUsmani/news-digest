@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 583 — convert shared article candidates to Drizzle
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC evidence still pending.
-- Converted the shared publication/reaction/incremental-triage article loader to typed joins, filters, grouping, ordering and limit. Preserved half-open windows, distinct sorted sources, engagement conversion and the existing 200-item cap; ordered array aggregation retains a documented SQL template.
-- Read-only old/new comparison in one repeatable-read live transaction matched all four topic pools exactly (200/122/200/200 candidates). First probe needed a CommonJS async wrapper; corrected and removed temporary files.
-- Updated three query stubs for Drizzle array rows and timestamp parameters without changing assertions. First check caught the remaining old incremental stub; corrected before final full check.
-- Updated TASKS, architecture, decision and handbook stack; archived iteration 567. No migrations, paid calls, feature activation or UI changes.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed. Loader statement coverage 100%; zero dangling Docker volumes.
-- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Playwright found 19 rendered list cards and zero page errors; 36 sources without current errors, zero failed digest jobs and zero alerts.
-- Next: prioritize Nov 4 scheduled review at 15:00 UTC; otherwise continue remaining ORM adapters or migration baseline. Private pg_dump before first new migration.
-
 ## 2026-11-04: iteration 584 — convert incremental-triage admission to Drizzle
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources without current errors and zero failed digest jobs. Retained ingestion/social failures remain with current successful collection; Nov 4 edition review pending.
@@ -150,3 +139,13 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
 - Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical and live X budget unchanged. Read-only Playwright rendered 63 article elements without page errors; zero alerts and no source errors. Initial status probe used an incorrect route (404), corrected to /api/status.
 - Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM adapters/transaction infrastructure or historical migration baseline. Private pg_dump before first new migration.
+
+## 2026-11-04: iteration 598 — Drizzle scheduled-budget transactions
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 sources returning items without current errors and zero failed digest jobs; Nov 4 15:00 UTC review pending.
+- Converted scheduled-budget lifecycle transaction control to Drizzle on the same checked-out client. Shared Anthropic advisory lock, post-commit logs, rollback, client release and PostgreSQL error identity remain intact.
+- Adapted nested-fixture and logging stubs to driver query objects/lowercase transaction commands; behavior assertions unchanged. Initial check caught archive formatting, then the logging stub casing; corrected and reran green.
+- Updated TASKS, architecture, decision and handbook stack; archived iteration 583. No migration, feature activation, source change or paid call.
+- Verification: pnpm format, pnpm lint:fix, targeted reserve-lifecycle-logging test, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
+- Restarted API/worker outside freeze; both active, healthz healthy and saved edition byte-identical. Read-only Playwright rendered four topics/19 articles without page errors; no current source errors or failed digest jobs.
+- Next: prioritize Nov 4 15:00 UTC edition review; otherwise remaining ORM transaction infrastructure or historical migration baseline. Private pg_dump before first new migration.
