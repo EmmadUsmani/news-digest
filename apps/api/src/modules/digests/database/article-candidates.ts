@@ -1,5 +1,13 @@
+import { and, desc, eq, gte, lt, sql } from 'drizzle-orm';
+import { drizzle } from 'drizzle-orm/node-postgres';
 import type { PoolClient } from 'pg';
 
+import {
+  contentItems as items,
+  contentObservations as observations,
+  contentSources as sources,
+  topicSourceConnections as connections,
+} from '../../../libs/db/schema';
 import type { Candidate } from '../domain/rank';
 
 // Shared by edition selection and pre-edition reaction discovery.
@@ -9,19 +17,37 @@ export async function loadArticleCandidates(
   start: Date,
   end: Date,
 ): Promise<Candidate[]> {
-  return (
-    await client.query<
-      Omit<Candidate, 'publishedAt' | 'points'> & {
-        publishedAt: Date;
-        points: string | null;
-      }
-    >(
-      `SELECT i.id,i.title,i.canonical_url AS url,i.excerpt,i.image_url AS "imageUrl",i.published_at AS "publishedAt",array_agg(DISTINCT s.name ORDER BY s.name) AS sources,i.engagement->>'points' AS points FROM content_items i JOIN content_observations o ON o.item_id=i.id JOIN content_sources s ON s.id=o.source_id JOIN topic_source_connections c ON c.source_id=s.id WHERE c.topic_id=$1 AND i.published_at >= $2 AND i.published_at < $3 GROUP BY i.id ORDER BY i.published_at DESC,i.id LIMIT 200`,
-      [topicId, start, end],
+  const rows = await drizzle(client as PoolClient)
+    .select({
+      id: items.id,
+      title: items.title,
+      url: items.canonicalUrl,
+      excerpt: items.excerpt,
+      imageUrl: items.imageUrl,
+      publishedAt: items.publishedAt,
+      // Drizzle has no builder for DISTINCT, ordered PostgreSQL array aggregates.
+      sources: sql<
+        string[]
+      >`array_agg(DISTINCT ${sources.name} ORDER BY ${sources.name})`,
+      points: sql<string | null>`${items.engagement}->>'points'`,
+    })
+    .from(items)
+    .innerJoin(observations, eq(observations.itemId, items.id))
+    .innerJoin(sources, eq(sources.id, observations.sourceId))
+    .innerJoin(connections, eq(connections.sourceId, sources.id))
+    .where(
+      and(
+        eq(connections.topicId, topicId),
+        gte(items.publishedAt, start.toISOString()),
+        lt(items.publishedAt, end.toISOString()),
+      ),
     )
-  ).rows.map((row) => ({
+    .groupBy(items.id)
+    .orderBy(desc(items.publishedAt), items.id)
+    .limit(200);
+  return rows.map((row) => ({
     ...row,
-    publishedAt: row.publishedAt.toISOString(),
+    publishedAt: new Date(row.publishedAt).toISOString(),
     points: Number(row.points ?? 0),
   }));
 }

@@ -25,8 +25,19 @@ const article = (
 function fixture(enabled = true) {
   const calls: unknown[][] = [];
   const db = {
-    query: async (_sql: string, values: unknown[]) => {
-      calls.push(values);
+    query: async (
+      _sql: string | { text: string; rowMode?: string },
+      values: unknown[],
+    ) => {
+      calls.push(
+        typeof _sql === 'string'
+          ? values
+          : [
+              values[0],
+              new Date(String(values[1])),
+              new Date(String(values[2])),
+            ],
+      );
       return {
         rows:
           calls.length === 1
@@ -54,7 +65,16 @@ function fixture(enabled = true) {
                 article('promo', 'NBA best bets'),
                 article('old', 'NBA earlier event', '2026-11-01T23:59:59Z'),
                 article('end', 'NBA later event', end.toISOString()),
-              ],
+              ].map((row) => [
+                row.id,
+                row.title,
+                row.url,
+                row.excerpt,
+                null,
+                row.publishedAt.toISOString(),
+                row.sources,
+                row.points,
+              ]),
       };
     },
   } as unknown as Pick<PoolClient, 'query'>;

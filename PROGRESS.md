@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 567 — ORM prerequisite query inventory
-
-- Started clean on main; no leftover work. Healthz healthy and zero alerts; Nov 4 15:00 UTC edition evidence pending.
-- Reviewed ORM prerequisites under STEERING 29. Inventoried adapter suites and SQL outside database directories; these facades must be included in the eventual conversion.
-- Found incremental-triage/reaction topic reads had only fake query tests. Added isolated PostgreSQL coverage for independent budgets, disabled/deleted topics, transactional configuration, source dedupe, exact non-UTC windows and semantic versus lexical eligibility.
-- Clarified that the existing synthetic fixed-input edition golden satisfies the 2a golden clause; real raw-response recording remains a separate item 4 gap. 2a source/behavior reconciliation stays open; no premature ORM start.
-- Updated TASKS/database verification notes and archived iteration 547. No provider calls, production changes or restart under STEERING 22.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/199 isolated integration), pnpm build, final pnpm typecheck/format:check and git diff --check passed. Live healthz/alerts green, 36 sources error-free, zero dangling Docker volumes.
-- Next: Nov 4 scheduled review first; otherwise finish concrete ORM prerequisite reconciliation, avoiding unrelated characterization tests.
-
 ## 2026-11-04: iteration 568 — expose public SQL coverage and concrete ORM gaps
 
 - Started clean on main; no leftover work. Healthz healthy, zero alerts; Nov 4 edition review remains pending.
@@ -163,3 +153,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
 - Restarted API/worker outside freeze; both active, healthz healthy, published edition byte-identical. Playwright rendered 15 story cards with zero page errors; 36 sources without errors, zero failed digest jobs and zero alerts.
 - Next: prioritize Nov 4 15:00 UTC edition review; otherwise continue remaining ORM adapters/candidate loaders or migration baseline. Private pg_dump before first new migration.
+
+## 2026-11-04: iteration 583 — convert shared article candidates to Drizzle
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources without current errors and zero failed digest jobs; Nov 4 15:00 UTC evidence still pending.
+- Converted the shared publication/reaction/incremental-triage article loader to typed joins, filters, grouping, ordering and limit. Preserved half-open windows, distinct sorted sources, engagement conversion and the existing 200-item cap; ordered array aggregation retains a documented SQL template.
+- Read-only old/new comparison in one repeatable-read live transaction matched all four topic pools exactly (200/122/200/200 candidates). First probe needed a CommonJS async wrapper; corrected and removed temporary files.
+- Updated three query stubs for Drizzle array rows and timestamp parameters without changing assertions. First check caught the remaining old incremental stub; corrected before final full check.
+- Updated TASKS, architecture, decision and handbook stack; archived iteration 567. No migrations, paid calls, feature activation or UI changes.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed. Loader statement coverage 100%; zero dangling Docker volumes.
+- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Playwright found 19 rendered list cards and zero page errors; 36 sources without current errors, zero failed digest jobs and zero alerts.
+- Next: prioritize Nov 4 scheduled review at 15:00 UTC; otherwise continue remaining ORM adapters or migration baseline. Private pg_dump before first new migration.

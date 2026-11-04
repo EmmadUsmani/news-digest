@@ -8,7 +8,7 @@ connections: this is a single-owner VM, not a deployment for untrusted local use
 
 Data access is moving incrementally to Drizzle ORM over the existing `pg` pools.
 Converted adapters cover profiles, Bluesky, Reddit, publisher-article discovery,
-X-search, ingestion, edition costs, topic coverage, digest previews and scheduled budgets; other
+X-search, ingestion, edition costs, topic coverage, digest previews, article candidates and scheduled budgets; other
 adapters still use SQL. ORM imports stay inside database adapters and `libs/db`. See the
 [decision and migration gate](decisions/0003-drizzle-data-access.md).
 Explicit SQL migrations remain authoritative: `schema_migrations` records

@@ -11,8 +11,19 @@ void test('background pool preserves edition guidance, semantic recovery and exa
   const calls: unknown[] = [];
   let enabled = true;
   const db = {
-    query: async (_sql: string, values: unknown[]) => {
-      calls.push(values);
+    query: async (
+      _sql: string | { text: string; rowMode?: string },
+      values: unknown[],
+    ) => {
+      calls.push(
+        typeof _sql === 'string'
+          ? values
+          : [
+              values[0],
+              new Date(String(values[1])),
+              new Date(String(values[2])),
+            ],
+      );
       return {
         rows:
           values.length === 1
@@ -31,19 +42,26 @@ void test('background pool preserves edition guidance, semantic recovery and exa
                   },
                 ]
               : []
-            : [
-                'Team wins championship',
-                'NBA rumor spreads',
-                'NBA best bets',
-              ].map((title, i) => ({
-                id: String(i),
-                title,
-                excerpt: '',
-                sources: ['Fixture'],
-                publishedAt: start,
-                points: null,
-                url: `https://example.com/${i}`,
-              })),
+            : ['Team wins championship', 'NBA rumor spreads', 'NBA best bets']
+                .map((title, i) => ({
+                  id: String(i),
+                  title,
+                  excerpt: '',
+                  sources: ['Fixture'],
+                  publishedAt: start,
+                  points: null,
+                  url: `https://example.com/${i}`,
+                }))
+                .map((row) => [
+                  row.id,
+                  row.title,
+                  row.url,
+                  row.excerpt,
+                  null,
+                  row.publishedAt.toISOString(),
+                  row.sources,
+                  row.points,
+                ]),
       };
     },
   } as unknown as Pick<PoolClient, 'query'>;

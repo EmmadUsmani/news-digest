@@ -103,3 +103,7 @@ commands use SQL templates because they operate on the existing session; JSON
 method extraction uses PostgreSQL's JSON operator. Article/social candidate
 loaders remain separate conversion work. Existing publication, history, golden
 and failure characterization tests remain unchanged.
+
+The shared article-candidate loader uses typed joins, window filters, grouping
+and limits for publication, reaction discovery and incremental triage. Its
+ordered distinct source-name array retains a PostgreSQL aggregate template.

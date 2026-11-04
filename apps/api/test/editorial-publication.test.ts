@@ -131,9 +131,9 @@ async function harness(
             }),
           ).map((row) => Object.values(row)),
         };
-      if (sql.includes('FROM content_items'))
+      if (sql.includes('from "content_items"'))
         return {
-          rows: options.hardExcluded
+          rows: (options.hardExcluded
             ? [
                 candidate,
                 { ...support, title: 'Best bets for tonight' },
@@ -145,7 +145,17 @@ async function harness(
               ]
             : options.supporting
               ? [candidate, support]
-              : [candidate],
+              : [candidate]
+          ).map((row) => [
+            row.id,
+            row.title,
+            row.url,
+            row.excerpt,
+            null,
+            row.publishedAt.toISOString(),
+            row.sources,
+            String(row.points),
+          ]),
         };
       if (sql.startsWith('insert into "digest_previews"'))
         stored.push(JSON.parse(String(args?.[5])));
