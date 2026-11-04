@@ -127,3 +127,8 @@ transactions. Its citation-union/window-ranking candidate query retains a
 documented SQL template to preserve topic fairness and refresh priority.
 Topic post timestamps map back to Dates; missing-time updates remain conditional,
 and citation failures roll back with native PostgreSQL errors.
+
+The operations source-status reader uses typed Drizzle joins, counts and a
+correlated enabled-topic existence check. It preserves empty sources, source
+ordering, observation counts and UTC timestamps without counting topic links
+as additional observations. Queue telemetry remains unchanged.

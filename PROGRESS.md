@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 573 — repair Drizzle composite-key introspection
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz, 36 error-free sources and no failed digest jobs; Nov 4 15:00 UTC edition remains pending.
-- Fixed drizzle-kit 0.31.11's independent ANY joins with paired unnest/ordinality and ordered FK columns, via a pinned pnpm patch covering CLI/CommonJS/ESM. No application/schema/live data changes or paid calls.
-- Added real strict/verbose CLI regression against fresh isolated migrations, with PostgreSQL-enforced read-only URL options; it reports zero changes. Existing generated-DDL catalog parity and characterization tests unchanged. Programmatic push parameter loss remains avoided by using the CLI.
-- Updated TASKS/database verification/decision; archived iteration 553. Historical SQL migrations remain authoritative; migration baseline adoption is next, with private pg_dump required before first new migration.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build and git diff --check passed. First full check caught lint's import formatting; reformatted and reran. Separate initial integration run also passed 203 tests; zero dangling Docker volumes.
-- Live root HTTP 200, latest real edition has four topics, sources and digest queue healthy. No restart under STEERING 22: only development tooling/tests/docs changed.
-- Next: historical migration baseline, then individual ORM repositories; prioritize scheduled Nov 4 edition review when due.
-
 ## 2026-11-04: iteration 574 — convert Bluesky repository to Drizzle
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz and 36 healthy sources; no failed digest jobs. Nov 4 15:00 UTC edition review remains pending.
@@ -156,4 +146,15 @@
 - Initial typecheck caught existing string timestamp contracts; fixed before checks. First full check stopped on handbook table formatting; formatted and reran successfully. Existing test assertions unchanged; social repository statement coverage 100%.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
 - Updated TASKS, architecture, decision and handbook stack. Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Post-restart Playwright rendered four digest sections/19 article elements with zero page errors; 36 sources without errors, zero failed digest jobs and alerts.
+- Next: prioritize Nov 4 15:00 UTC edition review; otherwise continue remaining ORM adapters or migration baseline. Private pg_dump before first new migration.
+
+## 2026-11-04: iteration 588 — convert operations source status to Drizzle
+
+- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 error-free sources and zero failed digest jobs; Nov 4 15:00 UTC edition review pending.
+- Moved operations source reads into a database adapter using typed Drizzle joins, counts and correlated enabled-topic existence. Preserved empty sources, ordering, observation counts and HTTP UTC timestamps; queue telemetry unchanged.
+- Read-only old/new comparison matched all 36 live source rows in one repeatable-read snapshot. No migration, activation, paid call or UI change; owner grants untouched.
+- Existing characterization assertions unchanged; new reader statement coverage 100%. Initial typechecks caught timestamp contract and untyped EXISTS results; fixed with UTC normalization and boolean decoder. First otherwise-green check stopped on newly archived progress formatting; corrected before final run.
+- Updated TASKS, architecture, decision and handbook stack; archived iteration 573 to keep PROGRESS bounded.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (364 unit/203 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts stack and git diff --check passed; zero dangling Docker volumes.
+- Restarted API/worker outside freeze; both active, healthz healthy, saved edition byte-identical. Playwright root: 63 article elements, zero page errors. All 36 sources error-free, zero failed digest jobs and zero alerts.
 - Next: prioritize Nov 4 15:00 UTC edition review; otherwise continue remaining ORM adapters or migration baseline. Private pg_dump before first new migration.

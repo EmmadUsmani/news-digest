@@ -5,6 +5,7 @@ import { Queue } from 'bullmq';
 import { database, redis } from '../../../libs/db/connections';
 import { readLlmUsage } from '../../curation/public/usage';
 import { readXDiscoveryUsage } from '../../social/public/usage';
+import { readSourceStatus } from '../database/source-status';
 import { readTopicCoverage } from '../database/topic-coverage';
 import { OperationsReader } from '../domain/operations.reader';
 
@@ -34,13 +35,7 @@ export class OperationsStatus
   async read() {
     const checkedAt = new Date();
     const coverage = await readTopicCoverage(this.db, checkedAt);
-    const sources = (
-      await this.db
-        .query(`SELECT s.id,s.name,s.last_attempt AS "lastAttempt",s.last_success AS "lastSuccess",
- s.last_error AS error,s.last_item_count AS "lastItemCount",count(o.item_id)::int AS "storedItems",
- EXISTS(SELECT 1 FROM topic_source_connections c JOIN topics t ON t.id=c.topic_id WHERE c.source_id=s.id AND t.enabled) AS active
- FROM content_sources s LEFT JOIN content_observations o ON o.source_id=s.id GROUP BY s.id ORDER BY s.name`)
-    ).rows;
+    const sources = await readSourceStatus(this.db);
     const queues = await Promise.all(
       this.queues.map(async (queue) => {
         try {
