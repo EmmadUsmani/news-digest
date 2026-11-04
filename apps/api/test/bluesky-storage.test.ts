@@ -1,7 +1,10 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { PostgresBlueskyRepository } from '../src/modules/social/database/bluesky.repository';
+import {
+  PostgresBlueskyRepository,
+  readBlueskyObservations,
+} from '../src/modules/social/database/bluesky.repository';
 import type { BlueskyPost } from '../src/modules/social/domain/bluesky';
 
 const topic = '00000000-0000-4000-8000-000000000012';
@@ -695,6 +698,51 @@ void test('Bluesky snapshot insert failure rolls back current metadata and permi
     await repo.db.query(
       "DELETE FROM social_posts WHERE platform='bluesky' AND external_id=$1",
       [original.externalId],
+    );
+    await repo.db.end();
+  }
+});
+
+void test('Bluesky publisher reads honor transaction-local visibility and rollback', async () => {
+  const repo = new PostgresBlueskyRepository();
+  const client = await repo.db.connect();
+  try {
+    await repo.store(topic, [post]);
+    await client.query('BEGIN');
+    await client.query('UPDATE topics SET enabled=false WHERE id=$1', [topic]);
+    assert.deepEqual(
+      await readBlueskyObservations(client, topic, start, end, end),
+      [],
+    );
+    // A separate connection still sees committed configuration and snapshots.
+    assert.deepEqual(await repo.observations(topic, start, end, end), [post]);
+    await client.query('ROLLBACK');
+    assert.deepEqual(
+      await readBlueskyObservations(client, topic, start, end, end),
+      [post],
+    );
+
+    await client.query('BEGIN');
+    await client.query(
+      'DELETE FROM bluesky_observations WHERE topic_id=$1 AND external_id=$2',
+      [topic, post.externalId],
+    );
+    assert.deepEqual(
+      await readBlueskyObservations(client, topic, start, end, end),
+      [],
+    );
+    assert.deepEqual(await repo.observations(topic, start, end, end), [post]);
+    await client.query('ROLLBACK');
+    assert.deepEqual(
+      await readBlueskyObservations(client, topic, start, end, end),
+      [post],
+    );
+  } finally {
+    await client.query('ROLLBACK');
+    client.release();
+    await repo.db.query(
+      "DELETE FROM social_posts WHERE platform='bluesky' AND external_id=$1",
+      [post.externalId],
     );
     await repo.db.end();
   }

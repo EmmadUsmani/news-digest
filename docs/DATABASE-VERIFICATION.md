@@ -553,3 +553,11 @@ current-post upsert. Current metadata and both topics' immutable histories remai
 unchanged. Removing the constraint permits retry and idempotent replay, while the
 other topic retains its original snapshot. Disposable PostgreSQL only; no provider
 requests or production changes.
+
+## Bluesky publisher transaction reads (iteration 565)
+
+`bluesky-storage.test.ts` exercises the publisher-facing observation reader with
+an explicit transaction client. Uncommitted topic disabling and snapshot deletion
+are visible to that reader while independent repository reads retain committed
+configuration and history. Rollback restores both reads. Disposable PostgreSQL
+only; no provider requests or production changes.

@@ -166,3 +166,11 @@
 - Updated TASKS and database verification notes. No provider requests, production changes or restart required under STEERING 22.
 - Verification: pnpm format, pnpm lint:fix and pnpm check passed (363 unit/196 isolated integration); pnpm build and git diff --check passed. Archived iteration 545 to keep PROGRESS small.
 - Next: prioritize Nov 4 15:00 UTC edition review; grouping/incremental triage stay gated. Repository characterization and recorded-response golden remain open.
+
+## 2026-11-04: iteration 565 — pin Bluesky publisher transaction reads
+
+- Started clean on main; no leftover work. Healthz and alerts green; Nov 4 scheduled evidence remains pending.
+- Added isolated regression through the publisher-facing observation reader: transaction-local topic disabling and snapshot deletion are visible only inside that transaction; rollback restores reads. Independent repository reads retain committed configuration/history.
+- Updated TASKS and database verification notes. No provider requests or production changes; no restart under STEERING 22.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/197 isolated integration) and pnpm build passed. Final healthz healthy, alerts clear and zero dangling Docker volumes.
+- Next: prioritize Nov 4 15:00 UTC edition review; grouping and incremental triage remain gated. Repository characterization and recorded-response golden remain open.
