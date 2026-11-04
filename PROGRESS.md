@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 640 — measure caller barriers in offline triage batching
-
-- Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 sources and all four queues available; Nov 4 edition pending.
-- Offline batching now reports cold provider requests per sequential caller pass and equal-duration capacity rounds at one/two/four slots, excluding cache-only repeat work.
-- Recorded Nov 1 NBA/Tech windows each need two requests: chunk 50 serializes them; chunk 200 permits overlap. Two/four slots tie in these small windows. World needs one request. These are capacity models, not live timing/cost or optimal-setting evidence.
-- Four targeted tests pass, including 201-item partial passes, byte-bound splitting, empty work and cache-preserving repartitioning. No paid calls, production code/settings or feature activation.
-- Updated TASKS/RANKING; archived iteration 622 to keep PROGRESS bounded. No source/handbook/schema behavior change.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (385 unit/205 isolated integration), pnpm build and git diff --check passed. An initial format check caught the new archive file; formatted it and reran the full check successfully.
-- API/worker restarted at 14:21 UTC; healthz healthy, zero alerts/failed units/dangling volumes. Saved Nov 3 edition remains four topics/19 stories/11 posts. No Postgres/Redis restart.
-- Next: review Nov 4 15:00 UTC edition for open-X/Bluesky selections, World posts, NBA validation and timing/cost. Incremental triage/grouping stay off pending review.
-
 ## 2026-11-04: iteration 641 — measure partially warm triage cache fragmentation
 
 - Started clean on main; no leftover work. Healthz healthy, zero alerts, 36 healthy sources/13 services, and all four queues available; Nov 4 edition remains pending.
@@ -164,3 +153,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (397 unit/207 isolated integration), pnpm build, handbook check (17 pages/two unchanged diagrams/25 tables), private capture permissions and git diff --check passed.
 - Restarted API/worker; both active, healthz/database/Redis healthy, saved four-topic edition readable, 36 sources without errors, four queues available and zero alerts/failed user units/dangling Docker volumes.
 - Next: Nov 5 grouping/cost/accuracy/screenshots, NBA full-AI and World posts; compare private baseline with final same-window capture and reassess background headroom after full-AI evidence.
+
+## 2026-11-04: iteration 656 — give the final social editor saved engagement evidence
+
+- Started clean on main; no leftover work. Zero alerts and healthy healthz/database/Redis; API and worker active.
+- Found final social editing discarded engagement even though shortlist ranking used it. X candidates now carry the existing bounded ranking explanation, preserving unverified search provenance and explicit unknown counts; Bluesky carries timestamped API likes/reposts/replies.
+- Shared editor treats counts as advisory alongside relevance/distinct content, never proof of truth, measured growth, account-relative reach or virality. Evidence is bounded at 1,200 characters and participates in request/cache identity.
+- No paid calls, new discovery requests, configuration/model/cap changes, edition generation or UI change. Actual selection improvement remains unmeasured until the next scheduled edition.
+- Updated TASKS/RANKING and affected handbook page; archived iteration 640. Source inventory and schema unchanged.
+- Verification: targeted social tests 15/15; pnpm format, pnpm lint:fix, pnpm check (398 unit/207 isolated integration), pnpm build, handbook check (17 pages/one unchanged diagram/25 tables) and git diff --check passed.
+- Restarted API/worker; both active, healthz/database/Redis healthy, saved four-topic edition readable, zero alerts/failed user services.
+- Next: Nov 5 grouping/cost/accuracy/screenshots, NBA full-AI acceptance, World posts and evidence-informed social picks; incremental triage stays off.

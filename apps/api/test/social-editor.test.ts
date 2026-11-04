@@ -194,3 +194,35 @@ void test('existing cross-platform picks are bounded untrusted context, affect c
   );
   assert.equal(invalid.calls.length, 4);
 });
+
+void test('engagement evidence reaches the editor bounded and changes cached selection identity', async () => {
+  const h = harness();
+  await h.editor.edit(topic, candidates, 1, 'unknown');
+  const reported = [
+    {
+      ...candidates[0],
+      engagementEvidence:
+        'Unverified xai_search likes 12; observed 2026-11-02T01:00:00Z.',
+    },
+  ];
+  await h.editor.edit(topic, reported, 1, 'reported');
+  assert.equal(h.calls.length, 2);
+  assert.equal(
+    JSON.parse(h.calls[1].prompt).candidates[0].engagementEvidence,
+    reported[0].engagementEvidence,
+  );
+  assert.match(h.calls[1].instructions, /Missing counts are unknown, not zero/);
+  assert.match(h.calls[1].instructions, /never as proof of truth/);
+  await h.editor.edit(topic, reported, 1, 'cached');
+  assert.equal(h.calls.length, 2);
+  await h.editor.edit(
+    topic,
+    [{ ...candidates[0], engagementEvidence: 'x'.repeat(2000) }],
+    1,
+    'bounded',
+  );
+  assert.equal(
+    JSON.parse(h.calls[2].prompt).candidates[0].engagementEvidence.length,
+    1200,
+  );
+});

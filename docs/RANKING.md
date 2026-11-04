@@ -2708,3 +2708,5 @@ the scheduled reserve. A private prospective pool capture records 65 eligible
 articles across all four topics and zero matching current cache rows. This is
 not a final pool, scoring, cache consumption, waste or latency measurement.
 Reassess after full-AI acceptance supplies reserve evidence. No paid calls.
+
+Final social editing now receives bounded saved engagement evidence: X ranking explanations retain unverified search provenance and unknown-count semantics; Bluesky supplies timestamped API counts. Counts are advisory and do not establish growth, account-relative reach or virality. Fake request/cache and caller propagation checks cover this path; selection quality still awaits the next scheduled edition.

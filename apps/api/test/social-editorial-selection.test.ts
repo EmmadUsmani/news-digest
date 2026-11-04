@@ -280,6 +280,10 @@ void test('reported engagement changes semantic shortlist admission without bypa
     socialEditor: {
       async edit(_topic, shortlist) {
         assert.equal(shortlist.length, 10);
+        assert.equal(
+          shortlist[0].engagementEvidence,
+          'Unverified synthetic search report',
+        );
         assert.deepEqual(
           shortlist.slice(0, 2).map((p) => p.id),
           ['10', '11'],

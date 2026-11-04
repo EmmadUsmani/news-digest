@@ -49,6 +49,13 @@ does not disable primary discovery. Disable the topic or its post slots to exclu
 They do not guarantee relevance. Changes persist and also change the
 report's comparison against current account lists.
 
+The final social editor receives saved engagement evidence alongside post text.
+For X, this is the bounded ranking explanation with unverified xAI counts and
+observation time when available; missing reports stay unknown. For Bluesky, it
+receives the timestamped API counts. Counts are advisory: relevance and distinct
+content still matter, and a single snapshot establishes neither measured growth
+nor account-relative reach.
+
 ## Verification and safety
 
 - **Official only:** posts are confirmed with X's public **oEmbed** endpoint,

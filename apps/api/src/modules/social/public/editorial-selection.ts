@@ -136,6 +136,8 @@ export async function editTopicPosts<T extends EditorialPost>(
               publishedAt: post.publishedAt,
               relevance: s.relevance,
               interestingness: s.importance,
+              engagementEvidence:
+                post.platform === 'x' ? post.xSearchRanking?.reason : undefined,
             },
           ]
         : [];

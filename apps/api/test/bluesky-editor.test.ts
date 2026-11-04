@@ -39,6 +39,17 @@ void test('Bluesky final editor bounds candidates, permits fewer picks and prese
     harness(async (_topic, candidates, budget) => {
       assert.equal(candidates.length, 10);
       assert.equal(budget, 5);
+      const original = posts.find(
+        (p) => `bluesky:${p.externalId}` === candidates[0].id,
+      )!;
+      assert.ok(
+        candidates[0].engagementEvidence?.includes(original.observedAt),
+      );
+      assert.ok(
+        candidates[0].engagementEvidence?.includes(
+          `likes ${original.metrics.likes}`,
+        ),
+      );
       assert.ok(candidates.every((c) => c.platform === 'bluesky'));
       return {
         model: 'fake',
