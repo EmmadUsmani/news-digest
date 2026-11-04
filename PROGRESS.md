@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 680 — offline batch fill and warm social dispatch
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 sources without current errors and no failed retained digest jobs. Next edition Nov 5 15:00 UTC.
-- Offline batching evaluator now reports actual per-pass request item counts, full/partial batch fill and overlapping fake calls through the real worker loop. Supplied article/social pools accept validated warm IDs; preparation stays separately counted.
-- Recorded Nov 1 article cold pools at caller size 200: NBA 52 items → 50/2 (peak two fake calls), World 47 → 47 (peak one), Tech 54 → 50/4 (peak two). No live latency or quality claim.
-- Synthetic 200-post social pool, alternating half warm: size-50 passes produce four sequential 25-item calls; size-200 pass produces two concurrent 50-item calls. All pending/prepared items preserved; repeat pass and fully warm pools issue zero calls.
-- Added regression coverage for dispatch/fill, warm social fragmentation, empty/warm inputs and invalid warm IDs. Updated TASKS and concurrency evidence; SOURCES/handbook unchanged because no running-system/source behavior changed.
-- Verification: targeted tsx triage-batching tests 8/8; standalone tsc --strict check passed (initial ad-hoc command omitted strict mode; corrected). pnpm format, pnpm lint:fix, pnpm check (430 unit/209 isolated integration), pnpm build and git diff --check passed. Archived iterations 665–666 to keep this file small.
-- No paid calls or production code/config changes; no restart under STEERING 22. X experiment remains blocked on a supported cost bound or owner decision. Next: prioritize Nov 5 grouping/NBA/cost/latency/screenshots; compare actual batching before production tuning.
-
 ## 2026-11-04: iteration 681 — offline topic context and byte pressure
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 nonempty sources without current errors, no failed retained digest jobs; next edition Nov 5 15:00 UTC.
@@ -152,3 +142,12 @@
 - Verification: targeted report tests 8/8, standalone strict tsc, pnpm format, pnpm lint:fix, pnpm check (453 unit/209 isolated integration) and pnpm build passed. Handbook validation (17 pages/22 diagrams/26 tables) and git diff --check passed.
 - Updated TASKS and experiment reference; archived iteration 679 to bound PROGRESS. SOURCES/handbook unchanged: no source/runtime change. No restart under STEERING 22 for offline tooling.
 - Next: Nov 5 grouping/NBA AI/cost/latency/screenshots; paid X dispatch remains blocked on a supported cost bound or owner decision.
+
+## 2026-11-04: iteration 697 — preserve refreshed edition history
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 sources without current errors and no failed retained digest jobs. Next edition Nov 5 15:00 UTC; paid X experiment still blocked on supported cost bound.
+- Fixed saved-history refresh: an obsolete request can no longer replace refreshed entries or show an outdated failure after a background edition completes.
+- Browser regression reproduced the missing newest entry before deployment. Desktop/mobile delayed-success and delayed-failure checks now pass using real stored editions and simulated browser-only job completion; no jobs, writes or provider calls. Saved and reviewed screenshots; no horizontal overflow.
+- Verification: pnpm format, pnpm lint:fix, pnpm build, standalone smoke-script strict tsc and Playwright passed. pnpm check passed (453 unit/209 isolated integration); handbook passed (17 pages/22 diagrams/26 tables), as did git diff --check. Corrected smoke-script formatting and standalone tsc path setup; retried a handbook render timeout successfully.
+- Updated TASKS; archived iteration 680 to bound PROGRESS. SOURCES/handbook unchanged: UI race fix only. Rebuilt and restarted API; worker unchanged.
+- Next: Nov 5 grouping/NBA AI/cost/latency/screenshots. No cap, model, provider or production pipeline changes.

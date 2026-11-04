@@ -118,14 +118,21 @@ export function DigestPreview() {
     };
   }, [jobId]);
   React.useEffect(() => {
+    let cancelled = false;
     setHistory(null);
     setHistoryError(false);
     fetch(`/api/digest-previews?offset=${offset}`)
       .then(async (r) => {
         if (!r.ok) throw new Error();
-        setHistory(previewHistorySchema.parse(await r.json()));
+        const data = previewHistorySchema.parse(await r.json());
+        if (!cancelled) setHistory(data);
       })
-      .catch(() => setHistoryError(true));
+      .catch(() => {
+        if (!cancelled) setHistoryError(true);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [offset, revision]);
   React.useEffect(() => {
     const request = ++editionRequest.current;
