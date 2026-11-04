@@ -70,7 +70,10 @@ window, dispatches within one hour and one UTC day. Missing/duplicate cells,
 window mismatch and elapsed time are reported; unknown/reused request IDs or
 mislabelled topics/models fail validation. Unassigned evidence is listed.
 `twoDayCoverage` requires complete rounds for the same model and four topics on
-different UTC days. It checks structural coverage only, not operator behavior,
+different UTC days and non-overlapping news windows. Repeating the same window
+on a later dispatch day cannot satisfy the second-news-day requirement. Round
+summaries include the normalized window (or null if inconsistent). This checks
+structural coverage only, not operator behavior,
 threshold calibration or model acceptance, and never selects a winner.
 Per-style totals retain unknown review labels; comparable yield per dollar is
 withheld for incomplete rounds. Current tests use synthetic rounds only.

@@ -1,25 +1,3 @@
-## 2026-11-04: iteration 671 — measure cached triage field lengths
-
-- Started clean on main; no leftover work. Zero alerts and healthy healthz/database/Redis.
-- Added read-only aggregate triage-length report: parameterized half-open cache creation window, read-only transaction, 15-second query timeout; no text/IDs or paid calls.
-- Nov 4 15:00–15:03 UTC cache sample: 689 article/227 social scores, all event/rationale strings. Article p95 46/58 characters; social 43/53; no prompt-guidance or schema-limit overruns.
-- Successful cached fields are already short; do not infer token shares or speedups, or tighten limits from this sample. Reused cache entries, failed attempts and repairs are absent; exact edition membership is not established.
-- Updated TASKS/concurrency evidence; archived iteration 654 to keep PROGRESS bounded. No runtime/handbook/schema/SOURCES changes; incremental triage stays off.
-- Verification: real read-only sample, empty future window and invalid timestamp rejection; pnpm format, pnpm lint:fix, pnpm check (413 unit/207 isolated integration), pnpm build and git diff --check passed.
-- API/worker active, healthz healthy, zero alerts, 36 nonempty sources without errors and four available queues. No restart under STEERING 22: runtime/config unchanged.
-- Next: Nov 5 grouping admission/accuracy/cost/latency/screenshots, NBA full-AI acceptance, World posts and Bluesky repairs.
-
-## 2026-11-04: iteration 672 — explain triage coverage repairs
-
-- Started clean on main; no leftover work. Zero alerts and healthy healthz/database/Redis.
-- Article/social missing, duplicate, extra and original-ID score arrays now emit a fixed coverage diagnostic and specific single-repair guidance; no rejected text/IDs enter feedback.
-- Initial prompts, cache identity, candidate coverage, models, budgets and concurrency unchanged. Schema-invalid scores still fail closed; no paid calls or measured live speedup.
-- Fake-provider regression covers eight defect/kind cases, corrected original-ID mapping and warm-cache reuse; targeted triage 24/24 passed. Fixed harness parsing so transport repairs actually reach its fake provider.
-- Updated TASKS/RANKING; archived iteration 655 to keep PROGRESS bounded. No handbook/schema/SOURCES changes needed for this internal repair.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (414 unit/207 isolated integration), pnpm build and git diff --check passed.
-- Restarted API/worker active; initial immediate probe preceded listener startup, retry healthy with database/Redis. Zero alerts, 36 nonempty sources without errors; saved edition remains four topics/14 stories/15 posts.
-- Next: Nov 5 grouping admission/accuracy/cost/latency/screenshots, NBA full-AI outcome, World posts and Bluesky repair tail.
-
 ## 2026-11-04: iteration 673 — extend offline batching to social pools
 
 - Started clean on main; no leftover work. Zero alerts and healthy healthz/database/Redis.
@@ -160,3 +138,12 @@
 - Updated TASKS and concurrency evidence with command/results/limitations. SOURCES/handbook unchanged because source/runtime behavior is unchanged.
 - Verification: targeted batching/shortlist tests 12/12, standalone strict tsc, invalid-input exit/no-output check and stored-pool count/cache/size assertions passed; pnpm format, pnpm lint:fix, pnpm check (443 unit/209 isolated integration), pnpm build and git diff --check passed. Final healthz healthy and zero alerts.
 - X experiment still awaits supported cost bound or owner decision. Next: Nov 5 grouping/NBA AI/cost/latency/screenshots, then compare real repair/cache evidence before tuning. No restart under STEERING 22: services do not import the new script.
+
+## 2026-11-04: iteration 687 — require independent X comparison news windows
+
+- Started clean on main; no leftover work. Zero alerts; healthy services, healthz/database/Redis and all 36 sources. No failed retained digest jobs; latest scheduled edition completed, next Nov 5 15:00 UTC.
+- Fixed offline comparison coverage: different dispatch days no longer qualify when they repeat the same or overlapping news window. Round summaries expose normalized windows, or null for inconsistent/empty rounds. Adjacent windows qualify in either input order.
+- Synthetic regressions cover same-window reuse, timezone-equivalent reuse, partial overlap and adjacent independent windows; no live experiment or paid calls. Production unchanged.
+- Verification: targeted comparison/CLI 11/11, standalone strict tsc, pnpm format, pnpm lint:fix, pnpm check (444 unit/209 isolated integration), pnpm build, handbook validation and git diff --check passed. Initial check caught archive formatting; reformatted and complete rerun passed.
+- Updated TASKS/experiment reference; archived iterations 671–672 to keep PROGRESS bounded. SOURCES/handbook unchanged because runtime/source behavior is unchanged. Final healthz healthy and zero alerts; no restart under STEERING 22 for this offline helper.
+- X paid dispatch still needs supported cost bound or owner decision. Next: Nov 5 grouping/NBA AI/cost/latency/screenshots, then capped two-day comparison when unblocked.

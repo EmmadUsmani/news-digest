@@ -87,6 +87,13 @@ export function xExperimentComparison(
       utcDay: days.size === 1 ? [...days][0] : null,
       spanMs,
       sameWindow: windows.size === 1,
+      window:
+        windows.size === 1
+          ? {
+              start: new Date(calls[0].window.start).toISOString(),
+              end: new Date(calls[0].window.end).toISOString(),
+            }
+          : null,
       missing,
       duplicateCells,
       complete,
@@ -158,6 +165,8 @@ export function xExperimentComparison(
     unassignedRequestIds,
     // Structural coverage only. Operator behavior, calibration and cheaper-model
     // acceptance still need review; this helper never chooses a winner.
+    // Separate dispatch days must also cover independent news windows, not
+    // repeated or overlapping searches of the same stories.
     twoDayCoverage: summaries.some(
       (first, i) =>
         first.complete &&
@@ -167,6 +176,12 @@ export function xExperimentComparison(
             (second) =>
               second.complete &&
               second.utcDay !== first.utcDay &&
+              first.window !== null &&
+              second.window !== null &&
+              (Date.parse(first.window.end) <=
+                Date.parse(second.window.start) ||
+                Date.parse(second.window.end) <=
+                  Date.parse(first.window.start)) &&
               second.model === first.model &&
               JSON.stringify([...second.topicIds].sort()) ===
                 JSON.stringify([...first.topicIds].sort()),

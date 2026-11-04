@@ -78,6 +78,45 @@ void test('comparison requires two full four-topic three-style rounds on separat
   );
 });
 
+void test('second dispatch day cannot reuse the same or an overlapping news window', () => {
+  const first = fixture();
+  for (const window of [
+    first.evidence[0].window,
+    { start: '2026-11-04T17:59:59Z', end: '2026-11-05T18:00:00Z' },
+    // Different textual offsets still represent the original news window.
+    { start: '2026-11-03T17:00:00-07:00', end: '2026-11-04T11:00:00-07:00' },
+  ]) {
+    const second = fixture('05');
+    second.evidence.forEach((call) => {
+      call.window = { ...window };
+    });
+    const report = xExperimentComparison(
+      [...first.evidence, ...second.evidence],
+      [first.round, second.round],
+    );
+    assert.ok(report.rounds.every((round) => round.complete));
+    assert.equal(report.twoDayCoverage, false);
+  }
+  const second = fixture('05');
+  second.evidence.forEach((call) => {
+    call.window.start = '2026-11-04T18:00:00Z';
+  });
+  for (const ordered of [
+    [first, second],
+    [second, first],
+  ]) {
+    const report = xExperimentComparison(
+      ordered.flatMap((data) => data.evidence),
+      ordered.map((data) => data.round),
+    );
+    assert.equal(report.twoDayCoverage, true);
+    assert.deepEqual(report.rounds[0].window, {
+      start: new Date(ordered[0].evidence[0].window.start).toISOString(),
+      end: new Date(ordered[0].evidence[0].window.end).toISOString(),
+    });
+  }
+});
+
 void test('missing or repeated cells, mismatched windows and hour overflow block coverage', () => {
   for (const mutate of [
     ({ round }: ReturnType<typeof fixture>) => {
