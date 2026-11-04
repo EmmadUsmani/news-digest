@@ -69,7 +69,6 @@ void test('lost admission session releases its lock and stale cleanup cannot unl
     disconnected = resolve;
   });
   firstDb.once('connect', (client) => {
-    client.once('error', disconnected);
     client.once('end', disconnected);
   });
   try {
@@ -77,9 +76,18 @@ void test('lost admission session releases its lock and stale cleanup cannot unl
     backend = (
       await client.query<{ pid: number }>('SELECT pg_backend_pid() AS pid')
     ).rows[0].pid;
+    const originalListeners = new Set(client.listeners('error'));
     client.release();
     const staleRelease = await first.acquire();
     assert.ok(staleRelease);
+    const admissionListeners = client
+      .listeners('error')
+      .filter((listener) => !originalListeners.has(listener));
+    assert.equal(
+      admissionListeners.length,
+      1,
+      'admission must handle checked-out client errors without a test listener',
+    );
     assert.equal(await second.acquire(), null);
     const terminated = await secondDb.query<{ terminated: boolean }>(
       'SELECT pg_terminate_backend($1) AS terminated',
@@ -91,6 +99,12 @@ void test('lost admission session releases its lock and stale cleanup cannot unl
     assert.ok(successorRelease, 'Postgres must release a dead session lock');
     try {
       await assert.rejects(staleRelease());
+      assert.ok(
+        admissionListeners.every(
+          (listener) => !client.listeners('error').includes(listener),
+        ),
+        'cleanup removes its listener while preserving pg internal listeners',
+      );
       await staleRelease();
       assert.equal(
         await first.acquire(),

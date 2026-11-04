@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 527 — prepare cross-process incremental triage admission
-
-- Started clean on main; no leftover work. Zero alerts and healthy healthz; Nov 4 scheduled review remains pending.
-- Added optional admission port and nonblocking Postgres session-lock adapter, separate from the budget lock; busy workers skip pool loading. Runner rechecks cutoff after admission and releases on success, cutoff and failure.
-- Isolated Postgres regression covers independent pools, contention, idempotent release and loader-error recovery. Fake regression covers admission/release failures and crossing cutoff during acquisition.
-- Session lock is not provider-call fencing after DB disconnection. No scheduler wiring, activation or paid calls; setting remains off. No schema/source/UI or handbook flow changes.
-- Updated TASKS/RANKING. pnpm format, pnpm lint:fix, pnpm check (316 unit/184 isolated integration), pnpm build and git diff --check passed; live root/healthz/status healthy, four queues available, zero dangling Docker volumes.
-- Services stay running under STEERING 22 because prepared code is not imported by running code. Next: scheduler wiring and longer-span eligibility/scored-work evidence; Nov 4 edition review takes priority.
-
 ## 2026-11-04: iteration 528 — compare prospective triage cache compatibility
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/root/status, 36 error-free sources, four available queues and latest Bluesky collection completed.
@@ -172,4 +163,13 @@
 - Recovery is not provider-call fencing: an in-flight request may outlive the session. No provider calls, production activation or cost/latency claims; incremental triage stays off.
 - Updated TASKS/RANKING and archived iteration 526. No source/schema/UI or handbook flow changes. No restart under STEERING 22: only tests/docs changed.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (353 unit/187 isolated integration), pnpm build and git diff --check passed; root HTTP 200, healthy healthz, zero alerts and dangling Docker volumes.
+- Next: Nov 4 scheduled review first; gated worker connection and actual scoring/final-pool waste evidence thereafter.
+
+## 2026-11-04: iteration 547 — contain admission session errors
+
+- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, all 36 sources nonempty/error-free and no failed digest jobs; latest social collection completed. Retained ingestion/social failures are historical; Nov 4 review remains pending.
+- Fixed the prepared admission adapter's missing checked-out client error listener: database loss during scoring is contained, failed clients are destroyed and cleanup reports the session error. No activation or provider calls.
+- Isolated backend-termination regression no longer installs a masking test error handler; verifies adapter listener removal, successor safety and pool recovery. Initial cleanup assertion incorrectly counted pg internal listeners; corrected to track only adapter-owned listeners.
+- Updated TASKS/RANKING and archived iteration 527. No schema/source/UI or handbook flow changes. No restart under STEERING 22: this adapter remains outside the production worker import graph.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (353 unit/187 isolated integration), pnpm build and git diff --check passed. Initial archive formatting failure corrected before final full check.
 - Next: Nov 4 scheduled review first; gated worker connection and actual scoring/final-pool waste evidence thereafter.

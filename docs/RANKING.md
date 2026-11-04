@@ -2106,3 +2106,14 @@ original pool replaces its dead connection and can acquire admission again.
 No provider call occurs. This is recovery evidence, not fencing: a provider
 request already in flight can outlive its database session, so session loss
 can still permit overlapping scoring. Incremental triage remains inactive.
+
+## Iteration 547: contain admission-client disconnect errors
+
+The prepared Postgres admission adapter now owns an error listener while its
+client is checked out. Unlike idle connections, checked-out client errors do
+not reach the pool; without a listener a connection loss during provider work
+could terminate the process. Cleanup destroys a failed connection, reports the
+session error and removes its listener. The isolated session-termination test
+now relies on the adapter's listener, with no test error handler masking this
+path, and verifies listener removal and successor-lock safety. This does not
+fence already-started provider requests. No worker activation or paid calls.
