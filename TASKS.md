@@ -18,6 +18,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
   - Saved-response extraction (715): offline CLI reproduces all 11 settled round-1 calls/47 posts exactly, preserving query/usage evidence and unknown labels; ready for second-day reporting without ad hoc extraction.
 
+  - Model research (716): account exposes cheaper `grok-build-0.1` ($1/$2 per million), but built-in X Search remains unverified. Same-usage round-1 saving only $0.029465 (7.7%); model round must measure compatibility and ≥90% yield after style/calibration, with matching settlement rates. [Evidence](docs/edition-reviews/2026-11-04-x-experiment-review.md#model-round-research-iteration-716).
+
 - [ ] STEERING 27: verify Nov 5 scheduled grouping admission, accuracy, cost, latency and desktop/mobile screenshots. Nov 4 review: 151.532 s/$0.291162, NBA fallback, World no posts, paid open-X picks 0/19 ([review](docs/edition-reviews/2026-11-04.md)).
   - Same-story pass enabled for Nov 5 (650), following passed sampled gate: labelled precision 141/141, recall 141/157; zero clearly unrelated and one borderline among 155 reviewed merges. Four-call reservation bound $0.058192; reserve protects full daily cap. No wording grouping rules. Actual grouped edition remains unverified.
 - [ ] STEERING 13: full-AI scheduled acceptance remains open. Reserve/fencing/UI implemented; Nov 3 $0.339524/231.829 s, Nov 4 $0.291162/151.532 s, reserve released/zero holds. NBA Sonnet and Haiku initial+repair failures proved by fingerprints, all candidates scored. Numeric No. rank false positives fixed (647), bounded diagnostics (648) and field-specific repair hints (653) shipped. Await actual NBA outcome; rejected wording unavailable.

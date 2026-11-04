@@ -145,3 +145,42 @@ Private `recover-timestamps-713.py`, `timestamp-audit-713.json`,
 `dated-evidence-713.json` and `dated-report-713.json` preserve the exact
 recovery, provenance and unchanged offline reporter output (mode 600).
 Original evidence, scores, labels and admission journal remain untouched.
+
+## Model-round research (iteration 716)
+
+Checked the official [model table](https://docs.x.ai/developers/models),
+[Grok Build page](https://docs.x.ai/developers/models/grok-build-0.1),
+[Grok 4.3 page](https://docs.x.ai/developers/models/grok-4.3) and
+[X Search page](https://docs.x.ai/developers/tools/x-search) on Nov 4.
+The configured account's read-only `GET /v1/models` exposes both
+`grok-4.3` and `grok-build-0.1`. No inference calls were made.
+
+| Model          | Input / million | Output / million | Search compatibility evidence                             |
+| -------------- | --------------: | ---------------: | --------------------------------------------------------- |
+| grok-4.3       |           $1.25 |            $2.50 | Eleven saved successful round-1 calls                     |
+| grok-build-0.1 |           $1.00 |            $2.00 | Function calling documented; built-in X Search unverified |
+
+Prices apply below 200,000 prompt tokens. Function calling does not establish
+support for the server-side `x_search` tool. Model-list availability likewise
+does not prove that tool works. Build is the cheapest listed text candidate;
+it is not an accepted replacement. The model round must measure successful
+search execution and at least 90% of the winning style's passing yield before
+any switch. First finish the second-day style comparison and calibration.
+
+The eleven original settlement files total 68,517 input tokens, 24,672 output
+tokens, 47 fetched posts and zero profiles. At the saved 4.3 rates this is
+$0.14732625 tokens plus $0.235 fetching; per-call rounding produces the recorded
+$0.382331 total. With identical usage, Build's listed token rates would cost
+$0.117861: a $0.02946525 saving, about 7.7% of the original total. This is a
+price-only counterfactual, not measured Build cost or quality; token usage and
+fetched counts can change with the model. Fetch charges dominate this sample.
+
+Keep the existing runner on 4.3: its settlement rates and manifest are tied to
+that model. The later model round needs matching request, rate and manifest
+values and only the winning style, rather than blindly changing the model name
+in prepared requests. No new runner machinery, provider/model switch,
+production settings, threshold changes or experiment budget writes this iteration.
+
+Private snapshots `model-table-716.md`, `build-model-716.md`, `43-model-716.md`,
+`x-search-docs-716.md` and `model-assessment-716.json` preserve this research
+beside round 1, all mode 600. Original evidence and budget journal are unchanged.
