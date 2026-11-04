@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 544 — attribute prospective cache invalidation
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 successful sources without current errors and no failed digest jobs. Two retained historical ingestion failures remain; Nov 4 review is pending.
-- Offline cache comparator partitions changed retained keys into article-only, topic-only and combined causes using production-key counterfactuals, respecting prompt truncation. Five targeted tests pass, including reconciliation and eligibility loss.
-- Replayed private 525/543 captures to `/tmp/triage-cache-544.json`: all eight changes are article-only (2 Tech/6 World); zero topic-only or combined. No actual scored-work waste, cost, latency, activation or paid calls.
-- Updated TASKS/RANKING and archived iteration 524 to keep PROGRESS small. No source/schema/UI or handbook flow changes. No restart under STEERING 22 because running code/config is unchanged.
-- Next: Nov 4 scheduled review first, then gated worker connection and actual scoring/final-pool waste measurements.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (351 unit/186 isolated integration), pnpm build, targeted comparator tests (5/5) and git diff --check passed; root HTTP 200, healthy healthz and zero alerts.
-
 ## 2026-11-04: iteration 545 — join final captures to observed scoring exports
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/root, 36 nonempty error-free sources; latest Bluesky collection succeeded with zero discovery/verification errors. Retained Nov 3 token failure is historical. Nov 4 review remains pending.
@@ -167,3 +158,12 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (363 unit/194 isolated integration), pnpm build and git diff --check passed; zero dangling Docker volumes. Final alerts clear.
 - Updated TASKS/database verification notes and archived iteration 543 to keep PROGRESS small. No restart under STEERING 22: running code/config unchanged.
 - Next: prioritize Nov 4 15:00 UTC edition review; grouping and incremental triage remain gated. Repository characterization and recorded-response golden remain open.
+
+## 2026-11-04: iteration 563 — characterize Bluesky topic lifecycle
+
+- Started clean on main; no leftover work. Healthz passed, 36 sources healthy, no failed digest jobs and zero alerts; retained source/social failures are historical. Nov 4 scheduled review remains pending.
+- Added isolated repository regression for disable/re-enable history retention, skipped disabled writes, resumed collection and delete/recreate isolation. Another topic's snapshots and newer shared current metadata survive deletion and older replay.
+- Verification: pnpm format, pnpm lint:fix and pnpm check passed (363 unit/195 isolated integration). Initial check caught archive formatting, corrected before rerun. No provider requests or production changes.
+- Updated TASKS/database verification notes; archived iteration 544 to keep PROGRESS small. No restart under STEERING 22: running code/config unchanged.
+- Final checks: pnpm build and git diff --check passed; healthz healthy, zero alerts and zero dangling Docker volumes.
+- Next: prioritize Nov 4 15:00 UTC edition review; grouping/incremental triage remain gated. Repository characterization and recorded-response golden remain open.

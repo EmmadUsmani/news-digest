@@ -555,3 +555,75 @@ void test('Bluesky equal-time conflicts preserve first current metadata and inde
     await repo.db.end();
   }
 });
+
+void test('Bluesky topic lifecycle restores retained history and isolates deletion from shared posts', async () => {
+  const repo = new PostgresBlueskyRepository();
+  const id = '11111111-1111-4111-8111-111111111563';
+  const original = { ...post, externalId: post.externalId + 'lifecycle' };
+  const skipped = {
+    ...original,
+    observedAt: '2026-10-01T13:00:00.000Z',
+    text: 'Disabled write',
+  };
+  const resumed = {
+    ...original,
+    observedAt: '2026-10-01T14:00:00.000Z',
+    text: 'Resumed write',
+  };
+  const insertTopic = () =>
+    repo.db.query(
+      "INSERT INTO topics(id,profile_id,name,description,include_guidance,exclude_guidance,position) VALUES($1,'00000000-0000-4000-8000-000000000001','Synthetic lifecycle','','','',999)",
+      [id],
+    );
+  try {
+    await insertTopic();
+    await repo.store(id, [original]);
+    await repo.store(other, [original]);
+    await repo.db.query('UPDATE topics SET enabled=false WHERE id=$1', [id]);
+    await repo.store(id, [skipped]);
+    assert.deepEqual(await repo.observations(id, start, end, end), []);
+    assert.deepEqual(await repo.observations(other, start, end, end), [
+      original,
+    ]);
+    await repo.db.query('UPDATE topics SET enabled=true WHERE id=$1', [id]);
+    assert.deepEqual(await repo.observations(id, start, end, end), [original]);
+    await repo.store(id, [resumed]);
+    assert.deepEqual(await repo.observations(id, start, end, end), [
+      resumed,
+      original,
+    ]);
+    await repo.db.query('DELETE FROM topics WHERE id=$1', [id]);
+    await repo.store(id, [skipped]);
+    assert.deepEqual(await repo.observations(id, start, end, end), []);
+    assert.deepEqual(await repo.observations(other, start, end, end), [
+      original,
+    ]);
+    // Reusing the identifier cannot resurrect the deleted topic's snapshots.
+    await insertTopic();
+    assert.deepEqual(await repo.observations(id, start, end, end), []);
+    await repo.store(id, [original]);
+    assert.deepEqual(await repo.observations(id, start, end, end), [original]);
+    const current = (
+      await repo.db.query(
+        "SELECT verified_at,bluesky_metadata FROM social_posts WHERE platform='bluesky' AND external_id=$1",
+        [original.externalId],
+      )
+    ).rows[0];
+    assert.equal(current.verified_at.toISOString(), resumed.observedAt);
+    assert.deepEqual(current.bluesky_metadata, {
+      text: resumed.text,
+      media: resumed.media,
+    });
+  } finally {
+    await repo.db.query('DELETE FROM topics WHERE id=$1', [id]);
+    await repo.db.query(
+      'DELETE FROM bluesky_observations WHERE external_id=$1',
+      [original.externalId],
+    );
+    await repo.db.query(
+      "DELETE FROM social_posts WHERE platform='bluesky' AND external_id=$1",
+      [original.externalId],
+    );
+    await repo.db.end();
+  }
+});

@@ -536,3 +536,12 @@ share a timestamp: current metadata stays intact, while each topic independently
 retains its first immutable snapshot. Missing media normalizes to an empty array
 in current metadata. A one-millisecond-newer observation adds history only to its
 own topic. Disposable PostgreSQL only; no provider requests.
+
+## Bluesky topic lifecycle (iteration 563)
+
+`bluesky-storage.test.ts` pins disable/re-enable history retention, skipped writes
+while disabled, and resumed collection. Deleting a topic removes its snapshots
+without changing another topic's history or the shared current post. Recreating
+the topic with the same identifier starts empty; collecting an older snapshot
+cannot replace newer current metadata. Disposable PostgreSQL only; no provider
+requests.
