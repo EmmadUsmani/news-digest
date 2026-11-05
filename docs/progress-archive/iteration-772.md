@@ -1,0 +1,8 @@
+## 2026-11-05: iteration 772 — recover failed archive pages
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Two historical ingestion failures remain with current collection healthy.
+- Archive paging now keeps Newer editions available during loading/errors, so a failed older page no longer traps navigation. Older editions waits for a successful response; retry and empty-page return remain available.
+- `pnpm exec tsx scripts/smoke-history-recovery.ts` passed failed-page escape, retry and empty-page return on desktop/mobile light/dark, with browser-only pagination/failure responses, blocked writes, no browser errors and the saved edition unchanged. Four screenshots added; desktop light/mobile dark inspected.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations (18 pages/1 diagram/26 tables); git diff --check. Initial check raced import autofix and failed import sorting; corrected. Full rerun passed static checks and 497 unit tests, then received SIGTERM during integration; isolated integration rerun passed all 214 tests.
+- TASKS and Operations updated; archived iteration 756. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, stored-edition writes, generation/config/schema or model/provider changes. API restarted after web build; health green.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; owner identity configuration and proxy verification still block admin rollout.

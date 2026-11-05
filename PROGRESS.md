@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 772 — recover failed archive pages
-
-- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Two historical ingestion failures remain with current collection healthy.
-- Archive paging now keeps Newer editions available during loading/errors, so a failed older page no longer traps navigation. Older editions waits for a successful response; retry and empty-page return remain available.
-- `pnpm exec tsx scripts/smoke-history-recovery.ts` passed failed-page escape, retry and empty-page return on desktop/mobile light/dark, with browser-only pagination/failure responses, blocked writes, no browser errors and the saved edition unchanged. Four screenshots added; desktop light/mobile dark inspected.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations (18 pages/1 diagram/26 tables); git diff --check. Initial check raced import autofix and failed import sorting; corrected. Full rerun passed static checks and 497 unit tests, then received SIGTERM during integration; isolated integration rerun passed all 214 tests.
-- TASKS and Operations updated; archived iteration 756. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, stored-edition writes, generation/config/schema or model/provider changes. API restarted after web build; health green.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; owner identity configuration and proxy verification still block admin rollout.
-
 ## 2026-11-05: iteration 773 — accurate cached-edition refresh recovery
 
 - Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Historical ingestion/social failures remain with collection healthy.
@@ -139,3 +130,13 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-posts.ts /tmp/783-posts.jsonl; smoke-admin-gate.ts; git diff --check. All static checks, 497 unit/214 isolated integration tests, build, browser replay, gate and diff checks passed (exit 0).
 - TASKS updated; archived iteration 771. SOURCES/NEEDS_FROM_HUMAN and handbook unchanged: no source, architecture or new blocker changes. No paid calls, stored-edition writes, config/schema or model/provider changes.
 - API restarted after build; health/database/Redis green and four app services active. Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X trials after 21:00 UTC Nov 5/6. Admin identity/proxy verification remain pending.
+
+## 2026-11-05: iteration 787 — match X embeds to the reader theme
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy, no failed retained digest-generation jobs; four app services active.
+- Official X widgets now receive the reader's light/dark theme and rebuild when it changes, including system preference, header toggle and storage-driven changes. Loaded widgets.js remains shared; offscreen cards remain lazy.
+- Read-only desktop/mobile replay passed system light/dark changes and light→dark→light toggles with one widget per card and one script request. Existing blocked/stalled downloads, widget timeout, rejection, empty-result and retry checks passed; saved edition unchanged, zero browser errors/overflow.
+- Four light/dark theme screenshots saved; desktop light/mobile dark inspected. Widgets are explicitly labelled protocol stubs, not live X rendering. Unrelated regenerated screenshots discarded.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-posts.ts /tmp/783-posts.jsonl; smoke-admin-gate.ts; git diff --check. Static checks and 497 unit tests passed; combined check received SIGTERM at integration startup, isolated integration rerun passed all 214 tests (exit 0). Build, browser/gate and diff checks passed.
+- TASKS updated; archived iteration 772. No source/handbook changes or new human blockers. No paid calls, stored-edition writes, config/schema or model/provider changes. API restarted after web build; final health green, four app services active, zero alerts; saved reader API serves four topics/14 stories.
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer. X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remain pending.

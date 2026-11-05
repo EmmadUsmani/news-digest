@@ -46,6 +46,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] X embed theme (787): official widgets follow system and saved reader light/dark themes, rebuilding on changes with the same loaded script; desktop/mobile replay and screenshots verified.
+
 - [x] X script timeout cleanup (786): completed downloads clear callbacks and reject late state changes; stalled-download desktop/mobile recovery verified without edition writes.
 
 - [x] Concurrent X retries (785): failed cards share one replacement widgets.js download while it is pending; loaded widgets remain reusable. Desktop/mobile recovery verified without edition writes.

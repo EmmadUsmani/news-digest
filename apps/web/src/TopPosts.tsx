@@ -11,7 +11,12 @@ type Widgets = {
     createTweet: (
       id: string,
       target: HTMLElement,
-      options: { dnt: boolean; conversation: string; width: number },
+      options: {
+        dnt: boolean;
+        conversation: string;
+        width: number;
+        theme: 'light' | 'dark';
+      },
     ) => Promise<HTMLElement | undefined>;
   };
 };
@@ -58,7 +63,20 @@ function loadWidgets(retry: boolean): Promise<Widgets> {
   return widgetScript;
 }
 
+function subscribeTheme(onChange: () => void) {
+  const observer = new MutationObserver(onChange);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class'],
+  });
+  return () => observer.disconnect();
+}
+function currentTheme(): 'light' | 'dark' {
+  return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+}
+
 export function TopPosts({ posts }: { posts: ReaderPost[] }) {
+  const theme = React.useSyncExternalStore(subscribeTheme, currentTheme);
   return (
     <section className="top-posts" aria-label="Top posts">
       <h4>Top posts</h4>
@@ -74,7 +92,7 @@ export function TopPosts({ posts }: { posts: ReaderPost[] }) {
             ) : post.platform === 'reddit' ? (
               <RedditPost key={`reddit:${post.externalId}`} post={post} />
             ) : (
-              <Post key={`x:${post.externalId}`} post={post} />
+              <Post key={`x:${post.externalId}`} post={post} theme={theme} />
             ),
           )}
         </div>
@@ -83,7 +101,13 @@ export function TopPosts({ posts }: { posts: ReaderPost[] }) {
   );
 }
 
-function Post({ post }: { post: SelectedPost }) {
+function Post({
+  post,
+  theme,
+}: {
+  post: SelectedPost;
+  theme: 'light' | 'dark';
+}) {
   const host = React.useRef<HTMLDivElement>(null);
   const [embedded, setEmbedded] = React.useState(false);
   const [failed, setFailed] = React.useState(false);
@@ -113,6 +137,7 @@ function Post({ post }: { post: SelectedPost }) {
               dnt: true,
               conversation: 'none',
               width: 550,
+              theme,
             });
           })
           .then((element) => {
@@ -141,7 +166,7 @@ function Post({ post }: { post: SelectedPost }) {
       observer.disconnect();
       target.replaceChildren();
     };
-  }, [post.externalId, attempt]);
+  }, [post.externalId, attempt, theme]);
   return (
     <article className="post-card">
       <p className="byline">

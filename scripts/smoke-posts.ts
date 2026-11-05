@@ -145,7 +145,7 @@ async function main() {
                     ? `window.twttr = { widgets: { createTweet: (id, target) => new Promise(resolve => { (window.finishStalledWidgets ??= []).push(() => { const element = document.createElement('div'); element.dataset.latePost = id; target.append(element); resolve(element); }); }) } };`
                     : (mode === 'rejected' || mode === 'empty') && !allowRetry
                       ? `window.twttr = { widgets: { createTweet: async (id, target) => { const partial = document.createElement('div'); partial.dataset.partialPost = id; target.append(partial); (window.finishStalledWidgets ??= []).push(() => { const late = document.createElement('div'); late.dataset.latePost = id; target.append(late); }); ${mode === 'rejected' ? "throw new Error('Widget rejected after inserting markup');" : 'return undefined;'} } } };`
-                      : `window.twttr = { widgets: { createTweet: async (id, target, options) => { const element = document.createElement('div'); element.dataset.postId = id; element.textContent = 'Recorded widget protocol stub'; target.append(element); return element; } } };`,
+                      : `window.twttr = { widgets: { createTweet: async (id, target, options) => { const element = document.createElement('div'); element.dataset.postId = id; element.dataset.theme = options.theme; element.textContent = 'Recorded widget protocol stub'; target.append(element); return element; } } };`,
               });
             },
           );
@@ -161,6 +161,7 @@ async function main() {
             return route.fulfill({ json: replay });
           return route.continue();
         });
+        await page.emulateMedia({ colorScheme: 'light' });
         await page.goto('http://localhost:8000');
         await page.locator('.top-posts').first().waitFor();
         assert.equal(
@@ -234,6 +235,41 @@ async function main() {
           true,
         );
         assert.deepEqual(errors, []);
+        if (mode === 'success') {
+          const card = cards.first();
+          await card.scrollIntoViewIfNeeded();
+          for (const colorScheme of ['dark', 'light'] as const) {
+            await page.emulateMedia({ colorScheme });
+            await card
+              .locator(`[data-post-id][data-theme="${colorScheme}"]`)
+              .waitFor();
+          }
+          for (const theme of ['light', 'dark', 'light'] as const) {
+            if (
+              theme !== 'light' ||
+              (await page
+                .locator('html')
+                .evaluate((element) => element.classList.contains('dark')))
+            ) {
+              await page
+                .getByRole('button', { name: `Switch to ${theme} theme` })
+                .click();
+              await card.scrollIntoViewIfNeeded();
+            }
+            await card
+              .locator(`[data-post-id][data-theme="${theme}"]`)
+              .waitFor();
+            assert.equal(await card.locator('[data-post-id]').count(), 1);
+            assert.equal(
+              scriptRequests,
+              1,
+              'Theme changes reuse the loaded widget API',
+            );
+            await card.screenshot({
+              path: `docs/screenshots/ui/posts-theme-${theme}-${name}.png`,
+            });
+          }
+        }
         if (mode !== 'success') {
           await cards.first().scrollIntoViewIfNeeded();
           await page.evaluate((live) => {
@@ -341,6 +377,13 @@ async function main() {
             expected[0].displayText ?? expected[0].text,
           );
         }
+        assert.deepEqual(errors, []);
+        assert.equal(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth <= innerWidth,
+          ),
+          true,
+        );
         await page.close();
       }
     }
