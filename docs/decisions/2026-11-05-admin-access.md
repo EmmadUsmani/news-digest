@@ -82,6 +82,8 @@ admin credentials; its link, timestamp and text checks match the public contract
 Topic create/delete/reorder/availability and schedule browser replays read their live baselines and final
 immutability checks through protected Node requests with a 15-second timeout.
 Their browser writes stay in memory, and the browser receives no local token.
+The schedule replay also snapshots content/status in Node, disables service workers,
+proves unexpected writes are blocked and checks failed-save recovery on both viewports.
 
 The status browser verifier reads protected status and source-catalog snapshots in
 Node, then replays the real status snapshot for rendering and refresh checks.

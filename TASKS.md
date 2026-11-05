@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Schedule recovery verification (792): desktop/mobile failed saves retain all five inputs and retry successfully; protected snapshots, blocked browser writes and credentials, full edition/topics/profile immutability.
+
 - [x] Job status validation (791): malformed progress, mismatched job IDs and invalid completion IDs reconnect to the original job; desktop/mobile replay proves no duplicate submission or saved-data changes.
 
 - [x] On-demand progress recovery (790): stalled status reads time out after 15 seconds and reconnect to the same job; unmount cancels outstanding reads. Desktop/mobile replay verifies no duplicate submission and unchanged saved data.
