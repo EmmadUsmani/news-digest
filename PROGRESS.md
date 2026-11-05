@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 856 — recover job links after mid-read Redis failures
-
-- Started clean on main; no leftover work. Alerts/health green, collection active and scheduled digest successful; X tests await 21:00 UTC and admin rollout awaits identity/proxy evidence.
-- Extended durable saved/failed job-link recovery to Redis state inspection and terminal-field refresh failures after initial lookup. Unknown links retain the original outage error; no generation or paid calls.
-- Isolated queue tests exercise both mid-read failures for published, recorded-failed and unknown IDs, asserting no extra generation. No UI/schema/source/ranking/budget changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (499 unit/215 isolated integration passed); pnpm build; check-handbook.ts 03-jobs-and-schedules (18 pages/2 diagrams, 27 tables); smoke-admin-gate.ts; git diff --check; /healthz; obs alerts.
-- API/worker restarted healthy; saved Nov 5 edition byte-identical and alerts clear. Jobs handbook/TASKS updated; archived oldest progress entry to stay under 25 KB. SOURCES, screenshots and NEEDS_FROM_HUMAN unchanged.
-- Next: X fresh-window rounds after 21:00 UTC Nov 5/6, editor-v5 evidence Nov 6; unfinished/stalled job history and admin identity/proxy rollout remain open.
-
 ## 2026-11-05: iteration 857 — reconcile retained on-demand failures
 
 - Started clean on main; no leftover work. Alerts clear, 36 sources healthy, health green; X rounds await 21:00 UTC and admin rollout awaits owner identity/proxy evidence.
@@ -146,3 +137,13 @@
 - Verification: actual cache probe; missing opt-in rejected; offline World replay assertions; pnpm format; pnpm lint:fix; pnpm check (504 unit/218 isolated integration passed); pnpm build; git diff --check.
 - Updated World evidence/TASKS; archived iteration 855 to keep PROGRESS small. No service restart under STEERING 22 because runtime code/config unchanged. Handbook/SOURCES/schema/screenshots/NEEDS_FROM_HUMAN unchanged.
 - Next: all-topic configured-price cap/reserve gate, then bounded ledgered Haiku verification under STEERING 4 if needed; do not repeat cache misses. Activate before Nov 6 13:00 UTC or defer. X rounds after 21:00 UTC Nov 5/6; UI step 2 follows story-limit fix.
+
+## 2026-11-05: iteration 871 — all-topic story-pool budget gate
+
+- Started clean on main; no leftover work. Alerts clear, API/worker active, /healthz healthy; latest real edition serves four topics/17 stories/14 posts.
+- Added read-only all-topic configured-price evaluation through production grouping/editor request builders. Forty articles available for each saved-score pool; current text/settings are observations, not exact historical prompts. No provider/cache/ledger/edition/settings writes.
+- Bounds any ten grouped leads with largest serialized candidate inputs and merged-source label allowance. Nov 5 unchanged stages retain $0.156698 measured cost; replacing grouping/editor with first-attempt reservations gives $0.464371 versus ten-pool $0.437038 (+$0.027333).
+- Conditional Nov 6 gate passes: projected cap $0.494904–$0.502083, unchanged reserve $0.473168 ($0.008797 headroom); Sonnet scenario $0.379420 below lower-cap allocation $0.395923. Repairs/fallback/future volume still need live ledger admission; no guaranteed full-AI outcome claimed.
+- Verification: pnpm exec tsx scripts/evaluate-story-pool-budget.ts --read-only; missing opt-in rejected; pnpm format; pnpm lint:fix; pnpm check (504 unit/218 isolated integration passed); pnpm build; git diff --check.
+- Updated TASKS/World evidence; archived iteration 856 to keep PROGRESS small. Evidence-only change: no restart under STEERING 22; live runtime/config unchanged. Handbook/SOURCES/schema/screenshots/NEEDS_FROM_HUMAN unchanged.
+- Next: bounded ledgered Haiku World verification under STEERING 4, then activation decision before Nov 6 13:00 UTC or defer a day. No repeat cache probes. UI step 2 follows; X rounds after 21:00 UTC Nov 5/6.

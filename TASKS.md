@@ -36,6 +36,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] All-topic configured-price gate (871): forty-pool first-attempt scenario $0.464371, +$0.027333 versus ten; below $0.473168 reserve and projected cap/model allocation. Unchanged stages use measured costs; repairs/future volume not guaranteed. Next: bounded ledgered World Haiku verification, then activation decision. [Evidence](docs/edition-reviews/2026-11-05-world-story-pool.md).
+
 - [x] Actual World cache probe (870): read-only production-fingerprint lookup for Nov 4/5 ten/forty pools yields four misses; no model story counts claimed. Next: all-topic budget/reserve gate, then bounded ledgered Haiku verification under STEERING 4; do not repeat cache probes.
 
 - [x] Bounded grouping path prepared (869): explicit forty-article selection and wrapper, ten-story editor ceiling; saved reviewed-label replay passes through production helpers. Publication retains ten articles until actual grouping and all-topic budget gate pass.

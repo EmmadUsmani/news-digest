@@ -103,3 +103,43 @@ maximum $0.05 per iteration) if an actual model replay is still necessary.
 Do not repeat this cache probe expecting forty-item responses to appear before
 those requests have ever run. Activation remains gated by the budget check and
 actual grouping evidence before Nov 6 13:00 UTC.
+
+## All-topic configured-price gate (iteration 871)
+
+Run `pnpm exec tsx scripts/evaluate-story-pool-budget.ts --read-only`.
+At Nov 5 18:30 UTC, all four saved-score pools contain forty eligible articles.
+The command uses a read-only transaction and the VM's configured prices and
+reserve policy. It intercepts production grouping/editor requests without
+inference, cache access, ledger writes or edition changes. Article text and topic
+settings are current observations, not reconstructed historical prompt bytes.
+
+For editing, it bounds any ten selected leads using the ten largest serialized
+inputs and the three largest encoded source labels in each pool (grouped leads
+inherit merged sources). These synthetic inputs are cost bounds, not stories or
+model grouping results. Both output ceilings remain unchanged.
+
+| Topic   | Ten-article grouping bound | Forty-article grouping bound | Forty-pool editor bound |
+| ------- | -------------------------: | ---------------------------: | ----------------------: |
+| Tech/AI |                  $0.002804 |                    $0.004029 |               $0.067353 |
+| NBA     |                  $0.002916 |                    $0.004418 |               $0.071485 |
+| Gaming  |                  $0.003101 |                    $0.004827 |               $0.074438 |
+| World   |                  $0.003289 |                    $0.005130 |               $0.075993 |
+
+The scenario replaces Nov 5's $0.158747 grouping/story-editor spend with these
+first-attempt reservation bounds; unchanged stages retain their measured cost
+($0.156698). Total: **$0.464371**, versus $0.437038 for the same ten-article
+scenario: **+$0.027333**. These are conservative reservation scenarios, not
+predictions of token consumption or an absolute full-edition cost bound.
+
+With no further spending, Nov 6's projected cap is $0.502083; spending today's
+entire remaining allowance lowers it to $0.494904. The unchanged protected
+reserve is $0.473168, leaving **$0.008797** above this scenario. Retained Sonnet
+spend plus story-editor reservations totals $0.379420, below even the lower
+cap's configured 80% allocation ($0.395923).
+
+This conditional first-attempt gate passes. Repairs/fallback, new candidates,
+other-stage cost changes and concurrent calls still require ordinary ledger
+admission; the small reserve headroom is not a guarantee of tomorrow's outcome.
+No caps/reserve/settings changed. Next: bounded, ledgered Haiku verification
+of the saved World requests under STEERING 4, then decide activation before
+Nov 6 13:00 UTC. Do not repeat the known cache misses.
