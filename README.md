@@ -90,3 +90,6 @@ More smoke and diagnostic scripts live in `scripts/` and `apps/api/scripts/`.
 - [Database verification](docs/DATABASE-VERIFICATION.md): what the
   integration suite covers.
 - [Decisions](docs/decisions/): design records.
+
+Working on this with Claude Code? Start a session here: [CLAUDE.md](CLAUDE.md)
+and [docs/lead/](docs/lead/playbook.md) hold the steering workflow.

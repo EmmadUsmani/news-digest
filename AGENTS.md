@@ -133,6 +133,7 @@ belong in TASKS.md and PROGRESS.md, never in the handbook. Follow
 - No real emails or notifications.
 - No exe.dev sharing/DNS changes.
 - No scraping that depends on evading bot protection.
-- Only the owner edits owner files.
+- Only the owner edits owner files. `CLAUDE.md`, `.claude/` and `docs/lead/`
+  belong to the owner's lead sessions: leave them alone.
 
 Run `pnpm format` and `pnpm lint:fix` before every commit.

@@ -6,7 +6,14 @@ import unused from 'eslint-plugin-unused-imports';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['**/dist/**', '**/node_modules/**', 'coverage/**'] },
+  {
+    ignores: [
+      '**/dist/**',
+      '**/node_modules/**',
+      'coverage/**',
+      '.worktrees/**',
+    ],
+  },
   ...tseslint.configs.recommended,
   {
     files: ['apps/api/**/*.ts', 'packages/**/*.ts', 'scripts/**/*.ts'],
