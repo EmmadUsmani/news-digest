@@ -5,14 +5,28 @@ set -u
 hours="${1:-12}"
 since="$(date -u -v-"${hours}"H +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || date -u -d "${hours} hours ago" +%Y-%m-%dT%H:%M:%SZ)"
 
-git pull --quiet --rebase 2>&1 | tail -2
+git pull --quiet --rebase origin main 2>&1 | tail -2
 echo "== Now: $(date -u '+%Y-%m-%d %H:%M UTC')"
 echo "== Commits in the last ${hours}h: $(git log --since="$since" --format=%h | wc -l | tr -d ' ')"
 TZ=UTC git log --since="$since" --date=format-local:'%m-%d %H:%M' --format='%h %ad %s' | cut -c1-100 | head -30
+# Crude busywork signal: commits that guard or re-check rather than add.
+total="$(git log --since="$since" --format=%s | wc -l | tr -d ' ')"
+guard="$(git log --since="$since" --format=%s | grep -c -E '^(Verify|Preserve|Recover|Retain|Protect|Keep|Restore|Clarify|Record|Assess|Reconcile|Authenticate) ')"
+echo "== Guarding or re-checking commits: ${guard} of ${total}. A high share may mean busywork"
 echo "== Latest acks"
 grep '^ack:' STEERING.md | tail -3 | cut -c1-500
 echo "== Latest progress"
 awk '/^## /{h=$0} END{print h}' PROGRESS.md
+
+echo "== Lead files"
+last_steer="$(git log -1 --format=%ct -- STEERING.md)"
+for f in docs/lead/work/*.md; do
+  [ "$(git log -1 --format=%ct -- "$f")" -lt "$last_steer" ] && echo "older than latest steering: $f"
+done
+check_size() { [ "$(wc -l <"$1")" -gt "$2" ] && echo "over ${2} lines: $1"; }
+check_size CLAUDE.md 100
+check_size docs/lead/playbook.md 120
+for f in docs/lead/work/*.md; do check_size "$f" 40; done
 
 ssh news-digest.exe.xyz bash -s <<'REMOTE'
 cd ~/news-digest || exit 1

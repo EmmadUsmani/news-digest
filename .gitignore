@@ -17,3 +17,7 @@ __pycache__/
 
 # Personal Claude Code settings
 .claude/settings.local.json
+
+# Parallel lead sessions, and their links back to the main clone
+.worktrees/
+/node_modules

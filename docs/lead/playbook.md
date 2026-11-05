@@ -17,6 +17,36 @@ app and agent work, see the [handbook](../handbook/README.md).
 | VM                     | `ssh news-digest.exe.xyz`, repo at `~/news-digest`            |
 | X test evidence (VM)   | `~/.local/state/news-digest/x-experiment/<round>/`            |
 
+## Worktrees
+
+Parallel sessions each use `.worktrees/<workstream>`, which is gitignored. Use
+these commands rather than `claude --worktree`, so there's one location. Run
+them from the main clone:
+
+```bash
+git fetch origin
+git worktree add -b lead/<workstream> .worktrees/<workstream> origin/main
+ln -s ../../node_modules .worktrees/<workstream>/node_modules
+ln -s ../../.env.db.local .worktrees/<workstream>/.env.db.local
+```
+
+`main` is checked out in the main clone, so a worktree uses its own branch:
+
+```bash
+git pull --rebase origin main   # get the latest
+git push origin HEAD:main       # publish
+```
+
+When finished, from the main clone:
+
+```bash
+git worktree remove --force .worktrees/<workstream>
+git branch -D lead/<workstream>
+```
+
+**Careful:** `git clean -fdx` in the main clone deletes `.worktrees/`, along with
+anything unpushed. So does deleting the clone.
+
 ## How the owner works
 
 - **Discuss, then steer.** Ideas and questions get an answer. Steering happens

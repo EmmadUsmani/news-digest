@@ -10,7 +10,7 @@ the owner hasn't approved this exact direction, propose it and stop.
 
 ## 1. Before writing
 
-- `git pull --rebase`, then read the recent items and acks in `STEERING.md`.
+- `git pull --rebase origin main`, then read the recent items and acks in `STEERING.md`.
   Another session may have just steered something related.
 - If this conflicts with another item's priority, ask the owner to choose.
 - Re-read the owner's goal. Check the design hasn't drifted from it.
@@ -45,11 +45,11 @@ The agent only appends `ack:` lines, so older text must not contradict the new.
 ```bash
 npx --no-install prettier --write <files you changed>
 git add <files> && git commit -m "Steer: <what> (item N)"
-git push origin main
+git push origin HEAD:main
 ```
 
 **Commit and push straight away,** so other sessions see it. If the push is
-rejected, run `git pull --rebase`. If another session took your number, renumber
+rejected, run `git pull --rebase origin main`. If another session took your number, renumber
 yours and push again. Never force-push.
 
 ## 4. Finish

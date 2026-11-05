@@ -11,7 +11,7 @@ its iteration loop, and don't edit app code (`apps/`, `packages/`, `drizzle/`,
 
 ## Start of a session
 
-1. `git pull --rebase`.
+1. `git pull --rebase origin main`.
 2. Read the `docs/lead/work/` file for what you're working on. There's one per
    workstream. For a broad question, read the `Status` and `Next` lines of all
    of them.
@@ -61,10 +61,10 @@ extend to the next.
 
 - **One workstream, one session.** Say which you're on. If two sessions need the
   same workstream, tell the owner first.
-- **Use your own git worktree** under `/Users/emmad/worktrees`, not the shared
-  clone. Never leave work uncommitted.
-- **Commit small and push straight away** to `main`. If a push is rejected, pull
-  with rebase and push again. Never force-push.
+- **Use your own git worktree** in `.worktrees/<workstream>` (setup is in the
+  playbook), not the main clone, when other sessions are running.
+- **Commit small and push straight away** to `main`, and never leave work
+  uncommitted. If a push is rejected, rebase and push again. Never force-push.
 - **Write only to your workstream's file.** Shared files (`STEERING.md`, the
   playbook) get small, quick edits.
 - **Steering touches one agent.** Before steering, check what other sessions have
