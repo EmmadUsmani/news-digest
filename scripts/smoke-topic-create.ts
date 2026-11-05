@@ -40,6 +40,7 @@ async function smoke() {
   let attempts = 0;
   let failCreate = false;
   let loseResponse = false;
+  let releaseResponse: (() => void) | undefined;
   // Browser writes stay in memory; protected Node requests below only read live state.
   await context.route('**/*', async (route) => {
     const request = route.request();
@@ -68,7 +69,12 @@ async function smoke() {
       });
       replayTopics.push(saved);
       creates++;
-      if (loseResponse) return route.abort('connectionreset');
+      if (loseResponse) {
+        await new Promise<void>((resolve) => {
+          releaseResponse = resolve;
+        });
+        return route.abort('connectionreset');
+      }
       await route.fulfill({ status: 201, json: saved });
       return;
     }
@@ -232,7 +238,13 @@ async function smoke() {
       await page
         .getByRole('status')
         .filter({ hasText: 'Could not confirm topic creation.' })
-        .waitFor();
+        .waitFor({ timeout: 20_000 });
+      releaseResponse!();
+      assert.ok(
+        await form
+          .getByRole('button', { name: 'Create topic', exact: true })
+          .isEnabled(),
+      );
       await page
         .getByRole('status')
         .filter({ hasText: 'avoid creating a duplicate' })
@@ -248,7 +260,7 @@ async function smoke() {
         'Keep these entries until saved topics are checked.',
       );
       await page.locator('.topic-settings').screenshot({
-        path: `docs/screenshots/ui/topic-create-interrupted-${device}.png`,
+        path: `docs/screenshots/ui/topic-create-timeout-${device}.png`,
       });
       await page.reload();
       const recovered = page

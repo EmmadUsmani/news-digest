@@ -127,3 +127,13 @@
 - Initial check stopped on archive formatting (fixed). Subsequent check and two browser command sessions ended 143; transient user-service reruns completed browser and integration verification with exit 0.
 - API rebuilt/restarted; reader returns four topics and health green. Worker/schedule unchanged. Archived progress 807–810; TASKS updated. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadline only).
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 825 — bound stalled topic saves
+
+- Started clean on main; no leftover work. Alerts clear, API/worker active, health/database/Redis pass; scheduled Nov 5 evidence remains pending at 15:00 UTC.
+- Topic creation and editing now abort stalled requests after 15 seconds, releasing controls and preserving existing uncertainty/reload guidance and entered values. No automatic retries.
+- Desktop/mobile Playwright replay verifies real edit timeouts, retained fields, failure/retry and saved-write reload; creation replay holds a completed response until timeout and reloads exactly one saved topic without another POST. Four timeout screenshots inspected in docs/screenshots/ui/.
+- First browser run failed an existing lost-response message assertion; replay now accepts both valid uncertainty messages depending on response arrival. Rerun passed both devices; unrelated regenerated screenshots discarded.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit, 214 isolated integration tests, zero failures); smoke-topics.ts; smoke-topic-create.ts; smoke-admin-gate.ts; git diff --check. Browser writes replayed; protected saved topics/profile/edition unchanged; no paid calls.
+- API rebuilt/restarted; health green and reader returns four topics. Worker/schedule unchanged. TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadline only, no new blocker).
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

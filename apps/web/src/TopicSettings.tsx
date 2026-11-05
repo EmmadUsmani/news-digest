@@ -150,6 +150,7 @@ export function TopicSettings({
         editing.id ? `/api/topics/${editing.id}` : '/api/topics',
         {
           method: editing.id ? 'PUT' : 'POST',
+          signal: AbortSignal.timeout(15_000),
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(parsed.data),
         },

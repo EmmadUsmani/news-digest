@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Topic save deadline (825): creation/editing release stalled controls after 15 seconds; desktop/mobile timeout replays preserve entries and recover a completed creation on reload without duplicates.
+
 - [x] Edition submission deadline (824): stalled queue requests unlock controls after 15 seconds; desktop/mobile real-timeout and reload replay verifies no automatic resubmission.
 
 - [x] Schedule save deadline (823): stalled requests release controls after 15 seconds, preserve entered values and retain reload guidance; desktop/mobile real-timeout replay passes.

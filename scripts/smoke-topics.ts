@@ -139,8 +139,40 @@ async function smoke() {
       await page.locator('.topic-settings').screenshot({
         path: `docs/screenshots/topics-saving-${name}.png`,
       });
+      await page
+        .getByRole('status')
+        .filter({
+          hasText:
+            'The connection was interrupted. Topic settings may have been saved.',
+        })
+        .waitFor({ timeout: 20_000 });
+      assert.ok(await form.getByLabel('Name', { exact: true }).isEnabled());
+      assert.ok(
+        await form
+          .getByRole('button', { name: 'Save topic', exact: true })
+          .isEnabled(),
+      );
+      assert.equal(
+        await form.getByLabel('Name', { exact: true }).inputValue(),
+        'Tech settings verification',
+      );
+      assert.equal(
+        await form.getByLabel('Story budget', { exact: true }).inputValue(),
+        '1',
+      );
+      assert.equal(
+        saves,
+        previousSaves + 1,
+        'Timeout must not retry the write',
+      );
+      await page.locator('.topic-settings').screenshot({
+        path: `docs/screenshots/ui/topic-save-timeout-${name}.png`,
+      });
       releaseSave!();
       pendingSave = undefined;
+      await form
+        .getByRole('button', { name: 'Save topic', exact: true })
+        .click();
       await page
         .getByRole('status')
         .filter({ hasText: 'Topic request failed.' })
@@ -169,7 +201,8 @@ async function smoke() {
       await page
         .getByRole('status')
         .filter({
-          hasText: 'Could not confirm whether topic settings were saved.',
+          hasText:
+            /Could not confirm whether topic settings were saved\.|The connection was interrupted\. Topic settings may have been saved\./,
         })
         .waitFor();
       assert.equal(
@@ -234,7 +267,7 @@ async function smoke() {
           .length,
       );
       assert.equal(replayTopics[0].enabled, false);
-      assert.equal(saves, previousSaves + 3);
+      assert.equal(saves, previousSaves + 4);
       assert.deepEqual(errors, []);
       assert.equal(
         await page.evaluate(
