@@ -187,16 +187,28 @@ async function smoke() {
       await form.screenshot({
         path: `docs/screenshots/ui/schedule-save-timeout-${device}.png`,
       });
+      const saveButton = form.getByRole('button', {
+        name: 'Save schedule',
+        exact: true,
+      });
+      assert.ok(
+        await saveButton.evaluate(
+          (button) => button === document.activeElement,
+        ),
+      );
       failSave = false;
       rejectSave = true;
-      await form
-        .getByRole('button', { name: 'Save schedule', exact: true })
-        .click();
+      await page.keyboard.press('Enter');
       await form
         .getByRole('status')
         .filter({ hasText: 'Schedule request failed.' })
         .waitFor();
       assert.deepEqual(profile, beforeFailure);
+      assert.ok(
+        await saveButton.evaluate(
+          (button) => button === document.activeElement,
+        ),
+      );
       assert.equal(
         await form.getByLabel('Coverage window', { exact: true }).inputValue(),
         'PT6H',
@@ -282,6 +294,14 @@ async function smoke() {
         .getByRole('status')
         .filter({ hasText: 'Schedule settings saved.' })
         .waitFor();
+      assert.ok(
+        await saveButton.evaluate(
+          (button) => button === document.activeElement,
+        ),
+      );
+      await form.screenshot({
+        path: `docs/screenshots/ui/schedule-save-focus-${device}.png`,
+      });
       assert.equal(
         await page.evaluate(
           () => document.documentElement.scrollWidth <= innerWidth,
@@ -321,7 +341,7 @@ async function smoke() {
         latest,
       );
     console.log(
-      'Schedule desktop/mobile: pending-save locks, real transport timeout recovery, non-JSON rejection, saved-but-interrupted response/reload, all saved fields after reload, timezone errors, defaults, blocked writes, credential absence and full edition/topics/profile immutability passed',
+      'Schedule desktop/mobile: restored save focus, Enter retry, pending-save locks, real transport timeout recovery, non-JSON rejection, saved-but-interrupted response/reload, all saved fields after reload, timezone errors, defaults, blocked writes, credential absence and full edition/topics/profile immutability passed',
     );
   } finally {
     try {

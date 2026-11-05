@@ -9,6 +9,13 @@ export function ScheduleSettings({
 }) {
   const [busy, setBusy] = React.useState(false);
   const [message, setMessage] = React.useState('');
+  const saveButton = React.useRef<HTMLButtonElement>(null);
+  const restoreSaveFocus = React.useRef(false);
+  React.useEffect(() => {
+    if (busy || !restoreSaveFocus.current) return;
+    saveButton.current?.focus();
+    restoreSaveFocus.current = false;
+  }, [busy]);
   const schedule = profile.schedule;
   const [minute, hour] = schedule.cadence.split(' ');
   async function save(event: React.FormEvent<HTMLFormElement>) {
@@ -22,6 +29,7 @@ export function ScheduleSettings({
       storyBudget: Number(data.get('storyBudget')),
       postBudget: Number(data.get('postBudget')),
     };
+    restoreSaveFocus.current = true;
     setBusy(true);
     setMessage('');
     try {
@@ -153,7 +161,9 @@ export function ScheduleSettings({
             Post budgets limit verified posts in new editions. Saved editions
             keep their original windows and selections.
           </p>
-          <button type="submit">{busy ? 'Saving…' : 'Save schedule'}</button>
+          <button ref={saveButton} type="submit">
+            {busy ? 'Saving…' : 'Save schedule'}
+          </button>
         </fieldset>
         <p role="status">{message}</p>
       </form>
