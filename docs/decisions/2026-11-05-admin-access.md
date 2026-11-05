@@ -81,6 +81,10 @@ Reviewed X-account and parked-Reddit community settings checks also read protect
 Node snapshots and verify live topics remain unchanged. Account rendering uses
 replayed snapshots; community writes remain browser-only, with no Reddit calls.
 
+The shared-query browser check reads protected content, topic, profile and status
+snapshots in Node and replays them through context routes. Page-level malformed
+responses can be removed to recover the original snapshot without legacy reads.
+
 ## Next rollout slice
 
 Configure the owner email allowlist before moving current operational routes.

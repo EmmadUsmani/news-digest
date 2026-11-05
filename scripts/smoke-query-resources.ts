@@ -1,12 +1,45 @@
 import assert from 'node:assert/strict';
 
+import {
+  contentGroupSchema,
+  operationsStatusSchema,
+  profileSettingsSchema,
+  topicSchema,
+} from '@digest/contracts';
 import { chromium } from 'playwright';
 
-// Real read-only responses, plus explicitly malformed responses for error checks.
+import { localAdminJson } from './lib/local-admin-fetch';
+
+// Protected snapshots replayed without browser credentials; failures stay local.
 async function smoke() {
+  const [content, topics, profile, status] = await Promise.all([
+    localAdminJson('/api/admin/content').then((data) =>
+      contentGroupSchema.array().parse(data),
+    ),
+    localAdminJson('/api/admin/topics').then((data) =>
+      topicSchema.array().parse(data),
+    ),
+    localAdminJson('/api/admin/profile').then((data) =>
+      profileSettingsSchema.parse(data),
+    ),
+    localAdminJson('/api/admin/status').then((data) =>
+      operationsStatusSchema.parse(data),
+    ),
+  ]);
+  const snapshots: Record<string, unknown> = {
+    '/api/content': content,
+    '/api/topics': topics,
+    '/api/profile': profile,
+    '/api/status': status,
+  };
   const browser = await chromium.launch();
   try {
     const page = await browser.newPage();
+    // Context routes remain installed when a page-level failure override is removed.
+    for (const [path, snapshot] of Object.entries(snapshots))
+      await page
+        .context()
+        .route(`**${path}`, (route) => route.fulfill({ json: snapshot }));
     const counts = new Map<string, number>();
     const resources = [
       '/api/content',
@@ -106,7 +139,7 @@ async function smoke() {
     await page.locator('.topic-grid article').first().waitFor();
     assert.deepEqual(errors, []);
     console.log(
-      'Shared resource requests deduplicated and cached across navigation; status refresh retains cached data on malformed response and recovers; malformed content/health rejected without hiding edition or topics. No writes.',
+      'Protected resource snapshots replayed without browser credentials; shared requests deduplicated and cached across navigation; status refresh retains cached data on malformed response and recovers; malformed content/health rejected without hiding edition or topics. No writes.',
     );
   } finally {
     await browser.close();

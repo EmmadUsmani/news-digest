@@ -124,3 +124,12 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, exit 0); pnpm build; check-handbook.ts 08-operations; git diff --check. Initial lint process interrupted (143); first check found archive formatting, corrected before successful rerun.
 - Updated TASKS, Operations and access decision; archived iteration 734. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema changes, live writes, paid calls or model/provider/budget changes; healthy services remain running under STEERING 22. Reader latest serves four real topics.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback. Scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy checks and coordinated UI/legacy migration remain open.
+
+## 2026-11-05: iteration 748 — protected shared-query browser checks
+
+- Started clean on main; no leftover work. Health/database/Redis green, all 36 sources healthy, no retained failed digest runs. Existing metrics memory warning firing; Nov 5 edition remains due at 15:00 UTC.
+- Shared-query browser verifier now reads protected content/topic/profile/status snapshots through bounded Node requests. Context-level replays survive removal of page-level malformed-response overrides, so recovery never falls back to legacy operational reads. Credentials remain outside the browser; no live writes or inference.
+- `pnpm exec tsx scripts/smoke-query-resources.ts` passed shared-request dedupe/cache across navigation, cached status retention/error/recovery and malformed content/health isolation with zero page errors. Four desktop/mobile screenshots refreshed; desktop query/mobile status visually inspected.
+- Updated TASKS, Operations and admin access decision. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema or model/provider/budget changes; healthy services remain running under STEERING 22.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, exit 0); pnpm build; check-handbook.ts 08-operations; git diff --check all passed. Final health green; reader latest serves four real topics.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback. Scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy checks and coordinated UI/legacy migration remain open.
