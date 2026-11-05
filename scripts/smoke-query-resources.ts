@@ -12,7 +12,7 @@ import { localAdminJson } from './lib/local-admin-fetch';
 
 // Protected snapshots replayed without browser credentials; failures stay local.
 async function smoke() {
-  const [content, topics, profile, status] = await Promise.all([
+  const [content, topics, profile, status, savedEdition] = await Promise.all([
     localAdminJson('/api/admin/content').then((data) =>
       contentGroupSchema.array().parse(data),
     ),
@@ -25,6 +25,7 @@ async function smoke() {
     localAdminJson('/api/admin/status').then((data) =>
       operationsStatusSchema.parse(data),
     ),
+    localAdminJson('/api/admin/digest-previews/latest'),
   ]);
   const snapshots: Record<string, unknown> = {
     '/api/content': content,
@@ -34,12 +35,38 @@ async function smoke() {
   };
   const browser = await chromium.launch();
   try {
-    const page = await browser.newPage();
+    const context = await browser.newContext({ serviceWorkers: 'block' });
+    const writes: string[] = [];
+    const credentials: string[] = [];
+    // Registered first so later snapshot/failure routes can fall back to this guard.
+    await context.route('**/*', (route) => {
+      const request = route.request();
+      const headers = request.headers();
+      if (headers.admin_local_token || headers['x-exedev-email']) {
+        credentials.push(new URL(request.url()).pathname);
+        return route.abort();
+      }
+      if (!['GET', 'HEAD'].includes(request.method())) {
+        writes.push(`${request.method()} ${new URL(request.url()).pathname}`);
+        return route.abort();
+      }
+      return route.continue();
+    });
+    context.on('request', (request) => {
+      const headers = request.headers();
+      assert.equal('admin_local_token' in headers, false);
+      assert.equal('x-exedev-email' in headers, false);
+    });
+    const page = await context.newPage();
     // Context routes remain installed when a page-level failure override is removed.
     for (const [path, snapshot] of Object.entries(snapshots))
       await page
         .context()
-        .route(`**${path}`, (route) => route.fulfill({ json: snapshot }));
+        .route(`**${path}`, (route) =>
+          ['GET', 'HEAD'].includes(route.request().method())
+            ? route.fulfill({ json: snapshot })
+            : route.fallback(),
+        );
     const counts = new Map<string, number>();
     const resources = [
       '/api/content',
@@ -52,7 +79,7 @@ async function smoke() {
     page.on('pageerror', (error) => errors.push(error.message));
     page.on('request', (request) => {
       const path = new URL(request.url()).pathname;
-      if (resources.includes(path))
+      if (request.method() === 'GET' && resources.includes(path))
         counts.set(path, (counts.get(path) ?? 0) + 1);
     });
     await page.goto('http://localhost:8000/');
@@ -66,6 +93,19 @@ async function smoke() {
       .waitFor();
     for (const resource of resources)
       assert.equal(counts.get(resource), 1, resource);
+    // Exercise the write guard against a snapshotted endpoint before UI checks.
+    assert.equal(
+      await page.evaluate(async () => {
+        try {
+          await fetch('/api/topics', { method: 'POST', body: '{}' });
+          return false;
+        } catch {
+          return true;
+        }
+      }),
+      true,
+    );
+    assert.deepEqual(writes.splice(0), ['POST /api/topics']);
     // Leaving and re-entering the page must reuse fresh shared resources.
     await page.evaluate(() => {
       history.pushState({}, '', '/unknown-query-check');
@@ -138,8 +178,19 @@ async function smoke() {
     await page.locator('.digest-preview').waitFor();
     await page.locator('.topic-grid article').first().waitFor();
     assert.deepEqual(errors, []);
+    assert.deepEqual(writes, [], 'Browser must never attempt writes');
+    assert.deepEqual(
+      credentials,
+      [],
+      'Browser must never receive admin credentials',
+    );
+    assert.deepEqual(
+      await localAdminJson('/api/admin/digest-previews/latest'),
+      savedEdition,
+      'Saved edition must remain unchanged',
+    );
     console.log(
-      'Protected resource snapshots replayed without browser credentials; shared requests deduplicated and cached across navigation; status refresh retains cached data on malformed response and recovers; malformed content/health rejected without hiding edition or topics. No writes.',
+      'Protected resource snapshots replayed without browser credentials; shared requests deduplicated and cached across navigation; status refresh retains cached data on malformed response and recovers; malformed content/health rejected without hiding edition or topics. Browser writes blocked; no browser credentials; saved edition unchanged.',
     );
   } finally {
     await browser.close();
