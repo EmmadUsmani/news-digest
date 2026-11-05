@@ -1,13 +1,3 @@
-## 2026-11-05: iteration 781 — prepare queue verification for tool gating
-
-- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Next edition remains Nov 5 15:00 UTC.
-- Queue HTTP/browser checks now use the fixed-loopback credential adapter for queue APIs, pages and assets. Credentials stay in Node; redirects fail and reads time out after 15 seconds. Tool gating itself remains pending the coordinated admin rollout.
-- Desktop/mobile checks passed against four real queues and 40 schedules: schedulers visible, zero page errors, browser writes blocked, credentials absent and full saved edition unchanged. Server mutation barrier still returns 405 for empty POST/PUT/PATCH/DELETE probes; no jobs enqueued or retried.
-- Credential tests cover queue path boundaries, external/localhost exclusion, authenticated tool access and anonymous denial. Focused tests passed 2/2. Queue smoke passed twice; discarded regenerated screenshots because the UI is unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations; git diff --check. Static checks, 497 unit/214 isolated integration tests passed (exit 0); build, handbook and diff checks passed. Final health green; all four services active.
-- TASKS/Operations/access decision updated; archived iteration 766. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, stored-edition writes, runtime/config/schema or model/provider changes; healthy services left running under STEERING 22.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6. Owner identity configuration/proxy verification still block admin rollout.
-
 ## 2026-11-05: iteration 782 — protect coverage and X-guidance browser checks
 
 - Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. API/worker/docs/schema services active. Next edition remains 15:00 UTC.
@@ -136,3 +126,13 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-topic-delete.ts; smoke-admin-gate.ts; git diff --check. All passed (exit 0): static checks, 497 unit and 214 isolated integration tests, desktop/mobile browser replay, admin gate and diff check.
 - TASKS/access decision updated; archived oldest progress entry. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No paid calls or runtime/config/schema/model/provider changes; no restart required under STEERING 22.
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 796 — verify topic reorder recovery safely
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, 36 sources without errors and all four app services active.
+- Topic-order replay now reads operational snapshots through protected Node requests, disables service workers, blocks unexpected browser writes with an explicit probe and checks browser credential absence. Replaced the edition-ID-only assertion with a full saved-edition comparison, plus topics/profile.
+- Desktop/mobile failed reorder retains original order; retry saves consecutive positions and reload preserves order in settings and content. No page errors or overflow; both failure screenshots inspected. Full live saved data unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-topic-order.ts; smoke-admin-gate.ts; git diff --check. All passed (exit 0): static checks, 497 unit and 214 isolated integration tests, browser replay, admin gate and diff check.
+- TASKS/access decision updated; archived iteration 781. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, runtime/config/schema/model/provider changes; no restart required under STEERING 22.
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+- Final app health green; alert snapshot has one pending ObservabilityMemoryBudget warning for obs-metrics.service, zero firing. Recheck next iteration.

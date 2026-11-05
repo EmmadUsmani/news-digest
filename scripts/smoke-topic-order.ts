@@ -7,7 +7,7 @@ import { localAdminJson } from './lib/local-admin-fetch';
 async function smoke() {
   const base = 'http://localhost:8000';
   const browser = await chromium.launch();
-  const context = await browser.newContext();
+  const context = await browser.newContext({ serviceWorkers: 'block' });
   const topics = topicSchema
     .array()
     .parse(await localAdminJson('/api/admin/topics'));
@@ -15,14 +15,39 @@ async function smoke() {
   const latest = (await localAdminJson(
     '/api/admin/digest-previews/latest',
   )) as { id: string } | null;
+  const savedEdition = latest
+    ? await localAdminJson('/api/admin/digest-previews/' + latest.id)
+    : null;
+  const [content, status, profile] = await Promise.all([
+    localAdminJson('/api/admin/content'),
+    localAdminJson('/api/admin/status'),
+    localAdminJson('/api/admin/profile'),
+  ]);
+  const snapshots: Record<string, unknown> = {
+    '/api/content': content,
+    '/api/status': status,
+    '/api/profile': profile,
+  };
+  const credentials: string[] = [];
+  const unexpectedWrites: string[] = [];
+  context.on('request', (request) => {
+    const headers = request.headers();
+    if ('admin_local_token' in headers || 'x-exedev-email' in headers)
+      credentials.push(new URL(request.url()).pathname);
+  });
   assert.ok(topics.length >= 2, 'Reorder replay requires two topics');
   let replayTopics = structuredClone(topics);
   let failOrder = true;
   let writes = 0;
   // Browser writes are replayed; protected Node requests are used only for live reads.
-  await context.route('**/api/**', async (route) => {
+  await context.route('**/*', async (route) => {
     const request = route.request();
     const path = new URL(request.url()).pathname;
+    const headers = request.headers();
+    if ('admin_local_token' in headers || 'x-exedev-email' in headers)
+      return route.abort();
+    if (request.method() === 'GET' && Object.hasOwn(snapshots, path))
+      return route.fulfill({ json: snapshots[path] });
     if (path === '/api/topics' && request.method() === 'GET') {
       await route.fulfill({ json: replayTopics });
       return;
@@ -42,7 +67,10 @@ async function smoke() {
       }
       return;
     }
-    assert.equal(request.method(), 'GET', `Unexpected browser write: ${path}`);
+    if (!['GET', 'HEAD'].includes(request.method())) {
+      unexpectedWrites.push(`${request.method()} ${path}`);
+      return route.abort();
+    }
     await route.continue();
   });
   try {
@@ -54,8 +82,27 @@ async function smoke() {
       failOrder = true;
       const writesBefore = writes;
       const page = await context.newPage();
+      const errors: string[] = [];
+      page.on('pageerror', (error) => errors.push(error.message));
       await page.setViewportSize({ width, height });
       await page.goto(base);
+      assert.equal(
+        await page.evaluate(async () => {
+          try {
+            await fetch('/api/topics/unexpected-write-probe', {
+              method: 'POST',
+            });
+            return false;
+          } catch {
+            return true;
+          }
+        }),
+        true,
+      );
+      assert.equal(
+        unexpectedWrites.pop(),
+        'POST /api/topics/unexpected-write-probe',
+      );
       await page.getByText('Manage topics', { exact: true }).click();
       assert.equal(
         await page
@@ -86,6 +133,9 @@ async function smoke() {
           .innerText(),
         `${topics[0].name} · Enabled`,
       );
+      await page.locator('.topic-settings').screenshot({
+        path: `docs/screenshots/topic-order-failure-${name}.png`,
+      });
       failOrder = false;
       await page
         .getByRole('button', {
@@ -131,8 +181,11 @@ async function smoke() {
       await page
         .locator('.topic-settings')
         .screenshot({ path: `docs/screenshots/topic-order-${name}.png` });
+      assert.deepEqual(errors, []);
       await page.close();
     }
+    assert.deepEqual(credentials, []);
+    assert.deepEqual(unexpectedWrites, []);
     console.log(
       'Topic reorder desktop/mobile browser replay: failure, retry, reload, positions and overflow passed; no production writes or generation',
     );
@@ -142,10 +195,11 @@ async function smoke() {
       topics,
       'Browser replay must not change live topics',
     );
+    assert.deepEqual(await localAdminJson('/api/admin/profile'), profile);
     if (latest)
       assert.deepEqual(
         await localAdminJson('/api/admin/digest-previews/' + latest.id),
-        latest,
+        savedEdition,
       );
     await browser.close();
   }

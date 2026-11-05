@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Topic reorder recovery (796): desktop/mobile failure, retry, positions and reload verified with protected operational snapshots, browser write/credential guards and full edition/topics/profile immutability.
+
 - [x] Topic deletion recovery (795): desktop/mobile cancel, failed delete, retry and reload verified with protected snapshots, browser write/credential guards and full edition/topics/profile immutability.
 
 - [x] Topic creation recovery (794): desktop/mobile failed creates retain all entered fields, retry/reload succeeds once; protected snapshots, blocked browser writes/credentials and full edition/topics/profile immutability.
