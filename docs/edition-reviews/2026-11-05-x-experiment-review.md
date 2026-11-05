@@ -68,3 +68,51 @@ Usable yield remains unknown pending AI relevance, promotion and free-link
 review. Missing likes and incomplete keyword coverage remain explicit; no
 winner, threshold change, model change or activation. The second fresh round
 is due after 21:00 UTC Nov 6; earliest production edition remains Nov 7.
+
+## Free-link overlap and visible-text review — iteration 886
+
+Joined every settled candidate by exact post ID against the saved read-only
+snapshot: **41 candidates, zero free-link matches**. The snapshot contains
+1,000 citation rows for **863 distinct posts**, not 1,000 distinct posts. Its
+SQL has no LIMIT and captures all retained `x_link_citations` at
+21:02:31.750 UTC, shortly after the experiment window closed. Absence describes
+that snapshot, not future collection or a guarantee that the press never
+covered a post.
+
+| Topic     | Style    | Candidates | Free matches | Old paid matches |
+| --------- | -------- | ---------: | -----------: | ---------------: |
+| Tech & AI | Keyword  |         10 |            0 |                0 |
+| Tech & AI | Semantic |          8 |            0 |                0 |
+| NBA       | Semantic |          8 |            0 |                0 |
+| Gaming    | Semantic |          8 |            0 |                1 |
+| World     | Semantic |          7 |            0 |                1 |
+
+The old paid baseline has 19 unique citations and also zero free-link matches.
+Its Gaming overlap (`2117883840450511051`) is outside the revised window;
+its World overlap (`2118163283282989453`) is inside. Tech's eight semantic
+candidates share no IDs with its ten keyword candidates. The other topics
+have no settled keyword cell, so keyword-missed yield cannot be compared.
+No old paid call was rerun.
+
+Read all 41 saved official embeds. Concrete concerns for the later AI review:
+
+- Tech keyword `2118273559038484848` offers $10,000 for likes, comments and
+  follows; `2118414128973029573` offers $100 in ZEC for liking/following.
+  Both survived the executed `-giveaway` operator. Other candidates include
+  product demos and launches; a product announcement alone is not labelled
+  a promotion here.
+- NBA semantic includes three betting-guide posts from `johnny_lockzzz`,
+  plus injury lists and commentary. Visible text does not show a highlights
+  shortlist.
+- Gaming semantic mixes a publisher roundup, release discussion and
+  commentary. World mixes political commentary with three Grok-authored posts;
+  World remains separate from the main acceptance target.
+
+Private `overlap-runner-886.py`, `overlap-review-886.json`,
+`overlap-evidence-886.json` and `overlap-report-886.json` preserve the exact
+ID join, input SHA-256 hashes and reporter output. Original artifacts remain
+unchanged. Only free-link labels were resolved; AI relevance/promotion labels
+remain unknown, and the 31 semantic likes remain unknown. Thus no usable-yield
+number or winner follows from the zero overlap. Next: score saved candidates
+with the production social scorer under verification admission, then the
+Nov 6 fresh-window round. No paid calls, ingestion or production changes.

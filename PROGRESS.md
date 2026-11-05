@@ -1,26 +1,3 @@
-## 2026-11-05: iteration 876 — compact operations Overview
-
-- Started clean on main; no leftover work. Initial alerts clear, /healthz healthy and all 36 sources returning content. Latest scheduled edition remains four topics/17 stories/14 posts; digest queue has no failures.
-- Added shadcn Overview cards for health, active source health and AI/X daily spend/caps; latest saved edition shows per-topic story/post modes/counts, retained worker duration and reader link. Source issues and next edition/social runs are visible without opening detailed controls.
-- Existing edition/topic/schedule/status controls remain in a collapsed section and mount only when opened; Overview no longer fetches content/topics/profile. Dedicated management pages still replace those controls next. Inline alert count and per-edition cost remain open; alerts link to Grafana.
-- Added repeatable smoke-admin-overview: four viewport/theme combinations, anonymous denial, reload, mobile menu, stale-data refresh failure/recovery and no browser credentials/writes/overflow. Anchored the Node-only document bridge so API scenario routes are no longer shadowed.
-- Browser: smoke-admin-overview, smoke-admin-separation, smoke-admin-tools and smoke-admin-gate passed; final layout rechecked with Overview/separation. Four Overview and four updated controls screenshots retained; visually checked desktop light/mobile dark. Saved real edition unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (505 unit/218 isolated integration passed); pnpm build; final web build/typecheck; git diff --check. Unit/integration counts: 505/218 passed. First full command exited 143 after passing tests; retry caught formatting of newly archived entry, corrected before final rerun.
-- Handbook Operations/runtime checks passed (18 pages, 2/1 unchanged diagrams, 28 assigned tables). API restarted for built web and readiness confirmed; worker unchanged. No paid calls, saved settings/edition writes, source/schema/access changes; SOURCES and NEEDS_FROM_HUMAN unchanged; archived iteration 864.
-- Updated TASKS and affected handbook; archived iteration 863. Next: complete Overview alert count/cost and dedicated Editions/creation/inspector, then remaining admin pages; X rounds after 21:00 UTC Nov 5/6; review Nov 6 edition. Private proxy check remains required before public access.
-
-## 2026-11-05: iteration 877 — dedicated source collection page
-
-- Started clean on main; no leftover work. Alerts clear, API/worker and /healthz healthy; all 36 sources collecting. X fresh-window experiments remain due after 21:00 UTC.
-- Owner-visible value: a dedicated Sources page replaces scattered source cards with one collection-health table.
-- Added protected `/admin/sources` and shared navigation/mobile title, a shadcn-style table for collection state, timestamps, last response/stored article counts and errors, plus X/Bluesky/parked Reddit/deferred YouTube rows.
-- Removed the replaced source cards and Reddit explanation from the legacy status panel. Sources is a partial spec step: topic links, 24-hour/7-day counts, enable switches and Add feed remain open; existing counts are explicitly labelled.
-- Browser: smoke-admin-sources passed four viewport/theme combinations, 36 live source rows, anonymous denial, deep reload, mobile navigation, refresh failure/recovery, no overflow/writes/browser credentials. Four screenshots retained; desktop light/mobile dark visually inspected. Initial browser attempt preceded API readiness; retried after healthy /healthz. Combined verification command exited 143 during integration after 505 unit passes; standalone check rerun passed.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (505 unit/218 isolated integration passed); pnpm build; git diff --check. Handbook Operations check passed (18 pages, one unchanged diagram, 28 assigned tables); admin gate passed 24 denied paths and forwarded-token denial; smoke-admin-overview passed.
-- API restarted for built web; worker unchanged. Final health/alerts clear. No paid calls, saved-data writes, source/schema/access changes; SOURCES and NEEDS_FROM_HUMAN unchanged; archived iteration 864.
-- Push initially rejected after owner STEERING-only commits landed; merged item 38 without rewriting history.
-- Next: finish dedicated admin pages and Sources management, then final reader; Overview alert count/cost remain. X rounds after 21:00 UTC Nov 5/6 and scheduled Nov 6 editorial/story-pool review stay ahead when due.
-
 ## 2026-11-05: iteration 878 — dedicated edition schedule
 
 - Started clean on main; no leftover work. Initial alerts clear and API/worker active; /healthz database/Redis healthy. X fresh-window work remains due after 21:00 UTC.
@@ -120,3 +97,13 @@
 - Verification: pnpm format; pnpm lint:fix; targeted extractor 5/5; saved-evidence assertions (eight unique attempts/five settlements/three holds/41 verified/private permissions/unknown usable yield); pnpm build; git diff --check. Full pnpm check passed typecheck/lint/format/boundaries, 505 unit and 218 isolated integration tests.
 - Live health/database/Redis green, four services active, 36 sources/zero unhealthy, latest saved reader four topics, alerts clear. No restart under STEERING 22: only offline script/tests/docs changed.
 - Next: score/review saved Nov 5 candidates and compare retained free links/old baseline; Nov 6 fresh round after 21:00 UTC. Nov 6 scheduled grouping/editor-v5 review takes priority; build Topics admin while X waits.
+
+## 2026-11-05: iteration 886 — revised X free-link overlap review
+
+- Started clean on main; no leftover work. Alerts clear, health/database/Redis healthy; API, worker, docs and schema services active.
+- Reviewed all 41 saved official embeds and joined settled candidates against the complete retained free-link snapshot: 1,000 citation rows/863 unique IDs, zero matches. Old paid baseline 19 IDs/zero free matches; two semantic overlaps with it (Gaming outside window, World inside).
+- Tech semantic and keyword share no IDs. Other topics have no settled keyword cell; keyword-missed usable yield remains unknown. Two explicit Tech keyword giveaways survived `-giveaway`; NBA semantic includes three betting guides. No new wording rules or threshold changes.
+- Private reproducible runner, input hashes, joined evidence and existing reporter output saved (600); original files unchanged. Only free-link labels resolved; relevance/promotion/31 semantic likes remain unknown. No paid calls, ingestion, source changes or production activation.
+- Archived iterations 876–877. Updated dated review, SOURCES and TASKS; NEEDS_FROM_HUMAN/handbook unchanged. No runtime changes or restart under STEERING 22.
+- Verification: private overlap runner assertions passed; existing offline report accepted all five settled cells and retained unknown usable yields; pnpm format; pnpm lint:fix; pnpm build; git diff --check. pnpm check passed typecheck/lint/format/boundaries, 505 unit and 218 isolated integration tests.
+- Next: saved-candidate production social scoring under verification admission; Nov 6 fresh-window round after 21:00 UTC; scheduled editor-v5/grouping review takes priority when due. Topics UI while waiting.

@@ -1999,3 +1999,12 @@ With the private environment loaded, run
 transaction and reads protected topics. This check made no provider requests,
 paid calls, collection triggers or saved-edition writes, and did not restart
 the worker. Production requests in the table were ordinary scheduled traffic.
+
+### Nov 5 experiment overlap review — iteration 886
+
+The saved snapshot has 1,000 free-link citation rows for 863 unique X posts.
+None of the 41 revised experiment candidates matched those IDs; two semantic
+candidates matched the old paid baseline. Saved embeds include two explicit
+Tech keyword giveaway solicitations despite `-giveaway`. AI eligibility is
+still unscored; no source, threshold or production change. See the
+[dated review](edition-reviews/2026-11-05-x-experiment-review.md#free-link-overlap-and-visible-text-review--iteration-886).
