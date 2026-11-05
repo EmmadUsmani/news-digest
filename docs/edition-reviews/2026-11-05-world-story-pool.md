@@ -2,9 +2,8 @@
 
 Recommend a **40-article scored pool before grouping**, then at most ten
 stories for editing. This is the existing model adapter's supported maximum;
-no prompt change or topic-specific selection rule is needed. The publication
-shortlist and grouping wrapper still limit inputs to ten: this evidence step
-has not changed production.
+no prompt change or topic-specific selection rule is needed. Publication still selects ten articles; the prepared selection and grouping
+helpers accept forty. Activation awaits the gates below.
 
 ## Saved-window replay
 
@@ -79,3 +78,28 @@ These are reviewed-label and fake-port results, not actual model results.
 Activation remains pending actual grouping/cache replay and the all-topic
 configured-price cap/reserve check. No prompt, publication call site, budget,
 provider or model changed in this preparation step.
+
+## Actual cache probe (iteration 870)
+
+With the VM's configured Haiku model and database, run:
+`pnpm exec tsx scripts/replay-world-grouping-cache.ts --read-only-cache`.
+The script opens a read-only repeatable-read transaction, reconstructs the
+production grouping requests for ten and forty saved articles, and looks up
+their exact production fingerprints. Hits pass the production membership
+validator before ranking; misses report null story counts, never singleton
+counts presented as model results. It cannot dispatch inference or write cache,
+ledger, settings or editions. Output contains only IDs, counts and cache status.
+
+Nov 5 and Nov 4 both missed at ten and forty articles (four misses). Thus these
+retained post-publication fixtures cannot supply a cached model replay. This
+does not imply the historical Nov 5 grouping call was uncached or absent:
+request identity includes article text, order and model, and the saved fixture
+is not an exact historical request capture. Reviewed counts above remain label
+results. No paid calls were made and publication still uses ten articles.
+
+Next: check all-topic configured-price cap/reserve headroom, then use the
+explicit, ledgered verification opt-in allowed by STEERING 4 (few Haiku calls,
+maximum $0.05 per iteration) if an actual model replay is still necessary.
+Do not repeat this cache probe expecting forty-item responses to appear before
+those requests have ever run. Activation remains gated by the budget check and
+actual grouping evidence before Nov 6 13:00 UTC.

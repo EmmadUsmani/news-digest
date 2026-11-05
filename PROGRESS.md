@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 855 — recover durable job links during Redis read outages
-
-- Started clean on main; no leftover work. Alerts clear, 36 sources healthy and no failed digest jobs; X tests await 21:00 UTC, admin rollout awaits identity/proxy evidence.
-- Saved completed and recorded failed on-demand job links now fall back to Postgres when the initial Redis lookup rejects. Unknown jobs preserve the outage error rather than falsely returning 404; no generation or paid calls.
-- Extended the isolated queue test with Redis read rejection: completed edition and generic failed status recover, unknown ID rejects with the original error, and generation count stays unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (499 unit/215 isolated integration); pnpm build; git diff --check; check-handbook.ts 03-jobs-and-schedules (18 pages/2 diagrams, 27 tables, no warnings); smoke-admin-gate.ts; /healthz; obs alerts/sources/jobs.
-- API/worker restarted healthy; initial smoke raced startup, rerun passed. Saved edition byte-identical, all 36 sources healthy, no failed digest jobs and alerts clear. Jobs handbook/TASKS updated; no UI/schema/source/budget changes.
-- Next: X fresh-window tests after 21:00 UTC Nov 5/6, editor-v5 evidence Nov 6; unfinished/stalled durable history and admin identity/proxy verification remain open.
-
 ## 2026-11-05: iteration 856 — recover job links after mid-read Redis failures
 
 - Started clean on main; no leftover work. Alerts/health green, collection active and scheduled digest successful; X tests await 21:00 UTC and admin rollout awaits identity/proxy evidence.
@@ -146,3 +137,12 @@
 - Verification: targeted tests (11 passed); offline World replay assertions; pnpm format; pnpm lint:fix; pnpm check (504 unit/218 isolated integration passed); pnpm build; git diff --check. API/worker restarted active, /healthz healthy, saved edition four topics/17 stories and alerts clear.
 - Updated TASKS and World evidence; archived iteration 854 to keep PROGRESS small. Handbook/SOURCES/schema metadata/screenshots/NEEDS_FROM_HUMAN unchanged because runtime selection and data flow remain unchanged.
 - Next: actual grouping/cache replay and full-edition budget gate, then activate before Nov 6 13:00 UTC or defer a day; UI step 2 follows. X rounds due after 21:00 UTC Nov 5/6.
+
+## 2026-11-05: iteration 870 — probe actual World grouping cache without inference
+
+- Started clean on main; no leftover work. Alerts clear; API/worker active, /healthz healthy and latest real edition serves four topics/17 stories/14 posts.
+- Added explicit --read-only-cache probe: repeatable-read READ ONLY transaction, production fingerprints/configured model, production membership validation on hits, no provider/ledger/cache writes. Cache-read failures fail the command; misses report null model counts.
+- Nov 4/5 ten/forty-article requests all miss (four misses). Retained post-publication fixtures cannot supply exact model replay; this does not establish absence of historical grouping calls. Reviewed story counts remain label results. No paid calls or runtime changes.
+- Verification: actual cache probe; missing opt-in rejected; offline World replay assertions; pnpm format; pnpm lint:fix; pnpm check (504 unit/218 isolated integration passed); pnpm build; git diff --check.
+- Updated World evidence/TASKS; archived iteration 855 to keep PROGRESS small. No service restart under STEERING 22 because runtime code/config unchanged. Handbook/SOURCES/schema/screenshots/NEEDS_FROM_HUMAN unchanged.
+- Next: all-topic configured-price cap/reserve gate, then bounded ledgered Haiku verification under STEERING 4 if needed; do not repeat cache misses. Activate before Nov 6 13:00 UTC or defer. X rounds after 21:00 UTC Nov 5/6; UI step 2 follows story-limit fix.

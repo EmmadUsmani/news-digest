@@ -36,6 +36,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Actual World cache probe (870): read-only production-fingerprint lookup for Nov 4/5 ten/forty pools yields four misses; no model story counts claimed. Next: all-topic budget/reserve gate, then bounded ledgered Haiku verification under STEERING 4; do not repeat cache probes.
+
 - [x] Bounded grouping path prepared (869): explicit forty-article selection and wrapper, ten-story editor ceiling; saved reviewed-label replay passes through production helpers. Publication retains ten articles until actual grouping and all-topic budget gate pass.
 
 - [x] World story-pool evidence (868): offline reviewed-label replay supports forty articles before grouping: Nov 5 2→13 stories (ten editor inputs), Nov 4 1→7. Production unchanged; actual model replay/all-topic budget gate and fix remain next. [Evidence](docs/edition-reviews/2026-11-05-world-story-pool.md).
