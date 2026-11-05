@@ -8,7 +8,7 @@ import {
   topicSchema,
 } from '@digest/contracts';
 import { queryOptions } from '@tanstack/react-query';
-import type { z } from 'zod';
+import { type z, ZodError } from 'zod';
 
 export class HttpError extends Error {
   constructor(
@@ -51,11 +51,12 @@ export const statusQuery = queryOptions({
   refetchInterval: 60_000,
 });
 
-// A timeout already waited for the server; offer Retry instead of repeating
-// the full wait. Ordinary transient failures retain their bounded retries.
+// Timeouts and invalid response data need manual recovery; repeating them
+// delays the reader without helping. Transient HTTP failures retain retries.
 function retryEditionRead(failureCount: number, error: Error) {
   return (
     error.name !== 'TimeoutError' &&
+    !(error instanceof ZodError) &&
     !(error instanceof HttpError && error.status === 404) &&
     failureCount < 3
   );

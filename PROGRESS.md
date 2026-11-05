@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 761 — protected X-schedule guidance browser check
-
-- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy, no retained failed digest runs; Nov 5 edition remains due at 15:00 UTC.
-- X-schedule guidance verifier now reads validated status/topic snapshots through bounded protected Node requests, replays them in the browser, blocks unexpected browser API writes and verifies live topics are unchanged. Credentials remain outside the browser.
-- `pnpm exec tsx scripts/smoke-x-schedule-copy.ts` passed desktop/mobile Status/settings copy, layout and browser-error checks. Four screenshots refreshed; desktop Status and mobile account guidance visually inspected.
-- Updated TASKS/Operations; archived iteration 746. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No production writes, paid calls, runtime/config/schema or model/provider changes; healthy services stay running under STEERING 22.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. Fresh X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (497 unit/214 isolated integration, zero failures), `pnpm build`, `check-handbook.ts 08-operations` and `git diff --check` passed. Final health green; saved reader edition returns four real topics.
-
 ## 2026-11-05: iteration 762 — manual reserve check blocks live writes
 
 - Started clean on main; no leftover work. Alerts zero and /healthz database/Redis green; Nov 5 scheduled edition remains due at 15:00 UTC.
@@ -141,3 +132,13 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations; git diff --check. Static checks, 497 unit and 214 isolated integration tests passed (exit 0). Handbook initially exceeded 100 lines; shortened and rechecked successfully.
 - TASKS and Operations updated; archived iteration 760. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, edition writes, generation/config/schema or model/provider changes. API restarted after build; all four services active, health green.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; identity configuration and proxy verification still block admin rollout.
+
+## 2026-11-05: iteration 777 — recover invalid reader data promptly
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy. Scheduled Nov 5 review still due at 15:00 UTC.
+- Edition/history schema failures now offer manual Retry immediately instead of issuing three automatic repeat requests. Transient HTTP retries and timeout/404 handling remain intact.
+- `pnpm exec tsx scripts/smoke-reader-invalid-data.ts` passed malformed 200 responses, one attempt before Retry, real saved-content recovery and unchanged protected saved edition on desktop/mobile light/dark. Browser writes/credentials blocked; zero browser errors. Four screenshots added; desktop light/mobile dark inspected.
+- `smoke-missing-edition.ts` passed single-404 and transient-outage recovery in all four cases; discarded unrelated regenerated screenshots. Operations/TASKS updated; archived iteration 761. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers.
+- No paid calls, stored-edition writes, generation/config/schema or model/provider changes. API restarted after build; worker kept running under STEERING 22.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations; git diff --check. Static checks, 497 unit/214 isolated integration tests passed (exit 0). Initial check caught import spacing after lint auto-fix; reformatted and full rerun passed. Final health green; all four services active.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; identity configuration/proxy verification still block admin rollout.
