@@ -284,6 +284,13 @@ async function smoke() {
         exact: true,
       });
       await connecting.waitFor();
+      await form
+        .getByRole('status')
+        .filter({ hasText: 'Connecting feed…' })
+        .waitFor();
+      await form.screenshot({
+        path: `docs/screenshots/ui/source-connection-pending-${device}.png`,
+      });
       assert.ok(await connecting.isDisabled());
       assert.ok(await name.isDisabled());
       assert.ok(await url.isDisabled());
@@ -467,6 +474,10 @@ async function smoke() {
           name: 'Connecting…',
           exact: true,
         })
+        .waitFor();
+      await form
+        .getByRole('status')
+        .filter({ hasText: 'Connecting news query…' })
         .waitFor();
       assert.ok(await queryInput.isDisabled());
       assert.ok(

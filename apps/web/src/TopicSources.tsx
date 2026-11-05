@@ -48,7 +48,7 @@ export function TopicSources({
   async function save(event: React.FormEvent) {
     event.preventDefault();
     setBusy(true);
-    setMessage('');
+    setMessage('Saving source connections…');
     try {
       const response = await fetch(`/api/topics/${topic.id}/sources`, {
         method: 'PUT',
@@ -77,7 +77,7 @@ export function TopicSources({
   async function addFeed(event: React.FormEvent, search = false) {
     event.preventDefault();
     setBusy(true);
-    setMessage('');
+    setMessage(search ? 'Connecting news query…' : 'Connecting feed…');
     let connected = false;
     try {
       const response = await fetch(

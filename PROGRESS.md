@@ -79,3 +79,14 @@
 - API rebuilt/restarted; health green, reader latest has four topics, alerts clear. Worker/schedule unchanged; no paid calls or live data writes.
 - Archived iterations 818–827 to docs/progress-archive/2026-11-05-iterations-818-827.md; TASKS updated. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (UI feedback only).
 - Next FIRST: 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification pending.
+
+## 2026-11-05: iteration 836 — name pending source operations
+
+- Started clean on main; no leftover work. Health/database/Redis green and alerts clear; Nov 5 scheduled review remains due at 15:00 UTC.
+- Accessible source status now names saving source connections, connecting a feed or connecting a news query while requests are pending.
+- Desktop/mobile replay verifies pending feed/query messages, locked controls, timeout recovery and unchanged protected live topics/profile/full edition. New pending screenshots inspected; unrelated regenerated screenshots discarded.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit/214 isolated integration passed); smoke-custom-feeds.ts and smoke-admin-gate.ts exit 0; git diff --check.
+- Global pnpm launcher stalled; checks completed with installed pnpm 10.28.2 on PATH via transient user unit. First admin replay hit API restart ECONNREFUSED; retry after health green passed.
+- Rebuilt API restarted; health green, reader latest has four topics, alerts clear. Worker/schedule unchanged; no paid calls or live data writes.
+- TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (pending feedback only, no new blocker).
+- Next FIRST: 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Pending source operations (836): accessible status names source-selection saves, feed connections and news-query connections; desktop/mobile replay verifies pending feed/query feedback.
+
 - [x] Source loading feedback (835): initial catalog loading and retry show an accessible status while source forms are disabled; desktop/mobile replay and screenshots cover the loading state.
 
 - [x] Independent source drafts (834): connecting a feed preserves an unfinished news query; connecting a query preserves feed name/URL, including confirmed-save catalog failures. Desktop/mobile replay passes.
