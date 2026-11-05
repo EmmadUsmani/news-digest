@@ -3,8 +3,9 @@
 ## URLs
 
 All of these are behind the exe.dev login. Reserved `/admin` and `/api/admin`
-paths also require [admin identity](01-stack-and-runtime.md#admin-identity);
-`/api/me` reports access. Current tools and Status keep the URLs below.
+paths require [admin identity](01-stack-and-runtime.md#admin-identity); `/api/me` reports access.
+`pnpm obs sources|jobs` reads its local token from the env file for `/api/admin/status`.
+Current tools and Status keep the URLs below.
 
 | What               | URL                                                                                      |
 | ------------------ | ---------------------------------------------------------------------------------------- |
@@ -90,8 +91,6 @@ terminal:
 > connection, colored red.
 
 ## How code reaches production
-
-There is no separate CI/CD. The build agent works directly on the VM:
 
 ```mermaid
 flowchart LR

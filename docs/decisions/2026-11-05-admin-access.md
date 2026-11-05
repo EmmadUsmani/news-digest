@@ -19,8 +19,8 @@ Reader routes keep their own caching policy.
   the same name using a constant-time comparison for equal-length values.
 - Token access requires a loopback socket and no `Forwarded` or `X-Forwarded-*`
   headers. Socket locality alone never grants access.
-- No configured email or token means no admin access. No secrets were created
-  or owner email inferred in this step.
+- No configured email or token means no admin access. A random local token is installed in the private env file; the owner email
+  allowlist remains unconfigured.
 
 ## Proxy investigation, November 5
 
@@ -47,6 +47,14 @@ and dates, plus `hasMore`. Browser history now uses this reader endpoint and
 omits generation methods. Browser edition detail also uses the reader endpoints;
 its stories and posts render without scores, selection reasons or editorial
 diagnostics. The coordinated admin route migration remains unfinished.
+
+## Local operations scripts
+
+`pnpm obs sources` and `pnpm obs jobs` now use `/api/admin/status`.
+The script reads its local token from the private env file only for protected
+API requests to `http://127.0.0.1:8000`. Credentialed requests refuse redirects.
+Health, alerts, logs and metrics retain their existing read-only endpoints.
+No legacy-route fallback is used for protected status requests.
 
 ## Next rollout slice
 

@@ -126,7 +126,7 @@ void test('obs bounds retained job output after filtering while preserving queue
   let calls = 0;
   const read: typeof fetch = async (url, init) => {
     calls++;
-    assert.equal(url, 'http://127.0.0.1:8000/api/status');
+    assert.equal(url, 'http://127.0.0.1:8000/api/admin/status');
     assert.equal(init?.method, undefined);
     return Response.json({
       checkedAt: '2026-11-03T12:00:00Z',
@@ -389,7 +389,10 @@ void test('source health distinguishes errors, stale success, unknown and inacti
 });
 
 void test('sources reads and validates only the local status snapshot', async () => {
-  assert.equal(obsRequest(['sources']).url, 'http://127.0.0.1:8000/api/status');
+  assert.equal(
+    obsRequest(['sources']).url,
+    'http://127.0.0.1:8000/api/admin/status',
+  );
   const read = (async () =>
     new Response(
       JSON.stringify({ checkedAt: 'invalid', sources: [] }),

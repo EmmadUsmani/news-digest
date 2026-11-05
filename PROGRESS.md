@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 722 — revised X experiment runner
-
-- Started clean on main; no leftover work. Zero alerts, health/database/Redis green, all 36 sources healthy and zero failed retained digest jobs. Nov 5 scheduled acceptance remains future (15:00 UTC).
-- Runner now consumes article-free viral/semantic preparation and dispatches eight cells (four per style), staying on Grok 4.3. Legacy inputs are rejected before private round creation, reservation or provider dispatch.
-- Existing separate $2.50 total/$1 daily ledger, $0.15 per-call reservation, one-hour comparison, protected hours and unknown-outcome no-retry behavior remain. Fixture tests verify eight settled calls, immediate overrun stop, continuation without retry and legacy rejection.
-- Verification: targeted runner tests 4/4; pnpm format, pnpm lint:fix, pnpm check (481 unit, 213 isolated integration, exit 0), pnpm build and git diff --check passed. No UI/runtime changes or screenshots needed.
-- Updated TASKS and experiment instructions. SOURCES/NEEDS_FROM_HUMAN unchanged; no source change or new owner blocker. Healthy services left running under STEERING 22 because only offline scripts/tests/docs changed.
-- No paid calls, scorer/cache changes, model/provider changes or production activation. Next: migrate report/extractor to viral/semantic before rounds after 21:00 UTC Nov 5/6; prioritize scheduled acceptance and only then scorer changes.
-
 ## 2026-11-05: iteration 723 — revised X experiment call report
 
 - Started clean on main; no leftover work. Zero alerts, health/database/Redis green, 36 healthy sources and zero failed retained digest jobs. Nov 5 15:00 UTC scheduled acceptance remains future.
@@ -129,7 +120,18 @@
 - Protected /admin and /api/admin responses now use no-store and vary on both identity headers before downstream handling, covering authorized reads/writes/pages and errors as well as denied requests. Reader caching policy unchanged. Legacy routes/tools remain pending coordinated migration and configured identity.
 - Expanded real-HTTP gate checks for email/token identity, HEAD, downstream 404/500 and reader isolation; isolated controller parity checks assert cache headers on protected reads and topic creation. No live writes or inference.
 - Verification: targeted admin-access tests 2/2; pnpm format, pnpm lint:fix, pnpm check (494 unit/214 isolated integration, exit 0), pnpm build, check-handbook.ts 01-stack-and-runtime and git diff --check all passed.
-- Rebuilt/restarted API/docs; readiness retry and pnpm obs health --check passed. Live three admin paths returned 404/no-store/identity Vary, reader latest returned four topics. Worker/schema/UI unchanged; no screenshot changes needed.
+- Rebuilt/restarted API/docs; readiness retry and pnpm obs health --check passed. Live three admin paths returned 404/no-store/identity Vary, reader latest returned four topics. Worker/schema/UI unchanged; no screenshot changes needed. Final alerts zero.
 - pnpm obs jobs --check with filters was rejected; corrected read-only jobs command confirmed no failed digest runs. Historical ingestion/social queue failure counts persist with current source health green.
 - Updated TASKS and access decision; archived iteration 721 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new owner blocker. No paid calls, model/provider/budget changes, scorer work or X activation.
 - Next: configured admin identity, UI/script migration and tool gate together; scheduled Nov 5 acceptance first when due, scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6.
+
+## 2026-11-05: iteration 736 — authenticated local operations reads
+
+- Started clean on main; no leftover work. Health/database/Redis green, 36 sources healthy, zero failed retained digest runs; Nov 5 edition due at 15:00 UTC. Metrics memory warning later pending; no ceiling change or observability restart.
+- Installed a random ADMIN_LOCAL_TOKEN in the private mode-600 env file without exposing it. API loads it after restart; owner email allowlist remains unconfigured.
+- Sources/jobs CLI queries now use /api/admin/status with a reusable local credential adapter. It reads credentials only for the fixed loopback protected API origin, preserves request headers, rejects missing/invalid tokens and refuses redirects. No legacy-route fallback.
+- Isolated tests cover credential scope, header preservation, missing/invalid token refusal, real HTTP gate acceptance and redirect refusal. Targeted local-admin/obs tests 19/19 passed; no live writes or inference.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (496 unit/214 isolated integration, exit 0), pnpm build, check-handbook.ts 08-operations and git diff --check. Initial test lint and handbook length failures corrected before final checks.
+- Rebuilt/restarted API/docs; readiness retry passed. Live protected sources/jobs reads: 36 healthy sources, no failed digest runs; anonymous protected status 404, reader latest four topics, health green. Worker/schema/UI unchanged; no screenshot changes needed. Final alerts zero.
+- Updated TASKS, Operations and access decision; archived iteration 722. SOURCES/NEEDS_FROM_HUMAN unchanged; no source change or new owner blocker. No paid calls, model/provider/budget changes, scorer work or X activation.
+- Next: owner email identity and coordinated UI/scripts/tool migration; Nov 5 scheduled acceptance first when due, scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6.

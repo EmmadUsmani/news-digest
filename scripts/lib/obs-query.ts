@@ -10,7 +10,7 @@ const queueNames = [
   'social-collection',
 ];
 
-// Only local, read-only query endpoints. Never schedule work or read credentials.
+// Only local, read-only query endpoints. Never schedule work.
 export function obsRequest(
   args: string[],
   now = Date.now(),
@@ -38,7 +38,7 @@ export function obsRequest(
   }
   if (command === 'sources') {
     if (rest.length) throw new Error('sources accepts no options');
-    return { url: 'http://127.0.0.1:8000/api/status' };
+    return { url: 'http://127.0.0.1:8000/api/admin/status' };
   }
   if (command === 'targets') {
     if (rest.length) throw new Error('targets accepts no options');
@@ -46,7 +46,7 @@ export function obsRequest(
   }
   if (command === 'jobs') {
     jobOptions(rest);
-    return { url: 'http://127.0.0.1:8000/api/status' };
+    return { url: 'http://127.0.0.1:8000/api/admin/status' };
   }
   if (command === 'metric') return metricRequest(rest, now);
   if (command !== 'logs' && command !== 'errors')
