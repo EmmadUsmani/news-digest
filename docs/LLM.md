@@ -196,10 +196,10 @@ immutable history. Final day/month ledger was $0.264979, zero reservations/error
 under the $0.482758 daily/$14 monthly caps. This includes browser creation checks,
 not only a single edition. Recency ordering can change editor prompt order across
 different windows, so cross-window editorial cache reuse is not guaranteed.
-Default `scripts/smoke-ui.ts` now reads existing live editions and uses browser-only
-fixtures. Set `SMOKE_CREATE_EDITION=1` for a paid 24h creation check and
-`SMOKE_EXTENDED_WINDOWS=1` for paid 6h/7d/custom-window checks. Default fixture
-coverage and image-failure checks reuse a GET snapshot and make no LLM calls.
+`scripts/smoke-ui.ts` reads saved reader editions and archive pages, checks
+rendered story text and image attributes, and exercises navigation and reload.
+It blocks browser API writes and has no paid creation or extended-window mode.
+Generation behavior is verified against isolated test services.
 
 ## Concurrent requests (iteration 56)
 

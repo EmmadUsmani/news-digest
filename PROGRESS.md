@@ -1,13 +1,3 @@
-## 2026-11-05: iteration 740 — authenticated schedule recovery
-
-- Started clean on main; no leftover work. Health/database/Redis green, 36 sources healthy, no failed retained digest runs; Nov 5 edition remains due at 15:00 UTC. Observability memory warning pending; metrics service active, zero restarts, about 105 MiB of its 112 MiB ceiling.
-- Schedule recovery now uses protected profile reads and schedule restoration with the private local token adapter. Localhost normalizes to the fixed loopback origin while saved target strings remain unchanged for old recovery records. Initial reads have a timeout and explicit HTTP failure check.
-- Isolated schedule-recovery and local-admin-fetch tests passed (3/3): SIGTERM restoration, exclusive recovery record, protected endpoint paths, credential isolation and redirect refusal. No live schedule write or recovery command executed.
-- Live authenticated profile GET returned 200 and unchanged daily 07:00 America/Los_Angeles P1D. Reader latest still returns Nov 4 edition with four topics; scheduled timing report succeeds. No paid calls or model/provider/budget changes.
-- Updated TASKS, access decision and Operations; archived iterations 726–727. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No UI/schema/runtime changes; healthy services stay running under STEERING 22.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (497 unit/214 isolated integration, exit 0), pnpm build, check-handbook.ts 08-operations and git diff --check passed. Initial handbook length failure corrected; final health green and alerts zero. No diagrams changed or new screenshots required.
-- Next FIRST: Nov 5 NBA outcome after 15:00 UTC and investigate repeated fallback; scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy checks and coordinated UI/legacy migration remain open.
-
 ## 2026-11-05: iteration 741 — verify saved posts through reader contract
 
 - Started clean on main; no leftover work. Alerts zero, health/database/Redis green, 36 sources healthy and no retained failed digest runs. Nov 5 edition remains due at 15:00 UTC.
@@ -135,3 +125,12 @@
 - Updated TASKS, Operations and access decision. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema changes, live writes or paid calls; healthy services remain running under STEERING 22.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration tests, exit 0); pnpm build; check-handbook.ts 08-operations; git diff --check all passed. Final health green; reader latest has four topics, 14 stories and 15 posts.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.
+
+## 2026-11-05: iteration 755 — general UI check follows the reader contract
+
+- Started clean on main; no leftover work. Health/database/Redis green, 36 sources healthy, no failed retained digest runs. Existing metrics memory alert firing; service active with zero restarts. Nov 5 edition due at 15:00 UTC.
+- General UI smoke now reads saved reader editions/archive and verifies rendered titles, URLs, summary text, image attributes, archive navigation/reload and desktop/mobile layout. Removed obsolete score/editorial assertions, legacy preview reads and paid creation/extended-window modes; unexpected browser API writes abort.
+- `pnpm exec tsx scripts/smoke-ui.ts` passed desktop/mobile with no browser errors, overflow or API writes; latest reader snapshot unchanged. Four screenshots refreshed; mobile archive visually inspected. Removed stale paid-mode instructions from docs/LLM.md and updated Operations/TASKS; archived iteration 740.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations; git diff --check. Initial shell terminated during lint (143); checks rerun through isolated user service. Full check passed (497 unit/214 isolated integration tests); build and handbook validation passed.
+- SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. Runtime/config/schema unchanged; healthy services remain running under STEERING 22. No live writes, inference or provider/model/budget changes.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.
