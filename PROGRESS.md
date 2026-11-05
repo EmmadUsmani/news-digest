@@ -135,3 +135,12 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-schedule.ts; smoke-admin-gate.ts; git diff --check. All passed (exit 0): static checks, 497 unit and 214 isolated integration tests, browser recovery, admin gate and diff check.
 - Rebuilt app and restarted API; /healthz OK. Worker runtime unchanged. Archived progress 795–796 and completed markers 807–810; TASKS updated. SOURCES/NEEDS_FROM_HUMAN unchanged (no source changes/new blockers). No live writes or paid calls.
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 812 — clarify uncertain topic saves
+
+- Started clean on main; no leftover work. Alerts clear, health/database/Redis and four services green; 36 sources have successful collections and no current errors. Digest queue has zero failures; next edition remains 15:00 UTC.
+- Topic create/edit saves distinguish interrupted responses from confirmed saves, retain edits, and advise checking saved topics before retrying. Non-JSON errors get readable recovery text; structured server messages remain available.
+- Desktop/mobile replay covers pending locks, non-JSON rejection, completed save with lost response, reload without retry, visible saved values and disabling. Creation, X-account and parked Reddit settings browser replays pass; protected full live topics/profile/edition unchanged. Updated screenshots inspected; no live writes or paid calls.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-topics.ts; smoke-topic-accounts.ts; smoke-topic-create.ts; smoke-reddit-communities.ts; smoke-admin-gate.ts; git diff --check. All passed: static checks, 497 unit and 214 isolated integration tests, desktop/mobile replays and admin gate.
+- Rebuilt app and restarted API; /healthz OK and latest reader endpoint returns four topics. Worker runtime unchanged. TASKS updated; SOURCES/NEEDS_FROM_HUMAN unchanged (no source changes/new blockers).
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

@@ -144,7 +144,7 @@ async function smoke() {
         .click();
       await page
         .getByRole('status')
-        .filter({ hasText: 'Could not save topic settings.' })
+        .filter({ hasText: 'Topic request failed.' })
         .waitFor();
       assert.equal(attempts, previousAttempts + 1);
       assert.equal(replayTopics.length, original.length);

@@ -41,6 +41,7 @@ async function smoke() {
   });
   let failSave = false;
   let saves = 0;
+  let saveBeforeAbort = false;
   let releaseSave: (() => void) | undefined;
   let pendingSave: Promise<void> | undefined;
   await context.route('**/*', async (route) => {
@@ -59,6 +60,7 @@ async function smoke() {
       if (pendingSave) await pendingSave;
       if (failSave) return route.fulfill({ status: 503, body: 'Unavailable' });
       replayTopics[0] = topicSchema.parse({ ...replayTopics[0], ...update });
+      if (saveBeforeAbort) return route.abort('failed');
       return route.fulfill({ json: replayTopics[0] });
     }
     if (!['GET', 'HEAD'].includes(request.method())) {
@@ -141,7 +143,7 @@ async function smoke() {
       pendingSave = undefined;
       await page
         .getByRole('status')
-        .filter({ hasText: 'Could not save topic settings.' })
+        .filter({ hasText: 'Topic request failed.' })
         .waitFor();
       assert.deepEqual(replayTopics[0], original);
       assert.equal(
@@ -160,14 +162,31 @@ async function smoke() {
         path: `docs/screenshots/topic-save-failure-${name}.png`,
       });
       failSave = false;
+      saveBeforeAbort = true;
       await form
         .getByRole('button', { name: 'Save topic', exact: true })
         .click();
       await page
         .getByRole('status')
-        .filter({ hasText: 'Saved Tech settings verification.' })
+        .filter({
+          hasText: 'Could not confirm whether topic settings were saved.',
+        })
         .waitFor();
+      assert.equal(
+        await form.getByLabel('Name', { exact: true }).inputValue(),
+        'Tech settings verification',
+      );
+      await page.locator('.topic-settings').screenshot({
+        path: `docs/screenshots/topic-save-uncertain-${name}.png`,
+      });
+      const requestsBeforeReload = saves;
+      saveBeforeAbort = false;
       await page.reload();
+      assert.equal(
+        saves,
+        requestsBeforeReload,
+        'Reload must not retry a saved write',
+      );
       await page
         .locator('.topic-grid')
         .getByRole('heading', {
@@ -228,7 +247,7 @@ async function smoke() {
     assert.deepEqual(credentials, []);
     assert.deepEqual(unexpectedWrites, []);
     console.log(
-      'Topic desktop/mobile browser-only pending-save locks, failure/retry, visible reload values, disable and budget checks passed; protected reads prove live topics/edition unchanged; server validation stays in isolated tests',
+      'Topic desktop/mobile browser-only pending-save locks, non-JSON rejection, saved write with lost response, reload without retry, visible reload values, disable and budget checks passed; protected reads prove live topics/edition unchanged; server validation stays in isolated tests',
     );
   } finally {
     releaseSave?.();

@@ -106,13 +106,13 @@ async function main() {
         .click();
       await page
         .getByRole('status')
-        .filter({ hasText: 'Could not save topic settings.' })
+        .filter({ hasText: 'Topic request failed.' })
         .waitFor();
       assert.equal(await field.inputValue(), 'r/nba\nLocalLLaMA');
       assert.equal(writes, 1);
       await page
         .getByRole('status')
-        .filter({ hasText: 'Could not save topic settings.' })
+        .filter({ hasText: 'Topic request failed.' })
         .scrollIntoViewIfNeeded();
       await page.screenshot({
         path: `docs/screenshots/reddit-communities-failure-${name}.png`,

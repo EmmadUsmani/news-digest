@@ -135,7 +135,18 @@ export function TopicSettings({
           body: JSON.stringify(parsed.data),
         },
       );
-      if (!response.ok) throw new Error();
+      if (!response.ok) {
+        const error: unknown = await response.json().catch(() => null);
+        setMessage(
+          error !== null &&
+            typeof error === 'object' &&
+            'message' in error &&
+            typeof error.message === 'string'
+            ? error.message
+            : 'Topic request failed. Your changes are still here; reload to check saved topics before trying again.',
+        );
+        return;
+      }
       const saved = topicSchema.parse(await response.json());
       onSaved(saved);
       setEditing(null);
@@ -144,7 +155,7 @@ export function TopicSettings({
       );
     } catch {
       setMessage(
-        'Could not save topic settings. Your changes are still here; try again.',
+        'Could not confirm whether topic settings were saved. Your changes are still here; reload to check saved topics before trying again.',
       );
     } finally {
       setBusy(false);

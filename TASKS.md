@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Topic save outcomes (812): interrupted responses retain edits and advise checking saved topics; desktop/mobile replay verifies completed save with lost response, reload without retry, non-JSON rejection and unchanged live data.
+
 - [x] Schedule save outcomes (811): interrupted responses retain edits and advise checking saved state; desktop/mobile replay covers a saved write with lost response, reload without retry, non-JSON rejection and unchanged live data.
 
 - Completed iterations 807–810: [archive](docs/progress-archive/2026-11-05-completed-task-markers-811.md).
