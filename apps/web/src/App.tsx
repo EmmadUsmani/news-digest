@@ -18,6 +18,11 @@ export function App({ admin = false }: { admin?: boolean }) {
         </a>
         <ThemeToggle />
       </header>
+      <p>
+        <Link to="/editions" search={{ page: 1 }}>
+          Past editions →
+        </Link>
+      </p>
       <DigestPreview />
     </main>
   );

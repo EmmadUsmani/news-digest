@@ -2,7 +2,7 @@
 
 ## URLs
 
-Reader: `/`. Management: `/admin`, with Overview, Editions, Sources, Topics, Schedule, Spend and Tools navigation (mobile menu).
+Reader: `/`; past editions at `/editions`, with dates, topics and page links. Each opens its saved `/editions/:id` page. Management: `/admin`, with Overview, Editions, Sources, Topics, Schedule, Spend and Tools navigation (mobile menu).
 APIs use `/api/admin/*`; old API paths return 404. `/admin`, its APIs and every tool below require [admin identity](01-stack-and-runtime.md#admin-identity). `/api/me` reports access.
 Local scripts read `ADMIN_LOCAL_TOKEN` from the private env file and send it only
 to protected paths at `http://127.0.0.1:8000`, refusing redirects. Browser checks

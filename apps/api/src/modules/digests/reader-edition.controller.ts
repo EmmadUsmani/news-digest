@@ -39,9 +39,14 @@ export class ReaderEditionController {
       throw new BadRequestException(
         'Use a nonnegative offset of at most 9999999',
       );
-    return readerEditionHistorySchema.parse(
-      await this.repository.history(Number(offset)),
-    );
+    const history = await this.repository.history(Number(offset));
+    return readerEditionHistorySchema.parse({
+      ...history,
+      entries: history.entries.map((entry) => ({
+        ...entry,
+        topics: (entry.topicModes ?? []).map(({ id, name }) => ({ id, name })),
+      })),
+    });
   }
 
   @Get('latest') async latest() {

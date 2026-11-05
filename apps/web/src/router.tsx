@@ -27,6 +27,7 @@ import {
   identityQuery,
   statusQuery,
 } from './queries';
+import { ReaderArchive } from './ReaderArchive';
 
 export const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: 60_000 } },
@@ -85,6 +86,14 @@ const latestRoute = createRoute({
     ]);
   },
   component: App,
+});
+const archiveRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/editions',
+  validateSearch: z.object({
+    page: z.coerce.number().int().min(1).max(500000).catch(1),
+  }),
+  component: ReaderArchive,
 });
 const editionRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -177,6 +186,7 @@ const adminInspectorRoute = createRoute({
 export const router = createRouter({
   routeTree: rootRoute.addChildren([
     latestRoute,
+    archiveRoute,
     editionRoute,
     adminRoute.addChildren([
       adminOverviewRoute,

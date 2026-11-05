@@ -299,7 +299,10 @@ void test('digest HTTP publication, history and async jobs use real isolated per
     const expected = previewHistorySchema.parse(await request(offset));
     assert.deepEqual(raw, {
       entries: expected.entries.map(
-        ({ method: _method, topicModes: _topicModes, ...entry }) => entry,
+        ({ method: _method, topicModes, ...entry }) => ({
+          ...entry,
+          topics: (topicModes ?? []).map(({ id, name }) => ({ id, name })),
+        }),
       ),
       hasMore: expected.hasMore,
     });

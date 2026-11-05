@@ -132,3 +132,35 @@ void test('reader endpoints handle latest, immutable ID lookup and missing editi
   repository.latest = async () => null;
   assert.equal(await controller.latest(), null);
 });
+
+void test('reader archive exposes topic names without editorial modes', async () => {
+  const repository = {
+    history: async () => ({
+      entries: [
+        {
+          id,
+          createdAt: snapshot.createdAt,
+          windowStart: snapshot.windowStart,
+          windowEnd: snapshot.windowEnd,
+          method: snapshot.method,
+          topicModes: snapshot.topics.map((topic) => ({
+            id: topic.id,
+            name: topic.name,
+            stories: 'ai',
+            posts: 'non-ai',
+          })),
+        },
+      ],
+      hasMore: false,
+    }),
+  } as unknown as PreviewRepository;
+  const controller = new ReaderEditionController(repository);
+  const history = await controller.history('0');
+  assert.deepEqual(
+    history.entries[0].topics,
+    snapshot.topics.map(({ id, name }) => ({ id, name })),
+  );
+  assert.equal('topicModes' in history.entries[0], false);
+  assert.equal('method' in history.entries[0], false);
+  await assert.rejects(controller.history('-1'), /nonnegative offset/);
+});

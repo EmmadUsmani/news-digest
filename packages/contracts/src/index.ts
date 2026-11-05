@@ -364,12 +364,18 @@ export const readerEditionSchema = z.object({
 export type ReaderEdition = z.infer<typeof readerEditionSchema>;
 export const readerEditionHistorySchema = z.object({
   entries: z.array(
-    readerEditionSchema.pick({
-      id: true,
-      createdAt: true,
-      windowStart: true,
-      windowEnd: true,
-    }),
+    readerEditionSchema
+      .pick({
+        id: true,
+        createdAt: true,
+        windowStart: true,
+        windowEnd: true,
+      })
+      .extend({
+        topics: z
+          .array(z.object({ id: z.string().uuid(), name: z.string() }))
+          .default([]),
+      }),
   ),
   hasMore: z.boolean(),
 });

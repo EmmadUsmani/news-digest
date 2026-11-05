@@ -1,27 +1,3 @@
-## 2026-11-05: iteration 888 — dedicated Topics management
-
-- Started clean on main; no leftover work. Owner would care: topic ordering, availability and budgets now have a dedicated admin page instead of requiring legacy controls.
-- Added `/admin/topics` navigation, drag/arrow ordering, enable controls, editable story/post budgets and New topic dialog using shared shadcn-style form controls and Radix dialog. Existing APIs retain the same validation; full guidance/sources/deletion remain on Overview until the dedicated editor replaces them.
-- Playwright reads real saved topics; all creation/toggle/budget/order writes are intercepted and checked against browser replay state. No live topic changes or external requests. Desktop/mobile light/dark screenshots include list and dialog; visual review fixed cramped mobile titles and unstyled inputs. Drag and arrow paths both verified.
-- Reader/admin separation smoke passed: real saved edition, no reader admin reads, anonymous admin denied, reload/navigation intact. Updated its screenshots for Topics navigation.
-- Archived iterations 878–879; updated TASKS and affected Operations handbook; no source/budget/schema changes, SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check reached 505 passing unit tests then integration process ended SIGTERM; reran pnpm test:integration (218 passing); pnpm exec tsx scripts/smoke-admin-topics.ts; scripts/smoke-admin-separation.ts; scripts/check-handbook.ts 08-operations; git diff --check.
-- Initial check caught import ordering (autofixed); initial browser assertion used Tech instead of saved Tech & AI (corrected). Handbook length corrected; check overlapping API restart retried successfully.
-- API restarted for built assets; health/database/Redis green and alerts clear. No paid calls, experiment changes or worker configuration changes.
-- Next: dedicated `/admin/topics/:id` editor, replace legacy topic controls when complete; X promotion/baseline review and Nov 6 fresh-window round; scheduled editor-v5/grouping evidence first when due.
-
-## 2026-11-05: iteration 889 — dedicated topic editor
-
-- Started clean on main; no leftover work. Owner would care: opening a topic now gives guidance, sources and social settings their own admin page.
-- Added `/admin/topics/:id`, linked from Topics: basics/guidance, enable and budgets, phrase filters, X handles/Reddit communities, source selection, feed/news-query connection and confirmed deletion. Uses existing validated APIs and shared form/dialog controls; saved editions remain preserved by existing deletion behavior.
-- Discovery-specific X thresholds/exclusions and Bluesky query still need API-backed controls. Legacy topic controls remain until the editor replacement is complete; removal and migration of their historical browser scripts remain explicit work, not acceptance claimed here.
-- Playwright reads real saved topics/catalog and intercepts every write; verifies settings payloads, saved reload, list/editor navigation, source toggle, feed/query forms, cancellation and deletion. No live topic edits, collection requests or paid calls. Eight editor/delete screenshots saved in desktop/mobile light/dark; visually reviewed desktop and mobile layouts.
-- Initial build caught unsupported button variant; initial browser checks caught populated-textarea label matching and missing explicit submit types on shared Buttons. Fixed and reran successfully.
-- Updated TASKS and affected Operations handbook; SOURCES/NEEDS_FROM_HUMAN unchanged (no source/runtime/budget/schema changes beyond serving the new UI).
-- Verification: pnpm check passed typecheck/lint/format/boundaries, 505 unit and 218 isolated integration tests; pnpm build and final web rebuild passed. pnpm exec tsx scripts/smoke-admin-topic-editor.ts; scripts/smoke-admin-topics.ts; scripts/smoke-admin-separation.ts; scripts/check-handbook.ts 08-operations passed; pnpm format; pnpm lint:fix; git diff --check.
-- API restarted for built assets; all four app units active, health/database/Redis green, alerts clear. Reader smoke used the real saved edition with no reader admin reads.
-- Next: complete topic discovery settings and remove replaced legacy controls; X promotion/baseline review and Nov 6 fresh-window round after 21:00 UTC; scheduled editor-v5/grouping review when due.
-
 ## 2026-11-05: iteration 890 — remove replaced topic controls
 
 - Started clean on main; no leftover work. Owner would care: topic and source management now has one editor, reached from Overview or Topics navigation.
@@ -134,3 +110,15 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check passed typecheck/lint/format/boundaries, 508 unit and 220 isolated integration tests; pnpm build (including final nullable change); direct unset-settings contract check; smoke-admin-topic-editor.ts; smoke-admin-separation.ts; check-handbook.ts 05-social-posts and 08-operations; git diff --check.
 - Updated TASKS, SOURCES and affected handbook pages; NEEDS_FROM_HUMAN unchanged. Four services restarted/active; /healthz database/Redis green, reader 200, 36 active sources/zero errors with successes through 23:10 UTC. Existing observability shipper memory warning remains; service active.
 - Next: final reader per approved spec; Nov 6 scheduled edition/grouping review and fresh-window X round after 21:00 UTC. No X activation before decision.
+
+## 2026-11-05: iteration 900 — Reader archive
+
+- Started clean on main; no leftover work. Owner would care: browse past editions in a clean date/topic list and open their saved reader pages.
+- Built `/editions` with 20-entry pages, URL-backed page navigation, empty/error/retry states and light/dark mobile/desktop layouts. Added Past editions link from the current reader; final edition layout remains next.
+- Reader history now includes only saved topic IDs/names alongside dates, without editorial modes or methods; no extra per-edition reads. Unit coverage verifies this boundary and rejects invalid offsets.
+- Browser checks use real saved history for screenshots/links and replay it for paging/failure cases; no writes, paid calls, settings changes or X activation. Four archive screenshots saved; desktop light/mobile dark visually reviewed. Discarded unrelated separation screenshots.
+- Browser script initially used unsupported top-level await, then expected an empty real third page; corrected its wrapper and retry assertion. Product browser checks passed. Integration HTTP expectation still omitted topic names; updated it and reran.
+- Updated TASKS and Stack/runtime and Operations handbook; archived iterations 888–889 to keep PROGRESS small. SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check passed typecheck/lint/format/boundaries and 509 unit tests; first integration 219/220 exposed the stale history expectation; pnpm test:integration rerun passed all 220; pnpm build; smoke-reader-archive.ts; smoke-admin-separation.ts; check-handbook.ts 01-stack-and-runtime and 08-operations; git diff --check.
+- Four app services restarted; /healthz database/Redis green; 36 sources/zero errors with collection through 23:16 UTC; Nov 5 scheduled edition complete and Nov 6 15:00 UTC next run retained. Existing observability shipper memory warning remains.
+- Next: edition reader layout/contents per approved spec; Nov 6 scheduled edition/grouping review and fresh-window X round after 21:00 UTC. No X activation before decision.
