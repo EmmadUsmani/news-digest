@@ -144,6 +144,7 @@ export function TopicSettings({
     }
     setBusy(true);
     setMessage('');
+    let receivedResponse = false;
     try {
       const response = await fetch(
         editing.id ? `/api/topics/${editing.id}` : '/api/topics',
@@ -153,6 +154,7 @@ export function TopicSettings({
           body: JSON.stringify(parsed.data),
         },
       );
+      receivedResponse = true;
       if (!response.ok) {
         const error: unknown = await response.json().catch(() => null);
         setMessage(
@@ -173,7 +175,9 @@ export function TopicSettings({
       );
     } catch {
       setMessage(
-        'Could not confirm whether topic settings were saved. Your changes are still here; reload to check saved topics before trying again.',
+        receivedResponse
+          ? 'Could not confirm whether topic settings were saved. Your changes are still here; reload to check saved topics before trying again.'
+          : 'The connection was interrupted. Topic settings may have been saved. Your changes are still here; reload to check saved topics before trying again.',
       );
     } finally {
       setBusy(false);

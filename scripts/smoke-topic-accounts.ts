@@ -61,6 +61,7 @@ async function main() {
   let saves = 0;
   let attempts = 0;
   let failSave = true;
+  let loseResponse = false;
   let pendingSave: Promise<void> | undefined;
   let releaseSave: (() => void) | undefined;
   await context.route('**/*', async (route) => {
@@ -92,6 +93,7 @@ async function main() {
       const saved = topicSchema.parse({ ...initial, ...parsed.data });
       replayTopics[original.length] = saved;
       saves++;
+      if (loseResponse) return route.abort('connectionreset');
       await route.fulfill({ json: saved });
       return;
     }
@@ -241,13 +243,53 @@ async function main() {
         ),
         true,
       );
+      await handles.fill('NBA\nNBAPR\nNBAOfficial');
+      loseResponse = true;
+      await form
+        .getByRole('button', { name: 'Save topic', exact: true })
+        .click();
+      await page
+        .getByRole('status')
+        .filter({
+          hasText:
+            'The connection was interrupted. Topic settings may have been saved.',
+        })
+        .waitFor();
+      assert.equal(await handles.inputValue(), 'NBA\nNBAPR\nNBAOfficial');
+      assert.deepEqual(replayTopics[original.length].accounts, [
+        'NBA',
+        'NBAPR',
+        'NBAOfficial',
+      ]);
+      assert.equal(saves, previousSaves + 2);
+      assert.equal(attempts, previousAttempts + 3);
+      await page
+        .getByRole('status')
+        .filter({ hasText: 'The connection was interrupted.' })
+        .scrollIntoViewIfNeeded();
+      await page.screenshot({
+        path: `docs/screenshots/ui/topic-accounts-interrupted-${name}.png`,
+      });
+      loseResponse = false;
+      await page.reload();
+      await page.getByText('Manage topics', { exact: true }).click();
+      await page
+        .getByRole('button', { name: `Edit ${input.name}`, exact: true })
+        .click();
+      assert.equal(await handles.inputValue(), 'NBA\nNBAPR\nNBAOfficial');
+      assert.equal(
+        attempts,
+        previousAttempts + 3,
+        'Reload must recover saved settings without another write',
+      );
+      assert.equal(saves, previousSaves + 2);
       assert.deepEqual(errors, []);
       await page.close();
     }
     assert.deepEqual(credentials, []);
     assert.deepEqual(unexpectedWrites, []);
     console.log(
-      'X account settings: desktop/mobile browser-only failure/retry/save/reload, @ normalization and duplicate prevention pass; protected reads prove live topics/profile/full edition unchanged; no inference/search',
+      'X account settings: desktop/mobile browser-only failure/retry/save/reload and lost-response recovery without another write, @ normalization and duplicate prevention pass; protected reads prove live topics/profile/full edition unchanged; no inference/search',
     );
   } finally {
     assert.deepEqual(await localAdminJson('/api/admin/topics'), original);

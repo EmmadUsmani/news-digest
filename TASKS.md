@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Topic settings recovery (820): interrupted saves explain possible completion; desktop/mobile lost-response replay recovers saved X accounts on reload without another write.
+
 - [x] Metrics memory recovery (819): reclaim filesystem cache at 88 MiB below the unchanged 112 MiB ceiling; runtime O4 verifies both limits.
 
 - [x] Source catalog recovery (818): retry failed initial or post-connection loads in place; desktop/mobile replay preserves unsent feed fields and saved selections without another write.

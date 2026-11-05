@@ -133,3 +133,12 @@
 - Health/database/Redis green, 13 monitored services and all 36 sources healthy, reader returns four topics; zero failed digest jobs, next edition 15:00 UTC. Historical ingestion/social counters unchanged. No paid calls or live settings writes.
 - Archived progress 803–804; TASKS updated. SOURCES/NEEDS_FROM_HUMAN unchanged (no source changes/new blockers).
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Monitor metrics refill; admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 820 — recover interrupted topic settings saves
+
+- Started clean on main; no leftover work. Alerts clear, 13 monitored services and all 36 sources healthy; health/database/Redis green, no failed digest runs. Historical ingestion failures unchanged.
+- Interrupted topic settings saves now explain that settings may already be saved and advise reloading before retrying; entered values remain available.
+- Desktop/mobile account replay completes a PUT then drops its response, verifies preserved form values and saved accounts, then reloads without another write. Protected reads prove live topics/profile/edition unchanged; no browser credentials or paid calls. Interrupted screenshots inspected in docs/screenshots/ui/.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-topic-accounts.ts; smoke-admin-gate.ts; git diff --check. All pass: static checks, 497 unit and 214 isolated integration tests, build and browser replays.
+- Rebuilt app and restarted API only; immediate probes raced startup, subsequent health/database/Redis and admin gate pass; reader latest returns four topics. Worker unchanged. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (recovery copy only; no new blocker).
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
