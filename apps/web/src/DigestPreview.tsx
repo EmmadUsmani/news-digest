@@ -330,7 +330,8 @@ export function DigestPreview() {
           </Button>
         </div>
       </details>
-      {selectedEditionId &&
+      {!preview &&
+      selectedEditionId &&
       edition.error instanceof HttpError &&
       edition.error.status === 404 ? (
         <div role="alert">
@@ -340,7 +341,11 @@ export function DigestPreview() {
         </div>
       ) : edition.isError ? (
         <div role="alert">
-          <p>The edition could not be loaded. Please try again.</p>
+          <p>
+            {preview
+              ? 'The edition could not be refreshed. Showing the saved edition already loaded.'
+              : 'The edition could not be loaded. Please try again.'}
+          </p>
           <Button
             onClick={() => void edition.refetch()}
             disabled={edition.isFetching}
