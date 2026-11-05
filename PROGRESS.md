@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 752 — social card checks follow reader API
-
-- Started clean on main; no leftover work. Health/database/Redis green, all 36 sources healthy, no failed retained digest runs; two historical ingestion failures without run details remain, current collection healthy. Existing metrics memory warning pending.
-- Bluesky and Reddit synthetic browser checks now load/replay `/api/editions/latest` through the sanitized reader contract, asserting editorial reasons/context are absent. Browser API writes abort; Reddit navigation requests blocked and thumbnails remain local fixtures. No Reddit collection, live writes or inference.
-- Both desktop/mobile checks passed text, engagement, links, media/no-media, escaped markup (Bluesky), no X widgets, browser errors or horizontal overflow. Four screenshots refreshed; mobile Bluesky and desktop Reddit visually inspected. Synthetic examples remain explicitly labelled.
-- Updated TASKS and Operations; archived iteration 738. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. Runtime/config/schema unchanged; healthy services remain running under STEERING 22.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, exit 0); pnpm build; both card smoke scripts; check-handbook.ts 08-operations; git diff --check. Initial handbook length failure corrected; first full-check session terminated (143), rerun via isolated user service passed. Reader latest: four topics, 14 stories, 15 posts.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.
-
 ## 2026-11-05: iteration 753 — Google News checks without production writes
 
 - Started clean on main; no leftover work. Health/database/Redis green, 36 healthy sources, no failed retained digest runs. Existing metrics memory warning pending; Nov 5 edition due at 15:00 UTC.
@@ -140,3 +131,12 @@
 - TASKS, Operations and access decision updated; archived iteration 751. SOURCES/NEEDS_FROM_HUMAN unchanged. No runtime/config/schema or model/provider changes; healthy services remain running under STEERING 22.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (497 unit/214 isolated integration, zero failures), `pnpm build`, `check-handbook.ts 08-operations`, `git diff --check` passed. Handbook initially exceeded the line limit by one; shortened and rechecked. Final health green; all four app services active.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. Fresh X rounds after 21:00 UTC Nov 5/6; owner identity configuration still blocks coordinated admin rollout.
+
+## 2026-11-05: iteration 768 — reject malformed edition links before loading
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Two historical ingestion failures remain while current collection succeeds.
+- Reader edition routes now validate UUIDs before loading the app or issuing edition/operational API reads. Malformed links show the existing not-found view and a working home link. Valid saved-edition routing remains unchanged.
+- `pnpm exec tsx scripts/smoke-invalid-edition.ts` passed three invalid IDs on desktop/mobile light/dark, zero API reads on invalid pages, home recovery, no writes/browser errors and saved-edition immutability. Four screenshots saved under docs/screenshots/ui; mobile dark and desktop light inspected. Existing `smoke-edition-selection.ts` also passed valid saved-edition selection and late-response races in both themes/viewports.
+- TASKS and Operations updated; archived iteration 752. SOURCES/NEEDS_FROM_HUMAN unchanged. No paid calls, generation/config/schema or model/provider changes. API restarted after web build; health green.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration); pnpm build; check-handbook.ts 08-operations; git diff --check. Initial check hit newly archived Markdown formatting, corrected; initial smoke needed its async entry point wrapped for CommonJS, corrected before passing.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. Fresh X rounds after 21:00 UTC Nov 5/6; owner identity configuration and proxy verification still block admin rollout.

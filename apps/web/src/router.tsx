@@ -4,6 +4,7 @@ import {
   createRoute,
   createRouter,
   Link,
+  notFound,
   Outlet,
   redirect,
 } from '@tanstack/react-router';
@@ -74,6 +75,9 @@ const latestRoute = createRoute({
 const editionRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/editions/$id',
+  beforeLoad: ({ params }) => {
+    if (!z.string().uuid().safeParse(params.id).success) throw notFound();
+  },
   loader: ({ context, params }) => {
     loadPageData({ context });
     void Promise.allSettled([

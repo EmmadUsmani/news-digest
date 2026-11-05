@@ -53,7 +53,7 @@ Read-only checks: `pnpm exec tsx <script>`. Protected API reads use the private 
 | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
 | `scripts/report-edition-timing.ts`   | Recent editions: duration, cost, AI or fallback, picks per platform. Add `--scheduled-only --limit 20` for scheduled history |
 | `scripts/report-x-discovery.ts`      | X search spend and yield for a UTC day (`report-x-week.ts` for seven days)                                                   |
-| `scripts/smoke-admin-gate.ts`        | Read-only admin denial and direct-local access checks                                                                        |
+| `scripts/smoke-admin-gate.ts`        | Read-only admin denial and local access; `smoke-invalid-edition.ts` checks malformed reader links                            |
 | `scripts/report-bluesky-coverage.ts` | Stored Bluesky posts per topic over the last 24 hours                                                                        |
 
 ## Production console
