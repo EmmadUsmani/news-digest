@@ -35,7 +35,7 @@ export class OperationsStatus
   async read() {
     const checkedAt = new Date();
     const coverage = await readTopicCoverage(this.db, checkedAt);
-    const sources = await readSourceStatus(this.db);
+    const sources = await readSourceStatus(this.db, checkedAt);
     const queues = await Promise.all(
       this.queues.map(async (queue) => {
         try {

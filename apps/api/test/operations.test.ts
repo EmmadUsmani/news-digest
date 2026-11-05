@@ -6,6 +6,7 @@ import { operationsStatusSchema } from '@digest/contracts';
 import { Worker } from 'bullmq';
 
 import { OperationsStatus } from '../src/modules/operations/adapters/operations.status';
+import { readSourceStatus } from '../src/modules/operations/database/source-status';
 
 void test('operations preserves healthy telemetry when one queue is unavailable and reports pause and schedule state', async (t) => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
@@ -325,6 +326,24 @@ void test('operations source telemetry follows current connections and retains p
     assert.equal(rows[0].lastSuccess, '2035-01-01T06:30:00.000Z');
     assert.equal(rows[0].error, 'fixture fetch failure');
     assert.equal(rows[1].storedItems, 0);
+    const at = (end: string) =>
+      readSourceStatus(status.db, new Date(end)).then((sources) =>
+        sources.find((item) => item.id === source)!,
+      );
+    // Start inclusive, end exclusive; shared topic connections do not multiply counts.
+    assert.equal((await at('2035-01-01T12:00:00Z')).items24h, 0);
+    assert.equal((await at('2035-01-02T12:00:00Z')).items24h, 2);
+    assert.equal((await at('2035-01-02T12:00:00.001Z')).items24h, 1);
+    assert.equal((await at('2035-01-08T12:00:00Z')).items7d, 2);
+    const bounded = await at('2035-01-08T12:00:00.001Z');
+    assert.equal(bounded.items7d, 1);
+    assert.equal(bounded.items24h, 0);
+    const emptySource = (await readSourceStatus(status.db)).find(
+      (item) => item.id === empty,
+    )!;
+    assert.equal(emptySource.items24h, 0);
+    assert.equal(emptySource.items7d, 0);
+
     await status.db.query('UPDATE topics SET enabled=false WHERE id=$1', [
       topic,
     ]);

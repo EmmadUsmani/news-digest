@@ -343,6 +343,8 @@ void test('source health distinguishes errors, stale success, unknown and inacti
     lastSuccess: '2026-11-03T10:00:00.000Z',
     lastItemCount: 0,
     storedItems: 100,
+    items24h: 4,
+    items7d: 20,
   };
   const summary = sourceSummary({
     checkedAt,

@@ -608,6 +608,8 @@ export const operationsStatusSchema = z.object({
       error: z.string().nullable(),
       lastItemCount: z.number().int(),
       storedItems: z.number().int(),
+      items24h: z.number().int().nonnegative(),
+      items7d: z.number().int().nonnegative(),
       active: z.boolean(),
     }),
   ),

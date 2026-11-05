@@ -1,16 +1,20 @@
-import { and, asc, count, eq, exists } from 'drizzle-orm';
+import { and, asc, count, eq, exists, sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import type { Pool } from 'pg';
 
 import {
+  contentItems,
   contentObservations,
   contentSources,
   topics,
   topicSourceConnections,
 } from '../../../libs/db/schema';
 
-export async function readSourceStatus(db: Pool) {
+export async function readSourceStatus(db: Pool, end = new Date()) {
   const orm = drizzle(db);
+  const cutoff = end.toISOString();
+  const day = new Date(end.getTime() - 86_400_000).toISOString();
+  const week = new Date(end.getTime() - 7 * 86_400_000).toISOString();
   const connected = orm
     .select({ id: topicSourceConnections.sourceId })
     .from(topicSourceConnections)
@@ -30,6 +34,15 @@ export async function readSourceStatus(db: Pool) {
       error: contentSources.lastError,
       lastItemCount: contentSources.lastItemCount,
       storedItems: count(contentObservations.itemId),
+      // Filtered aggregates keep empty sources and count publication windows in one scan.
+      items24h:
+        sql<number>`count(*) filter (where ${contentItems.publishedAt} >= ${day}::timestamptz and ${contentItems.publishedAt} < ${cutoff}::timestamptz)`.mapWith(
+          Number,
+        ),
+      items7d:
+        sql<number>`count(*) filter (where ${contentItems.publishedAt} >= ${week}::timestamptz and ${contentItems.publishedAt} < ${cutoff}::timestamptz)`.mapWith(
+          Number,
+        ),
       active: exists(connected).mapWith(Boolean),
     })
     .from(contentSources)
@@ -37,6 +50,7 @@ export async function readSourceStatus(db: Pool) {
       contentObservations,
       eq(contentObservations.sourceId, contentSources.id),
     )
+    .leftJoin(contentItems, eq(contentItems.id, contentObservations.itemId))
     .groupBy(contentSources.id)
     .orderBy(asc(contentSources.name));
   // Normalize database timestamps to the existing HTTP UTC representation.

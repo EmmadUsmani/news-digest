@@ -59,6 +59,10 @@ export function AdminSources() {
           Topic connections could not be refreshed. Refresh sources to retry.
         </p>
       )}
+      <p className="m-0 text-sm text-[var(--secondary)]">
+        Recent counts use article publication time over the past 24 hours and 7
+        days. An article can appear under each source that collected it.
+      </p>
       <Card className="min-w-0 p-0">
         <Table>
           <caption className="sr-only">
@@ -72,6 +76,8 @@ export function AdminSources() {
               <th scope="col">Last success</th>
               <th scope="col">Last attempt</th>
               <th scope="col">Last response</th>
+              <th scope="col">Articles 24 h</th>
+              <th scope="col">Articles 7 d</th>
               <th scope="col">Stored articles</th>
               <th scope="col">Last error</th>
             </tr>
@@ -144,6 +150,8 @@ export function AdminSources() {
                   <td className="min-w-40">{time(source.lastSuccess)}</td>
                   <td className="min-w-40">{time(source.lastAttempt)}</td>
                   <td>{source.lastItemCount}</td>
+                  <td data-testid="items-24h">{source.items24h}</td>
+                  <td data-testid="items-7d">{source.items7d}</td>
                   <td>{source.storedItems}</td>
                   <td className="min-w-44 max-w-80 break-words">
                     {source.error || '—'}

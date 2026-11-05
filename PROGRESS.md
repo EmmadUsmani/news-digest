@@ -128,3 +128,14 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check passed typecheck/lint/format/boundaries and 507 unit tests; corrected integration failures then pnpm test:integration passed all 219. pnpm build and final @digest/web build; smoke-admin-spend.ts; smoke-admin-separation.ts; check-handbook.ts 08-operations; git diff --check passed.
 - API restarted for final assets; all four app services active, /healthz database/Redis green and alerts clear. Fresh source results at 21:51–22:05 UTC and the saved Nov 5 edition verified.
 - Next: remaining dedicated admin-page gaps and final reader; Nov 6 scheduled edition/grouping review and fresh-window X round after 21:00 UTC. No X activation before decision.
+
+## 2026-11-05: iteration 895 — Sources recent article counts
+
+- Started clean on main; no leftover work. Owner would care: Sources now shows which feeds contribute recent articles with 24-hour and seven-day counts.
+- Added publication-window aggregates to protected source status using the same cutoff as checkedAt; start inclusive/end exclusive, future publications excluded, empty sources zero. Shared topic connections do not multiply articles; each collecting source gets its own count. No migration or collection changes.
+- Added both columns and plain count guidance to Sources; refreshed four viewport/theme screenshots. Desktop dark/mobile light visually inspected; mobile table scrolls within its card. Image crop helper lacked Pillow; inspected original screenshots directly.
+- Extended isolated repository checks for exact daily/weekly boundaries, future dates, empty sources and multiple topic connections; browser compares every source count with real saved status reads. No writes or paid calls.
+- Updated TASKS and Operations handbook; SOURCES/NEEDS_FROM_HUMAN unchanged. Discarded unrelated separation-smoke screenshots.
+- Verification: pnpm format; pnpm lint:fix; pnpm check passed (507 unit/219 isolated integration tests, typecheck/lint/format/boundaries); pnpm build; smoke-admin-sources.ts; smoke-admin-separation.ts; check-handbook.ts 08-operations; git diff --check passed.
+- All four services restarted and active; /healthz database/Redis green, 36 source checks healthy and alerts clear. Live status has new counts (Aftermath 3/20, Al Jazeera 94/379); saved reader edition returns 200 with four topics.
+- Next: remaining dedicated admin-page gaps (source controls, topic discovery settings), then final reader; Nov 6 scheduled edition/grouping review and X round after 21:00 UTC. No X activation before decision.

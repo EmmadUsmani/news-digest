@@ -98,6 +98,14 @@ async function smoke() {
             );
           }
           assert.equal(await row.getByRole('link').count(), connected.length);
+          assert.equal(
+            await row.getByTestId('items-24h').textContent(),
+            String(source.items24h),
+          );
+          assert.equal(
+            await row.getByTestId('items-7d').textContent(),
+            String(source.items7d),
+          );
         }
         const connectedTopic = topics.find((topic) => topic.sources.length > 0);
         assert.ok(connectedTopic);
