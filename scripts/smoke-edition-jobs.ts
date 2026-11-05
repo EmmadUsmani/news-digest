@@ -149,16 +149,14 @@ async function smoke() {
         },
       );
       await replayAdminPage(page);
-      await page.goto('http://127.0.0.1:8000/admin');
+      await page.goto('http://127.0.0.1:8000/admin/editions/new');
       const create = page.getByRole('button', {
         name: 'Create edition · last 24 hours',
       });
       await create.waitFor();
       await page.waitForFunction(
         () =>
-          !document.querySelector<HTMLFieldSetElement>(
-            '.window-controls fieldset',
-          )?.disabled,
+          !document.querySelector<HTMLFieldSetElement>('fieldset')?.disabled,
       );
       await create.click();
       await page
@@ -168,25 +166,7 @@ async function smoke() {
         })
         .waitFor({ timeout: 25000 });
       assert.equal(await create.isEnabled(), true);
-      assert.equal(
-        await page
-          .getByText('Browse saved editions', { exact: true })
-          .evaluate(
-            (element) =>
-              document.activeElement === element &&
-              (element.parentElement as HTMLDetailsElement).open,
-          ),
-        true,
-        'Uncertain generation must focus and open saved editions for review',
-      );
-      await page.keyboard.press('Tab');
-      assert.equal(
-        await page
-          .getByRole('button', { name: 'Open latest edition' })
-          .evaluate((element) => document.activeElement === element),
-        true,
-      );
-      await page.keyboard.press('Shift+Tab');
+      await page.getByRole('link', { name: 'Browse saved editions' }).waitFor();
       assert.equal(submissions, 1);
       assert.equal(
         await page.evaluate(() => sessionStorage.getItem('edition-job')),
@@ -213,17 +193,7 @@ async function smoke() {
         .waitFor();
       assert.equal(submissions, 2);
       assert.equal(await create.isEnabled(), true);
-      assert.equal(
-        await page
-          .getByText('Browse saved editions', { exact: true })
-          .evaluate(
-            (element) =>
-              document.activeElement === element &&
-              (element.parentElement as HTMLDetailsElement).open,
-          ),
-        true,
-        'Uncertain generation must focus and open saved editions for review',
-      );
+      await page.getByRole('link', { name: 'Browse saved editions' }).waitFor();
       assert.equal(
         await page.evaluate(() => sessionStorage.getItem('edition-job')),
         null,
@@ -256,7 +226,7 @@ async function smoke() {
       state = 'active';
       await page
         .getByRole('status')
-        .filter({ hasText: 'triaging stories' })
+        .filter({ hasText: 'Creating your edition' })
         .waitFor();
       await page.screenshot({
         path: `docs/screenshots/edition-job-${name}.png`,
@@ -265,16 +235,19 @@ async function smoke() {
       await page.reload();
       await page
         .getByRole('status')
-        .filter({ hasText: 'triaging stories' })
+        .filter({ hasText: 'Creating your edition' })
         .waitFor();
       assert.equal(submissions, 3);
       for (const [next, label] of [
-        ['editing', 'editing stories'],
-        ['posts', 'triaging and editing posts'],
+        ['editing', 'Fixture topic · editing'],
+        ['posts', 'Fixture topic · posts'],
         ['publishing', 'Publishing your edition'],
       ]) {
         stage = next;
-        await page.getByRole('status').filter({ hasText: label }).waitFor();
+        await page
+          .getByRole(next === 'publishing' ? 'status' : 'listitem')
+          .filter({ hasText: label })
+          .waitFor();
       }
       disconnected = true;
       await page
@@ -363,41 +336,21 @@ async function smoke() {
         path: `docs/screenshots/edition-job-timeout-${name}.png`,
       });
       state = 'completed';
-      await page.waitForURL(`**/editions/${edition.id}`);
-      assert.equal(new URL(page.url()).pathname, `/editions/${edition.id}`);
-      const firstStory = edition.topics.flatMap((topic) => topic.stories)[0];
-      assert.ok(
-        firstStory,
-        'Need saved stories to verify completed job content',
-      );
-      await page.locator(`[id="story-${firstStory.id}"]`).waitFor();
+      await page
+        .getByRole('link', { name: 'Inspect created edition' })
+        .waitFor();
       assert.equal(
-        await page.locator('.digest-topic').count(),
-        edition.topics.length,
+        await page
+          .getByRole('link', { name: 'Inspect created edition' })
+          .getAttribute('href'),
+        `/admin/editions/${edition.id}`,
       );
-      for (const topic of edition.topics) {
-        const section = page.locator('.digest-topic').filter({
-          has: page.getByRole('heading', { name: topic.name, exact: true }),
-        });
-        for (const story of topic.stories) {
-          const item = section.locator(`[id="story-${story.id}"]`);
-          assert.equal(
-            await item.locator(':scope > a').textContent(),
-            story.title,
-          );
-          if (story.summary)
-            assert.equal(
-              await item.locator('.excerpt').textContent(),
-              story.summary,
-            );
-        }
-      }
       assert.equal(
         await page.evaluate(() => sessionStorage.getItem('edition-job')),
         null,
       );
       state = 'failed';
-      await page.goto('http://127.0.0.1:8000/admin');
+      await page.goto('http://127.0.0.1:8000/admin/editions/new');
       await create.click();
       await page
         .getByRole('status')
@@ -428,7 +381,7 @@ async function smoke() {
     assert.deepEqual(await localAdminJson('/api/admin/topics'), topics);
     assert.deepEqual(await localAdminJson('/api/admin/profile'), profile);
     console.log(
-      'Async edition UI: desktop/mobile real queue deadline, interrupted queue response with focused/expanded saved editions and keyboard access without automatic resubmission, queue, active, reload, reconnect, malformed/mismatched status recovery, stalled-poll timeout, completion, saved story text and failure passed; protected operational snapshots; unexpected browser writes blocked and no browser credentials; full saved edition, topics and profile unchanged.',
+      'Async edition UI: desktop/mobile real queue deadline, interrupted queue response with saved edition review link without automatic resubmission, queue, active, reload, reconnect, malformed/mismatched status recovery, stalled-poll timeout, completion link and failure passed; protected operational snapshots; unexpected browser writes blocked and no browser credentials; full saved edition, topics and profile unchanged.',
     );
   } finally {
     await browser.close();

@@ -40,12 +40,12 @@ Backups: `~/backups/news-digest/`; [nightly timers and restore](10-backups.md).
 
 ## How to tell if things are healthy
 
+- **New edition at `/admin/editions/new`:** choose 6 h, 24 h, 7 d or a custom window; uses AI budget, shows topic progress and links to the saved result.
 - **Editions at `/admin/editions`:** saved windows; open an edition to inspect topic stories, scores, selection reasons, grouping and source evidence, or view it as a reader.
 - **Schedule at `/admin/schedule`:** next run, daily local time, timezone, coverage and default topic budgets.
 - **Sources at `/admin/sources`:** collection health, timestamps, last-response/stored counts and platform status.
 - **Overview at `/admin`:** health, daily spend, latest edition, source issues and next runs.
-- **`/healthz`:** 200 when Postgres and Redis respond; checked by the supervisor.
-- **`pnpm obs alerts`** and [Grafana](09-observability.md) cover the rest.
+- **`/healthz`:** 200 when Postgres and Redis respond; `pnpm obs alerts` and [Grafana](09-observability.md) cover the rest.
 
 Read-only checks: `pnpm exec tsx <script>`. Protected API reads use the private local admin token:
 

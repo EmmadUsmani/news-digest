@@ -42,7 +42,7 @@ async function main() {
         route.fulfill({ json: live }),
       );
       await replayAdminPage(page);
-      await page.goto('http://127.0.0.1:8000/admin');
+      await page.goto('http://127.0.0.1:8000/admin/editions/new');
       await page
         .getByRole('button', {
           name: 'Create edition · last 24 hours',
@@ -86,7 +86,14 @@ async function main() {
         '**/api/admin/digest-previews/jobs/999999999',
         (route) => {
           assert.equal(route.request().method(), 'GET');
-          return route.fulfill({ json: { state: 'failed' } });
+          return route.fulfill({
+            json: {
+              id: '999999999',
+              state: 'failed',
+              editionId: null,
+              progress: null,
+            },
+          });
         },
       );
       await page

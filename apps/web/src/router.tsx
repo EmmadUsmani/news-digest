@@ -12,6 +12,7 @@ import { z } from 'zod';
 
 import { AdminEditionInspector, AdminEditions } from './AdminEditions';
 import { AdminLayout, AdminTools } from './AdminLayout';
+import { AdminNewEdition } from './AdminNewEdition';
 import { AdminSchedule } from './AdminSchedule';
 import { AdminSources } from './AdminSources';
 import { AdminSpend } from './AdminSpend';
@@ -143,6 +144,11 @@ const adminEditionsRoute = createRoute({
   path: '/editions',
   component: AdminEditions,
 });
+const adminNewEditionRoute = createRoute({
+  getParentRoute: () => adminRoute,
+  path: '/editions/new',
+  component: AdminNewEdition,
+});
 const adminInspectorRoute = createRoute({
   getParentRoute: () => adminRoute,
   path: '/editions/$id',
@@ -159,6 +165,7 @@ export const router = createRouter({
       adminOverviewRoute,
       adminEditionsRoute,
       adminInspectorRoute,
+      adminNewEditionRoute,
       adminSourcesRoute,
       adminScheduleRoute,
       adminSpendRoute,

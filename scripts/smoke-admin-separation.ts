@@ -82,10 +82,7 @@ async function smoke() {
           .getByText('Edition and management controls', { exact: true })
           .click();
         await page
-          .getByRole('button', {
-            name: 'Create edition · last 24 hours',
-            exact: true,
-          })
+          .getByRole('heading', { name: 'Incoming from your sources.' })
           .waitFor();
         await page.getByText('Source & run status', { exact: true }).waitFor();
         await page
@@ -96,10 +93,7 @@ async function smoke() {
           .getByText('Edition and management controls', { exact: true })
           .click();
         await page
-          .getByRole('button', {
-            name: 'Create edition · last 24 hours',
-            exact: true,
-          })
+          .getByRole('heading', { name: 'Incoming from your sources.' })
           .waitFor();
         await page.screenshot({
           path: `docs/screenshots/ui/admin-split-controls-${device}-${theme}.png`,

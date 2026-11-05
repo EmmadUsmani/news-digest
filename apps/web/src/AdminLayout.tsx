@@ -16,6 +16,7 @@ function Navigation({ mobile = false }: { mobile?: boolean }) {
         [
           { to: '/admin', label: 'Overview' },
           { to: '/admin/editions', label: 'Editions' },
+          { to: '/admin/editions/new', label: 'New edition' },
           { to: '/admin/sources', label: 'Sources' },
           { to: '/admin/schedule', label: 'Schedule' },
           { to: '/admin/spend', label: 'Spend' },
@@ -81,17 +82,19 @@ export function AdminLayout() {
             </Sheet>
           </div>
           <h1 className="m-0 flex-1 font-sans text-xl leading-7 font-semibold tracking-tight">
-            {pathname.startsWith('/admin/tools')
-              ? 'Tools'
-              : pathname.startsWith('/admin/sources')
-                ? 'Sources'
-                : pathname.startsWith('/admin/schedule')
-                  ? 'Schedule'
-                  : pathname.startsWith('/admin/spend')
-                    ? 'Spend'
-                    : pathname.startsWith('/admin/editions')
-                      ? 'Editions'
-                      : 'Overview'}
+            {pathname === '/admin/editions/new'
+              ? 'New edition'
+              : pathname.startsWith('/admin/tools')
+                ? 'Tools'
+                : pathname.startsWith('/admin/sources')
+                  ? 'Sources'
+                  : pathname.startsWith('/admin/schedule')
+                    ? 'Schedule'
+                    : pathname.startsWith('/admin/spend')
+                      ? 'Spend'
+                      : pathname.startsWith('/admin/editions')
+                        ? 'Editions'
+                        : 'Overview'}
           </h1>
           <span className="text-xs tracking-wide text-[var(--secondary)]">
             PRODUCTION

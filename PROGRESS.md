@@ -1,22 +1,3 @@
-## 2026-11-05: iteration 870 — probe actual World grouping cache without inference
-
-- Started clean on main; no leftover work. Alerts clear; API/worker active, /healthz healthy and latest real edition serves four topics/17 stories/14 posts.
-- Added explicit --read-only-cache probe: repeatable-read READ ONLY transaction, production fingerprints/configured model, production membership validation on hits, no provider/ledger/cache writes. Cache-read failures fail the command; misses report null model counts.
-- Nov 4/5 ten/forty-article requests all miss (four misses). Retained post-publication fixtures cannot supply exact model replay; this does not establish absence of historical grouping calls. Reviewed story counts remain label results. No paid calls or runtime changes.
-- Verification: actual cache probe; missing opt-in rejected; offline World replay assertions; pnpm format; pnpm lint:fix; pnpm check (504 unit/218 isolated integration passed); pnpm build; git diff --check.
-- Updated World evidence/TASKS; archived iteration 855 to keep PROGRESS small. No service restart under STEERING 22 because runtime code/config unchanged. Handbook/SOURCES/schema/screenshots/NEEDS_FROM_HUMAN unchanged.
-- Next: all-topic configured-price cap/reserve gate, then bounded ledgered Haiku verification under STEERING 4 if needed; do not repeat cache misses. Activate before Nov 6 13:00 UTC or defer. X rounds after 21:00 UTC Nov 5/6; UI step 2 follows story-limit fix.
-
-## 2026-11-05: iteration 871 — all-topic story-pool budget gate
-
-- Started clean on main; no leftover work. Alerts clear, API/worker active, /healthz healthy; latest real edition serves four topics/17 stories/14 posts.
-- Added read-only all-topic configured-price evaluation through production grouping/editor request builders. Forty articles available for each saved-score pool; current text/settings are observations, not exact historical prompts. No provider/cache/ledger/edition/settings writes.
-- Bounds any ten grouped leads with largest serialized candidate inputs and merged-source label allowance. Nov 5 unchanged stages retain $0.156698 measured cost; replacing grouping/editor with first-attempt reservations gives $0.464371 versus ten-pool $0.437038 (+$0.027333).
-- Conditional Nov 6 gate passes: projected cap $0.494904–$0.502083, unchanged reserve $0.473168 ($0.008797 headroom); Sonnet scenario $0.379420 below lower-cap allocation $0.395923. Repairs/fallback/future volume still need live ledger admission; no guaranteed full-AI outcome claimed.
-- Verification: pnpm exec tsx scripts/evaluate-story-pool-budget.ts --read-only; missing opt-in rejected; pnpm format; pnpm lint:fix; pnpm check (504 unit/218 isolated integration passed); pnpm build; git diff --check.
-- Updated TASKS/World evidence; archived iteration 856 to keep PROGRESS small. Evidence-only change: no restart under STEERING 22; live runtime/config unchanged. Handbook/SOURCES/schema/screenshots/NEEDS_FROM_HUMAN unchanged.
-- Next: bounded ledgered Haiku World verification under STEERING 4, then activation decision before Nov 6 13:00 UTC or defer a day. No repeat cache probes. UI step 2 follows; X rounds after 21:00 UTC Nov 5/6.
-
 ## 2026-11-05: iteration 872 — activate forty-article story grouping pool
 
 - Started clean on main; no leftover work. Alerts clear, services and /healthz healthy; sources returning items and collection jobs completing.
@@ -121,3 +102,16 @@
 - Initial full check caught documentation formatting during edits; corrected. Handbook line cap condensed; final operations check passed (18 pages/two unchanged diagrams/28 assigned tables). Admin gate and Overview regression passed; Overview captures refreshed for navigation.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (505 unit/218 isolated integration passed); pnpm build and final web rebuild; targeted ESLint/Prettier; git diff --check; handbook operations; smoke-admin-gate; smoke-admin-overview; smoke-admin-editions. Final health/alerts green.
 - Next: finish Editions metadata, incoming-window list and creation, then Topics and remaining Sources/Spend controls; X rounds after 21:00 UTC Nov 5/6 and Nov 6 scheduled edition review take priority when due.
+
+## 2026-11-05: iteration 881 — dedicated edition creation
+
+- Started clean on main; no leftover work. Alerts clear, /healthz healthy, API/worker active; 36 sources have no current error. X rounds remain due after 21:00 UTC.
+- Owner-visible value: New edition is now directly accessible from admin navigation and Editions, with a focused coverage-window form and live topic progress instead of the buried Overview panel.
+- Added protected /admin/editions/new: 6 h/24 h/7 d/custom presets, date validation, AI-budget/reserve notice, existing async submission/status polling, session reload recovery, topic stages and saved-inspector result link. Removed replaced creation panel and its admin polling/budget code from the reader component.
+- Uses existing endpoints and budget enforcement; no backend, schema, source or access changes. No paid calls or saved-data writes; SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Browser: smoke-admin-new-edition passed four viewport/theme combinations, anonymous denial, invalid custom dates, simulated submission/progress/reload/completion/failure and unchanged saved edition. Four captures retained; desktop light/mobile dark visually inspected. Simulated job stages are verification data, not live jobs.
+- Migrated smoke-edition-jobs, smoke-manual-reserve and admin-separation to the new route/layout. Job deadlines, uncertain submissions, reconnect, malformed status, completion/failure and unchanged full saved data passed; reserve and Overview checks passed. Gate passed 24 denied paths/eight forwarded-token cases.
+- Handbook Operations updated; initial line-cap failure condensed and rerun passed (18 pages/two unchanged diagrams/28 tables). Mobile separation assertion initially targeted hidden desktop navigation; corrected to page content and rerun passed.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (505 unit/218 isolated integration passed); pnpm build; git diff --check; handbook operations; smoke-admin-new-edition, smoke-edition-jobs (final stage assertions rerun), smoke-manual-reserve, smoke-admin-overview, smoke-admin-editions, smoke-admin-separation and smoke-admin-gate. Initial combined check exited 143 during integration without assertion failures; standalone full rerun passed.
+- Archived iterations 870–871. API restarted for verified built web; worker unchanged. Final health/alerts green; latest real edition remains four topics/17 stories/14 posts. Updated TASKS and retained refreshed route/navigation captures.
+- Next: Editions run metadata/incoming-window articles, then Topics and remaining Sources/Spend controls; X fresh-window rounds after 21:00 UTC Nov 5/6 and Nov 6 scheduled edition review take priority when due.

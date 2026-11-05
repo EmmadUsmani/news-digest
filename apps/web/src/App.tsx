@@ -54,7 +54,6 @@ function LegacyAdminControls() {
   return (
     <div>
       <section>
-        <DigestPreview admin />
         <section className="topics" aria-label="Your topics">
           <p className="eyebrow">YOUR NEWS DESK</p>
           <h2>Incoming from your sources.</h2>

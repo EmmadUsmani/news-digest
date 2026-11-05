@@ -21,6 +21,9 @@ export function AdminEditions() {
         <p className="m-0 text-sm text-[var(--secondary)]">
           Review saved editions and their selection evidence.
         </p>
+        <Button asChild>
+          <Link to="/admin/editions/new">New edition</Link>
+        </Button>
         <Button
           variant="ghost"
           disabled={result.isFetching}
