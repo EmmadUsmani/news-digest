@@ -1,0 +1,1505 @@
+{
+  "capturedAt": "2026-11-05T18:07:48.556Z",
+  "note": "Saved edition scores; article fields read after publication. Article text/source labels captured after publication; no new inference or writes.",
+  "windows": [
+    {
+      "editionId": "3bf10f5b-4c00-48b2-85bd-8e6dac7e3238",
+      "windowStart": "2026-11-03T15:00:00.000Z",
+      "windowEnd": "2026-11-04T15:00:00.000Z",
+      "topicId": "00000000-0000-4000-8000-000000000014",
+      "policy": {
+        "excludeAny": ["sponsored", "promo code", "horoscope", "gift guide"],
+        "includeAny": []
+      },
+      "eligibleScoreCount": 157,
+      "scores": [
+        {
+          "id": "1220c331-f455-4a7b-a8a9-6cc1e1b4d82a",
+          "event": "US 2026 midterms: Democrats take Congress",
+          "rationale": "Democrats flip Senate seats and win control of Congress",
+          "relevance": 10,
+          "importance": 10
+        },
+        {
+          "id": "278a635a-cd4c-4b90-80b1-04997ed7bd2f",
+          "event": "Democrats win House and Senate in midterms",
+          "rationale": "First Republican president losing both chambers in 20 years",
+          "relevance": 10,
+          "importance": 9
+        },
+        {
+          "id": "5bea1757-d1a5-435a-b887-b81b80a1565e",
+          "event": "Democrats win US House majority in midterms",
+          "rationale": "Major shift in control of Congress",
+          "relevance": 10,
+          "importance": 9
+        },
+        {
+          "id": "5f5a080e-05f8-45d7-86c8-c5a1714181f5",
+          "event": "Democrats win big in US midterm elections",
+          "rationale": "Flips Senate seats in several states, reports blue wave",
+          "relevance": 10,
+          "importance": 9
+        },
+        {
+          "id": "729cafdb-8482-4e91-bd67-df6f8e05a5f3",
+          "event": "Democrats win Congress in midterm blue wave",
+          "rationale": "Major rebuke of Trump and Republican control lost",
+          "relevance": 10,
+          "importance": 9
+        },
+        {
+          "id": "798f9557-0a1c-4c06-b882-257ba370b324",
+          "event": "Democrats win House and Senate in midterms",
+          "rationale": "Democrats gain control of both chambers of Congress",
+          "relevance": 10,
+          "importance": 9
+        },
+        {
+          "id": "7a8d7be6-d96f-4d6c-8e41-71777d7d46e1",
+          "event": "Democrats win Congress in blue wave",
+          "rationale": "Democrats flip Republican Senate seats and win Congress",
+          "relevance": 10,
+          "importance": 9
+        },
+        {
+          "id": "9c19d200-6569-485b-9119-4a0ecf20b095",
+          "event": "Democrats on brink of retaking Senate",
+          "rationale": "Wins in TX, OH, NC, SC give control if seats held",
+          "relevance": 10,
+          "importance": 9
+        },
+        {
+          "id": "9d91e5a3-2635-4332-9661-3e3115cf66f7",
+          "event": "Democrats win US Senate control",
+          "rationale": "Party regains Senate, leverage over Trump",
+          "relevance": 10,
+          "importance": 9
+        },
+        {
+          "id": "d7572009-38b9-43a4-b33e-9e1c829d42d9",
+          "event": "US 2026 midterms: Democrats take Congress",
+          "rationale": "Democrats take full control of Congress",
+          "relevance": 10,
+          "importance": 9
+        },
+        {
+          "id": "f0ca13db-0ccb-4311-b6f2-84089320c106",
+          "event": "Democrats win US Senate in 2026 midterms",
+          "rationale": "Major midterm result shifting Senate control",
+          "relevance": 10,
+          "importance": 9
+        },
+        {
+          "id": "fae01333-d055-4329-9bae-6c0b29a8988a",
+          "event": "US 2026 midterm results live",
+          "rationale": "Live results show Democrats gaining Senate, House, governors",
+          "relevance": 10,
+          "importance": 9
+        },
+        {
+          "id": "90054e85-56f5-44ff-ba0e-f11d4740623f",
+          "event": "Trump confirms strikes on Iran; Hormuz talks stall",
+          "rationale": "Active US strikes and stalled indirect talks",
+          "relevance": 9,
+          "importance": 9
+        },
+        {
+          "id": "c688b9fe-4c93-4a2c-9410-66cd4a670523",
+          "event": "Russian strike kills 40 at Ukraine school",
+          "rationale": "Zelenskyy confirms 40 dead; Kremlin comments on Trump",
+          "relevance": 9,
+          "importance": 9
+        },
+        {
+          "id": "3fece516-80d3-440d-b63f-08effc195cb0",
+          "event": "Democrats win Congress: impact analysis",
+          "rationale": "Explains how Democrats won and oversight powers they gain",
+          "relevance": 10,
+          "importance": 8
+        },
+        {
+          "id": "11058a21-5cb7-48e0-ad94-6e505a02edf7",
+          "event": "Spanish transport minister resigns",
+          "rationale": "Ministerial resignation over train crash disasters",
+          "relevance": 9,
+          "importance": 8
+        },
+        {
+          "id": "183cd3e1-efd3-4411-83ec-f202befc4032",
+          "event": "Israel election commission rejects fraud claims",
+          "rationale": "Commission confirms results ousting Netanyahu coalition",
+          "relevance": 9,
+          "importance": 8
+        },
+        {
+          "id": "20e287ed-c825-4426-87de-171b24038f5d",
+          "event": "Troy Jackson wins Maine US Senate race",
+          "rationale": "Democrat unseats five-term Republican Susan Collins",
+          "relevance": 9,
+          "importance": 8
+        },
+        {
+          "id": "4726df87-4384-4e1d-81b5-fc2813cae873",
+          "event": "Troy Jackson defeats Susan Collins in Maine",
+          "rationale": "Major upset of incumbent Republican senator",
+          "relevance": 9,
+          "importance": 8
+        },
+        {
+          "id": "6e92e962-ba23-40c0-afb3-14ebefb82d9b",
+          "event": "James Talarico wins Texas Senate race",
+          "rationale": "Democrat wins Texas Senate, rare in state",
+          "relevance": 9,
+          "importance": 8
+        },
+        {
+          "id": "76682b22-ef2b-48e1-9624-2c7194bd3b0e",
+          "event": "US 2026 midterm Republican losses",
+          "rationale": "Republican congressional weakening, largest since 1990",
+          "relevance": 9,
+          "importance": 8
+        },
+        {
+          "id": "792852f2-470e-438a-b612-93dfae2433f1",
+          "event": "Trump admits Iran war hurt GOP vote",
+          "rationale": "Trump acknowledges war impact and vows vetoes",
+          "relevance": 9,
+          "importance": 8
+        },
+        {
+          "id": "85bd4956-8c53-45c1-a1a3-a191b68dba9e",
+          "event": "Gina Hinojosa defeats Greg Abbott in Texas",
+          "rationale": "Upset ending Abbott's three-term governorship",
+          "relevance": 9,
+          "importance": 8
+        },
+        {
+          "id": "9b483e20-dcd9-4c6b-a440-be6f0bf75c1c",
+          "event": "Democrats poised to flip US House",
+          "rationale": "Party expected to gain House control in midterms",
+          "relevance": 9,
+          "importance": 8
+        },
+        {
+          "id": "f0a17559-0b61-4560-be8d-1b3fafd210b8",
+          "event": "Democrats win Texas Senate and governor",
+          "rationale": "Texas flips Democratic in Senate and governor races",
+          "relevance": 9,
+          "importance": 8
+        },
+        {
+          "id": "f8aae519-07c7-4891-aef4-8ce402ba8f8a",
+          "event": "Talarico defeats Ken Paxton in Texas Senate race",
+          "rationale": "Democratic win over Trump-allied attorney general",
+          "relevance": 9,
+          "importance": 8
+        },
+        {
+          "id": "8caf9b6b-f9c6-4a24-9199-c6fbb39a5440",
+          "event": "Israel election results confirmed",
+          "rationale": "Commission rejects fraud claims; coalition talks begin",
+          "relevance": 8,
+          "importance": 8
+        },
+        {
+          "id": "ac71bf39-641e-4a87-8446-c4f9deb5ca46",
+          "event": "Spain transport minister resigns after train crash",
+          "rationale": "Puente resigns after crash killing 69 people",
+          "relevance": 7,
+          "importance": 8
+        },
+        {
+          "id": "0ecb0099-0c99-45b5-a003-dfd1fa656472",
+          "event": "Amy Acton wins Ohio governor race",
+          "rationale": "Democrat wins governorship ending 16 years of GOP control",
+          "relevance": 9,
+          "importance": 7
+        },
+        {
+          "id": "18f6b061-a9d8-47da-aa7b-c75f47c50381",
+          "event": "El-Sayed wins Michigan Senate seat",
+          "rationale": "Wins Michigan seat despite reported racist attacks",
+          "relevance": 9,
+          "importance": 7
+        },
+        {
+          "id": "1e2ba9c8-76fa-4376-b7f6-af9052067a94",
+          "event": "Annie Andrews flips South Carolina Senate seat",
+          "rationale": "Democrat upsets Republican incumbent in long-held GOP seat",
+          "relevance": 9,
+          "importance": 7
+        },
+        {
+          "id": "249371e8-048a-4744-95cc-7a04768f47c5",
+          "event": "Amy Acton wins Ohio governor race",
+          "rationale": "First woman elected Ohio governor, Democratic win",
+          "relevance": 9,
+          "importance": 7
+        },
+        {
+          "id": "265b7c64-7839-41e8-bdb0-fe4d028f9fd6",
+          "event": "South Africa local elections test ANC",
+          "rationale": "ANC faces voter anger over services; national political test",
+          "relevance": 9,
+          "importance": 7
+        },
+        {
+          "id": "351931c6-fd26-4b1c-a6b7-d9d20ef9def1",
+          "event": "Annie Andrews flips South Carolina Senate seat",
+          "rationale": "First Democratic senator from state in nearly three decades",
+          "relevance": 9,
+          "importance": 7
+        },
+        {
+          "id": "369edbd8-185e-498d-93fc-83982d6db93c",
+          "event": "El-Sayed wins Michigan Senate seat",
+          "rationale": "Becomes first Muslim US senator after defeating Rogers",
+          "relevance": 9,
+          "importance": 7
+        },
+        {
+          "id": "390057cc-c750-4841-8bc0-aea5abaa2831",
+          "event": "Xavier Becerra elected California governor",
+          "rationale": "First Latino California governor since 1875",
+          "relevance": 9,
+          "importance": 7
+        },
+        {
+          "id": "3f62f85f-a9d6-42f2-9350-e130d2ebb383",
+          "event": "Abdul El-Sayed elected first Muslim senator",
+          "rationale": "Democrat wins Senate seat, historic first",
+          "relevance": 9,
+          "importance": 7
+        },
+        {
+          "id": "43d13282-b659-4317-82a5-0bf61d73d51e",
+          "event": "Democrat wins South Carolina Senate seat",
+          "rationale": "First Democrat in nearly 30 years to represent South Carolina in Senate",
+          "relevance": 9,
+          "importance": 7
+        },
+        {
+          "id": "4671b538-9b9c-4698-b4fe-7045b55a02d9",
+          "event": "El-Sayed wins Michigan Senate seat",
+          "rationale": "Democrat defeats Republican Rogers in Michigan",
+          "relevance": 9,
+          "importance": 7
+        },
+        {
+          "id": "470f9ee2-3632-4ae8-9759-eddc4359116f",
+          "event": "Trump says he will end Israel military aid",
+          "rationale": "Claim of ending $3.8bn aid, met with skepticism",
+          "relevance": 9,
+          "importance": 7
+        }
+      ],
+      "candidates": [
+        {
+          "id": "1220c331-f455-4a7b-a8a9-6cc1e1b4d82a",
+          "title": "Republican blame game begins as Democrat’s Mississippi lead grows – as it happened",
+          "url": "https://www.theguardian.com/us-news/live/2026/nov/04/midterm-elections-results-senate-house-michigan-maine-mississippi-latest-updates",
+          "excerpt": "This blog has now closed – our live US midterms results coverage continues here Wall Street surged at the open, after Democrats scored historic victories in midterm elections and secured control of US Congress. The Dow Jones rose 2%, while the tech-heavy Nasdaq and the benchmark S&P 500 both gained more than 1%. That’s quite a reversal: Overnight, stock futures fell sharply as investors worried about the prospect of tougher regulation of the AI sector and the impact on economic growth. Continue reading...",
+          "publishedAt": "2026-11-04T12:53:24.000Z",
+          "sources": ["The Guardian US", "The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "278a635a-cd4c-4b90-80b1-04997ed7bd2f",
+          "title": "Democrats win control of House and Senate: Key US midterms takeaways",
+          "url": "https://www.aljazeera.com/news/2026/11/4/democrats-win-control-of-house-and-senate-key-us-midterms-takeaways?traffic_source=rss",
+          "excerpt": "This is the first time in 20 years that a Republican president has lost both houses of US Congress.",
+          "publishedAt": "2026-11-04T10:39:52.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "5bea1757-d1a5-435a-b887-b81b80a1565e",
+          "title": "Democratic Party gains US House majority in 2026 midterm elections",
+          "url": "https://www.aljazeera.com/news/2026/11/4/democratic-party-gains-us-house-majority-in-2026-midterm-elections?traffic_source=rss",
+          "excerpt": "All 435 seats in the lower chamber of Congress were on the ballot in Tuesday's midterm race.",
+          "publishedAt": "2026-11-04T06:34:46.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "5f5a080e-05f8-45d7-86c8-c5a1714181f5",
+          "title": "Democrats win big on election night – as it happened",
+          "url": "https://www.theguardian.com/us-news/live/2026/nov/03/midterm-election-results-live-updates",
+          "excerpt": "Democrats flip Senate seats in Texas, Iowa, Kansas, North Carolina, South Carolina and Ohio; voters reject Trump’s agenda in ‘blue wave’ Track live results from all 50 states Full report: Democrats win control of Congress in ‘blue wave’ Tell us: how do you feel about the US midterm election results? As we bring you the latest from around the country, Donald Trump is certainly paying attention. From the White House, the president said that he was tuning into coverage on Fox News. “I can’t stand Jessica Tarlov’s voice,” Trump said of the Democratic strategist and Fox News contributor in a post o",
+          "publishedAt": "2026-11-03T22:49:27.000Z",
+          "sources": ["Hacker News", "The Guardian US", "The Guardian World"],
+          "points": 39
+        },
+        {
+          "id": "729cafdb-8482-4e91-bd67-df6f8e05a5f3",
+          "title": "US voters rebuke Trump as Democrats win control of Congress in ‘blue wave’",
+          "url": "https://www.theguardian.com/us-news/2026/nov/04/democrats-house-midterm-elections-results",
+          "excerpt": "President’s party stripped of control after he spent weeks pleading with Americans to pretend he was on ballot US midterm elections – live updates Track live results from all 50 states Tell us: what do you want to know about the midterm election results? The United States woke up to a radically altered political landscape on Wednesday after Donald Trump was dealt a devastating blow in the midterm elections, in which his Republican party was stripped of control of the Senate and the House as his handpicked “Maga” candidates were swept away by a blue tsunami. With counting still going on in a co",
+          "publishedAt": "2026-11-04T06:27:15.000Z",
+          "sources": ["The Guardian US", "The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "798f9557-0a1c-4c06-b882-257ba370b324",
+          "title": "Democrats sweep into control of Congress after historic midterm victories | First Thing",
+          "url": "https://www.theguardian.com/us-news/2026/nov/04/first-thing-democrats-control-congress-midterm-elections",
+          "excerpt": "Both the House and Senate will be under Democratic control for the rest of Donald Trump’s term in office. Plus, the French Homer and Marge who found true love in real life Don’t already get First Thing in your inbox? Sign up here Continue reading...",
+          "publishedAt": "2026-11-04T11:14:37.000Z",
+          "sources": ["The Guardian US", "The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "7a8d7be6-d96f-4d6c-8e41-71777d7d46e1",
+          "title": "Democrats’ blue wave and a bad night for Trump: key US midterms takeaways",
+          "url": "https://www.theguardian.com/us-news/2026/nov/04/midterm-election-takeaways-trump",
+          "excerpt": "Republicans suffer historic losses, Democrats win control of Congress – and Trump backs away from losing candidates Full report: Democrats win control of Congress in ‘blue wave’ Track live results from all 50 states US midterms live – latest updates Democrats have swept key US midterm races , flipping long-held Republican seats and securing a majority in Congress as voters rebuked Donald Trump’s policies at the ballot box. In an unexpected performance, Democrats defeated incumbent Republicans candidates for historically conservative Senate seats in Iowa, Kansas, North Carolina, South Carolina ",
+          "publishedAt": "2026-11-04T07:47:12.000Z",
+          "sources": ["The Guardian US", "The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "9c19d200-6569-485b-9119-4a0ecf20b095",
+          "title": "Democrats on brink of retaking Senate from Republicans after series of historic wins",
+          "url": "https://www.theguardian.com/us-news/2026/nov/03/democrats-senate-midterm-elections-results",
+          "excerpt": "Landmark victories in Texas, Ohio, North Carolina and South Carolina set to give party control of chamber US midterm elections – live updates Track live results from all 50 states Democrats are on the brink of returning to the majority in the US Senate , after their candidates won historic victories across the United States in a sweeping repudiation of Donald Trump. Democratic victories in Texas, Ohio, North Carolina and South Carolina, projected by the Associated Press, will give them control of the chamber, assuming they can hold on to all seats they currently hold. It was a stunning turnaro",
+          "publishedAt": "2026-11-04T00:12:38.000Z",
+          "sources": ["The Guardian US", "The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "9d91e5a3-2635-4332-9661-3e3115cf66f7",
+          "title": "Democrats win control of Senate as US voters reject Trump’s agenda",
+          "url": "https://www.theguardian.com/us-news/2026/nov/03/democrats-senate-republicans-midterms-trump",
+          "excerpt": "Republicans routed as Democrats gain powerful new leverage over Trump for remainder of his presidency US midterm elections – live updates Track live results from all 50 states Tell us: what do you want to know about the midterm election results? Democrats have regained control of the US Senate, routing Republicans nationwide with historic victories that will give them powerful new leverage over Donald Trump for the remainder of his presidency. Together with their likely triumph in the House of Representatives, Democrats are expected to have full control of Congress beginning next year, for the",
+          "publishedAt": "2026-11-04T04:42:27.000Z",
+          "sources": ["The Guardian US", "The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "d7572009-38b9-43a4-b33e-9e1c829d42d9",
+          "title": "Democrats seize full control of Congress. And, which candidates made history last night",
+          "url": "https://www.npr.org/2026/11/04/g-s1-151745/up-first-newsletter-midterms-democrats-congress-control",
+          "excerpt": "Democrats have won the House and the Senate, taking full control of Congress for the first time since 2023. And history was made in several states. Here's what happened last night.",
+          "publishedAt": "2026-11-04T12:18:39.000Z",
+          "sources": ["NPR World"],
+          "points": 0
+        },
+        {
+          "id": "f0ca13db-0ccb-4311-b6f2-84089320c106",
+          "title": "Democratic Party wins US Senate in 2026 midterm elections",
+          "url": "https://www.aljazeera.com/news/2026/11/4/democratic-party-flips-us-senate-in-2026-midterm-elections?traffic_source=rss",
+          "excerpt": "The outcome is widely seen as a rebuke to Trump's Republican Party, which won control of the chamber in 2024.",
+          "publishedAt": "2026-11-04T04:37:05.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "fae01333-d055-4329-9bae-6c0b29a8988a",
+          "title": "US midterm elections 2026: live results from Senate, House and governor races in all 50 states",
+          "url": "https://www.theguardian.com/us-news/ng-interactive/2026/nov/04/midterm-elections-full-results-senate-house-governor-races",
+          "excerpt": "With many seats still to come in, the Democrats have taken control of the Senate, House and several key governorships. Find live updating results in full here Visual analysis: the key states and trends behind Republicans losses Send us your questions about the US midterms results and Democrats’ ‘blue wave’ The US legislature, Congress, has two chambers: the House of Representatives and the Senate. Continue reading...",
+          "publishedAt": "2026-11-04T12:03:44.000Z",
+          "sources": ["The Guardian US", "The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "90054e85-56f5-44ff-ba0e-f11d4740623f",
+          "title": "Iran says US reply to Hormuz plan ‘unconvincing’; Trump confirms strikes",
+          "url": "https://www.aljazeera.com/news/2026/11/4/iran-says-us-reply-to-hormuz-plan-unconvincing-trump-confirms-strikes?traffic_source=rss",
+          "excerpt": "Indirect talks continue as Trump says US military struck an Iranian anti-aircraft facility on Tuesday.",
+          "publishedAt": "2026-11-04T04:39:31.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "c688b9fe-4c93-4a2c-9410-66cd4a670523",
+          "title": "Zelenskyy says 40 now confirmed dead after ‘insane’ Russian attack on school – as it happened",
+          "url": "https://www.theguardian.com/world/live/2026/nov/04/eu-ukraine-russia-france-germany-us-nato-europe-latest-news",
+          "excerpt": "School in Komyshuvakha in the Zaporizhzhia region was struck on Monday Meanwhile, the Kremlin said that ⁠it ​hopes that the ⁠results of the US ⁠midterm ​elections ‌will not impact ‌what it ‌said were president Donald Trump’s “peacemaking efforts\" on Ukraine, Reuters said. In comments ‌broadcast by Russian state ​media, Kremlin spokesperson Dmitry Peskov said: “We ⁠are sincerely ​counting on [Trump] ​continuing ​his peacemaking ​efforts.“ “Governing in the United States will be almost impossible in the coming years given the level of internal division and polarisation. As a European politician ",
+          "publishedAt": "2026-11-04T09:13:26.000Z",
+          "sources": ["The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "3fece516-80d3-440d-b63f-08effc195cb0",
+          "title": "Democrats win Congress: How they did it, and what it means",
+          "url": "https://www.aljazeera.com/news/2026/11/4/democrats-win-the-us-senate-what-does-this-mean?traffic_source=rss",
+          "excerpt": "With control of Congress, Democrats can challenge Trump’s agenda through subpoenas, confirmation votes.",
+          "publishedAt": "2026-11-04T07:23:45.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "11058a21-5cb7-48e0-ad94-6e505a02edf7",
+          "title": "Spanish Transport Minister resigns over train crash disasters",
+          "url": "https://www.aljazeera.com/video/newsfeed/2026/11/4/spanish-transport-minister-resigns-over-train-crash-disasters?traffic_source=rss",
+          "excerpt": "Spanish Transport Minister resigns over train crash disasters",
+          "publishedAt": "2026-11-04T13:52:11.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "183cd3e1-efd3-4411-83ec-f202befc4032",
+          "title": "Israel’s election commission rejects Netanyahu claims of voting fraud",
+          "url": "https://www.theguardian.com/world/2026/nov/04/israel-election-commission-rejects-netanyahu-claims-voting-fraud",
+          "excerpt": "Move comes after attorney general blocks Shin Bet call to interrogate politicians from Palestinian-led parties Israel’s election commission on Wednesday confirmed the final results of last week’s vote that stripped Benjamin Netanyahu’s far-right coalition of its governing majority, rejecting claims of mass fraud promoted by the prime minister. The main challenger, Gadi Eisenkot, said Netanyahu had launched a “pogrom against democracy” in attempting to hold on to power by discrediting valid votes and weaponising security forces against parties led by Palestinian citizens of Israel. Continue rea",
+          "publishedAt": "2026-11-04T12:19:18.000Z",
+          "sources": ["The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "20e287ed-c825-4426-87de-171b24038f5d",
+          "title": "Democrat Troy Jackson wins Maine US Senate seat in blow to Republicans",
+          "url": "https://www.aljazeera.com/news/2026/11/4/democrat-troy-jackson-wins-maine-us-senate-seat-in-blow-to-republicans?traffic_source=rss",
+          "excerpt": "Longtime Republican Senator Susan Collins had held the seat for three decades, but was swept away in the blue wave.",
+          "publishedAt": "2026-11-04T07:04:35.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "4726df87-4384-4e1d-81b5-fc2813cae873",
+          "title": "Democrat Troy Jackson defeats Susan Collins to win Maine US Senate seat in blow to Republicans",
+          "url": "https://www.theguardian.com/us-news/2026/nov/03/maine-senate-midterm-results",
+          "excerpt": "Democratic nominee toppled the five-term GOP incumbent in one of the most hard-fought midterm contests US midterm elections – live updates Track live results from all 50 states Tell us: what do you want to know about the midterm election results? The Democrat Troy Jackson has won Maine ’s US Senate race, toppling five-term Republican incumbent Susan Collins in one of the biggest upsets of the 2026 midterms. Jackson, 58, unseated Collins – who has been in the Senate since 1997 – in a closely fought, and often rancorous, race characterized by mutual accusations of corruption and clashes over liv",
+          "publishedAt": "2026-11-04T05:38:01.000Z",
+          "sources": ["The Guardian US", "The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "6e92e962-ba23-40c0-afb3-14ebefb82d9b",
+          "title": "James Talarico wins Senate race in Texas, securing historic victory – video",
+          "url": "https://www.theguardian.com/global/video/2026/nov/04/james-talarico-wins-senate-race-in-texas-securing-historic-victory-video",
+          "excerpt": "Democrat James Talarico has won the US Senate race in Texas, securing an astonishing and historic victory. Talarico, a state representative, beat the scandal-plagued attorney general Ken Paxton in the most expensive race of this midterms cycle. He is also the first Democrat to win a US Senate seat in the Lone Star state since 1988 Continue reading...",
+          "publishedAt": "2026-11-04T06:48:14.000Z",
+          "sources": ["The Guardian US"],
+          "points": 0
+        },
+        {
+          "id": "76682b22-ef2b-48e1-9624-2c7194bd3b0e",
+          "title": "How big is the Republican midterms loss, and is there a silver lining?",
+          "url": "https://www.aljazeera.com/news/2026/11/4/how-big-is-the-republican-midterms-loss-and-is-there-a-silver-lining?traffic_source=rss",
+          "excerpt": "The Republicans haven't been this weakened in Congress since 1990, but they did have some wins.",
+          "publishedAt": "2026-11-04T13:59:15.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "792852f2-470e-438a-b612-93dfae2433f1",
+          "title": "Trump admits Iran war hurt Republican vote, vows to veto ‘insane’ bills",
+          "url": "https://www.aljazeera.com/video/newsfeed/2026/11/4/trump-admits-iran-war-hurt-republican-vote-vows-to-veto-insane-bills?traffic_source=rss",
+          "excerpt": "US President Donald Trump has admitted that the war on Iran contributed to Republican losses in the midterm elections.",
+          "publishedAt": "2026-11-04T12:44:30.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "85bd4956-8c53-45c1-a1a3-a191b68dba9e",
+          "title": "Democrat Gina Hinojosa defeats Texas governor Greg Abbott in stunning upset",
+          "url": "https://www.theguardian.com/us-news/2026/nov/03/democrat-gina-hinojosa-greg-abbott-texas",
+          "excerpt": "Hinojosa wins momentous victory, shatters Republican grip on key office and will become state’s first Latina governor US midterm elections – live updates Track live results from all 50 states In a seismic political upset that would have seemed improbable only a few weeks ago, Democrat Gina Hinojosa has defeated three-term governor Greg Abbott on Tuesday, shattering the Republican grip on the highest and most powerful executive office in Texas. Hinojosa’s historic victory – she will be the state’s first ever Latina governor – ended Abbott’s bid for an unprecedented fourth term, and delivered De",
+          "publishedAt": "2026-11-04T04:20:53.000Z",
+          "sources": ["The Guardian US", "The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "9b483e20-dcd9-4c6b-a440-be6f0bf75c1c",
+          "title": "Democrats poised to flip House in midterm elections after two turbulent years of Trump",
+          "url": "https://www.theguardian.com/us-news/2026/nov/03/democrats-house-midterm-elections-results",
+          "excerpt": "Victory for party comes despite unusual and aggressive efforts by Republicans to redraw congressional districts US midterm elections – live updates Track live results from all 50 states Democrats are winning competitive House races as well as ones in solid Republican districts and are expected to flip the US House of Representatives after two tumultuous years of Donald Trump’s second presidency. A change in House control would give Democrats a perch to conduct robust oversight of the administration for its final two years. Republicans currently hold 218 seats in the House and Democrats have 21",
+          "publishedAt": "2026-11-04T00:25:51.000Z",
+          "sources": ["The Guardian US", "The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "f0a17559-0b61-4560-be8d-1b3fafd210b8",
+          "title": "‘A win the size of Texas’: Democrats celebrate shrinking Republican dominance in a big state",
+          "url": "https://www.theguardian.com/us-news/2026/nov/04/texas-democrats-victory-talarico-hinojosa",
+          "excerpt": "Voters watched results in near disbelief as James Talarico claimed victory in Senate race and Gina Hinojosa was elected state’s first Latina governor US midterms 2026 live – latest updates Track live results from all 50 states Tell us: what do you want to know about the midterm election results? “This is amazing,” exclaimed Tiffany Dunsmore, 44, the owner of Austin Scavenger Hunt, as the city skyline gleamed in the distance on a balmy night. “I cannot believe Texas went blue!” For 32 long years, turning Texas blue had been an elusive prize for Democrats in the US’s second biggest state. There ",
+          "publishedAt": "2026-11-04T13:16:33.000Z",
+          "sources": ["The Guardian US"],
+          "points": 0
+        },
+        {
+          "id": "f8aae519-07c7-4891-aef4-8ce402ba8f8a",
+          "title": "James Talarico wins Texas Senate race in historic victory for Democrats",
+          "url": "https://www.theguardian.com/us-news/2026/nov/03/james-talarico-ken-paxton-texas-senate",
+          "excerpt": "Jubilant Talarico says ‘Tonight we defeated Goliath’ as Ken Paxton defeat a crushing blow to Trump and Republicans US midterm elections – live updates Track live results from all 50 states Tell us: what do you want to know about the midterm election results? Democrat James Talarico has won the US Senate race in Texas , breaking a 38-year drought for his party in the Republican stronghold and delivering a stunning blow to Donald Trump. Talarico defeated Republican Ken Paxton , the state attorney general and a staunch ally of the US president, in one of the most closely watched contests of the m",
+          "publishedAt": "2026-11-04T04:06:18.000Z",
+          "sources": ["The Guardian US", "The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "8caf9b6b-f9c6-4a24-9199-c6fbb39a5440",
+          "title": "Israel vote results confirmed as election commission rejects fraud claims",
+          "url": "https://www.aljazeera.com/news/2026/11/4/israel-vote-results-confirmed-as-election-commission-rejects-fraud-claims?traffic_source=rss",
+          "excerpt": "Netanyahu’s allies refuse to back the result, as President Herzog begins talks on who should form the next government.",
+          "publishedAt": "2026-11-04T10:37:21.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "ac71bf39-641e-4a87-8446-c4f9deb5ca46",
+          "title": "Spanish transport minister resigns after train crash killed 69 people",
+          "url": "https://www.aljazeera.com/news/2026/11/4/spanish-transport-minister-resigns-after-train-crash-killed-69-people?traffic_source=rss",
+          "excerpt": "Oscar Puente says he could not 'continue in office' after two major train accidents in less than a year.",
+          "publishedAt": "2026-11-04T07:18:08.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "0ecb0099-0c99-45b5-a003-dfd1fa656472",
+          "title": "Amy Acton wins Ohio race for governor, ending 16 years of Republican control of office",
+          "url": "https://www.theguardian.com/us-news/2026/nov/03/ohio-governor-amy-acton-vivek-ramaswamy",
+          "excerpt": "Democratic doctor wins over Vivek Ramaswamy, the biotech entrepreneur endorsed by Donald Trump US midterm elections – live updates Track live results from all 50 states Democrat Amy Acton was elected governor of Ohio on Tuesday, after an ugly contest in which her rival Vivek Ramaswamy spent millions of dollars on deeply personal attack ads featuring her estranged mother. Acton, 60, will become the first woman to serve as Ohio’s governor, ending 16 years of Republican control. Continue reading...",
+          "publishedAt": "2026-11-04T03:55:32.000Z",
+          "sources": ["The Guardian US", "The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "18f6b061-a9d8-47da-aa7b-c75f47c50381",
+          "title": "‘Rejecting hate’: Abdul El-Sayed wins Senate seat despite racist attacks",
+          "url": "https://www.aljazeera.com/news/2026/11/4/rejecting-hate-abdul-el-sayed-wins-senate-seat-despite-racist-attacks?traffic_source=rss",
+          "excerpt": "The Democrat defeats Republican Mike Rogers to win Michigan seat to become first Muslim senator-elect in US history.",
+          "publishedAt": "2026-11-04T09:47:49.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "1e2ba9c8-76fa-4376-b7f6-af9052067a94",
+          "title": "Democrat Annie Andrews flips South Carolina’s Senate seat",
+          "url": "https://www.aljazeera.com/news/2026/11/4/democrat-annie-andrews-flips-south-carolinas-senate-seat?traffic_source=rss",
+          "excerpt": "Andrews beats Republican incumbent Darline Graham, sister of the late Senator Lindsey Graham, in a major upset.",
+          "publishedAt": "2026-11-04T03:39:58.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "249371e8-048a-4744-95cc-7a04768f47c5",
+          "title": "Democrat Amy Acton makes history in Ohio",
+          "url": "https://www.aljazeera.com/video/newsfeed/2026/11/4/democrat-amy-acton-makes-history-in-ohio?traffic_source=rss",
+          "excerpt": "Democrat Amy Acton defeats Republican Vivek Ramaswamy to become the first ever woman to be elected as governor in Ohio.",
+          "publishedAt": "2026-11-04T06:49:23.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "265b7c64-7839-41e8-bdb0-fe4d028f9fd6",
+          "title": "South Africans vote in local elections seen as test for embattled ANC",
+          "url": "https://www.aljazeera.com/news/2026/11/4/south-africans-vote-in-local-elections-seen-as-test-for-embattled-anc?traffic_source=rss",
+          "excerpt": "Municipal failures have contributed to declining public trust, President Cyril Ramaphosa has admitted.",
+          "publishedAt": "2026-11-04T06:57:06.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "351931c6-fd26-4b1c-a6b7-d9d20ef9def1",
+          "title": "South Carolina elects Democratic senator for first time in almost three decades",
+          "url": "https://www.bbc.co.uk/news/articles/cjy56z440nl9o?at_campaign=rss&at_medium=RSS",
+          "excerpt": "Annie Andrews is projected to defeat Darline Graham, who was handpicked by President Trump to take her brother's seat after his death.",
+          "publishedAt": "2026-11-04T03:24:34.000Z",
+          "sources": ["BBC World"],
+          "points": 0
+        },
+        {
+          "id": "369edbd8-185e-498d-93fc-83982d6db93c",
+          "title": "Left-wing Democrat Abdul El-Sayed wins in Michigan to become first Muslim senator",
+          "url": "https://www.bbc.co.uk/news/articles/c893z55pxrewo?at_campaign=rss&at_medium=RSS",
+          "excerpt": "El-Sayed bested Republican Mike Rogers to become the first Muslim senator in US history.",
+          "publishedAt": "2026-11-04T10:03:19.000Z",
+          "sources": ["BBC World"],
+          "points": 0
+        },
+        {
+          "id": "390057cc-c750-4841-8bc0-aea5abaa2831",
+          "title": "Xavier Becerra wins California race for governor with vows to resist Trump’s agenda",
+          "url": "https://www.theguardian.com/us-news/2026/nov/03/xavier-becerra-steve-hilton-california-governor",
+          "excerpt": "Son of Mexican immigrants will become state’s first Latino governor since 1875 after victory over ex-Fox News host Steve Hilton US midterm elections – live updates Track live results from all 50 states Xavier Becerra, the Democratic former health and human services secretary, was elected governor of California, marking the historic ascension of a longtime public servant who has vowed to resist Donald Trump’s agenda for the final two years of his presidency. Becerra, 68, is the son of Mexican immigrants and will become California’s first Latino governor since 1875, a milestone in a state where ",
+          "publishedAt": "2026-11-04T04:03:48.000Z",
+          "sources": ["The Guardian US", "The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "3f62f85f-a9d6-42f2-9350-e130d2ebb383",
+          "title": "‘Call me senator’: How Abdul El-Sayed beat Trump’s hate to create history",
+          "url": "https://www.aljazeera.com/news/2026/11/4/call-me-senator-how-abdul-el-sayed-beat-trumps-hate-to-create-history?traffic_source=rss",
+          "excerpt": "The 42-year-old Democrat has defeated Republican Mike Rogers to become the first Muslim senator in the US.",
+          "publishedAt": "2026-11-04T11:46:46.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "43d13282-b659-4317-82a5-0bf61d73d51e",
+          "title": "Democrats deliver a historic routing to Republicans in US midterms",
+          "url": "https://www.aljazeera.com/news/2026/11/4/democrats-deliver-a-historic-routing-to-republicans-in-us-midterms?traffic_source=rss",
+          "excerpt": "For the first time in nearly 30 years, a Democrat will now represent South Carolina in the US Senate.",
+          "publishedAt": "2026-11-04T07:46:12.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "4671b538-9b9c-4698-b4fe-7045b55a02d9",
+          "title": "Democrat Abdul El-Sayed wins election to US Senate from Michigan",
+          "url": "https://www.aljazeera.com/video/newsfeed/2026/11/4/democrat-abdul-el-sayed-wins-election-to-us-senate-from-michigan-2?traffic_source=rss",
+          "excerpt": "Democrat Abdul El-Sayed gave an impassioned victory speech as he beat Republican Mike Rogers in the Michigan senate race",
+          "publishedAt": "2026-11-04T08:18:40.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "470f9ee2-3632-4ae8-9759-eddc4359116f",
+          "title": "Scepticism as Trump says he’s ending Israel’s $3.8 bn military aid deal",
+          "url": "https://www.aljazeera.com/video/newsfeed/2026/11/4/scepticism-as-trump-says-hes-ending-israels-3-8-bn-military-aid-deal?traffic_source=rss",
+          "excerpt": "US President Donald Trump says he plans to stop the annual $3.8bn military aid package to Israel by the end of the year.",
+          "publishedAt": "2026-11-04T01:13:49.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        }
+      ],
+      "publishedStories": [
+        {
+          "id": "d7572009-38b9-43a4-b33e-9e1c829d42d9",
+          "title": "Democrats win House and Senate in US midterms, taking full control of Congress",
+          "coverageIds": ["d7572009-38b9-43a4-b33e-9e1c829d42d9"]
+        }
+      ],
+      "reviewedStories": [
+        {
+          "label": "election",
+          "ids": [
+            "1220c331-f455-4a7b-a8a9-6cc1e1b4d82a",
+            "278a635a-cd4c-4b90-80b1-04997ed7bd2f",
+            "5bea1757-d1a5-435a-b887-b81b80a1565e",
+            "5f5a080e-05f8-45d7-86c8-c5a1714181f5",
+            "729cafdb-8482-4e91-bd67-df6f8e05a5f3",
+            "798f9557-0a1c-4c06-b882-257ba370b324",
+            "7a8d7be6-d96f-4d6c-8e41-71777d7d46e1",
+            "9c19d200-6569-485b-9119-4a0ecf20b095",
+            "9d91e5a3-2635-4332-9661-3e3115cf66f7",
+            "d7572009-38b9-43a4-b33e-9e1c829d42d9",
+            "f0ca13db-0ccb-4311-b6f2-84089320c106",
+            "fae01333-d055-4329-9bae-6c0b29a8988a",
+            "3fece516-80d3-440d-b63f-08effc195cb0",
+            "20e287ed-c825-4426-87de-171b24038f5d",
+            "4726df87-4384-4e1d-81b5-fc2813cae873",
+            "6e92e962-ba23-40c0-afb3-14ebefb82d9b",
+            "76682b22-ef2b-48e1-9624-2c7194bd3b0e",
+            "792852f2-470e-438a-b612-93dfae2433f1",
+            "85bd4956-8c53-45c1-a1a3-a191b68dba9e",
+            "9b483e20-dcd9-4c6b-a440-be6f0bf75c1c",
+            "f0a17559-0b61-4560-be8d-1b3fafd210b8",
+            "f8aae519-07c7-4891-aef4-8ce402ba8f8a",
+            "0ecb0099-0c99-45b5-a003-dfd1fa656472",
+            "18f6b061-a9d8-47da-aa7b-c75f47c50381",
+            "1e2ba9c8-76fa-4376-b7f6-af9052067a94",
+            "249371e8-048a-4744-95cc-7a04768f47c5",
+            "351931c6-fd26-4b1c-a6b7-d9d20ef9def1",
+            "369edbd8-185e-498d-93fc-83982d6db93c",
+            "390057cc-c750-4841-8bc0-aea5abaa2831",
+            "3f62f85f-a9d6-42f2-9350-e130d2ebb383",
+            "43d13282-b659-4317-82a5-0bf61d73d51e",
+            "4671b538-9b9c-4698-b4fe-7045b55a02d9"
+          ]
+        },
+        {
+          "label": "iran",
+          "ids": ["90054e85-56f5-44ff-ba0e-f11d4740623f"]
+        },
+        {
+          "label": "ukraine",
+          "ids": ["c688b9fe-4c93-4a2c-9410-66cd4a670523"]
+        },
+        {
+          "label": "spain",
+          "ids": [
+            "11058a21-5cb7-48e0-ad94-6e505a02edf7",
+            "ac71bf39-641e-4a87-8446-c4f9deb5ca46"
+          ]
+        },
+        {
+          "label": "israel",
+          "ids": [
+            "183cd3e1-efd3-4411-83ec-f202befc4032",
+            "8caf9b6b-f9c6-4a24-9199-c6fbb39a5440"
+          ]
+        },
+        {
+          "label": "south-africa",
+          "ids": ["265b7c64-7839-41e8-bdb0-fe4d028f9fd6"]
+        },
+        {
+          "label": "israel-aid",
+          "ids": ["470f9ee2-3632-4ae8-9759-eddc4359116f"]
+        }
+      ]
+    },
+    {
+      "editionId": "7d99b279-cb6a-4cf0-b0a2-d94c5645f0b7",
+      "windowStart": "2026-11-04T15:00:00.000Z",
+      "windowEnd": "2026-11-05T15:00:00.000Z",
+      "topicId": "00000000-0000-4000-8000-000000000014",
+      "policy": {
+        "excludeAny": ["sponsored", "promo code", "horoscope", "gift guide"],
+        "includeAny": []
+      },
+      "eligibleScoreCount": 126,
+      "scores": [
+        {
+          "id": "cc5cb509-d338-43b8-a5c5-4264b1db11a9",
+          "event": "US midterm results Democratic sweep",
+          "rationale": "Major national election outcome; Trump blames Iran war",
+          "relevance": 10,
+          "importance": 9
+        },
+        {
+          "id": "d6580108-ca59-4c2f-ac63-c2167679eee2",
+          "event": "Democrats sweep midterms, win Congress",
+          "rationale": "Major setback for Trump; Democrats regain Congress control",
+          "relevance": 10,
+          "importance": 8
+        },
+        {
+          "id": "1186edb7-b403-41fa-b8c0-1af91ebbb9c7",
+          "event": "Possible renewed US strikes on Iran",
+          "rationale": "Tehran prepares deterrence plan; resumption uncertain",
+          "relevance": 9,
+          "importance": 8
+        },
+        {
+          "id": "16de8b00-c4f2-48e6-b480-b9ee1eef5d7e",
+          "event": "Trump-endorsed Republicans lose dozens of races",
+          "rationale": "Guardian analysis of Trump endorsement losses in midterms",
+          "relevance": 9,
+          "importance": 8
+        },
+        {
+          "id": "4964ff05-f777-4efc-a54a-c23055e5d4cf",
+          "event": "Democratic Congress to constrain Trump foreign policy",
+          "rationale": "Analysis of congressional constraints on Iran, tariffs, Ukraine",
+          "relevance": 9,
+          "importance": 8
+        },
+        {
+          "id": "56eb0f80-981f-493d-bfba-b487fa330b56",
+          "event": "Trump accepts 2026 midterm results",
+          "rationale": "Trump accepts midterm outcome after interference concerns",
+          "relevance": 9,
+          "importance": 8
+        },
+        {
+          "id": "6005548f-50bd-4ad7-b269-49150ada3b22",
+          "event": "Tankers catch fire in Strait of Hormuz",
+          "rationale": "IRGC reports fires amid Iran war shipping risk",
+          "relevance": 9,
+          "importance": 8
+        },
+        {
+          "id": "7bb539a3-0424-48b6-864b-2fce69818d86",
+          "event": "Democratic progressive wins in 2026 midterms",
+          "rationale": "Midterm results; progressive gains and party unity push",
+          "relevance": 9,
+          "importance": 8
+        },
+        {
+          "id": "c2b8e74d-6fce-44cf-a050-c2ee6fadf41d",
+          "event": "Mississippi Senate race too close to call",
+          "rationale": "Close US Senate race with Democratic upset possible",
+          "relevance": 9,
+          "importance": 8
+        },
+        {
+          "id": "cfd43155-12b1-4ee0-bcac-22de4d13b88e",
+          "event": "Trump accepts US midterm election results",
+          "rationale": "Major outcome of midterms; Democrats sweep",
+          "relevance": 9,
+          "importance": 8
+        },
+        {
+          "id": "e9be4428-64cd-4442-ba12-16bf1c6c5c38",
+          "event": "GOP distancing from Iran war after midterm rout",
+          "rationale": "US war politics and congressional response after midterms",
+          "relevance": 9,
+          "importance": 8
+        },
+        {
+          "id": "f9e0c2e5-d5fa-44e1-99bb-b0815dc6031a",
+          "event": "Russian strike on Zaporizhia kills 40",
+          "rationale": "Death toll rises; dozens may remain under rubble",
+          "relevance": 8,
+          "importance": 8
+        },
+        {
+          "id": "2739944e-c03b-4af8-8c1f-3ebbf9366a09",
+          "event": "WHO approves Bundibugyo Ebola vaccine trials",
+          "rationale": "Trials approved as outbreak has killed over 5,300",
+          "relevance": 6,
+          "importance": 8
+        },
+        {
+          "id": "d9edda9f-640c-4f4e-801e-9ea21e5c5e1c",
+          "event": "Key moments of Democratic midterm sweep",
+          "rationale": "Recap of Democrats taking both chambers",
+          "relevance": 10,
+          "importance": 7
+        },
+        {
+          "id": "5fe437c3-a0ee-4ad1-b2b8-325f3e3666d3",
+          "event": "Vance blames Iran war for GOP election loss",
+          "rationale": "Vice-president's sharp critique of Trump's war policy",
+          "relevance": 9,
+          "importance": 7
+        },
+        {
+          "id": "7e1834c1-2742-4031-a15e-801dc59050cf",
+          "event": "Biggest winners and losers of 2026 midterms",
+          "rationale": "Summary of major midterm outcomes and firsts",
+          "relevance": 9,
+          "importance": 7
+        },
+        {
+          "id": "8269cecd-aa66-409e-8348-42346bde49ae",
+          "event": "France nationwide strike and street protests",
+          "rationale": "Mass union strike and protests across French cities",
+          "relevance": 9,
+          "importance": 7
+        },
+        {
+          "id": "a65f2b2d-3cec-492f-8049-6ffe8497a302",
+          "event": "US midterm Democratic victory",
+          "rationale": "Congressional leaders react to major election result",
+          "relevance": 9,
+          "importance": 7
+        },
+        {
+          "id": "b91ba542-1dda-4a33-9372-8e3636a274d5",
+          "event": "Joint List backs Eisenkot for Israeli government",
+          "rationale": "Record Arab-party seats; coalition-formation development",
+          "relevance": 9,
+          "importance": 7
+        },
+        {
+          "id": "e88048f6-397c-44d0-95ea-6cf1a3d5ea4c",
+          "event": "Susan Collins loses Maine Senate seat",
+          "rationale": "Three-decade senator defeated by Troy Jackson",
+          "relevance": 9,
+          "importance": 7
+        },
+        {
+          "id": "0b6566fd-f0b0-4ebf-8102-d7ef0b287a29",
+          "event": "Bodycam video of Russian double-tap strike",
+          "rationale": "Ukraine says video shows deadly bombing; at least 40 killed",
+          "relevance": 8,
+          "importance": 7
+        },
+        {
+          "id": "1f059fb5-d3d1-4750-b30e-d3bccb3f12eb",
+          "event": "Herzog accepts results, opens government talks",
+          "rationale": "Israeli president moves to form government after election",
+          "relevance": 8,
+          "importance": 7
+        },
+        {
+          "id": "bea29aac-0ee9-4383-be30-3260e072ad45",
+          "event": "Hubert Aiwanger found dead in Berlin",
+          "rationale": "Prominent German politician's death under investigation",
+          "relevance": 8,
+          "importance": 7
+        },
+        {
+          "id": "dd43122f-156b-4ffc-b636-cd2b2132779b",
+          "event": "Democrats gain state legislative seats nationwide",
+          "rationale": "State-level midterm gains; major policy implications",
+          "relevance": 8,
+          "importance": 7
+        },
+        {
+          "id": "f5042a18-a769-4f36-af6b-215cf4005091",
+          "event": "South Korea expands naval unit near Hormuz",
+          "rationale": "Seoul to seek approval to extend anti-piracy operations",
+          "relevance": 8,
+          "importance": 7
+        },
+        {
+          "id": "189922c5-3c95-45bb-9813-62466614bb1f",
+          "event": "Russell Brand convicted of rape and sexual assault",
+          "rationale": "Jury verdict at London court; major criminal case",
+          "relevance": 7,
+          "importance": 7
+        },
+        {
+          "id": "42e91312-aad5-40be-a405-83f29aa8a961",
+          "event": "Lula wins Brazil runoff over Flávio Bolsonaro",
+          "rationale": "Major Brazil presidential runoff outcome; elderly voter turnout",
+          "relevance": 7,
+          "importance": 7
+        },
+        {
+          "id": "5d793eb5-9f96-4c6c-b03f-d724f9fb866a",
+          "event": "Joshua Wong sentenced to 10 years in Hong Kong",
+          "rationale": "Prominent democracy activist jailed under national security law",
+          "relevance": 7,
+          "importance": 7
+        },
+        {
+          "id": "891c3691-7f7d-499a-88e1-d5711dc8b99d",
+          "event": "Joshua Wong sentenced to 10 years in Hong Kong",
+          "rationale": "Prominent democracy activist jailed under national security law",
+          "relevance": 7,
+          "importance": 7
+        },
+        {
+          "id": "1d6c6184-eaed-4d72-a9a2-7921fdc74df4",
+          "event": "Guardian editorial on midterm landslide",
+          "rationale": "Editorial view on Republican rout and democracy",
+          "relevance": 9,
+          "importance": 6
+        },
+        {
+          "id": "29aa46d9-1dcd-4172-ac06-82d4f990cbce",
+          "event": "Trump blames Iran war for midterm losses",
+          "rationale": "President links war to Republican electoral setbacks",
+          "relevance": 9,
+          "importance": 6
+        },
+        {
+          "id": "2ef7936c-3e91-4fa0-922c-293a628bbefa",
+          "event": "Israel restricts Gaza child amputee treatment",
+          "rationale": "Travel and evacuation limits block medical care; NGO-sourced",
+          "relevance": 9,
+          "importance": 6
+        },
+        {
+          "id": "63490a25-5b7d-4ce4-a65d-e34bf473a464",
+          "event": "Democrats' Congress agenda after midterm wins",
+          "rationale": "Analysis of obstacles to curbing Trump policies",
+          "relevance": 9,
+          "importance": 6
+        },
+        {
+          "id": "7496b79d-b7c0-43ce-888f-0e2578834805",
+          "event": "Trump seeks to overturn hush money conviction",
+          "rationale": "Appeal filing against criminal verdict",
+          "relevance": 9,
+          "importance": 6
+        },
+        {
+          "id": "8a81c0d4-9e8e-4f61-a521-c9c822d3ba1d",
+          "event": "Democrats' limits in Congress under Trump",
+          "rationale": "Explains legislative power and Trump veto constraints",
+          "relevance": 9,
+          "importance": 6
+        },
+        {
+          "id": "8cf8becc-fce8-4bfc-9a24-a7a8a5e3aaae",
+          "event": "Undecided US midterm races",
+          "rationale": "Several toss-up races still being counted",
+          "relevance": 9,
+          "importance": 6
+        },
+        {
+          "id": "9b434d79-6cf9-46d6-ab65-762c54dc2604",
+          "event": "UK-Caribbean reparations dialogue agreed",
+          "rationale": "Commonwealth summit consensus; PM claim, government terms unclear",
+          "relevance": 9,
+          "importance": 6
+        },
+        {
+          "id": "cedcd690-96ff-46bf-8fa2-191e78bf80b1",
+          "event": "Hegseth may take blame for GOP losses",
+          "rationale": "Pentagon chief under pressure over Iran war fallout",
+          "relevance": 9,
+          "importance": 6
+        },
+        {
+          "id": "f1d07f2a-9259-4a26-a8c8-0a0db409d106",
+          "event": "Villegas ousts Republican Valadao",
+          "rationale": "Incumbent defeated in redrawn California district",
+          "relevance": 9,
+          "importance": 6
+        },
+        {
+          "id": "01b3e222-1f12-44c2-a2f1-477123ed42c7",
+          "event": "Mississippi and Alaska Senate counts delayed",
+          "rationale": "Close Senate races pending, ranked-choice in Alaska",
+          "relevance": 8,
+          "importance": 6
+        }
+      ],
+      "candidates": [
+        {
+          "id": "cc5cb509-d338-43b8-a5c5-4264b1db11a9",
+          "title": "US midterm election results live: Trump blames Iran war after losses",
+          "url": "https://www.aljazeera.com/news/liveblog/2026/11/4/us-midterm-election-results-live-trump-reacts-as-more-results-awaited?traffic_source=rss",
+          "excerpt": "A Democratic romp has rocked the US political landscape, but several closely contested races remain too close to call.",
+          "publishedAt": "2026-11-04T21:00:00.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "d6580108-ca59-4c2f-ac63-c2167679eee2",
+          "title": "Democrats’ triumph deals devastating blow to Trump - The Latest",
+          "url": "https://www.theguardian.com/news/video/2026/nov/04/democrats-triumph-deals-devastating-blow-to-trump-the-latest",
+          "excerpt": "Democrats have won a historic sweep in the US midterm elections, winning back control of Congress in a major setback for Donald Trump. Senate seats went blue in traditional Republican strongholds such as Texas, South Carolina and Kansas, where the Democrats had their first win since 1932. Voters have sent a strong message of discontent to the Trump administration over the economy, the cost of living and rising gas prices. Trump is now a lame-duck president for the rest of his term. Lucy Hough speaks to our Washington editor, Ankita Rao Continue reading...",
+          "publishedAt": "2026-11-04T18:37:24.000Z",
+          "sources": ["The Guardian US"],
+          "points": 0
+        },
+        {
+          "id": "1186edb7-b403-41fa-b8c0-1af91ebbb9c7",
+          "title": "Will the US resume its attacks on Iran?",
+          "url": "https://www.aljazeera.com/video/inside-story/2026/11/4/will-the-us-resume-its-attacks-on-iran?traffic_source=rss",
+          "excerpt": "Tehran says it's ready with a maximum deterrence plan.",
+          "publishedAt": "2026-11-04T20:25:50.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "16de8b00-c4f2-48e6-b480-b9ee1eef5d7e",
+          "title": "Trump-backed Republicans lose dozens of US midterm races, raising questions over his influence",
+          "url": "https://www.theguardian.com/us-news/2026/nov/05/trump-endorsed-republicans-lose-midterm-election-races",
+          "excerpt": "Guardian analysis shows how tumbling approval ratings may have hurt candidates backed by US president Track live results from all 50 states Send us your questions about the US midterms results and Democrats’ ‘blue wave’ Dozens of Republican candidates directly endorsed by Donald Trump lost their US midterm election races, according to analysis by the Guardian, raising questions over the power of the president’s support. In past elections, Trump’s endorsements have been coveted. In the final stages of this year’s campaign, he actively urged voters to act as though he were on the ballot. Continu",
+          "publishedAt": "2026-11-05T07:00:57.000Z",
+          "sources": ["The Guardian US"],
+          "points": 0
+        },
+        {
+          "id": "4964ff05-f777-4efc-a54a-c23055e5d4cf",
+          "title": "A Democratic-controlled Congress will likely try to constrain Trump’s foreign adventures",
+          "url": "https://www.theguardian.com/us-news/2026/nov/05/democrats-trump-foreign-policy-analysis",
+          "excerpt": "But the president still has veto power, which he can wield to dictate policy over tariffs, the war in Iran or aid for Ukraine In a rare occurrence, a US election may have actually been decided by foreign policy. Donald Trump ’s war in Iran and international tariffs are seen as playing a key role in the inflationary pressures that drove so many Americans to vote against his party on Tuesday in what has been described as a “generational wipeout” for the Republicans . And in the coming months, the president is going to face severe headwinds on those policies as Democrats storm back into control o",
+          "publishedAt": "2026-11-05T07:00:57.000Z",
+          "sources": ["The Guardian US", "The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "56eb0f80-981f-493d-bfba-b487fa330b56",
+          "title": "Trump accepts midterm results as system holds up against election interference efforts",
+          "url": "https://www.theguardian.com/us-news/2026/nov/05/trump-election-interference-midterm-results",
+          "excerpt": "Administration had waged aggressive bid to sow doubt about midterms results but worst fears were not realized In the months leading up to the midterm elections, Donald Trump’s administration waged an aggressive effort to sow doubt about the results, intimidate voters and election officials, and signal they would use the power of the federal government to challenge the electoral process. But when the results came in Tuesday night, revealing a massive blowout for the GOP, Trump did something almost unprecedented: he accepted the results. Trump said he was “absolutely willing” to accept the outco",
+          "publishedAt": "2026-11-05T09:00:01.000Z",
+          "sources": ["The Guardian US", "The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "6005548f-50bd-4ad7-b269-49150ada3b22",
+          "title": "Iran war live: IRGC says two oil tankers and tugboat caught fire in Hormuz",
+          "url": "https://www.aljazeera.com/news/liveblog/2026/11/5/iran-war-live-trump-admits-war-caused-election-loss-but-had-to-do-it?traffic_source=rss",
+          "excerpt": "Iran's IRGC says two tankers and a tugboat caught fire in the Strait of Hormuz after using an \"unauthorised route\".",
+          "publishedAt": "2026-11-05T00:00:00.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "7bb539a3-0424-48b6-864b-2fce69818d86",
+          "title": "Progressives hail ‘blue wave’ victories in US midterm elections as top Democrats push for unity",
+          "url": "https://www.theguardian.com/us-news/2026/nov/05/progressives-democrats-midterm-elections",
+          "excerpt": "Senior leaders say party will be ‘united’ in focus, but progressives call on party to take radical action Progressive Democrats have declared that significant US midterm election wins across the country are as much a repudiation of their own party’s political establishment as of Donald Trump’s presidency. After a string of left-wing candidates scored stunning victories from Texas to Michigan, senior Democratic leaders have stressed the party’s new representatives in Washington will be “united” in their focus on reducing costs for Americans and ending corruption under Trump. Continue reading...",
+          "publishedAt": "2026-11-05T11:00:22.000Z",
+          "sources": ["The Guardian US"],
+          "points": 0
+        },
+        {
+          "id": "c2b8e74d-6fce-44cf-a050-c2ee6fadf41d",
+          "title": "US elections 2026 live: Democrats flip four more House seats as Republicans look for blame in brutal midterms losses",
+          "url": "https://www.theguardian.com/us-news/live/2026/nov/05/midterm-elections-live-latest-updates-mississippi-senate-race",
+          "excerpt": "Democrats widen gap in House chamber by flipping more seats; Ted Cruz call the US midterms election a ‘Watergate-level repudiation’ Live results | How do you feel about the results? Sign up for Breaking News US email Election night brought a series of dramatic developments, unexpected results and closely contested races across the US. We have put together this video capturing the key moments and offering a quick overview of one of the most important nights in US politics: The Senate race in Mississippi has become one of the most closely watched contests in the midterms, with Republican incumbe",
+          "publishedAt": "2026-11-05T05:40:58.000Z",
+          "sources": ["The Guardian US", "The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "cfd43155-12b1-4ee0-bcac-22de4d13b88e",
+          "title": "Trump accepts election results as Republicans face midterm reckoning | First Thing",
+          "url": "https://www.theguardian.com/us-news/2026/nov/05/first-thing-trump-accepts-midterm-election-results",
+          "excerpt": "Criticism of US-Israel war on Iran seen as huge factor in Democrats’ sweeping victory. Plus, a spiky customer steps into a North Carolina bagel store Don’t already get First Thing in your inbox? Sign up here Good morning. Donald Trump has accepted the results of the US midterm elections as the system held up against attempts at election interference. His administration had waged an aggressive effort to sow doubt about the results in advance, but the worst fears have not been realized. “It was essentially too big to rig,” an unnamed Trump adviser told CNN, after Democrats swept into power acros",
+          "publishedAt": "2026-11-05T12:35:11.000Z",
+          "sources": ["The Guardian US", "The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "e9be4428-64cd-4442-ba12-16bf1c6c5c38",
+          "title": "Congress defeat: How Trump’s allies are distancing themselves from Iran war",
+          "url": "https://www.aljazeera.com/news/2026/11/5/congress-defeat-how-trumps-allies-are-distancing-themselves-from-iran-war?traffic_source=rss",
+          "excerpt": "US Vice President JD Vance blames the war for the midterm rout as Democrats prepare to use Congress to rein it in.",
+          "publishedAt": "2026-11-05T10:24:14.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "f9e0c2e5-d5fa-44e1-99bb-b0815dc6031a",
+          "title": "Ukraine raises death toll from Russian strike on Zaporizhia to 40 people",
+          "url": "https://www.aljazeera.com/news/2026/11/4/ukraine-raises-death-toll-from-russian-strike-on-zaporizhia-to-40-people?traffic_source=rss",
+          "excerpt": "Dozens may still be under the rubble in Komyshuvakha. Rescue efforts ongoing despite interruptions by Russian drones.",
+          "publishedAt": "2026-11-04T20:31:56.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "2739944e-c03b-4af8-8c1f-3ebbf9366a09",
+          "title": "WHO approves trials for two new Ebola vaccines",
+          "url": "https://www.aljazeera.com/news/2026/11/4/who-approves-trials-for-two-new-ebola-vaccines?traffic_source=rss",
+          "excerpt": "Two new vaccines were designed for the Bundibugyo virus that has killed more than 5,300 in the DR Congo.",
+          "publishedAt": "2026-11-04T19:22:09.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "d9edda9f-640c-4f4e-801e-9ea21e5c5e1c",
+          "title": "Key moments as Democrats sweep to victories in US midterms",
+          "url": "https://www.aljazeera.com/video/newsfeed/2026/11/4/key-moments-as-democrats-sweep-to-victories-in-us-midterms?traffic_source=rss",
+          "excerpt": "Democrats have been celebrating across the US after a series of victories saw them take control of both chambers.",
+          "publishedAt": "2026-11-04T18:13:01.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "5fe437c3-a0ee-4ad1-b2b8-325f3e3666d3",
+          "title": "Vance walks Trump tightrope with scathing election critique blaming Iran war",
+          "url": "https://www.bbc.co.uk/news/articles/crz98zqkz7z0o?at_campaign=rss&at_medium=RSS",
+          "excerpt": "The vice-president's blunt assessment of Republican election defeat marked one of the sharpest breaks with a sitting president in recent memory.",
+          "publishedAt": "2026-11-05T03:47:56.000Z",
+          "sources": ["BBC World"],
+          "points": 0
+        },
+        {
+          "id": "7e1834c1-2742-4031-a15e-801dc59050cf",
+          "title": "The biggest winners and losers of the 2026 US midterms",
+          "url": "https://www.aljazeera.com/news/2026/11/4/the-biggest-winners-and-losers-of-the-2026-us-midterms?traffic_source=rss",
+          "excerpt": "Historic firsts, surprise victories and expensive defeats as Democrats take control of Congress.",
+          "publishedAt": "2026-11-04T18:52:25.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "8269cecd-aa66-409e-8348-42346bde49ae",
+          "title": "Protesters join street demonstrations across France on day of strike action",
+          "url": "https://www.theguardian.com/world/2026/nov/05/protesters-france-march-strikes-education-cost-of-living",
+          "excerpt": "Hundreds of thousands take part in largely peaceful rallies as 70,000 police officers deployed Hundreds of thousands of people have marched in cities across France in the latest round of street demonstrations, as trade unions put pressure on the government with a general strike over the cost of living and cuts to public services. Striking teachers, hospital staff and rail workers joined high school and university students in largely peaceful demonstrations in Paris and other cities on Thursday amid a high police presence of 70,000 officers. The government estimated that at least 600,000 people",
+          "publishedAt": "2026-11-05T05:00:54.000Z",
+          "sources": ["The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "a65f2b2d-3cec-492f-8049-6ffe8497a302",
+          "title": "Democrat leaders hail midterm election success",
+          "url": "https://www.aljazeera.com/video/newsfeed/2026/11/4/aje-onl-nf_democrat-leaders-hail-midterm-election-success-041126?traffic_source=rss",
+          "excerpt": "The top Democrats in the two chambers of US Congress have been hailing their party’s resounding victory in the midterms.",
+          "publishedAt": "2026-11-04T20:50:31.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "b91ba542-1dda-4a33-9372-8e3636a274d5",
+          "title": "Joint List says it will back Eisenkot to form Israel’s next government",
+          "url": "https://www.aljazeera.com/news/2026/11/5/joint-list-says-it-will-back-eisenkot-to-form-israels-next-government?traffic_source=rss",
+          "excerpt": "Arab-led parties won a record 19 seats in Israel's 120-seat parliament in last week's general election.",
+          "publishedAt": "2026-11-05T14:15:52.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "e88048f6-397c-44d0-95ea-6cf1a3d5ea4c",
+          "title": "What the downfall of near three-decade senator Susan Collins says about Republican unpopularity",
+          "url": "https://www.theguardian.com/us-news/2026/nov/04/susan-collins-senate-defeat-troy-jackson",
+          "excerpt": "Troy Jackson, in just 101 days, bested the Republican, preventing her sixth Senate term: ‘You can’t eat road salt’ US midterms 2026 live – latest updates Send us your questions about the US midterms results and Democrats’ ‘blue wave’ Track live results from all 50 states The political demise of Susan Collins – a fixture of Maine and Washington politics for three decades – recalls the famous line in Ernest Hemingway’s The Sun Also Rises about how one of the novel’s characters experienced bankruptcy: gradually, then suddenly. In the run-up to Tuesday’s stunning Democrat “blue wave” election triu",
+          "publishedAt": "2026-11-04T20:00:42.000Z",
+          "sources": ["The Guardian US"],
+          "points": 0
+        },
+        {
+          "id": "0b6566fd-f0b0-4ebf-8102-d7ef0b287a29",
+          "title": "Ukraine says bodycam video shows deadly Russian double-tap bombing",
+          "url": "https://www.bbc.co.uk/news/articles/c98rz6penv86o?at_campaign=rss&at_medium=RSS",
+          "excerpt": "At least 40 people were killed and another 30 may still be under the rubble after Monday's attack on a Ukrainian village, Kyiv says.",
+          "publishedAt": "2026-11-04T17:45:58.000Z",
+          "sources": ["BBC World"],
+          "points": 0
+        },
+        {
+          "id": "1f059fb5-d3d1-4750-b30e-d3bccb3f12eb",
+          "title": "Israel’s Herzog accepts vote results, opens talks on forming a government",
+          "url": "https://www.aljazeera.com/news/2026/11/5/israels-herzog-accepts-vote-results-opens-talks-on-forming-a-government?traffic_source=rss",
+          "excerpt": "Move deals blow to Netanyahu's efforts to discredit the elections, in which he and his allies lost their majority.",
+          "publishedAt": "2026-11-05T01:53:30.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "bea29aac-0ee9-4383-be30-3260e072ad45",
+          "title": "Hubert Aiwanger, prominent German politician, found dead in Berlin hotel",
+          "url": "https://www.theguardian.com/world/2026/nov/05/hubert-aiwanger-dead-german-politician-berlin-hotel",
+          "excerpt": "Police and prosecutors open investigation into death of the 55-year-old Bavarian state deputy leader A prominent German politician was found dead in a Berlin hotel on Wednesday, police said, adding they had launched an investigation. The cause of death of Hubert Aiwanger, 55, who was deputy leader of southern Bavaria state, was not immediately clear. Continue reading...",
+          "publishedAt": "2026-11-05T00:53:19.000Z",
+          "sources": ["The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "dd43122f-156b-4ffc-b636-cd2b2132779b",
+          "title": "Not just Congress: Democrats’ blue wave washes over state legislatures across US",
+          "url": "https://www.theguardian.com/us-news/2026/nov/05/democrats-state-legislatures-midterm-elections",
+          "excerpt": "Democrats gain hundreds of seats in historic victories – and party set to embark on aggressive legislative spree The blue wave that swept Republicans out of power across the United States didn’t just strike Congress. In Tuesday’s midterm elections , Democrats gained hundreds of seats in state legislatures across the country, under-the-radar victories that may have major implications for life in America. Though ballots are still being counted, the party’s success appears to be historic – Democrats haven’t won full control of government in Arizona in 60 years, in Pennsylvania since the 1990s, an",
+          "publishedAt": "2026-11-05T10:00:05.000Z",
+          "sources": ["The Guardian US", "The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "f5042a18-a769-4f36-af6b-215cf4005091",
+          "title": "South Korea says it will expand naval operations closer to strait of Hormuz",
+          "url": "https://www.theguardian.com/world/2026/nov/05/south-korea-to-expand-anti-piracy-unit-strait-of-hormuz",
+          "excerpt": "Seoul to seek parliamentary approval to extend anti-piracy Cheonghae unit’s area to about 650km from the vital strait after criticism from Donald Trump on Iran war support South Korea plans to expand the operations ⁠of its anti-piracy unit to waters closer to the strait of Hormuz, its defence ministry has said, after pressure from Donald Trump to ⁠provide support for his war in Iran. The government is to submit a motion to parliament that would expand the Cheonghae unit’s area of operation to waters near the port of Duqm in Oman, which ​is about 650km (403 miles) away from the strait. The moti",
+          "publishedAt": "2026-11-05T04:22:49.000Z",
+          "sources": ["The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "189922c5-3c95-45bb-9813-62466614bb1f",
+          "title": "Russell Brand found guilty of rape and sexual assault by UK court",
+          "url": "https://www.aljazeera.com/news/2026/11/5/russell-brand-found-guilty-of-rape-and-sexual-assault-by-uk-court?traffic_source=rss",
+          "excerpt": "British comedian was convicted by jury at London court of one count of rape and three counts of sexual assault.",
+          "publishedAt": "2026-11-05T14:43:09.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "42e91312-aad5-40be-a405-83f29aa8a961",
+          "title": "How elderly ‘unsung heroes’ powered Lula’s historic fightback in Brazil",
+          "url": "https://www.theguardian.com/world/2026/nov/05/unsung-heroes-behind-lula-surprise-election-triumph-brazil-runoff-bolsonaro",
+          "excerpt": "Older voters praised for helping tip balance in leftwing president’s favour against far-right Flávio Bolsonaro in runoff It had been nearly a decade since Celia de Oliveira Soares last voted, and months since the 101-year-old great-grandmother last left her home. But on 25 October, when Brazil held what many considered its most important presidential election in decades, relatives helped Soares into a wheelchair and drove her to a nearby school to make sure the far-right candidate, Flávio Bolsonaro, did not prevail. Continue reading...",
+          "publishedAt": "2026-11-05T11:00:21.000Z",
+          "sources": ["The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "5d793eb5-9f96-4c6c-b03f-d724f9fb866a",
+          "title": "Hong Kong democracy activist Joshua Wong sentenced to 10 years in jail",
+          "url": "https://www.aljazeera.com/news/2026/11/5/hong-kong-democracy-activist-joshua-wong-sentenced-to-10-years-in-jail?traffic_source=rss",
+          "excerpt": "Wong, in prison since 2020, was found guilty of colluding with foreign entities in violation of national security law.",
+          "publishedAt": "2026-11-05T07:50:44.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "891c3691-7f7d-499a-88e1-d5711dc8b99d",
+          "title": "Hong Kong activist Joshua Wong sentenced to 10 years in prison",
+          "url": "https://www.npr.org/2026/11/05/g-s1-152032/hong-kong-activist-wong-sentenced",
+          "excerpt": "Wong was sentenced for his second conviction under a Beijing-imposed national security law, in a case that critics say reflects the crackdown on the city's once-thriving pro-democracy movement.",
+          "publishedAt": "2026-11-05T05:29:56.000Z",
+          "sources": ["NPR World"],
+          "points": 0
+        },
+        {
+          "id": "1d6c6184-eaed-4d72-a9a2-7921fdc74df4",
+          "title": "The Guardian view on the US midterms: joy for Democrats, a rout for Republicans and a reprieve for democracy | Editorial",
+          "url": "https://www.theguardian.com/commentisfree/2026/nov/04/the-guardian-view-on-the-us-midterms-joy-for-democrats-a-rout-for-republicans-and-a-reprieve-for-democracy",
+          "excerpt": "Voters have delivered a damning verdict on Donald Trump’s presidency with this Congressional landslide Bitter experience made Democrats wary of believing that the blue wave predicted by polls would materialise. What arrived was not just victory but a rout: control of Congress and a Republican wipeout . It was an astounding humiliation for a president whose political brand is power. Donald Trump won it back in 2024 by promising voters lower prices and no foreign wars. He lost it by launching an illegal conflict that hit them in the pocket and imposing hefty tariffs too. He urged voters to prete",
+          "publishedAt": "2026-11-04T18:31:13.000Z",
+          "sources": ["The Guardian US"],
+          "points": 0
+        },
+        {
+          "id": "29aa46d9-1dcd-4172-ac06-82d4f990cbce",
+          "title": "Trump blames Iran war for midterms losses",
+          "url": "https://www.aljazeera.com/video/newsfeed/2026/11/4/trump-blames-iran-war-for-midterms-losses?traffic_source=rss",
+          "excerpt": "President Donald Trump said the war in Iran likely contributed to Republican setbacks in the midterm elections",
+          "publishedAt": "2026-11-04T23:30:01.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "2ef7936c-3e91-4fa0-922c-293a628bbefa",
+          "title": "Israel restricting treatment for 1,100 child amputees in Gaza: NGO",
+          "url": "https://www.aljazeera.com/news/2026/11/4/israel-restricting-treatment-for-1100-child-amputees-in-gaza-ngo?traffic_source=rss",
+          "excerpt": "Israeli restrictions on travel and medical evacuations prevent children in Gaza from being treated abroad.",
+          "publishedAt": "2026-11-04T21:13:56.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "63490a25-5b7d-4ce4-a65d-e34bf473a464",
+          "title": "Democrats won Congress. But can they deliver on their promises?",
+          "url": "https://www.aljazeera.com/news/2026/11/5/democrats-won-congress-but-can-they-deliver-on-their-promises?traffic_source=rss",
+          "excerpt": "Despite their midterm election victories, Democrats face major obstacles to reining in Trump on Iran, tariffs and more.",
+          "publishedAt": "2026-11-05T00:25:43.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "7496b79d-b7c0-43ce-888f-0e2578834805",
+          "title": "Trump tries to get 2024 conviction in hush-money corruption case thrown out",
+          "url": "https://www.theguardian.com/us-news/2026/nov/05/trump-2024-conviction-hush-money",
+          "excerpt": "President’s lawyers will ask appeals court to toss criminal trial verdict over $130,000 sent to Stormy Daniels Donald Trump’s legal team on Thursday plan to continue efforts to get his 2024 conviction in the hush-money election corruption case thrown out. Attorneys for the US president will try to persuade a New York appeals court to toss the criminal trial verdict from May 2024, when Trump was found guilty on all charges of falsifying business records in the hush-money corruption scheme to influence his eventual victory in the 2016 presidential election . Continue reading...",
+          "publishedAt": "2026-11-05T13:43:42.000Z",
+          "sources": ["The Guardian US"],
+          "points": 0
+        },
+        {
+          "id": "8a81c0d4-9e8e-4f61-a521-c9c822d3ba1d",
+          "title": "What Democrats can and can't do with their new power after taking Congress",
+          "url": "https://www.bbc.co.uk/news/articles/cq1kdgnn2xdeo?at_campaign=rss&at_medium=RSS",
+          "excerpt": "Democrats can vote legislation through. But Trump still has veto power.",
+          "publishedAt": "2026-11-04T18:01:27.000Z",
+          "sources": ["BBC World"],
+          "points": 0
+        },
+        {
+          "id": "8cf8becc-fce8-4bfc-9a24-a7a8a5e3aaae",
+          "title": "US midterms 2026: What key races remain undecided?",
+          "url": "https://www.aljazeera.com/news/2026/11/4/us-midterms-2026-what-key-races-remain-undecided?traffic_source=rss",
+          "excerpt": "Ballots continue to be counted in states like Alaska, Mississippi, Kansas and California for toss-up races.",
+          "publishedAt": "2026-11-04T19:18:47.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        },
+        {
+          "id": "9b434d79-6cf9-46d6-ab65-762c54dc2604",
+          "title": "UK and Caribbean to begin ‘dialogue’ within next year after slavery reparations call",
+          "url": "https://www.theguardian.com/world/2026/nov/04/debt-relief-aid-no-replacement-slavery-reparations-uk-told-caribbean",
+          "excerpt": "Antigua and Barbuda’s prime minister says there was a consensus at Commonwealth summit on way forward The UK has agreed to “structured dialogue” in the next year with Caribbean nations affected by the slave trade and its legacy, Commonwealth leaders have said. Gaston Browne, Antigua and Barbuda’s prime minister, said there was a “consensus” in discussions between governments about a way forward on slavery reparations at the Commonwealth heads of government meeting (Chogm). Continue reading...",
+          "publishedAt": "2026-11-04T21:10:55.000Z",
+          "sources": ["The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "cedcd690-96ff-46bf-8fa2-191e78bf80b1",
+          "title": "Pete Hegseth may take fall for Republicans’ midterm losses, despite Trump support",
+          "url": "https://www.theguardian.com/us-news/2026/nov/04/pete-hegseth-republicans-midterm-losses",
+          "excerpt": "JD Vance calls Iran war into question as Thomas Massie files eight articles of impeachment US midterms 2026 live – latest updates Send us your questions about the US midterms results and Democrats’ ‘blue wave’ Pete Hegseth is increasingly looking like he may take the fall for Republicans’ midterm losses, despite Donald Trump’s vocal support for his defense secretary, even calling him a champion of war. The war in Iran, which voters and Trump have named as a key reason for Republicans’ midterm losses, “has been primarily a Department of War-led effort because you chose to take military action t",
+          "publishedAt": "2026-11-05T00:41:00.000Z",
+          "sources": ["The Guardian US", "The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "f1d07f2a-9259-4a26-a8c8-0a0db409d106",
+          "title": "California progressive Randy Villegas ousts longtime Republican in redrawn House district",
+          "url": "https://www.theguardian.com/us-news/2026/nov/04/california-22nd-district-house-midterms",
+          "excerpt": "Community college professor unseats incumbent Republican David Valadao in seat redrawn under Prop 50 Send us your questions about the midterm results Track live results from all 50 states Democrat Randy Villegas, a community college professor with notable progressive endorsements, has won the race for California ’s 22nd congressional district in an contest that shaped up to be one of the toughest political battles in the state. He unseated the six-term, incumbent Republican congressman, David Valadao, in a district that was considered the only true toss-up across the state of California after ",
+          "publishedAt": "2026-11-04T18:47:56.000Z",
+          "sources": ["The Guardian US", "The Guardian World"],
+          "points": 0
+        },
+        {
+          "id": "01b3e222-1f12-44c2-a2f1-477123ed42c7",
+          "title": "What’s delaying the US Senate election results in Mississippi and Alaska?",
+          "url": "https://www.aljazeera.com/news/2026/11/5/whats-delaying-us-midterm-election-calls-in-mississippi-and-alaska?traffic_source=rss",
+          "excerpt": "Ranked-choice voting may decide Alaska's Senate outcome, while Mississippi's race hangs on a knife's edge.",
+          "publishedAt": "2026-11-05T03:13:08.000Z",
+          "sources": ["Al Jazeera"],
+          "points": 0
+        }
+      ],
+      "publishedStories": [
+        {
+          "id": "cfd43155-12b1-4ee0-bcac-22de4d13b88e",
+          "title": "Trump accepts US midterm results as Democrats sweep into power",
+          "coverageIds": [
+            "cfd43155-12b1-4ee0-bcac-22de4d13b88e",
+            "7bb539a3-0424-48b6-864b-2fce69818d86",
+            "56eb0f80-981f-493d-bfba-b487fa330b56",
+            "16de8b00-c4f2-48e6-b480-b9ee1eef5d7e",
+            "4964ff05-f777-4efc-a54a-c23055e5d4cf",
+            "c2b8e74d-6fce-44cf-a050-c2ee6fadf41d",
+            "cc5cb509-d338-43b8-a5c5-4264b1db11a9",
+            "d6580108-ca59-4c2f-ac63-c2167679eee2"
+          ]
+        },
+        {
+          "id": "6005548f-50bd-4ad7-b269-49150ada3b22",
+          "title": "IRGC says two tankers and a tugboat caught fire in Strait of Hormuz",
+          "coverageIds": ["6005548f-50bd-4ad7-b269-49150ada3b22"]
+        }
+      ],
+      "reviewedStories": [
+        {
+          "label": "election",
+          "ids": [
+            "cc5cb509-d338-43b8-a5c5-4264b1db11a9",
+            "d6580108-ca59-4c2f-ac63-c2167679eee2",
+            "16de8b00-c4f2-48e6-b480-b9ee1eef5d7e",
+            "4964ff05-f777-4efc-a54a-c23055e5d4cf",
+            "56eb0f80-981f-493d-bfba-b487fa330b56",
+            "7bb539a3-0424-48b6-864b-2fce69818d86",
+            "c2b8e74d-6fce-44cf-a050-c2ee6fadf41d",
+            "cfd43155-12b1-4ee0-bcac-22de4d13b88e",
+            "e9be4428-64cd-4442-ba12-16bf1c6c5c38",
+            "d9edda9f-640c-4f4e-801e-9ea21e5c5e1c",
+            "5fe437c3-a0ee-4ad1-b2b8-325f3e3666d3",
+            "7e1834c1-2742-4031-a15e-801dc59050cf",
+            "a65f2b2d-3cec-492f-8049-6ffe8497a302",
+            "e88048f6-397c-44d0-95ea-6cf1a3d5ea4c",
+            "dd43122f-156b-4ffc-b636-cd2b2132779b",
+            "1d6c6184-eaed-4d72-a9a2-7921fdc74df4",
+            "29aa46d9-1dcd-4172-ac06-82d4f990cbce",
+            "63490a25-5b7d-4ce4-a65d-e34bf473a464",
+            "8a81c0d4-9e8e-4f61-a521-c9c822d3ba1d",
+            "8cf8becc-fce8-4bfc-9a24-a7a8a5e3aaae",
+            "cedcd690-96ff-46bf-8fa2-191e78bf80b1",
+            "f1d07f2a-9259-4a26-a8c8-0a0db409d106",
+            "01b3e222-1f12-44c2-a2f1-477123ed42c7"
+          ]
+        },
+        {
+          "label": "hormuz",
+          "ids": [
+            "1186edb7-b403-41fa-b8c0-1af91ebbb9c7",
+            "6005548f-50bd-4ad7-b269-49150ada3b22",
+            "f5042a18-a769-4f36-af6b-215cf4005091"
+          ]
+        },
+        {
+          "label": "ukraine",
+          "ids": [
+            "f9e0c2e5-d5fa-44e1-99bb-b0815dc6031a",
+            "0b6566fd-f0b0-4ebf-8102-d7ef0b287a29"
+          ]
+        },
+        {
+          "label": "ebola",
+          "ids": ["2739944e-c03b-4af8-8c1f-3ebbf9366a09"]
+        },
+        {
+          "label": "france",
+          "ids": ["8269cecd-aa66-409e-8348-42346bde49ae"]
+        },
+        {
+          "label": "israel-government",
+          "ids": [
+            "b91ba542-1dda-4a33-9372-8e3636a274d5",
+            "1f059fb5-d3d1-4750-b30e-d3bccb3f12eb"
+          ]
+        },
+        {
+          "label": "germany",
+          "ids": ["bea29aac-0ee9-4383-be30-3260e072ad45"]
+        },
+        {
+          "label": "brand",
+          "ids": ["189922c5-3c95-45bb-9813-62466614bb1f"]
+        },
+        {
+          "label": "brazil",
+          "ids": ["42e91312-aad5-40be-a405-83f29aa8a961"]
+        },
+        {
+          "label": "wong",
+          "ids": [
+            "5d793eb5-9f96-4c6c-b03f-d724f9fb866a",
+            "891c3691-7f7d-499a-88e1-d5711dc8b99d"
+          ]
+        },
+        {
+          "label": "gaza-treatment",
+          "ids": ["2ef7936c-3e91-4fa0-922c-293a628bbefa"]
+        },
+        {
+          "label": "hush-money",
+          "ids": ["7496b79d-b7c0-43ce-888f-0e2578834805"]
+        },
+        {
+          "label": "reparations",
+          "ids": ["9b434d79-6cf9-46d6-ab65-762c54dc2604"]
+        }
+      ]
+    }
+  ],
+  "reviewNote": "Agent-labelled conservative same-story buckets, not model responses or a quality estimate. All US midterm outcomes/reactions grouped broadly; Hormuz follow-ups grouped broadly. Labels are offline evidence only."
+}

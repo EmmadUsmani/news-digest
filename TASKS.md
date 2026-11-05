@@ -36,6 +36,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] World story-pool evidence (868): offline reviewed-label replay supports forty articles before grouping: Nov 5 2→13 stories (ten editor inputs), Nov 4 1→7. Production unchanged; actual model replay/all-topic budget gate and fix remain next. [Evidence](docs/edition-reviews/2026-11-05-world-story-pool.md).
+
 - [x] Scheduled speed comparison (867): retained Nov 5 allowlisted call-usage fixture; measured purpose spans and remaining article-free latency bound, no runtime changes.
 
 - [x] X round preflight (866): reject invalid 24-hour windows, premature starts and duplicate/blank topics before reservations or provider requests; mocked subprocess coverage.
