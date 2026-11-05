@@ -87,6 +87,9 @@ async function smoke() {
         unexpectedWrites.pop(),
         'POST /api/admin/status/unexpected-write-probe',
       );
+      await page
+        .getByText('Edition and management controls', { exact: true })
+        .click();
       await page.getByText('Source & run status', { exact: true }).click();
       await page
         .getByRole('heading', { name: 'Recent edition runs', exact: true })
@@ -111,9 +114,7 @@ async function smoke() {
       );
       assert.equal(
         await page.locator('.status-grid article').count(),
-        status.sources.length +
-          status.queues.length +
-          (status.coverage?.topics.length ?? 0),
+        status.queues.length + (status.coverage?.topics.length ?? 0),
       );
       await page
         .getByRole('button', { name: 'Refresh status', exact: true })
@@ -155,59 +156,7 @@ async function smoke() {
         path: `docs/screenshots/status-social-${name}.png`,
         fullPage: false,
       });
-      const xUsage = page.getByRole('region', {
-        name: 'X discovery usage',
-        exact: true,
-      });
-      await xUsage
-        .getByRole('heading', { name: 'X discovery usage', exact: true })
-        .waitFor();
-      assert.equal(status.xDiscovery.dailyMicros, 400000);
-      assert.equal(status.xDiscovery.monthlyMicros, 12000000);
-      await xUsage
-        .getByText(
-          'Paid X discovery is scheduled 5–30 minutes before the edition',
-          {
-            exact: false,
-          },
-        )
-        .waitFor();
-      await xUsage.scrollIntoViewIfNeeded();
-      await page.screenshot({
-        path: `docs/screenshots/status-x-usage-${name}.png`,
-        fullPage: false,
-      });
-      const usagePanel = page.getByRole('region', {
-        name: 'AI usage',
-        exact: true,
-      });
-      await usagePanel
-        .getByRole('heading', { name: 'AI usage', exact: true })
-        .waitFor();
-      assert.ok(status.llm.monthlyCapMicros <= 14000000);
-      assert.ok(
-        status.llm.todayMicros >= 0,
-        'Daily usage must remain valid even before any paid calls',
-      );
-      await usagePanel
-        .getByText('This month (UTC):', { exact: false })
-        .waitFor();
-      assert.ok(status.llm.modelAllocation);
-      assert.ok(
-        status.llm.modelAllocation.dailyCapMicros <= status.llm.dailyCapMicros,
-      );
-      await usagePanel.getByText('Final editor (', { exact: false }).waitFor();
-      await usagePanel.scrollIntoViewIfNeeded();
-      await page.screenshot({
-        path: `docs/screenshots/status-usage-${name}.png`,
-        fullPage: false,
-      });
-      assert.equal(
-        await page.evaluate(
-          () => document.documentElement.scrollWidth <= innerWidth,
-        ),
-        true,
-      );
+      // Spending panels moved to smoke-admin-spend.ts.
       await page.route('**/api/admin/status', (route) =>
         route.request().method() === 'GET'
           ? route.fulfill({ status: 503, body: 'Unavailable' })
@@ -225,9 +174,7 @@ async function smoke() {
         .waitFor();
       assert.equal(
         await page.locator('.status-grid article').count(),
-        status.sources.length +
-          status.queues.length +
-          (status.coverage?.topics.length ?? 0),
+        status.queues.length + (status.coverage?.topics.length ?? 0),
       );
       await page
         .getByRole('alert')
@@ -254,9 +201,7 @@ async function smoke() {
       );
       assert.equal(
         await page.locator('.status-grid article').count(),
-        status.sources.length +
-          status.queues.length +
-          (status.coverage?.topics.length ?? 0),
+        status.queues.length + (status.coverage?.topics.length ?? 0),
       );
       const edition = page.locator('.run-list a').first();
       if (await edition.count()) {
@@ -311,24 +256,25 @@ async function smoke() {
     );
     await replayAdminPage(page);
     await page.goto('http://127.0.0.1:8000/admin');
+    await page
+      .getByText('Edition and management controls', { exact: true })
+      .click();
     await page.getByText('Source & run status', { exact: true }).click();
     await page
       .getByText('Missed run: more than six hours late', { exact: false })
       .waitFor();
     for (const text of [
-      'Collection failed',
-      'Collection overdue',
-      'Paused · no enabled topics',
       'No worker connected',
       'Queue unavailable',
       'Queue paused',
     ])
       await page.getByText(text, { exact: true }).waitFor();
+    await page.goto('http://127.0.0.1:8000/admin/spend');
     await page
       .getByText('X prepaid credits depleted.', { exact: false })
       .waitFor();
     await page
-      .getByText('Provider spend limit reached. Calls stopped until', {
+      .getByText('Provider limit reached until', {
         exact: false,
       })
       .waitFor();

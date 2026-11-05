@@ -1,22 +1,3 @@
-## 2026-11-05: iteration 866 — preflight paid X experiment rounds
-
-- Started clean on main; no leftover work. Alerts clear, database/Redis healthy, 36 sources healthy and zero failed digest jobs. X rounds remain gated until 21:00 UTC; UI rollout still awaits identity/proxy evidence.
-- Found that the runner accepted 48-hour windows and repeated topic IDs even though round reporting rejects those inputs as valid coverage. It now rejects non-24-hour, future or timezone-ambiguous windows, starts before 21:00 UTC, and duplicate/blank topics before creating state or reserving funds.
-- Mocked subprocess tests cover those refusals with no dispatch/journal, plus successful eight-cell settlement, reservation overrun and interrupted-round continuation. Corrected the old success fixture's accidental 48-hour window; no provider calls or production ingestion.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (503 unit/218 isolated integration passed); pnpm build; git diff --check.
-- Archived iteration 852; updated TASKS and experiment reference. CLI-only change; services remain active, no restart under STEERING 22. Handbook, SOURCES, schema metadata, screenshots and NEEDS_FROM_HUMAN unchanged.
-- Next: fresh-window X rounds after 21:00 UTC Nov 5/6; saved comparison still checks cross-round non-overlap. Nov 6 scheduled editor-v5 evidence and admin identity/proxy rollout remain open.
-
-## 2026-11-05: iteration 867 — compare scheduled inference work across days
-
-- Started clean on main; no leftover work. Alerts clear, database/Redis healthy, 36 healthy sources and zero failed digest-generation jobs. X rounds remain time-gated; admin rollout needs identity/proxy evidence.
-- Retained Nov 5's 46 allowlisted call-usage records, without prompts, responses, headers or fingerprints, for existing offline token tooling. Journal-derived purpose spans show social triage through 148.890 s and Bluesky editing through 152.264 s.
-- HTTP work grew 8.7% versus Nov 4 while elapsed time grew 0.5%. Combined triage consumes 63.8% of HTTP work/77.3% of output tokens. Removing all article triage still leaves an optimistic 70.404 s four-slot bound; no output-limit stops or missing usage.
-- Interval reconstruction shows one apparent five-call overlap for 1 ms, consistent with timestamp/duration precision rather than sustained extra concurrency. Kept four slots, candidate pools, prompts and settings unchanged; no paid calls.
-- Verification: offline fixture evaluator plus assertions confirmed 46 calls/550600 HTTP ms/118758 output tokens, complete usage and zero HTTP failures/truncations; pnpm format; pnpm lint:fix; pnpm check (503 unit/218 isolated integration passed); pnpm build; git diff --check.
-- Updated concurrency review/TASKS; archived iteration 853. Evidence/docs-only change, no restart under STEERING 22; API/worker active and /healthz healthy. Handbook, SOURCES, schema metadata and screenshots unchanged.
-- Initial push rejected because owner added STEERING 36; fetched/merged without history rewrite. Corrected stale identity blockers from that instruction. Next: story-limit fix/replay first, then UI building and coverage cleanup; X rounds after 21:00 UTC Nov 5/6.
-
 ## 2026-11-05: iteration 868 — size the World grouping pool from saved editions
 
 - Started clean on main; no leftover work. Alerts clear, database/Redis healthy, API/worker active; latest live edition still serves all four topics and real posts.
@@ -135,3 +116,15 @@
 - Initial browser script needed an async wrapper for the repo's CommonJS config; corrected. Operations page exceeded its line cap by one; condensed before rerunning.
 - API restarted for built web; worker unchanged. Final alerts clear; 36 sources/no errors, saved edition four topics and no failed queues. Overview regression and both schedule browser suites passed; retained updated captures. No paid calls, source/schema changes or saved-data writes; SOURCES and NEEDS_FROM_HUMAN unchanged.
 - Next: dedicated Editions/creation/inspector, Topics and Spend; finish Sources controls and Overview cost/alerts. X rounds after 21:00 UTC Nov 5/6; Nov 6 editorial review.
+
+## 2026-11-05: iteration 879 — dedicated spending page
+
+- Started clean on main; no leftover work. Alerts clear, /healthz healthy, API/worker active; all 36 sources have no current error. X fresh-window rounds remain due after 21:00 UTC.
+- Owner-visible value: AI/X costs, caps and the scheduled edition reserve now have a directly linked Spend page instead of being buried in legacy status controls.
+- Added protected /admin/spend with shared desktop/mobile navigation, UTC daily/monthly tables, outstanding holds, availability, provider stops, reserve/last result, purpose/model totals and Grafana Product link. Removed duplicate legacy usage panels.
+- Individual recent-call rows remain open; this ships the budget/reserve portion of the approved Spend page. No API, source, schema, access or budget changes; no paid calls or saved-data writes. SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Browser: smoke-admin-spend passed all four viewport/theme combinations, live totals, anonymous denial, reload, mobile navigation, refresh failure/recovery and no overflow/writes/browser credentials. Four captures retained in docs/screenshots/ui; desktop light/mobile dark visually inspected.
+- Migrated smoke-ai-spend and smoke-reserve-status to Spend; both passed, including synthetic protected/released reserve states and unchanged saved edition. Migrated legacy status/X-copy checks away from replaced panels; both passed alongside admin gate and Overview regression. Updated status captures.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (505 unit/218 isolated integration passed); pnpm build; final web build; targeted ESLint/Prettier; git diff --check. Handbook Operations check passed (18 pages, two unchanged diagrams, 28 assigned tables). Archived iterations 866–867 and trimmed old completed TASKS markers.
+- Initial typecheck caught an unsupported Button variant; fixed. Browser caught mobile table sizing; fixed and rerun. Final restart browser attempt preceded API readiness; rerun after healthy /healthz passed. Handbook line cap corrected before recheck. Combined verification exited 143 during integration after 505 unit passes; standalone check rerun. Legacy scripts needed the existing controls toggle and removal of replaced source assertions.
+- API restarted for final built web; worker unchanged. Final alerts clear and health green. Next: dedicated Editions/creation/inspector and Topics, Sources management, Spend recent calls; X rounds after 21:00 UTC Nov 5/6 and Nov 6 edition review.

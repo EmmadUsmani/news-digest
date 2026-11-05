@@ -29,15 +29,12 @@ async function main() {
         route.fulfill({ json: status }),
       );
       await replayAdminPage(page);
-      await page.goto('http://127.0.0.1:8000/admin');
-      await page.getByText('Source & run status', { exact: true }).click();
-      const coverage = page.getByRole('region', {
-        name: 'AI spend by purpose',
-        exact: true,
-      });
+      await page.goto('http://127.0.0.1:8000/admin/spend');
+      const coverage = page
+        .getByRole('heading', { name: 'AI spend by purpose', exact: true })
+        .locator('..');
       await coverage.waitFor();
       const text = await coverage.innerText();
-      assert.match(text, /Older development calls/);
       assert.match(text, /Development verification/);
       for (const row of status.llm.purposes) {
         assert.ok(

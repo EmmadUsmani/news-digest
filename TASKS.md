@@ -17,7 +17,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - [ ] STEERING 16 / M4 Social posts: Nov 5 X picks Tech/NBA/Gaming/World 3/5/5/1; all four topics present, no Bluesky picks. Saved X metrics empty: viral/outside-list quality acceptance remains open. Paid old open-search picks 1/19 (Tech); no claim that all-topic presence proves paid discovery quality.
 - [ ] STEERING 9/15 first-week report: Nov 5 $0.143191/19 fetched/18 new verified outside-list posts; World $0.032663/3, Gaming $0.038724/5, NBA $0.035104/5, Tech $0.036700/5. Prior Nov 3 $0.137056/18, Nov 4 $0.149447/19. Four topics weakest-first, $0.10 per-topic hold, unchanged $0.40/day/$12/month cap. [Sources](docs/SOURCES.md).
 - [ ] STEERING 18 Bluesky: authenticated hourly collection and session refresh verified (788); Nov 5 no selected posts. Quality/diversity acceptance remains open; World phrase shortlist empty. Cross-platform context/semantic gates shipped. [Sources](docs/SOURCES.md#sustained-bluesky-session-recovery--iteration-788-2026-11-05).
-- [ ] STEERING 33 UI rebuild: exactly [approved spec](docs/ui-spec.md), five steps in order. Foundations and step 2 admin gate complete: operational APIs moved, legacy routes removed, tools gated, scripts migrated. Reader makes no admin reads; shared navigation/Tools (875) and compact Overview (876) shipped; legacy controls load only when expanded at `/admin`. Schedule page shipped (878). Sources collection table shipped (877); topic links, window counts, enable/Add feed controls remain. Overview alert count and edition cost remain, then other dedicated management pages.
+- [ ] STEERING 33 UI rebuild: exactly [approved spec](docs/ui-spec.md), five steps in order. Foundations and step 2 admin gate complete: operational APIs moved, legacy routes removed, tools gated, scripts migrated. Reader makes no admin reads; shared navigation/Tools (875) and compact Overview (876) shipped; legacy controls load only when expanded at `/admin`. Schedule page shipped (878); Spend budgets/reserve/purpose/model tables shipped (879), individual recent calls remain. Sources collection table shipped (877); topic links, window counts, enable/Add feed controls remain. Overview alert count and edition cost remain, then other dedicated management pages.
   - Next: step 3 dedicated admin pages with shadcn, then final reader. Private rollout authorized by STEERING 36; forged-header proxy check is required before any future public access. [Access decision](docs/decisions/2026-11-05-admin-access.md).
 - [ ] STEERING 28 incremental triage OFF: default-off runtime, shared admission, reserve-safe scoring, exact pools/cutoffs and sibling draining verified. Reassessed after full-AI acceptance (865): Nov 6 morning allowance $0.021736–$0.028915; only 2/65 early fingerprints compatible in post-publication pool. Keep OFF; do not reduce protection. Actual waste/latency unmeasured. [Assessment](docs/edition-reviews/2026-11-05-incremental-admission.md).
 
@@ -37,14 +37,6 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Dedicated Schedule (878): protected page with next run and daily time/timezone/window/default-budget form; removed legacy duplicate; replayed save/failure and four viewport/theme checks.
-
-- [x] Sources collection page (877): dedicated protected route, health/timestamps/errors/counts table, platform rows, four viewport/theme checks; replaced legacy source cards removed. Feed management/window counts remain open.
-
-- [x] Compact Overview (876): health/spend cards, latest edition with story/post modes and duration, source issues and next runs; legacy controls lazy-load below it. Monitoring alerts link out; inline alert count and edition cost remain.
-
-- [x] Admin shell + Tools (875): shared sidebar/mobile sheet, protected tool cards, old admin hero removed.
-
-- [x] Admin gate rollout (874): operational APIs/tools protected together; reader/admin controls separated; local scripts use protected paths.
+- [x] Spend budget page (879): dedicated protected AI/X caps, holds, reserve and purpose/model totals; duplicate legacy panels removed. Individual recent calls remain open.
 
 - Next: X fresh-window rounds after 21:00 UTC Nov 5/6; scheduled editor-v5 evidence Nov 6. UI step 3 dedicated admin pages next; proxy check required before future public access.

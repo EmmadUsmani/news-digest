@@ -2,8 +2,8 @@
 
 ## URLs
 
-Reader: `/`. Management: `/admin`, with Overview, Sources, Schedule and Tools navigation (mobile menu).
-`/admin/tools` opens six protected tools in new tabs. APIs use `/api/admin/*`;
+Reader: `/`. Management: `/admin`, with Overview, Sources, Schedule, Spend and Tools navigation (mobile menu).
+`/admin/spend`: caps, holds, reserve and usage. `/admin/tools`: six protected tools. APIs use `/api/admin/*`;
 old API paths return 404. `/admin`, its APIs and every tool below require
 [admin identity](01-stack-and-runtime.md#admin-identity). `/api/me` reports access.
 Local scripts read `ADMIN_LOCAL_TOKEN` from the private env file and send it only

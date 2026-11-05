@@ -57,24 +57,11 @@ async function main() {
       });
       await replayAdminPage(page);
       await page.goto('http://127.0.0.1:8000/admin');
+      await page
+        .getByText('Edition and management controls', { exact: true })
+        .click();
       await page.getByText('Source & run status', { exact: true }).click();
-      const usage = page.getByRole('region', {
-        name: 'X discovery usage',
-        exact: true,
-      });
-      await usage
-        .getByText(
-          'Paid X discovery is scheduled 5–30 minutes before the edition',
-          { exact: false },
-        )
-        .waitFor();
-      assert.ok(
-        (await usage.innerText()).includes('without account restrictions'),
-      );
-      await usage.scrollIntoViewIfNeeded();
-      await page.screenshot({
-        path: `docs/screenshots/status-x-schedule-${name}.png`,
-      });
+      // Budget figures now live on /admin/spend; covered by smoke-admin-spend.
       await page.getByText('Manage topics', { exact: true }).click();
       await page
         .getByRole('button', { name: 'Edit Tech & AI', exact: true })

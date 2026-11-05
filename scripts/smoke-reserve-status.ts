@@ -45,15 +45,16 @@ async function main() {
         return route.fulfill({ json: live });
       });
       await replayAdminPage(page);
-      await page.goto('http://127.0.0.1:8000/admin');
-      await page.getByText('Source & run status', { exact: true }).click();
-      const panel = page.getByRole('region', {
-        name: 'Scheduled AI budget',
-        exact: true,
-      });
+      await page.goto('http://127.0.0.1:8000/admin/spend');
+      const panel = page
+        .getByRole('heading', {
+          name: 'Scheduled edition reserve',
+          exact: true,
+        })
+        .locator('..');
       await panel
         .getByText(
-          `Protection ${live.llm.scheduledReserve.enabled ? 'enabled' : 'disabled'}.`,
+          `Protection ${live.llm.scheduledReserve.enabled ? 'enabled' : 'disabled'}`,
           { exact: false },
         )
         .waitFor();
@@ -79,11 +80,11 @@ async function main() {
         return route.fulfill({ json: synthetic });
       });
       await page
-        .getByRole('button', { name: 'Refresh status', exact: true })
+        .getByRole('button', { name: 'Refresh spend', exact: true })
         .click();
       await panel
         .getByText(
-          'AI budget reserved for the scheduled edition limits manual and development runs.',
+          'The scheduled edition reserve limits manual and development runs.',
           { exact: true },
         )
         .waitFor();
@@ -101,7 +102,7 @@ async function main() {
       synthetic.llm.scheduledReserve.reserveMicros = 0;
       synthetic.llm.scheduledReserve.limitedByReserve = false;
       await page
-        .getByRole('button', { name: 'Refresh status', exact: true })
+        .getByRole('button', { name: 'Refresh spend', exact: true })
         .click();
       await panel
         .getByText('Synthetic reserve smoke fallback reason.', { exact: false })
@@ -109,7 +110,7 @@ async function main() {
       assert.equal(
         await panel
           .getByText(
-            'AI budget reserved for the scheduled edition limits manual and development runs.',
+            'The scheduled edition reserve limits manual and development runs.',
             { exact: true },
           )
           .count(),
