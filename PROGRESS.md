@@ -1,25 +1,3 @@
-## 2026-11-05: iteration 886 — revised X free-link overlap review
-
-- Started clean on main; no leftover work. Alerts clear, health/database/Redis healthy; API, worker, docs and schema services active.
-- Reviewed all 41 saved official embeds and joined settled candidates against the complete retained free-link snapshot: 1,000 citation rows/863 unique IDs, zero matches. Old paid baseline 19 IDs/zero free matches; two semantic overlaps with it (Gaming outside window, World inside).
-- Tech semantic and keyword share no IDs. Other topics have no settled keyword cell; keyword-missed usable yield remains unknown. Two explicit Tech keyword giveaways survived `-giveaway`; NBA semantic includes three betting guides. No new wording rules or threshold changes.
-- Private reproducible runner, input hashes, joined evidence and existing reporter output saved (600); original files unchanged. Only free-link labels resolved; relevance/promotion/31 semantic likes remain unknown. No paid calls, ingestion, source changes or production activation.
-- Archived iterations 876–877. Updated dated review, SOURCES and TASKS; NEEDS_FROM_HUMAN/handbook unchanged. No runtime changes or restart under STEERING 22.
-- Verification: private overlap runner assertions passed; existing offline report accepted all five settled cells and retained unknown usable yields; pnpm format; pnpm lint:fix; pnpm build; git diff --check. pnpm check passed typecheck/lint/format/boundaries, 505 unit and 218 isolated integration tests.
-- Next: saved-candidate production social scoring under verification admission; Nov 6 fresh-window round after 21:00 UTC; scheduled editor-v5/grouping review takes priority when due. Topics UI while waiting.
-
-## 2026-11-05: iteration 887 — revised X candidates scored
-
-- Started clean on main; no leftover work. Owner would care: production social scores narrow paid X results toward worthwhile posts before the search decision.
-- Health/database/Redis green, four services active, alerts clear. Scored all 41 saved official embeds with production CandidateTriage/socialTriageCandidate and configured Haiku, supplied author/reported likes/media-link hints; unknown media contents/likes stayed unknown.
-- Four successful shared-admission verification calls cost $0.003782, run iteration-887-x-experiment; repairs disabled, zero unscored IDs. Saved private runner, exact candidate inputs/scores, ledger rows, joined evidence/report and hashes; originals preserved. No X calls, ingestion or edition writes.
-- Tech keyword relevance ≥6: 2/10, both in-window and interestingness ≥4; explicit giveaways 1/0 each. Semantic relevance ≥6/in-window/both gates: Tech 6/4/1, NBA 5/2/1, Gaming 6/3/2, World 7/4/1.
-- Promotion booleans remain unknown: production scorer has no separate promotion field, so no label inferred from rationale/score. All 31 semantic likes unknown; incomplete keyword cells prevent all-topic yield/winner. No activation, thresholds or runtime changes.
-- Updated TASKS, SOURCES and dated review; NEEDS_FROM_HUMAN/handbook unchanged. No restart under STEERING 22 (private analysis/docs only).
-- Verification: private assertions checked 41 scores, original fields unchanged, four settled verification rows/$0.003782 and mode 600; existing offline reporter accepted five scored cells.
-- Full pnpm check passed typecheck/lint/format/boundaries, 505 unit and 218 isolated integration tests; pnpm build passed; pnpm format, pnpm lint:fix, git diff --check. Final health/alerts green.
-- Next: promotion review and old-baseline comparison, Nov 6 fresh-window round after 21:00 UTC; scheduled editor-v5 review first when due. Dedicated Topics admin pages while waiting.
-
 ## 2026-11-05: iteration 888 — dedicated Topics management
 
 - Started clean on main; no leftover work. Owner would care: topic ordering, availability and budgets now have a dedicated admin page instead of requiring legacy controls.
@@ -136,3 +114,13 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check passed typecheck/lint/format/boundaries and 507 unit tests, then ended with signal 143 during integration without an assertion failure. Standalone pnpm test:integration passed all 220, including schema parity. pnpm build; smoke-admin-sources.ts; smoke-admin-separation.ts; check-handbook.ts 08-operations; git diff --check passed.
 - All four services restarted and active; /healthz database/Redis green, 36/36 feeds enabled/active with collection through 22:48 UTC; saved reader endpoint 200 and alerts clear.
 - Next: remaining topic discovery settings and final reader; Nov 6 scheduled edition/grouping review and fresh-window X round after 21:00 UTC. No X activation before decision.
+
+## 2026-11-05: iteration 898 — Dedicated Bluesky topic query
+
+- Started clean on main; no leftover work. Owner would care: change a topic's Bluesky discovery phrase without changing its news queries.
+- Added a 500-character query to the topic editor, protected settings contract and topic storage through generated migration 0005. Hourly discovery prefers it; blank preserves the existing news-query/include-phrase/topic-name fallback. Existing topics remain blank.
+- Offline unit coverage checks dedicated-query precedence and blank fallback; isolated HTTP coverage checks default, trim/save and overlength rejection. Browser writes intercepted; save/reload and four viewport/theme screenshots passed. Desktop light/mobile dark visually inspected; discarded unrelated separation/delete screenshots.
+- Private database backup succeeded before migration; migration applied and four services restarted. Updated TASKS, SOURCES, social/operations handbook and schema note; NEEDS_FROM_HUMAN unchanged. Archived iterations 886–887 to keep PROGRESS small. No paid calls or live topic setting changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check passed typecheck/lint/format/boundaries and 508 unit tests; initial integration 219/220 exposed new-column order mismatch, corrected schema order; pnpm test:integration rerun passed all 220 including parity; pnpm build; smoke-admin-topic-editor.ts; smoke-admin-separation.ts; check-handbook.ts 05-social-posts and 08-operations; git diff --check.
+- /healthz database/Redis green; saved reader endpoint 200; 36 sources collecting with recent successes. Existing observability shipper memory warning became firing; service active at about 76 MiB of 80 MiB ceiling, no app failure.
+- Next: X threshold/exclusion admin controls, then final reader; Nov 6 edition/grouping review and X fresh-window round after 21:00 UTC. No X activation before decision.

@@ -10,7 +10,13 @@ export async function collectBlueskyTopics(
   search: BlueskySearchPort,
   topics: Pick<
     Topic,
-    'id' | 'name' | 'enabled' | 'postBudget' | 'queries' | 'relevancePolicy'
+    | 'id'
+    | 'name'
+    | 'enabled'
+    | 'postBudget'
+    | 'queries'
+    | 'relevancePolicy'
+    | 'blueskyQuery'
   >[],
   now: () => Date = () => new Date(),
 ) {
@@ -21,7 +27,7 @@ export async function collectBlueskyTopics(
     .filter((t) => t.enabled && t.postBudget > 0)
     .slice(0, 4)) {
     const query = (
-      topic.queries.find((q) => q.trim()) ??
+      (topic.blueskyQuery?.trim() || topic.queries.find((q) => q.trim())) ??
       topic.relevancePolicy.includeAny[0] ??
       topic.name
     )

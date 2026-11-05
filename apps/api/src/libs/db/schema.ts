@@ -312,6 +312,7 @@ export const topics = pgTable(
       .default({ excludeAny: [], includeAny: [] })
       .notNull(),
     redditCommunities: jsonb('reddit_communities').default([]).notNull(),
+    blueskyQuery: text('bluesky_query').default('').notNull(),
   },
   (table) => [
     foreignKey({

@@ -79,3 +79,25 @@ void test('hourly collection stops the whole pass on search or storage failure w
     assert.equal(requests, 1);
   }
 });
+
+void test('dedicated Bluesky query overrides news queries and blank keeps the existing fallback', async () => {
+  const calls: string[] = [];
+  await collectBlueskyTopics(
+    repository,
+    {
+      async search(query) {
+        calls.push(query);
+        return [];
+      },
+    },
+    [
+      topic('dedicated', {
+        blueskyQuery: '  basketball highlights  ',
+        queries: ['news query'],
+      }),
+      topic('blank', { blueskyQuery: '  ', queries: ['news query'] }),
+    ],
+    now,
+  );
+  assert.deepEqual(calls, ['basketball highlights', 'news query']);
+});

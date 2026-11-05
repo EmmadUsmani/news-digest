@@ -57,6 +57,7 @@ export const topicSchema = z.object({
   queries: z.array(z.string()),
   accounts: z.array(z.string()),
   redditCommunities: redditCommunitiesSchema.default([]),
+  blueskyQuery: z.string().trim().max(500).optional(),
 });
 export type Topic = z.infer<typeof topicSchema>;
 export const contentGroupSchema = z.object({
@@ -428,6 +429,7 @@ export const topicUpdateSchema = topicSchema
   .extend({
     accounts: xAccountsSchema.optional(),
     redditCommunities: redditCommunitiesSchema.optional(),
+    blueskyQuery: z.string().trim().max(500).optional(),
     name: z.string().trim().min(1).max(120),
     description: z.string().trim().max(2000),
     includeGuidance: z.string().trim().max(2000),

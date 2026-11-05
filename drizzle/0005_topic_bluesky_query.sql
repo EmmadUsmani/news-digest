@@ -1,0 +1,1 @@
+ALTER TABLE "topics" ADD COLUMN "bluesky_query" text DEFAULT '' NOT NULL;

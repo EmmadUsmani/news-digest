@@ -94,7 +94,7 @@
   "tables": {
     "profiles": "The single owner profile. Everything hangs off it.",
     "digest_schedules": "When editions are generated (cron + timezone), the coverage window and default story/post budgets.",
-    "topics": "A digest section (Tech & AI, NBA, …): guidance, budgets, curated X accounts and relevance rules.",
+    "topics": "A digest section (Tech & AI, NBA, …): guidance, budgets, curated X accounts, a Bluesky search query and relevance rules.",
     "topic_source_connections": "Many-to-many: which sources feed which topic. Only connected sources are collected.",
     "content_sources": "An RSS/Atom feed or Hacker News, with its health (last success/error).",
     "content_items": "One article, deduplicated by canonical URL across all sources.",

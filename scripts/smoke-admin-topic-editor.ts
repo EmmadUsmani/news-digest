@@ -93,6 +93,9 @@ async function smoke() {
           .getByLabel('X accounts', { exact: true })
           .fill('@example\nexample_two');
         await page
+          .getByLabel('Bluesky query', { exact: true })
+          .fill('basketball highlights');
+        await page
           .getByLabel('Reddit communities', { exact: true })
           .fill('r/nba');
         await page
@@ -102,6 +105,7 @@ async function smoke() {
           .getByRole('status')
           .filter({ hasText: 'Topic saved.' })
           .waitFor();
+        assert.equal(writes[0].body.blueskyQuery, 'basketball highlights');
         assert.equal(writes[0].body.includeGuidance, 'Saved browser guidance');
         assert.deepEqual(writes[0].body.accounts, ['example', 'example_two']);
         assert.deepEqual(writes[0].body.redditCommunities, ['nba']);
@@ -122,6 +126,10 @@ async function smoke() {
             () => document.documentElement.scrollWidth > innerWidth,
           ),
           false,
+        );
+        assert.equal(
+          await page.getByLabel('Bluesky query', { exact: true }).inputValue(),
+          'basketball highlights',
         );
         await page.screenshot({
           path: `docs/screenshots/ui/admin-topic-editor-${device}-${theme}.png`,

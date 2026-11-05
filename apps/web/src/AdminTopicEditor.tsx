@@ -126,6 +126,7 @@ function TopicEditor({ topic }: { topic: Topic }) {
               includeAny: lines('includeAny'),
               excludeAny: lines('excludeAny'),
             },
+            blueskyQuery: String(data.get('blueskyQuery') ?? ''),
             accounts: lines('accounts').map((value) => value.replace(/^@/, '')),
             redditCommunities: lines('redditCommunities').map((value) =>
               value.replace(/^r\//i, ''),
@@ -267,6 +268,20 @@ function TopicEditor({ topic }: { topic: Topic }) {
               support secondary searches within shared spending caps. Scheduled
               X search is off pending the experiment decision; saving does not
               start a search.
+            </p>
+            <label className="grid gap-1 text-sm">
+              Bluesky query
+              <Textarea
+                aria-label="Bluesky query"
+                name="blueskyQuery"
+                maxLength={500}
+                defaultValue={topic.blueskyQuery ?? ''}
+              />
+            </label>
+            <p className="m-0 text-sm text-[var(--secondary)]">
+              Used by hourly discovery. Leave blank to use the first news query,
+              then the first include phrase, then the topic name. Saving does
+              not start a search.
             </p>
             <label className="grid gap-1 text-sm">
               Reddit communities

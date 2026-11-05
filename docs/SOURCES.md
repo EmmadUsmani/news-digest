@@ -2016,3 +2016,11 @@ verification calls cost $0.003782. Tech keyword has two in-window posts meeting
 relevance/interestingness gates; both explicit giveaways scored 1/0. Promotion
 labels and semantic likes remain unknown. No source/runtime change; see the
 [scoring review](edition-reviews/2026-11-05-x-experiment-review.md#saved-candidate-social-triage--iteration-887).
+
+## Dedicated Bluesky topic query — iteration 898 (2026-11-05)
+
+The topic editor now saves a separate Bluesky search query (up to 500
+characters). Hourly discovery uses it before news queries; blank retains the
+existing first-news-query, first-include-phrase, then topic-name fallback.
+Existing topics retain blank values. No live search phrases or collection
+volumes changed, and saving never starts a search.

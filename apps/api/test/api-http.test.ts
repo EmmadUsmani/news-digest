@@ -81,6 +81,18 @@ void test('real HTTP health, topic lifecycle and settings preserve persisted con
     createdId = created.id;
     assert.equal(created.position, original.length);
     assert.deepEqual(created.accounts, input.accounts);
+    assert.equal(created.blueskyQuery, '');
+    const blueskySaved = topicSchema.parse(
+      await request(`${topicsPath}/${created.id}`, 200, 'PUT', {
+        ...input,
+        blueskyQuery: '  science discoveries  ',
+      }),
+    );
+    assert.equal(blueskySaved.blueskyQuery, 'science discoveries');
+    await request(`${topicsPath}/${created.id}`, 400, 'PUT', {
+      ...input,
+      blueskyQuery: 'x'.repeat(501),
+    });
     assert.deepEqual(created.redditCommunities, input.redditCommunities);
     assert.deepEqual(created.relevancePolicy, input.relevancePolicy);
     const updated = topicSchema.parse(
