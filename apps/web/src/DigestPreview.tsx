@@ -65,7 +65,7 @@ export function DigestPreview() {
       : '';
   const [busy, setBusy] = React.useState(false);
   const working = busy || jobId !== null;
-  const [error, setError] = React.useState(false);
+  const [error, setError] = React.useState('');
   const [offset, setOffset] = React.useState(0);
   const historyResult = useQuery(editionHistoryQuery(offset));
   const history = historyResult.data;
@@ -177,7 +177,7 @@ export function DigestPreview() {
     }
     setWindowError('');
     setBusy(true);
-    setError(false);
+    setError('');
     try {
       await refreshBudgetNotice();
       const response = await fetch('/api/digest-previews/jobs', {
@@ -195,14 +195,16 @@ export function DigestPreview() {
       setJobMessage('Edition queued. Waiting for the worker…');
       setJobId(job.id);
     } catch {
-      setError(true);
+      setError(
+        'Could not confirm whether your edition was queued. It may still be created. Check saved editions before trying again to avoid a duplicate run.',
+      );
     } finally {
       setBusy(false);
     }
   }
   async function openEdition(id?: string) {
     setBusy(true);
-    setError(false);
+    setError('');
     try {
       await queryClient.fetchQuery(editionQuery(id));
       void navigate(
@@ -211,7 +213,7 @@ export function DigestPreview() {
           : { to: '/', replace: true },
       );
     } catch {
-      setError(true);
+      setError('Could not load the edition. Please try again.');
     } finally {
       setBusy(false);
     }
@@ -393,11 +395,7 @@ export function DigestPreview() {
           </Button>
         </div>
       ) : null}
-      {error && (
-        <p role="alert">
-          The edition could not be loaded or created. Please try again.
-        </p>
-      )}
+      {error && <p role="alert">{error}</p>}
       {!preview && loaded && !error && !edition.isError && (
         <p>No edition yet. Create one from your collected articles.</p>
       )}

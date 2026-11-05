@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Edition request recovery (822): interrupted generation warns about a possibly queued run; desktop/mobile replay verifies reload does not resubmit.
+
 - [x] Topic creation recovery (821): interrupted creation warns about duplicates; desktop/mobile replay recovers one saved topic on reload without another POST.
 
 - [x] Topic settings recovery (820): interrupted saves explain possible completion; desktop/mobile lost-response replay recovers saved X accounts on reload without another write.

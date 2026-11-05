@@ -133,3 +133,13 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-topic-create.ts (final rerun); smoke-topic-accounts.ts; smoke-admin-gate.ts (also after restart); git diff --check. All pass: static checks, 497 unit and 214 isolated integration tests, build and browser replays. Initial replay-counter lint narrowing corrected before the successful full check.
 - Restarted API only; post-restart health/database/Redis, four-topic reader and admin gate pass; alerts clear. Worker unchanged. No paid calls or live settings writes. Archived progress 805–806; TASKS updated. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (recovery copy only; no new blocker).
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 822 — clarify uncertain edition generation requests
+
+- Started clean on main; no leftover work. Alerts clear, services and all 36 sources healthy; health/database/Redis pass, no failed digest jobs. Historical ingestion/social counters unchanged; next edition 15:00 UTC.
+- Generation submission errors now explain that a job may already be queued and advise checking saved editions before retrying to avoid duplicate runs. Edition loading errors have their own message.
+- Desktop/mobile browser replay interrupts the queue response, checks guidance and enabled controls, reloads without another POST, then verifies normal queue/poll/reconnect/completion/failure paths. All generation requests intercepted; protected full edition/topics/profile unchanged, no browser credentials or unexpected writes. Screenshots in docs/screenshots/ui/ inspected.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-edition-jobs.ts (final screenshot rerun); smoke-admin-gate.ts; git diff --check. Static checks, 497 unit and 214 isolated integration tests, build and browser replays pass.
+- Restarted API only for the rebuilt web bundle; post-restart health and reader four-topic content pass. Worker unchanged; no paid calls or live settings/generation writes.
+- TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (recovery copy only; no new blockers).
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

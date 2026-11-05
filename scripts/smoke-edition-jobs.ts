@@ -80,6 +80,7 @@ async function smoke() {
         return route.continue();
       });
       let submissions = 0;
+      let loseQueueResponse = true;
       let state = 'waiting';
       let disconnected = false;
       let invalidStatus: unknown = undefined;
@@ -89,6 +90,7 @@ async function smoke() {
       await context.route('**/api/digest-previews/jobs', async (route) => {
         assert.equal(route.request().method(), 'POST');
         submissions++;
+        if (loseQueueResponse) return route.abort('failed');
         await route.fulfill({ status: 202, json: { id: '123' } });
       });
       await context.route('**/api/digest-previews/jobs/123', async (route) => {
@@ -134,6 +136,34 @@ async function smoke() {
       );
       await create.click();
       await page
+        .getByRole('alert')
+        .filter({
+          hasText:
+            'Check saved editions before trying again to avoid a duplicate run.',
+        })
+        .waitFor();
+      assert.equal(submissions, 1);
+      assert.equal(await create.isEnabled(), true);
+      assert.equal(
+        await page.evaluate(() => sessionStorage.getItem('edition-job')),
+        null,
+      );
+      await page
+        .getByRole('alert')
+        .filter({
+          hasText: 'Could not confirm whether your edition was queued.',
+        })
+        .scrollIntoViewIfNeeded();
+      await page.screenshot({
+        path: `docs/screenshots/ui/edition-queue-interrupted-${name}.png`,
+        fullPage: false,
+      });
+      await page.reload();
+      await create.waitFor();
+      assert.equal(submissions, 1, 'Reload must not resubmit an uncertain job');
+      loseQueueResponse = false;
+      await create.click();
+      await page
         .getByRole('status')
         .filter({ hasText: 'Edition queued' })
         .waitFor();
@@ -157,7 +187,7 @@ async function smoke() {
         .getByRole('status')
         .filter({ hasText: 'triaging stories' })
         .waitFor();
-      assert.equal(submissions, 1);
+      assert.equal(submissions, 2);
       for (const [next, label] of [
         ['editing', 'editing stories'],
         ['posts', 'triaging and editing posts'],
@@ -198,7 +228,7 @@ async function smoke() {
           .getByRole('status')
           .filter({ hasText: 'Connection interrupted' })
           .waitFor();
-        assert.equal(submissions, 1);
+        assert.equal(submissions, 2);
         assert.equal(
           await page.evaluate(() => sessionStorage.getItem('edition-job')),
           '123',
@@ -235,7 +265,7 @@ async function smoke() {
         { timeout: 25000 },
       );
       assert.equal(stalledPolls, 1);
-      assert.equal(submissions, 1);
+      assert.equal(submissions, 2);
       assert.equal(
         await page.evaluate(() => sessionStorage.getItem('edition-job')),
         '123',
@@ -292,7 +322,7 @@ async function smoke() {
         .filter({ hasText: 'Edition generation failed' })
         .waitFor();
       assert.equal(await create.isEnabled(), true);
-      assert.equal(submissions, 2);
+      assert.equal(submissions, 3);
       assert.deepEqual(errors, []);
       assert.deepEqual(writes, []);
       assert.deepEqual(credentials, []);
@@ -316,7 +346,7 @@ async function smoke() {
     assert.deepEqual(await localAdminJson('/api/admin/topics'), topics);
     assert.deepEqual(await localAdminJson('/api/admin/profile'), profile);
     console.log(
-      'Async edition UI: desktop/mobile queue, active, reload, reconnect, malformed/mismatched status recovery, stalled-poll timeout, completion, saved story text and failure passed; protected operational snapshots; unexpected browser writes blocked and no browser credentials; full saved edition, topics and profile unchanged.',
+      'Async edition UI: desktop/mobile interrupted queue response without automatic resubmission, queue, active, reload, reconnect, malformed/mismatched status recovery, stalled-poll timeout, completion, saved story text and failure passed; protected operational snapshots; unexpected browser writes blocked and no browser credentials; full saved edition, topics and profile unchanged.',
     );
   } finally {
     await browser.close();
