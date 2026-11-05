@@ -1,8 +1,10 @@
-// Read-only live UI check; intercepted variants below are synthetic, never saved.
+// Protected live snapshot; intercepted variants below are synthetic, never saved.
 import assert from 'node:assert/strict';
 
 import { operationsStatusSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
+
+import { localAdminJson } from './lib/local-admin-fetch';
 
 async function main() {
   const browser = await chromium.launch({ headless: true });
@@ -14,12 +16,13 @@ async function main() {
       const page = await browser.newPage({ viewport: { width, height } });
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
-      const response = await page.request.get(
-        'http://localhost:8000/api/status',
+      const live = operationsStatusSchema.parse(
+        await localAdminJson('/api/admin/status'),
       );
-      assert.equal(response.status(), 200);
-      const live = operationsStatusSchema.parse(await response.json());
       assert.ok(live.llm.scheduledReserve);
+      await page.route('**/api/status', (route) =>
+        route.fulfill({ json: live }),
+      );
       await page.goto('http://localhost:8000');
       await page.getByText('Source & run status', { exact: true }).click();
       const panel = page.getByRole('region', {

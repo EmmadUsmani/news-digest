@@ -1,8 +1,10 @@
-// Read-only live page plus browser-only synthetic budget and job responses.
+// Protected live snapshot plus browser-only synthetic budget and job responses.
 import assert from 'node:assert/strict';
 
 import { operationsStatusSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
+
+import { localAdminJson } from './lib/local-admin-fetch';
 
 async function main() {
   const browser = await chromium.launch({ headless: true });
@@ -14,10 +16,12 @@ async function main() {
       const page = await browser.newPage({ viewport: { width, height } });
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
-      const response = await page.request.get(
-        'http://localhost:8000/api/status',
+      const live = operationsStatusSchema.parse(
+        await localAdminJson('/api/admin/status'),
       );
-      const live = operationsStatusSchema.parse(await response.json());
+      await page.route('**/api/status', (route) =>
+        route.fulfill({ json: live }),
+      );
       await page.goto('http://localhost:8000');
       await page
         .getByRole('button', {

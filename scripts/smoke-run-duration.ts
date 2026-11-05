@@ -1,6 +1,9 @@
 import assert from 'node:assert/strict';
 
+import { operationsStatusSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
+
+import { localAdminJson } from './lib/local-admin-fetch';
 
 async function smoke() {
   const browser = await chromium.launch({ headless: true });
@@ -12,15 +15,14 @@ async function smoke() {
       const page = await browser.newPage({ viewport: { width, height } });
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
-      const response = await page.request.get(
-        'http://localhost:8000/api/status',
+      const status = operationsStatusSchema.parse(
+        await localAdminJson('/api/admin/status'),
       );
-      assert.ok(response.ok());
-      const status = await response.json();
       // Replay queue telemetry only; never submit jobs or call inference.
       const queue = status.queues.find(
         (queue: { name: string }) => queue.name === 'digest-generation',
       );
+      assert.ok(queue);
       queue.runs = [
         {
           id: 'duration-smoke',
