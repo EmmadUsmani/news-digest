@@ -81,3 +81,14 @@ The migration runner applies historical SQL first, then generated migrations in
 journal order, under one transaction and lock. Both use the existing migration
 ledger; generated filenames have a `drizzle/` prefix. A failed run rolls back
 all its changes. The baseline makes no schema or content changes.
+
+## Admin identity
+
+- `GET /api/me` returns `{ isAdmin }` with caching disabled.
+- `/admin` and `/api/admin` paths return 404 unless `X-ExeDev-Email`
+  exactly matches an entry in the comma-separated `ADMIN_EMAILS` setting.
+- Direct VM scripts can send the `ADMIN_LOCAL_TOKEN` header, matching the
+  secret of the same name. This requires a loopback socket and no forwarding
+  headers; loopback alone grants no access. Missing settings deny access.
+- Existing operational endpoints and tools keep their current paths during
+  the migration. See the [access decision](../../decisions/2026-11-05-admin-access.md).

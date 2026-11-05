@@ -2,6 +2,7 @@ import 'reflect-metadata';
 
 import { NestFactory } from '@nestjs/core';
 
+import { adminAccess } from './admin-access';
 import { AppModule } from './app';
 import { internalTools, proxyInternalTools } from './internal-tools';
 import { startExternalMetrics } from './libs/observability/external-metrics';
@@ -33,6 +34,12 @@ async function bootstrap() {
   });
   app.use(requestLogging());
   app.use(httpMetrics(registry));
+  app.use(
+    adminAccess({
+      emails: process.env.ADMIN_EMAILS,
+      localToken: process.env.ADMIN_LOCAL_TOKEN,
+    }),
+  );
   // Registered before routes and static files: /docs/* and /db/* go to the tools.
   app.use(proxyInternalTools(internalTools));
   const queues = app.get(OperationsStatus).queues;

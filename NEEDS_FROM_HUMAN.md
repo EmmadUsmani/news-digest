@@ -26,3 +26,12 @@ caps. The [scheduled edition review](docs/edition-reviews/2026-11-04.md)
 found none of those discoveries selected and World still empty. Improve
 search quality within the existing authorization before considering new access. No unofficial data provider, scraping workaround or new
 paid verification is authorized or needed for that review.
+
+## Admin access rollout (2026-11-05, iteration 729)
+
+`ADMIN_EMAILS` and `ADMIN_LOCAL_TOKEN` are absent. The new reserved admin
+paths therefore deny access; existing reader and operational paths still work.
+Before migrating those operational paths, configure the owner's comma-separated
+admin email list in the private env file. No identity was guessed. Proxy origin
+and header replacement still need an authenticated check before public access;
+see [access decision](docs/decisions/2026-11-05-admin-access.md).

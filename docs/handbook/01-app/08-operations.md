@@ -1,10 +1,10 @@
 # Operations
 
-Saved editions use `/editions/<id>`; old `/?edition=<id>` links redirect there.
-
 ## URLs
 
-All of these are behind the exe.dev login.
+All of these are behind the exe.dev login. Reserved `/admin` and `/api/admin`
+paths also require [admin identity](01-stack-and-runtime.md#admin-identity);
+`/api/me` reports access. Current tools and Status keep the URLs below.
 
 | What               | URL                                                                                      |
 | ------------------ | ---------------------------------------------------------------------------------------- |

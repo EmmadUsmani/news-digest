@@ -1,22 +1,3 @@
-## 2026-11-04: iteration 715 — reproducible saved X response extraction
-
-- Started clean on main; no leftover work. Zero alerts, healthz/database/Redis green, reader HTTP 200, all 36 sources healthy, no failed retained digest jobs; next edition Nov 5 15:00 UTC.
-- Added an offline saved-round extractor: joins settled manifest, original requests/settings/responses and settlements; emits all cited posts, actual tool inputs and fetched usage for the existing reporter. Prose cannot add candidates; duplicate metrics and absent review labels stay unknown. No provider calls, ingestion, journal writes or production changes.
-- Replayed round 1: all 11 calls/47 posts exactly match original costs, fetched counts, tool calls and post fields. Saved private extracted-evidence-715.json (600); originals and retained Gaming hold untouched.
-- Verification: four targeted tests passed; pnpm format, pnpm lint:fix, pnpm check (475 unit; 213 integration cases reported success before exit 143, then clean isolated integration rerun), pnpm build, handbook validation and git diff --check passed. Initial lint caught four missing void test declarations; corrected before rerunning full check.
-- Updated TASKS and experiment reference. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no runtime/source change or new owner blocker. No restart under STEERING 22; running services do not import the offline extractor.
-- Next: second independent experiment day, then threshold calibration/model comparison under shared caps. Nov 5 grouping/NBA AI/cost/latency/screenshots take priority; production fixed A/B remains off.
-
-## 2026-11-04: iteration 716 — assess the cheaper X model candidate
-
-- Started clean on main; no leftover work. Zero alerts, healthz/database/Redis green, reader HTTP 200, all 36 sources healthy, no failed retained digest jobs; next edition Nov 5 15:00 UTC.
-- Checked official xAI model/pricing/tool docs and authenticated read-only GET /v1/models: grok-build-0.1 is listed/available at $1/$2 per million versus 4.3 $1.25/$2.50. Function calling is documented; built-in x_search compatibility remains unverified. No model/provider switch or inference calls.
-- Reconciled all 11 original settlements: 68,517 input/24,672 output tokens, 47 posts/zero profiles; $0.382331 after per-call rounding. Identical-usage Build pricing saves only $0.02946525 (7.7%); this is a counterfactual, not measured model performance. Fetch charges dominate. Private source snapshots/assessment saved mode 600; originals and journal untouched.
-- Documented model-round prerequisites: after second-day style/calibration, measure actual search support and ≥90% passing yield; request model, settlement rates and manifest must agree. Existing runner stays unchanged; no more experiment safeguards or speculative machinery.
-- Updated TASKS and experiment review; archived iterations 702–703 to bound PROGRESS. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source/runtime change or new owner blocker. No restart under STEERING 22.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (490 unit/213 isolated integration, exit 0), pnpm build, handbook validation and git diff --check passed.
-- Next: second independent experiment day, threshold calibration and model round within shared caps; Nov 5 grouping/NBA AI/cost/latency/screenshots take priority when due. Fixed A/B remains off pending decision.
-
 ## 2026-11-04: iteration 717 — UI foundations: routing and saved-edition deep links
 
 - Started clean on main; no leftover work. Zero alerts, local health/database/Redis green, 36 active sources with zero errors and zero failed digest jobs. Second independent X news day and Nov 5 scheduled checks remain future; progressed STEERING 33 under item 22.
@@ -131,3 +112,13 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (490 unit/213 isolated integration), pnpm build, pnpm exec tsx scripts/smoke-ui-theme.ts, pnpm exec tsx scripts/smoke-ui-routing.ts, pnpm exec tsx scripts/check-handbook.ts 01-stack-and-runtime and git diff --check.
 - Updated TASKS and Stack & runtime; archived iteration 714 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new owner blocker. Rebuilt/restarted API/docs; worker/schema unchanged and healthy.
 - No paid calls, scorer/cache changes, provider/model/budget changes or X activation. Next: step 2 server-side admin gate while waiting; Nov 5 scheduled review first when due, scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6.
+
+## 2026-11-05: iteration 729 — admin identity and reserved-route gate
+
+- Started clean on main; no leftover work. Zero alerts, health/database/Redis green, 13 services healthy, all 36 sources healthy and no failed retained digest runs. Nov 5 acceptance remains future at 15:00 UTC; existing ingestion/social failure counters have no retained failed details.
+- Started UI step 2: server middleware before static/tool routing, exact configured admin email matching, uncached GET /api/me, and 404 protection for reserved /admin and /api/admin paths. Local token requires a direct loopback socket without forwarding headers; socket locality alone never grants access.
+- ADMIN_EMAILS/ADMIN_LOCAL_TOKEN absent; no owner identity inferred or secrets created. Documented proxy headers read; VM request to public app failed (curl 7), so socket-origin and forged-header replacement remain unverified. Existing operational routes/tools intentionally await coordinated endpoint/UI/script migration; full admin milestone remains open.
+- Two new security HTTP/unit tests cover identities, token failures, forwarded sockets, method/path variants and uncached identity. pnpm format, pnpm lint:fix, pnpm check (492 unit/213 isolated integration), pnpm build, handbook validation and git diff --check passed. Initial handbook length failure fixed by shortening Operations.
+- Rebuilt/restarted API/docs; live HTTP checks passed for health, identity, admin denial, current edition/status/docs. Initial smoke used planned /api/editions/latest (404); corrected to existing /api/digest-previews/latest. Read-only desktop/mobile Playwright passed: real saved edition, no overflow/page errors, server-side admin 404. No UI visual changes or screenshot updates.
+- Updated TASKS, NEEDS_FROM_HUMAN, access decision, Stack/runtime and Operations. Archived iterations 715–716 to keep PROGRESS bounded. SOURCES unchanged; no source change, paid calls, provider/model/budget changes or X activation.
+- Next: configure admin identity before migrating existing operational endpoints, reader payloads and tools; scheduled Nov 5 acceptance first when due, scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6.
