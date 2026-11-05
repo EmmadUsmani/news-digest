@@ -75,7 +75,7 @@ async function smoke() {
       );
       let fail = true;
       let disconnect = true;
-      let failRefresh = false;
+      let failRefresh = true;
       let saveBeforeAbort = false;
       let writes = 0;
       let pendingSave: Promise<void> | undefined;
@@ -193,6 +193,16 @@ async function smoke() {
         name: 'Connect feed',
         exact: true,
       });
+      await page
+        .getByRole('alert')
+        .filter({ hasText: 'Could not load sources.' })
+        .waitFor();
+      assert.equal(await connect.isEnabled(), false);
+      assert.equal(writes, 0);
+      await page
+        .getByRole('button', { name: 'Retry loading sources', exact: true })
+        .click();
+      await connect.waitFor({ state: 'visible' });
       await name.fill(source.name);
       await url.fill('https://127.0.0.1/feed');
       await connect.click();
@@ -302,6 +312,27 @@ async function smoke() {
       const card = page.locator('.topic-grid article').filter({
         has: page.getByRole('heading', { name: target.name, exact: true }),
       });
+      await name.fill('Unsubmitted feed');
+      await url.fill('https://example.org/pending.xml');
+      await page
+        .getByRole('button', { name: 'Retry loading sources', exact: true })
+        .scrollIntoViewIfNeeded();
+      await page.screenshot({
+        path: `docs/screenshots/ui/source-catalog-retry-${device}.png`,
+      });
+      const writesBeforeRetry = writes;
+      await page
+        .getByRole('button', { name: 'Retry loading sources', exact: true })
+        .click();
+      await checkbox.waitFor();
+      assert.equal(await checkbox.isChecked(), true);
+      assert.equal(await name.inputValue(), 'Unsubmitted feed');
+      assert.equal(await url.inputValue(), 'https://example.org/pending.xml');
+      assert.equal(
+        writes,
+        writesBeforeRetry,
+        'Catalog retry must not reconnect the feed',
+      );
       await card.locator('.headlines a').first().waitFor();
       await page.locator('.topic-settings').screenshot({
         path: `docs/screenshots/custom-feeds-${device}.png`,
@@ -382,7 +413,7 @@ async function smoke() {
         savedEdition,
       );
     console.log(
-      'Custom feeds desktop/mobile: validation response, pending control locks and single request, uncertain network outcome, save failure, confirmed save with refresh failure, cleared fields, stored content, replay reload, disconnect and completed POST with lost response recovered without another write passed; full live topics/profile/edition unchanged, browser writes guarded and credentials absent, no inference.',
+      'Custom feeds desktop/mobile: initial catalog failure/retry, confirmed-save catalog retry without another write or lost entries, validation response, pending control locks and single request, uncertain network outcome, save failure, confirmed save with refresh failure, cleared fields, stored content, replay reload, disconnect and completed POST with lost response recovered without another write passed; full live topics/profile/edition unchanged, browser writes guarded and credentials absent, no inference.',
     );
   } finally {
     await browser.close();

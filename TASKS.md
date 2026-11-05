@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Source catalog recovery (818): retry failed initial or post-connection loads in place; desktop/mobile replay preserves unsent feed fields and saved selections without another write.
+
 - [x] Custom-feed recovery (817): unconfirmed connections advise reloading saved sources; desktop/mobile replay verifies a completed POST with a lost response recovers without another write.
 
 - [x] Source selection recovery (816): interrupted saves advise checking saved sources; desktop/mobile replay verifies reload recovers the saved connection without another PUT.

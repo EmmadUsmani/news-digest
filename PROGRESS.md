@@ -133,3 +133,12 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-custom-feeds.ts; smoke-news-queries.ts; smoke-admin-gate.ts; git diff --check. Rerun passed (exit 0): static checks, 497 unit and 214 isolated integration tests. Initial check stopped on new archive formatting; corrected before rerun.
 - Rebuilt app and restarted API; /healthz OK, latest reader edition returns four topics and admin gate passes after restart. Worker unchanged. Archived progress 801–802; TASKS updated. SOURCES/NEEDS_FROM_HUMAN unchanged (no source changes/new blockers). No paid calls or live settings writes.
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 818 — retry source catalog loading in place
+
+- Started clean on main; no leftover work. Alerts clear, all monitored services and 36 sources healthy; /healthz/database/Redis pass. Digest queue has zero failed runs; next edition remains 15:00 UTC.
+- Initial catalog failures and refresh failures after a confirmed connection now offer Retry loading sources. Retry preserves unsent feed/query entries and source selections, disables writes while loading and ignores responses after closing the editor.
+- Desktop/mobile custom-feed replay verifies initial recovery and post-save retry without another write or lost fields; saved connections and stored incoming articles remain visible. Screenshots inspected. News-query and admin-gate replays pass; live topics/profile/edition unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-custom-feeds.ts (final rebuild rerun); smoke-news-queries.ts; smoke-admin-gate.ts; git diff --check. Full check passed: 497 unit and 214 isolated integration tests. Initial effect lint violation and duplicate replay variable corrected before successful verification.
+- Rebuilt app and restarted API; post-restart /healthz passes, latest reader edition returns four topics and admin gate passes. Worker unchanged. TASKS updated; SOURCES/NEEDS_FROM_HUMAN unchanged (no source changes/new blockers). No live settings writes or paid calls.
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

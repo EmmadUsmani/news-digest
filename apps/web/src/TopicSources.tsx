@@ -18,18 +18,33 @@ export function TopicSources({
   const [feedName, setFeedName] = React.useState('');
   const [feedUrl, setFeedUrl] = React.useState('');
   const [catalog, setCatalog] = React.useState<SourceCatalog | null>(null);
+  const [catalogError, setCatalogError] = React.useState(false);
+  const [catalogAttempt, setCatalogAttempt] = React.useState(0);
+  const [catalogLoading, setCatalogLoading] = React.useState(true);
   const [selected, setSelected] = React.useState(topic.sources);
   const [busy, setBusy] = React.useState(false);
   const [message, setMessage] = React.useState('');
   React.useEffect(() => {
+    let active = true;
     fetch('/api/topics/sources')
       .then((r) => {
         if (!r.ok) throw new Error();
         return r.json();
       })
-      .then((data) => setCatalog(sourceCatalogSchema.parse(data)))
-      .catch(() => setMessage('Could not load sources. Close and try again.'));
-  }, []);
+      .then((data) => {
+        const saved = sourceCatalogSchema.parse(data);
+        if (active) setCatalog(saved);
+      })
+      .catch(() => {
+        if (active) setCatalogError(true);
+      })
+      .finally(() => {
+        if (active) setCatalogLoading(false);
+      });
+    return () => {
+      active = false;
+    };
+  }, [catalogAttempt]);
   async function save(event: React.FormEvent) {
     event.preventDefault();
     setBusy(true);
@@ -94,13 +109,15 @@ export function TopicSources({
       const catalogResponse = await fetch('/api/topics/sources');
       if (!catalogResponse.ok) throw new Error();
       setCatalog(sourceCatalogSchema.parse(await catalogResponse.json()));
+      setCatalogError(false);
       setMessage(
         'Feed connected. Collection starts within one minute; check Source & run status for results. Existing feed URLs reuse their saved name and articles.',
       );
     } catch {
+      if (connected) setCatalogError(true);
       setMessage(
         connected
-          ? 'Feed connected, but the source list could not refresh. Close and reopen sources to see the saved connection.'
+          ? 'Feed connected, but the source list could not refresh. Retry loading sources to see the saved connection.'
           : 'Could not confirm the feed connection. Your entries are still here; reload the page to check saved sources before trying again.',
       );
     } finally {
@@ -109,8 +126,27 @@ export function TopicSources({
   }
   return (
     <>
+      {catalogError && (
+        <div role="alert">
+          <p>
+            Could not load sources. Your entries and selection are still here.
+          </p>
+          <button
+            type="button"
+            disabled={busy}
+            onClick={() => {
+              setMessage('');
+              setCatalogLoading(true);
+              setCatalogError(false);
+              setCatalogAttempt((attempt) => attempt + 1);
+            }}
+          >
+            Retry loading sources
+          </button>
+        </div>
+      )}
       <form aria-label={`Sources for ${topic.name}`} onSubmit={save}>
-        <fieldset disabled={busy || !catalog}>
+        <fieldset disabled={busy || catalogLoading || !catalog}>
           <legend>Sources for {topic.name}</legend>
           <p>
             Choose from the connected source catalog. Existing collected
@@ -154,7 +190,7 @@ export function TopicSources({
         aria-label={`Add feed for ${topic.name}`}
         onSubmit={(event) => addFeed(event)}
       >
-        <fieldset disabled={busy || !catalog}>
+        <fieldset disabled={busy || catalogLoading || !catalog}>
           <legend>Add RSS or Atom feed</legend>
           <p>
             Enter a publisher’s public HTTPS feed URL. Connecting saves
@@ -189,7 +225,7 @@ export function TopicSources({
         aria-label={`Add news query for ${topic.name}`}
         onSubmit={(event) => addFeed(event, true)}
       >
-        <fieldset disabled={busy || !catalog}>
+        <fieldset disabled={busy || catalogLoading || !catalog}>
           <legend>Discover news by query</legend>
           <p>
             Google News RSS searches English-language US coverage. Use a phrase
