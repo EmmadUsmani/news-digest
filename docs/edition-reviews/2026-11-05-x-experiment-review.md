@@ -155,3 +155,25 @@ unchanged offline reporter output (mode 600). All original evidence is
 unchanged; scores were joined by exact topic/post ID. Assertions checked 41
 unique scores, zero unscored IDs, four successful verification ledger rows
 and matching total cost. Anthropic cost is separate from X experiment spend.
+
+## Saved-usage settlement — iteration 903
+
+STEERING 39 permits settlement from saved token usage even when fetched-post
+counters are absent. Offline reconciliation appended two hash-linked settlements
+to the private budget journal; original entries and response files are unchanged.
+NBA keyword: 5,186 input/1,560 output tokens, **$0.010383**. World keyword:
+1,837 input/1,613 output tokens, **$0.006329**. Both use zero fetched posts and
+the experiment runner's existing standard token rates (including cached input).
+No search succeeded as a result of this accounting change.
+
+Nov 5 charged total is now **$0.445318**, lifetime **$0.977649**, leaving
+**$1.522351** under $2.50. Gaming's two historical no-response timeout holds
+remain charged. The private `budget-before-saved-settlement-903.json` preserves
+the pre-settlement journal; the journal's new `settlements` records carry each
+response SHA-256. No original `.settled.json` was invented or overwritten.
+
+`pnpm exec tsx apps/api/scripts/settle-x-experiment.ts <budget.json>
+<request-id.response.json>` reconciles a dispatched, unresolved request from
+validated saved usage without making a network call. Repeated settlement is
+rejected. A separately admitted single retry remains the next reliability step;
+no reruns or production activation occurred in this iteration.

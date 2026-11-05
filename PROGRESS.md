@@ -1,16 +1,3 @@
-## 2026-11-05: iteration 890 — remove replaced topic controls
-
-- Started clean on main; no leftover work. Owner would care: topic and source management now has one editor, reached from Overview or Topics navigation.
-- Deleted legacy TopicSettings/TopicSources and their Overview save/cache wiring; incoming articles and status remain pending their replacements. Overview links to the dedicated Topics page.
-- Historical topic/source/feed/query/community smoke entry points now invoke the shared dedicated list/editor browser suites. Retired legacy-specific recovery/focus scenarios rather than rebuilding them on replaced screens; API/unit coverage remains. Adapted schedule default-budget and reviewed-account checks to new routes; X guidance accurately states scheduled search is off.
-- Browser checks read real saved data and intercept writes; dedicated editor additionally compares live topics afterward. Schedule verifies saved profile/topic/edition immutability; account checks verify all four saved lists. No live edits, collection requests or paid calls.
-- Saved desktop/mobile light/dark controls/editor screenshots and migrated account/X-guidance screenshots; visually inspected new Overview link in mobile light and desktop dark. Discarded unrelated generated screenshot changes.
-- Initial reviewed-account check exposed its old localhost origin bypassing the credential helper; changed to the supported 127.0.0.1 origin and bridged catalog reads, then passed.
-- Updated TASKS and Operations handbook; SOURCES/NEEDS_FROM_HUMAN unchanged (no collection, schema or budget changes). Discovery-specific API-backed settings remain open.
-- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (505 unit and 218 isolated integration tests passed); smoke-topics.ts, smoke-topic-order.ts, smoke-admin-separation.ts, smoke-reviewed-x-accounts.ts, smoke-x-schedule-copy.ts, smoke-schedule.ts and check-handbook.ts 08-operations passed; git diff --check.
-- API restarted for built assets; API/worker/docs/schema active, health/database/Redis green and alerts clear. Real incoming articles and saved Nov 5 edition rendered.
-- Next: dedicated discovery settings and remaining spec admin pages; Nov 6 scheduled editor-v5/grouping review, then fresh-window X round after 21:00 UTC. No X activation before decision.
-
 ## 2026-11-05: iteration 891 — Sources topic connections
 
 - Started clean on main; no leftover work. Owner would care: Sources now shows which topics use each source and links directly to their editors, making feed management reachable from collection health.
@@ -143,3 +130,14 @@
 - Rebuilt/restarted API, worker, docs and schema services; all active. /healthz database/Redis green; saved reader edition readable; 36 active sources/zero errors with successes through 23:35 UTC. Existing observability memory warning remains.
 - Updated TASKS, SOURCES and social handbook; NEEDS_FROM_HUMAN unchanged.
 - Next: separately admitted one retry for no-execution/no-post failures; append-only saved NBA/World usage settlement; then authorized Nov 5 keyword reruns after Nov 6 00:00 UTC. Fixed production search remains off.
+
+## 2026-11-05: iteration 903 — settle saved X experiment usage
+
+- Started clean on main; no leftover work. Owner would care: NBA/World failed-response holds now reflect saved token usage, freeing $0.283288 for the authorized comparison.
+- Added offline saved-response reconciliation and hash-linked journal settlements; original reservation entries and response files preserved. Repeated/undispatched settlement rejected; daily/lifetime admission and overrun guards use appended costs across restart.
+- Reconciled NBA $0.010383 and World $0.006329 using existing runner rates; saved pre-settlement private journal and verified entries unchanged. Nov 5 charged $0.445318, lifetime $0.977649, remaining $1.522351. Gaming timeout holds retained. No paid calls or activation.
+- Verification: targeted budget/CLI suite 9/9; pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 05-social-posts; git diff --check. First full check caught the newly archived page before formatting completed; formatted it and reran. Rerun passed typecheck/lint/format/boundaries, 514 unit tests and 221 isolated integration tests.
+- Four app services rebuilt/restarted and active; initial startup health fetch failed, repeat database/Redis health green; real saved Nov 5 edition has four topics. All 36 sources healthy, latest success 23:41 UTC; Nov 6 15:00 schedule retained; alerts clear.
+- An unsupported combined obs jobs --check/state invocation failed; corrected to the read-only jobs query. No failed digest runs; historical ingestion/social failures remain alongside healthy sources.
+- Updated TASKS, SOURCES, saved experiment review and social handbook; archived iteration 890 to keep PROGRESS small. NEEDS_FROM_HUMAN unchanged.
+- Next: one separately admitted retry in experiment and switched-off schedule; then three Nov 5 failed keyword reruns after Nov 6 00:00 UTC. Fair semantic query and fresh Nov 6 comparison follow; no production activation.

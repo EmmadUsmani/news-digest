@@ -77,7 +77,8 @@ counts and media stay unknown; a link supplies no evidence of media contents.
 - **Execution:** requests require the X search tool before a text answer.
 - **Accounting:** calls allow 120 seconds. Returned token usage settles the actual
   cost; missing fetched-post/profile counters count as zero. No-response timeouts
-  keep their reservation.
+  keep their reservation. Saved experiment responses can settle holds offline;
+  hash-linked journal additions preserve the original request entries.
 - **Search tracing:** each paid call stores the actual search functions and
   inputs returned by xAI alongside its cost. Old calls have no trace.
 - **Budget:** paid X search has its own ledger and caps: $0.40/day and

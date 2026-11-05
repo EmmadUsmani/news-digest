@@ -2048,3 +2048,11 @@ documents this value in `ModelRequest` / `ModelToolChoice`. All three styles
 and curated follow-ups retain their existing windows, limits and caps.
 Offline request checks only; failure-rate evidence awaits the authorized reruns
 after retry handling and saved-hold settlement. Production fixed search stays off.
+
+### Saved X experiment usage — iteration 903 (2026-11-05)
+
+NBA/World failed keyword responses settled offline at $0.010383/$0.006329;
+zero fetched posts, original evidence preserved with hash-linked journal additions.
+Nov 5 charged $0.445318; lifetime $0.977649; $1.522351 remains under $2.50.
+Gaming no-response holds retained. No provider calls or production activation.
+[Settlement details](edition-reviews/2026-11-05-x-experiment-review.md#saved-usage-settlement--iteration-903).

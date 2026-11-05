@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
 import {
   mkdirSync,
   mkdtempSync,
@@ -129,4 +130,103 @@ void test('dispatch refuses existing overrun and corrupt dispatch evidence', () 
       );
       assert.equal(readFileSync(path, 'utf8'), contents);
     }
+  }));
+
+void test('saved settlements preserve entries and release both caps after restart', () =>
+  fixture((path, budget) => {
+    budget.reserve('saved', 1_000_000, day(4));
+    budget.claimDispatch('saved', day(4));
+    const entries = JSON.parse(readFileSync(path, 'utf8')).entries;
+    budget.appendSavedSettlement('saved', 40_000, 'a'.repeat(64));
+    assert.deepEqual(JSON.parse(readFileSync(path, 'utf8')).entries, entries);
+    const restarted = new XExperimentBudget(path);
+    restarted.reserve('next', 960_000, day(4));
+    restarted.reserve('later', 1_000_000, day(5));
+    restarted.reserve('last', 500_000, day(6));
+    assert.throws(() => restarted.reserve('daily', 1, day(4)), /budget/);
+    assert.throws(() => restarted.reserve('total', 1, day(7)), /budget/);
+    assert.throws(() => restarted.settle('saved', 0), /already/);
+    assert.throws(
+      () => restarted.appendSavedSettlement('saved', 0, 'a'.repeat(64)),
+      /already/,
+    );
+    assert.throws(() => restarted.claimDispatch('saved', day(4)), /settled/);
+  }));
+
+void test('saved settlement rejects missing dispatch, invalid evidence and overruns fail closed', () =>
+  fixture((path, budget) => {
+    budget.reserve('saved', 100, day(4));
+    assert.throws(
+      () => budget.appendSavedSettlement('saved', 0, 'a'.repeat(64)),
+      /undispatched/,
+    );
+    budget.claimDispatch('saved', day(4));
+    const original = readFileSync(path, 'utf8');
+    assert.throws(
+      () => budget.appendSavedSettlement('saved', 0, 'invalid'),
+      /Invalid/,
+    );
+    assert.equal(readFileSync(path, 'utf8'), original);
+    budget.reserve('pending', 100, day(4));
+    budget.appendSavedSettlement('saved', 101, 'a'.repeat(64));
+    assert.throws(() => budget.reserve('blocked', 1, day(5)), /exceeded/);
+    assert.throws(() => budget.claimDispatch('pending', day(4)), /exceeded/);
+  }));
+
+void test('offline saved-response CLI settles token-only usage and rejects replay or malformed usage', () =>
+  fixture((path, budget) => {
+    budget.reserve('saved', 150_000, day(4));
+    budget.claimDispatch('saved', day(4));
+    const savedPath = join(path, '..', 'saved.response.json');
+    const run = () =>
+      spawnSync(
+        process.execPath,
+        [
+          '--import',
+          'tsx',
+          'apps/api/scripts/settle-x-experiment.ts',
+          path,
+          savedPath,
+        ],
+        { encoding: 'utf8' },
+      );
+    writeFileSync(
+      savedPath,
+      JSON.stringify({
+        status: 200,
+        raw: JSON.stringify({
+          usage: {
+            input_tokens: 5186,
+            output_tokens: 1560,
+            server_side_tool_usage_details: { x_posts_fetched: -1 },
+          },
+        }),
+      }),
+    );
+    const original = readFileSync(path, 'utf8');
+    assert.notEqual(run().status, 0);
+    assert.equal(readFileSync(path, 'utf8'), original);
+    writeFileSync(
+      savedPath,
+      JSON.stringify({
+        status: 200,
+        raw: JSON.stringify({
+          usage: {
+            input_tokens: 5186,
+            output_tokens: 1560,
+          },
+        }),
+      }),
+    );
+    const evidence = readFileSync(savedPath, 'utf8');
+    const result = run();
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal(JSON.parse(result.stdout).costMicros, 10383);
+    assert.equal(readFileSync(savedPath, 'utf8'), evidence);
+    assert.equal(
+      JSON.parse(readFileSync(path, 'utf8')).entries[0].actualMicros,
+      null,
+    );
+    assert.notEqual(run().status, 0);
+    assert.equal(JSON.parse(readFileSync(path, 'utf8')).settlements.length, 1);
   }));

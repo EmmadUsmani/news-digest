@@ -20,6 +20,7 @@ interface Entry {
 interface Journal {
   version: 1;
   entries: Entry[];
+  settlements?: { id: string; actualMicros: number; evidenceSha256: string }[];
 }
 const dailyCap = 1_000_000;
 const totalCap = 2_500_000;
@@ -52,6 +53,29 @@ function validate(value: Journal) {
         throw new Error('Invalid experiment dispatch');
     }
   }
+  const settled = new Set<string>();
+  if (value.settlements !== undefined && !Array.isArray(value.settlements))
+    throw new Error('Invalid experiment settlements');
+  for (const settlement of value.settlements ?? []) {
+    const entry = value.entries.find((entry) => entry.id === settlement.id);
+    if (
+      !entry ||
+      entry.actualMicros !== null ||
+      !entry.dispatchedAt ||
+      settled.has(settlement.id) ||
+      !/^[a-f0-9]{64}$/.test(settlement.evidenceSha256)
+    )
+      throw new Error('Invalid experiment settlement');
+    money(settlement.actualMicros);
+    settled.add(settlement.id);
+  }
+}
+
+function actual(journal: Journal, entry: Entry) {
+  return (
+    journal.settlements?.find((settlement) => settlement.id === entry.id)
+      ?.actualMicros ?? entry.actualMicros
+  );
 }
 
 // Separate from production discovery accounting. No provider calls are made here.
@@ -113,7 +137,7 @@ export class XExperimentBudget {
       if (journal.entries.some((entry) => entry.id === id))
         throw new Error('Experiment request already reserved');
       const charged = (entry: Entry) =>
-        entry.actualMicros ?? entry.reservedMicros;
+        actual(journal, entry) ?? entry.reservedMicros;
       const total = journal.entries.reduce(
         (sum, entry) => sum + charged(entry),
         0,
@@ -124,8 +148,8 @@ export class XExperimentBudget {
       if (
         journal.entries.some(
           (entry) =>
-            entry.actualMicros !== null &&
-            entry.actualMicros > entry.reservedMicros,
+            actual(journal, entry) !== null &&
+            actual(journal, entry)! > entry.reservedMicros,
         ) ||
         total + reservedMicros > totalCap ||
         daily + reservedMicros > dailyCap
@@ -146,7 +170,7 @@ export class XExperimentBudget {
       throw new Error('X experiment forbidden between 13:00 and 16:00 UTC');
     this.update((journal) => {
       const entry = journal.entries.find((candidate) => candidate.id === id);
-      if (!entry || entry.actualMicros !== null || entry.dispatchedAt)
+      if (!entry || actual(journal, entry) !== null || entry.dispatchedAt)
         throw new Error(
           'Unknown, settled or already dispatched experiment request',
         );
@@ -157,12 +181,29 @@ export class XExperimentBudget {
       if (
         journal.entries.some(
           (candidate) =>
-            candidate.actualMicros !== null &&
-            candidate.actualMicros > candidate.reservedMicros,
+            actual(journal, candidate) !== null &&
+            actual(journal, candidate)! > candidate.reservedMicros,
         )
       )
         throw new Error('Experiment reservation exceeded');
       entry.dispatchedAt = now.toISOString();
+    });
+  }
+
+  // Reconcile saved responses without changing original reservations or evidence.
+  appendSavedSettlement(
+    id: string,
+    actualMicros: number,
+    evidenceSha256: string,
+  ) {
+    money(actualMicros);
+    this.update((journal) => {
+      const entry = journal.entries.find((candidate) => candidate.id === id);
+      if (!entry || actual(journal, entry) !== null || !entry.dispatchedAt)
+        throw new Error(
+          'Unknown, undispatched or already settled experiment request',
+        );
+      (journal.settlements ??= []).push({ id, actualMicros, evidenceSha256 });
     });
   }
 
@@ -172,7 +213,7 @@ export class XExperimentBudget {
     money(actualMicros);
     this.update((journal) => {
       const entry = journal.entries.find((candidate) => candidate.id === id);
-      if (!entry || entry.actualMicros !== null)
+      if (!entry || actual(journal, entry) !== null)
         throw new Error('Unknown or already settled experiment request');
       entry.actualMicros = actualMicros;
     });
