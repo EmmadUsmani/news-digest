@@ -1,7 +1,8 @@
 # X search plan
 
-Owner-approved design (2026-11-04, revised the same day) for STEERING items 30
-and 34. This version replaces the earlier story-reaction and trending design.
+Owner-approved design (2026-11-04, revised the same day and on Nov 5) for
+STEERING items 30, 34 and 39. It replaces the earlier story-reaction and trending
+design.
 
 ## Goal
 
@@ -47,7 +48,8 @@ Round 1 ran on Nov 4 and cost $0.53. Details are in
 
 2. **Code builds everything else,** and Grok copies it unchanged:
    `(<keywords>) -filter:replies -filter:retweets lang:en <exclusions> min_faves:<N> since:<start> until:<end>`
-   - Top sort, `x_keyword_search`, 16 results.
+   - Top sort, `x_keyword_search`, as many results as the tool allows. Grok used
+     a limit of 10 on Nov 5, not the 16 requested.
    - `since`/`until` use the exact edition window, in the form
      `2026-11-03_21:00:00_UTC`. Code still drops out-of-window posts.
 3. **Store no keyword list.** Nothing about names or products is saved or
@@ -77,10 +79,11 @@ labelled as unverified hints. Bluesky is unchanged.
 ### Budget
 
 - **Production stays $0.40/day and $12/month.** A call costs about $0.013 plus
-  $0.005 per post, so 16 posts are about $0.09 and four topics about $0.37.
+  $0.005 per post. The one successful call on Nov 5 fetched 10 posts for $0.066,
+  so four topics are about $0.26.
 - **Check the plumbing fits:** all four calls must pass admission under the cap
   given the per-call reservation, and output-token and link limits must not cut
-  off 16 results. The production adapter still keeps only five links.
+  off results. The production adapter still keeps only five links.
 - **If spend doesn't fit,** drop the quietest topic's search.
 
 ## Steps
@@ -96,7 +99,8 @@ labelled as unverified hints. Bluesky is unchanged.
    - **Per topic, per round:**
      - the keyword search above;
      - one `x_semantic_search`, 8 results, asking for new and popular posts in
-       the topic. It is a test only, to show what keywords miss.
+       the topic. It is a test only, to show what keywords miss. See item 39:
+       the Nov 5 semantic queries were not a fair test.
    - **Don't pay to rerun the old search.** Production runs it daily, so use
      that as the baseline.
    - **Cost:** about $0.58 a round, bringing the total to about $1.69 of the
@@ -119,8 +123,9 @@ labelled as unverified hints. Bluesky is unchanged.
 **A usable post** meets all of these:
 
 - inside the window;
-- relevance ≥ 6 from the AI scorer;
-- not a promotion after scoring (raw results don't count against a search);
+- relevance ≥ 6 and interestingness ≥ 4 from the AI scorer. **Passing this counts
+  as not a promotion.** The scorer has no promotion flag, and raw results don't
+  count against a search;
 - at or above the topic's `min_faves`;
 - **not already found by the free links.**
 
@@ -131,6 +136,7 @@ labelled as unverified hints. Bluesky is unchanged.
 - **Meaning-based search:** report how many usable posts it found that keywords
   missed. If that is 4 or more across both rounds, keyword search still ships,
   and the owner decides whether to split the $0.40.
+- **Posts with unknown likes** aren't usable. Report how many there were.
 - **Model:** stay on Grok 4.3. The cheaper model would save under 8%, and its
   X Search support is unverified. Drop the model round.
 
