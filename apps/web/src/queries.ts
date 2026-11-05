@@ -20,7 +20,9 @@ export class HttpError extends Error {
 }
 
 async function read<T>(url: string, schema: z.ZodType<T>, signal: AbortSignal) {
-  const response = await fetch(url, { signal });
+  const response = await fetch(url, {
+    signal: AbortSignal.any([signal, AbortSignal.timeout(15_000)]),
+  });
   if (!response.ok) throw new HttpError(response.status, url);
   return schema.parse(await response.json());
 }
@@ -49,11 +51,20 @@ export const statusQuery = queryOptions({
   refetchInterval: 60_000,
 });
 
+// A timeout already waited for the server; offer Retry instead of repeating
+// the full wait. Ordinary transient failures retain their bounded retries.
+function retryEditionRead(failureCount: number, error: Error) {
+  return (
+    error.name !== 'TimeoutError' &&
+    !(error instanceof HttpError && error.status === 404) &&
+    failureCount < 3
+  );
+}
+
 export const editionQuery = (id?: string) =>
   queryOptions({
     queryKey: ['editions', 'detail', id ?? 'latest'],
-    retry: (failureCount, error) =>
-      !(error instanceof HttpError && error.status === 404) && failureCount < 3,
+    retry: retryEditionRead,
     queryFn: ({ signal }) =>
       read(
         `/api/editions/${id ? encodeURIComponent(id) : 'latest'}`,
@@ -65,6 +76,7 @@ export const editionQuery = (id?: string) =>
 export const editionHistoryQuery = (offset = 0) =>
   queryOptions({
     queryKey: ['editions', 'history', offset],
+    retry: retryEditionRead,
     queryFn: ({ signal }) =>
       read(
         `/api/editions?offset=${offset}`,

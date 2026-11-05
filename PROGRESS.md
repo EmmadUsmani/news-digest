@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 760 — theme changes preserve saved reader text
-
-- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Nov 5 scheduled edition remains due at 15:00 UTC.
-- Theme browser verifier validates the saved reader snapshot with a bounded Node read, checks all story titles/text through system/manual themes, reload, cross-tab sync and disabled storage, blocks unexpected API writes and proves the edition unchanged afterward. Browser errors are collected across every tab/context.
-- Desktop/mobile theme smoke passed twice; four screenshots unchanged, mobile dark visually inspected. Initial story-count selector did not match the existing markup; corrected and rerun passed.
-- Updated TASKS/Operations; archived iteration 745. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No live writes, paid calls, runtime/config/schema or model/provider changes; healthy services remain running under STEERING 22.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, zero failures); pnpm build; check-handbook.ts 08-operations; git diff --check all passed. Initial check shell terminated (143) during integration; full check rerun in isolated user unit passed. Final health green.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.
-
 ## 2026-11-05: iteration 761 — protected X-schedule guidance browser check
 
 - Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy, no retained failed digest runs; Nov 5 edition remains due at 15:00 UTC.
@@ -140,4 +131,13 @@
 - `pnpm exec tsx scripts/smoke-history-refresh.ts` passed browser-only 503 focus refresh, exact saved links/text, retry and edition navigation on desktop/mobile light/dark. Blocks browser writes and credentials, checks zero browser errors and the full protected saved edition unchanged. Four screenshots added; desktop light/mobile dark inspected. Initial exact-text assertion included the nested Retry button; corrected the selector.
 - TASKS and Operations updated; archived iteration 759. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, edition writes, generation/config/schema or model/provider changes. API restarted after web build; worker left running under STEERING 22.
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-history-refresh.ts; smoke-history-recovery.ts; check-handbook.ts 08-operations; git diff --check. Static checks and 497 unit tests passed; command received SIGTERM during integration. Isolated user-unit rerun passed all 214 integration tests (exit 0). Build, browser checks, handbook and diff checks passed; final health green.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; identity configuration and proxy verification still block admin rollout.
+
+## 2026-11-05: iteration 776 — recover stalled reader requests
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Historical ingestion/social failures remain with collection healthy.
+- Shared browser reads now combine query cancellation with a 15-second timeout. Edition/history timeouts stop automatic retries and offer the existing manual recovery; ordinary transient retries and single-request 404 behavior remain.
+- `pnpm exec tsx scripts/smoke-reader-timeout.ts` passed stalled edition/history requests, exactly one attempt before Retry, real saved-content recovery on desktop/mobile light/dark, blocked writes/credentials, zero browser errors and unchanged protected saved edition. Four screenshots added; desktop light/mobile dark inspected. `smoke-missing-edition.ts` also passed all four cases; unrelated regenerated screenshots discarded.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations; git diff --check. Static checks, 497 unit and 214 isolated integration tests passed (exit 0). Handbook initially exceeded 100 lines; shortened and rechecked successfully.
+- TASKS and Operations updated; archived iteration 760. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, edition writes, generation/config/schema or model/provider changes. API restarted after build; all four services active, health green.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; identity configuration and proxy verification still block admin rollout.
