@@ -137,3 +137,4 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (505 unit/218 isolated integration passed, coverage reported); pnpm build; git diff --check. Successful runner leaves neither node-coverage-* nor owned integration directories in /tmp.
 - Updated TASKS and database verification; archived iteration 859. No runtime/config/UI/source/schema/access changes, paid calls or saved-edition writes. No restart under STEERING 22; existing API/worker healthy.
 - Next: finish UI step 2 then spec pages; X fresh-window rounds after 21:00 UTC Nov 5/6; review Nov 6 story grouping/editor-v5 and spend.
+- Push initially rejected (remote owner commits 01c3766/0ca9657). Merged without rewriting history; item 37 R2 work remains blocked on owner settings and added to TASKS. Remote changes are instructions only.
