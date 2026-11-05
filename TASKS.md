@@ -4,6 +4,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
+- [ ] STEERING 39 NOW, ahead of UI: require supported X search execution, 120 s timeout, one admitted retry only for no-execution/no-post failures, settle saved NBA/World usage append-only; rerun three Nov 5 keyword failures after Nov 6 00:00 UTC. Fair semantic query next round; scorer gate counts as non-promotion and unknown likes are unusable. $2.50 total/$1 UTC day caps unchanged; no production activation.
 - [ ] STEERING 36 NOW: forty-article grouping pool live (872), ten-story editor cap unchanged; replay/cost evidence in [review](docs/edition-reviews/2026-11-05-world-story-pool.md). Review Nov 6 edition. Dedicated admin pages next; coverage cleanup done (873). X rounds due after 21:00 UTC.
 
 - [x] Nov 5 full-AI acceptance and saved reader text (847): all sections AI, zero unscored; $0.315445/152.320 s. [Review](docs/edition-reviews/2026-11-05.md).
@@ -38,4 +39,4 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 - [x] Reader archive (900): date/topic list, saved-edition links and URL-backed pagination at `/editions`; four viewport/theme screenshots and read-only browser checks.
 
-- Next: complete promotion review and baseline comparison; Nov 6 fresh-window round after 21:00 UTC and scheduled editor-v5 evidence. Final reader UI while waiting; proxy check required before future public access.
+- Next: STEERING 39 reliability/accounting first; Nov 5 failed keyword reruns after Nov 6 00:00 UTC, then Nov 6 fresh-window round and scheduled edition review. Edition reader layout follows.
