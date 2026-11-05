@@ -54,6 +54,7 @@ export function TopicSettings({
   async function toggle(topic: Topic) {
     setBusy(true);
     setMessage('');
+    let responseReceived = false;
     try {
       const response = await fetch(`/api/topics/${topic.id}`, {
         method: 'PUT',
@@ -63,6 +64,7 @@ export function TopicSettings({
           enabled: !topic.enabled,
         }),
       });
+      responseReceived = true;
       if (!response.ok) throw new Error();
       const saved = topicSchema.parse(await response.json());
       onSaved(saved);
@@ -70,7 +72,11 @@ export function TopicSettings({
         `${saved.name} ${saved.enabled ? 'enabled' : 'disabled'}. Changes apply to incoming articles and new editions.`,
       );
     } catch {
-      setMessage('Could not change topic availability. Try again.');
+      setMessage(
+        responseReceived
+          ? 'Could not confirm topic availability. Reload the page to check your saved topics before trying again.'
+          : 'The connection was interrupted. Topic availability may have changed. Reload the page to check your saved topics before trying again.',
+      );
     } finally {
       setBusy(false);
     }

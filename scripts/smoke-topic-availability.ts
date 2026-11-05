@@ -47,6 +47,7 @@ async function smoke() {
       assert.ok(original, 'Need an enabled topic for browser verification');
       let fail = true;
       let writes = 0;
+      let saveBeforeAbort = false;
       await page.route('**/*', async (route) => {
         const request = route.request();
         const path = new URL(request.url()).pathname;
@@ -66,10 +67,11 @@ async function smoke() {
             enabled,
           });
           writes++;
-          if (fail) return route.fulfill({ status: 503, json: {} });
+          if (fail) return route.fulfill({ status: 503, body: 'Unavailable' });
           const updated = { ...original, enabled };
           topics[topics.findIndex((topic) => topic.id === original.id)] =
             updated;
+          if (saveBeforeAbort) return route.abort('failed');
           return route.fulfill({ json: updated });
         }
         if (!['GET', 'HEAD'].includes(request.method())) {
@@ -105,7 +107,7 @@ async function smoke() {
       await disable.click();
       await page
         .getByRole('status')
-        .filter({ hasText: 'Could not change topic availability.' })
+        .filter({ hasText: 'Could not confirm topic availability.' })
         .waitFor();
       assert.ok(await disable.isEnabled());
       assert.ok(
@@ -163,6 +165,45 @@ async function smoke() {
         })
         .waitFor();
       assert.equal(writes, 3);
+      saveBeforeAbort = true;
+      await disable.click();
+      await page
+        .getByRole('status')
+        .filter({
+          hasText: 'Topic availability may have changed.',
+        })
+        .waitFor();
+      await page.locator('.topic-settings').screenshot({
+        path: `docs/screenshots/topic-availability-interrupted-${device}.png`,
+      });
+      await page.reload();
+      await page.getByText('Manage topics', { exact: true }).click();
+      await page
+        .getByRole('button', {
+          name: `Enable ${original.name}`,
+          exact: true,
+        })
+        .waitFor();
+      assert.equal(
+        await page
+          .locator('.topic-grid')
+          .getByRole('heading', {
+            name: original.name,
+            exact: true,
+          })
+          .count(),
+        0,
+      );
+      assert.equal(
+        writes,
+        4,
+        'Reload recovers saved availability without retry',
+      );
+      // Restore replay state to check editor protection without another write.
+      topics[topics.findIndex((topic) => topic.id === original.id)] = original;
+      await page.reload();
+      await page.getByText('Manage topics', { exact: true }).click();
+      await disable.waitFor();
       await page
         .getByRole('button', { name: `Edit ${original.name}`, exact: true })
         .click();
@@ -185,7 +226,7 @@ async function smoke() {
         savedEdition,
       );
     console.log(
-      'Topic availability: desktop/mobile failure, retry, disable, reload, enable, editor protection passed; live topics/profile/edition unchanged, browser writes guarded and credentials absent.',
+      'Topic availability: desktop/mobile failure, retry, disable, reload, enable, lost-response recovery, editor protection passed; live topics/profile/edition unchanged, browser writes guarded and credentials absent.',
     );
   } finally {
     await browser.close();
