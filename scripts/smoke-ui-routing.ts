@@ -1,25 +1,77 @@
 import assert from 'node:assert/strict';
 
-import { readerEditionHistorySchema } from '@digest/contracts';
+import {
+  readerEditionHistorySchema,
+  readerEditionSchema,
+} from '@digest/contracts';
 import { chromium } from 'playwright';
 
 // Read-only browser checks against actual stored editions. No generation.
 async function smoke() {
+  const base = 'http://localhost:8000';
+  const read = async (path: string) => {
+    const response = await fetch(`${base}${path}`, {
+      signal: AbortSignal.timeout(15000),
+    });
+    assert.equal(response.status, 200, path);
+    return response.json();
+  };
+  const history = readerEditionHistorySchema.parse(
+    await read('/api/editions?offset=0'),
+  );
+  const entry = history.entries[1];
+  assert.ok(entry, 'Need a historical edition distinct from latest');
+  const edition = readerEditionSchema.parse(
+    await read(`/api/editions/${entry.id}`),
+  );
+  const latest = readerEditionSchema.parse(await read('/api/editions/latest'));
+  assert.notEqual(edition.id, latest.id);
   const browser = await chromium.launch();
   try {
     const context = await browser.newContext();
-    const history = readerEditionHistorySchema.parse(
-      await (
-        await context.request.get('http://localhost:8000/api/editions?offset=0')
-      ).json(),
-    );
-    const edition = history.entries[1];
-    assert.ok(edition, 'Need a historical edition distinct from latest');
+    const writes: string[] = [];
+    await context.route('**/api/**', async (route) => {
+      const request = route.request();
+      if (!['GET', 'HEAD'].includes(request.method())) {
+        writes.push(`${request.method()} ${new URL(request.url()).pathname}`);
+        return route.abort();
+      }
+      return route.continue();
+    });
     for (const [device, width, height] of [
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
     ] as const) {
       const page = await context.newPage();
+      page.setDefaultTimeout(15000);
+      const expectSavedContent = async (saved: typeof edition) => {
+        await page
+          .locator('.period')
+          .filter({ hasText: saved.id.slice(0, 8) })
+          .waitFor();
+        assert.equal(
+          await page.locator('.digest-topic').count(),
+          saved.topics.length,
+        );
+        for (const topic of saved.topics) {
+          const section = page.locator('.digest-topic').filter({
+            has: page.getByRole('heading', { name: topic.name, exact: true }),
+          });
+          for (const story of topic.stories) {
+            const item = section.locator(`[id="story-${story.id}"]`);
+            await item.waitFor();
+            assert.equal(
+              await item.locator(':scope > a').textContent(),
+              story.title,
+            );
+            if (story.summary)
+              assert.equal(
+                await item.locator('.excerpt').textContent(),
+                story.summary,
+              );
+          }
+        }
+      };
       await page.setViewportSize({ width, height });
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
@@ -38,11 +90,13 @@ async function smoke() {
         document.querySelector('.edition-history a[aria-current="page"]'),
       );
       assert.equal(await selected.getAttribute('aria-current'), 'page');
+      await expectSavedContent(edition);
       await page.reload();
       await page.waitForFunction(() =>
         document.querySelector('.edition-history a[aria-current="page"]'),
       );
       assert.equal(await selected.getAttribute('aria-current'), 'page');
+      await expectSavedContent(edition);
       await page.locator('.edition-history summary').click();
       await page.getByRole('button', { name: 'Older editions' }).click();
       await page.getByText('Page 2', { exact: true }).waitFor();
@@ -75,6 +129,7 @@ async function smoke() {
             ?.getAttribute('href') !== `/editions/${id}`,
         edition.id,
       );
+      await expectSavedContent(latest);
       await selected.click();
       await page.waitForURL(`**/editions/${edition.id}`);
       await page.waitForFunction(
@@ -84,6 +139,7 @@ async function smoke() {
             ?.getAttribute('href') === `/editions/${id}`,
         edition.id,
       );
+      await expectSavedContent(edition);
       assert.equal(
         historicalReads,
         0,
@@ -182,6 +238,19 @@ async function smoke() {
     }
     const health = await context.request.get('http://localhost:8000/healthz');
     assert.equal(health.status(), 200);
+    assert.deepEqual(writes, [], 'No browser API writes');
+    assert.deepEqual(
+      readerEditionSchema.parse(await read(`/api/editions/${edition.id}`)),
+      edition,
+    );
+    assert.deepEqual(
+      readerEditionSchema.parse(await read('/api/editions/latest')),
+      latest,
+    );
+    assert.deepEqual(
+      readerEditionHistorySchema.parse(await read('/api/editions?offset=0')),
+      history,
+    );
     console.log(
       'Desktop/mobile canonical links, reload, cached edition switching, legacy redirect, not-found and reserved-path checks passed; real saved editions, no writes.',
     );

@@ -1,0 +1,8 @@
+## 2026-11-05: iteration 744 — protected status rendering verification
+
+- Started clean on main; no leftover work. Health/database/Redis green, 36 sources healthy, no retained failed digest runs. Recent free social and Bluesky collections succeeded; Nov 5 edition due at 15:00 UTC.
+- Status browser verifier now reads status and source catalog through protected Node requests with the private local token and bounded timeout. Real telemetry snapshots are replayed for deterministic UI checks; credentials never enter browser contexts. Synthetic failure states remain explicitly local.
+- `pnpm exec tsx scripts/smoke-status.ts` passed desktop/mobile: coverage/source/queue counts, retained social runs, X/AI usage, saved-edition links, refresh errors, synthetic failures, zero page errors and no horizontal overflow. Ten screenshots refreshed; desktop status/mobile queues visually inspected.
+- Updated TASKS, admin access decision and Operations; archived iteration 731. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema changes, live writes, paid calls or model/provider/budget changes; healthy services remain running under STEERING 22.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, exit 0); pnpm build; check-handbook.ts 08-operations; git diff --check passed. Final health green; pending metrics memory warning remains (~106 MiB/112 MiB), system unit active with zero restarts.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback. Scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy checks and coordinated browser/legacy migration remain open.

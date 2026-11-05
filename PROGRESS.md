@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 744 — protected status rendering verification
-
-- Started clean on main; no leftover work. Health/database/Redis green, 36 sources healthy, no retained failed digest runs. Recent free social and Bluesky collections succeeded; Nov 5 edition due at 15:00 UTC.
-- Status browser verifier now reads status and source catalog through protected Node requests with the private local token and bounded timeout. Real telemetry snapshots are replayed for deterministic UI checks; credentials never enter browser contexts. Synthetic failure states remain explicitly local.
-- `pnpm exec tsx scripts/smoke-status.ts` passed desktop/mobile: coverage/source/queue counts, retained social runs, X/AI usage, saved-edition links, refresh errors, synthetic failures, zero page errors and no horizontal overflow. Ten screenshots refreshed; desktop status/mobile queues visually inspected.
-- Updated TASKS, admin access decision and Operations; archived iteration 731. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema changes, live writes, paid calls or model/provider/budget changes; healthy services remain running under STEERING 22.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, exit 0); pnpm build; check-handbook.ts 08-operations; git diff --check passed. Final health green; pending metrics memory warning remains (~106 MiB/112 MiB), system unit active with zero restarts.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback. Scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy checks and coordinated browser/legacy migration remain open.
-
 ## 2026-11-05: iteration 745 — protected spend and coverage browser checks
 
 - Started clean on main; no leftover work. Health/database/Redis green, all 36 sources healthy, no retained failed digest runs; Nov 5 edition due at 15:00 UTC. Metrics memory warning pending at orientation.
@@ -131,4 +122,13 @@
 - Archive race verifier reads validated reader snapshots in Node with bounded timeouts; verifies saved story titles/text before and after superseded archive success/error, catches browser errors and blocks unexpected API writes. Final archive/latest snapshots must remain unchanged.
 - `pnpm exec tsx scripts/smoke-edition-history.ts` passed all four desktop/mobile cases; screenshots unchanged. Updated Operations/TASKS and archived iteration 743. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration tests, zero failures); pnpm build; check-handbook.ts 08-operations; git diff --check all passed. Mobile archive screenshot visually inspected. No live writes, paid calls, runtime/config/schema or model/provider changes; healthy services stay running under STEERING 22.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.
+
+## 2026-11-05: iteration 759 — canonical navigation preserves saved reader text
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy and no retained failed digest runs. Nov 5 scheduled edition remains due at 15:00 UTC.
+- Canonical routing verifier now validates reader history/latest/historical snapshots in Node with bounded timeouts, checks every saved story title/text after redirect, reload and cached edition switching, blocks unexpected browser API writes and proves snapshots unchanged afterward.
+- Desktop/mobile routing smoke passed, including pagination, malformed edition, reserved routes and shared-cache checks. Screenshots refreshed; mobile reader visually inspected. Updated TASKS/Operations; archived iteration 744.
+- No runtime/config/schema changes, production writes, paid calls or model/provider changes. SOURCES/NEEDS_FROM_HUMAN unchanged. Healthy services remain running under STEERING 22.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, zero failures); pnpm build; check-handbook.ts 08-operations; git diff --check all passed. Final /healthz green.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.
