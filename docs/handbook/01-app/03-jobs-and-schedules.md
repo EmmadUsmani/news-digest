@@ -98,7 +98,8 @@ Redis counter reset. Existing numeric job links continue to work.
   endpoint finds the published edition in Postgres and returns the edition link.
 - **Failed job links:** generation failures retain their job ID and duration in
   Postgres. After Redis prunes them, the same link shows a generic failure
-  message. Both saved and failed links also recover when Redis reads fail.
+  message. Both saved and failed links also recover when Redis lookup, state
+  or completion reads fail.
   Exception text is never stored in this history.
 - **Progress connection:** a status request times out after 15 seconds. The
   page reconnects to the same job after a timeout or invalid status response;

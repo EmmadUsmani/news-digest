@@ -1,13 +1,3 @@
-## 2026-11-05: iteration 841 — preserve keyboard focus after topic reordering
-
-- Started clean on main; no leftover work. Health/database/Redis green and alerts clear; scheduled Nov 5 review remains due at 15:00 UTC.
-- Reordering restores the initiating move button, or its opposite when the topic reaches a boundary; failed saves restore the available initiating control.
-- Desktop/mobile smoke-topic-order.ts passed: failed-save focus, Enter to first position and back, persistence and timeout recovery. Two new focus screenshots inspected; unrelated regenerated timeout image discarded.
-- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check passed typecheck/lint then stopped at replay-script formatting; corrected with pnpm format/lint:fix, then format:check, boundaries and pnpm test passed (497 unit/214 isolated integration); smoke-admin-gate.ts passed; git diff --check.
-- Rebuilt API restarted; health green. Browser snapshots prove live topics/profile/full edition unchanged; no paid calls or live data writes.
-- TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (keyboard focus fix, no new blocker).
-- Next FIRST: 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-
 ## 2026-11-05: iteration 842 — preserve keyboard focus after topic availability changes
 
 - Started clean on main; no leftover work. Alerts clear and health/database/Redis green; scheduled Nov 5 review remains due at 15:00 UTC.
@@ -156,3 +146,12 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (499 unit/215 isolated integration); pnpm build; git diff --check; check-handbook.ts 03-jobs-and-schedules (18 pages/2 diagrams, 27 tables, no warnings); smoke-admin-gate.ts; /healthz; obs alerts/sources/jobs.
 - API/worker restarted healthy; initial smoke raced startup, rerun passed. Saved edition byte-identical, all 36 sources healthy, no failed digest jobs and alerts clear. Jobs handbook/TASKS updated; no UI/schema/source/budget changes.
 - Next: X fresh-window tests after 21:00 UTC Nov 5/6, editor-v5 evidence Nov 6; unfinished/stalled durable history and admin identity/proxy verification remain open.
+
+## 2026-11-05: iteration 856 — recover job links after mid-read Redis failures
+
+- Started clean on main; no leftover work. Alerts/health green, collection active and scheduled digest successful; X tests await 21:00 UTC and admin rollout awaits identity/proxy evidence.
+- Extended durable saved/failed job-link recovery to Redis state inspection and terminal-field refresh failures after initial lookup. Unknown links retain the original outage error; no generation or paid calls.
+- Isolated queue tests exercise both mid-read failures for published, recorded-failed and unknown IDs, asserting no extra generation. No UI/schema/source/ranking/budget changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (499 unit/215 isolated integration passed); pnpm build; check-handbook.ts 03-jobs-and-schedules (18 pages/2 diagrams, 27 tables); smoke-admin-gate.ts; git diff --check; /healthz; obs alerts.
+- API/worker restarted healthy; saved Nov 5 edition byte-identical and alerts clear. Jobs handbook/TASKS updated; archived oldest progress entry to stay under 25 KB. SOURCES, screenshots and NEEDS_FROM_HUMAN unchanged.
+- Next: X fresh-window rounds after 21:00 UTC Nov 5/6, editor-v5 evidence Nov 6; unfinished/stalled job history and admin identity/proxy rollout remain open.

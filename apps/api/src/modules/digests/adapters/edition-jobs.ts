@@ -42,18 +42,17 @@ export class BullEditionJobs extends EditionJobs implements OnModuleDestroy {
     return this.status(job);
   }
   async find(id: string): Promise<EditionJobStatus | null> {
-    let job: Job | undefined;
     try {
-      job = await this.queue.getJob(id);
+      const job = await this.queue.getJob(id);
+      if (!job) return this.recover(id);
+      if (job.name !== 'on-demand') return null;
+      return await this.status(job);
     } catch (error) {
       const recovered = await this.recover(id);
       if (recovered) return recovered;
       // An unknown job may still be queued: an outage is not a missing job.
       throw error;
     }
-    if (!job) return this.recover(id);
-    if (job.name !== 'on-demand') return null;
-    return this.status(job);
   }
   private async recover(id: string): Promise<EditionJobStatus | null> {
     // BullMQ prunes its bounded history; the publication key survives in

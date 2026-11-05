@@ -155,6 +155,35 @@ void test('async edition requests dedupe while active, publish once and allow la
     } finally {
       jobs.queue.getJob = getJob;
     }
+    // Redis can disappear after lookup, either during state inspection or
+    // the terminal-field refresh. Both paths must retain the same recovery.
+    for (const stage of ['state', 'refresh'] as const) {
+      let reads = 0;
+      jobs.queue.getJob = async (jobId) => {
+        if (++reads > 1) throw outage;
+        return {
+          id: jobId,
+          name: 'on-demand',
+          getState: async () => {
+            if (stage === 'state') throw outage;
+            return 'completed';
+          },
+        } as NonNullable<Awaited<ReturnType<typeof getJob>>>;
+      };
+      try {
+        assert.equal((await jobs.find(id))?.editionId, snapshot.id);
+        reads = 0;
+        assert.equal((await jobs.find(failedId))?.state, 'failed');
+        reads = 0;
+        await assert.rejects(
+          jobs.find(crypto.randomUUID()),
+          (error) => error === outage,
+        );
+        assert.equal(calls, 1);
+      } finally {
+        jobs.queue.getJob = getJob;
+      }
+    }
     // Numeric links issued before UUID IDs were introduced remain readable.
     publications.set('on-demand:123456789', snapshot);
     assert.equal((await jobs.find('123456789'))?.editionId, snapshot.id);

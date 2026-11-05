@@ -34,6 +34,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Mid-read outage recovery (856): saved/failed links survive Redis state and terminal-refresh read errors; unknown links preserve the outage.
+
 - [x] Redis-outage recovery (855): durable completed/failed job links resolve despite Redis read errors; unknown jobs preserve the outage error rather than returning a false 404.
 
 - [x] Failed job-link recovery (854): caught on-demand generation failures retain profile-scoped job ID/duration in Postgres, with generic errors after Redis pruning; no exception text or paid calls.
@@ -41,5 +43,3 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - [x] Reset-safe job links (853): UUIDs for new on-demand jobs, legacy numeric recovery preserved; isolated counter-reset, dedupe and pruning checks.
 
 - [x] Publication event (852): post-commit DigestPublished notification port and log adapter; retries emit no duplicate event and notification failures preserve publication. No external delivery.
-
-- [x] Saved job-link recovery (851): pruned completed on-demand jobs resolve to their immutable Postgres edition, with no generation or paid calls; isolated HTTP pruning/profile-isolation checks.
