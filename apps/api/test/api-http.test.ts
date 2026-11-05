@@ -245,7 +245,9 @@ void test('digest HTTP publication, history and async jobs use real isolated per
     assert.deepEqual(raw, readerEditionHistorySchema.parse(raw));
     const expected = previewHistorySchema.parse(await request(offset));
     assert.deepEqual(raw, {
-      entries: expected.entries.map(({ method: _method, ...entry }) => entry),
+      entries: expected.entries.map(
+        ({ method: _method, topicModes: _topicModes, ...entry }) => entry,
+      ),
       hasMore: expected.hasMore,
     });
   }

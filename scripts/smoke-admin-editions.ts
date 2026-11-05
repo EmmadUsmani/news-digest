@@ -1,6 +1,10 @@
 // Saved live reads only; all browser writes and external traffic are blocked.
 import assert from 'node:assert/strict';
 
+import {
+  operationsStatusSchema,
+  previewHistorySchema,
+} from '@digest/contracts';
 import { chromium } from 'playwright';
 
 import { localAdminFetch } from './lib/local-admin-fetch';
@@ -48,6 +52,57 @@ async function smoke() {
         await page.goto(`${origin}/admin/editions`);
         await page.locator('tbody tr').first().waitFor();
         assert.ok((await page.locator('tbody tr').count()) > 0);
+        const historyResponse = await localAdminFetch(
+          `${origin}/api/admin/digest-previews?offset=0`,
+        );
+        const history = previewHistorySchema.parse(
+          await historyResponse.json(),
+        );
+        const firstRow = page.locator('tbody tr').first();
+        for (const topic of history.entries[0].topicModes ?? []) {
+          const modes = firstRow.locator('td').nth(3);
+          await modes.getByText(topic.name, { exact: true }).waitFor();
+          assert.ok(
+            (await modes.textContent())?.includes(
+              `Stories: ${topic.stories ?? 'Not recorded'} · Posts: ${topic.posts ?? 'Not recorded'}`,
+            ),
+          );
+        }
+        await page
+          .getByRole('columnheader', { name: 'Recorded runs' })
+          .waitFor();
+        await page
+          .getByText('Loading runs…', { exact: true })
+          .first()
+          .waitFor({ state: 'hidden' });
+        const runResponse = await localAdminFetch(`${origin}/api/admin/status`);
+        const status = operationsStatusSchema.parse(await runResponse.json());
+        const runs =
+          status.queues
+            .find((queue) => queue.name === 'digest-generation')
+            ?.runs.filter((run) => run.editionId === history.entries[0].id) ??
+          [];
+        const runCell = firstRow.locator('td').nth(4);
+        if (!runs.length)
+          await runCell.getByText('Not recorded', { exact: true }).waitFor();
+        for (const run of runs) {
+          assert.ok(
+            (await runCell.textContent())?.includes(
+              `Job ${run.id} · ${run.attempts} attempt`,
+            ),
+          );
+          assert.ok(
+            (await runCell.textContent())?.includes(
+              run.scheduledAt ? 'Scheduled' : 'Manual',
+            ),
+          );
+          if (run.durationMs !== null)
+            assert.ok(
+              (await runCell.textContent())?.includes(
+                `${(run.durationMs / 1000).toFixed(1)} s`,
+              ),
+            );
+        }
         const assertFits = async () =>
           assert.equal(
             await page.evaluate(

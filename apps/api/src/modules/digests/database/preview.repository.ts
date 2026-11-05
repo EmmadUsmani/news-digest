@@ -89,6 +89,7 @@ export class PostgresPreviewRepository
         createdAt: digestPreviews.createdAt,
         windowStart: digestPreviews.windowStart,
         windowEnd: digestPreviews.windowEnd,
+        snapshot: digestPreviews.snapshot,
         method: sql<
           PreviewHistory['entries'][number]['method']
         >`${digestPreviews.snapshot}->>'method'`,
@@ -99,8 +100,14 @@ export class PostgresPreviewRepository
       .limit(21)
       .offset(offset);
     return {
-      entries: rows.slice(0, 20).map((row) => ({
+      entries: rows.slice(0, 20).map(({ snapshot, ...row }) => ({
         ...row,
+        topicModes: (snapshot as DigestPreview).topics.map((topic) => ({
+          id: topic.id,
+          name: topic.name,
+          stories: topic.editorial?.mode ?? null,
+          posts: topic.postEditorial?.mode ?? null,
+        })),
         createdAt: new Date(row.createdAt).toISOString(),
         windowStart: new Date(row.windowStart).toISOString(),
         windowEnd: new Date(row.windowEnd).toISOString(),

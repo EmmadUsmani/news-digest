@@ -5,13 +5,21 @@ import { useState } from 'react';
 import { Button } from './components/ui/button';
 import { Card } from './components/ui/card';
 import { Table } from './components/ui/table';
-import { adminEditionDetailQuery, adminHistoryQuery } from './queries';
+import {
+  adminEditionDetailQuery,
+  adminHistoryQuery,
+  statusQuery,
+} from './queries';
 
 const date = (value: string) => new Date(value).toLocaleString();
 
 export function AdminEditions() {
   const [offset, setOffset] = useState(0);
   const result = useQuery(adminHistoryQuery(offset));
+  const status = useQuery(statusQuery);
+  const runs =
+    status.data?.queues.find((queue) => queue.name === 'digest-generation')
+      ?.runs ?? [];
   return (
     <section
       aria-label="Saved editions"
@@ -39,6 +47,11 @@ export function AdminEditions() {
           date.
         </p>
       )}
+      <p className="m-0 text-xs text-[var(--secondary)]">
+        Run timing covers the final worker attempt. Retained jobs may reuse a
+        saved edition.
+        {status.isError && ' Run records could not be refreshed.'}
+      </p>
       {result.data && (
         <Card className="min-w-0">
           <Table className="min-w-[640px] [&_td]:whitespace-nowrap">
@@ -47,6 +60,8 @@ export function AdminEditions() {
                 <th>Saved</th>
                 <th>Coverage window</th>
                 <th>Selection method</th>
+                <th>Topic modes</th>
+                <th>Recorded runs</th>
               </tr>
             </thead>
             <tbody>
@@ -71,6 +86,39 @@ export function AdminEditions() {
                     <span className="block">to {date(entry.windowEnd)}</span>
                   </td>
                   <td>{entry.method}</td>
+                  <td>
+                    {entry.topicModes?.length
+                      ? entry.topicModes.map((topic) => (
+                          <div key={topic.id} className="mb-2 text-xs">
+                            <strong>{topic.name}</strong>
+                            <span className="block">
+                              Stories: {topic.stories ?? 'Not recorded'} ·
+                              Posts: {topic.posts ?? 'Not recorded'}
+                            </span>
+                          </div>
+                        ))
+                      : 'Not recorded'}
+                  </td>
+                  <td>
+                    {runs.some((run) => run.editionId === entry.id)
+                      ? runs
+                          .filter((run) => run.editionId === entry.id)
+                          .map((run) => (
+                            <div key={run.id} className="mb-2 text-xs">
+                              {run.scheduledAt ? 'Scheduled' : 'Manual'} ·{' '}
+                              {run.durationMs === null
+                                ? 'Duration not recorded'
+                                : `${(run.durationMs / 1000).toFixed(1)} s`}
+                              <span className="block">
+                                Job {run.id} · {run.attempts} attempt
+                                {run.attempts === 1 ? '' : 's'}
+                              </span>
+                            </div>
+                          ))
+                      : status.isPending
+                        ? 'Loading runs…'
+                        : 'Not recorded'}
+                  </td>
                 </tr>
               ))}
             </tbody>

@@ -35,7 +35,25 @@ void test('edition reads preserve JSON, profile isolation and stable 20-entry hi
         windowStart: '1900-01-01T00:00:00.000Z',
         windowEnd: '1900-01-02T00:00:00.000Z',
         method: index % 2 ? 'signals-v6' : 'editorial-v1',
-        topics: [],
+        topics:
+          index === 0
+            ? [
+                {
+                  id: randomUUID(),
+                  name: 'History topic',
+                  candidateCount: 0,
+                  stories: [],
+                  editorial: {
+                    mode: 'ai',
+                    model: 'recorded-fixture',
+                    reason: 'fixture',
+                    brief: [],
+                    triage: [],
+                    unscoredIds: [],
+                  },
+                },
+              ]
+            : [],
       };
       snapshots.push(snapshot);
       await adapter.db.query(
@@ -78,7 +96,15 @@ void test('edition reads preserve JSON, profile isolation and stable 20-entry hi
     assert.equal(await repository.find(foreign.id), null);
     assert.equal(await repository.find(randomUUID()), null);
     assert.deepEqual(await repository.latest(), latest ?? snapshots[0]);
-    const expected = snapshots.map(({ topics: _topics, ...entry }) => entry);
+    const expected = snapshots.map(({ topics, ...entry }) => ({
+      ...entry,
+      topicModes: topics.map((topic) => ({
+        id: topic.id,
+        name: topic.name,
+        stories: topic.editorial?.mode ?? null,
+        posts: topic.postEditorial?.mode ?? null,
+      })),
+    }));
     assert.deepEqual(await repository.history(offset), {
       entries: expected.slice(0, 20),
       hasMore: true,
@@ -150,7 +176,10 @@ void test('latest and history order by stored timestamps before IDs and distingu
       (a, b) =>
         b.createdAt.localeCompare(a.createdAt) || b.id.localeCompare(a.id),
     );
-    const entries = expected.map(({ topics: _topics, ...entry }) => entry);
+    const entries = expected.map(({ topics: _topics, ...entry }) => ({
+      ...entry,
+      topicModes: [],
+    }));
     assert.deepEqual(await repository.history(offset), {
       entries,
       hasMore: false,

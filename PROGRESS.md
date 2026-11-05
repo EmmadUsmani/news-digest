@@ -115,3 +115,15 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (505 unit/218 isolated integration passed); pnpm build; git diff --check; handbook operations; smoke-admin-new-edition, smoke-edition-jobs (final stage assertions rerun), smoke-manual-reserve, smoke-admin-overview, smoke-admin-editions, smoke-admin-separation and smoke-admin-gate. Initial combined check exited 143 during integration without assertion failures; standalone full rerun passed.
 - Archived iterations 870–871. API restarted for verified built web; worker unchanged. Final health/alerts green; latest real edition remains four topics/17 stories/14 posts. Updated TASKS and retained refreshed route/navigation captures.
 - Next: Editions run metadata/incoming-window articles, then Topics and remaining Sources/Spend controls; X fresh-window rounds after 21:00 UTC Nov 5/6 and Nov 6 scheduled edition review take priority when due.
+
+## 2026-11-05: iteration 882 — edition list modes and recorded runs
+
+- Started clean on main; no leftover work. Alerts clear, health healthy, API/worker active. X rounds still due after 21:00 UTC.
+- Editions now shows saved per-topic story/post modes and retained jobs matched by edition ID: scheduled/manual, attempts and final-attempt duration. Multiple jobs reusing one edition remain separate; absent historical evidence is explicitly not recorded.
+- Added compact mode summaries to admin history from immutable snapshots; reader history still strips admin metadata. No schema migration, source, budget or access changes; no paid calls or saved-data writes. Edition cost and incoming-window articles remain open.
+- Isolated repository coverage pins mode extraction, unknown post modes, profile isolation and stable paging. Initial integration run caught an outdated reader-history expected projection; corrected it to exclude admin modes, then reran the full check successfully.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (505 unit/218 isolated integration passed); pnpm build; git diff --check; handbook operations (18 pages/two unchanged diagrams/28 assigned tables).
+- Browser: smoke-admin-editions passed four viewport/theme combinations with live saved modes and retained run details, paging, topic tabs, reload, anonymous denial, no overflow/writes/external calls/browser credentials. Four affected list captures kept; desktop light/mobile dark inspected; unrelated regenerated capture churn discarded.
+- smoke-admin-gate and smoke-admin-separation passed; reader makes no admin reads and saved edition unchanged. Live reads: 36 sources/zero current source errors, zero retained digest failures; latest edition remains four topics/17 stories/14 posts.
+- Updated Operations and TASKS; SOURCES and NEEDS_FROM_HUMAN unchanged. API/worker restarted for verified build; API, worker, docs and schema active, final health green and alerts clear.
+- Next: edition cost/incoming-window list, then Topics and remaining Sources/Spend controls. X fresh-window rounds after 21:00 UTC Nov 5/6; Nov 6 scheduled edition review takes priority when due.
