@@ -85,6 +85,11 @@ The shared-query browser check reads protected content, topic, profile and statu
 snapshots in Node and replays them through context routes. Page-level malformed
 responses can be removed to recover the original snapshot without legacy reads.
 
+The source-connection browser check also replays protected topic, source catalog
+and incoming-content snapshots. Save failures, retries, reload and disconnect
+stay in the browser; unexpected API writes are blocked. It no longer creates
+live topics, generates editions or deletes database rows directly.
+
 ## Next rollout slice
 
 Configure the owner email allowlist before moving current operational routes.

@@ -1,14 +1,3 @@
-## 2026-11-05: iteration 735 — prevent caching identity-dependent admin responses
-
-- Started clean on main; no leftover work. Health/database/Redis, 13 services and 36 sources healthy; zero retained failed digest runs. Existing metrics memory warning pending; no ceiling change or observability restart. Nov 5 edition remains due at 15:00 UTC.
-- Protected /admin and /api/admin responses now use no-store and vary on both identity headers before downstream handling, covering authorized reads/writes/pages and errors as well as denied requests. Reader caching policy unchanged. Legacy routes/tools remain pending coordinated migration and configured identity.
-- Expanded real-HTTP gate checks for email/token identity, HEAD, downstream 404/500 and reader isolation; isolated controller parity checks assert cache headers on protected reads and topic creation. No live writes or inference.
-- Verification: targeted admin-access tests 2/2; pnpm format, pnpm lint:fix, pnpm check (494 unit/214 isolated integration, exit 0), pnpm build, check-handbook.ts 01-stack-and-runtime and git diff --check all passed.
-- Rebuilt/restarted API/docs; readiness retry and pnpm obs health --check passed. Live three admin paths returned 404/no-store/identity Vary, reader latest returned four topics. Worker/schema/UI unchanged; no screenshot changes needed. Final alerts zero.
-- pnpm obs jobs --check with filters was rejected; corrected read-only jobs command confirmed no failed digest runs. Historical ingestion/social queue failure counts persist with current source health green.
-- Updated TASKS and access decision; archived iteration 721 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new owner blocker. No paid calls, model/provider/budget changes, scorer work or X activation.
-- Next: configured admin identity, UI/script migration and tool gate together; scheduled Nov 5 acceptance first when due, scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6.
-
 ## 2026-11-05: iteration 736 — authenticated local operations reads
 
 - Started clean on main; no leftover work. Health/database/Redis green, 36 sources healthy, zero failed retained digest runs; Nov 5 edition due at 15:00 UTC. Metrics memory warning later pending; no ceiling change or observability restart.
@@ -133,3 +122,12 @@
 - Updated TASKS, Operations and admin access decision. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema or model/provider/budget changes; healthy services remain running under STEERING 22.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, exit 0); pnpm build; check-handbook.ts 08-operations; git diff --check all passed. Final health green; reader latest serves four real topics.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback. Scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy checks and coordinated UI/legacy migration remain open.
+
+## 2026-11-05: iteration 749 — source connections without production writes
+
+- Started clean on main; no leftover work. Health/database/Redis green, all 36 sources healthy, no failed digest runs; existing metrics memory warning pending. Nov 5 edition remains due at 15:00 UTC.
+- Source-connection browser check now reads protected topic/catalog/content snapshots in Node and replays saves in memory. Removed live topic creation, paid edition generation and direct database deletion; unexpected browser API writes abort.
+- `pnpm exec tsx scripts/smoke-topic-sources.ts` passed desktop/mobile save failure/selection retention, retry, incoming stored articles, replay reload and disconnect; final protected reads prove live topics and the saved edition unchanged. Two screenshots refreshed; mobile visually inspected.
+- Updated TASKS, Operations and access decision. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema changes, live writes, paid calls or model/provider/budget changes; healthy services remain running under STEERING 22.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, exit 0); pnpm build; check-handbook.ts 08-operations; git diff --check passed. Initial check caught script formatting; corrected before successful rerun. Final health green; archived iteration 735.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback. Scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6. Continue coordinated admin migration while waiting.
