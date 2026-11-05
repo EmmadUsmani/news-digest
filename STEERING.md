@@ -1069,3 +1069,50 @@ here with both results.
 ack: 2026-11-05 item 35 symptom fixed — iteration 738 reader mapping now uses AI summary or saved article text for every saved edition without changing storage. Nov 4 NBA returns text for all five stories; topic forbidden-label check passes. Screenshots: [desktop](docs/screenshots/ui/nba-story-text-desktop.png), [mobile](docs/screenshots/ui/nba-story-text-mobile.png). Deployed before 13:00 UTC. Nov 5 edition is still due at 15:00 UTC; its NBA outcome and fallback investigation remain first priority when available.
 
 ack: 2026-11-05 item 35 scheduled outcome — iteration 847 verified Nov 5 NBA five AI-edited stories with non-empty reader text; no fallback. All four topics match saved titles/text desktop/mobile light/dark, no writes, edition unchanged. Screenshots docs/screenshots/ui/nov5-stories-1-{desktop,mobile}[-dark].png; review docs/edition-reviews/2026-11-05.md.
+
+## 36. NOW: fix the story limit, get the UI moving, clean up /tmp (2026-11-05)
+
+The Nov 5 edition was the first fully AI-edited one. Well done. The owner approved
+these three, in this order. The X test rounds of item 34 still run when due,
+after 21:00 UTC.
+
+1. **Keep 10 stories, not 10 articles.**
+   - **Bug:** `editorialShortlist` in
+     `apps/api/src/modules/digests/domain/editorial-shortlist.ts` sorts by
+     importance and does `.slice(0, 10)` **before** grouping. On Nov 5, World had
+     71 candidates with relevance and importance of at least 6. The top 10
+     articles were 8 midterm reports and 2 Hormuz reports, so they became 2
+     stories and nothing else reached the editor.
+   - **Fix:** group a larger scored pool first, then keep the top 10 stories
+     for the editor. Pick the pool size from evidence. Don't touch the grouping
+     prompt, and add no topic-specific logic or wording rules.
+   - **Prove it before deploying:** replay the saved Nov 5 World window with no
+     paid calls where possible, and show that more distinct stories reach the
+     editor. Check Nov 4 World too: confirm whether the same limit caused its
+     single story.
+   - **Cost:** report how it changes grouping and editing cost. The edition must
+     stay inside the daily cap and reserve.
+   - **Deploy before 13:00 UTC on Nov 6,** or leave it for the next day. Don't
+     risk the morning edition. Review the result in the Nov 6 edition review.
+2. **Build the UI now (item 33).** The Nov 5 checks are done.
+   - **You are not blocked.** `ADMIN_EMAILS` has been set on the VM since Nov 5
+     02:00 UTC, and `/api/me` returns `isAdmin: true` for the owner's email.
+     Correct the stale notes in NEEDS_FROM_HUMAN.md and the access decision.
+   - **The proxy forged-header check only matters before the VM goes public.**
+     The VM is private, and it stays private. Don't wait for it.
+   - **Finish step 2, then build the spec's admin pages and final reader,** in
+     the spec's order. Delete replaced screens as each new one lands.
+   - **Stop hardening what's being replaced:** no more keyboard-focus,
+     error-recovery or verification work on old screens, and no more on-demand
+     job-link recovery work. Only breakages count.
+   - **This overrides item 28's fallback list.** While item 33 is open, UI
+     building is what you do when X work is waiting.
+3. **Clean up test leftovers (small).** `/tmp` holds 22 `node-coverage-*`
+   directories of about 139 MB each, and disk went from 49% to 57%.
+   - Find what leaves them behind and fix it at the source, then delete the
+     existing ones. Never delete anything else in `/tmp` that a running process
+     is using.
+
+**Acks:** one for the story limit, with before and after World story counts and
+cost. Item 33's ack stays as written.
+
