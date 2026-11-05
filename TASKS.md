@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Query connection feedback (833): news-query success, rejection, refresh failure and timeout name the query; desktop/mobile replay verifies retained/cleared input and no repeated POST on catalog retry.
+
 - [x] News-query recovery verification (832): desktop/mobile replay covers a completed query POST timing out, retained input, unlocked controls and reload recovery without a second POST.
 
 - [x] Feed connection deadline (831): custom feed/query POST releases controls after 15 seconds; desktop/mobile replay recovers a saved feed on reload without another POST.

@@ -97,7 +97,7 @@ export function TopicSources({
             ? search
               ? 'Use a news query of 1–100 characters without control characters. Catalog limit: 500 sources; topic limit: 100 connections.'
               : 'Use a public HTTPS RSS/Atom URL without credentials or a custom port. Catalog limit: 500 sources; topic limit: 100 connections.'
-            : 'Feed request failed. Your entries are still here; reload the page to check saved sources before trying again.',
+            : `${search ? 'News query' : 'Feed'} request failed. Your entries are still here; reload the page to check saved sources before trying again.`,
         );
         return;
       }
@@ -115,14 +115,16 @@ export function TopicSources({
       setCatalog(sourceCatalogSchema.parse(await catalogResponse.json()));
       setCatalogError(false);
       setMessage(
-        'Feed connected. Collection starts within one minute; check Source & run status for results. Existing feed URLs reuse their saved name and articles.',
+        search
+          ? 'News query connected. Collection starts within one minute; check Source & run status for results.'
+          : 'Feed connected. Collection starts within one minute; check Source & run status for results. Existing feed URLs reuse their saved name and articles.',
       );
     } catch {
       if (connected) setCatalogError(true);
       setMessage(
         connected
-          ? 'Feed connected, but the source list could not refresh. Retry loading sources to see the saved connection.'
-          : 'Could not confirm the feed connection. Your entries are still here; reload the page to check saved sources before trying again.',
+          ? `${search ? 'News query' : 'Feed'} connected, but the source list could not refresh. Retry loading sources to see the saved connection.`
+          : `Could not confirm the ${search ? 'news query' : 'feed'} connection. Your entries are still here; reload the page to check saved sources before trying again.`,
       );
     } finally {
       setBusy(false);

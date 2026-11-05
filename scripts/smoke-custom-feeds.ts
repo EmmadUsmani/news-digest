@@ -77,6 +77,9 @@ async function smoke() {
       let disconnect = true;
       let failRefresh = true;
       let saveBeforeAbort = false;
+      let queryTimeout = true;
+      let queryFailure = false;
+      let queryRefreshFailure = false;
       let writes = 0;
       let pendingSave: Promise<void> | undefined;
       let releaseSave: (() => void) | undefined;
@@ -125,10 +128,16 @@ async function smoke() {
             query: 'basketball OR playoffs',
           });
           writes++;
+          if (queryFailure) return route.fulfill({ status: 503, json: {} });
+          if (queryRefreshFailure) failRefresh = true;
           topics = topics.map((topic) =>
             topic.id === target.id ? { ...topic, sources: [source.id] } : topic,
           );
-          return; // Completed browser replay; hold response past the real deadline.
+          if (queryTimeout) return; // Hold response past the real deadline.
+          return route.fulfill({
+            status: 201,
+            json: topics.find((topic) => topic.id === target.id),
+          });
         }
         if (
           path === `/api/topics/${target.id}/sources` &&
@@ -449,7 +458,7 @@ async function smoke() {
       await form
         .getByRole('status')
         .filter({
-          hasText: 'Could not confirm the feed connection.',
+          hasText: 'Could not confirm the news query connection.',
         })
         .waitFor({ timeout: 20_000 });
       assert.ok(await connectQuery.isEnabled());
@@ -475,6 +484,54 @@ async function smoke() {
         'Query timeout and reload must not repeat the POST',
       );
 
+      queryTimeout = false;
+      queryFailure = true;
+      await queryInput.fill('basketball OR playoffs');
+      await connectQuery.click();
+      await form
+        .getByRole('status')
+        .filter({
+          hasText: 'News query request failed.',
+        })
+        .waitFor();
+      assert.equal(await queryInput.inputValue(), 'basketball OR playoffs');
+      assert.ok(await connectQuery.isEnabled());
+      queryFailure = false;
+      queryRefreshFailure = true;
+      await connectQuery.click();
+      await form
+        .getByRole('status')
+        .filter({
+          hasText:
+            'News query connected, but the source list could not refresh.',
+        })
+        .waitFor({ timeout: 20_000 });
+      assert.equal(await queryInput.inputValue(), '');
+      assert.ok(await checkbox.isChecked());
+      await page
+        .getByRole('button', { name: 'Retry loading sources', exact: true })
+        .click();
+      await checkbox.waitFor();
+      assert.equal(writes, 10, 'Catalog retry must not repeat query POST');
+      queryRefreshFailure = false;
+      await queryInput.fill('basketball OR playoffs');
+      await connectQuery.click();
+      await form
+        .getByRole('status')
+        .filter({
+          hasText:
+            'News query connected. Collection starts within one minute; check Source & run status for results.',
+        })
+        .waitFor();
+      assert.equal(await queryInput.inputValue(), '');
+      assert.ok(await connectQuery.isEnabled());
+      assert.ok(await checkbox.isChecked());
+      assert.equal(writes, 11, 'Confirmed query sends exactly one POST');
+      await queryInput.scrollIntoViewIfNeeded();
+      await page.screenshot({
+        path: `docs/screenshots/ui/news-query-connected-${device}.png`,
+      });
+
       assert.deepEqual(unexpectedWrites, []);
       assert.deepEqual(errors, []);
       assert.deepEqual(credentials, []);
@@ -495,7 +552,7 @@ async function smoke() {
         savedEdition,
       );
     console.log(
-      'Custom feeds desktop/mobile: initial catalog real timeout/retry, confirmed-save catalog real timeout/retry without another write or lost entries, validation response, pending control locks and single request, uncertain network outcome, save failure, confirmed save with refresh failure, cleared fields, stored content, replay reload, disconnect, completed news-query POST with retained input and reload recovery, and completed feed POST with real timeout releasing controls and recovered without another write passed; full live topics/profile/edition unchanged, browser writes guarded and credentials absent, no inference.',
+      'Custom feeds desktop/mobile: initial catalog real timeout/retry, confirmed-save catalog real timeout/retry without another write or lost entries, validation response, pending control locks and single request, uncertain network outcome, save failure, confirmed save with refresh failure, cleared fields, stored content, replay reload, disconnect, completed news-query POST with retained input and reload recovery, query-specific timeout and confirmed-connection feedback, and completed feed POST with real timeout releasing controls and recovered without another write passed; full live topics/profile/edition unchanged, browser writes guarded and credentials absent, no inference.',
     );
   } finally {
     await browser.close();
