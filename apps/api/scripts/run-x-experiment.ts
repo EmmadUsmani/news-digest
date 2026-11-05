@@ -14,6 +14,10 @@ import {
   experimentWindow,
   type prepareViralXExperimentTopic,
 } from '../../../scripts/lib/x-experiment-inputs';
+import {
+  xSearchTimeoutMs,
+  xSearchUsageSchema,
+} from '../src/modules/social/adapters/x-search-usage';
 import { xDiscoveryCost } from '../src/modules/social/domain/x-discovery-budget';
 
 async function main() {
@@ -125,7 +129,7 @@ async function main() {
       const response = await fetch('https://api.x.ai/v1/responses', {
         method: 'POST',
         redirect: 'error',
-        signal: AbortSignal.timeout(60_000),
+        signal: AbortSignal.timeout(xSearchTimeoutMs),
         headers: {
           Authorization: `Bearer ${key}`,
           'Content-Type': 'application/json',
@@ -147,17 +151,7 @@ async function main() {
       });
       if (!response.ok)
         throw new Error('Provider rejected call; hold retained, no retry');
-      const parsed = JSON.parse(raw) as {
-        usage: {
-          input_tokens: number;
-          output_tokens: number;
-          server_side_tool_usage_details: {
-            x_posts_fetched: number;
-            x_users_fetched: number;
-          };
-        };
-      };
-      const usage = parsed.usage;
+      const usage = xSearchUsageSchema.parse(JSON.parse(raw).usage);
       const costMicros = xDiscoveryCost(
         {
           inputTokens: usage.input_tokens,

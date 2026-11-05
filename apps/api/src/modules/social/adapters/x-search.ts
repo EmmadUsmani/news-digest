@@ -11,17 +11,9 @@ import {
 import { baseXSearchBody } from './x-search-body';
 import { xSearchComparisonBody } from './x-search-comparison';
 import { readReportedEngagement } from './x-search-engagement';
+import { xSearchTimeoutMs, xSearchUsageSchema } from './x-search-usage';
 import { viralXSearchBody } from './x-viral-search-body';
 
-const count = z.number().int().nonnegative().safe();
-const usageSchema = z.object({
-  input_tokens: count,
-  output_tokens: count,
-  server_side_tool_usage_details: z.object({
-    x_posts_fetched: count,
-    x_users_fetched: count,
-  }),
-});
 const citationsSchema = z.object({
   status: z.literal('completed'),
   output: z.array(
@@ -129,7 +121,7 @@ export class DirectXSearch implements XSearchPort {
       response = await this.send('https://api.x.ai/v1/responses', {
         method: 'POST',
         redirect: 'error',
-        signal: AbortSignal.timeout(60000),
+        signal: AbortSignal.timeout(xSearchTimeoutMs),
         headers: {
           Authorization: `Bearer ${this.key}`,
           'Content-Type': 'application/json',
@@ -176,7 +168,7 @@ export class DirectXSearch implements XSearchPort {
     } catch {
       throw new XSearchError('uncertain');
     }
-    const root = z.object({ usage: usageSchema }).safeParse(parsed);
+    const root = z.object({ usage: xSearchUsageSchema }).safeParse(parsed);
     if (!root.success) throw new XSearchError('uncertain');
     const usage = root.data.usage;
     // Bill fetched items, never just the number of URLs cited or output tokens alone.

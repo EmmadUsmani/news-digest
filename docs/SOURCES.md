@@ -2031,3 +2031,11 @@ The topic editor exposes the stored minimum likes and excluded words for the
 replacement X search. Exclusions use one `-word` per line; `-giveaway` is always
 added by query construction. Saving keeps discovery off pending the experiment
 decision. Existing live thresholds and exclusions were not changed.
+
+## X accounting preparation — iteration 901 (2026-11-05)
+
+Experiment and production adapters now share a 120-second timeout and validated
+usage parser. Token-only responses settle their token cost with absent fetched
+post/profile counters treated as zero; invalid counters remain rejected.
+Offline synthetic coverage only: no paid calls or production activation. Saved
+NBA/World hold settlement, required tool execution and admitted retry remain next.

@@ -123,3 +123,13 @@
 - Four app services restarted; /healthz database/Redis green; 36 sources/zero errors with collection through 23:16 UTC; Nov 5 scheduled edition complete and Nov 6 15:00 UTC next run retained. Existing observability shipper memory warning remains.
 - Push initially rejected because owner commit 390687a added STEERING 39 and revised X plan; fetched/merged without rewriting history. Docs-only merge needs no rebuild. Item 39 now precedes UI; updated TASKS. Subsequent push twice rejected by integration with `fatal error in commit_refs_rules`; local commits retained, publishing blocked.
 - Next: X reliability/accounting under STEERING 39, three Nov 5 failed keyword reruns after Nov 6 00:00 UTC; then fresh Nov 6 round/edition review. Edition reader layout follows. No X activation before decision.
+
+## 2026-11-05: iteration 901 — X token-only accounting and timeout
+
+- Started clean on main; no leftover work. Owner would care: failed X tool execution no longer leaves a full hold when valid token usage is available, and searches get 120 seconds.
+- Shared validated usage parser between app adapter and experiment runner; absent post/profile counters default to zero, malformed counters still fail closed. Existing no-response holds remain charged. No paid calls or X activation.
+- Synthetic runner coverage settles eight token-only calls at four micros each; adapter coverage checks absent/partial counters and malformed values. Initial direct mixed-suite invocation hit five expected isolation guards; used the proper full isolated harness afterward.
+- Verification: pnpm format; pnpm lint:fix; pnpm check passed typecheck/lint/format/boundaries, 510 unit and 221 isolated integration tests; pnpm build; check-handbook.ts 05-social-posts; git diff --check.
+- Four app services rebuilt/restarted and active; /healthz database/Redis green after startup retry; saved Nov 5 reader endpoint readable; 36 sources/zero errors, latest success 23:30 UTC. Existing observability memory warning remains.
+- Updated TASKS, SOURCES and social handbook; NEEDS_FROM_HUMAN unchanged. GitHub integration recovered: preflight push published the previous iteration's backlog successfully.
+- Next: STEERING 39 supported forced tool execution and one separately admitted retry; append-only NBA/World saved-usage settlement; three failed keyword reruns after Nov 6 00:00 UTC. Production remains off; failure-rate acknowledgement needs real rerun evidence.

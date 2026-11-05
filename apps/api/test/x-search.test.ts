@@ -217,11 +217,6 @@ void test('X errors sanitize provider text, never retry, retain ambiguous bills 
     [500, { error: 'secret-fixture' }, 'uncertain'],
     [
       200,
-      { ...fixture(), usage: { input_tokens: 1, output_tokens: 1 } },
-      'uncertain',
-    ],
-    [
-      200,
       { ...fixture(), usage: { ...fixture().usage, input_tokens: -1 } },
       'uncertain',
     ],
@@ -1063,5 +1058,44 @@ void test('fixed A/B application dispatch records distinct scheduled ledger type
       '2026-11-05',
     );
     assert.equal(result.state, 'budget-blocked');
+  }
+});
+
+void test('token-only X responses settle usage with zero missing fetched counters', async () => {
+  for (const details of [undefined, {}, { x_users_fetched: 2 }]) {
+    const result = await new DirectXSearch(
+      'fixture',
+      fake({
+        ...fixture(),
+        usage: {
+          input_tokens: 123,
+          output_tokens: 45,
+          ...(details === undefined
+            ? {}
+            : { server_side_tool_usage_details: details }),
+        },
+      }),
+    ).search(request);
+    assert.deepEqual(result.usage, {
+      inputTokens: 123,
+      outputTokens: 45,
+      postsFetched: 0,
+      profilesFetched: details?.x_users_fetched ?? 0,
+    });
+  }
+  for (const value of [-1, null, '10', 1.5]) {
+    await assert.rejects(
+      new DirectXSearch(
+        'fixture',
+        fake({
+          ...fixture(),
+          usage: {
+            input_tokens: 123,
+            output_tokens: 45,
+            server_side_tool_usage_details: { x_posts_fetched: value },
+          },
+        }),
+      ).search(request),
+    );
   }
 });

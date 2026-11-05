@@ -11,7 +11,10 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
 
-function fixture(mode: 'success' | 'overrun' | 'unknown', legacy = false) {
+function fixture(
+  mode: 'success' | 'overrun' | 'unknown' | 'token-only',
+  legacy = false,
+) {
   const directory = mkdtempSync(join(tmpdir(), 'x-runner-'));
   const preload = join(directory, 'provider.cjs');
   writeFileSync(
@@ -29,7 +32,7 @@ global.fetch = async (url, options) => {
   require('node:fs').appendFileSync(${JSON.stringify(join(directory, 'dispatches'))}, 'call\\n');
   if (process.env.FAKE_MODE === 'unknown') throw Error('Synthetic transport failure');
   return new Response(JSON.stringify({usage: {input_tokens: 1, output_tokens: 1,
-    server_side_tool_usage_details: {x_posts_fetched: process.env.FAKE_MODE === 'overrun' ? 31 : 1, x_users_fetched: 0}}, output: []}));
+    ...(process.env.FAKE_MODE === 'token-only' ? {} : {server_side_tool_usage_details: {x_posts_fetched: process.env.FAKE_MODE === 'overrun' ? 31 : 1, x_users_fetched: 0}})}, output: []}));
 };
 `,
   );
@@ -238,6 +241,18 @@ void test('runner refuses a closed 24-hour window before the evening test time',
     assert.equal(f.run('success', undefined, '2026-11-05T20:59:59Z').status, 1);
     assert.equal(readdirSync(f.directory).includes('dispatches'), false);
     assert.equal(readdirSync(f.directory).includes('.local'), false);
+  } finally {
+    f.cleanup();
+  }
+});
+
+void test('experiment runner settles token-only responses instead of retaining reservations', () => {
+  const f = fixture('token-only');
+  try {
+    const result = f.run();
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal(f.journal().entries.length, 8);
+    assert.ok(f.journal().entries.every((entry) => entry.actualMicros === 4));
   } finally {
     f.cleanup();
   }
