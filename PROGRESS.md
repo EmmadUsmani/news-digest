@@ -1,39 +1,3 @@
-## 2026-11-05: iteration 811 — clarify uncertain schedule saves
-
-- Started clean on main; no leftover work. Health/database/Redis and four app services green; 36 sources without current errors or missing active-source success. Digest queue has zero failures; retained ingestion/social failure counts remain two each. Metrics memory warning pending.
-- Schedule settings distinguish an interrupted response from a confirmed save, retain edits, and advise reloading the saved schedule before retrying. Non-JSON error responses get a readable recovery message; structured validation messages remain intact.
-- Desktop/mobile replay covers pending locks, abort before save, non-JSON rejection, a completed save whose response is lost, reload without another write, retry and validation. Protected full live topics/profile/edition unchanged; credential/write guards pass. New screenshots inspected.
-- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-schedule.ts; smoke-admin-gate.ts; git diff --check. All passed (exit 0): static checks, 497 unit and 214 isolated integration tests, browser recovery, admin gate and diff check.
-- Rebuilt app and restarted API; /healthz OK. Worker runtime unchanged. Archived progress 795–796 and completed markers 807–810; TASKS updated. SOURCES/NEEDS_FROM_HUMAN unchanged (no source changes/new blockers). No live writes or paid calls.
-- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-
-## 2026-11-05: iteration 812 — clarify uncertain topic saves
-
-- Started clean on main; no leftover work. Alerts clear, health/database/Redis and four services green; 36 sources have successful collections and no current errors. Digest queue has zero failures; next edition remains 15:00 UTC.
-- Topic create/edit saves distinguish interrupted responses from confirmed saves, retain edits, and advise checking saved topics before retrying. Non-JSON errors get readable recovery text; structured server messages remain available.
-- Desktop/mobile replay covers pending locks, non-JSON rejection, completed save with lost response, reload without retry, visible saved values and disabling. Creation, X-account and parked Reddit settings browser replays pass; protected full live topics/profile/edition unchanged. Updated screenshots inspected; no live writes or paid calls.
-- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-topics.ts; smoke-topic-accounts.ts; smoke-topic-create.ts; smoke-reddit-communities.ts; smoke-admin-gate.ts; git diff --check. All passed: static checks, 497 unit and 214 isolated integration tests, desktop/mobile replays and admin gate.
-- Rebuilt app and restarted API; /healthz OK and latest reader endpoint returns four topics. Worker runtime unchanged. TASKS updated; SOURCES/NEEDS_FROM_HUMAN unchanged (no source changes/new blockers).
-- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-
-## 2026-11-05: iteration 813 — clarify interrupted topic deletion
-
-- Started clean on main; no leftover work. Health/database/Redis and four services green; all 36 sources healthy, digest queue has zero failures and next edition is 15:00 UTC. Existing metrics memory warning firing; isolated benchmark remains deferred.
-- Topic deletion now warns that an interrupted response may follow a completed deletion and directs the reader to reload saved topics before retrying. Unconfirmed HTTP responses also give explicit reload guidance.
-- Desktop/mobile replay covers cancellation, non-JSON rejection/retry, successful deletion and completed deletion with lost response; reload confirms removal without another DELETE. Protected full live topics/profile/edition unchanged; browser credential/write guards pass. Four screenshots inspected.
-- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-topic-delete.ts; smoke-admin-gate.ts; git diff --check. All passed: static checks, 497 unit and 214 isolated integration tests, desktop/mobile recovery and admin gate. Initial browser build timing and collapsed-manager setup corrected before rerun.
-- Rebuilt app and restarted API; /healthz OK. Worker runtime unchanged. Archived progress 797–798; TASKS updated. SOURCES/NEEDS_FROM_HUMAN unchanged (no source changes/new blockers). No live writes or paid calls.
-- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-
-## 2026-11-05: iteration 814 — clarify interrupted topic ordering
-
-- Started clean on main; no leftover work. Health/database/Redis and four services green; all 36 sources healthy, digest queue has zero failures and next edition is 15:00 UTC. Metrics memory alert pending; benchmark remains deferred.
-- Topic ordering now warns that an interrupted response may follow a completed save and directs the reader to reload saved order before retrying. Unconfirmed HTTP responses also give explicit reload guidance.
-- Desktop/mobile replay covers non-JSON rejection/retry, saved positions, successful reload, and a saved reorder whose response is lost; reload recovers it without another PUT. Protected full live topics/profile/edition unchanged; browser credential/write guards pass. Interrupted screenshots inspected.
-- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; pnpm test:integration; smoke-topic-order.ts; smoke-admin-gate.ts; git diff --check. Static checks, 497 unit and 214 isolated integration tests pass. Full check terminated (143) at integration 149 without failures; standalone integration rerun passed (0). First browser run preceded build completion; post-build rerun passed.
-- Rebuilt app and restarted API; /healthz OK and latest reader edition returns four topics. Worker unchanged. TASKS updated; SOURCES/NEEDS_FROM_HUMAN unchanged (no source changes/new blockers). No live writes or paid calls.
-- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-
 ## 2026-11-05: iteration 815 — clarify interrupted topic availability changes
 
 - Started clean on main; no leftover work. Alerts clear, four app services active, health/database/Redis green and sources healthy. No failed retained digest runs; next edition remains 15:00 UTC. Historical ingestion/social failed counters have no matching retained runs.
@@ -146,4 +110,14 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-topic-delete.ts; smoke-admin-gate.ts; git diff --check. Static checks and 497 unit tests pass. Full check session ended 143 during integration without a reported test failure; transient user-service pnpm test:integration rerun exited 0: 214 passed, zero failures. No leftover test DB/Redis containers.
 - Browser writes replayed; protected live topics/profile/full edition unchanged; no paid calls. API rebuilt/restarted, health green, reader returns four topics and alerts clear. Worker/schedule unchanged.
 - TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadline only, no new blocker).
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 827 — bound stalled topic availability changes
+
+- Started clean on main; no leftover work. Alerts clear and health/database/Redis green; Nov 5 scheduled evidence still pending at 15:00 UTC.
+- Topic Enable/Disable PUT now aborts after 15 seconds, releasing controls with existing uncertainty/reload guidance and no automatic retry.
+- Desktop/mobile Playwright replay holds a completed save through the real timeout, verifies unlocked controls, then reloads saved availability without another PUT. Both timeout screenshots inspected in docs/screenshots/ui/.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-topic-availability.ts (final rerun passed); smoke-admin-gate.ts; git diff --check. Static checks and 497 unit/214 integration tests passed; check session ended 143 after coverage. Transient user-service pnpm test:integration rerun exited 0: 214 passed, zero failures.
+- Initial browser attempts used the old bundle before build completion, then raced API startup; corrected by waiting for rebuilt API health and rerunning successfully. Protected live topics/profile/full edition unchanged; no paid calls or live writes.
+- API rebuilt/restarted; reader returns four topics, health green and alerts clear. Worker/schedule unchanged. Archived progress 811–814 to keep orientation small; TASKS updated. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadline only).
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

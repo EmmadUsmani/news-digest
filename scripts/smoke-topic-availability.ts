@@ -47,7 +47,8 @@ async function smoke() {
       assert.ok(original, 'Need an enabled topic for browser verification');
       let fail = true;
       let writes = 0;
-      let saveBeforeAbort = false;
+      let stallAfterSave = false;
+      let releaseStalledResponse: (() => void) | undefined;
       await page.route('**/*', async (route) => {
         const request = route.request();
         const path = new URL(request.url()).pathname;
@@ -71,7 +72,12 @@ async function smoke() {
           const updated = { ...original, enabled };
           topics[topics.findIndex((topic) => topic.id === original.id)] =
             updated;
-          if (saveBeforeAbort) return route.abort('failed');
+          if (stallAfterSave) {
+            await new Promise<void>((resolve) => {
+              releaseStalledResponse = resolve;
+            });
+            return route.fulfill({ json: updated }).catch(() => {});
+          }
           return route.fulfill({ json: updated });
         }
         if (!['GET', 'HEAD'].includes(request.method())) {
@@ -165,16 +171,20 @@ async function smoke() {
         })
         .waitFor();
       assert.equal(writes, 3);
-      saveBeforeAbort = true;
+      stallAfterSave = true;
       await disable.click();
+      await page.waitForTimeout(250);
+      assert.ok(await disable.isDisabled(), 'Controls lock while saving');
       await page
         .getByRole('status')
         .filter({
           hasText: 'Topic availability may have changed.',
         })
-        .waitFor();
+        .waitFor({ timeout: 20_000 });
+      assert.ok(await disable.isEnabled(), 'Deadline releases controls');
+      releaseStalledResponse?.();
       await page.locator('.topic-settings').screenshot({
-        path: `docs/screenshots/topic-availability-interrupted-${device}.png`,
+        path: `docs/screenshots/ui/topic-availability-timeout-${device}.png`,
       });
       await page.reload();
       await page.getByText('Manage topics', { exact: true }).click();
@@ -226,7 +236,7 @@ async function smoke() {
         savedEdition,
       );
     console.log(
-      'Topic availability: desktop/mobile failure, retry, disable, reload, enable, lost-response recovery, editor protection passed; live topics/profile/edition unchanged, browser writes guarded and credentials absent.',
+      'Topic availability: desktop/mobile failure, retry, disable, reload, enable, real timeout recovery, editor protection passed; live topics/profile/edition unchanged, browser writes guarded and credentials absent.',
     );
   } finally {
     await browser.close();

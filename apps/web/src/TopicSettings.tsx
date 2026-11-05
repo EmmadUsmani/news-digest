@@ -59,6 +59,7 @@ export function TopicSettings({
     try {
       const response = await fetch(`/api/topics/${topic.id}`, {
         method: 'PUT',
+        signal: AbortSignal.timeout(15_000),
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...topicUpdateSchema.strip().parse(topic),
