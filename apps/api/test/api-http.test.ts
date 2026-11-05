@@ -6,6 +6,7 @@ import { test } from 'node:test';
 
 import {
   digestPreviewSchema,
+  editionCostSchema,
   previewHistorySchema,
   profileSettingsSchema,
   readerEditionHistorySchema,
@@ -222,6 +223,8 @@ void test('digest HTTP publication, history and async jobs use real isolated per
   for (const offset of ['-1', '1.5', '10000000', 'abc'])
     await request(`?offset=${offset}`, 400);
   await request('/not-a-uuid', 400);
+  await request('/not-a-uuid/cost', 400);
+  await request('/00000000-0000-4000-8000-999999999999/cost', 404);
   await request('/00000000-0000-4000-8000-999999999999', 404);
   await request('/jobs/invalid', 404);
   await request('/jobs/999999999999', 404);
@@ -231,6 +234,15 @@ void test('digest HTTP publication, history and async jobs use real isolated per
     'Rejected requests never publish',
   );
   const published = digestPreviewSchema.parse(await request('', 201, window));
+  assert.deepEqual(
+    editionCostSchema.parse(await request(`/${published.id}/cost`)),
+    {
+      calls: 0,
+      costMicros: 0,
+      reservedMicros: 0,
+      byModelAndPurpose: [],
+    },
+  );
   assert.equal(published.windowStart, window.windowStart);
   assert.equal(published.windowEnd, window.windowEnd);
   assert.ok(published.topics.length > 0);
@@ -465,6 +477,16 @@ void test('admin routes use real controllers and deny unauthenticated reads and 
     );
     await authorized.json();
   }
+  const latestResponse = await fetch(
+    `${base}/api/admin/digest-previews/latest`,
+    { headers },
+  );
+  const latest = digestPreviewSchema.parse(await latestResponse.json());
+  const costUrl = `${base}/api/admin/digest-previews/${latest.id}/cost`;
+  assert.equal((await fetch(costUrl)).status, 404);
+  const costResponse = await fetch(costUrl, { headers });
+  assert.equal(costResponse.status, 200);
+  editionCostSchema.parse(await costResponse.json());
   const input = {
     name: 'Admin alias fixture',
     description: 'Isolated admin write',

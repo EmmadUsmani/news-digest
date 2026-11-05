@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import {
   contentGroupSchema,
   digestPreviewSchema,
+  editionCostSchema,
   operationsStatusSchema,
   previewHistorySchema,
 } from '@digest/contracts';
@@ -153,6 +154,37 @@ async function smoke() {
         const inspectorPath = await savedLink.getAttribute('href');
         assert.ok(inspectorPath?.startsWith('/admin/editions/'));
         await savedLink.click();
+        const costResponse = await localAdminFetch(
+          `${origin}/api/admin/digest-previews/${history.entries[0].id}/cost`,
+        );
+        assert.equal(costResponse.status, 200);
+        const cost = editionCostSchema.parse(await costResponse.json());
+        assert.equal(
+          (
+            await fetch(
+              `${origin}/api/admin/digest-previews/${history.entries[0].id}/cost`,
+            )
+          ).status,
+          404,
+        );
+        const costCard = page.getByLabel('Edition AI cost', { exact: true });
+        await costCard
+          .getByText(
+            cost.calls
+              ? `$${(cost.costMicros / 1e6).toFixed(6)} recorded · ${cost.calls} calls · $${(cost.reservedMicros / 1e6).toFixed(6)} unresolved holds`
+              : 'No ledger calls recorded for this edition.',
+            { exact: true },
+          )
+          .waitFor();
+        assert.equal(
+          await costCard.locator('tbody tr').count(),
+          cost.byModelAndPurpose.length,
+        );
+        for (const row of cost.byModelAndPurpose)
+          await costCard
+            .getByText(row.purpose, { exact: true })
+            .first()
+            .waitFor();
         await page.getByRole('tab').first().waitFor();
         assert.equal(await page.getByRole('tab').count(), 4);
         for (const tab of await page.getByRole('tab').all()) {

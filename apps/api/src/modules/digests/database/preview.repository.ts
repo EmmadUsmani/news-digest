@@ -10,6 +10,7 @@ import { drizzle } from 'drizzle-orm/node-postgres';
 
 import { database } from '../../../libs/db/connections';
 import { digestPreviews, topics as topicTable } from '../../../libs/db/schema';
+import { readEditionCost } from '../../curation/public/edition-cost';
 import { editorialServices } from '../../curation/public/editorial';
 import { withEditionRun } from '../../curation/public/scheduled-context';
 import { selectEditionBlueskyPosts } from '../../social/public/bluesky-edition';
@@ -52,6 +53,9 @@ export class PostgresPreviewRepository
   readonly db = database();
   private readonly orm = drizzle(this.db);
   readonly editorial = editorialServices(this.db);
+  cost(id: string) {
+    return readEditionCost(this.db, id);
+  }
   async latest(): Promise<DigestPreview | null> {
     const [row] = await this.orm
       .select({ snapshot: digestPreviews.snapshot })

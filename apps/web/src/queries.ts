@@ -1,6 +1,7 @@
 import {
   contentGroupSchema,
   digestPreviewSchema,
+  editionCostSchema,
   healthSchema,
   identitySchema,
   operationsStatusSchema,
@@ -144,6 +145,17 @@ export const incomingWindowQuery = (
       read(
         `/api/admin/content/window?${new URLSearchParams({ topicId, start, end })}`,
         contentGroupSchema.array(),
+        signal,
+      ),
+  });
+
+export const adminEditionCostQuery = (id: string) =>
+  queryOptions({
+    queryKey: ['admin', 'editions', 'cost', id],
+    queryFn: ({ signal }) =>
+      read(
+        `/api/admin/digest-previews/${encodeURIComponent(id)}/cost`,
+        editionCostSchema,
         signal,
       ),
   });

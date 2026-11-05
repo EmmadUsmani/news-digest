@@ -6,6 +6,7 @@ import { Button } from './components/ui/button';
 import { Card } from './components/ui/card';
 import { Table } from './components/ui/table';
 import {
+  adminEditionCostQuery,
   adminEditionDetailQuery,
   adminHistoryQuery,
   incomingWindowQuery,
@@ -155,6 +156,7 @@ export function AdminEditions() {
 export function AdminEditionInspector() {
   const { id } = useParams({ from: '/admin/editions/$id' });
   const result = useQuery(adminEditionDetailQuery(id));
+  const cost = useQuery(adminEditionCostQuery(id));
   const [selected, setSelected] = useState<string | null>(null);
   const edition = result.data;
   const topic =
@@ -202,6 +204,60 @@ export function AdminEditionInspector() {
               {date(edition.windowStart)} to {date(edition.windowEnd)} ·{' '}
               {edition.method}
             </p>
+          </Card>
+          <Card aria-label="Edition AI cost" className="min-w-0">
+            <h2 className="mt-0 font-sans text-lg font-semibold">AI cost</h2>
+            {cost.isPending && <p role="status">Loading cost…</p>}
+            {cost.isError && (
+              <p role="alert">
+                Cost could not be loaded.{' '}
+                <Button variant="ghost" onClick={() => void cost.refetch()}>
+                  Retry cost
+                </Button>
+              </p>
+            )}
+            {cost.data && (
+              <>
+                <p className="text-sm tabular-nums">
+                  {cost.data.calls
+                    ? `$${(cost.data.costMicros / 1e6).toFixed(6)} recorded · ${cost.data.calls} calls · $${(cost.data.reservedMicros / 1e6).toFixed(6)} unresolved holds`
+                    : 'No ledger calls recorded for this edition.'}
+                </p>
+                {cost.data.calls > 0 && (
+                  <Table className="min-w-[580px] tabular-nums">
+                    <thead>
+                      <tr>
+                        <th>Model / purpose</th>
+                        <th>Calls</th>
+                        <th>Recorded cost</th>
+                        <th>Unresolved holds</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {cost.data.byModelAndPurpose.map((row) => (
+                        <tr key={`${row.model}/${row.purpose}`}>
+                          <td>
+                            {row.model}
+                            <span className="block text-xs">{row.purpose}</span>
+                          </td>
+                          <td>
+                            {row.succeeded} succeeded · {row.failed} failed ·{' '}
+                            {row.unresolved} unresolved
+                          </td>
+                          <td>${(row.costMicros / 1e6).toFixed(6)}</td>
+                          <td>${(row.reservedMicros / 1e6).toFixed(6)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                )}
+                <p className="mb-0 text-xs text-[var(--secondary)]">
+                  Ledger calls matched by edition ID, including retries. Shared
+                  cached results and source discovery are not charged to this
+                  edition.
+                </p>
+              </>
+            )}
           </Card>
           <div
             role="tablist"

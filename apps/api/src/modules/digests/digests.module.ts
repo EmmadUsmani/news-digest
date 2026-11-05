@@ -53,6 +53,11 @@ export class PreviewController {
     const { start, end } = this.window(body);
     return this.jobs.enqueue(start, end);
   }
+  @Get(':id/cost') async cost(@Param('id', new ParseUUIDPipe()) id: string) {
+    if (!(await this.repository.find(id)))
+      throw new NotFoundException('Edition not found');
+    return this.repository.cost(id);
+  }
   @Get(':id') async find(@Param('id', new ParseUUIDPipe()) id: string) {
     const snapshot = await this.repository.find(id);
     if (!snapshot) throw new NotFoundException('Edition not found');

@@ -656,3 +656,22 @@ export function newsQueryFeed(input: NewsQuery): CustomFeed {
 }
 
 export const identitySchema = z.object({ isAdmin: z.boolean() });
+
+export const editionCostSchema = z.object({
+  costMicros: z.number().int().nonnegative(),
+  reservedMicros: z.number().int().nonnegative(),
+  calls: z.number().int().nonnegative(),
+  byModelAndPurpose: z.array(
+    z.object({
+      model: z.string(),
+      purpose: z.string(),
+      calls: z.number().int().nonnegative(),
+      succeeded: z.number().int().nonnegative(),
+      failed: z.number().int().nonnegative(),
+      unresolved: z.number().int().nonnegative(),
+      costMicros: z.number().int().nonnegative(),
+      reservedMicros: z.number().int().nonnegative(),
+    }),
+  ),
+});
+export type EditionCost = z.infer<typeof editionCostSchema>;

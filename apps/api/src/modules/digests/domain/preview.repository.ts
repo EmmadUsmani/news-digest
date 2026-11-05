@@ -1,4 +1,8 @@
-import type { DigestPreview, PreviewHistory } from '@digest/contracts';
+import type {
+  DigestPreview,
+  EditionCost,
+  PreviewHistory,
+} from '@digest/contracts';
 export interface EditionProgress {
   stage: 'topics' | 'publishing';
   topics: {
@@ -20,5 +24,6 @@ export abstract class PreviewRepository {
   abstract findByGenerationKey(key: string): Promise<{ id: string } | null>;
   abstract history(offset: number): Promise<PreviewHistory>;
   abstract find(id: string): Promise<DigestPreview | null>;
+  abstract cost(id: string): Promise<EditionCost>;
   abstract latest(): Promise<DigestPreview | null>;
 }

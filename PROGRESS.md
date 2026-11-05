@@ -1,27 +1,3 @@
-## 2026-11-05: iteration 874 — finish the private admin gate rollout
-
-- Started clean on main; no leftover work. Initial alerts clear, services and /healthz healthy; all 36 sources returning data, latest scheduled edition completed with four topics/17 stories/14 posts.
-- Moved operational controllers/callers to /api/admin; removed legacy routes, including writes and generation jobs. Isolated HTTP coverage verifies anonymous denial and legacy 404 even for admins.
-- Applied the existing gate to docs/DB/Grafana/logs/metrics/queues, including assets and query APIs. Tool responses retain no-store/identity Vary despite upstream cache headers.
-- Reader loads only edition/history data, with no operational requests, settings, generation controls or admin links. Existing management controls now live at /admin behind uncached identity; dedicated shadcn pages remain step 3.
-- Migrated local scripts and browser replays together. Node-only token bridges cover admin documents and tool reads/queries; browser writes remain blocked or simulated, redirects refused, saved data unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (505 unit/218 isolated integration passed); pnpm build; final web typecheck/lint and git diff --check. Handbook checker: 18 pages/22 diagrams; corrected Operations length, targeted recheck passed, 28 schema tables.
-- Browser: admin-gate (24 denied GET/HEAD paths, forwarded-token denial, legacy removal), admin-separation (desktop/mobile light/dark), ui, ui-routing, topics, edition-jobs, metrics, logs, queues and slow-queries passed. Eight new split screenshots plus reader-route evidence retained; unrelated generated screenshot churn restored.
-- Final Grafana check found an active but stalled service: direct and proxied health timed out with sustained memory-high pressure. Restart restored direct/proxied health (200, database ok, no-store); no resource-limit changes.
-- Updated TASKS, access decision and affected runtime/Operations handbook; archived iterations 860–861. No paid calls, saved-edition/settings writes, new sources or schema changes; SOURCES/NEEDS_FROM_HUMAN unchanged.
-- Next: step 3 dedicated admin pages; X fresh-window rounds after 21:00 UTC Nov 5/6; review Nov 6 story grouping/editor-v5 and spend. Proxy forged-header check remains required before future public access; VM stays private.
-
-## 2026-11-05: iteration 875 — admin navigation and dedicated Tools page
-
-- Started clean on main; alerts clear, API/worker and /healthz healthy; no leftover work. All 36 sources active, returning items without errors; digest/social queues show completed runs.
-- Began UI step 3 with shared admin layout, desktop sidebar, active navigation and mobile shadcn/Radix sheet with keyboard dismissal. Overview retains unmigrated controls; removed its old hero, duplicate header and footer.
-- Added /admin/tools with six shadcn cards for Grafana, Logs, Metrics, Queues, DB explorer and Handbook; new tabs retain the existing server gate. Tools loads identity only, without operational API requests.
-- Extended Node-only browser document bridge to protected child routes; tokens stay outside the browser. Added repeatable smoke-admin-tools.ts and retained four Tools plus four updated Overview screenshots.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (505 unit/218 isolated integration passed); pnpm build and final web build; git diff --check. Handbook checks for Operations/runtime passed (18 pages, 1 diagram each, 28 schema tables); no diagrams changed.
-- Browser: smoke-admin-tools, smoke-admin-separation and smoke-admin-gate passed; desktop/mobile light/dark, deep reload, menu open/Escape/link dismissal, six links, no overflow/writes/browser credentials. Saved real edition unchanged. Visually checked Tools desktop light/mobile dark; corrected legacy heading styles before final captures.
-- API restarted for built web; worker unchanged under STEERING 22. Health/alerts clear; saved edition four topics/17 stories/14 posts. No paid calls, settings/edition writes, source or schema changes; SOURCES and NEEDS_FROM_HUMAN unchanged; archived iteration 862.
-- Next: continue dedicated admin pages (Overview, Editions/creation/inspector, Sources, Topics, Schedule, Spend), then reader. X fresh-window rounds after 21:00 UTC Nov 5/6; Nov 6 scheduled editorial review. Public proxy check remains deferred until public access.
-
 ## 2026-11-05: iteration 876 — compact operations Overview
 
 - Started clean on main; no leftover work. Initial alerts clear, /healthz healthy and all 36 sources returning content. Latest scheduled edition remains four topics/17 stories/14 posts; digest queue has no failures.
@@ -119,3 +95,15 @@
 - No paid calls, source changes or saved-data writes; SOURCES and NEEDS_FROM_HUMAN unchanged. Archived iterations 872–873; updated TASKS.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (typecheck/lint/format/boundaries and 505 unit passed; integration interrupted exit 143 without assertion failure); standalone pnpm test:integration (218 passed); pnpm build; git diff --check; handbook operations; browser/access checks above. API/worker restarted for built app; final health/alerts checked before push.
 - Next: edition cost, Topics and remaining Sources/Spend controls. X rounds after 21:00 UTC Nov 5/6 and Nov 6 scheduled-edition review take priority when due.
+
+## 2026-11-05: iteration 884 — edition inspector AI cost
+
+- Started clean on main; no leftover work. Alerts clear, health healthy, API/worker active; X rounds still due after 21:00 UTC.
+- Owner-visible value: the edition inspector now shows recorded AI cost and unresolved holds by model/purpose, making the cost of a saved edition directly inspectable.
+- Added a protected, UUID-validated cost endpoint through the repository port and existing run-ID ledger reader; checks edition/profile existence. No calls recorded is explicit, not an inferred free run. Retries stay attributed by run ID; overlapping jobs are excluded.
+- Latest real edition: $0.315445, 46 calls/eight model-purpose groups, zero unresolved holds; four topics/17 stories/14 posts unchanged. 36 sources/zero current errors; no retained queue failures. No paid calls, source changes or saved-data writes.
+- HTTP integration coverage checks empty-ledger editions, invalid/missing IDs and anonymous denial; existing isolated ledger coverage pins cross-day identity, overlapping-run exclusion and unresolved/failed holds.
+- Initial browser launch raced API startup; reran after healthy response. Browser then caught mobile table overflow; fixed grid card minimum sizing, rebuilt and reran. Updated Operations and TASKS; SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Full check passed typecheck/lint/format/boundaries and 505 unit tests; first integration pass was 217/218 because anonymous denial was asserted in an app without its guard. Moved the assertion into the existing guarded HTTP test; reran isolated integration. Live gate was already passing.
+- Final verification: pnpm test:integration 218/218 passed; pnpm build and final web build passed; pnpm format, pnpm lint:fix, git diff --check; handbook Operations checker 18 pages/two unchanged diagrams/28 tables. Browser smoke-admin-editions, smoke-admin-gate and smoke-admin-separation passed desktop/mobile light/dark, anonymous denial, no overflow/writes/external calls/browser credentials; four inspector captures updated and desktop light/mobile dark inspected.
+- Archived iterations 874–875. API/worker restarted for built app; health/alerts green. Next: Topics admin pages; list/Overview edition cost and remaining Sources/Spend controls remain. X fresh-window rounds due after 21:00 UTC Nov 5/6; Nov 6 scheduled edition review takes priority when due.
