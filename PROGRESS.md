@@ -1,28 +1,3 @@
-## 2026-11-05: iteration 884 — edition inspector AI cost
-
-- Started clean on main; no leftover work. Alerts clear, health healthy, API/worker active; X rounds still due after 21:00 UTC.
-- Owner-visible value: the edition inspector now shows recorded AI cost and unresolved holds by model/purpose, making the cost of a saved edition directly inspectable.
-- Added a protected, UUID-validated cost endpoint through the repository port and existing run-ID ledger reader; checks edition/profile existence. No calls recorded is explicit, not an inferred free run. Retries stay attributed by run ID; overlapping jobs are excluded.
-- Latest real edition: $0.315445, 46 calls/eight model-purpose groups, zero unresolved holds; four topics/17 stories/14 posts unchanged. 36 sources/zero current errors; no retained queue failures. No paid calls, source changes or saved-data writes.
-- HTTP integration coverage checks empty-ledger editions, invalid/missing IDs and anonymous denial; existing isolated ledger coverage pins cross-day identity, overlapping-run exclusion and unresolved/failed holds.
-- Initial browser launch raced API startup; reran after healthy response. Browser then caught mobile table overflow; fixed grid card minimum sizing, rebuilt and reran. Updated Operations and TASKS; SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Full check passed typecheck/lint/format/boundaries and 505 unit tests; first integration pass was 217/218 because anonymous denial was asserted in an app without its guard. Moved the assertion into the existing guarded HTTP test; reran isolated integration. Live gate was already passing.
-- Final verification: pnpm test:integration 218/218 passed; pnpm build and final web build passed; pnpm format, pnpm lint:fix, git diff --check; handbook Operations checker 18 pages/two unchanged diagrams/28 tables. Browser smoke-admin-editions, smoke-admin-gate and smoke-admin-separation passed desktop/mobile light/dark, anonymous denial, no overflow/writes/external calls/browser credentials; four inspector captures updated and desktop light/mobile dark inspected.
-- Archived iterations 874–875. API/worker restarted for built app; health/alerts green. Next: Topics admin pages; list/Overview edition cost and remaining Sources/Spend controls remain. X fresh-window rounds due after 21:00 UTC Nov 5/6; Nov 6 scheduled edition review takes priority when due.
-
-## 2026-11-05: iteration 885 — first revised X search round
-
-- Started clean on main; no leftover work. Owner would care: this tests whether paid X discovery finds viral posts beyond the free links, before changing the real feed.
-- Dispatched all eight revised Grok 4.3 keyword/semantic cells after 21:00 UTC on Nov 4–5 21:00 UTC, using configured direct xAI and unchanged reservation/caps. Continuations attempted only untouched cells; no retries.
-- Five settlements: $0.278606, 41 fetched/cited unique posts, all 41 official embeds verified. NBA keyword tool failed without usage; Gaming timed out; World supplied no execution/usage. Three $0.15 holds retained; today charged $0.728606, overall $1.260937.
-- Tech keyword: 10 results despite requested 16; Top/OR/exact UTC/threshold/exclusions matched, reported median/max likes 1,580/7,441, all ten in window. Semantic: 31 citations, 16 ID-dated inside window, all likes unknown. World separately: seven semantic/four in window; unresolved keyword. No usable-yield claim/winner/activation.
-- Saved private raw evidence, manifest, extracted evidence/reports, official embeds and read-only old-search/free-link snapshot (four production calls/$0.143191/19 citations, 1,000 free-link rows). No experiment ingestion, edition writes or Anthropic calls.
-- Fixed a real extraction failure: revised requests inject mandatory -giveaway but saved settings omit it. Reconstruct effective exclusions for revised styles; preserve historical behavior. Regression covers empty/nonempty saved exclusions and settlement mismatch. Initial targeted failure was the old missing-exclusion rejection assertion; corrected for the now-valid input, then all five tests passed.
-- Updated TASKS, SOURCES, experiment reference and dated review; NEEDS_FROM_HUMAN/handbook unchanged (no source/runtime/access change).
-- Verification: pnpm format; pnpm lint:fix; targeted extractor 5/5; saved-evidence assertions (eight unique attempts/five settlements/three holds/41 verified/private permissions/unknown usable yield); pnpm build; git diff --check. Full pnpm check passed typecheck/lint/format/boundaries, 505 unit and 218 isolated integration tests.
-- Live health/database/Redis green, four services active, 36 sources/zero unhealthy, latest saved reader four topics, alerts clear. No restart under STEERING 22: only offline script/tests/docs changed.
-- Next: score/review saved Nov 5 candidates and compare retained free links/old baseline; Nov 6 fresh round after 21:00 UTC. Nov 6 scheduled grouping/editor-v5 review takes priority; build Topics admin while X waits.
-
 ## 2026-11-05: iteration 886 — revised X free-link overlap review
 
 - Started clean on main; no leftover work. Alerts clear, health/database/Redis healthy; API, worker, docs and schema services active.
@@ -139,3 +114,14 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check passed (507 unit/219 isolated integration tests, typecheck/lint/format/boundaries); pnpm build; smoke-admin-sources.ts; smoke-admin-separation.ts; check-handbook.ts 08-operations; git diff --check passed.
 - All four services restarted and active; /healthz database/Redis green, 36 source checks healthy and alerts clear. Live status has new counts (Aftermath 3/20, Al Jazeera 94/379); saved reader edition returns 200 with four topics.
 - Next: remaining dedicated admin-page gaps (source controls, topic discovery settings), then final reader; Nov 6 scheduled edition/grouping review and X round after 21:00 UTC. No X activation before decision.
+
+## 2026-11-05: iteration 896 — Sources Add feed dialog
+
+- Started clean on main; no leftover work. Owner would care: add a feed directly from Sources and choose its topic without visiting the topic editor.
+- Added the specified dialog using the existing protected feed endpoint and shared validation; refreshes topic connections, collection status and source catalog after success. No schema, collector, budget or live settings changes.
+- Browser verification reads saved live status but intercepts every feed write; example feed is replay data, never collected. Four dialog screenshots added and Sources screenshots refreshed.
+- Initial browser run found an ambiguous topic-select label; added an explicit accessible name and rebuilt. Desktop light/mobile dark dialog images visually reviewed.
+- Updated TASKS and Operations handbook; SOURCES/NEEDS_FROM_HUMAN unchanged. No paid calls.
+- Verification: pnpm format; pnpm lint:fix; pnpm check passed (507 unit/219 isolated integration tests, typecheck/lint/format/boundaries); pnpm build and final web build; smoke-admin-sources.ts; smoke-admin-separation.ts; check-handbook.ts 08-operations; git diff --check. Archived iterations 884–885 to keep PROGRESS small.
+- API/worker/docs/schema restarted; /healthz database/Redis green, 36 sources healthy with recent collection and saved reader HTTP 200; alerts clear.
+- Next: remaining admin controls and final reader; Nov 6 scheduled edition/grouping review and fresh-window X round after 21:00 UTC. No X activation before decision.

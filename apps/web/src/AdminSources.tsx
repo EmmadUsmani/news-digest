@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
 
+import { AddFeedDialog } from './AddFeedDialog';
 import { Button } from './components/ui/button';
 import { Card } from './components/ui/card';
 import { Table } from './components/ui/table';
@@ -44,6 +45,7 @@ export function AdminSources() {
         </p>
       )}
       <Card className="grid gap-2 text-sm">
+        <AddFeedDialog topics={topics.data ?? []} />
         <p className="m-0">
           Open a topic to connect sources, add a feed or add a news query.
         </p>

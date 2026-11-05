@@ -32,7 +32,7 @@ async function smoke() {
           adminReads: string[] = [];
         page.on('pageerror', (error) => errors.push(error.message));
         page.on('request', (request) => {
-          assert.equal(request.method(), 'GET');
+          assert.ok(['GET', 'POST'].includes(request.method()));
           assert.equal('admin_local_token' in request.headers(), false);
           assert.equal('x-exedev-email' in request.headers(), false);
         });
@@ -107,6 +107,45 @@ async function smoke() {
             String(source.items7d),
           );
         }
+        await page
+          .getByRole('button', { name: 'Add feed', exact: true })
+          .click();
+        const dialog = page.getByRole('dialog', {
+          name: 'Add feed',
+          exact: true,
+        });
+        await dialog.waitFor();
+        await dialog
+          .getByLabel('Topic', { exact: true })
+          .selectOption(topics[0].id);
+        await dialog.getByLabel('Feed name').fill('Browser replay feed');
+        await dialog.getByLabel('Feed URL').fill('https://example.com/feed');
+        let submitted = false;
+        const feedPath = `**/api/admin/topics/${topics[0].id}/feeds`;
+        await page.route(feedPath, async (route) => {
+          assert.equal(route.request().method(), 'POST');
+          assert.deepEqual(route.request().postDataJSON(), {
+            name: 'Browser replay feed',
+            url: 'https://example.com/feed',
+          });
+          submitted = true;
+          await route.fulfill({ json: topics[0] });
+        });
+        await dialog
+          .getByRole('button', { name: 'Connect feed', exact: true })
+          .click();
+        await dialog
+          .getByRole('status')
+          .filter({ hasText: 'Feed connected.' })
+          .waitFor();
+        assert.equal(submitted, true);
+        await page.screenshot({
+          path: `docs/screenshots/ui/admin-add-feed-${device}-${theme}.png`,
+        });
+        await dialog
+          .getByRole('button', { name: 'Close', exact: true })
+          .click();
+        await page.unroute(feedPath);
         const connectedTopic = topics.find((topic) => topic.sources.length > 0);
         assert.ok(connectedTopic);
         await page
@@ -220,7 +259,7 @@ async function smoke() {
     await browser.close();
   }
   console.log(
-    'Admin sources: four viewport/theme combinations, saved real topics/sources, healthy sources, exact topic connections and editor/feed navigation, topic refresh failure/retry, anonymous denial, reload, mobile navigation, no overflow/writes/browser credentials.',
+    'Admin sources: four viewport/theme combinations, saved real topics/sources, healthy sources, exact topic connections and editor/feed navigation, topic refresh failure/retry, anonymous denial, reload, mobile navigation, Add feed replay submission, no overflow/live writes/browser credentials.',
   );
 }
 void smoke();
