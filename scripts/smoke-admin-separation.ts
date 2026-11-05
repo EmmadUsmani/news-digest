@@ -79,6 +79,9 @@ async function smoke() {
         await replayAdminPage(page);
         await page.goto(`${origin}/admin`);
         await page
+          .getByText('Edition and management controls', { exact: true })
+          .click();
+        await page
           .getByRole('button', {
             name: 'Create edition · last 24 hours',
             exact: true,
@@ -89,6 +92,9 @@ async function smoke() {
           .getByRole('heading', { name: 'Incoming from your sources.' })
           .waitFor();
         await page.reload();
+        await page
+          .getByText('Edition and management controls', { exact: true })
+          .click();
         await page
           .getByRole('button', {
             name: 'Create edition · last 24 hours',

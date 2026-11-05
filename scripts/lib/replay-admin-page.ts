@@ -10,14 +10,17 @@ export async function replayAdminPage(page: Page) {
   await page.route('**/api/me', (route) =>
     route.fulfill({ json: { isAdmin: true } }),
   );
-  await page.route(/\/admin(?:\/[^?#]*)?(?:\?[^#]*)?$/, async (route) => {
-    assert.equal(route.request().method(), 'GET');
-    const response = await localAdminFetch(route.request().url());
-    assert.equal(response.status, 200);
-    await route.fulfill({
-      status: 200,
-      contentType: 'text/html',
-      body: await response.text(),
-    });
-  });
+  await page.route(
+    /^https?:\/\/[^/]+\/admin(?:\/[^?#]*)?(?:\?[^#]*)?$/,
+    async (route) => {
+      assert.equal(route.request().method(), 'GET');
+      const response = await localAdminFetch(route.request().url());
+      assert.equal(response.status, 200);
+      await route.fulfill({
+        status: 200,
+        contentType: 'text/html',
+        body: await response.text(),
+      });
+    },
+  );
 }

@@ -13,14 +13,12 @@ import { z } from 'zod';
 import { AdminLayout, AdminTools } from './AdminLayout';
 import { App } from './App';
 import {
-  contentQuery,
+  adminEditionQuery,
   editionHistoryQuery,
   editionQuery,
   healthQuery,
   identityQuery,
-  profileQuery,
   statusQuery,
-  topicsQuery,
 } from './queries';
 
 export const queryClient = new QueryClient({
@@ -45,9 +43,7 @@ const rootRoute = createRootRouteWithContext<{ queryClient: QueryClient }>()({
 // Auxiliary data failures remain local to their panels, never hiding the edition.
 function loadPageData({ context }: { context: { queryClient: QueryClient } }) {
   void Promise.allSettled([
-    context.queryClient.ensureQueryData(contentQuery),
-    context.queryClient.ensureQueryData(topicsQuery),
-    context.queryClient.ensureQueryData(profileQuery),
+    context.queryClient.ensureQueryData(adminEditionQuery),
     context.queryClient.ensureQueryData(healthQuery),
     context.queryClient.ensureQueryData(statusQuery),
   ]);

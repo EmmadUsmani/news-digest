@@ -42,8 +42,8 @@ Backups: `~/backups/news-digest/`; [nightly timers and restore](10-backups.md).
 
 ## How to tell if things are healthy
 
-- **Status at `/admin`:** source health, queues and recent runs, coverage,
-  AI and X spend.
+- **Overview at `/admin`:** health, daily spend, latest edition, source issues and next runs.
+- **Edition and management controls:** source health, queues, coverage and spend.
 - **`/healthz`:** 200 when Postgres and Redis respond; checked by the supervisor.
 - **`pnpm obs alerts`** and [Grafana](09-observability.md) cover the rest.
 

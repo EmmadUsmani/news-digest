@@ -1,14 +1,3 @@
-## 2026-11-05: iteration 863 — explain accepted on-demand jobs lost from Redis
-
-- Started clean on main; no leftover work. Alerts/health green, 36 sources healthy, digest queue zero failures. X rounds await 21:00 UTC; admin rollout awaits owner identity/proxy evidence.
-- New profile-scoped Drizzle request repository saves each accepted on-demand job ID before returning its link, including deduplicated adds. Successful missing/unknown Redis reads now return a generic unavailable failure for known requests; unknown IDs remain absent, outages remain retryable, and saved editions/failures take precedence. Status reads never regenerate.
-- Isolated tests cover real paused-job removal, lookup/state removal race, dedupe, acceptance-write failure, outage behavior, no replacement enqueue, idempotency and profile isolation. Older unfinished jobs already lost before deployment cannot be reconstructed; no worker/process-kill or live generation experiment.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (501 unit, initially 216/217 integration). Fixed a timing-test constructor missing the new request port; pnpm test:integration rerun passed all 217. pnpm build, git diff --check and Jobs handbook check passed (18 pages/2 unchanged diagrams, 28 assigned tables).
-- Private backup service succeeded before additive migration 0003; pnpm migrate applied it. Owner read/write role access verified; request table initially empty. No data rewrite or source/UI/budget change.
-- API/worker restarted active; /healthz database/Redis OK; smoke-admin-gate.ts before/after restart passed, saved reader edition byte-identical, 36 healthy sources, zero alerts/failed digest jobs and dangling Docker volumes. No paid calls.
-- Updated Jobs handbook, schema metadata and TASKS; archived iteration 849 to keep progress small. SOURCES, screenshots and NEEDS_FROM_HUMAN unchanged.
-- Next: X fresh-window rounds after 21:00 UTC Nov 5/6; scheduled editor-v5 evidence Nov 6; admin identity/proxy rollout and broader job reliability acceptance remain open.
-
 ## 2026-11-05: iteration 864 — verify recovery after an actual worker crash
 
 - Started clean on main; no leftover work. Alerts/health green, 36 sources healthy and digest queue zero failures. X rounds remain time-gated; admin rollout still needs owner identity/proxy evidence.
@@ -131,3 +120,14 @@
 - Browser: smoke-admin-tools, smoke-admin-separation and smoke-admin-gate passed; desktop/mobile light/dark, deep reload, menu open/Escape/link dismissal, six links, no overflow/writes/browser credentials. Saved real edition unchanged. Visually checked Tools desktop light/mobile dark; corrected legacy heading styles before final captures.
 - API restarted for built web; worker unchanged under STEERING 22. Health/alerts clear; saved edition four topics/17 stories/14 posts. No paid calls, settings/edition writes, source or schema changes; SOURCES and NEEDS_FROM_HUMAN unchanged; archived iteration 862.
 - Next: continue dedicated admin pages (Overview, Editions/creation/inspector, Sources, Topics, Schedule, Spend), then reader. X fresh-window rounds after 21:00 UTC Nov 5/6; Nov 6 scheduled editorial review. Public proxy check remains deferred until public access.
+
+## 2026-11-05: iteration 876 — compact operations Overview
+
+- Started clean on main; no leftover work. Initial alerts clear, /healthz healthy and all 36 sources returning content. Latest scheduled edition remains four topics/17 stories/14 posts; digest queue has no failures.
+- Added shadcn Overview cards for health, active source health and AI/X daily spend/caps; latest saved edition shows per-topic story/post modes/counts, retained worker duration and reader link. Source issues and next edition/social runs are visible without opening detailed controls.
+- Existing edition/topic/schedule/status controls remain in a collapsed section and mount only when opened; Overview no longer fetches content/topics/profile. Dedicated management pages still replace those controls next. Inline alert count and per-edition cost remain open; alerts link to Grafana.
+- Added repeatable smoke-admin-overview: four viewport/theme combinations, anonymous denial, reload, mobile menu, stale-data refresh failure/recovery and no browser credentials/writes/overflow. Anchored the Node-only document bridge so API scenario routes are no longer shadowed.
+- Browser: smoke-admin-overview, smoke-admin-separation, smoke-admin-tools and smoke-admin-gate passed; final layout rechecked with Overview/separation. Four Overview and four updated controls screenshots retained; visually checked desktop light/mobile dark. Saved real edition unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; final web build/typecheck; git diff --check. Unit/integration counts: 505/218 passed. First full command exited 143 after passing tests; retry caught formatting of newly archived entry, corrected before final rerun.
+- Handbook Operations/runtime checks passed (18 pages, 2/1 unchanged diagrams, 28 assigned tables). API restarted for built web and readiness confirmed; worker unchanged. No paid calls, saved settings/edition writes, source/schema/access changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Updated TASKS and affected handbook; archived iteration 863. Next: complete Overview alert count/cost and dedicated Editions/creation/inspector, then remaining admin pages; X rounds after 21:00 UTC Nov 5/6; review Nov 6 edition. Private proxy check remains required before public access.

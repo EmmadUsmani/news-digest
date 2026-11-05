@@ -1,5 +1,7 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
 
+import { AdminOverview } from './AdminOverview';
 import { ThemeToggle } from './components/theme-toggle';
 import { DigestPreview } from './DigestPreview';
 import {
@@ -28,6 +30,22 @@ export function App({ admin = false }: { admin?: boolean }) {
 }
 
 function AdminApp() {
+  const [showControls, setShowControls] = useState(false);
+  return (
+    <div>
+      <AdminOverview />
+      <details
+        className="mt-6"
+        onToggle={(event) => setShowControls(event.currentTarget.open)}
+      >
+        <summary>Edition and management controls</summary>
+        {showControls && <LegacyAdminControls />}
+      </details>
+    </div>
+  );
+}
+
+function LegacyAdminControls() {
   const queryClient = useQueryClient();
   const { data: content = [], isError: contentError } = useQuery(contentQuery);
   const { data: topics = [], isError: topicsError } = useQuery(topicsQuery);

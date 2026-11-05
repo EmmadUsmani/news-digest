@@ -1,5 +1,6 @@
 import {
   contentGroupSchema,
+  digestPreviewSchema,
   healthSchema,
   identitySchema,
   operationsStatusSchema,
@@ -97,3 +98,13 @@ export const editionHistoryQuery = (offset = 0) =>
         signal,
       ),
   });
+
+export const adminEditionQuery = queryOptions({
+  queryKey: ['admin', 'editions', 'latest'],
+  queryFn: ({ signal }) =>
+    read(
+      '/api/admin/digest-previews/latest',
+      digestPreviewSchema.nullable(),
+      signal,
+    ),
+});
