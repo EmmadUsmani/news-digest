@@ -350,6 +350,15 @@ void test('digest HTTP publication, history and async jobs use real isolated per
       published,
       'Later publication preserves earlier snapshot',
     );
+    // Redis counters may restart independently of the saved publication keys.
+    await jobs.connection.set(jobs.queue.toKey('id'), '0');
+    const afterReset = (await request('/jobs', 202, window)) as { id: string };
+    assert.notEqual(afterReset.id, first.id);
+    assert.equal(
+      ((await request(`/jobs/${first.id}`)) as { editionId: string }).editionId,
+      edition.id,
+    );
+    await (await jobs.queue.getJob(afterReset.id))!.remove();
   } finally {
     await worker.close();
     await connection.quit();

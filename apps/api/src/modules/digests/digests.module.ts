@@ -1,4 +1,4 @@
-import { previewRequestSchema } from '@digest/contracts';
+import { editionJobIdSchema, previewRequestSchema } from '@digest/contracts';
 import {
   BadRequestException,
   Body,
@@ -37,7 +37,8 @@ export class PreviewController {
     return this.repository.latest();
   }
   @Get('jobs/:id') async job(@Param('id') id: string) {
-    if (!/^[0-9]{1,20}$/.test(id)) throw new NotFoundException('Job not found');
+    if (!editionJobIdSchema.safeParse(id).success)
+      throw new NotFoundException('Job not found');
     const job = await this.jobs.find(id);
     if (!job) throw new NotFoundException('Job not found');
     return job;

@@ -367,6 +367,12 @@ export const previewRequestSchema = z
   })
   .strict();
 
+export const editionJobIdSchema = z
+  .string()
+  .regex(
+    /^(?:[0-9]{1,20}|[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})$/,
+  );
+
 export const previewHistoryEntrySchema = digestPreviewSchema.pick({
   id: true,
   createdAt: true,

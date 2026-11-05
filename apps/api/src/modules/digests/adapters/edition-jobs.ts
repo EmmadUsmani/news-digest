@@ -1,5 +1,6 @@
-import { createHash } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 
+import { editionJobIdSchema } from '@digest/contracts';
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
 import { Job, Queue } from 'bullmq';
 
@@ -24,6 +25,8 @@ export class BullEditionJobs extends EditionJobs implements OnModuleDestroy {
     };
     const id = createHash('sha256').update(JSON.stringify(data)).digest('hex');
     const added = await this.queue.add('on-demand', data, {
+      // Redis counters can reset independently of durable publication keys.
+      jobId: randomUUID(),
       deduplication: { id },
       attempts: 1,
       removeOnComplete: 100,
@@ -39,7 +42,7 @@ export class BullEditionJobs extends EditionJobs implements OnModuleDestroy {
     if (!job) {
       // BullMQ prunes its bounded history; the publication key survives in
       // Postgres. Recover only a committed edition, never enqueue a new run.
-      if (!/^[0-9]{1,20}$/.test(id)) return null;
+      if (!editionJobIdSchema.safeParse(id).success) return null;
       const edition = await this.repository.findByGenerationKey(
         `on-demand:${id}`,
       );

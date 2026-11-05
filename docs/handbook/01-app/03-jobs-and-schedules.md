@@ -81,6 +81,9 @@ sequenceDiagram
   UI->>You: opens the new edition
 ```
 
+New on-demand jobs use random UUIDs, so their saved edition links survive a
+Redis counter reset. Existing numeric job links continue to work.
+
 ## Reliability rules
 
 - **Retries:** collection and edition jobs retry 3 times with exponential

@@ -13,9 +13,10 @@ import {
 } from '../src/modules/digests/domain/preview.repository';
 
 void test('async edition requests dedupe while active, publish once and allow later regeneration', async () => {
+  const publications = new Map<string, DigestPreview>();
   const jobs = new BullEditionJobs({
-    async findByGenerationKey() {
-      return null;
+    async findByGenerationKey(key: string) {
+      return publications.get(key) ?? null;
     },
   } as PreviewRepository);
   const connection = jobs.connection.duplicate({ maxRetriesPerRequest: null });
@@ -49,7 +50,12 @@ void test('async edition requests dedupe while active, publish once and allow la
         topics: [{ id: 'fixture', name: 'Fixture', stage: 'editing' }],
       });
       await blocked;
-      return snapshot;
+      const edition = {
+        ...snapshot,
+        id: calls === 1 ? snapshot.id : crypto.randomUUID(),
+      };
+      publications.set(key!, edition);
+      return edition;
     },
   } as PreviewRepository;
   const controller = new PreviewController(repository, jobs);
@@ -98,6 +104,7 @@ void test('async edition requests dedupe while active, publish once and allow la
     );
     assert.equal(new Set(requests.map((job) => job.id)).size, 1);
     const id = requests[0].id;
+    assert.match(id, /^[0-9a-f-]{36}$/);
     await waitFor(id, 'active');
     for (
       let attempt = 0;
@@ -114,9 +121,20 @@ void test('async edition requests dedupe while active, publish once and allow la
     assert.ok(completed.durationMs! >= 0);
     assert.equal(completed.error, null);
     assert.equal(keys[0], `on-demand:${id}`);
+    // Model loss of completed Redis history and a reset job counter. The
+    // publication key must remain unique and the old link must still recover.
+    await (await jobs.queue.getJob(id))!.remove();
+    await jobs.connection.set(jobs.queue.toKey('id'), '0');
+    assert.equal((await jobs.find(id))?.editionId, snapshot.id);
+    // Numeric links issued before UUID IDs were introduced remain readable.
+    publications.set('on-demand:123456789', snapshot);
+    assert.equal((await jobs.find('123456789'))?.editionId, snapshot.id);
     const regenerated = await controller.enqueue(request);
     assert.notEqual(regenerated.id, id);
-    await waitFor(regenerated.id, 'completed');
+    const second = await waitFor(regenerated.id, 'completed');
+    assert.notEqual(second.editionId, snapshot.id);
+    assert.notEqual(keys[1], keys[0]);
+    assert.equal((await jobs.find(id))?.editionId, snapshot.id);
     assert.equal(calls, 2);
     assert.equal(await jobs.find('999999999999'), null);
     await assert.rejects(controller.job('invalid'));

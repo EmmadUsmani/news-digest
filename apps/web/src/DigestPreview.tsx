@@ -1,3 +1,4 @@
+import { editionJobIdSchema } from '@digest/contracts';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link, useNavigate, useParams } from '@tanstack/react-router';
 import React from 'react';
@@ -12,7 +13,7 @@ import {
 } from './queries';
 import { TopPosts } from './TopPosts';
 const editionJobStatusSchema = z.object({
-  id: z.string().regex(/^[0-9]{1,20}$/),
+  id: editionJobIdSchema,
   state: z.enum([
     'waiting',
     'active',
@@ -206,8 +207,7 @@ export function DigestPreview() {
       });
       if (!response.ok) throw new Error();
       const job = await response.json();
-      if (typeof job.id !== 'string' || !/^[0-9]{1,20}$/.test(job.id))
-        throw new Error();
+      if (!editionJobIdSchema.safeParse(job.id).success) throw new Error();
       setJobMessage('Edition queued. Waiting for the worker…');
       setJobId(job.id);
     } catch {

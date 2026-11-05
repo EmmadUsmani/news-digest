@@ -12,6 +12,12 @@ import { chromium } from 'playwright';
 import { localAdminJson } from './lib/local-admin-fetch';
 
 async function smoke() {
+  assert.ok(
+    [undefined, 'desktop', 'mobile'].includes(
+      process.env.EDITION_JOB_SMOKE_VIEWPORT,
+    ),
+    'EDITION_JOB_SMOKE_VIEWPORT must be desktop or mobile when set',
+  );
   // Read-only live edition; every generation request is intercepted (no inference).
   const readLatest = async () => {
     const response = await fetch('http://localhost:8000/api/editions/latest', {
@@ -50,6 +56,13 @@ async function smoke() {
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
     ] as const) {
+      if (
+        process.env.EDITION_JOB_SMOKE_VIEWPORT &&
+        process.env.EDITION_JOB_SMOKE_VIEWPORT !== name
+      )
+        continue;
+      const jobId =
+        name === 'desktop' ? '11111111-1111-4111-8111-111111111111' : '123';
       const context = await browser.newContext({
         viewport: { width, height },
         serviceWorkers: 'block',
@@ -93,38 +106,44 @@ async function smoke() {
         submissions++;
         if (stallQueueResponse) return;
         if (loseQueueResponse) return route.abort('failed');
-        await route.fulfill({ status: 202, json: { id: '123' } });
-      });
-      await context.route('**/api/digest-previews/jobs/123', async (route) => {
-        if (stallNextPoll) {
-          stallNextPoll = false;
-          stalledPolls++;
-          return; // Hold this request until the browser's real deadline aborts it.
-        }
-        if (invalidStatus !== undefined)
-          return route.fulfill({ json: invalidStatus });
-        if (disconnected) return route.fulfill({ status: 503, json: {} });
         await route.fulfill({
-          json: {
-            id: '123',
-            state,
-            progress:
-              state === 'active'
-                ? {
-                    stage: stage === 'publishing' ? 'publishing' : 'topics',
-                    topics: [
-                      {
-                        id: 'fixture',
-                        name: 'Fixture topic',
-                        stage: stage === 'publishing' ? 'ready' : stage,
-                      },
-                    ],
-                  }
-                : null,
-            editionId: state === 'completed' ? edition.id : null,
-          },
+          status: 202,
+          json: { id: jobId },
         });
       });
+      await context.route(
+        `**/api/digest-previews/jobs/${jobId}`,
+        async (route) => {
+          if (stallNextPoll) {
+            stallNextPoll = false;
+            stalledPolls++;
+            return; // Hold this request until the browser's real deadline aborts it.
+          }
+          if (invalidStatus !== undefined)
+            return route.fulfill({ json: invalidStatus });
+          if (disconnected) return route.fulfill({ status: 503, json: {} });
+          await route.fulfill({
+            json: {
+              id: jobId,
+              state,
+              progress:
+                state === 'active'
+                  ? {
+                      stage: stage === 'publishing' ? 'publishing' : 'topics',
+                      topics: [
+                        {
+                          id: 'fixture',
+                          name: 'Fixture topic',
+                          stage: stage === 'publishing' ? 'ready' : stage,
+                        },
+                      ],
+                    }
+                  : null,
+              editionId: state === 'completed' ? edition.id : null,
+            },
+          });
+        },
+      );
       await page.goto('http://localhost:8000');
       const create = page.getByRole('button', {
         name: 'Create edition · last 24 hours',
@@ -265,15 +284,20 @@ async function smoke() {
       for (const invalid of [
         {},
         { id: '456', state: 'failed', editionId: null, progress: null },
-        { id: '123', state: 'completed', editionId: null, progress: null },
         {
-          id: '123',
+          id: jobId,
+          state: 'completed',
+          editionId: null,
+          progress: null,
+        },
+        {
+          id: jobId,
           state: 'completed',
           editionId: '../admin',
           progress: null,
         },
         {
-          id: '123',
+          id: jobId,
           state: 'active',
           editionId: null,
           progress: { stage: 'topics', topics: 'invalid' },
@@ -287,7 +311,7 @@ async function smoke() {
         assert.equal(submissions, 3);
         assert.equal(
           await page.evaluate(() => sessionStorage.getItem('edition-job')),
-          '123',
+          jobId,
         );
         assert.equal(
           await page
@@ -324,7 +348,7 @@ async function smoke() {
       assert.equal(submissions, 3);
       assert.equal(
         await page.evaluate(() => sessionStorage.getItem('edition-job')),
-        '123',
+        jobId,
       );
       await page
         .getByRole('status')
