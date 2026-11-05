@@ -13,7 +13,11 @@ import {
 } from '../src/modules/digests/domain/preview.repository';
 
 void test('async edition requests dedupe while active, publish once and allow later regeneration', async () => {
-  const jobs = new BullEditionJobs();
+  const jobs = new BullEditionJobs({
+    async findByGenerationKey() {
+      return null;
+    },
+  } as PreviewRepository);
   const connection = jobs.connection.duplicate({ maxRetriesPerRequest: null });
   let release!: () => void;
   const blocked = new Promise<void>((resolve) => {

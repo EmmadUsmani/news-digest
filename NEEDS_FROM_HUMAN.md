@@ -29,8 +29,9 @@ paid verification is authorized or needed for that review.
 
 ## Admin access rollout (2026-11-05, iteration 729)
 
-`ADMIN_EMAILS` and `ADMIN_LOCAL_TOKEN` are absent. The new reserved admin
-paths therefore deny access; existing reader and operational paths still work.
+`ADMIN_EMAILS` remains unconfigured. A private `ADMIN_LOCAL_TOKEN` is installed
+for direct local scripts; reserved admin paths deny anonymous access. Existing
+reader and legacy operational paths still work.
 Before migrating those operational paths, configure the owner's comma-separated
 admin email list in the private env file. No identity was guessed. Proxy origin
 and header replacement still need an authenticated check before public access;

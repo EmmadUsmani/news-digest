@@ -39,7 +39,7 @@ void test('edition reads preserve JSON, profile isolation and stable 20-entry hi
       };
       snapshots.push(snapshot);
       await adapter.db.query(
-        'INSERT INTO digest_previews(id,profile_id,created_at,window_start,window_end,snapshot) VALUES($1,$2,$3,$4,$5,$6)',
+        'INSERT INTO digest_previews(id,profile_id,created_at,window_start,window_end,snapshot,scheduled_key) VALUES($1,$2,$3,$4,$5,$6,$7)',
         [
           snapshot.id,
           profile,
@@ -47,13 +47,14 @@ void test('edition reads preserve JSON, profile isolation and stable 20-entry hi
           snapshot.windowStart,
           snapshot.windowEnd,
           snapshot,
+          `on-demand:history-${snapshot.id}`,
         ],
       );
     }
     snapshots.sort((a, b) => b.id.localeCompare(a.id));
     const foreign = { ...snapshots[0], id: randomUUID() };
     await adapter.db.query(
-      'INSERT INTO digest_previews(id,profile_id,created_at,window_start,window_end,snapshot) VALUES($1,$2,$3,$4,$5,$6)',
+      'INSERT INTO digest_previews(id,profile_id,created_at,window_start,window_end,snapshot,scheduled_key) VALUES($1,$2,$3,$4,$5,$6,$7)',
       [
         foreign.id,
         otherProfile,
@@ -61,7 +62,18 @@ void test('edition reads preserve JSON, profile isolation and stable 20-entry hi
         foreign.windowStart,
         foreign.windowEnd,
         foreign,
+        `on-demand:foreign-${foreign.id}`,
       ],
+    );
+    const ownKey = `on-demand:history-${snapshots[0].id}`;
+    const foreignKey = `on-demand:foreign-${foreign.id}`;
+    assert.deepEqual(await repository.findByGenerationKey(ownKey), {
+      id: snapshots[0].id,
+    });
+    assert.equal(await repository.findByGenerationKey(foreignKey), null);
+    assert.equal(
+      await repository.findByGenerationKey(`${ownKey}-missing`),
+      null,
     );
     assert.equal(await repository.find(foreign.id), null);
     assert.equal(await repository.find(randomUUID()), null);

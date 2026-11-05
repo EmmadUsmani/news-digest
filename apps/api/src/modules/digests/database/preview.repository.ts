@@ -60,6 +60,18 @@ export class PostgresPreviewRepository
       );
     return (row?.snapshot as DigestPreview | undefined) ?? null;
   }
+  async findByGenerationKey(key: string): Promise<{ id: string } | null> {
+    const [row] = await this.orm
+      .select({ id: digestPreviews.id })
+      .from(digestPreviews)
+      .where(
+        and(
+          eq(digestPreviews.profileId, profileId),
+          eq(digestPreviews.scheduledKey, key),
+        ),
+      );
+    return row ?? null;
+  }
   async history(offset: number): Promise<PreviewHistory> {
     const rows = await this.orm
       .select({

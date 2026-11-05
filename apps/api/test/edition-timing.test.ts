@@ -22,7 +22,7 @@ void test('four-topic edition timing includes SQL, batched triage, editing, publ
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
   assert.equal(process.env.ANTHROPIC_API_KEY, '');
   const repository = new PostgresPreviewRepository();
-  const jobs = new BullEditionJobs();
+  const jobs = new BullEditionJobs(repository);
   const connection = jobs.connection.duplicate({ maxRetriesPerRequest: null });
   const worker = new Worker(
     jobs.queue.name,

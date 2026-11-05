@@ -86,6 +86,8 @@ sequenceDiagram
   a reason rather than publishing a stale edition.
 - **Idempotency:** each scheduled slot has a unique key, so a retry can never
   publish two editions for the same morning.
+- **Saved job links:** after Redis removes a completed on-demand job, its status
+  endpoint finds the published edition in Postgres and returns the edition link.
 - **Progress connection:** a status request times out after 15 seconds. The
   page reconnects to the same job after a timeout or invalid status response;
   generation continues in the worker.

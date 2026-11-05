@@ -312,6 +312,29 @@ void test('digest HTTP publication, history and async jobs use real isolated per
     const edition = digestPreviewSchema.parse(
       await request(`/${completed.editionId}`),
     );
+    // Model retention pruning after publication: the HTTP job link must still
+    // lead to the same immutable edition without another generation.
+    await worker.close();
+    const retained = await jobs.queue.getJob(first.id);
+    assert.ok(retained);
+    await retained.remove();
+    assert.deepEqual(await request(`/jobs/${first.id}`), {
+      id: first.id,
+      state: 'completed',
+      editionId: edition.id,
+      progress: null,
+      durationMs: null,
+      error: null,
+    });
+    await request('/jobs/99999999999999999999', 404);
+    assert.equal(
+      (await repository.findByGenerationKey(`on-demand:${first.id}`)) !== null,
+      true,
+    );
+    assert.equal(
+      await repository.findByGenerationKey(`scheduled:${first.id}`),
+      null,
+    );
     assert.notEqual(edition.id, published.id);
     assert.deepEqual(edition.topics, published.topics);
     assert.deepEqual(await request('/latest'), edition);

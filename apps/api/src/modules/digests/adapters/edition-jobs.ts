@@ -5,6 +5,7 @@ import { Job, Queue } from 'bullmq';
 
 import { redis } from '../../../libs/db/connections';
 import { EditionJobs, type EditionJobStatus } from '../domain/edition-jobs';
+import { PreviewRepository } from '../domain/preview.repository';
 
 @Injectable()
 export class BullEditionJobs extends EditionJobs implements OnModuleDestroy {
@@ -12,7 +13,7 @@ export class BullEditionJobs extends EditionJobs implements OnModuleDestroy {
   readonly queue = new Queue('digest-generation', {
     connection: this.connection,
   });
-  constructor() {
+  constructor(private readonly repository: PreviewRepository) {
     super();
     this.queue.on('error', () => {});
   }
@@ -35,7 +36,25 @@ export class BullEditionJobs extends EditionJobs implements OnModuleDestroy {
   }
   async find(id: string): Promise<EditionJobStatus | null> {
     const job = await this.queue.getJob(id);
-    if (!job || job.name !== 'on-demand') return null;
+    if (!job) {
+      // BullMQ prunes its bounded history; the publication key survives in
+      // Postgres. Recover only a committed edition, never enqueue a new run.
+      if (!/^[0-9]{1,20}$/.test(id)) return null;
+      const edition = await this.repository.findByGenerationKey(
+        `on-demand:${id}`,
+      );
+      return edition
+        ? {
+            id,
+            state: 'completed',
+            editionId: edition.id,
+            progress: null,
+            durationMs: null,
+            error: null,
+          }
+        : null;
+    }
+    if (job.name !== 'on-demand') return null;
     return this.status(job);
   }
   private async status(job: Job): Promise<EditionJobStatus> {
