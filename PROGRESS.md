@@ -1,30 +1,3 @@
-## 2026-11-05: iteration 815 — clarify interrupted topic availability changes
-
-- Started clean on main; no leftover work. Alerts clear, four app services active, health/database/Redis green and sources healthy. No failed retained digest runs; next edition remains 15:00 UTC. Historical ingestion/social failed counters have no matching retained runs.
-- Enable/disable now warns that interrupted responses may follow a completed change and advises reloading saved topics before retrying. Unconfirmed HTTP responses also give reload guidance.
-- Desktop/mobile replay covers non-JSON rejection, retry, disable/enable persistence, completed disable with lost response, reload without another PUT and editor protection. Live topics/profile/edition unchanged; browser writes guarded and credentials absent. Interrupted screenshots inspected.
-- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-topic-availability.ts; smoke-admin-gate.ts; git diff --check. All passed: static checks, 497 unit and 214 isolated integration tests, desktop/mobile recovery and admin gate.
-- Rebuilt app and restarted API; /healthz OK. Worker unchanged. Archived progress 799–800 and completed markers 811–814; TASKS updated. SOURCES/NEEDS_FROM_HUMAN unchanged (no source changes/new blockers). No live settings writes or paid calls.
-- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-
-## 2026-11-05: iteration 816 — clarify interrupted source selection saves
-
-- Started clean on main; no leftover work. Alerts clear, four app services active, health/database/Redis green and all 36 sources healthy. Digest queue has zero failures; next edition is 15:00 UTC.
-- Source selection saves now distinguish rejected responses from unconfirmed saves and advise reloading saved sources before retrying, while retaining the selection.
-- Desktop/mobile replay covers non-JSON rejection, retry, stored incoming content, disconnect and a completed save with lost response. Reload recovers the saved connection without another PUT. Live topics/profile/edition unchanged; credentials absent and unexpected writes blocked. Interrupted screenshots inspected after adjusting capture to show the message.
-- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-topic-sources.ts; smoke-admin-gate.ts; git diff --check. Static checks and 497 unit tests passed; combined check terminated (143) during integration test 129 without failures. Standalone pnpm test:integration passed: 214 tests, zero failures.
-- Rebuilt app and restarted API; /healthz OK, latest reader edition returns four topics and admin gate passes after restart. Worker unchanged. TASKS updated; SOURCES/NEEDS_FROM_HUMAN unchanged (no source changes/new blockers). No paid calls or live settings writes.
-- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-
-## 2026-11-05: iteration 817 — recover interrupted custom-feed connections
-
-- Started clean on main; no leftover work. Alerts clear, four app services active, health/database/Redis green and all 36 sources healthy. Digest queue has zero failures; next edition is 15:00 UTC.
-- Unconfirmed custom-feed/news-query connections now advise reloading saved sources before retrying. Closing/reopening alone can reuse stale topic data after a completed POST loses its response; entries stay available.
-- Desktop/mobile feed replay proves a completed POST with a lost response leaves stale UI, then reload recovers the connection and stored content without another write. News-query recovery and admin gate pass; live topics/profile/edition unchanged, browser writes guarded and credentials absent. Interrupted screenshots inspected.
-- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-custom-feeds.ts; smoke-news-queries.ts; smoke-admin-gate.ts; git diff --check. Rerun passed (exit 0): static checks, 497 unit and 214 isolated integration tests. Initial check stopped on new archive formatting; corrected before rerun.
-- Rebuilt app and restarted API; /healthz OK, latest reader edition returns four topics and admin gate passes after restart. Worker unchanged. Archived progress 801–802; TASKS updated. SOURCES/NEEDS_FROM_HUMAN unchanged (no source changes/new blockers). No paid calls or live settings writes.
-- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-
 ## 2026-11-05: iteration 818 — retry source catalog loading in place
 
 - Started clean on main; no leftover work. Alerts clear, all monitored services and 36 sources healthy; /healthz/database/Redis pass. Digest queue has zero failed runs; next edition remains 15:00 UTC.
@@ -69,7 +42,7 @@
 - Desktop/mobile browser replay interrupts the queue response, checks guidance and enabled controls, reloads without another POST, then verifies normal queue/poll/reconnect/completion/failure paths. All generation requests intercepted; protected full edition/topics/profile unchanged, no browser credentials or unexpected writes. Screenshots in docs/screenshots/ui/ inspected.
 - Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-edition-jobs.ts (final screenshot rerun); smoke-admin-gate.ts; git diff --check. Static checks, 497 unit and 214 isolated integration tests, build and browser replays pass.
 - Restarted API only for the rebuilt web bundle; post-restart health and reader four-topic content pass. Worker unchanged; no paid calls or live settings/generation writes.
-- TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (recovery copy only; no new blockers).
+- TASKS updated; progress 815–817 archived to keep orientation small. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (recovery copy only; no new blockers).
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
 
 ## 2026-11-05: iteration 823 — bound stalled schedule saves
@@ -79,7 +52,7 @@
 - Desktop/mobile browser replay holds the request open until the real deadline, verifies all five values and unlocked controls, then exercises rejection, saved-but-interrupted reload, successful save and validation. Protected live profile/topics/full edition unchanged; all writes replayed, no paid calls.
 - Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-schedule.ts; smoke-admin-gate.ts; git diff --check. Timeout screenshots inspected in docs/screenshots/ui/; unrelated regenerated images discarded.
 - Full check passed static checks and 497 unit tests, then was terminated (143) after integration test 214 before summary; separate pnpm test:integration rerun exited 0: 214 passed, zero failures. No dangling Docker volumes.
-- Rebuilt and restarted API only; health/database/Redis, four-topic reader and admin gate pass; alerts clear. Worker and live schedule unchanged. TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadline only, no new blocker).
+- Rebuilt and restarted API only; health/database/Redis, four-topic reader and admin gate pass; alerts clear. Worker and live schedule unchanged. TASKS updated; progress 815–817 archived to keep orientation small. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadline only, no new blocker).
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
 
 ## 2026-11-05: iteration 824 — bound stalled edition submissions
@@ -99,7 +72,7 @@
 - Desktop/mobile Playwright replay verifies real edit timeouts, retained fields, failure/retry and saved-write reload; creation replay holds a completed response until timeout and reloads exactly one saved topic without another POST. Four timeout screenshots inspected in docs/screenshots/ui/.
 - First browser run failed an existing lost-response message assertion; replay now accepts both valid uncertainty messages depending on response arrival. Rerun passed both devices; unrelated regenerated screenshots discarded.
 - Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit, 214 isolated integration tests, zero failures); smoke-topics.ts; smoke-topic-create.ts; smoke-admin-gate.ts; git diff --check. Browser writes replayed; protected saved topics/profile/edition unchanged; no paid calls.
-- API rebuilt/restarted; health green and reader returns four topics. Worker/schedule unchanged. TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadline only, no new blocker).
+- API rebuilt/restarted; health green and reader returns four topics. Worker/schedule unchanged. TASKS updated; progress 815–817 archived to keep orientation small. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadline only, no new blocker).
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
 
 ## 2026-11-05: iteration 826 — bound stalled topic deletion
@@ -109,7 +82,7 @@
 - Desktop/mobile Playwright replay verifies disabled controls during the request, real timeout recovery and completed deletion recovered by reload without another DELETE. Both timeout screenshots inspected in docs/screenshots/ui/; unrelated regenerated screenshot discarded.
 - Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-topic-delete.ts; smoke-admin-gate.ts; git diff --check. Static checks and 497 unit tests pass. Full check session ended 143 during integration without a reported test failure; transient user-service pnpm test:integration rerun exited 0: 214 passed, zero failures. No leftover test DB/Redis containers.
 - Browser writes replayed; protected live topics/profile/full edition unchanged; no paid calls. API rebuilt/restarted, health green, reader returns four topics and alerts clear. Worker/schedule unchanged.
-- TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadline only, no new blocker).
+- TASKS updated; progress 815–817 archived to keep orientation small. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadline only, no new blocker).
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
 
 ## 2026-11-05: iteration 827 — bound stalled topic availability changes
@@ -129,7 +102,7 @@
 - Desktop/mobile Playwright replay holds a completed order save through the real timeout, verifies unlocked controls, then reloads saved positions without another PUT. Both timeout screenshots inspected in docs/screenshots/ui/.
 - Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit/214 isolated integration tests, zero failures); smoke-topic-order.ts; smoke-admin-gate.ts; git diff --check.
 - Browser writes replayed; protected live topics/profile/full edition unchanged; no paid calls. Rebuilt API restarted, health green and alerts clear; worker/schedule unchanged.
-- TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadline only, no new blocker).
+- TASKS updated; progress 815–817 archived to keep orientation small. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadline only, no new blocker).
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
 
 ## 2026-11-05: iteration 829 — bound stalled source catalog reads
@@ -139,7 +112,7 @@
 - Desktop/mobile Playwright replay holds both reads through the real deadline; retry retains unsent feed fields and saved selections without another write. Both timeout screenshots inspected in docs/screenshots/ui/; unrelated regenerated screenshots discarded.
 - Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit/214 isolated integration tests, zero failures); smoke-custom-feeds.ts; smoke-admin-gate.ts; git diff --check.
 - Browser writes replayed; protected live topics/profile/full edition unchanged; no paid calls. Rebuilt API restarted, health green, reader returns four topics and alerts clear; worker/schedule unchanged.
-- TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadlines only, no new blocker).
+- TASKS updated; progress 815–817 archived to keep orientation small. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadlines only, no new blocker).
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
 
 ## 2026-11-05: iteration 830 — bound stalled source selection saves
@@ -150,4 +123,14 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit/214 isolated integration tests, zero failures); smoke-topic-sources.ts; smoke-admin-gate.ts; git diff --check.
 - Browser writes replayed; protected live topics/profile/full edition unchanged; no paid calls. Rebuilt API restarted, health green, reader returns four topics and alerts clear; worker/schedule unchanged.
 - TASKS updated and completed markers 815–829 archived to reduce orientation size. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadline only, no new blocker).
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 831 — bound stalled feed connections
+
+- Started clean on main; no leftover work. Alerts clear and health/database/Redis green; Nov 5 scheduled evidence remains pending at 15:00 UTC.
+- Custom feed and news-query connection POST now aborts after 15 seconds, releasing controls with existing uncertainty/reload guidance and retained fields; no automatic retry.
+- Desktop/mobile Playwright replay holds a completed feed POST beyond the deadline, verifies unlocked controls, then reloads the saved connection without another POST. Timeout screenshots inspected in docs/screenshots/ui/.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit/214 isolated integration tests, zero failures); smoke-custom-feeds.ts; smoke-admin-gate.ts; git diff --check.
+- Browser writes replayed; protected live topics/profile/full edition unchanged; no paid calls. Rebuilt API restarted; worker/schedule unchanged.
+- TASKS updated; progress 815–817 archived to keep orientation small. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadline only, no new blocker).
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Feed connection deadline (831): custom feed/query POST releases controls after 15 seconds; desktop/mobile replay recovers a saved feed on reload without another POST.
+
 - [x] Source selection deadline (830): stalled connection saves release controls after 15 seconds; desktop/mobile replay recovers completed saves on reload without another PUT.
 
 - Completed iterations 815–829: [archive](docs/progress-archive/2026-11-05-completed-task-markers-830.md).

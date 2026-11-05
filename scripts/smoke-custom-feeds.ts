@@ -107,7 +107,10 @@ async function smoke() {
           topics = topics.map((topic) =>
             topic.id === target.id ? { ...topic, sources: [source.id] } : topic,
           );
-          if (saveBeforeAbort) return route.abort('failed');
+          if (saveBeforeAbort) {
+            await new Promise<void>((resolve) => setTimeout(resolve, 30_000));
+            return route.abort('failed').catch(() => undefined);
+          }
           failRefresh = true;
           return route.fulfill({
             status: 201,
@@ -360,7 +363,7 @@ async function smoke() {
       await card
         .getByText('No sources connected yet.', { exact: false })
         .waitFor();
-      // A completed POST can lose its response before the UI learns the topic.
+      // A completed POST can stall before the UI learns the topic.
       saveBeforeAbort = true;
       await name.fill(source.name);
       await url.fill(source.url);
@@ -370,7 +373,11 @@ async function smoke() {
         .filter({
           hasText: 'Could not confirm the feed connection.',
         })
-        .waitFor();
+        .waitFor({ timeout: 20_000 });
+      assert.ok(
+        await connect.isEnabled(),
+        'Deadline releases connection controls',
+      );
       await page
         .getByText(
           'Could not confirm the feed connection. Your entries are still here; reload the page to check saved sources before trying again.',
@@ -387,7 +394,7 @@ async function smoke() {
         })
         .scrollIntoViewIfNeeded();
       await page.screenshot({
-        path: `docs/screenshots/ui/custom-feed-interrupted-${device}.png`,
+        path: `docs/screenshots/ui/custom-feed-timeout-${device}.png`,
       });
       await page.reload();
       await page.getByText('Manage topics', { exact: true }).click();
@@ -419,7 +426,7 @@ async function smoke() {
         savedEdition,
       );
     console.log(
-      'Custom feeds desktop/mobile: initial catalog real timeout/retry, confirmed-save catalog real timeout/retry without another write or lost entries, validation response, pending control locks and single request, uncertain network outcome, save failure, confirmed save with refresh failure, cleared fields, stored content, replay reload, disconnect and completed POST with lost response recovered without another write passed; full live topics/profile/edition unchanged, browser writes guarded and credentials absent, no inference.',
+      'Custom feeds desktop/mobile: initial catalog real timeout/retry, confirmed-save catalog real timeout/retry without another write or lost entries, validation response, pending control locks and single request, uncertain network outcome, save failure, confirmed save with refresh failure, cleared fields, stored content, replay reload, disconnect and completed POST with real timeout releasing controls and recovered without another write passed; full live topics/profile/edition unchanged, browser writes guarded and credentials absent, no inference.',
     );
   } finally {
     await browser.close();

@@ -84,6 +84,7 @@ export function TopicSources({
         `/api/topics/${topic.id}/${search ? 'queries' : 'feeds'}`,
         {
           method: 'POST',
+          signal: AbortSignal.timeout(15_000),
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(
             search ? { query } : { name: feedName, url: feedUrl },
