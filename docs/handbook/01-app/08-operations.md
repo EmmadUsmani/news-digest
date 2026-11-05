@@ -7,7 +7,6 @@ APIs use `/api/admin/*`; old API paths return 404. `/admin`, its APIs and every 
 Local scripts read `ADMIN_LOCAL_TOKEN` from the private env file and send it only
 to protected paths at `http://127.0.0.1:8000`, refusing redirects. Browser checks
 receive response bodies through Node; credentials never enter Playwright.
-Scenario checks replay writes in memory and compare saved data afterward.
 
 | What               | URL                                                                                      |
 | ------------------ | ---------------------------------------------------------------------------------------- |
@@ -44,6 +43,7 @@ Backups: `~/backups/news-digest/`; [nightly timers and restore](10-backups.md).
 - **Topics at `/admin/topics`:** drag or arrow ordering, enable controls, story/post budgets and New topic dialog. Open a topic for guidance, budgets, phrase filters, X accounts, Reddit communities, connected feeds and news queries, or deletion. Overview links here for topic and source settings.
 - **Schedule at `/admin/schedule`:** next run, daily local time, timezone, coverage and default topic budgets.
 - **Sources at `/admin/sources`:** collection health, connected topics with editor links, timestamps, last-response/stored counts and platform status. Use Manage topics & feeds to add a feed or news query.
+- **Spend at `/admin/spend`:** AI/X budget totals, scheduled reserve and the latest 20 calls for each provider, with status, cost, unresolved hold and token counts.
 - **Overview at `/admin`:** health, firing and pending monitoring alerts, daily spend, latest edition with recorded AI cost, unresolved holds and inspector link, source issues and next runs.
 - **`/healthz`:** 200 when Postgres and Redis respond; `pnpm obs alerts` and [Grafana](09-observability.md) cover the rest.
 

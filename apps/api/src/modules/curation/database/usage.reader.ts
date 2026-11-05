@@ -87,6 +87,29 @@ export async function readUsage(
     .where(or(month, unresolved))
     .groupBy(calls.purpose)
     .orderBy(asc(calls.purpose));
+  const recentRows = await orm
+    .select({
+      id: calls.id,
+      createdAt: calls.createdAt,
+      model: calls.model,
+      purpose: calls.purpose,
+      status: calls.status,
+      costMicros: calls.costMicros,
+      reservedMicros: calls.reservedMicros,
+      inputTokens: calls.inputTokens,
+      outputTokens: calls.outputTokens,
+    })
+    .from(calls)
+    .orderBy(desc(calls.createdAt), desc(calls.id))
+    .limit(20);
+  const recentCalls = recentRows.map((row) => ({
+    ...row,
+    status: row.status as 'pending' | 'succeeded' | 'failed' | 'uncertain',
+    createdAt: new Date(row.createdAt).toISOString(),
+    reservedMicros: ['pending', 'uncertain'].includes(row.status)
+      ? row.reservedMicros
+      : 0,
+  }));
   const [last] = await orm
     .select({ code: calls.errorCode, at: calls.completedAt })
     .from(calls)
@@ -130,6 +153,7 @@ export async function readUsage(
   }
   return {
     ...totals,
+    recentCalls,
     purposes,
     modelAllocation,
     dailyCapMicros: allowance.dailyCap,

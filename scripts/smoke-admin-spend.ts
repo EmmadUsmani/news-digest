@@ -1,6 +1,7 @@
 // Saved live access only; browser writes and external requests are blocked.
 import assert from 'node:assert/strict';
 
+import { operationsStatusSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
 import { localAdminFetch } from './lib/local-admin-fetch';
@@ -8,6 +9,9 @@ import { replayAdminPage } from './lib/replay-admin-page';
 
 const origin = 'http://127.0.0.1:8000';
 async function smoke() {
+  const saved = operationsStatusSchema.parse(
+    await (await localAdminFetch(`${origin}/api/admin/status`)).json(),
+  );
   const browser = await chromium.launch();
   try {
     for (const [device, width, height] of [
@@ -62,6 +66,39 @@ async function smoke() {
           .first()
           .waitFor();
         assert.ok((await page.locator('tbody tr').count()) >= 4);
+        for (const [title, calls] of [
+          ['Recent AI calls', saved.llm.recentCalls],
+          ['Recent X calls', saved.xDiscovery.recentCalls],
+        ] as const) {
+          const table = page.getByRole('region', { name: title, exact: true });
+          await table.waitFor();
+          assert.ok(calls && calls.length > 0 && calls.length <= 20);
+          assert.deepEqual(
+            await table
+              .locator('tbody tr')
+              .evaluateAll((rows) =>
+                rows.map((row) => row.getAttribute('data-call-id')),
+              ),
+            calls.map((call) => call.id),
+          );
+          for (const call of calls) {
+            const row = table.locator(`[data-call-id="${call.id}"]`);
+            assert.equal(
+              await row.locator('td').nth(2).innerText(),
+              call.status,
+            );
+            assert.equal(
+              await row.locator('td').nth(3).innerText(),
+              call.costMicros === null
+                ? '—'
+                : '$' + (call.costMicros / 1e6).toFixed(6),
+            );
+            assert.equal(
+              await row.locator('td').nth(4).innerText(),
+              '$' + (call.reservedMicros / 1e6).toFixed(6),
+            );
+          }
+        }
         assert.equal(
           await page.evaluate(
             () => document.documentElement.scrollWidth > innerWidth,

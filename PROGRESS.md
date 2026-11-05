@@ -116,3 +116,15 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check passed (507 unit/218 isolated integration tests, typecheck/lint/format/boundaries); pnpm build; smoke-admin-overview.ts; smoke-admin-separation.ts; check-handbook.ts 08-operations; git diff --check. Archived iterations 882–883 to keep PROGRESS small.
 - API restarted for built assets; API/worker/docs/schema active, /healthz database/Redis green and alerts clear. Real saved Nov 5 edition and incoming collection remain available.
 - Next: remaining dedicated admin pages and final reader; Nov 6 scheduled edition/grouping review, then fresh-window X round after 21:00 UTC. No X activation before decision.
+
+## 2026-11-05: iteration 894 — Spend recent calls
+
+- Started clean on main; no leftover work. Owner would care: Spend now shows the individual AI/X calls behind the budget totals.
+- Added bounded newest-first ledger reads (20 per provider) to protected status, exposing model, purpose, start, status, known cost, unresolved hold and input/output tokens. Failed/completed holds display zero; unknown costs/tokens remain unknown. No schema, budget or collection changes.
+- Added scrollable recent AI/X tables; four viewport/theme screenshots refreshed. Initial mobile review caught overly tall wrapped tables; bounded their height and gave columns enough width. Final mobile light and desktop dark visually inspected.
+- Browser checks compare all displayed rows/costs/holds against saved live records (20 AI/13 X), anonymous denial, reload, navigation, refresh outage/recovery and no overflow/writes/browser credentials. Reader separation renders the real saved edition with no admin reads.
+- Initial check stopped on import-format ordering; corrected. Integration then caught an old exact-response expectation and a new X fixture using an invalid purpose; corrected both. Separation initially ran across an asset rebuild and got 404; passed after API restart. Discarded unrelated generated separation screenshots.
+- Updated TASKS and Operations handbook; removed an obsolete testing note to keep the page within 100 lines. SOURCES/NEEDS_FROM_HUMAN unchanged; no paid calls or live settings changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check passed typecheck/lint/format/boundaries and 507 unit tests; corrected integration failures then pnpm test:integration passed all 219. pnpm build and final @digest/web build; smoke-admin-spend.ts; smoke-admin-separation.ts; check-handbook.ts 08-operations; git diff --check passed.
+- API restarted for final assets; all four app services active, /healthz database/Redis green and alerts clear. Fresh source results at 21:51–22:05 UTC and the saved Nov 5 edition verified.
+- Next: remaining dedicated admin-page gaps and final reader; Nov 6 scheduled edition/grouping review and fresh-window X round after 21:00 UTC. No X activation before decision.

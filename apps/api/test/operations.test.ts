@@ -120,6 +120,7 @@ void test('operations reports persisted sources and bounded queue telemetry with
     );
     assert.ok(result.sources.length >= 7);
     assert.deepEqual(result.xDiscovery, {
+      recentCalls: [],
       todayMicros: 0,
       monthMicros: 0,
       reservedMicros: 0,

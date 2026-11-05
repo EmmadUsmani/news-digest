@@ -466,7 +466,21 @@ export type SourceCatalog = z.infer<typeof sourceCatalogSchema>;
 
 export type ScheduleSettings = z.infer<typeof scheduleSchema>;
 
+export const recentCallSchema = z.object({
+  id: z.string().uuid(),
+  createdAt: z.string().datetime(),
+  model: z.string(),
+  purpose: z.string(),
+  status: z.enum(['pending', 'succeeded', 'failed', 'uncertain']),
+  costMicros: z.number().int().nonnegative().nullable(),
+  reservedMicros: z.number().int().nonnegative(),
+  inputTokens: z.number().int().nonnegative().nullable(),
+  outputTokens: z.number().int().nonnegative().nullable(),
+});
+export type RecentCall = z.infer<typeof recentCallSchema>;
+
 export const llmUsageSchema = z.object({
+  recentCalls: z.array(recentCallSchema).max(20).optional(),
   scheduledReserve: z
     .object({
       lastOutcome: z
@@ -540,6 +554,7 @@ export const llmUsageSchema = z.object({
 export type LlmUsage = z.infer<typeof llmUsageSchema>;
 
 export const xDiscoveryUsageSchema = z.object({
+  recentCalls: z.array(recentCallSchema).max(20).optional(),
   todayMicros: z.number().int().nonnegative(),
   monthMicros: z.number().int().nonnegative(),
   reservedMicros: z.number().int().nonnegative(),

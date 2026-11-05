@@ -6,6 +6,7 @@ import { Pool } from 'pg';
 
 import { readEditionCost } from '../src/modules/curation/database/edition-cost.reader';
 import { readUsage } from '../src/modules/curation/database/usage.reader';
+import { readRecentXCalls } from '../src/modules/social/database/recent-calls.reader';
 
 void test('edition cost uses run identity across UTC days and excludes overlapping jobs', async () => {
   const db = new Pool({ connectionString: process.env.DATABASE_URL, max: 1 });
@@ -189,6 +190,59 @@ void test('usage snapshots pin UTC boundaries, model holds, errors and monthly p
     assert.equal(blocked.blockedUntil, '2026-12-01T00:00:00.000Z');
     assert.equal(blocked.todayMicros, usage.todayMicros);
     assert.equal(blocked.modelAllocation?.usedMicros, 90);
+  } finally {
+    await db.query('ROLLBACK');
+    await db.end();
+  }
+});
+
+void test('recent AI and X calls are bounded, ordered, and keep unknown costs separate from unresolved holds', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const db = new Pool({ connectionString: process.env.DATABASE_URL, max: 1 });
+  await db.query('BEGIN');
+  try {
+    for (const table of ['llm_calls', 'x_discovery_calls']) {
+      await db.query(`DELETE FROM ${table}`);
+      for (let index = 0; index < 24; index++) {
+        const status = ['succeeded', 'failed', 'pending', 'uncertain'][
+          index % 4
+        ];
+        await db.query(
+          `INSERT INTO ${table}(id,model,purpose,run_id,status,cost_micros,reserved_micros,created_at)
+          VALUES($1,'fixture',$5,'offline',$2,$3,100,$4)`,
+          [
+            randomUUID(),
+            status,
+            status === 'succeeded' ? 0 : null,
+            new Date(Date.UTC(2026, 0, 1, 0, index)).toISOString(),
+            table === 'llm_calls' ? 'verification' : 'x-discovery',
+          ],
+        );
+      }
+      const rows =
+        table === 'llm_calls'
+          ? (await readUsage(db, { monthly: 30e6, dailyMax: 1e6 })).recentCalls!
+          : await readRecentXCalls(db);
+      assert.equal(rows.length, 20);
+      assert.equal(rows[0].createdAt, '2026-01-01T00:23:00.000Z');
+      assert.equal(rows[19].createdAt, '2026-01-01T00:04:00.000Z');
+      for (const row of rows) {
+        assert.equal(
+          row.reservedMicros,
+          ['pending', 'uncertain'].includes(row.status) ? 100 : 0,
+        );
+        assert.equal(row.costMicros, row.status === 'succeeded' ? 0 : null);
+        assert.equal(row.inputTokens, null);
+        assert.equal('runId' in row, false);
+      }
+      await db.query(`DELETE FROM ${table}`);
+      assert.deepEqual(
+        table === 'llm_calls'
+          ? (await readUsage(db, { monthly: 30e6, dailyMax: 1e6 })).recentCalls
+          : await readRecentXCalls(db),
+        [],
+      );
+    }
   } finally {
     await db.query('ROLLBACK');
     await db.end();

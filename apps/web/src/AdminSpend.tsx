@@ -1,3 +1,4 @@
+import type { RecentCall } from '@digest/contracts';
 import { useQuery } from '@tanstack/react-query';
 
 import { Button } from './components/ui/button';
@@ -6,6 +7,73 @@ import { Table } from './components/ui/table';
 import { statusQuery } from './queries';
 
 const dollars = (micros: number) => '$' + (micros / 1e6).toFixed(6);
+
+function RecentCalls({
+  title,
+  calls,
+}: {
+  title: string;
+  calls?: RecentCall[];
+}) {
+  return (
+    <Card className="min-w-0" role="region" aria-label={title}>
+      <h2 className="mt-0 font-sans text-base font-semibold">{title}</h2>
+      <p className="text-sm text-[var(--secondary)]">
+        Latest 20 calls · newest first · local times · scroll for more
+      </p>
+      {calls?.length ? (
+        <div
+          className="max-h-[32rem] overflow-auto"
+          tabIndex={0}
+          aria-label={`${title} table scroll area`}
+        >
+          <Table className="min-w-[760px] text-xs tabular-nums [&_td]:px-2 [&_th]:px-2">
+            <thead>
+              <tr>
+                <th>Started</th>
+                <th>Model / purpose</th>
+                <th>Status</th>
+                <th>Cost</th>
+                <th>Unresolved hold</th>
+                <th>Tokens in / out</th>
+              </tr>
+            </thead>
+            <tbody>
+              {calls.map((call) => (
+                <tr key={call.id} data-call-id={call.id}>
+                  <td className="whitespace-nowrap">
+                    <time dateTime={call.createdAt}>
+                      {new Date(call.createdAt).toLocaleString()}
+                    </time>
+                  </td>
+                  <td>
+                    <span className="break-all">{call.model}</span>
+                    <br />
+                    <span className="break-all text-[var(--secondary)]">
+                      {call.purpose}
+                    </span>
+                  </td>
+                  <td>{call.status}</td>
+                  <td>
+                    {call.costMicros === null ? '—' : dollars(call.costMicros)}
+                  </td>
+                  <td>{dollars(call.reservedMicros)}</td>
+                  <td>
+                    {call.inputTokens ?? '—'} / {call.outputTokens ?? '—'}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
+      ) : (
+        <p className="text-sm">
+          {calls ? 'No calls recorded.' : 'Recent calls unavailable.'}
+        </p>
+      )}
+    </Card>
+  );
+}
 
 export function AdminSpend() {
   const {
@@ -188,6 +256,11 @@ export function AdminSpend() {
               <p className="text-sm">Reserve information unavailable.</p>
             )}
           </Card>
+          <RecentCalls title="Recent AI calls" calls={status.llm.recentCalls} />
+          <RecentCalls
+            title="Recent X calls"
+            calls={status.xDiscovery.recentCalls}
+          />
           <div className="grid min-w-0 gap-4 lg:grid-cols-2">
             <Card className="min-w-0">
               <h2 className="mt-0 font-sans text-base font-semibold">
