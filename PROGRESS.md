@@ -1,21 +1,3 @@
-## 2026-11-05: iteration 762 — manual reserve check blocks live writes
-
-- Started clean on main; no leftover work. Alerts zero and /healthz database/Redis green; Nov 5 scheduled edition remains due at 15:00 UTC.
-- Manual-reserve browser verifier takes one validated protected status snapshot outside the browser, blocks unexpected API writes, checks simulated submission/poll methods and proves the saved reader edition unchanged afterward. Credentials stay outside the browser.
-- `pnpm exec tsx scripts/smoke-manual-reserve.ts` passed desktop/mobile protected, refreshed, released and unavailable budget states with no live jobs or inference. Screenshots unchanged; mobile visually inspected.
-- Updated TASKS/Operations. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema, model/provider or production data changes; healthy services remain running under STEERING 22.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, zero failures); pnpm build; check-handbook.ts 08-operations; git diff --check passed. Final /healthz green.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. Fresh X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.
-
-## 2026-11-05: iteration 763 — restore reader X-widget replay
-
-- Started clean on main; no leftover work. Alerts zero and /healthz database/Redis green; Nov 5 scheduled edition remains due at 15:00 UTC.
-- X-widget verifier now replays recorded selected posts through the reader contract/API rather than the legacy operational preview. Removed obsolete editorial/context expectations; verifies saved story titles/text, sanitized posts, blocked writes and unchanged saved edition.
-- `pnpm exec tsx scripts/smoke-posts.ts /tmp/135-screen.jsonl` passed success, blocked-script retry, timeout retry and late-promise cleanup on desktop/mobile. Four screenshots refreshed; desktop/mobile blocked cards visually inspected. Posts are recorded replay; widgets are stubs, no live inference or publication.
-- TASKS/Operations updated; archived iteration 747. SOURCES/NEEDS_FROM_HUMAN unchanged. No runtime/config/schema or model/provider changes; healthy services remain running under STEERING 22.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (497 unit/214 isolated integration, zero failures), `pnpm build`, `check-handbook.ts 08-operations` and `git diff --check` passed. Final /healthz green.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.
-
 ## 2026-11-05: iteration 764 — saved story text in both themes
 
 - Started clean on main; no leftover work. Alerts zero, health/database/Redis green, 36 sources healthy and no retained failed digest runs; Nov 5 edition remains due at 15:00 UTC.
@@ -141,4 +123,14 @@
 - `smoke-missing-edition.ts` passed single-404 and transient-outage recovery in all four cases; discarded unrelated regenerated screenshots. Operations/TASKS updated; archived iteration 761. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers.
 - No paid calls, stored-edition writes, generation/config/schema or model/provider changes. API restarted after build; worker kept running under STEERING 22.
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations; git diff --check. Static checks, 497 unit/214 isolated integration tests passed (exit 0). Initial check caught import spacing after lint auto-fix; reformatted and full rerun passed. Final health green; all four services active.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; identity configuration/proxy verification still block admin rollout.
+
+## 2026-11-05: iteration 778 — recover malformed reader JSON promptly
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Free social and Bluesky collections continue successfully.
+- Reader JSON parse failures now offer immediate manual Retry instead of automatically repeating malformed responses. Schema, timeout, 404 and transient HTTP behavior remain covered.
+- Expanded `pnpm exec tsx scripts/smoke-reader-invalid-data.ts`: schema failures and truncated JSON for edition/history in desktop/mobile light/dark; one attempt before Retry, real saved-content recovery, blocked browser writes/credentials, zero browser errors and full protected saved edition unchanged. Four malformed-JSON screenshots added; desktop light/mobile dark inspected.
+- `smoke-missing-edition.ts` passed all four cases; discarded unrelated regenerated screenshots. Initial invalid-data smoke ran before restarted API was ready (connection refused); health-ready rerun passed.
+- TASKS/Operations updated; archived iterations 762–763. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, stored-edition writes, generation/config/schema or model/provider changes. API restarted after build; worker kept running under STEERING 22.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations; git diff --check. Static checks and 497 unit tests passed; full check received SIGTERM during integration. Separate user-unit `pnpm test:integration` passed all 214 tests (exit 0). Build, browser, handbook and diff checks passed; final health green, four app services active.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; identity configuration/proxy verification still block admin rollout.

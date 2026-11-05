@@ -57,6 +57,7 @@ function retryEditionRead(failureCount: number, error: Error) {
   return (
     error.name !== 'TimeoutError' &&
     !(error instanceof ZodError) &&
+    !(error instanceof SyntaxError) &&
     !(error instanceof HttpError && error.status === 404) &&
     failureCount < 3
   );
