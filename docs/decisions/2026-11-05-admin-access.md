@@ -153,6 +153,11 @@ uses the same protections for failed reorder, retry, saved positions and reload.
 The X-account verifier applies the same protections to failed saves, retained
 handles, retry, normalization, duplicate prevention and reload.
 
+The source-connection verifier also replays operational snapshots, blocks service
+workers and browser writes, probes the write guard and checks credential absence.
+Failed selections, retry, stored incoming content, reload and disconnect preserve
+full live edition, topic and profile snapshots.
+
 ## Next rollout slice
 
 Configure the owner email allowlist before moving current operational routes.

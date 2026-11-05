@@ -11,18 +11,30 @@ import { localAdminJson } from './lib/local-admin-fetch';
 
 // Protected real snapshots; connection changes and failures are browser-only.
 async function smoke() {
-  const [original, content, catalog, latest] = await Promise.all([
-    localAdminJson('/api/admin/topics').then((data) =>
-      topicSchema.array().parse(data),
-    ),
-    localAdminJson('/api/admin/content').then((data) =>
-      contentGroupSchema.array().parse(data),
-    ),
-    localAdminJson('/api/admin/topics/sources').then((data) =>
-      sourceCatalogSchema.parse(data),
-    ),
-    localAdminJson('/api/admin/digest-previews/latest'),
-  ]);
+  const [original, content, catalog, latest, profile, status] =
+    await Promise.all([
+      localAdminJson('/api/admin/topics').then((data) =>
+        topicSchema.array().parse(data),
+      ),
+      localAdminJson('/api/admin/content').then((data) =>
+        contentGroupSchema.array().parse(data),
+      ),
+      localAdminJson('/api/admin/topics/sources').then((data) =>
+        sourceCatalogSchema.parse(data),
+      ),
+      localAdminJson('/api/admin/digest-previews/latest'),
+      localAdminJson('/api/admin/profile'),
+      localAdminJson('/api/admin/status'),
+    ]);
+  const savedEdition = latest
+    ? await localAdminJson(
+        '/api/admin/digest-previews/' + (latest as { id: string }).id,
+      )
+    : null;
+  const snapshots: Record<string, unknown> = {
+    '/api/profile': profile,
+    '/api/status': status,
+  };
   const target = original.find(
     (topic) =>
       topic.enabled &&
@@ -38,7 +50,16 @@ async function smoke() {
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
     ] as const) {
-      const page = await browser.newPage({ viewport: { width, height } });
+      const page = await browser.newPage({
+        viewport: { width, height },
+        serviceWorkers: 'block',
+      });
+      const credentials: string[] = [];
+      page.on('request', (request) => {
+        const headers = request.headers();
+        if ('admin_local_token' in headers || 'x-exedev-email' in headers)
+          credentials.push(new URL(request.url()).pathname);
+      });
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
       let topics = structuredClone(original).map((topic) =>
@@ -47,9 +68,14 @@ async function smoke() {
       let fail = true;
       let writes = 0;
       const unexpectedWrites: string[] = [];
-      await page.route('**/api/**', async (route) => {
+      await page.route('**/*', async (route) => {
         const request = route.request();
         const path = new URL(request.url()).pathname;
+        const headers = request.headers();
+        if ('admin_local_token' in headers || 'x-exedev-email' in headers)
+          return route.abort();
+        if (request.method() === 'GET' && Object.hasOwn(snapshots, path))
+          return route.fulfill({ json: snapshots[path] });
         if (
           path === `/api/topics/${target.id}/sources` &&
           request.method() === 'PUT'
@@ -65,7 +91,7 @@ async function smoke() {
             json: topics.find((topic) => topic.id === target.id),
           });
         }
-        if (request.method() !== 'GET') {
+        if (!['GET', 'HEAD'].includes(request.method())) {
           unexpectedWrites.push(`${request.method()} ${path}`);
           return route.abort();
         }
@@ -94,6 +120,23 @@ async function smoke() {
         return route.continue();
       });
       await page.goto('http://localhost:8000');
+      assert.equal(
+        await page.evaluate(async () => {
+          try {
+            await fetch('/api/topics/unexpected-write-probe', {
+              method: 'POST',
+            });
+            return false;
+          } catch {
+            return true;
+          }
+        }),
+        true,
+      );
+      assert.equal(
+        unexpectedWrites.pop(),
+        'POST /api/topics/unexpected-write-probe',
+      );
       await page.getByText('Manage topics', { exact: true }).click();
       const open = page.getByRole('button', {
         name: `Sources for ${target.name}`,
@@ -123,6 +166,9 @@ async function smoke() {
         topics.find((topic) => topic.id === target.id)!.sources,
         [],
       );
+      await form.screenshot({
+        path: `docs/screenshots/topic-sources-failure-${device}.png`,
+      });
       fail = false;
       await save.click();
       await form
@@ -156,6 +202,7 @@ async function smoke() {
       assert.equal(writes, 3);
       assert.deepEqual(unexpectedWrites, []);
       assert.deepEqual(errors, []);
+      assert.deepEqual(credentials, []);
       assert.ok(
         await page.evaluate(
           () => document.documentElement.scrollWidth <= innerWidth,
@@ -164,12 +211,14 @@ async function smoke() {
       await page.close();
     }
     assert.deepEqual(await localAdminJson('/api/admin/topics'), original);
-    assert.deepEqual(
-      await localAdminJson(
-        '/api/admin/digest-previews/' + (latest as { id: string }).id,
-      ),
-      latest,
-    );
+    assert.deepEqual(await localAdminJson('/api/admin/profile'), profile);
+    if (latest)
+      assert.deepEqual(
+        await localAdminJson(
+          '/api/admin/digest-previews/' + (latest as { id: string }).id,
+        ),
+        savedEdition,
+      );
     console.log(
       'Source connections desktop/mobile: failure, retry, incoming stored content, replay reload and disconnect passed; live topics and saved edition unchanged, no inference.',
     );

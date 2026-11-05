@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 783 — remove partial failed X embeds
-
-- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, 36 sources healthy; no failed retained digest runs. Four services active; next edition 15:00 UTC.
-- X widgets that reject or return no element now detach their attempt target, removing partial markup and isolating later provider mutations. Saved text, original link and manual retry remain available.
-- Read-only Playwright replay passed success, script blocking, timeout, rejection-after-insertion and empty-result cases on desktop/mobile; no overflow/page errors or edition writes. Recovery restores the widget and saved text. New failure screenshots saved under docs/screenshots/; no live provider calls.
-- Verification: pnpm exec tsx scripts/smoke-posts.ts /tmp/783-posts.jsonl; pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check. Static checks and 497 unit tests passed; full check was interrupted with exit 143 during integration (no failing test). `pnpm test:integration` rerun passed 214/214 (exit 0); build/diff checks and post-restart smoke-admin-gate.ts passed.
-- TASKS updated; archived iteration 768. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. Existing proxy connectivity check still fails (curl 7); identity configuration/proxy verification remain required for admin rollout.
-- API restarted after web build; health green and all four services active. No paid calls, stored-edition writes, config/schema or model/provider changes. Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; fallback investigation before scorer. X rounds after 21:00 UTC Nov 5/6.
-
 ## 2026-11-05: iteration 784 — reuse loaded X widgets on card retry
 
 - Started clean on main; no leftover work. Alerts zero, health/database/Redis green, 36 sources healthy and no failed retained jobs. Four services active; next edition 15:00 UTC.
@@ -135,4 +126,13 @@
 - Desktop/mobile failed saves retain entered handles without changing the replayed topic; retry saves once, reload normalizes @ handles and case-insensitive duplicates send no request. No page errors/overflow; failure screenshots inspected.
 - Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-topic-accounts.ts; smoke-admin-gate.ts; git diff --check. All passed (exit 0): static checks, 497 unit and 214 isolated integration tests, desktop/mobile replay, admin gate and diff check. Initial replay status/count assertions corrected before rerun.
 - TASKS/access decision updated; archived iteration 782; discarded regenerated unchanged success screenshots. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, live writes or runtime/config/schema/model/provider changes; no restart required under STEERING 22.
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 798 — verify source connection recovery safely
+
+- Started clean on main; no leftover work. Health/database/Redis green, services active and all 36 sources healthy. No failed retained digest runs; two historical ingestion failure counters have no retained runs and current sources succeed. One pending observability memory warning, zero firing.
+- Source-connection replay now uses protected Node operational snapshots, blocks service workers and unexpected writes, probes the write guard and checks browser credential absence. Full saved edition/topics/profile comparisons replace the latest-object comparison.
+- Desktop/mobile failed saves retain selections; retry exposes stored incoming content, reload preserves connections and disconnect hides them. No page errors or overflow; both failure screenshots inspected. Live saved data unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-topic-sources.ts; smoke-admin-gate.ts; git diff --check. All passed (exit 0): static checks, 497 unit and 214 isolated integration tests, desktop/mobile replay, admin gate and diff check.
+- TASKS/access decision updated; archived iteration 783. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, live writes or runtime/config/schema/model/provider changes; no restart required under STEERING 22.
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

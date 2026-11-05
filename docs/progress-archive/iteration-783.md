@@ -1,0 +1,8 @@
+## 2026-11-05: iteration 783 — remove partial failed X embeds
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, 36 sources healthy; no failed retained digest runs. Four services active; next edition 15:00 UTC.
+- X widgets that reject or return no element now detach their attempt target, removing partial markup and isolating later provider mutations. Saved text, original link and manual retry remain available.
+- Read-only Playwright replay passed success, script blocking, timeout, rejection-after-insertion and empty-result cases on desktop/mobile; no overflow/page errors or edition writes. Recovery restores the widget and saved text. New failure screenshots saved under docs/screenshots/; no live provider calls.
+- Verification: pnpm exec tsx scripts/smoke-posts.ts /tmp/783-posts.jsonl; pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check. Static checks and 497 unit tests passed; full check was interrupted with exit 143 during integration (no failing test). `pnpm test:integration` rerun passed 214/214 (exit 0); build/diff checks and post-restart smoke-admin-gate.ts passed.
+- TASKS updated; archived iteration 768. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. Existing proxy connectivity check still fails (curl 7); identity configuration/proxy verification remain required for admin rollout.
+- API restarted after web build; health green and all four services active. No paid calls, stored-edition writes, config/schema or model/provider changes. Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; fallback investigation before scorer. X rounds after 21:00 UTC Nov 5/6.
