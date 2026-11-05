@@ -83,6 +83,7 @@ pnpm obs metric 'up' --since 1h --step 60s
 - **Units:** `obs-*` system units, each with a memory and CPU cap:
   Grafana 256 MB, logs 160 MB, metrics 112 MB, everything else 80 MB or
   less, and 0.5–3% of a core each.
+  - Memory reclaim starts at 88 MB for metrics and 128 MB for logs.
   - They run at low priority, so they lose contention to the app.
   - They sit outside the app's health gate.
   - Measured use is about 0.5 GB of RAM in total, under 1% CPU.

@@ -238,7 +238,7 @@ export async function checkMetricStore() {
           'show',
           unit,
           '-p',
-          'ActiveState,MemoryCurrent,MemoryMax,CPUUsageNSec,ActiveEnterTimestampMonotonic,Nice,CPUWeight,IOWeight,CPUQuotaPerSecUSec',
+          'ActiveState,MemoryCurrent,MemoryHigh,MemoryMax,CPUUsageNSec,ActiveEnterTimestampMonotonic,Nice,CPUWeight,IOWeight,CPUQuotaPerSecUSec',
         ],
         { encoding: 'utf8' },
       )
@@ -250,6 +250,10 @@ export async function checkMetricStore() {
     assert.equal(fields.Nice, '10');
     assert.equal(fields.CPUWeight, '10');
     assert.equal(fields.IOWeight, '10');
+    if (unit === 'obs-metrics') {
+      assert.equal(Number(fields.MemoryHigh), 88 * 1048576);
+      assert.equal(Number(fields.MemoryMax), 112 * 1048576);
+    }
     assert.ok(Number(fields.MemoryCurrent) < Number(fields.MemoryMax));
     assert.notEqual(fields.CPUQuotaPerSecUSec, 'infinity');
     const age = uptime() - Number(fields.ActiveEnterTimestampMonotonic) / 1e6;

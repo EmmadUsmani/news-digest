@@ -10,6 +10,7 @@ ExecStart=/opt/news-digest-observability/victoria-metrics-prod -httpListenAddr=1
 Environment=GOMAXPROCS=1 GOMEMLIMIT=48MiB
 Restart=always
 RestartSec=5
+MemoryHigh=88M
 MemoryMax=112M
 CPUQuota=1%
 CPUWeight=10

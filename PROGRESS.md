@@ -1,22 +1,3 @@
-## 2026-11-05: iteration 803 — verify parked community settings recovery safely
-
-- Started clean on main; no leftover work. Health/database/Redis green, four deployed app services active, all 36 sources healthy and no failed retained digest runs; zero alerts. Historical ingestion/social failure counters unchanged, with no retained failed runs.
-- Reddit-community settings verifier now replays protected profile/status/content snapshots, disables service workers, blocks unexpected browser writes with an explicit probe and checks browser credential absence. Full saved edition/topics/profile comparisons pass.
-- Desktop/mobile failed saves retain entered communities; retry normalizes names, reload preserves them, duplicate validation sends no save, and clearing persists across reload. Failure screenshots inspected; no page errors/overflow, no Reddit fetching or live writes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-reddit-communities.ts; smoke-admin-gate.ts; check-handbook.ts admin-access; git diff --check. All passed (exit 0): static checks, 497 unit and 214 isolated integration tests, browser recovery, admin gate, handbook/schema and diff checks.
-- TASKS/access decision updated; archived iterations 787–788 and completed markers/UI verification detail to shrink orientation files. Regenerated existing success screenshots discarded. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers.
-- No paid calls, runtime/config/schema/model/provider changes; no build or restart required under STEERING 22 because only verification scripts/docs changed.
-- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-
-## 2026-11-05: iteration 804 — verify topic saves while responses are pending
-
-- Started clean on main; no leftover work. Health/database/Redis and four app services green, 36 sources healthy, no failed retained digest runs and zero alerts. Historical ingestion/social failed counters remain without retained runs.
-- Topic-settings browser replay now holds a save response and verifies disabled save/name/cancel/create controls on desktop/mobile. Failure retains edits; retry/reload checks visible saved name, story budget and cleared phrase rules before disabling the topic.
-- Protected snapshots, browser credential/write guards and final full topics/profile/edition equality pass; no live writes, inference or search. New pending-save screenshots inspected on both sizes; regenerated existing screenshots discarded.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-topics.ts; smoke-admin-gate.ts; check-handbook.ts admin-access; git diff --check. All passed (exit 0): static checks, 497 unit and 214 isolated integration tests, browser replay, admin gate, handbook/schema and diff check.
-- TASKS/access decision updated. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No runtime/config/schema/model/provider changes; no build or restart required under STEERING 22.
-- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-
 ## 2026-11-05: iteration 805 — verify schedule saves while responses are pending
 
 - Started clean on main; no leftover work. Health/database/Redis and four app services green, 36 sources healthy, zero alerts and no failed retained digest runs. Historical ingestion/social failure counters remain without retained failed runs.
@@ -142,3 +123,13 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-custom-feeds.ts (final rebuild rerun); smoke-news-queries.ts; smoke-admin-gate.ts; git diff --check. Full check passed: 497 unit and 214 isolated integration tests. Initial effect lint violation and duplicate replay variable corrected before successful verification.
 - Rebuilt app and restarted API; post-restart /healthz passes, latest reader edition returns four topics and admin gate passes. Worker unchanged. TASKS updated; SOURCES/NEEDS_FROM_HUMAN unchanged (no source changes/new blockers). No live settings writes or paid calls.
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 819 — reclaim metrics cache before the memory ceiling
+
+- Started clean on main; triaged firing ObservabilityMemoryBudget before product work. Metrics used 100.55 MiB: 52.41 MiB filesystem cache, 43.06 MiB anonymous memory.
+- Added MemoryHigh=88M below unchanged MemoryMax=112M; kernel reclaim can slow IO. Go/cache/query/retention limits unchanged. Runtime O4 asserts both deployed limits; handbook and observability plan updated.
+- Installed unit, daemon-reloaded and restarted only obs-metrics; app/DB/Redis unchanged under STEERING 22. Alert cleared, eight scrape targets up and retained metrics queries pass; no OOM or automatic restarts. After five minutes memory is 46.90 MiB; cache-refill stability remains to monitor.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-observability.ts --verify-o4; check-handbook.ts 09-observability; git diff --check. All pass: static checks, 497 unit and 214 isolated integration tests, build and handbook/schema validation. Initial O4 probes raced restart/first scrapes; settled runtime check passes.
+- Health/database/Redis green, 13 monitored services and all 36 sources healthy, reader returns four topics; zero failed digest jobs, next edition 15:00 UTC. Historical ingestion/social counters unchanged. No paid calls or live settings writes.
+- Archived progress 803–804; TASKS updated. SOURCES/NEEDS_FROM_HUMAN unchanged (no source changes/new blockers).
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Monitor metrics refill; admin identity/proxy verification remains pending.

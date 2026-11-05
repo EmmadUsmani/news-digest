@@ -459,3 +459,9 @@ O7 slow-call view (514): Database links directly to the retained duration-only
 threshold, sampling/suppression, excluded clients and independent time picker.
 Read-only desktop/mobile verification accepts empty retained results; no slow
 queries are generated and no SQL or parameters are exposed.
+
+O9 resource recovery (819): metrics reached 100.55 MiB, including 52.41 MiB
+filesystem cache and 43.06 MiB anonymous memory. Set MemoryHigh=88M below
+the unchanged 112 MiB ceiling so the kernel reclaims cache before the 90%
+warning threshold. Runtime O4 verification asserts both deployed limits.
+Reclaim can slow metrics IO; retention, query limits and Go target stay unchanged.
