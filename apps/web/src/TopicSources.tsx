@@ -135,6 +135,7 @@ export function TopicSources({
   }
   return (
     <>
+      {catalogLoading && <p role="status">Loading sources…</p>}
       {catalogError && (
         <div role="alert">
           <p>

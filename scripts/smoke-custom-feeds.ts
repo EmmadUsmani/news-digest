@@ -162,6 +162,7 @@ async function smoke() {
             failRefresh = false;
             return; // Hold the request until the real browser deadline aborts it.
           }
+          await new Promise((resolve) => setTimeout(resolve, 500));
           return route.fulfill({ json: catalog });
         }
         if (path === '/api/content')
@@ -204,6 +205,14 @@ async function smoke() {
         exact: true,
       });
       await open.click();
+      const loading = page
+        .getByRole('status')
+        .filter({ hasText: 'Loading sources…' });
+      await loading.waitFor();
+      await loading.scrollIntoViewIfNeeded();
+      await page.screenshot({
+        path: `docs/screenshots/ui/source-catalog-loading-${device}.png`,
+      });
       const form = page.getByRole('form', {
         name: `Sources for ${target.name}`,
         exact: true,
@@ -233,6 +242,9 @@ async function smoke() {
       await page
         .getByRole('button', { name: 'Retry loading sources', exact: true })
         .click();
+      await loading.waitFor();
+      assert.equal(await connect.isEnabled(), false);
+      await loading.waitFor({ state: 'hidden' });
       await connect.waitFor({ state: 'visible' });
       await name.fill(source.name);
       await url.fill('https://127.0.0.1/feed');
