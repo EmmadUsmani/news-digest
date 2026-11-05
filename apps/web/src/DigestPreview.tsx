@@ -63,7 +63,16 @@ export function DigestPreview() {
     : reserve?.enabled && reserve.limitedByReserve
       ? `AI budget reserved for the scheduled edition. Manual runs have $${(reserve.otherAvailableMicros / 1e6).toFixed(6)} available for AI; some or all topics may use labeled non-AI ranking. See Source & run status for budget details.`
       : '';
+  const savedEditions = React.useRef<HTMLDetailsElement>(null);
+  const savedEditionsTrigger = React.useRef<HTMLElement>(null);
+  const reviewSavedEditions = React.useRef(false);
   const [busy, setBusy] = React.useState(false);
+  React.useEffect(() => {
+    if (busy || !reviewSavedEditions.current) return;
+    reviewSavedEditions.current = false;
+    if (savedEditions.current) savedEditions.current.open = true;
+    savedEditionsTrigger.current?.focus();
+  }, [busy]);
   const working = busy || jobId !== null;
   const [error, setError] = React.useState('');
   const [offset, setOffset] = React.useState(0);
@@ -196,6 +205,7 @@ export function DigestPreview() {
       setJobMessage('Edition queued. Waiting for the worker…');
       setJobId(job.id);
     } catch {
+      reviewSavedEditions.current = true;
       setError(
         'Could not confirm whether your edition was queued. It may still be created. Check saved editions before trying again to avoid a duplicate run.',
       );
@@ -298,8 +308,8 @@ export function DigestPreview() {
         {windowError && <p role="alert">{windowError}</p>}
       </form>
       {jobMessage && <p role="status">{jobMessage}</p>}
-      <details className="edition-history">
-        <summary>Browse saved editions</summary>
+      <details className="edition-history" ref={savedEditions}>
+        <summary ref={savedEditionsTrigger}>Browse saved editions</summary>
         <p>
           Immutable editions, newest first. Each regeneration is a separate
           version.

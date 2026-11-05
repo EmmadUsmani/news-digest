@@ -144,14 +144,35 @@ async function smoke() {
         })
         .waitFor({ timeout: 25000 });
       assert.equal(await create.isEnabled(), true);
+      assert.equal(
+        await page
+          .getByText('Browse saved editions', { exact: true })
+          .evaluate(
+            (element) =>
+              document.activeElement === element &&
+              (element.parentElement as HTMLDetailsElement).open,
+          ),
+        true,
+        'Uncertain generation must focus and open saved editions for review',
+      );
+      await page.keyboard.press('Tab');
+      assert.equal(
+        await page
+          .getByRole('button', { name: 'Open latest edition' })
+          .evaluate((element) => document.activeElement === element),
+        true,
+      );
+      await page.keyboard.press('Shift+Tab');
       assert.equal(submissions, 1);
       assert.equal(
         await page.evaluate(() => sessionStorage.getItem('edition-job')),
         null,
       );
-      await page.getByRole('alert').scrollIntoViewIfNeeded();
+      await page
+        .getByText('Browse saved editions', { exact: true })
+        .scrollIntoViewIfNeeded();
       await page.screenshot({
-        path: `docs/screenshots/ui/edition-queue-timeout-${name}.png`,
+        path: `docs/screenshots/ui/edition-queue-review-focus-${name}.png`,
         fullPage: false,
       });
       await page.reload();
@@ -168,6 +189,17 @@ async function smoke() {
         .waitFor();
       assert.equal(submissions, 2);
       assert.equal(await create.isEnabled(), true);
+      assert.equal(
+        await page
+          .getByText('Browse saved editions', { exact: true })
+          .evaluate(
+            (element) =>
+              document.activeElement === element &&
+              (element.parentElement as HTMLDetailsElement).open,
+          ),
+        true,
+        'Uncertain generation must focus and open saved editions for review',
+      );
       assert.equal(
         await page.evaluate(() => sessionStorage.getItem('edition-job')),
         null,
@@ -370,7 +402,7 @@ async function smoke() {
     assert.deepEqual(await localAdminJson('/api/admin/topics'), topics);
     assert.deepEqual(await localAdminJson('/api/admin/profile'), profile);
     console.log(
-      'Async edition UI: desktop/mobile real queue deadline, interrupted queue response without automatic resubmission, queue, active, reload, reconnect, malformed/mismatched status recovery, stalled-poll timeout, completion, saved story text and failure passed; protected operational snapshots; unexpected browser writes blocked and no browser credentials; full saved edition, topics and profile unchanged.',
+      'Async edition UI: desktop/mobile real queue deadline, interrupted queue response with focused/expanded saved editions and keyboard access without automatic resubmission, queue, active, reload, reconnect, malformed/mismatched status recovery, stalled-poll timeout, completion, saved story text and failure passed; protected operational snapshots; unexpected browser writes blocked and no browser credentials; full saved edition, topics and profile unchanged.',
     );
   } finally {
     await browser.close();
