@@ -222,6 +222,33 @@ void test('async edition requests dedupe while active, publish once and allow la
         jobs.queue.getJob = getJob;
       }
     }
+    // A stalled worker can return to the queue after committing publication.
+    // Simulate each nonterminal state without disrupting a live worker lock.
+    for (const state of ['waiting', 'delayed', 'paused', 'waiting-children']) {
+      const progress = { stage: 'triage', completed: 1, total: 2 };
+      jobs.queue.getJob = async (jobId) =>
+        ({
+          id: jobId,
+          name: 'on-demand',
+          progress,
+          getState: async () => state,
+        }) as NonNullable<Awaited<ReturnType<typeof getJob>>>;
+      try {
+        const published = await jobs.find(id);
+        assert.equal(published?.state, 'completed');
+        assert.equal(published?.editionId, snapshot.id);
+        assert.equal(published?.progress, null);
+        assert.equal(published?.error, null);
+        assert.equal(published?.durationMs, null);
+        const pending = await jobs.find(crypto.randomUUID());
+        assert.equal(pending?.state, state);
+        assert.deepEqual(pending?.progress, progress);
+        assert.equal(pending?.editionId, null);
+        assert.equal(calls, 1);
+      } finally {
+        jobs.queue.getJob = getJob;
+      }
+    }
     // Numeric links issued before UUID IDs were introduced remain readable.
     publications.set('on-demand:123456789', snapshot);
     assert.equal((await jobs.find('123456789'))?.editionId, snapshot.id);

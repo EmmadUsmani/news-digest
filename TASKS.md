@@ -34,5 +34,5 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Publication-before-ack recovery (861): active on-demand jobs return their saved edition immediately after publication, even while worker acknowledgement stalls; retained failure/pruned history recovery remains intact.
+- [x] Requeued publication recovery (862): saved on-demand edition links stay available when a stalled worker returns to waiting/delayed/paused/dependency-wait states; unpublished jobs retain their queue state and progress.
 - Next: X fresh-window rounds after 21:00 UTC Nov 5/6; scheduled editor-v5 evidence Nov 6. Unfinished job history and admin identity/proxy rollout remain open.

@@ -93,8 +93,8 @@ export class BullEditionJobs extends EditionJobs implements OnModuleDestroy {
       if (recovered) return recovered;
     }
     // Publication commits before the worker acknowledges completion. A worker
-    // can stall in that gap; don't keep the reader polling a saved edition.
-    if (state === 'active') {
+    // can stall and be requeued in that gap; keep the saved edition available.
+    if (state !== 'completed' && state !== 'failed' && state !== 'unknown') {
       const edition = await this.repository.findByGenerationKey(
         `on-demand:${job.id!}`,
       );

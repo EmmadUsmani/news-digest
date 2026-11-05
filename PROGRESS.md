@@ -1,13 +1,3 @@
-## 2026-11-05: iteration 848 — give X triage author and engagement context
-
-- Started clean on main; no leftover work. Alerts/health green, all 36 sources healthy and digest queue has zero failures; scheduled Nov 5 edition remains readable with four topics.
-- After Nov 5 scheduled acceptance, implemented STEERING 34 scorer inputs: bounded author, cutoff-safe reported likes explicitly labelled unverified, and verified-text pic.twitter media-link hint with contents unknown. Missing counts/media remain unknown; official metrics unchanged.
-- Optional snapshot evidence preserves historical editions; production and cache-only batching/triage scripts share one candidate mapper, naturally changing X cache fingerprints. Bluesky inputs unchanged.
-- Tests verify known/unknown/zero likes, author/media hints and selected report cutoff/tie ordering; 498 unit and 214 isolated integration tests passed in pnpm check. pnpm build and filtered check-handbook.ts passed; unchanged diagrams need no redraw.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx scripts/check-handbook.ts 05-social-posts; git diff --check; health/source/queue checks and saved-edition GET. Initial combined jobs-check filters were unsupported; corrected jobs query confirmed no digest failures.
-- Updated TASKS, X plan and Social posts handbook; SOURCES/NEEDS_FROM_HUMAN unchanged (no source change/new blocker). No paid calls, edition writes or production-search activation.
-- Rebuild deployed with API/worker restart; post-restart health and saved edition checked. Next: fresh-window keyword/semantic rounds after 21:00 UTC Nov 5/6, editorial evidence concerns, then pending UI/admin work.
-
 ## 2026-11-05: iteration 849 — resolve saved editorial evidence concerns
 
 - Started clean on main; no leftover work. Alerts clear, health/database/Redis green, all 36 sources healthy and digest queue zero failures.
@@ -143,3 +133,13 @@
 - API/worker active; latest saved edition byte-identical, 36 healthy sources, zero alerts/failed digest jobs; zero dangling Docker volumes. No paid calls, UI/schema/source/budget changes.
 - Updated Jobs handbook/TASKS; archived iteration 847 to keep progress small. SOURCES, screenshots and NEEDS_FROM_HUMAN unchanged. Jobs lost before durable history remain unresolved.
 - Next: X fresh-window rounds after 21:00 UTC Nov 5/6; editor-v5 evidence Nov 6; durable unfinished history and admin identity/proxy rollout remain open.
+
+## 2026-11-05: iteration 862 — preserve published links after worker requeue
+
+- Started clean on main; no leftover work. Alerts/health green, 36 sources healthy and no failed digest jobs. X rounds await 21:00 UTC; admin rollout awaits identity/proxy evidence.
+- Published on-demand editions now remain reader-ready when a stalled worker returns to waiting, delayed, paused or dependency-wait states, extending active-worker recovery. Unpublished jobs retain their state/progress.
+- Isolated queue integration simulates those four Redis states against fixture publication history and verifies the saved link, cleared progress/error, unknown duration and no extra generation. It also verifies unknown jobs retain progress; no real process-kill experiment.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (501 unit/215 isolated integration passed); pnpm build; check-handbook.ts 03-jobs-and-schedules (18 pages/2 diagrams, 27 tables); smoke-admin-gate.ts before/after restart; git diff --check.
+- API/worker restarted active; /healthz database/Redis OK, saved edition byte-identical, 36 healthy sources, zero alerts and failed digest jobs. No paid calls, UI/schema/source/budget changes.
+- Updated Jobs handbook/TASKS; archived iteration 848 to keep progress small. SOURCES, screenshots and NEEDS_FROM_HUMAN unchanged. Jobs lost before durable history remain unresolved.
+- Next: fresh-window X rounds after 21:00 UTC Nov 5/6; editor-v5 evidence Nov 6; durable unfinished history and admin identity/proxy rollout remain open.
