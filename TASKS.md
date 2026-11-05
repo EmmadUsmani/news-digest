@@ -5,6 +5,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Immediate owner priorities
 
+- [ ] STEERING 34 NOW (overrides design/model/experiment plans below): follow rewritten [X search plan](docs/x-search-plan.md). Current UI status-query step finished (719). Next: change experiment and disabled schedule queries tonight, no paid calls; one fresh-keyword viral search/topic, code-built time/operators, -giveaway, 16 posts, Grok 4.3. Scorer changes after Nov 5 edition; two fresh-window rounds after 21:00 UTC Nov 5 and Nov 6, including test-only meaning search. No more round-1 analysis or model round; earliest production edition Nov 7. Existing caps/protections remain.
+
 - [x] STEERING 32 (705–709): default-off fixed A/B runtime prepared; production remains off pending experiment decision. Private nightly backups, seven-day retention, weekly isolated restore proof and 26-hour vmalert deployed. First restore matched all 26 application tables; details in [Operations](docs/handbook/01-app/10-backups.md).
 
 - [ ] STEERING 30: after breakages/Nov 5 checks: follow [X search plan](docs/x-search-plan.md) exactly. Story reactions primary; X-side filters; save actual queries. Experiment cap $2.50 total/$1 per UTC day, outside 13:00–16:00 UTC; production caps unchanged. Replaces optional/followup machinery when shipped.
