@@ -74,6 +74,8 @@ async function smoke() {
         topic.id === target.id ? { ...topic, sources: [] } : topic,
       );
       let fail = true;
+      let disconnect = true;
+      let failRefresh = false;
       let writes = 0;
       let pendingSave: Promise<void> | undefined;
       let releaseSave: (() => void) | undefined;
@@ -97,11 +99,13 @@ async function smoke() {
             assert.equal(input.query, 'artificial intelligence');
             return route.fulfill({ status: 400, json: {} });
           }
+          if (disconnect) return route.abort();
           await pendingSave;
           if (fail) return route.fulfill({ status: 503, json: {} });
           topics = topics.map((topic) =>
             topic.id === target.id ? { ...topic, sources: [source.id] } : topic,
           );
+          failRefresh = true;
           return route.fulfill({
             status: 201,
             json: topics.find((topic) => topic.id === target.id),
@@ -125,8 +129,13 @@ async function smoke() {
           return route.abort();
         }
         if (path === '/api/topics') return route.fulfill({ json: topics });
-        if (path === '/api/topics/sources')
+        if (path === '/api/topics/sources') {
+          if (failRefresh) {
+            failRefresh = false;
+            return route.fulfill({ status: 503, json: {} });
+          }
           return route.fulfill({ json: catalog });
+        }
         if (path === '/api/content')
           return route.fulfill({
             json: content.map((item) =>
@@ -190,6 +199,21 @@ async function smoke() {
         topics.find((topic) => topic.id === target.id)!.sources,
         [],
       );
+      await connect.click();
+      await page
+        .getByRole('status')
+        .filter({ hasText: 'Could not confirm the feed connection.' })
+        .waitFor();
+      assert.equal(await query.inputValue(), 'artificial intelligence');
+      assert.ok(await query.isEnabled());
+      assert.deepEqual(
+        topics.find((topic) => topic.id === target.id)!.sources,
+        [],
+      );
+      await page.locator('.topic-settings').screenshot({
+        path: `docs/screenshots/news-queries-network-${device}.png`,
+      });
+      disconnect = false;
       pendingSave = new Promise<void>((resolve) => {
         releaseSave = resolve;
       });
@@ -226,7 +250,7 @@ async function smoke() {
           .getByRole('button', { name: 'Connecting…', exact: true })
           .isDisabled(),
       );
-      assert.equal(writes, 2);
+      assert.equal(writes, 3);
       assert.deepEqual(
         topics.find((topic) => topic.id === target.id)!.sources,
         [],
@@ -244,7 +268,7 @@ async function smoke() {
       assert.equal(await query.inputValue(), 'artificial intelligence');
       assert.ok(await query.isEnabled());
       assert.ok(await connect.isEnabled());
-      assert.equal(writes, 2);
+      assert.equal(writes, 3);
       assert.deepEqual(
         topics.find((topic) => topic.id === target.id)!.sources,
         [],
@@ -256,13 +280,27 @@ async function smoke() {
       await connect.click();
       await page
         .getByRole('status')
-        .filter({ hasText: 'Feed connected.' })
+        .filter({
+          hasText: 'Feed connected, but the source list could not refresh.',
+        })
         .waitFor();
       assert.equal(await query.inputValue(), '');
+      assert.deepEqual(
+        topics.find((topic) => topic.id === target.id)!.sources,
+        [source.id],
+      );
+      assert.equal(writes, 4);
+      await page.locator('.topic-settings').screenshot({
+        path: `docs/screenshots/news-queries-refresh-failure-${device}.png`,
+      });
       const checkbox = form.getByRole('checkbox', {
         name: `${source.name} Feed`,
         exact: true,
       });
+      assert.ok(
+        await checkbox.isChecked(),
+        'Confirmed connection stays selected after refresh failure',
+      );
       const save = form.getByRole('button', {
         name: 'Save sources',
         exact: true,
@@ -291,7 +329,7 @@ async function smoke() {
       await card
         .getByText('No sources connected yet.', { exact: false })
         .waitFor();
-      assert.equal(writes, 4);
+      assert.equal(writes, 5);
       assert.deepEqual(unexpectedWrites, []);
       assert.deepEqual(errors, []);
       assert.deepEqual(credentials, []);
@@ -312,7 +350,7 @@ async function smoke() {
         savedEdition,
       );
     console.log(
-      'News queries desktop/mobile: validation response, pending control locks, single request, save failure, retry, cleared fields, stored content, replay reload and disconnect passed; full live topics/profile/edition unchanged, browser writes guarded and credentials absent, no inference.',
+      'News queries desktop/mobile: validation response, pending control locks, single request, uncertain network outcome, save failure, retry, confirmed save with refresh failure, cleared fields, stored content, replay reload and disconnect passed; full live topics/profile/edition unchanged, browser writes guarded and credentials absent, no inference.',
     );
   } finally {
     await browser.close();
