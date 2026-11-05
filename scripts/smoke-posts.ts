@@ -38,7 +38,14 @@ async function main() {
     ] as const) {
       for (const mode of process.env.POST_EMBED_LIVE === '1'
         ? (['live'] as const)
-        : (['success', 'blocked', 'hanging', 'rejected', 'empty'] as const)) {
+        : ([
+            'success',
+            'blocked',
+            'script-timeout',
+            'hanging',
+            'rejected',
+            'empty',
+          ] as const)) {
         const page = await browser.newPage({ viewport: { width, height } });
         const errors: string[] = [];
         page.on('pageerror', (error) =>
@@ -62,22 +69,51 @@ async function main() {
           .flatMap((topic) => topic.posts ?? [])
           .at(-1);
         if (legacyPost) delete legacyPost.displayText;
-        if (mode === 'hanging') {
+        if (mode === 'hanging' || mode === 'script-timeout') {
           // Accelerate only the production embed deadline; leave other timers intact.
+          await page.addInitScript(
+            (deadline) => {
+              const original = window.setTimeout.bind(window);
+              window.setTimeout = ((
+                handler: TimerHandler,
+                timeout?: number,
+                ...args: unknown[]
+              ) =>
+                original(
+                  handler,
+                  timeout === 15000 ? deadline : timeout,
+                  ...args,
+                )) as typeof window.setTimeout;
+            },
+            mode === 'script-timeout' ? 1000 : 100,
+          );
+        }
+        if (mode === 'script-timeout') {
           await page.addInitScript(() => {
-            const original = window.setTimeout.bind(window);
-            window.setTimeout = ((
-              handler: TimerHandler,
-              timeout?: number,
-              ...args: unknown[]
-            ) =>
-              original(
-                handler,
-                timeout === 15000 ? 100 : timeout,
-                ...args,
-              )) as typeof window.setTimeout;
+            // Preserve the native receiver with apply below.
+            // eslint-disable-next-line @typescript-eslint/unbound-method
+            const append = HTMLHeadElement.prototype.append;
+            HTMLHeadElement.prototype.append = function (
+              ...nodes: (Node | string)[]
+            ) {
+              for (const node of nodes) {
+                if (
+                  node instanceof HTMLScriptElement &&
+                  node.src.includes('platform.twitter.com')
+                ) {
+                  (
+                    window as Window & { firstWidgetScript?: HTMLScriptElement }
+                  ).firstWidgetScript ??= node;
+                }
+              }
+              append.apply(this, nodes);
+            };
           });
         }
+        let releaseInitial!: () => void;
+        const initialDownload = new Promise<void>((resolve) => {
+          releaseInitial = resolve;
+        });
         let scriptRequests = 0;
         let allowRetry = false;
         let releaseRetry!: () => void;
@@ -93,6 +129,10 @@ async function main() {
             'https://platform.twitter.com/widgets.js',
             async (route) => {
               scriptRequests++;
+              if (mode === 'script-timeout' && !allowRetry) {
+                await initialDownload;
+                return route.abort();
+              }
               if (mode === 'blocked' && !allowRetry) return route.abort();
               if (mode === 'blocked') {
                 retryStarted();
@@ -212,7 +252,7 @@ async function main() {
           allowRetry = true;
           // Replace only the failed widget method, as a recovered provider would.
           // A successfully loaded script must not be fetched again for a card retry.
-          if (mode !== 'blocked')
+          if (mode !== 'blocked' && mode !== 'script-timeout')
             await page.evaluate(() => {
               const api = (
                 window as Window & {
@@ -235,6 +275,23 @@ async function main() {
                   return Promise.resolve(element);
                 };
             });
+          if (mode === 'script-timeout') {
+            assert.deepEqual(
+              await page.evaluate(() => {
+                const script = (
+                  window as Window & { firstWidgetScript?: HTMLScriptElement }
+                ).firstWidgetScript;
+                return {
+                  connected: script?.isConnected,
+                  load: script?.onload,
+                  error: script?.onerror,
+                };
+              }),
+              { connected: false, load: null, error: null },
+              'Timed-out downloads detach callbacks before retry',
+            );
+            releaseInitial();
+          }
           const card = cards.first();
           await card.scrollIntoViewIfNeeded();
           await card.getByRole('button', { name: 'Retry X media' }).click();
@@ -264,9 +321,10 @@ async function main() {
           assert.equal(await card.locator('.post-embed-status').count(), 0);
           assert.equal(
             scriptRequests,
-            mode === 'blocked' ? 2 : 1,
+            mode === 'blocked' || mode === 'script-timeout' ? 2 : 1,
             'Only a failed script download needs a replacement script',
           );
+          releaseInitial();
           if (mode === 'hanging') {
             // Expired widget promises may resolve and mutate their old target later.
             await page.evaluate(() => {
@@ -293,7 +351,7 @@ async function main() {
       'Saved edition must remain unchanged',
     );
     console.log(
-      `Post replay passed (${process.env.POST_EMBED_LIVE === '1' ? 'live official widgets' : 'stubbed widgets, blocked, timed-out, rejected and empty-widget recovery'}): desktop/mobile, no overflow or page errors. No edition published.`,
+      `Post replay passed (${process.env.POST_EMBED_LIVE === '1' ? 'live official widgets' : 'stubbed widgets, blocked/stalled downloads, timed-out, rejected and empty-widget recovery'}): desktop/mobile, no overflow or page errors. No edition published.`,
     );
   } finally {
     await browser.close();

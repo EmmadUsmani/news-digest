@@ -29,22 +29,30 @@ function loadWidgets(retry: boolean): Promise<Widgets> {
     const script = document.createElement('script');
     script.src = 'https://platform.twitter.com/widgets.js';
     script.async = true;
+    let settled = false;
+    const cleanup = () => {
+      settled = true;
+      window.clearTimeout(timeout);
+      script.onload = null;
+      script.onerror = null;
+    };
     const fail = () => {
+      if (settled) return;
+      cleanup();
       widgetScriptFailed = true;
       script.remove();
       reject(new Error('Embed unavailable'));
     };
     const timeout = window.setTimeout(fail, 15000);
     script.onload = () => {
-      window.clearTimeout(timeout);
+      if (settled) return;
       const api = (window as Window & { twttr?: Widgets }).twttr;
-      if (typeof api?.widgets?.createTweet === 'function') resolve(api);
-      else fail();
+      if (typeof api?.widgets?.createTweet === 'function') {
+        cleanup();
+        resolve(api);
+      } else fail();
     };
-    script.onerror = () => {
-      window.clearTimeout(timeout);
-      fail();
-    };
+    script.onerror = fail;
     document.head.append(script);
   });
   return widgetScript;

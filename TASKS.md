@@ -46,6 +46,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] X script timeout cleanup (786): completed downloads clear callbacks and reject late state changes; stalled-download desktop/mobile recovery verified without edition writes.
+
 - [x] Concurrent X retries (785): failed cards share one replacement widgets.js download while it is pending; loaded widgets remain reusable. Desktop/mobile recovery verified without edition writes.
 
 - [x] X card retries (784): reuse the loaded official widget API; only failed script downloads fetch a replacement, verified desktop/mobile without edition writes.

@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 771 — authenticated handbook verification
-
-- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; API/worker/docs/schema active. Nov 5 edition review remains due at 15:00 UTC.
-- Handbook checker now authenticates local docs pages/assets/API and DB schema reads through Node, relaying response bodies into Playwright without browser credentials. Fixed loopback origin, redirect refusal and 15-second deadlines keep it ready for tool gating; remote APP_URL values are rejected.
-- Extended credential adapter only to exact docs/db path families. Tests cover unrelated origins/prefixes, traversal, header preservation, invalid tokens, gated tool access and redirect rejection. Actual tool gating remains part of the coordinated admin migration.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, zero failures); pnpm build; full check-handbook.ts (18 pages/22 diagrams/26 tables, no metadata warnings); remote-origin rejection; targeted local-admin-fetch tests (2/2); git diff --check.
-- TASKS, Operations and access decision updated; archived iteration 755. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No paid calls, stored-edition writes, runtime/config/schema or model/provider changes. Healthy services remain running under STEERING 22.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; owner identity configuration and proxy verification still block admin rollout.
-
 ## 2026-11-05: iteration 772 — recover failed archive pages
 
 - Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Two historical ingestion failures remain with current collection healthy.
@@ -138,3 +129,13 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-posts.ts /tmp/783-posts.jsonl; smoke-admin-gate.ts; git diff --check. All static checks, 497 unit/214 isolated integration tests, build, browser replay, gate and diff checks passed (exit 0).
 - TASKS updated; archived iteration 770. Regenerated screenshots discarded because appearance is unchanged. No source/handbook changes or new human blockers; no paid calls, storage/config/schema or model/provider changes.
 - API restarted after web build; health green, all four services active; admin gate passed. Next FIRST: 15:00 UTC NBA/grouping/cost/latency review, fallback investigation before scorer. X rounds after 21:00 UTC Nov 5/6; admin identity/proxy verification remain pending.
+
+## 2026-11-05: iteration 786 — settle X script callbacks once
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, 36 sources healthy and no failed retained digest-generation jobs. Four app services active; next edition 15:00 UTC.
+- Shared widgets.js downloads now clear their timer and callbacks on success/failure and ignore callbacks after settlement, preventing late events from changing retry state.
+- Added stalled-download desktop/mobile replay: timeout removes the script and callbacks, saved text/original links remain, and manual retry downloads a replacement and restores the widget. Existing concurrent, blocked, widget timeout, rejection and empty-result recovery passed; saved edition unchanged, no browser errors/overflow or live provider calls.
+- New stalled-download screenshots inspected on desktop/mobile; unrelated regenerated images discarded. Initial replay recovery timed out; allowing the stalled request to finish and a longer accelerated deadline fixed the test. Native method lint finding corrected.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-posts.ts /tmp/783-posts.jsonl; smoke-admin-gate.ts; git diff --check. All static checks, 497 unit/214 isolated integration tests, build, browser replay, gate and diff checks passed (exit 0).
+- TASKS updated; archived iteration 771. SOURCES/NEEDS_FROM_HUMAN and handbook unchanged: no source, architecture or new blocker changes. No paid calls, stored-edition writes, config/schema or model/provider changes.
+- API restarted after build; health/database/Redis green and four app services active. Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X trials after 21:00 UTC Nov 5/6. Admin identity/proxy verification remain pending.
