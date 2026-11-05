@@ -71,6 +71,27 @@ async function smoke() {
             .count(),
           1,
         );
+        const savedEdition = await (
+          await localAdminFetch(`${origin}/api/admin/digest-previews/latest`)
+        ).json();
+        const savedCost = await (
+          await localAdminFetch(
+            `${origin}/api/admin/digest-previews/${savedEdition.id}/cost`,
+          )
+        ).json();
+        const costRegion = page.getByLabel('Latest edition AI cost');
+        await costRegion
+          .getByText(
+            savedCost.calls
+              ? `AI cost: $${(savedCost.costMicros / 1e6).toFixed(6)} recorded · ${savedCost.calls} calls · $${(savedCost.reservedMicros / 1e6).toFixed(6)} unresolved holds`
+              : 'No AI ledger calls linked to this edition.',
+            { exact: true },
+          )
+          .waitFor();
+        assert.equal(
+          await costRegion.getByRole('link').getAttribute('href'),
+          `/admin/editions/${savedEdition.id}`,
+        );
         assert.equal(
           await page.locator('details').first().getAttribute('open'),
           null,
@@ -103,6 +124,10 @@ async function smoke() {
         await page
           .getByRole('link', { name: 'View as reader', exact: true })
           .waitFor();
+        await costRegion.getByRole('link').waitFor();
+        await page
+          .getByText(/recorded · .* calls · .* unresolved holds/)
+          .waitFor();
         await page.screenshot({
           path: `docs/screenshots/ui/admin-overview-${device}-${theme}.png`,
           fullPage: true,
@@ -110,6 +135,22 @@ async function smoke() {
         assert.deepEqual(errors, []);
         assert.ok(adminReads.includes('/api/admin/status'));
         if (device === 'desktop' && theme === 'light') {
+          const costPattern = '**/api/admin/digest-previews/*/cost';
+          await page.route(costPattern, (route) =>
+            route.fulfill({
+              status: 503,
+              json: { message: 'Simulated cost outage' },
+            }),
+          );
+          await page.getByRole('button', { name: 'Refresh overview' }).click();
+          await costRegion.getByRole('alert').waitFor();
+          await page.getByRole('link', { name: 'View as reader' }).waitFor();
+          await page.unroute(costPattern);
+          await page
+            .getByRole('button', { name: 'Retry edition cost' })
+            .click();
+          await costRegion.getByRole('alert').waitFor({ state: 'hidden' });
+
           await page.route('**/api/admin/status', (route) =>
             route.fulfill({
               status: 400,

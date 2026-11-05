@@ -44,7 +44,7 @@ Backups: `~/backups/news-digest/`; [nightly timers and restore](10-backups.md).
 - **Topics at `/admin/topics`:** drag or arrow ordering, enable controls, story/post budgets and New topic dialog. Open a topic for guidance, budgets, phrase filters, X accounts, Reddit communities, connected feeds and news queries, or deletion. Overview links here for topic and source settings.
 - **Schedule at `/admin/schedule`:** next run, daily local time, timezone, coverage and default topic budgets.
 - **Sources at `/admin/sources`:** collection health, connected topics with editor links, timestamps, last-response/stored counts and platform status. Use Manage topics & feeds to add a feed or news query.
-- **Overview at `/admin`:** health, daily spend, latest edition, source issues and next runs.
+- **Overview at `/admin`:** health, daily spend, latest edition with recorded AI cost, unresolved holds and inspector link, source issues and next runs.
 - **`/healthz`:** 200 when Postgres and Redis respond; `pnpm obs alerts` and [Grafana](09-observability.md) cover the rest.
 
 Read-only checks: `pnpm exec tsx <script>`. Protected API reads use the private local admin token:

@@ -2,7 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 
 import { Button } from './components/ui/button';
 import { Card } from './components/ui/card';
-import { adminEditionQuery, healthQuery, statusQuery } from './queries';
+import {
+  adminEditionCostQuery,
+  adminEditionQuery,
+  healthQuery,
+  statusQuery,
+} from './queries';
 
 const dollars = (micros: number) => `$${(micros / 1e6).toFixed(3)}`;
 const time = (value: string) =>
@@ -12,6 +17,10 @@ export function AdminOverview() {
   const status = useQuery(statusQuery);
   const health = useQuery(healthQuery);
   const edition = useQuery(adminEditionQuery);
+  const cost = useQuery({
+    ...adminEditionCostQuery(edition.data?.id ?? ''),
+    enabled: Boolean(edition.data?.id),
+  });
   const data = status.data;
   const issues = data?.sources.filter(
     (source) =>
@@ -36,12 +45,16 @@ export function AdminOverview() {
         <Button
           variant="ghost"
           disabled={
-            status.isFetching || health.isFetching || edition.isFetching
+            status.isFetching ||
+            health.isFetching ||
+            edition.isFetching ||
+            cost.isFetching
           }
           onClick={() => {
             void status.refetch();
             void health.refetch();
             void edition.refetch();
+            if (edition.data) void cost.refetch();
           }}
         >
           Refresh overview
@@ -111,6 +124,30 @@ export function AdminOverview() {
               {run?.durationMs != null &&
                 ` · ${(run.durationMs / 1000).toFixed(1)} s`}
             </p>
+            <div aria-label="Latest edition AI cost" className="mb-4 text-sm">
+              {cost.isPending && <p role="status">Loading edition cost…</p>}
+              {cost.isError && (
+                <p role="alert">
+                  Edition cost unavailable.{' '}
+                  <Button variant="ghost" onClick={() => void cost.refetch()}>
+                    Retry edition cost
+                  </Button>
+                </p>
+              )}
+              {cost.data && (
+                <p>
+                  {cost.data.calls
+                    ? `AI cost: $${(cost.data.costMicros / 1e6).toFixed(6)} recorded · ${cost.data.calls} calls · $${(cost.data.reservedMicros / 1e6).toFixed(6)} unresolved holds`
+                    : 'No AI ledger calls linked to this edition.'}
+                </p>
+              )}
+              <a
+                className="text-sm font-medium"
+                href={`/admin/editions/${edition.data.id}`}
+              >
+                Inspect edition and cost breakdown
+              </a>
+            </div>
             <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
               {edition.data.topics.map((topic) => (
                 <div
