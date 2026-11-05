@@ -16,15 +16,21 @@ type Widgets = {
   };
 };
 let widgetScript: Promise<Widgets> | undefined;
-function loadWidgets(): Promise<Widgets> {
+let widgetScriptFailed = false;
+function loadWidgets(retry: boolean): Promise<Widgets> {
   const loaded = (window as Window & { twttr?: Widgets }).twttr;
   if (typeof loaded?.widgets?.createTweet === 'function')
     return Promise.resolve(loaded);
+  if (retry && widgetScriptFailed) {
+    widgetScript = undefined;
+    widgetScriptFailed = false;
+  }
   widgetScript ??= new Promise((resolve, reject) => {
     const script = document.createElement('script');
     script.src = 'https://platform.twitter.com/widgets.js';
     script.async = true;
     const fail = () => {
+      widgetScriptFailed = true;
       script.remove();
       reject(new Error('Embed unavailable'));
     };
@@ -32,7 +38,7 @@ function loadWidgets(): Promise<Widgets> {
     script.onload = () => {
       window.clearTimeout(timeout);
       const api = (window as Window & { twttr?: Widgets }).twttr;
-      if (api?.widgets) resolve(api);
+      if (typeof api?.widgets?.createTweet === 'function') resolve(api);
       else fail();
     };
     script.onerror = () => {
@@ -87,7 +93,7 @@ function Post({ post }: { post: SelectedPost }) {
       (entries) => {
         if (!entries.some((entry) => entry.isIntersecting)) return;
         observer.disconnect();
-        void loadWidgets()
+        void loadWidgets(attempt > 0)
           .then((api) => {
             if (!active) return undefined;
             widgetTimeout = window.setTimeout(() => {
@@ -151,7 +157,6 @@ function Post({ post }: { post: SelectedPost }) {
           <button
             type="button"
             onClick={() => {
-              widgetScript = undefined;
               setAttempt((value) => value + 1);
             }}
           >

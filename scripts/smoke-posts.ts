@@ -80,12 +80,24 @@ async function main() {
         }
         let scriptRequests = 0;
         let allowRetry = false;
+        let releaseRetry!: () => void;
+        const retryDownload = new Promise<void>((resolve) => {
+          releaseRetry = resolve;
+        });
+        let retryStarted!: () => void;
+        const retryRequest = new Promise<void>((resolve) => {
+          retryStarted = resolve;
+        });
         if (mode !== 'live')
           await page.route(
             'https://platform.twitter.com/widgets.js',
             async (route) => {
               scriptRequests++;
               if (mode === 'blocked' && !allowRetry) return route.abort();
+              if (mode === 'blocked') {
+                retryStarted();
+                await retryDownload;
+              }
               await route.fulfill({
                 contentType: 'text/javascript',
                 body:
@@ -226,6 +238,25 @@ async function main() {
           const card = cards.first();
           await card.scrollIntoViewIfNeeded();
           await card.getByRole('button', { name: 'Retry X media' }).click();
+          if (mode === 'blocked') {
+            await retryRequest;
+            assert.ok(expected.length > 1, 'Concurrent retries need two cards');
+            const second = cards.nth(1);
+            await second.scrollIntoViewIfNeeded();
+            await second.getByRole('button', { name: 'Retry X media' }).click();
+            await page.evaluate(
+              () =>
+                new Promise<void>((resolve) =>
+                  requestAnimationFrame(() =>
+                    requestAnimationFrame(() => resolve()),
+                  ),
+                ),
+            );
+            releaseRetry();
+            await second
+              .locator(`[data-post-id="${expected[1].externalId}"]`)
+              .waitFor();
+          }
           await card
             .locator(`[data-post-id="${expected[0].externalId}"]`)
             .waitFor();

@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 770 — missing saved-edition recovery
-
-- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; API/worker/docs/schema active. Scheduled Nov 5 review still due at 15:00 UTC.
-- Reader queries retain HTTP status: saved-edition 404s stop automatic retries and show Edition not found with a latest-edition link. Other load failures retain automatic retries and now offer an explicit retry button; creation failures keep their existing message.
-- `pnpm exec tsx scripts/smoke-missing-edition.ts` passed real missing-edition 404/single request, home recovery and browser-only 503/retry recovery on desktop/mobile light/dark. No writes/browser errors; saved edition unchanged. Four screenshots added; mobile dark/desktop light inspected. Existing `smoke-invalid-edition.ts` passed all four combinations too.
-- TASKS and Operations updated; archived iteration 754. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blocker. No paid calls, stored-edition writes, generation/config/schema or model/provider changes. API restarted after web build.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations; git diff --check. 497 unit tests passed; initial integration process received SIGTERM after reporting all 214 test cases, isolated integration rerun passed all 214 tests (exit 0). Final health green; all four app services active.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; owner identity configuration and proxy verification still block admin rollout.
-
 ## 2026-11-05: iteration 771 — authenticated handbook verification
 
 - Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; API/worker/docs/schema active. Nov 5 edition review remains due at 15:00 UTC.
@@ -138,3 +129,12 @@
 - TASKS updated; archived iteration 769. Regenerated screenshots discarded because appearance is unchanged. No handbook/source changes or new human blockers.
 - API restarted after web build; final health green and all four services active. No paid calls, stored-edition writes, config/schema or model/provider changes.
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6. Identity configuration/proxy verification still block admin rollout.
+
+## 2026-11-05: iteration 785 — share pending X retry downloads
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green and four services active. Nov 5 edition remains due at 15:00 UTC.
+- Concurrent retries on failed X cards now share a pending replacement widgets.js download. Only a failed script is cleared on manual retry; loaded widget APIs remain reusable. Script success requires a callable createTweet method.
+- Desktop/mobile read-only replay held the retry download pending while a second card retried; both recovered with exactly one replacement request. Existing success, blocking, timeout, rejection and empty-result checks passed; no overflow/page errors or saved-edition writes. No live provider calls.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-posts.ts /tmp/783-posts.jsonl; smoke-admin-gate.ts; git diff --check. All static checks, 497 unit/214 isolated integration tests, build, browser replay, gate and diff checks passed (exit 0).
+- TASKS updated; archived iteration 770. Regenerated screenshots discarded because appearance is unchanged. No source/handbook changes or new human blockers; no paid calls, storage/config/schema or model/provider changes.
+- API restarted after web build; health green, all four services active; admin gate passed. Next FIRST: 15:00 UTC NBA/grouping/cost/latency review, fallback investigation before scorer. X rounds after 21:00 UTC Nov 5/6; admin identity/proxy verification remain pending.
