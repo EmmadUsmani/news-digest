@@ -1,8 +1,67 @@
 import assert from 'node:assert/strict';
 
-import { chromium } from 'playwright';
+import { readerEditionSchema } from '@digest/contracts';
+import { type BrowserContext, chromium, type Page } from 'playwright';
 
 async function smoke() {
+  const origin = 'http://localhost:8000';
+  const readEdition = async () => {
+    const response = await fetch(`${origin}/api/editions/latest`, {
+      signal: AbortSignal.timeout(15000),
+    });
+    assert.equal(response.status, 200);
+    return readerEditionSchema.parse(await response.json());
+  };
+  const saved = await readEdition();
+  assert.ok(saved.topics.some((topic) => topic.stories.length));
+  const writes: string[] = [];
+  const errors: string[] = [];
+  const protect = async (context: BrowserContext) => {
+    context.setDefaultTimeout(15000);
+    context.on('page', (page) => {
+      page.on('pageerror', (error) => errors.push(error.message));
+    });
+    await context.route('**/api/**', async (route) => {
+      const request = route.request();
+      if (!['GET', 'HEAD'].includes(request.method())) {
+        writes.push(`${request.method()} ${new URL(request.url()).pathname}`);
+        return route.abort();
+      }
+      return route.continue();
+    });
+  };
+  const expectSavedContent = async (page: Page) => {
+    await page
+      .locator('.period')
+      .filter({ hasText: saved.id.slice(0, 8) })
+      .waitFor();
+    assert.equal(
+      await page.locator('.digest-topic').count(),
+      saved.topics.length,
+    );
+    for (const topic of saved.topics) {
+      const section = page.locator('.digest-topic').filter({
+        has: page.getByRole('heading', { name: topic.name, exact: true }),
+      });
+      assert.equal(
+        await section.locator('li[id^="story-"]').count(),
+        topic.stories.length,
+      );
+      for (const story of topic.stories) {
+        const item = section.locator(`[id="story-${story.id}"]`);
+        await item.waitFor();
+        assert.equal(
+          await item.locator(':scope > a').textContent(),
+          story.title,
+        );
+        if (story.summary)
+          assert.equal(
+            await item.locator('.excerpt').textContent(),
+            story.summary,
+          );
+      }
+    }
+  };
   const browser = await chromium.launch();
   try {
     for (const [device, width, height] of [
@@ -13,11 +72,10 @@ async function smoke() {
         viewport: { width, height },
         colorScheme: 'dark',
       });
+      await protect(context);
       const page = await context.newPage();
-      const errors: string[] = [];
-      page.on('pageerror', (error) => errors.push(error.message));
       await page.goto('http://localhost:8000/');
-      await page.locator('.digest-preview h2').first().waitFor();
+      await expectSavedContent(page);
       const isDark = () =>
         page.evaluate(() =>
           document.documentElement.classList.contains('dark'),
@@ -33,6 +91,7 @@ async function smoke() {
           await page
             .getByRole('button', { name: 'Switch to dark theme' })
             .click();
+        await expectSavedContent(page);
         await page.evaluate(() => document.fonts.ready);
         assert.ok(
           await page.evaluate(
@@ -53,6 +112,7 @@ async function smoke() {
         true,
         'Saved dark overrides system light after reload',
       );
+      await expectSavedContent(page);
       const sibling = await context.newPage();
       await sibling.goto('http://localhost:8000/');
       await sibling
@@ -62,10 +122,12 @@ async function smoke() {
         .getByRole('button', { name: 'Switch to dark theme' })
         .waitFor();
       assert.equal(await isDark(), false, 'Other tabs follow saved preference');
-      assert.deepEqual(errors, []);
+      await expectSavedContent(page);
+      await expectSavedContent(sibling);
       await context.close();
     }
     const context = await browser.newContext({ colorScheme: 'dark' });
+    await protect(context);
     await context.addInitScript(() => {
       Object.defineProperty(window, 'localStorage', {
         get() {
@@ -77,9 +139,17 @@ async function smoke() {
     await page.goto('http://localhost:8000/');
     await page.getByRole('button', { name: 'Switch to light theme' }).click();
     await page.getByRole('button', { name: 'Switch to dark theme' }).waitFor();
+    await expectSavedContent(page);
     await context.close();
+    assert.deepEqual(writes, [], 'No browser API writes');
+    assert.deepEqual(errors, []);
+    assert.deepEqual(
+      await readEdition(),
+      saved,
+      'Saved reader edition unchanged',
+    );
     console.log(
-      'Theme desktop/mobile, system changes, persistence, cross-tab and blocked storage passed.',
+      'Theme desktop/mobile, system changes, persistence, cross-tab, blocked storage and saved reader content passed without API writes.',
     );
   } finally {
     await browser.close();

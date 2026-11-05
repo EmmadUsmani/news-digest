@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 745 — protected spend and coverage browser checks
-
-- Started clean on main; no leftover work. Health/database/Redis green, all 36 sources healthy, no retained failed digest runs; Nov 5 edition due at 15:00 UTC. Metrics memory warning pending at orientation.
-- AI-spend and topic-coverage browser verifiers now read protected status snapshots through the bounded Node token adapter. Browser rendering uses replayed real telemetry; credentials stay outside browser contexts. Parked Reddit display remains a local rendering check, with no Reddit requests.
-- `pnpm exec tsx scripts/smoke-ai-spend.ts` and `pnpm exec tsx scripts/smoke-topic-coverage.ts` passed desktop/mobile, including spend totals, coverage counts, parked display, zero page errors and no horizontal overflow. Six screenshots refreshed; desktop spend/mobile coverage visually inspected.
-- Updated TASKS, Operations and admin access decision; archived iteration 732. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema changes, live writes, inference or model/provider/budget changes; healthy services remain running under STEERING 22.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, exit 0); pnpm build; check-handbook.ts 08-operations; git diff --check all passed. Final health green; metrics memory warning pending.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback. Scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy checks and coordinated UI/legacy migration remain open.
-
 ## 2026-11-05: iteration 746 — protected reserve and duration browser checks
 
 - Started clean on main; no leftover work. Health/database/Redis green, all 36 sources healthy, no retained failed digest runs. Nov 5 edition remains due at 15:00 UTC; existing metrics memory warning pending.
@@ -131,4 +122,13 @@
 - Desktop/mobile routing smoke passed, including pagination, malformed edition, reserved routes and shared-cache checks. Screenshots refreshed; mobile reader visually inspected. Updated TASKS/Operations; archived iteration 744.
 - No runtime/config/schema changes, production writes, paid calls or model/provider changes. SOURCES/NEEDS_FROM_HUMAN unchanged. Healthy services remain running under STEERING 22.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, zero failures); pnpm build; check-handbook.ts 08-operations; git diff --check all passed. Final /healthz green.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.
+
+## 2026-11-05: iteration 760 — theme changes preserve saved reader text
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Nov 5 scheduled edition remains due at 15:00 UTC.
+- Theme browser verifier validates the saved reader snapshot with a bounded Node read, checks all story titles/text through system/manual themes, reload, cross-tab sync and disabled storage, blocks unexpected API writes and proves the edition unchanged afterward. Browser errors are collected across every tab/context.
+- Desktop/mobile theme smoke passed twice; four screenshots unchanged, mobile dark visually inspected. Initial story-count selector did not match the existing markup; corrected and rerun passed.
+- Updated TASKS/Operations; archived iteration 745. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No live writes, paid calls, runtime/config/schema or model/provider changes; healthy services remain running under STEERING 22.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, zero failures); pnpm build; check-handbook.ts 08-operations; git diff --check all passed. Initial check shell terminated (143) during integration; full check rerun in isolated user unit passed. Final health green.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.
