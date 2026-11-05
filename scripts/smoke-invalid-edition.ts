@@ -37,12 +37,15 @@ async function smoke() {
           }
           return route.continue();
         });
-        for (const id of [
-          'not-an-edition',
-          '123',
-          '00000000-0000-4000-8000-invalid',
+        for (const path of [
+          '/editions/not-an-edition',
+          '/editions/123',
+          '/editions/00000000-0000-4000-8000-invalid',
+          '/?edition=not-an-edition',
+          '/?edition=123',
+          '/?edition=',
         ]) {
-          await page.goto(`${base}/editions/${id}`, {
+          await page.goto(`${base}${path}`, {
             waitUntil: 'networkidle',
           });
           await page
@@ -60,6 +63,13 @@ async function smoke() {
         });
         await page.getByRole('link', { name: 'Back to News Digest' }).click();
         await page.waitForURL(base + '/');
+        await page.locator('.digest-topic').first().waitFor();
+        assert.equal(
+          await page.locator('.digest-topic').count(),
+          edition.topics.length,
+        );
+        await page.goto(`${base}/?edition=${edition.id}#edition-history`);
+        await page.waitForURL(`${base}/editions/${edition.id}#edition-history`);
         await page.locator('.digest-topic').first().waitFor();
         assert.equal(
           await page.locator('.digest-topic').count(),

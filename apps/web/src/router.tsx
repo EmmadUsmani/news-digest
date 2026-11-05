@@ -53,8 +53,18 @@ function loadPageData({ context }: { context: { queryClient: QueryClient } }) {
 const latestRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/',
-  validateSearch: z.object({ edition: z.string().uuid().optional() }),
+  validateSearch: z.object({
+    edition: z.preprocess(
+      (value) => (value === undefined ? undefined : String(value)),
+      z.string().optional(),
+    ),
+  }),
   beforeLoad: ({ search, location }) => {
+    if (
+      search.edition !== undefined &&
+      !z.string().uuid().safeParse(search.edition).success
+    )
+      throw notFound();
     if (search.edition)
       throw redirect({
         to: '/editions/$id',

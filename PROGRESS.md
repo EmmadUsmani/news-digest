@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 753 — Google News checks without production writes
-
-- Started clean on main; no leftover work. Health/database/Redis green, 36 healthy sources, no failed retained digest runs. Existing metrics memory warning pending; Nov 5 edition due at 15:00 UTC.
-- Google News query browser check now reads protected topic/content/catalog/edition snapshots in Node. Validation and failure responses, retry, reload and disconnect stay in browser memory; unexpected API writes abort. Removed live topic creation/deletion, query connections and scheduler polling.
-- `pnpm exec tsx scripts/smoke-news-queries.ts` passed desktop/mobile validation response, retained input after failed save, retry/cleared input, stored Google News articles, reload and disconnect. Protected reads prove live topics and saved edition unchanged. Two screenshots refreshed; mobile visually inspected. First run found checkbox label mismatch; corrected and rerun passed. Server validation remains in isolated tests.
-- Updated TASKS and Operations; archived iteration 739. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema changes, live writes or paid calls; healthy services remain running under STEERING 22.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration tests, exit 0); pnpm build; check-handbook.ts 08-operations; git diff --check all passed. Final health green; reader latest has four real topics.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.
-
 ## 2026-11-05: iteration 754 — topic editing without live writes
 
 - Started clean on main; no leftover work. Health/database/Redis green, 36 sources healthy, no failed retained digest runs; two historical ingestion failures remain with current sources healthy. Alert snapshot has no firing/pending alerts.
@@ -140,3 +131,12 @@
 - TASKS and Operations updated; archived iteration 752. SOURCES/NEEDS_FROM_HUMAN unchanged. No paid calls, generation/config/schema or model/provider changes. API restarted after web build; health green.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration); pnpm build; check-handbook.ts 08-operations; git diff --check. Initial check hit newly archived Markdown formatting, corrected; initial smoke needed its async entry point wrapped for CommonJS, corrected before passing.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. Fresh X rounds after 21:00 UTC Nov 5/6; owner identity configuration and proxy verification still block admin rollout.
+
+## 2026-11-05: iteration 769 — recover malformed legacy edition links
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Two historical ingestion failures remain while current collection succeeds.
+- Malformed legacy `?edition=` links now show Page not found before app/API loading, including empty and numeric values. Valid legacy links still redirect to the saved edition and preserve their section anchor.
+- `pnpm exec tsx scripts/smoke-invalid-edition.ts` passed six malformed paths, home recovery and valid legacy redirects on desktop/mobile light/dark; zero invalid-page API reads, no writes/browser errors, saved edition unchanged. Four screenshots refreshed with identical output; mobile dark inspected.
+- TASKS updated; archived iteration 753. SOURCES/NEEDS_FROM_HUMAN unchanged; no source changes or new blockers. No paid calls, stored-edition writes, generation/config/schema or model/provider changes. API restarted for the web build; health green.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, zero failures); pnpm build; git diff --check. Initial browser launch raced API startup (ECONNREFUSED); rerun after healthy startup passed.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; owner identity configuration and proxy verification still block admin rollout.
