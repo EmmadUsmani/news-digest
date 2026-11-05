@@ -56,14 +56,20 @@ export function adminAccess(config: AdminAccessConfig) {
       response.writeHead(400).end();
       return;
     }
-    if (path === '/api/me' && request.method === 'GET') {
+    if (path === '/api/me' || path === '/api/me/') {
+      response.setHeader('cache-control', 'no-store');
+      response.setHeader('vary', 'X-ExeDev-Email, ADMIN_LOCAL_TOKEN');
+      if (request.method !== 'GET' && request.method !== 'HEAD') {
+        response.writeHead(405, { allow: 'GET, HEAD' }).end();
+        return;
+      }
+      const body = JSON.stringify({ isAdmin: isAdmin(request, config) });
       response
         .writeHead(200, {
           'content-type': 'application/json',
-          'cache-control': 'no-store',
-          vary: 'X-ExeDev-Email, ADMIN_LOCAL_TOKEN',
+          'content-length': Buffer.byteLength(body),
         })
-        .end(JSON.stringify({ isAdmin: isAdmin(request, config) }));
+        .end(request.method === 'HEAD' ? undefined : body);
       return;
     }
     const protectedPath = ['/admin', '/api/admin'].some(

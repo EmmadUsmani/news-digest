@@ -71,6 +71,17 @@ async function smoke() {
     assert.equal(identity.status, 200);
     privateResponse(identity);
     assert.deepEqual(await identity.json(), { isAdmin: false });
+    for (const path of ['/api/me', '/api/me/']) {
+      const head = await read(path, { headers, method: 'HEAD' });
+      assert.equal(head.status, 200);
+      privateResponse(head);
+      assert.equal(head.headers.get('content-type'), 'application/json');
+      assert.equal(
+        head.headers.get('content-length'),
+        String(Buffer.byteLength('{"isAdmin":false}')),
+      );
+      assert.equal(await head.text(), '');
+    }
     const denied = await read('/api/admin/topics', { headers });
     assert.equal(denied.status, 404);
     privateResponse(denied);

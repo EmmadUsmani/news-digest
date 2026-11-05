@@ -152,10 +152,36 @@ void test('HTTP gate denies reserved admin routes and reports only uncached iden
         false,
       ],
     ] as const) {
-      const response = await fetch(`${base}/api/me`, { headers });
-      assert.equal(response.headers.get('cache-control'), 'no-store');
-      assert.deepEqual(await response.json(), { isAdmin: expected });
+      for (const path of ['/api/me', '/api/me/', '/API/ME?probe=identity']) {
+        const response = await fetch(base + path, { headers });
+        assert.equal(response.status, 200);
+        assert.equal(response.headers.get('cache-control'), 'no-store');
+        assert.deepEqual(await response.json(), { isAdmin: expected });
+        const head = await fetch(base + path, { headers, method: 'HEAD' });
+        assert.equal(head.status, 200);
+        for (const name of [
+          'cache-control',
+          'vary',
+          'content-type',
+          'content-length',
+        ]) {
+          assert.equal(head.headers.get(name), response.headers.get(name));
+        }
+        assert.equal(await head.text(), '');
+        for (const method of ['POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']) {
+          const rejected = await fetch(base + path, { headers, method });
+          assert.equal(rejected.status, 405, `${method} ${path}`);
+          assert.equal(rejected.headers.get('allow'), 'GET, HEAD');
+          assert.equal(rejected.headers.get('cache-control'), 'no-store');
+          assert.equal(
+            rejected.headers.get('vary'),
+            response.headers.get('vary'),
+          );
+          assert.equal(await rejected.text(), '');
+        }
+      }
     }
+
     for (const [path, status] of [
       ['/admin/missing', 404],
       ['/admin/error', 500],

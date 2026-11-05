@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 764 — saved story text in both themes
-
-- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, 36 sources healthy and no retained failed digest runs; Nov 5 edition remains due at 15:00 UTC.
-- Saved-story regression now checks every story title/text across all four Nov 4 topics, desktop/mobile and light/dark. NBA retains 5/5 non-empty summaries and clean reader labels. Browser API writes are blocked; bounded reader requests confirm the saved edition is unchanged.
-- `pnpm exec tsx scripts/smoke-reader-story-text.ts` passed all four viewport/theme combinations. Added dark desktop/mobile screenshots and refreshed mobile light; dark desktop/mobile visually inspected.
-- TASKS/Operations updated; archived iteration 748. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No live writes, paid calls, runtime/config/schema or model/provider changes; healthy services remain running under STEERING 22.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (497 unit/214 isolated integration, zero failures), `pnpm build`, `check-handbook.ts 08-operations` and `git diff --check` passed. Final /healthz green.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; owner identity configuration still blocks coordinated admin rollout.
-
 ## 2026-11-05: iteration 765 — reserve and duration checks block writes
 
 - Started clean on main; no leftover work. Alerts zero, /healthz database/Redis green, all 36 sources healthy; recent collection succeeds and no retained digest failures. Nov 5 edition remains due at 15:00 UTC.
@@ -133,4 +124,14 @@
 - `smoke-missing-edition.ts` passed all four cases; discarded unrelated regenerated screenshots. Initial invalid-data smoke ran before restarted API was ready (connection refused); health-ready rerun passed.
 - TASKS/Operations updated; archived iterations 762–763. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, stored-edition writes, generation/config/schema or model/provider changes. API restarted after build; worker kept running under STEERING 22.
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations; git diff --check. Static checks and 497 unit tests passed; full check received SIGTERM during integration. Separate user-unit `pnpm test:integration` passed all 214 tests (exit 0). Build, browser, handbook and diff checks passed; final health green, four app services active.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; identity configuration/proxy verification still block admin rollout.
+
+## 2026-11-05: iteration 779 — consistent uncached admin identity methods
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Nov 5 scheduled review remains due at 15:00 UTC.
+- `/api/me` now handles GET/HEAD and trailing-slash paths consistently with uncached identity headers; HEAD has no body. Other methods return uncached 405 with Allow instead of falling through to the SPA.
+- HTTP gate characterization covers anonymous, configured email, direct token and forwarded-token identities across canonical/trailing-slash/case/query paths and unsupported methods. Focused test passed (2/2).
+- Live `pnpm exec tsx scripts/smoke-admin-gate.ts` passed 18 reserved paths, anonymous/invalid identity HEAD checks, direct protected access, forwarded-token denial and unchanged saved edition. An initial new authenticated identity assertion failed because the local adapter deliberately sends no token to `/api/me`; removed that invalid smoke assumption, retaining authenticated HEAD coverage in the HTTP test.
+- TASKS/access decision updated; archived iteration 764. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No UI changes, paid calls, stored-edition writes or generation/config/schema changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-admin-gate.ts; git diff --check. Static checks, 497 unit/214 isolated integration tests passed (exit 0). First check caught archive formatting, corrected before the successful full rerun. API restarted and health green; worker unchanged under STEERING 22.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; identity configuration/proxy verification still block admin rollout.

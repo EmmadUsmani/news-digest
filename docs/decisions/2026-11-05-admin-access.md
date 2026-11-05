@@ -3,6 +3,9 @@
 The owner-approved UI spec requires server-side admin access and local script
 access. The middleware runs before static files and tool routing. It protects
 reserved `/admin` and `/api/admin` paths and supplies uncached `/api/me`.
+Identity GET and HEAD requests (including the trailing-slash path) share
+uncached JSON headers; HEAD has no body. Other methods receive uncached 405
+with `Allow: GET, HEAD` rather than falling through to the SPA.
 Protected `/api/admin/*` aliases now serve topics, profile, status, content
 and digest previews through the existing controllers. Legacy operational routes
 and tools remain available during the coordinated migration. The app remains private under exe.dev's existing access control.
