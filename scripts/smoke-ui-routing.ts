@@ -88,7 +88,9 @@ async function smoke() {
         ),
         'Self-hosted Inter must load',
       );
-      const button = page.locator('[data-slot="button"]').first();
+      const button = page
+        .locator('.digest-preview [data-slot="button"]')
+        .first();
       assert.equal(
         await button.evaluate((node) => getComputedStyle(node).display),
         'inline-flex',

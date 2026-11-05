@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 714 — recover dates automatically in X experiment reports
-
-- Started clean on main; no leftover work. Zero alerts, healthz/database/Redis green, reader HTTP 200, 36 healthy sources and no failed retained digest runs. Nov 5 scheduled acceptance remains future.
-- Offline reports now fill missing publication times with the existing production Snowflake decoder and count supplied/ID-derived/unknown dates. Supplied dates and input evidence remain unchanged; legacy/invalid/future IDs remain unknown. Date metadata does not establish post existence or official verification.
-- Replayed all 11 settled round-1 calls: exactly 17 automatic recoveries; per-call window/eligible-yield/unknown metrics and the entire comparison match the separate iteration-713 recovery. Saved private automatic-dates-report-714.json (600); originals and admission journal untouched. No paid calls, parameter changes or activation.
-- Verification: targeted report/CLI/comparison tests 23/23; pnpm format, pnpm lint:fix, pnpm check (471 unit/213 isolated integration), pnpm build, handbook validation and git diff --check passed. Initial targeted run caught an overbroad edit of postsFetched; corrected and reran successfully.
-- Updated TASKS and experiment reference; archived iterations 700–701 to bound PROGRESS. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no runtime/source change or new owner blocker. No restart under STEERING 22; running services do not import this offline report.
-- Next: second independent experiment day, threshold calibration/model comparison under shared caps; Nov 5 grouping/NBA AI/cost/latency/screenshots take priority. Production fixed A/B remains off.
-
 ## 2026-11-04: iteration 715 — reproducible saved X response extraction
 
 - Started clean on main; no leftover work. Zero alerts, healthz/database/Redis green, reader HTTP 200, all 36 sources healthy, no failed retained digest jobs; next edition Nov 5 15:00 UTC.
@@ -131,3 +122,12 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (490 unit/213 isolated integration, exit 0), pnpm build, pnpm exec tsx scripts/smoke-ui-routing.ts, pnpm exec tsx scripts/check-handbook.ts 01-stack-and-runtime and git diff --check.
 - Updated TASKS and Stack & runtime; archived iteration 713 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new owner blocker. Rebuilt/restarted API/docs; worker/schema unchanged.
 - Next: theme foundation while waiting; scheduled acceptance first when due, scorer after the edition, fresh X rounds after 21:00 UTC Nov 5/6. No provider/model/budget changes or activation.
+
+## 2026-11-05: iteration 728 — system and saved light/dark theme
+
+- Started clean on main; no leftover work. Zero alerts, services/health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Existing ingestion/social failed counters have no retained failed run details; current sources healthy. Nov 5 acceptance remains future at 15:00 UTC.
+- Finished theme foundations: neutral light/dark tokens across the existing page, class-based Tailwind dark utilities, accessible header toggle and pre-render preference application. System preference is default, explicit choice persists across reloads/tabs; unavailable storage still permits toggling.
+- Read-only Playwright desktop/mobile theme and routing checks passed against real stored editions: system changes, saved override, cross-tab sync, blocked storage, no overflow/browser errors. Four light/dark screenshots added and routing screenshots refreshed in docs/screenshots/ui/; inspected screenshots.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (490 unit/213 isolated integration), pnpm build, pnpm exec tsx scripts/smoke-ui-theme.ts, pnpm exec tsx scripts/smoke-ui-routing.ts, pnpm exec tsx scripts/check-handbook.ts 01-stack-and-runtime and git diff --check.
+- Updated TASKS and Stack & runtime; archived iteration 714 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new owner blocker. Rebuilt/restarted API/docs; worker/schema unchanged and healthy.
+- No paid calls, scorer/cache changes, provider/model/budget changes or X activation. Next: step 2 server-side admin gate while waiting; Nov 5 scheduled review first when due, scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6.

@@ -16,7 +16,9 @@
 | Quality gates | ESLint, Prettier, dependency-cruiser, tsc                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | All run by `pnpm check`                                                                                |
 
 The SPA bundles Inter locally and uses Tailwind v4 with shadcn/ui button
-primitives. Existing layouts remain in a legacy CSS layer during the rebuild.
+primitives. Light and dark themes follow the system setting until the header
+toggle saves a preference in the browser. Open tabs share that preference.
+Existing layouts remain in a legacy CSS layer during the rebuild.
 
 Topic settings, incoming articles and connection health share a validated browser
 cache. Saved editions and each history page use the same cache, with separate

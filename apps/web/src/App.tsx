@@ -1,5 +1,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { ThemeToggle } from './components/theme-toggle';
 import { DigestPreview } from './DigestPreview';
 import {
   contentQuery,
@@ -23,7 +24,7 @@ export function App() {
         <a href="/" aria-label="News Digest home">
           ND<span> / News Digest</span>
         </a>
-        <span className="edition">YOUR DAILY PERSPECTIVE</span>
+        <ThemeToggle />
       </header>
       <section>
         <p className="eyebrow">LESS SCROLLING. MORE CONTEXT.</p>
