@@ -10,7 +10,10 @@ import { homedir } from 'node:os';
 import { join } from 'node:path';
 
 import { XExperimentBudget } from '../../../scripts/lib/x-experiment-budget';
-import type { prepareViralXExperimentTopic } from '../../../scripts/lib/x-experiment-inputs';
+import {
+  experimentWindow,
+  type prepareViralXExperimentTopic,
+} from '../../../scripts/lib/x-experiment-inputs';
 import { xDiscoveryCost } from '../src/modules/social/domain/x-discovery-budget';
 
 async function main() {
@@ -25,6 +28,21 @@ async function main() {
     window: { start: string; end: string };
     topics: ReturnType<typeof prepareViralXExperimentTopic>[];
   };
+  const window = experimentWindow(input.window.start, input.window.end);
+  const now = new Date();
+  if (
+    Date.parse(window.end) - Date.parse(window.start) !== 86_400_000 ||
+    Date.parse(window.end) > now.getTime() ||
+    now.getUTCHours() < 21
+  )
+    throw new Error(
+      'Fresh 24-hour window and dispatch after 21:00 UTC required',
+    );
+  if (
+    new Set(input.topics.map((topic) => topic.topicId)).size !== 4 ||
+    input.topics.some((topic) => !topic.topicId.trim())
+  )
+    throw new Error('Four distinct topic IDs required');
   if (input.topics.length !== 4 || input.topics.some((topic) => !topic.ready))
     throw new Error('Four prepared topics required');
   for (const topic of input.topics)

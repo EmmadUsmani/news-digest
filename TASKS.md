@@ -34,5 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] X round preflight (866): reject invalid 24-hour windows, premature starts and duplicate/blank topics before reservations or provider requests; mocked subprocess coverage.
+
 - [x] Incremental admission reassessed (865): measured reserve and same-window turnover support keeping background triage OFF; no paid calls or settings changes.
 - Next: X fresh-window rounds after 21:00 UTC Nov 5/6; scheduled editor-v5 evidence Nov 6. Admin identity/proxy rollout and broader job reliability acceptance remain open.

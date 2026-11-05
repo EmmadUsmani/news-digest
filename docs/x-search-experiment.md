@@ -351,3 +351,11 @@ missed. Totals stay unknown for incomplete rounds or missing review evidence.
 Raw promotions remain visible but only exclude their own posts from usable yield.
 World has its own topic row. No winner is inferred: compare the old scheduled
 search over the same days separately before applying the owner's decision rule.
+
+### Round preflight (iteration 866)
+
+Before creating a private round directory or reserving money, the revised runner
+requires four distinct nonblank topic IDs and a timezone-qualified, closed
+24-hour window. Dispatch starts only at or after 21:00 UTC. Invalid inputs stop
+without a journal entry or provider request. This preflight does not establish
+non-overlap with another round; the saved-round comparison checks that separately.

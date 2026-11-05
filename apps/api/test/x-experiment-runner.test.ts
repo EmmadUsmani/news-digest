@@ -21,8 +21,8 @@ require('node:os').homedir = () => ${JSON.stringify(directory)};
 require('node:module').syncBuiltinESMExports();
 const RealDate = Date;
 global.Date = class extends RealDate {
-  constructor(...args) { super(...(args.length ? args : ['2026-11-05T21:00:00.000Z'])); }
-  static now() { return RealDate.parse('2026-11-05T21:00:00.000Z'); }
+  constructor(...args) { super(...(args.length ? args : [process.env.FAKE_NOW || '2026-11-05T21:00:00.000Z'])); }
+  static now() { return RealDate.parse(process.env.FAKE_NOW || '2026-11-05T21:00:00.000Z'); }
 };
 global.fetch = async (url, options) => {
   if (url !== 'https://api.x.ai/v1/responses') throw Error('Unexpected URL');
@@ -37,7 +37,7 @@ global.fetch = async (url, options) => {
   writeFileSync(
     input,
     JSON.stringify({
-      window: { start: '2026-11-03T21:00:00Z', end: '2026-11-05T21:00:00Z' },
+      window: { start: '2026-11-04T21:00:00Z', end: '2026-11-05T21:00:00Z' },
       topics: [1, 2, 3, 4].map((id) => ({
         topicId: String(id),
         topic: String(id),
@@ -52,7 +52,7 @@ global.fetch = async (url, options) => {
     }),
   );
   const root = join(directory, '.local/state/news-digest/x-experiment');
-  const run = (fakeMode = mode, round?: string) =>
+  const run = (fakeMode = mode, round?: string, now?: string) =>
     spawnSync(
       'pnpm',
       [
@@ -69,6 +69,7 @@ global.fetch = async (url, options) => {
           X_EXPERIMENT_LIVE: '1',
           XAI_API_KEY: 'synthetic-key',
           FAKE_MODE: fakeMode,
+          FAKE_NOW: now,
         },
         encoding: 'utf8',
       },
@@ -80,6 +81,7 @@ global.fetch = async (url, options) => {
   return {
     directory,
     root,
+    input,
     run,
     journal,
     cleanup: () => rmSync(directory, { recursive: true, force: true }),
@@ -169,6 +171,71 @@ void test('revised runner refuses legacy prepared requests before any provider d
   const f = fixture('success', true);
   try {
     assert.equal(f.run().status, 1);
+    assert.equal(readdirSync(f.directory).includes('dispatches'), false);
+    assert.equal(readdirSync(f.directory).includes('.local'), false);
+  } finally {
+    f.cleanup();
+  }
+});
+
+void test('runner rejects invalid round windows and topics before charging or dispatch', () => {
+  for (const mutate of [
+    (input: {
+      window: { start: string; end: string };
+      topics: { topicId: string }[];
+    }) => {
+      input.window.start = '2026-11-03T21:00:00Z';
+    },
+    (input: {
+      window: { start: string; end: string };
+      topics: { topicId: string }[];
+    }) => {
+      input.window.start = '2026-11-05T21:00:00Z';
+      input.window.end = '2026-11-06T21:00:00Z';
+    },
+    (input: {
+      window: { start: string; end: string };
+      topics: { topicId: string }[];
+    }) => {
+      input.window.start = '2026-11-04T21:00:00';
+    },
+    (input: {
+      window: { start: string; end: string };
+      topics: { topicId: string }[];
+    }) => {
+      input.topics[1].topicId = input.topics[0].topicId;
+    },
+    (input: {
+      window: { start: string; end: string };
+      topics: { topicId: string }[];
+    }) => {
+      input.topics[0].topicId = ' ';
+    },
+  ]) {
+    const f = fixture('success');
+    try {
+      const input = JSON.parse(readFileSync(f.input, 'utf8'));
+      mutate(input);
+      writeFileSync(f.input, JSON.stringify(input));
+      assert.equal(f.run().status, 1);
+      assert.equal(readdirSync(f.directory).includes('dispatches'), false);
+      assert.equal(readdirSync(f.directory).includes('.local'), false);
+    } finally {
+      f.cleanup();
+    }
+  }
+});
+
+void test('runner refuses a closed 24-hour window before the evening test time', () => {
+  const f = fixture('success');
+  try {
+    const input = JSON.parse(readFileSync(f.input, 'utf8'));
+    input.window = {
+      start: '2026-11-04T20:00:00Z',
+      end: '2026-11-05T20:00:00Z',
+    };
+    writeFileSync(f.input, JSON.stringify(input));
+    assert.equal(f.run('success', undefined, '2026-11-05T20:59:59Z').status, 1);
     assert.equal(readdirSync(f.directory).includes('dispatches'), false);
     assert.equal(readdirSync(f.directory).includes('.local'), false);
   } finally {
