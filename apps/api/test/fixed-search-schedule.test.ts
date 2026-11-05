@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { xSearchComparisonBody } from '../src/modules/social/adapters/x-search-comparison';
+import { viralXSearchBody } from '../src/modules/social/adapters/x-viral-search-body';
 import {
   type FixedSearchTopic,
   planFixedSearchSchedule,
@@ -46,52 +46,38 @@ void test('fixed schedule is off by default and skips outside the edition search
       [],
     );
 });
-void test('all primary reactions precede trending; budget removes quiet trending first', () => {
+void test('one viral slot per topic; budget removes strongest free coverage first', () => {
   const keys = (availableMicros: number) =>
     planFixedSearchSchedule({ ...input, availableMicros }).map(
       ({ topicId, style }) => `${topicId}:${style}`,
     );
-  assert.deepEqual(keys(400000), [
-    'busy:reactions',
-    'quiet:reactions',
-    'busy:trending',
-    'quiet:trending',
-  ]);
-  assert.deepEqual(keys(350000), keys(400000).slice(0, 3));
-  assert.deepEqual(keys(200000), keys(400000).slice(0, 2));
+  assert.deepEqual(keys(400000), ['busy:trending', 'quiet:trending']);
+  assert.deepEqual(keys(350000), keys(400000));
+  assert.deepEqual(keys(200000), keys(400000));
+  assert.deepEqual(keys(100000), ['busy:trending']);
   assert.deepEqual(keys(0), []);
 });
-void test('ranked unique stories and stored settings construct A/B requests without handles', () => {
+void test('stored settings construct viral requests without headlines or handles', () => {
   const before = JSON.stringify(input);
   for (const plan of planFixedSearchSchedule(input)) {
     assert.equal(plan.request.handles, undefined);
     assert.equal(plan.scheduledDay, '2026-11-05');
     assert.deepEqual(plan.request.publicationWindow, {
       start: '2026-11-04T15:00:00.000Z',
-      end: '2026-11-05T14:30:00.000Z',
+      end: '2026-11-05T15:00:00.000Z',
     });
-    const body = xSearchComparisonBody(
-      plan.request,
-      plan.style,
-      plan.settings,
-      plan.rankedStoryTitles,
-    );
+    const body = viralXSearchBody(plan.request, plan.settings);
     const prompt = JSON.parse(body.input[0].content.split('\n').at(-1)!);
     assert.match(
       prompt.queryTemplate,
-      / -filter:replies -filter:retweets lang:en -odds -bet min_faves:/,
+      / -filter:replies -filter:retweets lang:en -odds -bet -giveaway min_faves:/,
     );
-    assert.ok(
-      prompt.queryTemplate.endsWith(
-        `min_faves:${plan.style === 'reactions' ? 100 : 1000}`,
-      ),
+    assert.match(
+      prompt.queryTemplate,
+      /min_faves:1000 since:2026-11-04_15:00:00_UTC until:2026-11-05_15:00:00_UTC$/,
     );
-    if (plan.style === 'reactions' && plan.topicId === 'busy')
-      assert.deepEqual(plan.rankedStoryTitles, [
-        'busy story 3',
-        'busy story 2',
-        'busy story 1',
-      ]);
+    assert.match(prompt.queryTemplate, /-giveaway/);
+    assert.deepEqual(plan.rankedStoryTitles, []);
   }
   assert.equal(JSON.stringify(input), before);
 });

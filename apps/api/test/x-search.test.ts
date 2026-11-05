@@ -934,8 +934,6 @@ void test('actual custom tool calls survive empty or invalid citation content wi
 });
 
 void test('direct adapter sends fixed A/B operators and preserves settlement evidence without live calls', async () => {
-  const { xSearchComparisonBody } =
-    await import('../src/modules/social/adapters/x-search-comparison');
   for (const style of ['reactions', 'trending'] as const) {
     const fixed = {
       ...request,
@@ -955,14 +953,14 @@ void test('direct adapter sends fixed A/B operators and preserves settlement evi
     const send: typeof fetch = async (url, init) => {
       calls++;
       assert.equal(url, 'https://api.x.ai/v1/responses');
-      assert.deepEqual(
-        JSON.parse(typeof init?.body === 'string' ? init.body : ''),
-        xSearchComparisonBody(
-          fixed,
-          style,
-          fixed.fixedSearch.settings,
-          fixed.fixedSearch.rankedStoryTitles,
-        ),
+      const body = JSON.parse(typeof init?.body === 'string' ? init.body : '');
+      assert.equal(body.model, 'grok-4.3');
+      assert.equal(body.max_turns, 2);
+      assert.match(
+        body.input[0].content,
+        style === 'trending'
+          ? /requesting 16 results/
+          : /Request eight results/,
       );
       return new Response(
         JSON.stringify({

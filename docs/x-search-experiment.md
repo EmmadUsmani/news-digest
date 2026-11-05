@@ -303,3 +303,18 @@ and existing timestamps. Both reaction citations fall before the window;
 current has 10/13 and trending 27/32 in-window citations. Separate private
 dated evidence preserves originals. Promotion unknowns and second-day coverage
 remain open; no paid calls or winner decision.
+
+## Viral query/runtime preparation — iteration 720
+
+STEERING 34 supersedes the historical comparison above. The shared viral query
+builder uses fresh description-based keywords, grouped OR terms, exact UTC
+since/until operators, stored trending minimums and mandatory -giveaway. It
+requests 16 posts with 4,000 output tokens. Fixed runtime now plans one slot per
+topic without loading articles, under the existing fixed-trending ledger identity;
+four $0.10 reservations fit the daily cap. The flag remains off.
+
+Offline experiment preparation exposes this body as requests.viral. The live
+runner, report and extractor still use historical styles and must be updated
+before the Nov 5/6 rounds, including the test-only semantic search and removing
+article readiness requirements. No paid dispatch, scorer change or activation
+was made in this step. Historical request constructors remain for old evidence.

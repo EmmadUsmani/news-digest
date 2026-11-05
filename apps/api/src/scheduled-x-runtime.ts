@@ -78,13 +78,13 @@ export function runScheduledXRuntime(
     return runScheduledFixedXSearch({
       enabled: fixed.enabled,
       profile: dependencies.profile,
-      topics: async (start, end) =>
+      topics: async (_start, end) =>
         Promise.all(
           (await dependencies.searches.scheduledTopics(end)).map(
             async (topic) => ({
               ...topic,
               settings: await fixed.settings(topic.id),
-              stories: await fixed.stories(topic.id, start, end),
+              stories: [],
             }),
           ),
         ),

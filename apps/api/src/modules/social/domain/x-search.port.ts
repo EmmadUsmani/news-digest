@@ -8,7 +8,7 @@ export interface FixedSearchSettings {
 }
 
 export interface XSearchRequest {
-  // Supplied only by the opt-in fixed A/B scheduler.
+  // Supplied only by the opt-in fixed scheduler; reactions retained for historical replay.
   fixedSearch?: {
     style: 'reactions' | 'trending';
     settings: FixedSearchSettings;

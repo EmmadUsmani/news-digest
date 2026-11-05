@@ -77,18 +77,14 @@ void test('fixed schedule defaults off with no dependency reads', async () => {
   });
 });
 
-void test('A precedes B, quieter B drops first, and live settlement limits calls', async () => {
+void test('one slot per topic fits the cap and respects free coverage priority', async () => {
   const { deps, calls, setBalance } = fixture();
   setBalance(300000);
   await runScheduledFixedXSearch(deps);
-  assert.deepEqual(calls, [
-    'busy:reactions',
-    'quiet:reactions',
-    'busy:trending',
-  ]);
+  assert.deepEqual(calls, ['busy:trending', 'quiet:trending']);
 });
 
-void test('consumed A refusals do not hide affordable B after restart', async () => {
+void test('live balance after settlement stops the next topic', async () => {
   const { deps, calls, setBalance } = fixture();
   setBalance(100000);
   deps.execute = async (plan) => {
@@ -96,11 +92,7 @@ void test('consumed A refusals do not hide affordable B after restart', async ()
     if (plan.style === 'trending') setBalance(0);
   };
   await runScheduledFixedXSearch(deps);
-  assert.deepEqual(calls, [
-    'busy:reactions',
-    'quiet:reactions',
-    'busy:trending',
-  ]);
+  assert.deepEqual(calls, ['busy:trending']);
 });
 
 void test('slow calls stop at window boundary; changed thresholds stop remaining calls', async () => {
@@ -112,6 +104,6 @@ void test('slow calls stop at window boundary; changed thresholds stop remaining
       else topics[0].settings.reactionMinFaves++;
     };
     await runScheduledFixedXSearch(deps);
-    assert.deepEqual(calls, ['reactions']);
+    assert.deepEqual(calls, ['trending']);
   }
 });

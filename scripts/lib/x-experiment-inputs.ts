@@ -1,4 +1,5 @@
 import { xSearchComparisonBody } from '../../apps/api/src/modules/social/adapters/x-search-comparison';
+import { viralXSearchBody } from '../../apps/api/src/modules/social/adapters/x-viral-search-body';
 import type { ReactionStory } from '../../apps/api/src/modules/social/domain/story-reactions';
 
 export function experimentWindow(start: string, end: string) {
@@ -72,6 +73,7 @@ export function prepareXExperimentTopic(
       ? null
       : 'Fewer than two usable distinct ranked articles in the window',
     requests: {
+      viral: viralXSearchBody(request, settings),
       current: xSearchComparisonBody(request, 'current', settings, []),
       trending: xSearchComparisonBody(request, 'trending', settings, []),
       reactions: ready

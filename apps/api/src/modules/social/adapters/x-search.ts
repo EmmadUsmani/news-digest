@@ -11,6 +11,7 @@ import {
 import { baseXSearchBody } from './x-search-body';
 import { xSearchComparisonBody } from './x-search-comparison';
 import { readReportedEngagement } from './x-search-engagement';
+import { viralXSearchBody } from './x-viral-search-body';
 
 const count = z.number().int().nonnegative().safe();
 const usageSchema = z.object({
@@ -46,7 +47,9 @@ export function xSearchBody(request: XSearchRequest) {
     const { style, settings, rankedStoryTitles } = request.fixedSearch;
     if (!['reactions', 'trending'].includes(style))
       throw new Error('Invalid fixed X search style');
-    return xSearchComparisonBody(request, style, settings, rankedStoryTitles);
+    return style === 'trending'
+      ? viralXSearchBody(request, settings)
+      : xSearchComparisonBody(request, style, settings, rankedStoryTitles);
   }
   return baseXSearchBody(request);
 }
@@ -77,9 +80,13 @@ export class DirectXSearch implements XSearchPort {
           : 'account-list',
     };
     try {
-      const result = await this.perform(body, (value) => {
-        status = value;
-      });
+      const result = await this.perform(
+        body,
+        (value) => {
+          status = value;
+        },
+        request.fixedSearch?.style === 'trending' ? 16 : 5,
+      );
       this.log.info(
         {
           ...fields,
@@ -114,6 +121,7 @@ export class DirectXSearch implements XSearchPort {
   private async perform(
     body: ReturnType<typeof xSearchBody>,
     received: (status: number) => void,
+    linkLimit: number,
   ) {
     let response: Response;
     let raw: string;
@@ -184,7 +192,7 @@ export class DirectXSearch implements XSearchPort {
           .filter((annotation) => annotation.type === 'url_citation')
           .map((annotation) => annotation.url)
       : [];
-    const links = extractXLinks(urls.join('\n')).slice(0, 5);
+    const links = extractXLinks(urls.join('\n')).slice(0, linkLimit);
     const texts = content.success
       ? content.data.output
           .filter(

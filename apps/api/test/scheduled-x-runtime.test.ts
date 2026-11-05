@@ -207,13 +207,8 @@ void test('fixed runtime dispatches A/B ledger types and bypasses all legacy fol
     };
   };
   await runScheduledXRuntime(dependencies, () => now);
-  assert.deepEqual(styles, ['fixed-reactions', 'fixed-trending']);
+  assert.deepEqual(styles, ['fixed-trending']);
   assert.deepEqual(events, [
-    'reactions',
-    'settle',
-    'save',
-    'verify',
-    'complete',
     'trending',
     'settle',
     'save',

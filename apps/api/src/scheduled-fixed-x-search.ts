@@ -38,7 +38,7 @@ export async function runScheduledFixedXSearch(deps: {
   const window = coverageWindow(edition, profile.schedule.coverageWindow);
   if (!window.ok) return { skipped: 'Invalid coverage window' };
   const start = new Date(
-    Math.max(window.value.windowStart.getTime(), now.getTime() - 86400000),
+    Math.max(window.value.windowStart.getTime(), edition.getTime() - 86400000),
   );
   const topics = await deps.topics(start, now);
   const configuration = (rows: FixedSearchTopic[]) =>
@@ -52,15 +52,14 @@ export async function runScheduledFixedXSearch(deps: {
       })),
     );
   const original = configuration(topics);
-  // Enumerate both styles before checking the live balance. Previously consumed
-  // A slots must not hide affordable B slots on a later tick after restart.
+  // Enumerate one slot per topic, then check the live balance before each call.
   const plans = planFixedSearchSchedule({
     enabled: true,
     topics,
     now,
     editionAt: edition,
     coverageStart: start,
-    availableMicros: topics.length * 2 * 100000,
+    availableMicros: topics.length * 100000,
     reservationMicros: 100000,
   });
   const results: unknown[] = [];

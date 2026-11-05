@@ -110,3 +110,21 @@ void test('reaction preparation rejects unusable articles before ranking and ded
   assert.equal(ready.ready, true);
   assert.ok(ready.requests.reactions);
 });
+
+void test('viral preparation uses saved topic description without article context', () => {
+  const result = prepareXExperimentTopic(
+    { ...topic, includeGuidance: 'Basketball players and teams' },
+    settings,
+    [],
+    window,
+  );
+  const body = result.requests.viral;
+  const data = JSON.parse(body.input[0].content.split('\n').at(-1)!);
+  assert.match(data.description, /Basketball players and teams/);
+  assert.equal(data.rankedStoryTitles, undefined);
+  assert.match(
+    data.queryTemplate,
+    /-giveaway min_faves:1000 since:2026-11-03_15:30:00_UTC until:2026-11-04_15:30:00_UTC$/,
+  );
+  assert.equal(body.max_output_tokens, 4000);
+});

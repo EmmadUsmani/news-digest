@@ -76,10 +76,11 @@ flowchart LR
   normal AI budget.
 
 > [!NOTE]
-> Per-topic reaction/trending like thresholds and exclusion operators are stored
-> in `x_search_topic_settings` for the [approved comparison](../../x-search-plan.md).
-> Experiment article inputs reuse saved AI triage scores before heuristic
-> ranking. Current production searches keep their existing behavior.
+> The replacement schedule is off pending the [experiment decision](../../x-search-plan.md).
+> It prepares one 16-result viral search per topic, with fresh keywords from
+> the topic description and code-built time/like filters. Stored trending
+> thresholds supply its minimum likes; every query excludes giveaways.
+> Four $0.10 reservations fit the $0.40 daily cap. Current production is unchanged.
 
 ## Other platforms
 
