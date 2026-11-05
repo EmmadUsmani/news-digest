@@ -40,7 +40,14 @@ a short item, put the design in a plan under `docs/` and link it.
 If this replaces part of an older item, add a one-line pointer under that item.
 The agent only appends `ack:` lines, so older text must not contradict the new.
 
-## 3. Publish
+## 3. Update Current order
+
+**Required.** Add the new item to Current order at the top of `STEERING.md`, even
+if only under Blocked or at the bottom. If it changes the ranking, the owner must
+have approved that. Remove anything finished while you're there. Don't publish
+without this.
+
+## 4. Publish
 
 ```bash
 npx --no-install prettier --write <files you changed>
@@ -52,7 +59,7 @@ git push origin HEAD:main
 rejected, run `git pull --rebase origin main`. If another session took your number, renumber
 yours and push again. Never force-push.
 
-## 4. Finish
+## 5. Finish
 
 - **Update the workstream file** in `docs/lead/work/`. This step isn't optional.
 - Tell the owner the commit, what the agent will do, and what to watch for.

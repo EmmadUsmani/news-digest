@@ -25,14 +25,16 @@ flowchart LR
   tasks --> progress --> archive
 ```
 
-The agent's only write to `STEERING.md` is appending `ack:` lines.
+The agent's only writes to `STEERING.md` are appending `ack:` lines and tidying
+Current order, the ranked list at the top. It may remove finished lines or mark
+them blocked, but never reorder or add.
 
 ## Who edits what
 
 | File                  | Owner      | Agent                            | Read every iteration?   |
 | --------------------- | ---------- | -------------------------------- | ----------------------- |
 | `MISSION.md`          | ✏️ writes  | 🚫 never (supervisor reverts it) | Only relevant sections  |
-| `STEERING.md`         | ✏️ writes  | Appends `ack:` lines only        | ✅ Yes                  |
+| `STEERING.md`         | ✏️ writes  | Acks, tidies Current order       | ✅ Yes                  |
 | `AGENTS.md`           | ✏️ writes  | Rarely, for workflow facts       | ✅ Auto-loaded by Codex |
 | `TASKS.md`            | Reads      | ✏️ maintains                     | ✅ Open items           |
 | `PROGRESS.md`         | Reads      | ✏️ appends, archives old entries | ✅ Last ~30 lines       |
