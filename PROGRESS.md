@@ -101,3 +101,14 @@
 - Rebuilt API restarted; health green and latest reader edition has four topics. Worker/schedule unchanged; no paid calls or live data writes.
 - TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (keyboard navigation fix, no new blocker).
 - Next FIRST: 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 838 — identify source catalog controls
+
+- Started clean on main; no leftover work. Health/database/Redis green, all 36 sources healthy and alerts clear; Nov 5 scheduled review remains due at 15:00 UTC.
+- Source checkboxes now name their source without the nested link text; each feed link names its source and announces the new tab.
+- Desktop/mobile replay verifies accessible names, destination, Tab from checkbox to feed link, and unchanged selection; new focused-link screenshots inspected. Unrelated regenerated screenshots discarded.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit/214 isolated integration passed); smoke-custom-feeds.ts and smoke-admin-gate.ts exit 0; git diff --check.
+- Global pnpm launcher stalled; installed pnpm 10.28.2 used via transient user services. No toolchain/config changes.
+- Rebuilt API restarted; health green. Browser snapshots prove protected live topics/profile/full edition unchanged; no paid calls or live data writes.
+- Archived completed task markers 830–837; TASKS updated. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (accessible labels only, no new blocker).
+- Next FIRST: 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

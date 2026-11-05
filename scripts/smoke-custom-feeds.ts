@@ -272,6 +272,27 @@ async function smoke() {
       assert.equal(await connect.isEnabled(), false);
       await loading.waitFor({ state: 'hidden' });
       await connect.waitFor({ state: 'visible' });
+      const sourceLink = form.getByRole('link', {
+        name: `Open ${source.name} feed (opens in a new tab)`,
+        exact: true,
+      });
+      assert.equal(await sourceLink.getAttribute('href'), source.url);
+      assert.equal(await sourceLink.getAttribute('target'), '_blank');
+      const sourceChoice = form.getByRole('checkbox', {
+        name: source.name,
+        exact: true,
+      });
+      const wasSelected = await sourceChoice.isChecked();
+      await sourceChoice.focus();
+      await sourceChoice.press('Tab');
+      assert.equal(
+        await sourceLink.evaluate((el) => el === document.activeElement),
+        true,
+      );
+      assert.equal(await sourceChoice.isChecked(), wasSelected);
+      await sourceLink.screenshot({
+        path: `docs/screenshots/ui/source-feed-link-${device}.png`,
+      });
       await name.fill(source.name);
       await url.fill('https://127.0.0.1/feed');
       await connect.click();
@@ -385,7 +406,7 @@ async function smoke() {
         'unfinished query',
       );
       const checkbox = form.getByRole('checkbox', {
-        name: `${source.name} Feed`,
+        name: source.name,
         exact: true,
       });
       const save = form.getByRole('button', {

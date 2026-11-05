@@ -175,6 +175,7 @@ export function TopicSources({
             <label key={source.id}>
               <input
                 type="checkbox"
+                aria-label={source.name}
                 checked={selected.includes(source.id)}
                 onChange={(event) =>
                   setSelected((current) =>
@@ -185,7 +186,12 @@ export function TopicSources({
                 }
               />
               {source.name}{' '}
-              <a href={source.url} target="_blank" rel="noreferrer">
+              <a
+                href={source.url}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Open ${source.name} feed (opens in a new tab)`}
+              >
                 Feed
               </a>
             </label>
