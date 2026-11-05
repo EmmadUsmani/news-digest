@@ -160,6 +160,10 @@ workers and browser writes, probes the write guard and checks credential absence
 Failed selections, retry, stored incoming content, reload and disconnect preserve
 full live edition, topic and profile snapshots.
 
+The news-query verifier uses these protections for validation errors, failed
+connections, retained input, retry, reload and disconnect, with full saved-data
+comparisons and desktop/mobile failure screenshots.
+
 ## Next rollout slice
 
 Configure the owner email allowlist before moving current operational routes.

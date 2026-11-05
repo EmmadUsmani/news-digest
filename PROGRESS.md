@@ -1,13 +1,3 @@
-## 2026-11-05: iteration 784 — reuse loaded X widgets on card retry
-
-- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, 36 sources healthy and no failed retained jobs. Four services active; next edition 15:00 UTC.
-- X card retries now reuse an already loaded official widget API instead of fetching widgets.js again. Failed script downloads still load a replacement on manual retry.
-- Read-only desktop/mobile Playwright replay passed success, blocked script, widget timeout, rejection and empty-result recovery. Failed cards reuse one script; blocked downloads fetch a replacement. Saved text/links remain, no overflow/page errors, saved edition unchanged. No live provider calls.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-posts.ts /tmp/783-posts.jsonl; smoke-admin-gate.ts; git diff --check. Static checks, 497 unit/214 isolated integration tests, build and both browser/gate checks passed. Initial replay-stub lint error corrected before rerun.
-- TASKS updated; archived iteration 769. Regenerated screenshots discarded because appearance is unchanged. No handbook/source changes or new human blockers.
-- API restarted after web build; final health green and all four services active. No paid calls, stored-edition writes, config/schema or model/provider changes.
-- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6. Identity configuration/proxy verification still block admin rollout.
-
 ## 2026-11-05: iteration 785 — share pending X retry downloads
 
 - Started clean on main; no leftover work. Alerts zero, health/database/Redis green and four services active. Nov 5 edition remains due at 15:00 UTC.
@@ -146,3 +136,13 @@
 - TASKS/access decision updated. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, live writes or runtime/config/schema/model/provider changes; no restart required under STEERING 22.
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
 - Final health green; memory warning cleared, zero pending/firing alerts.
+
+## 2026-11-05: iteration 800 — verify news-query recovery safely
+
+- Started clean on main; no leftover work. Health/database/Redis green, all four app services active, 36 sources healthy and no failed retained runs; zero alerts. Next scheduled edition 15:00 UTC.
+- News-query replay now uses protected Node profile/status snapshots, disables service workers, blocks unexpected browser writes with an explicit probe and checks browser credential absence. Final comparisons cover full saved edition/topics/profile.
+- Desktop/mobile validation errors and failed connections preserve the entered query and disconnected state; retry clears the field, exposes stored content, survives reload and disconnects. No overflow/page errors; failure screenshots inspected. Live saved data unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-news-queries.ts; smoke-admin-gate.ts; check-handbook.ts admin-access; git diff --check. Initial full check terminated with exit 143 during unit tests without a reported failure; rerun passed (exit 0): static checks, 497 unit and 214 isolated integration tests. Browser, admin gate, handbook/schema and diff checks passed.
+- TASKS/access decision updated; archived iteration 784 and discarded regenerated unchanged success screenshot. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, live writes, runtime/config/schema/model/provider changes; no restart required under STEERING 22.
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+- Final health remains green; one pending ObservabilityMemoryBudget warning for obs-metrics.service, zero firing alerts. Recheck next iteration.
