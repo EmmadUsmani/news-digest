@@ -68,6 +68,7 @@ async function smoke() {
       let fail = true;
       let writes = 0;
       let saveBeforeAbort = false;
+      let stallSave = false;
       const unexpectedWrites: string[] = [];
       await page.route('**/*', async (route) => {
         const request = route.request();
@@ -88,6 +89,7 @@ async function smoke() {
           topics = topics.map((topic) =>
             topic.id === target.id ? { ...topic, sources: ids } : topic,
           );
+          if (stallSave) return;
           if (saveBeforeAbort) return route.abort('failed');
           return route.fulfill({
             json: topics.find((topic) => topic.id === target.id),
@@ -227,6 +229,32 @@ async function smoke() {
         4,
         'Reload checks saved sources without another PUT',
       );
+      // Hold a completed save through the real browser request deadline.
+      saveBeforeAbort = false;
+      stallSave = true;
+      await checkbox.uncheck();
+      await save.click();
+      await form
+        .getByRole('status')
+        .filter({ hasText: 'Could not confirm whether sources were saved.' })
+        .waitFor({ timeout: 20_000 });
+      assert.equal(await save.isEnabled(), true);
+      assert.equal(await checkbox.isChecked(), false);
+      assert.equal(writes, 5);
+      assert.deepEqual(
+        topics.find((topic) => topic.id === target.id)!.sources,
+        [],
+      );
+      await form.getByRole('status').scrollIntoViewIfNeeded();
+      await page.screenshot({
+        path: `docs/screenshots/ui/source-selection-timeout-${device}.png`,
+      });
+      await page.reload();
+      await page.getByText('Manage topics', { exact: true }).click();
+      await open.click();
+      await checkbox.waitFor();
+      assert.equal(await checkbox.isChecked(), false);
+      assert.equal(writes, 5, 'Timeout reload does not repeat the PUT');
       assert.deepEqual(unexpectedWrites, []);
       assert.deepEqual(errors, []);
       assert.deepEqual(credentials, []);
@@ -247,7 +275,7 @@ async function smoke() {
         savedEdition,
       );
     console.log(
-      'Source connections desktop/mobile: non-JSON failure, retry, incoming stored content, disconnect and interrupted-save reload passed; live topics and saved edition unchanged, no inference.',
+      'Source connections desktop/mobile: non-JSON failure, retry, incoming stored content, disconnect, interrupted-save reload and real stalled-save deadline/reload passed; live topics and saved edition unchanged, no inference.',
     );
   } finally {
     await browser.close();

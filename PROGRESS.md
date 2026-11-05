@@ -141,3 +141,13 @@
 - Browser writes replayed; protected live topics/profile/full edition unchanged; no paid calls. Rebuilt API restarted, health green, reader returns four topics and alerts clear; worker/schedule unchanged.
 - TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadlines only, no new blocker).
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 830 — bound stalled source selection saves
+
+- Started clean on main; no leftover work. Alerts clear, API/worker active and health/database/Redis green; Nov 5 scheduled evidence remains pending at 15:00 UTC.
+- Source selection PUT now aborts after 15 seconds, releasing controls with existing uncertainty/reload guidance. No automatic retry.
+- Desktop/mobile Playwright replay holds a completed save through the real deadline, verifies unlocked controls and retained selection, then reloads saved connections without another PUT. Both timeout screenshots inspected in docs/screenshots/ui/; unrelated regenerated screenshot discarded.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit/214 isolated integration tests, zero failures); smoke-topic-sources.ts; smoke-admin-gate.ts; git diff --check.
+- Browser writes replayed; protected live topics/profile/full edition unchanged; no paid calls. Rebuilt API restarted, health green, reader returns four topics and alerts clear; worker/schedule unchanged.
+- TASKS updated and completed markers 815–829 archived to reduce orientation size. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadline only, no new blocker).
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

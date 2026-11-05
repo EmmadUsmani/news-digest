@@ -52,6 +52,7 @@ export function TopicSources({
     try {
       const response = await fetch(`/api/topics/${topic.id}/sources`, {
         method: 'PUT',
+        signal: AbortSignal.timeout(15_000),
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ids: selected }),
       });
