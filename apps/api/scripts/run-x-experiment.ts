@@ -10,7 +10,7 @@ import { homedir } from 'node:os';
 import { join } from 'node:path';
 
 import { XExperimentBudget } from '../../../scripts/lib/x-experiment-budget';
-import type { prepareXExperimentTopic } from '../../../scripts/lib/x-experiment-inputs';
+import type { prepareViralXExperimentTopic } from '../../../scripts/lib/x-experiment-inputs';
 import { xDiscoveryCost } from '../src/modules/social/domain/x-discovery-budget';
 
 async function main() {
@@ -23,10 +23,14 @@ async function main() {
   if (!key) throw new Error('Configured xAI key required');
   const input = JSON.parse(readFileSync(process.argv[2], 'utf8')) as {
     window: { start: string; end: string };
-    topics: ReturnType<typeof prepareXExperimentTopic>[];
+    topics: ReturnType<typeof prepareViralXExperimentTopic>[];
   };
   if (input.topics.length !== 4 || input.topics.some((topic) => !topic.ready))
     throw new Error('Four prepared topics required');
+  for (const topic of input.topics)
+    for (const style of ['viral', 'semantic'] as const)
+      if (topic.requests[style]?.model !== 'grok-4.3')
+        throw new Error('Expected prepared viral and semantic Grok 4.3 bodies');
   const directory = join(homedir(), '.local/state/news-digest/x-experiment');
   mkdirSync(directory, { recursive: true, mode: 0o700 });
   const budget = new XExperimentBudget(join(directory, 'budget.json'));
@@ -77,7 +81,7 @@ async function main() {
     ? Math.min(...priorRequests.map((prior) => Date.parse(prior.startedAt)))
     : Date.now();
   // Interleave topics within styles so the comparison uses one close dispatch window.
-  for (const style of ['current', 'trending', 'reactions'] as const) {
+  for (const style of ['viral', 'semantic'] as const) {
     for (const topic of input.topics) {
       if (Date.now() - started >= 3_600_000)
         throw new Error('Comparison hour elapsed; no further dispatch');

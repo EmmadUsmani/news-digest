@@ -11,7 +11,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
 
-function fixture(mode: 'success' | 'overrun' | 'unknown', revised = false) {
+function fixture(mode: 'success' | 'overrun' | 'unknown', legacy = false) {
   const directory = mkdtempSync(join(tmpdir(), 'x-runner-'));
   const preload = join(directory, 'provider.cjs');
   writeFileSync(
@@ -21,8 +21,8 @@ require('node:os').homedir = () => ${JSON.stringify(directory)};
 require('node:module').syncBuiltinESMExports();
 const RealDate = Date;
 global.Date = class extends RealDate {
-  constructor(...args) { super(...(args.length ? args : ['2026-11-04T21:00:00.000Z'])); }
-  static now() { return RealDate.parse('2026-11-04T21:00:00.000Z'); }
+  constructor(...args) { super(...(args.length ? args : ['2026-11-05T21:00:00.000Z'])); }
+  static now() { return RealDate.parse('2026-11-05T21:00:00.000Z'); }
 };
 global.fetch = async (url, options) => {
   if (url !== 'https://api.x.ai/v1/responses') throw Error('Unexpected URL');
@@ -37,15 +37,15 @@ global.fetch = async (url, options) => {
   writeFileSync(
     input,
     JSON.stringify({
-      window: { start: '2026-11-03T21:00:00Z', end: '2026-11-04T21:00:00Z' },
+      window: { start: '2026-11-03T21:00:00Z', end: '2026-11-05T21:00:00Z' },
       topics: [1, 2, 3, 4].map((id) => ({
         topicId: String(id),
         topic: String(id),
         ready: true,
         requests: Object.fromEntries(
-          (revised
-            ? ['viral', 'semantic']
-            : ['current', 'trending', 'reactions']
+          (legacy
+            ? ['current', 'trending', 'reactions']
+            : ['viral', 'semantic']
           ).map((style) => [style, { model: 'grok-4.3' }]),
         ),
       })),
@@ -86,19 +86,39 @@ global.fetch = async (url, options) => {
   };
 }
 
-void test('experiment runner settles all twelve synthetic calls separately from production', () => {
+void test('experiment runner settles all eight synthetic calls separately from production', () => {
   const f = fixture('success');
   try {
     const result = f.run();
     assert.equal(result.status, 0, result.stderr);
-    assert.equal(f.journal().entries.length, 12);
+    assert.equal(f.journal().entries.length, 8);
+    const round = readdirSync(f.root).find((name) => name !== 'budget.json');
+    assert.ok(round);
+    const requests = readdirSync(join(f.root, round))
+      .filter((name) => name.endsWith('.request.json'))
+      .map(
+        (name) =>
+          JSON.parse(readFileSync(join(f.root, round, name), 'utf8')) as {
+            style: string;
+          },
+      );
+    assert.deepEqual(requests.map((request) => request.style).sort(), [
+      'semantic',
+      'semantic',
+      'semantic',
+      'semantic',
+      'viral',
+      'viral',
+      'viral',
+      'viral',
+    ]);
     assert.ok(
       f.journal().entries.every((entry) => entry.actualMicros === 5004),
     );
     assert.equal(
       readFileSync(join(f.directory, 'dispatches'), 'utf8').trim().split('\n')
         .length,
-      12,
+      8,
     );
   } finally {
     f.cleanup();
@@ -130,7 +150,7 @@ void test('continuing an interrupted round never retries its unknown paid call',
     assert.ok(round);
     const result = f.run('success', round);
     assert.equal(result.status, 0, result.stderr);
-    assert.equal(f.journal().entries.length, 12);
+    assert.equal(f.journal().entries.length, 8);
     assert.equal(
       f.journal().entries.filter((entry) => entry.actualMicros === null).length,
       1,
@@ -138,19 +158,19 @@ void test('continuing an interrupted round never retries its unknown paid call',
     assert.equal(
       readFileSync(join(f.directory, 'dispatches'), 'utf8').trim().split('\n')
         .length,
-      12,
+      8,
     );
   } finally {
     f.cleanup();
   }
 });
 
-void test('legacy runner refuses revised prepared requests before any provider dispatch', () => {
+void test('revised runner refuses legacy prepared requests before any provider dispatch', () => {
   const f = fixture('success', true);
   try {
     assert.equal(f.run().status, 1);
     assert.equal(readdirSync(f.directory).includes('dispatches'), false);
-    assert.equal(readdirSync(f.root).includes('budget.json'), false);
+    assert.equal(readdirSync(f.directory).includes('.local'), false);
   } finally {
     f.cleanup();
   }

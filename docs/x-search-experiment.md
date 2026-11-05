@@ -134,8 +134,8 @@ mandatory -giveaway. No articles or cached article triage are loaded or required
 Provider date filters enclose the exact window; its end remains exclusive.
 Missing settings fail the snapshot. No AI calls, cache writes, admission or
 dispatch occur. Store the output privately; it contains topic settings and prompts.
-The live runner/report/extractor still require migration before these inputs can
-be dispatched. Do not run the legacy runner for the Nov 5/6 rounds.
+The runner accepts these inputs; report/extractor migration remains before the
+Nov 5/6 rounds. No dispatch before the plan’s scheduled test windows.
 
 Historical article preparation (before iteration 721):
 
@@ -163,7 +163,7 @@ Load the configured secrets environment, prepare the inputs above, then run:
 X_EXPERIMENT_LIVE=1 pnpm exec tsx apps/api/scripts/run-x-experiment.ts /private/path/inputs.json
 ```
 
-The runner uses Grok 4.3 for the four-topic current/trending/reactions comparison,
+The runner uses Grok 4.3 for the four-topic viral/semantic comparison (eight calls),
 within one hour. It reserves $0.15 and claims dispatch through the existing
 journal before each request, settles known token/post/profile usage, and stops
 on any error or over-reservation settlement. It never retries automatically. To continue only never-attempted cells within
@@ -181,7 +181,7 @@ production discovery and do not ingest posts or write the production ledger.
 Saved responses still need offline evidence extraction, social relevance scoring
 and promotion reviews. Unknown labels must remain unknown; dispatch completion
 does not establish a winner. Repeat on a second non-overlapping news day, then
-calibrate thresholds and compare the cheaper model under the plan's limits.
+apply the decision rule in the revised plan. Grok 4.3 stays unchanged.
 
 ## Round 1 — Nov 4, iteration 703
 
@@ -311,7 +311,8 @@ topic without loading articles, under the existing fixed-trending ledger identit
 four $0.10 reservations fit the daily cap. The flag remains off.
 
 Offline experiment preparation now exposes only requests.viral and test-only
-requests.semantic, without article readiness requirements (721). The live runner,
-report and extractor still use historical styles and must be updated before the
-Nov 5/6 rounds. No paid dispatch, scorer change or activation
-was made in this step. Historical request constructors remain for old evidence.
+requests.semantic, without article readiness requirements (721). The runner now
+dispatches only these two styles (722), rejecting legacy inputs before any
+reservation or provider call. The report and extractor still need migration
+before the Nov 5/6 rounds. No paid dispatch, scorer change or activation occurred.
+Historical request constructors remain for old evidence.

@@ -114,3 +114,12 @@
 - Verification: targeted input/runner tests 10/10, pnpm build and full pnpm check passed (481 unit, 213 isolated integration, exit 0). pnpm format and pnpm lint:fix run before commit; git diff --check clean.
 - Updated TASKS and experiment instructions; archived iterations 708–709 to keep PROGRESS small. SOURCES/NEEDS_FROM_HUMAN unchanged: no source or new owner blocker. No UI changes. Services remain healthy; no restart under STEERING 22 because only offline scripts/tests/docs changed.
 - Next: migrate runner/report/extractor to viral + semantic; scorer only after Nov 5 edition, rounds after 21:00 UTC Nov 5/6. Scheduled acceptance/protections first when due.
+
+## 2026-11-05: iteration 722 — revised X experiment runner
+
+- Started clean on main; no leftover work. Zero alerts, health/database/Redis green, all 36 sources healthy and zero failed retained digest jobs. Nov 5 scheduled acceptance remains future (15:00 UTC).
+- Runner now consumes article-free viral/semantic preparation and dispatches eight cells (four per style), staying on Grok 4.3. Legacy inputs are rejected before private round creation, reservation or provider dispatch.
+- Existing separate $2.50 total/$1 daily ledger, $0.15 per-call reservation, one-hour comparison, protected hours and unknown-outcome no-retry behavior remain. Fixture tests verify eight settled calls, immediate overrun stop, continuation without retry and legacy rejection.
+- Verification: targeted runner tests 4/4; pnpm format, pnpm lint:fix, pnpm check (481 unit, 213 isolated integration, exit 0), pnpm build and git diff --check passed. No UI/runtime changes or screenshots needed.
+- Updated TASKS and experiment instructions. SOURCES/NEEDS_FROM_HUMAN unchanged; no source change or new owner blocker. Healthy services left running under STEERING 22 because only offline scripts/tests/docs changed.
+- No paid calls, scorer/cache changes, model/provider changes or production activation. Next: migrate report/extractor to viral/semantic before rounds after 21:00 UTC Nov 5/6; prioritize scheduled acceptance and only then scorer changes.
