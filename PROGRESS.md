@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 725 — revised X round comparison
-
-- Started clean on main; no leftover work. Zero alerts, health/database/Redis green, reader HTTP 200, all 36 sources healthy and no failed retained digest runs. Nov 5 scheduled acceptance remains future at 15:00 UTC.
-- Offline comparator now accepts eight-cell viral/semantic rounds, requiring a full 24-hour window. Preserves historical three-style reports; mixed designs fail and cannot establish two-day coverage together.
-- Reports usable style totals and per-topic viral/semantic counts plus semantic-only usable IDs, including World separately. Incomplete rounds or missing review evidence keep totals unknown. Raw promotions exclude their own posts without disqualifying usable peers; no automatic winner or invented baseline.
-- Verification: targeted comparison/CLI tests 19/19; pnpm format, pnpm lint:fix, pnpm check (490 unit/213 isolated integration, exit 0) and pnpm build passed; git diff --check clean. No UI changes or screenshots needed.
-- Updated TASKS and experiment reference; archived iteration 711 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new owner blocker. Healthy services left running under STEERING 22; only offline scripts/tests/docs changed.
-- No paid calls, scorer/cache changes, provider/model/budget changes or production activation. Next: scheduled Nov 5 acceptance first, then scorer; rounds after 21:00 UTC Nov 5/6 with same-day old-search baseline review.
-
 ## 2026-11-05: iteration 726 — shared saved-edition queries
 
 - Started clean on main; no leftover work. Zero alerts, health/database/Redis green, all 36 sources returning items, zero failed retained digest jobs. Nov 5 scheduled acceptance remains future at 15:00 UTC; two old ingestion failures remain without retained run details, current sources healthy.
@@ -137,3 +128,13 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check, pnpm build, check-handbook.ts 04-edition-pipeline and git diff --check. Standalone pnpm check exited 0: 497 unit/214 isolated integration tests passed. Initial combined session ended 143 after passing tests; reran check alone to verify clean exit.
 - API/docs restarted after rebuild; loopback health and final alerts green. External HTTPS probe could not connect from this VM; browser/API checks used loopback. Pipeline handbook and its diagram updated and visually checked; archived iteration 724. SOURCES/NEEDS_FROM_HUMAN unchanged; no source changes or new blocker.
 - Acked item 35 symptom fix with screenshot links. Nov 5 NBA result remains pending; investigate any fallback FIRST before items 33/34. No paid calls, provider/model/budget changes or stored-edition changes.
+
+## 2026-11-05: iteration 739 — protected probe and monitoring API reads
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy and no failed retained digest runs. Two old ingestion failures still have no retained run details; current collection remains healthy.
+- Bluesky probe now reads protected topic policies; Grafana schedule/completed-job comparisons read protected status. Both use the private local token adapter, fixed loopback origin, timeouts and redirect refusal; no legacy fallback.
+- Targeted credential tests: pnpm exec tsx --test apps/api/test/local-admin-fetch.test.ts (2/2 passed). Live authenticated GETs parsed four topics and four queues. No Bluesky probe, external collection, inference, publication or live writes triggered.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (497 unit/214 isolated integration tests, exit 0), pnpm build, check-handbook.ts 08-operations and git diff --check passed. Initial handbook length failure corrected before final validation.
+- Reader latest returns the real Nov 4 edition with four topics, 14 stories and 15 posts. No UI/schema/runtime changes or new screenshots; healthy services left running under STEERING 22. Handbook changes are served per request.
+- Updated TASKS, Operations and access decision; archived iteration 725. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. Owner email/proxy identity checks and coordinated browser/legacy-route migration remain open.
+- No paid calls, scorer/model/provider/budget changes or X activation. Next FIRST: Nov 5 NBA outcome after 15:00 UTC, investigate fallback if repeated; scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6.

@@ -10,6 +10,7 @@ import { BlueskySearch } from '../apps/api/src/modules/social/adapters/bluesky-s
 import { collectBluesky } from '../apps/api/src/modules/social/application/collect-bluesky';
 import { PostgresBlueskyRepository } from '../apps/api/src/modules/social/database/bluesky.repository';
 import { rankBlueskyPosts } from '../apps/api/src/modules/social/domain/bluesky-ranking';
+import { localAdminFetch } from './lib/local-admin-fetch';
 
 async function main() {
   const args = process.argv.slice(2);
@@ -29,9 +30,12 @@ async function main() {
   const password = values.get('BLUESKY_APP_PASSWORD');
   if (!handle || !password) throw new Error('Bluesky credentials missing');
   const client = new BlueskySearch({ handle, password });
-  const response = await fetch('http://localhost:8000/api/topics', {
-    signal: AbortSignal.timeout(10000),
-  });
+  const response = await localAdminFetch(
+    'http://127.0.0.1:8000/api/admin/topics',
+    {
+      signal: AbortSignal.timeout(10000),
+    },
+  );
   if (!response.ok) throw new Error('Topic policies unavailable');
   const topics = topicSchema.array().parse(await response.json());
   const until = new Date();

@@ -53,7 +53,9 @@ diagnostics. The coordinated admin route migration remains unfinished.
 `pnpm obs sources`, `pnpm obs jobs` and the edition timing report use
 `/api/admin/status`. The timing report also reads protected digest previews;
 the Bluesky coverage report reads protected topics.
-The script reads its local token from the private env file only for protected
+The Bluesky probe reads protected topics, and Grafana checks read protected
+status for schedule and completed-job comparisons.
+Each script reads its local token from the private env file only for protected
 API requests to `http://127.0.0.1:8000`. Credentialed requests refuse redirects.
 Health, alerts, logs and metrics retain their existing read-only endpoints.
 No legacy-route fallback is used for protected status requests.

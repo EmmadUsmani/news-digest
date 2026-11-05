@@ -4,6 +4,8 @@ import { readdirSync, readFileSync } from 'node:fs';
 
 import { chromium } from 'playwright';
 
+import { localAdminFetch } from './local-admin-fetch';
+
 // Read-only: only query provisioned dashboards and metrics. No content jobs.
 export async function checkGrafana() {
   const base = 'http://127.0.0.1:8000/grafana';
@@ -265,7 +267,9 @@ export async function checkGrafana() {
           panel.title === 'Next registered publication / social run'
         ) {
           const status = await (
-            await fetch('http://127.0.0.1:8000/api/status')
+            await localAdminFetch('http://127.0.0.1:8000/api/admin/status', {
+              signal: AbortSignal.timeout(15_000),
+            })
           ).json();
           for (const queue of ['digest-generation', 'social-collection']) {
             const sample = result.data.result.find(
@@ -285,7 +289,9 @@ export async function checkGrafana() {
         }
         if (dashboard.uid === 'nd-jobs' && [7, 8].includes(panel.id)) {
           const status = await (
-            await fetch('http://127.0.0.1:8000/api/status')
+            await localAdminFetch('http://127.0.0.1:8000/api/admin/status', {
+              signal: AbortSignal.timeout(15_000),
+            })
           ).json();
           for (const sample of result.data.result) {
             const runs =

@@ -48,7 +48,7 @@ Backups: `~/backups/news-digest/`; [nightly timers and restore](10-backups.md).
   [Observability](09-observability.md).
 
 Read-only reports (run with `pnpm exec tsx <script>`). Timing and Bluesky
-coverage use the private local admin token for protected API reads:
+coverage, the Bluesky probe and monitoring checks use the private local admin token for protected API reads:
 
 | Script                               | Shows                                                                                                                        |
 | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
