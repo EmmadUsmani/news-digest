@@ -17,6 +17,7 @@ import { BullEditionJobs } from './adapters/edition-jobs';
 import { PostgresPreviewRepository } from './database/preview.repository';
 import { EditionJobs } from './domain/edition-jobs';
 import { PreviewRepository } from './domain/preview.repository';
+import { ReaderEditionController } from './reader-edition.controller';
 @Controller('api/digest-previews')
 export class PreviewController {
   constructor(
@@ -70,7 +71,7 @@ export class PreviewController {
   }
 }
 @Module({
-  controllers: [PreviewController],
+  controllers: [PreviewController, ReaderEditionController],
   providers: [
     { provide: EditionJobs, useClass: BullEditionJobs },
     { provide: PreviewRepository, useClass: PostgresPreviewRepository },

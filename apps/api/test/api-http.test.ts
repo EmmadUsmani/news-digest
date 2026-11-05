@@ -8,6 +8,7 @@ import {
   digestPreviewSchema,
   previewHistorySchema,
   profileSettingsSchema,
+  readerEditionSchema,
   sourceCatalogSchema,
   topicSchema,
 } from '@digest/contracts';
@@ -231,6 +232,30 @@ void test('digest HTTP publication, history and async jobs use real isolated per
   assert.ok(published.topics.every((topic) => topic.stories.length === 0));
   assert.deepEqual(await request(`/${published.id}`), published);
   assert.deepEqual(await request('/latest'), published);
+  const readerBase = `${await app.getUrl()}/api/editions`;
+  for (const path of ['/latest', `/${published.id}`]) {
+    const response = await fetch(`${readerBase}${path}`);
+    assert.equal(response.status, 200);
+    const raw = await response.json();
+    const reader = readerEditionSchema.parse(raw);
+    assert.deepEqual(
+      raw,
+      reader,
+      'Reader HTTP response has only allowed fields',
+    );
+    assert.equal(reader.id, published.id);
+    assert.equal(reader.topics.length, published.topics.length);
+    assert.ok(reader.topics.every((topic) => topic.brief.length === 0));
+    assert.ok(!('method' in raw));
+    assert.ok(
+      raw.topics.every((topic: object) => !('candidateCount' in topic)),
+    );
+  }
+  assert.equal((await fetch(`${readerBase}/not-a-uuid`)).status, 400);
+  assert.equal(
+    (await fetch(`${readerBase}/00000000-0000-4000-8000-ffffffffffff`)).status,
+    404,
+  );
 
   const jobs =
     app.get<

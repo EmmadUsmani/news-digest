@@ -82,6 +82,10 @@ journal order, under one transaction and lock. Both use the existing migration
 ledger; generated filenames have a `drizzle/` prefix. A failed run rolls back
 all its changes. The baseline makes no schema or content changes.
 
+Reader endpoints `/api/editions/latest` and `/api/editions/:id` return saved
+content without scores, selection reasons, model details or candidate counts.
+The existing page uses the older endpoints until its reader/admin split.
+
 ## Admin identity
 
 - `GET /api/me` returns `{ isAdmin }` with caching disabled.

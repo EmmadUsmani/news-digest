@@ -32,6 +32,14 @@ Authenticated proxy origin and forged-header replacement checks remain open.
 Before making the VM public, verify the proxy strips/replaces a forged
 `X-ExeDev-Email`; never treat the local tests as evidence of that behavior.
 
+## Reader payload preparation
+
+`/api/editions/latest` and `/api/editions/:id` use shared allowlist schemas
+to return briefs, stories and posts without operational metadata. Missing
+historical briefs and posts become empty arrays; non-AI briefs are omitted.
+The existing browser still uses the old endpoints. Archive pagination and the
+coordinated admin route migration remain unfinished.
+
 ## Next rollout slice
 
 Configure the owner email allowlist before moving current operational routes.

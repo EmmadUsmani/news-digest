@@ -122,3 +122,13 @@
 - Rebuilt/restarted API/docs; live HTTP checks passed for health, identity, admin denial, current edition/status/docs. Initial smoke used planned /api/editions/latest (404); corrected to existing /api/digest-previews/latest. Read-only desktop/mobile Playwright passed: real saved edition, no overflow/page errors, server-side admin 404. No UI visual changes or screenshot updates.
 - Updated TASKS, NEEDS_FROM_HUMAN, access decision, Stack/runtime and Operations. Archived iterations 715–716 to keep PROGRESS bounded. SOURCES unchanged; no source change, paid calls, provider/model/budget changes or X activation.
 - Next: configure admin identity before migrating existing operational endpoints, reader payloads and tools; scheduled Nov 5 acceptance first when due, scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6.
+
+## 2026-11-05: iteration 730 — reader-only edition payloads
+
+- Started clean on main; no leftover work. Zero alerts, health/database/Redis green, 13 services and all 36 sources healthy; no retained failed digest runs. Nov 5 scheduled acceptance remains future at 15:00 UTC.
+- Prepared GET /api/editions/latest and /api/editions/:id with shared explicit allowlist contracts. Stories/posts retain display content and engagement, excluding scores, reasons, significance notes, candidate counts, model details and triage. Historical missing posts/briefs become empty arrays; non-AI briefs are hidden. Saved snapshots stay unchanged.
+- Added projection/missing-edition unit coverage and isolated real HTTP checks for sanitized responses, UUID validation and missing IDs. Current browser/operational endpoints remain unchanged pending the coordinated admin migration; reader archive remains open.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (494 unit/213 isolated integration, exit 0), pnpm build, pnpm exec tsx scripts/check-handbook.ts 01-stack-and-runtime, pnpm exec tsx scripts/smoke-ui-routing.ts and git diff --check. Read-only desktop/mobile routing passed; no visual change or screenshot update.
+- Rebuilt/restarted API/docs; live health and reader latest/by-ID checks passed against the real saved edition: four topics, 14 stories, 15 posts, no extra fields. Zero alerts after restart; worker/schema unchanged.
+- Updated TASKS, Stack/runtime and access decision. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. Admin identity configuration and proxy-origin/spoof verification remain open.
+- No paid calls, provider/model/budget changes, scorer changes or X activation. Next: reader archive preparation while identity is unresolved; Nov 5 scheduled acceptance first when due, scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6.

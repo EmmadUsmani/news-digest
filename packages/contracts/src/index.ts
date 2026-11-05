@@ -292,6 +292,56 @@ export const digestPreviewSchema = z.object({
 });
 export type DigestPreview = z.infer<typeof digestPreviewSchema>;
 
+// Reader contracts are explicit allowlists: new operational fields stay private.
+export const readerStorySchema = rankedStorySchema.pick({
+  id: true,
+  title: true,
+  url: true,
+  summary: true,
+  imageUrl: true,
+  publishedAt: true,
+  sources: true,
+  coverage: true,
+});
+const readerPostFields = {
+  platform: true,
+  externalId: true,
+  url: true,
+  author: true,
+  publishedAt: true,
+  text: true,
+  displayText: true,
+  metrics: true,
+} as const;
+export const readerPostSchema = z.discriminatedUnion('platform', [
+  selectedPostSchema.pick({ ...readerPostFields, authorUrl: true }),
+  selectedRedditPostSchema.pick({
+    ...readerPostFields,
+    authorUrl: true,
+    title: true,
+    subreddit: true,
+    thumbnail: true,
+    externalUrl: true,
+  }),
+  selectedBlueskyPostSchema.pick({ ...readerPostFields, media: true }),
+]);
+export const readerEditionSchema = z.object({
+  id: z.string().uuid(),
+  createdAt: z.string(),
+  windowStart: z.string(),
+  windowEnd: z.string(),
+  topics: z.array(
+    z.object({
+      id: z.string().uuid(),
+      name: z.string(),
+      brief: z.array(z.string()),
+      stories: z.array(readerStorySchema),
+      posts: z.array(readerPostSchema),
+    }),
+  ),
+});
+export type ReaderEdition = z.infer<typeof readerEditionSchema>;
+
 export const previewRequestSchema = z
   .object({
     windowStart: z.string().datetime({ offset: true }),
