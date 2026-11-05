@@ -8,25 +8,52 @@ import { localAdminJson } from './lib/local-admin-fetch';
 const base = 'http://localhost:8000';
 async function smoke() {
   const browser = await chromium.launch();
-  const context = await browser.newContext();
+  const context = await browser.newContext({ serviceWorkers: 'block' });
   const original = topicSchema
     .array()
     .parse(await localAdminJson('/api/admin/topics'));
-  const latest = (await localAdminJson(
-    '/api/admin/digest-previews/latest',
-  )) as { id: string } | null;
+  const [content, status, profile, latest] = await Promise.all([
+    localAdminJson('/api/admin/content'),
+    localAdminJson('/api/admin/status'),
+    localAdminJson('/api/admin/profile'),
+    localAdminJson('/api/admin/digest-previews/latest'),
+  ]);
+  const edition = latest as { id: string } | null;
+  const savedEdition = edition
+    ? await localAdminJson('/api/admin/digest-previews/' + edition.id)
+    : null;
+  const snapshots: Record<string, unknown> = {
+    '/api/content': content,
+    '/api/status': status,
+    '/api/profile': profile,
+  };
+  const credentials: string[] = [];
+  const unexpectedWrites: string[] = [];
+  context.on('request', (request) => {
+    const headers = request.headers();
+    if ('admin_local_token' in headers || 'x-exedev-email' in headers)
+      credentials.push(new URL(request.url()).pathname);
+  });
   const replayTopics = structuredClone(original);
   let failDelete = true;
   let deletes = 0;
-  // Only the browser can write, and every write is intercepted in memory.
-  await context.route('**/api/**', async (route) => {
+  // Browser writes stay in memory; protected Node requests only read live state.
+  await context.route('**/*', async (route) => {
     const request = route.request();
     const path = new URL(request.url()).pathname;
+    const headers = request.headers();
+    if ('admin_local_token' in headers || 'x-exedev-email' in headers)
+      return route.abort();
+    if (request.method() === 'GET' && Object.hasOwn(snapshots, path))
+      return route.fulfill({ json: snapshots[path] });
     if (path === '/api/topics' && request.method() === 'GET') {
       await route.fulfill({ json: replayTopics });
       return;
     }
-    if (request.method() === 'DELETE') {
+    if (
+      request.method() === 'DELETE' &&
+      replayTopics.some((topic) => path === '/api/topics/' + topic.id)
+    ) {
       const index = replayTopics.findIndex(
         (topic) => path === '/api/topics/' + topic.id,
       );
@@ -43,7 +70,10 @@ async function smoke() {
       }
       return;
     }
-    assert.equal(request.method(), 'GET', `Unexpected browser write: ${path}`);
+    if (!['GET', 'HEAD'].includes(request.method())) {
+      unexpectedWrites.push(`${request.method()} ${path}`);
+      return route.abort();
+    }
     await route.continue();
   });
   try {
@@ -61,8 +91,28 @@ async function smoke() {
       failDelete = true;
       const deletesBefore = deletes;
       const page = await context.newPage();
+      const errors: string[] = [];
+      page.on('pageerror', (error) => errors.push(error.message));
       await page.setViewportSize({ width, height });
       await page.goto(base);
+      assert.equal(
+        await page.evaluate(async () => {
+          try {
+            await fetch('/api/topics/unexpected-write-probe', {
+              method: 'POST',
+            });
+            return false;
+          } catch {
+            return true;
+          }
+        }),
+        true,
+      );
+      assert.equal(
+        unexpectedWrites.pop(),
+        'POST /api/topics/unexpected-write-probe',
+      );
+
       await page.getByText('Manage topics', { exact: true }).click();
       await page
         .getByRole('button', { name: 'Delete ' + topic.name, exact: true })
@@ -91,6 +141,13 @@ async function smoke() {
         .filter({ hasText: 'Could not delete topic.' })
         .waitFor();
       assert.ok(replayTopics.some((saved) => saved.id === topic.id));
+      await page
+        .getByRole('status')
+        .filter({ hasText: 'Could not delete topic.' })
+        .scrollIntoViewIfNeeded();
+      await page.screenshot({
+        path: 'docs/screenshots/topic-delete-failure-' + device + '.png',
+      });
       assert.equal(deletes, deletesBefore + 1);
       failDelete = false;
       await confirmation
@@ -123,8 +180,11 @@ async function smoke() {
       );
       assert.deepEqual(replayTopics, original);
       assert.equal(deletes, deletesBefore + 2);
+      assert.deepEqual(errors, []);
       await page.close();
     }
+    assert.deepEqual(credentials, []);
+    assert.deepEqual(unexpectedWrites, []);
     console.log(
       'Topic deletion desktop/mobile: browser replay cancel, error/retry, removal, reload and order passed; no production writes or generation',
     );
@@ -134,10 +194,11 @@ async function smoke() {
       original,
       'Browser replay must never change live topics',
     );
-    if (latest)
+    assert.deepEqual(await localAdminJson('/api/admin/profile'), profile);
+    if (edition)
       assert.deepEqual(
-        await localAdminJson('/api/admin/digest-previews/' + latest.id),
-        latest,
+        await localAdminJson('/api/admin/digest-previews/' + edition.id),
+        savedEdition,
       );
     await browser.close();
   }
