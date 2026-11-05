@@ -47,13 +47,13 @@ Backups: `~/backups/news-digest/`; [nightly timers and restore](10-backups.md).
 - **`pnpm obs alerts`** and Grafana cover the rest: see
   [Observability](09-observability.md).
 
-Read-only reports (run with `pnpm exec tsx <script>`). Timing and Bluesky
-coverage, the Bluesky probe and monitoring checks use the private local admin token for protected API reads:
+Read-only checks: `pnpm exec tsx <script>`. Protected API reads use the private local admin token:
 
 | Script                               | Shows                                                                                                                        |
 | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
 | `scripts/report-edition-timing.ts`   | Recent editions: duration, cost, AI or fallback, picks per platform. Add `--scheduled-only --limit 20` for scheduled history |
 | `scripts/report-x-discovery.ts`      | X search spend and yield for a UTC day (`report-x-week.ts` for seven days)                                                   |
+| `scripts/smoke-admin-gate.ts`        | Read-only admin denial and direct-local access checks                                                                        |
 | `scripts/report-bluesky-coverage.ts` | Stored Bluesky posts per topic over the last 24 hours                                                                        |
 
 ## Production console

@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 751 — X-account editing without live topic writes
-
-- Started clean on main; no leftover work. Health/database/Redis green, 36 sources healthy, no retained failed digest runs. Existing metrics memory warning pending; Nov 5 edition remains due at 15:00 UTC.
-- X-account editing browser check now reads protected topic/edition snapshots in Node. Its disabled topic, saves and reload state stay in browser memory; unexpected writes abort, with no browser credentials or live topic creation/deletion.
-- `pnpm exec tsx scripts/smoke-topic-accounts.ts` passed desktop/mobile save/reload, @ normalization, duplicate prevention, no errors/overflow and final live topic/edition immutability. Two screenshots refreshed; mobile visually inspected. Server account validation stays in isolated settings tests.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration); pnpm build; check-handbook.ts 08-operations; git diff --check. Initial check found formatting in the newly archived progress entry; corrected before rerunning.
-- Updated TASKS, Operations and access decision; archived iteration 737. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blocker. No runtime/config/schema changes, live writes, paid calls or model/provider/budget changes; healthy services remain running under STEERING 22. Final health green; reader latest has four real topics.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback. Scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6. Continue coordinated admin migration while waiting.
-
 ## 2026-11-05: iteration 752 — social card checks follow reader API
 
 - Started clean on main; no leftover work. Health/database/Redis green, all 36 sources healthy, no failed retained digest runs; two historical ingestion failures without run details remain, current collection healthy. Existing metrics memory warning pending.
@@ -140,3 +131,12 @@
 - TASKS/Operations updated; archived iteration 750. SOURCES/NEEDS_FROM_HUMAN unchanged. No runtime/config/schema, model/provider, live writes or paid calls; healthy services left running under STEERING 22.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, zero failures); pnpm build; check-handbook.ts 08-operations; git diff --check; final /healthz green. Initial check stopped on newly archived Markdown formatting, corrected before full passing rerun.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; repeated NBA fallback investigation before scorer. Fresh X rounds after 21:00 UTC Nov 5/6; admin rollout still needs owner identity configuration.
+
+## 2026-11-05: iteration 767 — live admin gate verification
+
+- Started clean on main; no leftover work. Alerts zero, /healthz database/Redis green, all 36 sources healthy; no failed retained digest runs. Nov 5 edition remains due at 15:00 UTC.
+- Added read-only deployment check for 18 reserved admin paths (GET/HEAD), anonymous/invalid identity, private cache headers, direct-local token access and eight forwarded-token rejection cases, including empty headers. Credentials stay in Node; redirects fail and requests time out. Saved reader edition unchanged.
+- `pnpm exec tsx scripts/smoke-admin-gate.ts` passed against the running app. Only GET/HEAD requests; no jobs, browser credentials, writes or paid calls. Proxy URL still fails to connect (curl exit 7), so proxy identity replacement remains unverified.
+- TASKS, Operations and access decision updated; archived iteration 751. SOURCES/NEEDS_FROM_HUMAN unchanged. No runtime/config/schema or model/provider changes; healthy services remain running under STEERING 22.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (497 unit/214 isolated integration, zero failures), `pnpm build`, `check-handbook.ts 08-operations`, `git diff --check` passed. Handbook initially exceeded the line limit by one; shortened and rechecked. Final health green; all four app services active.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. Fresh X rounds after 21:00 UTC Nov 5/6; owner identity configuration still blocks coordinated admin rollout.

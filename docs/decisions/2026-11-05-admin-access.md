@@ -37,6 +37,17 @@ Authenticated proxy origin and forged-header replacement checks remain open.
 Before making the VM public, verify the proxy strips/replaces a forged
 `X-ExeDev-Email`; never treat the local tests as evidence of that behavior.
 
+## Live gate verification
+
+Run `pnpm exec tsx scripts/smoke-admin-gate.ts` against the local deployment.
+It checks GET/HEAD denial for the reserved admin pages and API aliases,
+case/encoded paths, uncached anonymous identity, invalid credentials and direct
+local script access. Valid local tokens with any `Forwarded` or tested
+`X-Forwarded-*` header must receive 404, including empty header values.
+Requests are read-only, credentials stay in Node, redirects fail, and the saved
+reader edition must remain unchanged. This does not test exe.dev's replacement
+of client-supplied identity or the still-unmigrated legacy/tool routes.
+
 ## Reader payload preparation
 
 `/api/editions/latest` and `/api/editions/:id` use shared allowlist schemas

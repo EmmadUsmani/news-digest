@@ -1,0 +1,8 @@
+## 2026-11-05: iteration 751 — X-account editing without live topic writes
+
+- Started clean on main; no leftover work. Health/database/Redis green, 36 sources healthy, no retained failed digest runs. Existing metrics memory warning pending; Nov 5 edition remains due at 15:00 UTC.
+- X-account editing browser check now reads protected topic/edition snapshots in Node. Its disabled topic, saves and reload state stay in browser memory; unexpected writes abort, with no browser credentials or live topic creation/deletion.
+- `pnpm exec tsx scripts/smoke-topic-accounts.ts` passed desktop/mobile save/reload, @ normalization, duplicate prevention, no errors/overflow and final live topic/edition immutability. Two screenshots refreshed; mobile visually inspected. Server account validation stays in isolated settings tests.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration); pnpm build; check-handbook.ts 08-operations; git diff --check. Initial check found formatting in the newly archived progress entry; corrected before rerunning.
+- Updated TASKS, Operations and access decision; archived iteration 737. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blocker. No runtime/config/schema changes, live writes, paid calls or model/provider/budget changes; healthy services remain running under STEERING 22. Final health green; reader latest has four real topics.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback. Scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6. Continue coordinated admin migration while waiting.
