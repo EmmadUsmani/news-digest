@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Topic availability recovery (799): desktop/mobile failure/retry, disable/enable reload and editor protection verified with protected snapshots, browser write/credential guards and full edition/topics/profile immutability.
+
 - [x] Source connection recovery (798): desktop/mobile failed saves retain selections; retry, stored content, reload and disconnect verified with protected snapshots, browser guards and full edition/topics/profile immutability.
 
 - [x] X-account save recovery (797): desktop/mobile retained handles, retry, normalization, duplicate prevention and reload verified with protected snapshots, browser guards and full edition/topics/profile immutability.

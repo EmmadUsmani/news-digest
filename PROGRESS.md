@@ -136,3 +136,13 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-topic-sources.ts; smoke-admin-gate.ts; git diff --check. All passed (exit 0): static checks, 497 unit and 214 isolated integration tests, desktop/mobile replay, admin gate and diff check.
 - TASKS/access decision updated; archived iteration 783. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, live writes or runtime/config/schema/model/provider changes; no restart required under STEERING 22.
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 799 — verify topic availability recovery safely
+
+- Started clean on main; no leftover work. Health/database/Redis green, all four app services active and 36 sources healthy. No failed digest jobs; two historical ingestion counters have no retained runs. One pending memory warning, zero firing alerts.
+- Availability replay now takes protected Node snapshots, disables service workers, blocks unexpected browser writes with an explicit probe and checks browser credential absence. Final checks compare full saved edition/topics/profile.
+- Desktop/mobile failed disable keeps incoming content visible; retry hides it, reload preserves disabled state, enable restores content and survives reload. Open-editor protection, zero page errors and no overflow verified; both failure screenshots inspected. Live data unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-topic-availability.ts; smoke-admin-gate.ts; git diff --check. All passed (exit 0): static checks, 497 unit and 214 isolated integration tests, desktop/mobile replay, admin gate and diff check.
+- TASKS/access decision updated. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, live writes or runtime/config/schema/model/provider changes; no restart required under STEERING 22.
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+- Final health green; memory warning cleared, zero pending/firing alerts.
