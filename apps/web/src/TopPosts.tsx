@@ -102,11 +102,17 @@ function Post({ post }: { post: SelectedPost }) {
             window.clearTimeout(widgetTimeout);
             if (!active) return;
             if (element) setEmbedded(true);
-            else setFailed(true);
+            else {
+              attemptTarget.remove();
+              setFailed(true);
+            }
           })
           .catch(() => {
             window.clearTimeout(widgetTimeout);
-            if (active) setFailed(true);
+            if (active) {
+              attemptTarget.remove();
+              setFailed(true);
+            }
           });
       },
       { rootMargin: '200px' },

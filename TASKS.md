@@ -46,6 +46,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] X embed recovery (783): rejected/empty widgets remove partial markup; late mutations stay detached, saved text/original links remain, retry verified desktop/mobile with no edition writes.
+
 - [x] STEERING 17: reviewed editable account lists active (431), read back 11/10/12/11 on Nov 4.
 - [x] STEERING 29 console (566): isolated context, production prompt, external history, repository/SQL access; no worker/timer startup.
 - [x] STEERING 2a (570): isolated DB/Redis migrations, repository/HTTP/worker characterization, golden and coverage.

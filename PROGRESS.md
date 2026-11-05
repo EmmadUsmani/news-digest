@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 768 — reject malformed edition links before loading
-
-- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Two historical ingestion failures remain while current collection succeeds.
-- Reader edition routes now validate UUIDs before loading the app or issuing edition/operational API reads. Malformed links show the existing not-found view and a working home link. Valid saved-edition routing remains unchanged.
-- `pnpm exec tsx scripts/smoke-invalid-edition.ts` passed three invalid IDs on desktop/mobile light/dark, zero API reads on invalid pages, home recovery, no writes/browser errors and saved-edition immutability. Four screenshots saved under docs/screenshots/ui; mobile dark and desktop light inspected. Existing `smoke-edition-selection.ts` also passed valid saved-edition selection and late-response races in both themes/viewports.
-- TASKS and Operations updated; archived iteration 752. SOURCES/NEEDS_FROM_HUMAN unchanged. No paid calls, generation/config/schema or model/provider changes. API restarted after web build; health green.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration); pnpm build; check-handbook.ts 08-operations; git diff --check. Initial check hit newly archived Markdown formatting, corrected; initial smoke needed its async entry point wrapped for CommonJS, corrected before passing.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. Fresh X rounds after 21:00 UTC Nov 5/6; owner identity configuration and proxy verification still block admin rollout.
-
 ## 2026-11-05: iteration 769 — recover malformed legacy edition links
 
 - Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Two historical ingestion failures remain while current collection succeeds.
@@ -137,3 +128,12 @@
 - TASKS/Operations/access decision updated; archived iteration 767. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No runtime/config/schema or model/provider changes; healthy services left running under STEERING 22.
 - Verification: pnpm exec tsx scripts/smoke-topic-coverage.ts; pnpm exec tsx scripts/smoke-x-schedule-copy.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations; git diff --check. Static checks, 497 unit/214 isolated integration tests passed (exit 0); build, handbook and diff checks passed. Final health green, all four services active.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; identity configuration/proxy verification still block admin rollout.
+
+## 2026-11-05: iteration 783 — remove partial failed X embeds
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, 36 sources healthy; no failed retained digest runs. Four services active; next edition 15:00 UTC.
+- X widgets that reject or return no element now detach their attempt target, removing partial markup and isolating later provider mutations. Saved text, original link and manual retry remain available.
+- Read-only Playwright replay passed success, script blocking, timeout, rejection-after-insertion and empty-result cases on desktop/mobile; no overflow/page errors or edition writes. Recovery restores the widget and saved text. New failure screenshots saved under docs/screenshots/; no live provider calls.
+- Verification: pnpm exec tsx scripts/smoke-posts.ts /tmp/783-posts.jsonl; pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check. Static checks and 497 unit tests passed; full check was interrupted with exit 143 during integration (no failing test). `pnpm test:integration` rerun passed 214/214 (exit 0); build/diff checks and post-restart smoke-admin-gate.ts passed.
+- TASKS updated; archived iteration 768. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. Existing proxy connectivity check still fails (curl 7); identity configuration/proxy verification remain required for admin rollout.
+- API restarted after web build; health green and all four services active. No paid calls, stored-edition writes, config/schema or model/provider changes. Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; fallback investigation before scorer. X rounds after 21:00 UTC Nov 5/6.
