@@ -323,6 +323,9 @@ async function smoke() {
         path: `docs/screenshots/custom-feeds-failure-${device}.png`,
       });
       fail = false;
+      await newsQuery
+        .getByLabel('News query', { exact: true })
+        .fill('unfinished query');
       await connect.click();
       await page
         .getByRole('status')
@@ -332,6 +335,10 @@ async function smoke() {
         .waitFor({ timeout: 20_000 });
       assert.equal(await name.inputValue(), '');
       assert.equal(await url.inputValue(), '');
+      assert.equal(
+        await newsQuery.getByLabel('News query', { exact: true }).inputValue(),
+        'unfinished query',
+      );
       const checkbox = form.getByRole('checkbox', {
         name: `${source.name} Feed`,
         exact: true,
@@ -485,6 +492,8 @@ async function smoke() {
       );
 
       queryTimeout = false;
+      await name.fill('Unsubmitted feed');
+      await url.fill('https://example.org/pending.xml');
       queryFailure = true;
       await queryInput.fill('basketball OR playoffs');
       await connectQuery.click();
@@ -507,6 +516,8 @@ async function smoke() {
         })
         .waitFor({ timeout: 20_000 });
       assert.equal(await queryInput.inputValue(), '');
+      assert.equal(await name.inputValue(), 'Unsubmitted feed');
+      assert.equal(await url.inputValue(), 'https://example.org/pending.xml');
       assert.ok(await checkbox.isChecked());
       await page
         .getByRole('button', { name: 'Retry loading sources', exact: true })
@@ -527,6 +538,8 @@ async function smoke() {
       assert.ok(await connectQuery.isEnabled());
       assert.ok(await checkbox.isChecked());
       assert.equal(writes, 11, 'Confirmed query sends exactly one POST');
+      assert.equal(await name.inputValue(), 'Unsubmitted feed');
+      assert.equal(await url.inputValue(), 'https://example.org/pending.xml');
       await queryInput.scrollIntoViewIfNeeded();
       await page.screenshot({
         path: `docs/screenshots/ui/news-query-connected-${device}.png`,

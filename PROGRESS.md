@@ -155,3 +155,13 @@
 - Browser writes replayed; protected live topics/profile/full edition unchanged. No paid calls or live data writes. API rebuilt/restarted; health green, reader latest has four topics and alerts clear; worker/schedule unchanged.
 - TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (copy and verification only, no new blocker).
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 834 — preserve independent source drafts
+
+- Started clean on main; no leftover work. Health/database/Redis green and alerts clear; Nov 5 scheduled review remains due at 15:00 UTC.
+- Fixed successful feed/query connections clearing the other form's unfinished draft. Only the submitted form now clears, including when the subsequent catalog refresh fails.
+- Desktop/mobile replay verifies feed-save preserves query and query-save preserves feed name/URL through refresh failure and success. Updated desktop connected screenshot inspected; mobile screenshot inspected (unchanged). Unrelated regenerated screenshots discarded.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit/214 isolated integration, zero failures); smoke-custom-feeds.ts and smoke-admin-gate.ts exit 0; git diff --check.
+- Browser writes replayed; protected live topics/profile/full edition unchanged. No paid calls or live data writes. Rebuilt API restarted; health green and alerts clear; worker/schedule unchanged.
+- TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (form-state bug fix, no new blocker).
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

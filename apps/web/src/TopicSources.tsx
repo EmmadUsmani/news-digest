@@ -105,9 +105,12 @@ export function TopicSources({
       connected = true;
       onSaved(saved);
       setSelected(saved.sources);
-      setFeedName('');
-      setFeedUrl('');
-      setQuery('');
+      if (search) {
+        setQuery('');
+      } else {
+        setFeedName('');
+        setFeedUrl('');
+      }
       const catalogResponse = await fetch('/api/topics/sources', {
         signal: AbortSignal.timeout(15_000),
       });

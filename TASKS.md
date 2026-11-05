@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Independent source drafts (834): connecting a feed preserves an unfinished news query; connecting a query preserves feed name/URL, including confirmed-save catalog failures. Desktop/mobile replay passes.
+
 - [x] Query connection feedback (833): news-query success, rejection, refresh failure and timeout name the query; desktop/mobile replay verifies retained/cleared input and no repeated POST on catalog retry.
 
 - [x] News-query recovery verification (832): desktop/mobile replay covers a completed query POST timing out, retained input, unlocked controls and reload recovery without a second POST.
