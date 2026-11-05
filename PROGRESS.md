@@ -1,13 +1,3 @@
-## 2026-11-05: iteration 786 — settle X script callbacks once
-
-- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, 36 sources healthy and no failed retained digest-generation jobs. Four app services active; next edition 15:00 UTC.
-- Shared widgets.js downloads now clear their timer and callbacks on success/failure and ignore callbacks after settlement, preventing late events from changing retry state.
-- Added stalled-download desktop/mobile replay: timeout removes the script and callbacks, saved text/original links remain, and manual retry downloads a replacement and restores the widget. Existing concurrent, blocked, widget timeout, rejection and empty-result recovery passed; saved edition unchanged, no browser errors/overflow or live provider calls.
-- New stalled-download screenshots inspected on desktop/mobile; unrelated regenerated images discarded. Initial replay recovery timed out; allowing the stalled request to finish and a longer accelerated deadline fixed the test. Native method lint finding corrected.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-posts.ts /tmp/783-posts.jsonl; smoke-admin-gate.ts; git diff --check. All static checks, 497 unit/214 isolated integration tests, build, browser replay, gate and diff checks passed (exit 0).
-- TASKS updated; archived iteration 771. SOURCES/NEEDS_FROM_HUMAN and handbook unchanged: no source, architecture or new blocker changes. No paid calls, stored-edition writes, config/schema or model/provider changes.
-- API restarted after build; health/database/Redis green and four app services active. Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X trials after 21:00 UTC Nov 5/6. Admin identity/proxy verification remain pending.
-
 ## 2026-11-05: iteration 787 — match X embeds to the reader theme
 
 - Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy, no failed retained digest-generation jobs; four app services active.
@@ -145,4 +135,13 @@
 - Desktop/mobile failed refresh preserves loaded telemetry; retry restores status without an error. Saved-edition navigation and synthetic collection/queue/budget failure rendering pass. Failure screenshots inspected; regenerated unchanged telemetry screenshots discarded.
 - Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-status.ts; smoke-admin-gate.ts; git diff --check. Initial check found formatting in the newly archived progress entry; corrected before rerun. Rerun passed (exit 0): static checks, 497 unit and 214 isolated integration tests. Browser, admin gate and diff checks passed.
 - TASKS/access decision updated; archived iteration 785. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, live writes or runtime/config/schema/model/provider changes; no restart required under STEERING 22.
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 802 — verify custom-feed recovery safely
+
+- Started clean on main; no leftover work. Health/database/Redis green, four deployed app services active, 36 active sources healthy and no failed retained runs. Historical ingestion/social counters each show two failures without retained runs. Pending memory warning cleared; zero alerts on recheck.
+- Custom-feed verifier now replays protected profile/status snapshots, disables service workers, guards unexpected browser writes with a probe and checks credential absence. Full saved edition/topics/profile comparisons prove live data unchanged.
+- Desktop/mobile URL validation and failed connections retain name/URL; retry clears fields, exposes stored content, survives reload and disconnects. No overflow/page errors; both failure screenshots inspected. Replayed saves never reach the live API.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-custom-feeds.ts; smoke-admin-gate.ts; git diff --check. All passed (exit 0): static checks, 497 unit and 214 isolated integration tests, browser replay, admin gate and diff check.
+- TASKS/access decision updated; archived iteration 786 and discarded regenerated unchanged success screenshots. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, live writes or runtime/config/schema/model/provider changes; no restart required under STEERING 22.
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

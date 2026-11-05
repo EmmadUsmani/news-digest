@@ -11,18 +11,30 @@ import { localAdminJson } from './lib/local-admin-fetch';
 
 // Protected real snapshots; custom-feed saves and failures are browser-only.
 async function smoke() {
-  const [original, content, catalog, latest] = await Promise.all([
-    localAdminJson('/api/admin/topics').then((data) =>
-      topicSchema.array().parse(data),
-    ),
-    localAdminJson('/api/admin/content').then((data) =>
-      contentGroupSchema.array().parse(data),
-    ),
-    localAdminJson('/api/admin/topics/sources').then((data) =>
-      sourceCatalogSchema.parse(data),
-    ),
-    localAdminJson('/api/admin/digest-previews/latest'),
-  ]);
+  const [original, content, catalog, latest, profile, status] =
+    await Promise.all([
+      localAdminJson('/api/admin/topics').then((data) =>
+        topicSchema.array().parse(data),
+      ),
+      localAdminJson('/api/admin/content').then((data) =>
+        contentGroupSchema.array().parse(data),
+      ),
+      localAdminJson('/api/admin/topics/sources').then((data) =>
+        sourceCatalogSchema.parse(data),
+      ),
+      localAdminJson('/api/admin/digest-previews/latest'),
+      localAdminJson('/api/admin/profile'),
+      localAdminJson('/api/admin/status'),
+    ]);
+  const savedEdition = latest
+    ? await localAdminJson(
+        '/api/admin/digest-previews/' + (latest as { id: string }).id,
+      )
+    : null;
+  const snapshots: Record<string, unknown> = {
+    '/api/profile': profile,
+    '/api/status': status,
+  };
   const source = catalog.find(
     (item) =>
       !item.url.includes('news.google.com') &&
@@ -46,7 +58,16 @@ async function smoke() {
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
     ] as const) {
-      const page = await browser.newPage({ viewport: { width, height } });
+      const page = await browser.newPage({
+        viewport: { width, height },
+        serviceWorkers: 'block',
+      });
+      const credentials: string[] = [];
+      page.on('request', (request) => {
+        const headers = request.headers();
+        if ('admin_local_token' in headers || 'x-exedev-email' in headers)
+          credentials.push(new URL(request.url()).pathname);
+      });
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
       let topics = structuredClone(original).map((topic) =>
@@ -55,9 +76,14 @@ async function smoke() {
       let fail = true;
       let writes = 0;
       const unexpectedWrites: string[] = [];
-      await page.route('**/api/**', async (route) => {
+      await page.route('**/*', async (route) => {
         const request = route.request();
         const path = new URL(request.url()).pathname;
+        const headers = request.headers();
+        if ('admin_local_token' in headers || 'x-exedev-email' in headers)
+          return route.abort();
+        if (request.method() === 'GET' && Object.hasOwn(snapshots, path))
+          return route.fulfill({ json: snapshots[path] });
         if (
           path === `/api/topics/${target.id}/feeds` &&
           request.method() === 'POST'
@@ -92,7 +118,7 @@ async function smoke() {
             json: topics.find((topic) => topic.id === target.id),
           });
         }
-        if (request.method() !== 'GET') {
+        if (!['GET', 'HEAD'].includes(request.method())) {
           unexpectedWrites.push(`${request.method()} ${path}`);
           return route.abort();
         }
@@ -121,6 +147,18 @@ async function smoke() {
         return route.continue();
       });
       await page.goto('http://localhost:8000');
+      assert.equal(
+        await page.evaluate(() =>
+          fetch('/api/browser-write-guard-probe', { method: 'POST' }).then(
+            () => false,
+            () => true,
+          ),
+        ),
+        true,
+      );
+      assert.deepEqual(unexpectedWrites.splice(0), [
+        'POST /api/browser-write-guard-probe',
+      ]);
       await page.getByText('Manage topics', { exact: true }).click();
       const open = page.getByRole('button', {
         name: `Sources for ${target.name}`,
@@ -152,6 +190,8 @@ async function smoke() {
         topics.find((topic) => topic.id === target.id)!.sources,
         [],
       );
+      assert.equal(await name.inputValue(), source.name);
+      assert.equal(await url.inputValue(), 'https://127.0.0.1/feed');
       await url.fill(source.url);
       await connect.click();
       await page
@@ -160,6 +200,9 @@ async function smoke() {
         .waitFor();
       assert.equal(await name.inputValue(), source.name);
       assert.equal(await url.inputValue(), source.url);
+      await page.locator('.topic-settings').screenshot({
+        path: `docs/screenshots/custom-feeds-failure-${device}.png`,
+      });
       fail = false;
       await connect.click();
       await page
@@ -203,6 +246,7 @@ async function smoke() {
       assert.equal(writes, 4);
       assert.deepEqual(unexpectedWrites, []);
       assert.deepEqual(errors, []);
+      assert.deepEqual(credentials, []);
       assert.ok(
         await page.evaluate(
           () => document.documentElement.scrollWidth <= innerWidth,
@@ -211,14 +255,16 @@ async function smoke() {
       await page.close();
     }
     assert.deepEqual(await localAdminJson('/api/admin/topics'), original);
-    assert.deepEqual(
-      await localAdminJson(
-        '/api/admin/digest-previews/' + (latest as { id: string }).id,
-      ),
-      latest,
-    );
+    assert.deepEqual(await localAdminJson('/api/admin/profile'), profile);
+    if (latest)
+      assert.deepEqual(
+        await localAdminJson(
+          '/api/admin/digest-previews/' + (latest as { id: string }).id,
+        ),
+        savedEdition,
+      );
     console.log(
-      'Custom feeds desktop/mobile: validation response, save failure, retry, cleared fields, stored content, replay reload and disconnect passed; live topics and saved edition unchanged, no inference.',
+      'Custom feeds desktop/mobile: validation response, save failure, retry, cleared fields, stored content, replay reload and disconnect passed; full live topics/profile/edition unchanged, browser writes guarded and credentials absent, no inference.',
     );
   } finally {
     await browser.close();

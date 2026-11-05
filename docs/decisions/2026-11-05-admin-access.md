@@ -169,6 +169,10 @@ and unexpected browser writes, probes the write guard and checks credential abse
 Desktop/mobile refresh failure and retry, saved-edition links and synthetic
 operational failures preserve full live edition, topics and profile snapshots.
 
+The custom-feed verifier applies these protections to URL validation, failed
+connections, retained name/URL, retry, reload and disconnect. Desktop/mobile
+failure screenshots and full saved-data comparisons pass.
+
 ## Next rollout slice
 
 Configure the owner email allowlist before moving current operational routes.
