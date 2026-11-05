@@ -87,9 +87,19 @@ export class BullEditionJobs extends EditionJobs implements OnModuleDestroy {
   }
   private async status(job: Job): Promise<EditionJobStatus> {
     const state = await job.getState();
-    // Completion can race the initial read; refresh terminal fields before returning.
-    if (state === 'completed' || state === 'failed')
-      job = (await this.queue.getJob(job.id!)) ?? job;
+    // Pruning can race either read. Prefer durable history over stale fields.
+    if (state === 'unknown') {
+      const recovered = await this.recover(job.id!);
+      if (recovered) return recovered;
+    }
+    if (state === 'completed' || state === 'failed') {
+      const refreshed = await this.queue.getJob(job.id!);
+      if (!refreshed) {
+        const recovered = await this.recover(job.id!);
+        if (recovered) return recovered;
+      }
+      job = refreshed ?? job;
+    }
     const result: unknown = job.returnvalue;
     const editionId =
       result &&

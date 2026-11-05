@@ -188,6 +188,33 @@ void test('async edition requests dedupe while active, publish once and allow la
         jobs.queue.getJob = getJob;
       }
     }
+    // Pruning is a successful empty Redis read, not an outage. It can happen
+    // before state inspection or before terminal fields are refreshed.
+    for (const state of ['unknown', 'completed', 'failed'] as const) {
+      let reads = 0;
+      jobs.queue.getJob = async (jobId) => {
+        if (++reads > 1) return undefined;
+        return {
+          id: jobId,
+          name: 'on-demand',
+          progress: 0,
+          getState: async () => state,
+        } as NonNullable<Awaited<ReturnType<typeof getJob>>>;
+      };
+      try {
+        assert.equal((await jobs.find(id))?.editionId, snapshot.id);
+        reads = 0;
+        const recoveredFailure = await jobs.find(failedId);
+        assert.equal(recoveredFailure?.state, 'failed');
+        assert.equal(recoveredFailure?.durationMs, 73);
+        reads = 0;
+        // Without durable history, preserve the observed queue status.
+        assert.equal((await jobs.find(crypto.randomUUID()))?.state, state);
+        assert.equal(calls, 1);
+      } finally {
+        jobs.queue.getJob = getJob;
+      }
+    }
     // Numeric links issued before UUID IDs were introduced remain readable.
     publications.set('on-demand:123456789', snapshot);
     assert.equal((await jobs.find('123456789'))?.editionId, snapshot.id);

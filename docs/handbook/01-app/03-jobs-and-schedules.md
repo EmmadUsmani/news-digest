@@ -95,7 +95,8 @@ Redis counter reset. Existing numeric job links continue to work.
 - **Idempotency:** each scheduled slot has a unique key, so a retry can never
   publish two editions for the same morning.
 - **Saved job links:** after Redis removes a completed on-demand job, its status
-  endpoint finds the published edition in Postgres and returns the edition link.
+  endpoint finds the published edition in Postgres and returns the edition link,
+  including when removal happens during a status read.
 - **Failed job links:** generation failures retain their job ID and duration in
   Postgres. After Redis prunes them, the same link shows a generic failure
   message. Both saved and failed links also recover when Redis lookup, state

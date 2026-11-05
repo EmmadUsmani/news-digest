@@ -1,13 +1,3 @@
-## 2026-11-05: iteration 844 — preserve schedule-save keyboard focus
-
-- Started clean on main; no leftover work. Alerts clear and health/database/Redis green; scheduled Nov 5 review remains due at 15:00 UTC.
-- Save schedule restores focus after success, rejection and timeout, including when saved settings replace the form.
-- Desktop/mobile smoke-schedule.ts passed: focus assertions, Enter retry, real timeout, pending locks, rejection/lost-response recovery, saved fields and live topics/profile/full edition immutability. Two focus screenshots inspected; unrelated regenerated screenshots discarded.
-- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit/214 isolated integration passed); smoke-admin-gate.ts passed; git diff --check.
-- Static UI served by healthy API; no service runtime changes, so no restart under STEERING 22. No paid calls or live writes.
-- TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (keyboard fix, no new blocker).
-- Next FIRST: 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-
 ## 2026-11-05: iteration 845 — guide uncertain generation to saved editions
 
 - Started clean on main; no leftover work. Alerts clear and health/database/Redis green; Nov 5 scheduled review remains due at 15:00 UTC.
@@ -154,4 +144,14 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (501 unit/215 isolated integration passed); pnpm build; check-handbook.ts 03-jobs-and-schedules (18 pages/2 diagrams, 27 tables); targeted failed-edition-job.test.ts (2 passed); git diff --check; smoke-admin-gate.ts before/after restart.
 - API/worker restarted active; /healthz OK, saved edition byte-identical, 36 sources healthy, zero failed digest jobs and alerts clear. Updated Jobs handbook/TASKS; archived iteration 842 to keep progress small.
 - Jobs lost before either event persistence or scanning remain unrecoverable. No paid calls or UI/schema/source/budget changes; screenshots, SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Next: X fresh-window rounds after 21:00 UTC Nov 5/6; editor-v5 evidence Nov 6. Unfinished durable job history and admin identity/proxy rollout remain open.
+
+## 2026-11-05: iteration 859 — recover links during Redis pruning races
+
+- Started clean on main; no leftover work. Alerts/health green, 36 sources healthy, no failed digest jobs; X rounds await 21:00 UTC and admin rollout awaits identity/proxy evidence.
+- Job status now recovers durable saved/failed links when pruning races state inspection (unknown state) or terminal-field refresh (missing job), instead of returning stale fields without the edition link.
+- Isolated queue test simulates both mid-read pruning stages for saved, failed and unknown IDs; preserves observed status without durable history and asserts no extra generation. No actual Redis outage or live job deletion.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (501 unit/215 isolated integration passed); pnpm build; check-handbook.ts 03-jobs-and-schedules (18 pages/2 diagrams, 27 tables); smoke-admin-gate.ts; git diff --check; /healthz; obs alerts/sources/jobs.
+- API/worker restarted active; health OK, saved edition byte-identical and alerts clear. Jobs lost before durable history remains a limitation; no paid calls, UI/schema/source/budget changes.
+- Updated Jobs handbook/TASKS; archived iteration 844 to keep progress small. SOURCES, screenshots and NEEDS_FROM_HUMAN unchanged.
 - Next: X fresh-window rounds after 21:00 UTC Nov 5/6; editor-v5 evidence Nov 6. Unfinished durable job history and admin identity/proxy rollout remain open.
