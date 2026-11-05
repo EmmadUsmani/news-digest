@@ -100,6 +100,11 @@ Its disabled topic and saves exist only in browser replay memory; duplicate
 handles are rejected before a request, and unexpected API writes are blocked.
 Server account validation remains covered by isolated settings tests.
 
+The general topic-editing check now uses protected topic/edition snapshots.
+Name, story budget, relevance and enabled-state saves/reloads stay in browser
+memory; it creates no previews and blocks unexpected API writes. Server
+validation and generated-budget behavior remain covered by isolated tests.
+
 ## Next rollout slice
 
 Configure the owner email allowlist before moving current operational routes.

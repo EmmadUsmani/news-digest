@@ -2,23 +2,53 @@ import assert from 'node:assert/strict';
 
 import { topicSchema, topicUpdateSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
+
+import { localAdminJson } from './lib/local-admin-fetch';
 const base = 'http://localhost:8000';
 async function smoke() {
   const browser = await chromium.launch();
-  const request = await browser.newContext();
+  const context = await browser.newContext();
   const topics = topicSchema
     .array()
-    .parse(await (await request.request.get(`${base}/api/topics`)).json());
+    .parse(await localAdminJson('/api/admin/topics'));
   const original = topics[0];
-  const latest = await (
-    await request.request.get(`${base}/api/digest-previews/latest`)
-  ).json();
+  assert.ok(
+    original?.enabled,
+    'Need an enabled first topic for browser verification',
+  );
+  const replayTopics = structuredClone(topics);
+  let saves = 0;
+  await context.route('**/api/**', async (route) => {
+    const request = route.request();
+    const path = new URL(request.url()).pathname;
+    if (path === '/api/topics' && request.method() === 'GET')
+      return route.fulfill({ json: replayTopics });
+    if (path === `/api/topics/${original.id}` && request.method() === 'PUT') {
+      const update = topicUpdateSchema.parse(request.postDataJSON());
+      replayTopics[0] = topicSchema.parse({ ...replayTopics[0], ...update });
+      saves++;
+      return route.fulfill({ json: replayTopics[0] });
+    }
+    if (request.method() !== 'GET') {
+      await route.abort();
+      assert.fail(`Unexpected browser write: ${path}`);
+    }
+    await route.continue();
+  });
+  const latest = (await localAdminJson(
+    '/api/admin/digest-previews/latest',
+  )) as { id: string } | null;
   try {
     for (const [name, width, height] of [
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
     ] as const) {
-      const page = await browser.newPage({ viewport: { width, height } });
+      replayTopics[0] = structuredClone(original);
+      const previousSaves = saves;
+      const page = await context.newPage();
+      await page.setViewportSize({ width, height });
+      const errors: string[] = [];
+      page.on('pageerror', (error) => errors.push(error.message));
       await page.goto(base);
       await page.getByText('Manage topics', { exact: true }).click();
       await page
@@ -51,22 +81,9 @@ async function smoke() {
           exact: true,
         })
         .waitFor();
-      const changed = await (
-        await page.request.get(`${base}/api/topics`)
-      ).json();
-      assert.equal(changed[0].storyBudget, 1);
-      const end = new Date(),
-        start = new Date(end.getTime() - 86400000);
-      const edition = await (
-        await page.request.post(`${base}/api/digest-previews`, {
-          data: {
-            windowStart: start.toISOString(),
-            windowEnd: end.toISOString(),
-          },
-        })
-      ).json();
-      assert.equal(edition.topics[0].name, 'Tech settings verification');
-      assert.ok(edition.topics[0].stories.length <= 1);
+      assert.equal(replayTopics[0].storyBudget, 1);
+      assert.equal(replayTopics[0].name, 'Tech settings verification');
+      assert.deepEqual(replayTopics[0].relevancePolicy.includeAny, []);
       await page.getByText('Manage topics', { exact: true }).click();
       await page
         .getByRole('button', {
@@ -82,74 +99,33 @@ async function smoke() {
         .getByRole('status')
         .filter({ hasText: 'Saved Tech settings verification.' })
         .waitFor();
-      assert.equal(await page.locator('.topic-grid article').count(), 3);
-      const disabled = await (
-        await page.request.post(`${base}/api/digest-previews`, {
-          data: {
-            windowStart: start.toISOString(),
-            windowEnd: end.toISOString(),
-          },
-        })
-      ).json();
-      assert.ok(
-        disabled.topics.every((t: { id: string }) => t.id !== original.id),
+      assert.equal(
+        await page.locator('.topic-grid article').count(),
+        topics.filter((topic) => topic.enabled && topic.id !== original.id)
+          .length,
       );
-      if (latest)
-        assert.deepEqual(
-          await (
-            await page.request.get(`${base}/api/digest-previews/${latest.id}`)
-          ).json(),
-          latest,
-        );
+      assert.equal(replayTopics[0].enabled, false);
+      assert.equal(saves, previousSaves + 2);
+      assert.deepEqual(errors, []);
       assert.equal(
         await page.evaluate(
           () => document.documentElement.scrollWidth <= innerWidth,
         ),
         true,
       );
-      await page.request.put(`${base}/api/topics/${original.id}`, {
-        data: topicUpdateSchema.strip().parse(original),
-      });
       await page.close();
     }
-    const invalid = {
-      ...topicUpdateSchema.strip().parse(original),
-      storyBudget: 21,
-    };
-    assert.equal(
-      (
-        await request.request.put(`${base}/api/topics/${original.id}`, {
-          data: invalid,
-        })
-      ).status(),
-      400,
-    );
-    assert.equal(
-      (
-        await request.request.put(`${base}/api/topics/not-a-uuid`, {
-          data: topicUpdateSchema.strip().parse(original),
-        })
-      ).status(),
-      400,
-    );
-    assert.equal(
-      (
-        await request.request.put(
-          `${base}/api/topics/00000000-0000-4000-8000-999999999999`,
-          { data: topicUpdateSchema.strip().parse(original) },
-        )
-      ).status(),
-      404,
-    );
     console.log(
-      'Topic desktop/mobile edit, persist, disable, budget, immutable history and API validation passed',
+      'Topic desktop/mobile browser-only edit, reload, disable and budget checks passed; protected reads prove live topics/edition unchanged; server validation stays in isolated tests',
     );
   } finally {
-    const restore = await request.request.put(
-      `${base}/api/topics/${original.id}`,
-      { data: topicUpdateSchema.strip().parse(original) },
-    );
-    assert.equal(restore.status(), 200);
+    assert.deepEqual(await localAdminJson('/api/admin/topics'), topics);
+    if (latest)
+      assert.deepEqual(
+        await localAdminJson('/api/admin/digest-previews/' + latest.id),
+        latest,
+      );
+    await context.close();
     await browser.close();
   }
 }
