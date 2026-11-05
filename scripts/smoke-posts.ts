@@ -187,6 +187,29 @@ async function main() {
           .flatMap((topic) => topic.posts)
           .filter((post) => post.platform === 'x');
         assert.equal(await cards.count(), expected.length);
+        if (mode === 'success') {
+          const distant = cards.last();
+          const bounds = await distant.boundingBox();
+          assert.ok(bounds && bounds.y > height + 200);
+          assert.equal(await distant.locator('[data-post-id]').count(), 0);
+          await cards.first().scrollIntoViewIfNeeded();
+          await cards.first().locator('[data-post-id]').waitFor();
+          await page.emulateMedia({ colorScheme: 'dark' });
+          await cards.first().locator('[data-theme="dark"]').waitFor();
+          assert.equal(
+            await distant.locator('[data-post-id]').count(),
+            0,
+            'Theme changes must not create widgets for distant posts',
+          );
+          await distant.scrollIntoViewIfNeeded();
+          await distant.locator('[data-theme="dark"]').waitFor();
+          assert.equal(scriptRequests, 1);
+          await distant.screenshot({
+            path: `docs/screenshots/ui/posts-lazy-dark-${name}.png`,
+          });
+          await page.emulateMedia({ colorScheme: 'light' });
+          await distant.locator('[data-theme="light"]').waitFor();
+        }
         for (let index = 0; index < expected.length; index++) {
           const card = cards.nth(index);
           const post = expected[index];

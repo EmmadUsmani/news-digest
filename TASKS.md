@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] X lazy widgets (789): desktop/mobile replay proves distant cards remain unrendered through theme changes, then load the current theme on scrolling with one shared script; saved edition unchanged.
+
 - [x] X embed theme (787): official widgets follow system and saved reader light/dark themes, rebuilding on changes with the same loaded script; desktop/mobile replay and screenshots verified.
 
 - [x] X script timeout cleanup (786): completed downloads clear callbacks and reject late state changes; stalled-download desktop/mobile recovery verified without edition writes.

@@ -131,3 +131,12 @@
 - Updated SOURCES with timestamps, bounds and reproduction; TASKS now distinguishes sustained-refresh acceptance from pending editorial quality. Archived iterations 773–774 to keep PROGRESS under 25 KB. No source/config/schema/model/provider changes, paid calls, new provider requests or saved-edition writes; no handbook behavior change or new human blocker.
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-admin-gate.ts; git diff --check. First check stopped on newly archived files' formatting; corrected and reran. Rerun passed all static checks, 497 unit/214 isolated integration tests (exit 0); build, gate and diff checks passed.
 - API restarted after build; health/database/Redis green, four app services active and alerts zero. Worker remains running unchanged, preserving the sustained-refresh evidence. Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remain pending.
+
+## 2026-11-05: iteration 789 — verify lazy widgets across theme changes
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green; API, worker, docs and schema services active.
+- Expanded the saved-post browser replay: distant cards stay unrendered after the first card loads and through a system theme change; scrolling loads the distant widget in the current theme with one shared script.
+- Desktop/mobile replay passed all existing failure/retry checks, no overflow or page errors, no browser writes and full saved-edition equality. New dark screenshots inspected on both viewports; explicitly labelled widget protocol stubs, not live X rendering. Unrelated regenerated screenshots discarded.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-posts.ts /tmp/783-posts.jsonl; git diff --check. Initial combined format/lint/check shell received SIGTERM after formatting; reran lint and check separately. Static checks, 497 unit/214 isolated integration tests and browser replay passed (exit 0).
+- TASKS updated. No source, runtime, schema, handbook or model/provider behavior changed; no paid calls or new blockers. Services need no restart for verification-only changes (STEERING 22).
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remain pending.
