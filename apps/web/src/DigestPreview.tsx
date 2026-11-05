@@ -74,6 +74,11 @@ export function DigestPreview() {
           );
           if (!saved) throw new Error('Completed edition is unavailable');
           if (cancelled) return;
+          // An initial history request has no cached data, so invalidation alone
+          // can wait for it instead of replacing it with the newly saved edition.
+          await queryClient.cancelQueries({
+            queryKey: ['editions', 'history'],
+          });
           await queryClient.invalidateQueries({ queryKey: ['editions'] });
           if (cancelled) return;
           void navigate({
@@ -291,8 +296,7 @@ export function DigestPreview() {
                   </a>
                   <span>
                     {new Date(entry.windowStart).toLocaleString()} —{' '}
-                    {new Date(entry.windowEnd).toLocaleString()} ·{' '}
-                    {entry.method}
+                    {new Date(entry.windowEnd).toLocaleString()}
                   </span>
                 </li>
               ))}

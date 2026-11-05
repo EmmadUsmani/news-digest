@@ -38,8 +38,9 @@ Before making the VM public, verify the proxy strips/replaces a forged
 to return briefs, stories and posts without operational metadata. Missing
 historical briefs and posts become empty arrays; non-AI briefs are omitted.
 `/api/editions?offset=0` exposes stable 20-entry archive pages with only IDs
-and dates, plus `hasMore`. The existing browser still uses the old endpoints;
-the coordinated admin route migration remains unfinished.
+and dates, plus `hasMore`. Browser history now uses this reader endpoint and
+omits generation methods. Edition detail still uses the old endpoint; the
+coordinated admin route migration remains unfinished.
 
 ## Next rollout slice
 

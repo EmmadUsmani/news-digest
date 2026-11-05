@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 
-import { previewHistorySchema } from '@digest/contracts';
+import { readerEditionHistorySchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
 // Simulate a completed background job and delayed history GETs in the browser.
@@ -14,14 +14,18 @@ async function smoke() {
     ] as const) {
       for (const fail of [false, true]) {
         const page = await browser.newPage({ viewport: { width, height } });
-        const history = previewHistorySchema.parse(
+        const history = readerEditionHistorySchema.parse(
           await (
             await page.request.get(
-              'http://localhost:8000/api/digest-previews?offset=0',
+              'http://localhost:8000/api/editions?offset=0',
             )
           ).json(),
         );
         assert.ok(history.entries.length >= 2, 'Need two real saved editions');
+        let handled!: () => void;
+        const delayedHandled = new Promise<void>((resolve) => {
+          handled = resolve;
+        });
         let releaseHistory!: () => void;
         let historyStarted!: () => void;
         const blocked = new Promise<void>((resolve) => {
@@ -40,7 +44,7 @@ async function smoke() {
             json: { state: 'completed', editionId: history.entries[0].id },
           });
         });
-        await page.route('**/api/digest-previews?offset=0', async (route) => {
+        await page.route('**/api/editions?offset=0', async (route) => {
           requests++;
           if (requests === 1) {
             historyStarted();
@@ -50,6 +54,7 @@ async function smoke() {
                 ? { status: 503, json: {} }
                 : { json: { ...history, entries: history.entries.slice(1) } },
             );
+            handled();
           } else await route.fulfill({ json: history });
         });
         await page.goto('http://localhost:8000', {
@@ -61,9 +66,8 @@ async function smoke() {
           `.edition-history a[href="/editions/${history.entries[0].id}"]`,
         );
         await newest.waitFor();
-        const delayed = page.waitForResponse('**/api/digest-previews?offset=0');
         releaseHistory();
-        await delayed;
+        await delayedHandled;
         await page.waitForTimeout(250);
         assert.equal(
           await newest.count(),

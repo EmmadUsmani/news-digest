@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 
-import { previewHistorySchema } from '@digest/contracts';
+import { readerEditionHistorySchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
 // Read-only browser checks against actual stored editions. No generation.
@@ -8,11 +8,9 @@ async function smoke() {
   const browser = await chromium.launch();
   try {
     const context = await browser.newContext();
-    const history = previewHistorySchema.parse(
+    const history = readerEditionHistorySchema.parse(
       await (
-        await context.request.get(
-          'http://localhost:8000/api/digest-previews?offset=0',
-        )
+        await context.request.get('http://localhost:8000/api/editions?offset=0')
       ).json(),
     );
     const edition = history.entries[1];
@@ -25,6 +23,11 @@ async function smoke() {
       await page.setViewportSize({ width, height });
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
+      let legacyHistoryReads = 0;
+      page.on('request', (request) => {
+        if (request.url().includes('/api/digest-previews?'))
+          legacyHistoryReads++;
+      });
       await page.goto(`http://localhost:8000/?edition=${edition.id}`);
       await page.waitForURL(`**/editions/${edition.id}`);
       const selected = page.locator(
@@ -41,6 +44,19 @@ async function smoke() {
       );
       assert.equal(await selected.getAttribute('aria-current'), 'page');
       await page.locator('.edition-history summary').click();
+      await page.getByRole('button', { name: 'Older editions' }).click();
+      await page.getByText('Page 2', { exact: true }).waitFor();
+      await page.waitForFunction(
+        () =>
+          document.querySelectorAll('.edition-history a[href^="/editions/"]')
+            .length === 20 &&
+          !document.querySelector('.edition-history a[aria-current="page"]'),
+      );
+      await page.getByRole('button', { name: 'Newer editions' }).click();
+      await page.waitForFunction(() =>
+        document.querySelector('.edition-history a[aria-current="page"]'),
+      );
+      assert.equal(legacyHistoryReads, 0, 'History uses reader endpoint only');
       let historicalReads = 0;
       page.on('request', (request) => {
         if (request.url().endsWith(`/api/digest-previews/${edition.id}`))

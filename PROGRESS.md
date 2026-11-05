@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 718 — shared query resources for UI foundations
-
-- Started clean on main; no leftover work. Zero alerts, local health/database/Redis green, 36 sources healthy, zero failed digest jobs; next edition Nov 5 15:00 UTC. Scheduled acceptance and second independent X day remain future.
-- Replaced App's manual fetch effects with shared TanStack Query resources for topics, profile, incoming content and health. All responses parse shared contracts, requests accept cancellation, route loaders prefetch with ensureQueryData, and settings callbacks update/invalidate caches. Edition/status fetching remains for a later foundation slice.
-- Browser check proves one request per shared resource under StrictMode and fresh-cache reuse across client navigation. Explicit malformed content/health responses are rejected without hiding topics or edition. Saved/viewed desktop/mobile screenshots in docs/screenshots/ui/; existing layout preserved.
-- Desktop/mobile routing, delayed edition selection, topic create/delete/order/availability and schedule checks passed; writes replayed in browser only, real stored content read unchanged. One immediate post-restart browser attempt raced readiness; health checked and rerun passed.
-- Verification passed: pnpm format, pnpm lint:fix, pnpm check (475 unit; 213 integration cases reported success before exit 143, then clean isolated integration rerun), pnpm build, final web typecheck/build, check-handbook.ts 01-stack-and-runtime and git diff --check. Updated stack handbook; discarded unrelated smoke screenshot churn. SOURCES/NEEDS_FROM_HUMAN unchanged: no source or new owner requirement.
-- Restarted API for changed served assets; worker unchanged under STEERING 22. No paid calls, model/provider/budget changes or fixed A/B activation.
-- Next: finish foundation edition/status query migration and Tailwind v4/shadcn, Inter/theme, then admin gate. Second independent X experiment day and Nov 5 scheduled grouping/NBA AI/cost/latency checks take priority when due.
-
 ## 2026-11-05: iteration 719 — share status and manual-edition budget queries
 
 - Started clean on main; no leftover work. Zero alerts, health/database/Redis green, 36 sources without active errors, zero failed retained digest jobs and 942 articles in current topic coverage. Nov 5 scheduled acceptance and second independent X window remain future.
@@ -130,4 +120,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (494 unit/213 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts 01-stack-and-runtime, pnpm exec tsx scripts/smoke-ui-routing.ts and git diff --check passed.
 - Rebuilt/restarted API/docs. Live read-only checks passed across ten archive pages/200 stored editions, allowed fields, invalid offsets and health. Desktop/mobile routing passed with real saved editions and no writes; no visual changes or screenshot updates.
 - Updated TASKS, affected handbook and access decision; archived iteration 717 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. Admin identity/proxy verification remains open.
+- No paid calls, provider/model/budget changes, scorer changes or X activation. Next: coordinated reader/admin migration; scheduled Nov 5 acceptance first when due, scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6.
+
+## 2026-11-05: iteration 732 — browser reader history and completion race
+
+- Started clean on main; no leftover work. Zero initial alerts, health/database/Redis and all 36 sources healthy; no retained failed digest runs. Nov 5 acceptance remains future at 15:00 UTC.
+- Browser saved-edition history now uses /api/editions with reader allowlist validation and no generation-method display; edition detail/admin endpoints remain pending coordinated migration and configured admin identity.
+- Delayed-history smoke exposed a completion stall: invalidation could await the first in-flight archive request. Explicitly cancel stale history before invalidating; delayed success/error cases now pass. Updated smoke synchronization to await delayed route handlers because navigation legitimately aborts HTTP responses.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (494 unit/213 isolated integration), pnpm build, final web build/typecheck, check-handbook.ts 01-stack-and-runtime, smoke-ui-routing.ts, smoke-edition-history.ts, smoke-edition-selection.ts and git diff --check. Desktop/mobile pagination, cache switching, reload and stale success/error recovery passed.
+- Initial browser launch raced API startup (ECONNREFUSED); reran after health readiness. Rebuilt/restarted API/docs; real stored history page 2 returned 20 entries with only IDs/dates. Updated and inspected history screenshots; discarded unrelated foundation screenshot churn.
+- Final metrics warning pending (106.3/112 MiB, active/zero restarts), no firing alerts. Worker unchanged. Updated TASKS, affected handbook/access decision; archived iteration 718 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN unchanged; no new source or owner blocker.
 - No paid calls, provider/model/budget changes, scorer changes or X activation. Next: coordinated reader/admin migration; scheduled Nov 5 acceptance first when due, scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6.

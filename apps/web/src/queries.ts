@@ -3,8 +3,8 @@ import {
   digestPreviewSchema,
   healthSchema,
   operationsStatusSchema,
-  previewHistorySchema,
   profileSettingsSchema,
+  readerEditionHistorySchema,
   topicSchema,
 } from '@digest/contracts';
 import { queryOptions } from '@tanstack/react-query';
@@ -56,8 +56,8 @@ export const editionHistoryQuery = (offset = 0) =>
     queryKey: ['editions', 'history', offset],
     queryFn: ({ signal }) =>
       read(
-        `/api/digest-previews?offset=${offset}`,
-        previewHistorySchema,
+        `/api/editions?offset=${offset}`,
+        readerEditionHistorySchema,
         signal,
       ),
   });

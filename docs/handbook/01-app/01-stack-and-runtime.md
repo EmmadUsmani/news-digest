@@ -85,8 +85,8 @@ all its changes. The baseline makes no schema or content changes.
 Reader endpoints `/api/editions/latest` and `/api/editions/:id` return saved
 content without scores, selection reasons, model details or candidate counts.
 `/api/editions?offset=0` lists 20 saved editions per page with dates and a
-next-page flag, excluding generation methods. The existing page uses the
-older endpoints until its reader/admin split.
+next-page flag, excluding generation methods. The browser uses this archive
+endpoint; edition details still use the older endpoints pending the admin split.
 
 ## Admin identity
 

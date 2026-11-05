@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 
-import { previewHistorySchema } from '@digest/contracts';
+import { readerEditionHistorySchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
 // Delay browser GET responses only. No writes or provider calls.
@@ -13,15 +13,19 @@ async function smoke() {
     ] as const) {
       for (const fail of [false, true]) {
         const page = await browser.newPage({ viewport: { width, height } });
-        const history = previewHistorySchema.parse(
+        const history = readerEditionHistorySchema.parse(
           await (
             await page.request.get(
-              'http://localhost:8000/api/digest-previews?offset=0',
+              'http://localhost:8000/api/editions?offset=0',
             )
           ).json(),
         );
         const entry = history.entries[1];
         assert.ok(entry, 'Need two real saved editions');
+        let handled!: () => void;
+        const delayedHandled = new Promise<void>((resolve) => {
+          handled = resolve;
+        });
         let release!: () => void;
         const blocked = new Promise<void>((resolve) => {
           release = resolve;
@@ -32,6 +36,7 @@ async function smoke() {
           await route.fulfill(
             fail ? { status: 503, body: '{}' } : { response },
           );
+          handled();
         });
         await page.goto('http://localhost:8000', {
           waitUntil: 'domcontentloaded',
@@ -43,9 +48,8 @@ async function smoke() {
         await selected.click();
         await page.waitForURL(`**/editions/${entry.id}`);
         assert.equal(await selected.getAttribute('aria-current'), 'page');
-        const delayed = page.waitForResponse('**/api/digest-previews/latest');
         release();
-        await delayed;
+        await delayedHandled;
         // Let the fetch continuation and React render settle after the delayed response.
         await page.waitForTimeout(250);
         assert.equal(await selected.getAttribute('aria-current'), 'page');
