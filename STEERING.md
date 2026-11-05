@@ -1196,3 +1196,51 @@ vendors or a change to the owner's decisions, without approval.
 
 All existing budgets and constraints still apply.
 
+## 39. NOW: make X search reliable, then finish the test (2026-11-05)
+
+On Nov 5, only 1 of 4 keyword searches ran. Tech worked: 10 posts, median 1,580
+likes, 2 usable, none in the free links. NBA's tool call failed, Gaming hit the
+60-second limit, and World's query was written but never run. Grok's queries
+looked good, so this is plumbing, and it blocks the decision. **This goes ahead of
+item 33.** Item 31's no-retry and hold rules are changed only as written here.
+
+1. **Reliability, in the experiment path and the switched-off schedule:**
+   - Make the search actually run. Check xAI's docs for a supported way to
+     require the tool, such as `tool_choice`, and use it if there is one.
+   - Raise the request time limit to 120 seconds.
+   - Retry a call **once** if it fetched no posts: tool failed, tool never ran,
+     or timed out. Admission and caps still apply to the retry. A search that
+     ran and found nothing is a valid result, so never retry that.
+2. **Accounting:**
+   - A response that returned token usage settles at its real cost, even when
+     `x_posts_fetched` is missing. Treat that as zero fetched.
+   - Settle the Nov 5 NBA and World holds from their saved usage. Append to the
+     journal, and don't rewrite evidence.
+   - Timeouts with no response keep their hold.
+3. **Rerun Nov 5's three failed keyword searches (NBA, Gaming, World),** on the
+   same Nov 4–5 window, once 1 and 2 are done. Do this after 00:00 UTC on Nov 6,
+   never between 13:00 and 16:00 UTC. About $0.20.
+4. **Fair semantic test in the Nov 6 round.** The Nov 5 queries were essentially
+   the topic description, with its "Exclude:" text and `-` operators. Grok
+   also returned an empty list, so likes were lost.
+   - The query should ask what's new and getting attention in the topic. Leave
+     out the description's exclusions and all operators.
+   - Pass the exact window, as the keyword search does.
+   - Return likes and other counts where the tool gives them.
+   - **Why it stays:** it's the only search that can find a post with no topic
+     word in it. If it still finds no popular posts that keywords missed, it's
+     dropped.
+5. **Decision rule:** the plan now says passing the scorer (relevance ≥ 6,
+   interestingness ≥ 4) counts as not a promotion. Don't report promotions as
+   unknown or wait on manual labels.
+
+**Result limit:** use what the tool allows, and report what it is. Nov 5 used 10.
+
+**Budget:** about $1.93 of the $2.50 in total, or less after settling. The $1.00
+per UTC day limit stands. If the budget runs short, keyword cells go first.
+
+**Timing:** the Nov 7 edition stays the earliest. The decision needs Nov 5 and
+Nov 6 data with all four keyword searches run, or a clear report of why not.
+**Ack** with the failure rate after these fixes, because it decides whether this
+can run in production.
+
