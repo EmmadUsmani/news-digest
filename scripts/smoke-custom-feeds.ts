@@ -77,6 +77,8 @@ async function smoke() {
       let disconnect = true;
       let failRefresh = false;
       let writes = 0;
+      let pendingSave: Promise<void> | undefined;
+      let releaseSave: (() => void) | undefined;
       const unexpectedWrites: string[] = [];
       await page.route('**/*', async (route) => {
         const request = route.request();
@@ -99,6 +101,7 @@ async function smoke() {
           }
           assert.equal(input.url, source.url);
           if (disconnect) return route.abort();
+          await pendingSave;
           if (fail) return route.fulfill({ status: 503, json: {} });
           topics = topics.map((topic) =>
             topic.id === target.id ? { ...topic, sources: [source.id] } : topic,
@@ -217,13 +220,62 @@ async function smoke() {
         path: `docs/screenshots/custom-feeds-network-${device}.png`,
       });
       disconnect = false;
+      pendingSave = new Promise<void>((resolve) => {
+        releaseSave = resolve;
+      });
       await connect.click();
+      const connecting = feed.getByRole('button', {
+        name: 'Connecting…',
+        exact: true,
+      });
+      await connecting.waitFor();
+      assert.ok(await connecting.isDisabled());
+      assert.ok(await name.isDisabled());
+      assert.ok(await url.isDisabled());
+      assert.ok(
+        await form
+          .getByRole('button', { name: 'Saving…', exact: true })
+          .isDisabled(),
+      );
+      assert.ok(
+        await form
+          .getByRole('button', { name: 'Close sources', exact: true })
+          .isDisabled(),
+      );
+      for (const checkbox of await form.getByRole('checkbox').all())
+        assert.ok(await checkbox.isDisabled());
+      const newsQuery = page.getByRole('form', {
+        name: `Add news query for ${target.name}`,
+        exact: true,
+      });
+      assert.ok(
+        await newsQuery.getByLabel('News query', { exact: true }).isDisabled(),
+      );
+      assert.ok(
+        await newsQuery
+          .getByRole('button', { name: 'Connecting…', exact: true })
+          .isDisabled(),
+      );
+      assert.equal(writes, 3);
+      assert.deepEqual(
+        topics.find((topic) => topic.id === target.id)!.sources,
+        [],
+      );
+      await feed.scrollIntoViewIfNeeded();
+      await feed.screenshot({
+        path: `docs/screenshots/custom-feeds-saving-${device}.png`,
+      });
+      releaseSave!();
+      pendingSave = undefined;
       await page
         .getByRole('status')
         .filter({ hasText: 'Could not connect feed.' })
         .waitFor();
       assert.equal(await name.inputValue(), source.name);
       assert.equal(await url.inputValue(), source.url);
+      assert.ok(await name.isEnabled());
+      assert.ok(await url.isEnabled());
+      assert.ok(await connect.isEnabled());
       await page.locator('.topic-settings').screenshot({
         path: `docs/screenshots/custom-feeds-failure-${device}.png`,
       });
@@ -290,7 +342,7 @@ async function smoke() {
         savedEdition,
       );
     console.log(
-      'Custom feeds desktop/mobile: validation response, uncertain network outcome, save failure, confirmed save with refresh failure, cleared fields, stored content, replay reload and disconnect passed; full live topics/profile/edition unchanged, browser writes guarded and credentials absent, no inference.',
+      'Custom feeds desktop/mobile: validation response, pending control locks and single request, uncertain network outcome, save failure, confirmed save with refresh failure, cleared fields, stored content, replay reload and disconnect passed; full live topics/profile/edition unchanged, browser writes guarded and credentials absent, no inference.',
     );
   } finally {
     await browser.close();

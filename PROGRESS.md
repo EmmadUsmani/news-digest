@@ -136,3 +136,12 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-news-queries.ts; smoke-admin-gate.ts; git diff --check. All passed (exit 0): static checks, 497 unit and 214 isolated integration tests, desktop/mobile browser replay, admin gate and diff check.
 - TASKS updated; archived iterations 793–794. SOURCES/NEEDS_FROM_HUMAN unchanged (no source changes/new blockers). Verification-only change; no rebuild/restart under STEERING 22.
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 810 — verify pending custom-feed connections
+
+- Started clean on main; no leftover work. Health/database/Redis and API/worker/docs/schema services active; 36 sources have successful collections and no current errors. Digest queue has no failures and next edition is 15:00 UTC. Metrics memory warning pending; retained ingestion/social failure counts remain two each, no failed recent runs.
+- Custom-feed desktop/mobile replay now holds a failed connection: feed fields, source checkboxes/save/close and news-query controls lock during exactly one request; unchanged replay selection verified. Failure restores editable retained entries; retry, reload and disconnect pass.
+- Protected snapshots prove full live topics/profile/edition unchanged; browser credential/write guards pass. Two new pending screenshots inspected; regenerated existing screenshots discarded. No live writes or paid calls.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-custom-feeds.ts; smoke-admin-gate.ts; git diff --check. All passed (exit 0): static checks, 497 unit and 214 isolated integration tests, desktop/mobile browser replay, admin gate and diff check.
+- TASKS updated; SOURCES/NEEDS_FROM_HUMAN unchanged (no source changes/new blockers). Verification-only change; no rebuild/restart under STEERING 22.
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
