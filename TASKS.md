@@ -5,7 +5,7 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Immediate owner priorities
 
-- [x] STEERING 35 reader text restored (738): AI summary or saved excerpt, no snapshot writes; Nov 4 NBA 5/5 non-empty via reader API and desktop/mobile screenshots, topic labels pass. Nov 5 scheduled NBA outcome remains FIRST when available at 15:00 UTC; investigate fallback before items 33/34.
+- [x] STEERING 35 reader text restored (738): AI summary or saved excerpt, no snapshot writes; Nov 4 NBA 5/5 non-empty via reader API and desktop/mobile screenshots, topic labels pass. All four topics’ saved titles/text and NBA labels now verified desktop/mobile light/dark with browser writes blocked and edition unchanged (764). Nov 5 scheduled NBA outcome remains FIRST when available at 15:00 UTC; investigate fallback before items 33/34.
 
 - [ ] STEERING 34 NOW: follow [X search plan](docs/x-search-plan.md). Query/runtime/preparation/runner/report/extractor/comparison migrated (720–725): fresh viral keywords, exact UTC windows, -giveaway, 16 viral/eight test-only semantic results, saved likes thresholds, explicit free-link novelty and eight-cell round coverage. Unknown evidence stays unknown; World reported separately. Grok 4.3 and caps unchanged; production fixed schedule off, no paid calls. Next scorer after Nov 5 edition; two fresh-window rounds after 21:00 UTC Nov 5/6, then same-day old-search baseline review and decision. Earliest production edition Nov 7; no round-1 analysis or model round.
 

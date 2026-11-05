@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 748 — protected shared-query browser checks
-
-- Started clean on main; no leftover work. Health/database/Redis green, all 36 sources healthy, no retained failed digest runs. Existing metrics memory warning firing; Nov 5 edition remains due at 15:00 UTC.
-- Shared-query browser verifier now reads protected content/topic/profile/status snapshots through bounded Node requests. Context-level replays survive removal of page-level malformed-response overrides, so recovery never falls back to legacy operational reads. Credentials remain outside the browser; no live writes or inference.
-- `pnpm exec tsx scripts/smoke-query-resources.ts` passed shared-request dedupe/cache across navigation, cached status retention/error/recovery and malformed content/health isolation with zero page errors. Four desktop/mobile screenshots refreshed; desktop query/mobile status visually inspected.
-- Updated TASKS, Operations and admin access decision. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema or model/provider/budget changes; healthy services remain running under STEERING 22.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, exit 0); pnpm build; check-handbook.ts 08-operations; git diff --check all passed. Final health green; reader latest serves four real topics.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback. Scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy checks and coordinated UI/legacy migration remain open.
-
 ## 2026-11-05: iteration 749 — source connections without production writes
 
 - Started clean on main; no leftover work. Health/database/Redis green, all 36 sources healthy, no failed digest runs; existing metrics memory warning pending. Nov 5 edition remains due at 15:00 UTC.
@@ -141,3 +132,12 @@
 - TASKS/Operations updated; archived iteration 747. SOURCES/NEEDS_FROM_HUMAN unchanged. No runtime/config/schema or model/provider changes; healthy services remain running under STEERING 22.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (497 unit/214 isolated integration, zero failures), `pnpm build`, `check-handbook.ts 08-operations` and `git diff --check` passed. Final /healthz green.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.
+
+## 2026-11-05: iteration 764 — saved story text in both themes
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, 36 sources healthy and no retained failed digest runs; Nov 5 edition remains due at 15:00 UTC.
+- Saved-story regression now checks every story title/text across all four Nov 4 topics, desktop/mobile and light/dark. NBA retains 5/5 non-empty summaries and clean reader labels. Browser API writes are blocked; bounded reader requests confirm the saved edition is unchanged.
+- `pnpm exec tsx scripts/smoke-reader-story-text.ts` passed all four viewport/theme combinations. Added dark desktop/mobile screenshots and refreshed mobile light; dark desktop/mobile visually inspected.
+- TASKS/Operations updated; archived iteration 748. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No live writes, paid calls, runtime/config/schema or model/provider changes; healthy services remain running under STEERING 22.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (497 unit/214 isolated integration, zero failures), `pnpm build`, `check-handbook.ts 08-operations` and `git diff --check` passed. Final /healthz green.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; owner identity configuration still blocks coordinated admin rollout.
