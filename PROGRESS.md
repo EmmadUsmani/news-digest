@@ -153,3 +153,13 @@
 - Rebuilt API restarted before 14:30 UTC; health green. Worker/schedule unchanged; browser snapshots prove live topics/profile/full edition unchanged. No paid calls or live data writes.
 - TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (keyboard focus fix, no new blocker).
 - Next FIRST: 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 843 — preserve source-save keyboard focus
+
+- Started clean on main; no leftover work. Health/database/Redis green and alerts clear; Nov 5 scheduled review remains due at 15:00 UTC.
+- Save sources restores focus after success, rejected saves and timeout so keyboard users can continue or retry.
+- Updated source-selection replay for current checkbox accessible names; desktop/mobile verifies Enter retry, saved focus, timeout recovery and unchanged live topics/profile/edition. Two focused-button screenshots inspected; unrelated regenerated images discarded.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit/214 isolated integration passed); smoke-topic-sources.ts and smoke-admin-gate.ts exit 0; git diff --check. Initial browser attempt preceded the rebuilt bundle; rerun against completed build passed.
+- Static web build served directly by healthy API; no service runtime code changed, so no restart under STEERING 22. Worker and scheduled edition untouched; no paid calls or live writes.
+- TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (keyboard fix, no new blocker).
+- Next FIRST: 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Source selection keyboard navigation (843): Save sources restores focus after success, failure and timeout; desktop/mobile replay verifies Enter retry without live writes.
+
 - [x] Topic availability keyboard navigation (842): Enable/Disable restores focus after success, failure and timeout; desktop/mobile replay verifies Enter retry and saved/live data isolation.
 
 - [x] Topic reorder keyboard navigation (841): restore an available move button after save/failure; moving to the first position focuses Down. Desktop/mobile replay verifies Enter continuation and saved/live data isolation.

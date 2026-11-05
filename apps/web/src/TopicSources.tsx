@@ -28,6 +28,13 @@ export function TopicSources({
   const [selected, setSelected] = React.useState(topic.sources);
   const [busy, setBusy] = React.useState(false);
   const [message, setMessage] = React.useState('');
+  const saveButton = React.useRef<HTMLButtonElement>(null);
+  const restoreSaveFocus = React.useRef(false);
+  React.useEffect(() => {
+    if (busy || !restoreSaveFocus.current) return;
+    saveButton.current?.focus();
+    restoreSaveFocus.current = false;
+  }, [busy]);
   React.useEffect(() => {
     let active = true;
     fetch('/api/topics/sources', { signal: AbortSignal.timeout(15_000) })
@@ -51,6 +58,7 @@ export function TopicSources({
   }, [catalogAttempt]);
   async function save(event: React.FormEvent) {
     event.preventDefault();
+    restoreSaveFocus.current = true;
     setBusy(true);
     setMessage('Saving source connections…');
     try {
@@ -202,7 +210,9 @@ export function TopicSources({
             replacement and disconnect the old feed. Social accounts are not
             available yet.
           </p>
-          <button type="submit">{busy ? 'Saving…' : 'Save sources'}</button>
+          <button ref={saveButton} type="submit">
+            {busy ? 'Saving…' : 'Save sources'}
+          </button>
         </fieldset>
         <button type="button" disabled={busy} onClick={onClose}>
           Close sources

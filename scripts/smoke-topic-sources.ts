@@ -152,7 +152,7 @@ async function smoke() {
         exact: true,
       });
       const checkbox = form.getByRole('checkbox', {
-        name: `${source.name} Feed`,
+        name: source.name,
         exact: true,
       });
       const save = form.getByRole('button', {
@@ -173,12 +173,21 @@ async function smoke() {
       await form.screenshot({
         path: `docs/screenshots/topic-sources-failure-${device}.png`,
       });
+      await page.waitForFunction(() =>
+        document.activeElement?.textContent?.includes('Save sources'),
+      );
       fail = false;
-      await save.click();
+      await page.keyboard.press('Enter');
       await form
         .getByRole('status')
         .filter({ hasText: 'Source connections saved.' })
         .waitFor();
+      await page.waitForFunction(() =>
+        document.activeElement?.textContent?.includes('Save sources'),
+      );
+      await save.screenshot({
+        path: `docs/screenshots/ui/source-save-focus-${device}.png`,
+      });
       const card = page.locator('.topic-grid article').filter({
         has: page.getByRole('heading', { name: target.name, exact: true }),
       });
@@ -239,6 +248,9 @@ async function smoke() {
         .filter({ hasText: 'Could not confirm whether sources were saved.' })
         .waitFor({ timeout: 20_000 });
       assert.equal(await save.isEnabled(), true);
+      await page.waitForFunction(() =>
+        document.activeElement?.textContent?.includes('Save sources'),
+      );
       assert.equal(await checkbox.isChecked(), false);
       assert.equal(writes, 5);
       assert.deepEqual(
