@@ -88,7 +88,8 @@ content without scores, selection reasons, model details or candidate counts.
 `/api/editions?offset=0` lists 20 saved editions per page with dates and a
 next-page flag, excluding generation methods. The browser uses these reader
 endpoints for both edition content and history. The reader makes no operational API requests. Existing management controls live
-at `/admin`; dedicated admin pages will replace them.
+at `/admin` inside shared desktop/mobile navigation; `/admin/tools` links the
+protected tools. Other dedicated admin pages are being built.
 
 ## Admin identity
 

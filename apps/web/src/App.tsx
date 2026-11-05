@@ -35,23 +35,8 @@ function AdminApp() {
   const { data: health, isError: healthError } = useQuery(healthQuery);
   const settingsError = topicsError || profileError;
   return (
-    <main>
-      <header>
-        <a href="/" aria-label="News Digest home">
-          ND<span> / News Digest</span>
-        </a>
-        <ThemeToggle />
-      </header>
+    <div>
       <section>
-        <p className="eyebrow">LESS SCROLLING. MORE CONTEXT.</p>
-        <h1>
-          Make time for
-          <br />
-          what matters.
-        </h1>
-        <p className="intro">
-          Your important stories, brought together in one thoughtful digest.
-        </p>
         <DigestPreview admin />
         <section className="topics" aria-label="Your topics">
           <p className="eyebrow">YOUR NEWS DESK</p>
@@ -168,7 +153,6 @@ function AdminApp() {
               : 'Checking system status…'}
         </aside>
       </section>
-      <footer>A little less noise. A clearer view.</footer>
-    </main>
+    </div>
   );
 }

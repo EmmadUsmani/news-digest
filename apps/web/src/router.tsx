@@ -10,6 +10,7 @@ import {
 } from '@tanstack/react-router';
 import { z } from 'zod';
 
+import { AdminLayout, AdminTools } from './AdminLayout';
 import { App } from './App';
 import {
   contentQuery,
@@ -104,14 +105,27 @@ const adminRoute = createRoute({
     const identity = await context.queryClient.fetchQuery(identityQuery);
     if (!identity.isAdmin) throw notFound();
   },
-  loader: ({ context }) => {
-    loadPageData({ context });
-  },
+  component: AdminLayout,
+});
+
+const adminOverviewRoute = createRoute({
+  getParentRoute: () => adminRoute,
+  path: '/',
+  loader: ({ context }) => loadPageData({ context }),
   component: () => <App admin />,
+});
+const adminToolsRoute = createRoute({
+  getParentRoute: () => adminRoute,
+  path: '/tools',
+  component: AdminTools,
 });
 
 export const router = createRouter({
-  routeTree: rootRoute.addChildren([latestRoute, editionRoute, adminRoute]),
+  routeTree: rootRoute.addChildren([
+    latestRoute,
+    editionRoute,
+    adminRoute.addChildren([adminOverviewRoute, adminToolsRoute]),
+  ]),
   context: { queryClient },
 });
 

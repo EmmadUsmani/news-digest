@@ -2,11 +2,11 @@
 
 ## URLs
 
-The reader is at `/`. Management controls are at `/admin`, without a reader
-navigation link. Operational APIs use `/api/admin/*`; old API paths return 404.
+Reader: `/`. Management: `/admin`, with Overview and Tools navigation (mobile menu).
+`/admin/tools` opens six protected tools in new tabs. APIs use `/api/admin/*`;
+old API paths return 404.
 `/admin`, its APIs and every tool below require
 [admin identity](01-stack-and-runtime.md#admin-identity). `/api/me` reports access.
-The VM remains private behind exe.dev login.
 Local scripts read `ADMIN_LOCAL_TOKEN` from the private env file and send it only
 to protected paths at `http://127.0.0.1:8000`, refusing redirects. Browser checks
 receive response bodies through Node; credentials never enter Playwright.

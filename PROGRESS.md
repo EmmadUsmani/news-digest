@@ -1,13 +1,3 @@
-## 2026-11-05: iteration 862 — preserve published links after worker requeue
-
-- Started clean on main; no leftover work. Alerts/health green, 36 sources healthy and no failed digest jobs. X rounds await 21:00 UTC; admin rollout awaits identity/proxy evidence.
-- Published on-demand editions now remain reader-ready when a stalled worker returns to waiting, delayed, paused or dependency-wait states, extending active-worker recovery. Unpublished jobs retain their state/progress.
-- Isolated queue integration simulates those four Redis states against fixture publication history and verifies the saved link, cleared progress/error, unknown duration and no extra generation. It also verifies unknown jobs retain progress; no real process-kill experiment.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (501 unit/215 isolated integration passed); pnpm build; check-handbook.ts 03-jobs-and-schedules (18 pages/2 diagrams, 27 tables); smoke-admin-gate.ts before/after restart; git diff --check.
-- API/worker restarted active; /healthz database/Redis OK, saved edition byte-identical, 36 healthy sources, zero alerts and failed digest jobs. No paid calls, UI/schema/source/budget changes.
-- Updated Jobs handbook/TASKS; archived iteration 848 to keep progress small. SOURCES, screenshots and NEEDS_FROM_HUMAN unchanged. Jobs lost before durable history remain unresolved.
-- Next: fresh-window X rounds after 21:00 UTC Nov 5/6; editor-v5 evidence Nov 6; durable unfinished history and admin identity/proxy rollout remain open.
-
 ## 2026-11-05: iteration 863 — explain accepted on-demand jobs lost from Redis
 
 - Started clean on main; no leftover work. Alerts/health green, 36 sources healthy, digest queue zero failures. X rounds await 21:00 UTC; admin rollout awaits owner identity/proxy evidence.
@@ -130,3 +120,14 @@
 - Final Grafana check found an active but stalled service: direct and proxied health timed out with sustained memory-high pressure. Restart restored direct/proxied health (200, database ok, no-store); no resource-limit changes.
 - Updated TASKS, access decision and affected runtime/Operations handbook; archived iterations 860–861. No paid calls, saved-edition/settings writes, new sources or schema changes; SOURCES/NEEDS_FROM_HUMAN unchanged.
 - Next: step 3 dedicated admin pages; X fresh-window rounds after 21:00 UTC Nov 5/6; review Nov 6 story grouping/editor-v5 and spend. Proxy forged-header check remains required before future public access; VM stays private.
+
+## 2026-11-05: iteration 875 — admin navigation and dedicated Tools page
+
+- Started clean on main; alerts clear, API/worker and /healthz healthy; no leftover work. All 36 sources active, returning items without errors; digest/social queues show completed runs.
+- Began UI step 3 with shared admin layout, desktop sidebar, active navigation and mobile shadcn/Radix sheet with keyboard dismissal. Overview retains unmigrated controls; removed its old hero, duplicate header and footer.
+- Added /admin/tools with six shadcn cards for Grafana, Logs, Metrics, Queues, DB explorer and Handbook; new tabs retain the existing server gate. Tools loads identity only, without operational API requests.
+- Extended Node-only browser document bridge to protected child routes; tokens stay outside the browser. Added repeatable smoke-admin-tools.ts and retained four Tools plus four updated Overview screenshots.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (505 unit/218 isolated integration passed); pnpm build and final web build; git diff --check. Handbook checks for Operations/runtime passed (18 pages, 1 diagram each, 28 schema tables); no diagrams changed.
+- Browser: smoke-admin-tools, smoke-admin-separation and smoke-admin-gate passed; desktop/mobile light/dark, deep reload, menu open/Escape/link dismissal, six links, no overflow/writes/browser credentials. Saved real edition unchanged. Visually checked Tools desktop light/mobile dark; corrected legacy heading styles before final captures.
+- API restarted for built web; worker unchanged under STEERING 22. Health/alerts clear; saved edition four topics/17 stories/14 posts. No paid calls, settings/edition writes, source or schema changes; SOURCES and NEEDS_FROM_HUMAN unchanged; archived iteration 862.
+- Next: continue dedicated admin pages (Overview, Editions/creation/inspector, Sources, Topics, Schedule, Spend), then reader. X fresh-window rounds after 21:00 UTC Nov 5/6; Nov 6 scheduled editorial review. Public proxy check remains deferred until public access.

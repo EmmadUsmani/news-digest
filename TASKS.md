@@ -4,7 +4,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
-- [ ] STEERING 36 NOW: forty-article grouping pool activated (872), ten-story editor cap unchanged. Actual World replay: Nov 4 1→10 editor inputs / 1→5 reviewed labels; Nov 5 3→10 inputs / 2→7 labels; four verification calls $0.005837. All-topic scenario $0.464371 within reserve. Review Nov 6 edition. Next finish UI step 2 and spec pages; coverage cleanup fixed in 873 (1.85 GB reclaimed). X rounds still due after 21:00 UTC.
+- [ ] STEERING 36 NOW: forty-article grouping pool activated (872), ten-story editor cap unchanged. Actual World replay: Nov 4 1→10 editor inputs / 1→5 reviewed labels; Nov 5 3→10 inputs / 2→7 labels; four verification calls $0.005837. All-topic scenario $0.464371 within reserve. Review Nov 6 edition. Next finish dedicated admin pages; coverage cleanup fixed in 873 (1.85 GB reclaimed). X rounds still due after 21:00 UTC.
 
 - [x] STEERING 35: saved reader text restored without snapshot writes (738); Nov 5 NBA now has five AI stories with text, verified desktop/mobile light/dark (847). No fallback investigation needed for this run.
 - [x] STEERING 13 / M3 scheduled full-AI acceptance (847): Nov 5 edition `7d99b279-cb6a-4cf0-b0a2-d94c5645f0b7`, all story/social sections AI, zero unscored; $0.315445/152.320 s, reserve released/zero holds. [Review](docs/edition-reviews/2026-11-05.md). Speed and editorial quality remain open below.
@@ -17,7 +17,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - [ ] STEERING 16 / M4 Social posts: Nov 5 X picks Tech/NBA/Gaming/World 3/5/5/1; all four topics present, no Bluesky picks. Saved X metrics empty: viral/outside-list quality acceptance remains open. Paid old open-search picks 1/19 (Tech); no claim that all-topic presence proves paid discovery quality.
 - [ ] STEERING 9/15 first-week report: Nov 5 $0.143191/19 fetched/18 new verified outside-list posts; World $0.032663/3, Gaming $0.038724/5, NBA $0.035104/5, Tech $0.036700/5. Prior Nov 3 $0.137056/18, Nov 4 $0.149447/19. Four topics weakest-first, $0.10 per-topic hold, unchanged $0.40/day/$12/month cap. [Sources](docs/SOURCES.md).
 - [ ] STEERING 18 Bluesky: authenticated hourly collection and session refresh verified (788); Nov 5 no selected posts. Quality/diversity acceptance remains open; World phrase shortlist empty. Cross-platform context/semantic gates shipped. [Sources](docs/SOURCES.md#sustained-bluesky-session-recovery--iteration-788-2026-11-05).
-- [ ] STEERING 33 UI rebuild: exactly [approved spec](docs/ui-spec.md), five steps in order. Foundations and step 2 admin gate complete: operational APIs moved, legacy routes removed, tools gated, scripts migrated. Reader makes no admin reads; existing controls live at `/admin` pending replacement.
+- [ ] STEERING 33 UI rebuild: exactly [approved spec](docs/ui-spec.md), five steps in order. Foundations and step 2 admin gate complete: operational APIs moved, legacy routes removed, tools gated, scripts migrated. Reader makes no admin reads; shared admin navigation and Tools shipped (875); other controls at `/admin` await replacement.
   - Next: step 3 dedicated admin pages with shadcn, then final reader. Private rollout authorized by STEERING 36; forged-header proxy check is required before any future public access. [Access decision](docs/decisions/2026-11-05-admin-access.md).
 - [ ] STEERING 28 incremental triage OFF: default-off runtime, shared admission, reserve-safe scoring, exact pools/cutoffs and sibling draining verified. Reassessed after full-AI acceptance (865): Nov 6 morning allowance $0.021736–$0.028915; only 2/65 early fingerprints compatible in post-publication pool. Keep OFF; do not reduce protection. Actual waste/latency unmeasured. [Assessment](docs/edition-reviews/2026-11-05-incremental-admission.md).
 
@@ -37,8 +37,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Admin gate rollout (874): operational APIs/tools protected together; reader/admin controls separated; local scripts use protected paths.
+- [x] Admin shell + Tools (875): shared sidebar/mobile sheet, protected tool cards, old admin hero removed.
 
-- [x] Test leftovers (873): per-run temporary root cleans Node coverage after success/failure; removed 21 inactive directories (1.85 GB).
+- [x] Admin gate rollout (874): operational APIs/tools protected together; reader/admin controls separated; local scripts use protected paths.
 
 - Next: X fresh-window rounds after 21:00 UTC Nov 5/6; scheduled editor-v5 evidence Nov 6. UI step 3 dedicated admin pages next; proxy check required before future public access.
