@@ -1,12 +1,23 @@
 // Protected live snapshot plus browser-only synthetic budget and job responses.
 import assert from 'node:assert/strict';
 
-import { operationsStatusSchema } from '@digest/contracts';
+import { operationsStatusSchema, readerEditionSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
 import { localAdminJson } from './lib/local-admin-fetch';
 
 async function main() {
+  const live = operationsStatusSchema.parse(
+    await localAdminJson('/api/admin/status'),
+  );
+  const readLatest = async () => {
+    const response = await fetch('http://localhost:8000/api/editions/latest', {
+      signal: AbortSignal.timeout(15000),
+    });
+    assert.equal(response.status, 200);
+    return readerEditionSchema.parse(await response.json());
+  };
+  const edition = await readLatest();
   const browser = await chromium.launch({ headless: true });
   try {
     for (const [name, width, height] of [
@@ -16,9 +27,16 @@ async function main() {
       const page = await browser.newPage({ viewport: { width, height } });
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
-      const live = operationsStatusSchema.parse(
-        await localAdminJson('/api/admin/status'),
-      );
+      page.setDefaultTimeout(15000);
+      const writes: string[] = [];
+      await page.route('**/api/**', (route) => {
+        const request = route.request();
+        if (!['GET', 'HEAD'].includes(request.method())) {
+          writes.push(`${request.method()} ${new URL(request.url()).pathname}`);
+          return route.abort();
+        }
+        return route.continue();
+      });
       await page.route('**/api/status', (route) =>
         route.fulfill({ json: live }),
       );
@@ -58,12 +76,14 @@ async function main() {
       synthetic.llm.scheduledReserve.otherAvailableMicros = 1234;
       let submissions = 0;
       await page.route('**/api/digest-previews/jobs', (route) => {
+        assert.equal(route.request().method(), 'POST');
         submissions++;
         return route.fulfill({ json: { id: '999999999' } });
       });
-      await page.route('**/api/digest-previews/jobs/999999999', (route) =>
-        route.fulfill({ json: { state: 'failed' } }),
-      );
+      await page.route('**/api/digest-previews/jobs/999999999', (route) => {
+        assert.equal(route.request().method(), 'GET');
+        return route.fulfill({ json: { state: 'failed' } });
+      });
       await page
         .getByRole('button', {
           name: 'Create edition · last 24 hours',
@@ -102,11 +122,13 @@ async function main() {
         ),
         true,
       );
+      assert.deepEqual(writes, []);
       assert.deepEqual(errors, []);
       await page.close();
     }
+    assert.deepEqual(await readLatest(), edition);
     console.log(
-      'Manual reserve: desktop/mobile live screenshots; synthetic protected, refreshed, released and unavailable states passed. No live jobs or inference.',
+      'Manual reserve: desktop/mobile live screenshots; synthetic protected, refreshed, released and unavailable states passed. Unexpected API writes blocked; saved reader edition unchanged. No live jobs or inference.',
     );
   } finally {
     await browser.close();
