@@ -1,24 +1,3 @@
-## 2026-11-05: iteration 845 — guide uncertain generation to saved editions
-
-- Started clean on main; no leftover work. Alerts clear and health/database/Redis green; Nov 5 scheduled review remains due at 15:00 UTC.
-- An uncertain manual-generation response now opens and focuses Browse saved editions, giving keyboard users access to saved results before retrying a possibly queued request.
-- Desktop/mobile smoke-edition-jobs.ts passed real queue deadline, interrupted response, focus/open state and Tab access to Open latest edition, no automatic resubmission, polling recovery, completion and failure; protected snapshots prove live topics/profile/full edition unchanged.
-- New desktop/mobile focus screenshots inspected; unrelated regenerated images discarded.
-- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit passed; first integration process ended 143 after 214 successful cases; pnpm test:integration rerun exited 0, 214 passed); smoke-admin-gate.ts passed; git diff --check.
-- Static UI served by healthy API; no service runtime changes, so no restart under STEERING 22. No paid calls or live writes.
-- TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (recovery accessibility fix, no new blocker).
-- Next FIRST: 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-
-## 2026-11-05: iteration 846 — preserve history-retry keyboard focus
-
-- Started clean on main; no leftover work. Alerts clear and health/database/Redis green.
-- Successful history retries focus Browse saved editions after the Retry button disappears; failed retries retain Retry focus.
-- smoke-history-refresh.ts passed desktop/mobile light/dark, including Enter retry failure, recovery focus, cached links and saved-edition immutability; new focus screenshots inspected desktop/mobile. No browser writes or errors.
-- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit/214 isolated integration passed); smoke-admin-gate.ts passed; git diff --check. Initial check caught replay formatting, corrected before the successful full run.
-- Static UI served by healthy API; no runtime service changes, so no restart under STEERING 22. No paid calls or live writes.
-- TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (keyboard fix, no new blocker).
-- Next FIRST: 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-
 ## 2026-11-05: iteration 847 — verify first scheduled full-AI edition
 
 - Started clean on main; no leftover work. Health/database/Redis green, alerts clear; scheduled edition took priority as it started at 15:00 UTC.
@@ -155,3 +134,13 @@
 - API/worker restarted active; health OK, saved edition byte-identical and alerts clear. Jobs lost before durable history remains a limitation; no paid calls, UI/schema/source/budget changes.
 - Updated Jobs handbook/TASKS; archived iteration 844 to keep progress small. SOURCES, screenshots and NEEDS_FROM_HUMAN unchanged.
 - Next: X fresh-window rounds after 21:00 UTC Nov 5/6; editor-v5 evidence Nov 6. Unfinished durable job history and admin identity/proxy rollout remain open.
+
+## 2026-11-05: iteration 860 — retain edition links after publication-side worker failures
+
+- Started clean on main; no leftover work. Alerts clear, all 36 sources healthy and no failed digest jobs; X rounds await 21:00 UTC and admin rollout awaits owner identity/proxy evidence.
+- Terminal on-demand status without a returned edition ID now checks durable history. A committed edition takes precedence over a retained queue failure, so its original link opens the saved edition without regeneration; retained duration is preserved.
+- Isolated integration extends the real BullMQ worker case: register a fixture publication then throw, persist the failure in Postgres, verify completed status/link before and after Redis removal. Existing genuine failures remain failed. No process-kill or live generation experiment.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (501 unit/215 isolated integration passed); pnpm build; check-handbook.ts 03-jobs-and-schedules (18 pages/2 diagrams, 27 tables); smoke-admin-gate.ts; git diff --check; /healthz; obs alerts/sources/jobs.
+- API/worker restarted active, health green, latest saved edition byte-identical, 36 healthy sources and zero alerts/failed digest jobs. No paid calls, UI/schema/source/budget changes.
+- Updated Jobs handbook/TASKS; archived iterations 845–846 to keep progress small. SOURCES, screenshots and NEEDS_FROM_HUMAN unchanged. Jobs lost before durable history remains a limitation.
+- Next: fresh-window X rounds after 21:00 UTC Nov 5/6; editor-v5 evidence Nov 6. Unfinished durable job history and admin identity/proxy rollout remain open.

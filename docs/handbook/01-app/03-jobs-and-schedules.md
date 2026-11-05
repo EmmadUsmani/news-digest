@@ -104,6 +104,8 @@ Redis counter reset. Existing numeric job links continue to work.
   The worker records terminal failure events immediately and scans retained
   failed jobs every 10 seconds to recover after downtime, including terminal
   stalls that bypass generation error handling. Exception text is never stored.
+- **Saved editions:** a committed edition remains available from its job link
+  even if the worker fails before acknowledging completion.
 - **Progress connection:** a status request times out after 15 seconds. The
   page reconnects to the same job after a timeout or invalid status response;
   generation continues in the worker.

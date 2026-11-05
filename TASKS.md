@@ -34,5 +34,5 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Mid-read pruning recovery (859): saved/failed job links recover from durable history when Redis removes a job during state inspection or terminal-field refresh. Unknown jobs retain observed queue status; no regeneration.
+- [x] Post-publication failure recovery (860): retained failed jobs link to their committed edition when worker completion acknowledgement fails; durable publication takes precedence before and after Redis pruning, without regeneration.
 - Next: X fresh-window rounds after 21:00 UTC Nov 5/6; scheduled editor-v5 evidence Nov 6. Unfinished job history and admin identity/proxy rollout remain open.

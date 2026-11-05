@@ -229,9 +229,12 @@ void test('async edition requests dedupe while active, publish once and allow la
     await assert.rejects(controller.job('invalid'));
     await assert.rejects(controller.job('999999999999'));
     await worker.close();
+    let publishBeforeFailure = false;
     const failing = new Worker(
       jobs.queue.name,
-      async () => {
+      async (job) => {
+        if (publishBeforeFailure)
+          publications.set(`on-demand:${job.id}`, snapshot);
         throw new Error('private provider response');
       },
       { connection },
@@ -269,6 +272,26 @@ void test('async edition requests dedupe while active, publish once and allow la
       const retried = await controller.enqueue(request);
       assert.notEqual(retried.id, failed.id);
       await waitFor(retried.id, 'failed');
+      // The queue can fail after publication commits but before completion is
+      // acknowledged. The retained failure must still link to the saved edition.
+      publishBeforeFailure = true;
+      const published = await controller.enqueue(request);
+      for (let attempt = 0; attempt < 200; attempt++) {
+        if ((await jobs.queue.getJob(published.id))?.finishedOn) break;
+        await new Promise((resolve) => setTimeout(resolve, 10));
+      }
+      const publishedJob = (await jobs.queue.getJob(published.id))!;
+      assert.equal(await publishedJob.getState(), 'failed');
+      await reconcileFailedOnDemandJob(failures, publishedJob);
+      assert.ok(await failures.find(published.id));
+      const saved = await controller.job(published.id);
+      assert.equal(saved.state, 'completed');
+      assert.equal(saved.editionId, snapshot.id);
+      assert.equal(saved.error, null);
+      assert.ok(saved.durationMs! >= 0);
+      await publishedJob.remove();
+      assert.equal((await controller.job(published.id)).editionId, snapshot.id);
+      assert.equal(calls, 2);
     } finally {
       await failing.close();
     }

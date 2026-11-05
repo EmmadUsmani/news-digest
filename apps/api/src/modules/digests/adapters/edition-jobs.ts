@@ -108,6 +108,20 @@ export class BullEditionJobs extends EditionJobs implements OnModuleDestroy {
       typeof result.editionId === 'string'
         ? result.editionId
         : null;
+    // Publication can commit before the worker loses its lock or fails to
+    // acknowledge completion. A saved edition is authoritative in either case.
+    if ((state === 'failed' || state === 'completed') && !editionId) {
+      const recovered = await this.recover(job.id!);
+      if (recovered?.state === 'completed') {
+        return {
+          ...recovered,
+          durationMs:
+            job.processedOn && job.finishedOn
+              ? job.finishedOn - job.processedOn
+              : null,
+        };
+      }
+    }
     return {
       id: job.id!,
       state,
