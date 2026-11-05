@@ -140,3 +140,4 @@
 - Rebuilt/restarted API, worker, docs and schema services; health database/Redis green. Real saved reader edition returns four topics/17 stories; 36 sources healthy, success through 23:50 UTC; next edition Nov 6 15:00 UTC.
 - Updated TASKS, SOURCES, experiment notes and social handbook; archived iteration 891 to keep PROGRESS small. NEEDS_FROM_HUMAN unchanged.
 - Next: tool-failure/no-execution retry and switched-off scheduler retry, then authorized three failed Nov 5 keyword reruns after Nov 6 00:00 UTC. Fair semantic query and fresh Nov 6 round follow. Fixed production search remains off.
+- First push rejected for incoming owner workflow commits; fetched/merged without rewriting history. New Current order keeps X reliability first. Owner files unchanged by this iteration; post-merge formatting/lint/handbook verification before repush.
