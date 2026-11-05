@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] News-query recovery verification (832): desktop/mobile replay covers a completed query POST timing out, retained input, unlocked controls and reload recovery without a second POST.
+
 - [x] Feed connection deadline (831): custom feed/query POST releases controls after 15 seconds; desktop/mobile replay recovers a saved feed on reload without another POST.
 
 - [x] Source selection deadline (830): stalled connection saves release controls after 15 seconds; desktop/mobile replay recovers completed saves on reload without another PUT.

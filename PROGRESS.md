@@ -134,3 +134,13 @@
 - Browser writes replayed; protected live topics/profile/full edition unchanged; no paid calls. Rebuilt API restarted; worker/schedule unchanged.
 - TASKS updated; progress 815–817 archived to keep orientation small. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadline only, no new blocker).
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 832 — verify news-query timeout recovery
+
+- Started clean on main; no leftover work. Alerts clear, API/worker active, health/database/Redis green; scheduled Nov 5 review remains due at 15:00 UTC.
+- Extended smoke-custom-feeds.ts to exercise the separate news-query POST with an exact request body and a completed browser-only connection whose response stalls past the real 15-second deadline.
+- Desktop/mobile assertions verify locked pending controls, released controls after timeout, retained query, stale unconfirmed selection, and saved selection recovered on reload without repeating the POST. Both new timeout screenshots inspected.
+- Fixed the new check's pending-button locator after its initial failure. Final browser run printed complete success and proved protected live topics/profile/full edition unchanged; process then returned signal 143 during teardown (not a clean exit).
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit/214 isolated integration passed); smoke-admin-gate.ts passed; git diff --check. No production code changed, paid calls or live writes.
+- TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (verification only). API restart and post-restart health/alerts checked; worker/schedule unchanged.
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, then scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification pending. Investigate browser teardown signal if repeated.

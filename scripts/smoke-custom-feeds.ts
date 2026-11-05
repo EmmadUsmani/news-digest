@@ -118,6 +118,19 @@ async function smoke() {
           });
         }
         if (
+          path === `/api/topics/${target.id}/queries` &&
+          request.method() === 'POST'
+        ) {
+          assert.deepEqual(request.postDataJSON(), {
+            query: 'basketball OR playoffs',
+          });
+          writes++;
+          topics = topics.map((topic) =>
+            topic.id === target.id ? { ...topic, sources: [source.id] } : topic,
+          );
+          return; // Completed browser replay; hold response past the real deadline.
+        }
+        if (
           path === `/api/topics/${target.id}/sources` &&
           request.method() === 'PUT'
         ) {
@@ -406,6 +419,62 @@ async function smoke() {
       );
       await card.locator('.headlines a').first().waitFor();
       assert.equal(writes, 6, 'Reload must not repeat the POST');
+      await checkbox.uncheck();
+      await save.click();
+      await form
+        .getByRole('status')
+        .filter({
+          hasText: 'Source connections saved.',
+        })
+        .waitFor();
+      const queryInput = newsQuery.getByLabel('News query', { exact: true });
+      const connectQuery = newsQuery.getByRole('button', {
+        name: 'Connect news query',
+        exact: true,
+      });
+      await queryInput.fill('basketball OR playoffs');
+      await connectQuery.click();
+      await newsQuery
+        .getByRole('button', {
+          name: 'Connecting…',
+          exact: true,
+        })
+        .waitFor();
+      assert.ok(await queryInput.isDisabled());
+      assert.ok(
+        await feed
+          .getByRole('button', { name: 'Connecting…', exact: true })
+          .isDisabled(),
+      );
+      await form
+        .getByRole('status')
+        .filter({
+          hasText: 'Could not confirm the feed connection.',
+        })
+        .waitFor({ timeout: 20_000 });
+      assert.ok(await connectQuery.isEnabled());
+      assert.ok(await queryInput.isEnabled());
+      assert.equal(await queryInput.inputValue(), 'basketball OR playoffs');
+      assert.ok(!(await checkbox.isChecked()));
+      await queryInput.scrollIntoViewIfNeeded();
+      await page.screenshot({
+        path: `docs/screenshots/ui/news-query-timeout-${device}.png`,
+      });
+      await page.reload();
+      await page.getByText('Manage topics', { exact: true }).click();
+      await open.click();
+      await checkbox.waitFor();
+      assert.ok(
+        await checkbox.isChecked(),
+        'Reload recovers completed query connection',
+      );
+      assert.equal(await queryInput.inputValue(), '');
+      assert.equal(
+        writes,
+        8,
+        'Query timeout and reload must not repeat the POST',
+      );
+
       assert.deepEqual(unexpectedWrites, []);
       assert.deepEqual(errors, []);
       assert.deepEqual(credentials, []);
@@ -426,7 +495,7 @@ async function smoke() {
         savedEdition,
       );
     console.log(
-      'Custom feeds desktop/mobile: initial catalog real timeout/retry, confirmed-save catalog real timeout/retry without another write or lost entries, validation response, pending control locks and single request, uncertain network outcome, save failure, confirmed save with refresh failure, cleared fields, stored content, replay reload, disconnect and completed POST with real timeout releasing controls and recovered without another write passed; full live topics/profile/edition unchanged, browser writes guarded and credentials absent, no inference.',
+      'Custom feeds desktop/mobile: initial catalog real timeout/retry, confirmed-save catalog real timeout/retry without another write or lost entries, validation response, pending control locks and single request, uncertain network outcome, save failure, confirmed save with refresh failure, cleared fields, stored content, replay reload, disconnect, completed news-query POST with retained input and reload recovery, and completed feed POST with real timeout releasing controls and recovered without another write passed; full live topics/profile/edition unchanged, browser writes guarded and credentials absent, no inference.',
     );
   } finally {
     await browser.close();
