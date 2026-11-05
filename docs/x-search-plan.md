@@ -87,8 +87,10 @@ labelled as unverified hints. Bluesky is unchanged.
 
 1. **Fix the query.** Build the design above in the experiment path and the
    switched-off schedule. No paid calls.
-2. **Fix the scorer,** only after the Nov 5 edition. New inputs change cache
-   keys, so don't risk the budget before that run.
+2. **Fix the scorer,** only after the Nov 5 edition. Completed in iteration
+   848: author, unverified reported likes and media-link hints now enter each
+   X candidate fingerprint; cache-only tooling shares the mapping. Unknown
+   values stay unknown. Bluesky inputs are unchanged.
 3. **Run two test rounds:** after 21:00 UTC on Nov 5 and on Nov 6, each on a
    fresh, non-overlapping 24-hour window.
    - **Per topic, per round:**

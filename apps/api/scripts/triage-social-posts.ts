@@ -3,6 +3,7 @@ import { llmConfig } from '../src/modules/curation/adapters/config';
 import { CandidateTriage } from '../src/modules/curation/application/triage';
 import { configuredLlmLedger } from '../src/modules/curation/public/ledger';
 import { PostgresSocialRepository } from '../src/modules/social/database/social.repository';
+import { socialTriageCandidate } from '../src/modules/social/public/editorial-selection';
 import { selectTopicPosts } from '../src/modules/social/public/selection';
 import { PostgresTopicRepository } from '../src/modules/topics/database/topic.repository';
 
@@ -43,12 +44,7 @@ async function main() {
         topic.postBudget > 0 ? 200 : 0,
         'semantic-candidates',
       );
-      const candidates = posts.map((post) => ({
-        id: post.externalId,
-        title: 'Verified X post',
-        excerpt: post.text,
-        sources: [],
-      }));
+      const candidates = posts.map(socialTriageCandidate);
       const result = await triage.score(
         {
           id: topic.id,

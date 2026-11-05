@@ -44,6 +44,10 @@ flowchart LR
   `report-x-week.ts` (seven days) show spend and new verified posts by topic
   and search type, including posts from authors outside the account lists.
 
+X triage receives the author, reported likes when available (labelled as
+unverified hints), and whether the verified text includes a media link. Missing
+counts and media stay unknown; a link supplies no evidence of media contents.
+
 ## How Bluesky posts are found
 
 - **Collected hourly** through the official API, using the owner's app

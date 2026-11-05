@@ -132,6 +132,12 @@ export const selectedPostSchema = z.object({
   text: z.string(),
   displayText: z.string().max(20000).optional(),
   metrics: z.record(z.string(), z.number()),
+  xTriageEvidence: z
+    .object({
+      reportedLikes: z.number().int().nonnegative().optional(),
+      media: z.enum(['linked', 'unknown']),
+    })
+    .optional(),
   xSearchRanking: z
     .object({ bonus: z.number().min(0).max(2), reason: z.string() })
     .optional(),

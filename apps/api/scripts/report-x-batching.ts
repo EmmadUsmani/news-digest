@@ -5,6 +5,7 @@ import { drizzle } from 'drizzle-orm/node-postgres';
 
 import { database } from '../src/libs/db/connections';
 import { topics } from '../src/libs/db/schema';
+import { socialTriageCandidate } from '../src/modules/social/public/editorial-selection';
 import { selectTopicPosts } from '../src/modules/social/public/selection';
 import { evaluateTriageBatching } from './evaluate-triage-batching';
 
@@ -44,12 +45,7 @@ async function main() {
           topic.postBudget > 0 ? 200 : 0,
           'semantic-candidates',
         );
-        const candidates = posts.map((post) => ({
-          id: post.externalId,
-          title: 'Verified X post',
-          excerpt: post.text,
-          sources: [],
-        }));
+        const candidates = posts.map(socialTriageCandidate);
         const context = {
           id: topic.id,
           name: topic.name,

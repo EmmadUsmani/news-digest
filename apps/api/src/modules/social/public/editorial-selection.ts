@@ -58,6 +58,28 @@ function preferX<T extends EditorialPost>(
 const editorialId = (post: EditorialPost) =>
   post.platform === 'x' ? post.externalId : `reddit:${post.externalId}`;
 
+// Keep production and cache-only probes on exactly the same input fingerprint.
+export function socialTriageCandidate(post: EditorialPost) {
+  return {
+    id: editorialId(post),
+    title:
+      post.platform === 'x'
+        ? JSON.stringify({
+            platform: 'X',
+            author: post.author.slice(0, 200),
+            reportedLikes: post.xTriageEvidence?.reportedLikes ?? 'unknown',
+            likesEvidence: 'unverified hint, not official metrics',
+            media:
+              post.xTriageEvidence?.media === 'linked'
+                ? 'media link present; contents unknown'
+                : 'unknown',
+          })
+        : 'Reddit post',
+    excerpt: post.text,
+    sources: [],
+  };
+}
+
 // Candidates have already passed verified-storage, scope, window, exclusions
 // and conservative text/link deduplication. Incomplete AI coverage preserves the fallback.
 export async function editTopicPosts<T extends EditorialPost>(
@@ -97,12 +119,7 @@ export async function editTopicPosts<T extends EditorialPost>(
   if (!services) return result;
   const triage = await services.socialTriage.score(
     topic,
-    candidates.map((p) => ({
-      id: editorialId(p),
-      title: p.platform === 'x' ? 'Verified X post' : 'Reddit post',
-      excerpt: p.text,
-      sources: [],
-    })),
+    candidates.map(socialTriageCandidate),
     runId,
   );
   editorial.triage = triage.scores;

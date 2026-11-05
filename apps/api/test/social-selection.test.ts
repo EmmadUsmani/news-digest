@@ -440,6 +440,10 @@ void test('X selection uses latest topic engagement at cutoff and ascending call
     assert.match(selected.xSearchRanking!.reason, /2026-10-23T17:00:00-07:00/);
     assert.ok(selected.xSearchRanking!.bonus > 0);
     assert.deepEqual(selected.metrics, {}); // Reported counts never become verified metrics.
+    assert.deepEqual(selected.xTriageEvidence, {
+      reportedLikes: 111,
+      media: 'unknown',
+    });
     await db.query('DELETE FROM x_search_citations WHERE call_id=$1', [
       callIds[0],
     ]);
@@ -451,6 +455,7 @@ void test('X selection uses latest topic engagement at cutoff and ascending call
     await db.query('DELETE FROM x_search_citations WHERE call_id=$1', [
       callIds[2],
     ]);
+    assert.deepEqual((await select())[0].xTriageEvidence, { media: 'unknown' });
     assert.deepEqual((await select())[0].xSearchRanking, {
       bonus: 0,
       reason:

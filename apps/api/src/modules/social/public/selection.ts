@@ -64,6 +64,17 @@ export async function selectTopicPosts(
       displayText: officialPostDisplayText(row.embedHtml),
       metrics: { ...row.metrics },
       xSearchRanking: signal,
+      xTriageEvidence: {
+        ...(signal.reason.startsWith('Unverified xai_search') &&
+        row.reportedEngagement?.likes !== undefined
+          ? { reportedLikes: row.reportedEngagement.likes }
+          : {}),
+        media: /\bpic\.twitter\.com\//i.test(
+          officialPostDisplayText(row.embedHtml),
+        )
+          ? 'linked'
+          : 'unknown',
+      },
       reasons: [
         assessment.reason,
         signal.reason,

@@ -6,6 +6,7 @@ import type { SelectedPost } from '@digest/contracts';
 import {
   editTopicPosts,
   type SocialSelectionServices,
+  socialTriageCandidate,
 } from '../src/modules/social/public/editorial-selection';
 
 const topic = {
@@ -539,4 +540,30 @@ void test('completed triage rejecting every post stays empty without claiming fi
     );
     assert.match(result.postEditorial.reason, /no final editor call/);
   }
+});
+
+void test('X triage includes bounded author, unverified likes and media hints without inventing missing counts', () => {
+  const known = socialTriageCandidate({
+    ...posts[0],
+    author: 'Fixture reporter',
+    xTriageEvidence: { reportedLikes: 1700, media: 'linked' },
+  });
+  const title = JSON.parse(known.title);
+  assert.equal(title.author, 'Fixture reporter');
+  assert.equal(title.reportedLikes, 1700);
+  assert.match(title.likesEvidence, /unverified/);
+  assert.match(title.media, /contents unknown/);
+  assert.equal(known.excerpt, posts[0].text);
+  const missing = JSON.parse(socialTriageCandidate(posts[0]).title);
+  assert.equal(missing.reportedLikes, 'unknown');
+  assert.equal(missing.media, 'unknown');
+  assert.equal(
+    JSON.parse(
+      socialTriageCandidate({
+        ...posts[0],
+        xTriageEvidence: { reportedLikes: 0, media: 'unknown' },
+      }).title,
+    ).reportedLikes,
+    0,
+  );
 });
