@@ -1,0 +1,646 @@
+[
+  {
+    "purpose": "candidate-triage-v1",
+    "model": "claude-haiku-5-5",
+    "durationMs": 16336,
+    "outcome": "success",
+    "usage": {
+      "input": 7658,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 4590
+    },
+    "outputLimit": 8254,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "model": "claude-haiku-5-5",
+    "durationMs": 17119,
+    "outcome": "success",
+    "usage": {
+      "input": 8478,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 4603
+    },
+    "outputLimit": 8254,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "model": "claude-haiku-5-5",
+    "durationMs": 17686,
+    "outcome": "success",
+    "usage": {
+      "input": 11668,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 4564
+    },
+    "outputLimit": 8254,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "model": "claude-haiku-5-5",
+    "durationMs": 19096,
+    "outcome": "success",
+    "usage": {
+      "input": 8764,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 5509
+    },
+    "outputLimit": 8254,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "model": "claude-haiku-5-5",
+    "durationMs": 12059,
+    "outcome": "success",
+    "usage": {
+      "input": 11178,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 3170
+    },
+    "outputLimit": 8254,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "model": "claude-haiku-5-5",
+    "durationMs": 17174,
+    "outcome": "success",
+    "usage": {
+      "input": 8531,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 4765
+    },
+    "outputLimit": 8254,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "model": "claude-haiku-5-5",
+    "durationMs": 18751,
+    "outcome": "success",
+    "usage": {
+      "input": 11810,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 4760
+    },
+    "outputLimit": 8254,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "model": "claude-haiku-5-5",
+    "durationMs": 22014,
+    "outcome": "success",
+    "usage": {
+      "input": 9725,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 5618
+    },
+    "outputLimit": 8254,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "model": "claude-haiku-5-5",
+    "durationMs": 19838,
+    "outcome": "success",
+    "usage": {
+      "input": 11992,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 4806
+    },
+    "outputLimit": 8254,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "model": "claude-haiku-5-5",
+    "durationMs": 15018,
+    "outcome": "success",
+    "usage": {
+      "input": 6806,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 3659
+    },
+    "outputLimit": 6450,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "model": "claude-haiku-5-5",
+    "durationMs": 17513,
+    "outcome": "success",
+    "usage": {
+      "input": 12444,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 4546
+    },
+    "outputLimit": 8254,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "model": "claude-haiku-5-5",
+    "durationMs": 21274,
+    "outcome": "success",
+    "usage": {
+      "input": 9192,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 5664
+    },
+    "outputLimit": 7926,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "story-grouping-v3",
+    "model": "claude-haiku-5-5",
+    "durationMs": 3930,
+    "outcome": "success",
+    "usage": {
+      "input": 2112,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 385
+    },
+    "outputLimit": 4096,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "model": "claude-haiku-5-5",
+    "durationMs": 16515,
+    "outcome": "success",
+    "usage": {
+      "input": 7649,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 4655
+    },
+    "outputLimit": 7926,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "story-grouping-v3",
+    "model": "claude-haiku-5-5",
+    "durationMs": 4853,
+    "outcome": "success",
+    "usage": {
+      "input": 2864,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 980
+    },
+    "outputLimit": 4096,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "model": "claude-haiku-5-5",
+    "durationMs": 18478,
+    "outcome": "success",
+    "usage": {
+      "input": 6981,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 5213
+    },
+    "outputLimit": 8254,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "candidate-triage-v1",
+    "model": "claude-haiku-5-5",
+    "durationMs": 20114,
+    "outcome": "success",
+    "usage": {
+      "input": 7288,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 4983
+    },
+    "outputLimit": 8254,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "story-grouping-v3",
+    "model": "claude-haiku-5-5",
+    "durationMs": 5028,
+    "outcome": "success",
+    "usage": {
+      "input": 2529,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 632
+    },
+    "outputLimit": 4096,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "story-grouping-v3",
+    "model": "claude-haiku-5-5",
+    "durationMs": 3249,
+    "outcome": "success",
+    "usage": {
+      "input": 1791,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 347
+    },
+    "outputLimit": 4096,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "shortlist-editor-v4",
+    "model": "claude-sonnet-5-5",
+    "durationMs": 8141,
+    "outcome": "success",
+    "usage": {
+      "input": 1180,
+      "cacheWrite": 966,
+      "cacheRead": 0,
+      "output": 1176
+    },
+    "outputLimit": 4000,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "shortlist-editor-v4",
+    "model": "claude-sonnet-5-5",
+    "durationMs": 10375,
+    "outcome": "success",
+    "usage": {
+      "input": 674,
+      "cacheWrite": 0,
+      "cacheRead": 966,
+      "output": 1052
+    },
+    "outputLimit": 4000,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "shortlist-editor-v4",
+    "model": "claude-sonnet-5-5",
+    "durationMs": 12132,
+    "outcome": "success",
+    "usage": {
+      "input": 1508,
+      "cacheWrite": 0,
+      "cacheRead": 966,
+      "output": 1753
+    },
+    "outputLimit": 4000,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "shortlist-editor-v4",
+    "model": "claude-sonnet-5-5",
+    "durationMs": 5575,
+    "outcome": "success",
+    "usage": {
+      "input": 851,
+      "cacheWrite": 0,
+      "cacheRead": 966,
+      "output": 824
+    },
+    "outputLimit": 4000,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "social-triage-v1",
+    "model": "claude-haiku-5-5",
+    "durationMs": 4254,
+    "outcome": "success",
+    "usage": {
+      "input": 1383,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 894
+    },
+    "outputLimit": 1400,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "shortlist-editor-v4",
+    "model": "claude-sonnet-5-5",
+    "durationMs": 21337,
+    "outcome": "success",
+    "usage": {
+      "input": 1753,
+      "cacheWrite": 0,
+      "cacheRead": 966,
+      "output": 2699
+    },
+    "outputLimit": 4000,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "social-editor-v2",
+    "model": "claude-sonnet-5-5",
+    "durationMs": 4194,
+    "outcome": "success",
+    "usage": {
+      "input": 497,
+      "cacheWrite": 746,
+      "cacheRead": 0,
+      "output": 398
+    },
+    "outputLimit": 4000,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "shortlist-editor-v4",
+    "model": "claude-sonnet-5-5",
+    "durationMs": 19185,
+    "outcome": "success",
+    "usage": {
+      "input": 1364,
+      "cacheWrite": 0,
+      "cacheRead": 966,
+      "output": 1901
+    },
+    "outputLimit": 4000,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "shortlist-editor-v4",
+    "model": "claude-sonnet-5-5",
+    "durationMs": 9286,
+    "outcome": "success",
+    "usage": {
+      "input": 1685,
+      "cacheWrite": 0,
+      "cacheRead": 966,
+      "output": 1421
+    },
+    "outputLimit": 4000,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "social-triage-v1",
+    "model": "claude-haiku-5-5",
+    "durationMs": 1729,
+    "outcome": "success",
+    "usage": {
+      "input": 739,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 191
+    },
+    "outputLimit": 1400,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "social-editor-v2",
+    "model": "claude-sonnet-5-5",
+    "durationMs": 5511,
+    "outcome": "success",
+    "usage": {
+      "input": 678,
+      "cacheWrite": 0,
+      "cacheRead": 746,
+      "output": 563
+    },
+    "outputLimit": 4000,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "shortlist-editor-v4",
+    "model": "claude-sonnet-5-5",
+    "durationMs": 16225,
+    "outcome": "success",
+    "usage": {
+      "input": 1930,
+      "cacheWrite": 0,
+      "cacheRead": 966,
+      "output": 2340
+    },
+    "outputLimit": 4000,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "social-triage-v1",
+    "model": "claude-haiku-5-5",
+    "durationMs": 17114,
+    "outcome": "success",
+    "usage": {
+      "input": 6330,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 4746
+    },
+    "outputLimit": 8254,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "social-triage-v1",
+    "model": "claude-haiku-5-5",
+    "durationMs": 20177,
+    "outcome": "success",
+    "usage": {
+      "input": 6046,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 5684
+    },
+    "outputLimit": 8254,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "social-triage-v1",
+    "model": "claude-haiku-5-5",
+    "durationMs": 6351,
+    "outcome": "success",
+    "usage": {
+      "input": 2102,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 1455
+    },
+    "outputLimit": 2022,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "social-triage-v1",
+    "model": "claude-haiku-5-5",
+    "durationMs": 16458,
+    "outcome": "success",
+    "usage": {
+      "input": 7272,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 3747
+    },
+    "outputLimit": 6122,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "social-editor-v2",
+    "model": "claude-sonnet-5-5",
+    "durationMs": 4742,
+    "outcome": "success",
+    "usage": {
+      "input": 2004,
+      "cacheWrite": 0,
+      "cacheRead": 746,
+      "output": 577
+    },
+    "outputLimit": 4000,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "bluesky-social-editor-v1",
+    "model": "claude-haiku-5-5",
+    "durationMs": 4728,
+    "outcome": "success",
+    "usage": {
+      "input": 2022,
+      "cacheWrite": 812,
+      "cacheRead": 0,
+      "output": 956
+    },
+    "outputLimit": 4000,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "social-editor-v2",
+    "model": "claude-sonnet-5-5",
+    "durationMs": 8232,
+    "outcome": "success",
+    "usage": {
+      "input": 2020,
+      "cacheWrite": 0,
+      "cacheRead": 746,
+      "output": 1042
+    },
+    "outputLimit": 4000,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "social-editor-v2",
+    "model": "claude-sonnet-5-5",
+    "durationMs": 9766,
+    "outcome": "success",
+    "usage": {
+      "input": 1427,
+      "cacheWrite": 0,
+      "cacheRead": 746,
+      "output": 1180
+    },
+    "outputLimit": 4000,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "bluesky-social-editor-v1",
+    "model": "claude-haiku-5-5",
+    "durationMs": 5613,
+    "outcome": "success",
+    "usage": {
+      "input": 2046,
+      "cacheWrite": 0,
+      "cacheRead": 812,
+      "output": 1106
+    },
+    "outputLimit": 4000,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "social-editor-v2",
+    "model": "claude-sonnet-5-5",
+    "durationMs": 9214,
+    "outcome": "success",
+    "usage": {
+      "input": 2188,
+      "cacheWrite": 0,
+      "cacheRead": 746,
+      "output": 1129
+    },
+    "outputLimit": 4000,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "social-editor-v2",
+    "model": "claude-sonnet-5-5",
+    "durationMs": 8484,
+    "outcome": "success",
+    "usage": {
+      "input": 2201,
+      "cacheWrite": 0,
+      "cacheRead": 746,
+      "output": 1078
+    },
+    "outputLimit": 4000,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "social-editor-v2",
+    "model": "claude-haiku-5-5",
+    "durationMs": 6544,
+    "outcome": "success",
+    "usage": {
+      "input": 1427,
+      "cacheWrite": 746,
+      "cacheRead": 0,
+      "output": 1326
+    },
+    "outputLimit": 4000,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "social-editor-v2",
+    "model": "claude-haiku-5-5",
+    "durationMs": 9471,
+    "outcome": "success",
+    "usage": {
+      "input": 1608,
+      "cacheWrite": 0,
+      "cacheRead": 746,
+      "output": 1770
+    },
+    "outputLimit": 4000,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "social-triage-v1",
+    "model": "claude-haiku-5-5",
+    "durationMs": 16444,
+    "outcome": "success",
+    "usage": {
+      "input": 7092,
+      "cacheWrite": 0,
+      "cacheRead": 0,
+      "output": 4024
+    },
+    "outputLimit": 8254,
+    "completionReason": "end_turn"
+  },
+  {
+    "purpose": "bluesky-social-editor-v1",
+    "model": "claude-sonnet-5-5",
+    "durationMs": 3273,
+    "outcome": "success",
+    "usage": {
+      "input": 668,
+      "cacheWrite": 812,
+      "cacheRead": 0,
+      "output": 277
+    },
+    "outputLimit": 4000,
+    "completionReason": "end_turn"
+  }
+]

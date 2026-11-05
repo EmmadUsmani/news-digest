@@ -1,15 +1,3 @@
-## 2026-11-05: iteration 853 — keep on-demand publication keys unique after Redis reset
-
-- Started clean on main; no leftover work. Alerts/health green, 36 healthy sources and zero failed digest jobs; X rounds wait until 21:00 UTC, admin rollout awaits identity/proxy evidence.
-- New on-demand jobs use random UUIDs instead of Redis counter IDs, preventing a new request from reusing an old Postgres publication key after Redis resets. Window deduplication and legacy numeric job-link recovery remain supported.
-- Shared contracts now validate IDs in API, recovery adapter and browser queue/poll handling. No schema, source, ranking, budget or paid-call changes; unfinished/failed-job durable history remains open.
-- Extended isolated worker test: reset counter after pruning, regenerate with a distinct publication key/edition, recover original link, retain numeric links and concurrent dedupe. Real HTTP test covers UUID pruning recovery and enqueue after reset.
-- Initial check: 499 unit/212 of 214 integration; numeric-only controller rejected UUID polling and left a queued fixture. Fixed controller/shared validation; fresh-container check passed 499 unit/214 integration. Consumer typecheck initially used stale contracts output; rebuilt contracts and all typechecks passed.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm typecheck; pnpm build; check-handbook.ts 03-jobs-and-schedules; smoke-admin-gate.ts; git diff --check; obs alerts/sources/jobs; /healthz. Corrected initial reader URL and jobs CLI syntax on rerun.
-- Combined Playwright job smoke terminated twice before final assertions (first signal 143); added optional validated viewport filter. Separate `EDITION_JOB_SMOKE_VIEWPORT=desktop|mobile pnpm exec tsx scripts/smoke-edition-jobs.ts` runs each passed all queue/deadline/reconnect/reload/malformed/completion/failure checks. Desktop replays UUID, mobile legacy numeric IDs; generation intercepted, no browser credentials or protected snapshot changes.
-- Updated/reviewed desktop/mobile screenshots in docs/screenshots; no product layout changes. API/worker rebuilt and restarted healthy, /healthz green, reader edition byte-identical, 36 sources healthy, zero failed digest jobs and alerts clear. Jobs handbook/TASKS updated; SOURCES/schema metadata/NEEDS_FROM_HUMAN unchanged.
-- Next: X fresh-window rounds after 21:00 UTC Nov 5/6; scheduled editor-v5 evidence Nov 6. Failed/unfinished durable job history and admin identity/proxy rollout remain open.
-
 ## 2026-11-05: iteration 854 — retain failed on-demand job links after Redis pruning
 
 - Started clean on main; no leftover work. Alerts/health green, 36 sources healthy and zero failed digest jobs. X rounds await 21:00 UTC; admin rollout awaits owner identity/proxy evidence.
@@ -139,3 +127,13 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (503 unit/218 isolated integration passed); pnpm build; git diff --check.
 - Archived iteration 852; updated TASKS and experiment reference. CLI-only change; services remain active, no restart under STEERING 22. Handbook, SOURCES, schema metadata, screenshots and NEEDS_FROM_HUMAN unchanged.
 - Next: fresh-window X rounds after 21:00 UTC Nov 5/6; saved comparison still checks cross-round non-overlap. Nov 6 scheduled editor-v5 evidence and admin identity/proxy rollout remain open.
+
+## 2026-11-05: iteration 867 — compare scheduled inference work across days
+
+- Started clean on main; no leftover work. Alerts clear, database/Redis healthy, 36 healthy sources and zero failed digest-generation jobs. X rounds remain time-gated; admin rollout needs identity/proxy evidence.
+- Retained Nov 5's 46 allowlisted call-usage records, without prompts, responses, headers or fingerprints, for existing offline token tooling. Journal-derived purpose spans show social triage through 148.890 s and Bluesky editing through 152.264 s.
+- HTTP work grew 8.7% versus Nov 4 while elapsed time grew 0.5%. Combined triage consumes 63.8% of HTTP work/77.3% of output tokens. Removing all article triage still leaves an optimistic 70.404 s four-slot bound; no output-limit stops or missing usage.
+- Interval reconstruction shows one apparent five-call overlap for 1 ms, consistent with timestamp/duration precision rather than sustained extra concurrency. Kept four slots, candidate pools, prompts and settings unchanged; no paid calls.
+- Verification: offline fixture evaluator plus assertions confirmed 46 calls/550600 HTTP ms/118758 output tokens, complete usage and zero HTTP failures/truncations; pnpm format; pnpm lint:fix; pnpm check (503 unit/218 isolated integration passed); pnpm build; git diff --check.
+- Updated concurrency review/TASKS; archived iteration 853. Evidence/docs-only change, no restart under STEERING 22; API/worker active and /healthz healthy. Handbook, SOURCES, schema metadata, screenshots and NEEDS_FROM_HUMAN unchanged.
+- Next: X fresh-window rounds after 21:00 UTC Nov 5/6; saved editor-v5 evidence Nov 6. Offline speed work should address social/editor dependencies and recoverable editor retries.

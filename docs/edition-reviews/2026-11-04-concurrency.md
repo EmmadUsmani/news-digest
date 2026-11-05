@@ -273,3 +273,55 @@ engagement use that cutoff. Current topic settings, a cold in-memory cache and
 synthetic scores cannot establish actual cache incidence, provider admission,
 latency, cost or quality. The production selector caps each topic at 200;
 none reached it here. Compare Nov 5 actual evidence before runtime tuning.
+
+## Nov 5 comparison (iteration 867)
+
+The next scheduled edition, `7d99b279-cb6a-4cf0-b0a2-d94c5645f0b7`,
+took 152,320 ms for 756 article candidates. Exported only the same allowlisted
+usage fields into `apps/api/test/fixtures/edition-call-usage-2026-11-05.json`.
+Reproduce the export from the worker journal, Nov 5 15:00–15:03 UTC, selecting
+`event=external.call`, `target=anthropic` and that exact `runId`; preserve only
+purpose, model, durationMs, outcome, usage, outputLimit and completionReason.
+No prompts, response text, headers or fingerprints are in this fixture.
+
+```sh
+pnpm exec tsx apps/api/scripts/evaluate-call-tokens.ts apps/api/test/fixtures/edition-call-usage-2026-11-05.json
+```
+
+| Purpose             | Calls | Aggregate HTTP ms | First start offset ms | Last end offset ms | Output tokens |
+| ------------------- | ----: | ----------------: | --------------------: | -----------------: | ------------: |
+| Article triage      |    15 |            268985 |                   273 |              71381 |         71105 |
+| Same-story grouping |     4 |             17060 |                 59998 |              74728 |          2344 |
+| Story editing       |     8 |            102256 |                 68783 |             110755 |         13166 |
+| Social triage       |     7 |             82527 |                 87541 |             148890 |         20741 |
+| X editing           |     9 |             66158 |                 91916 |             143493 |          9063 |
+| Bluesky editing     |     3 |             13614 |                118591 |             152264 |          2339 |
+
+Offsets use job start 15:00:00.063 UTC. As above, these are purpose spans
+across topics, not a sequential critical path. All 46 HTTP calls succeeded,
+all have usage and none stopped at the output limit. Validation rejections
+are recorded separately in the [edition review](2026-11-05.md).
+
+Compared with Nov 4, aggregate HTTP work rose 43,985 ms (8.7%) while elapsed
+time rose only 788 ms (0.5%). Bluesky editor calls fell from eight to three
+and their HTTP work fell 6,952 ms, but they still end 56 ms before completion.
+Article triage grew by 25,880 ms; X editing grew by 25,809 ms and three calls.
+These observed changes do not isolate a causal effect of the shipped fixes.
+
+Combined triage accounts for 351,512 ms (63.8% of HTTP work) and 91,846 of
+118,758 output tokens (77.3%). Removing all article triage still leaves
+281,615 ms, or an optimistic 70,404 ms at four slots before dependencies.
+Incremental article triage alone cannot establish the 60-second target for
+this unchanged call set. Even eight slots gives a 68,825 ms work-only bound;
+no concurrency change is justified as a sufficient fix.
+
+The interval sweep yields one apparent five-call overlap lasting **1 ms**;
+all other intervals have at most four. Logger timestamps and rounded HTTP
+durations cannot resolve this boundary; it is not evidence of a sustained
+fifth slot. The adapter still uses four slots. Total recorded HTTP work is
+550,600 ms and the longest call is 22,014 ms.
+
+Next speed work should measure social-triage/edit dependencies and recoverable
+editor retries offline; article-only pre-triage and higher output limits do
+not address the remaining bound. Keep current concurrency, candidate pools,
+quality checks and production settings unchanged. No paid trials were run.
