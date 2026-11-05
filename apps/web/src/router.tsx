@@ -11,6 +11,7 @@ import {
 import { z } from 'zod';
 
 import { AdminLayout, AdminTools } from './AdminLayout';
+import { AdminSources } from './AdminSources';
 import { App } from './App';
 import {
   adminEditionQuery,
@@ -116,11 +117,21 @@ const adminToolsRoute = createRoute({
   component: AdminTools,
 });
 
+const adminSourcesRoute = createRoute({
+  getParentRoute: () => adminRoute,
+  path: '/sources',
+  component: AdminSources,
+});
+
 export const router = createRouter({
   routeTree: rootRoute.addChildren([
     latestRoute,
     editionRoute,
-    adminRoute.addChildren([adminOverviewRoute, adminToolsRoute]),
+    adminRoute.addChildren([
+      adminOverviewRoute,
+      adminSourcesRoute,
+      adminToolsRoute,
+    ]),
   ]),
   context: { queryClient },
 });

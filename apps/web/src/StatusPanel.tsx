@@ -68,49 +68,6 @@ export function StatusPanel() {
               </small>
             </section>
           )}
-          <section aria-label="Reddit collection">
-            <h3>Reddit · parked by owner</h3>
-            <p>
-              Collection is disabled and unscheduled after public access was
-              denied. Saved communities are retained; no Reddit requests run
-              unless the owner re-enables collection. This is not a source
-              error.
-            </p>
-          </section>
-          <h3>Sources</h3>
-          <div className="status-grid">
-            {status.sources.map((source) => {
-              const stale =
-                !source.lastSuccess ||
-                Date.parse(status.checkedAt) - Date.parse(source.lastSuccess) >
-                  3600000;
-              const state = !source.active
-                ? 'Paused · no enabled topics'
-                : source.error
-                  ? 'Collection failed'
-                  : stale
-                    ? 'Collection overdue'
-                    : source.lastItemCount === 0
-                      ? 'Empty response'
-                      : 'Collecting';
-              return (
-                <article key={source.id}>
-                  <h4>{source.name}</h4>
-                  <p>{state}</p>
-                  <p>
-                    {source.storedItems} stored articles ·{' '}
-                    {source.lastItemCount} in last response
-                  </p>
-                  <small>
-                    Last attempt: {time(source.lastAttempt)}
-                    <br />
-                    Last success: {time(source.lastSuccess)}
-                  </small>
-                  {source.error && <p role="status">{source.error}</p>}
-                </article>
-              );
-            })}
-          </div>
           <h3>Queues</h3>
           <div className="status-grid">
             {status.queues.map((queue) => (

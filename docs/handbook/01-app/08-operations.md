@@ -2,7 +2,7 @@
 
 ## URLs
 
-Reader: `/`. Management: `/admin`, with Overview and Tools navigation (mobile menu).
+Reader: `/`. Management: `/admin`, with Overview, Sources and Tools navigation (mobile menu).
 `/admin/tools` opens six protected tools in new tabs. APIs use `/api/admin/*`;
 old API paths return 404.
 `/admin`, its APIs and every tool below require
@@ -42,8 +42,8 @@ Backups: `~/backups/news-digest/`; [nightly timers and restore](10-backups.md).
 
 ## How to tell if things are healthy
 
+- **Sources at `/admin/sources`:** collection health, timestamps, last-response/stored counts and platform status.
 - **Overview at `/admin`:** health, daily spend, latest edition, source issues and next runs.
-- **Edition and management controls:** source health, queues, coverage and spend.
 - **`/healthz`:** 200 when Postgres and Redis respond; checked by the supervisor.
 - **`pnpm obs alerts`** and [Grafana](09-observability.md) cover the rest.
 

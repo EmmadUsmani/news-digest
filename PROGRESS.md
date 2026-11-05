@@ -1,13 +1,3 @@
-## 2026-11-05: iteration 864 — verify recovery after an actual worker crash
-
-- Started clean on main; no leftover work. Alerts/health green, 36 sources healthy and digest queue zero failures. X rounds remain time-gated; admin rollout still needs owner identity/proxy evidence.
-- Added isolated acceptance coverage that starts a real child BullMQ worker, waits for active progress, kills it with SIGKILL, then starts a replacement. The same accepted job completes once and its fixture publication link survives explicit queue pruning.
-- Acceptance IDs use disposable Postgres; publication is an in-memory fixture map, not live content. Child refuses non-isolated execution; no external services or paid calls. Recovery timeout accommodates an earlier worker's 30-second stalled-check lease.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (501 unit/218 isolated integration passed); pnpm build; git diff --check. First check stopped on an unnecessary assertion, corrected before the passing run. Targeted isolated queue rerun passed all five tests after the final timeout adjustment.
-- API/worker remain active; /healthz database/Redis OK, latest reader edition 7d99b279-cb6a-4cf0-b0a2-d94c5645f0b7 serves four topics; no dangling Docker volumes. Test/docs-only change, so no restart under STEERING 22.
-- Updated TASKS; archived iteration 850 to keep progress below 25 KB. Handbook, schema metadata, SOURCES, screenshots and NEEDS_FROM_HUMAN unchanged; production behavior unchanged.
-- Next: X fresh-window rounds after 21:00 UTC Nov 5/6; scheduled editor-v5 evidence Nov 6; admin identity/proxy rollout and broader job reliability acceptance remain open.
-
 ## 2026-11-05: iteration 865 — reassess incremental triage after full-AI acceptance
 
 - Started clean on main; no leftover work. Alerts clear, health database/Redis OK, 36 active sources without errors and zero failed digest jobs.
@@ -128,6 +118,16 @@
 - Existing edition/topic/schedule/status controls remain in a collapsed section and mount only when opened; Overview no longer fetches content/topics/profile. Dedicated management pages still replace those controls next. Inline alert count and per-edition cost remain open; alerts link to Grafana.
 - Added repeatable smoke-admin-overview: four viewport/theme combinations, anonymous denial, reload, mobile menu, stale-data refresh failure/recovery and no browser credentials/writes/overflow. Anchored the Node-only document bridge so API scenario routes are no longer shadowed.
 - Browser: smoke-admin-overview, smoke-admin-separation, smoke-admin-tools and smoke-admin-gate passed; final layout rechecked with Overview/separation. Four Overview and four updated controls screenshots retained; visually checked desktop light/mobile dark. Saved real edition unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; final web build/typecheck; git diff --check. Unit/integration counts: 505/218 passed. First full command exited 143 after passing tests; retry caught formatting of newly archived entry, corrected before final rerun.
-- Handbook Operations/runtime checks passed (18 pages, 2/1 unchanged diagrams, 28 assigned tables). API restarted for built web and readiness confirmed; worker unchanged. No paid calls, saved settings/edition writes, source/schema/access changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (505 unit/218 isolated integration passed); pnpm build; final web build/typecheck; git diff --check. Unit/integration counts: 505/218 passed. First full command exited 143 after passing tests; retry caught formatting of newly archived entry, corrected before final rerun.
+- Handbook Operations/runtime checks passed (18 pages, 2/1 unchanged diagrams, 28 assigned tables). API restarted for built web and readiness confirmed; worker unchanged. No paid calls, saved settings/edition writes, source/schema/access changes; SOURCES and NEEDS_FROM_HUMAN unchanged; archived iteration 864.
 - Updated TASKS and affected handbook; archived iteration 863. Next: complete Overview alert count/cost and dedicated Editions/creation/inspector, then remaining admin pages; X rounds after 21:00 UTC Nov 5/6; review Nov 6 edition. Private proxy check remains required before public access.
+
+## 2026-11-05: iteration 877 — dedicated source collection page
+
+- Started clean on main; no leftover work. Alerts clear, API/worker and /healthz healthy; all 36 sources collecting. X fresh-window experiments remain due after 21:00 UTC.
+- Added protected `/admin/sources` and shared navigation/mobile title, a shadcn-style table for collection state, timestamps, last response/stored article counts and errors, plus X/Bluesky/parked Reddit/deferred YouTube rows.
+- Removed the replaced source cards and Reddit explanation from the legacy status panel. Sources is a partial spec step: topic links, 24-hour/7-day counts, enable switches and Add feed remain open; existing counts are explicitly labelled.
+- Browser: smoke-admin-sources passed four viewport/theme combinations, 36 live source rows, anonymous denial, deep reload, mobile navigation, refresh failure/recovery, no overflow/writes/browser credentials. Four screenshots retained; desktop light/mobile dark visually inspected. Initial browser attempt preceded API readiness; retried after healthy /healthz. Combined verification command exited 143 during integration after 505 unit passes; standalone check rerun passed.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (505 unit/218 isolated integration passed); pnpm build; git diff --check. Handbook Operations check passed (18 pages, one unchanged diagram, 28 assigned tables); admin gate passed 24 denied paths and forwarded-token denial; smoke-admin-overview passed.
+- API restarted for built web; worker unchanged. Final health/alerts clear. No paid calls, saved-data writes, source/schema/access changes; SOURCES and NEEDS_FROM_HUMAN unchanged; archived iteration 864.
+- Next: finish dedicated admin pages and Sources management, then final reader; Overview alert count/cost remain. X rounds after 21:00 UTC Nov 5/6 and scheduled Nov 6 editorial/story-pool review stay ahead when due.

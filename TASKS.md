@@ -17,7 +17,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - [ ] STEERING 16 / M4 Social posts: Nov 5 X picks Tech/NBA/Gaming/World 3/5/5/1; all four topics present, no Bluesky picks. Saved X metrics empty: viral/outside-list quality acceptance remains open. Paid old open-search picks 1/19 (Tech); no claim that all-topic presence proves paid discovery quality.
 - [ ] STEERING 9/15 first-week report: Nov 5 $0.143191/19 fetched/18 new verified outside-list posts; World $0.032663/3, Gaming $0.038724/5, NBA $0.035104/5, Tech $0.036700/5. Prior Nov 3 $0.137056/18, Nov 4 $0.149447/19. Four topics weakest-first, $0.10 per-topic hold, unchanged $0.40/day/$12/month cap. [Sources](docs/SOURCES.md).
 - [ ] STEERING 18 Bluesky: authenticated hourly collection and session refresh verified (788); Nov 5 no selected posts. Quality/diversity acceptance remains open; World phrase shortlist empty. Cross-platform context/semantic gates shipped. [Sources](docs/SOURCES.md#sustained-bluesky-session-recovery--iteration-788-2026-11-05).
-- [ ] STEERING 33 UI rebuild: exactly [approved spec](docs/ui-spec.md), five steps in order. Foundations and step 2 admin gate complete: operational APIs moved, legacy routes removed, tools gated, scripts migrated. Reader makes no admin reads; shared navigation/Tools (875) and compact Overview (876) shipped; legacy controls load only when expanded at `/admin`. Overview alert count and edition cost remain, then dedicated management pages.
+- [ ] STEERING 33 UI rebuild: exactly [approved spec](docs/ui-spec.md), five steps in order. Foundations and step 2 admin gate complete: operational APIs moved, legacy routes removed, tools gated, scripts migrated. Reader makes no admin reads; shared navigation/Tools (875) and compact Overview (876) shipped; legacy controls load only when expanded at `/admin`. Sources collection table shipped (877); topic links, window counts, enable/Add feed controls remain. Overview alert count and edition cost remain, then other dedicated management pages.
   - Next: step 3 dedicated admin pages with shadcn, then final reader. Private rollout authorized by STEERING 36; forged-header proxy check is required before any future public access. [Access decision](docs/decisions/2026-11-05-admin-access.md).
 - [ ] STEERING 28 incremental triage OFF: default-off runtime, shared admission, reserve-safe scoring, exact pools/cutoffs and sibling draining verified. Reassessed after full-AI acceptance (865): Nov 6 morning allowance $0.021736–$0.028915; only 2/65 early fingerprints compatible in post-publication pool. Keep OFF; do not reduce protection. Actual waste/latency unmeasured. [Assessment](docs/edition-reviews/2026-11-05-incremental-admission.md).
 
@@ -36,6 +36,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - Editorial audit closed under STEERING 5; resume only for actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.
 
 ## Latest verified step
+
+- [x] Sources collection page (877): dedicated protected route, health/timestamps/errors/counts table, platform rows, four viewport/theme checks; replaced legacy source cards removed. Feed management/window counts remain open.
 
 - [x] Compact Overview (876): health/spend cards, latest edition with story/post modes and duration, source issues and next runs; legacy controls lazy-load below it. Monitoring alerts link out; inline alert count and edition cost remain.
 

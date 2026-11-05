@@ -15,6 +15,7 @@ function Navigation({ mobile = false }: { mobile?: boolean }) {
       {(
         [
           { to: '/admin', label: 'Overview' },
+          { to: '/admin/sources', label: 'Sources' },
           { to: '/admin/tools', label: 'Tools' },
         ] as const
       ).map(({ to, label }) => {
@@ -47,8 +48,8 @@ function Navigation({ mobile = false }: { mobile?: boolean }) {
 }
 
 export function AdminLayout() {
-  const tools = useRouterState({
-    select: (state) => state.location.pathname.startsWith('/admin/tools'),
+  const pathname = useRouterState({
+    select: (state) => state.location.pathname,
   });
   return (
     <div className="min-h-screen md:grid md:grid-cols-[220px_minmax(0,1fr)]">
@@ -77,7 +78,11 @@ export function AdminLayout() {
             </Sheet>
           </div>
           <h1 className="m-0 flex-1 font-sans text-xl leading-7 font-semibold tracking-tight">
-            {tools ? 'Tools' : 'Overview'}
+            {pathname.startsWith('/admin/tools')
+              ? 'Tools'
+              : pathname.startsWith('/admin/sources')
+                ? 'Sources'
+                : 'Overview'}
           </h1>
           <span className="text-xs tracking-wide text-[var(--secondary)]">
             PRODUCTION
