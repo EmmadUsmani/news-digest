@@ -1,0 +1,8 @@
+## 2026-11-05: iteration 742 — protected topic replay baselines
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy, no retained failed digest runs. Older ingestion/social failure counters have no retained failed run details; recent collections succeeded.
+- Topic create/delete/reorder verifiers now read baselines and final immutability checks through protected admin endpoints in Node. Shared JSON reader bounds requests to 15 seconds and rejects non-protected paths and HTTP errors; existing token adapter refuses redirects. Browser contexts receive no local token.
+- All three live-read/browser-replay scripts passed desktop/mobile: required validation, cancel, failure/retry, creation/removal/reorder and reload. Final protected reads confirmed live topics and saved edition unchanged. Six screenshots refreshed; desktop creation/mobile order visually inspected.
+- Updated TASKS, admin access decision and Operations; archived iteration 729. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/UI/schema changes, live writes, paid calls or model/provider/budget changes; healthy services kept running under STEERING 22.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (497 unit/214 isolated integration, exit 0), pnpm build, local-admin-fetch tests (2/2), check-handbook.ts 08-operations and git diff --check. Initial handbook length failure corrected before final validation.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback. Scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy checks and coordinated browser/legacy migration remain open.

@@ -1,9 +1,18 @@
 import assert from 'node:assert/strict';
 
+import { readerEditionSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
 async function smoke() {
   // Read-only live edition; every generation request is intercepted (no inference).
+  const readLatest = async () => {
+    const response = await fetch('http://localhost:8000/api/editions/latest', {
+      signal: AbortSignal.timeout(15000),
+    });
+    assert.equal(response.status, 200);
+    return readerEditionSchema.parse(await response.json());
+  };
+  const edition = await readLatest();
   const browser = await chromium.launch({ headless: true });
   try {
     for (const [name, width, height] of [
@@ -13,12 +22,16 @@ async function smoke() {
       const page = await browser.newPage({ viewport: { width, height } });
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
-      const latest = await page.request.get(
-        'http://localhost:8000/api/editions/latest',
-      );
-      assert.ok(latest.ok());
-      const edition = await latest.json();
-      assert.ok(edition?.id);
+      page.setDefaultTimeout(15000);
+      const writes: string[] = [];
+      await page.route('**/api/**', (route) => {
+        const request = route.request();
+        if (!['GET', 'HEAD'].includes(request.method())) {
+          writes.push(`${request.method()} ${new URL(request.url()).pathname}`);
+          return route.abort();
+        }
+        return route.continue();
+      });
       let submissions = 0;
       let state = 'waiting';
       let disconnected = false;
@@ -103,6 +116,33 @@ async function smoke() {
         .waitFor();
       await page.waitForURL(`**/editions/${edition.id}`);
       assert.equal(new URL(page.url()).pathname, `/editions/${edition.id}`);
+      const firstStory = edition.topics.flatMap((topic) => topic.stories)[0];
+      assert.ok(
+        firstStory,
+        'Need saved stories to verify completed job content',
+      );
+      await page.locator(`[id="story-${firstStory.id}"]`).waitFor();
+      assert.equal(
+        await page.locator('.digest-topic').count(),
+        edition.topics.length,
+      );
+      for (const topic of edition.topics) {
+        const section = page.locator('.digest-topic').filter({
+          has: page.getByRole('heading', { name: topic.name, exact: true }),
+        });
+        for (const story of topic.stories) {
+          const item = section.locator(`[id="story-${story.id}"]`);
+          assert.equal(
+            await item.locator(':scope > a').textContent(),
+            story.title,
+          );
+          if (story.summary)
+            assert.equal(
+              await item.locator('.excerpt').textContent(),
+              story.summary,
+            );
+        }
+      }
       assert.equal(
         await page.evaluate(() => sessionStorage.getItem('edition-job')),
         null,
@@ -116,10 +156,21 @@ async function smoke() {
       assert.equal(await create.isEnabled(), true);
       assert.equal(submissions, 2);
       assert.deepEqual(errors, []);
+      assert.deepEqual(writes, []);
+      assert.ok(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= innerWidth,
+        ),
+      );
       await page.close();
     }
+    assert.deepEqual(
+      await readLatest(),
+      edition,
+      'Simulated jobs must not change saved editions',
+    );
     console.log(
-      'Async edition UI: desktop/mobile queue, active, reload, reconnect, completion and failure passed; no live generation.',
+      'Async edition UI: desktop/mobile queue, active, reload, reconnect, completion, saved story text and failure passed; unexpected API writes blocked, saved edition unchanged.',
     );
   } finally {
     await browser.close();
