@@ -5,6 +5,8 @@ import { readFile } from 'node:fs/promises';
 import { topicSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
+import { localAdminJson } from './lib/local-admin-fetch';
+
 async function main() {
   const base = 'http://localhost:8000';
   const source = await readFile('docs/SOURCES.md', 'utf8');
@@ -21,9 +23,13 @@ async function main() {
   const browser = await chromium.launch();
   try {
     const context = await browser.newContext();
-    const response = await context.request.get(`${base}/api/topics`);
-    assert.equal(response.ok(), true);
-    const topics = topicSchema.array().parse(await response.json());
+    const topics = topicSchema
+      .array()
+      .parse(await localAdminJson('/api/admin/topics'));
+    await context.route('**/api/topics', async (route) => {
+      assert.equal(route.request().method(), 'GET');
+      await route.fulfill({ json: topics });
+    });
     for (const [device, width, height] of [
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
@@ -64,8 +70,12 @@ async function main() {
       assert.deepEqual(errors, []);
       await page.close();
     }
+    assert.deepEqual(
+      topicSchema.array().parse(await localAdminJson('/api/admin/topics')),
+      topics,
+    );
     console.log(
-      'Four reviewed live account lists match API and desktop/mobile settings; no writes, browser errors or overflow.',
+      'Four reviewed account lists match protected API snapshots and desktop/mobile settings; live topics unchanged; no browser credentials, writes, errors or overflow.',
     );
   } finally {
     await browser.close();

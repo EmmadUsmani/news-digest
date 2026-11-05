@@ -4,11 +4,13 @@ import assert from 'node:assert/strict';
 import { topicSchema, topicUpdateSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
+import { localAdminJson } from './lib/local-admin-fetch';
+
 const base = 'http://localhost:8000';
 async function main() {
   const browser = await chromium.launch();
   try {
-    const before = await (await fetch(`${base}/api/topics`)).json();
+    const before = await localAdminJson('/api/admin/topics');
     for (const [name, width, height] of [
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
@@ -92,7 +94,7 @@ async function main() {
       assert.deepEqual(errors, []);
       await page.close();
     }
-    assert.deepEqual(await (await fetch(`${base}/api/topics`)).json(), before);
+    assert.deepEqual(await localAdminJson('/api/admin/topics'), before);
     console.log(
       'Reddit settings replay: desktop/mobile normalize, save, reload, reject duplicates, clear; live topics unchanged; no fetching/inference.',
     );

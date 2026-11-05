@@ -77,6 +77,10 @@ read in Node, including the parked Reddit display. Manual-reserve, scheduled-res
 and run-duration checks use the same protected snapshot pattern; budget, job
 and timing variants remain browser-only replays.
 
+Reviewed X-account and parked-Reddit community settings checks also read protected
+Node snapshots and verify live topics remain unchanged. Account rendering uses
+replayed snapshots; community writes remain browser-only, with no Reddit calls.
+
 ## Next rollout slice
 
 Configure the owner email allowlist before moving current operational routes.

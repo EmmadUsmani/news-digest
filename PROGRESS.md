@@ -1,13 +1,3 @@
-## 2026-11-05: iteration 734 — protected admin API aliases
-
-- Started clean on main; no leftover work. Health/database/Redis, 13 services and 36 sources healthy; zero retained failed digest jobs. Metrics memory warning initially firing, later pending; no observability restart or limit change. Nov 5 edition remains due at 15:00 UTC.
-- Prepared protected /api/admin aliases for topics, profile/schedule, status, content/sources and digest previews/jobs using the existing controllers. Legacy routes remain available until configured identity and coordinated UI/script/tool cutover; this is not completed admin isolation.
-- Added isolated real-HTTP parity checks for eight reads, denied reads/writes, authorized topic create/update/delete and public reader access. Existing characterization tests unchanged; no live writes or inference.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (494 unit/214 isolated integration), pnpm build, check-handbook.ts 01-stack-and-runtime, smoke-ui-routing.ts and git diff --check passed. Desktop/mobile routing uses real saved editions; discarded incidental unchanged-UI screenshot churn.
-- Rebuilt/restarted API/docs. Initial immediate health probe raced startup; readiness retry and pnpm obs health --check passed. Live six admin paths denied, /api/me denied identity, and reader latest returned four topics/14 stories/15 posts. Worker/schema unchanged.
-- Updated TASKS, runtime handbook and access decision; archived iteration 720 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker.
-- No paid calls, model/provider/budget changes, scorer work or X activation. Next: configured admin identity, UI/script migration and tool gate together; scheduled Nov 5 acceptance first when due, scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6.
-
 ## 2026-11-05: iteration 735 — prevent caching identity-dependent admin responses
 
 - Started clean on main; no leftover work. Health/database/Redis, 13 services and 36 sources healthy; zero retained failed digest runs. Existing metrics memory warning pending; no ceiling change or observability restart. Nov 5 edition remains due at 15:00 UTC.
@@ -124,4 +114,13 @@
 - `pnpm exec tsx scripts/smoke-manual-reserve.ts`, `scripts/smoke-reserve-status.ts` and `scripts/smoke-run-duration.ts` passed desktop/mobile: budget protection/refresh/release/unavailability, completed/waiting timing, zero page errors. Six screenshots refreshed; mobile reserve and desktop duration visually inspected.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, exit 0). Initial combined verification process interrupted during formatting check (143); full check rerun completed successfully. pnpm build, check-handbook.ts 08-operations and git diff --check passed.
 - Updated TASKS, Operations and admin access decision; archived iteration 733. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema changes or model/provider/budget changes; healthy services stay running under STEERING 22. Reader latest serves four real Nov 4 topics.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback. Scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy checks and coordinated UI/legacy migration remain open.
+
+## 2026-11-05: iteration 747 — protected account and community browser checks
+
+- Started clean on main; no leftover work. Health/database/Redis green, all 36 sources healthy, no retained failed digest runs. Existing metrics memory warning firing; service active with zero restarts. Nov 5 edition due at 15:00 UTC.
+- Reviewed X-account and parked-Reddit community browser checks now read protected topic snapshots and final immutability checks through bounded Node token requests. Account rendering replays snapshots; community writes remain browser-only. No credentials enter browser contexts or Reddit requests occur.
+- `pnpm exec tsx scripts/smoke-reviewed-x-accounts.ts` and `scripts/smoke-reddit-communities.ts` passed desktop/mobile: four saved account lists, community normalization/save/reload/duplicate rejection/clear, unchanged live topics, zero page errors or overflow. Ten screenshots refreshed; desktop accounts/mobile communities visually inspected.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, exit 0); pnpm build; check-handbook.ts 08-operations; git diff --check. Initial lint process interrupted (143); first check found archive formatting, corrected before successful rerun.
+- Updated TASKS, Operations and access decision; archived iteration 734. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema changes, live writes, paid calls or model/provider/budget changes; healthy services remain running under STEERING 22. Reader latest serves four real topics.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback. Scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy checks and coordinated UI/legacy migration remain open.
