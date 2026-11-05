@@ -40,14 +40,19 @@ export function TopicSources({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ids: selected }),
       });
-      if (!response.ok) throw new Error();
+      if (!response.ok) {
+        setMessage(
+          'Source request failed. Your selection is still here; reload the page to check saved sources before trying again.',
+        );
+        return;
+      }
       onSaved(topicSchema.parse(await response.json()));
       setMessage(
         'Source connections saved. Incoming articles updated; create a new edition to use these sources.',
       );
     } catch {
       setMessage(
-        'Could not save sources. Your selection is still here; try again.',
+        'Could not confirm whether sources were saved. Your selection is still here; reload the page to check saved sources before trying again.',
       );
     } finally {
       setBusy(false);

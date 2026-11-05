@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Source selection recovery (816): interrupted saves advise checking saved sources; desktop/mobile replay verifies reload recovers the saved connection without another PUT.
+
 - [x] Topic availability recovery (815): interrupted enable/disable responses advise checking saved topics; desktop/mobile replay verifies reload recovers a completed change without another write.
 
 - Completed iterations 811–814: [archive](docs/progress-archive/2026-11-05-completed-task-markers-815.md).

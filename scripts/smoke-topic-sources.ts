@@ -67,6 +67,7 @@ async function smoke() {
       );
       let fail = true;
       let writes = 0;
+      let saveBeforeAbort = false;
       const unexpectedWrites: string[] = [];
       await page.route('**/*', async (route) => {
         const request = route.request();
@@ -81,12 +82,13 @@ async function smoke() {
           request.method() === 'PUT'
         ) {
           const ids = request.postDataJSON().ids;
-          assert.deepEqual(ids, writes < 2 ? [source.id] : []);
+          assert.deepEqual(ids, writes < 2 || writes === 3 ? [source.id] : []);
           writes++;
-          if (fail) return route.fulfill({ status: 503, json: {} });
+          if (fail) return route.fulfill({ status: 503, body: 'Unavailable' });
           topics = topics.map((topic) =>
             topic.id === target.id ? { ...topic, sources: ids } : topic,
           );
+          if (saveBeforeAbort) return route.abort('failed');
           return route.fulfill({
             json: topics.find((topic) => topic.id === target.id),
           });
@@ -159,7 +161,7 @@ async function smoke() {
       await save.click();
       await form
         .getByRole('status')
-        .filter({ hasText: 'Could not save sources.' })
+        .filter({ hasText: 'Source request failed.' })
         .waitFor();
       assert.ok(await checkbox.isChecked(), 'Failed save retains selection');
       assert.deepEqual(
@@ -199,7 +201,32 @@ async function smoke() {
       await card
         .getByText('No sources connected yet.', { exact: false })
         .waitFor();
-      assert.equal(writes, 3);
+      // The connection can drop after the server has saved the selection.
+      saveBeforeAbort = true;
+      await checkbox.check();
+      await save.click();
+      await form
+        .getByRole('status')
+        .filter({ hasText: 'Could not confirm whether sources were saved.' })
+        .waitFor();
+      assert.deepEqual(
+        topics.find((topic) => topic.id === target.id)!.sources,
+        [source.id],
+      );
+      await form.getByRole('status').scrollIntoViewIfNeeded();
+      await page.screenshot({
+        path: `docs/screenshots/topic-sources-interrupted-${device}.png`,
+      });
+      await page.reload();
+      await page.getByText('Manage topics', { exact: true }).click();
+      await open.click();
+      await checkbox.waitFor();
+      assert.equal(await checkbox.isChecked(), true);
+      assert.equal(
+        writes,
+        4,
+        'Reload checks saved sources without another PUT',
+      );
       assert.deepEqual(unexpectedWrites, []);
       assert.deepEqual(errors, []);
       assert.deepEqual(credentials, []);
@@ -220,7 +247,7 @@ async function smoke() {
         savedEdition,
       );
     console.log(
-      'Source connections desktop/mobile: failure, retry, incoming stored content, replay reload and disconnect passed; live topics and saved edition unchanged, no inference.',
+      'Source connections desktop/mobile: non-JSON failure, retry, incoming stored content, disconnect and interrupted-save reload passed; live topics and saved edition unchanged, no inference.',
     );
   } finally {
     await browser.close();
