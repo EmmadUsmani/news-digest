@@ -134,4 +134,5 @@
 - Live read-only timing report returned complete evidence for the latest scheduled edition. Stored Bluesky observations: Tech 517, NBA 682, Gaming 687, World 666; these are stored observations, not new collection or selected picks.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (496 unit/214 isolated integration, exit 0), pnpm build, check-handbook.ts 08-operations and git diff --check passed. No UI/schema/worker changes or screenshots needed.
 - Rebuilt/restarted API/docs. Updated TASKS, Operations and access decision; archived iteration 723. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker.
-- No paid calls, model/provider/budget changes, scorer work or X activation. Next: coordinated admin migration/configured email; Nov 5 scheduled acceptance when due, scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6.
+- Final health and reader latest (four topics) passed; alerts zero. Initial push rejected because owner commit 3df3d23 arrived; fetched and merged without rewriting history. Owner-only STEERING/spec changes require no rebuild.
+- No paid calls or model/provider/budget changes. Next FIRST: new STEERING 35, restore saved excerpt as reader summary, verify Nov 4 NBA and desktop/mobile screenshots before 13:00 UTC; Nov 5 NBA outcome first if fallback recurs. Then scheduled acceptance/scorer/timed X work.

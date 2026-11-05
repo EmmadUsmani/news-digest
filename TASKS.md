@@ -5,6 +5,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Immediate owner priorities
 
+- [ ] STEERING 35 NOW before 13:00 UTC: reader summary uses saved excerpt when AI summary missing; verify Nov 4 NBA text, forbidden terms and desktop/mobile screenshots. Do not change stored editions. Check Nov 5 NBA fallback cause first if it recurs.
+
 - [ ] STEERING 34 NOW: follow [X search plan](docs/x-search-plan.md). Query/runtime/preparation/runner/report/extractor/comparison migrated (720–725): fresh viral keywords, exact UTC windows, -giveaway, 16 viral/eight test-only semantic results, saved likes thresholds, explicit free-link novelty and eight-cell round coverage. Unknown evidence stays unknown; World reported separately. Grok 4.3 and caps unchanged; production fixed schedule off, no paid calls. Next scorer after Nov 5 edition; two fresh-window rounds after 21:00 UTC Nov 5/6, then same-day old-search baseline review and decision. Earliest production edition Nov 7; no round-1 analysis or model round.
 
 - [x] STEERING 32 (705–709): default-off fixed A/B runtime prepared; production remains off pending experiment decision. Private nightly backups, seven-day retention, weekly isolated restore proof and 26-hour vmalert deployed. First restore matched all 26 application tables; details in [Operations](docs/handbook/01-app/10-backups.md).
