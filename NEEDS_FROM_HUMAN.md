@@ -34,3 +34,25 @@ No owner action is needed for the private-VM rollout. STEERING 36 confirms
 token is installed. Finish migrating operational routes and tools together.
 Verify proxy identity-header replacement before any future public access;
 the VM stays private. See the [access decision](docs/decisions/2026-11-05-admin-access.md).
+
+## Cloudflare R2 for off-VM backups (2026-11-05, STEERING 37)
+
+Low priority. The agent waits for these. In the Cloudflare dashboard:
+
+1. Create a private R2 bucket named `news-digest-backups`.
+2. Create an R2 API token with **Object Read & Write**, limited to that bucket.
+3. On your Mac, make the backup encryption key:
+   `brew install age && age-keygen -o ~/news-digest-backup.key`.
+   Save that file in your password manager. Without it, backups can't be
+   decrypted. It never goes on the VM.
+4. Add these lines to `~/.config/news-digest/env` on the VM. The last value is
+   the public key printed by `age-keygen`, starting `age1`.
+
+```
+R2_ACCOUNT_ID=
+R2_ACCESS_KEY_ID=
+R2_SECRET_ACCESS_KEY=
+R2_BUCKET=news-digest-backups
+BACKUP_AGE_RECIPIENT=
+```
+

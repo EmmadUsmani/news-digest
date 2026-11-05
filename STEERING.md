@@ -1118,3 +1118,38 @@ cost. Item 33's ack stays as written.
 
 
 ack: 2026-11-05 item 36 story limit — iteration 872 activates forty scored articles before grouping, retaining ten stories for the editor. Actual saved World replay: Nov 4 1→10 editor inputs (1→5 reviewed story labels); Nov 5 3→10 inputs (2→7 labels). Model stories including singletons: Nov 4 1→16, Nov 5 3→20; election fragmentation remains, no returned group crosses reviewed labels. Four Haiku verification calls cost $0.005837, recorded as verification; responses/fingerprints saved for offline replay. All-topic first-attempt grouping/editor scenario $0.464371 fits unchanged $0.473168 reserve and projected cap; future admission still enforced. Deployed before Nov 6 13:00 UTC; review scheduled Nov 6 outcome. Evidence: docs/edition-reviews/2026-11-05-world-story-pool.md. UI step 2 next; cleanup remains open.
+
+## 37. LOW, blocked on the owner: off-VM backups to Cloudflare R2 (2026-11-05)
+
+Backups live only on the VM, so losing the VM loses them too. The owner chose
+Cloudflare R2, for both the database and the VM.
+
+**Blocked until the owner adds the settings listed in NEEDS_FROM_HUMAN.md.
+Don't build any of this before then.** After that, it ranks below items 33, 34
+and 36.
+
+- **Database:** upload each nightly dump after it finishes. Keep 30 days in R2.
+- **VM:** first check whether exe.dev offers a whole-VM snapshot we can export.
+  If not, make a weekly bundle of what the repo can't rebuild:
+  - `~/.config/news-digest/env`;
+  - systemd units and `obs-*` service files;
+  - `~/.local/state/news-digest/`.
+
+  Keep 8 weekly bundles. Leave out the repo, `node_modules`, caches, and metrics
+  and log data. Add anything else a rebuild turns out to need.
+- **Encrypt everything before it leaves the VM** with `age`, to the public key
+  in `BACKUP_AGE_RECIPIENT`. The VM bundle contains secrets. The private key
+  stays with the owner and never goes on the VM.
+- **Credentials:** a token limited to this one bucket, stored only in the env
+  file. Never print or log it.
+- **Prove it works:**
+  - Download each new object type once and compare its checksum.
+  - Write the exact commands for the owner to download, decrypt and
+    `pg_restore --list` a backup on their Mac. The agent can't decrypt.
+  - Write a short rebuild-from-nothing guide in the handbook, within its length
+    limit.
+- **Alert** (vmalert) when no database upload has succeeded in 26 hours, or no
+  VM upload in 8 days.
+- **A failed upload must never affect editions** or the local backups.
+- **Ack** with sizes and monthly storage use.
+
