@@ -1,13 +1,3 @@
-## 2026-11-05: iteration 729 — admin identity and reserved-route gate
-
-- Started clean on main; no leftover work. Zero alerts, health/database/Redis green, 13 services healthy, all 36 sources healthy and no failed retained digest runs. Nov 5 acceptance remains future at 15:00 UTC; existing ingestion/social failure counters have no retained failed details.
-- Started UI step 2: server middleware before static/tool routing, exact configured admin email matching, uncached GET /api/me, and 404 protection for reserved /admin and /api/admin paths. Local token requires a direct loopback socket without forwarding headers; socket locality alone never grants access.
-- ADMIN_EMAILS/ADMIN_LOCAL_TOKEN absent; no owner identity inferred or secrets created. Documented proxy headers read; VM request to public app failed (curl 7), so socket-origin and forged-header replacement remain unverified. Existing operational routes/tools intentionally await coordinated endpoint/UI/script migration; full admin milestone remains open.
-- Two new security HTTP/unit tests cover identities, token failures, forwarded sockets, method/path variants and uncached identity. pnpm format, pnpm lint:fix, pnpm check (492 unit/213 isolated integration), pnpm build, handbook validation and git diff --check passed. Initial handbook length failure fixed by shortening Operations.
-- Rebuilt/restarted API/docs; live HTTP checks passed for health, identity, admin denial, current edition/status/docs. Initial smoke used planned /api/editions/latest (404); corrected to existing /api/digest-previews/latest. Read-only desktop/mobile Playwright passed: real saved edition, no overflow/page errors, server-side admin 404. No UI visual changes or screenshot updates.
-- Updated TASKS, NEEDS_FROM_HUMAN, access decision, Stack/runtime and Operations. Archived iterations 715–716 to keep PROGRESS bounded. SOURCES unchanged; no source change, paid calls, provider/model/budget changes or X activation.
-- Next: configure admin identity before migrating existing operational endpoints, reader payloads and tools; scheduled Nov 5 acceptance first when due, scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6.
-
 ## 2026-11-05: iteration 730 — reader-only edition payloads
 
 - Started clean on main; no leftover work. Zero alerts, health/database/Redis green, 13 services and all 36 sources healthy; no retained failed digest runs. Nov 5 scheduled acceptance remains future at 15:00 UTC.
@@ -130,3 +120,12 @@
 - Updated TASKS, source verifier instructions and admin access decision; archived iteration 728. No app runtime/UI/schema changes, live writes, paid calls, model/provider/budget changes or new human blocker. Healthy services stay running under STEERING 22. Final metrics memory warning pending (~105 MiB/112 MiB); system unit active, zero restarts.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (497 unit/214 isolated integration, exit 0), pnpm build, check-handbook.ts 08-operations and git diff --check passed.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate any NBA fallback. Scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy checks and coordinated UI/legacy migration remain open.
+
+## 2026-11-05: iteration 742 — protected topic replay baselines
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy, no retained failed digest runs. Older ingestion/social failure counters have no retained failed run details; recent collections succeeded.
+- Topic create/delete/reorder verifiers now read baselines and final immutability checks through protected admin endpoints in Node. Shared JSON reader bounds requests to 15 seconds and rejects non-protected paths and HTTP errors; existing token adapter refuses redirects. Browser contexts receive no local token.
+- All three live-read/browser-replay scripts passed desktop/mobile: required validation, cancel, failure/retry, creation/removal/reorder and reload. Final protected reads confirmed live topics and saved edition unchanged. Six screenshots refreshed; desktop creation/mobile order visually inspected.
+- Updated TASKS, admin access decision and Operations; archived iteration 729. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/UI/schema changes, live writes, paid calls or model/provider/budget changes; healthy services kept running under STEERING 22.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (497 unit/214 isolated integration, exit 0), pnpm build, local-admin-fetch tests (2/2), check-handbook.ts 08-operations and git diff --check. Initial handbook length failure corrected before final validation.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback. Scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy checks and coordinated browser/legacy migration remain open.

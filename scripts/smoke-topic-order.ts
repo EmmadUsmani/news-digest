@@ -2,23 +2,24 @@ import assert from 'node:assert/strict';
 
 import { topicSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
+
+import { localAdminJson } from './lib/local-admin-fetch';
 async function smoke() {
   const base = 'http://localhost:8000';
   const browser = await chromium.launch();
   const context = await browser.newContext();
-  const api = context.request;
   const topics = topicSchema
     .array()
-    .parse(await (await api.get(base + '/api/topics')).json());
+    .parse(await localAdminJson('/api/admin/topics'));
   const ids = topics.map((topic) => topic.id);
-  const latest = await (
-    await api.get(base + '/api/digest-previews/latest')
-  ).json();
+  const latest = (await localAdminJson(
+    '/api/admin/digest-previews/latest',
+  )) as { id: string } | null;
   assert.ok(topics.length >= 2, 'Reorder replay requires two topics');
   let replayTopics = structuredClone(topics);
   let failOrder = true;
   let writes = 0;
-  // Browser writes are replayed; APIRequestContext is used only for live reads.
+  // Browser writes are replayed; protected Node requests are used only for live reads.
   await context.route('**/api/**', async (route) => {
     const request = route.request();
     const path = new URL(request.url()).pathname;
@@ -137,15 +138,13 @@ async function smoke() {
     );
   } finally {
     assert.deepEqual(
-      await (await api.get(base + '/api/topics')).json(),
+      await localAdminJson('/api/admin/topics'),
       topics,
       'Browser replay must not change live topics',
     );
     if (latest)
       assert.deepEqual(
-        await (
-          await api.get(base + '/api/digest-previews/' + latest.id)
-        ).json(),
+        await localAdminJson('/api/admin/digest-previews/' + latest.id),
         latest,
       );
     await browser.close();

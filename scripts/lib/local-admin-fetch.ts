@@ -36,3 +36,16 @@ export const localAdminFetch = createLocalAdminFetch(() => {
     throw new Error('Cannot read local admin credentials');
   }
 });
+
+// Read protected operational state without putting credentials in a browser context.
+export async function localAdminJson(path: string): Promise<unknown> {
+  const url = new URL(path, origin);
+  if (url.origin !== origin || !url.pathname.startsWith('/api/admin/'))
+    throw new Error('Expected a protected local admin API path');
+  const response = await localAdminFetch(url, {
+    signal: AbortSignal.timeout(15_000),
+  });
+  if (!response.ok)
+    throw new Error(`Local admin read failed: HTTP ${response.status}`);
+  return response.json();
+}

@@ -4,19 +4,21 @@ import { randomUUID } from 'node:crypto';
 import { topicSchema, topicUpdateSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
+import { localAdminJson } from './lib/local-admin-fetch';
+
 const base = 'http://localhost:8000';
 async function smoke() {
   const browser = await chromium.launch();
   const context = await browser.newContext();
   const original = topicSchema
     .array()
-    .parse(await (await context.request.get(`${base}/api/topics`)).json());
-  const latest = await (
-    await context.request.get(`${base}/api/digest-previews/latest`)
-  ).json();
+    .parse(await localAdminJson('/api/admin/topics'));
+  const latest = (await localAdminJson(
+    '/api/admin/digest-previews/latest',
+  )) as { id: string } | null;
   const replayTopics = structuredClone(original);
   let creates = 0;
-  // Browser writes stay in memory; APIRequestContext below only reads live state.
+  // Browser writes stay in memory; protected Node requests below only read live state.
   await context.route('**/api/**', async (route) => {
     const request = route.request();
     const path = new URL(request.url()).pathname;
@@ -130,24 +132,19 @@ async function smoke() {
       replayTopics.splice(original.length);
       await page.close();
     }
-    assert.deepEqual(
-      await (await context.request.get(`${base}/api/topics`)).json(),
-      original,
-    );
+    assert.deepEqual(await localAdminJson('/api/admin/topics'), original);
     console.log(
       'Topic creation desktop/mobile: browser-only create/reload, required validation, source-less state and order passed; live topics/editions unchanged',
     );
   } finally {
     assert.deepEqual(
-      await (await context.request.get(`${base}/api/topics`)).json(),
+      await localAdminJson('/api/admin/topics'),
       original,
       'Browser replay must never change live topics',
     );
     if (latest)
       assert.deepEqual(
-        await (
-          await context.request.get(`${base}/api/digest-previews/${latest.id}`)
-        ).json(),
+        await localAdminJson('/api/admin/digest-previews/' + latest.id),
         latest,
       );
     await browser.close();

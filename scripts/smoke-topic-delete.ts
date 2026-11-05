@@ -3,16 +3,18 @@ import { randomUUID } from 'node:crypto';
 
 import { topicSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
+
+import { localAdminJson } from './lib/local-admin-fetch';
 const base = 'http://localhost:8000';
 async function smoke() {
   const browser = await chromium.launch();
   const context = await browser.newContext();
   const original = topicSchema
     .array()
-    .parse(await (await context.request.get(base + '/api/topics')).json());
-  const latest = await (
-    await context.request.get(base + '/api/digest-previews/latest')
-  ).json();
+    .parse(await localAdminJson('/api/admin/topics'));
+  const latest = (await localAdminJson(
+    '/api/admin/digest-previews/latest',
+  )) as { id: string } | null;
   const replayTopics = structuredClone(original);
   let failDelete = true;
   let deletes = 0;
@@ -128,15 +130,13 @@ async function smoke() {
     );
   } finally {
     assert.deepEqual(
-      await (await context.request.get(base + '/api/topics')).json(),
+      await localAdminJson('/api/admin/topics'),
       original,
       'Browser replay must never change live topics',
     );
     if (latest)
       assert.deepEqual(
-        await (
-          await context.request.get(base + '/api/digest-previews/' + latest.id)
-        ).json(),
+        await localAdminJson('/api/admin/digest-previews/' + latest.id),
         latest,
       );
     await browser.close();
