@@ -62,6 +62,8 @@ Schedule recovery also reads and restores through protected profile endpoints.
 It normalizes localhost requests to the token adapter’s fixed loopback origin,
 while preserving the saved target for compatibility with older recovery records.
 No legacy-route fallback is used for protected requests.
+The saved-post browser verifier uses only the reader edition API and needs no
+admin credentials; its link, timestamp and text checks match the public contract.
 
 ## Next rollout slice
 

@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 728 — system and saved light/dark theme
-
-- Started clean on main; no leftover work. Zero alerts, services/health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Existing ingestion/social failed counters have no retained failed run details; current sources healthy. Nov 5 acceptance remains future at 15:00 UTC.
-- Finished theme foundations: neutral light/dark tokens across the existing page, class-based Tailwind dark utilities, accessible header toggle and pre-render preference application. System preference is default, explicit choice persists across reloads/tabs; unavailable storage still permits toggling.
-- Read-only Playwright desktop/mobile theme and routing checks passed against real stored editions: system changes, saved override, cross-tab sync, blocked storage, no overflow/browser errors. Four light/dark screenshots added and routing screenshots refreshed in docs/screenshots/ui/; inspected screenshots.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (490 unit/213 isolated integration), pnpm build, pnpm exec tsx scripts/smoke-ui-theme.ts, pnpm exec tsx scripts/smoke-ui-routing.ts, pnpm exec tsx scripts/check-handbook.ts 01-stack-and-runtime and git diff --check.
-- Updated TASKS and Stack & runtime; archived iteration 714 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new owner blocker. Rebuilt/restarted API/docs; worker/schema unchanged and healthy.
-- No paid calls, scorer/cache changes, provider/model/budget changes or X activation. Next: step 2 server-side admin gate while waiting; Nov 5 scheduled review first when due, scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6.
-
 ## 2026-11-05: iteration 729 — admin identity and reserved-route gate
 
 - Started clean on main; no leftover work. Zero alerts, health/database/Redis green, 13 services healthy, all 36 sources healthy and no failed retained digest runs. Nov 5 acceptance remains future at 15:00 UTC; existing ingestion/social failure counters have no retained failed details.
@@ -129,3 +120,13 @@
 - Updated TASKS, access decision and Operations; archived iterations 726–727. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No UI/schema/runtime changes; healthy services stay running under STEERING 22.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (497 unit/214 isolated integration, exit 0), pnpm build, check-handbook.ts 08-operations and git diff --check passed. Initial handbook length failure corrected; final health green and alerts zero. No diagrams changed or new screenshots required.
 - Next FIRST: Nov 5 NBA outcome after 15:00 UTC and investigate repeated fallback; scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy checks and coordinated UI/legacy migration remain open.
+
+## 2026-11-05: iteration 741 — verify saved posts through reader contract
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, 36 sources healthy and no retained failed digest runs. Nov 5 edition remains due at 15:00 UTC.
+- Saved-post Playwright verifier now reads the sanitized reader edition API and direct edition URL, validates the UUID and returned edition ID, and bounds the initial request; no admin token or legacy preview read needed.
+- Every displayed post must match its saved original link and timestamp; X/Bluesky text must match exactly. Bluesky media-card counts and loaded image outcomes are checked/reported alongside official X embeds.
+- Live read-only Nov 4 check passed on desktop/mobile: 15 posts, 14/14 X embeds, seven loaded X media images and one loaded Bluesky image per viewport; World zero posts. No app/widget errors or horizontal overflow. Eight screenshots saved; desktop Tech and mobile NBA visually inspected.
+- Updated TASKS, source verifier instructions and admin access decision; archived iteration 728. No app runtime/UI/schema changes, live writes, paid calls, model/provider/budget changes or new human blocker. Healthy services stay running under STEERING 22. Final metrics memory warning pending (~105 MiB/112 MiB); system unit active, zero restarts.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (497 unit/214 isolated integration, exit 0), pnpm build, check-handbook.ts 08-operations and git diff --check passed.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate any NBA fallback. Scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy checks and coordinated UI/legacy migration remain open.

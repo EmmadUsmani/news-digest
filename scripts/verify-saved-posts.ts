@@ -1,20 +1,20 @@
 // Explicit live, read-only browser evidence. Never generates an edition or calls an LLM.
 import assert from 'node:assert/strict';
 
-import { digestPreviewSchema } from '@digest/contracts';
+import { readerEditionSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
+import { z } from 'zod';
 
 async function main() {
-  const editionId = process.argv[2];
-  assert.match(
-    editionId ?? '',
-    /^[a-f0-9-]{36}$/i,
-    'Pass an existing edition UUID',
-  );
+  const editionId = z.string().uuid().parse(process.argv[2]);
   const base = 'http://127.0.0.1:8000';
-  const response = await fetch(`${base}/api/digest-previews/${editionId}`);
+  const response = await fetch(`${base}/api/editions/${editionId}`, {
+    signal: AbortSignal.timeout(10000),
+    redirect: 'error',
+  });
   assert.equal(response.status, 200);
-  const edition = digestPreviewSchema.parse(await response.json());
+  const edition = readerEditionSchema.parse(await response.json());
+  assert.equal(edition.id, editionId);
   const browser = await chromium.launch({ headless: true });
   try {
     for (const [view, width] of [
@@ -43,7 +43,7 @@ async function main() {
             !error.stack.includes(`${base}/assets/`),
         }),
       );
-      await page.goto(`${base}/?edition=${editionId}`);
+      await page.goto(`${base}/editions/${editionId}`);
       await page.locator('.digest-topic').last().waitFor();
       assert.equal(
         await page.locator('.digest-topic').count(),
@@ -58,7 +58,49 @@ async function main() {
         for (let i = 0; i < topic.posts.length; i++) {
           const card = cards.nth(i);
           await card.scrollIntoViewIfNeeded();
-          if (topic.posts[i].platform !== 'x') continue;
+          const post = topic.posts[i];
+          assert.equal(
+            await card
+              .getByRole('link', { name: /^Open original post on / })
+              .getAttribute('href'),
+            post.url,
+            `${topic.name}: original post link`,
+          );
+          assert.equal(
+            await card.locator('time').getAttribute('datetime'),
+            post.publishedAt,
+          );
+          if (post.platform !== 'reddit') {
+            const expectedText =
+              post.platform === 'x'
+                ? (post.displayText ?? post.text)
+                : post.text;
+            assert.equal(
+              await card.locator('.post-text').textContent(),
+              expectedText,
+            );
+          }
+          if (post.platform === 'bluesky') {
+            const images = card.locator('.bluesky-media img');
+            assert.equal(
+              await images.count(),
+              post.media?.filter((media) => media.thumbnail).length ?? 0,
+            );
+            const loadedMediaImages = await images.evaluateAll(
+              (elements) =>
+                elements.filter(
+                  (image) =>
+                    (image as HTMLImageElement).complete &&
+                    (image as HTMLImageElement).naturalWidth > 0,
+                ).length,
+            );
+            outcomes.push({
+              id: post.externalId,
+              platform: post.platform,
+              loadedMediaImages,
+            });
+          }
+          if (post.platform !== 'x') continue;
           await card
             .locator('.saved-post-text, .post-embed-status')
             .waitFor({ timeout: 35000 });
@@ -81,7 +123,8 @@ async function main() {
                 )
             : 0;
           outcomes.push({
-            id: topic.posts[i].externalId,
+            id: post.externalId,
+            platform: post.platform,
             embedded,
             loadedMediaImages: media,
           });

@@ -1641,9 +1641,11 @@ account-list edition, not acceptance of open discovery, Bluesky selections,
 virality, or all-four-topic coverage.
 
 Run explicitly with `pnpm exec tsx scripts/verify-saved-posts.ts <edition-uuid>`.
-The script reads an existing immutable edition, blocks app writes and Reddit,
-checks card counts and horizontal overflow, and reports each X iframe/media
-outcome. It makes real official-widget requests; it is not part of offline tests.
+The script reads an existing immutable edition through the reader API, blocks
+app writes and Reddit, checks card counts, original links, timestamps, saved
+X/Bluesky text and horizontal overflow, and reports X iframe and Bluesky image
+outcomes. It uses the reader URL directly and needs no admin credentials.
+It makes real official-widget requests; it is not part of offline tests.
 An initial run observed a TypeError inside X's embed bundle; the final run had
 zero app or widget errors. Third-party errors are reported separately and do
 not establish an app failure. Media availability can change after capture.
