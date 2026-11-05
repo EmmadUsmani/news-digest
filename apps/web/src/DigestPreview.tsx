@@ -267,16 +267,18 @@ export function DigestPreview() {
         <Button disabled={working} onClick={() => void openEdition()}>
           Open latest edition
         </Button>
-        {historyError ? (
+        {historyError && (
           <p role="alert">
-            Edition history could not be loaded.{' '}
+            {history
+              ? 'Edition history could not be refreshed. Showing saved links already loaded.'
+              : 'Edition history could not be loaded.'}{' '}
             <Button onClick={() => void historyResult.refetch()}>
               Retry history
             </Button>
           </p>
-        ) : !history ? (
-          <p role="status">Loading history…</p>
-        ) : (
+        )}
+        {!history && !historyError && <p role="status">Loading history…</p>}
+        {history && (
           <>
             <ul>
               {history.entries.map((entry) => (
