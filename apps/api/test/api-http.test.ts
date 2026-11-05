@@ -8,6 +8,7 @@ import {
   digestPreviewSchema,
   previewHistorySchema,
   profileSettingsSchema,
+  readerEditionHistorySchema,
   readerEditionSchema,
   sourceCatalogSchema,
   topicSchema,
@@ -233,6 +234,19 @@ void test('digest HTTP publication, history and async jobs use real isolated per
   assert.deepEqual(await request(`/${published.id}`), published);
   assert.deepEqual(await request('/latest'), published);
   const readerBase = `${await app.getUrl()}/api/editions`;
+  for (const offset of ['', '?offset=1', '?offset=9999999']) {
+    const response = await fetch(`${readerBase}${offset}`);
+    assert.equal(response.status, 200);
+    const raw = await response.json();
+    assert.deepEqual(raw, readerEditionHistorySchema.parse(raw));
+    const expected = previewHistorySchema.parse(await request(offset));
+    assert.deepEqual(raw, {
+      entries: expected.entries.map(({ method: _method, ...entry }) => entry),
+      hasMore: expected.hasMore,
+    });
+  }
+  for (const offset of ['-1', '1.5', '10000000', 'abc', '01'])
+    assert.equal((await fetch(`${readerBase}?offset=${offset}`)).status, 400);
   for (const path of ['/latest', `/${published.id}`]) {
     const response = await fetch(`${readerBase}${path}`);
     assert.equal(response.status, 200);

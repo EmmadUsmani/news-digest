@@ -37,8 +37,9 @@ Before making the VM public, verify the proxy strips/replaces a forged
 `/api/editions/latest` and `/api/editions/:id` use shared allowlist schemas
 to return briefs, stories and posts without operational metadata. Missing
 historical briefs and posts become empty arrays; non-AI briefs are omitted.
-The existing browser still uses the old endpoints. Archive pagination and the
-coordinated admin route migration remain unfinished.
+`/api/editions?offset=0` exposes stable 20-entry archive pages with only IDs
+and dates, plus `hasMore`. The existing browser still uses the old endpoints;
+the coordinated admin route migration remains unfinished.
 
 ## Next rollout slice
 

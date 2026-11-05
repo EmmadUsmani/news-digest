@@ -341,6 +341,18 @@ export const readerEditionSchema = z.object({
   ),
 });
 export type ReaderEdition = z.infer<typeof readerEditionSchema>;
+export const readerEditionHistorySchema = z.object({
+  entries: z.array(
+    readerEditionSchema.pick({
+      id: true,
+      createdAt: true,
+      windowStart: true,
+      windowEnd: true,
+    }),
+  ),
+  hasMore: z.boolean(),
+});
+export type ReaderEditionHistory = z.infer<typeof readerEditionHistorySchema>;
 
 export const previewRequestSchema = z
   .object({

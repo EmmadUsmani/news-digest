@@ -1,10 +1,16 @@
-import { type DigestPreview, readerEditionSchema } from '@digest/contracts';
 import {
+  type DigestPreview,
+  readerEditionHistorySchema,
+  readerEditionSchema,
+} from '@digest/contracts';
+import {
+  BadRequestException,
   Controller,
   Get,
   NotFoundException,
   Param,
   ParseUUIDPipe,
+  Query,
 } from '@nestjs/common';
 
 import { PreviewRepository } from './domain/preview.repository';
@@ -23,6 +29,16 @@ export function readerEdition(snapshot: DigestPreview) {
 @Controller('api/editions')
 export class ReaderEditionController {
   constructor(private readonly repository: PreviewRepository) {}
+
+  @Get() async history(@Query('offset') offset = '0') {
+    if (!/^(0|[1-9]\d{0,6})$/.test(offset))
+      throw new BadRequestException(
+        'Use a nonnegative offset of at most 9999999',
+      );
+    return readerEditionHistorySchema.parse(
+      await this.repository.history(Number(offset)),
+    );
+  }
 
   @Get('latest') async latest() {
     const snapshot = await this.repository.latest();

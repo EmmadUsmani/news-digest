@@ -1,14 +1,3 @@
-## 2026-11-04: iteration 717 — UI foundations: routing and saved-edition deep links
-
-- Started clean on main; no leftover work. Zero alerts, local health/database/Redis green, 36 active sources with zero errors and zero failed digest jobs. Second independent X news day and Nov 5 scheduled checks remain future; progressed STEERING 33 under item 22.
-- Preserved current page inside code-based TanStack Router with TanStack Query provider (60-second stale default). Added canonical /editions/:id, validated legacy-link redirect, route error/retry and not-found screens. Current fetching stays unchanged; Tailwind/shadcn, Inter/theme and resource hooks remain in foundations.
-- Server history fallback now excludes API roots and all specified tool/proxy prefixes. Edition/history/status links and existing smoke selectors use canonical routes. No admin pages or authorization behavior changed; those follow foundations per the spec.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (475 unit; 213 integration cases reported success before exit 143, then clean isolated integration rerun), pnpm build, check-handbook.ts and git diff --check passed. Handbook initially exceeded 100 lines; shortened the addition and revalidated.
-- Restarted news-digest-api for changed runtime; local health green. smoke-ui-routing, smoke-edition-selection, smoke-edition-history, smoke-ui and smoke-status passed desktop/mobile using real stored content; history completion/failure checks remain explicitly simulated, with no writes or provider calls.
-- Viewed desktop/mobile routing screenshots in docs/screenshots/ui/. Discarded unrelated telemetry screenshot churn from broad smoke checks. HTTPS app hostname resolves to private 10.42.0.42 and refuses port 443 from this VM; proxy access unverified, localhost endpoints/browser checks pass.
-- Compacted TASKS and archived iterations 704–705; updated affected handbook pages; SOURCES/NEEDS_FROM_HUMAN unchanged (no source or new owner requirement). No paid calls, model/provider/budget changes or fixed A/B activation.
-- Next: finish foundations (Tailwind v4/shadcn, Inter/theme and query hooks), then admin gate; return first to Nov 5 scheduled acceptance and second-day X experiment when due.
-
 ## 2026-11-04: iteration 718 — shared query resources for UI foundations
 
 - Started clean on main; no leftover work. Zero alerts, local health/database/Redis green, 36 sources healthy, zero failed digest jobs; next edition Nov 5 15:00 UTC. Scheduled acceptance and second independent X day remain future.
@@ -132,3 +121,13 @@
 - Rebuilt/restarted API/docs; live health and reader latest/by-ID checks passed against the real saved edition: four topics, 14 stories, 15 posts, no extra fields. Final restart health green; one pending ObservabilityMemoryBudget warning (obs-metrics 104.9/112 MiB, active/zero restarts), no firing alerts; worker/schema unchanged.
 - Updated TASKS, Stack/runtime and access decision. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. Admin identity configuration and proxy-origin/spoof verification remain open.
 - No paid calls, provider/model/budget changes, scorer changes or X activation. Next: reader archive preparation while identity is unresolved; Nov 5 scheduled acceptance first when due, scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6.
+
+## 2026-11-05: iteration 731 — reader archive payloads
+
+- Started clean on main; no leftover work. Health/database/Redis, 13 services and 36 sources healthy; no retained failed digest runs. One pending metrics memory warning, no firing alerts. Nov 5 acceptance and fresh X windows remain future.
+- Added GET /api/editions?offset=0 with explicit shared reader-history allowlist: IDs, creation/window dates and hasMore only. Reuses stable 20-entry repository pages; generation methods and future operational fields are stripped. Browser/admin migration remains open.
+- Added isolated HTTP assertions matching existing history pagination, empty high-offset pages, exact field filtering and five invalid offsets. Existing latest/by-ID checks remain unchanged.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (494 unit/213 isolated integration), pnpm build, pnpm exec tsx scripts/check-handbook.ts 01-stack-and-runtime, pnpm exec tsx scripts/smoke-ui-routing.ts and git diff --check passed.
+- Rebuilt/restarted API/docs. Live read-only checks passed across ten archive pages/200 stored editions, allowed fields, invalid offsets and health. Desktop/mobile routing passed with real saved editions and no writes; no visual changes or screenshot updates.
+- Updated TASKS, affected handbook and access decision; archived iteration 717 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. Admin identity/proxy verification remains open.
+- No paid calls, provider/model/budget changes, scorer changes or X activation. Next: coordinated reader/admin migration; scheduled Nov 5 acceptance first when due, scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6.
