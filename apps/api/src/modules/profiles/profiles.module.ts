@@ -11,7 +11,7 @@ import {
 import { PostgresProfileRepository } from './database/profile.repository';
 import { ProfileRepository } from './domain/profile.repository';
 import { durationMilliseconds, validateSchedule } from './domain/schedule';
-@Controller('api/profile')
+@Controller(['api/profile', 'api/admin/profile'])
 class ProfilesController {
   constructor(private readonly profiles: ProfileRepository) {}
   @Put('schedule') async update(@Body() body: unknown) {

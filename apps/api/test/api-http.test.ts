@@ -16,6 +16,8 @@ import {
 import { NestFactory } from '@nestjs/core';
 import { Worker } from 'bullmq';
 
+import { adminAccess } from '../src/admin-access';
+
 // Use tsc output: Nest requires emitted constructor metadata, which tsx omits.
 const require = createRequire(import.meta.url);
 const { AppModule } = require('../dist/app.js') as typeof import('../src/app');
@@ -329,4 +331,93 @@ void test('digest HTTP publication, history and async jobs use real isolated per
     await worker.close();
     await connection.quit();
   }
+});
+
+void test('protected admin aliases use real controllers and deny unauthenticated reads and writes', async (t) => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const app = await NestFactory.create(AppModule, { logger: false });
+  app.use(adminAccess({ localToken: 'isolated-admin-token' }));
+  t.after(() => app.close());
+  await app.listen(0, '127.0.0.1');
+  const base = await app.getUrl();
+  const headers = {
+    ADMIN_LOCAL_TOKEN: 'isolated-admin-token',
+    'content-type': 'application/json',
+  };
+  for (const path of [
+    'topics',
+    'topics/sources',
+    'profile',
+    'content',
+    'content/sources',
+    'digest-previews',
+    'digest-previews/latest',
+    'status',
+  ]) {
+    const denied = await fetch(`${base}/api/admin/${path}`);
+    assert.equal(denied.status, 404, path);
+    assert.equal(await denied.text(), '');
+    const authorized = await fetch(`${base}/api/admin/${path}`, { headers });
+    const legacy = await fetch(`${base}/api/${path}`);
+    assert.equal(authorized.status, legacy.status, path);
+    // Status includes current timestamps/queue timings, so compare its shape only.
+    if (path === 'status') {
+      assert.deepEqual(
+        Object.keys(await authorized.json()).sort(),
+        Object.keys(await legacy.json()).sort(),
+      );
+    } else {
+      assert.deepEqual(await authorized.json(), await legacy.json(), path);
+    }
+  }
+  const input = {
+    name: 'Admin alias fixture',
+    description: 'Isolated admin write',
+    includeGuidance: '',
+    excludeGuidance: '',
+    relevancePolicy: { includeAny: [], excludeAny: [] },
+    enabled: false,
+    storyBudget: 2,
+    postBudget: 1,
+  };
+  const url = `${base}/api/admin/topics`;
+  for (const method of ['POST', 'PUT', 'DELETE']) {
+    const denied = await fetch(url, {
+      method,
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(input),
+    });
+    assert.equal(denied.status, 404);
+    assert.equal(await denied.text(), '');
+  }
+  const createdResponse = await fetch(url, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(input),
+  });
+  assert.equal(createdResponse.status, 201);
+  const created = topicSchema.parse(await createdResponse.json());
+  try {
+    const updated = await fetch(`${url}/${created.id}`, {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify({ ...input, name: 'Updated admin fixture' }),
+    });
+    assert.equal(updated.status, 200);
+    assert.equal(
+      topicSchema.parse(await updated.json()).name,
+      'Updated admin fixture',
+    );
+    const denied = await fetch(`${url}/${created.id}`, { method: 'DELETE' });
+    assert.equal(denied.status, 404);
+  } finally {
+    const deleted = await fetch(`${url}/${created.id}`, {
+      method: 'DELETE',
+      headers,
+    });
+    assert.equal(deleted.status, 200);
+  }
+  const reader = await fetch(`${base}/api/editions`);
+  assert.equal(reader.status, 200);
+  readerEditionHistorySchema.parse(await reader.json());
 });

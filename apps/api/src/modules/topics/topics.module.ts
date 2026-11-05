@@ -23,7 +23,7 @@ import {
 import { publicFeedUrl } from '../../libs/ports/public-url';
 import { PostgresTopicRepository } from './database/topic.repository';
 import { TopicRepository } from './domain/topic.repository';
-@Controller('api/topics')
+@Controller(['api/topics', 'api/admin/topics'])
 class TopicsController {
   constructor(private readonly topics: TopicRepository) {}
   @Get('sources') catalog() {

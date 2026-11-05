@@ -97,5 +97,5 @@ endpoints for both edition content and history. Operational routes await the adm
 - Direct VM scripts can send the `ADMIN_LOCAL_TOKEN` header, matching the
   secret of the same name. This requires a loopback socket and no forwarding
   headers; loopback alone grants no access. Missing settings deny access.
-- Existing operational endpoints and tools keep their current paths during
-  the migration. See the [access decision](../../decisions/2026-11-05-admin-access.md).
+- Protected aliases under `/api/admin` serve topics, profile, status, content
+  and digest previews. Legacy endpoints and tools keep their current paths during migration. See the [access decision](../../decisions/2026-11-05-admin-access.md).

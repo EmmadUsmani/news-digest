@@ -3,8 +3,9 @@
 The owner-approved UI spec requires server-side admin access and local script
 access. The middleware runs before static files and tool routing. It protects
 reserved `/admin` and `/api/admin` paths and supplies uncached `/api/me`.
-Existing operational routes and tools are not yet migrated or protected by this
-middleware. The app remains private under exe.dev's existing access control.
+Protected `/api/admin/*` aliases now serve topics, profile, status, content
+and digest previews through the existing controllers. Legacy operational routes
+and tools remain available during the coordinated migration. The app remains private under exe.dev's existing access control.
 
 ## Identity
 

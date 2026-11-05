@@ -3,7 +3,7 @@ import { Controller, Get, Module } from '@nestjs/common';
 import { BrowserErrorsController } from './adapters/browser-errors';
 import { OperationsStatus } from './adapters/operations.status';
 import { OperationsReader } from './domain/operations.reader';
-@Controller('api/status')
+@Controller(['api/status', 'api/admin/status'])
 class OperationsController {
   constructor(private readonly status: OperationsReader) {}
   @Get() read() {

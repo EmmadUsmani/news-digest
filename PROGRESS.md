@@ -1,13 +1,3 @@
-## 2026-11-05: iteration 720 — viral X query and disabled single-slot schedule
-
-- Started clean on main; no leftover work. Zero alerts, health/database/Redis green, source snapshot healthy and no failed digest jobs. Nov 5 15:00 UTC acceptance is still future.
-- Added shared viral query construction: 8–10 fresh description-based OR terms, code-built exact UTC since/until, reply/retweet/language filters, stored trending minimum and mandatory -giveaway. Grok 4.3 unchanged; requests 16 posts with 4,000 output tokens and retains 16 citations rather than five.
-- Disabled fixed schedule now prepares one viral slot/topic, no article loading or reaction slots. Exact edition window and existing fixed-trending ledger identity retained; four $0.10 reservations fit $0.40. Legacy production discovery, scorer/cache keys and activation flag unchanged.
-- Experiment preparation exposes requests.viral without article context. Historical runner/report/extractor still use old styles: next update them for viral + test-only semantic searches and remove article readiness; do not dispatch the legacy runner. Historical constructors remain for old evidence.
-- Verification: 23 targeted fixture cases, pnpm format, pnpm lint:fix, pnpm check (479 unit, 213 isolated integration, exit 0), pnpm build, check-handbook.ts 05-social-posts and git diff --check passed. Initial direct invocation included DB tests without the isolation harness and was correctly rejected; full isolated check passed.
-- Updated social handbook, experiment notes and TASKS. No UI changes/screenshots required; SOURCES/NEEDS_FROM_HUMAN unchanged. No paid calls, provider/model/budget changes or scorer changes.
-- Restarted API, worker and docs for changed runtime/handbook; health passed after readiness retry. Next: finish experiment harness before rounds after 21:00 Nov 5/6; Nov 5 scheduled acceptance first when due, scorer only afterward.
-
 ## 2026-11-05: iteration 721 — article-free viral experiment preparation
 
 - Started clean on main; no leftover work. Zero alerts, health/database/Redis green, 36 healthy sources, zero failed digest jobs; latest stored edition has four topics. Nov 5 15:00 UTC acceptance remains future.
@@ -132,3 +122,13 @@
 - Saved and inspected reader-content desktop/mobile light/dark screenshots. Browser reads use real stored editions; generation/completion states are intercepted, with no writes or inference. Discarded incidental foundation/job screenshot churn.
 - Updated TASKS, affected runtime handbook/access decision; archived iteration 719 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. API/docs rebuilt/restarted; worker/schema unchanged.
 - No paid calls, provider/model/budget changes, scorer changes or X activation. Next: configured admin identity and coordinated migration; Nov 5 scheduled acceptance first when due, scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6.
+
+## 2026-11-05: iteration 734 — protected admin API aliases
+
+- Started clean on main; no leftover work. Health/database/Redis, 13 services and 36 sources healthy; zero retained failed digest jobs. Metrics memory warning initially firing, later pending; no observability restart or limit change. Nov 5 edition remains due at 15:00 UTC.
+- Prepared protected /api/admin aliases for topics, profile/schedule, status, content/sources and digest previews/jobs using the existing controllers. Legacy routes remain available until configured identity and coordinated UI/script/tool cutover; this is not completed admin isolation.
+- Added isolated real-HTTP parity checks for eight reads, denied reads/writes, authorized topic create/update/delete and public reader access. Existing characterization tests unchanged; no live writes or inference.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (494 unit/214 isolated integration), pnpm build, check-handbook.ts 01-stack-and-runtime, smoke-ui-routing.ts and git diff --check passed. Desktop/mobile routing uses real saved editions; discarded incidental unchanged-UI screenshot churn.
+- Rebuilt/restarted API/docs. Initial immediate health probe raced startup; readiness retry and pnpm obs health --check passed. Live six admin paths denied, /api/me denied identity, and reader latest returned four topics/14 stories/15 posts. Worker/schema unchanged.
+- Updated TASKS, runtime handbook and access decision; archived iteration 720 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker.
+- No paid calls, model/provider/budget changes, scorer work or X activation. Next: configured admin identity, UI/script migration and tool gate together; scheduled Nov 5 acceptance first when due, scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6.

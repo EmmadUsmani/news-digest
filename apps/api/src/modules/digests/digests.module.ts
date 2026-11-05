@@ -18,7 +18,7 @@ import { PostgresPreviewRepository } from './database/preview.repository';
 import { EditionJobs } from './domain/edition-jobs';
 import { PreviewRepository } from './domain/preview.repository';
 import { ReaderEditionController } from './reader-edition.controller';
-@Controller('api/digest-previews')
+@Controller(['api/digest-previews', 'api/admin/digest-previews'])
 export class PreviewController {
   constructor(
     private readonly repository: PreviewRepository,
