@@ -127,6 +127,14 @@ function TopicEditor({ topic }: { topic: Topic }) {
               excludeAny: lines('excludeAny'),
             },
             blueskyQuery: String(data.get('blueskyQuery') ?? ''),
+            ...(String(data.get('xMinimumLikes') ?? '').trim()
+              ? {
+                  xDiscovery: {
+                    minimumLikes: Number(data.get('xMinimumLikes')),
+                    exclusions: lines('xExclusions'),
+                  },
+                }
+              : {}),
             accounts: lines('accounts').map((value) => value.replace(/^@/, '')),
             redditCommunities: lines('redditCommunities').map((value) =>
               value.replace(/^r\//i, ''),
@@ -268,6 +276,31 @@ function TopicEditor({ topic }: { topic: Topic }) {
               support secondary searches within shared spending caps. Scheduled
               X search is off pending the experiment decision; saving does not
               start a search.
+            </p>
+            <label className="grid gap-1 text-sm">
+              X minimum likes
+              <Input
+                name="xMinimumLikes"
+                type="number"
+                min={0}
+                max={2147483647}
+                step={1}
+                defaultValue={topic.xDiscovery?.minimumLikes ?? ''}
+              />
+            </label>
+            <label className="grid gap-1 text-sm">
+              X exclusions
+              <Textarea
+                aria-label="X exclusions"
+                name="xExclusions"
+                defaultValue={topic.xDiscovery?.exclusions.join('\n') ?? ''}
+              />
+            </label>
+            <p className="m-0 text-sm text-[var(--secondary)]">
+              One excluded word per line with a leading minus, such as -crypto.
+              -giveaway is always excluded. Minimum likes applies to the new X
+              search; leave it blank to keep the saved settings. Saving does not
+              enable discovery.
             </p>
             <label className="grid gap-1 text-sm">
               Bluesky query

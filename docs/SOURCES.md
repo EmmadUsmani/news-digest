@@ -2024,3 +2024,10 @@ characters). Hourly discovery uses it before news queries; blank retains the
 existing first-news-query, first-include-phrase, then topic-name fallback.
 Existing topics retain blank values. No live search phrases or collection
 volumes changed, and saving never starts a search.
+
+## X discovery topic controls — iteration 899 (2026-11-05)
+
+The topic editor exposes the stored minimum likes and excluded words for the
+replacement X search. Exclusions use one `-word` per line; `-giveaway` is always
+added by query construction. Saving keeps discovery off pending the experiment
+decision. Existing live thresholds and exclusions were not changed.

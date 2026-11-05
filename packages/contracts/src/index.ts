@@ -41,6 +41,19 @@ export const redditCommunitiesSchema = z
       new Set(names.map((name) => name.toLowerCase())).size === names.length,
     'Reddit communities must be unique, ignoring case',
   );
+export const xDiscoverySettingsSchema = z
+  .object({
+    minimumLikes: z.number().int().min(0).max(2147483647),
+    exclusions: z
+      .array(
+        z
+          .string()
+          .trim()
+          .regex(/^-[a-zA-Z0-9_]+$/),
+      )
+      .max(100),
+  })
+  .strict();
 export const topicSchema = z.object({
   id: z.string().uuid(),
   profileId: z.string().uuid(),
@@ -58,6 +71,7 @@ export const topicSchema = z.object({
   accounts: z.array(z.string()),
   redditCommunities: redditCommunitiesSchema.default([]),
   blueskyQuery: z.string().trim().max(500).optional(),
+  xDiscovery: xDiscoverySettingsSchema.nullable().optional(),
 });
 export type Topic = z.infer<typeof topicSchema>;
 export const contentGroupSchema = z.object({
@@ -430,6 +444,7 @@ export const topicUpdateSchema = topicSchema
     accounts: xAccountsSchema.optional(),
     redditCommunities: redditCommunitiesSchema.optional(),
     blueskyQuery: z.string().trim().max(500).optional(),
+    xDiscovery: xDiscoverySettingsSchema.nullable().optional(),
     name: z.string().trim().min(1).max(120),
     description: z.string().trim().max(2000),
     includeGuidance: z.string().trim().max(2000),

@@ -124,3 +124,13 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check passed typecheck/lint/format/boundaries and 508 unit tests; initial integration 219/220 exposed new-column order mismatch, corrected schema order; pnpm test:integration rerun passed all 220 including parity; pnpm build; smoke-admin-topic-editor.ts; smoke-admin-separation.ts; check-handbook.ts 05-social-posts and 08-operations; git diff --check.
 - /healthz database/Redis green; saved reader endpoint 200; 36 sources collecting with recent successes. Existing observability shipper memory warning became firing; service active at about 76 MiB of 80 MiB ceiling, no app failure.
 - Next: X threshold/exclusion admin controls, then final reader; Nov 6 edition/grouping review and X fresh-window round after 21:00 UTC. No X activation before decision.
+
+## 2026-11-05: iteration 899 — X discovery topic controls
+
+- Started clean on main; no leftover work. Owner would care: edit X discovery minimum likes and exclusions directly in the topic editor.
+- Added protected settings read/write through the existing topic endpoint, with atomic topic/settings updates and strict integer/operator validation. Uses the existing settings table; omitted/null settings preserve configuration, and historical reaction thresholds stay intact. No migration or live settings changes.
+- Isolated HTTP coverage verifies unset defaults, save/read, invalid likes/operators and preservation during other edits. Browser writes intercepted; invalid exclusions block writes, save/reload and four theme/viewport screenshots passed. Desktop light/mobile dark visually reviewed; discarded unrelated delete/separation screenshots.
+- Review caught nullable settings breaking topic-list updates for new topics; allowed null as preserve and verified the contract directly, then rebuilt. No paid calls or X activation.
+- Verification: pnpm format; pnpm lint:fix; pnpm check passed typecheck/lint/format/boundaries, 508 unit and 220 isolated integration tests; pnpm build (including final nullable change); direct unset-settings contract check; smoke-admin-topic-editor.ts; smoke-admin-separation.ts; check-handbook.ts 05-social-posts and 08-operations; git diff --check.
+- Updated TASKS, SOURCES and affected handbook pages; NEEDS_FROM_HUMAN unchanged. Four services restarted/active; /healthz database/Redis green, reader 200, 36 active sources/zero errors with successes through 23:10 UTC. Existing observability shipper memory warning remains; service active.
+- Next: final reader per approved spec; Nov 6 scheduled edition/grouping review and fresh-window X round after 21:00 UTC. No X activation before decision.

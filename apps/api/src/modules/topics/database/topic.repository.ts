@@ -20,6 +20,7 @@ import {
   profiles,
   topics,
   topicSourceConnections as connections,
+  xSearchTopicSettings,
 } from '../../../libs/db/schema';
 import { TopicRepository } from '../domain/topic.repository';
 
@@ -61,8 +62,16 @@ export class PostgresTopicRepository
       .select({
         ...getTableColumns(topics),
         sources: sql<string[]>`(${sourceList})`,
+        xDiscovery: {
+          minimumLikes: xSearchTopicSettings.trendingMinFaves,
+          exclusions: xSearchTopicSettings.exclusions,
+        },
       })
       .from(topics)
+      .leftJoin(
+        xSearchTopicSettings,
+        eq(xSearchTopicSettings.topicId, topics.id),
+      )
       .where(eq(topics.profileId, profileId))
       .orderBy(topics.position, topics.id);
     return rows as Topic[];
@@ -220,6 +229,7 @@ export class PostgresTopicRepository
   }
   async createDefault(input: TopicUpdate): Promise<Topic> {
     const id = randomUUID();
+    const { xDiscovery, ...fields } = input;
     await this.preserveErrors(() =>
       this.db.transaction(async (tx) => {
         await tx
@@ -232,13 +242,20 @@ export class PostgresTopicRepository
           .from(topics)
           .where(eq(topics.profileId, profileId));
         await tx.insert(topics).values({
-          ...input,
+          ...fields,
           id,
           profileId,
           position: (last.position ?? -1) + 1,
           accounts: input.accounts ?? [],
           redditCommunities: input.redditCommunities ?? [],
         });
+        if (xDiscovery)
+          await tx.insert(xSearchTopicSettings).values({
+            topicId: id,
+            reactionMinFaves: 0,
+            trendingMinFaves: xDiscovery.minimumLikes,
+            exclusions: xDiscovery.exclusions,
+          });
       }),
     );
     return (await this.listDefault()).find((t) => t.id === id)!;
@@ -276,12 +293,32 @@ export class PostgresTopicRepository
     );
   }
   async updateDefault(id: string, update: TopicUpdate): Promise<Topic | null> {
+    const { xDiscovery, ...fields } = update;
     const changed = await this.preserveErrors(() =>
-      this.db
-        .update(topics)
-        .set(update)
-        .where(owned(id))
-        .returning({ id: topics.id }),
+      this.db.transaction(async (tx) => {
+        const changed = await tx
+          .update(topics)
+          .set(fields)
+          .where(owned(id))
+          .returning({ id: topics.id });
+        if (changed.length && xDiscovery)
+          await tx
+            .insert(xSearchTopicSettings)
+            .values({
+              topicId: id,
+              reactionMinFaves: 0,
+              trendingMinFaves: xDiscovery.minimumLikes,
+              exclusions: xDiscovery.exclusions,
+            })
+            .onConflictDoUpdate({
+              target: xSearchTopicSettings.topicId,
+              set: {
+                trendingMinFaves: xDiscovery.minimumLikes,
+                exclusions: xDiscovery.exclusions,
+              },
+            });
+        return changed;
+      }),
     );
     if (!changed.length) return null;
     return (await this.listDefault()).find((t) => t.id === id) ?? null;

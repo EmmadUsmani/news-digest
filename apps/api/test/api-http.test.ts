@@ -82,6 +82,34 @@ void test('real HTTP health, topic lifecycle and settings preserve persisted con
     assert.equal(created.position, original.length);
     assert.deepEqual(created.accounts, input.accounts);
     assert.equal(created.blueskyQuery, '');
+    assert.equal(created.xDiscovery, null);
+    const xDiscovery = {
+      minimumLikes: 250,
+      exclusions: ['-crypto', '-betting'],
+    };
+    const xSaved = topicSchema.parse(
+      await request(`${topicsPath}/${created.id}`, 200, 'PUT', {
+        ...input,
+        xDiscovery,
+      }),
+    );
+    assert.deepEqual(xSaved.xDiscovery, xDiscovery);
+    const xRead = topicSchema
+      .array()
+      .parse(await request(topicsPath))
+      .find((topic) => topic.id === created.id);
+    assert.deepEqual(xRead?.xDiscovery, xDiscovery);
+    for (const invalid of [
+      { minimumLikes: -1, exclusions: [] },
+      { minimumLikes: 1.5, exclusions: [] },
+      { minimumLikes: 2147483648, exclusions: [] },
+      { minimumLikes: 250, exclusions: ['crypto OR betting'] },
+    ])
+      await request(`${topicsPath}/${created.id}`, 400, 'PUT', {
+        ...input,
+        xDiscovery: invalid,
+      });
+
     const blueskySaved = topicSchema.parse(
       await request(`${topicsPath}/${created.id}`, 200, 'PUT', {
         ...input,
@@ -89,6 +117,7 @@ void test('real HTTP health, topic lifecycle and settings preserve persisted con
       }),
     );
     assert.equal(blueskySaved.blueskyQuery, 'science discoveries');
+    assert.deepEqual(blueskySaved.xDiscovery, xDiscovery);
     await request(`${topicsPath}/${created.id}`, 400, 'PUT', {
       ...input,
       blueskyQuery: 'x'.repeat(501),

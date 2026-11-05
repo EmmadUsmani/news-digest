@@ -92,6 +92,22 @@ async function smoke() {
         await page
           .getByLabel('X accounts', { exact: true })
           .fill('@example\nexample_two');
+        await page.getByLabel('X minimum likes', { exact: true }).fill('250');
+        await page
+          .getByLabel('X exclusions', { exact: true })
+          .fill('crypto OR betting');
+        await page
+          .getByRole('button', { name: 'Save topic', exact: true })
+          .click();
+        await page
+          .getByRole('status')
+          .filter({ hasText: 'xDiscovery.exclusions' })
+          .waitFor();
+        assert.equal(writes.length, 0);
+
+        await page
+          .getByLabel('X exclusions', { exact: true })
+          .fill('-crypto\n-betting');
         await page
           .getByLabel('Bluesky query', { exact: true })
           .fill('basketball highlights');
@@ -105,6 +121,10 @@ async function smoke() {
           .getByRole('status')
           .filter({ hasText: 'Topic saved.' })
           .waitFor();
+        assert.deepEqual(writes[0].body.xDiscovery, {
+          minimumLikes: 250,
+          exclusions: ['-crypto', '-betting'],
+        });
         assert.equal(writes[0].body.blueskyQuery, 'basketball highlights');
         assert.equal(writes[0].body.includeGuidance, 'Saved browser guidance');
         assert.deepEqual(writes[0].body.accounts, ['example', 'example_two']);
@@ -126,6 +146,16 @@ async function smoke() {
             () => document.documentElement.scrollWidth > innerWidth,
           ),
           false,
+        );
+        assert.equal(
+          await page
+            .getByLabel('X minimum likes', { exact: true })
+            .inputValue(),
+          '250',
+        );
+        assert.equal(
+          await page.getByLabel('X exclusions', { exact: true }).inputValue(),
+          '-crypto\n-betting',
         );
         assert.equal(
           await page.getByLabel('Bluesky query', { exact: true }).inputValue(),
