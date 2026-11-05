@@ -95,6 +95,11 @@ Validation and failure responses, retries, reload and disconnect are browser-onl
 it never creates topics, connects a live publisher or waits for collection.
 Server URL validation remains covered by isolated API tests.
 
+The X-account editing check reads protected topic/edition snapshots in Node.
+Its disabled topic and saves exist only in browser replay memory; duplicate
+handles are rejected before a request, and unexpected API writes are blocked.
+Server account validation remains covered by isolated settings tests.
+
 ## Next rollout slice
 
 Configure the owner email allowlist before moving current operational routes.

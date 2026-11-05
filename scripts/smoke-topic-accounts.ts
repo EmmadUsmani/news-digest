@@ -1,15 +1,22 @@
-// Explicit local browser check. Uses a temporary disabled topic; no inference/search.
+// Explicit browser replay; protected live reads, no writes or inference/search.
 import assert from 'node:assert/strict';
 
-import { topicSchema } from '@digest/contracts';
+import { topicSchema, topicUpdateSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
+
+import { localAdminJson } from './lib/local-admin-fetch';
 
 const base = 'http://localhost:8000';
 async function main() {
   const browser = await chromium.launch();
   const context = await browser.newContext();
-  const api = context.request;
-  let id: string | undefined;
+  const original = topicSchema
+    .array()
+    .parse(await localAdminJson('/api/admin/topics'));
+  const latest = (await localAdminJson(
+    '/api/admin/digest-previews/latest',
+  )) as { id: string } | null;
+  const id = '00000000-0000-4000-8000-999999999998';
   const input = {
     name: 'X account settings check',
     description: '',
@@ -21,18 +28,50 @@ async function main() {
     relevancePolicy: { includeAny: [], excludeAny: [] },
     accounts: ['NBA'],
   };
-  const latest = await (
-    await api.get(`${base}/api/digest-previews/latest`)
-  ).json();
+  const replayTopics = structuredClone(original);
+  const initial = topicSchema.parse({
+    ...input,
+    id,
+    profileId: original[0].profileId,
+    position: original.length,
+    sources: [],
+    queries: [],
+  });
+  replayTopics.push(structuredClone(initial));
+  let saves = 0;
+  await context.route('**/api/**', async (route) => {
+    const request = route.request();
+    const path = new URL(request.url()).pathname;
+    if (path === '/api/topics' && request.method() === 'GET') {
+      await route.fulfill({ json: replayTopics });
+      return;
+    }
+    if (path === `/api/topics/${id}` && request.method() === 'PUT') {
+      const parsed = topicUpdateSchema.safeParse(request.postDataJSON());
+      assert.equal(
+        parsed.success,
+        true,
+        'Browser must reject duplicate handles before sending',
+      );
+      if (!parsed.success) throw new Error('Invalid browser update');
+      const saved = topicSchema.parse({ ...initial, ...parsed.data });
+      replayTopics[original.length] = saved;
+      saves++;
+      await route.fulfill({ json: saved });
+      return;
+    }
+    assert.equal(request.method(), 'GET', `Unexpected browser write: ${path}`);
+    await route.continue();
+  });
   try {
-    const response = await api.post(`${base}/api/topics`, { data: input });
-    assert.equal(response.status(), 201);
-    id = topicSchema.parse(await response.json()).id;
     for (const [name, width, height] of [
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
     ] as const) {
-      const page = await browser.newPage({ viewport: { width, height } });
+      replayTopics[original.length] = structuredClone(initial);
+      const page = await context.newPage();
+      await page.setViewportSize({ width, height });
+      const previousSaves = saves;
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
       await page.goto(base);
@@ -75,13 +114,15 @@ async function main() {
         .getByRole('status')
         .filter({ hasText: 'up to 20 unique handles' })
         .waitFor();
-      assert.deepEqual(
-        topicSchema
-          .array()
-          .parse(await (await api.get(`${base}/api/topics`)).json())
-          .find((t) => t.id === id)?.accounts,
-        ['NBA', 'NBAPR'],
+      assert.equal(
+        saves,
+        previousSaves + 1,
+        'Duplicate handles must not send another save',
       );
+      assert.deepEqual(replayTopics[original.length].accounts, [
+        'NBA',
+        'NBAPR',
+      ]);
       await handles.fill('NBA\nNBAPR');
       await handles.scrollIntoViewIfNeeded();
       await page.screenshot({
@@ -96,24 +137,16 @@ async function main() {
       assert.deepEqual(errors, []);
       await page.close();
     }
-    assert.equal(
-      (
-        await api.put(`${base}/api/topics/${id}`, {
-          data: { ...input, accounts: ['NBA', 'nba'] },
-        })
-      ).status(),
-      400,
-    );
-    assert.deepEqual(
-      await (await api.get(`${base}/api/digest-previews/latest`)).json(),
-      latest,
-    );
     console.log(
-      'X account settings: desktop/mobile save, reload, @ normalization, duplicate rejection and immutable latest edition pass; no inference/search',
+      'X account settings: desktop/mobile browser-only save/reload, @ normalization and duplicate prevention pass; protected reads prove live topics/edition unchanged; no inference/search',
     );
   } finally {
-    if (id)
-      assert.equal((await api.delete(`${base}/api/topics/${id}`)).ok(), true);
+    assert.deepEqual(await localAdminJson('/api/admin/topics'), original);
+    if (latest)
+      assert.deepEqual(
+        await localAdminJson('/api/admin/digest-previews/' + latest.id),
+        latest,
+      );
     await context.close();
     await browser.close();
   }
