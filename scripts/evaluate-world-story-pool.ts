@@ -8,6 +8,7 @@ import { llmConfig } from '../apps/api/src/modules/curation/adapters/config';
 import { EventGrouping } from '../apps/api/src/modules/curation/application/event-grouping';
 import { costMicros } from '../apps/api/src/modules/curation/domain/budget';
 import type { LlmRequest } from '../apps/api/src/modules/curation/domain/llm.port';
+import { groupShortlist } from '../apps/api/src/modules/digests/application/group-shortlist';
 import { editorialShortlist } from '../apps/api/src/modules/digests/domain/editorial-shortlist';
 import { qualityRejection } from '../apps/api/src/modules/digests/domain/quality';
 import {
@@ -78,6 +79,44 @@ async function main() {
       ).shortlist.map((c) => c.id),
       candidates.slice(0, 10).map((c) => c.id),
       'Production article limit changed; refresh the before comparison',
+    );
+    // Exercise the prepared production selection and grouping wrapper with reviewed
+    // memberships, not model output. Publication still uses the ten-article default.
+    const prepared = editorialShortlist(
+      window.candidates,
+      window.scores,
+      policy,
+      start,
+      end,
+      undefined,
+      40,
+    );
+    assert.deepEqual(prepared.shortlist, candidates);
+    const preparedMatches = await groupShortlist(
+      {
+        group(_topic, items) {
+          assert.equal(items.length, 40);
+          return Promise.resolve(
+            window.reviewedStories
+              .map((story) => story.ids)
+              .filter((ids) => ids.length > 1),
+          );
+        },
+      },
+      window.topicId,
+      prepared.shortlist,
+      'offline-reviewed-labels',
+    );
+    const preparedRanked = rank(
+      prepared.shortlist,
+      start,
+      end,
+      10,
+      preparedMatches,
+    );
+    assert.equal(
+      preparedRanked.length,
+      window.windowEnd.startsWith('2026-11-04') ? 7 : 10,
     );
     const results = [];
     for (const size of [10, 20, 30, 40]) {

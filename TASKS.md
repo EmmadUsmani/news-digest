@@ -36,6 +36,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Bounded grouping path prepared (869): explicit forty-article selection and wrapper, ten-story editor ceiling; saved reviewed-label replay passes through production helpers. Publication retains ten articles until actual grouping and all-topic budget gate pass.
+
 - [x] World story-pool evidence (868): offline reviewed-label replay supports forty articles before grouping: Nov 5 2→13 stories (ten editor inputs), Nov 4 1→7. Production unchanged; actual model replay/all-topic budget gate and fix remain next. [Evidence](docs/edition-reviews/2026-11-05-world-story-pool.md).
 
 - [x] Scheduled speed comparison (867): retained Nov 5 allowlisted call-usage fixture; measured purpose spans and remaining article-free latency bound, no runtime changes.

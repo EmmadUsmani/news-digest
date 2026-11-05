@@ -94,7 +94,7 @@ void test('disabled, refused, failed and invalid grouping leave every article se
   for (const items of [
     [],
     [candidates[0]],
-    Array.from({ length: 11 }, () => candidates[0]),
+    Array.from({ length: 41 }, () => candidates[0]),
   ]) {
     await groupShortlist(
       {
@@ -120,4 +120,31 @@ void test('story grouping requires an explicit valid deployment switch', () => {
     () => storyGroupingEnabled({ LLM_STORY_GROUPING_ENABLED: 'true' }),
     /Invalid/,
   );
+});
+
+void test('forty scored articles group before the ten-story editor cap', async () => {
+  const pool = Array.from({ length: 40 }, (_, index) => ({
+    ...candidates[0],
+    id: String(index),
+    url: `https://example.com/article/${index}`,
+    title: `Reported development ${index}`,
+  }));
+  let received = 0;
+  const matches = await groupShortlist(
+    {
+      async group(_topic, items) {
+        received = items.length;
+        // The first thirty reports concern one event; ten others are distinct.
+        return [items.slice(0, 30).map((item) => item.id)];
+      },
+    },
+    'topic',
+    pool,
+    'edition',
+  );
+  const ranked = rank(pool, start, end, 10, matches);
+  assert.equal(received, 40);
+  assert.equal(ranked.length, 10);
+  assert.ok(ranked.some((item) => item.coverage.length === 30));
+  assert.ok(ranked.some((item) => Number(item.id) >= 30));
 });

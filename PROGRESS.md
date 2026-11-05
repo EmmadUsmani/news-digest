@@ -1,14 +1,3 @@
-## 2026-11-05: iteration 854 — retain failed on-demand job links after Redis pruning
-
-- Started clean on main; no leftover work. Alerts/health green, 36 sources healthy and zero failed digest jobs. X rounds await 21:00 UTC; admin rollout awaits owner identity/proxy evidence.
-- Added profile-scoped Postgres failure history through a domain port. Caught on-demand generation errors retain job ID, duration and failure time before the worker reports failure. No exception text is stored; recovered status uses the existing generic message.
-- Missing Redis jobs resolve committed publications first, then recorded failures; unknown IDs remain 404. Queued/active jobs lost with Redis, worker-crash/stalled failures and history writes during DB outages remain outside this slice; original generation errors are preserved if history cannot be written.
-- Real isolated HTTP test fails a fixture job, removes it from Redis and recovers the same failed link without publication. Repository checks cover idempotence, unknown IDs and profile isolation; unavailable-history fixture preserves the original error.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (499 unit/215 isolated integration passed); pnpm build; git diff --check; filtered check-handbook.ts (18 pages/2 diagrams, 27 tables, no warnings); smoke-admin-gate.ts; protected unknown-job GET 404; obs alerts/sources/jobs; /healthz.
-- Took fresh private production backup (26 tables) before additive Drizzle migration 0002; applied successfully. Verified owner_ro SELECT and owner_rw writes remain granted on the new table. Updated schema metadata and Jobs handbook, including accurate on-demand attempt count.
-- API/worker restarted healthy; saved Nov 5 edition byte-identical, 36 sources healthy, zero failed digest jobs and alerts clear. No UI/source/ranking/budget changes or paid calls; screenshots, SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Next: X fresh-window rounds after 21:00 UTC Nov 5/6; scheduled editor-v5 evidence Nov 6. Unfinished/stalled job history and admin identity/proxy rollout remain open.
-
 ## 2026-11-05: iteration 855 — recover durable job links during Redis read outages
 
 - Started clean on main; no leftover work. Alerts clear, 36 sources healthy and no failed digest jobs; X tests await 21:00 UTC, admin rollout awaits identity/proxy evidence.
@@ -147,3 +136,13 @@
 - Evidence: docs/edition-reviews/2026-11-05-world-story-pool.md; reproduce with pnpm exec tsx scripts/evaluate-world-story-pool.ts. Runtime fix, actual model replay and all-topic configured-price cap/reserve gate remain next; do not treat this labelled replay as deployment acceptance.
 - Verification: pnpm format; pnpm lint:fix; offline replay assertions; pnpm check (503 unit/218 isolated integration passed); pnpm build; git diff --check. First check caught require-await in the interceptor; fixed before rerun. API /healthz and latest edition healthy. Evidence-only commit: no restart under STEERING 22; handbook, SOURCES, schema metadata, screenshots and NEEDS_FROM_HUMAN unchanged.
 - Next: implement forty-article grouping pool then ten-story editor cap, complete model/budget gate and deploy before Nov 6 13:00 UTC or defer a day; then UI step 2. X rounds remain due after 21:00 UTC Nov 5/6.
+
+## 2026-11-05: iteration 869 — prepare bounded forty-article grouping path
+
+- Started clean on main; no leftover work. Alerts clear, 36 sources healthy, API/worker active and /healthz healthy; collection jobs continue completing.
+- Added explicit 10-or-40 article pool selection to editorialShortlist, retaining publication's ten-article default. Grouping wrapper now accepts up to forty, matching the existing adapter; final ranking remains capped at ten stories. No prompt or topic rules changed.
+- Saved World reviewed-label replay now exercises both production helpers: Nov 4 seven editor candidates, Nov 5 ten (thirteen reviewed stories). Synthetic forty-article test combines thirty same-event reports while retaining other events beyond article ten; forty-one is rejected before dispatch.
+- This is preparation, not activation: actual grouping/cache replay and all-topic configured-price daily cap/reserve admission remain required before switching publication to forty. No paid calls, cache/ledger writes or budget changes.
+- Verification: targeted tests (11 passed); offline World replay assertions; pnpm format; pnpm lint:fix; pnpm check (504 unit/218 isolated integration passed); pnpm build; git diff --check. API/worker restarted active, /healthz healthy, saved edition four topics/17 stories and alerts clear.
+- Updated TASKS and World evidence; archived iteration 854 to keep PROGRESS small. Handbook/SOURCES/schema metadata/screenshots/NEEDS_FROM_HUMAN unchanged because runtime selection and data flow remain unchanged.
+- Next: actual grouping/cache replay and full-edition budget gate, then activate before Nov 6 13:00 UTC or defer a day; UI step 2 follows. X rounds due after 21:00 UTC Nov 5/6.

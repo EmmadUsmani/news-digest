@@ -65,3 +65,17 @@ bounded pool, replay through the actual grouping cache where available, and
 check all-topic configured-price reservations against the daily allowance and
 scheduled reserve before deploying. Preserve the current caps and reserve;
 deploy before Nov 6 13:00 UTC or defer a day. Review the scheduled result.
+
+## Prepared bounded path (iteration 869)
+
+`editorialShortlist` now accepts an explicit forty-article pool, while its
+publication default remains ten. The grouping wrapper accepts up to forty;
+the final ranking still caps editor inputs at ten stories. The offline replay
+now exercises both production helpers using the reviewed memberships and
+confirms seven Nov 4 and ten Nov 5 editor candidates. A separate synthetic
+case combines thirty reports and retains other events beyond article ten.
+These are reviewed-label and fake-port results, not actual model results.
+
+Activation remains pending actual grouping/cache replay and the all-topic
+configured-price cap/reserve check. No prompt, publication call site, budget,
+provider or model changed in this preparation step.

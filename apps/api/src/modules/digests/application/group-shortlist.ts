@@ -15,7 +15,7 @@ interface GroupingPort {
   ): Promise<string[][]>;
 }
 
-// Only an already admitted editorial shortlist is sent to the optional AI pass.
+// Only an already scored editorial pool is sent to the optional AI pass.
 // Membership is explicit: there are no title rules or transitive joins.
 export async function groupShortlist(
   grouping: GroupingPort | null,
@@ -24,7 +24,7 @@ export async function groupShortlist(
   runId: string,
 ): Promise<(a: Candidate, b: Candidate) => boolean> {
   const separate = () => false;
-  if (!grouping || shortlist.length < 2 || shortlist.length > 10)
+  if (!grouping || shortlist.length < 2 || shortlist.length > 40)
     return separate;
   try {
     const groups = await grouping.group(

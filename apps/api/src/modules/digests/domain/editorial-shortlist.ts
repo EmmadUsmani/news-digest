@@ -13,6 +13,7 @@ export function editorialShortlist(
   start: Date,
   end: Date,
   matches: (a: Candidate, b: Candidate) => boolean = noGrouping,
+  articlePoolSize: 10 | 40 = 10,
 ) {
   const shortlist = scores
     .filter((s) => s.relevance >= 6 && s.importance >= 4)
@@ -30,6 +31,6 @@ export function editorialShortlist(
         ? [candidate]
         : [];
     })
-    .slice(0, 10);
+    .slice(0, articlePoolSize);
   return { shortlist, ranked: rank(shortlist, start, end, 10, matches) };
 }
