@@ -134,8 +134,7 @@ mandatory -giveaway. No articles or cached article triage are loaded or required
 Provider date filters enclose the exact window; its end remains exclusive.
 Missing settings fail the snapshot. No AI calls, cache writes, admission or
 dispatch occur. Store the output privately; it contains topic settings and prompts.
-The runner and call report accept these inputs; round-comparison migration remains before the
-Nov 5/6 rounds. No dispatch before the plan’s scheduled test windows.
+The runner, call report and round comparison accept these inputs. No dispatch before the plan’s scheduled test windows.
 
 Historical article preparation (before iteration 721):
 
@@ -313,8 +312,7 @@ four $0.10 reservations fit the daily cap. The flag remains off.
 Offline experiment preparation now exposes only requests.viral and test-only
 requests.semantic, without article readiness requirements (721). The runner now
 dispatches only these two styles (722), rejecting legacy inputs before any
-reservation or provider call. The round comparison still needs migration
-before the Nov 5/6 rounds. No paid dispatch, scorer change or activation occurred.
+reservation or provider call. Round comparison supports these styles (725). No paid dispatch, scorer change or activation occurred.
 Historical request constructors remain for old evidence.
 
 ## Revised call report (iteration 723)
@@ -328,8 +326,7 @@ Missing labels, likes or overlap leave the total unknown. `usablePostIds` lists
 only confirmed usable IDs; historical `eligiblePosts` retains its older meaning.
 Viral execution checks include OR and exact UTC window operators. Semantic
 execution compliance stays unknown; keyword operators cannot establish it.
-The round comparison still needs migration before the new rounds.
-The old comparison rejects revised styles rather than reporting misleading coverage.
+Round comparison supports viral/semantic coverage and usable yields (725).
 No paid calls or production scorer changes are part of this report update.
 
 ### Revised saved-response extraction (iteration 724)
@@ -339,4 +336,18 @@ trending likes minimum used by both styles. Historical reaction settings are
 optional unless extracting a historical reaction call. All 16 viral citations
 and eight semantic citations are retained; review labels and free-link overlap
 remain explicitly unknown. Settlement mismatches or missing mandatory giveaway
-exclusions fail without writing partial evidence. Round comparison remains pending.
+exclusions fail without writing partial evidence.
+
+### Revised round comparison (iteration 725)
+
+Each revised round requires all eight viral/semantic topic cells. Historical
+three-style rounds remain readable; mixing the designs inside a round fails,
+and different designs cannot establish two-day coverage together. Existing
+window, timing, spend and protected-hour checks remain.
+
+Revised style totals expose `usablePosts`; per-topic rows show viral and
+semantic usable counts and the IDs/count of semantic usable posts keywords
+missed. Totals stay unknown for incomplete rounds or missing review evidence.
+Raw promotions remain visible but only exclude their own posts from usable yield.
+World has its own topic row. No winner is inferred: compare the old scheduled
+search over the same days separately before applying the owner's decision rule.

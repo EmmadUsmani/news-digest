@@ -132,7 +132,7 @@ void test('offline CLI reads evidence without changing it and fails without expo
   }
 });
 
-void test('revised report CLI preserves explicit free-link evidence and blocks legacy comparison', () => {
+void test('revised report CLI preserves explicit free-link evidence in revised comparison', () => {
   const call = {
     ...evidence()[0],
     style: 'semantic',
@@ -154,8 +154,8 @@ void test('revised report CLI preserves explicit free-link evidence and blocks l
       { ...call, posts: [{ ...call.posts[0], foundByFreeLinks: 'false' }] },
     ]),
   );
-  assert.throws(
-    () => reportSavedXExperiment([call], []),
-    /Revised round comparison/,
+  assert.deepEqual(
+    reportSavedXExperiment([call], []).comparison?.unassignedRequestIds,
+    [call.requestId],
   );
 });

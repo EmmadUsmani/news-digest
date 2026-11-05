@@ -15,10 +15,6 @@ export function xExperimentComparison(
   evidence: XExperimentEvidence[],
   rounds: XComparisonRound[],
 ) {
-  if (
-    evidence.some((call) => call.style === 'viral' || call.style === 'semantic')
-  )
-    throw new Error('Revised round comparison is not yet supported');
   const reports = new Map(
     xExperimentReport(evidence).map((call) => [call.requestId, call]),
   );
@@ -70,8 +66,18 @@ export function xExperimentComparison(
       cells.set(key, (cells.get(key) ?? 0) + 1);
       return call;
     });
+    const revised = calls.some(
+      (call) => call.style === 'viral' || call.style === 'semantic',
+    );
+    const styles: XExperimentEvidence['style'][] = revised
+      ? ['viral', 'semantic']
+      : ['current', 'trending', 'reactions'];
+    if (calls.some((call) => !styles.includes(call.style)))
+      throw new Error(
+        'Cannot mix historical and revised searches in one round',
+      );
     const missing = round.topicIds.flatMap((topicId) =>
-      (['current', 'trending', 'reactions'] as const)
+      styles
         .filter((style) => !cells.has(`${topicId}/${style}`))
         .map((style) => ({ topicId, style })),
     );
@@ -86,6 +92,12 @@ export function xExperimentComparison(
       missing.length === 0 &&
       duplicateCells.length === 0 &&
       windows.size === 1 &&
+      (!revised ||
+        calls.every(
+          (call) =>
+            Date.parse(call.window.end) - Date.parse(call.window.start) ===
+            86_400_000,
+        )) &&
       days.size === 1 &&
       spanMs !== null &&
       spanMs <= 3_600_000;
@@ -104,9 +116,38 @@ export function xExperimentComparison(
             }
           : null,
       missing,
+      ...(revised
+        ? {
+            topics: round.topicIds.map((topicId) => {
+              const viral = calls.find(
+                (call) => call.topicId === topicId && call.style === 'viral',
+              );
+              const semantic = calls.find(
+                (call) => call.topicId === topicId && call.style === 'semantic',
+              );
+              const reviewed =
+                complete &&
+                viral?.usablePosts != null &&
+                semantic?.usablePosts != null;
+              // Novelty is scoped to this topic and window, never across days.
+              const semanticOnlyPostIds = reviewed
+                ? semantic.usablePostIds.filter(
+                    (id) => !viral.usablePostIds.includes(id),
+                  )
+                : null;
+              return {
+                topicId,
+                viralUsablePosts: reviewed ? viral.usablePosts : null,
+                semanticUsablePosts: reviewed ? semantic.usablePosts : null,
+                semanticOnlyPostIds,
+                semanticOnlyPosts: semanticOnlyPostIds?.length ?? null,
+              };
+            }),
+          }
+        : {}),
       duplicateCells,
       complete,
-      styles: (['current', 'trending', 'reactions'] as const).map((style) => {
+      styles: styles.map((style) => {
         const selected = calls.filter((call) => call.style === style);
         const costMicros = selected.reduce(
           (sum, call) => sum + call.costMicros,
@@ -123,6 +164,18 @@ export function xExperimentComparison(
           style,
           costMicros,
           eligiblePosts,
+          ...(revised
+            ? {
+                usablePosts:
+                  complete &&
+                  selected.every((call) => call.usablePosts !== null)
+                    ? selected.reduce(
+                        (sum, call) => sum + (call.usablePosts ?? 0),
+                        0,
+                      )
+                    : null,
+              }
+            : {}),
           zeroPromotions: selected.some((call) => call.zeroPromotions === false)
             ? false
             : selected.length &&
@@ -172,8 +225,8 @@ export function xExperimentComparison(
     },
     rounds: summaries,
     unassignedRequestIds,
-    // Structural coverage only. Operator behavior, calibration and cheaper-model
-    // acceptance still need review; this helper never chooses a winner.
+    // Structural coverage only. Operator behavior and the old-search baseline
+    // still need review; this helper never chooses a winner.
     // Separate dispatch days must also cover independent news windows, not
     // repeated or overlapping searches of the same stories.
     twoDayCoverage: summaries.some(
@@ -192,6 +245,8 @@ export function xExperimentComparison(
                 Date.parse(second.window.end) <=
                   Date.parse(first.window.start)) &&
               second.model === first.model &&
+              JSON.stringify(second.styles.map((style) => style.style)) ===
+                JSON.stringify(first.styles.map((style) => style.style)) &&
               JSON.stringify([...second.topicIds].sort()) ===
                 JSON.stringify([...first.topicIds].sort()),
           ),

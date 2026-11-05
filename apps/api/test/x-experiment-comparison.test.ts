@@ -337,3 +337,111 @@ void test('mixed confirmed and unreviewed promotions fail the per-style comparis
   assert.equal(style.eligiblePosts, null);
   assert.equal(style.eligiblePostsPerDollar, null);
 });
+
+function revisedFixture(day = '05') {
+  const data = fixture(day);
+  data.evidence = data.evidence.filter((call) => call.style !== 'reactions');
+  data.evidence.forEach((call) => {
+    call.model = 'grok-4.3';
+    call.style = call.style === 'current' ? 'viral' : 'semantic';
+    call.expectedSearch = { minFaves: 100, exclusions: ['-giveaway'] };
+    call.window.start = `2026-11-${Number(day) - 1 < 10 ? '0' : ''}${Number(day) - 1}T18:00:00Z`;
+    call.posts.forEach((post) => {
+      post.foundByFreeLinks = false;
+    });
+    if (call.style === 'semantic')
+      call.posts.push({ ...call.posts[0], id: '2' });
+  });
+  data.round.model = 'grok-4.3';
+  data.round.calls = data.evidence.map((call) => ({
+    requestId: call.requestId,
+    startedAt: `2026-11-${day}T21:01:00Z`,
+  }));
+  return data;
+}
+
+void test('revised rounds report usable yield and topic-scoped semantic additions on two fresh days', () => {
+  const first = revisedFixture();
+  const second = revisedFixture('06');
+  const report = xExperimentComparison(
+    [...first.evidence, ...second.evidence],
+    [first.round, second.round],
+  );
+  assert.equal(report.twoDayCoverage, true);
+  assert.deepEqual(
+    report.rounds[0].styles.map((style) => [style.style, style.usablePosts]),
+    [
+      ['viral', 4],
+      ['semantic', 8],
+    ],
+  );
+  assert.deepEqual(report.rounds[0].topics?.[3], {
+    topicId: 'world',
+    viralUsablePosts: 1,
+    semanticUsablePosts: 2,
+    semanticOnlyPostIds: ['2'],
+    semanticOnlyPosts: 1,
+  });
+  assert.ok(!('winner' in report));
+  assert.equal(report.guardrails.compliant, true);
+});
+
+void test('revised yield stays unknown for incomplete cells or missing review evidence', () => {
+  for (const mutate of [
+    (data: ReturnType<typeof revisedFixture>) => {
+      data.round.calls.pop();
+    },
+    (data: ReturnType<typeof revisedFixture>) => {
+      data.evidence[0].posts[0].foundByFreeLinks = null;
+    },
+    (data: ReturnType<typeof revisedFixture>) => {
+      data.evidence[0].posts[0].likes = null;
+    },
+    (data: ReturnType<typeof revisedFixture>) => {
+      data.evidence[0].posts[0].promotion = null;
+    },
+  ]) {
+    const data = revisedFixture();
+    mutate(data);
+    const round = xExperimentComparison(data.evidence, [data.round]).rounds[0];
+    assert.equal(round.topics?.[0].semanticOnlyPosts, null);
+    assert.equal(round.styles[0].usablePosts, null);
+  }
+});
+
+void test('revised promotions and free links are excluded without disqualifying other usable results', () => {
+  const data = revisedFixture();
+  data.evidence[0].posts[0].promotion = true;
+  data.evidence[1].posts[0].foundByFreeLinks = true;
+  const report = xExperimentComparison(data.evidence, [data.round]);
+  assert.equal(report.rounds[0].styles[0].usablePosts, 3);
+  assert.equal(report.rounds[0].styles[0].zeroPromotions, false);
+  assert.deepEqual(report.rounds[0].topics?.[0].semanticOnlyPostIds, ['2']);
+  data.evidence[0].style = 'current';
+  assert.throws(
+    () => xExperimentComparison(data.evidence, [data.round]),
+    /mix/,
+  );
+});
+
+void test('historical and revised rounds never establish two-day coverage together', () => {
+  const old = fixture();
+  const revised = revisedFixture();
+  assert.equal(
+    xExperimentComparison(
+      [...old.evidence, ...revised.evidence],
+      [old.round, revised.round],
+    ).twoDayCoverage,
+    false,
+  );
+});
+
+void test('revised comparison requires the full 24-hour window', () => {
+  const data = revisedFixture();
+  data.evidence.forEach((call) => {
+    call.window.start = '2026-11-05T00:00:00Z';
+  });
+  const round = xExperimentComparison(data.evidence, [data.round]).rounds[0];
+  assert.equal(round.complete, false);
+  assert.equal(round.styles[0].usablePosts, null);
+});

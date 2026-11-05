@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 711 — reuse saved triage for experiment reaction inputs
-
-- Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 healthy sources and zero failed retained digest jobs; Nov 5 15:00 UTC review remains future.
-- Experiment preparation now reads exact-fingerprint article triage in its read-only snapshot. Saved relevance below 6 is excluded; scored articles rank by importance/relevance before unscored heuristic fallback under the saved relevance policy. No new wording rules or paid calls.
-- Preserved cache/model/topic/content identity validation and score provenance; missing/corrupt scores stay unscored. Production reaction loader, thresholds, providers and fixed-schedule flag unchanged. Original round evidence untouched.
-- Saved private cached-inputs-711.json (600) beside round 1: World's first three titles now cover midterms, each saved relevance 10/importance 9; 80 cached eligible World articles. This current snapshot is not historical or a second independent news day.
-- Verification: targeted triage/reaction tests 27/27; pnpm format, pnpm lint:fix, pnpm check (470 unit/213 isolated integration), pnpm build, handbook (18 pages/22 diagrams/26 tables) and git diff --check passed. Initial lint found async-without-await stubs; fixed and reran. Isolated DB checks cover cache reads and semantic recovery/policy fallback.
-- Updated TASKS, experiment reference and Social posts handbook; archived iteration 697. SOURCES/NEEDS_FROM_HUMAN unchanged. Rebuilt/restarted API and worker; healthz green, reader HTTP 200, zero alerts.
-- Next: second independent experiment day, then calibration/model comparison within shared caps; Nov 5 grouping/NBA full-AI/cost/latency/screenshots take priority. No winner or production activation.
-
 ## 2026-11-04: iteration 712 — score saved X experiment candidates
 
 - Started clean on main; no leftover work. Zero alerts, healthz/database/Redis green, all 36 active sources nonempty/error-free, zero failed retained digest jobs; Nov 5 acceptance remains future.
@@ -132,3 +122,12 @@
 - Updated TASKS and experiment reference; archived iteration 710 to keep PROGRESS small. SOURCES/NEEDS_FROM_HUMAN unchanged; no source change or new owner blocker. No UI changes/screenshots required.
 - Healthy services left running under STEERING 22: only offline scripts/tests/docs changed. No paid calls, scorer/cache changes, provider/model/budget changes or activation.
 - Next: migrate round comparison before Nov 5/6 rounds after 21:00 UTC; scheduled acceptance takes priority when due, scorer only afterward.
+
+## 2026-11-05: iteration 725 — revised X round comparison
+
+- Started clean on main; no leftover work. Zero alerts, health/database/Redis green, reader HTTP 200, all 36 sources healthy and no failed retained digest runs. Nov 5 scheduled acceptance remains future at 15:00 UTC.
+- Offline comparator now accepts eight-cell viral/semantic rounds, requiring a full 24-hour window. Preserves historical three-style reports; mixed designs fail and cannot establish two-day coverage together.
+- Reports usable style totals and per-topic viral/semantic counts plus semantic-only usable IDs, including World separately. Incomplete rounds or missing review evidence keep totals unknown. Raw promotions exclude their own posts without disqualifying usable peers; no automatic winner or invented baseline.
+- Verification: targeted comparison/CLI tests 19/19; pnpm format, pnpm lint:fix, pnpm check (490 unit/213 isolated integration, exit 0) and pnpm build passed; git diff --check clean. No UI changes or screenshots needed.
+- Updated TASKS and experiment reference; archived iteration 711 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new owner blocker. Healthy services left running under STEERING 22; only offline scripts/tests/docs changed.
+- No paid calls, scorer/cache changes, provider/model/budget changes or production activation. Next: scheduled Nov 5 acceptance first, then scorer; rounds after 21:00 UTC Nov 5/6 with same-day old-search baseline review.
