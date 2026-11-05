@@ -1,20 +1,16 @@
-import {
-  type DigestPreview as Preview,
-  digestPreviewSchema,
-  type PreviewHistory,
-  previewHistorySchema,
-} from '@digest/contracts';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useParams } from '@tanstack/react-router';
 import React from 'react';
 
-import { statusQuery } from './queries';
+import { editionHistoryQuery, editionQuery, statusQuery } from './queries';
 import { TopPosts } from './TopPosts';
 export function DigestPreview() {
   const navigate = useNavigate();
   const { id: selectedEditionId } = useParams({ strict: false });
-  const editionRequest = React.useRef(0);
-  const [preview, setPreview] = React.useState<Preview | null>(null);
+  const queryClient = useQueryClient();
+  const edition = useQuery(editionQuery(selectedEditionId));
+  const preview = edition.data;
+  const loaded = !edition.isPending;
   const [windowChoice, setWindowChoice] = React.useState('24');
   const [customStart, setCustomStart] = React.useState('');
   const [customEnd, setCustomEnd] = React.useState('');
@@ -37,11 +33,10 @@ export function DigestPreview() {
   const [busy, setBusy] = React.useState(false);
   const working = busy || jobId !== null;
   const [error, setError] = React.useState(false);
-  const [loaded, setLoaded] = React.useState(false);
-  const [history, setHistory] = React.useState<PreviewHistory | null>(null);
   const [offset, setOffset] = React.useState(0);
-  const [historyError, setHistoryError] = React.useState(false);
-  const [revision, setRevision] = React.useState(0);
+  const historyResult = useQuery(editionHistoryQuery(offset));
+  const history = historyResult.data;
+  const historyError = historyResult.isError;
   React.useEffect(() => {
     if (!jobId) return;
     sessionStorage.setItem('edition-job', jobId);
@@ -73,21 +68,19 @@ export function DigestPreview() {
           return;
         }
         if (job.state === 'completed' && job.editionId) {
-          const edition = await fetch(
-            `/api/digest-previews/${encodeURIComponent(job.editionId)}`,
+          const saved = await queryClient.fetchQuery(
+            editionQuery(job.editionId),
           );
-          if (!edition.ok) throw new Error();
-          const saved = digestPreviewSchema.parse(await edition.json());
+          if (!saved) throw new Error('Completed edition is unavailable');
           if (cancelled) return;
-          editionRequest.current++;
-          setPreview(saved);
+          await queryClient.invalidateQueries({ queryKey: ['editions'] });
+          if (cancelled) return;
           void navigate({
             to: '/editions/$id',
             params: { id: saved.id },
             replace: true,
           });
           setOffset(0);
-          setRevision((value) => value + 1);
           setJobMessage('Edition ready.');
           finish();
           return;
@@ -114,43 +107,7 @@ export function DigestPreview() {
       cancelled = true;
       clearTimeout(timer);
     };
-  }, [jobId, navigate]);
-  React.useEffect(() => {
-    let cancelled = false;
-    setHistory(null);
-    setHistoryError(false);
-    fetch(`/api/digest-previews?offset=${offset}`)
-      .then(async (r) => {
-        if (!r.ok) throw new Error();
-        const data = previewHistorySchema.parse(await r.json());
-        if (!cancelled) setHistory(data);
-      })
-      .catch(() => {
-        if (!cancelled) setHistoryError(true);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [offset, revision]);
-  React.useEffect(() => {
-    const request = ++editionRequest.current;
-    const id = selectedEditionId;
-    fetch(
-      id
-        ? `/api/digest-previews/${encodeURIComponent(id)}`
-        : '/api/digest-previews/latest',
-    )
-      .then(async (r) => {
-        if (!r.ok) throw new Error();
-        const data = await r.json();
-        if (request === editionRequest.current)
-          setPreview(data ? digestPreviewSchema.parse(data) : null);
-      })
-      .catch(() => {
-        if (request === editionRequest.current) setError(true);
-      })
-      .finally(() => setLoaded(true));
-  }, [selectedEditionId]);
+  }, [jobId, navigate, queryClient]);
   async function generate() {
     if (working) return;
     const end = windowChoice === 'custom' ? new Date(customEnd) : new Date();
@@ -196,15 +153,10 @@ export function DigestPreview() {
     }
   }
   async function openEdition(id?: string) {
-    const request = ++editionRequest.current;
     setBusy(true);
     setError(false);
     try {
-      const response = await fetch(`/api/digest-previews/${id ?? 'latest'}`);
-      if (!response.ok) throw new Error();
-      const data = await response.json();
-      if (request !== editionRequest.current) return;
-      setPreview(data ? digestPreviewSchema.parse(data) : null);
+      await queryClient.fetchQuery(editionQuery(id));
       void navigate(
         id
           ? { to: '/editions/$id', params: { id }, replace: true }
@@ -307,7 +259,7 @@ export function DigestPreview() {
         {historyError ? (
           <p role="alert">
             Edition history could not be loaded.{' '}
-            <button onClick={() => setRevision((value) => value + 1)}>
+            <button onClick={() => void historyResult.refetch()}>
               Retry history
             </button>
           </p>
@@ -363,12 +315,12 @@ export function DigestPreview() {
           </>
         )}
       </details>
-      {error && (
+      {(error || edition.isError) && (
         <p role="alert">
           The edition could not be loaded or created. Please try again.
         </p>
       )}
-      {!preview && loaded && !error && (
+      {!preview && loaded && !error && !edition.isError && (
         <p>No edition yet. Create one from your collected articles.</p>
       )}
       {preview && (

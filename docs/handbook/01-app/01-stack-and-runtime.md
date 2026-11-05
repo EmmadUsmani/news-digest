@@ -16,7 +16,8 @@
 | Quality gates | ESLint, Prettier, dependency-cruiser, tsc                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | All run by `pnpm check`                                                                                |
 
 Topic settings, incoming articles and connection health share a validated browser
-cache. Navigation reuses fresh data; saving settings refreshes affected data. Status shares the cache, refreshes each
+cache. Saved editions and each history page use the same cache, with separate
+entries for the latest edition and each saved ID. Navigation reuses fresh data; saving settings refreshes affected data. Status shares the cache, refreshes each
 minute while open in the app, and retains the last snapshot if a refresh fails.
 
 ## Where it runs

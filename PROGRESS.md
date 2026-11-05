@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 712 — score saved X experiment candidates
-
-- Started clean on main; no leftover work. Zero alerts, healthz/database/Redis green, all 36 active sources nonempty/error-free, zero failed retained digest jobs; Nov 5 acceptance remains future.
-- Scored all 47 saved round-1 citations with production CandidateTriage social instructions and configured Haiku using saved official oEmbed paragraph text and current topic guidance. Four explicit live verification calls, repairs disabled, cost $0.003209; read back four succeeded ledger rows with purpose=verification and exact total. Existing shared app/reserve and $0.05 verification admission applied.
-- Relevance ≥6: current 5/13, trending 6/32, reactions 2/2; by topic Tech 5/14, NBA 2/12, Gaming 3/9, World 3/12. Truncated/media-dependent text not inferred. Six definite promotions/15 unresolved labels unchanged; 17 missing publication times and Gaming's unknown outcome still prevent complete eligible yield or a winner.
-- Saved private text, candidates/scores, exact runner, usage/fingerprints and separately joined evidence/report (600). Offline reporter and exact topic/post coverage assertions passed. Original evidence, manual promotion labels and X admission journal/hold unchanged. No X calls, ingestion, production parameter/provider/model changes or activation.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (470 unit/213 isolated integration), pnpm build, handbook validation (18 pages/22 diagrams/26 tables) and git diff --check passed. Initial check caught an extra blank line in the newly archived entry; formatted it and reran.
-- Updated TASKS and experiment review/reference; archived iteration 698 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source/runtime change or new owner blocker. No restart under STEERING 22; services run unchanged main code.
-- Next: second non-overlapping experiment day, threshold calibration/model comparison within shared caps; Nov 5 grouping/NBA full-AI/cost/latency/screenshots take priority when due. Fixed A/B remains off pending decision.
-
 ## 2026-11-04: iteration 713 — recover X experiment publication times
 
 - Started clean on main; no leftover work. Zero alerts, healthz/database/Redis green, reader HTTP 200, all 36 sources active/nonempty/error-free, no failed retained digest jobs; Nov 5 scheduled checks remain future.
@@ -131,3 +121,12 @@
 - Verification: targeted comparison/CLI tests 19/19; pnpm format, pnpm lint:fix, pnpm check (490 unit/213 isolated integration, exit 0) and pnpm build passed; git diff --check clean. No UI changes or screenshots needed.
 - Updated TASKS and experiment reference; archived iteration 711 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new owner blocker. Healthy services left running under STEERING 22; only offline scripts/tests/docs changed.
 - No paid calls, scorer/cache changes, provider/model/budget changes or production activation. Next: scheduled Nov 5 acceptance first, then scorer; rounds after 21:00 UTC Nov 5/6 with same-day old-search baseline review.
+
+## 2026-11-05: iteration 726 — shared saved-edition queries
+
+- Started clean on main; no leftover work. Zero alerts, health/database/Redis green, all 36 sources returning items, zero failed retained digest jobs. Nov 5 scheduled acceptance remains future at 15:00 UTC; two old ingestion failures remain without retained run details, current sources healthy.
+- Continued approved UI foundations while X/scorer work waits on scheduled times. Saved editions, latest and paged history now use validated, abortable TanStack Query resources, separate cache keys and route prefetch. Completed generation invalidates edition/history data; history retry uses query refetch.
+- Read-only Playwright checks passed on desktop/mobile: real saved editions, reload, legacy redirect, cached switching without repeat historical reads, reserved paths and no browser errors. Intercepted malformed edition responses show errors with no stale edition or false empty-state message. Updated and inspected both screenshots in docs/screenshots/ui/.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (490 unit/213 isolated integration), pnpm build, pnpm exec tsx scripts/smoke-ui-routing.ts, pnpm exec tsx scripts/check-handbook.ts 01-stack-and-runtime and git diff --check. Handbook check: 18 pages, one unchanged diagram, 26 tables, no errors.
+- Updated TASKS and Stack & runtime; archived iteration 712 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new owner blocker. Rebuilt and restarted API/docs; worker/schema unchanged and healthy.
+- No paid calls, scorer/cache version changes, provider/model/budget changes or X activation. Next: Tailwind/shadcn, Inter/theme foundations while waiting; Nov 5 scheduled review first when due, then scorer and evening X rounds.

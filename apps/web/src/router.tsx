@@ -12,6 +12,8 @@ import { z } from 'zod';
 import { App } from './App';
 import {
   contentQuery,
+  editionHistoryQuery,
+  editionQuery,
   healthQuery,
   profileQuery,
   statusQuery,
@@ -60,13 +62,25 @@ const latestRoute = createRoute({
         replace: true,
       });
   },
-  loader: loadPageData,
+  loader: ({ context }) => {
+    loadPageData({ context });
+    void Promise.allSettled([
+      context.queryClient.ensureQueryData(editionQuery()),
+      context.queryClient.ensureQueryData(editionHistoryQuery()),
+    ]);
+  },
   component: App,
 });
 const editionRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/editions/$id',
-  loader: loadPageData,
+  loader: ({ context, params }) => {
+    loadPageData({ context });
+    void Promise.allSettled([
+      context.queryClient.ensureQueryData(editionQuery(params.id)),
+      context.queryClient.ensureQueryData(editionHistoryQuery()),
+    ]);
+  },
   component: App,
 });
 

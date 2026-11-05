@@ -1,7 +1,9 @@
 import {
   contentGroupSchema,
+  digestPreviewSchema,
   healthSchema,
   operationsStatusSchema,
+  previewHistorySchema,
   profileSettingsSchema,
   topicSchema,
 } from '@digest/contracts';
@@ -37,3 +39,25 @@ export const statusQuery = queryOptions({
   queryFn: ({ signal }) => read('/api/status', operationsStatusSchema, signal),
   refetchInterval: 60_000,
 });
+
+export const editionQuery = (id?: string) =>
+  queryOptions({
+    queryKey: ['editions', 'detail', id ?? 'latest'],
+    queryFn: ({ signal }) =>
+      read(
+        `/api/digest-previews/${id ? encodeURIComponent(id) : 'latest'}`,
+        digestPreviewSchema.nullable(),
+        signal,
+      ),
+  });
+
+export const editionHistoryQuery = (offset = 0) =>
+  queryOptions({
+    queryKey: ['editions', 'history', offset],
+    queryFn: ({ signal }) =>
+      read(
+        `/api/digest-previews?offset=${offset}`,
+        previewHistorySchema,
+        signal,
+      ),
+  });
