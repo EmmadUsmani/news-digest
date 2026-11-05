@@ -11,7 +11,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
 
-function fixture(mode: 'success' | 'overrun' | 'unknown') {
+function fixture(mode: 'success' | 'overrun' | 'unknown', revised = false) {
   const directory = mkdtempSync(join(tmpdir(), 'x-runner-'));
   const preload = join(directory, 'provider.cjs');
   writeFileSync(
@@ -43,10 +43,10 @@ global.fetch = async (url, options) => {
         topic: String(id),
         ready: true,
         requests: Object.fromEntries(
-          ['current', 'trending', 'reactions'].map((style) => [
-            style,
-            { model: 'grok-4.3' },
-          ]),
+          (revised
+            ? ['viral', 'semantic']
+            : ['current', 'trending', 'reactions']
+          ).map((style) => [style, { model: 'grok-4.3' }]),
         ),
       })),
     }),
@@ -140,6 +140,17 @@ void test('continuing an interrupted round never retries its unknown paid call',
         .length,
       12,
     );
+  } finally {
+    f.cleanup();
+  }
+});
+
+void test('legacy runner refuses revised prepared requests before any provider dispatch', () => {
+  const f = fixture('success', true);
+  try {
+    assert.equal(f.run().status, 1);
+    assert.equal(readdirSync(f.directory).includes('dispatches'), false);
+    assert.equal(readdirSync(f.root).includes('budget.json'), false);
   } finally {
     f.cleanup();
   }

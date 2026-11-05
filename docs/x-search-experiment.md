@@ -119,28 +119,25 @@ Iteration 715 replayed round 1: all 11 calls/47 posts match the original
 costs, fetched counts, tool calls and post fields exactly. Private output is
 `extracted-evidence-715.json` beside the original round, mode 600.
 
-## Prepare real article inputs without dispatch
+## Prepare topic requests without dispatch
 
 ```sh
 pnpm exec tsx apps/api/scripts/prepare-x-experiment.ts START END > /private/path/inputs.json
 ```
 
 START and END require explicit timezones. The read-only repeatable-read snapshot
-uses enabled owner topics, saved thresholds/exclusions and up to 200 stored
-articles per topic. Exact-fingerprint cached article triage excludes saved
-relevance below 6 and ranks scored articles by importance, then relevance.
-Unscored articles follow in heuristic order under the saved relevance policy.
-Quality and window filters still apply. The request builder receives ordinal
-priorities; saved AI scores remain separate in `articleRanking`. It saves up to three distinct titles,
-the full ranking with cached/heuristic score provenance, and prepared bodies
-for current, trending and reaction styles with an identical precise window.
-Provider date filters enclose that window; the requested end remains exclusive.
-Fewer than two distinct titles blocks that topic's reaction request explicitly.
-Missing settings fail the whole snapshot before output. No AI calls, cache
-writes, admission or dispatch occur. Store the output privately; it contains
-article IDs, titles and request prompts. Current observations/settings may
-postdate END; this does not reconstruct a historical snapshot or establish
-comparison eligibility. A runner must still enforce admission and dispatch gates.
+uses enabled owner topics and saved thresholds/exclusions. It prepares only
+`viral` (16 keyword results) and test-only `semantic` (8 results) requests from
+topic descriptions. Both use Grok 4.3, the same exact publication window and
+saved likes minimum; semantic requests also carry the topic exclusions and
+mandatory -giveaway. No articles or cached article triage are loaded or required.
+Provider date filters enclose the exact window; its end remains exclusive.
+Missing settings fail the snapshot. No AI calls, cache writes, admission or
+dispatch occur. Store the output privately; it contains topic settings and prompts.
+The live runner/report/extractor still require migration before these inputs can
+be dispatched. Do not run the legacy runner for the Nov 5/6 rounds.
+
+Historical article preparation (before iteration 721):
 
 Iteration 691's Nov 3–4 15:00 UTC snapshot returned two distinct ranked titles
 for each of Tech, NBA, Gaming and World, with saved A/B thresholds 50/500,
@@ -313,8 +310,8 @@ requests 16 posts with 4,000 output tokens. Fixed runtime now plans one slot per
 topic without loading articles, under the existing fixed-trending ledger identity;
 four $0.10 reservations fit the daily cap. The flag remains off.
 
-Offline experiment preparation exposes this body as requests.viral. The live
-runner, report and extractor still use historical styles and must be updated
-before the Nov 5/6 rounds, including the test-only semantic search and removing
-article readiness requirements. No paid dispatch, scorer change or activation
+Offline experiment preparation now exposes only requests.viral and test-only
+requests.semantic, without article readiness requirements (721). The live runner,
+report and extractor still use historical styles and must be updated before the
+Nov 5/6 rounds. No paid dispatch, scorer change or activation
 was made in this step. Historical request constructors remain for old evidence.

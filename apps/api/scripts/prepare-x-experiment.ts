@@ -4,12 +4,10 @@ import { drizzle } from 'drizzle-orm/node-postgres';
 
 import {
   experimentWindow,
-  prepareXExperimentTopic,
+  prepareViralXExperimentTopic,
 } from '../../../scripts/lib/x-experiment-inputs';
 import { database } from '../src/libs/db/connections';
 import { topics, xSearchTopicSettings } from '../src/libs/db/schema';
-import { cachedArticleTriage } from '../src/modules/curation/public/cached-article-triage';
-import { loadExperimentReactionStories } from '../src/modules/digests/public/experiment-reaction-stories';
 
 async function main() {
   if (process.argv.length !== 4) throw new Error('Expected START END');
@@ -37,24 +35,14 @@ async function main() {
       const prepared = [];
       for (const { topic, settings } of rows) {
         if (!settings) throw new Error('Missing saved topic settings');
-        const stories = await loadExperimentReactionStories(
-          client,
-          topic.id,
-          new Date(window.start),
-          new Date(window.end),
-          cachedArticleTriage(client),
-        );
-        prepared.push({
-          ...prepareXExperimentTopic(topic, settings, stories, window),
-          articleRanking: stories,
-        });
+        prepared.push(prepareViralXExperimentTopic(topic, settings, window));
       }
       await client.query('ROLLBACK');
       console.log(
         JSON.stringify({
           window,
           capturedAt: new Date().toISOString(),
-          note: 'Current stored article observations, topic settings and exact-fingerprint cached triage; cached relevance >=6, importance then relevance, with heuristic fallback for unscored articles. No new AI calls. Not a historical snapshot or dispatch authorization. Dispatch requires STEERING 31 authorization, the separate experiment journal and explicit live opt-in.',
+          note: 'Saved topic descriptions and thresholds; viral keyword plus test-only semantic requests. No article inputs or AI calls. Not dispatch authorization. Revised runner and reporting must be ready before the Nov 5/6 rounds after 21:00 UTC; existing experiment caps apply',
           topics: prepared,
         }),
       );

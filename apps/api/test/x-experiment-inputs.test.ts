@@ -3,6 +3,7 @@ import { test } from 'node:test';
 
 import {
   experimentWindow,
+  prepareViralXExperimentTopic,
   prepareXExperimentTopic,
 } from '../../../scripts/lib/x-experiment-inputs';
 
@@ -127,4 +128,37 @@ void test('viral preparation uses saved topic description without article contex
     /-giveaway min_faves:1000 since:2026-11-03_15:30:00_UTC until:2026-11-04_15:30:00_UTC$/,
   );
   assert.equal(body.max_output_tokens, 4000);
+});
+
+void test('revised preparation needs no articles and offers only viral and test-only semantic searches', () => {
+  const result = prepareViralXExperimentTopic(
+    { ...topic, includeGuidance: 'Basketball players and teams' },
+    settings,
+    window,
+  );
+  assert.equal(result.ready, true);
+  assert.deepEqual(Object.keys(result.requests), ['viral', 'semantic']);
+  const body = result.requests.semantic;
+  assert.equal(body.model, 'grok-4.3');
+  assert.match(body.input[0].content, /one x_semantic_search/);
+  assert.match(body.input[0].content, /8 results/);
+  const data = JSON.parse(body.input[0].content.split('\n').at(-1)!);
+  assert.equal(data.minimumLikes, 1000);
+  assert.deepEqual(data.exclusions, ['-bet', '-giveaway']);
+  assert.deepEqual(
+    data.publicationWindow,
+    experimentWindow(window.start, window.end),
+  );
+  assert.match(data.description, /Basketball players/);
+  assert.equal(body.tools[0].from_date, '2026-11-03');
+  assert.equal(body.tools[0].to_date, '2026-11-05');
+  assert.equal(body.tools[0].enable_image_understanding, false);
+  assert.equal(body.tools[0].enable_video_understanding, false);
+  assert.throws(() =>
+    prepareViralXExperimentTopic(
+      topic,
+      { ...settings, trendingMinFaves: -1 },
+      window,
+    ),
+  );
 });
