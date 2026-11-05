@@ -142,6 +142,10 @@ shared queue checker uses the same adapter and still verifies the server's
 405 mutation barrier without a mutation payload. Queue tool gating remains
 part of the coordinated rollout.
 
+The topic-edit browser verifier also replays protected operational snapshots,
+blocks unexpected writes and browser credentials, and compares the complete
+saved edition, topics and profile after failed-save/retry checks.
+
 ## Next rollout slice
 
 Configure the owner email allowlist before moving current operational routes.

@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Topic save recovery (793): desktop/mobile failed edits retain name, budget and cleared phrases, then retry/reload succeeds; protected snapshots, blocked browser writes/credentials and full edition/topics/profile immutability.
+
 - [x] Schedule recovery verification (792): desktop/mobile failed saves retain all five inputs and retry successfully; protected snapshots, blocked browser writes and credentials, full edition/topics/profile immutability.
 
 - [x] Job status validation (791): malformed progress, mismatched job IDs and invalid completion IDs reconnect to the original job; desktop/mobile replay proves no duplicate submission or saved-data changes.

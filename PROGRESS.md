@@ -1,13 +1,3 @@
-## 2026-11-05: iteration 778 — recover malformed reader JSON promptly
-
-- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Free social and Bluesky collections continue successfully.
-- Reader JSON parse failures now offer immediate manual Retry instead of automatically repeating malformed responses. Schema, timeout, 404 and transient HTTP behavior remain covered.
-- Expanded `pnpm exec tsx scripts/smoke-reader-invalid-data.ts`: schema failures and truncated JSON for edition/history in desktop/mobile light/dark; one attempt before Retry, real saved-content recovery, blocked browser writes/credentials, zero browser errors and full protected saved edition unchanged. Four malformed-JSON screenshots added; desktop light/mobile dark inspected.
-- `smoke-missing-edition.ts` passed all four cases; discarded unrelated regenerated screenshots. Initial invalid-data smoke ran before restarted API was ready (connection refused); health-ready rerun passed.
-- TASKS/Operations updated; archived iterations 762–763. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, stored-edition writes, generation/config/schema or model/provider changes. API restarted after build; worker kept running under STEERING 22.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations; git diff --check. Static checks and 497 unit tests passed; full check received SIGTERM during integration. Separate user-unit `pnpm test:integration` passed all 214 tests (exit 0). Build, browser, handbook and diff checks passed; final health green, four app services active.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; identity configuration/proxy verification still block admin rollout.
-
 ## 2026-11-05: iteration 779 — consistent uncached admin identity methods
 
 - Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Nov 5 scheduled review remains due at 15:00 UTC.
@@ -139,3 +129,12 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-schedule.ts; smoke-admin-gate.ts; check-handbook.ts 08-operations; git diff --check. Static checks, 497 unit/214 isolated integration tests, browser replay, admin gate and handbook checks passed (exit 0).
 - TASKS/access decision updated; archived iteration 777 to keep PROGRESS small. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No paid calls or app/config/schema/model/provider changes. Verification-only change; no rebuild/restart required under STEERING 22. Final health green, four services active, alerts zero.
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X trials after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 793 — verify topic save failure recovery
+
+- Started clean on main; no leftover work. Health/database/Redis green, 36 sources healthy, four services active, zero alerts and no failed retained digest runs; next edition remains 15:00 UTC.
+- Topic-edit browser replay now uses protected Node snapshots for operational reads, disables service workers, blocks unexpected writes with an explicit probe and checks browser credential absence. Full saved edition, topics and profile compared after verification.
+- Desktop/mobile failed saves retain edited name, story budget and cleared include phrases without updating replayed topics; retry, reload and disable pass. Both failure screenshots inspected; no browser errors or overflow.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-topics.ts; smoke-admin-gate.ts; git diff --check. Static checks, 497 unit and 214 isolated integration tests passed (exit 0). Initial browser selector corrected to actual failure copy. Combined shell was terminated before check began; lint/check rerun successfully in user units.
+- TASKS/access decision updated; archived iteration 778. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, live writes, app/config/schema/model/provider changes. Verification-only change; no rebuild/restart under STEERING 22.
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
