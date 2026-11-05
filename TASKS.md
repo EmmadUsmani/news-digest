@@ -34,5 +34,5 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Post-publication failure recovery (860): retained failed jobs link to their committed edition when worker completion acknowledgement fails; durable publication takes precedence before and after Redis pruning, without regeneration.
+- [x] Publication-before-ack recovery (861): active on-demand jobs return their saved edition immediately after publication, even while worker acknowledgement stalls; retained failure/pruned history recovery remains intact.
 - Next: X fresh-window rounds after 21:00 UTC Nov 5/6; scheduled editor-v5 evidence Nov 6. Unfinished job history and admin identity/proxy rollout remain open.

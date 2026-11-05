@@ -127,7 +127,14 @@ void test('async edition requests dedupe while active, publish once and allow la
     release();
     const completed = await waitFor(id, 'completed');
     assert.equal(completed.editionId, snapshot.id);
-    assert.ok(completed.durationMs! >= 0);
+    // Publication can precede queue acknowledgement. Wait before removing it.
+    for (let attempt = 0; attempt < 200; attempt++) {
+      if ((await jobs.queue.getJob(id))?.finishedOn) break;
+      await new Promise((resolve) => setTimeout(resolve, 10));
+    }
+    const acknowledged = await jobs.find(id);
+    assert.equal(typeof acknowledged?.durationMs, 'number');
+    assert.ok(acknowledged!.durationMs! >= 0);
     assert.equal(completed.error, null);
     assert.equal(keys[0], `on-demand:${id}`);
     // Model loss of completed Redis history and a reset job counter. The
@@ -230,11 +237,17 @@ void test('async edition requests dedupe while active, publish once and allow la
     await assert.rejects(controller.job('999999999999'));
     await worker.close();
     let publishBeforeFailure = false;
+    let releaseAcknowledgement!: () => void;
+    const acknowledgement = new Promise<void>((resolve) => {
+      releaseAcknowledgement = resolve;
+    });
     const failing = new Worker(
       jobs.queue.name,
       async (job) => {
-        if (publishBeforeFailure)
+        if (publishBeforeFailure) {
           publications.set(`on-demand:${job.id}`, snapshot);
+          await acknowledgement;
+        }
         throw new Error('private provider response');
       },
       { connection },
@@ -276,6 +289,18 @@ void test('async edition requests dedupe while active, publish once and allow la
       // acknowledged. The retained failure must still link to the saved edition.
       publishBeforeFailure = true;
       const published = await controller.enqueue(request);
+      // Hold the real worker after publication, before either completion or
+      // failure. The reader can open the edition while Redis still says active.
+      const available = await waitFor(published.id, 'completed');
+      assert.equal(
+        await (await jobs.queue.getJob(published.id))!.getState(),
+        'active',
+      );
+      assert.equal(available.editionId, snapshot.id);
+      assert.equal(available.progress, null);
+      assert.equal(available.durationMs, null);
+      assert.equal(available.error, null);
+      releaseAcknowledgement();
       for (let attempt = 0; attempt < 200; attempt++) {
         if ((await jobs.queue.getJob(published.id))?.finishedOn) break;
         await new Promise((resolve) => setTimeout(resolve, 10));
@@ -293,6 +318,7 @@ void test('async edition requests dedupe while active, publish once and allow la
       assert.equal((await controller.job(published.id)).editionId, snapshot.id);
       assert.equal(calls, 2);
     } finally {
+      releaseAcknowledgement();
       await failing.close();
     }
   } finally {

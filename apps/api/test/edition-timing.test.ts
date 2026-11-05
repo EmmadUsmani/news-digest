@@ -268,10 +268,13 @@ void test('four-topic edition timing includes SQL, batched triage, editing, publ
       for (const pass of ['cold', 'warm']) {
         const before = performance.now();
         const queued = await jobs.enqueue(start, end);
+        // Publication is reader-ready before queue acknowledgement. This
+        // benchmark also needs the final worker duration and progress.
         let status = await jobs.find(queued.id);
         for (
           let attempt = 0;
-          attempt < 1000 && status?.state !== 'completed';
+          attempt < 1000 &&
+          (status?.state !== 'completed' || status.durationMs === null);
           attempt++
         ) {
           assert.notEqual(

@@ -1,15 +1,3 @@
-## 2026-11-05: iteration 847 — verify first scheduled full-AI edition
-
-- Started clean on main; no leftover work. Health/database/Redis green, alerts clear; scheduled edition took priority as it started at 15:00 UTC.
-- Reviewed immutable 7d99b279-cb6a-4cf0-b0a2-d94c5645f0b7: 152.320 s, 756 candidates, 17 stories/14 X posts, $0.315445/46 settled calls, zero holds. All story/social sections AI, zero unscored; NBA five AI stories. Reserve full-ai/released; speed target unmet.
-- Four grouping calls $0.002103; four saved multi-article groups reviewed without clearly unrelated events. Raw grouping/recall unknown; separate Tech chip-report/Gaming Sony editorial evidence concerns recorded for follow-up.
-- Old scheduled X search $0.143191/19 fetched/18 new verified outside-list posts; one Tech pick selected. X picks 3/5/5/1, no Bluesky picks; saved X engagement unknown. No extra paid verification or live writes.
-- Generalized smoke-reader-story-text.ts with edition UUID/safe screenshot prefix, retaining default Nov 4 regression; Nov 5 desktop/mobile light/dark passed all topic text, NBA 5/5, labels/layout, no writes/errors and unchanged edition. Sixteen screenshots saved; NBA/World/Tech/Gaming captures inspected.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration passed); pnpm build; smoke-admin-gate.ts passed; pnpm obs health/alerts; git diff --check.
-- Updated review/SOURCES/TASKS and STEERING 13/27/35 acks. Archived oversized task detail and progress 828–832; handbook/NEEDS_FROM_HUMAN unchanged (evidence/scripts only, no new blocker).
-- No runtime code/config change; no restart under STEERING 22. Rebuilt static UI served by healthy API.
-- Next: STEERING 34 scorer now scheduled review is complete; X fresh-window rounds after 21:00 UTC Nov 5/6. Inspect noted editorial evidence; admin identity/proxy verification remains pending.
-
 ## 2026-11-05: iteration 848 — give X triage author and engagement context
 
 - Started clean on main; no leftover work. Alerts/health green, all 36 sources healthy and digest queue has zero failures; scheduled Nov 5 edition remains readable with four topics.
@@ -144,3 +132,14 @@
 - API/worker restarted active, health green, latest saved edition byte-identical, 36 healthy sources and zero alerts/failed digest jobs. No paid calls, UI/schema/source/budget changes.
 - Updated Jobs handbook/TASKS; archived iterations 845–846 to keep progress small. SOURCES, screenshots and NEEDS_FROM_HUMAN unchanged. Jobs lost before durable history remains a limitation.
 - Next: fresh-window X rounds after 21:00 UTC Nov 5/6; editor-v5 evidence Nov 6. Unfinished durable job history and admin identity/proxy rollout remain open.
+
+## 2026-11-05: iteration 861 — open published editions before worker acknowledgement
+
+- Started clean on main; no leftover work. Alerts/health green, 36 sources healthy and no failed digest jobs. X fresh-window rounds await 21:00 UTC; admin rollout awaits identity/proxy evidence.
+- Active on-demand status now checks the profile-scoped durable publication key and returns a committed edition immediately, even if the worker stalls before acknowledging completion. In-progress jobs retain progress; final duration remains unknown until acknowledgement.
+- Isolated BullMQ test holds a real worker active after fixture publication and verifies completed reader status/link, null duration/progress and no error, then releases it into the existing failure/pruning recovery checks. Publication is a fixture map, not a live edition or process-kill experiment.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (501 unit passed; 214/215 integration initially passed). Fixed the timing benchmark to wait for final worker duration; pnpm test:integration rerun passed all 215. Final lint/changed-file formatting and git diff --check passed.
+- pnpm build and check-handbook.ts 03-jobs-and-schedules passed (18 pages/2 diagrams, 27 tables); smoke-admin-gate.ts passed before/after deployment. Initial immediate restart probe raced startup; readiness retry passed /healthz, database and Redis.
+- API/worker active; latest saved edition byte-identical, 36 healthy sources, zero alerts/failed digest jobs; zero dangling Docker volumes. No paid calls, UI/schema/source/budget changes.
+- Updated Jobs handbook/TASKS; archived iteration 847 to keep progress small. SOURCES, screenshots and NEEDS_FROM_HUMAN unchanged. Jobs lost before durable history remain unresolved.
+- Next: X fresh-window rounds after 21:00 UTC Nov 5/6; editor-v5 evidence Nov 6; durable unfinished history and admin identity/proxy rollout remain open.
