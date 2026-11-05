@@ -38,6 +38,7 @@ async function smoke() {
   let failDelete = true;
   let deletes = 0;
   let loseResponse = false;
+  let stallResponse = false;
   // Browser writes stay in memory; protected Node requests only read live state.
   await context.route('**/*', async (route) => {
     const request = route.request();
@@ -67,7 +68,10 @@ async function smoke() {
         await route.fulfill({ status: 503, body: 'Unavailable' });
       } else {
         replayTopics.splice(index, 1);
-        if (loseResponse) await route.abort();
+        if (stallResponse) {
+          await new Promise((resolve) => setTimeout(resolve, 17_000));
+          await route.fulfill({ json: replayTopics }).catch(() => undefined);
+        } else if (loseResponse) await route.abort();
         else await route.fulfill({ json: replayTopics });
       }
       return;
@@ -182,6 +186,69 @@ async function smoke() {
       );
       assert.deepEqual(replayTopics, original);
       assert.equal(deletes, deletesBefore + 2);
+      // A completed deletion with a stalled response must release the controls.
+      replayTopics.push(topic);
+      stallResponse = true;
+      await page.reload();
+      await page.getByText('Manage topics', { exact: true }).click();
+      await page
+        .getByRole('button', { name: 'Delete ' + topic.name, exact: true })
+        .click();
+      await confirmation
+        .getByRole('button', { name: 'Delete topic permanently', exact: true })
+        .click();
+      assert.ok(
+        await confirmation
+          .getByRole('button', { name: 'Deleting…', exact: true })
+          .isDisabled(),
+      );
+      assert.ok(
+        await confirmation
+          .getByRole('button', { name: 'Keep topic', exact: true })
+          .isDisabled(),
+      );
+      const timedOut = page.getByRole('status').filter({
+        hasText:
+          /The topic may have been deleted|Could not confirm topic deletion/,
+      });
+      await timedOut.waitFor({ timeout: 20_000 });
+      assert.equal(
+        await confirmation
+          .getByRole('button', { name: 'Keep topic', exact: true })
+          .isEnabled(),
+        true,
+      );
+      assert.equal(
+        await confirmation
+          .getByRole('button', {
+            name: 'Delete topic permanently',
+            exact: true,
+          })
+          .isEnabled(),
+        true,
+      );
+      await timedOut.scrollIntoViewIfNeeded();
+      await page.screenshot({
+        path: `docs/screenshots/ui/topic-delete-timeout-${device}.png`,
+      });
+      assert.ok(!replayTopics.some((saved) => saved.id === topic.id));
+      stallResponse = false;
+      await page.reload();
+      await page
+        .locator('.topic-grid')
+        .getByRole('heading', { name: original[0].name, exact: true })
+        .waitFor();
+      assert.equal(
+        await page
+          .getByRole('button', { name: 'Delete ' + topic.name, exact: true })
+          .count(),
+        0,
+      );
+      assert.equal(
+        deletes,
+        deletesBefore + 3,
+        'Reload must not repeat a timed-out delete',
+      );
       // The server can complete deletion before the browser loses its response.
       replayTopics.push(topic);
       loseResponse = true;
@@ -221,7 +288,7 @@ async function smoke() {
       );
       assert.equal(
         deletes,
-        deletesBefore + 3,
+        deletesBefore + 4,
         'Reload must not retry deletion',
       );
       loseResponse = false;
@@ -231,7 +298,7 @@ async function smoke() {
     assert.deepEqual(credentials, []);
     assert.deepEqual(unexpectedWrites, []);
     console.log(
-      'Topic deletion desktop/mobile: browser replay cancel, error/retry, removal, lost-response recovery without retry, reload and order passed; no production writes or generation',
+      'Topic deletion desktop/mobile: browser replay cancel, error/retry, removal, real timeout and lost-response recovery without retry, reload and order passed; no production writes or generation',
     );
   } finally {
     assert.deepEqual(

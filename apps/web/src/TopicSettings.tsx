@@ -31,6 +31,7 @@ export function TopicSettings({
     try {
       const response = await fetch(`/api/topics/${deleting.id}`, {
         method: 'DELETE',
+        signal: AbortSignal.timeout(15_000),
       });
       responseReceived = true;
       if (!response.ok) throw new Error();

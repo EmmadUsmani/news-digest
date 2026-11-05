@@ -137,3 +137,13 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit, 214 isolated integration tests, zero failures); smoke-topics.ts; smoke-topic-create.ts; smoke-admin-gate.ts; git diff --check. Browser writes replayed; protected saved topics/profile/edition unchanged; no paid calls.
 - API rebuilt/restarted; health green and reader returns four topics. Worker/schedule unchanged. TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadline only, no new blocker).
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 826 — bound stalled topic deletion
+
+- Started clean on main; no leftover work. Alerts clear, API/worker active and health/database/Redis green. Nov 5 scheduled evidence remains pending at 15:00 UTC.
+- Topic DELETE now aborts after 15 seconds, releasing controls with existing uncertainty/reload guidance. No automatic retry.
+- Desktop/mobile Playwright replay verifies disabled controls during the request, real timeout recovery and completed deletion recovered by reload without another DELETE. Both timeout screenshots inspected in docs/screenshots/ui/; unrelated regenerated screenshot discarded.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-topic-delete.ts; smoke-admin-gate.ts; git diff --check. Static checks and 497 unit tests pass. Full check session ended 143 during integration without a reported test failure; transient user-service pnpm test:integration rerun exited 0: 214 passed, zero failures. No leftover test DB/Redis containers.
+- Browser writes replayed; protected live topics/profile/full edition unchanged; no paid calls. API rebuilt/restarted, health green, reader returns four topics and alerts clear. Worker/schedule unchanged.
+- TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadline only, no new blocker).
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

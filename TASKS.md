@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Topic deletion deadline (826): stalled deletion releases controls after 15 seconds; desktop/mobile timeout replay recovers a completed deletion on reload without another DELETE.
+
 - [x] Topic save deadline (825): creation/editing release stalled controls after 15 seconds; desktop/mobile timeout replays preserve entries and recover a completed creation on reload without duplicates.
 
 - [x] Edition submission deadline (824): stalled queue requests unlock controls after 15 seconds; desktop/mobile real-timeout and reload replay verifies no automatic resubmission.
