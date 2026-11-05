@@ -1,0 +1,8 @@
+## 2026-11-05: iteration 755 — general UI check follows the reader contract
+
+- Started clean on main; no leftover work. Health/database/Redis green, 36 sources healthy, no failed retained digest runs. Existing metrics memory alert firing; service active with zero restarts. Nov 5 edition due at 15:00 UTC.
+- General UI smoke now reads saved reader editions/archive and verifies rendered titles, URLs, summary text, image attributes, archive navigation/reload and desktop/mobile layout. Removed obsolete score/editorial assertions, legacy preview reads and paid creation/extended-window modes; unexpected browser API writes abort.
+- `pnpm exec tsx scripts/smoke-ui.ts` passed desktop/mobile with no browser errors, overflow or API writes; latest reader snapshot unchanged. Four screenshots refreshed; mobile archive visually inspected. Removed stale paid-mode instructions from docs/LLM.md and updated Operations/TASKS; archived iteration 740.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations; git diff --check. Initial shell terminated during lint (143); checks rerun through isolated user service. Full check passed (497 unit/214 isolated integration tests); build and handbook validation passed.
+- SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. Runtime/config/schema unchanged; healthy services remain running under STEERING 22. No live writes, inference or provider/model/budget changes.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.

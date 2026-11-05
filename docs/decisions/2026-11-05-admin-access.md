@@ -116,6 +116,12 @@ Name, story budget, relevance and enabled-state saves/reloads stay in browser
 memory; it creates no previews and blocks unexpected API writes. Server
 validation and generated-budget behavior remain covered by isolated tests.
 
+The handbook verifier also reads `/docs` pages, assets and API responses and
+`/db/api/schema` through the fixed loopback credential adapter. Playwright
+receives only the response bodies; credentials stay in Node. Redirects fail,
+and non-local `APP_URL` values are rejected. Tool access is still awaiting
+the coordinated route migration.
+
 ## Next rollout slice
 
 Configure the owner email allowlist before moving current operational routes.

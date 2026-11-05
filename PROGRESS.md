@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 755 — general UI check follows the reader contract
-
-- Started clean on main; no leftover work. Health/database/Redis green, 36 sources healthy, no failed retained digest runs. Existing metrics memory alert firing; service active with zero restarts. Nov 5 edition due at 15:00 UTC.
-- General UI smoke now reads saved reader editions/archive and verifies rendered titles, URLs, summary text, image attributes, archive navigation/reload and desktop/mobile layout. Removed obsolete score/editorial assertions, legacy preview reads and paid creation/extended-window modes; unexpected browser API writes abort.
-- `pnpm exec tsx scripts/smoke-ui.ts` passed desktop/mobile with no browser errors, overflow or API writes; latest reader snapshot unchanged. Four screenshots refreshed; mobile archive visually inspected. Removed stale paid-mode instructions from docs/LLM.md and updated Operations/TASKS; archived iteration 740.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations; git diff --check. Initial shell terminated during lint (143); checks rerun through isolated user service. Full check passed (497 unit/214 isolated integration tests); build and handbook validation passed.
-- SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. Runtime/config/schema unchanged; healthy services remain running under STEERING 22. No live writes, inference or provider/model/budget changes.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.
-
 ## 2026-11-05: iteration 756 — edition selection preserves saved reader content
 
 - Started clean on main; no leftover work. Health/database/Redis green, all 36 sources healthy; recent free-X/Bluesky collections succeeded and no retained failed digest runs. Existing metrics memory warning pending.
@@ -139,4 +130,13 @@
 - `pnpm exec tsx scripts/smoke-missing-edition.ts` passed real missing-edition 404/single request, home recovery and browser-only 503/retry recovery on desktop/mobile light/dark. No writes/browser errors; saved edition unchanged. Four screenshots added; mobile dark/desktop light inspected. Existing `smoke-invalid-edition.ts` passed all four combinations too.
 - TASKS and Operations updated; archived iteration 754. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blocker. No paid calls, stored-edition writes, generation/config/schema or model/provider changes. API restarted after web build.
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations; git diff --check. 497 unit tests passed; initial integration process received SIGTERM after reporting all 214 test cases, isolated integration rerun passed all 214 tests (exit 0). Final health green; all four app services active.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; owner identity configuration and proxy verification still block admin rollout.
+
+## 2026-11-05: iteration 771 — authenticated handbook verification
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; API/worker/docs/schema active. Nov 5 edition review remains due at 15:00 UTC.
+- Handbook checker now authenticates local docs pages/assets/API and DB schema reads through Node, relaying response bodies into Playwright without browser credentials. Fixed loopback origin, redirect refusal and 15-second deadlines keep it ready for tool gating; remote APP_URL values are rejected.
+- Extended credential adapter only to exact docs/db path families. Tests cover unrelated origins/prefixes, traversal, header preservation, invalid tokens, gated tool access and redirect rejection. Actual tool gating remains part of the coordinated admin migration.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, zero failures); pnpm build; full check-handbook.ts (18 pages/22 diagrams/26 tables, no metadata warnings); remote-origin rejection; targeted local-admin-fetch tests (2/2); git diff --check.
+- TASKS, Operations and access decision updated; archived iteration 755. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No paid calls, stored-edition writes, runtime/config/schema or model/provider changes. Healthy services remain running under STEERING 22.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; owner identity configuration and proxy verification still block admin rollout.

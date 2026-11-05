@@ -10,8 +10,13 @@ export function createLocalAdminFetch(
 ): typeof fetch {
   return async (input, init) => {
     const url = new URL(input instanceof Request ? input.url : String(input));
-    if (url.origin !== origin || !url.pathname.startsWith('/api/admin/'))
-      return read(input, init);
+    const protectedPath =
+      url.pathname.startsWith('/api/admin/') ||
+      ['/docs', '/db'].some(
+        (prefix) =>
+          url.pathname === prefix || url.pathname.startsWith(`${prefix}/`),
+      );
+    if (url.origin !== origin || !protectedPath) return read(input, init);
     const token = readToken();
     if (!token || /[\r\n]/.test(token))
       throw new Error('Local admin token is missing or invalid');

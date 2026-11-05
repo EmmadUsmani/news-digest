@@ -4,7 +4,7 @@
 
 All of these are behind the exe.dev login. Reserved `/admin` and `/api/admin`
 paths require [admin identity](01-stack-and-runtime.md#admin-identity); `/api/me` reports access.
-`pnpm obs sources|jobs` reads its local token from the env file for `/api/admin/status`.
+`pnpm obs sources|jobs` reads its local token from the env file for `/api/admin/status`. The handbook checker uses the same token for local tool reads, with credentials kept outside Playwright.
 Schedule recovery and schedule/topic/status, AI-spend, coverage, reserve, duration, X-schedule guidance, shared-query, news-query/custom-feed/source-connection and topic/account editing/community settings smoke scripts use protected API reads; browser writes and status snapshots are replayed in memory. General UI, theme, canonical routing, edition-selection, archive-race and simulated edition-job smoke checks verify saved reader content and navigation with API writes blocked; archive selection/history races cover desktop/mobile light/dark. Saved-story text checks cover all four topics on desktop/mobile in light/dark mode, block API writes and confirm edition immutability. Manual-reserve, scheduled-reserve and duration checks block unexpected API writes and confirm the saved edition is unchanged. X-widget checks replay recorded posts through the reader API, block API writes and confirm the saved edition stays unchanged. Bluesky/Reddit card checks replay synthetic posts through the reader API; they block API writes and use local image fixtures.
 
 | What               | URL                                                                                      |

@@ -11,7 +11,23 @@ import { mkdirSync, readFileSync, rmSync } from 'node:fs';
 
 import { chromium } from 'playwright';
 
-const base = process.env.APP_URL ?? 'http://localhost:8000';
+import { localAdminFetch } from './lib/local-admin-fetch';
+
+const base = 'http://127.0.0.1:8000';
+if (
+  process.env.APP_URL &&
+  !['http://localhost:8000', base].includes(process.env.APP_URL)
+)
+  throw new Error('Handbook verification requires the local app on port 8000');
+
+async function readTool(path: string) {
+  const response = await localAdminFetch(`${base}${path}`, {
+    signal: AbortSignal.timeout(15_000),
+  });
+  if (!response.ok)
+    throw new Error(`Tool read failed: HTTP ${response.status}`);
+  return response;
+}
 const out = '/tmp/handbook-diagrams';
 const filter = process.argv[2];
 // Owner docs stay short: lines outside code blocks (diagrams, commands).
@@ -39,7 +55,7 @@ interface Tree {
 
 async function main() {
   const problems: string[] = [];
-  const tree = (await (await fetch(`${base}/docs/api/tree`)).json()) as Tree;
+  const tree = (await (await readTool('/docs/api/tree')).json()) as Tree;
   const pages = [
     ...(tree.home ? [tree.home] : []),
     ...tree.sections.flatMap((s) => [
@@ -67,6 +83,26 @@ async function main() {
     const page = await browser.newPage({
       viewport: { width: 1440, height: 4000 },
       colorScheme: 'dark',
+    });
+    page.on('request', (request) => {
+      if ('admin_local_token' in request.headers())
+        problems.push('Local credential entered a browser request');
+      if (!['GET', 'HEAD'].includes(request.method()))
+        problems.push(`Unexpected browser method: ${request.method()}`);
+    });
+    // Fetch tool pages/assets in Node: credentials never enter the browser.
+    await page.route(`${base}/**`, async (route) => {
+      const request = route.request();
+      const url = new URL(request.url());
+      if (request.method() !== 'GET' || !url.pathname.startsWith('/docs/'))
+        throw new Error('Unexpected handbook browser request');
+      const response = await readTool(url.pathname + url.search);
+      await route.fulfill({
+        status: response.status,
+        contentType:
+          response.headers.get('content-type') ?? 'application/octet-stream',
+        body: Buffer.from(await response.arrayBuffer()),
+      });
     });
     page.on('pageerror', (error) =>
       problems.push(`page error: ${error.message}`),
@@ -121,7 +157,7 @@ async function main() {
     await browser.close();
   }
 
-  const schema = (await (await fetch(`${base}/db/api/schema`)).json()) as {
+  const schema = (await (await readTool('/db/api/schema')).json()) as {
     tables: { name: string; group: string }[];
     warnings: string[];
   };

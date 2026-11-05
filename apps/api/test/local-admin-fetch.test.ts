@@ -4,9 +4,9 @@ import type { AddressInfo } from 'node:net';
 import { test } from 'node:test';
 
 import { createLocalAdminFetch } from '../../../scripts/lib/local-admin-fetch';
-import { adminAccess } from '../src/admin-access';
+import { adminAccess, isAdmin } from '../src/admin-access';
 
-void test('local script credentials are limited to the protected local API', async () => {
+void test('local script credentials are limited to protected local APIs and handbook tools', async () => {
   let credentialsRead = 0;
   const requests: Array<{ url: string; init?: RequestInit }> = [];
   const read = createLocalAdminFetch(
@@ -24,6 +24,11 @@ void test('local script credentials are limited to the protected local API', asy
   );
   for (const url of [
     'http://127.0.0.1:8000/healthz',
+    'http://127.0.0.1:8000/docs-other/',
+    'http://127.0.0.1:8000/db-other/',
+    'https://example.com/docs/api/tree',
+    'http://localhost:8000/docs/api/tree',
+    'http://127.0.0.1:8000/docs/../healthz',
     'http://127.0.0.1:8880/api/v1/alerts',
     'https://example.com/api/admin/status',
     'http://127.0.0.1:8000/api/administer/status',
@@ -45,6 +50,20 @@ void test('local script credentials are limited to the protected local API', asy
   assert.equal(headers.get('accept'), 'application/json');
   assert.equal(headers.get('x-test'), 'kept');
   assert.equal(last.redirect, 'error');
+  for (const path of [
+    '/docs',
+    '/docs/',
+    '/docs/api/tree',
+    '/db',
+    '/db/api/schema',
+  ]) {
+    await read(`http://127.0.0.1:8000${path}`);
+    assert.equal(
+      new Headers(requests.at(-1)!.init!.headers).get('ADMIN_LOCAL_TOKEN'),
+      'test-secret',
+    );
+    assert.equal(requests.at(-1)!.init!.redirect, 'error');
+  }
   for (const token of [undefined, '', 'bad\nvalue']) {
     await assert.rejects(
       createLocalAdminFetch(() => token)(
@@ -60,6 +79,13 @@ void test('script request passes the HTTP admin gate and refuses redirects', asy
   let reachedRedirect = false;
   const server = createServer((req, res) =>
     gate(req, res, () => {
+      if (
+        req.url?.startsWith('/docs/') &&
+        !isAdmin(req, { localToken: 'test-secret' })
+      ) {
+        res.writeHead(404).end();
+        return;
+      }
       if (req.url === '/api/admin/redirect') {
         res.writeHead(302, { location: '/destination' }).end();
       } else {
@@ -86,6 +112,13 @@ void test('script request passes the HTTP admin gate and refuses redirects', asy
   );
   try {
     const response = await read('http://127.0.0.1:8000/api/admin/status');
+    assert.equal(
+      (await fetch(`http://127.0.0.1:${port}/docs/api/tree`)).status,
+      404,
+    );
+    const toolResponse = await read('http://127.0.0.1:8000/docs/api/tree');
+    assert.equal(toolResponse.status, 200);
+    assert.deepEqual(await toolResponse.json(), { ok: true });
     assert.equal(response.status, 200);
     assert.equal(response.headers.get('cache-control'), 'no-store');
     await assert.rejects(read('http://127.0.0.1:8000/api/admin/redirect'));
