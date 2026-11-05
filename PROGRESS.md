@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 747 — protected account and community browser checks
-
-- Started clean on main; no leftover work. Health/database/Redis green, all 36 sources healthy, no retained failed digest runs. Existing metrics memory warning firing; service active with zero restarts. Nov 5 edition due at 15:00 UTC.
-- Reviewed X-account and parked-Reddit community browser checks now read protected topic snapshots and final immutability checks through bounded Node token requests. Account rendering replays snapshots; community writes remain browser-only. No credentials enter browser contexts or Reddit requests occur.
-- `pnpm exec tsx scripts/smoke-reviewed-x-accounts.ts` and `scripts/smoke-reddit-communities.ts` passed desktop/mobile: four saved account lists, community normalization/save/reload/duplicate rejection/clear, unchanged live topics, zero page errors or overflow. Ten screenshots refreshed; desktop accounts/mobile communities visually inspected.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, exit 0); pnpm build; check-handbook.ts 08-operations; git diff --check. Initial lint process interrupted (143); first check found archive formatting, corrected before successful rerun.
-- Updated TASKS, Operations and access decision; archived iteration 734. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema changes, live writes, paid calls or model/provider/budget changes; healthy services remain running under STEERING 22. Reader latest serves four real topics.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback. Scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy checks and coordinated UI/legacy migration remain open.
-
 ## 2026-11-05: iteration 748 — protected shared-query browser checks
 
 - Started clean on main; no leftover work. Health/database/Redis green, all 36 sources healthy, no retained failed digest runs. Existing metrics memory warning firing; Nov 5 edition remains due at 15:00 UTC.
@@ -141,3 +132,12 @@
 - Updated TASKS/Operations. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema, model/provider or production data changes; healthy services remain running under STEERING 22.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, zero failures); pnpm build; check-handbook.ts 08-operations; git diff --check passed. Final /healthz green.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. Fresh X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.
+
+## 2026-11-05: iteration 763 — restore reader X-widget replay
+
+- Started clean on main; no leftover work. Alerts zero and /healthz database/Redis green; Nov 5 scheduled edition remains due at 15:00 UTC.
+- X-widget verifier now replays recorded selected posts through the reader contract/API rather than the legacy operational preview. Removed obsolete editorial/context expectations; verifies saved story titles/text, sanitized posts, blocked writes and unchanged saved edition.
+- `pnpm exec tsx scripts/smoke-posts.ts /tmp/135-screen.jsonl` passed success, blocked-script retry, timeout retry and late-promise cleanup on desktop/mobile. Four screenshots refreshed; desktop/mobile blocked cards visually inspected. Posts are recorded replay; widgets are stubs, no live inference or publication.
+- TASKS/Operations updated; archived iteration 747. SOURCES/NEEDS_FROM_HUMAN unchanged. No runtime/config/schema or model/provider changes; healthy services remain running under STEERING 22.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (497 unit/214 isolated integration, zero failures), `pnpm build`, `check-handbook.ts 08-operations` and `git diff --check` passed. Final /healthz green.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.

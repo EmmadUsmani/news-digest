@@ -3,7 +3,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 
-import { digestPreviewSchema, selectedPostSchema } from '@digest/contracts';
+import { readerEditionSchema, selectedPostSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
 async function main() {
@@ -20,6 +20,16 @@ async function main() {
       };
     });
   assert.ok(screened.some((topic) => topic.selected.length > 0));
+  const readEdition = async (path = '/api/editions/latest') => {
+    const response = await fetch(`http://localhost:8000${path}`, {
+      signal: AbortSignal.timeout(15_000),
+    });
+    assert.equal(response.status, 200);
+    return readerEditionSchema.parse(await response.json());
+  };
+  const saved = await readEdition();
+  const savedPath = `/api/editions/${saved.id}`;
+  const unexpectedWrites: string[] = [];
   const browser = await chromium.launch();
   try {
     for (const [name, width, height] of [
@@ -34,42 +44,21 @@ async function main() {
         page.on('pageerror', (error) =>
           errors.push(error.stack ?? error.message),
         );
-        const snapshot = digestPreviewSchema.parse(
-          await (
-            await page.request.get(
-              'http://localhost:8000/api/digest-previews/latest',
-            )
-          ).json(),
-        );
+        const snapshot = structuredClone(saved);
         snapshot.topics.forEach((topic) => {
           topic.posts = (
             screened.find((row) => row.topic === topic.name)?.selected ?? []
           ).slice(0, mode === 'live' ? 1 : undefined);
-          if (process.env.POST_EDITORIAL_REPLAY === '1') {
-            topic.postSelectionMethod = 'verified-semantic-editor-v1';
-            topic.postEditorial = {
-              mode: 'ai',
-              model: 'synthetic-replay',
-              reason: 'Synthetic UI replay',
-              triage: [],
-              unscoredIds: [],
-            };
-            topic.posts.forEach((post) => {
-              post.whyItMatters =
-                'Synthetic context for UI verification; not a live editorial result.';
-            });
-          }
         });
-        if (process.env.POST_COVERAGE_REPLAY === '1') {
-          for (const topic of snapshot.topics) {
-            const story = topic.stories[0];
-            if (!story) continue;
-            for (const post of topic.posts ?? [])
-              post.citingStories = [{ id: story.id, title: story.title }];
-          }
-        }
+        const replay = readerEditionSchema.parse(snapshot);
+        assert.ok(replay.topics.flatMap((topic) => topic.posts).length > 0);
+        assert.ok(
+          replay.topics
+            .flatMap((topic) => topic.posts)
+            .every((post) => !('whyItMatters' in post) && !('reasons' in post)),
+        );
         // Exercise historical snapshots without the optional display field too.
-        const legacyPost = snapshot.topics
+        const legacyPost = replay.topics
           .flatMap((topic) => topic.posts ?? [])
           .at(-1);
         if (legacyPost) delete legacyPost.displayText;
@@ -106,9 +95,18 @@ async function main() {
               });
             },
           );
-        await page.route('**/api/digest-previews/latest', (route) =>
-          route.fulfill({ json: snapshot }),
-        );
+        await page.route('**/api/**', (route) => {
+          const request = route.request();
+          if (!['GET', 'HEAD'].includes(request.method())) {
+            unexpectedWrites.push(
+              `${request.method()} ${new URL(request.url()).pathname}`,
+            );
+            return route.abort();
+          }
+          if (new URL(request.url()).pathname === '/api/editions/latest')
+            return route.fulfill({ json: replay });
+          return route.continue();
+        });
         await page.goto('http://localhost:8000');
         await page.locator('.top-posts').first().waitFor();
         assert.equal(
@@ -116,8 +114,23 @@ async function main() {
           0,
           'Widgets must wait until posts approach the viewport',
         );
+        for (const topic of replay.topics) {
+          const section = page.locator('.digest-topic').filter({
+            has: page.getByRole('heading', { name: topic.name, exact: true }),
+          });
+          assert.deepEqual(
+            await section.locator('li > a').allTextContents(),
+            topic.stories.map((story) => story.title),
+          );
+          assert.deepEqual(
+            await section.locator('p.excerpt').allTextContents(),
+            topic.stories.map((story) => story.summary).filter(Boolean),
+          );
+        }
         const cards = page.locator('.post-card');
-        const expected = snapshot.topics.flatMap((topic) => topic.posts ?? []);
+        const expected = replay.topics
+          .flatMap((topic) => topic.posts)
+          .filter((post) => post.platform === 'x');
         assert.equal(await cards.count(), expected.length);
         for (let index = 0; index < expected.length; index++) {
           const card = cards.nth(index);
@@ -129,22 +142,6 @@ async function main() {
               .getAttribute('href'),
             post.url,
           );
-          if (process.env.POST_EDITORIAL_REPLAY === '1') {
-            assert.equal(
-              await card.locator('.post-context').textContent(),
-              post.whyItMatters,
-            );
-          }
-          if (post.citingStories?.length) {
-            const link = card.locator('.post-coverage a').first();
-            assert.equal(await link.textContent(), post.citingStories[0].title);
-            await link.click();
-            assert.equal(
-              await page.locator(`#story-${post.citingStories[0].id}`).count(),
-              1,
-            );
-            await card.scrollIntoViewIfNeeded();
-          }
           if (mode === 'live') {
             await card.locator('iframe').waitFor({ timeout: 30000 });
           } else if (mode === 'success') {
@@ -182,11 +179,11 @@ async function main() {
             const banner = document.createElement('p');
             banner.textContent = live
               ? 'Read-only replay · real verified posts · official X widgets · not a published edition'
-              : 'Read-only replay · real verified posts · synthetic coverage links when enabled · widget unavailable · not a published edition';
+              : 'Read-only replay · real verified posts · widget unavailable · not a published edition';
             document.querySelector('.post-card')?.prepend(banner);
           }, mode === 'live');
           await cards.first().screenshot({
-            path: `docs/screenshots/posts-${process.env.POST_EDITORIAL_REPLAY === '1' ? 'semantic-replay-' : ''}${mode}-${name}.png`,
+            path: `docs/screenshots/posts-${mode}-${name}.png`,
           });
         }
         if (mode === 'blocked' || mode === 'hanging') {
@@ -220,6 +217,12 @@ async function main() {
         await page.close();
       }
     }
+    assert.deepEqual(unexpectedWrites, []);
+    assert.deepEqual(
+      await readEdition(savedPath),
+      saved,
+      'Saved edition must remain unchanged',
+    );
     console.log(
       `Post replay passed (${process.env.POST_EMBED_LIVE === '1' ? 'live official widgets' : 'stubbed widgets, blocked and timed-out recovery'}): desktop/mobile, no overflow or page errors. No edition published.`,
     );
