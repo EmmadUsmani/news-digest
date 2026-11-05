@@ -307,23 +307,28 @@ export function DigestPreview() {
               ))}
             </ul>
             {!history.entries.length && <p>No saved editions on this page.</p>}
-            <div className="history-pages">
-              <Button
-                disabled={offset === 0 || busy}
-                onClick={() => setOffset((value) => Math.max(0, value - 20))}
-              >
-                Newer editions
-              </Button>
-              <span>Page {offset / 20 + 1}</span>
-              <Button
-                disabled={!history.hasMore || busy}
-                onClick={() => setOffset((value) => value + 20)}
-              >
-                Older editions
-              </Button>
-            </div>
           </>
         )}
+        <div className="history-pages">
+          <Button
+            disabled={offset === 0 || busy}
+            onClick={() => setOffset((value) => Math.max(0, value - 20))}
+          >
+            Newer editions
+          </Button>
+          <span>Page {offset / 20 + 1}</span>
+          <Button
+            disabled={
+              !history?.hasMore ||
+              historyError ||
+              historyResult.isFetching ||
+              busy
+            }
+            onClick={() => setOffset((value) => value + 20)}
+          >
+            Older editions
+          </Button>
+        </div>
       </details>
       {selectedEditionId &&
       edition.error instanceof HttpError &&

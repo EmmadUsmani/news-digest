@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 756 — edition selection preserves saved reader content
-
-- Started clean on main; no leftover work. Health/database/Redis green, all 36 sources healthy; recent free-X/Bluesky collections succeeded and no retained failed digest runs. Existing metrics memory warning pending.
-- Edition-selection browser check now chooses a genuinely different saved edition through reader schemas, waits for the delayed latest request to start, and checks selected story titles and summary text before and after delayed success/error. It also verifies URL/selection, browser errors, layout, blocks unexpected API writes and proves the latest saved edition unchanged.
-- `pnpm exec tsx scripts/smoke-edition-selection.ts` passed all four desktop/mobile success/error cases; screenshots refreshed with identical image output. Mobile archive visually inspected. No live writes, paid calls, runtime/config/schema or model/provider changes.
-- Updated TASKS and Operations; archived iteration 741 to keep PROGRESS small. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. Healthy services stay running under STEERING 22.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, zero failures); pnpm build; check-handbook.ts 08-operations; git diff --check all passed. Final /healthz green.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.
-
 ## 2026-11-05: iteration 757 — completed jobs preserve saved reader text
 
 - Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy, no failed retained digest runs; recent free-X/Bluesky collections succeeded.
@@ -140,3 +131,12 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, zero failures); pnpm build; full check-handbook.ts (18 pages/22 diagrams/26 tables, no metadata warnings); remote-origin rejection; targeted local-admin-fetch tests (2/2); git diff --check.
 - TASKS, Operations and access decision updated; archived iteration 755. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No paid calls, stored-edition writes, runtime/config/schema or model/provider changes. Healthy services remain running under STEERING 22.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; owner identity configuration and proxy verification still block admin rollout.
+
+## 2026-11-05: iteration 772 — recover failed archive pages
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Two historical ingestion failures remain with current collection healthy.
+- Archive paging now keeps Newer editions available during loading/errors, so a failed older page no longer traps navigation. Older editions waits for a successful response; retry and empty-page return remain available.
+- `pnpm exec tsx scripts/smoke-history-recovery.ts` passed failed-page escape, retry and empty-page return on desktop/mobile light/dark, with browser-only pagination/failure responses, blocked writes, no browser errors and the saved edition unchanged. Four screenshots added; desktop light/mobile dark inspected.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations (18 pages/1 diagram/26 tables); git diff --check. Initial check raced import autofix and failed import sorting; corrected. Full rerun passed static checks and 497 unit tests, then received SIGTERM during integration; isolated integration rerun passed all 214 tests.
+- TASKS and Operations updated; archived iteration 756. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, stored-edition writes, generation/config/schema or model/provider changes. API restarted after web build; health green.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; owner identity configuration and proxy verification still block admin rollout.
