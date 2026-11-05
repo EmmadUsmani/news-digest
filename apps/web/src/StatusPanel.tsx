@@ -1,35 +1,16 @@
-import {
-  type OperationsStatus,
-  operationsStatusSchema,
-} from '@digest/contracts';
-import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+
+import { statusQuery } from './queries';
 const time = (value: string | null) =>
   value ? new Date(value).toLocaleString() : 'Never';
 const dollars = (micros: number) => '$' + (micros / 1e6).toFixed(6);
 export function StatusPanel() {
-  const [status, setStatus] = React.useState<OperationsStatus | null>(null);
-  const [error, setError] = React.useState(false);
-  const [loading, setLoading] = React.useState(false);
-  const load = React.useCallback(async () => {
-    setLoading(true);
-    try {
-      const response = await fetch('/api/status');
-      if (!response.ok) throw new Error();
-      setStatus(operationsStatusSchema.parse(await response.json()));
-      setError(false);
-    } catch {
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-  React.useEffect(() => {
-    void load();
-    const timer = setInterval(() => {
-      void load();
-    }, 60000);
-    return () => clearInterval(timer);
-  }, [load]);
+  const {
+    data: status,
+    isError: error,
+    isFetching: loading,
+    refetch,
+  } = useQuery(statusQuery);
   const lastDigestRun = status?.queues
     .filter((queue) => queue.name === 'digest-generation')
     .flatMap((queue) => queue.runs)
@@ -39,7 +20,7 @@ export function StatusPanel() {
     <details className="status-panel">
       <summary>Source &amp; run status</summary>
       <p>Collection and edition activity. Refreshes every minute.</p>
-      <button type="button" onClick={() => void load()} disabled={loading}>
+      <button type="button" onClick={() => void refetch()} disabled={loading}>
         {loading ? 'Refreshing…' : 'Refresh status'}
       </button>
       {error && (

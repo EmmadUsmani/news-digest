@@ -1,6 +1,7 @@
 import {
   contentGroupSchema,
   healthSchema,
+  operationsStatusSchema,
   profileSettingsSchema,
   topicSchema,
 } from '@digest/contracts';
@@ -29,4 +30,10 @@ export const profileQuery = queryOptions({
 export const healthQuery = queryOptions({
   queryKey: ['health'],
   queryFn: ({ signal }) => read('/healthz', healthSchema, signal),
+});
+
+export const statusQuery = queryOptions({
+  queryKey: ['status'],
+  queryFn: ({ signal }) => read('/api/status', operationsStatusSchema, signal),
+  refetchInterval: 60_000,
 });

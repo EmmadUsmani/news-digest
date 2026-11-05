@@ -13,6 +13,7 @@ async function smoke() {
       '/api/topics',
       '/api/profile',
       '/healthz',
+      '/api/status',
     ];
     const errors: string[] = [];
     page.on('pageerror', (error) => errors.push(error.message));
@@ -26,6 +27,10 @@ async function smoke() {
       .getByText('System online · Database and queue connected')
       .waitFor();
     await page.locator('.topic-grid article').first().waitFor();
+    await page.locator('.status-panel summary').click();
+    await page
+      .getByRole('heading', { name: 'Recent edition runs', exact: true })
+      .waitFor();
     for (const resource of resources)
       assert.equal(counts.get(resource), 1, resource);
     // Leaving and re-entering the page must reuse fresh shared resources.
@@ -38,6 +43,46 @@ async function smoke() {
     await page.locator('.topic-grid article').first().waitFor();
     for (const resource of resources)
       assert.equal(counts.get(resource), 1, resource);
+    await page.locator('.status-panel summary').click();
+    const checked = await page
+      .locator('.status-panel small')
+      .first()
+      .textContent();
+    await page.route('**/api/status', (route) =>
+      route.fulfill({ json: { invalid: true } }),
+    );
+    await page
+      .getByRole('button', { name: 'Refresh status', exact: true })
+      .click();
+    await page.locator('.status-panel [role="alert"]').waitFor();
+    assert.equal(
+      await page.locator('.status-panel small').first().textContent(),
+      checked,
+    );
+    await page
+      .getByRole('heading', { name: 'Recent edition runs', exact: true })
+      .waitFor();
+    await page.unroute('**/api/status');
+    await page
+      .getByRole('button', { name: 'Refresh status', exact: true })
+      .click();
+    await page
+      .locator('.status-panel [role="alert"]')
+      .waitFor({ state: 'hidden' });
+    await page.locator('.status-panel').scrollIntoViewIfNeeded();
+    await page.screenshot({
+      path: 'docs/screenshots/ui/foundations-status-desktop.png',
+    });
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page
+      .locator('.status-panel summary')
+      .evaluate((element) => element.scrollIntoView({ block: 'start' }));
+    await page.screenshot({
+      path: 'docs/screenshots/ui/foundations-status-mobile.png',
+    });
+    await page.setViewportSize({ width: 1280, height: 720 });
+    await page.locator('.status-panel summary').click();
+    await page.evaluate(() => window.scrollTo(0, 0));
     await page.screenshot({
       path: 'docs/screenshots/ui/foundations-query-desktop.png',
     });
@@ -61,7 +106,7 @@ async function smoke() {
     await page.locator('.topic-grid article').first().waitFor();
     assert.deepEqual(errors, []);
     console.log(
-      'Shared resource requests deduplicated and cached across navigation; malformed content/health rejected without hiding edition or topics. No writes.',
+      'Shared resource requests deduplicated and cached across navigation; status refresh retains cached data on malformed response and recovers; malformed content/health rejected without hiding edition or topics. No writes.',
     );
   } finally {
     await browser.close();

@@ -14,6 +14,7 @@ import {
   contentQuery,
   healthQuery,
   profileQuery,
+  statusQuery,
   topicsQuery,
 } from './queries';
 
@@ -43,6 +44,7 @@ function loadPageData({ context }: { context: { queryClient: QueryClient } }) {
     context.queryClient.ensureQueryData(topicsQuery),
     context.queryClient.ensureQueryData(profileQuery),
     context.queryClient.ensureQueryData(healthQuery),
+    context.queryClient.ensureQueryData(statusQuery),
   ]);
 }
 const latestRoute = createRoute({
