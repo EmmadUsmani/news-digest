@@ -27,12 +27,10 @@ found none of those discoveries selected and World still empty. Improve
 search quality within the existing authorization before considering new access. No unofficial data provider, scraping workaround or new
 paid verification is authorized or needed for that review.
 
-## Admin access rollout (2026-11-05, iteration 729)
+## Admin access rollout (updated under STEERING 36)
 
-`ADMIN_EMAILS` remains unconfigured. A private `ADMIN_LOCAL_TOKEN` is installed
-for direct local scripts; reserved admin paths deny anonymous access. Existing
-reader and legacy operational paths still work.
-Before migrating those operational paths, configure the owner's comma-separated
-admin email list in the private env file. No identity was guessed. Proxy origin
-and header replacement still need an authenticated check before public access;
-see [access decision](docs/decisions/2026-11-05-admin-access.md).
+No owner action is needed for the private-VM rollout. STEERING 36 confirms
+`ADMIN_EMAILS` is configured and `/api/me` recognizes the owner. The local script
+token is installed. Finish migrating operational routes and tools together.
+Verify proxy identity-header replacement before any future public access;
+the VM stays private. See the [access decision](docs/decisions/2026-11-05-admin-access.md).

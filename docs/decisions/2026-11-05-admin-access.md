@@ -22,8 +22,8 @@ Reader routes keep their own caching policy.
   the same name using a constant-time comparison for equal-length values.
 - Token access requires a loopback socket and no `Forwarded` or `X-Forwarded-*`
   headers. Socket locality alone never grants access.
-- No configured email or token means no admin access. A random local token is installed in the private env file; the owner email
-  allowlist remains unconfigured.
+- No configured email or token means no admin access. A random local token is installed in the private env file; STEERING 36 confirms the owner email
+  allowlist is configured and `/api/me` recognizes the owner.
 
 ## Proxy investigation, November 5
 
@@ -36,7 +36,9 @@ replacement of client-supplied identity headers.
 A request from this VM to `https://news-digest.exe.xyz/healthz` failed to connect
 (curl exit 7); no proxied request reached the app for observation. Therefore
 loopback was **not** established as safe and is never an automatic bypass.
-Authenticated proxy origin and forged-header replacement checks remain open.
+Authenticated proxy origin and forged-header replacement checks remain open
+for any future public access. STEERING 36 explicitly permits the current
+private-VM rollout without waiting for those checks.
 Before making the VM public, verify the proxy strips/replaces a forged
 `X-ExeDev-Email`; never treat the local tests as evidence of that behavior.
 
