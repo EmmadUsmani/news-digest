@@ -106,9 +106,29 @@ async function smoke() {
           await page.screenshot({
             path: `docs/screenshots/ui/history-refresh-${device}-${theme}.png`,
           });
+          const failedAttempts = attempts;
+          await retry.focus();
+          await retry.press('Enter');
+          await page.clock.runFor(8000);
+          assert.ok(attempts > failedAttempts);
+          assert.equal(
+            await retry.evaluate(
+              (element) => document.activeElement === element,
+            ),
+            true,
+          );
           failure = 0;
+          await retry.focus();
           await retry.click();
           await retry.waitFor({ state: 'detached' });
+          await page.waitForFunction(
+            () =>
+              document.activeElement ===
+              document.querySelector('.edition-history summary'),
+          );
+          await page.screenshot({
+            path: `docs/screenshots/ui/history-retry-focus-${device}-${theme}.png`,
+          });
           assert.deepEqual(
             await page.locator('.edition-history li').allTextContents(),
             content,

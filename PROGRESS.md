@@ -184,3 +184,13 @@
 - Static UI served by healthy API; no service runtime changes, so no restart under STEERING 22. No paid calls or live writes.
 - TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (recovery accessibility fix, no new blocker).
 - Next FIRST: 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 846 — preserve history-retry keyboard focus
+
+- Started clean on main; no leftover work. Alerts clear and health/database/Redis green.
+- Successful history retries focus Browse saved editions after the Retry button disappears; failed retries retain Retry focus.
+- smoke-history-refresh.ts passed desktop/mobile light/dark, including Enter retry failure, recovery focus, cached links and saved-edition immutability; new focus screenshots inspected desktop/mobile. No browser writes or errors.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit/214 isolated integration passed); smoke-admin-gate.ts passed; git diff --check. Initial check caught replay formatting, corrected before the successful full run.
+- Static UI served by healthy API; no runtime service changes, so no restart under STEERING 22. No paid calls or live writes.
+- TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (keyboard fix, no new blocker).
+- Next FIRST: 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

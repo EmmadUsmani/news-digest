@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] History retry keyboard recovery (846): failed retries retain Retry focus; successful retries focus Browse saved editions. Desktop/mobile light/dark replay and screenshots pass without live writes.
+
 - [x] Uncertain generation recovery (845): queue timeout/interrupted response opens and focuses saved editions; desktop/mobile verifies keyboard access to latest edition without resubmission or live writes.
 
 - [x] Schedule-save keyboard navigation (844): Save schedule restores focus after success, rejection and timeout; desktop/mobile replay verifies Enter retry without changing the live schedule.

@@ -77,6 +77,12 @@ export function DigestPreview() {
   const [error, setError] = React.useState('');
   const [offset, setOffset] = React.useState(0);
   const historyResult = useQuery(editionHistoryQuery(offset));
+  const restoreHistoryFocus = React.useRef(false);
+  React.useEffect(() => {
+    if (historyResult.isFetching || !restoreHistoryFocus.current) return;
+    restoreHistoryFocus.current = false;
+    if (!historyResult.isError) savedEditionsTrigger.current?.focus();
+  }, [historyResult.isFetching, historyResult.isError]);
   const history = historyResult.data;
   const historyError = historyResult.isError;
   React.useEffect(() => {
@@ -322,7 +328,12 @@ export function DigestPreview() {
             {history
               ? 'Edition history could not be refreshed. Showing saved links already loaded.'
               : 'Edition history could not be loaded.'}{' '}
-            <Button onClick={() => void historyResult.refetch()}>
+            <Button
+              onClick={() => {
+                restoreHistoryFocus.current = true;
+                void historyResult.refetch();
+              }}
+            >
               Retry history
             </Button>
           </p>
