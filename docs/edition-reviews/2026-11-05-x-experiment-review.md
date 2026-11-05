@@ -116,3 +116,42 @@ remain unknown, and the 31 semantic likes remain unknown. Thus no usable-yield
 number or winner follows from the zero overlap. Next: score saved candidates
 with the production social scorer under verification admission, then the
 Nov 6 fresh-window round. No paid calls, ingestion or production changes.
+
+## Saved-candidate social triage — iteration 887
+
+Scored all 41 candidates with the configured production Haiku social scorer,
+using saved official-embed text and author, reported likes where present, and
+media-link hints through `socialTriageCandidate`. Media contents and missing
+likes stayed unknown. Current saved topic descriptions/guidance applied.
+Four successful calls cost **$0.003782**, ledger `purpose=verification`, run
+`iteration-887-x-experiment`; shared app/reserve and verification admission
+applied, repairs disabled. No X calls, ingestion or edition writes.
+
+| Topic     | Style    | Relevance ≥6 | In-window relevance ≥6 | In-window relevance ≥6 / interestingness ≥4 |
+| --------- | -------- | -----------: | ---------------------: | ------------------------------------------: |
+| Tech & AI | Keyword  |         2/10 |                      2 |                                           2 |
+| Tech & AI | Semantic |          6/8 |                      4 |                                           1 |
+| NBA       | Semantic |          5/8 |                      2 |                                           1 |
+| Gaming    | Semantic |          6/8 |                      3 |                                           2 |
+| World     | Semantic |          7/7 |                      4 |                                           1 |
+
+The two Tech keyword gate-passers are `2118411960337289583` (consumer voice
+launch, scores 6/4) and `2118140532715028495` (hardware embodiment demo, 6/5).
+Both have reported 500+ likes and no retained free-link match. The two explicit
+giveaways scored 1/0 each. The remaining keyword candidates scored relevance
+1–4; several rationales identify promotion, vague hype or networking.
+
+These are scorer gates, not completed usable-yield labels. The production
+scorer returns relevance, interestingness and rationale, without a separate
+promotion boolean; no boolean was inferred from a score or rationale. Promotion
+labels remain unknown. Semantic likes remain unknown for all 31 candidates;
+missing keyword cells also prevent an all-topic comparison. No winner or
+activation follows; Nov 6 fresh-window round remains next. World is separate.
+
+Private `triage-runner-887.ts`, `triage-scores-887.json`,
+`ledger-snapshot-887.ts`, `triage-calls-887.json`, `triaged-evidence-887.json`
+and `triaged-report-887.json` preserve inputs, scores, accounting and the
+unchanged offline reporter output (mode 600). All original evidence is
+unchanged; scores were joined by exact topic/post ID. Assertions checked 41
+unique scores, zero unscored IDs, four successful verification ledger rows
+and matching total cost. Anthropic cost is separate from X experiment spend.

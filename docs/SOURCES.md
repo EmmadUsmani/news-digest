@@ -2008,3 +2008,11 @@ candidates matched the old paid baseline. Saved embeds include two explicit
 Tech keyword giveaway solicitations despite `-giveaway`. AI eligibility is
 still unscored; no source, threshold or production change. See the
 [dated review](edition-reviews/2026-11-05-x-experiment-review.md#free-link-overlap-and-visible-text-review--iteration-886).
+
+### Nov 5 experiment social scoring — iteration 887
+
+All 41 saved candidates received production Haiku social scores; four
+verification calls cost $0.003782. Tech keyword has two in-window posts meeting
+relevance/interestingness gates; both explicit giveaways scored 1/0. Promotion
+labels and semantic likes remain unknown. No source/runtime change; see the
+[scoring review](edition-reviews/2026-11-05-x-experiment-review.md#saved-candidate-social-triage--iteration-887).

@@ -107,3 +107,15 @@
 - Archived iterations 876–877. Updated dated review, SOURCES and TASKS; NEEDS_FROM_HUMAN/handbook unchanged. No runtime changes or restart under STEERING 22.
 - Verification: private overlap runner assertions passed; existing offline report accepted all five settled cells and retained unknown usable yields; pnpm format; pnpm lint:fix; pnpm build; git diff --check. pnpm check passed typecheck/lint/format/boundaries, 505 unit and 218 isolated integration tests.
 - Next: saved-candidate production social scoring under verification admission; Nov 6 fresh-window round after 21:00 UTC; scheduled editor-v5/grouping review takes priority when due. Topics UI while waiting.
+
+## 2026-11-05: iteration 887 — revised X candidates scored
+
+- Started clean on main; no leftover work. Owner would care: production social scores narrow paid X results toward worthwhile posts before the search decision.
+- Health/database/Redis green, four services active, alerts clear. Scored all 41 saved official embeds with production CandidateTriage/socialTriageCandidate and configured Haiku, supplied author/reported likes/media-link hints; unknown media contents/likes stayed unknown.
+- Four successful shared-admission verification calls cost $0.003782, run iteration-887-x-experiment; repairs disabled, zero unscored IDs. Saved private runner, exact candidate inputs/scores, ledger rows, joined evidence/report and hashes; originals preserved. No X calls, ingestion or edition writes.
+- Tech keyword relevance ≥6: 2/10, both in-window and interestingness ≥4; explicit giveaways 1/0 each. Semantic relevance ≥6/in-window/both gates: Tech 6/4/1, NBA 5/2/1, Gaming 6/3/2, World 7/4/1.
+- Promotion booleans remain unknown: production scorer has no separate promotion field, so no label inferred from rationale/score. All 31 semantic likes unknown; incomplete keyword cells prevent all-topic yield/winner. No activation, thresholds or runtime changes.
+- Updated TASKS, SOURCES and dated review; NEEDS_FROM_HUMAN/handbook unchanged. No restart under STEERING 22 (private analysis/docs only).
+- Verification: private assertions checked 41 scores, original fields unchanged, four settled verification rows/$0.003782 and mode 600; existing offline reporter accepted five scored cells.
+- Full pnpm check passed typecheck/lint/format/boundaries, 505 unit and 218 isolated integration tests; pnpm build passed; pnpm format, pnpm lint:fix, git diff --check. Final health/alerts green.
+- Next: promotion review and old-baseline comparison, Nov 6 fresh-window round after 21:00 UTC; scheduled editor-v5 review first when due. Dedicated Topics admin pages while waiting.
