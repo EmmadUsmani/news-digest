@@ -477,6 +477,57 @@ void test('admin routes use real controllers and deny unauthenticated reads and 
     );
     await authorized.json();
   }
+  const catalogForToggle = await (
+    await fetch(`${base}/api/admin/topics/sources`, { headers })
+  ).json();
+  const toggleUrl = `${base}/api/admin/topics/sources/${encodeURIComponent(catalogForToggle[0].id)}/enabled`;
+  assert.equal(
+    (
+      await fetch(toggleUrl, {
+        method: 'PUT',
+        headers: { 'content-type': 'application/json' },
+        body: '{"enabled":false}',
+      })
+    ).status,
+    404,
+  );
+  for (const body of [
+    { enabled: 'false' },
+    { enabled: false, extra: true },
+    {},
+  ])
+    assert.equal(
+      (
+        await fetch(toggleUrl, {
+          method: 'PUT',
+          headers,
+          body: JSON.stringify(body),
+        })
+      ).status,
+      400,
+    );
+  for (const enabled of [false, true]) {
+    const response = await fetch(toggleUrl, {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify({ enabled }),
+    });
+    assert.equal(response.status, 200);
+    assert.deepEqual(await response.json(), {
+      id: catalogForToggle[0].id,
+      enabled,
+    });
+  }
+  assert.equal(
+    (
+      await fetch(`${base}/api/admin/topics/sources/missing/enabled`, {
+        method: 'PUT',
+        headers,
+        body: '{"enabled":true}',
+      })
+    ).status,
+    404,
+  );
   const latestResponse = await fetch(
     `${base}/api/admin/digest-previews/latest`,
     { headers },

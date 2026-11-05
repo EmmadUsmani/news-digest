@@ -2,6 +2,7 @@ import {
   customFeedSchema,
   newsQueryFeed,
   newsQuerySchema,
+  sourceEnabledSchema,
   topicOrderSchema,
   topicSourcesSchema,
   topicUpdateSchema,
@@ -26,6 +27,17 @@ import { TopicRepository } from './domain/topic.repository';
 @Controller('api/admin/topics')
 class TopicsController {
   constructor(private readonly topics: TopicRepository) {}
+  @Put('sources/:id/enabled') async enableSource(
+    @Param('id') id: string,
+    @Body() body: unknown,
+  ) {
+    const parsed = sourceEnabledSchema.safeParse(body);
+    if (!parsed.success)
+      throw new BadRequestException('Provide a boolean enabled setting');
+    if (!(await this.topics.setSourceEnabled(id, parsed.data.enabled)))
+      throw new NotFoundException('Source not found');
+    return { id, enabled: parsed.data.enabled };
+  }
   @Get('sources') catalog() {
     return this.topics.catalog();
   }

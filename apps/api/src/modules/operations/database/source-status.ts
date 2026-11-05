@@ -43,7 +43,10 @@ export async function readSourceStatus(db: Pool, end = new Date()) {
         sql<number>`count(*) filter (where ${contentItems.publishedAt} >= ${week}::timestamptz and ${contentItems.publishedAt} < ${cutoff}::timestamptz)`.mapWith(
           Number,
         ),
-      active: exists(connected).mapWith(Boolean),
+      enabled: contentSources.enabled,
+      active: and(eq(contentSources.enabled, true), exists(connected))!.mapWith(
+        Boolean,
+      ),
     })
     .from(contentSources)
     .leftJoin(

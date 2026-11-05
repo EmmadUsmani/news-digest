@@ -611,6 +611,7 @@ export const operationsStatusSchema = z.object({
       items24h: z.number().int().nonnegative(),
       items7d: z.number().int().nonnegative(),
       active: z.boolean(),
+      enabled: z.boolean(),
     }),
   ),
   queues: z.array(
@@ -699,3 +700,5 @@ export const monitoringAlertsSchema = z.object({
   pending: z.number().int().nonnegative(),
 });
 export type MonitoringAlerts = z.infer<typeof monitoringAlertsSchema>;
+
+export const sourceEnabledSchema = z.object({ enabled: z.boolean() }).strict();

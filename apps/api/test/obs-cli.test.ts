@@ -338,6 +338,7 @@ void test('source health distinguishes errors, stale success, unknown and inacti
     id: 'ok',
     name: 'source',
     active: true,
+    enabled: true,
     error: null,
     lastAttempt: checkedAt,
     lastSuccess: '2026-11-03T10:00:00.000Z',

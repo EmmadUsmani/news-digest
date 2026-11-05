@@ -42,17 +42,20 @@ export class PostgresContentRepository
       })
       .from(contentSources)
       .where(
-        exists(
-          this.orm
-            .select({ id: topicSourceConnections.sourceId })
-            .from(topicSourceConnections)
-            .innerJoin(topics, eq(topics.id, topicSourceConnections.topicId))
-            .where(
-              and(
-                eq(topicSourceConnections.sourceId, contentSources.id),
-                eq(topics.enabled, true),
+        and(
+          eq(contentSources.enabled, true),
+          exists(
+            this.orm
+              .select({ id: topicSourceConnections.sourceId })
+              .from(topicSourceConnections)
+              .innerJoin(topics, eq(topics.id, topicSourceConnections.topicId))
+              .where(
+                and(
+                  eq(topicSourceConnections.sourceId, contentSources.id),
+                  eq(topics.enabled, true),
+                ),
               ),
-            ),
+          ),
         ),
       )
       .orderBy(asc(contentSources.id)) as Promise<Source[]>;

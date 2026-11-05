@@ -67,6 +67,14 @@ export class PostgresTopicRepository
       .orderBy(topics.position, topics.id);
     return rows as Topic[];
   }
+  async setSourceEnabled(id: string, enabled: boolean): Promise<boolean> {
+    const changed = await this.db
+      .update(contentSources)
+      .set({ enabled })
+      .where(eq(contentSources.id, id))
+      .returning({ id: contentSources.id });
+    return changed.length > 0;
+  }
   async catalog() {
     return this.db
       .select({

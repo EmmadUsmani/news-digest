@@ -32,7 +32,7 @@ async function smoke() {
           adminReads: string[] = [];
         page.on('pageerror', (error) => errors.push(error.message));
         page.on('request', (request) => {
-          assert.ok(['GET', 'POST'].includes(request.method()));
+          assert.ok(['GET', 'POST', 'PUT'].includes(request.method()));
           assert.equal('admin_local_token' in request.headers(), false);
           assert.equal('x-exedev-email' in request.headers(), false);
         });
@@ -53,6 +53,8 @@ async function smoke() {
         await page.route('**/api/admin/**', async (route) => {
           adminReads.push(new URL(route.request().url()).pathname);
           assert.equal(route.request().method(), 'GET');
+          if (new URL(route.request().url()).pathname === '/api/admin/status')
+            return route.fulfill({ json: status });
           const response = await localAdminFetch(route.request().url());
           assert.equal(response.status, 200);
           await route.fulfill({
@@ -201,6 +203,88 @@ async function smoke() {
           .getByRole('cell', { name: 'Collecting', exact: true })
           .first()
           .waitFor();
+        const controlled = status.sources.find((source) => source.active)!;
+        const toggleName = `Enable collection for ${controlled.name}`;
+        assert.equal(
+          await page
+            .getByRole('switch', { name: toggleName, exact: true })
+            .getAttribute('aria-checked'),
+          'true',
+        );
+        const togglePath = `**/api/admin/topics/sources/${encodeURIComponent(controlled.id)}/enabled`;
+        let replayEnabled = true;
+        let toggleWrites = 0;
+        await page.route('**/api/admin/status', (route) =>
+          route.fulfill({
+            json: {
+              ...status,
+              sources: status.sources.map((source) =>
+                source.id === controlled.id
+                  ? { ...source, enabled: replayEnabled, active: replayEnabled }
+                  : source,
+              ),
+            },
+          }),
+        );
+        await page.route(togglePath, (route) => {
+          assert.equal(route.request().method(), 'PUT');
+          replayEnabled = !replayEnabled;
+          assert.deepEqual(route.request().postDataJSON(), {
+            enabled: replayEnabled,
+          });
+          toggleWrites++;
+          return route.fulfill({
+            json: { id: controlled.id, enabled: replayEnabled },
+          });
+        });
+        for (const enabled of [false, true]) {
+          await page
+            .getByRole('switch', { name: toggleName, exact: true })
+            .click();
+          await page
+            .getByRole('status')
+            .filter({ hasText: 'Source collection setting saved.' })
+            .waitFor();
+          assert.equal(
+            await page
+              .getByRole('switch', { name: toggleName, exact: true })
+              .getAttribute('aria-checked'),
+            String(enabled),
+          );
+          await page.reload();
+          await page
+            .getByRole('switch', { name: toggleName, exact: true })
+            .waitFor();
+          assert.equal(
+            await page
+              .getByRole('switch', { name: toggleName, exact: true })
+              .getAttribute('aria-checked'),
+            String(enabled),
+          );
+        }
+        assert.equal(toggleWrites, 2);
+        await page.route(togglePath, (route) =>
+          route.fulfill({ status: 500, json: {} }),
+        );
+        await page
+          .getByRole('switch', { name: toggleName, exact: true })
+          .click();
+        await page
+          .getByRole('status')
+          .filter({ hasText: 'Could not confirm the change.' })
+          .waitFor();
+        assert.equal(
+          await page
+            .getByRole('switch', { name: toggleName, exact: true })
+            .getAttribute('aria-checked'),
+          'true',
+        );
+        await page.unroute(togglePath);
+        await page.unroute('**/api/admin/status');
+        await page.reload();
+        await page
+          .getByRole('switch', { name: toggleName, exact: true })
+          .waitFor();
         await page.screenshot({
           path: `docs/screenshots/ui/admin-sources-${device}-${theme}.png`,
           fullPage: true,
@@ -259,7 +343,7 @@ async function smoke() {
     await browser.close();
   }
   console.log(
-    'Admin sources: four viewport/theme combinations, saved real topics/sources, healthy sources, exact topic connections and editor/feed navigation, topic refresh failure/retry, anonymous denial, reload, mobile navigation, Add feed replay submission, no overflow/live writes/browser credentials.',
+    'Admin sources: four viewport/theme combinations, saved real topics/sources, healthy sources, exact topic connections and editor/feed navigation, topic refresh failure/retry, anonymous denial, reload, mobile navigation, Add feed replay submission, collection switch pause/resume/reload/failure, no overflow/live writes/browser credentials.',
   );
 }
 void smoke();

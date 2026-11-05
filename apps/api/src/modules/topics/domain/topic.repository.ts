@@ -10,6 +10,7 @@ export abstract class TopicRepository {
     input: CustomFeed,
   ): Promise<Topic | null | false>;
   abstract deleteDefault(id: string): Promise<Topic[] | null>;
+  abstract setSourceEnabled(id: string, enabled: boolean): Promise<boolean>;
   abstract catalog(): Promise<SourceCatalog>;
   abstract connectDefault(
     id: string,

@@ -1,0 +1,1 @@
+ALTER TABLE "content_sources" ADD COLUMN "enabled" boolean DEFAULT true NOT NULL;

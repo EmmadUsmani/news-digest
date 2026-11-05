@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
+import { useState } from 'react';
 
 import { AddFeedDialog } from './AddFeedDialog';
 import { Button } from './components/ui/button';
@@ -16,6 +17,33 @@ export function AdminSources() {
   const status = useQuery(statusQuery);
   const topics = useQuery(topicsQuery);
   const data = status.data;
+  const [busy, setBusy] = useState(false);
+  const [message, setMessage] = useState('');
+  async function setEnabled(id: string, enabled: boolean) {
+    setBusy(true);
+    setMessage('');
+    try {
+      const response = await fetch(
+        `/api/admin/topics/sources/${encodeURIComponent(id)}/enabled`,
+        {
+          method: 'PUT',
+          signal: AbortSignal.timeout(15_000),
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ enabled }),
+        },
+      );
+      if (!response.ok) throw new Error();
+      const refreshed = await status.refetch();
+      if (refreshed.isError) throw new Error();
+      setMessage('Source collection setting saved.');
+    } catch {
+      setMessage(
+        'Could not confirm the change. Refresh sources to check the saved setting before trying again.',
+      );
+    } finally {
+      setBusy(false);
+    }
+  }
   return (
     <section
       aria-label="Source collection"
@@ -38,6 +66,9 @@ export function AdminSources() {
           Refresh sources
         </Button>
       </div>
+      <p role="status" aria-live="polite" className="m-0 text-sm">
+        {message}
+      </p>
       {status.isError && (
         <p role="alert">
           Sources could not be refreshed. Previously loaded values may be out of
@@ -64,6 +95,9 @@ export function AdminSources() {
       <p className="m-0 text-sm text-[var(--secondary)]">
         Recent counts use article publication time over the past 24 hours and 7
         days. An article can appear under each source that collected it.
+        Disabling collection pauses this feed for every topic; connections and
+        saved articles stay in place. Enabled feeds collect when connected to an
+        enabled topic. A collection already running may finish.
       </p>
       <Card className="min-w-0 p-0">
         <Table>
@@ -75,6 +109,7 @@ export function AdminSources() {
               <th scope="col">Source</th>
               <th scope="col">Topics</th>
               <th scope="col">Status</th>
+              <th scope="col">Collection</th>
               <th scope="col">Last success</th>
               <th scope="col">Last attempt</th>
               <th scope="col">Last response</th>
@@ -148,6 +183,20 @@ export function AdminSources() {
                       />
                       {state}
                     </span>
+                  </td>
+                  <td>
+                    <Button
+                      role="switch"
+                      aria-label={`Enable collection for ${source.name}`}
+                      aria-checked={source.enabled}
+                      disabled={busy || status.isFetching || status.isError}
+                      variant={source.enabled ? 'default' : 'ghost'}
+                      onClick={() =>
+                        void setEnabled(source.id, !source.enabled)
+                      }
+                    >
+                      {source.enabled ? 'Enabled' : 'Disabled'}
+                    </Button>
                   </td>
                   <td className="min-w-40">{time(source.lastSuccess)}</td>
                   <td className="min-w-40">{time(source.lastAttempt)}</td>

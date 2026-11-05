@@ -236,6 +236,7 @@ export const contentSources = pgTable(
     lastError: text('last_error'),
     lastItemCount: integer('last_item_count').default(0).notNull(),
     articleDiscoveryHost: text('article_discovery_host'),
+    enabled: boolean().default(true).notNull(),
   },
   (table) => [
     foreignKey({

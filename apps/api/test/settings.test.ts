@@ -8,6 +8,8 @@ import {
 } from '@digest/contracts';
 
 import { database } from '../src/libs/db/connections';
+import { PostgresContentRepository } from '../src/modules/ingestion/database/content.repository';
+import { readSourceStatus } from '../src/modules/operations/database/source-status';
 import { PostgresProfileRepository } from '../src/modules/profiles/database/profile.repository';
 import { validateSchedule } from '../src/modules/profiles/domain/schedule';
 import { PostgresTopicRepository } from '../src/modules/topics/database/topic.repository';
@@ -1048,5 +1050,40 @@ void test('failed deletion restores cascaded connections and positions before a 
     for (const id of created) await topics.deleteDefault(id);
     await topics.onModuleDestroy();
     await db.end();
+  }
+});
+
+void test('source pause preserves connections and stored data while excluding collection across topics', async () => {
+  const topics = new PostgresTopicRepository();
+  const content = new PostgresContentRepository();
+  const pool = database();
+  const source = (await content.sources())[0];
+  assert.ok(source);
+  const before = await topics.listDefault();
+  try {
+    assert.equal(await topics.setSourceEnabled(source.id, false), true);
+    assert.equal(
+      (await content.sources()).some((item) => item.id === source.id),
+      false,
+    );
+    const paused = (await readSourceStatus(pool)).find(
+      (item) => item.id === source.id,
+    )!;
+    assert.equal(paused.enabled, false);
+    assert.equal(paused.active, false);
+    assert.deepEqual(await topics.listDefault(), before);
+    assert.equal(await topics.setSourceEnabled('missing-source', false), false);
+    assert.equal(await topics.setSourceEnabled(source.id, true), true);
+    assert.ok((await content.sources()).some((item) => item.id === source.id));
+    const resumed = (await readSourceStatus(pool)).find(
+      (item) => item.id === source.id,
+    )!;
+    assert.equal(resumed.active, true);
+    assert.equal(resumed.storedItems, paused.storedItems);
+  } finally {
+    await topics.setSourceEnabled(source.id, true);
+    await topics.onModuleDestroy();
+    await content.onModuleDestroy();
+    await pool.end();
   }
 });
