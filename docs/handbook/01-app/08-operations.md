@@ -5,7 +5,7 @@
 All of these are behind the exe.dev login. Reserved `/admin` and `/api/admin`
 paths require [admin identity](01-stack-and-runtime.md#admin-identity); `/api/me` reports access.
 `pnpm obs sources|jobs` reads its local token from the env file for `/api/admin/status`.
-Current tools and Status keep the URLs below.
+`scripts/recover-schedule.ts` uses the same token to restore saved schedules.
 
 | What               | URL                                                                                      |
 | ------------------ | ---------------------------------------------------------------------------------------- |

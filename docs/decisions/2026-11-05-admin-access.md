@@ -58,7 +58,10 @@ status for schedule and completed-job comparisons.
 Each script reads its local token from the private env file only for protected
 API requests to `http://127.0.0.1:8000`. Credentialed requests refuse redirects.
 Health, alerts, logs and metrics retain their existing read-only endpoints.
-No legacy-route fallback is used for protected status requests.
+Schedule recovery also reads and restores through protected profile endpoints.
+It normalizes localhost requests to the token adapter’s fixed loopback origin,
+while preserving the saved target for compatibility with older recovery records.
+No legacy-route fallback is used for protected requests.
 
 ## Next rollout slice
 

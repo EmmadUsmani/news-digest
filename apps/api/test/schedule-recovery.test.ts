@@ -21,8 +21,17 @@ void test('schedule probe restores after SIGTERM and preserves an exclusive reco
     },
   };
   const original = structuredClone(profile.schedule);
+  const requests: string[] = [];
   const server = createServer((req, res) => {
-    if (req.method === 'PUT') {
+    requests.push(`${req.method} ${req.url}`);
+    if (
+      req.url !== '/api/admin/profile' &&
+      req.url !== '/api/admin/profile/schedule'
+    ) {
+      res.writeHead(404).end();
+      return;
+    }
+    if (req.method === 'PUT' && req.url === '/api/admin/profile/schedule') {
       let body = '';
       req.on('data', (data) => {
         body += String(data);
@@ -92,6 +101,11 @@ void test('schedule probe restores after SIGTERM and preserves an exclusive reco
     processChild.kill('SIGTERM');
     assert.equal(await exit, 143);
     assert.deepEqual(profile.schedule, original);
+    assert.ok(requests.includes('PUT /api/admin/profile/schedule'));
+    assert.ok(
+      requests.filter((request) => request === 'GET /api/admin/profile')
+        .length >= 2,
+    );
     await assert.rejects(readFile(path), { code: 'ENOENT' });
   } finally {
     processChild.kill('SIGKILL');

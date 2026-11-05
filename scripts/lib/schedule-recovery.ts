@@ -4,16 +4,25 @@ import { dirname, join } from 'node:path';
 
 import { profileSettingsSchema } from '@digest/contracts';
 
+import { localAdminFetch } from './local-admin-fetch';
+
 // Shared by both schedule-changing probes. Never overwrite an unresolved record.
 export async function protectSchedule(base: string, recover = false) {
+  // Keep the recorded base unchanged so older recovery records still match.
+  const origin = new URL(base);
+  if (origin.hostname === 'localhost') origin.hostname = '127.0.0.1';
+  const profileUrl = new URL('/api/admin/profile', origin).href;
   const path = join(
     homedir(),
     '.local/state/news-digest/schedule-recovery.json',
   );
   await mkdir(dirname(path), { recursive: true, mode: 0o700 });
-  const profile = profileSettingsSchema.parse(
-    await (await fetch(`${base}/api/profile`)).json(),
-  );
+  const initial = await localAdminFetch(profileUrl, {
+    signal: AbortSignal.timeout(10000),
+  });
+  if (!initial.ok)
+    throw new Error(`Schedule profile unavailable: ${initial.status}`);
+  const profile = profileSettingsSchema.parse(await initial.json());
   try {
     if (!recover)
       await writeFile(path, JSON.stringify({ base, profile }), {
@@ -37,7 +46,7 @@ export async function protectSchedule(base: string, recover = false) {
       const saved = profileSettingsSchema.parse(record.profile);
       if (record.base !== base || saved.id !== profile.id)
         throw new Error('Schedule recovery target mismatch');
-      const response = await fetch(`${base}/api/profile/schedule`, {
+      const response = await localAdminFetch(`${profileUrl}/schedule`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(saved.schedule),
@@ -47,7 +56,7 @@ export async function protectSchedule(base: string, recover = false) {
         throw new Error(`Schedule restoration failed: ${response.status}`);
       const current = profileSettingsSchema.parse(
         await (
-          await fetch(`${base}/api/profile`, {
+          await localAdminFetch(profileUrl, {
             signal: AbortSignal.timeout(10000),
           })
         ).json(),

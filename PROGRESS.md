@@ -1,22 +1,3 @@
-## 2026-11-05: iteration 726 — shared saved-edition queries
-
-- Started clean on main; no leftover work. Zero alerts, health/database/Redis green, all 36 sources returning items, zero failed retained digest jobs. Nov 5 scheduled acceptance remains future at 15:00 UTC; two old ingestion failures remain without retained run details, current sources healthy.
-- Continued approved UI foundations while X/scorer work waits on scheduled times. Saved editions, latest and paged history now use validated, abortable TanStack Query resources, separate cache keys and route prefetch. Completed generation invalidates edition/history data; history retry uses query refetch.
-- Read-only Playwright checks passed on desktop/mobile: real saved editions, reload, legacy redirect, cached switching without repeat historical reads, reserved paths and no browser errors. Intercepted malformed edition responses show errors with no stale edition or false empty-state message. Updated and inspected both screenshots in docs/screenshots/ui/.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (490 unit/213 isolated integration), pnpm build, pnpm exec tsx scripts/smoke-ui-routing.ts, pnpm exec tsx scripts/check-handbook.ts 01-stack-and-runtime and git diff --check. Handbook check: 18 pages, one unchanged diagram, 26 tables, no errors.
-- Updated TASKS and Stack & runtime; archived iteration 712 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new owner blocker. Rebuilt and restarted API/docs; worker/schema unchanged and healthy.
-- No paid calls, scorer/cache version changes, provider/model/budget changes or X activation. Next: Tailwind/shadcn, Inter/theme foundations while waiting; Nov 5 scheduled review first when due, then scorer and evening X rounds.
-
-## 2026-11-05: iteration 727 — Tailwind, shadcn buttons and Inter
-
-- Started clean on main; no leftover work. Zero alerts, health/database/Redis green, all 36 sources returning items and zero failed digest jobs; scheduled Nov 5 acceptance remains future at 15:00 UTC.
-- Added Tailwind v4 PostCSS integration, neutral button tokens, shadcn/ui configuration and Radix-based button primitives. Digest controls use the shared button with keyboard focus and disabled states. Existing page CSS stays in a legacy layer below utilities; layout preserved.
-- Inter is self-hosted in the bundle; no font CDN. Added lucide and shared class merging for subsequent approved components. Theme remains the next foundation step before the admin gate.
-- Read-only desktop/mobile Playwright checks passed against actual saved editions, including loaded Inter and compiled button utilities; updated and inspected both route screenshots. No generation or external paid calls.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (490 unit/213 isolated integration, exit 0), pnpm build, pnpm exec tsx scripts/smoke-ui-routing.ts, pnpm exec tsx scripts/check-handbook.ts 01-stack-and-runtime and git diff --check.
-- Updated TASKS and Stack & runtime; archived iteration 713 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new owner blocker. Rebuilt/restarted API/docs; worker/schema unchanged.
-- Next: theme foundation while waiting; scheduled acceptance first when due, scorer after the edition, fresh X rounds after 21:00 UTC Nov 5/6. No provider/model/budget changes or activation.
-
 ## 2026-11-05: iteration 728 — system and saved light/dark theme
 
 - Started clean on main; no leftover work. Zero alerts, services/health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Existing ingestion/social failed counters have no retained failed run details; current sources healthy. Nov 5 acceptance remains future at 15:00 UTC.
@@ -138,3 +119,13 @@
 - Reader latest returns the real Nov 4 edition with four topics, 14 stories and 15 posts. No UI/schema/runtime changes or new screenshots; healthy services left running under STEERING 22. Handbook changes are served per request.
 - Updated TASKS, Operations and access decision; archived iteration 725. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. Owner email/proxy identity checks and coordinated browser/legacy-route migration remain open.
 - No paid calls, scorer/model/provider/budget changes or X activation. Next FIRST: Nov 5 NBA outcome after 15:00 UTC, investigate fallback if repeated; scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6.
+
+## 2026-11-05: iteration 740 — authenticated schedule recovery
+
+- Started clean on main; no leftover work. Health/database/Redis green, 36 sources healthy, no failed retained digest runs; Nov 5 edition remains due at 15:00 UTC. Observability memory warning pending; metrics service active, zero restarts, about 105 MiB of its 112 MiB ceiling.
+- Schedule recovery now uses protected profile reads and schedule restoration with the private local token adapter. Localhost normalizes to the fixed loopback origin while saved target strings remain unchanged for old recovery records. Initial reads have a timeout and explicit HTTP failure check.
+- Isolated schedule-recovery and local-admin-fetch tests passed (3/3): SIGTERM restoration, exclusive recovery record, protected endpoint paths, credential isolation and redirect refusal. No live schedule write or recovery command executed.
+- Live authenticated profile GET returned 200 and unchanged daily 07:00 America/Los_Angeles P1D. Reader latest still returns Nov 4 edition with four topics; scheduled timing report succeeds. No paid calls or model/provider/budget changes.
+- Updated TASKS, access decision and Operations; archived iterations 726–727. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No UI/schema/runtime changes; healthy services stay running under STEERING 22.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (497 unit/214 isolated integration, exit 0), pnpm build, check-handbook.ts 08-operations and git diff --check passed. Initial handbook length failure corrected; final health green and alerts zero. No diagrams changed or new screenshots required.
+- Next FIRST: Nov 5 NBA outcome after 15:00 UTC and investigate repeated fallback; scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy checks and coordinated UI/legacy migration remain open.
