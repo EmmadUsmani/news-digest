@@ -72,9 +72,16 @@ export function adminAccess(config: AdminAccessConfig) {
         .end(request.method === 'HEAD' ? undefined : body);
       return;
     }
-    const protectedPath = ['/admin', '/api/admin'].some(
-      (prefix) => path === prefix || path.startsWith(`${prefix}/`),
-    );
+    const protectedPath = [
+      '/admin',
+      '/api/admin',
+      '/docs',
+      '/db',
+      '/grafana',
+      '/logs',
+      '/metrics',
+      '/queues',
+    ].some((prefix) => path === prefix || path.startsWith(`${prefix}/`));
     if (protectedPath) {
       // Successful pages, API responses and downstream errors all depend on
       // identity. Apply the policy before handing off to static files/routes.

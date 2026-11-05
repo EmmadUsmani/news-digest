@@ -3,6 +3,8 @@ import { execFileSync } from 'node:child_process';
 import { statfsSync, statSync } from 'node:fs';
 import { uptime } from 'node:os';
 
+import { localAdminFetch } from './local-admin-fetch';
+
 const store = 'http://127.0.0.1:8428/metrics';
 type Sample = { metric: Record<string, string>; value: [number, string] };
 async function query(expression: string): Promise<Sample[]> {
@@ -264,7 +266,7 @@ export async function checkMetricStore() {
         Math.round((Number(fields.CPUUsageNSec) / 1e9 / age) * 1000) / 10,
     };
   });
-  const page = await fetch('http://127.0.0.1:8000/metrics/vmui/');
+  const page = await localAdminFetch('http://127.0.0.1:8000/metrics/vmui/');
   assert.equal(page.status, 200);
   assert.match(await page.text(), /VictoriaMetrics/);
   return {

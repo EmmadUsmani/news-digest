@@ -87,7 +87,8 @@ Reader endpoints `/api/editions/latest` and `/api/editions/:id` return saved
 content without scores, selection reasons, model details or candidate counts.
 `/api/editions?offset=0` lists 20 saved editions per page with dates and a
 next-page flag, excluding generation methods. The browser uses these reader
-endpoints for both edition content and history. Operational routes await the admin split.
+endpoints for both edition content and history. The reader makes no operational API requests. Existing management controls live
+at `/admin`; dedicated admin pages will replace them.
 
 ## Admin identity
 
@@ -97,5 +98,6 @@ endpoints for both edition content and history. Operational routes await the adm
 - Direct VM scripts can send the `ADMIN_LOCAL_TOKEN` header, matching the
   secret of the same name. This requires a loopback socket and no forwarding
   headers; loopback alone grants no access. Missing settings deny access.
-- Protected aliases under `/api/admin` serve topics, profile, status, content
-  and digest previews. Legacy endpoints and tools keep their current paths during migration. See the [access decision](../../decisions/2026-11-05-admin-access.md).
+- Operational APIs under `/api/admin` serve topics, profile, status, content
+  and digest previews. Old API paths are removed. The same gate protects
+  `/docs`, `/db`, `/grafana`, `/logs`, `/metrics` and `/queues`. See the [access decision](../../decisions/2026-11-05-admin-access.md).

@@ -55,6 +55,10 @@ void test('local script credentials are limited to protected local APIs and tool
   assert.equal(headers.get('x-test'), 'kept');
   assert.equal(last.redirect, 'error');
   for (const path of [
+    '/admin',
+    '/grafana/api/health',
+    '/logs/select/vmui/',
+    '/metrics/vmui/',
     '/docs',
     '/docs/',
     '/docs/api/tree',

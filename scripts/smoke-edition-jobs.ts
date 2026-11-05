@@ -10,6 +10,7 @@ import {
 import { chromium } from 'playwright';
 
 import { localAdminJson } from './lib/local-admin-fetch';
+import { replayAdminPage } from './lib/replay-admin-page';
 
 async function smoke() {
   assert.ok(
@@ -45,10 +46,10 @@ async function smoke() {
     ]);
   assert.equal((savedEdition as { id: string }).id, edition.id);
   const snapshots: Record<string, unknown> = {
-    '/api/content': content,
-    '/api/topics': topics,
-    '/api/profile': profile,
-    '/api/status': status,
+    '/api/admin/content': content,
+    '/api/admin/topics': topics,
+    '/api/admin/profile': profile,
+    '/api/admin/status': status,
   };
   const browser = await chromium.launch({ headless: true });
   try {
@@ -101,18 +102,21 @@ async function smoke() {
       let stallNextPoll = false;
       let stalledPolls = 0;
       let stage = 'triage';
-      await context.route('**/api/digest-previews/jobs', async (route) => {
-        assert.equal(route.request().method(), 'POST');
-        submissions++;
-        if (stallQueueResponse) return;
-        if (loseQueueResponse) return route.abort('failed');
-        await route.fulfill({
-          status: 202,
-          json: { id: jobId },
-        });
-      });
       await context.route(
-        `**/api/digest-previews/jobs/${jobId}`,
+        '**/api/admin/digest-previews/jobs',
+        async (route) => {
+          assert.equal(route.request().method(), 'POST');
+          submissions++;
+          if (stallQueueResponse) return;
+          if (loseQueueResponse) return route.abort('failed');
+          await route.fulfill({
+            status: 202,
+            json: { id: jobId },
+          });
+        },
+      );
+      await context.route(
+        `**/api/admin/digest-previews/jobs/${jobId}`,
         async (route) => {
           if (stallNextPoll) {
             stallNextPoll = false;
@@ -144,7 +148,8 @@ async function smoke() {
           });
         },
       );
-      await page.goto('http://localhost:8000');
+      await replayAdminPage(page);
+      await page.goto('http://127.0.0.1:8000/admin');
       const create = page.getByRole('button', {
         name: 'Create edition · last 24 hours',
       });
@@ -358,10 +363,6 @@ async function smoke() {
         path: `docs/screenshots/edition-job-timeout-${name}.png`,
       });
       state = 'completed';
-      await page
-        .getByRole('status')
-        .filter({ hasText: 'Edition ready.' })
-        .waitFor();
       await page.waitForURL(`**/editions/${edition.id}`);
       assert.equal(new URL(page.url()).pathname, `/editions/${edition.id}`);
       const firstStory = edition.topics.flatMap((topic) => topic.stories)[0];
@@ -396,6 +397,7 @@ async function smoke() {
         null,
       );
       state = 'failed';
+      await page.goto('http://127.0.0.1:8000/admin');
       await create.click();
       await page
         .getByRole('status')

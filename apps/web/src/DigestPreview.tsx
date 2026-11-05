@@ -38,7 +38,7 @@ const editionJobStatusSchema = z.object({
     .nullable(),
 });
 
-export function DigestPreview() {
+export function DigestPreview({ admin = false }: { admin?: boolean }) {
   const navigate = useNavigate();
   const { id: selectedEditionId } = useParams({ strict: false });
   const queryClient = useQueryClient();
@@ -50,14 +50,14 @@ export function DigestPreview() {
   const [customEnd, setCustomEnd] = React.useState('');
   const [windowError, setWindowError] = React.useState('');
   const [jobId, setJobId] = React.useState<string | null>(() =>
-    sessionStorage.getItem('edition-job'),
+    admin ? sessionStorage.getItem('edition-job') : null,
   );
   const [jobMessage, setJobMessage] = React.useState('');
   const {
     data: status,
     isError: budgetError,
     refetch: refreshBudgetNotice,
-  } = useQuery(statusQuery);
+  } = useQuery({ ...statusQuery, enabled: admin });
   const reserve = status?.llm.scheduledReserve;
   const budgetNotice = budgetError
     ? 'AI budget availability could not be checked. Scheduled edition protection still applies; manual runs may use labeled non-AI ranking.'
@@ -99,7 +99,7 @@ export function DigestPreview() {
     async function poll() {
       try {
         const response = await fetch(
-          `/api/digest-previews/jobs/${encodeURIComponent(jobId!)}`,
+          `/api/admin/digest-previews/jobs/${encodeURIComponent(jobId!)}`,
           {
             signal: AbortSignal.any([
               controller.signal,
@@ -196,7 +196,7 @@ export function DigestPreview() {
     setError('');
     try {
       await refreshBudgetNotice();
-      const response = await fetch('/api/digest-previews/jobs', {
+      const response = await fetch('/api/admin/digest-previews/jobs', {
         method: 'POST',
         signal: AbortSignal.timeout(15_000),
         headers: { 'Content-Type': 'application/json' },
@@ -237,83 +237,87 @@ export function DigestPreview() {
   }
   return (
     <section className="digest-preview" aria-label="Ranked edition">
-      <p className="eyebrow">YOUR RANKED EDITION</p>
-      <h2>A shorter reading list.</h2>
-      <p>
-        New editions use semantic triage and AI editing of source headlines and
-        excerpts, with non-AI ranking labeled per topic when unavailable. Source
-        links and selection evidence are retained. Source labels do not
-        establish independent reporting. Older editions keep their original
-        method.
-      </p>
-      {budgetNotice && (
-        <p role="status" aria-label="Manual edition AI budget">
-          {budgetNotice}
-        </p>
-      )}
-      <form
-        className="window-controls"
-        onSubmit={(event) => {
-          event.preventDefault();
-          void generate();
-        }}
-      >
-        <fieldset disabled={working || !loaded}>
-          <legend>Choose a coverage period</legend>
-          <label htmlFor="coverage-period">Period</label>
-          <select
-            id="coverage-period"
-            value={windowChoice}
-            onChange={(event) => {
-              setWindowChoice(event.target.value);
-              setWindowError('');
+      {admin && (
+        <>
+          <p className="eyebrow">YOUR RANKED EDITION</p>
+          <h2>A shorter reading list.</h2>
+          <p>
+            New editions use semantic triage and AI editing of source headlines
+            and excerpts, with non-AI ranking labeled per topic when
+            unavailable. Source links and selection evidence are retained.
+            Source labels do not establish independent reporting. Older editions
+            keep their original method.
+          </p>
+          {budgetNotice && (
+            <p role="status" aria-label="Manual edition AI budget">
+              {budgetNotice}
+            </p>
+          )}
+          <form
+            className="window-controls"
+            onSubmit={(event) => {
+              event.preventDefault();
+              void generate();
             }}
           >
-            <option value="6">Last 6 hours</option>
-            <option value="24">Last 24 hours</option>
-            <option value="168">Last 7 days</option>
-            <option value="custom">Custom period</option>
-          </select>
-          {windowChoice === 'custom' && (
-            <div className="custom-window">
-              <p id="window-help">
-                Times use your browser timezone (
-                {Intl.DateTimeFormat().resolvedOptions().timeZone}). Start is
-                included; end is excluded. Maximum 31 days.
+            <fieldset disabled={working || !loaded}>
+              <legend>Choose a coverage period</legend>
+              <label htmlFor="coverage-period">Period</label>
+              <select
+                id="coverage-period"
+                value={windowChoice}
+                onChange={(event) => {
+                  setWindowChoice(event.target.value);
+                  setWindowError('');
+                }}
+              >
+                <option value="6">Last 6 hours</option>
+                <option value="24">Last 24 hours</option>
+                <option value="168">Last 7 days</option>
+                <option value="custom">Custom period</option>
+              </select>
+              {windowChoice === 'custom' && (
+                <div className="custom-window">
+                  <p id="window-help">
+                    Times use your browser timezone (
+                    {Intl.DateTimeFormat().resolvedOptions().timeZone}). Start
+                    is included; end is excluded. Maximum 31 days.
+                  </p>
+                  <label htmlFor="window-start">Start</label>
+                  <input
+                    required
+                    id="window-start"
+                    type="datetime-local"
+                    value={customStart}
+                    onChange={(event) => setCustomStart(event.target.value)}
+                    aria-describedby="window-help"
+                  />
+                  <label htmlFor="window-end">End</label>
+                  <input
+                    required
+                    id="window-end"
+                    type="datetime-local"
+                    value={customEnd}
+                    onChange={(event) => setCustomEnd(event.target.value)}
+                    aria-describedby="window-help"
+                  />
+                </div>
+              )}
+              <p className="window-note">
+                Uses already collected articles; older coverage may be
+                incomplete. Quiet periods stay empty.
               </p>
-              <label htmlFor="window-start">Start</label>
-              <input
-                required
-                id="window-start"
-                type="datetime-local"
-                value={customStart}
-                onChange={(event) => setCustomStart(event.target.value)}
-                aria-describedby="window-help"
-              />
-              <label htmlFor="window-end">End</label>
-              <input
-                required
-                id="window-end"
-                type="datetime-local"
-                value={customEnd}
-                onChange={(event) => setCustomEnd(event.target.value)}
-                aria-describedby="window-help"
-              />
-            </div>
-          )}
-          <p className="window-note">
-            Uses already collected articles; older coverage may be incomplete.
-            Quiet periods stay empty.
-          </p>
-          <Button type="submit">
-            {working
-              ? 'Creating edition…'
-              : `Create edition · ${windowChoice === 'custom' ? 'custom period' : windowChoice === '168' ? 'last 7 days' : `last ${windowChoice} hours`}`}
-          </Button>
-        </fieldset>
-        {windowError && <p role="alert">{windowError}</p>}
-      </form>
-      {jobMessage && <p role="status">{jobMessage}</p>}
+              <Button type="submit">
+                {working
+                  ? 'Creating edition…'
+                  : `Create edition · ${windowChoice === 'custom' ? 'custom period' : windowChoice === '168' ? 'last 7 days' : `last ${windowChoice} hours`}`}
+              </Button>
+            </fieldset>
+            {windowError && <p role="alert">{windowError}</p>}
+          </form>
+          {jobMessage && <p role="status">{jobMessage}</p>}
+        </>
+      )}
       <details className="edition-history" ref={savedEditions}>
         <summary ref={savedEditionsTrigger}>Browse saved editions</summary>
         <p>

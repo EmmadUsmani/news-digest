@@ -5,6 +5,7 @@ import { topicSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
 import { localAdminJson } from './lib/local-admin-fetch';
+import { replayAdminPage } from './lib/replay-admin-page';
 const base = 'http://localhost:8000';
 async function smoke() {
   const browser = await chromium.launch();
@@ -23,9 +24,9 @@ async function smoke() {
     ? await localAdminJson('/api/admin/digest-previews/' + edition.id)
     : null;
   const snapshots: Record<string, unknown> = {
-    '/api/content': content,
-    '/api/status': status,
-    '/api/profile': profile,
+    '/api/admin/content': content,
+    '/api/admin/status': status,
+    '/api/admin/profile': profile,
   };
   const credentials: string[] = [];
   const unexpectedWrites: string[] = [];
@@ -48,16 +49,16 @@ async function smoke() {
       return route.abort();
     if (request.method() === 'GET' && Object.hasOwn(snapshots, path))
       return route.fulfill({ json: snapshots[path] });
-    if (path === '/api/topics' && request.method() === 'GET') {
+    if (path === '/api/admin/topics' && request.method() === 'GET') {
       await route.fulfill({ json: replayTopics });
       return;
     }
     if (
       request.method() === 'DELETE' &&
-      replayTopics.some((topic) => path === '/api/topics/' + topic.id)
+      replayTopics.some((topic) => path === '/api/admin/topics/' + topic.id)
     ) {
       const index = replayTopics.findIndex(
-        (topic) => path === '/api/topics/' + topic.id,
+        (topic) => path === '/api/admin/topics/' + topic.id,
       );
       assert.ok(
         index >= original.length,
@@ -100,11 +101,12 @@ async function smoke() {
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
       await page.setViewportSize({ width, height });
-      await page.goto(base);
+      await replayAdminPage(page);
+      await page.goto(`${base}/admin`);
       assert.equal(
         await page.evaluate(async () => {
           try {
-            await fetch('/api/topics/unexpected-write-probe', {
+            await fetch('/api/admin/topics/unexpected-write-probe', {
               method: 'POST',
             });
             return false;
@@ -116,7 +118,7 @@ async function smoke() {
       );
       assert.equal(
         unexpectedWrites.pop(),
-        'POST /api/topics/unexpected-write-probe',
+        'POST /api/admin/topics/unexpected-write-probe',
       );
 
       await page.getByText('Manage topics', { exact: true }).click();

@@ -5,6 +5,7 @@ import { operationsStatusSchema, sourceCatalogSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
 import { localAdminJson } from './lib/local-admin-fetch';
+import { replayAdminPage } from './lib/replay-admin-page';
 async function smoke() {
   const browser = await chromium.launch({ headless: true });
   const [topics, profile, content, latest] = await Promise.all([
@@ -27,9 +28,9 @@ async function smoke() {
       credentials.push(new URL(request.url()).pathname);
   });
   const snapshots: Record<string, unknown> = {
-    '/api/topics': topics,
-    '/api/profile': profile,
-    '/api/content': content,
+    '/api/admin/topics': topics,
+    '/api/admin/profile': profile,
+    '/api/admin/content': content,
   };
   await context.route('**/*', (route) => {
     const request = route.request();
@@ -62,16 +63,17 @@ async function smoke() {
       );
       // Replay one real snapshot so collection jobs cannot race UI assertions.
       // Credentials remain in Node; later routes override this for failure cases.
-      await page.route('**/api/status', (route) =>
+      await page.route('**/api/admin/status', (route) =>
         route.request().method() === 'GET'
           ? route.fulfill({ json: status })
           : route.fallback(),
       );
-      await page.goto('http://localhost:8000');
+      await replayAdminPage(page);
+      await page.goto('http://127.0.0.1:8000/admin');
       assert.equal(
         await page.evaluate(async () => {
           try {
-            await fetch('/api/status/unexpected-write-probe', {
+            await fetch('/api/admin/status/unexpected-write-probe', {
               method: 'POST',
             });
             return false;
@@ -83,7 +85,7 @@ async function smoke() {
       );
       assert.equal(
         unexpectedWrites.pop(),
-        'POST /api/status/unexpected-write-probe',
+        'POST /api/admin/status/unexpected-write-probe',
       );
       await page.getByText('Source & run status', { exact: true }).click();
       await page
@@ -206,7 +208,7 @@ async function smoke() {
         ),
         true,
       );
-      await page.route('**/api/status', (route) =>
+      await page.route('**/api/admin/status', (route) =>
         route.request().method() === 'GET'
           ? route.fulfill({ status: 503, body: 'Unavailable' })
           : route.fallback(),
@@ -233,7 +235,7 @@ async function smoke() {
         .screenshot({
           path: `docs/screenshots/status-refresh-failure-${name}.png`,
         });
-      await page.route('**/api/status', (route) =>
+      await page.route('**/api/admin/status', (route) =>
         route.request().method() === 'GET'
           ? route.fulfill({ json: status })
           : route.fallback(),
@@ -302,12 +304,13 @@ async function smoke() {
     live.queues[1].available = false;
     digestQueue.paused = true;
     const synthetic = operationsStatusSchema.parse(live);
-    await page.route('**/api/status', (route) =>
+    await page.route('**/api/admin/status', (route) =>
       route.request().method() === 'GET'
         ? route.fulfill({ json: synthetic })
         : route.fallback(),
     );
-    await page.goto('http://localhost:8000');
+    await replayAdminPage(page);
+    await page.goto('http://127.0.0.1:8000/admin');
     await page.getByText('Source & run status', { exact: true }).click();
     await page
       .getByText('Missed run: more than six hours late', { exact: false })

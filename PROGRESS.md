@@ -1,24 +1,3 @@
-## 2026-11-05: iteration 860 — retain edition links after publication-side worker failures
-
-- Started clean on main; no leftover work. Alerts clear, all 36 sources healthy and no failed digest jobs; X rounds await 21:00 UTC and admin rollout awaits owner identity/proxy evidence.
-- Terminal on-demand status without a returned edition ID now checks durable history. A committed edition takes precedence over a retained queue failure, so its original link opens the saved edition without regeneration; retained duration is preserved.
-- Isolated integration extends the real BullMQ worker case: register a fixture publication then throw, persist the failure in Postgres, verify completed status/link before and after Redis removal. Existing genuine failures remain failed. No process-kill or live generation experiment.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (501 unit/215 isolated integration passed); pnpm build; check-handbook.ts 03-jobs-and-schedules (18 pages/2 diagrams, 27 tables); smoke-admin-gate.ts; git diff --check; /healthz; obs alerts/sources/jobs.
-- API/worker restarted active, health green, latest saved edition byte-identical, 36 healthy sources and zero alerts/failed digest jobs. No paid calls, UI/schema/source/budget changes.
-- Updated Jobs handbook/TASKS; archived iterations 845–846 to keep progress small. SOURCES, screenshots and NEEDS_FROM_HUMAN unchanged. Jobs lost before durable history remains a limitation.
-- Next: fresh-window X rounds after 21:00 UTC Nov 5/6; editor-v5 evidence Nov 6. Unfinished durable job history and admin identity/proxy rollout remain open.
-
-## 2026-11-05: iteration 861 — open published editions before worker acknowledgement
-
-- Started clean on main; no leftover work. Alerts/health green, 36 sources healthy and no failed digest jobs. X fresh-window rounds await 21:00 UTC; admin rollout awaits identity/proxy evidence.
-- Active on-demand status now checks the profile-scoped durable publication key and returns a committed edition immediately, even if the worker stalls before acknowledging completion. In-progress jobs retain progress; final duration remains unknown until acknowledgement.
-- Isolated BullMQ test holds a real worker active after fixture publication and verifies completed reader status/link, null duration/progress and no error, then releases it into the existing failure/pruning recovery checks. Publication is a fixture map, not a live edition or process-kill experiment.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (501 unit passed; 214/215 integration initially passed). Fixed the timing benchmark to wait for final worker duration; pnpm test:integration rerun passed all 215. Final lint/changed-file formatting and git diff --check passed.
-- pnpm build and check-handbook.ts 03-jobs-and-schedules passed (18 pages/2 diagrams, 27 tables); smoke-admin-gate.ts passed before/after deployment. Initial immediate restart probe raced startup; readiness retry passed /healthz, database and Redis.
-- API/worker active; latest saved edition byte-identical, 36 healthy sources, zero alerts/failed digest jobs; zero dangling Docker volumes. No paid calls, UI/schema/source/budget changes.
-- Updated Jobs handbook/TASKS; archived iteration 847 to keep progress small. SOURCES, screenshots and NEEDS_FROM_HUMAN unchanged. Jobs lost before durable history remain unresolved.
-- Next: X fresh-window rounds after 21:00 UTC Nov 5/6; editor-v5 evidence Nov 6; durable unfinished history and admin identity/proxy rollout remain open.
-
 ## 2026-11-05: iteration 862 — preserve published links after worker requeue
 
 - Started clean on main; no leftover work. Alerts/health green, 36 sources healthy and no failed digest jobs. X rounds await 21:00 UTC; admin rollout awaits identity/proxy evidence.
@@ -138,3 +117,16 @@
 - Updated TASKS and database verification; archived iteration 859. No runtime/config/UI/source/schema/access changes, paid calls or saved-edition writes. No restart under STEERING 22; existing API/worker healthy.
 - Next: finish UI step 2 then spec pages; X fresh-window rounds after 21:00 UTC Nov 5/6; review Nov 6 story grouping/editor-v5 and spend.
 - Push initially rejected (remote owner commits 01c3766/0ca9657). Merged without rewriting history; item 37 R2 work remains blocked on owner settings and added to TASKS. Remote changes are instructions only.
+
+## 2026-11-05: iteration 874 — finish the private admin gate rollout
+
+- Started clean on main; no leftover work. Initial alerts clear, services and /healthz healthy; all 36 sources returning data, latest scheduled edition completed with four topics/17 stories/14 posts.
+- Moved operational controllers/callers to /api/admin; removed legacy routes, including writes and generation jobs. Isolated HTTP coverage verifies anonymous denial and legacy 404 even for admins.
+- Applied the existing gate to docs/DB/Grafana/logs/metrics/queues, including assets and query APIs. Tool responses retain no-store/identity Vary despite upstream cache headers.
+- Reader loads only edition/history data, with no operational requests, settings, generation controls or admin links. Existing management controls now live at /admin behind uncached identity; dedicated shadcn pages remain step 3.
+- Migrated local scripts and browser replays together. Node-only token bridges cover admin documents and tool reads/queries; browser writes remain blocked or simulated, redirects refused, saved data unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (505 unit/218 isolated integration passed); pnpm build; final web typecheck/lint and git diff --check. Handbook checker: 18 pages/22 diagrams; corrected Operations length, targeted recheck passed, 28 schema tables.
+- Browser: admin-gate (24 denied GET/HEAD paths, forwarded-token denial, legacy removal), admin-separation (desktop/mobile light/dark), ui, ui-routing, topics, edition-jobs, metrics, logs, queues and slow-queries passed. Eight new split screenshots plus reader-route evidence retained; unrelated generated screenshot churn restored.
+- Final Grafana check found an active but stalled service: direct and proxied health timed out with sustained memory-high pressure. Restart restored direct/proxied health (200, database ok, no-store); no resource-limit changes.
+- Updated TASKS, access decision and affected runtime/Operations handbook; archived iterations 860–861. No paid calls, saved-edition/settings writes, new sources or schema changes; SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Next: step 3 dedicated admin pages; X fresh-window rounds after 21:00 UTC Nov 5/6; review Nov 6 story grouping/editor-v5 and spend. Proxy forged-header check remains required before future public access; VM stays private.

@@ -9,6 +9,7 @@ import {
 import { chromium } from 'playwright';
 
 import { localAdminJson } from './lib/local-admin-fetch';
+import { replayAdminPage } from './lib/replay-admin-page';
 
 // Protected snapshots replayed without browser credentials; failures stay local.
 async function smoke() {
@@ -28,10 +29,10 @@ async function smoke() {
     localAdminJson('/api/admin/digest-previews/latest'),
   ]);
   const snapshots: Record<string, unknown> = {
-    '/api/content': content,
-    '/api/topics': topics,
-    '/api/profile': profile,
-    '/api/status': status,
+    '/api/admin/content': content,
+    '/api/admin/topics': topics,
+    '/api/admin/profile': profile,
+    '/api/admin/status': status,
   };
   const browser = await chromium.launch();
   try {
@@ -69,11 +70,11 @@ async function smoke() {
         );
     const counts = new Map<string, number>();
     const resources = [
-      '/api/content',
-      '/api/topics',
-      '/api/profile',
+      '/api/admin/content',
+      '/api/admin/topics',
+      '/api/admin/profile',
       '/healthz',
-      '/api/status',
+      '/api/admin/status',
     ];
     const errors: string[] = [];
     page.on('pageerror', (error) => errors.push(error.message));
@@ -82,7 +83,8 @@ async function smoke() {
       if (request.method() === 'GET' && resources.includes(path))
         counts.set(path, (counts.get(path) ?? 0) + 1);
     });
-    await page.goto('http://localhost:8000/');
+    await replayAdminPage(page);
+    await page.goto('http://127.0.0.1:8000/admin');
     await page
       .getByText('System online · Database and queue connected')
       .waitFor();
@@ -97,7 +99,7 @@ async function smoke() {
     assert.equal(
       await page.evaluate(async () => {
         try {
-          await fetch('/api/topics', { method: 'POST', body: '{}' });
+          await fetch('/api/admin/topics', { method: 'POST', body: '{}' });
           return false;
         } catch {
           return true;
@@ -105,7 +107,7 @@ async function smoke() {
       }),
       true,
     );
-    assert.deepEqual(writes.splice(0), ['POST /api/topics']);
+    assert.deepEqual(writes.splice(0), ['POST /api/admin/topics']);
     // Leaving and re-entering the page must reuse fresh shared resources.
     await page.evaluate(() => {
       history.pushState({}, '', '/unknown-query-check');
@@ -121,7 +123,7 @@ async function smoke() {
       .locator('.status-panel small')
       .first()
       .textContent();
-    await page.route('**/api/status', (route) =>
+    await page.route('**/api/admin/status', (route) =>
       route.fulfill({ json: { invalid: true } }),
     );
     await page
@@ -135,7 +137,7 @@ async function smoke() {
     await page
       .getByRole('heading', { name: 'Recent edition runs', exact: true })
       .waitFor();
-    await page.unroute('**/api/status');
+    await page.unroute('**/api/admin/status');
     await page
       .getByRole('button', { name: 'Refresh status', exact: true })
       .click();
@@ -163,7 +165,7 @@ async function smoke() {
     await page.screenshot({
       path: 'docs/screenshots/ui/foundations-query-mobile.png',
     });
-    await page.route('**/api/content', (route) =>
+    await page.route('**/api/admin/content', (route) =>
       route.fulfill({ json: { invalid: true } }),
     );
     await page.route('**/healthz', (route) =>

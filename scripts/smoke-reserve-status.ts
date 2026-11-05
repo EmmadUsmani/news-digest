@@ -5,6 +5,7 @@ import { operationsStatusSchema, readerEditionSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
 import { localAdminJson } from './lib/local-admin-fetch';
+import { replayAdminPage } from './lib/replay-admin-page';
 
 async function main() {
   const baseline = operationsStatusSchema.parse(
@@ -39,11 +40,12 @@ async function main() {
       page.on('pageerror', (error) => errors.push(error.message));
       const live = structuredClone(baseline);
       assert.ok(live.llm.scheduledReserve);
-      await page.route('**/api/status', (route) => {
+      await page.route('**/api/admin/status', (route) => {
         assert.equal(route.request().method(), 'GET');
         return route.fulfill({ json: live });
       });
-      await page.goto('http://localhost:8000');
+      await replayAdminPage(page);
+      await page.goto('http://127.0.0.1:8000/admin');
       await page.getByText('Source & run status', { exact: true }).click();
       const panel = page.getByRole('region', {
         name: 'Scheduled AI budget',
@@ -72,7 +74,7 @@ async function main() {
         limitedByReserve: true,
         lastOutcome: null,
       };
-      await page.route('**/api/status', (route) => {
+      await page.route('**/api/admin/status', (route) => {
         assert.equal(route.request().method(), 'GET');
         return route.fulfill({ json: synthetic });
       });

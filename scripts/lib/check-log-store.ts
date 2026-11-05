@@ -4,6 +4,7 @@ import { statfsSync, statSync } from 'node:fs';
 import { uptime } from 'node:os';
 
 import { checkLogRedaction } from './check-log-redaction';
+import { localAdminFetch } from './local-admin-fetch';
 
 const store = 'http://127.0.0.1:9428/logs';
 async function query(expression: string) {
@@ -57,7 +58,7 @@ export async function checkLogStore() {
 
   // This fresh real API request must travel through journald and Fluent Bit.
   const started = Date.now();
-  const response = await fetch('http://127.0.0.1:8000/healthz');
+  const response = await localAdminFetch('http://127.0.0.1:8000/healthz');
   await response.text();
   const requestId = response.headers.get('x-request-id');
   assert.ok(requestId);
@@ -129,7 +130,7 @@ export async function checkLogStore() {
     };
   });
   const freshRequestQueryMs = Date.now() - started;
-  const ui = await fetch('http://127.0.0.1:8000/logs/select/vmui/');
+  const ui = await localAdminFetch('http://127.0.0.1:8000/logs/select/vmui/');
   assert.equal(ui.status, 200);
   assert.match(await ui.text(), /VictoriaLogs/);
   return {

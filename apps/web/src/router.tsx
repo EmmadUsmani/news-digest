@@ -16,6 +16,7 @@ import {
   editionHistoryQuery,
   editionQuery,
   healthQuery,
+  identityQuery,
   profileQuery,
   statusQuery,
   topicsQuery,
@@ -74,7 +75,6 @@ const latestRoute = createRoute({
       });
   },
   loader: ({ context }) => {
-    loadPageData({ context });
     void Promise.allSettled([
       context.queryClient.ensureQueryData(editionQuery()),
       context.queryClient.ensureQueryData(editionHistoryQuery()),
@@ -89,7 +89,6 @@ const editionRoute = createRoute({
     if (!z.string().uuid().safeParse(params.id).success) throw notFound();
   },
   loader: ({ context, params }) => {
-    loadPageData({ context });
     void Promise.allSettled([
       context.queryClient.ensureQueryData(editionQuery(params.id)),
       context.queryClient.ensureQueryData(editionHistoryQuery()),
@@ -98,8 +97,21 @@ const editionRoute = createRoute({
   component: App,
 });
 
+const adminRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/admin',
+  beforeLoad: async ({ context }) => {
+    const identity = await context.queryClient.fetchQuery(identityQuery);
+    if (!identity.isAdmin) throw notFound();
+  },
+  loader: ({ context }) => {
+    loadPageData({ context });
+  },
+  component: () => <App admin />,
+});
+
 export const router = createRouter({
-  routeTree: rootRoute.addChildren([latestRoute, editionRoute]),
+  routeTree: rootRoute.addChildren([latestRoute, editionRoute, adminRoute]),
   context: { queryClient },
 });
 

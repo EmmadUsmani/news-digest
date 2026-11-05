@@ -8,6 +8,7 @@ import {
 import { chromium } from 'playwright';
 
 import { localAdminJson } from './lib/local-admin-fetch';
+import { replayAdminPage } from './lib/replay-admin-page';
 
 // Protected real snapshots; custom-feed saves and failures are browser-only.
 async function smoke() {
@@ -32,8 +33,8 @@ async function smoke() {
       )
     : null;
   const snapshots: Record<string, unknown> = {
-    '/api/profile': profile,
-    '/api/status': status,
+    '/api/admin/profile': profile,
+    '/api/admin/status': status,
   };
   const source = catalog.find(
     (item) =>
@@ -93,7 +94,7 @@ async function smoke() {
         if (request.method() === 'GET' && Object.hasOwn(snapshots, path))
           return route.fulfill({ json: snapshots[path] });
         if (
-          path === `/api/topics/${target.id}/feeds` &&
+          path === `/api/admin/topics/${target.id}/feeds` &&
           request.method() === 'POST'
         ) {
           const input = request.postDataJSON();
@@ -121,7 +122,7 @@ async function smoke() {
           });
         }
         if (
-          path === `/api/topics/${target.id}/queries` &&
+          path === `/api/admin/topics/${target.id}/queries` &&
           request.method() === 'POST'
         ) {
           assert.deepEqual(request.postDataJSON(), {
@@ -140,7 +141,7 @@ async function smoke() {
           });
         }
         if (
-          path === `/api/topics/${target.id}/sources` &&
+          path === `/api/admin/topics/${target.id}/sources` &&
           request.method() === 'PUT'
         ) {
           assert.deepEqual(request.postDataJSON().ids, []);
@@ -156,8 +157,9 @@ async function smoke() {
           unexpectedWrites.push(`${request.method()} ${path}`);
           return route.abort();
         }
-        if (path === '/api/topics') return route.fulfill({ json: topics });
-        if (path === '/api/topics/sources') {
+        if (path === '/api/admin/topics')
+          return route.fulfill({ json: topics });
+        if (path === '/api/admin/topics/sources') {
           if (failRefresh) {
             failRefresh = false;
             return; // Hold the request until the real browser deadline aborts it.
@@ -165,7 +167,7 @@ async function smoke() {
           await new Promise((resolve) => setTimeout(resolve, 500));
           return route.fulfill({ json: catalog });
         }
-        if (path === '/api/content')
+        if (path === '/api/admin/content')
           return route.fulfill({
             json: content.map((item) =>
               item.topicId === target.id
@@ -186,7 +188,8 @@ async function smoke() {
           });
         return route.continue();
       });
-      await page.goto('http://localhost:8000');
+      await replayAdminPage(page);
+      await page.goto('http://127.0.0.1:8000/admin');
       assert.equal(
         await page.evaluate(() =>
           fetch('/api/browser-write-guard-probe', { method: 'POST' }).then(

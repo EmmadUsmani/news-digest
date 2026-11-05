@@ -3,7 +3,12 @@
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 node --input-type=module <<'JS'
-const response = await fetch('http://127.0.0.1:8000/api/status');
+const { readFileSync } = await import('node:fs');
+const { homedir } = await import('node:os');
+const { parseEnv } = await import('node:util');
+const token = parseEnv(readFileSync(`${homedir()}/.config/news-digest/env`, 'utf8')).ADMIN_LOCAL_TOKEN;
+if (!token) throw new Error('Local admin token is missing');
+const response = await fetch('http://127.0.0.1:8000/api/admin/status', { headers: { ADMIN_LOCAL_TOKEN: token }, redirect: 'error' });
 if (!response.ok) throw new Error('Cannot verify publication schedule');
 const status = await response.json();
 const queue = status.queues.find(q => q.name === 'digest-generation');

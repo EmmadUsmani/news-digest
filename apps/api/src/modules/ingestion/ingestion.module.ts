@@ -2,7 +2,7 @@ import { Controller, Get, Module } from '@nestjs/common';
 
 import { PostgresContentRepository } from './database/content.repository';
 import { ContentRepository } from './domain/ports';
-@Controller(['api/content', 'api/admin/content'])
+@Controller('api/admin/content')
 class ContentController {
   constructor(private readonly repository: ContentRepository) {}
   @Get() latest() {

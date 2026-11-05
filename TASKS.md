@@ -17,9 +17,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - [ ] STEERING 16 / M4 Social posts: Nov 5 X picks Tech/NBA/Gaming/World 3/5/5/1; all four topics present, no Bluesky picks. Saved X metrics empty: viral/outside-list quality acceptance remains open. Paid old open-search picks 1/19 (Tech); no claim that all-topic presence proves paid discovery quality.
 - [ ] STEERING 9/15 first-week report: Nov 5 $0.143191/19 fetched/18 new verified outside-list posts; World $0.032663/3, Gaming $0.038724/5, NBA $0.035104/5, Tech $0.036700/5. Prior Nov 3 $0.137056/18, Nov 4 $0.149447/19. Four topics weakest-first, $0.10 per-topic hold, unchanged $0.40/day/$12/month cap. [Sources](docs/SOURCES.md).
 - [ ] STEERING 18 Bluesky: authenticated hourly collection and session refresh verified (788); Nov 5 no selected posts. Quality/diversity acceptance remains open; World phrase shortlist empty. Cross-platform context/semantic gates shipped. [Sources](docs/SOURCES.md#sustained-bluesky-session-recovery--iteration-788-2026-11-05).
-- [ ] STEERING 33 UI rebuild: after X work; exactly [approved spec](docs/ui-spec.md), five steps in order. TanStack Router/Query, Tailwind v4/shadcn, self-hosted Inter/themes live. Step 2 deny-by-default gate, uncached identity/protected aliases/sanitized reader endpoints prepared; legacy operational routes still need migration; STEERING 36 confirms owner identity is configured.
-  - Next: switch UI/scripts and remove legacy routes while gating tools together. Owner authorizes private-VM rollout now; proxy checks apply before future public access. Local denial/cache/method/forwarded-token checks pass. [Access decision](docs/decisions/2026-11-05-admin-access.md).
-  - Reader/history/text/themes/recovery and operational replays verified desktop/mobile light/dark with browser writes blocked or replayed and protected snapshots unchanged; screenshots in `docs/screenshots/ui/`.
+- [ ] STEERING 33 UI rebuild: exactly [approved spec](docs/ui-spec.md), five steps in order. Foundations and step 2 admin gate complete: operational APIs moved, legacy routes removed, tools gated, scripts migrated. Reader makes no admin reads; existing controls live at `/admin` pending replacement.
+  - Next: step 3 dedicated admin pages with shadcn, then final reader. Private rollout authorized by STEERING 36; forged-header proxy check is required before any future public access. [Access decision](docs/decisions/2026-11-05-admin-access.md).
 - [ ] STEERING 28 incremental triage OFF: default-off runtime, shared admission, reserve-safe scoring, exact pools/cutoffs and sibling draining verified. Reassessed after full-AI acceptance (865): Nov 6 morning allowance $0.021736–$0.028915; only 2/65 early fingerprints compatible in post-publication pool. Keep OFF; do not reduce protection. Actual waste/latency unmeasured. [Assessment](docs/edition-reviews/2026-11-05-incremental-admission.md).
 
 ## Remaining milestones and lower priorities
@@ -38,10 +37,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Test leftovers (873): per-run temporary root cleans Node coverage after success/failure; removed 21 inactive directories (1.85 GB). UI step 2 remains next.
+- [x] Admin gate rollout (874): operational APIs/tools protected together; reader/admin controls separated; local scripts use protected paths.
 
-- [x] Forty-article publication pool (872): actual ledgered Haiku World verification and fingerprinted offline replay; no cross-reviewed-label groups, more story diversity, existing editor ceiling and budget admission retained. [Evidence](docs/edition-reviews/2026-11-05-world-story-pool.md).
+- [x] Test leftovers (873): per-run temporary root cleans Node coverage after success/failure; removed 21 inactive directories (1.85 GB).
 
-- [x] Scheduled speed comparison (867): retained Nov 5 allowlisted call-usage fixture; measured purpose spans and remaining article-free latency bound, no runtime changes.
-
-- Next: X fresh-window rounds after 21:00 UTC Nov 5/6; scheduled editor-v5 evidence Nov 6. Admin identity/proxy rollout and broader job reliability acceptance remain open.
+- Next: X fresh-window rounds after 21:00 UTC Nov 5/6; scheduled editor-v5 evidence Nov 6. UI step 3 dedicated admin pages next; proxy check required before future public access.

@@ -7,6 +7,12 @@ import { localAdminFetch } from './lib/local-admin-fetch';
 // Read-only deployment check. Credentials remain in Node and never follow redirects.
 const origin = 'http://127.0.0.1:8000';
 const paths = [
+  '/docs',
+  '/db/',
+  '/grafana/',
+  '/logs/',
+  '/metrics/',
+  '/queues/',
   '/admin',
   '/admin/editions',
   '/admin/editions/new',
@@ -88,6 +94,22 @@ async function smoke() {
     assert.equal(await denied.text(), '');
   }
 
+  for (const path of [
+    '/api/topics',
+    '/api/profile',
+    '/api/status',
+    '/api/content',
+    '/api/digest-previews',
+  ]) {
+    for (const credentialed of [false, true]) {
+      assert.equal(
+        (await read(path, {}, credentialed)).status,
+        404,
+        `Removed legacy route ${path}`,
+      );
+    }
+  }
+
   const authorized = await read('/api/admin/topics', {}, true);
   assert.equal(authorized.status, 200, 'Direct local scripts retain access');
   privateResponse(authorized);
@@ -111,7 +133,7 @@ async function smoke() {
   }
   assert.deepEqual(await savedEdition(), edition);
   console.log(
-    `Admin gate: ${paths.length} paths deny GET/HEAD; identity and cache policy pass; direct local access works; eight forwarded-token requests denied; saved edition unchanged. Proxy identity replacement and legacy/tool migration remain unverified.`,
+    `Admin gate: ${paths.length} paths deny GET/HEAD; identity and cache policy pass; direct local access works; eight forwarded-token requests denied; saved edition unchanged. Tool denial verified; proxy identity replacement remains a pre-public-access check.`,
   );
 }
 

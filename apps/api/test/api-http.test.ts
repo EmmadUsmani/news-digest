@@ -47,10 +47,12 @@ void test('real HTTP health, topic lifecycle and settings preserve persisted con
     );
     return data;
   };
-  const topicsPath = '/api/topics';
+  const topicsPath = '/api/admin/topics';
   let createdId: string | undefined;
   const original = topicSchema.array().parse(await request(topicsPath));
-  const profile = profileSettingsSchema.parse(await request('/api/profile'));
+  const profile = profileSettingsSchema.parse(
+    await request('/api/admin/profile'),
+  );
   try {
     await request('/healthz').then((data) =>
       assert.deepEqual(data, {
@@ -149,17 +151,17 @@ void test('real HTTP health, topic lifecycle and settings preserve persisted con
       postBudget: 1,
     };
     const saved = profileSettingsSchema.parse(
-      await request('/api/profile/schedule', 200, 'PUT', schedule),
+      await request('/api/admin/profile/schedule', 200, 'PUT', schedule),
     );
     assert.deepEqual(saved, { ...profile, schedule });
-    assert.deepEqual(await request('/api/profile'), saved);
+    assert.deepEqual(await request('/api/admin/profile'), saved);
     for (const invalid of [
       { ...schedule, timezone: 'Invalid/Timezone' },
       { ...schedule, coverageWindow: 'P32D' },
       { ...schedule, postBudget: -1 },
     ]) {
-      await request('/api/profile/schedule', 400, 'PUT', invalid);
-      assert.deepEqual(await request('/api/profile'), saved);
+      await request('/api/admin/profile/schedule', 400, 'PUT', invalid);
+      assert.deepEqual(await request('/api/admin/profile'), saved);
     }
     const remaining = await request(
       `${topicsPath}/${created.id}`,
@@ -174,7 +176,7 @@ void test('real HTTP health, topic lifecycle and settings preserve persisted con
     );
   } finally {
     if (createdId) await request(`${topicsPath}/${createdId}`, 200, 'DELETE');
-    await request('/api/profile/schedule', 200, 'PUT', profile.schedule);
+    await request('/api/admin/profile/schedule', 200, 'PUT', profile.schedule);
   }
 });
 
@@ -190,7 +192,7 @@ void test('digest HTTP publication, history and async jobs use real isolated per
   const app = await NestFactory.create(AppModule, { logger: false });
   t.after(() => app.close());
   await app.listen(0, '127.0.0.1');
-  const base = `${await app.getUrl()}/api/digest-previews`;
+  const base = `${await app.getUrl()}/api/admin/digest-previews`;
   const request = async (path: string, status = 200, body?: unknown) => {
     const response = await fetch(`${base}${path}`, {
       method: body === undefined ? 'GET' : 'POST',
@@ -420,7 +422,7 @@ void test('digest HTTP publication, history and async jobs use real isolated per
   }
 });
 
-void test('protected admin aliases use real controllers and deny unauthenticated reads and writes', async (t) => {
+void test('admin routes use real controllers and deny unauthenticated reads and writes', async (t) => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
   const app = await NestFactory.create(AppModule, { logger: false });
   app.use(adminAccess({ localToken: 'isolated-admin-token' }));
@@ -445,8 +447,13 @@ void test('protected admin aliases use real controllers and deny unauthenticated
     assert.equal(denied.status, 404, path);
     assert.equal(await denied.text(), '');
     const authorized = await fetch(`${base}/api/admin/${path}`, { headers });
-    const legacy = await fetch(`${base}/api/${path}`);
-    assert.equal(authorized.status, legacy.status, path);
+    for (const legacyHeaders of [{}, headers]) {
+      const legacy = await fetch(`${base}/api/${path}`, {
+        headers: legacyHeaders,
+      });
+      assert.equal(legacy.status, 404, `Removed legacy route: ${path}`);
+    }
+    assert.equal(authorized.status, 200, path);
     assert.equal(authorized.headers.get('cache-control'), 'no-store', path);
     assert.match(authorized.headers.get('vary') ?? '', /X-ExeDev-Email/i, path);
     assert.match(
@@ -454,15 +461,7 @@ void test('protected admin aliases use real controllers and deny unauthenticated
       /ADMIN_LOCAL_TOKEN/i,
       path,
     );
-    // Status includes current timestamps/queue timings, so compare its shape only.
-    if (path === 'status') {
-      assert.deepEqual(
-        Object.keys(await authorized.json()).sort(),
-        Object.keys(await legacy.json()).sort(),
-      );
-    } else {
-      assert.deepEqual(await authorized.json(), await legacy.json(), path);
-    }
+    await authorized.json();
   }
   const input = {
     name: 'Admin alias fixture',

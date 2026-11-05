@@ -5,6 +5,7 @@ import { topicSchema, topicUpdateSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
 import { localAdminJson } from './lib/local-admin-fetch';
+import { replayAdminPage } from './lib/replay-admin-page';
 
 const base = 'http://localhost:8000';
 async function main() {
@@ -22,9 +23,9 @@ async function main() {
       : null;
     const savedEdition = editionPath ? await localAdminJson(editionPath) : null;
     const snapshots: Record<string, unknown> = {
-      '/api/profile': profile,
-      '/api/status': status,
-      '/api/content': content,
+      '/api/admin/profile': profile,
+      '/api/admin/status': status,
+      '/api/admin/content': content,
     };
     for (const [name, width, height] of [
       ['desktop', 1440, 1100],
@@ -57,7 +58,10 @@ async function main() {
           !/(^|\.)reddit\.com$/.test(new URL(request.url()).hostname),
           'No Reddit fetching',
         );
-        if (path === `/api/topics/${topic.id}` && request.method() === 'PUT') {
+        if (
+          path === `/api/admin/topics/${topic.id}` &&
+          request.method() === 'PUT'
+        ) {
           writes++;
           if (fail) return route.fulfill({ status: 503, json: {} });
           Object.assign(topic, topicUpdateSchema.parse(request.postDataJSON()));
@@ -67,7 +71,8 @@ async function main() {
           unexpectedWrites.push(`${request.method()} ${path}`);
           return route.abort();
         }
-        if (path === '/api/topics') return route.fulfill({ json: topics });
+        if (path === '/api/admin/topics')
+          return route.fulfill({ json: topics });
         if (Object.hasOwn(snapshots, path))
           return route.fulfill({ json: snapshots[path] });
         return route.continue();
@@ -78,7 +83,8 @@ async function main() {
           .getByRole('button', { name: `Edit ${topic.name}`, exact: true })
           .click();
       };
-      await page.goto(base);
+      await replayAdminPage(page);
+      await page.goto(`${base}/admin`);
       assert.equal(
         await page.evaluate(() =>
           fetch('/api/browser-write-guard-probe', { method: 'POST' }).then(

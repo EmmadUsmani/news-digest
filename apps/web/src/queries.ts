@@ -1,6 +1,7 @@
 import {
   contentGroupSchema,
   healthSchema,
+  identitySchema,
   operationsStatusSchema,
   profileSettingsSchema,
   readerEditionHistorySchema,
@@ -27,18 +28,27 @@ async function read<T>(url: string, schema: z.ZodType<T>, signal: AbortSignal) {
   return schema.parse(await response.json());
 }
 
+export const identityQuery = queryOptions({
+  queryKey: ['identity'],
+  staleTime: 0,
+  retry: false,
+  queryFn: ({ signal }) => read('/api/me', identitySchema, signal),
+});
+
 export const contentQuery = queryOptions({
   queryKey: ['content'],
   queryFn: ({ signal }) =>
-    read('/api/content', contentGroupSchema.array(), signal),
+    read('/api/admin/content', contentGroupSchema.array(), signal),
 });
 export const topicsQuery = queryOptions({
   queryKey: ['topics'],
-  queryFn: ({ signal }) => read('/api/topics', topicSchema.array(), signal),
+  queryFn: ({ signal }) =>
+    read('/api/admin/topics', topicSchema.array(), signal),
 });
 export const profileQuery = queryOptions({
   queryKey: ['profile'],
-  queryFn: ({ signal }) => read('/api/profile', profileSettingsSchema, signal),
+  queryFn: ({ signal }) =>
+    read('/api/admin/profile', profileSettingsSchema, signal),
 });
 export const healthQuery = queryOptions({
   queryKey: ['health'],
@@ -47,7 +57,8 @@ export const healthQuery = queryOptions({
 
 export const statusQuery = queryOptions({
   queryKey: ['status'],
-  queryFn: ({ signal }) => read('/api/status', operationsStatusSchema, signal),
+  queryFn: ({ signal }) =>
+    read('/api/admin/status', operationsStatusSchema, signal),
   refetchInterval: 60_000,
 });
 

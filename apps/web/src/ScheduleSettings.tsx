@@ -33,7 +33,7 @@ export function ScheduleSettings({
     setBusy(true);
     setMessage('');
     try {
-      const response = await fetch('/api/profile/schedule', {
+      const response = await fetch('/api/admin/profile/schedule', {
         method: 'PUT',
         signal: AbortSignal.timeout(15_000),
         headers: { 'Content-Type': 'application/json' },

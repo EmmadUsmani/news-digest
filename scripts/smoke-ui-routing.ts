@@ -77,7 +77,11 @@ async function smoke() {
       page.on('pageerror', (error) => errors.push(error.message));
       let legacyHistoryReads = 0;
       page.on('request', (request) => {
-        if (new URL(request.url()).pathname.startsWith('/api/digest-previews'))
+        if (
+          new URL(request.url()).pathname.startsWith(
+            '/api/admin/digest-previews',
+          )
+        )
           legacyHistoryReads++;
       });
       await page.goto(`http://localhost:8000/?edition=${edition.id}`);
@@ -147,10 +151,11 @@ async function smoke() {
       );
       await page.locator('.edition-history summary').click();
       assert.ok(await page.locator('.digest-preview').isVisible());
-      assert.ok(
+      assert.equal(
         await page
           .getByRole('heading', { name: 'Incoming from your sources.' })
-          .isVisible(),
+          .count(),
+        0,
       );
       assert.ok(
         await page.evaluate(
@@ -208,7 +213,7 @@ async function smoke() {
       await page
         .getByRole('alert')
         .filter({
-          hasText: 'The edition could not be loaded or created.',
+          hasText: 'The edition could not be loaded.',
         })
         .waitFor();
       assert.equal(await page.locator('.digest-topic').count(), 0);

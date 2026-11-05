@@ -5,6 +5,7 @@ import { operationsStatusSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
 import { localAdminJson } from './lib/local-admin-fetch';
+import { replayAdminPage } from './lib/replay-admin-page';
 
 async function main() {
   const browser = await chromium.launch();
@@ -24,10 +25,11 @@ async function main() {
         status.llm.purposes.reduce((sum, row) => sum + row.todayMicros, 0),
         status.llm.todayMicros,
       );
-      await page.route('**/api/status', (route) =>
+      await page.route('**/api/admin/status', (route) =>
         route.fulfill({ json: status }),
       );
-      await page.goto('http://localhost:8000');
+      await replayAdminPage(page);
+      await page.goto('http://127.0.0.1:8000/admin');
       await page.getByText('Source & run status', { exact: true }).click();
       const coverage = page.getByRole('region', {
         name: 'AI spend by purpose',

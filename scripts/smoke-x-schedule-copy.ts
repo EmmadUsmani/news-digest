@@ -5,6 +5,7 @@ import { operationsStatusSchema, topicSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
 import { localAdminJson } from './lib/local-admin-fetch';
+import { replayAdminPage } from './lib/replay-admin-page';
 
 async function main() {
   const topics = topicSchema
@@ -48,11 +49,14 @@ async function main() {
         if (!['GET', 'HEAD'].includes(route.request().method()))
           return route.fallback();
         const path = new URL(route.request().url()).pathname;
-        if (path === '/api/topics') return route.fulfill({ json: topics });
-        if (path === '/api/status') return route.fulfill({ json: status });
+        if (path === '/api/admin/topics')
+          return route.fulfill({ json: topics });
+        if (path === '/api/admin/status')
+          return route.fulfill({ json: status });
         return route.fallback();
       });
-      await page.goto('http://localhost:8000');
+      await replayAdminPage(page);
+      await page.goto('http://127.0.0.1:8000/admin');
       await page.getByText('Source & run status', { exact: true }).click();
       const usage = page.getByRole('region', {
         name: 'X discovery usage',
@@ -96,13 +100,13 @@ async function main() {
       // Prove the write barrier remains installed beneath snapshot routes.
       await page.evaluate(async () => {
         try {
-          await fetch('/api/topics', { method: 'POST', body: '{}' });
+          await fetch('/api/admin/topics', { method: 'POST', body: '{}' });
           throw new Error('Write barrier failed');
         } catch (error) {
           if (!(error instanceof TypeError)) throw error;
         }
       });
-      assert.deepEqual(writes.splice(0), ['POST /api/topics']);
+      assert.deepEqual(writes.splice(0), ['POST /api/admin/topics']);
       await context.close();
     }
     assert.deepEqual(

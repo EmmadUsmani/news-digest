@@ -5,6 +5,7 @@ import { chromium } from 'playwright';
 
 import { validateSchedule } from '../apps/api/src/modules/profiles/domain/schedule';
 import { localAdminJson } from './lib/local-admin-fetch';
+import { replayAdminPage } from './lib/replay-admin-page';
 
 const base = 'http://localhost:8000';
 async function smoke() {
@@ -21,9 +22,9 @@ async function smoke() {
     localAdminJson('/api/admin/digest-previews/latest'),
   ]);
   const snapshots: Record<string, unknown> = {
-    '/api/content': content,
-    '/api/status': status,
-    '/api/topics': topics,
+    '/api/admin/content': content,
+    '/api/admin/status': status,
+    '/api/admin/topics': topics,
   };
   const unexpectedWrites: string[] = [];
   const credentials: string[] = [];
@@ -55,10 +56,10 @@ async function smoke() {
   let releaseSave: (() => void) | undefined;
   let saves = 0;
   // All browser profile reads/writes are replayed in memory, including reloads.
-  await context.route('**/api/profile', (route) =>
+  await context.route('**/api/admin/profile', (route) =>
     route.fulfill({ json: profile }),
   );
-  await context.route('**/api/profile/schedule', async (route) => {
+  await context.route('**/api/admin/profile/schedule', async (route) => {
     assert.equal(route.request().method(), 'PUT');
     saves++;
     if (pendingSave) await pendingSave;
@@ -91,10 +92,11 @@ async function smoke() {
       await page.setViewportSize({ width, height });
       const pageErrors: string[] = [];
       page.on('pageerror', (error) => pageErrors.push(error.message));
-      await page.goto(base);
+      await replayAdminPage(page);
+      await page.goto(`${base}/admin`);
       const probe = await page.evaluate(async () => {
         try {
-          await fetch('/api/profile/unexpected-write-probe', {
+          await fetch('/api/admin/profile/unexpected-write-probe', {
             method: 'POST',
           });
           return false;
@@ -105,7 +107,7 @@ async function smoke() {
       assert.ok(probe);
       assert.equal(
         unexpectedWrites.pop(),
-        'POST /api/profile/unexpected-write-probe',
+        'POST /api/admin/profile/unexpected-write-probe',
       );
       await page.getByText('Schedule settings', { exact: true }).click();
       const form = page.getByRole('form', {

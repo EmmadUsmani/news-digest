@@ -120,7 +120,7 @@ void test('request logs use generated IDs and route templates, log once on finis
       },
     });
     requestLogging(log)(
-      { method: 'GET', route: { path: '/api/topics/:id' } },
+      { method: 'GET', route: { path: '/api/admin/topics/:id' } },
       response,
       () => {
         log.info('request context');
@@ -146,7 +146,8 @@ void test('request logs use generated IDs and route templates, log once on finis
   );
   assert.ok(
     requests.every(
-      (record) => record.route === '/api/topics/:id' && record.durationMs >= 0,
+      (record) =>
+        record.route === '/api/admin/topics/:id' && record.durationMs >= 0,
     ),
   );
   assert.equal(requests[1].outcome, 'closed');

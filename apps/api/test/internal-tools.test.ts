@@ -15,7 +15,12 @@ async function close(server: Server) {
 
 void test('forwards tool subpaths, redirects bare prefixes, passes others through', async () => {
   const tool = createServer((req, res) => {
-    res.writeHead(200, { 'content-type': 'text/plain', 'x-tool': 'yes' });
+    res.writeHead(200, {
+      'content-type': 'text/plain',
+      'x-tool': 'yes',
+      'cache-control': 'public, max-age=86400',
+      vary: 'Accept',
+    });
     res.end(`tool saw ${req.url}`);
   });
   const toolPort = await listen(tool);
@@ -36,6 +41,8 @@ void test('forwards tool subpaths, redirects bare prefixes, passes others throug
   try {
     const page = await fetch(`${base}/docs/api/page?path=a.md`);
     assert.equal(page.status, 200);
+    assert.equal(page.headers.get('cache-control'), 'no-store');
+    assert.match(page.headers.get('vary') ?? '', /ADMIN_LOCAL_TOKEN/);
     assert.equal(page.headers.get('x-tool'), 'yes');
     assert.equal(await page.text(), 'tool saw /api/page?path=a.md');
 
@@ -51,7 +58,7 @@ void test('forwards tool subpaths, redirects bare prefixes, passes others throug
     assert.equal(bare.headers.get('location'), '/docs/');
 
     assert.equal(await (await fetch(`${base}/documents`)).text(), 'app');
-    assert.equal(await (await fetch(`${base}/api/status`)).text(), 'app');
+    assert.equal(await (await fetch(`${base}/api/admin/status`)).text(), 'app');
 
     const unavailable = await fetch(`${base}/db/`);
     assert.equal(unavailable.status, 502);

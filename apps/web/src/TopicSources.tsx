@@ -37,7 +37,7 @@ export function TopicSources({
   }, [busy]);
   React.useEffect(() => {
     let active = true;
-    fetch('/api/topics/sources', { signal: AbortSignal.timeout(15_000) })
+    fetch('/api/admin/topics/sources', { signal: AbortSignal.timeout(15_000) })
       .then((r) => {
         if (!r.ok) throw new Error();
         return r.json();
@@ -62,7 +62,7 @@ export function TopicSources({
     setBusy(true);
     setMessage('Saving source connections…');
     try {
-      const response = await fetch(`/api/topics/${topic.id}/sources`, {
+      const response = await fetch(`/api/admin/topics/${topic.id}/sources`, {
         method: 'PUT',
         signal: AbortSignal.timeout(15_000),
         headers: { 'Content-Type': 'application/json' },
@@ -93,7 +93,7 @@ export function TopicSources({
     let connected = false;
     try {
       const response = await fetch(
-        `/api/topics/${topic.id}/${search ? 'queries' : 'feeds'}`,
+        `/api/admin/topics/${topic.id}/${search ? 'queries' : 'feeds'}`,
         {
           method: 'POST',
           signal: AbortSignal.timeout(15_000),
@@ -123,7 +123,7 @@ export function TopicSources({
         setFeedName('');
         setFeedUrl('');
       }
-      const catalogResponse = await fetch('/api/topics/sources', {
+      const catalogResponse = await fetch('/api/admin/topics/sources', {
         signal: AbortSignal.timeout(15_000),
       });
       if (!catalogResponse.ok) throw new Error();

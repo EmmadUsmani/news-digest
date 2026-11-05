@@ -7,13 +7,14 @@ import {
   previewHistorySchema,
 } from '@digest/contracts';
 
+import { localAdminFetch } from '../../../scripts/lib/local-admin-fetch';
 import { database } from '../src/libs/db/connections';
 import { qualityRejection } from '../src/modules/digests/domain/quality';
 import { assessRelevance } from '../src/modules/digests/domain/relevance';
 async function smoke() {
-  const endpoint = 'http://localhost:8000/api/digest-previews';
+  const endpoint = 'http://127.0.0.1:8000/api/admin/digest-previews';
   const post = (body: unknown) =>
-    fetch(endpoint, {
+    localAdminFetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
@@ -39,7 +40,11 @@ async function smoke() {
   const first = digestPreviewSchema.parse(await firstResponse.json());
   const callCount = async () =>
     operationsStatusSchema
-      .parse(await (await fetch('http://localhost:8000/api/status')).json())
+      .parse(
+        await (
+          await localAdminFetch('http://127.0.0.1:8000/api/admin/status')
+        ).json(),
+      )
       .llm.models.reduce((n, model) => n + model.calls, 0);
   const beforeRepeat = await callCount();
   const second = digestPreviewSchema.parse(await (await post(window)).json());
@@ -118,12 +123,22 @@ async function smoke() {
       ])
     ).rows[0].snapshot;
     assert.deepEqual(saved, first);
-    assert.deepEqual(await (await fetch(`${endpoint}/latest`)).json(), second);
+    assert.deepEqual(
+      await (await localAdminFetch(`${endpoint}/latest`)).json(),
+      second,
+    );
     for (const offset of ['-1', '1.5', 'foo', '10000000'])
-      assert.equal((await fetch(`${endpoint}?offset=${offset}`)).status, 400);
-    assert.equal((await fetch(`${endpoint}/invalid`)).status, 400);
+      assert.equal(
+        (await localAdminFetch(`${endpoint}?offset=${offset}`)).status,
+        400,
+      );
+    assert.equal((await localAdminFetch(`${endpoint}/invalid`)).status, 400);
     assert.equal(
-      (await fetch(`${endpoint}/00000000-0000-4000-8000-000000000099`)).status,
+      (
+        await localAdminFetch(
+          `${endpoint}/00000000-0000-4000-8000-000000000099`,
+        )
+      ).status,
       404,
     );
     const expected = (
@@ -135,7 +150,7 @@ async function smoke() {
     const ids: string[] = [];
     for (let offset = 0; ; offset += 20) {
       const page = previewHistorySchema.parse(
-        await (await fetch(`${endpoint}?offset=${offset}`)).json(),
+        await (await localAdminFetch(`${endpoint}?offset=${offset}`)).json(),
       );
       assert.deepEqual(
         page.entries.map((entry) => entry.id),
@@ -143,7 +158,7 @@ async function smoke() {
       );
       for (const entry of page.entries) {
         const detail = digestPreviewSchema.parse(
-          await (await fetch(`${endpoint}/${entry.id}`)).json(),
+          await (await localAdminFetch(`${endpoint}/${entry.id}`)).json(),
         );
         assert.deepEqual(
           detail,

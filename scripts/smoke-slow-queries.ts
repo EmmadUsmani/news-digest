@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 
 import { chromium } from 'playwright';
 
+import { replayToolPage } from './lib/replay-tool-page';
+
 async function main() {
   const base = 'http://127.0.0.1:8000';
   const browser = await chromium.launch();
@@ -12,6 +14,7 @@ async function main() {
       ['mobile', 390, 844],
     ] as const) {
       const page = await browser.newPage({ viewport: { width, height } });
+      await replayToolPage(page);
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
       await page.goto(`${base}/grafana/d/nd-database?kiosk&viewPanel=22`);

@@ -96,12 +96,15 @@ async function smoke() {
           await page.addInitScript(() =>
             sessionStorage.setItem('edition-job', '697'),
           );
-          await page.route('**/api/digest-previews/jobs/697', async (route) => {
-            await started;
-            await route.fulfill({
-              json: { state: 'completed', editionId: history.entries[0].id },
-            });
-          });
+          await page.route(
+            '**/api/admin/digest-previews/jobs/697',
+            async (route) => {
+              await started;
+              await route.fulfill({
+                json: { state: 'completed', editionId: history.entries[0].id },
+              });
+            },
+          );
           await page.route('**/api/editions?offset=0', async (route) => {
             requests++;
             if (requests === 1) {

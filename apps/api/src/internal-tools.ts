@@ -46,7 +46,11 @@ export function proxyInternalTools(tools: InternalTool[], host = '127.0.0.1') {
         timeout: 30000,
       },
       (response) => {
-        res.writeHead(response.statusCode ?? 502, response.headers);
+        res.writeHead(response.statusCode ?? 502, {
+          ...response.headers,
+          'cache-control': 'no-store',
+          vary: 'X-ExeDev-Email, ADMIN_LOCAL_TOKEN',
+        });
         response.pipe(res);
       },
     );

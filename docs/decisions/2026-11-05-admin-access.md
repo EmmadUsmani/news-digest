@@ -6,9 +6,11 @@ reserved `/admin` and `/api/admin` paths and supplies uncached `/api/me`.
 Identity GET and HEAD requests (including the trailing-slash path) share
 uncached JSON headers; HEAD has no body. Other methods receive uncached 405
 with `Allow: GET, HEAD` rather than falling through to the SPA.
-Protected `/api/admin/*` aliases now serve topics, profile, status, content
-and digest previews through the existing controllers. Legacy operational routes
-and tools remain available during the coordinated migration. The app remains private under exe.dev's existing access control.
+Operational APIs now exist only under `/api/admin/*`: topics, profile, status,
+content and digest previews, including writes and generation jobs. The removed
+legacy paths return 404 for everyone. The same gate protects `/docs`, `/db`,
+`/grafana`, `/logs`, `/metrics` and `/queues`, including assets and API calls.
+The app remains private under exe.dev's existing access control.
 
 Admin responses use `Cache-Control: no-store` and vary on both identity
 headers, including successful pages, API reads/writes and downstream errors.
@@ -51,7 +53,7 @@ local script access. Valid local tokens with any `Forwarded` or tested
 `X-Forwarded-*` header must receive 404, including empty header values.
 Requests are read-only, credentials stay in Node, redirects fail, and the saved
 reader edition must remain unchanged. This does not test exe.dev's replacement
-of client-supplied identity or the still-unmigrated legacy/tool routes.
+of client-supplied identity.
 
 ## Reader payload preparation
 
@@ -62,7 +64,8 @@ historical briefs and posts become empty arrays; non-AI briefs are omitted.
 and dates, plus `hasMore`. Browser history now uses this reader endpoint and
 omits generation methods. Browser edition detail also uses the reader endpoints;
 its stories and posts render without scores, selection reasons or editorial
-diagnostics. The coordinated admin route migration remains unfinished.
+diagnostics. The reader makes no operational API requests; existing management controls are
+reachable only at `/admin`. Dedicated admin pages follow in spec step 3.
 
 ## Local operations scripts
 
@@ -132,8 +135,7 @@ and mobile; failure retains edits, and retry/reload checks the visible saved fie
 The handbook verifier also reads `/docs` pages, assets and API responses and
 `/db/api/schema` through the fixed loopback credential adapter. Playwright
 receives only the response bodies; credentials stay in Node. Redirects fail,
-and non-local `APP_URL` values are rejected. Tool access is still awaiting
-the coordinated route migration.
+and non-local `APP_URL` values are rejected. Tool access now uses the shared admin gate.
 
 The async-edition browser check reads protected content, topics, profile and
 status snapshots in Node. Job submission, progress, reconnect, completion and
@@ -145,8 +147,7 @@ The queue browser verifier reads queue APIs, pages and assets through the fixed
 loopback credential adapter in Node. Playwright receives response bodies only;
 browser writes are blocked and the saved edition must remain unchanged. The
 shared queue checker uses the same adapter and still verifies the server's
-405 mutation barrier without a mutation payload. Queue tool gating remains
-part of the coordinated rollout.
+405 mutation barrier without a mutation payload. Queue access now uses the shared admin gate.
 
 The topic-edit browser verifier also replays protected operational snapshots,
 blocks unexpected writes and browser credentials, and compares the complete
@@ -182,9 +183,15 @@ write probe and credential checks. Desktop/mobile failed saves retain community
 input; retry, normalization, duplicate validation, reload and clearing preserve
 full live edition/topics/profile snapshots without fetching Reddit.
 
-## Next rollout slice
+## Private rollout
 
-Configure the owner email allowlist before moving current operational routes.
-Migrate those endpoints, browser calls and local scripts together; gate tool
-paths and return reader-only edition payloads. Keep the reader working during
-that migration. The current foundation is not the completed admin milestone.
+STEERING 36 confirms owner identity is configured and authorizes this private
+rollout. Step 2 is complete: APIs and tools are gated together, scripts use
+protected routes, and `/admin` checks `/api/me` before loading operational data.
+Existing controls remain available there until step 3 replaces them with the
+spec's dedicated pages. No admin link or creation control appears on the reader.
+
+`smoke-admin-gate.ts` checks tool denial and removed legacy paths as well as
+identity. `smoke-admin-separation.ts` verifies real saved content and admin
+controls on desktop/mobile in light/dark mode, with writes blocked and Node-only
+credentials. Browser replay is a local check, not evidence of proxy behavior.

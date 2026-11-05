@@ -641,3 +641,5 @@ export function newsQueryFeed(input: NewsQuery): CustomFeed {
   }).toString();
   return { name: `Google News: ${query}`, url: url.href };
 }
+
+export const identitySchema = z.object({ isAdmin: z.boolean() });

@@ -6,6 +6,7 @@ import { topicSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
 import { localAdminJson } from './lib/local-admin-fetch';
+import { replayAdminPage } from './lib/replay-admin-page';
 
 async function main() {
   const base = 'http://localhost:8000';
@@ -26,7 +27,7 @@ async function main() {
     const topics = topicSchema
       .array()
       .parse(await localAdminJson('/api/admin/topics'));
-    await context.route('**/api/topics', async (route) => {
+    await context.route('**/api/admin/topics', async (route) => {
       assert.equal(route.request().method(), 'GET');
       await route.fulfill({ json: topics });
     });
@@ -44,7 +45,8 @@ async function main() {
           topics.find((topic) => topic.name === review.name)?.accounts,
           review.accounts,
         );
-        await page.goto(base);
+        await replayAdminPage(page);
+        await page.goto(`${base}/admin`);
         await page.getByText('Manage topics', { exact: true }).click();
         await page
           .getByRole('button', { name: `Edit ${review.name}`, exact: true })

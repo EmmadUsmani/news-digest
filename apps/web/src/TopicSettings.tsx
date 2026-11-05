@@ -78,7 +78,7 @@ export function TopicSettings({
     setMessage('');
     let responseReceived = false;
     try {
-      const response = await fetch(`/api/topics/${deleting.id}`, {
+      const response = await fetch(`/api/admin/topics/${deleting.id}`, {
         method: 'DELETE',
         signal: AbortSignal.timeout(15_000),
       });
@@ -106,7 +106,7 @@ export function TopicSettings({
     setMessage('');
     let responseReceived = false;
     try {
-      const response = await fetch(`/api/topics/${topic.id}`, {
+      const response = await fetch(`/api/admin/topics/${topic.id}`, {
         method: 'PUT',
         signal: AbortSignal.timeout(15_000),
         headers: { 'Content-Type': 'application/json' },
@@ -143,7 +143,7 @@ export function TopicSettings({
     setMessage('');
     let responseReceived = false;
     try {
-      const response = await fetch('/api/topics/order', {
+      const response = await fetch('/api/admin/topics/order', {
         method: 'PUT',
         signal: AbortSignal.timeout(15_000),
         headers: { 'Content-Type': 'application/json' },
@@ -200,7 +200,7 @@ export function TopicSettings({
     let receivedResponse = false;
     try {
       const response = await fetch(
-        editing.id ? `/api/topics/${editing.id}` : '/api/topics',
+        editing.id ? `/api/admin/topics/${editing.id}` : '/api/admin/topics',
         {
           method: editing.id ? 'PUT' : 'POST',
           signal: AbortSignal.timeout(15_000),

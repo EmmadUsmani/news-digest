@@ -4,6 +4,7 @@ import { topicSchema, topicUpdateSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
 import { localAdminJson } from './lib/local-admin-fetch';
+import { replayAdminPage } from './lib/replay-admin-page';
 
 // Protected snapshots; availability changes are replayed only in the browser.
 async function smoke() {
@@ -19,9 +20,9 @@ async function smoke() {
     ? await localAdminJson('/api/admin/digest-previews/' + edition.id)
     : null;
   const snapshots: Record<string, unknown> = {
-    '/api/content': content,
-    '/api/status': status,
-    '/api/profile': profile,
+    '/api/admin/content': content,
+    '/api/admin/status': status,
+    '/api/admin/profile': profile,
   };
   const browser = await chromium.launch();
   try {
@@ -58,7 +59,7 @@ async function smoke() {
         if (request.method() === 'GET' && Object.hasOwn(snapshots, path))
           return route.fulfill({ json: snapshots[path] });
         if (
-          path === `/api/topics/${original.id}` &&
+          path === `/api/admin/topics/${original.id}` &&
           request.method() === 'PUT'
         ) {
           const body = topicUpdateSchema.parse(request.postDataJSON());
@@ -84,14 +85,16 @@ async function smoke() {
           unexpectedWrites.push(`${request.method()} ${path}`);
           return route.abort();
         }
-        if (path === '/api/topics') return route.fulfill({ json: topics });
+        if (path === '/api/admin/topics')
+          return route.fulfill({ json: topics });
         return route.continue();
       });
-      await page.goto('http://localhost:8000');
+      await replayAdminPage(page);
+      await page.goto('http://127.0.0.1:8000/admin');
       assert.equal(
         await page.evaluate(async () => {
           try {
-            await fetch('/api/topics/unexpected-write-probe', {
+            await fetch('/api/admin/topics/unexpected-write-probe', {
               method: 'POST',
             });
             return false;
@@ -103,7 +106,7 @@ async function smoke() {
       );
       assert.equal(
         unexpectedWrites.pop(),
-        'POST /api/topics/unexpected-write-probe',
+        'POST /api/admin/topics/unexpected-write-probe',
       );
       await page.getByText('Manage topics', { exact: true }).click();
       const disable = page.getByRole('button', {

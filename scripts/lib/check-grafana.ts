@@ -5,6 +5,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { chromium } from 'playwright';
 
 import { localAdminFetch } from './local-admin-fetch';
+import { replayToolPage } from './replay-tool-page';
 
 // Read-only: only query provisioned dashboards and metrics. No content jobs.
 export async function checkGrafana() {
@@ -12,7 +13,7 @@ export async function checkGrafana() {
   // First-start SQLite migrations are slow under the deliberately small CPU quota.
   let ready = false;
   for (let attempt = 0; attempt < 150; attempt++) {
-    const health = await fetch(`${base}/api/health`, {
+    const health = await localAdminFetch(`${base}/api/health`, {
       signal: AbortSignal.timeout(5000),
     }).catch(() => undefined);
     if (health?.status === 200) {
@@ -24,7 +25,7 @@ export async function checkGrafana() {
     await new Promise((resolve) => setTimeout(resolve, 2000));
   }
   assert.ok(ready, 'Grafana must become healthy within five minutes');
-  const permissionsResponse = await fetch(
+  const permissionsResponse = await localAdminFetch(
     `${base}/api/access-control/user/permissions`,
   );
   assert.equal(permissionsResponse.status, 200);
@@ -34,7 +35,9 @@ export async function checkGrafana() {
   assert.equal(permissions['dashboards:write'], undefined);
   assert.equal(permissions['datasources:write'], undefined);
   assert.equal(permissions['org.users:write'], undefined);
-  const sources = await (await fetch(`${base}/api/datasources`)).json();
+  const sources = await (
+    await localAdminFetch(`${base}/api/datasources`)
+  ).json();
   assert.equal(sources.length, 2);
   for (const uid of ['local-metrics', 'product-postgres'])
     assert.equal(
@@ -106,7 +109,7 @@ export async function checkGrafana() {
     );
   }
   async function productQuery(rawSql: string) {
-    const response = await fetch(`${base}/api/ds/query`, {
+    const response = await localAdminFetch(`${base}/api/ds/query`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
@@ -165,6 +168,7 @@ export async function checkGrafana() {
     const page = await browser.newPage({
       viewport: { width: 1440, height: 1100 },
     });
+    await replayToolPage(page);
     async function captureJobsTiming() {
       await page.goto(`${base}/d/nd-jobs?orgId=1&kiosk`, {
         waitUntil: 'networkidle',
@@ -214,7 +218,7 @@ export async function checkGrafana() {
         readFileSync(`ops/observability/grafana/dashboards/${file}`, 'utf8'),
       );
       const provisioned = await (
-        await fetch(`${base}/api/dashboards/uid/${dashboard.uid}`)
+        await localAdminFetch(`${base}/api/dashboards/uid/${dashboard.uid}`)
       ).json();
       assert.equal(provisioned.meta.provisioned, true);
       assert.deepEqual(provisioned.dashboard.panels, dashboard.panels);
@@ -236,7 +240,7 @@ export async function checkGrafana() {
           continue;
         }
         const expression = panel.targets[0].expr;
-        const response = await fetch(
+        const response = await localAdminFetch(
           `${base}/api/datasources/proxy/uid/local-metrics/api/v1/query?${new URLSearchParams({ query: expression })}`,
         );
         assert.equal(response.status, 200, panel.title);
@@ -385,7 +389,7 @@ export async function checkGrafana() {
           );
           assert.ok(panel, title);
           const result = await (
-            await fetch(
+            await localAdminFetch(
               `${base}/api/datasources/proxy/uid/local-metrics/api/v1/query?${new URLSearchParams({ query: panel.targets[0].expr })}`,
             )
           ).json();

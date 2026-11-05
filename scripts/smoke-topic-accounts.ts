@@ -5,6 +5,7 @@ import { topicSchema, topicUpdateSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
 import { localAdminJson } from './lib/local-admin-fetch';
+import { replayAdminPage } from './lib/replay-admin-page';
 
 const base = 'http://localhost:8000';
 async function main() {
@@ -25,9 +26,9 @@ async function main() {
     localAdminJson('/api/admin/profile'),
   ]);
   const snapshots: Record<string, unknown> = {
-    '/api/content': content,
-    '/api/status': status,
-    '/api/profile': profile,
+    '/api/admin/content': content,
+    '/api/admin/status': status,
+    '/api/admin/profile': profile,
   };
   const credentials: string[] = [];
   const unexpectedWrites: string[] = [];
@@ -72,11 +73,11 @@ async function main() {
       return route.abort();
     if (request.method() === 'GET' && Object.hasOwn(snapshots, path))
       return route.fulfill({ json: snapshots[path] });
-    if (path === '/api/topics' && request.method() === 'GET') {
+    if (path === '/api/admin/topics' && request.method() === 'GET') {
       await route.fulfill({ json: replayTopics });
       return;
     }
-    if (path === `/api/topics/${id}` && request.method() === 'PUT') {
+    if (path === `/api/admin/topics/${id}` && request.method() === 'PUT') {
       const parsed = topicUpdateSchema.safeParse(request.postDataJSON());
       assert.equal(
         parsed.success,
@@ -116,11 +117,12 @@ async function main() {
       const previousAttempts = attempts;
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
-      await page.goto(base);
+      await replayAdminPage(page);
+      await page.goto(`${base}/admin`);
       assert.equal(
         await page.evaluate(async () => {
           try {
-            await fetch('/api/topics/unexpected-write-probe', {
+            await fetch('/api/admin/topics/unexpected-write-probe', {
               method: 'POST',
             });
             return false;
@@ -132,7 +134,7 @@ async function main() {
       );
       assert.equal(
         unexpectedWrites.pop(),
-        'POST /api/topics/unexpected-write-probe',
+        'POST /api/admin/topics/unexpected-write-probe',
       );
       await page.getByText('Manage topics', { exact: true }).click();
       await page

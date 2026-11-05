@@ -98,6 +98,13 @@ void test('HTTP gate denies reserved admin routes and reports only uncached iden
   const base = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
   try {
     for (const path of [
+      '/docs',
+      '/docs/',
+      '/db/schema',
+      '/grafana/api/health',
+      '/logs/',
+      '/metrics/vmui/',
+      '/queues/api/queues',
       '/admin',
       '/admin/',
       '/admin/topics?x=1',

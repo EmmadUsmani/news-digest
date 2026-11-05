@@ -4,6 +4,7 @@ import { operationsStatusSchema, readerEditionSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
 import { localAdminJson } from './lib/local-admin-fetch';
+import { replayAdminPage } from './lib/replay-admin-page';
 
 async function smoke() {
   const baseline = operationsStatusSchema.parse(
@@ -66,11 +67,12 @@ async function smoke() {
           skipped: null,
         },
       ];
-      await page.route('**/api/status', (route) => {
+      await page.route('**/api/admin/status', (route) => {
         assert.equal(route.request().method(), 'GET');
         return route.fulfill({ json: status });
       });
-      await page.goto('http://localhost:8000');
+      await replayAdminPage(page);
+      await page.goto('http://127.0.0.1:8000/admin');
       await page.locator('.status-panel summary').click();
       await page
         .getByText('Last finished run: 65.4s', { exact: false })

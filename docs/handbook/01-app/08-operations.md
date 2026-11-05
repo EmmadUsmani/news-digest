@@ -2,14 +2,20 @@
 
 ## URLs
 
-All of these are behind the exe.dev login. Reserved `/admin` and `/api/admin`
-paths require [admin identity](01-stack-and-runtime.md#admin-identity); `/api/me` reports access.
-`pnpm obs sources|jobs` reads its local token from the env file for `/api/admin/status`. The handbook and queue browser checkers use the same token for local tool reads, with credentials kept outside Playwright.
-Schedule recovery and schedule/topic/status, AI-spend, coverage, reserve, duration, X-schedule guidance, shared-query, simulated edition-job, news-query/custom-feed/source-connection and topic/account editing/community settings smoke scripts use protected API reads; browser writes and status snapshots are replayed in memory. Shared-query, coverage and X-schedule guidance checks block browser writes and confirm edition immutability; credentials stay outside the browser. General UI, theme, canonical routing, edition-selection, archive-race smoke checks verify saved reader content and navigation with API writes blocked; archive selection/history races cover desktop/mobile light/dark. Saved-story text checks cover all four topics on desktop/mobile in light/dark mode, block API writes and confirm edition immutability. Manual-reserve, scheduled-reserve and duration checks block unexpected API writes and confirm the saved edition is unchanged. X-widget checks replay recorded posts through the reader API, block API writes and confirm the saved edition stays unchanged. Bluesky/Reddit card checks replay synthetic posts through the reader API; they block API writes and use local image fixtures.
+The reader is at `/`. Management controls are at `/admin`, without a reader
+navigation link. Operational APIs use `/api/admin/*`; old API paths return 404.
+`/admin`, its APIs and every tool below require
+[admin identity](01-stack-and-runtime.md#admin-identity). `/api/me` reports access.
+The VM remains private behind exe.dev login.
+Local scripts read `ADMIN_LOCAL_TOKEN` from the private env file and send it only
+to protected paths at `http://127.0.0.1:8000`, refusing redirects. Browser checks
+receive response bodies through Node; credentials never enter Playwright.
+Scenario checks replay writes in memory and compare saved data afterward.
 
 | What               | URL                                                                                      |
 | ------------------ | ---------------------------------------------------------------------------------------- |
-| App + Status page  | https://news-digest.exe.xyz/                                                             |
+| Reader             | https://news-digest.exe.xyz/                                                             |
+| Management         | https://news-digest.exe.xyz/admin                                                        |
 | Health check       | https://news-digest.exe.xyz/healthz                                                      |
 | Handbook           | https://news-digest.exe.xyz/docs/                                                        |
 | DB schema explorer | https://news-digest.exe.xyz/db/                                                          |
@@ -36,16 +42,10 @@ Backups: `~/backups/news-digest/`; [nightly timers and restore](10-backups.md).
 
 ## How to tell if things are healthy
 
-- **The Status page** in the app shows:
-  - each source's last success and errors;
-  - queue state and recent runs, including whether the last edition used
-    AI or the fallback;
-  - per-topic coverage for the last 24 hours;
-  - AI and X spend against their caps.
-- **`/healthz`** returns 200 only when both Postgres and Redis respond. The
-  agent's supervisor checks it after every iteration.
-- **`pnpm obs alerts`** and Grafana cover the rest: see
-  [Observability](09-observability.md).
+- **Status at `/admin`:** source health, queues and recent runs, coverage,
+  AI and X spend.
+- **`/healthz`:** 200 when Postgres and Redis respond; checked by the supervisor.
+- **`pnpm obs alerts`** and [Grafana](09-observability.md) cover the rest.
 
 Read-only checks: `pnpm exec tsx <script>`. Protected API reads use the private local admin token:
 

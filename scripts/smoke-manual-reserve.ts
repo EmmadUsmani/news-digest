@@ -5,6 +5,7 @@ import { operationsStatusSchema, readerEditionSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
 import { localAdminJson } from './lib/local-admin-fetch';
+import { replayAdminPage } from './lib/replay-admin-page';
 
 async function main() {
   const live = operationsStatusSchema.parse(
@@ -37,10 +38,11 @@ async function main() {
         }
         return route.continue();
       });
-      await page.route('**/api/status', (route) =>
+      await page.route('**/api/admin/status', (route) =>
         route.fulfill({ json: live }),
       );
-      await page.goto('http://localhost:8000');
+      await replayAdminPage(page);
+      await page.goto('http://127.0.0.1:8000/admin');
       await page
         .getByRole('button', {
           name: 'Create edition · last 24 hours',
@@ -59,7 +61,7 @@ async function main() {
         limitedByReserve: true,
         otherAvailableMicros: 0,
       });
-      await page.route('**/api/status', (route) =>
+      await page.route('**/api/admin/status', (route) =>
         route.fulfill({ json: synthetic }),
       );
       await page.reload();
@@ -75,15 +77,18 @@ async function main() {
       // Submission refreshes the budget; it must never create a real job.
       synthetic.llm.scheduledReserve.otherAvailableMicros = 1234;
       let submissions = 0;
-      await page.route('**/api/digest-previews/jobs', (route) => {
+      await page.route('**/api/admin/digest-previews/jobs', (route) => {
         assert.equal(route.request().method(), 'POST');
         submissions++;
         return route.fulfill({ json: { id: '999999999' } });
       });
-      await page.route('**/api/digest-previews/jobs/999999999', (route) => {
-        assert.equal(route.request().method(), 'GET');
-        return route.fulfill({ json: { state: 'failed' } });
-      });
+      await page.route(
+        '**/api/admin/digest-previews/jobs/999999999',
+        (route) => {
+          assert.equal(route.request().method(), 'GET');
+          return route.fulfill({ json: { state: 'failed' } });
+        },
+      );
       await page
         .getByRole('button', {
           name: 'Create edition · last 24 hours',
@@ -107,7 +112,7 @@ async function main() {
         .waitFor();
       await page.waitForLoadState('networkidle');
       assert.equal(await notice.count(), 0);
-      await page.route('**/api/status', (route) =>
+      await page.route('**/api/admin/status', (route) =>
         route.fulfill({ status: 503, json: {} }),
       );
       await page.reload();

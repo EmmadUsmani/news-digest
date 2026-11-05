@@ -11,7 +11,23 @@ import {
 import { ScheduleSettings } from './ScheduleSettings';
 import { StatusPanel } from './StatusPanel';
 import { TopicSettings } from './TopicSettings';
-export function App() {
+export function App({ admin = false }: { admin?: boolean }) {
+  return admin ? (
+    <AdminApp />
+  ) : (
+    <main>
+      <header>
+        <a href="/" aria-label="News Digest home">
+          <h1 className="m-0 font-sans text-2xl font-semibold">News Digest</h1>
+        </a>
+        <ThemeToggle />
+      </header>
+      <DigestPreview />
+    </main>
+  );
+}
+
+function AdminApp() {
   const queryClient = useQueryClient();
   const { data: content = [], isError: contentError } = useQuery(contentQuery);
   const { data: topics = [], isError: topicsError } = useQuery(topicsQuery);
@@ -36,7 +52,7 @@ export function App() {
         <p className="intro">
           Your important stories, brought together in one thoughtful digest.
         </p>
-        <DigestPreview />
+        <DigestPreview admin />
         <section className="topics" aria-label="Your topics">
           <p className="eyebrow">YOUR NEWS DESK</p>
           <h2>Incoming from your sources.</h2>

@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 
 import { chromium } from 'playwright';
 
+import { replayToolPage } from './lib/replay-tool-page';
+
 async function main() {
   const browser = await chromium.launch({ headless: true });
   try {
@@ -11,6 +13,7 @@ async function main() {
       ['mobile', 390, 844],
     ] as const) {
       const page = await browser.newPage({ viewport: { width, height } });
+      await replayToolPage(page);
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
       const query = new URLSearchParams({

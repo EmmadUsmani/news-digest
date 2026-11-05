@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { profileSettingsSchema } from '@digest/contracts';
 import { type Job, Queue, QueueEvents } from 'bullmq';
 
+import { localAdminFetch } from '../../../scripts/lib/local-admin-fetch';
 import { database } from '../src/libs/db/connections';
 
 // Explicit synthetic outage probes against the real worker and stored content.
@@ -16,7 +17,9 @@ async function smoke() {
   try {
     await events.waitUntilReady();
     const profile = profileSettingsSchema.parse(
-      await (await fetch('http://localhost:8000/api/profile')).json(),
+      await (
+        await localAdminFetch('http://127.0.0.1:8000/api/admin/profile')
+      ).json(),
     );
     const data = {
       cadence: profile.schedule.cadence,
@@ -64,7 +67,7 @@ async function smoke() {
       ),
     );
     const status = await (
-      await fetch('http://localhost:8000/api/status')
+      await localAdminFetch('http://127.0.0.1:8000/api/admin/status')
     ).json();
     assert.ok(
       status.queues
