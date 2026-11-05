@@ -46,6 +46,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] X card retries (784): reuse the loaded official widget API; only failed script downloads fetch a replacement, verified desktop/mobile without edition writes.
+
 - [x] X embed recovery (783): rejected/empty widgets remove partial markup; late mutations stay detached, saved text/original links remain, retry verified desktop/mobile with no edition writes.
 
 - [x] STEERING 17: reviewed editable account lists active (431), read back 11/10/12/11 on Nov 4.

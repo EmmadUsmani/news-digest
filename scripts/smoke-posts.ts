@@ -198,6 +198,31 @@ async function main() {
         if (mode !== 'success' && mode !== 'live') {
           // A failed shared script must remain retryable without reloading the page.
           allowRetry = true;
+          // Replace only the failed widget method, as a recovered provider would.
+          // A successfully loaded script must not be fetched again for a card retry.
+          if (mode !== 'blocked')
+            await page.evaluate(() => {
+              const api = (
+                window as Window & {
+                  twttr?: {
+                    widgets: {
+                      createTweet: (
+                        id: string,
+                        target: HTMLElement,
+                      ) => Promise<HTMLElement>;
+                    };
+                  };
+                }
+              ).twttr;
+              if (api)
+                api.widgets.createTweet = (id, target) => {
+                  const element = document.createElement('div');
+                  element.dataset.postId = id;
+                  element.textContent = 'Recorded widget protocol stub';
+                  target.append(element);
+                  return Promise.resolve(element);
+                };
+            });
           const card = cards.first();
           await card.scrollIntoViewIfNeeded();
           await card.getByRole('button', { name: 'Retry X media' }).click();
@@ -206,7 +231,11 @@ async function main() {
             .waitFor();
           await card.locator('.saved-post-text').waitFor();
           assert.equal(await card.locator('.post-embed-status').count(), 0);
-          assert.equal(scriptRequests, 2, 'Retry loads one replacement script');
+          assert.equal(
+            scriptRequests,
+            mode === 'blocked' ? 2 : 1,
+            'Only a failed script download needs a replacement script',
+          );
           if (mode === 'hanging') {
             // Expired widget promises may resolve and mutate their old target later.
             await page.evaluate(() => {

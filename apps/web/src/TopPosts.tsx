@@ -17,6 +17,9 @@ type Widgets = {
 };
 let widgetScript: Promise<Widgets> | undefined;
 function loadWidgets(): Promise<Widgets> {
+  const loaded = (window as Window & { twttr?: Widgets }).twttr;
+  if (typeof loaded?.widgets?.createTweet === 'function')
+    return Promise.resolve(loaded);
   widgetScript ??= new Promise((resolve, reject) => {
     const script = document.createElement('script');
     script.src = 'https://platform.twitter.com/widgets.js';

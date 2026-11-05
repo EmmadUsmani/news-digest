@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 769 — recover malformed legacy edition links
-
-- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Two historical ingestion failures remain while current collection succeeds.
-- Malformed legacy `?edition=` links now show Page not found before app/API loading, including empty and numeric values. Valid legacy links still redirect to the saved edition and preserve their section anchor.
-- `pnpm exec tsx scripts/smoke-invalid-edition.ts` passed six malformed paths, home recovery and valid legacy redirects on desktop/mobile light/dark; zero invalid-page API reads, no writes/browser errors, saved edition unchanged. Four screenshots refreshed with identical output; mobile dark inspected.
-- TASKS updated; archived iteration 753. SOURCES/NEEDS_FROM_HUMAN unchanged; no source changes or new blockers. No paid calls, stored-edition writes, generation/config/schema or model/provider changes. API restarted for the web build; health green.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, zero failures); pnpm build; git diff --check. Initial browser launch raced API startup (ECONNREFUSED); rerun after healthy startup passed.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; owner identity configuration and proxy verification still block admin rollout.
-
 ## 2026-11-05: iteration 770 — missing saved-edition recovery
 
 - Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; API/worker/docs/schema active. Scheduled Nov 5 review still due at 15:00 UTC.
@@ -137,3 +128,13 @@
 - Verification: pnpm exec tsx scripts/smoke-posts.ts /tmp/783-posts.jsonl; pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check. Static checks and 497 unit tests passed; full check was interrupted with exit 143 during integration (no failing test). `pnpm test:integration` rerun passed 214/214 (exit 0); build/diff checks and post-restart smoke-admin-gate.ts passed.
 - TASKS updated; archived iteration 768. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. Existing proxy connectivity check still fails (curl 7); identity configuration/proxy verification remain required for admin rollout.
 - API restarted after web build; health green and all four services active. No paid calls, stored-edition writes, config/schema or model/provider changes. Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; fallback investigation before scorer. X rounds after 21:00 UTC Nov 5/6.
+
+## 2026-11-05: iteration 784 — reuse loaded X widgets on card retry
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, 36 sources healthy and no failed retained jobs. Four services active; next edition 15:00 UTC.
+- X card retries now reuse an already loaded official widget API instead of fetching widgets.js again. Failed script downloads still load a replacement on manual retry.
+- Read-only desktop/mobile Playwright replay passed success, blocked script, widget timeout, rejection and empty-result recovery. Failed cards reuse one script; blocked downloads fetch a replacement. Saved text/links remain, no overflow/page errors, saved edition unchanged. No live provider calls.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-posts.ts /tmp/783-posts.jsonl; smoke-admin-gate.ts; git diff --check. Static checks, 497 unit/214 isolated integration tests, build and both browser/gate checks passed. Initial replay-stub lint error corrected before rerun.
+- TASKS updated; archived iteration 769. Regenerated screenshots discarded because appearance is unchanged. No handbook/source changes or new human blockers.
+- API restarted after web build; final health green and all four services active. No paid calls, stored-edition writes, config/schema or model/provider changes.
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6. Identity configuration/proxy verification still block admin rollout.
