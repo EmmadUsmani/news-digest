@@ -259,9 +259,14 @@ function TopicEditor({ topic }: { topic: Topic }) {
                 defaultValue={topic.accounts.join('\n')}
               />
             </label>
-            <p className="m-0 text-sm text-[var(--secondary)]">
+            <p
+              id="x-accounts-help"
+              className="m-0 text-sm text-[var(--secondary)]"
+            >
               Up to 20 unique handles, one per line. @ is optional. These
-              support secondary searches; saving does not start a search.
+              support secondary searches within shared spending caps. Scheduled
+              X search is off pending the experiment decision; saving does not
+              start a search.
             </p>
             <label className="grid gap-1 text-sm">
               Reddit communities

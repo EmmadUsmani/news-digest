@@ -310,18 +310,11 @@ async function smoke() {
       await form.screenshot({
         path: `docs/screenshots/schedule-${device}.png`,
       });
-      await page.goto(`${base}/admin`);
+      await page.goto(`${base}/admin/topics`);
       await page
-        .getByText('Edition and management controls', { exact: true })
+        .getByRole('button', { name: 'New topic', exact: true })
         .click();
-      await page.getByText('Manage topics', { exact: true }).click();
-      await page
-        .getByRole('button', { name: 'Create topic', exact: true })
-        .click();
-      const create = page.getByRole('form', {
-        name: 'Create topic',
-        exact: true,
-      });
+      const create = page.getByRole('dialog');
       assert.equal(
         await create.getByLabel('Story budget', { exact: true }).inputValue(),
         '3',

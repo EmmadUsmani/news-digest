@@ -51,6 +51,8 @@ async function main() {
         const path = new URL(route.request().url()).pathname;
         if (path === '/api/admin/topics')
           return route.fulfill({ json: topics });
+        if (path === '/api/admin/topics/sources')
+          return route.fulfill({ json: await localAdminJson(path) });
         if (path === '/api/admin/status')
           return route.fulfill({ json: status });
         return route.fallback();
@@ -62,17 +64,14 @@ async function main() {
         .click();
       await page.getByText('Source & run status', { exact: true }).click();
       // Budget figures now live on /admin/spend; covered by smoke-admin-spend.
-      await page.getByText('Manage topics', { exact: true }).click();
-      await page
-        .getByRole('button', { name: 'Edit Tech & AI', exact: true })
-        .click();
+      await page.goto(
+        `http://127.0.0.1:8000/admin/topics/${topics.find((topic) => topic.name === 'Tech & AI')!.id}`,
+      );
       const help = page.locator('#x-accounts-help');
       await help
         .getByText('support secondary searches', { exact: false })
         .waitFor();
-      assert.ok(
-        (await help.innerText()).includes('within the shared spending caps'),
-      );
+      assert.ok((await help.innerText()).includes('shared spending caps'));
       await help.scrollIntoViewIfNeeded();
       await page.screenshot({
         path: `docs/screenshots/topic-x-schedule-${name}.png`,

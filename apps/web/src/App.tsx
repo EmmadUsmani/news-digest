@@ -1,17 +1,12 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
+import { Link } from '@tanstack/react-router';
 import { useState } from 'react';
 
 import { AdminOverview } from './AdminOverview';
 import { ThemeToggle } from './components/theme-toggle';
 import { DigestPreview } from './DigestPreview';
-import {
-  contentQuery,
-  healthQuery,
-  profileQuery,
-  topicsQuery,
-} from './queries';
+import { contentQuery, healthQuery, topicsQuery } from './queries';
 import { StatusPanel } from './StatusPanel';
-import { TopicSettings } from './TopicSettings';
 export function App({ admin = false }: { admin?: boolean }) {
   return admin ? (
     <AdminApp />
@@ -45,12 +40,10 @@ function AdminApp() {
 }
 
 function LegacyAdminControls() {
-  const queryClient = useQueryClient();
   const { data: content = [], isError: contentError } = useQuery(contentQuery);
   const { data: topics = [], isError: topicsError } = useQuery(topicsQuery);
-  const { data: profile, isError: profileError } = useQuery(profileQuery);
   const { data: health, isError: healthError } = useQuery(healthQuery);
-  const settingsError = topicsError || profileError;
+  const settingsError = topicsError;
   return (
     <div>
       <section>
@@ -63,30 +56,9 @@ function LegacyAdminControls() {
             </p>
           ) : (
             <>
-              <TopicSettings
-                defaults={profile?.schedule}
-                topics={topics}
-                onReordered={(saved) => {
-                  queryClient.setQueryData(topicsQuery.queryKey, saved);
-                  void queryClient.invalidateQueries({
-                    queryKey: contentQuery.queryKey,
-                  });
-                }}
-                onSaved={(saved) => {
-                  queryClient.setQueryData(
-                    topicsQuery.queryKey,
-                    (current = []) =>
-                      current.some((topic) => topic.id === saved.id)
-                        ? current.map((topic) =>
-                            topic.id === saved.id ? saved : topic,
-                          )
-                        : [...current, saved],
-                  );
-                  void queryClient.invalidateQueries({
-                    queryKey: contentQuery.queryKey,
-                  });
-                }}
-              />
+              <p>
+                <Link to="/admin/topics">Manage topics and sources</Link>
+              </p>
               <div className="topic-grid">
                 {topics
                   .filter((t) => t.enabled)
@@ -135,7 +107,7 @@ function LegacyAdminControls() {
                           <p>
                             {t.sources.length
                               ? 'Waiting for source collection.'
-                              : 'No sources connected yet. Choose Sources in Manage topics.'}
+                              : 'No sources connected yet. Open Topics to connect sources.'}
                           </p>
                         )
                       )}

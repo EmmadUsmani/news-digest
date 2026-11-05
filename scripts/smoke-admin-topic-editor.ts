@@ -215,6 +215,9 @@ async function smoke() {
         await context.close();
       }
     }
+    const after = await localAdminFetch(`${origin}/api/admin/topics`);
+    assert.equal(after.status, 200);
+    assert.deepEqual(await after.json(), topics);
     console.log(
       'Topic editor: saved data, intercepted settings/sources/feed/query/delete, reload and desktop/mobile light/dark screenshots passed.',
     );

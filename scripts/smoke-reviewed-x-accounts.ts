@@ -9,7 +9,7 @@ import { localAdminJson } from './lib/local-admin-fetch';
 import { replayAdminPage } from './lib/replay-admin-page';
 
 async function main() {
-  const base = 'http://localhost:8000';
+  const base = 'http://127.0.0.1:8000';
   const source = await readFile('docs/SOURCES.md', 'utf8');
   const reviewed = [...source.matchAll(/^- \*\*(.+?) \((\d+)\):\*\* (.+)$/gm)]
     .slice(0, 4)
@@ -31,6 +31,12 @@ async function main() {
       assert.equal(route.request().method(), 'GET');
       await route.fulfill({ json: topics });
     });
+    await context.route('**/api/admin/topics/sources', async (route) => {
+      assert.equal(route.request().method(), 'GET');
+      await route.fulfill({
+        json: await localAdminJson('/api/admin/topics/sources'),
+      });
+    });
     for (const [device, width, height] of [
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
@@ -46,17 +52,9 @@ async function main() {
           review.accounts,
         );
         await replayAdminPage(page);
-        await page.goto(`${base}/admin`);
-        await page.getByText('Manage topics', { exact: true }).click();
-        await page
-          .getByRole('button', { name: `Edit ${review.name}`, exact: true })
-          .click();
-        const handles = page
-          .getByRole('form', { name: `Edit ${review.name}`, exact: true })
-          .getByRole('textbox', {
-            name: 'X accounts · one handle per line',
-            exact: true,
-          });
+        const topic = topics.find((item) => item.name === review.name)!;
+        await page.goto(`${base}/admin/topics/${topic.id}`);
+        const handles = page.getByLabel('X accounts', { exact: true });
         assert.equal(await handles.inputValue(), review.accounts.join('\n'));
         await handles.scrollIntoViewIfNeeded();
         assert.equal(

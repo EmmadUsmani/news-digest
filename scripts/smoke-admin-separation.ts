@@ -95,6 +95,20 @@ async function smoke() {
         await page
           .getByRole('heading', { name: 'Incoming from your sources.' })
           .waitFor();
+        assert.equal(
+          await page.getByText('Manage topics', { exact: true }).count(),
+          0,
+        );
+        await page
+          .getByRole('link', { name: 'Manage topics and sources', exact: true })
+          .waitFor();
+        assert.equal(
+          await page.getByRole('button', { name: /^Edit Tech/ }).count(),
+          0,
+        );
+        await page
+          .getByRole('link', { name: 'Manage topics and sources', exact: true })
+          .scrollIntoViewIfNeeded();
         await page.screenshot({
           path: `docs/screenshots/ui/admin-split-controls-${device}-${theme}.png`,
         });
