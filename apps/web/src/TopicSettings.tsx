@@ -27,6 +27,21 @@ export function TopicSettings({
   const deleteTrigger = React.useRef<HTMLButtonElement | null>(null);
   const keepTopic = React.useRef<HTMLButtonElement>(null);
   const createTopic = React.useRef<HTMLButtonElement>(null);
+  const editTrigger = React.useRef<HTMLButtonElement | null>(null);
+  const topicName = React.useRef<HTMLInputElement>(null);
+  React.useEffect(() => {
+    if (editing) topicName.current?.focus();
+  }, [editing]);
+  React.useEffect(() => {
+    if (editing || busy || !editTrigger.current) return;
+    if (!sourceTopic && !deleting) {
+      const target = editTrigger.current.isConnected
+        ? editTrigger.current
+        : createTopic.current;
+      target?.focus();
+    }
+    editTrigger.current = null;
+  }, [editing, busy, sourceTopic, deleting]);
   React.useEffect(() => {
     if (busy) return;
     if (deleting) {
@@ -218,7 +233,8 @@ export function TopicSettings({
         type="button"
         disabled={busy}
         ref={createTopic}
-        onClick={() => {
+        onClick={(event) => {
+          editTrigger.current = event.currentTarget;
           setEditing({
             id: '',
             profileId: '',
@@ -273,7 +289,8 @@ export function TopicSettings({
             <button
               type="button"
               disabled={busy}
-              onClick={() => {
+              onClick={(event) => {
+                editTrigger.current = event.currentTarget;
                 setEditing(topic);
                 setMessage('');
               }}
@@ -354,6 +371,7 @@ export function TopicSettings({
             <label>
               Name
               <input
+                ref={topicName}
                 name="name"
                 defaultValue={editing.name}
                 required

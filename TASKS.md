@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Topic editor keyboard navigation (840): Create/Edit focus the Name field; Cancel and successful save restore the opener. Desktop/mobile replays verify focus, Enter reopening and existing failure recovery; focus screenshots inspected.
+
 - [x] Topic deletion keyboard navigation (839): confirmation focuses Keep topic; cancellation restores Delete and successful removal focuses Create topic. Desktop/mobile replay covers safe focus, keyboard cancel/reopen and failure recovery.
 
 - [x] Source catalog accessibility (838): checkboxes name their source; feed links name the source and new tab. Desktop/mobile keyboard replay verifies Tab order and unchanged selection.

@@ -106,6 +106,27 @@ async function smoke() {
         name: `Edit ${original.name}`,
         exact: true,
       });
+      const nameInput = form.getByLabel('Name', { exact: true });
+      assert.ok(
+        await nameInput.evaluate((input) => input === document.activeElement),
+      );
+      await form.getByRole('button', { name: 'Cancel', exact: true }).click();
+      const editTrigger = page.getByRole('button', {
+        name: `Edit ${original.name}`,
+        exact: true,
+      });
+      assert.ok(
+        await editTrigger.evaluate(
+          (button) => button === document.activeElement,
+        ),
+      );
+      await page.keyboard.press('Enter');
+      assert.ok(
+        await nameInput.evaluate((input) => input === document.activeElement),
+      );
+      await page.locator('.topic-settings').screenshot({
+        path: `docs/screenshots/ui/topic-edit-focus-${name}.png`,
+      });
       await form
         .getByLabel('Name', { exact: true })
         .fill('Tech settings verification');
@@ -261,6 +282,14 @@ async function smoke() {
         .getByRole('status')
         .filter({ hasText: 'Saved Tech settings verification.' })
         .waitFor();
+      assert.ok(
+        await page
+          .getByRole('button', {
+            name: 'Edit Tech settings verification',
+            exact: true,
+          })
+          .evaluate((button) => button === document.activeElement),
+      );
       assert.equal(
         await page.locator('.topic-grid article').count(),
         topics.filter((topic) => topic.enabled && topic.id !== original.id)

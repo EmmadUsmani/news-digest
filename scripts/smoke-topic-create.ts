@@ -120,6 +120,27 @@ async function smoke() {
         name: 'Create topic',
         exact: true,
       });
+      const nameInput = form.getByLabel('Name', { exact: true });
+      assert.ok(
+        await nameInput.evaluate((input) => input === document.activeElement),
+      );
+      await form.getByRole('button', { name: 'Cancel', exact: true }).click();
+      const createTrigger = page.getByRole('button', {
+        name: 'Create topic',
+        exact: true,
+      });
+      assert.ok(
+        await createTrigger.evaluate(
+          (button) => button === document.activeElement,
+        ),
+      );
+      await page.keyboard.press('Enter');
+      assert.ok(
+        await nameInput.evaluate((input) => input === document.activeElement),
+      );
+      await page.locator('.topic-settings').screenshot({
+        path: `docs/screenshots/ui/topic-create-focus-${device}.png`,
+      });
       await form
         .getByText('New topics start without source connections.', {
           exact: false,
@@ -197,6 +218,11 @@ async function smoke() {
         .getByRole('status')
         .filter({ hasText: `Saved ${saved.name}.` })
         .waitFor();
+      assert.ok(
+        await createTrigger.evaluate(
+          (button) => button === document.activeElement,
+        ),
+      );
       await page
         .locator('.topic-grid')
         .getByRole('heading', { name: saved.name, exact: true })

@@ -123,3 +123,13 @@
 - Rebuilt API restarted; latest reader edition has four topics, health green and alerts clear. Worker/schedule unchanged; no paid calls or live data writes.
 - TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (keyboard navigation fix, no new blocker).
 - Next FIRST: 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 840 — topic editor keyboard focus
+
+- Started clean on main; no leftover work. Health/database/Redis green, all 36 sources healthy and alerts clear; Nov 5 scheduled review remains due at 15:00 UTC.
+- Opening Create/Edit focuses Name; Cancel and successful save restore the opener. Closing the editor for Sources/Delete preserves those flows' focus handling.
+- Desktop/mobile creation and editing replays verify initial focus, Cancel, Enter reopening, successful-save focus and existing failure/timeout recovery. Four new focus screenshots inspected; unrelated regenerated images discarded.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit/214 isolated integration passed); smoke-topic-create.ts, smoke-topics.ts and smoke-admin-gate.ts exit 0; git diff --check.
+- Rebuilt API restarted; health green and latest reader edition has four topics. An immediate status read raced startup (ECONNREFUSED); subsequent health and protected reads passed. Worker/schedule unchanged; no paid calls or live data writes.
+- TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (keyboard navigation fix, no new blocker).
+- Next FIRST: 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
