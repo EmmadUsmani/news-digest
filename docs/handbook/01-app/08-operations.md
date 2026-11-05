@@ -41,7 +41,7 @@ Backups: `~/backups/news-digest/`; [nightly timers and restore](10-backups.md).
 
 - **New edition at `/admin/editions/new`:** choose 6 h, 24 h, 7 d or a custom window; uses AI budget, shows topic progress and links to the saved result.
 - **Editions at `/admin/editions`:** saved windows, per-topic story/post modes and retained job type, attempts and final-attempt duration; open an edition for recorded AI cost and unresolved holds by model/purpose, inspect topic stories, scores, selection reasons, grouping and source evidence, browse retained articles published in the window (up to 500 per topic, using current source connections), or view it as a reader.
-- **Topics at `/admin/topics`:** drag or arrow ordering, enable controls, story/post budgets and New topic dialog. Full guidance and source settings remain on Overview.
+- **Topics at `/admin/topics`:** drag or arrow ordering, enable controls, story/post budgets and New topic dialog. Open a topic for guidance, budgets, phrase filters, X accounts, Reddit communities, connected feeds and news queries, or deletion.
 - **Schedule at `/admin/schedule`:** next run, daily local time, timezone, coverage and default topic budgets.
 - **Sources at `/admin/sources`:** collection health, timestamps, last-response/stored counts and platform status.
 - **Overview at `/admin`:** health, daily spend, latest edition, source issues and next runs.

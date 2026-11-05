@@ -16,6 +16,7 @@ import { AdminNewEdition } from './AdminNewEdition';
 import { AdminSchedule } from './AdminSchedule';
 import { AdminSources } from './AdminSources';
 import { AdminSpend } from './AdminSpend';
+import { AdminTopicEditor } from './AdminTopicEditor';
 import { AdminTopics } from './AdminTopics';
 import { App } from './App';
 import {
@@ -134,6 +135,15 @@ const adminTopicsRoute = createRoute({
   component: AdminTopics,
 });
 
+const adminTopicEditorRoute = createRoute({
+  getParentRoute: () => adminRoute,
+  path: '/topics/$id',
+  beforeLoad: ({ params }) => {
+    if (!z.string().uuid().safeParse(params.id).success) throw notFound();
+  },
+  component: AdminTopicEditor,
+});
+
 const adminScheduleRoute = createRoute({
   getParentRoute: () => adminRoute,
   path: '/schedule',
@@ -175,6 +185,7 @@ export const router = createRouter({
       adminNewEditionRoute,
       adminSourcesRoute,
       adminTopicsRoute,
+      adminTopicEditorRoute,
       adminScheduleRoute,
       adminSpendRoute,
       adminToolsRoute,

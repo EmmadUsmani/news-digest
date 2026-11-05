@@ -1,6 +1,7 @@
 import { type Topic, topicSchema, topicUpdateSchema } from '@digest/contracts';
 import * as Dialog from '@radix-ui/react-dialog';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { Link } from '@tanstack/react-router';
 import { ArrowDown, ArrowUp, GripVertical } from 'lucide-react';
 import { useState } from 'react';
 
@@ -105,8 +106,8 @@ export function AdminTopics() {
                 New topic
               </Dialog.Title>
               <Dialog.Description className="text-sm">
-                Create a topic, then connect sources using the topic settings on
-                Overview.
+                Create a topic, then open it to connect sources and set
+                guidance.
               </Dialog.Description>
               <form
                 onSubmit={(event) => {
@@ -208,7 +209,13 @@ export function AdminTopics() {
               />
               <div className="min-w-0 basis-[calc(100%-3rem)] sm:basis-0 sm:flex-1">
                 <h2 className="m-0 font-sans text-base font-semibold">
-                  {topic.name}
+                  <Link
+                    to="/admin/topics/$id"
+                    params={{ id: topic.id }}
+                    className="underline decoration-transparent hover:decoration-current"
+                  >
+                    {topic.name}
+                  </Link>
                 </h2>
                 <p className="mb-0 line-clamp-2 text-sm text-[var(--secondary)]">
                   {topic.description}
