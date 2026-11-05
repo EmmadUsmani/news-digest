@@ -3,6 +3,7 @@ import { Queue, Worker } from 'bullmq';
 import { database } from './libs/db/connections';
 import { logger, logJob } from './libs/observability/logging';
 import { PostgresScheduledBudgetRepository } from './modules/curation/database/scheduled-budget.repository';
+import { reconcileFailedOnDemandJob } from './modules/digests/adapters/failed-edition-job';
 import { generateOnDemandEdition } from './modules/digests/application/on-demand-edition';
 import { PostgresEditionJobFailures } from './modules/digests/database/edition-job-failures';
 import { PostgresPreviewRepository } from './modules/digests/database/preview.repository';
@@ -104,8 +105,10 @@ export function startScheduledDigests() {
       );
       // Recover final stalls even if the failed event occurred during downtime.
       // Retention is capped at 100 jobs by this queue's scheduler options.
-      for (const job of await queue.getJobs(['failed'], 0, 99))
+      for (const job of await queue.getJobs(['failed'], 0, 99)) {
+        await reconcileFailedOnDemandJob(failures, job);
         await reconcileFailedScheduledJob(budgets, profile.id, job);
+      }
       await queue.upsertJobScheduler(
         `profile-${profile.id}`,
         { pattern: profile.schedule.cadence, tz: profile.schedule.timezone },

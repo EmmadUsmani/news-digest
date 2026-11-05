@@ -5,6 +5,7 @@ import { type DigestPreview } from '@digest/contracts';
 import { Worker } from 'bullmq';
 
 import { BullEditionJobs } from '../src/modules/digests/adapters/edition-jobs';
+import { reconcileFailedOnDemandJob } from '../src/modules/digests/adapters/failed-edition-job';
 import { generateOnDemandEdition } from '../src/modules/digests/application/on-demand-edition';
 import { PostgresEditionJobFailures } from '../src/modules/digests/database/edition-job-failures';
 import { PreviewController } from '../src/modules/digests/digests.module';
@@ -211,6 +212,16 @@ void test('async edition requests dedupe while active, publish once and allow la
       assert.equal(status.editionId, null);
       assert.equal(status.error, 'Edition generation failed. Try again later.');
       assert.equal(JSON.stringify(status).includes('private'), false);
+      // This worker bypasses the application catch, as a terminal stall does.
+      assert.equal(await failures.find(failed.id), null);
+      const failedJob = (await jobs.queue.getJob(failed.id))!;
+      await reconcileFailedOnDemandJob(failures, failedJob);
+      await reconcileFailedOnDemandJob(failures, failedJob);
+      await failedJob.remove();
+      const recovered = await controller.job(failed.id);
+      assert.equal(recovered.state, 'failed');
+      assert.equal(recovered.durationMs, status.durationMs);
+      assert.equal(recovered.error, status.error);
       const retried = await controller.enqueue(request);
       assert.notEqual(retried.id, failed.id);
       await waitFor(retried.id, 'failed');

@@ -8,16 +8,6 @@
 - TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (keyboard focus fix, no new blocker).
 - Next FIRST: 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
 
-## 2026-11-05: iteration 843 — preserve source-save keyboard focus
-
-- Started clean on main; no leftover work. Health/database/Redis green and alerts clear; Nov 5 scheduled review remains due at 15:00 UTC.
-- Save sources restores focus after success, rejected saves and timeout so keyboard users can continue or retry.
-- Updated source-selection replay for current checkbox accessible names; desktop/mobile verifies Enter retry, saved focus, timeout recovery and unchanged live topics/profile/edition. Two focused-button screenshots inspected; unrelated regenerated images discarded.
-- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit/214 isolated integration passed); smoke-topic-sources.ts and smoke-admin-gate.ts exit 0; git diff --check. Initial browser attempt preceded the rebuilt bundle; rerun against completed build passed.
-- Static web build served directly by healthy API; no service runtime code changed, so no restart under STEERING 22. Worker and scheduled edition untouched; no paid calls or live writes.
-- TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (keyboard fix, no new blocker).
-- Next FIRST: 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-
 ## 2026-11-05: iteration 844 — preserve schedule-save keyboard focus
 
 - Started clean on main; no leftover work. Alerts clear and health/database/Redis green; scheduled Nov 5 review remains due at 15:00 UTC.
@@ -155,3 +145,13 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (499 unit/215 isolated integration passed); pnpm build; check-handbook.ts 03-jobs-and-schedules (18 pages/2 diagrams, 27 tables); smoke-admin-gate.ts; git diff --check; /healthz; obs alerts.
 - API/worker restarted healthy; saved Nov 5 edition byte-identical and alerts clear. Jobs handbook/TASKS updated; archived oldest progress entry to stay under 25 KB. SOURCES, screenshots and NEEDS_FROM_HUMAN unchanged.
 - Next: X fresh-window rounds after 21:00 UTC Nov 5/6, editor-v5 evidence Nov 6; unfinished/stalled job history and admin identity/proxy rollout remain open.
+
+## 2026-11-05: iteration 857 — reconcile retained on-demand failures
+
+- Started clean on main; no leftover work. Alerts clear, 36 sources healthy, health green; X rounds await 21:00 UTC and admin rollout awaits owner identity/proxy evidence.
+- Worker startup/10-second refresh now persists retained failed on-demand jobs, including terminal stalls outside the generation catch. Rechecks state, ignores unrelated/retried/incomplete jobs, stores duration only and uses existing idempotent history.
+- Isolated queue test bypasses application error handling, reconciles twice, removes the Redis job and recovers generic failed status/duration from its original link. Unit coverage checks guards and DB error propagation. No actual process-kill/stall experiment performed.
+- Jobs pruned before scanning, queued/active jobs lost with Redis, and unavailable DB history remain limitations. Updated Jobs handbook/TASKS; archived oldest progress entry.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (500 unit/215 isolated integration passed); pnpm build; check-handbook.ts 03-jobs-and-schedules (18 pages/2 diagrams, 27 tables); git diff --check; smoke-admin-gate.ts (startup race failed, rerun passed).
+- API/worker restarted active; /healthz OK, saved edition byte-identical, all 36 sources healthy and alerts clear. No paid calls, UI/schema/source/budget changes; SOURCES, screenshots and NEEDS_FROM_HUMAN unchanged.
+- Next: X fresh-window rounds after 21:00 UTC Nov 5/6; editor-v5 evidence Nov 6. Unfinished durable history and admin identity/proxy rollout remain open.
