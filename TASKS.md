@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Topic creation recovery (821): interrupted creation warns about duplicates; desktop/mobile replay recovers one saved topic on reload without another POST.
+
 - [x] Topic settings recovery (820): interrupted saves explain possible completion; desktop/mobile lost-response replay recovers saved X accounts on reload without another write.
 
 - [x] Metrics memory recovery (819): reclaim filesystem cache at 88 MiB below the unchanged 112 MiB ceiling; runtime O4 verifies both limits.

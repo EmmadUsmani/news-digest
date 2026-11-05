@@ -175,9 +175,11 @@ export function TopicSettings({
       );
     } catch {
       setMessage(
-        receivedResponse
-          ? 'Could not confirm whether topic settings were saved. Your changes are still here; reload to check saved topics before trying again.'
-          : 'The connection was interrupted. Topic settings may have been saved. Your changes are still here; reload to check saved topics before trying again.',
+        !editing.id
+          ? 'Could not confirm topic creation. The topic may already exist. Your entries are still here; reload to check saved topics before trying again to avoid creating a duplicate.'
+          : receivedResponse
+            ? 'Could not confirm whether topic settings were saved. Your changes are still here; reload to check saved topics before trying again.'
+            : 'The connection was interrupted. Topic settings may have been saved. Your changes are still here; reload to check saved topics before trying again.',
       );
     } finally {
       setBusy(false);

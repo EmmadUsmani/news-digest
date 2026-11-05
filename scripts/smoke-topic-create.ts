@@ -39,6 +39,7 @@ async function smoke() {
   let creates = 0;
   let attempts = 0;
   let failCreate = false;
+  let loseResponse = false;
   // Browser writes stay in memory; protected Node requests below only read live state.
   await context.route('**/*', async (route) => {
     const request = route.request();
@@ -67,6 +68,7 @@ async function smoke() {
       });
       replayTopics.push(saved);
       creates++;
+      if (loseResponse) return route.abort('connectionreset');
       await route.fulfill({ status: 201, json: saved });
       return;
     }
@@ -123,7 +125,7 @@ async function smoke() {
         .click();
       assert.equal(
         creates,
-        device === 'desktop' ? 0 : 1,
+        device === 'desktop' ? 0 : 2,
         'Required validation must prevent a replayed creation request',
       );
       await form
@@ -178,7 +180,7 @@ async function smoke() {
       const response = await responsePromise;
       assert.equal(response.status(), 201);
       const saved = topicSchema.parse(await response.json());
-      assert.equal(creates, device === 'desktop' ? 1 : 2);
+      assert.equal(creates, device === 'desktop' ? 1 : 3);
       assert.equal(saved.position, original.length);
       assert.deepEqual(saved.sources, []);
       assert.deepEqual(saved.relevancePolicy.includeAny, [
@@ -211,6 +213,56 @@ async function smoke() {
         ),
         true,
       );
+      // A completed creation with a lost response must recover without a second POST.
+      await page.getByText('Manage topics', { exact: true }).click();
+      await page
+        .getByRole('button', { name: 'Create topic', exact: true })
+        .click();
+      const interruptedName = `Interrupted creation ${device}`;
+      await form.getByLabel('Name', { exact: true }).fill(interruptedName);
+      await form
+        .getByLabel('Description', { exact: true })
+        .fill('Keep these entries until saved topics are checked.');
+      const beforeInterrupted = attempts;
+      const beforeCreated = Number(creates);
+      loseResponse = true;
+      await form
+        .getByRole('button', { name: 'Create topic', exact: true })
+        .click();
+      await page
+        .getByRole('status')
+        .filter({ hasText: 'Could not confirm topic creation.' })
+        .waitFor();
+      await page
+        .getByRole('status')
+        .filter({ hasText: 'avoid creating a duplicate' })
+        .waitFor();
+      assert.equal(attempts, beforeInterrupted + 1);
+      assert.equal(creates, beforeCreated + 1);
+      assert.equal(
+        await form.getByLabel('Name', { exact: true }).inputValue(),
+        interruptedName,
+      );
+      assert.equal(
+        await form.getByLabel('Description', { exact: true }).inputValue(),
+        'Keep these entries until saved topics are checked.',
+      );
+      await page.locator('.topic-settings').screenshot({
+        path: `docs/screenshots/ui/topic-create-interrupted-${device}.png`,
+      });
+      await page.reload();
+      const recovered = page
+        .locator('.topic-grid')
+        .getByRole('heading', { name: interruptedName, exact: true });
+      await recovered.waitFor();
+      assert.equal(await recovered.count(), 1);
+      assert.equal(
+        attempts,
+        beforeInterrupted + 1,
+        'Reload must not repeat creation',
+      );
+      assert.equal(creates, beforeCreated + 1);
+      loseResponse = false;
       // Replay checks browser behavior; server behavior belongs to isolated API tests.
       replayTopics.splice(original.length);
       assert.deepEqual(errors, []);
@@ -219,7 +271,7 @@ async function smoke() {
     assert.deepEqual(credentials, []);
     assert.deepEqual(unexpectedWrites, []);
     console.log(
-      'Topic creation desktop/mobile: browser-only failed-create/retry/reload, required validation, source-less state and order passed; live topics/editions unchanged',
+      'Topic creation desktop/mobile: browser-only failed-create/retry and completed-create/lost-response/reload without duplicate, required validation, source-less state and order passed; live topics/editions unchanged',
     );
   } finally {
     assert.deepEqual(
