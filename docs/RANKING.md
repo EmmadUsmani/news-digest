@@ -7,9 +7,14 @@ using the evaluated same-story prompt and the shared Haiku budget ledger.
 The recorded sample passed: frozen-label precision 141/141, recall 141/157;
 supplemental review found zero clearly unrelated and one borderline pair among
 155 merges. This is agent-reviewed sample evidence, not general accuracy.
-Nov 4 has been checked; Nov 5 activation and screenshots remain the next step.
-Production still keeps articles separate. Wording matchers remain removed;
+Production grouping was enabled for Nov 5; four published multi-article
+groups were reviewed without a clearly unrelated merge. See the
+[Nov 5 review](edition-reviews/2026-11-05.md). Wording matchers remain removed;
 canonical-URL ingestion dedupe continues.
+Editor v5 (850) applies the same-story definition to summary composition and
+supporting evidence: separate developments need separate slots or are omitted.
+This responds to the saved Tech chip-access combination; its model-quality
+outcome awaits a scheduled edition, with no paid verification call.
 The iteration sections below record historical experiments and superseded states.
 
 `signals-v1` is a preliminary baseline, not an editorial quality claim.

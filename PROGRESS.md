@@ -177,3 +177,14 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (498 unit/214 isolated integration passed); pnpm build; git diff --check; pnpm obs alerts/health/sources and filtered jobs. Jobs --check cannot combine filters; corrected query confirmed zero failures.
 - No UI/runtime/config change; no restart under STEERING 22. SOURCES, handbook and NEEDS_FROM_HUMAN unchanged (no source/system change or new owner blocker).
 - Next: correct Tech editorial composition using saved evidence; X fresh-window rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 850 — keep separate developments out of one edited story
+
+- Started clean on main; no leftover work. Alerts/health green, all 36 sources healthy, digest-generation queue zero failures.
+- Corrected the actual Nov 5 Tech composition issue in editor v5 instructions: one news story per summary/evidence set; direct follow-ups/reactions/consequences allowed, shared people/company/theme insufficient. Separate developments need separate slots or omission within budget. No wording-based grouping code.
+- New prompt/purpose changes cache identity. Golden purpose assertions updated; authored synthetic publication replay fingerprint refreshed for the changed prompt, response and golden snapshot unchanged. No provider recording or paid call.
+- Initial pnpm check passed 498 unit but failed one of 214 integration tests on the stale replay fingerprint; reconstructed its old request fingerprint exactly before updating. A standalone diagnostic was refused by the isolation guard; no DB access. Final pnpm check passes 498 unit/214 isolated integration.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; filtered check-handbook.ts 04-edition-pipeline; smoke-admin-gate.ts; git diff --check; obs alerts/health/sources/jobs and /healthz. Corrected unsupported jobs help/queue options to digest-generation.
+- Updated TASKS, edition review, RANKING current state and affected handbook prose; no diagram/UI/source/schema change. SOURCES and NEEDS_FROM_HUMAN unchanged.
+- API/worker restarted healthy; Nov 5 edition GET byte-identical before/after deployment. No snapshot writes, generation or search activation. Prompt quality awaits the next scheduled edition.
+- Next: X fresh-window keyword/semantic rounds after 21:00 UTC Nov 5/6; scheduled composition verification Nov 6. Pending admin identity/proxy work remains open.

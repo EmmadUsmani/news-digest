@@ -53,6 +53,9 @@ flowchart TB
   topic uses non-AI ranking. The edition still publishes, and the snapshot
   records why. Reader stories show the saved article text when no AI summary
   exists, with no mode label.
+- **Story composition:** the editor keeps separate developments in separate
+  stories. Direct follow-ups, reactions and consequences can share a story;
+  a shared company or theme alone is insufficient.
 - **Validation:** AI output is schema-checked. Stories the model returns that
   aren't backed by a real candidate are rejected.
 - **Progress:** on-demand jobs report the stage of each topic (triage →
