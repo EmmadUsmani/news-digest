@@ -1,13 +1,3 @@
-## 2026-11-05: iteration 739 — protected probe and monitoring API reads
-
-- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy and no failed retained digest runs. Two old ingestion failures still have no retained run details; current collection remains healthy.
-- Bluesky probe now reads protected topic policies; Grafana schedule/completed-job comparisons read protected status. Both use the private local token adapter, fixed loopback origin, timeouts and redirect refusal; no legacy fallback.
-- Targeted credential tests: pnpm exec tsx --test apps/api/test/local-admin-fetch.test.ts (2/2 passed). Live authenticated GETs parsed four topics and four queues. No Bluesky probe, external collection, inference, publication or live writes triggered.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (497 unit/214 isolated integration tests, exit 0), pnpm build, check-handbook.ts 08-operations and git diff --check passed. Initial handbook length failure corrected before final validation.
-- Reader latest returns the real Nov 4 edition with four topics, 14 stories and 15 posts. No UI/schema/runtime changes or new screenshots; healthy services left running under STEERING 22. Handbook changes are served per request.
-- Updated TASKS, Operations and access decision; archived iteration 725. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. Owner email/proxy identity checks and coordinated browser/legacy-route migration remain open.
-- No paid calls, scorer/model/provider/budget changes or X activation. Next FIRST: Nov 5 NBA outcome after 15:00 UTC, investigate fallback if repeated; scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6.
-
 ## 2026-11-05: iteration 740 — authenticated schedule recovery
 
 - Started clean on main; no leftover work. Health/database/Redis green, 36 sources healthy, no failed retained digest runs; Nov 5 edition remains due at 15:00 UTC. Observability memory warning pending; metrics service active, zero restarts, about 105 MiB of its 112 MiB ceiling.
@@ -126,4 +116,13 @@
 - Both desktop/mobile checks passed text, engagement, links, media/no-media, escaped markup (Bluesky), no X widgets, browser errors or horizontal overflow. Four screenshots refreshed; mobile Bluesky and desktop Reddit visually inspected. Synthetic examples remain explicitly labelled.
 - Updated TASKS and Operations; archived iteration 738. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. Runtime/config/schema unchanged; healthy services remain running under STEERING 22.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, exit 0); pnpm build; both card smoke scripts; check-handbook.ts 08-operations; git diff --check. Initial handbook length failure corrected; first full-check session terminated (143), rerun via isolated user service passed. Reader latest: four topics, 14 stories, 15 posts.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.
+
+## 2026-11-05: iteration 753 — Google News checks without production writes
+
+- Started clean on main; no leftover work. Health/database/Redis green, 36 healthy sources, no failed retained digest runs. Existing metrics memory warning pending; Nov 5 edition due at 15:00 UTC.
+- Google News query browser check now reads protected topic/content/catalog/edition snapshots in Node. Validation and failure responses, retry, reload and disconnect stay in browser memory; unexpected API writes abort. Removed live topic creation/deletion, query connections and scheduler polling.
+- `pnpm exec tsx scripts/smoke-news-queries.ts` passed desktop/mobile validation response, retained input after failed save, retry/cleared input, stored Google News articles, reload and disconnect. Protected reads prove live topics and saved edition unchanged. Two screenshots refreshed; mobile visually inspected. First run found checkbox label mismatch; corrected and rerun passed. Server validation remains in isolated tests.
+- Updated TASKS and Operations; archived iteration 739. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema changes, live writes or paid calls; healthy services remain running under STEERING 22.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration tests, exit 0); pnpm build; check-handbook.ts 08-operations; git diff --check all passed. Final health green; reader latest has four real topics.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.
