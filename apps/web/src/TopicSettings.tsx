@@ -27,10 +27,12 @@ export function TopicSettings({
     if (!deleting) return;
     setBusy(true);
     setMessage('');
+    let responseReceived = false;
     try {
       const response = await fetch(`/api/topics/${deleting.id}`, {
         method: 'DELETE',
       });
+      responseReceived = true;
       if (!response.ok) throw new Error();
       onReordered(topicSchema.array().parse(await response.json()));
       if (editing?.id === deleting.id) setEditing(null);
@@ -40,7 +42,11 @@ export function TopicSettings({
       );
       setDeleting(null);
     } catch {
-      setMessage('Could not delete topic. Reload the page and try again.');
+      setMessage(
+        responseReceived
+          ? 'Could not confirm topic deletion. Reload the page to check your saved topics before trying again.'
+          : 'The connection was interrupted. The topic may have been deleted. Reload the page to check your saved topics before trying again.',
+      );
     } finally {
       setBusy(false);
     }

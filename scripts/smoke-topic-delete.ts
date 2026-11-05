@@ -37,6 +37,7 @@ async function smoke() {
   const replayTopics = structuredClone(original);
   let failDelete = true;
   let deletes = 0;
+  let loseResponse = false;
   // Browser writes stay in memory; protected Node requests only read live state.
   await context.route('**/*', async (route) => {
     const request = route.request();
@@ -66,7 +67,8 @@ async function smoke() {
         await route.fulfill({ status: 503, body: 'Unavailable' });
       } else {
         replayTopics.splice(index, 1);
-        await route.fulfill({ json: replayTopics });
+        if (loseResponse) await route.abort();
+        else await route.fulfill({ json: replayTopics });
       }
       return;
     }
@@ -138,12 +140,12 @@ async function smoke() {
         .click();
       await page
         .getByRole('status')
-        .filter({ hasText: 'Could not delete topic.' })
+        .filter({ hasText: 'Could not confirm topic deletion.' })
         .waitFor();
       assert.ok(replayTopics.some((saved) => saved.id === topic.id));
       await page
         .getByRole('status')
-        .filter({ hasText: 'Could not delete topic.' })
+        .filter({ hasText: 'Could not confirm topic deletion.' })
         .scrollIntoViewIfNeeded();
       await page.screenshot({
         path: 'docs/screenshots/topic-delete-failure-' + device + '.png',
@@ -180,13 +182,56 @@ async function smoke() {
       );
       assert.deepEqual(replayTopics, original);
       assert.equal(deletes, deletesBefore + 2);
+      // The server can complete deletion before the browser loses its response.
+      replayTopics.push(topic);
+      loseResponse = true;
+      await page.reload();
+      await page.getByText('Manage topics', { exact: true }).click();
+      await page
+        .getByRole('button', { name: 'Delete ' + topic.name, exact: true })
+        .click();
+      await confirmation
+        .getByRole('button', { name: 'Delete topic permanently', exact: true })
+        .click();
+      const interrupted = page.getByRole('status').filter({
+        hasText: 'The topic may have been deleted.',
+      });
+      await interrupted.waitFor();
+      await interrupted.scrollIntoViewIfNeeded();
+      await page.screenshot({
+        path: 'docs/screenshots/topic-delete-interrupted-' + device + '.png',
+      });
+      assert.ok(!replayTopics.some((saved) => saved.id === topic.id));
+      await page.reload();
+      await page
+        .locator('.topic-grid')
+        .getByRole('heading', {
+          name: original[0].name,
+          exact: true,
+        })
+        .waitFor();
+      assert.equal(
+        await page
+          .getByRole('button', {
+            name: 'Delete ' + topic.name,
+            exact: true,
+          })
+          .count(),
+        0,
+      );
+      assert.equal(
+        deletes,
+        deletesBefore + 3,
+        'Reload must not retry deletion',
+      );
+      loseResponse = false;
       assert.deepEqual(errors, []);
       await page.close();
     }
     assert.deepEqual(credentials, []);
     assert.deepEqual(unexpectedWrites, []);
     console.log(
-      'Topic deletion desktop/mobile: browser replay cancel, error/retry, removal, reload and order passed; no production writes or generation',
+      'Topic deletion desktop/mobile: browser replay cancel, error/retry, removal, lost-response recovery without retry, reload and order passed; no production writes or generation',
     );
   } finally {
     assert.deepEqual(
