@@ -1,22 +1,3 @@
-## 2026-11-05: iteration 787 — match X embeds to the reader theme
-
-- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy, no failed retained digest-generation jobs; four app services active.
-- Official X widgets now receive the reader's light/dark theme and rebuild when it changes, including system preference, header toggle and storage-driven changes. Loaded widgets.js remains shared; offscreen cards remain lazy.
-- Read-only desktop/mobile replay passed system light/dark changes and light→dark→light toggles with one widget per card and one script request. Existing blocked/stalled downloads, widget timeout, rejection, empty-result and retry checks passed; saved edition unchanged, zero browser errors/overflow.
-- Four light/dark theme screenshots saved; desktop light/mobile dark inspected. Widgets are explicitly labelled protocol stubs, not live X rendering. Unrelated regenerated screenshots discarded.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-posts.ts /tmp/783-posts.jsonl; smoke-admin-gate.ts; git diff --check. Static checks and 497 unit tests passed; combined check received SIGTERM at integration startup, isolated integration rerun passed all 214 tests (exit 0). Build, browser/gate and diff checks passed.
-- TASKS updated; archived iteration 772. No source/handbook changes or new human blockers. No paid calls, stored-edition writes, config/schema or model/provider changes. API restarted after web build; final health green, four app services active, zero alerts; saved reader API serves four topics/14 stories.
-- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer. X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remain pending.
-
-## 2026-11-05: iteration 788 — verify sustained Bluesky refresh
-
-- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, 36 sources current and four app services active; no failed retained digest-generation runs.
-- Resolved STEERING 18's long-lived refresh uncertainty using existing production logs: worker PID 2544816 unchanged since 00:10 UTC, seven hourly completions through 06:54, one login, 56 successful searches and three successful natural-expiry refresh/retry recoveries. No re-login or worker restart.
-- Stored 24-hour official API observations at 07:53 UTC: Tech/NBA/Gaming/World 476/362/455/522, distinct posts 48/46/48/44, safe engaged candidates 47/39/45/37. All topics current; World phrase shortlist zero and editorial/duplicate quality remain open.
-- Updated SOURCES with timestamps, bounds and reproduction; TASKS now distinguishes sustained-refresh acceptance from pending editorial quality. Archived iterations 773–774 to keep PROGRESS under 25 KB. No source/config/schema/model/provider changes, paid calls, new provider requests or saved-edition writes; no handbook behavior change or new human blocker.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-admin-gate.ts; git diff --check. First check stopped on newly archived files' formatting; corrected and reran. Rerun passed all static checks, 497 unit/214 isolated integration tests (exit 0); build, gate and diff checks passed.
-- API restarted after build; health/database/Redis green, four app services active and alerts zero. Worker remains running unchanged, preserving the sustained-refresh evidence. Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remain pending.
-
 ## 2026-11-05: iteration 789 — verify lazy widgets across theme changes
 
 - Started clean on main; no leftover work. Alerts zero, health/database/Redis green; API, worker, docs and schema services active.
@@ -144,4 +125,14 @@
 - Desktop/mobile URL validation and failed connections retain name/URL; retry clears fields, exposes stored content, survives reload and disconnects. No overflow/page errors; both failure screenshots inspected. Replayed saves never reach the live API.
 - Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-custom-feeds.ts; smoke-admin-gate.ts; git diff --check. All passed (exit 0): static checks, 497 unit and 214 isolated integration tests, browser replay, admin gate and diff check.
 - TASKS/access decision updated; archived iteration 786 and discarded regenerated unchanged success screenshots. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, live writes or runtime/config/schema/model/provider changes; no restart required under STEERING 22.
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 803 — verify parked community settings recovery safely
+
+- Started clean on main; no leftover work. Health/database/Redis green, four deployed app services active, all 36 sources healthy and no failed retained digest runs; zero alerts. Historical ingestion/social failure counters unchanged, with no retained failed runs.
+- Reddit-community settings verifier now replays protected profile/status/content snapshots, disables service workers, blocks unexpected browser writes with an explicit probe and checks browser credential absence. Full saved edition/topics/profile comparisons pass.
+- Desktop/mobile failed saves retain entered communities; retry normalizes names, reload preserves them, duplicate validation sends no save, and clearing persists across reload. Failure screenshots inspected; no page errors/overflow, no Reddit fetching or live writes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-reddit-communities.ts; smoke-admin-gate.ts; check-handbook.ts admin-access; git diff --check. All passed (exit 0): static checks, 497 unit and 214 isolated integration tests, browser recovery, admin gate, handbook/schema and diff checks.
+- TASKS/access decision updated; archived iterations 787–788 and completed markers/UI verification detail to shrink orientation files. Regenerated existing success screenshots discarded. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers.
+- No paid calls, runtime/config/schema/model/provider changes; no build or restart required under STEERING 22 because only verification scripts/docs changed.
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

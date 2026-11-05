@@ -173,6 +173,11 @@ The custom-feed verifier applies these protections to URL validation, failed
 connections, retained name/URL, retry, reload and disconnect. Desktop/mobile
 failure screenshots and full saved-data comparisons pass.
 
+The parked Reddit-community settings verifier now uses the same protected snapshots,
+write probe and credential checks. Desktop/mobile failed saves retain community
+input; retry, normalization, duplicate validation, reload and clearing preserve
+full live edition/topics/profile snapshots without fetching Reddit.
+
 ## Next rollout slice
 
 Configure the owner email allowlist before moving current operational routes.
