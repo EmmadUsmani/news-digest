@@ -1,4 +1,6 @@
 import assert from 'node:assert/strict';
+import { fork } from 'node:child_process';
+import { once } from 'node:events';
 import { test } from 'node:test';
 
 import { type DigestPreview } from '@digest/contracts';
@@ -510,3 +512,110 @@ void test('accepted job history is idempotent and profile-scoped', async () => {
     await requests.onModuleDestroy();
   }
 });
+
+void test(
+  'a killed worker is recovered by a replacement without losing the accepted edition link',
+  { timeout: 60000 },
+  async () => {
+    const requests = new PostgresEditionJobRequests();
+    const failures = new PostgresEditionJobFailures();
+    const publications = new Map<string, DigestPreview>();
+    const jobs = new BullEditionJobs(
+      {
+        async findByGenerationKey(key: string) {
+          return publications.get(key) ?? null;
+        },
+      } as PreviewRepository,
+      failures,
+      requests,
+    );
+    const child = fork(
+      new URL('./fixtures/workers/stalled-edition.mjs', import.meta.url),
+      [],
+      {
+        execArgv: [],
+        stdio: ['ignore', 'ignore', 'inherit', 'ipc'],
+      },
+    );
+    const exited = once(child, 'exit');
+    const started = once(child, 'message', {
+      signal: AbortSignal.timeout(8000),
+    });
+    const connection = jobs.connection.duplicate({
+      maxRetriesPerRequest: null,
+    });
+    let replacement: Worker | undefined;
+    let acceptedId: string | undefined;
+    let calls = 0;
+    const snapshot: DigestPreview = {
+      id: crypto.randomUUID(),
+      createdAt: new Date().toISOString(),
+      windowStart: '2026-09-01T00:00:00.000Z',
+      windowEnd: '2026-09-02T00:00:00.000Z',
+      method: 'signals-v6',
+      topics: [],
+    };
+    try {
+      const accepted = await jobs.enqueue(
+        new Date(snapshot.windowStart),
+        new Date(snapshot.windowEnd),
+      );
+      acceptedId = accepted.id;
+      const [message] = await started;
+      assert.deepEqual(message, { id: accepted.id });
+      assert.equal((await jobs.find(accepted.id))?.state, 'active');
+      assert.ok(await requests.exists(accepted.id));
+      child.kill('SIGKILL');
+      const [, signal] = await exited;
+      assert.equal(signal, 'SIGKILL');
+      replacement = new Worker(
+        jobs.queue.name,
+        (job) =>
+          generateOnDemandEdition(
+            {
+              async generate(_start: Date, _end: Date, key?: string) {
+                calls++;
+                publications.set(key!, snapshot);
+                return snapshot;
+              },
+            },
+            job.id!,
+            job.data,
+          ),
+        {
+          connection,
+          lockDuration: 500,
+          stalledInterval: 100,
+        },
+      );
+      let completed = false;
+      // Earlier workers may leave BullMQ's default 30-second stalled-check lease.
+      const deadline = Date.now() + 45000;
+      while (Date.now() < deadline) {
+        const job = await jobs.queue.getJob(accepted.id);
+        if ((await job?.getState()) === 'completed') {
+          completed = true;
+          break;
+        }
+        await new Promise((resolve) => setTimeout(resolve, 10));
+      }
+      assert.ok(completed, 'replacement worker must recover the expired lock');
+      assert.equal(calls, 1);
+      assert.equal((await jobs.find(accepted.id))?.editionId, snapshot.id);
+      await (await jobs.queue.getJob(accepted.id))!.remove();
+      const recovered = await jobs.find(accepted.id);
+      assert.equal(recovered?.state, 'completed');
+      assert.equal(recovered?.editionId, snapshot.id);
+      assert.equal(calls, 1);
+    } finally {
+      child.kill('SIGKILL');
+      await exited;
+      await replacement?.close();
+      if (acceptedId) await (await jobs.queue.getJob(acceptedId))?.remove();
+      await connection.quit();
+      await jobs.onModuleDestroy();
+      await failures.onModuleDestroy();
+      await requests.onModuleDestroy();
+    }
+  },
+);

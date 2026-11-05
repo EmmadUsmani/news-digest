@@ -25,7 +25,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - [x] STEERING 32: private nightly backups, seven-day retention, weekly isolated restore and 26-hour alert deployed (709); fixed search runtime remains off pending decision. [Operations](docs/handbook/01-app/10-backups.md).
 - [ ] M5: grouping quality above; independent labels, different dates and Gaming still needed. Agent-labelled windows are not general quality estimates.
 - [ ] M6: topic CRUD/reorder/enable, source/schedule/budgets and on-demand UI connected; broader acceptance and admin separation open. Replay coverage through 846 in archived task detail.
-- [ ] M7: saved/failed on-demand links recover from Postgres through Redis pruning/outages and worker requeue (851–862); accepted jobs now retain durable IDs and report confirmed missing jobs clearly (863), without retrying generation. Older unfinished jobs already lost before this deployment cannot be reconstructed. DigestPublished log adapter shipped; no real notifications. Broader reliability acceptance remains open.
+- [ ] M7: saved/failed on-demand links recover from Postgres through Redis pruning/outages and worker requeue (851–862); accepted jobs now retain durable IDs and report confirmed missing jobs clearly (863), without retrying generation. Older unfinished jobs already lost before this deployment cannot be reconstructed. DigestPublished log adapter shipped; no real notifications. A killed isolated worker recovers through a replacement and keeps the accepted link after pruning (864); broader reliability acceptance remains open.
 - [ ] STEERING 4: fake/replay LlmPort and verification ledger implemented; real raw-response golden open. Do not re-record unchanged prompts or pay merely to test replay. [Database verification](docs/DATABASE-VERIFICATION.md).
 - [ ] STEERING 8 PARKED under 14: Reddit disabled/access denied; no requests until owner re-enables official API credentials. YouTube deferred; no bypass.
 - [ ] STEERING 10 source balance paused under 27; Yardbarker prepared/disabled. No new source without coverage review.
@@ -34,5 +34,5 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Lost on-demand jobs (863): accepted job IDs persist before links return; confirmed Redis loss reports an unavailable result, while outages remain retryable and saved editions take precedence.
+- [x] Worker crash recovery (864): killed a real child worker against disposable Redis; replacement recovers the accepted job once, and fixture publication stays accessible after queue pruning. No live generation or paid calls.
 - Next: X fresh-window rounds after 21:00 UTC Nov 5/6; scheduled editor-v5 evidence Nov 6. Admin identity/proxy rollout and broader job reliability acceptance remain open.

@@ -1,14 +1,3 @@
-## 2026-11-05: iteration 850 — keep separate developments out of one edited story
-
-- Started clean on main; no leftover work. Alerts/health green, all 36 sources healthy, digest-generation queue zero failures.
-- Corrected the actual Nov 5 Tech composition issue in editor v5 instructions: one news story per summary/evidence set; direct follow-ups/reactions/consequences allowed, shared people/company/theme insufficient. Separate developments need separate slots or omission within budget. No wording-based grouping code.
-- New prompt/purpose changes cache identity. Golden purpose assertions updated; authored synthetic publication replay fingerprint refreshed for the changed prompt, response and golden snapshot unchanged. No provider recording or paid call.
-- Initial pnpm check passed 498 unit but failed one of 214 integration tests on the stale replay fingerprint; reconstructed its old request fingerprint exactly before updating. A standalone diagnostic was refused by the isolation guard; no DB access. Final pnpm check passes 498 unit/214 isolated integration.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; filtered check-handbook.ts 04-edition-pipeline; smoke-admin-gate.ts; git diff --check; obs alerts/health/sources/jobs and /healthz. Corrected unsupported jobs help/queue options to digest-generation.
-- Updated TASKS, edition review, RANKING current state and affected handbook prose; no diagram/UI/source/schema change. SOURCES and NEEDS_FROM_HUMAN unchanged.
-- API/worker restarted healthy; Nov 5 edition GET byte-identical before/after deployment. No snapshot writes, generation or search activation. Prompt quality awaits the next scheduled edition.
-- Next: X fresh-window keyword/semantic rounds after 21:00 UTC Nov 5/6; scheduled composition verification Nov 6. Pending admin identity/proxy work remains open.
-
 ## 2026-11-05: iteration 851 — recover completed job links after Redis pruning
 
 - Started clean on main; no leftover work. Alerts clear, health/database/Redis green, all 36 sources healthy and digest queue zero failures. X rounds wait until 21:00 UTC; UI migration remains blocked on owner identity/proxy evidence.
@@ -142,4 +131,14 @@
 - Private backup service succeeded before additive migration 0003; pnpm migrate applied it. Owner read/write role access verified; request table initially empty. No data rewrite or source/UI/budget change.
 - API/worker restarted active; /healthz database/Redis OK; smoke-admin-gate.ts before/after restart passed, saved reader edition byte-identical, 36 healthy sources, zero alerts/failed digest jobs and dangling Docker volumes. No paid calls.
 - Updated Jobs handbook, schema metadata and TASKS; archived iteration 849 to keep progress small. SOURCES, screenshots and NEEDS_FROM_HUMAN unchanged.
+- Next: X fresh-window rounds after 21:00 UTC Nov 5/6; scheduled editor-v5 evidence Nov 6; admin identity/proxy rollout and broader job reliability acceptance remain open.
+
+## 2026-11-05: iteration 864 — verify recovery after an actual worker crash
+
+- Started clean on main; no leftover work. Alerts/health green, 36 sources healthy and digest queue zero failures. X rounds remain time-gated; admin rollout still needs owner identity/proxy evidence.
+- Added isolated acceptance coverage that starts a real child BullMQ worker, waits for active progress, kills it with SIGKILL, then starts a replacement. The same accepted job completes once and its fixture publication link survives explicit queue pruning.
+- Acceptance IDs use disposable Postgres; publication is an in-memory fixture map, not live content. Child refuses non-isolated execution; no external services or paid calls. Recovery timeout accommodates an earlier worker's 30-second stalled-check lease.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (501 unit/218 isolated integration passed); pnpm build; git diff --check. First check stopped on an unnecessary assertion, corrected before the passing run. Targeted isolated queue rerun passed all five tests after the final timeout adjustment.
+- API/worker remain active; /healthz database/Redis OK, latest reader edition 7d99b279-cb6a-4cf0-b0a2-d94c5645f0b7 serves four topics; no dangling Docker volumes. Test/docs-only change, so no restart under STEERING 22.
+- Updated TASKS; archived iteration 850 to keep progress below 25 KB. Handbook, schema metadata, SOURCES, screenshots and NEEDS_FROM_HUMAN unchanged; production behavior unchanged.
 - Next: X fresh-window rounds after 21:00 UTC Nov 5/6; scheduled editor-v5 evidence Nov 6; admin identity/proxy rollout and broader job reliability acceptance remain open.
