@@ -13,28 +13,44 @@ async function main() {
   const status = operationsStatusSchema.parse(
     await localAdminJson('/api/admin/status'),
   );
-  const unexpectedWrites: string[] = [];
+  const savedEdition = await localAdminJson(
+    '/api/admin/digest-previews/latest',
+  );
+  const writes: string[] = [];
+  const credentials: string[] = [];
   const browser = await chromium.launch();
   try {
     for (const [name, width, height] of [
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
     ] as const) {
-      const page = await browser.newPage({ viewport: { width, height } });
-      const errors: string[] = [];
-      page.on('pageerror', (error) => errors.push(error.message));
-      await page.route('**/api/**', async (route) => {
+      const context = await browser.newContext({
+        viewport: { width, height },
+        serviceWorkers: 'block',
+      });
+      context.on('request', (request) => {
+        const headers = request.headers();
+        if ('admin_local_token' in headers || 'x-exedev-email' in headers)
+          credentials.push(new URL(request.url()).pathname);
+      });
+      await context.route('**/*', (route) => {
         const request = route.request();
         if (!['GET', 'HEAD'].includes(request.method())) {
-          unexpectedWrites.push(
-            `${request.method()} ${new URL(request.url()).pathname}`,
-          );
+          writes.push(`${request.method()} ${new URL(request.url()).pathname}`);
           return route.abort('blockedbyclient');
         }
-        const path = new URL(request.url()).pathname;
+        return route.continue();
+      });
+      const page = await context.newPage();
+      const errors: string[] = [];
+      page.on('pageerror', (error) => errors.push(error.message));
+      await context.route('**/api/**', async (route) => {
+        if (!['GET', 'HEAD'].includes(route.request().method()))
+          return route.fallback();
+        const path = new URL(route.request().url()).pathname;
         if (path === '/api/topics') return route.fulfill({ json: topics });
         if (path === '/api/status') return route.fulfill({ json: status });
-        return route.continue();
+        return route.fallback();
       });
       await page.goto('http://localhost:8000');
       await page.getByText('Source & run status', { exact: true }).click();
@@ -77,15 +93,30 @@ async function main() {
         true,
       );
       assert.deepEqual(errors, []);
-      await page.close();
+      // Prove the write barrier remains installed beneath snapshot routes.
+      await page.evaluate(async () => {
+        try {
+          await fetch('/api/topics', { method: 'POST', body: '{}' });
+          throw new Error('Write barrier failed');
+        } catch (error) {
+          if (!(error instanceof TypeError)) throw error;
+        }
+      });
+      assert.deepEqual(writes.splice(0), ['POST /api/topics']);
+      await context.close();
     }
-    assert.deepEqual(unexpectedWrites, []);
     assert.deepEqual(
       topicSchema.array().parse(await localAdminJson('/api/admin/topics')),
       topics,
     );
+    assert.deepEqual(credentials, []);
+    assert.deepEqual(writes, []);
+    assert.deepEqual(
+      await localAdminJson('/api/admin/digest-previews/latest'),
+      savedEdition,
+    );
     console.log(
-      'X schedule guidance passed: protected snapshots, desktop/mobile Status/settings; live topics unchanged and no browser writes or credentials.',
+      'X schedule guidance passed: protected snapshots, desktop/mobile Status/settings; live topics and saved edition unchanged, browser writes blocked and credentials absent.',
     );
   } finally {
     await browser.close();

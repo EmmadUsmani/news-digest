@@ -7,13 +7,35 @@ import { chromium } from 'playwright';
 import { localAdminJson } from './lib/local-admin-fetch';
 
 async function main() {
+  const savedEdition = await localAdminJson(
+    '/api/admin/digest-previews/latest',
+  );
+  const writes: string[] = [];
+  const credentials: string[] = [];
   const browser = await chromium.launch();
   try {
     for (const [name, width, height] of [
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
     ] as const) {
-      const page = await browser.newPage({ viewport: { width, height } });
+      const context = await browser.newContext({
+        viewport: { width, height },
+        serviceWorkers: 'block',
+      });
+      context.on('request', (request) => {
+        const headers = request.headers();
+        if ('admin_local_token' in headers || 'x-exedev-email' in headers)
+          credentials.push(new URL(request.url()).pathname);
+      });
+      await context.route('**/*', (route) => {
+        const request = route.request();
+        if (!['GET', 'HEAD'].includes(request.method())) {
+          writes.push(`${request.method()} ${new URL(request.url()).pathname}`);
+          return route.abort('blockedbyclient');
+        }
+        return route.continue();
+      });
+      const page = await context.newPage();
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
       const status = operationsStatusSchema.parse(
@@ -21,8 +43,10 @@ async function main() {
       );
       assert.ok(status.coverage);
       // Replay this read to keep browser assertions stable across collection updates.
-      await page.route('**/api/status', (route) =>
-        route.fulfill({ json: status }),
+      await context.route('**/api/status', (route) =>
+        ['GET', 'HEAD'].includes(route.request().method())
+          ? route.fulfill({ json: status })
+          : route.fallback(),
       );
       await page.goto('http://localhost:8000');
       await page.getByText('Source & run status', { exact: true }).click();
@@ -67,10 +91,26 @@ async function main() {
       await coverage.screenshot({
         path: `docs/screenshots/topic-coverage-${name}.png`,
       });
-      await page.close();
+      // Prove the write barrier remains installed beneath snapshot routes.
+      await page.evaluate(async () => {
+        try {
+          await fetch('/api/topics', { method: 'POST', body: '{}' });
+          throw new Error('Write barrier failed');
+        } catch (error) {
+          if (!(error instanceof TypeError)) throw error;
+        }
+      });
+      assert.deepEqual(writes.splice(0), ['POST /api/topics']);
+      await context.close();
     }
+    assert.deepEqual(credentials, []);
+    assert.deepEqual(writes, []);
+    assert.deepEqual(
+      await localAdminJson('/api/admin/digest-previews/latest'),
+      savedEdition,
+    );
     console.log(
-      'Protected topic coverage snapshot desktop/mobile checks passed; no writes or inference.',
+      'Protected topic coverage desktop/mobile checks passed; browser writes blocked, credentials absent, saved edition unchanged; no inference.',
     );
   } finally {
     await browser.close();
