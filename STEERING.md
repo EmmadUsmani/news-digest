@@ -871,6 +871,7 @@ Open X search is live, but on Nov 4 none of its 19 posts made the edition:
 the NBA posts were betting promotions, World got roundups, and the best had
 12 likes. The owner approved a redesign.
 **Follow [docs/x-search-plan.md](docs/x-search-plan.md) exactly.**
+**Item 34 replaces the design, experiment steps and model choice below.**
 - **Priority:** this ranks above item 7 speed work and observability. Breakages,
   the Nov 5 checks of item 27 (grouping, NBA AI) and the morning-edition
   protections still come first.
@@ -923,6 +924,7 @@ ack: 2026-11-04 item 31 round 1 — iteration 703 dispatched all 12 cells at 21:
 ## 32. Tonight's queue: X schedule switched off, nightly DB backups (2026-11-04)
 
 These go after item 31's round 1 and before the fallback list (item 28).
+**Item 34 replaces the A/B schedule in point 1 with one search per topic.**
 1. **Build the new X search schedule now, switched off** (item 30, plan step 3).
    - Build the fixed A/B schedule (story reactions and topic trending) using
      the stored per-topic thresholds and exclusions, behind a setting that
@@ -990,3 +992,46 @@ The owner finds the current UI busy and low quality. The home page is about
 - **Guardrails:** no reader features beyond the spec, no other UI libraries,
   and no hand-written component CSS where shadcn has a component. Update the
   handbook (Stack & runtime, Operations) within its length limit.
+
+## 34. NOW: X search redesigned around viral posts (2026-11-04)
+
+The owner clarified the goal, and the plan changed. **Paid search exists to find
+viral posts the news hasn't picked up.** The free mined links already work and
+already cover posts tied to stories, so paid story reactions would duplicate
+them. **[docs/x-search-plan.md](docs/x-search-plan.md) is rewritten: follow it
+exactly.** This replaces the design parts of items 30–32. Their budget,
+guardrail and reporting rules still apply.
+
+- **Priority:** this goes ahead of item 33. Finish your current UI step
+  cleanly, then do step 1 below, then return to the UI whenever X work is
+  waiting on a time. Nov 5 checks and edition protections still come first.
+- **What changes:**
+  - **One paid search per topic.** Drop story reactions and trending as
+    separate styles.
+  - **Grok writes keywords fresh on each search,** from the topic description:
+    a mix of general topic words and well-known names, **not** headlines.
+  - **No saved keyword lists.** The owner doesn't want anything to maintain.
+  - **Code builds the rest of the query,** including the exact time filter.
+  - **Exclude `-giveaway`** on every topic.
+  - **16 posts per search,** about $0.37 a day under the unchanged $0.40 cap.
+  - **The AI scorer gets author, reported likes and whether a post has media.**
+  - **Stay on Grok 4.3.** The model round is dropped.
+- **Order:**
+  1. **Tonight:** build the query changes in the experiment path and the
+     switched-off schedule. No paid calls.
+  2. **After the Nov 5 edition, not before:** the scorer change.
+  3. **After 21:00 UTC on Nov 5 and on Nov 6:** two test rounds, each on a fresh
+     24-hour window. Each round also runs one meaning-based search per topic,
+     as a test only. About $0.58 a round, about $1.69 of the $2.50 in total.
+  4. **Decide** with the plan's rule, ack the numbers, and ship. The earliest
+     edition is Nov 7.
+- **Decision rule, changed:** a post counts only if it's in the window, on
+  topic, not a promotion after AI scoring, at or above the likes minimum, and
+  **not already found by the free links.** Promotions in raw results no longer
+  count against a search.
+- **Stop:** no more offline analysis of round 1. Its query problems are
+  understood.
+- **On shipping:** delete the old search, follow-ups, optional slots and
+  story-reaction code. Keep the saved account lists.
+- **Acks:** one after the decision, with its numbers, and one after 3 editions
+  meet the plan's done criteria. Report World separately.

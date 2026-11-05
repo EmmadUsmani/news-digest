@@ -1,139 +1,157 @@
-# X search quality plan
+# X search plan
 
-Owner-approved design (2026-11-04) for STEERING item 30. It replaces the
-current open-topic search, follow-up searches and optional slots.
+Owner-approved design (2026-11-04, revised the same day) for STEERING items 30
+and 34. This version replaces the earlier story-reaction and trending design.
 
-## Why the current search fails
+## Goal
 
-Nov 4: 19 verified posts cost $0.149, but **none were picked**. The NBA posts
-were all betting promotions, World got hashtag roundups, and the best post
-had 12 likes. The causes:
+**Find viral posts the news hasn't picked up:** things the press hasn't reached
+yet, or will never write about. Highlights, leaks, demos, fan moments.
 
-| Cause                                                                       | Effect                                                                   |
-| --------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| `max_turns: 1` and "use one search, at most five results"                   | Every call fetched exactly 5 posts. "Most-engaged of five" ranks nothing |
-| One broad query on the topic name, no sort mode, no operators               | X returns whatever posts most often: spam, betting touts                 |
-| Grok is asked to judge quality through a long list of "avoid…" instructions | That doesn't filter anything and costs ~2,000 reasoning tokens per call  |
-| Story-reaction search only runs as a fallback                               | The search most likely to find newsworthy, relevant posts rarely runs    |
-| The query Grok actually ran isn't stored                                    | Bad results can't be traced to a bad query                               |
+The app already has a free path that works: X links mined from articles and
+news rivers. It finds posts the press has linked, and the owner is happy with
+it. Paid search has one job: **find what that path can't.** Paying to find
+reactions to stories we already cover would duplicate it.
 
-**Cost structure** ([xAI X Search docs](https://docs.x.ai/developers/tools/x-search)):
+## What round 1 showed
 
-- **Posts:** $5 per 1,000 posts fetched, so 5 posts are about $0.025 of
-  each $0.039 call.
-- **Filtering is free:** X filters on its side with its own advanced search
-  operators, and `x_keyword_search` sorts by Top or Latest.
-- **So filtering fixes cost as well as quality:** fetching junk is the
-  expensive part.
+Round 1 ran on Nov 4 and cost $0.53. Details are in
+[the review](edition-reviews/2026-11-04-x-experiment-review.md).
+
+- **Likes minimums, Top sort and `OR` work.** Trending posts had a median of
+  1,714 likes, against 8 for the old search.
+- **A search matches words, not subjects.** There is no topic feed. Posts that
+  say "NBA" are often betting; good posts often don't say "NBA".
+- **The topic name is a poor query.** "Tech & AI" gave 0 of 8 on topic. A
+  missing space also broke every trending query (fixed in iteration 704).
+- **Grok improvised time filters:** none, `_UTC` form or ISO form. Both
+  out-of-window reaction posts came from the missing and ISO cases.
+- **The AI scorer sees only post text.** X posts arrive labelled "Verified X
+  post", with no author, likes or media, so clips look like vague sentences.
+- **Meaning-based search** (`x_semantic_search`) got 4 of 5 on topic for Tech,
+  but with very few likes. The saved calls show no likes filter.
 
 ## Design
 
-**Principle:** X does the ranking and filtering; our existing AI triage and
-editor judge quality. Grok only runs well-formed searches. It is not the judge.
+**One paid search per topic per day,** 5–30 minutes before the edition.
 
-### Two searches per topic per day
+1. **Grok writes the keywords, fresh on each search, from the topic's saved
+   description.** It writes 8–10 terms people use when posting about the topic:
+   - **a mix of general topic words and well-known names.** General words
+     catch new things nobody has named yet; names catch the familiar;
+   - joined with `OR`, unquoted, except multi-word terms;
+   - **not from headlines or story titles.** That pulls towards the news.
 
-| Search                            | Query                                                                                            | Purpose                                                        |
-| --------------------------------- | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------- |
-| **A. Story reactions** (primary)  | Keywords for the topic's top 2–3 ranked stories, joined with `OR`, plus suffix + `min_faves:<A>` | Newsworthy and relevant by construction                        |
-| **B. Topic trending** (secondary) | Topic keywords, plus suffix + `min_faves:<B>`                                                    | Viral things the news hasn't covered: highlights, leaks, demos |
+   Tech & AI might give:
+   `AI OR LLM OR "AI agent" OR "open source" OR OpenAI OR Anthropic OR DeepMind OR Nvidia`
 
-- **Suffix (built by code):** Top sort, `-filter:replies -filter:retweets
-lang:en`, plus per-topic exclusions (NBA: `-odds -parlay -picks -bet`).
-- **Top stories for A:** the topic's highest-ranked articles in the edition
-  window at search time, using the non-AI ranking or cached triage scores.
-  No new AI calls.
-- **Curated account lists:** the lowest priority, used only if the budget
-  allows.
+2. **Code builds everything else,** and Grok copies it unchanged:
+   `(<keywords>) -filter:replies -filter:retweets lang:en <exclusions> min_faves:<N> since:<start> until:<end>`
+   - Top sort, `x_keyword_search`, 16 results.
+   - `since`/`until` use the exact edition window, in the form
+     `2026-11-03_21:00:00_UTC`. Code still drops out-of-window posts.
+3. **Store no keyword list.** Nothing about names or products is saved or
+   maintained. Keep storing the query Grok actually ran.
+4. **X ranks and filters. Our AI judges.** No quality judgement in the Grok
+   prompt, and no "avoid…" lists.
 
-### Who writes what
+### Per-topic settings (database)
 
-- **Code** builds the operator suffix and engagement threshold from per-topic
-  settings, and passes the story titles to search.
-- **Grok** writes short keyword phrases only. The prompt says: run
-  `x_keyword_search` in Top mode with exactly this suffix, and return post
-  URLs and counts. No quality judgement and no "avoid…" lists.
-- **Store, for every call,** the query, sort mode and function Grok actually
-  ran (the response's `custom_tool_call` items), next to the ledger row.
-
-### Per-topic settings (in the database, not code)
-
-| Topic     | `min_faves` A | `min_faves` B | Exclusions                  |
-| --------- | ------------: | ------------: | --------------------------- |
-| NBA       |           100 |         1,000 | `-odds -parlay -picks -bet` |
-| World     |           200 |         2,000 |                             |
-| Tech & AI |            50 |           500 |                             |
-| Gaming    |            50 |           500 |                             |
+| Topic     | `min_faves` | Exclusions                            |
+| --------- | ----------: | ------------------------------------- |
+| NBA       |       1,000 | `-odds -parlay -picks -bet -giveaway` |
+| World     |       2,000 | `-giveaway`                           |
+| Tech & AI |         500 | `-giveaway`                           |
+| Gaming    |         500 | `-giveaway`                           |
 
 - **Zero results is a valid answer** ("nothing viral today"). Never lower a
-  threshold during a run.
-- **Adjust thresholds at most weekly,** from stored results, and note why.
+  minimum during a run.
+- **Adjust minimums at most weekly,** from stored results, and note why.
+
+### AI scorer
+
+Give social triage each X post's **author, reported likes (when known) and
+whether it has media,** instead of the "Verified X post" label. Likes stay
+labelled as unverified hints. Bluesky is unchanged.
 
 ### Budget
 
-- **Production stays $0.40/day and $12/month.** That's about 8 calls a day
-  (A and B per topic). Each fetches roughly 8 already-filtered posts, for
-  about $0.05.
-- **If the projected spend doesn't fit,** search B is dropped first, starting
-  with the quietest topics.
-- **Velocity:** likes per hour since posting, from the single reported count.
-  No repeated snapshots.
+- **Production stays $0.40/day and $12/month.** A call costs about $0.013 plus
+  $0.005 per post, so 16 posts are about $0.09 and four topics about $0.37.
+- **Check the plumbing fits:** all four calls must pass admission under the cap
+  given the per-call reservation, and output-token and link limits must not cut
+  off 16 results. The production adapter still keeps only five links.
+- **If spend doesn't fit,** drop the quietest topic's search.
 
 ## Steps
 
-1. **Instrument.**
-   - Store Grok's actual tool calls per discovery call.
-   - Add the per-topic settings (thresholds, exclusions).
-   - Update `schema-meta.json`.
-2. **Experiment, capped at $2.50 of xAI credit in total.**
-   - **Spend limits:** no more than $1.00 per UTC day, recorded apart from
-     production spend. Not between 13:00 and 16:00 UTC.
-   - **Round 1 (Grok 4.3):** three styles across all four topics against the
-     same window, within one hour:
-     1. the current search;
-     2. B;
-     3. A.
-   - **Use the larger budget for confidence, not breadth:**
-     - Repeat round 1 on a **second day**, so one news day doesn't decide.
-     - Try one lower and one higher `min_faves` per topic for the winning
-       style, to calibrate the starting thresholds.
-   - **Round 2 (model):** the winning style on the cheapest current xAI
-     model that supports `x_search`. Check the official model table for it.
-   - **Measured for each style and model:**
-     - posts fetched;
-     - median and maximum likes;
-     - share inside the window;
-     - share passing social triage (relevance ≥ 6);
-     - promotions or spam;
-     - cost;
-     - the actual queries run.
-   - **Decision rule (fixed in advance):**
-     - **Style:** the most in-window, triage-passing posts per dollar, with
-       zero promotions.
-     - **Model:** the cheaper one, if it passes at least 90% as many posts.
-   - **Also confirm** that `min_faves`, Top sort and `OR` work through the
-     tool. If `min_faves` doesn't work, use Top sort with the other filters.
-     If Top sort doesn't work either, stop and write `NEEDS_FROM_HUMAN.md`.
-   - **Record the results** in a short `docs/decisions/` note.
-3. **Ship the winner.**
-   - Replace open-topic search, follow-ups and optional slots with the fixed
-     A/B schedule, and delete the replaced machinery.
-   - Keep oEmbed verification, the ledger, the daily admission check and the
-     caps.
+1. **Fix the query.** Build the design above in the experiment path and the
+   switched-off schedule. No paid calls.
+2. **Fix the scorer,** only after the Nov 5 edition. New inputs change cache
+   keys, so don't risk the budget before that run.
+3. **Run two test rounds:** after 21:00 UTC on Nov 5 and on Nov 6, each on a
+   fresh, non-overlapping 24-hour window.
+   - **Per topic, per round:**
+     - the keyword search above;
+     - one `x_semantic_search`, 8 results, asking for new and popular posts in
+       the topic. It is a test only, to show what keywords miss.
+   - **Don't pay to rerun the old search.** Production runs it daily, so use
+     that as the baseline.
+   - **Cost:** about $0.58 a round, bringing the total to about $1.69 of the
+     $2.50, within $1.00 per UTC day. Item 31's rules apply.
+   - **Optional, only if the budget allows:** one lower and one higher
+     `min_faves` where results were too thin or too noisy.
+4. **Decide, using the rule below, and ack the numbers.**
+5. **Ship.** Earliest is the Nov 7 edition.
+   - Switch on the new search, never between 13:00 and 16:00 UTC.
+   - Delete the old open search, follow-ups, optional slots and story-reaction
+     code, including `reaction_min_faves`.
+   - Curated account lists no longer feed anything. Keep the saved lists, and
+     say so in the handbook.
+   - Keep oEmbed verification, the ledger, daily admission and the caps.
    - Update the Social posts handbook page.
-4. **Evaluate over 3 consecutive editions.** Done when:
-   - every topic, World included, has at least 2 X posts from search;
-   - those posts meet their topic's threshold;
-   - there are no promotions;
-   - spend is within the caps;
-   - screenshots are in the edition reviews.
+6. **Evaluate over 3 consecutive editions.**
+
+## Decision rule
+
+**A usable post** meets all of these:
+
+- inside the window;
+- relevance ≥ 6 from the AI scorer;
+- not a promotion after scoring (raw results don't count against a search);
+- at or above the topic's `min_faves`;
+- **not already found by the free links.**
+
+**Then:**
+
+- **Keyword search ships** unless it gives fewer usable posts than the old
+  search over the same days.
+- **Meaning-based search:** report how many usable posts it found that keywords
+  missed. If that is 4 or more across both rounds, keyword search still ships,
+  and the owner decides whether to split the $0.40.
+- **Model:** stay on Grok 4.3. The cheaper model would save under 8%, and its
+  X Search support is unverified. Drop the model round.
+
+## Done when
+
+Over 3 consecutive editions:
+
+- on at least 2 of 3, NBA, Tech & AI and Gaming each have at least 2 usable
+  posts;
+- those posts reach the edition. If the editor doesn't pick them, report it;
+  don't add slots;
+- no promotions are shown, and spend is within the caps;
+- screenshots are in the edition reviews.
+
+**World is reported separately.** It may do worst, because its posts are mostly
+opinion. If it falls short, report the numbers and don't add World-only logic.
 
 ## Guardrails
 
-- **No new prompt wording rules** ("avoid crypto…"). Filtering is X's
-  operators plus our triage.
-- **No repeated snapshots** for velocity, and **no new follow-up or
-  optional-slot machinery**.
-- **No daily hand-tuning** of thresholds or queries.
-- **Time limits:** steps 1–2 take a few iterations, step 3 about a day. If
-  stuck, report it rather than improvise.
+- **No saved keyword or name lists,** and no keywords from headlines.
+- **No new prompt wording rules** ("avoid crypto…").
+- **No repeated snapshots** for velocity, and no new follow-up or optional-slot
+  machinery.
+- **No daily hand-tuning** of minimums or queries.
+- **No more analysis of round 1.** Its query problems are understood.
+- **If stuck, report it** rather than improvise.
