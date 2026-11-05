@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import { topicSchema, topicUpdateSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
+import { localAdminJson } from './lib/local-admin-fetch';
+
 // Browser-only response simulation: no topic writes or digest generation.
 async function smoke() {
   const browser = await chromium.launch();
@@ -14,11 +16,7 @@ async function smoke() {
       const page = await browser.newPage({ viewport: { width, height } });
       const topics = topicSchema
         .array()
-        .parse(
-          await (
-            await page.request.get('http://localhost:8000/api/topics')
-          ).json(),
-        );
+        .parse(await localAdminJson('/api/admin/topics'));
       const original = topics.find((topic) => topic.enabled);
       assert.ok(original, 'Need an enabled topic for browser verification');
       let fail = true;
@@ -89,12 +87,7 @@ async function smoke() {
           () => document.documentElement.scrollWidth <= innerWidth,
         ),
       );
-      assert.deepEqual(
-        await (
-          await page.request.get('http://localhost:8000/api/topics')
-        ).json(),
-        topics,
-      );
+      assert.deepEqual(await localAdminJson('/api/admin/topics'), topics);
       await page.close();
     }
     console.log(

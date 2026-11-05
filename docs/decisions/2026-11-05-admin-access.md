@@ -65,7 +65,7 @@ No legacy-route fallback is used for protected requests.
 The saved-post browser verifier uses only the reader edition API and needs no
 admin credentials; its link, timestamp and text checks match the public contract.
 
-Topic create/delete/reorder browser replays read their live baselines and final
+Topic create/delete/reorder/availability and schedule browser replays read their live baselines and final
 immutability checks through protected Node requests with a 15-second timeout.
 Their browser writes stay in memory, and the browser receives no local token.
 

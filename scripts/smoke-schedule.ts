@@ -4,13 +4,14 @@ import { profileSettingsSchema, scheduleSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
 import { validateSchedule } from '../apps/api/src/modules/profiles/domain/schedule';
+import { localAdminJson } from './lib/local-admin-fetch';
 
 const base = 'http://localhost:8000';
 async function smoke() {
   const browser = await chromium.launch();
   const context = await browser.newContext();
   const original = profileSettingsSchema.parse(
-    await (await context.request.get(`${base}/api/profile`)).json(),
+    await localAdminJson('/api/admin/profile'),
   );
   const profile = structuredClone(original);
   // All browser profile reads/writes are replayed in memory, including reloads.
@@ -34,10 +35,12 @@ async function smoke() {
     profile.schedule = result.data;
     await route.fulfill({ json: profile });
   });
-  const topics = await (await context.request.get(`${base}/api/topics`)).json();
-  const latest = await (
-    await context.request.get(`${base}/api/digest-previews/latest`)
-  ).json();
+  const topics = await localAdminJson('/api/admin/topics');
+  const latest = (await localAdminJson(
+    '/api/admin/digest-previews/latest',
+  )) as {
+    id: string;
+  } | null;
   try {
     for (const [device, width, height] of [
       ['desktop', 1440, 1100],
@@ -130,27 +133,25 @@ async function smoke() {
       );
       await page.close();
     }
-    assert.deepEqual(
-      await (await context.request.get(`${base}/api/topics`)).json(),
-      topics,
-    );
+    assert.deepEqual(await localAdminJson('/api/admin/topics'), topics);
     if (latest)
       assert.deepEqual(
-        await (
-          await context.request.get(`${base}/api/digest-previews/${latest.id}`)
-        ).json(),
+        await localAdminJson(`/api/admin/digest-previews/${latest.id}`),
         latest,
       );
     console.log(
       'Schedule desktop/mobile: in-memory save/reload, timezone errors, defaults and immutable history passed; live profile unchanged',
     );
   } finally {
-    assert.deepEqual(
-      await (await context.request.get(`${base}/api/profile`)).json(),
-      original,
-      'Browser replay must never change the live profile',
-    );
-    await browser.close();
+    try {
+      assert.deepEqual(
+        await localAdminJson('/api/admin/profile'),
+        original,
+        'Browser replay must never change the live profile',
+      );
+    } finally {
+      await browser.close();
+    }
   }
 }
 void smoke();
