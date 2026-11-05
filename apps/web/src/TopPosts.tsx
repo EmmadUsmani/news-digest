@@ -1,11 +1,10 @@
-import type {
-  DigestPreview,
-  SelectedBlueskyPost,
-  SelectedPost,
-  SelectedRedditPost,
-  SelectedSocialPost,
-} from '@digest/contracts';
+import type { ReaderEdition } from '@digest/contracts';
 import React from 'react';
+
+type ReaderPost = ReaderEdition['topics'][number]['posts'][number];
+type SelectedPost = Extract<ReaderPost, { platform: 'x' }>;
+type SelectedRedditPost = Extract<ReaderPost, { platform: 'reddit' }>;
+type SelectedBlueskyPost = Extract<ReaderPost, { platform: 'bluesky' }>;
 
 type Widgets = {
   widgets: {
@@ -42,22 +41,10 @@ function loadWidgets(): Promise<Widgets> {
   return widgetScript;
 }
 
-export function TopPosts({
-  posts,
-  editorial,
-}: {
-  posts: (SelectedSocialPost | SelectedBlueskyPost)[];
-  editorial?: DigestPreview['topics'][number]['postEditorial'];
-}) {
+export function TopPosts({ posts }: { posts: ReaderPost[] }) {
   return (
     <section className="top-posts" aria-label="Top posts">
       <h4>Top posts</h4>
-      <p className="post-method">
-        {editorial?.mode === 'ai'
-          ? 'AI picks · relevance and interestingness from verified post text. Virality is unknown.'
-          : 'Preliminary picks · topic matching and recency, without AI editing or a virality score.'}
-        {editorial?.mode === 'non-ai' && ` ${editorial.reason}`}
-      </p>
       {posts.length === 0 ? (
         <p>
           No qualifying posts in this window. Nothing added to fill the space.
@@ -148,18 +135,6 @@ function Post({ post }: { post: SelectedPost }) {
       ) : (
         <p className="post-text">{post.displayText ?? post.text}</p>
       )}
-      {post.whyItMatters && <p className="post-context">{post.whyItMatters}</p>}
-      {!!post.citingStories?.length && (
-        <p className="post-coverage">
-          Coverage citing this post:{' '}
-          {post.citingStories.map((story, index) => (
-            <React.Fragment key={story.id}>
-              {index > 0 && ' · '}
-              <a href={`#story-${story.id}`}>{story.title}</a>
-            </React.Fragment>
-          ))}
-        </p>
-      )}
       <div ref={host} className="official-post" />
       {failed && (
         <div className="post-embed-status" role="status">
@@ -186,14 +161,6 @@ function Post({ post }: { post: SelectedPost }) {
           · at collection
         </p>
       )}
-      <details>
-        <summary>Why selected</summary>
-        <ul>
-          {post.reasons.map((reason) => (
-            <li key={reason}>{reason}</li>
-          ))}
-        </ul>
-      </details>
     </article>
   );
 }
@@ -229,18 +196,10 @@ function RedditPost({ post }: { post: SelectedRedditPost }) {
         />
       )}
       {post.displayText && <p className="post-text">{post.displayText}</p>}
-      {post.whyItMatters && <p className="post-context">{post.whyItMatters}</p>}
       <p className="byline">
         {post.metrics.score.toLocaleString()} score ·{' '}
         {post.metrics.comments.toLocaleString()} comments ·{' '}
         {Math.round(post.metrics.upvoteRatio * 100)}% upvoted
-      </p>
-      <p className="byline">
-        Observed{' '}
-        <time dateTime={post.observedAt}>
-          {new Date(post.observedAt).toLocaleString()}
-        </time>{' '}
-        · saved metrics
       </p>
       <a href={post.url} target="_blank" rel="noreferrer">
         Open original post on Reddit
@@ -252,14 +211,6 @@ function RedditPost({ post }: { post: SelectedRedditPost }) {
           </a>
         </p>
       )}
-      <details>
-        <summary>Why selected</summary>
-        <ul>
-          {post.reasons.map((reason) => (
-            <li key={reason}>{reason}</li>
-          ))}
-        </ul>
-      </details>
     </article>
   );
 }
@@ -297,30 +248,14 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
           </a>
         ))}
       </div>
-      {post.whyItMatters && <p className="post-context">{post.whyItMatters}</p>}
       <p className="byline">
         {post.metrics.likes.toLocaleString()} likes ·{' '}
         {post.metrics.reposts.toLocaleString()} reposts ·{' '}
         {post.metrics.replies.toLocaleString()} replies
       </p>
-      <p className="byline">
-        Observed{' '}
-        <time dateTime={post.observedAt}>
-          {new Date(post.observedAt).toLocaleString()}
-        </time>{' '}
-        · saved metrics
-      </p>
       <a href={post.url} target="_blank" rel="noreferrer">
         Open original post on Bluesky
       </a>
-      <details>
-        <summary>Why selected</summary>
-        <ul>
-          {post.reasons.map((reason) => (
-            <li key={reason}>{reason}</li>
-          ))}
-        </ul>
-      </details>
     </article>
   );
 }

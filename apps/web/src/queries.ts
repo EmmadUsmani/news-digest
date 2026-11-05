@@ -1,10 +1,10 @@
 import {
   contentGroupSchema,
-  digestPreviewSchema,
   healthSchema,
   operationsStatusSchema,
   profileSettingsSchema,
   readerEditionHistorySchema,
+  readerEditionSchema,
   topicSchema,
 } from '@digest/contracts';
 import { queryOptions } from '@tanstack/react-query';
@@ -45,8 +45,8 @@ export const editionQuery = (id?: string) =>
     queryKey: ['editions', 'detail', id ?? 'latest'],
     queryFn: ({ signal }) =>
       read(
-        `/api/digest-previews/${id ? encodeURIComponent(id) : 'latest'}`,
-        digestPreviewSchema.nullable(),
+        `/api/editions/${id ? encodeURIComponent(id) : 'latest'}`,
+        readerEditionSchema.nullable(),
         signal,
       ),
   });

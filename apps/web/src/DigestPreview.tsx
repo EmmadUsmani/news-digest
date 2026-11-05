@@ -334,59 +334,17 @@ export function DigestPreview() {
             {new Date(preview.windowStart).toLocaleString()} —{' '}
             {new Date(preview.windowEnd).toLocaleString()} · Saved edition ·
             Created {new Date(preview.createdAt).toLocaleString()} ·{' '}
-            {preview.id.slice(0, 8)} ·{' '}
-            {preview.method === 'editorial-v1'
-              ? 'AI editing with labeled non-AI fallback'
-              : preview.method !== 'signals-v1'
-                ? 'Topic phrase filtering'
-                : 'Original ranking'}
+            {preview.id.slice(0, 8)}
           </p>
           {preview.topics.map((topic) => (
             <article className="digest-topic" key={topic.id}>
               <h3>{topic.name}</h3>
-              {topic.editorial && (
-                <>
-                  <p className="editorial-label">
-                    {topic.editorial.mode === 'ai'
-                      ? `AI edited · ${topic.editorial.model}`
-                      : 'Non-AI ranking'}{' '}
-                    · {topic.editorial.reason}
-                  </p>
-                  {topic.editorial.brief.length > 0 && (
-                    <ul className="topic-brief">
-                      {topic.editorial.brief.map((line) => (
-                        <li key={line}>{line}</li>
-                      ))}
-                    </ul>
-                  )}
-                </>
-              )}
-              <p className="selection-count">
-                {topic.stories.length} selected from {topic.candidateCount}{' '}
-                candidates examined
-                {topic.relevanceRejectedCount !== undefined && (
-                  <> · {topic.relevanceRejectedCount} filtered by topic rules</>
-                )}
-                {topic.qualityRejections !== undefined && (
-                  <>
-                    {' '}
-                    · {topic.qualityRejections.length} filtered by quality rules
-                  </>
-                )}
-              </p>
-              {!!topic.qualityRejections?.length && (
-                <details className="omissions">
-                  <summary>
-                    Why omitted · {topic.qualityRejections.length} candidates
-                  </summary>
-                  <ul>
-                    {topic.qualityRejections.map((item) => (
-                      <li key={item.id}>
-                        <span>{item.title}</span> — {item.reason}
-                      </li>
-                    ))}
-                  </ul>
-                </details>
+              {topic.brief.length > 0 && (
+                <ul className="topic-brief">
+                  {topic.brief.map((line) => (
+                    <li key={line}>{line}</li>
+                  ))}
+                </ul>
               )}
               {topic.stories.length === 0 && (
                 <p>
@@ -403,15 +361,8 @@ export function DigestPreview() {
                     {story.imageUrl && (
                       <StoryImage key={story.imageUrl} url={story.imageUrl} />
                     )}{' '}
-                    {(story.summary || story.excerpt) && (
-                      <p className="excerpt">
-                        {story.summary || story.excerpt}
-                      </p>
-                    )}
-                    {story.whyItMatters && (
-                      <p>
-                        <strong>Why it matters:</strong> {story.whyItMatters}
-                      </p>
+                    {story.summary && (
+                      <p className="excerpt">{story.summary}</p>
                     )}
                     <p className="byline">
                       {story.sources.join(' · ')} ·{' '}
@@ -419,42 +370,11 @@ export function DigestPreview() {
                         {new Date(story.publishedAt).toLocaleString()}
                       </time>
                     </p>
-                    {!!story.evidence?.length && (
-                      <details className="coverage">
-                        <summary>
-                          Summary sources · {story.evidence.length} articles
-                        </summary>
-                        <p>
-                          Headlines and excerpts supplied to the editor.
-                          Attribution is not independent fact-checking.
-                        </p>
-                        <ul>
-                          {story.evidence.map((article) => (
-                            <li key={article.id}>
-                              <a
-                                href={article.url}
-                                target="_blank"
-                                rel="noreferrer"
-                              >
-                                {article.title}
-                              </a>
-                              {' · '}
-                              {article.sources.join(' · ')}
-                              <p>{article.excerpt}</p>
-                            </li>
-                          ))}
-                        </ul>
-                      </details>
-                    )}
                     {!!story.coverage && story.coverage.length > 1 && (
                       <details className="coverage">
                         <summary>
                           Related coverage · {story.coverage.length} articles
                         </summary>
-                        <p>
-                          Grouped by similar headlines; independent reporting is
-                          unverified.
-                        </p>
                         <ul>
                           {story.coverage.map((article) => (
                             <li key={article.id}>
@@ -471,20 +391,10 @@ export function DigestPreview() {
                         </ul>
                       </details>
                     )}
-                    <details>
-                      <summary>Why selected · score {story.score}</summary>
-                      <ul>
-                        {story.reasons.map((reason) => (
-                          <li key={reason}>{reason}</li>
-                        ))}
-                      </ul>
-                    </details>
                   </li>
                 ))}
               </ol>
-              {topic.posts !== undefined && (
-                <TopPosts posts={topic.posts} editorial={topic.postEditorial} />
-              )}
+              {topic.posts !== undefined && <TopPosts posts={topic.posts} />}
             </article>
           ))}
         </>

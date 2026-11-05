@@ -14,7 +14,7 @@ async function smoke() {
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
       const latest = await page.request.get(
-        'http://localhost:8000/api/digest-previews/latest',
+        'http://localhost:8000/api/editions/latest',
       );
       assert.ok(latest.ok());
       const edition = await latest.json();
@@ -101,7 +101,8 @@ async function smoke() {
         .getByRole('status')
         .filter({ hasText: 'Edition ready.' })
         .waitFor();
-      assert.equal(new URL(page.url()).searchParams.get('edition'), edition.id);
+      await page.waitForURL(`**/editions/${edition.id}`);
+      assert.equal(new URL(page.url()).pathname, `/editions/${edition.id}`);
       assert.equal(
         await page.evaluate(() => sessionStorage.getItem('edition-job')),
         null,

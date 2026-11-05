@@ -30,7 +30,7 @@ async function smoke() {
         const blocked = new Promise<void>((resolve) => {
           release = resolve;
         });
-        await page.route('**/api/digest-previews/latest', async (route) => {
+        await page.route('**/api/editions/latest', async (route) => {
           const response = await route.fetch();
           await blocked;
           await route.fulfill(

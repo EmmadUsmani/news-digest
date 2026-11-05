@@ -22,7 +22,8 @@ Existing layouts remain in a legacy CSS layer during the rebuild.
 
 Topic settings, incoming articles and connection health share a validated browser
 cache. Saved editions and each history page use the same cache, with separate
-entries for the latest edition and each saved ID. Navigation reuses fresh data; saving settings refreshes affected data. Status shares the cache, refreshes each
+entries for the latest edition and each saved ID. Edition and archive requests use
+reader-only payloads; stories and posts show content without selection diagnostics. Navigation reuses fresh data; saving settings refreshes affected data. Status shares the cache, refreshes each
 minute while open in the app, and retains the last snapshot if a refresh fails.
 
 ## Where it runs
@@ -85,8 +86,8 @@ all its changes. The baseline makes no schema or content changes.
 Reader endpoints `/api/editions/latest` and `/api/editions/:id` return saved
 content without scores, selection reasons, model details or candidate counts.
 `/api/editions?offset=0` lists 20 saved editions per page with dates and a
-next-page flag, excluding generation methods. The browser uses this archive
-endpoint; edition details still use the older endpoints pending the admin split.
+next-page flag, excluding generation methods. The browser uses these reader
+endpoints for both edition content and history. Operational routes await the admin split.
 
 ## Admin identity
 

@@ -39,8 +39,9 @@ to return briefs, stories and posts without operational metadata. Missing
 historical briefs and posts become empty arrays; non-AI briefs are omitted.
 `/api/editions?offset=0` exposes stable 20-entry archive pages with only IDs
 and dates, plus `hasMore`. Browser history now uses this reader endpoint and
-omits generation methods. Edition detail still uses the old endpoint; the
-coordinated admin route migration remains unfinished.
+omits generation methods. Browser edition detail also uses the reader endpoints;
+its stories and posts render without scores, selection reasons or editorial
+diagnostics. The coordinated admin route migration remains unfinished.
 
 ## Next rollout slice
 

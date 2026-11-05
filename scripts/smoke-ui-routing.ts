@@ -25,7 +25,7 @@ async function smoke() {
       page.on('pageerror', (error) => errors.push(error.message));
       let legacyHistoryReads = 0;
       page.on('request', (request) => {
-        if (request.url().includes('/api/digest-previews?'))
+        if (new URL(request.url()).pathname.startsWith('/api/digest-previews'))
           legacyHistoryReads++;
       });
       await page.goto(`http://localhost:8000/?edition=${edition.id}`);
@@ -56,10 +56,14 @@ async function smoke() {
       await page.waitForFunction(() =>
         document.querySelector('.edition-history a[aria-current="page"]'),
       );
-      assert.equal(legacyHistoryReads, 0, 'History uses reader endpoint only');
+      assert.equal(
+        legacyHistoryReads,
+        0,
+        'Edition and history use reader endpoints only',
+      );
       let historicalReads = 0;
       page.on('request', (request) => {
-        if (request.url().endsWith(`/api/digest-previews/${edition.id}`))
+        if (request.url().endsWith(`/api/editions/${edition.id}`))
           historicalReads++;
       });
       await page.getByRole('button', { name: 'Open latest edition' }).click();
@@ -119,9 +123,29 @@ async function smoke() {
       await page.screenshot({
         path: `docs/screenshots/ui/foundations-routing-${device}.png`,
       });
+      const topic = page.locator('.digest-topic').first();
+      assert.ok(
+        (await topic.locator('li').count()) > 0,
+        'Real saved stories render',
+      );
+      assert.doesNotMatch(
+        await topic.innerText(),
+        /Why selected|Why it matters|AI edited|Non-AI ranking|candidates examined|filtered by quality rules/,
+      );
+      for (const theme of ['light', 'dark']) {
+        await page.evaluate((value) => {
+          document.documentElement.classList.toggle('dark', value === 'dark');
+        }, theme);
+        await topic.screenshot({
+          path: `docs/screenshots/ui/reader-content-${device}-${theme}.png`,
+        });
+      }
+      await page.evaluate(() =>
+        document.documentElement.classList.remove('dark'),
+      );
       // A malformed response must not leave the previous edition on screen.
       const invalidId = '00000000-0000-4000-8000-000000000099';
-      await page.route(`**/api/digest-previews/${invalidId}`, (route) =>
+      await page.route(`**/api/editions/${invalidId}`, (route) =>
         route.fulfill({ json: { id: invalidId, topics: [] } }),
       );
       await page.goto(`http://localhost:8000/editions/${invalidId}`);
