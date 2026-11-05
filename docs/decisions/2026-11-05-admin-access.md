@@ -90,6 +90,11 @@ and incoming-content snapshots. Save failures, retries, reload and disconnect
 stay in the browser; unexpected API writes are blocked. It no longer creates
 live topics, generates editions or deletes database rows directly.
 
+The custom-feed browser check also uses protected topic/catalog/content snapshots.
+Validation and failure responses, retries, reload and disconnect are browser-only;
+it never creates topics, connects a live publisher or waits for collection.
+Server URL validation remains covered by isolated API tests.
+
 ## Next rollout slice
 
 Configure the owner email allowlist before moving current operational routes.

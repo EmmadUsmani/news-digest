@@ -1,14 +1,3 @@
-## 2026-11-05: iteration 736 — authenticated local operations reads
-
-- Started clean on main; no leftover work. Health/database/Redis green, 36 sources healthy, zero failed retained digest runs; Nov 5 edition due at 15:00 UTC. Metrics memory warning later pending; no ceiling change or observability restart.
-- Installed a random ADMIN_LOCAL_TOKEN in the private mode-600 env file without exposing it. API loads it after restart; owner email allowlist remains unconfigured.
-- Sources/jobs CLI queries now use /api/admin/status with a reusable local credential adapter. It reads credentials only for the fixed loopback protected API origin, preserves request headers, rejects missing/invalid tokens and refuses redirects. No legacy-route fallback.
-- Isolated tests cover credential scope, header preservation, missing/invalid token refusal, real HTTP gate acceptance and redirect refusal. Targeted local-admin/obs tests 19/19 passed; no live writes or inference.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (496 unit/214 isolated integration, exit 0), pnpm build, check-handbook.ts 08-operations and git diff --check. Initial test lint and handbook length failures corrected before final checks.
-- Rebuilt/restarted API/docs; readiness retry passed. Live protected sources/jobs reads: 36 healthy sources, no failed digest runs; anonymous protected status 404, reader latest four topics, health green. Worker/schema/UI unchanged; no screenshot changes needed. Final alerts zero.
-- Updated TASKS, Operations and access decision; archived iteration 722. SOURCES/NEEDS_FROM_HUMAN unchanged; no source change or new owner blocker. No paid calls, model/provider/budget changes, scorer work or X activation.
-- Next: owner email identity and coordinated UI/scripts/tool migration; Nov 5 scheduled acceptance first when due, scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6.
-
 ## 2026-11-05: iteration 737 — authenticated scheduled-evidence reports
 
 - Started clean on main; no leftover work. Health/database/Redis, 36 sources healthy, zero failed retained digest runs; Nov 5 edition due at 15:00 UTC. Initial alerts zero.
@@ -130,4 +119,14 @@
 - `pnpm exec tsx scripts/smoke-topic-sources.ts` passed desktop/mobile save failure/selection retention, retry, incoming stored articles, replay reload and disconnect; final protected reads prove live topics and the saved edition unchanged. Two screenshots refreshed; mobile visually inspected.
 - Updated TASKS, Operations and access decision. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema changes, live writes, paid calls or model/provider/budget changes; healthy services remain running under STEERING 22.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, exit 0); pnpm build; check-handbook.ts 08-operations; git diff --check passed. Initial check caught script formatting; corrected before successful rerun. Final health green; archived iteration 735.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback. Scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6. Continue coordinated admin migration while waiting.
+
+## 2026-11-05: iteration 750 — custom feeds without production writes
+
+- Started clean on main; no leftover work. Health/database/Redis green, all 36 sources healthy, no failed digest runs; metrics memory warning pending. Nov 5 edition due at 15:00 UTC.
+- Custom-feed browser verifier now reads protected topic/catalog/content snapshots in Node. Validation/failure responses, retry, reload and disconnect stay in browser memory; unexpected API writes abort. Removed live topic creation/deletion, publisher connection changes and scheduler polling.
+- `pnpm exec tsx scripts/smoke-custom-feeds.ts` passed desktop/mobile: validation response, retained fields after failed save, retry/cleared fields, stored publisher articles, replay reload and disconnect. Final protected reads prove live topics and saved edition unchanged. Two screenshots refreshed; desktop visually inspected.
+- First publisher-only replay selection found no matching feed in Tech's incoming snapshot; fixed selection across enabled topics. A browser run during concurrent build timed out; rerun after build passed. Isolated API tests retain actual URL-validation coverage; browser error responses are replayed.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, exit 0); pnpm build; check-handbook.ts 08-operations; git diff --check all passed. Final health green; reader latest has four real topics.
+- Updated TASKS, Operations and access decision; archived iteration 736. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema changes, live writes, paid calls or model/provider/budget changes; healthy services remain running under STEERING 22.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback. Scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6. Continue coordinated admin migration while waiting.
