@@ -74,6 +74,8 @@ async function smoke() {
         topic.id === target.id ? { ...topic, sources: [] } : topic,
       );
       let fail = true;
+      let disconnect = true;
+      let failRefresh = false;
       let writes = 0;
       const unexpectedWrites: string[] = [];
       await page.route('**/*', async (route) => {
@@ -96,10 +98,12 @@ async function smoke() {
             return route.fulfill({ status: 400, json: {} });
           }
           assert.equal(input.url, source.url);
+          if (disconnect) return route.abort();
           if (fail) return route.fulfill({ status: 503, json: {} });
           topics = topics.map((topic) =>
             topic.id === target.id ? { ...topic, sources: [source.id] } : topic,
           );
+          failRefresh = true;
           return route.fulfill({
             status: 201,
             json: topics.find((topic) => topic.id === target.id),
@@ -123,8 +127,13 @@ async function smoke() {
           return route.abort();
         }
         if (path === '/api/topics') return route.fulfill({ json: topics });
-        if (path === '/api/topics/sources')
+        if (path === '/api/topics/sources') {
+          if (failRefresh) {
+            failRefresh = false;
+            return route.fulfill({ status: 503, json: {} });
+          }
           return route.fulfill({ json: catalog });
+        }
         if (path === '/api/content')
           return route.fulfill({
             json: content.map((item) =>
@@ -196,6 +205,21 @@ async function smoke() {
       await connect.click();
       await page
         .getByRole('status')
+        .filter({ hasText: 'Could not confirm the feed connection.' })
+        .waitFor();
+      assert.equal(await name.inputValue(), source.name);
+      assert.equal(await url.inputValue(), source.url);
+      assert.deepEqual(
+        topics.find((topic) => topic.id === target.id)!.sources,
+        [],
+      );
+      await page.locator('.topic-settings').screenshot({
+        path: `docs/screenshots/custom-feeds-network-${device}.png`,
+      });
+      disconnect = false;
+      await connect.click();
+      await page
+        .getByRole('status')
         .filter({ hasText: 'Could not connect feed.' })
         .waitFor();
       assert.equal(await name.inputValue(), source.name);
@@ -207,7 +231,9 @@ async function smoke() {
       await connect.click();
       await page
         .getByRole('status')
-        .filter({ hasText: 'Feed connected.' })
+        .filter({
+          hasText: 'Feed connected, but the source list could not refresh.',
+        })
         .waitFor();
       assert.equal(await name.inputValue(), '');
       assert.equal(await url.inputValue(), '');
@@ -243,7 +269,7 @@ async function smoke() {
       await card
         .getByText('No sources connected yet.', { exact: false })
         .waitFor();
-      assert.equal(writes, 4);
+      assert.equal(writes, 5);
       assert.deepEqual(unexpectedWrites, []);
       assert.deepEqual(errors, []);
       assert.deepEqual(credentials, []);
@@ -264,7 +290,7 @@ async function smoke() {
         savedEdition,
       );
     console.log(
-      'Custom feeds desktop/mobile: validation response, save failure, retry, cleared fields, stored content, replay reload and disconnect passed; full live topics/profile/edition unchanged, browser writes guarded and credentials absent, no inference.',
+      'Custom feeds desktop/mobile: validation response, uncertain network outcome, save failure, confirmed save with refresh failure, cleared fields, stored content, replay reload and disconnect passed; full live topics/profile/edition unchanged, browser writes guarded and credentials absent, no inference.',
     );
   } finally {
     await browser.close();

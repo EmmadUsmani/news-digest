@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Feed connection outcome messages (808): distinguish an unconfirmed network outcome from a confirmed save whose catalog refresh failed; desktop/mobile recovery replay checks retained entries, saved selections and unchanged live data.
+
 - [x] News-query pending-save recovery (807): desktop/mobile query, source-save/close and custom-feed controls lock during one held request; failure retains input, retry/reload/disconnect pass; protected live snapshots unchanged.
 
 - Completed iterations 803–806: [2026-11-05-completed-task-markers-807.md](docs/progress-archive/2026-11-05-completed-task-markers-807.md).

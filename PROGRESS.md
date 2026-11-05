@@ -136,3 +136,12 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-news-queries.ts; smoke-admin-gate.ts; git diff --check. All passed (exit 0): static checks, 497 unit and 214 isolated integration tests, browser replay, admin gate and diff check. Initial browser run used the idle save-button label during the pending state; corrected to Saving… and rerun passed.
 - TASKS updated; archived iterations 791–792 and completed markers 803–806. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. Verification-only change; no build/restart required under STEERING 22.
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending; monitor metrics memory warning.
+
+## 2026-11-05: iteration 808 — distinguish feed connection and refresh failures
+
+- Started clean on main; no leftover work. Health/database/Redis and app services green; all 36 sources healthy, no failed retained digest runs. Metrics memory warning pending; scheduled edition still due 15:00 UTC.
+- Source settings now distinguish an unconfirmed network outcome (retain entries, check before retrying) from a confirmed connection whose catalog refresh failed (saved selection retained). Applies to feed and news-query connections; saved editions unchanged.
+- Custom-feed desktop/mobile replay covers network abort, HTTP rejection, confirmed save plus refresh failure, cleared inputs, reload and disconnect. Browser credentials absent/writes guarded; protected full live topics/profile/edition unchanged. Four outcome screenshots inspected.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-custom-feeds.ts; smoke-admin-gate.ts; git diff --check. Initial browser ran before the build finished; rerun passed after deployment. Initial full check raced formatter/lint-fix and failed formatting; formatted affected file and reran. Foreground check then received signal 143 during integration tests; reran in a transient user service for a completed result. Full check passed (exit 0): 497 unit and 214 isolated integration tests.
+- Rebuilt app and restarted API; /healthz OK. Worker runtime unchanged. TASKS updated; SOURCES/NEEDS_FROM_HUMAN unchanged (no source changes/new blockers). No live writes or paid calls.
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

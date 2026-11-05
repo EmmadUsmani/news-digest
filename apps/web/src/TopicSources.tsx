@@ -57,6 +57,7 @@ export function TopicSources({
     event.preventDefault();
     setBusy(true);
     setMessage('');
+    let connected = false;
     try {
       const response = await fetch(
         `/api/topics/${topic.id}/${search ? 'queries' : 'feeds'}`,
@@ -79,6 +80,7 @@ export function TopicSources({
         return;
       }
       const saved = topicSchema.parse(await response.json());
+      connected = true;
       onSaved(saved);
       setSelected(saved.sources);
       setFeedName('');
@@ -92,7 +94,9 @@ export function TopicSources({
       );
     } catch {
       setMessage(
-        'Could not refresh feed connections. Close and reopen sources to check before retrying.',
+        connected
+          ? 'Feed connected, but the source list could not refresh. Close and reopen sources to see the saved connection.'
+          : 'Could not confirm the feed connection. Your entries are still here. Close and reopen sources to check before retrying.',
       );
     } finally {
       setBusy(false);
