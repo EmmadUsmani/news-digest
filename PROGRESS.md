@@ -125,9 +125,11 @@
 ## 2026-11-05: iteration 877 — dedicated source collection page
 
 - Started clean on main; no leftover work. Alerts clear, API/worker and /healthz healthy; all 36 sources collecting. X fresh-window experiments remain due after 21:00 UTC.
+- Owner-visible value: a dedicated Sources page replaces scattered source cards with one collection-health table.
 - Added protected `/admin/sources` and shared navigation/mobile title, a shadcn-style table for collection state, timestamps, last response/stored article counts and errors, plus X/Bluesky/parked Reddit/deferred YouTube rows.
 - Removed the replaced source cards and Reddit explanation from the legacy status panel. Sources is a partial spec step: topic links, 24-hour/7-day counts, enable switches and Add feed remain open; existing counts are explicitly labelled.
 - Browser: smoke-admin-sources passed four viewport/theme combinations, 36 live source rows, anonymous denial, deep reload, mobile navigation, refresh failure/recovery, no overflow/writes/browser credentials. Four screenshots retained; desktop light/mobile dark visually inspected. Initial browser attempt preceded API readiness; retried after healthy /healthz. Combined verification command exited 143 during integration after 505 unit passes; standalone check rerun passed.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (505 unit/218 isolated integration passed); pnpm build; git diff --check. Handbook Operations check passed (18 pages, one unchanged diagram, 28 assigned tables); admin gate passed 24 denied paths and forwarded-token denial; smoke-admin-overview passed.
 - API restarted for built web; worker unchanged. Final health/alerts clear. No paid calls, saved-data writes, source/schema/access changes; SOURCES and NEEDS_FROM_HUMAN unchanged; archived iteration 864.
+- Push initially rejected after owner STEERING-only commits landed; merged item 38 without rewriting history.
 - Next: finish dedicated admin pages and Sources management, then final reader; Overview alert count/cost remain. X rounds after 21:00 UTC Nov 5/6 and scheduled Nov 6 editorial/story-pool review stay ahead when due.

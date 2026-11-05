@@ -1153,3 +1153,46 @@ and 36.
 - **A failed upload must never affect editions** or the local backups.
 - **Ack** with sizes and monthly storage use.
 
+## 38. Never idle, and choose work that matters (2026-11-05)
+
+Item 28's rule stands: **never stop and never wait.** The list below replaces
+its fallback list. On Nov 5,
+116 commits went to polishing screens about to be replaced, while the
+owner-approved admin pages weren't built. Being busy isn't the goal. Each
+iteration should leave the product noticeably better.
+
+**Pick the highest item that has work available:**
+
+1. Breakages and scheduled-edition protection.
+2. Open STEERING items, in their stated priority. If one is waiting on a time,
+   the owner or evidence, go to the next item. Don't wait for it.
+3. **What the reader sees.** Read the latest edition as a reader would, and fix
+   the biggest weakness: thin or repeated stories, weak posts, missing topics,
+   poor summaries.
+4. Bigger gaps that make the app better: edition speed, source coverage,
+   milestones in TASKS.md.
+5. Smaller tasks. These are fine, and better than stopping, but only once 1–4
+   have nothing available.
+
+**Before starting, ask: would the owner notice or care if this shipped?** Write
+the one-line answer in PROGRESS.md. If the honest answer is no, look again at
+1–4 first.
+
+**Warning signs. Change direction if you see these:**
+
+- Three iterations in a row on the same small area with nothing the owner would
+  see.
+- Handling a failure that has never happened and isn't likely.
+- Adding checks, verification or error handling to code that's being replaced.
+- Re-analysing evidence that already answered the question.
+
+**If you think you're blocked, check first.** Read the actual setting or file,
+and don't trust an old note. Then keep working on something else.
+
+**Product ideas:** when 1–4 run dry, add your best ideas to `docs/ideas.md`, a
+few lines each, with what it would cost. Keep working while the owner reviews
+them. Don't build new product features, or anything needing new spend, new
+vendors or a change to the owner's decisions, without approval.
+
+All existing budgets and constraints still apply.
+
