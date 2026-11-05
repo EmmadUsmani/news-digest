@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import {
+  mkdirSync,
   mkdtempSync,
   readdirSync,
   readFileSync,
@@ -12,7 +13,13 @@ import { join } from 'node:path';
 import test from 'node:test';
 
 function fixture(
-  mode: 'success' | 'overrun' | 'unknown' | 'token-only',
+  mode:
+    | 'success'
+    | 'overrun'
+    | 'unknown'
+    | 'token-only'
+    | 'timeout-once'
+    | 'timeout',
   legacy = false,
 ) {
   const directory = mkdtempSync(join(tmpdir(), 'x-runner-'));
@@ -30,6 +37,8 @@ global.Date = class extends RealDate {
 global.fetch = async (url, options) => {
   if (url !== 'https://api.x.ai/v1/responses') throw Error('Unexpected URL');
   require('node:fs').appendFileSync(${JSON.stringify(join(directory, 'dispatches'))}, 'call\\n');
+  const count = require('node:fs').readFileSync(${JSON.stringify(join(directory, 'dispatches'))}, 'utf8').trim().split('\\n').length;
+  if (process.env.FAKE_MODE === 'timeout' || (process.env.FAKE_MODE === 'timeout-once' && count === 1)) throw new DOMException('Synthetic timeout', 'TimeoutError');
   if (process.env.FAKE_MODE === 'unknown') throw Error('Synthetic transport failure');
   return new Response(JSON.stringify({usage: {input_tokens: 1, output_tokens: 1,
     ...(process.env.FAKE_MODE === 'token-only' ? {} : {server_side_tool_usage_details: {x_posts_fetched: process.env.FAKE_MODE === 'overrun' ? 31 : 1, x_users_fetched: 0}})}, output: []}));
@@ -253,6 +262,77 @@ void test('experiment runner settles token-only responses instead of retaining r
     assert.equal(result.status, 0, result.stderr);
     assert.equal(f.journal().entries.length, 8);
     assert.ok(f.journal().entries.every((entry) => entry.actualMicros === 4));
+  } finally {
+    f.cleanup();
+  }
+});
+
+void test('timeout retry is separately admitted and retains the original hold', () => {
+  const f = fixture('timeout-once');
+  try {
+    const result = f.run();
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal(f.journal().entries.length, 9);
+    assert.equal(f.journal().entries[0].actualMicros, null);
+    assert.equal(f.journal().entries[1].actualMicros, 5004);
+    const round = readdirSync(f.root).find((name) => name !== 'budget.json');
+    assert.ok(round);
+    assert.ok(
+      readdirSync(join(f.root, round)).some((name) =>
+        name.endsWith('-retry-1.request.json'),
+      ),
+    );
+  } finally {
+    f.cleanup();
+  }
+});
+
+void test('two timeouts stop and continuing cannot dispatch a third attempt', () => {
+  const f = fixture('timeout');
+  try {
+    assert.equal(f.run().status, 1);
+    assert.deepEqual(
+      f.journal().entries.map((entry) => entry.actualMicros),
+      [null, null],
+    );
+    const round = readdirSync(f.root).find((name) => name !== 'budget.json');
+    assert.ok(round);
+    assert.equal(f.run('success', round).status, 0);
+    assert.equal(f.journal().entries.length, 9);
+    assert.equal(
+      f.journal().entries.filter((entry) => entry.actualMicros === null).length,
+      2,
+    );
+  } finally {
+    f.cleanup();
+  }
+});
+
+void test('timeout retry refuses dispatch when the retained hold fills the daily cap', () => {
+  const f = fixture('timeout');
+  try {
+    mkdirSync(f.root, { recursive: true });
+    writeFileSync(
+      join(f.root, 'budget.json'),
+      JSON.stringify({
+        version: 1,
+        entries: [
+          {
+            id: 'prior',
+            day: '2026-11-05',
+            reservedMicros: 850000,
+            actualMicros: 850000,
+          },
+        ],
+      }),
+    );
+    assert.equal(f.run().status, 1);
+    assert.equal(f.journal().entries.length, 2);
+    assert.equal(
+      readFileSync(join(f.directory, 'dispatches'), 'utf8').trim(),
+      'call',
+    );
+    assert.equal(f.journal().entries[1].actualMicros, null);
   } finally {
     f.cleanup();
   }

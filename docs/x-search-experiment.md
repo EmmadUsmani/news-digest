@@ -13,7 +13,7 @@ separate from the production database ledger. Amounts are integer USD micros.
 | Reserve                   | Checks $1 per UTC day, $2.50 lifetime and the 13:00–16:00 UTC exclusion before saving a unique request ID                   |
 | Dispatch claim            | Rechecks protected hours and reservation UTC day; durably records one claim and refuses retries or settled/overrun requests |
 | Settle                    | Saves known actual usage once and releases unused reservation                                                               |
-| Unknown outcome           | Keeps the full reservation; no automatic release or retry                                                                   |
+| Unknown outcome           | Keeps the full reservation; no automatic release; one separately admitted timeout retry                                     |
 | Cost above reservation    | Saves the actual cost and blocks further admissions                                                                         |
 | Restart                   | Reads persisted reservations and settlements                                                                                |
 | Locked or damaged journal | Refuses admission; never replaces damaged evidence or reclaims stale locks                                                  |
@@ -375,3 +375,11 @@ for measured costs, raw results and remaining scoring/second-day gates.
 Extraction now includes the code-required `-giveaway` alongside saved
 exclusions for revised styles; saved settings need not contain the mandatory
 operator themselves. Historical styles are unchanged.
+
+### Timeout retry (iteration 904)
+
+The revised runner retries a transport `TimeoutError` once, using a separate
+`-retry-1` request ID and a fresh $0.15 admission. The original hold stays charged.
+A second timeout stops dispatch. Continuing a round skips its attempted cells,
+so restart cannot grant another retry. Other transport errors still stop without
+retry. Tool-failure/no-execution retries and the switched-off schedule remain open.

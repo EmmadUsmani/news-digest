@@ -4,7 +4,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
-- [ ] STEERING 39 NOW, ahead of UI (903: saved NBA/World holds settled append-only; required tool choice, token-only parsing and 120 s timeout shipped; admitted retry still open): require supported X search execution, 120 s timeout, one admitted retry only for no-execution/no-post failures, saved NBA/World settlement complete; rerun three Nov 5 keyword failures after Nov 6 00:00 UTC. Fair semantic query next round; scorer gate counts as non-promotion and unknown likes are unusable. $2.50 total/$1 UTC day caps unchanged; no production activation.
+- [ ] STEERING 39 NOW, ahead of UI (903: saved NBA/World holds settled append-only; required tool choice, token-only parsing and 120 s timeout shipped; experiment timeout retry shipped (904); remaining retries open): require supported X search execution, 120 s timeout, one admitted retry only for no-execution/no-post failures, saved NBA/World settlement complete; rerun three Nov 5 keyword failures after Nov 6 00:00 UTC. Fair semantic query next round; scorer gate counts as non-promotion and unknown likes are unusable. $2.50 total/$1 UTC day caps unchanged; no production activation.
 - [ ] STEERING 36 NOW: forty-article grouping pool live (872), ten-story editor cap unchanged; replay/cost evidence in [review](docs/edition-reviews/2026-11-05-world-story-pool.md). Review Nov 6 edition. Dedicated admin pages next; coverage cleanup done (873). X rounds due after 21:00 UTC.
 
 - [x] Nov 5 full-AI acceptance and saved reader text (847): all sections AI, zero unscored; $0.315445/152.320 s. [Review](docs/edition-reviews/2026-11-05.md).
@@ -37,6 +37,6 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Saved X usage settlement (903): hash-linked append-only journal settlements preserve reservations/responses; NBA $0.010383, World $0.006329. Nov 5 charged $0.445318; lifetime $0.977649; remaining $1.522351. Gaming timeout holds retained; no paid calls/activation.
+- [x] Experiment timeout retry (904): one fresh $0.15 admission, first hold retained, second timeout stops; restart cannot grant another retry. Daily-cap refusal covered offline. No paid calls or activation.
 
-- Next: STEERING 39 one separately admitted retry for failed/no-execution/timeout calls; Nov 5 failed keyword reruns after Nov 6 00:00 UTC, then Nov 6 fresh-window round and scheduled edition review. Edition reader layout follows.
+- Next: STEERING 39 tool-failure/no-execution retries and switched-off schedule retry (experiment timeout retry shipped in 904); Nov 5 failed keyword reruns after Nov 6 00:00 UTC, then Nov 6 fresh-window round and scheduled edition review. Edition reader layout follows.

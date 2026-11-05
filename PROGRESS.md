@@ -1,15 +1,3 @@
-## 2026-11-05: iteration 891 — Sources topic connections
-
-- Started clean on main; no leftover work. Owner would care: Sources now shows which topics use each source and links directly to their editors, making feed management reachable from collection health.
-- Added connected-topic column, disabled-topic labels, explicit unconnected/loading/unavailable states, Manage topics & feeds entry, independent topic-read error and shared refresh. Corrected X platform copy: scheduled search is off pending experiment decision.
-- Uses existing protected reads and editor routes; no API/schema/collection/budget changes. Discovery-specific settings need backend work; remaining Sources window counts/global enable/Add feed stay open.
-- Browser checks compare every source row against saved topic connections and follow editor/feed-management links; exercise topic refresh failure/retry, anonymous denial, reload, mobile navigation and four viewport/theme combinations. All writes/external requests blocked. Four Sources screenshots saved; mobile light and desktop dark visually inspected.
-- Initial navigation heading assertion timed out; destination-region assertion with failure diagnostics passed on rerun. Visual review caught legacy large anchor styling; set explicit small/medium link typography and rebuilt. Optional image crop unavailable (Pillow absent); viewed saved PNGs directly.
-- Updated TASKS and Operations handbook; archived iterations 880–881 to keep PROGRESS small. Discarded unrelated separation-smoke screenshot changes. SOURCES/NEEDS_FROM_HUMAN unchanged; no paid calls or live edits.
-- Verification: pnpm format; pnpm lint:fix; pnpm build; final web rebuild and targeted ESLint/Prettier; smoke-admin-sources.ts; smoke-admin-separation.ts; check-handbook.ts 08-operations passed. Full pnpm check passed: typecheck/lint/format/boundaries, 505 unit and 218 isolated integration tests.
-- API restarted for final built assets; all four app units active, /healthz database/Redis green, alerts clear; reader regression rendered the real saved edition without reader admin reads.
-- Next: remaining dedicated admin-page gaps and final reader; Nov 6 scheduled edition/grouping evidence and fresh-window X round after 21:00 UTC. No X activation before decision.
-
 ## 2026-11-05: iteration 892 — Overview edition cost
 
 - Started clean on main; no leftover work. Owner would care: Overview now shows what the latest edition cost and links to its full inspector.
@@ -142,3 +130,13 @@
 - Updated TASKS, SOURCES, saved experiment review and social handbook; archived iteration 890 to keep PROGRESS small. NEEDS_FROM_HUMAN unchanged.
 - Next: one separately admitted retry in experiment and switched-off schedule; then three Nov 5 failed keyword reruns after Nov 6 00:00 UTC. Fair semantic query and fresh Nov 6 comparison follow; no production activation.
 - Push first rejected for incoming lead-workflow commits; fetched/merged without rewriting history. Owner lead files left untouched; no app runtime changes. Post-merge formatting/lint and handbook check run before repush.
+
+## 2026-11-05: iteration 904 — separately admit an experiment timeout retry
+
+- Started clean on main; no leftover work. Alerts clear; all 36 sources healthy and no failed digest runs.
+- Revised experiment runner retries a transport TimeoutError once with its own -retry-1 request/evidence and fresh $0.15 admission. Original hold stays charged; second timeout stops. Continuation skips attempted cells, preventing a third attempt.
+- Offline tests cover successful retry settlement, double-timeout holds/restart, and daily-cap refusal before retry dispatch. Other transport errors still stop without retry; no paid calls or activation.
+- Verification: pnpm format; pnpm lint:fix; pnpm check passed typecheck/lint/format/boundaries, 517 unit and 221 isolated integration tests; pnpm build; check-handbook.ts 05-social-posts; git diff --check.
+- Rebuilt/restarted API, worker, docs and schema services; health database/Redis green. Real saved reader edition returns four topics/17 stories; 36 sources healthy, success through 23:50 UTC; next edition Nov 6 15:00 UTC.
+- Updated TASKS, SOURCES, experiment notes and social handbook; archived iteration 891 to keep PROGRESS small. NEEDS_FROM_HUMAN unchanged.
+- Next: tool-failure/no-execution retry and switched-off scheduler retry, then authorized three failed Nov 5 keyword reruns after Nov 6 00:00 UTC. Fair semantic query and fresh Nov 6 round follow. Fixed production search remains off.

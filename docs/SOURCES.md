@@ -2056,3 +2056,10 @@ zero fetched posts, original evidence preserved with hash-linked journal additio
 Nov 5 charged $0.445318; lifetime $0.977649; $1.522351 remains under $2.50.
 Gaming no-response holds retained. No provider calls or production activation.
 [Settlement details](edition-reviews/2026-11-05-x-experiment-review.md#saved-usage-settlement--iteration-903).
+
+### Experiment timeout retry — iteration 904 (2026-11-05)
+
+The revised experiment runner admits one timeout retry separately at $0.15;
+the original unknown-cost hold stays charged. Two timeouts stop the run, and
+continuation cannot grant a third attempt. No live calls were made in this step;
+tool-failure/no-execution and switched-off schedule retries remain pending.

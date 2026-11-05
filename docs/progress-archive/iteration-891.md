@@ -1,0 +1,11 @@
+## 2026-11-05: iteration 891 — Sources topic connections
+
+- Started clean on main; no leftover work. Owner would care: Sources now shows which topics use each source and links directly to their editors, making feed management reachable from collection health.
+- Added connected-topic column, disabled-topic labels, explicit unconnected/loading/unavailable states, Manage topics & feeds entry, independent topic-read error and shared refresh. Corrected X platform copy: scheduled search is off pending experiment decision.
+- Uses existing protected reads and editor routes; no API/schema/collection/budget changes. Discovery-specific settings need backend work; remaining Sources window counts/global enable/Add feed stay open.
+- Browser checks compare every source row against saved topic connections and follow editor/feed-management links; exercise topic refresh failure/retry, anonymous denial, reload, mobile navigation and four viewport/theme combinations. All writes/external requests blocked. Four Sources screenshots saved; mobile light and desktop dark visually inspected.
+- Initial navigation heading assertion timed out; destination-region assertion with failure diagnostics passed on rerun. Visual review caught legacy large anchor styling; set explicit small/medium link typography and rebuilt. Optional image crop unavailable (Pillow absent); viewed saved PNGs directly.
+- Updated TASKS and Operations handbook; archived iterations 880–881 to keep PROGRESS small. Discarded unrelated separation-smoke screenshot changes. SOURCES/NEEDS_FROM_HUMAN unchanged; no paid calls or live edits.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; final web rebuild and targeted ESLint/Prettier; smoke-admin-sources.ts; smoke-admin-separation.ts; check-handbook.ts 08-operations passed. Full pnpm check passed: typecheck/lint/format/boundaries, 505 unit and 218 isolated integration tests.
+- API restarted for final built assets; all four app units active, /healthz database/Redis green, alerts clear; reader regression rendered the real saved edition without reader admin reads.
+- Next: remaining dedicated admin-page gaps and final reader; Nov 6 scheduled edition/grouping evidence and fresh-window X round after 21:00 UTC. No X activation before decision.

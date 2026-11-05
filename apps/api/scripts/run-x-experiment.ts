@@ -110,76 +110,90 @@ async function main() {
       const body = topic.requests[style];
       if (!body || body.model !== 'grok-4.3')
         throw new Error('Expected prepared Grok 4.3 body');
-      const requestId = `${roundId}-${topic.topicId}-${style}`;
-      // Continuing visits only cells never attempted; unknown outcomes are never retried.
-      if (existsSync(join(roundDirectory, `${requestId}.request.json`)))
-        continue;
-      budget.reserve(requestId, 150_000);
-      const startedAt = new Date().toISOString();
-      save(`${requestId}.request.json`, {
-        requestId,
-        startedAt,
-        topicId: topic.topicId,
-        topic: topic.topic,
-        style,
-        window: input.window,
-        body,
-      });
-      budget.claimDispatch(requestId);
-      const response = await fetch('https://api.x.ai/v1/responses', {
-        method: 'POST',
-        redirect: 'error',
-        signal: AbortSignal.timeout(xSearchTimeoutMs),
-        headers: {
-          Authorization: `Bearer ${key}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
-      }).catch((error: unknown) => {
-        save(`${requestId}.failure.json`, {
-          failedAt: new Date().toISOString(),
-          errorName: error instanceof Error ? error.name : 'UnknownError',
-          outcome: 'unknown; reservation retained',
-        });
-        throw error;
-      });
-      const raw = await response.text();
-      save(`${requestId}.response.json`, {
-        status: response.status,
-        receivedAt: new Date().toISOString(),
-        raw,
-      });
-      if (!response.ok)
-        throw new Error('Provider rejected call; hold retained, no retry');
-      const usage = xSearchUsageSchema.parse(JSON.parse(raw).usage);
-      const costMicros = xDiscoveryCost(
-        {
-          inputTokens: usage.input_tokens,
-          outputTokens: usage.output_tokens,
-          postsFetched: usage.server_side_tool_usage_details.x_posts_fetched,
-          profilesFetched: usage.server_side_tool_usage_details.x_users_fetched,
-        },
-        {
-          inputPerMillion: 1.25,
-          outputPerMillion: 2.5,
-          perPost: 0.005,
-          perProfile: 0.01,
-        },
-      );
-      budget.settle(requestId, costMicros);
-      calls.push({ requestId, startedAt, costMicros });
-      save(`${requestId}.settled.json`, { costMicros, usage });
-      console.log(
-        JSON.stringify({
+      const baseRequestId = `${roundId}-${topic.topicId}-${style}`;
+      for (let attempt = 0; attempt < 2; attempt++) {
+        const requestId =
+          attempt === 0 ? baseRequestId : `${baseRequestId}-retry-1`;
+        // Resume skips attempted cells; only this process can admit the one timeout retry.
+        if (existsSync(join(roundDirectory, `${requestId}.request.json`)))
+          break;
+        budget.reserve(requestId, 150_000);
+        const startedAt = new Date().toISOString();
+        save(`${requestId}.request.json`, {
+          requestId,
+          startedAt,
+          topicId: topic.topicId,
           topic: topic.topic,
           style,
-          costMicros,
-          totalMicros: calls.reduce((sum, call) => sum + call.costMicros, 0),
-          postsFetched: usage.server_side_tool_usage_details.x_posts_fetched,
-        }),
-      );
-      if (costMicros > 150_000)
-        throw new Error('Call exceeded owner reservation; experiment stopped');
+          window: input.window,
+          body,
+        });
+        budget.claimDispatch(requestId);
+        const response = await fetch('https://api.x.ai/v1/responses', {
+          method: 'POST',
+          redirect: 'error',
+          signal: AbortSignal.timeout(xSearchTimeoutMs),
+          headers: {
+            Authorization: `Bearer ${key}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body),
+        }).catch((error: unknown) => {
+          save(`${requestId}.failure.json`, {
+            failedAt: new Date().toISOString(),
+            errorName: error instanceof Error ? error.name : 'UnknownError',
+            outcome: 'unknown; reservation retained',
+          });
+          if (error instanceof Error && error.name === 'TimeoutError')
+            return null;
+          throw error;
+        });
+        if (response === null) {
+          if (attempt === 0) continue;
+          throw new Error('X experiment timed out twice; holds retained');
+        }
+        const raw = await response.text();
+        save(`${requestId}.response.json`, {
+          status: response.status,
+          receivedAt: new Date().toISOString(),
+          raw,
+        });
+        if (!response.ok)
+          throw new Error('Provider rejected call; hold retained, no retry');
+        const usage = xSearchUsageSchema.parse(JSON.parse(raw).usage);
+        const costMicros = xDiscoveryCost(
+          {
+            inputTokens: usage.input_tokens,
+            outputTokens: usage.output_tokens,
+            postsFetched: usage.server_side_tool_usage_details.x_posts_fetched,
+            profilesFetched:
+              usage.server_side_tool_usage_details.x_users_fetched,
+          },
+          {
+            inputPerMillion: 1.25,
+            outputPerMillion: 2.5,
+            perPost: 0.005,
+            perProfile: 0.01,
+          },
+        );
+        budget.settle(requestId, costMicros);
+        calls.push({ requestId, startedAt, costMicros });
+        save(`${requestId}.settled.json`, { costMicros, usage });
+        console.log(
+          JSON.stringify({
+            topic: topic.topic,
+            style,
+            costMicros,
+            totalMicros: calls.reduce((sum, call) => sum + call.costMicros, 0),
+            postsFetched: usage.server_side_tool_usage_details.x_posts_fetched,
+          }),
+        );
+        if (costMicros > 150_000)
+          throw new Error(
+            'Call exceeded owner reservation; experiment stopped',
+          );
+        break;
+      }
     }
   }
   save('round.json', {
