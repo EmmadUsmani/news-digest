@@ -7,13 +7,17 @@ import {
   rankBlueskyPosts,
   rankSafeBlueskyPosts,
 } from '../apps/api/src/modules/social/domain/bluesky-ranking';
+import { localAdminFetch } from './lib/local-admin-fetch';
 
 async function main() {
   if (process.argv.length > 2)
     throw new Error('Usage: report-bluesky-coverage.ts');
-  const response = await fetch('http://localhost:8000/api/topics', {
-    signal: AbortSignal.timeout(10_000),
-  });
+  const response = await localAdminFetch(
+    'http://127.0.0.1:8000/api/admin/topics',
+    {
+      signal: AbortSignal.timeout(10_000),
+    },
+  );
   if (!response.ok) throw new Error('Topics unavailable');
   const topics = topicSchema.array().parse(await response.json());
   const cutoff = new Date();

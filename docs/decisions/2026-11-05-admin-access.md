@@ -50,7 +50,9 @@ diagnostics. The coordinated admin route migration remains unfinished.
 
 ## Local operations scripts
 
-`pnpm obs sources` and `pnpm obs jobs` now use `/api/admin/status`.
+`pnpm obs sources`, `pnpm obs jobs` and the edition timing report use
+`/api/admin/status`. The timing report also reads protected digest previews;
+the Bluesky coverage report reads protected topics.
 The script reads its local token from the private env file only for protected
 API requests to `http://127.0.0.1:8000`. Credentialed requests refuse redirects.
 Health, alerts, logs and metrics retain their existing read-only endpoints.

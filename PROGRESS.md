@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 723 — revised X experiment call report
-
-- Started clean on main; no leftover work. Zero alerts, health/database/Redis green, 36 healthy sources and zero failed retained digest jobs. Nov 5 15:00 UTC scheduled acceptance remains future.
-- Offline report accepts viral/semantic evidence with saved likes minimum and mandatory giveaway exclusion. Added usable yield and confirmed IDs requiring exact window, relevance ≥6, no promotion, minimum likes and explicit absence from free links. Missing labels/likes/overlap keep totals unknown; historical eligibility stays unchanged.
-- Viral execution evidence now checks OR and exact UTC time operators. Semantic execution compliance remains unknown rather than applying keyword checks. Legacy round comparator rejects revised calls pending migration; extractor and round comparison remain next.
-- Verification: targeted report/CLI/comparison tests 26/26; pnpm format, pnpm lint:fix, pnpm check (484 unit, 213 isolated integration, exit 0) and pnpm build passed. git diff --check clean.
-- Updated TASKS and experiment instructions. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new owner blocker. No UI/runtime changes or screenshots; healthy services remain running under STEERING 22.
-- No paid calls, scorer/cache changes, provider/model/budget changes or activation. Next: migrate extractor and comparison before Nov 5/6 test rounds; scheduled acceptance first, scorer only afterward.
-
 ## 2026-11-05: iteration 724 — revised X saved-response extractor
 
 - Started clean on main; no leftover work. Zero alerts, health/database/Redis green, all 36 sources healthy; zero failed digest jobs, next edition Nov 5 15:00 UTC. Two retained ingestion failures have no retained run details; current source health is green.
@@ -135,3 +126,12 @@
 - Rebuilt/restarted API/docs; readiness retry passed. Live protected sources/jobs reads: 36 healthy sources, no failed digest runs; anonymous protected status 404, reader latest four topics, health green. Worker/schema/UI unchanged; no screenshot changes needed. Final alerts zero.
 - Updated TASKS, Operations and access decision; archived iteration 722. SOURCES/NEEDS_FROM_HUMAN unchanged; no source change or new owner blocker. No paid calls, model/provider/budget changes, scorer work or X activation.
 - Next: owner email identity and coordinated UI/scripts/tool migration; Nov 5 scheduled acceptance first when due, scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6.
+
+## 2026-11-05: iteration 737 — authenticated scheduled-evidence reports
+
+- Started clean on main; no leftover work. Health/database/Redis, 36 sources healthy, zero failed retained digest runs; Nov 5 edition due at 15:00 UTC. Initial alerts zero.
+- Edition timing report now reads protected status and digest previews; Bluesky coverage reads protected topics. Both reuse the private local token adapter, fixed loopback origin and redirect refusal; no legacy fallback.
+- Live read-only timing report returned complete evidence for the latest scheduled edition. Stored Bluesky observations: Tech 517, NBA 682, Gaming 687, World 666; these are stored observations, not new collection or selected picks.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (496 unit/214 isolated integration, exit 0), pnpm build, check-handbook.ts 08-operations and git diff --check passed. No UI/schema/worker changes or screenshots needed.
+- Rebuilt/restarted API/docs. Updated TASKS, Operations and access decision; archived iteration 723. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker.
+- No paid calls, model/provider/budget changes, scorer work or X activation. Next: coordinated admin migration/configured email; Nov 5 scheduled acceptance when due, scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6.

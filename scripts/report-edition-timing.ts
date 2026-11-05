@@ -3,6 +3,7 @@ import { digestPreviewSchema, operationsStatusSchema } from '@digest/contracts';
 
 import { database } from '../apps/api/src/libs/db/connections';
 import { readEditionCost } from '../apps/api/src/modules/curation/database/edition-cost.reader';
+import { localAdminFetch } from './lib/local-admin-fetch';
 import {
   collectTimingEvidence,
   scheduledTiming,
@@ -12,7 +13,7 @@ import {
 } from './lib/scheduled-timing';
 
 async function read(path: string) {
-  const response = await fetch(`http://localhost:8000${path}`, {
+  const response = await localAdminFetch(`http://127.0.0.1:8000${path}`, {
     signal: AbortSignal.timeout(15_000),
   });
   if (!response.ok) throw new Error(`Read failed: ${response.status}`);
@@ -23,7 +24,9 @@ async function main() {
   const options = timingOptions(process.argv.slice(2));
   const db = database();
   try {
-    const status = operationsStatusSchema.parse(await read('/api/status'));
+    const status = operationsStatusSchema.parse(
+      await read('/api/admin/status'),
+    );
     const queue = status.queues.find((q) => q.name === 'digest-generation');
     if (!queue?.available) throw new Error('Digest queue unavailable');
     const evidence = timingEvidence(queue.runs, options);
@@ -32,7 +35,7 @@ async function main() {
       async (run) => {
         const edition = digestPreviewSchema.parse(
           await read(
-            `/api/digest-previews/${encodeURIComponent(run.editionId!)}`,
+            `/api/admin/digest-previews/${encodeURIComponent(run.editionId!)}`,
           ),
         );
         return {
