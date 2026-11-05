@@ -1,29 +1,3 @@
-## 2026-11-05: iteration 880 — saved editions and topic inspector
-
-- Started clean on main; no leftover work. Alerts clear, /healthz healthy, API/worker active. X rounds still due after 21:00 UTC.
-- Owner-visible value: saved editions now have a dedicated history and topic inspector, so the owner can review selection evidence without navigating legacy Overview controls.
-- Added protected /admin/editions and /admin/editions/:id with shared navigation, paginated saved windows, topic tabs, candidate/rejection counts, modes/reasons, briefs, story scores, why-it-matters, grouping/source evidence, selected posts and reader link. Uses existing saved admin APIs; no new backend/schema/source/budget/access behavior.
-- Partial spec delivery: list run type/cost/duration/per-topic modes, incoming-window articles and New edition remain; Topics and other existing UI gaps stay open in TASKS. No inferred metadata presented as recorded data.
-- Browser: smoke-admin-editions passed four viewport/theme combinations with real saved data, paging round-trip, all four topics, keyboard tabs, deep reload, mobile navigation, anonymous denial, no overflow/writes/external requests/browser credentials. Eight screenshots retained; desktop light and mobile dark visually inspected. Mobile table wraps and legacy anchor sizing corrected before final captures.
-- Updated handbook Operations; archived iterations 868–869 and condensed completed TASKS markers. No paid calls or saved-data writes; SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Runtime checks: 36 sources/zero current source errors; latest saved edition four topics/17 stories/14 posts. Retained failed queue jobs date to Nov 1–4 (ingestion/Bluesky); current social collection succeeds and no digest jobs failed. Alerts clear. API restarted for final web build; worker unchanged.
-- Initial full check caught documentation formatting during edits; corrected. Handbook line cap condensed; final operations check passed (18 pages/two unchanged diagrams/28 assigned tables). Admin gate and Overview regression passed; Overview captures refreshed for navigation.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (505 unit/218 isolated integration passed); pnpm build and final web rebuild; targeted ESLint/Prettier; git diff --check; handbook operations; smoke-admin-gate; smoke-admin-overview; smoke-admin-editions. Final health/alerts green.
-- Next: finish Editions metadata, incoming-window list and creation, then Topics and remaining Sources/Spend controls; X rounds after 21:00 UTC Nov 5/6 and Nov 6 scheduled edition review take priority when due.
-
-## 2026-11-05: iteration 881 — dedicated edition creation
-
-- Started clean on main; no leftover work. Alerts clear, /healthz healthy, API/worker active; 36 sources have no current error. X rounds remain due after 21:00 UTC.
-- Owner-visible value: New edition is now directly accessible from admin navigation and Editions, with a focused coverage-window form and live topic progress instead of the buried Overview panel.
-- Added protected /admin/editions/new: 6 h/24 h/7 d/custom presets, date validation, AI-budget/reserve notice, existing async submission/status polling, session reload recovery, topic stages and saved-inspector result link. Removed replaced creation panel and its admin polling/budget code from the reader component.
-- Uses existing endpoints and budget enforcement; no backend, schema, source or access changes. No paid calls or saved-data writes; SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Browser: smoke-admin-new-edition passed four viewport/theme combinations, anonymous denial, invalid custom dates, simulated submission/progress/reload/completion/failure and unchanged saved edition. Four captures retained; desktop light/mobile dark visually inspected. Simulated job stages are verification data, not live jobs.
-- Migrated smoke-edition-jobs, smoke-manual-reserve and admin-separation to the new route/layout. Job deadlines, uncertain submissions, reconnect, malformed status, completion/failure and unchanged full saved data passed; reserve and Overview checks passed. Gate passed 24 denied paths/eight forwarded-token cases.
-- Handbook Operations updated; initial line-cap failure condensed and rerun passed (18 pages/two unchanged diagrams/28 tables). Mobile separation assertion initially targeted hidden desktop navigation; corrected to page content and rerun passed.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (505 unit/218 isolated integration passed); pnpm build; git diff --check; handbook operations; smoke-admin-new-edition, smoke-edition-jobs (final stage assertions rerun), smoke-manual-reserve, smoke-admin-overview, smoke-admin-editions, smoke-admin-separation and smoke-admin-gate. Initial combined check exited 143 during integration without assertion failures; standalone full rerun passed.
-- Archived iterations 870–871. API restarted for verified built web; worker unchanged. Final health/alerts green; latest real edition remains four topics/17 stories/14 posts. Updated TASKS and retained refreshed route/navigation captures.
-- Next: Editions run metadata/incoming-window articles, then Topics and remaining Sources/Spend controls; X fresh-window rounds after 21:00 UTC Nov 5/6 and Nov 6 scheduled edition review take priority when due.
-
 ## 2026-11-05: iteration 882 — edition list modes and recorded runs
 
 - Started clean on main; no leftover work. Alerts clear, health healthy, API/worker active. X rounds still due after 21:00 UTC.
@@ -132,3 +106,15 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (505 unit and 218 isolated integration tests passed); smoke-topics.ts, smoke-topic-order.ts, smoke-admin-separation.ts, smoke-reviewed-x-accounts.ts, smoke-x-schedule-copy.ts, smoke-schedule.ts and check-handbook.ts 08-operations passed; git diff --check.
 - API restarted for built assets; API/worker/docs/schema active, health/database/Redis green and alerts clear. Real incoming articles and saved Nov 5 edition rendered.
 - Next: dedicated discovery settings and remaining spec admin pages; Nov 6 scheduled editor-v5/grouping review, then fresh-window X round after 21:00 UTC. No X activation before decision.
+
+## 2026-11-05: iteration 891 — Sources topic connections
+
+- Started clean on main; no leftover work. Owner would care: Sources now shows which topics use each source and links directly to their editors, making feed management reachable from collection health.
+- Added connected-topic column, disabled-topic labels, explicit unconnected/loading/unavailable states, Manage topics & feeds entry, independent topic-read error and shared refresh. Corrected X platform copy: scheduled search is off pending experiment decision.
+- Uses existing protected reads and editor routes; no API/schema/collection/budget changes. Discovery-specific settings need backend work; remaining Sources window counts/global enable/Add feed stay open.
+- Browser checks compare every source row against saved topic connections and follow editor/feed-management links; exercise topic refresh failure/retry, anonymous denial, reload, mobile navigation and four viewport/theme combinations. All writes/external requests blocked. Four Sources screenshots saved; mobile light and desktop dark visually inspected.
+- Initial navigation heading assertion timed out; destination-region assertion with failure diagnostics passed on rerun. Visual review caught legacy large anchor styling; set explicit small/medium link typography and rebuilt. Optional image crop unavailable (Pillow absent); viewed saved PNGs directly.
+- Updated TASKS and Operations handbook; archived iterations 880–881 to keep PROGRESS small. Discarded unrelated separation-smoke screenshot changes. SOURCES/NEEDS_FROM_HUMAN unchanged; no paid calls or live edits.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; final web rebuild and targeted ESLint/Prettier; smoke-admin-sources.ts; smoke-admin-separation.ts; check-handbook.ts 08-operations passed. Full pnpm check passed: typecheck/lint/format/boundaries, 505 unit and 218 isolated integration tests.
+- API restarted for final built assets; all four app units active, /healthz database/Redis green, alerts clear; reader regression rendered the real saved edition without reader admin reads.
+- Next: remaining dedicated admin-page gaps and final reader; Nov 6 scheduled edition/grouping evidence and fresh-window X round after 21:00 UTC. No X activation before decision.

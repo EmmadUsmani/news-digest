@@ -43,7 +43,7 @@ Backups: `~/backups/news-digest/`; [nightly timers and restore](10-backups.md).
 - **Editions at `/admin/editions`:** saved windows, per-topic story/post modes and retained job type, attempts and final-attempt duration; open an edition for recorded AI cost and unresolved holds by model/purpose, inspect topic stories, scores, selection reasons, grouping and source evidence, browse retained articles published in the window (up to 500 per topic, using current source connections), or view it as a reader.
 - **Topics at `/admin/topics`:** drag or arrow ordering, enable controls, story/post budgets and New topic dialog. Open a topic for guidance, budgets, phrase filters, X accounts, Reddit communities, connected feeds and news queries, or deletion. Overview links here for topic and source settings.
 - **Schedule at `/admin/schedule`:** next run, daily local time, timezone, coverage and default topic budgets.
-- **Sources at `/admin/sources`:** collection health, timestamps, last-response/stored counts and platform status.
+- **Sources at `/admin/sources`:** collection health, connected topics with editor links, timestamps, last-response/stored counts and platform status. Use Manage topics & feeds to add a feed or news query.
 - **Overview at `/admin`:** health, daily spend, latest edition, source issues and next runs.
 - **`/healthz`:** 200 when Postgres and Redis respond; `pnpm obs alerts` and [Grafana](09-observability.md) cover the rest.
 

@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
+import { Link } from '@tanstack/react-router';
 
 import { Button } from './components/ui/button';
 import { Card } from './components/ui/card';
 import { Table } from './components/ui/table';
-import { statusQuery } from './queries';
+import { statusQuery, topicsQuery } from './queries';
 
 const time = (value: string | null) =>
   value
@@ -12,6 +13,7 @@ const time = (value: string | null) =>
 
 export function AdminSources() {
   const status = useQuery(statusQuery);
+  const topics = useQuery(topicsQuery);
   const data = status.data;
   return (
     <section
@@ -27,7 +29,10 @@ export function AdminSources() {
         <Button
           variant="ghost"
           disabled={status.isFetching}
-          onClick={() => void status.refetch()}
+          onClick={() => {
+            void status.refetch();
+            void topics.refetch();
+          }}
         >
           Refresh sources
         </Button>
@@ -38,6 +43,22 @@ export function AdminSources() {
           date.
         </p>
       )}
+      <Card className="grid gap-2 text-sm">
+        <p className="m-0">
+          Open a topic to connect sources, add a feed or add a news query.
+        </p>
+        <Link
+          to="/admin/topics"
+          className="w-fit text-sm font-medium underline"
+        >
+          Manage topics & feeds
+        </Link>
+      </Card>
+      {topics.isError && (
+        <p role="alert">
+          Topic connections could not be refreshed. Refresh sources to retry.
+        </p>
+      )}
       <Card className="min-w-0 p-0">
         <Table>
           <caption className="sr-only">
@@ -46,6 +67,7 @@ export function AdminSources() {
           <thead>
             <tr>
               <th scope="col">Source</th>
+              <th scope="col">Topics</th>
               <th scope="col">Status</th>
               <th scope="col">Last success</th>
               <th scope="col">Last attempt</th>
@@ -73,6 +95,43 @@ export function AdminSources() {
                   <th scope="row" className="min-w-40">
                     {source.name}
                   </th>
+                  <td className="min-w-40">
+                    {topics.data ? (
+                      topics.data.some((topic) =>
+                        topic.sources.includes(source.id),
+                      ) ? (
+                        <ul className="m-0 grid list-none gap-2 p-0">
+                          {topics.data
+                            .filter((topic) =>
+                              topic.sources.includes(source.id),
+                            )
+                            .map((topic) => (
+                              <li key={topic.id}>
+                                <Link
+                                  to="/admin/topics/$id"
+                                  params={{ id: topic.id }}
+                                  className="text-sm font-medium underline"
+                                >
+                                  {topic.name}
+                                </Link>
+                                {!topic.enabled && (
+                                  <span className="text-[var(--secondary)]">
+                                    {' '}
+                                    · Disabled
+                                  </span>
+                                )}
+                              </li>
+                            ))}
+                        </ul>
+                      ) : (
+                        'No topics'
+                      )
+                    ) : topics.isError ? (
+                      'Unavailable'
+                    ) : (
+                      'Loading…'
+                    )}
+                  </td>
                   <td>
                     <span className="whitespace-nowrap">
                       <span
@@ -104,7 +163,10 @@ export function AdminSources() {
         </h2>
         <dl className="grid gap-4 text-sm sm:grid-cols-2">
           {[
-            ['X', 'Official embeds · harvested links and scheduled discovery'],
+            [
+              'X',
+              'Official embeds · harvested links; scheduled search off pending experiment decision',
+            ],
             ['Bluesky', 'Authenticated hourly collection'],
             ['Reddit', 'Parked by owner · collection disabled'],
             ['YouTube', 'Deferred by owner'],
