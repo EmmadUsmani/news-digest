@@ -1,24 +1,3 @@
-## 2026-11-05: iteration 872 — activate forty-article story grouping pool
-
-- Started clean on main; no leftover work. Alerts clear, services and /healthz healthy; sources returning items and collection jobs completing.
-- Added explicit once-only Haiku World verifier using the existing private fsynced claim and $0.05 evaluation guard plus shared verification ledger/reserve admission. Missing opt-in rejected; no repairs. Four calls succeeded, purpose verification, $0.005837 actual/$0.016753 reserved; fixed durable claim prevents paid replay.
-- Actual Nov 4 ten→forty: 1→16 model stories, 1→10 editor inputs, 1→5 reviewed labels. Nov 5: 3→20 model stories, 3→10 inputs, 2→7 labels. No returned group crosses reviewed labels; election fragmentation persists. These are saved-window observations, not general accuracy or future edition predictions.
-- Activated forty scored articles before grouping in publication, retaining ten-story editor ceiling. All-topic first-attempt scenario $0.464371 fits unchanged reserve/cap; verification spend is covered by prior full-remaining-allowance scenario. No prompt/model/topic rules/settings/budgets changed; saved editions untouched.
-- Retained model/fingerprint/validated responses in LLM fixtures; offline regression passes through production request validation, grouping wrapper and ranking, asserting wider story diversity and same-label coverage. Updated TASKS, RANKING, World evidence and affected pipeline handbook; diagram checked visually. Archived iterations 857–858.
-- Verification: targeted 5 tests passed; missing opt-in exit 1; handbook checker (18 pages/1 diagram, 28 tables) passed. pnpm format; pnpm lint:fix; pnpm check (505 unit/218 isolated integration passed); pnpm build; git diff --check. API/worker restarted active, /healthz healthy; saved edition four topics/17 stories/14 posts, all 36 sources healthy.
-- Next: review Nov 6 real edition grouping/editor-v5 quality and spend; finish UI step 2 now, then spec pages. X fresh-window rounds after 21:00 UTC Nov 5/6; coverage-directory cleanup remains open. SOURCES/schema/screenshots/NEEDS_FROM_HUMAN unchanged: no source/schema/UI/access change.
-
-## 2026-11-05: iteration 873 — clean integration coverage leftovers
-
-- Started clean on main; alerts clear, API/worker active, /healthz healthy; source collection and saved four-topic edition serving. No leftover work.
-- Traced node-coverage-* creation to Node native coverage in test-isolated.ts. Runner now owns child TMPDIR and removes it in finally after container cleanup; inherited NODE_V8_COVERAGE is unset. No shared /tmp sweep in the runner.
-- Removed only 21 owner-owned, inactive coverage directories older than one hour after checking process environments, command lines, maps, cwd and open descriptors; reclaimed 1,845,601,776 bytes. Disk 57%→49%.
-- Deliberate build failure via temporary pnpm stub: expected exit 1 and owned temp root removed. Initial full check caught empty-string coverage environment cleanup error despite 218 passing tests; corrected to undefined and reran successfully.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (505 unit/218 isolated integration passed, coverage reported); pnpm build; git diff --check. Successful runner leaves neither node-coverage-* nor owned integration directories in /tmp.
-- Updated TASKS and database verification; archived iteration 859. No runtime/config/UI/source/schema/access changes, paid calls or saved-edition writes. No restart under STEERING 22; existing API/worker healthy.
-- Next: finish UI step 2 then spec pages; X fresh-window rounds after 21:00 UTC Nov 5/6; review Nov 6 story grouping/editor-v5 and spend.
-- Push initially rejected (remote owner commits 01c3766/0ca9657). Merged without rewriting history; item 37 R2 work remains blocked on owner settings and added to TASKS. Remote changes are instructions only.
-
 ## 2026-11-05: iteration 874 — finish the private admin gate rollout
 
 - Started clean on main; no leftover work. Initial alerts clear, services and /healthz healthy; all 36 sources returning data, latest scheduled edition completed with four topics/17 stories/14 posts.
@@ -127,3 +106,16 @@
 - smoke-admin-gate and smoke-admin-separation passed; reader makes no admin reads and saved edition unchanged. Live reads: 36 sources/zero current source errors, zero retained digest failures; latest edition remains four topics/17 stories/14 posts.
 - Updated Operations and TASKS; SOURCES and NEEDS_FROM_HUMAN unchanged. API/worker restarted for verified build; API, worker, docs and schema active, final health green and alerts clear.
 - Next: edition cost/incoming-window list, then Topics and remaining Sources/Spend controls. X fresh-window rounds after 21:00 UTC Nov 5/6; Nov 6 scheduled edition review takes priority when due.
+
+## 2026-11-05: iteration 883 — incoming articles in the edition inspector
+
+- Started clean on main; no leftover work. Alerts clear, /healthz healthy, API/worker active; X fresh-window rounds remain due after 21:00 UTC.
+- Owner-visible value: each edition topic now has a browsable incoming-articles list for its coverage window, with source and publication time, instead of only the selected stories.
+- Added protected, validated coverage-window reads through the ingestion repository port: inclusive start/exclusive end, deduped observations, newest-first stable ordering, up to 500 per topic. Disabled topics remain inspectable. Default latest-content behavior stays unchanged.
+- UI explicitly identifies current retained content/current source connections rather than immutable candidate evidence. Latest window returns Tech/NBA/Gaming/World 282/166/321/242 articles; saved edition remains four topics/17 stories/14 posts.
+- Repository characterization covers offset timestamps, window boundaries, more than five results, shared-source dedupe, empty windows and disabled topics. Initial typecheck caught Date arguments against string timestamps; corrected to ISO strings before final check.
+- Browser: smoke-admin-editions passed desktop/mobile light/dark, all topic article lists against live reads, window bounds, invalid query 400s, anonymous 404, tabs/reload/paging and no overflow/writes/external calls/browser credentials. Four inspector captures refreshed; desktop light/mobile dark visually inspected.
+- smoke-admin-gate and smoke-admin-separation passed; reader makes no admin reads and saved edition unchanged. Unrelated regenerated captures discarded. Handbook Operations updated; checker passed 18 pages/two unchanged diagrams/28 tables.
+- No paid calls, source changes or saved-data writes; SOURCES and NEEDS_FROM_HUMAN unchanged. Archived iterations 872–873; updated TASKS.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (typecheck/lint/format/boundaries and 505 unit passed; integration interrupted exit 143 without assertion failure); standalone pnpm test:integration (218 passed); pnpm build; git diff --check; handbook operations; browser/access checks above. API/worker restarted for built app; final health/alerts checked before push.
+- Next: edition cost, Topics and remaining Sources/Spend controls. X rounds after 21:00 UTC Nov 5/6 and Nov 6 scheduled-edition review take priority when due.

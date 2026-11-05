@@ -89,6 +89,26 @@ void test('content repository characterizes eligibility, shared observations, or
       first.map((row) => row.url),
       [6, 5, 4, 3, 2].map((index) => url(String(index))),
     );
+    const windowRows = await repository.latest({
+      topicId,
+      start: new Date(items[0].publishedAt),
+      end: new Date(items[6].publishedAt),
+    });
+    assert.equal(windowRows.length, 1);
+    assert.deepEqual(
+      windowRows[0].items.map((row: { url: string }) => row.url),
+      [5, 4, 3, 2, 1, 0].map((index) => url(String(index))),
+    );
+    assert.deepEqual(
+      (
+        await repository.latest({
+          topicId,
+          start: new Date('2040-01-01'),
+          end: new Date('2040-01-02'),
+        })
+      )[0].items,
+      [],
+    );
     assert.equal(first[0].source, 'Fixture a');
     assert.equal(first[0].publishedAt, '2035-01-01T00:30:00+00:00');
     assert.equal((await state()).storedItems, 8);
@@ -239,6 +259,16 @@ void test('content repository characterizes eligibility, shared observations, or
       topicId,
     ]);
     assert.equal(await latest(), undefined);
+    assert.equal(
+      (
+        await repository.latest({
+          topicId,
+          start: new Date('2034-01-01'),
+          end: new Date('2036-01-01'),
+        })
+      ).length,
+      1,
+    );
     assert.equal(
       (await repository.sources()).some((source) =>
         source.id.startsWith(prefix),

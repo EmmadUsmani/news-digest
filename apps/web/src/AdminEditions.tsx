@@ -8,6 +8,7 @@ import { Table } from './components/ui/table';
 import {
   adminEditionDetailQuery,
   adminHistoryQuery,
+  incomingWindowQuery,
   statusQuery,
 } from './queries';
 
@@ -158,6 +159,15 @@ export function AdminEditionInspector() {
   const edition = result.data;
   const topic =
     edition?.topics.find((item) => item.id === selected) ?? edition?.topics[0];
+  const incoming = useQuery(
+    incomingWindowQuery(
+      topic?.id ?? '',
+      edition?.windowStart ?? '',
+      edition?.windowEnd ?? '',
+    ),
+  );
+  const articles =
+    incoming.data?.find((group) => group.topicId === topic?.id)?.items ?? [];
   return (
     <section
       aria-label="Edition inspector"
@@ -266,6 +276,57 @@ export function AdminEditionInspector() {
                 {topic.editorial?.brief.map((text, index) => (
                   <p key={index}>{text}</p>
                 ))}
+              </Card>
+              <Card className="min-w-0">
+                <h3 className="mt-0 font-sans text-base font-semibold">
+                  Incoming articles
+                </h3>
+                <p className="text-sm text-[var(--secondary)]">
+                  Current retained articles published in this coverage window,
+                  newest first. Source connections reflect today’s settings;
+                  this is not the saved candidate snapshot. Up to 500 articles.
+                </p>
+                {incoming.isPending && (
+                  <p role="status">Loading incoming articles…</p>
+                )}
+                {incoming.isError && (
+                  <p role="alert">
+                    Incoming articles could not be loaded.{' '}
+                    <Button
+                      variant="ghost"
+                      onClick={() => void incoming.refetch()}
+                    >
+                      Retry articles
+                    </Button>
+                  </p>
+                )}
+                {incoming.isSuccess && (
+                  <details>
+                    <summary className="cursor-pointer text-sm">
+                      Browse {articles.length}
+                      {articles.length === 500 ? '+' : ''} articles
+                    </summary>
+                    {!articles.length && (
+                      <p>No retained articles in this window.</p>
+                    )}
+                    <ul className="space-y-3 pl-5 text-sm">
+                      {articles.map((article) => (
+                        <li key={article.id} className="break-words">
+                          <a
+                            href={article.url}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            {article.title}
+                          </a>
+                          <span className="block text-xs text-[var(--secondary)]">
+                            {article.source} · {date(article.publishedAt)}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                )}
               </Card>
               <h3 className="m-0 font-sans text-base font-semibold">
                 Stories ({topic.stories.length})

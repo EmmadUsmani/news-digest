@@ -6,6 +6,8 @@ import {
   DrizzleQueryError,
   eq,
   exists,
+  gte,
+  lt,
   notLike,
   sql,
 } from 'drizzle-orm';
@@ -139,7 +141,7 @@ export class PostgresContentRepository
       .set({ lastAttempt: sql`now()`, lastError: message.slice(0, 300) })
       .where(eq(contentSources.id, source.id));
   }
-  async latest() {
+  async latest(window?: { topicId: string; start: Date; end: Date }) {
     const latestItems = this.orm
       .select({
         id: contentItems.id,
@@ -166,11 +168,17 @@ export class PostgresContentRepository
         and(
           eq(topicSourceConnections.topicId, topics.id),
           notLike(contentItems.canonicalUrl, '%/betting/%'),
+          window
+            ? gte(contentItems.publishedAt, window.start.toISOString())
+            : undefined,
+          window
+            ? lt(contentItems.publishedAt, window.end.toISOString())
+            : undefined,
         ),
       )
       .groupBy(contentItems.id)
-      .orderBy(desc(contentItems.publishedAt))
-      .limit(5);
+      .orderBy(desc(contentItems.publishedAt), asc(contentItems.id))
+      .limit(window ? 500 : 5);
     return this.orm
       .select({
         topicId: topics.id,
@@ -179,7 +187,7 @@ export class PostgresContentRepository
         items: sql`(select coalesce(jsonb_agg(r), '[]'::jsonb) from (${latestItems}) r)`,
       })
       .from(topics)
-      .where(eq(topics.enabled, true))
+      .where(window ? eq(topics.id, window.topicId) : eq(topics.enabled, true))
       .orderBy(asc(topics.position));
   }
 

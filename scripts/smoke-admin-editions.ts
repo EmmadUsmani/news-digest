@@ -2,6 +2,8 @@
 import assert from 'node:assert/strict';
 
 import {
+  contentGroupSchema,
+  digestPreviewSchema,
   operationsStatusSchema,
   previewHistorySchema,
 } from '@digest/contracts';
@@ -12,6 +14,18 @@ import { replayAdminPage } from './lib/replay-admin-page';
 
 const origin = 'http://127.0.0.1:8000';
 async function smoke() {
+  for (const query of [
+    '',
+    '?topicId=bad',
+    '?topicId=00000000-0000-4000-8000-000000000000&start=2026-11-05T00:00:00Z&end=2026-11-04T00:00:00Z',
+  ]) {
+    assert.equal(
+      (await localAdminFetch(`${origin}/api/admin/content/window${query}`))
+        .status,
+      400,
+    );
+  }
+  assert.equal((await fetch(`${origin}/api/admin/content/window`)).status, 404);
   const browser = await chromium.launch();
   try {
     for (const [device, width, height] of [
@@ -158,6 +172,53 @@ async function smoke() {
           await page.getByRole('tab').nth(1).getAttribute('aria-selected'),
           'true',
         );
+        await page.getByRole('tab').first().click();
+        const saved = digestPreviewSchema.parse(
+          await (
+            await localAdminFetch(
+              `${origin}/api/admin/digest-previews/${inspectorPath!.split('/').pop()}`,
+            )
+          ).json(),
+        );
+        for (const [index, topic] of saved.topics.entries()) {
+          await page.getByRole('tab').nth(index).click();
+          const query = new URLSearchParams({
+            topicId: topic.id,
+            start: saved.windowStart,
+            end: saved.windowEnd,
+          });
+          const groups = contentGroupSchema
+            .array()
+            .parse(
+              await (
+                await localAdminFetch(
+                  `${origin}/api/admin/content/window?${query}`,
+                )
+              ).json(),
+            );
+          const articles =
+            groups.find((group) => group.topicId === topic.id)?.items ?? [];
+          const browse = page.getByText(
+            `Browse ${articles.length}${articles.length === 500 ? '+' : ''} articles`,
+            { exact: true },
+          );
+          await browse.waitFor();
+          await browse.click();
+          for (const article of articles) {
+            assert.ok(
+              Date.parse(article.publishedAt) >= Date.parse(saved.windowStart),
+            );
+            assert.ok(
+              Date.parse(article.publishedAt) < Date.parse(saved.windowEnd),
+            );
+            await page
+              .getByRole('tabpanel')
+              .getByRole('link', { name: article.title, exact: true })
+              .first()
+              .waitFor();
+          }
+          await browse.click();
+        }
         await page.getByRole('tab').first().click();
         await assertFits();
         await page.screenshot({

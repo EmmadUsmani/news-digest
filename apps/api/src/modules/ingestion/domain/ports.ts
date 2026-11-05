@@ -25,6 +25,10 @@ export abstract class ContentRepository {
   abstract sources(): Promise<Source[]>;
   abstract store(source: Source, items: ContentItem[]): Promise<void>;
   abstract failed(source: Source, message: string): Promise<void>;
-  abstract latest(): Promise<unknown>;
+  abstract latest(window?: {
+    topicId: string;
+    start: Date;
+    end: Date;
+  }): Promise<unknown>;
   abstract status(): Promise<unknown>;
 }

@@ -131,3 +131,19 @@ export const adminEditionDetailQuery = (id: string) =>
         signal,
       ),
   });
+
+export const incomingWindowQuery = (
+  topicId: string,
+  start: string,
+  end: string,
+) =>
+  queryOptions({
+    queryKey: ['admin', 'incoming-window', topicId, start, end],
+    enabled: Boolean(topicId && start && end),
+    queryFn: ({ signal }) =>
+      read(
+        `/api/admin/content/window?${new URLSearchParams({ topicId, start, end })}`,
+        contentGroupSchema.array(),
+        signal,
+      ),
+  });
