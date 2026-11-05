@@ -99,6 +99,27 @@ void test('reader projection keeps content and excludes nested operational field
   assert.deepEqual(readerEdition(historical).topics[0].brief, []);
 });
 
+void test('reader summaries preserve AI text and restore saved story text across historical editorial modes', () => {
+  for (const mode of ['ai', 'non-ai', undefined] as const) {
+    for (const summary of [undefined, '']) {
+      const historical = structuredClone(snapshot);
+      if (mode) historical.topics[0].editorial!.mode = mode;
+      else delete historical.topics[0].editorial;
+      historical.topics[0].stories[0].summary = summary;
+      historical.topics[0].stories[0].excerpt = 'Saved article text.';
+      const before = JSON.stringify(historical);
+      const story = readerEdition(historical).topics[0].stories[0];
+      assert.equal(story.summary, 'Saved article text.');
+      assert.equal('excerpt' in story, false);
+      assert.equal(JSON.stringify(historical), before);
+    }
+  }
+  assert.equal(
+    readerEdition(snapshot).topics[0].stories[0].summary,
+    'A launch.',
+  );
+});
+
 void test('reader endpoints handle latest, immutable ID lookup and missing editions', async () => {
   const repository = {
     latest: async () => snapshot,

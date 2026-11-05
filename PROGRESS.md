@@ -1,13 +1,3 @@
-## 2026-11-05: iteration 724 — revised X saved-response extractor
-
-- Started clean on main; no leftover work. Zero alerts, health/database/Redis green, all 36 sources healthy; zero failed digest jobs, next edition Nov 5 15:00 UTC. Two retained ingestion failures have no retained run details; current source health is green.
-- Offline extractor now accepts viral/semantic saved requests and their saved likes threshold without requiring unused historical reaction settings. Historical reaction extraction still requires its threshold.
-- Retains all 16 viral/eight semantic citations and explicitly leaves free-link overlap unknown, alongside relevance/promotion labels. No invented usable yield; settlement/settings failures write no partial evidence.
-- Verification: targeted extractor tests 5/5; pnpm format, pnpm lint:fix, full pnpm check (485 unit, 213 isolated integration, exit 0), pnpm build and git diff --check passed. First check caught formatting of newly archived progress; formatted and reran successfully.
-- Updated TASKS and experiment reference; archived iteration 710 to keep PROGRESS small. SOURCES/NEEDS_FROM_HUMAN unchanged; no source change or new owner blocker. No UI changes/screenshots required.
-- Healthy services left running under STEERING 22: only offline scripts/tests/docs changed. No paid calls, scorer/cache changes, provider/model/budget changes or activation.
-- Next: migrate round comparison before Nov 5/6 rounds after 21:00 UTC; scheduled acceptance takes priority when due, scorer only afterward.
-
 ## 2026-11-05: iteration 725 — revised X round comparison
 
 - Started clean on main; no leftover work. Zero alerts, health/database/Redis green, reader HTTP 200, all 36 sources healthy and no failed retained digest runs. Nov 5 scheduled acceptance remains future at 15:00 UTC.
@@ -136,3 +126,14 @@
 - Rebuilt/restarted API/docs. Updated TASKS, Operations and access decision; archived iteration 723. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker.
 - Final health and reader latest (four topics) passed; alerts zero. Initial push rejected because owner commit 3df3d23 arrived; fetched and merged without rewriting history. Owner-only STEERING/spec changes require no rebuild.
 - No paid calls or model/provider/budget changes. Next FIRST: new STEERING 35, restore saved excerpt as reader summary, verify Nov 4 NBA and desktop/mobile screenshots before 13:00 UTC; Nov 5 NBA outcome first if fallback recurs. Then scheduled acceptance/scorer/timed X work.
+
+## 2026-11-05: iteration 738 — restore saved reader story text
+
+- Started clean on main; no leftover work. Health/database/Redis and current sources green; alerts zero, no retained failed digest runs. Nov 5 scheduled edition still due at 15:00 UTC.
+- Reader projection now uses the AI summary or saved article excerpt for every story in every edition; no extra field, mode label, database write or regeneration. Existing AI summaries stay intact.
+- Regression checks cover missing/empty summaries across AI, non-AI and historical modes, allowlisted fields and snapshot immutability. Targeted reader tests 3/3 passed.
+- Live Nov 4 edition 3bf10f5b-4c00-48b2-85bd-8e6dac7e3238: all five NBA stories return non-empty text. Read-only smoke-reader-story-text.ts passes desktop/mobile text equality, topic forbidden labels, overflow and browser-error checks; screenshots under docs/screenshots/ui/nba-story-text-*.png visually reviewed.
+- Initial broader page-label assertion exposed existing legacy admin copy outside topic content; scoped the regression to topic labels, matching the existing check. Full reader/admin UI migration remains open under item 33; no claim of full-page forbidden-term acceptance.
+- Verification: pnpm format, pnpm lint:fix, pnpm check, pnpm build, check-handbook.ts 04-edition-pipeline and git diff --check. Standalone pnpm check exited 0: 497 unit/214 isolated integration tests passed. Initial combined session ended 143 after passing tests; reran check alone to verify clean exit.
+- API/docs restarted after rebuild; loopback health and final alerts green. External HTTPS probe could not connect from this VM; browser/API checks used loopback. Pipeline handbook and its diagram updated and visually checked; archived iteration 724. SOURCES/NEEDS_FROM_HUMAN unchanged; no source changes or new blocker.
+- Acked item 35 symptom fix with screenshot links. Nov 5 NBA result remains pending; investigate any fallback FIRST before items 33/34. No paid calls, provider/model/budget changes or stored-edition changes.

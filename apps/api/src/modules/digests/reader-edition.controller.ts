@@ -21,6 +21,10 @@ export function readerEdition(snapshot: DigestPreview) {
     topics: snapshot.topics.map((topic) => ({
       ...topic,
       brief: topic.editorial?.mode === 'ai' ? topic.editorial.brief : [],
+      stories: topic.stories.map((story) => ({
+        ...story,
+        summary: story.summary || story.excerpt,
+      })),
       posts: topic.posts ?? [],
     })),
   });

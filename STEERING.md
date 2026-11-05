@@ -1061,3 +1061,5 @@ from the UI rebuild,** not lost data:
 **Also check today's edition:** this fix only covers the symptom. If NBA falls
 back again on Nov 5, finding out why ranks first, ahead of items 33 and 34. Ack
 here with both results.
+
+ack: 2026-11-05 item 35 symptom fixed — iteration 738 reader mapping now uses AI summary or saved article text for every saved edition without changing storage. Nov 4 NBA returns text for all five stories; topic forbidden-label check passes. Screenshots: [desktop](docs/screenshots/ui/nba-story-text-desktop.png), [mobile](docs/screenshots/ui/nba-story-text-mobile.png). Deployed before 13:00 UTC. Nov 5 edition is still due at 15:00 UTC; its NBA outcome and fallback investigation remain first priority when available.

@@ -16,7 +16,7 @@ flowchart TB
     sl["4 · Shortlist<br/>top ~10 by scores + signals"]
     ed["5 · Editor (Sonnet)<br/>pick stories, write brief + summaries"]
     so["6 · Social posts<br/>pick verified X posts for the topic"]
-    fb["Fallback: non-AI ranking<br/>(signals only, labeled on the page)"]
+    fb["Fallback: non-AI ranking<br/>(signals only, saved article text)"]
     c --> r --> t
     t -- yes --> tri --> sl --> ed --> so
     t -- no --> fb --> so
@@ -51,7 +51,8 @@ flowchart TB
   actual provider speed and cost are measured from scheduled editions.
 - **Graceful degradation:** if triage can't finish within the budget, that
   topic uses non-AI ranking. The edition still publishes, and the snapshot
-  records why.
+  records why. Reader stories show the saved article text when no AI summary
+  exists, with no mode label.
 - **Validation:** AI output is schema-checked. Stories the model returns that
   aren't backed by a real candidate are rejected.
 - **Progress:** on-demand jobs report the stage of each topic (triage →
