@@ -1,0 +1,8 @@
+## 2026-11-05: iteration 746 — protected reserve and duration browser checks
+
+- Started clean on main; no leftover work. Health/database/Redis green, all 36 sources healthy, no retained failed digest runs. Nov 5 edition remains due at 15:00 UTC; existing metrics memory warning pending.
+- Manual-reserve, scheduled-reserve and run-duration browser verifiers now read protected status snapshots through the bounded Node token adapter. Credentials stay outside browser contexts; budget/job/timing variants remain browser-only synthetic replays with no inference or live writes.
+- `pnpm exec tsx scripts/smoke-manual-reserve.ts`, `scripts/smoke-reserve-status.ts` and `scripts/smoke-run-duration.ts` passed desktop/mobile: budget protection/refresh/release/unavailability, completed/waiting timing, zero page errors. Six screenshots refreshed; mobile reserve and desktop duration visually inspected.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, exit 0). Initial combined verification process interrupted during formatting check (143); full check rerun completed successfully. pnpm build, check-handbook.ts 08-operations and git diff --check passed.
+- Updated TASKS, Operations and admin access decision; archived iteration 733. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema changes or model/provider/budget changes; healthy services stay running under STEERING 22. Reader latest serves four real Nov 4 topics.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback. Scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy checks and coordinated UI/legacy migration remain open.

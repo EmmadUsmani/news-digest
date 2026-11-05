@@ -1,9 +1,19 @@
 // Read-only live browser verification; no topic writes or provider calls.
 import assert from 'node:assert/strict';
 
+import { operationsStatusSchema, topicSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
+import { localAdminJson } from './lib/local-admin-fetch';
+
 async function main() {
+  const topics = topicSchema
+    .array()
+    .parse(await localAdminJson('/api/admin/topics'));
+  const status = operationsStatusSchema.parse(
+    await localAdminJson('/api/admin/status'),
+  );
+  const unexpectedWrites: string[] = [];
   const browser = await chromium.launch();
   try {
     for (const [name, width, height] of [
@@ -13,6 +23,19 @@ async function main() {
       const page = await browser.newPage({ viewport: { width, height } });
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
+      await page.route('**/api/**', async (route) => {
+        const request = route.request();
+        if (!['GET', 'HEAD'].includes(request.method())) {
+          unexpectedWrites.push(
+            `${request.method()} ${new URL(request.url()).pathname}`,
+          );
+          return route.abort('blockedbyclient');
+        }
+        const path = new URL(request.url()).pathname;
+        if (path === '/api/topics') return route.fulfill({ json: topics });
+        if (path === '/api/status') return route.fulfill({ json: status });
+        return route.continue();
+      });
       await page.goto('http://localhost:8000');
       await page.getByText('Source & run status', { exact: true }).click();
       const usage = page.getByRole('region', {
@@ -56,8 +79,13 @@ async function main() {
       assert.deepEqual(errors, []);
       await page.close();
     }
+    assert.deepEqual(unexpectedWrites, []);
+    assert.deepEqual(
+      topicSchema.array().parse(await localAdminJson('/api/admin/topics')),
+      topics,
+    );
     console.log(
-      'Read-only X schedule guidance passed: desktop/mobile, Status/settings.',
+      'X schedule guidance passed: protected snapshots, desktop/mobile Status/settings; live topics unchanged and no browser writes or credentials.',
     );
   } finally {
     await browser.close();

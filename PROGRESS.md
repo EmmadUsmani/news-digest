@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 746 — protected reserve and duration browser checks
-
-- Started clean on main; no leftover work. Health/database/Redis green, all 36 sources healthy, no retained failed digest runs. Nov 5 edition remains due at 15:00 UTC; existing metrics memory warning pending.
-- Manual-reserve, scheduled-reserve and run-duration browser verifiers now read protected status snapshots through the bounded Node token adapter. Credentials stay outside browser contexts; budget/job/timing variants remain browser-only synthetic replays with no inference or live writes.
-- `pnpm exec tsx scripts/smoke-manual-reserve.ts`, `scripts/smoke-reserve-status.ts` and `scripts/smoke-run-duration.ts` passed desktop/mobile: budget protection/refresh/release/unavailability, completed/waiting timing, zero page errors. Six screenshots refreshed; mobile reserve and desktop duration visually inspected.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, exit 0). Initial combined verification process interrupted during formatting check (143); full check rerun completed successfully. pnpm build, check-handbook.ts 08-operations and git diff --check passed.
-- Updated TASKS, Operations and admin access decision; archived iteration 733. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema changes or model/provider/budget changes; healthy services stay running under STEERING 22. Reader latest serves four real Nov 4 topics.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback. Scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy checks and coordinated UI/legacy migration remain open.
-
 ## 2026-11-05: iteration 747 — protected account and community browser checks
 
 - Started clean on main; no leftover work. Health/database/Redis green, all 36 sources healthy, no retained failed digest runs. Existing metrics memory warning firing; service active with zero restarts. Nov 5 edition due at 15:00 UTC.
@@ -132,3 +123,12 @@
 - Updated TASKS/Operations; archived iteration 745. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No live writes, paid calls, runtime/config/schema or model/provider changes; healthy services remain running under STEERING 22.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, zero failures); pnpm build; check-handbook.ts 08-operations; git diff --check all passed. Initial check shell terminated (143) during integration; full check rerun in isolated user unit passed. Final health green.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.
+
+## 2026-11-05: iteration 761 — protected X-schedule guidance browser check
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy, no retained failed digest runs; Nov 5 edition remains due at 15:00 UTC.
+- X-schedule guidance verifier now reads validated status/topic snapshots through bounded protected Node requests, replays them in the browser, blocks unexpected browser API writes and verifies live topics are unchanged. Credentials remain outside the browser.
+- `pnpm exec tsx scripts/smoke-x-schedule-copy.ts` passed desktop/mobile Status/settings copy, layout and browser-error checks. Four screenshots refreshed; desktop Status and mobile account guidance visually inspected.
+- Updated TASKS/Operations; archived iteration 746. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No production writes, paid calls, runtime/config/schema or model/provider changes; healthy services stay running under STEERING 22.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. Fresh X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (497 unit/214 isolated integration, zero failures), `pnpm build`, `check-handbook.ts 08-operations` and `git diff --check` passed. Final health green; saved reader edition returns four real topics.
