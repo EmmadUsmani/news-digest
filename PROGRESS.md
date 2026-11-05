@@ -1,23 +1,3 @@
-## 2026-11-05: iteration 857 — reconcile retained on-demand failures
-
-- Started clean on main; no leftover work. Alerts clear, 36 sources healthy, health green; X rounds await 21:00 UTC and admin rollout awaits owner identity/proxy evidence.
-- Worker startup/10-second refresh now persists retained failed on-demand jobs, including terminal stalls outside the generation catch. Rechecks state, ignores unrelated/retried/incomplete jobs, stores duration only and uses existing idempotent history.
-- Isolated queue test bypasses application error handling, reconciles twice, removes the Redis job and recovers generic failed status/duration from its original link. Unit coverage checks guards and DB error propagation. No actual process-kill/stall experiment performed.
-- Jobs pruned before scanning, queued/active jobs lost with Redis, and unavailable DB history remain limitations. Updated Jobs handbook/TASKS; archived oldest progress entry.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (500 unit/215 isolated integration passed); pnpm build; check-handbook.ts 03-jobs-and-schedules (18 pages/2 diagrams, 27 tables); git diff --check; smoke-admin-gate.ts (startup race failed, rerun passed).
-- API/worker restarted active; /healthz OK, saved edition byte-identical, all 36 sources healthy and alerts clear. No paid calls, UI/schema/source/budget changes; SOURCES, screenshots and NEEDS_FROM_HUMAN unchanged.
-- Next: X fresh-window rounds after 21:00 UTC Nov 5/6; editor-v5 evidence Nov 6. Unfinished durable history and admin identity/proxy rollout remain open.
-
-## 2026-11-05: iteration 858 — persist terminal failures on worker events
-
-- Started clean on main; no leftover work. Health/alerts green, 36 sources healthy and scheduled digest successful; X rounds await 21:00 UTC and admin rollout awaits identity/proxy evidence.
-- Worker now records terminal on-demand failure events immediately through the existing state-checked, idempotent history adapter. Retryable attempts remain excluded; persistence errors are caught/logged and the periodic scan remains the downtime/retry fallback.
-- Isolated queue test proves a failure bypassing the generation catch reaches Postgres without scanning, then survives Redis removal; existing duplicate scan checks remain. Unit test verifies missing-job events and caught persistence rejection. No actual process-kill/stall experiment.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (501 unit/215 isolated integration passed); pnpm build; check-handbook.ts 03-jobs-and-schedules (18 pages/2 diagrams, 27 tables); targeted failed-edition-job.test.ts (2 passed); git diff --check; smoke-admin-gate.ts before/after restart.
-- API/worker restarted active; /healthz OK, saved edition byte-identical, 36 sources healthy, zero failed digest jobs and alerts clear. Updated Jobs handbook/TASKS; archived iteration 842 to keep progress small.
-- Jobs lost before either event persistence or scanning remain unrecoverable. No paid calls or UI/schema/source/budget changes; screenshots, SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Next: X fresh-window rounds after 21:00 UTC Nov 5/6; editor-v5 evidence Nov 6. Unfinished durable job history and admin identity/proxy rollout remain open.
-
 ## 2026-11-05: iteration 859 — recover links during Redis pruning races
 
 - Started clean on main; no leftover work. Alerts/health green, 36 sources healthy, no failed digest jobs; X rounds await 21:00 UTC and admin rollout awaits identity/proxy evidence.
@@ -147,3 +127,13 @@
 - Verification: pnpm exec tsx scripts/evaluate-story-pool-budget.ts --read-only; missing opt-in rejected; pnpm format; pnpm lint:fix; pnpm check (504 unit/218 isolated integration passed); pnpm build; git diff --check.
 - Updated TASKS/World evidence; archived iteration 856 to keep PROGRESS small. Evidence-only change: no restart under STEERING 22; live runtime/config unchanged. Handbook/SOURCES/schema/screenshots/NEEDS_FROM_HUMAN unchanged.
 - Next: bounded ledgered Haiku World verification under STEERING 4, then activation decision before Nov 6 13:00 UTC or defer a day. No repeat cache probes. UI step 2 follows; X rounds after 21:00 UTC Nov 5/6.
+
+## 2026-11-05: iteration 872 — activate forty-article story grouping pool
+
+- Started clean on main; no leftover work. Alerts clear, services and /healthz healthy; sources returning items and collection jobs completing.
+- Added explicit once-only Haiku World verifier using the existing private fsynced claim and $0.05 evaluation guard plus shared verification ledger/reserve admission. Missing opt-in rejected; no repairs. Four calls succeeded, purpose verification, $0.005837 actual/$0.016753 reserved; fixed durable claim prevents paid replay.
+- Actual Nov 4 ten→forty: 1→16 model stories, 1→10 editor inputs, 1→5 reviewed labels. Nov 5: 3→20 model stories, 3→10 inputs, 2→7 labels. No returned group crosses reviewed labels; election fragmentation persists. These are saved-window observations, not general accuracy or future edition predictions.
+- Activated forty scored articles before grouping in publication, retaining ten-story editor ceiling. All-topic first-attempt scenario $0.464371 fits unchanged reserve/cap; verification spend is covered by prior full-remaining-allowance scenario. No prompt/model/topic rules/settings/budgets changed; saved editions untouched.
+- Retained model/fingerprint/validated responses in LLM fixtures; offline regression passes through production request validation, grouping wrapper and ranking, asserting wider story diversity and same-label coverage. Updated TASKS, RANKING, World evidence and affected pipeline handbook; diagram checked visually. Archived iterations 857–858.
+- Verification: targeted 5 tests passed; missing opt-in exit 1; handbook checker (18 pages/1 diagram, 28 tables) passed. pnpm format; pnpm lint:fix; pnpm check (505 unit/218 isolated integration passed); pnpm build; git diff --check. API/worker restarted active, /healthz healthy; saved edition four topics/17 stories/14 posts, all 36 sources healthy.
+- Next: review Nov 6 real edition grouping/editor-v5 quality and spend; finish UI step 2 now, then spec pages. X fresh-window rounds after 21:00 UTC Nov 5/6; coverage-directory cleanup remains open. SOURCES/schema/screenshots/NEEDS_FROM_HUMAN unchanged: no source/schema/UI/access change.

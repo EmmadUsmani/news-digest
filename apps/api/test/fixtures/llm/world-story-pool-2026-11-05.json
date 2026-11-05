@@ -1,0 +1,331 @@
+{
+  "runId": "item-36-world-96df04f3-0f33-467f-9d5f-59f7c39a26ab",
+  "model": "claude-haiku-5-5",
+  "recordedAt": "2026-11-05T18:37:36.517Z",
+  "windows": [
+    {
+      "editionId": "3bf10f5b-4c00-48b2-85bd-8e6dac7e3238",
+      "poolArticles": 10,
+      "valid": true,
+      "groups": [
+        [
+          "1220c331-f455-4a7b-a8a9-6cc1e1b4d82a",
+          "278a635a-cd4c-4b90-80b1-04997ed7bd2f",
+          "5bea1757-d1a5-435a-b887-b81b80a1565e",
+          "5f5a080e-05f8-45d7-86c8-c5a1714181f5",
+          "729cafdb-8482-4e91-bd67-df6f8e05a5f3",
+          "798f9557-0a1c-4c06-b882-257ba370b324",
+          "7a8d7be6-d96f-4d6c-8e41-71777d7d46e1",
+          "9c19d200-6569-485b-9119-4a0ecf20b095",
+          "9d91e5a3-2635-4332-9661-3e3115cf66f7",
+          "d7572009-38b9-43a4-b33e-9e1c829d42d9"
+        ]
+      ],
+      "distinctStories": 1,
+      "editorCandidateIds": ["1220c331-f455-4a7b-a8a9-6cc1e1b4d82a"]
+    },
+    {
+      "editionId": "3bf10f5b-4c00-48b2-85bd-8e6dac7e3238",
+      "poolArticles": 40,
+      "valid": true,
+      "groups": [
+        [
+          "278a635a-cd4c-4b90-80b1-04997ed7bd2f",
+          "5bea1757-d1a5-435a-b887-b81b80a1565e",
+          "5f5a080e-05f8-45d7-86c8-c5a1714181f5",
+          "729cafdb-8482-4e91-bd67-df6f8e05a5f3",
+          "798f9557-0a1c-4c06-b882-257ba370b324",
+          "7a8d7be6-d96f-4d6c-8e41-71777d7d46e1",
+          "9c19d200-6569-485b-9119-4a0ecf20b095",
+          "9d91e5a3-2635-4332-9661-3e3115cf66f7",
+          "d7572009-38b9-43a4-b33e-9e1c829d42d9",
+          "f0ca13db-0ccb-4311-b6f2-84089320c106",
+          "fae01333-d055-4329-9bae-6c0b29a8988a",
+          "3fece516-80d3-440d-b63f-08effc195cb0",
+          "9b483e20-dcd9-4c6b-a440-be6f0bf75c1c",
+          "76682b22-ef2b-48e1-9624-2c7194bd3b0e",
+          "792852f2-470e-438a-b612-93dfae2433f1"
+        ],
+        [
+          "20e287ed-c825-4426-87de-171b24038f5d",
+          "4726df87-4384-4e1d-81b5-fc2813cae873"
+        ],
+        [
+          "6e92e962-ba23-40c0-afb3-14ebefb82d9b",
+          "f8aae519-07c7-4891-aef4-8ce402ba8f8a",
+          "f0a17559-0b61-4560-be8d-1b3fafd210b8"
+        ],
+        [
+          "18f6b061-a9d8-47da-aa7b-c75f47c50381",
+          "369edbd8-185e-498d-93fc-83982d6db93c",
+          "3f62f85f-a9d6-42f2-9350-e130d2ebb383",
+          "4671b538-9b9c-4698-b4fe-7045b55a02d9"
+        ],
+        [
+          "1e2ba9c8-76fa-4376-b7f6-af9052067a94",
+          "351931c6-fd26-4b1c-a6b7-d9d20ef9def1"
+        ],
+        [
+          "0ecb0099-0c99-45b5-a003-dfd1fa656472",
+          "249371e8-048a-4744-95cc-7a04768f47c5"
+        ],
+        [
+          "11058a21-5cb7-48e0-ad94-6e505a02edf7",
+          "ac71bf39-641e-4a87-8446-c4f9deb5ca46"
+        ],
+        [
+          "183cd3e1-efd3-4411-83ec-f202befc4032",
+          "8caf9b6b-f9c6-4a24-9199-c6fbb39a5440"
+        ]
+      ],
+      "distinctStories": 16,
+      "editorCandidateIds": [
+        "76682b22-ef2b-48e1-9624-2c7194bd3b0e",
+        "11058a21-5cb7-48e0-ad94-6e505a02edf7",
+        "f0a17559-0b61-4560-be8d-1b3fafd210b8",
+        "1220c331-f455-4a7b-a8a9-6cc1e1b4d82a",
+        "183cd3e1-efd3-4411-83ec-f202befc4032",
+        "3f62f85f-a9d6-42f2-9350-e130d2ebb383",
+        "c688b9fe-4c93-4a2c-9410-66cd4a670523",
+        "43d13282-b659-4317-82a5-0bf61d73d51e",
+        "20e287ed-c825-4426-87de-171b24038f5d",
+        "265b7c64-7839-41e8-bdb0-fe4d028f9fd6"
+      ]
+    },
+    {
+      "editionId": "7d99b279-cb6a-4cf0-b0a2-d94c5645f0b7",
+      "poolArticles": 10,
+      "valid": true,
+      "groups": [
+        [
+          "cc5cb509-d338-43b8-a5c5-4264b1db11a9",
+          "d6580108-ca59-4c2f-ac63-c2167679eee2",
+          "16de8b00-c4f2-48e6-b480-b9ee1eef5d7e",
+          "4964ff05-f777-4efc-a54a-c23055e5d4cf",
+          "56eb0f80-981f-493d-bfba-b487fa330b56",
+          "7bb539a3-0424-48b6-864b-2fce69818d86",
+          "c2b8e74d-6fce-44cf-a050-c2ee6fadf41d",
+          "cfd43155-12b1-4ee0-bcac-22de4d13b88e"
+        ]
+      ],
+      "distinctStories": 3,
+      "editorCandidateIds": [
+        "cfd43155-12b1-4ee0-bcac-22de4d13b88e",
+        "6005548f-50bd-4ad7-b269-49150ada3b22",
+        "1186edb7-b403-41fa-b8c0-1af91ebbb9c7"
+      ]
+    },
+    {
+      "editionId": "7d99b279-cb6a-4cf0-b0a2-d94c5645f0b7",
+      "poolArticles": 40,
+      "valid": true,
+      "groups": [
+        [
+          "cc5cb509-d338-43b8-a5c5-4264b1db11a9",
+          "29aa46d9-1dcd-4172-ac06-82d4f990cbce",
+          "e9be4428-64cd-4442-ba12-16bf1c6c5c38",
+          "5fe437c3-a0ee-4ad1-b2b8-325f3e3666d3",
+          "cedcd690-96ff-46bf-8fa2-191e78bf80b1"
+        ],
+        [
+          "d6580108-ca59-4c2f-ac63-c2167679eee2",
+          "c2b8e74d-6fce-44cf-a050-c2ee6fadf41d",
+          "d9edda9f-640c-4f4e-801e-9ea21e5c5e1c",
+          "7e1834c1-2742-4031-a15e-801dc59050cf",
+          "a65f2b2d-3cec-492f-8049-6ffe8497a302",
+          "1d6c6184-eaed-4d72-a9a2-7921fdc74df4",
+          "7bb539a3-0424-48b6-864b-2fce69818d86",
+          "16de8b00-c4f2-48e6-b480-b9ee1eef5d7e",
+          "dd43122f-156b-4ffc-b636-cd2b2132779b",
+          "e88048f6-397c-44d0-95ea-6cf1a3d5ea4c"
+        ],
+        [
+          "56eb0f80-981f-493d-bfba-b487fa330b56",
+          "cfd43155-12b1-4ee0-bcac-22de4d13b88e"
+        ],
+        [
+          "4964ff05-f777-4efc-a54a-c23055e5d4cf",
+          "8a81c0d4-9e8e-4f61-a521-c9c822d3ba1d",
+          "63490a25-5b7d-4ce4-a65d-e34bf473a464"
+        ],
+        [
+          "8cf8becc-fce8-4bfc-9a24-a7a8a5e3aaae",
+          "01b3e222-1f12-44c2-a2f1-477123ed42c7"
+        ],
+        [
+          "f9e0c2e5-d5fa-44e1-99bb-b0815dc6031a",
+          "0b6566fd-f0b0-4ebf-8102-d7ef0b287a29"
+        ],
+        [
+          "5d793eb5-9f96-4c6c-b03f-d724f9fb866a",
+          "891c3691-7f7d-499a-88e1-d5711dc8b99d"
+        ],
+        [
+          "b91ba542-1dda-4a33-9372-8e3636a274d5",
+          "1f059fb5-d3d1-4750-b30e-d3bccb3f12eb"
+        ]
+      ],
+      "distinctStories": 20,
+      "editorCandidateIds": [
+        "189922c5-3c95-45bb-9813-62466614bb1f",
+        "b91ba542-1dda-4a33-9372-8e3636a274d5",
+        "7496b79d-b7c0-43ce-888f-0e2578834805",
+        "cfd43155-12b1-4ee0-bcac-22de4d13b88e",
+        "42e91312-aad5-40be-a405-83f29aa8a961",
+        "7bb539a3-0424-48b6-864b-2fce69818d86",
+        "e9be4428-64cd-4442-ba12-16bf1c6c5c38",
+        "5d793eb5-9f96-4c6c-b03f-d724f9fb866a",
+        "4964ff05-f777-4efc-a54a-c23055e5d4cf",
+        "8269cecd-aa66-409e-8348-42346bde49ae"
+      ]
+    }
+  ],
+  "records": [
+    {
+      "fingerprint": "7f73a32f41adf96d8b0965f96652f3ed4cbe3461a4720398b6f2f1b7d463d3a5",
+      "model": "claude-haiku-5-5",
+      "response": {
+        "groups": [
+          [
+            "1220c331-f455-4a7b-a8a9-6cc1e1b4d82a",
+            "278a635a-cd4c-4b90-80b1-04997ed7bd2f",
+            "5bea1757-d1a5-435a-b887-b81b80a1565e",
+            "5f5a080e-05f8-45d7-86c8-c5a1714181f5",
+            "729cafdb-8482-4e91-bd67-df6f8e05a5f3",
+            "798f9557-0a1c-4c06-b882-257ba370b324",
+            "7a8d7be6-d96f-4d6c-8e41-71777d7d46e1",
+            "9c19d200-6569-485b-9119-4a0ecf20b095",
+            "9d91e5a3-2635-4332-9661-3e3115cf66f7",
+            "d7572009-38b9-43a4-b33e-9e1c829d42d9"
+          ]
+        ]
+      }
+    },
+    {
+      "fingerprint": "5a45baab900b51f97371a790646fbfa8b67b3232a716d3ab53f6215f9b12a245",
+      "model": "claude-haiku-5-5",
+      "response": {
+        "groups": [
+          [
+            "278a635a-cd4c-4b90-80b1-04997ed7bd2f",
+            "5bea1757-d1a5-435a-b887-b81b80a1565e",
+            "5f5a080e-05f8-45d7-86c8-c5a1714181f5",
+            "729cafdb-8482-4e91-bd67-df6f8e05a5f3",
+            "798f9557-0a1c-4c06-b882-257ba370b324",
+            "7a8d7be6-d96f-4d6c-8e41-71777d7d46e1",
+            "9c19d200-6569-485b-9119-4a0ecf20b095",
+            "9d91e5a3-2635-4332-9661-3e3115cf66f7",
+            "d7572009-38b9-43a4-b33e-9e1c829d42d9",
+            "f0ca13db-0ccb-4311-b6f2-84089320c106",
+            "fae01333-d055-4329-9bae-6c0b29a8988a",
+            "3fece516-80d3-440d-b63f-08effc195cb0",
+            "9b483e20-dcd9-4c6b-a440-be6f0bf75c1c",
+            "76682b22-ef2b-48e1-9624-2c7194bd3b0e",
+            "792852f2-470e-438a-b612-93dfae2433f1"
+          ],
+          [
+            "20e287ed-c825-4426-87de-171b24038f5d",
+            "4726df87-4384-4e1d-81b5-fc2813cae873"
+          ],
+          [
+            "6e92e962-ba23-40c0-afb3-14ebefb82d9b",
+            "f8aae519-07c7-4891-aef4-8ce402ba8f8a",
+            "f0a17559-0b61-4560-be8d-1b3fafd210b8"
+          ],
+          [
+            "18f6b061-a9d8-47da-aa7b-c75f47c50381",
+            "369edbd8-185e-498d-93fc-83982d6db93c",
+            "3f62f85f-a9d6-42f2-9350-e130d2ebb383",
+            "4671b538-9b9c-4698-b4fe-7045b55a02d9"
+          ],
+          [
+            "1e2ba9c8-76fa-4376-b7f6-af9052067a94",
+            "351931c6-fd26-4b1c-a6b7-d9d20ef9def1"
+          ],
+          [
+            "0ecb0099-0c99-45b5-a003-dfd1fa656472",
+            "249371e8-048a-4744-95cc-7a04768f47c5"
+          ],
+          [
+            "11058a21-5cb7-48e0-ad94-6e505a02edf7",
+            "ac71bf39-641e-4a87-8446-c4f9deb5ca46"
+          ],
+          [
+            "183cd3e1-efd3-4411-83ec-f202befc4032",
+            "8caf9b6b-f9c6-4a24-9199-c6fbb39a5440"
+          ]
+        ]
+      }
+    },
+    {
+      "fingerprint": "54ba826650163830c9e0628a19b8a659ae40e732f3e9ba2eac084b375cd3b023",
+      "model": "claude-haiku-5-5",
+      "response": {
+        "groups": [
+          [
+            "cc5cb509-d338-43b8-a5c5-4264b1db11a9",
+            "d6580108-ca59-4c2f-ac63-c2167679eee2",
+            "16de8b00-c4f2-48e6-b480-b9ee1eef5d7e",
+            "4964ff05-f777-4efc-a54a-c23055e5d4cf",
+            "56eb0f80-981f-493d-bfba-b487fa330b56",
+            "7bb539a3-0424-48b6-864b-2fce69818d86",
+            "c2b8e74d-6fce-44cf-a050-c2ee6fadf41d",
+            "cfd43155-12b1-4ee0-bcac-22de4d13b88e"
+          ]
+        ]
+      }
+    },
+    {
+      "fingerprint": "3b17532559d2dfcff27d8609287a99eab0a4284894e952cc704778e3068f40b2",
+      "model": "claude-haiku-5-5",
+      "response": {
+        "groups": [
+          [
+            "cc5cb509-d338-43b8-a5c5-4264b1db11a9",
+            "29aa46d9-1dcd-4172-ac06-82d4f990cbce",
+            "e9be4428-64cd-4442-ba12-16bf1c6c5c38",
+            "5fe437c3-a0ee-4ad1-b2b8-325f3e3666d3",
+            "cedcd690-96ff-46bf-8fa2-191e78bf80b1"
+          ],
+          [
+            "d6580108-ca59-4c2f-ac63-c2167679eee2",
+            "c2b8e74d-6fce-44cf-a050-c2ee6fadf41d",
+            "d9edda9f-640c-4f4e-801e-9ea21e5c5e1c",
+            "7e1834c1-2742-4031-a15e-801dc59050cf",
+            "a65f2b2d-3cec-492f-8049-6ffe8497a302",
+            "1d6c6184-eaed-4d72-a9a2-7921fdc74df4",
+            "7bb539a3-0424-48b6-864b-2fce69818d86",
+            "16de8b00-c4f2-48e6-b480-b9ee1eef5d7e",
+            "dd43122f-156b-4ffc-b636-cd2b2132779b",
+            "e88048f6-397c-44d0-95ea-6cf1a3d5ea4c"
+          ],
+          [
+            "56eb0f80-981f-493d-bfba-b487fa330b56",
+            "cfd43155-12b1-4ee0-bcac-22de4d13b88e"
+          ],
+          [
+            "4964ff05-f777-4efc-a54a-c23055e5d4cf",
+            "8a81c0d4-9e8e-4f61-a521-c9c822d3ba1d",
+            "63490a25-5b7d-4ce4-a65d-e34bf473a464"
+          ],
+          [
+            "8cf8becc-fce8-4bfc-9a24-a7a8a5e3aaae",
+            "01b3e222-1f12-44c2-a2f1-477123ed42c7"
+          ],
+          [
+            "f9e0c2e5-d5fa-44e1-99bb-b0815dc6031a",
+            "0b6566fd-f0b0-4ebf-8102-d7ef0b287a29"
+          ],
+          [
+            "5d793eb5-9f96-4c6c-b03f-d724f9fb866a",
+            "891c3691-7f7d-499a-88e1-d5711dc8b99d"
+          ],
+          [
+            "b91ba542-1dda-4a33-9372-8e3636a274d5",
+            "1f059fb5-d3d1-4750-b30e-d3bccb3f12eb"
+          ]
+        ]
+      }
+    }
+  ]
+}

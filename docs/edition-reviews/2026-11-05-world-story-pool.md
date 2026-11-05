@@ -143,3 +143,43 @@ admission; the small reserve headroom is not a guarantee of tomorrow's outcome.
 No caps/reserve/settings changed. Next: bounded, ledgered Haiku verification
 of the saved World requests under STEERING 4, then decide activation before
 Nov 6 13:00 UTC. Do not repeat the known cache misses.
+
+## Actual Haiku verification and activation (iteration 872)
+
+Ran `LLM_LIVE=1 pnpm exec tsx scripts/verify-world-story-pool.ts --verify-once`
+with the configured secrets environment outside the protected hours. The fixed
+private state directory has an exclusive, fsynced claim: rerunning cannot renew
+spend. The existing evaluation guard limits total reservations to $0.05,
+Haiku only; shared ledger admission and verification's daily ceiling also apply.
+No repairs. Four calls succeeded, ledger purpose `verification`, **$0.005837**
+actual cost, $0.016753 combined reservation. Nov 4 ten/forty calls cost
+$0.000633/$0.002004; Nov 5 $0.000758/$0.002442. Run:
+`item-36-world-96df04f3-0f33-467f-9d5f-59f7c39a26ab`.
+
+| Window | Articles | Model stories including singletons | Editor inputs | Reviewed labels represented |
+| ------ | -------: | ---------------------------------: | ------------: | --------------------------: |
+| Nov 4  |       10 |                                  1 |             1 |                           1 |
+| Nov 4  |       40 |                                 16 |            10 |                           5 |
+| Nov 5  |       10 |                                  3 |             3 |                           2 |
+| Nov 5  |       40 |                                 20 |            10 |                           7 |
+
+Every returned group stays within its reviewed label. Haiku splits election
+coverage into several groups; these model story counts are not independent
+story counts. Nov 5's ten-item replay leaves the two Hormuz articles separate,
+so its three model stories differ from the two reviewed labels. The wider pool
+still improves actual editor diversity: Nov 4 adds Spain, Israel, Ukraine and
+South Africa; Nov 5 includes Brand, Israel-government, hush-money, Brazil,
+Wong and France alongside election coverage. Exact editor IDs and validated
+responses/fingerprints/model are saved in
+`apps/api/test/fixtures/llm/world-story-pool-2026-11-05.json`.
+The offline regression test replays all four through production selection,
+grouping request validation, coverage and ranking without external access.
+
+Publication now explicitly selects forty scored articles before grouping and
+keeps the existing ten-story editor cap. No prompt, topic rules, model, prices,
+reserve, budgets or historical edition changed. Activation uses the all-topic
+$0.464371 first-attempt scenario above; the verification spend remains inside
+the already evaluated full-remaining-allowance case. Ordinary live admission
+still controls repairs and future volume. Review actual output, cost and
+same-story composition in the Nov 6 scheduled edition; do not pay for another
+replay merely to improve these measurements.

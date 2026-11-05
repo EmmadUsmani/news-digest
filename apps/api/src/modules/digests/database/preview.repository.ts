@@ -276,6 +276,8 @@ export class PostgresPreviewRepository
                   policy,
                   start,
                   end,
+                  undefined,
+                  40,
                 );
                 await topicStage(topic.id, 'editing');
                 const matches = await groupShortlist(

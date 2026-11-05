@@ -1,8 +1,9 @@
 # Ranking evaluation
 
-Current grouping state (STEERING 27, iteration 649): publication now has a
+Current grouping state (STEERING 36, iteration 872): publication now has a
 bounded AI grouping path, disabled unless `LLM_STORY_GROUPING_ENABLED=1`.
-It groups only the existing ten-item semantic shortlist after complete triage,
+It groups up to forty scored articles after complete triage, then ranks at most
+ten stories for the editor,
 using the evaluated same-story prompt and the shared Haiku budget ledger.
 The recorded sample passed: frozen-label precision 141/141, recall 141/157;
 supplemental review found zero clearly unrelated and one borderline pair among

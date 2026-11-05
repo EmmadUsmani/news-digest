@@ -81,7 +81,8 @@ async function main() {
       'Production article limit changed; refresh the before comparison',
     );
     // Exercise the prepared production selection and grouping wrapper with reviewed
-    // memberships, not model output. Publication still uses the ten-article default.
+    // memberships, not model output. Publication now explicitly selects forty;
+    // the helper default retains the ten-article baseline for this comparison.
     const prepared = editorialShortlist(
       window.candidates,
       window.scores,

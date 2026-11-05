@@ -5,7 +5,7 @@ are processed **in parallel**. Each topic goes through the steps below, and
 the result is saved as one immutable snapshot.
 
 ```mermaid
-flowchart TB
+flowchart LR
   start(["Edition job<br/>(window, e.g. last 24 h)"]) --> per
   subgraph per["For each enabled topic (in parallel)"]
     direction TB
@@ -13,7 +13,7 @@ flowchart TB
     r["2 · Rules (no AI)<br/>relevance phrases · quality filters"]
     t{"AI budget<br/>available?"}
     tri["3 · Triage (Haiku)<br/>score every candidate for relevance + importance<br/>batches of ~50, 4 at a time, cached"]
-    sl["4 · Shortlist<br/>top ~10 by scores + signals"]
+    sl["4 · Shortlist<br/>top 40 scored articles → group → top 10 stories"]
     ed["5 · Editor (Sonnet)<br/>pick stories, write brief + summaries"]
     so["6 · Social posts<br/>pick verified X posts for the topic"]
     fb["Fallback: non-AI ranking<br/>(signals only, saved article text)"]
@@ -32,7 +32,7 @@ flowchart TB
 | 1. Candidates | Everything collected for this topic during the window (up to a few hundred items)       |
 | 2. Rules      | Drop quality-rule rejections (betting promos, game threads) and excluded topic phrases  |
 | 3. Triage     | A cheap model scores each item, so the expensive model sees only the best               |
-| 4. Shortlist  | Combine AI scores with signals (recency, number of outlets, HN points)                  |
+| 4. Shortlist  | Group up to 40 scored articles, then rank at most 10 stories for the editor             |
 | 5. Editor     | A stronger model chooses stories and writes the brief, using only facts in the items    |
 | 6. Social     | Choose the topic's posts from verified X posts (see [Social posts](05-social-posts.md)) |
 | 7. Publish    | Copy everything shown into a JSON snapshot; a DB trigger forbids later edits            |
@@ -67,7 +67,7 @@ flowchart TB
 > Production enabled `LLM_STORY_GROUPING_ENABLED=1` on Nov 4 for the Nov 5
 > scheduled edition. The code default remains off; set the switch to `0` to
 > disable it. The enabled switch adds a bounded Haiku pass over each topic's
-> ten-item semantic shortlist before editing, using the ordinary shared budget
+> forty-article scored pool before selecting ten stories for editing, using the ordinary shared budget
 > and cache. It groups the same news story, including direct follow-ups,
 > reactions and consequences; shared people or themes alone do not qualify.
 > Failed, invalid or budget-refused grouping keeps articles separate. Grouped
