@@ -18,7 +18,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - [ ] STEERING 33 UI rebuild: after X work; exactly [approved spec](docs/ui-spec.md), five steps in order. TanStack Router/Query, Tailwind v4/shadcn, self-hosted Inter/themes live. Step 2 deny-by-default gate, uncached identity/protected aliases/sanitized reader endpoints prepared; legacy operational routes remain pending owner identity.
   - Next: configure admin identity; verify authenticated proxy origin/header replacement; switch UI/scripts and remove legacy routes while gating tools together. Local denial/cache/method/forwarded-token checks pass. [Access decision](docs/decisions/2026-11-05-admin-access.md).
   - Reader/history/text/themes/recovery and operational replays verified desktop/mobile light/dark with browser writes blocked or replayed and protected snapshots unchanged; screenshots in `docs/screenshots/ui/`.
-- [ ] STEERING 28 incremental triage OFF: default-off runtime, shared admission, reserve-safe scoring, exact pools/cutoffs and sibling draining verified. Reassess admission after Nov 5 full-AI acceptance; do not reduce protection. Real waste/latency unmeasured. [Prior assessment](docs/edition-reviews/2026-11-04-incremental-admission.md).
+- [ ] STEERING 28 incremental triage OFF: default-off runtime, shared admission, reserve-safe scoring, exact pools/cutoffs and sibling draining verified. Reassessed after full-AI acceptance (865): Nov 6 morning allowance $0.021736–$0.028915; only 2/65 early fingerprints compatible in post-publication pool. Keep OFF; do not reduce protection. Actual waste/latency unmeasured. [Assessment](docs/edition-reviews/2026-11-05-incremental-admission.md).
 
 ## Remaining milestones and lower priorities
 
@@ -34,5 +34,5 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Worker crash recovery (864): killed a real child worker against disposable Redis; replacement recovers the accepted job once, and fixture publication stays accessible after queue pruning. No live generation or paid calls.
+- [x] Incremental admission reassessed (865): measured reserve and same-window turnover support keeping background triage OFF; no paid calls or settings changes.
 - Next: X fresh-window rounds after 21:00 UTC Nov 5/6; scheduled editor-v5 evidence Nov 6. Admin identity/proxy rollout and broader job reliability acceptance remain open.

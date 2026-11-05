@@ -1,14 +1,3 @@
-## 2026-11-05: iteration 851 — recover completed job links after Redis pruning
-
-- Started clean on main; no leftover work. Alerts clear, health/database/Redis green, all 36 sources healthy and digest queue zero failures. X rounds wait until 21:00 UTC; UI migration remains blocked on owner identity/proxy evidence.
-- Completed one M7 recovery slice: missing on-demand Redis jobs resolve their exact publication key through the repository port to the current profile's saved Postgres edition. Existing retained jobs keep their status; unknown jobs remain 404. No generation or paid calls.
-- Recovered status returns completed/edition ID with null unavailable progress/duration. Failed/unfinished durable history and Redis-reset/job-ID reuse remain outside this pruning-only change.
-- Isolated HTTP test removes a completed job and recovers the identical edition; repository tests cover exact keys, unknown keys and profile isolation. Initial suite had one fixture failure because UPDATE hit edition immutability; corrected INSERT-time keys. Final pnpm check: 498 unit/214 isolated integration passed.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; filtered check-handbook.ts 03-jobs-and-schedules; git diff --check; smoke-admin-gate.ts; protected missing-job GET 404; obs alerts/health/sources/jobs and /healthz.
-- API/worker rebuilt and restarted healthy. Initial smoke/curl raced startup and failed to connect; rerun passed. Saved Nov 5 edition byte-identical before/after deployment, four topics; all 36 sources healthy, no failed digest jobs, alerts clear.
-- Updated TASKS and Jobs handbook; corrected stale local-token status in NEEDS_FROM_HUMAN. Archived progress 833–840 to keep orientation small. SOURCES/schema metadata unchanged; no source/schema/UI changes or screenshot need.
-- Next: X fresh-window keyword/semantic rounds after 21:00 UTC Nov 5/6; next scheduled editor-v5 composition evidence Nov 6. Admin identity/proxy verification remains open.
-
 ## 2026-11-05: iteration 852 — publish a domain event through a log notification port
 
 - Started clean on main; no leftover work. Alerts/health green, 36 sources healthy and digest queue zero failures. X rounds await 21:00 UTC; admin rollout awaits identity/proxy evidence.
@@ -142,3 +131,13 @@
 - API/worker remain active; /healthz database/Redis OK, latest reader edition 7d99b279-cb6a-4cf0-b0a2-d94c5645f0b7 serves four topics; no dangling Docker volumes. Test/docs-only change, so no restart under STEERING 22.
 - Updated TASKS; archived iteration 850 to keep progress below 25 KB. Handbook, schema metadata, SOURCES, screenshots and NEEDS_FROM_HUMAN unchanged; production behavior unchanged.
 - Next: X fresh-window rounds after 21:00 UTC Nov 5/6; scheduled editor-v5 evidence Nov 6; admin identity/proxy rollout and broader job reliability acceptance remain open.
+
+## 2026-11-05: iteration 865 — reassess incremental triage after full-AI acceptance
+
+- Started clean on main; no leftover work. Alerts clear, health database/Redis OK, 36 active sources without errors and zero failed digest jobs.
+- Read-only production cost reader now returns one qualifying full-AI cost ($0.315445). Unchanged 1.5 headroom protects $0.473168; production policy projects Nov 6 morning allowance $0.021736–$0.028915 depending on remaining Nov 5 spend.
+- Captured the same Nov 5 window after publication and compared actual configured Haiku fingerprints with iteration 655: 2/65 compatible, 62 absent, one NBA article-input change. This is prospective compatibility, not publication-time membership or actual paid waste.
+- Added docs/edition-reviews/2026-11-05-incremental-admission.md; keep incremental triage OFF and reserve unchanged. No provider calls, cache writes, configuration changes or generation.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (501 unit/218 isolated integration passed); pnpm build; git diff --check. First check caught formatting in the newly archived progress entry; corrected before passing rerun.
+- Archived iteration 851; updated TASKS. Runtime unchanged, no restart under STEERING 22. Handbook, schema metadata, SOURCES, screenshots and NEEDS_FROM_HUMAN unchanged.
+- Next: X fresh-window rounds after 21:00 UTC Nov 5/6; scheduled editor-v5 evidence Nov 6. Incremental activation needs closer-to-cutoff consumption/waste evidence; admin rollout still needs identity/proxy evidence.
