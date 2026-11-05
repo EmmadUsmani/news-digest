@@ -127,14 +127,24 @@ async function smoke() {
         name: 'Delete ' + topic.name,
         exact: true,
       });
-      await confirmation
-        .getByRole('button', { name: 'Keep topic', exact: true })
-        .click();
+      const keep = confirmation.getByRole('button', {
+        name: 'Keep topic',
+        exact: true,
+      });
+      await keep.waitFor();
+      assert.ok(await keep.evaluate((el) => el === document.activeElement));
+      await keep.press('Enter');
+      const deleteButton = page.getByRole('button', {
+        name: 'Delete ' + topic.name,
+        exact: true,
+      });
+      assert.ok(
+        await deleteButton.evaluate((el) => el === document.activeElement),
+      );
       assert.ok(replayTopics.some((saved) => saved.id === topic.id));
       assert.equal(deletes, deletesBefore, 'Cancel must not send a delete');
-      await page
-        .getByRole('button', { name: 'Delete ' + topic.name, exact: true })
-        .click();
+      await deleteButton.press('Enter');
+      assert.ok(await keep.evaluate((el) => el === document.activeElement));
       await confirmation.scrollIntoViewIfNeeded();
       await confirmation.screenshot({
         path: 'docs/screenshots/topic-delete-' + device + '.png',
@@ -154,6 +164,7 @@ async function smoke() {
       await page.screenshot({
         path: 'docs/screenshots/topic-delete-failure-' + device + '.png',
       });
+      assert.ok(await keep.evaluate((el) => el === document.activeElement));
       assert.equal(deletes, deletesBefore + 1);
       failDelete = false;
       await confirmation
@@ -163,6 +174,11 @@ async function smoke() {
         .getByRole('status')
         .filter({ hasText: 'Deleted ' + topic.name + '.' })
         .waitFor();
+      assert.ok(
+        await page
+          .getByRole('button', { name: 'Create topic', exact: true })
+          .evaluate((el) => el === document.activeElement),
+      );
       await page.reload();
       await page
         .locator('.topic-grid')
@@ -298,7 +314,7 @@ async function smoke() {
     assert.deepEqual(credentials, []);
     assert.deepEqual(unexpectedWrites, []);
     console.log(
-      'Topic deletion desktop/mobile: browser replay cancel, error/retry, removal, real timeout and lost-response recovery without retry, reload and order passed; no production writes or generation',
+      'Topic deletion desktop/mobile: browser replay safe confirmation focus, keyboard cancel/reopen, focus restoration after cancel/error/removal, real timeout and lost-response recovery without retry, reload and order passed; no production writes or generation',
     );
   } finally {
     assert.deepEqual(

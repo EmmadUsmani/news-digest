@@ -112,3 +112,14 @@
 - Rebuilt API restarted; health green. Browser snapshots prove protected live topics/profile/full edition unchanged; no paid calls or live data writes.
 - Archived completed task markers 830–837; TASKS updated. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (accessible labels only, no new blocker).
 - Next FIRST: 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 839 — safe keyboard focus for topic deletion
+
+- Started clean on main; no leftover work. Health/database/Redis green and alerts clear; Nov 5 scheduled review remains due at 15:00 UTC.
+- Delete confirmation focuses Keep topic. Keyboard cancellation restores the original Delete button; successful removal focuses Create topic; failed deletion restores the safe choice.
+- Desktop/mobile replay verifies focus, Enter cancellation/reopening, failure/retry, successful removal and timeout/lost-response recovery. Confirmation screenshots inspected; unrelated regenerated screenshot discarded.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit/214 isolated integration passed); smoke-topic-delete.ts and smoke-admin-gate.ts exit 0; git diff --check.
+- First browser launch raced the API restart (ECONNREFUSED); rerun after health green passed. Browser snapshots prove protected live topics/profile/full edition unchanged.
+- Rebuilt API restarted; latest reader edition has four topics, health green and alerts clear. Worker/schedule unchanged; no paid calls or live data writes.
+- TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (keyboard navigation fix, no new blocker).
+- Next FIRST: 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

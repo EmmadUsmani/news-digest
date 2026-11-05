@@ -24,6 +24,21 @@ export function TopicSettings({
   const [editing, setEditing] = React.useState<Topic | null>(null);
   const [busy, setBusy] = React.useState(false);
   const [message, setMessage] = React.useState('');
+  const deleteTrigger = React.useRef<HTMLButtonElement | null>(null);
+  const keepTopic = React.useRef<HTMLButtonElement>(null);
+  const createTopic = React.useRef<HTMLButtonElement>(null);
+  React.useEffect(() => {
+    if (busy) return;
+    if (deleting) {
+      keepTopic.current?.focus();
+    } else if (deleteTrigger.current) {
+      const target = deleteTrigger.current.isConnected
+        ? deleteTrigger.current
+        : createTopic.current;
+      target?.focus();
+      deleteTrigger.current = null;
+    }
+  }, [deleting, busy]);
   async function remove() {
     if (!deleting) return;
     setBusy(true);
@@ -202,6 +217,7 @@ export function TopicSettings({
       <button
         type="button"
         disabled={busy}
+        ref={createTopic}
         onClick={() => {
           setEditing({
             id: '',
@@ -278,7 +294,8 @@ export function TopicSettings({
             <button
               type="button"
               disabled={busy}
-              onClick={() => {
+              onClick={(event) => {
+                deleteTrigger.current = event.currentTarget;
                 setDeleting(topic);
                 setMessage('');
               }}
@@ -302,6 +319,7 @@ export function TopicSettings({
           <button
             type="button"
             disabled={busy}
+            ref={keepTopic}
             onClick={() => setDeleting(null)}
           >
             Keep topic
