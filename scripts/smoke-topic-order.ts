@@ -130,6 +130,16 @@ async function smoke() {
         .getByRole('status')
         .filter({ hasText: 'Could not confirm topic order.' })
         .waitFor();
+      assert.equal(
+        await page
+          .getByRole('button', {
+            name: `Move ${topics[0].name} down`,
+            exact: true,
+          })
+          .evaluate((node) => node === document.activeElement),
+        true,
+        'Failed move restores the initiating button',
+      );
       assert.deepEqual(replayTopics, topics);
       assert.equal(writes, writesBefore + 1);
       assert.equal(
@@ -164,6 +174,32 @@ async function smoke() {
       assert.deepEqual(
         persisted.map((t) => t.position),
         expected.map((_, index) => index),
+      );
+      const moveBack = page.getByRole('button', {
+        name: `Move ${topics[0].name} up`,
+        exact: true,
+      });
+      await moveBack.focus();
+      await page.keyboard.press('Enter');
+      await page.waitForFunction(
+        (label) => document.activeElement?.getAttribute('aria-label') === label,
+        `Move ${topics[0].name} down`,
+      );
+      assert.deepEqual(
+        replayTopics.map((topic) => topic.id),
+        ids,
+      );
+      await page.locator('.topic-settings').screenshot({
+        path: `docs/screenshots/ui/topic-order-focus-${name}.png`,
+      });
+      await page.keyboard.press('Enter');
+      await page.waitForFunction(
+        (label) => document.activeElement?.getAttribute('aria-label') === label,
+        `Move ${topics[0].name} down`,
+      );
+      assert.deepEqual(
+        replayTopics.map((topic) => topic.id),
+        expected,
       );
       await page.reload();
       await page.getByText('Manage topics', { exact: true }).click();
@@ -214,7 +250,7 @@ async function smoke() {
       );
       releaseStalledResponse?.();
       releaseStalledResponse = undefined;
-      assert.equal(writes, writesBefore + 3);
+      assert.equal(writes, writesBefore + 5);
       assert.deepEqual(
         replayTopics.map((topic) => topic.id),
         ids,
@@ -230,7 +266,7 @@ async function smoke() {
       );
       assert.equal(
         writes,
-        writesBefore + 3,
+        writesBefore + 5,
         'Reload must not repeat the reorder',
       );
       loseResponse = false;

@@ -28,6 +28,18 @@ export function TopicSettings({
   const keepTopic = React.useRef<HTMLButtonElement>(null);
   const createTopic = React.useRef<HTMLButtonElement>(null);
   const editTrigger = React.useRef<HTMLButtonElement | null>(null);
+  const moveButtons = React.useRef(new Map<string, HTMLButtonElement>());
+  const pendingMoveFocus = React.useRef<{ id: string; delta: number } | null>(
+    null,
+  );
+  React.useEffect(() => {
+    if (busy || !pendingMoveFocus.current) return;
+    const { id, delta } = pendingMoveFocus.current;
+    const preferred = moveButtons.current.get(`${id}:${delta}`);
+    const alternate = moveButtons.current.get(`${id}:${-delta}`);
+    (preferred && !preferred.disabled ? preferred : alternate)?.focus();
+    pendingMoveFocus.current = null;
+  }, [busy, topics]);
   const topicName = React.useRef<HTMLInputElement>(null);
   React.useEffect(() => {
     if (editing) topicName.current?.focus();
@@ -115,6 +127,7 @@ export function TopicSettings({
     }
   }
   async function move(index: number, delta: number) {
+    pendingMoveFocus.current = { id: topics[index].id, delta };
     const ordered = [...topics];
     [ordered[index], ordered[index + delta]] = [
       ordered[index + delta],
@@ -266,6 +279,11 @@ export function TopicSettings({
             <button
               type="button"
               aria-label={`Move ${topic.name} up`}
+              ref={(node) => {
+                const key = `${topic.id}:-1`;
+                if (node) moveButtons.current.set(key, node);
+                else moveButtons.current.delete(key);
+              }}
               disabled={busy || index === 0}
               onClick={() => void move(index, -1)}
             >
@@ -274,6 +292,11 @@ export function TopicSettings({
             <button
               type="button"
               aria-label={`Move ${topic.name} down`}
+              ref={(node) => {
+                const key = `${topic.id}:1`;
+                if (node) moveButtons.current.set(key, node);
+                else moveButtons.current.delete(key);
+              }}
               disabled={busy || index === topics.length - 1}
               onClick={() => void move(index, 1)}
             >
