@@ -31,117 +31,137 @@ async function smoke() {
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
     ] as const) {
-      for (const fail of [false, true]) {
-        const page = await browser.newPage({ viewport: { width, height } });
-        page.setDefaultTimeout(15000);
-        const errors: string[] = [];
-        const writes: string[] = [];
-        page.on('pageerror', (error) => errors.push(error.message));
-        await page.route('**/api/**', async (route) => {
-          const request = route.request();
-          if (!['GET', 'HEAD'].includes(request.method())) {
-            writes.push(
-              `${request.method()} ${new URL(request.url()).pathname}`,
-            );
-            return route.abort();
-          }
-          return route.continue();
-        });
-        let markStarted!: () => void;
-        const started = new Promise<void>((resolve) => {
-          markStarted = resolve;
-        });
-        let handled!: () => void;
-        const delayedHandled = new Promise<void>((resolve) => {
-          handled = resolve;
-        });
-        let release!: () => void;
-        const blocked = new Promise<void>((resolve) => {
-          release = resolve;
-        });
-        await page.route('**/api/editions/latest', async (route) => {
-          const response = await route.fetch();
-          markStarted();
-          await blocked;
-          await route.fulfill(
-            fail ? { status: 503, body: '{}' } : { response },
-          );
-          handled();
-        });
-        await page.goto(base, {
-          waitUntil: 'domcontentloaded',
-        });
-        await started;
-        await page.getByText('Browse saved editions', { exact: true }).click();
-        const selected = page.locator(
-          `.edition-history a[href="/editions/${entry.id}"]`,
-        );
-        await selected.click();
-        await page.waitForURL(`**/editions/${entry.id}`);
-        assert.equal(await selected.getAttribute('aria-current'), 'page');
-        const expectSelectedContent = async () => {
-          await page
-            .locator('.period')
-            .filter({ hasText: edition.id.slice(0, 8) })
-            .waitFor();
-          assert.equal(
-            await page.locator('.digest-topic').count(),
-            edition.topics.length,
-          );
-          for (const topic of edition.topics) {
-            const section = page.locator('.digest-topic').filter({
-              has: page.getByRole('heading', { name: topic.name, exact: true }),
-            });
-            await section.waitFor();
-            for (const story of topic.stories) {
-              const item = section.locator(`[id="story-${story.id}"]`);
-              assert.equal(
-                await item.locator(':scope > a').textContent(),
-                story.title,
-              );
-              if (story.summary)
-                assert.equal(
-                  await item.locator('.excerpt').textContent(),
-                  story.summary,
-                );
-            }
-          }
-        };
-        await expectSelectedContent();
-        release();
-        await delayedHandled;
-        // Let the fetch continuation and React render settle after the delayed response.
-        await page.waitForTimeout(250);
-        assert.equal(await selected.getAttribute('aria-current'), 'page');
-        await expectSelectedContent();
-        assert.equal(new URL(page.url()).pathname, `/editions/${entry.id}`);
-        assert.deepEqual(errors, []);
-        assert.deepEqual(writes, []);
-        assert.equal(
-          await page
-            .getByRole('alert')
-            .filter({ hasText: 'The edition could not' })
-            .count(),
-          0,
-        );
-        if (!fail)
-          await page.locator('.edition-history').screenshot({
-            path: `docs/screenshots/edition-selection-${device}.png`,
+      for (const theme of ['light', 'dark'] as const) {
+        for (const fail of [false, true]) {
+          const page = await browser.newPage({
+            viewport: { width, height },
+            colorScheme: theme,
           });
-        assert.ok(
-          await page.evaluate(
-            () => document.documentElement.scrollWidth <= innerWidth,
-          ),
-        );
-        await page.close();
+          page.setDefaultTimeout(15000);
+          const errors: string[] = [];
+          const writes: string[] = [];
+          page.on('pageerror', (error) => errors.push(error.message));
+          await page.route('**/api/**', async (route) => {
+            const request = route.request();
+            if (!['GET', 'HEAD'].includes(request.method())) {
+              writes.push(
+                `${request.method()} ${new URL(request.url()).pathname}`,
+              );
+              return route.abort();
+            }
+            return route.continue();
+          });
+          let markStarted!: () => void;
+          const started = new Promise<void>((resolve) => {
+            markStarted = resolve;
+          });
+          let handled!: () => void;
+          const delayedHandled = new Promise<void>((resolve) => {
+            handled = resolve;
+          });
+          let release!: () => void;
+          const blocked = new Promise<void>((resolve) => {
+            release = resolve;
+          });
+          await page.route('**/api/editions/latest', async (route) => {
+            const response = await route.fetch();
+            markStarted();
+            await blocked;
+            await route.fulfill(
+              fail ? { status: 503, body: '{}' } : { response },
+            );
+            handled();
+          });
+          await page.goto(base, {
+            waitUntil: 'domcontentloaded',
+          });
+          await started;
+          assert.equal(
+            await page
+              .locator('html')
+              .evaluate((element) => element.classList.contains('dark')),
+            theme === 'dark',
+          );
+          await page
+            .getByText('Browse saved editions', { exact: true })
+            .click();
+          const selected = page.locator(
+            `.edition-history a[href="/editions/${entry.id}"]`,
+          );
+          await selected.click();
+          await page.waitForURL(`**/editions/${entry.id}`);
+          assert.equal(await selected.getAttribute('aria-current'), 'page');
+          const expectSelectedContent = async () => {
+            await page
+              .locator('.period')
+              .filter({ hasText: edition.id.slice(0, 8) })
+              .waitFor();
+            assert.equal(
+              await page.locator('.digest-topic').count(),
+              edition.topics.length,
+            );
+            for (const topic of edition.topics) {
+              const section = page.locator('.digest-topic').filter({
+                has: page.getByRole('heading', {
+                  name: topic.name,
+                  exact: true,
+                }),
+              });
+              await section.waitFor();
+              for (const story of topic.stories) {
+                const item = section.locator(`[id="story-${story.id}"]`);
+                assert.equal(
+                  await item.locator(':scope > a').textContent(),
+                  story.title,
+                );
+                if (story.summary)
+                  assert.equal(
+                    await item.locator('.excerpt').textContent(),
+                    story.summary,
+                  );
+              }
+            }
+          };
+          await expectSelectedContent();
+          release();
+          await delayedHandled;
+          // Let the fetch continuation and React render settle after the delayed response.
+          await page.waitForTimeout(250);
+          assert.equal(await selected.getAttribute('aria-current'), 'page');
+          await expectSelectedContent();
+          assert.equal(new URL(page.url()).pathname, `/editions/${entry.id}`);
+          assert.deepEqual(errors, []);
+          assert.deepEqual(writes, []);
+          assert.equal(
+            await page
+              .getByRole('alert')
+              .filter({ hasText: 'The edition could not' })
+              .count(),
+            0,
+          );
+          if (!fail)
+            await page.locator('.edition-history').screenshot({
+              path: `docs/screenshots/ui/edition-selection-${device}-${theme}.png`,
+            });
+          assert.ok(
+            await page.evaluate(
+              () => document.documentElement.scrollWidth <= innerWidth,
+            ),
+          );
+          await page.close();
+        }
       }
     }
     assert.deepEqual(
       readerEditionSchema.parse(await read('/api/editions/latest')),
       latest,
     );
+    assert.deepEqual(
+      readerEditionSchema.parse(await read(`/api/editions/${entry.id}`)),
+      edition,
+    );
     console.log(
-      'Desktop/mobile delayed edition success/error checks passed; real saved editions, no writes.',
+      'Desktop/mobile light/dark delayed edition success/error checks passed; real saved editions, no writes.',
     );
   } finally {
     await browser.close();

@@ -1,13 +1,3 @@
-## 2026-11-05: iteration 750 — custom feeds without production writes
-
-- Started clean on main; no leftover work. Health/database/Redis green, all 36 sources healthy, no failed digest runs; metrics memory warning pending. Nov 5 edition due at 15:00 UTC.
-- Custom-feed browser verifier now reads protected topic/catalog/content snapshots in Node. Validation/failure responses, retry, reload and disconnect stay in browser memory; unexpected API writes abort. Removed live topic creation/deletion, publisher connection changes and scheduler polling.
-- `pnpm exec tsx scripts/smoke-custom-feeds.ts` passed desktop/mobile: validation response, retained fields after failed save, retry/cleared fields, stored publisher articles, replay reload and disconnect. Final protected reads prove live topics and saved edition unchanged. Two screenshots refreshed; desktop visually inspected.
-- First publisher-only replay selection found no matching feed in Tech's incoming snapshot; fixed selection across enabled topics. A browser run during concurrent build timed out; rerun after build passed. Isolated API tests retain actual URL-validation coverage; browser error responses are replayed.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, exit 0); pnpm build; check-handbook.ts 08-operations; git diff --check all passed. Final health green; reader latest has four real topics.
-- Updated TASKS, Operations and access decision; archived iteration 736. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema changes, live writes, paid calls or model/provider/budget changes; healthy services remain running under STEERING 22.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback. Scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6. Continue coordinated admin migration while waiting.
-
 ## 2026-11-05: iteration 751 — X-account editing without live topic writes
 
 - Started clean on main; no leftover work. Health/database/Redis green, 36 sources healthy, no retained failed digest runs. Existing metrics memory warning pending; Nov 5 edition remains due at 15:00 UTC.
@@ -141,3 +131,12 @@
 - TASKS/Operations updated; shortened obsolete task history and archived iteration 749. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema or model/provider changes; healthy services stay running under STEERING 22.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, zero failures); pnpm build; check-handbook.ts 08-operations; git diff --check. First check terminated with exit 143 during unit tests without a reported failure; complete rerun passed. Final /healthz green.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; owner identity configuration still blocks coordinated admin rollout.
+
+## 2026-11-05: iteration 766 — archive navigation in both themes
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, 36 sources healthy; recent social collection succeeds and next edition remains Nov 5 15:00 UTC.
+- Edition selection and archive refresh race checks now cover desktop/mobile light/dark. Late success/error responses preserve saved story titles/text, selection and current history; browser API writes stay blocked. Selection also verifies the older saved edition remains unchanged.
+- `pnpm exec tsx scripts/smoke-edition-selection.ts` and `pnpm exec tsx scripts/smoke-edition-history.ts` passed all viewport/theme/race combinations. Eight screenshots added under docs/screenshots/ui; dark mobile history and desktop selection visually inspected.
+- TASKS/Operations updated; archived iteration 750. SOURCES/NEEDS_FROM_HUMAN unchanged. No runtime/config/schema, model/provider, live writes or paid calls; healthy services left running under STEERING 22.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, zero failures); pnpm build; check-handbook.ts 08-operations; git diff --check; final /healthz green. Initial check stopped on newly archived Markdown formatting, corrected before full passing rerun.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; repeated NBA fallback investigation before scorer. Fresh X rounds after 21:00 UTC Nov 5/6; admin rollout still needs owner identity configuration.
