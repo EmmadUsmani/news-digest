@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status *)",
+      "Bash(git log *)",
+      "Bash(git diff *)",
+      "Bash(git show *)",
+      "Bash(git pull *)",
+      "Bash(git grep *)",
+      "Bash(npx --no-install prettier *)"
+    ]
+  }
+}
