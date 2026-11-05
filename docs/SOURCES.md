@@ -1940,3 +1940,43 @@ operator inputs matched; only two posts were returned. Relevance/promotion
 reviews and full comparison coverage remain incomplete, so no winner or source
 activation. These posts are not verified or stored production content.
 See [experiment results](x-search-experiment.md#round-1--nov-4-iteration-703).
+
+## Sustained Bluesky session recovery — iteration 788 (2026-11-05)
+
+The production worker started at 00:10 UTC and remained the same process
+(PID 2544816) through this read-only check at 07:53 UTC. Seven consecutive
+hourly collections completed, from 00:54 through 06:54 UTC, in 7.2–9.3 seconds.
+The adapter logged one successful login, 56 successful searches, and three
+HTTP 400 searches followed by successful refresh and retry. All three refreshes
+returned HTTP 200; no second login occurred. This verifies the bodyless-refresh
+fix across repeated natural access-token expiration in the long-lived worker.
+
+| Refresh completed (UTC) | Hourly job finished (UTC) | Run duration |
+| ----------------------- | ------------------------- | ------------ |
+| 02:54:46.055            | 02:54:53.145              | 9.202 s      |
+| 04:54:48.218            | 04:54:53.055              | 9.159 s      |
+| 06:54:50.043            | 06:54:53.177              | 9.234 s      |
+
+Stored rolling-24-hour coverage at 07:53:24 UTC, using the existing read-only
+`report-bluesky-coverage.ts` report:
+
+| Topic                 | Observations | Distinct posts | Safe engaged candidates (max 50) | Phrase shortlist |
+| --------------------- | -----------: | -------------: | -------------------------------: | ---------------: |
+| Tech & AI             |          476 |             48 |                               47 |                5 |
+| NBA                   |          362 |             46 |                               39 |                5 |
+| Gaming                |          455 |             48 |                               45 |                5 |
+| World news & politics |          522 |             44 |                               37 |                0 |
+
+All four topics have observations from the 06:54 run. Counts are stored official
+API observations, not new requests or editorial selections; World relevance and
+cross-platform duplicate reduction remain open for the scheduled edition.
+
+Reproduction: `systemctl --user show news-digest-worker.service -p ExecMainStartTimestamp`;
+inspect structured `journalctl --user -u news-digest-worker.service --since '2026-11-05 00:10:00' -o cat`
+for `collect-bluesky` job starts/finishes and `target=bluesky` calls (operation,
+status, job ID and timestamps only). Journal JSON `_PID` confirms one process.
+With the private environment loaded, run
+`pnpm exec tsx scripts/report-bluesky-coverage.ts`; it opens a read-only database
+transaction and reads protected topics. This check made no provider requests,
+paid calls, collection triggers or saved-edition writes, and did not restart
+the worker. Production requests in the table were ordinary scheduled traffic.

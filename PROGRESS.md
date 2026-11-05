@@ -1,21 +1,3 @@
-## 2026-11-05: iteration 773 — accurate cached-edition refresh recovery
-
-- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Historical ingestion/social failures remain with collection healthy.
-- Cached reader content now gets an accurate refresh-failure message instead of initial-load wording or a contradictory Edition not found heading. Saved stories remain visible; retry restores the normal view.
-- `pnpm exec tsx scripts/smoke-edition-refresh.ts` passed browser-only 503/404 focus-refresh and retry on desktop/mobile light/dark, exact retained topic text, blocked writes, zero browser errors and unchanged saved edition. Four screenshots saved; desktop light/mobile dark inspected. Existing smoke-missing-edition.ts also passed all four viewport/theme cases. Initial harness event target corrected to window.
-- TASKS and Operations updated; archived iteration 757. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, stored-edition writes, generation/config/schema or model/provider changes. API restarted after web build.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations; git diff --check. 497 unit/214 isolated integration tests passed (exit 0). Initial check caught concurrent handbook formatting; formatted and reran. Final health green; all four services active.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; owner identity configuration and proxy verification still block admin rollout.
-
-## 2026-11-05: iteration 774 — read-only shared-query browser verification
-
-- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Scheduled Nov 5 review remains due at 15:00 UTC.
-- Shared-query smoke now blocks browser writes across all paths, disables service-worker interception, rejects browser admin credentials and compares the full protected saved edition before/after. Snapshot routes delegate non-read requests to the guard; an intentional POST probe verifies interception without contacting the API.
-- Browser verification passed shared-request deduplication/cache reuse, malformed status recovery and malformed content/health isolation. Desktop/mobile screenshots refreshed and inspected. No stored-edition writes or paid calls.
-- TASKS and Operations updated; archived iteration 758. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No runtime/config/schema or model/provider changes; healthy services stay running under STEERING 22.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx scripts/smoke-query-resources.ts; check-handbook.ts 08-operations; git diff --check. All passed: 497 unit/214 isolated integration tests, zero failures (exit 0). Initial concurrent lint-fix process received SIGTERM; sequential rerun passed. Final health green; all four services active.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; identity configuration and authenticated proxy verification still block admin rollout.
-
 ## 2026-11-05: iteration 775 — retain archive links after refresh failures
 
 - Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Scheduled review remains due at 15:00 UTC.
@@ -140,3 +122,12 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-posts.ts /tmp/783-posts.jsonl; smoke-admin-gate.ts; git diff --check. Static checks and 497 unit tests passed; combined check received SIGTERM at integration startup, isolated integration rerun passed all 214 tests (exit 0). Build, browser/gate and diff checks passed.
 - TASKS updated; archived iteration 772. No source/handbook changes or new human blockers. No paid calls, stored-edition writes, config/schema or model/provider changes. API restarted after web build; final health green, four app services active, zero alerts; saved reader API serves four topics/14 stories.
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer. X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remain pending.
+
+## 2026-11-05: iteration 788 — verify sustained Bluesky refresh
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, 36 sources current and four app services active; no failed retained digest-generation runs.
+- Resolved STEERING 18's long-lived refresh uncertainty using existing production logs: worker PID 2544816 unchanged since 00:10 UTC, seven hourly completions through 06:54, one login, 56 successful searches and three successful natural-expiry refresh/retry recoveries. No re-login or worker restart.
+- Stored 24-hour official API observations at 07:53 UTC: Tech/NBA/Gaming/World 476/362/455/522, distinct posts 48/46/48/44, safe engaged candidates 47/39/45/37. All topics current; World phrase shortlist zero and editorial/duplicate quality remain open.
+- Updated SOURCES with timestamps, bounds and reproduction; TASKS now distinguishes sustained-refresh acceptance from pending editorial quality. Archived iterations 773–774 to keep PROGRESS under 25 KB. No source/config/schema/model/provider changes, paid calls, new provider requests or saved-edition writes; no handbook behavior change or new human blocker.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-admin-gate.ts; git diff --check. First check stopped on newly archived files' formatting; corrected and reran. Rerun passed all static checks, 497 unit/214 isolated integration tests (exit 0); build, gate and diff checks passed.
+- API restarted after build; health/database/Redis green, four app services active and alerts zero. Worker remains running unchanged, preserving the sustained-refresh evidence. Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remain pending.
