@@ -9,25 +9,54 @@ import { localAdminJson } from './lib/local-admin-fetch';
 const base = 'http://localhost:8000';
 async function smoke() {
   const browser = await chromium.launch();
-  const context = await browser.newContext();
+  const context = await browser.newContext({ serviceWorkers: 'block' });
   const original = topicSchema
     .array()
     .parse(await localAdminJson('/api/admin/topics'));
-  const latest = (await localAdminJson(
-    '/api/admin/digest-previews/latest',
-  )) as { id: string } | null;
+  const [content, status, profile, latest] = await Promise.all([
+    localAdminJson('/api/admin/content'),
+    localAdminJson('/api/admin/status'),
+    localAdminJson('/api/admin/profile'),
+    localAdminJson('/api/admin/digest-previews/latest'),
+  ]);
+  const edition = latest as { id: string } | null;
+  const savedEdition = edition
+    ? await localAdminJson('/api/admin/digest-previews/' + edition.id)
+    : null;
+  const snapshots: Record<string, unknown> = {
+    '/api/content': content,
+    '/api/status': status,
+    '/api/profile': profile,
+  };
+  const credentials: string[] = [];
+  const unexpectedWrites: string[] = [];
+  context.on('request', (request) => {
+    const headers = request.headers();
+    if ('admin_local_token' in headers || 'x-exedev-email' in headers)
+      credentials.push(new URL(request.url()).pathname);
+  });
   const replayTopics = structuredClone(original);
   let creates = 0;
+  let attempts = 0;
+  let failCreate = false;
   // Browser writes stay in memory; protected Node requests below only read live state.
-  await context.route('**/api/**', async (route) => {
+  await context.route('**/*', async (route) => {
     const request = route.request();
     const path = new URL(request.url()).pathname;
+    const headers = request.headers();
+    if ('admin_local_token' in headers || 'x-exedev-email' in headers)
+      return route.abort();
+    if (request.method() === 'GET' && Object.hasOwn(snapshots, path))
+      return route.fulfill({ json: snapshots[path] });
     if (path === '/api/topics' && request.method() === 'GET') {
       await route.fulfill({ json: replayTopics });
       return;
     }
     if (path === '/api/topics' && request.method() === 'POST') {
       const input = topicUpdateSchema.parse(request.postDataJSON());
+      attempts++;
+      if (failCreate)
+        return route.fulfill({ status: 503, body: 'Unavailable' });
       const saved = topicSchema.parse({
         ...input,
         id: randomUUID(),
@@ -41,7 +70,10 @@ async function smoke() {
       await route.fulfill({ status: 201, json: saved });
       return;
     }
-    assert.equal(request.method(), 'GET', `Unexpected browser write: ${path}`);
+    if (!['GET', 'HEAD'].includes(request.method())) {
+      unexpectedWrites.push(`${request.method()} ${path}`);
+      return route.abort();
+    }
     await route.continue();
   });
   try {
@@ -50,8 +82,28 @@ async function smoke() {
       ['mobile', 390, 844],
     ] as const) {
       const page = await context.newPage();
+      const errors: string[] = [];
+      page.on('pageerror', (error) => errors.push(error.message));
       await page.setViewportSize({ width, height });
       await page.goto(base);
+      assert.equal(
+        await page.evaluate(async () => {
+          try {
+            await fetch('/api/topics/unexpected-write-probe', {
+              method: 'POST',
+            });
+            return false;
+          } catch {
+            return true;
+          }
+        }),
+        true,
+      );
+      assert.equal(
+        unexpectedWrites.pop(),
+        'POST /api/topics/unexpected-write-probe',
+      );
+
       await page.getByText('Manage topics', { exact: true }).click();
       await page
         .getByRole('button', { name: 'Create topic', exact: true })
@@ -85,6 +137,37 @@ async function smoke() {
       await page
         .locator('.topic-settings')
         .screenshot({ path: `docs/screenshots/topic-create-${device}.png` });
+      failCreate = true;
+      const previousAttempts = attempts;
+      await form
+        .getByRole('button', { name: 'Create topic', exact: true })
+        .click();
+      await page
+        .getByRole('status')
+        .filter({ hasText: 'Could not save topic settings.' })
+        .waitFor();
+      assert.equal(attempts, previousAttempts + 1);
+      assert.equal(replayTopics.length, original.length);
+      assert.equal(
+        await form.getByLabel('Name', { exact: true }).inputValue(),
+        `Science ${device} verification`,
+      );
+      assert.equal(
+        await form.getByLabel('Description', { exact: true }).inputValue(),
+        'Science research and discoveries.',
+      );
+      assert.equal(
+        await form.getByLabel('Story budget', { exact: true }).inputValue(),
+        '2',
+      );
+      assert.equal(
+        await form.locator('textarea[name=includeAny]').inputValue(),
+        'science\nresearch',
+      );
+      await page.locator('.topic-settings').screenshot({
+        path: `docs/screenshots/topic-create-failure-${device}.png`,
+      });
+      failCreate = false;
       const responsePromise = page.waitForResponse(
         (r) =>
           r.url() === `${base}/api/topics` && r.request().method() === 'POST',
@@ -130,11 +213,13 @@ async function smoke() {
       );
       // Replay checks browser behavior; server behavior belongs to isolated API tests.
       replayTopics.splice(original.length);
+      assert.deepEqual(errors, []);
       await page.close();
     }
-    assert.deepEqual(await localAdminJson('/api/admin/topics'), original);
+    assert.deepEqual(credentials, []);
+    assert.deepEqual(unexpectedWrites, []);
     console.log(
-      'Topic creation desktop/mobile: browser-only create/reload, required validation, source-less state and order passed; live topics/editions unchanged',
+      'Topic creation desktop/mobile: browser-only failed-create/retry/reload, required validation, source-less state and order passed; live topics/editions unchanged',
     );
   } finally {
     assert.deepEqual(
@@ -142,10 +227,11 @@ async function smoke() {
       original,
       'Browser replay must never change live topics',
     );
-    if (latest)
+    assert.deepEqual(await localAdminJson('/api/admin/profile'), profile);
+    if (edition)
       assert.deepEqual(
-        await localAdminJson('/api/admin/digest-previews/' + latest.id),
-        latest,
+        await localAdminJson('/api/admin/digest-previews/' + edition.id),
+        savedEdition,
       );
     await browser.close();
   }

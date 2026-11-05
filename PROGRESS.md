@@ -1,13 +1,3 @@
-## 2026-11-05: iteration 779 — consistent uncached admin identity methods
-
-- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Nov 5 scheduled review remains due at 15:00 UTC.
-- `/api/me` now handles GET/HEAD and trailing-slash paths consistently with uncached identity headers; HEAD has no body. Other methods return uncached 405 with Allow instead of falling through to the SPA.
-- HTTP gate characterization covers anonymous, configured email, direct token and forwarded-token identities across canonical/trailing-slash/case/query paths and unsupported methods. Focused test passed (2/2).
-- Live `pnpm exec tsx scripts/smoke-admin-gate.ts` passed 18 reserved paths, anonymous/invalid identity HEAD checks, direct protected access, forwarded-token denial and unchanged saved edition. An initial new authenticated identity assertion failed because the local adapter deliberately sends no token to `/api/me`; removed that invalid smoke assumption, retaining authenticated HEAD coverage in the HTTP test.
-- TASKS/access decision updated; archived iteration 764. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No UI changes, paid calls, stored-edition writes or generation/config/schema changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-admin-gate.ts; git diff --check. Static checks, 497 unit/214 isolated integration tests passed (exit 0). First check caught archive formatting, corrected before the successful full rerun. API restarted and health green; worker unchanged under STEERING 22.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; identity configuration/proxy verification still block admin rollout.
-
 ## 2026-11-05: iteration 780 — prepare async-edition verification for admin gating
 
 - Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Next scheduled edition remains 15:00 UTC.
@@ -137,4 +127,13 @@
 - Desktop/mobile failed saves retain edited name, story budget and cleared include phrases without updating replayed topics; retry, reload and disable pass. Both failure screenshots inspected; no browser errors or overflow.
 - Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-topics.ts; smoke-admin-gate.ts; git diff --check. Static checks, 497 unit and 214 isolated integration tests passed (exit 0). Initial browser selector corrected to actual failure copy. Combined shell was terminated before check began; lint/check rerun successfully in user units.
 - TASKS/access decision updated; archived iteration 778. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, live writes, app/config/schema/model/provider changes. Verification-only change; no rebuild/restart under STEERING 22.
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 794 — verify topic creation failure recovery
+
+- Started clean on main; no leftover work. Health/database/Redis green, 36 sources current, four app services active, zero alerts and no failed retained digest runs. Next edition remains 15:00 UTC.
+- Topic-create browser replay now reads operational snapshots through protected Node requests, disables service workers, blocks unexpected writes with an explicit probe and checks browser credential absence. Fixed the prior edition-ID-only comparison to compare the full saved edition, plus topics/profile.
+- Desktop/mobile failed creates retain name, description, story budget and include phrases; retry creates once and reload succeeds with source-less guidance and correct order. Required-name validation, no browser errors/overflow and full live-data immutability pass. Both failure screenshots inspected.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-topic-create.ts; smoke-admin-gate.ts; git diff --check. Initial browser alert selector corrected to actual status role; initial check was terminated during unit tests, rerun in a transient user unit passed (exit 0): static checks, 497 unit and 214 isolated integration tests. Browser/gate/diff checks passed.
+- TASKS/access decision updated; archived iteration 779. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, live writes, runtime/config/schema/model/provider changes. Verification-only change; no rebuild/restart under STEERING 22.
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

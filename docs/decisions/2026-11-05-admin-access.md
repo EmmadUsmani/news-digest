@@ -144,7 +144,8 @@ part of the coordinated rollout.
 
 The topic-edit browser verifier also replays protected operational snapshots,
 blocks unexpected writes and browser credentials, and compares the complete
-saved edition, topics and profile after failed-save/retry checks.
+saved edition, topics and profile after failed-save/retry checks. The topic-create
+verifier applies the same protections to failed creation, retry and reload.
 
 ## Next rollout slice
 
