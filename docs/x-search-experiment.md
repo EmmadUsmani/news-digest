@@ -134,7 +134,7 @@ mandatory -giveaway. No articles or cached article triage are loaded or required
 Provider date filters enclose the exact window; its end remains exclusive.
 Missing settings fail the snapshot. No AI calls, cache writes, admission or
 dispatch occur. Store the output privately; it contains topic settings and prompts.
-The runner and call report accept these inputs; extractor/round-comparison migration remains before the
+The runner and call report accept these inputs; round-comparison migration remains before the
 Nov 5/6 rounds. No dispatch before the plan’s scheduled test windows.
 
 Historical article preparation (before iteration 721):
@@ -313,7 +313,7 @@ four $0.10 reservations fit the daily cap. The flag remains off.
 Offline experiment preparation now exposes only requests.viral and test-only
 requests.semantic, without article readiness requirements (721). The runner now
 dispatches only these two styles (722), rejecting legacy inputs before any
-reservation or provider call. The extractor and round comparison still need migration
+reservation or provider call. The round comparison still needs migration
 before the Nov 5/6 rounds. No paid dispatch, scorer change or activation occurred.
 Historical request constructors remain for old evidence.
 
@@ -328,6 +328,15 @@ Missing labels, likes or overlap leave the total unknown. `usablePostIds` lists
 only confirmed usable IDs; historical `eligiblePosts` retains its older meaning.
 Viral execution checks include OR and exact UTC window operators. Semantic
 execution compliance stays unknown; keyword operators cannot establish it.
-The extractor and round comparison still need migration before the new rounds.
+The round comparison still needs migration before the new rounds.
 The old comparison rejects revised styles rather than reporting misleading coverage.
 No paid calls or production scorer changes are part of this report update.
+
+### Revised saved-response extraction (iteration 724)
+
+The offline extractor accepts viral and semantic request files and the saved
+trending likes minimum used by both styles. Historical reaction settings are
+optional unless extracting a historical reaction call. All 16 viral citations
+and eight semantic citations are retained; review labels and free-link overlap
+remain explicitly unknown. Settlement mismatches or missing mandatory giveaway
+exclusions fail without writing partial evidence. Round comparison remains pending.

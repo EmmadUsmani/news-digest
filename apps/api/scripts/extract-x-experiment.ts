@@ -21,7 +21,7 @@ const roundSchema = z.object({
 const requestSchema = z.object({
   requestId: z.string(),
   topicId: z.string(),
-  style: z.enum(['current', 'trending', 'reactions']),
+  style: z.enum(['current', 'trending', 'reactions', 'viral', 'semantic']),
   window: z.object({ start: z.string(), end: z.string() }),
   body: z.object({ model: z.string() }),
 });
@@ -30,7 +30,7 @@ const inputsSchema = z.object({
     z.object({
       topicId: z.string(),
       settings: z.object({
-        reactionMinFaves: count,
+        reactionMinFaves: count.optional(),
         trendingMinFaves: count,
         exclusions: z.array(z.string()),
       }),
@@ -54,6 +54,11 @@ try {
       (topic) => topic.topicId === request.topicId,
     )?.settings;
     if (!settings) throw new Error('Missing settings');
+    if (
+      request.style === 'reactions' &&
+      settings.reactionMinFaves === undefined
+    )
+      throw new Error('Missing historical reaction threshold');
     const response = z
       .object({ status: z.number().min(200).max(299), raw: z.string() })
       .parse(read(directory, `${call.requestId}.response.json`));
@@ -76,7 +81,7 @@ try {
               expectedSearch: {
                 minFaves:
                   request.style === 'reactions'
-                    ? settings.reactionMinFaves
+                    ? settings.reactionMinFaves!
                     : settings.trendingMinFaves,
                 exclusions: settings.exclusions,
               },

@@ -94,6 +94,9 @@ export function extractXExperimentResponse(
         likes: observation?.likes ?? null,
         relevance: null,
         promotion: null,
+        ...(metadata.style === 'viral' || metadata.style === 'semantic'
+          ? { foundByFreeLinks: null }
+          : {}),
       };
     }),
   };

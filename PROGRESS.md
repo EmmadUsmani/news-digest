@@ -1,13 +1,3 @@
-## 2026-11-04: iteration 710 — review saved X experiment candidates
-
-- Started clean on main; no leftover work. Zero alerts, healthz/database/Redis healthy, all 36 sources active/nonempty without errors, all queues available with workers; next edition Nov 5 15:00 UTC.
-- Retrieved official oEmbed for all 47 saved experiment citations, privately (47 successes, no errors). Manual visible-text promotion review: six definite promotions, 26 without explicit promotion in visible text, 15 unresolved. Truncated/media-dependent cases and every social-triage score remain unknown; no fabricated AI scores or winner.
-- Found giveaways in Tech/Gaming trending and betting content in NBA current/trending. Saved reviewed evidence/report separately; original responses/journal unchanged. Gaming's unknown $0.15 hold remains charged. No paid calls, ingestion, production parameter changes or fixed-schedule activation.
-- Read-only repeatable-read World snapshot reproduces 200/200 eligible candidates: empty required phrases admit Guardian US NFL article, ranked first by recency (9.94 vs midterms 9.93). Recorded exact policy, pool and ranked evidence privately; no new relevance rules or owner-setting edits.
-- Added detailed experiment review and linked it from TASKS/experiment reference; archived iterations 695–696 to bound PROGRESS. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source/runtime changes or new owner blocker. No service restart under STEERING 22 because only documentation changed.
-- Verification: private review coverage/assertions and offline report command passed; pnpm format, pnpm lint:fix, pnpm check (469 unit/213 isolated integration), pnpm build, handbook link/metadata check (18 pages/26 tables) and git diff --check passed.
-- Next: second independent news day, threshold calibration/model comparison within shared experiment caps; Nov 5 grouping/NBA full-AI/cost/latency/screenshots take priority when due. Production fixed A/B remains off pending decision.
-
 ## 2026-11-04: iteration 711 — reuse saved triage for experiment reaction inputs
 
 - Started clean on main; no leftover work. Zero alerts, healthy healthz/database/Redis, 36 healthy sources and zero failed retained digest jobs; Nov 5 15:00 UTC review remains future.
@@ -132,3 +122,13 @@
 - Verification: targeted report/CLI/comparison tests 26/26; pnpm format, pnpm lint:fix, pnpm check (484 unit, 213 isolated integration, exit 0) and pnpm build passed. git diff --check clean.
 - Updated TASKS and experiment instructions. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new owner blocker. No UI/runtime changes or screenshots; healthy services remain running under STEERING 22.
 - No paid calls, scorer/cache changes, provider/model/budget changes or activation. Next: migrate extractor and comparison before Nov 5/6 test rounds; scheduled acceptance first, scorer only afterward.
+
+## 2026-11-05: iteration 724 — revised X saved-response extractor
+
+- Started clean on main; no leftover work. Zero alerts, health/database/Redis green, all 36 sources healthy; zero failed digest jobs, next edition Nov 5 15:00 UTC. Two retained ingestion failures have no retained run details; current source health is green.
+- Offline extractor now accepts viral/semantic saved requests and their saved likes threshold without requiring unused historical reaction settings. Historical reaction extraction still requires its threshold.
+- Retains all 16 viral/eight semantic citations and explicitly leaves free-link overlap unknown, alongside relevance/promotion labels. No invented usable yield; settlement/settings failures write no partial evidence.
+- Verification: targeted extractor tests 5/5; pnpm format, pnpm lint:fix, full pnpm check (485 unit, 213 isolated integration, exit 0), pnpm build and git diff --check passed. First check caught formatting of newly archived progress; formatted and reran successfully.
+- Updated TASKS and experiment reference; archived iteration 710 to keep PROGRESS small. SOURCES/NEEDS_FROM_HUMAN unchanged; no source change or new owner blocker. No UI changes/screenshots required.
+- Healthy services left running under STEERING 22: only offline scripts/tests/docs changed. No paid calls, scorer/cache changes, provider/model/budget changes or activation.
+- Next: migrate round comparison before Nov 5/6 rounds after 21:00 UTC; scheduled acceptance takes priority when due, scorer only afterward.
