@@ -2,10 +2,9 @@
 
 ## URLs
 
-Reader: `/`. Management: `/admin`, with Overview, Sources, Schedule, Spend and Tools navigation (mobile menu).
+Reader: `/`. Management: `/admin`, with Overview, Editions, Sources, Schedule, Spend and Tools navigation (mobile menu).
 `/admin/spend`: caps, holds, reserve and usage. `/admin/tools`: six protected tools. APIs use `/api/admin/*`;
-old API paths return 404. `/admin`, its APIs and every tool below require
-[admin identity](01-stack-and-runtime.md#admin-identity). `/api/me` reports access.
+old API paths return 404. `/admin`, its APIs and every tool below require [admin identity](01-stack-and-runtime.md#admin-identity). `/api/me` reports access.
 Local scripts read `ADMIN_LOCAL_TOKEN` from the private env file and send it only
 to protected paths at `http://127.0.0.1:8000`, refusing redirects. Browser checks
 receive response bodies through Node; credentials never enter Playwright.
@@ -41,6 +40,7 @@ Backups: `~/backups/news-digest/`; [nightly timers and restore](10-backups.md).
 
 ## How to tell if things are healthy
 
+- **Editions at `/admin/editions`:** saved windows; open an edition to inspect topic stories, scores, selection reasons, grouping and source evidence, or view it as a reader.
 - **Schedule at `/admin/schedule`:** next run, daily local time, timezone, coverage and default topic budgets.
 - **Sources at `/admin/sources`:** collection health, timestamps, last-response/stored counts and platform status.
 - **Overview at `/admin`:** health, daily spend, latest edition, source issues and next runs.

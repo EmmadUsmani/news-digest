@@ -15,6 +15,7 @@ function Navigation({ mobile = false }: { mobile?: boolean }) {
       {(
         [
           { to: '/admin', label: 'Overview' },
+          { to: '/admin/editions', label: 'Editions' },
           { to: '/admin/sources', label: 'Sources' },
           { to: '/admin/schedule', label: 'Schedule' },
           { to: '/admin/spend', label: 'Spend' },
@@ -88,7 +89,9 @@ export function AdminLayout() {
                   ? 'Schedule'
                   : pathname.startsWith('/admin/spend')
                     ? 'Spend'
-                    : 'Overview'}
+                    : pathname.startsWith('/admin/editions')
+                      ? 'Editions'
+                      : 'Overview'}
           </h1>
           <span className="text-xs tracking-wide text-[var(--secondary)]">
             PRODUCTION

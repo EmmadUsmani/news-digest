@@ -10,6 +10,7 @@ import {
 } from '@tanstack/react-router';
 import { z } from 'zod';
 
+import { AdminEditionInspector, AdminEditions } from './AdminEditions';
 import { AdminLayout, AdminTools } from './AdminLayout';
 import { AdminSchedule } from './AdminSchedule';
 import { AdminSources } from './AdminSources';
@@ -137,12 +138,27 @@ const adminSpendRoute = createRoute({
   component: AdminSpend,
 });
 
+const adminEditionsRoute = createRoute({
+  getParentRoute: () => adminRoute,
+  path: '/editions',
+  component: AdminEditions,
+});
+const adminInspectorRoute = createRoute({
+  getParentRoute: () => adminRoute,
+  path: '/editions/$id',
+  beforeLoad: ({ params }) => {
+    if (!z.string().uuid().safeParse(params.id).success) throw notFound();
+  },
+  component: AdminEditionInspector,
+});
 export const router = createRouter({
   routeTree: rootRoute.addChildren([
     latestRoute,
     editionRoute,
     adminRoute.addChildren([
       adminOverviewRoute,
+      adminEditionsRoute,
+      adminInspectorRoute,
       adminSourcesRoute,
       adminScheduleRoute,
       adminSpendRoute,

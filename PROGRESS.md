@@ -1,23 +1,3 @@
-## 2026-11-05: iteration 868 — size the World grouping pool from saved editions
-
-- Started clean on main; no leftover work. Alerts clear, database/Redis healthy, API/worker active; latest live edition still serves all four topics and real posts.
-- Retained saved Nov 4/5 World scores and forty highest-scored articles per window, with explicit conservative agent-reviewed story memberships. Article text/source labels were read after publication; labels are not model outputs or runtime rules.
-- Offline production-ranking replay: pools 10/20/30/40 represent Nov 4 1/5/5/7 and Nov 5 2/6/10/13 reviewed stories. Forty is supported by the existing grouping adapter and gives Nov 5 ten editor candidates after grouping. Nov 4 grouping was disabled, but all ten original inputs concern the midterms: the same article limit constrained its editor.
-- Captured grouping requests with a no-dispatch interceptor. At default prices, Nov 5 forty-vs-ten adds $0.001842 grouping reservation plus $0.011050 editor input reservation; output ceilings unchanged, actual output spend can rise. No paid calls, ledger/cache writes, settings or runtime changes.
-- Evidence: docs/edition-reviews/2026-11-05-world-story-pool.md; reproduce with pnpm exec tsx scripts/evaluate-world-story-pool.ts. Runtime fix, actual model replay and all-topic configured-price cap/reserve gate remain next; do not treat this labelled replay as deployment acceptance.
-- Verification: pnpm format; pnpm lint:fix; offline replay assertions; pnpm check (503 unit/218 isolated integration passed); pnpm build; git diff --check. First check caught require-await in the interceptor; fixed before rerun. API /healthz and latest edition healthy. Evidence-only commit: no restart under STEERING 22; handbook, SOURCES, schema metadata, screenshots and NEEDS_FROM_HUMAN unchanged.
-- Next: implement forty-article grouping pool then ten-story editor cap, complete model/budget gate and deploy before Nov 6 13:00 UTC or defer a day; then UI step 2. X rounds remain due after 21:00 UTC Nov 5/6.
-
-## 2026-11-05: iteration 869 — prepare bounded forty-article grouping path
-
-- Started clean on main; no leftover work. Alerts clear, 36 sources healthy, API/worker active and /healthz healthy; collection jobs continue completing.
-- Added explicit 10-or-40 article pool selection to editorialShortlist, retaining publication's ten-article default. Grouping wrapper now accepts up to forty, matching the existing adapter; final ranking remains capped at ten stories. No prompt or topic rules changed.
-- Saved World reviewed-label replay now exercises both production helpers: Nov 4 seven editor candidates, Nov 5 ten (thirteen reviewed stories). Synthetic forty-article test combines thirty same-event reports while retaining other events beyond article ten; forty-one is rejected before dispatch.
-- This is preparation, not activation: actual grouping/cache replay and all-topic configured-price daily cap/reserve admission remain required before switching publication to forty. No paid calls, cache/ledger writes or budget changes.
-- Verification: targeted tests (11 passed); offline World replay assertions; pnpm format; pnpm lint:fix; pnpm check (504 unit/218 isolated integration passed); pnpm build; git diff --check. API/worker restarted active, /healthz healthy, saved edition four topics/17 stories and alerts clear.
-- Updated TASKS and World evidence; archived iteration 854 to keep PROGRESS small. Handbook/SOURCES/schema metadata/screenshots/NEEDS_FROM_HUMAN unchanged because runtime selection and data flow remain unchanged.
-- Next: actual grouping/cache replay and full-edition budget gate, then activate before Nov 6 13:00 UTC or defer a day; UI step 2 follows. X rounds due after 21:00 UTC Nov 5/6.
-
 ## 2026-11-05: iteration 870 — probe actual World grouping cache without inference
 
 - Started clean on main; no leftover work. Alerts clear; API/worker active, /healthz healthy and latest real edition serves four topics/17 stories/14 posts.
@@ -128,3 +108,16 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (505 unit/218 isolated integration passed); pnpm build; final web build; targeted ESLint/Prettier; git diff --check. Handbook Operations check passed (18 pages, two unchanged diagrams, 28 assigned tables). Archived iterations 866–867 and trimmed old completed TASKS markers.
 - Initial typecheck caught an unsupported Button variant; fixed. Browser caught mobile table sizing; fixed and rerun. Final restart browser attempt preceded API readiness; rerun after healthy /healthz passed. Handbook line cap corrected before recheck. Combined verification exited 143 during integration after 505 unit passes; standalone check rerun. Legacy scripts needed the existing controls toggle and removal of replaced source assertions.
 - API restarted for final built web; worker unchanged. Final alerts clear and health green. Next: dedicated Editions/creation/inspector and Topics, Sources management, Spend recent calls; X rounds after 21:00 UTC Nov 5/6 and Nov 6 edition review.
+
+## 2026-11-05: iteration 880 — saved editions and topic inspector
+
+- Started clean on main; no leftover work. Alerts clear, /healthz healthy, API/worker active. X rounds still due after 21:00 UTC.
+- Owner-visible value: saved editions now have a dedicated history and topic inspector, so the owner can review selection evidence without navigating legacy Overview controls.
+- Added protected /admin/editions and /admin/editions/:id with shared navigation, paginated saved windows, topic tabs, candidate/rejection counts, modes/reasons, briefs, story scores, why-it-matters, grouping/source evidence, selected posts and reader link. Uses existing saved admin APIs; no new backend/schema/source/budget/access behavior.
+- Partial spec delivery: list run type/cost/duration/per-topic modes, incoming-window articles and New edition remain; Topics and other existing UI gaps stay open in TASKS. No inferred metadata presented as recorded data.
+- Browser: smoke-admin-editions passed four viewport/theme combinations with real saved data, paging round-trip, all four topics, keyboard tabs, deep reload, mobile navigation, anonymous denial, no overflow/writes/external requests/browser credentials. Eight screenshots retained; desktop light and mobile dark visually inspected. Mobile table wraps and legacy anchor sizing corrected before final captures.
+- Updated handbook Operations; archived iterations 868–869 and condensed completed TASKS markers. No paid calls or saved-data writes; SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Runtime checks: 36 sources/zero current source errors; latest saved edition four topics/17 stories/14 posts. Retained failed queue jobs date to Nov 1–4 (ingestion/Bluesky); current social collection succeeds and no digest jobs failed. Alerts clear. API restarted for final web build; worker unchanged.
+- Initial full check caught documentation formatting during edits; corrected. Handbook line cap condensed; final operations check passed (18 pages/two unchanged diagrams/28 assigned tables). Admin gate and Overview regression passed; Overview captures refreshed for navigation.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (505 unit/218 isolated integration passed); pnpm build and final web rebuild; targeted ESLint/Prettier; git diff --check; handbook operations; smoke-admin-gate; smoke-admin-overview; smoke-admin-editions. Final health/alerts green.
+- Next: finish Editions metadata, incoming-window list and creation, then Topics and remaining Sources/Spend controls; X rounds after 21:00 UTC Nov 5/6 and Nov 6 scheduled edition review take priority when due.

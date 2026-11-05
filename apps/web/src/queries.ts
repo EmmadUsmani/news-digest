@@ -4,6 +4,7 @@ import {
   healthSchema,
   identitySchema,
   operationsStatusSchema,
+  previewHistorySchema,
   profileSettingsSchema,
   readerEditionHistorySchema,
   readerEditionSchema,
@@ -108,3 +109,25 @@ export const adminEditionQuery = queryOptions({
       signal,
     ),
 });
+
+export const adminHistoryQuery = (offset = 0) =>
+  queryOptions({
+    queryKey: ['admin', 'editions', 'history', offset],
+    queryFn: ({ signal }) =>
+      read(
+        `/api/admin/digest-previews?offset=${offset}`,
+        previewHistorySchema,
+        signal,
+      ),
+  });
+export const adminEditionDetailQuery = (id: string) =>
+  queryOptions({
+    queryKey: ['admin', 'editions', 'detail', id],
+    retry: retryEditionRead,
+    queryFn: ({ signal }) =>
+      read(
+        `/api/admin/digest-previews/${encodeURIComponent(id)}`,
+        digestPreviewSchema,
+        signal,
+      ),
+  });
