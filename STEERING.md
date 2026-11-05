@@ -1035,3 +1035,29 @@ guardrail and reporting rules still apply.
   story-reaction code. Keep the saved account lists.
 - **Acks:** one after the decision, with its numbers, and one after 3 editions
   meet the plan's done criteria. Report World separately.
+
+## 35. NOW, small: bring back story text when a topic has no AI summaries (2026-11-05)
+
+The owner noticed NBA stories now show headlines only. **This is a regression
+from the UI rebuild,** not lost data:
+- NBA fell back to non-AI ranking on Nov 3 and Nov 4, so its stories have no AI
+  summary, only an article excerpt.
+- The old page showed `story.summary || story.excerpt`. Commit `8d61e17` dropped
+  the excerpt: the reader contract leaves it out, and the page shows only
+  `summary`.
+- The spec wording was unclear, and is now corrected in
+  [docs/ui-spec.md](docs/ui-spec.md). It banned the *word* "excerpts" and any
+  fallback *label*, not the story text.
+
+**Do this next, before more UI work, and deploy before 13:00 UTC:**
+- In the reader mapping, set `summary` to the AI summary, or else the saved
+  excerpt. Keep the excerpt as a plain summary: no new field, no label.
+- This applies to any story missing a summary, in every saved edition.
+- **Test:** the Nov 4 edition's NBA stories all return non-empty text from
+  `/api/editions/:id`, and the forbidden-terms test still passes.
+- Screenshot NBA on desktop and mobile.
+- Don't change stored editions.
+
+**Also check today's edition:** this fix only covers the symptom. If NBA falls
+back again on Nov 5, finding out why ranks first, ahead of items 33 and 34. Ack
+here with both results.

@@ -157,16 +157,19 @@ Posts go one per row.
 
 - **Shown:** briefs, stories (headline linked to the primary source,
   summary, source names and favicons, relative time, "+N" grouped outlets
-  that expand inline) and posts.
-- **Never shown on reader pages:** scores, "why selected", candidate,
+  that expand inline) and posts. A story with no AI summary shows its saved
+  article excerpt in the same place.
+- **Never shown on reader pages** (these are labels and system details, not
+  story text): scores, "why selected", candidate,
   filter or triage counts, model names, "AI edited", "non-AI",
   "auto-ranked", "fallback", "excerpts", "evidence", "independent",
   "parked", budgets, the coverage-period form, the incoming-articles feed,
   the marketing hero.
 - **"Why it matters" is admin-only.** It's the editor's significance note, and
   the summary already covers the story. The admin inspector shows it.
-- **Fallback editions:** when a topic wasn't AI-edited, show nothing at all.
-  The mode is visible only in admin.
+- **Fallback editions:** when a topic wasn't AI-edited, show no label or
+  notice about it, but keep the story text: the reader sees the excerpt as an
+  ordinary summary. The mode is visible only in admin.
 - **Posts:**
   - Official X embed when it loads, otherwise the existing app-drawn card.
   - Bluesky uses its app-drawn card.
