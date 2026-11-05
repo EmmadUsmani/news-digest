@@ -1155,7 +1155,8 @@ and 36.
 
 ## 38. Never idle, and choose work that matters (2026-11-05)
 
-Item 28 stands: **never stop and never wait.** This adds how to choose. On Nov 5,
+Item 28's rule stands: **never stop and never wait.** The list below replaces
+its fallback list. On Nov 5,
 116 commits went to polishing screens about to be replaced, while the
 owner-approved admin pages weren't built. Being busy isn't the goal. Each
 iteration should leave the product noticeably better.
