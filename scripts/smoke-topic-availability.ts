@@ -117,6 +117,10 @@ async function smoke() {
         .waitFor();
       assert.ok(await disable.isEnabled());
       assert.ok(
+        await disable.evaluate((button) => button === document.activeElement),
+        'Failed availability save restores keyboard focus',
+      );
+      assert.ok(
         await page
           .locator('.topic-grid')
           .getByRole('heading', { name: original.name, exact: true })
@@ -126,10 +130,21 @@ async function smoke() {
         path: `docs/screenshots/topic-availability-failure-${device}.png`,
       });
       fail = false;
-      await disable.click();
+      await page.keyboard.press('Enter');
       await page
         .getByRole('button', { name: `Enable ${original.name}`, exact: true })
         .waitFor();
+      const enable = page.getByRole('button', {
+        name: `Enable ${original.name}`,
+        exact: true,
+      });
+      assert.ok(
+        await enable.evaluate((button) => button === document.activeElement),
+        'Successful disable focuses Enable for keyboard continuation',
+      );
+      await page.locator('.topic-settings').screenshot({
+        path: `docs/screenshots/ui/topic-availability-focus-${device}.png`,
+      });
       assert.equal(
         await page
           .locator('.topic-grid')
@@ -182,6 +197,10 @@ async function smoke() {
         })
         .waitFor({ timeout: 20_000 });
       assert.ok(await disable.isEnabled(), 'Deadline releases controls');
+      assert.ok(
+        await disable.evaluate((button) => button === document.activeElement),
+        'Timed-out availability save restores keyboard focus',
+      );
       releaseStalledResponse?.();
       await page.locator('.topic-settings').screenshot({
         path: `docs/screenshots/ui/topic-availability-timeout-${device}.png`,
@@ -236,7 +255,7 @@ async function smoke() {
         savedEdition,
       );
     console.log(
-      'Topic availability: desktop/mobile failure, retry, disable, reload, enable, real timeout recovery, editor protection passed; live topics/profile/edition unchanged, browser writes guarded and credentials absent.',
+      'Topic availability: desktop/mobile keyboard focus, failure, Enter retry, disable, reload, enable, real timeout recovery, editor protection passed; live topics/profile/edition unchanged, browser writes guarded and credentials absent.',
     );
   } finally {
     await browser.close();

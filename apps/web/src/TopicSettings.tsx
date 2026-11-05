@@ -40,6 +40,12 @@ export function TopicSettings({
     (preferred && !preferred.disabled ? preferred : alternate)?.focus();
     pendingMoveFocus.current = null;
   }, [busy, topics]);
+  const toggleTrigger = React.useRef<HTMLButtonElement | null>(null);
+  React.useEffect(() => {
+    if (busy || !toggleTrigger.current) return;
+    if (toggleTrigger.current.isConnected) toggleTrigger.current.focus();
+    toggleTrigger.current = null;
+  }, [busy]);
   const topicName = React.useRef<HTMLInputElement>(null);
   React.useEffect(() => {
     if (editing) topicName.current?.focus();
@@ -305,7 +311,10 @@ export function TopicSettings({
             <button
               type="button"
               disabled={busy || editing !== null || deleting !== null}
-              onClick={() => void toggle(topic)}
+              onClick={(event) => {
+                toggleTrigger.current = event.currentTarget;
+                void toggle(topic);
+              }}
             >
               {topic.enabled ? 'Disable' : 'Enable'} {topic.name}
             </button>
