@@ -45,5 +45,7 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Topic pending-save recovery (804): desktop/mobile save/name/cancel/create locks while response is held; failed save retains edits; retry and visible reloaded fields pass, with protected snapshots and no live writes.
+
 - [x] Reddit-community settings recovery (803): desktop/mobile failed save, retained input, retry, normalization, duplicate validation, reload and clear; protected snapshots, browser write/credential guards and full edition/topics/profile immutability, no Reddit fetching.
 - Earlier completed markers: [iterations through 802](docs/progress-archive/2026-11-05-completed-task-markers-803.md).

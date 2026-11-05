@@ -41,6 +41,8 @@ async function smoke() {
   });
   let failSave = false;
   let saves = 0;
+  let releaseSave: (() => void) | undefined;
+  let pendingSave: Promise<void> | undefined;
   await context.route('**/*', async (route) => {
     const request = route.request();
     const path = new URL(request.url()).pathname;
@@ -54,6 +56,7 @@ async function smoke() {
     if (path === `/api/topics/${original.id}` && request.method() === 'PUT') {
       const update = topicUpdateSchema.parse(request.postDataJSON());
       saves++;
+      if (pendingSave) await pendingSave;
       if (failSave) return route.fulfill({ status: 503, body: 'Unavailable' });
       replayTopics[0] = topicSchema.parse({ ...replayTopics[0], ...update });
       return route.fulfill({ json: replayTopics[0] });
@@ -110,9 +113,32 @@ async function smoke() {
         .locator('.topic-settings')
         .screenshot({ path: `docs/screenshots/topics-${name}.png` });
       failSave = true;
+      pendingSave = new Promise<void>((resolve) => {
+        releaseSave = resolve;
+      });
       await form
         .getByRole('button', { name: 'Save topic', exact: true })
         .click();
+      const saving = form.getByRole('button', { name: 'Saving…', exact: true });
+      await saving.waitFor();
+      assert.ok(await saving.isDisabled());
+      assert.ok(await form.getByLabel('Name', { exact: true }).isDisabled());
+      assert.ok(
+        await form
+          .getByRole('button', { name: 'Cancel', exact: true })
+          .isDisabled(),
+      );
+      assert.ok(
+        await page
+          .getByRole('button', { name: 'Create topic', exact: true })
+          .isDisabled(),
+      );
+      assert.deepEqual(replayTopics[0], original);
+      await page.locator('.topic-settings').screenshot({
+        path: `docs/screenshots/topics-saving-${name}.png`,
+      });
+      releaseSave!();
+      pendingSave = undefined;
       await page
         .getByRole('status')
         .filter({ hasText: 'Could not save topic settings.' })
@@ -159,6 +185,22 @@ async function smoke() {
           exact: true,
         })
         .click();
+      const reopened = page.getByRole('form', {
+        name: 'Edit Tech settings verification',
+        exact: true,
+      });
+      assert.equal(
+        await reopened.getByLabel('Name', { exact: true }).inputValue(),
+        'Tech settings verification',
+      );
+      assert.equal(
+        await reopened.getByLabel('Story budget', { exact: true }).inputValue(),
+        '1',
+      );
+      assert.equal(
+        await reopened.locator('textarea[name=includeAny]').inputValue(),
+        '',
+      );
       await page.getByLabel('Include this topic', { exact: true }).uncheck();
       await page
         .getByRole('button', { name: 'Save topic', exact: true })
@@ -186,9 +228,10 @@ async function smoke() {
     assert.deepEqual(credentials, []);
     assert.deepEqual(unexpectedWrites, []);
     console.log(
-      'Topic desktop/mobile browser-only edit, reload, disable and budget checks passed; protected reads prove live topics/edition unchanged; server validation stays in isolated tests',
+      'Topic desktop/mobile browser-only pending-save locks, failure/retry, visible reload values, disable and budget checks passed; protected reads prove live topics/edition unchanged; server validation stays in isolated tests',
     );
   } finally {
+    releaseSave?.();
     assert.deepEqual(await localAdminJson('/api/admin/topics'), topics);
     assert.deepEqual(await localAdminJson('/api/admin/profile'), profile);
     if (edition)

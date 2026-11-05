@@ -124,6 +124,8 @@ The general topic-editing check now uses protected topic/edition snapshots.
 Name, story budget, relevance and enabled-state saves/reloads stay in browser
 memory; it creates no previews and blocks unexpected API writes. Server
 validation and generated-budget behavior remain covered by isolated tests.
+A held save response verifies disabled save/name/cancel/create controls on desktop
+and mobile; failure retains edits, and retry/reload checks the visible saved fields.
 
 The handbook verifier also reads `/docs` pages, assets and API responses and
 `/db/api/schema` through the fixed loopback credential adapter. Playwright
