@@ -1,22 +1,3 @@
-## 2026-11-05: iteration 795 — verify topic deletion recovery safely
-
-- Started clean on main; no leftover work. Alerts zero, health/database/Redis green and four app services active.
-- Topic-delete replay uses protected Node operational snapshots, blocks service workers and unexpected browser writes, probes the write guard and checks browser credential absence.
-- Desktop/mobile cancel sends no deletion; failed deletion retains the synthetic topic, retry removes it once and reload preserves original order. Full saved edition/topics/profile unchanged, no browser errors or overflow. Failure screenshots inspected.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-topic-delete.ts; smoke-admin-gate.ts; git diff --check. All passed (exit 0): static checks, 497 unit and 214 isolated integration tests, desktop/mobile browser replay, admin gate and diff check.
-- TASKS/access decision updated; archived oldest progress entry. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No paid calls or runtime/config/schema/model/provider changes; no restart required under STEERING 22.
-- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-
-## 2026-11-05: iteration 796 — verify topic reorder recovery safely
-
-- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, 36 sources without errors and all four app services active.
-- Topic-order replay now reads operational snapshots through protected Node requests, disables service workers, blocks unexpected browser writes with an explicit probe and checks browser credential absence. Replaced the edition-ID-only assertion with a full saved-edition comparison, plus topics/profile.
-- Desktop/mobile failed reorder retains original order; retry saves consecutive positions and reload preserves order in settings and content. No page errors or overflow; both failure screenshots inspected. Full live saved data unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-topic-order.ts; smoke-admin-gate.ts; git diff --check. All passed (exit 0): static checks, 497 unit and 214 isolated integration tests, browser replay, admin gate and diff check.
-- TASKS/access decision updated; archived iteration 781. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, runtime/config/schema/model/provider changes; no restart required under STEERING 22.
-- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-- Final app health green; alert snapshot has one pending ObservabilityMemoryBudget warning for obs-metrics.service, zero firing. Recheck next iteration.
-
 ## 2026-11-05: iteration 797 — verify X-account save recovery safely
 
 - Started clean on main; no leftover work. Alerts zero; health/database/Redis green, all four app services active, 36 sources without errors or missing active-source success, no failed retained runs. Next edition is 15:00 UTC.
@@ -144,4 +125,13 @@
 - Protected snapshots prove full live topics/profile/edition unchanged; browser credential/write guards pass. Two new pending screenshots inspected; regenerated existing screenshots discarded. No live writes or paid calls.
 - Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-custom-feeds.ts; smoke-admin-gate.ts; git diff --check. All passed (exit 0): static checks, 497 unit and 214 isolated integration tests, desktop/mobile browser replay, admin gate and diff check.
 - TASKS updated; SOURCES/NEEDS_FROM_HUMAN unchanged (no source changes/new blockers). Verification-only change; no rebuild/restart under STEERING 22.
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 811 — clarify uncertain schedule saves
+
+- Started clean on main; no leftover work. Health/database/Redis and four app services green; 36 sources without current errors or missing active-source success. Digest queue has zero failures; retained ingestion/social failure counts remain two each. Metrics memory warning pending.
+- Schedule settings distinguish an interrupted response from a confirmed save, retain edits, and advise reloading the saved schedule before retrying. Non-JSON error responses get a readable recovery message; structured validation messages remain intact.
+- Desktop/mobile replay covers pending locks, abort before save, non-JSON rejection, a completed save whose response is lost, reload without another write, retry and validation. Protected full live topics/profile/edition unchanged; credential/write guards pass. New screenshots inspected.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-schedule.ts; smoke-admin-gate.ts; git diff --check. All passed (exit 0): static checks, 497 unit and 214 isolated integration tests, browser recovery, admin gate and diff check.
+- Rebuilt app and restarted API; /healthz OK. Worker runtime unchanged. Archived progress 795–796 and completed markers 807–810; TASKS updated. SOURCES/NEEDS_FROM_HUMAN unchanged (no source changes/new blockers). No live writes or paid calls.
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

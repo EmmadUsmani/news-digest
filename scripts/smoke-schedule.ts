@@ -49,6 +49,8 @@ async function smoke() {
     return route.continue();
   });
   let failSave = false;
+  let saveBeforeAbort = false;
+  let rejectSave = false;
   let pendingSave: Promise<void> | undefined;
   let releaseSave: (() => void) | undefined;
   let saves = 0;
@@ -60,7 +62,8 @@ async function smoke() {
     assert.equal(route.request().method(), 'PUT');
     saves++;
     if (pendingSave) await pendingSave;
-    if (failSave) return route.abort('failed');
+    if (failSave && !saveBeforeAbort) return route.abort('failed');
+    if (rejectSave) return route.fulfill({ status: 503, body: 'Unavailable' });
     const result = scheduleSchema.safeParse(route.request().postDataJSON());
     if (!result.success) {
       await route.fulfill({
@@ -75,6 +78,7 @@ async function smoke() {
       return;
     }
     profile.schedule = result.data;
+    if (saveBeforeAbort) return route.abort('failed');
     await route.fulfill({ json: profile });
   });
   try {
@@ -145,7 +149,9 @@ async function smoke() {
       pendingSave = undefined;
       await form
         .getByRole('status')
-        .filter({ hasText: 'Could not save schedule settings.' })
+        .filter({
+          hasText: 'Could not confirm whether schedule settings were saved.',
+        })
         .waitFor();
       assert.deepEqual(profile, beforeFailure);
       assert.ok(
@@ -181,6 +187,44 @@ async function smoke() {
         path: `docs/screenshots/schedule-save-failure-${device}.png`,
       });
       failSave = false;
+      rejectSave = true;
+      await form
+        .getByRole('button', { name: 'Save schedule', exact: true })
+        .click();
+      await form
+        .getByRole('status')
+        .filter({ hasText: 'Schedule request failed.' })
+        .waitFor();
+      assert.deepEqual(profile, beforeFailure);
+      assert.equal(
+        await form.getByLabel('Coverage window', { exact: true }).inputValue(),
+        'PT6H',
+      );
+      rejectSave = false;
+      saveBeforeAbort = true;
+      await form
+        .getByRole('button', { name: 'Save schedule', exact: true })
+        .click();
+      await form
+        .getByRole('status')
+        .filter({ hasText: 'reload to check the saved schedule' })
+        .waitFor();
+      assert.equal(profile.schedule.coverageWindow, 'PT6H');
+      await form.screenshot({
+        path: `docs/screenshots/ui/schedule-unconfirmed-${device}.png`,
+      });
+      saveBeforeAbort = false;
+      await page.reload();
+      await page.getByText('Schedule settings', { exact: true }).click();
+      assert.equal(
+        await form.getByLabel('Coverage window', { exact: true }).inputValue(),
+        'PT6H',
+      );
+      assert.equal(
+        await form.getByLabel('Daily local time', { exact: true }).inputValue(),
+        '09:30',
+      );
+      assert.equal(saves, previousSaves + 3, 'Reload must not retry a write');
       await form
         .getByRole('button', { name: 'Save schedule', exact: true })
         .click();
@@ -216,7 +260,7 @@ async function smoke() {
           value,
         );
       }
-      assert.equal(saves, previousSaves + 2);
+      assert.equal(saves, previousSaves + 4);
       await form
         .getByLabel('IANA timezone', { exact: true })
         .fill('Mars/Olympus');
@@ -276,7 +320,7 @@ async function smoke() {
         latest,
       );
     console.log(
-      'Schedule desktop/mobile: pending-save locks, failed-save recovery, all saved fields after reload, timezone errors, defaults, blocked writes, credential absence and full edition/topics/profile immutability passed',
+      'Schedule desktop/mobile: pending-save locks, failed-save recovery, non-JSON rejection, saved-but-interrupted response/reload, all saved fields after reload, timezone errors, defaults, blocked writes, credential absence and full edition/topics/profile immutability passed',
     );
   } finally {
     try {

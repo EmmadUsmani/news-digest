@@ -31,11 +31,14 @@ export function ScheduleSettings({
         body: JSON.stringify(input),
       });
       if (!response.ok) {
-        const error = await response.json();
+        const error: unknown = await response.json().catch(() => null);
         setMessage(
-          typeof error.message === 'string'
+          error !== null &&
+            typeof error === 'object' &&
+            'message' in error &&
+            typeof error.message === 'string'
             ? error.message
-            : 'Check schedule settings.',
+            : 'Schedule request failed. Your changes are still here; reload to check the saved schedule before trying again.',
         );
         return;
       }
@@ -45,7 +48,7 @@ export function ScheduleSettings({
       );
     } catch {
       setMessage(
-        'Could not save schedule settings. Your changes are still here; try again.',
+        'Could not confirm whether schedule settings were saved. Your changes are still here; reload to check the saved schedule before trying again.',
       );
     } finally {
       setBusy(false);
