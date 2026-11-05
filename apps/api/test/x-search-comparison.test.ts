@@ -128,3 +128,16 @@ void test('comparison carries exact publication window and permits explicit zero
     ' -filter:replies -filter:retweets lang:en min_faves:0',
   );
 });
+
+void test('all search styles require the sole X tool in experiment and scheduled requests', () => {
+  for (const style of ['current', 'trending', 'reactions'] as const) {
+    const body = xSearchComparisonBody(request, style, settings, titles);
+    assert.equal(body.tool_choice, 'required');
+    assert.equal(body.tools.length, 1);
+    assert.equal(body.tools[0].type, 'x_search');
+    assert.equal(body.parallel_tool_calls, false);
+  }
+  const curated = xSearchBody({ ...request, handles: ['NBA'] });
+  assert.equal(curated.tool_choice, 'required');
+  assert.deepEqual(curated.tools[0].allowed_x_handles, ['NBA']);
+});

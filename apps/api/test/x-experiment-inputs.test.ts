@@ -138,6 +138,13 @@ void test('revised preparation needs no articles and offers only viral and test-
   );
   assert.equal(result.ready, true);
   assert.deepEqual(Object.keys(result.requests), ['viral', 'semantic']);
+  for (const request of Object.values(result.requests)) {
+    assert.equal(request.tool_choice, 'required');
+    assert.deepEqual(
+      request.tools.map((tool) => tool.type),
+      ['x_search'],
+    );
+  }
   const body = result.requests.semantic;
   assert.equal(body.model, 'grok-4.3');
   assert.match(body.input[0].content, /one x_semantic_search/);

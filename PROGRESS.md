@@ -133,3 +133,13 @@
 - Four app services rebuilt/restarted and active; /healthz database/Redis green after startup retry; saved Nov 5 reader endpoint readable; 36 sources/zero errors, latest success 23:30 UTC. Existing observability memory warning remains.
 - Updated TASKS, SOURCES and social handbook; NEEDS_FROM_HUMAN unchanged. GitHub integration recovered: preflight push published the previous iteration's backlog successfully.
 - Next: STEERING 39 supported forced tool execution and one separately admitted retry; append-only NBA/World saved-usage settlement; three failed keyword reruns after Nov 6 00:00 UTC. Production remains off; failure-rate acknowledgement needs real rerun evidence.
+
+## 2026-11-05: iteration 902 — Require X search tool execution
+
+- Started clean on main; no leftover work. Shared request builder now sets documented Responses `tool_choice: required`, with X search as the only tool. Existing windows, limits, caps and production-off state retained.
+- Checked xAI public OpenAPI ModelRequest/ModelToolChoice; required means the model must call a tool. No paid calls; real execution/failure-rate evidence remains pending, so no STEERING 39 failure-rate acknowledgement yet.
+- Offline coverage verifies revised prepared keyword/semantic bodies, all comparison styles and curated app requests require the sole X tool.
+- Verification: targeted request suites 11/11; pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 05-social-posts; git diff --check. Full check passed typecheck/lint/format/boundaries, 511 unit tests and 221 isolated integration tests.
+- Rebuilt/restarted API, worker, docs and schema services; all active. /healthz database/Redis green; saved reader edition readable; 36 active sources/zero errors with successes through 23:35 UTC. Existing observability memory warning remains.
+- Updated TASKS, SOURCES and social handbook; NEEDS_FROM_HUMAN unchanged.
+- Next: separately admitted one retry for no-execution/no-post failures; append-only saved NBA/World usage settlement; then authorized Nov 5 keyword reruns after Nov 6 00:00 UTC. Fixed production search remains off.

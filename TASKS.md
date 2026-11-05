@@ -4,7 +4,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
-- [ ] STEERING 39 NOW, ahead of UI (901: shared token-only usage parsing and 120 s timeout shipped; saved-hold settlement/tool execution/retry still open): require supported X search execution, 120 s timeout, one admitted retry only for no-execution/no-post failures, settle saved NBA/World usage append-only; rerun three Nov 5 keyword failures after Nov 6 00:00 UTC. Fair semantic query next round; scorer gate counts as non-promotion and unknown likes are unusable. $2.50 total/$1 UTC day caps unchanged; no production activation.
+- [ ] STEERING 39 NOW, ahead of UI (902: required tool choice, shared token-only usage parsing and 120 s timeout shipped; saved-hold settlement/retry still open): require supported X search execution, 120 s timeout, one admitted retry only for no-execution/no-post failures, settle saved NBA/World usage append-only; rerun three Nov 5 keyword failures after Nov 6 00:00 UTC. Fair semantic query next round; scorer gate counts as non-promotion and unknown likes are unusable. $2.50 total/$1 UTC day caps unchanged; no production activation.
 - [ ] STEERING 36 NOW: forty-article grouping pool live (872), ten-story editor cap unchanged; replay/cost evidence in [review](docs/edition-reviews/2026-11-05-world-story-pool.md). Review Nov 6 edition. Dedicated admin pages next; coverage cleanup done (873). X rounds due after 21:00 UTC.
 
 - [x] Nov 5 full-AI acceptance and saved reader text (847): all sections AI, zero unscored; $0.315445/152.320 s. [Review](docs/edition-reviews/2026-11-05.md).
@@ -37,6 +37,6 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] X accounting preparation (901): shared validated token-only usage parsing, zero defaults for absent fetched counters and 120-second timeout in experiment and app paths; synthetic settlement coverage.
+- [x] X required tool execution (902): documented Responses `tool_choice: required` in shared request builder; offline coverage for prepared keyword/semantic, comparison styles and curated app searches. Token-only accounting and 120-second timeout retained.
 
 - Next: STEERING 39 reliability/accounting first; Nov 5 failed keyword reruns after Nov 6 00:00 UTC, then Nov 6 fresh-window round and scheduled edition review. Edition reader layout follows.

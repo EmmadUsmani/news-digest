@@ -74,6 +74,7 @@ counts and media stay unknown; a link supplies no evidence of media contents.
 - **Engagement numbers are hints, not facts.** xAI's counts are stored as
   "reported by xAI", and Bluesky's as timestamped API counts. The editor
   sees them, but relevance and distinct content come first.
+- **Execution:** requests require the X search tool before a text answer.
 - **Accounting:** calls allow 120 seconds. Returned token usage settles the actual
   cost; missing fetched-post/profile counters count as zero. No-response timeouts
   keep their reservation.

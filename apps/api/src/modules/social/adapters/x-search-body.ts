@@ -47,6 +47,8 @@ export function baseXSearchBody(request: XSearchRequest) {
     max_turns: 1,
     max_output_tokens: 1000,
     parallel_tool_calls: false,
+    // xAI Responses ModelRequest documents required as forcing tool execution.
+    tool_choice: 'required',
     tools: [
       {
         type: 'x_search',

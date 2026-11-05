@@ -2039,3 +2039,12 @@ usage parser. Token-only responses settle their token cost with absent fetched
 post/profile counters treated as zero; invalid counters remain rejected.
 Offline synthetic coverage only: no paid calls or production activation. Saved
 NBA/World hold settlement, required tool execution and admitted retry remain next.
+
+### Required X tool execution — iteration 902 (2026-11-05)
+
+Shared experiment and app requests now set `tool_choice: "required"` with
+`x_search` as the only tool. The [xAI Responses schema](https://docs.x.ai/openapi.json)
+documents this value in `ModelRequest` / `ModelToolChoice`. All three styles
+and curated follow-ups retain their existing windows, limits and caps.
+Offline request checks only; failure-rate evidence awaits the authorized reruns
+after retry handling and saved-hold settlement. Production fixed search stays off.
