@@ -263,7 +263,7 @@ async function smoke() {
       pendingSave = undefined;
       await page
         .getByRole('status')
-        .filter({ hasText: 'Could not connect feed.' })
+        .filter({ hasText: 'Feed request failed.' })
         .waitFor();
       assert.equal(await query.inputValue(), 'artificial intelligence');
       assert.ok(await query.isEnabled());

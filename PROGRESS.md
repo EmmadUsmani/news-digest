@@ -1,21 +1,3 @@
-## 2026-11-05: iteration 801 — verify status refresh recovery safely
-
-- Started clean on main; no leftover work. Health/database/Redis green, four app services active, 36 active sources without errors and zero failed retained runs. Observability memory warning cleared briefly then returned pending; zero firing alerts.
-- Status verifier now replays protected content/topics/profile snapshots, disables service workers, guards browser writes with a probe and checks credential absence. Full saved edition/topics/profile comparisons prove live data unchanged.
-- Desktop/mobile failed refresh preserves loaded telemetry; retry restores status without an error. Saved-edition navigation and synthetic collection/queue/budget failure rendering pass. Failure screenshots inspected; regenerated unchanged telemetry screenshots discarded.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-status.ts; smoke-admin-gate.ts; git diff --check. Initial check found formatting in the newly archived progress entry; corrected before rerun. Rerun passed (exit 0): static checks, 497 unit and 214 isolated integration tests. Browser, admin gate and diff checks passed.
-- TASKS/access decision updated; archived iteration 785. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, live writes or runtime/config/schema/model/provider changes; no restart required under STEERING 22.
-- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-
-## 2026-11-05: iteration 802 — verify custom-feed recovery safely
-
-- Started clean on main; no leftover work. Health/database/Redis green, four deployed app services active, 36 active sources healthy and no failed retained runs. Historical ingestion/social counters each show two failures without retained runs. Pending memory warning cleared; zero alerts on recheck.
-- Custom-feed verifier now replays protected profile/status snapshots, disables service workers, guards unexpected browser writes with a probe and checks credential absence. Full saved edition/topics/profile comparisons prove live data unchanged.
-- Desktop/mobile URL validation and failed connections retain name/URL; retry clears fields, exposes stored content, survives reload and disconnects. No overflow/page errors; both failure screenshots inspected. Replayed saves never reach the live API.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-custom-feeds.ts; smoke-admin-gate.ts; git diff --check. All passed (exit 0): static checks, 497 unit and 214 isolated integration tests, browser replay, admin gate and diff check.
-- TASKS/access decision updated; archived iteration 786 and discarded regenerated unchanged success screenshots. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, live writes or runtime/config/schema/model/provider changes; no restart required under STEERING 22.
-- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-
 ## 2026-11-05: iteration 803 — verify parked community settings recovery safely
 
 - Started clean on main; no leftover work. Health/database/Redis green, four deployed app services active, all 36 sources healthy and no failed retained digest runs; zero alerts. Historical ingestion/social failure counters unchanged, with no retained failed runs.
@@ -141,4 +123,13 @@
 - Desktop/mobile replay covers non-JSON rejection, retry, stored incoming content, disconnect and a completed save with lost response. Reload recovers the saved connection without another PUT. Live topics/profile/edition unchanged; credentials absent and unexpected writes blocked. Interrupted screenshots inspected after adjusting capture to show the message.
 - Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-topic-sources.ts; smoke-admin-gate.ts; git diff --check. Static checks and 497 unit tests passed; combined check terminated (143) during integration test 129 without failures. Standalone pnpm test:integration passed: 214 tests, zero failures.
 - Rebuilt app and restarted API; /healthz OK, latest reader edition returns four topics and admin gate passes after restart. Worker unchanged. TASKS updated; SOURCES/NEEDS_FROM_HUMAN unchanged (no source changes/new blockers). No paid calls or live settings writes.
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 817 — recover interrupted custom-feed connections
+
+- Started clean on main; no leftover work. Alerts clear, four app services active, health/database/Redis green and all 36 sources healthy. Digest queue has zero failures; next edition is 15:00 UTC.
+- Unconfirmed custom-feed/news-query connections now advise reloading saved sources before retrying. Closing/reopening alone can reuse stale topic data after a completed POST loses its response; entries stay available.
+- Desktop/mobile feed replay proves a completed POST with a lost response leaves stale UI, then reload recovers the connection and stored content without another write. News-query recovery and admin gate pass; live topics/profile/edition unchanged, browser writes guarded and credentials absent. Interrupted screenshots inspected.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-custom-feeds.ts; smoke-news-queries.ts; smoke-admin-gate.ts; git diff --check. Rerun passed (exit 0): static checks, 497 unit and 214 isolated integration tests. Initial check stopped on new archive formatting; corrected before rerun.
+- Rebuilt app and restarted API; /healthz OK, latest reader edition returns four topics and admin gate passes after restart. Worker unchanged. Archived progress 801–802; TASKS updated. SOURCES/NEEDS_FROM_HUMAN unchanged (no source changes/new blockers). No paid calls or live settings writes.
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

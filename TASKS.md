@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Custom-feed recovery (817): unconfirmed connections advise reloading saved sources; desktop/mobile replay verifies a completed POST with a lost response recovers without another write.
+
 - [x] Source selection recovery (816): interrupted saves advise checking saved sources; desktop/mobile replay verifies reload recovers the saved connection without another PUT.
 
 - [x] Topic availability recovery (815): interrupted enable/disable responses advise checking saved topics; desktop/mobile replay verifies reload recovers a completed change without another write.

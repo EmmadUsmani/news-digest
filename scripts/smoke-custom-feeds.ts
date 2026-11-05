@@ -76,6 +76,7 @@ async function smoke() {
       let fail = true;
       let disconnect = true;
       let failRefresh = false;
+      let saveBeforeAbort = false;
       let writes = 0;
       let pendingSave: Promise<void> | undefined;
       let releaseSave: (() => void) | undefined;
@@ -106,6 +107,7 @@ async function smoke() {
           topics = topics.map((topic) =>
             topic.id === target.id ? { ...topic, sources: [source.id] } : topic,
           );
+          if (saveBeforeAbort) return route.abort('failed');
           failRefresh = true;
           return route.fulfill({
             status: 201,
@@ -269,7 +271,7 @@ async function smoke() {
       pendingSave = undefined;
       await page
         .getByRole('status')
-        .filter({ hasText: 'Could not connect feed.' })
+        .filter({ hasText: 'Feed request failed.' })
         .waitFor();
       assert.equal(await name.inputValue(), source.name);
       assert.equal(await url.inputValue(), source.url);
@@ -321,7 +323,45 @@ async function smoke() {
       await card
         .getByText('No sources connected yet.', { exact: false })
         .waitFor();
-      assert.equal(writes, 5);
+      // A completed POST can lose its response before the UI learns the topic.
+      saveBeforeAbort = true;
+      await name.fill(source.name);
+      await url.fill(source.url);
+      await connect.click();
+      await page
+        .getByRole('status')
+        .filter({
+          hasText: 'Could not confirm the feed connection.',
+        })
+        .waitFor();
+      await page
+        .getByText(
+          'Could not confirm the feed connection. Your entries are still here; reload the page to check saved sources before trying again.',
+          { exact: true },
+        )
+        .waitFor();
+      assert.equal(await name.inputValue(), source.name);
+      assert.equal(await url.inputValue(), source.url);
+      assert.ok(!(await checkbox.isChecked()), 'Unconfirmed topic stays stale');
+      await page
+        .getByRole('status')
+        .filter({
+          hasText: 'Could not confirm the feed connection.',
+        })
+        .scrollIntoViewIfNeeded();
+      await page.screenshot({
+        path: `docs/screenshots/ui/custom-feed-interrupted-${device}.png`,
+      });
+      await page.reload();
+      await page.getByText('Manage topics', { exact: true }).click();
+      await open.click();
+      await checkbox.waitFor();
+      assert.ok(
+        await checkbox.isChecked(),
+        'Reload recovers completed feed connection',
+      );
+      await card.locator('.headlines a').first().waitFor();
+      assert.equal(writes, 6, 'Reload must not repeat the POST');
       assert.deepEqual(unexpectedWrites, []);
       assert.deepEqual(errors, []);
       assert.deepEqual(credentials, []);
@@ -342,7 +382,7 @@ async function smoke() {
         savedEdition,
       );
     console.log(
-      'Custom feeds desktop/mobile: validation response, pending control locks and single request, uncertain network outcome, save failure, confirmed save with refresh failure, cleared fields, stored content, replay reload and disconnect passed; full live topics/profile/edition unchanged, browser writes guarded and credentials absent, no inference.',
+      'Custom feeds desktop/mobile: validation response, pending control locks and single request, uncertain network outcome, save failure, confirmed save with refresh failure, cleared fields, stored content, replay reload, disconnect and completed POST with lost response recovered without another write passed; full live topics/profile/edition unchanged, browser writes guarded and credentials absent, no inference.',
     );
   } finally {
     await browser.close();

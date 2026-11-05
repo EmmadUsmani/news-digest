@@ -80,7 +80,7 @@ export function TopicSources({
             ? search
               ? 'Use a news query of 1–100 characters without control characters. Catalog limit: 500 sources; topic limit: 100 connections.'
               : 'Use a public HTTPS RSS/Atom URL without credentials or a custom port. Catalog limit: 500 sources; topic limit: 100 connections.'
-            : 'Could not connect feed. Your entries are still here; try again.',
+            : 'Feed request failed. Your entries are still here; reload the page to check saved sources before trying again.',
         );
         return;
       }
@@ -101,7 +101,7 @@ export function TopicSources({
       setMessage(
         connected
           ? 'Feed connected, but the source list could not refresh. Close and reopen sources to see the saved connection.'
-          : 'Could not confirm the feed connection. Your entries are still here. Close and reopen sources to check before retrying.',
+          : 'Could not confirm the feed connection. Your entries are still here; reload the page to check saved sources before trying again.',
       );
     } finally {
       setBusy(false);
