@@ -5,7 +5,7 @@
 All of these are behind the exe.dev login. Reserved `/admin` and `/api/admin`
 paths require [admin identity](01-stack-and-runtime.md#admin-identity); `/api/me` reports access.
 `pnpm obs sources|jobs` reads its local token from the env file for `/api/admin/status`.
-Schedule recovery, schedule and topic create/delete/reorder/availability smoke scripts also use protected API reads; browser writes are replayed in memory.
+Schedule recovery and schedule/topic/status smoke scripts use protected API reads; browser writes and status snapshots are replayed in memory.
 
 | What               | URL                                                                                      |
 | ------------------ | ---------------------------------------------------------------------------------------- |

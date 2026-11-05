@@ -1,8 +1,10 @@
-// Read-only live telemetry plus explicitly synthetic failure responses; no provider calls.
+// Protected live telemetry snapshots replayed in the browser; synthetic failures stay local.
 import assert from 'node:assert/strict';
 
 import { operationsStatusSchema, sourceCatalogSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
+
+import { localAdminJson } from './lib/local-admin-fetch';
 async function smoke() {
   const browser = await chromium.launch({ headless: true });
   try {
@@ -13,6 +15,17 @@ async function smoke() {
       const page = await browser.newPage({ viewport: { width, height } });
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
+      const status = operationsStatusSchema.parse(
+        await localAdminJson('/api/admin/status'),
+      );
+      const catalog = sourceCatalogSchema.parse(
+        await localAdminJson('/api/admin/topics/sources'),
+      );
+      // Replay one real snapshot so collection jobs cannot race UI assertions.
+      // Credentials remain in Node; later routes override this for failure cases.
+      await page.route('**/api/status', (route) =>
+        route.fulfill({ json: status }),
+      );
       await page.goto('http://localhost:8000');
       await page.getByText('Source & run status', { exact: true }).click();
       await page
@@ -23,16 +36,6 @@ async function smoke() {
           exact: false,
         })
         .waitFor();
-      const response = await page.request.get(
-        'http://localhost:8000/api/status',
-      );
-      assert.equal(response.status(), 200);
-      const status = operationsStatusSchema.parse(await response.json());
-      const catalog = sourceCatalogSchema.parse(
-        await (
-          await page.request.get('http://localhost:8000/api/topics/sources')
-        ).json(),
-      );
       assert.equal(status.sources.length, catalog.length);
       assert.ok(
         status.sources
@@ -172,7 +175,7 @@ async function smoke() {
     // Exercise visible failure states with explicit synthetic browser responses only.
     const page = await browser.newPage();
     const live = operationsStatusSchema.parse(
-      await (await page.request.get('http://localhost:8000/api/status')).json(),
+      await localAdminJson('/api/admin/status'),
     );
     const digestQueue = live.queues.find(
       (queue) => queue.name === 'digest-generation',

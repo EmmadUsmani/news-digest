@@ -69,6 +69,10 @@ Topic create/delete/reorder/availability and schedule browser replays read their
 immutability checks through protected Node requests with a 15-second timeout.
 Their browser writes stay in memory, and the browser receives no local token.
 
+The status browser verifier reads protected status and source-catalog snapshots in
+Node, then replays the real status snapshot for rendering and refresh checks.
+Synthetic failure responses remain browser-only; no token enters the browser.
+
 ## Next rollout slice
 
 Configure the owner email allowlist before moving current operational routes.
