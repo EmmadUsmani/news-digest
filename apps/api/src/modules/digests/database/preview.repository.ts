@@ -19,10 +19,15 @@ import {
   selectTopicPosts,
   selectTopicRedditPosts,
 } from '../../social/public/selection';
+import {
+  announceDigest,
+  LogDigestNotifications,
+} from '../adapters/digest-notifications';
 import { observeEdition } from '../adapters/edition-logging';
 import { groupShortlist } from '../application/group-shortlist';
 import { parallelTopics } from '../application/parallel-topics';
 import { articleTriageInput } from '../domain/article-triage-input';
+import { DigestNotifications } from '../domain/digest-published';
 import { editorialShortlist } from '../domain/editorial-shortlist';
 import {
   type EditionProgress,
@@ -39,6 +44,11 @@ export class PostgresPreviewRepository
   extends PreviewRepository
   implements OnModuleDestroy
 {
+  constructor(
+    private readonly notifications: DigestNotifications = new LogDigestNotifications(),
+  ) {
+    super();
+  }
   readonly db = database();
   private readonly orm = drizzle(this.db);
   readonly editorial = editorialServices(this.db);
@@ -108,8 +118,25 @@ export class PostgresPreviewRepository
     return withEditionRun(scheduledKey, runId, () =>
       observeEdition(
         runId,
-        (report) =>
-          this.generateEdition(start, end, runId, scheduledKey, report),
+        async (report) => {
+          const edition = await this.generateEdition(
+            start,
+            end,
+            runId,
+            scheduledKey,
+            report,
+          );
+          if (edition.id === runId)
+            await announceDigest(this.notifications, {
+              type: 'DigestPublished',
+              editionId: edition.id,
+              profileId,
+              publishedAt: edition.createdAt,
+              windowStart: edition.windowStart,
+              windowEnd: edition.windowEnd,
+            });
+          return edition;
+        },
         reportProgress,
       ),
     );

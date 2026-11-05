@@ -2,9 +2,17 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { PostgresPreviewRepository } from '../src/modules/digests/database/preview.repository';
+import type { DigestPublished } from '../src/modules/digests/domain/digest-published';
 
 void test('concurrent scheduled retries return one immutable snapshot; manual regeneration stays versioned', async () => {
-  const repository = new PostgresPreviewRepository();
+  const events: DigestPublished[] = [];
+  const repository = new PostgresPreviewRepository({
+    async published(event) {
+      // Read through another connection: notification must follow COMMIT.
+      assert.ok(await repository.find(event.editionId));
+      events.push(event);
+    },
+  });
   // This isolated characterization must never make paid external calls,
   // including when the developer has loaded the configured service environment.
   Object.defineProperty(repository, 'editorial', { value: null });
@@ -53,6 +61,17 @@ void test('concurrent scheduled retries return one immutable snapshot; manual re
     assert.deepEqual(laterRetry, first);
     const manual = await repository.generate(start, end);
     assert.notEqual(manual.id, first.id);
+    assert.deepEqual(
+      events,
+      [first, manual].map((edition) => ({
+        type: 'DigestPublished',
+        editionId: edition.id,
+        profileId: '00000000-0000-4000-8000-000000000001',
+        publishedAt: edition.createdAt,
+        windowStart: edition.windowStart,
+        windowEnd: edition.windowEnd,
+      })),
+    );
     assert.deepEqual(await repository.find(first.id), first);
     assert.equal(
       (
@@ -73,8 +92,14 @@ void test(
   { timeout: 15000 },
   async () => {
     assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
-    const failed = new PostgresPreviewRepository();
-    const retry = new PostgresPreviewRepository();
+    const events: DigestPublished[] = [];
+    const notifications = {
+      async published(event: DigestPublished) {
+        events.push(event);
+      },
+    };
+    const failed = new PostgresPreviewRepository(notifications);
+    const retry = new PostgresPreviewRepository(notifications);
     for (const repository of [failed, retry]) {
       Object.defineProperty(repository, 'editorial', { value: null });
     }
@@ -95,6 +120,7 @@ void test(
         (error) => error === failure,
       );
       assert.equal(reachedPublication, true);
+      assert.equal(events.length, 0);
       assert.deepEqual(await retry.history(0), before);
       assert.equal(
         (
@@ -113,6 +139,8 @@ void test(
         failed.generate(start, end, key),
       ]);
       assert.deepEqual(duplicate, published);
+      assert.equal(events.length, 1);
+      assert.equal(events[0].editionId, published.id);
       assert.deepEqual(await retry.find(published.id), published);
       assert.equal(
         (

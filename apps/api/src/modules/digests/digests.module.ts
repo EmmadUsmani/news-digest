@@ -13,8 +13,10 @@ import {
   Query,
 } from '@nestjs/common';
 
+import { LogDigestNotifications } from './adapters/digest-notifications';
 import { BullEditionJobs } from './adapters/edition-jobs';
 import { PostgresPreviewRepository } from './database/preview.repository';
+import { DigestNotifications } from './domain/digest-published';
 import { EditionJobs } from './domain/edition-jobs';
 import { PreviewRepository } from './domain/preview.repository';
 import { ReaderEditionController } from './reader-edition.controller';
@@ -73,6 +75,7 @@ export class PreviewController {
 @Module({
   controllers: [PreviewController, ReaderEditionController],
   providers: [
+    { provide: DigestNotifications, useClass: LogDigestNotifications },
     { provide: EditionJobs, useClass: BullEditionJobs },
     { provide: PreviewRepository, useClass: PostgresPreviewRepository },
   ],

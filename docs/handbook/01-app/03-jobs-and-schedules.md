@@ -31,6 +31,10 @@ hours of publication. It saves cache-write evidence for measuring unused work. S
 before closing its database connections. It remains off pending the Nov 4
 edition review; no daytime scoring is running.
 
+After a new edition commits, a `DigestPublished` event passes through the
+notification port to the application log. Reused editions emit no new event.
+This adapter sends no emails or external notifications.
+
 ## A normal day (times in Pacific)
 
 ```mermaid

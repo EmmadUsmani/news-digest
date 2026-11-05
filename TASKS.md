@@ -25,7 +25,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - [x] STEERING 32: private nightly backups, seven-day retention, weekly isolated restore and 26-hour alert deployed (709); fixed search runtime remains off pending decision. [Operations](docs/handbook/01-app/10-backups.md).
 - [ ] M5: grouping quality above; independent labels, different dates and Gaming still needed. Agent-labelled windows are not general quality estimates.
 - [ ] M6: topic CRUD/reorder/enable, source/schedule/budgets and on-demand UI connected; broader acceptance and admin separation open. Replay coverage through 846 in archived task detail.
-- [ ] M7: completed on-demand job links recover from Postgres after Redis pruning (851); unfinished/failed-job durable history and DigestPublished event/log adapter remain. No real notifications.
+- [ ] M7: completed on-demand job links recover from Postgres after Redis pruning (851); DigestPublished notification port/log adapter completed (852); unfinished/failed-job durable history remains. No real notifications.
 - [ ] STEERING 4: fake/replay LlmPort and verification ledger implemented; real raw-response golden open. Do not re-record unchanged prompts or pay merely to test replay. [Database verification](docs/DATABASE-VERIFICATION.md).
 - [ ] STEERING 8 PARKED under 14: Reddit disabled/access denied; no requests until owner re-enables official API credentials. YouTube deferred; no bypass.
 - [ ] STEERING 10 source balance paused under 27; Yardbarker prepared/disabled. No new source without coverage review.
@@ -33,6 +33,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - Editorial audit closed under STEERING 5; resume only for actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.
 
 ## Latest verified step
+
+- [x] Publication event (852): post-commit DigestPublished notification port and log adapter; retries emit no duplicate event and notification failures preserve publication. No external delivery.
 
 - [x] Saved job-link recovery (851): pruned completed on-demand jobs resolve to their immutable Postgres edition, with no generation or paid calls; isolated HTTP pruning/profile-isolation checks.
 
