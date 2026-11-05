@@ -6,7 +6,7 @@ import { test } from 'node:test';
 import { createLocalAdminFetch } from '../../../scripts/lib/local-admin-fetch';
 import { adminAccess, isAdmin } from '../src/admin-access';
 
-void test('local script credentials are limited to protected local APIs and handbook tools', async () => {
+void test('local script credentials are limited to protected local APIs and tools', async () => {
   let credentialsRead = 0;
   const requests: Array<{ url: string; init?: RequestInit }> = [];
   const read = createLocalAdminFetch(
@@ -26,6 +26,10 @@ void test('local script credentials are limited to protected local APIs and hand
     'http://127.0.0.1:8000/healthz',
     'http://127.0.0.1:8000/docs-other/',
     'http://127.0.0.1:8000/db-other/',
+    'http://127.0.0.1:8000/queues-other/',
+    'http://localhost:8000/queues/api/queues',
+    'https://example.com/queues/',
+    'http://127.0.0.1:8000/queues/../healthz',
     'https://example.com/docs/api/tree',
     'http://localhost:8000/docs/api/tree',
     'http://127.0.0.1:8000/docs/../healthz',
@@ -56,6 +60,10 @@ void test('local script credentials are limited to protected local APIs and hand
     '/docs/api/tree',
     '/db',
     '/db/api/schema',
+    '/queues',
+    '/queues/',
+    '/queues/api/queues',
+    '/queues/static/main.js',
   ]) {
     await read(`http://127.0.0.1:8000${path}`);
     assert.equal(
@@ -80,7 +88,7 @@ void test('script request passes the HTTP admin gate and refuses redirects', asy
   const server = createServer((req, res) =>
     gate(req, res, () => {
       if (
-        req.url?.startsWith('/docs/') &&
+        ['/docs/', '/queues/'].some((prefix) => req.url?.startsWith(prefix)) &&
         !isAdmin(req, { localToken: 'test-secret' })
       ) {
         res.writeHead(404).end();
@@ -117,6 +125,14 @@ void test('script request passes the HTTP admin gate and refuses redirects', asy
       404,
     );
     const toolResponse = await read('http://127.0.0.1:8000/docs/api/tree');
+    assert.equal(
+      (await fetch(`http://127.0.0.1:${port}/queues/api/queues`)).status,
+      404,
+    );
+    assert.equal(
+      (await read('http://127.0.0.1:8000/queues/api/queues')).status,
+      200,
+    );
     assert.equal(toolResponse.status, 200);
     assert.deepEqual(await toolResponse.json(), { ok: true });
     assert.equal(response.status, 200);

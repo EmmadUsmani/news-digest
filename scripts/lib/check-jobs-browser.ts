@@ -1,8 +1,12 @@
 import assert from 'node:assert/strict';
 
+import { localAdminFetch } from './local-admin-fetch';
+
 export async function checkJobsBrowser() {
   const base = 'http://127.0.0.1:8000/queues';
-  const response = await fetch(`${base}/api/queues`);
+  const response = await localAdminFetch(`${base}/api/queues`, {
+    signal: AbortSignal.timeout(15_000),
+  });
   assert.equal(response.status, 200);
   const { queues } = await response.json();
   const names = [
@@ -16,7 +20,12 @@ export async function checkJobsBrowser() {
     [...names].sort(),
   );
   for (const queue of queues) assert.equal(queue.readOnlyMode, true);
-  const schedulesResponse = await fetch(`${base}/api/job-schedulers`);
+  const schedulesResponse = await localAdminFetch(
+    `${base}/api/job-schedulers`,
+    {
+      signal: AbortSignal.timeout(15_000),
+    },
+  );
   assert.equal(schedulesResponse.status, 200);
   const { schedulers } = await schedulesResponse.json();
   for (const name of names)
@@ -29,7 +38,10 @@ export async function checkJobsBrowser() {
     );
   // No mutation payload: verify the HTTP barrier, never enqueue or retry work.
   for (const method of ['POST', 'PUT', 'PATCH', 'DELETE']) {
-    const result = await fetch(`${base}/api/queues/pause`, { method });
+    const result = await localAdminFetch(`${base}/api/queues/pause`, {
+      method,
+      signal: AbortSignal.timeout(15_000),
+    });
     assert.equal(result.status, 405);
   }
   return { queues: names.length, schedules: schedulers.length, readOnly: true };

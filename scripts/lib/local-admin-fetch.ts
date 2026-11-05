@@ -12,7 +12,7 @@ export function createLocalAdminFetch(
     const url = new URL(input instanceof Request ? input.url : String(input));
     const protectedPath =
       url.pathname.startsWith('/api/admin/') ||
-      ['/docs', '/db'].some(
+      ['/docs', '/db', '/queues'].some(
         (prefix) =>
           url.pathname === prefix || url.pathname.startsWith(`${prefix}/`),
       );

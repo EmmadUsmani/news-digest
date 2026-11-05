@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 766 — archive navigation in both themes
-
-- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, 36 sources healthy; recent social collection succeeds and next edition remains Nov 5 15:00 UTC.
-- Edition selection and archive refresh race checks now cover desktop/mobile light/dark. Late success/error responses preserve saved story titles/text, selection and current history; browser API writes stay blocked. Selection also verifies the older saved edition remains unchanged.
-- `pnpm exec tsx scripts/smoke-edition-selection.ts` and `pnpm exec tsx scripts/smoke-edition-history.ts` passed all viewport/theme/race combinations. Eight screenshots added under docs/screenshots/ui; dark mobile history and desktop selection visually inspected.
-- TASKS/Operations updated; archived iteration 750. SOURCES/NEEDS_FROM_HUMAN unchanged. No runtime/config/schema, model/provider, live writes or paid calls; healthy services left running under STEERING 22.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, zero failures); pnpm build; check-handbook.ts 08-operations; git diff --check; final /healthz green. Initial check stopped on newly archived Markdown formatting, corrected before full passing rerun.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; repeated NBA fallback investigation before scorer. Fresh X rounds after 21:00 UTC Nov 5/6; admin rollout still needs owner identity configuration.
-
 ## 2026-11-05: iteration 767 — live admin gate verification
 
 - Started clean on main; no leftover work. Alerts zero, /healthz database/Redis green, all 36 sources healthy; no failed retained digest runs. Nov 5 edition remains due at 15:00 UTC.
@@ -136,3 +127,13 @@
 - TASKS/Operations/access decision updated; archived iteration 765. Discarded regenerated screenshots because the UI is unchanged. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers.
 - No paid calls, real job submissions, stored-edition writes, runtime/config/schema or model/provider changes. Healthy services left running under STEERING 22; all four services active and final health green.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; fallback investigation before scorer. X rounds after 21:00 UTC Nov 5/6. Owner identity configuration/proxy verification still block coordinated admin rollout.
+
+## 2026-11-05: iteration 781 — prepare queue verification for tool gating
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Next edition remains Nov 5 15:00 UTC.
+- Queue HTTP/browser checks now use the fixed-loopback credential adapter for queue APIs, pages and assets. Credentials stay in Node; redirects fail and reads time out after 15 seconds. Tool gating itself remains pending the coordinated admin rollout.
+- Desktop/mobile checks passed against four real queues and 40 schedules: schedulers visible, zero page errors, browser writes blocked, credentials absent and full saved edition unchanged. Server mutation barrier still returns 405 for empty POST/PUT/PATCH/DELETE probes; no jobs enqueued or retried.
+- Credential tests cover queue path boundaries, external/localhost exclusion, authenticated tool access and anonymous denial. Focused tests passed 2/2. Queue smoke passed twice; discarded regenerated screenshots because the UI is unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations; git diff --check. Static checks, 497 unit/214 isolated integration tests passed (exit 0); build, handbook and diff checks passed. Final health green; all four services active.
+- TASKS/Operations/access decision updated; archived iteration 766. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, stored-edition writes, runtime/config/schema or model/provider changes; healthy services left running under STEERING 22.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6. Owner identity configuration/proxy verification still block admin rollout.

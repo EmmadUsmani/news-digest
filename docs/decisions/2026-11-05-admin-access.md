@@ -131,6 +131,13 @@ failure stay in browser replay memory. It blocks unexpected browser writes,
 checks that no credentials reach the browser, and verifies the full saved
 edition, topics and profile remain unchanged.
 
+The queue browser verifier reads queue APIs, pages and assets through the fixed
+loopback credential adapter in Node. Playwright receives response bodies only;
+browser writes are blocked and the saved edition must remain unchanged. The
+shared queue checker uses the same adapter and still verifies the server's
+405 mutation barrier without a mutation payload. Queue tool gating remains
+part of the coordinated rollout.
+
 ## Next rollout slice
 
 Configure the owner email allowlist before moving current operational routes.
