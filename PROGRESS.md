@@ -1,14 +1,3 @@
-## 2026-11-05: iteration 738 — restore saved reader story text
-
-- Started clean on main; no leftover work. Health/database/Redis and current sources green; alerts zero, no retained failed digest runs. Nov 5 scheduled edition still due at 15:00 UTC.
-- Reader projection now uses the AI summary or saved article excerpt for every story in every edition; no extra field, mode label, database write or regeneration. Existing AI summaries stay intact.
-- Regression checks cover missing/empty summaries across AI, non-AI and historical modes, allowlisted fields and snapshot immutability. Targeted reader tests 3/3 passed.
-- Live Nov 4 edition 3bf10f5b-4c00-48b2-85bd-8e6dac7e3238: all five NBA stories return non-empty text. Read-only smoke-reader-story-text.ts passes desktop/mobile text equality, topic forbidden labels, overflow and browser-error checks; screenshots under docs/screenshots/ui/nba-story-text-*.png visually reviewed.
-- Initial broader page-label assertion exposed existing legacy admin copy outside topic content; scoped the regression to topic labels, matching the existing check. Full reader/admin UI migration remains open under item 33; no claim of full-page forbidden-term acceptance.
-- Verification: pnpm format, pnpm lint:fix, pnpm check, pnpm build, check-handbook.ts 04-edition-pipeline and git diff --check. Standalone pnpm check exited 0: 497 unit/214 isolated integration tests passed. Initial combined session ended 143 after passing tests; reran check alone to verify clean exit.
-- API/docs restarted after rebuild; loopback health and final alerts green. External HTTPS probe could not connect from this VM; browser/API checks used loopback. Pipeline handbook and its diagram updated and visually checked; archived iteration 724. SOURCES/NEEDS_FROM_HUMAN unchanged; no source changes or new blocker.
-- Acked item 35 symptom fix with screenshot links. Nov 5 NBA result remains pending; investigate any fallback FIRST before items 33/34. No paid calls, provider/model/budget changes or stored-edition changes.
-
 ## 2026-11-05: iteration 739 — protected probe and monitoring API reads
 
 - Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy and no failed retained digest runs. Two old ingestion failures still have no retained run details; current collection remains healthy.
@@ -129,3 +118,12 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration); pnpm build; check-handbook.ts 08-operations; git diff --check. Initial check found formatting in the newly archived progress entry; corrected before rerunning.
 - Updated TASKS, Operations and access decision; archived iteration 737. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blocker. No runtime/config/schema changes, live writes, paid calls or model/provider/budget changes; healthy services remain running under STEERING 22. Final health green; reader latest has four real topics.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback. Scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6. Continue coordinated admin migration while waiting.
+
+## 2026-11-05: iteration 752 — social card checks follow reader API
+
+- Started clean on main; no leftover work. Health/database/Redis green, all 36 sources healthy, no failed retained digest runs; two historical ingestion failures without run details remain, current collection healthy. Existing metrics memory warning pending.
+- Bluesky and Reddit synthetic browser checks now load/replay `/api/editions/latest` through the sanitized reader contract, asserting editorial reasons/context are absent. Browser API writes abort; Reddit navigation requests blocked and thumbnails remain local fixtures. No Reddit collection, live writes or inference.
+- Both desktop/mobile checks passed text, engagement, links, media/no-media, escaped markup (Bluesky), no X widgets, browser errors or horizontal overflow. Four screenshots refreshed; mobile Bluesky and desktop Reddit visually inspected. Synthetic examples remain explicitly labelled.
+- Updated TASKS and Operations; archived iteration 738. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. Runtime/config/schema unchanged; healthy services remain running under STEERING 22.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, exit 0); pnpm build; both card smoke scripts; check-handbook.ts 08-operations; git diff --check. Initial handbook length failure corrected; first full-check session terminated (143), rerun via isolated user service passed. Reader latest: four topics, 14 stories, 15 posts.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.

@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 
 import {
-  digestPreviewSchema,
+  readerEditionSchema,
   selectedRedditPostSchema,
 } from '@digest/contracts';
 import { chromium } from 'playwright';
@@ -17,11 +17,9 @@ async function main() {
       const page = await browser.newPage({ viewport: { width, height } });
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
-      const snapshot = digestPreviewSchema.parse(
+      const snapshot = readerEditionSchema.parse(
         await (
-          await page.request.get(
-            'http://localhost:8000/api/digest-previews/latest',
-          )
+          await page.request.get('http://localhost:8000/api/editions/latest')
         ).json(),
       );
       const post = selectedRedditPostSchema.parse({
@@ -56,11 +54,20 @@ async function main() {
         },
       ];
       // The edition contract accepts both variants and rejects incomplete Reddit evidence.
-      digestPreviewSchema.parse(snapshot);
+      const replay = readerEditionSchema.parse(snapshot);
+      assert.ok(
+        replay.topics[0].posts.every(
+          (item) => !('whyItMatters' in item) && !('reasons' in item),
+        ),
+      );
+
       assert.equal(
         selectedRedditPostSchema.safeParse({ ...post, observedAt: 'invalid' })
           .success,
         false,
+      );
+      await page.route(/^https:\/\/(?:www\.)?reddit\.com\//, (route) =>
+        route.abort(),
       );
       let widgets = 0;
       await page.route('https://platform.twitter.com/**', (route) => {
@@ -73,9 +80,20 @@ async function main() {
           body: '<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180"><rect width="320" height="180" fill="#456"/></svg>',
         }),
       );
-      await page.route('**/api/digest-previews/latest', (route) =>
-        route.fulfill({ json: snapshot }),
-      );
+      const unexpectedWrites: string[] = [];
+      await page.route('**/api/**', (route) => {
+        const request = route.request();
+        if (!['GET', 'HEAD'].includes(request.method())) {
+          unexpectedWrites.push(
+            `${request.method()} ${new URL(request.url()).pathname}`,
+          );
+          return route.abort();
+        }
+        if (new URL(request.url()).pathname === '/api/editions/latest') {
+          return route.fulfill({ json: replay });
+        }
+        return route.continue();
+      });
       await page.goto('http://localhost:8000');
       const cards = page.locator('.reddit-card');
       await cards.first().scrollIntoViewIfNeeded();
@@ -107,6 +125,7 @@ async function main() {
       );
       assert.equal(widgets, 0);
       assert.deepEqual(errors, []);
+      assert.deepEqual(unexpectedWrites, []);
       assert.equal(
         await page.evaluate(
           () => document.documentElement.scrollWidth <= window.innerWidth,
