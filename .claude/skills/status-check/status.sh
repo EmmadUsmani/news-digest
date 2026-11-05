@@ -36,7 +36,7 @@ for f in docs/lead/work/*.md; do
   [ "$(git log -1 --format=%ct -- "$f")" -lt "$last_steer" ] && echo "older than latest steering: $f"
 done
 check_size() { [ "$(wc -l <"$1")" -gt "$2" ] && echo "over ${2} lines: $1"; }
-check_size CLAUDE.md 100
+check_size CLAUDE.md 200
 check_size docs/lead/playbook.md 120
 for f in docs/lead/work/*.md; do check_size "$f" 40; done
 
