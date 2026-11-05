@@ -6,6 +6,7 @@ import { Worker } from 'bullmq';
 
 import { BullEditionJobs } from '../src/modules/digests/adapters/edition-jobs';
 import { generateOnDemandEdition } from '../src/modules/digests/application/on-demand-edition';
+import { PostgresEditionJobFailures } from '../src/modules/digests/database/edition-job-failures';
 import { PreviewController } from '../src/modules/digests/digests.module';
 import {
   type PreviewRepository,
@@ -14,11 +15,15 @@ import {
 
 void test('async edition requests dedupe while active, publish once and allow later regeneration', async () => {
   const publications = new Map<string, DigestPreview>();
-  const jobs = new BullEditionJobs({
-    async findByGenerationKey(key: string) {
-      return publications.get(key) ?? null;
-    },
-  } as PreviewRepository);
+  const failures = new PostgresEditionJobFailures();
+  const jobs = new BullEditionJobs(
+    {
+      async findByGenerationKey(key: string) {
+        return publications.get(key) ?? null;
+      },
+    } as PreviewRepository,
+    failures,
+  );
   const connection = jobs.connection.duplicate({ maxRetriesPerRequest: null });
   let release!: () => void;
   const blocked = new Promise<void>((resolve) => {
@@ -167,5 +172,56 @@ void test('async edition requests dedupe while active, publish once and allow la
       if (job.name === 'on-demand') await job.remove();
     await connection.quit();
     await jobs.onModuleDestroy();
+    await failures.onModuleDestroy();
+  }
+});
+
+void test('durable failures are idempotent, profile-scoped and preserve the original generation error', async () => {
+  const failures = new PostgresEditionJobFailures();
+  const { database } = await import('../src/libs/db/connections');
+  const pool = database();
+  const id = crypto.randomUUID();
+  const foreignId = crypto.randomUUID();
+  const foreignProfile = crypto.randomUUID();
+  try {
+    assert.equal(await failures.find(id), null);
+    await failures.record(id, 42.4);
+    await failures.record(id, 999);
+    assert.deepEqual(await failures.find(id), { durationMs: 42 });
+    await pool.query('INSERT INTO profiles(id,name) VALUES($1,$2)', [
+      foreignProfile,
+      'Failure isolation fixture',
+    ]);
+    await pool.query(
+      'INSERT INTO edition_job_failures(job_id,profile_id,duration_ms) VALUES($1,$2,17)',
+      [foreignId, foreignProfile],
+    );
+    assert.equal(await failures.find(foreignId), null);
+    const original = new Error('generation fixture failed');
+    await assert.rejects(
+      generateOnDemandEdition(
+        { generate: () => Promise.reject(original) },
+        crypto.randomUUID(),
+        {
+          windowStart: '2000-01-01T00:00:00Z',
+          windowEnd: '2000-01-02T00:00:00Z',
+        },
+        undefined,
+        {
+          record: () =>
+            Promise.reject(new Error('database unavailable fixture')),
+          find: () => Promise.resolve(null),
+        },
+      ),
+      (error) => error === original,
+    );
+  } finally {
+    await pool.query(
+      'DELETE FROM edition_job_failures WHERE job_id = ANY($1::text[])',
+      [[id, foreignId]],
+    );
+    await pool.query('DELETE FROM profiles WHERE id=$1', [foreignProfile]);
+    await pool.end();
+    await failures.onModuleDestroy();
   }
 });

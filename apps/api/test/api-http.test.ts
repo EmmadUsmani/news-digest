@@ -359,6 +359,61 @@ void test('digest HTTP publication, history and async jobs use real isolated per
       edition.id,
     );
     await (await jobs.queue.getJob(afterReset.id))!.remove();
+    const { EditionJobFailures } =
+      require('../dist/modules/digests/domain/edition-job-failures.js') as typeof import('../src/modules/digests/domain/edition-job-failures');
+    const failures = app.get(EditionJobFailures);
+    const failureWorker = new Worker(
+      jobs.queue.name,
+      (job) =>
+        generateOnDemandEdition(
+          {
+            generate: () =>
+              Promise.reject(
+                new Error('private-provider-response secret=never-expose'),
+              ),
+          },
+          job.id!,
+          job.data,
+          undefined,
+          failures,
+        ),
+      { connection },
+    );
+    try {
+      const failedJob = (await request('/jobs', 202, window)) as { id: string };
+      let failed = false;
+      for (let attempt = 0; attempt < 300; attempt++) {
+        const status = (await request(`/jobs/${failedJob.id}`)) as {
+          state: string;
+        };
+        if (status.state === 'failed') {
+          failed = true;
+          break;
+        }
+        await new Promise((resolve) => setTimeout(resolve, 10));
+      }
+      assert.ok(failed, 'Fixture generation fails within bounded polling');
+      await failureWorker.close();
+      await (await jobs.queue.getJob(failedJob.id))!.remove();
+      const recovered = (await request(
+        `/jobs/${failedJob.id}`,
+      )) as import('../src/modules/digests/domain/edition-jobs').EditionJobStatus;
+      assert.equal(recovered.state, 'failed');
+      assert.equal(recovered.editionId, null);
+      assert.equal(recovered.progress, null);
+      assert.ok(recovered.durationMs! >= 0);
+      assert.equal(
+        recovered.error,
+        'Edition generation failed. Try again later.',
+      );
+      assert.ok(!JSON.stringify(recovered).includes('private-provider'));
+      assert.equal(
+        await repository.findByGenerationKey(`on-demand:${failedJob.id}`),
+        null,
+      );
+    } finally {
+      await failureWorker.close();
+    }
   } finally {
     await worker.close();
     await connection.quit();

@@ -25,7 +25,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - [x] STEERING 32: private nightly backups, seven-day retention, weekly isolated restore and 26-hour alert deployed (709); fixed search runtime remains off pending decision. [Operations](docs/handbook/01-app/10-backups.md).
 - [ ] M5: grouping quality above; independent labels, different dates and Gaming still needed. Agent-labelled windows are not general quality estimates.
 - [ ] M6: topic CRUD/reorder/enable, source/schedule/budgets and on-demand UI connected; broader acceptance and admin separation open. Replay coverage through 846 in archived task detail.
-- [ ] M7: completed on-demand job links recover from Postgres after Redis pruning (851); new UUID job IDs prevent publication-key reuse after Redis counter reset (853); DigestPublished notification port/log adapter completed (852); unfinished/failed-job durable history remains. No real notifications.
+- [ ] M7: completed on-demand job links recover from Postgres after Redis pruning (851); new UUID job IDs prevent publication-key reuse after Redis counter reset (853); DigestPublished notification port/log adapter completed (852); caught generation-failure links now recover from Postgres after Redis pruning (854); unfinished/stalled-job history remains. No real notifications.
 - [ ] STEERING 4: fake/replay LlmPort and verification ledger implemented; real raw-response golden open. Do not re-record unchanged prompts or pay merely to test replay. [Database verification](docs/DATABASE-VERIFICATION.md).
 - [ ] STEERING 8 PARKED under 14: Reddit disabled/access denied; no requests until owner re-enables official API credentials. YouTube deferred; no bypass.
 - [ ] STEERING 10 source balance paused under 27; Yardbarker prepared/disabled. No new source without coverage review.
@@ -34,16 +34,10 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Failed job-link recovery (854): caught on-demand generation failures retain profile-scoped job ID/duration in Postgres, with generic errors after Redis pruning; no exception text or paid calls.
+
 - [x] Reset-safe job links (853): UUIDs for new on-demand jobs, legacy numeric recovery preserved; isolated counter-reset, dedupe and pruning checks.
 
 - [x] Publication event (852): post-commit DigestPublished notification port and log adapter; retries emit no duplicate event and notification failures preserve publication. No external delivery.
 
 - [x] Saved job-link recovery (851): pruned completed on-demand jobs resolve to their immutable Postgres edition, with no generation or paid calls; isolated HTTP pruning/profile-isolation checks.
-
-- [x] Story composition instructions (850): editor v5 keeps separate developments apart while allowing direct follow-ups/reactions/consequences; new prompt/cache identity, immutable Nov 5 edition unchanged. Scheduled outcome pending.
-
-- [x] Nov 5 editorial evidence follow-up (849): checked exact saved evidence for Tech chip reports and Sony/PS6; resolved Sony support/same-release concern, isolated Tech composition issue, unchanged edition and no paid calls.
-
-- [x] X triage context (848): author, cutoff-safe unverified reported likes and verified-text media-link hints; shared production/cache diagnostic mapping, unchanged Bluesky and no paid calls.
-
-- [x] Nov 5 scheduled acceptance (847): full-AI NBA/all topics, grouping/cost/timing/social review and 16 read-only topic screenshots. Reader smoke accepts an edition ID and safe screenshot prefix for repeatable reviews.

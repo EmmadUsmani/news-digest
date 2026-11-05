@@ -86,8 +86,9 @@ Redis counter reset. Existing numeric job links continue to work.
 
 ## Reliability rules
 
-- **Retries:** collection and edition jobs retry 3 times with exponential
-  backoff. Every job keeps a bounded history visible on Status.
+- **Retries:** collection and scheduled editions allow 3 attempts with
+  exponential backoff. On-demand editions make one attempt; create a new
+  edition to try again. Redis keeps a bounded history visible on Status.
 - **Missed runs:** if the worker was down, a scheduled edition still runs when
   it comes back, unless it is more than 6 hours late. Then it is skipped with
   a reason rather than publishing a stale edition.
@@ -95,6 +96,9 @@ Redis counter reset. Existing numeric job links continue to work.
   publish two editions for the same morning.
 - **Saved job links:** after Redis removes a completed on-demand job, its status
   endpoint finds the published edition in Postgres and returns the edition link.
+- **Failed job links:** generation failures retain their job ID and duration in
+  Postgres. After Redis prunes them, the same link shows a generic failure
+  message. Exception text is never stored in this history.
 - **Progress connection:** a status request times out after 15 seconds. The
   page reconnects to the same job after a timeout or invalid status response;
   generation continues in the worker.

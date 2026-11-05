@@ -5,6 +5,7 @@ import { Injectable, OnModuleDestroy } from '@nestjs/common';
 import { Job, Queue } from 'bullmq';
 
 import { redis } from '../../../libs/db/connections';
+import { EditionJobFailures } from '../domain/edition-job-failures';
 import { EditionJobs, type EditionJobStatus } from '../domain/edition-jobs';
 import { PreviewRepository } from '../domain/preview.repository';
 
@@ -14,7 +15,10 @@ export class BullEditionJobs extends EditionJobs implements OnModuleDestroy {
   readonly queue = new Queue('digest-generation', {
     connection: this.connection,
   });
-  constructor(private readonly repository: PreviewRepository) {
+  constructor(
+    private readonly repository: PreviewRepository,
+    private readonly failures: EditionJobFailures,
+  ) {
     super();
     this.queue.on('error', () => {});
   }
@@ -41,11 +45,24 @@ export class BullEditionJobs extends EditionJobs implements OnModuleDestroy {
     const job = await this.queue.getJob(id);
     if (!job) {
       // BullMQ prunes its bounded history; the publication key survives in
-      // Postgres. Recover only a committed edition, never enqueue a new run.
+      // Postgres. Recover publication or failure without enqueueing a new run.
       if (!editionJobIdSchema.safeParse(id).success) return null;
       const edition = await this.repository.findByGenerationKey(
         `on-demand:${id}`,
       );
+      if (!edition) {
+        const failed = await this.failures.find(id);
+        return failed
+          ? {
+              id,
+              state: 'failed',
+              editionId: null,
+              progress: null,
+              durationMs: failed.durationMs,
+              error: 'Edition generation failed. Try again later.',
+            }
+          : null;
+      }
       return edition
         ? {
             id,

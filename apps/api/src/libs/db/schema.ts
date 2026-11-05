@@ -852,3 +852,20 @@ export const xSearchTopicSettings = pgTable(
     ),
   ],
 );
+
+export const editionJobFailures = pgTable(
+  'edition_job_failures',
+  {
+    jobId: text('job_id').primaryKey().notNull(),
+    profileId: uuid('profile_id')
+      .notNull()
+      .references(() => profiles.id),
+    durationMs: integer('duration_ms').notNull(),
+    failedAt: timestamp('failed_at', { withTimezone: true, mode: 'string' })
+      .defaultNow()
+      .notNull(),
+  },
+  (table) => [
+    check('edition_job_failures_duration_check', sql`${table.durationMs} >= 0`),
+  ],
+);

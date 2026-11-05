@@ -4,6 +4,7 @@ import { database } from './libs/db/connections';
 import { logger, logJob } from './libs/observability/logging';
 import { PostgresScheduledBudgetRepository } from './modules/curation/database/scheduled-budget.repository';
 import { generateOnDemandEdition } from './modules/digests/application/on-demand-edition';
+import { PostgresEditionJobFailures } from './modules/digests/database/edition-job-failures';
 import { PostgresPreviewRepository } from './modules/digests/database/preview.repository';
 import { PostgresProfileRepository } from './modules/profiles/database/profile.repository';
 import { coverageWindow } from './modules/profiles/domain/schedule';
@@ -18,6 +19,7 @@ export function startScheduledDigests() {
   const connection = { host: '127.0.0.1', port: 6379 };
   const profiles = new PostgresProfileRepository();
   const previews = new PostgresPreviewRepository();
+  const failures = new PostgresEditionJobFailures();
   const budgetDb = database();
   const budgets = new PostgresScheduledBudgetRepository(budgetDb);
   const queue = new Queue('digest-generation', { connection });
@@ -30,6 +32,7 @@ export function startScheduledDigests() {
           job.id!,
           job.data,
           (progress) => job.updateProgress(progress),
+          failures,
         );
       const profile = await profiles.getDefault();
       // A replaced schedule may leave an already queued slot; ignore obsolete settings.
@@ -138,6 +141,7 @@ export function startScheduledDigests() {
     await queue.close();
     await profiles.onModuleDestroy();
     await previews.onModuleDestroy();
+    await failures.onModuleDestroy();
     await budgetDb.end();
   };
 }
