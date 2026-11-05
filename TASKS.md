@@ -45,11 +45,7 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
-- [x] X-account pending-save recovery (806): desktop/mobile field/save/cancel locks, one request, unchanged replay state, retained edits after failure and successful retry/reload; protected reads prove live data unchanged.
+- [x] News-query pending-save recovery (807): desktop/mobile query, source-save/close and custom-feed controls lock during one held request; failure retains input, retry/reload/disconnect pass; protected live snapshots unchanged.
 
-- [x] Schedule pending-save recovery (805): desktop/mobile schedule fields and submit stay disabled while response is held; failed save unlocks retained input; all five saved fields survive reload. Protected replay preserves live schedule/topics/edition.
-
-- [x] Topic pending-save recovery (804): desktop/mobile save/name/cancel/create locks while response is held; failed save retains edits; retry and visible reloaded fields pass, with protected snapshots and no live writes.
-
-- [x] Reddit-community settings recovery (803): desktop/mobile failed save, retained input, retry, normalization, duplicate validation, reload and clear; protected snapshots, browser write/credential guards and full edition/topics/profile immutability, no Reddit fetching.
+- Completed iterations 803–806: [2026-11-05-completed-task-markers-807.md](docs/progress-archive/2026-11-05-completed-task-markers-807.md).
 - Earlier completed markers: [iterations through 802](docs/progress-archive/2026-11-05-completed-task-markers-803.md).

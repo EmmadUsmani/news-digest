@@ -75,6 +75,8 @@ async function smoke() {
       );
       let fail = true;
       let writes = 0;
+      let pendingSave: Promise<void> | undefined;
+      let releaseSave: (() => void) | undefined;
       const unexpectedWrites: string[] = [];
       await page.route('**/*', async (route) => {
         const request = route.request();
@@ -95,6 +97,7 @@ async function smoke() {
             assert.equal(input.query, 'artificial intelligence');
             return route.fulfill({ status: 400, json: {} });
           }
+          await pendingSave;
           if (fail) return route.fulfill({ status: 503, json: {} });
           topics = topics.map((topic) =>
             topic.id === target.id ? { ...topic, sources: [source.id] } : topic,
@@ -187,12 +190,61 @@ async function smoke() {
         topics.find((topic) => topic.id === target.id)!.sources,
         [],
       );
+      pendingSave = new Promise<void>((resolve) => {
+        releaseSave = resolve;
+      });
       await connect.click();
+      const connecting = feed.getByRole('button', {
+        name: 'Connecting…',
+        exact: true,
+      });
+      await connecting.waitFor();
+      assert.ok(await connecting.isDisabled());
+      assert.ok(await query.isDisabled());
+      assert.ok(
+        await form
+          .getByRole('button', { name: 'Saving…', exact: true })
+          .isDisabled(),
+      );
+      assert.ok(
+        await form
+          .getByRole('button', { name: 'Close sources', exact: true })
+          .isDisabled(),
+      );
+      const customFeed = page.getByRole('form', {
+        name: `Add feed for ${target.name}`,
+        exact: true,
+      });
+      assert.ok(
+        await customFeed.getByLabel('Feed name', { exact: true }).isDisabled(),
+      );
+      assert.ok(
+        await customFeed.getByLabel('Feed URL', { exact: true }).isDisabled(),
+      );
+      assert.ok(
+        await customFeed
+          .getByRole('button', { name: 'Connecting…', exact: true })
+          .isDisabled(),
+      );
+      assert.equal(writes, 2);
+      assert.deepEqual(
+        topics.find((topic) => topic.id === target.id)!.sources,
+        [],
+      );
+      await feed.scrollIntoViewIfNeeded();
+      await feed.screenshot({
+        path: `docs/screenshots/news-queries-saving-${device}.png`,
+      });
+      releaseSave!();
+      pendingSave = undefined;
       await page
         .getByRole('status')
         .filter({ hasText: 'Could not connect feed.' })
         .waitFor();
       assert.equal(await query.inputValue(), 'artificial intelligence');
+      assert.ok(await query.isEnabled());
+      assert.ok(await connect.isEnabled());
+      assert.equal(writes, 2);
       assert.deepEqual(
         topics.find((topic) => topic.id === target.id)!.sources,
         [],
@@ -260,7 +312,7 @@ async function smoke() {
         savedEdition,
       );
     console.log(
-      'News queries desktop/mobile: validation response, save failure, retry, cleared fields, stored content, replay reload and disconnect passed; full live topics/profile/edition unchanged, browser writes guarded and credentials absent, no inference.',
+      'News queries desktop/mobile: validation response, pending control locks, single request, save failure, retry, cleared fields, stored content, replay reload and disconnect passed; full live topics/profile/edition unchanged, browser writes guarded and credentials absent, no inference.',
     );
   } finally {
     await browser.close();

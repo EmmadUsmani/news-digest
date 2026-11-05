@@ -1,21 +1,3 @@
-## 2026-11-05: iteration 791 — validate generation progress before displaying it
-
-- Started clean on main; no leftover work. Health/database/Redis green, 36 sources current, four app services active and zero alerts; no failed retained digest runs.
-- Job-status reads now validate state, progress structure and completion UUID, and require the original job ID. Invalid responses reconnect to the same job rather than showing queued progress or accepting another job's terminal state.
-- Desktop/mobile browser-only replay covers empty payloads, mismatched IDs, missing/invalid completion IDs and malformed topic progress; each keeps controls disabled, retains the job and recovers without duplicate submission. Full saved edition/topics/profile unchanged, no browser credentials or unexpected writes. Invalid-status screenshots inspected; unrelated regenerated screenshots discarded.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-edition-jobs.ts; smoke-admin-gate.ts; check-handbook.ts jobs-and-schedules; git diff --check. Static checks, 497 unit/214 isolated integration tests, build, browser, gate and handbook passed. Browser fixture's publishing topic stage and busy-button selector corrected after initial replay failures. Final combined format/lint shell received SIGTERM; lint rerun separately.
-- TASKS and Jobs handbook updated; archived iteration 776. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No paid calls, stored-edition writes, config/schema/model/provider changes. API restarted after build; worker left running.
-- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X trials after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-
-## 2026-11-05: iteration 792 — verify schedule save recovery without live writes
-
-- Started clean on main; no leftover work. Health/database/Redis green, 36 sources current, four services active, zero alerts and no failed retained digest runs.
-- Schedule browser replay now reads content/status/topics/profile and the full saved edition through protected Node snapshots, disables service workers, blocks unexpected writes with an explicit probe and checks browser credential absence.
-- Desktop/mobile failed-save replay retains all five edited inputs, leaves the in-memory profile unchanged, then retries successfully and survives reload. Existing timezone rejection, topic-default and no-overflow checks pass. Full live edition/topics/profile unchanged; no browser errors. Failure screenshots inspected; unrelated regenerated screenshots discarded.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-schedule.ts; smoke-admin-gate.ts; check-handbook.ts 08-operations; git diff --check. Static checks, 497 unit/214 isolated integration tests, browser replay, admin gate and handbook checks passed (exit 0).
-- TASKS/access decision updated; archived iteration 777 to keep PROGRESS small. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No paid calls or app/config/schema/model/provider changes. Verification-only change; no rebuild/restart required under STEERING 22. Final health green, four services active, alerts zero.
-- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X trials after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-
 ## 2026-11-05: iteration 793 — verify topic save failure recovery
 
 - Started clean on main; no leftover work. Health/database/Redis green, 36 sources healthy, four services active, zero alerts and no failed retained digest runs; next edition remains 15:00 UTC.
@@ -145,3 +127,12 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-topic-accounts.ts; smoke-admin-gate.ts; git diff --check. All passed: static checks, 497 unit and 214 isolated integration tests, browser replay and admin gate. Initial full-check invocation ended with signal 143 during unit tests; rerun with a longer command timeout passed (exit 0).
 - TASKS updated; SOURCES/NEEDS_FROM_HUMAN unchanged because no source changes or new blockers. Verification-only change; services remain running under STEERING 22.
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 807 — verify pending news-query connections
+
+- Started clean on main; no leftover work. Health/database/Redis and four app services green. Metrics memory warning became firing at 10:15 UTC: service active at ~107 MiB/112 MiB (~50 MiB anonymous/~52 MiB file cache), no crash; retained limits unchanged. All 36 sources have successful collection and no errors; all queues have workers.
+- News-query browser replay holds a failed connection: desktop/mobile query, connect, source-save/close and custom-feed controls remain disabled; one request and unchanged replay sources. Failure unlocks retained query; retry, reload and disconnect pass.
+- Protected reads prove full live topics/profile/edition unchanged; browser credential/write guards pass. New pending screenshots inspected at both sizes; regenerated existing screenshots discarded. No live writes or paid calls.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-news-queries.ts; smoke-admin-gate.ts; git diff --check. All passed (exit 0): static checks, 497 unit and 214 isolated integration tests, browser replay, admin gate and diff check. Initial browser run used the idle save-button label during the pending state; corrected to Saving… and rerun passed.
+- TASKS updated; archived iterations 791–792 and completed markers 803–806. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. Verification-only change; no build/restart required under STEERING 22.
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending; monitor metrics memory warning.
