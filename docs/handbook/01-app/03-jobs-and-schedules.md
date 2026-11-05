@@ -87,7 +87,8 @@ sequenceDiagram
 - **Idempotency:** each scheduled slot has a unique key, so a retry can never
   publish two editions for the same morning.
 - **Progress connection:** a status request times out after 15 seconds. The
-  page reconnects to the same job; generation continues in the worker.
+  page reconnects to the same job after a timeout or invalid status response;
+  generation continues in the worker.
 
 Scheduled X discovery searches the available part of the edition's coverage
 window, up to the latest 24 hours. Date-only search bounds include the current

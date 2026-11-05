@@ -82,6 +82,7 @@ async function smoke() {
       let submissions = 0;
       let state = 'waiting';
       let disconnected = false;
+      let invalidStatus: unknown = undefined;
       let stallNextPoll = false;
       let stalledPolls = 0;
       let stage = 'triage';
@@ -96,6 +97,8 @@ async function smoke() {
           stalledPolls++;
           return; // Hold this request until the browser's real deadline aborts it.
         }
+        if (invalidStatus !== undefined)
+          return route.fulfill({ json: invalidStatus });
         if (disconnected) return route.fulfill({ status: 503, json: {} });
         await route.fulfill({
           json: {
@@ -105,7 +108,13 @@ async function smoke() {
               state === 'active'
                 ? {
                     stage: stage === 'publishing' ? 'publishing' : 'topics',
-                    topics: [{ id: 'fixture', name: 'Fixture topic', stage }],
+                    topics: [
+                      {
+                        id: 'fixture',
+                        name: 'Fixture topic',
+                        stage: stage === 'publishing' ? 'ready' : stage,
+                      },
+                    ],
                   }
                 : null,
             editionId: state === 'completed' ? edition.id : null,
@@ -167,6 +176,54 @@ async function smoke() {
         .getByRole('status')
         .filter({ hasText: 'Publishing your edition' })
         .waitFor();
+      for (const invalid of [
+        {},
+        { id: '456', state: 'failed', editionId: null, progress: null },
+        { id: '123', state: 'completed', editionId: null, progress: null },
+        {
+          id: '123',
+          state: 'completed',
+          editionId: '../admin',
+          progress: null,
+        },
+        {
+          id: '123',
+          state: 'active',
+          editionId: null,
+          progress: { stage: 'topics', topics: 'invalid' },
+        },
+      ]) {
+        invalidStatus = invalid;
+        await page
+          .getByRole('status')
+          .filter({ hasText: 'Connection interrupted' })
+          .waitFor();
+        assert.equal(submissions, 1);
+        assert.equal(
+          await page.evaluate(() => sessionStorage.getItem('edition-job')),
+          '123',
+        );
+        assert.equal(
+          await page
+            .getByRole('button', { name: 'Creating edition…' })
+            .isDisabled(),
+          true,
+        );
+        if (Object.keys(invalid).length === 0) {
+          await page
+            .getByRole('status')
+            .filter({ hasText: 'Connection interrupted' })
+            .scrollIntoViewIfNeeded();
+          await page.screenshot({
+            path: `docs/screenshots/edition-job-invalid-status-${name}.png`,
+          });
+        }
+        invalidStatus = undefined;
+        await page
+          .getByRole('status')
+          .filter({ hasText: 'Publishing your edition' })
+          .waitFor();
+      }
       stallNextPoll = true;
       // The stalled request must time out without submitting a replacement job.
       await page.waitForFunction(
@@ -259,7 +316,7 @@ async function smoke() {
     assert.deepEqual(await localAdminJson('/api/admin/topics'), topics);
     assert.deepEqual(await localAdminJson('/api/admin/profile'), profile);
     console.log(
-      'Async edition UI: desktop/mobile queue, active, reload, reconnect, stalled-poll timeout, completion, saved story text and failure passed; protected operational snapshots; unexpected browser writes blocked and no browser credentials; full saved edition, topics and profile unchanged.',
+      'Async edition UI: desktop/mobile queue, active, reload, reconnect, malformed/mismatched status recovery, stalled-poll timeout, completion, saved story text and failure passed; protected operational snapshots; unexpected browser writes blocked and no browser credentials; full saved edition, topics and profile unchanged.',
     );
   } finally {
     await browser.close();

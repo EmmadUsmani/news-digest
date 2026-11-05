@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Job status validation (791): malformed progress, mismatched job IDs and invalid completion IDs reconnect to the original job; desktop/mobile replay proves no duplicate submission or saved-data changes.
+
 - [x] On-demand progress recovery (790): stalled status reads time out after 15 seconds and reconnect to the same job; unmount cancels outstanding reads. Desktop/mobile replay verifies no duplicate submission and unchanged saved data.
 
 - [x] X lazy widgets (789): desktop/mobile replay proves distant cards remain unrendered through theme changes, then load the current theme on scrolling with one shared script; saved edition unchanged.

@@ -1,6 +1,7 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link, useNavigate, useParams } from '@tanstack/react-router';
 import React from 'react';
+import { z } from 'zod';
 
 import { Button } from './components/ui/button';
 import {
@@ -10,6 +11,32 @@ import {
   statusQuery,
 } from './queries';
 import { TopPosts } from './TopPosts';
+const editionJobStatusSchema = z.object({
+  id: z.string().regex(/^[0-9]{1,20}$/),
+  state: z.enum([
+    'waiting',
+    'active',
+    'delayed',
+    'prioritized',
+    'waiting-children',
+    'completed',
+    'failed',
+  ]),
+  editionId: z.string().uuid().nullable(),
+  progress: z
+    .object({
+      stage: z.enum(['topics', 'publishing']),
+      topics: z.array(
+        z.object({
+          id: z.string(),
+          name: z.string(),
+          stage: z.enum(['triage', 'editing', 'posts', 'ready']),
+        }),
+      ),
+    })
+    .nullable(),
+});
+
 export function DigestPreview() {
   const navigate = useNavigate();
   const { id: selectedEditionId } = useParams({ strict: false });
@@ -73,7 +100,9 @@ export function DigestPreview() {
           return;
         }
         if (!response.ok) throw new Error();
-        const job = await response.json();
+        const job = editionJobStatusSchema.parse(await response.json());
+        if (job.id !== jobId || (job.state === 'completed' && !job.editionId))
+          throw new Error('Invalid generation status');
         if (cancelled) return;
         if (job.state === 'failed') {
           setJobMessage('Edition generation failed. Try again later.');
