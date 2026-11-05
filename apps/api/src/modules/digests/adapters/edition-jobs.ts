@@ -42,40 +42,49 @@ export class BullEditionJobs extends EditionJobs implements OnModuleDestroy {
     return this.status(job);
   }
   async find(id: string): Promise<EditionJobStatus | null> {
-    const job = await this.queue.getJob(id);
-    if (!job) {
-      // BullMQ prunes its bounded history; the publication key survives in
-      // Postgres. Recover publication or failure without enqueueing a new run.
-      if (!editionJobIdSchema.safeParse(id).success) return null;
-      const edition = await this.repository.findByGenerationKey(
-        `on-demand:${id}`,
-      );
-      if (!edition) {
-        const failed = await this.failures.find(id);
-        return failed
-          ? {
-              id,
-              state: 'failed',
-              editionId: null,
-              progress: null,
-              durationMs: failed.durationMs,
-              error: 'Edition generation failed. Try again later.',
-            }
-          : null;
-      }
-      return edition
+    let job: Job | undefined;
+    try {
+      job = await this.queue.getJob(id);
+    } catch (error) {
+      const recovered = await this.recover(id);
+      if (recovered) return recovered;
+      // An unknown job may still be queued: an outage is not a missing job.
+      throw error;
+    }
+    if (!job) return this.recover(id);
+    if (job.name !== 'on-demand') return null;
+    return this.status(job);
+  }
+  private async recover(id: string): Promise<EditionJobStatus | null> {
+    // BullMQ prunes its bounded history; the publication key survives in
+    // Postgres. Recover publication or failure without enqueueing a new run.
+    if (!editionJobIdSchema.safeParse(id).success) return null;
+    const edition = await this.repository.findByGenerationKey(
+      `on-demand:${id}`,
+    );
+    if (!edition) {
+      const failed = await this.failures.find(id);
+      return failed
         ? {
             id,
-            state: 'completed',
-            editionId: edition.id,
+            state: 'failed',
+            editionId: null,
             progress: null,
-            durationMs: null,
-            error: null,
+            durationMs: failed.durationMs,
+            error: 'Edition generation failed. Try again later.',
           }
         : null;
     }
-    if (job.name !== 'on-demand') return null;
-    return this.status(job);
+    return edition
+      ? {
+          id,
+          state: 'completed',
+          editionId: edition.id,
+          progress: null,
+          durationMs: null,
+          error: null,
+        }
+      : null;
   }
   private async status(job: Job): Promise<EditionJobStatus> {
     const state = await job.getState();

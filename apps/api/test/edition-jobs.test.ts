@@ -131,6 +131,30 @@ void test('async edition requests dedupe while active, publish once and allow la
     await (await jobs.queue.getJob(id))!.remove();
     await jobs.connection.set(jobs.queue.toKey('id'), '0');
     assert.equal((await jobs.find(id))?.editionId, snapshot.id);
+    // A Redis read outage must not hide durable publications or failures.
+    const failedId = crypto.randomUUID();
+    await failures.record(failedId, 73);
+    const getJob = jobs.queue.getJob.bind(jobs.queue);
+    const outage = new Error('Redis unavailable fixture');
+    jobs.queue.getJob = () => Promise.reject(outage);
+    try {
+      assert.equal((await jobs.find(id))?.editionId, snapshot.id);
+      assert.deepEqual(await jobs.find(failedId), {
+        id: failedId,
+        state: 'failed',
+        editionId: null,
+        progress: null,
+        durationMs: 73,
+        error: 'Edition generation failed. Try again later.',
+      });
+      await assert.rejects(
+        jobs.find(crypto.randomUUID()),
+        (error) => error === outage,
+      );
+      assert.equal(calls, 1);
+    } finally {
+      jobs.queue.getJob = getJob;
+    }
     // Numeric links issued before UUID IDs were introduced remain readable.
     publications.set('on-demand:123456789', snapshot);
     assert.equal((await jobs.find('123456789'))?.editionId, snapshot.id);
