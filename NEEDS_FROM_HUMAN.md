@@ -55,4 +55,3 @@ R2_SECRET_ACCESS_KEY=
 R2_BUCKET=news-digest-backups
 BACKUP_AGE_RECIPIENT=
 ```
-
