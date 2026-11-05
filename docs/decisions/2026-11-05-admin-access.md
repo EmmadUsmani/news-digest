@@ -7,6 +7,10 @@ Protected `/api/admin/*` aliases now serve topics, profile, status, content
 and digest previews through the existing controllers. Legacy operational routes
 and tools remain available during the coordinated migration. The app remains private under exe.dev's existing access control.
 
+Admin responses use `Cache-Control: no-store` and vary on both identity
+headers, including successful pages, API reads/writes and downstream errors.
+Reader routes keep their own caching policy.
+
 ## Identity
 
 - Compare `X-ExeDev-Email` with comma-separated `ADMIN_EMAILS`, ignoring case

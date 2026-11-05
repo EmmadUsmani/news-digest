@@ -1,13 +1,3 @@
-## 2026-11-05: iteration 721 — article-free viral experiment preparation
-
-- Started clean on main; no leftover work. Zero alerts, health/database/Redis green, 36 healthy sources, zero failed digest jobs; latest stored edition has four topics. Nov 5 15:00 UTC acceptance remains future.
-- Read-only experiment CLI now emits only viral keyword and test-only semantic requests from topic descriptions/settings, without article loading or article readiness. Semantic requests ask for eight results, exact window, saved likes minimum/exclusions and mandatory -giveaway; Grok 4.3 and media understanding off unchanged.
-- Historical constructors remain for old evidence. Legacy runner rejects revised inputs before dispatch/reservation (fixture verified); runner/report/extractor migration remains next. Do not dispatch it for the new rounds.
-- Read-only real preparation confirmed four ready topics and approved Tech/NBA/Gaming/World thresholds 500/1000/500/2000, including NBA exclusions. No paid calls, cache writes, scorer changes, model/provider changes or activation.
-- Verification: targeted input/runner tests 10/10, pnpm build and full pnpm check passed (481 unit, 213 isolated integration, exit 0). pnpm format and pnpm lint:fix run before commit; git diff --check clean.
-- Updated TASKS and experiment instructions; archived iterations 708–709 to keep PROGRESS small. SOURCES/NEEDS_FROM_HUMAN unchanged: no source or new owner blocker. No UI changes. Services remain healthy; no restart under STEERING 22 because only offline scripts/tests/docs changed.
-- Next: migrate runner/report/extractor to viral + semantic; scorer only after Nov 5 edition, rounds after 21:00 UTC Nov 5/6. Scheduled acceptance/protections first when due.
-
 ## 2026-11-05: iteration 722 — revised X experiment runner
 
 - Started clean on main; no leftover work. Zero alerts, health/database/Redis green, all 36 sources healthy and zero failed retained digest jobs. Nov 5 scheduled acceptance remains future (15:00 UTC).
@@ -132,3 +122,14 @@
 - Rebuilt/restarted API/docs. Initial immediate health probe raced startup; readiness retry and pnpm obs health --check passed. Live six admin paths denied, /api/me denied identity, and reader latest returned four topics/14 stories/15 posts. Worker/schema unchanged.
 - Updated TASKS, runtime handbook and access decision; archived iteration 720 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker.
 - No paid calls, model/provider/budget changes, scorer work or X activation. Next: configured admin identity, UI/script migration and tool gate together; scheduled Nov 5 acceptance first when due, scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6.
+
+## 2026-11-05: iteration 735 — prevent caching identity-dependent admin responses
+
+- Started clean on main; no leftover work. Health/database/Redis, 13 services and 36 sources healthy; zero retained failed digest runs. Existing metrics memory warning pending; no ceiling change or observability restart. Nov 5 edition remains due at 15:00 UTC.
+- Protected /admin and /api/admin responses now use no-store and vary on both identity headers before downstream handling, covering authorized reads/writes/pages and errors as well as denied requests. Reader caching policy unchanged. Legacy routes/tools remain pending coordinated migration and configured identity.
+- Expanded real-HTTP gate checks for email/token identity, HEAD, downstream 404/500 and reader isolation; isolated controller parity checks assert cache headers on protected reads and topic creation. No live writes or inference.
+- Verification: targeted admin-access tests 2/2; pnpm format, pnpm lint:fix, pnpm check (494 unit/214 isolated integration, exit 0), pnpm build, check-handbook.ts 01-stack-and-runtime and git diff --check all passed.
+- Rebuilt/restarted API/docs; readiness retry and pnpm obs health --check passed. Live three admin paths returned 404/no-store/identity Vary, reader latest returned four topics. Worker/schema/UI unchanged; no screenshot changes needed.
+- pnpm obs jobs --check with filters was rejected; corrected read-only jobs command confirmed no failed digest runs. Historical ingestion/social queue failure counts persist with current source health green.
+- Updated TASKS and access decision; archived iteration 721 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new owner blocker. No paid calls, model/provider/budget changes, scorer work or X activation.
+- Next: configured admin identity, UI/script migration and tool gate together; scheduled Nov 5 acceptance first when due, scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6.

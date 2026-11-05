@@ -84,7 +84,15 @@ void test('HTTP gate denies reserved admin routes and reports only uncached iden
     localToken: 'test-token',
   });
   const server = createServer((req, res) =>
-    gate(req, res, () => res.writeHead(200).end('downstream')),
+    gate(req, res, () => {
+      const status =
+        req.url === '/admin/missing'
+          ? 404
+          : req.url === '/admin/error'
+            ? 500
+            : 200;
+      res.writeHead(status).end('downstream');
+    }),
   );
   await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
   const base = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
@@ -97,28 +105,30 @@ void test('HTTP gate denies reserved admin routes and reports only uncached iden
       '/api/admin',
       '/api/admin%2Feditions',
     ]) {
-      for (const method of ['GET', 'POST', 'PATCH', 'DELETE']) {
+      for (const method of ['GET', 'HEAD', 'POST', 'PATCH', 'DELETE']) {
         const denied = await fetch(base + path, { method });
         assert.equal(denied.status, 404, `${method} ${path}`);
         assert.equal(denied.headers.get('cache-control'), 'no-store');
+        assert.equal(
+          denied.headers.get('vary'),
+          'X-ExeDev-Email, ADMIN_LOCAL_TOKEN',
+        );
         assert.equal(await denied.text(), '');
       }
-      assert.equal(
-        (
-          await fetch(base + path, {
-            headers: { 'x-exedev-email': 'owner@example.com' },
-          })
-        ).status,
-        200,
-      );
-      assert.equal(
-        (
-          await fetch(base + path, {
-            headers: { ADMIN_LOCAL_TOKEN: 'test-token' },
-          })
-        ).status,
-        200,
-      );
+      for (const headers of [
+        { 'x-exedev-email': 'owner@example.com' },
+        { ADMIN_LOCAL_TOKEN: 'test-token' },
+      ]) {
+        for (const method of ['GET', 'HEAD', 'POST']) {
+          const authorized = await fetch(base + path, { headers, method });
+          assert.equal(authorized.status, 200);
+          assert.equal(authorized.headers.get('cache-control'), 'no-store');
+          assert.equal(
+            authorized.headers.get('vary'),
+            'X-ExeDev-Email, ADMIN_LOCAL_TOKEN',
+          );
+        }
+      }
     }
     for (const path of [
       '/',
@@ -128,7 +138,10 @@ void test('HTTP gate denies reserved admin routes and reports only uncached iden
       '/api/administer',
       '/healthz',
     ]) {
-      assert.equal(await (await fetch(base + path)).text(), 'downstream');
+      const reader = await fetch(base + path);
+      assert.equal(await reader.text(), 'downstream');
+      assert.equal(reader.headers.get('cache-control'), null);
+      assert.equal(reader.headers.get('vary'), null);
     }
     for (const [headers, expected] of [
       [{}, false],
@@ -142,6 +155,20 @@ void test('HTTP gate denies reserved admin routes and reports only uncached iden
       const response = await fetch(`${base}/api/me`, { headers });
       assert.equal(response.headers.get('cache-control'), 'no-store');
       assert.deepEqual(await response.json(), { isAdmin: expected });
+    }
+    for (const [path, status] of [
+      ['/admin/missing', 404],
+      ['/admin/error', 500],
+    ] as const) {
+      const response = await fetch(base + path, {
+        headers: { ADMIN_LOCAL_TOKEN: 'test-token' },
+      });
+      assert.equal(response.status, status);
+      assert.equal(response.headers.get('cache-control'), 'no-store');
+      assert.equal(
+        response.headers.get('vary'),
+        'X-ExeDev-Email, ADMIN_LOCAL_TOKEN',
+      );
     }
     assert.equal((await fetch(`${base}/admin/%ZZ`)).status, 400);
   } finally {

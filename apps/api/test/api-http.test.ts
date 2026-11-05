@@ -360,6 +360,13 @@ void test('protected admin aliases use real controllers and deny unauthenticated
     const authorized = await fetch(`${base}/api/admin/${path}`, { headers });
     const legacy = await fetch(`${base}/api/${path}`);
     assert.equal(authorized.status, legacy.status, path);
+    assert.equal(authorized.headers.get('cache-control'), 'no-store', path);
+    assert.match(authorized.headers.get('vary') ?? '', /X-ExeDev-Email/i, path);
+    assert.match(
+      authorized.headers.get('vary') ?? '',
+      /ADMIN_LOCAL_TOKEN/i,
+      path,
+    );
     // Status includes current timestamps/queue timings, so compare its shape only.
     if (path === 'status') {
       assert.deepEqual(
@@ -396,6 +403,7 @@ void test('protected admin aliases use real controllers and deny unauthenticated
     body: JSON.stringify(input),
   });
   assert.equal(createdResponse.status, 201);
+  assert.equal(createdResponse.headers.get('cache-control'), 'no-store');
   const created = topicSchema.parse(await createdResponse.json());
   try {
     const updated = await fetch(`${url}/${created.id}`, {

@@ -69,9 +69,15 @@ export function adminAccess(config: AdminAccessConfig) {
     const protectedPath = ['/admin', '/api/admin'].some(
       (prefix) => path === prefix || path.startsWith(`${prefix}/`),
     );
-    if (protectedPath && !isAdmin(request, config)) {
-      response.writeHead(404, { 'cache-control': 'no-store' }).end();
-      return;
+    if (protectedPath) {
+      // Successful pages, API responses and downstream errors all depend on
+      // identity. Apply the policy before handing off to static files/routes.
+      response.setHeader('cache-control', 'no-store');
+      response.setHeader('vary', 'X-ExeDev-Email, ADMIN_LOCAL_TOKEN');
+      if (!isAdmin(request, config)) {
+        response.writeHead(404).end();
+        return;
+      }
     }
     next();
   };
