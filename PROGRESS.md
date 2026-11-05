@@ -143,3 +143,13 @@
 - Restarted API only for the rebuilt web bundle; post-restart health and reader four-topic content pass. Worker unchanged; no paid calls or live settings/generation writes.
 - TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (recovery copy only; no new blockers).
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 823 — bound stalled schedule saves
+
+- Started clean on main; no leftover work. Alerts clear and health/database/Redis green. Scheduled Nov 5 evidence remains pending at 15:00 UTC.
+- Schedule PUT now has a 15-second abort deadline so a stalled transport cannot leave all schedule controls disabled indefinitely. Existing uncertainty/reload guidance preserves entered values; no automatic retry.
+- Desktop/mobile browser replay holds the request open until the real deadline, verifies all five values and unlocked controls, then exercises rejection, saved-but-interrupted reload, successful save and validation. Protected live profile/topics/full edition unchanged; all writes replayed, no paid calls.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-schedule.ts; smoke-admin-gate.ts; git diff --check. Timeout screenshots inspected in docs/screenshots/ui/; unrelated regenerated images discarded.
+- Full check passed static checks and 497 unit tests, then was terminated (143) after integration test 214 before summary; separate pnpm test:integration rerun exited 0: 214 passed, zero failures. No dangling Docker volumes.
+- Rebuilt and restarted API only; health/database/Redis, four-topic reader and admin gate pass; alerts clear. Worker and live schedule unchanged. TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadline only, no new blocker).
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

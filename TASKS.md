@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Schedule save deadline (823): stalled requests release controls after 15 seconds, preserve entered values and retain reload guidance; desktop/mobile real-timeout replay passes.
+
 - [x] Edition request recovery (822): interrupted generation warns about a possibly queued run; desktop/mobile replay verifies reload does not resubmit.
 
 - [x] Topic creation recovery (821): interrupted creation warns about duplicates; desktop/mobile replay recovers one saved topic on reload without another POST.

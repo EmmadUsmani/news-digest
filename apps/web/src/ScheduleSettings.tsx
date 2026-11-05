@@ -27,6 +27,7 @@ export function ScheduleSettings({
     try {
       const response = await fetch('/api/profile/schedule', {
         method: 'PUT',
+        signal: AbortSignal.timeout(15_000),
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(input),
       });

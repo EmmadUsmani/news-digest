@@ -145,14 +145,15 @@ async function smoke() {
       await form.screenshot({
         path: `docs/screenshots/schedule-saving-${device}.png`,
       });
-      releaseSave!();
-      pendingSave = undefined;
+      // Keep the transport stalled until the real browser deadline releases the form.
       await form
         .getByRole('status')
         .filter({
           hasText: 'Could not confirm whether schedule settings were saved.',
         })
-        .waitFor();
+        .waitFor({ timeout: 25_000 });
+      releaseSave!();
+      pendingSave = undefined;
       assert.deepEqual(profile, beforeFailure);
       assert.ok(
         await form
@@ -184,7 +185,7 @@ async function smoke() {
         '0',
       );
       await form.screenshot({
-        path: `docs/screenshots/schedule-save-failure-${device}.png`,
+        path: `docs/screenshots/ui/schedule-save-timeout-${device}.png`,
       });
       failSave = false;
       rejectSave = true;
@@ -320,7 +321,7 @@ async function smoke() {
         latest,
       );
     console.log(
-      'Schedule desktop/mobile: pending-save locks, failed-save recovery, non-JSON rejection, saved-but-interrupted response/reload, all saved fields after reload, timezone errors, defaults, blocked writes, credential absence and full edition/topics/profile immutability passed',
+      'Schedule desktop/mobile: pending-save locks, real transport timeout recovery, non-JSON rejection, saved-but-interrupted response/reload, all saved fields after reload, timezone errors, defaults, blocked writes, credential absence and full edition/topics/profile immutability passed',
     );
   } finally {
     try {
