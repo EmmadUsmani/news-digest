@@ -1,13 +1,3 @@
-## 2026-11-05: iteration 865 — reassess incremental triage after full-AI acceptance
-
-- Started clean on main; no leftover work. Alerts clear, health database/Redis OK, 36 active sources without errors and zero failed digest jobs.
-- Read-only production cost reader now returns one qualifying full-AI cost ($0.315445). Unchanged 1.5 headroom protects $0.473168; production policy projects Nov 6 morning allowance $0.021736–$0.028915 depending on remaining Nov 5 spend.
-- Captured the same Nov 5 window after publication and compared actual configured Haiku fingerprints with iteration 655: 2/65 compatible, 62 absent, one NBA article-input change. This is prospective compatibility, not publication-time membership or actual paid waste.
-- Added docs/edition-reviews/2026-11-05-incremental-admission.md; keep incremental triage OFF and reserve unchanged. No provider calls, cache writes, configuration changes or generation.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (501 unit/218 isolated integration passed); pnpm build; git diff --check. First check caught formatting in the newly archived progress entry; corrected before passing rerun.
-- Archived iteration 851; updated TASKS. Runtime unchanged, no restart under STEERING 22. Handbook, schema metadata, SOURCES, screenshots and NEEDS_FROM_HUMAN unchanged.
-- Next: X fresh-window rounds after 21:00 UTC Nov 5/6; scheduled editor-v5 evidence Nov 6. Incremental activation needs closer-to-cutoff consumption/waste evidence; admin rollout still needs identity/proxy evidence.
-
 ## 2026-11-05: iteration 866 — preflight paid X experiment rounds
 
 - Started clean on main; no leftover work. Alerts clear, database/Redis healthy, 36 sources healthy and zero failed digest jobs. X rounds remain gated until 21:00 UTC; UI rollout still awaits identity/proxy evidence.
@@ -133,3 +123,15 @@
 - API restarted for built web; worker unchanged. Final health/alerts clear. No paid calls, saved-data writes, source/schema/access changes; SOURCES and NEEDS_FROM_HUMAN unchanged; archived iteration 864.
 - Push initially rejected after owner STEERING-only commits landed; merged item 38 without rewriting history.
 - Next: finish dedicated admin pages and Sources management, then final reader; Overview alert count/cost remain. X rounds after 21:00 UTC Nov 5/6 and scheduled Nov 6 editorial/story-pool review stay ahead when due.
+
+## 2026-11-05: iteration 878 — dedicated edition schedule
+
+- Started clean on main; no leftover work. Initial alerts clear and API/worker active; /healthz database/Redis healthy. X fresh-window work remains due after 21:00 UTC.
+- Owner-visible value: schedule controls now have a focused, directly linked page instead of being buried in legacy Overview controls.
+- Added protected /admin/schedule, desktop/mobile navigation and next-edition time/queue warning; moved the daily time, timezone, coverage and default budgets form into a styled Card with shared Button. Removed duplicate legacy controls.
+- Browser: smoke-admin-schedule covers four viewport/theme combinations, anonymous denial, reload, mobile navigation, no overflow/browser credentials, simulated save and failed-save draft retention. PUTs are replayed in memory; no live schedule changes. Four screenshots retained; desktop light/mobile dark visually inspected.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check; handbook operations check; smoke-admin-gate. Passed 505 unit/218 isolated integration tests and build; handbook 18 pages/2 unchanged diagrams/28 tables; admin gate 24 denied paths and forwarded-token checks passed.
+- Migrated existing smoke-schedule to the dedicated route and loopback address; retained its validation, uncertain-save/reload and unchanged-live-data checks. Archived iteration 865.
+- Initial browser script needed an async wrapper for the repo's CommonJS config; corrected. Operations page exceeded its line cap by one; condensed before rerunning.
+- API restarted for built web; worker unchanged. Final alerts clear; 36 sources/no errors, saved edition four topics and no failed queues. Overview regression and both schedule browser suites passed; retained updated captures. No paid calls, source/schema changes or saved-data writes; SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Next: dedicated Editions/creation/inspector, Topics and Spend; finish Sources controls and Overview cost/alerts. X rounds after 21:00 UTC Nov 5/6; Nov 6 editorial review.

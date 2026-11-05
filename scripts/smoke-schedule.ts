@@ -7,7 +7,7 @@ import { validateSchedule } from '../apps/api/src/modules/profiles/domain/schedu
 import { localAdminJson } from './lib/local-admin-fetch';
 import { replayAdminPage } from './lib/replay-admin-page';
 
-const base = 'http://localhost:8000';
+const base = 'http://127.0.0.1:8000';
 async function smoke() {
   const browser = await chromium.launch();
   const context = await browser.newContext({ serviceWorkers: 'block' });
@@ -93,7 +93,7 @@ async function smoke() {
       const pageErrors: string[] = [];
       page.on('pageerror', (error) => pageErrors.push(error.message));
       await replayAdminPage(page);
-      await page.goto(`${base}/admin`);
+      await page.goto(`${base}/admin/schedule`);
       const probe = await page.evaluate(async () => {
         try {
           await fetch('/api/admin/profile/unexpected-write-probe', {
@@ -109,7 +109,6 @@ async function smoke() {
         unexpectedWrites.pop(),
         'POST /api/admin/profile/unexpected-write-probe',
       );
-      await page.getByText('Schedule settings', { exact: true }).click();
       const form = page.getByRole('form', {
         name: 'Schedule settings',
         exact: true,
@@ -230,7 +229,6 @@ async function smoke() {
       });
       saveBeforeAbort = false;
       await page.reload();
-      await page.getByText('Schedule settings', { exact: true }).click();
       assert.equal(
         await form.getByLabel('Coverage window', { exact: true }).inputValue(),
         'PT6H',
@@ -256,7 +254,6 @@ async function smoke() {
         postBudget: 0,
       });
       await page.reload();
-      await page.getByText('Schedule settings', { exact: true }).click();
       assert.equal(
         await form.getByLabel('Coverage window', { exact: true }).inputValue(),
         'PT6H',
@@ -313,6 +310,10 @@ async function smoke() {
       await form.screenshot({
         path: `docs/screenshots/schedule-${device}.png`,
       });
+      await page.goto(`${base}/admin`);
+      await page
+        .getByText('Edition and management controls', { exact: true })
+        .click();
       await page.getByText('Manage topics', { exact: true }).click();
       await page
         .getByRole('button', { name: 'Create topic', exact: true })

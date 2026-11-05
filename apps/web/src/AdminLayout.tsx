@@ -16,6 +16,7 @@ function Navigation({ mobile = false }: { mobile?: boolean }) {
         [
           { to: '/admin', label: 'Overview' },
           { to: '/admin/sources', label: 'Sources' },
+          { to: '/admin/schedule', label: 'Schedule' },
           { to: '/admin/tools', label: 'Tools' },
         ] as const
       ).map(({ to, label }) => {
@@ -82,7 +83,9 @@ export function AdminLayout() {
               ? 'Tools'
               : pathname.startsWith('/admin/sources')
                 ? 'Sources'
-                : 'Overview'}
+                : pathname.startsWith('/admin/schedule')
+                  ? 'Schedule'
+                  : 'Overview'}
           </h1>
           <span className="text-xs tracking-wide text-[var(--secondary)]">
             PRODUCTION

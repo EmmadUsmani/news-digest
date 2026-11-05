@@ -10,7 +10,6 @@ import {
   profileQuery,
   topicsQuery,
 } from './queries';
-import { ScheduleSettings } from './ScheduleSettings';
 import { StatusPanel } from './StatusPanel';
 import { TopicSettings } from './TopicSettings';
 export function App({ admin = false }: { admin?: boolean }) {
@@ -144,14 +143,6 @@ function LegacyAdminControls() {
                     </article>
                   ))}
               </div>
-              {profile && (
-                <ScheduleSettings
-                  profile={profile}
-                  onSaved={(saved) =>
-                    queryClient.setQueryData(profileQuery.queryKey, saved)
-                  }
-                />
-              )}
             </>
           )}
         </section>

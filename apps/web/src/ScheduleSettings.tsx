@@ -1,5 +1,8 @@
 import { type ProfileSettings, profileSettingsSchema } from '@digest/contracts';
 import React from 'react';
+
+import { Button } from './components/ui/button';
+import { Card } from './components/ui/card';
 export function ScheduleSettings({
   profile,
   onSaved,
@@ -64,26 +67,23 @@ export function ScheduleSettings({
     }
   }
   return (
-    <details className="schedule-settings">
-      <summary>Schedule settings</summary>
+    <Card className="max-w-3xl [&_input]:mt-2 [&_input]:block [&_input]:w-full [&_input]:rounded-md [&_input]:border [&_input]:border-[var(--border)] [&_input]:bg-[var(--surface)] [&_input]:px-3 [&_input]:py-2 [&_label]:block [&_label]:text-sm [&_label]:font-medium [&_p]:text-sm [&_p]:text-[var(--secondary)]">
       <p className="schedule-note">
         Automatic edition: daily at {hour.padStart(2, '0')}:
         {minute.padStart(2, '0')} ({schedule.timezone.replaceAll('_', ' ')}) ·
         Coverage: {schedule.coverageWindow}. Automatic editions follow this
         schedule; changes take effect within 10 seconds.
       </p>
-      <p>
-        After an outage, queued editions run up to six hours late with their
-        original window. Older runs are skipped, without backfilling missed
-        days. Generate a custom window to recover missed coverage.
-      </p>
       <form
         key={JSON.stringify(schedule)}
         aria-label="Schedule settings"
         onSubmit={save}
       >
-        <fieldset disabled={busy}>
-          <legend>Schedule your edition</legend>
+        <fieldset
+          disabled={busy}
+          className="m-0 grid min-w-0 gap-5 border-0 p-0"
+        >
+          <legend className="mb-5 font-semibold">Schedule your edition</legend>
           <label>
             Daily local time
             <input
@@ -132,7 +132,7 @@ export function ScheduleSettings({
             Use an elapsed ISO duration, such as PT6H, P1D or P7D (maximum 31
             days). P1D always means 24 hours, including daylight saving days.
           </p>
-          <div className="budget-fields">
+          <div className="grid gap-5 sm:grid-cols-2">
             <label>
               Default story budget
               <input
@@ -161,12 +161,12 @@ export function ScheduleSettings({
             Post budgets limit verified posts in new editions. Saved editions
             keep their original windows and selections.
           </p>
-          <button ref={saveButton} type="submit">
+          <Button ref={saveButton} type="submit" className="justify-self-start">
             {busy ? 'Saving…' : 'Save schedule'}
-          </button>
+          </Button>
         </fieldset>
         <p role="status">{message}</p>
       </form>
-    </details>
+    </Card>
   );
 }

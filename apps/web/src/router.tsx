@@ -11,6 +11,7 @@ import {
 import { z } from 'zod';
 
 import { AdminLayout, AdminTools } from './AdminLayout';
+import { AdminSchedule } from './AdminSchedule';
 import { AdminSources } from './AdminSources';
 import { App } from './App';
 import {
@@ -123,6 +124,12 @@ const adminSourcesRoute = createRoute({
   component: AdminSources,
 });
 
+const adminScheduleRoute = createRoute({
+  getParentRoute: () => adminRoute,
+  path: '/schedule',
+  component: AdminSchedule,
+});
+
 export const router = createRouter({
   routeTree: rootRoute.addChildren([
     latestRoute,
@@ -130,6 +137,7 @@ export const router = createRouter({
     adminRoute.addChildren([
       adminOverviewRoute,
       adminSourcesRoute,
+      adminScheduleRoute,
       adminToolsRoute,
     ]),
   ]),
