@@ -14,6 +14,7 @@ import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
 import { BullEditionJobs } from '../src/modules/digests/adapters/edition-jobs';
 import { generateOnDemandEdition } from '../src/modules/digests/application/on-demand-edition';
 import { PostgresEditionJobFailures } from '../src/modules/digests/database/edition-job-failures';
+import { PostgresEditionJobRequests } from '../src/modules/digests/database/edition-job-requests';
 import { PostgresPreviewRepository } from '../src/modules/digests/database/preview.repository';
 import type { Candidate } from '../src/modules/digests/domain/rank';
 
@@ -24,7 +25,8 @@ void test('four-topic edition timing includes SQL, batched triage, editing, publ
   assert.equal(process.env.ANTHROPIC_API_KEY, '');
   const repository = new PostgresPreviewRepository();
   const failures = new PostgresEditionJobFailures();
-  const jobs = new BullEditionJobs(repository, failures);
+  const requestsHistory = new PostgresEditionJobRequests();
+  const jobs = new BullEditionJobs(repository, failures, requestsHistory);
   const connection = jobs.connection.duplicate({ maxRetriesPerRequest: null });
   const worker = new Worker(
     jobs.queue.name,
@@ -336,6 +338,7 @@ void test('four-topic edition timing includes SQL, batched triage, editing, publ
     await connection.quit();
     await jobs.onModuleDestroy();
     await failures.onModuleDestroy();
+    await requestsHistory.onModuleDestroy();
     await repository.db.query(
       'DELETE FROM x_link_citations WHERE external_id=ANY($1::text[])',
       [postIds],

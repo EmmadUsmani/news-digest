@@ -16,9 +16,11 @@ import {
 import { LogDigestNotifications } from './adapters/digest-notifications';
 import { BullEditionJobs } from './adapters/edition-jobs';
 import { PostgresEditionJobFailures } from './database/edition-job-failures';
+import { PostgresEditionJobRequests } from './database/edition-job-requests';
 import { PostgresPreviewRepository } from './database/preview.repository';
 import { DigestNotifications } from './domain/digest-published';
 import { EditionJobFailures } from './domain/edition-job-failures';
+import { EditionJobRequests } from './domain/edition-job-requests';
 import { EditionJobs } from './domain/edition-jobs';
 import { PreviewRepository } from './domain/preview.repository';
 import { ReaderEditionController } from './reader-edition.controller';
@@ -79,6 +81,7 @@ export class PreviewController {
   controllers: [PreviewController, ReaderEditionController],
   providers: [
     { provide: EditionJobFailures, useClass: PostgresEditionJobFailures },
+    { provide: EditionJobRequests, useClass: PostgresEditionJobRequests },
     { provide: DigestNotifications, useClass: LogDigestNotifications },
     { provide: EditionJobs, useClass: BullEditionJobs },
     { provide: PreviewRepository, useClass: PostgresPreviewRepository },

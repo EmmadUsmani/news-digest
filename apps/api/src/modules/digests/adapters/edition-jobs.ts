@@ -6,6 +6,7 @@ import { Job, Queue } from 'bullmq';
 
 import { redis } from '../../../libs/db/connections';
 import { EditionJobFailures } from '../domain/edition-job-failures';
+import { EditionJobRequests } from '../domain/edition-job-requests';
 import { EditionJobs, type EditionJobStatus } from '../domain/edition-jobs';
 import { PreviewRepository } from '../domain/preview.repository';
 
@@ -18,6 +19,7 @@ export class BullEditionJobs extends EditionJobs implements OnModuleDestroy {
   constructor(
     private readonly repository: PreviewRepository,
     private readonly failures: EditionJobFailures,
+    private readonly requests: EditionJobRequests,
   ) {
     super();
     this.queue.on('error', () => {});
@@ -39,12 +41,14 @@ export class BullEditionJobs extends EditionJobs implements OnModuleDestroy {
     // A deduplicated add can contain the submitted data: read the retained job.
     const job = await this.queue.getJob(added.id!);
     if (!job) throw new Error('Edition job unavailable');
+    // Persist acceptance before returning the link, including deduplicated adds.
+    await this.requests.record(job.id!);
     return this.status(job);
   }
   async find(id: string): Promise<EditionJobStatus | null> {
     try {
       const job = await this.queue.getJob(id);
-      if (!job) return this.recover(id);
+      if (!job) return this.recover(id, true);
       if (job.name !== 'on-demand') return null;
       return await this.status(job);
     } catch (error) {
@@ -54,7 +58,10 @@ export class BullEditionJobs extends EditionJobs implements OnModuleDestroy {
       throw error;
     }
   }
-  private async recover(id: string): Promise<EditionJobStatus | null> {
+  private async recover(
+    id: string,
+    confirmedMissing = false,
+  ): Promise<EditionJobStatus | null> {
     // BullMQ prunes its bounded history; the publication key survives in
     // Postgres. Recover publication or failure without enqueueing a new run.
     if (!editionJobIdSchema.safeParse(id).success) return null;
@@ -72,7 +79,17 @@ export class BullEditionJobs extends EditionJobs implements OnModuleDestroy {
             durationMs: failed.durationMs,
             error: 'Edition generation failed. Try again later.',
           }
-        : null;
+        : confirmedMissing && (await this.requests.exists(id))
+          ? {
+              id,
+              state: 'failed',
+              editionId: null,
+              progress: null,
+              durationMs: null,
+              error:
+                'Edition job is no longer available. Create a new edition to try again.',
+            }
+          : null;
     }
     return edition
       ? {
@@ -89,7 +106,7 @@ export class BullEditionJobs extends EditionJobs implements OnModuleDestroy {
     const state = await job.getState();
     // Pruning can race either read. Prefer durable history over stale fields.
     if (state === 'unknown') {
-      const recovered = await this.recover(job.id!);
+      const recovered = await this.recover(job.id!, true);
       if (recovered) return recovered;
     }
     // Publication commits before the worker acknowledges completion. A worker
@@ -111,7 +128,7 @@ export class BullEditionJobs extends EditionJobs implements OnModuleDestroy {
     if (state === 'completed' || state === 'failed') {
       const refreshed = await this.queue.getJob(job.id!);
       if (!refreshed) {
-        const recovered = await this.recover(job.id!);
+        const recovered = await this.recover(job.id!, true);
         if (recovered) return recovered;
       }
       job = refreshed ?? job;

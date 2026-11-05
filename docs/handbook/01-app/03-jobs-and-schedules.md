@@ -82,7 +82,7 @@ sequenceDiagram
 ```
 
 New on-demand jobs use random UUIDs, so their saved edition links survive a
-Redis counter reset. Existing numeric job links continue to work.
+Redis counter reset. Existing numeric job links continue to work. Accepted job IDs are saved in Postgres before the API returns their links.
 
 ## Reliability rules
 
@@ -107,6 +107,7 @@ Redis counter reset. Existing numeric job links continue to work.
 - **Saved editions:** a committed edition remains available from its job link
   as soon as publication commits, even if the worker is still active, is requeued after a stall, or fails
   before acknowledging completion.
+- **Lost jobs:** if Redis confirms an accepted job is missing and no edition or failure was saved, its link explains that the job is unavailable and offers a new run. Redis outages stay retryable.
 - **Progress connection:** a status request times out after 15 seconds. The
   page reconnects to the same job after a timeout or invalid status response;
   generation continues in the worker.

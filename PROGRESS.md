@@ -1,14 +1,3 @@
-## 2026-11-05: iteration 849 — resolve saved editorial evidence concerns
-
-- Started clean on main; no leftover work. Alerts clear, health/database/Redis green, all 36 sources healthy and digest queue zero failures.
-- Completed the Nov 5 Tech/Sony follow-up using a fresh protected edition GET and exact saved evidence IDs/excerpts; response equals iteration-847 capture, SHA-256 recorded in the review.
-- Sony profit figures and PS6 quotations are supported; PS6 source explicitly places comments alongside the same quarterly results. Resolved that concern under the owner's same-story definition.
-- Tech Moonshot/Blackwell and Hong Kong import reports both have saved support, but combine separate developments sharing a theme. Isolated an editorial composition issue; singleton coverage alone does not establish missing evidence or a grouping-model merge.
-- Updated edition review and TASKS with evidence, reproduction and the narrower follow-up. No new audit variant, inference, source fetch or data write; saved edition unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (498 unit/214 isolated integration passed); pnpm build; git diff --check; pnpm obs alerts/health/sources and filtered jobs. Jobs --check cannot combine filters; corrected query confirmed zero failures.
-- No UI/runtime/config change; no restart under STEERING 22. SOURCES, handbook and NEEDS_FROM_HUMAN unchanged (no source/system change or new owner blocker).
-- Next: correct Tech editorial composition using saved evidence; X fresh-window rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-
 ## 2026-11-05: iteration 850 — keep separate developments out of one edited story
 
 - Started clean on main; no leftover work. Alerts/health green, all 36 sources healthy, digest-generation queue zero failures.
@@ -143,3 +132,14 @@
 - API/worker restarted active; /healthz database/Redis OK, saved edition byte-identical, 36 healthy sources, zero alerts and failed digest jobs. No paid calls, UI/schema/source/budget changes.
 - Updated Jobs handbook/TASKS; archived iteration 848 to keep progress small. SOURCES, screenshots and NEEDS_FROM_HUMAN unchanged. Jobs lost before durable history remain unresolved.
 - Next: fresh-window X rounds after 21:00 UTC Nov 5/6; editor-v5 evidence Nov 6; durable unfinished history and admin identity/proxy rollout remain open.
+
+## 2026-11-05: iteration 863 — explain accepted on-demand jobs lost from Redis
+
+- Started clean on main; no leftover work. Alerts/health green, 36 sources healthy, digest queue zero failures. X rounds await 21:00 UTC; admin rollout awaits owner identity/proxy evidence.
+- New profile-scoped Drizzle request repository saves each accepted on-demand job ID before returning its link, including deduplicated adds. Successful missing/unknown Redis reads now return a generic unavailable failure for known requests; unknown IDs remain absent, outages remain retryable, and saved editions/failures take precedence. Status reads never regenerate.
+- Isolated tests cover real paused-job removal, lookup/state removal race, dedupe, acceptance-write failure, outage behavior, no replacement enqueue, idempotency and profile isolation. Older unfinished jobs already lost before deployment cannot be reconstructed; no worker/process-kill or live generation experiment.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (501 unit, initially 216/217 integration). Fixed a timing-test constructor missing the new request port; pnpm test:integration rerun passed all 217. pnpm build, git diff --check and Jobs handbook check passed (18 pages/2 unchanged diagrams, 28 assigned tables).
+- Private backup service succeeded before additive migration 0003; pnpm migrate applied it. Owner read/write role access verified; request table initially empty. No data rewrite or source/UI/budget change.
+- API/worker restarted active; /healthz database/Redis OK; smoke-admin-gate.ts before/after restart passed, saved reader edition byte-identical, 36 healthy sources, zero alerts/failed digest jobs and dangling Docker volumes. No paid calls.
+- Updated Jobs handbook, schema metadata and TASKS; archived iteration 849 to keep progress small. SOURCES, screenshots and NEEDS_FROM_HUMAN unchanged.
+- Next: X fresh-window rounds after 21:00 UTC Nov 5/6; scheduled editor-v5 evidence Nov 6; admin identity/proxy rollout and broader job reliability acceptance remain open.

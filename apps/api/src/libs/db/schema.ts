@@ -869,3 +869,13 @@ export const editionJobFailures = pgTable(
     check('edition_job_failures_duration_check', sql`${table.durationMs} >= 0`),
   ],
 );
+
+export const editionJobRequests = pgTable('edition_job_requests', {
+  jobId: text('job_id').primaryKey().notNull(),
+  profileId: uuid('profile_id')
+    .notNull()
+    .references(() => profiles.id),
+  acceptedAt: timestamp('accepted_at', { withTimezone: true, mode: 'string' })
+    .defaultNow()
+    .notNull(),
+});

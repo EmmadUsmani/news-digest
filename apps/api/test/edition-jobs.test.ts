@@ -11,6 +11,7 @@ import {
 } from '../src/modules/digests/adapters/failed-edition-job';
 import { generateOnDemandEdition } from '../src/modules/digests/application/on-demand-edition';
 import { PostgresEditionJobFailures } from '../src/modules/digests/database/edition-job-failures';
+import { PostgresEditionJobRequests } from '../src/modules/digests/database/edition-job-requests';
 import { PreviewController } from '../src/modules/digests/digests.module';
 import {
   type PreviewRepository,
@@ -18,6 +19,7 @@ import {
 } from '../src/modules/digests/domain/preview.repository';
 
 void test('async edition requests dedupe while active, publish once and allow later regeneration', async () => {
+  const requestsHistory = new PostgresEditionJobRequests();
   const publications = new Map<string, DigestPreview>();
   const failures = new PostgresEditionJobFailures();
   const jobs = new BullEditionJobs(
@@ -27,6 +29,7 @@ void test('async edition requests dedupe while active, publish once and allow la
       },
     } as PreviewRepository,
     failures,
+    requestsHistory,
   );
   const connection = jobs.connection.duplicate({ maxRetriesPerRequest: null });
   let release!: () => void;
@@ -355,6 +358,7 @@ void test('async edition requests dedupe while active, publish once and allow la
     for (const job of await jobs.queue.getJobs(['completed', 'failed']))
       if (job.name === 'on-demand') await job.remove();
     await connection.quit();
+    await requestsHistory.onModuleDestroy();
     await jobs.onModuleDestroy();
     await failures.onModuleDestroy();
   }
@@ -407,5 +411,102 @@ void test('durable failures are idempotent, profile-scoped and preserve the orig
     await pool.query('DELETE FROM profiles WHERE id=$1', [foreignProfile]);
     await pool.end();
     await failures.onModuleDestroy();
+  }
+});
+
+void test('accepted jobs lost before publication fail clearly, while Redis outages remain retryable', async () => {
+  const requests = new PostgresEditionJobRequests();
+  const failures = new PostgresEditionJobFailures();
+  const jobs = new BullEditionJobs(
+    {
+      async findByGenerationKey() {
+        return null;
+      },
+    } as unknown as PreviewRepository,
+    failures,
+    requests,
+  );
+  const getJob = jobs.queue.getJob.bind(jobs.queue);
+  try {
+    await jobs.queue.pause();
+    const start = new Date('2026-10-01T00:00:00Z');
+    const end = new Date('2026-10-02T00:00:00Z');
+    const accepted = await jobs.enqueue(start, end);
+    assert.ok(await requests.exists(accepted.id));
+    // An acceptance-write failure must not return a link. A retry attaches to
+    // the retained deduplicated job instead of creating another generation.
+    const record = requests.record.bind(requests);
+    requests.record = () =>
+      Promise.reject(new Error('acceptance storage fixture'));
+    await assert.rejects(
+      jobs.enqueue(start, end),
+      /acceptance storage fixture/,
+    );
+    requests.record = record;
+    assert.equal((await jobs.enqueue(start, end)).id, accepted.id);
+    assert.notEqual((await jobs.find(accepted.id))?.state, 'failed');
+    const outage = new Error('Redis unavailable fixture');
+    jobs.queue.getJob = () => Promise.reject(outage);
+    await assert.rejects(jobs.find(accepted.id), (error) => error === outage);
+    jobs.queue.getJob = getJob;
+    const retained = (await jobs.queue.getJob(accepted.id))!;
+    // A successful lookup can race removal before state inspection.
+    jobs.queue.getJob = async () =>
+      ({ ...retained, getState: async () => 'unknown' }) as typeof retained;
+    assert.equal((await jobs.find(accepted.id))?.state, 'failed');
+    jobs.queue.getJob = getJob;
+    await retained.remove();
+    assert.deepEqual(await jobs.find(accepted.id), {
+      id: accepted.id,
+      state: 'failed',
+      editionId: null,
+      progress: null,
+      durationMs: null,
+      error:
+        'Edition job is no longer available. Create a new edition to try again.',
+    });
+    assert.equal(await jobs.find(crypto.randomUUID()), null);
+    assert.equal(
+      await jobs.queue.getJobCounts('wait').then((counts) => counts.wait),
+      0,
+    );
+  } finally {
+    jobs.queue.getJob = getJob;
+    await jobs.queue.resume();
+    await jobs.onModuleDestroy();
+    await failures.onModuleDestroy();
+    await requests.onModuleDestroy();
+  }
+});
+
+void test('accepted job history is idempotent and profile-scoped', async () => {
+  const requests = new PostgresEditionJobRequests();
+  const { database } = await import('../src/libs/db/connections');
+  const pool = database();
+  const id = crypto.randomUUID();
+  const foreignId = crypto.randomUUID();
+  const foreignProfile = crypto.randomUUID();
+  try {
+    assert.equal(await requests.exists(id), false);
+    await requests.record(id);
+    await requests.record(id);
+    assert.equal(await requests.exists(id), true);
+    await pool.query('INSERT INTO profiles(id,name) VALUES($1,$2)', [
+      foreignProfile,
+      'Request isolation fixture',
+    ]);
+    await pool.query(
+      'INSERT INTO edition_job_requests(job_id,profile_id) VALUES($1,$2)',
+      [foreignId, foreignProfile],
+    );
+    assert.equal(await requests.exists(foreignId), false);
+  } finally {
+    await pool.query(
+      'DELETE FROM edition_job_requests WHERE job_id = ANY($1::text[])',
+      [[id, foreignId]],
+    );
+    await pool.query('DELETE FROM profiles WHERE id=$1', [foreignProfile]);
+    await pool.end();
+    await requests.onModuleDestroy();
   }
 });

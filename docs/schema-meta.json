@@ -26,7 +26,11 @@
       "name": "Editions",
       "color": "#16a34a",
       "description": "Published digests. Each edition is an immutable JSON snapshot.",
-      "tables": ["digest_previews", "edition_job_failures"]
+      "tables": [
+        "digest_previews",
+        "edition_job_failures",
+        "edition_job_requests"
+      ]
     },
     {
       "id": "ai",
@@ -114,7 +118,8 @@
     "schema_migrations": "Which SQL files in migrations/ have been applied.",
     "bluesky_observations": "Immutable per-topic Bluesky snapshots with observation time, engagement, text and media.",
     "x_search_topic_settings": "Per-topic X search reaction/trending like thresholds and exclusion operators.",
-    "edition_job_failures": "Failed on-demand edition job IDs and duration, retained after Redis history pruning; no exception text."
+    "edition_job_failures": "Failed on-demand edition job IDs and duration, retained after Redis history pruning; no exception text.",
+    "edition_job_requests": "Accepted on-demand job IDs retained to explain jobs missing from Redis without regenerating."
   },
   "relations": [
     {
