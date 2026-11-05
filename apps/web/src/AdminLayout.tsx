@@ -18,6 +18,7 @@ function Navigation({ mobile = false }: { mobile?: boolean }) {
           { to: '/admin/editions', label: 'Editions' },
           { to: '/admin/editions/new', label: 'New edition' },
           { to: '/admin/sources', label: 'Sources' },
+          { to: '/admin/topics', label: 'Topics' },
           { to: '/admin/schedule', label: 'Schedule' },
           { to: '/admin/spend', label: 'Spend' },
           { to: '/admin/tools', label: 'Tools' },
@@ -88,13 +89,15 @@ export function AdminLayout() {
                 ? 'Tools'
                 : pathname.startsWith('/admin/sources')
                   ? 'Sources'
-                  : pathname.startsWith('/admin/schedule')
-                    ? 'Schedule'
-                    : pathname.startsWith('/admin/spend')
-                      ? 'Spend'
-                      : pathname.startsWith('/admin/editions')
-                        ? 'Editions'
-                        : 'Overview'}
+                  : pathname.startsWith('/admin/topics')
+                    ? 'Topics'
+                    : pathname.startsWith('/admin/schedule')
+                      ? 'Schedule'
+                      : pathname.startsWith('/admin/spend')
+                        ? 'Spend'
+                        : pathname.startsWith('/admin/editions')
+                          ? 'Editions'
+                          : 'Overview'}
           </h1>
           <span className="text-xs tracking-wide text-[var(--secondary)]">
             PRODUCTION

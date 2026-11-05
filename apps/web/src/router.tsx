@@ -16,6 +16,7 @@ import { AdminNewEdition } from './AdminNewEdition';
 import { AdminSchedule } from './AdminSchedule';
 import { AdminSources } from './AdminSources';
 import { AdminSpend } from './AdminSpend';
+import { AdminTopics } from './AdminTopics';
 import { App } from './App';
 import {
   adminEditionQuery,
@@ -127,6 +128,12 @@ const adminSourcesRoute = createRoute({
   component: AdminSources,
 });
 
+const adminTopicsRoute = createRoute({
+  getParentRoute: () => adminRoute,
+  path: '/topics',
+  component: AdminTopics,
+});
+
 const adminScheduleRoute = createRoute({
   getParentRoute: () => adminRoute,
   path: '/schedule',
@@ -167,6 +174,7 @@ export const router = createRouter({
       adminInspectorRoute,
       adminNewEditionRoute,
       adminSourcesRoute,
+      adminTopicsRoute,
       adminScheduleRoute,
       adminSpendRoute,
       adminToolsRoute,

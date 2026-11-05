@@ -2,9 +2,8 @@
 
 ## URLs
 
-Reader: `/`. Management: `/admin`, with Overview, Editions, Sources, Schedule, Spend and Tools navigation (mobile menu).
-`/admin/spend`: caps, holds, reserve and usage. `/admin/tools`: six protected tools. APIs use `/api/admin/*`;
-old API paths return 404. `/admin`, its APIs and every tool below require [admin identity](01-stack-and-runtime.md#admin-identity). `/api/me` reports access.
+Reader: `/`. Management: `/admin`, with Overview, Editions, Sources, Topics, Schedule, Spend and Tools navigation (mobile menu).
+APIs use `/api/admin/*`; old API paths return 404. `/admin`, its APIs and every tool below require [admin identity](01-stack-and-runtime.md#admin-identity). `/api/me` reports access.
 Local scripts read `ADMIN_LOCAL_TOKEN` from the private env file and send it only
 to protected paths at `http://127.0.0.1:8000`, refusing redirects. Browser checks
 receive response bodies through Node; credentials never enter Playwright.
@@ -42,6 +41,7 @@ Backups: `~/backups/news-digest/`; [nightly timers and restore](10-backups.md).
 
 - **New edition at `/admin/editions/new`:** choose 6 h, 24 h, 7 d or a custom window; uses AI budget, shows topic progress and links to the saved result.
 - **Editions at `/admin/editions`:** saved windows, per-topic story/post modes and retained job type, attempts and final-attempt duration; open an edition for recorded AI cost and unresolved holds by model/purpose, inspect topic stories, scores, selection reasons, grouping and source evidence, browse retained articles published in the window (up to 500 per topic, using current source connections), or view it as a reader.
+- **Topics at `/admin/topics`:** drag or arrow ordering, enable controls, story/post budgets and New topic dialog. Full guidance and source settings remain on Overview.
 - **Schedule at `/admin/schedule`:** next run, daily local time, timezone, coverage and default topic budgets.
 - **Sources at `/admin/sources`:** collection health, timestamps, last-response/stored counts and platform status.
 - **Overview at `/admin`:** health, daily spend, latest edition, source issues and next runs.

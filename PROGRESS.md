@@ -1,27 +1,3 @@
-## 2026-11-05: iteration 878 — dedicated edition schedule
-
-- Started clean on main; no leftover work. Initial alerts clear and API/worker active; /healthz database/Redis healthy. X fresh-window work remains due after 21:00 UTC.
-- Owner-visible value: schedule controls now have a focused, directly linked page instead of being buried in legacy Overview controls.
-- Added protected /admin/schedule, desktop/mobile navigation and next-edition time/queue warning; moved the daily time, timezone, coverage and default budgets form into a styled Card with shared Button. Removed duplicate legacy controls.
-- Browser: smoke-admin-schedule covers four viewport/theme combinations, anonymous denial, reload, mobile navigation, no overflow/browser credentials, simulated save and failed-save draft retention. PUTs are replayed in memory; no live schedule changes. Four screenshots retained; desktop light/mobile dark visually inspected.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check; handbook operations check; smoke-admin-gate. Passed 505 unit/218 isolated integration tests and build; handbook 18 pages/2 unchanged diagrams/28 tables; admin gate 24 denied paths and forwarded-token checks passed.
-- Migrated existing smoke-schedule to the dedicated route and loopback address; retained its validation, uncertain-save/reload and unchanged-live-data checks. Archived iteration 865.
-- Initial browser script needed an async wrapper for the repo's CommonJS config; corrected. Operations page exceeded its line cap by one; condensed before rerunning.
-- API restarted for built web; worker unchanged. Final alerts clear; 36 sources/no errors, saved edition four topics and no failed queues. Overview regression and both schedule browser suites passed; retained updated captures. No paid calls, source/schema changes or saved-data writes; SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Next: dedicated Editions/creation/inspector, Topics and Spend; finish Sources controls and Overview cost/alerts. X rounds after 21:00 UTC Nov 5/6; Nov 6 editorial review.
-
-## 2026-11-05: iteration 879 — dedicated spending page
-
-- Started clean on main; no leftover work. Alerts clear, /healthz healthy, API/worker active; all 36 sources have no current error. X fresh-window rounds remain due after 21:00 UTC.
-- Owner-visible value: AI/X costs, caps and the scheduled edition reserve now have a directly linked Spend page instead of being buried in legacy status controls.
-- Added protected /admin/spend with shared desktop/mobile navigation, UTC daily/monthly tables, outstanding holds, availability, provider stops, reserve/last result, purpose/model totals and Grafana Product link. Removed duplicate legacy usage panels.
-- Individual recent-call rows remain open; this ships the budget/reserve portion of the approved Spend page. No API, source, schema, access or budget changes; no paid calls or saved-data writes. SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Browser: smoke-admin-spend passed all four viewport/theme combinations, live totals, anonymous denial, reload, mobile navigation, refresh failure/recovery and no overflow/writes/browser credentials. Four captures retained in docs/screenshots/ui; desktop light/mobile dark visually inspected.
-- Migrated smoke-ai-spend and smoke-reserve-status to Spend; both passed, including synthetic protected/released reserve states and unchanged saved edition. Migrated legacy status/X-copy checks away from replaced panels; both passed alongside admin gate and Overview regression. Updated status captures.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (505 unit/218 isolated integration passed); pnpm build; final web build; targeted ESLint/Prettier; git diff --check. Handbook Operations check passed (18 pages, two unchanged diagrams, 28 assigned tables). Archived iterations 866–867 and trimmed old completed TASKS markers.
-- Initial typecheck caught an unsupported Button variant; fixed. Browser caught mobile table sizing; fixed and rerun. Final restart browser attempt preceded API readiness; rerun after healthy /healthz passed. Handbook line cap corrected before recheck. Combined verification exited 143 during integration after 505 unit passes; standalone check rerun. Legacy scripts needed the existing controls toggle and removal of replaced source assertions.
-- API restarted for final built web; worker unchanged. Final alerts clear and health green. Next: dedicated Editions/creation/inspector and Topics, Sources management, Spend recent calls; X rounds after 21:00 UTC Nov 5/6 and Nov 6 edition review.
-
 ## 2026-11-05: iteration 880 — saved editions and topic inspector
 
 - Started clean on main; no leftover work. Alerts clear, /healthz healthy, API/worker active. X rounds still due after 21:00 UTC.
@@ -119,3 +95,15 @@
 - Verification: private assertions checked 41 scores, original fields unchanged, four settled verification rows/$0.003782 and mode 600; existing offline reporter accepted five scored cells.
 - Full pnpm check passed typecheck/lint/format/boundaries, 505 unit and 218 isolated integration tests; pnpm build passed; pnpm format, pnpm lint:fix, git diff --check. Final health/alerts green.
 - Next: promotion review and old-baseline comparison, Nov 6 fresh-window round after 21:00 UTC; scheduled editor-v5 review first when due. Dedicated Topics admin pages while waiting.
+
+## 2026-11-05: iteration 888 — dedicated Topics management
+
+- Started clean on main; no leftover work. Owner would care: topic ordering, availability and budgets now have a dedicated admin page instead of requiring legacy controls.
+- Added `/admin/topics` navigation, drag/arrow ordering, enable controls, editable story/post budgets and New topic dialog using shared shadcn-style form controls and Radix dialog. Existing APIs retain the same validation; full guidance/sources/deletion remain on Overview until the dedicated editor replaces them.
+- Playwright reads real saved topics; all creation/toggle/budget/order writes are intercepted and checked against browser replay state. No live topic changes or external requests. Desktop/mobile light/dark screenshots include list and dialog; visual review fixed cramped mobile titles and unstyled inputs. Drag and arrow paths both verified.
+- Reader/admin separation smoke passed: real saved edition, no reader admin reads, anonymous admin denied, reload/navigation intact. Updated its screenshots for Topics navigation.
+- Archived iterations 878–879; updated TASKS and affected Operations handbook; no source/budget/schema changes, SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check reached 505 passing unit tests then integration process ended SIGTERM; reran pnpm test:integration (218 passing); pnpm exec tsx scripts/smoke-admin-topics.ts; scripts/smoke-admin-separation.ts; scripts/check-handbook.ts 08-operations; git diff --check.
+- Initial check caught import ordering (autofixed); initial browser assertion used Tech instead of saved Tech & AI (corrected). Handbook length corrected; check overlapping API restart retried successfully.
+- API restarted for built assets; health/database/Redis green and alerts clear. No paid calls, experiment changes or worker configuration changes.
+- Next: dedicated `/admin/topics/:id` editor, replace legacy topic controls when complete; X promotion/baseline review and Nov 6 fresh-window round; scheduled editor-v5/grouping evidence first when due.
