@@ -47,6 +47,7 @@ export function DigestPreview() {
     if (!jobId) return;
     sessionStorage.setItem('edition-job', jobId);
     let cancelled = false;
+    const controller = new AbortController();
     let timer: ReturnType<typeof setTimeout>;
     const finish = () => {
       sessionStorage.removeItem('edition-job');
@@ -56,6 +57,12 @@ export function DigestPreview() {
       try {
         const response = await fetch(
           `/api/digest-previews/jobs/${encodeURIComponent(jobId!)}`,
+          {
+            signal: AbortSignal.any([
+              controller.signal,
+              AbortSignal.timeout(15_000),
+            ]),
+          },
         );
         if (cancelled) return;
         if (response.status === 404) {
@@ -116,6 +123,7 @@ export function DigestPreview() {
     void poll();
     return () => {
       cancelled = true;
+      controller.abort();
       clearTimeout(timer);
     };
   }, [jobId, navigate, queryClient]);

@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 775 — retain archive links after refresh failures
-
-- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Scheduled review remains due at 15:00 UTC.
-- Cached archive refresh failures now preserve loaded edition links and dates with accurate refresh wording and Retry; initial-load failure behavior and conservative older-page controls remain intact.
-- `pnpm exec tsx scripts/smoke-history-refresh.ts` passed browser-only 503 focus refresh, exact saved links/text, retry and edition navigation on desktop/mobile light/dark. Blocks browser writes and credentials, checks zero browser errors and the full protected saved edition unchanged. Four screenshots added; desktop light/mobile dark inspected. Initial exact-text assertion included the nested Retry button; corrected the selector.
-- TASKS and Operations updated; archived iteration 759. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, edition writes, generation/config/schema or model/provider changes. API restarted after web build; worker left running under STEERING 22.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-history-refresh.ts; smoke-history-recovery.ts; check-handbook.ts 08-operations; git diff --check. Static checks and 497 unit tests passed; command received SIGTERM during integration. Isolated user-unit rerun passed all 214 integration tests (exit 0). Build, browser checks, handbook and diff checks passed; final health green.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; identity configuration and proxy verification still block admin rollout.
-
 ## 2026-11-05: iteration 776 — recover stalled reader requests
 
 - Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Historical ingestion/social failures remain with collection healthy.
@@ -140,3 +131,12 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-posts.ts /tmp/783-posts.jsonl; git diff --check. Initial combined format/lint/check shell received SIGTERM after formatting; reran lint and check separately. Static checks, 497 unit/214 isolated integration tests and browser replay passed (exit 0).
 - TASKS updated. No source, runtime, schema, handbook or model/provider behavior changed; no paid calls or new blockers. Services need no restart for verification-only changes (STEERING 22).
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remain pending.
+
+## 2026-11-05: iteration 790 — recover stalled on-demand progress reads
+
+- Started clean on main; no leftover work. Health/database/Redis green, 36 sources healthy, zero alerts and no failed retained digest jobs.
+- Job-status requests now time out after 15 seconds and reconnect to the same job; effect cleanup aborts outstanding reads. Worker generation and submission behavior are unchanged.
+- Desktop/mobile browser-only replay verifies a real stalled-request deadline, reconnect message, retained job ID, one submission, subsequent completion and failure recovery. No browser credentials or unexpected writes; full protected edition, topics and profile unchanged. Timeout screenshots added; unrelated regenerated screenshots discarded.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-edition-jobs.ts; smoke-admin-gate.ts; check-handbook.ts jobs-and-schedules; git diff --check. Initial check found formatting in newly archived progress; corrected before rerun. Rerun passed static checks, 497 unit/214 isolated integration tests (exit 0); build, browser, gate, handbook and diff checks passed. Both timeout screenshots inspected.
+- TASKS and Jobs handbook updated; archived iteration 775. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No paid calls, saved-edition writes, schema/config/model/provider changes.
+- API restarted after web build; worker left running. Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X trials after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] On-demand progress recovery (790): stalled status reads time out after 15 seconds and reconnect to the same job; unmount cancels outstanding reads. Desktop/mobile replay verifies no duplicate submission and unchanged saved data.
+
 - [x] X lazy widgets (789): desktop/mobile replay proves distant cards remain unrendered through theme changes, then load the current theme on scrolling with one shared script; saved edition unchanged.
 
 - [x] X embed theme (787): official widgets follow system and saved reader light/dark themes, rebuilding on changes with the same loaded script; desktop/mobile replay and screenshots verified.

@@ -82,6 +82,8 @@ async function smoke() {
       let submissions = 0;
       let state = 'waiting';
       let disconnected = false;
+      let stallNextPoll = false;
+      let stalledPolls = 0;
       let stage = 'triage';
       await context.route('**/api/digest-previews/jobs', async (route) => {
         assert.equal(route.request().method(), 'POST');
@@ -89,6 +91,11 @@ async function smoke() {
         await route.fulfill({ status: 202, json: { id: '123' } });
       });
       await context.route('**/api/digest-previews/jobs/123', async (route) => {
+        if (stallNextPoll) {
+          stallNextPoll = false;
+          stalledPolls++;
+          return; // Hold this request until the browser's real deadline aborts it.
+        }
         if (disconnected) return route.fulfill({ status: 503, json: {} });
         await route.fulfill({
           json: {
@@ -156,6 +163,33 @@ async function smoke() {
         .filter({ hasText: 'Connection interrupted' })
         .waitFor();
       disconnected = false;
+      await page
+        .getByRole('status')
+        .filter({ hasText: 'Publishing your edition' })
+        .waitFor();
+      stallNextPoll = true;
+      // The stalled request must time out without submitting a replacement job.
+      await page.waitForFunction(
+        () =>
+          Array.from(document.querySelectorAll('[role="status"]')).some(
+            (node) => node.textContent?.includes('Connection interrupted'),
+          ),
+        undefined,
+        { timeout: 25000 },
+      );
+      assert.equal(stalledPolls, 1);
+      assert.equal(submissions, 1);
+      assert.equal(
+        await page.evaluate(() => sessionStorage.getItem('edition-job')),
+        '123',
+      );
+      await page
+        .getByRole('status')
+        .filter({ hasText: 'Connection interrupted' })
+        .scrollIntoViewIfNeeded();
+      await page.screenshot({
+        path: `docs/screenshots/edition-job-timeout-${name}.png`,
+      });
       state = 'completed';
       await page
         .getByRole('status')
@@ -225,7 +259,7 @@ async function smoke() {
     assert.deepEqual(await localAdminJson('/api/admin/topics'), topics);
     assert.deepEqual(await localAdminJson('/api/admin/profile'), profile);
     console.log(
-      'Async edition UI: desktop/mobile queue, active, reload, reconnect, completion, saved story text and failure passed; protected operational snapshots; unexpected browser writes blocked and no browser credentials; full saved edition, topics and profile unchanged.',
+      'Async edition UI: desktop/mobile queue, active, reload, reconnect, stalled-poll timeout, completion, saved story text and failure passed; protected operational snapshots; unexpected browser writes blocked and no browser credentials; full saved edition, topics and profile unchanged.',
     );
   } finally {
     await browser.close();
