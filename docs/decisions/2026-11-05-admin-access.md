@@ -150,6 +150,9 @@ The topic-delete verifier also checks cancellation, failure, retry and reload
 with these protections and full saved-data comparisons. The topic-order verifier
 uses the same protections for failed reorder, retry, saved positions and reload.
 
+The X-account verifier applies the same protections to failed saves, retained
+handles, retry, normalization, duplicate prevention and reload.
+
 ## Next rollout slice
 
 Configure the owner email allowlist before moving current operational routes.

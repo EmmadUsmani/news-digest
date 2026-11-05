@@ -1,0 +1,8 @@
+## 2026-11-05: iteration 782 — protect coverage and X-guidance browser checks
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. API/worker/docs/schema services active. Next edition remains 15:00 UTC.
+- Coverage and X-schedule guidance browser checks now disable service workers, block unexpected writes beneath snapshot routes, detect browser identity headers and compare the full protected saved edition before/after. Each viewport proves its barrier with a blocked POST; X guidance also confirms topics unchanged.
+- Desktop/mobile checks passed: real coverage and parked-Reddit display, X schedule and account guidance, no page errors or overflow, no credentials, no edition changes and no real writes/provider calls. Discarded regenerated screenshots because the UI is unchanged.
+- TASKS/Operations/access decision updated; archived iteration 767. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No runtime/config/schema or model/provider changes; healthy services left running under STEERING 22.
+- Verification: pnpm exec tsx scripts/smoke-topic-coverage.ts; pnpm exec tsx scripts/smoke-x-schedule-copy.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations; git diff --check. Static checks, 497 unit/214 isolated integration tests passed (exit 0); build, handbook and diff checks passed. Final health green, all four services active.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; identity configuration/proxy verification still block admin rollout.

@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 782 — protect coverage and X-guidance browser checks
-
-- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. API/worker/docs/schema services active. Next edition remains 15:00 UTC.
-- Coverage and X-schedule guidance browser checks now disable service workers, block unexpected writes beneath snapshot routes, detect browser identity headers and compare the full protected saved edition before/after. Each viewport proves its barrier with a blocked POST; X guidance also confirms topics unchanged.
-- Desktop/mobile checks passed: real coverage and parked-Reddit display, X schedule and account guidance, no page errors or overflow, no credentials, no edition changes and no real writes/provider calls. Discarded regenerated screenshots because the UI is unchanged.
-- TASKS/Operations/access decision updated; archived iteration 767. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No runtime/config/schema or model/provider changes; healthy services left running under STEERING 22.
-- Verification: pnpm exec tsx scripts/smoke-topic-coverage.ts; pnpm exec tsx scripts/smoke-x-schedule-copy.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations; git diff --check. Static checks, 497 unit/214 isolated integration tests passed (exit 0); build, handbook and diff checks passed. Final health green, all four services active.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; identity configuration/proxy verification still block admin rollout.
-
 ## 2026-11-05: iteration 783 — remove partial failed X embeds
 
 - Started clean on main; no leftover work. Alerts zero, health/database/Redis green, 36 sources healthy; no failed retained digest runs. Four services active; next edition 15:00 UTC.
@@ -136,3 +127,12 @@
 - TASKS/access decision updated; archived iteration 781. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, runtime/config/schema/model/provider changes; no restart required under STEERING 22.
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
 - Final app health green; alert snapshot has one pending ObservabilityMemoryBudget warning for obs-metrics.service, zero firing. Recheck next iteration.
+
+## 2026-11-05: iteration 797 — verify X-account save recovery safely
+
+- Started clean on main; no leftover work. Alerts zero; health/database/Redis green, all four app services active, 36 sources without errors or missing active-source success, no failed retained runs. Next edition is 15:00 UTC.
+- X-account browser replay now uses protected Node operational snapshots, blocks service workers, probes unexpected-write blocking and verifies browser credential absence. Full saved edition/topics/profile comparisons replace the previous latest-object comparison.
+- Desktop/mobile failed saves retain entered handles without changing the replayed topic; retry saves once, reload normalizes @ handles and case-insensitive duplicates send no request. No page errors/overflow; failure screenshots inspected.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; smoke-topic-accounts.ts; smoke-admin-gate.ts; git diff --check. All passed (exit 0): static checks, 497 unit and 214 isolated integration tests, desktop/mobile replay, admin gate and diff check. Initial replay status/count assertions corrected before rerun.
+- TASKS/access decision updated; archived iteration 782; discarded regenerated unchanged success screenshots. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No paid calls, live writes or runtime/config/schema/model/provider changes; no restart required under STEERING 22.
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

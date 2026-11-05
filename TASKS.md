@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] X-account save recovery (797): desktop/mobile retained handles, retry, normalization, duplicate prevention and reload verified with protected snapshots, browser guards and full edition/topics/profile immutability.
+
 - [x] Topic reorder recovery (796): desktop/mobile failure, retry, positions and reload verified with protected operational snapshots, browser write/credential guards and full edition/topics/profile immutability.
 
 - [x] Topic deletion recovery (795): desktop/mobile cancel, failed delete, retry and reload verified with protected snapshots, browser write/credential guards and full edition/topics/profile immutability.
