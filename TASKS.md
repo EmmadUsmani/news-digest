@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Source catalog deadline (829): initial load and post-connection refresh time out after 15 seconds; desktop/mobile replay verifies retry preserves entries and saved connections without another write.
+
 - [x] Topic reorder deadline (828): stalled order saves release controls after 15 seconds; desktop/mobile timeout replay recovers saved order on reload without another PUT.
 
 - [x] Topic availability deadline (827): stalled Enable/Disable requests release controls after 15 seconds; desktop/mobile timeout replay recovers saved availability on reload without another PUT.

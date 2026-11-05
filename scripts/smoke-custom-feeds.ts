@@ -135,7 +135,7 @@ async function smoke() {
         if (path === '/api/topics/sources') {
           if (failRefresh) {
             failRefresh = false;
-            return route.fulfill({ status: 503, json: {} });
+            return; // Hold the request until the real browser deadline aborts it.
           }
           return route.fulfill({ json: catalog });
         }
@@ -196,7 +196,13 @@ async function smoke() {
       await page
         .getByRole('alert')
         .filter({ hasText: 'Could not load sources.' })
-        .waitFor();
+        .waitFor({ timeout: 20_000 });
+      await page
+        .getByRole('button', { name: 'Retry loading sources', exact: true })
+        .scrollIntoViewIfNeeded();
+      await page.screenshot({
+        path: `docs/screenshots/ui/source-catalog-timeout-${device}.png`,
+      });
       assert.equal(await connect.isEnabled(), false);
       assert.equal(writes, 0);
       await page
@@ -298,7 +304,7 @@ async function smoke() {
         .filter({
           hasText: 'Feed connected, but the source list could not refresh.',
         })
-        .waitFor();
+        .waitFor({ timeout: 20_000 });
       assert.equal(await name.inputValue(), '');
       assert.equal(await url.inputValue(), '');
       const checkbox = form.getByRole('checkbox', {
@@ -413,7 +419,7 @@ async function smoke() {
         savedEdition,
       );
     console.log(
-      'Custom feeds desktop/mobile: initial catalog failure/retry, confirmed-save catalog retry without another write or lost entries, validation response, pending control locks and single request, uncertain network outcome, save failure, confirmed save with refresh failure, cleared fields, stored content, replay reload, disconnect and completed POST with lost response recovered without another write passed; full live topics/profile/edition unchanged, browser writes guarded and credentials absent, no inference.',
+      'Custom feeds desktop/mobile: initial catalog real timeout/retry, confirmed-save catalog real timeout/retry without another write or lost entries, validation response, pending control locks and single request, uncertain network outcome, save failure, confirmed save with refresh failure, cleared fields, stored content, replay reload, disconnect and completed POST with lost response recovered without another write passed; full live topics/profile/edition unchanged, browser writes guarded and credentials absent, no inference.',
     );
   } finally {
     await browser.close();

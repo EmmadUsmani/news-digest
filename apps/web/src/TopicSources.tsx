@@ -26,7 +26,7 @@ export function TopicSources({
   const [message, setMessage] = React.useState('');
   React.useEffect(() => {
     let active = true;
-    fetch('/api/topics/sources')
+    fetch('/api/topics/sources', { signal: AbortSignal.timeout(15_000) })
       .then((r) => {
         if (!r.ok) throw new Error();
         return r.json();
@@ -106,7 +106,9 @@ export function TopicSources({
       setFeedName('');
       setFeedUrl('');
       setQuery('');
-      const catalogResponse = await fetch('/api/topics/sources');
+      const catalogResponse = await fetch('/api/topics/sources', {
+        signal: AbortSignal.timeout(15_000),
+      });
       if (!catalogResponse.ok) throw new Error();
       setCatalog(sourceCatalogSchema.parse(await catalogResponse.json()));
       setCatalogError(false);
