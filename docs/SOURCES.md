@@ -1,5 +1,15 @@
 # Content source inventory
 
+### Nov 5 revised X experiment — iteration 885
+
+Five settled keyword/semantic calls cost $0.278606 for 41 fetched/cited posts;
+all returned official embeds. NBA/Gaming/World keyword outcomes retain $0.45
+in holds; daily charged experiment total $0.728606, overall $1.260937.
+Tech keyword used Top/exact bounds/threshold but requested 10 rather than 16.
+Semantic results have no reported likes; 16/31 IDs fall inside the window.
+Usable yield still needs scoring, promotion and free-link review. Production
+fixed search remains off; no experiment posts were ingested. [Round review](edition-reviews/2026-11-05-x-experiment-review.md).
+
 ### Nov 5 scheduled open X discovery — iteration 847
 
 Four successful old open-topic searches cost $0.143191: 19 fetched, 18 new

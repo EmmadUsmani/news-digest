@@ -83,7 +83,10 @@ try {
                   request.style === 'reactions'
                     ? settings.reactionMinFaves!
                     : settings.trendingMinFaves,
-                exclusions: settings.exclusions,
+                exclusions:
+                  request.style === 'viral' || request.style === 'semantic'
+                    ? [...new Set([...settings.exclusions, '-giveaway'])]
+                    : settings.exclusions,
               },
             }),
       },

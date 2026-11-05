@@ -359,3 +359,19 @@ requires four distinct nonblank topic IDs and a timezone-qualified, closed
 24-hour window. Dispatch starts only at or after 21:00 UTC. Invalid inputs stop
 without a journal entry or provider request. This preflight does not establish
 non-overlap with another round; the saved-round comparison checks that separately.
+
+## Nov 5 fresh-window comparison — iteration 885
+
+The revised Grok 4.3 viral/semantic round used Nov 4–5 21:00 UTC.
+Three keyword cells have unresolved holds: NBA tool failure without fetched
+usage, Gaming timeout, World no execution/fetched usage. None was retried;
+continuations dispatched only never-attempted cells within the same hour.
+Five settlements cost $0.278606 for 41 fetched/cited candidates, all officially
+embed-verified. Three retained holds bring today to $0.728606 and the total to
+$1.260937. Production fixed search remains off; no winner is established.
+See the [round review](edition-reviews/2026-11-05-x-experiment-review.md)
+for measured costs, raw results and remaining scoring/second-day gates.
+
+Extraction now includes the code-required `-giveaway` alongside saved
+exclusions for revised styles; saved settings need not contain the mandatory
+operator themselves. Historical styles are unchanged.

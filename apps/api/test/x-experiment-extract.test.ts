@@ -134,7 +134,7 @@ void test('CLI extracts revised viral and semantic rounds without inventing revi
           topicId: 'tech',
           settings: {
             trendingMinFaves: 500,
-            exclusions: ['-giveaway'],
+            exclusions: ['-odds'],
           },
         },
       ],
@@ -191,7 +191,7 @@ void test('CLI extracts revised viral and semantic rounds without inventing revi
     for (const call of evidence) {
       assert.deepEqual(call.expectedSearch, {
         minFaves: 500,
-        exclusions: ['-giveaway'],
+        exclusions: ['-odds', '-giveaway'],
       });
       assert.ok(
         call.posts.every(
@@ -219,9 +219,11 @@ void test('CLI extracts revised viral and semantic rounds without inventing revi
         },
       ],
     });
-    const missingExclusion = run();
-    assert.equal(missingExclusion.status, 1);
-    assert.equal(missingExclusion.stdout, '');
+    const defaultExclusion = run();
+    assert.equal(defaultExclusion.status, 0, defaultExclusion.stderr);
+    for (const call of JSON.parse(defaultExclusion.stdout)) {
+      assert.deepEqual(call.expectedSearch.exclusions, ['-giveaway']);
+    }
   } finally {
     rmSync(directory, { recursive: true, force: true });
   }
