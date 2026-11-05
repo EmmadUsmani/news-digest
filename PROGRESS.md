@@ -1,13 +1,3 @@
-## 2026-11-05: iteration 732 — browser reader history and completion race
-
-- Started clean on main; no leftover work. Zero initial alerts, health/database/Redis and all 36 sources healthy; no retained failed digest runs. Nov 5 acceptance remains future at 15:00 UTC.
-- Browser saved-edition history now uses /api/editions with reader allowlist validation and no generation-method display; edition detail/admin endpoints remain pending coordinated migration and configured admin identity.
-- Delayed-history smoke exposed a completion stall: invalidation could await the first in-flight archive request. Explicitly cancel stale history before invalidating; delayed success/error cases now pass. Updated smoke synchronization to await delayed route handlers because navigation legitimately aborts HTTP responses.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (494 unit/213 isolated integration), pnpm build, final web build/typecheck, check-handbook.ts 01-stack-and-runtime, smoke-ui-routing.ts, smoke-edition-history.ts, smoke-edition-selection.ts and git diff --check. Desktop/mobile pagination, cache switching, reload and stale success/error recovery passed.
-- Initial browser launch raced API startup (ECONNREFUSED); reran after health readiness. Rebuilt/restarted API/docs; real stored history page 2 returned 20 entries with only IDs/dates. Updated and inspected history screenshots; discarded unrelated foundation screenshot churn.
-- Metrics warning became firing at the post-push check (106.3/112 MiB, active/zero restarts); app health remains green. Worker unchanged. Updated TASKS, affected handbook/access decision; archived iteration 718 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN unchanged; no new source or owner blocker.
-- No paid calls, provider/model/budget changes, scorer changes or X activation. Next: coordinated reader/admin migration; scheduled Nov 5 acceptance first when due, scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6.
-
 ## 2026-11-05: iteration 733 — reader edition content without diagnostics
 
 - Started clean on main; no leftover work. Health/database/Redis green, 36 sources healthy, no retained failed digest runs; Nov 5 edition remains scheduled for 15:00 UTC. Existing metrics memory warning firing (active, zero restarts, ~109.5/112 MiB); no ceiling change or restart to hide it.
@@ -127,3 +117,12 @@
 - Updated TASKS, admin access decision and Operations; archived iteration 731. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema changes, live writes, paid calls or model/provider/budget changes; healthy services remain running under STEERING 22.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, exit 0); pnpm build; check-handbook.ts 08-operations; git diff --check passed. Final health green; pending metrics memory warning remains (~106 MiB/112 MiB), system unit active with zero restarts.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback. Scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy checks and coordinated browser/legacy migration remain open.
+
+## 2026-11-05: iteration 745 — protected spend and coverage browser checks
+
+- Started clean on main; no leftover work. Health/database/Redis green, all 36 sources healthy, no retained failed digest runs; Nov 5 edition due at 15:00 UTC. Metrics memory warning pending at orientation.
+- AI-spend and topic-coverage browser verifiers now read protected status snapshots through the bounded Node token adapter. Browser rendering uses replayed real telemetry; credentials stay outside browser contexts. Parked Reddit display remains a local rendering check, with no Reddit requests.
+- `pnpm exec tsx scripts/smoke-ai-spend.ts` and `pnpm exec tsx scripts/smoke-topic-coverage.ts` passed desktop/mobile, including spend totals, coverage counts, parked display, zero page errors and no horizontal overflow. Six screenshots refreshed; desktop spend/mobile coverage visually inspected.
+- Updated TASKS, Operations and admin access decision; archived iteration 732. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema changes, live writes, inference or model/provider/budget changes; healthy services remain running under STEERING 22.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, exit 0); pnpm build; check-handbook.ts 08-operations; git diff --check all passed. Final health green; metrics memory warning pending.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback. Scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy checks and coordinated UI/legacy migration remain open.

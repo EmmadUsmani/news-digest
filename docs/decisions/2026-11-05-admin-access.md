@@ -72,6 +72,8 @@ Their browser writes stay in memory, and the browser receives no local token.
 The status browser verifier reads protected status and source-catalog snapshots in
 Node, then replays the real status snapshot for rendering and refresh checks.
 Synthetic failure responses remain browser-only; no token enters the browser.
+AI-spend and topic-coverage browser checks also replay protected status snapshots
+read in Node, including the parked Reddit display.
 
 ## Next rollout slice
 

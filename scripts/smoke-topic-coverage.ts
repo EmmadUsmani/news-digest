@@ -1,8 +1,10 @@
-// Read-only browser check of live coverage; no inference or configuration writes.
+// Protected live coverage snapshot replayed in browser; no inference or writes.
 import assert from 'node:assert/strict';
 
 import { operationsStatusSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
+
+import { localAdminJson } from './lib/local-admin-fetch';
 
 async function main() {
   const browser = await chromium.launch();
@@ -15,9 +17,7 @@ async function main() {
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
       const status = operationsStatusSchema.parse(
-        await (
-          await page.request.get('http://localhost:8000/api/status')
-        ).json(),
+        await localAdminJson('/api/admin/status'),
       );
       assert.ok(status.coverage);
       // Replay this read to keep browser assertions stable across collection updates.
@@ -70,7 +70,7 @@ async function main() {
       await page.close();
     }
     console.log(
-      'Live topic coverage desktop/mobile checks passed; no writes or inference.',
+      'Protected topic coverage snapshot desktop/mobile checks passed; no writes or inference.',
     );
   } finally {
     await browser.close();
