@@ -164,6 +164,11 @@ The news-query verifier uses these protections for validation errors, failed
 connections, retained input, retry, reload and disconnect, with full saved-data
 comparisons and desktop/mobile failure screenshots.
 
+The status verifier replays protected operational snapshots, blocks service workers
+and unexpected browser writes, probes the write guard and checks credential absence.
+Desktop/mobile refresh failure and retry, saved-edition links and synthetic
+operational failures preserve full live edition, topics and profile snapshots.
+
 ## Next rollout slice
 
 Configure the owner email allowlist before moving current operational routes.

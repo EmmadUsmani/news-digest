@@ -7,12 +7,51 @@ import { chromium } from 'playwright';
 import { localAdminJson } from './lib/local-admin-fetch';
 async function smoke() {
   const browser = await chromium.launch({ headless: true });
+  const [topics, profile, content, latest] = await Promise.all([
+    localAdminJson('/api/admin/topics'),
+    localAdminJson('/api/admin/profile'),
+    localAdminJson('/api/admin/content'),
+    localAdminJson('/api/admin/digest-previews/latest'),
+  ]);
+  const savedEdition = latest
+    ? await localAdminJson(
+        '/api/admin/digest-previews/' + (latest as { id: string }).id,
+      )
+    : null;
+  const context = await browser.newContext({ serviceWorkers: 'block' });
+  const credentials: string[] = [];
+  const unexpectedWrites: string[] = [];
+  context.on('request', (request) => {
+    const headers = request.headers();
+    if ('admin_local_token' in headers || 'x-exedev-email' in headers)
+      credentials.push(new URL(request.url()).pathname);
+  });
+  const snapshots: Record<string, unknown> = {
+    '/api/topics': topics,
+    '/api/profile': profile,
+    '/api/content': content,
+  };
+  await context.route('**/*', (route) => {
+    const request = route.request();
+    const path = new URL(request.url()).pathname;
+    const headers = request.headers();
+    if ('admin_local_token' in headers || 'x-exedev-email' in headers)
+      return route.abort();
+    if (!['GET', 'HEAD'].includes(request.method())) {
+      unexpectedWrites.push(`${request.method()} ${path}`);
+      return route.abort();
+    }
+    if (Object.hasOwn(snapshots, path))
+      return route.fulfill({ json: snapshots[path] });
+    return route.continue();
+  });
   try {
     for (const [name, width, height] of [
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
     ] as const) {
-      const page = await browser.newPage({ viewport: { width, height } });
+      const page = await context.newPage();
+      await page.setViewportSize({ width, height });
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
       const status = operationsStatusSchema.parse(
@@ -24,9 +63,28 @@ async function smoke() {
       // Replay one real snapshot so collection jobs cannot race UI assertions.
       // Credentials remain in Node; later routes override this for failure cases.
       await page.route('**/api/status', (route) =>
-        route.fulfill({ json: status }),
+        route.request().method() === 'GET'
+          ? route.fulfill({ json: status })
+          : route.fallback(),
       );
       await page.goto('http://localhost:8000');
+      assert.equal(
+        await page.evaluate(async () => {
+          try {
+            await fetch('/api/status/unexpected-write-probe', {
+              method: 'POST',
+            });
+            return false;
+          } catch {
+            return true;
+          }
+        }),
+        true,
+      );
+      assert.equal(
+        unexpectedWrites.pop(),
+        'POST /api/status/unexpected-write-probe',
+      );
       await page.getByText('Source & run status', { exact: true }).click();
       await page
         .getByRole('heading', { name: 'Recent edition runs', exact: true })
@@ -148,6 +206,56 @@ async function smoke() {
         ),
         true,
       );
+      await page.route('**/api/status', (route) =>
+        route.request().method() === 'GET'
+          ? route.fulfill({ status: 503, body: 'Unavailable' })
+          : route.fallback(),
+      );
+      await page
+        .getByRole('button', { name: 'Refresh status', exact: true })
+        .click();
+      await page
+        .getByRole('alert')
+        .filter({ hasText: 'Status could not be refreshed' })
+        .waitFor();
+      await page
+        .getByRole('button', { name: 'Refresh status', exact: true })
+        .waitFor();
+      assert.equal(
+        await page.locator('.status-grid article').count(),
+        status.sources.length +
+          status.queues.length +
+          (status.coverage?.topics.length ?? 0),
+      );
+      await page
+        .getByRole('alert')
+        .filter({ hasText: 'Status could not be refreshed' })
+        .screenshot({
+          path: `docs/screenshots/status-refresh-failure-${name}.png`,
+        });
+      await page.route('**/api/status', (route) =>
+        route.request().method() === 'GET'
+          ? route.fulfill({ json: status })
+          : route.fallback(),
+      );
+      await page
+        .getByRole('button', { name: 'Refresh status', exact: true })
+        .click();
+      await page
+        .getByRole('heading', { name: 'Recent edition runs', exact: true })
+        .waitFor();
+      await page.waitForFunction(
+        () =>
+          !document
+            .querySelector('[role="alert"]')
+            ?.textContent?.includes('Status could not be refreshed'),
+      );
+      assert.equal(
+        await page.locator('.status-grid article').count(),
+        status.sources.length +
+          status.queues.length +
+          (status.coverage?.topics.length ?? 0),
+      );
       const edition = page.locator('.run-list a').first();
       if (await edition.count()) {
         await edition.click();
@@ -157,23 +265,11 @@ async function smoke() {
           .filter({ hasText: 'Saved edition' })
           .waitFor();
       }
-      await page.goto('http://localhost:8000');
-      await page.route('**/api/status', (route) =>
-        route.fulfill({ status: 503, body: 'Unavailable' }),
-      );
-      await page.getByText('Source & run status', { exact: true }).click();
-      await page
-        .getByRole('button', { name: 'Refresh status', exact: true })
-        .click();
-      await page
-        .getByRole('alert')
-        .filter({ hasText: 'Status could not be refreshed' })
-        .waitFor();
       assert.deepEqual(errors, []);
       await page.close();
     }
     // Exercise visible failure states with explicit synthetic browser responses only.
-    const page = await browser.newPage();
+    const page = await context.newPage();
     const live = operationsStatusSchema.parse(
       await localAdminJson('/api/admin/status'),
     );
@@ -207,7 +303,9 @@ async function smoke() {
     digestQueue.paused = true;
     const synthetic = operationsStatusSchema.parse(live);
     await page.route('**/api/status', (route) =>
-      route.fulfill({ json: synthetic }),
+      route.request().method() === 'GET'
+        ? route.fulfill({ json: synthetic })
+        : route.fallback(),
     );
     await page.goto('http://localhost:8000');
     await page.getByText('Source & run status', { exact: true }).click();
@@ -235,8 +333,19 @@ async function smoke() {
       .getByText('Last provider error: provider-spend-limit', { exact: false })
       .waitFor();
     await page.close();
+    assert.deepEqual(credentials, []);
+    assert.deepEqual(unexpectedWrites, []);
+    assert.deepEqual(await localAdminJson('/api/admin/topics'), topics);
+    assert.deepEqual(await localAdminJson('/api/admin/profile'), profile);
+    if (latest)
+      assert.deepEqual(
+        await localAdminJson(
+          '/api/admin/digest-previews/' + (latest as { id: string }).id,
+        ),
+        savedEdition,
+      );
     console.log(
-      'Status desktop/mobile, real telemetry, edition links, refresh errors and synthetic failure rendering passed',
+      'Status desktop/mobile protected telemetry, edition links, refresh failure/retry and synthetic failures passed; browser credentials absent, writes guarded, full saved edition/topics/profile unchanged',
     );
   } finally {
     await browser.close();

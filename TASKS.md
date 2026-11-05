@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Status recovery (801): desktop/mobile failed refresh retains telemetry and retry restores it; protected snapshots, browser write/credential guards and full edition/topics/profile immutability verified.
+
 - [x] News-query recovery (800): desktop/mobile validation, failed connection, retained query, retry, reload and disconnect verified with protected snapshots, browser guards and full edition/topics/profile immutability.
 
 - [x] Topic availability recovery (799): desktop/mobile failure/retry, disable/enable reload and editor protection verified with protected snapshots, browser write/credential guards and full edition/topics/profile immutability.
