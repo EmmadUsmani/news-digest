@@ -4,7 +4,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
-- [ ] STEERING 36 NOW: forty-article grouping pool activated (872), ten-story editor cap unchanged. Actual World replay: Nov 4 1→10 editor inputs / 1→5 reviewed labels; Nov 5 3→10 inputs / 2→7 labels; four verification calls $0.005837. All-topic scenario $0.464371 within reserve. Review Nov 6 edition. Next finish UI step 2 and spec pages; fix coverage-directory cleanup at its source. X rounds still due after 21:00 UTC.
+- [ ] STEERING 36 NOW: forty-article grouping pool activated (872), ten-story editor cap unchanged. Actual World replay: Nov 4 1→10 editor inputs / 1→5 reviewed labels; Nov 5 3→10 inputs / 2→7 labels; four verification calls $0.005837. All-topic scenario $0.464371 within reserve. Review Nov 6 edition. Next finish UI step 2 and spec pages; coverage cleanup fixed in 873 (1.85 GB reclaimed). X rounds still due after 21:00 UTC.
 
 - [x] STEERING 35: saved reader text restored without snapshot writes (738); Nov 5 NBA now has five AI stories with text, verified desktop/mobile light/dark (847). No fallback investigation needed for this run.
 - [x] STEERING 13 / M3 scheduled full-AI acceptance (847): Nov 5 edition `7d99b279-cb6a-4cf0-b0a2-d94c5645f0b7`, all story/social sections AI, zero unscored; $0.315445/152.320 s, reserve released/zero holds. [Review](docs/edition-reviews/2026-11-05.md). Speed and editorial quality remain open below.
@@ -35,6 +35,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - Editorial audit closed under STEERING 5; resume only for actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.
 
 ## Latest verified step
+
+- [x] Test leftovers (873): per-run temporary root cleans Node coverage after success/failure; removed 21 inactive directories (1.85 GB). UI step 2 remains next.
 
 - [x] Forty-article publication pool (872): actual ledgered Haiku World verification and fingerprinted offline replay; no cross-reviewed-label groups, more story diversity, existing editor ceiling and budget admission retained. [Evidence](docs/edition-reviews/2026-11-05-world-story-pool.md).
 

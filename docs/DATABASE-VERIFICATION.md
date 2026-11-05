@@ -4,6 +4,8 @@ Run `pnpm test:integration` with Docker available, or `pnpm check` for the full
 verification chain. The runner starts fresh PostgreSQL 17 and Redis 7 containers,
 applies every migration, runs the explicitly registered integration suite, and
 prints Node's native V8 line/branch/function coverage. It never uses the live DB.
+Each run owns a temporary root for child processes and Node coverage files;
+the runner removes it after success or failure, without sweeping shared `/tmp`.
 Postgres (`/var/lib/postgresql/data`) and Redis (`/data`) use tmpfs, so their
 image-declared data directories cannot leave anonymous disk volumes behind, even
 if the runner is killed. Test data is ephemeral and disappears with the containers.
