@@ -1,9 +1,14 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { useNavigate, useParams } from '@tanstack/react-router';
+import { Link, useNavigate, useParams } from '@tanstack/react-router';
 import React from 'react';
 
 import { Button } from './components/ui/button';
-import { editionHistoryQuery, editionQuery, statusQuery } from './queries';
+import {
+  editionHistoryQuery,
+  editionQuery,
+  HttpError,
+  statusQuery,
+} from './queries';
 import { TopPosts } from './TopPosts';
 export function DigestPreview() {
   const navigate = useNavigate();
@@ -320,7 +325,26 @@ export function DigestPreview() {
           </>
         )}
       </details>
-      {(error || edition.isError) && (
+      {selectedEditionId &&
+      edition.error instanceof HttpError &&
+      edition.error.status === 404 ? (
+        <div role="alert">
+          <h2>Edition not found</h2>
+          <p>This saved edition is unavailable.</p>
+          <Link to="/">Back to latest edition</Link>
+        </div>
+      ) : edition.isError ? (
+        <div role="alert">
+          <p>The edition could not be loaded. Please try again.</p>
+          <Button
+            onClick={() => void edition.refetch()}
+            disabled={edition.isFetching}
+          >
+            Try loading edition again
+          </Button>
+        </div>
+      ) : null}
+      {error && (
         <p role="alert">
           The edition could not be loaded or created. Please try again.
         </p>

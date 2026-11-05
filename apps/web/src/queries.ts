@@ -10,9 +10,18 @@ import {
 import { queryOptions } from '@tanstack/react-query';
 import type { z } from 'zod';
 
+export class HttpError extends Error {
+  constructor(
+    public readonly status: number,
+    url: string,
+  ) {
+    super(`Could not load ${url}`);
+  }
+}
+
 async function read<T>(url: string, schema: z.ZodType<T>, signal: AbortSignal) {
   const response = await fetch(url, { signal });
-  if (!response.ok) throw new Error(`Could not load ${url}`);
+  if (!response.ok) throw new HttpError(response.status, url);
   return schema.parse(await response.json());
 }
 
@@ -43,6 +52,8 @@ export const statusQuery = queryOptions({
 export const editionQuery = (id?: string) =>
   queryOptions({
     queryKey: ['editions', 'detail', id ?? 'latest'],
+    retry: (failureCount, error) =>
+      !(error instanceof HttpError && error.status === 404) && failureCount < 3,
     queryFn: ({ signal }) =>
       read(
         `/api/editions/${id ? encodeURIComponent(id) : 'latest'}`,

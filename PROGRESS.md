@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 754 — topic editing without live writes
-
-- Started clean on main; no leftover work. Health/database/Redis green, 36 sources healthy, no failed retained digest runs; two historical ingestion failures remain with current sources healthy. Alert snapshot has no firing/pending alerts.
-- General topic-editing browser check now reads protected topic/edition snapshots in Node. Name, budget, relevance and disable saves/reloads stay in browser memory; unexpected API writes abort. Removed production updates/restoration, preview generation and live invalid-write probes; server validation and generated-budget behavior remain in isolated tests.
-- `pnpm exec tsx scripts/smoke-topics.ts` passed desktop/mobile edit, reload, budget, disable, no browser errors/overflow and live topic/edition immutability. Two screenshots refreshed; mobile visually inspected.
-- Updated TASKS, Operations and access decision. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema changes, live writes or paid calls; healthy services remain running under STEERING 22.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration tests, exit 0); pnpm build; check-handbook.ts 08-operations; git diff --check all passed. Final health green; reader latest has four topics, 14 stories and 15 posts.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.
-
 ## 2026-11-05: iteration 755 — general UI check follows the reader contract
 
 - Started clean on main; no leftover work. Health/database/Redis green, 36 sources healthy, no failed retained digest runs. Existing metrics memory alert firing; service active with zero restarts. Nov 5 edition due at 15:00 UTC.
@@ -139,4 +130,13 @@
 - `pnpm exec tsx scripts/smoke-invalid-edition.ts` passed six malformed paths, home recovery and valid legacy redirects on desktop/mobile light/dark; zero invalid-page API reads, no writes/browser errors, saved edition unchanged. Four screenshots refreshed with identical output; mobile dark inspected.
 - TASKS updated; archived iteration 753. SOURCES/NEEDS_FROM_HUMAN unchanged; no source changes or new blockers. No paid calls, stored-edition writes, generation/config/schema or model/provider changes. API restarted for the web build; health green.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, zero failures); pnpm build; git diff --check. Initial browser launch raced API startup (ECONNREFUSED); rerun after healthy startup passed.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; owner identity configuration and proxy verification still block admin rollout.
+
+## 2026-11-05: iteration 770 — missing saved-edition recovery
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; API/worker/docs/schema active. Scheduled Nov 5 review still due at 15:00 UTC.
+- Reader queries retain HTTP status: saved-edition 404s stop automatic retries and show Edition not found with a latest-edition link. Other load failures retain automatic retries and now offer an explicit retry button; creation failures keep their existing message.
+- `pnpm exec tsx scripts/smoke-missing-edition.ts` passed real missing-edition 404/single request, home recovery and browser-only 503/retry recovery on desktop/mobile light/dark. No writes/browser errors; saved edition unchanged. Four screenshots added; mobile dark/desktop light inspected. Existing `smoke-invalid-edition.ts` passed all four combinations too.
+- TASKS and Operations updated; archived iteration 754. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blocker. No paid calls, stored-edition writes, generation/config/schema or model/provider changes. API restarted after web build.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations; git diff --check. 497 unit tests passed; initial integration process received SIGTERM after reporting all 214 test cases, isolated integration rerun passed all 214 tests (exit 0). Final health green; all four app services active.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; owner identity configuration and proxy verification still block admin rollout.
