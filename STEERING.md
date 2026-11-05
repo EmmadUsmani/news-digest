@@ -2,11 +2,25 @@
 
 The owner writes instructions here, often by editing on GitHub. The agent reads
 this file every iteration, and it overrides MISSION.md where they conflict. The
-agent only appends `ack: <date> <what you did>` lines under an item.
+agent only appends `ack: <date> <what you did>` lines under an item, and tidies
+Current order as `AGENTS.md` allows.
 
 Completed items 1 (formatting and linting) and 3 (AI editorial, including its
 budget rules) are in `docs/steering-archive.md`. Read them only when touching
 those areas.
+
+## Current order
+
+**This list wins if an item's wording says otherwise.** It sets the order only:
+details, budgets and rules stay in the items. Every new item goes on this list.
+
+1. Breakages and protecting the morning edition.
+2. X search: reliability fixes and test rounds (items 39, 34).
+3. Nov 6 edition review: World stories, cost (item 36).
+4. UI rebuild: admin pages, then final reader (item 33).
+5. Then item 38's list for choosing meaningful work.
+
+Blocked on the owner: R2 backups (item 37).
 
 ## 2. LOWER PRIORITY: real DB verification, then an ORM (2026-11-01)
 

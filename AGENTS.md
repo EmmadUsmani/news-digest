@@ -18,6 +18,14 @@ conflict. Never edit `MISSION.md`, `BOOTSTRAP.md` or anything under
    commit, `git push origin main`, and restart services so the live app
    matches `main`.
 
+**STEERING.md's Current order decides what comes first.** Keep it accurate:
+
+- **You may** remove a finished line, or move a line to Blocked and say why.
+  This is your only edit there, besides `ack:` lines.
+- **Never** reorder, add or reword it. Priorities belong to the owner.
+- **If a newer item isn't listed, or the list contradicts an item,** follow the
+  list, note it in NEEDS_FROM_HUMAN.md and keep working.
+
 ## Environment
 
 - exe.dev VM, Ubuntu-based. You have passwordless sudo. Project at

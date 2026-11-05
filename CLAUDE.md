@@ -69,6 +69,8 @@ extend to the next.
   playbook) get small, quick edits.
 - **Steering touches one agent.** Before steering, check what other sessions have
   steered recently. If priorities conflict, ask the owner to choose.
+- **Current order** at the top of `STEERING.md` is the one ranked list. Every new
+  item goes on it, and only the owner changes the ranking.
 
 ## Keep the setup current
 
