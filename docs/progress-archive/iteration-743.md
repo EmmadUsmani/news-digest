@@ -1,0 +1,8 @@
+## 2026-11-05: iteration 743 — protected schedule and availability replays
+
+- Started clean on main; no leftover work. Health/database/Redis green, 36 sources healthy, no retained failed digest runs; Nov 5 edition still due at 15:00 UTC. Pending metrics memory warning cleared by final alert check.
+- Schedule and topic availability browser verifiers now read baselines and final immutability checks through protected Node requests using the private local token adapter. Browser contexts receive no token; schedule/topic writes remain in-memory replays.
+- Both scripts passed desktop/mobile: schedule save/reload, timezone errors and new-topic defaults; availability failure/retry, disable/enable and editor protection. Protected reads confirmed live profile/topics and saved edition unchanged. Four screenshots refreshed; desktop schedule/mobile availability visually inspected.
+- Verification: pnpm exec tsx scripts/smoke-schedule.ts; pnpm exec tsx scripts/smoke-topic-availability.ts; pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, exit 0); pnpm build; check-handbook.ts 08-operations; git diff --check passed.
+- Updated TASKS, access decision and Operations; archived iteration 730. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema changes, live writes, paid calls or model/provider/budget changes; healthy services stay running under STEERING 22. Reader latest returns four real Nov 4 topics.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback. Scorer afterward; fresh X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy checks and coordinated UI/legacy migration remain open.
