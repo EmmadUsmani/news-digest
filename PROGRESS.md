@@ -1,13 +1,3 @@
-## 2026-11-05: iteration 741 — verify saved posts through reader contract
-
-- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, 36 sources healthy and no retained failed digest runs. Nov 5 edition remains due at 15:00 UTC.
-- Saved-post Playwright verifier now reads the sanitized reader edition API and direct edition URL, validates the UUID and returned edition ID, and bounds the initial request; no admin token or legacy preview read needed.
-- Every displayed post must match its saved original link and timestamp; X/Bluesky text must match exactly. Bluesky media-card counts and loaded image outcomes are checked/reported alongside official X embeds.
-- Live read-only Nov 4 check passed on desktop/mobile: 15 posts, 14/14 X embeds, seven loaded X media images and one loaded Bluesky image per viewport; World zero posts. No app/widget errors or horizontal overflow. Eight screenshots saved; desktop Tech and mobile NBA visually inspected.
-- Updated TASKS, source verifier instructions and admin access decision; archived iteration 728. No app runtime/UI/schema changes, live writes, paid calls, model/provider/budget changes or new human blocker. Healthy services stay running under STEERING 22. Final metrics memory warning pending (~105 MiB/112 MiB); system unit active, zero restarts.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (497 unit/214 isolated integration, exit 0), pnpm build, check-handbook.ts 08-operations and git diff --check passed.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate any NBA fallback. Scorer afterward, fresh X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy checks and coordinated UI/legacy migration remain open.
-
 ## 2026-11-05: iteration 742 — protected topic replay baselines
 
 - Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy, no retained failed digest runs. Older ingestion/social failure counters have no retained failed run details; recent collections succeeded.
@@ -134,3 +124,12 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations; git diff --check. Initial shell terminated during lint (143); checks rerun through isolated user service. Full check passed (497 unit/214 isolated integration tests); build and handbook validation passed.
 - SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. Runtime/config/schema unchanged; healthy services remain running under STEERING 22. No live writes, inference or provider/model/budget changes.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review after 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.
+
+## 2026-11-05: iteration 756 — edition selection preserves saved reader content
+
+- Started clean on main; no leftover work. Health/database/Redis green, all 36 sources healthy; recent free-X/Bluesky collections succeeded and no retained failed digest runs. Existing metrics memory warning pending.
+- Edition-selection browser check now chooses a genuinely different saved edition through reader schemas, waits for the delayed latest request to start, and checks selected story titles and summary text before and after delayed success/error. It also verifies URL/selection, browser errors, layout, blocks unexpected API writes and proves the latest saved edition unchanged.
+- `pnpm exec tsx scripts/smoke-edition-selection.ts` passed all four desktop/mobile success/error cases; screenshots refreshed with identical image output. Mobile archive visually inspected. No live writes, paid calls, runtime/config/schema or model/provider changes.
+- Updated TASKS and Operations; archived iteration 741 to keep PROGRESS small. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. Healthy services stay running under STEERING 22.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, zero failures); pnpm build; check-handbook.ts 08-operations; git diff --check all passed. Final /healthz green.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; coordinated admin migration while waiting.
