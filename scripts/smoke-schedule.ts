@@ -49,12 +49,17 @@ async function smoke() {
     return route.continue();
   });
   let failSave = false;
+  let pendingSave: Promise<void> | undefined;
+  let releaseSave: (() => void) | undefined;
+  let saves = 0;
   // All browser profile reads/writes are replayed in memory, including reloads.
   await context.route('**/api/profile', (route) =>
     route.fulfill({ json: profile }),
   );
   await context.route('**/api/profile/schedule', async (route) => {
     assert.equal(route.request().method(), 'PUT');
+    saves++;
+    if (pendingSave) await pendingSave;
     if (failSave) return route.abort('failed');
     const result = scheduleSchema.safeParse(route.request().postDataJSON());
     if (!result.success) {
@@ -112,14 +117,42 @@ async function smoke() {
       await form.getByLabel('Default post budget', { exact: true }).fill('0');
       const beforeFailure = structuredClone(profile);
       failSave = true;
+      const previousSaves = saves;
+      pendingSave = new Promise<void>((resolve) => {
+        releaseSave = resolve;
+      });
       await form
         .getByRole('button', { name: 'Save schedule', exact: true })
         .click();
+      const saving = form.getByRole('button', { name: 'Saving…', exact: true });
+      await saving.waitFor();
+      assert.ok(await saving.isDisabled());
+      for (const label of [
+        'Daily local time',
+        'IANA timezone',
+        'Coverage window',
+        'Default story budget',
+        'Default post budget',
+      ]) {
+        assert.ok(await form.getByLabel(label, { exact: true }).isDisabled());
+      }
+      assert.equal(saves, previousSaves + 1);
+      assert.deepEqual(profile, beforeFailure);
+      await form.screenshot({
+        path: `docs/screenshots/schedule-saving-${device}.png`,
+      });
+      releaseSave!();
+      pendingSave = undefined;
       await form
         .getByRole('status')
         .filter({ hasText: 'Could not save schedule settings.' })
         .waitFor();
       assert.deepEqual(profile, beforeFailure);
+      assert.ok(
+        await form
+          .getByRole('button', { name: 'Save schedule', exact: true })
+          .isEnabled(),
+      );
       assert.equal(
         await form.getByLabel('Daily local time', { exact: true }).inputValue(),
         '09:30',
@@ -173,6 +206,17 @@ async function smoke() {
         await form.getByLabel('Daily local time', { exact: true }).inputValue(),
         '09:30',
       );
+      for (const [label, value] of [
+        ['IANA timezone', 'Asia/Tokyo'],
+        ['Default story budget', '3'],
+        ['Default post budget', '0'],
+      ]) {
+        assert.equal(
+          await form.getByLabel(label, { exact: true }).inputValue(),
+          value,
+        );
+      }
+      assert.equal(saves, previousSaves + 2);
       await form
         .getByLabel('IANA timezone', { exact: true })
         .fill('Mars/Olympus');
@@ -232,7 +276,7 @@ async function smoke() {
         latest,
       );
     console.log(
-      'Schedule desktop/mobile: failed-save recovery, save/reload, timezone errors, defaults, blocked writes, credential absence and full edition/topics/profile immutability passed',
+      'Schedule desktop/mobile: pending-save locks, failed-save recovery, all saved fields after reload, timezone errors, defaults, blocked writes, credential absence and full edition/topics/profile immutability passed',
     );
   } finally {
     try {
