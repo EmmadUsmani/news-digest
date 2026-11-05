@@ -61,6 +61,8 @@ async function main() {
   let saves = 0;
   let attempts = 0;
   let failSave = true;
+  let pendingSave: Promise<void> | undefined;
+  let releaseSave: (() => void) | undefined;
   await context.route('**/*', async (route) => {
     const request = route.request();
     const path = new URL(request.url()).pathname;
@@ -82,6 +84,7 @@ async function main() {
       );
       if (!parsed.success) throw new Error('Invalid browser update');
       attempts++;
+      await pendingSave;
       if (failSave) {
         await route.fulfill({ status: 503, body: 'Unavailable' });
         return;
@@ -143,9 +146,34 @@ async function main() {
           exact: true,
         })
         .fill('@NBA\nNBAPR');
+      pendingSave = new Promise<void>((resolve) => {
+        releaseSave = resolve;
+      });
       await form
         .getByRole('button', { name: 'Save topic', exact: true })
         .click();
+      const saving = form.getByRole('button', { name: 'Saving…', exact: true });
+      await saving.waitFor();
+      assert.ok(await saving.isDisabled());
+      const pendingHandles = form.getByRole('textbox', {
+        name: 'X accounts · one handle per line',
+        exact: true,
+      });
+      assert.ok(await pendingHandles.isDisabled());
+      assert.ok(
+        await form
+          .getByRole('button', { name: 'Cancel', exact: true })
+          .isDisabled(),
+      );
+      assert.equal(attempts, previousAttempts + 1);
+      assert.equal(saves, previousSaves);
+      assert.deepEqual(replayTopics[original.length].accounts, ['NBA']);
+      await pendingHandles.scrollIntoViewIfNeeded();
+      await page.screenshot({
+        path: `docs/screenshots/topic-accounts-saving-${name}.png`,
+      });
+      releaseSave!();
+      pendingSave = undefined;
       await page
         .getByRole('status')
         .filter({ hasText: 'Could not save topic settings.' })
@@ -165,6 +193,7 @@ async function main() {
       await page.screenshot({
         path: `docs/screenshots/topic-accounts-failure-${name}.png`,
       });
+      assert.equal(await pendingHandles.isEnabled(), true);
       failSave = false;
       await form
         .getByRole('button', { name: 'Save topic', exact: true })
