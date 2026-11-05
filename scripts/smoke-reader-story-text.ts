@@ -3,8 +3,11 @@ import assert from 'node:assert/strict';
 import { readerEditionSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
-// Read-only regression check against the immutable Nov 4 scheduled edition.
-const editionId = '3bf10f5b-4c00-48b2-85bd-8e6dac7e3238';
+// Read-only regression check; optional edition UUID and screenshot prefix.
+const editionId = process.argv[2] ?? '3bf10f5b-4c00-48b2-85bd-8e6dac7e3238';
+const screenshotPrefix = process.argv[3] ?? 'nba-story-text';
+assert.match(editionId, /^[a-f0-9-]{36}$/);
+assert.match(screenshotPrefix, /^[a-z0-9-]+$/);
 const origin = 'http://localhost:8000';
 async function smoke() {
   const readEdition = async () => {
@@ -21,7 +24,8 @@ async function smoke() {
     assert.equal(edition.topics.length, 4);
     const nba = edition.topics.find((topic) => topic.name === 'NBA');
     assert.ok(nba);
-    assert.equal(nba.stories.length, 5);
+    if (!process.argv[2]) assert.equal(nba.stories.length, 5);
+    else assert.ok(nba.stories.length > 0);
     assert.ok(nba.stories.every((story) => story.summary?.trim()));
     for (const [device, width, height] of [
       ['desktop', 1440, 1100],
@@ -117,9 +121,15 @@ async function smoke() {
           ),
         );
         await page.evaluate(() => document.fonts.ready);
-        await topic.screenshot({
-          path: `docs/screenshots/ui/nba-story-text-${device}${theme === 'dark' ? '-dark' : ''}.png`,
-        });
+        for (const [index, saved] of edition.topics.entries()) {
+          const section = page.locator('.digest-topic').filter({
+            has: page.getByRole('heading', { name: saved.name, exact: true }),
+          });
+          if (!process.argv[3] && saved.name !== 'NBA') continue;
+          await section.screenshot({
+            path: `docs/screenshots/ui/${screenshotPrefix}${process.argv[3] ? `-${index}` : ''}-${device}${theme === 'dark' ? '-dark' : ''}.png`,
+          });
+        }
         assert.deepEqual(errors, []);
         await context.close();
       }
@@ -127,7 +137,7 @@ async function smoke() {
     assert.deepEqual(writes, []);
     assert.deepEqual(await readEdition(), edition);
     console.log(
-      'Nov 4: all four topics match saved story titles/text; NBA 5/5 summaries; desktop/mobile light/dark labels/layout passed; no browser writes/errors; saved edition unchanged.',
+      `${editionId}: all four topics match saved story titles/text; NBA ${nba.stories.length}/${nba.stories.length} summaries; desktop/mobile light/dark labels/layout passed; no browser writes/errors; saved edition unchanged.`,
     );
   } finally {
     await browser.close();

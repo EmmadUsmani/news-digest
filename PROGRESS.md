@@ -1,53 +1,3 @@
-## 2026-11-05: iteration 828 — bound stalled topic reordering
-
-- Started clean on main; no leftover work. Alerts clear and health/database/Redis green; Nov 5 scheduled evidence remains pending at 15:00 UTC.
-- Topic order PUT now aborts after 15 seconds, releasing controls with existing uncertainty/reload guidance and no automatic retry.
-- Desktop/mobile Playwright replay holds a completed order save through the real timeout, verifies unlocked controls, then reloads saved positions without another PUT. Both timeout screenshots inspected in docs/screenshots/ui/.
-- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit/214 isolated integration tests, zero failures); smoke-topic-order.ts; smoke-admin-gate.ts; git diff --check.
-- Browser writes replayed; protected live topics/profile/full edition unchanged; no paid calls. Rebuilt API restarted, health green and alerts clear; worker/schedule unchanged.
-- TASKS updated; progress 815–817 archived to keep orientation small. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadline only, no new blocker).
-- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-
-## 2026-11-05: iteration 829 — bound stalled source catalog reads
-
-- Started clean on main; no leftover work. Alerts clear, API/worker active and health/database/Redis green. Nov 5 scheduled evidence remains pending at 15:00 UTC.
-- Initial source catalog loads and post-connection refreshes now abort after 15 seconds, exposing existing retry guidance and releasing controls. No automatic retry or repeated feed connection.
-- Desktop/mobile Playwright replay holds both reads through the real deadline; retry retains unsent feed fields and saved selections without another write. Both timeout screenshots inspected in docs/screenshots/ui/; unrelated regenerated screenshots discarded.
-- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit/214 isolated integration tests, zero failures); smoke-custom-feeds.ts; smoke-admin-gate.ts; git diff --check.
-- Browser writes replayed; protected live topics/profile/full edition unchanged; no paid calls. Rebuilt API restarted, health green, reader returns four topics and alerts clear; worker/schedule unchanged.
-- TASKS updated; progress 815–817 archived to keep orientation small. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadlines only, no new blocker).
-- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-
-## 2026-11-05: iteration 830 — bound stalled source selection saves
-
-- Started clean on main; no leftover work. Alerts clear, API/worker active and health/database/Redis green; Nov 5 scheduled evidence remains pending at 15:00 UTC.
-- Source selection PUT now aborts after 15 seconds, releasing controls with existing uncertainty/reload guidance. No automatic retry.
-- Desktop/mobile Playwright replay holds a completed save through the real deadline, verifies unlocked controls and retained selection, then reloads saved connections without another PUT. Both timeout screenshots inspected in docs/screenshots/ui/; unrelated regenerated screenshot discarded.
-- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit/214 isolated integration tests, zero failures); smoke-topic-sources.ts; smoke-admin-gate.ts; git diff --check.
-- Browser writes replayed; protected live topics/profile/full edition unchanged; no paid calls. Rebuilt API restarted, health green, reader returns four topics and alerts clear; worker/schedule unchanged.
-- TASKS updated and completed markers 815–829 archived to reduce orientation size. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadline only, no new blocker).
-- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-
-## 2026-11-05: iteration 831 — bound stalled feed connections
-
-- Started clean on main; no leftover work. Alerts clear and health/database/Redis green; Nov 5 scheduled evidence remains pending at 15:00 UTC.
-- Custom feed and news-query connection POST now aborts after 15 seconds, releasing controls with existing uncertainty/reload guidance and retained fields; no automatic retry.
-- Desktop/mobile Playwright replay holds a completed feed POST beyond the deadline, verifies unlocked controls, then reloads the saved connection without another POST. Timeout screenshots inspected in docs/screenshots/ui/.
-- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit/214 isolated integration tests, zero failures); smoke-custom-feeds.ts; smoke-admin-gate.ts; git diff --check.
-- Browser writes replayed; protected live topics/profile/full edition unchanged; no paid calls. Rebuilt API restarted; worker/schedule unchanged.
-- TASKS updated; progress 815–817 archived to keep orientation small. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadline only, no new blocker).
-- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-
-## 2026-11-05: iteration 832 — verify news-query timeout recovery
-
-- Started clean on main; no leftover work. Alerts clear, API/worker active, health/database/Redis green; scheduled Nov 5 review remains due at 15:00 UTC.
-- Extended smoke-custom-feeds.ts to exercise the separate news-query POST with an exact request body and a completed browser-only connection whose response stalls past the real 15-second deadline.
-- Desktop/mobile assertions verify locked pending controls, released controls after timeout, retained query, stale unconfirmed selection, and saved selection recovered on reload without repeating the POST. Both new timeout screenshots inspected.
-- Fixed the new check's pending-button locator after its initial failure. Final browser run printed complete success and proved protected live topics/profile/full edition unchanged; process then returned signal 143 during teardown (not a clean exit).
-- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit/214 isolated integration passed); smoke-admin-gate.ts passed; git diff --check. No production code changed, paid calls or live writes.
-- TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (verification only). API restart and post-restart health/alerts checked; worker/schedule unchanged.
-- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, then scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification pending. Investigate browser teardown signal if repeated.
-
 ## 2026-11-05: iteration 833 — identify news-query connection outcomes
 
 - Started clean on main; no leftover work. Alerts clear and health/database/Redis green; Nov 5 scheduled review remains due at 15:00 UTC.
@@ -194,3 +144,15 @@
 - Static UI served by healthy API; no runtime service changes, so no restart under STEERING 22. No paid calls or live writes.
 - TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (keyboard fix, no new blocker).
 - Next FIRST: 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 847 — verify first scheduled full-AI edition
+
+- Started clean on main; no leftover work. Health/database/Redis green, alerts clear; scheduled edition took priority as it started at 15:00 UTC.
+- Reviewed immutable 7d99b279-cb6a-4cf0-b0a2-d94c5645f0b7: 152.320 s, 756 candidates, 17 stories/14 X posts, $0.315445/46 settled calls, zero holds. All story/social sections AI, zero unscored; NBA five AI stories. Reserve full-ai/released; speed target unmet.
+- Four grouping calls $0.002103; four saved multi-article groups reviewed without clearly unrelated events. Raw grouping/recall unknown; separate Tech chip-report/Gaming Sony editorial evidence concerns recorded for follow-up.
+- Old scheduled X search $0.143191/19 fetched/18 new verified outside-list posts; one Tech pick selected. X picks 3/5/5/1, no Bluesky picks; saved X engagement unknown. No extra paid verification or live writes.
+- Generalized smoke-reader-story-text.ts with edition UUID/safe screenshot prefix, retaining default Nov 4 regression; Nov 5 desktop/mobile light/dark passed all topic text, NBA 5/5, labels/layout, no writes/errors and unchanged edition. Sixteen screenshots saved; NBA/World/Tech/Gaming captures inspected.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration passed); pnpm build; smoke-admin-gate.ts passed; pnpm obs health/alerts; git diff --check.
+- Updated review/SOURCES/TASKS and STEERING 13/27/35 acks. Archived oversized task detail and progress 828–832; handbook/NEEDS_FROM_HUMAN unchanged (evidence/scripts only, no new blocker).
+- No runtime code/config change; no restart under STEERING 22. Rebuilt static UI served by healthy API.
+- Next: STEERING 34 scorer now scheduled review is complete; X fresh-window rounds after 21:00 UTC Nov 5/6. Inspect noted editorial evidence; admin identity/proxy verification remains pending.

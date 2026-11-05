@@ -403,6 +403,8 @@ $0.48 cap. The scheduled edition is the product; it must get AI editing first.
 
 ack: 2026-11-03 item 13 measured, partial — iteration 425 verified the scheduled reserve protected the entire $0.482788 daily cap while running, then released with zero holds on publication at 15:03:51.856 UTC. Edition 777fdd95-0bcd-4ca7-9ea6-36c654effcca cost $0.339524 and took 231.829 s. Outcome is mixed: Tech/AI, Gaming and World stories AI-edited; NBA stories non-AI. Reserve behavior verified; full-AI acceptance remains open rather than claiming completion.
 
+ack: 2026-11-05 item 13 accepted — iteration 847 reviewed scheduled edition 7d99b279-cb6a-4cf0-b0a2-d94c5645f0b7: every story/social section AI-edited, zero unscored IDs, NBA five AI stories. $0.315445/46 settled calls, 152.320 s; reserve released, zero holds, full-ai outcome. Speed target remains unmet. See docs/edition-reviews/2026-11-05.md.
+
 ## 14. Owner decision: park Reddit, move to scheduled X search (2026-11-02)
 
 Reddit has returned 403 to the VM on every attempt. Reports say Reddit ends RSS
@@ -797,6 +799,8 @@ ack: 2026-11-04 item 27 scheduled review — iteration 646 checked edition 3bf10
 
 ack: 2026-11-04 item 27 activation — iteration 650 enabled LLM_STORY_GROUPING_ENABLED=1 for Nov 5 after the Nov 4 review and passed same-story gate (141/141 labelled precision, 141/157 recall; zero clearly unrelated/one borderline among 155 reviewed merges). Four grouping calls reserve at most $0.058192 combined at current prices, within $0.196315 remaining Nov 4 headroom; Nov 4 edition plus that bound is $0.349354, below today's $0.487477 cap. Existing 1.5x scheduled reserve already covers the full daily cap; no cap/model/provider changes or paid trial. Actual Nov 5 grouping cost, admission, accuracy, latency and real-edition screenshots remain to verify; NBA full-AI and World posts remain open.
 
+ack: 2026-11-05 item 27 scheduled grouping measurement — iteration 847 verified four admitted grouping calls, $0.002103 combined, with four published multi-article groups: NBA historic game/injury/payment dispute and World midterm results/reactions/consequences. No clearly unrelated published coverage merge observed; raw grouping responses and recall remain unknown. All topics now AI-edited, World one X pick, no Bluesky picks. Separate editorial cross-story evidence concerns remain for Tech chip reports/Gaming Sony commentary; see docs/edition-reviews/2026-11-05.md and desktop/mobile light/dark screenshots docs/screenshots/ui/nov5-stories-*.png.
+
 ## 28. Never idle: work allowed before the Nov 4 run (2026-11-03)
 
 Iterations 486–507 exited with no work for about two hours. Item 27 was
@@ -1063,3 +1067,5 @@ back again on Nov 5, finding out why ranks first, ahead of items 33 and 34. Ack
 here with both results.
 
 ack: 2026-11-05 item 35 symptom fixed — iteration 738 reader mapping now uses AI summary or saved article text for every saved edition without changing storage. Nov 4 NBA returns text for all five stories; topic forbidden-label check passes. Screenshots: [desktop](docs/screenshots/ui/nba-story-text-desktop.png), [mobile](docs/screenshots/ui/nba-story-text-mobile.png). Deployed before 13:00 UTC. Nov 5 edition is still due at 15:00 UTC; its NBA outcome and fallback investigation remain first priority when available.
+
+ack: 2026-11-05 item 35 scheduled outcome — iteration 847 verified Nov 5 NBA five AI-edited stories with non-empty reader text; no fallback. All four topics match saved titles/text desktop/mobile light/dark, no writes, edition unchanged. Screenshots docs/screenshots/ui/nov5-stories-1-{desktop,mobile}[-dark].png; review docs/edition-reviews/2026-11-05.md.

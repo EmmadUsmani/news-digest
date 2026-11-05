@@ -1,75 +1,37 @@
 # Tasks
 
-Fix failures first. [Completed markers](docs/progress-archive/2026-11-03-completed-task-markers-427.md).
-STEERING overrides older milestone notes; implementation history is in PROGRESS.md and its archives.
+Fix failures first. STEERING overrides older notes. [Prior detail through 846](docs/progress-archive/2026-11-05-task-detail-847.md).
 
 ## Immediate owner priorities
 
-- [x] STEERING 35 reader text restored (738): AI summary or saved excerpt, no snapshot writes; Nov 4 NBA 5/5 non-empty via reader API and desktop/mobile screenshots, topic labels pass. All four topics’ saved titles/text and NBA labels now verified desktop/mobile light/dark with browser writes blocked and edition unchanged (764). Nov 5 scheduled NBA outcome remains FIRST when available at 15:00 UTC; investigate fallback before items 33/34.
+- [x] STEERING 35: saved reader text restored without snapshot writes (738); Nov 5 NBA now has five AI stories with text, verified desktop/mobile light/dark (847). No fallback investigation needed for this run.
+- [x] STEERING 13 / M3 scheduled full-AI acceptance (847): Nov 5 edition `7d99b279-cb6a-4cf0-b0a2-d94c5645f0b7`, all story/social sections AI, zero unscored; $0.315445/152.320 s, reserve released/zero holds. [Review](docs/edition-reviews/2026-11-05.md). Speed and editorial quality remain open below.
 
-- [ ] STEERING 34 NOW: follow [X search plan](docs/x-search-plan.md). Query/runtime/preparation/runner/report/extractor/comparison migrated (720–725): fresh viral keywords, exact UTC windows, -giveaway, 16 viral/eight test-only semantic results, saved likes thresholds, explicit free-link novelty and eight-cell round coverage. Unknown evidence stays unknown; World reported separately. Grok 4.3 and caps unchanged; production fixed schedule off, no paid calls. Next scorer after Nov 5 edition; two fresh-window rounds after 21:00 UTC Nov 5/6, then same-day old-search baseline review and decision. Earliest production edition Nov 7; no round-1 analysis or model round.
+- [ ] STEERING 34 NOW: follow [X search plan](docs/x-search-plan.md). Query/runtime/experiment preparation migrated (720–725); Grok 4.3 and caps unchanged, production fixed search OFF. **Next: scorer author/reported likes/media change now Nov 5 edition is checked.** Two fresh-window keyword + semantic test rounds after 21:00 UTC Nov 5/6, then same-day old-search baseline and decision. Earliest production edition Nov 7. No more round-1 analysis or model round; World reported separately.
+- [ ] STEERING 30/31: experiment $2.50 total/$1 per UTC day, outside 13:00–16:00 UTC, $0.15 per-call reservation. Round 1 charged $0.532331 including unresolved Gaming timeout; no winner/activation. [Experiment](docs/x-search-experiment.md), [review](docs/edition-reviews/2026-11-04-x-experiment-review.md).
+- [ ] STEERING 27 grouping: Nov 5 four calls admitted, $0.002103; four published multi-article groups reviewed, no clearly unrelated event observed. NBA groups 4/2/2 reports; World eight election results/reactions/consequences (broadest). Raw group responses/recall unverified. **Inspect editorial evidence for Tech Moonshot/Blackwell + separate Hong Kong chip-import facts and Gaming Sony profits + PS6 commentary**, whose saved coverage is singleton, before declaring complete same-story accuracy. [Review](docs/edition-reviews/2026-11-05.md).
+  - Same-story production pass enabled (650) after sampled gate: labelled precision 141/141, recall 141/157, zero clearly unrelated/one borderline among 155 reviewed merges; no wording grouping rules. Four-call reservation bound $0.058192.
+- [ ] STEERING 7 speed: Nov 5 152.320 s/756 candidates versus Nov 4 151.532 s; <60 s/current volume and <2 min/1,500 remain unmet. Provider-duration sum 550.600 s gives four-slot work-only lower bound 137.650 s. Async jobs, dedupe/progress, batching/caching/repair/sibling recovery live. Use scheduled timings, no paid trial. [Offline evidence](docs/edition-reviews/2026-11-04-concurrency.md).
+- [ ] STEERING 16 / M4 Social posts: Nov 5 X picks Tech/NBA/Gaming/World 3/5/5/1; all four topics present, no Bluesky picks. Saved X metrics empty: viral/outside-list quality acceptance remains open. Paid old open-search picks 1/19 (Tech); no claim that all-topic presence proves paid discovery quality.
+- [ ] STEERING 9/15 first-week report: Nov 5 $0.143191/19 fetched/18 new verified outside-list posts; World $0.032663/3, Gaming $0.038724/5, NBA $0.035104/5, Tech $0.036700/5. Prior Nov 3 $0.137056/18, Nov 4 $0.149447/19. Four topics weakest-first, $0.10 per-topic hold, unchanged $0.40/day/$12/month cap. [Sources](docs/SOURCES.md).
+- [ ] STEERING 18 Bluesky: authenticated hourly collection and session refresh verified (788); Nov 5 no selected posts. Quality/diversity acceptance remains open; World phrase shortlist empty. Cross-platform context/semantic gates shipped. [Sources](docs/SOURCES.md#sustained-bluesky-session-recovery--iteration-788-2026-11-05).
+- [ ] STEERING 33 UI rebuild: after X work; exactly [approved spec](docs/ui-spec.md), five steps in order. TanStack Router/Query, Tailwind v4/shadcn, self-hosted Inter/themes live. Step 2 deny-by-default gate, uncached identity/protected aliases/sanitized reader endpoints prepared; legacy operational routes remain pending owner identity.
+  - Next: configure admin identity; verify authenticated proxy origin/header replacement; switch UI/scripts and remove legacy routes while gating tools together. Local denial/cache/method/forwarded-token checks pass. [Access decision](docs/decisions/2026-11-05-admin-access.md).
+  - Reader/history/text/themes/recovery and operational replays verified desktop/mobile light/dark with browser writes blocked or replayed and protected snapshots unchanged; screenshots in `docs/screenshots/ui/`.
+- [ ] STEERING 28 incremental triage OFF: default-off runtime, shared admission, reserve-safe scoring, exact pools/cutoffs and sibling draining verified. Reassess admission after Nov 5 full-AI acceptance; do not reduce protection. Real waste/latency unmeasured. [Prior assessment](docs/edition-reviews/2026-11-04-incremental-admission.md).
 
-- [x] STEERING 32 (705–709): default-off fixed A/B runtime prepared; production remains off pending experiment decision. Private nightly backups, seven-day retention, weekly isolated restore proof and 26-hour vmalert deployed. First restore matched all 26 application tables; details in [Operations](docs/handbook/01-app/10-backups.md).
+## Remaining milestones and lower priorities
 
-- [ ] STEERING 30/31: experiment caps/reporting still apply under item 34 ($2.50 total/$1 per UTC day, outside 13:00–16:00 UTC; $0.15 per-call reservation). Round 1 charged $0.532331 including unresolved Gaming timeout; no winner or activation. Historical evidence: [experiment](docs/x-search-experiment.md), [review](docs/edition-reviews/2026-11-04-x-experiment-review.md). No further round-1 analysis or model round.
+- [x] STEERING 32: private nightly backups, seven-day retention, weekly isolated restore and 26-hour alert deployed (709); fixed search runtime remains off pending decision. [Operations](docs/handbook/01-app/10-backups.md).
+- [ ] M5: grouping quality above; independent labels, different dates and Gaming still needed. Agent-labelled windows are not general quality estimates.
+- [ ] M6: topic CRUD/reorder/enable, source/schedule/budgets and on-demand UI connected; broader acceptance and admin separation open. Replay coverage through 846 in archived task detail.
+- [ ] M7: durable recovery beyond retained Redis jobs; DigestPublished event and log/in-app adapter. No real notifications.
+- [ ] STEERING 4: fake/replay LlmPort and verification ledger implemented; real raw-response golden open. Do not re-record unchanged prompts or pay merely to test replay. [Database verification](docs/DATABASE-VERIFICATION.md).
+- [ ] STEERING 8 PARKED under 14: Reddit disabled/access denied; no requests until owner re-enables official API credentials. YouTube deferred; no bypass.
+- [ ] STEERING 10 source balance paused under 27; Yardbarker prepared/disabled. No new source without coverage review.
+- [ ] STEERING 24/25 background: [observability plan](docs/observability-plan.md), O1–O10 done except O8 unknown; stop CLI/dashboard refinements. O11 isolated memory benchmark deferred (548.72 MiB peak versus ~500 MiB target). Monitor limits.
+- Editorial audit closed under STEERING 5; resume only for actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.
 
-- [ ] STEERING 27: verify Nov 5 scheduled grouping admission, accuracy, cost, latency and desktop/mobile screenshots. Nov 4 review: 151.532 s/$0.291162, NBA fallback, World no posts, paid open-X picks 0/19 ([review](docs/edition-reviews/2026-11-04.md)).
-  - Same-story pass enabled for Nov 5 (650), following passed sampled gate: labelled precision 141/141, recall 141/157; zero clearly unrelated and one borderline among 155 reviewed merges. Four-call reservation bound $0.058192; reserve protects full daily cap. No wording grouping rules. Actual grouped edition remains unverified.
-- [ ] STEERING 13: full-AI scheduled acceptance remains open. Reserve/fencing/UI implemented; Nov 3 $0.339524/231.829 s, Nov 4 $0.291162/151.532 s, reserve released/zero holds. NBA Sonnet and Haiku initial+repair failures proved by fingerprints, all candidates scored. Numeric No. rank false positives fixed (647), bounded diagnostics (648) and field-specific repair hints (653) shipped. Await actual NBA outcome; rejected wording unavailable.
-- [ ] STEERING 7: generation targets <60 s/current volume and <2 min/1,500 items remain unmet. Async BullMQ flow, dedupe/progress/durations implemented. Use scheduled timing, no paid trial.
-  - Offline concurrency assessment (662): peak four, eight-slot optimistic bound 63.327 s; removing article triage still leaves four-slot bound 65.878 s. [Evidence](docs/edition-reviews/2026-11-04-concurrency.md). Compare Nov 5 NBA repairs and Bluesky tail before tuning.
-  - Offline batching (662–688): no gain in saved Bluesky/X pools. Compact IDs, caching, repair and sibling recovery shipped; compare Nov 5 incidence/speed ([evidence](docs/edition-reviews/2026-11-04-concurrency.md)).
-- [ ] STEERING 16: open X search active, with durable low-yield followups, reported engagement/velocity and budget-permitting reactions/account-list paths. First all-topic scheduled account-list run acknowledged (425); open search enabled (430).
-  - Nov 4: $0.149447/19 new verified outside-list posts, only 13 in-window, NBA five betting promotions, reported likes at most 12; none selected. Tightened discovery instructions (651), no paid trial. Final editor now receives engagement provenance/unknowns (656). Need quality/viral acceptance and real X picks across all four topics.
-- [ ] STEERING 9/15: continue first-week daily per-topic/type cost and incremental verified yield. Nov 3 $0.137056/18 new verified; Nov 4 $0.149447/19. Seven-day ledger at Nov 4 review: $0.309885/9 calls including unattributed Nov 2. Four topics daily, weakest-first; scheduled per-topic hold $0.10; unchanged $0.40/day/$12/month cap.
-- [ ] STEERING 18: hourly authenticated Bluesky collection and edition inclusion active. Sustained refresh verified (788): same worker, seven hourly runs, one login/three successful refreshes; all four topics current ([evidence](docs/SOURCES.md#sustained-bluesky-session-recovery--iteration-788-2026-11-05)). Nov 4 Tech pick duplicated X; cross-platform context and semantic gates shipped. Broader quality/duplicate reduction await Nov 5 scheduled picks; World phrase shortlist remains empty.
-- [ ] STEERING 33: after X search/schedule/backups and Nov 5 checks, rebuild reader/admin UI exactly per [approved UI spec](docs/ui-spec.md), five shippable steps in order; ahead of item 28 fallback work. SPA, TanStack Router/Query, Tailwind v4/shadcn, self-hosted Inter; server-side admin gate and desktop/mobile light/dark route screenshots.
-  - Foundations shipped: TanStack Router/Query, Tailwind v4/shadcn, self-hosted Inter and saved theme. Step 2 has deny-by-default middleware, uncached identity, protected aliases and sanitized reader endpoints. Legacy operational routes remain pending owner identity configuration.
-  - Reader navigation/history, text, themes, widgets, unavailable/invalid/timeout recovery and retained cached data verified desktop/mobile. Local operational browser replays use protected Node snapshots, block writes/credentials and compare saved data. See [access decision](docs/decisions/2026-11-05-admin-access.md), [verification detail](docs/progress-archive/2026-11-05-completed-task-markers-803.md#ui-foundation-verification-detail-through-802) and `docs/screenshots/ui/`.
-  - Next: configure admin identity; verify authenticated proxy origin/header replacement; switch UI/scripts and remove legacy routes while gating tools together. Local denial, identity methods/cache and forwarded-token rejection pass; proxy checks remain pending.
+## Latest verified step
 
-- [ ] STEERING 28 / speed: incremental triage stays OFF. Default-off runtime, shared admission, reserve-safe scoring, exact pools, cutoff checks and sibling draining verified. Replays measure threshold/rotation skips and reusable/wasted versions; real waste/latency unmeasured.
-  - Activation assessment (655): no qualifying full-AI editions; Nov 5 reserve uses full projected daily cap ($0.495028 without more spend), leaving $0 background allowance. [Assessment](docs/edition-reviews/2026-11-04-incremental-admission.md). Reassess after full-AI acceptance without reducing protection.
-- [ ] STEERING 4 (lower priority): fake/replay LlmPort and verification spend implemented; real raw-response golden remains open. Recording concurrency, metadata/request isolation and integer usage verified (621–630). Do not re-record unchanged prompts or spend only to test replay. See [database verification](docs/DATABASE-VERIFICATION.md).
-- [ ] STEERING 8 PARKED under item 14: Reddit code prepared, access denied; no HTTP requests until owner re-enables with official API credentials. YouTube deferred. No bypass.
-
-## Remaining milestones
-
-- [ ] M3: first fully AI-edited scheduled digest; NBA acceptance above. Audit work closed under STEERING 5; resume only for an actual unsupported summary. Deferred: Message Batches, cross-process cache coordination, full articles and larger editor shortlists.
-- [ ] M4 Social posts: real X picks across all four topics; Nov 4 X counts Tech/NBA/Gaming/World 4/5/5/0, plus one Tech Bluesky. Immutable storage, official embeds, capped discovery, semantic editing and citation links implemented. Semantic same-event links and virality acceptance remain open. Reddit parked; Bluesky secondary.
-- [ ] M5: grouping activation evidence above; verified outlet independence, explainable scores and per-topic guidance. Need independently reviewed labels, different dates and Gaming; agent-labelled windows are not general quality estimates.
-- [ ] M6: CRUD/reorder/enable topics, schedule/budgets and on-demand UI connected. Enable/Disable verified (692); edition/history races fixed (694/697); create/delete/reorder browser checks replay writes (700–702). Broader acceptance open.
-- [ ] M7: durable recovery beyond retained Redis jobs; DigestPublished event and log/in-app notification adapter. No real notifications.
-- [ ] Ongoing: source balance (item 10) paused under 27; Yardbarker prepared/disabled. Precision, UI, retention/backups, resilience.
-- [ ] STEERING 24/25 background: [observability plan](docs/observability-plan.md). O1–O10 done; O8 unknown. Stop CLI/dashboard refinements. O11 deferred: 548.72 MiB daily peak exceeds ~500 MiB target; isolated benchmark required. Monitor existing limits.
-
-## Done markers
-
-- [x] History retry keyboard recovery (846): failed retries retain Retry focus; successful retries focus Browse saved editions. Desktop/mobile light/dark replay and screenshots pass without live writes.
-
-- [x] Uncertain generation recovery (845): queue timeout/interrupted response opens and focuses saved editions; desktop/mobile verifies keyboard access to latest edition without resubmission or live writes.
-
-- [x] Schedule-save keyboard navigation (844): Save schedule restores focus after success, rejection and timeout; desktop/mobile replay verifies Enter retry without changing the live schedule.
-
-- [x] Source selection keyboard navigation (843): Save sources restores focus after success, failure and timeout; desktop/mobile replay verifies Enter retry without live writes.
-
-- [x] Topic availability keyboard navigation (842): Enable/Disable restores focus after success, failure and timeout; desktop/mobile replay verifies Enter retry and saved/live data isolation.
-
-- [x] Topic reorder keyboard navigation (841): restore an available move button after save/failure; moving to the first position focuses Down. Desktop/mobile replay verifies Enter continuation and saved/live data isolation.
-
-- [x] Topic editor keyboard navigation (840): Create/Edit focus the Name field; Cancel and successful save restore the opener. Desktop/mobile replays verify focus, Enter reopening and existing failure recovery; focus screenshots inspected.
-
-- [x] Topic deletion keyboard navigation (839): confirmation focuses Keep topic; cancellation restores Delete and successful removal focuses Create topic. Desktop/mobile replay covers safe focus, keyboard cancel/reopen and failure recovery.
-
-- [x] Source catalog accessibility (838): checkboxes name their source; feed links name the source and new tab. Desktop/mobile keyboard replay verifies Tab order and unchanged selection.
-
-- Completed iterations 830–837: [archive](docs/progress-archive/2026-11-05-completed-task-markers-838.md).
-
-- Completed iterations 815–829: [archive](docs/progress-archive/2026-11-05-completed-task-markers-830.md).
-
-- Completed iterations 811–814: [archive](docs/progress-archive/2026-11-05-completed-task-markers-815.md).
-
-- Completed iterations 807–810: [archive](docs/progress-archive/2026-11-05-completed-task-markers-811.md).
-
-- Completed iterations 803–806: [2026-11-05-completed-task-markers-807.md](docs/progress-archive/2026-11-05-completed-task-markers-807.md).
-- Earlier completed markers: [iterations through 802](docs/progress-archive/2026-11-05-completed-task-markers-803.md).
+- [x] Nov 5 scheduled acceptance (847): full-AI NBA/all topics, grouping/cost/timing/social review and 16 read-only topic screenshots. Reader smoke accepts an edition ID and safe screenshot prefix for repeatable reviews.

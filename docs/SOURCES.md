@@ -1,5 +1,14 @@
 # Content source inventory
 
+### Nov 5 scheduled open X discovery — iteration 847
+
+Four successful old open-topic searches cost $0.143191: 19 fetched, 18 new
+officially verified outside-list posts (World 3, Gaming/NBA/Tech 5 each),
+zero holds. One Tech discovery was selected; no other paid pick was selected.
+The scheduled edition has X counts 3/5/5/1 and no Bluesky picks; saved X
+engagement is unknown. Full [Nov 5 review](edition-reviews/2026-11-05.md).
+Redesigned fixed search remains off; no verification calls were made.
+
 ### Curated X account review — 2026-11-03 (iteration 315)
 
 These are editable search inputs, selected for first-hand posts, reporting and
