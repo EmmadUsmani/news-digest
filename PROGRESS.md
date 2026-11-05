@@ -1,12 +1,3 @@
-## 2026-11-05: iteration 765 — reserve and duration checks block writes
-
-- Started clean on main; no leftover work. Alerts zero, /healthz database/Redis green, all 36 sources healthy; recent collection succeeds and no retained digest failures. Nov 5 edition remains due at 15:00 UTC.
-- Scheduled-reserve and run-duration browser checks now use one protected Node status snapshot each, block unexpected API writes, assert replayed status reads use GET, and prove the saved reader edition unchanged after both viewports. No credentials enter the browser.
-- `pnpm exec tsx scripts/smoke-reserve-status.ts` and `pnpm exec tsx scripts/smoke-run-duration.ts` passed desktop/mobile protected/released reserve and completed/waiting telemetry states. Four screenshots refreshed; both mobile screenshots visually inspected. Synthetic states stay in memory; no jobs or paid inference.
-- TASKS/Operations updated; shortened obsolete task history and archived iteration 749. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new blocker. No runtime/config/schema or model/provider changes; healthy services stay running under STEERING 22.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (497 unit/214 isolated integration, zero failures); pnpm build; check-handbook.ts 08-operations; git diff --check. First check terminated with exit 143 during unit tests without a reported failure; complete rerun passed. Final /healthz green.
-- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate repeated fallback before scorer. X rounds after 21:00 UTC Nov 5/6; owner identity configuration still blocks coordinated admin rollout.
-
 ## 2026-11-05: iteration 766 — archive navigation in both themes
 
 - Started clean on main; no leftover work. Alerts zero, health/database/Redis green, 36 sources healthy; recent social collection succeeds and next edition remains Nov 5 15:00 UTC.
@@ -135,3 +126,13 @@
 - TASKS/access decision updated; archived iteration 764. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers. No UI changes, paid calls, stored-edition writes or generation/config/schema changes.
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-admin-gate.ts; git diff --check. Static checks, 497 unit/214 isolated integration tests passed (exit 0). First check caught archive formatting, corrected before the successful full rerun. API restarted and health green; worker unchanged under STEERING 22.
 - Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; investigate fallback before scorer. X rounds after 21:00 UTC Nov 5/6; identity configuration/proxy verification still block admin rollout.
+
+## 2026-11-05: iteration 780 — prepare async-edition verification for admin gating
+
+- Started clean on main; no leftover work. Alerts zero, health/database/Redis green, all 36 sources healthy; no failed retained digest runs. Next scheduled edition remains 15:00 UTC.
+- Async-edition smoke now reads operational content/topics/profile/status through protected Node snapshots and replays them in the browser. Local credentials stay outside Playwright; browser requests are checked for credential absence, unexpected writes blocked and service workers disabled.
+- Job submission/polling remain browser-only simulations. Queue, active stages, reload recovery, reconnect, completion with real saved story text and failed-job recovery passed desktop/mobile. Full protected saved edition, topics and profile remain unchanged.
+- Commands: pnpm exec tsx scripts/smoke-edition-jobs.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations; git diff --check. Static checks, 497 unit and 214 isolated integration tests passed (exit 0); build, browser smoke, handbook and diff checks passed.
+- TASKS/Operations/access decision updated; archived iteration 765. Discarded regenerated screenshots because the UI is unchanged. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new blockers.
+- No paid calls, real job submissions, stored-edition writes, runtime/config/schema or model/provider changes. Healthy services left running under STEERING 22; all four services active and final health green.
+- Next FIRST: Nov 5 NBA/grouping/cost/latency review at 15:00 UTC; fallback investigation before scorer. X rounds after 21:00 UTC Nov 5/6. Owner identity configuration/proxy verification still block coordinated admin rollout.

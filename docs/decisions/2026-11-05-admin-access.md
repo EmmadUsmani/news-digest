@@ -125,6 +125,12 @@ receives only the response bodies; credentials stay in Node. Redirects fail,
 and non-local `APP_URL` values are rejected. Tool access is still awaiting
 the coordinated route migration.
 
+The async-edition browser check reads protected content, topics, profile and
+status snapshots in Node. Job submission, progress, reconnect, completion and
+failure stay in browser replay memory. It blocks unexpected browser writes,
+checks that no credentials reach the browser, and verifies the full saved
+edition, topics and profile remain unchanged.
+
 ## Next rollout slice
 
 Configure the owner email allowlist before moving current operational routes.

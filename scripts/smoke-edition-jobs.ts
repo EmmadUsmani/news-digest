@@ -1,7 +1,15 @@
 import assert from 'node:assert/strict';
 
-import { readerEditionSchema } from '@digest/contracts';
+import {
+  contentGroupSchema,
+  operationsStatusSchema,
+  profileSettingsSchema,
+  readerEditionSchema,
+  topicSchema,
+} from '@digest/contracts';
 import { chromium } from 'playwright';
+
+import { localAdminJson } from './lib/local-admin-fetch';
 
 async function smoke() {
   // Read-only live edition; every generation request is intercepted (no inference).
@@ -12,36 +20,75 @@ async function smoke() {
     assert.equal(response.status, 200);
     return readerEditionSchema.parse(await response.json());
   };
-  const edition = await readLatest();
+  const [edition, content, topics, profile, status, savedEdition] =
+    await Promise.all([
+      readLatest(),
+      localAdminJson('/api/admin/content').then((data) =>
+        contentGroupSchema.array().parse(data),
+      ),
+      localAdminJson('/api/admin/topics').then((data) =>
+        topicSchema.array().parse(data),
+      ),
+      localAdminJson('/api/admin/profile').then((data) =>
+        profileSettingsSchema.parse(data),
+      ),
+      localAdminJson('/api/admin/status').then((data) =>
+        operationsStatusSchema.parse(data),
+      ),
+      localAdminJson('/api/admin/digest-previews/latest'),
+    ]);
+  assert.equal((savedEdition as { id: string }).id, edition.id);
+  const snapshots: Record<string, unknown> = {
+    '/api/content': content,
+    '/api/topics': topics,
+    '/api/profile': profile,
+    '/api/status': status,
+  };
   const browser = await chromium.launch({ headless: true });
   try {
     for (const [name, width, height] of [
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
     ] as const) {
-      const page = await browser.newPage({ viewport: { width, height } });
+      const context = await browser.newContext({
+        viewport: { width, height },
+        serviceWorkers: 'block',
+      });
+      const page = await context.newPage();
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
       page.setDefaultTimeout(15000);
       const writes: string[] = [];
-      await page.route('**/api/**', (route) => {
+      const credentials: string[] = [];
+      context.on('request', (request) => {
+        const headers = request.headers();
+        if ('admin_local_token' in headers || 'x-exedev-email' in headers)
+          credentials.push(new URL(request.url()).pathname);
+      });
+      await context.route('**/*', (route) => {
         const request = route.request();
+        const headers = request.headers();
+        if ('admin_local_token' in headers || 'x-exedev-email' in headers)
+          return route.abort();
         if (!['GET', 'HEAD'].includes(request.method())) {
           writes.push(`${request.method()} ${new URL(request.url()).pathname}`);
           return route.abort();
         }
+        const path = new URL(request.url()).pathname;
+        if (Object.hasOwn(snapshots, path))
+          return route.fulfill({ json: snapshots[path] });
         return route.continue();
       });
       let submissions = 0;
       let state = 'waiting';
       let disconnected = false;
       let stage = 'triage';
-      await page.route('**/api/digest-previews/jobs', async (route) => {
+      await context.route('**/api/digest-previews/jobs', async (route) => {
         assert.equal(route.request().method(), 'POST');
         submissions++;
         await route.fulfill({ status: 202, json: { id: '123' } });
       });
-      await page.route('**/api/digest-previews/jobs/123', async (route) => {
+      await context.route('**/api/digest-previews/jobs/123', async (route) => {
         if (disconnected) return route.fulfill({ status: 503, json: {} });
         await route.fulfill({
           json: {
@@ -157,20 +204,28 @@ async function smoke() {
       assert.equal(submissions, 2);
       assert.deepEqual(errors, []);
       assert.deepEqual(writes, []);
+      assert.deepEqual(credentials, []);
       assert.ok(
         await page.evaluate(
           () => document.documentElement.scrollWidth <= innerWidth,
         ),
       );
-      await page.close();
+      await context.close();
     }
     assert.deepEqual(
       await readLatest(),
       edition,
       'Simulated jobs must not change saved editions',
     );
+    assert.deepEqual(
+      await localAdminJson('/api/admin/digest-previews/' + edition.id),
+      savedEdition,
+      'Simulated jobs must preserve the full protected saved edition',
+    );
+    assert.deepEqual(await localAdminJson('/api/admin/topics'), topics);
+    assert.deepEqual(await localAdminJson('/api/admin/profile'), profile);
     console.log(
-      'Async edition UI: desktop/mobile queue, active, reload, reconnect, completion, saved story text and failure passed; unexpected API writes blocked, saved edition unchanged.',
+      'Async edition UI: desktop/mobile queue, active, reload, reconnect, completion, saved story text and failure passed; protected operational snapshots; unexpected browser writes blocked and no browser credentials; full saved edition, topics and profile unchanged.',
     );
   } finally {
     await browser.close();
