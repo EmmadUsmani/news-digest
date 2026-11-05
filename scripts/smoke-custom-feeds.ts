@@ -205,6 +205,32 @@ async function smoke() {
         exact: true,
       });
       await open.click();
+      const sourceHeading = page.getByRole('heading', {
+        name: `Sources for ${target.name}`,
+        exact: true,
+      });
+      await sourceHeading.waitFor();
+      assert.equal(
+        await sourceHeading.evaluate((el) => el === document.activeElement),
+        true,
+      );
+      await page.screenshot({
+        path: `docs/screenshots/ui/source-keyboard-focus-${device}.png`,
+      });
+      await page
+        .getByRole('button', { name: 'Close sources', exact: true })
+        .click();
+      assert.equal(
+        await open.evaluate((el) => el === document.activeElement),
+        true,
+      );
+      failRefresh = true;
+      await open.press('Enter');
+      await sourceHeading.waitFor();
+      assert.equal(
+        await sourceHeading.evaluate((el) => el === document.activeElement),
+        true,
+      );
       const loading = page
         .getByRole('status')
         .filter({ hasText: 'Loading sources…' });

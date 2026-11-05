@@ -14,6 +14,10 @@ export function TopicSources({
   onSaved: (topic: Topic) => void;
   onClose: () => void;
 }) {
+  const heading = React.useRef<HTMLHeadingElement>(null);
+  React.useEffect(() => {
+    heading.current?.focus();
+  }, []);
   const [query, setQuery] = React.useState('');
   const [feedName, setFeedName] = React.useState('');
   const [feedUrl, setFeedUrl] = React.useState('');
@@ -135,6 +139,9 @@ export function TopicSources({
   }
   return (
     <>
+      <h3 ref={heading} tabIndex={-1}>
+        Sources for {topic.name}
+      </h3>
       {catalogLoading && <p role="status">Loading sources…</p>}
       {catalogError && (
         <div role="alert">

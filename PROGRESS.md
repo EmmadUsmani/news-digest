@@ -90,3 +90,14 @@
 - Rebuilt API restarted; health green, reader latest has four topics, alerts clear. Worker/schedule unchanged; no paid calls or live data writes.
 - TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (pending feedback only, no new blocker).
 - Next FIRST: 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 837 — keyboard navigation for source settings
+
+- Started clean on main; no leftover work. Health/database/Redis green, 36 sources healthy and alerts clear; Nov 5 scheduled review remains due at 15:00 UTC.
+- Opening a topic's sources now focuses a named heading; closing returns focus to the original topic button, so keyboard users can reopen with Enter.
+- Desktop/mobile replay verifies heading focus, Close focus restoration and Enter reopening alongside existing source recovery scenarios. New focus screenshots inspected; unrelated regenerated images discarded.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit/214 isolated integration passed); smoke-custom-feeds.ts and smoke-admin-gate.ts; git diff --check.
+- Initial browser command session ended with signal 143 after its success output; final browser/admin rerun through a transient user service exited 0. Installed pnpm 10.28.2 used after global launcher stalled.
+- Rebuilt API restarted; health green and latest reader edition has four topics. Worker/schedule unchanged; no paid calls or live data writes.
+- TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (keyboard navigation fix, no new blocker).
+- Next FIRST: 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

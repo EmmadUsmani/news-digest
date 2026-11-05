@@ -20,6 +20,7 @@ export function TopicSettings({
 }) {
   const [deleting, setDeleting] = React.useState<Topic | null>(null);
   const [sourceTopic, setSourceTopic] = React.useState<Topic | null>(null);
+  const sourceTrigger = React.useRef<HTMLButtonElement | null>(null);
   const [editing, setEditing] = React.useState<Topic | null>(null);
   const [busy, setBusy] = React.useState(false);
   const [message, setMessage] = React.useState('');
@@ -266,7 +267,8 @@ export function TopicSettings({
             <button
               type="button"
               disabled={busy}
-              onClick={() => {
+              onClick={(event) => {
+                sourceTrigger.current = event.currentTarget;
                 setSourceTopic(topic);
                 setEditing(null);
               }}
@@ -311,7 +313,10 @@ export function TopicSettings({
           key={sourceTopic.id}
           topic={sourceTopic}
           onSaved={onSaved}
-          onClose={() => setSourceTopic(null)}
+          onClose={() => {
+            setSourceTopic(null);
+            sourceTrigger.current?.focus();
+          }}
         />
       )}{' '}
       {editing && (

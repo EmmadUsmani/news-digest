@@ -45,6 +45,8 @@ STEERING overrides older milestone notes; implementation history is in PROGRESS.
 
 ## Done markers
 
+- [x] Source keyboard navigation (837): opening sources focuses the panel heading; closing restores the topic button; desktop/mobile replay verifies Enter reopens it.
+
 - [x] Pending source operations (836): accessible status names source-selection saves, feed connections and news-query connections; desktop/mobile replay verifies pending feed/query feedback.
 
 - [x] Source loading feedback (835): initial catalog loading and retry show an accessible status while source forms are disabled; desktop/mobile replay and screenshots cover the loading state.
