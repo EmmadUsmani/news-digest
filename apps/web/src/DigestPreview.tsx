@@ -182,6 +182,7 @@ export function DigestPreview() {
       await refreshBudgetNotice();
       const response = await fetch('/api/digest-previews/jobs', {
         method: 'POST',
+        signal: AbortSignal.timeout(15_000),
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           windowStart: start.toISOString(),
