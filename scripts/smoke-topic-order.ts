@@ -38,6 +38,7 @@ async function smoke() {
   assert.ok(topics.length >= 2, 'Reorder replay requires two topics');
   let replayTopics = structuredClone(topics);
   let failOrder = true;
+  let loseResponse = false;
   let writes = 0;
   // Browser writes are replayed; protected Node requests are used only for live reads.
   await context.route('**/*', async (route) => {
@@ -63,7 +64,8 @@ async function smoke() {
           ...topics.find((topic) => topic.id === id)!,
           position,
         }));
-        await route.fulfill({ json: replayTopics });
+        if (loseResponse) await route.abort();
+        else await route.fulfill({ json: replayTopics });
       }
       return;
     }
@@ -121,7 +123,7 @@ async function smoke() {
         .click();
       await page
         .getByRole('status')
-        .filter({ hasText: 'Could not save topic order.' })
+        .filter({ hasText: 'Could not confirm topic order.' })
         .waitFor();
       assert.deepEqual(replayTopics, topics);
       assert.equal(writes, writesBefore + 1);
@@ -181,13 +183,47 @@ async function smoke() {
       await page
         .locator('.topic-settings')
         .screenshot({ path: `docs/screenshots/topic-order-${name}.png` });
+      // Save a second order, then lose the response before the browser sees it.
+      loseResponse = true;
+      await page
+        .getByRole('button', {
+          name: `Move ${topics[1].name} down`,
+          exact: true,
+        })
+        .click();
+      await page
+        .getByRole('status')
+        .filter({
+          hasText: 'The topic order may have been saved.',
+        })
+        .waitFor();
+      assert.equal(writes, writesBefore + 3);
+      assert.deepEqual(
+        replayTopics.map((topic) => topic.id),
+        ids,
+      );
+      await page.locator('.topic-settings').screenshot({
+        path: `docs/screenshots/topic-order-interrupted-${name}.png`,
+      });
+      await page.reload();
+      await page.getByText('Manage topics', { exact: true }).click();
+      assert.equal(
+        await page.locator('.topic-grid h3').first().innerText(),
+        topics[0].name,
+      );
+      assert.equal(
+        writes,
+        writesBefore + 3,
+        'Reload must not repeat the reorder',
+      );
+      loseResponse = false;
       assert.deepEqual(errors, []);
       await page.close();
     }
     assert.deepEqual(credentials, []);
     assert.deepEqual(unexpectedWrites, []);
     console.log(
-      'Topic reorder desktop/mobile browser replay: failure, retry, reload, positions and overflow passed; no production writes or generation',
+      'Topic reorder desktop/mobile browser replay: failure, retry, lost saved response, reload without retry, positions and overflow passed; no production writes or generation',
     );
   } finally {
     assert.deepEqual(

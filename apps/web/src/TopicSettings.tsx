@@ -83,17 +83,23 @@ export function TopicSettings({
     ];
     setBusy(true);
     setMessage('');
+    let responseReceived = false;
     try {
       const response = await fetch('/api/topics/order', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ids: ordered.map((topic) => topic.id) }),
       });
+      responseReceived = true;
       if (!response.ok) throw new Error();
       onReordered(topicSchema.array().parse(await response.json()));
       setMessage('Topic order saved. New editions will use this order.');
     } catch {
-      setMessage('Could not save topic order. Reload the page and try again.');
+      setMessage(
+        responseReceived
+          ? 'Could not confirm topic order. Reload the page to check your saved order before trying again.'
+          : 'The connection was interrupted. The topic order may have been saved. Reload the page to check your saved order before trying again.',
+      );
     } finally {
       setBusy(false);
     }

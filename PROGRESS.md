@@ -135,3 +135,12 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; smoke-topic-delete.ts; smoke-admin-gate.ts; git diff --check. All passed: static checks, 497 unit and 214 isolated integration tests, desktop/mobile recovery and admin gate. Initial browser build timing and collapsed-manager setup corrected before rerun.
 - Rebuilt app and restarted API; /healthz OK. Worker runtime unchanged. Archived progress 797–798; TASKS updated. SOURCES/NEEDS_FROM_HUMAN unchanged (no source changes/new blockers). No live writes or paid calls.
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 814 — clarify interrupted topic ordering
+
+- Started clean on main; no leftover work. Health/database/Redis and four services green; all 36 sources healthy, digest queue has zero failures and next edition is 15:00 UTC. Metrics memory alert pending; benchmark remains deferred.
+- Topic ordering now warns that an interrupted response may follow a completed save and directs the reader to reload saved order before retrying. Unconfirmed HTTP responses also give explicit reload guidance.
+- Desktop/mobile replay covers non-JSON rejection/retry, saved positions, successful reload, and a saved reorder whose response is lost; reload recovers it without another PUT. Protected full live topics/profile/edition unchanged; browser credential/write guards pass. Interrupted screenshots inspected.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check; pnpm test:integration; smoke-topic-order.ts; smoke-admin-gate.ts; git diff --check. Static checks, 497 unit and 214 isolated integration tests pass. Full check terminated (143) at integration 149 without failures; standalone integration rerun passed (0). First browser run preceded build completion; post-build rerun passed.
+- Rebuilt app and restarted API; /healthz OK and latest reader edition returns four topics. Worker unchanged. TASKS updated; SOURCES/NEEDS_FROM_HUMAN unchanged (no source changes/new blockers). No live writes or paid calls.
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
