@@ -675,3 +675,10 @@ export const editionCostSchema = z.object({
   ),
 });
 export type EditionCost = z.infer<typeof editionCostSchema>;
+
+export const monitoringAlertsSchema = z.object({
+  checkedAt: z.string().datetime(),
+  firing: z.number().int().nonnegative(),
+  pending: z.number().int().nonnegative(),
+});
+export type MonitoringAlerts = z.infer<typeof monitoringAlertsSchema>;

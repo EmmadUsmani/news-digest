@@ -1,28 +1,3 @@
-## 2026-11-05: iteration 882 — edition list modes and recorded runs
-
-- Started clean on main; no leftover work. Alerts clear, health healthy, API/worker active. X rounds still due after 21:00 UTC.
-- Editions now shows saved per-topic story/post modes and retained jobs matched by edition ID: scheduled/manual, attempts and final-attempt duration. Multiple jobs reusing one edition remain separate; absent historical evidence is explicitly not recorded.
-- Added compact mode summaries to admin history from immutable snapshots; reader history still strips admin metadata. No schema migration, source, budget or access changes; no paid calls or saved-data writes. Edition cost and incoming-window articles remain open.
-- Isolated repository coverage pins mode extraction, unknown post modes, profile isolation and stable paging. Initial integration run caught an outdated reader-history expected projection; corrected it to exclude admin modes, then reran the full check successfully.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (505 unit/218 isolated integration passed); pnpm build; git diff --check; handbook operations (18 pages/two unchanged diagrams/28 assigned tables).
-- Browser: smoke-admin-editions passed four viewport/theme combinations with live saved modes and retained run details, paging, topic tabs, reload, anonymous denial, no overflow/writes/external calls/browser credentials. Four affected list captures kept; desktop light/mobile dark inspected; unrelated regenerated capture churn discarded.
-- smoke-admin-gate and smoke-admin-separation passed; reader makes no admin reads and saved edition unchanged. Live reads: 36 sources/zero current source errors, zero retained digest failures; latest edition remains four topics/17 stories/14 posts.
-- Updated Operations and TASKS; SOURCES and NEEDS_FROM_HUMAN unchanged. API/worker restarted for verified build; API, worker, docs and schema active, final health green and alerts clear.
-- Next: edition cost/incoming-window list, then Topics and remaining Sources/Spend controls. X fresh-window rounds after 21:00 UTC Nov 5/6; Nov 6 scheduled edition review takes priority when due.
-
-## 2026-11-05: iteration 883 — incoming articles in the edition inspector
-
-- Started clean on main; no leftover work. Alerts clear, /healthz healthy, API/worker active; X fresh-window rounds remain due after 21:00 UTC.
-- Owner-visible value: each edition topic now has a browsable incoming-articles list for its coverage window, with source and publication time, instead of only the selected stories.
-- Added protected, validated coverage-window reads through the ingestion repository port: inclusive start/exclusive end, deduped observations, newest-first stable ordering, up to 500 per topic. Disabled topics remain inspectable. Default latest-content behavior stays unchanged.
-- UI explicitly identifies current retained content/current source connections rather than immutable candidate evidence. Latest window returns Tech/NBA/Gaming/World 282/166/321/242 articles; saved edition remains four topics/17 stories/14 posts.
-- Repository characterization covers offset timestamps, window boundaries, more than five results, shared-source dedupe, empty windows and disabled topics. Initial typecheck caught Date arguments against string timestamps; corrected to ISO strings before final check.
-- Browser: smoke-admin-editions passed desktop/mobile light/dark, all topic article lists against live reads, window bounds, invalid query 400s, anonymous 404, tabs/reload/paging and no overflow/writes/external calls/browser credentials. Four inspector captures refreshed; desktop light/mobile dark visually inspected.
-- smoke-admin-gate and smoke-admin-separation passed; reader makes no admin reads and saved edition unchanged. Unrelated regenerated captures discarded. Handbook Operations updated; checker passed 18 pages/two unchanged diagrams/28 tables.
-- No paid calls, source changes or saved-data writes; SOURCES and NEEDS_FROM_HUMAN unchanged. Archived iterations 872–873; updated TASKS.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (typecheck/lint/format/boundaries and 505 unit passed; integration interrupted exit 143 without assertion failure); standalone pnpm test:integration (218 passed); pnpm build; git diff --check; handbook operations; browser/access checks above. API/worker restarted for built app; final health/alerts checked before push.
-- Next: edition cost, Topics and remaining Sources/Spend controls. X rounds after 21:00 UTC Nov 5/6 and Nov 6 scheduled-edition review take priority when due.
-
 ## 2026-11-05: iteration 884 — edition inspector AI cost
 
 - Started clean on main; no leftover work. Alerts clear, health healthy, API/worker active; X rounds still due after 21:00 UTC.
@@ -129,3 +104,15 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (typecheck/lint/format/boundaries, 505 unit and 218 isolated integration tests); pnpm build; final @digest/web build; smoke-admin-overview.ts; smoke-admin-separation.ts; check-handbook.ts 08-operations; git diff --check all passed.
 - Real saved edition ledger: $0.315445/46 calls/zero unresolved holds. Final mobile light and desktop dark screenshots visually checked; API restarted for final assets, four app units active, /healthz database/Redis green and alerts clear.
 - Next: remaining dedicated admin-page gaps and final reader; Nov 6 edition/grouping evidence and fresh-window X round after 21:00 UTC. No X activation before decision.
+
+## 2026-11-05: iteration 893 — Overview monitoring alerts
+
+- Started clean on main; no leftover work. Owner would care: Overview now shows firing and pending monitoring alerts beside health and spending.
+- Added protected `/api/admin/status/alerts` read through a monitoring port/adapter, validated local vmalert response and three-second timeout. No labels or raw provider errors exposed; failure returns 503.
+- Overview refreshes the counts every minute and with shared refresh; failed reads display Unavailable rather than stale zero. Source issues remain in the source-health card.
+- Browser checks compare actual counts, simulate firing/pending and outage/recovery, verify anonymous endpoint denial and all four viewport/theme combinations. Four screenshots refreshed; mobile light and desktop dark visually inspected. Reader/admin separation passed; unrelated generated screenshots discarded.
+- Initial lint caught missing void markers on the two new node:test calls; corrected. Targeted monitoring tests passed (2); full verification results below.
+- Updated TASKS and Operations handbook; SOURCES/NEEDS_FROM_HUMAN unchanged. No collection, paid calls, schema, budgets or live settings changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check passed (507 unit/218 isolated integration tests, typecheck/lint/format/boundaries); pnpm build; smoke-admin-overview.ts; smoke-admin-separation.ts; check-handbook.ts 08-operations; git diff --check. Archived iterations 882–883 to keep PROGRESS small.
+- API restarted for built assets; API/worker/docs/schema active, /healthz database/Redis green and alerts clear. Real saved Nov 5 edition and incoming collection remain available.
+- Next: remaining dedicated admin pages and final reader; Nov 6 scheduled edition/grouping review, then fresh-window X round after 21:00 UTC. No X activation before decision.

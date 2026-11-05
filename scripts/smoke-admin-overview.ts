@@ -8,6 +8,7 @@ import { replayAdminPage } from './lib/replay-admin-page';
 
 const origin = 'http://127.0.0.1:8000';
 async function smoke() {
+  assert.equal((await fetch(`${origin}/api/admin/status/alerts`)).status, 404);
   const browser = await chromium.launch();
   try {
     for (const [device, width, height] of [
@@ -71,6 +72,18 @@ async function smoke() {
             .count(),
           1,
         );
+        const savedAlerts = await (
+          await localAdminFetch(`${origin}/api/admin/status/alerts`)
+        ).json();
+        await page
+          .getByText(`${savedAlerts.firing} firing`, { exact: true })
+          .waitFor();
+        await page
+          .getByText(
+            `${savedAlerts.pending} pending · refreshes every minute`,
+            { exact: true },
+          )
+          .waitFor();
         const savedEdition = await (
           await localAdminFetch(`${origin}/api/admin/digest-previews/latest`)
         ).json();
@@ -135,6 +148,38 @@ async function smoke() {
         assert.deepEqual(errors, []);
         assert.ok(adminReads.includes('/api/admin/status'));
         if (device === 'desktop' && theme === 'light') {
+          const alertPattern = '**/api/admin/status/alerts';
+          await page.route(alertPattern, (route) =>
+            route.fulfill({ status: 503, json: {} }),
+          );
+          await page.getByRole('button', { name: 'Refresh overview' }).click();
+          await page
+            .getByText('Monitoring could not be refreshed', { exact: true })
+            .waitFor();
+          await page.unroute(alertPattern);
+          await page.getByRole('button', { name: 'Refresh overview' }).click();
+          await page
+            .getByText(`${savedAlerts.firing} firing`, { exact: true })
+            .waitFor();
+          await page.route(alertPattern, (route) =>
+            route.fulfill({
+              json: {
+                checkedAt: new Date().toISOString(),
+                firing: 2,
+                pending: 1,
+              },
+            }),
+          );
+          await page.getByRole('button', { name: 'Refresh overview' }).click();
+          await page.getByText('2 firing', { exact: true }).waitFor();
+          await page
+            .getByText('1 pending · refreshes every minute', { exact: true })
+            .waitFor();
+          await page.unroute(alertPattern);
+          await page.getByRole('button', { name: 'Refresh overview' }).click();
+          await page
+            .getByText(`${savedAlerts.firing} firing`, { exact: true })
+            .waitFor();
           const costPattern = '**/api/admin/digest-previews/*/cost';
           await page.route(costPattern, (route) =>
             route.fulfill({

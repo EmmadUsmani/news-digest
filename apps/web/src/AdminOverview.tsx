@@ -5,6 +5,7 @@ import { Card } from './components/ui/card';
 import {
   adminEditionCostQuery,
   adminEditionQuery,
+  alertsQuery,
   healthQuery,
   statusQuery,
 } from './queries';
@@ -14,6 +15,7 @@ const time = (value: string) =>
   new Date(value).toLocaleString(undefined, { timeZoneName: 'short' });
 
 export function AdminOverview() {
+  const alerts = useQuery(alertsQuery);
   const status = useQuery(statusQuery);
   const health = useQuery(healthQuery);
   const edition = useQuery(adminEditionQuery);
@@ -45,12 +47,14 @@ export function AdminOverview() {
         <Button
           variant="ghost"
           disabled={
+            alerts.isFetching ||
             status.isFetching ||
             health.isFetching ||
             edition.isFetching ||
             cost.isFetching
           }
           onClick={() => {
+            void alerts.refetch();
             void status.refetch();
             void health.refetch();
             void edition.refetch();
@@ -80,11 +84,17 @@ export function AdminOverview() {
             'Database and queue',
           ],
           [
-            'Sources',
-            data
-              ? `${data.sources.filter((source) => source.active).length - (issues?.length ?? 0)} healthy`
-              : 'Loading…',
-            data ? `${issues?.length} need attention` : 'Collection status',
+            'Alerts',
+            alerts.isError
+              ? 'Unavailable'
+              : alerts.data
+                ? `${alerts.data.firing} firing`
+                : 'Loading…',
+            alerts.isError
+              ? 'Monitoring could not be refreshed'
+              : alerts.data
+                ? `${alerts.data.pending} pending · refreshes every minute`
+                : 'Monitoring alerts',
           ],
           [
             'AI today',

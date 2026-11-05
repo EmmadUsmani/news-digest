@@ -4,6 +4,7 @@ import {
   editionCostSchema,
   healthSchema,
   identitySchema,
+  monitoringAlertsSchema,
   operationsStatusSchema,
   previewHistorySchema,
   profileSettingsSchema,
@@ -159,3 +160,11 @@ export const adminEditionCostQuery = (id: string) =>
         signal,
       ),
   });
+
+export const alertsQuery = queryOptions({
+  queryKey: ['monitoring-alerts'],
+  queryFn: ({ signal }) =>
+    read('/api/admin/status/alerts', monitoringAlertsSchema, signal),
+  refetchInterval: 60_000,
+  retry: false,
+});
