@@ -4,7 +4,7 @@ export interface XExperimentEvidence {
   requestId: string;
   topicId: string;
   model: string;
-  style: 'current' | 'trending' | 'reactions';
+  style: 'current' | 'trending' | 'reactions' | 'viral' | 'semantic';
   window: { start: string; end: string };
   costMicros: number;
   postsFetched: number;
@@ -16,6 +16,7 @@ export interface XExperimentEvidence {
     likes: number | null;
     relevance: number | null;
     promotion: boolean | null;
+    foundByFreeLinks?: boolean | null;
   }[];
 }
 
@@ -23,7 +24,8 @@ export interface XExperimentEvidence {
 // Only the adapter's actual { name, input } records count as execution evidence.
 function searchExecution(call: XExperimentEvidence) {
   const expected = call.expectedSearch;
-  if (!expected || call.style === 'current') return null;
+  if (!expected || call.style === 'current' || call.style === 'semantic')
+    return null;
   if (
     !Number.isSafeInteger(expected.minFaves) ||
     expected.minFaves < 0 ||
@@ -68,7 +70,19 @@ function searchExecution(call: XExperimentEvidence) {
         !tokens.includes('filter:retweets') &&
         tokens.filter((token) => token.startsWith('lang:')).length === 1,
       exclusions: expected.exclusions.every((token) => tokens.includes(token)),
-      storyOr: call.style === 'reactions' ? tokens.includes('OR') : null,
+      exactWindow:
+        call.style !== 'viral' ||
+        ([
+          `since:${new Date(call.window.start).toISOString().slice(0, 19).replace('T', '_')}_UTC`,
+          `until:${new Date(call.window.end).toISOString().slice(0, 19).replace('T', '_')}_UTC`,
+        ].every((operator) => tokens.includes(operator)) &&
+          tokens.filter(
+            (token) => token.startsWith('since:') || token.startsWith('until:'),
+          ).length === 2),
+      storyOr:
+        call.style === 'reactions' || call.style === 'viral'
+          ? tokens.includes('OR')
+          : null,
     };
   });
   const observed = queries.filter((query) => query.observed);
@@ -82,6 +96,7 @@ function searchExecution(call: XExperimentEvidence) {
         !query.threshold ||
         !query.filters ||
         !query.exclusions ||
+        !query.exactWindow ||
         query.storyOr === false,
     )
       ? false
@@ -122,7 +137,9 @@ export function xExperimentReport(calls: XExperimentEvidence[]) {
       requests.has(call.requestId) ||
       !call.topicId.trim() ||
       !call.model.trim() ||
-      !['current', 'trending', 'reactions'].includes(call.style) ||
+      !['current', 'trending', 'reactions', 'viral', 'semantic'].includes(
+        call.style,
+      ) ||
       !timestamp(call.window.start) ||
       !timestamp(call.window.end) ||
       start >= end ||
@@ -132,6 +149,17 @@ export function xExperimentReport(calls: XExperimentEvidence[]) {
     )
       throw new Error('Invalid experiment call evidence');
     requests.add(call.requestId);
+    const revised = call.style === 'viral' || call.style === 'semantic';
+    if (
+      revised &&
+      (!call.expectedSearch ||
+        !integer(call.expectedSearch.minFaves) ||
+        !call.expectedSearch.exclusions.includes('-giveaway') ||
+        call.expectedSearch.exclusions.some(
+          (value) => !/^-[a-zA-Z0-9_]+$/.test(value),
+        ))
+    )
+      throw new Error('Revised experiment requires saved search settings');
     const ids = new Set<string>();
     for (const post of call.posts) {
       if (
@@ -143,7 +171,9 @@ export function xExperimentReport(calls: XExperimentEvidence[]) {
           (!Number.isFinite(post.relevance) ||
             post.relevance < 0 ||
             post.relevance > 10)) ||
-        (post.promotion !== null && typeof post.promotion !== 'boolean')
+        (post.promotion !== null && typeof post.promotion !== 'boolean') ||
+        (post.foundByFreeLinks != null &&
+          typeof post.foundByFreeLinks !== 'boolean')
       )
         throw new Error('Invalid experiment post evidence');
       ids.add(post.id);
@@ -190,7 +220,36 @@ export function xExperimentReport(calls: XExperimentEvidence[]) {
     ).length;
     const complete =
       unknown.publishedAt + unknown.relevance + unknown.promotion === 0;
+    // Preserve historical eligibility; revised usable yield requires all five
+    // owner criteria. Missing overlap/likes evidence cannot imply novelty.
+    const usablePostIds = posts
+      .filter(
+        (post) =>
+          inside(post) &&
+          post.relevance !== null &&
+          post.relevance >= 6 &&
+          post.promotion === false &&
+          post.likes !== null &&
+          call.expectedSearch !== undefined &&
+          post.likes >= call.expectedSearch.minFaves &&
+          post.foundByFreeLinks === false,
+      )
+      .map((post) => post.id);
+    const usableComplete =
+      call.expectedSearch !== undefined &&
+      complete &&
+      unknown.likes === 0 &&
+      posts.every((post) => typeof post.foundByFreeLinks === 'boolean');
     return {
+      usablePostIds,
+      usablePosts: usableComplete ? usablePostIds.length : null,
+      usablePostsPerDollar:
+        usableComplete && call.costMicros > 0
+          ? (usablePostIds.length * 1_000_000) / call.costMicros
+          : null,
+      unknownFreeLinkOverlap: posts.filter(
+        (post) => post.foundByFreeLinks == null,
+      ).length,
       requestId: call.requestId,
       topicId: call.topicId,
       model: call.model,

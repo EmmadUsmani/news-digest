@@ -345,3 +345,63 @@ void test('missing Snowflake dates measure exact boundaries without changing sav
     unknown: 2,
   });
 });
+
+void test('revised usable yield requires likes and explicit free-link novelty for both styles', () => {
+  for (const style of ['viral', 'semantic'] as const) {
+    const call = evidence();
+    call.style = style;
+    call.expectedSearch = { minFaves: 100, exclusions: ['-giveaway'] };
+    const post = { ...call.posts[0], foundByFreeLinks: false };
+    call.posts = [post];
+    assert.equal(xExperimentReport([call])[0].usablePosts, 1);
+    assert.deepEqual(xExperimentReport([call])[0].usablePostIds, ['1']);
+    for (const patch of [
+      { likes: 99 },
+      { relevance: 5 },
+      { promotion: true },
+      { foundByFreeLinks: true },
+      { publishedAt: call.window.end },
+    ]) {
+      call.posts = [{ ...post, ...patch }];
+      assert.equal(xExperimentReport([call])[0].usablePosts, 0);
+    }
+    for (const patch of [
+      { likes: null },
+      { foundByFreeLinks: null },
+      { promotion: null },
+    ]) {
+      call.posts = [{ ...post, ...patch }];
+      assert.equal(xExperimentReport([call])[0].usablePosts, null);
+      assert.deepEqual(xExperimentReport([call])[0].usablePostIds, []);
+    }
+    call.posts = [{ ...post, foundByFreeLinks: undefined }];
+    assert.equal(xExperimentReport([call])[0].unknownFreeLinkOverlap, 1);
+    assert.equal(xExperimentReport([call])[0].usablePosts, null);
+    delete call.expectedSearch;
+    assert.throws(() => xExperimentReport([call]));
+  }
+});
+
+void test('viral execution requires OR, giveaway exclusion and exact saved window operators', () => {
+  const call = evidence();
+  call.style = 'viral';
+  call.expectedSearch = { minFaves: 100, exclusions: ['-giveaway'] };
+  const query =
+    'NBA OR basketball -filter:replies -filter:retweets lang:en -giveaway min_faves:100 since:2026-11-03_15:00:00_UTC until:2026-11-04_15:00:00_UTC';
+  call.actualToolCalls = [searchCall(query)];
+  assert.equal(xExperimentReport([call])[0].searchExecution!.inputsMatch, true);
+  for (const invalid of [
+    query.replace(' OR ', ' '),
+    query.replace('03_15', '03_14'),
+    query + ' since:2026-11-01',
+    query.replace('-giveaway', ''),
+  ]) {
+    call.actualToolCalls = [searchCall(invalid)];
+    assert.equal(
+      xExperimentReport([call])[0].searchExecution!.inputsMatch,
+      false,
+    );
+  }
+  call.style = 'semantic';
+  assert.equal(xExperimentReport([call])[0].searchExecution, null);
+});

@@ -123,3 +123,12 @@
 - Verification: targeted runner tests 4/4; pnpm format, pnpm lint:fix, pnpm check (481 unit, 213 isolated integration, exit 0), pnpm build and git diff --check passed. No UI/runtime changes or screenshots needed.
 - Updated TASKS and experiment instructions. SOURCES/NEEDS_FROM_HUMAN unchanged; no source change or new owner blocker. Healthy services left running under STEERING 22 because only offline scripts/tests/docs changed.
 - No paid calls, scorer/cache changes, model/provider changes or production activation. Next: migrate report/extractor to viral/semantic before rounds after 21:00 UTC Nov 5/6; prioritize scheduled acceptance and only then scorer changes.
+
+## 2026-11-05: iteration 723 — revised X experiment call report
+
+- Started clean on main; no leftover work. Zero alerts, health/database/Redis green, 36 healthy sources and zero failed retained digest jobs. Nov 5 15:00 UTC scheduled acceptance remains future.
+- Offline report accepts viral/semantic evidence with saved likes minimum and mandatory giveaway exclusion. Added usable yield and confirmed IDs requiring exact window, relevance ≥6, no promotion, minimum likes and explicit absence from free links. Missing labels/likes/overlap keep totals unknown; historical eligibility stays unchanged.
+- Viral execution evidence now checks OR and exact UTC time operators. Semantic execution compliance remains unknown rather than applying keyword checks. Legacy round comparator rejects revised calls pending migration; extractor and round comparison remain next.
+- Verification: targeted report/CLI/comparison tests 26/26; pnpm format, pnpm lint:fix, pnpm check (484 unit, 213 isolated integration, exit 0) and pnpm build passed. git diff --check clean.
+- Updated TASKS and experiment instructions. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new owner blocker. No UI/runtime changes or screenshots; healthy services remain running under STEERING 22.
+- No paid calls, scorer/cache changes, provider/model/budget changes or activation. Next: migrate extractor and comparison before Nov 5/6 test rounds; scheduled acceptance first, scorer only afterward.

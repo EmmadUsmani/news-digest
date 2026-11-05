@@ -13,7 +13,7 @@ const evidenceSchema = z.array(
       requestId: z.string().min(1),
       topicId: z.string().min(1),
       model: z.string().min(1),
-      style: z.enum(['current', 'trending', 'reactions']),
+      style: z.enum(['current', 'trending', 'reactions', 'viral', 'semantic']),
       window: z.object({ start: z.string(), end: z.string() }).strict(),
       costMicros: count,
       postsFetched: count,
@@ -33,6 +33,7 @@ const evidenceSchema = z.array(
             likes: count.nullable(),
             relevance: z.number().min(0).max(10).nullable(),
             promotion: z.boolean().nullable(),
+            foundByFreeLinks: z.boolean().nullable().optional(),
           })
           .strict(),
       ),

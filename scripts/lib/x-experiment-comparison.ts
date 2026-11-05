@@ -15,6 +15,10 @@ export function xExperimentComparison(
   evidence: XExperimentEvidence[],
   rounds: XComparisonRound[],
 ) {
+  if (
+    evidence.some((call) => call.style === 'viral' || call.style === 'semantic')
+  )
+    throw new Error('Revised round comparison is not yet supported');
   const reports = new Map(
     xExperimentReport(evidence).map((call) => [call.requestId, call]),
   );

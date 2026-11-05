@@ -131,3 +131,31 @@ void test('offline CLI reads evidence without changing it and fails without expo
     rmSync(directory, { recursive: true, force: true });
   }
 });
+
+void test('revised report CLI preserves explicit free-link evidence and blocks legacy comparison', () => {
+  const call = {
+    ...evidence()[0],
+    style: 'semantic',
+    expectedSearch: { minFaves: 500, exclusions: ['-giveaway'] },
+    posts: [
+      {
+        id: '123',
+        publishedAt: '2026-11-03T16:00:00Z',
+        likes: 500,
+        relevance: 6,
+        promotion: false,
+        foundByFreeLinks: false,
+      },
+    ],
+  };
+  assert.equal(reportSavedXExperiment([call]).calls[0].usablePosts, 1);
+  assert.throws(() =>
+    reportSavedXExperiment([
+      { ...call, posts: [{ ...call.posts[0], foundByFreeLinks: 'false' }] },
+    ]),
+  );
+  assert.throws(
+    () => reportSavedXExperiment([call], []),
+    /Revised round comparison/,
+  );
+});
