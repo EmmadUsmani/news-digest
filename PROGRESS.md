@@ -141,3 +141,4 @@
 - An unsupported combined obs jobs --check/state invocation failed; corrected to the read-only jobs query. No failed digest runs; historical ingestion/social failures remain alongside healthy sources.
 - Updated TASKS, SOURCES, saved experiment review and social handbook; archived iteration 890 to keep PROGRESS small. NEEDS_FROM_HUMAN unchanged.
 - Next: one separately admitted retry in experiment and switched-off schedule; then three Nov 5 failed keyword reruns after Nov 6 00:00 UTC. Fair semantic query and fresh Nov 6 comparison follow; no production activation.
+- Push first rejected for incoming lead-workflow commits; fetched/merged without rewriting history. Owner lead files left untouched; no app runtime changes. Post-merge formatting/lint and handbook check run before repush.
