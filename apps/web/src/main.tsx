@@ -1,3 +1,4 @@
+import '@fontsource-variable/inter';
 import './style.css';
 
 import { QueryClientProvider } from '@tanstack/react-query';

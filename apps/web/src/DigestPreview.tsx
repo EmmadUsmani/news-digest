@@ -2,6 +2,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useParams } from '@tanstack/react-router';
 import React from 'react';
 
+import { Button } from './components/ui/button';
 import { editionHistoryQuery, editionQuery, statusQuery } from './queries';
 import { TopPosts } from './TopPosts';
 export function DigestPreview() {
@@ -238,11 +239,11 @@ export function DigestPreview() {
             Uses already collected articles; older coverage may be incomplete.
             Quiet periods stay empty.
           </p>
-          <button type="submit">
+          <Button type="submit">
             {working
               ? 'Creating edition…'
               : `Create edition · ${windowChoice === 'custom' ? 'custom period' : windowChoice === '168' ? 'last 7 days' : `last ${windowChoice} hours`}`}
-          </button>
+          </Button>
         </fieldset>
         {windowError && <p role="alert">{windowError}</p>}
       </form>
@@ -253,15 +254,15 @@ export function DigestPreview() {
           Immutable editions, newest first. Each regeneration is a separate
           version.
         </p>
-        <button disabled={working} onClick={() => void openEdition()}>
+        <Button disabled={working} onClick={() => void openEdition()}>
           Open latest edition
-        </button>
+        </Button>
         {historyError ? (
           <p role="alert">
             Edition history could not be loaded.{' '}
-            <button onClick={() => void historyResult.refetch()}>
+            <Button onClick={() => void historyResult.refetch()}>
               Retry history
-            </button>
+            </Button>
           </p>
         ) : !history ? (
           <p role="status">Loading history…</p>
@@ -298,19 +299,19 @@ export function DigestPreview() {
             </ul>
             {!history.entries.length && <p>No saved editions on this page.</p>}
             <div className="history-pages">
-              <button
+              <Button
                 disabled={offset === 0 || busy}
                 onClick={() => setOffset((value) => Math.max(0, value - 20))}
               >
                 Newer editions
-              </button>
+              </Button>
               <span>Page {offset / 20 + 1}</span>
-              <button
+              <Button
                 disabled={!history.hasMore || busy}
                 onClick={() => setOffset((value) => value + 20)}
               >
                 Older editions
-              </button>
+              </Button>
             </div>
           </>
         )}

@@ -1,12 +1,3 @@
-## 2026-11-04: iteration 713 — recover X experiment publication times
-
-- Started clean on main; no leftover work. Zero alerts, healthz/database/Redis green, reader HTTP 200, all 36 sources active/nonempty/error-free, no failed retained digest jobs; Nov 5 scheduled checks remain future.
-- Recovered 17 missing timestamps offline from X Snowflake IDs in a separate private evidence copy. All 47 UTC dates agree with saved official embed labels; all 30 prior timestamps agree within one second. Exact script/audit/evidence/report saved mode 600; original evidence, scores, promotion labels and budget journal untouched.
-- In-window: current 10/13, trending 27/32, reactions 0/2. Both reaction citations predate Nov 3 21:00 UTC, despite passing triage. In-window relevance ≥6 counts are 3/6/0; existing visible-text promotion clearance gives 1/5/0, with 2/1/0 unresolved. No winner: raw promotions, unknown Gaming outcome, malformed trending query and second-day requirement remain.
-- No HTTP/provider calls for recovery, ingestion, production parameters/models or activation. Updated TASKS and experiment references/review; archived iteration 699. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no runtime/source change or new owner blocker. No restart under STEERING 22; running code unchanged.
-- Verification: private recovery assertions and offline report passed; pnpm format, pnpm lint:fix, pnpm check (470 unit/213 isolated integration), pnpm build, handbook validation and git diff --check passed.
-- Next: second non-overlapping experiment day, then threshold calibration/model comparison within shared caps; Nov 5 grouping/NBA AI/cost/latency/screenshots take priority when due. Fixed A/B remains off.
-
 ## 2026-11-04: iteration 714 — recover dates automatically in X experiment reports
 
 - Started clean on main; no leftover work. Zero alerts, healthz/database/Redis green, reader HTTP 200, 36 healthy sources and no failed retained digest runs. Nov 5 scheduled acceptance remains future.
@@ -32,7 +23,7 @@
 - Reconciled all 11 original settlements: 68,517 input/24,672 output tokens, 47 posts/zero profiles; $0.382331 after per-call rounding. Identical-usage Build pricing saves only $0.02946525 (7.7%); this is a counterfactual, not measured model performance. Fetch charges dominate. Private source snapshots/assessment saved mode 600; originals and journal untouched.
 - Documented model-round prerequisites: after second-day style/calibration, measure actual search support and ≥90% passing yield; request model, settlement rates and manifest must agree. Existing runner stays unchanged; no more experiment safeguards or speculative machinery.
 - Updated TASKS and experiment review; archived iterations 702–703 to bound PROGRESS. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source/runtime change or new owner blocker. No restart under STEERING 22.
-- Verification: pnpm format, pnpm lint:fix, pnpm check, pnpm build, handbook validation and git diff --check passed.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (490 unit/213 isolated integration, exit 0), pnpm build, handbook validation and git diff --check passed.
 - Next: second independent experiment day, threshold calibration and model round within shared caps; Nov 5 grouping/NBA AI/cost/latency/screenshots take priority when due. Fixed A/B remains off pending decision.
 
 ## 2026-11-04: iteration 717 — UI foundations: routing and saved-edition deep links
@@ -130,3 +121,13 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (490 unit/213 isolated integration), pnpm build, pnpm exec tsx scripts/smoke-ui-routing.ts, pnpm exec tsx scripts/check-handbook.ts 01-stack-and-runtime and git diff --check. Handbook check: 18 pages, one unchanged diagram, 26 tables, no errors.
 - Updated TASKS and Stack & runtime; archived iteration 712 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN unchanged: no source changes or new owner blocker. Rebuilt and restarted API/docs; worker/schema unchanged and healthy.
 - No paid calls, scorer/cache version changes, provider/model/budget changes or X activation. Next: Tailwind/shadcn, Inter/theme foundations while waiting; Nov 5 scheduled review first when due, then scorer and evening X rounds.
+
+## 2026-11-05: iteration 727 — Tailwind, shadcn buttons and Inter
+
+- Started clean on main; no leftover work. Zero alerts, health/database/Redis green, all 36 sources returning items and zero failed digest jobs; scheduled Nov 5 acceptance remains future at 15:00 UTC.
+- Added Tailwind v4 PostCSS integration, neutral button tokens, shadcn/ui configuration and Radix-based button primitives. Digest controls use the shared button with keyboard focus and disabled states. Existing page CSS stays in a legacy layer below utilities; layout preserved.
+- Inter is self-hosted in the bundle; no font CDN. Added lucide and shared class merging for subsequent approved components. Theme remains the next foundation step before the admin gate.
+- Read-only desktop/mobile Playwright checks passed against actual saved editions, including loaded Inter and compiled button utilities; updated and inspected both route screenshots. No generation or external paid calls.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (490 unit/213 isolated integration, exit 0), pnpm build, pnpm exec tsx scripts/smoke-ui-routing.ts, pnpm exec tsx scripts/check-handbook.ts 01-stack-and-runtime and git diff --check.
+- Updated TASKS and Stack & runtime; archived iteration 713 to keep PROGRESS bounded. SOURCES/NEEDS_FROM_HUMAN unchanged: no source change or new owner blocker. Rebuilt/restarted API/docs; worker/schema unchanged.
+- Next: theme foundation while waiting; scheduled acceptance first when due, scorer after the edition, fresh X rounds after 21:00 UTC Nov 5/6. No provider/model/budget changes or activation.

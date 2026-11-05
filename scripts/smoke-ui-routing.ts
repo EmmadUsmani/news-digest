@@ -81,6 +81,22 @@ async function smoke() {
           () => document.documentElement.scrollWidth <= innerWidth,
         ),
       );
+      await page.evaluate(() => document.fonts.ready);
+      assert.ok(
+        await page.evaluate(() =>
+          document.fonts.check('16px "Inter Variable"'),
+        ),
+        'Self-hosted Inter must load',
+      );
+      const button = page.locator('[data-slot="button"]').first();
+      assert.equal(
+        await button.evaluate((node) => getComputedStyle(node).display),
+        'inline-flex',
+      );
+      assert.equal(
+        await button.evaluate((node) => getComputedStyle(node).fontSize),
+        '14px',
+      );
       await page.evaluate(() => scrollTo(0, 0));
       await page.screenshot({
         path: `docs/screenshots/ui/foundations-routing-${device}.png`,
