@@ -95,6 +95,7 @@ export function TopicSettings({
     try {
       const response = await fetch('/api/topics/order', {
         method: 'PUT',
+        signal: AbortSignal.timeout(15_000),
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ids: ordered.map((topic) => topic.id) }),
       });

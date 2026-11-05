@@ -121,3 +121,13 @@
 - Initial browser attempts used the old bundle before build completion, then raced API startup; corrected by waiting for rebuilt API health and rerunning successfully. Protected live topics/profile/full edition unchanged; no paid calls or live writes.
 - API rebuilt/restarted; reader returns four topics, health green and alerts clear. Worker/schedule unchanged. Archived progress 811–814 to keep orientation small; TASKS updated. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadline only).
 - Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
+
+## 2026-11-05: iteration 828 — bound stalled topic reordering
+
+- Started clean on main; no leftover work. Alerts clear and health/database/Redis green; Nov 5 scheduled evidence remains pending at 15:00 UTC.
+- Topic order PUT now aborts after 15 seconds, releasing controls with existing uncertainty/reload guidance and no automatic retry.
+- Desktop/mobile Playwright replay holds a completed order save through the real timeout, verifies unlocked controls, then reloads saved positions without another PUT. Both timeout screenshots inspected in docs/screenshots/ui/.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit/214 isolated integration tests, zero failures); smoke-topic-order.ts; smoke-admin-gate.ts; git diff --check.
+- Browser writes replayed; protected live topics/profile/full edition unchanged; no paid calls. Rebuilt API restarted, health green and alerts clear; worker/schedule unchanged.
+- TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (request deadline only, no new blocker).
+- Next FIRST: Nov 5 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.

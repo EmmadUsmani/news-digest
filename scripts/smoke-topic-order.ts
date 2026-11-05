@@ -39,6 +39,7 @@ async function smoke() {
   let replayTopics = structuredClone(topics);
   let failOrder = true;
   let loseResponse = false;
+  let releaseStalledResponse: (() => void) | undefined;
   let writes = 0;
   // Browser writes are replayed; protected Node requests are used only for live reads.
   await context.route('**/*', async (route) => {
@@ -64,8 +65,12 @@ async function smoke() {
           ...topics.find((topic) => topic.id === id)!,
           position,
         }));
-        if (loseResponse) await route.abort();
-        else await route.fulfill({ json: replayTopics });
+        if (loseResponse) {
+          await new Promise<void>((resolve) => {
+            releaseStalledResponse = resolve;
+          });
+          await route.abort().catch(() => undefined);
+        } else await route.fulfill({ json: replayTopics });
       }
       return;
     }
@@ -183,7 +188,7 @@ async function smoke() {
       await page
         .locator('.topic-settings')
         .screenshot({ path: `docs/screenshots/topic-order-${name}.png` });
-      // Save a second order, then lose the response before the browser sees it.
+      // Replay a completed save whose response stalls until the real deadline.
       loseResponse = true;
       await page
         .getByRole('button', {
@@ -196,14 +201,26 @@ async function smoke() {
         .filter({
           hasText: 'The topic order may have been saved.',
         })
-        .waitFor();
+        .waitFor({ timeout: 20_000 });
+      assert.equal(
+        await page
+          .getByRole('button', {
+            name: `Move ${topics[1].name} down`,
+            exact: true,
+          })
+          .isEnabled(),
+        true,
+        'Timeout releases reorder controls',
+      );
+      releaseStalledResponse?.();
+      releaseStalledResponse = undefined;
       assert.equal(writes, writesBefore + 3);
       assert.deepEqual(
         replayTopics.map((topic) => topic.id),
         ids,
       );
       await page.locator('.topic-settings').screenshot({
-        path: `docs/screenshots/topic-order-interrupted-${name}.png`,
+        path: `docs/screenshots/ui/topic-order-timeout-${name}.png`,
       });
       await page.reload();
       await page.getByText('Manage topics', { exact: true }).click();
@@ -223,7 +240,7 @@ async function smoke() {
     assert.deepEqual(credentials, []);
     assert.deepEqual(unexpectedWrites, []);
     console.log(
-      'Topic reorder desktop/mobile browser replay: failure, retry, lost saved response, reload without retry, positions and overflow passed; no production writes or generation',
+      'Topic reorder desktop/mobile browser replay: failure, retry, real timeout after saved order, unlocked controls, reload without retry, positions and overflow passed; no production writes or generation',
     );
   } finally {
     assert.deepEqual(
