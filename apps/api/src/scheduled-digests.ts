@@ -3,7 +3,10 @@ import { Queue, Worker } from 'bullmq';
 import { database } from './libs/db/connections';
 import { logger, logJob } from './libs/observability/logging';
 import { PostgresScheduledBudgetRepository } from './modules/curation/database/scheduled-budget.repository';
-import { reconcileFailedOnDemandJob } from './modules/digests/adapters/failed-edition-job';
+import {
+  reconcileFailedOnDemandJob,
+  watchFailedOnDemandJobs,
+} from './modules/digests/adapters/failed-edition-job';
 import { generateOnDemandEdition } from './modules/digests/application/on-demand-edition';
 import { PostgresEditionJobFailures } from './modules/digests/database/edition-job-failures';
 import { PostgresPreviewRepository } from './modules/digests/database/preview.repository';
@@ -77,6 +80,9 @@ export function startScheduledDigests() {
   );
   worker.on('error', (err) =>
     logger.error({ err }, 'Digest worker connection error'),
+  );
+  watchFailedOnDemandJobs(worker, failures, (err) =>
+    logger.error({ err }, 'On-demand failure reconciliation failed'),
   );
   worker.on('failed', (job) => {
     logger.error({ jobId: job?.id }, 'Scheduled digest failed');

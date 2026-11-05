@@ -1,7 +1,13 @@
 import assert from 'node:assert/strict';
+import { EventEmitter } from 'node:events';
 import { test } from 'node:test';
 
-import { reconcileFailedOnDemandJob } from '../src/modules/digests/adapters/failed-edition-job';
+import type { Worker } from 'bullmq';
+
+import {
+  reconcileFailedOnDemandJob,
+  watchFailedOnDemandJobs,
+} from '../src/modules/digests/adapters/failed-edition-job';
 
 void test('failure reconciliation ignores unrelated, retried and incomplete jobs', async () => {
   const records: unknown[] = [];
@@ -48,4 +54,30 @@ void test('failure reconciliation ignores unrelated, retried and incomplete jobs
     ),
     /DB unavailable/,
   );
+});
+
+void test('failure event listener reports persistence errors without throwing', async () => {
+  const worker = new EventEmitter();
+  const failure = new Error('DB unavailable');
+  const reported = new Promise<unknown>((resolve) => {
+    watchFailedOnDemandJobs(
+      worker as unknown as Pick<Worker, 'on'>,
+      {
+        record: async () => {
+          throw failure;
+        },
+        find: async () => null,
+      },
+      resolve,
+    );
+  });
+  worker.emit('failed', undefined);
+  worker.emit('failed', {
+    id: 'job',
+    name: 'on-demand',
+    processedOn: 100,
+    finishedOn: 150,
+    getState: async () => 'failed',
+  });
+  assert.equal(await reported, failure);
 });

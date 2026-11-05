@@ -100,7 +100,8 @@ Redis counter reset. Existing numeric job links continue to work.
   Postgres. After Redis prunes them, the same link shows a generic failure
   message. Both saved and failed links also recover when Redis lookup, state
   or completion reads fail.
-  The worker scans retained failed jobs every 10 seconds, including terminal
+  The worker records terminal failure events immediately and scans retained
+  failed jobs every 10 seconds to recover after downtime, including terminal
   stalls that bypass generation error handling. Exception text is never stored.
 - **Progress connection:** a status request times out after 15 seconds. The
   page reconnects to the same job after a timeout or invalid status response;

@@ -1,4 +1,4 @@
-import type { Job } from 'bullmq';
+import type { Job, Worker } from 'bullmq';
 
 import type { EditionJobFailures } from '../domain/edition-job-failures';
 
@@ -12,4 +12,16 @@ export async function reconcileFailedOnDemandJob(
   if ((await job.getState()) !== 'failed') return;
   if (job.processedOn === undefined || job.finishedOn === undefined) return;
   await failures.record(job.id, Math.max(0, job.finishedOn - job.processedOn));
+}
+
+// Failed events also fire for retryable attempts; the state check above keeps
+// those out of durable terminal history. Refresh remains the downtime fallback.
+export function watchFailedOnDemandJobs(
+  worker: Pick<Worker, 'on'>,
+  failures: EditionJobFailures,
+  onError: (error: unknown) => void,
+): void {
+  worker.on('failed', (job) => {
+    if (job) void reconcileFailedOnDemandJob(failures, job).catch(onError);
+  });
 }

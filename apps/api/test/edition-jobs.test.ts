@@ -5,7 +5,10 @@ import { type DigestPreview } from '@digest/contracts';
 import { Worker } from 'bullmq';
 
 import { BullEditionJobs } from '../src/modules/digests/adapters/edition-jobs';
-import { reconcileFailedOnDemandJob } from '../src/modules/digests/adapters/failed-edition-job';
+import {
+  reconcileFailedOnDemandJob,
+  watchFailedOnDemandJobs,
+} from '../src/modules/digests/adapters/failed-edition-job';
 import { generateOnDemandEdition } from '../src/modules/digests/application/on-demand-edition';
 import { PostgresEditionJobFailures } from '../src/modules/digests/database/edition-job-failures';
 import { PreviewController } from '../src/modules/digests/digests.module';
@@ -206,6 +209,10 @@ void test('async edition requests dedupe while active, publish once and allow la
       },
       { connection },
     );
+    const reconciliationErrors: unknown[] = [];
+    watchFailedOnDemandJobs(failing, failures, (error) =>
+      reconciliationErrors.push(error),
+    );
     try {
       const failed = await controller.enqueue(request);
       const status = await waitFor(failed.id, 'failed');
@@ -213,7 +220,17 @@ void test('async edition requests dedupe while active, publish once and allow la
       assert.equal(status.error, 'Edition generation failed. Try again later.');
       assert.equal(JSON.stringify(status).includes('private'), false);
       // This worker bypasses the application catch, as a terminal stall does.
-      assert.equal(await failures.find(failed.id), null);
+      // Wait for event persistence, without invoking the periodic scanner.
+      for (
+        let attempt = 0;
+        !(await failures.find(failed.id)) && attempt < 100;
+        attempt++
+      )
+        await new Promise((resolve) => setTimeout(resolve, 20));
+      assert.deepEqual(await failures.find(failed.id), {
+        durationMs: status.durationMs,
+      });
+      assert.deepEqual(reconciliationErrors, []);
       const failedJob = (await jobs.queue.getJob(failed.id))!;
       await reconcileFailedOnDemandJob(failures, failedJob);
       await reconcileFailedOnDemandJob(failures, failedJob);

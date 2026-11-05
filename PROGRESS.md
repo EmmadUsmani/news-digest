@@ -1,13 +1,3 @@
-## 2026-11-05: iteration 842 — preserve keyboard focus after topic availability changes
-
-- Started clean on main; no leftover work. Alerts clear and health/database/Redis green; scheduled Nov 5 review remains due at 15:00 UTC.
-- Enable/Disable restores the initiating button's focus after success, rejected saves and timeouts; the updated button supports keyboard continuation.
-- Desktop/mobile smoke-topic-availability.ts passed: focused failure recovery, Enter retry, successful disable focus, persistence, timeout/lost-response recovery and editor protection. Two focus screenshots inspected; unrelated regenerated screenshots discarded.
-- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm check (497 unit/214 isolated integration passed); smoke-admin-gate.ts passed; git diff --check.
-- Rebuilt API restarted before 14:30 UTC; health green. Worker/schedule unchanged; browser snapshots prove live topics/profile/full edition unchanged. No paid calls or live data writes.
-- TASKS updated; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged (keyboard focus fix, no new blocker).
-- Next FIRST: 15:00 UTC NBA/grouping/cost/latency review, fallback before scorer; X rounds after 21:00 UTC Nov 5/6. Admin identity/proxy verification remains pending.
-
 ## 2026-11-05: iteration 844 — preserve schedule-save keyboard focus
 
 - Started clean on main; no leftover work. Alerts clear and health/database/Redis green; scheduled Nov 5 review remains due at 15:00 UTC.
@@ -155,3 +145,13 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (500 unit/215 isolated integration passed); pnpm build; check-handbook.ts 03-jobs-and-schedules (18 pages/2 diagrams, 27 tables); git diff --check; smoke-admin-gate.ts (startup race failed, rerun passed).
 - API/worker restarted active; /healthz OK, saved edition byte-identical, all 36 sources healthy and alerts clear. No paid calls, UI/schema/source/budget changes; SOURCES, screenshots and NEEDS_FROM_HUMAN unchanged.
 - Next: X fresh-window rounds after 21:00 UTC Nov 5/6; editor-v5 evidence Nov 6. Unfinished durable history and admin identity/proxy rollout remain open.
+
+## 2026-11-05: iteration 858 — persist terminal failures on worker events
+
+- Started clean on main; no leftover work. Health/alerts green, 36 sources healthy and scheduled digest successful; X rounds await 21:00 UTC and admin rollout awaits identity/proxy evidence.
+- Worker now records terminal on-demand failure events immediately through the existing state-checked, idempotent history adapter. Retryable attempts remain excluded; persistence errors are caught/logged and the periodic scan remains the downtime/retry fallback.
+- Isolated queue test proves a failure bypassing the generation catch reaches Postgres without scanning, then survives Redis removal; existing duplicate scan checks remain. Unit test verifies missing-job events and caught persistence rejection. No actual process-kill/stall experiment.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (501 unit/215 isolated integration passed); pnpm build; check-handbook.ts 03-jobs-and-schedules (18 pages/2 diagrams, 27 tables); targeted failed-edition-job.test.ts (2 passed); git diff --check; smoke-admin-gate.ts before/after restart.
+- API/worker restarted active; /healthz OK, saved edition byte-identical, 36 sources healthy, zero failed digest jobs and alerts clear. Updated Jobs handbook/TASKS; archived iteration 842 to keep progress small.
+- Jobs lost before either event persistence or scanning remain unrecoverable. No paid calls or UI/schema/source/budget changes; screenshots, SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Next: X fresh-window rounds after 21:00 UTC Nov 5/6; editor-v5 evidence Nov 6. Unfinished durable job history and admin identity/proxy rollout remain open.
