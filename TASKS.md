@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Compact post notes (1025, item 33): one-line editorial notes preserve full accessible/hover text; notes repeating saved post text are hidden. Desktop/mobile light/dark saved-edition and synthetic replay verified.
+
 - [x] Reader contents (1024, item 33): single-line headlines, expanded-topic chevrons and visible current-story marker now match the approved spec; full titles retained for hover/accessibility. Desktop/mobile light/dark scrolling and screenshots verified.
 
 - [x] Headline-only prose (1023): Nov 6 Tech summaries quoted a post title then repeated its claim. Story editor v12 requests a direct attributed sentence, preserving allegations; fake-only verification, production prose awaits the next scheduled edition.

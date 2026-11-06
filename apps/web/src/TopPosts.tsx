@@ -102,11 +102,26 @@ export function TopPosts({ posts }: { posts: ReaderPost[] }) {
 }
 
 function PostContext({ post }: { post: ReaderPost }) {
-  return post.whyItMatters?.trim() ? (
-    <p className="post-context text-sm text-[var(--secondary)]">
-      <span className="post-context-text">{post.whyItMatters}</span>
+  const note = post.whyItMatters?.trim();
+  const normalize = (text: string) =>
+    text.trim().replace(/\s+/g, ' ').toLowerCase();
+  const postTexts =
+    post.platform === 'reddit'
+      ? [post.title, post.displayText]
+      : [post.text, post.displayText];
+  if (
+    !note ||
+    postTexts.some((text) => text && normalize(text) === normalize(note))
+  )
+    return null;
+  return (
+    <p
+      className="post-context min-w-0 truncate text-sm text-[var(--secondary)]"
+      title={note}
+    >
+      <span className="post-context-text">{note}</span>
     </p>
-  ) : null;
+  );
 }
 
 function Post({

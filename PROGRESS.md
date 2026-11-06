@@ -169,3 +169,13 @@
 - pnpm build passed; API/worker restarted, /healthz and pnpm obs alerts clear. pnpm check passed (562 unit/225 isolated integration), as did pnpm format, pnpm lint:fix and git diff --check.
 - Archived iterations 1008–1009 to keep this file small. No source/schema/handbook-flow change; SOURCES and NEEDS_FROM_HUMAN unchanged. No paid calls.
 - Next: continue item 33 spec completion; fresh X round after 21:00 UTC. Reserved Bluesky slot stays OFF; deployed editorial changes await next edition.
+
+## 2026-11-06: iteration 1025 — compact reader post notes
+
+- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; alerts clear and /healthz DB/Redis OK.
+- Reader post notes now occupy at most one line, retaining full accessible text and hover titles. Exact repeats of original/display text (ignoring case/whitespace) are omitted across platforms.
+- Saved-edition desktop/mobile light/dark layout checks passed; synthetic Bluesky replay verifies repetition suppression without changing saved data. Updated screenshots; visually inspected desktop/mobile light post cards.
+- Additional official-widget sizing replay exposed a stale immediate-after-resize assertion: the iframe is replaced asynchronously. Updated it to wait for the resized iframe and its requested width, keeping lazy loading intact.
+- Passed pnpm build; pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration); pnpm exec tsx scripts/smoke-reader-layout.ts; scripts/smoke-bluesky-cards.ts; scripts/smoke-post-sizing.ts; git diff --check.
+- API/worker restarted; saved edition serves 20 stories and 17 posts, /healthz and alerts clear. No paid calls; no source/schema/handbook-flow changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Next: continue final reader spec completion; fresh X round after 21:00 UTC. Reserved Bluesky slot remains OFF awaiting owner; editorial fixes await next scheduled edition.

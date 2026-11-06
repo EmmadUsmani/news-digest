@@ -248,15 +248,41 @@ async function smoke() {
             path: `docs/screenshots/ui/reader-post-date-${device}-${theme}.png`,
           });
         const expectedContexts = edition.topics.flatMap((topic) =>
-          topic.posts.flatMap((post) =>
-            post.whyItMatters?.trim() ? [post.whyItMatters] : [],
-          ),
+          topic.posts.flatMap((post) => {
+            const note = post.whyItMatters?.trim();
+            const text = post.platform === 'reddit' ? post.title : post.text;
+            const words = (value: string) =>
+              value.trim().toLowerCase().split(/\s+/).join(' ');
+            return note &&
+              ![text, post.displayText].some(
+                (value) => value && words(value) === words(note),
+              )
+              ? [note]
+              : [];
+          }),
         );
         assert.deepEqual(
           await page.locator('.post-context-text').allTextContents(),
           expectedContexts,
         );
         for (const note of await page.locator('.post-context').all()) {
+          assert.equal(
+            await note.getAttribute('title'),
+            await note.innerText(),
+            'Full editorial note remains available on hover',
+          );
+          assert.ok(
+            await note.evaluate((element) => {
+              const style = getComputedStyle(element);
+              return (
+                style.whiteSpace === 'nowrap' &&
+                style.textOverflow === 'ellipsis' &&
+                element.getBoundingClientRect().height <=
+                  Number.parseFloat(style.lineHeight) + 1
+              );
+            }),
+            'Editorial notes occupy at most one line on desktop and mobile',
+          );
           assert.ok(
             await note.evaluate((element) => {
               const card = element.closest('.post-card')!;

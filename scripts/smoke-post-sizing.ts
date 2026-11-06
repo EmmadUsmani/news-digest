@@ -111,13 +111,20 @@ async function smoke() {
         // A loaded iframe must also fit if its card shrinks after rotation/resizing.
         await page.setViewportSize({ width: 320, height: 844 });
         for (const host of await hosts.all()) {
-          assert.ok(
-            await host.evaluate(
-              (element) =>
-                element.querySelector('iframe')!.getBoundingClientRect()
-                  .width <=
-                element.clientWidth + 1,
-            ),
+          await host.scrollIntoViewIfNeeded();
+          // Resizing replaces the official iframe asynchronously after debounce.
+          await page.waitForFunction(
+            (element) => {
+              const frame = element?.querySelector('iframe');
+              return (
+                element &&
+                frame &&
+                Number(frame.dataset.requestedWidth) ===
+                  Math.min(550, Math.max(250, element.clientWidth)) &&
+                frame.getBoundingClientRect().width <= element.clientWidth + 1
+              );
+            },
+            await host.elementHandle(),
           );
         }
         assert.equal(

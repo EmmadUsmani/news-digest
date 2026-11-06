@@ -63,6 +63,7 @@ async function main() {
         {
           ...post,
           externalId: 'synthetic-no-media',
+          whyItMatters: `  ${post.text.toUpperCase().replace(/\s+/g, ' ')}  `,
           url: 'https://bsky.app/profile/did%3Aplc%3Asynthetic/post/synthetic',
           media: [],
         },
@@ -71,8 +72,7 @@ async function main() {
       const replay = readerEditionSchema.parse(snapshot);
       assert.ok(
         replay.topics[0].posts.every(
-          (item) =>
-            item.whyItMatters === post.whyItMatters && !('reasons' in item),
+          (item) => Boolean(item.whyItMatters) && !('reasons' in item),
         ),
       );
 
@@ -141,8 +141,9 @@ async function main() {
         post.whyItMatters,
       );
       assert.equal(
-        await cards.nth(1).locator('.post-context-text').innerText(),
-        post.whyItMatters,
+        await cards.nth(1).locator('.post-context-text').count(),
+        0,
+        'A note repeating the original text is omitted despite case/spacing differences',
       );
       assert.ok(
         !(await cards.first().innerText()).includes(post.reasons[0]),
