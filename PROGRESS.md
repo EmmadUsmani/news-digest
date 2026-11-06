@@ -183,3 +183,13 @@
 - Archived iterations 990–991 and older completed task markers to keep handoff files small.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration tests); pnpm build; git diff --check all passed.
 - Next: Nov 6 World/full-AI/cost/Bluesky review after publication; X round after 21:00 UTC; fixed search OFF.
+
+## 2026-11-06: iteration 1008 — scope a saved edition for offline reading
+
+- Started clean on main; no leftover work. Alerts clear; health/DB/Redis green, API/worker active, all 36 sources healthy; no failed digest runs.
+- Read all four topics through the saved reader export; latest remains Nov 5 (7d99b279), with 17 stories/14 posts. World breadth remains the biggest weakness; its fix awaits Nov 6 publication.
+- Reader value: take the saved digest on a journey without depending on widgets or implying that media and linked articles are included.
+- Added a bounded text-only HTML download proposal, with public-reader fields, attribution, export date, original links, escaping and offline acceptance; owner review required before implementation.
+- No runtime/source/schema/prompt/budget changes or paid calls. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged; no restarts during 13:00–16:00 freeze, running code unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration tests); pnpm build; git diff --check all passed.
+- Next: Nov 6 World/full-AI/cost/Bluesky review after publication; X round after 21:00 UTC; fixed search OFF.

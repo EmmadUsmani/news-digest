@@ -309,3 +309,31 @@
   review and the scheduled X experiment retain priority. This uses the
   [existing reader findings](edition-reviews/2026-11-05-reader.md#nov-6-pre-publication-handoff--iteration-987),
   without reopening the closed editorial audit.
+
+## Take a saved edition offline
+
+- Reader problem: the Nov 5 edition mixes saved reporting with 14 X posts,
+  including media-dependent NBA highlights and a Gaming release-date image.
+  A reader preparing for a journey needs a readable copy without assuming
+  that live widgets, linked reporting or video will remain available.
+- Proposal: an explicit download of one published edition as a self-contained
+  HTML document, generated from the existing public reader projection. Include
+  the coverage window, topic briefs, saved stories, source links, post text and
+  saved editorial context. Clearly state that linked articles and media need
+  a connection; do not claim the download contains the complete reporting.
+- First version: text only, with original links and source attribution. No
+  external scripts, fonts, images, cached embeds, background synchronization
+  or service worker. Keep the saved publication date prominent so an old file
+  cannot be mistaken for today's edition. Escape all saved text and validate
+  link schemes before producing downloadable HTML.
+- Acceptance example: download Nov 5, disconnect, and open the file locally;
+  all four topics, 17 stories and 14 saved posts remain readable. The Gaming
+  release-date image remains an original link, with no invented transcription.
+  Verify keyboard navigation, small screens, Unicode and hostile text fixtures.
+- Cost: approximately 1–2 days for a bounded public-data export, accessible
+  document template and browser checks. No new model calls, vendor or media
+  requests. A downloaded copy cannot receive subsequent correction notes;
+  retain the online edition link and export time so readers can check it.
+- Status: proposal awaiting owner review under item 38; no offline feature
+  built or private/admin fields exported. World's thin coverage remains the
+  largest observed content weakness, with its deployed fix awaiting Nov 6.

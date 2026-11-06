@@ -39,7 +39,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Historical correction proposal (1007): scoped dated, owner-approved notes alongside immutable stories using known Nov 5 Sony/GTA findings; no runtime or snapshot changes. [Proposal](docs/ideas.md#correct-a-known-error-in-an-older-edition).
+- [x] Offline edition proposal (1008): scoped a text-only, public-reader HTML download with saved context and explicit media limits; awaits owner review. [Proposal](docs/ideas.md#take-a-saved-edition-offline).
 
 - Earlier steps 995–1006: [completed markers](docs/progress-archive/2026-11-06-reader-done-1007.md).
 
