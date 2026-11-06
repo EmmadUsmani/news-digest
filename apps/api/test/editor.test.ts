@@ -421,7 +421,7 @@ void test('headline-only evidence accepts a concise attributed summary without r
     const result = await h.editor.edit(topic, thin, 1, 'thin-source');
     assert.deepEqual(result?.stories, output.stories);
     assert.equal(h.calls.length, 1);
-    assert.equal(h.calls[0].purpose, 'shortlist-editor-v9');
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v10');
     assert.match(h.calls[0].instructions, /one sentence for thin evidence/);
     assert.match(h.calls[0].instructions, /Preserve the full publisher name/);
     assert.match(
@@ -469,7 +469,7 @@ void test('brief guidance reaches both editors without changing saved factual bu
     );
     assert.deepEqual(result?.brief, output.brief);
     assert.equal(h.calls.length, 1);
-    assert.equal(h.calls[0].purpose, 'shortlist-editor-v9');
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v10');
     assert.match(
       h.calls[0].instructions,
       /not a copied list of the story headlines/,
@@ -574,6 +574,59 @@ void test('summary guidance preserves the central headline claim when the excerp
     assert.match(
       h.calls[0].instructions,
       /retain any attribution or uncertainty/,
+    );
+    assert.deepEqual(h.diagnostics(), []);
+  }
+});
+
+void test('editor preserves practical release qualifications in both headline and summary', async () => {
+  const input = [
+    {
+      id: 'one',
+      title:
+        'GTA 6 will come to stores sooner, but it is not playable right away',
+      excerpt:
+        'The physical edition and preloading move to November 10. It is not playable right away.',
+      sources: ['GameSpot'],
+    },
+  ];
+  const output = {
+    brief: [
+      'GTA 6 physical copies reach stores on November 10.',
+      'Preloading also moves to November 10.',
+    ],
+    stories: [
+      {
+        id: 'one',
+        evidenceIds: ['one'],
+        headline:
+          'GTA 6 store and preload dates move up; playable access remains separate',
+        summary:
+          'Physical copies and preloading move to November 10. It is not playable right away.',
+        whyItMatters: 'The change concerns distribution and preloading.',
+        rationale: 'An updated release schedule.',
+      },
+    ],
+  };
+  for (const refused of [[], ['claude-sonnet-5-5']]) {
+    const h = harness([output], refused);
+    const result = await h.editor.edit(
+      topic,
+      input,
+      1,
+      'release-qualification',
+    );
+    assert.deepEqual(result?.stories, output.stories);
+    assert.deepEqual(JSON.parse(h.calls[0].prompt).candidates, input);
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v10');
+    assert.match(
+      h.calls[0].instructions,
+      /qualifications.*both headline and summary/,
+    );
+    assert.match(h.calls[0].instructions, /never invent an unlock date/);
+    assert.match(
+      h.calls[0].instructions,
+      /retain its complete source sentence verbatim/,
     );
     assert.deepEqual(h.diagnostics(), []);
   }

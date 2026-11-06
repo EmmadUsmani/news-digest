@@ -1549,3 +1549,5 @@ ack: 2026-11-06 item 42 — iteration 981: read all four saved topics; single-re
 ack: 2026-11-06 item 42 — iteration 982: Sony’s saved summary cites a PS6 report missing from its article disclosure. Reader projection now includes all saved editorial citations, deduplicated with original coverage; saved data and selection stay unchanged.
 
 ack: 2026-11-06 item 42 — iteration 983: OpenSSH’s author link appeared under the unqualified Hacker News label. Mark Hacker News and Google News discovery links with “via” in source rows and report disclosures so readers can distinguish feeds from reporting outlets; no saved content or spend changes.
+
+ack: 2026-11-06 item 42 — iteration 984: Gaming's saved GTA 6 story omits the original headline's playable-access qualification. Editor v10 preserves supported practical qualifications in headline and summary, respecting verbatim absence evidence; offline contracts only, actual output awaits publication. No paid calls or source changes.

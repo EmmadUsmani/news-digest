@@ -1,17 +1,3 @@
-## 2026-11-06: iteration 970 — measure the serialized social tail
-
-- Started clean on main; health/database/Redis green, all 36 sources healthy, alerts clear and no failed digest jobs. No leftover work.
-- Read latest saved topic headlines/posts; World breadth and Tech grouping await Nov 6 publication. Edition at 15:00 UTC; X round after 21:00 UTC.
-- Owner value: identify why editions still take 152 seconds before changing scheduling or risking morning budgets; moved beyond repeated X-card polish.
-- Exported 66 allowlisted Nov 5 journal events, added offline topic-stage/HTTP-occupancy replay and three tests for conservation, interval boundaries and invalid stage evidence.
-- Weakness/cause: Tech posts take 55.895 s; final 8.804 s has at most one HTTP call, social triage then Bluesky editing. Code serializes Bluesky after X/Reddit slot selection.
-- Recorded next cause-level candidate: split scoring from final slot selection after Nov 6 gate; preserve no-slot spending and admission protection. No runtime change or paid calls.
-- Updated TASKS and dated speed evidence; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged because system/source behavior is unchanged.
-- Verification: targeted timeline tests 3/3; pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check. Final results below.
-- Initial sources command used unsupported --limit; corrected command confirmed all 36 healthy. UI unchanged, so no browser screenshots needed.
-- Next: Nov 6 edition/Bluesky review after 15:00 UTC; X round after 21:00 UTC. Fixed search and reserved slot stay off.
-- Final: pnpm check exit 0 (546 unit/224 isolated integration tests); build and diff checks passed. API/worker/docs/schema restart and post-push health confirmation follow.
-
 ## 2026-11-06: iteration 971 — restore saved-edition selection verification
 
 - Started clean on main; alerts clear, health/database/Redis green, 36 sources healthy and no failed digest runs. No leftover work.
@@ -189,3 +175,16 @@
 - Build and handbook passed; API/worker/docs/schema restarted, health green, all 36 sources healthy, zero failed digest jobs. Full checks/browser results recorded below.
 - Next: Nov 6 World/cost/Bluesky/editorial review after 15:00 UTC; X round after 21:00 UTC. Fixed search remains off.
 - Final: pnpm check passed (553 unit/224 isolated integration tests); build, handbook, four-view saved-edition replay and diff checks passed. Inspected mobile discovery attribution screenshot; four new screenshots retained. Archived iteration 969 to keep this file small.
+
+## 2026-11-06: iteration 984 — retain practical release qualifications
+
+- Started clean on main; alerts clear and health/database/Redis green; no leftover work.
+- Read all four saved topics; edition/Bluesky and X reviews remain time-gated.
+- Reader weakness: Gaming's GTA 6 early-store summary omits the original headline's warning that it is not playable right away. The owner would notice the misleading practical release implication.
+- Editor v10 asks both headline and summary to retain supported practical qualifications, without inventing unlock dates; absence claims still require a complete verbatim source sentence.
+- Updated purpose version and golden expectations; offline contracts cover both primary and fallback editors. Saved editions unchanged; no paid calls, sources or selection settings changed.
+- Initial direct golden invocation correctly refused without its isolated-DB flag; full suite runs it through the isolation harness. Targeted editor tests passed 18/18.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (554 unit/224 isolated integration passed); pnpm build; git diff --check. No UI or system-flow change requiring screenshots or handbook updates.
+- Full-suite replay caught the old synthetic prompt fingerprint; refreshed that fingerprint only, retained authored response, targeted replay and full rerun passed. Archived iteration 970 to keep PROGRESS small.
+- API/worker/docs/schema restarted; post-restart health green, alerts clear, all 36 sources healthy. No failed digest jobs; next run 15:00 UTC.
+- Next: compare Nov 6 actual output and World/cost/Bluesky after 15:00 UTC; X round after 21:00 UTC.
