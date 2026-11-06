@@ -112,13 +112,19 @@ the left.
 │                    │  … up to the topic's story budget                       │
 │ Past editions →    │                                                         │
 │                    │  Posts                                                  │
-│                    │  ┌───────────────────┐ ┌───────────────────┐            │
-│                    │  │  X embed / card    │ │  Bluesky card     │            │  2-column grid of post cards
-│                    │  └───────────────────┘ └───────────────────┘            │
+│                    │  ┌──────────────────────────────────────────────┐       │
+│                    │  │  X embed / card                               │       │  one full-width post per row
+│                    │  └──────────────────────────────────────────────┘       │
+│                    │  ┌──────────────────────────────────────────────┐       │
+│                    │  │  Bluesky card                                 │       │
+│                    │  └──────────────────────────────────────────────┘       │
 │                    │                                                         │
 │                    │  NBA …                                                  │
 └────────────────────┴─────────────────────────────────────────────────────────┘
 ```
+
+Posts use one full-width row per card on desktop and mobile. X embeds use
+the available card width, up to the official 550 px limit.
 
 **Contents sidebar:**
 

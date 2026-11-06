@@ -1,25 +1,3 @@
-## 2026-11-06: iteration 1004 — defer unsupported story/post links
-
-- Started clean on main; no leftover work. Alerts clear, health/DB/Redis green; API/worker active, all 36 sources healthy, no failed digest jobs.
-- Read latest saved edition topic by topic through the offline export: still Nov 5; World breadth and Nov 6 cost/Bluesky decisions await publication.
-- Reader weakness: related reporting and original posts require readers to recognize their connection. Owner value: determine whether saved citations support useful navigation before building it.
-- Measured exact X/Twitter status IDs in story original/coverage URLs against selected posts within each topic: 32 per-story unique URLs, 17 stories, 14 posts, zero matches.
-- Added the evidence to docs/ideas.md and deferred the exact-citation proposal; no article-body fetches, semantic matching, spend or runtime changes.
-- Archived iterations 986–987 to keep PROGRESS small. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm build passed. Initial pnpm check found formatting in the newly extracted archive; corrected it; full rerun passed (560 unit/224 isolated integration tests). git diff --check passed.
-- No restarts during the 13:00–16:00 deployment freeze; running code unchanged.
-- Next: Nov 6 edition/World/cost/Bluesky review after publication; X round after 21:00 UTC; fixed search OFF.
-
-## 2026-11-06: iteration 1005 — scope finding remembered stories
-
-- Started clean on main; no leftover work. Alerts clear, health/DB/Redis green, API/worker active, all 36 sources healthy; no failed digest jobs.
-- Latest saved edition remains Nov 5 (7d99b279): Tech 5/3, NBA 5/5, Gaming 5/5, World 2/1 stories/posts. Existing breadth, summary and context fixes await Nov 6 publication; no repeated tuning.
-- Reader weakness: remembering a player or event does not identify its edition date; the archive exposes dates/windows/topics only. Owner value: recover a previously read story without opening each edition.
-- Added a bounded published-story archive search proposal, using Porziņģis as the acceptance example, with a 2–3 day estimate and no LLM/external spend. Owner review required before implementation under item 38.
-- No runtime/source/schema changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged. No restarts during the 13:00–16:00 deployment freeze; running code unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration tests); pnpm build; git diff --check all passed.
-- Next: Nov 6 edition/World/cost/Bluesky review after publication; X round after 21:00 UTC. Fixed search stays OFF.
-
 ## 2026-11-06: iteration 1006 — defer unsupported continuing-coverage links
 
 - Started clean on main; no leftover work. Alerts clear, health/DB/Redis green; API/worker active, sources check passed, no failed digest runs. Next scheduled edition 15:00 UTC.
@@ -188,3 +166,15 @@
 - Passed: pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration); pnpm build; git diff --check; read-only Playwright four-topic render. Health, 13 services, 36 sources and digest jobs healthy.
 - No UI, source, schema or handbook flow changes. SOURCES and NEEDS_FROM_HUMAN unchanged; no paid calls. API/worker restarted after build and push.
 - Next: integrate earlier scoring only with evidence of safe admission/slot protection; X fresh-window round after 21:00 UTC.
+
+## 2026-11-06: iteration 1021 — reconcile the reader post-layout spec
+
+- Started clean on main; no leftover work. Alerts clear, health DB/Redis OK, all 36 sources healthy and no failed digest jobs.
+- Read all four latest saved topics. Tech launch repetition and thin summaries await the deployed editor/excerpt fixes; X round waits until 21:00 UTC and reserved Bluesky slot remains OFF.
+- Found a contradictory reader instruction: the spec diagram still requested two desktop post columns, while STEERING item 33's iteration 938 ack approves the deployed full-width rows.
+- Owner value: prevent future iterations from narrowing saved text/media or repeatedly undoing the approved reader layout. Corrected the diagram and described current responsive X sizing.
+- Briefly prepared two-column JSX, then deliberately discarded it after finding the later steering acknowledgment; no runtime code change remains. Regenerated replay screenshots discarded because the UI is unchanged.
+- Browser verification: pnpm exec tsx scripts/smoke-post-sizing.ts passed desktop/mobile light/dark and resize containment; visually checked desktop light. Widget content was an explicit local stub, not live media.
+- Passed pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration tests); pnpm build; git diff --check. API/worker restarted, health and alerts clear. Archived iterations 1004–1005 to keep this file small.
+- SOURCES, handbook and NEEDS_FROM_HUMAN unchanged: no source, system flow or new owner dependency.
+- Next: safe admission/slot proof before earlier Bluesky scoring; fresh X comparison after 21:00 UTC. No paid calls or latency improvement claimed.

@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Reader layout spec alignment (1021): corrected stale two-column desktop diagram to the approved and deployed full-width post rows; runtime preserved.
+
 - [x] Bluesky speed preparation (1020): final editor accepts a pre-scored shortlist and current picks/slots; sequential production path preserved, fake-only equivalence and fail-closed checks added. No measured latency gain yet.
 
 - [x] Feed excerpt fallback (1019): missing/blank summaries use bounded feed body text, preserving publisher summary precedence; no page fetching or paid calls.
