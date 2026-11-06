@@ -118,6 +118,7 @@ function Post({
 }) {
   const host = React.useRef<HTMLDivElement>(null);
   const [embedded, setEmbedded] = React.useState(false);
+  const [savedTextOpen, setSavedTextOpen] = React.useState(false);
   const [failed, setFailed] = React.useState(false);
   const [attempt, setAttempt] = React.useState(0);
   React.useEffect(() => {
@@ -184,7 +185,11 @@ function Post({
         </time>
       </p>
       {embedded ? (
-        <details className="saved-post-text">
+        <details
+          className="saved-post-text"
+          open={savedTextOpen}
+          onToggle={(event) => setSavedTextOpen(event.currentTarget.open)}
+        >
           <summary>Saved post text</summary>
           <p className="post-text">
             <a href={post.url} target="_blank" rel="noreferrer">

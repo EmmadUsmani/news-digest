@@ -1,15 +1,3 @@
-## 2026-11-06: iteration 938 — full-width reader posts
-
-- Started clean on main; health/database/Redis green and alerts clear. Nov 6 publication and 21:00 UTC X round remain time-gated.
-- Read saved stories/posts across four topics: World breadth and Tech grouping await deployed fixes; desktop posts still used the legacy two-column grid.
-- Owner-visible value: each post now fills one reader row, giving saved text and media the space required by the approved reader design.
-- Replaced the legacy auto-fit grid with Tailwind single-column layout. Retained official X width cap and mobile containment; no selection, collection, spend or flag changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; smoke-post-sizing.ts; git diff --check. Final results below.
-- First browser run caught the old build during rebuild; rerun against completed build passed. Updated desktop widget-sizing screenshots and inspected desktop light/mobile dark; archived iteration 923 to keep this file small.
-- Updated TASKS and STEERING ack. No source/system-flow change; SOURCES, handbook and NEEDS_FROM_HUMAN unchanged.
-- Next: Nov 6 edition World/cost/Bluesky review after publication; X round after 21:00 UTC.
-- Final check passed: 543 unit/224 isolated integration tests, build and both four-view browser replays. All 36 sources healthy; collection jobs completed, services active and health green. Final restart/alerts checked before handoff.
-
 ## 2026-11-06: iteration 939 — restore malformed reader/archive response recovery
 
 - Started clean on main; alerts clear, health/database/Redis green and all app services active. No leftover work.
@@ -177,3 +165,14 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm build; check-handbook.ts 08-operations; smoke-reader-x-media.ts passed. Full pnpm check result below.
 - API/worker/docs/schema restarted active, health green. Next: Nov 6 World/cost/Bluesky review after publication; fresh X round after 21:00 UTC. Fixed search and reserved slot remain off.
 - Final: pnpm check passed (543 unit/224 isolated integration tests); build, handbook, four-view browser replay and diff checks passed. Services active, health green and alerts clear.
+
+## 2026-11-06: iteration 954 — preserve opened saved X text
+
+- Started clean on main; alerts clear, health/database/Redis green, 36/36 sources healthy and current scheduled/social jobs completed. Edition review waits for publication; X round waits for 21:00 UTC.
+- Read saved topics: switching theme rebuilt X media and collapsed the saved original text a reader had opened. Reproduced with saved Gaming content and a local widget stub before fixing it.
+- Preserve the reader's opened/collapsed disclosure choice through media reloads. No paid calls, selection, collection or flag changes.
+- Expanded smoke-reader-x-media.ts: failure/retry plus open and closed theme round trips passed across desktop/mobile light/dark. No writes or external calls; saved edition unchanged. Four screenshots saved; inspected mobile screenshot. Archived iteration 938 to keep this file small.
+- Updated TASKS, STEERING ack and operations handbook. SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; check-handbook.ts 08-operations; smoke-reader-x-media.ts passed. Full pnpm check result recorded below.
+- API/worker/docs/schema restarted. Next: Nov 6 World/cost/Bluesky review after publication; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.
+- Final: pnpm check passed (543 unit/224 isolated integration tests); build, handbook and four-view browser replay passed. Services active, health green and alerts clear; git diff --check passed.

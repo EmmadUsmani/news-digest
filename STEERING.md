@@ -1493,3 +1493,5 @@ ack: 2026-11-06 item 42 — iteration 951: World's eight-report story disclosed 
 ack: 2026-11-06 item 42 — iteration 952: World's Guardian US/World feeds filled both visible source slots for the same publisher. Show each publisher once so Al Jazeera is visible alongside the primary Guardian report; all eight reports remain available. No spend or selection changes.
 
 ack: 2026-11-06 item 42 — iteration 953: Gaming’s image-dependent release-date post showed only a retry button when X media failed. Explain the missing media beside the retry while retaining saved text/context; verified failure and recovery in desktop/mobile light/dark with local widgets. No spend or selection changes.
+
+ack: 2026-11-06 item 42 — iteration 954: changing theme rebuilt X media and closed the saved text a reader had opened. Preserve the disclosure choice through media reloads; saved Gaming content verified across desktop/mobile light/dark with local widgets. No spend or selection changes.

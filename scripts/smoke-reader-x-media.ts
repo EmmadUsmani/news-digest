@@ -43,9 +43,10 @@ async function smoke() {
             return route.fulfill({
               contentType: 'text/javascript',
               body: `
-              window.twttr = {widgets: {createTweet: async (id, target) => {
+              window.twttr = {widgets: {createTweet: async (id, target, options) => {
                 const frame = document.createElement('iframe');
                 frame.title = 'Local media recovery stub';
+                frame.dataset.theme = options.theme;
                 frame.srcdoc = '<p>Local media recovery stub</p>';
                 target.append(frame); return frame;
               }}};
@@ -87,6 +88,29 @@ async function smoke() {
         assert.equal(await card.locator('.saved-post-text').count(), 1);
         await card.locator('.saved-post-text summary').click();
         assert.ok(await card.locator('.post-text').isVisible());
+        const toggleTheme = async (next: 'light' | 'dark') => {
+          await page
+            .getByRole('button', { name: `Switch to ${next} theme` })
+            .click();
+          await card.scrollIntoViewIfNeeded();
+          await card.locator(`iframe[data-theme="${next}"]`).waitFor();
+        };
+        const nextTheme = theme === 'light' ? 'dark' : 'light';
+        await toggleTheme(nextTheme);
+        assert.ok(
+          await card.locator('.post-text').isVisible(),
+          'Opened saved text remains visible after the theme rebuilds X media',
+        );
+        await page.screenshot({
+          path: `docs/screenshots/ui/x-saved-text-theme-${device}-${nextTheme}.png`,
+        });
+        await card.locator('.saved-post-text summary').click();
+        await toggleTheme(theme);
+        assert.equal(
+          await card.locator('.post-text').isVisible(),
+          false,
+          'Collapsed saved text remains collapsed after rebuilding X media',
+        );
         assert.equal(
           await page.evaluate(
             () => document.documentElement.scrollWidth <= innerWidth,
@@ -105,7 +129,7 @@ async function smoke() {
       saved,
     );
     console.log(
-      'Saved X media failure/retry: desktop/mobile light/dark passed; local widget stub, no writes or external calls.',
+      'Saved X media failure/retry and saved-text theme persistence: desktop/mobile light/dark passed; local widget stub, no writes or external calls.',
     );
   } finally {
     await browser.close();
