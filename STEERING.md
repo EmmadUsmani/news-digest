@@ -23,8 +23,9 @@ details, budgets and rules stay in the items. Every new item goes on this list.
 6. Then item 38's list for choosing meaningful work. While 2–5 wait on a time
    or on evidence, item 42 says what to do first. Item 43 says what not to do.
 
-Blocked on the owner: Backblaze B2 backups (item 37), waiting for the settings
-in NEEDS_FROM_HUMAN.md.
+7. Off-VM Backblaze B2 backups (item 37). Unblocked Nov 6; the owner's settings
+   are on the VM. Lowest priority: start only when items 2–6 and the other open
+   items above it have nothing available.
 
 ## 2. LOWER PRIORITY: real DB verification, then an ORM (2026-11-01)
 
@@ -1143,16 +1144,30 @@ cost. Item 33's ack stays as written.
 
 ack: 2026-11-05 item 36 story limit — iteration 872 activates forty scored articles before grouping, retaining ten stories for the editor. Actual saved World replay: Nov 4 1→10 editor inputs (1→5 reviewed story labels); Nov 5 3→10 inputs (2→7 labels). Model stories including singletons: Nov 4 1→16, Nov 5 3→20; election fragmentation remains, no returned group crosses reviewed labels. Four Haiku verification calls cost $0.005837, recorded as verification; responses/fingerprints saved for offline replay. All-topic first-attempt grouping/editor scenario $0.464371 fits unchanged $0.473168 reserve and projected cap; future admission still enforced. Deployed before Nov 6 13:00 UTC; review scheduled Nov 6 outcome. Evidence: docs/edition-reviews/2026-11-05-world-story-pool.md. UI step 2 next; cleanup remains open.
 
-## 37. LOW, blocked on the owner: off-VM backups to Backblaze B2 (2026-11-05, B2 2026-11-06)
+## 37. LOW, ready, do last: off-VM backups to Backblaze B2 (2026-11-05, B2 2026-11-06)
 
 Backups live only on the VM, so losing the VM loses them too. The owner first
 chose Cloudflare R2, then switched on Nov 6 to **Backblaze B2**, for both the
 database and the VM. Wherever older text or acks say R2, read B2. Nothing was
 built for R2.
 
-**Blocked until the owner adds the settings listed in NEEDS_FROM_HUMAN.md.
-Don't build any of this before then.** After that, it ranks below items 33, 34
-and 36.
+**Unblocked (Nov 6).** The owner added `B2_KEY_ID`, `B2_APPLICATION_KEY`,
+`B2_BUCKET`, `B2_ENDPOINT` and `BACKUP_AGE_RECIPIENT` to the VM env file. A lead
+smoke check confirmed all five are set, the age recipient looks right, no age
+private key is on the VM, and the key authenticates to B2 and is limited to the
+bucket `news-digest-backups` (endpoint `s3.us-east-005.backblazeb2.com`, which
+matches `B2_ENDPOINT`). No upload has been tried yet.
+
+**Priority: last.** It ranks below items 33, 34, 36 and everything else on
+Current order. Don't start it while any of those has work available. When you
+reach it, do it in full.
+
+**Found by the smoke check:** `age`, `aws` and `pg_dump` are not on the VM's
+PATH. Find how the current dump runs (`ops/backups/database.py`) and don't
+assume. For `age`, install the official release binary under
+`~/.local/bin` and verify its checksum. Use plain `curl` or a small Node script
+against the S3 API (SigV4) rather than adding a heavy SDK. If something truly
+needs root or a new service, stop and put it in NEEDS_FROM_HUMAN.md.
 
 - **Database:** upload each nightly dump after it finishes. Keep 30 days in B2.
 - **VM:** first check whether exe.dev offers a whole-VM snapshot we can export.

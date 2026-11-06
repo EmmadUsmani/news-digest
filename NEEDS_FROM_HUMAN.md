@@ -43,8 +43,9 @@ the VM stays private. See the [access decision](docs/decisions/2026-11-05-admin-
 
 ## Backblaze B2 for off-VM backups (2026-11-06, STEERING 37)
 
-Low priority. The agent waits for these. Replaces the earlier Cloudflare R2
-plan. In the Backblaze web console:
+**Done Nov 6; kept for reference.** Settings are on the VM and smoke-checked
+(STEERING 37). Replaces the earlier Cloudflare R2 plan. Steps, in the Backblaze
+web console:
 
 1. Create a Backblaze account and a **private** bucket named `news-digest-backups`
    (or a unique variant, as bucket names are global). Turn on default encryption
