@@ -140,3 +140,4 @@
 - Updated TASKS and SOURCES; archived iteration 893 to keep PROGRESS small. No handbook behavior change or owner input needed.
 - Rebuilt/restarted API, worker, docs and schema; all active. /healthz database/Redis green; real saved edition has four topics/17 stories.
 - Next: durable separately admitted scheduler retry, then authorized Nov 5 NBA/Gaming/World keyword reruns on the same window. Fixed search remains off.
+- First push rejected for incoming owner instructions; fetched/merged without rewriting history. Item 41 queues Bluesky alerts after item 40 saved outcomes; Current order still prioritizes X reliability. No app runtime changes arrived.
