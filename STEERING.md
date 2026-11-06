@@ -1511,3 +1511,5 @@ ack: 2026-11-06 item 42 — iteration 961: saved post commentary had no attribut
 ack: 2026-11-06 item 42 — iteration 962: saved X author names were plain text, preventing readers from inspecting an unfamiliar account. Link each name to its saved profile; keyboard and destination checks cover desktop/mobile light/dark. No spend or selection changes.
 
 ack: 2026-11-06 item 42 — iteration 963: saved X cards had no indication while media was pending; added an active-request loading status so readers can distinguish waiting from failure, preserving saved text through retries. No spend or selection changes.
+
+ack: 2026-11-06 item 42 — iteration 964: saved Tech stories crossed the reading position while Contents still highlighted the topic. Track ordinary scrolling as well as intersections; verify forward/backward story tracking on desktop/mobile light/dark. No spend or selection changes.

@@ -40,9 +40,22 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
     );
     initialTarget?.scrollIntoView();
     update();
+    // Intersections alone miss a heading crossing the reading line while its
+    // card remains inside the observer band. Track ordinary scrolling too.
+    let scrollFrame: number | undefined;
+    const onScroll = () => {
+      if (scrollFrame !== undefined) return;
+      scrollFrame = window.requestAnimationFrame(() => {
+        scrollFrame = undefined;
+        update();
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('hashchange', update);
     return () => {
       observer.disconnect();
+      window.cancelAnimationFrame(scrollFrame ?? 0);
+      window.removeEventListener('scroll', onScroll);
       window.removeEventListener('hashchange', update);
     };
   }, [topics]);

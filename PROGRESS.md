@@ -1,24 +1,3 @@
-## 2026-11-06: iteration 947 — verify on-demand recovery in both themes
-
-- Started clean on main; alerts clear, health/database/Redis green, 36/36 sources healthy and no failed digest-generation jobs. Higher-priority edition/X reviews remain time-gated.
-- Existing admin recovery check passed desktop/mobile but omitted dark mode; extended the existing timeout/reconnect/reload/completion/failure replay to both themes and blocked external traffic. No product behavior change.
-- Refreshed recovery screenshots; inspected desktop dark warning/link/progress. All queue submissions are intercepted simulations against saved operational snapshots; no paid calls, publication, settings or flag changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx scripts/smoke-edition-jobs.ts; git diff --check. Initial full check/browser run terminated with 143 (543 unit passes); retries recorded below.
-- Updated TASKS and archived iteration 931 to keep PROGRESS small. No source/system-flow change; handbook, SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Next: Nov 6 World/cost/Bluesky review after publication; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.
-- Final retry exited zero: 543 unit/224 isolated integration tests passed; build and four-view recovery replay passed. API/worker/docs/schema restarted active; health/database/Redis green, all 36 sources healthy and alerts clear. Post-restart smoke-ui.ts passed saved reader content/archive/navigation with no writes or browser errors.
-
-## 2026-11-06: iteration 948 — prevent host-metrics scrape starvation
-
-- Started clean on main. Triage caught pending host scrape, unit-snapshot and backup alerts; the app and today's successful backup were healthy.
-- Host scrapes reached the 10-second timeout twice in 24 hours. Exporter cgroup recorded 159,516 throttled periods out of 176,796; a direct scrape took 4.310 seconds.
-- Raised only the low-priority host exporter's CPU ceiling from 0.5% to 2% of one core; deployed its checked-in unit. First successful post-restart direct scrape took 1.170 seconds.
-- This protects visibility of real service/backup failures. No reader/content change; edition/X reviews remain time-gated. No paid calls or flag changes.
-- Updated monitoring handbook and TASKS; archived iteration 932. SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (543 unit/224 isolated integration passes); pnpm build; check-handbook.ts 09-observability; smoke-ui.ts; git diff --check. All passed.
-- API/worker/docs/schema restarted healthy; 36/36 sources healthy, zero failed digest jobs, all scrape targets up and alerts clear. Host up stayed 1 throughout a four-minute post-change window.
-- Next: Nov 6 World/cost/Bluesky review after publication; fresh X round after 21:00 UTC.
-
 ## 2026-11-06: iteration 949 — show every grouped coverage report
 
 - Started clean on main; alerts clear, health/database/Redis green. Edition/Bluesky reviews wait for 15:00 publication; X round waits for 21:00 UTC.
@@ -203,3 +182,17 @@
 - Handbook check initially raced API startup; rerun after green health passed. Inspected mobile light loading screenshot; retained only new loading screenshots.
 - API/worker/docs/schema restarted active; health/database/Redis green, all 36 sources healthy, no failed digest jobs and alerts clear.
 - Next: edition/Bluesky review after 15:00 UTC; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.
+
+## 2026-11-06: iteration 964 — keep Contents aligned while reading
+
+- Started clean on main; alerts clear and health/database/Redis green. No leftover work.
+- Read all four saved topics: World breadth and Tech grouping await today's publication; X round waits until 21:00 UTC.
+- Reader weakness: ordinary scrolling left Contents highlighting the topic after the first Tech story crossed the reading line; reproduced at scrollY 180.
+- Cause: intersections alone do not report every crossing of the reading line. Add passive scroll tracking, coalesced per animation frame, with cleanup.
+- Owner value: Contents highlights the story being read and mobile chips follow topic changes during forward/backward scrolling.
+- Added read-only saved-edition browser replay in four views; blocks writes/external requests. Settle lazy blocked media before measuring; account for the last story's page-end limit.
+- Updated TASKS, STEERING ack and affected handbook; archived iterations 947–948. SOURCES/NEEDS_FROM_HUMAN unchanged; no spend or flag changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-scroll.ts; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check. Final results below.
+- Initial scroll replay exposed lazy media layout shifts and page-end limits in the test; corrected setup and reran successfully. Inspected desktop light current-story screenshot.
+- Next: edition/Bluesky review after 15:00 UTC; X round after 21:00 UTC. Fixed search and reserved slot stay off.
+- Final check passed: 543 unit/224 isolated integration tests; build, handbook and both four-view browser replays passed. API/worker/docs/schema restarted; health/database/Redis green, 36 sources healthy, no failed digest jobs, alerts clear.

@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Reader scroll tracking (964): Contents follows the story at the reading position during ordinary forward/backward scrolling, including mobile topic chips.
+
 - [x] X media loading (963): show when an active media request is pending, including retries, while keeping saved post text readable.
 
 - [x] X author profiles (962): saved X bylines link to the original account so readers can inspect who posted, including when media is unavailable.
