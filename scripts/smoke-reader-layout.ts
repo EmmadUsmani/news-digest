@@ -66,6 +66,22 @@ async function smoke() {
           await page.locator('[data-slot="card"]').count(),
           edition.topics.reduce((n, topic) => n + topic.stories.length, 0),
         );
+        for (const grid of await page.locator('.post-grid').all()) {
+          const cards = await grid.locator('.post-card').all();
+          let previousBottom = 0;
+          for (const card of cards) {
+            const bounds = await card.boundingBox();
+            assert.ok(bounds);
+            assert.ok(bounds.y >= previousBottom, 'Posts occupy separate rows');
+            const gridBounds = await grid.boundingBox();
+            assert.ok(gridBounds);
+            assert.ok(
+              Math.abs(bounds.width - gridBounds.width) < 2,
+              'Each post fills the reader column',
+            );
+            previousBottom = bounds.y + bounds.height;
+          }
+        }
         const expectedContexts = edition.topics.flatMap((topic) =>
           topic.posts.flatMap((post) =>
             post.whyItMatters?.trim() ? [post.whyItMatters] : [],

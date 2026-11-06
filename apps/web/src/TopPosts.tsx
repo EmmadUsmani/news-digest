@@ -85,7 +85,7 @@ export function TopPosts({ posts }: { posts: ReaderPost[] }) {
           No standout posts today.
         </p>
       ) : (
-        <div className="post-grid">
+        <div className="post-grid grid grid-cols-1 gap-4">
           {posts.map((post) =>
             post.platform === 'bluesky' ? (
               <BlueskyPost key={`bluesky:${post.externalId}`} post={post} />

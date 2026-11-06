@@ -1,15 +1,3 @@
-## 2026-11-06: iteration 923 — reader contents and compact story layout
-
-- Started clean on main; no leftover work. Alerts/health green, 36/36 sources healthy, no failed digest runs. Higher priorities await Nov 6 publication/21:00 UTC.
-- Replaced the old edition/history panel with compact 672 px story cards, sticky desktop contents, active-topic/story tracking, mobile topic chips and a Contents sheet. Native hash links support smooth/reduced-motion scrolling and saved-edition deep links.
-- Kept saved briefs/summaries, expandable grouped articles and the archive; removed large story images and edition IDs/system copy from the reader. No changes to selection, collection, budgets or saved editions; no paid calls.
-- Fixed sheet closure by keeping native anchor behavior. Reserved space for the X retry control so media failures no longer shift later topics; offline widget recovery also passed. Live embed sizing remains final-reader work.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (543 unit/224 isolated integration tests); pnpm build; smoke-reader-layout.ts; smoke-reader-story-text.ts with latest saved edition; smoke-reader-archive.ts; smoke-admin-gate.ts; check-handbook.ts for stack/runtime and operations; git diff --check. All passed.
-- New layout smoke checks real saved text, contents tracking, mobile closure, deep links, coverage and no overflow/writes/admin reads. Four desktop/mobile light/dark screenshots saved and inspected in docs/screenshots/ui/reader-layout-*.png. External embeds blocked for deterministic screenshots; recovery uses an explicit offline widget stub.
-- Updated TASKS and affected handbook; archived iterations 909–910 and trimmed repeated done markers. SOURCES/NEEDS_FROM_HUMAN unchanged. Final reader acceptance remains open: date switching, source favicons, post cards/embed sizing and porting legacy inline-history smoke scripts.
-- Rebuilt/restarted API/worker/docs/schema; all active, health/database/Redis green, reader HTTP 200, 36/36 sources healthy and alerts clear. Latest real saved edition remains four topics/17 stories/14 posts.
-- Next: finish reader details while awaiting Nov 6 edition/grouping/cost and Bluesky activation gate; fresh X round after 21:00 UTC. Reserved Bluesky slot and fixed X search remain OFF.
-
 ## 2026-11-06: iteration 924 — linked reader source rows
 
 - Started clean on main; no leftover work. Alerts/health green, 36/36 sources healthy and zero failed digest-generation jobs. Higher priorities await Nov 6 publication/21:00 UTC.
@@ -155,3 +143,15 @@
 - Verification: pnpm exec tsx scripts/smoke-edition-selection.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check. Final results below.
 - Updated TASKS; no source/system-flow change, paid calls or flags. Next: Nov 6 edition/Bluesky review after publication and X round after 21:00 UTC.
 - Final full check passed (543 unit/224 isolated integration tests); build and eight browser cases passed. Restarted API/worker/docs/schema and checked final health/alerts before handoff.
+
+## 2026-11-06: iteration 938 — full-width reader posts
+
+- Started clean on main; health/database/Redis green and alerts clear. Nov 6 publication and 21:00 UTC X round remain time-gated.
+- Read saved stories/posts across four topics: World breadth and Tech grouping await deployed fixes; desktop posts still used the legacy two-column grid.
+- Owner-visible value: each post now fills one reader row, giving saved text and media the space required by the approved reader design.
+- Replaced the legacy auto-fit grid with Tailwind single-column layout. Retained official X width cap and mobile containment; no selection, collection, spend or flag changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; smoke-post-sizing.ts; git diff --check. Final results below.
+- First browser run caught the old build during rebuild; rerun against completed build passed. Updated desktop widget-sizing screenshots and inspected desktop light/mobile dark; archived iteration 923 to keep this file small.
+- Updated TASKS and STEERING ack. No source/system-flow change; SOURCES, handbook and NEEDS_FROM_HUMAN unchanged.
+- Next: Nov 6 edition World/cost/Bluesky review after publication; X round after 21:00 UTC.
+- Final check passed: 543 unit/224 isolated integration tests, build and both four-view browser replays. All 36 sources healthy; collection jobs completed, services active and health green. Final restart/alerts checked before handoff.

@@ -1,0 +1,11 @@
+## 2026-11-06: iteration 923 — reader contents and compact story layout
+
+- Started clean on main; no leftover work. Alerts/health green, 36/36 sources healthy, no failed digest runs. Higher priorities await Nov 6 publication/21:00 UTC.
+- Replaced the old edition/history panel with compact 672 px story cards, sticky desktop contents, active-topic/story tracking, mobile topic chips and a Contents sheet. Native hash links support smooth/reduced-motion scrolling and saved-edition deep links.
+- Kept saved briefs/summaries, expandable grouped articles and the archive; removed large story images and edition IDs/system copy from the reader. No changes to selection, collection, budgets or saved editions; no paid calls.
+- Fixed sheet closure by keeping native anchor behavior. Reserved space for the X retry control so media failures no longer shift later topics; offline widget recovery also passed. Live embed sizing remains final-reader work.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (543 unit/224 isolated integration tests); pnpm build; smoke-reader-layout.ts; smoke-reader-story-text.ts with latest saved edition; smoke-reader-archive.ts; smoke-admin-gate.ts; check-handbook.ts for stack/runtime and operations; git diff --check. All passed.
+- New layout smoke checks real saved text, contents tracking, mobile closure, deep links, coverage and no overflow/writes/admin reads. Four desktop/mobile light/dark screenshots saved and inspected in docs/screenshots/ui/reader-layout-*.png. External embeds blocked for deterministic screenshots; recovery uses an explicit offline widget stub.
+- Updated TASKS and affected handbook; archived iterations 909–910 and trimmed repeated done markers. SOURCES/NEEDS_FROM_HUMAN unchanged. Final reader acceptance remains open: date switching, source favicons, post cards/embed sizing and porting legacy inline-history smoke scripts.
+- Rebuilt/restarted API/worker/docs/schema; all active, health/database/Redis green, reader HTTP 200, 36/36 sources healthy and alerts clear. Latest real saved edition remains four topics/17 stories/14 posts.
+- Next: finish reader details while awaiting Nov 6 edition/grouping/cost and Bluesky activation gate; fresh X round after 21:00 UTC. Reserved Bluesky slot and fixed X search remain OFF.

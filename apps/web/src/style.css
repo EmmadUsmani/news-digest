@@ -586,11 +586,6 @@
     color: var(--secondary);
     font-size: 0.9rem;
   }
-  .post-grid {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
-  }
   .post-card {
     min-width: 0;
     padding: 1rem;

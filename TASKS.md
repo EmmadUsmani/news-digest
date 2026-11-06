@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Full-width reader posts (938): replaced legacy desktop two-column post grid with one post per row; saved-content layout and offline widget sizing verified on desktop/mobile light/dark.
+
 - [x] Saved-edition selection replay (937): restored archive navigation and current reader assertions; a delayed latest-edition success or failure preserves the selected older edition on desktop/mobile light/dark.
 
 - [x] Reader timeout replay (936): ported obsolete inline-history coverage to the archive, preserving stalled-edition retry and real saved-link recovery on desktop/mobile light/dark.
