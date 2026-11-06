@@ -173,3 +173,5 @@
 - Final pnpm check passed (562 unit/225 isolated integration), pnpm format and pnpm lint:fix passed; git diff --check clean. API/worker restarted; /healthz DB/Redis OK, alerts clear; saved edition remains four topics, 20 stories and 17 posts.
 - Archived iteration 1014 to keep PROGRESS small. No source/schema/handbook-flow changes or paid calls; SOURCES and NEEDS_FROM_HUMAN unchanged.
 - Next: continue approved reader completion; approved Bluesky slot activation pending under Current order; fresh X round after 21:00 UTC.
+
+- Push initially rejected by concurrent owner steering commits b5ad6a05/dc872f6e; merged without conflicts, preserving B2 readiness and lowest priority. No runtime changes in the merge.
