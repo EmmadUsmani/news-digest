@@ -70,17 +70,24 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
     ) ?? topics[0];
   useEffect(() => {
     const container = sidebar.current;
-    const entry = container?.querySelector<HTMLElement>(
-      '[aria-current="location"]',
-    );
-    if (!container || !entry || container.clientHeight === 0) return;
-    const bounds = entry.getBoundingClientRect();
-    const viewport = container.getBoundingClientRect();
-    // Reveal the current entry without scrolling the edition itself.
-    if (bounds.top < viewport.top)
-      container.scrollTop += bounds.top - viewport.top;
-    else if (bounds.bottom > viewport.bottom)
-      container.scrollTop += bounds.bottom - viewport.bottom;
+    if (!container) return;
+    const reveal = () => {
+      const entry = container.querySelector<HTMLElement>(
+        '[aria-current="location"]',
+      );
+      if (!entry || container.clientHeight === 0) return;
+      const bounds = entry.getBoundingClientRect();
+      const viewport = container.getBoundingClientRect();
+      // Reveal the current entry without scrolling the edition itself.
+      if (bounds.top < viewport.top)
+        container.scrollTop += bounds.top - viewport.top;
+      else if (bounds.bottom > viewport.bottom)
+        container.scrollTop += bounds.bottom - viewport.bottom;
+    };
+    reveal();
+    const observer = new ResizeObserver(reveal);
+    observer.observe(container);
+    return () => observer.disconnect();
   }, [active]);
   useEffect(() => {
     const container = chips.current;

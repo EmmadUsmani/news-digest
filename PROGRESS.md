@@ -1,13 +1,3 @@
-## 2026-11-06: iteration 1014 — prepare shipper cache reclaim threshold
-
-- Started clean on main; no leftover work. Alerts clear, 13 services and 36 sources healthy; /healthz reports DB/Redis OK.
-- Owner value: prevent the observed shipper cache warning recurring and preserve operational log delivery under the existing memory ceiling.
-- Prepared MemoryHigh=64M below unchanged MemoryMax=80M, matching the logs/metrics reclaim approach. Live O2 verifier now requires the shipper threshold; updated affected handbook page.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration); pnpm build; systemd-analyze verify ops/observability/obs-shipper.service; handbook check 09-observability; git diff --check passed.
-- Deployment deliberately deferred: still within 13:00–16:00 UTC freeze. Running shipper active, zero restarts, ~45 MiB, MemoryHigh=infinity; the new runtime assertion must wait for installation. No paid calls.
-- Next after 16:00: install unit/restart shipper, run --verify-o2 for threshold and seven-source delivery, deploy social editor v6 and verify app. X round after 21:00; Bluesky slot remains OFF awaiting owner.
-- SOURCES and NEEDS_FROM_HUMAN unchanged; no source or owner dependency changed.
-
 ## 2026-11-06: iteration 1015 — open cited sources from Bluesky cards
 
 - Started clean on main; no leftover work. Alerts clear, 13 services/36 sources healthy; /healthz DB/Redis OK.
@@ -173,3 +163,13 @@
 - API/worker restarted; health and alerts clear; saved edition retains four topics, 20 stories and 17 posts. No paid calls or source/schema/handbook-flow changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
 - Initial push rejected by concurrent owner .gitignore commit d27912a6; merged it without conflicts, preserving owner-only .local/ exclusion. No runtime change in merge.
 - Next: continue approved reader completion; approved Bluesky slot activation pending under Current order; fresh X round after 21:00 UTC. Combined-check signal 143 recurs; standalone integration remains green.
+
+## 2026-11-06: iteration 1030 — preserve contents visibility on resize
+
+- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; no leftover work, alerts clear and /healthz DB/Redis OK.
+- Reader weakness: shrinking a desktop window hid the current contents entry below the panel (entry bottom 476 versus panel bottom 384). Sidebar resize observation now reveals it without moving the edition.
+- Extended read-only saved-edition browser regression from 1280×900 to 1280×400, retaining forward/backward short-window coverage and asserting unchanged scroll position; light/dark passed. Broader desktop/mobile light/dark reader layout passed. Updated resize screenshots and visually inspected light.
+- Passed pnpm build; pnpm exec tsx scripts/smoke-reader-short-contents.ts; pnpm exec tsx scripts/smoke-reader-layout.ts. Initial pnpm check stopped on script formatting during development; corrected before rerunning.
+- Final pnpm check passed (562 unit/225 isolated integration), pnpm format and pnpm lint:fix passed; git diff --check clean. API/worker restarted; /healthz DB/Redis OK, alerts clear; saved edition remains four topics, 20 stories and 17 posts.
+- Archived iteration 1014 to keep PROGRESS small. No source/schema/handbook-flow changes or paid calls; SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Next: continue approved reader completion; approved Bluesky slot activation pending under Current order; fresh X round after 21:00 UTC.

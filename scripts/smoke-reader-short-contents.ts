@@ -8,7 +8,7 @@ async function smoke() {
   try {
     for (const theme of ['light', 'dark'] as const) {
       const page = await browser.newPage({
-        viewport: { width: 1280, height: 400 },
+        viewport: { width: 1280, height: 900 },
         colorScheme: theme,
         reducedMotion: 'reduce',
       });
@@ -26,6 +26,7 @@ async function smoke() {
         exact: true,
       });
       const targets = [
+        page.locator('.digest-topic').nth(-2).locator('[id^="posts-"]'),
         page.locator('.digest-topic').last().locator('[id^="posts-"]'),
         page.locator('.digest-topic').first().locator('h2'),
       ];
@@ -33,6 +34,10 @@ async function smoke() {
         const id = await target.getAttribute('id');
         await target.evaluate((element) => element.scrollIntoView());
         await navigation.locator(`a[href="#${id}"][aria-current]`).waitFor();
+        const readingPosition = await page.evaluate(() => window.scrollY);
+        if (target === targets[0]) {
+          await page.setViewportSize({ width: 1280, height: 400 });
+        }
         await page.waitForFunction(() => {
           const nav = document.querySelector(
             'nav[aria-label="Edition contents"]',
@@ -42,6 +47,10 @@ async function smoke() {
           const panel = nav.parentElement!.getBoundingClientRect();
           return entry.top >= panel.top - 1 && entry.bottom <= panel.bottom + 1;
         });
+        assert.equal(
+          await page.evaluate(() => window.scrollY),
+          readingPosition,
+        );
         const top = await target.evaluate(
           (element) => element.getBoundingClientRect().top,
         );
@@ -58,7 +67,7 @@ async function smoke() {
       await page.close();
     }
     console.log(
-      'Short desktop contents: active entries visible in both directions; light/dark passed.',
+      'Short desktop contents: active entries visible after resizing and in both directions; light/dark passed.',
     );
   } finally {
     await browser.close();
