@@ -6,7 +6,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 - [ ] STEERING 39 NOW, ahead of UI: reliability/accounting shipped (903–909); Nov 5 keyword reruns complete (910), Gaming three posts, NBA/World tool failed again (2/3 failure), $0.048153 settled. Fair semantic preparation shipped (911); scorer review complete (912): Gaming 1/3 usable, no retained free-link overlap, $0.000337 verification. Next: Nov 6 round after 21:00 UTC. Scorer relevance ≥6/interestingness ≥4 counts as non-promotion; unknown likes unusable. $2.50 total/$1 UTC day caps; fixed search OFF, no further Nov 5 reruns. [Evidence](docs/edition-reviews/2026-11-05-x-experiment-review.md).
 - [x] STEERING 41 (920): durable scheduled-edition BlueskyEditingFailed/BlueskyNoPicks alerts, aggregate-only DB access and firing/clearing/restart coverage shipped. Neither fires on real editions; first eligible scheduled edition is Nov 6.
-- [ ] STEERING 40: purpose/topic diagnostics deployed (913); historical attribution complete (914); selection evidence/counts saved (915); inspector shipped (916); ledger refusal reasons and call-scoped outcomes deployed (917–918); saved triage/editor budget-refusal attribution deployed (919). Per-post validation and saved drop counts shipped (921). Default-off reserved slot built (922), saved editor order verified; Nov 6 cost gate controls activation. Details and limits in STEERING; no collection/query/cap changes.
+- [ ] STEERING 40: purpose/topic diagnostics deployed (913); historical attribution, saved outcomes, inspector and call-scoped refusal reasons shipped (914–919). Per-post validation and saved drop counts shipped (921). Default-off reserved slot built (922), saved editor order verified; Nov 6 cost gate controls activation. Details and limits in STEERING; no collection/query/cap changes.
 - [ ] STEERING 36 NOW: forty-article grouping pool live (872), ten-story editor cap unchanged; replay/cost evidence in [review](docs/edition-reviews/2026-11-05-world-story-pool.md). Review Nov 6 edition. Dedicated admin pages next; coverage cleanup done (873). X rounds due after 21:00 UTC.
 
 - [x] Nov 5 full-AI acceptance and saved reader text (847): all sections AI, zero unscored; $0.315445/152.320 s. [Review](docs/edition-reviews/2026-11-05.md).
@@ -19,8 +19,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - [ ] STEERING 16 / M4 Social posts: Nov 5 X picks Tech/NBA/Gaming/World 3/5/5/1; all four topics present, no Bluesky picks. Saved X metrics empty: viral/outside-list quality acceptance remains open. Paid old open-search picks 1/19 (Tech); no claim that all-topic presence proves paid discovery quality.
 - [ ] STEERING 9/15 first-week report: Nov 5 $0.143191/19 fetched/18 new verified outside-list posts; prior Nov 3 $0.137056/18, Nov 4 $0.149447/19. Four topics weakest-first, $0.10 per-topic hold, unchanged $0.40/day/$12/month cap. Per-topic figures: [Sources](docs/SOURCES.md).
 - [ ] STEERING 18 Bluesky: authenticated hourly collection and session refresh verified (788); Nov 5 no selected posts. Quality/diversity acceptance remains open; World phrase shortlist empty. Cross-platform context/semantic gates shipped. [Sources](docs/SOURCES.md#sustained-bluesky-session-recovery--iteration-788-2026-11-05).
-- [ ] STEERING 33 UI rebuild: follow the five steps in the [approved spec](docs/ui-spec.md). Foundations, navigation, admin pages and topic/source controls shipped (875–899); reader archive shipped (900). Final reader edition layout remains; delete replaced screens as each lands. Prior implementation detail is in PROGRESS and its archive.
-  - Next: finish the final reader per the approved spec. Private rollout authorized by STEERING 36; forged-header proxy check is required before any future public access. [Access decision](docs/decisions/2026-11-05-admin-access.md).
+- [ ] STEERING 33 UI rebuild: follow the five steps in the [approved spec](docs/ui-spec.md). Foundations, navigation, admin pages and topic/source controls shipped (875–899); reader archive shipped (900). Reader contents, mobile chips/sheet and compact story cards shipped (923); date switcher, source favicons and post-card polish remain; delete replaced screens as each lands. Prior implementation detail is in PROGRESS and its archive.
+  - Next: finish reader date switching, source row and post cards/embed sizing; port legacy inline-history smoke scripts to the archive. Private rollout authorized by STEERING 36; forged-header proxy check is required before any future public access. [Access decision](docs/decisions/2026-11-05-admin-access.md).
 - [ ] STEERING 28 incremental triage OFF: default-off runtime, shared admission, reserve-safe scoring, exact pools/cutoffs and sibling draining verified. Reassessed after full-AI acceptance (865): Nov 6 morning allowance $0.021736–$0.028915; only 2/65 early fingerprints compatible in post-publication pool. Keep OFF; do not reduce protection. Actual waste/latency unmeasured. [Assessment](docs/edition-reviews/2026-11-05-incremental-admission.md).
 
 ## Remaining milestones and lower priorities
@@ -39,13 +39,6 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Bluesky reserved slot (922): default-off setting, last-ranked X replacement only on a qualifying distinct pick, unchanged X on empty/failure, saved hold/replacement evidence and bounded totals. Activation awaits Nov 6 gate.
+- [x] Reader layout (923): sticky desktop contents and active story, mobile topic chips/contents sheet, hash links and compact story cards; old inline history removed in favor of the archive. Final date/source/post details remain.
 
-- [x] Bluesky per-post validation (921): valid siblings survive bad fields, IDs, unsupported claims and excess picks; only entirely rejected nonempty replies retry. Saved outcomes retain category counts; X behavior unchanged.
-
-- [x] Durable Bluesky alerts (920): saved scheduled snapshots drive failure and three-opportunity no-picks alerts; older/off/on-demand editions excluded. No worker state or content exposed to metrics.
-
-- [x] Saved Bluesky AI outcomes (919): triage/editor refusals reach snapshots and inspector; mixed validation/refusal reports editing failure. Legacy unknown evidence remains explicit; nullable callers and selection unchanged. Per-post validation shipped (921).
-
-- [x] Bluesky evidence (914–917): historical review, saved counts/results, inspector and ledger refusal logs shipped; details in PROGRESS and [review](docs/edition-reviews/2026-11-04-05-bluesky-outcomes.md).
 - Next: STEERING 40 Nov 6 reserved-slot cost/AI gate and edition review after publication, fresh X round after 21:00 UTC. Fixed search stays off.

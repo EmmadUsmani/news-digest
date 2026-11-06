@@ -1,24 +1,3 @@
-## 2026-11-06: iteration 909 — dispatch one fixed X retry
-
-- Started clean on main; no leftover work. Alerts clear, 36 sources healthy, no failed digest jobs; next edition Nov 6 15:00 UTC.
-- Switched-off fixed scheduler now dispatches one separately admitted linked retry for uncertain failures or settled unconfirmed zero-post/no-citation calls. Rechecks live balance, configuration, enabled state, schedule and time window before dispatch; completed empty, fetched/cited, rejected and budget-blocked outcomes stop.
-- searchX accepts fixed parent links and returns failed call identity/reason after recording the hold. Returned usage settles before retry; timeout holds and durable ledger uniqueness remain intact. Offline runtime coverage checks settlement/hold ordering, linked admission and refusal on later ticks; guard tests cover budget/window/configuration changes. No paid calls or production activation.
-- Verification: targeted 14 tests; pnpm format; pnpm lint:fix; pnpm check (524 unit/223 isolated integration tests, typecheck/lint/format/boundaries); pnpm build; check-handbook.ts 05-social-posts; git diff --check. All pass. First full check stopped on newly archived entry formatting; fixed and reran successfully.
-- Rebuilt/restarted API, worker, docs and schema; all active. /healthz database/Redis green, alerts clear; real latest edition has four topics/17 stories/14 posts. No migration needed.
-- Updated TASKS, SOURCES and social handbook; archived iteration 895 to keep PROGRESS small. No owner input needed.
-- Next: authorized Nov 5 NBA/Gaming/World keyword reruns on the same window, then fair semantic query/Nov 6 fresh-window round and edition review. Fixed search remains off.
-
-## 2026-11-06: iteration 910 — authorized Nov 5 keyword reruns
-
-- Started clean on main; no leftover work. Owner would care: measure whether the repaired paid X path actually executes before any production decision.
-- Alerts clear, 36 sources healthy, no failed digest jobs; next scheduled edition Nov 6 15:00 UTC. Added narrowly scoped Nov 6 rerun mode: exact original inputs/window, NBA/Gaming/World only, required tool choice, shared caps, deterministic IDs and no further retry. Continuations skip attempted cells.
-- Live direct xAI/Grok 4.3 reruns: NBA failed/$0.010803/zero posts; Gaming completed/$0.026117/three posts; World failed/$0.011233/zero posts. Post-fix failure rate 2/3 (66.7%). Gaming actual tool limit 3; all three in-window, likes 552/1,058/1,063, official oEmbed HTTP 200.
-- All $0.048153 settled, zero new holds; lifetime charged $1.025802/$2.50, historical timeout holds preserved. Immutable private evidence, manifest, extracted report and embeds saved separately. Fixed search stays off; no ingestion, winner or production activation.
-- First extraction rejected token-only failures; extended offline extraction to accept validated token usage with zero missing fetched counters, preserving historical fetched-only support. Six extractor and fifteen runner tests pass. Initial full check passed (527 unit/223 isolated integration); final rerun covers extractor change (528 unit/223 isolated integration, all pass).
-- Verification final: pnpm check passed (typecheck/lint/format/boundaries and tests); pnpm format; pnpm lint:fix; pnpm build passed; git diff --check clean. API/worker/docs/schema restarted active, /healthz database/Redis green, reader HTTP 200, 36 healthy sources and alerts clear; saved latest edition four topics/17 stories/14 posts.
-- Updated TASKS, SOURCES, experiment guide/review and NEEDS_FROM_HUMAN; appended STEERING 39 failure-rate ack. Archived iterations 896–897 and shortened TASKS to keep orientation small. No owner action requested.
-- Next: scorer review for three Gaming candidates (relevance ≥6/interestingness ≥4 is non-promotion), fair semantic preparation, then STEERING 40 outcomes before 13:00 UTC if ready; Nov 6 edition review and fresh round after 21:00 UTC. NBA/World provider tool failures remain a decision gap; no more Nov 5 reruns.
-
 ## 2026-11-06: iteration 911 — fair semantic experiment preparation
 
 - Started clean on main; no leftover work. Alerts clear, 36 sources healthy, /healthz database/Redis green, no failed digest-generation jobs; next edition Nov 6 15:00 UTC.
@@ -154,3 +133,15 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (543 unit/224 isolated integration tests); pnpm build; check-handbook.ts 05-social-posts; targeted Bluesky/social editor/order tests; git diff --check. All passed.
 - Initial checks caught unsupported findLastIndex and handbook length; corrected before full verification. Rebuilt/restarted API/worker/docs/schema; after startup health/database/Redis green, reader HTTP 200, 36/36 sources healthy and alerts clear.
 - Next: review Nov 6 edition/grouping/cost after publication and apply reserved-slot activation gate; X round after 21:00 UTC. Reserved slot and fixed search remain OFF. While waiting, final reader layout follows Current order.
+
+## 2026-11-06: iteration 923 — reader contents and compact story layout
+
+- Started clean on main; no leftover work. Alerts/health green, 36/36 sources healthy, no failed digest runs. Higher priorities await Nov 6 publication/21:00 UTC.
+- Replaced the old edition/history panel with compact 672 px story cards, sticky desktop contents, active-topic/story tracking, mobile topic chips and a Contents sheet. Native hash links support smooth/reduced-motion scrolling and saved-edition deep links.
+- Kept saved briefs/summaries, expandable grouped articles and the archive; removed large story images and edition IDs/system copy from the reader. No changes to selection, collection, budgets or saved editions; no paid calls.
+- Fixed sheet closure by keeping native anchor behavior. Reserved space for the X retry control so media failures no longer shift later topics; offline widget recovery also passed. Live embed sizing remains final-reader work.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (543 unit/224 isolated integration tests); pnpm build; smoke-reader-layout.ts; smoke-reader-story-text.ts with latest saved edition; smoke-reader-archive.ts; smoke-admin-gate.ts; check-handbook.ts for stack/runtime and operations; git diff --check. All passed.
+- New layout smoke checks real saved text, contents tracking, mobile closure, deep links, coverage and no overflow/writes/admin reads. Four desktop/mobile light/dark screenshots saved and inspected in docs/screenshots/ui/reader-layout-*.png. External embeds blocked for deterministic screenshots; recovery uses an explicit offline widget stub.
+- Updated TASKS and affected handbook; archived iterations 909–910 and trimmed repeated done markers. SOURCES/NEEDS_FROM_HUMAN unchanged. Final reader acceptance remains open: date switching, source favicons, post cards/embed sizing and porting legacy inline-history smoke scripts.
+- Rebuilt/restarted API/worker/docs/schema; all active, health/database/Redis green, reader HTTP 200, 36/36 sources healthy and alerts clear. Latest real saved edition remains four topics/17 stories/14 posts.
+- Next: finish reader details while awaiting Nov 6 edition/grouping/cost and Bluesky activation gate; fresh X round after 21:00 UTC. Reserved Bluesky slot and fixed X search remain OFF.

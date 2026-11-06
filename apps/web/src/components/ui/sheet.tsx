@@ -7,8 +7,10 @@ import { Button } from './button';
 export function Sheet({
   trigger,
   children,
+  title = 'News Digest admin',
 }: {
   trigger: ReactNode;
+  title?: string;
   children: ReactNode;
 }) {
   return (
@@ -21,7 +23,7 @@ export function Sheet({
           className="fixed inset-y-0 left-0 z-50 w-72 overflow-y-auto bg-[var(--surface)] p-6 shadow-xl"
         >
           <Dialog.Title className="mt-0 font-sans text-lg font-semibold">
-            News Digest admin
+            {title}
           </Dialog.Title>
           <Dialog.Close asChild>
             <Button

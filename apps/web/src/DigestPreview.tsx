@@ -1,251 +1,185 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { Link, useNavigate, useParams } from '@tanstack/react-router';
-import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { Link, useParams } from '@tanstack/react-router';
 
+import { ThemeToggle } from './components/theme-toggle';
 import { Button } from './components/ui/button';
-import { editionHistoryQuery, editionQuery, HttpError } from './queries';
+import { Card } from './components/ui/card';
+import { editionQuery, HttpError } from './queries';
+import { ReaderContents } from './ReaderContents';
 import { TopPosts } from './TopPosts';
+
 export function DigestPreview() {
-  const navigate = useNavigate();
-  const { id: selectedEditionId } = useParams({ strict: false });
-  const queryClient = useQueryClient();
-  const edition = useQuery(editionQuery(selectedEditionId));
+  const { id } = useParams({ strict: false });
+  const edition = useQuery(editionQuery(id));
   const preview = edition.data;
-  const loaded = !edition.isPending;
-  const savedEditions = React.useRef<HTMLDetailsElement>(null);
-  const savedEditionsTrigger = React.useRef<HTMLElement>(null);
-  const reviewSavedEditions = React.useRef(false);
-  const [busy, setBusy] = React.useState(false);
-  React.useEffect(() => {
-    if (busy || !reviewSavedEditions.current) return;
-    reviewSavedEditions.current = false;
-    if (savedEditions.current) savedEditions.current.open = true;
-    savedEditionsTrigger.current?.focus();
-  }, [busy]);
-  const working = busy;
-  const [error, setError] = React.useState('');
-  const [offset, setOffset] = React.useState(0);
-  const historyResult = useQuery(editionHistoryQuery(offset));
-  const restoreHistoryFocus = React.useRef(false);
-  React.useEffect(() => {
-    if (historyResult.isFetching || !restoreHistoryFocus.current) return;
-    restoreHistoryFocus.current = false;
-    if (!historyResult.isError) savedEditionsTrigger.current?.focus();
-  }, [historyResult.isFetching, historyResult.isError]);
-  const history = historyResult.data;
-  const historyError = historyResult.isError;
-  async function openEdition(id?: string) {
-    setBusy(true);
-    setError('');
-    try {
-      await queryClient.fetchQuery(editionQuery(id));
-      void navigate(
-        id
-          ? { to: '/editions/$id', params: { id }, replace: true }
-          : { to: '/', replace: true },
-      );
-    } catch {
-      setError('Could not load the edition. Please try again.');
-    } finally {
-      setBusy(false);
-    }
-  }
   return (
-    <section className="digest-preview" aria-label="Ranked edition">
-      <details className="edition-history" ref={savedEditions}>
-        <summary ref={savedEditionsTrigger}>Browse saved editions</summary>
-        <p>
-          Immutable editions, newest first. Each regeneration is a separate
-          version.
-        </p>
-        <Button disabled={working} onClick={() => void openEdition()}>
-          Open latest edition
-        </Button>
-        {historyError && (
-          <p role="alert">
-            {history
-              ? 'Edition history could not be refreshed. Showing saved links already loaded.'
-              : 'Edition history could not be loaded.'}{' '}
-            <Button
-              onClick={() => {
-                restoreHistoryFocus.current = true;
-                void historyResult.refetch();
-              }}
-            >
-              Retry history
-            </Button>
-          </p>
-        )}
-        {!history && !historyError && <p role="status">Loading history…</p>}
-        {history && (
-          <>
-            <ul>
-              {history.entries.map((entry) => (
-                <li key={entry.id}>
-                  <a
-                    href={`/editions/${entry.id}`}
-                    aria-current={entry.id === preview?.id ? 'page' : undefined}
-                    onClick={(event) => {
-                      if (
-                        !event.ctrlKey &&
-                        !event.metaKey &&
-                        !event.shiftKey &&
-                        !event.altKey
-                      ) {
-                        event.preventDefault();
-                        if (!busy) void openEdition(entry.id);
-                      }
-                    }}
-                  >
-                    Saved {new Date(entry.createdAt).toLocaleString()} ·{' '}
-                    {entry.id.slice(0, 8)}
-                  </a>
-                  <span>
-                    {new Date(entry.windowStart).toLocaleString()} —{' '}
-                    {new Date(entry.windowEnd).toLocaleString()}
-                  </span>
-                </li>
-              ))}
-            </ul>
-            {!history.entries.length && <p>No saved editions on this page.</p>}
-          </>
-        )}
-        <div className="history-pages">
-          <Button
-            disabled={offset === 0 || busy}
-            onClick={() => setOffset((value) => Math.max(0, value - 20))}
+    <main className="mx-auto min-h-screen max-w-[1008px] px-4 pb-16 sm:px-6">
+      <header className="sticky top-0 z-30 flex h-[65px] items-center justify-between gap-3 border-b border-[var(--border)] bg-[var(--background)] py-0">
+        <Link to="/" className="text-lg font-semibold tracking-tight">
+          News Digest
+        </Link>
+        <div className="flex items-center gap-2">
+          <Link
+            to="/editions"
+            search={{ page: 1 }}
+            className="text-sm font-normal text-[var(--secondary)]"
           >
-            Newer editions
-          </Button>
-          <span>Page {offset / 20 + 1}</span>
-          <Button
-            disabled={
-              !history?.hasMore ||
-              historyError ||
-              historyResult.isFetching ||
-              busy
-            }
-            onClick={() => setOffset((value) => value + 20)}
-          >
-            Older editions
-          </Button>
-        </div>
-      </details>
-      {!preview &&
-      selectedEditionId &&
-      edition.error instanceof HttpError &&
-      edition.error.status === 404 ? (
-        <div role="alert">
-          <h2>Edition not found</h2>
-          <p>This saved edition is unavailable.</p>
-          <Link to="/">Back to latest edition</Link>
-        </div>
-      ) : edition.isError ? (
-        <div role="alert">
-          <p>
             {preview
-              ? 'The edition could not be refreshed. Showing the saved edition already loaded.'
-              : 'The edition could not be loaded. Please try again.'}
-          </p>
-          <Button
-            onClick={() => void edition.refetch()}
-            disabled={edition.isFetching}
-          >
-            Try loading edition again
-          </Button>
+              ? new Date(preview.windowEnd).toLocaleDateString(undefined, {
+                  month: 'short',
+                  day: 'numeric',
+                  year: 'numeric',
+                })
+              : 'Past editions'}
+          </Link>
+          <ThemeToggle />
         </div>
-      ) : null}
-      {error && <p role="alert">{error}</p>}
-      {!preview && loaded && !error && !edition.isError && (
-        <p>No edition yet. Create one from your collected articles.</p>
+      </header>
+      {edition.isPending && (
+        <p role="status" className="pt-16">
+          Loading edition…
+        </p>
+      )}
+      {edition.isError && (
+        <div role="alert" className="pt-16">
+          {edition.error instanceof HttpError &&
+          edition.error.status === 404 ? (
+            <>
+              <h1 className="font-sans text-2xl tracking-tight">
+                Edition not found
+              </h1>
+              <Link to="/" className="text-sm text-[var(--accent)]">
+                Back to latest edition
+              </Link>
+            </>
+          ) : (
+            <>
+              <p>Could not load the edition.</p>
+              <Button onClick={() => void edition.refetch()}>Try again</Button>
+            </>
+          )}
+        </div>
+      )}
+      {!preview && !edition.isPending && !edition.isError && (
+        <p className="pt-16 text-sm text-[var(--secondary)]">No edition yet.</p>
       )}
       {preview && (
-        <>
-          <p className="period">
-            {new Date(preview.windowStart).toLocaleString()} —{' '}
-            {new Date(preview.windowEnd).toLocaleString()} · Saved edition ·
-            Created {new Date(preview.createdAt).toLocaleString()} ·{' '}
-            {preview.id.slice(0, 8)}
-          </p>
-          {preview.topics.map((topic) => (
-            <article className="digest-topic" key={topic.id}>
-              <h3>{topic.name}</h3>
-              {topic.brief.length > 0 && (
-                <ul className="topic-brief">
-                  {topic.brief.map((line) => (
-                    <li key={line}>{line}</li>
+        <div className="flex gap-6 pt-20 lg:pt-10">
+          <ReaderContents topics={preview.topics} />
+          <div className="min-w-0 max-w-2xl flex-1 space-y-16">
+            {preview.topics.map((topic) => (
+              <article className="digest-topic m-0 border-0 p-0" key={topic.id}>
+                <h2
+                  id={`topic-${topic.id}`}
+                  className="m-0 scroll-mt-36 font-sans text-2xl leading-tight font-semibold tracking-tight lg:scroll-mt-24"
+                >
+                  {topic.name}
+                </h2>
+                {topic.brief.length > 0 && (
+                  <ul className="topic-brief my-6 space-y-2 pl-5 text-base leading-7">
+                    {topic.brief.map((line) => (
+                      <li key={line}>{line}</li>
+                    ))}
+                  </ul>
+                )}
+                {topic.stories.length === 0 && (
+                  <p className="my-6 text-sm text-[var(--secondary)]">
+                    Quiet day for this topic.
+                  </p>
+                )}
+                <ol className="my-6 list-none space-y-4 pl-0">
+                  {topic.stories.map((story) => (
+                    <li key={story.id} className="border-0 p-0">
+                      <Card
+                        id={`story-${story.id}`}
+                        className="scroll-mt-36 rounded-lg p-5 shadow-none lg:scroll-mt-24"
+                      >
+                        <h3 className="m-0 font-sans text-lg leading-7 font-semibold tracking-tight">
+                          <a
+                            href={story.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-lg leading-7 font-semibold hover:text-[var(--accent)]"
+                          >
+                            {story.title}
+                          </a>
+                        </h3>
+                        {story.summary && (
+                          <p className="excerpt my-3 text-base leading-7">
+                            {story.summary}
+                          </p>
+                        )}
+                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-[var(--secondary)]">
+                          <span>{story.sources.slice(0, 2).join(' · ')}</span>
+                          <span aria-hidden="true">·</span>
+                          <time dateTime={story.publishedAt}>
+                            {relativeTime(story.publishedAt, preview.windowEnd)}
+                          </time>
+                          {story.coverage && story.coverage.length > 1 && (
+                            <details className="coverage w-full text-xs">
+                              <summary className="cursor-pointer text-xs">
+                                +{story.coverage.length - 1} more{' '}
+                                {story.coverage.length === 2
+                                  ? 'article'
+                                  : 'articles'}
+                              </summary>
+                              <ul className="my-2 space-y-2 pl-4">
+                                {story.coverage
+                                  .filter((article) => article.id !== story.id)
+                                  .map((article) => (
+                                    <li key={article.id}>
+                                      <a
+                                        href={article.url}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="text-sm font-normal"
+                                      >
+                                        {article.title}
+                                      </a>
+                                      <span className="text-xs">
+                                        {' '}
+                                        · {article.sources.join(' · ')}
+                                      </span>
+                                    </li>
+                                  ))}
+                              </ul>
+                            </details>
+                          )}
+                        </div>
+                      </Card>
+                    </li>
                   ))}
-                </ul>
-              )}
-              {topic.stories.length === 0 && (
-                <p>
-                  No qualifying stories in this window. Nothing added to fill
-                  the space.
-                </p>
-              )}
-              <ol>
-                {topic.stories.map((story) => (
-                  <li key={story.id} id={`story-${story.id}`}>
-                    <a href={story.url} target="_blank" rel="noreferrer">
-                      {story.title}
-                    </a>
-                    {story.imageUrl && (
-                      <StoryImage key={story.imageUrl} url={story.imageUrl} />
-                    )}{' '}
-                    {story.summary && (
-                      <p className="excerpt">{story.summary}</p>
-                    )}
-                    <p className="byline">
-                      {story.sources.join(' · ')} ·{' '}
-                      <time dateTime={story.publishedAt}>
-                        {new Date(story.publishedAt).toLocaleString()}
-                      </time>
-                    </p>
-                    {!!story.coverage && story.coverage.length > 1 && (
-                      <details className="coverage">
-                        <summary>
-                          Related coverage · {story.coverage.length} articles
-                        </summary>
-                        <ul>
-                          {story.coverage.map((article) => (
-                            <li key={article.id}>
-                              <a
-                                href={article.url}
-                                target="_blank"
-                                rel="noreferrer"
-                              >
-                                {article.title}
-                              </a>{' '}
-                              · {article.sources.join(' · ')}
-                            </li>
-                          ))}
-                        </ul>
-                      </details>
-                    )}
-                  </li>
-                ))}
-              </ol>
-              {topic.posts !== undefined && <TopPosts posts={topic.posts} />}
-            </article>
-          ))}
-        </>
+                </ol>
+                <div
+                  id={`posts-${topic.id}`}
+                  className="scroll-mt-36 lg:scroll-mt-24"
+                >
+                  <TopPosts posts={topic.posts} />
+                </div>
+              </article>
+            ))}
+            <Link
+              to="/editions"
+              search={{ page: 1 }}
+              className="block text-sm font-medium text-[var(--accent)]"
+            >
+              Past editions →
+            </Link>
+          </div>
+        </div>
       )}
-    </section>
+    </main>
   );
 }
 
-// Feed images have no reliable captions. The adjacent headline supplies context.
-function StoryImage({ url }: { url: string }) {
-  const [failed, setFailed] = React.useState(false);
-  return failed ? null : (
-    <img
-      className="story-image"
-      src={url}
-      alt=""
-      loading="lazy"
-      decoding="async"
-      referrerPolicy="no-referrer"
-      onError={() => setFailed(true)}
-    />
+function relativeTime(value: string, editionEnd: string) {
+  const hours = Math.max(
+    0,
+    Math.floor((Date.parse(editionEnd) - Date.parse(value)) / 3_600_000),
   );
+  return hours < 1
+    ? 'Within the hour'
+    : hours < 24
+      ? `${hours}h before edition`
+      : `${Math.floor(hours / 24)}d before edition`;
 }

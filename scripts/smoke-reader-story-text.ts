@@ -62,13 +62,13 @@ async function smoke() {
           });
           await section.waitFor();
           assert.equal(
-            await section.locator('li[id^="story-"]').count(),
+            await section.locator('[data-slot="card"][id^="story-"]').count(),
             saved.stories.length,
           );
           for (const story of saved.stories) {
             const item = section.locator(`[id="story-${story.id}"]`);
             assert.equal(
-              await item.locator(':scope > a').textContent(),
+              await item.locator('h3 > a').textContent(),
               story.title,
             );
             assert.ok(
@@ -100,7 +100,7 @@ async function smoke() {
         const labels = await topic.evaluate((node) => {
           const copy = node.cloneNode(true) as HTMLElement;
           copy
-            .querySelectorAll('li > a, p.excerpt, .byline, .top-posts')
+            .querySelectorAll('h3, p.excerpt, .byline, .top-posts')
             .forEach((el) => el.remove());
           return copy.textContent ?? '';
         });

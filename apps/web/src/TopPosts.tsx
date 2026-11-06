@@ -78,11 +78,11 @@ function currentTheme(): 'light' | 'dark' {
 export function TopPosts({ posts }: { posts: ReaderPost[] }) {
   const theme = React.useSyncExternalStore(subscribeTheme, currentTheme);
   return (
-    <section className="top-posts" aria-label="Top posts">
-      <h4>Top posts</h4>
+    <section className="top-posts max-w-none p-0" aria-label="Top posts">
+      <h4>Posts</h4>
       {posts.length === 0 ? (
-        <p>
-          No qualifying posts in this window. Nothing added to fill the space.
+        <p className="text-sm text-[var(--secondary)]">
+          No standout posts today.
         </p>
       ) : (
         <div className="post-grid">
@@ -184,19 +184,17 @@ function Post({
         <p className="post-text">{post.displayText ?? post.text}</p>
       )}
       <div ref={host} className="official-post" />
-      {failed && (
-        <div className="post-embed-status" role="status">
-          <p>X media could not load. Saved text is shown above.</p>
+      <div className="h-8">
+        {failed && (
           <button
             type="button"
-            onClick={() => {
-              setAttempt((value) => value + 1);
-            }}
+            className="h-8 px-2 py-1 text-xs"
+            onClick={() => setAttempt((value) => value + 1)}
           >
             Retry X media
           </button>
-        </div>
-      )}
+        )}
+      </div>
       <a href={post.url} target="_blank" rel="noreferrer">
         Open original post on X
       </a>

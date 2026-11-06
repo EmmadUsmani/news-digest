@@ -3,29 +3,11 @@ import { Link } from '@tanstack/react-router';
 import { useState } from 'react';
 
 import { AdminOverview } from './AdminOverview';
-import { ThemeToggle } from './components/theme-toggle';
 import { DigestPreview } from './DigestPreview';
 import { contentQuery, healthQuery, topicsQuery } from './queries';
 import { StatusPanel } from './StatusPanel';
 export function App({ admin = false }: { admin?: boolean }) {
-  return admin ? (
-    <AdminApp />
-  ) : (
-    <main>
-      <header>
-        <a href="/" aria-label="News Digest home">
-          <h1 className="m-0 font-sans text-2xl font-semibold">News Digest</h1>
-        </a>
-        <ThemeToggle />
-      </header>
-      <p>
-        <Link to="/editions" search={{ page: 1 }}>
-          Past editions →
-        </Link>
-      </p>
-      <DigestPreview />
-    </main>
-  );
+  return admin ? <AdminApp /> : <DigestPreview />;
 }
 
 function AdminApp() {

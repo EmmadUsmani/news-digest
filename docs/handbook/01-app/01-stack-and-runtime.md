@@ -87,7 +87,10 @@ Reader endpoints `/api/editions/latest` and `/api/editions/:id` return saved
 content without scores, selection reasons, model details or candidate counts.
 `/api/editions?offset=0` lists 20 saved editions per page with dates, topic names and a
 next-page flag, excluding generation methods. The browser uses these reader
-endpoints for both edition content and history. The reader makes no operational API requests. Existing management controls live
+endpoints for both edition content and history. Stories use compact cards in a
+672 px column, with expandable grouped articles. Desktop contents follow the
+current topic and story; mobile uses topic chips and a contents sheet. Story
+links retain their hash when a saved edition is reopened. The reader makes no operational API requests. Existing management controls live
 at `/admin` below a compact operations overview; shared desktop/mobile navigation
 leads to `/admin/tools`, which links the
 protected tools. Other dedicated admin pages are being built.
