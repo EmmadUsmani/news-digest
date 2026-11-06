@@ -10,16 +10,14 @@ already cover press-linked posts. See [the plan](../../x-search-plan.md).
 well-known names from the topic description. Code adds filters, likes minimum and
 exact time window.
 
-**Latest:** Nov 5, only 1 of 4 keyword searches ran. Tech gave 10 posts, median
-1,580 likes, 2 usable. NBA's tool failed, Gaming timed out, World never ran the
-query. The agent shipped required tool use, a 120-second limit, retries for the
-experiment, and settlement of the two held calls (STEERING item 39). The retry
-for the switched-off production schedule is still open.
+**Latest:** Nov 6 rerun of NBA, Gaming and World: 2 of 3 failed (NBA and World
+tool calls, zero posts). Gaming gave 3 verified posts (median 1,058 likes). Spend
+is $1.31 of $2.50 over 23 calls. The fixed search is still OFF in production.
+Item 39 is not finished.
 
 **Next:**
 
-- Check the reliability fixes and tonight's rerun of NBA, Gaming and World.
-- Check the fair meaning-based test after 21:00 UTC on Nov 6.
+- Check the meaning-based test after 21:00 UTC on Nov 6, the agent's priority 2.
 - Then the agent decides by the plan's rule. Earliest live edition is Nov 7.
 
 **Open decisions:** whether meaning-based search stays. Owner decides any split
