@@ -66,6 +66,45 @@ async function smoke() {
           await page.locator('[data-slot="card"]').count(),
           edition.topics.reduce((n, topic) => n + topic.stories.length, 0),
         );
+        for (const topic of edition.topics) {
+          const brief = page
+            .locator('.digest-topic')
+            .filter({
+              has: page.locator(`[id="topic-${topic.id}"]`),
+            })
+            .locator('.topic-brief');
+          for (const line of topic.brief) {
+            const story = topic.stories.find((item) => item.title === line);
+            if (!story) continue;
+            const link = brief.getByRole('link', { name: line, exact: true });
+            assert.equal(
+              await link.evaluate((node) => getComputedStyle(node).fontSize),
+              '16px',
+              'Brief links retain the brief text size',
+            );
+            await link.focus();
+            await page.keyboard.press('Enter');
+            assert.equal(new URL(page.url()).hash, `#story-${story.id}`);
+            assert.equal(
+              await page.locator(':focus').getAttribute('id'),
+              `story-${story.id}`,
+              'Brief navigation moves keyboard focus to the saved story',
+            );
+            const bounds = await page
+              .locator(`[id="story-${story.id}"]`)
+              .boundingBox();
+            assert.ok(
+              bounds && bounds.y >= 65 && bounds.y < height,
+              'Brief destination is visible below the sticky navigation',
+            );
+          }
+        }
+        await page.goto(origin);
+        await page.locator('.digest-topic').last().waitFor();
+        await page.screenshot({
+          path: `docs/screenshots/ui/reader-brief-${device}-${theme}.png`,
+          fullPage: false,
+        });
         for (const grid of await page.locator('.post-grid').all()) {
           const cards = await grid.locator('.post-card').all();
           let previousBottom = 0;

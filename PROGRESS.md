@@ -1,14 +1,3 @@
-## 2026-11-06: iteration 940 — original posts before editorial context
-
-- Started clean on main; alerts clear and health/database/Redis green. No leftover work; Nov 6 edition review and 21:00 UTC X round remain time-gated.
-- Read all four saved topics. World breadth/Tech grouping await publication evidence; post cards put paraphrased editorial context before the original post, making readers read the explanation first.
-- Moved context below original text, media and metrics on X, Reddit and Bluesky cards, following the approved design. Preserved every saved note, including English context for Gaming's Japanese announcement.
-- Updated existing layout/widget browser checks to verify visible reading order with failed external widgets and with a local widget stub. Saved production content; no external requests, writes, paid calls or flag changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; smoke-post-sizing.ts; git diff --check. Final results below.
-- Updated TASKS, operations handbook and screenshots; archived iteration 925. No source or data-contract change; SOURCES/NEEDS_FROM_HUMAN unchanged.
-- Next: Nov 6 World/cost/Bluesky review after publication; X round after 21:00 UTC. Fixed search and reserved-slot flags remain off.
-- Final full check passed (543 unit/224 isolated integration tests); build, handbook validation and both four-view browser replays passed. Inspected mobile light/desktop dark screenshots; all 36 sources healthy, recent collections completed and no failed digest jobs. Final service restart/health/alerts checked before handoff.
-
 ## 2026-11-06: iteration 941 — restore canonical reader routing verification
 
 - Started clean on main; health/alerts/services green, all 36 sources healthy, no failed digest runs. No leftover work.
@@ -175,3 +164,16 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check. Final check/restart results below.
 - Next: Nov 6 edition/Bluesky cost and quality review after publication; X round after 21:00 UTC. Fixed search and reserved slot remain off.
 - Final: pnpm check passed (543 unit/224 isolated integration tests); build, four-view browser replay, handbook and diff checks passed. API/worker/docs/schema restarted active, health green and alerts clear.
+
+## 2026-11-06: iteration 956 — navigate from topic briefs
+
+- Started clean on main; alerts clear, health/database/Redis green, 36/36 sources healthy and latest scheduled digest completed. No leftover work.
+- Read all four saved topics: World breadth and mixed Tech grouping await Nov 6 publication. Briefs repeat story headlines without a direct route to their reports.
+- Owner value: matching brief headlines now jump to the saved story so readers can go straight from scanning a topic to reading its report. Unmatched editorial brief lines remain plain text.
+- Extended saved-edition layout replay: keyboard activation, exact story hash/focus and sticky-header clearance for each matching brief, across desktop/mobile light/dark. External calls and writes blocked; no spend or flag changes.
+- Screenshot review caught inherited headline sizing on brief links; restored normal brief typography and added a computed-size check.
+- Updated TASKS, STEERING ack and operations handbook; archived iteration 940. SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check. Final results below.
+- Initial pnpm check exited 143 during integration tests without a test failure; standalone rerun started for a conclusive result.
+- Next: Nov 6 edition/Bluesky review after 15:00 UTC publication; fresh X round after 21:00 UTC. Fixed search and reserved slot remain off.
+- Final: standalone pnpm check passed (543 unit/224 isolated integration tests); build, final lint/format, handbook and four-view browser replay passed. Inspected corrected mobile screenshot; saved edition remains four topics/17 stories/14 posts. API/worker/docs/schema restarted active, health green and alerts clear.

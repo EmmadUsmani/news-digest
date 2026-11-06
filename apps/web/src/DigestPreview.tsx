@@ -80,9 +80,25 @@ export function DigestPreview() {
                 </h2>
                 {topic.brief.length > 0 && (
                   <ul className="topic-brief my-6 space-y-2 pl-5 text-base leading-7">
-                    {topic.brief.map((line) => (
-                      <li key={line}>{line}</li>
-                    ))}
+                    {topic.brief.map((line) => {
+                      const story = topic.stories.find(
+                        (item) => item.title === line,
+                      );
+                      return (
+                        <li key={line}>
+                          {story ? (
+                            <a
+                              href={`#story-${story.id}`}
+                              className="text-base leading-7 font-normal underline decoration-[var(--border)] underline-offset-4 hover:text-[var(--accent)]"
+                            >
+                              {line}
+                            </a>
+                          ) : (
+                            line
+                          )}
+                        </li>
+                      );
+                    })}
                   </ul>
                 )}
                 {topic.stories.length === 0 && (
