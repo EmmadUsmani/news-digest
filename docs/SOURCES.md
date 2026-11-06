@@ -1,5 +1,13 @@
 # Content source inventory
 
+### Keyword rollout preparation — iteration 1052
+
+The disabled keyword adapter now requests and retains ten results, matching
+both saved test rounds. Engagement parsing uses the same limit: ten-item
+arrays retain reported counts instead of being discarded by the old five-item
+limit. Offline protocol fixtures verify all ten observations and unchanged
+fetched-post billing. Fixed search remains OFF; no paid calls or ingestion.
+
 ### Nov 6 scheduled edition — iteration 1011
 
 Saved reader has X counts 5/5/5/1 and one World Bluesky pick, distinct from

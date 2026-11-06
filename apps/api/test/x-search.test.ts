@@ -954,7 +954,7 @@ void test('direct adapter sends fixed A/B operators and preserves settlement evi
       assert.match(
         body.input[0].content,
         style === 'trending'
-          ? /requesting 16 results/
+          ? /requesting 10 results/
           : /Request eight results/,
       );
       return new Response(

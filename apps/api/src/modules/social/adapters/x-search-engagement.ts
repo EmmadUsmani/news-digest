@@ -18,6 +18,7 @@ export function readReportedEngagement(
   texts: string[],
   links: DiscoveredLink[],
   observedAt: Date,
+  resultLimit = 5,
 ): XReportedEngagement[] {
   const candidates = new Set(links.map((link) => link.externalId));
   const reports = new Map<string, XReportedEngagement>();
@@ -29,7 +30,7 @@ export function readReportedEngagement(
     } catch {
       continue;
     }
-    if (!Array.isArray(entries) || entries.length > 5) continue;
+    if (!Array.isArray(entries) || entries.length > resultLimit) continue;
     for (const entry of entries) {
       const parsed = observation.safeParse(entry);
       if (!parsed.success) continue;

@@ -4,6 +4,9 @@ import type {
 } from '../domain/x-search.port';
 import { baseXSearchBody } from './x-search-body';
 
+// Observed tool limit in both Nov 5/6 rounds; shared with citation retention.
+export const viralXSearchResultLimit = 10;
+
 // Shared by offline experiment preparation and the disabled fixed scheduler.
 export function viralXSearchBody(
   request: XSearchRequest,
@@ -45,7 +48,7 @@ export function viralXSearchBody(
         content:
           'Write 8–10 fresh keyword terms from the supplied topic description: a mix of general topic words and well-known names people use when posting. ' +
           'Join them with OR, unquoted except multi-word terms. Do not use headlines or story titles. ' +
-          'Run one x_keyword_search in Top mode, requesting 16 results. Replace only <keywords> in queryTemplate; copy all other characters and operators unchanged. ' +
+          `Run one x_keyword_search in Top mode, requesting ${viralXSearchResultLimit} results. Replace only <keywords> in queryTemplate; copy all other characters and operators unchanged. ` +
           'Do not search profiles or fetch threads, parent posts or quoted posts. ' +
           'Return a JSON array with url, published_at (ISO UTC), likes, reposts, replies and views, citing each post URL. ' +
           'Use only returned counts and times; omit unknown fields. Empty results are valid; never lower the minimum. ' +

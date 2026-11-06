@@ -153,3 +153,15 @@
 - Private baseline-comparison-1051.json records per-topic likes/counts and original snapshot SHA-256 hashes. Updated TASKS/SOURCES/NEEDS_FROM_HUMAN; handbook unchanged because runtime is unchanged.
 - Passed pnpm format, pnpm lint:fix, pnpm build and full pnpm check (562 unit/225 integration, exit 0); git diff --check clean. API/worker restarted; health DB/Redis OK, alerts clear; saved edition four topics/20 stories/17 posts. No ingestion or edition writes. Archived iteration 1036.
 - Next: production keyword adapter/result-limit/admission cleanup, remove old open/follow-up/reaction paths, then enable outside 13:00–16:00 UTC; three-edition acceptance remains open. No human blocker.
+
+## 2026-11-06: iteration 1052 — preserve keyword result engagement
+
+- Started clean on main; alerts clear, health DB/Redis OK and API/worker active. No leftover work.
+- Advanced items 39/34 rollout: shared ten-result prompt/citation limit matches both saved rounds; 4,000 output tokens retained.
+- Fixed engagement parser's five-item-array rejection: disabled keyword adapter now retains reported metrics for all ten cited posts. Legacy requests keep their five-item bound.
+- Offline protocol test covers ten observations, eleventh-link cutoff and all eleven fetched-post charges; focused viral/engagement tests passed 6/6.
+- Initial direct x-search test invocation hit five disposable-DB guards; full check uses the supported isolated runner. No live DB tests or paid calls.
+- Fixed search remains OFF; no edition writes. Cleanup, admission proof and activation remain next; three-edition acceptance open.
+- SOURCES/TASKS updated; handbook unchanged (internal disabled-adapter fix); no human blocker.
+- pnpm format, pnpm lint:fix and pnpm build passed; lint auto-fix changed one layout, re-formatted before successful full pnpm check (562 unit/225 integration). git diff --check clean.
+- API/worker restarted; health DB/Redis OK, alerts clear, 36 sources healthy, digest queue zero failures/Nov 7 scheduled; saved edition four topics/20 stories/17 posts unchanged.

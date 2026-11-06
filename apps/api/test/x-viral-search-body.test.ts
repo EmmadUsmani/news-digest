@@ -21,7 +21,7 @@ const request = {
   },
 };
 
-void test('viral query uses description and exact code-built operators with sixteen results', () => {
+void test('viral query uses description and exact code-built operators with ten results', () => {
   const body = viralXSearchBody(request, settings);
   const prompt = body.input[0].content;
   const data = JSON.parse(prompt.split('\n').at(-1)!);
@@ -35,7 +35,7 @@ void test('viral query uses description and exact code-built operators with sixt
   assert.match(prompt, /OR, unquoted except multi-word/);
   assert.match(
     prompt,
-    /one x_keyword_search in Top mode, requesting 16 results/,
+    /one x_keyword_search in Top mode, requesting 10 results/,
   );
   assert.equal(body.model, 'grok-4.3');
   assert.equal(body.max_output_tokens, 4000);
@@ -70,8 +70,8 @@ void test('four topic reservations fit the daily cap without article pools', () 
   );
 });
 
-void test('fake provider citations retain all sixteen posts for viral search; legacy remains five', async () => {
-  const annotations = Array.from({ length: 17 }, (_, i) => ({
+void test('fake provider citations retain all ten posts for viral search; legacy remains five', async () => {
+  const annotations = Array.from({ length: 11 }, (_, i) => ({
     type: 'url_citation',
     url: `https://x.com/NBA/status/${2117000000000000000n + BigInt(i)}`,
   }));
@@ -83,7 +83,7 @@ void test('fake provider citations retain all sixteen posts for viral search; le
           input_tokens: 100,
           output_tokens: 100,
           server_side_tool_usage_details: {
-            x_posts_fetched: 17,
+            x_posts_fetched: 11,
             x_users_fetched: 0,
           },
         },
@@ -91,20 +91,38 @@ void test('fake provider citations retain all sixteen posts for viral search; le
           {
             type: 'message',
             role: 'assistant',
-            content: [{ type: 'output_text', text: '[]', annotations }],
+            content: [
+              {
+                type: 'output_text',
+                text: JSON.stringify(
+                  annotations.slice(0, 10).map(({ url }, i) => ({
+                    url,
+                    likes: 1000 + i,
+                    reposts: i,
+                  })),
+                ),
+                annotations,
+              },
+            ],
           },
         ],
       }),
     );
   const adapter = new DirectXSearch('fixture-key', send);
+  const result = await adapter.search({
+    ...request,
+    fixedSearch: { style: 'trending', settings, rankedStoryTitles: [] },
+  });
+  assert.equal(result.links.length, 10);
+  assert.equal(result.usage.postsFetched, 11);
+  assert.equal(result.reportedEngagement?.length, 10);
+  assert.deepEqual(
+    result.reportedEngagement?.map(({ likes }) => likes),
+    Array.from({ length: 10 }, (_, i) => 1000 + i),
+  );
   assert.equal(
-    (
-      await adapter.search({
-        ...request,
-        fixedSearch: { style: 'trending', settings, rankedStoryTitles: [] },
-      })
-    ).links.length,
-    16,
+    result.reportedEngagement?.at(-1)?.externalId,
+    result.links.at(-1)?.externalId,
   );
   assert.equal((await adapter.search(request)).links.length, 5);
 });

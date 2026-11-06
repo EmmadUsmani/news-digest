@@ -12,7 +12,10 @@ import { baseXSearchBody } from './x-search-body';
 import { xSearchComparisonBody } from './x-search-comparison';
 import { readReportedEngagement } from './x-search-engagement';
 import { xSearchTimeoutMs, xSearchUsageSchema } from './x-search-usage';
-import { viralXSearchBody } from './x-viral-search-body';
+import {
+  viralXSearchBody,
+  viralXSearchResultLimit,
+} from './x-viral-search-body';
 
 const citationsSchema = z.object({
   status: z.literal('completed'),
@@ -77,7 +80,7 @@ export class DirectXSearch implements XSearchPort {
         (value) => {
           status = value;
         },
-        request.fixedSearch?.style === 'trending' ? 16 : 5,
+        request.fixedSearch?.style === 'trending' ? viralXSearchResultLimit : 5,
       );
       this.log.info(
         {
@@ -237,7 +240,12 @@ export class DirectXSearch implements XSearchPort {
               : [];
           })
         : [],
-      reportedEngagement: readReportedEngagement(texts, links, new Date()),
+      reportedEngagement: readReportedEngagement(
+        texts,
+        links,
+        new Date(),
+        linkLimit,
+      ),
     };
   }
 }
