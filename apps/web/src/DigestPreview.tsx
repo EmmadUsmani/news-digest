@@ -78,7 +78,7 @@ export function DigestPreview() {
               dateStyle: 'long',
             })}
           </h1>
-          <ReaderContents topics={preview.topics} />
+          <ReaderContents key={preview.id} topics={preview.topics} />
           <div className="min-w-0 max-w-2xl flex-1 space-y-16">
             {preview.topics.map((topic) => (
               <article className="digest-topic m-0 border-0 p-0" key={topic.id}>

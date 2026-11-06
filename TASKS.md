@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Reader refresh position (1042, item 33): changed background edition data preserves the reading position after contents navigation; initial deep links remain restored, verified desktop/mobile light/dark.
+
 - [x] Reader source row (1041, item 33): grouped-outlet disclosure now sits beside publishers before the timestamp; expansion keeps article details below the source row, verified desktop/mobile light/dark.
 
 - [x] Reader weekday (1040, item 33): desktop edition dates include the weekday from the approved header spec; compact mobile dates and older/newer navigation preserved, verified light/dark.

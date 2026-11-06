@@ -1,14 +1,3 @@
-## 2026-11-06: iteration 1026 — compact relative story times
-
-- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; alerts clear and /healthz DB/Redis OK.
-- Story cards now show minute/hour/day ages, refreshing every minute. Exact saved local date/time remains in hover and accessible labels; article disclosures retain exact times. Future-dated reports show a calendar date.
-- Extended read-only browser checks for exact timestamp retention and clock-driven minute/hour/day transitions across desktop/mobile light/dark; screenshots updated and desktop/mobile light visually inspected.
-- Initial browser attempt raced API startup; reran after healthy. Clock assertions initially depended on timer phase; fixed time plus fast-forward now isolates age boundaries without changing real edition data.
-- Passed pnpm format; pnpm lint:fix; pnpm build; pnpm exec tsx scripts/smoke-reader-layout.ts; git diff --check. pnpm check passed typecheck/lint/format/boundaries and 562 unit tests, then exited 143 after 225 integration cases without a final summary; standalone pnpm test:integration rerun exited 0 (225 passed).
-- API/worker restarted; saved edition has 20 stories/17 posts; health and alerts clear. No paid calls or source/schema/handbook-flow changes; SOURCES unchanged.
-- Corrected stale TASKS/NEEDS_FROM_HUMAN owner-wait wording: latest item 40 explicitly approves reserved-slot activation without a cap increase. Slot activation remains next under Current order; no configuration changed here.
-- Archived iterations 1010–1011 to keep PROGRESS under 25 KB. Next: continue approved reader; enable approved Bluesky slot under Current order; X fresh-window round after 21:00 UTC.
-
 ## 2026-11-06: iteration 1027 — inline grouped outlets
 
 - Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; alerts clear and /healthz DB/Redis OK.
@@ -160,3 +149,13 @@
 - All 36 sources report no errors; digest queue has zero failed runs. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes.
 - Verification: pnpm build; pnpm exec tsx scripts/smoke-reader-layout.ts; pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration, exit 0); git diff --check. API/worker restarted; health/alerts clear.
 - Archived iteration 1025 to keep this log small. Next: continue final reader; fresh X round after 21:00 UTC; approved Bluesky reserved-slot activation pending under Current order. Fixed search OFF.
+
+## 2026-11-06: iteration 1042 — preserve reader position on refresh
+
+- Advanced item 33/43 while X rounds wait until after 21:00 UTC. Started clean on main; no leftovers; health DB/Redis OK and alerts clear.
+- Found and reproduced a reading-position jump: changed background edition data reran initial hash restoration, returning readers to an earlier contents link after they had scrolled onward.
+- Moved initial deep-link restoration to edition mount; keyed contents by edition ID so opening another edition still restores its link. Refreshes continue updating contents tracking without moving the page.
+- Saved-data Playwright replay failed before the fix and passed desktop/mobile light/dark afterward; initial deep link and changed refresh both verified. Four screenshots saved; mobile light visually inspected. External requests blocked; no paid calls.
+- Broader reader layout/navigation replay passed all four views. All 36 sources healthy; digest queue zero failed runs. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes.
+- Verification: pnpm build; pnpm exec tsx scripts/smoke-reader-position.ts; pnpm exec tsx scripts/smoke-reader-layout.ts; pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration, exit 0); git diff --check.
+- API/worker restarted; health DB/Redis OK and alerts clear. Archived iteration 1026 to keep this log small. Next: final reader completion; fresh X round after 21:00 UTC; approved Bluesky slot activation pending under Current order. Fixed search OFF.

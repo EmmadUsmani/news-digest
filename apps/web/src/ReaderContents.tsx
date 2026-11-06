@@ -36,10 +36,6 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
       const element = document.getElementById(id);
       if (element) observer.observe(element);
     }
-    const initialTarget = document.getElementById(
-      window.location.hash.slice(1),
-    );
-    initialTarget?.scrollIntoView();
     update();
     // Intersections alone miss a heading crossing the reading line while its
     // card remains inside the observer band. Track ordinary scrolling too.
@@ -60,6 +56,10 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
       window.removeEventListener('hashchange', update);
     };
   }, [topics]);
+  // Restore a deep link only when opening an edition, not when its data refreshes.
+  useEffect(() => {
+    document.getElementById(window.location.hash.slice(1))?.scrollIntoView();
+  }, []);
   const activeTopic =
     topics.find((topic) =>
       [
