@@ -1017,6 +1017,8 @@ The owner finds the current UI busy and low quality. The home page is about
   and no hand-written component CSS where shadcn has a component. Update the
   handbook (Stack & runtime, Operations) within its length limit.
 
+ack: 2026-11-06 item 33 — iteration 971: repaired the existing selected-edition replay after compact mobile dates changed; saved stories, post text and original links remain selected through delayed latest success/error across desktop/mobile light/dark. No runtime or spend changes.
+
 ## 34. NOW: X search redesigned around viral posts (2026-11-04)
 
 The owner clarified the goal, and the plan changed. **Paid search exists to find

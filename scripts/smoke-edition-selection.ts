@@ -94,19 +94,44 @@ async function smoke() {
           await page.waitForURL(`**/editions/${entry.id}`);
           const expectSelectedContent = async () => {
             await page.locator('.digest-topic').last().waitFor();
+            const dateLink = page.getByRole('link', {
+              name: 'Browse past editions',
+              exact: true,
+            });
             assert.equal(
-              await page
-                .getByRole('link', {
-                  name: 'Browse past editions',
-                  exact: true,
-                })
-                .innerText(),
+              await dateLink.locator('time').getAttribute('datetime'),
+              edition.windowEnd,
+            );
+            assert.equal(
+              await dateLink.getAttribute('aria-description'),
+              new Date(edition.windowEnd).toLocaleDateString('en-US', {
+                dateStyle: 'long',
+              }),
+            );
+            // Check what readers see separately from the mobile screen-reader year.
+            const visibleDate = dateLink.locator(
+              device === 'mobile'
+                ? 'time > .sm\\:hidden'
+                : 'time > .sm\\:inline',
+            );
+            assert.equal(
+              await visibleDate.evaluate((element) =>
+                [...element.childNodes]
+                  .filter((node) => node.nodeType === Node.TEXT_NODE)
+                  .map((node) => node.textContent)
+                  .join(''),
+              ),
               new Date(edition.windowEnd).toLocaleDateString('en-US', {
                 month: 'short',
                 day: 'numeric',
-                year: 'numeric',
+                ...(device === 'desktop' ? { year: 'numeric' as const } : {}),
               }),
             );
+            if (device === 'mobile')
+              assert.equal(
+                await visibleDate.locator('.sr-only').textContent(),
+                `, ${new Date(edition.windowEnd).getFullYear()}`,
+              );
             assert.equal(
               await page.locator('.digest-topic').count(),
               edition.topics.length,
@@ -119,6 +144,30 @@ async function smoke() {
                 }),
               });
               await section.waitFor();
+              assert.equal(
+                await section.locator('.post-card').count(),
+                topic.posts.length,
+              );
+              for (const [index, post] of topic.posts.entries()) {
+                const card = section.locator('.post-card').nth(index);
+                assert.ok(
+                  await card
+                    .locator(`a[href=${JSON.stringify(post.url)}]`)
+                    .count(),
+                  `Selected post destination missing: ${post.url}`,
+                );
+                const savedText =
+                  post.platform === 'reddit'
+                    ? await card.locator('h5').textContent()
+                    : await card.locator('.post-text').textContent();
+                const expectedText =
+                  post.platform === 'reddit'
+                    ? post.title
+                    : post.platform === 'x'
+                      ? (post.displayText ?? post.text)
+                      : post.text;
+                assert.ok(savedText?.startsWith(expectedText));
+              }
               for (const story of topic.stories) {
                 const item = section.locator(`[id="story-${story.id}"]`);
                 assert.equal(

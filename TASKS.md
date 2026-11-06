@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Saved-edition selection replay (971): repair compact-date assertions and verify selected stories, posts and original links survive late latest-edition success/error on desktop/mobile light/dark.
+
 - [x] Social latency cause (970): replayable allowlisted timeline identifies serialized social scoring/Bluesky editing at the end of the saved edition; no production or spend changes.
 
 - [x] X media layout continuity (969): reserve the previous media height during theme/width replacements so the embed area does not collapse while loading.
@@ -49,52 +51,6 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 - [x] X saved-text focus (966): media reloads keep the saved-text link mounted, preserving keyboard focus through rotation and system theme changes.
 
-- [x] X media resize (965): successful media rebuilds at the card’s settled width after rotation or window resizing, preserving opened saved text.
-
-- [x] Reader scroll tracking (964): Contents follows the story at the reading position during ordinary forward/backward scrolling, including mobile topic chips.
-
-- [x] X media loading (963): show when an active media request is pending, including retries, while keeping saved post text readable.
-
-- [x] X author profiles (962): saved X bylines link to the original account so readers can inspect who posted, including when media is unavailable.
-
-- [x] Post context attribution (961): label saved editorial commentary “Digest context” to distinguish it from each post author’s words.
-
-- [x] Small-screen header (960): keep the wordmark and edition date on one line at 320px; compact date retains its year for screen readers.
-
-- [x] Post publication times (959): use concise dates and local times consistently with stories; saved timestamps retained and verified in four reader views.
-
-- [x] Reader theme verification (958): ported stale foundation selectors to the rebuilt reader; saved stories/posts, system changes, reload, cross-tab and blocked-storage checks pass on desktop/mobile.
-
-- [x] Story publication times (957): every story shows its saved publication date and local time, including standalone reports.
-
-- [x] Brief navigation (956): matching topic-brief headlines jump to their saved story, including keyboard focus and sticky-header clearance.
-
-- [x] Grouped report dates (955): expanded coverage shows each saved report’s publication date and local time, distinguishing earlier coverage from updates.
-
-- [x] Saved X text continuity (954): preserve opened/collapsed saved post text through theme-driven media reloads; saved-edition browser recovery covers both choices.
-
-- [x] X media failure clarity (953): cards explain unavailable media while preserving saved text/context and retry; saved-edition recovery verified in four device/theme views.
-
-- [x] Publisher diversity (952): grouped source rows combine feeds from the same publisher, exposing independent coverage without removing reports.
-
-- [x] Visible coverage counts (951): grouped stories always show their article count before expansion, alongside any extra outlets.
-
-- [x] Primary outlet attribution (950): grouped story source rows start with the headline destination’s outlets; saved World story and links checked across desktop/mobile light/dark.
-
-- [x] Complete grouped coverage (949): expanded report lists include the primary article, matching the displayed count; saved title/link browser checks cover all four device/theme views.
-
-- [x] Host metrics scrape recovery (948): raised the throttled host exporter CPU ceiling to 2%; preserves its low priority and existing scrape deadline.
-
-- [x] On-demand edition recovery (947): desktop/mobile light/dark browser replay covers uncertain queue responses, reload, reconnect, malformed status, completion and failure; all generation intercepted, external traffic blocked.
-
-- [x] Desktop Contents headlines (946): long saved headlines wrap fully in the sidebar; saved-edition clipping and keyboard navigation verified in light/dark.
-
-- [x] Main reader smoke (945): ported saved story, summary, image, archive and reload checks to the rebuilt reader; blocks external widgets and API writes.
-
-- [x] Archive response isolation (944): ported the broken inline-history/job smoke to delayed archive refreshes; opening a saved edition survives late success/error responses in four device/theme views.
-
-- [x] Contents keyboard focus (943): selecting a topic/story/post section focuses its destination; mobile dismissal restores the menu button. Saved-edition keyboard/browser verification in four device/theme views.
-
-- Earlier reader steps (924–942), including archive/routing recovery and original-post layout, are recorded in PROGRESS.md and its archive.
+- Earlier reader steps through 965: [completed markers](docs/progress-archive/2026-11-06-reader-done-971.md).
 
 - Next: STEERING 42 Nov 5 reader review completed; compare Nov 6 World breadth and post context after publication. STEERING 40 Nov 6 reserved-slot cost/AI gate and edition review after publication; fresh X round after 21:00 UTC. Fixed search stays off.
