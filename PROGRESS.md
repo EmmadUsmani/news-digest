@@ -1,30 +1,3 @@
-## 2026-11-06: iteration 973 — distinguish archive coverage periods
-
-- Started clean on main; alerts clear and health/database/Redis green. No leftover work.
-- Nov 6 edition review waits until 15:00 UTC; X round until 21:00 UTC. Re-read saved topic content; identified content causes already await scheduled verification.
-- Owner value: the archive has two Nov 2 editions with the same date/topic labels but different saved coverage windows; readers can now distinguish them.
-- Show each saved start/end date and local time on archive links, using semantic timestamps; no new data, source calls, spend or generation changes.
-- Corrected stale TASKS note: history recovery scripts already use rebuilt archive routes. Updated affected handbook sentence; SOURCES/NEEDS_FROM_HUMAN unchanged.
-- Browser assertions compare both semantic timestamps and visible coverage text against saved archive data across desktop/mobile light/dark.
-- Initial browser run preceded the pending build and correctly failed against the old bundle; rebuilt before rerunning.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (547 unit/224 isolated integration tests); pnpm build; smoke-reader-archive; check-handbook 08-operations; git diff --check all passed. Four archive screenshots refreshed and mobile light inspected; existing date screenshots refreshed.
-- Archived iterations 958–959 to keep PROGRESS below 25 KB. API/worker/docs/schema restart and post-push health/alerts confirmation follow.
-- Next: Nov 6 saved edition/cost/Bluesky review after 15:00 UTC; fresh X round after 21:00 UTC; flags unchanged.
-
-## 2026-11-06: iteration 974 — favor posts that convey the news
-
-- Started clean on main; alerts clear, health/database/Redis green. No leftover work.
-- Read all four latest saved topics; World breadth/Tech composition await 15:00 UTC, X round waits until 21:00 UTC.
-- Owner value: Gaming’s release-date update gives no date or change in supplied text; readers get a teaser rather than a development when media is unavailable.
-- Cause: social editor excludes invented media descriptions but does not prefer informative text over media-dependent teasers.
-- Social editor v3 favors concrete supplied developments, allows fewer picks instead of filler, and explicitly retains highlights with concrete results/stat lines.
-- Existing factual/absence guards, X preference, budgets, sources and flags unchanged. No wording-based filtering or immutable-edition edits.
-- Offline prompt contract checks passed 12/12, including cache reuse and capped fallback. This verifies instructions/transport, not actual model selection quality; compare Nov 6 Gaming picks.
-- No paid calls. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged: selection-guidance bug fix with no system/source changes. UI unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm check passed 547 unit/224 isolated integration tests; pnpm build; git diff --check. No UI changes; browser replay unnecessary.
-- Archived iteration 960 to keep PROGRESS small. API/worker/docs/schema restarted; final health/alerts checked before commit.
-- Next: compare Nov 6 Gaming picks and World/cost/Bluesky after 15:00 UTC; fresh X round after 21:00 UTC. Flags unchanged.
-
 ## 2026-11-06: iteration 975 — stop requiring repetitive post notes
 
 - Started clean on main; health/alerts green, all 36 monitored sources healthy; no leftover work.
@@ -197,3 +170,16 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (555 unit/224 isolated integration passed); pnpm build; git diff --check. No UI or system-flow change requiring screenshots/handbook edits.
 - Next: after 15:00 UTC read Nov 6, measure full-AI/cost and Bluesky outcomes; no deploys 13:00–16:00. X fresh-window round after 21:00 UTC.
 - Live checks: pnpm obs sources --check reports 36 healthy; digest queue has zero failed jobs and next run 15:00 UTC. Initial jobs --check with filters was rejected; reran supported filtered command successfully.
+
+## 2026-11-06: iteration 988 — quiet reader post commentary
+
+- Started clean on main; health green, alerts clear, all 36 sources healthy. No leftover work.
+- World breadth remains largest content weakness; its deployed fix awaits Nov 6 publication, as do the other saved comparison findings.
+- Owner value: removed 14 repeated “Digest context” headings from the latest edition; useful translations and explanations remain below original posts in muted text.
+- No saved content, prompts, selection, sources, budgets or paid calls changed. Updated affected handbook wording and existing reader browser check.
+- Archived oldest progress entry to retain the file size limit. SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Verification and live checks recorded below. Next: Nov 6 edition/cost/Bluesky review after 15:00 UTC; no deploys 13:00–16:00; X after 21:00 UTC.
+- Verification: pnpm format; pnpm lint:fix; full pnpm check passed static checks/555 unit tests, then was terminated (143) during integration; standalone isolated integration rerun below. pnpm build and handbook 08-operations passed.
+- smoke-reader-layout passed desktop/mobile light/dark against real saved content; refreshed four post screenshots and inspected mobile light. External embeds blocked by the browser check; no claim of live embed success.
+- Services restarted before browser checks; health/database/Redis green, alerts clear, zero failed digest jobs. Initial jobs help/queue aliases rejected; supported unfiltered queue snapshot succeeded.
+- Final standalone pnpm test:integration passed all 224 tests (exit 0); all required check components green. Build/browser checks and final git diff --check passed; pushed commit below.

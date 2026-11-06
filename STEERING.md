@@ -1557,3 +1557,5 @@ ack: 2026-11-06 item 42 — iteration 984: Gaming's saved GTA 6 story omits the 
 ack: 2026-11-06 item 42 — iteration 985: read all four saved topics; Sony summary adds “he” although supplied reports establish no pronouns. Editor v11 asks for names or roles instead of inferred pronouns; offline primary/fallback contract, no paid calls or saved-edition changes.
 
 ack: 2026-11-06 item 42 — iteration 986: saved OpenAI and Porzingis X text ends mid-sentence; recovery copy now names the whole official post and directs readers to the original, rather than implying only media is missing. No content or spend changes.
+
+ack: 2026-11-06 item 42 — iteration 988: pending World breadth fix still awaits publication. Removed repeated “Digest context” headings so saved post explanations read directly below their originals; no content or spend changes.

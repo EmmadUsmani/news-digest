@@ -246,11 +246,6 @@ async function smoke() {
           expectedContexts,
         );
         for (const note of await page.locator('.post-context').all()) {
-          assert.equal(
-            await note.locator('span').first().textContent(),
-            'Digest context',
-            'Editorial context is distinguished from the original author’s words',
-          );
           assert.ok(
             await note.evaluate((element) => {
               const card = element.closest('.post-card')!;
