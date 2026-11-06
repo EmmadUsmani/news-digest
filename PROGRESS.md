@@ -1,25 +1,3 @@
-## 2026-11-06: iteration 996 — define evidence-pilot decision criteria
-
-- Started clean on main; health/DB/Redis green, alerts clear, API/worker active. No leftover work.
-- Reader weakness: thin HN evidence limits useful Tech summaries; World breadth remains first and awaits the deployed fix's Nov 6 edition.
-- Owner value: the evidence proposal now gives a concrete way to decide whether five destination requests help enough to pursue.
-- Added fixed sample/skip accounting, paired original/enriched inputs, a proposed three-of-five supported-fact threshold and stop rules.
-- Nov 6 comparison precedes collection; paid editorial replay requires separate capped approval. All criteria are proposals, not new owner decisions.
-- No destination requests, paid calls, runtime/source/schema changes or service restarts during the 13:00–16:00 deployment freeze.
-- SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Next: Nov 6 edition/World/cost/Bluesky review after publication; X test after 21:00 UTC.
-- Verification: pnpm format; pnpm lint:fix; pnpm check exit 0 (555 unit/224 isolated integration tests); pnpm build; git diff --check. Final health green and alerts clear.
-
-## 2026-11-06: iteration 997 — prepare the Bluesky activation calculation
-
-- Started clean on main; alerts clear, health/DB/Redis green, 36 sources healthy, no failed digest jobs. No leftover work.
-- Reader weakness: editions have no Bluesky picks; the reserved-slot implementation awaits the Nov 6 cost/AI gate. World breadth still awaits publication.
-- Owner value: a reproducible offline calculation will prevent a mistaken activation decision while enabling broader post selection when affordable.
-- Added saved-usage worksheet calculator: sums all topic estimates, rounds 1.5× cost upward, rejects unknown estimates/unsettled usage/non-AI editing/budget refusal.
-- Documented complete-topic evidence requirements and incremental-cost accounting; synthetic tests are labelled and are not live edition measurements.
-- No activation, paid calls, collection changes or service restarts during the deployment freeze. Runtime/services remain unchanged.
-- SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Next: fill Nov 6 evidence after publication; X round after 21:00 UTC.
-- Verification: pnpm format; pnpm lint:fix; pnpm check passed (558 unit/224 isolated integration); pnpm build passed; git diff --check. Final health green, alerts clear; API/worker active. Archived iterations 981–982 to keep this file small.
-
 ## 2026-11-06: iteration 998 — export saved reader content for the publication review
 
 - Started clean on main; alerts clear, health/DB/Redis green. No leftover work. Latest edition remains Nov 5.
@@ -213,3 +191,14 @@
 - Deployment deliberately deferred: still within 13:00–16:00 UTC freeze. Running shipper active, zero restarts, ~45 MiB, MemoryHigh=infinity; the new runtime assertion must wait for installation. No paid calls.
 - Next after 16:00: install unit/restart shipper, run --verify-o2 for threshold and seven-source delivery, deploy social editor v6 and verify app. X round after 21:00; Bluesky slot remains OFF awaiting owner.
 - SOURCES and NEEDS_FROM_HUMAN unchanged; no source or owner dependency changed.
+
+## 2026-11-06: iteration 1015 — open cited sources from Bluesky cards
+
+- Started clean on main; no leftover work. Alerts clear, 13 services/36 sources healthy; /healthz DB/Redis OK.
+- Reader weakness: World’s saved Bluesky pick cites an Independent article, but its URL was inert text. Readers can now open cited web sources directly from the card.
+- HTTP/HTTPS links preserve exact saved text, query strings and trailing punctuation; markup and non-web schemes remain text. No edition rewrite or paid calls.
+- Browser replay uses an optional isolated Vite URL, keeping the running app untouched during the 13:00–16:00 freeze. Synthetic fixtures are labelled; four screenshots updated and mobile visually inspected.
+- Scoring-order change deferred: reserved slot remains OFF, so speculative early Bluesky scoring could spend on topics with no slot. Admission/order unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check passed (560 unit/224 isolated integration); pnpm build passed; READER_BASE_URL=http://127.0.0.1:5175 pnpm exec tsx scripts/smoke-bluesky-cards.ts (desktop/mobile, light/dark); git diff --check.
+- Deployment/restarts deferred under explicit freeze; after 16:00 deploy this card fix, social editor v6 and shipper MemoryHigh=64M, then verify live. X round after 21:00; Bluesky slot OFF awaiting owner.
+- SOURCES/handbook/NEEDS_FROM_HUMAN unchanged: rendering bug only; no source or system-flow change. Archived iterations 996–997 to keep this file under 25 KB.

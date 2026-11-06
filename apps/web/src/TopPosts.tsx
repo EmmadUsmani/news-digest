@@ -340,6 +340,32 @@ function RedditPost({ post }: { post: SelectedRedditPost }) {
   );
 }
 
+function LinkedPostText({ text }: { text: string }) {
+  return text.split(/(https?:\/\/[^\s<>]+)/g).map((part, index) => {
+    if (!/^https?:\/\//.test(part)) return part;
+    // Leave sentence punctuation outside the link without changing saved text.
+    const url = part.replace(/[.,;:!?]+$/, '');
+    try {
+      new URL(url);
+    } catch {
+      return part;
+    }
+    return (
+      <React.Fragment key={index}>
+        <a
+          href={url}
+          target="_blank"
+          rel="noreferrer"
+          className="underline underline-offset-2"
+        >
+          {url}
+        </a>
+        {part.slice(url.length)}
+      </React.Fragment>
+    );
+  });
+}
+
 function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
   return (
     <article className="post-card bluesky-card">
@@ -352,7 +378,9 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
           })}
         </time>
       </p>
-      <p className="post-text">{post.text}</p>
+      <p className="post-text">
+        <LinkedPostText text={post.text} />
+      </p>
       <div className="bluesky-media">
         {post.media?.map((media, index) => (
           <a

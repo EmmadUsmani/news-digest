@@ -7,6 +7,8 @@ import {
 } from '@digest/contracts';
 import { chromium } from 'playwright';
 
+const baseUrl = process.env.READER_BASE_URL ?? 'http://localhost:8000';
+
 async function main() {
   const browser = await chromium.launch();
   try {
@@ -34,7 +36,7 @@ async function main() {
         author: 'Synthetic author (example.test)',
         publishedAt: '2026-11-03T02:00:00Z',
         observedAt: '2026-11-03T03:00:00Z',
-        text: 'Synthetic Bluesky card — browser verification\nFull original text, including <script>literal markup</script>.',
+        text: 'Synthetic Bluesky card — browser verification\nFull original text, including <script>literal markup</script>. Read https://example.com/story?item=1&source=post. Unsafe javascript:alert(1) stays text.',
         metrics: { likes: 1200, reposts: 84, replies: 12 },
         media: [
           {
@@ -90,7 +92,7 @@ async function main() {
         }),
       );
       const unexpectedWrites: string[] = [];
-      await page.route('**/api/**', (route) => {
+      await page.route('**/api/**', async (route) => {
         const request = route.request();
         if (!['GET', 'HEAD'].includes(request.method())) {
           unexpectedWrites.push(
@@ -101,9 +103,15 @@ async function main() {
         if (new URL(request.url()).pathname === '/api/editions/latest') {
           return route.fulfill({ json: replay });
         }
+        if (baseUrl !== 'http://localhost:8000') {
+          const response = await route.fetch({
+            url: `http://localhost:8000${new URL(request.url()).pathname}${new URL(request.url()).search}`,
+          });
+          return route.fulfill({ response });
+        }
         return route.continue();
       });
-      await page.goto('http://localhost:8000');
+      await page.goto(baseUrl);
       const cards = page.locator('.bluesky-card');
       await cards.first().scrollIntoViewIfNeeded();
       assert.equal(await cards.count(), 2);
@@ -141,6 +149,18 @@ async function main() {
         post.url,
       );
       assert.equal(await cards.first().locator('script').count(), 0);
+      const linkedSource = cards.first().locator('.post-text a');
+      assert.equal(await linkedSource.count(), 1);
+      assert.equal(
+        await linkedSource.getAttribute('href'),
+        'https://example.com/story?item=1&source=post',
+      );
+      assert.equal(await linkedSource.getAttribute('target'), '_blank');
+      assert.equal(
+        await cards.first().locator('.post-text').innerText(),
+        post.text,
+      );
+
       assert.equal(
         selectedBlueskyPostSchema.safeParse({
           ...post,
