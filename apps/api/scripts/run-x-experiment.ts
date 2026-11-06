@@ -114,7 +114,7 @@ async function main() {
       for (let attempt = 0; attempt < 2; attempt++) {
         const requestId =
           attempt === 0 ? baseRequestId : `${baseRequestId}-retry-1`;
-        // Resume skips attempted cells; only this process can admit the one timeout retry.
+        // Resume skips attempted cells; only this process can admit the one failure retry.
         if (existsSync(join(roundDirectory, `${requestId}.request.json`)))
           break;
         budget.reserve(requestId, 150_000);
@@ -160,7 +160,11 @@ async function main() {
         });
         if (!response.ok)
           throw new Error('Provider rejected call; hold retained, no retry');
-        const usage = xSearchUsageSchema.parse(JSON.parse(raw).usage);
+        const payload = JSON.parse(raw) as {
+          usage: unknown;
+          output?: { type?: string; name?: string; status?: string }[];
+        };
+        const usage = xSearchUsageSchema.parse(payload.usage);
         const costMicros = xDiscoveryCost(
           {
             inputTokens: usage.input_tokens,
@@ -192,6 +196,27 @@ async function main() {
           throw new Error(
             'Call exceeded owner reservation; experiment stopped',
           );
+        const fetched = usage.server_side_tool_usage_details.x_posts_fetched;
+        const searches = (payload.output ?? []).filter(
+          (item) =>
+            item.type === 'custom_tool_call' &&
+            ['x_keyword_search', 'x_semantic_search'].includes(item.name ?? ''),
+        );
+        // A query trace alone does not prove it ran. Completed zero-result
+        // searches are valid; failed or absent execution may retry once.
+        const completed = searches.some((item) => item.status === 'completed');
+        if (fetched === 0 && !completed) {
+          save(`${requestId}.failure.json`, {
+            failedAt: new Date().toISOString(),
+            outcome: searches.length
+              ? 'search execution failed or unconfirmed'
+              : 'search never ran',
+          });
+          if (attempt === 0) continue;
+          throw new Error(
+            'X search failed to execute twice; actual usage settled',
+          );
+        }
         break;
       }
     }

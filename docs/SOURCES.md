@@ -2063,3 +2063,10 @@ The revised experiment runner admits one timeout retry separately at $0.15;
 the original unknown-cost hold stays charged. Two timeouts stop the run, and
 continuation cannot grant a third attempt. No live calls were made in this step;
 tool-failure/no-execution and switched-off schedule retries remain pending.
+
+### Experiment execution retry — iteration 905 (2026-11-06)
+
+The experiment retries failed or unconfirmed X search execution with zero fetched
+posts once, after settling returned token usage and admitting a fresh reservation.
+Completed empty searches do not retry; timeouts keep their holds. No live calls
+or production activation in this step; switched-off scheduler retry remains open.

@@ -75,8 +75,9 @@ counts and media stay unknown; a link supplies no evidence of media contents.
   "reported by xAI", and Bluesky's as timestamped API counts. The editor
   sees them, but relevance and distinct content come first.
 - **Execution:** requests require the X search tool before a text answer.
-- **Experiment timeouts:** one retry needs its own budget admission; the first
-  hold stays charged. A second timeout stops the run.
+- **Experiment retries:** a timeout or failed/unconfirmed search with no fetched
+  posts gets one separately admitted retry. Completed empty searches never retry.
+  Timeouts retain their hold; returned usage settles before retrying.
 - **Accounting:** calls allow 120 seconds. Returned token usage settles the actual
   cost; missing fetched-post/profile counters count as zero. No-response timeouts
   keep their reservation. Saved experiment responses can settle holds offline;

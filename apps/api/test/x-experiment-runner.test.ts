@@ -18,6 +18,8 @@ function fixture(
     | 'overrun'
     | 'unknown'
     | 'token-only'
+    | 'empty-search'
+    | 'tool-failed-once'
     | 'timeout-once'
     | 'timeout',
   legacy = false,
@@ -41,7 +43,7 @@ global.fetch = async (url, options) => {
   if (process.env.FAKE_MODE === 'timeout' || (process.env.FAKE_MODE === 'timeout-once' && count === 1)) throw new DOMException('Synthetic timeout', 'TimeoutError');
   if (process.env.FAKE_MODE === 'unknown') throw Error('Synthetic transport failure');
   return new Response(JSON.stringify({usage: {input_tokens: 1, output_tokens: 1,
-    ...(process.env.FAKE_MODE === 'token-only' ? {} : {server_side_tool_usage_details: {x_posts_fetched: process.env.FAKE_MODE === 'overrun' ? 31 : 1, x_users_fetched: 0}})}, output: []}));
+    ...((process.env.FAKE_MODE === 'token-only' || process.env.FAKE_MODE === 'empty-search' || (process.env.FAKE_MODE === 'tool-failed-once' && count === 1)) ? {} : {server_side_tool_usage_details: {x_posts_fetched: process.env.FAKE_MODE === 'overrun' ? 31 : 1, x_users_fetched: 0}})}, output: process.env.FAKE_MODE === 'empty-search' ? [{type: 'custom_tool_call', name: 'x_keyword_search', status: 'completed'}] : (process.env.FAKE_MODE === 'tool-failed-once' && count === 1) ? [{type: 'custom_tool_call', name: 'x_keyword_search', status: 'failed'}] : []}));
 };
 `,
   );
@@ -259,9 +261,13 @@ void test('experiment runner settles token-only responses instead of retaining r
   const f = fixture('token-only');
   try {
     const result = f.run();
-    assert.equal(result.status, 0, result.stderr);
-    assert.equal(f.journal().entries.length, 8);
+    assert.equal(result.status, 1);
+    assert.equal(f.journal().entries.length, 2);
     assert.ok(f.journal().entries.every((entry) => entry.actualMicros === 4));
+    const round = readdirSync(f.root).find((name) => name !== 'budget.json');
+    assert.ok(round);
+    assert.equal(f.run('success', round).status, 0);
+    assert.equal(f.journal().entries.length, 9);
   } finally {
     f.cleanup();
   }
@@ -333,6 +339,29 @@ void test('timeout retry refuses dispatch when the retained hold fills the daily
       'call',
     );
     assert.equal(f.journal().entries[1].actualMicros, null);
+  } finally {
+    f.cleanup();
+  }
+});
+
+void test('completed empty searches are valid and never retried', () => {
+  const f = fixture('empty-search');
+  try {
+    assert.equal(f.run().status, 0);
+    assert.equal(f.journal().entries.length, 8);
+  } finally {
+    f.cleanup();
+  }
+});
+
+void test('failed search retries once after settling the first response', () => {
+  const f = fixture('tool-failed-once');
+  try {
+    const result = f.run();
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal(f.journal().entries.length, 9);
+    assert.equal(f.journal().entries[0].actualMicros, 4);
+    assert.equal(f.journal().entries[1].actualMicros, 5004);
   } finally {
     f.cleanup();
   }

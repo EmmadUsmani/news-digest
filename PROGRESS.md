@@ -1,14 +1,3 @@
-## 2026-11-05: iteration 892 — Overview edition cost
-
-- Started clean on main; no leftover work. Owner would care: Overview now shows what the latest edition cost and links to its full inspector.
-- Added protected edition-ledger read with recorded AI cost, call count and separate unresolved holds; explicit no-linked-calls state, independent retry and shared refresh. No API/schema/budget changes.
-- Browser checks compare displayed values with the real saved edition ledger, verify the inspector URL, simulate cost-read outage/recovery and preserve edition access. Four viewport/theme screenshots refreshed; all writes/external requests blocked.
-- Visual review caught inherited oversized anchor typography; set explicit small/medium link styling and rebuilt. Initial web-only build filter matched no project; corrected to @digest/web and build passed.
-- Updated TASKS and Operations handbook; discarded unrelated separation-smoke screenshot changes. SOURCES/NEEDS_FROM_HUMAN unchanged; no paid calls or live settings changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (typecheck/lint/format/boundaries, 505 unit and 218 isolated integration tests); pnpm build; final @digest/web build; smoke-admin-overview.ts; smoke-admin-separation.ts; check-handbook.ts 08-operations; git diff --check all passed.
-- Real saved edition ledger: $0.315445/46 calls/zero unresolved holds. Final mobile light and desktop dark screenshots visually checked; API restarted for final assets, four app units active, /healthz database/Redis green and alerts clear.
-- Next: remaining dedicated admin-page gaps and final reader; Nov 6 edition/grouping evidence and fresh-window X round after 21:00 UTC. No X activation before decision.
-
 ## 2026-11-05: iteration 893 — Overview monitoring alerts
 
 - Started clean on main; no leftover work. Owner would care: Overview now shows firing and pending monitoring alerts beside health and spending.
@@ -141,3 +130,14 @@
 - Updated TASKS, SOURCES, experiment notes and social handbook; archived iteration 891 to keep PROGRESS small. NEEDS_FROM_HUMAN unchanged.
 - Next: tool-failure/no-execution retry and switched-off scheduler retry, then authorized three failed Nov 5 keyword reruns after Nov 6 00:00 UTC. Fair semantic query and fresh Nov 6 round follow. Fixed production search remains off.
 - First push rejected for incoming owner workflow commits; fetched/merged without rewriting history. New Current order keeps X reliability first. Owner files unchanged by this iteration; post-merge formatting/lint/handbook verification before repush.
+
+## 2026-11-06: iteration 905 — retry unexecuted experiment searches once
+
+- Started clean on main; no leftover work. Alerts clear, 36 sources healthy and no failed digest runs.
+- Experiment now retries zero-fetched failed/unconfirmed execution once after settling actual returned usage and admitting a fresh $0.15 reservation. Completed empty searches never retry; no-response timeouts retain their holds. Restart skips attempted cells.
+- Offline coverage includes failed-tool recovery, completed empty results, token-only double failure and continuation without a third attempt. No paid calls, keyword reruns or production activation.
+- Verification: targeted runner 12/12; pnpm format; pnpm lint:fix; pnpm check passed typecheck/lint/format/boundaries, 519 unit tests and 221 isolated integration tests; pnpm build; check-handbook.ts 05-social-posts; git diff --check.
+- Rebuilt/restarted API, worker, docs and schema; all active. /healthz database/Redis green; real saved edition has four topics/17 stories; all 36 sources healthy through Nov 6 00:00 UTC; next edition 15:00 UTC; alerts clear.
+- Initial obs jobs query used an unknown queue; corrected read-only query shows no failed digest runs, historical ingestion/social failures alongside healthy sources.
+- Updated TASKS, SOURCES and social handbook; archived iteration 892 to keep PROGRESS small. NEEDS_FROM_HUMAN unchanged.
+- Next: switched-off scheduler retry, then authorized three failed Nov 5 keyword reruns on the same window. Fair semantic query and fresh Nov 6 round follow; fixed production search remains off.
