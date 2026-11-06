@@ -1,13 +1,3 @@
-## 2026-11-06: iteration 927 — reproduce interrupted verification
-
-- Started clean on main; prioritized the previous iteration's two exit-143 full checks under breakage triage. No leftover work to recover or discard.
-- Standalone pnpm check exited zero: typecheck, lint, formatting, boundaries, 543 unit tests and 224 isolated integration tests passed; coverage report completed.
-- Attached temporary strace signal tracing to the check's pnpm process and subsequent descendants; no SIGTERM observed. Previous interruptions did not reproduce; no root cause claimed and no speculative runner change. Trace/logs remain outside the repo.
-- pnpm build passed; pnpm format and pnpm lint:fix completed before commit; git diff --check passed.
-- Rebuilt/restarted API/worker/docs/schema; all active, /healthz database/Redis green, reader HTTP 200, 36/36 source states ok, alerts clear and zero retained failed digest jobs. Latest saved edition remains Nov 5 (four topics, 17 stories, 14 posts).
-- TASKS records clean verification. No product, source, prompt, budget or flag changes; no paid calls. SOURCES, handbook and NEEDS_FROM_HUMAN unchanged.
-- Reader's largest known weakness remains World breadth (two stories/one post); deployed forty-article pool awaits Nov 6 scheduled evidence. Nov 6 edition/Bluesky gate and X round after 21:00 UTC remain next; experimental flags OFF.
-
 ## 2026-11-06: iteration 928 — reader edition date switching
 
 - Started clean on main; alerts clear, health/database/Redis green, all 36 sources healthy. Nov 6 edition/Bluesky review and the X round remain time-gated; no leftover work.
@@ -153,3 +143,14 @@
 - Updated TASKS and screenshots; archived iteration 926. No source/system-flow change; SOURCES/handbook/NEEDS_FROM_HUMAN/STEERING unchanged.
 - Next: Nov 6 World/cost/Bluesky review after 15:00 UTC publication; X round after 21:00 UTC. Fixed search and reserved slot remain off.
 - Final standalone pnpm check exited zero (543 unit/224 isolated integration tests); build and four post-build browser cases passed. Initial chained check exited 143 after passing tests; standalone rerun clean. Browser rerun after restart readiness passed. Inspected desktop light/mobile dark; services/health/36 sources/alerts green.
+
+## 2026-11-06: iteration 942 — readable mobile contents headlines
+
+- Started clean on main; alerts clear and services/health green. No leftover work. Edition/Bluesky review and X round remain time-gated.
+- Read all four saved topics. World breadth and mixed Tech grouping await Nov 6 evidence; mobile Contents cuts off long saved titles, hiding the details needed to choose a story.
+- Reproduced headline clipping with the real saved OpenSSH story. Titles now wrap in the mobile sheet; desktop keeps compact single-line titles. Owner value: choose a story from its complete headline.
+- Extended the existing saved-edition browser replay for full headline visibility, mobile story selection and sheet dismissal; updated screenshots. External widgets blocked; no writes, paid calls, flags or selection changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx scripts/smoke-reader-layout.ts; pnpm exec tsx scripts/check-handbook.ts 08-operations; git diff --check. Final results below.
+- Updated TASKS, affected handbook and STEERING ack; archived iteration 927 and compacted done markers. SOURCES/NEEDS_FROM_HUMAN unchanged; no collection or budget changes.
+- Next: Nov 6 World/cost/Bluesky review after publication; X round after 21:00 UTC. Fixed search and reserved slot remain off.
+- Final standalone pnpm check exited zero (543 unit/224 isolated integration tests); build, handbook and four post-restart browser views passed. First check exited 143 during integration; standalone rerun clean. Inspected both mobile sheet screenshots. API/worker/docs/schema active, health green, 36 sources healthy, no failed digest jobs and alerts clear.

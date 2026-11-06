@@ -39,14 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Canonical reader routing (941): restored legacy-link redirects, reload, archive navigation and cached saved-edition switching checks on desktop/mobile light/dark; obsolete inline-history selectors removed.
+- [x] Mobile contents headlines (942): full saved story titles wrap in the sheet; desktop stays compact. Verified real saved titles, navigation and four device/theme views.
 
-- [x] Post reading order (940): original saved text/media now precedes the editorial context on X, Reddit and Bluesky cards; real saved X cards verified with and without a widget stub across desktop/mobile light/dark.
-
-- [x] Invalid reader data recovery (939): ported the broken inline-history replay to the archive; malformed JSON/schema errors recover through manual retry and real saved-edition links across desktop/mobile light/dark.
-
-- [x] Full-width reader posts (938): replaced legacy desktop two-column post grid with one post per row; saved-content layout and offline widget sizing verified on desktop/mobile light/dark.
-
-- Earlier reader steps (924–938) are recorded in PROGRESS.md and its archive.
+- Earlier reader steps (924–941), including archive/routing recovery and original-post layout, are recorded in PROGRESS.md and its archive.
 
 - Next: STEERING 42 Nov 5 reader review completed; compare Nov 6 World breadth and post context after publication. STEERING 40 Nov 6 reserved-slot cost/AI gate and edition review after publication; fresh X round after 21:00 UTC. Fixed search stays off.

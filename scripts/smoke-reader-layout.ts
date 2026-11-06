@@ -202,6 +202,33 @@ async function smoke() {
           await page
             .getByRole('button', { name: 'Contents', exact: true })
             .click();
+          const mobileContents = page.getByRole('navigation', {
+            name: 'Mobile contents',
+          });
+          for (const story of edition.topics[0].stories) {
+            const link = mobileContents.getByRole('link', {
+              name: story.title,
+              exact: true,
+            });
+            assert.ok(
+              await link.evaluate(
+                (element) => element.scrollWidth <= element.clientWidth + 1,
+              ),
+              `Mobile contents shows the full headline: ${story.title}`,
+            );
+          }
+          await page.screenshot({
+            path: `docs/screenshots/ui/reader-contents-${device}-${theme}.png`,
+          });
+          const firstStory = edition.topics[0].stories[0];
+          await mobileContents
+            .getByRole('link', { name: firstStory.title, exact: true })
+            .click();
+          await page.getByRole('dialog').waitFor({ state: 'hidden' });
+          assert.equal(new URL(page.url()).hash, `#story-${firstStory.id}`);
+          await page
+            .getByRole('button', { name: 'Contents', exact: true })
+            .click();
           await page
             .getByRole('navigation', { name: 'Mobile contents' })
             .getByRole('link', { name: second.name, exact: true })
