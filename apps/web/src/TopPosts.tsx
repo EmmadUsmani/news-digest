@@ -384,6 +384,31 @@ function LinkedPostText({ text, postUrl }: { text: string; postUrl: string }) {
   });
 }
 
+function BlueskyImage({
+  src,
+  alt,
+  video,
+}: {
+  src: string;
+  alt: string;
+  video: boolean;
+}) {
+  const [failed, setFailed] = React.useState(false);
+  return failed ? (
+    <span className="text-sm text-[var(--secondary)] underline underline-offset-2">
+      {video ? 'Preview unavailable' : 'Image unavailable · Open image ↗'}
+    </span>
+  ) : (
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      referrerPolicy="no-referrer"
+      onError={() => setFailed(true)}
+    />
+  );
+}
+
 function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
   return (
     <Card
@@ -423,14 +448,14 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
             rel="noreferrer"
           >
             {media.thumbnail && (
-              <img
+              <BlueskyImage
+                key={media.thumbnail}
+                video={media.type === 'video'}
                 src={media.thumbnail}
                 alt={
                   media.alt ||
                   (media.type === 'image' ? 'Post image' : 'Video preview')
                 }
-                loading="lazy"
-                referrerPolicy="no-referrer"
               />
             )}
             {media.type === 'video' && <span>Watch video on Bluesky ↗</span>}

@@ -1,14 +1,3 @@
-## 2026-11-06: iteration 1029 — keep current contents visible
-
-- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; alerts clear and /healthz DB/Redis OK.
-- Reproduced a reader weakness at 1280×400: World's active Posts entry ended at y=508 below the contents panel's y=384 edge. The panel now reveals the active entry in either direction without moving the edition.
-- Added read-only saved-edition Playwright regression for short desktop light/dark, both scroll directions and stable reading position; screenshots updated and light visually inspected. Broader desktop/mobile light/dark reader layout checks passed.
-- Passed pnpm format; pnpm lint:fix; pnpm build; pnpm exec tsx scripts/smoke-reader-short-contents.ts; pnpm exec tsx scripts/smoke-reader-layout.ts; git diff --check.
-- pnpm check passed static checks and 562 unit tests, then exited 143 during integration; standalone pnpm test:integration passed all 225 cases (exit 0).
-- API/worker restarted; health and alerts clear; saved edition retains four topics, 20 stories and 17 posts. No paid calls or source/schema/handbook-flow changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Initial push rejected by concurrent owner .gitignore commit d27912a6; merged it without conflicts, preserving owner-only .local/ exclusion. No runtime change in merge.
-- Next: continue approved reader completion; approved Bluesky slot activation pending under Current order; fresh X round after 21:00 UTC. Combined-check signal 143 recurs; standalone integration remains green.
-
 ## 2026-11-06: iteration 1030 — preserve contents visibility on resize
 
 - Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; no leftover work, alerts clear and /healthz DB/Redis OK.
@@ -163,3 +152,13 @@
 - Built and restarted API/worker; /healthz DB/Redis OK, all 36 sources healthy, digest queue zero failed runs, alerts clear.
 - Archived iteration 1028 to keep this log small. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes.
 - Next: continue final reader; fresh X round after 21:00 UTC. Approved Bluesky slot activation pending under Current order; fixed search OFF.
+
+## 2026-11-06: iteration 1045 — keep failed Bluesky images usable
+
+- Advanced item 33/43 while X rounds wait until after 21:00 UTC. Started clean on main; alerts clear, all 36 sources healthy, latest scheduled digest completed.
+- Bluesky cards now replace failed thumbnails with a compact link to the full image; failed video previews retain the link to the original post. Successful images keep their existing alt text and lazy loading.
+- Synthetic failed-image replay verifies original destination, keyboard focus, saved text and no overflow across desktop/mobile light/dark. Four screenshots saved; mobile light inspected. Actual saved-post link and broader reader layout replays also passed four views. External requests blocked; no paid calls or edition writes.
+- Passed pnpm build; pnpm format; pnpm lint:fix; pnpm check through typecheck/lint/format/boundaries and 562 unit tests. Check exited 143 as isolated integration started; reran pnpm test:integration separately (result below).
+- Browser commands: pnpm exec tsx scripts/smoke-bluesky-cards.ts; scripts/smoke-reader-bluesky-links.ts; scripts/smoke-reader-layout.ts. Discarded timestamp-only screenshot churn from unchanged views; retained new failed-image screenshots.
+- Archived iteration 1029. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes.
+- Separate isolated integration run passed 225/225 (exit 0); all check stages verified. API/worker restarted; final /healthz DB/Redis OK and alerts clear. No blockers; next continue final reader until fresh X round after 21:00 UTC; fixed search OFF.

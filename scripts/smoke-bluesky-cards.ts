@@ -200,6 +200,37 @@ async function main() {
       await cards
         .first()
         .screenshot({ path: `docs/screenshots/bluesky-card-${name}.png` });
+      // A failed third-party image retains a usable original-image link.
+      await page.route('https://cdn.bsky.app/**', (route) => route.abort());
+      await page.reload();
+      const failedImage = page.getByRole('link', {
+        name: 'Image unavailable · Open image ↗',
+        exact: true,
+      });
+      await cards.first().scrollIntoViewIfNeeded();
+      await failedImage.waitFor();
+      assert.equal(
+        await failedImage.getAttribute('href'),
+        post.media![0].fullsize,
+      );
+      await failedImage.focus();
+      assert.ok(
+        await failedImage.evaluate((node) => node === document.activeElement),
+      );
+      assert.equal(await cards.first().locator('img').count(), 0);
+      assert.equal(
+        await cards.first().locator('.post-text').innerText(),
+        post.text,
+      );
+      assert.ok(
+        await cards
+          .first()
+          .evaluate((node) => node.scrollWidth <= node.clientWidth),
+      );
+      await cards.first().screenshot({
+        path: `docs/screenshots/ui/reader-bluesky-image-failed-${name}.png`,
+      });
+      assert.deepEqual(errors, []);
       await page.close();
     }
     console.log(
