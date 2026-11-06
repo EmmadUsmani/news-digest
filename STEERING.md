@@ -17,8 +17,9 @@ details, budgets and rules stay in the items. Every new item goes on this list.
 1. Breakages and protecting the morning edition.
 2. X search: reliability fixes and test rounds (items 39, 34).
 3. Nov 6 edition review: World stories, cost (item 36).
-4. UI rebuild: admin pages, then final reader (item 33).
-5. Then item 38's list for choosing meaningful work.
+4. Bluesky in editions: show why, fix failures, hold a slot (item 40).
+5. UI rebuild: admin pages, then final reader (item 33).
+6. Then item 38's list for choosing meaningful work.
 
 Blocked on the owner: R2 backups (item 37).
 
@@ -556,6 +557,8 @@ no scraping.
   with platform `bluesky`.
 - **Rendering:** Bluesky's official embed or a faithful card.
 - **Ranking:** below X, the same as Reddit was meant to be.
+  > **Changed by item 40 (2026-11-05):** Bluesky may now take one X slot per
+  > topic. Item 40 wins where the two differ.
 - **Done when:** real Bluesky posts appear in a generated edition for the
   topics where Bluesky has real activity, with screenshots. Record per-topic
   yield in docs/SOURCES.md; it's fine if some topics have little.
@@ -1258,3 +1261,107 @@ Nov 6 data with all four keyword searches run, or a clear report of why not.
 **Ack** with the failure rate after these fixes, because it decides whether this
 can run in production.
 
+
+## 40. NEXT: get real Bluesky posts into editions, and show why when none appear (2026-11-05)
+
+**Why:** Bluesky collects hourly, but only one post has reached an edition, and
+it repeated an X pick from the same author. There are two causes:
+
+- **Leftover slots only.** `bluesky-edition.ts` gives Bluesky only the slots X
+  left empty. NBA and Gaming had none on Nov 4 or Nov 5, so Bluesky was never
+  considered there.
+- **Silent editing failures.** The Nov 4 and Nov 5 call records show rejected
+  replies. On Nov 4, both topics that reached the editor used all four
+  attempts. On Nov 5, one topic used Haiku without any Sonnet call, and nobody
+  yet knows why. `preview.repository.ts` ignores the Bluesky status, so a
+  failure looks the same as "nothing good today".
+
+**Priority:** after the Nov 6 edition review, ahead of the UI rebuild, as listed
+in Current order. If item 39 is waiting on a time window, use that gap for steps
+1 and 2.
+
+**Do these in order:**
+
+1. **Find out and show why, per topic.**
+   - Read the worker logs for the Nov 4 and Nov 5 editions (Nov 6 too once it
+     has run), using `llm.validation` and `budget.decision`. Record for each
+     topic: open slots, which models ran, each rejection category, any budget
+     refusal, and why Sonnet was skipped on Nov 5. Check the real logs, not
+     these notes.
+   - One pass only. If the logs can't answer something, say so and move on.
+     Rejected text wasn't kept: don't try to recover it, and make no paid
+     replays.
+   - Save a Bluesky outcome for each topic with every edition: open slots,
+     candidates read, candidates shortlisted, posts picked, and one result.
+     The results are: no slot, no candidates, nothing passed triage, editor
+     chose none, picks made, AI editing failed, budget refused, switched off.
+     Today "no slot" also reports as `complete`, so separate them. Older
+     saved editions must still load.
+   - Add the step (`purpose`) and topic to `llm.validation` and
+     `budget.decision`. Today neither line says which step or topic it belongs
+     to. Keep the rule that no rejected text enters logs.
+   - Show the result as one short plain line per topic in the admin edition
+     inspector, such as "Bluesky: AI editing failed". Nothing changes for
+     readers.
+   - If this is ready before 13:00 UTC on Nov 6, deploy it so the Nov 6 edition
+     records outcomes. If not, leave it for the next day.
+
+2. **One bad post costs only that post.**
+   - In Bluesky editing, a reply with one bad post currently loses every pick
+     for that topic. Check each post separately. Keep the valid ones and drop
+     only those that fail: too-long fields, unknown or repeated IDs, unsupported
+     claims, or picks past the budget.
+   - Retry only when no valid post remains and the reply wasn't a deliberate
+     empty list.
+   - Count dropped posts by category in the saved outcome.
+   - Change Bluesky only. X selection behaves as it does now.
+
+3. **Hold one slot for Bluesky (owner decision).** Build it behind a setting
+   that is off by default.
+   - Run the Bluesky editor for every topic with a post budget, asking for at
+     least one post even when X filled every slot.
+   - If it picks a post and no slot is open, that post replaces the X pick
+     ranked last. Check that the saved order really is the editor's ranking.
+   - Replace at most one X post per topic. If nothing qualifies, X keeps all its
+     slots. The topic total never exceeds its post budget.
+   - Bluesky can still fill any other empty slots, as it does now.
+   - **Switch it on when both are true,** using the Nov 6 edition:
+     - it was fully AI-edited, with no AI step refused for budget;
+     - 1.5 × (Nov 6 edition cost + estimated extra Bluesky cost) fits under that
+       day's daily cap. Estimate the extra from Nov 6's saved triage and editor
+       usage, with no paid test.
+   - If either fails, leave it off, ack the numbers and wait for the owner.
+
+4. **Tidy up.** Correct `docs/SOURCES.md` (its table still says "editions off"),
+   the "never used by production" comments in `bluesky-ranking.ts` and
+   `bluesky-shortlist.ts`, the "never displace" comment in `bluesky-edition.ts`
+   once step 3 is live, and the handbook's social posts page.
+
+**While waiting** for the Nov 6 edition: do steps 1, 2 and 4 and build step 3.
+If those are finished, go back to Current order.
+
+**Don't:**
+
+- lower the relevance or importance bar, or weaken the unsupported-claim check,
+  to force picks. Quiet days may have no Bluesky post;
+- let a Bluesky post repeat something X already covers;
+- change collection, search queries or caps in this item;
+- keep tuning. If three editions after switch-on have clean outcomes and no
+  picks, stop and report them. The owner decides what's next.
+
+**Done when:**
+
+- every edition saves a Bluesky outcome for every topic, visible in the
+  inspector;
+- a failure in Bluesky editing can no longer look like "nothing good today";
+- the slot is on, or the ack gives the numbers that kept it off;
+- a Bluesky post distinct from the X picks appears in a published edition, with
+  screenshots, or three editions show recorded reasons why not.
+
+**Ack with:** what happened per topic on Nov 4 and Nov 5, including the Sonnet
+skip. Then, for the first three editions after switch-on, per topic: outcome,
+picks, any X post replaced, and added cost.
+
+**Limits:** no deploys between 13:00 and 16:00 UTC, and protect the morning
+edition. Existing AI budgets and caps stay. If a budget would need raising, ask
+the owner.
