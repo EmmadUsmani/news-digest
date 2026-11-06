@@ -1,3 +1,4 @@
+import type { DigestPreview } from '@digest/contracts';
 import { useQuery } from '@tanstack/react-query';
 import { Link, useParams } from '@tanstack/react-router';
 import { useState } from 'react';
@@ -14,6 +15,20 @@ import {
 } from './queries';
 
 const date = (value: string) => new Date(value).toLocaleString();
+
+const blueskyResults: Record<
+  NonNullable<DigestPreview['topics'][number]['blueskySelection']>['result'],
+  string
+> = {
+  'no-slot': 'No open slot',
+  'no-candidates': 'No candidates',
+  'nothing-passed-triage': 'Nothing passed triage',
+  'editor-chose-none': 'Editor chose none',
+  'picks-made': 'Picks made',
+  'ai-editing-failed': 'AI editing failed',
+  'ai-unavailable': 'AI unavailable (reason not recorded)',
+  'switched-off': 'Switched off',
+};
 
 export function AdminEditions() {
   const [offset, setOffset] = useState(0);
@@ -204,6 +219,28 @@ export function AdminEditionInspector() {
               {date(edition.windowStart)} to {date(edition.windowEnd)} ·{' '}
               {edition.method}
             </p>
+          </Card>
+          <Card aria-label="Bluesky selection outcomes">
+            <h2 className="mt-0 font-sans text-lg font-semibold">Bluesky</h2>
+            <ul className="mb-0 grid gap-3 pl-5 text-sm">
+              {edition.topics.map((item) => (
+                <li key={item.id}>
+                  <span className="font-medium">{item.name}</span>
+                  {': Bluesky: '}
+                  {item.blueskySelection
+                    ? blueskyResults[item.blueskySelection.result]
+                    : 'Outcome not recorded'}
+                  {item.blueskySelection && (
+                    <span className="block text-xs text-[var(--secondary)]">
+                      {item.blueskySelection.openSlots} open slots ·{' '}
+                      {item.blueskySelection.candidatesRead} candidates read ·{' '}
+                      {item.blueskySelection.candidatesShortlisted} shortlisted
+                      · {item.blueskySelection.postsPicked} picked
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
           </Card>
           <Card aria-label="Edition AI cost" className="min-w-0">
             <h2 className="mt-0 font-sans text-lg font-semibold">AI cost</h2>

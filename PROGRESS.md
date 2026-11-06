@@ -142,3 +142,15 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (529 unit/223 isolated integration tests); pnpm build; handbook social-posts check; git diff --check. All passed on final run.
 - Restarted API/worker/docs/schema, all active; /healthz database/Redis green, reader HTTP 200, 36/36 sources healthy, alerts clear and zero failed digest jobs.
 - Next: propagate precise budget refusal through editor/triage outcomes, then inspector; item 40 per-post validation follows. Reserved slot stays unbuilt/off; Nov 6 review after publication and X round after 21:00 UTC.
+
+## 2026-11-06: iteration 916 — Bluesky outcomes in the inspector
+
+- Started clean on main; no leftover work. Alerts clear. X round and Nov 6 edition review await their scheduled windows.
+- Admin edition inspector now shows one Bluesky outcome per topic with open slots, candidates read/shortlisted and picks. Older snapshots explicitly report missing evidence.
+- All eight stored results have plain labels; unavailable AI keeps its cause unknown. Exact budget-refusal attribution remains open; reader and selection behavior unchanged.
+- Added read-only Playwright coverage for saved editions and eight synthetic outcomes at desktop/mobile widths; saved clearly named synthetic screenshots. No writes, paid calls or external browser requests.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; handbook social-posts check; pnpm exec tsx scripts/smoke-bluesky-outcomes.ts; git diff --check. All passed: 529 unit/223 isolated integration tests.
+- Initial browser harness needed an async entry point and a text matcher including nested counts; fixed and rerun passed. Handbook length check caught 101 lines; shortened to 100 and passed.
+- Updated TASKS and affected handbook page. SOURCES and NEEDS_FROM_HUMAN unchanged: collection and owner requirements unchanged.
+- Restarted API/worker/docs/schema; /healthz database/Redis green, 36/36 sources healthy, alerts clear and zero failed digest jobs.
+- Next: exact budget-refusal attribution, then Bluesky per-post validation; Nov 6 edition review after publication and X round after 21:00 UTC. Reserved slot remains unbuilt/off; fixed X stays off.
