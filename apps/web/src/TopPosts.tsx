@@ -370,7 +370,16 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
   return (
     <article className="post-card bluesky-card">
       <p className="byline">
-        Bluesky · {post.author} ·{' '}
+        Bluesky ·{' '}
+        <a
+          href={post.url.replace(/\/post\/[^/?#]+(?:[?#].*)?$/, '')}
+          target="_blank"
+          rel="noreferrer"
+          className="text-xs font-normal hover:text-[var(--accent)]"
+        >
+          {post.author}
+        </a>{' '}
+        ·{' '}
         <time dateTime={post.publishedAt}>
           {new Date(post.publishedAt).toLocaleString(undefined, {
             dateStyle: 'medium',

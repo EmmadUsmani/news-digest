@@ -1,26 +1,3 @@
-## 2026-11-06: iteration 998 — export saved reader content for the publication review
-
-- Started clean on main; alerts clear, health/DB/Redis green. No leftover work. Latest edition remains Nov 5.
-- Reader weakness remains World's two-story breadth and thin Tech summaries; deployed fixes await Nov 6, so no further prompt tuning.
-- Owner value: the upcoming comparison can read complete saved topic text without repeatedly extracting nested API payloads or generating another edition.
-- Added an offline reader-contract export: snapshot identity/window, briefs, stories/coverage, original posts, display text, context and saved engagement.
-- Reports explicitly leave media/link inspection to the reviewer and make no quality judgment; operational fields are excluded by the reader contract.
-- Exported the actual Nov 5 reader response to /tmp: all four topics, 17 stories and 14 posts; synthetic tests separately verify preservation, privacy and empty topics.
-- No paid calls, source/schema/runtime changes, activation or service restarts during the deployment freeze. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged.
-- Next: Nov 6 reader/World/cost/Bluesky review after publication; X fresh-window test after 21:00 UTC.
-- Verification: pnpm format; pnpm lint:fix; pnpm check passed (560 unit/224 isolated integration); pnpm build passed; git diff --check. Final health green, alerts clear; API/worker active.
-
-## 2026-11-06: iteration 999 — scope publisher attribution for discovery links
-
-- Started clean on main; alerts clear, health/DB/Redis green, API/worker active. No leftover work.
-- Latest reader remains Nov 5; reviewed saved topic text. World breadth remains the largest weakness and awaits the deployed pool fix's Nov 6 output.
-- Additional reader weakness: five Tech coverage links use Google News; CNBC/Reuters reports share one hostname and collapse into one discovery label in source rows.
-- Owner value: publisher attribution would help readers see whose reporting they are opening and distinguish the outlets behind discovery feeds.
-- Added a bounded proposal in docs/ideas.md: separate publisher/discovery identity, prefer structured RSS metadata, preserve unknowns and immutable history; estimated 1–2 days.
-- Proposal only under item 38; no collection, paid calls, source/schema/runtime changes or service restarts during the deployment freeze.
-- SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Next: Nov 6 reader/World/cost/Bluesky review after publication; fresh X round after 21:00 UTC.
-- Verification: saved reader API/export and source-row implementation confirm the example; pnpm format, pnpm lint:fix and pnpm build passed. pnpm check passed (560 unit/224 isolated integration); git diff --check passed.
-
 ## 2026-11-06: iteration 1000 — scope story-to-post connections
 
 - Started clean on main; alerts clear, health/DB/Redis green, API/worker active. No leftover work.
@@ -202,3 +179,13 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check passed (560 unit/224 isolated integration); pnpm build passed; READER_BASE_URL=http://127.0.0.1:5175 pnpm exec tsx scripts/smoke-bluesky-cards.ts (desktop/mobile, light/dark); git diff --check.
 - Deployment/restarts deferred under explicit freeze; after 16:00 deploy this card fix, social editor v6 and shipper MemoryHigh=64M, then verify live. X round after 21:00; Bluesky slot OFF awaiting owner.
 - SOURCES/handbook/NEEDS_FROM_HUMAN unchanged: rendering bug only; no source or system-flow change. Archived iterations 996–997 to keep this file under 25 KB.
+
+## 2026-11-06: iteration 1016 — open Bluesky author profiles
+
+- Started clean on main; no leftover work. Alerts clear; /healthz DB/Redis OK, 13 services and 36 sources healthy.
+- Reader weakness: World’s saved Bluesky author was plain text while X author names opened their profiles. Link the author to the saved post’s profile so readers can inspect the source account.
+- Preserve encoded DID paths from saved post URLs; no lookup, collection, selection, prompt or budget changes. No paid calls.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration); pnpm build; READER_BASE_URL=http://127.0.0.1:5175 pnpm exec tsx scripts/smoke-bluesky-cards.ts (desktop/mobile light/dark, handle and encoded DID profiles); git diff --check. Mobile screenshot visually inspected.
+- Initial check stopped on formatting of the newly archived progress entry; formatted and reran. Archived iterations 998–999 to keep PROGRESS under 25 KB.
+- Deployment/restarts deferred under the explicit 13:00–16:00 UTC freeze. After 16:00 deploy pending reader fixes, social editor v6 and shipper MemoryHigh=64M, then verify live.
+- Next: X round after 21:00 UTC; Bluesky reserved slot remains OFF awaiting owner. SOURCES/handbook/NEEDS_FROM_HUMAN unchanged: rendering only, no source/system-flow/dependency changes.

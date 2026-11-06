@@ -63,6 +63,7 @@ async function main() {
         {
           ...post,
           externalId: 'synthetic-no-media',
+          url: 'https://bsky.app/profile/did%3Aplc%3Asynthetic/post/synthetic',
           media: [],
         },
       ];
@@ -115,6 +116,21 @@ async function main() {
       const cards = page.locator('.bluesky-card');
       await cards.first().scrollIntoViewIfNeeded();
       assert.equal(await cards.count(), 2);
+      const authorLink = cards
+        .first()
+        .getByRole('link', { name: post.author, exact: true });
+      assert.equal(
+        await authorLink.getAttribute('href'),
+        'https://bsky.app/profile/example.test',
+      );
+      assert.equal(await authorLink.getAttribute('target'), '_blank');
+      assert.equal(
+        await cards
+          .nth(1)
+          .getByRole('link', { name: post.author, exact: true })
+          .getAttribute('href'),
+        'https://bsky.app/profile/did%3Aplc%3Asynthetic',
+      );
       assert.match(
         await cards.first().innerText(),
         /1,200 likes · 84 reposts · 12 replies/,

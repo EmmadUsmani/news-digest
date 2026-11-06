@@ -1567,3 +1567,5 @@ ack: 2026-11-06 item 36/40/41/42 — iteration 1011: Nov 6 full-AI edition publi
 ack: 2026-11-06 item 42 — iteration 1013: saved Tech posts split two launches across five slots. Social editor v6 distinguishes accompanying launch details from separate news, preserving independently newsworthy developments. Offline verification only; deployment waits until after 16:00 UTC, and selection quality awaits the next scheduled edition. No paid calls or grouping wording rules.
 
 ack: 2026-11-06 item 42 — iteration 1015: World’s saved Bluesky post cites an article through an inert URL. Prepared clickable web links preserving original text; isolated desktop/mobile light/dark replay passes. No paid calls; deployment waits until after 16:00 UTC.
+
+ack: 2026-11-06 item 42 — iteration 1016: World’s saved Bluesky author was plain text; link it to the saved account profile so readers can inspect the source, preserving encoded DIDs. Isolated desktop/mobile light/dark replay; deployment waits until after 16:00 UTC. No paid calls.

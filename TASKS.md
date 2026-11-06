@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Bluesky author profiles (1016): link author names to the saved post’s profile, including encoded DIDs; isolated desktop/mobile light/dark replay verified. Deploy after 16:00 with the pending reader/editor/shipper changes.
+
 - [x] Bluesky cited links (1015): saved post web URLs open directly from the reader card; original text preserved. Desktop/mobile light/dark replay verified. Prepared during freeze; deploy after 16:00 with social editor v6 and shipper threshold.
 
 - [x] Nov 6 edition review (1011): World five stories versus two; all topics fully AI-edited, $0.286904/137.059 s, one distinct World Bluesky pick with desktop/mobile screenshots. Slot cost gate fails; stays OFF awaiting owner. [Review](docs/edition-reviews/2026-11-06.md).
