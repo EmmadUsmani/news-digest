@@ -209,13 +209,7 @@ void test('fixed runtime dispatches A/B ledger types and bypasses all legacy fol
   };
   await runScheduledXRuntime(dependencies, () => now);
   assert.deepEqual(styles, ['fixed-trending']);
-  assert.deepEqual(events, [
-    'trending',
-    'settle',
-    'save',
-    'verify',
-    'complete',
-  ]);
+  assert.deepEqual(events, ['trending', 'settle', 'save', 'verify']);
 });
 
 void test('fixed runtime settles before linked retry and ledger refusal prevents repeat provider work', async () => {
@@ -289,13 +283,11 @@ void test('fixed runtime settles before linked retry and ledger refusal prevents
             'settle',
             'save',
             'verify',
-            'complete',
             'admit-retry',
             'provider',
             'settle',
             'save',
             'verify',
-            'complete',
           ],
     );
     events.length = 0;

@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
+import type { ProfileSettings } from '@digest/contracts';
+
 import { database } from '../src/libs/db/connections';
 import { PostgresXDiscoveryLedger } from '../src/modules/social/database/x-discovery.ledger';
 import { PostgresXSearchRepository } from '../src/modules/social/database/x-search.repository';
@@ -8,6 +10,8 @@ import {
   validateXCaps,
   xDiscoveryCost,
 } from '../src/modules/social/domain/x-discovery-budget';
+import { XSearchError } from '../src/modules/social/domain/x-search.port';
+import { runScheduledXRuntime } from '../src/scheduled-x-runtime';
 
 const price = {
   inputPerMillion: 1.25,
@@ -828,5 +832,118 @@ void test('fixed retry admission survives restart, keeps holds and rejects compl
   } finally {
     await db.end();
     await restartedDb.end();
+  }
+});
+
+void test('keyword production runtime admits four topics and one held retry within shared caps, then stays idle after restart', async () => {
+  const db = database();
+  const restartedDb = database();
+  const ledger = new PostgresXDiscoveryLedger(db);
+  const day = new Date().toISOString().slice(0, 10);
+  const now = new Date(`${day}T14:30:00Z`);
+  const runId = `scheduled-fixed-x:keyword-rollout-proof:${new Date(`${day}T15:00:00Z`).getTime()}`;
+  const { rows: topics } = await db.query<{ id: string; name: string }>(
+    'SELECT id,name FROM topics WHERE enabled AND post_budget > 0 ORDER BY position LIMIT 4',
+  );
+  assert.equal(topics.length, 4);
+  const providerCalls: string[] = [];
+  const execute = (active: PostgresXDiscoveryLedger) =>
+    runScheduledXRuntime(
+      {
+        profile: async () =>
+          ({
+            id: 'keyword-rollout-proof',
+            schedule: {
+              cadence: '0 15 * * *',
+              timezone: 'UTC',
+              coverageWindow: 'P1D',
+              storyBudget: 5,
+              postBudget: 5,
+            },
+          }) as ProfileSettings,
+        searches: {
+          scheduledTopics: async () =>
+            topics.map((topic, index) => ({
+              ...topic,
+              guidance: '',
+              handles: ['saved-account'],
+              freePosts: index,
+            })),
+          completedOpenSearches: async () => {
+            throw new Error('Legacy followups must stay idle');
+          },
+          save: async () => {},
+        },
+        ledger: active,
+        search: {
+          search: async (request) => {
+            assert.equal(request.handles, undefined);
+            assert.equal(request.reactionStory, undefined);
+            assert.equal(request.fixedSearch?.style, 'trending');
+            providerCalls.push(request.topic);
+            if (providerCalls.length === 1) throw new XSearchError('uncertain');
+            return {
+              links: [],
+              execution: 'completed',
+              usage: {
+                inputTokens: 1,
+                outputTokens: 1,
+                postsFetched: 10,
+                profilesFetched: 0,
+              },
+            };
+          },
+        },
+        verify: async () => ({ verificationErrors: 0 }),
+        stories: async () => {
+          throw new Error('Legacy story reactions must stay idle');
+        },
+        fixed: {
+          enabled: () => true,
+          settings: async () => ({
+            reactionMinFaves: 100,
+            trendingMinFaves: 1000,
+            exclusions: [],
+          }),
+          stories: async () => {
+            throw new Error('Keywords must not read headlines');
+          },
+          availableMicros: async () => (await active.status()).availableMicros,
+        },
+      },
+      () => now,
+    );
+  try {
+    await execute(ledger);
+    assert.deepEqual(providerCalls, [
+      topics[0].name,
+      ...topics.map(({ name }) => name),
+    ]);
+    const status = await ledger.status();
+    assert.equal(status.reservedMicros, 100000);
+    assert.equal(status.todayMicros, 300016);
+    assert.equal(status.availableMicros, 99984);
+    const { rows } = await db.query<{
+      id: string;
+      status: string;
+      parent: string | null;
+    }>(
+      'SELECT status,optional_parent_id AS parent FROM x_discovery_calls WHERE run_id=$1',
+      [runId],
+    );
+    assert.equal(rows.length, 5);
+    assert.equal(rows.filter(({ parent }) => parent !== null).length, 1);
+    assert.equal(rows.filter(({ status }) => status === 'succeeded').length, 4);
+    await execute(new PostgresXDiscoveryLedger(restartedDb));
+    assert.equal(providerCalls.length, 5);
+    assert.equal((await ledger.status()).reservedMicros, 100000);
+  } finally {
+    await db.query(
+      'DELETE FROM x_discovery_calls WHERE run_id=$1 AND optional_parent_id IS NOT NULL',
+      [runId],
+    );
+    await db.query('DELETE FROM x_discovery_calls WHERE run_id=$1', [runId]);
+    await restartedDb.end();
+    await db.end();
   }
 });

@@ -1,16 +1,5 @@
 # Progress
 
-## 2026-11-06: iteration 1037 — keyboard access to reader content
-
-- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; no leftovers; health DB/Redis OK and alerts clear.
-- Added focus-only skip links before the edition/archive headers. Keyboard readers can bypass header and contents navigation, focus the first topic/archive heading and continue into content with Tab; normal layouts stay unchanged.
-- Read-only Playwright check passed desktop/mobile light/dark: first focus, visible unobscured skip link, Enter destination focus, sticky-header clearance, next content link and no horizontal overflow. Eight screenshots saved; mobile edition light and desktop archive dark visually inspected.
-- Browser checks exposed and corrected focus-only Tailwind position/padding interactions before acceptance; initial smoke wrapper corrected for the repo's CommonJS execution.
-- No external browser traffic, writes or paid calls. All 36 sources healthy; no failed retained digest runs; saved edition has four topics, 20 stories and 17 posts. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes.
-- Passed pnpm build; pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration tests, exit 0); pnpm exec tsx scripts/smoke-reader-skip-link.ts; git diff --check.
-- API/worker restarted; health DB/Redis OK and alerts clear. Archived iteration 1021 to keep PROGRESS small.
-- Next: finish final reader under item 33; fresh X round after 21:00 UTC; approved Bluesky slot activation pending. Fixed search stays OFF.
-
 ## 2026-11-06: iteration 1038 — keyboard reading after archive pagination
 
 - Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; no leftovers; alerts clear and /healthz DB/Redis OK.
@@ -165,3 +154,13 @@
 - SOURCES/TASKS updated; handbook unchanged (internal disabled-adapter fix); no human blocker.
 - pnpm format, pnpm lint:fix and pnpm build passed; lint auto-fix changed one layout, re-formatted before successful full pnpm check (562 unit/225 integration). git diff --check clean.
 - API/worker restarted; health DB/Redis OK, alerts clear, 36 sources healthy, digest queue zero failures/Nov 7 scheduled; saved edition four topics/20 stories/17 posts unchanged.
+
+## 2026-11-06: iteration 1053 — prove keyword admission and fix completion crash
+
+- Started clean on main; alerts clear, health DB/Redis OK, 36 sources healthy, no failed digest runs; no leftover work.
+- Added production-runtime/real-ledger isolated proof: four topics, retained timeout hold, one linked retry, settlement, restart and durable duplicate refusal with funds available. Fake responses only; no paid calls or edition writes.
+- Initial integration run exposed a real rollout blocker: keyword verification invoked the legacy open-search completion gate and threw. Fixed completion eligibility; official citation verification remains mandatory.
+- Proof charges $0.200016 plus $0.10 retained hold under unchanged $0.40/day cap; reconciliation restores $0.199984 and restart still makes no duplicate calls.
+- Passed focused runtime/verification tests 10/10, pnpm format, pnpm lint:fix, pnpm build and full pnpm check (562 unit/226 isolated integration; exit 0); git diff --check clean.
+- TASKS/SOURCES updated; archived iteration 1037. Handbook unchanged: bug fix, no new system flow. No human blocker.
+- Next: remove legacy open/follow-up/reaction paths, finish rollout, then activate outside 13:00–16:00 UTC. Fixed search remains OFF; three-edition acceptance open.

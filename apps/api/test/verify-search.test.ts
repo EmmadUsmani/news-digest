@@ -53,7 +53,25 @@ void test('blocked, failed, manual and secondary searches cannot unlock open adm
     verify,
     complete,
   );
-  assert.equal(verified, 3);
+  await verifySearch(
+    result,
+    {
+      ...request,
+      fixedSearch: {
+        style: 'trending',
+        settings: {
+          reactionMinFaves: 0,
+          trendingMinFaves: 100,
+          exclusions: [],
+        },
+        rankedStoryTitles: [],
+      },
+    },
+    '2026-11-03',
+    verify,
+    complete,
+  );
+  assert.equal(verified, 4);
 });
 
 void test('verification errors and persistence failures leave admission closed', async () => {

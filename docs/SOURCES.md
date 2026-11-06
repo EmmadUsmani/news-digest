@@ -2155,3 +2155,7 @@ Ten Grok 4.3 attempts settled $0.442837; 61 unique candidates all passed officia
 ## X experiment decision — iteration 1051
 
 Saved Nov 5/6 old-search baselines yield zero usable posts (38 daily citations, 31 unknown likes, seven below minimum). Keywords yield nine: Tech/NBA/Gaming 2/3/4; World zero. The approved rule passes: ship keywords and drop semantic (zero usable additions). Post-fix keyword failures remain 5/9 attempts; no additional paid calls. Fixed search stays OFF until verified production cleanup and admission rollout; caps/model/minimums unchanged. [Decision and evidence](edition-reviews/2026-11-06-x-experiment-review.md#baseline-comparison-and-decision--iteration-1051).
+
+## Keyword rollout admission proof — iteration 1053
+
+The production scheduler is now covered against the real isolated PostgreSQL ledger with fake provider responses: four topics, a retained timeout hold, one linked retry, settlement, and duplicate prevention after restart with funds available. The scenario charges $0.200016 and retains a $0.10 hold under the unchanged $0.40 daily cap. The proof exposed and fixed keyword verification calling the legacy open-search completion gate. Official citation verification still runs. No live calls or source changes; fixed search remains OFF pending legacy-path cleanup and activation.

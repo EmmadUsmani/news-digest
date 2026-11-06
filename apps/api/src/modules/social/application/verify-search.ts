@@ -15,7 +15,8 @@ export async function verifySearch(
     verification.verificationErrors === 0 &&
     scheduledDay !== undefined &&
     request.handles === undefined &&
-    request.reactionStory === undefined
+    request.reactionStory === undefined &&
+    request.fixedSearch === undefined
   )
     await complete(result.callId);
   return verification;
