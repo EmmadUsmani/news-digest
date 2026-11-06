@@ -62,14 +62,15 @@ counts and media stay unknown; a link supplies no evidence of media contents.
   posts that repeat something already picked from X.
 - **Saved selection evidence:** new editions retain each topic’s open slots,
   observations read, shortlisted candidates, picks and selection result.
-  Results separate budget refusal, editing failure and unknown causes. Invalid
-  picks are dropped individually; valid picks stay. Only wholly rejected nonempty replies
-  retry. Saved counts group drops by fields, IDs, claims and budget.
+  Results separate budget refusal, editing failure and unknown causes.
+  Valid picks survive invalid siblings. Saved drops group by fields, IDs, claims and budget.
 - **Inspect outcomes:** open **Admin → Editions → a saved edition** for each
   topic’s result and slot/candidate/pick counts.
-- **Cards** are drawn by the app, with no Bluesky script: full text, author,
-  time, counts and images. Videos link to the post.
+- **Cards:** full text, author, time, counts and images. Videos link to the post.
 - **Controls:** `BLUESKY_EDITIONS_ENABLED=0` turns inclusion off.
+  `BLUESKY_RESERVED_SLOT_ENABLED=1` holds one slot, replacing the last-ranked X
+  pick only when Bluesky qualifies. It defaults off. Saved evidence records
+  held slots and replaced X IDs; open-slot counts include holds; totals stay within budget.
 
 ## Verification and safety
 
@@ -79,7 +80,6 @@ counts and media stay unknown; a link supplies no evidence of media contents.
 - **Engagement numbers are hints, not facts.** xAI's counts are stored as
   "reported by xAI", and Bluesky's as timestamped API counts. The editor
   sees them, but relevance and distinct content come first.
-- **Execution:** requests require the X search tool before a text answer.
 - **Experiment retries:** a timeout or failed/unconfirmed search with no fetched
   posts gets one separately admitted retry. Completed empty searches never retry.
   Timeouts retain their hold; returned usage settles before retrying.

@@ -24,11 +24,35 @@ export function blueskyEditionsEnabled(
   return value === undefined || value === '1';
 }
 
+// Activation requires the saved Nov 6 cost/AI gate in STEERING 40.
+export function blueskyReservedSlotEnabled(
+  value = process.env.BLUESKY_RESERVED_SLOT_ENABLED,
+) {
+  return value === '1';
+}
+
+function availableSlots(input: {
+  budget: number;
+  selectedPosts: SelectedSocialPost[];
+  reservedSlot?: boolean;
+}) {
+  const open = Math.max(0, input.budget - input.selectedPosts.length);
+  return input.reservedSlot &&
+    input.budget > 0 &&
+    input.selectedPosts.some((post) => post.platform === 'x')
+    ? Math.max(1, open)
+    : open;
+}
+
 export function selectEditionBlueskyPosts(
   db: Pick<PoolClient, 'query'>,
   services: SocialSelectionServices | null,
-  input: Omit<Parameters<typeof prepareBlueskyEditionPosts>[2], 'enabled'>,
+  input: Omit<
+    Parameters<typeof prepareBlueskyEditionPosts>[2],
+    'enabled' | 'reservedSlot'
+  >,
 ) {
+  const reservedSlot = blueskyReservedSlotEnabled();
   if (!services)
     return Promise.resolve({
       status: blueskyEditionsEnabled()
@@ -37,13 +61,14 @@ export function selectEditionBlueskyPosts(
       posts: structuredClone(input.selectedPosts),
       model: null,
       evidence: {
-        openSlots: Math.max(0, input.budget - input.selectedPosts.length),
+        openSlots: availableSlots({ ...input, reservedSlot }),
+        ...(reservedSlot ? { reservedSlot: true } : {}),
         candidatesRead: 0,
         candidatesShortlisted: 0,
         postsPicked: 0,
         result: !blueskyEditionsEnabled()
           ? 'switched-off'
-          : input.budget <= input.selectedPosts.length
+          : availableSlots({ ...input, reservedSlot }) === 0
             ? 'no-slot'
             : 'ai-unavailable',
       } satisfies BlueskySelectionEvidence,
@@ -51,7 +76,7 @@ export function selectEditionBlueskyPosts(
   return prepareBlueskyEditionPosts(
     { observations: (...args) => readBlueskyObservations(db, ...args) },
     services,
-    { ...input, enabled: blueskyEditionsEnabled() },
+    { ...input, enabled: blueskyEditionsEnabled(), reservedSlot },
   );
 }
 export async function prepareBlueskyEditionPosts(
@@ -59,6 +84,7 @@ export async function prepareBlueskyEditionPosts(
   services: SocialSelectionServices,
   input: {
     enabled?: boolean;
+    reservedSlot?: boolean;
     topic: TriageTopic;
     policy: RelevancePolicy;
     start: Date;
@@ -74,7 +100,8 @@ export async function prepareBlueskyEditionPosts(
   evidence: BlueskySelectionEvidence;
 }> {
   const evidence: BlueskySelectionEvidence = {
-    openSlots: Math.max(0, input.budget - input.selectedPosts.length),
+    openSlots: availableSlots(input),
+    ...(input.reservedSlot ? { reservedSlot: true } : {}),
     candidatesRead: 0,
     candidatesShortlisted: 0,
     postsPicked: 0,
@@ -98,9 +125,8 @@ export async function prepareBlueskyEditionPosts(
     input.start >= input.end
   )
     throw new Error('Invalid social coverage window');
-  // Keep all existing editorial picks, especially X. Never expand the topic
-  // budget or displace an X pick to make room for the secondary platform.
-  const remaining = Math.max(0, input.budget - input.selectedPosts.length);
+  // A held slot is only consumed after a distinct Bluesky pick succeeds.
+  const remaining = availableSlots(input);
   if (!remaining) return unchanged('complete', 'no-slot');
   const existing = new Set(
     input.selectedPosts
@@ -163,9 +189,16 @@ export async function prepareBlueskyEditionPosts(
         whyItMatters,
       }),
   );
+  const retained = structuredClone(input.selectedPosts);
+  if (additions.length && retained.length + additions.length > input.budget) {
+    // editTopicPosts preserves the editor response order through preferX.
+    const lastX = retained.map((post) => post.platform).lastIndexOf('x');
+    if (input.reservedSlot && lastX >= 0)
+      evidence.replacedXPostId = retained.splice(lastX, 1)[0].externalId;
+  }
   return {
     status: 'complete',
-    posts: [...structuredClone(input.selectedPosts), ...additions],
+    posts: [...retained, ...additions],
     model: edited.model,
     evidence: {
       ...evidence,

@@ -8,6 +8,7 @@ import {
 
 import {
   blueskyEditionsEnabled,
+  blueskyReservedSlotEnabled,
   prepareBlueskyEditionPosts,
   selectEditionBlueskyPosts,
 } from '../src/modules/social/public/bluesky-edition';
@@ -401,4 +402,100 @@ void test('Bluesky dropped-post categories survive successful and failed saved o
       );
     assert.deepEqual(saved?.droppedPosts, droppedPosts);
   }
+});
+
+void test('reserved Bluesky slot defaults off and only explicit 1 enables it', () => {
+  assert.equal(blueskyReservedSlotEnabled(''), false);
+  assert.equal(blueskyReservedSlotEnabled('0'), false);
+  assert.equal(blueskyReservedSlotEnabled('true'), false);
+  assert.equal(blueskyReservedSlotEnabled('1'), true);
+});
+
+void test('held slot replaces the last X pick while preserving earlier order and saved evidence', async () => {
+  const h = harness();
+  const firstX = {
+    ...xPost,
+    externalId: 'first',
+    text: 'Higher-ranked X pick',
+  };
+  h.services.socialEditor.edit = async (
+    _topic,
+    candidates,
+    budget,
+    _runId,
+    existing,
+  ) => {
+    assert.equal(budget, 1);
+    assert.deepEqual(
+      existing?.map((post) => post.text),
+      [firstX.text, xPost.text],
+    );
+    return {
+      model: 'fake',
+      posts: [
+        {
+          id: candidates[0].id,
+          whyItMatters: 'Playable demo.',
+          rationale: 'Original footage.',
+        },
+      ],
+    };
+  };
+  const result = await prepareBlueskyEditionPosts(h.repository, h.services, {
+    ...h.input,
+    enabled: true,
+    reservedSlot: true,
+    selectedPosts: [firstX, xPost],
+  });
+  assert.deepEqual(
+    result.posts.map((post) => post.externalId),
+    [firstX.externalId, observation.externalId],
+  );
+  assert.equal(result.evidence.replacedXPostId, xPost.externalId);
+  assert.equal(result.evidence.openSlots, 1);
+  assert.equal(result.evidence.reservedSlot, true);
+  const schema =
+    digestPreviewSchema.shape.topics.element.shape.blueskySelection;
+  assert.deepEqual(schema.parse(result.evidence), result.evidence);
+});
+
+void test('held slot preserves full X picks on empty, refused or unavailable Bluesky editing', async () => {
+  for (const outcome of ['empty', 'refused', 'unavailable'] as const) {
+    const h = harness();
+    h.services.socialEditor.edit = async () =>
+      outcome === 'empty' ? { model: 'fake', posts: [] } : null;
+    if (outcome === 'refused')
+      h.services.socialEditor.editOutcome = async () => ({
+        status: 'failed',
+        failures: ['budget-refused'],
+      });
+    const result = await prepareBlueskyEditionPosts(h.repository, h.services, {
+      ...h.input,
+      budget: 1,
+      enabled: true,
+      reservedSlot: true,
+    });
+    assert.deepEqual(result.posts, [xPost]);
+    assert.equal(result.evidence.replacedXPostId, undefined);
+  }
+});
+
+void test('held slot keeps zero-budget topics idle and uses ordinary empty slots first', async () => {
+  const h = harness();
+  const zero = await prepareBlueskyEditionPosts(h.repository, h.services, {
+    ...h.input,
+    budget: 0,
+    selectedPosts: [],
+    enabled: true,
+    reservedSlot: true,
+  });
+  assert.equal(zero.evidence.result, 'no-slot');
+  assert.deepEqual(h.calls, []);
+  const result = await prepareBlueskyEditionPosts(h.repository, h.services, {
+    ...h.input,
+    enabled: true,
+    reservedSlot: true,
+  });
+  assert.equal(result.posts.length, 2);
+  assert.equal(result.evidence.replacedXPostId, undefined);
 });

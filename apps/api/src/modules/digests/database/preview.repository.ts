@@ -410,7 +410,7 @@ export class PostgresPreviewRepository
                 runId,
               },
             );
-            if (bluesky.posts.length > postSelection.posts.length) {
+            if (bluesky.evidence.postsPicked > 0) {
               postSelection.postEditorial.reason += ` Bluesky additions were separately AI edited (${bluesky.model}); the preceding selection details describe X/Reddit.`;
             }
             postSelection.posts = bluesky.posts;

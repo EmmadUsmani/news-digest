@@ -567,3 +567,41 @@ void test('X triage includes bounded author, unverified likes and media hints wi
     0,
   );
 });
+
+void test('saved X order follows editor ranking rather than input or triage order', async () => {
+  const result = await editTopicPosts(
+    {
+      socialTriage: {
+        score: async () => ({
+          scores: posts.slice(0, 3).map((post) => ({
+            id: post.externalId,
+            relevance: 8,
+            importance: 7,
+            event: 'fixture',
+            rationale: 'fixture',
+          })),
+          unscoredIds: [],
+        }),
+      },
+      socialEditor: {
+        edit: async () => ({
+          model: 'fake',
+          posts: ['2', '0', '1'].map((id) => ({
+            id,
+            whyItMatters: 'Synthetic context',
+            rationale: 'Synthetic ranking',
+          })),
+        }),
+      },
+    },
+    topic,
+    posts.slice(0, 3),
+    [],
+    3,
+    'ranking-fixture',
+  );
+  assert.deepEqual(
+    result.posts.map((post) => post.externalId),
+    ['2', '0', '1'],
+  );
+});

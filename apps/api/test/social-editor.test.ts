@@ -75,6 +75,10 @@ void test('social editor preserves post identity, isolates purpose and reuses ca
   assert.equal(h.calls[0].purpose, 'social-editor-v2');
   assert.match(h.calls[0].instructions, /Never infer virality/);
   assert.match(h.calls[0].instructions, /do not rewrite/);
+  assert.match(
+    h.calls[0].instructions,
+    /descending editorial quality, strongest first and weakest last/,
+  );
   assert.deepEqual(candidates[0].text, 'A company announced a model.');
 });
 void test('social editor uses capped Haiku fallback and reports total refusal', async () => {

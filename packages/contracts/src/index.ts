@@ -293,6 +293,8 @@ export const digestPreviewSchema = z.object({
       blueskySelection: z
         .object({
           openSlots: z.number().int().nonnegative(),
+          reservedSlot: z.boolean().optional(),
+          replacedXPostId: z.string().optional(),
           candidatesRead: z.number().int().nonnegative(),
           candidatesShortlisted: z.number().int().nonnegative(),
           postsPicked: z.number().int().nonnegative(),
