@@ -1,12 +1,3 @@
-## 2026-11-06: iteration 929 — restore archive recovery verification
-
-- Started clean on main; no leftover work. Worker scrape alert briefly pending after restart, metrics HTTP 200 and worker active; alert cleared without intervention. Health/database/Redis green.
-- Reader weakness: the existing failed-history recovery check still targeted the deleted inline history, leaving archive failure recovery unverified. Ported it to archive routes and current controls; no product behavior or content changes.
-- Browser replay uses real saved content with simulated pagination/failures: failed-page escape, retry to empty last page, return and edition opening across desktop/mobile light/dark. No writes; saved edition unchanged. Refreshed recovery screenshots.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-history-recovery.ts; git diff --check. Browser replay passed all four viewport/theme combinations; inspected mobile dark and desktop light screenshots. First full check exited 143 during integration after 543 unit passes; retry exited zero: 543 unit and 224 isolated integration tests passed, coverage completed; build passed.
-- Rebuilt/restarted API/worker/docs/schema; all active, reader HTTP 200 and health/database/Redis green. All 36 sources healthy and zero retained failed digest jobs.
-- Nov 6 World/Bluesky review and X round after 21:00 UTC remain time-gated; no paid calls or flag changes. SOURCES, handbook and NEEDS_FROM_HUMAN unchanged.
-
 ## 2026-11-06: iteration 930 — fit X embeds to reader cards
 
 - Started clean on main; no leftover work. Health/database/Redis green, alerts clear and all sources healthy. Nov 6 review/Bluesky gate and X round remain time-gated.
@@ -167,3 +158,14 @@
 - Updated TASKS; no source/system-flow change, so handbook/SOURCES unchanged.
 - Next: Nov 6 edition/Bluesky cost gate after publication; X after 21:00 UTC. Fixed search and reserved slot stay off.
 - Final pnpm check exited zero (543 unit/224 isolated integration tests); build and eight post-restart browser cases passed. Inspected mobile dark screenshot. All four app services restarted; health/database/Redis green and alerts clear.
+
+## 2026-11-06: iteration 945 — restore the main reader smoke
+
+- Started clean on main; no leftover work. Alerts clear; health/database/Redis green. Edition/Bluesky review and X round remain time-gated.
+- Existing main reader smoke still targeted removed period labels, story links and inline archive controls. Ported it to the rebuilt reader and standalone archive.
+- Checks real saved titles, summaries, image attributes, older-edition opening/reload, latest return and pagination on desktop/mobile. External requests and API writes blocked; no paid calls or product/flag changes.
+- Browser verification passed; refreshed four screenshots and inspected the mobile archive. Archived iteration 929 to keep PROGRESS under its size limit.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx scripts/smoke-ui.ts; git diff --check. Final results below.
+- Updated TASKS; no source/system-flow change, so SOURCES, handbook and NEEDS_FROM_HUMAN unchanged.
+- Next: Nov 6 edition/Bluesky review after publication; X after 21:00 UTC. Fixed search and reserved slot stay off.
+- Final pnpm check exited zero: 543 unit and 224 isolated integration tests passed; build and post-restart desktop/mobile smoke passed. API/worker/docs/schema restarted, health/database/Redis green, 36/36 sources healthy, zero failed digest jobs and alerts clear.

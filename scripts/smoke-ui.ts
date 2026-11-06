@@ -25,6 +25,13 @@ async function smoke() {
   );
   const older = history.entries.find((entry) => entry.id !== snapshot.id);
   assert.ok(older, 'Saved archive must include an older edition');
+  const previous = readerEditionSchema.parse(
+    await (
+      await fetch(`${base}/api/editions/${older.id}`, {
+        signal: AbortSignal.timeout(15000),
+      })
+    ).json(),
+  );
   const browser = await chromium.launch();
   try {
     for (const [name, width, height] of [
@@ -42,13 +49,22 @@ async function smoke() {
           writes.push(`${request.method()} ${new URL(request.url()).pathname}`);
           return route.abort();
         }
+        if (new URL(request.url()).origin !== base) return route.abort();
         return route.continue();
       });
       const expectEdition = async (id: string) => {
-        await page
-          .locator('.period')
-          .filter({ hasText: id.slice(0, 8) })
-          .waitFor();
+        await page.waitForURL(
+          id === snapshot.id ? `${base}/` : `**/editions/${id}`,
+        );
+        const expected = id === snapshot.id ? snapshot : previous;
+        await page.locator('.digest-topic').last().waitFor();
+        for (const topic of expected.topics) {
+          for (const story of topic.stories) {
+            const link = page.locator(`[id="story-${story.id}"] h3 a`);
+            await link.waitFor();
+            assert.equal(await link.textContent(), story.title);
+          }
+        }
       };
       await page.goto(base);
       await expectEdition(snapshot.id);
@@ -62,12 +78,9 @@ async function smoke() {
         });
         for (const story of topic.stories) {
           const item = article.locator(`[id="story-${story.id}"]`);
+          assert.equal(await item.locator('h3 a').textContent(), story.title);
           assert.equal(
-            await item.locator(':scope > a').textContent(),
-            story.title,
-          );
-          assert.equal(
-            await item.locator(':scope > a').getAttribute('href'),
+            await item.locator('h3 a').getAttribute('href'),
             story.url,
           );
           if (story.summary)
@@ -92,30 +105,28 @@ async function smoke() {
         path: `docs/screenshots/foundation-${name}.png`,
         fullPage: true,
       });
-      await page.getByText('Browse saved editions', { exact: true }).click();
-      await page
-        .locator(`.edition-history a[href="/editions/${older.id}"]`)
-        .click();
+      await page.getByRole('link', { name: 'Browse past editions' }).click();
+      await page.locator(`main a[href="/editions/${older.id}"]`).click();
       await page.waitForURL(`**/editions/${older.id}`);
       await expectEdition(older.id);
       await page.reload();
       await expectEdition(older.id);
-      await page.getByText('Browse saved editions', { exact: true }).click();
+      await page.getByRole('link', { name: 'Browse past editions' }).click();
       await page
-        .getByRole('button', { name: 'Open latest edition', exact: true })
+        .getByRole('link', { name: 'News Digest', exact: true })
         .click();
       await expectEdition(snapshot.id);
+      await page.getByRole('link', { name: 'Browse past editions' }).click();
+      await page.getByRole('heading', { name: 'Past editions' }).waitFor();
       if (history.hasMore) {
-        await page
-          .getByRole('button', { name: 'Older editions', exact: true })
-          .click();
+        await page.getByRole('link', { name: 'Older editions' }).click();
         await page.getByText('Page 2', { exact: true }).waitFor();
-        await page
-          .getByRole('button', { name: 'Newer editions', exact: true })
-          .click();
+        await page.getByRole('link', { name: 'Newer editions' }).click();
         await page.getByText('Page 1', { exact: true }).waitFor();
       }
-      await page.locator('.edition-history summary').scrollIntoViewIfNeeded();
+      await page
+        .getByRole('heading', { name: 'Past editions' })
+        .scrollIntoViewIfNeeded();
       await page.screenshot({ path: `docs/screenshots/history-${name}.png` });
       assert.equal(await page.getByRole('heading', { level: 1 }).count(), 1);
       assert.equal(
