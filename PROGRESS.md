@@ -1,12 +1,3 @@
-## 2026-11-06: iteration 931 — keep the active mobile topic visible
-
-- Started clean on main; no leftover work. Alerts clear and health/database/Redis green. Nov 6 edition/Bluesky review and X round remain time-gated.
-- Read the latest saved edition: Tech/NBA/Gaming have five stories; World has two stories/one post, awaiting the deployed pool fix’s Nov 6 evidence. No further selection change before that evidence.
-- Reader weakness reproduced: scrolling to World left its active mobile chip clipped outside the topic bar. The owner can now see the current topic while reading; scroll only the chip row, preserving vertical reading position.
-- Saved-edition browser check failed before the fix and passed afterward at 390px/320px light/dark; covers forward/backward reading, visible Contents control and no horizontal page overflow. No writes, paid calls or flag changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-topic-chips.ts; smoke-reader-layout.ts; git diff --check. Browser checks passed; refreshed/inspected light/dark screenshots. First full check exited 143 during integration after 543 unit passes; retry exited zero with 543 unit/224 isolated integration tests passing and coverage completed. Build passed.
-- Rebuilt/restarted API/worker/docs/schema; all active, reader HTTP 200, health/database/Redis green, alerts clear, 36 sources healthy and zero retained failed jobs. TASKS and STEERING ack updated; no source/system-flow changes, so SOURCES, handbook and NEEDS_FROM_HUMAN unchanged. Next: Nov 6 World/cost/Bluesky review after publication; X round after 21:00 UTC.
-
 ## 2026-11-06: iteration 932 — preserve archive browsing after refresh failure
 
 - Started clean on main; no leftover work. Alerts clear and health/database/Redis green. Nov 6 edition/Bluesky review and X round remain time-gated.
@@ -171,3 +162,13 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (543 unit/224 isolated integration tests); pnpm build; pnpm exec tsx scripts/smoke-reader-layout.ts before/after restart; pnpm exec tsx scripts/check-handbook.ts 08-operations; git diff --check. All passed; desktop screenshot inspected.
 - API/worker/docs/schema restarted; health/database/Redis green, 36/36 sources healthy, no failed digest jobs, alerts clear.
 - Next: Nov 6 edition/Bluesky cost review after publication; fresh X round after 21:00 UTC.
+
+## 2026-11-06: iteration 947 — verify on-demand recovery in both themes
+
+- Started clean on main; alerts clear, health/database/Redis green, 36/36 sources healthy and no failed digest-generation jobs. Higher-priority edition/X reviews remain time-gated.
+- Existing admin recovery check passed desktop/mobile but omitted dark mode; extended the existing timeout/reconnect/reload/completion/failure replay to both themes and blocked external traffic. No product behavior change.
+- Refreshed recovery screenshots; inspected desktop dark warning/link/progress. All queue submissions are intercepted simulations against saved operational snapshots; no paid calls, publication, settings or flag changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx scripts/smoke-edition-jobs.ts; git diff --check. Initial full check/browser run terminated with 143 (543 unit passes); retries recorded below.
+- Updated TASKS and archived iteration 931 to keep PROGRESS small. No source/system-flow change; handbook, SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Next: Nov 6 World/cost/Bluesky review after publication; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.
+- Final retry exited zero: 543 unit/224 isolated integration tests passed; build and four-view recovery replay passed. API/worker/docs/schema restarted active; health/database/Redis green, all 36 sources healthy and alerts clear. Post-restart smoke-ui.ts passed saved reader content/archive/navigation with no writes or browser errors.

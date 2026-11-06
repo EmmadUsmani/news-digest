@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] On-demand edition recovery (947): desktop/mobile light/dark browser replay covers uncertain queue responses, reload, reconnect, malformed status, completion and failure; all generation intercepted, external traffic blocked.
+
 - [x] Desktop Contents headlines (946): long saved headlines wrap fully in the sidebar; saved-edition clipping and keyboard navigation verified in light/dark.
 
 - [x] Main reader smoke (945): ported saved story, summary, image, archive and reload checks to the rebuilt reader; blocks external widgets and API writes.

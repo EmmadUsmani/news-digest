@@ -1,0 +1,8 @@
+## 2026-11-06: iteration 931 — keep the active mobile topic visible
+
+- Started clean on main; no leftover work. Alerts clear and health/database/Redis green. Nov 6 edition/Bluesky review and X round remain time-gated.
+- Read the latest saved edition: Tech/NBA/Gaming have five stories; World has two stories/one post, awaiting the deployed pool fix’s Nov 6 evidence. No further selection change before that evidence.
+- Reader weakness reproduced: scrolling to World left its active mobile chip clipped outside the topic bar. The owner can now see the current topic while reading; scroll only the chip row, preserving vertical reading position.
+- Saved-edition browser check failed before the fix and passed afterward at 390px/320px light/dark; covers forward/backward reading, visible Contents control and no horizontal page overflow. No writes, paid calls or flag changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-topic-chips.ts; smoke-reader-layout.ts; git diff --check. Browser checks passed; refreshed/inspected light/dark screenshots. First full check exited 143 during integration after 543 unit passes; retry exited zero with 543 unit/224 isolated integration tests passing and coverage completed. Build passed.
+- Rebuilt/restarted API/worker/docs/schema; all active, reader HTTP 200, health/database/Redis green, alerts clear, 36 sources healthy and zero retained failed jobs. TASKS and STEERING ack updated; no source/system-flow changes, so SOURCES, handbook and NEEDS_FROM_HUMAN unchanged. Next: Nov 6 World/cost/Bluesky review after publication; X round after 21:00 UTC.
