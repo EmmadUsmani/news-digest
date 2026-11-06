@@ -1,28 +1,3 @@
-## 2026-11-06: iteration 994 — scope earlier on-demand reading
-
-- Started clean on main; health/DB/Redis green, alerts clear, API/worker active. No leftover work.
-- Highest content weakness remains World breadth; deployed fix awaits the 15:00 edition. X test waits until 21:00; no repeated content audit.
-- Owner value: scoped a way to start reading finished stories during the measured 152-second on-demand wait, instead of another internal documentation polish.
-- Added an owner-review idea: private work-in-progress stories, separate from the immutable archive, with access/failure rules and 2–4 day effort estimate.
-- Checked generation boundaries: stories precede social selection, but the repeatable-read transaction prevents draft writes through that transaction from becoming visible early.
-- Reproduced saved timeline: first post-selection stage 87.337 s, all four by 110.730 s, publication span 152.273 s. No speedup claimed or live calls made.
-- Proposal only; no runtime, source, schema, prompt, budget or provider changes. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged.
-- Deployment freeze honored: no service restarts. Archived iteration 978 to retain progress size limit.
-- Verification results follow. Next: Nov 6 edition/World/full-AI/cost/Bluesky review after publication; deployments after 16:00; X round after 21:00.
-- Verification: pnpm format; pnpm lint:fix; pnpm check exit 0 (555 unit/224 isolated integration tests); pnpm build; targeted Prettier and git diff --check passed. Health green, 36 sources healthy, no failed digest jobs; alerts clear.
-
-## 2026-11-06: iteration 995 — bound the discovery-evidence proposal
-
-- Started clean on main; health/DB/Redis green and alerts clear. No leftover work.
-- Largest reader weakness remains World breadth; its deployed fix awaits publication. Thin Tech evidence is the next unresolved content gap; no repeat audit or prompt tuning.
-- Owner value: the richer-evidence proposal now has a bounded first version and a 3–5 day estimate, so the owner can assess a concrete route to more informative summaries.
-- Verified HN retains destination URLs but reads only item text; ingestion upserts overwrite excerpts; editor input truncates excerpts to 600 characters.
-- Scoped five-link HN metadata pilot, separate provenance/cache, background collection and pre-scoring evidence choice. Google News resolution/full-body extraction excluded.
-- HTTP review found process-local cache and per-request timeout; proposal explicitly requires a whole-job bound and durable results.
-- Proposal only: no external destination requests, paid calls, runtime/schema/source changes or service restarts during 13:00–16:00 freeze. SOURCES/NEEDS_FROM_HUMAN unchanged.
-- Verification results follow. Next: Nov 6 quality/cost/Bluesky review after publication; X round after 21:00 UTC.
-- Verification: pnpm format; pnpm lint:fix; pnpm check exit 0 (555 unit/224 isolated integration tests); pnpm build; targeted Prettier and git diff --check passed. Health green, 36 sources healthy, no failed digest jobs, alerts clear. Archived iterations 979–980 and completed task markers.
-
 ## 2026-11-06: iteration 996 — define evidence-pilot decision criteria
 
 - Started clean on main; health/DB/Redis green, alerts clear, API/worker active. No leftover work.
@@ -216,3 +191,15 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration); pnpm build; git diff --check passed.
 - Reader weakness remains Tech's repeated launch posts; no editorial change or new evidence this iteration. SOURCES/handbook/NEEDS_FROM_HUMAN unchanged.
 - Alert cleared at 15:08:50 UTC after metric refresh; zero firing/pending. Persistent shipper threshold after 16:00, then Tech repetition; fresh X round after 21:00.
+
+## 2026-11-06: iteration 1013 — distinguish launch details from separate post news
+
+- Started clean on main; no leftover work. Alerts clear; /healthz, 13 services and 36 sources healthy.
+- Owner value: stop spending all five Tech post slots on different details of two launches.
+- Read all five saved Tech originals: Inkling training/specs/weights; GPT-6 Cyber announcement/Firefox findings/infrastructure access.
+- Cause: v5 says one post per announcement but permits distinct developments without defining launch details. v6 explicitly treats specifications, training, benchmarks, access and rollout details as one announcement; separate events remain eligible.
+- No wording-based grouping, selection schema, caps, sources, collection or paid calls changed. Prompt fingerprint changes through existing cache handling.
+- Prepared correction only: no deployment/restart during 13:00–16:00 freeze. Next iteration must deploy after 16:00; actual quality remains unmeasured until a future edition.
+- Initial targeted run found the expected stale v5 assertion; updated to v6. Full verification recorded below.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration); pnpm build; targeted social editor/selection tests 25/25; git diff --check. Health/DB/Redis and alerts remain green. Archived iterations 994–995 to keep this file small.
+- Next: deploy this correction and MemoryHigh=64M after 16:00; X round after 21:00. Bluesky reserved slot and fixed search remain OFF. SOURCES/handbook unchanged (no source or system-flow change).

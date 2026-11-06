@@ -74,7 +74,7 @@ void test('social editor preserves post identity, isolates purpose and reuses ca
   assert.equal(h.calls.length, 1);
   assert.equal(h.calls[0].purpose, 'social-editor-v2');
   assert.match(h.calls[0].instructions, /Never infer virality/);
-  assert.match(h.calls[0].instructions, /Social editor v5/);
+  assert.match(h.calls[0].instructions, /Social editor v6/);
   assert.match(
     h.calls[0].instructions,
     /essential news appears only in an unseen/,

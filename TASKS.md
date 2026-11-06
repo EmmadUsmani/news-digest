@@ -45,4 +45,4 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 - Earlier steps 995–1006: [completed markers](docs/progress-archive/2026-11-06-reader-done-1007.md).
 
-- Next: fresh X round after 21:00 UTC; reserved Bluesky slot awaits owner after failed Nov 6 cost gate. Tech post repetition is the largest remaining reader weakness in the Nov 6 review. Fixed search stays off.
+- Next: fresh X round after 21:00 UTC; reserved Bluesky slot awaits owner after failed Nov 6 cost gate. Tech repetition correction prepared (1013): social editor v6 distinguishes launch details from independently newsworthy developments; deploy/restart after 16:00 UTC, then inspect next scheduled picks. Fixed search stays off.
