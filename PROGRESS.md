@@ -1,29 +1,3 @@
-## 2026-11-06: iteration 979 — retain the summary's central development
-
-- Started clean on main; health/database/Redis green, alerts clear; no leftover work.
-- Read all four saved topics; Nov 6 edition/X review remains time-gated. Reader weakness: Porziņģis summary only says he is absent, omitting the reported salary withholding in the headline.
-- Owner value: summaries explain the news independently instead of offering only secondary background.
-- Editor v9 requires the central supported headline development, using title evidence when the excerpt omits it and preserving attribution/uncertainty. Existing factual guards remain intact.
-- Offline contract covers title/excerpt transport, accepted synthetic output and guidance on Sonnet/capped Haiku; it does not establish actual model compliance. Compare Nov 6 output.
-- Updated purpose/cache version, synthetic golden expectations and publication fingerprint from exact unchanged fixture input; response/golden payloads unchanged. No live recordings or paid calls.
-- First targeted check caught a one-bullet synthetic fixture violating the existing two-bullet minimum; corrected fixture. Fingerprint regeneration verified old input match before replacing the key.
-- TASKS/item 42 ack updated; archived oldest progress entry. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged: editorial guidance only.
-- Verification: targeted editor tests 17/17; pnpm format; pnpm lint:fix; pnpm check (552 unit/224 isolated integration tests); pnpm build; git diff --check. No UI change, so no browser replay.
-- Next: Nov 6 World/cost/Bluesky and editorial review after 15:00 UTC; X round after 21:00 UTC.
-- API/worker/docs/schema restarted; health/database/Redis green, alerts clear, all 36 monitored sources healthy and zero failed digest jobs.
-
-## 2026-11-06: iteration 980 — one publisher per coverage report
-
-- Started clean on main; health/database/Redis green and alerts clear; no leftover work.
-- Read all four saved topics. Nov 6 edition and X work remain time-gated.
-- Reader weakness: expanded World reports repeat Guardian US/World source labels for one article, making coverage harder to scan.
-- Display one publisher label per report; all report titles, URLs and timestamps remain intact. No saved data, selection, source or spend changes.
-- Extended saved-edition browser replay to verify each report's source label and unchanged full report links on desktop/mobile light/dark; refreshed coverage screenshots.
-- Updated TASKS, item 42 ack and affected operations handbook; archived oldest progress entry. SOURCES/NEEDS_FROM_HUMAN unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check. Final results below.
-- Next: Nov 6 editorial/World/cost/Bluesky review after 15:00 UTC; X round after 21:00 UTC. Fixed search remains off.
-- Final results: 552 unit/224 isolated integration tests passed; build, handbook and four-view browser replay passed. Inspected mobile coverage screenshot. API/worker/docs/schema restarted; health green, alerts clear, 36 sources healthy.
-
 ## 2026-11-06: iteration 981 — original headlines for single-report stories
 
 - Started clean on main; health/database/Redis green, alerts clear; no leftover work.
@@ -200,3 +174,15 @@
 - Deployment freeze honored: no service restarts. Archived iteration 978 to retain progress size limit.
 - Verification results follow. Next: Nov 6 edition/World/full-AI/cost/Bluesky review after publication; deployments after 16:00; X round after 21:00.
 - Verification: pnpm format; pnpm lint:fix; pnpm check exit 0 (555 unit/224 isolated integration tests); pnpm build; targeted Prettier and git diff --check passed. Health green, 36 sources healthy, no failed digest jobs; alerts clear.
+
+## 2026-11-06: iteration 995 — bound the discovery-evidence proposal
+
+- Started clean on main; health/DB/Redis green and alerts clear. No leftover work.
+- Largest reader weakness remains World breadth; its deployed fix awaits publication. Thin Tech evidence is the next unresolved content gap; no repeat audit or prompt tuning.
+- Owner value: the richer-evidence proposal now has a bounded first version and a 3–5 day estimate, so the owner can assess a concrete route to more informative summaries.
+- Verified HN retains destination URLs but reads only item text; ingestion upserts overwrite excerpts; editor input truncates excerpts to 600 characters.
+- Scoped five-link HN metadata pilot, separate provenance/cache, background collection and pre-scoring evidence choice. Google News resolution/full-body extraction excluded.
+- HTTP review found process-local cache and per-request timeout; proposal explicitly requires a whole-job bound and durable results.
+- Proposal only: no external destination requests, paid calls, runtime/schema/source changes or service restarts during 13:00–16:00 freeze. SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Verification results follow. Next: Nov 6 quality/cost/Bluesky review after publication; X round after 21:00 UTC.
+- Verification: pnpm format; pnpm lint:fix; pnpm check exit 0 (555 unit/224 isolated integration tests); pnpm build; targeted Prettier and git diff --check passed. Health green, 36 sources healthy, no failed digest jobs, alerts clear. Archived iterations 979–980 and completed task markers.

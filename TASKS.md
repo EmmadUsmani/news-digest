@@ -39,31 +39,9 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Reader wait proposal (994): scoped a private on-demand work-in-progress reading view, including transaction visibility, access, failure handling and estimated effort. [Owner-review idea](docs/ideas.md#read-finished-stories-while-posts-are-still-being-selected); no feature built or runtime change.
+- [x] Discovery evidence scope (995): estimated a bounded HN metadata pilot, separate evidence storage and pre-scoring integration in [ideas](docs/ideas.md#bounded-first-version-and-effort-estimate); 3–5 days, proposal only, no requests or runtime changes.
 
-- [x] Migration directory guide (993): repository map now includes generated Drizzle migrations and explains the ordered runner/shared ledger, with links to the migration policy.
-
-- [x] Owner database guidance (992): removed the stale in-progress ORM status and adapter inventory from the runtime handbook; it now describes completed Drizzle access and links to the boundary/migration policy.
-
-- [x] Reader heading navigation (991): a dated page heading identifies the saved edition to screen-reader users before topic headings; desktop/mobile light/dark reader checks cover it.
-
-- [x] Bluesky reader verification (990): repaired stale context-stripping assertion; browser replay checks visible reader notes and private selection reasons across desktop/mobile light/dark. Synthetic screenshots refreshed; no runtime change.
-
-- [x] Thin Tech evidence (989): checked saved OpenSSH/Google News exploit coverage and ingestion fixtures; no dropped excerpt found. Destination enrichment remains deferred; scoped reader-value proposal in [ideas](docs/ideas.md), pending owner review and today's output.
-
-- [x] Reader post notes (988): removed the repeated “Digest context” heading; saved commentary remains visually separate below each original post.
-
-- [x] Pre-publication reader handoff (987): reread all 17 summaries/14 posts/14 brief bullets; World breadth remains the largest weakness, with its cause already addressed pending publication. [Comparison checklist](docs/edition-reviews/2026-11-05-reader.md#nov-6-pre-publication-handoff--iteration-987) separates deployed fixes from actual Nov 6 quality evidence; no further speculative tuning.
-
-- [x] X post recovery copy (986): loading/retry names the whole post, and failure points readers to the original when saved text is incomplete.
-
-- [x] Supported pronouns (985): editor v11 uses names or roles when sources do not establish pronouns; fixes unsupported personal detail in the saved Sony summary for future editions. Actual output awaits publication.
-
-- [x] Release qualifications (984): editor v10 preserves supported practical limitations in headlines and summaries; GTA 6 early-store wording exposed the missing playable-access qualification. Offline contract verified; assess actual Nov 6 output.
-
-- [x] Discovery attribution (983): source links mark Hacker News and Google News with “via”, distinguishing discovery feeds from reporting outlets in story rows and expanded reports.
-
-- [x] Supporting report links (982): reader article disclosures include all saved editorial citations, including reports outside the selected coverage group; saved snapshots stay unchanged.
+- Earlier steps 982–994: [completed markers](docs/progress-archive/2026-11-06-reader-done-995.md).
 
 - Earlier reader steps through 981: [completed markers](docs/progress-archive/2026-11-06-reader-done-982.md).
 

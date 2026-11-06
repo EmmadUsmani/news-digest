@@ -16,6 +16,41 @@
   More fluent summaries alone cannot add facts absent from the supplied evidence.
 - Status: proposal only; no collection, source, budget or runtime change.
 
+### Bounded first version and effort estimate
+
+- Start with direct HN destination links with empty excerpts. HN already saves
+  the destination URL, but its adapter reads only the HN item's own `text`.
+  Google News redirect resolution is separate work; exclude it from this pilot.
+- Proposed first version: collect publisher-provided HTML description metadata,
+  rather than full article bodies, for at most five eligible Tech links per
+  edition window. Skip missing, blocked or unhelpful descriptions and retain
+  the original evidence. Metadata can still repeat a headline; it cannot
+  guarantee a useful summary. No browser automation or access workaround.
+- Reuse the HTTP port's public-address checks, redirect validation, host pacing
+  and response bounds. Add an explicit per-window request/time allowance and
+  durable URL/result cache: the current HTTP cache is process-local, and its
+  20-second timeout applies per request, so it alone cannot bound pilot latency.
+  Run collection outside the publication transaction and finish before candidate
+  scoring; do not extend the scheduled edition's critical path with page fetches.
+- Preserve the feed excerpt, publisher URL, retrieved description and retrieval
+  time separately. Ingestion upserts currently replace the main excerpt, so
+  overwriting it would lose provenance and risk erasing enrichment on refresh.
+  Any approved schema change needs migration, schema metadata and handbook updates.
+- The story editor currently consumes at most 600 excerpt characters per
+  candidate. Choose the evidence before scoring/cache fingerprinting and preserve
+  that limit for the pilot. Extra input tokens still cost money even without an
+  extra model call; estimate token deltas offline on the actual candidate payload
+  before enabling collection, within the unchanged cap and edition reserve.
+- Engineering estimate: 3–5 days for the port/metadata adapter, durable evidence
+  storage, bounded background job, selection wiring and recorded HTTP/DB replay
+  checks. Publisher body extraction and Google News resolution are outside this
+  estimate. No new vendor fee; actual HTTP volume, useful-description rate and
+  token cost remain unmeasured because no destination requests were made.
+- Acceptance if approved: saved evidence adds a supported fact beyond the
+  headline on the target sample, retains publisher attribution, survives a feed
+  refresh, and leaves blocked/missing pages usable with the original evidence.
+  Compare Nov 6 first; this pilot needs owner approval under items 38 and 42.
+
 ## Read finished stories while posts are still being selected
 
 - Reader problem: an on-demand edition shows progress until the complete
