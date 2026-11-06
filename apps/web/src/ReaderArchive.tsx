@@ -23,7 +23,11 @@ export function ReaderArchive() {
         {history.isPending && <p role="status">Loading editions…</p>}
         {history.isError && (
           <div role="alert" className="mt-6">
-            <p>Could not load past editions.</p>
+            <p>
+              {history.data
+                ? 'Past editions could not be refreshed. Showing saved links already loaded.'
+                : 'Could not load past editions.'}
+            </p>
             <Button onClick={() => void history.refetch()}>Try again</Button>
           </div>
         )}
@@ -78,7 +82,7 @@ export function ReaderArchive() {
             <span />
           )}
           <span className="text-[var(--secondary)]">Page {page}</span>
-          {history.data?.hasMore && !history.isError ? (
+          {history.data?.hasMore ? (
             <Link
               to="/editions"
               search={{ page: page + 1 }}

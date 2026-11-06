@@ -1,27 +1,3 @@
-## 2026-11-06: iteration 918 — call-scoped AI failure outcomes
-
-- Started clean on main; no leftover work. Alerts clear, health green, 36/36 sources healthy and no failed digest jobs. X round and edition review await their windows.
-- Added typed JSON outcomes for budget refusal, provider spend limit, transport failure, exhausted validation and repair input limit; successful outcomes retain validated values.
-- Coalesced requests share the outcome, including across run IDs; nullable callers keep existing behavior. Refusals do not poison later funded calls, and cached success remains usable without funds.
-- This is the shared evidence path for item 40, not saved Bluesky attribution yet. No paid calls, selection, prompt, collection, cap or schema changes.
-- Added offline coverage for coalesced causes, mixed old/new callers, later funding, cached success and a refused repair. Targeted llm.test.ts: 27 passed.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (533 unit/223 isolated integration tests); pnpm build; git diff --check. All passed.
-- Restarted API/worker/docs/schema; all active, /healthz database/Redis green, reader HTTP 200, 36/36 sources healthy and alerts clear.
-- TASKS condensed; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged because this is internal result plumbing.
-- Next: carry jsonOutcome through social triage/editor and persist Bluesky budget-refused results; then item 41 alerts. Nov 6 review after publication, X round after 21:00 UTC; reserved slot and fixed search stay off.
-
-## 2026-11-06: iteration 919 — save Bluesky budget-refusal outcomes
-
-- Started clean on main; no leftover work. Alerts clear, health green, 36/36 sources healthy and zero failed digest jobs. Edition review/X round await their windows.
-- Carried call-scoped AI outcomes through social triage and editor fallback into saved Bluesky selection evidence; inspector now labels budget refusal explicitly.
-- Mixed validation/refusal reports editing failure, successful Haiku recovery stays complete, and legacy nullable adapters retain unknown causes. No inference from shared diagnostics.
-- Added offline coverage for exact refusals, mixed failures, fallback recovery, cached triage preservation and saved-schema round trips. No paid calls, prompts, selection, collection or budget changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 05-social-posts; smoke-bluesky-outcomes.ts; git diff --check. All passed: 535 unit/223 isolated integration tests.
-- Browser passed saved compatibility and nine synthetic states at desktop/mobile widths; inspected updated screenshots. Handbook limit initially caught 101 lines; shortened and passed.
-- Updated TASKS/affected handbook; archived iterations 905–906. SOURCES/NEEDS_FROM_HUMAN unchanged because collection and owner requirements are unchanged.
-- Rebuilt/restarted API/worker/docs/schema; all active, /healthz database/Redis green, reader HTTP 200, 36/36 sources healthy, no failed digest jobs and alerts clear.
-- Next: item 41 durable saved-edition alerts, then per-post validation. Nov 6 review after publication; X round after 21:00 UTC. Reserved slot and fixed X stay off.
-
 ## 2026-11-06: iteration 920 — durable Bluesky edition alerts
 
 - Started clean on main; no leftover work. Health green, 36/36 sources healthy, no failed digest jobs and alerts clear. Higher-priority reviews await publication/21:00 UTC.
@@ -152,3 +128,13 @@
 - Saved-edition browser check failed before the fix and passed afterward at 390px/320px light/dark; covers forward/backward reading, visible Contents control and no horizontal page overflow. No writes, paid calls or flag changes.
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-topic-chips.ts; smoke-reader-layout.ts; git diff --check. Browser checks passed; refreshed/inspected light/dark screenshots. First full check exited 143 during integration after 543 unit passes; retry exited zero with 543 unit/224 isolated integration tests passing and coverage completed. Build passed.
 - Rebuilt/restarted API/worker/docs/schema; all active, reader HTTP 200, health/database/Redis green, alerts clear, 36 sources healthy and zero retained failed jobs. TASKS and STEERING ack updated; no source/system-flow changes, so SOURCES, handbook and NEEDS_FROM_HUMAN unchanged. Next: Nov 6 World/cost/Bluesky review after publication; X round after 21:00 UTC.
+
+## 2026-11-06: iteration 932 — preserve archive browsing after refresh failure
+
+- Started clean on main; no leftover work. Alerts clear and health/database/Redis green. Nov 6 edition/Bluesky review and X round remain time-gated.
+- Read saved topic headlines: World remains two stories/one post awaiting the deployed pool fix; known Tech grouping issue awaits editor-v5 evidence. No new selection change before publication.
+- Reader weakness: the rebuilt archive called background refresh failure an initial loading failure and hid older-page navigation despite retaining saved links. Preserve pagination and explain that loaded links remain usable; the owner can continue browsing during a refresh outage.
+- Ported obsolete inline-history refresh replay to the archive. Saved-content browser checks passed desktop/mobile light/dark: simulated 503, unchanged links, pagination, retry and opening a saved edition. No writes, browser errors or paid calls; screenshots updated/inspected.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-history-refresh.ts; smoke-reader-archive.ts; git diff --check. Build/browser checks passed. First full check exited 143 during integration after 543 unit passes; full retry and final service results recorded below.
+- Archived iterations 918–919 to keep PROGRESS small; updated TASKS/STEERING ack. No source or system-flow change; SOURCES, handbook and NEEDS_FROM_HUMAN unchanged. Experimental flags stay OFF.
+- Full retry exited zero: 543 unit/224 isolated integration tests passed, coverage completed. Rebuilt/restarted API/worker/docs/schema; all active, reader HTTP 200, health/database/Redis green and alerts clear. 36/36 sources healthy and zero retained failed jobs. Next: Nov 6 World/cost/Bluesky review after publication and X round after 21:00 UTC.
