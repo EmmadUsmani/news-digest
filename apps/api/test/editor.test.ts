@@ -421,11 +421,61 @@ void test('headline-only evidence accepts a concise attributed summary without r
     const result = await h.editor.edit(topic, thin, 1, 'thin-source');
     assert.deepEqual(result?.stories, output.stories);
     assert.equal(h.calls.length, 1);
-    assert.equal(h.calls[0].purpose, 'shortlist-editor-v6');
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v7');
     assert.match(h.calls[0].instructions, /one sentence for thin evidence/);
     assert.match(
       h.calls[0].instructions,
       /describe the news, not the supplied inputs/,
+    );
+    assert.deepEqual(h.diagnostics(), []);
+  }
+});
+
+void test('brief guidance reaches both editors without changing saved factual bullets', async () => {
+  const second = {
+    id: 'two',
+    title: 'A patch',
+    excerpt: 'Publisher reports a security patch was released.',
+    sources: ['Publisher'],
+  };
+  const output = {
+    brief: [
+      'A company launched a model.',
+      'Publisher reports a security patch release.',
+    ],
+    stories: [
+      story,
+      {
+        ...story,
+        id: 'two',
+        evidenceIds: ['two'],
+        headline: 'Security patch released',
+        summary: second.excerpt,
+      },
+    ],
+  };
+  for (const refused of [[], ['claude-sonnet-5-5']]) {
+    const h = harness([output], refused);
+    const result = await h.editor.edit(
+      topic,
+      [...candidates, second],
+      2,
+      'compact-brief',
+    );
+    assert.deepEqual(result?.brief, output.brief);
+    assert.equal(h.calls.length, 1);
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v7');
+    assert.match(
+      h.calls[0].instructions,
+      /not a copied list of the story headlines/,
+    );
+    assert.match(
+      h.calls[0].instructions,
+      /any necessary attribution or uncertainty/,
+    );
+    assert.match(
+      h.calls[0].instructions,
+      /Keep unrelated events distinct even in the brief/,
     );
     assert.deepEqual(h.diagnostics(), []);
   }

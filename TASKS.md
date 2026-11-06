@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Compact briefs (976): editor v7 requests a factual overview instead of copying the following story headlines; all 14 saved Nov 5 bullets were exact headline copies. Confirm Nov 6 output after publication.
+
 - [x] Optional post context (975): social editor accepts an empty reader note for self-explanatory posts instead of requiring a paraphrase; translations remain useful context. Verify repetition in Nov 6 picks.
 
 - [x] Concrete social news (974): social editor v3 favors supplied developments over teasers whose news is only in unseen media; concrete highlight stat lines remain eligible. Verify actual Gaming picks in Nov 6 edition.

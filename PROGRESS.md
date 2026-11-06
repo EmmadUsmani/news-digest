@@ -1,18 +1,3 @@
-## 2026-11-06: iteration 962 — open X authors from saved post bylines
-
-- Started clean on main; alerts clear and health/database/Redis green. No leftover work.
-- Read all four saved topics; World breadth/Tech grouping await Nov 6 publication; X round waits until 21:00 UTC.
-- Investigated Tech's article-like Oumi post: text is from the verified embed; no ingestion mismatch established.
-- Reader weakness: X author names were plain text, preventing inspection of unfamiliar accounts without opening the post first.
-- Link X author names to saved author URLs; preserve compact byline typography and original post text/context.
-- Owner value: inspect who posted directly, even when external media cannot load.
-- Extended saved-edition replay with author URL, new-tab/privacy, keyboard focus and font-size checks in four views; screenshots refreshed.
-- Archived iteration 945; updated TASKS, STEERING ack and affected handbook. SOURCES/NEEDS_FROM_HUMAN unchanged; no spend or flags changed.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (543 unit/224 isolated integration tests); pnpm build; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check. All passed.
-- Initial browser run raced service startup (connection refused); rerun after green health passed four device/theme views. Inspected mobile light post screenshot; retained only post screenshots.
-- API/worker/docs/schema restarted active; health/database/Redis green, alerts clear, all 36 sources healthy and no failed digest jobs.
-- Next: edition/Bluesky review after 15:00 UTC; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.
-
 ## 2026-11-06: iteration 963 — show when X media is loading
 
 - Started clean on main; alerts clear and health/database/Redis green. No leftover work.
@@ -190,3 +175,17 @@
 - Replay is synthetic note omission, not observed live editorial behavior; original saved API response unchanged. Handbook updated; SOURCES/NEEDS_FROM_HUMAN unchanged.
 - Archived iteration 961 to keep PROGRESS small. API/worker/docs/schema restarted; health/alerts green, sources healthy; final post-push confirmation follows.
 - Next: compare Nov 6 note repetition, Gaming picks and World/cost/Bluesky after 15:00 UTC; fresh X round after 21:00 UTC.
+
+## 2026-11-06: iteration 976 — make the brief an overview
+
+- Started clean on main; health/database/Redis green, alerts clear, all 36 monitored sources healthy; no leftover work.
+- Read all four latest saved topics: all 14 brief bullets exactly copy their following story headlines. Owner value: scan a compact overview without rereading the same headlines.
+- Editor v7 explicitly requests concise factual overview bullets, retaining developments, attribution and uncertainty; unrelated events remain distinct and invented context stays prohibited.
+- Prompt/cache purpose version, synthetic golden expectation and synthetic publication fingerprint updated together; response/golden payloads unchanged. No recorded live responses changed. Existing factual validation and budgets unchanged.
+- Offline editor tests pass 15/15, including overview instructions through Sonnet and capped Haiku and unchanged saved factual bullets. These are contract checks, not observed model-quality evidence.
+- No paid calls, sources, flags, schema or UI changes. Existing saved editions are immutable; inspect actual Nov 6 output after publication.
+- Archived iteration 962 to keep PROGRESS small; TASKS and item 42 ack updated. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged: editorial guidance fix with no system/source changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check passed 549 unit/224 isolated integration tests; pnpm build; git diff --check. No UI changes, so no browser replay.
+- Earlier checks caught archive formatting and a stale synthetic replay fingerprint (223/224 integration); corrected both. A direct publication test attempt was rejected by the isolation guard; final verification used disposable containers.
+- API/worker/docs/schema restarted; health/database/Redis green, alerts clear, all 36 sources healthy, zero failed digest jobs; post-push confirmation follows.
+- Next: Nov 6 brief/summary/post context, World/cost/Bluesky review after 15:00 UTC; fresh X round after 21:00 UTC.
