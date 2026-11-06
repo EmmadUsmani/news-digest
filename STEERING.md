@@ -16,13 +16,15 @@ details, budgets and rules stay in the items. Every new item goes on this list.
 
 1. Breakages and protecting the morning edition.
 2. X search: reliability fixes and test rounds (items 39, 34).
-3. Nov 6 edition review: World stories, cost (item 36).
-4. Bluesky in editions: show why, fix failures, hold a slot, alerts (items 40, 41).
-5. UI rebuild: admin pages, then final reader (item 33).
-6. Then item 38's list for choosing meaningful work. While 2–4 wait on a time
-   or on evidence, item 42 says what to do first.
+3. UI rebuild: admin pages, then final reader (item 33). Raised by the owner
+   on Nov 6 (item 43).
+4. Nov 6 edition review: World stories, cost (item 36).
+5. Bluesky in editions: show why, fix failures, hold a slot, alerts (items 40, 41).
+6. Then item 38's list for choosing meaningful work. While 2–5 wait on a time
+   or on evidence, item 42 says what to do first. Item 43 says what not to do.
 
-Blocked on the owner: R2 backups (item 37).
+Blocked on the owner: R2 backups (item 37), on hold while the owner reconsiders
+the approach.
 
 ## 2. LOWER PRIORITY: real DB verification, then an ORM (2026-11-01)
 
@@ -1575,5 +1577,41 @@ ack: 2026-11-06 item 42 — iteration 1017: thin Tech summaries led to an ingest
 ack: 2026-11-06 item 42 — iteration 1018: after 16:00 UTC deployed prepared social editor v6, article-text preservation and Bluesky reader links/profiles, plus shipper MemoryHigh=64M. Full checks and live reader/log-delivery verification pass; future scheduled picks must establish selection improvement. No paid calls.
 
 ack: 2026-11-06 item 42 — iteration 1019: thin Tech summaries prompted a feed parser fix: absent or blank summaries now fall back to bounded RSS/Atom body text already supplied by the feed. Publisher summaries stay first; no new fetches or paid calls.
+
+## 43. NOW: put X search and the UI rebuild first, stop scoping new features (2026-11-06)
+
+**Why:** in the 12 hours to 16:35 UTC on Nov 6, 88 commits landed. About a dozen
+only scoped or proposed features the owner hasn't asked for, such as offline
+edition download, saved-story search, correction notes, story-to-post links and
+a publisher metadata pilot. 24 of the 88 only guarded or re-checked earlier
+work. Items 39 (X search) and 33 (UI rebuild) have had one ack each, and the
+final reader is still a layout spec.
+
+**Priority:** the owner raised the UI rebuild (item 33) from 5 to 3, just below
+X search (items 39, 34). Item 33's "MID-LOW" label is superseded. Breakages and
+edition protection still come first.
+
+**What to do:**
+
+1. Take X search work (items 39, 34) whenever it has any available, including
+   the test rounds due after 21:00 UTC.
+2. Otherwise build the final reader from the approved spec. Say in the ack what
+   the reader can do now that it couldn't before.
+3. When both are waiting on a time or on evidence, follow item 42: read the
+   edition as a reader and fix the biggest weakness at its cause.
+
+**What not to do:**
+
+- Don't write scoping or proposal docs for features the owner hasn't asked for.
+  Item 42 already says no new product features. Put an idea in
+  `NEEDS_FROM_HUMAN.md` as one line and move on.
+- Don't make commits that only re-check finished work.
+- Don't polish screens item 33 is replacing.
+
+**Done when:** each PROGRESS.md entry names which of items 39, 34 and 33 it
+advanced, and each ack says so in one line.
+
+**Limits:** no new spend, vendors or product features. Budgets, the 13:00–16:00
+UTC window and edition protection still apply.
 
 ack: 2026-11-06 item 42 — iteration 1023: Nov 6 Tech summaries repeated headline-only claims in two sentences. Story editor v12 requests one direct attributed sentence, preserving allegations; no paid calls, saved edition unchanged, assess prose at next scheduled edition.

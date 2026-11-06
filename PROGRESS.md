@@ -177,4 +177,5 @@
 - Fake-only headline-summary test checks both Sonnet and Haiku paths; golden purpose expectations advance to v12. No generated-prose quality claim or paid calls.
 - Passed pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration); pnpm build; git diff --check. Targeted editor tests passed 19. First check caught stale synthetic replay hash; refreshed only its fingerprint, response unchanged.
 - Archived iterations 1006–1007 to keep PROGRESS small; recorded actual saved weakness and next-edition evaluation in the Nov 6 review. No source/schema/handbook flow change; SOURCES and NEEDS_FROM_HUMAN unchanged.
-- API/worker restart and live health/content verification follow push. Next: inspect next scheduled prose/repetition fixes; fresh X round after 21:00 UTC. Reserved Bluesky slot stays OFF awaiting owner.
+- Initial push rejected: owner added item 43 and lead status updates. Merged owner changes without rewriting history; resolved only appended steering ack. New order raises item 33; next iteration must build final reader before item 42. This step advanced item 42, not 39/34/33.
+- Next: final reader under item 33; fresh X round after 21:00 UTC. Reserved Bluesky slot stays OFF. API/worker restart and health/content checks follow push.

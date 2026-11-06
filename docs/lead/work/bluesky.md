@@ -1,28 +1,21 @@
 # Bluesky in editions
 
-**Status:** steered as items 40 and 41, not started. One Bluesky
-post has reached an edition so far (Nov 4, Tech), and it repeated an X pick.
+**Status:** items 40 and 41 are done and deployed. The Nov 6 edition has one
+Bluesky pick (World), distinct from the X posts. One unsupported pick was dropped.
 
 **What we know:**
 
 - Collection works hourly. Bluesky has been on in editions since Nov 3.
-- Bluesky only got slots X left empty. NBA and Gaming had none on Nov 4 or Nov 5.
-- Call records show rejected editor replies on both days. The saved edition
-  doesn't keep the Bluesky result, so failures are invisible.
-- `llm.validation` and `budget.decision` logs don't name the step or topic.
+- Bluesky only gets slots X leaves empty. NBA, Gaming and Tech got none on Nov 6.
+- Saved editions now keep the Bluesky outcome, so failures are visible.
+- Both durable alerts are live (18 healthy rules). Neither has fired on a real edition.
+- The reserved slot (one X slot per topic) is built but OFF.
 
-**Owner decisions (Nov 5):** Bluesky can take one X slot per topic. The work
-ranks after the Nov 6 review and ahead of the UI rebuild.
-
-**Unknown:** why each topic ended with no picks, and why Sonnet was skipped for
-one topic on Nov 5. A lead session's production read was blocked, so item 40
-has the agent read the logs.
+**Owner decision pending:** the reserved slot's cost gate fails Nov 6 by about
+$0.00006: needs $0.501758, daily cap is $0.501698. See STEERING item 40 and
+[the Nov 6 review](../../edition-reviews/2026-11-06.md). Switch on, or raise the cap?
 
 **Next:**
 
-- Check the Nov 6 edition has saved Bluesky outcomes, if they deployed in time.
-- Check the slot's cost gate against Nov 6's cost before it switches on.
-- Review the first picks: are they different from the X posts, and worth reading?
-
-**Alerts:** steered as [item 41](../../../STEERING.md), Bluesky only. It starts
-once item 40 step 1 is live. Other sources could follow later if the owner wants.
+- Review the first scheduled picks over a few days: distinct from X, worth reading?
+- Decide the reserved slot once there is more than one day of cost data.
