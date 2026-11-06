@@ -1,12 +1,3 @@
-## 2026-11-06: iteration 933 — preserve X post text for screen readers
-
-- Started clean on main; no leftover work. Alerts and health green, 36 sources healthy, zero retained failed digest jobs. Nov 6 edition review and X round remain time-gated.
-- Read saved topic headlines/posts: World breadth and Tech grouping await Nov 6 evidence. Reader weakness: X links' aria-label replaced their actual saved post text in screen-reader link navigation. Use text plus visually hidden author/destination context before and after media loads.
-- Extended saved-post browser replay to check accessible link names after expanding saved text. Desktop/mobile light/dark and 320px sizing passed with a labelled local widget stub; no writes or third-party calls. Refreshed screenshots are byte-identical; inspected mobile light and desktop dark.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx scripts/smoke-post-sizing.ts; git diff --check. Final full-check result below.
-- Updated TASKS and STEERING ack. No source/system-flow changes; SOURCES, handbook and NEEDS_FROM_HUMAN unchanged. No paid calls or flag changes. Next: Nov 6 World/cost/Bluesky review after publication; X round after 21:00 UTC.
-- Full check exited zero: 543 unit and 224 isolated integration tests passed, coverage completed. Build and browser replay passed. API/worker/docs/schema restarted; final health/alerts green and reader HTTP 200.
-
 ## 2026-11-06: iteration 934 — restore the saved reader layout check
 
 - Started clean on main; no leftover work. Health/database/Redis green and alerts clear. Nov 6 edition review and X round remain time-gated.
@@ -173,3 +164,14 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (543 unit/224 isolated integration passes); pnpm build; check-handbook.ts 09-observability; smoke-ui.ts; git diff --check. All passed.
 - API/worker/docs/schema restarted healthy; 36/36 sources healthy, zero failed digest jobs, all scrape targets up and alerts clear. Host up stayed 1 throughout a four-minute post-change window.
 - Next: Nov 6 World/cost/Bluesky review after publication; fresh X round after 21:00 UTC.
+
+## 2026-11-06: iteration 949 — show every grouped coverage report
+
+- Started clean on main; alerts clear, health/database/Redis green. Edition/Bluesky reviews wait for 15:00 publication; X round waits for 21:00 UTC.
+- Reader weakness: saved NBA Wembanyama “4 articles” expanded to only three reports because the primary was filtered out. Include it, preserving outlet links and the compact count; readers can now browse the complete report list.
+- Extended saved-edition browser replay to assert every expanded report title and URL; four device/theme screenshots added. Inspected desktop light screenshot. No paid calls, collection, selection or flag changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check. Final results below.
+- Initial smoke reached API before restart finished; retried after healthy. Coverage clicks changed the active topic, so the replay now resets before its existing contents checks.
+- Updated TASKS, handbook and STEERING ack; archived iteration 933. SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Next: Nov 6 World/cost/Bluesky review after publication; fresh X round after 21:00 UTC. Fixed search and reserved slot remain off.
+- Final: first full check ended 143 during integration startup; retry exited zero (543 unit/224 isolated integration passes). Build, four-view reader replay and handbook check passed; services restarted, 36/36 sources healthy, zero failed digest jobs and alerts clear.

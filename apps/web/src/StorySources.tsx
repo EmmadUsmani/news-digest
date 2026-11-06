@@ -26,8 +26,7 @@ export function StorySources({
     }
   }
   const sources = [...outlets.values()];
-  const articles =
-    story.coverage?.filter((article) => article.id !== story.id) ?? [];
+  const articles = story.coverage ?? [];
   return (
     <div className="story-sources flex flex-wrap items-center gap-x-2 gap-y-2 text-xs text-[var(--secondary)]">
       {sources.slice(0, 2).map((source) => (
@@ -35,12 +34,12 @@ export function StorySources({
       ))}
       {sources.length > 0 && <span aria-hidden="true">·</span>}
       {children}
-      {articles.length > 0 && (
+      {articles.length > 1 && (
         <details className="coverage w-full text-xs">
           <summary className="cursor-pointer text-xs">
             {sources.length > 2
               ? `+${sources.length - 2} more ${sources.length === 3 ? 'outlet' : 'outlets'}`
-              : `${articles.length + 1} articles`}
+              : `${articles.length} articles`}
           </summary>
           <ul className="my-3 list-none space-y-3 pl-0">
             {articles.map((article) => (

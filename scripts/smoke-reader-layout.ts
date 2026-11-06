@@ -184,6 +184,30 @@ async function smoke() {
                 `+${expected.size - 2} more ${expected.size === 3 ? 'outlet' : 'outlets'}`,
               );
             }
+            if (story.coverage && story.coverage.length > 1) {
+              const disclosure = sources.locator('details');
+              await disclosure.locator('summary').click();
+              assert.deepEqual(
+                await disclosure.locator('li > a').allTextContents(),
+                story.coverage.map((article) => article.title),
+                'Expanded coverage lists every saved report, including the primary',
+              );
+              assert.deepEqual(
+                await disclosure
+                  .locator('li > a')
+                  .evaluateAll((links) =>
+                    links.map((link) => link.getAttribute('href')),
+                  ),
+                story.coverage.map((article) => article.url),
+              );
+              if (story.id === edition.topics[1]?.stories[0]?.id) {
+                await card.scrollIntoViewIfNeeded();
+                await page.screenshot({
+                  path: `docs/screenshots/ui/reader-coverage-${device}-${theme}.png`,
+                });
+              }
+              await disclosure.locator('summary').click();
+            }
             if (story.summary)
               assert.equal(
                 await card.locator('.excerpt').innerText(),
@@ -196,6 +220,10 @@ async function smoke() {
           await page.locator('main').innerText(),
           /Why it matters|Why selected|AI edited|Non-AI ranking|candidates examined|Browse saved editions|Immutable editions|Nothing added to fill/,
         );
+        // Coverage clicks scroll through topics; reset before contents navigation.
+        await page.goto(origin);
+        await page.locator('.digest-topic').last().waitFor();
+        await page.evaluate(() => document.fonts.ready);
         const second = edition.topics[1];
         assert.ok(second);
         if (device === 'mobile') {

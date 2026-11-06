@@ -1483,3 +1483,5 @@ ack: 2026-11-06 item 42 — iteration 942: mobile Contents cut off saved headlin
 ack: 2026-11-06 item 42 — iteration 943: saved-edition Contents left keyboard focus on the body or mobile menu after choosing a story. Focus the chosen content while preserving Escape restoration; verified saved-edition keyboard paths across desktop/mobile light/dark. No spend or selection changes.
 
 ack: 2026-11-06 item 42 — iteration 946: desktop Contents cut off saved headlines including Wembanyama’s game result; wrap full titles in the scrollable sidebar. Verified clipping and keyboard navigation against saved content in light/dark; no spend or selection changes.
+
+ack: 2026-11-06 item 42 — iteration 949: Wembanyama’s 4-article disclosure listed only three reports; include the primary article in expanded coverage so readers can browse the full set. Saved-report titles/links verified desktop/mobile light/dark; no spend or selection changes.
