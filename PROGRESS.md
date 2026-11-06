@@ -1,15 +1,3 @@
-## 2026-11-06: iteration 1023 — make headline-only summaries direct
-
-- Started clean on main; no leftover work. Alerts clear, /healthz DB/Redis OK, 36 sources and 13 services healthy; no failed digest jobs. Two retained ingestion failures have recovered healthy sources.
-- Read latest saved briefs/stories/posts across all four topics. Tech has two summaries that announce a Hacker News title and then repeat its claim; richer excerpts/repetition fixes already await the next edition.
-- Owner value: readers should get the supported news once, with attribution, rather than two sentences describing a headline.
-- Story editor v12 requests a direct attributed sentence for thin evidence, with a concrete allegation example. Attribution, absence checks, grouping, models and budgets remain intact; saved editions unchanged.
-- Fake-only headline-summary test checks both Sonnet and Haiku paths; golden purpose expectations advance to v12. No generated-prose quality claim or paid calls.
-- Passed pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration); pnpm build; git diff --check. Targeted editor tests passed 19. First check caught stale synthetic replay hash; refreshed only its fingerprint, response unchanged.
-- Archived iterations 1006–1007 to keep PROGRESS small; recorded actual saved weakness and next-edition evaluation in the Nov 6 review. No source/schema/handbook flow change; SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Initial push rejected: owner added item 43 and lead status updates. Merged owner changes without rewriting history; resolved only appended steering ack. New order raises item 33; next iteration must build final reader before item 42. This step advanced item 42, not 39/34/33.
-- Next: final reader under item 33; fresh X round after 21:00 UTC. Reserved Bluesky slot stays OFF. API/worker restart and health/content checks follow push.
-
 ## 2026-11-06: iteration 1024 — build compact reader contents
 
 - Advanced item 33 under item 43; X items 39/34 await the authorized round after 21:00 UTC. Started clean on main; no leftover work. Alerts clear and /healthz DB/Redis OK.
@@ -163,3 +151,12 @@
 - No writes, external browser traffic or paid calls in the new replay. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes. Archived iteration 1022 to keep this file small.
 - Verification: pnpm build; pnpm exec tsx scripts/smoke-reader-archive-focus.ts; pnpm exec tsx scripts/smoke-reader-archive.ts; pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration, exit 0); git diff --check. API/worker restarted; all 36 sources healthy, no failed retained digest runs, saved edition four topics/20 stories/17 posts.
 - Next: continue final reader; X round after 21:00 UTC; approved Bluesky slot activation pending under Current order. Fixed search stays OFF.
+
+## 2026-11-06: iteration 1039 — remove replaced combined admin screen
+
+- Advanced item 33/43 while X rounds wait until after 21:00 UTC. Started clean on main; no leftovers; alerts clear and health DB/Redis OK.
+- Removed the legacy combined controls and status component below Overview, completing the spec's removal of replaced screens. Dedicated Editions/Sources/Topics/Schedule/Spend/Tools remain in desktop/mobile navigation.
+- Read-only Playwright overview replay passed desktop/mobile light/dark: real saved edition/cost, healthy sources, anonymous denial, reload, mobile menu, navigation links and no overflow. Four screenshots saved; mobile light/desktop dark visually inspected.
+- Updated runtime handbook to describe the completed admin navigation. SOURCES and NEEDS_FROM_HUMAN unchanged: no source or external-system changes. No paid calls.
+- Verification: pnpm build; pnpm exec tsx scripts/smoke-admin-overview.ts; pnpm exec tsx scripts/check-handbook.ts 01-stack-and-runtime; pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration tests, exit 0); git diff --check.
+- API/worker restarted; health DB/Redis OK and alerts clear. Archived iteration 1023 to keep this log small. Next: final reader completion; fresh X rounds after 21:00 UTC; approved Bluesky reserved-slot activation pending under Current order. Fixed search OFF.

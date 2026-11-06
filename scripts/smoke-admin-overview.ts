@@ -106,8 +106,10 @@ async function smoke() {
           `/admin/editions/${savedEdition.id}`,
         );
         assert.equal(
-          await page.locator('details').first().getAttribute('open'),
-          null,
+          await page
+            .getByText('Edition and management controls', { exact: true })
+            .count(),
+          0,
         );
         assert.equal(
           await page.evaluate(
@@ -127,6 +129,22 @@ async function smoke() {
             .click();
           await page.getByRole('dialog').waitFor({ state: 'hidden' });
         }
+        if (device === 'mobile')
+          await page.getByRole('button', { name: 'Open admin menu' }).click();
+        for (const [name, href] of [
+          ['Editions', '/admin/editions'],
+          ['Sources', '/admin/sources'],
+          ['Topics', '/admin/topics'],
+          ['Schedule', '/admin/schedule'],
+          ['Spend', '/admin/spend'],
+          ['Tools', '/admin/tools'],
+        ]) {
+          const link = page
+            .getByRole('link', { name, exact: true })
+            .locator('visible=true');
+          assert.equal(await link.getAttribute('href'), href);
+        }
+        if (device === 'mobile') await page.keyboard.press('Escape');
         await page.reload();
         await page
           .getByRole('heading', { name: 'Overview', exact: true })

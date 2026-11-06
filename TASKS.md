@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Replaced admin screen cleanup (1039, item 33): removed the combined legacy controls and status screen; overview and dedicated pages remain accessible through desktop/mobile navigation, verified light/dark.
+
 - [x] Archive pagination keyboard reading (1038, item 33): new page focuses the heading after dates load, describes its page number and lets Tab continue to the first date; desktop/mobile light/dark verified.
 
 - [x] Reader keyboard bypass (1037, item 33): focus-only skip links reach edition/archive content directly; focus, sticky-header clearance and continued keyboard reading verified desktop/mobile light/dark.

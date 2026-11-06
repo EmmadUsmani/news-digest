@@ -1709,3 +1709,5 @@ ack: 2026-11-06 item 33/43 — iteration 1036: past-edition readers now see resp
 ack: 2026-11-06 item 33/43 — iteration 1037: keyboard readers can skip header/contents links and start reading the edition or archive directly. Focus-only links preserve the normal layout; desktop/mobile light/dark focus and next-link checks passed. [Mobile keyboard view](docs/screenshots/ui/reader-skip-edition-mobile-light.png). No paid calls.
 
 ack: 2026-11-06 item 33/43 — iteration 1038: keyboard readers can continue from the top of a newly loaded archive page into its dates; page number is described on focus. Desktop/mobile light/dark [screenshots](docs/screenshots/ui/reader-archive-page-2-mobile-light.png) verified; no paid calls.
+
+ack: 2026-11-06 item 33/43 — iteration 1039: owners now use the rebuilt overview and dedicated management pages without the duplicate legacy controls screen; desktop/mobile light/dark [screenshots](docs/screenshots/ui/admin-overview-mobile-light.png) verified. No paid calls.
