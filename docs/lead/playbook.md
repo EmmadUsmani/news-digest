@@ -60,6 +60,8 @@ anything unpushed. So does deleting the clone.
 - **The agent never idles.** It should always do something, and the most
   meaningful thing available.
 - **Goal first.** Check designs against what the owner wants the product to do.
+- **AI describes the system.** The owner doesn't write descriptions of code or
+  structure. Any tool that needs them generates them with AI.
 
 ## Standing decisions
 
