@@ -1,16 +1,3 @@
-## 2026-11-06: iteration 924 — linked reader source rows
-
-- Started clean on main; no leftover work. Alerts/health green, 36/36 sources healthy and zero failed digest-generation jobs. Higher priorities await Nov 6 publication/21:00 UTC.
-- Owner-visible value: readers can open each named outlet's own report and see distinct-outlet coverage without confusing article counts with outlet counts.
-- Added compact linked source rows with direct-origin, lazy favicons and no referrer; failed icons hide while text links remain. Deduplicated outlet names across saved coverage; show two names and expand additional reports inline.
-- Grouped story.sources contains an outlet union: resolved each outlet's link/icon through its saved coverage report, preserving primary ordering. No changes to saved content, collection, selection, budgets or flags; no paid calls.
-- Browser assertions cover saved names, per-outlet URLs/icon origins, 12 px labels, distinct-outlet counts, contents/mobile/deep links, no overflow/writes/admin reads. External assets blocked in layout checks; screenshots retain real saved text.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; final web build/typecheck/targeted ESLint; smoke-reader-layout.ts; smoke-reader-story-text.ts with latest saved edition; smoke-reader-archive.ts; smoke-admin-gate.ts; check-handbook.ts 08-operations; git diff --check.
-- First full check was terminated (143) after 543 passing unit tests and 88 passing integration cases; clean rerun passed all 543 unit/224 isolated integration tests. Final browser checks and web build/typecheck/ESLint passed.
-- Updated TASKS and Operations handbook; refreshed device/theme screenshots, visually reviewed desktop/mobile. SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Rebuilt/restarted API/worker/docs/schema; all active, database/Redis healthy, reader HTTP 200, 36/36 sources healthy and alerts clear. Latest saved edition: four topics/17 stories/14 posts.
-- Initial push rejected: owner added STEERING 42 remotely. Merged without rewriting history; next iteration reads the saved edition topic by topic and fixes its biggest content weakness before more reader polish. Nov 6 review/Bluesky gate after publication; X round after 21:00 UTC. Both experimental flags remain OFF.
-
 ## 2026-11-06: iteration 925 — restore saved context for reader posts
 
 - Started clean on main; alerts/health green, 36/36 sources healthy, no failed digest jobs. Nov 6 edition and X round are not due yet.
@@ -155,3 +142,15 @@
 - Updated TASKS and STEERING ack. No source/system-flow change; SOURCES, handbook and NEEDS_FROM_HUMAN unchanged.
 - Next: Nov 6 edition World/cost/Bluesky review after publication; X round after 21:00 UTC.
 - Final check passed: 543 unit/224 isolated integration tests, build and both four-view browser replays. All 36 sources healthy; collection jobs completed, services active and health green. Final restart/alerts checked before handoff.
+
+## 2026-11-06: iteration 939 — restore malformed reader/archive response recovery
+
+- Started clean on main; alerts clear, health/database/Redis green and all app services active. No leftover work.
+- Nov 6 edition/Bluesky evidence and 21:00 UTC X round remain time-gated. Latest saved edition retains the known World breadth/Tech grouping issues awaiting deployed fixes' publication evidence.
+- Found and reproduced an existing verification breakage: smoke-reader-invalid-data timed out clicking the deleted inline-history panel.
+- Ported the replay to the archive and current retry controls. Owner value: retain proof that unreadable responses show an error and let readers recover their saved edition through a working archive link.
+- Browser-only malformed JSON/schema responses; verify one request before manual retry, empty invalid content, saved links and subsequent real edition navigation. Third-party requests blocked; no writes or paid calls.
+- Verification: pnpm exec tsx scripts/smoke-reader-invalid-data.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check. Final results below.
+- Updated TASKS and reader/archive error screenshots (inspected mobile light archive and desktop dark reader); archived iteration 924 and compacted old done markers. No system-flow change; SOURCES/handbook/STEERING/NEEDS_FROM_HUMAN unchanged.
+- Next: Nov 6 World/cost/Bluesky review after publication, X round after 21:00 UTC; keep fixed search and reserved-slot flags off.
+- Final check passed (543 unit/224 isolated integration tests); build and eight browser cases passed. Initial check caught an archived entry formatted after the main formatter; fixed and full rerun passed. Services/source/job/health/alerts checked around restart.

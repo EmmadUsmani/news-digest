@@ -46,7 +46,9 @@ async function smoke() {
               writes.push(request.method());
               return route.abort();
             }
-            const path = new URL(request.url()).pathname;
+            const url = new URL(request.url());
+            if (url.origin !== base) return route.abort();
+            const path = url.pathname;
             if (path === `/api/editions/${saved.id}`) {
               editionAttempts++;
               if (invalid)
@@ -68,24 +70,17 @@ async function smoke() {
             return route.continue();
           });
           await page.goto(`${base}/editions/${saved.id}`);
-          await page.locator('.edition-history summary').click();
           const retryEdition = page.getByRole('button', {
             name: 'Try loading edition again',
             exact: true,
           });
-          const retryHistory = page.getByRole('button', {
-            name: 'Retry history',
-            exact: true,
-          });
           await retryEdition.waitFor();
-          await retryHistory.waitFor();
           await page.waitForTimeout(1500);
           assert.equal(
             editionAttempts,
             1,
             'Invalid data must not trigger automatic retries',
           );
-          assert.equal(historyAttempts, 1);
           assert.equal(await page.locator('.digest-topic').count(), 0);
           await retryEdition.scrollIntoViewIfNeeded();
           await page.screenshot({
@@ -93,15 +88,48 @@ async function smoke() {
           });
           invalid = false;
           await retryEdition.click();
-          await retryHistory.click();
           await page.locator('.digest-topic').first().waitFor();
-          await page.locator('.edition-history li').first().waitFor();
           assert.equal(
             await page.locator('.digest-topic').count(),
             saved.topics.length,
           );
           assert.equal(editionAttempts, 2);
+          // A fresh archive navigation avoids reader-header query cache data.
+          invalid = true;
+          historyAttempts = 0;
+          await page.goto(`${base}/editions`);
+          const retryHistory = page.getByRole('button', {
+            name: 'Try again',
+            exact: true,
+          });
+          await retryHistory.waitFor();
+          await page
+            .getByText('Could not load past editions.', { exact: true })
+            .waitFor();
+          await page.waitForTimeout(1500);
+          assert.equal(
+            historyAttempts,
+            1,
+            'Invalid archive data must not retry automatically',
+          );
+          assert.equal(await page.locator('main li').count(), 0);
+          await page.screenshot({
+            path: `docs/screenshots/ui/archive-invalid-${failure === 'schema' ? 'data' : 'json'}-${device}-${theme}.png`,
+          });
+          invalid = false;
+          await retryHistory.click();
+          await page.locator('main li a').first().waitFor();
           assert.equal(historyAttempts, 2);
+          const savedLink = page.locator(
+            `main li a[href="/editions/${saved.id}"]`,
+          );
+          await savedLink.click();
+          await page.waitForURL(`${base}/editions/${saved.id}`);
+          await page.locator('.digest-topic').first().waitFor();
+          assert.equal(
+            await page.locator('.digest-topic').count(),
+            saved.topics.length,
+          );
           assert.deepEqual(writes, []);
           assert.deepEqual(errors, []);
           await page.close();
@@ -114,7 +142,7 @@ async function smoke() {
       original,
     );
     console.log(
-      'Invalid reader schema and malformed JSON: immediate error and manual recovery for edition/history on desktop/mobile light/dark; no automatic invalid-data retries, writes or browser errors; saved edition unchanged.',
+      'Invalid reader schema and malformed JSON: immediate error and manual recovery for edition/archive on desktop/mobile light/dark; no automatic invalid-data retries, writes or browser errors; saved edition unchanged.',
     );
   } finally {
     await browser.close();

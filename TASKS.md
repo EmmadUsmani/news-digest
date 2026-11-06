@@ -39,34 +39,10 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Invalid reader data recovery (939): ported the broken inline-history replay to the archive; malformed JSON/schema errors recover through manual retry and real saved-edition links across desktop/mobile light/dark.
+
 - [x] Full-width reader posts (938): replaced legacy desktop two-column post grid with one post per row; saved-content layout and offline widget sizing verified on desktop/mobile light/dark.
 
-- [x] Saved-edition selection replay (937): restored archive navigation and current reader assertions; a delayed latest-edition success or failure preserves the selected older edition on desktop/mobile light/dark.
-
-- [x] Reader timeout replay (936): ported obsolete inline-history coverage to the archive, preserving stalled-edition retry and real saved-link recovery on desktop/mobile light/dark.
-
-- [x] Reader refresh recovery (935): saved edition survives refresh 503/404 with accurate message and retry; missing-edition/outage browser coverage passes.
-
-- [x] Reader layout check (934): repaired the obsolete X accessible-name expectation; real saved-content desktop/mobile light/dark replay passes again, with unchanged screenshots.
-
-- [x] Accessible X post links (933): screen-reader link names include saved post text and destination context, including after media loads; desktop/mobile light/dark browser replay verified.
-
-- [x] Archive refresh recovery (932): distinguish a failed refresh from initial loading failure and retain pagination through saved links; ported the legacy refresh browser check to the archive.
-
-- [x] Mobile active topic chips (931): reading forward/backward reveals the active topic in the horizontal bar at 390px/320px, preserving the edition scroll position.
-
-- [x] Responsive X widgets (930): request the available card width, capped at 550px; contain loaded frames after resizing. Saved-post browser replay passed desktop/mobile light/dark and 320px resize.
-
-- [x] Archive recovery replay (929): ported the obsolete inline-history check to the reader archive; failed-page escape, retry, empty-page return and saved-content navigation verified in desktop/mobile light/dark.
-
-- [x] Reader date switching (928): adjacent saved-edition arrows, archive date link, pagination-boundary navigation and reload verified across desktop/mobile and light/dark.
-
-- [x] Verification interruption triage (927): standalone `pnpm check` exited zero with 543 unit/224 isolated integration tests passing; temporary signal tracing saw no SIGTERM. Earlier exit-143 interruptions did not reproduce; no speculative runner change.
-
-- [x] X reader cards (926): saved text links to the original; removed repeated footer and empty retry spacer. Embed recovery replay updated for current reader markup.
-
-- [x] Saved post context (925): restored editor context in reader API/cards; topic-by-topic saved-edition review recorded. Nov 6 comparison pending.
-
-- [x] Reader source rows (924): linked outlet names and direct favicons, distinct-outlet counts and expandable saved reports. Failed icons retain readable links. Date switching and post details remain.
+- Earlier reader steps (924–938) are recorded in PROGRESS.md and its archive.
 
 - Next: STEERING 42 Nov 5 reader review completed; compare Nov 6 World breadth and post context after publication. STEERING 40 Nov 6 reserved-slot cost/AI gate and edition review after publication; fresh X round after 21:00 UTC. Fixed search stays off.
