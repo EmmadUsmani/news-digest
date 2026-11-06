@@ -199,6 +199,15 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
         </div>
         <Sheet
           title="Edition contents"
+          onOpenAutoFocus={(event) => {
+            const current = document.querySelector<HTMLElement>(
+              'nav[aria-label="Mobile contents"] [aria-current="location"]',
+            );
+            if (current) {
+              event.preventDefault();
+              current.focus();
+            }
+          }}
           onCloseAutoFocus={(event) => {
             const target =
               selectedTarget.current &&

@@ -9,11 +9,13 @@ export function Sheet({
   children,
   title = 'News Digest admin',
   onCloseAutoFocus,
+  onOpenAutoFocus,
 }: {
   trigger: ReactNode;
   title?: string;
   children: ReactNode;
   onCloseAutoFocus?: Dialog.DialogContentProps['onCloseAutoFocus'];
+  onOpenAutoFocus?: Dialog.DialogContentProps['onOpenAutoFocus'];
 }) {
   return (
     <Dialog.Root>
@@ -23,6 +25,7 @@ export function Sheet({
         <Dialog.Content
           aria-describedby={undefined}
           onCloseAutoFocus={onCloseAutoFocus}
+          onOpenAutoFocus={onOpenAutoFocus}
           className="fixed inset-y-0 left-0 z-50 w-72 overflow-y-auto bg-[var(--surface)] p-6 shadow-xl"
         >
           <Dialog.Title className="mt-0 font-sans text-lg font-semibold">
