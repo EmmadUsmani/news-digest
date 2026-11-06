@@ -130,3 +130,12 @@
 - API/worker restarted; /healthz DB/Redis OK, pnpm obs alerts clear, 36/36 sources healthy, digest queue available/zero failed. Saved edition remains four topics/20 stories/17 posts.
 - No source/schema/system-flow changes; handbook, SOURCES and NEEDS_FROM_HUMAN unchanged.
 - Next: continue final reader work; Nov 7 keyword X and reserved-slot Bluesky acceptance await publication. Observability RAM target remains unmet.
+
+## 2026-11-06: iteration 1065 — repair quoted source URLs in post text
+
+- Advanced STEERING 33/43 while Nov 7 scheduled X/Bluesky acceptance waits. Clean main, no leftovers; initial health/alerts clear.
+- Reader weakness: closing straight/curly quotation marks became part of cited URLs, sending readers to a different destination. Link parsing now leaves closing quotes in prose while preserving internal apostrophes, balanced parentheses and saved text.
+- Expanded scripts/smoke-bluesky-cards.ts with quoted URL and internal-apostrophe cases; desktop/mobile light/dark passed, screenshots refreshed and mobile light inspected. Synthetic fixtures only; no paid calls or edition writes.
+- Passed pnpm format, pnpm lint:fix, pnpm build, git diff --check and full pnpm check: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green.
+- API/worker restarted after verification; /healthz DB/Redis OK and alerts clear. Sources 36/36 healthy; saved edition four topics/20 stories/17 posts. No source/schema/system-flow changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
+- Next: continue final reader work; inspect first scheduled keyword X and reserved-slot Bluesky picks Nov 7. Observability RAM target remains unmet.
