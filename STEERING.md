@@ -1262,6 +1262,8 @@ Nov 6 data with all four keyword searches run, or a clear report of why not.
 can run in production.
 
 
+ack: 2026-11-06 item 39 reruns — iteration 910 reran NBA/Gaming/World keywords once each on the unchanged Nov 4–5 21:00 UTC window, with required tool choice and 120 s deadline. Post-fix failure rate 2/3 (66.7%): NBA/World returned failed tool calls and zero posts; Gaming completed with three in-window, officially embed-verified posts (median/max likes 1,058/1,063). All usage settled: $0.048153, lifetime charged $1.025802/$2.50; historical timeout holds preserved. No further reruns, winner or production activation. Scorer review and fair semantic Nov 6 round remain. Evidence: docs/edition-reviews/2026-11-05-x-experiment-review.md.
+
 ## 40. NEXT: get real Bluesky posts into editions, and show why when none appear (2026-11-05)
 
 **Why:** Bluesky collects hourly, but only one post has reached an edition, and

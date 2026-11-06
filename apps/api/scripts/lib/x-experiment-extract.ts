@@ -2,12 +2,17 @@ import { z } from 'zod';
 
 import type { XExperimentEvidence } from '../../../../scripts/lib/x-experiment-report';
 import { extractXLinks } from '../../src/modules/ingestion/public/discovery';
+import { xSearchUsageSchema } from '../../src/modules/social/adapters/x-search-usage';
 
 const count = z.number().int().nonnegative().safe();
 const responseSchema = z.object({
-  usage: z.object({
-    server_side_tool_usage_details: z.object({ x_posts_fetched: count }),
-  }),
+  usage: z.union([
+    xSearchUsageSchema,
+    // Historical extraction fixtures retain fetched counts without token usage.
+    z.object({
+      server_side_tool_usage_details: z.object({ x_posts_fetched: count }),
+    }),
+  ]),
   output: z.array(z.unknown()),
 });
 const messageSchema = z.object({

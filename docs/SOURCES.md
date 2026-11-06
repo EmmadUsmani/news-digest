@@ -2090,3 +2090,8 @@ or production activation in this step; switched-off scheduler retry remains open
 
 - Switched-off fixed search now dispatches one linked retry after an uncertain failure or settled unconfirmed zero-post/no-citation result. It repeats live balance, topic configuration, enabled state, profile schedule and time-window checks before retry admission.
 - Completed empty searches, fetched/cited results and rejected/budget-blocked calls never retry. Shared ledger admission preserves timeout holds and prevents repeat spending on subsequent scheduler ticks. No paid calls or activation in this step; authorized Nov 5 reruns follow.
+
+### Authorized Nov 5 keyword reruns — iteration 910 (2026-11-06)
+
+- Direct xAI/Grok 4.3, original Nov 4–5 21:00 UTC window, required tool choice and 120-second deadline. NBA/World tool calls failed again with zero fetched; Gaming completed, fetching/citing three in-window posts with likes 552/1,058/1,063 and three official oEmbed HTTP 200 responses. Post-fix failure rate: 2/3 (66.7%).
+- Actual rerun cost $0.048153; lifetime experiment charge $1.025802/$2.50, historical timeout holds preserved. All three reruns settled, no new holds or ingestion. Fixed search stays off; scorer review and fair semantic Nov 6 round remain. [Evidence](edition-reviews/2026-11-05-x-experiment-review.md#authorized-keyword-reruns--iteration-910-nov-6).

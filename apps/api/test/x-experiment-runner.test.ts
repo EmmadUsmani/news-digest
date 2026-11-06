@@ -366,3 +366,105 @@ void test('failed search retries once after settling the first response', () => 
     f.cleanup();
   }
 });
+
+function prepareNov5Rerun(f: ReturnType<typeof fixture>) {
+  const input = JSON.parse(readFileSync(f.input, 'utf8'));
+  input.topics.forEach((topic: { topicId: string }, index: number) => {
+    topic.topicId = `00000000-0000-4000-8000-0000000000${11 + index}`;
+  });
+  writeFileSync(f.input, JSON.stringify(input));
+  const original = join(f.root, '2026-11-05T21-00-19-488Z');
+  mkdirSync(original, { recursive: true });
+  writeFileSync(join(original, 'inputs.json'), JSON.stringify(input));
+}
+
+void test('authorized Nov 5 rerun dispatches only three keyword cells once with required tool choice', () => {
+  const f = fixture('success');
+  try {
+    prepareNov5Rerun(f);
+    const result = f.run(
+      'success',
+      '--nov5-keyword-rerun',
+      '2026-11-06T00:40:00.000Z',
+    );
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal(f.journal().entries.length, 3);
+    const requests = readdirSync(join(f.root, 'nov5-keyword-rerun'))
+      .filter((name) => name.endsWith('.request.json'))
+      .map((name) =>
+        JSON.parse(
+          readFileSync(join(f.root, 'nov5-keyword-rerun', name), 'utf8'),
+        ),
+      );
+    assert.deepEqual(
+      requests.map((request) => request.topicId).sort(),
+      [12, 13, 14].map((id) => `00000000-0000-4000-8000-0000000000${id}`),
+    );
+    assert.ok(
+      requests.every(
+        (request) =>
+          request.style === 'viral' && request.body.tool_choice === 'required',
+      ),
+    );
+    assert.equal(
+      f.run('success', '--nov5-keyword-rerun', '2026-11-06T01:00:00.000Z')
+        .status,
+      1,
+    );
+    assert.equal(f.journal().entries.length, 3);
+  } finally {
+    f.cleanup();
+  }
+});
+
+void test('Nov 5 rerun refuses changed inputs, protected hours and other dates before dispatch', () => {
+  const f = fixture('success');
+  try {
+    prepareNov5Rerun(f);
+    for (const now of [
+      '2026-11-05T23:00:00.000Z',
+      '2026-11-06T14:00:00.000Z',
+      '2026-11-07T00:00:00.000Z',
+    ])
+      assert.equal(f.run('success', '--nov5-keyword-rerun', now).status, 1);
+    const input = JSON.parse(readFileSync(f.input, 'utf8'));
+    input.topics[1].requests.viral.extra = 'changed';
+    writeFileSync(f.input, JSON.stringify(input));
+    assert.equal(
+      f.run('success', '--nov5-keyword-rerun', '2026-11-06T01:00:00.000Z')
+        .status,
+      1,
+    );
+    assert.ok(!readdirSync(f.directory).includes('dispatches'));
+  } finally {
+    f.cleanup();
+  }
+});
+
+void test('Nov 5 rerun timeout retains its hold and cannot retry a second time', () => {
+  const f = fixture('timeout');
+  try {
+    prepareNov5Rerun(f);
+    assert.equal(
+      f.run('timeout', '--nov5-keyword-rerun', '2026-11-06T01:00:00.000Z')
+        .status,
+      1,
+    );
+    assert.deepEqual(
+      f.journal().entries.map((entry) => entry.actualMicros),
+      [null],
+    );
+    assert.equal(
+      f.run('success', '--nov5-keyword-rerun', '2026-11-06T01:10:00.000Z')
+        .status,
+      0,
+    );
+    assert.equal(f.journal().entries.length, 3);
+    assert.equal(
+      f.journal().entries.filter((entry) => entry.actualMicros === null).length,
+      1,
+    );
+  } finally {
+    f.cleanup();
+  }
+});

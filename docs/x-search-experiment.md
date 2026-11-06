@@ -164,12 +164,30 @@ X_EXPERIMENT_LIVE=1 pnpm exec tsx apps/api/scripts/run-x-experiment.ts /private/
 
 The runner uses Grok 4.3 for the four-topic viral/semantic comparison (eight calls),
 within one hour. It reserves $0.15 and claims dispatch through the existing
-journal before each request, settles known token/post/profile usage, and stops
-on any error or over-reservation settlement. It never retries automatically. To continue only never-attempted cells within
+journal before each request and settles known token/post/profile usage. A timeout
+or unconfirmed zero-post search gets one separately admitted retry; completed
+empty searches never retry. Other errors and over-reservation settlements stop
+dispatch. To continue only never-attempted cells within
 the same hour, append the existing round directory name as a second argument.
 Previously saved requests are skipped, including unknown outcomes; their holds
 remain charged. The completed manifest lists settled calls only, so unknown
 cells remain gaps in comparison coverage.
+
+### Authorized Nov 5 keyword reruns
+
+STEERING 39 authorizes one rerun each for NBA, Gaming and World on the
+original Nov 4–5 21:00 UTC window. On Nov 6, outside 13:00–16:00 UTC, use:
+
+```sh
+X_EXPERIMENT_LIVE=1 pnpm exec tsx apps/api/scripts/run-x-experiment.ts /private/path/inputs-2026-11-05.json --nov5-keyword-rerun
+```
+
+This mode checks the unchanged original saved inputs, selects only those three
+keyword cells and adds required tool choice. It uses the shared journal and
+120-second deadline, with no further retry for these already failed cells.
+Evidence is saved separately in `nov5-keyword-rerun/`; original calls and holds
+stay intact. Repeating the command continues only never-attempted cells within
+the same dispatch hour. It cannot dispatch a cell twice.
 
 All runs share `~/.local/state/news-digest/x-experiment/budget.json`.
 Private timestamped directories hold the prepared inputs, dispatched requests,
@@ -177,9 +195,10 @@ raw responses, actual usage and completed round manifest. Directory mode is 700;
 files are 600. Keys and request headers are never saved. Calls are separate from
 production discovery and do not ingest posts or write the production ledger.
 
-Saved responses still need offline evidence extraction, social relevance scoring
-and promotion reviews. Unknown labels must remain unknown; dispatch completion
-does not establish a winner. Repeat on a second non-overlapping news day, then
+Saved responses still need offline evidence extraction and social scoring.
+Under STEERING 39, relevance ≥6 and interestingness ≥4 count as non-promotion;
+no manual promotion label is required. Unscored candidates do not establish
+usable yield, and dispatch completion does not establish a winner. Repeat on a second non-overlapping news day, then
 apply the decision rule in the revised plan. Grok 4.3 stays unchanged.
 
 ## Round 1 — Nov 4, iteration 703

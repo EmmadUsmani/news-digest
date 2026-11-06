@@ -27,6 +27,12 @@ found none of those discoveries selected and World still empty. Improve
 search quality within the existing authorization before considering new access. No unofficial data provider, scraping workaround or new
 paid verification is authorized or needed for that review.
 
+Nov 6 update (910): authorized keyword reruns still failed for NBA and World
+(2/3 failed tool calls after reliability fixes); Gaming returned three posts.
+All $0.048153 settled; no new holds. Fixed search stays off. No owner action
+requested; finish the authorized Nov 6 round and report the remaining coverage
+gaps. [Rerun evidence](docs/edition-reviews/2026-11-05-x-experiment-review.md#authorized-keyword-reruns--iteration-910-nov-6).
+
 ## Admin access rollout (updated under STEERING 36)
 
 No owner action is needed for the private-VM rollout. STEERING 36 confirms

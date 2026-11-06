@@ -1,25 +1,3 @@
-## 2026-11-05: iteration 896 — Sources Add feed dialog
-
-- Started clean on main; no leftover work. Owner would care: add a feed directly from Sources and choose its topic without visiting the topic editor.
-- Added the specified dialog using the existing protected feed endpoint and shared validation; refreshes topic connections, collection status and source catalog after success. No schema, collector, budget or live settings changes.
-- Browser verification reads saved live status but intercepts every feed write; example feed is replay data, never collected. Four dialog screenshots added and Sources screenshots refreshed.
-- Initial browser run found an ambiguous topic-select label; added an explicit accessible name and rebuilt. Desktop light/mobile dark dialog images visually reviewed.
-- Updated TASKS and Operations handbook; SOURCES/NEEDS_FROM_HUMAN unchanged. No paid calls.
-- Verification: pnpm format; pnpm lint:fix; pnpm check passed (507 unit/219 isolated integration tests, typecheck/lint/format/boundaries); pnpm build and final web build; smoke-admin-sources.ts; smoke-admin-separation.ts; check-handbook.ts 08-operations; git diff --check. Archived iterations 884–885 to keep PROGRESS small.
-- API/worker/docs/schema restarted; /healthz database/Redis green, 36 sources healthy with recent collection and saved reader HTTP 200; alerts clear.
-- Next: remaining admin controls and final reader; Nov 6 scheduled edition/grouping review and fresh-window X round after 21:00 UTC. No X activation before decision.
-
-## 2026-11-05: iteration 897 — Sources collection switches
-
-- Started clean on main; no leftover work. Owner would care: pause or resume a feed directly from Sources without losing its topic connections or saved articles.
-- Added protected, strictly validated source enable writes and a default-true column through generated Drizzle migration 0004. Ingestion and active-source status honor the setting across topics; already-running collection may finish. Existing feeds stay enabled.
-- Isolated repository/HTTP checks cover pause/resume, preserved connections/counts, missing sources, invalid bodies and anonymous denial. Browser checks intercept all writes and verify both states, reload and failed saves; no live setting changes or paid calls.
-- Initial browser count comparison raced incoming collection; replayed one saved live snapshot consistently. Refreshed eight Sources/dialog screenshots; desktop light/mobile dark visually reviewed. Discarded unrelated separation screenshots.
-- Pre-migration private database backup succeeded; migration applied. Updated TASKS and Operations handbook; SOURCES/NEEDS_FROM_HUMAN unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm check passed typecheck/lint/format/boundaries and 507 unit tests, then ended with signal 143 during integration without an assertion failure. Standalone pnpm test:integration passed all 220, including schema parity. pnpm build; smoke-admin-sources.ts; smoke-admin-separation.ts; check-handbook.ts 08-operations; git diff --check passed.
-- All four services restarted and active; /healthz database/Redis green, 36/36 feeds enabled/active with collection through 22:48 UTC; saved reader endpoint 200 and alerts clear.
-- Next: remaining topic discovery settings and final reader; Nov 6 scheduled edition/grouping review and fresh-window X round after 21:00 UTC. No X activation before decision.
-
 ## 2026-11-05: iteration 898 — Dedicated Bluesky topic query
 
 - Started clean on main; no leftover work. Owner would care: change a topic's Bluesky discovery phrase without changing its news queries.
@@ -150,3 +128,14 @@
 - Rebuilt/restarted API, worker, docs and schema; all active. /healthz database/Redis green, alerts clear; real latest edition has four topics/17 stories/14 posts. No migration needed.
 - Updated TASKS, SOURCES and social handbook; archived iteration 895 to keep PROGRESS small. No owner input needed.
 - Next: authorized Nov 5 NBA/Gaming/World keyword reruns on the same window, then fair semantic query/Nov 6 fresh-window round and edition review. Fixed search remains off.
+
+## 2026-11-06: iteration 910 — authorized Nov 5 keyword reruns
+
+- Started clean on main; no leftover work. Owner would care: measure whether the repaired paid X path actually executes before any production decision.
+- Alerts clear, 36 sources healthy, no failed digest jobs; next scheduled edition Nov 6 15:00 UTC. Added narrowly scoped Nov 6 rerun mode: exact original inputs/window, NBA/Gaming/World only, required tool choice, shared caps, deterministic IDs and no further retry. Continuations skip attempted cells.
+- Live direct xAI/Grok 4.3 reruns: NBA failed/$0.010803/zero posts; Gaming completed/$0.026117/three posts; World failed/$0.011233/zero posts. Post-fix failure rate 2/3 (66.7%). Gaming actual tool limit 3; all three in-window, likes 552/1,058/1,063, official oEmbed HTTP 200.
+- All $0.048153 settled, zero new holds; lifetime charged $1.025802/$2.50, historical timeout holds preserved. Immutable private evidence, manifest, extracted report and embeds saved separately. Fixed search stays off; no ingestion, winner or production activation.
+- First extraction rejected token-only failures; extended offline extraction to accept validated token usage with zero missing fetched counters, preserving historical fetched-only support. Six extractor and fifteen runner tests pass. Initial full check passed (527 unit/223 isolated integration); final rerun covers extractor change (528 unit/223 isolated integration, all pass).
+- Verification final: pnpm check passed (typecheck/lint/format/boundaries and tests); pnpm format; pnpm lint:fix; pnpm build passed; git diff --check clean. API/worker/docs/schema restarted active, /healthz database/Redis green, reader HTTP 200, 36 healthy sources and alerts clear; saved latest edition four topics/17 stories/14 posts.
+- Updated TASKS, SOURCES, experiment guide/review and NEEDS_FROM_HUMAN; appended STEERING 39 failure-rate ack. Archived iterations 896–897 and shortened TASKS to keep orientation small. No owner action requested.
+- Next: scorer review for three Gaming candidates (relevance ≥6/interestingness ≥4 is non-promotion), fair semantic preparation, then STEERING 40 outcomes before 13:00 UTC if ready; Nov 6 edition review and fresh round after 21:00 UTC. NBA/World provider tool failures remain a decision gap; no more Nov 5 reruns.

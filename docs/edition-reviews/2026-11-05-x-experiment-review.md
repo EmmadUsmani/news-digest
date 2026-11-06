@@ -177,3 +177,44 @@ response SHA-256. No original `.settled.json` was invented or overwritten.
 validated saved usage without making a network call. Repeated settlement is
 rejected. A separately admitted single retry remains the next reliability step;
 no reruns or production activation occurred in this iteration.
+
+## Authorized keyword reruns — iteration 910 (Nov 6)
+
+Reused the unchanged Nov 4–5 21:00 UTC keyword requests, adding required tool
+choice and the 120-second deadline. Each failed cell received one separately
+admitted rerun; none received another retry. Direct xAI/Grok 4.3, unchanged
+$1/day and $2.50 total caps. Continuations dispatched only unattempted cells.
+
+| Topic  | Tool result | Actual cost | Fetched / cited | Reported likes    |
+| ------ | ----------- | ----------: | --------------: | ----------------- |
+| NBA    | Failed      |   $0.010803 |           0 / 0 | —                 |
+| Gaming | Completed   |   $0.026117 |           3 / 3 | 552, 1,058, 1,063 |
+| World  | Failed      |   $0.011233 |           0 / 0 | —                 |
+
+**Failure rate after the fixes: 2/3 (66.7%)**, with two HTTP 200 replies
+containing failed `x_keyword_search` calls and no fetched posts. Returned
+usage settled at actual cost even without fetched-post counters. Neither reply
+contains a provider failure reason. Required tool choice ensures a tool call
+is attempted; these observations do not establish reliable execution.
+
+Gaming's tool requested a limit of **3**, despite the unchanged prompt asking
+for 16; failed NBA/World traces each requested 10. Gaming copied Top mode,
+threshold 500, OR terms, mandatory filters/exclusions and exact UTC bounds.
+All three cited posts have supplied in-window times and official oEmbed HTTP
+200 responses. Median reported likes: **1,058**; maximum: **1,063**.
+Scorer review is next: relevance ≥6 and interestingness ≥4 count as
+non-promotion under STEERING 39; no separate manual promotion labels are needed.
+No usable-yield or winner claim is made from these raw results.
+
+The reruns cost **$0.048153**, all settled with zero new holds. Lifetime charged
+is **$1.025802**, leaving **$1.474198**; historical timeout holds stay charged.
+Nov 5 keyword coverage now has completed Tech and Gaming searches, while NBA
+and World still failed. The Nov 6 fresh-window round remains due after 21:00
+UTC, with keyword cells first. Fixed production search remains off and Nov 7
+remains the earliest edition eligible for a decision.
+
+Private evidence: `~/.local/state/news-digest/x-experiment/nov5-keyword-rerun/`
+(700/600), including immutable requests/responses/settlements, manifest,
+`extracted-evidence-910.json`, `report-910.json` and three official embeds.
+Offline extraction now accepts validated token-only failure usage as zero
+fetched while retaining historical fetched-only extraction support.

@@ -228,3 +228,36 @@ void test('CLI extracts revised viral and semantic rounds without inventing revi
     rmSync(directory, { recursive: true, force: true });
   }
 });
+
+void test('token-only failed searches extract zero fetched without inventing candidates', () => {
+  const raw = (usage: unknown) =>
+    JSON.stringify({
+      usage,
+      output: [
+        {
+          type: 'custom_tool_call',
+          name: 'x_keyword_search',
+          input: '{}',
+          status: 'failed',
+        },
+      ],
+    });
+  const evidence = extractXExperimentResponse(
+    metadata,
+    raw({ input_tokens: 50, output_tokens: 20 }),
+  );
+  assert.equal(evidence.postsFetched, 0);
+  assert.deepEqual(evidence.posts, []);
+  assert.equal(evidence.actualToolCalls.length, 1);
+  assert.throws(() => extractXExperimentResponse(metadata, raw({})));
+  assert.throws(() =>
+    extractXExperimentResponse(
+      metadata,
+      raw({
+        input_tokens: 50,
+        output_tokens: 20,
+        server_side_tool_usage_details: { x_posts_fetched: -1 },
+      }),
+    ),
+  );
+});

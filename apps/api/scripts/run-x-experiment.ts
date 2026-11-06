@@ -34,10 +34,11 @@ async function main() {
   };
   const window = experimentWindow(input.window.start, input.window.end);
   const now = new Date();
+  const keywordRerun = process.argv[3] === '--nov5-keyword-rerun';
   if (
     Date.parse(window.end) - Date.parse(window.start) !== 86_400_000 ||
     Date.parse(window.end) > now.getTime() ||
-    now.getUTCHours() < 21
+    (!keywordRerun && now.getUTCHours() < 21)
   )
     throw new Error(
       'Fresh 24-hour window and dispatch after 21:00 UTC required',
@@ -55,11 +56,49 @@ async function main() {
         throw new Error('Expected prepared viral and semantic Grok 4.3 bodies');
   const directory = join(homedir(), '.local/state/news-digest/x-experiment');
   mkdirSync(directory, { recursive: true, mode: 0o700 });
+  if (keywordRerun) {
+    if (
+      now.toISOString().slice(0, 10) !== '2026-11-06' ||
+      (now.getUTCHours() >= 13 && now.getUTCHours() < 16) ||
+      window.start !== '2026-11-04T21:00:00.000Z' ||
+      window.end !== '2026-11-05T21:00:00.000Z'
+    )
+      throw new Error(
+        'Nov 5 rerun requires its original window on Nov 6 outside edition protection',
+      );
+    const original = JSON.parse(
+      readFileSync(
+        join(directory, '2026-11-05T21-00-19-488Z', 'inputs.json'),
+        'utf8',
+      ),
+    );
+    if (JSON.stringify(original) !== JSON.stringify(input))
+      throw new Error('Rerun requires unchanged original prepared inputs');
+    const expectedIds = ['12', '13', '14'].map(
+      (suffix) => `00000000-0000-4000-8000-0000000000${suffix}`,
+    );
+    if (
+      !expectedIds.every((id) =>
+        input.topics.some((topic) => topic.topicId === id),
+      )
+    )
+      throw new Error('Expected original NBA, Gaming and World topics');
+    input.topics = input.topics.filter((topic) =>
+      expectedIds.includes(topic.topicId),
+    );
+    for (const topic of input.topics)
+      topic.requests.viral = {
+        ...topic.requests.viral,
+        tool_choice: 'required',
+      };
+  }
   const budget = new XExperimentBudget(join(directory, 'budget.json'));
-  const roundId =
-    process.argv[3] ?? new Date().toISOString().replace(/[:.]/g, '-');
+  const roundId = keywordRerun
+    ? 'nov5-keyword-rerun'
+    : (process.argv[3] ?? new Date().toISOString().replace(/[:.]/g, '-'));
   const roundDirectory = join(directory, roundId);
-  if (!process.argv[3]) mkdirSync(roundDirectory, { mode: 0o700 });
+  if (!process.argv[3] || (keywordRerun && !existsSync(roundDirectory)))
+    mkdirSync(roundDirectory, { mode: 0o700 });
   const save = (name: string, value: unknown) =>
     writeFileSync(
       join(roundDirectory, name),
@@ -69,7 +108,11 @@ async function main() {
         flag: 'wx',
       },
     );
-  if (!process.argv[3]) save('inputs.json', input);
+  if (
+    !process.argv[3] ||
+    (keywordRerun && !existsSync(join(roundDirectory, 'inputs.json')))
+  )
+    save('inputs.json', input);
   else if (
     JSON.stringify(
       JSON.parse(readFileSync(join(roundDirectory, 'inputs.json'), 'utf8')),
@@ -103,7 +146,10 @@ async function main() {
     ? Math.min(...priorRequests.map((prior) => Date.parse(prior.startedAt)))
     : Date.now();
   // Interleave topics within styles so the comparison uses one close dispatch window.
-  for (const style of ['viral', 'semantic'] as const) {
+  const styles = keywordRerun
+    ? (['viral'] as const)
+    : (['viral', 'semantic'] as const);
+  for (const style of styles) {
     for (const topic of input.topics) {
       if (Date.now() - started >= 3_600_000)
         throw new Error('Comparison hour elapsed; no further dispatch');
@@ -111,7 +157,7 @@ async function main() {
       if (!body || body.model !== 'grok-4.3')
         throw new Error('Expected prepared Grok 4.3 body');
       const baseRequestId = `${roundId}-${topic.topicId}-${style}`;
-      for (let attempt = 0; attempt < 2; attempt++) {
+      for (let attempt = 0; attempt < (keywordRerun ? 1 : 2); attempt++) {
         const requestId =
           attempt === 0 ? baseRequestId : `${baseRequestId}-retry-1`;
         // Resume skips attempted cells; only this process can admit the one failure retry.
@@ -149,7 +195,7 @@ async function main() {
           throw error;
         });
         if (response === null) {
-          if (attempt === 0) continue;
+          if (attempt === 0 && !keywordRerun) continue;
           throw new Error('X experiment timed out twice; holds retained');
         }
         const raw = await response.text();
@@ -212,7 +258,7 @@ async function main() {
               ? 'search execution failed or unconfirmed'
               : 'search never ran',
           });
-          if (attempt === 0) continue;
+          if (attempt === 0 && !keywordRerun) continue;
           throw new Error(
             'X search failed to execute twice; actual usage settled',
           );
