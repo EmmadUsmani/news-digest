@@ -119,3 +119,14 @@
 - Passed pnpm format, pnpm lint:fix, pnpm build and git diff --check. Full pnpm check passed: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green.
 - API/worker restarted; /healthz DB/Redis OK, pnpm obs alerts clear; saved edition remains four topics/20 stories/17 posts.
 - Next: continue final reader work; Nov 7 keyword X and reserved-slot Bluesky acceptance await publication. Observability RAM target remains unmet.
+
+## 2026-11-06: iteration 1064 — keep failed video previews readable
+
+- Advanced STEERING 33/43 while Nov 7 X/Bluesky acceptance waits. Clean main, no leftovers; initial health/alerts clear.
+- Reader weakness reproduced against the previous build: failed Bluesky video thumbnails left an absolute play badge over the short fallback. The badge now belongs to the preview; unavailable previews keep a clear original-post action on its own line.
+- Expanded scripts/smoke-reader-bluesky-video.ts to 12 loaded/failed/missing-preview cases, desktop/mobile light/dark; checks link targets, badge state, fallback spacing and overflow. Synthetic fixtures only; no paid calls or edition writes.
+- Browser fixture initially used undefined for a nullable thumbnail; corrected to null. Screenshot inspection caught touching fallback/action text; made fallback block-level and added a spacing assertion. Final browser replay and existing image-grid replay passed; four failure screenshots saved, mobile light/desktop dark inspected.
+- Passed pnpm format, pnpm lint:fix, pnpm build and git diff --check. Full pnpm check passed: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green.
+- API/worker restarted; /healthz DB/Redis OK, pnpm obs alerts clear, 36/36 sources healthy, digest queue available/zero failed. Saved edition remains four topics/20 stories/17 posts.
+- No source/schema/system-flow changes; handbook, SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Next: continue final reader work; Nov 7 keyword X and reserved-slot Bluesky acceptance await publication. Observability RAM target remains unmet.

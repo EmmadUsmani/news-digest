@@ -413,18 +413,28 @@ function BlueskyImage({
 }) {
   const [failed, setFailed] = React.useState(false);
   return failed ? (
-    <span className="text-sm text-[var(--secondary)] underline underline-offset-2">
+    <span className="block text-sm text-[var(--secondary)] underline underline-offset-2">
       {video ? 'Preview unavailable' : 'Image unavailable · Open image ↗'}
       <span className="sr-only">{` — ${alt}`}</span>
     </span>
   ) : (
-    <img
-      src={src}
-      alt={alt}
-      loading="lazy"
-      referrerPolicy="no-referrer"
-      onError={() => setFailed(true)}
-    />
+    <span className="relative block">
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        referrerPolicy="no-referrer"
+        onError={() => setFailed(true)}
+      />
+      {video && (
+        <span
+          aria-hidden="true"
+          className="absolute top-3 left-3 flex h-10 w-10 items-center justify-center rounded-full bg-black/75 text-base text-white"
+        >
+          ▶
+        </span>
+      )}
+    </span>
   );
 }
 
@@ -482,16 +492,7 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
             )}
             {media.type === 'video' && (
               <span className="mt-2 inline-flex items-center gap-2 text-sm underline underline-offset-2">
-                <span
-                  aria-hidden="true"
-                  className={
-                    media.thumbnail
-                      ? 'absolute top-3 left-3 flex h-10 w-10 items-center justify-center rounded-full bg-black/75 text-base text-white'
-                      : ''
-                  }
-                >
-                  ▶
-                </span>
+                {!media.thumbnail && <span aria-hidden="true">▶</span>}
                 Watch video on Bluesky ↗
               </span>
             )}

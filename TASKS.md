@@ -37,7 +37,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] STEERING 33/43 (1063): Bluesky video previews have a visible play cue and original-post action; synthetic browser replay covers desktop/mobile light/dark.
+- [x] STEERING 33/43 (1064): failed Bluesky video previews no longer leave a play badge over the fallback; browser replay covers loaded/failed/missing previews.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

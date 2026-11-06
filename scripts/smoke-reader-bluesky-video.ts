@@ -20,11 +20,14 @@ async function main() {
       ['mobile', 390, 844],
     ] as const) {
       for (const theme of ['light', 'dark'] as const) {
-        for (const count of [1]) {
-          post.media = Array.from({ length: count }, (_, index) => ({
+        for (const preview of ['loaded', 'failed', 'missing'] as const) {
+          post.media = Array.from({ length: 1 }, (_, index) => ({
             type: 'video' as const,
             playlist: 'https://video.bsky.app/synthetic/playlist.m3u8',
-            thumbnail: `https://cdn.bsky.app/media-grid-${index}.svg`,
+            thumbnail:
+              preview === 'missing'
+                ? null
+                : `https://cdn.bsky.app/media-grid-${index}.svg`,
 
             alt: `Synthetic layout image ${index + 1}`,
           }));
@@ -36,6 +39,8 @@ async function main() {
           await page.route('**/*', (route) => {
             const url = new URL(route.request().url());
             assert.equal(route.request().method(), 'GET');
+            if (url.pathname.startsWith('/media-grid-') && preview === 'failed')
+              return route.abort();
             if (url.pathname.startsWith('/media-grid-'))
               return route.fulfill({
                 contentType: 'image/svg+xml',
@@ -50,10 +55,13 @@ async function main() {
           const card = page.locator('.bluesky-card').first();
           await card.scrollIntoViewIfNeeded();
           const grid = card.locator('.bluesky-media');
-          await grid
-            .locator('img')
-            .first()
-            .evaluate(async (img: HTMLImageElement) => img.decode());
+          if (preview === 'loaded')
+            await grid
+              .locator('img')
+              .first()
+              .evaluate(async (img: HTMLImageElement) => img.decode());
+          if (preview === 'failed')
+            await grid.getByText('Preview unavailable').waitFor();
           const boxes = await grid.locator('a').evaluateAll((nodes) =>
             nodes.map((node) => {
               const rect = node.getBoundingClientRect();
@@ -65,13 +73,29 @@ async function main() {
           assert.equal(await videoLink.getAttribute('target'), '_blank');
           await videoLink.getByText('Watch video on Bluesky ↗').waitFor();
           const play = videoLink.locator('[aria-hidden="true"]');
-          assert.equal(await play.innerText(), '▶');
-          assert.equal(
-            await play.evaluate((node) => getComputedStyle(node).position),
-            'absolute',
-          );
+          assert.equal(await play.count(), preview === 'failed' ? 0 : 1);
+          if (preview !== 'failed') {
+            assert.equal(await play.innerText(), '▶');
+            assert.equal(
+              await play.evaluate((node) => getComputedStyle(node).position),
+              preview === 'loaded' ? 'absolute' : 'static',
+            );
+          }
+          if (preview === 'failed') {
+            assert.equal(await grid.locator('img').count(), 0);
+            const fallback = await grid
+              .getByText('Preview unavailable')
+              .boundingBox();
+            const action = await videoLink
+              .getByText('Watch video on Bluesky ↗')
+              .boundingBox();
+            assert.ok(
+              fallback && action && action.y >= fallback.y + fallback.height,
+              'Video action sits below the unavailable preview',
+            );
+          }
           const gridWidth = await grid.evaluate((node) => node.clientWidth);
-          if (count === 1 || device === 'mobile')
+          if (preview === 'loaded' || device === 'mobile')
             assert.ok(
               Math.abs(boxes[0].width - gridWidth) < 2,
               'Single image and mobile images fill the row',
@@ -79,16 +103,16 @@ async function main() {
           assert.ok(
             await card.evaluate((node) => node.scrollWidth <= node.clientWidth),
           );
-          if (count === 1)
+          if (preview === 'failed')
             await card.screenshot({
-              path: `docs/screenshots/ui/reader-bluesky-video-${device}-${theme}.png`,
+              path: `docs/screenshots/ui/reader-bluesky-video-failed-${device}-${theme}.png`,
             });
           await page.close();
         }
       }
     }
     console.log(
-      'Bluesky synthetic video: play cue and original links passed desktop/mobile light/dark; external requests blocked.',
+      'Bluesky synthetic video: loaded/failed/missing previews and original links passed desktop/mobile light/dark; external requests blocked.',
     );
   } finally {
     await browser.close();

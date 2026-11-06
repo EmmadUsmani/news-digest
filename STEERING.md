@@ -1796,3 +1796,5 @@ ack: 2026-11-06 item 40 — iteration 1061: enabled BLUESKY_RESERVED_SLOT_ENABLE
 ack: 2026-11-06 item 33/43 — iteration 1062: readers now see single Bluesky images across the full card width, with multiple-image grids preserved; desktop/mobile light/dark [screenshots](docs/screenshots/ui/reader-bluesky-grid-desktop-light.png) use clearly labelled synthetic media. No paid calls.
 
 ack: 2026-11-06 item 33/43 — iteration 1063: readers can distinguish Bluesky videos from still images using a visible play cue; the labelled action opens the original post. Synthetic desktop/mobile light/dark browser replay passed; [mobile view](docs/screenshots/ui/reader-bluesky-video-mobile-light.png). No paid calls.
+
+ack: 2026-11-06 item 33/43 — iteration 1064: readers can follow failed Bluesky video previews without a play badge covering the fallback text; loaded/failed/missing previews checked on desktop/mobile in both themes. No paid calls.
