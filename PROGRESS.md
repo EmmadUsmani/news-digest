@@ -1,14 +1,3 @@
-## 2026-11-06: iteration 993 — explain both migration directories
-
-- Started clean on main; health/DB/Redis green, alerts clear, API/worker active, all 36 sources healthy; no failed digest runs.
-- World breadth remains the largest saved-edition weakness; its deployed fix awaits publication. X round waits until 21:00 UTC.
-- Found the owner repository map omitted generated migrations and described only numbered historical SQL. Added drizzle/ and explained runner order, the shared ledger and skipped applied files, with policy links.
-- Owner value: the code map now shows where current schema changes live and how to apply them. No further speculative editorial tuning.
-- Documentation only; no runtime, source, schema, prompt, budget or paid-call changes. SOURCES/NEEDS_FROM_HUMAN unchanged.
-- Deployment freeze began at 13:00 UTC: no services restarted; handbook reads committed files per request.
-- Verification results follow. Next: Nov 6 edition/World/cost/Bluesky review after publication; deploys resume after 16:00 UTC; X test after 21:00 UTC.
-- Verification: pnpm format; pnpm lint:fix; pnpm check exit 0 (555 unit/224 isolated integration tests passed); pnpm build; pnpm exec tsx scripts/check-handbook.ts code-structure (18 pages, one unchanged diagram, 28 tables); git diff --check. Final health green.
-
 ## 2026-11-06: iteration 994 — scope earlier on-demand reading
 
 - Started clean on main; health/DB/Redis green, alerts clear, API/worker active. No leftover work.
@@ -201,3 +190,16 @@
 - No runtime/source/schema/prompt/budget changes or paid calls; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged. No restarts during deployment freeze; running code unchanged.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration tests); pnpm build; targeted Prettier and git diff --check passed. Archived iteration 992 to keep this file small.
 - Next: Nov 6 World/full-AI/cost/Bluesky review after publication; X round after 21:00 UTC; fixed search OFF.
+
+## 2026-11-06: iteration 1011 — review the Nov 6 published edition
+
+- Started clean on main; no leftover work. Health/DB/Redis and sources green, alerts clear; no failed digest runs. Scheduled edition published at 15:02:17 UTC.
+- Read all four saved topics: 20 stories/16 X/1 Bluesky; World improved from two to five distinct stories after the larger grouping pool. Six multi-article groups had no clearly unrelated event in saved titles.
+- Full-AI, zero unscored IDs/budget refusals, 37 settled calls/$0.286904; worker 137.059 s versus 152.320 s Nov 5. Four unsupported-absence replies repaired; no failed/unresolved calls.
+- World Bluesky retained one distinct post and dropped one unsupported pick; Tech/NBA/Gaming had no slots. Both Bluesky alerts clear. Real desktop/mobile screenshots saved and visually inspected; no page errors.
+- Slot gate fails: extra three topics at World’s $0.015867 each gives 1.5 × $0.334505 = $0.501758 rounded up, above $0.501698 cap. Kept OFF; ack and NEEDS_FROM_HUMAN record owner wait.
+- Largest remaining reader weakness: Tech’s five posts repeat two launches. Recorded in docs/edition-reviews/2026-11-06.md; no speculative tuning, runtime change or paid review call.
+- Updated TASKS, SOURCES and STEERING ack. No restarts/deploys during 13:00–16:00 freeze; running code unchanged.
+- Verification: pnpm check passed (560 unit/224 isolated integration); pnpm format; pnpm lint:fix; pnpm build; git diff --check; read-only edition/timing/status endpoints and worker admission/settlement logs; Playwright real saved Bluesky card at 1440/390px.
+- Post-check warning: ObservabilityMemoryBudget pending for obs-shipper; system unit active, 0 restarts, ~78.5/80 MiB. No restart during freeze. Archived iteration 993 to keep this file small.
+- Next: X fresh-window round after 21:00 UTC; Bluesky slot awaits owner. Fixed search OFF.

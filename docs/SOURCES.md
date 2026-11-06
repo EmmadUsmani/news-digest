@@ -1,5 +1,14 @@
 # Content source inventory
 
+### Nov 6 scheduled edition — iteration 1011
+
+Saved reader has X counts 5/5/5/1 and one World Bluesky pick, distinct from
+World’s X event. World read 563 Bluesky candidates, shortlisted six, retained
+one and dropped one unsupported claim; other topics had no slots. No Bluesky
+alerts. Reserved slot remains OFF: cost gate $0.501758 exceeds $0.501698 cap.
+Saved X engagement remains unknown; this is not viral-quality acceptance.
+[Edition review](edition-reviews/2026-11-06.md). No review provider calls.
+
 ### Nov 5 revised X experiment — iteration 885
 
 Five settled keyword/semantic calls cost $0.278606 for 41 fetched/cited posts;

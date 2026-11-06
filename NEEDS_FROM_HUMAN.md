@@ -61,3 +61,12 @@ R2_SECRET_ACCESS_KEY=
 R2_BUCKET=news-digest-backups
 BACKUP_AGE_RECIPIENT=
 ```
+
+## Bluesky reserved-slot gate — Nov 6, iteration 1011
+
+STEERING 40 requires waiting for the owner when either activation gate fails.
+Full-AI/no-budget-refusal passes; measured-cost estimate fails narrowly:
+1.5 × ($0.286904 edition + $0.047601 extra) = $0.501758 rounded up,
+above the $0.501698 daily cap. Reserved slot remains OFF; no cap change.
+World already has a distinct Bluesky pick through an open slot.
+[Review and estimate](docs/edition-reviews/2026-11-06.md).

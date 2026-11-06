@@ -5,9 +5,9 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 ## Immediate owner priorities
 
 - [ ] STEERING 39 NOW, ahead of UI: reliability/accounting shipped (903–909); Nov 5 keyword reruns complete (910), Gaming three posts, NBA/World tool failed again (2/3 failure), $0.048153 settled. Fair semantic preparation shipped (911); scorer review complete (912): Gaming 1/3 usable, no retained free-link overlap, $0.000337 verification. Next: Nov 6 round after 21:00 UTC. Scorer relevance ≥6/interestingness ≥4 counts as non-promotion; unknown likes unusable. $2.50 total/$1 UTC day caps; fixed search OFF, no further Nov 5 reruns. [Evidence](docs/edition-reviews/2026-11-05-x-experiment-review.md).
-- [x] STEERING 41 (920): durable scheduled-edition BlueskyEditingFailed/BlueskyNoPicks alerts, aggregate-only DB access and firing/clearing/restart coverage shipped. Neither fires on real editions; first eligible scheduled edition is Nov 6.
-- [ ] STEERING 40: purpose/topic diagnostics deployed (913); historical attribution, saved outcomes, inspector and call-scoped refusal reasons shipped (914–919). Per-post validation and saved drop counts shipped (921). Default-off reserved slot built (922), saved editor order verified; Nov 6 cost gate controls activation. Details and limits in STEERING; no collection/query/cap changes.
-- [ ] STEERING 36 NOW: forty-article grouping pool live (872), ten-story editor cap unchanged; replay/cost evidence in [review](docs/edition-reviews/2026-11-05-world-story-pool.md). Review Nov 6 edition. Dedicated admin pages next; coverage cleanup done (873). X rounds due after 21:00 UTC.
+- [x] STEERING 41 (920): durable scheduled-edition BlueskyEditingFailed/BlueskyNoPicks alerts, aggregate-only DB access and firing/clearing/restart coverage shipped. Nov 6 first eligible scheduled edition has one World pick and no editing failures; neither alert fires (1011).
+- [ ] STEERING 40: purpose/topic diagnostics deployed (913); historical attribution, saved outcomes, inspector and call-scoped refusal reasons shipped (914–919). Per-post validation and saved drop counts shipped (921). Default-off reserved slot built (922), saved editor order verified; Nov 6 gate evaluated (1011): full-AI passes, $0.501758 estimated with margin exceeds $0.501698 cap; remains OFF awaiting owner. World saved one distinct Bluesky post; one unsupported pick dropped. Details and limits in STEERING; no collection/query/cap changes.
+- [ ] STEERING 36 NOW: forty-article grouping pool live (872), ten-story editor cap unchanged; replay/cost evidence in [review](docs/edition-reviews/2026-11-05-world-story-pool.md). Nov 6 review complete (1011): World five distinct stories, full-AI/$0.286904/137.059 s; [review](docs/edition-reviews/2026-11-06.md). Dedicated admin pages next; coverage cleanup done (873). X rounds due after 21:00 UTC.
 
 - [x] Nov 5 full-AI acceptance and saved reader text (847): all sections AI, zero unscored; $0.315445/152.320 s. [Review](docs/edition-reviews/2026-11-05.md).
 
@@ -39,8 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Continue-reading proposal (1010): scoped an explicit browser-local return link for interrupted saved editions, with bounded storage and a 1–2 day estimate; owner review required. [Proposal](docs/ideas.md#continue-reading-an-interrupted-edition).
+- [x] Nov 6 edition review (1011): World five stories versus two; all topics fully AI-edited, $0.286904/137.059 s, one distinct World Bluesky pick with desktop/mobile screenshots. Slot cost gate fails; stays OFF awaiting owner. [Review](docs/edition-reviews/2026-11-06.md).
 
 - Earlier steps 995–1006: [completed markers](docs/progress-archive/2026-11-06-reader-done-1007.md).
 
-- Next: STEERING 42 Nov 5 reader review completed; compare Nov 6 World breadth and post context after publication. STEERING 40 Nov 6 reserved-slot cost/AI gate and edition review after publication; fresh X round after 21:00 UTC. Fixed search stays off.
+- Next: fresh X round after 21:00 UTC; reserved Bluesky slot awaits owner after failed Nov 6 cost gate. Tech post repetition is the largest remaining reader weakness in the Nov 6 review. Fixed search stays off.
