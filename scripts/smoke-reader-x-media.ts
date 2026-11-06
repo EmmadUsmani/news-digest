@@ -73,7 +73,7 @@ async function smoke() {
         );
         assert.ok(await card.locator('.post-text').isVisible());
         assert.equal(
-          await card.locator('.post-context').innerText(),
+          await card.locator('.post-context-text').innerText(),
           post.whyItMatters,
         );
         await page.screenshot({

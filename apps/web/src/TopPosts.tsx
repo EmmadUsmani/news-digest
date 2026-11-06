@@ -104,7 +104,8 @@ export function TopPosts({ posts }: { posts: ReaderPost[] }) {
 function PostContext({ post }: { post: ReaderPost }) {
   return post.whyItMatters?.trim() ? (
     <p className="post-context text-sm text-[var(--secondary)]">
-      {post.whyItMatters}
+      <span className="block text-xs font-semibold">Digest context</span>
+      <span className="post-context-text">{post.whyItMatters}</span>
     </p>
   ) : null;
 }

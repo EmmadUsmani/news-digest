@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Post context attribution (961): label saved editorial commentary “Digest context” to distinguish it from each post author’s words.
+
 - [x] Small-screen header (960): keep the wordmark and edition date on one line at 320px; compact date retains its year for screen readers.
 
 - [x] Post publication times (959): use concise dates and local times consistently with stories; saved timestamps retained and verified in four reader views.

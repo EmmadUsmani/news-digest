@@ -1,15 +1,3 @@
-## 2026-11-06: iteration 944 — restore delayed archive response verification
-
-- Started clean on main; alerts clear and health/database/Redis green. No leftover work.
-- Read saved topics; known World breadth/Tech grouping await Nov 6 publication. X round waits until 21:00 UTC.
-- Existing edition-history smoke failed on the deleted Browse saved editions panel. Ported it from removed inline history/job state to the archive.
-- Reader value: verifies a late archive refresh success or failure cannot replace the saved story edition the reader opened. Uses real stored content; delayed responses are browser simulations.
-- Eight desktop/mobile light/dark success/error cases passed; screenshots refreshed. No writes, paid calls, flags or app behavior changes.
-- Verification: pnpm exec tsx scripts/smoke-edition-history.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check. Final results below.
-- Updated TASKS; no source/system-flow change, so handbook/SOURCES unchanged.
-- Next: Nov 6 edition/Bluesky cost gate after publication; X after 21:00 UTC. Fixed search and reserved slot stay off.
-- Final pnpm check exited zero (543 unit/224 isolated integration tests); build and eight post-restart browser cases passed. Inspected mobile dark screenshot. All four app services restarted; health/database/Redis green and alerts clear.
-
 ## 2026-11-06: iteration 945 — restore the main reader smoke
 
 - Started clean on main; no leftover work. Alerts clear; health/database/Redis green. Edition/Bluesky review and X round remain time-gated.
@@ -194,3 +182,18 @@
 - Initial full check passed 543 unit tests, then exited 143 during integration tests without a reported assertion failure; rerunning standalone before commit.
 - Standalone pnpm check passed (543 unit/224 isolated integration tests); build, handbook, four-view browser replay plus 320px light/dark and final format/lint/diff checks passed. Inspected small-screen light screenshot.
 - API/worker/docs/schema restarted active; health/database/Redis green and alerts clear. All 36 sources healthy; no failed digest-generation jobs.
+
+## 2026-11-06: iteration 961 — distinguish digest commentary from original posts
+
+- Started clean on main; alerts clear and health/database/Redis green. No leftover work.
+- Read all four saved topics; World breadth/Tech grouping await Nov 6 publication; X round waits until 21:00 UTC.
+- Reader weakness: saved editorial explanations below posts had no attribution label, making them easy to confuse with the original author’s words.
+- Added “Digest context” above existing commentary for every platform; saved text, explanations and selection unchanged.
+- Owner value: readers can distinguish the digest’s explanation from what the post author actually wrote.
+- Extended saved-edition browser replay to verify labels and unchanged context in desktop/mobile light/dark; screenshots refreshed.
+- Archived iteration 944; updated TASKS, STEERING ack and affected handbook. SOURCES/NEEDS_FROM_HUMAN unchanged; no spend or flag changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check.
+- First full check stopped on formatting of the newly archived progress entry; formatting corrected before rerunning.
+- Next: edition/Bluesky review after 15:00 UTC; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.
+- Final pnpm check passed (543 unit/224 isolated integration tests); build, handbook, four-view layout/media recovery and diff checks passed. Inspected mobile light post screenshot.
+- API/worker/docs/schema restarted active; health/database/Redis green, alerts clear, all 36 sources healthy and no failed digest jobs.

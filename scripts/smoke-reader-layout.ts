@@ -196,10 +196,15 @@ async function smoke() {
           ),
         );
         assert.deepEqual(
-          await page.locator('.post-context').allTextContents(),
+          await page.locator('.post-context-text').allTextContents(),
           expectedContexts,
         );
         for (const note of await page.locator('.post-context').all()) {
+          assert.equal(
+            await note.locator('span').first().textContent(),
+            'Digest context',
+            'Editorial context is distinguished from the original author’s words',
+          );
           assert.ok(
             await note.evaluate((element) => {
               const card = element.closest('.post-card')!;
