@@ -161,3 +161,25 @@
   defer if it is too sparse to help the reader.
 - Status: proposal only under item 38. World breadth and the Nov 6 edition,
   Bluesky and X decisions remain ahead of this work. No runtime change.
+
+## Follow a continuing story across editions
+
+- Reader problem: Nov 5 World's election and Iran-war coverage includes live
+  pages. A reader returning tomorrow must search the archive to compare the
+  prior account with today's developments; opening the publisher's mutable
+  live page cannot recover what the digest previously said.
+- Proposal: offer a “Previously in this topic” link when consecutive saved
+  editions cite the exact same coverage URL. Open the earlier immutable story
+  with its edition date. Do not describe the new story as an update or infer
+  what changed: a shared live-page URL establishes continuity of coverage,
+  not continuity of every event or a verified factual change.
+- Scope/cost: roughly 1–2 days for saved-coverage lookup, an optional reader
+  relation and accessible navigation. No publisher fetches, model calls, new
+  vendor or historical snapshot rewrite. Keep matching within one topic and
+  existing URL normalization; do not match stories by headline similarity.
+- Before implementation, measure exact-URL recurrence across saved editions
+  and check whether links actually help readers. Leave unmatched stories alone;
+  defer if useful matches are scarce. Broader semantic tracking needs its own
+  proposal and budget estimate.
+- Status: idea awaiting owner review under item 38; no implementation or spend.
+  Nov 6 breadth/context review and Bluesky/X decisions retain priority.

@@ -1,42 +1,3 @@
-## 2026-11-06: iteration 983 — distinguish discovery feeds from reporting outlets
-
-- Started clean on main; health/database/Redis green, alerts clear; no leftover work.
-- Read all four saved topics; Nov 6 edition/Bluesky and X reviews remain time-gated.
-- Reader weakness: OpenSSH links to its author's Mastodon post but appears under the unqualified Hacker News label; Tech also shows Google News topic feeds as sources.
-- Mark these discovery links “via” in story source rows and expanded reports, distinguishing discovery feeds from reporting outlets without guessing authorship.
-- Saved content, destinations, collection, selection and spend unchanged; no paid calls.
-- Updated TASKS, item 42 ack and affected handbook. SOURCES/NEEDS_FROM_HUMAN unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check.
-- Build and handbook passed; API/worker/docs/schema restarted, health green, all 36 sources healthy, zero failed digest jobs. Full checks/browser results recorded below.
-- Next: Nov 6 World/cost/Bluesky/editorial review after 15:00 UTC; X round after 21:00 UTC. Fixed search remains off.
-- Final: pnpm check passed (553 unit/224 isolated integration tests); build, handbook, four-view saved-edition replay and diff checks passed. Inspected mobile discovery attribution screenshot; four new screenshots retained. Archived iteration 969 to keep this file small.
-
-## 2026-11-06: iteration 984 — retain practical release qualifications
-
-- Started clean on main; alerts clear and health/database/Redis green; no leftover work.
-- Read all four saved topics; edition/Bluesky and X reviews remain time-gated.
-- Reader weakness: Gaming's GTA 6 early-store summary omits the original headline's warning that it is not playable right away. The owner would notice the misleading practical release implication.
-- Editor v10 asks both headline and summary to retain supported practical qualifications, without inventing unlock dates; absence claims still require a complete verbatim source sentence.
-- Updated purpose version and golden expectations; offline contracts cover both primary and fallback editors. Saved editions unchanged; no paid calls, sources or selection settings changed.
-- Initial direct golden invocation correctly refused without its isolated-DB flag; full suite runs it through the isolation harness. Targeted editor tests passed 18/18.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (554 unit/224 isolated integration passed); pnpm build; git diff --check. No UI or system-flow change requiring screenshots or handbook updates.
-- Full-suite replay caught the old synthetic prompt fingerprint; refreshed that fingerprint only, retained authored response, targeted replay and full rerun passed. Archived iteration 970 to keep PROGRESS small.
-- API/worker/docs/schema restarted; post-restart health green, alerts clear, all 36 sources healthy. No failed digest jobs; next run 15:00 UTC.
-- Next: compare Nov 6 actual output and World/cost/Bluesky after 15:00 UTC; X round after 21:00 UTC.
-
-## 2026-11-06: iteration 985 — keep personal details supported
-
-- Started clean on main; alerts clear, health/database/Redis green; no leftover work.
-- Read all four saved topics while Nov 6 edition/Bluesky and X reviews remain time-gated.
-- Reader weakness: Sony summary uses “He” for CFO Lin Tao, but neither saved source excerpt establishes pronouns. Readers would care about an unsupported personal detail in an attributed report.
-- Editor v11 uses names or roles when source text does not establish pronouns, without inferring gender from names, roles or outside knowledge. Historical edition unchanged.
-- Added primary/fallback offline contract; updated purpose/golden expectations and synthetic replay fingerprint only, retaining authored response. No paid calls, source or budget changes.
-- Direct publication test initially refused missing isolated DB configuration; rerun used isolated-test flag and unreachable dummy DB (harness stubs queries). Replay fingerprint corrected using actual request.
-- Verification/results below; no UI or system-flow change requiring screenshots or handbook updates. SOURCES/NEEDS_FROM_HUMAN unchanged.
-- Next: Nov 6 actual World/cost/Bluesky/editorial review after 15:00 UTC; X round after 21:00 UTC.
-- Final: pnpm format; pnpm lint:fix; pnpm check (555 unit/224 isolated integration passed); pnpm build; git diff --check. Initial full check caught archive formatting, fixed before successful rerun.
-- API/worker/docs/schema restarted; health green, alerts clear, 36 sources without current errors, zero failed digest jobs and next run 15:00 UTC. Archived iteration 971 to keep PROGRESS small.
-
 ## 2026-11-06: iteration 986 — explain incomplete X post recovery
 
 - Started clean on main; alerts clear and health/database/Redis green; no leftover work.
@@ -214,3 +175,15 @@
 - Proposal only; no paid calls, collection/schema/runtime changes or service restarts during the 13:00–16:00 deployment freeze.
 - SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Next: Nov 6 reader/World/cost/Bluesky review after publication; X round after 21:00 UTC.
 - Verification: pnpm format; pnpm lint:fix; pnpm check passed (560 unit/224 isolated integration); pnpm build passed; git diff --check. Final health green and alerts clear.
+
+## 2026-11-06: iteration 1001 — propose continuing-story navigation
+
+- Started clean on main; alerts clear, health/DB/Redis green, API/worker active; no leftover work.
+- Latest saved reader is still Nov 5 (7d99b279); World breadth awaits the deployed fix's Nov 6 edition. Scheduled digest remains due at 15:00 UTC.
+- Reader friction: World coverage includes mutable election/Iran live pages; those pages cannot recover the prior digest's account for comparison.
+- Owner value: a link to an earlier immutable story could make continuing coverage easier to follow across daily editions.
+- Added a concise proposal in docs/ideas.md: exact shared coverage URL within a topic, no inferred factual-change claims; estimate 1–2 days with no extra calls.
+- Proposal only under item 38; no runtime, collection, schema, spend or service changes during the deployment freeze. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged.
+- Archived iterations 983–985 to keep PROGRESS below 25 KB. Source checks healthy; failed digest jobs zero.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (560 unit/224 isolated integration), pnpm build and git diff --check passed. Final health green; alerts clear.
+- Next: Nov 6 reader/World/cost/Bluesky review after publication; X round after 21:00 UTC. Fixed search remains off.

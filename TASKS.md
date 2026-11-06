@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Continuing-story navigation proposal (1001): scoped exact shared-coverage links to earlier immutable editions, with no inferred change claims or extra calls. [Idea](docs/ideas.md#follow-a-continuing-story-across-editions). Proposal only.
+
 - [x] Story/post connection proposal (1000): saved Nov 5 Linux-exploit reporting and primary-source post motivate exact-citation links; bounded scope, evidence threshold and effort in [ideas](docs/ideas.md#connect-reporting-to-the-original-posts-in-the-same-edition). Proposal only; no runtime changes.
 
 - [x] Discovery attribution proposal (999): identified five Google News coverage links and a CNBC/Reuters hostname collision in saved Nov 5 Tech; scoped separate publisher/discovery identities in [ideas](docs/ideas.md#publisher-attribution-for-discovery-feed-coverage). Proposal only; no runtime changes.
