@@ -36,7 +36,7 @@ async function main() {
         author: 'Synthetic author (example.test)',
         publishedAt: '2026-11-03T02:00:00Z',
         observedAt: '2026-11-03T03:00:00Z',
-        text: 'Synthetic Bluesky card — browser verification\nFull original text, including <script>literal markup</script>. Read https://example.com/story?item=1&source=post. Unsafe javascript:alert(1) stays text.',
+        text: 'Synthetic Bluesky card — browser verification\nFull original text, including <script>literal markup</script>. Read https://example.com/story?item=1&source=post. Unsafe javascript:alert(1) stays text. Also (https://example.org/story), [https://example.net/read]. Balanced https://en.wikipedia.org/wiki/News_(disambiguation).',
         metrics: { likes: 1200, reposts: 84, replies: 12 },
         media: [
           {
@@ -176,6 +176,18 @@ async function main() {
         'https://example.com/story?item=1&source=post',
       );
       assert.equal(await linkedSource.getAttribute('target'), '_blank');
+      for (const url of [
+        'https://example.org/story',
+        'https://example.net/read',
+        'https://en.wikipedia.org/wiki/News_(disambiguation)',
+      ]) {
+        const link = cards
+          .first()
+          .getByRole('link', { name: url, exact: true });
+        assert.equal(await link.getAttribute('href'), url);
+        assert.equal(await link.getAttribute('target'), '_blank');
+      }
+
       assert.equal(
         await cards.first().locator('.post-text').innerText(),
         post.text,

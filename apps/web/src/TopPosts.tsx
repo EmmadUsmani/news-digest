@@ -371,7 +371,15 @@ function LinkedPostText({ text, postUrl }: { text: string; postUrl: string }) {
         </a>
       ) : null;
     // Leave sentence punctuation outside the link without changing saved text.
-    const url = part.replace(/[.,;:!?]+$/, '');
+    let url = part.replace(/[.,;:!?]+$/, '');
+    // Keep balanced URL parentheses (e.g. Wikipedia titles), but exclude
+    // closing delimiters belonging to the surrounding sentence.
+    while (/[)\]}]$/.test(url)) {
+      const close = url.at(-1)!;
+      const open = { ')': '(', ']': '[', '}': '{' }[close]!;
+      if (url.split(close).length <= url.split(open).length) break;
+      url = url.slice(0, -1).replace(/[.,;:!?]+$/, '');
+    }
     try {
       new URL(url);
     } catch {

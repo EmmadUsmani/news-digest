@@ -1,14 +1,5 @@
 # Progress
 
-## 2026-11-06: iteration 1033 — compact unavailable X media
-
-- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; no leftovers, alerts clear and /healthz DB/Redis OK.
-- Saved reader repeated multi-line embed failure instructions under otherwise readable X posts. Replaced them with one compact media-unavailable/retry row; saved text, original link, loading and focus behavior retained.
-- Read-only saved-edition Playwright check passed desktop/mobile light/dark, covering failure-row height, retry, focus, media recovery, resizing and theme replacement. Widget recovery uses a local stub; no external calls or writes. Updated four failure screenshots; final mobile light visually inspected.
-- Passed pnpm build; pnpm exec tsx scripts/smoke-reader-x-media.ts; pnpm format; pnpm lint:fix; git diff --check. Full pnpm check passed static checks, 562 unit and 225 integration tests, then exited 143 after coverage; standalone pnpm test:integration passed all 225 tests (exit 0).
-- API/worker restarted; /healthz DB/Redis OK, alerts clear; saved edition retains four topics, 20 stories and 17 posts. No paid calls or source/schema/handbook-flow changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Archived iteration 1017 to keep PROGRESS small. Next: continue final reader; approved Bluesky slot pending under Current order; X round after 21:00 UTC.
-
 ## 2026-11-06: iteration 1034 — shared final reader post cards
 
 - Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; no leftover work; alerts clear and /healthz DB/Redis OK.
@@ -154,3 +145,12 @@
 - Browser commands: pnpm exec tsx scripts/smoke-bluesky-cards.ts; pnpm exec tsx scripts/smoke-reader-bluesky-links.ts; both passed all four views. Screenshots regenerated with no pixel changes; mobile failed-image view inspected.
 - API/worker restarted; /healthz DB/Redis OK, alerts clear, latest edition four topics/20 stories/17 posts. Initial health request preceded socket startup; retry passed. Archived iteration 1032; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
 - Separate pnpm test:integration passed 225/225 (exit 0); git diff --check passed. No blockers; next continue approved reader work until the fresh X round after 21:00 UTC; fixed search OFF.
+
+## 2026-11-06: iteration 1048 — repair prose-wrapped post links
+
+- Advanced item 33/43 while fresh X rounds wait until after 21:00 UTC. Started clean on main; alerts clear, API health DB/Redis OK.
+- Bluesky saved-text URLs now exclude unmatched closing parentheses/brackets/braces from surrounding prose while retaining balanced URL delimiters. Displayed saved text remains unchanged.
+- Extended synthetic browser replay with parenthesized/bracketed links and a balanced Wikipedia URL. Desktop/mobile light/dark passed; eight screenshots updated, mobile light inspected. No paid calls, external requests or edition writes.
+- Passed pnpm format; pnpm lint:fix; pnpm build; pnpm exec tsx scripts/smoke-bluesky-cards.ts. pnpm check passed typecheck/lint/format/boundaries and 562 unit tests, then exited 143 during integration. Separate integration result follows.
+- SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes.
+- Separate pnpm test:integration passed 225/225 (exit 0); git diff --check passed. API/worker restarted; health DB/Redis OK, alerts clear, saved edition four topics/20 stories/17 posts. Archived iteration 1033. No blockers; next final reader work, then fresh X round after 21:00 UTC.

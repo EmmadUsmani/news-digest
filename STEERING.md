@@ -1774,3 +1774,5 @@ ack: 2026-11-06 item 33/43 — iteration 1045: readers can open original Bluesky
 ack: 2026-11-06 item 33/43 — iteration 1046: readers can open an X original directly from its timestamp while saved text is collapsed, matching Bluesky card navigation; desktop/mobile light/dark screenshots in docs/screenshots/ui/post-sizing-*.png.
 
 ack: 2026-11-06 item 33/43 — iteration 1047: Bluesky image links retain saved descriptions when thumbnails fail, so screen-reader users can identify the image before opening it; desktop/mobile light/dark replay verified. No paid calls.
+
+ack: 2026-11-06 item 33/43 — iteration 1048: readers can open URLs wrapped in prose parentheses or brackets from Bluesky cards without broken trailing delimiters; balanced URL parentheses and saved text remain intact. Browser replay covers desktop/mobile light/dark.
