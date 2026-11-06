@@ -88,7 +88,7 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
                 }
 
                 aria-current={active === id ? 'location' : undefined}
-                className={`block ${mobile ? 'whitespace-normal break-words' : 'truncate'} rounded py-1 text-sm leading-6 hover:text-[var(--accent)] ${nested ? 'pl-3 font-normal' : 'font-medium'} ${active === id ? 'text-[var(--accent)]' : ''}`}
+                className={`block whitespace-normal break-words rounded py-1 text-sm leading-6 hover:text-[var(--accent)] ${nested ? 'pl-3 font-normal' : 'font-medium'} ${active === id ? 'text-[var(--accent)]' : ''}`}
               >
                 {text}
               </a>

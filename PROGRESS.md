@@ -1,12 +1,3 @@
-## 2026-11-06: iteration 930 — fit X embeds to reader cards
-
-- Started clean on main; no leftover work. Health/database/Redis green, alerts clear and all sources healthy. Nov 6 review/Bluesky gate and X round remain time-gated.
-- Reader weakness: saved X posts requested 550px widgets inside narrower two-column/mobile cards. Request the actual card width within X's 250–550px range and constrain loaded iframe width after resizing; readers can keep media within the post card.
-- Added saved-post browser replay with a clearly labelled local widget stub; no third-party requests, paid calls or writes. Desktop/mobile light/dark sizing and 320px resize passed; saved edition unchanged. Refreshed/inspected screenshots. General reader layout replay passed all four combinations.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-post-sizing.ts; smoke-reader-layout.ts; git diff --check. Full check exited zero: 543 unit and 224 isolated integration tests passed, with coverage completed; build passed.
-- Updated TASKS and STEERING ack; archived iterations 916–917 to keep PROGRESS small. No source, selection, budget, flag or system-flow changes; SOURCES, handbook and NEEDS_FROM_HUMAN unchanged.
-- Rebuilt/restarted API/worker/docs/schema; health/database/Redis green, alerts clear, 36/36 source states ok and zero retained failed digest jobs. Next: Nov 6 World/cost/Bluesky review after publication, fresh X round after 21:00 UTC; fixed search and reserved Bluesky slot remain OFF.
-
 ## 2026-11-06: iteration 931 — keep the active mobile topic visible
 
 - Started clean on main; no leftover work. Alerts clear and health/database/Redis green. Nov 6 edition/Bluesky review and X round remain time-gated.
@@ -169,3 +160,14 @@
 - Updated TASKS; no source/system-flow change, so SOURCES, handbook and NEEDS_FROM_HUMAN unchanged.
 - Next: Nov 6 edition/Bluesky review after publication; X after 21:00 UTC. Fixed search and reserved slot stay off.
 - Final pnpm check exited zero: 543 unit and 224 isolated integration tests passed; build and post-restart desktop/mobile smoke passed. API/worker/docs/schema restarted, health/database/Redis green, 36/36 sources healthy, zero failed digest jobs and alerts clear.
+
+## 2026-11-06: iteration 946 — show full desktop Contents headlines
+
+- Started clean on main; no leftover work. Alerts clear and health/database/Redis green; higher-priority reviews remain time-gated.
+- Reader weakness: desktop Contents clipped saved headlines, including Wembanyama's game result; reproduced with a browser assertion before changing the UI.
+- Owner value: full headlines let the reader distinguish stories before choosing one. Titles now wrap in the existing scrollable sidebar.
+- Extended saved-edition layout replay to reject desktop headline clipping, retaining keyboard navigation checks and four-view screenshots. No paid calls, selection or flags changed.
+- Updated TASKS, handbook and STEERING ack; archived the oldest progress entry. SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (543 unit/224 isolated integration tests); pnpm build; pnpm exec tsx scripts/smoke-reader-layout.ts before/after restart; pnpm exec tsx scripts/check-handbook.ts 08-operations; git diff --check. All passed; desktop screenshot inspected.
+- API/worker/docs/schema restarted; health/database/Redis green, 36/36 sources healthy, no failed digest jobs, alerts clear.
+- Next: Nov 6 edition/Bluesky cost review after publication; fresh X round after 21:00 UTC.

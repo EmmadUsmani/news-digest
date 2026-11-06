@@ -279,6 +279,18 @@ async function smoke() {
             ? page.getByRole('navigation', { name: 'Edition contents' })
             : null;
         if (navigation) {
+          for (const story of second.stories) {
+            const link = navigation.getByRole('link', {
+              name: story.title,
+              exact: true,
+            });
+            assert.ok(
+              await link.evaluate(
+                (element) => element.scrollWidth <= element.clientWidth + 1,
+              ),
+              `Desktop contents must show the full headline: ${story.title}`,
+            );
+          }
           const story = second.stories[0];
           await navigation
             .getByRole('link', { name: story.title, exact: true })

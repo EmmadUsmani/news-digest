@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Desktop Contents headlines (946): long saved headlines wrap fully in the sidebar; saved-edition clipping and keyboard navigation verified in light/dark.
+
 - [x] Main reader smoke (945): ported saved story, summary, image, archive and reload checks to the rebuilt reader; blocks external widgets and API writes.
 
 - [x] Archive response isolation (944): ported the broken inline-history/job smoke to delayed archive refreshes; opening a saved edition survives late success/error responses in four device/theme views.
