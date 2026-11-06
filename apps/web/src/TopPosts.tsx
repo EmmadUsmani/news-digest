@@ -458,7 +458,9 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
       <p className="post-text">
         <LinkedPostText text={post.text} postUrl={post.url} />
       </p>
-      <div className="bluesky-media grid grid-cols-1 gap-2 @min-[480px]:grid-cols-2">
+      <div
+        className={`bluesky-media grid grid-cols-1 gap-2 ${(post.media?.length ?? 0) > 1 ? '@min-[480px]:grid-cols-2' : ''}`}
+      >
         {post.media?.map((media, index) => (
           <a
             key={index}

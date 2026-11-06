@@ -1,99 +1,5 @@
 # Progress
 
-## 2026-11-06: iteration 1044 — open Bluesky posts from compact cards
-
-- Advanced item 33/43 while X rounds wait until after 21:00 UTC. Started clean on main; no leftovers; health/alerts clear.
-- Reader weakness: Bluesky text required a separate footer to open its original post. Text now links directly to the post while embedded source URLs keep their destinations; timestamp also links to the post, including URL-only posts. Removed the redundant footer.
-- Read-only actual saved World-post replay passed desktop/mobile light/dark: original/source destinations, saved text, keyboard focus, no nested links or overflow. Four screenshots saved; mobile light visually inspected. Existing synthetic Bluesky media/context replay and broader saved reader layout replay passed all four views.
-- Screenshot review caught an oversized timestamp link; matched author-row typography and added a browser assertion. First full check stopped on archive/script formatting; formatted both and reran.
-- Initial new script used top-level await in this CommonJS workspace; wrapped its entry point and reran successfully. Updated old synthetic footer/link-count assertions for the new card. No paid calls, edition writes or source/selection changes.
-- Passed pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration, exit 0); pnpm build; pnpm exec tsx scripts/smoke-reader-bluesky-links.ts; scripts/smoke-bluesky-cards.ts; scripts/smoke-reader-layout.ts; git diff --check.
-- Built and restarted API/worker; /healthz DB/Redis OK, all 36 sources healthy, digest queue zero failed runs, alerts clear.
-- Archived iteration 1028 to keep this log small. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes.
-- Next: continue final reader; fresh X round after 21:00 UTC. Approved Bluesky slot activation pending under Current order; fixed search OFF.
-
-## 2026-11-06: iteration 1045 — keep failed Bluesky images usable
-
-- Advanced item 33/43 while X rounds wait until after 21:00 UTC. Started clean on main; alerts clear, all 36 sources healthy, latest scheduled digest completed.
-- Bluesky cards now replace failed thumbnails with a compact link to the full image; failed video previews retain the link to the original post. Successful images keep their existing alt text and lazy loading.
-- Synthetic failed-image replay verifies original destination, keyboard focus, saved text and no overflow across desktop/mobile light/dark. Four screenshots saved; mobile light inspected. Actual saved-post link and broader reader layout replays also passed four views. External requests blocked; no paid calls or edition writes.
-- Passed pnpm build; pnpm format; pnpm lint:fix; pnpm check through typecheck/lint/format/boundaries and 562 unit tests. Check exited 143 as isolated integration started; reran pnpm test:integration separately (result below).
-- Browser commands: pnpm exec tsx scripts/smoke-bluesky-cards.ts; scripts/smoke-reader-bluesky-links.ts; scripts/smoke-reader-layout.ts. Discarded timestamp-only screenshot churn from unchanged views; retained new failed-image screenshots.
-- Archived iteration 1029. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes.
-- Separate isolated integration run passed 225/225 (exit 0); all check stages verified. API/worker restarted; final /healthz DB/Redis OK and alerts clear. No blockers; next continue final reader until fresh X round after 21:00 UTC; fixed search OFF.
-
-## 2026-11-06: iteration 1046 — open X originals from timestamps
-
-- Advanced item 33/43 while fresh X rounds wait until after 21:00 UTC. Started clean on main; alerts clear, all 36 sources healthy, digest queue zero failed runs.
-- Reader weakness: loaded X cards collapse saved text, leaving the app timestamp without an original-post destination. Timestamp now opens the original directly, matching Bluesky and retaining compact author-row typography.
-- Extended saved-post sizing replay to assert original URL, new-tab behavior, keyboard focus and 12px timestamp text alongside loaded-media resizing. Desktop/mobile light/dark passed; four screenshots updated, mobile light inspected. Official widgets stubbed; no external requests, writes or paid calls.
-- First browser run started before the new build finished and timed out against the old bundle; reran successfully after build completion.
-- Passed pnpm format; pnpm lint:fix; pnpm build; pnpm check (562 unit/225 isolated integration, exit 0); pnpm exec tsx scripts/smoke-post-sizing.ts; git diff --check.
-- Archived iteration 1030 to keep PROGRESS small. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes.
-- API/worker restarted from verified build; /healthz DB/Redis OK, alerts clear; latest saved edition four topics/20 stories/17 posts. Next: continue final reader until fresh X rounds after 21:00 UTC; fixed search OFF.
-
-## 2026-11-06: iteration 1047 — retain failed-image descriptions
-
-- Advanced item 33/43 while X rounds wait until after 21:00 UTC. Started clean on main; alerts clear, all 36 sources healthy, digest queue zero failed runs.
-- Failed Bluesky thumbnails previously replaced their saved alt text with a generic image link. Preserve that description in the link's accessible name so screen-reader readers can identify the image before opening it; video preview descriptions are retained too.
-- Discarded an initial missing-thumbnail change: browser fixture validation showed image thumbnails are required by the contract. No contract expansion or source changes.
-- Updated synthetic browser replay to assert the described failed-image link, original destination and keyboard focus across desktop/mobile light/dark; screenshots refreshed. No paid calls or edition writes.
-- Passed pnpm format; pnpm lint:fix; pnpm build; pnpm check through formatting/typecheck/lint/boundaries and 562 unit tests. Full check exited 143 during integration; separate isolated integration result follows. Rebuilt and reran format/lint after correcting the initial change.
-- Browser commands: pnpm exec tsx scripts/smoke-bluesky-cards.ts; pnpm exec tsx scripts/smoke-reader-bluesky-links.ts; both passed all four views. Screenshots regenerated with no pixel changes; mobile failed-image view inspected.
-- API/worker restarted; /healthz DB/Redis OK, alerts clear, latest edition four topics/20 stories/17 posts. Initial health request preceded socket startup; retry passed. Archived iteration 1032; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
-- Separate pnpm test:integration passed 225/225 (exit 0); git diff --check passed. No blockers; next continue approved reader work until the fresh X round after 21:00 UTC; fixed search OFF.
-
-## 2026-11-06: iteration 1048 — repair prose-wrapped post links
-
-- Advanced item 33/43 while fresh X rounds wait until after 21:00 UTC. Started clean on main; alerts clear, API health DB/Redis OK.
-- Bluesky saved-text URLs now exclude unmatched closing parentheses/brackets/braces from surrounding prose while retaining balanced URL delimiters. Displayed saved text remains unchanged.
-- Extended synthetic browser replay with parenthesized/bracketed links and a balanced Wikipedia URL. Desktop/mobile light/dark passed; eight screenshots updated, mobile light inspected. No paid calls, external requests or edition writes.
-- Passed pnpm format; pnpm lint:fix; pnpm build; pnpm exec tsx scripts/smoke-bluesky-cards.ts. pnpm check passed typecheck/lint/format/boundaries and 562 unit tests, then exited 143 during integration. Separate integration result follows.
-- SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes.
-- Separate pnpm test:integration passed 225/225 (exit 0); git diff --check passed. API/worker restarted; health DB/Redis OK, alerts clear, saved edition four topics/20 stories/17 posts. Archived iteration 1033. No blockers; next final reader work, then fresh X round after 21:00 UTC.
-
-## 2026-11-06: iteration 1049 — readable mobile post media
-
-- Advanced item 33/43 while X rounds wait until after 21:00 UTC. Started clean on main; alerts clear and /healthz DB/Redis OK.
-- Bluesky media's automatic columns squeezed images beside other media on phones. Narrow cards now use full-width rows; wider cards use at most two columns based on card width, preserving original-image links.
-- Extended synthetic browser replay with media-position assertions; desktop/mobile light/dark passed, four changed screenshots updated, mobile light inspected. No external image requests, paid calls or edition writes.
-- Passed pnpm format; pnpm lint:fix; pnpm build; pnpm exec tsx scripts/smoke-bluesky-cards.ts. Full check result recorded below.
-- SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes. Next: fresh X rounds after 21:00 UTC; fixed search stays OFF.
-- pnpm check passed (562 unit/225 integration); git diff --check passed. API/worker restarted; health OK, alerts clear; four topics/20 stories/17 posts intact. No blockers.
-
-## 2026-11-06: iteration 1050 — second fresh-window X round
-
-- Advanced items 39/34: Nov 5–6 21:00 UTC round complete. Started clean on main; alerts/health/sources OK, digest queue no failures. No leftover work.
-- Direct configured Grok 4.3, existing caps/required tool/120 s deadline; ten attempts settled $0.442837, 61 unique candidates all officially embed-verified. No new unresolved holds; lifetime charged $1.468639/$2.50.
-- Tech keyword failed twice; continued only never-attempted cells. NBA recovered on its one retry; Gaming/World and all semantic cells succeeded. Failure rate 3/10 attempts; keyword 1/4 cells still failed after retries. No third attempts.
-- Four production Haiku verification calls scored all 61 saved posts, zero unscored, $0.005013. Usable keyword Tech/NBA/Gaming/World 0 (failed)/3/3/0; semantic zero. World separate; no threshold/query/model changes.
-- Read-only baseline: five production calls/$0.157475/19 posts. Retained free snapshot 1,188 rows/1,022 unique IDs; three NBA keyword overlaps excluded. No old search rerun, ingestion or edition writes.
-- Commands: prepare-x-experiment, run-x-experiment (one continuation), extract-x-experiment, report-x-experiment; private oEmbed/scorer/snapshot scripts. Full review and SHA-256-linked private evidence saved. Archived iterations 1034–1035.
-- pnpm check passed: typecheck/lint/format/boundaries, 562 unit and 225 integration tests. pnpm format, pnpm lint:fix, pnpm build and git diff --check passed; API/worker restarted, health DB/Redis OK, alerts clear, saved edition four topics/20 stories/17 posts.
-- Next: compare saved Nov 5/6 old-search baselines under the same usable rule, apply the plan decision; fixed search OFF, no winner/activation. Handbook unchanged: no system-flow change.
-
-## 2026-11-06: iteration 1051 — complete X experiment decision
-
-- Started clean on main; alerts clear, /healthz DB/Redis OK, all 36 sources healthy; latest digest completed, next Nov 7 scheduled. No leftover work.
-- Compared original Nov 5/6 production baseline snapshots offline: 38 daily citations, 31 unknown likes, seven known below saved minimums; zero usable regardless of other gates. Nine calls/$0.300666; no old-search rerun or paid scoring.
-- Keywords yield nine usable across rounds (Tech/NBA/Gaming 2/3/4), World zero separately. Approved rule passes: ship keywords; semantic zero additions, dropped. Decision ack saved; fixed search stays OFF pending verified rollout.
-- Explicit reliability: post-fix keyword failures 5/9 attempts (55.6%), three of seven post-fix topic/day cells failed after allowed rerun/retry; no additional experiment rounds or third attempts.
-- Private baseline-comparison-1051.json records per-topic likes/counts and original snapshot SHA-256 hashes. Updated TASKS/SOURCES/NEEDS_FROM_HUMAN; handbook unchanged because runtime is unchanged.
-- Passed pnpm format, pnpm lint:fix, pnpm build and full pnpm check (562 unit/225 integration, exit 0); git diff --check clean. API/worker restarted; health DB/Redis OK, alerts clear; saved edition four topics/20 stories/17 posts. No ingestion or edition writes. Archived iteration 1036.
-- Next: production keyword adapter/result-limit/admission cleanup, remove old open/follow-up/reaction paths, then enable outside 13:00–16:00 UTC; three-edition acceptance remains open. No human blocker.
-
-## 2026-11-06: iteration 1052 — preserve keyword result engagement
-
-- Started clean on main; alerts clear, health DB/Redis OK and API/worker active. No leftover work.
-- Advanced items 39/34 rollout: shared ten-result prompt/citation limit matches both saved rounds; 4,000 output tokens retained.
-- Fixed engagement parser's five-item-array rejection: disabled keyword adapter now retains reported metrics for all ten cited posts. Legacy requests keep their five-item bound.
-- Offline protocol test covers ten observations, eleventh-link cutoff and all eleven fetched-post charges; focused viral/engagement tests passed 6/6.
-- Initial direct x-search test invocation hit five disposable-DB guards; full check uses the supported isolated runner. No live DB tests or paid calls.
-- Fixed search remains OFF; no edition writes. Cleanup, admission proof and activation remain next; three-edition acceptance open.
-- SOURCES/TASKS updated; handbook unchanged (internal disabled-adapter fix); no human blocker.
-- pnpm format, pnpm lint:fix and pnpm build passed; lint auto-fix changed one layout, re-formatted before successful full pnpm check (562 unit/225 integration). git diff --check clean.
-- API/worker restarted; health DB/Redis OK, alerts clear, 36 sources healthy, digest queue zero failures/Nov 7 scheduled; saved edition four topics/20 stories/17 posts unchanged.
-
 ## 2026-11-06: iteration 1053 — prove keyword admission and fix completion crash
 
 - Started clean on main; alerts clear, health DB/Redis OK, 36 sources healthy, no failed digest runs; no leftover work.
@@ -191,3 +97,15 @@
 - Handbook initially exceeded 100 lines; cut redundant card description, then pnpm exec tsx scripts/check-handbook.ts social-posts passed (18 pages/28 tables); no diagrams changed.
 - API/worker restarted; both process environments confirm flag=1. Immediate startup health probe raced readiness; repeat health DB/Redis OK, alerts clear, 36/36 sources healthy, digest queue available/zero failed.
 - Next: resume final reader work; Nov 7 X acceptance and first reserved-slot edition review (per-topic outcomes/picks/replaced X/added cost). Three-clean-editions stop applies. Observability RAM target remains open.
+
+## 2026-11-06: iteration 1062 — fill single-image Bluesky cards
+
+- Advanced item 33/43 while Nov 7 X/Bluesky acceptance waits. Clean main; no leftovers; initial health/alerts clear and 36/36 sources healthy.
+- Reader weakness: one Bluesky image occupied half a wide card because its grid always had two columns. Single-image posts now use the full row; multiple images retain two wide-screen columns and one mobile column.
+- Saved World post currently has no media. Explicit synthetic one/two-image variants over saved data passed eight desktop/mobile light/dark cases; external requests blocked, GET-only, no paid calls or edition writes.
+- Passed pnpm exec tsx scripts/smoke-reader-bluesky-grid.ts; four screenshots saved, desktop light inspected. Browser fixture initially used HTTP media rejected by contracts; corrected to intercepted HTTPS URLs and validated fixtures before navigation.
+- First pnpm check stopped on formatting of the newly moved progress archive; formatted it and reran. Archived iterations 1044–1052 to keep this log small.
+- No source/schema/system-flow changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
+- Passed pnpm format, pnpm lint:fix, pnpm build, final pnpm check (536 unit/226 isolated integration, zero failures), scripts/smoke-bluesky-cards.ts and git diff --check; desktop light/mobile dark screenshots inspected.
+- API/worker restarted; health DB/Redis OK, alerts clear, 36/36 sources healthy, digest queue available/zero failed. Saved edition remains four topics/20 stories/17 posts.
+- Next: continue final reader work; Nov 7 fixed-keyword X and reserved-slot Bluesky acceptance await the scheduled edition. Observability RAM target remains unmet.
