@@ -4,8 +4,6 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
-- [ ] STEERING 44 recurrence (1058): Grafana health timed out at 22:11 UTC, memory at 288 MiB reclaim ceiling. Restart recovered endpoint; temporary startup CPU boost restored to 3%. Diagnose renewed growth before new work; original 31-minute stability check was insufficient.
-
 - [ ] STEERING 39 NOW, ahead of UI: reliability/accounting shipped (903–909); Nov 5 keyword reruns complete (910), Gaming three posts, NBA/World tool failed again (2/3 failure), $0.048153 settled. Fair semantic preparation shipped (911); scorer review complete (912): Gaming 1/3 usable, no retained free-link overlap, $0.000337 verification. Nov 6 round complete (1050): Tech keyword failed twice; NBA/Gaming/World returned ten each, usable 3/3/0; semantic zero usable. Ten attempts/$0.442837; failure rate 3/10 attempts, 1/4 keyword cells after retry. Decision (1051): keywords pass, nine usable vs old baseline zero (31/38 unknown likes); semantic dropped. Result plumbing verified (1052): ten-result prompt/citation limit and all ten engagement observations retained. Keyword rollout enabled for Nov 7 (1057); three-edition acceptance next; 5/9 post-fix keyword attempts failed. [Nov 6 evidence](docs/edition-reviews/2026-11-06-x-experiment-review.md). Scorer relevance ≥6/interestingness ≥4 counts as non-promotion; unknown likes unusable. $2.50 total/$1 UTC day caps; fixed search ON for Nov 7, no further experiment reruns. [Evidence](docs/edition-reviews/2026-11-05-x-experiment-review.md).
 - [ ] STEERING 40: purpose/topic diagnostics deployed (913); historical attribution, saved outcomes, inspector and call-scoped refusal reasons shipped (914–919). Per-post validation and saved drop counts shipped (921). Default-off reserved slot built (922), saved editor order verified; Nov 6 gate evaluated (1011): full-AI passes, $0.501758 estimated with margin exceeds $0.501698 cap; owner approved switch-on (latest item 40 update); enable after the protected window without changing the cap. World saved one distinct Bluesky post; one unsupported pick dropped. Details and limits in STEERING; no collection/query/cap changes.
 - [ ] STEERING 36 NOW: forty-article grouping pool live (872), ten-story editor cap unchanged; replay/cost evidence in [review](docs/edition-reviews/2026-11-05-world-story-pool.md). Nov 6 review complete (1011): World five distinct stories, full-AI/$0.286904/137.059 s; [review](docs/edition-reviews/2026-11-06.md). Dedicated admin pages next; coverage cleanup done (873). X rounds due after 21:00 UTC.
@@ -32,12 +30,12 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - [ ] STEERING 4: fake/replay LlmPort and verification ledger implemented; real raw-response golden open. Do not re-record unchanged prompts or pay merely to test replay. [Database verification](docs/DATABASE-VERIFICATION.md).
 - [ ] STEERING 8 PARKED under 14: Reddit disabled/access denied; no requests until owner re-enables official API credentials. YouTube deferred; no bypass.
 - [ ] STEERING 10 source balance paused under 27; Yardbarker prepared/disabled. No new source without coverage review.
-- [ ] STEERING 24/25 background: [observability plan](docs/observability-plan.md), O1–O10 done except O8 unknown; stop CLI/dashboard refinements. O11 isolated memory benchmark deferred (548.72 MiB peak versus ~500 MiB target). Monitor limits.
+- [ ] STEERING 24/25 background: O1–O10 done except O8 unknown; stop CLI/dashboard refinements. O11 isolated benchmark deferred; 1059 cold-cache Grafana repair needs 754.1 MiB whole-stack RAM versus ~500 MiB target, 2.05% CPU. [Capacity evidence](docs/decisions/0004-observability-capacity.md#nov-6-grafana-cold-cache-recurrence-iteration-1059). Monitor limits; target remains unmet.
 - Editorial audit closed under STEERING 5; resume only for actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.
 
 ## Latest verified step
 
-- [x] STEERING 44 (1043): repaired Grafana memory thrash, trimmed runtime and deployed endpoint health alerts; 31-minute check passed at 130 MiB/0.53% CPU, stack within budget.
+- [x] STEERING 44 (1059): cold-executable cache reproduced recurrence; readiness-gated start/stop headroom, 96 MiB Go target and 448/512 MiB runtime limits deployed. 30-minute check: 61/61 health probes, 0.203 s max, 416.7 MiB/0.81% CPU, no OOM/restarts. Stack 754.1 MiB exceeds target; see capacity note.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

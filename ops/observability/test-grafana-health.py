@@ -3,7 +3,7 @@ import subprocess
 import unittest
 from unittest.mock import patch
 
-from grafana_health import healthy
+from grafana_health import healthy, wait_until_healthy
 
 
 class GrafanaHealthTest(unittest.TestCase):
@@ -26,6 +26,20 @@ class GrafanaHealthTest(unittest.TestCase):
         with patch('grafana_health.subprocess.run') as run:
             run.return_value.stdout = 'invalid JSON'
             self.assertFalse(healthy())
+
+    def test_startup_waits_for_http_health(self):
+        with patch('grafana_health.healthy', side_effect=[False, True]) as probe, \
+                patch('grafana_health.time.monotonic', side_effect=[0, 0, 1]), \
+                patch('grafana_health.time.sleep') as sleep:
+            self.assertTrue(wait_until_healthy())
+            self.assertEqual(probe.call_count, 2)
+            sleep.assert_called_once_with(1)
+
+    def test_startup_wait_has_a_deadline(self):
+        with patch('grafana_health.healthy') as probe, \
+                patch('grafana_health.time.monotonic', side_effect=[0, 91]):
+            self.assertFalse(wait_until_healthy())
+            probe.assert_not_called()
 
 
 if __name__ == '__main__':

@@ -70,3 +70,26 @@ backing files with `du -B1 -s /var/lib/news-digest-observability`.
 The normal runtime checker (`pnpm exec tsx scripts/check-observability.ts`)
 passed: 476 structured records validated, including a matched request and
 worker jobs. This is a baseline/capacity assessment, not a tracing benchmark.
+
+## Nov 6: Grafana cold-cache recurrence (iteration 1059)
+
+A warm restart hid the cost of the 460 MiB Grafana executable: existing file
+cache was charged outside the new unit. Stopping Grafana and applying
+`os.posix_fadvise(fd, 0, 0, os.POSIX_FADV_DONTNEED)` to that executable
+reproduced reclaim thrashing at the old ceiling. The process read about
+159 GiB from disk while repeatedly faulting executable pages. Reducing the Go
+target to 96 MiB did not make 288 or 352 MiB reclaim ceilings sufficient.
+
+Runtime reclaim/maximum are now 448/512 MiB, with the Go target at 96 MiB.
+Start/stop hooks allow 512/544 MiB and 50% CPU; an HTTP/database health wait
+precedes restoring 3% CPU and the runtime limits. Grafana's systemd READY
+notification arrives before HTTP is ready, so it cannot replace that probe.
+The final cold start read about 398 MiB, without ongoing reclaim thrashing.
+The eight-unit stack is 754.1 MiB at the 30-minute check: the approximate 500 MiB target remains
+unmet and is recorded in NEEDS_FROM_HUMAN.md; no service or paid traffic added.
+
+At 23:03:50 UTC (30.43 minutes after the final cold start), 61/61 health probes
+passed, with a 203 ms maximum and 37 ms final response. Grafana used 416.7 MiB
+and averaged 0.81% CPU; the stack's five-minute CPU rate was 2.05%. There were
+no OOM events or restarts; reclaim events stopped increasing after the first
+minute, and current memory pressure was zero.

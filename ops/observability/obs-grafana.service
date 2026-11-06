@@ -2,14 +2,21 @@
 Description=Private read-only Grafana dashboards
 After=network.target obs-metrics.service
 [Service]
+Type=notify
+TimeoutStartSec=2min
+TimeoutStopSec=30s
 User=exedev
 WorkingDirectory=/opt/news-digest-observability/grafana
+ExecStartPre=+/usr/bin/systemctl set-property --runtime %n MemoryHigh=512M MemoryMax=544M CPUQuota=50%
 ExecStart=/opt/news-digest-observability/grafana/bin/grafana server --homepath=/opt/news-digest-observability/grafana --config=/etc/news-digest-observability/grafana/grafana.ini
-Environment=GOMAXPROCS=1 GOMEMLIMIT=128MiB
+ExecStartPost=/usr/bin/python3 /opt/news-digest-observability/grafana_health.py --wait-ready
+ExecStartPost=+/usr/bin/systemctl set-property --runtime %n MemoryHigh=448M MemoryMax=512M CPUQuota=3%
+ExecStop=+/usr/bin/systemctl set-property --runtime %n MemoryHigh=512M MemoryMax=544M CPUQuota=50%
+Environment=GOMAXPROCS=1 GOMEMLIMIT=96MiB
 Restart=always
 RestartSec=5
-MemoryHigh=288M
-MemoryMax=320M
+MemoryHigh=448M
+MemoryMax=512M
 CPUQuota=3%
 CPUWeight=10
 IOWeight=10

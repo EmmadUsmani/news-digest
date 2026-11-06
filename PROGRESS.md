@@ -1,28 +1,5 @@
 # Progress
 
-## 2026-11-06: iteration 1042 — preserve reader position on refresh
-
-- Advanced item 33/43 while X rounds wait until after 21:00 UTC. Started clean on main; no leftovers; health DB/Redis OK and alerts clear.
-- Found and reproduced a reading-position jump: changed background edition data reran initial hash restoration, returning readers to an earlier contents link after they had scrolled onward.
-- Moved initial deep-link restoration to edition mount; keyed contents by edition ID so opening another edition still restores its link. Refreshes continue updating contents tracking without moving the page.
-- Saved-data Playwright replay failed before the fix and passed desktop/mobile light/dark afterward; initial deep link and changed refresh both verified. Four screenshots saved; mobile light visually inspected. External requests blocked; no paid calls.
-- Broader reader layout/navigation replay passed all four views. All 36 sources healthy; digest queue zero failed runs. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes.
-- Verification: pnpm build; pnpm exec tsx scripts/smoke-reader-position.ts; pnpm exec tsx scripts/smoke-reader-layout.ts; pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration, exit 0); git diff --check.
-- API/worker restarted; health DB/Redis OK and existing alerts clear. Push initially rejected by concurrent owner steering; merged without rewriting history, preserving item 44 and owner files. Archived iteration 1026. Grafana endpoint timed out at 2 s while system unit active, MemoryCurrent 218013696/MemoryHigh 218103808 bytes, CPU quota 20ms/s; current alerts miss it. Next: item 44 Grafana breakage/health alert first; X round after 21:00 UTC. Fixed search OFF.
-
-## 2026-11-06: iteration 1043 — recover Grafana and detect endpoint failures
-
-- Item 44 breakage first; started clean on main with no leftovers. Existing alerts were clear despite health timing out; app DB/Redis, 36 sources and digest queue healthy.
-- Confirmed memory-reclaim thrash: MemoryHigh 208 MiB, 2.89M high events, ~60% full stalls; CPU quota 2% saturated. Raising reclaim to 240 MiB alone did not recover it; repaired instance answered ~1 ms at the old 2% CPU cap.
-- Disabled snapshots/Kubernetes dashboard UI, reduced index workers/cache and made dashboard cleanup hourly. Go target 160→128 MiB; MemoryHigh 208→288 MiB, hard ceiling 256→320 MiB, CPU cap 2→3%. Missing plugin/provisioning directories reconciled.
-- Existing 30-second unit collector now probes Grafana health with curl's two-second deadline and checks database health. GrafanaHealthFailed catches failures/timeouts/missing probes even with an active unit; fired and cleared live during recovery. No CLI/dashboard layout changes or new services.
-- Final restart 19:37:45 UTC; 20:08:44 snapshot (31 min): health 16 ms, 129.99 MiB, average CPU 0.53%, zero restarts/reclaim/OOM events. All 58 persisted health samples since 19:40 passed. Stack 418.8 MiB/1.84% CPU, within budget.
-- Passed pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration); pnpm build; python3 ops/observability/test-grafana-health.py; vmalert-tool-prod unittest -files=ops/observability/alerts.test.yml; bash -n installers; git diff --check.
-- Passed scripts/check-observability.ts --verify-alerts and --verify-grafana --grafana-agent-only via pnpm exec tsx; scripts/check-handbook.ts observability passed. Desktop/mobile screenshots saved and inspected; ten dashboards discoverable.
-- Initial Grafana check needed its old 256 MiB assertion updated. Jobs-only verification hit changing schedule/timing equality assertions; stable Agent dashboard checks passed. Temporary sampler exited 143; durable collector history and direct probes provided stability evidence.
-- API/worker rebuilt/restarted; final health DB/Redis OK, all 36 sources healthy, digest queue zero failed runs, alerts clear. No paid verification calls or source/schema changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Updated affected handbook/owner ack, archived iteration 1027 and older completed task markers. Stop after item 44 as instructed; next resume approved UI while X tests wait until after 21:00 UTC. Fixed search OFF.
-
 ## 2026-11-06: iteration 1044 — open Bluesky posts from compact cards
 
 - Advanced item 33/43 while X rounds wait until after 21:00 UTC. Started clean on main; no leftovers; health/alerts clear.
@@ -176,3 +153,16 @@
 - Fresh full pnpm check passed: 536 unit/226 isolated integration tests, zero failures; format/typecheck/lint/boundaries green. git diff --check clean.
 - API/worker restart and post-deploy health/alerts verification recorded below; next Nov 7 keyword production/three-edition acceptance, with World separate.
 - Post-deploy app health OK, 36 sources healthy, saved edition 4 topics/20 stories/17 posts. GrafanaHealthFailed recurred at 22:11 with memory at 288 MiB reclaim ceiling; restarted, temporarily allowed 50% CPU for startup then restored 3%; endpoint database OK. Long-term recurrence remains open.
+
+## 2026-11-06: iteration 1059 — repair Grafana cold-cache thrashing
+
+- Started clean on main; no leftovers; initial alerts clear. Reproduced the recurrence before new work.
+- Warm restart understated memory because executable cache remained charged outside the new unit. Targeted stopped-file posix_fadvise reproduced ~159 GiB disk reads/refault thrashing; smaller Go target and 352 MiB reclaim still failed.
+- Runtime reclaim/max 288/320→448/512 MiB; Go 128→96 MiB, CPU remains 3%. Start/stop hooks temporarily allow 512/544 MiB and 50% CPU; 90-second bounded HTTP/database wait precedes restoring caps (READY arrives too early).
+- Final cold start 22:33:25 UTC; 23:03:50 check (30.43 min): 61/61 probes, max 0.2032 s/final 0.0367 s, 416.7 MiB/0.81% mean CPU, no OOM/restarts. Initial 78 reclaim events unchanged after first minute; current pressure zero. Final process disk reads ~398 MiB.
+- Stack 754.1 MiB, 2.05% five-minute CPU: ~500 MiB RAM target remains unmet. Updated STEERING ack, TASKS, NEEDS_FROM_HUMAN, capacity decision and observability handbook; archived iterations 1042–1043.
+- Passed pnpm check (536 unit/226 isolated integration, exit 0), pnpm build, fresh pnpm typecheck, pnpm format and pnpm lint:fix. python3 ops/observability/test-grafana-health.py 4/4; vmalert-tool-prod unittest -files=ops/observability/alerts.test.yml passed; systemd-analyze verify clean.
+- Legacy broad Grafana verifier hit telemetry guard, network-idle and historical worker-row assumptions; not claimed passing. Read-only pnpm exec tsx /tmp/nd-1059-grafana-smoke.ts passed 20 views/184 panels; /tmp/nd-1059-grafana-services.ts passed desktop/mobile live metric frames and charts. Saved two screenshots; inspected mobile.
+- pnpm exec tsx scripts/check-handbook.ts observability passed (18 pages/28 tables); git diff --check clean. Installed unit/readiness helper match repository; Grafana restarted outside protected window and caps restored automatically.
+- Post-repair obs health DB/Redis OK, sources --check 36/36, digest queue zero failed, saved edition 4 topics/20 stories/17 posts; alerts clear. No paid calls or edition writes.
+- Next: resume owner-priority UI work while Nov 7 keyword production acceptance waits; whole-stack RAM target remains open.
