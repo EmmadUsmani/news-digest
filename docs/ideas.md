@@ -278,3 +278,34 @@
   pagination and that unpublished snapshots never appear.
 - Status: proposal awaiting owner review under item 38. No implementation,
   runtime change or spend; the Nov 6 edition and X/Bluesky decisions come first.
+
+## Correct a known error in an older edition
+
+- Reader problem: Nov 5 Gaming's saved Sony summary contains an unsupported
+  pronoun, and its GTA 6 summary omits the original headline's warning that
+  early store copies are not playable right away. The existing
+  reader review records both issues. Prompt fixes may improve Nov 6, but a
+  reader opening Nov 5 still sees the original text without a correction.
+- Proposal: an owner-approved correction note attached to a specific saved
+  story, displayed beside that story in its edition. Preserve the original
+  snapshot and show the note's date, corrected point and supporting saved
+  citation. Distinguish an error in the digest from later developments in
+  the news; a later event alone is not a correction.
+- First version: manual corrections only, with protected admin entry and an
+  append-only revision history. No automatic fact checking, publisher fetches,
+  model calls, notifications or changes to historical generation costs.
+  Show notes consistently on direct story links and normal edition reading;
+  retain original text in review exports with separately labelled corrections.
+- Acceptance example: the Nov 5 Sony story retains its original snapshot,
+  while an approved note explains that the supplied evidence names CFO Lin
+  Tao without supporting the generated pronoun. Use the supported name/role;
+  do not infer a different pronoun. Uncorrected stories gain no extra labels.
+- Cost: approximately 2–3 days for correction storage and metadata, protected
+  writes, published-reader projection, accessible display and history checks.
+  No new vendor or API spend. Approval must settle who can publish a note and
+  how a mistaken correction is superseded without silently removing history.
+- Status: proposal awaiting owner review under item 38. No stored editions
+  changed and no correction workflow built. Nov 6 breadth, cost and Bluesky
+  review and the scheduled X experiment retain priority. This uses the
+  [existing reader findings](edition-reviews/2026-11-05-reader.md#nov-6-pre-publication-handoff--iteration-987),
+  without reopening the closed editorial audit.

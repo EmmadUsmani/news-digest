@@ -39,26 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Continuing-coverage citation gate (1006): Nov 5/4 saved editions share no same-topic original/coverage URLs (32/29 per-story citations), including normalized comparison. Deferred exact-URL navigation; no runtime changes. [Assessment](docs/ideas.md#consecutive-edition-citation-assessment--nov-6).
+- [x] Historical correction proposal (1007): scoped dated, owner-approved notes alongside immutable stories using known Nov 5 Sony/GTA findings; no runtime or snapshot changes. [Proposal](docs/ideas.md#correct-a-known-error-in-an-older-edition).
 
-- [x] Archive retrieval proposal (1005): scoped published-story text search from the saved Nov 5 Porziņģis example; current archive requires date-by-date browsing. Owner approval required before implementation. [Proposal](docs/ideas.md#find-a-story-remembered-from-a-past-edition).
-
-- [x] Story/post citation evidence gate (1004): none of 32 per-story coverage URLs across 17 saved stories identifies any of 14 selected posts; defer exact-link proposal. No fetches or runtime changes. [Assessment](docs/ideas.md#saved-citation-availability-assessment--nov-6).
-
-- [x] Media-description evidence gate (1003): recorded X oEmbed has no description; Bluesky already preserves alt text, with synthetic coverage. Proposal deferred; no new requests or implementation. [Assessment](docs/ideas.md#recorded-data-availability-assessment--nov-6).
-
-- Earlier proposals 999–1001: publisher attribution, exact story/post citations and continuing-edition links in [ideas](docs/ideas.md).
-
-- [x] Saved-reader review export (998): offline plain-text report preserves briefs, stories, coverage and complete saved posts/context for Nov 5/6 comparison; no generation, provider or runtime changes. [Usage](docs/edition-reviews/2026-11-05-reader.md#export-saved-reader-text-for-comparison).
-
-- [x] Bluesky activation worksheet (997): offline saved-usage cost-gate calculator with exact cap boundary, unknown-evidence and AI/budget checks. No activation or paid calls; complete Nov 6 topic estimates after publication. [Usage](docs/edition-reviews/2026-11-04-05-bluesky-outcomes.md#nov-6-reserved-slot-decision-worksheet).
-
-- [x] Evidence-pilot decision protocol (996): proposed a fixed five-link denominator, paired-input review, continuation threshold and separate replay allowance in [ideas](docs/ideas.md#proposed-comparison-and-stop-rule). Proposal only; Nov 6 comparison and owner approval remain prerequisites.
-
-- [x] Discovery evidence scope (995): estimated a bounded HN metadata pilot, separate evidence storage and pre-scoring integration in [ideas](docs/ideas.md#bounded-first-version-and-effort-estimate); 3–5 days, proposal only, no requests or runtime changes.
-
-- Earlier steps 982–994: [completed markers](docs/progress-archive/2026-11-06-reader-done-995.md).
-
-- Earlier reader steps through 981: [completed markers](docs/progress-archive/2026-11-06-reader-done-982.md).
+- Earlier steps 995–1006: [completed markers](docs/progress-archive/2026-11-06-reader-done-1007.md).
 
 - Next: STEERING 42 Nov 5 reader review completed; compare Nov 6 World breadth and post context after publication. STEERING 40 Nov 6 reserved-slot cost/AI gate and edition review after publication; fresh X round after 21:00 UTC. Fixed search stays off.

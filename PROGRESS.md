@@ -1,27 +1,3 @@
-## 2026-11-06: iteration 990 — repair Bluesky reader verification
-
-- Started clean on main; health green, alerts clear, all 36 sources returning data; no leftover work.
-- Investigated the two retained ingestion failures: GamesRadar Nov 2 and DeepMind Nov 1; both have current successful collection. No active failure or retry needed.
-- Reader weakness remains World breadth, with its deployed fix awaiting publication. Found a concrete blocker to checking future Bluesky cards: browser replay still asserted that reader context was stripped. Reproduced its assertion failure.
-- Updated the replay to require visible saved context on cards with and without media, while keeping private selection reasons absent; added desktop/mobile dark coverage. Refreshed synthetic screenshots, never live selection evidence.
-- No runtime, source, budget, prompt, flag or saved-edition changes; no paid calls. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Archived iteration 975 to retain the progress size limit.
-- Verification results follow. Next: Nov 6 World/full-AI/cost/Bluesky review after 15:00 UTC; no deploys 13:00–16:00; X round after 21:00 UTC.
-- Verification: pnpm format; pnpm lint:fix; pnpm check reported 555 unit/224 integration passed but chain exited 143 after coverage. Standalone pnpm test:integration passed 224/224 with exit 0; pnpm build passed.
-- pnpm exec tsx scripts/smoke-bluesky-cards.ts passed all four views; inspected mobile dark PNG. git diff --check passed. Restart/health confirmation follows.
-
-## 2026-11-06: iteration 991 — identify the edition in heading navigation
-
-- Started clean on main; health green, alerts clear; no leftover work. No failed digest jobs; next scheduled run 15:00 UTC.
-- World breadth remains the largest content weakness, with its deployed fix awaiting today's edition; no repeated content investigation or prompt changes.
-- Reader weakness fixed: the edition had topic headings but no page heading. Added a visually hidden dated h1 before topics, so screen-reader heading navigation identifies the edition.
-- Owner value: readers using assistive technology can distinguish the saved edition before navigating its topics; visual layout is unchanged.
-- Existing real-edition browser checks now require exactly one correctly dated h1 on desktop/mobile light/dark. Screenshots refreshed; external embeds blocked during verification.
-- Admin gate passed: 24 paths deny GET/HEAD, identity/cache and eight forwarded-token denials pass; proxy identity replacement remains required before public access.
-- No source, saved content, budget, prompt, provider or paid-call changes. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged.
-- Verification and deployment results follow. Next: Nov 6 edition/cost/Bluesky review after 15:00 UTC; no deploys 13:00–16:00; X round after 21:00 UTC.
-- Verification: pnpm format; pnpm lint:fix; pnpm check passed typecheck/lint/format/boundaries then exited 143 during unit tests. Standalone pnpm test:unit passed 555/555 and pnpm test:integration passed 224/224, both exit 0; pnpm build passed.
-- pnpm exec tsx scripts/smoke-reader-layout.ts passed four device/theme views; refreshed four layout screenshots and inspected mobile light. API restarted before 13:00 UTC; health/DB/Redis green, worker active, 36 sources healthy, alerts clear. git diff --check passed. Archived oldest progress entry to retain size limit.
-
 ## 2026-11-06: iteration 992 — correct owner database guidance
 
 - Started clean on main; health green, alerts clear, 36 sources healthy; no failed digest jobs or leftover work.
@@ -196,3 +172,14 @@
 - No service restarts during the 13:00–16:00 freeze; running code unchanged.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration tests); pnpm build; git diff --check all passed.
 - Next: Nov 6 edition/World/cost/Bluesky review after publication; fresh X round after 21:00 UTC; fixed search OFF.
+
+## 2026-11-06: iteration 1007 — scope corrections for saved editions
+
+- Started clean on main; no leftover work. Alerts clear, health/DB/Redis green, API/worker active, all 36 sources healthy; no failed digest runs. Historical collection failures have subsequent healthy source checks.
+- Read all four saved Nov 5 topics; World breadth remains the largest weakness and awaits the deployed fix's Nov 6 output. Next edition scheduled 15:00 UTC.
+- Reader weakness: known Sony/GTA errors remain visible in the immutable Nov 5 edition even after prompt fixes. Owner value: returning readers could see an explicit correction without silently rewriting their saved edition.
+- Added a bounded manual correction-note proposal with attribution, dated history, protected publishing, acceptance example and 2–3 day estimate; approval required before implementation under item 38. No new editorial audit.
+- No runtime, source, schema, snapshot, prompt, budget or paid-call changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged. No restarts during the deployment freeze; running code unchanged.
+- Archived iterations 990–991 and older completed task markers to keep handoff files small.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration tests); pnpm build; git diff --check all passed.
+- Next: Nov 6 World/full-AI/cost/Bluesky review after publication; X round after 21:00 UTC; fixed search OFF.
