@@ -17,7 +17,7 @@ details, budgets and rules stay in the items. Every new item goes on this list.
 1. Breakages and protecting the morning edition.
 2. X search: reliability fixes and test rounds (items 39, 34).
 3. Nov 6 edition review: World stories, cost (item 36).
-4. Bluesky in editions: show why, fix failures, hold a slot (item 40).
+4. Bluesky in editions: show why, fix failures, hold a slot, alerts (items 40, 41).
 5. UI rebuild: admin pages, then final reader (item 33).
 6. Then item 38's list for choosing meaningful work.
 
@@ -1365,3 +1365,50 @@ picks, any X post replaced, and added cost.
 **Limits:** no deploys between 13:00 and 16:00 UTC, and protect the morning
 edition. Existing AI budgets and caps stay. If a budget would need raising, ask
 the owner.
+
+## 41. NEXT, small: alert when Bluesky fails or goes quiet (2026-11-05)
+
+**Why:** item 40 saves a Bluesky result for every topic, but someone still has
+to go and read it. Bluesky got no picks on Nov 5 and nothing flagged it.
+
+**Priority:** as soon as item 40 step 1 is live, because these alerts read its
+saved results. Don't wait for the rest of item 40. Bluesky only: other sources
+stay as they are.
+
+**What to do:**
+
+1. **Add two alerts** to `ops/observability/alerts.yml`, with cases in
+   `alerts.test.yml`. Work them out from saved editions, so a worker restart
+   can't clear them. Scheduled editions only.
+   - **`BlueskyEditingFailed`:** the latest edition has any topic with the
+     result "AI editing failed" or "budget refused", or has no saved Bluesky
+     result while Bluesky is on. It clears when the next edition has none of
+     these.
+   - **`BlueskyNoPicks`:** the last three editions each gave Bluesky a chance
+     and each published no Bluesky post in any topic. A chance means at least
+     one topic had an open or held slot. It clears on the next edition with a
+     Bluesky pick.
+   - Editions from before item 40 step 1, and editions with Bluesky switched
+     off, don't count towards the three.
+2. **Show them the usual way:** `pnpm obs alerts` and the admin Overview. Add no
+   email, new service or new vendor.
+3. **Update** the alert table in `docs/handbook/01-app/09-observability.md`.
+
+**When one fires:** check the saved results and logs once, report what you found
+and go back to Current order. `BlueskyEditingFailed` counts as a breakage to fix.
+`BlueskyNoPicks` with clean reasons is not: it may just be quiet days, so report
+it and don't tune anything. An alert you've already reported isn't a reason to
+keep investigating.
+
+**Don't:** make either alert fire on a single quiet day, or change item 40's
+limits on quality bars and budgets.
+
+**Done when:** alert tests cover both firing and clearing, including the
+restart case and editions that don't count, `--verify-alerts` passes, and both
+alerts load on the VM.
+
+**Ack with:** the test results, and whether either alert is firing on real
+editions.
+
+**Limits:** no deploys between 13:00 and 16:00 UTC, and protect the morning
+edition.

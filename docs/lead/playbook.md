@@ -61,6 +61,17 @@ anything unpushed. So does deleting the clone.
   meaningful thing available.
 - **Goal first.** Check designs against what the owner wants the product to do.
 
+## Standing decisions
+
+- **Not now:** feedback buttons and email delivery.
+- **Grouping** means "same story", as defined in STEERING item 27. It's done by
+  AI, never by wording rules.
+- **Paid X search** exists to find what free links can't: viral posts the news
+  hasn't reached. Don't pay to repeat what they already cover.
+- **Readers see no system language.** Scores, spend and settings are admin-only.
+- **Owner database logins** are in the Operations handbook page. Prefer read-only.
+- **The X experiment budget** is separate from production's caps.
+
 ## Steering traps we've hit
 
 | What went wrong                                             | Lesson                                                    |
@@ -73,6 +84,7 @@ anything unpushed. So does deleting the clone.
 | Decision rule needed a promotion flag that doesn't exist    | Check that a rule can be computed from data we have       |
 | Design drifted to story reactions, away from viral posts    | Re-read the owner's goal before each design change        |
 | Agent kept re-analysing 47 posts                            | Give every investigation a stopping point                 |
+| Items grew long, and the agent rereads them each iteration  | Put designs in a plan under `docs/`, and keep items short |
 
 ## Diagnosing
 

@@ -12,7 +12,9 @@ exact time window.
 
 **Latest:** Nov 5, only 1 of 4 keyword searches ran. Tech gave 10 posts, median
 1,580 likes, 2 usable. NBA's tool failed, Gaming timed out, World never ran the
-query. Steered reliability fixes in STEERING item 39.
+query. The agent shipped required tool use, a 120-second limit, retries for the
+experiment, and settlement of the two held calls (STEERING item 39). The retry
+for the switched-off production schedule is still open.
 
 **Next:**
 
