@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] X media layout continuity (969): reserve the previous media height during theme/width replacements so the embed area does not collapse while loading.
+
 - [x] Saved X disclosure focus (968): keep the disclosure visible through media reloads, preserving keyboard focus and the collapsed choice during theme changes.
 
 - [x] X media retry focus (967): retry moves keyboard focus to the saved post link before removing the retry control, preserving the reader’s place.

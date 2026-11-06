@@ -53,6 +53,7 @@ async function smoke() {
               contentType: 'text/javascript',
               body: `
               window.twttr = {widgets: {createTweet: async (id, target, options) => {
+                await window.mediaReplacementGate;
                 const frame = document.createElement('iframe');
                 frame.title = 'Local media recovery stub';
                 frame.dataset.theme = options.theme;
@@ -139,8 +140,39 @@ async function smoke() {
         const disclosure = card.locator('.saved-post-text summary');
         await disclosure.click();
         await expect(disclosure).toBeFocused();
+        const oldMediaHeight = await card
+          .locator('.official-post')
+          .evaluate((node) => node.getBoundingClientRect().height);
+        await page.evaluate(() => {
+          const state = window as Window & {
+            mediaReplacementGate?: Promise<void>;
+            releaseMediaReplacement?: () => void;
+          };
+          state.mediaReplacementGate = new Promise<void>((resolve) => {
+            state.releaseMediaReplacement = resolve;
+          });
+        });
         const changedTheme = theme === 'light' ? 'dark' : 'light';
         await page.emulateMedia({ colorScheme: changedTheme });
+        await status.filter({ hasText: 'Loading X media…' }).waitFor();
+        assert.ok(
+          await card
+            .locator('.official-post')
+            .evaluate(
+              (node, previous) =>
+                node.getBoundingClientRect().height >= previous,
+              oldMediaHeight,
+            ),
+          'Media keeps its previous height while replacement is pending',
+        );
+        await page.screenshot({
+          path: `docs/screenshots/ui/x-media-replacement-${device}-${theme}.png`,
+        });
+        await page.evaluate(() => {
+          (
+            window as Window & { releaseMediaReplacement?: () => void }
+          ).releaseMediaReplacement?.();
+        });
         await card.locator(`iframe[data-theme="${changedTheme}"]`).waitFor();
         await expect(disclosure).toBeFocused();
         assert.equal(await card.locator('.post-text').isVisible(), false);

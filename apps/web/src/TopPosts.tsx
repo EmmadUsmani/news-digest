@@ -152,6 +152,7 @@ function Post({
               attemptTarget.remove();
               setLoading(false);
               setFailed(true);
+              target.style.minHeight = '';
             }, 15000);
             requestedWidth = mediaWidth();
             return api.widgets.createTweet(post.externalId, attemptTarget, {
@@ -165,6 +166,7 @@ function Post({
             window.clearTimeout(widgetTimeout);
             if (!active) return;
             setLoading(false);
+            target.style.minHeight = '';
             if (element) {
               if (
                 savedText.current?.querySelector('a') === document.activeElement
@@ -194,6 +196,7 @@ function Post({
               setLoading(false);
               attemptTarget.remove();
               setFailed(true);
+              target.style.minHeight = '';
             }
           });
       },
@@ -206,6 +209,8 @@ function Post({
       window.clearTimeout(resizeTimeout);
       resizeObserver?.disconnect();
       observer.disconnect();
+      // Keep the reader's place while a theme/width change replaces media.
+      target.style.minHeight = `${target.getBoundingClientRect().height}px`;
       target.replaceChildren();
     };
   }, [post.externalId, attempt, theme]);

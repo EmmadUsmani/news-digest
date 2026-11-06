@@ -1,25 +1,3 @@
-## 2026-11-06: iteration 954 — preserve opened saved X text
-
-- Started clean on main; alerts clear, health/database/Redis green, 36/36 sources healthy and current scheduled/social jobs completed. Edition review waits for publication; X round waits for 21:00 UTC.
-- Read saved topics: switching theme rebuilt X media and collapsed the saved original text a reader had opened. Reproduced with saved Gaming content and a local widget stub before fixing it.
-- Preserve the reader's opened/collapsed disclosure choice through media reloads. No paid calls, selection, collection or flag changes.
-- Expanded smoke-reader-x-media.ts: failure/retry plus open and closed theme round trips passed across desktop/mobile light/dark. No writes or external calls; saved edition unchanged. Four screenshots saved; inspected mobile screenshot. Archived iteration 938 to keep this file small.
-- Updated TASKS, STEERING ack and operations handbook. SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm build; check-handbook.ts 08-operations; smoke-reader-x-media.ts passed. Full pnpm check result recorded below.
-- API/worker/docs/schema restarted. Next: Nov 6 World/cost/Bluesky review after publication; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.
-- Final: pnpm check passed (543 unit/224 isolated integration tests); build, handbook and four-view browser replay passed. Services active, health green and alerts clear; git diff --check passed.
-
-## 2026-11-06: iteration 955 — date grouped coverage reports
-
-- Started clean on main; health/database/Redis green, alerts clear and 36/36 sources current. Latest scheduled digest completed. Two retained ingestion failures date to Nov 1–2; subsequent collection recovered.
-- Read all four saved topics. World breadth/Tech grouping await Nov 6 publication; World’s expanded coverage combines Nov 4/5 reports without identifying their dates.
-- Owner value: show each report’s publication date and local time so earlier coverage can be distinguished from updates. All saved titles, sources and links preserved; no paid calls, collection or flag changes.
-- Extended saved-edition layout replay to check every grouped report’s visible timestamp and exact saved datetime in desktop/mobile light/dark. Four coverage screenshots updated; inspected mobile light.
-- Updated TASKS, STEERING ack and operations handbook; archived iteration 939. SOURCES/NEEDS_FROM_HUMAN unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check. Final check/restart results below.
-- Next: Nov 6 edition/Bluesky cost and quality review after publication; X round after 21:00 UTC. Fixed search and reserved slot remain off.
-- Final: pnpm check passed (543 unit/224 isolated integration tests); build, four-view browser replay, handbook and diff checks passed. API/worker/docs/schema restarted active, health green and alerts clear.
-
 ## 2026-11-06: iteration 956 — navigate from topic briefs
 
 - Started clean on main; alerts clear, health/database/Redis green, 36/36 sources healthy and latest scheduled digest completed. No leftover work.
@@ -195,3 +173,17 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-x-media.ts; check-handbook.ts 08-operations; git diff --check. Final results below.
 - Next: Nov 6 edition/Bluesky review after 15:00 UTC; X round after 21:00 UTC. Fixed search and reserved slot stay off.
 - Final: pnpm check passed (543 unit/224 isolated integration tests); build, handbook and four-view browser replay passed. API/worker/docs/schema restarted; health/database/Redis green and alerts clear.
+
+## 2026-11-06: iteration 969 — preserve media space during reloads
+
+- Started clean on main; alerts clear, health/database/Redis green, 36 sources healthy and no failed digest jobs. No leftover work.
+- Read saved Nov 5 topics; Nov 6 edition/Bluesky review waits for publication and X round for 21:00 UTC.
+- Reader weakness: saved Gaming X media loses its height during theme replacement, shifting following content; new pending-state browser assertion failed against HEAD.
+- Reserve the previous media height during replacement and release on success, rejection or timeout. Reader sees a stable media area while loading.
+- Extended saved-edition local-widget replay across desktop/mobile light/dark, with replacement screenshots; no writes or external calls.
+- Updated TASKS, STEERING ack and affected handbook; archived iterations 954–955. SOURCES/NEEDS_FROM_HUMAN unchanged; no spend or flag changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-x-media.ts; check-handbook.ts 08-operations; git diff --check. Final results below.
+- First post-edit browser attempt served old code before build finished; completed-build replay passed. First pnpm check exited 143 after 543 unit and 224 integration passes; full detached rerun started to capture final exit status.
+- Next: edition/Bluesky review after 15:00 UTC; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.
+- Final rerun passed with exit 0: 543 unit/224 isolated integration tests; build, handbook and four-view browser replay passed. Inspected mobile replacement screenshot; four new screenshots retained.
+- API/worker/docs/schema restarted; health/database/Redis green, alerts clear.
