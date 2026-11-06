@@ -1,0 +1,2 @@
+ALTER TABLE "x_discovery_calls" ADD COLUMN "execution" text;--> statement-breakpoint
+ALTER TABLE "x_discovery_calls" ADD CONSTRAINT "x_discovery_execution_check" CHECK ("x_discovery_calls"."execution" in ('completed', 'unconfirmed'));

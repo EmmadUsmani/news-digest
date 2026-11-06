@@ -648,3 +648,64 @@ void test('fixed A/B admission is independent, durable and cannot mix with legac
     await restartedDb.end();
   }
 });
+
+void test('X execution evidence survives restart and settles atomically with empty-search usage', async () => {
+  const db = database();
+  const restartedDb = database();
+  const ledger = new PostgresXDiscoveryLedger(db);
+  const restarted = new PostgresXDiscoveryLedger(restartedDb);
+  const ids: string[] = [];
+  const emptyUsage = { ...usage, postsFetched: 0, profilesFetched: 0 };
+  try {
+    for (const execution of ['completed', 'unconfirmed', undefined] as const) {
+      const id = await ledger.reserve('grok-4.3', 'execution-fixture', 100000);
+      assert.ok(id);
+      ids.push(id);
+      // A call interrupted before settlement must not claim execution.
+      const pending = await restartedDb.query(
+        'SELECT execution FROM x_discovery_calls WHERE id=$1',
+        [id],
+      );
+      assert.equal(pending.rows[0].execution, null);
+      await ledger.settle(id, emptyUsage, price, [], execution);
+      const saved = await restartedDb.query(
+        'SELECT status, execution, posts_fetched, cost_micros FROM x_discovery_calls WHERE id=$1',
+        [id],
+      );
+      assert.equal(saved.rows[0].status, 'succeeded');
+      assert.equal(saved.rows[0].execution, execution ?? 'unconfirmed');
+      assert.equal(Number(saved.rows[0].posts_fetched), 0);
+      assert.equal(
+        Number(saved.rows[0].cost_micros),
+        xDiscoveryCost(emptyUsage, price),
+      );
+      // Reconciliation after restart cannot rewrite completed evidence or spend.
+      await assert.rejects(
+        restarted.settle(id, emptyUsage, price, [], 'completed'),
+      );
+    }
+    const historical = await ledger.reserve(
+      'grok-4.3',
+      'historical-fixture',
+      100000,
+    );
+    assert.ok(historical);
+    ids.push(historical);
+    // Pre-migration records deliberately retain unknown execution.
+    await db.query(
+      "UPDATE x_discovery_calls SET status='succeeded', cost_micros=0 WHERE id=$1",
+      [historical],
+    );
+    const saved = await restartedDb.query(
+      'SELECT execution FROM x_discovery_calls WHERE id=$1',
+      [historical],
+    );
+    assert.equal(saved.rows[0].execution, null);
+  } finally {
+    await db.query('DELETE FROM x_discovery_calls WHERE id=ANY($1::uuid[])', [
+      ids,
+    ]);
+    await db.end();
+    await restartedDb.end();
+  }
+});

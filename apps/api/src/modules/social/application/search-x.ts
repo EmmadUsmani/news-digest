@@ -96,7 +96,13 @@ export async function searchX(
           outputPerMillion: price.outputPerMillion * 2,
         }
       : price;
-  await ledger.settle(callId, result.usage, billedPrice, result.toolCalls);
+  await ledger.settle(
+    callId,
+    result.usage,
+    billedPrice,
+    result.toolCalls,
+    result.execution ?? 'unconfirmed',
+  );
   log.info(
     {
       ...fields,

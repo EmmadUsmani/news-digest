@@ -1,15 +1,3 @@
-## 2026-11-05: iteration 894 — Spend recent calls
-
-- Started clean on main; no leftover work. Owner would care: Spend now shows the individual AI/X calls behind the budget totals.
-- Added bounded newest-first ledger reads (20 per provider) to protected status, exposing model, purpose, start, status, known cost, unresolved hold and input/output tokens. Failed/completed holds display zero; unknown costs/tokens remain unknown. No schema, budget or collection changes.
-- Added scrollable recent AI/X tables; four viewport/theme screenshots refreshed. Initial mobile review caught overly tall wrapped tables; bounded their height and gave columns enough width. Final mobile light and desktop dark visually inspected.
-- Browser checks compare all displayed rows/costs/holds against saved live records (20 AI/13 X), anonymous denial, reload, navigation, refresh outage/recovery and no overflow/writes/browser credentials. Reader separation renders the real saved edition with no admin reads.
-- Initial check stopped on import-format ordering; corrected. Integration then caught an old exact-response expectation and a new X fixture using an invalid purpose; corrected both. Separation initially ran across an asset rebuild and got 404; passed after API restart. Discarded unrelated generated separation screenshots.
-- Updated TASKS and Operations handbook; removed an obsolete testing note to keep the page within 100 lines. SOURCES/NEEDS_FROM_HUMAN unchanged; no paid calls or live settings changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check passed typecheck/lint/format/boundaries and 507 unit tests; corrected integration failures then pnpm test:integration passed all 219. pnpm build and final @digest/web build; smoke-admin-spend.ts; smoke-admin-separation.ts; check-handbook.ts 08-operations; git diff --check passed.
-- API restarted for final assets; all four app services active, /healthz database/Redis green and alerts clear. Fresh source results at 21:51–22:05 UTC and the saved Nov 5 edition verified.
-- Next: remaining dedicated admin-page gaps and final reader; Nov 6 scheduled edition/grouping review and fresh-window X round after 21:00 UTC. No X activation before decision.
-
 ## 2026-11-05: iteration 895 — Sources recent article counts
 
 - Started clean on main; no leftover work. Owner would care: Sources now shows which feeds contribute recent articles with 24-hour and seven-day counts.
@@ -141,3 +129,15 @@
 - Rebuilt/restarted API, worker, docs and schema; all active. /healthz database/Redis green; real saved edition has four topics/17 stories.
 - Next: durable separately admitted scheduler retry, then authorized Nov 5 NBA/Gaming/World keyword reruns on the same window. Fixed search remains off.
 - First push rejected for incoming owner instructions; fetched/merged without rewriting history. Item 41 queues Bluesky alerts after item 40 saved outcomes; Current order still prioritizes X reliability. No app runtime changes arrived.
+
+## 2026-11-06: iteration 907 — persist scheduled X execution evidence
+
+- Started clean on main; no leftover work. Alerts clear, 36 sources healthy and no failed digest runs; next edition Nov 6 15:00 UTC.
+- Search settlement now saves confirmed/unconfirmed execution atomically with usage, cost and tool traces. Completed empty results survive restart; historical/pending calls keep unknown execution. Generated additive migration 0006; no paid calls or activation.
+- Offline protocol checks assert settlement receives execution; isolated database coverage checks empty-search evidence via another connection, historical nulls, exact cost and rejection of repeat settlement.
+- Verification: targeted execution test; pnpm format; pnpm lint:fix; pnpm check (520 unit/222 isolated integration, typecheck/lint/format/boundaries); pnpm build; check-handbook.ts 05-social-posts; git diff --check.
+- Initial full check overlapped final migration generation and stopped on formatting/deleted temporary migration; corrected generated artifacts and reran successfully. Initial read-only digest queue name was invalid; corrected to digest-generation.
+- Pre-migration news-digest-backup.service succeeded; pnpm migrate applied drizzle/0006_x_search_execution.sql. Rebuilt/restarted API, worker, docs and schema; all active. /healthz database/Redis green; saved edition four topics/17 stories; 36 healthy sources, alerts clear, no failed digest jobs.
+- Updated TASKS, SOURCES and social handbook; archived iteration 894 to keep PROGRESS small. No owner input needed.
+- Next: durable separately admitted scheduler retry, then authorized Nov 5 NBA/Gaming/World keyword reruns on the same window. Fair semantic query/fresh Nov 6 round follow. Fixed search remains off.
+- Fetched/fast-forwarded incoming owner lead-only documentation commit c44d975 before committing; no runtime changes or owner-file edits.

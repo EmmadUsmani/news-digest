@@ -404,8 +404,13 @@ export const xDiscoveryCalls = pgTable(
     }),
     optionalParentId: uuid('optional_parent_id'),
     toolCalls: jsonb('tool_calls'),
+    execution: text(),
   },
   (table) => [
+    check(
+      'x_discovery_execution_check',
+      sql`${table.execution} in ('completed', 'unconfirmed')`,
+    ),
     index('x_discovery_calls_created_at').using(
       'btree',
       table.createdAt.asc().nullsLast(),

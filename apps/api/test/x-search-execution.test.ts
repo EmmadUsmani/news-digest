@@ -39,7 +39,8 @@ void test('only completed X search functions establish execution, independently 
       search,
       {
         reserve: async () => 'call',
-        settle: async (_id, usage) => {
+        settle: async (_id, usage, _price, _tools, execution) => {
+          assert.equal(execution, expected);
           assert.equal(usage.postsFetched, 0);
           assert.equal(usage.inputTokens, 10);
           events.push('settle');

@@ -2075,3 +2075,8 @@ or production activation in this step; switched-off scheduler retry remains open
 
 - The production adapter/application now preserves completed keyword/semantic search execution separately from citations. Failed or absent tool execution stays unconfirmed; completed empty searches remain distinguishable.
 - Token-only responses settle before citation persistence. Scheduler retry admission remains unfinished; fixed search stays off. Offline protocol fixtures only; no paid calls.
+
+### Durable scheduled execution evidence — iteration 907 (2026-11-06)
+
+- Search settlement now saves confirmed/unconfirmed execution alongside actual usage and cost. Completed empty searches remain distinguishable after restart; historical calls retain unknown execution.
+- Additive generated migration 0006; offline protocol and isolated database restart coverage. No paid calls or activation; durable scheduler retry admission remains next.

@@ -23,6 +23,7 @@ export interface XDiscoveryLedger {
     usage: XDiscoveryUsage,
     price: XDiscoveryPrice,
     toolCalls?: XSearchToolCall[],
+    execution?: 'completed' | 'unconfirmed',
   ): Promise<void>;
   fail(
     id: string,

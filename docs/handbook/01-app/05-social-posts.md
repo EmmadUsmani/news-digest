@@ -83,7 +83,9 @@ counts and media stay unknown; a link supplies no evidence of media contents.
   keep their reservation. Saved experiment responses can settle holds offline;
   hash-linked journal additions preserve the original request entries.
 - **Search tracing:** each paid call stores the actual search functions and
-  inputs returned by xAI alongside its cost. Old calls have no trace.
+  inputs returned by xAI alongside its cost. Settlement also saves whether
+  search execution was confirmed, including completed empty searches. Older calls
+  keep unknown execution.
 - **Budget:** paid X search has its own ledger and caps: $0.40/day and
   $12/month. The xAI account is prepaid ($15), so it can't overspend even if
   the app is wrong. Bluesky is free; its AI triage and editing use the

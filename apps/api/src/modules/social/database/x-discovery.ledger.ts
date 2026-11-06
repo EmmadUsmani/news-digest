@@ -323,6 +323,7 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
     usage: XDiscoveryUsage,
     price: XDiscoveryPrice,
     toolCalls?: XSearchToolCall[],
+    execution?: 'completed' | 'unconfirmed',
   ) {
     const cost = xDiscoveryCost(usage, price);
     await this.transaction(async (client) => {
@@ -330,6 +331,7 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
         .update(xDiscoveryCalls)
         .set({
           toolCalls: toolCalls ?? null,
+          execution: execution ?? 'unconfirmed',
           status: 'succeeded',
           completedAt: sql`clock_timestamp()`,
           costMicros: cost,

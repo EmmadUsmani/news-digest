@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Durable X execution evidence (907): settlement saves confirmed/unconfirmed execution atomically with usage; historical calls stay unknown. Isolated restart coverage added. Separately admitted scheduler retry remains next.
+
 - [x] Scheduled X execution signal (906): provider-confirmed completed search survives adapter/application settlement; failed, absent and unrelated tool traces stay unconfirmed. Scheduler admission/retry remains next.
 
 - [x] Experiment no-execution/tool-failure retry (905): usage settled before one fresh admission; completed empty searches never retry. Offline restart coverage; no paid calls/activation.
