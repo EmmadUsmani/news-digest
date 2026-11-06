@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Reader wait proposal (994): scoped a private on-demand work-in-progress reading view, including transaction visibility, access, failure handling and estimated effort. [Owner-review idea](docs/ideas.md#read-finished-stories-while-posts-are-still-being-selected); no feature built or runtime change.
+
 - [x] Migration directory guide (993): repository map now includes generated Drizzle migrations and explains the ordered runner/shared ledger, with links to the migration policy.
 
 - [x] Owner database guidance (992): removed the stale in-progress ORM status and adapter inventory from the runtime handbook; it now describes completed Drizzle access and links to the boundary/migration policy.

@@ -1,16 +1,3 @@
-## 2026-11-06: iteration 978 — prefer original social developments
-
-- Started clean on main; health/database/Redis green and alerts clear; no leftover work.
-- Read all four latest saved topics. Nov 6 edition and fresh X round remain time-gated.
-- Reader weakness: Tech selected a truncated Eggb4by newsletter excerpt about Oumi alongside original announcements; it adds another news recap rather than an original social moment.
-- Owner value: scarce post slots favor original announcements, demos and reporting instead of generic newsletter excerpts.
-- Social editor v5 explicitly prefers firsthand developments; recaps must add concrete news. Substantive secondhand scoops remain eligible, and provenance must never be guessed from account names.
-- Offline contracts check guidance on Sonnet and capped Haiku; they do not establish actual model selection quality. Saved editions remain unchanged; compare Nov 6 output.
-- No paid calls, sources, flags, schema or UI changes. TASKS/item 42 ack updated; archived iteration 964. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged: editorial guidance only.
-- Verification: targeted social editor tests 14/14; pnpm format; pnpm lint:fix; pnpm check passed 551 unit/224 isolated integration tests; pnpm build; git diff --check. No UI change, so no browser replay.
-- Next: Nov 6 World/cost/Bluesky and editorial review after 15:00 UTC; X round after 21:00 UTC.
-- API/worker/docs/schema restarted; health/database/Redis green and alerts clear. All 36 monitored sources healthy and zero failed digest jobs; post-push confirmation follows.
-
 ## 2026-11-06: iteration 979 — retain the summary's central development
 
 - Started clean on main; health/database/Redis green, alerts clear; no leftover work.
@@ -200,3 +187,16 @@
 - Deployment freeze began at 13:00 UTC: no services restarted; handbook reads committed files per request.
 - Verification results follow. Next: Nov 6 edition/World/cost/Bluesky review after publication; deploys resume after 16:00 UTC; X test after 21:00 UTC.
 - Verification: pnpm format; pnpm lint:fix; pnpm check exit 0 (555 unit/224 isolated integration tests passed); pnpm build; pnpm exec tsx scripts/check-handbook.ts code-structure (18 pages, one unchanged diagram, 28 tables); git diff --check. Final health green.
+
+## 2026-11-06: iteration 994 — scope earlier on-demand reading
+
+- Started clean on main; health/DB/Redis green, alerts clear, API/worker active. No leftover work.
+- Highest content weakness remains World breadth; deployed fix awaits the 15:00 edition. X test waits until 21:00; no repeated content audit.
+- Owner value: scoped a way to start reading finished stories during the measured 152-second on-demand wait, instead of another internal documentation polish.
+- Added an owner-review idea: private work-in-progress stories, separate from the immutable archive, with access/failure rules and 2–4 day effort estimate.
+- Checked generation boundaries: stories precede social selection, but the repeatable-read transaction prevents draft writes through that transaction from becoming visible early.
+- Reproduced saved timeline: first post-selection stage 87.337 s, all four by 110.730 s, publication span 152.273 s. No speedup claimed or live calls made.
+- Proposal only; no runtime, source, schema, prompt, budget or provider changes. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged.
+- Deployment freeze honored: no service restarts. Archived iteration 978 to retain progress size limit.
+- Verification results follow. Next: Nov 6 edition/World/full-AI/cost/Bluesky review after publication; deployments after 16:00; X round after 21:00.
+- Verification: pnpm format; pnpm lint:fix; pnpm check exit 0 (555 unit/224 isolated integration tests); pnpm build; targeted Prettier and git diff --check passed. Health green, 36 sources healthy, no failed digest jobs; alerts clear.
