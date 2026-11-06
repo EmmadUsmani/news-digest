@@ -109,3 +109,13 @@
 - Passed pnpm format, pnpm lint:fix, pnpm build, final pnpm check (536 unit/226 isolated integration, zero failures), scripts/smoke-bluesky-cards.ts and git diff --check; desktop light/mobile dark screenshots inspected.
 - API/worker restarted; health DB/Redis OK, alerts clear, 36/36 sources healthy, digest queue available/zero failed. Saved edition remains four topics/20 stories/17 posts.
 - Next: continue final reader work; Nov 7 fixed-keyword X and reserved-slot Bluesky acceptance await the scheduled edition. Observability RAM target remains unmet.
+
+## 2026-11-06: iteration 1063 — identify Bluesky videos in the reader
+
+- Advanced STEERING 33/43 while X/Bluesky scheduled acceptance waits for Nov 7. Clean main; no leftovers; initial health and alerts clear.
+- Reader benefit: video thumbnails looked like still images. Added a contrasting play cue over previews and a compact underlined original-post action; videos without thumbnails retain their text action.
+- Passed pnpm exec tsx scripts/smoke-reader-bluesky-video.ts: synthetic video over saved edition, desktop/mobile light/dark, original URL/target, play cue and no overflow; four screenshots saved, mobile light/desktop dark inspected.
+- Synthetic media was intercepted locally, external requests blocked and GET-only; no paid calls or edition writes. No source/schema/system-flow changes; handbook, SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Passed pnpm format, pnpm lint:fix, pnpm build and git diff --check. Full pnpm check passed: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green.
+- API/worker restarted; /healthz DB/Redis OK, pnpm obs alerts clear; saved edition remains four topics/20 stories/17 posts.
+- Next: continue final reader work; Nov 7 keyword X and reserved-slot Bluesky acceptance await publication. Observability RAM target remains unmet.

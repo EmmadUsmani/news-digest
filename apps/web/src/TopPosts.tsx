@@ -464,6 +464,7 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
         {post.media?.map((media, index) => (
           <a
             key={index}
+            className="relative block"
             href={media.type === 'image' ? media.fullsize : post.url}
             target="_blank"
             rel="noreferrer"
@@ -479,7 +480,21 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
                 }
               />
             )}
-            {media.type === 'video' && <span>Watch video on Bluesky ↗</span>}
+            {media.type === 'video' && (
+              <span className="mt-2 inline-flex items-center gap-2 text-sm underline underline-offset-2">
+                <span
+                  aria-hidden="true"
+                  className={
+                    media.thumbnail
+                      ? 'absolute top-3 left-3 flex h-10 w-10 items-center justify-center rounded-full bg-black/75 text-base text-white'
+                      : ''
+                  }
+                >
+                  ▶
+                </span>
+                Watch video on Bluesky ↗
+              </span>
+            )}
           </a>
         ))}
       </div>
