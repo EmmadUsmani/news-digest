@@ -82,16 +82,16 @@ async function smoke() {
         });
         await card.scrollIntoViewIfNeeded();
         const status = card.getByRole('status');
-        await status.filter({ hasText: 'Loading X media…' }).waitFor();
+        await status.filter({ hasText: 'Loading X post…' }).waitFor();
         assert.ok(await card.locator('.post-text').isVisible());
         await page.screenshot({
           path: `docs/screenshots/ui/x-media-loading-${device}-${theme}.png`,
         });
         releaseInitial();
-        await status.filter({ hasText: 'X media could not load.' }).waitFor();
+        await status.filter({ hasText: 'X post could not load.' }).waitFor();
         assert.equal(
           await status.innerText(),
-          'X media could not load. Saved post text is shown above.',
+          'X post could not load. Saved text is shown above; open it on X to read the original.',
         );
         assert.ok(await card.locator('.post-text').isVisible());
         assert.equal(
@@ -103,9 +103,9 @@ async function smoke() {
         });
         recover = true;
         await card
-          .getByRole('button', { name: 'Retry X media', exact: true })
+          .getByRole('button', { name: 'Retry X post', exact: true })
           .click();
-        await status.filter({ hasText: 'Loading X media…' }).waitFor();
+        await status.filter({ hasText: 'Loading X post…' }).waitFor();
         assert.equal(await card.locator('.x-media-error').count(), 0);
         assert.ok(await card.locator('.post-text').isVisible());
         await expect(card.locator('.post-text a')).toBeFocused();
@@ -154,7 +154,7 @@ async function smoke() {
         });
         const changedTheme = theme === 'light' ? 'dark' : 'light';
         await page.emulateMedia({ colorScheme: changedTheme });
-        await status.filter({ hasText: 'Loading X media…' }).waitFor();
+        await status.filter({ hasText: 'Loading X post…' }).waitFor();
         assert.ok(
           await card
             .locator('.official-post')

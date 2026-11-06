@@ -227,7 +227,7 @@ async function main() {
               post.displayText ?? post.text,
             );
           } else {
-            await card.getByRole('button', { name: 'Retry X media' }).waitFor();
+            await card.getByRole('button', { name: 'Retry X post' }).waitFor();
             assert.equal(await card.locator('.official-post > *').count(), 0);
             await page.evaluate(() => {
               (
@@ -351,13 +351,13 @@ async function main() {
           }
           const card = cards.first();
           await card.scrollIntoViewIfNeeded();
-          await card.getByRole('button', { name: 'Retry X media' }).click();
+          await card.getByRole('button', { name: 'Retry X post' }).click();
           if (mode === 'blocked') {
             await retryRequest;
             assert.ok(expected.length > 1, 'Concurrent retries need two cards');
             const second = cards.nth(1);
             await second.scrollIntoViewIfNeeded();
-            await second.getByRole('button', { name: 'Retry X media' }).click();
+            await second.getByRole('button', { name: 'Retry X post' }).click();
             await page.evaluate(
               () =>
                 new Promise<void>((resolve) =>

@@ -253,13 +253,14 @@ function Post({
       <div ref={host} className="official-post" />
       {loading && (
         <p role="status" className="m-0 text-xs text-[var(--secondary)]">
-          Loading X media…
+          Loading X post…
         </p>
       )}
       {failed && (
         <div className="x-media-error flex flex-wrap items-center gap-x-3 gap-y-1">
           <p role="status" className="m-0 text-xs text-[var(--secondary)]">
-            X media could not load. Saved post text is shown above.
+            X post could not load. Saved text is shown above; open it on X to
+            read the original.
           </p>
           <button
             type="button"
@@ -269,7 +270,7 @@ function Post({
               setAttempt((value) => value + 1);
             }}
           >
-            Retry X media
+            Retry X post
           </button>
         </div>
       )}

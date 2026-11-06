@@ -1,18 +1,3 @@
-## 2026-11-06: iteration 972 — keep thin-source summaries about the news
-
-- Started clean on main; alerts clear, health/database/Redis green and sources returning data. No leftover work.
-- Read saved topics; World breadth/Tech composition await 15:00 UTC, X round waits until 21:00 UTC.
-- Reader weakness: Tech exploit summary says “The supplied excerpt contains only the headline”; this is editing-process commentary rather than news.
-- Cause: editor asks for 2–3 sentences even for headline-only inputs, with no explicit instruction to omit input commentary.
-- Editor v6 requests a concise attributed sentence for thin evidence and omits editing-process commentary. Same-story, attribution and absence guards remain intact.
-- Added offline thin-source regression through Sonnet and capped Haiku fallback; updated golden purpose expectations and authored synthetic replay fingerprint; historical inference fixtures unchanged.
-- Initial direct golden invocation correctly refused missing isolated-test environment; rerun through pnpm check. Initial new test needed the existing two-bullet minimum; corrected fixture.
-- No paid inference, source edits, budget/flag/model/provider changes or immutable-edition rewrites. Actual wording remains to verify in Nov 6 edition.
-- Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged: editorial bug fix, no system or source changes. UI unchanged, so no new browser screenshots.
-- Verification: editor tests 14/14; pnpm format; pnpm lint:fix; pnpm check passed 547 unit/224 isolated integration tests; pnpm build and git diff --check passed.
-- Full check caught the synthetic replay fingerprint change; verified the old hash before updating only the authored fixture fingerprint. Response/golden output unchanged; full rerun passed. API/worker/docs/schema restarted; health green, alerts clear, saved edition unchanged.
-- Next: review Nov 6 stories/cost/Bluesky after 15:00 UTC; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.
-
 ## 2026-11-06: iteration 973 — distinguish archive coverage periods
 
 - Started clean on main; alerts clear and health/database/Redis green. No leftover work.
@@ -188,3 +173,15 @@
 - Next: Nov 6 actual World/cost/Bluesky/editorial review after 15:00 UTC; X round after 21:00 UTC.
 - Final: pnpm format; pnpm lint:fix; pnpm check (555 unit/224 isolated integration passed); pnpm build; git diff --check. Initial full check caught archive formatting, fixed before successful rerun.
 - API/worker/docs/schema restarted; health green, alerts clear, 36 sources without current errors, zero failed digest jobs and next run 15:00 UTC. Archived iteration 971 to keep PROGRESS small.
+
+## 2026-11-06: iteration 986 — explain incomplete X post recovery
+
+- Started clean on main; alerts clear and health/database/Redis green; no leftover work.
+- Read saved summaries and posts across all four topics; Nov 6 edition and X rounds remain time-gated.
+- Weakness: OpenAI and Porzingis saved X text ends mid-sentence, while embed failure claimed only media was missing. Readers need the original post to recover omitted text.
+- Loading/retry now names the whole X post; failure points to the linked original. Updated existing browser checks and affected handbook wording; saved editions unchanged, no paid calls.
+- Initial browser launch raced the service restart (connection refused); reran after health returned green.
+- Verification results recorded below. SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Next: Nov 6 World/cost/Bluesky/editorial review after 15:00 UTC; fresh X round after 21:00 UTC.
+- Final: pnpm format; pnpm lint:fix; pnpm check (555 unit/224 isolated integration passed); pnpm build; check-handbook.ts 08-operations; smoke-reader-x-media.ts desktop/mobile light/dark; git diff --check. Inspected mobile failure screenshot; refreshed four-view screenshots.
+- API/worker/docs/schema restarted; health green, alerts clear, all 36 sources healthy, no failed digest jobs. Archived iteration 972 to keep PROGRESS small.

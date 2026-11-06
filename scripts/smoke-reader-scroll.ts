@@ -42,7 +42,7 @@ async function smoke() {
           await card.scrollIntoViewIfNeeded();
           if ((await card.locator('.byline').innerText()).startsWith('X ·')) {
             await card
-              .getByRole('button', { name: 'Retry X media', exact: true })
+              .getByRole('button', { name: 'Retry X post', exact: true })
               .waitFor();
           }
         }

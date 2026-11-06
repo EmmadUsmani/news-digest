@@ -1553,3 +1553,5 @@ ack: 2026-11-06 item 42 — iteration 983: OpenSSH’s author link appeared unde
 ack: 2026-11-06 item 42 — iteration 984: Gaming's saved GTA 6 story omits the original headline's playable-access qualification. Editor v10 preserves supported practical qualifications in headline and summary, respecting verbatim absence evidence; offline contracts only, actual output awaits publication. No paid calls or source changes.
 
 ack: 2026-11-06 item 42 — iteration 985: read all four saved topics; Sony summary adds “he” although supplied reports establish no pronouns. Editor v11 asks for names or roles instead of inferred pronouns; offline primary/fallback contract, no paid calls or saved-edition changes.
+
+ack: 2026-11-06 item 42 — iteration 986: saved OpenAI and Porzingis X text ends mid-sentence; recovery copy now names the whole official post and directs readers to the original, rather than implying only media is missing. No content or spend changes.

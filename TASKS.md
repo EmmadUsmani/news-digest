@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] X post recovery copy (986): loading/retry names the whole post, and failure points readers to the original when saved text is incomplete.
+
 - [x] Supported pronouns (985): editor v11 uses names or roles when sources do not establish pronouns; fixes unsupported personal detail in the saved Sony summary for future editions. Actual output awaits publication.
 
 - [x] Release qualifications (984): editor v10 preserves supported practical limitations in headlines and summaries; GTA 6 early-store wording exposed the missing playable-access qualification. Offline contract verified; assess actual Nov 6 output.
