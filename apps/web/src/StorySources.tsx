@@ -9,21 +9,22 @@ export function StorySources({
   story: z.infer<typeof readerStorySchema>;
   children: ReactNode;
 }) {
-  // Preserve the primary outlet first, then deduplicate grouped outlet names.
+  // Preserve the primary outlet first, then show each publisher once.
   const outlets = new Map<string, { name: string; url: string }>();
   const primary = story.coverage?.find((article) => article.url === story.url);
   for (const article of [primary ?? story, story, ...(story.coverage ?? [])]) {
     for (const name of article.sources) {
-      const key = name.trim().toLocaleLowerCase();
-      if (key && !outlets.has(key)) {
-        // Grouped story.sources is a union; coverage retains each outlet's URL.
-        const report = story.coverage?.find((item) =>
-          item.sources.some(
-            (source) => source.trim().toLocaleLowerCase() === key,
-          ),
-        );
-        outlets.set(key, { name, url: report?.url ?? article.url });
-      }
+      const sourceName = name.trim().toLocaleLowerCase();
+      if (!sourceName) continue;
+      // Feed labels can name different sections of the same publisher.
+      const report = story.coverage?.find((item) =>
+        item.sources.some(
+          (source) => source.trim().toLocaleLowerCase() === sourceName,
+        ),
+      );
+      const url = report?.url ?? article.url;
+      const publisher = new URL(url).hostname.replace(/^www\./, '');
+      if (!outlets.has(publisher)) outlets.set(publisher, { name, url });
     }
   }
   const sources = [...outlets.values()];

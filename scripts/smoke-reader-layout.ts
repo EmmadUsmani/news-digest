@@ -139,15 +139,20 @@ async function smoke() {
               ...(story.coverage ?? []),
             ]) {
               for (const name of article.sources) {
-                const key = name.trim().toLocaleLowerCase();
-                if (key && !expected.has(key)) expected.set(key, name);
+                const report = story.coverage?.find((item) =>
+                  item.sources.includes(name),
+                );
+                const key = new URL(
+                  report?.url ?? article.url,
+                ).hostname.replace(/^www\./, '');
+                if (name.trim() && !expected.has(key)) expected.set(key, name);
               }
             }
             if (primary) {
-              assert.deepEqual(
-                [...expected.values()].slice(0, primary.sources.length),
-                primary.sources,
-                'Headline attribution starts with the primary report outlets',
+              assert.equal(
+                [...expected.values()][0],
+                primary.sources[0],
+                'Headline attribution starts with the primary publisher',
               );
             }
             const visibleLinks = sources.locator(':scope > a');
@@ -207,6 +212,16 @@ async function smoke() {
               assert.equal(
                 await visibleLinks.first().getAttribute('href'),
                 story.url,
+              );
+              const publishers = await visibleLinks.evaluateAll((links) =>
+                links.map(
+                  (link) => new URL((link as HTMLAnchorElement).href).hostname,
+                ),
+              );
+              assert.equal(
+                new Set(publishers).size,
+                publishers.length,
+                'Distinct publisher links occupy the visible source slots',
               );
               await card.scrollIntoViewIfNeeded();
               await page.screenshot({

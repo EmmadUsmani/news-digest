@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Publisher diversity (952): grouped source rows combine feeds from the same publisher, exposing independent coverage without removing reports.
+
 - [x] Visible coverage counts (951): grouped stories always show their article count before expansion, alongside any extra outlets.
 
 - [x] Primary outlet attribution (950): grouped story source rows start with the headline destination’s outlets; saved World story and links checked across desktop/mobile light/dark.

@@ -1,14 +1,3 @@
-## 2026-11-06: iteration 936 — restore stalled-request reader recovery checks
-
-- Started clean on main; no leftover work. Health/database/Redis green and alerts clear. Saved four-topic headlines/posts reviewed; thin World and known Tech grouping await Nov 6 publication. X round waits until 21:00 UTC.
-- Found an existing verification breakage: smoke-reader-timeout still clicked the removed inline-history panel; reproduced its 20-second locator timeout. Ported history recovery to the archive and retained edition recovery.
-- The browser replay stalls requests locally, verifies one attempt before manual retry, restores real saved links and opens the saved edition. No writes, paid calls, flags or selection changes. Updated timeout screenshots.
-- Verification: pnpm exec tsx scripts/smoke-reader-timeout.ts (failed before, passed after repair on desktop/mobile light/dark; inspected desktop archive/mobile edition screenshots); pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check. Final results recorded below.
-- Archived iteration 922 to keep this file small; updated TASKS. No product/system-flow change; SOURCES, handbook, STEERING and NEEDS_FROM_HUMAN unchanged.
-- Next: Nov 6 World/cost/Bluesky review after publication, X round after 21:00 UTC; continue remaining obsolete reader smoke-script ports while waiting.
-- Initial full check exited 143 during integration tests without a reported test failure; standalone full retry passed (543 unit/224 isolated integration tests, coverage complete). Build and browser replay passed.
-- Restarted API/worker/docs/schema: all active, health/database/Redis green, reader HTTP 200, source/job checks passed and alerts clear.
-
 ## 2026-11-06: iteration 937 — restore selected-edition response isolation checks
 
 - Started clean on main; no leftover work. Alerts clear and health/database/Redis green. Nov 6 edition/Bluesky evidence and 21:00 UTC X round still time-gated.
@@ -176,3 +165,14 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm build; check-handbook.ts 08-operations; smoke-reader-layout.ts; git diff --check passed. First pnpm check ended 143 during unit tests; retry passed (543 unit/224 isolated integration tests).
 - API/worker/docs/schema restarted active; health green and alerts clear.
 - Next: Nov 6 World/cost/Bluesky review after publication; fresh X round after 21:00 UTC. Fixed search and reserved slot remain off.
+
+## 2026-11-06: iteration 952 — expose independent publishers in grouped coverage
+
+- Started clean on main; health/database/Redis green, alerts clear; latest scheduled run completed and Nov 6 remains scheduled for 15:00 UTC.
+- Read all four saved topics. World’s Guardian US and Guardian World feed labels occupied both source slots, hiding Al Jazeera behind expansion.
+- Deduplicate source-row publishers by hostname (ignoring www), retaining primary attribution and every expanded report. Owner-visible result: independent coverage appears beside the headline publisher.
+- Extended saved-edition browser checks to require distinct visible publishers; updated four-view screenshots and operations handbook. No paid calls, collection, selection or flag changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations; smoke-reader-layout.ts; git diff --check. Final results recorded below.
+- Updated TASKS and STEERING ack. SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Next: Nov 6 World/cost/Bluesky review after publication; fresh X round after 21:00 UTC. Fixed search and reserved slot remain off.
+- Final: initial check and concurrent lint-fix exited 143 without diagnostics; retries passed (543 unit/224 isolated integration tests). Build, handbook, four-view browser replay and diff checks passed; inspected mobile light World screenshot. Archived iteration 936. Services restarted healthy, 36/36 sources healthy, zero failed digest jobs and alerts clear.

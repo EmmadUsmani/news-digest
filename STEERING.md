@@ -1489,3 +1489,5 @@ ack: 2026-11-06 item 42 — iteration 949: Wembanyama’s 4-article disclosure l
 ack: 2026-11-06 item 42 — iteration 950: World's saved Guardian headline credited Al Jazeera first in its grouped source row. Show the primary report's outlets first; saved World attribution and links verified in desktop/mobile light/dark. No spend or selection changes.
 
 ack: 2026-11-06 item 42 — iteration 951: World's eight-report story disclosed only an extra outlet count. Always show the article count alongside extra outlets, making saved coverage depth visible before expansion. No spend or selection changes.
+
+ack: 2026-11-06 item 42 — iteration 952: World's Guardian US/World feeds filled both visible source slots for the same publisher. Show each publisher once so Al Jazeera is visible alongside the primary Guardian report; all eight reports remain available. No spend or selection changes.
