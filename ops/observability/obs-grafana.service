@@ -5,12 +5,12 @@ After=network.target obs-metrics.service
 User=exedev
 WorkingDirectory=/opt/news-digest-observability/grafana
 ExecStart=/opt/news-digest-observability/grafana/bin/grafana server --homepath=/opt/news-digest-observability/grafana --config=/etc/news-digest-observability/grafana/grafana.ini
-Environment=GOMAXPROCS=1 GOMEMLIMIT=160MiB
+Environment=GOMAXPROCS=1 GOMEMLIMIT=128MiB
 Restart=always
 RestartSec=5
-MemoryHigh=208M
-MemoryMax=256M
-CPUQuota=2%
+MemoryHigh=288M
+MemoryMax=320M
+CPUQuota=3%
 CPUWeight=10
 IOWeight=10
 Nice=10

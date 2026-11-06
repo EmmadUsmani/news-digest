@@ -160,7 +160,7 @@ export async function checkGrafana() {
       .map((line) => line.split('=')),
   );
   assert.equal(fields.ActiveState, 'active');
-  assert.equal(Number(fields.MemoryMax), 256 * 1024 * 1024);
+  assert.equal(Number(fields.MemoryMax), 320 * 1024 * 1024);
   assert.ok(Number(fields.MemoryCurrent) < Number(fields.MemoryMax));
   const browser = await chromium.launch({ headless: true });
   const checked: { uid: string; panels: number; populated: number }[] = [];

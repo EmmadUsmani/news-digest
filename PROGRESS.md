@@ -1,13 +1,3 @@
-## 2026-11-06: iteration 1027 — inline grouped outlets
-
-- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; alerts clear and /healthz DB/Redis OK.
-- Collapsed report disclosures now share the source/time row, saving a row per story. Additional publishers use +N outlets; all saved reports expand below. Full article count remains in hover/accessibility text.
-- Extended read-only browser verification for desktop row alignment and accessible counts; updated old-label assertions. Desktop/mobile light/dark passed, including expansion, timestamps, no overflow and no writes. Updated screenshots; inspected desktop/mobile light.
-- Passed pnpm build; pnpm check (562 unit/225 isolated integration); pnpm format; pnpm lint:fix; pnpm exec tsx scripts/smoke-reader-layout.ts. API/worker restarted; health and alerts clear.
-- No paid calls or source/schema/handbook-flow changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Initial push rejected by concurrent owner backup steering commit cce78a99; fetched and merged without conflicts, preserving owner changes. No runtime change in merge.
-- Next: continue approved reader completion; approved Bluesky slot activation pending under Current order; X round after 21:00 UTC.
-
 ## 2026-11-06: iteration 1028 — compact post timestamps
 
 - Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; health and alerts clear.
@@ -159,3 +149,16 @@
 - Broader reader layout/navigation replay passed all four views. All 36 sources healthy; digest queue zero failed runs. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes.
 - Verification: pnpm build; pnpm exec tsx scripts/smoke-reader-position.ts; pnpm exec tsx scripts/smoke-reader-layout.ts; pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration, exit 0); git diff --check.
 - API/worker restarted; health DB/Redis OK and existing alerts clear. Push initially rejected by concurrent owner steering; merged without rewriting history, preserving item 44 and owner files. Archived iteration 1026. Grafana endpoint timed out at 2 s while system unit active, MemoryCurrent 218013696/MemoryHigh 218103808 bytes, CPU quota 20ms/s; current alerts miss it. Next: item 44 Grafana breakage/health alert first; X round after 21:00 UTC. Fixed search OFF.
+
+## 2026-11-06: iteration 1043 — recover Grafana and detect endpoint failures
+
+- Item 44 breakage first; started clean on main with no leftovers. Existing alerts were clear despite health timing out; app DB/Redis, 36 sources and digest queue healthy.
+- Confirmed memory-reclaim thrash: MemoryHigh 208 MiB, 2.89M high events, ~60% full stalls; CPU quota 2% saturated. Raising reclaim to 240 MiB alone did not recover it; repaired instance answered ~1 ms at the old 2% CPU cap.
+- Disabled snapshots/Kubernetes dashboard UI, reduced index workers/cache and made dashboard cleanup hourly. Go target 160→128 MiB; MemoryHigh 208→288 MiB, hard ceiling 256→320 MiB, CPU cap 2→3%. Missing plugin/provisioning directories reconciled.
+- Existing 30-second unit collector now probes Grafana health with curl's two-second deadline and checks database health. GrafanaHealthFailed catches failures/timeouts/missing probes even with an active unit; fired and cleared live during recovery. No CLI/dashboard layout changes or new services.
+- Final restart 19:37:45 UTC; 20:08:44 snapshot (31 min): health 16 ms, 129.99 MiB, average CPU 0.53%, zero restarts/reclaim/OOM events. All 58 persisted health samples since 19:40 passed. Stack 418.8 MiB/1.84% CPU, within budget.
+- Passed pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration); pnpm build; python3 ops/observability/test-grafana-health.py; vmalert-tool-prod unittest -files=ops/observability/alerts.test.yml; bash -n installers; git diff --check.
+- Passed scripts/check-observability.ts --verify-alerts and --verify-grafana --grafana-agent-only via pnpm exec tsx; scripts/check-handbook.ts observability passed. Desktop/mobile screenshots saved and inspected; ten dashboards discoverable.
+- Initial Grafana check needed its old 256 MiB assertion updated. Jobs-only verification hit changing schedule/timing equality assertions; stable Agent dashboard checks passed. Temporary sampler exited 143; durable collector history and direct probes provided stability evidence.
+- API/worker rebuilt/restarted; final health DB/Redis OK, all 36 sources healthy, digest queue zero failed runs, alerts clear. No paid verification calls or source/schema changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Updated affected handbook/owner ack, archived iteration 1027 and older completed task markers. Stop after item 44 as instructed; next resume approved UI while X tests wait until after 21:00 UTC. Fixed search OFF.

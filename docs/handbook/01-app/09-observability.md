@@ -67,6 +67,10 @@ vmalert evaluates every 30 s. Nothing is emailed: alerts show in
 | Bluesky quiet     | Three scheduled editions with an open Bluesky slot have no pick; clears on a pick                                |
 | Spend             | Anthropic or xAI reaches 90% of a daily or monthly cap                                                           |
 
+The existing service collector probes Grafana’s `/grafana/api/health` every
+30 seconds with a two-second timeout. Failed, timed-out or missing probes
+raise `GrafanaHealthFailed` after one minute, even when its unit is active.
+
 ## Command line
 
 Run these on the VM, from the repo:
@@ -83,14 +87,18 @@ pnpm obs metric 'up' --since 1h --step 60s
 ## Resources and operations
 
 - **Units:** `obs-*` system units, each with a memory and CPU cap:
-  Grafana 256 MB, logs 160 MB, metrics 112 MB, everything else 80 MB or
+  Grafana 320 MB, logs 160 MB, metrics 112 MB, everything else 80 MB or
   less, and 0.5–3% of a core each.
   - Unit files start memory reclaim at 88 MB for metrics, 128 MB for logs
-    and 64 MB for the shipper, below its 80 MB ceiling.
+    and 64 MB for the shipper, below its 80 MB ceiling; Grafana starts
+    reclaim at 288 MB and limits its Go runtime to 128 MiB.
+  - Grafana uses one index worker, no snapshots or Kubernetes dashboard UI,
+    and hourly dashboard cleanup.
   - The host exporter has a 2% CPU ceiling and a 10-second scrape deadline.
   - They run at low priority, so they lose contention to the app.
   - They sit outside the app's health gate.
-  - Measured use is about 0.5 GB of RAM in total, under 1% CPU.
+  - The total target is about 500 MB RAM and under 5% of one CPU. Grafana
+    needs extra memory headroom; actual stack use is checked through unit metrics.
 - **Install or reconcile:** run `ops/observability/install*.sh`.
   - Releases are pinned and SHA-256 checked.
   - The installers never restart the app, Postgres or Redis. The one

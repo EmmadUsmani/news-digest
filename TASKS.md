@@ -4,16 +4,9 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
-- [ ] STEERING 44 NOW: owner reports hung Grafana despite active unit; diagnose CPU/memory limits, fix runtime and endpoint health alerts, verify 30 minutes after restart. Arrived during iteration 1042 push; next breakage priority.
-
-- [x] Observability shipper cache pressure (1018): deployed MemoryHigh=64M under unchanged 80M ceiling after 16:00 UTC; fresh API log delivery and seven-source retention verified. Pending reader links, excerpt preservation and social editor v6 deployed too; selection quality awaits next scheduled edition.
-
 - [ ] STEERING 39 NOW, ahead of UI: reliability/accounting shipped (903–909); Nov 5 keyword reruns complete (910), Gaming three posts, NBA/World tool failed again (2/3 failure), $0.048153 settled. Fair semantic preparation shipped (911); scorer review complete (912): Gaming 1/3 usable, no retained free-link overlap, $0.000337 verification. Next: Nov 6 round after 21:00 UTC. Scorer relevance ≥6/interestingness ≥4 counts as non-promotion; unknown likes unusable. $2.50 total/$1 UTC day caps; fixed search OFF, no further Nov 5 reruns. [Evidence](docs/edition-reviews/2026-11-05-x-experiment-review.md).
-- [x] STEERING 41 (920): durable scheduled-edition BlueskyEditingFailed/BlueskyNoPicks alerts, aggregate-only DB access and firing/clearing/restart coverage shipped. Nov 6 first eligible scheduled edition has one World pick and no editing failures; neither alert fires (1011).
 - [ ] STEERING 40: purpose/topic diagnostics deployed (913); historical attribution, saved outcomes, inspector and call-scoped refusal reasons shipped (914–919). Per-post validation and saved drop counts shipped (921). Default-off reserved slot built (922), saved editor order verified; Nov 6 gate evaluated (1011): full-AI passes, $0.501758 estimated with margin exceeds $0.501698 cap; owner approved switch-on (latest item 40 update); enable after the protected window without changing the cap. World saved one distinct Bluesky post; one unsupported pick dropped. Details and limits in STEERING; no collection/query/cap changes.
 - [ ] STEERING 36 NOW: forty-article grouping pool live (872), ten-story editor cap unchanged; replay/cost evidence in [review](docs/edition-reviews/2026-11-05-world-story-pool.md). Nov 6 review complete (1011): World five distinct stories, full-AI/$0.286904/137.059 s; [review](docs/edition-reviews/2026-11-06.md). Dedicated admin pages next; coverage cleanup done (873). X rounds due after 21:00 UTC.
-
-- [x] Nov 5 full-AI acceptance and saved reader text (847): all sections AI, zero unscored; $0.315445/152.320 s. [Review](docs/edition-reviews/2026-11-05.md).
 
 - [ ] STEERING 34 NOW: [X search plan](docs/x-search-plan.md); Grok 4.3/caps unchanged, fixed search OFF. Nov 5 revised round: 41 embed-verified candidates, zero retained-free overlap; four verification calls/$0.003782, Tech keyword two gate-passers; unknown likes unusable. Next Nov 6 fresh-window round after 21:00 UTC, then baseline/decision; earliest production Nov 7. No more round-1 analysis/model round. [Full evidence](docs/edition-reviews/2026-11-05-x-experiment-review.md).
 - [ ] STEERING 30/31: experiment $2.50 total/$1 per UTC day, outside 13:00–16:00 UTC, $0.15 per-call reservation. Historical round 1 charged $0.532331 including unresolved Gaming timeout; Nov 5 revised round evidence now saved; no winner/activation. [Experiment](docs/x-search-experiment.md), [review](docs/edition-reviews/2026-11-04-x-experiment-review.md).
@@ -31,7 +24,6 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 - [ ] STEERING 37 LOW: off-VM Backblaze B2 backups (switched from R2 on Nov 6) B2 settings are on the VM and smoke-checked; owner added a hard 3 GB bucket budget and tiered retention (Nov 6). Build last, after everything above.
 
-- [x] STEERING 32: private nightly backups, seven-day retention, weekly isolated restore and 26-hour alert deployed (709); fixed search runtime remains off pending decision. [Operations](docs/handbook/01-app/10-backups.md).
 - [ ] M5: grouping quality above; independent labels, different dates and Gaming still needed. Agent-labelled windows are not general quality estimates.
 - [ ] M6: topic CRUD/reorder/enable, source/schedule/budgets and on-demand UI connected; broader acceptance and admin separation open. Replay coverage through 846 in archived task detail.
 - [ ] M7: durable on-demand job links survive Redis pruning/outages and isolated worker replacement (851–864); confirmed lost jobs report clearly without retrying generation. Predeployment lost jobs unrecoverable. DigestPublished log adapter live; no real notifications. Broader reliability acceptance open.
@@ -43,22 +35,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Reader refresh position (1042, item 33): changed background edition data preserves the reading position after contents navigation; initial deep links remain restored, verified desktop/mobile light/dark.
+- [x] STEERING 44 (1043): repaired Grafana memory thrash, trimmed runtime and deployed endpoint health alerts; 31-minute check passed at 130 MiB/0.53% CPU, stack within budget.
 
-- [x] Reader source row (1041, item 33): grouped-outlet disclosure now sits beside publishers before the timestamp; expansion keeps article details below the source row, verified desktop/mobile light/dark.
-
-- [x] Reader weekday (1040, item 33): desktop edition dates include the weekday from the approved header spec; compact mobile dates and older/newer navigation preserved, verified light/dark.
-
-- [x] Replaced admin screen cleanup (1039, item 33): removed the combined legacy controls and status screen; overview and dedicated pages remain accessible through desktop/mobile navigation, verified light/dark.
-
-- [x] Archive pagination keyboard reading (1038, item 33): new page focuses the heading after dates load, describes its page number and lets Tab continue to the first date; desktop/mobile light/dark verified.
-
-- [x] Reader keyboard bypass (1037, item 33): focus-only skip links reach edition/archive content directly; focus, sticky-header clearance and continued keyboard reading verified desktop/mobile light/dark.
-
-- [x] Reader archive loading (1036, item 33): responsive date-row skeletons, accessible loading announcement and saved-link/error/retry transitions verified desktop/mobile light/dark.
-
-- [x] Reader loading layout (1035, item 33): responsive contents/brief/card skeletons replace the blank initial wait; accessible loading status, saved-edition transition and failure recovery verified in desktop/mobile light/dark.
-- [x] Shared reader cards (1034, item 33): post cards now match story padding/corners through the shared component; Posts headings use the approved scale and correct heading level. All platforms verified with desktop/mobile light/dark replay.
-- Earlier completed markers: [through 1033](docs/progress-archive/2026-11-06-reader-done-1034.md).
+Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
 - Next: fresh X round after 21:00 UTC; reserved Bluesky slot now approved by owner; enable without changing the daily cap. Tech repetition correction prepared (1013): social editor v6 distinguishes launch details from independently newsworthy developments; deployed/restarted after 16:00 UTC (1018); inspect next scheduled picks. Fixed search stays off.

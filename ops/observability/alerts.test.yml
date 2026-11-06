@@ -2,6 +2,44 @@ rule_files:
   - alerts.yml
 evaluation_interval: 30s
 tests:
+  - name: Grafana health fails while unit stays active then recovers
+    interval: 30s
+    input_series:
+      - series: 'news_digest_grafana_health_success'
+        values: '1 0 0 0 1'
+      - series: 'news_digest_unit_active{scope="system",unit="obs-grafana.service"}'
+        values: '1 1 1 1 1'
+    alert_rule_test:
+      - eval_time: 0m
+        alertname: GrafanaHealthFailed
+        groupname: host-and-services
+        exp_alerts: []
+      - eval_time: 1m30s
+        alertname: GrafanaHealthFailed
+        groupname: host-and-services
+        exp_alerts:
+          - exp_labels:
+              severity: critical
+              alertgroup: host-and-services
+            exp_annotations:
+              summary: Grafana health endpoint failed or timed out
+      - eval_time: 2m
+        alertname: GrafanaHealthFailed
+        groupname: host-and-services
+        exp_alerts: []
+  - name: Missing Grafana health probe warns
+    interval: 30s
+    input_series: []
+    alert_rule_test:
+      - eval_time: 1m
+        alertname: GrafanaHealthFailed
+        groupname: host-and-services
+        exp_alerts:
+          - exp_labels:
+              severity: critical
+              alertgroup: host-and-services
+            exp_annotations:
+              summary: Grafana health endpoint failed or timed out
   - name: disk threshold and sustained duration
     interval: 30s
     input_series:

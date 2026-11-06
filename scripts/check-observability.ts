@@ -106,6 +106,10 @@ async function main() {
     // A running iteration can have an old heartbeat; successful reads do not imply freshness.
   }
   if (process.argv.includes('--verify-alerts')) {
+    execFileSync('python3', ['ops/observability/test-grafana-health.py'], {
+      stdio: 'pipe',
+      timeout: 10_000,
+    });
     assert.match(
       execFileSync('systemctl', ['cat', 'obs-alerts.service'], {
         encoding: 'utf8',

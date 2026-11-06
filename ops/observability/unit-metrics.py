@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-"""Read only explicit user units; write a single atomic node_exporter textfile."""
+"""Collect explicit unit resources and Grafana health into an atomic textfile."""
 import importlib.util
 import os
 from pathlib import Path
 import subprocess
 import time
+
+from grafana_health import healthy
 
 spec = importlib.util.spec_from_file_location('harness_metrics', Path(__file__).with_name('harness-metrics.py'))
 harness = importlib.util.module_from_spec(spec)
@@ -36,6 +38,7 @@ for scope, units in [
             value = fields.get(field, '')
             if value.isdecimal():
                 rows.append(f'news_digest_unit_{metric}{labels} {int(value) * factor}')
+rows.append(f'news_digest_grafana_health_success {int(healthy())}')
 rows.append(f'news_digest_unit_snapshot_timestamp_seconds {time.time()}')
 path = Path('/var/lib/news-digest-node-textfile/user-units.prom')
 temporary = path.with_suffix('.tmp')

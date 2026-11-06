@@ -14,6 +14,7 @@ sudo install -m 755 "$obs_tmp/postgres_exporter-0.20.1.linux-amd64/postgres_expo
 sudo install -m 644 ops/observability/product-queries.yml /etc/news-digest-observability/
 sudo install -m 644 ops/observability/obs-postgres.service /etc/systemd/system/
 sudo install -m 644 ops/observability/scrape.yml /etc/news-digest-observability/
+sudo install -m 644 ops/observability/grafana_health.py /opt/news-digest-observability/
 sudo install -m 755 ops/observability/unit-metrics.py /opt/news-digest-observability/
 sudo systemctl daemon-reload
 sudo systemctl enable obs-postgres.service

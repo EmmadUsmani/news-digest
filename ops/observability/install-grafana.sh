@@ -15,8 +15,10 @@ sudo cp -a "$obs_tmp/grafana/." /opt/news-digest-observability/grafana/
 docker compose exec -T postgres psql -U postgres -d news_digest -v ON_ERROR_STOP=1 < ops/observability/grafana/sql/product-reader.sql
 sudo cp -a ops/observability/grafana/. /etc/news-digest-observability/grafana/
 sudo find /etc/news-digest-observability/grafana/provisioning /etc/news-digest-observability/grafana/dashboards -type f -exec chmod 644 {} +
-sudo install -d -o exedev -g exedev /var/lib/news-digest-grafana
+sudo install -d /etc/news-digest-observability/grafana/provisioning/plugins /etc/news-digest-observability/grafana/provisioning/alerting
+sudo install -d -o exedev -g exedev /var/lib/news-digest-grafana /var/lib/news-digest-grafana/plugins
 sudo install -m 644 ops/observability/obs-grafana.service /etc/systemd/system/
+sudo install -m 644 ops/observability/grafana_health.py /opt/news-digest-observability/
 sudo install -m 755 ops/observability/unit-metrics.py /opt/news-digest-observability/
 sudo systemctl daemon-reload
 sudo systemctl enable obs-grafana.service

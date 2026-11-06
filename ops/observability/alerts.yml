@@ -16,6 +16,13 @@ groups:
           severity: critical
         annotations:
           summary: Monitored app or observability unit is inactive
+      - alert: GrafanaHealthFailed
+        expr: (news_digest_grafana_health_success == 0) or absent(news_digest_grafana_health_success)
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: Grafana health endpoint failed or timed out
       - alert: ScrapeTargetDown
         expr: up == 0
         for: 2m
