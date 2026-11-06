@@ -1535,3 +1535,5 @@ ack: 2026-11-06 item 42 — iteration 974: Gaming’s saved release-date update 
 ack: 2026-11-06 item 42 — iteration 975: saved OpenAI/NBA cards repeat their original text in mandatory editor notes. Made notes optional for self-explanatory posts while retaining useful translations; offline selection/cache and desktop/mobile light/dark replay checks passed. Existing saved editions remain unchanged; compare Nov 6 output.
 
 ack: 2026-11-06 item 42 — iteration 976: all 14 saved brief bullets copied the following story headlines. Editor v7 requests a compact factual overview, retaining attribution and distinct events; offline transport/cache/fallback checks only, actual output awaits Nov 6 publication. No spend or selection limits changed.
+
+ack: 2026-11-06 item 42 — iteration 977: saved Tech exploit coverage shortened The Hacker News to Hacker News, making the publisher ambiguous. Editor v8 preserves full supplied publisher names and distinguishes reporting outlets from aggregation feeds; offline contracts only, actual output awaits publication. No spend or source changes.

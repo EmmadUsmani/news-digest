@@ -421,8 +421,13 @@ void test('headline-only evidence accepts a concise attributed summary without r
     const result = await h.editor.edit(topic, thin, 1, 'thin-source');
     assert.deepEqual(result?.stories, output.stories);
     assert.equal(h.calls.length, 1);
-    assert.equal(h.calls[0].purpose, 'shortlist-editor-v7');
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v8');
     assert.match(h.calls[0].instructions, /one sentence for thin evidence/);
+    assert.match(h.calls[0].instructions, /Preserve the full publisher name/);
+    assert.match(
+      h.calls[0].instructions,
+      /an aggregator, not the reporting outlet/,
+    );
     assert.match(
       h.calls[0].instructions,
       /describe the news, not the supplied inputs/,
@@ -464,7 +469,7 @@ void test('brief guidance reaches both editors without changing saved factual bu
     );
     assert.deepEqual(result?.brief, output.brief);
     assert.equal(h.calls.length, 1);
-    assert.equal(h.calls[0].purpose, 'shortlist-editor-v7');
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v8');
     assert.match(
       h.calls[0].instructions,
       /not a copied list of the story headlines/,
@@ -478,5 +483,50 @@ void test('brief guidance reaches both editors without changing saved factual bu
       /Keep unrelated events distinct even in the brief/,
     );
     assert.deepEqual(h.diagnostics(), []);
+  }
+});
+
+void test('aggregated security reporting retains the explicitly named publisher on both editors', async () => {
+  const title = 'AI pipeline generates Linux exploits - The Hacker News';
+  const evidence = [
+    {
+      id: 'one',
+      title,
+      excerpt: title,
+      sources: ['Google News: artificial intelligence'],
+    },
+  ];
+  const output = {
+    brief: [
+      'The Hacker News reports an AI exploit pipeline.',
+      'The pipeline generates Linux exploits.',
+    ],
+    stories: [
+      {
+        ...story,
+        headline: 'AI pipeline generates Linux exploits',
+        summary:
+          'The Hacker News reports that an AI pipeline generates Linux exploits.',
+      },
+    ],
+  };
+  for (const refused of [[], ['claude-sonnet-5-5']]) {
+    const h = harness([output], refused);
+    const result = await h.editor.edit(
+      topic,
+      evidence,
+      1,
+      'publisher-attribution',
+    );
+    assert.equal(result?.stories[0].summary, output.stories[0].summary);
+    assert.deepEqual(JSON.parse(h.calls[0].prompt).candidates, evidence);
+    assert.match(
+      h.calls[0].instructions,
+      /The Hacker News .* and Hacker News .* are different sources/,
+    );
+    assert.match(
+      h.calls[0].instructions,
+      /When the reporting publisher is unclear, do not guess/,
+    );
   }
 });

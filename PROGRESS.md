@@ -1,16 +1,3 @@
-## 2026-11-06: iteration 963 — show when X media is loading
-
-- Started clean on main; alerts clear and health/database/Redis green. No leftover work.
-- Read all four saved topics; World breadth/Tech grouping await Nov 6 publication; X round waits until 21:00 UTC.
-- Reader weakness: lazy X media requests gave no pending indication, leaving readers unable to tell whether media was still arriving.
-- Added a loading status only during active requests; clear it on success, failure or timeout. Saved text stays visible while loading and retrying.
-- Extended saved-edition browser replay with held local widget responses, initial/retry loading checks and four-view screenshots; no external calls or writes.
-- Updated TASKS, STEERING ack and affected handbook; archived iteration 946. SOURCES/NEEDS_FROM_HUMAN unchanged; no spend or flag changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (543 unit/224 isolated integration tests); pnpm build; smoke-reader-x-media.ts; check-handbook.ts 08-operations; git diff --check. All passed.
-- Handbook check initially raced API startup; rerun after green health passed. Inspected mobile light loading screenshot; retained only new loading screenshots.
-- API/worker/docs/schema restarted active; health/database/Redis green, all 36 sources healthy, no failed digest jobs and alerts clear.
-- Next: edition/Bluesky review after 15:00 UTC; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.
-
 ## 2026-11-06: iteration 964 — keep Contents aligned while reading
 
 - Started clean on main; alerts clear and health/database/Redis green. No leftover work.
@@ -189,3 +176,17 @@
 - Earlier checks caught archive formatting and a stale synthetic replay fingerprint (223/224 integration); corrected both. A direct publication test attempt was rejected by the isolation guard; final verification used disposable containers.
 - API/worker/docs/schema restarted; health/database/Redis green, alerts clear, all 36 sources healthy, zero failed digest jobs; post-push confirmation follows.
 - Next: Nov 6 brief/summary/post context, World/cost/Bluesky review after 15:00 UTC; fresh X round after 21:00 UTC.
+
+## 2026-11-06: iteration 977 — preserve reporting publisher names
+
+- Started clean on main; health/database/Redis green, alerts clear, all 36 monitored sources healthy, zero failed digest jobs; no leftover work.
+- Read all four saved topics; Nov 6 edition and X evidence remain time-gated. Owner value: readers can distinguish the security publication The Hacker News from the Hacker News discussion site.
+- Actual saved exploit summary shortened the explicitly supplied publisher suffix “The Hacker News” to “Hacker News”; Google News collection labels obscure the distinction.
+- Editor v8 asks for the explicitly named reporting publisher, full publisher names and no guesses from similar names or aggregator labels. Existing factual guards and selection limits remain intact.
+- Offline contracts cover unchanged supplied title/feed labels, full-name output, and instructions on Sonnet and capped Haiku; these do not establish actual model compliance.
+- Prompt/cache purpose and synthetic golden expectations updated; synthetic publication fingerprint regenerated from the same fixture input. Response/golden payloads unchanged; no live recordings changed.
+- No paid calls, sources, flags, schema or UI changes; saved editions remain unchanged. Review actual Nov 6 attribution after publication.
+- Archived iteration 963; TASKS and item 42 ack updated. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged: narrow editorial guidance fix with no system/source change.
+- Verification: targeted editor tests 16/16; pnpm format; pnpm lint:fix; pnpm check (550 unit/224 isolated integration tests); pnpm build; git diff --check. No UI change, so no browser replay.
+- Regeneration first omitted synthetic topic guidance; corrected against the fixture's exact input before integration. No live provider or database used by tests.
+- API/worker/docs/schema restarted; health/database/Redis green and alerts clear. Next: Nov 6 summary/brief/attribution, World/cost/Bluesky review after 15:00 UTC; X round after 21:00 UTC.

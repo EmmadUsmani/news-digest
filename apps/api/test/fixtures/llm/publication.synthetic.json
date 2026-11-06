@@ -16,7 +16,7 @@
       }
     },
     {
-      "fingerprint": "baa944e2ee163ccbf3566d34f0566bf63dcd1a6820440d614d13c64b64fb4eca",
+      "fingerprint": "31b9984e13a46b48805dbc7b7f0fbbca7f3b23a6c8d5f97dc26409e98daaeefb",
       "model": "claude-sonnet-5-5",
       "response": {
         "text": "{\"brief\":[\"A model launched.\",\"It is available today.\"],\"stories\":[{\"id\":\"00000000-0000-4000-8000-000000000099\",\"evidenceIds\":[\"00000000-0000-4000-8000-000000000099\"],\"headline\":\"New model becomes available\",\"summary\":\"A company launched a model. It is available today.\",\"whyItMatters\":\"Builders have another tool.\",\"rationale\":\"Important launch.\"}]}",
