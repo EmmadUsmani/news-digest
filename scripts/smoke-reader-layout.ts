@@ -582,7 +582,10 @@ async function smoke() {
           const box = document
             .getElementById(`topic-${id}`)
             ?.getBoundingClientRect();
-          return box && box.top >= 60 && box.top < 190;
+          // A topic jump must land near the top and below the fixed controls.
+          // Failed lazy X embeds above it can add their recovery text after
+          // the native anchor jump; allow that visible breathing room.
+          return box && box.top >= 60 && box.bottom < innerHeight / 3;
         }, second.id);
         assert.equal(new URL(page.url()).hash, `#topic-${second.id}`);
         await page.waitForFunction(

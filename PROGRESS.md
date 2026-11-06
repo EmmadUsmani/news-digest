@@ -1,27 +1,3 @@
-## 2026-11-06: iteration 1000 — scope story-to-post connections
-
-- Started clean on main; alerts clear, health/DB/Redis green, API/worker active. No leftover work.
-- Latest saved reader remains Nov 5 (edition 7d99b279); World breadth is still the largest weakness and awaits the deployed fix's scheduled output.
-- Reader friction: Tech's Linux exploit story and Greg Brockman's selected post discuss the same development without a navigable connection.
-- Owner value: connecting reporting to a cited original post could reduce searching between sections while preserving both perspectives.
-- Added a bounded proposal to docs/ideas.md: exact saved citation evidence only, optional snapshot relation, old-edition compatibility, 1–2 days, no extra calls.
-- Similar text alone cannot establish a relation; the motivating example is not claimed to satisfy the citation gate. Measure coverage before implementation.
-- Proposal only; no paid calls, collection/schema/runtime changes or service restarts during the 13:00–16:00 deployment freeze.
-- SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Next: Nov 6 reader/World/cost/Bluesky review after publication; X round after 21:00 UTC.
-- Verification: pnpm format; pnpm lint:fix; pnpm check passed (560 unit/224 isolated integration); pnpm build passed; git diff --check. Final health green and alerts clear.
-
-## 2026-11-06: iteration 1001 — propose continuing-story navigation
-
-- Started clean on main; alerts clear, health/DB/Redis green, API/worker active; no leftover work.
-- Latest saved reader is still Nov 5 (7d99b279); World breadth awaits the deployed fix's Nov 6 edition. Scheduled digest remains due at 15:00 UTC.
-- Reader friction: World coverage includes mutable election/Iran live pages; those pages cannot recover the prior digest's account for comparison.
-- Owner value: a link to an earlier immutable story could make continuing coverage easier to follow across daily editions.
-- Added a concise proposal in docs/ideas.md: exact shared coverage URL within a topic, no inferred factual-change claims; estimate 1–2 days with no extra calls.
-- Proposal only under item 38; no runtime, collection, schema, spend or service changes during the deployment freeze. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged.
-- Archived iterations 983–985 to keep PROGRESS below 25 KB. Source checks healthy; failed digest jobs zero.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (560 unit/224 isolated integration), pnpm build and git diff --check passed. Final health green; alerts clear.
-- Next: Nov 6 reader/World/cost/Bluesky review after publication; X round after 21:00 UTC. Fixed search remains off.
-
 ## 2026-11-06: iteration 1002 — scope author-provided media descriptions
 
 - Started clean on main; alerts clear, health/DB/Redis green, API/worker active; no leftover work.
@@ -200,3 +176,15 @@
 - Passed: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration); pnpm build; handbook check 07-data-model; git diff --check.
 - Deployment/restarts deferred under the explicit 13:00–16:00 UTC freeze. After 16:00 deploy this fix, pending reader fixes, social editor v6 and shipper MemoryHigh=64M, then verify live.
 - Next: X round after 21:00 UTC; reserved Bluesky slot remains OFF awaiting owner. NEEDS_FROM_HUMAN unchanged; no new owner dependency.
+
+## 2026-11-06: iteration 1018 — deploy the pending reader and ingestion fixes
+
+- Started clean on main; no leftover work. Alerts, health, 13 services and 36 sources healthy; no failed digest jobs.
+- Reader weakness remains repeated Tech launch posts and thin source text; deploy prepared social editor v6 and blank-excerpt preservation rather than stacking more changes.
+- After 16:00 UTC: built current main, installed shipper unit, reloaded systemd and restarted shipper/API/worker; no restart during freeze.
+- Shipper now uses MemoryHigh=64M with unchanged MemoryMax=80M; verified fresh API request delivery in 3.056 s and all seven retained log sources.
+- Reader cited links and author profiles are live; real World card verified on desktop/mobile and mobile screenshot visually checked. Saved editions unchanged; selection/summary improvement awaits future ingestion and scheduled editions. No paid calls.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration); pnpm build; pnpm exec tsx scripts/check-observability.ts --verify-o2; reader layout and Bluesky card Playwright checks; health/services/sources/jobs/alerts; git diff --check.
+- Initial check found archive formatting; corrected. Final lint received SIGTERM without diagnostics; retry passed. Layout smoke twice timed out at a mobile topic jump (heading 212px from top, focus/hash correct); replaced fixed 190px limit with whole heading in top third. Archived 1000–1001.
+- Next: Nov 6 X fresh-window round after 21:00 UTC. Fixed search and Bluesky reserved slot remain OFF; reserved slot awaits owner after failed cost gate.
+- SOURCES/handbook/NEEDS_FROM_HUMAN unchanged: deployment of already documented changes; no new source, flow or owner dependency.

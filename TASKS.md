@@ -4,7 +4,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
-- [ ] Observability shipper cache pressure (1012): firing memory warning recovered with cgroup cache reclaim (79→46 MiB), alert cleared at 15:08:50, no restart/deploy during freeze. MemoryHigh=64M below unchanged 80M ceiling and live verifier prepared (1014); syntax/CI checked. After 16:00 UTC install the unit, restart shipper, verify threshold and seven-source delivery; deploy social editor v6 too. Runtime still has no early reclaim threshold.
+- [x] Observability shipper cache pressure (1018): deployed MemoryHigh=64M under unchanged 80M ceiling after 16:00 UTC; fresh API log delivery and seven-source retention verified. Pending reader links, excerpt preservation and social editor v6 deployed too; selection quality awaits next scheduled edition.
 
 - [ ] STEERING 39 NOW, ahead of UI: reliability/accounting shipped (903–909); Nov 5 keyword reruns complete (910), Gaming three posts, NBA/World tool failed again (2/3 failure), $0.048153 settled. Fair semantic preparation shipped (911); scorer review complete (912): Gaming 1/3 usable, no retained free-link overlap, $0.000337 verification. Next: Nov 6 round after 21:00 UTC. Scorer relevance ≥6/interestingness ≥4 counts as non-promotion; unknown likes unusable. $2.50 total/$1 UTC day caps; fixed search OFF, no further Nov 5 reruns. [Evidence](docs/edition-reviews/2026-11-05-x-experiment-review.md).
 - [x] STEERING 41 (920): durable scheduled-edition BlueskyEditingFailed/BlueskyNoPicks alerts, aggregate-only DB access and firing/clearing/restart coverage shipped. Nov 6 first eligible scheduled edition has one World pick and no editing failures; neither alert fires (1011).
@@ -41,14 +41,14 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Preserve article text (1017): blank excerpts from title-only rediscovery keep saved publisher text; nonblank corrections still update it. Isolated repository regression covers both sources and replacement. Deploy after 16:00 with pending changes.
+- [x] Preserve article text (1017): blank excerpts from title-only rediscovery keep saved publisher text; nonblank corrections still update it. Isolated repository regression covers both sources and replacement. Deployed after 16:00 (1018).
 
-- [x] Bluesky author profiles (1016): link author names to the saved post’s profile, including encoded DIDs; isolated desktop/mobile light/dark replay verified. Deploy after 16:00 with the pending reader/editor/shipper changes.
+- [x] Bluesky author profiles (1016): link author names to the saved post’s profile, including encoded DIDs; isolated desktop/mobile light/dark replay verified. Deployed after 16:00 (1018).
 
-- [x] Bluesky cited links (1015): saved post web URLs open directly from the reader card; original text preserved. Desktop/mobile light/dark replay verified. Prepared during freeze; deploy after 16:00 with social editor v6 and shipper threshold.
+- [x] Bluesky cited links (1015): saved post web URLs open directly from the reader card; original text preserved. Desktop/mobile light/dark replay verified. Deployed after 16:00 (1018).
 
 - [x] Nov 6 edition review (1011): World five stories versus two; all topics fully AI-edited, $0.286904/137.059 s, one distinct World Bluesky pick with desktop/mobile screenshots. Slot cost gate fails; stays OFF awaiting owner. [Review](docs/edition-reviews/2026-11-06.md).
 
 - Earlier steps 995–1006: [completed markers](docs/progress-archive/2026-11-06-reader-done-1007.md).
 
-- Next: fresh X round after 21:00 UTC; reserved Bluesky slot awaits owner after failed Nov 6 cost gate. Tech repetition correction prepared (1013): social editor v6 distinguishes launch details from independently newsworthy developments; deploy/restart after 16:00 UTC, then inspect next scheduled picks. Fixed search stays off.
+- Next: fresh X round after 21:00 UTC; reserved Bluesky slot awaits owner after failed Nov 6 cost gate. Tech repetition correction prepared (1013): social editor v6 distinguishes launch details from independently newsworthy developments; deployed/restarted after 16:00 UTC (1018); inspect next scheduled picks. Fixed search stays off.
