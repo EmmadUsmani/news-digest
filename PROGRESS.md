@@ -1,23 +1,3 @@
-## 2026-11-06: iteration 1008 — scope a saved edition for offline reading
-
-- Started clean on main; no leftover work. Alerts clear; health/DB/Redis green, API/worker active, all 36 sources healthy; no failed digest runs.
-- Read all four topics through the saved reader export; latest remains Nov 5 (7d99b279), with 17 stories/14 posts. World breadth remains the biggest weakness; its fix awaits Nov 6 publication.
-- Reader value: take the saved digest on a journey without depending on widgets or implying that media and linked articles are included.
-- Added a bounded text-only HTML download proposal, with public-reader fields, attribution, export date, original links, escaping and offline acceptance; owner review required before implementation.
-- No runtime/source/schema/prompt/budget changes or paid calls. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged; no restarts during 13:00–16:00 freeze, running code unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration tests); pnpm build; git diff --check all passed.
-- Next: Nov 6 World/full-AI/cost/Bluesky review after publication; X round after 21:00 UTC; fixed search OFF.
-
-## 2026-11-06: iteration 1009 — consolidate proposal decisions
-
-- Started clean on main; no leftover work. Alerts clear, health/DB/Redis green, API/worker active; all 36 sources healthy and zero failed digest runs.
-- Read all four topics in the latest public saved edition, still Nov 5 at 14:47 UTC; Nov 6 remains scheduled for 15:00. World breadth remains the biggest weakness; deployed fix awaits publication.
-- Owner value: a single linked index makes nine existing proposals, estimates and decision gates reviewable without treating deferred ideas as open implementation work.
-- Added the index to docs/ideas.md; three evidence-deferred proposals stay deferred. No new feature, investigation, paid call or runtime change.
-- No restarts during the deployment freeze; running code unchanged. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration tests); pnpm build; nine proposal anchor checks; git diff --check all passed.
-- Next: Nov 6 World/full-AI/cost/Bluesky review after publication; fresh X round after 21:00 UTC. Fixed search OFF.
-
 ## 2026-11-06: iteration 1010 — scope return to an interrupted edition
 
 - Started clean on main; no leftover work. Alerts clear, health/DB/Redis green, API/worker active; sources check passed and zero failed digest runs.
@@ -179,3 +159,13 @@
 - Archived iterations 1006–1007 to keep PROGRESS small; recorded actual saved weakness and next-edition evaluation in the Nov 6 review. No source/schema/handbook flow change; SOURCES and NEEDS_FROM_HUMAN unchanged.
 - Initial push rejected: owner added item 43 and lead status updates. Merged owner changes without rewriting history; resolved only appended steering ack. New order raises item 33; next iteration must build final reader before item 42. This step advanced item 42, not 39/34/33.
 - Next: final reader under item 33; fresh X round after 21:00 UTC. Reserved Bluesky slot stays OFF. API/worker restart and health/content checks follow push.
+
+## 2026-11-06: iteration 1024 — build compact reader contents
+
+- Advanced item 33 under item 43; X items 39/34 await the authorized round after 21:00 UTC. Started clean on main; no leftover work. Alerts clear and /healthz DB/Redis OK.
+- Reader contents now match the approved spec: one-line headlines, expanded-topic chevrons and a visible current-story arrow. Full titles remain in accessible text and hover titles; links and mobile sheet navigation preserved.
+- Extended read-only scrolling verification for single-line containment, full titles and active markers. Fixed stale selectors exposed by the saved Bluesky post and an NBA headline, without changing reader data.
+- Passed pnpm exec tsx scripts/smoke-reader-scroll.ts and scripts/smoke-reader-layout.ts across desktop/mobile light/dark, including deep links, coverage and forbidden-label checks; no writes or external calls. Updated screenshots; visually inspected desktop/mobile light.
+- pnpm build passed; API/worker restarted, /healthz and pnpm obs alerts clear. pnpm check passed (562 unit/225 isolated integration), as did pnpm format, pnpm lint:fix and git diff --check.
+- Archived iterations 1008–1009 to keep this file small. No source/schema/handbook-flow change; SOURCES and NEEDS_FROM_HUMAN unchanged. No paid calls.
+- Next: continue item 33 spec completion; fresh X round after 21:00 UTC. Reserved Bluesky slot stays OFF; deployed editorial changes await next edition.

@@ -100,10 +100,20 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
                     : undefined
                 }
 
+                title={text}
                 aria-current={active === id ? 'location' : undefined}
-                className={`block whitespace-normal break-words rounded py-1 text-sm leading-6 hover:text-[var(--accent)] ${nested ? 'pl-3 font-normal' : 'font-medium'} ${active === id ? 'text-[var(--accent)]' : ''}`}
+                className={`flex min-w-0 items-center gap-1 rounded py-1 text-sm leading-6 hover:text-[var(--accent)] ${nested ? 'pl-3 font-normal' : 'font-medium'} ${active === id ? 'text-[var(--accent)]' : ''}`}
               >
-                {text}
+                <span aria-hidden="true" className="w-3 shrink-0 text-center">
+                  {nested
+                    ? active === id
+                      ? '▸'
+                      : ''
+                    : activeTopic?.id === topic.id
+                      ? '▾'
+                      : '›'}
+                </span>
+                <span className="min-w-0 truncate">{text}</span>
               </a>
             );
             return mobile ? <SheetClose asChild>{anchor}</SheetClose> : anchor;

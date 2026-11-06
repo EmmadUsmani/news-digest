@@ -1615,3 +1615,5 @@ advanced, and each ack says so in one line.
 UTC window and edition protection still apply.
 
 ack: 2026-11-06 item 42 — iteration 1023: Nov 6 Tech summaries repeated headline-only claims in two sentences. Story editor v12 requests one direct attributed sentence, preserving allegations; no paid calls, saved edition unchanged, assess prose at next scheduled edition.
+
+ack: 2026-11-06 item 33/43 — iteration 1024: readers can scan single-line contents headlines and identify the current story by its arrow, with expanded-topic chevrons and full titles preserved. Desktop/mobile light/dark [screenshots](docs/screenshots/ui/reader-scroll-desktop-light.png) and scrolling verified; no paid calls.

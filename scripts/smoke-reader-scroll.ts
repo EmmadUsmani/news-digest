@@ -40,7 +40,11 @@ async function smoke() {
         // Settle lazy blocked media before measuring scroll positions.
         for (const card of await page.locator('.post-card').all()) {
           await card.scrollIntoViewIfNeeded();
-          if ((await card.locator('.byline').innerText()).startsWith('X ·')) {
+          if (
+            (await card.locator('.byline').first().innerText()).startsWith(
+              'X ·',
+            )
+          ) {
             await card
               .getByRole('button', { name: 'Retry X post', exact: true })
               .waitFor();
@@ -82,8 +86,10 @@ async function smoke() {
             } else {
               await expect(
                 page
-                  .locator('[aria-current="location"]')
-                  .filter({ hasText: topic.name })
+                  .locator(
+                    `[href="#topic-${topic.id}"][aria-current="location"]`,
+                  )
+                  .filter({ visible: true })
                   .first(),
               ).toHaveAttribute('href', `#topic-${topic.id}`);
             }
@@ -99,6 +105,36 @@ async function smoke() {
             ),
           ).toHaveAttribute('href', `#story-${stories[0].story.id}`);
         }
+        const contents = page.getByRole('navigation', {
+          name: device === 'desktop' ? 'Edition contents' : 'Mobile contents',
+          exact: true,
+        });
+        for (const link of await contents.locator('a[href^="#story-"]').all()) {
+          const title = await link.getAttribute('title');
+          assert.ok(title);
+          assert.equal(await link.locator('span').last().textContent(), title);
+          assert.ok(
+            await link.evaluate((node) => {
+              const label = node.lastElementChild!;
+              const style = getComputedStyle(label);
+              return (
+                style.whiteSpace === 'nowrap' &&
+                style.textOverflow === 'ellipsis' &&
+                node.getBoundingClientRect().height <= 33 &&
+                label.getBoundingClientRect().right <=
+                  node.getBoundingClientRect().right + 1
+              );
+            }),
+            'Contents headlines occupy one line and stay inside the navigation',
+          );
+        }
+        assert.equal(
+          await contents
+            .locator('[aria-current="location"] span[aria-hidden]')
+            .textContent(),
+          '▸',
+          'Current story has a visible marker as well as color',
+        );
         await page.screenshot({
           path: `docs/screenshots/ui/reader-scroll-${device}-${theme}.png`,
         });
