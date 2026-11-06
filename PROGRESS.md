@@ -9,18 +9,6 @@
 - Rebuilt/restarted API/worker/docs/schema; health/database/Redis green, reader HTTP 200 and 36/36 sources healthy. Updated TASKS and affected handbook; SOURCES/NEEDS_FROM_HUMAN unchanged.
 - Next: item 40 per-post validation, then default-off reserved slot; Nov 6 edition/cost review after publication, X experiment after 21:00 UTC. Fixed search remains off.
 
-## 2026-11-06: iteration 921 — keep valid Bluesky editor picks
-
-- Started clean on main; no leftover work. Health/alerts green, 36/36 sources healthy, zero failed digest jobs. Higher priorities await edition publication/21:00 UTC.
-- Bluesky now validates picks separately, retaining valid siblings in returned order and dropping bad fields, unknown/repeated IDs, unsupported claims and excess picks. X validation is unchanged.
-- Only wholly rejected nonempty replies retry; deliberate empty replies stop. Existing unsupported-claim checks, slot limits, collection and budgets remain unchanged; no paid calls.
-- Saved optional category counts survive successful/failed outcomes and sanitized cache reads; old editions remain compatible. Purpose v2 isolates earlier all-or-nothing cached results.
-- Added offline mixed-reply, retry/empty, cache and saved-success/failure coverage. Full checks initially caught an unbound test helper and archive formatting; fixed both before final verification.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; API rebuild; check-handbook.ts 05-social-posts; git diff --check. All passed: 538 unit/224 isolated integration tests.
-- Rebuilt/restarted API/worker/docs/schema; all active, /healthz database/Redis green and reader HTTP 200. Sources healthy, no failed digest runs, alerts clear.
-- Updated TASKS, SOURCES and affected handbook; archived iterations 907–908 to keep PROGRESS small. NEEDS_FROM_HUMAN unchanged; no new owner requirements.
-- Next: build default-off Bluesky reserved slot; review Nov 6 edition/cost gate after publication, X round after 21:00 UTC. Reserved slot and fixed X search stay off.
-
 ## 2026-11-06: iteration 922 — default-off Bluesky reserved slot
 
 - Started clean on main; no leftover work. Health/alerts green, 36/36 sources healthy, zero failed digest jobs. Higher priorities await publication/21:00 UTC.
@@ -147,3 +135,13 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx scripts/smoke-post-sizing.ts; git diff --check. Final full-check result below.
 - Updated TASKS and STEERING ack. No source/system-flow changes; SOURCES, handbook and NEEDS_FROM_HUMAN unchanged. No paid calls or flag changes. Next: Nov 6 World/cost/Bluesky review after publication; X round after 21:00 UTC.
 - Full check exited zero: 543 unit and 224 isolated integration tests passed, coverage completed. Build and browser replay passed. API/worker/docs/schema restarted; final health/alerts green and reader HTTP 200.
+
+## 2026-11-06: iteration 934 — restore the saved reader layout check
+
+- Started clean on main; no leftover work. Health/database/Redis green and alerts clear. Nov 6 edition review and X round remain time-gated.
+- Read latest saved headlines/posts across four topics: World breadth and known Tech grouping await Nov 6 publication; no new selection or paid calls.
+- Found a real verification breakage: smoke-reader-layout still expected generic X link labels removed in 933; reproduced its timeout. Match saved text plus author/destination context, retaining exact accessible-name verification.
+- Owner value: the reader's saved text, sources, navigation and responsive layout can again be checked before future releases. Desktop/mobile light/dark replay passed; screenshots byte-identical. No product behavior change.
+- Verification: pnpm exec tsx scripts/smoke-reader-layout.ts (failed before, passed after); pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check. Final results below.
+- Archived oldest progress entry; updated TASKS. SOURCES, handbook, STEERING and NEEDS_FROM_HUMAN unchanged; no source/system-flow or priority change. Next: Nov 6 edition/Bluesky review after publication, X round after 21:00 UTC.
+- Full check first exited 143 during unit tests with no reported failure; retry exited zero with 543 unit/224 isolated integration tests passing. Build passed. Restarted API/worker/docs/schema; final health/alerts and reader HTTP results checked before commit.

@@ -79,7 +79,7 @@ async function smoke() {
           if (post.platform !== 'x') continue;
           const link = page
             .getByRole('link', {
-              name: `View post by ${post.author} on X`,
+              name: `${post.displayText ?? post.text} — View post by ${post.author} on X`,
               exact: true,
             })
             .filter({ hasText: post.displayText ?? post.text });
