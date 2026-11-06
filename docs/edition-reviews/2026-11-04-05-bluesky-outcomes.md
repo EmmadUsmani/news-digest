@@ -64,3 +64,33 @@ Private journal and ledger extracts are retained under
 700/600. Iteration 913 added purpose/topic IDs to future diagnostic lines.
 Next: persist per-topic outcomes and show them in the admin inspector; do not
 repeat this historical investigation.
+
+## Nov 6 reserved-slot decision worksheet
+
+After publication, run the offline calculator with a private JSON worksheet:
+
+```sh
+pnpm exec tsx apps/api/scripts/evaluate-bluesky-slot-gate.ts /path/to/worksheet.json
+```
+
+Required fields: `editionDate` (`2026-11-06`), `editionId`,
+`fullyAiEdited`, `budgetRefused`, `usageSettled`, `editionCostMicros`,
+`dailyCapMicros` and `topics`. Each topic has `topicId`, `extraCostMicros`
+(integer microdollars or null when unknown) and a plain `basis` explaining
+its estimate from Nov 6 saved triage/editor usage. Include every enabled topic
+with a post budget, including topics that previously had no open slot. Check
+that topic coverage against the saved edition; the offline tool cannot do it.
+
+Use the complete edition cost, including retries and unsuccessful charged
+calls. Estimate only incremental Bluesky work beyond what the edition already
+paid for, including additional triage/editor attempts where needed. Do not
+assume a no-slot topic costs zero or infer its triage cost from overlapping
+call timestamps. Missing attribution means an unknown estimate until a
+conservative bound can be justified from saved usage. Make no paid replay.
+
+The calculator sums estimates and applies STEERING 40's exact inequality,
+rounding the protected amount up to a whole microdollar. Unknown estimates,
+unsettled usage, non-AI editing or any budget refusal block eligibility.
+Eligibility is a worksheet result, not activation: inspect its evidence first,
+keep runtime admission/reserves unchanged, and respect the 13:00–16:00 freeze.
+No actual Nov 6 result is recorded here before publication.

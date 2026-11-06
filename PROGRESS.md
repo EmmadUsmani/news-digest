@@ -1,32 +1,3 @@
-## 2026-11-06: iteration 981 — original headlines for single-report stories
-
-- Started clean on main; health/database/Redis green, alerts clear; no leftover work.
-- Read all four saved topics; Nov 6 edition/Bluesky review and X round remain time-gated.
-- Reader weakness: single-report stories hide the original article title because only multi-report stories have a coverage disclosure.
-- Owner value: inspect the original headline, date and link alongside every rewritten story, including thin-source Tech summaries.
-- Enabled the same disclosure for one report with singular article text; unchanged saved content and links.
-- Extended four-view saved-edition replay to inspect single-report titles, URLs, times and publisher labels; added screenshots.
-- Updated TASKS, item 42 ack and affected handbook. SOURCES/NEEDS_FROM_HUMAN unchanged; no paid calls or selection changes.
-- Archived iteration 967 to keep PROGRESS small. Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check.
-- Browser replay passed desktop/mobile light/dark with external embeds blocked; inspected desktop light/mobile dark single-report screenshots. Build and handbook passed.
-- API/worker/docs/schema restarted; health green, alerts clear, all 36 sources healthy and zero failed digest-generation jobs. Full check hit exit 143 during integration after static checks and 552 unit tests passed; rerunning isolated integration separately.
-- Next: Nov 6 World/cost/Bluesky and editorial review after 15:00 UTC; X round after 21:00 UTC.
-- Final verification: separate isolated integration rerun passed 224/224; all required checks completed. Build, handbook and four-view browser replay passed; no paid calls.
-
-## 2026-11-06: iteration 982 — expose saved supporting reports
-
-- Started clean on main; health/database/Redis green, alerts clear, all 36 monitored sources healthy; no leftover work.
-- Read all four saved topics; higher-priority edition/Bluesky and X reviews remain time-gated.
-- Reader weakness: Sony’s summary uses a PS6 report retained in editorial evidence but missing from the reader’s article disclosure.
-- Reader projection now combines grouped coverage and saved editorial citations, deduplicating IDs and preserving original report metadata; saved snapshots stay unchanged.
-- Readers can open the reports supporting a combined summary; multi-feed citation labels use the linked hostname to avoid miscrediting a discovery feed. No new calls, selection changes, source changes or spend.
-- Added regression coverage for missing supporting citations, duplicate primary IDs, private excerpt stripping, historical snapshots and immutability.
-- Browser replay compares all reader report IDs with saved coverage/evidence and captures Sony’s expanded reports in four views.
-- Updated TASKS, item 42 ack and affected operations handbook; archived older done markers to shorten TASKS. SOURCES/NEEDS_FROM_HUMAN unchanged.
-- Verification: targeted reader tests; pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check. Results below.
-- Next: Nov 6 World/cost/Bluesky/editorial review after 15:00 UTC; X round after 21:00 UTC. Fixed search remains off.
-- Final: pnpm check passed (553 unit/224 isolated integration tests); build, handbook, four-view saved-edition replay and diff checks passed. Inspected mobile supporting-report screenshot; services restarted, health green, alerts clear, all 36 sources healthy, no failed digest jobs. Initial archive-format failure fixed before full rerun.
-
 ## 2026-11-06: iteration 983 — distinguish discovery feeds from reporting outlets
 
 - Started clean on main; health/database/Redis green, alerts clear; no leftover work.
@@ -197,3 +168,14 @@
 - No destination requests, paid calls, runtime/source/schema changes or service restarts during the 13:00–16:00 deployment freeze.
 - SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Next: Nov 6 edition/World/cost/Bluesky review after publication; X test after 21:00 UTC.
 - Verification: pnpm format; pnpm lint:fix; pnpm check exit 0 (555 unit/224 isolated integration tests); pnpm build; git diff --check. Final health green and alerts clear.
+
+## 2026-11-06: iteration 997 — prepare the Bluesky activation calculation
+
+- Started clean on main; alerts clear, health/DB/Redis green, 36 sources healthy, no failed digest jobs. No leftover work.
+- Reader weakness: editions have no Bluesky picks; the reserved-slot implementation awaits the Nov 6 cost/AI gate. World breadth still awaits publication.
+- Owner value: a reproducible offline calculation will prevent a mistaken activation decision while enabling broader post selection when affordable.
+- Added saved-usage worksheet calculator: sums all topic estimates, rounds 1.5× cost upward, rejects unknown estimates/unsettled usage/non-AI editing/budget refusal.
+- Documented complete-topic evidence requirements and incremental-cost accounting; synthetic tests are labelled and are not live edition measurements.
+- No activation, paid calls, collection changes or service restarts during the deployment freeze. Runtime/services remain unchanged.
+- SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Next: fill Nov 6 evidence after publication; X round after 21:00 UTC.
+- Verification: pnpm format; pnpm lint:fix; pnpm check passed (558 unit/224 isolated integration); pnpm build passed; git diff --check. Final health green, alerts clear; API/worker active. Archived iterations 981–982 to keep this file small.
