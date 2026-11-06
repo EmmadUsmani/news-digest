@@ -107,3 +107,30 @@
   opportunity, not a promised UI latency.
 - Evidence: [saved timing analysis](edition-reviews/2026-11-05-social-latency.md).
   Status: proposal only; no draft storage, endpoint or runtime change.
+
+## Publisher attribution for discovery-feed coverage
+
+- Reader problem: Nov 5 Tech has five Google News coverage links across four
+  stories. The Moonshot/Hong Kong story contains CNBC and Reuters reports, but
+  both URLs use `news.google.com`. The source-row component deduplicates by
+  URL hostname, so these reports share one discovery-feed label rather than
+  showing the two publishers. Expanded coverage retains both article links.
+- Proposal: preserve structured publisher identity separately from discovery
+  source identity at ingestion, carry it into future immutable snapshots, and
+  use it for reader attribution and outlet deduplication. Keep “via Google
+  News” as discovery provenance. A publisher label does not establish that
+  reports are independent or describe the same event.
+- Prefer publisher metadata supplied by the RSS entry. Do not infer a trusted
+  publisher from a title suffix or treat the redirect hostname as an outlet.
+  Unknown publishers keep the existing explicit discovery label. HN destination
+  hosts can identify a website, not necessarily an author or news publisher.
+- Scope/cost estimate: 1–2 days to inspect recorded RSS metadata, preserve it
+  through ingestion and snapshot contracts, update reader rows and replay
+  old/new snapshot rendering. Any new storage fields need migrations, schema
+  metadata and handbook updates. No extra HTTP or model calls are proposed.
+- Acceptance if approved: the saved CNBC/Reuters example displays two publisher
+  labels when structured evidence is available; missing metadata remains
+  honest, expanded links stay intact, and historical snapshots still render.
+  Do not rewrite old editions or resolve Google redirects for this proposal.
+- Status: proposal under item 38, pending owner review. World breadth and the
+  Nov 6 quality/cost gates remain ahead of this work; no runtime change.

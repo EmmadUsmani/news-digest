@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Discovery attribution proposal (999): identified five Google News coverage links and a CNBC/Reuters hostname collision in saved Nov 5 Tech; scoped separate publisher/discovery identities in [ideas](docs/ideas.md#publisher-attribution-for-discovery-feed-coverage). Proposal only; no runtime changes.
+
 - [x] Saved-reader review export (998): offline plain-text report preserves briefs, stories, coverage and complete saved posts/context for Nov 5/6 comparison; no generation, provider or runtime changes. [Usage](docs/edition-reviews/2026-11-05-reader.md#export-saved-reader-text-for-comparison).
 
 - [x] Bluesky activation worksheet (997): offline saved-usage cost-gate calculator with exact cap boundary, unknown-evidence and AI/budget checks. No activation or paid calls; complete Nov 6 topic estimates after publication. [Usage](docs/edition-reviews/2026-11-04-05-bluesky-outcomes.md#nov-6-reserved-slot-decision-worksheet).

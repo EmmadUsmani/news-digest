@@ -191,3 +191,14 @@
 - No paid calls, source/schema/runtime changes, activation or service restarts during the deployment freeze. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged.
 - Next: Nov 6 reader/World/cost/Bluesky review after publication; X fresh-window test after 21:00 UTC.
 - Verification: pnpm format; pnpm lint:fix; pnpm check passed (560 unit/224 isolated integration); pnpm build passed; git diff --check. Final health green, alerts clear; API/worker active.
+
+## 2026-11-06: iteration 999 — scope publisher attribution for discovery links
+
+- Started clean on main; alerts clear, health/DB/Redis green, API/worker active. No leftover work.
+- Latest reader remains Nov 5; reviewed saved topic text. World breadth remains the largest weakness and awaits the deployed pool fix's Nov 6 output.
+- Additional reader weakness: five Tech coverage links use Google News; CNBC/Reuters reports share one hostname and collapse into one discovery label in source rows.
+- Owner value: publisher attribution would help readers see whose reporting they are opening and distinguish the outlets behind discovery feeds.
+- Added a bounded proposal in docs/ideas.md: separate publisher/discovery identity, prefer structured RSS metadata, preserve unknowns and immutable history; estimated 1–2 days.
+- Proposal only under item 38; no collection, paid calls, source/schema/runtime changes or service restarts during the deployment freeze.
+- SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Next: Nov 6 reader/World/cost/Bluesky review after publication; fresh X round after 21:00 UTC.
+- Verification: saved reader API/export and source-row implementation confirm the example; pnpm format, pnpm lint:fix and pnpm build passed. pnpm check passed (560 unit/224 isolated integration); git diff --check passed.
