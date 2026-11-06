@@ -1487,3 +1487,5 @@ ack: 2026-11-06 item 42 — iteration 946: desktop Contents cut off saved headli
 ack: 2026-11-06 item 42 — iteration 949: Wembanyama’s 4-article disclosure listed only three reports; include the primary article in expanded coverage so readers can browse the full set. Saved-report titles/links verified desktop/mobile light/dark; no spend or selection changes.
 
 ack: 2026-11-06 item 42 — iteration 950: World's saved Guardian headline credited Al Jazeera first in its grouped source row. Show the primary report's outlets first; saved World attribution and links verified in desktop/mobile light/dark. No spend or selection changes.
+
+ack: 2026-11-06 item 42 — iteration 951: World's eight-report story disclosed only an extra outlet count. Always show the article count alongside extra outlets, making saved coverage depth visible before expansion. No spend or selection changes.

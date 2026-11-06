@@ -195,7 +195,7 @@ async function smoke() {
             ) {
               assert.equal(
                 await sources.locator('summary').innerText(),
-                `+${expected.size - 2} more ${expected.size === 3 ? 'outlet' : 'outlets'}`,
+                `${story.coverage.length} articles · +${expected.size - 2} more ${expected.size === 3 ? 'outlet' : 'outlets'}`,
               );
             }
             if (primary && story.sources[0] !== primary.sources[0]) {
@@ -215,6 +215,12 @@ async function smoke() {
             }
             if (story.coverage && story.coverage.length > 1) {
               const disclosure = sources.locator('details');
+              assert.ok(
+                (await disclosure.locator('summary').innerText()).startsWith(
+                  `${story.coverage.length} articles`,
+                ),
+                'Readers see the complete report count before expanding coverage',
+              );
               await disclosure.locator('summary').click();
               assert.deepEqual(
                 await disclosure.locator('li > a').allTextContents(),

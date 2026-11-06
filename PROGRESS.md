@@ -1,13 +1,3 @@
-## 2026-11-06: iteration 935 — accurate saved reader refresh recovery
-
-- Started clean on main; no leftover work. Alerts/health green. Read saved headlines, summaries and posts: World breadth and known Tech grouping await Nov 6 publication; X round waits until 21:00 UTC.
-- Reader weakness: refresh failure claimed the edition could not load, and refresh 404 claimed it did not exist, while saved content remained visible. Distinguish cached refresh failure from initial failure and retain clear retry; readers can keep reading with an accurate explanation.
-- Existing smoke-edition-refresh.ts and smoke-missing-edition.ts failed before the fix; both passed after, desktop/mobile light/dark, with browser-only 503/404 replay, no writes and unchanged real saved edition. Updated screenshots and inspected mobile light/desktop dark.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; both recovery browser scripts; git diff --check. Final suite/service results below.
-- Archived iteration 920 to keep PROGRESS small; updated TASKS and STEERING ack. No source/system-flow changes; SOURCES, handbook and NEEDS_FROM_HUMAN unchanged. No paid calls or flag changes.
-- Next: Nov 6 World/cost/Bluesky review after publication; fresh X round after 21:00 UTC.
-- Full check passed: 543 unit/224 isolated integration tests, coverage complete. Initial check caught unformatted archived progress; formatted it and reran successfully. Build and both browser replays passed; 36/36 sources healthy, all queue workers available and zero retained failed runs. Final restart/health/alerts checked before handoff.
-
 ## 2026-11-06: iteration 936 — restore stalled-request reader recovery checks
 
 - Started clean on main; no leftover work. Health/database/Redis green and alerts clear. Saved four-topic headlines/posts reviewed; thin World and known Tech grouping await Nov 6 publication. X round waits until 21:00 UTC.
@@ -176,3 +166,13 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (543 unit/224 isolated integration passes); pnpm build; check-handbook.ts 08-operations; smoke-reader-layout.ts; git diff --check. All passed.
 - Browser first reached the restarting API too early; retry after healthy passed all four views. Inspected mobile light attribution screenshot. API/worker/docs/schema active, health green and alerts clear.
 - Next: Nov 6 World/cost/Bluesky review after publication; X round after 21:00 UTC. Fixed search and reserved slot remain off.
+
+## 2026-11-06: iteration 951 — expose grouped coverage depth
+
+- Started clean on main; alerts clear, health/database/Redis green, 36/36 sources healthy and job checks green. Edition/Bluesky review waits for publication; X round waits for 21:00 UTC.
+- Read saved topics: World's eight-report Trump story disclosed only “+1 more outlet,” hiding its coverage depth. Always show the article count alongside extra outlets before expansion.
+- Extended saved-edition browser assertions for every grouped count; four device/theme checks passed and screenshots updated. Inspected mobile light World screenshot. No paid calls, selection, collection or flag changes.
+- Updated TASKS, operations handbook and STEERING ack; archived iteration 935. SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; check-handbook.ts 08-operations; smoke-reader-layout.ts; git diff --check passed. First pnpm check ended 143 during unit tests; retry passed (543 unit/224 isolated integration tests).
+- API/worker/docs/schema restarted active; health green and alerts clear.
+- Next: Nov 6 World/cost/Bluesky review after publication; fresh X round after 21:00 UTC. Fixed search and reserved slot remain off.

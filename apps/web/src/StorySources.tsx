@@ -38,9 +38,9 @@ export function StorySources({
       {articles.length > 1 && (
         <details className="coverage w-full text-xs">
           <summary className="cursor-pointer text-xs">
-            {sources.length > 2
-              ? `+${sources.length - 2} more ${sources.length === 3 ? 'outlet' : 'outlets'}`
-              : `${articles.length} articles`}
+            {articles.length} articles
+            {sources.length > 2 &&
+              ` · +${sources.length - 2} more ${sources.length === 3 ? 'outlet' : 'outlets'}`}
           </summary>
           <ul className="my-3 list-none space-y-3 pl-0">
             {articles.map((article) => (
