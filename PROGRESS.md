@@ -1,15 +1,5 @@
 # Progress
 
-## 2026-11-06: iteration 1041 — group source controls before publication time
-
-- Advanced item 33/43 while X rounds wait until after 21:00 UTC. Started clean on main; no leftovers; alerts clear and health DB/Redis OK.
-- Reader source rows now keep grouped-outlet controls beside publisher names before publication time, matching the approved spec. Expanded reports stay below the row with time above them.
-- Read-only saved-edition Playwright replay checks disclosure order, expansion, article dates and reader navigation desktop/mobile light/dark; source-card screenshots updated and visually inspected.
-- Browser replay initially used two direct-child timestamp selectors from the previous markup; updated both for the timestamp wrapper. First full check received SIGTERM after 562 unit passes at integration setup; reran. No paid calls.
-- All 36 sources report no errors; digest queue has zero failed runs. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes.
-- Verification: pnpm build; pnpm exec tsx scripts/smoke-reader-layout.ts; pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration, exit 0); git diff --check. API/worker restarted; health/alerts clear.
-- Archived iteration 1025 to keep this log small. Next: continue final reader; fresh X round after 21:00 UTC; approved Bluesky reserved-slot activation pending under Current order. Fixed search OFF.
-
 ## 2026-11-06: iteration 1042 — preserve reader position on refresh
 
 - Advanced item 33/43 while X rounds wait until after 21:00 UTC. Started clean on main; no leftovers; health DB/Redis OK and alerts clear.
@@ -175,3 +165,13 @@
 - Updated TASKS/SOURCES and social/schedule handbook; activation ack appended to STEERING. Three-edition acceptance remains open; World reported separately.
 - Passed pnpm format, pnpm lint:fix, pnpm build and full pnpm check (536 unit/226 isolated integration, exit 0); both affected handbook checks passed (18 pages/28 tables), git diff --check clean.
 - Post-restart /healthz DB/Redis OK, pnpm obs alerts clear, pnpm obs sources --check 36/36 healthy; digest queue available/zero failed. No human blocker; next inspect Nov 7 keyword calls and edition.
+
+## 2026-11-06: iteration 1058 — direct source links in saved X cards
+
+- Clean main; no leftovers. Alerts clear, health DB/Redis OK, 36/36 sources healthy.
+- Advanced item 33/43: saved X source URLs previously opened the X post; shared linked-text rendering now opens source destinations directly, preserving original text and original-post links.
+- Preserve keyboard focus on any saved source link when official media replaces fallback text; updated existing embed recovery/sizing scripts.
+- Saved-edition Playwright replay passed desktop/mobile light/dark with third-party requests blocked; screenshots updated. No paid calls or edition writes.
+- Passed embed sizing and media retry/theme/resize replays, including source-link focus; inspected mobile screenshot. Build, format and lint:fix passed; initial full check terminated (143) during unit tests with no reported failure; rerun required.
+- Fresh full pnpm check passed: 536 unit/226 isolated integration tests, zero failures; format/typecheck/lint/boundaries green. git diff --check clean.
+- API/worker restart and post-deploy health/alerts verification recorded below; next Nov 7 keyword production/three-edition acceptance, with World separate.

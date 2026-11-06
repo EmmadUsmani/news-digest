@@ -215,7 +215,7 @@ async function main() {
           const post = expected[index];
           await card.scrollIntoViewIfNeeded();
           assert.equal(
-            await card.locator('.post-text a').getAttribute('href'),
+            await card.locator('.post-text a').first().getAttribute('href'),
             post.url,
           );
           if (mode === 'live') {

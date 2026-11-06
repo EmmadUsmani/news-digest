@@ -74,11 +74,7 @@ async function smoke() {
         });
         await page.goto(`${origin}/editions/${saved.id}`);
         const card = page.locator('.post-card').filter({
-          has: page.getByRole('link', {
-            name: `${post.displayText ?? post.text} — View post by ${post.author} on X`,
-            exact: true,
-            includeHidden: true,
-          }),
+          has: page.locator(`.byline a[href="${post.url}"]`),
         });
         await card.scrollIntoViewIfNeeded();
         const status = card.getByRole('status');
@@ -110,17 +106,17 @@ async function smoke() {
         await status.filter({ hasText: 'Loading X post…' }).waitFor();
         assert.equal(await card.locator('.x-media-error').count(), 0);
         assert.ok(await card.locator('.post-text').isVisible());
-        await expect(card.locator('.post-text a')).toBeFocused();
+        await expect(card.locator('.post-text a').first()).toBeFocused();
         releaseRecovery();
         await card.locator('iframe').waitFor();
         assert.equal(await status.count(), 0);
-        await expect(card.locator('.post-text a')).toBeFocused();
+        await expect(card.locator('.post-text a').first()).toBeFocused();
         assert.ok(await card.locator('.post-text').isVisible());
         await card.locator('.saved-post-text summary').click();
         assert.equal(await card.locator('.saved-post-text').count(), 1);
         await card.locator('.saved-post-text summary').click();
         assert.ok(await card.locator('.post-text').isVisible());
-        const savedLink = card.locator('.post-text a');
+        const savedLink = card.locator('.post-text a').last();
         assert.equal(
           await savedLink.evaluate((node) => getComputedStyle(node).fontSize),
           '16px',

@@ -191,7 +191,8 @@ function Post({
             target.style.minHeight = '';
             if (element) {
               if (
-                savedText.current?.querySelector('a') === document.activeElement
+                document.activeElement?.tagName === 'A' &&
+                savedText.current?.contains(document.activeElement)
               )
                 setSavedTextOpen(true);
               setHasEmbedded(true);
@@ -269,10 +270,10 @@ function Post({
       >
         <summary hidden={!hasEmbedded}>Saved post text</summary>
         <p className="post-text">
-          <a href={post.url} target="_blank" rel="noreferrer">
-            {post.displayText ?? post.text}
-            <span className="sr-only">{` — View post by ${post.author} on X`}</span>
-          </a>
+          <LinkedPostText
+            text={post.displayText ?? post.text}
+            postUrl={post.url}
+          />
         </p>
       </details>
       <div ref={host} className="official-post" />
