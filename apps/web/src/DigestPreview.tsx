@@ -4,6 +4,7 @@ import { Link, useParams } from '@tanstack/react-router';
 import { ThemeToggle } from './components/theme-toggle';
 import { Button } from './components/ui/button';
 import { Card } from './components/ui/card';
+import { EditionDateSwitcher } from './EditionDateSwitcher';
 import { editionQuery, HttpError } from './queries';
 import { ReaderContents } from './ReaderContents';
 import { StorySources } from './StorySources';
@@ -20,19 +21,7 @@ export function DigestPreview() {
           News Digest
         </Link>
         <div className="flex items-center gap-2">
-          <Link
-            to="/editions"
-            search={{ page: 1 }}
-            className="text-sm font-normal text-[var(--secondary)]"
-          >
-            {preview
-              ? new Date(preview.windowEnd).toLocaleDateString(undefined, {
-                  month: 'short',
-                  day: 'numeric',
-                  year: 'numeric',
-                })
-              : 'Past editions'}
-          </Link>
+          <EditionDateSwitcher edition={preview} />
           <ThemeToggle />
         </div>
       </header>

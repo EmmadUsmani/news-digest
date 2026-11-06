@@ -71,6 +71,41 @@ async function smoke() {
           new URL(page.url()).pathname,
           `/editions/${saved.entries[0].id}`,
         );
+        const dates = page.getByRole('navigation', {
+          name: 'Edition dates',
+          exact: true,
+        });
+        assert.equal(
+          await dates
+            .getByRole('link', { name: 'Newer edition', exact: true })
+            .count(),
+          0,
+        );
+        if (saved.entries.length > 1) {
+          await dates
+            .getByRole('link', { name: 'Older edition', exact: true })
+            .click();
+          await page.waitForURL(`**/editions/${saved.entries[1].id}`);
+          await dates
+            .getByRole('link', { name: 'Newer edition', exact: true })
+            .click();
+          await page.waitForURL(`**/editions/${saved.entries[0].id}`);
+          await page.reload();
+          await dates
+            .getByRole('link', { name: 'Older edition', exact: true })
+            .waitFor();
+        }
+        assert.equal(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth > innerWidth,
+          ),
+          false,
+        );
+        await page.screenshot({
+          path: `docs/screenshots/ui/reader-dates-${device}-${theme}.png`,
+        });
+        await dates.getByRole('link', { name: 'Browse past editions' }).click();
+        await page.getByRole('heading', { name: 'Past editions' }).waitFor();
         // Replay a two-page archive using the same saved edition, then a failed page.
         await page.route('**/api/editions?offset=*', (route) => {
           const offset = new URL(route.request().url()).searchParams.get(
@@ -104,6 +139,25 @@ async function smoke() {
         assert.deepEqual(errors, []);
         assert.deepEqual(forbidden, []);
         await context.close();
+      }
+    }
+    if (saved.hasMore) {
+      const next = readerEditionHistorySchema.parse(
+        await (await fetch(`${origin}/api/editions?offset=20`)).json(),
+      );
+      const boundary = saved.entries.at(-1)!;
+      if (next.entries.length) {
+        const page = await browser.newPage();
+        await page.goto(`${origin}/editions/${boundary.id}`);
+        await page
+          .getByRole('link', { name: 'Older edition', exact: true })
+          .click();
+        await page.waitForURL(`**/editions/${next.entries[0].id}`);
+        await page
+          .getByRole('link', { name: 'Newer edition', exact: true })
+          .click();
+        await page.waitForURL(`**/editions/${boundary.id}`);
+        await page.close();
       }
     }
     console.log(

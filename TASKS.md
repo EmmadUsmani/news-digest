@@ -19,8 +19,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - [ ] STEERING 16 / M4 Social posts: Nov 5 X picks Tech/NBA/Gaming/World 3/5/5/1; all four topics present, no Bluesky picks. Saved X metrics empty: viral/outside-list quality acceptance remains open. Paid old open-search picks 1/19 (Tech); no claim that all-topic presence proves paid discovery quality.
 - [ ] STEERING 9/15 first-week report: Nov 5 $0.143191/19 fetched/18 new verified outside-list posts; prior Nov 3 $0.137056/18, Nov 4 $0.149447/19. Four topics weakest-first, $0.10 per-topic hold, unchanged $0.40/day/$12/month cap. Per-topic figures: [Sources](docs/SOURCES.md).
 - [ ] STEERING 18 Bluesky: authenticated hourly collection and session refresh verified (788); Nov 5 no selected posts. Quality/diversity acceptance remains open; World phrase shortlist empty. Cross-platform context/semantic gates shipped. [Sources](docs/SOURCES.md#sustained-bluesky-session-recovery--iteration-788-2026-11-05).
-- [ ] STEERING 33 UI rebuild: follow the five steps in the [approved spec](docs/ui-spec.md). Foundations, navigation, admin pages and topic/source controls shipped (875–899); reader archive shipped (900). Reader contents, mobile chips/sheet and compact story cards shipped (923); source rows/favicons shipped (924); date switching remains; X saved-text links and redundant footer cleanup shipped (926); delete replaced screens as each lands. Prior implementation detail is in PROGRESS and its archive.
-  - Next: finish reader date switching and post cards/embed sizing; port legacy inline-history smoke scripts to the archive. Private rollout authorized by STEERING 36; forged-header proxy check is required before any future public access. [Access decision](docs/decisions/2026-11-05-admin-access.md).
+- [ ] STEERING 33 UI rebuild: follow the five steps in the [approved spec](docs/ui-spec.md). Foundations, navigation, admin pages and topic/source controls shipped (875–899); reader archive shipped (900). Reader contents, mobile chips/sheet and compact story cards shipped (923); source rows/favicons shipped (924); date switching shipped (928); X saved-text links and redundant footer cleanup shipped (926); delete replaced screens as each lands. Prior implementation detail is in PROGRESS and its archive.
+  - Next: finish post cards/embed sizing; port legacy inline-history smoke scripts to the archive. Private rollout authorized by STEERING 36; forged-header proxy check is required before any future public access. [Access decision](docs/decisions/2026-11-05-admin-access.md).
 - [ ] STEERING 28 incremental triage OFF: default-off runtime, shared admission, reserve-safe scoring, exact pools/cutoffs and sibling draining verified. Reassessed after full-AI acceptance (865): Nov 6 morning allowance $0.021736–$0.028915; only 2/65 early fingerprints compatible in post-publication pool. Keep OFF; do not reduce protection. Actual waste/latency unmeasured. [Assessment](docs/edition-reviews/2026-11-05-incremental-admission.md).
 
 ## Remaining milestones and lower priorities
@@ -38,6 +38,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - Editorial audit closed under STEERING 5; resume only for actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.
 
 ## Latest verified step
+
+- [x] Reader date switching (928): adjacent saved-edition arrows, archive date link, pagination-boundary navigation and reload verified across desktop/mobile and light/dark.
 
 - [x] Verification interruption triage (927): standalone `pnpm check` exited zero with 543 unit/224 isolated integration tests passing; temporary signal tracing saw no SIGTERM. Earlier exit-143 interruptions did not reproduce; no speculative runner change.
 

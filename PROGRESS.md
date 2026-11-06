@@ -1,26 +1,3 @@
-## 2026-11-06: iteration 914 — historical Bluesky attribution
-
-- Started clean on main; no leftover work. Alerts clear, /healthz green and 36/36 sources healthy. X round waits until 21:00 UTC; Nov 6 edition not yet due.
-- Completed STEERING 40's one-pass Nov 4–5 worker journal/ledger/snapshot reconciliation; saved review and owner ack. No paid calls, collection or edition writes.
-- NBA/Gaming had no slots both days. Nov 4 World exhausted four attempts; Tech recovered with Haiku repair and one pick. Nov 5 Tech Sonnet returned no picks; World Sonnet was refused before dispatch, then Haiku initial/repair failed.
-- Refusal was not insufficient scheduled reserve; exact model-allocation/blocked-ledger decision inputs were not logged. Historical candidate counts/rejected text remain unavailable; investigation closed as instructed.
-- Assertions passed for both snapshots' X counts, all 11 settled editor calls and $0.045524 total. Private extracts retained 700/600 under ~/.local/state/news-digest/bluesky-history-914/.
-- Updated TASKS, SOURCES and STEERING ack; production behavior unchanged, no handbook or owner-input change needed.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check. All passed: 528 unit/223 isolated integration tests, typecheck/lint/format/boundaries and build.
-- Rebuilt/restarted API, worker, docs and schema; health and reader checks recorded at deployment.
-- Next: persist per-topic Bluesky outcomes and admin inspector line before 13:00 UTC if ready; Nov 6 edition review after publication, X comparison after 21:00 UTC. Fixed X stays off.
-
-## 2026-11-06: iteration 915 — save Bluesky selection evidence
-
-- Started clean on main; no leftover work. Alerts clear, health green and 36/36 sources healthy; X testing and edition review await their windows.
-- New edition snapshots retain per-topic open slots, observations read, shortlisted candidates, picks and selection result. Full slots now save no-slot rather than looking like a successful empty edit.
-- Results distinguish switched-off, no candidates, nothing passed triage, deliberate editor omission, picks, invalid/incomplete AI and unavailable AI. Existing selections and reader behavior are unchanged.
-- Unavailable AI still combines budget refusal and other editor failures: exact budget result and inspector remain open. No guessed attribution, paid calls, collection/query/cap changes or edition writes.
-- Added fixture checks for counts, empty paths, unavailable AI and schema round-trip/older missing fields. Initial integration run found three golden diffs; added diagnostic expectations and fixed no-service/full-slot attribution. Updated source table/handbook; archived 901–902.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (529 unit/223 isolated integration tests); pnpm build; handbook social-posts check; git diff --check. All passed on final run.
-- Restarted API/worker/docs/schema, all active; /healthz database/Redis green, reader HTTP 200, 36/36 sources healthy, alerts clear and zero failed digest jobs.
-- Next: propagate precise budget refusal through editor/triage outcomes, then inspector; item 40 per-post validation follows. Reserved slot stays unbuilt/off; Nov 6 review after publication and X round after 21:00 UTC.
-
 ## 2026-11-06: iteration 916 — Bluesky outcomes in the inspector
 
 - Started clean on main; no leftover work. Alerts clear. X round and Nov 6 edition review await their scheduled windows.
@@ -159,3 +136,14 @@
 - Rebuilt/restarted API/worker/docs/schema; all active, /healthz database/Redis green, reader HTTP 200, 36/36 source states ok, alerts clear and zero retained failed digest jobs. Latest saved edition remains Nov 5 (four topics, 17 stories, 14 posts).
 - TASKS records clean verification. No product, source, prompt, budget or flag changes; no paid calls. SOURCES, handbook and NEEDS_FROM_HUMAN unchanged.
 - Reader's largest known weakness remains World breadth (two stories/one post); deployed forty-article pool awaits Nov 6 scheduled evidence. Nov 6 edition/Bluesky gate and X round after 21:00 UTC remain next; experimental flags OFF.
+
+## 2026-11-06: iteration 928 — reader edition date switching
+
+- Started clean on main; alerts clear, health/database/Redis green, all 36 sources healthy. Nov 6 edition/Bluesky review and the X round remain time-gated; no leftover work.
+- Reader weakness: changing dates required leaving the edition for the archive. Header arrows now open adjacent saved editions, following archive pagination; the date remains an archive link. The owner can compare consecutive editions directly.
+- Uses only public saved-edition history and cached reads; no source, selection, prompt, budget or flag changes and no paid calls. World breadth still awaits Nov 6 evidence.
+- Browser verification used real saved editions: older/newer links, reload, first-page boundary, archive link, desktop/mobile and light/dark. Updated/inspected screenshots; layout and admin gate checks passed.
+- Updated affected handbook and TASKS, added STEERING ack; archived iterations 914–915 to keep this file small. SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-archive.ts; smoke-reader-layout.ts; smoke-admin-gate.ts; check-handbook.ts 08-operations; git diff --check.
+- First full check exited 143 during integration after 543 unit passes. Retry caught formatting in the newly archived progress entries; corrected it. Final full check exited zero: 543 unit and 224 isolated integration tests passed, with coverage completed.
+- Rebuilt/restarted API/worker/docs/schema; health green, alerts clear, all sources healthy and zero retained failed digest jobs. Next: Nov 6 World/composition/cost review and Bluesky gate after publication; X round after 21:00 UTC. Experimental flags stay OFF.
