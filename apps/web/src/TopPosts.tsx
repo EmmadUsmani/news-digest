@@ -431,7 +431,7 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
   return (
     <Card
       as="article"
-      className="post-card bluesky-card min-w-0 rounded-lg p-5 shadow-none"
+      className="post-card bluesky-card @container min-w-0 rounded-lg p-5 shadow-none"
     >
       <p className="byline">
         Bluesky ·{' '}
@@ -457,7 +457,7 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
       <p className="post-text">
         <LinkedPostText text={post.text} postUrl={post.url} />
       </p>
-      <div className="bluesky-media">
+      <div className="bluesky-media grid grid-cols-1 gap-2 @min-[480px]:grid-cols-2">
         {post.media?.map((media, index) => (
           <a
             key={index}

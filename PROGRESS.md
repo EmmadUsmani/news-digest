@@ -154,3 +154,12 @@
 - Passed pnpm format; pnpm lint:fix; pnpm build; pnpm exec tsx scripts/smoke-bluesky-cards.ts. pnpm check passed typecheck/lint/format/boundaries and 562 unit tests, then exited 143 during integration. Separate integration result follows.
 - SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes.
 - Separate pnpm test:integration passed 225/225 (exit 0); git diff --check passed. API/worker restarted; health DB/Redis OK, alerts clear, saved edition four topics/20 stories/17 posts. Archived iteration 1033. No blockers; next final reader work, then fresh X round after 21:00 UTC.
+
+## 2026-11-06: iteration 1049 — readable mobile post media
+
+- Advanced item 33/43 while X rounds wait until after 21:00 UTC. Started clean on main; alerts clear and /healthz DB/Redis OK.
+- Bluesky media's automatic columns squeezed images beside other media on phones. Narrow cards now use full-width rows; wider cards use at most two columns based on card width, preserving original-image links.
+- Extended synthetic browser replay with media-position assertions; desktop/mobile light/dark passed, four changed screenshots updated, mobile light inspected. No external image requests, paid calls or edition writes.
+- Passed pnpm format; pnpm lint:fix; pnpm build; pnpm exec tsx scripts/smoke-bluesky-cards.ts. Full check result recorded below.
+- SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes. Next: fresh X rounds after 21:00 UTC; fixed search stays OFF.
+- pnpm check passed (562 unit/225 integration); git diff --check passed. API/worker restarted; health OK, alerts clear; four topics/20 stories/17 posts intact. No blockers.

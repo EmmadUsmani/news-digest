@@ -1776,3 +1776,5 @@ ack: 2026-11-06 item 33/43 — iteration 1046: readers can open an X original di
 ack: 2026-11-06 item 33/43 — iteration 1047: Bluesky image links retain saved descriptions when thumbnails fail, so screen-reader users can identify the image before opening it; desktop/mobile light/dark replay verified. No paid calls.
 
 ack: 2026-11-06 item 33/43 — iteration 1048: readers can open URLs wrapped in prose parentheses or brackets from Bluesky cards without broken trailing delimiters; balanced URL parentheses and saved text remain intact. Browser replay covers desktop/mobile light/dark.
+
+ack: 2026-11-06 item 33/43 — iteration 1049: Bluesky images now use full-width rows in narrow cards and at most two columns in wider cards, making mobile post media easier to read. Desktop/mobile light/dark replay and screenshots verified; no paid calls.

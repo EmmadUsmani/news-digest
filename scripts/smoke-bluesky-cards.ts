@@ -157,6 +157,24 @@ async function main() {
         post.url,
       );
       assert.equal(await cards.first().locator('img').count(), 1);
+      const mediaLinks = cards.first().locator('.bluesky-media > a');
+      const imageBox = await mediaLinks.nth(0).boundingBox();
+      const videoBox = await mediaLinks.nth(1).boundingBox();
+      assert.ok(imageBox && videoBox);
+      if (width < 640) {
+        assert.ok(
+          videoBox.y >= imageBox.y + imageBox.height,
+          'Mobile media uses full-width rows',
+        );
+        assert.ok(Math.abs(imageBox.x - videoBox.x) < 1);
+      } else {
+        assert.ok(
+          Math.abs(imageBox.y - videoBox.y) < 1,
+          'Wider cards retain two media columns',
+        );
+        assert.ok(videoBox.x >= imageBox.x + imageBox.width);
+      }
+
       assert.equal(await cards.nth(1).locator('img').count(), 0);
       assert.equal(
         await cards
