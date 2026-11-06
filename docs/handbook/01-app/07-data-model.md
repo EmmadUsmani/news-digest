@@ -134,6 +134,7 @@ foreign key, because a citation is stored before the post is verified.
   computed from these tables.
 - **Dedup by URL.** An article is stored once (`canonical_url` is unique) even
   when several sources publish it. `content_observations` records who saw it.
+  A blank incoming excerpt keeps the saved text; a nonblank excerpt updates it.
 - **Money is integer micro-dollars** (`*_micros`, 1,000,000 = $1) to avoid
   rounding errors.
 - **Migrations** start with the historical SQL in `migrations/`, then the

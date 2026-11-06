@@ -79,7 +79,8 @@ export class PostgresContentRepository
               target: contentItems.canonicalUrl,
               set: {
                 title: sql`excluded.title`,
-                excerpt: sql`excluded.excerpt`,
+                // Title-only feeds must not erase text collected from another source.
+                excerpt: sql`CASE WHEN btrim(excluded.excerpt) = '' THEN ${contentItems.excerpt} ELSE excluded.excerpt END`,
                 engagement: sql`${contentItems.engagement} || excluded.engagement`,
               },
             })

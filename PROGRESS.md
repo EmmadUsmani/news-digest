@@ -189,3 +189,14 @@
 - Initial check stopped on formatting of the newly archived progress entry; formatted and reran. Archived iterations 998–999 to keep PROGRESS under 25 KB.
 - Deployment/restarts deferred under the explicit 13:00–16:00 UTC freeze. After 16:00 deploy pending reader fixes, social editor v6 and shipper MemoryHigh=64M, then verify live.
 - Next: X round after 21:00 UTC; Bluesky reserved slot remains OFF awaiting owner. SOURCES/handbook/NEEDS_FROM_HUMAN unchanged: rendering only, no source/system-flow/dependency changes.
+
+## 2026-11-06: iteration 1017 — keep article text on title-only rediscovery
+
+- Started clean on main; no leftover work. Alerts clear, /healthz DB/Redis OK, 13 services and 36 sources healthy.
+- Owner value: preserve publisher text for future summaries when another source rediscovers the same URL with no excerpt. Latest Tech summaries are thin; HN already captures available body text.
+- Found unconditional excerpt overwrite at canonical-URL upsert. Read-only live inspection: six URLs shared by HN/publisher feeds, three empty; this does not establish their prior text or recover it.
+- Blank incoming excerpts now keep saved text; nonblank corrections still replace it, with title/engagement updates unchanged. Existing editions untouched; no paid calls.
+- Isolated repository regression covers blank and space-only updates from a second source and a later nonblank correction. Updated source notes and affected handbook page; no diagram/schema changes.
+- Passed: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration); pnpm build; handbook check 07-data-model; git diff --check.
+- Deployment/restarts deferred under the explicit 13:00–16:00 UTC freeze. After 16:00 deploy this fix, pending reader fixes, social editor v6 and shipper MemoryHigh=64M, then verify live.
+- Next: X round after 21:00 UTC; reserved Bluesky slot remains OFF awaiting owner. NEEDS_FROM_HUMAN unchanged; no new owner dependency.

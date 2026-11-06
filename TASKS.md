@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Preserve article text (1017): blank excerpts from title-only rediscovery keep saved publisher text; nonblank corrections still update it. Isolated repository regression covers both sources and replacement. Deploy after 16:00 with pending changes.
+
 - [x] Bluesky author profiles (1016): link author names to the saved post’s profile, including encoded DIDs; isolated desktop/mobile light/dark replay verified. Deploy after 16:00 with the pending reader/editor/shipper changes.
 
 - [x] Bluesky cited links (1015): saved post web URLs open directly from the reader card; original text preserved. Desktop/mobile light/dark replay verified. Prepared during freeze; deploy after 16:00 with social editor v6 and shipper threshold.

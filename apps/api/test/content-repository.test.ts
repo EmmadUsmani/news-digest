@@ -141,6 +141,44 @@ void test('content repository characterizes eligibility, shared observations, or
       image_url: url('image'),
       engagement: { points: 99, comments: 2 },
     });
+    // HN or a sparse feed may rediscover the same publisher URL without text.
+    // Keep the saved text while still updating its title and engagement.
+    for (const excerpt of ['', '   ']) {
+      await repository.store(sources[1], [
+        {
+          ...items[6],
+          title: 'Title-only rediscovery',
+          excerpt,
+          engagement: { points: 110 },
+        },
+      ]);
+      const retained = (await latest())!.items.find(
+        (candidate) => candidate.id === first[0].id,
+      );
+      assert.equal(retained?.title, 'Title-only rediscovery');
+      assert.equal(
+        (
+          await repository.db.query(
+            'SELECT excerpt FROM content_items WHERE canonical_url=$1',
+            [items[6].url],
+          )
+        ).rows[0].excerpt,
+        'Updated excerpt',
+      );
+    }
+    // A later real excerpt still replaces the previous version.
+    await repository.store(sources[0], [
+      { ...items[6], title: 'Updated title', excerpt: 'Corrected report' },
+    ]);
+    assert.equal(
+      (
+        await repository.db.query(
+          'SELECT excerpt FROM content_items WHERE canonical_url=$1',
+          [items[6].url],
+        )
+      ).rows[0].excerpt,
+      'Corrected report',
+    );
     await repository.failed(sources[0], 'x'.repeat(350));
     const failed = await state();
     assert.equal(failed.error?.length, 300);

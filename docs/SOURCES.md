@@ -2121,3 +2121,12 @@ or production activation in this step; switched-off scheduler retry remains open
 separates full X slots, accepted empty selection and failed Bluesky editing.
 World’s Nov 5 Sonnet attempt was budget-refused before dispatch; the exact
 constraint was not logged. No collection, query, cap or selection changes.
+
+## Shared article excerpt retention — iteration 1017 (2026-11-06)
+
+Title-only rediscovery of a canonical URL now preserves a previously saved
+publisher excerpt. Nonblank excerpts still replace older text, and engagement
+continues to merge. Read-only inspection found six URLs observed by both HN and
+publisher feeds, three currently without text; this does not recover erased text
+or establish how each became empty. Collection endpoints and cadence unchanged.
+Deployment waits until after the 13:00–16:00 UTC freeze.
