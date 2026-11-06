@@ -304,6 +304,7 @@ export const digestPreviewSchema = z.object({
             'picks-made',
             'ai-editing-failed',
             'ai-unavailable',
+            'budget-refused',
             'switched-off',
           ]),
         })

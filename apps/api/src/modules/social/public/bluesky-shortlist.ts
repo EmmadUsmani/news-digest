@@ -49,7 +49,11 @@ export async function shortlistBlueskyPosts(
         s.importance > 10,
     )
   )
-    return { status: 'incomplete' as const, posts: [] };
+    return {
+      status: 'incomplete' as const,
+      posts: [],
+      failures: result.failures,
+    };
   const scores = new Map(result.scores.map((s) => [s.id, s]));
   return {
     status: 'complete' as const,

@@ -2,6 +2,7 @@ import type { DigestPreview, SelectedSocialPost } from '@digest/contracts';
 
 import type {
   SocialEditorialCandidate,
+  SocialEditorialOutcome,
   SocialEditorialResult,
   TriageResult,
   TriageTopic,
@@ -24,6 +25,16 @@ export interface SocialSelectionServices {
     ): Promise<TriageResult>;
   };
   socialEditor: {
+    editOutcome?(
+      topic: TriageTopic,
+      candidates: SocialEditorialCandidate[],
+      budget: number,
+      runId: string,
+      alreadySelected?: Pick<
+        SocialEditorialCandidate,
+        'platform' | 'text' | 'author'
+      >[],
+    ): Promise<SocialEditorialOutcome>;
     edit(
       topic: TriageTopic,
       candidates: SocialEditorialCandidate[],

@@ -138,7 +138,19 @@ export async function prepareBlueskyEditionPosts(
   if (edited.status !== 'complete')
     return unchanged(
       edited.status,
-      edited.status === 'unavailable' ? 'ai-unavailable' : 'ai-editing-failed',
+      edited.failures?.length
+        ? edited.failures.every(
+            (failure) =>
+              failure === 'budget-refused' ||
+              failure === 'provider-spend-limit',
+          )
+          ? 'budget-refused'
+          : edited.failures.every((failure) => failure === 'unavailable')
+            ? 'ai-unavailable'
+            : 'ai-editing-failed'
+        : edited.status === 'unavailable'
+          ? 'ai-unavailable'
+          : 'ai-editing-failed',
     );
   const additions = edited.posts.map(
     ({ post, reasons, whyItMatters, editorialRationale }) =>

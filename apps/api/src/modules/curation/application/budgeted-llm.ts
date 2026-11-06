@@ -273,3 +273,17 @@ export class BudgetedLlm {
     return { status: 'validation-failed' };
   }
 }
+
+// Legacy replay adapters may expose only the nullable interface. Their missing
+// evidence stays unknown rather than being inferred to be a budget refusal.
+export async function jsonWithOutcome<T>(
+  llm: Pick<BudgetedLlm, 'json'> & Partial<Pick<BudgetedLlm, 'jsonOutcome'>>,
+  request: LlmRequest,
+  validate: (value: unknown) => T,
+): Promise<LlmJsonOutcome<T> | { status: 'unavailable' }> {
+  if (llm.jsonOutcome) return llm.jsonOutcome(request, validate);
+  const value = await llm.json(request, validate);
+  return value === null
+    ? { status: 'unavailable' }
+    : { status: 'complete', value };
+}

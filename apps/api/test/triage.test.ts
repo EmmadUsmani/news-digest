@@ -151,6 +151,7 @@ void test('budget exhaustion preserves cached items and explicitly reports remai
   await h.service.score(topic, candidates.slice(0, 2), 'cached');
   h.refuse();
   const result = await h.service.score(topic, candidates, 'exhausted');
+  assert.deepEqual(result.failures, ['budget-refused']);
   assert.equal(result.scores.length, 2);
   assert.deepEqual(
     result.unscoredIds,

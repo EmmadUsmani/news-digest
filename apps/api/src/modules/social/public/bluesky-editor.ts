@@ -29,15 +29,20 @@ export async function editBlueskyPosts(
     budget === 0 ? 0 : 10,
     runId,
   );
-  const empty = (status: 'incomplete' | 'unavailable' | 'complete') => ({
+  const empty = (
+    status: 'incomplete' | 'unavailable' | 'complete',
+    failures?: string[],
+  ) => ({
     status,
+    failures,
     posts: [],
     model: null,
     candidatesShortlisted: shortlist.posts.length,
   });
-  if (shortlist.status === 'incomplete') return empty('incomplete');
+  if (shortlist.status === 'incomplete')
+    return empty('incomplete', shortlist.failures);
   if (!shortlist.posts.length) return empty('complete');
-  const edited = await services.socialEditor.edit(
+  const args: Parameters<SocialSelectionServices['socialEditor']['edit']> = [
     topic,
     shortlist.posts.map(({ post, score }) => ({
       id: score.id,
@@ -56,8 +61,20 @@ export async function editBlueskyPosts(
       text,
       author,
     })),
-  );
-  if (!edited) return empty('unavailable');
+  ];
+  const outcome = services.socialEditor.editOutcome
+    ? await services.socialEditor.editOutcome(...args)
+    : null;
+  const edited = outcome
+    ? outcome.status === 'complete'
+      ? outcome.value
+      : null
+    : await services.socialEditor.edit(...args);
+  if (!edited)
+    return empty(
+      'unavailable',
+      outcome?.status === 'failed' ? outcome.failures : undefined,
+    );
   if (
     edited.posts.length > budget ||
     new Set(edited.posts.map((p) => p.id)).size !== edited.posts.length ||

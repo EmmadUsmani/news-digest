@@ -63,7 +63,7 @@ counts and media stay unknown; a link supplies no evidence of media contents.
   posts that repeat something already picked from X.
 - **Saved selection evidence:** new editions retain each topic’s open slots,
   observations read, shortlisted candidates, picks and selection result.
-  Unavailable AI currently combines budget refusal and other editor failures.
+  Results separate budget refusal, editing failure and unknown causes.
 - **Inspect outcomes:** open **Admin → Editions → a saved edition** for each
   topic’s result and slot/candidate/pick counts.
 - **Cards** are drawn by the app, with no Bluesky script: full text, author,

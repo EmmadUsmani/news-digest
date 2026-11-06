@@ -27,6 +27,7 @@ async function smoke() {
     ['picks-made', 'Picks made'],
     ['ai-editing-failed', 'AI editing failed'],
     ['ai-unavailable', 'AI unavailable (reason not recorded)'],
+    ['budget-refused', 'Budget refused'],
     ['switched-off', 'Switched off'],
   ] as const;
   const browser = await chromium.launch();
@@ -110,10 +111,15 @@ async function smoke() {
           ),
           false,
         );
+        if (
+          fixture.topics.some(
+            (topic) => topic.blueskySelection?.result === 'budget-refused',
+          )
+        )
+          await card.screenshot({
+            path: `docs/screenshots/ui/bluesky-outcomes-synthetic-${width}.png`,
+          });
       }
-      await card.screenshot({
-        path: `docs/screenshots/ui/bluesky-outcomes-synthetic-${width}.png`,
-      });
       assert.deepEqual(errors, []);
       await page.close();
     }
@@ -121,7 +127,7 @@ async function smoke() {
     await browser.close();
   }
   console.log(
-    'Bluesky inspector: saved edition compatibility, eight synthetic results, counts, desktop/mobile layout passed; no writes or external calls.',
+    'Bluesky inspector: saved edition compatibility, nine synthetic results, counts, desktop/mobile layout passed; no writes or external calls.',
   );
 }
 void smoke();

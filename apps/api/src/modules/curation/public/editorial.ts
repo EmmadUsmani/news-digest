@@ -57,6 +57,7 @@ export function storyGroupingEnabled(env: NodeJS.ProcessEnv = process.env) {
 
 export type {
   SocialEditorialCandidate,
+  SocialEditorialOutcome,
   SocialEditorialResult,
 } from '../application/social-editor';
 export type { TriageResult, TriageTopic } from '../application/triage';

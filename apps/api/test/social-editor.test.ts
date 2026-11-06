@@ -334,3 +334,32 @@ void test('social selection repairs receive fixed ID/budget guidance and recover
       .every((d) => d.category === 'invalid-social-selection'),
   );
 });
+
+void test('social editor retains refusal and validation evidence across fallback models', async () => {
+  const refused = harness([valid], ['claude-sonnet-5-5', 'claude-haiku-5-5']);
+  assert.deepEqual(
+    await refused.editor.editOutcome(topic, candidates, 1, 'refused'),
+    {
+      status: 'failed',
+      failures: ['budget-refused', 'budget-refused'],
+    },
+  );
+  assert.equal(refused.calls.length, 0);
+  const invalid = harness(
+    [{ posts: [{ ...post, id: 'unknown' }] }],
+    ['claude-haiku-5-5'],
+  );
+  assert.deepEqual(
+    await invalid.editor.editOutcome(topic, candidates, 1, 'invalid'),
+    {
+      status: 'failed',
+      failures: ['validation-failed', 'budget-refused'],
+    },
+  );
+  const fallback = harness([valid], ['claude-sonnet-5-5']);
+  assert.equal(
+    (await fallback.editor.editOutcome(topic, candidates, 1, 'recovered'))
+      .status,
+    'complete',
+  );
+});

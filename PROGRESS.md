@@ -1,26 +1,3 @@
-## 2026-11-06: iteration 905 — retry unexecuted experiment searches once
-
-- Started clean on main; no leftover work. Alerts clear, 36 sources healthy and no failed digest runs.
-- Experiment now retries zero-fetched failed/unconfirmed execution once after settling actual returned usage and admitting a fresh $0.15 reservation. Completed empty searches never retry; no-response timeouts retain their holds. Restart skips attempted cells.
-- Offline coverage includes failed-tool recovery, completed empty results, token-only double failure and continuation without a third attempt. No paid calls, keyword reruns or production activation.
-- Verification: targeted runner 12/12; pnpm format; pnpm lint:fix; pnpm check passed typecheck/lint/format/boundaries, 519 unit tests and 221 isolated integration tests; pnpm build; check-handbook.ts 05-social-posts; git diff --check.
-- Rebuilt/restarted API, worker, docs and schema; all active. /healthz database/Redis green; real saved edition has four topics/17 stories; all 36 sources healthy through Nov 6 00:00 UTC; next edition 15:00 UTC; alerts clear.
-- Initial obs jobs query used an unknown queue; corrected read-only query shows no failed digest runs, historical ingestion/social failures alongside healthy sources.
-- Updated TASKS, SOURCES and social handbook; archived iteration 892 to keep PROGRESS small. NEEDS_FROM_HUMAN unchanged.
-- Next: switched-off scheduler retry, then authorized three failed Nov 5 keyword reruns on the same window. Fair semantic query and fresh Nov 6 round follow; fixed production search remains off.
-- First push rejected for incoming owner instructions; fetched/merged without rewriting history. X reliability stays first; new item 40 queues Bluesky edition outcomes/recovery/slot gating ahead of UI. Owner files left untouched; post-merge format/lint/handbook checks before repush.
-
-## 2026-11-06: iteration 906 — preserve scheduled X execution evidence
-
-- Started clean on main; no leftover work. Alerts clear, all 36 sources healthy, no failed digest runs; next edition Nov 6 15:00 UTC.
-- Production X adapter now exposes completed keyword/semantic tool execution independently of citations, and searchX preserves it after settlement. Failed, absent, unrelated and status-less traces stay unconfirmed.
-- Offline protocol coverage checks six outcomes, including valid completed empty searches and token-only usage settling before persistence. This is the scheduler retry prerequisite; retry admission itself remains open. No paid calls or activation.
-- Verification: targeted execution test; pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check. Passed typecheck/lint/format/boundaries, 520 unit tests and 221 isolated integration tests.
-- Updated TASKS and SOURCES; archived iteration 893 to keep PROGRESS small. No handbook behavior change or owner input needed.
-- Rebuilt/restarted API, worker, docs and schema; all active. /healthz database/Redis green; real saved edition has four topics/17 stories.
-- Next: durable separately admitted scheduler retry, then authorized Nov 5 NBA/Gaming/World keyword reruns on the same window. Fixed search remains off.
-- First push rejected for incoming owner instructions; fetched/merged without rewriting history. Item 41 queues Bluesky alerts after item 40 saved outcomes; Current order still prioritizes X reliability. No app runtime changes arrived.
-
 ## 2026-11-06: iteration 907 — persist scheduled X execution evidence
 
 - Started clean on main; no leftover work. Alerts clear, 36 sources healthy and no failed digest runs; next edition Nov 6 15:00 UTC.
@@ -153,3 +130,15 @@
 - Restarted API/worker/docs/schema; all active, /healthz database/Redis green, reader HTTP 200, 36/36 sources healthy and alerts clear.
 - TASKS condensed; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged because this is internal result plumbing.
 - Next: carry jsonOutcome through social triage/editor and persist Bluesky budget-refused results; then item 41 alerts. Nov 6 review after publication, X round after 21:00 UTC; reserved slot and fixed search stay off.
+
+## 2026-11-06: iteration 919 — save Bluesky budget-refusal outcomes
+
+- Started clean on main; no leftover work. Alerts clear, health green, 36/36 sources healthy and zero failed digest jobs. Edition review/X round await their windows.
+- Carried call-scoped AI outcomes through social triage and editor fallback into saved Bluesky selection evidence; inspector now labels budget refusal explicitly.
+- Mixed validation/refusal reports editing failure, successful Haiku recovery stays complete, and legacy nullable adapters retain unknown causes. No inference from shared diagnostics.
+- Added offline coverage for exact refusals, mixed failures, fallback recovery, cached triage preservation and saved-schema round trips. No paid calls, prompts, selection, collection or budget changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 05-social-posts; smoke-bluesky-outcomes.ts; git diff --check. All passed: 535 unit/223 isolated integration tests.
+- Browser passed saved compatibility and nine synthetic states at desktop/mobile widths; inspected updated screenshots. Handbook limit initially caught 101 lines; shortened and passed.
+- Updated TASKS/affected handbook; archived iterations 905–906. SOURCES/NEEDS_FROM_HUMAN unchanged because collection and owner requirements are unchanged.
+- Rebuilt/restarted API/worker/docs/schema; all active, /healthz database/Redis green, reader HTTP 200, 36/36 sources healthy, no failed digest jobs and alerts clear.
+- Next: item 41 durable saved-edition alerts, then per-post validation. Nov 6 review after publication; X round after 21:00 UTC. Reserved slot and fixed X stay off.

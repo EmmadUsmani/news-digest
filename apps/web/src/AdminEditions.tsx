@@ -26,6 +26,7 @@ const blueskyResults: Record<
   'editor-chose-none': 'Editor chose none',
   'picks-made': 'Picks made',
   'ai-editing-failed': 'AI editing failed',
+  'budget-refused': 'Budget refused',
   'ai-unavailable': 'AI unavailable (reason not recorded)',
   'switched-off': 'Switched off',
 };

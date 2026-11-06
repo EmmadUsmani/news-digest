@@ -324,3 +324,47 @@ void test('saved evidence separates no slot, no candidates, triage rejection and
   assert.equal(empty.evidence.result, 'no-candidates');
   assert.equal(empty.evidence.candidatesRead, 0);
 });
+
+void test('saved Bluesky outcomes distinguish exact refusals, mixed failures and unknown evidence', async () => {
+  for (const [failures, expected] of [
+    [['budget-refused', 'budget-refused'], 'budget-refused'],
+    [['provider-spend-limit'], 'budget-refused'],
+    [['validation-failed', 'budget-refused'], 'ai-editing-failed'],
+    [['provider-call-failed'], 'ai-editing-failed'],
+    [['unavailable'], 'ai-unavailable'],
+  ] as const) {
+    const h = harness();
+    h.services.socialEditor.edit = async () => {
+      throw new Error('nullable fallback must not run twice');
+    };
+    h.services.socialEditor.editOutcome = async () => ({
+      status: 'failed',
+      failures: [...failures],
+    });
+    const result = await prepareBlueskyEditionPosts(h.repository, h.services, {
+      ...h.input,
+      enabled: true,
+    });
+    assert.equal(result.evidence.result, expected);
+    assert.deepEqual(result.posts, [xPost]);
+    const schema =
+      digestPreviewSchema.shape.topics.element.shape.blueskySelection;
+    assert.deepEqual(
+      schema.parse(JSON.parse(JSON.stringify(result.evidence))),
+      result.evidence,
+    );
+  }
+  const h = harness();
+  h.services.socialTriage.score = async (_topic, candidates) => ({
+    scores: [],
+    unscoredIds: candidates.map((c) => c.id),
+    failures: ['budget-refused'],
+  });
+  const result = await prepareBlueskyEditionPosts(h.repository, h.services, {
+    ...h.input,
+    enabled: true,
+  });
+  assert.equal(result.evidence.result, 'budget-refused');
+  assert.equal(result.evidence.candidatesShortlisted, 0);
+  assert.deepEqual(h.calls, ['read']);
+});
