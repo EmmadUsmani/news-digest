@@ -29,7 +29,7 @@ paid verification is authorized or needed for that review.
 
 Nov 6 update (910): authorized keyword reruns still failed for NBA and World
 (2/3 failed tool calls after reliability fixes); Gaming returned three posts.
-All $0.048153 settled; no new holds. Fixed search stays off. No owner action
+Scorer review (912): Gaming one usable launch out of three (7/4, 552 reported likes), two giveaways rejected; zero retained free-link matches. All $0.048153 settled; no new holds. Fixed search stays off. No owner action
 requested; finish the authorized Nov 6 round and report the remaining coverage
 gaps. [Rerun evidence](docs/edition-reviews/2026-11-05-x-experiment-review.md#authorized-keyword-reruns--iteration-910-nov-6).
 

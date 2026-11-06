@@ -141,7 +141,7 @@ Both have reported 500+ likes and no retained free-link match. The two explicit
 giveaways scored 1/0 each. The remaining keyword candidates scored relevance
 1–4; several rationales identify promotion, vague hype or networking.
 
-These are scorer gates, not completed usable-yield labels. The production
+Historical interpretation before STEERING 39 (superseded below): these were scorer gates, not completed usable-yield labels. The production
 scorer returns relevance, interestingness and rationale, without a separate
 promotion boolean; no boolean was inferred from a score or rationale. Promotion
 labels remain unknown. Semantic likes remain unknown for all 31 candidates;
@@ -218,3 +218,38 @@ Private evidence: `~/.local/state/news-digest/x-experiment/nov5-keyword-rerun/`
 `extracted-evidence-910.json`, `report-910.json` and three official embeds.
 Offline extraction now accepts validated token-only failure usage as zero
 fetched while retaining historical fetched-only extraction support.
+
+## Gaming rerun scorer review — iteration 912 (Nov 6)
+
+Applied the configured production Haiku social scorer to the three saved,
+officially verified Gaming embeds, with author, reported likes and media-link
+hints. Current topic guidance, production cache and shared reserve admission
+applied; repair disabled. One successful verification call cost **$0.000337**,
+run `iteration-912-x-experiment`; zero unscored candidates. No new X searches,
+ingestion or edition writes.
+
+| Post ID             | Author       | Reported likes | Relevance / interestingness | Pass |
+| ------------------- | ------------ | -------------: | --------------------------- | ---- |
+| 2118435188883533910 | RIG Gaming   |          1,058 | 4 / 1                       | No   |
+| 2118146287250104534 | MSI Gaming   |          1,063 | 4 / 1                       | No   |
+| 2118241331202158609 | Tiny Legends |            552 | 7 / 4                       | Yes  |
+
+The first two are follow/share giveaways. Tiny Legends announces a game launch
+with limited detail. The scorer's `importance` field is the interestingness
+score. Under STEERING 39, relevance ≥6 and interestingness ≥4 count as
+non-promotion: **one usable Gaming keyword candidate out of three fetched**.
+All three are in-window and above Gaming's saved 500-like minimum.
+Exact-ID comparison against the same retained baseline (863 unique free posts,
+iteration 886) found zero matches, including the passing launch. This compares
+with that saved baseline, without refreshing historical collection coverage.
+
+STEERING 39 also supersedes the earlier promotion-unknown interpretation:
+the two Tech keyword gate-passers above count as non-promotion. Thus completed
+Nov 5 keyword searches yielded Tech **2/10** and Gaming **1/3** usable picks;
+NBA and World failed, with no usable picks. This is incomplete four-topic
+coverage. Semantic candidates still lack reported likes. No winner or activation;
+Nov 6 fresh-window comparison after 21:00 UTC remains required.
+
+Private `nov5-keyword-rerun/triage-scores-912.json`, `triage-calls-912.json`
+and `triaged-review-912.json` preserve scorer inputs/results, ledger settlement,
+exact-ID joins and the baseline hash. Original rerun evidence is unchanged.

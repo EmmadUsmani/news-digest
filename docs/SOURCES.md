@@ -2100,3 +2100,8 @@ or production activation in this step; switched-off scheduler retry remains open
 
 - Experiment-only semantic requests now ask what is new and getting attention in the saved topic, without description exclusions or keyword operators. Exact UTC bounds and saved likes minimum remain; returned likes/reposts/replies/views are requested even below the minimum, with unknown counts omitted.
 - Nov 6 dispatch remains due after 21:00 UTC, keyword cells first under shared experiment caps. No paid calls, ingestion or production changes; fixed search stays off. Gaming rerun scoring remains open.
+
+### Gaming keyword scorer review — iteration 912 (2026-11-06)
+
+- Three saved verified rerun posts scored with production Haiku: two giveaways 4/1; Tiny Legends launch 7/4, 552 reported likes, in-window. STEERING 39 makes the launch non-promotion: Gaming usable yield 1/3; Tech remains 2/10. NBA/World failed.
+- No matches against the retained 863-post free-link baseline. One verification call $0.000337, zero unscored; no X calls or ingestion. Production fixed search stays off pending Nov 6 comparison. [Review](edition-reviews/2026-11-05-x-experiment-review.md#gaming-rerun-scorer-review--iteration-912-nov-6).

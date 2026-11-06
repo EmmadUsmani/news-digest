@@ -1,13 +1,3 @@
-## 2026-11-05: iteration 899 — X discovery topic controls
-
-- Started clean on main; no leftover work. Owner would care: edit X discovery minimum likes and exclusions directly in the topic editor.
-- Added protected settings read/write through the existing topic endpoint, with atomic topic/settings updates and strict integer/operator validation. Uses the existing settings table; omitted/null settings preserve configuration, and historical reaction thresholds stay intact. No migration or live settings changes.
-- Isolated HTTP coverage verifies unset defaults, save/read, invalid likes/operators and preservation during other edits. Browser writes intercepted; invalid exclusions block writes, save/reload and four theme/viewport screenshots passed. Desktop light/mobile dark visually reviewed; discarded unrelated delete/separation screenshots.
-- Review caught nullable settings breaking topic-list updates for new topics; allowed null as preserve and verified the contract directly, then rebuilt. No paid calls or X activation.
-- Verification: pnpm format; pnpm lint:fix; pnpm check passed typecheck/lint/format/boundaries, 508 unit and 220 isolated integration tests; pnpm build (including final nullable change); direct unset-settings contract check; smoke-admin-topic-editor.ts; smoke-admin-separation.ts; check-handbook.ts 05-social-posts and 08-operations; git diff --check.
-- Updated TASKS, SOURCES and affected handbook pages; NEEDS_FROM_HUMAN unchanged. Four services restarted/active; /healthz database/Redis green, reader 200, 36 active sources/zero errors with successes through 23:10 UTC. Existing observability shipper memory warning remains; service active.
-- Next: final reader per approved spec; Nov 6 scheduled edition/grouping review and fresh-window X round after 21:00 UTC. No X activation before decision.
-
 ## 2026-11-05: iteration 900 — Reader archive
 
 - Started clean on main; no leftover work. Owner would care: browse past editions in a clean date/topic list and open their saved reader pages.
@@ -140,3 +130,14 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (528 unit/223 isolated integration tests, typecheck/lint/format/boundaries); pnpm build; git diff --check all passed. Rebuilt/restarted API, worker, docs and schema active; initial startup health probe raced readiness, repeated health green, reader HTTP 200, latest real edition four topics/17 stories/14 posts, alerts clear.
 - Archived iteration 898 to keep orientation small. Updated TASKS, SOURCES and experiment guide; no owner input needed. No handbook change: production behavior unchanged.
 - Next: score three Gaming rerun candidates; Nov 6 edition review after publication and fresh X round after 21:00 UTC, keywords first. Bluesky outcomes remain next in Current order; NBA/World tool failures remain unresolved.
+
+## 2026-11-06: iteration 912 — Gaming keyword scorer review
+
+- Started clean on main; no leftover work. Alerts clear, 36 sources healthy, /healthz database/Redis green; no failed digest jobs, next edition Nov 6 15:00 UTC.
+- Scored all three saved verified Gaming rerun posts with production Haiku social triage, saved author/reported likes/media hints and current topic guidance. Shared reserve/verification admission applied, repair disabled; one successful verification call/$0.000337, zero unscored. No X calls, ingestion or edition writes.
+- Scores: RIG Gaming giveaway 4/1; MSI Gaming giveaway 4/1; Tiny Legends launch 7/4 with 552 reported likes. Under STEERING 39 one usable/non-promotion candidate out of three. All in-window, above saved 500 likes; zero exact-ID matches against retained 863-post free-link baseline. Tech's prior keyword yield is 2/10; NBA/World still failed.
+- Private scorer inputs/results, ledger settlement and hashed baseline join saved mode 600. Runner's initial console count used the wrong property (interestingness instead of production importance); corrected offline, asserted one gate-passer without another paid call. Original rerun evidence unchanged.
+- Updated experiment review, SOURCES, TASKS and NEEDS_FROM_HUMAN; archived iteration 899 to keep PROGRESS small. No owner action needed; no production behavior/handbook change.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (528 unit/223 isolated integration tests, typecheck/lint/format/boundaries); pnpm build; git diff --check. All passed.
+- Rebuilt/restarted API, worker, docs and schema; /healthz green and reader HTTP 200. First source probe raced readiness; repeat shows 36/36 healthy, alerts clear and no failed digest-generation jobs.
+- Next: Nov 6 edition review after publication; fresh X comparison after 21:00 UTC, keywords first. Bluesky outcomes next in Current order. Fixed X remains off, no further Nov 5 reruns; NBA/World failures remain unresolved.
