@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Mobile active topic chips (931): reading forward/backward reveals the active topic in the horizontal bar at 390px/320px, preserving the edition scroll position.
+
 - [x] Responsive X widgets (930): request the available card width, capped at 550px; contain loaded frames after resizing. Saved-post browser replay passed desktop/mobile light/dark and 320px resize.
 
 - [x] Archive recovery replay (929): ported the obsolete inline-history check to the reader archive; failed-page escape, retry, empty-page return and saved-content navigation verified in desktop/mobile light/dark.

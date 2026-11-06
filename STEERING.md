@@ -1465,3 +1465,5 @@ ack: 2026-11-06 item 42 — iteration 926: saved X cards repeated a footer link 
 ack: 2026-11-06 item 33 — iteration 928: reader header arrows open adjacent saved editions across archive pages; date opens the archive. Verified saved-edition navigation/reload on desktop/mobile and light/dark. No content, selection or spend changes.
 
 ack: 2026-11-06 item 42 — iteration 930: saved X post cards requested 550px embeds inside narrower reader columns. Request their available width and contain resized frames; verified saved posts with a widget stub on desktop/mobile light/dark, including 320px resize. No spend or selection changes.
+
+ack: 2026-11-06 item 42 — iteration 931: World’s active mobile topic chip stayed offscreen while reading. Scroll only the chip row to reveal the current topic; saved-edition forward/backward checks at 390px/320px in light/dark. No spend or selection changes.

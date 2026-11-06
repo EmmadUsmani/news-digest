@@ -1,6 +1,6 @@
 import type { ReaderEdition } from '@digest/contracts';
 import { Link } from '@tanstack/react-router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { Button } from './components/ui/button';
 import { Sheet, SheetClose } from './components/ui/sheet';
@@ -10,6 +10,7 @@ const topicAnchor = (id: string) => `topic-${id}`;
 
 export function ReaderContents({ topics }: { topics: Topic[] }) {
   const [active, setActive] = useState('');
+  const chips = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const targets = topics.flatMap((topic) => [
       topicAnchor(topic.id),
@@ -52,6 +53,20 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
         ...topic.stories.map((story) => `story-${story.id}`),
       ].includes(active),
     ) ?? topics[0];
+  useEffect(() => {
+    const container = chips.current;
+    const chip = container?.querySelector<HTMLElement>(
+      '[aria-current="location"]',
+    );
+    if (!container || !chip || container.clientWidth === 0) return;
+    const bounds = chip.getBoundingClientRect();
+    const viewport = container.getBoundingClientRect();
+    // Scroll only the chip row; scrollIntoView would also move the edition.
+    if (bounds.left < viewport.left)
+      container.scrollLeft += bounds.left - viewport.left;
+    else if (bounds.right > viewport.right)
+      container.scrollLeft += bounds.right - viewport.right;
+  }, [activeTopic?.id]);
   const contents = (mobile: boolean) => (
     <nav aria-label={mobile ? 'Mobile contents' : 'Edition contents'}>
       <p className="mb-4 text-xs font-medium tracking-widest text-[var(--secondary)] uppercase">
@@ -104,7 +119,7 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
         {contents(false)}
       </div>
       <div className="fixed inset-x-0 top-[65px] z-20 flex items-center gap-2 border-b border-[var(--border)] bg-[var(--background)] px-4 py-2 lg:hidden">
-        <div className="flex min-w-0 flex-1 gap-2 overflow-x-auto">
+        <div ref={chips} className="flex min-w-0 flex-1 gap-2 overflow-x-auto">
           {topics.map((topic) => (
             <a
               key={topic.id}
