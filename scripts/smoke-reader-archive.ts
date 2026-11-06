@@ -45,6 +45,28 @@ async function smoke() {
           .first()
           .waitFor();
         assert.equal(await page.locator('li').count(), saved.entries.length);
+        for (const entry of saved.entries) {
+          const link = page.locator(`main li a[href="/editions/${entry.id}"]`);
+          const window = link.locator('.archive-window');
+          assert.deepEqual(
+            await window
+              .locator('time')
+              .evaluateAll((items) =>
+                items.map((item) => item.getAttribute('datetime')),
+              ),
+            [entry.windowStart, entry.windowEnd],
+          );
+          for (const timestamp of [entry.windowStart, entry.windowEnd]) {
+            assert.ok(
+              (await window.innerText()).includes(
+                new Date(timestamp).toLocaleString(undefined, {
+                  dateStyle: 'medium',
+                  timeStyle: 'short',
+                }),
+              ),
+            );
+          }
+        }
         assert.ok(
           await page
             .getByRole('heading', { name: 'Past editions' })
