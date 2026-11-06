@@ -623,3 +623,34 @@ void test('recorded Yardbarker NBA feed preserves bylines, offset dates and synd
   );
   assert.ok(items.every((item) => item.xLinks.length === 0));
 });
+
+void test('feed excerpts fall back to bounded body text only when summaries are blank', () => {
+  const item = (fields: string) =>
+    parseFeed(`<rss><channel><item>
+    <title>Synthetic feed fallback</title><link>https://example.com/article</link>
+    <pubDate>Fri, 06 Nov 2026 12:00:00 GMT</pubDate>${fields}
+    </item></channel></rss>`)[0];
+  assert.equal(
+    item(
+      '<description>Publisher summary</description><content:encoded>Long body</content:encoded>',
+    ).excerpt,
+    'Publisher summary',
+  );
+  assert.equal(
+    item(
+      '<description> </description><summary>Alternative summary</summary><content:encoded>Long body</content:encoded>',
+    ).excerpt,
+    'Alternative summary',
+  );
+  assert.equal(
+    item(
+      '<description><![CDATA[<p> </p>]]></description><content:encoded><![CDATA[<p>Body &amp; context</p>]]></content:encoded>',
+    ).excerpt,
+    'Body & context',
+  );
+  const atom = parseFeed(
+    `<feed><entry><title>Synthetic Atom</title><link href="https://example.com/atom"/><updated>2026-11-06T12:00:00Z</updated><content type="html">&lt;p&gt;${'x'.repeat(1800)}&lt;/p&gt;</content></entry></feed>`,
+  )[0];
+  assert.equal(atom.excerpt, 'x'.repeat(1500));
+  assert.equal(item('').excerpt, '');
+});

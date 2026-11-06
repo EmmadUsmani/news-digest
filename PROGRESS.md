@@ -1,26 +1,3 @@
-## 2026-11-06: iteration 1002 — scope author-provided media descriptions
-
-- Started clean on main; alerts clear, health/DB/Redis green, API/worker active; no leftover work.
-- Latest edition remains Nov 5 (7d99b279); World's breadth still awaits Nov 6 output.
-- Reader weakness: NBA's game-winner and Gaming's release-date announcement depend on linked media; saved text cannot recover unseen content.
-- Owner value: available author descriptions could make posts more useful when official media cannot load.
-- Added a bounded proposal in docs/ideas.md, gated on recorded-source availability; no inference, OCR, extra requests or paid calls. Existing fallback/retry links already work.
-- Consolidated three completed proposal markers in TASKS. No runtime/source/schema changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
-- Sources healthy; failed digest jobs zero; next scheduled run 15:00 UTC. No restarts during 13:00–16:00 deployment freeze.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (560 unit/224 isolated integration), pnpm build and git diff --check passed; final health green and alerts clear.
-- Next: Nov 6 reader/World/cost/Bluesky review after publication; fresh X round after 21:00 UTC. Fixed search remains off.
-
-## 2026-11-06: iteration 1003 — close media-description evidence gate
-
-- Started clean on main; alerts clear, health/DB/Redis green, API/worker active; no leftover work.
-- Latest edition remains Nov 5 (7d99b279); Nov 6 breadth/cost/Bluesky review awaits publication.
-- Reader weakness: NBA/Gaming X posts depend on unseen media. Owner value: determine whether existing descriptions can make them understandable without new requests.
-- Checked the recorded X oEmbed fixture: no media description; it does not cover either motivating post. Bluesky already preserves alt text and renders it for thumbnails; its response tests are synthetic.
-- Updated docs/ideas.md with the evidence and deferred the proposal: no demonstrated X description source, no duplicate Bluesky preservation work.
-- No runtime/source/schema/spend changes; no restarts during the 13:00–16:00 freeze. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration); pnpm build; 26 targeted Bluesky tests; git diff --check passed. Sources healthy; no failed digest jobs.
-- Next: Nov 6 reader/World/cost/Bluesky review after publication; fresh X round after 21:00 UTC; fixed search OFF.
-
 ## 2026-11-06: iteration 1004 — defer unsupported story/post links
 
 - Started clean on main; no leftover work. Alerts clear, health/DB/Redis green; API/worker active, all 36 sources healthy, no failed digest jobs.
@@ -188,3 +165,15 @@
 - Initial check found archive formatting; corrected. Final lint received SIGTERM without diagnostics; retry passed. Layout smoke twice timed out at a mobile topic jump (heading 212px from top, focus/hash correct); replaced fixed 190px limit with whole heading in top third. Archived 1000–1001.
 - Next: Nov 6 X fresh-window round after 21:00 UTC. Fixed search and Bluesky reserved slot remain OFF; reserved slot awaits owner after failed cost gate.
 - SOURCES/handbook/NEEDS_FROM_HUMAN unchanged: deployment of already documented changes; no new source, flow or owner dependency.
+
+## 2026-11-06: iteration 1019 — retain feed body excerpts when summaries are absent
+
+- Started clean on main; no leftover work. Alerts clear, /healthz DB/Redis OK and all 36 sources healthy.
+- Read all four latest saved topics: Tech repetition awaits deployed editor v6; thin Tech summaries remain. Owner value: retain useful evidence supplied by feeds instead of discarding it when summaries are blank.
+- Parser previously used description/summary only. Now the first nonblank normalized description, summary, RSS encoded body or Atom content supplies the existing 1,500-character excerpt. Publisher summaries retain precedence.
+- No article-page fetches, source additions, paid calls or saved-edition changes. This does not establish how many future selected stories will benefit; headline-only HN items still have no body.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/225 isolated integration); pnpm build; handbook check 07-data-model; git diff --check. Synthetic RSS/Atom regression covers precedence, empty HTML, decoding and truncation; recorded feed fixtures unchanged.
+- Direct ingestion-file test invocation passed the new case but hit the expected DB isolation guard; full check uses disposable databases instead.
+- Archived iterations 1002–1003 to keep PROGRESS small. Updated source notes and data-model handbook; no schema/diagram changes or new owner dependency.
+- Deployed after 16:00 UTC with API/worker restarts; health and alerts rechecked.
+- Next: Nov 6 fresh X round after 21:00 UTC. Fixed search and Bluesky reserved slot stay OFF; selection and summary quality await future scheduled editions.

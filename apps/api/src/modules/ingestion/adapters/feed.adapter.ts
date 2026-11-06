@@ -49,7 +49,15 @@ export function parseFeed(xml: string): ContentItem[] {
         {
           url,
           title,
-          excerpt: plainText(text(entry.description ?? entry.summary)),
+          excerpt:
+            [
+              entry.description,
+              entry.summary,
+              entry['content:encoded'],
+              entry.content,
+            ]
+              .map((value) => plainText(text(value)))
+              .find(Boolean) ?? '',
           author:
             plainText(
               text(

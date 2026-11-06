@@ -1573,3 +1573,5 @@ ack: 2026-11-06 item 42 — iteration 1016: World’s saved Bluesky author was p
 ack: 2026-11-06 item 42 — iteration 1017: thin Tech summaries led to an ingestion defect: blank excerpts overwrite saved article text at shared URLs. Preserve saved text on blank updates, keeping nonblank corrections; isolated repository regression added. No paid calls or edition rewrite; deploy after 16:00 UTC.
 
 ack: 2026-11-06 item 42 — iteration 1018: after 16:00 UTC deployed prepared social editor v6, article-text preservation and Bluesky reader links/profiles, plus shipper MemoryHigh=64M. Full checks and live reader/log-delivery verification pass; future scheduled picks must establish selection improvement. No paid calls.
+
+ack: 2026-11-06 item 42 — iteration 1019: thin Tech summaries prompted a feed parser fix: absent or blank summaries now fall back to bounded RSS/Atom body text already supplied by the feed. Publisher summaries stay first; no new fetches or paid calls.

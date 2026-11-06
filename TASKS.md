@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Feed excerpt fallback (1019): missing/blank summaries use bounded feed body text, preserving publisher summary precedence; no page fetching or paid calls.
+
 - [x] Preserve article text (1017): blank excerpts from title-only rediscovery keep saved publisher text; nonblank corrections still update it. Isolated repository regression covers both sources and replacement. Deployed after 16:00 (1018).
 
 - [x] Bluesky author profiles (1016): link author names to the saved post’s profile, including encoded DIDs; isolated desktop/mobile light/dark replay verified. Deployed after 16:00 (1018).

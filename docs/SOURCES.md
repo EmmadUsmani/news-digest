@@ -2130,3 +2130,12 @@ continues to merge. Read-only inspection found six URLs observed by both HN and
 publisher feeds, three currently without text; this does not recover erased text
 or establish how each became empty. Collection endpoints and cadence unchanged.
 Deployment waits until after the 13:00–16:00 UTC freeze.
+
+## Feed excerpt fallback — iteration 1019 (2026-11-06)
+
+RSS/Atom ingestion keeps publisher descriptions/summaries first. When these
+are missing or blank after HTML removal, it uses the feed's `content:encoded`
+or Atom `content`, still capped at 1,500 plain-text characters. This adds no
+article-page fetches, source changes or full-article storage. Offline synthetic
+RSS/Atom cases verify precedence, blank HTML, decoding and the bound; existing
+recorded feed fixtures remain unchanged. Saved editions are not rewritten.
