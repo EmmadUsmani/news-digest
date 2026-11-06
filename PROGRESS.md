@@ -1,16 +1,3 @@
-## 2026-11-06: iteration 967 — keep keyboard position when retrying X media
-
-- Started clean on main; health/database/Redis green, alerts clear, all 36 sources healthy and no failed digest runs. No leftover work.
-- Read saved topics: World breadth/Tech grouping and Bluesky review await 15:00 publication; X round waits until 21:00 UTC.
-- Reader weakness: retrying failed X media removes the focused Retry button and drops focus to the page body; reproduced against HEAD with saved-edition browser assertion.
-- Move focus to the saved post link before retry removes the control; existing media-success behavior keeps that link visible and focused.
-- Extended four-view recovery replay to require focus without manually setting it. Local widget stub; no writes or external calls.
-- Updated TASKS, STEERING ack and affected handbook; archived iterations 952–953. SOURCES/NEEDS_FROM_HUMAN unchanged; no spend or flag changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-x-media.ts; check-handbook.ts 08-operations; git diff --check. Results below.
-- Next: edition/Bluesky review after 15:00 UTC; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.
-- Final: pnpm check passed (543 unit/224 isolated integration tests); build, handbook and four-view recovery passed. Inspected mobile light screenshot; retained two changed resize screenshots.
-- API/worker/docs/schema restarted; health/database/Redis green, alerts clear. Initial jobs query used an unknown queue name; supported unfiltered query confirmed zero failed digest-generation jobs.
-
 ## 2026-11-06: iteration 968 — preserve saved-text disclosure focus
 
 - Started clean on main; health/database/Redis green, alerts clear, 36 sources healthy and no failed digest jobs. No leftover work.
@@ -186,3 +173,18 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check. Final results below.
 - Next: Nov 6 editorial/World/cost/Bluesky review after 15:00 UTC; X round after 21:00 UTC. Fixed search remains off.
 - Final results: 552 unit/224 isolated integration tests passed; build, handbook and four-view browser replay passed. Inspected mobile coverage screenshot. API/worker/docs/schema restarted; health green, alerts clear, 36 sources healthy.
+
+## 2026-11-06: iteration 981 — original headlines for single-report stories
+
+- Started clean on main; health/database/Redis green, alerts clear; no leftover work.
+- Read all four saved topics; Nov 6 edition/Bluesky review and X round remain time-gated.
+- Reader weakness: single-report stories hide the original article title because only multi-report stories have a coverage disclosure.
+- Owner value: inspect the original headline, date and link alongside every rewritten story, including thin-source Tech summaries.
+- Enabled the same disclosure for one report with singular article text; unchanged saved content and links.
+- Extended four-view saved-edition replay to inspect single-report titles, URLs, times and publisher labels; added screenshots.
+- Updated TASKS, item 42 ack and affected handbook. SOURCES/NEEDS_FROM_HUMAN unchanged; no paid calls or selection changes.
+- Archived iteration 967 to keep PROGRESS small. Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check.
+- Browser replay passed desktop/mobile light/dark with external embeds blocked; inspected desktop light/mobile dark single-report screenshots. Build and handbook passed.
+- API/worker/docs/schema restarted; health green, alerts clear, all 36 sources healthy and zero failed digest-generation jobs. Full check hit exit 143 during integration after static checks and 552 unit tests passed; rerunning isolated integration separately.
+- Next: Nov 6 World/cost/Bluesky and editorial review after 15:00 UTC; X round after 21:00 UTC.
+- Final verification: separate isolated integration rerun passed 224/224; all required checks completed. Build, handbook and four-view browser replay passed; no paid calls.

@@ -282,7 +282,7 @@ async function smoke() {
               'Every story shows its exact saved publication date and local time',
             );
             assert.ok(await published.isVisible());
-            if ((story.coverage?.length ?? 0) > 1) {
+            if ((story.coverage?.length ?? 0) > 0) {
               await card.locator('.coverage summary').click();
               const times = card.locator('.coverage time');
               assert.deepEqual(
@@ -397,11 +397,11 @@ async function smoke() {
                 path: `docs/screenshots/ui/reader-primary-source-${device}-${theme}.png`,
               });
             }
-            if (story.coverage && story.coverage.length > 1) {
+            if (story.coverage && story.coverage.length > 0) {
               const disclosure = sources.locator('details');
               assert.ok(
                 (await disclosure.locator('summary').innerText()).startsWith(
-                  `${story.coverage.length} articles`,
+                  `${story.coverage.length} ${story.coverage.length === 1 ? 'article' : 'articles'}`,
                 ),
                 'Readers see the complete report count before expanding coverage',
               );
@@ -432,6 +432,11 @@ async function smoke() {
                 story.coverage.map((article) => article.sources.slice(0, 1)),
                 'Each report credits one publisher rather than repeating feed sections',
               );
+              if (story.id === edition.topics[0]?.stories[0]?.id) {
+                await card.screenshot({
+                  path: `docs/screenshots/ui/reader-single-report-${device}-${theme}.png`,
+                });
+              }
               if (
                 story.coverage.some((article) => article.sources.length > 1)
               ) {

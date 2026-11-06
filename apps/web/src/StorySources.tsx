@@ -36,10 +36,10 @@ export function StorySources({
       ))}
       {sources.length > 0 && <span aria-hidden="true">·</span>}
       {children}
-      {articles.length > 1 && (
+      {articles.length > 0 && (
         <details className="coverage w-full text-xs">
           <summary className="cursor-pointer text-xs">
-            {articles.length} articles
+            {articles.length} {articles.length === 1 ? 'article' : 'articles'}
             {sources.length > 2 &&
               ` · +${sources.length - 2} more ${sources.length === 3 ? 'outlet' : 'outlets'}`}
           </summary>

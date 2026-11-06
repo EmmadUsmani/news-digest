@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Single-report evidence (981): every saved report can be expanded to read its original headline, publication time and link, including stories with only one article.
+
 - [x] Coverage publisher labels (980): expanded reports show one source label per article, removing repeated Guardian feed sections while keeping every report link.
 
 - [x] Central summary development (979): editor v9 asks summaries to retain the main supported headline claim instead of only excerpt background; prompted by the saved Porziņģis salary story. Verify actual Nov 6 output.
