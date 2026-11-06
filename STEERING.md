@@ -14,7 +14,8 @@ those areas.
 **This list wins if an item's wording says otherwise.** It sets the order only:
 details, budgets and rules stay in the items. Every new item goes on this list.
 
-1. Breakages and protecting the morning edition.
+1. Breakages and protecting the morning edition. Includes the hung Grafana
+   (item 44).
 2. X search: reliability fixes and test rounds (items 39, 34).
 3. UI rebuild: admin pages, then final reader (item 33). Raised by the owner
    on Nov 6 (item 43).
@@ -1715,3 +1716,48 @@ ack: 2026-11-06 item 33/43 — iteration 1039: owners now use the rebuilt overvi
 ack: 2026-11-06 item 33/43 — iteration 1040: readers can identify the weekday in the desktop edition date, matching the approved header; mobile stays compact. Older/newer navigation and desktop/mobile light/dark verified; no paid calls.
 
 ack: 2026-11-06 item 33/43 — iteration 1041: readers now see grouped-outlet controls beside publisher names before publication time, matching the approved source row; inline article expansion remains available. Desktop/mobile light/dark [screenshots](docs/screenshots/ui/reader-single-report-mobile-light.png) verified; no paid calls.
+
+## 44. NOW: Grafana is hung, fix it and make alerts catch it (2026-11-06)
+
+**Why.** On Nov 6 around 19:20 UTC the owner saw Grafana down. `obs-grafana`
+reports `active`, but `localhost:3001/grafana/api/health` on the VM gets no
+answer. Facts from the VM:
+
+- The unit sits at its `MemoryHigh=208M` ceiling (207.8 MB used, 188 KB free)
+  with `CPUQuota=2%`, both set in `ops/observability/obs-grafana.service`.
+- Grafana's log shows cleanup jobs cancelled after 17–40 minutes, API
+  "Handler timeout" errors and dashboard provisioning failing to save.
+- The VM itself is fine: about 5 GB of memory available, disk 64%, `obs-metrics`
+  active.
+
+Likely cause (not confirmed): the tight limits from item 24's trim and commit
+`6c682139` leave Grafana throttled, so everything times out.
+
+**Priority.** A breakage, so it comes under Current order item 1. It does not
+outrank protecting the morning edition.
+
+**What to do, in order.**
+
+1. Reproduce on the VM: health check, `systemctl show obs-grafana` for memory
+   and CPU, the journal. Confirm whether the memory ceiling or the CPU quota is
+   what throttles it. Check this, not the notes above.
+2. Fix the cause in the repo and on the VM. Prefer trimming Grafana (turn off
+   unused features, the unified-search index, snapshots and background
+   cleanup). If that isn't enough, raise the limits modestly. Keep the whole
+   stack inside the budget in item 24, and say so in the ack if you can't.
+3. Restart `obs-grafana` only after the fix is in place, and not between 13:00
+   and 16:00 UTC.
+4. Add a real health check: `obs alerts` and the alert rules must flag Grafana
+   when `/grafana/api/health` fails or times out, not only when the unit is
+   inactive. Add a test next to `ops/observability/alerts.test.yml`.
+5. Wait 30 minutes after the restart, then confirm health still answers and
+   memory stays below the ceiling.
+
+**What not to do.** Don't touch dashboards or the `obs` CLI beyond the health
+check. Don't add a new service or spend money. Stop after step 5 passes.
+
+**Done when.** Health answers in under a second, the new alert fires in a
+test when health fails, and the ack reports the cause found, the limits before
+and after, and Grafana's memory and CPU 30 minutes after the restart.
+
+**Limits.** No new spend. Don't disturb the morning edition run.
