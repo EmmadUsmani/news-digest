@@ -177,3 +177,16 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check. Final results below.
 - Next: Nov 6 edition/Bluesky review after 15:00 UTC publication; fresh X round after 21:00 UTC. Fixed search and reserved slot remain off.
 - Final: pnpm check passed (543 unit/224 isolated integration tests); build, handbook, four-view saved-edition browser replay and diff checks passed. Inspected mobile light screenshot. API/worker/docs/schema restarted active; health green and alerts clear.
+
+## 2026-11-06: iteration 958 — restore reader theme verification
+
+- Started clean on main; alerts clear and health/database/Redis green. No leftover work.
+- Read the saved four-topic edition; World breadth and mixed Tech grouping await Nov 6 publication; no new editorial evidence or paid calls.
+- Found the remaining theme smoke still waiting for the replaced reader’s period/UUID and list selectors; it could no longer verify reader content.
+- Ported it to current story cards, added exact saved-post text checks, and blocked third-party requests. Readers’ theme choices and saved content are checked together.
+- Desktop/mobile system changes, light/dark, reload persistence, cross-tab changes and blocked storage passed; replaced old foundation screenshots with current reader screenshots and inspected mobile dark.
+- No product behavior, collection, budgets or flags changed; handbook, SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx scripts/smoke-ui-theme.ts; git diff --check. Final results below.
+- Next: Nov 6 edition/Bluesky review after 15:00 UTC; X round after 21:00 UTC. Fixed search and reserved slot remain off.
+- Initial combined check exited 143 during unit tests without a failure; standalone pnpm check passed (543 unit/224 isolated integration tests). Build, four-view reader theme checks and diff check passed.
+- API/worker/docs/schema restarted active; health/database/Redis green and alerts clear.

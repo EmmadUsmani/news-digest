@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Reader theme verification (958): ported stale foundation selectors to the rebuilt reader; saved stories/posts, system changes, reload, cross-tab and blocked-storage checks pass on desktop/mobile.
+
 - [x] Story publication times (957): every story shows its saved publication date and local time, including standalone reports.
 
 - [x] Brief navigation (956): matching topic-brief headlines jump to their saved story, including keyboard focus and sticky-header clearance.

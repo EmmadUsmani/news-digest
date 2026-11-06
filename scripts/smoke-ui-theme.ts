@@ -21,20 +21,18 @@ async function smoke() {
     context.on('page', (page) => {
       page.on('pageerror', (error) => errors.push(error.message));
     });
-    await context.route('**/api/**', async (route) => {
+    await context.route('**/*', async (route) => {
       const request = route.request();
       if (!['GET', 'HEAD'].includes(request.method())) {
         writes.push(`${request.method()} ${new URL(request.url()).pathname}`);
         return route.abort();
       }
+      if (new URL(request.url()).origin !== origin) return route.abort();
       return route.continue();
     });
   };
   const expectSavedContent = async (page: Page) => {
-    await page
-      .locator('.period')
-      .filter({ hasText: saved.id.slice(0, 8) })
-      .waitFor();
+    await page.locator('.digest-topic').last().waitFor();
     assert.equal(
       await page.locator('.digest-topic').count(),
       saved.topics.length,
@@ -44,16 +42,26 @@ async function smoke() {
         has: page.getByRole('heading', { name: topic.name, exact: true }),
       });
       assert.equal(
-        await section.locator('li[id^="story-"]').count(),
+        await section.locator('[data-slot="card"][id^="story-"]').count(),
         topic.stories.length,
+      );
+      assert.deepEqual(
+        await section.locator('.post-card .post-text').allTextContents(),
+        topic.posts
+          .map((post) =>
+            post.platform === 'x'
+              ? `${post.displayText ?? post.text} — View post by ${post.author} on X`
+              : post.platform === 'bluesky'
+                ? post.text
+                : post.displayText,
+          )
+          .filter((text) => text !== undefined),
+        'Theme changes preserve saved post text',
       );
       for (const story of topic.stories) {
         const item = section.locator(`[id="story-${story.id}"]`);
         await item.waitFor();
-        assert.equal(
-          await item.locator(':scope > a').textContent(),
-          story.title,
-        );
+        assert.equal(await item.locator('h3 > a').textContent(), story.title);
         if (story.summary)
           assert.equal(
             await item.locator('.excerpt').textContent(),
@@ -100,7 +108,7 @@ async function smoke() {
         );
         await page.screenshot({
           animations: 'disabled',
-          path: `docs/screenshots/ui/foundations-theme-${device}-${theme}.png`,
+          path: `docs/screenshots/ui/reader-theme-${device}-${theme}.png`,
         });
       }
       await page.reload();
