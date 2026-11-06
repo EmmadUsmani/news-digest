@@ -88,10 +88,12 @@ async function smoke() {
           path: `docs/screenshots/ui/x-media-loading-${device}-${theme}.png`,
         });
         releaseInitial();
-        await status.filter({ hasText: 'X post could not load.' }).waitFor();
-        assert.equal(
-          await status.innerText(),
-          'X post could not load. Saved text is shown above; open it on X to read the original.',
+        await status.filter({ hasText: 'X media unavailable.' }).waitFor();
+        assert.equal(await status.innerText(), 'X media unavailable.');
+        const failureRow = card.locator('.x-media-error');
+        assert.ok(
+          (await failureRow.boundingBox())!.height <= 36,
+          'Unavailable media and retry should share one compact row',
         );
         assert.ok(await card.locator('.post-text').isVisible());
         assert.equal(

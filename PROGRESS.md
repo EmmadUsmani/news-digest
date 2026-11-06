@@ -1,14 +1,3 @@
-## 2026-11-06: iteration 1017 — keep article text on title-only rediscovery
-
-- Started clean on main; no leftover work. Alerts clear, /healthz DB/Redis OK, 13 services and 36 sources healthy.
-- Owner value: preserve publisher text for future summaries when another source rediscovers the same URL with no excerpt. Latest Tech summaries are thin; HN already captures available body text.
-- Found unconditional excerpt overwrite at canonical-URL upsert. Read-only live inspection: six URLs shared by HN/publisher feeds, three empty; this does not establish their prior text or recover it.
-- Blank incoming excerpts now keep saved text; nonblank corrections still replace it, with title/engagement updates unchanged. Existing editions untouched; no paid calls.
-- Isolated repository regression covers blank and space-only updates from a second source and a later nonblank correction. Updated source notes and affected handbook page; no diagram/schema changes.
-- Passed: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration); pnpm build; handbook check 07-data-model; git diff --check.
-- Deployment/restarts deferred under the explicit 13:00–16:00 UTC freeze. After 16:00 deploy this fix, pending reader fixes, social editor v6 and shipper MemoryHigh=64M, then verify live.
-- Next: X round after 21:00 UTC; reserved Bluesky slot remains OFF awaiting owner. NEEDS_FROM_HUMAN unchanged; no new owner dependency.
-
 ## 2026-11-06: iteration 1018 — deploy the pending reader and ingestion fixes
 
 - Started clean on main; no leftover work. Alerts, health, 13 services and 36 sources healthy; no failed digest jobs.
@@ -173,3 +162,12 @@
 - API/worker restarted; /healthz DB/Redis OK and alerts clear. Real saved edition retains four topics, 20 stories and 17 posts. No paid calls or source/schema/handbook-flow changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
 - Full pnpm check passed: static checks, 562 unit tests and 225 isolated integration tests (exit 0).
 - Next: continue final reader spec; approved Bluesky slot activation pending under Current order; fresh X round after 21:00 UTC.
+
+## 2026-11-06: iteration 1033 — compact unavailable X media
+
+- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; no leftovers, alerts clear and /healthz DB/Redis OK.
+- Saved reader repeated multi-line embed failure instructions under otherwise readable X posts. Replaced them with one compact media-unavailable/retry row; saved text, original link, loading and focus behavior retained.
+- Read-only saved-edition Playwright check passed desktop/mobile light/dark, covering failure-row height, retry, focus, media recovery, resizing and theme replacement. Widget recovery uses a local stub; no external calls or writes. Updated four failure screenshots; final mobile light visually inspected.
+- Passed pnpm build; pnpm exec tsx scripts/smoke-reader-x-media.ts; pnpm format; pnpm lint:fix; git diff --check. Full pnpm check passed static checks, 562 unit and 225 integration tests, then exited 143 after coverage; standalone pnpm test:integration passed all 225 tests (exit 0).
+- API/worker restarted; /healthz DB/Redis OK, alerts clear; saved edition retains four topics, 20 stories and 17 posts. No paid calls or source/schema/handbook-flow changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Archived iteration 1017 to keep PROGRESS small. Next: continue final reader; approved Bluesky slot pending under Current order; X round after 21:00 UTC.

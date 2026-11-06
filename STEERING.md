@@ -1668,3 +1668,5 @@ ack: 2026-11-06 item 33/43 — iteration 1030: resizing a desktop window now kee
 ack: 2026-11-06 item 33/43 — iteration 1031: readers retain a visible current-topic chip through desktop/mobile transitions and rotation without moving the edition; light/dark [screenshots](docs/screenshots/ui/reader-chip-resize-light.png). No paid calls.
 
 ack: 2026-11-06 item 33/43 — iteration 1032: mobile readers opening Contents now start at their current story/post, visible and focused even on short screens; Escape preserves reading position. Light/dark verified; no paid calls.
+
+ack: 2026-11-06 item 33/43 — iteration 1033: readers see one compact media-unavailable/retry row beneath saved X text, replacing repeated multi-line error instructions. Desktop/mobile light/dark recovery and focus verified; no paid calls.

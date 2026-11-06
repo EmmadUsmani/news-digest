@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Compact X recovery (1033, item 33): unavailable media and retry share one quiet row; saved post text and keyboard recovery stay available.
+
 - [x] Current mobile contents (1032, item 33): opening the sheet reveals and focuses the current story/post; Escape restores the trigger without moving the edition.
 
 - [x] Mobile topic visibility (1031, item 33): active topic stays visible when the chip row narrows or the reader switches from desktop to mobile, without scrolling the edition.

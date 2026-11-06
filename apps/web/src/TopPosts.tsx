@@ -267,14 +267,13 @@ function Post({
         </p>
       )}
       {failed && (
-        <div className="x-media-error flex flex-wrap items-center gap-x-3 gap-y-1">
+        <div className="x-media-error flex flex-wrap items-center gap-x-2 gap-y-1">
           <p role="status" className="m-0 text-xs text-[var(--secondary)]">
-            X post could not load. Saved text is shown above; open it on X to
-            read the original.
+            X media unavailable.
           </p>
           <button
             type="button"
-            className="h-8 px-2 py-1 text-xs"
+            className="min-h-8 border-0 bg-transparent px-1 py-1 text-xs text-[var(--secondary)] underline underline-offset-4 hover:text-[var(--accent)]"
             onClick={() => {
               savedText.current?.querySelector('a')?.focus();
               setAttempt((value) => value + 1);
