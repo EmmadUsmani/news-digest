@@ -1,0 +1,12 @@
+## 2026-11-05: iteration 900 — Reader archive
+
+- Started clean on main; no leftover work. Owner would care: browse past editions in a clean date/topic list and open their saved reader pages.
+- Built `/editions` with 20-entry pages, URL-backed page navigation, empty/error/retry states and light/dark mobile/desktop layouts. Added Past editions link from the current reader; final edition layout remains next.
+- Reader history now includes only saved topic IDs/names alongside dates, without editorial modes or methods; no extra per-edition reads. Unit coverage verifies this boundary and rejects invalid offsets.
+- Browser checks use real saved history for screenshots/links and replay it for paging/failure cases; no writes, paid calls, settings changes or X activation. Four archive screenshots saved; desktop light/mobile dark visually reviewed. Discarded unrelated separation screenshots.
+- Browser script initially used unsupported top-level await, then expected an empty real third page; corrected its wrapper and retry assertion. Product browser checks passed. Integration HTTP expectation still omitted topic names; updated it and reran.
+- Updated TASKS and Stack/runtime and Operations handbook; archived iterations 888–889 to keep PROGRESS small. SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check passed typecheck/lint/format/boundaries and 509 unit tests; first integration 219/220 exposed the stale history expectation; pnpm test:integration rerun passed all 220; pnpm build; smoke-reader-archive.ts; smoke-admin-separation.ts; check-handbook.ts 01-stack-and-runtime and 08-operations; git diff --check.
+- Four app services restarted; /healthz database/Redis green; 36 sources/zero errors with collection through 23:16 UTC; Nov 5 scheduled edition complete and Nov 6 15:00 UTC next run retained. Existing observability shipper memory warning remains.
+- Push initially rejected because owner commit 390687a added STEERING 39 and revised X plan; fetched/merged without rewriting history. Docs-only merge needs no rebuild. Item 39 now precedes UI; updated TASKS. Subsequent push twice rejected by integration with `fatal error in commit_refs_rules`; local commits retained, publishing blocked.
+- Next: X reliability/accounting under STEERING 39, three Nov 5 failed keyword reruns after Nov 6 00:00 UTC; then fresh Nov 6 round/edition review. Edition reader layout follows. No X activation before decision.

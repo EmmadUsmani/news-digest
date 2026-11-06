@@ -773,7 +773,8 @@ void test('budget logs distinguish admission, refusal, settlement and uncertain 
     ...request,
     prompt: 'private-prompt',
     instructions: 'private-instructions',
-    purpose: 'private-purpose',
+    purpose: 'bluesky-social-editor-v1',
+    topicId: 'topic-bluesky',
   };
   const ledger = new MemoryLedger();
   const provider = fake(['not json', '{"ok":true}']);
@@ -809,6 +810,14 @@ void test('budget logs distinguish admission, refusal, settlement and uncertain 
       (line) => line.jobId === 'budget-job' && line.runId === 'offline',
     ),
   );
+  for (const line of lines.map(
+    (line) => JSON.parse(line) as Record<string, unknown>,
+  )) {
+    if (line.event === 'budget.decision' || line.event === 'llm.validation') {
+      assert.equal(line.purpose, 'bluesky-social-editor-v1');
+      assert.equal(line.topicId, 'topic-bluesky');
+    }
+  }
   assert.equal(events[0].estimateMicros, ledger.calls[0].estimate);
   assert.equal(events[1].costMicros, ledger.calls[0].cost);
   assert.ok(!lines.join('').includes('private-'));

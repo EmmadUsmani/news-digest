@@ -1,16 +1,3 @@
-## 2026-11-05: iteration 900 — Reader archive
-
-- Started clean on main; no leftover work. Owner would care: browse past editions in a clean date/topic list and open their saved reader pages.
-- Built `/editions` with 20-entry pages, URL-backed page navigation, empty/error/retry states and light/dark mobile/desktop layouts. Added Past editions link from the current reader; final edition layout remains next.
-- Reader history now includes only saved topic IDs/names alongside dates, without editorial modes or methods; no extra per-edition reads. Unit coverage verifies this boundary and rejects invalid offsets.
-- Browser checks use real saved history for screenshots/links and replay it for paging/failure cases; no writes, paid calls, settings changes or X activation. Four archive screenshots saved; desktop light/mobile dark visually reviewed. Discarded unrelated separation screenshots.
-- Browser script initially used unsupported top-level await, then expected an empty real third page; corrected its wrapper and retry assertion. Product browser checks passed. Integration HTTP expectation still omitted topic names; updated it and reran.
-- Updated TASKS and Stack/runtime and Operations handbook; archived iterations 888–889 to keep PROGRESS small. SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm check passed typecheck/lint/format/boundaries and 509 unit tests; first integration 219/220 exposed the stale history expectation; pnpm test:integration rerun passed all 220; pnpm build; smoke-reader-archive.ts; smoke-admin-separation.ts; check-handbook.ts 01-stack-and-runtime and 08-operations; git diff --check.
-- Four app services restarted; /healthz database/Redis green; 36 sources/zero errors with collection through 23:16 UTC; Nov 5 scheduled edition complete and Nov 6 15:00 UTC next run retained. Existing observability shipper memory warning remains.
-- Push initially rejected because owner commit 390687a added STEERING 39 and revised X plan; fetched/merged without rewriting history. Docs-only merge needs no rebuild. Item 39 now precedes UI; updated TASKS. Subsequent push twice rejected by integration with `fatal error in commit_refs_rules`; local commits retained, publishing blocked.
-- Next: X reliability/accounting under STEERING 39, three Nov 5 failed keyword reruns after Nov 6 00:00 UTC; then fresh Nov 6 round/edition review. Edition reader layout follows. No X activation before decision.
-
 ## 2026-11-05: iteration 901 — X token-only accounting and timeout
 
 - Started clean on main; no leftover work. Owner would care: failed X tool execution no longer leaves a full hold when valid token usage is available, and searches get 120 seconds.
@@ -141,3 +128,14 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (528 unit/223 isolated integration tests, typecheck/lint/format/boundaries); pnpm build; git diff --check. All passed.
 - Rebuilt/restarted API, worker, docs and schema; /healthz green and reader HTTP 200. First source probe raced readiness; repeat shows 36/36 healthy, alerts clear and no failed digest-generation jobs.
 - Next: Nov 6 edition review after publication; fresh X comparison after 21:00 UTC, keywords first. Bluesky outcomes next in Current order. Fixed X remains off, no further Nov 5 reruns; NBA/World failures remain unresolved.
+
+## 2026-11-06: iteration 913 — attribute AI diagnostics to step and topic
+
+- Started clean on main; no leftover work. Alerts clear, 36/36 sources healthy, no failed digest jobs; next scheduled edition Nov 6 15:00 UTC. X round waits until 21:00 UTC.
+- Implemented STEERING 40 diagnostic prerequisite: LLM validation and budget decision/failure/settlement logs now include purpose and topic ID. Article/social triage, story grouping and article/social editors supply topic IDs, including Bluesky editing.
+- Metadata stays outside prompt/cache fingerprints; no model/provider, budget, collection, query, selection or reader behavior changes. No paid calls or edition writes. Older requests without topic IDs still work; rejected text remains excluded.
+- One initial historical journal read confirmed missing attribution; historical Bluesky log/ledger reconciliation and saved outcomes remain open, including Nov 5 Sonnet skip. This step does not resolve those causes.
+- Verification: focused LLM tests 24/24; pnpm format; pnpm lint:fix; pnpm check; pnpm build; handbook observability check (18 pages/28 tables); git diff --check. All passed (528 unit/223 isolated integration tests).
+- Updated TASKS and observability handbook; archived iteration 900. SOURCES/NEEDS_FROM_HUMAN unchanged because source behavior and owner requirements did not change.
+- Rebuilt/restarted API, worker, docs and schema active; /healthz database/Redis green, reader HTTP 200, 36/36 sources healthy and alerts clear.
+- Next: finish STEERING 40 historical attribution once, then persist per-topic Bluesky outcomes/inspector before 13:00 UTC if ready; Nov 6 edition review after publication and fresh X comparison after 21:00 UTC. Fixed X stays off.

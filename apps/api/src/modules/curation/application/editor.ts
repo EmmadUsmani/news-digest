@@ -130,6 +130,7 @@ export class ShortlistEditor {
           model,
           purpose: 'shortlist-editor-v5',
           runId,
+          topicId: topic.id,
           instructions,
           prompt,
           maxOutputTokens: 4000,

@@ -104,6 +104,7 @@ export class EventGrouping {
           model: this.model,
           purpose: 'story-grouping-v3',
           runId,
+          topicId,
           instructions,
           prompt,
           maxOutputTokens: 4096,

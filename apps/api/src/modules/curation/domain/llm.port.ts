@@ -14,6 +14,8 @@ export interface ModelPrice {
 export interface LlmRequest {
   model: ModelPrice;
   purpose: string;
+  /** Observability only; excluded from prompt/cache identity. */
+  topicId?: string;
   runId: string;
   instructions: string;
   prompt: string;

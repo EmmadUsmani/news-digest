@@ -230,6 +230,7 @@ export class CandidateTriage {
           model: this.model,
           purpose,
           runId,
+          topicId: topic.id,
           instructions: activeInstructions,
           prompt: promptFor(batch),
           // Batch-local IDs reduce repeated UUID output. Restore original IDs
