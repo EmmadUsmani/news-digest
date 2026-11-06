@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Thin-source summaries (972): editor v6 requests concise attributed news instead of commentary about supplied excerpts; factual validation stays intact. Verify actual wording in the Nov 6 edition.
+
 - [x] Saved-edition selection replay (971): repair compact-date assertions and verify selected stories, posts and original links survive late latest-edition success/error on desktop/mobile light/dark.
 
 - [x] Social latency cause (970): replayable allowlisted timeline identifies serialized social scoring/Bluesky editing at the end of the saved edition; no production or spend changes.

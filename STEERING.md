@@ -1527,3 +1527,5 @@ ack: 2026-11-06 item 42 — iteration 967: retrying failed X media removed the f
 ack: 2026-11-06 item 42 — iteration 968: Gaming’s saved-text disclosure lost keyboard focus when media reloads hid it. Keep it visible after the first successful embed; verify focus and collapsed state through system theme changes in four reader views. No spend or selection changes.
 
 ack: 2026-11-06 item 42 — iteration 969: saved Gaming media collapsed during theme reloads, shifting the reader’s place. Reserve its previous height until replacement succeeds or fails; four-view saved-edition browser replay verifies pending media space. No spend or selection changes.
+
+ack: 2026-11-06 item 42 — iteration 972: saved Tech exploit summary exposed the supplied excerpt instead of adding news. Editor v6 explicitly requests one concise attributed sentence for headline-only evidence, retaining factual guards; actual wording awaits Nov 6 publication. No paid trial or source changes.

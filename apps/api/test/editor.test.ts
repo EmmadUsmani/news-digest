@@ -397,3 +397,36 @@ void test('repair feedback uses only closed application-owned field labels', () 
     ),
   );
 });
+
+void test('headline-only evidence accepts a concise attributed summary without repair on either model', async () => {
+  const title =
+    'OpenSSH 10.6p2 released with workaround for critical vulnerability';
+  const thin = [{ id: 'one', title, excerpt: title, sources: ['Hacker News'] }];
+  const output = {
+    brief: [title, 'OpenSSH release includes a vulnerability workaround.'],
+    stories: [
+      {
+        id: 'one',
+        evidenceIds: ['one'],
+        headline: title,
+        summary:
+          'A Hacker News item reports that OpenSSH 10.6p2 was released with a workaround for a critical vulnerability.',
+        whyItMatters: 'The release includes a vulnerability workaround.',
+        rationale: 'A security release relevant to this topic.',
+      },
+    ],
+  };
+  for (const refused of [[], ['claude-sonnet-5-5']]) {
+    const h = harness([output], refused);
+    const result = await h.editor.edit(topic, thin, 1, 'thin-source');
+    assert.deepEqual(result?.stories, output.stories);
+    assert.equal(h.calls.length, 1);
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v6');
+    assert.match(h.calls[0].instructions, /one sentence for thin evidence/);
+    assert.match(
+      h.calls[0].instructions,
+      /describe the news, not the supplied inputs/,
+    );
+    assert.deepEqual(h.diagnostics(), []);
+  }
+});
