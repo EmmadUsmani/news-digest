@@ -27,7 +27,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Remaining milestones and lower priorities
 
-- [ ] STEERING 37 LOW: off-VM Backblaze B2 backups (switched from R2 on Nov 6) B2 settings are on the VM and smoke-checked; build last, after everything above; do not build before settings arrive.
+- [ ] STEERING 37 LOW: off-VM Backblaze B2 backups (switched from R2 on Nov 6) B2 settings are on the VM and smoke-checked; owner added a hard 3 GB bucket budget and tiered retention (Nov 6). Build last, after everything above.
 
 - [x] STEERING 32: private nightly backups, seven-day retention, weekly isolated restore and 26-hour alert deployed (709); fixed search runtime remains off pending decision. [Operations](docs/handbook/01-app/10-backups.md).
 - [ ] M5: grouping quality above; independent labels, different dates and Gaming still needed. Agent-labelled windows are not general quality estimates.

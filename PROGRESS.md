@@ -166,4 +166,5 @@
 - No external browser requests, paid calls or data writes. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes. Archived iteration 1019 to keep PROGRESS small.
 - Passed pnpm build; pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration, exit 0); pnpm exec tsx scripts/smoke-reader-loading.ts; pnpm exec tsx scripts/smoke-reader-layout.ts; git diff --check. First check stopped on archived Markdown formatting; corrected and full rerun passed.
 - All 36 sources healthy; completed collection jobs and saved edition retain four topics, 20 stories and 17 posts. API/worker restarted and health/alerts verified before commit.
+- Initial push rejected: owner updated B2 steering concurrently. Merged origin/main without conflicts or history changes; owner now caps the backup bucket at 3 GB with tiered retention. Code unchanged; push succeeded.
 - Next: continue final reader spec; approved Bluesky slot activation pending under Current order; fresh X round after 21:00 UTC. Fixed search remains OFF.
