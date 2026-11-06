@@ -1,17 +1,19 @@
 # Lead setup
 
-**Status:** a fresh session passed the status and steering tests. Parallel
-sessions are being tried now. Nothing has yet tested two sessions committing.
+**Status:** working. Fresh sessions passed the status and steering tests. Two
+parallel sessions worked in separate worktrees, and one steered item 40 correctly.
+The original long thread has handed over and is retired.
 
 **Goal:** any session, person or agent can do this work from the repo alone, in
 parallel. No single long thread.
 
 **Next:**
 
-1. Steer the agent to build the status script (one command, about 40 lines, with
-   commit classification, a stale-workstream flag and size-limit checks).
-2. Test with fresh sessions, including two at once, then retire the old thread.
-3. Slim `STEERING.md`, after the X search decision. It's 72 KB, and the agent
+1. Check the agent follows Current order: it may remove finished lines or mark
+   them blocked, and must flag mismatches in `NEEDS_FROM_HUMAN.md`.
+2. Watch the first time two sessions change the same file, and the first time a
+   lead session and the agent both change app code.
+3. Slim `STEERING.md`, after the X search decision. It's over 72 KB, and the agent
    reads it every iteration. Safe process:
    - Audit every instruction: standing, active, finished, replaced.
    - **Owner approves the list before anything moves.**
@@ -21,4 +23,5 @@ parallel. No single long thread.
 **Later:** a daily brief the owner can read without a session, proposed steering
 through pull requests, and a short monthly review of this setup.
 
-**Limit:** sessions need SSH access to the VM. Other people need their own.
+**Limit:** sessions need SSH access to the VM, and the rule that auto-approves it
+is in the owner's personal settings. Other people need their own.

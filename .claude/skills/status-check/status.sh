@@ -31,9 +31,9 @@ order_time="$(git log -1 --format=%ct -L '/^## Current order/,/^## [0-9]/:STEERI
 steer_time="$(git log -1 --format=%ct --grep='^Steer:' -- STEERING.md)"
 [ -n "$order_time" ] && [ "$order_time" -lt "$steer_time" ] && echo "FLAG: list unchanged since the latest steering"
 echo "== Lead files"
-last_steer="$(git log -1 --format=%ct -- STEERING.md)"
+cutoff="$(($(date +%s) - 3 * 86400))"
 for f in docs/lead/work/*.md; do
-  [ "$(git log -1 --format=%ct -- "$f")" -lt "$last_steer" ] && echo "older than latest steering: $f"
+  [ "$(git log -1 --format=%ct -- "$f")" -lt "$cutoff" ] && echo "not updated in 3 days: $f"
 done
 check_size() { [ "$(wc -l <"$1")" -gt "$2" ] && echo "over ${2} lines: $1"; }
 check_size CLAUDE.md 200
