@@ -1471,3 +1471,5 @@ ack: 2026-11-06 item 42 — iteration 931: World’s active mobile topic chip st
 ack: 2026-11-06 item 33 — iteration 932: the rebuilt archive called a failed refresh a loading failure and hid older-page navigation despite retaining saved links. Preserve browsing and explain the refresh failure; ported the legacy refresh check to the archive, verified desktop/mobile light/dark. No spend or selection changes.
 
 ack: 2026-11-06 item 42 — iteration 933: saved X links replaced their post text with a generic accessibility label. Preserve the saved text in the accessible name with author/destination context; browser replay verified desktop/mobile light/dark. No spend or selection changes.
+
+ack: 2026-11-06 item 42 — iteration 935: saved reader content remained visible after refresh failure but the message claimed it could not load (and a 404 claimed it was missing). Show an accurate refresh message and retry; verified existing desktop/mobile light/dark recovery replays. No spend or selection changes.

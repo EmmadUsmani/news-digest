@@ -1,14 +1,3 @@
-## 2026-11-06: iteration 920 — durable Bluesky edition alerts
-
-- Started clean on main; no leftover work. Health green, 36/36 sources healthy, no failed digest jobs and alerts clear. Higher-priority reviews await publication/21:00 UTC.
-- Added BlueskyEditingFailed and BlueskyNoPicks from saved scheduled snapshots; no worker counters. Missing/failing/refused results flag the latest edition; three open-slot opportunities without a pick persist until a pick.
-- Excluded on-demand, switched-off and pre-step-1 editions (cutover 2026-11-06 01:36 UTC). A restricted aggregate view keeps snapshot content unavailable to the metrics login.
-- Offline SQL coverage verifies exclusions, sibling failures, missing results, repeated fresh reads and recovery; alert rules verify thresholds and clearing. No paid calls or selection/budget changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (535 unit/224 isolated integration tests); pnpm build; check-handbook.ts 09-observability; vmalert-tool-prod unittest; check-observability.ts --verify-alerts; git diff --check. All passed.
-- Loaded aggregate view/exporter config and alert rules; live verification reports 18 healthy alert rules, zero firing/pending, saved Bluesky aggregates 0/0. No eligible scheduled edition exists yet; neither new alert fires.
-- Rebuilt/restarted API/worker/docs/schema; health/database/Redis green, reader HTTP 200 and 36/36 sources healthy. Updated TASKS and affected handbook; SOURCES/NEEDS_FROM_HUMAN unchanged.
-- Next: item 40 per-post validation, then default-off reserved slot; Nov 6 edition/cost review after publication, X experiment after 21:00 UTC. Fixed search remains off.
-
 ## 2026-11-06: iteration 922 — default-off Bluesky reserved slot
 
 - Started clean on main; no leftover work. Health/alerts green, 36/36 sources healthy, zero failed digest jobs. Higher priorities await publication/21:00 UTC.
@@ -145,3 +134,13 @@
 - Verification: pnpm exec tsx scripts/smoke-reader-layout.ts (failed before, passed after); pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check. Final results below.
 - Archived oldest progress entry; updated TASKS. SOURCES, handbook, STEERING and NEEDS_FROM_HUMAN unchanged; no source/system-flow or priority change. Next: Nov 6 edition/Bluesky review after publication, X round after 21:00 UTC.
 - Full check first exited 143 during unit tests with no reported failure; retry exited zero with 543 unit/224 isolated integration tests passing. Build passed. Restarted API/worker/docs/schema; final health/alerts and reader HTTP results checked before commit.
+
+## 2026-11-06: iteration 935 — accurate saved reader refresh recovery
+
+- Started clean on main; no leftover work. Alerts/health green. Read saved headlines, summaries and posts: World breadth and known Tech grouping await Nov 6 publication; X round waits until 21:00 UTC.
+- Reader weakness: refresh failure claimed the edition could not load, and refresh 404 claimed it did not exist, while saved content remained visible. Distinguish cached refresh failure from initial failure and retain clear retry; readers can keep reading with an accurate explanation.
+- Existing smoke-edition-refresh.ts and smoke-missing-edition.ts failed before the fix; both passed after, desktop/mobile light/dark, with browser-only 503/404 replay, no writes and unchanged real saved edition. Updated screenshots and inspected mobile light/desktop dark.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; both recovery browser scripts; git diff --check. Final suite/service results below.
+- Archived iteration 920 to keep PROGRESS small; updated TASKS and STEERING ack. No source/system-flow changes; SOURCES, handbook and NEEDS_FROM_HUMAN unchanged. No paid calls or flag changes.
+- Next: Nov 6 World/cost/Bluesky review after publication; fresh X round after 21:00 UTC.
+- Full check passed: 543 unit/224 isolated integration tests, coverage complete. Initial check caught unformatted archived progress; formatted it and reran successfully. Build and both browser replays passed; 36/36 sources healthy, all queue workers available and zero retained failed runs. Final restart/health/alerts checked before handoff.

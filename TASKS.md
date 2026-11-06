@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Reader refresh recovery (935): saved edition survives refresh 503/404 with accurate message and retry; missing-edition/outage browser coverage passes.
+
 - [x] Reader layout check (934): repaired the obsolete X accessible-name expectation; real saved-content desktop/mobile light/dark replay passes again, with unchanged screenshots.
 
 - [x] Accessible X post links (933): screen-reader link names include saved post text and destination context, including after media loads; desktop/mobile light/dark browser replay verified.

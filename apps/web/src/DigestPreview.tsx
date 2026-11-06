@@ -32,8 +32,18 @@ export function DigestPreview() {
       )}
       {edition.isError && (
         <div role="alert" className="pt-16">
-          {edition.error instanceof HttpError &&
-          edition.error.status === 404 ? (
+          {preview ? (
+            <>
+              <p>
+                The edition could not be refreshed. Showing the saved edition
+                already loaded.
+              </p>
+              <Button onClick={() => void edition.refetch()}>
+                Try loading edition again
+              </Button>
+            </>
+          ) : edition.error instanceof HttpError &&
+            edition.error.status === 404 ? (
             <>
               <h1 className="font-sans text-2xl tracking-tight">
                 Edition not found
@@ -45,7 +55,9 @@ export function DigestPreview() {
           ) : (
             <>
               <p>Could not load the edition.</p>
-              <Button onClick={() => void edition.refetch()}>Try again</Button>
+              <Button onClick={() => void edition.refetch()}>
+                Try loading edition again
+              </Button>
             </>
           )}
         </div>
