@@ -6,6 +6,7 @@ import { Button } from './components/ui/button';
 import { Card } from './components/ui/card';
 import { editionQuery, HttpError } from './queries';
 import { ReaderContents } from './ReaderContents';
+import { StorySources } from './StorySources';
 import { TopPosts } from './TopPosts';
 
 export function DigestPreview() {
@@ -109,43 +110,11 @@ export function DigestPreview() {
                             {story.summary}
                           </p>
                         )}
-                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-[var(--secondary)]">
-                          <span>{story.sources.slice(0, 2).join(' · ')}</span>
-                          <span aria-hidden="true">·</span>
+                        <StorySources story={story}>
                           <time dateTime={story.publishedAt}>
                             {relativeTime(story.publishedAt, preview.windowEnd)}
                           </time>
-                          {story.coverage && story.coverage.length > 1 && (
-                            <details className="coverage w-full text-xs">
-                              <summary className="cursor-pointer text-xs">
-                                +{story.coverage.length - 1} more{' '}
-                                {story.coverage.length === 2
-                                  ? 'article'
-                                  : 'articles'}
-                              </summary>
-                              <ul className="my-2 space-y-2 pl-4">
-                                {story.coverage
-                                  .filter((article) => article.id !== story.id)
-                                  .map((article) => (
-                                    <li key={article.id}>
-                                      <a
-                                        href={article.url}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="text-sm font-normal"
-                                      >
-                                        {article.title}
-                                      </a>
-                                      <span className="text-xs">
-                                        {' '}
-                                        · {article.sources.join(' · ')}
-                                      </span>
-                                    </li>
-                                  ))}
-                              </ul>
-                            </details>
-                          )}
-                        </div>
+                        </StorySources>
                       </Card>
                     </li>
                   ))}

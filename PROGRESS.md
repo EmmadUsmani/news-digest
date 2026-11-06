@@ -145,3 +145,16 @@
 - Updated TASKS and affected handbook; archived iterations 909–910 and trimmed repeated done markers. SOURCES/NEEDS_FROM_HUMAN unchanged. Final reader acceptance remains open: date switching, source favicons, post cards/embed sizing and porting legacy inline-history smoke scripts.
 - Rebuilt/restarted API/worker/docs/schema; all active, health/database/Redis green, reader HTTP 200, 36/36 sources healthy and alerts clear. Latest real saved edition remains four topics/17 stories/14 posts.
 - Next: finish reader details while awaiting Nov 6 edition/grouping/cost and Bluesky activation gate; fresh X round after 21:00 UTC. Reserved Bluesky slot and fixed X search remain OFF.
+
+## 2026-11-06: iteration 924 — linked reader source rows
+
+- Started clean on main; no leftover work. Alerts/health green, 36/36 sources healthy and zero failed digest-generation jobs. Higher priorities await Nov 6 publication/21:00 UTC.
+- Owner-visible value: readers can open each named outlet's own report and see distinct-outlet coverage without confusing article counts with outlet counts.
+- Added compact linked source rows with direct-origin, lazy favicons and no referrer; failed icons hide while text links remain. Deduplicated outlet names across saved coverage; show two names and expand additional reports inline.
+- Grouped story.sources contains an outlet union: resolved each outlet's link/icon through its saved coverage report, preserving primary ordering. No changes to saved content, collection, selection, budgets or flags; no paid calls.
+- Browser assertions cover saved names, per-outlet URLs/icon origins, 12 px labels, distinct-outlet counts, contents/mobile/deep links, no overflow/writes/admin reads. External assets blocked in layout checks; screenshots retain real saved text.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; final web build/typecheck/targeted ESLint; smoke-reader-layout.ts; smoke-reader-story-text.ts with latest saved edition; smoke-reader-archive.ts; smoke-admin-gate.ts; check-handbook.ts 08-operations; git diff --check.
+- First full check was terminated (143) after 543 passing unit tests and 88 passing integration cases; clean rerun passed all 543 unit/224 isolated integration tests. Final browser checks and web build/typecheck/ESLint passed.
+- Updated TASKS and Operations handbook; refreshed device/theme screenshots, visually reviewed desktop/mobile. SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Rebuilt/restarted API/worker/docs/schema; all active, database/Redis healthy, reader HTTP 200, 36/36 sources healthy and alerts clear. Latest saved edition: four topics/17 stories/14 posts.
+- Next: reader date switching and post cards/embed sizing; Nov 6 edition/grouping/cost and Bluesky activation gate after publication, fresh X round after 21:00 UTC. Reserved Bluesky slot and fixed X search remain OFF.

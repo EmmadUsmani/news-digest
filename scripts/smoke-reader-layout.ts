@@ -54,6 +54,62 @@ async function smoke() {
           for (const story of topic.stories) {
             const card = page.locator(`[id="story-${story.id}"]`);
             assert.equal(await card.locator('h3').innerText(), story.title);
+            const sources = card.locator('.story-sources');
+            const expected = new Map<string, string>();
+            for (const article of [story, ...(story.coverage ?? [])]) {
+              for (const name of article.sources) {
+                const key = name.trim().toLocaleLowerCase();
+                if (key && !expected.has(key)) expected.set(key, name);
+              }
+            }
+            const visibleLinks = sources.locator(':scope > a');
+            if (await visibleLinks.count()) {
+              assert.equal(
+                await visibleLinks
+                  .first()
+                  .locator('span')
+                  .evaluate((node) => getComputedStyle(node).fontSize),
+                '12px',
+              );
+            }
+            assert.deepEqual(
+              await visibleLinks.allTextContents(),
+              [...expected.values()].slice(0, 2),
+            );
+            for (const link of await visibleLinks.all()) {
+              const name = (await link.innerText()).trim();
+              const report = story.coverage?.find((article) =>
+                article.sources.includes(name),
+              );
+              assert.equal(
+                await link.getAttribute('href'),
+                report?.url ?? story.url,
+              );
+              const icon = link.locator('img');
+              if (await icon.count()) {
+                assert.equal(
+                  await icon.getAttribute('src'),
+                  `${new URL(report?.url ?? story.url).origin}/favicon.ico`,
+                );
+              }
+            }
+            for (const image of await visibleLinks.locator('img').all()) {
+              assert.equal(
+                await image.getAttribute('referrerpolicy'),
+                'no-referrer',
+              );
+              assert.equal(await image.getAttribute('alt'), '');
+            }
+            if (
+              expected.size > 2 &&
+              story.coverage &&
+              story.coverage.length > 1
+            ) {
+              assert.equal(
+                await sources.locator('summary').innerText(),
+                `+${expected.size - 2} more ${expected.size === 3 ? 'outlet' : 'outlets'}`,
+              );
+            }
             if (story.summary)
               assert.equal(
                 await card.locator('.excerpt').innerText(),
