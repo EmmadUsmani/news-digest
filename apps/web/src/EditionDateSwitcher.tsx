@@ -78,6 +78,7 @@ export function EditionDateSwitcher({
             </span>
             <span className="hidden sm:inline">
               {new Date(edition.windowEnd).toLocaleDateString(undefined, {
+                weekday: 'short',
                 month: 'short',
                 day: 'numeric',
                 year: 'numeric',

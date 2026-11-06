@@ -1711,3 +1711,5 @@ ack: 2026-11-06 item 33/43 — iteration 1037: keyboard readers can skip header/
 ack: 2026-11-06 item 33/43 — iteration 1038: keyboard readers can continue from the top of a newly loaded archive page into its dates; page number is described on focus. Desktop/mobile light/dark [screenshots](docs/screenshots/ui/reader-archive-page-2-mobile-light.png) verified; no paid calls.
 
 ack: 2026-11-06 item 33/43 — iteration 1039: owners now use the rebuilt overview and dedicated management pages without the duplicate legacy controls screen; desktop/mobile light/dark [screenshots](docs/screenshots/ui/admin-overview-mobile-light.png) verified. No paid calls.
+
+ack: 2026-11-06 item 33/43 — iteration 1040: readers can identify the weekday in the desktop edition date, matching the approved header; mobile stays compact. Older/newer navigation and desktop/mobile light/dark verified; no paid calls.

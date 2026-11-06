@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Reader weekday (1040, item 33): desktop edition dates include the weekday from the approved header spec; compact mobile dates and older/newer navigation preserved, verified light/dark.
+
 - [x] Replaced admin screen cleanup (1039, item 33): removed the combined legacy controls and status screen; overview and dedicated pages remain accessible through desktop/mobile navigation, verified light/dark.
 
 - [x] Archive pagination keyboard reading (1038, item 33): new page focuses the heading after dates load, describes its page number and lets Tab continue to the first date; desktop/mobile light/dark verified.

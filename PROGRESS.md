@@ -1,13 +1,3 @@
-## 2026-11-06: iteration 1024 — build compact reader contents
-
-- Advanced item 33 under item 43; X items 39/34 await the authorized round after 21:00 UTC. Started clean on main; no leftover work. Alerts clear and /healthz DB/Redis OK.
-- Reader contents now match the approved spec: one-line headlines, expanded-topic chevrons and a visible current-story arrow. Full titles remain in accessible text and hover titles; links and mobile sheet navigation preserved.
-- Extended read-only scrolling verification for single-line containment, full titles and active markers. Fixed stale selectors exposed by the saved Bluesky post and an NBA headline, without changing reader data.
-- Passed pnpm exec tsx scripts/smoke-reader-scroll.ts and scripts/smoke-reader-layout.ts across desktop/mobile light/dark, including deep links, coverage and forbidden-label checks; no writes or external calls. Updated screenshots; visually inspected desktop/mobile light.
-- pnpm build passed; API/worker restarted, /healthz and pnpm obs alerts clear. pnpm check passed (562 unit/225 isolated integration), as did pnpm format, pnpm lint:fix and git diff --check.
-- Archived iterations 1008–1009 to keep this file small. No source/schema/handbook-flow change; SOURCES and NEEDS_FROM_HUMAN unchanged. No paid calls.
-- Next: continue item 33 spec completion; fresh X round after 21:00 UTC. Reserved Bluesky slot stays OFF; deployed editorial changes await next edition.
-
 ## 2026-11-06: iteration 1025 — compact reader post notes
 
 - Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; alerts clear and /healthz DB/Redis OK.
@@ -160,3 +150,13 @@
 - Updated runtime handbook to describe the completed admin navigation. SOURCES and NEEDS_FROM_HUMAN unchanged: no source or external-system changes. No paid calls.
 - Verification: pnpm build; pnpm exec tsx scripts/smoke-admin-overview.ts; pnpm exec tsx scripts/check-handbook.ts 01-stack-and-runtime; pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration tests, exit 0); git diff --check.
 - API/worker restarted; health DB/Redis OK and alerts clear. Archived iteration 1023 to keep this log small. Next: final reader completion; fresh X rounds after 21:00 UTC; approved Bluesky reserved-slot activation pending under Current order. Fixed search OFF.
+
+## 2026-11-06: iteration 1040 — weekday in the reader header
+
+- Advanced item 33/43 while X rounds wait until after 21:00 UTC. Started clean on main; no leftovers; alerts clear and health DB/Redis OK.
+- Desktop edition dates now include the weekday from the approved header spec; mobile dates retain their compact month/day display and accessible year.
+- Read-only Playwright date/overflow check passed desktop/mobile light/dark; archive smoke passed older/newer navigation, reload, paging and error/retry. Four date screenshots updated; desktop light and mobile dark visually inspected.
+- Initial browser assertion included the mobile screen-reader-only year; corrected the assertion to inspect the visible date text. No product defect or external calls.
+- All 36 sources healthy; no failed retained digest runs; latest saved edition four topics/20 stories/17 posts. No paid calls. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes.
+- Verification: pnpm build; node /tmp/news-digest-1040-browser.cjs; pnpm exec tsx scripts/smoke-reader-archive.ts; pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration, exit 0); git diff --check. API/worker restarted; health DB/Redis OK and alerts clear.
+- Archived iteration 1024 to keep this log small. Next: continue final reader; fresh X round after 21:00 UTC; approved Bluesky reserved-slot activation pending under Current order. Fixed search OFF.
