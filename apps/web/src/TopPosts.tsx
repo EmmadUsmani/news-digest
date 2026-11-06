@@ -1,6 +1,7 @@
 import type { ReaderEdition } from '@digest/contracts';
 import React from 'react';
 
+import { Card } from './components/ui/card';
 import { StoryTime } from './StoryTime';
 
 type ReaderPost = ReaderEdition['topics'][number]['posts'][number];
@@ -80,8 +81,13 @@ function currentTheme(): 'light' | 'dark' {
 export function TopPosts({ posts }: { posts: ReaderPost[] }) {
   const theme = React.useSyncExternalStore(subscribeTheme, currentTheme);
   return (
-    <section className="top-posts max-w-none p-0" aria-label="Top posts">
-      <h4>Posts</h4>
+    <section
+      className="top-posts mt-8 max-w-none border-t border-[var(--border)] p-0 pt-4"
+      aria-label="Top posts"
+    >
+      <h3 className="m-0 mb-3 font-sans text-xl leading-7 font-semibold tracking-tight">
+        Posts
+      </h3>
       {posts.length === 0 ? (
         <p className="text-sm text-[var(--secondary)]">
           No standout posts today.
@@ -231,7 +237,7 @@ function Post({
     };
   }, [post.externalId, attempt, theme]);
   return (
-    <article className="post-card">
+    <Card as="article" className="post-card min-w-0 rounded-lg p-5 shadow-none">
       <p className="byline">
         X ·{' '}
         <a
@@ -292,7 +298,7 @@ function Post({
         </p>
       )}
       <PostContext post={post} />
-    </article>
+    </Card>
   );
 }
 
@@ -301,7 +307,10 @@ function RedditPost({ post }: { post: SelectedRedditPost }) {
     ? post.thumbnail
     : null;
   return (
-    <article className="post-card reddit-card">
+    <Card
+      as="article"
+      className="post-card reddit-card min-w-0 rounded-lg p-5 shadow-none"
+    >
       <p className="byline">
         Reddit · r/{post.subreddit} ·{' '}
         <a href={post.authorUrl} target="_blank" rel="noreferrer">
@@ -340,7 +349,7 @@ function RedditPost({ post }: { post: SelectedRedditPost }) {
         </p>
       )}
       <PostContext post={post} />
-    </article>
+    </Card>
   );
 }
 
@@ -372,7 +381,10 @@ function LinkedPostText({ text }: { text: string }) {
 
 function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
   return (
-    <article className="post-card bluesky-card">
+    <Card
+      as="article"
+      className="post-card bluesky-card min-w-0 rounded-lg p-5 shadow-none"
+    >
       <p className="byline">
         Bluesky ·{' '}
         <a
@@ -420,6 +432,6 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
         Open original post on Bluesky
       </a>
       <PostContext post={post} />
-    </article>
+    </Card>
   );
 }

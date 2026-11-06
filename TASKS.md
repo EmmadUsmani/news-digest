@@ -41,44 +41,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Compact X recovery (1033, item 33): unavailable media and retry share one quiet row; saved post text and keyboard recovery stay available.
-
-- [x] Current mobile contents (1032, item 33): opening the sheet reveals and focuses the current story/post; Escape restores the trigger without moving the edition.
-
-- [x] Mobile topic visibility (1031, item 33): active topic stays visible when the chip row narrows or the reader switches from desktop to mobile, without scrolling the edition.
-
-- [x] Resized contents (1030, item 33): shrinking the desktop window keeps the current entry visible without moving the edition; existing short-window navigation preserved.
-
-- [x] Visible current contents (1029, item 33): short desktop windows reveal the active story/post entry by scrolling only the contents panel, preserving the edition reading position.
-
-- [x] Compact post timestamps (1028, item 33): X, Bluesky and Reddit cards share refreshing relative ages with exact saved timestamps retained for hover and screen readers.
-
-- [x] Inline grouped outlets (1027, item 33): collapsed coverage shares the source/time row; +N outlets expands every saved report. Full article count retained for hover/accessibility; desktop/mobile light/dark verified.
-
-- [x] Relative story times (1026, item 33): compact minute/hour/day ages retain exact saved date/time on hover and for screen readers; refresh every minute.
-
-- [x] Compact post notes (1025, item 33): one-line editorial notes preserve full accessible/hover text; notes repeating saved post text are hidden. Desktop/mobile light/dark saved-edition and synthetic replay verified.
-
-- [x] Reader contents (1024, item 33): single-line headlines, expanded-topic chevrons and visible current-story marker now match the approved spec; full titles retained for hover/accessibility. Desktop/mobile light/dark scrolling and screenshots verified.
-
-- [x] Headline-only prose (1023): Nov 6 Tech summaries quoted a post title then repeated its claim. Story editor v12 requests a direct attributed sentence, preserving allegations; fake-only verification, production prose awaits the next scheduled edition.
-
-- [x] Bluesky admission decision (1022): isolated real-ledger regression proves reordered holds change X admission; retained sequential production to protect edition quality. No paid calls or latency claim.
-
-- [x] Reader layout spec alignment (1021): corrected stale two-column desktop diagram to the approved and deployed full-width post rows; runtime preserved.
-
-- [x] Bluesky speed preparation (1020): final editor accepts a pre-scored shortlist and current picks/slots; sequential production path preserved, fake-only equivalence and fail-closed checks added. No measured latency gain yet.
-
-- [x] Feed excerpt fallback (1019): missing/blank summaries use bounded feed body text, preserving publisher summary precedence; no page fetching or paid calls.
-
-- [x] Preserve article text (1017): blank excerpts from title-only rediscovery keep saved publisher text; nonblank corrections still update it. Isolated repository regression covers both sources and replacement. Deployed after 16:00 (1018).
-
-- [x] Bluesky author profiles (1016): link author names to the saved post’s profile, including encoded DIDs; isolated desktop/mobile light/dark replay verified. Deployed after 16:00 (1018).
-
-- [x] Bluesky cited links (1015): saved post web URLs open directly from the reader card; original text preserved. Desktop/mobile light/dark replay verified. Deployed after 16:00 (1018).
-
-- [x] Nov 6 edition review (1011): World five stories versus two; all topics fully AI-edited, $0.286904/137.059 s, one distinct World Bluesky pick with desktop/mobile screenshots. Slot cost gate fails; stays OFF awaiting owner. [Review](docs/edition-reviews/2026-11-06.md).
-
-- Earlier steps 995–1006: [completed markers](docs/progress-archive/2026-11-06-reader-done-1007.md).
+- [x] Shared reader cards (1034, item 33): post cards now match story padding/corners through the shared component; Posts headings use the approved scale and correct heading level. All platforms verified with desktop/mobile light/dark replay.
+- Earlier completed markers: [through 1033](docs/progress-archive/2026-11-06-reader-done-1034.md).
 
 - Next: fresh X round after 21:00 UTC; reserved Bluesky slot now approved by owner; enable without changing the daily cap. Tech repetition correction prepared (1013): social editor v6 distinguishes launch details from independently newsworthy developments; deployed/restarted after 16:00 UTC (1018); inspect next scheduled picks. Fixed search stays off.

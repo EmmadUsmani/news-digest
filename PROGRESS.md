@@ -1,15 +1,3 @@
-## 2026-11-06: iteration 1018 — deploy the pending reader and ingestion fixes
-
-- Started clean on main; no leftover work. Alerts, health, 13 services and 36 sources healthy; no failed digest jobs.
-- Reader weakness remains repeated Tech launch posts and thin source text; deploy prepared social editor v6 and blank-excerpt preservation rather than stacking more changes.
-- After 16:00 UTC: built current main, installed shipper unit, reloaded systemd and restarted shipper/API/worker; no restart during freeze.
-- Shipper now uses MemoryHigh=64M with unchanged MemoryMax=80M; verified fresh API request delivery in 3.056 s and all seven retained log sources.
-- Reader cited links and author profiles are live; real World card verified on desktop/mobile and mobile screenshot visually checked. Saved editions unchanged; selection/summary improvement awaits future ingestion and scheduled editions. No paid calls.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration); pnpm build; pnpm exec tsx scripts/check-observability.ts --verify-o2; reader layout and Bluesky card Playwright checks; health/services/sources/jobs/alerts; git diff --check.
-- Initial check found archive formatting; corrected. Final lint received SIGTERM without diagnostics; retry passed. Layout smoke twice timed out at a mobile topic jump (heading 212px from top, focus/hash correct); replaced fixed 190px limit with whole heading in top third. Archived 1000–1001.
-- Next: Nov 6 X fresh-window round after 21:00 UTC. Fixed search and Bluesky reserved slot remain OFF; reserved slot awaits owner after failed cost gate.
-- SOURCES/handbook/NEEDS_FROM_HUMAN unchanged: deployment of already documented changes; no new source, flow or owner dependency.
-
 ## 2026-11-06: iteration 1019 — retain feed body excerpts when summaries are absent
 
 - Started clean on main; no leftover work. Alerts clear, /healthz DB/Redis OK and all 36 sources healthy.
@@ -171,3 +159,13 @@
 - Passed pnpm build; pnpm exec tsx scripts/smoke-reader-x-media.ts; pnpm format; pnpm lint:fix; git diff --check. Full pnpm check passed static checks, 562 unit and 225 integration tests, then exited 143 after coverage; standalone pnpm test:integration passed all 225 tests (exit 0).
 - API/worker restarted; /healthz DB/Redis OK, alerts clear; saved edition retains four topics, 20 stories and 17 posts. No paid calls or source/schema/handbook-flow changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
 - Archived iteration 1017 to keep PROGRESS small. Next: continue final reader; approved Bluesky slot pending under Current order; X round after 21:00 UTC.
+
+## 2026-11-06: iteration 1034 — shared final reader post cards
+
+- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; no leftover work; alerts clear and /healthz DB/Redis OK.
+- Reader weakness: legacy post cards had different corners/padding from story cards, and Posts skipped a heading level. All platforms now use the shared card component with matching appearance; Posts uses the approved 20px semibold scale. Removed replaced legacy card/section CSS.
+- Saved-edition Playwright layout and X loading/failure/retry checks passed desktop/mobile light/dark. Synthetic Bluesky and Reddit card checks passed all four views; repaired stale Reddit assertion that wrongly rejected the now-public editorial note. No external calls/writes; Reddit stays parked.
+- Screenshots updated for post cards/section; mobile X and desktop dark reader visually inspected. Archived old completed task markers and iteration 1018 to keep orientation files smaller.
+- Passed pnpm build; pnpm format; pnpm lint:fix; git diff --check. Full pnpm check passed static checks and all 562 unit tests, then was terminated (exit 143) during integration without a reported test failure; standalone pnpm test:integration passed all 225 tests (exit 0).
+- API/worker restarted; /healthz DB/Redis OK and alerts clear. Real saved edition retains four topics, 20 stories and 17 posts. No paid calls or source/schema/handbook-flow changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Next: continue final reader; approved Bluesky reserved slot activation pending under Current order; fresh X round after 21:00 UTC. Fixed search stays OFF.

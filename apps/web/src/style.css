@@ -573,25 +573,9 @@
     margin: 16px 0;
   }
 
-  .top-posts {
-    margin-top: 2rem;
-    border-top: 1px solid var(--border, var(--border));
-    padding-top: 1rem;
-  }
-  .top-posts h4 {
-    font-size: 1.3rem;
-    margin: 0 0 0.5rem;
-  }
   .post-method {
     color: var(--secondary);
     font-size: 0.9rem;
-  }
-  .post-card {
-    min-width: 0;
-    padding: 1rem;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    background: var(--surface);
   }
   .digest-topic .saved-post-text {
     font-size: 1rem;

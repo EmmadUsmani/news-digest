@@ -142,7 +142,7 @@ async function smoke() {
           edition.topics.length,
         );
         assert.equal(
-          await page.locator('[data-slot="card"]').count(),
+          await page.locator('[id^="story-"][data-slot="card"]').count(),
           edition.topics.reduce((n, topic) => n + topic.stories.length, 0),
         );
         for (const topic of edition.topics) {
@@ -185,10 +185,58 @@ async function smoke() {
           path: `docs/screenshots/ui/reader-brief-${device}-${theme}.png`,
           fullPage: false,
         });
+        const storyAppearance = await page
+          .locator('[id^="story-"]')
+          .first()
+          .evaluate((node) => {
+            const style = getComputedStyle(node);
+            return {
+              radius: style.borderRadius,
+              padding: style.padding,
+              border: style.borderColor,
+              background: style.backgroundColor,
+              shadow: style.boxShadow,
+            };
+          });
+        for (const heading of await page
+          .getByRole('heading', { name: 'Posts', exact: true })
+          .all()) {
+          assert.equal(
+            await heading.evaluate((node) => node.tagName),
+            'H3',
+            'Posts share the story heading level under their topic',
+          );
+          assert.deepEqual(
+            await heading.evaluate((node) => {
+              const style = getComputedStyle(node);
+              return [style.fontSize, style.fontWeight];
+            }),
+            ['20px', '600'],
+            'Posts use the approved section heading scale',
+          );
+        }
         for (const grid of await page.locator('.post-grid').all()) {
           const cards = await grid.locator('.post-card').all();
           let previousBottom = 0;
           for (const card of cards) {
+            assert.equal(
+              await card.evaluate((node) => node.tagName),
+              'ARTICLE',
+            );
+            assert.deepEqual(
+              await card.evaluate((node) => {
+                const style = getComputedStyle(node);
+                return {
+                  radius: style.borderRadius,
+                  padding: style.padding,
+                  border: style.borderColor,
+                  background: style.backgroundColor,
+                  shadow: style.boxShadow,
+                };
+              }),
+              storyAppearance,
+              'Story and post cards share the final reader appearance',
+            );
             const bounds = await card.boundingBox();
             assert.ok(bounds);
             assert.ok(bounds.y >= previousBottom, 'Posts occupy separate rows');
