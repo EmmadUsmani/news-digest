@@ -134,3 +134,30 @@
   Do not rewrite old editions or resolve Google redirects for this proposal.
 - Status: proposal under item 38, pending owner review. World breadth and the
   Nov 6 quality/cost gates remain ahead of this work; no runtime change.
+
+## Connect reporting to the original posts in the same edition
+
+- Reader problem: Nov 5 Tech story 2 reports 948 Linux privilege-escalation
+  exploits; post 2 quotes Greg Brockman's account of almost 1,000 exploits.
+  Both are useful, but the reader must recognize the connection while moving
+  between sections. The saved reader contract has no story-to-post relation.
+- Proposal: link a story to a related selected post within the same topic,
+  preserving both the reporting and the original voice. A short “Related post”
+  link could jump to the existing card; the post could link back to the story.
+  Do not remove either item merely because they discuss the same event.
+- Start with explicit evidence: a selected story's stored coverage cites the
+  exact selected post URL or ID. Normalize only already-supported X URL forms.
+  Shared names, keywords or similar numbers are insufficient. The Nov 5
+  example motivates the feature but does not establish that exact-link
+  evidence exists; leave it unlinked unless that evidence is saved.
+- Scope/cost estimate: 1–2 implementation days for a deterministic relation
+  builder, optional snapshot/reader fields, accessible in-page navigation and
+  old-snapshot compatibility. No HTTP requests, model calls or new vendors.
+  A semantic relation pass would require a separate proposal and cost gate.
+- Acceptance if approved: exact cited-post fixtures link correctly, unrelated
+  posts and uncited lookalikes remain separate, old editions render unchanged,
+  and links work across mobile topic navigation without losing reading place.
+  Measure actual exact-link coverage on saved editions before implementation;
+  defer if it is too sparse to help the reader.
+- Status: proposal only under item 38. World breadth and the Nov 6 edition,
+  Bluesky and X decisions remain ahead of this work. No runtime change.

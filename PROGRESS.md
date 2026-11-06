@@ -202,3 +202,15 @@
 - Proposal only under item 38; no collection, paid calls, source/schema/runtime changes or service restarts during the deployment freeze.
 - SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Next: Nov 6 reader/World/cost/Bluesky review after publication; fresh X round after 21:00 UTC.
 - Verification: saved reader API/export and source-row implementation confirm the example; pnpm format, pnpm lint:fix and pnpm build passed. pnpm check passed (560 unit/224 isolated integration); git diff --check passed.
+
+## 2026-11-06: iteration 1000 — scope story-to-post connections
+
+- Started clean on main; alerts clear, health/DB/Redis green, API/worker active. No leftover work.
+- Latest saved reader remains Nov 5 (edition 7d99b279); World breadth is still the largest weakness and awaits the deployed fix's scheduled output.
+- Reader friction: Tech's Linux exploit story and Greg Brockman's selected post discuss the same development without a navigable connection.
+- Owner value: connecting reporting to a cited original post could reduce searching between sections while preserving both perspectives.
+- Added a bounded proposal to docs/ideas.md: exact saved citation evidence only, optional snapshot relation, old-edition compatibility, 1–2 days, no extra calls.
+- Similar text alone cannot establish a relation; the motivating example is not claimed to satisfy the citation gate. Measure coverage before implementation.
+- Proposal only; no paid calls, collection/schema/runtime changes or service restarts during the 13:00–16:00 deployment freeze.
+- SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Next: Nov 6 reader/World/cost/Bluesky review after publication; X round after 21:00 UTC.
+- Verification: pnpm format; pnpm lint:fix; pnpm check passed (560 unit/224 isolated integration); pnpm build passed; git diff --check. Final health green and alerts clear.
