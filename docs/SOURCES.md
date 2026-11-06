@@ -2169,3 +2169,7 @@ The production scheduler is now covered against the real isolated PostgreSQL led
 ### Restrict production adapter — iteration 1056 (2026-11-06)
 
 Production now rejects legacy open-topic, account and reaction requests before HTTP. Historical dispatch is isolated in a replay adapter; the obsolete manual curated-account paid command is removed. Keyword results still retain ten citations and engagement observations, and logs identify keyword discovery. Fixed search remains OFF; no paid calls or edition writes.
+
+### Activate keyword discovery — iteration 1057 (2026-11-06)
+
+Enabled `X_FIXED_SEARCH_ENABLED=1` after the approved decision, keyword-only cleanup and isolated four-topic admission proof. First eligible production window is Nov 7 14:30–14:55 UTC, before the 15:00 UTC edition. All four topics retain approved likes thresholds (500/1000/500/2000), NBA exclusions and mandatory `-giveaway`. Grok 4.3 and $0.40/day/$12/month caps are unchanged. Activation outside the search window made no paid calls or edition writes. Three consecutive editions still need usable-post/editor-selection/cost checks and screenshots; World is reported separately.

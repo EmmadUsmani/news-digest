@@ -31,10 +31,10 @@ flowchart LR
 | Free (rivers, articles) | $0                     | Not tied to any account list            | Lags: a post appears only once media embeds it    |
 | Paid (xAI search)       | $0.026–$0.038 on Nov 3 | Searches X directly, before the edition | Reported engagement is not independently verified |
 
-- **Paid search is switched off** while the keyword rollout is prepared.
+- **Paid keyword search is enabled** for the daily edition.
   The worker has no fallback to the old open search, story reactions or
   account-list follow-ups; the adapter rejects them. Old builders remain for replay.
-- **Keyword search:** when enabled, runs 5–30 minutes before the edition,
+- **Keyword search:** runs 5–30 minutes before the edition,
   weakest topic first. Grok writes fresh keywords from each topic's guidance;
   code supplies the engagement thresholds and exact edition window.
   One search per topic; at most one admitted retry for a failed call.
@@ -83,7 +83,7 @@ counts and media stay unknown; a link supplies no evidence of media contents.
 - **Experiment retries:** a timeout or failed/unconfirmed search with no fetched
   posts gets one separately admitted retry. Completed empty searches never retry.
   Timeouts retain their hold; returned usage settles before retrying.
-- **Fixed scheduler:** stays off. Its ledger can admit one linked retry for an
+- **Fixed scheduler:** its ledger can admit one linked retry for an
   uncertain timeout or unconfirmed zero-post search, preserving holds and caps.
   Completed empty searches and historical unknown execution cannot qualify.
   Dispatch repeats the budget, schedule, topic and time-window checks before

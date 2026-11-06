@@ -119,9 +119,8 @@ strong posts. Posts still pass verified timestamp and relevance gates before
 publication. Discovery stops at search time, so posts arriving in the remaining
 5–30 minutes before publication may be missed.
 
-The worker's `X_FIXED_SEARCH_ENABLED=1` setting replaces open-topic searches
-and optional followups with fixed A/B discovery. It defaults off. A searches
-reactions to the top 2–3 ranked stories; B searches topic trends using stored
-thresholds and exclusions. A runs first; quiet-topic B calls lose budget slots
-first. Both use the same spend caps, verification and durable daily admission.
-Enable only after the experiment decision is acknowledged in STEERING.
+The worker's `X_FIXED_SEARCH_ENABLED=1` setting enables one keyword search per
+topic, weakest free-link coverage first. Grok writes fresh keywords; code adds
+stored thresholds, exclusions and the exact window. One failed call may receive
+one admitted retry. Spend caps, official verification and durable daily admission
+apply to every call. See [Social posts](05-social-posts.md).

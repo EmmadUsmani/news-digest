@@ -165,3 +165,13 @@
 - Focused tests 9/9; initial broad direct runner correctly rejected DB tests without isolation. Full pnpm check passed 536 unit/226 isolated integration tests (exit 0).
 - Passed pnpm format, pnpm lint:fix, pnpm build, handbook check (18 pages/28 tables) and git diff --check. Updated TASKS/SOURCES/social handbook; archived iteration 1040.
 - Next: activate approved keyword rollout for Nov 7; three-edition acceptance remains open. No human blocker.
+
+## 2026-11-06: iteration 1057 — activate approved keyword discovery
+
+- Started clean on main; alerts clear, health DB/Redis OK and all 36 sources healthy. No leftover work.
+- Enabled private X_FIXED_SEARCH_ENABLED=1 after the approved decision, cleanup and real-ledger admission proof; API/worker restarted and both process environments confirm ON.
+- First eligible window Nov 7 14:30–14:55 UTC for the 15:00 edition; all four live thresholds checked, NBA exclusions plus code-enforced -giveaway retained. Grok 4.3/caps unchanged.
+- Restart made no paid calls: ledger unchanged at $0.157475 today/$0.610551 month, zero held. Saved edition remains four topics/20 stories/17 posts; no edition writes.
+- Updated TASKS/SOURCES and social/schedule handbook; activation ack appended to STEERING. Three-edition acceptance remains open; World reported separately.
+- Passed pnpm format, pnpm lint:fix, pnpm build and full pnpm check (536 unit/226 isolated integration, exit 0); both affected handbook checks passed (18 pages/28 tables), git diff --check clean.
+- Post-restart /healthz DB/Redis OK, pnpm obs alerts clear, pnpm obs sources --check 36/36 healthy; digest queue available/zero failed. No human blocker; next inspect Nov 7 keyword calls and edition.
