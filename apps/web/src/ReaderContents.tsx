@@ -91,17 +91,24 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
   }, [active]);
   useEffect(() => {
     const container = chips.current;
-    const chip = container?.querySelector<HTMLElement>(
-      '[aria-current="location"]',
-    );
-    if (!container || !chip || container.clientWidth === 0) return;
-    const bounds = chip.getBoundingClientRect();
-    const viewport = container.getBoundingClientRect();
-    // Scroll only the chip row; scrollIntoView would also move the edition.
-    if (bounds.left < viewport.left)
-      container.scrollLeft += bounds.left - viewport.left;
-    else if (bounds.right > viewport.right)
-      container.scrollLeft += bounds.right - viewport.right;
+    if (!container) return;
+    const reveal = () => {
+      const chip = container.querySelector<HTMLElement>(
+        '[aria-current="location"]',
+      );
+      if (!chip || container.clientWidth === 0) return;
+      const bounds = chip.getBoundingClientRect();
+      const viewport = container.getBoundingClientRect();
+      // Scroll only the chip row; scrollIntoView would also move the edition.
+      if (bounds.left < viewport.left)
+        container.scrollLeft += bounds.left - viewport.left;
+      else if (bounds.right > viewport.right)
+        container.scrollLeft += bounds.right - viewport.right;
+    };
+    reveal();
+    const observer = new ResizeObserver(reveal);
+    observer.observe(container);
+    return () => observer.disconnect();
   }, [activeTopic?.id]);
   const contents = (mobile: boolean) => (
     <nav aria-label={mobile ? 'Mobile contents' : 'Edition contents'}>

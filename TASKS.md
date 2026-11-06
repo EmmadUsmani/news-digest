@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Mobile topic visibility (1031, item 33): active topic stays visible when the chip row narrows or the reader switches from desktop to mobile, without scrolling the edition.
+
 - [x] Resized contents (1030, item 33): shrinking the desktop window keeps the current entry visible without moving the edition; existing short-window navigation preserved.
 
 - [x] Visible current contents (1029, item 33): short desktop windows reveal the active story/post entry by scrolling only the contents panel, preserving the edition reading position.

@@ -1,24 +1,3 @@
-## 2026-11-06: iteration 1015 — open cited sources from Bluesky cards
-
-- Started clean on main; no leftover work. Alerts clear, 13 services/36 sources healthy; /healthz DB/Redis OK.
-- Reader weakness: World’s saved Bluesky pick cites an Independent article, but its URL was inert text. Readers can now open cited web sources directly from the card.
-- HTTP/HTTPS links preserve exact saved text, query strings and trailing punctuation; markup and non-web schemes remain text. No edition rewrite or paid calls.
-- Browser replay uses an optional isolated Vite URL, keeping the running app untouched during the 13:00–16:00 freeze. Synthetic fixtures are labelled; four screenshots updated and mobile visually inspected.
-- Scoring-order change deferred: reserved slot remains OFF, so speculative early Bluesky scoring could spend on topics with no slot. Admission/order unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm check passed (560 unit/224 isolated integration); pnpm build passed; READER_BASE_URL=http://127.0.0.1:5175 pnpm exec tsx scripts/smoke-bluesky-cards.ts (desktop/mobile, light/dark); git diff --check.
-- Deployment/restarts deferred under explicit freeze; after 16:00 deploy this card fix, social editor v6 and shipper MemoryHigh=64M, then verify live. X round after 21:00; Bluesky slot OFF awaiting owner.
-- SOURCES/handbook/NEEDS_FROM_HUMAN unchanged: rendering bug only; no source or system-flow change. Archived iterations 996–997 to keep this file under 25 KB.
-
-## 2026-11-06: iteration 1016 — open Bluesky author profiles
-
-- Started clean on main; no leftover work. Alerts clear; /healthz DB/Redis OK, 13 services and 36 sources healthy.
-- Reader weakness: World’s saved Bluesky author was plain text while X author names opened their profiles. Link the author to the saved post’s profile so readers can inspect the source account.
-- Preserve encoded DID paths from saved post URLs; no lookup, collection, selection, prompt or budget changes. No paid calls.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration); pnpm build; READER_BASE_URL=http://127.0.0.1:5175 pnpm exec tsx scripts/smoke-bluesky-cards.ts (desktop/mobile light/dark, handle and encoded DID profiles); git diff --check. Mobile screenshot visually inspected.
-- Initial check stopped on formatting of the newly archived progress entry; formatted and reran. Archived iterations 998–999 to keep PROGRESS under 25 KB.
-- Deployment/restarts deferred under the explicit 13:00–16:00 UTC freeze. After 16:00 deploy pending reader fixes, social editor v6 and shipper MemoryHigh=64M, then verify live.
-- Next: X round after 21:00 UTC; Bluesky reserved slot remains OFF awaiting owner. SOURCES/handbook/NEEDS_FROM_HUMAN unchanged: rendering only, no source/system-flow/dependency changes.
-
 ## 2026-11-06: iteration 1017 — keep article text on title-only rediscovery
 
 - Started clean on main; no leftover work. Alerts clear, /healthz DB/Redis OK, 13 services and 36 sources healthy.
@@ -175,3 +154,12 @@
 - Next: continue approved reader completion; approved Bluesky slot activation pending under Current order; fresh X round after 21:00 UTC.
 
 - Push initially rejected by concurrent owner steering commits b5ad6a05/dc872f6e; merged without conflicts, preserving B2 readiness and lowest priority. No runtime changes in the merge.
+
+## 2026-11-06: iteration 1031 — keep the mobile topic visible on resize
+
+- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; no leftovers, alerts clear and /healthz DB/Redis OK.
+- Reproduced offscreen active topic chips when the row narrows. Resize observation now reveals the active chip across desktop/mobile transitions and rotation, scrolling only the chip row.
+- Read-only saved-edition Playwright regression covers 390/320/844/320 widths in light/dark, preserving reading position after responsive layout settles; screenshots updated and light visually inspected. Broader desktop/mobile light/dark reader checks passed.
+- Passed pnpm format; pnpm lint:fix; pnpm build; pnpm exec tsx scripts/smoke-reader-chip-resize.ts; pnpm exec tsx scripts/smoke-reader-layout.ts; git diff --check. pnpm check passed static checks and 562 unit tests, then exited 143 during integration; standalone pnpm test:integration passed all 225 cases (exit 0).
+- API/worker restarted; health and alerts clear. Saved edition retains four topics, 20 stories and 17 posts. No paid calls or source/schema/handbook-flow changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Archived iterations 1015–1016 to keep PROGRESS small. Next: continue final reader spec; approved Bluesky slot activation pending under Current order; fresh X round after 21:00 UTC.

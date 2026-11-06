@@ -1664,3 +1664,5 @@ ack: 2026-11-06 item 33/43 — iteration 1028: readers can scan compact relative
 ack: 2026-11-06 item 33/43 — iteration 1029: readers on short desktop windows can keep the current story/post visible in the independently scrolling contents panel; edition position stays fixed. Light/dark and both scroll directions verified; no paid calls.
 
 ack: 2026-11-06 item 33/43 — iteration 1030: resizing a desktop window now keeps the current contents entry visible without moving the edition. Reproduced the hidden entry before the change; saved-edition light/dark resize and forward/backward navigation verified. No paid calls.
+
+ack: 2026-11-06 item 33/43 — iteration 1031: readers retain a visible current-topic chip through desktop/mobile transitions and rotation without moving the edition; light/dark [screenshots](docs/screenshots/ui/reader-chip-resize-light.png). No paid calls.
