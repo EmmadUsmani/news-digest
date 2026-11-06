@@ -199,3 +199,14 @@
 - Sources healthy; failed digest jobs zero; next scheduled run 15:00 UTC. No restarts during 13:00–16:00 deployment freeze.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (560 unit/224 isolated integration), pnpm build and git diff --check passed; final health green and alerts clear.
 - Next: Nov 6 reader/World/cost/Bluesky review after publication; fresh X round after 21:00 UTC. Fixed search remains off.
+
+## 2026-11-06: iteration 1003 — close media-description evidence gate
+
+- Started clean on main; alerts clear, health/DB/Redis green, API/worker active; no leftover work.
+- Latest edition remains Nov 5 (7d99b279); Nov 6 breadth/cost/Bluesky review awaits publication.
+- Reader weakness: NBA/Gaming X posts depend on unseen media. Owner value: determine whether existing descriptions can make them understandable without new requests.
+- Checked the recorded X oEmbed fixture: no media description; it does not cover either motivating post. Bluesky already preserves alt text and renders it for thumbnails; its response tests are synthetic.
+- Updated docs/ideas.md with the evidence and deferred the proposal: no demonstrated X description source, no duplicate Bluesky preservation work.
+- No runtime/source/schema/spend changes; no restarts during the 13:00–16:00 freeze. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration); pnpm build; 26 targeted Bluesky tests; git diff --check passed. Sources healthy; no failed digest jobs.
+- Next: Nov 6 reader/World/cost/Bluesky review after publication; fresh X round after 21:00 UTC; fixed search OFF.

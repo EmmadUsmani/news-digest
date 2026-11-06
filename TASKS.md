@@ -39,7 +39,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Media-description proposal (1002): scoped author-provided descriptions for media-dependent posts, gated on existing recorded response availability; no media inference or new requests. [Idea](docs/ideas.md#author-provided-descriptions-for-media-dependent-posts). Proposal only.
+- [x] Media-description evidence gate (1003): recorded X oEmbed has no description; Bluesky already preserves alt text, with synthetic coverage. Proposal deferred; no new requests or implementation. [Assessment](docs/ideas.md#recorded-data-availability-assessment--nov-6).
 
 - Earlier proposals 999–1001: publisher attribution, exact story/post citations and continuing-edition links in [ideas](docs/ideas.md).
 

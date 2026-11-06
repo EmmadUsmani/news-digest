@@ -202,3 +202,19 @@
   compatibility and recorded tests. No new vendor or paid calls proposed.
 - Awaiting owner review under item 38; no implementation, media fetches or
   runtime changes. Nov 6 edition and Bluesky/X decisions retain priority.
+
+### Recorded-data availability assessment — Nov 6
+
+- X: the recorded `social/bbc-world-oembed.json` has post HTML and author
+  metadata, but no image/video description. `XOfficialEmbed` stores that HTML
+  for provenance; it does not supply author media descriptions. This recording
+  does not cover the NBA/Gaming examples or establish what other APIs return.
+- Bluesky already preserves image/video `alt` through collection and saved
+  selections. The current post renderer uses it as thumbnail alternative text.
+  `bluesky-search.test.ts` and `bluesky-media.test.ts` exercise this with
+  synthetic responses; they are not recorded evidence of live availability.
+- Decision: defer this proposal. There is no recorded description evidence
+  here that resolves the two X examples, and Bluesky preservation already
+  exists. No new schema or collection work is justified by this assessment.
+  A future owner-approved visible-description feature would need separate
+  reader evidence; do not duplicate the existing accessibility support.
