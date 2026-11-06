@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Coverage publisher labels (980): expanded reports show one source label per article, removing repeated Guardian feed sections while keeping every report link.
+
 - [x] Central summary development (979): editor v9 asks summaries to retain the main supported headline claim instead of only excerpt background; prompted by the saved Porziņģis salary story. Verify actual Nov 6 output.
 
 - [x] Original social developments (978): social editor v5 prefers firsthand announcements/demos/reporting over newsletter excerpts; concrete secondhand scoops remain eligible. Verify actual Nov 6 picks.

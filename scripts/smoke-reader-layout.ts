@@ -419,6 +419,27 @@ async function smoke() {
                   ),
                 story.coverage.map((article) => article.url),
               );
+              assert.deepEqual(
+                await disclosure
+                  .locator('li > span')
+                  .evaluateAll((rows) =>
+                    rows.map((row) =>
+                      Array.from(row.querySelectorAll('a')).map((link) =>
+                        link.textContent?.trim(),
+                      ),
+                    ),
+                  ),
+                story.coverage.map((article) => article.sources.slice(0, 1)),
+                'Each report credits one publisher rather than repeating feed sections',
+              );
+              if (
+                story.coverage.some((article) => article.sources.length > 1)
+              ) {
+                await card.scrollIntoViewIfNeeded();
+                await page.screenshot({
+                  path: `docs/screenshots/ui/reader-coverage-outlets-${device}-${theme}.png`,
+                });
+              }
               if (story.id === edition.topics[1]?.stories[0]?.id) {
                 await card.scrollIntoViewIfNeeded();
                 await page.screenshot({

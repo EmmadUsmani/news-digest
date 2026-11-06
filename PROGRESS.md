@@ -1,18 +1,3 @@
-## 2026-11-06: iteration 966 — preserve keyboard focus in saved X text
-
-- Started clean on main; alerts clear and health/database/Redis green. No leftover work.
-- Read latest saved topics: World breadth/Tech grouping and Bluesky review await 15:00 publication; X round waits until 21:00 UTC.
-- Reader weakness: X media rebuilding replaced the saved-text link, dropping keyboard focus during rotation/theme changes; reproduced against HEAD with browser focus assertion.
-- Keep one saved-text disclosure/link mounted through pending, failed and successful media; preserve focused text when media first succeeds.
-- Owner value: keyboard readers can continue from the same original post after rotation or a system theme change.
-- Extended saved-edition replay with focus assertions across 320px, landscape, original width and system themes in desktop/mobile light/dark; local widget stub, no writes/external calls.
-- Updated TASKS, STEERING ack and affected handbook; archived iterations 950–951. SOURCES/NEEDS_FROM_HUMAN unchanged; no spend or flag changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-x-media.ts; check-handbook.ts 08-operations; git diff --check. Final results below.
-- Next: edition/Bluesky review after 15:00 UTC; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.
-- First full check terminated with exit 143 after 543 unit passes and during integration tests, without a reported test failure; rerunning the full check.
-- Inspected mobile light focus/resize screenshot; retained eight resize/theme screenshots. Rebuilt and restarted API/worker/docs/schema; health green, 36 sources healthy, no failed digest jobs and alerts clear.
-- Final retry passed: 543 unit/224 isolated integration tests; build, handbook and four-view browser replay passed. No spend/flag changes; services healthy.
-
 ## 2026-11-06: iteration 967 — keep keyboard position when retrying X media
 
 - Started clean on main; health/database/Redis green, alerts clear, all 36 sources healthy and no failed digest runs. No leftover work.
@@ -189,3 +174,15 @@
 - Verification: targeted editor tests 17/17; pnpm format; pnpm lint:fix; pnpm check (552 unit/224 isolated integration tests); pnpm build; git diff --check. No UI change, so no browser replay.
 - Next: Nov 6 World/cost/Bluesky and editorial review after 15:00 UTC; X round after 21:00 UTC.
 - API/worker/docs/schema restarted; health/database/Redis green, alerts clear, all 36 monitored sources healthy and zero failed digest jobs.
+
+## 2026-11-06: iteration 980 — one publisher per coverage report
+
+- Started clean on main; health/database/Redis green and alerts clear; no leftover work.
+- Read all four saved topics. Nov 6 edition and X work remain time-gated.
+- Reader weakness: expanded World reports repeat Guardian US/World source labels for one article, making coverage harder to scan.
+- Display one publisher label per report; all report titles, URLs and timestamps remain intact. No saved data, selection, source or spend changes.
+- Extended saved-edition browser replay to verify each report's source label and unchanged full report links on desktop/mobile light/dark; refreshed coverage screenshots.
+- Updated TASKS, item 42 ack and affected operations handbook; archived oldest progress entry. SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check. Final results below.
+- Next: Nov 6 editorial/World/cost/Bluesky review after 15:00 UTC; X round after 21:00 UTC. Fixed search remains off.
+- Final results: 552 unit/224 isolated integration tests passed; build, handbook and four-view browser replay passed. Inspected mobile coverage screenshot. API/worker/docs/schema restarted; health green, alerts clear, 36 sources healthy.

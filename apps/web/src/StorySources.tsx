@@ -61,7 +61,8 @@ export function StorySources({
                       timeStyle: 'short',
                     })}
                   </time>
-                  {article.sources.map((name) => (
+                  {/* Feed sections describe discovery, not extra publishers. */}
+                  {article.sources.slice(0, 1).map((name) => (
                     <SourceLink key={name} name={name} url={article.url} />
                   ))}
                 </span>
