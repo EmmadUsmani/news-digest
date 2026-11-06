@@ -1,14 +1,3 @@
-## 2026-11-05: iteration 895 — Sources recent article counts
-
-- Started clean on main; no leftover work. Owner would care: Sources now shows which feeds contribute recent articles with 24-hour and seven-day counts.
-- Added publication-window aggregates to protected source status using the same cutoff as checkedAt; start inclusive/end exclusive, future publications excluded, empty sources zero. Shared topic connections do not multiply articles; each collecting source gets its own count. No migration or collection changes.
-- Added both columns and plain count guidance to Sources; refreshed four viewport/theme screenshots. Desktop dark/mobile light visually inspected; mobile table scrolls within its card. Image crop helper lacked Pillow; inspected original screenshots directly.
-- Extended isolated repository checks for exact daily/weekly boundaries, future dates, empty sources and multiple topic connections; browser compares every source count with real saved status reads. No writes or paid calls.
-- Updated TASKS and Operations handbook; SOURCES/NEEDS_FROM_HUMAN unchanged. Discarded unrelated separation-smoke screenshots.
-- Verification: pnpm format; pnpm lint:fix; pnpm check passed (507 unit/219 isolated integration tests, typecheck/lint/format/boundaries); pnpm build; smoke-admin-sources.ts; smoke-admin-separation.ts; check-handbook.ts 08-operations; git diff --check passed.
-- All four services restarted and active; /healthz database/Redis green, 36 source checks healthy and alerts clear. Live status has new counts (Aftermath 3/20, Al Jazeera 94/379); saved reader edition returns 200 with four topics.
-- Next: remaining dedicated admin-page gaps (source controls, topic discovery settings), then final reader; Nov 6 scheduled edition/grouping review and X round after 21:00 UTC. No X activation before decision.
-
 ## 2026-11-05: iteration 896 — Sources Add feed dialog
 
 - Started clean on main; no leftover work. Owner would care: add a feed directly from Sources and choose its topic without visiting the topic editor.
@@ -151,3 +140,13 @@
 - Backup service succeeded; pnpm migrate applied drizzle/0007_fixed_x_retry.sql. Rebuilt/restarted API, worker, docs and schema; all active. /healthz database/Redis green; saved latest edition four topics/17 stories, alerts clear.
 - Updated TASKS, SOURCES and social handbook; no new owner input. Initial jobs CLI positional argument was rejected; corrected --queue query confirms zero failed digest jobs.
 - Next: wire switched-off fixed scheduler retry dispatch through durable admission, then authorized Nov 5 NBA/Gaming/World keyword reruns. Fair semantic query/fresh Nov 6 round follow; no production activation.
+
+## 2026-11-06: iteration 909 — dispatch one fixed X retry
+
+- Started clean on main; no leftover work. Alerts clear, 36 sources healthy, no failed digest jobs; next edition Nov 6 15:00 UTC.
+- Switched-off fixed scheduler now dispatches one separately admitted linked retry for uncertain failures or settled unconfirmed zero-post/no-citation calls. Rechecks live balance, configuration, enabled state, schedule and time window before dispatch; completed empty, fetched/cited, rejected and budget-blocked outcomes stop.
+- searchX accepts fixed parent links and returns failed call identity/reason after recording the hold. Returned usage settles before retry; timeout holds and durable ledger uniqueness remain intact. Offline runtime coverage checks settlement/hold ordering, linked admission and refusal on later ticks; guard tests cover budget/window/configuration changes. No paid calls or production activation.
+- Verification: targeted 14 tests; pnpm format; pnpm lint:fix; pnpm check (524 unit/223 isolated integration tests, typecheck/lint/format/boundaries); pnpm build; check-handbook.ts 05-social-posts; git diff --check. All pass. First full check stopped on newly archived entry formatting; fixed and reran successfully.
+- Rebuilt/restarted API, worker, docs and schema; all active. /healthz database/Redis green, alerts clear; real latest edition has four topics/17 stories/14 posts. No migration needed.
+- Updated TASKS, SOURCES and social handbook; archived iteration 895 to keep PROGRESS small. No owner input needed.
+- Next: authorized Nov 5 NBA/Gaming/World keyword reruns on the same window, then fair semantic query/Nov 6 fresh-window round and edition review. Fixed search remains off.

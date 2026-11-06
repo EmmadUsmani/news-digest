@@ -81,7 +81,8 @@ counts and media stay unknown; a link supplies no evidence of media contents.
 - **Fixed scheduler:** stays off. Its ledger can admit one linked retry for an
   uncertain timeout or unconfirmed zero-post search, preserving holds and caps.
   Completed empty searches and historical unknown execution cannot qualify.
-  The scheduler does not dispatch these retries yet.
+  Dispatch repeats the budget, schedule, topic and time-window checks before
+  retrying once; durable admission prevents another retry on later ticks.
 - **Accounting:** calls allow 120 seconds. Returned token usage settles the actual
   cost; missing fetched-post/profile counters count as zero. No-response timeouts
   keep their reservation. Saved experiment responses can settle holds offline;

@@ -107,3 +107,98 @@ void test('slow calls stop at window boundary; changed thresholds stop remaining
     assert.deepEqual(calls, ['trending']);
   }
 });
+
+void test('fixed failures retry once with the original run and linked admission', async () => {
+  for (const failure of [
+    { state: 'failed', reason: 'uncertain', citations: 0 },
+    {
+      state: 'completed',
+      execution: 'unconfirmed',
+      citations: 0,
+      usage: { postsFetched: 0 },
+    },
+  ]) {
+    const { deps, topics } = fixture();
+    topics.splice(1);
+    const calls: { run: string; parent?: string }[] = [];
+    deps.execute = async (_plan, run, parent) => {
+      calls.push({ run, parent });
+      return { ...failure, callId: 'primary' };
+    };
+    await runScheduledFixedXSearch(deps);
+    assert.equal(calls.length, 2);
+    assert.equal(calls[0].parent, undefined);
+    assert.equal(calls[1].parent, 'primary');
+    assert.equal(calls[1].run, calls[0].run);
+  }
+});
+
+void test('completed empty, fetched, cited, historical and rejected outcomes never retry', async () => {
+  for (const outcome of [
+    {
+      state: 'completed',
+      execution: 'completed',
+      citations: 0,
+      usage: { postsFetched: 0 },
+    },
+    {
+      state: 'completed',
+      execution: 'unconfirmed',
+      citations: 0,
+      usage: { postsFetched: 1 },
+    },
+    {
+      state: 'completed',
+      execution: 'unconfirmed',
+      citations: 1,
+      usage: { postsFetched: 0 },
+    },
+    { state: 'completed', citations: 0, usage: { postsFetched: 0 } },
+    { state: 'failed', reason: 'rejected', citations: 0 },
+    { state: 'failed', reason: 'credits-depleted', citations: 0 },
+    { state: 'budget-blocked', citations: 0 },
+  ]) {
+    const { deps, topics } = fixture();
+    topics.splice(1);
+    let calls = 0;
+    deps.execute = async () => {
+      calls++;
+      return { ...outcome, callId: 'primary' };
+    };
+    await runScheduledFixedXSearch(deps);
+    assert.equal(calls, 1, JSON.stringify(outcome));
+  }
+});
+
+void test('retry repeats live budget, window, configuration and enablement guards', async () => {
+  for (const guard of [
+    'budget',
+    'clock',
+    'settings',
+    'enabled',
+    'profile',
+  ] as const) {
+    const { deps, topics, advance, setBalance } = fixture();
+    topics.splice(1);
+    let calls = 0;
+    deps.execute = async () => {
+      calls++;
+      if (guard === 'budget') setBalance(99999);
+      if (guard === 'clock') advance();
+      if (guard === 'settings') topics[0].settings.trendingMinFaves++;
+      if (guard === 'enabled') deps.enabled = () => false;
+      if (guard === 'profile') {
+        const profile = await deps.profile();
+        deps.profile = async () => ({ ...profile, id: 'changed' });
+      }
+      return {
+        state: 'failed',
+        reason: 'uncertain',
+        callId: 'primary',
+        citations: 0,
+      };
+    };
+    await runScheduledFixedXSearch(deps);
+    assert.equal(calls, 1, guard);
+  }
+});

@@ -197,6 +197,7 @@ void test('fixed runtime dispatches A/B ledger types and bypasses all legacy fol
     assert.equal(request.fixedSearch?.settings.trendingMinFaves, 200);
     events.push(request.fixedSearch.style);
     return {
+      execution: 'completed',
       links: [],
       usage: {
         inputTokens: 0,
@@ -215,4 +216,90 @@ void test('fixed runtime dispatches A/B ledger types and bypasses all legacy fol
     'verify',
     'complete',
   ]);
+});
+
+void test('fixed runtime settles before linked retry and ledger refusal prevents repeat provider work', async () => {
+  for (const timeout of [false, true]) {
+    const { dependencies, events } = fixture();
+    dependencies.fixed = {
+      enabled: () => true,
+      settings: async () => ({
+        reactionMinFaves: 100,
+        trendingMinFaves: 200,
+        exclusions: [],
+      }),
+      stories: async () => [],
+      availableMicros: async () => 400000,
+    };
+    dependencies.ledger.completeVerification = async () => {
+      events.push('complete');
+    };
+    let admitted = 0;
+    dependencies.ledger.reserve = async (
+      _model,
+      _run,
+      _estimate,
+      _topic,
+      _day,
+      type,
+      parent,
+    ) => {
+      assert.equal(type, 'fixed-trending');
+      events.push(parent ? 'admit-retry' : 'admit-primary');
+      if (admitted >= 2) return null;
+      assert.equal(parent, admitted === 0 ? undefined : parentId);
+      return admitted++ === 0
+        ? parentId
+        : '00000000-0000-4000-8000-000000000002';
+    };
+    dependencies.ledger.fail = async (_id, reason) => {
+      assert.equal(reason, 'uncertain');
+      events.push('hold');
+    };
+    dependencies.search.search = async () => {
+      events.push('provider');
+      if (timeout) throw new Error('timeout');
+      return {
+        execution: 'unconfirmed',
+        links: [],
+        usage: {
+          inputTokens: 10,
+          outputTokens: 2,
+          postsFetched: 0,
+          profilesFetched: 0,
+        },
+      };
+    };
+    await runScheduledXRuntime(dependencies, () => now);
+    assert.equal(admitted, 2);
+    assert.deepEqual(
+      events,
+      timeout
+        ? [
+            'admit-primary',
+            'provider',
+            'hold',
+            'admit-retry',
+            'provider',
+            'hold',
+          ]
+        : [
+            'admit-primary',
+            'provider',
+            'settle',
+            'save',
+            'verify',
+            'complete',
+            'admit-retry',
+            'provider',
+            'settle',
+            'save',
+            'verify',
+            'complete',
+          ],
+    );
+    events.length = 0;
+    await runScheduledXRuntime(dependencies, () => now);
+    assert.deepEqual(events, ['admit-primary']);
+  }
 });

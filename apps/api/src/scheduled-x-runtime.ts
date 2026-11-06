@@ -89,7 +89,7 @@ export function runScheduledXRuntime(
           ),
         ),
       availableMicros: fixed.availableMicros,
-      execute: (plan, runId) =>
+      execute: (plan, runId, parentId) =>
         execute(
           {
             topic: {
@@ -110,6 +110,7 @@ export function runScheduledXRuntime(
             },
           },
           runId,
+          parentId,
         ),
       clock,
     });

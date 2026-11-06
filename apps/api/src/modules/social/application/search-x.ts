@@ -29,7 +29,9 @@ export async function searchX(
     optionalParentId !== undefined &&
     (!/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(optionalParentId) ||
       scheduledDay === undefined ||
-      (request.handles === undefined && request.reactionStory === undefined))
+      (request.handles === undefined &&
+        request.reactionStory === undefined &&
+        request.fixedSearch === undefined))
   )
     throw new Error('Invalid optional X search');
   // Scheduled searches project $0.10 per topic (roughly 5x observed cost).
@@ -83,7 +85,7 @@ export async function searchX(
       },
       'X discovery budget failure recorded',
     );
-    return { state: 'failed' as const, citations: 0 };
+    return { state: 'failed' as const, callId, reason, citations: 0 };
   }
   // Settle before saving citations; a persistence failure must never erase spend.
   // Cumulative input is a conservative proxy for the per-context 200k price tier.

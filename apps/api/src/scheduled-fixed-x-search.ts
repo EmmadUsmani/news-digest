@@ -18,7 +18,11 @@ export async function runScheduledFixedXSearch(deps: {
   profile: () => Promise<ProfileSettings>;
   topics: (start: Date, end: Date) => Promise<FixedSearchTopic[]>;
   availableMicros: () => Promise<number>;
-  execute: (plan: FixedSearchPlan, runId: string) => Promise<unknown>;
+  execute: (
+    plan: FixedSearchPlan,
+    runId: string,
+    parentId?: string,
+  ) => Promise<unknown>;
   clock?: () => Date;
 }) {
   if (!deps.enabled()) return { skipped: 'Fixed search disabled' };
@@ -64,29 +68,49 @@ export async function runScheduledFixedXSearch(deps: {
   });
   const results: unknown[] = [];
   for (const plan of plans) {
-    if (configuration(await deps.topics(start, now)) !== original)
-      return { skipped: 'Topics changed', results };
-    if ((await deps.availableMicros()) < 100000) break;
-    const current = await deps.profile();
-    const instant = clock();
-    if (
-      !deps.enabled() ||
-      current.id !== profile.id ||
-      JSON.stringify(current.schedule) !== JSON.stringify(profile.schedule)
-    )
-      return { skipped: 'Schedule changed', results };
-    if (
-      instant.toISOString().slice(0, 10) !== day ||
-      edition.getTime() - instant.getTime() < 300000 ||
-      edition.getTime() - instant.getTime() > 1800000
-    )
-      return { skipped: 'Outside search window', results };
-    results.push(
-      await deps.execute(
+    let parentId: string | undefined;
+    for (let attempt = 0; attempt < 2; attempt++) {
+      if (configuration(await deps.topics(start, now)) !== original)
+        return { skipped: 'Topics changed', results };
+      if ((await deps.availableMicros()) < 100000) return results;
+      const current = await deps.profile();
+      const instant = clock();
+      if (
+        !deps.enabled() ||
+        current.id !== profile.id ||
+        JSON.stringify(current.schedule) !== JSON.stringify(profile.schedule)
+      )
+        return { skipped: 'Schedule changed', results };
+      if (
+        instant.toISOString().slice(0, 10) !== day ||
+        edition.getTime() - instant.getTime() < 300000 ||
+        edition.getTime() - instant.getTime() > 1800000
+      )
+        return { skipped: 'Outside search window', results };
+      const result = await deps.execute(
         plan,
         `scheduled-fixed-x:${profile.id}:${edition.getTime()}`,
-      ),
-    );
+        parentId,
+      );
+      results.push(result);
+      if (!result || typeof result !== 'object') break;
+      const outcome = result as {
+        state?: string;
+        callId?: string;
+        reason?: string;
+        citations?: number;
+        execution?: string;
+        usage?: { postsFetched?: number };
+      };
+      const retryable =
+        (outcome.state === 'failed' && outcome.reason === 'uncertain') ||
+        (outcome.state === 'completed' &&
+          outcome.execution === 'unconfirmed' &&
+          outcome.citations === 0 &&
+          outcome.usage?.postsFetched === 0);
+      if (!retryable || !outcome.callId) break;
+      parentId = outcome.callId;
+    }
   }
   return results;
 }

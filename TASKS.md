@@ -4,7 +4,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
-- [ ] STEERING 39 NOW, ahead of UI (903: saved NBA/World holds settled append-only; required tool choice, token-only parsing and 120 s timeout shipped; experiment timeout retry shipped (904); experiment no-execution/tool-failure retry shipped (905); scheduler retry admission shipped (908), dispatch open): require supported X search execution, 120 s timeout, one admitted retry only for no-execution/no-post failures, saved NBA/World settlement complete; rerun three Nov 5 keyword failures after Nov 6 00:00 UTC. Fair semantic query next round; scorer gate counts as non-promotion and unknown likes are unusable. $2.50 total/$1 UTC day caps unchanged; no production activation.
+- [ ] STEERING 39 NOW, ahead of UI (903: saved NBA/World holds settled append-only; required tool choice, token-only parsing and 120 s timeout shipped; experiment timeout retry shipped (904); experiment no-execution/tool-failure retry shipped (905); scheduler retry admission/dispatch shipped (908–909)): require supported X search execution, 120 s timeout, one admitted retry only for no-execution/no-post failures, saved NBA/World settlement complete; rerun three Nov 5 keyword failures after Nov 6 00:00 UTC. Fair semantic query next round; scorer gate counts as non-promotion and unknown likes are unusable. $2.50 total/$1 UTC day caps unchanged; no production activation.
 - [ ] STEERING 41: immediately after item 40 saved outcomes, add durable scheduled-edition BlueskyEditingFailed/BlueskyNoPicks alerts and firing/clearing/restart coverage; current X priorities stay first.
 - [ ] STEERING 40: after X reliability and Nov 6 review, save per-topic Bluesky outcomes, fix editing failures, build default-off reserved slot and use Nov 6 cost gate; update inspector and source/handbook truth. Details and limits in STEERING; no collection/query/cap changes.
 - [ ] STEERING 36 NOW: forty-article grouping pool live (872), ten-story editor cap unchanged; replay/cost evidence in [review](docs/edition-reviews/2026-11-05-world-story-pool.md). Review Nov 6 edition. Dedicated admin pages next; coverage cleanup done (873). X rounds due after 21:00 UTC.
@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Fixed scheduler retry dispatch (909): eligible failures get one linked admission after live budget/configuration/window checks; completed empty searches never retry. Fixed search remains off.
+
 - [x] Durable fixed retry admission (908): one linked retry under shared caps, preserved timeout holds, concurrent/restart dedupe and completed-empty/historical exclusions. Dispatch remains next; fixed search off.
 
 - [x] Durable X execution evidence (907): settlement saves confirmed/unconfirmed execution atomically with usage; historical calls stay unknown. Isolated restart coverage added. Fixed scheduler retry dispatch remains next.
@@ -47,4 +49,4 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 - [x] Experiment no-execution/tool-failure retry (905): usage settled before one fresh admission; completed empty searches never retry. Offline restart coverage; no paid calls/activation.
 
-- Next: STEERING 39 switched-off schedule retry dispatch (durable admission shipped in 908; experiment retries shipped in 904–905); Nov 5 failed keyword reruns after Nov 6 00:00 UTC, then Nov 6 fresh-window round and scheduled edition review. Edition reader layout follows.
+- Next: STEERING 39 authorized Nov 5 failed keyword reruns after Nov 6 00:00 UTC, then Nov 6 fresh-window round and scheduled edition review. Edition reader layout follows.

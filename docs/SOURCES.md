@@ -2085,3 +2085,8 @@ or production activation in this step; switched-off scheduler retry remains open
 
 - The switched-off fixed scheduler ledger admits one linked retry for an uncertain call or settled unconfirmed zero-post search with no citations. Same topic/day/style/model/run, enabled topic, shared caps and durable uniqueness are required; timeout holds remain counted.
 - Completed empty searches, historical unknown execution, pending/rejected calls and retry chains cannot qualify. Migration 0007 changes admission constraints/indexes without deleting calls. Scheduler dispatch remains next; no paid calls or activation.
+
+### Fixed scheduler retry dispatch — iteration 909 (2026-11-06)
+
+- Switched-off fixed search now dispatches one linked retry after an uncertain failure or settled unconfirmed zero-post/no-citation result. It repeats live balance, topic configuration, enabled state, profile schedule and time-window checks before retry admission.
+- Completed empty searches, fetched/cited results and rejected/budget-blocked calls never retry. Shared ledger admission preserves timeout holds and prevents repeat spending on subsequent scheduler ticks. No paid calls or activation in this step; authorized Nov 5 reruns follow.
