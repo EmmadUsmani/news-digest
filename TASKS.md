@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Thin Tech evidence (989): checked saved OpenSSH/Google News exploit coverage and ingestion fixtures; no dropped excerpt found. Destination enrichment remains deferred; scoped reader-value proposal in [ideas](docs/ideas.md), pending owner review and today's output.
+
 - [x] Reader post notes (988): removed the repeated “Digest context” heading; saved commentary remains visually separate below each original post.
 
 - [x] Pre-publication reader handoff (987): reread all 17 summaries/14 posts/14 brief bullets; World breadth remains the largest weakness, with its cause already addressed pending publication. [Comparison checklist](docs/edition-reviews/2026-11-05-reader.md#nov-6-pre-publication-handoff--iteration-987) separates deployed fixes from actual Nov 6 quality evidence; no further speculative tuning.

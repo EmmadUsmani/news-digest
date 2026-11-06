@@ -183,3 +183,14 @@
 - smoke-reader-layout passed desktop/mobile light/dark against real saved content; refreshed four post screenshots and inspected mobile light. External embeds blocked by the browser check; no claim of live embed success.
 - Services restarted before browser checks; health/database/Redis green, alerts clear, zero failed digest jobs. Initial jobs help/queue aliases rejected; supported unfiltered queue snapshot succeeded.
 - Final standalone pnpm test:integration passed all 224 tests (exit 0); all required check components green. Build/browser checks and final git diff --check passed; pushed commit below.
+
+## 2026-11-06: iteration 989 — scope the thin-evidence gap
+
+- Started clean on main; no leftover work. Alerts clear, health green, all 36 sources healthy; no failed digest jobs, next edition 15:00 UTC.
+- Reader weakness: saved OpenSSH and Linux-exploit summaries repeat headlines; existing concise-summary changes await today's output.
+- Checked source adapters and recorded feed excerpts: HN link posts have no supplied body; Google News's exploit item is from The Hacker News, a separate publisher. No dropped excerpt found in this investigation.
+- Owner value: richer source evidence could make Tech summaries informative; documented a bounded destination-excerpt proposal in docs/ideas.md for owner review.
+- Full-article collection stays deferred. No runtime, collection, source, prompt, budget or paid-call changes; SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Verification results recorded below; no UI change requiring screenshots or handbook edits.
+- Next: Nov 6 edition/World/cost/Bluesky comparison after 15:00 UTC; no deploys 13:00–16:00; X round after 21:00 UTC.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (555 unit/224 isolated integration tests passed); pnpm build; git diff --check.
