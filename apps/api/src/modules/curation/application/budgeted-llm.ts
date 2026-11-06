@@ -14,6 +14,17 @@ import {
   type ValidationDiagnostic,
 } from './validation-failure';
 
+export type LlmJsonOutcome<T> =
+  | { status: 'complete'; value: T }
+  | {
+      status:
+        | 'budget-refused'
+        | 'provider-spend-limit'
+        | 'provider-call-failed'
+        | 'validation-failed'
+        | 'input-limit';
+    };
+
 export class BudgetedLlm {
   private readonly failures: ValidationDiagnostic[] = [];
   validationDiagnostics(): ValidationDiagnostic[] {
@@ -70,7 +81,10 @@ export class BudgetedLlm {
     );
     if (this.failures.length > 32) this.failures.shift();
   }
-  private readonly pending = new Map<string, Promise<unknown>>();
+  private readonly pending = new Map<
+    string,
+    Promise<LlmJsonOutcome<unknown>>
+  >();
   constructor(
     private readonly llm: LlmPort,
     private readonly ledger: LlmLedger,
@@ -81,6 +95,16 @@ export class BudgetedLlm {
     validate: (value: unknown) => T,
     options: { repair?: boolean } = {},
   ): Promise<T | null> {
+    const outcome = await this.jsonOutcome(request, validate, options);
+    return outcome.status === 'complete' ? outcome.value : null;
+  }
+  // Call-scoped evidence also travels with coalesced requests. Never infer a
+  // refusal from shared diagnostic history or an ambiguous null result.
+  async jsonOutcome<T>(
+    request: LlmRequest,
+    validate: (value: unknown) => T,
+    options: { repair?: boolean } = {},
+  ): Promise<LlmJsonOutcome<T>> {
     if (
       !Number.isSafeInteger(request.maxOutputTokens) ||
       request.maxOutputTokens < 1 ||
@@ -98,7 +122,9 @@ export class BudgetedLlm {
     const existing = this.pending.get(pendingKey);
     if (existing) {
       const result = await existing;
-      return result === null ? null : validate(result);
+      return result.status === 'complete'
+        ? { status: 'complete', value: validate(result.value) }
+        : result;
     }
     const work = this.resolve(request, key, validate, options.repair !== false);
     this.pending.set(pendingKey, work);
@@ -114,11 +140,11 @@ export class BudgetedLlm {
     key: string,
     validate: (value: unknown) => T,
     repair: boolean,
-  ): Promise<T | null> {
+  ): Promise<LlmJsonOutcome<T>> {
     const cached = await this.ledger.cached(key);
     if (cached !== undefined) {
       try {
-        return validate(cached);
+        return { status: 'complete', value: validate(cached) };
       } catch (error) {
         this.recordFailure(request, error, 'cache');
         throw error;
@@ -138,7 +164,7 @@ export class BudgetedLlm {
         : request;
       const bound =
         Buffer.byteLength(current.instructions + current.prompt, 'utf8') + 2048;
-      if (bound >= 100000) return null;
+      if (bound >= 100000) return { status: 'input-limit' };
       const estimate = costMicros(
         {
           input: bound,
@@ -170,7 +196,7 @@ export class BudgetedLlm {
         },
         'LLM budget decision',
       );
-      if (!id) return null;
+      if (!id) return { status: 'budget-refused' };
       let response;
       try {
         response = await this.llm.complete(current);
@@ -197,7 +223,9 @@ export class BudgetedLlm {
           },
           'LLM budget failure recorded',
         );
-        return null;
+        return {
+          status: limit ? 'provider-spend-limit' : 'provider-call-failed',
+        };
       }
       await this.ledger.settle(
         id,
@@ -240,8 +268,8 @@ export class BudgetedLlm {
         continue;
       }
       await this.ledger.cache(key, parsed);
-      return parsed;
+      return { status: 'complete', value: parsed };
     }
-    return null;
+    return { status: 'validation-failed' };
   }
 }

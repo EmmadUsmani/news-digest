@@ -1001,3 +1001,72 @@ void test('validation diagnostic labels reject untrusted runtime values', async 
   ]);
   assert.ok(!lines.join('').includes('secret'));
 });
+
+void test('call-scoped JSON outcomes distinguish refusal, validation and provider failures', async () => {
+  for (const [responses, expected] of [
+    [['bad', 'bad'], 'validation-failed'],
+    [[new Error('transport')], 'provider-call-failed'],
+    [[new ProviderSpendLimit()], 'provider-spend-limit'],
+  ] as const) {
+    const ledger = new MemoryLedger();
+    const provider = fake([...responses]);
+    const service = new BudgetedLlm(provider.llm, ledger);
+    const outcomes = await Promise.all([
+      service.jsonOutcome(request, valid),
+      service.jsonOutcome({ ...request, runId: 'other-run' }, valid),
+      service.json(request, valid),
+    ]);
+    assert.deepEqual(outcomes, [
+      { status: expected },
+      { status: expected },
+      null,
+    ]);
+    assert.equal(provider.count(), responses.length);
+  }
+});
+
+void test('coalesced budget refusal is call-scoped and a later funded call can succeed', async () => {
+  const ledger = new MemoryLedger();
+  ledger.available = 0;
+  const provider = fake(['{"ok":true}']);
+  const service = new BudgetedLlm(provider.llm, ledger);
+  assert.deepEqual(
+    await Promise.all([
+      service.jsonOutcome(request, valid),
+      service.jsonOutcome({ ...request, runId: 'second' }, valid),
+    ]),
+    [{ status: 'budget-refused' }, { status: 'budget-refused' }],
+  );
+  assert.equal(provider.count(), 0);
+  ledger.available = 1e6;
+  assert.deepEqual(await service.jsonOutcome(request, valid), {
+    status: 'complete',
+    value: { ok: true },
+  });
+  ledger.available = 0;
+  assert.deepEqual(
+    await service.jsonOutcome({ ...request, runId: 'cached' }, valid),
+    {
+      status: 'complete',
+      value: { ok: true },
+    },
+  );
+  assert.equal(provider.count(), 1);
+});
+
+void test('a refused repair retains the budget cause without leaking rejected output', async () => {
+  const ledger = new MemoryLedger();
+  const reserve = ledger.reserve.bind(ledger);
+  let reservations = 0;
+  ledger.reserve = async (input, estimate) =>
+    ++reservations === 1 ? reserve(input, estimate) : null;
+  const provider = fake(['bad']);
+  assert.deepEqual(
+    await new BudgetedLlm(provider.llm, ledger).jsonOutcome(request, valid),
+    {
+      status: 'budget-refused',
+    },
+  );
+  assert.equal(provider.count(), 1);
+  assert.equal(ledger.values.size, 0);
+});

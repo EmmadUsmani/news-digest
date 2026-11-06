@@ -6,7 +6,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 - [ ] STEERING 39 NOW, ahead of UI: reliability/accounting shipped (903–909); Nov 5 keyword reruns complete (910), Gaming three posts, NBA/World tool failed again (2/3 failure), $0.048153 settled. Fair semantic preparation shipped (911); scorer review complete (912): Gaming 1/3 usable, no retained free-link overlap, $0.000337 verification. Next: Nov 6 round after 21:00 UTC. Scorer relevance ≥6/interestingness ≥4 counts as non-promotion; unknown likes unusable. $2.50 total/$1 UTC day caps; fixed search OFF, no further Nov 5 reruns. [Evidence](docs/edition-reviews/2026-11-05-x-experiment-review.md).
 - [ ] STEERING 41: immediately after item 40 saved outcomes, add durable scheduled-edition BlueskyEditingFailed/BlueskyNoPicks alerts and firing/clearing/restart coverage; current X priorities stay first.
-- [ ] STEERING 40: purpose/topic diagnostics deployed (913); historical attribution complete (914); selection evidence/counts saved (915); inspector shipped (916); ledger refusal reasons deployed (917); saved budget-refusal result still open. After X reliability and Nov 6 review, save per-topic Bluesky outcomes, fix editing failures, build default-off reserved slot and use Nov 6 cost gate; update inspector and source/handbook truth. Details and limits in STEERING; no collection/query/cap changes.
+- [ ] STEERING 40: purpose/topic diagnostics deployed (913); historical attribution complete (914); selection evidence/counts saved (915); inspector shipped (916); ledger refusal reasons deployed (917); call-scoped AI outcomes added (918); saved budget-refusal result still open. After X reliability and Nov 6 review, save per-topic Bluesky outcomes, fix editing failures, build default-off reserved slot and use Nov 6 cost gate; update inspector and source/handbook truth. Details and limits in STEERING; no collection/query/cap changes.
 - [ ] STEERING 36 NOW: forty-article grouping pool live (872), ten-story editor cap unchanged; replay/cost evidence in [review](docs/edition-reviews/2026-11-05-world-story-pool.md). Review Nov 6 edition. Dedicated admin pages next; coverage cleanup done (873). X rounds due after 21:00 UTC.
 
 - [x] Nov 5 full-AI acceptance and saved reader text (847): all sections AI, zero unscored; $0.315445/152.320 s. [Review](docs/edition-reviews/2026-11-05.md).
@@ -39,11 +39,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Budget attribution (917): committed ledger decisions now include every applicable shared-cap/model-share/reserve/provider-block reason with purpose/topic and numeric inputs; verification cap logged separately. Saved Bluesky result propagation remains next.
+- [x] AI outcome plumbing (918): shared JSON calls now distinguish budget refusal, provider spend limit, transport failure, validation exhaustion and repair input limit; coalesced callers retain the cause. Existing nullable API unchanged. Next: carry outcomes through social triage/editor into saved Bluesky evidence.
 
-- [x] Bluesky inspector (916): admin edition detail shows every topic’s saved result and counts; older editions explicitly show missing evidence. Exact budget refusal remains open.
-
-- [x] Bluesky selection evidence (915): new snapshots retain per-topic open slots/read/shortlist/pick counts and distinct selection results; unavailable AI remains explicitly unresolved pending richer editor outcome.
-
-- [x] Historical Bluesky attribution (914): [Nov 4–5 reconstruction](docs/edition-reviews/2026-11-04-05-bluesky-outcomes.md); World Nov 5 Sonnet budget refusal confirmed, exact limiting rule unlogged; no paid replays.
+- [x] Bluesky evidence (914–917): historical review, saved counts/results, inspector and ledger refusal logs shipped; details in PROGRESS and [review](docs/edition-reviews/2026-11-04-05-bluesky-outcomes.md).
 - Next: STEERING 40 exact budget-refusal attribution before 13:00 UTC; Nov 6 edition review after publication, fresh X round after 21:00 UTC. Fixed search stays off.
