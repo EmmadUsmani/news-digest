@@ -85,7 +85,8 @@ pnpm obs metric 'up' --since 1h --step 60s
 - **Units:** `obs-*` system units, each with a memory and CPU cap:
   Grafana 256 MB, logs 160 MB, metrics 112 MB, everything else 80 MB or
   less, and 0.5–3% of a core each.
-  - Memory reclaim starts at 88 MB for metrics and 128 MB for logs.
+  - Unit files start memory reclaim at 88 MB for metrics, 128 MB for logs
+    and 64 MB for the shipper, below its 80 MB ceiling.
   - The host exporter has a 2% CPU ceiling and a 10-second scrape deadline.
   - They run at low priority, so they lose contention to the app.
   - They sit outside the app's health gate.

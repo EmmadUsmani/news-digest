@@ -8,6 +8,7 @@ EnvironmentFile=/home/exedev/.config/news-digest/env
 Restart=always
 RestartSec=5
 TimeoutStopSec=15
+MemoryHigh=64M
 MemoryMax=80M
 CPUQuota=1%
 CPUWeight=10

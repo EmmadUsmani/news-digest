@@ -4,7 +4,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
-- [ ] Observability shipper cache pressure (1012): firing memory warning recovered with cgroup cache reclaim (79→46 MiB), alert cleared at 15:08:50, no restart/deploy during freeze. After 16:00 UTC, add/verify MemoryHigh=64M below unchanged 80M ceiling, following logs/metrics precedent; fresh seven-source delivery passed.
+- [ ] Observability shipper cache pressure (1012): firing memory warning recovered with cgroup cache reclaim (79→46 MiB), alert cleared at 15:08:50, no restart/deploy during freeze. MemoryHigh=64M below unchanged 80M ceiling and live verifier prepared (1014); syntax/CI checked. After 16:00 UTC install the unit, restart shipper, verify threshold and seven-source delivery; deploy social editor v6 too. Runtime still has no early reclaim threshold.
 
 - [ ] STEERING 39 NOW, ahead of UI: reliability/accounting shipped (903–909); Nov 5 keyword reruns complete (910), Gaming three posts, NBA/World tool failed again (2/3 failure), $0.048153 settled. Fair semantic preparation shipped (911); scorer review complete (912): Gaming 1/3 usable, no retained free-link overlap, $0.000337 verification. Next: Nov 6 round after 21:00 UTC. Scorer relevance ≥6/interestingness ≥4 counts as non-promotion; unknown likes unusable. $2.50 total/$1 UTC day caps; fixed search OFF, no further Nov 5 reruns. [Evidence](docs/edition-reviews/2026-11-05-x-experiment-review.md).
 - [x] STEERING 41 (920): durable scheduled-edition BlueskyEditingFailed/BlueskyNoPicks alerts, aggregate-only DB access and firing/clearing/restart coverage shipped. Nov 6 first eligible scheduled edition has one World pick and no editing failures; neither alert fires (1011).

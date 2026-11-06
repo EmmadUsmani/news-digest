@@ -203,3 +203,13 @@
 - Initial targeted run found the expected stale v5 assertion; updated to v6. Full verification recorded below.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration); pnpm build; targeted social editor/selection tests 25/25; git diff --check. Health/DB/Redis and alerts remain green. Archived iterations 994–995 to keep this file small.
 - Next: deploy this correction and MemoryHigh=64M after 16:00; X round after 21:00. Bluesky reserved slot and fixed search remain OFF. SOURCES/handbook unchanged (no source or system-flow change).
+
+## 2026-11-06: iteration 1014 — prepare shipper cache reclaim threshold
+
+- Started clean on main; no leftover work. Alerts clear, 13 services and 36 sources healthy; /healthz reports DB/Redis OK.
+- Owner value: prevent the observed shipper cache warning recurring and preserve operational log delivery under the existing memory ceiling.
+- Prepared MemoryHigh=64M below unchanged MemoryMax=80M, matching the logs/metrics reclaim approach. Live O2 verifier now requires the shipper threshold; updated affected handbook page.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration); pnpm build; systemd-analyze verify ops/observability/obs-shipper.service; handbook check 09-observability; git diff --check passed.
+- Deployment deliberately deferred: still within 13:00–16:00 UTC freeze. Running shipper active, zero restarts, ~45 MiB, MemoryHigh=infinity; the new runtime assertion must wait for installation. No paid calls.
+- Next after 16:00: install unit/restart shipper, run --verify-o2 for threshold and seven-source delivery, deploy social editor v6 and verify app. X round after 21:00; Bluesky slot remains OFF awaiting owner.
+- SOURCES and NEEDS_FROM_HUMAN unchanged; no source or owner dependency changed.
