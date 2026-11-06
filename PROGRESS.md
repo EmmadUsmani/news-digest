@@ -179,3 +179,15 @@
 - No activation, paid calls, collection changes or service restarts during the deployment freeze. Runtime/services remain unchanged.
 - SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Next: fill Nov 6 evidence after publication; X round after 21:00 UTC.
 - Verification: pnpm format; pnpm lint:fix; pnpm check passed (558 unit/224 isolated integration); pnpm build passed; git diff --check. Final health green, alerts clear; API/worker active. Archived iterations 981–982 to keep this file small.
+
+## 2026-11-06: iteration 998 — export saved reader content for the publication review
+
+- Started clean on main; alerts clear, health/DB/Redis green. No leftover work. Latest edition remains Nov 5.
+- Reader weakness remains World's two-story breadth and thin Tech summaries; deployed fixes await Nov 6, so no further prompt tuning.
+- Owner value: the upcoming comparison can read complete saved topic text without repeatedly extracting nested API payloads or generating another edition.
+- Added an offline reader-contract export: snapshot identity/window, briefs, stories/coverage, original posts, display text, context and saved engagement.
+- Reports explicitly leave media/link inspection to the reviewer and make no quality judgment; operational fields are excluded by the reader contract.
+- Exported the actual Nov 5 reader response to /tmp: all four topics, 17 stories and 14 posts; synthetic tests separately verify preservation, privacy and empty topics.
+- No paid calls, source/schema/runtime changes, activation or service restarts during the deployment freeze. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged.
+- Next: Nov 6 reader/World/cost/Bluesky review after publication; X fresh-window test after 21:00 UTC.
+- Verification: pnpm format; pnpm lint:fix; pnpm check passed (560 unit/224 isolated integration); pnpm build passed; git diff --check. Final health green, alerts clear; API/worker active.

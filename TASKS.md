@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Saved-reader review export (998): offline plain-text report preserves briefs, stories, coverage and complete saved posts/context for Nov 5/6 comparison; no generation, provider or runtime changes. [Usage](docs/edition-reviews/2026-11-05-reader.md#export-saved-reader-text-for-comparison).
+
 - [x] Bluesky activation worksheet (997): offline saved-usage cost-gate calculator with exact cap boundary, unknown-evidence and AI/budget checks. No activation or paid calls; complete Nov 6 topic estimates after publication. [Usage](docs/edition-reviews/2026-11-04-05-bluesky-outcomes.md#nov-6-reserved-slot-decision-worksheet).
 
 - [x] Evidence-pilot decision protocol (996): proposed a fixed five-link denominator, paired-input review, continuation threshold and separate replay allowance in [ideas](docs/ideas.md#proposed-comparison-and-stop-rule). Proposal only; Nov 6 comparison and owner approval remain prerequisites.
