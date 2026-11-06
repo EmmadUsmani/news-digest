@@ -1,17 +1,3 @@
-## 2026-11-06: iteration 976 — make the brief an overview
-
-- Started clean on main; health/database/Redis green, alerts clear, all 36 monitored sources healthy; no leftover work.
-- Read all four latest saved topics: all 14 brief bullets exactly copy their following story headlines. Owner value: scan a compact overview without rereading the same headlines.
-- Editor v7 explicitly requests concise factual overview bullets, retaining developments, attribution and uncertainty; unrelated events remain distinct and invented context stays prohibited.
-- Prompt/cache purpose version, synthetic golden expectation and synthetic publication fingerprint updated together; response/golden payloads unchanged. No recorded live responses changed. Existing factual validation and budgets unchanged.
-- Offline editor tests pass 15/15, including overview instructions through Sonnet and capped Haiku and unchanged saved factual bullets. These are contract checks, not observed model-quality evidence.
-- No paid calls, sources, flags, schema or UI changes. Existing saved editions are immutable; inspect actual Nov 6 output after publication.
-- Archived iteration 962 to keep PROGRESS small; TASKS and item 42 ack updated. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged: editorial guidance fix with no system/source changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check passed 549 unit/224 isolated integration tests; pnpm build; git diff --check. No UI changes, so no browser replay.
-- Earlier checks caught archive formatting and a stale synthetic replay fingerprint (223/224 integration); corrected both. A direct publication test attempt was rejected by the isolation guard; final verification used disposable containers.
-- API/worker/docs/schema restarted; health/database/Redis green, alerts clear, all 36 sources healthy, zero failed digest jobs; post-push confirmation follows.
-- Next: Nov 6 brief/summary/post context, World/cost/Bluesky review after 15:00 UTC; fresh X round after 21:00 UTC.
-
 ## 2026-11-06: iteration 977 — preserve reporting publisher names
 
 - Started clean on main; health/database/Redis green, alerts clear, all 36 monitored sources healthy, zero failed digest jobs; no leftover work.
@@ -191,3 +177,16 @@
 - Verification results follow. Next: Nov 6 World/full-AI/cost/Bluesky review after 15:00 UTC; no deploys 13:00–16:00; X round after 21:00 UTC.
 - Verification: pnpm format; pnpm lint:fix; pnpm check reported 555 unit/224 integration passed but chain exited 143 after coverage. Standalone pnpm test:integration passed 224/224 with exit 0; pnpm build passed.
 - pnpm exec tsx scripts/smoke-bluesky-cards.ts passed all four views; inspected mobile dark PNG. git diff --check passed. Restart/health confirmation follows.
+
+## 2026-11-06: iteration 991 — identify the edition in heading navigation
+
+- Started clean on main; health green, alerts clear; no leftover work. No failed digest jobs; next scheduled run 15:00 UTC.
+- World breadth remains the largest content weakness, with its deployed fix awaiting today's edition; no repeated content investigation or prompt changes.
+- Reader weakness fixed: the edition had topic headings but no page heading. Added a visually hidden dated h1 before topics, so screen-reader heading navigation identifies the edition.
+- Owner value: readers using assistive technology can distinguish the saved edition before navigating its topics; visual layout is unchanged.
+- Existing real-edition browser checks now require exactly one correctly dated h1 on desktop/mobile light/dark. Screenshots refreshed; external embeds blocked during verification.
+- Admin gate passed: 24 paths deny GET/HEAD, identity/cache and eight forwarded-token denials pass; proxy identity replacement remains required before public access.
+- No source, saved content, budget, prompt, provider or paid-call changes. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged.
+- Verification and deployment results follow. Next: Nov 6 edition/cost/Bluesky review after 15:00 UTC; no deploys 13:00–16:00; X round after 21:00 UTC.
+- Verification: pnpm format; pnpm lint:fix; pnpm check passed typecheck/lint/format/boundaries then exited 143 during unit tests. Standalone pnpm test:unit passed 555/555 and pnpm test:integration passed 224/224, both exit 0; pnpm build passed.
+- pnpm exec tsx scripts/smoke-reader-layout.ts passed four device/theme views; refreshed four layout screenshots and inspected mobile light. API restarted before 13:00 UTC; health/DB/Redis green, worker active, 36 sources healthy, alerts clear. git diff --check passed. Archived oldest progress entry to retain size limit.

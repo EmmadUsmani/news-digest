@@ -82,6 +82,17 @@ async function smoke() {
         await page.goto(origin);
         await page.locator('.digest-topic').last().waitFor();
         await page.evaluate(() => document.fonts.ready);
+        const editionHeading = page.getByRole('heading', { level: 1 });
+        assert.equal(await editionHeading.count(), 1);
+        assert.equal(
+          await editionHeading.innerText(),
+          await page.evaluate(
+            (date) =>
+              `News Digest — ${new Date(date).toLocaleDateString(undefined, { dateStyle: 'long' })}`,
+            edition.windowEnd,
+          ),
+          'Heading navigation identifies the dated edition before its topics',
+        );
         if (device === 'mobile') {
           await page.setViewportSize({ width: 320, height });
           const header = page.locator('header');

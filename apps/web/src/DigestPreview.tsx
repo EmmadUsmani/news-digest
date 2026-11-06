@@ -70,6 +70,12 @@ export function DigestPreview() {
       )}
       {preview && (
         <div className="flex gap-6 pt-20 lg:pt-10">
+          <h1 className="sr-only">
+            News Digest —{' '}
+            {new Date(preview.windowEnd).toLocaleDateString(undefined, {
+              dateStyle: 'long',
+            })}
+          </h1>
           <ReaderContents topics={preview.topics} />
           <div className="min-w-0 max-w-2xl flex-1 space-y-16">
             {preview.topics.map((topic) => (

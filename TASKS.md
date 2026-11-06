@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Reader heading navigation (991): a dated page heading identifies the saved edition to screen-reader users before topic headings; desktop/mobile light/dark reader checks cover it.
+
 - [x] Bluesky reader verification (990): repaired stale context-stripping assertion; browser replay checks visible reader notes and private selection reasons across desktop/mobile light/dark. Synthetic screenshots refreshed; no runtime change.
 
 - [x] Thin Tech evidence (989): checked saved OpenSSH/Google News exploit coverage and ingestion fixtures; no dropped excerpt found. Destination enrichment remains deferred; scoped reader-value proposal in [ideas](docs/ideas.md), pending owner review and today's output.

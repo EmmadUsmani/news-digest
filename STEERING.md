@@ -1559,3 +1559,5 @@ ack: 2026-11-06 item 42 — iteration 985: read all four saved topics; Sony summ
 ack: 2026-11-06 item 42 — iteration 986: saved OpenAI and Porzingis X text ends mid-sentence; recovery copy now names the whole official post and directs readers to the original, rather than implying only media is missing. No content or spend changes.
 
 ack: 2026-11-06 item 42 — iteration 988: pending World breadth fix still awaits publication. Removed repeated “Digest context” headings so saved post explanations read directly below their originals; no content or spend changes.
+
+ack: 2026-11-06 item 33 — iteration 991: reader heading navigation now starts with a dated edition heading before topic headings, making the saved edition identifiable to screen-reader users without changing visual layout or content.
