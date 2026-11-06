@@ -171,4 +171,5 @@
 - Passed pnpm format; pnpm lint:fix; pnpm build; pnpm exec tsx scripts/smoke-reader-short-contents.ts; pnpm exec tsx scripts/smoke-reader-layout.ts; git diff --check.
 - pnpm check passed static checks and 562 unit tests, then exited 143 during integration; standalone pnpm test:integration passed all 225 cases (exit 0).
 - API/worker restarted; health and alerts clear; saved edition retains four topics, 20 stories and 17 posts. No paid calls or source/schema/handbook-flow changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Next: continue approved reader completion; approved Bluesky slot activation pending under Current order; fresh X round after 21:00 UTC. Investigate recurring combined-check signal 143 if it persists; standalone integration remains the verification fallback.
+- Initial push rejected by concurrent owner .gitignore commit d27912a6; merged it without conflicts, preserving owner-only .local/ exclusion. No runtime change in merge.
+- Next: continue approved reader completion; approved Bluesky slot activation pending under Current order; fresh X round after 21:00 UTC. Combined-check signal 143 recurs; standalone integration remains green.
