@@ -1537,3 +1537,5 @@ ack: 2026-11-06 item 42 — iteration 975: saved OpenAI/NBA cards repeat their o
 ack: 2026-11-06 item 42 — iteration 976: all 14 saved brief bullets copied the following story headlines. Editor v7 requests a compact factual overview, retaining attribution and distinct events; offline transport/cache/fallback checks only, actual output awaits Nov 6 publication. No spend or selection limits changed.
 
 ack: 2026-11-06 item 42 — iteration 977: saved Tech exploit coverage shortened The Hacker News to Hacker News, making the publisher ambiguous. Editor v8 preserves full supplied publisher names and distinguishes reporting outlets from aggregation feeds; offline contracts only, actual output awaits publication. No spend or source changes.
+
+ack: 2026-11-06 item 42 — iteration 978: saved Tech picks include a truncated Oumi newsletter recap. Social editor v5 prefers firsthand announcements, demos and reporting over generic recaps without guessing provenance; substantive secondhand scoops remain eligible. Offline contracts only; compare Nov 6 output. No paid calls or source changes.

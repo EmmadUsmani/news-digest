@@ -1,17 +1,3 @@
-## 2026-11-06: iteration 964 — keep Contents aligned while reading
-
-- Started clean on main; alerts clear and health/database/Redis green. No leftover work.
-- Read all four saved topics: World breadth and Tech grouping await today's publication; X round waits until 21:00 UTC.
-- Reader weakness: ordinary scrolling left Contents highlighting the topic after the first Tech story crossed the reading line; reproduced at scrollY 180.
-- Cause: intersections alone do not report every crossing of the reading line. Add passive scroll tracking, coalesced per animation frame, with cleanup.
-- Owner value: Contents highlights the story being read and mobile chips follow topic changes during forward/backward scrolling.
-- Added read-only saved-edition browser replay in four views; blocks writes/external requests. Settle lazy blocked media before measuring; account for the last story's page-end limit.
-- Updated TASKS, STEERING ack and affected handbook; archived iterations 947–948. SOURCES/NEEDS_FROM_HUMAN unchanged; no spend or flag changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-scroll.ts; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check. Final results below.
-- Initial scroll replay exposed lazy media layout shifts and page-end limits in the test; corrected setup and reran successfully. Inspected desktop light current-story screenshot.
-- Next: edition/Bluesky review after 15:00 UTC; X round after 21:00 UTC. Fixed search and reserved slot stay off.
-- Final check passed: 543 unit/224 isolated integration tests; build, handbook and both four-view browser replays passed. API/worker/docs/schema restarted; health/database/Redis green, 36 sources healthy, no failed digest jobs, alerts clear.
-
 ## 2026-11-06: iteration 965 — resize X media with its reader card
 
 - Started clean on main; alerts clear, health/database/Redis green, all 36 sources healthy and no failed digest runs. No leftover work.
@@ -190,3 +176,16 @@
 - Verification: targeted editor tests 16/16; pnpm format; pnpm lint:fix; pnpm check (550 unit/224 isolated integration tests); pnpm build; git diff --check. No UI change, so no browser replay.
 - Regeneration first omitted synthetic topic guidance; corrected against the fixture's exact input before integration. No live provider or database used by tests.
 - API/worker/docs/schema restarted; health/database/Redis green and alerts clear. Next: Nov 6 summary/brief/attribution, World/cost/Bluesky review after 15:00 UTC; X round after 21:00 UTC.
+
+## 2026-11-06: iteration 978 — prefer original social developments
+
+- Started clean on main; health/database/Redis green and alerts clear; no leftover work.
+- Read all four latest saved topics. Nov 6 edition and fresh X round remain time-gated.
+- Reader weakness: Tech selected a truncated Eggb4by newsletter excerpt about Oumi alongside original announcements; it adds another news recap rather than an original social moment.
+- Owner value: scarce post slots favor original announcements, demos and reporting instead of generic newsletter excerpts.
+- Social editor v5 explicitly prefers firsthand developments; recaps must add concrete news. Substantive secondhand scoops remain eligible, and provenance must never be guessed from account names.
+- Offline contracts check guidance on Sonnet and capped Haiku; they do not establish actual model selection quality. Saved editions remain unchanged; compare Nov 6 output.
+- No paid calls, sources, flags, schema or UI changes. TASKS/item 42 ack updated; archived iteration 964. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged: editorial guidance only.
+- Verification: targeted social editor tests 14/14; pnpm format; pnpm lint:fix; pnpm check passed 551 unit/224 isolated integration tests; pnpm build; git diff --check. No UI change, so no browser replay.
+- Next: Nov 6 World/cost/Bluesky and editorial review after 15:00 UTC; X round after 21:00 UTC.
+- API/worker/docs/schema restarted; health/database/Redis green and alerts clear. All 36 monitored sources healthy and zero failed digest jobs; post-push confirmation follows.

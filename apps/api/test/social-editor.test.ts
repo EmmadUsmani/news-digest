@@ -74,7 +74,7 @@ void test('social editor preserves post identity, isolates purpose and reuses ca
   assert.equal(h.calls.length, 1);
   assert.equal(h.calls[0].purpose, 'social-editor-v2');
   assert.match(h.calls[0].instructions, /Never infer virality/);
-  assert.match(h.calls[0].instructions, /Social editor v4/);
+  assert.match(h.calls[0].instructions, /Social editor v5/);
   assert.match(
     h.calls[0].instructions,
     /essential news appears only in an unseen/,
@@ -89,6 +89,22 @@ void test('social editor preserves post identity, isolates purpose and reuses ca
     /descending editorial quality, strongest first and weakest last/,
   );
   assert.deepEqual(candidates[0].text, 'A company announced a model.');
+});
+void test('firsthand selection guidance reaches Sonnet and capped Haiku without inventing provenance', async () => {
+  for (const refuse of [[], ['claude-sonnet-5-5']]) {
+    const h = harness([valid], refuse);
+    assert.ok(await h.editor.edit(topic, candidates, 1, 'originality'));
+    assert.equal(h.calls.length, 1);
+    const prompt = h.calls[0].instructions;
+    assert.match(prompt, /Prefer firsthand announcements/);
+    assert.match(
+      prompt,
+      /newsletter excerpts, generic news roundups or secondhand recaps/,
+    );
+    assert.match(prompt, /Judge originality from supplied text only/);
+    assert.match(prompt, /Secondhand reporting can qualify/);
+    assert.match(prompt, /never assume an account is the original source/);
+  }
 });
 void test('self-explanatory posts can keep their slot without a repetitive reader note', async () => {
   const selected = { posts: [{ ...post, whyItMatters: '' }] };

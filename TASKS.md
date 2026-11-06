@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Original social developments (978): social editor v5 prefers firsthand announcements/demos/reporting over newsletter excerpts; concrete secondhand scoops remain eligible. Verify actual Nov 6 picks.
+
 - [x] Publisher attribution (977): editor v8 preserves explicitly named reporting outlets and distinguishes The Hacker News from Hacker News; aggregator labels are not reporting attribution. Verify actual Nov 6 output.
 
 - [x] Compact briefs (976): editor v7 requests a factual overview instead of copying the following story headlines; all 14 saved Nov 5 bullets were exact headline copies. Confirm Nov 6 output after publication.
