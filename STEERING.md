@@ -1547,3 +1547,5 @@ ack: 2026-11-06 item 42 — iteration 980: saved World coverage repeated Guardia
 ack: 2026-11-06 item 42 — iteration 981: read all four saved topics; single-report stories hid the original headline. Enabled their article disclosure so readers can inspect the original report alongside the rewritten summary. No selection or spend changes.
 
 ack: 2026-11-06 item 42 — iteration 982: Sony’s saved summary cites a PS6 report missing from its article disclosure. Reader projection now includes all saved editorial citations, deduplicated with original coverage; saved data and selection stay unchanged.
+
+ack: 2026-11-06 item 42 — iteration 983: OpenSSH’s author link appeared under the unqualified Hacker News label. Mark Hacker News and Google News discovery links with “via” in source rows and report disclosures so readers can distinguish feeds from reporting outlets; no saved content or spend changes.

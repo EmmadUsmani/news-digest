@@ -1,17 +1,3 @@
-## 2026-11-06: iteration 969 — preserve media space during reloads
-
-- Started clean on main; alerts clear, health/database/Redis green, 36 sources healthy and no failed digest jobs. No leftover work.
-- Read saved Nov 5 topics; Nov 6 edition/Bluesky review waits for publication and X round for 21:00 UTC.
-- Reader weakness: saved Gaming X media loses its height during theme replacement, shifting following content; new pending-state browser assertion failed against HEAD.
-- Reserve the previous media height during replacement and release on success, rejection or timeout. Reader sees a stable media area while loading.
-- Extended saved-edition local-widget replay across desktop/mobile light/dark, with replacement screenshots; no writes or external calls.
-- Updated TASKS, STEERING ack and affected handbook; archived iterations 954–955. SOURCES/NEEDS_FROM_HUMAN unchanged; no spend or flag changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-x-media.ts; check-handbook.ts 08-operations; git diff --check. Final results below.
-- First post-edit browser attempt served old code before build finished; completed-build replay passed. First pnpm check exited 143 after 543 unit and 224 integration passes; full detached rerun started to capture final exit status.
-- Next: edition/Bluesky review after 15:00 UTC; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.
-- Final rerun passed with exit 0: 543 unit/224 isolated integration tests; build, handbook and four-view browser replay passed. Inspected mobile replacement screenshot; four new screenshots retained.
-- API/worker/docs/schema restarted; health/database/Redis green, alerts clear.
-
 ## 2026-11-06: iteration 970 — measure the serialized social tail
 
 - Started clean on main; health/database/Redis green, all 36 sources healthy, alerts clear and no failed digest jobs. No leftover work.
@@ -190,3 +176,16 @@
 - Verification: targeted reader tests; pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check. Results below.
 - Next: Nov 6 World/cost/Bluesky/editorial review after 15:00 UTC; X round after 21:00 UTC. Fixed search remains off.
 - Final: pnpm check passed (553 unit/224 isolated integration tests); build, handbook, four-view saved-edition replay and diff checks passed. Inspected mobile supporting-report screenshot; services restarted, health green, alerts clear, all 36 sources healthy, no failed digest jobs. Initial archive-format failure fixed before full rerun.
+
+## 2026-11-06: iteration 983 — distinguish discovery feeds from reporting outlets
+
+- Started clean on main; health/database/Redis green, alerts clear; no leftover work.
+- Read all four saved topics; Nov 6 edition/Bluesky and X reviews remain time-gated.
+- Reader weakness: OpenSSH links to its author's Mastodon post but appears under the unqualified Hacker News label; Tech also shows Google News topic feeds as sources.
+- Mark these discovery links “via” in story source rows and expanded reports, distinguishing discovery feeds from reporting outlets without guessing authorship.
+- Saved content, destinations, collection, selection and spend unchanged; no paid calls.
+- Updated TASKS, item 42 ack and affected handbook. SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check.
+- Build and handbook passed; API/worker/docs/schema restarted, health green, all 36 sources healthy, zero failed digest jobs. Full checks/browser results recorded below.
+- Next: Nov 6 World/cost/Bluesky/editorial review after 15:00 UTC; X round after 21:00 UTC. Fixed search remains off.
+- Final: pnpm check passed (553 unit/224 isolated integration tests); build, handbook, four-view saved-edition replay and diff checks passed. Inspected mobile discovery attribution screenshot; four new screenshots retained. Archived iteration 969 to keep this file small.

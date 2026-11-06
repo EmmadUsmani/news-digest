@@ -10,6 +10,11 @@ import { chromium } from 'playwright';
 
 import { localAdminJson } from './lib/local-admin-fetch';
 
+const discoveryLabel = (name: string) =>
+  name === 'Hacker News' || name.startsWith('Google News:')
+    ? `via ${name}`
+    : name;
+
 async function smoke() {
   const origin = 'http://127.0.0.1:8000';
   const edition = readerEditionSchema.parse(
@@ -355,10 +360,10 @@ async function smoke() {
             }
             assert.deepEqual(
               await visibleLinks.allTextContents(),
-              [...expected.values()].slice(0, 2),
+              [...expected.values()].slice(0, 2).map(discoveryLabel),
             );
             for (const link of await visibleLinks.all()) {
-              const name = (await link.innerText()).trim();
+              const name = (await link.innerText()).trim().replace(/^via /, '');
               const report = story.coverage?.find((article) =>
                 article.sources.includes(name),
               );
@@ -394,7 +399,7 @@ async function smoke() {
             if (primary && story.sources[0] !== primary.sources[0]) {
               assert.equal(
                 await visibleLinks.first().innerText(),
-                primary.sources[0],
+                discoveryLabel(primary.sources[0]),
                 'Grouped World story credits the headline destination first',
               );
               assert.equal(
@@ -448,9 +453,16 @@ async function smoke() {
                       ),
                     ),
                   ),
-                story.coverage.map((article) => article.sources.slice(0, 1)),
+                story.coverage.map((article) =>
+                  article.sources.slice(0, 1).map(discoveryLabel),
+                ),
                 'Each report credits one publisher rather than repeating feed sections',
               );
+              if (story.title.startsWith('OpenSSH')) {
+                await card.screenshot({
+                  path: `docs/screenshots/ui/reader-discovery-source-${device}-${theme}.png`,
+                });
+              }
               if (story.title.includes('Sony lifts profit outlook')) {
                 await card.screenshot({
                   path: `docs/screenshots/ui/reader-supporting-reports-${device}-${theme}.png`,

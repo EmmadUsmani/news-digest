@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Discovery attribution (983): source links mark Hacker News and Google News with “via”, distinguishing discovery feeds from reporting outlets in story rows and expanded reports.
+
 - [x] Supporting report links (982): reader article disclosures include all saved editorial citations, including reports outside the selected coverage group; saved snapshots stay unchanged.
 
 - Earlier reader steps through 981: [completed markers](docs/progress-archive/2026-11-06-reader-done-982.md).

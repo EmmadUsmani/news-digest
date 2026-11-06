@@ -101,7 +101,11 @@ function SourceLink({ name, url }: { name: string; url: string }) {
           }}
         />
       )}
-      <span className="text-xs break-words">{name}</span>
+      <span className="text-xs break-words">
+        {name === 'Hacker News' || name.startsWith('Google News:')
+          ? `via ${name}`
+          : name}
+      </span>
     </a>
   );
 }
