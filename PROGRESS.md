@@ -1,15 +1,3 @@
-## 2026-11-06: iteration 941 — restore canonical reader routing verification
-
-- Started clean on main; health/alerts/services green, all 36 sources healthy, no failed digest runs. No leftover work.
-- Read all four saved topics: World breadth and mixed Tech grouping await Nov 6 publication evidence; no new content defect identified.
-- Reproduced a broken existing routing check: it timed out on the deleted inline-history panel. Ported it to the archive and current story/error markup.
-- Reader value: restored proof that old edition links redirect correctly, reload preserves saved stories/summaries, and archive switching returns cached editions without refetching.
-- Four desktop/mobile light/dark cases also cover malformed responses, missing routes, self-hosted fonts, overflow, API-only 404s and zero writes. External requests blocked; no paid calls or flag changes.
-- Verification: pnpm exec tsx scripts/smoke-ui-routing.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check. Final results recorded below.
-- Updated TASKS and screenshots; archived iteration 926. No source/system-flow change; SOURCES/handbook/NEEDS_FROM_HUMAN/STEERING unchanged.
-- Next: Nov 6 World/cost/Bluesky review after 15:00 UTC publication; X round after 21:00 UTC. Fixed search and reserved slot remain off.
-- Final standalone pnpm check exited zero (543 unit/224 isolated integration tests); build and four post-build browser cases passed. Initial chained check exited 143 after passing tests; standalone rerun clean. Browser rerun after restart readiness passed. Inspected desktop light/mobile dark; services/health/36 sources/alerts green.
-
 ## 2026-11-06: iteration 942 — readable mobile contents headlines
 
 - Started clean on main; alerts clear and services/health green. No leftover work. Edition/Bluesky review and X round remain time-gated.
@@ -177,3 +165,15 @@
 - Initial pnpm check exited 143 during integration tests without a test failure; standalone rerun started for a conclusive result.
 - Next: Nov 6 edition/Bluesky review after 15:00 UTC publication; fresh X round after 21:00 UTC. Fixed search and reserved slot remain off.
 - Final: standalone pnpm check passed (543 unit/224 isolated integration tests); build, final lint/format, handbook and four-view browser replay passed. Inspected corrected mobile screenshot; saved edition remains four topics/17 stories/14 posts. API/worker/docs/schema restarted active, health green and alerts clear.
+
+## 2026-11-06: iteration 957 — publication times on every story
+
+- Started clean on main; alerts clear, health/database/Redis green, all 36 sources healthy, digest queue has no failed runs. No leftover work.
+- Read all four saved topics; World breadth and mixed Tech grouping await Nov 6 publication. Standalone stories expose only edition-relative ages, unlike dated expanded reports.
+- Owner value: every story now shows its saved publication date and local time so earlier reporting can be distinguished from updates without expanding coverage.
+- Extended saved-edition browser replay to verify every primary timestamp against saved data in desktop/mobile light/dark; all writes and external calls blocked.
+- Initial browser replay caught an existing brief-navigation timing race; wait for the target URL before checking the hash/focus.
+- Updated TASKS, STEERING ack and operations handbook; archived iteration 941. SOURCES and NEEDS_FROM_HUMAN unchanged. No spend, collection or flag changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check. Final results below.
+- Next: Nov 6 edition/Bluesky review after 15:00 UTC publication; fresh X round after 21:00 UTC. Fixed search and reserved slot remain off.
+- Final: pnpm check passed (543 unit/224 isolated integration tests); build, handbook, four-view saved-edition browser replay and diff checks passed. Inspected mobile light screenshot. API/worker/docs/schema restarted active; health green and alerts clear.

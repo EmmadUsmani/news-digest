@@ -1499,3 +1499,5 @@ ack: 2026-11-06 item 42 — iteration 954: changing theme rebuilt X media and cl
 ack: 2026-11-06 item 42 — iteration 955: World’s expanded coverage mixed Nov 4 and Nov 5 reports without dates. Show each report’s saved publication date and local time; saved-content browser checks passed across desktop/mobile light/dark. No spend or selection changes.
 
 ack: 2026-11-06 item 42 — iteration 956: saved topic briefs repeated story headlines without a direct route to the report. Matching brief headlines now jump to the saved story; keyboard focus and visible destinations verified across desktop/mobile light/dark. No spend or selection changes.
+
+ack: 2026-11-06 item 42 — iteration 957: standalone reports exposed only edition-relative ages; show saved publication dates and local times on every story so readers can distinguish earlier reporting from updates. No spend or selection changes.

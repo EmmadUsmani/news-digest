@@ -131,7 +131,13 @@ export function DigestPreview() {
                         )}
                         <StorySources story={story}>
                           <time dateTime={story.publishedAt}>
-                            {relativeTime(story.publishedAt, preview.windowEnd)}
+                            {new Date(story.publishedAt).toLocaleString(
+                              undefined,
+                              {
+                                dateStyle: 'medium',
+                                timeStyle: 'short',
+                              },
+                            )}
                           </time>
                         </StorySources>
                       </Card>
@@ -159,16 +165,4 @@ export function DigestPreview() {
       )}
     </main>
   );
-}
-
-function relativeTime(value: string, editionEnd: string) {
-  const hours = Math.max(
-    0,
-    Math.floor((Date.parse(editionEnd) - Date.parse(value)) / 3_600_000),
-  );
-  return hours < 1
-    ? 'Within the hour'
-    : hours < 24
-      ? `${hours}h before edition`
-      : `${Math.floor(hours / 24)}d before edition`;
 }

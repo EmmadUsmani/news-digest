@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Story publication times (957): every story shows its saved publication date and local time, including standalone reports.
+
 - [x] Brief navigation (956): matching topic-brief headlines jump to their saved story, including keyboard focus and sticky-header clearance.
 
 - [x] Grouped report dates (955): expanded coverage shows each saved report’s publication date and local time, distinguishing earlier coverage from updates.

@@ -84,6 +84,7 @@ async function smoke() {
             );
             await link.focus();
             await page.keyboard.press('Enter');
+            await page.waitForURL((url) => url.hash === `#story-${story.id}`);
             assert.equal(new URL(page.url()).hash, `#story-${story.id}`);
             assert.equal(
               await page.locator(':focus').getAttribute('id'),
@@ -168,6 +169,24 @@ async function smoke() {
             const card = page.locator(`[id="story-${story.id}"]`);
             assert.equal(await card.locator('h3').innerText(), story.title);
             const sources = card.locator('.story-sources');
+            const published = sources.locator(':scope > time');
+            assert.equal(
+              await published.getAttribute('datetime'),
+              story.publishedAt,
+            );
+            assert.equal(
+              await published.innerText(),
+              await page.evaluate(
+                (value) =>
+                  new Date(value).toLocaleString(undefined, {
+                    dateStyle: 'medium',
+                    timeStyle: 'short',
+                  }),
+                story.publishedAt,
+              ),
+              'Every story shows its exact saved publication date and local time',
+            );
+            assert.ok(await published.isVisible());
             if ((story.coverage?.length ?? 0) > 1) {
               await card.locator('.coverage summary').click();
               const times = card.locator('.coverage time');
