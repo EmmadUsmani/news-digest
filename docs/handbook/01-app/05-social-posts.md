@@ -58,7 +58,8 @@ counts and media stay unknown; a link supplies no evidence of media contents.
   reposts, replies and time. An edition sees the counts as they were at its
   cutoff.
 - **At edition time:** AI triage screens up to 50 candidates, then the editor
-  fills the topic's remaining post slots (X picks come first). It skips
+  fills the topic's remaining post slots, with one qualifying Bluesky post
+  allowed to replace the last-ranked X pick. It skips
   posts that repeat something already picked from X.
 - **Saved selection evidence:** new editions retain each topic’s open slots,
   observations read, shortlisted candidates, picks and selection result.
@@ -66,10 +67,9 @@ counts and media stay unknown; a link supplies no evidence of media contents.
   Valid picks survive invalid siblings. Saved drops group by fields, IDs, claims and budget.
 - **Inspect outcomes:** open **Admin → Editions → a saved edition** for each
   topic’s result and slot/candidate/pick counts.
-- **Cards:** full text, author, time, counts and images. Videos link to the post.
 - **Controls:** `BLUESKY_EDITIONS_ENABLED=0` turns inclusion off.
   `BLUESKY_RESERVED_SLOT_ENABLED=1` holds one slot, replacing the last-ranked X
-  pick only when Bluesky qualifies. It defaults off. Saved evidence records
+  pick only when Bluesky qualifies. Enabled on this VM; unset defaults off. Saved evidence records
   held slots and replaced X IDs; open-slot counts include holds; totals stay within budget.
 
 ## Verification and safety

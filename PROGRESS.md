@@ -179,3 +179,15 @@
 - API restarted for browser verification; health/alerts clear, 36/36 sources healthy, digest-generation queue available/zero failed; saved edition 4 topics/20 stories/17 posts.
 - Next: continue item 33 reader work; Nov 7 keyword production/three-edition acceptance and approved Bluesky reserved-slot activation remain open. Whole-stack RAM target still unmet.
 - Initial push rejected: concurrent lead-only updates in docs/lead/work/{observability,x-search}.md. Fetched and merged without changing owner files or rewriting history; application checks remain applicable. API/worker active and post-restart health/alerts clear.
+
+## 2026-11-06: iteration 1061 — activate the approved Bluesky slot
+
+- Clean main; no leftovers. Initial health/alerts clear, 36/36 sources healthy; X production acceptance waits for Nov 7.
+- STEERING 40: reader weakness is full X sections excluding qualifying distinct Bluesky posts. Enabled the owner-approved reserved slot at 23:19 UTC, outside the protected window, for Nov 7 15:00 UTC.
+- Only BLUESKY_RESERVED_SLOT_ENABLED changed in the private environment; every other byte and mode 600 verified, daily cap unchanged. Explicit opt-in/default-off behavior retained.
+- Saved Nov 6 outcomes predate activation: Tech/NBA/Gaming no slots, World one distinct Bluesky pick/one unsupported drop; edition $0.286904 versus $0.501698 cap. No paid verification run or edition writes.
+- Updated source inventory, social-post handbook, historical review, TASKS and resolved gate note; STEERING ack records approval and next three-edition review.
+- Passed 22 focused Bluesky tests, pnpm check (536 unit/226 isolated integration, zero failures), pnpm build, pnpm format and pnpm lint:fix; git diff --check clean.
+- Handbook initially exceeded 100 lines; cut redundant card description, then pnpm exec tsx scripts/check-handbook.ts social-posts passed (18 pages/28 tables); no diagrams changed.
+- API/worker restarted; both process environments confirm flag=1. Immediate startup health probe raced readiness; repeat health DB/Redis OK, alerts clear, 36/36 sources healthy, digest queue available/zero failed.
+- Next: resume final reader work; Nov 7 X acceptance and first reserved-slot edition review (per-topic outcomes/picks/replaced X/added cost). Three-clean-editions stop applies. Observability RAM target remains open.

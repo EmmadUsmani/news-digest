@@ -24,7 +24,7 @@ export function blueskyEditionsEnabled(
   return value === undefined || value === '1';
 }
 
-// Activation requires the saved Nov 6 cost/AI gate in STEERING 40.
+// Explicit opt-in; STEERING 40 authorizes production activation after Nov 6 review.
 export function blueskyReservedSlotEnabled(
   value = process.env.BLUESKY_RESERVED_SLOT_ENABLED,
 ) {
