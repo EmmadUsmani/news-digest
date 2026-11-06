@@ -5,7 +5,7 @@ import type { BlueskyPost } from '../domain/bluesky';
 import { rankSafeBlueskyPosts } from '../domain/bluesky-ranking';
 import type { SocialSelectionServices } from './editorial-selection';
 
-// Explicit preparation only: no scheduler, publication or live-service caller.
+// Slot-independent scoring; the final editor receives existing picks separately.
 // An incomplete response cannot turn unscored observations into semantic picks.
 export async function shortlistBlueskyPosts(
   triage: SocialSelectionServices['socialTriage'],

@@ -33,6 +33,28 @@ export async function editBlueskyPosts(
     budget === 0 ? 0 : 10,
     runId,
   );
+  return editShortlistedBlueskyPosts(
+    services.socialEditor,
+    topic,
+    shortlist,
+    budget,
+    runId,
+    alreadySelected,
+  );
+}
+
+// Final selection depends on available slots and existing picks; scoring does not.
+// Callers must retain admission protection before starting either paid stage.
+export async function editShortlistedBlueskyPosts(
+  editor: SocialSelectionServices['socialEditor'],
+  topic: TriageTopic,
+  shortlist: Awaited<ReturnType<typeof shortlistBlueskyPosts>>,
+  budget: number,
+  runId: string,
+  alreadySelected: SelectedSocialPost[] = [],
+) {
+  if (!Number.isInteger(budget) || budget < 0 || budget > 20)
+    throw new Error('Expected Bluesky editorial budget 0–20');
   const empty = (
     status: 'incomplete' | 'unavailable' | 'complete',
     failures?: string[],
@@ -49,6 +71,7 @@ export async function editBlueskyPosts(
     model: null,
     candidatesShortlisted: shortlist.posts.length,
   });
+  if (!budget) return empty('complete');
   if (shortlist.status === 'incomplete')
     return empty('incomplete', shortlist.failures);
   if (!shortlist.posts.length) return empty('complete');
@@ -72,14 +95,12 @@ export async function editBlueskyPosts(
       author,
     })),
   ];
-  const outcome = services.socialEditor.editOutcome
-    ? await services.socialEditor.editOutcome(...args)
-    : null;
+  const outcome = editor.editOutcome ? await editor.editOutcome(...args) : null;
   const edited = outcome
     ? outcome.status === 'complete'
       ? outcome.value
       : null
-    : await services.socialEditor.edit(...args);
+    : await editor.edit(...args);
   if (!edited)
     return empty(
       'unavailable',

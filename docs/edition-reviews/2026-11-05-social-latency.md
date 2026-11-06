@@ -70,3 +70,13 @@ or claim that eliminating it would meet 60 seconds. Even subtracting all
 8.804 seconds leaves more than 143 seconds. The existing four-slot work-only
 bound and unfinished speed targets still apply. No runtime flags, prompts,
 provider choices, budgets or candidate pools changed.
+
+## Scoring separation — iteration 1020
+
+Bluesky final editing now accepts a previously scored shortlist, its final
+slot budget and the current selected posts. The existing edition caller still
+scores and edits sequentially after X selection. No early paid work is enabled.
+Fake-only regressions verify equivalent sequential output, one scoring pass,
+zero editor calls when no slot remains, and refusal of incomplete scores.
+This prepares the dependency split; it establishes no live latency improvement.
+Earlier scheduling still needs admission and slot protection before activation.
