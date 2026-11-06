@@ -139,3 +139,15 @@
 - Updated TASKS and observability handbook; archived iteration 900. SOURCES/NEEDS_FROM_HUMAN unchanged because source behavior and owner requirements did not change.
 - Rebuilt/restarted API, worker, docs and schema active; /healthz database/Redis green, reader HTTP 200, 36/36 sources healthy and alerts clear.
 - Next: finish STEERING 40 historical attribution once, then persist per-topic Bluesky outcomes/inspector before 13:00 UTC if ready; Nov 6 edition review after publication and fresh X comparison after 21:00 UTC. Fixed X stays off.
+
+## 2026-11-06: iteration 914 — historical Bluesky attribution
+
+- Started clean on main; no leftover work. Alerts clear, /healthz green and 36/36 sources healthy. X round waits until 21:00 UTC; Nov 6 edition not yet due.
+- Completed STEERING 40's one-pass Nov 4–5 worker journal/ledger/snapshot reconciliation; saved review and owner ack. No paid calls, collection or edition writes.
+- NBA/Gaming had no slots both days. Nov 4 World exhausted four attempts; Tech recovered with Haiku repair and one pick. Nov 5 Tech Sonnet returned no picks; World Sonnet was refused before dispatch, then Haiku initial/repair failed.
+- Refusal was not insufficient scheduled reserve; exact model-allocation/blocked-ledger decision inputs were not logged. Historical candidate counts/rejected text remain unavailable; investigation closed as instructed.
+- Assertions passed for both snapshots' X counts, all 11 settled editor calls and $0.045524 total. Private extracts retained 700/600 under ~/.local/state/news-digest/bluesky-history-914/.
+- Updated TASKS, SOURCES and STEERING ack; production behavior unchanged, no handbook or owner-input change needed.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check. All passed: 528 unit/223 isolated integration tests, typecheck/lint/format/boundaries and build.
+- Rebuilt/restarted API, worker, docs and schema; health and reader checks recorded at deployment.
+- Next: persist per-topic Bluesky outcomes and admin inspector line before 13:00 UTC if ready; Nov 6 edition review after publication, X comparison after 21:00 UTC. Fixed X stays off.

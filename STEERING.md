@@ -1368,6 +1368,13 @@ picks, any X post replaced, and added cost.
 edition. Existing AI budgets and caps stay. If a budget would need raising, ask
 the owner.
 
+ack: 2026-11-06: iteration 914 reconstructed Nov 4–5 per-topic outcomes in
+[the historical review](docs/edition-reviews/2026-11-04-05-bluesky-outcomes.md).
+NBA/Gaming had no slots; Nov 4 Tech recovered on Haiku, World exhausted four
+attempts. Nov 5 Tech Sonnet chose none; World Sonnet was budget-refused, then
+both Haiku replies failed validation. Exact budget constraint was not logged;
+no paid replay. Historical investigation complete; saved outcomes next.
+
 ## 41. NEXT, small: alert when Bluesky fails or goes quiet (2026-11-05)
 
 **Why:** item 40 saves a Bluesky result for every topic, but someone still has

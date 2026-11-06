@@ -2105,3 +2105,10 @@ or production activation in this step; switched-off scheduler retry remains open
 
 - Three saved verified rerun posts scored with production Haiku: two giveaways 4/1; Tiny Legends launch 7/4, 552 reported likes, in-window. STEERING 39 makes the launch non-promotion: Gaming usable yield 1/3; Tech remains 2/10. NBA/World failed.
 - No matches against the retained 863-post free-link baseline. One verification call $0.000337, zero unscored; no X calls or ingestion. Production fixed search stays off pending Nov 6 comparison. [Review](edition-reviews/2026-11-05-x-experiment-review.md#gaming-rerun-scorer-review--iteration-912-nov-6).
+
+### Historical Bluesky edition outcomes — iteration 914
+
+[Nov 4–5 reconstruction](edition-reviews/2026-11-04-05-bluesky-outcomes.md)
+separates full X slots, accepted empty selection and failed Bluesky editing.
+World’s Nov 5 Sonnet attempt was budget-refused before dispatch; the exact
+constraint was not logged. No collection, query, cap or selection changes.
