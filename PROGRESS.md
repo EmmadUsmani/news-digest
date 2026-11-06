@@ -1,26 +1,3 @@
-## 2026-11-06: iteration 952 — expose independent publishers in grouped coverage
-
-- Started clean on main; health/database/Redis green, alerts clear; latest scheduled run completed and Nov 6 remains scheduled for 15:00 UTC.
-- Read all four saved topics. World’s Guardian US and Guardian World feed labels occupied both source slots, hiding Al Jazeera behind expansion.
-- Deduplicate source-row publishers by hostname (ignoring www), retaining primary attribution and every expanded report. Owner-visible result: independent coverage appears beside the headline publisher.
-- Extended saved-edition browser checks to require distinct visible publishers; updated four-view screenshots and operations handbook. No paid calls, collection, selection or flag changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 08-operations; smoke-reader-layout.ts; git diff --check. Final results recorded below.
-- Updated TASKS and STEERING ack. SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Next: Nov 6 World/cost/Bluesky review after publication; fresh X round after 21:00 UTC. Fixed search and reserved slot remain off.
-- Final: initial check and concurrent lint-fix exited 143 without diagnostics; retries passed (543 unit/224 isolated integration tests). Build, handbook, four-view browser replay and diff checks passed; inspected mobile light World screenshot. Archived iteration 936. Services restarted healthy, 36/36 sources healthy, zero failed digest jobs and alerts clear.
-
-## 2026-11-06: iteration 953 — explain unavailable X media
-
-- Started clean on main; health/database/Redis green, alerts clear, source and job checks passed. Edition review waits for publication; X round waits for 21:00 UTC.
-- Read all four saved topics. Gaming’s release-date announcement relies on an attached image; blocked widgets left only a retry button, without explaining the missing attachment.
-- Added an accessible media-failure message beside retry. Saved original text and editorial context remain visible; successful retry removes the message. No spend, selection, collection or flag changes.
-- Added saved-edition browser failure/recovery checks across desktop/mobile light/dark, with external traffic blocked and a local widget stub; all passed, no writes, edition unchanged. Inspected mobile light screenshot; four screenshots saved.
-- Initial browser recovery assertion lost its card locator when saved text became collapsed; corrected the locator to include hidden saved links, then all four views passed.
-- Updated TASKS, STEERING ack and operations handbook; archived iteration 937. SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm build; check-handbook.ts 08-operations; smoke-reader-x-media.ts passed. Full pnpm check result below.
-- API/worker/docs/schema restarted active, health green. Next: Nov 6 World/cost/Bluesky review after publication; fresh X round after 21:00 UTC. Fixed search and reserved slot remain off.
-- Final: pnpm check passed (543 unit/224 isolated integration tests); build, handbook, four-view browser replay and diff checks passed. Services active, health green and alerts clear.
-
 ## 2026-11-06: iteration 954 — preserve opened saved X text
 
 - Started clean on main; alerts clear, health/database/Redis green, 36/36 sources healthy and current scheduled/social jobs completed. Edition review waits for publication; X round waits for 21:00 UTC.
@@ -193,3 +170,16 @@
 - First full check terminated with exit 143 after 543 unit passes and during integration tests, without a reported test failure; rerunning the full check.
 - Inspected mobile light focus/resize screenshot; retained eight resize/theme screenshots. Rebuilt and restarted API/worker/docs/schema; health green, 36 sources healthy, no failed digest jobs and alerts clear.
 - Final retry passed: 543 unit/224 isolated integration tests; build, handbook and four-view browser replay passed. No spend/flag changes; services healthy.
+
+## 2026-11-06: iteration 967 — keep keyboard position when retrying X media
+
+- Started clean on main; health/database/Redis green, alerts clear, all 36 sources healthy and no failed digest runs. No leftover work.
+- Read saved topics: World breadth/Tech grouping and Bluesky review await 15:00 publication; X round waits until 21:00 UTC.
+- Reader weakness: retrying failed X media removes the focused Retry button and drops focus to the page body; reproduced against HEAD with saved-edition browser assertion.
+- Move focus to the saved post link before retry removes the control; existing media-success behavior keeps that link visible and focused.
+- Extended four-view recovery replay to require focus without manually setting it. Local widget stub; no writes or external calls.
+- Updated TASKS, STEERING ack and affected handbook; archived iterations 952–953. SOURCES/NEEDS_FROM_HUMAN unchanged; no spend or flag changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-x-media.ts; check-handbook.ts 08-operations; git diff --check. Results below.
+- Next: edition/Bluesky review after 15:00 UTC; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.
+- Final: pnpm check passed (543 unit/224 isolated integration tests); build, handbook and four-view recovery passed. Inspected mobile light screenshot; retained two changed resize screenshots.
+- API/worker/docs/schema restarted; health/database/Redis green, alerts clear. Initial jobs query used an unknown queue name; supported unfiltered query confirmed zero failed digest-generation jobs.

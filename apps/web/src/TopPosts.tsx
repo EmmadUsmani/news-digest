@@ -255,7 +255,10 @@ function Post({
           <button
             type="button"
             className="h-8 px-2 py-1 text-xs"
-            onClick={() => setAttempt((value) => value + 1)}
+            onClick={() => {
+              savedText.current?.querySelector('a')?.focus();
+              setAttempt((value) => value + 1);
+            }}
           >
             Retry X media
           </button>

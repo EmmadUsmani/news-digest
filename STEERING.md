@@ -1517,3 +1517,5 @@ ack: 2026-11-06 item 42 — iteration 964: saved Tech stories crossed the readin
 ack: 2026-11-06 item 42 — iteration 965: saved Gaming X media kept its initial width after viewport changes; rebuild successful media at its settled card width while preserving saved-text state. Reproduced stale 550px media at 320px; verified local widget replay across desktop/mobile light/dark. No spend or selection changes.
 
 ack: 2026-11-06 item 42 — iteration 966: saved X text lost keyboard focus when media rebuilt after rotation or theme changes. Keep the saved-text link mounted; verified focus across resizing and system themes in four reader views. No spend or selection changes.
+
+ack: 2026-11-06 item 42 — iteration 967: retrying failed X media removed the focused button and dropped keyboard focus to the page body. Move focus to the saved post link before retry; reproduced against HEAD and verified saved-edition recovery in four reader views. No spend or selection changes.

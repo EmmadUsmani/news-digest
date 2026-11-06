@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] X media retry focus (967): retry moves keyboard focus to the saved post link before removing the retry control, preserving the reader’s place.
+
 - [x] X saved-text focus (966): media reloads keep the saved-text link mounted, preserving keyboard focus through rotation and system theme changes.
 
 - [x] X media resize (965): successful media rebuilds at the card’s settled width after rotation or window resizing, preserving opened saved text.

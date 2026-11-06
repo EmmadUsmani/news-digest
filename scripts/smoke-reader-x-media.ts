@@ -107,7 +107,7 @@ async function smoke() {
         await status.filter({ hasText: 'Loading X media…' }).waitFor();
         assert.equal(await card.locator('.x-media-error').count(), 0);
         assert.ok(await card.locator('.post-text').isVisible());
-        await card.locator('.post-text a').focus();
+        await expect(card.locator('.post-text a')).toBeFocused();
         releaseRecovery();
         await card.locator('iframe').waitFor();
         assert.equal(await status.count(), 0);
