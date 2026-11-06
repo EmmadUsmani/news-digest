@@ -58,6 +58,19 @@ async function smoke() {
         for (const host of await hosts.all()) {
           await host.scrollIntoViewIfNeeded();
           const card = host.locator('..');
+          const timestamp = card.locator('time');
+          const publishedAt = await timestamp.getAttribute('datetime');
+          assert.ok(publishedAt);
+          const exact = new Date(publishedAt).toLocaleString('en-US', {
+            dateStyle: 'long',
+            timeStyle: 'long',
+          });
+          assert.equal(await timestamp.getAttribute('title'), exact);
+          assert.equal(await timestamp.getAttribute('aria-label'), exact);
+          assert.match(
+            await timestamp.innerText(),
+            /^(Just now|\d+[mhd] ago|[A-Z][a-z]+ \d+, \d{4})$/,
+          );
           const savedText = card.locator('.saved-post-text');
           const frame = host.locator('iframe');
           await frame.waitFor();

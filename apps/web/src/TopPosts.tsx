@@ -1,6 +1,8 @@
 import type { ReaderEdition } from '@digest/contracts';
 import React from 'react';
 
+import { StoryTime } from './StoryTime';
+
 type ReaderPost = ReaderEdition['topics'][number]['posts'][number];
 type SelectedPost = Extract<ReaderPost, { platform: 'x' }>;
 type SelectedRedditPost = Extract<ReaderPost, { platform: 'reddit' }>;
@@ -240,13 +242,7 @@ function Post({
         >
           {post.author}
         </a>{' '}
-        ·{' '}
-        <time dateTime={post.publishedAt}>
-          {new Date(post.publishedAt).toLocaleString(undefined, {
-            dateStyle: 'medium',
-            timeStyle: 'short',
-          })}
-        </time>
+        · <StoryTime publishedAt={post.publishedAt} />
       </p>
       <details
         ref={savedText}
@@ -312,13 +308,7 @@ function RedditPost({ post }: { post: SelectedRedditPost }) {
         <a href={post.authorUrl} target="_blank" rel="noreferrer">
           {post.author}
         </a>{' '}
-        ·{' '}
-        <time dateTime={post.publishedAt}>
-          {new Date(post.publishedAt).toLocaleString(undefined, {
-            dateStyle: 'medium',
-            timeStyle: 'short',
-          })}
-        </time>
+        · <StoryTime publishedAt={post.publishedAt} />
       </p>
       <h5>
         <a href={post.url} target="_blank" rel="noreferrer">
@@ -394,13 +384,7 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
         >
           {post.author}
         </a>{' '}
-        ·{' '}
-        <time dateTime={post.publishedAt}>
-          {new Date(post.publishedAt).toLocaleString(undefined, {
-            dateStyle: 'medium',
-            timeStyle: 'short',
-          })}
-        </time>
+        · <StoryTime publishedAt={post.publishedAt} />
       </p>
       <p className="post-text">
         <LinkedPostText text={post.text} />

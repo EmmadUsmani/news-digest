@@ -1,28 +1,3 @@
-## 2026-11-06: iteration 1012 — recover shipper memory headroom
-
-- Started clean on main; no leftover work. Prior iteration's pending shipper warning was firing, so triage took priority over Tech post repetition.
-- Owner value: preserve collection of operational logs without an OOM restart while the published edition remains available.
-- Diagnosed cgroup usage: 78.5 MiB total, 66.9 MiB file cache, 7.4 MiB anonymous memory; unit active with zero restarts.
-- Reclaimed 32 MiB through the shipper cgroup memory.reclaim; usage fell to 45.8 MiB under unchanged 80 MiB hard ceiling. No deployment, service restart or configuration change during 13:00–16:00 freeze.
-- Cause/fix identified: charged filesystem cache lacks an early reclaim threshold. TASKS records MemoryHigh=64M after 16:00, matching existing logs/metrics approach; no further investigation needed.
-- pnpm exec tsx scripts/check-observability.ts --verify-o2 passed: seven real log sources, fresh request delivered in 2.626 s, isolated dummy redaction passed; shipper 45 MiB. No paid calls.
-- Health/DB/Redis green; pnpm obs sources --check and services --check passed (36 sources/13 units); latest scheduled digest completed.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration); pnpm build; git diff --check passed.
-- Reader weakness remains Tech's repeated launch posts; no editorial change or new evidence this iteration. SOURCES/handbook/NEEDS_FROM_HUMAN unchanged.
-- Alert cleared at 15:08:50 UTC after metric refresh; zero firing/pending. Persistent shipper threshold after 16:00, then Tech repetition; fresh X round after 21:00.
-
-## 2026-11-06: iteration 1013 — distinguish launch details from separate post news
-
-- Started clean on main; no leftover work. Alerts clear; /healthz, 13 services and 36 sources healthy.
-- Owner value: stop spending all five Tech post slots on different details of two launches.
-- Read all five saved Tech originals: Inkling training/specs/weights; GPT-6 Cyber announcement/Firefox findings/infrastructure access.
-- Cause: v5 says one post per announcement but permits distinct developments without defining launch details. v6 explicitly treats specifications, training, benchmarks, access and rollout details as one announcement; separate events remain eligible.
-- No wording-based grouping, selection schema, caps, sources, collection or paid calls changed. Prompt fingerprint changes through existing cache handling.
-- Prepared correction only: no deployment/restart during 13:00–16:00 freeze. Next iteration must deploy after 16:00; actual quality remains unmeasured until a future edition.
-- Initial targeted run found the expected stale v5 assertion; updated to v6. Full verification recorded below.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration); pnpm build; targeted social editor/selection tests 25/25; git diff --check. Health/DB/Redis and alerts remain green. Archived iterations 994–995 to keep this file small.
-- Next: deploy this correction and MemoryHigh=64M after 16:00; X round after 21:00. Bluesky reserved slot and fixed search remain OFF. SOURCES/handbook unchanged (no source or system-flow change).
-
 ## 2026-11-06: iteration 1014 — prepare shipper cache reclaim threshold
 
 - Started clean on main; no leftover work. Alerts clear, 13 services and 36 sources healthy; /healthz reports DB/Redis OK.
@@ -176,3 +151,14 @@
 - No paid calls or source/schema/handbook-flow changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
 - Initial push rejected by concurrent owner backup steering commit cce78a99; fetched and merged without conflicts, preserving owner changes. No runtime change in merge.
 - Next: continue approved reader completion; approved Bluesky slot activation pending under Current order; X round after 21:00 UTC.
+
+## 2026-11-06: iteration 1028 — compact post timestamps
+
+- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; health and alerts clear.
+- X, Bluesky and Reddit cards now share the story age display, refreshing every minute and retaining exact saved timestamps in hover/accessibility labels. Mobile author rows fit more comfortably.
+- Extended saved-post browser assertions for relative ages and exact timestamp retention; updated the broader reader's old full-date assertion. Desktop/mobile light/dark sizing, synthetic Bluesky and saved reader checks passed; screenshots updated and desktop/mobile light visually inspected.
+- Passed pnpm format; pnpm lint:fix; pnpm build; pnpm exec tsx scripts/smoke-post-sizing.ts; scripts/smoke-bluesky-cards.ts; scripts/smoke-reader-layout.ts; git diff --check.
+- pnpm check passed static checks and 562 unit tests, then exited 143 during integration; standalone pnpm test:integration passed all 225 cases (exit 0).
+- API/worker restarted; /healthz DB/Redis OK, all 36 sources and 13 services healthy, alerts clear. Browser checks confirmed saved edition unchanged; no paid calls or source/schema/handbook-flow changes.
+- Archived iterations 1012–1013 to keep PROGRESS small. SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Next: continue final reader spec; approved Bluesky slot activation pending under Current order; fresh X round after 21:00 UTC.

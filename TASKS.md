@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Compact post timestamps (1028, item 33): X, Bluesky and Reddit cards share refreshing relative ages with exact saved timestamps retained for hover and screen readers.
+
 - [x] Inline grouped outlets (1027, item 33): collapsed coverage shares the source/time row; +N outlets expands every saved report. Full article count retained for hover/accessibility; desktop/mobile light/dark verified.
 
 - [x] Relative story times (1026, item 33): compact minute/hour/day ages retain exact saved date/time on hover and for screen readers; refresh every minute.

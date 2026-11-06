@@ -229,17 +229,20 @@ async function smoke() {
           }
           const time = postTimes.nth(index);
           assert.equal(await time.getAttribute('datetime'), post.publishedAt);
-          assert.equal(
+          const exact = await page.evaluate(
+            (value) =>
+              new Date(value).toLocaleString(undefined, {
+                dateStyle: 'long',
+                timeStyle: 'long',
+              }),
+            post.publishedAt,
+          );
+          assert.equal(await time.getAttribute('title'), exact);
+          assert.equal(await time.getAttribute('aria-label'), exact);
+          assert.match(
             await time.innerText(),
-            await page.evaluate(
-              (value) =>
-                new Date(value).toLocaleString(undefined, {
-                  dateStyle: 'medium',
-                  timeStyle: 'short',
-                }),
-              post.publishedAt,
-            ),
-            'Post dates use the same readable local format as stories',
+            /^(Just now|\d+[mhd] ago|[A-Z][a-z]+ \d+, \d{4})$/,
+            'Post dates show compact ages while retaining exact timestamps',
           );
         }
         await page

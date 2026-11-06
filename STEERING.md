@@ -1644,3 +1644,5 @@ ack: 2026-11-06 item 33/43 — iteration 1025: readers now see compact one-line 
 ack: 2026-11-06 item 33/43 — iteration 1026: reader story cards now show compact relative publication ages that refresh each minute, retaining exact saved local timestamps on hover and for screen readers. Article disclosures keep exact times. Desktop/mobile light/dark [screenshots](docs/screenshots/ui/reader-single-report-mobile-light.png) and clock-boundary replay verified; no paid calls or selection changes.
 
 ack: 2026-11-06 item 33/43 — iteration 1027: readers can expand compact +N grouped outlets from the source/time row, saving a row per collapsed story; every saved report and exact time remains available. Desktop/mobile light/dark verified; no paid calls.
+
+ack: 2026-11-06 item 33/43 — iteration 1028: readers can scan compact relative publication times on X, Bluesky and Reddit cards, with exact timestamps on hover and for screen readers. Desktop/mobile light/dark verified; no paid calls.
