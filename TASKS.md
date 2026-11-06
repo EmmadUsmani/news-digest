@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Accessible X post links (933): screen-reader link names include saved post text and destination context, including after media loads; desktop/mobile light/dark browser replay verified.
+
 - [x] Archive refresh recovery (932): distinguish a failed refresh from initial loading failure and retain pagination through saved links; ported the legacy refresh browser check to the archive.
 
 - [x] Mobile active topic chips (931): reading forward/backward reveals the active topic in the horizontal bar at 390px/320px, preserving the edition scroll position.

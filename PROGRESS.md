@@ -138,3 +138,12 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-history-refresh.ts; smoke-reader-archive.ts; git diff --check. Build/browser checks passed. First full check exited 143 during integration after 543 unit passes; full retry and final service results recorded below.
 - Archived iterations 918–919 to keep PROGRESS small; updated TASKS/STEERING ack. No source or system-flow change; SOURCES, handbook and NEEDS_FROM_HUMAN unchanged. Experimental flags stay OFF.
 - Full retry exited zero: 543 unit/224 isolated integration tests passed, coverage completed. Rebuilt/restarted API/worker/docs/schema; all active, reader HTTP 200, health/database/Redis green and alerts clear. 36/36 sources healthy and zero retained failed jobs. Next: Nov 6 World/cost/Bluesky review after publication and X round after 21:00 UTC.
+
+## 2026-11-06: iteration 933 — preserve X post text for screen readers
+
+- Started clean on main; no leftover work. Alerts and health green, 36 sources healthy, zero retained failed digest jobs. Nov 6 edition review and X round remain time-gated.
+- Read saved topic headlines/posts: World breadth and Tech grouping await Nov 6 evidence. Reader weakness: X links' aria-label replaced their actual saved post text in screen-reader link navigation. Use text plus visually hidden author/destination context before and after media loads.
+- Extended saved-post browser replay to check accessible link names after expanding saved text. Desktop/mobile light/dark and 320px sizing passed with a labelled local widget stub; no writes or third-party calls. Refreshed screenshots are byte-identical; inspected mobile light and desktop dark.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx scripts/smoke-post-sizing.ts; git diff --check. Final full-check result below.
+- Updated TASKS and STEERING ack. No source/system-flow changes; SOURCES, handbook and NEEDS_FROM_HUMAN unchanged. No paid calls or flag changes. Next: Nov 6 World/cost/Bluesky review after publication; X round after 21:00 UTC.
+- Full check exited zero: 543 unit and 224 isolated integration tests passed, coverage completed. Build and browser replay passed. API/worker/docs/schema restarted; final health/alerts green and reader HTTP 200.

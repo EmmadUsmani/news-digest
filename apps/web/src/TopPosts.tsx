@@ -188,25 +188,17 @@ function Post({
         <details className="saved-post-text">
           <summary>Saved post text</summary>
           <p className="post-text">
-            <a
-              href={post.url}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={`View post by ${post.author} on X`}
-            >
+            <a href={post.url} target="_blank" rel="noreferrer">
               {post.displayText ?? post.text}
+              <span className="sr-only">{` — View post by ${post.author} on X`}</span>
             </a>
           </p>
         </details>
       ) : (
         <p className="post-text">
-          <a
-            href={post.url}
-            target="_blank"
-            rel="noreferrer"
-            aria-label={`View post by ${post.author} on X`}
-          >
+          <a href={post.url} target="_blank" rel="noreferrer">
             {post.displayText ?? post.text}
+            <span className="sr-only">{` — View post by ${post.author} on X`}</span>
           </a>
         </p>
       )}

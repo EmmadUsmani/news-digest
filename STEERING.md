@@ -1469,3 +1469,5 @@ ack: 2026-11-06 item 42 — iteration 930: saved X post cards requested 550px em
 ack: 2026-11-06 item 42 — iteration 931: World’s active mobile topic chip stayed offscreen while reading. Scroll only the chip row to reveal the current topic; saved-edition forward/backward checks at 390px/320px in light/dark. No spend or selection changes.
 
 ack: 2026-11-06 item 33 — iteration 932: the rebuilt archive called a failed refresh a loading failure and hid older-page navigation despite retaining saved links. Preserve browsing and explain the refresh failure; ported the legacy refresh check to the archive, verified desktop/mobile light/dark. No spend or selection changes.
+
+ack: 2026-11-06 item 42 — iteration 933: saved X links replaced their post text with a generic accessibility label. Preserve the saved text in the accessible name with author/destination context; browser replay verified desktop/mobile light/dark. No spend or selection changes.

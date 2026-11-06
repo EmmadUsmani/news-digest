@@ -57,8 +57,29 @@ async function smoke() {
         assert.ok(await hosts.count());
         for (const host of await hosts.all()) {
           await host.scrollIntoViewIfNeeded();
+          const card = host.locator('..');
+          const savedText = card.locator('.saved-post-text');
           const frame = host.locator('iframe');
           await frame.waitFor();
+          await savedText.locator('summary').click();
+          const link = savedText.getByRole('link');
+          const visibleText = await link.evaluate((element) =>
+            [...element.childNodes]
+              .filter((node) => node.nodeType === Node.TEXT_NODE)
+              .map((node) => node.textContent)
+              .join('')
+              .replace(/\s+/g, ' ')
+              .trim(),
+          );
+          assert.ok(visibleText.length > 0);
+          const accessible = await link.ariaSnapshot();
+          assert.equal(
+            await savedText.getByRole('link', { name: visibleText }).count(),
+            1,
+            accessible,
+          );
+          assert.ok(accessible.includes('View post by'), accessible);
+          await savedText.locator('summary').click();
           const sizes = await host.evaluate((element) => {
             const iframe = element.querySelector('iframe')!;
             return {
