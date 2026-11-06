@@ -7,6 +7,7 @@ import { Card } from './components/ui/card';
 import { EditionDateSwitcher } from './EditionDateSwitcher';
 import { editionQuery, HttpError } from './queries';
 import { ReaderContents } from './ReaderContents';
+import { ReaderSkeleton } from './ReaderSkeleton';
 import { StorySources } from './StorySources';
 import { StoryTime } from './StoryTime';
 import { TopPosts } from './TopPosts';
@@ -29,11 +30,7 @@ export function DigestPreview() {
           <ThemeToggle />
         </div>
       </header>
-      {edition.isPending && (
-        <p role="status" className="pt-16">
-          Loading edition…
-        </p>
-      )}
+      {edition.isPending && <ReaderSkeleton />}
       {edition.isError && (
         <div role="alert" className="pt-16">
           {preview ? (

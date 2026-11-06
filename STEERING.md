@@ -1672,3 +1672,5 @@ ack: 2026-11-06 item 33/43 — iteration 1032: mobile readers opening Contents n
 ack: 2026-11-06 item 33/43 — iteration 1033: readers see one compact media-unavailable/retry row beneath saved X text, replacing repeated multi-line error instructions. Desktop/mobile light/dark recovery and focus verified; no paid calls.
 
 ack: 2026-11-06 item 33/43 — iteration 1034: readers now see matching story/post card spacing and corners, plus correctly nested Posts headings in the approved type scale. Shared card component replaces legacy card CSS; saved-edition and all-platform desktop/mobile light/dark browser checks passed. [Mobile card](docs/screenshots/ui/reader-post-date-mobile-light.png). No paid calls.
+
+ack: 2026-11-06 item 33/43 — iteration 1035: readers now see responsive brief/card and desktop contents skeletons while an edition loads, with one accessible loading status. Desktop/mobile light/dark saved-edition transitions and failure recovery verified; no paid calls.

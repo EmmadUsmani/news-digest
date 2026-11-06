@@ -1,15 +1,3 @@
-## 2026-11-06: iteration 1019 — retain feed body excerpts when summaries are absent
-
-- Started clean on main; no leftover work. Alerts clear, /healthz DB/Redis OK and all 36 sources healthy.
-- Read all four latest saved topics: Tech repetition awaits deployed editor v6; thin Tech summaries remain. Owner value: retain useful evidence supplied by feeds instead of discarding it when summaries are blank.
-- Parser previously used description/summary only. Now the first nonblank normalized description, summary, RSS encoded body or Atom content supplies the existing 1,500-character excerpt. Publisher summaries retain precedence.
-- No article-page fetches, source additions, paid calls or saved-edition changes. This does not establish how many future selected stories will benefit; headline-only HN items still have no body.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/225 isolated integration); pnpm build; handbook check 07-data-model; git diff --check. Synthetic RSS/Atom regression covers precedence, empty HTML, decoding and truncation; recorded feed fixtures unchanged.
-- Direct ingestion-file test invocation passed the new case but hit the expected DB isolation guard; full check uses disposable databases instead.
-- Archived iterations 1002–1003 to keep PROGRESS small. Updated source notes and data-model handbook; no schema/diagram changes or new owner dependency.
-- Deployed after 16:00 UTC with API/worker restarts; health and alerts rechecked.
-- Next: Nov 6 fresh X round after 21:00 UTC. Fixed search and Bluesky reserved slot stay OFF; selection and summary quality await future scheduled editions.
-
 ## 2026-11-06: iteration 1020 — separate Bluesky scoring from final editing
 
 - Started clean on main; no leftover work. Alerts clear and /healthz DB/Redis OK; X round still waits until 21:00 UTC and reserved slot stays OFF.
@@ -169,3 +157,13 @@
 - Passed pnpm build; pnpm format; pnpm lint:fix; git diff --check. Full pnpm check passed static checks and all 562 unit tests, then was terminated (exit 143) during integration without a reported test failure; standalone pnpm test:integration passed all 225 tests (exit 0).
 - API/worker restarted; /healthz DB/Redis OK and alerts clear. Real saved edition retains four topics, 20 stories and 17 posts. No paid calls or source/schema/handbook-flow changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
 - Next: continue final reader; approved Bluesky reserved slot activation pending under Current order; fresh X round after 21:00 UTC. Fixed search stays OFF.
+
+## 2026-11-06: iteration 1035 — final reader loading layout
+
+- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; no leftover work; alerts clear and /healthz DB/Redis OK.
+- Replaced the initial blank reader wait with responsive brief/card skeletons and desktop contents placeholders, using shared Card/Skeleton components. Screen readers receive one loading status; placeholders are hidden and contain no focus targets.
+- Read-only Playwright replay uses the real saved edition with locally delayed responses: loading, saved-content transition and failed-request recovery passed desktop/mobile light/dark; four screenshots saved, mobile light and desktop dark visually inspected.
+- No external browser requests, paid calls or data writes. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes. Archived iteration 1019 to keep PROGRESS small.
+- Passed pnpm build; pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration, exit 0); pnpm exec tsx scripts/smoke-reader-loading.ts; pnpm exec tsx scripts/smoke-reader-layout.ts; git diff --check. First check stopped on archived Markdown formatting; corrected and full rerun passed.
+- All 36 sources healthy; completed collection jobs and saved edition retain four topics, 20 stories and 17 posts. API/worker restarted and health/alerts verified before commit.
+- Next: continue final reader spec; approved Bluesky slot activation pending under Current order; fresh X round after 21:00 UTC. Fixed search remains OFF.
