@@ -157,4 +157,4 @@
 - First full check was terminated (143) after 543 passing unit tests and 88 passing integration cases; clean rerun passed all 543 unit/224 isolated integration tests. Final browser checks and web build/typecheck/ESLint passed.
 - Updated TASKS and Operations handbook; refreshed device/theme screenshots, visually reviewed desktop/mobile. SOURCES and NEEDS_FROM_HUMAN unchanged.
 - Rebuilt/restarted API/worker/docs/schema; all active, database/Redis healthy, reader HTTP 200, 36/36 sources healthy and alerts clear. Latest saved edition: four topics/17 stories/14 posts.
-- Next: reader date switching and post cards/embed sizing; Nov 6 edition/grouping/cost and Bluesky activation gate after publication, fresh X round after 21:00 UTC. Reserved Bluesky slot and fixed X search remain OFF.
+- Initial push rejected: owner added STEERING 42 remotely. Merged without rewriting history; next iteration reads the saved edition topic by topic and fixes its biggest content weakness before more reader polish. Nov 6 review/Bluesky gate after publication; X round after 21:00 UTC. Both experimental flags remain OFF.

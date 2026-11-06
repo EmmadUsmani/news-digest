@@ -19,7 +19,8 @@ details, budgets and rules stay in the items. Every new item goes on this list.
 3. Nov 6 edition review: World stories, cost (item 36).
 4. Bluesky in editions: show why, fix failures, hold a slot, alerts (items 40, 41).
 5. UI rebuild: admin pages, then final reader (item 33).
-6. Then item 38's list for choosing meaningful work.
+6. Then item 38's list for choosing meaningful work. While 2–4 wait on a time
+   or on evidence, item 42 says what to do first.
 
 Blocked on the owner: R2 backups (item 37).
 
@@ -1423,3 +1424,36 @@ editions.
 edition.
 
 ack: 2026-11-06 item 41: deployed both durable scheduled-edition Bluesky alerts. pnpm check passed 535 unit/224 isolated integration tests; alert firing/clearing and saved-state restart/exclusion cases passed; --verify-alerts passed with 18 healthy rules. Neither alert fires on real editions (0 failures/0 qualifying no-pick editions; Nov 6 is the first eligible scheduled edition).
+
+## 42. While items wait on a time: read the edition as a reader (2026-11-06)
+
+**Why:** tonight several items wait on a time or on evidence: the meaning-based
+X test (after 21:00 UTC on Nov 6), the Nov 6 edition review (item 36) and the
+first scheduled Bluesky edition (items 40, 41). The last edition I looked at
+had a World section of only 2 stories and 1 post. Waiting time should go to
+what readers see, not to re-checking finished work.
+
+**Priority:** this sits inside item 38's list and changes no ranking. Items 39,
+34, 36, 40 and 41 still come first whenever they have work available.
+
+**What to do, when those are waiting:**
+
+1. Read the latest edition as a reader would, topic by topic. Use the
+   `edition-review` approach and the saved edition data, not commit messages.
+2. Pick the single biggest weakness a reader would notice: thin or repeated
+   stories, weak posts, a missing topic, a poor summary.
+3. Fix it at the cause in the data or code. Don't add wording rules for grouping.
+4. When the Nov 6 edition arrives, read it the same way and compare.
+
+**What not to do:**
+
+- Don't polish screens item 33 is replacing.
+- Don't add checks for failures that have never happened.
+- Don't re-analyse evidence that already answered a question.
+- Stop an investigation once it has named a cause and a fix.
+
+**Done when:** each iteration's PROGRESS.md entry names the weakness found, what
+changed, and why a reader would notice. The ack reports the same in one line.
+
+**Limits:** no new spend, vendors or product features. Budgets, the
+13:00–16:00 UTC window and edition protection still apply.
