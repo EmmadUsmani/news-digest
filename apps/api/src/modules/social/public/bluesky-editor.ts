@@ -1,4 +1,8 @@
-import type { RelevancePolicy, SelectedSocialPost } from '@digest/contracts';
+import type {
+  DigestPreview,
+  RelevancePolicy,
+  SelectedSocialPost,
+} from '@digest/contracts';
 
 import type { TriageTopic } from '../../curation/public/editorial';
 import type { BlueskyPost } from '../domain/bluesky';
@@ -32,9 +36,15 @@ export async function editBlueskyPosts(
   const empty = (
     status: 'incomplete' | 'unavailable' | 'complete',
     failures?: string[],
+    droppedPosts?: NonNullable<
+      NonNullable<
+        DigestPreview['topics'][number]['blueskySelection']
+      >['droppedPosts']
+    >,
   ) => ({
     status,
     failures,
+    droppedPosts,
     posts: [],
     model: null,
     candidatesShortlisted: shortlist.posts.length,
@@ -74,6 +84,7 @@ export async function editBlueskyPosts(
     return empty(
       'unavailable',
       outcome?.status === 'failed' ? outcome.failures : undefined,
+      outcome?.status === 'failed' ? outcome.droppedPosts : undefined,
     );
   if (
     edited.posts.length > budget ||
@@ -84,6 +95,7 @@ export async function editBlueskyPosts(
   return {
     status: 'complete' as const,
     model: edited.model,
+    droppedPosts: edited.droppedPosts,
     candidatesShortlisted: shortlist.posts.length,
     posts: edited.posts.map((selection) => ({
       ...shortlist.posts.find((c) => c.score.id === selection.id)!,

@@ -35,13 +35,25 @@ const selectionSchema = z
       .max(20),
   })
   .strict();
+export const droppedSocialPostsSchema = z
+  .object({
+    invalidFields: z.number().int().nonnegative(),
+    unknownId: z.number().int().nonnegative(),
+    repeatedId: z.number().int().nonnegative(),
+    unsupportedClaim: z.number().int().nonnegative(),
+    overBudget: z.number().int().nonnegative(),
+  })
+  .strict();
+export type DroppedSocialPosts = z.infer<typeof droppedSocialPostsSchema>;
 export type SocialEditorialResult = z.infer<typeof selectionSchema> & {
   model: string;
+  droppedPosts?: DroppedSocialPosts;
 };
 export type SocialEditorialOutcome =
   | { status: 'complete'; value: SocialEditorialResult }
   | {
       status: 'failed';
+      droppedPosts?: DroppedSocialPosts;
       failures: (
         Exclude<LlmJsonOutcome<never>['status'], 'complete'> | 'unavailable'
       )[];
@@ -136,7 +148,97 @@ export class SocialPostEditor {
         engagementEvidence: c.engagementEvidence?.slice(0, 1200),
       };
     });
-    const validate = (value: unknown) => {
+    const blueskyOnly = candidates.every((c) => c.platform === 'bluesky');
+    const totals: DroppedSocialPosts = {
+      invalidFields: 0,
+      unknownId: 0,
+      repeatedId: 0,
+      unsupportedClaim: 0,
+      overBudget: 0,
+    };
+    let modelDrops = { ...totals };
+    const countDrops = (counts: DroppedSocialPosts) => {
+      for (const key of Object.keys(totals) as (keyof DroppedSocialPosts)[]) {
+        totals[key] += counts[key];
+        modelDrops[key] += counts[key];
+      }
+    };
+    const sanitize = (value: unknown) => {
+      const envelope = z
+        .object({ posts: z.array(z.unknown()) })
+        .strict()
+        .parse(value);
+      const droppedPosts: DroppedSocialPosts = {
+        invalidFields: 0,
+        unknownId: 0,
+        repeatedId: 0,
+        unsupportedClaim: 0,
+        overBudget: 0,
+      };
+      const posts: z.infer<typeof selectionSchema>['posts'] = [];
+      const seen = new Set<string>();
+      for (const entry of envelope.posts) {
+        const parsed = selectionSchema.shape.posts.element.safeParse(entry);
+        if (!parsed.success) {
+          droppedPosts.invalidFields++;
+          continue;
+        }
+        const post = parsed.data;
+        const original = compact.find((c) => c.id === post.id);
+        if (!original) {
+          droppedPosts.unknownId++;
+          continue;
+        }
+        if (seen.has(post.id)) {
+          droppedPosts.repeatedId++;
+          continue;
+        }
+        // Only accepted picks occupy an ID or a budget slot.
+        try {
+          assertAbsenceSupport(
+            post.whyItMatters,
+            [original.text],
+            'whyItMatters',
+          );
+          assertAbsenceSupport(post.rationale, [original.text], 'rationale');
+        } catch (error) {
+          if (!(error instanceof LlmValidationFailure)) throw error;
+          droppedPosts.unsupportedClaim++;
+          continue;
+        }
+        if (posts.length >= budget) {
+          droppedPosts.overBudget++;
+          continue;
+        }
+        seen.add(post.id);
+        posts.push(post);
+      }
+      countDrops(droppedPosts);
+      if (envelope.posts.length && !posts.length)
+        throw new LlmValidationFailure('invalid-social-selection');
+      return { posts, droppedPosts: { ...modelDrops } };
+    };
+    const validate = (
+      value: unknown,
+    ): z.infer<typeof selectionSchema> & {
+      droppedPosts?: DroppedSocialPosts;
+    } => {
+      if (blueskyOnly) {
+        // Cached values contain only accepted text and closed diagnostic counts.
+        const cached = z
+          .object({
+            posts: selectionSchema.shape.posts,
+            droppedPosts: droppedSocialPostsSchema,
+          })
+          .strict()
+          .safeParse(value);
+        if (cached.success) {
+          const checked = sanitize({ posts: cached.data.posts });
+          countDrops(cached.data.droppedPosts);
+          return { ...checked, droppedPosts: { ...modelDrops } };
+        }
+        return sanitize(value);
+      }
       const parsed = selectionSchema.parse(value);
       if (
         parsed.posts.length > budget ||
@@ -180,12 +282,21 @@ export class SocialPostEditor {
       { status: 'failed' }
     >['failures'] = [];
     for (const model of [this.sonnet, this.haiku]) {
+      // Each cache entry owns only its model's drop counts. Failed earlier
+      // models are counted by this call, never copied into the fallback cache.
+      modelDrops = {
+        invalidFields: 0,
+        unknownId: 0,
+        repeatedId: 0,
+        unsupportedClaim: 0,
+        overBudget: 0,
+      };
       const outcome = await jsonWithOutcome(
         this.llm,
         {
           model,
           purpose: candidates.some((c) => c.platform === 'bluesky')
-            ? 'bluesky-social-editor-v1'
+            ? 'bluesky-social-editor-v2'
             : 'social-editor-v2',
           runId,
           topicId: topic.id,
@@ -213,10 +324,15 @@ export class SocialPostEditor {
               id: aliases.get(post.id)!,
             })),
             model: model.id,
+            ...(blueskyOnly ? { droppedPosts: { ...totals } } : {}),
           },
         };
       failures.push(outcome.status);
     }
-    return { status: 'failed', failures };
+    return {
+      status: 'failed',
+      failures,
+      ...(blueskyOnly ? { droppedPosts: totals } : {}),
+    };
   }
 }

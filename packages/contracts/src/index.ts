@@ -296,6 +296,15 @@ export const digestPreviewSchema = z.object({
           candidatesRead: z.number().int().nonnegative(),
           candidatesShortlisted: z.number().int().nonnegative(),
           postsPicked: z.number().int().nonnegative(),
+          droppedPosts: z
+            .object({
+              invalidFields: z.number().int().nonnegative(),
+              unknownId: z.number().int().nonnegative(),
+              repeatedId: z.number().int().nonnegative(),
+              unsupportedClaim: z.number().int().nonnegative(),
+              overBudget: z.number().int().nonnegative(),
+            })
+            .optional(),
           result: z.enum([
             'no-slot',
             'no-candidates',

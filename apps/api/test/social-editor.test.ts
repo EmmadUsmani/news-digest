@@ -149,7 +149,7 @@ void test('Bluesky editor uses isolated purpose and observation instructions', a
     1,
     'bluesky',
   );
-  assert.equal(h.calls[0].purpose, 'bluesky-social-editor-v1');
+  assert.equal(h.calls[0].purpose, 'bluesky-social-editor-v2');
   assert.match(h.calls[0].instructions, /official API observations/);
   assert.match(
     h.calls[0].instructions,
@@ -296,7 +296,7 @@ void test('social editor compacts long IDs without collisions and restores ident
 void test('social selection repairs receive fixed ID/budget guidance and recover without fallback', async () => {
   const privateId = 'untrusted-id-do-not-copy-into-repair';
   const second = { ...post, id: 'two' };
-  for (const platform of ['x', 'bluesky'] as const) {
+  for (const platform of ['x'] as const) {
     for (const invalid of [
       { posts: [{ ...post, id: privateId }] },
       { posts: [post, post] },
@@ -361,5 +361,70 @@ void test('social editor retains refusal and validation evidence across fallback
     (await fallback.editor.editOutcome(topic, candidates, 1, 'recovered'))
       .status,
     'complete',
+  );
+});
+
+void test('Bluesky keeps valid picks, counts each rejection and reuses sanitized cache', async () => {
+  const input = ['one', 'two', 'three'].map((id) => ({
+    ...candidates[0],
+    id,
+    platform: 'bluesky' as const,
+  }));
+  const h = harness([
+    {
+      posts: [
+        { ...post, whyItMatters: 'x'.repeat(401) },
+        { ...post, id: 'unknown' },
+        { ...post, rationale: 'There is no confirmed release date.' },
+        post,
+        post,
+        { ...post, id: 'two' },
+        { ...post, id: 'three' },
+      ],
+    },
+  ]);
+  const result = await h.editor.edit(topic, input, 2, 'partial');
+  assert.deepEqual(
+    result?.posts.map((p) => p.id),
+    ['one', 'two'],
+  );
+  assert.deepEqual(result?.droppedPosts, {
+    invalidFields: 1,
+    unknownId: 1,
+    repeatedId: 1,
+    unsupportedClaim: 1,
+    overBudget: 1,
+  });
+  assert.equal(h.calls.length, 1);
+  assert.deepEqual(await h.editor.edit(topic, input, 2, 'cached'), result);
+  assert.equal(h.calls.length, 1);
+});
+
+void test('Bluesky retries an entirely invalid reply, but accepts deliberate empty replies', async () => {
+  const input = candidates.map((c) => ({ ...c, platform: 'bluesky' as const }));
+  const h = harness([
+    { posts: [{ ...post, rationale: 'No release date exists.' }] },
+    valid,
+  ]);
+  const result = await h.editor.edit(topic, input, 1, 'repair');
+  assert.deepEqual(result?.posts, valid.posts);
+  assert.equal(result?.droppedPosts?.unsupportedClaim, 1);
+  assert.equal(h.calls.length, 2);
+  assert.deepEqual(
+    await h.editor.edit(topic, input, 1, 'cached-repair'),
+    result,
+  );
+  const empty = harness([{ posts: [] }]);
+  assert.deepEqual(
+    (await empty.editor.edit(topic, input, 1, 'empty'))?.posts,
+    [],
+  );
+  assert.equal(empty.calls.length, 1);
+  const failed = harness([{ posts: [{ ...post, id: 'unknown' }] }]);
+  const outcome = await failed.editor.editOutcome(topic, input, 1, 'failed');
+  assert.equal(outcome.status, 'failed');
+  assert.equal(
+    outcome.status === 'failed' && outcome.droppedPosts?.unknownId,
+    4,
   );
 });

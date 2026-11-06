@@ -1,25 +1,3 @@
-## 2026-11-06: iteration 907 — persist scheduled X execution evidence
-
-- Started clean on main; no leftover work. Alerts clear, 36 sources healthy and no failed digest runs; next edition Nov 6 15:00 UTC.
-- Search settlement now saves confirmed/unconfirmed execution atomically with usage, cost and tool traces. Completed empty results survive restart; historical/pending calls keep unknown execution. Generated additive migration 0006; no paid calls or activation.
-- Offline protocol checks assert settlement receives execution; isolated database coverage checks empty-search evidence via another connection, historical nulls, exact cost and rejection of repeat settlement.
-- Verification: targeted execution test; pnpm format; pnpm lint:fix; pnpm check (520 unit/222 isolated integration, typecheck/lint/format/boundaries); pnpm build; check-handbook.ts 05-social-posts; git diff --check.
-- Initial full check overlapped final migration generation and stopped on formatting/deleted temporary migration; corrected generated artifacts and reran successfully. Initial read-only digest queue name was invalid; corrected to digest-generation.
-- Pre-migration news-digest-backup.service succeeded; pnpm migrate applied drizzle/0006_x_search_execution.sql. Rebuilt/restarted API, worker, docs and schema; all active. /healthz database/Redis green; saved edition four topics/17 stories; 36 healthy sources, alerts clear, no failed digest jobs.
-- Updated TASKS, SOURCES and social handbook; archived iteration 894 to keep PROGRESS small. No owner input needed.
-- Next: durable separately admitted scheduler retry, then authorized Nov 5 NBA/Gaming/World keyword reruns on the same window. Fair semantic query/fresh Nov 6 round follow. Fixed search remains off.
-- Fetched/fast-forwarded incoming owner lead-only documentation commit c44d975 before committing; no runtime changes or owner-file edits.
-
-## 2026-11-06: iteration 908 — durable fixed X retry admission
-
-- Started clean on main; no leftover work. Alerts clear, all 36 sources healthy, no failed digest jobs; next edition Nov 6 15:00 UTC.
-- Fixed search ledger now admits one linked retry for an uncertain timeout or settled unconfirmed zero-post/no-citation call. Parent must match topic/day/style/model/run and be a primary; enabled topic, UTC day and shared daily/monthly caps still apply.
-- Timeout holds remain counted. Pending/rejected calls, completed empty searches, settled historical unknown execution, fetched/cited posts and retry chains cannot qualify. Migration 0007 separates primary/retry uniqueness without deleting evidence. Scheduler dispatch remains next; fixed search OFF, no paid calls.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (520 unit/223 isolated integration tests, typecheck/lint/format/boundaries); pnpm build; check-handbook.ts 05-social-posts; git diff --check. New isolated test covers two connections/concurrent admission, restart dedupe, exhausted budget, preserved holds and exclusions.
-- Backup service succeeded; pnpm migrate applied drizzle/0007_fixed_x_retry.sql. Rebuilt/restarted API, worker, docs and schema; all active. /healthz database/Redis green; saved latest edition four topics/17 stories, alerts clear.
-- Updated TASKS, SOURCES and social handbook; no new owner input. Initial jobs CLI positional argument was rejected; corrected --queue query confirms zero failed digest jobs.
-- Next: wire switched-off fixed scheduler retry dispatch through durable admission, then authorized Nov 5 NBA/Gaming/World keyword reruns. Fair semantic query/fresh Nov 6 round follow; no production activation.
-
 ## 2026-11-06: iteration 909 — dispatch one fixed X retry
 
 - Started clean on main; no leftover work. Alerts clear, 36 sources healthy, no failed digest jobs; next edition Nov 6 15:00 UTC.
@@ -153,3 +131,15 @@
 - Loaded aggregate view/exporter config and alert rules; live verification reports 18 healthy alert rules, zero firing/pending, saved Bluesky aggregates 0/0. No eligible scheduled edition exists yet; neither new alert fires.
 - Rebuilt/restarted API/worker/docs/schema; health/database/Redis green, reader HTTP 200 and 36/36 sources healthy. Updated TASKS and affected handbook; SOURCES/NEEDS_FROM_HUMAN unchanged.
 - Next: item 40 per-post validation, then default-off reserved slot; Nov 6 edition/cost review after publication, X experiment after 21:00 UTC. Fixed search remains off.
+
+## 2026-11-06: iteration 921 — keep valid Bluesky editor picks
+
+- Started clean on main; no leftover work. Health/alerts green, 36/36 sources healthy, zero failed digest jobs. Higher priorities await edition publication/21:00 UTC.
+- Bluesky now validates picks separately, retaining valid siblings in returned order and dropping bad fields, unknown/repeated IDs, unsupported claims and excess picks. X validation is unchanged.
+- Only wholly rejected nonempty replies retry; deliberate empty replies stop. Existing unsupported-claim checks, slot limits, collection and budgets remain unchanged; no paid calls.
+- Saved optional category counts survive successful/failed outcomes and sanitized cache reads; old editions remain compatible. Purpose v2 isolates earlier all-or-nothing cached results.
+- Added offline mixed-reply, retry/empty, cache and saved-success/failure coverage. Full checks initially caught an unbound test helper and archive formatting; fixed both before final verification.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; API rebuild; check-handbook.ts 05-social-posts; git diff --check. All passed: 538 unit/224 isolated integration tests.
+- Rebuilt/restarted API/worker/docs/schema; all active, /healthz database/Redis green and reader HTTP 200. Sources healthy, no failed digest runs, alerts clear.
+- Updated TASKS, SOURCES and affected handbook; archived iterations 907–908 to keep PROGRESS small. NEEDS_FROM_HUMAN unchanged; no new owner requirements.
+- Next: build default-off Bluesky reserved slot; review Nov 6 edition/cost gate after publication, X round after 21:00 UTC. Reserved slot and fixed X search stay off.

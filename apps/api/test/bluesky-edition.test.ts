@@ -368,3 +368,37 @@ void test('saved Bluesky outcomes distinguish exact refusals, mixed failures and
   assert.equal(result.evidence.candidatesShortlisted, 0);
   assert.deepEqual(h.calls, ['read']);
 });
+
+void test('Bluesky dropped-post categories survive successful and failed saved outcomes', async () => {
+  const droppedPosts = {
+    invalidFields: 1,
+    unknownId: 2,
+    repeatedId: 3,
+    unsupportedClaim: 4,
+    overBudget: 5,
+  };
+  for (const failed of [false, true]) {
+    const h = harness();
+    const edit = h.services.socialEditor.edit.bind(h.services.socialEditor);
+    h.services.socialEditor.editOutcome = async (...args) =>
+      failed
+        ? { status: 'failed', failures: ['validation-failed'], droppedPosts }
+        : {
+            status: 'complete',
+            value: { ...(await edit(...args))!, droppedPosts },
+          };
+    const result = await prepareBlueskyEditionPosts(h.repository, h.services, {
+      ...h.input,
+      enabled: true,
+    });
+    assert.equal(
+      result.evidence.result,
+      failed ? 'ai-editing-failed' : 'picks-made',
+    );
+    const saved =
+      digestPreviewSchema.shape.topics.element.shape.blueskySelection.parse(
+        JSON.parse(JSON.stringify(result.evidence)),
+      );
+    assert.deepEqual(saved?.droppedPosts, droppedPosts);
+  }
+});

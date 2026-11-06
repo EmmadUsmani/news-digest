@@ -53,8 +53,7 @@ counts and media stay unknown; a link supplies no evidence of media contents.
 - **Collected hourly** through the official API, using the owner's app
   password: one search per enabled topic, up to 50 posts each. The topic editor
   offers a dedicated query; blank uses the first news query, include phrase,
-  or topic name. If the login
-  is missing, collection is skipped.
+  or topic name. Missing login skips collection.
 - **Counts are snapshots:** each observation is stored with its likes,
   reposts, replies and time. An edition sees the counts as they were at its
   cutoff.
@@ -63,13 +62,14 @@ counts and media stay unknown; a link supplies no evidence of media contents.
   posts that repeat something already picked from X.
 - **Saved selection evidence:** new editions retain each topic’s open slots,
   observations read, shortlisted candidates, picks and selection result.
-  Results separate budget refusal, editing failure and unknown causes.
+  Results separate budget refusal, editing failure and unknown causes. Invalid
+  picks are dropped individually; valid picks stay. Only wholly rejected nonempty replies
+  retry. Saved counts group drops by fields, IDs, claims and budget.
 - **Inspect outcomes:** open **Admin → Editions → a saved edition** for each
   topic’s result and slot/candidate/pick counts.
 - **Cards** are drawn by the app, with no Bluesky script: full text, author,
   time, counts and images. Videos link to the post.
 - **Controls:** `BLUESKY_EDITIONS_ENABLED=0` turns inclusion off.
-  `scripts/report-bluesky-coverage.ts` shows stored posts per topic.
 
 ## Verification and safety
 

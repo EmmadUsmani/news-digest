@@ -135,6 +135,8 @@ export async function prepareBlueskyEditionPosts(
     input.selectedPosts,
   );
   evidence.candidatesShortlisted = edited.candidatesShortlisted;
+  if ('droppedPosts' in edited && edited.droppedPosts)
+    evidence.droppedPosts = edited.droppedPosts;
   if (edited.status !== 'complete')
     return unchanged(
       edited.status,

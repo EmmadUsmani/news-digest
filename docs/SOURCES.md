@@ -137,7 +137,7 @@ verification: 20:38 UTC; two queued passes preserved the same 669-item total.
 | X official oEmbed                        | all                   | live                                      |                            10 | Named status URLs verified; /i/web/status URLs return 404                                                                                                  |
 | X official API                           | all                   | needs key                                 |                             0 | Owner token and hard read cap required                                                                                                                     |
 | Reddit NBA RSS                           | NBA                   | blocked                                   |                             0 | https://www.reddit.com/r/nba/.rss returned HTTP 403 (iteration 31); no bypass attempted; NBA top JSON also 403 in iteration 89; other communities untested |
-| Bluesky public API                       | all                   | hourly collection; leftover edition slots |              189 observations | Authenticated collection; AI triage/editor fills open slots after X; per-topic selection evidence saved from iteration 915                                 |
+| Bluesky public API                       | all                   | hourly collection; leftover edition slots |              189 observations | Authenticated collection; AI triage/editor fills open slots after X; per-topic outcomes and categorized invalid-pick counts saved                          |
 
 Ingestion runs immediately on first scheduling and every 30 minutes thereafter.
 Each run fetches at most 60 entries/feed and the first 20 HN stories; deleted,
