@@ -1,13 +1,3 @@
-## 2026-11-06: iteration 932 — preserve archive browsing after refresh failure
-
-- Started clean on main; no leftover work. Alerts clear and health/database/Redis green. Nov 6 edition/Bluesky review and X round remain time-gated.
-- Read saved topic headlines: World remains two stories/one post awaiting the deployed pool fix; known Tech grouping issue awaits editor-v5 evidence. No new selection change before publication.
-- Reader weakness: the rebuilt archive called background refresh failure an initial loading failure and hid older-page navigation despite retaining saved links. Preserve pagination and explain that loaded links remain usable; the owner can continue browsing during a refresh outage.
-- Ported obsolete inline-history refresh replay to the archive. Saved-content browser checks passed desktop/mobile light/dark: simulated 503, unchanged links, pagination, retry and opening a saved edition. No writes, browser errors or paid calls; screenshots updated/inspected.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-history-refresh.ts; smoke-reader-archive.ts; git diff --check. Build/browser checks passed. First full check exited 143 during integration after 543 unit passes; full retry and final service results recorded below.
-- Archived iterations 918–919 to keep PROGRESS small; updated TASKS/STEERING ack. No source or system-flow change; SOURCES, handbook and NEEDS_FROM_HUMAN unchanged. Experimental flags stay OFF.
-- Full retry exited zero: 543 unit/224 isolated integration tests passed, coverage completed. Rebuilt/restarted API/worker/docs/schema; all active, reader HTTP 200, health/database/Redis green and alerts clear. 36/36 sources healthy and zero retained failed jobs. Next: Nov 6 World/cost/Bluesky review after publication and X round after 21:00 UTC.
-
 ## 2026-11-06: iteration 933 — preserve X post text for screen readers
 
 - Started clean on main; no leftover work. Alerts and health green, 36 sources healthy, zero retained failed digest jobs. Nov 6 edition review and X round remain time-gated.
@@ -172,3 +162,14 @@
 - Updated TASKS and archived iteration 931 to keep PROGRESS small. No source/system-flow change; handbook, SOURCES and NEEDS_FROM_HUMAN unchanged.
 - Next: Nov 6 World/cost/Bluesky review after publication; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.
 - Final retry exited zero: 543 unit/224 isolated integration tests passed; build and four-view recovery replay passed. API/worker/docs/schema restarted active; health/database/Redis green, all 36 sources healthy and alerts clear. Post-restart smoke-ui.ts passed saved reader content/archive/navigation with no writes or browser errors.
+
+## 2026-11-06: iteration 948 — prevent host-metrics scrape starvation
+
+- Started clean on main. Triage caught pending host scrape, unit-snapshot and backup alerts; the app and today's successful backup were healthy.
+- Host scrapes reached the 10-second timeout twice in 24 hours. Exporter cgroup recorded 159,516 throttled periods out of 176,796; a direct scrape took 4.310 seconds.
+- Raised only the low-priority host exporter's CPU ceiling from 0.5% to 2% of one core; deployed its checked-in unit. First successful post-restart direct scrape took 1.170 seconds.
+- This protects visibility of real service/backup failures. No reader/content change; edition/X reviews remain time-gated. No paid calls or flag changes.
+- Updated monitoring handbook and TASKS; archived iteration 932. SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (543 unit/224 isolated integration passes); pnpm build; check-handbook.ts 09-observability; smoke-ui.ts; git diff --check. All passed.
+- API/worker/docs/schema restarted healthy; 36/36 sources healthy, zero failed digest jobs, all scrape targets up and alerts clear. Host up stayed 1 throughout a four-minute post-change window.
+- Next: Nov 6 World/cost/Bluesky review after publication; fresh X round after 21:00 UTC.

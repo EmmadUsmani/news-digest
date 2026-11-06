@@ -7,7 +7,7 @@ Environment=GOMAXPROCS=1 GOMEMLIMIT=20MiB
 Restart=always
 RestartSec=5
 MemoryMax=40M
-CPUQuota=0.5%
+CPUQuota=2%
 CPUWeight=10
 IOWeight=10
 Nice=10
