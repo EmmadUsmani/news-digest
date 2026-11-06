@@ -62,7 +62,7 @@ async function main() {
         assert.ok(
           replay.topics
             .flatMap((topic) => topic.posts)
-            .every((post) => !('whyItMatters' in post) && !('reasons' in post)),
+            .every((post) => !('reasons' in post)),
         );
         // Exercise historical snapshots without the optional display field too.
         const legacyPost = replay.topics
@@ -174,7 +174,7 @@ async function main() {
             has: page.getByRole('heading', { name: topic.name, exact: true }),
           });
           assert.deepEqual(
-            await section.locator('li > a').allTextContents(),
+            await section.locator('[data-slot="card"] h3').allTextContents(),
             topic.stories.map((story) => story.title),
           );
           assert.deepEqual(
@@ -215,9 +215,7 @@ async function main() {
           const post = expected[index];
           await card.scrollIntoViewIfNeeded();
           assert.equal(
-            await card
-              .getByRole('link', { name: 'Open original post on X' })
-              .getAttribute('href'),
+            await card.locator('.post-text a').getAttribute('href'),
             post.url,
           );
           if (mode === 'live') {

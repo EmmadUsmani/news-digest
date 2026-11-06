@@ -1459,3 +1459,5 @@ changed, and why a reader would notice. The ack reports the same in one line.
 13:00–16:00 UTC window and edition protection still apply.
 
 ack: 2026-11-06 (925) Read all four saved topics; World pool fix awaits publication. Fixed hidden post context at the reader API/UI, making Gaming’s Japanese announcement understandable without changing its original text.
+
+ack: 2026-11-06 item 42 — iteration 926: saved X cards repeated a footer link and empty retry spacer; linked original saved text directly and removed the duplicate/spacer, preserving context and official embed recovery. World breadth still awaits the already-deployed pool fix's Nov 6 evidence.

@@ -187,26 +187,39 @@ function Post({
       {embedded ? (
         <details className="saved-post-text">
           <summary>Saved post text</summary>
-          <p className="post-text">{post.displayText ?? post.text}</p>
+          <p className="post-text">
+            <a
+              href={post.url}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`View post by ${post.author} on X`}
+            >
+              {post.displayText ?? post.text}
+            </a>
+          </p>
         </details>
       ) : (
-        <p className="post-text">{post.displayText ?? post.text}</p>
+        <p className="post-text">
+          <a
+            href={post.url}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`View post by ${post.author} on X`}
+          >
+            {post.displayText ?? post.text}
+          </a>
+        </p>
       )}
       <div ref={host} className="official-post" />
-      <div className="h-8">
-        {failed && (
-          <button
-            type="button"
-            className="h-8 px-2 py-1 text-xs"
-            onClick={() => setAttempt((value) => value + 1)}
-          >
-            Retry X media
-          </button>
-        )}
-      </div>
-      <a href={post.url} target="_blank" rel="noreferrer">
-        Open original post on X
-      </a>
+      {failed && (
+        <button
+          type="button"
+          className="h-8 px-2 py-1 text-xs"
+          onClick={() => setAttempt((value) => value + 1)}
+        >
+          Retry X media
+        </button>
+      )}
       {Object.keys(post.metrics).length > 0 && (
         <p className="byline">
           {Object.entries(post.metrics)

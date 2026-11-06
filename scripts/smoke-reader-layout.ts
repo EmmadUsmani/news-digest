@@ -75,6 +75,26 @@ async function smoke() {
           await page.locator('.post-context').allTextContents(),
           expectedContexts,
         );
+        for (const post of edition.topics.flatMap((topic) => topic.posts)) {
+          if (post.platform !== 'x') continue;
+          const link = page
+            .getByRole('link', {
+              name: `View post by ${post.author} on X`,
+              exact: true,
+            })
+            .filter({ hasText: post.displayText ?? post.text });
+          assert.equal(await link.getAttribute('href'), post.url);
+          assert.equal(
+            await link.evaluate((node) => getComputedStyle(node).fontSize),
+            '16px',
+          );
+        }
+        assert.equal(
+          await page
+            .getByText('Open original post on X', { exact: true })
+            .count(),
+          0,
+        );
         for (const topic of edition.topics) {
           for (const story of topic.stories) {
             const card = page.locator(`[id="story-${story.id}"]`);

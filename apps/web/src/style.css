@@ -603,6 +603,10 @@
     overflow-wrap: anywhere;
     line-height: 1.6;
   }
+  .post-text a {
+    font: inherit;
+    color: inherit;
+  }
   .official-post {
     min-height: 1px;
   }
