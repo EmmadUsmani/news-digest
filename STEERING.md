@@ -1513,3 +1513,5 @@ ack: 2026-11-06 item 42 — iteration 962: saved X author names were plain text,
 ack: 2026-11-06 item 42 — iteration 963: saved X cards had no indication while media was pending; added an active-request loading status so readers can distinguish waiting from failure, preserving saved text through retries. No spend or selection changes.
 
 ack: 2026-11-06 item 42 — iteration 964: saved Tech stories crossed the reading position while Contents still highlighted the topic. Track ordinary scrolling as well as intersections; verify forward/backward story tracking on desktop/mobile light/dark. No spend or selection changes.
+
+ack: 2026-11-06 item 42 — iteration 965: saved Gaming X media kept its initial width after viewport changes; rebuild successful media at its settled card width while preserving saved-text state. Reproduced stale 550px media at 320px; verified local widget replay across desktop/mobile light/dark. No spend or selection changes.

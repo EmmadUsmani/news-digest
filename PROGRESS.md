@@ -1,14 +1,3 @@
-## 2026-11-06: iteration 949 — show every grouped coverage report
-
-- Started clean on main; alerts clear, health/database/Redis green. Edition/Bluesky reviews wait for 15:00 publication; X round waits for 21:00 UTC.
-- Reader weakness: saved NBA Wembanyama “4 articles” expanded to only three reports because the primary was filtered out. Include it, preserving outlet links and the compact count; readers can now browse the complete report list.
-- Extended saved-edition browser replay to assert every expanded report title and URL; four device/theme screenshots added. Inspected desktop light screenshot. No paid calls, collection, selection or flag changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check. Final results below.
-- Initial smoke reached API before restart finished; retried after healthy. Coverage clicks changed the active topic, so the replay now resets before its existing contents checks.
-- Updated TASKS, handbook and STEERING ack; archived iteration 933. SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Next: Nov 6 World/cost/Bluesky review after publication; fresh X round after 21:00 UTC. Fixed search and reserved slot remain off.
-- Final: first full check ended 143 during integration startup; retry exited zero (543 unit/224 isolated integration passes). Build, four-view reader replay and handbook check passed; services restarted, 36/36 sources healthy, zero failed digest jobs and alerts clear.
-
 ## 2026-11-06: iteration 950 — attribute grouped headlines to their primary outlets
 
 - Started clean on main; health/database/Redis green, 36/36 sources healthy, no failed digest runs and alerts clear. Edition/X reviews remain time-gated.
@@ -196,3 +185,17 @@
 - Initial scroll replay exposed lazy media layout shifts and page-end limits in the test; corrected setup and reran successfully. Inspected desktop light current-story screenshot.
 - Next: edition/Bluesky review after 15:00 UTC; X round after 21:00 UTC. Fixed search and reserved slot stay off.
 - Final check passed: 543 unit/224 isolated integration tests; build, handbook and both four-view browser replays passed. API/worker/docs/schema restarted; health/database/Redis green, 36 sources healthy, no failed digest jobs, alerts clear.
+
+## 2026-11-06: iteration 965 — resize X media with its reader card
+
+- Started clean on main; alerts clear, health/database/Redis green, all 36 sources healthy and no failed digest runs. No leftover work.
+- Read all four saved topics; World breadth/Tech grouping and Bluesky gates await 15:00 publication; X round waits until 21:00 UTC.
+- Reader weakness: X media retained its creation width after rotation/window resizing; reproduced stale 550px media at a 320px viewport with a local widget stub.
+- Observe successful media's card width and rebuild only after its capped width settles, preserving saved-text state. Failed media keeps explicit retry; observer/timer cleaned up on rebuild/unmount.
+- Extended saved-edition browser replay across 320px, landscape and original widths in four device/theme views; all passed with saved text open. No external calls or writes.
+- Updated TASKS, STEERING ack and affected handbook; archived iteration 949. SOURCES/NEEDS_FROM_HUMAN unchanged; no spend, selection or flag changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-x-media.ts; check-handbook.ts 08-operations; git diff --check. Final check results below.
+- Inspected mobile light resize screenshot; retained four new resize screenshots only. API/worker/docs/schema restarted; health green, scheduled edition still due at 15:00 UTC.
+- Initial jobs command used unsupported --check with filters; reran supported read-only jobs query: zero failed digest jobs. Historical ingestion/social failures remain retained, sources healthy and alerts clear.
+- Next: Nov 6 edition/Bluesky review after 15:00 UTC; X round after 21:00 UTC. Fixed search and reserved slot stay off.
+- Final: first full check ended 143 during unit tests without a reported failure; retry passed 543 unit/224 isolated integration tests. Build, handbook and four-view browser replay passed; services active, health green, alerts clear.

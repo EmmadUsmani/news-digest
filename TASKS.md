@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] X media resize (965): successful media rebuilds at the card’s settled width after rotation or window resizing, preserving opened saved text.
+
 - [x] Reader scroll tracking (964): Contents follows the story at the reading position during ordinary forward/backward scrolling, including mobile topic chips.
 
 - [x] X media loading (963): show when an active media request is pending, including retries, while keeping saved post text readable.

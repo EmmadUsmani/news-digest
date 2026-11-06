@@ -128,6 +128,10 @@ function Post({
     if (!target) return;
     let active = true;
     let widgetTimeout: number | undefined;
+    let resizeTimeout: number | undefined;
+    let resizeObserver: ResizeObserver | undefined;
+    const mediaWidth = () => Math.min(550, Math.max(250, target.clientWidth));
+    let requestedWidth: number;
     const attemptTarget = document.createElement('div');
     target.replaceChildren(attemptTarget);
     setEmbedded(false);
@@ -147,10 +151,11 @@ function Post({
               setLoading(false);
               setFailed(true);
             }, 15000);
+            requestedWidth = mediaWidth();
             return api.widgets.createTweet(post.externalId, attemptTarget, {
               dnt: true,
               conversation: 'none',
-              width: Math.min(550, Math.max(250, target.clientWidth)),
+              width: requestedWidth,
               theme,
             });
           })
@@ -158,8 +163,20 @@ function Post({
             window.clearTimeout(widgetTimeout);
             if (!active) return;
             setLoading(false);
-            if (element) setEmbedded(true);
-            else {
+            if (element) {
+              setEmbedded(true);
+              // X fixes its iframe width at creation. Rebuild successful media
+              // after the card settles at a different width (e.g. rotation).
+              resizeObserver = new ResizeObserver(() => {
+                window.clearTimeout(resizeTimeout);
+                if (mediaWidth() !== requestedWidth) {
+                  resizeTimeout = window.setTimeout(() => {
+                    if (active) setAttempt((value) => value + 1);
+                  }, 200);
+                }
+              });
+              resizeObserver.observe(target);
+            } else {
               attemptTarget.remove();
               setFailed(true);
             }
@@ -179,6 +196,8 @@ function Post({
     return () => {
       active = false;
       window.clearTimeout(widgetTimeout);
+      window.clearTimeout(resizeTimeout);
+      resizeObserver?.disconnect();
       observer.disconnect();
       target.replaceChildren();
     };

@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 
 import { readerEditionSchema } from '@digest/contracts';
-import { chromium } from 'playwright';
+import { chromium, expect } from 'playwright/test';
 
 const origin = 'http://127.0.0.1:8000';
 async function smoke() {
@@ -56,6 +56,8 @@ async function smoke() {
                 const frame = document.createElement('iframe');
                 frame.title = 'Local media recovery stub';
                 frame.dataset.theme = options.theme;
+                frame.dataset.width = String(options.width);
+                frame.style.width = options.width + 'px';
                 frame.srcdoc = '<p>Local media recovery stub</p>';
                 target.append(frame); return frame;
               }}};
@@ -111,6 +113,21 @@ async function smoke() {
         assert.equal(await card.locator('.saved-post-text').count(), 1);
         await card.locator('.saved-post-text summary').click();
         assert.ok(await card.locator('.post-text').isVisible());
+        for (const resizedWidth of [320, 844, width]) {
+          await page.setViewportSize({ width: resizedWidth, height });
+          await card.scrollIntoViewIfNeeded();
+          const mediaWidth = await card
+            .locator('.official-post')
+            .evaluate((node) => Math.min(550, Math.max(250, node.clientWidth)));
+          await expect(card.locator('iframe')).toHaveAttribute(
+            'data-width',
+            String(mediaWidth),
+          );
+          assert.ok(await card.locator('.post-text').isVisible());
+        }
+        await page.screenshot({
+          path: `docs/screenshots/ui/x-media-resize-${device}-${theme}.png`,
+        });
         const toggleTheme = async (next: 'light' | 'dark') => {
           await page
             .getByRole('button', { name: `Switch to ${next} theme` })
