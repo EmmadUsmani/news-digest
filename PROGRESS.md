@@ -1,17 +1,3 @@
-## 2026-11-06: iteration 975 — stop requiring repetitive post notes
-
-- Started clean on main; health/alerts green, all 36 monitored sources healthy; no leftover work.
-- Read all four saved topics. Owner value: OpenAI and NBA cards repeat their original text in a second paragraph, contrary to the approved post-card spec.
-- Cause: the social editor requires a nonempty reader note for every selected post, even when the post explains itself.
-- Social editor v4 permits an empty note, requests useful nonrepeating context only, and retains concise English translations; rationale remains required and factual guards stay intact.
-- Selection/cache and orchestration tests retain self-explanatory posts without a note, alongside posts with context. Existing reader rendering already hides empty notes; no UI code changed.
-- X truncation is in supplied embed text, not local clipping; no new retrieval or source changes. No paid calls, budget/flag changes or saved-edition edits.
-- Verification: targeted social tests 24/24; pnpm format; pnpm lint:fix; pnpm check passed static checks/548 unit tests, then was terminated (143) during integration; standalone isolated integration rerun passed 224/224; pnpm build and final API rebuild passed; check-handbook 08-operations and git diff --check passed.
-- Node/Playwright replay: cleared one note in an intercepted saved response only; original text/link stayed visible and Japanese post context remained. Four desktop/mobile light/dark screenshots saved as post-optional-context-*; mobile light inspected.
-- Replay is synthetic note omission, not observed live editorial behavior; original saved API response unchanged. Handbook updated; SOURCES/NEEDS_FROM_HUMAN unchanged.
-- Archived iteration 961 to keep PROGRESS small. API/worker/docs/schema restarted; health/alerts green, sources healthy; final post-push confirmation follows.
-- Next: compare Nov 6 note repetition, Gaming picks and World/cost/Bluesky after 15:00 UTC; fresh X round after 21:00 UTC.
-
 ## 2026-11-06: iteration 976 — make the brief an overview
 
 - Started clean on main; health/database/Redis green, alerts clear, all 36 monitored sources healthy; no leftover work.
@@ -194,3 +180,14 @@
 - Verification results recorded below; no UI change requiring screenshots or handbook edits.
 - Next: Nov 6 edition/World/cost/Bluesky comparison after 15:00 UTC; no deploys 13:00–16:00; X round after 21:00 UTC.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (555 unit/224 isolated integration tests passed); pnpm build; git diff --check.
+
+## 2026-11-06: iteration 990 — repair Bluesky reader verification
+
+- Started clean on main; health green, alerts clear, all 36 sources returning data; no leftover work.
+- Investigated the two retained ingestion failures: GamesRadar Nov 2 and DeepMind Nov 1; both have current successful collection. No active failure or retry needed.
+- Reader weakness remains World breadth, with its deployed fix awaiting publication. Found a concrete blocker to checking future Bluesky cards: browser replay still asserted that reader context was stripped. Reproduced its assertion failure.
+- Updated the replay to require visible saved context on cards with and without media, while keeping private selection reasons absent; added desktop/mobile dark coverage. Refreshed synthetic screenshots, never live selection evidence.
+- No runtime, source, budget, prompt, flag or saved-edition changes; no paid calls. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Archived iteration 975 to retain the progress size limit.
+- Verification results follow. Next: Nov 6 World/full-AI/cost/Bluesky review after 15:00 UTC; no deploys 13:00–16:00; X round after 21:00 UTC.
+- Verification: pnpm format; pnpm lint:fix; pnpm check reported 555 unit/224 integration passed but chain exited 143 after coverage. Standalone pnpm test:integration passed 224/224 with exit 0; pnpm build passed.
+- pnpm exec tsx scripts/smoke-bluesky-cards.ts passed all four views; inspected mobile dark PNG. git diff --check passed. Restart/health confirmation follows.

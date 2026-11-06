@@ -10,11 +10,16 @@ import { chromium } from 'playwright';
 async function main() {
   const browser = await chromium.launch();
   try {
-    for (const [name, width, height] of [
-      ['desktop', 1440, 1100],
-      ['mobile', 390, 844],
+    for (const [name, width, height, colorScheme] of [
+      ['desktop', 1440, 1100, 'light'],
+      ['mobile', 390, 844, 'light'],
+      ['desktop-dark', 1440, 1100, 'dark'],
+      ['mobile-dark', 390, 844, 'dark'],
     ] as const) {
-      const page = await browser.newPage({ viewport: { width, height } });
+      const page = await browser.newPage({
+        viewport: { width, height },
+        colorScheme,
+      });
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
       const snapshot = readerEditionSchema.parse(
@@ -63,7 +68,8 @@ async function main() {
       const replay = readerEditionSchema.parse(snapshot);
       assert.ok(
         replay.topics[0].posts.every(
-          (item) => !('whyItMatters' in item) && !('reasons' in item),
+          (item) =>
+            item.whyItMatters === post.whyItMatters && !('reasons' in item),
         ),
       );
 
@@ -107,6 +113,18 @@ async function main() {
       );
       assert.match(await cards.first().innerText(), /Full original text/);
       assert.equal(
+        await cards.first().locator('.post-context-text').innerText(),
+        post.whyItMatters,
+      );
+      assert.equal(
+        await cards.nth(1).locator('.post-context-text').innerText(),
+        post.whyItMatters,
+      );
+      assert.ok(
+        !(await cards.first().innerText()).includes(post.reasons[0]),
+        'Private selection reasons must stay out of reader cards',
+      );
+      assert.equal(
         await cards
           .first()
           .getByRole('link', { name: 'Open original post on Bluesky' })
@@ -145,7 +163,7 @@ async function main() {
       await page.close();
     }
     console.log(
-      'Synthetic Bluesky cards: desktop/mobile passed; no edition writes or inference.',
+      'Synthetic Bluesky cards: desktop/mobile light/dark passed; reader context visible, selection reasons private; no edition writes or inference.',
     );
   } finally {
     await browser.close();
