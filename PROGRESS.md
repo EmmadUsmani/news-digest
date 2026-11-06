@@ -183,3 +183,15 @@
 - Next: edition/Bluesky review after 15:00 UTC; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.
 - Final: pnpm check passed (543 unit/224 isolated integration tests); build, handbook and four-view recovery passed. Inspected mobile light screenshot; retained two changed resize screenshots.
 - API/worker/docs/schema restarted; health/database/Redis green, alerts clear. Initial jobs query used an unknown queue name; supported unfiltered query confirmed zero failed digest-generation jobs.
+
+## 2026-11-06: iteration 968 — preserve saved-text disclosure focus
+
+- Started clean on main; health/database/Redis green, alerts clear, 36 sources healthy and no failed digest jobs. No leftover work.
+- Read latest saved topics; World breadth/Tech grouping and Bluesky await Nov 6 publication; X round waits until 21:00 UTC.
+- Reader weakness: a system theme change hides the focused saved-text disclosure while rebuilding X media, dropping keyboard focus to the body; reproduced against HEAD.
+- Keep the disclosure visible after its first successful embed; only focused original-text links force the panel open on media success, preserving a focused disclosure's collapsed choice.
+- Extended saved Gaming replay with system-theme focus/collapsed-state assertions in desktop/mobile light/dark; local widget stub, no writes or external calls.
+- Updated TASKS, STEERING ack and affected handbook; retained/inspected mobile light screenshot. SOURCES/NEEDS_FROM_HUMAN unchanged; no spend or flag changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-x-media.ts; check-handbook.ts 08-operations; git diff --check. Final results below.
+- Next: Nov 6 edition/Bluesky review after 15:00 UTC; X round after 21:00 UTC. Fixed search and reserved slot stay off.
+- Final: pnpm check passed (543 unit/224 isolated integration tests); build, handbook and four-view browser replay passed. API/worker/docs/schema restarted; health/database/Redis green and alerts clear.

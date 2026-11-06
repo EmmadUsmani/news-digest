@@ -120,6 +120,7 @@ function Post({
   const host = React.useRef<HTMLDivElement>(null);
   const savedText = React.useRef<HTMLDetailsElement>(null);
   const [embedded, setEmbedded] = React.useState(false);
+  const [hasEmbedded, setHasEmbedded] = React.useState(false);
   const [savedTextOpen, setSavedTextOpen] = React.useState(false);
   const [failed, setFailed] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
@@ -165,8 +166,11 @@ function Post({
             if (!active) return;
             setLoading(false);
             if (element) {
-              if (savedText.current?.contains(document.activeElement))
+              if (
+                savedText.current?.querySelector('a') === document.activeElement
+              )
                 setSavedTextOpen(true);
+              setHasEmbedded(true);
               setEmbedded(true);
               // X fixes its iframe width at creation. Rebuild successful media
               // after the card settles at a different width (e.g. rotation).
@@ -233,7 +237,7 @@ function Post({
           if (embedded) setSavedTextOpen(event.currentTarget.open);
         }}
       >
-        <summary hidden={!embedded}>Saved post text</summary>
+        <summary hidden={!hasEmbedded}>Saved post text</summary>
         <p className="post-text">
           <a href={post.url} target="_blank" rel="noreferrer">
             {post.displayText ?? post.text}

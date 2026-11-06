@@ -136,6 +136,19 @@ async function smoke() {
           assert.ok(await card.locator('.post-text').isVisible());
           await expect(savedLink).toBeFocused();
         }
+        const disclosure = card.locator('.saved-post-text summary');
+        await disclosure.click();
+        await expect(disclosure).toBeFocused();
+        const changedTheme = theme === 'light' ? 'dark' : 'light';
+        await page.emulateMedia({ colorScheme: changedTheme });
+        await card.locator(`iframe[data-theme="${changedTheme}"]`).waitFor();
+        await expect(disclosure).toBeFocused();
+        assert.equal(await card.locator('.post-text').isVisible(), false);
+        await page.emulateMedia({ colorScheme: theme });
+        await card.locator(`iframe[data-theme="${theme}"]`).waitFor();
+        await expect(disclosure).toBeFocused();
+        await disclosure.click();
+        await savedLink.focus();
         const systemTheme = theme === 'light' ? 'dark' : 'light';
         await page.emulateMedia({ colorScheme: systemTheme });
         await card.locator(`iframe[data-theme="${systemTheme}"]`).waitFor();

@@ -1519,3 +1519,5 @@ ack: 2026-11-06 item 42 — iteration 965: saved Gaming X media kept its initial
 ack: 2026-11-06 item 42 — iteration 966: saved X text lost keyboard focus when media rebuilt after rotation or theme changes. Keep the saved-text link mounted; verified focus across resizing and system themes in four reader views. No spend or selection changes.
 
 ack: 2026-11-06 item 42 — iteration 967: retrying failed X media removed the focused button and dropped keyboard focus to the page body. Move focus to the saved post link before retry; reproduced against HEAD and verified saved-edition recovery in four reader views. No spend or selection changes.
+
+ack: 2026-11-06 item 42 — iteration 968: Gaming’s saved-text disclosure lost keyboard focus when media reloads hid it. Keep it visible after the first successful embed; verify focus and collapsed state through system theme changes in four reader views. No spend or selection changes.
