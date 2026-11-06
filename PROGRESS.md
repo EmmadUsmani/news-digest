@@ -141,3 +141,4 @@
 - Initial obs jobs query used an unknown queue; corrected read-only query shows no failed digest runs, historical ingestion/social failures alongside healthy sources.
 - Updated TASKS, SOURCES and social handbook; archived iteration 892 to keep PROGRESS small. NEEDS_FROM_HUMAN unchanged.
 - Next: switched-off scheduler retry, then authorized three failed Nov 5 keyword reruns on the same window. Fair semantic query and fresh Nov 6 round follow; fixed production search remains off.
+- First push rejected for incoming owner instructions; fetched/merged without rewriting history. X reliability stays first; new item 40 queues Bluesky edition outcomes/recovery/slot gating ahead of UI. Owner files left untouched; post-merge format/lint/handbook checks before repush.

@@ -5,6 +5,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 ## Immediate owner priorities
 
 - [ ] STEERING 39 NOW, ahead of UI (903: saved NBA/World holds settled append-only; required tool choice, token-only parsing and 120 s timeout shipped; experiment timeout retry shipped (904); experiment no-execution/tool-failure retry shipped (905); scheduler retry open): require supported X search execution, 120 s timeout, one admitted retry only for no-execution/no-post failures, saved NBA/World settlement complete; rerun three Nov 5 keyword failures after Nov 6 00:00 UTC. Fair semantic query next round; scorer gate counts as non-promotion and unknown likes are unusable. $2.50 total/$1 UTC day caps unchanged; no production activation.
+- [ ] STEERING 40: after X reliability and Nov 6 review, save per-topic Bluesky outcomes, fix editing failures, build default-off reserved slot and use Nov 6 cost gate; update inspector and source/handbook truth. Details and limits in STEERING; no collection/query/cap changes.
 - [ ] STEERING 36 NOW: forty-article grouping pool live (872), ten-story editor cap unchanged; replay/cost evidence in [review](docs/edition-reviews/2026-11-05-world-story-pool.md). Review Nov 6 edition. Dedicated admin pages next; coverage cleanup done (873). X rounds due after 21:00 UTC.
 
 - [x] Nov 5 full-AI acceptance and saved reader text (847): all sections AI, zero unscored; $0.315445/152.320 s. [Review](docs/edition-reviews/2026-11-05.md).
