@@ -59,10 +59,13 @@ extend to the next.
 
 ## Working in parallel
 
-- **One workstream, one session.** Say which you're on. If two sessions need the
+- **One workstream, one session.** Say which you're on, and create
+  `docs/lead/work/<workstream>.md` if it's new work. If two sessions need the
   same workstream, tell the owner first.
-- **Use your own git worktree** in `.worktrees/<workstream>` (setup is in the
-  playbook), not the main clone, when other sessions are running.
+- **Always create your own git worktree before your first edit,** in
+  `.worktrees/<workstream>` (setup is in the playbook). You can't tell whether
+  other sessions are running, so assume they are. Reading from the main clone is
+  fine.
 - **Commit small and push straight away** to `main`, and never leave work
   uncommitted. If a push is rejected, rebase and push again. Never force-push.
 - **Write only to your workstream's file.** Shared files (`STEERING.md`, the

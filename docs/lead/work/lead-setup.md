@@ -1,6 +1,7 @@
 # Lead setup
 
-**Status:** first version built. It needs testing with fresh sessions.
+**Status:** a fresh session passed the status and steering tests. Parallel
+sessions are being tried now. Nothing has yet tested two sessions committing.
 
 **Goal:** any session, person or agent can do this work from the repo alone, in
 parallel. No single long thread.
