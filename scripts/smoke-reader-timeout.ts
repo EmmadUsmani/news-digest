@@ -57,23 +57,16 @@ async function smoke() {
           return route.continue();
         });
         await page.goto(`${base}/editions/${saved.id}`);
-        await page.locator('.edition-history summary').click();
         const retryEdition = page.getByRole('button', {
           name: 'Try loading edition again',
           exact: true,
         });
-        const retryHistory = page.getByRole('button', {
-          name: 'Retry history',
-          exact: true,
-        });
         await retryEdition.waitFor();
-        await retryHistory.waitFor();
         assert.equal(
           editionAttempts,
           1,
           'Timeout must not restart the full wait',
         );
-        assert.equal(historyAttempts, 1);
         assert.equal(await page.locator('.digest-topic').count(), 0);
         await retryEdition.scrollIntoViewIfNeeded();
         await page.screenshot({
@@ -81,15 +74,44 @@ async function smoke() {
         });
         stalled = false;
         await retryEdition.click();
-        await retryHistory.click();
         await page.locator('.digest-topic').first().waitFor();
-        await page.locator('.edition-history li').first().waitFor();
         assert.equal(
           await page.locator('.digest-topic').count(),
           saved.topics.length,
         );
         assert.equal(editionAttempts, 2);
+        // The archive replaced inline history; use a fresh navigation so the
+        // history query cannot recover from data cached by the reader header.
+        stalled = true;
+        historyAttempts = 0;
+        await page.goto(`${base}/editions`);
+        const retryHistory = page.getByRole('button', {
+          name: 'Try again',
+          exact: true,
+        });
+        await retryHistory.waitFor();
+        await page
+          .getByText('Could not load past editions.', { exact: true })
+          .waitFor();
+        assert.equal(
+          historyAttempts,
+          1,
+          'Archive timeout must not retry automatically',
+        );
+        assert.equal(await page.locator('main li').count(), 0);
+        await page.screenshot({
+          path: `docs/screenshots/ui/archive-timeout-${device}-${theme}.png`,
+        });
+        stalled = false;
+        await retryHistory.click();
+        await page.locator('main li').first().waitFor();
         assert.equal(historyAttempts, 2);
+        await page.locator(`main li a[href="/editions/${saved.id}"]`).click();
+        await page.locator('.digest-topic').first().waitFor();
+        assert.equal(
+          await page.locator('.digest-topic').count(),
+          saved.topics.length,
+        );
         assert.deepEqual(writes, []);
         assert.deepEqual(errors, []);
         await page.close();
@@ -101,7 +123,7 @@ async function smoke() {
       original,
     );
     console.log(
-      'Stalled reader requests: bounded timeout and manual recovery for edition/history on desktop/mobile light/dark; no automatic timeout retries, writes or browser errors; saved edition unchanged.',
+      'Stalled reader requests: bounded timeout and manual recovery for edition/archive on desktop/mobile light/dark; no automatic timeout retries, writes or browser errors; saved edition unchanged.',
     );
   } finally {
     await browser.close();

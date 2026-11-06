@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Reader timeout replay (936): ported obsolete inline-history coverage to the archive, preserving stalled-edition retry and real saved-link recovery on desktop/mobile light/dark.
+
 - [x] Reader refresh recovery (935): saved edition survives refresh 503/404 with accurate message and retry; missing-edition/outage browser coverage passes.
 
 - [x] Reader layout check (934): repaired the obsolete X accessible-name expectation; real saved-content desktop/mobile light/dark replay passes again, with unchanged screenshots.

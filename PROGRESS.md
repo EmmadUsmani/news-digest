@@ -1,14 +1,3 @@
-## 2026-11-06: iteration 922 — default-off Bluesky reserved slot
-
-- Started clean on main; no leftover work. Health/alerts green, 36/36 sources healthy, zero failed digest jobs. Higher priorities await publication/21:00 UTC.
-- Added BLUESKY_RESERVED_SLOT_ENABLED=1, default OFF pending Nov 6 AI/cost gate. Full topics can request one Bluesky pick; only a qualifying distinct pick replaces the last X pick. Empty/refused/unavailable editing keeps X unchanged.
-- Existing open slots remain usable; zero-budget topics make no calls. Saved optional hold/replaced-X-ID evidence survives schema parsing; opportunity counts include held slots, so existing durable alerts cover them.
-- Confirmed editTopicPosts preserves editor reply order through preferX. Explicitly requested descending editorial quality in the prompt and pinned saved order offline; instruction fingerprints isolate old cache entries. No selection thresholds, collection, queries or caps changed.
-- Fixed editorial provenance for same-count replacements. Updated TASKS, SOURCES and affected handbook; NEEDS_FROM_HUMAN unchanged. No paid calls or UI changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (543 unit/224 isolated integration tests); pnpm build; check-handbook.ts 05-social-posts; targeted Bluesky/social editor/order tests; git diff --check. All passed.
-- Initial checks caught unsupported findLastIndex and handbook length; corrected before full verification. Rebuilt/restarted API/worker/docs/schema; after startup health/database/Redis green, reader HTTP 200, 36/36 sources healthy and alerts clear.
-- Next: review Nov 6 edition/grouping/cost after publication and apply reserved-slot activation gate; X round after 21:00 UTC. Reserved slot and fixed search remain OFF. While waiting, final reader layout follows Current order.
-
 ## 2026-11-06: iteration 923 — reader contents and compact story layout
 
 - Started clean on main; no leftover work. Alerts/health green, 36/36 sources healthy, no failed digest runs. Higher priorities await Nov 6 publication/21:00 UTC.
@@ -144,3 +133,14 @@
 - Archived iteration 920 to keep PROGRESS small; updated TASKS and STEERING ack. No source/system-flow changes; SOURCES, handbook and NEEDS_FROM_HUMAN unchanged. No paid calls or flag changes.
 - Next: Nov 6 World/cost/Bluesky review after publication; fresh X round after 21:00 UTC.
 - Full check passed: 543 unit/224 isolated integration tests, coverage complete. Initial check caught unformatted archived progress; formatted it and reran successfully. Build and both browser replays passed; 36/36 sources healthy, all queue workers available and zero retained failed runs. Final restart/health/alerts checked before handoff.
+
+## 2026-11-06: iteration 936 — restore stalled-request reader recovery checks
+
+- Started clean on main; no leftover work. Health/database/Redis green and alerts clear. Saved four-topic headlines/posts reviewed; thin World and known Tech grouping await Nov 6 publication. X round waits until 21:00 UTC.
+- Found an existing verification breakage: smoke-reader-timeout still clicked the removed inline-history panel; reproduced its 20-second locator timeout. Ported history recovery to the archive and retained edition recovery.
+- The browser replay stalls requests locally, verifies one attempt before manual retry, restores real saved links and opens the saved edition. No writes, paid calls, flags or selection changes. Updated timeout screenshots.
+- Verification: pnpm exec tsx scripts/smoke-reader-timeout.ts (failed before, passed after repair on desktop/mobile light/dark; inspected desktop archive/mobile edition screenshots); pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check. Final results recorded below.
+- Archived iteration 922 to keep this file small; updated TASKS. No product/system-flow change; SOURCES, handbook, STEERING and NEEDS_FROM_HUMAN unchanged.
+- Next: Nov 6 World/cost/Bluesky review after publication, X round after 21:00 UTC; continue remaining obsolete reader smoke-script ports while waiting.
+- Initial full check exited 143 during integration tests without a reported test failure; standalone full retry passed (543 unit/224 isolated integration tests, coverage complete). Build and browser replay passed.
+- Restarted API/worker/docs/schema: all active, health/database/Redis green, reader HTTP 200, source/job checks passed and alerts clear.
