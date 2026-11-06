@@ -1,14 +1,3 @@
-## 2026-11-06: iteration 937 — restore selected-edition response isolation checks
-
-- Started clean on main; no leftover work. Alerts clear and health/database/Redis green. Nov 6 edition/Bluesky evidence and 21:00 UTC X round still time-gated.
-- Reviewed latest saved topics/posts: thin World and known Tech grouping await Nov 6 publication; no new content failure identified.
-- Reproduced smoke-edition-selection failure: it still opened the deleted inline-history panel. Ported navigation to the archive and assertions to the reader date, headings and saved summaries.
-- Owner value: verify that choosing an older edition stays stable when the pending latest-edition request later succeeds or fails. No product behavior change.
-- Desktop/mobile light/dark replay passed against real saved editions with browser-only delayed success/503 responses; no writes. Block third-party requests; updated screenshots and inspected mobile light.
-- Verification: pnpm exec tsx scripts/smoke-edition-selection.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check. Final results below.
-- Updated TASKS; no source/system-flow change, paid calls or flags. Next: Nov 6 edition/Bluesky review after publication and X round after 21:00 UTC.
-- Final full check passed (543 unit/224 isolated integration tests); build and eight browser cases passed. Restarted API/worker/docs/schema and checked final health/alerts before handoff.
-
 ## 2026-11-06: iteration 938 — full-width reader posts
 
 - Started clean on main; health/database/Redis green and alerts clear. Nov 6 publication and 21:00 UTC X round remain time-gated.
@@ -176,3 +165,15 @@
 - Updated TASKS and STEERING ack. SOURCES and NEEDS_FROM_HUMAN unchanged.
 - Next: Nov 6 World/cost/Bluesky review after publication; fresh X round after 21:00 UTC. Fixed search and reserved slot remain off.
 - Final: initial check and concurrent lint-fix exited 143 without diagnostics; retries passed (543 unit/224 isolated integration tests). Build, handbook, four-view browser replay and diff checks passed; inspected mobile light World screenshot. Archived iteration 936. Services restarted healthy, 36/36 sources healthy, zero failed digest jobs and alerts clear.
+
+## 2026-11-06: iteration 953 — explain unavailable X media
+
+- Started clean on main; health/database/Redis green, alerts clear, source and job checks passed. Edition review waits for publication; X round waits for 21:00 UTC.
+- Read all four saved topics. Gaming’s release-date announcement relies on an attached image; blocked widgets left only a retry button, without explaining the missing attachment.
+- Added an accessible media-failure message beside retry. Saved original text and editorial context remain visible; successful retry removes the message. No spend, selection, collection or flag changes.
+- Added saved-edition browser failure/recovery checks across desktop/mobile light/dark, with external traffic blocked and a local widget stub; all passed, no writes, edition unchanged. Inspected mobile light screenshot; four screenshots saved.
+- Initial browser recovery assertion lost its card locator when saved text became collapsed; corrected the locator to include hidden saved links, then all four views passed.
+- Updated TASKS, STEERING ack and operations handbook; archived iteration 937. SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; check-handbook.ts 08-operations; smoke-reader-x-media.ts passed. Full pnpm check result below.
+- API/worker/docs/schema restarted active, health green. Next: Nov 6 World/cost/Bluesky review after publication; fresh X round after 21:00 UTC. Fixed search and reserved slot remain off.
+- Final: pnpm check passed (543 unit/224 isolated integration tests); build, handbook, four-view browser replay and diff checks passed. Services active, health green and alerts clear.

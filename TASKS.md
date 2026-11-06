@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] X media failure clarity (953): cards explain unavailable media while preserving saved text/context and retry; saved-edition recovery verified in four device/theme views.
+
 - [x] Publisher diversity (952): grouped source rows combine feeds from the same publisher, exposing independent coverage without removing reports.
 
 - [x] Visible coverage counts (951): grouped stories always show their article count before expansion, alongside any extra outlets.

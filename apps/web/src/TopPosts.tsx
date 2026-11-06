@@ -203,13 +203,18 @@ function Post({
       )}
       <div ref={host} className="official-post" />
       {failed && (
-        <button
-          type="button"
-          className="h-8 px-2 py-1 text-xs"
-          onClick={() => setAttempt((value) => value + 1)}
-        >
-          Retry X media
-        </button>
+        <div className="x-media-error flex flex-wrap items-center gap-x-3 gap-y-1">
+          <p role="status" className="m-0 text-xs text-[var(--secondary)]">
+            X media could not load. Saved post text is shown above.
+          </p>
+          <button
+            type="button"
+            className="h-8 px-2 py-1 text-xs"
+            onClick={() => setAttempt((value) => value + 1)}
+          >
+            Retry X media
+          </button>
+        </div>
       )}
       {Object.keys(post.metrics).length > 0 && (
         <p className="byline">

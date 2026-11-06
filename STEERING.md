@@ -1491,3 +1491,5 @@ ack: 2026-11-06 item 42 — iteration 950: World's saved Guardian headline credi
 ack: 2026-11-06 item 42 — iteration 951: World's eight-report story disclosed only an extra outlet count. Always show the article count alongside extra outlets, making saved coverage depth visible before expansion. No spend or selection changes.
 
 ack: 2026-11-06 item 42 — iteration 952: World's Guardian US/World feeds filled both visible source slots for the same publisher. Show each publisher once so Al Jazeera is visible alongside the primary Guardian report; all eight reports remain available. No spend or selection changes.
+
+ack: 2026-11-06 item 42 — iteration 953: Gaming’s image-dependent release-date post showed only a retry button when X media failed. Explain the missing media beside the retry while retaining saved text/context; verified failure and recovery in desktop/mobile light/dark with local widgets. No spend or selection changes.
