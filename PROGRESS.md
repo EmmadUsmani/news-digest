@@ -186,3 +186,14 @@
 - Proposal only: no external destination requests, paid calls, runtime/schema/source changes or service restarts during 13:00–16:00 freeze. SOURCES/NEEDS_FROM_HUMAN unchanged.
 - Verification results follow. Next: Nov 6 quality/cost/Bluesky review after publication; X round after 21:00 UTC.
 - Verification: pnpm format; pnpm lint:fix; pnpm check exit 0 (555 unit/224 isolated integration tests); pnpm build; targeted Prettier and git diff --check passed. Health green, 36 sources healthy, no failed digest jobs, alerts clear. Archived iterations 979–980 and completed task markers.
+
+## 2026-11-06: iteration 996 — define evidence-pilot decision criteria
+
+- Started clean on main; health/DB/Redis green, alerts clear, API/worker active. No leftover work.
+- Reader weakness: thin HN evidence limits useful Tech summaries; World breadth remains first and awaits the deployed fix's Nov 6 edition.
+- Owner value: the evidence proposal now gives a concrete way to decide whether five destination requests help enough to pursue.
+- Added fixed sample/skip accounting, paired original/enriched inputs, a proposed three-of-five supported-fact threshold and stop rules.
+- Nov 6 comparison precedes collection; paid editorial replay requires separate capped approval. All criteria are proposals, not new owner decisions.
+- No destination requests, paid calls, runtime/source/schema changes or service restarts during the 13:00–16:00 deployment freeze.
+- SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Next: Nov 6 edition/World/cost/Bluesky review after publication; X test after 21:00 UTC.
+- Verification: pnpm format; pnpm lint:fix; pnpm check exit 0 (555 unit/224 isolated integration tests); pnpm build; git diff --check. Final health green and alerts clear.

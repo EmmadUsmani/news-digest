@@ -51,6 +51,31 @@
   refresh, and leaves blocked/missing pages usable with the original evidence.
   Compare Nov 6 first; this pilot needs owner approval under items 38 and 42.
 
+### Proposed comparison and stop rule
+
+- First read the Nov 6 summaries against their saved inputs. If the deployed
+  summary fix already resolves the reader problem, defer the pilot. Do not
+  collect pages just to populate a benchmark.
+- If approved, take the first five eligible empty-excerpt HN links in a fixed
+  edition window, preserving candidate order and recording every skip. Keep
+  blocked, empty and headline-only descriptions in the denominator; replacing
+  them with better examples would hide the likely reader benefit.
+- Save paired original/enriched candidate payloads with retrieval provenance.
+  Review whether each description adds a concrete, attributable fact absent
+  from the headline before considering an editorial replay. Report added facts,
+  missing results, request count, elapsed time and exact payload-size deltas.
+- Suggested continuation threshold for owner approval: at least three of five
+  links gain a supported fact, with no attribution loss or access workaround.
+  Below that threshold, stop this approach rather than widening collection.
+  This is a small feasibility sample, not a measured general success rate.
+- No extra model calls are included in approval of HTTP collection. Any paired
+  editorial replay needs its own explicit capped allowance, based on the saved
+  payloads and current app pricing. Confirm the edition reserve still fits
+  before enabling evidence in production; keep the feature off otherwise.
+- Stop on exhausted request/time allowance or a security/access rejection;
+  preserve original inputs and record the outcome. No fallback to full bodies,
+  Google News resolution or a new vendor within this pilot.
+
 ## Read finished stories while posts are still being selected
 
 - Reader problem: an on-demand edition shows progress until the complete

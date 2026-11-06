@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Evidence-pilot decision protocol (996): proposed a fixed five-link denominator, paired-input review, continuation threshold and separate replay allowance in [ideas](docs/ideas.md#proposed-comparison-and-stop-rule). Proposal only; Nov 6 comparison and owner approval remain prerequisites.
+
 - [x] Discovery evidence scope (995): estimated a bounded HN metadata pilot, separate evidence storage and pre-scoring integration in [ideas](docs/ideas.md#bounded-first-version-and-effort-estimate); 3–5 days, proposal only, no requests or runtime changes.
 
 - Earlier steps 982–994: [completed markers](docs/progress-archive/2026-11-06-reader-done-995.md).
