@@ -35,13 +35,14 @@ async function smoke() {
         for (const fail of [false, true]) {
           const page = await browser.newPage({
             viewport: { width, height },
+            locale: 'en-US',
             colorScheme: theme,
           });
           page.setDefaultTimeout(15000);
           const errors: string[] = [];
           const writes: string[] = [];
           page.on('pageerror', (error) => errors.push(error.message));
-          await page.route('**/api/**', async (route) => {
+          await page.route('**/*', async (route) => {
             const request = route.request();
             if (!['GET', 'HEAD'].includes(request.method())) {
               writes.push(
@@ -49,6 +50,7 @@ async function smoke() {
               );
               return route.abort();
             }
+            if (new URL(request.url()).origin !== base) return route.abort();
             return route.continue();
           });
           let markStarted!: () => void;
@@ -83,19 +85,28 @@ async function smoke() {
             theme === 'dark',
           );
           await page
-            .getByText('Browse saved editions', { exact: true })
+            .getByRole('link', { name: 'Browse past editions', exact: true })
             .click();
           const selected = page.locator(
-            `.edition-history a[href="/editions/${entry.id}"]`,
+            `main li a[href="/editions/${entry.id}"]`,
           );
           await selected.click();
           await page.waitForURL(`**/editions/${entry.id}`);
-          assert.equal(await selected.getAttribute('aria-current'), 'page');
           const expectSelectedContent = async () => {
-            await page
-              .locator('.period')
-              .filter({ hasText: edition.id.slice(0, 8) })
-              .waitFor();
+            await page.locator('.digest-topic').last().waitFor();
+            assert.equal(
+              await page
+                .getByRole('link', {
+                  name: 'Browse past editions',
+                  exact: true,
+                })
+                .innerText(),
+              new Date(edition.windowEnd).toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+              }),
+            );
             assert.equal(
               await page.locator('.digest-topic').count(),
               edition.topics.length,
@@ -111,7 +122,7 @@ async function smoke() {
               for (const story of topic.stories) {
                 const item = section.locator(`[id="story-${story.id}"]`);
                 assert.equal(
-                  await item.locator(':scope > a').textContent(),
+                  await item.locator('h3 a').textContent(),
                   story.title,
                 );
                 if (story.summary)
@@ -127,7 +138,6 @@ async function smoke() {
           await delayedHandled;
           // Let the fetch continuation and React render settle after the delayed response.
           await page.waitForTimeout(250);
-          assert.equal(await selected.getAttribute('aria-current'), 'page');
           await expectSelectedContent();
           assert.equal(new URL(page.url()).pathname, `/editions/${entry.id}`);
           assert.deepEqual(errors, []);
@@ -135,12 +145,12 @@ async function smoke() {
           assert.equal(
             await page
               .getByRole('alert')
-              .filter({ hasText: 'The edition could not' })
+              .filter({ hasText: /could not|Could not/ })
               .count(),
             0,
           );
           if (!fail)
-            await page.locator('.edition-history').screenshot({
+            await page.screenshot({
               path: `docs/screenshots/ui/edition-selection-${device}-${theme}.png`,
             });
           assert.ok(

@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Saved-edition selection replay (937): restored archive navigation and current reader assertions; a delayed latest-edition success or failure preserves the selected older edition on desktop/mobile light/dark.
+
 - [x] Reader timeout replay (936): ported obsolete inline-history coverage to the archive, preserving stalled-edition retry and real saved-link recovery on desktop/mobile light/dark.
 
 - [x] Reader refresh recovery (935): saved edition survives refresh 503/404 with accurate message and retry; missing-edition/outage browser coverage passes.

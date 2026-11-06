@@ -144,3 +144,14 @@
 - Next: Nov 6 World/cost/Bluesky review after publication, X round after 21:00 UTC; continue remaining obsolete reader smoke-script ports while waiting.
 - Initial full check exited 143 during integration tests without a reported test failure; standalone full retry passed (543 unit/224 isolated integration tests, coverage complete). Build and browser replay passed.
 - Restarted API/worker/docs/schema: all active, health/database/Redis green, reader HTTP 200, source/job checks passed and alerts clear.
+
+## 2026-11-06: iteration 937 — restore selected-edition response isolation checks
+
+- Started clean on main; no leftover work. Alerts clear and health/database/Redis green. Nov 6 edition/Bluesky evidence and 21:00 UTC X round still time-gated.
+- Reviewed latest saved topics/posts: thin World and known Tech grouping await Nov 6 publication; no new content failure identified.
+- Reproduced smoke-edition-selection failure: it still opened the deleted inline-history panel. Ported navigation to the archive and assertions to the reader date, headings and saved summaries.
+- Owner value: verify that choosing an older edition stays stable when the pending latest-edition request later succeeds or fails. No product behavior change.
+- Desktop/mobile light/dark replay passed against real saved editions with browser-only delayed success/503 responses; no writes. Block third-party requests; updated screenshots and inspected mobile light.
+- Verification: pnpm exec tsx scripts/smoke-edition-selection.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check. Final results below.
+- Updated TASKS; no source/system-flow change, paid calls or flags. Next: Nov 6 edition/Bluesky review after publication and X round after 21:00 UTC.
+- Final full check passed (543 unit/224 isolated integration tests); build and eight browser cases passed. Restarted API/worker/docs/schema and checked final health/alerts before handoff.
