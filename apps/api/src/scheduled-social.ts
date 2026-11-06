@@ -2,7 +2,6 @@ import { Queue, Worker } from 'bullmq';
 
 import { logger, logJob } from './libs/observability/logging';
 import { SharedHttpClient } from './libs/ports/http.client';
-import { loadReactionStories } from './modules/digests/public/reaction-stories';
 import { PostgresProfileRepository } from './modules/profiles/database/profile.repository';
 import { BlueskySearch } from './modules/social/adapters/bluesky-search';
 import { RiverDiscovery } from './modules/social/adapters/river-discovery';
@@ -36,8 +35,6 @@ export function startScheduledSocial(http: SharedHttpClient) {
         fixed: {
           enabled: () => fixedXSearchEnabled(),
           settings: (topicId) => repository.searchSettings(topicId),
-          stories: (topicId, start, end) =>
-            loadReactionStories(repository.db, topicId, start, end),
           availableMicros: async () => (await ledger.status()).availableMicros,
         },
         searches,
@@ -48,13 +45,6 @@ export function startScheduledSocial(http: SharedHttpClient) {
             repository,
             new XOfficialEmbed(http),
             await searches.verificationCandidates(callId),
-          ),
-        stories: (topicId, end) =>
-          loadReactionStories(
-            repository.db,
-            topicId,
-            new Date(end.getTime() - 24 * 60 * 60 * 1000),
-            end,
           ),
       });
     } finally {

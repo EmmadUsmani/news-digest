@@ -31,15 +31,15 @@ flowchart LR
 | Free (rivers, articles) | $0                     | Not tied to any account list            | Lags: a post appears only once media embeds it    |
 | Paid (xAI search)       | $0.026–$0.038 on Nov 3 | Searches X directly, before the edition | Reported engagement is not independently verified |
 
-- **Open search:** 5–30 minutes before the edition, one search per topic with
-  no account restriction, weakest topic first. It asks for original, engaging
-  posts in the edition window.
-- **Follow-up:** a topic with fewer than three new verified posts can get one
-  more search. It looks for reactions to a top story first, otherwise it
-  searches the topic's curated accounts.
-- **Curated accounts:** edit them in **Manage topics → Edit → X accounts**
-  (up to 20 per topic). They only feed the follow-up search. The reviewed
-  choices are recorded in [Sources](../../SOURCES.md).
+- **Paid search is switched off** while the keyword rollout is prepared.
+  The worker has no fallback to the old open search, story reactions or
+  account-list follow-ups.
+- **Keyword search:** when enabled, runs 5–30 minutes before the edition,
+  weakest topic first. Grok writes fresh keywords from each topic's guidance;
+  code supplies the engagement thresholds and exact edition window.
+  One search per topic; at most one admitted retry for a failed call.
+- **Curated accounts:** editable in **Manage topics → Edit → X accounts**;
+  keyword discovery searches all accounts. See [Sources](../../SOURCES.md).
 - **Reports:** `scripts/report-x-discovery.ts` (one day) and
   `report-x-week.ts` (seven days) show spend and new verified posts by topic
   and search type, including posts from authors outside the account lists.

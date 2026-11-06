@@ -10,7 +10,6 @@ const parentId = '00000000-0000-4000-8000-000000000001';
 
 function fixture(verificationErrors = 0) {
   const events: string[] = [];
-  let completed = false;
   let reservations = 0;
   const dependencies: Parameters<typeof runScheduledXRuntime>[0] = {
     profile: async () =>
@@ -36,13 +35,6 @@ function fixture(verificationErrors = 0) {
       ],
       save: async () => {
         events.push('save');
-      },
-      completedOpenSearches: async (day) => {
-        assert.equal(day, '2026-11-03');
-        events.push('read-completed');
-        return completed
-          ? [{ topicId: 'nba', openCallId: parentId, openVerifiedAdditions: 0 }]
-          : [];
       },
     },
     search: {
@@ -87,82 +79,40 @@ function fixture(verificationErrors = 0) {
       completeVerification: async (id) => {
         assert.equal(id, parentId);
         events.push('complete');
-        completed = true;
       },
     },
     verify: async () => {
       events.push('verify');
       return { verificationErrors };
     },
-    stories: async (id, end) => {
-      assert.equal(id, 'nba');
-      assert.equal(end.toISOString(), now.toISOString());
-      events.push('stories');
-      return [{ id: 'story', title: 'NBA playoff highlights', importance: 10 }];
-    },
   };
   return { dependencies, events };
 }
 
-void test('explicit account-list runtime leaves open dependencies idle', async () => {
-  const { dependencies, events } = fixture();
-  await runScheduledXRuntime(dependencies, () => now, 'account-list');
-  assert.deepEqual(events, ['accounts', 'settle', 'save', 'verify']);
+void test('disabled or absent fixed search performs no configuration, ledger or provider work', async () => {
+  for (const configured of [false, true]) {
+    const { dependencies, events } = fixture();
+    dependencies.profile = async () => {
+      throw new Error('Must stay idle');
+    };
+    if (configured)
+      dependencies.fixed = {
+        enabled: () => false,
+        settings: async () => {
+          throw new Error('Must stay idle');
+        },
+        availableMicros: async () => {
+          throw new Error('Must stay idle');
+        },
+      };
+    assert.deepEqual(await runScheduledXRuntime(dependencies, () => now), {
+      skipped: 'Fixed search disabled',
+    });
+    assert.deepEqual(events, []);
+  }
 });
 
-void test('production defaults to open search without curated handles, verifying before parented reactions', async () => {
-  const { dependencies, events } = fixture();
-  const loadTopics = dependencies.searches.scheduledTopics;
-  dependencies.searches.scheduledTopics = async (at) =>
-    (await loadTopics(at)).map((topic) => ({ ...topic, handles: [] }));
-  await runScheduledXRuntime(dependencies, () => now);
-  assert.deepEqual(events, [
-    'open',
-    'settle',
-    'save',
-    'verify',
-    'complete',
-    'read-completed',
-    'stories',
-    'reaction',
-    'settle',
-    'save',
-    'verify',
-  ]);
-});
-
-void test('verification errors prevent durable completion and optional execution', async () => {
-  const { dependencies, events } = fixture(1);
-  await runScheduledXRuntime(dependencies, () => now, 'open-topic');
-  assert.deepEqual(events, [
-    'open',
-    'settle',
-    'save',
-    'verify',
-    'read-completed',
-  ]);
-});
-
-void test('runtime budget rejection performs no provider or verification work', async () => {
-  const { dependencies, events } = fixture();
-  dependencies.ledger.reserve = async () => null;
-  await runScheduledXRuntime(dependencies, () => now, 'open-topic');
-  assert.deepEqual(events, ['read-completed']);
-});
-
-void test('completion persistence failure aborts optional execution', async () => {
-  const { dependencies, events } = fixture();
-  dependencies.ledger.completeVerification = async () => {
-    throw new Error('completion unavailable');
-  };
-  await assert.rejects(
-    runScheduledXRuntime(dependencies, () => now, 'open-topic'),
-    /completion unavailable/,
-  );
-  assert.deepEqual(events, ['open', 'settle', 'save', 'verify']);
-});
-
-void test('fixed runtime dispatches A/B ledger types and bypasses all legacy followups', async () => {
+void test('fixed runtime dispatches only keyword searches', async () => {
   const { dependencies, events } = fixture();
   const styles: string[] = [];
   dependencies.fixed = {
@@ -172,10 +122,6 @@ void test('fixed runtime dispatches A/B ledger types and bypasses all legacy fol
       trendingMinFaves: 200,
       exclusions: ['-crypto'],
     }),
-    stories: async () => [
-      { id: 'one', title: 'First NBA story', importance: 10 },
-      { id: 'two', title: 'Second NBA story', importance: 9 },
-    ],
     availableMicros: async () => 400000,
   };
   dependencies.ledger.reserve = async (
@@ -222,7 +168,6 @@ void test('fixed runtime settles before linked retry and ledger refusal prevents
         trendingMinFaves: 200,
         exclusions: [],
       }),
-      stories: async () => [],
       availableMicros: async () => 400000,
     };
     dependencies.ledger.completeVerification = async () => {

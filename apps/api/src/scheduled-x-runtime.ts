@@ -3,48 +3,41 @@ import type { ProfileSettings } from '@digest/contracts';
 import { searchX } from './modules/social/application/search-x';
 import { verifySearch } from './modules/social/application/verify-search';
 import type { PostgresXSearchRepository } from './modules/social/database/x-search.repository';
-import type { ReactionStory } from './modules/social/domain/story-reactions';
+import type { ScheduledSearchTopic } from './modules/social/domain/scheduled-search';
 import type { XDiscoveryLedger } from './modules/social/domain/x-discovery-ledger.port';
 import type {
   FixedSearchSettings,
   XSearchPort,
+  XSearchRequest,
 } from './modules/social/domain/x-search.port';
 import { runScheduledFixedXSearch } from './scheduled-fixed-x-search';
-import { runScheduledXSearch } from './scheduled-x-search';
-
-// The Nov 3 account-list run is recorded and acknowledged under STEERING 15.
-// Open discovery is primary; durable admission gates any optional followups.
-export const scheduledXSearchType = 'open-topic' as const;
 
 export function runScheduledXRuntime(
   dependencies: {
     profile: () => Promise<ProfileSettings>;
-    searches: Pick<
-      PostgresXSearchRepository,
-      'scheduledTopics' | 'completedOpenSearches' | 'save'
-    >;
+    searches: Pick<PostgresXSearchRepository, 'scheduledTopics' | 'save'>;
     search: XSearchPort;
     ledger: XDiscoveryLedger & {
       completeVerification(callId: string): Promise<void>;
     };
     verify: (callId: string) => Promise<{ verificationErrors: number }>;
-    stories: (topicId: string, end: Date) => Promise<ReactionStory[]>;
     fixed?: {
       enabled: () => boolean;
       settings: (topicId: string) => Promise<FixedSearchSettings | null>;
-      stories: (
-        topicId: string,
-        start: Date,
-        end: Date,
-      ) => Promise<ReactionStory[]>;
       availableMicros: () => Promise<number>;
     };
   },
   clock: () => Date = () => new Date(),
-  searchType: 'account-list' | 'open-topic' = scheduledXSearchType,
 ) {
+  const fixed = dependencies.fixed;
+  if (!fixed?.enabled())
+    return Promise.resolve({ skipped: 'Fixed search disabled' });
   const execute = async (
-    plan: Parameters<Parameters<typeof runScheduledXSearch>[2]>[0],
+    plan: {
+      topic: ScheduledSearchTopic;
+      request: XSearchRequest;
+      scheduledDay: string;
+    },
     runId: string,
     parentId?: string,
   ) => {
@@ -73,58 +66,43 @@ export function runScheduledXRuntime(
     );
     return result;
   };
-  const fixed = dependencies.fixed;
-  if (fixed?.enabled()) {
-    return runScheduledFixedXSearch({
-      enabled: fixed.enabled,
-      profile: dependencies.profile,
-      topics: async (_start, end) =>
-        Promise.all(
-          (await dependencies.searches.scheduledTopics(end)).map(
-            async (topic) => ({
-              ...topic,
-              settings: await fixed.settings(topic.id),
-              stories: [],
-            }),
-          ),
+  return runScheduledFixedXSearch({
+    enabled: fixed.enabled,
+    profile: dependencies.profile,
+    topics: async (_start, end) =>
+      Promise.all(
+        (await dependencies.searches.scheduledTopics(end)).map(
+          async (topic) => ({
+            ...topic,
+            settings: await fixed.settings(topic.id),
+            stories: [],
+          }),
         ),
-      availableMicros: fixed.availableMicros,
-      execute: (plan, runId, parentId) =>
-        execute(
-          {
-            topic: {
-              id: plan.topicId,
-              name: plan.request.topic,
-              guidance: plan.request.guidance,
-              handles: [],
-              freePosts: 0,
-            },
-            scheduledDay: plan.scheduledDay,
-            request: {
-              ...plan.request,
-              fixedSearch: {
-                style: plan.style,
-                settings: plan.settings,
-                rankedStoryTitles: plan.rankedStoryTitles,
-              },
+      ),
+    availableMicros: fixed.availableMicros,
+    execute: (plan, runId, parentId) =>
+      execute(
+        {
+          topic: {
+            id: plan.topicId,
+            name: plan.request.topic,
+            guidance: plan.request.guidance,
+            handles: [],
+            freePosts: 0,
+          },
+          scheduledDay: plan.scheduledDay,
+          request: {
+            ...plan.request,
+            fixedSearch: {
+              style: plan.style,
+              settings: plan.settings,
+              rankedStoryTitles: plan.rankedStoryTitles,
             },
           },
-          runId,
-          parentId,
-        ),
-      clock,
-    });
-  }
-  return runScheduledXSearch(
-    dependencies.profile,
-    (now) => dependencies.searches.scheduledTopics(now),
-    execute,
+        },
+        runId,
+        parentId,
+      ),
     clock,
-    searchType,
-    {
-      completed: (day) => dependencies.searches.completedOpenSearches(day),
-      stories: dependencies.stories,
-      execute,
-    },
-  );
+  });
 }

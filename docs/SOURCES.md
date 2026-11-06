@@ -2159,3 +2159,9 @@ Saved Nov 5/6 old-search baselines yield zero usable posts (38 daily citations, 
 ## Keyword rollout admission proof — iteration 1053
 
 The production scheduler is now covered against the real isolated PostgreSQL ledger with fake provider responses: four topics, a retained timeout hold, one linked retry, settlement, and duplicate prevention after restart with funds available. The scenario charges $0.200016 and retains a $0.10 hold under the unchanged $0.40 daily cap. The proof exposed and fixed keyword verification calling the legacy open-search completion gate. Official citation verification still runs. No live calls or source changes; fixed search remains OFF pending legacy-path cleanup and activation.
+
+### Keyword-only production runtime — iteration 1054 (2026-11-06)
+
+- Removed the worker runtime fallback to legacy open-topic searches and optional story/account follow-ups. Missing or disabled fixed-search configuration exits before loading the profile or touching admission, provider or verification.
+- Removed unused completed-open and headline-loading dependencies from the production runtime. Keyword retry, settlement and official verification remain covered, including the isolated real-ledger admission proof.
+- Fixed search remains OFF; no paid calls or edition writes. Legacy standalone helpers/adapter branches still need cleanup before activation.

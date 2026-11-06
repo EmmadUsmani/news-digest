@@ -1,14 +1,5 @@
 # Progress
 
-## 2026-11-06: iteration 1038 — keyboard reading after archive pagination
-
-- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; no leftovers; alerts clear and /healthz DB/Redis OK.
-- Archive pagination now focuses and reveals the heading after the new dates or error state load. The heading describes the page number; Tab continues into the new dates rather than remaining at the footer. Initial arrival keeps normal browser focus.
-- Read-only saved-data replay simulates two pages and delayed responses; desktop/mobile light/dark focus, next date, heading visibility and overflow checks passed. Eight screenshots saved; mobile light and desktop dark visually inspected. Existing archive navigation/recovery smoke passed.
-- No writes, external browser traffic or paid calls in the new replay. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes. Archived iteration 1022 to keep this file small.
-- Verification: pnpm build; pnpm exec tsx scripts/smoke-reader-archive-focus.ts; pnpm exec tsx scripts/smoke-reader-archive.ts; pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration, exit 0); git diff --check. API/worker restarted; all 36 sources healthy, no failed retained digest runs, saved edition four topics/20 stories/17 posts.
-- Next: continue final reader; X round after 21:00 UTC; approved Bluesky slot activation pending under Current order. Fixed search stays OFF.
-
 ## 2026-11-06: iteration 1039 — remove replaced combined admin screen
 
 - Advanced item 33/43 while X rounds wait until after 21:00 UTC. Started clean on main; no leftovers; alerts clear and health DB/Redis OK.
@@ -164,3 +155,13 @@
 - Passed focused runtime/verification tests 10/10, pnpm format, pnpm lint:fix, pnpm build and full pnpm check (562 unit/226 isolated integration; exit 0); git diff --check clean.
 - TASKS/SOURCES updated; archived iteration 1037. Handbook unchanged: bug fix, no new system flow. No human blocker.
 - Next: remove legacy open/follow-up/reaction paths, finish rollout, then activate outside 13:00–16:00 UTC. Fixed search remains OFF; three-edition acceptance open.
+
+## 2026-11-06: iteration 1054 — remove legacy production search fallback
+
+- Started clean on main; alerts clear, health DB/Redis OK, all 36 sources healthy; no leftover work.
+- Removed legacy open-topic/account/reaction fallback from the production runtime and its worker wiring; OFF now exits before configuration reads or paid work. Standalone historical helpers remain for subsequent cleanup.
+- Replaced obsolete fallback tests with disabled/missing configuration coverage; retained keyword dispatch/retry tests and real-ledger four-topic proof. No paid calls or edition writes.
+- Updated social handbook and SOURCES/TASKS; fixed search remains OFF.
+- Passed focused runtime tests 3/3, pnpm format, pnpm lint:fix, pnpm build and full pnpm check (558 unit/226 isolated integration); initial duplicate-import lint failure corrected. Handbook check passed after cutting one over-limit line; unchanged diagram.
+- Archived iteration 1038. Next: remove remaining standalone legacy search helpers/adapter branches, then activate outside 13:00–16:00 UTC; earliest edition Nov 7. No human blocker.
+- API/worker restarted active; health DB/Redis OK, alerts clear, 36 sources healthy; digest worker available/zero failed runs and saved four-topic edition readable.

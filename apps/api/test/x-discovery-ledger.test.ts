@@ -869,9 +869,6 @@ void test('keyword production runtime admits four topics and one held retry with
               handles: ['saved-account'],
               freePosts: index,
             })),
-          completedOpenSearches: async () => {
-            throw new Error('Legacy followups must stay idle');
-          },
           save: async () => {},
         },
         ledger: active,
@@ -895,9 +892,6 @@ void test('keyword production runtime admits four topics and one held retry with
           },
         },
         verify: async () => ({ verificationErrors: 0 }),
-        stories: async () => {
-          throw new Error('Legacy story reactions must stay idle');
-        },
         fixed: {
           enabled: () => true,
           settings: async () => ({
@@ -905,9 +899,6 @@ void test('keyword production runtime admits four topics and one held retry with
             trendingMinFaves: 1000,
             exclusions: [],
           }),
-          stories: async () => {
-            throw new Error('Keywords must not read headlines');
-          },
           availableMicros: async () => (await active.status()).availableMicros,
         },
       },
