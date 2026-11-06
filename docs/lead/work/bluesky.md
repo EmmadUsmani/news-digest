@@ -1,6 +1,6 @@
 # Bluesky in editions
 
-**Status:** steered as [item 40](../../../STEERING.md), not started. One Bluesky
+**Status:** steered as items 40 and 41, not started. One Bluesky
 post has reached an edition so far (Nov 4, Tech), and it repeated an X pick.
 
 **What we know:**
@@ -24,5 +24,5 @@ has the agent read the logs.
 - Check the slot's cost gate against Nov 6's cost before it switches on.
 - Review the first picks: are they different from the X posts, and worth reading?
 
-**Open with the owner:** whether to add an alert when a source's AI step fails
-or a source yields nothing for several editions. Proposed, not steered.
+**Alerts:** steered as [item 41](../../../STEERING.md), Bluesky only. It starts
+once item 40 step 1 is live. Other sources could follow later if the owner wants.
