@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Story/post citation evidence gate (1004): none of 32 per-story coverage URLs across 17 saved stories identifies any of 14 selected posts; defer exact-link proposal. No fetches or runtime changes. [Assessment](docs/ideas.md#saved-citation-availability-assessment--nov-6).
+
 - [x] Media-description evidence gate (1003): recorded X oEmbed has no description; Bluesky already preserves alt text, with synthetic coverage. Proposal deferred; no new requests or implementation. [Assessment](docs/ideas.md#recorded-data-availability-assessment--nov-6).
 
 - Earlier proposals 999–1001: publisher attribution, exact story/post citations and continuing-edition links in [ideas](docs/ideas.md).

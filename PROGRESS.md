@@ -1,27 +1,3 @@
-## 2026-11-06: iteration 986 — explain incomplete X post recovery
-
-- Started clean on main; alerts clear and health/database/Redis green; no leftover work.
-- Read saved summaries and posts across all four topics; Nov 6 edition and X rounds remain time-gated.
-- Weakness: OpenAI and Porzingis saved X text ends mid-sentence, while embed failure claimed only media was missing. Readers need the original post to recover omitted text.
-- Loading/retry now names the whole X post; failure points to the linked original. Updated existing browser checks and affected handbook wording; saved editions unchanged, no paid calls.
-- Initial browser launch raced the service restart (connection refused); reran after health returned green.
-- Verification results recorded below. SOURCES/NEEDS_FROM_HUMAN unchanged.
-- Next: Nov 6 World/cost/Bluesky/editorial review after 15:00 UTC; fresh X round after 21:00 UTC.
-- Final: pnpm format; pnpm lint:fix; pnpm check (555 unit/224 isolated integration passed); pnpm build; check-handbook.ts 08-operations; smoke-reader-x-media.ts desktop/mobile light/dark; git diff --check. Inspected mobile failure screenshot; refreshed four-view screenshots.
-- API/worker/docs/schema restarted; health green, alerts clear, all 36 sources healthy, no failed digest jobs. Archived iteration 972 to keep PROGRESS small.
-
-## 2026-11-06: iteration 987 — consolidate the pending reader comparison
-
-- Started clean on main; no leftover work. Alerts clear; /healthz database/Redis green; API/worker/docs/schema active.
-- Reread latest saved edition via /api/editions/latest: Nov 5, 17 summaries, 14 posts and 14 brief bullets across all four topics.
-- Owner value: judge actual Nov 6 content against the observed weaknesses rather than stack more unmeasured fixes on the same saved edition.
-- Biggest weakness remains World breadth (2 stories/1 post). Its forty-article pool fix is deployed; observed summary/brief/post weaknesses also have deployed fixes awaiting publication.
-- Updated the reader review with exact before/after questions and outstanding evidence; no new independently actionable cause found. No runtime change or claim of improved production quality.
-- Initial documentation patch used context from the wrong review file and applied nothing; corrected before editing. SOURCES/NEEDS_FROM_HUMAN unchanged; no paid calls.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (555 unit/224 isolated integration passed); pnpm build; git diff --check. No UI or system-flow change requiring screenshots/handbook edits.
-- Next: after 15:00 UTC read Nov 6, measure full-AI/cost and Bluesky outcomes; no deploys 13:00–16:00. X fresh-window round after 21:00 UTC.
-- Live checks: pnpm obs sources --check reports 36 healthy; digest queue has zero failed jobs and next run 15:00 UTC. Initial jobs --check with filters was rejected; reran supported filtered command successfully.
-
 ## 2026-11-06: iteration 988 — quiet reader post commentary
 
 - Started clean on main; health green, alerts clear, all 36 sources healthy. No leftover work.
@@ -210,3 +186,15 @@
 - No runtime/source/schema/spend changes; no restarts during the 13:00–16:00 freeze. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration); pnpm build; 26 targeted Bluesky tests; git diff --check passed. Sources healthy; no failed digest jobs.
 - Next: Nov 6 reader/World/cost/Bluesky review after publication; fresh X round after 21:00 UTC; fixed search OFF.
+
+## 2026-11-06: iteration 1004 — defer unsupported story/post links
+
+- Started clean on main; no leftover work. Alerts clear, health/DB/Redis green; API/worker active, all 36 sources healthy, no failed digest jobs.
+- Read latest saved edition topic by topic through the offline export: still Nov 5; World breadth and Nov 6 cost/Bluesky decisions await publication.
+- Reader weakness: related reporting and original posts require readers to recognize their connection. Owner value: determine whether saved citations support useful navigation before building it.
+- Measured exact X/Twitter status IDs in story original/coverage URLs against selected posts within each topic: 32 per-story unique URLs, 17 stories, 14 posts, zero matches.
+- Added the evidence to docs/ideas.md and deferred the exact-citation proposal; no article-body fetches, semantic matching, spend or runtime changes.
+- Archived iterations 986–987 to keep PROGRESS small. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm build passed. Initial pnpm check found formatting in the newly extracted archive; corrected it; full rerun passed (560 unit/224 isolated integration tests). git diff --check passed.
+- No restarts during the 13:00–16:00 deployment freeze; running code unchanged.
+- Next: Nov 6 edition/World/cost/Bluesky review after publication; X round after 21:00 UTC; fixed search OFF.

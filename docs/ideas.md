@@ -162,6 +162,24 @@
 - Status: proposal only under item 38. World breadth and the Nov 6 edition,
   Bluesky and X decisions remain ahead of this work. No runtime change.
 
+### Saved-citation availability assessment — Nov 6
+
+- Checked the latest public saved edition, `7d99b279-cb6a-4cf0-b0a2-d94c5645f0b7`,
+  via `/api/editions/latest` at 14:12 UTC. Read its offline reader export;
+  no external article pages or embeds were fetched.
+- Compared each story's original and coverage URLs with selected X post IDs
+  within its topic, accepting X/Twitter status URL forms. Per-story unique
+  coverage URLs: Tech 6, NBA 10, Gaming 6, World 10; 32 total across 17 stories.
+  None identifies any of the 14 selected posts. All selected posts are on X.
+- The motivating Linux-exploit story saves a Google News article URL, while
+  Brockman's selected post has ID `2118129547443056763`. Similar subject matter
+  does not meet the proposed exact-citation rule. NBA's Wembanyama and
+  Porziņģis pairs likewise have no matching saved citation URL.
+- Decision: defer implementation. Exact saved coverage citations would produce
+  no links in this edition. This measures reader-visible citation fields only;
+  it does not establish whether article bodies cite these posts. Fetching bodies
+  or introducing semantic matching would need a separate approved scope.
+
 ## Follow a continuing story across editions
 
 - Reader problem: Nov 5 World's election and Iran-war coverage includes live
