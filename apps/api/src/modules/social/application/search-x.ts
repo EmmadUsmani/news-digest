@@ -117,5 +117,6 @@ export async function searchX(
     callId,
     citations: result.links.length,
     usage: result.usage,
+    execution: result.execution ?? 'unconfirmed',
   };
 }

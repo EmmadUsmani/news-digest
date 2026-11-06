@@ -2070,3 +2070,8 @@ The experiment retries failed or unconfirmed X search execution with zero fetche
 posts once, after settling returned token usage and admitting a fresh reservation.
 Completed empty searches do not retry; timeouts keep their holds. No live calls
 or production activation in this step; switched-off scheduler retry remains open.
+
+### Scheduled X execution signal — iteration 906 (2026-11-06)
+
+- The production adapter/application now preserves completed keyword/semantic search execution separately from citations. Failed or absent tool execution stays unconfirmed; completed empty searches remain distinguishable.
+- Token-only responses settle before citation persistence. Scheduler retry admission remains unfinished; fixed search stays off. Offline protocol fixtures only; no paid calls.

@@ -194,8 +194,24 @@ export class DirectXSearch implements XSearchPort {
           .filter((part) => part.type === 'output_text')
           .map((part) => part.text ?? '')
       : [];
+    const output = z.object({ output: z.array(z.unknown()) }).safeParse(parsed);
+    const completedSearch =
+      output.success &&
+      output.data.output.some((item) => {
+        const call = z
+          .object({
+            type: z.literal('custom_tool_call'),
+            name: z.enum(['x_keyword_search', 'x_semantic_search']),
+            status: z.literal('completed'),
+          })
+          .safeParse(item);
+        return call.success;
+      });
     // Prose cannot add candidates; reported counts are explicitly unverified.
     return {
+      execution: completedSearch
+        ? ('completed' as const)
+        : ('unconfirmed' as const),
       usage: {
         inputTokens: usage.input_tokens,
         outputTokens: usage.output_tokens,

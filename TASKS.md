@@ -38,6 +38,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Scheduled X execution signal (906): provider-confirmed completed search survives adapter/application settlement; failed, absent and unrelated tool traces stay unconfirmed. Scheduler admission/retry remains next.
+
 - [x] Experiment no-execution/tool-failure retry (905): usage settled before one fresh admission; completed empty searches never retry. Offline restart coverage; no paid calls/activation.
 
 - Next: STEERING 39 switched-off schedule retry (experiment retries shipped in 904–905); Nov 5 failed keyword reruns after Nov 6 00:00 UTC, then Nov 6 fresh-window round and scheduled edition review. Edition reader layout follows.

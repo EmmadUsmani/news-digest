@@ -33,6 +33,7 @@ export interface XSearchToolCall {
 export interface XSearchPort {
   search(request: XSearchRequest): Promise<{
     usage: XDiscoveryUsage;
+    execution?: 'completed' | 'unconfirmed';
     toolCalls?: XSearchToolCall[];
     links: DiscoveredLink[];
     reportedEngagement?: XReportedEngagement[];

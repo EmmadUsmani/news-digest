@@ -1,15 +1,3 @@
-## 2026-11-05: iteration 893 — Overview monitoring alerts
-
-- Started clean on main; no leftover work. Owner would care: Overview now shows firing and pending monitoring alerts beside health and spending.
-- Added protected `/api/admin/status/alerts` read through a monitoring port/adapter, validated local vmalert response and three-second timeout. No labels or raw provider errors exposed; failure returns 503.
-- Overview refreshes the counts every minute and with shared refresh; failed reads display Unavailable rather than stale zero. Source issues remain in the source-health card.
-- Browser checks compare actual counts, simulate firing/pending and outage/recovery, verify anonymous endpoint denial and all four viewport/theme combinations. Four screenshots refreshed; mobile light and desktop dark visually inspected. Reader/admin separation passed; unrelated generated screenshots discarded.
-- Initial lint caught missing void markers on the two new node:test calls; corrected. Targeted monitoring tests passed (2); full verification results below.
-- Updated TASKS and Operations handbook; SOURCES/NEEDS_FROM_HUMAN unchanged. No collection, paid calls, schema, budgets or live settings changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check passed (507 unit/218 isolated integration tests, typecheck/lint/format/boundaries); pnpm build; smoke-admin-overview.ts; smoke-admin-separation.ts; check-handbook.ts 08-operations; git diff --check. Archived iterations 882–883 to keep PROGRESS small.
-- API restarted for built assets; API/worker/docs/schema active, /healthz database/Redis green and alerts clear. Real saved Nov 5 edition and incoming collection remain available.
-- Next: remaining dedicated admin pages and final reader; Nov 6 scheduled edition/grouping review, then fresh-window X round after 21:00 UTC. No X activation before decision.
-
 ## 2026-11-05: iteration 894 — Spend recent calls
 
 - Started clean on main; no leftover work. Owner would care: Spend now shows the individual AI/X calls behind the budget totals.
@@ -142,3 +130,13 @@
 - Updated TASKS, SOURCES and social handbook; archived iteration 892 to keep PROGRESS small. NEEDS_FROM_HUMAN unchanged.
 - Next: switched-off scheduler retry, then authorized three failed Nov 5 keyword reruns on the same window. Fair semantic query and fresh Nov 6 round follow; fixed production search remains off.
 - First push rejected for incoming owner instructions; fetched/merged without rewriting history. X reliability stays first; new item 40 queues Bluesky edition outcomes/recovery/slot gating ahead of UI. Owner files left untouched; post-merge format/lint/handbook checks before repush.
+
+## 2026-11-06: iteration 906 — preserve scheduled X execution evidence
+
+- Started clean on main; no leftover work. Alerts clear, all 36 sources healthy, no failed digest runs; next edition Nov 6 15:00 UTC.
+- Production X adapter now exposes completed keyword/semantic tool execution independently of citations, and searchX preserves it after settlement. Failed, absent, unrelated and status-less traces stay unconfirmed.
+- Offline protocol coverage checks six outcomes, including valid completed empty searches and token-only usage settling before persistence. This is the scheduler retry prerequisite; retry admission itself remains open. No paid calls or activation.
+- Verification: targeted execution test; pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check. Passed typecheck/lint/format/boundaries, 520 unit tests and 221 isolated integration tests.
+- Updated TASKS and SOURCES; archived iteration 893 to keep PROGRESS small. No handbook behavior change or owner input needed.
+- Rebuilt/restarted API, worker, docs and schema; all active. /healthz database/Redis green; real saved edition has four topics/17 stories.
+- Next: durable separately admitted scheduler retry, then authorized Nov 5 NBA/Gaming/World keyword reruns on the same window. Fixed search remains off.
