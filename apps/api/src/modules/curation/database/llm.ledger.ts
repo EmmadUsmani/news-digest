@@ -77,6 +77,7 @@ export class PostgresLlmLedger implements LlmLedger {
     if (!Number.isSafeInteger(estimate) || estimate <= 0)
       throw new Error('Invalid reservation');
     let reserveDecision: Record<string, unknown> | undefined;
+    let admissionDecision: Record<string, unknown> | undefined;
     const id = await this.transaction(async (client) => {
       const orm = drizzle(client);
       const now = await readReserveClock(client);
@@ -120,12 +121,30 @@ export class PostgresLlmLedger implements LlmLedger {
       // Share the existing lock across processes and repairs. Verification is
       // stricter than the per-iteration owner limit: $0.05 for the whole UTC day.
       const purpose = this.verification ? 'verification' : request.purpose;
+      admissionDecision = {
+        event: 'budget.ledger-decision',
+        target: 'anthropic',
+        runId: request.runId,
+        topicId: request.topicId,
+        purpose,
+        model: request.model.id,
+        budgetDay: now.toISOString().slice(0, 10),
+        estimateMicros: estimate,
+        dailyCapMicros: allowance.dailyCap,
+        dailyUsedMicros: totals.today,
+        monthlyCapMicros: this.caps.monthly,
+        monthlyUsedMicros: totals.month,
+        sharedAvailableMicros: allowance.available,
+        providerBlocked: blocked.length > 0,
+      };
       if (purpose === 'verification') {
         const verificationUsed = await usedSince(
           period.dayStart,
           eq(llmCalls.purpose, 'verification'),
         );
+        admissionDecision.verificationUsedMicros = verificationUsed;
         if (verificationUsed + estimate > 50000) {
+          admissionDecision.refusalReasons = ['verification-cap'];
           return null;
         }
       }
@@ -198,12 +217,30 @@ export class PostgresLlmLedger implements LlmLedger {
           period.dayStart,
           eq(llmCalls.model, allocation.model),
         );
+        admissionDecision.modelUsedMicros = modelUsed;
+        admissionDecision.modelDailyFraction = allocation.dailyFraction;
         modelAvailable = modelBudgetAvailable(
           allowance.dailyCap,
           modelUsed,
           allocation.dailyFraction,
         );
       }
+      const refusalReasons: string[] = [];
+      if (blocked.length) refusalReasons.push('provider-blocked');
+      if (this.caps.monthly - totals.month < estimate)
+        refusalReasons.push('monthly-cap');
+      if (allowance.dailyCap - totals.today < estimate)
+        refusalReasons.push('daily-cap');
+      if (available < estimate && allowance.available >= estimate)
+        refusalReasons.push('scheduled-reserve');
+      if (modelAvailable < estimate) refusalReasons.push('model-allocation');
+      Object.assign(admissionDecision, {
+        availableMicros: available,
+        modelAvailableMicros: Number.isFinite(modelAvailable)
+          ? modelAvailable
+          : null,
+        refusalReasons,
+      });
       if (blocked.length || Math.min(available, modelAvailable) < estimate)
         return null;
       const id = crypto.randomUUID();
@@ -217,6 +254,11 @@ export class PostgresLlmLedger implements LlmLedger {
       });
       return id;
     });
+    if (admissionDecision)
+      this.log.info(
+        { ...admissionDecision, outcome: id === null ? 'refused' : 'admitted' },
+        'LLM ledger admission',
+      );
     if (reserveDecision)
       this.log.info(
         { ...reserveDecision, outcome: id === null ? 'refused' : 'admitted' },

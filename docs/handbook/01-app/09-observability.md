@@ -39,11 +39,11 @@ the UI. Empty panels mean "nothing observed", not "zero".
 
 ## What is collected
 
-| Kind         | What                                                                                                                                                                                                                                    |
-| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Logs         | HTTP requests, job runs, every external call (feeds, HN, X, Anthropic, xAI, Bluesky), AI and X budget decisions, AI rejection categories with step and topic IDs, edition stages, errors with stacks, browser errors, DB calls ≥ 250 ms |
-| Metrics      | Host and per-unit resources, Node runtime, HTTP rate and latency per route, external calls per target, job durations, queue states, Postgres and Redis stats, top statements, spend against caps, agent heartbeat                       |
-| Product data | Grafana reads Postgres directly through a read-only login: editions, spend, sources, social picks                                                                                                                                       |
+| Kind         | What                                                                                                                                                                                                                                                                                                        |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Logs         | HTTP requests, job runs, every external call (feeds, HN, X, Anthropic, xAI, Bluesky), AI and X budget decisions (including AI cap, model-share, reserve and provider-block reasons), AI rejection categories with step and topic IDs, edition stages, errors with stacks, browser errors, DB calls ≥ 250 ms |
+| Metrics      | Host and per-unit resources, Node runtime, HTTP rate and latency per route, external calls per target, job durations, queue states, Postgres and Redis stats, top statements, spend against caps, agent heartbeat                                                                                           |
+| Product data | Grafana reads Postgres directly through a read-only login: editions, spend, sources, social picks                                                                                                                                                                                                           |
 
 - **Correlated:** each request returns an `X-Request-Id`, and job, run and
   edition IDs are carried on every related line. For example,

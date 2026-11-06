@@ -71,7 +71,8 @@ void test('reserve logs report committed policy and admission without request co
     const work = ledger.reserve(
       {
         model: llmConfig({}).haiku,
-        purpose: 'private purpose',
+        purpose: 'bluesky-social-editor-v1',
+        topicId: 'world',
         runId: 'edition',
         instructions: 'private instructions',
         prompt: 'private prompt',
@@ -85,13 +86,29 @@ void test('reserve logs report committed policy and admission without request co
         (await work) !== null,
         ['scheduled', 'released', 'disabled'].includes(scenario),
       );
-    if (scenario === 'rollback' || scenario === 'disabled') {
+    if (scenario === 'rollback') {
       assert.equal(lines.length, 0);
       continue;
     }
-    assert.equal(lines.length, 1);
+    const ledgerEntry = JSON.parse(lines[0]);
+    assert.equal(ledgerEntry.event, 'budget.ledger-decision');
+    assert.equal(ledgerEntry.purpose, 'bluesky-social-editor-v1');
+    assert.equal(ledgerEntry.topicId, 'world');
+    assert.deepEqual(
+      ledgerEntry.refusalReasons,
+      scenario === 'blocked'
+        ? ['provider-blocked', 'scheduled-reserve']
+        : scenario === 'manual'
+          ? ['scheduled-reserve']
+          : [],
+    );
+    if (scenario === 'disabled') {
+      assert.equal(lines.length, 1);
+      continue;
+    }
+    assert.equal(lines.length, 2);
     assert.ok(!lines.join('').includes('private'));
-    const entry = JSON.parse(lines[0]);
+    const entry = JSON.parse(lines[1]);
     assert.equal(entry.event, 'budget.reserve-decision');
     assert.equal(entry.scheduledRun, scenario === 'scheduled');
     assert.equal(entry.reserveMicros, scenario === 'released' ? 0 : 80000);
@@ -107,5 +124,100 @@ void test('reserve logs report committed policy and admission without request co
       entry.availableMicros,
       ['scheduled', 'released'].includes(scenario) ? 100000 : 20000,
     );
+  }
+});
+
+void test('ledger decisions distinguish model, shared and verification limits', async () => {
+  for (const scenario of [
+    'model',
+    'daily',
+    'monthly',
+    'verification',
+    'admitted',
+  ] as const) {
+    const lines: string[] = [];
+    const db = {
+      connect: async () => ({
+        release() {},
+        async query(query: string | { text: string }) {
+          const sql = typeof query === 'string' ? query : query.text;
+          if (sql.includes('clock_timestamp()'))
+            return { rows: [[new Date('2026-11-03T06:00:00Z')]] };
+          if (sql.includes('sum(case when'))
+            return {
+              rows: [
+                [
+                  scenario === 'monthly'
+                    ? 30e6
+                    : scenario === 'daily'
+                      ? 90000
+                      : 0,
+                  scenario === 'daily' ? 90000 : 0,
+                ],
+              ],
+            };
+          if (sql.includes('coalesce(sum('))
+            return {
+              rows: [
+                [
+                  scenario === 'model' || scenario === 'verification'
+                    ? 40000
+                    : 0,
+                ],
+              ],
+            };
+          return { rows: [], rowCount: 1 };
+        },
+      }),
+    } as unknown as Pool;
+    const model = llmConfig({}).sonnet;
+    const ledger = new PostgresLlmLedger(
+      db,
+      {
+        monthly: 30e6,
+        dailyMax: 100000,
+        modelAllocation: { model: model.id, dailyFraction: 0.5 },
+      },
+      scenario === 'verification',
+      undefined,
+      createLogger('test', { write: (line) => lines.push(line) }, []),
+    );
+    const result = await ledger.reserve(
+      {
+        model,
+        purpose: 'bluesky-social-editor-v1',
+        topicId: 'world',
+        runId: 'edition',
+        instructions: 'private instructions',
+        prompt: 'private prompt',
+        maxOutputTokens: 1,
+      },
+      30000,
+    );
+    assert.equal(result !== null, scenario === 'admitted');
+    assert.equal(lines.length, 1);
+    assert.ok(!lines[0].includes('private'));
+    const entry = JSON.parse(lines[0]);
+    assert.deepEqual(
+      entry.refusalReasons,
+      {
+        model: ['model-allocation'],
+        daily: ['daily-cap'],
+        monthly: ['monthly-cap', 'daily-cap', 'model-allocation'],
+        verification: ['verification-cap'],
+        admitted: [],
+      }[scenario],
+    );
+    assert.equal(
+      entry.outcome,
+      scenario === 'admitted' ? 'admitted' : 'refused',
+    );
+    if (scenario === 'model') {
+      assert.equal(entry.modelUsedMicros, 40000);
+      assert.equal(entry.modelAvailableMicros, 10000);
+      assert.equal(entry.sharedAvailableMicros, 100000);
+    }
+    if (scenario === 'verification')
+      assert.equal(entry.purpose, 'verification');
   }
 });
