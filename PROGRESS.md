@@ -1,16 +1,3 @@
-## 2026-11-06: iteration 971 — restore saved-edition selection verification
-
-- Started clean on main; alerts clear, health/database/Redis green, 36 sources healthy and no failed digest runs. No leftover work.
-- Read saved topics: World breadth and Tech composition fixes await Nov 6 publication; X round waits until 21:00 UTC. No new content cause warrants speculative changes.
-- Existing selection replay failed on mobile compact-date whitespace before completing delayed-response scenarios; repaired visible-date, stored timestamp and accessible-year assertions.
-- Extended the same existing race replay to check every selected saved post's text and original destination alongside stories, before and after late latest-edition success/error.
-- Reader value: verify an older edition retains its own stories and posts when the latest request finishes later. Runtime/content behavior unchanged; no writes, external widget calls or spend.
-- Initial extension assumed X markup for all posts; corrected it to cover the older edition's actual Bluesky card too.
-- Updated TASKS and item 33 ack; archived completed reader markers and iterations 956–957. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged: no system/source changes.
-- Verification: pnpm exec tsx scripts/smoke-edition-selection.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check. Final results below.
-- Next: Nov 6 edition/Bluesky review after 15:00 UTC; X round after 21:00 UTC. Fixed search and reserved slot stay off.
-- Final: pnpm check exit 0 (546 unit/224 isolated integration tests); build, lint/format, eight browser scenarios and diff checks passed. Inspected mobile screenshot; four screenshots refreshed. First attached check exited 143; separate-session rerun passed.
-
 ## 2026-11-06: iteration 972 — keep thin-source summaries about the news
 
 - Started clean on main; alerts clear, health/database/Redis green and sources returning data. No leftover work.
@@ -188,3 +175,16 @@
 - Full-suite replay caught the old synthetic prompt fingerprint; refreshed that fingerprint only, retained authored response, targeted replay and full rerun passed. Archived iteration 970 to keep PROGRESS small.
 - API/worker/docs/schema restarted; post-restart health green, alerts clear, all 36 sources healthy. No failed digest jobs; next run 15:00 UTC.
 - Next: compare Nov 6 actual output and World/cost/Bluesky after 15:00 UTC; X round after 21:00 UTC.
+
+## 2026-11-06: iteration 985 — keep personal details supported
+
+- Started clean on main; alerts clear, health/database/Redis green; no leftover work.
+- Read all four saved topics while Nov 6 edition/Bluesky and X reviews remain time-gated.
+- Reader weakness: Sony summary uses “He” for CFO Lin Tao, but neither saved source excerpt establishes pronouns. Readers would care about an unsupported personal detail in an attributed report.
+- Editor v11 uses names or roles when source text does not establish pronouns, without inferring gender from names, roles or outside knowledge. Historical edition unchanged.
+- Added primary/fallback offline contract; updated purpose/golden expectations and synthetic replay fingerprint only, retaining authored response. No paid calls, source or budget changes.
+- Direct publication test initially refused missing isolated DB configuration; rerun used isolated-test flag and unreachable dummy DB (harness stubs queries). Replay fingerprint corrected using actual request.
+- Verification/results below; no UI or system-flow change requiring screenshots or handbook updates. SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Next: Nov 6 actual World/cost/Bluesky/editorial review after 15:00 UTC; X round after 21:00 UTC.
+- Final: pnpm format; pnpm lint:fix; pnpm check (555 unit/224 isolated integration passed); pnpm build; git diff --check. Initial full check caught archive formatting, fixed before successful rerun.
+- API/worker/docs/schema restarted; health green, alerts clear, 36 sources without current errors, zero failed digest jobs and next run 15:00 UTC. Archived iteration 971 to keep PROGRESS small.

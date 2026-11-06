@@ -1551,3 +1551,5 @@ ack: 2026-11-06 item 42 — iteration 982: Sony’s saved summary cites a PS6 re
 ack: 2026-11-06 item 42 — iteration 983: OpenSSH’s author link appeared under the unqualified Hacker News label. Mark Hacker News and Google News discovery links with “via” in source rows and report disclosures so readers can distinguish feeds from reporting outlets; no saved content or spend changes.
 
 ack: 2026-11-06 item 42 — iteration 984: Gaming's saved GTA 6 story omits the original headline's playable-access qualification. Editor v10 preserves supported practical qualifications in headline and summary, respecting verbatim absence evidence; offline contracts only, actual output awaits publication. No paid calls or source changes.
+
+ack: 2026-11-06 item 42 — iteration 985: read all four saved topics; Sony summary adds “he” although supplied reports establish no pronouns. Editor v11 asks for names or roles instead of inferred pronouns; offline primary/fallback contract, no paid calls or saved-edition changes.

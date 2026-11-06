@@ -421,7 +421,7 @@ void test('headline-only evidence accepts a concise attributed summary without r
     const result = await h.editor.edit(topic, thin, 1, 'thin-source');
     assert.deepEqual(result?.stories, output.stories);
     assert.equal(h.calls.length, 1);
-    assert.equal(h.calls[0].purpose, 'shortlist-editor-v10');
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v11');
     assert.match(h.calls[0].instructions, /one sentence for thin evidence/);
     assert.match(h.calls[0].instructions, /Preserve the full publisher name/);
     assert.match(
@@ -469,7 +469,7 @@ void test('brief guidance reaches both editors without changing saved factual bu
     );
     assert.deepEqual(result?.brief, output.brief);
     assert.equal(h.calls.length, 1);
-    assert.equal(h.calls[0].purpose, 'shortlist-editor-v10');
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v11');
     assert.match(
       h.calls[0].instructions,
       /not a copied list of the story headlines/,
@@ -618,7 +618,7 @@ void test('editor preserves practical release qualifications in both headline an
     );
     assert.deepEqual(result?.stories, output.stories);
     assert.deepEqual(JSON.parse(h.calls[0].prompt).candidates, input);
-    assert.equal(h.calls[0].purpose, 'shortlist-editor-v10');
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v11');
     assert.match(
       h.calls[0].instructions,
       /qualifications.*both headline and summary/,
@@ -627,6 +627,49 @@ void test('editor preserves practical release qualifications in both headline an
     assert.match(
       h.calls[0].instructions,
       /retain its complete source sentence verbatim/,
+    );
+    assert.deepEqual(h.diagnostics(), []);
+  }
+});
+
+void test('editor does not infer personal pronouns from a name or role', async () => {
+  const input = [
+    {
+      id: 'one',
+      title: 'Sony CFO Lin Tao says PS6 development is on schedule',
+      excerpt: 'CFO Lin Tao said development is progressing as scheduled.',
+      sources: ['Push Square'],
+    },
+  ];
+  const output = {
+    brief: [
+      'PS6 development is on schedule.',
+      'Sony CFO Lin Tao gave an update.',
+    ],
+    stories: [
+      {
+        id: 'one',
+        evidenceIds: ['one'],
+        headline: 'Sony CFO says PS6 development is on schedule',
+        summary:
+          'Sony CFO Lin Tao said development is progressing as scheduled.',
+        whyItMatters: 'A next-generation console development update.',
+        rationale: 'Firsthand attributed update.',
+      },
+    ],
+  };
+  for (const refused of [[], ['claude-sonnet-5-5']]) {
+    const h = harness([output], refused);
+    const result = await h.editor.edit(topic, input, 1, 'supported-pronouns');
+    assert.deepEqual(result?.stories, output.stories);
+    assert.deepEqual(JSON.parse(h.calls[0].prompt).candidates, input);
+    assert.match(
+      h.calls[0].instructions,
+      /Use a person's name or role when the supplied text does not establish their pronouns/,
+    );
+    assert.match(
+      h.calls[0].instructions,
+      /never infer gender or pronouns from a name, title or outside knowledge/,
     );
     assert.deepEqual(h.diagnostics(), []);
   }

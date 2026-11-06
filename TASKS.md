@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Supported pronouns (985): editor v11 uses names or roles when sources do not establish pronouns; fixes unsupported personal detail in the saved Sony summary for future editions. Actual output awaits publication.
+
 - [x] Release qualifications (984): editor v10 preserves supported practical limitations in headlines and summaries; GTA 6 early-store wording exposed the missing playable-access qualification. Offline contract verified; assess actual Nov 6 output.
 
 - [x] Discovery attribution (983): source links mark Hacker News and Google News with “via”, distinguishing discovery feeds from reporting outlets in story rows and expanded reports.
