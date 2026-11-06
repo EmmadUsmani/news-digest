@@ -1,17 +1,3 @@
-## 2026-11-06: iteration 977 — preserve reporting publisher names
-
-- Started clean on main; health/database/Redis green, alerts clear, all 36 monitored sources healthy, zero failed digest jobs; no leftover work.
-- Read all four saved topics; Nov 6 edition and X evidence remain time-gated. Owner value: readers can distinguish the security publication The Hacker News from the Hacker News discussion site.
-- Actual saved exploit summary shortened the explicitly supplied publisher suffix “The Hacker News” to “Hacker News”; Google News collection labels obscure the distinction.
-- Editor v8 asks for the explicitly named reporting publisher, full publisher names and no guesses from similar names or aggregator labels. Existing factual guards and selection limits remain intact.
-- Offline contracts cover unchanged supplied title/feed labels, full-name output, and instructions on Sonnet and capped Haiku; these do not establish actual model compliance.
-- Prompt/cache purpose and synthetic golden expectations updated; synthetic publication fingerprint regenerated from the same fixture input. Response/golden payloads unchanged; no live recordings changed.
-- No paid calls, sources, flags, schema or UI changes; saved editions remain unchanged. Review actual Nov 6 attribution after publication.
-- Archived iteration 963; TASKS and item 42 ack updated. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged: narrow editorial guidance fix with no system/source change.
-- Verification: targeted editor tests 16/16; pnpm format; pnpm lint:fix; pnpm check (550 unit/224 isolated integration tests); pnpm build; git diff --check. No UI change, so no browser replay.
-- Regeneration first omitted synthetic topic guidance; corrected against the fixture's exact input before integration. No live provider or database used by tests.
-- API/worker/docs/schema restarted; health/database/Redis green and alerts clear. Next: Nov 6 summary/brief/attribution, World/cost/Bluesky review after 15:00 UTC; X round after 21:00 UTC.
-
 ## 2026-11-06: iteration 978 — prefer original social developments
 
 - Started clean on main; health/database/Redis green and alerts clear; no leftover work.
@@ -190,3 +176,16 @@
 - Verification and deployment results follow. Next: Nov 6 edition/cost/Bluesky review after 15:00 UTC; no deploys 13:00–16:00; X round after 21:00 UTC.
 - Verification: pnpm format; pnpm lint:fix; pnpm check passed typecheck/lint/format/boundaries then exited 143 during unit tests. Standalone pnpm test:unit passed 555/555 and pnpm test:integration passed 224/224, both exit 0; pnpm build passed.
 - pnpm exec tsx scripts/smoke-reader-layout.ts passed four device/theme views; refreshed four layout screenshots and inspected mobile light. API restarted before 13:00 UTC; health/DB/Redis green, worker active, 36 sources healthy, alerts clear. git diff --check passed. Archived oldest progress entry to retain size limit.
+
+## 2026-11-06: iteration 992 — correct owner database guidance
+
+- Started clean on main; health green, alerts clear, 36 sources healthy; no failed digest jobs or leftover work.
+- World breadth remains the largest saved reader weakness; its deployed fix awaits publication. No further editorial tuning.
+- Checked the authorized ORM follow-up: conversion was already accepted in iteration 618. Found the runtime handbook still describing it as in progress, with a long obsolete adapter inventory.
+- Replaced that inventory with the current PostgreSQL/Drizzle architecture and linked boundary/migration policy; retained owner-console and historical-migration details.
+- Owner value: the runtime handbook now gives a short, accurate answer about database access instead of suggesting unfinished migration work.
+- No runtime, schema, source, prompt, budget, flag or paid-call changes; SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Handbook check passed: 18 pages, one diagram, 28 tables; inspected unchanged runtime diagram. Verification/deployment results follow.
+- Next: Nov 6 World/full-AI/cost/Bluesky review after publication; no deploys 13:00–16:00 UTC; X round after 21:00 UTC.
+- Verification: pnpm format; pnpm lint:fix; pnpm check exit 0 (555 unit/224 isolated integration passed); pnpm build; pnpm exec tsx scripts/check-handbook.ts stack-and-runtime; git diff --check. Archived iteration 977 to keep progress small.
+- Handbook served from repository; restarted docs service before 13:00 UTC. App runtime unchanged; final health and alerts checked.

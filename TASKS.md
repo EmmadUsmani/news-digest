@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Owner database guidance (992): removed the stale in-progress ORM status and adapter inventory from the runtime handbook; it now describes completed Drizzle access and links to the boundary/migration policy.
+
 - [x] Reader heading navigation (991): a dated page heading identifies the saved edition to screen-reader users before topic headings; desktop/mobile light/dark reader checks cover it.
 
 - [x] Bluesky reader verification (990): repaired stale context-stripping assertion; browser replay checks visible reader notes and private selection reasons across desktop/mobile light/dark. Synthetic screenshots refreshed; no runtime change.
