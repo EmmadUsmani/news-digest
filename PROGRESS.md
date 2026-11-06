@@ -155,3 +155,15 @@
 - Updated TASKS, affected handbook and STEERING ack; archived iteration 928. SOURCES/NEEDS_FROM_HUMAN unchanged.
 - Next: Nov 6 edition/Bluesky review after publication; X round after 21:00 UTC. Fixed search and reserved-slot flags stay off.
 - Final pnpm check passed (543 unit/224 isolated integration tests); build, handbook and four-view browser replay passed. First full check caught archive formatting, corrected before the successful rerun. Desktop/mobile Posts focus also verified. Post-restart replay caught a test timing race with dialog focus-scope removal; waiting for teardown fixed it, then repeated four-view replay passed. All four services restarted; health/database/Redis green and alerts clear.
+
+## 2026-11-06: iteration 944 — restore delayed archive response verification
+
+- Started clean on main; alerts clear and health/database/Redis green. No leftover work.
+- Read saved topics; known World breadth/Tech grouping await Nov 6 publication. X round waits until 21:00 UTC.
+- Existing edition-history smoke failed on the deleted Browse saved editions panel. Ported it from removed inline history/job state to the archive.
+- Reader value: verifies a late archive refresh success or failure cannot replace the saved story edition the reader opened. Uses real stored content; delayed responses are browser simulations.
+- Eight desktop/mobile light/dark success/error cases passed; screenshots refreshed. No writes, paid calls, flags or app behavior changes.
+- Verification: pnpm exec tsx scripts/smoke-edition-history.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check. Final results below.
+- Updated TASKS; no source/system-flow change, so handbook/SOURCES unchanged.
+- Next: Nov 6 edition/Bluesky cost gate after publication; X after 21:00 UTC. Fixed search and reserved slot stay off.
+- Final pnpm check exited zero (543 unit/224 isolated integration tests); build and eight post-restart browser cases passed. Inspected mobile dark screenshot. All four app services restarted; health/database/Redis green and alerts clear.

@@ -6,7 +6,7 @@ import {
 } from '@digest/contracts';
 import { chromium } from 'playwright';
 
-// Simulate a completed background job and delayed history GETs in the browser.
+// Delay archive refreshes after a reader opens a saved edition.
 // All edition content is read from storage; no jobs, writes or provider calls.
 async function smoke() {
   const base = 'http://127.0.0.1:8000';
@@ -39,7 +39,7 @@ async function smoke() {
           const errors: string[] = [];
           const writes: string[] = [];
           page.on('pageerror', (error) => errors.push(error.message));
-          await page.route('**/api/**', async (route) => {
+          await page.route('**/*', async (route) => {
             const request = route.request();
             if (!['GET', 'HEAD'].includes(request.method())) {
               writes.push(
@@ -47,13 +47,11 @@ async function smoke() {
               );
               return route.abort();
             }
+            if (new URL(request.url()).origin !== base) return route.abort();
             return route.continue();
           });
           const expectSavedContent = async () => {
-            await page
-              .locator('.period')
-              .filter({ hasText: latest.id.slice(0, 8) })
-              .waitFor();
+            await page.locator('.digest-topic').last().waitFor();
             assert.equal(
               await page.locator('.digest-topic').count(),
               latest.topics.length,
@@ -69,7 +67,7 @@ async function smoke() {
                 const item = section.locator(`[id="story-${story.id}"]`);
                 await item.waitFor();
                 assert.equal(
-                  await item.locator(':scope > a').textContent(),
+                  await item.locator('h3 a').textContent(),
                   story.title,
                 );
                 if (story.summary)
@@ -93,21 +91,9 @@ async function smoke() {
             historyStarted = resolve;
           });
           let requests = 0;
-          await page.addInitScript(() =>
-            sessionStorage.setItem('edition-job', '697'),
-          );
-          await page.route(
-            '**/api/admin/digest-previews/jobs/697',
-            async (route) => {
-              await started;
-              await route.fulfill({
-                json: { state: 'completed', editionId: history.entries[0].id },
-              });
-            },
-          );
           await page.route('**/api/editions?offset=0', async (route) => {
             requests++;
-            if (requests === 1) {
+            if (requests === 2) {
               historyStarted();
               await blocked;
               await route.fulfill(
@@ -118,7 +104,7 @@ async function smoke() {
               handled();
             } else await route.fulfill({ json: history });
           });
-          await page.goto(base, {
+          await page.goto(`${base}/editions`, {
             waitUntil: 'domcontentloaded',
           });
           assert.equal(
@@ -127,41 +113,34 @@ async function smoke() {
               .evaluate((element) => element.classList.contains('dark')),
             theme === 'dark',
           );
-          await page
-            .getByText('Browse saved editions', { exact: true })
-            .click();
-          await page.getByText('Edition ready.', { exact: true }).waitFor();
           const newest = page.locator(
-            `.edition-history a[href="/editions/${history.entries[0].id}"]`,
+            `main li a[href="/editions/${latest.id}"]`,
           );
           await newest.waitFor();
+          await page.clock.install();
+          await page.clock.fastForward(61000);
+          await page.evaluate(() =>
+            window.dispatchEvent(new Event('visibilitychange')),
+          );
+          await started;
+          await newest.click();
+          await page.waitForURL(`**/editions/${latest.id}`);
           await expectSavedContent();
           releaseHistory();
           await delayedHandled;
-          await page.waitForTimeout(250);
+          await page.clock.runFor(1000);
           await expectSavedContent();
           assert.deepEqual(errors, []);
           assert.deepEqual(writes, []);
-          assert.equal(
-            await newest.count(),
-            1,
-            'Superseded history must not replace refreshed history',
-          );
-          assert.equal(
-            await page
-              .getByText('Edition history could not be loaded.', {
-                exact: false,
-              })
-              .count(),
-            0,
-          );
+          assert.equal(new URL(page.url()).pathname, `/editions/${latest.id}`);
+          assert.equal(await page.getByRole('alert').count(), 0);
           assert.ok(
             await page.evaluate(
               () => document.documentElement.scrollWidth <= innerWidth,
             ),
           );
           if (!fail)
-            await page.locator('.edition-history').screenshot({
+            await page.screenshot({
               path: `docs/screenshots/ui/edition-history-${device}-${theme}.png`,
             });
           await page.close();
@@ -177,7 +156,7 @@ async function smoke() {
       history,
     );
     console.log(
-      'Desktop/mobile light/dark superseded history success/error checks passed; simulated job completion, real stored content, no writes.',
+      'Desktop/mobile light/dark delayed archive success/error checks passed; selected saved edition preserved, no writes.',
     );
   } finally {
     await browser.close();

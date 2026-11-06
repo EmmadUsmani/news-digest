@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Archive response isolation (944): ported the broken inline-history/job smoke to delayed archive refreshes; opening a saved edition survives late success/error responses in four device/theme views.
+
 - [x] Contents keyboard focus (943): selecting a topic/story/post section focuses its destination; mobile dismissal restores the menu button. Saved-edition keyboard/browser verification in four device/theme views.
 
 - Earlier reader steps (924–942), including archive/routing recovery and original-post layout, are recorded in PROGRESS.md and its archive.
