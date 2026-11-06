@@ -98,3 +98,52 @@ original inputs/requests/responses/settlements, round manifest, settled evidence
 oEmbed results, baseline/free snapshot, scores, verification ledger rows,
 joined triaged evidence, offline report and `review-1050.json` with SHA-256
 input hashes. Joins use exact topic/post IDs; original artifacts unchanged.
+
+## Baseline comparison and decision — iteration 1051
+
+The saved production citations give **zero usable posts on both days** under
+exactly the same minimum-likes rule. No additional scorer calls are needed:
+every baseline citation fails a necessary engagement gate, regardless of its
+window, relevance or free-link status. Missing likes remain unknown.
+
+| Day   | Topic     | Cited | Unknown likes | Known likes | Usable |
+| ----- | --------- | ----: | ------------: | ----------- | -----: |
+| Nov 5 | Tech & AI |     5 |             5 | None        |      0 |
+| Nov 5 | NBA       |     5 |             5 | None        |      0 |
+| Nov 5 | Gaming    |     5 |             4 | 0           |      0 |
+| Nov 5 | World     |     4 |             3 | 148         |      0 |
+| Nov 6 | Tech & AI |     5 |             5 | None        |      0 |
+| Nov 6 | NBA       |     5 |             3 | 0, 2        |      0 |
+| Nov 6 | Gaming    |     5 |             2 | 1, 2, 1     |      0 |
+| Nov 6 | World     |     4 |             4 | None        |      0 |
+
+There are 38 day/citation observations: **31 unknown likes**, seven known below
+minimum. Repeated IDs across days remain separate daily observations. None
+matches its day's retained free-link snapshot. Baseline spend totals $0.300666
+for nine calls; the old searches were not rerun. Production searched earlier
+in each day with its existing date filters; no claim of identical search times
+or complete recall is made.
+
+Across both revised rounds, keywords supplied Tech/NBA/Gaming **2/3/4 usable
+posts**, nine total; World supplied zero separately. Old search supplied zero.
+**Decision: ship keyword search under the approved plan.** It gives more usable
+posts, so the owner's rule passes. Semantic contributes zero usable additions
+and is dropped from production. Grok 4.3, minimums and caps stay unchanged.
+
+Reliability is poor: post-fix keyword attempts failed 5/9 (55.6%), with three
+of seven post-fix topic/day keyword cells still failed after their permitted
+rerun/retry. Nov 5 Tech succeeded before the fix and is outside that rate.
+These are tool failures, not valid empty results. Production must retain the
+single retry and admission checks, report failed cells, and keep free-link
+collection available. No third attempts or additional experiment round.
+
+This completes the experiment decision, not rollout or three-edition acceptance.
+Next ship the plan's production adapter/limit/admission changes and remove old
+open-search/follow-up/reaction paths before enabling outside 13:00–16:00 UTC.
+Fixed search remains OFF until that verified deployment; earliest edition Nov 7.
+The three consecutive edition checks and screenshots remain open.
+
+Private `baseline-comparison-1051.json` alongside the Nov 6 evidence records
+per-topic counts, observed likes and SHA-256 hashes of both original snapshots.
+Only saved `reported_engagement.likes` were used; no later metrics, live search,
+paid scoring, ingestion or edition changes were performed.

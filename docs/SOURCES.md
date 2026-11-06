@@ -2143,3 +2143,7 @@ recorded feed fixtures remain unchanged. Saved editions are not rewritten.
 ## Nov 6 fresh-window X round — iteration 1050
 
 Ten Grok 4.3 attempts settled $0.442837; 61 unique candidates all passed official oEmbed. Keyword usable Tech/NBA/Gaming/World: 0 (tool failed twice)/3/3/0; semantic zero. Three of ten attempts failed; one of four keyword cells still failed after its retry. Scoring cost $0.005013 through verification admission. Lifetime experiment charged $1.468639/$2.50; no new unresolved holds. Fixed production search stays off pending saved-baseline comparison and the plan decision. No ingestion, edition writes, query changes or new sources. [Review](edition-reviews/2026-11-06-x-experiment-review.md).
+
+## X experiment decision — iteration 1051
+
+Saved Nov 5/6 old-search baselines yield zero usable posts (38 daily citations, 31 unknown likes, seven below minimum). Keywords yield nine: Tech/NBA/Gaming 2/3/4; World zero. The approved rule passes: ship keywords and drop semantic (zero usable additions). Post-fix keyword failures remain 5/9 attempts; no additional paid calls. Fixed search stays OFF until verified production cleanup and admission rollout; caps/model/minimums unchanged. [Decision and evidence](edition-reviews/2026-11-06-x-experiment-review.md#baseline-comparison-and-decision--iteration-1051).

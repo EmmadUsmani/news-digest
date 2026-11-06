@@ -1,15 +1,5 @@
 # Progress
 
-## 2026-11-06: iteration 1036 — archive loading layout
-
-- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; no leftovers; alerts clear and /healthz DB/Redis OK.
-- Archive now shows four responsive date-row placeholders instead of a text-only wait, matching saved date/coverage/topic rows. Screen readers receive one loading announcement; placeholders are hidden and have no focus targets.
-- Read-only Playwright replay of saved archive passed loading, saved links, failure/retry recovery and overflow checks desktop/mobile light/dark. Saved four loading screenshots; mobile light and desktop dark visually inspected.
-- Existing archive smoke passed saved links, pagination/reload, empty/error/retry and reader-only requests. Restored its unrelated regenerated screenshots. No external traffic or paid calls.
-- Passed pnpm build; pnpm exec tsx scripts/smoke-reader-archive-loading.ts; pnpm exec tsx scripts/smoke-reader-archive.ts; pnpm format; pnpm lint:fix. First pnpm check stopped on newly archived Markdown formatting; corrected; full rerun passed (562 unit, 225 isolated integration tests, exit 0); git diff --check passed.
-- API/worker restarted; health and alerts clear; all 36 sources healthy. Real saved edition retains four topics, 20 stories and 17 posts. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes.
-- Archived iteration 1020 to keep PROGRESS small. Next: final reader completion; X round after 21:00 UTC; approved Bluesky slot activation remains pending. Fixed search OFF.
-
 ## 2026-11-06: iteration 1037 — keyboard access to reader content
 
 - Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; no leftovers; health DB/Redis OK and alerts clear.
@@ -153,3 +143,13 @@
 - Commands: prepare-x-experiment, run-x-experiment (one continuation), extract-x-experiment, report-x-experiment; private oEmbed/scorer/snapshot scripts. Full review and SHA-256-linked private evidence saved. Archived iterations 1034–1035.
 - pnpm check passed: typecheck/lint/format/boundaries, 562 unit and 225 integration tests. pnpm format, pnpm lint:fix, pnpm build and git diff --check passed; API/worker restarted, health DB/Redis OK, alerts clear, saved edition four topics/20 stories/17 posts.
 - Next: compare saved Nov 5/6 old-search baselines under the same usable rule, apply the plan decision; fixed search OFF, no winner/activation. Handbook unchanged: no system-flow change.
+
+## 2026-11-06: iteration 1051 — complete X experiment decision
+
+- Started clean on main; alerts clear, /healthz DB/Redis OK, all 36 sources healthy; latest digest completed, next Nov 7 scheduled. No leftover work.
+- Compared original Nov 5/6 production baseline snapshots offline: 38 daily citations, 31 unknown likes, seven known below saved minimums; zero usable regardless of other gates. Nine calls/$0.300666; no old-search rerun or paid scoring.
+- Keywords yield nine usable across rounds (Tech/NBA/Gaming 2/3/4), World zero separately. Approved rule passes: ship keywords; semantic zero additions, dropped. Decision ack saved; fixed search stays OFF pending verified rollout.
+- Explicit reliability: post-fix keyword failures 5/9 attempts (55.6%), three of seven post-fix topic/day cells failed after allowed rerun/retry; no additional experiment rounds or third attempts.
+- Private baseline-comparison-1051.json records per-topic likes/counts and original snapshot SHA-256 hashes. Updated TASKS/SOURCES/NEEDS_FROM_HUMAN; handbook unchanged because runtime is unchanged.
+- Passed pnpm format, pnpm lint:fix, pnpm build and full pnpm check (562 unit/225 integration, exit 0); git diff --check clean. API/worker restarted; health DB/Redis OK, alerts clear; saved edition four topics/20 stories/17 posts. No ingestion or edition writes. Archived iteration 1036.
+- Next: production keyword adapter/result-limit/admission cleanup, remove old open/follow-up/reaction paths, then enable outside 13:00–16:00 UTC; three-edition acceptance remains open. No human blocker.
