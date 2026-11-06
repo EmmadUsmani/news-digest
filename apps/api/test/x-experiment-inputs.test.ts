@@ -132,7 +132,11 @@ void test('viral preparation uses saved topic description without article contex
 
 void test('revised preparation needs no articles and offers only viral and test-only semantic searches', () => {
   const result = prepareViralXExperimentTopic(
-    { ...topic, includeGuidance: 'Basketball players and teams' },
+    {
+      ...topic,
+      includeGuidance: 'Basketball players and teams OR NBA -bet lang:en',
+      excludeGuidance: 'Exclude: betting and giveaways',
+    },
     settings,
     window,
   );
@@ -151,12 +155,28 @@ void test('revised preparation needs no articles and offers only viral and test-
   assert.match(body.input[0].content, /8 results/);
   const data = JSON.parse(body.input[0].content.split('\n').at(-1)!);
   assert.equal(data.minimumLikes, 1000);
-  assert.deepEqual(data.exclusions, ['-bet', '-giveaway']);
+  assert.equal(data.exclusions, undefined);
+  assert.equal(data.description, undefined);
+  assert.equal(
+    data.query,
+    `What is new and getting attention in ${topic.name}?`,
+  );
   assert.deepEqual(
     data.publicationWindow,
     experimentWindow(window.start, window.end),
   );
-  assert.match(data.description, /Basketball players/);
+  assert.match(
+    body.input[0].content,
+    /Copy likes and other counts from the tool results/,
+  );
+  assert.match(
+    body.input[0].content,
+    /Do not return an empty array when the tool returned posts/,
+  );
+  assert.doesNotMatch(
+    body.input[0].content,
+    /Basketball players|Exclude:|-bet|-giveaway|min_faves:|since:|until:/,
+  );
   assert.equal(body.tools[0].from_date, '2026-11-03');
   assert.equal(body.tools[0].to_date, '2026-11-05');
   assert.equal(body.tools[0].enable_image_understanding, false);

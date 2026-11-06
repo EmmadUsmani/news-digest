@@ -1,13 +1,3 @@
-## 2026-11-05: iteration 898 — Dedicated Bluesky topic query
-
-- Started clean on main; no leftover work. Owner would care: change a topic's Bluesky discovery phrase without changing its news queries.
-- Added a 500-character query to the topic editor, protected settings contract and topic storage through generated migration 0005. Hourly discovery prefers it; blank preserves the existing news-query/include-phrase/topic-name fallback. Existing topics remain blank.
-- Offline unit coverage checks dedicated-query precedence and blank fallback; isolated HTTP coverage checks default, trim/save and overlength rejection. Browser writes intercepted; save/reload and four viewport/theme screenshots passed. Desktop light/mobile dark visually inspected; discarded unrelated separation/delete screenshots.
-- Private database backup succeeded before migration; migration applied and four services restarted. Updated TASKS, SOURCES, social/operations handbook and schema note; NEEDS_FROM_HUMAN unchanged. Archived iterations 886–887 to keep PROGRESS small. No paid calls or live topic setting changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check passed typecheck/lint/format/boundaries and 508 unit tests; initial integration 219/220 exposed new-column order mismatch, corrected schema order; pnpm test:integration rerun passed all 220 including parity; pnpm build; smoke-admin-topic-editor.ts; smoke-admin-separation.ts; check-handbook.ts 05-social-posts and 08-operations; git diff --check.
-- /healthz database/Redis green; saved reader endpoint 200; 36 sources collecting with recent successes. Existing observability shipper memory warning became firing; service active at about 76 MiB of 80 MiB ceiling, no app failure.
-- Next: X threshold/exclusion admin controls, then final reader; Nov 6 edition/grouping review and X fresh-window round after 21:00 UTC. No X activation before decision.
-
 ## 2026-11-05: iteration 899 — X discovery topic controls
 
 - Started clean on main; no leftover work. Owner would care: edit X discovery minimum likes and exclusions directly in the topic editor.
@@ -139,3 +129,14 @@
 - Verification final: pnpm check passed (typecheck/lint/format/boundaries and tests); pnpm format; pnpm lint:fix; pnpm build passed; git diff --check clean. API/worker/docs/schema restarted active, /healthz database/Redis green, reader HTTP 200, 36 healthy sources and alerts clear; saved latest edition four topics/17 stories/14 posts.
 - Updated TASKS, SOURCES, experiment guide/review and NEEDS_FROM_HUMAN; appended STEERING 39 failure-rate ack. Archived iterations 896–897 and shortened TASKS to keep orientation small. No owner action requested.
 - Next: scorer review for three Gaming candidates (relevance ≥6/interestingness ≥4 is non-promotion), fair semantic preparation, then STEERING 40 outcomes before 13:00 UTC if ready; Nov 6 edition review and fresh round after 21:00 UTC. NBA/World provider tool failures remain a decision gap; no more Nov 5 reruns.
+
+## 2026-11-06: iteration 911 — fair semantic experiment preparation
+
+- Started clean on main; no leftover work. Alerts clear, 36 sources healthy, /healthz database/Redis green, no failed digest-generation jobs; next edition Nov 6 15:00 UTC.
+- Experiment-only semantic requests now ask what is new and getting attention in the saved topic name. Description exclusions and keyword operators no longer enter the semantic request; exact start-inclusive/end-exclusive UTC window and saved likes minimum remain.
+- Requests explicitly retain returned likes/reposts/replies/views even below threshold, omit unknown counts and preserve nonempty tool results. Eight results requested or supported tool limit; Grok 4.3, required tool choice, budget and production fixed-search OFF unchanged.
+- Regression coverage includes operator-bearing guidance, excluded text, missing-count instructions, exact bounds and unchanged tool configuration. Six focused input tests pass.
+- Read-only prepare-x-experiment.ts for Nov 5–6 21:00 UTC returned four saved topics and clean natural-language queries; private inputs saved under ~/.local/state/news-digest/x-experiment/preparation-911/ (700/600). Refresh at dispatch to capture current settings. No paid calls, ingestion or edition writes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (528 unit/223 isolated integration tests, typecheck/lint/format/boundaries); pnpm build; git diff --check all passed. Rebuilt/restarted API, worker, docs and schema active; initial startup health probe raced readiness, repeated health green, reader HTTP 200, latest real edition four topics/17 stories/14 posts, alerts clear.
+- Archived iteration 898 to keep orientation small. Updated TASKS, SOURCES and experiment guide; no owner input needed. No handbook change: production behavior unchanged.
+- Next: score three Gaming rerun candidates; Nov 6 edition review after publication and fresh X round after 21:00 UTC, keywords first. Bluesky outcomes remain next in Current order; NBA/World tool failures remain unresolved.

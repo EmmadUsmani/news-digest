@@ -1,0 +1,9 @@
+## 2026-11-05: iteration 898 — Dedicated Bluesky topic query
+
+- Started clean on main; no leftover work. Owner would care: change a topic's Bluesky discovery phrase without changing its news queries.
+- Added a 500-character query to the topic editor, protected settings contract and topic storage through generated migration 0005. Hourly discovery prefers it; blank preserves the existing news-query/include-phrase/topic-name fallback. Existing topics remain blank.
+- Offline unit coverage checks dedicated-query precedence and blank fallback; isolated HTTP coverage checks default, trim/save and overlength rejection. Browser writes intercepted; save/reload and four viewport/theme screenshots passed. Desktop light/mobile dark visually inspected; discarded unrelated separation/delete screenshots.
+- Private database backup succeeded before migration; migration applied and four services restarted. Updated TASKS, SOURCES, social/operations handbook and schema note; NEEDS_FROM_HUMAN unchanged. Archived iterations 886–887 to keep PROGRESS small. No paid calls or live topic setting changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check passed typecheck/lint/format/boundaries and 508 unit tests; initial integration 219/220 exposed new-column order mismatch, corrected schema order; pnpm test:integration rerun passed all 220 including parity; pnpm build; smoke-admin-topic-editor.ts; smoke-admin-separation.ts; check-handbook.ts 05-social-posts and 08-operations; git diff --check.
+- /healthz database/Redis green; saved reader endpoint 200; 36 sources collecting with recent successes. Existing observability shipper memory warning became firing; service active at about 76 MiB of 80 MiB ceiling, no app failure.
+- Next: X threshold/exclusion admin controls, then final reader; Nov 6 edition/grouping review and X fresh-window round after 21:00 UTC. No X activation before decision.

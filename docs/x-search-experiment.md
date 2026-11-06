@@ -128,9 +128,12 @@ pnpm exec tsx apps/api/scripts/prepare-x-experiment.ts START END > /private/path
 START and END require explicit timezones. The read-only repeatable-read snapshot
 uses enabled owner topics and saved thresholds/exclusions. It prepares only
 `viral` (16 keyword results) and test-only `semantic` (8 results) requests from
-topic descriptions. Both use Grok 4.3, the same exact publication window and
-saved likes minimum; semantic requests also carry the topic exclusions and
-mandatory -giveaway. No articles or cached article triage are loaded or required.
+saved topic data. Both use Grok 4.3, the same exact publication window and
+saved likes minimum. Semantic asks what is new and getting attention in the
+saved topic name; it sends no description, exclusions or keyword operators.
+It requests reported counts even for below-minimum results, so the offline
+report can apply the threshold without losing evidence. Unknown counts stay
+unknown. No articles or cached article triage are loaded or required.
 Provider date filters enclose the exact window; its end remains exclusive.
 Missing settings fail the snapshot. No AI calls, cache writes, admission or
 dispatch occur. Store the output privately; it contains topic settings and prompts.

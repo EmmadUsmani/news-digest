@@ -2095,3 +2095,8 @@ or production activation in this step; switched-off scheduler retry remains open
 
 - Direct xAI/Grok 4.3, original Nov 4–5 21:00 UTC window, required tool choice and 120-second deadline. NBA/World tool calls failed again with zero fetched; Gaming completed, fetching/citing three in-window posts with likes 552/1,058/1,063 and three official oEmbed HTTP 200 responses. Post-fix failure rate: 2/3 (66.7%).
 - Actual rerun cost $0.048153; lifetime experiment charge $1.025802/$2.50, historical timeout holds preserved. All three reruns settled, no new holds or ingestion. Fixed search stays off; scorer review and fair semantic Nov 6 round remain. [Evidence](edition-reviews/2026-11-05-x-experiment-review.md#authorized-keyword-reruns--iteration-910-nov-6).
+
+### Fair semantic preparation — iteration 911 (2026-11-06)
+
+- Experiment-only semantic requests now ask what is new and getting attention in the saved topic, without description exclusions or keyword operators. Exact UTC bounds and saved likes minimum remain; returned likes/reposts/replies/views are requested even below the minimum, with unknown counts omitted.
+- Nov 6 dispatch remains due after 21:00 UTC, keyword cells first under shared experiment caps. No paid calls, ingestion or production changes; fixed search stays off. Gaming rerun scoring remains open.

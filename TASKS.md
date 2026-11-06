@@ -4,7 +4,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
-- [ ] STEERING 39 NOW, ahead of UI: reliability/accounting shipped (903–909); Nov 5 keyword reruns complete (910), Gaming three posts, NBA/World tool failed again (2/3 failure), $0.048153 settled. Next: scorer review and fair semantic preparation, then Nov 6 round after 21:00 UTC. Scorer relevance ≥6/interestingness ≥4 counts as non-promotion; unknown likes unusable. $2.50 total/$1 UTC day caps; fixed search OFF, no further Nov 5 reruns. [Evidence](docs/edition-reviews/2026-11-05-x-experiment-review.md).
+- [ ] STEERING 39 NOW, ahead of UI: reliability/accounting shipped (903–909); Nov 5 keyword reruns complete (910), Gaming three posts, NBA/World tool failed again (2/3 failure), $0.048153 settled. Fair semantic preparation shipped (911); next: scorer review, then Nov 6 round after 21:00 UTC. Scorer relevance ≥6/interestingness ≥4 counts as non-promotion; unknown likes unusable. $2.50 total/$1 UTC day caps; fixed search OFF, no further Nov 5 reruns. [Evidence](docs/edition-reviews/2026-11-05-x-experiment-review.md).
 - [ ] STEERING 41: immediately after item 40 saved outcomes, add durable scheduled-edition BlueskyEditingFailed/BlueskyNoPicks alerts and firing/clearing/restart coverage; current X priorities stay first.
 - [ ] STEERING 40: after X reliability and Nov 6 review, save per-topic Bluesky outcomes, fix editing failures, build default-off reserved slot and use Nov 6 cost gate; update inspector and source/handbook truth. Details and limits in STEERING; no collection/query/cap changes.
 - [ ] STEERING 36 NOW: forty-article grouping pool live (872), ten-story editor cap unchanged; replay/cost evidence in [review](docs/edition-reviews/2026-11-05-world-story-pool.md). Review Nov 6 edition. Dedicated admin pages next; coverage cleanup done (873). X rounds due after 21:00 UTC.
@@ -39,6 +39,6 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Nov 5 keyword reruns (910): one completed Gaming search/three posts, two failed tool calls; all $0.048153 settled, zero new holds. Token-only offline extraction fixed; immutable evidence saved.
+- [x] Fair semantic preparation (911): natural-language topic query, no description exclusions/operators, exact window preserved; request returned counts even below threshold. Offline verified, no paid calls.
 
-- Next: STEERING 39 scorer review for three Gaming candidates and fair semantic preparation, then Nov 6 fresh-window round after 21:00 UTC; Bluesky outcome instrumentation can use the gap before 13:00 UTC (STEERING 40), with the scheduled edition review after publication. Fixed search remains off.
+- Next: STEERING 39 scorer review for three Gaming candidates, then Nov 6 fresh-window round after 21:00 UTC; Bluesky outcome instrumentation can use the gap before 13:00 UTC (STEERING 40), with the scheduled edition review after publication. Fixed search remains off.
