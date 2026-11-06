@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Central summary development (979): editor v9 asks summaries to retain the main supported headline claim instead of only excerpt background; prompted by the saved Porziņģis salary story. Verify actual Nov 6 output.
+
 - [x] Original social developments (978): social editor v5 prefers firsthand announcements/demos/reporting over newsletter excerpts; concrete secondhand scoops remain eligible. Verify actual Nov 6 picks.
 
 - [x] Publisher attribution (977): editor v8 preserves explicitly named reporting outlets and distinguishes The Hacker News from Hacker News; aggregator labels are not reporting attribution. Verify actual Nov 6 output.

@@ -421,7 +421,7 @@ void test('headline-only evidence accepts a concise attributed summary without r
     const result = await h.editor.edit(topic, thin, 1, 'thin-source');
     assert.deepEqual(result?.stories, output.stories);
     assert.equal(h.calls.length, 1);
-    assert.equal(h.calls[0].purpose, 'shortlist-editor-v8');
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v9');
     assert.match(h.calls[0].instructions, /one sentence for thin evidence/);
     assert.match(h.calls[0].instructions, /Preserve the full publisher name/);
     assert.match(
@@ -469,7 +469,7 @@ void test('brief guidance reaches both editors without changing saved factual bu
     );
     assert.deepEqual(result?.brief, output.brief);
     assert.equal(h.calls.length, 1);
-    assert.equal(h.calls[0].purpose, 'shortlist-editor-v8');
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v9');
     assert.match(
       h.calls[0].instructions,
       /not a copied list of the story headlines/,
@@ -528,5 +528,53 @@ void test('aggregated security reporting retains the explicitly named publisher 
       h.calls[0].instructions,
       /When the reporting publisher is unclear, do not guess/,
     );
+  }
+});
+
+void test('summary guidance preserves the central headline claim when the excerpt supplies only background', async () => {
+  const input = [
+    {
+      id: 'one',
+      title: 'Warriors reportedly withhold salary payments from Porzingis',
+      excerpt: 'Porzingis has been away from the team since late September.',
+      sources: ['Publisher'],
+    },
+  ];
+  const output = {
+    brief: [
+      'Warriors reportedly withhold salary payments from Porzingis.',
+      'Porzingis has been away since late September.',
+    ],
+    stories: [
+      {
+        id: 'one',
+        evidenceIds: ['one'],
+        headline: input[0].title,
+        summary:
+          'The Warriors are reportedly withholding salary payments from Porzingis, who has been away from the team since late September.',
+        whyItMatters: 'The report concerns player compensation.',
+        rationale: 'A reported salary dispute.',
+      },
+    ],
+  };
+  for (const refused of [[], ['claude-sonnet-5-5']]) {
+    const h = harness([output], refused);
+    const result = await h.editor.edit(topic, input, 1, 'headline-development');
+    assert.deepEqual(result?.stories, output.stories);
+    assert.equal(h.calls.length, 1);
+    assert.deepEqual(JSON.parse(h.calls[0].prompt).candidates, input);
+    assert.match(
+      h.calls[0].instructions,
+      /Each summary must state the central development/,
+    );
+    assert.match(
+      h.calls[0].instructions,
+      /Facts explicitly supplied in a candidate title are usable evidence/,
+    );
+    assert.match(
+      h.calls[0].instructions,
+      /retain any attribution or uncertainty/,
+    );
+    assert.deepEqual(h.diagnostics(), []);
   }
 });

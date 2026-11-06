@@ -1539,3 +1539,5 @@ ack: 2026-11-06 item 42 — iteration 976: all 14 saved brief bullets copied the
 ack: 2026-11-06 item 42 — iteration 977: saved Tech exploit coverage shortened The Hacker News to Hacker News, making the publisher ambiguous. Editor v8 preserves full supplied publisher names and distinguishes reporting outlets from aggregation feeds; offline contracts only, actual output awaits publication. No spend or source changes.
 
 ack: 2026-11-06 item 42 — iteration 978: saved Tech picks include a truncated Oumi newsletter recap. Social editor v5 prefers firsthand announcements, demos and reporting over generic recaps without guessing provenance; substantive secondhand scoops remain eligible. Offline contracts only; compare Nov 6 output. No paid calls or source changes.
+
+ack: 2026-11-06 item 42 — iteration 979: saved Porziņģis summary mentions only his absence and omits the reported salary withholding. Editor v9 asks summaries to retain the central supported headline development and its uncertainty; offline contracts on both editors only, actual output awaits publication. No paid calls or source changes.

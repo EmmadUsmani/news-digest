@@ -1,17 +1,3 @@
-## 2026-11-06: iteration 965 — resize X media with its reader card
-
-- Started clean on main; alerts clear, health/database/Redis green, all 36 sources healthy and no failed digest runs. No leftover work.
-- Read all four saved topics; World breadth/Tech grouping and Bluesky gates await 15:00 publication; X round waits until 21:00 UTC.
-- Reader weakness: X media retained its creation width after rotation/window resizing; reproduced stale 550px media at a 320px viewport with a local widget stub.
-- Observe successful media's card width and rebuild only after its capped width settles, preserving saved-text state. Failed media keeps explicit retry; observer/timer cleaned up on rebuild/unmount.
-- Extended saved-edition browser replay across 320px, landscape and original widths in four device/theme views; all passed with saved text open. No external calls or writes.
-- Updated TASKS, STEERING ack and affected handbook; archived iteration 949. SOURCES/NEEDS_FROM_HUMAN unchanged; no spend, selection or flag changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-x-media.ts; check-handbook.ts 08-operations; git diff --check. Final check results below.
-- Inspected mobile light resize screenshot; retained four new resize screenshots only. API/worker/docs/schema restarted; health green, scheduled edition still due at 15:00 UTC.
-- Initial jobs command used unsupported --check with filters; reran supported read-only jobs query: zero failed digest jobs. Historical ingestion/social failures remain retained, sources healthy and alerts clear.
-- Next: Nov 6 edition/Bluesky review after 15:00 UTC; X round after 21:00 UTC. Fixed search and reserved slot stay off.
-- Final: first full check ended 143 during unit tests without a reported failure; retry passed 543 unit/224 isolated integration tests. Build, handbook and four-view browser replay passed; services active, health green, alerts clear.
-
 ## 2026-11-06: iteration 966 — preserve keyboard focus in saved X text
 
 - Started clean on main; alerts clear and health/database/Redis green. No leftover work.
@@ -189,3 +175,17 @@
 - Verification: targeted social editor tests 14/14; pnpm format; pnpm lint:fix; pnpm check passed 551 unit/224 isolated integration tests; pnpm build; git diff --check. No UI change, so no browser replay.
 - Next: Nov 6 World/cost/Bluesky and editorial review after 15:00 UTC; X round after 21:00 UTC.
 - API/worker/docs/schema restarted; health/database/Redis green and alerts clear. All 36 monitored sources healthy and zero failed digest jobs; post-push confirmation follows.
+
+## 2026-11-06: iteration 979 — retain the summary's central development
+
+- Started clean on main; health/database/Redis green, alerts clear; no leftover work.
+- Read all four saved topics; Nov 6 edition/X review remains time-gated. Reader weakness: Porziņģis summary only says he is absent, omitting the reported salary withholding in the headline.
+- Owner value: summaries explain the news independently instead of offering only secondary background.
+- Editor v9 requires the central supported headline development, using title evidence when the excerpt omits it and preserving attribution/uncertainty. Existing factual guards remain intact.
+- Offline contract covers title/excerpt transport, accepted synthetic output and guidance on Sonnet/capped Haiku; it does not establish actual model compliance. Compare Nov 6 output.
+- Updated purpose/cache version, synthetic golden expectations and publication fingerprint from exact unchanged fixture input; response/golden payloads unchanged. No live recordings or paid calls.
+- First targeted check caught a one-bullet synthetic fixture violating the existing two-bullet minimum; corrected fixture. Fingerprint regeneration verified old input match before replacing the key.
+- TASKS/item 42 ack updated; archived oldest progress entry. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged: editorial guidance only.
+- Verification: targeted editor tests 17/17; pnpm format; pnpm lint:fix; pnpm check (552 unit/224 isolated integration tests); pnpm build; git diff --check. No UI change, so no browser replay.
+- Next: Nov 6 World/cost/Bluesky and editorial review after 15:00 UTC; X round after 21:00 UTC.
+- API/worker/docs/schema restarted; health/database/Redis green, alerts clear, all 36 monitored sources healthy and zero failed digest jobs.
