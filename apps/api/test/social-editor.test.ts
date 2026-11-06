@@ -74,7 +74,7 @@ void test('social editor preserves post identity, isolates purpose and reuses ca
   assert.equal(h.calls.length, 1);
   assert.equal(h.calls[0].purpose, 'social-editor-v2');
   assert.match(h.calls[0].instructions, /Never infer virality/);
-  assert.match(h.calls[0].instructions, /Social editor v3/);
+  assert.match(h.calls[0].instructions, /Social editor v4/);
   assert.match(
     h.calls[0].instructions,
     /essential news appears only in an unseen/,
@@ -89,6 +89,24 @@ void test('social editor preserves post identity, isolates purpose and reuses ca
     /descending editorial quality, strongest first and weakest last/,
   );
   assert.deepEqual(candidates[0].text, 'A company announced a model.');
+});
+void test('self-explanatory posts can keep their slot without a repetitive reader note', async () => {
+  const selected = { posts: [{ ...post, whyItMatters: '' }] };
+  const h = harness([selected]);
+  const first = await h.editor.edit(topic, candidates, 1, 'first');
+  assert.deepEqual(first, { ...selected, model: 'claude-sonnet-5-5' });
+  assert.equal(first?.droppedPosts, undefined);
+  assert.deepEqual(await h.editor.edit(topic, candidates, 1, 'cached'), first);
+  assert.equal(h.calls.length, 1);
+  assert.match(h.calls[0].instructions, /rather than paraphrase or repeat/);
+  assert.match(
+    h.calls[0].instructions,
+    /English translation of a non-English post/,
+  );
+  assert.match(
+    h.calls[0].instructions,
+    /Never invent background to fill the note/,
+  );
 });
 void test('social editor uses capped Haiku fallback and reports total refusal', async () => {
   const h = harness([valid], ['claude-sonnet-5-5']);

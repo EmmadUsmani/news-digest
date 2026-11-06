@@ -55,6 +55,11 @@ void test('social orchestration bounds shortlist, preserves post identity and st
               whyItMatters: 'Synthetic context',
               rationale: 'Synthetic choice',
             },
+            {
+              id: candidates[1].id,
+              whyItMatters: '',
+              rationale: 'Self-explanatory post',
+            },
           ],
         };
       },
@@ -72,6 +77,9 @@ void test('social orchestration bounds shortlist, preserves post identity and st
   assert.equal(result.postEditorial.mode, 'ai');
   assert.equal(result.posts[0].text, posts[0].text);
   assert.equal(result.posts[0].whyItMatters, 'Synthetic context');
+  assert.equal(result.posts.length, 2);
+  assert.equal(result.posts[1].text, posts[1].text);
+  assert.equal(result.posts[1].whyItMatters, '');
   assert.ok(!result.posts[0].reasons.includes('lexical fallback'));
   assert.equal(posts[0].whyItMatters, undefined);
 });

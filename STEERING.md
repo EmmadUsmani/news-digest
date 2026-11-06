@@ -1531,3 +1531,5 @@ ack: 2026-11-06 item 42 — iteration 969: saved Gaming media collapsed during t
 ack: 2026-11-06 item 42 — iteration 972: saved Tech exploit summary exposed the supplied excerpt instead of adding news. Editor v6 explicitly requests one concise attributed sentence for headline-only evidence, retaining factual guards; actual wording awaits Nov 6 publication. No paid trial or source changes.
 
 ack: 2026-11-06 item 42 — iteration 974: Gaming’s saved release-date update supplies no date or change in its text. Social editor v3 prefers concrete supplied developments over teasers reliant on unseen media, while preserving concrete highlights; no new calls, spend or source changes. Actual selection quality awaits the Nov 6 edition.
+
+ack: 2026-11-06 item 42 — iteration 975: saved OpenAI/NBA cards repeat their original text in mandatory editor notes. Made notes optional for self-explanatory posts while retaining useful translations; offline selection/cache and desktop/mobile light/dark replay checks passed. Existing saved editions remain unchanged; compare Nov 6 output.

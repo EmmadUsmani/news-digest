@@ -1,18 +1,3 @@
-## 2026-11-06: iteration 961 — distinguish digest commentary from original posts
-
-- Started clean on main; alerts clear and health/database/Redis green. No leftover work.
-- Read all four saved topics; World breadth/Tech grouping await Nov 6 publication; X round waits until 21:00 UTC.
-- Reader weakness: saved editorial explanations below posts had no attribution label, making them easy to confuse with the original author’s words.
-- Added “Digest context” above existing commentary for every platform; saved text, explanations and selection unchanged.
-- Owner value: readers can distinguish the digest’s explanation from what the post author actually wrote.
-- Extended saved-edition browser replay to verify labels and unchanged context in desktop/mobile light/dark; screenshots refreshed.
-- Archived iteration 944; updated TASKS, STEERING ack and affected handbook. SOURCES/NEEDS_FROM_HUMAN unchanged; no spend or flag changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check.
-- First full check stopped on formatting of the newly archived progress entry; formatting corrected before rerunning.
-- Next: edition/Bluesky review after 15:00 UTC; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.
-- Final pnpm check passed (543 unit/224 isolated integration tests); build, handbook, four-view layout/media recovery and diff checks passed. Inspected mobile light post screenshot.
-- API/worker/docs/schema restarted active; health/database/Redis green, alerts clear, all 36 sources healthy and no failed digest jobs.
-
 ## 2026-11-06: iteration 962 — open X authors from saved post bylines
 
 - Started clean on main; alerts clear and health/database/Redis green. No leftover work.
@@ -191,3 +176,17 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check passed 547 unit/224 isolated integration tests; pnpm build; git diff --check. No UI changes; browser replay unnecessary.
 - Archived iteration 960 to keep PROGRESS small. API/worker/docs/schema restarted; final health/alerts checked before commit.
 - Next: compare Nov 6 Gaming picks and World/cost/Bluesky after 15:00 UTC; fresh X round after 21:00 UTC. Flags unchanged.
+
+## 2026-11-06: iteration 975 — stop requiring repetitive post notes
+
+- Started clean on main; health/alerts green, all 36 monitored sources healthy; no leftover work.
+- Read all four saved topics. Owner value: OpenAI and NBA cards repeat their original text in a second paragraph, contrary to the approved post-card spec.
+- Cause: the social editor requires a nonempty reader note for every selected post, even when the post explains itself.
+- Social editor v4 permits an empty note, requests useful nonrepeating context only, and retains concise English translations; rationale remains required and factual guards stay intact.
+- Selection/cache and orchestration tests retain self-explanatory posts without a note, alongside posts with context. Existing reader rendering already hides empty notes; no UI code changed.
+- X truncation is in supplied embed text, not local clipping; no new retrieval or source changes. No paid calls, budget/flag changes or saved-edition edits.
+- Verification: targeted social tests 24/24; pnpm format; pnpm lint:fix; pnpm check passed static checks/548 unit tests, then was terminated (143) during integration; standalone isolated integration rerun passed 224/224; pnpm build and final API rebuild passed; check-handbook 08-operations and git diff --check passed.
+- Node/Playwright replay: cleared one note in an intercepted saved response only; original text/link stayed visible and Japanese post context remained. Four desktop/mobile light/dark screenshots saved as post-optional-context-*; mobile light inspected.
+- Replay is synthetic note omission, not observed live editorial behavior; original saved API response unchanged. Handbook updated; SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Archived iteration 961 to keep PROGRESS small. API/worker/docs/schema restarted; health/alerts green, sources healthy; final post-push confirmation follows.
+- Next: compare Nov 6 note repetition, Gaming picks and World/cost/Bluesky after 15:00 UTC; fresh X round after 21:00 UTC.
