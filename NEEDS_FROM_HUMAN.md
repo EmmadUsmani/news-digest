@@ -67,6 +67,8 @@ BACKUP_AGE_RECIPIENT=
 STEERING 40 requires waiting for the owner when either activation gate fails.
 Full-AI/no-budget-refusal passes; measured-cost estimate fails narrowly:
 1.5 × ($0.286904 edition + $0.047601 extra) = $0.501758 rounded up,
-above the $0.501698 daily cap. Reserved slot remains OFF; no cap change.
+above the $0.501698 daily cap. Owner subsequently approved switch-on in
+STEERING 40; this is no longer blocked. Enable under Current order without
+changing the daily cap.
 World already has a distinct Bluesky pick through an open slot.
 [Review and estimate](docs/edition-reviews/2026-11-06.md).

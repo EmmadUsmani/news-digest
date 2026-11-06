@@ -1,27 +1,3 @@
-## 2026-11-06: iteration 1010 — scope return to an interrupted edition
-
-- Started clean on main; no leftover work. Alerts clear, health/DB/Redis green, API/worker active; sources check passed and zero failed digest runs.
-- Read all four saved Nov 5 topics; World breadth remains the largest weakness, with the deployed fix awaiting Nov 6 publication at 15:00 UTC. No repeated editorial tuning.
-- Owner value: a returning reader could find their place among 17 stories and 14 posts without searching the whole edition again.
-- Scoped an explicit browser-local continue-reading link: immutable edition/section keys, ten-edition retention, clear control, explicit-link precedence, no automatic jump or inferred read status; 1–2 day estimate, owner review required.
-- Existing Contents honors anchors but does not persist scroll-derived position; proposal distinguishes this from browser history restoration. No feature implemented.
-- No runtime/source/schema/prompt/budget changes or paid calls; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged. No restarts during deployment freeze; running code unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration tests); pnpm build; targeted Prettier and git diff --check passed. Archived iteration 992 to keep this file small.
-- Next: Nov 6 World/full-AI/cost/Bluesky review after publication; X round after 21:00 UTC; fixed search OFF.
-
-## 2026-11-06: iteration 1011 — review the Nov 6 published edition
-
-- Started clean on main; no leftover work. Health/DB/Redis and sources green, alerts clear; no failed digest runs. Scheduled edition published at 15:02:17 UTC.
-- Read all four saved topics: 20 stories/16 X/1 Bluesky; World improved from two to five distinct stories after the larger grouping pool. Six multi-article groups had no clearly unrelated event in saved titles.
-- Full-AI, zero unscored IDs/budget refusals, 37 settled calls/$0.286904; worker 137.059 s versus 152.320 s Nov 5. Four unsupported-absence replies repaired; no failed/unresolved calls.
-- World Bluesky retained one distinct post and dropped one unsupported pick; Tech/NBA/Gaming had no slots. Both Bluesky alerts clear. Real desktop/mobile screenshots saved and visually inspected; no page errors.
-- Slot gate fails: extra three topics at World’s $0.015867 each gives 1.5 × $0.334505 = $0.501758 rounded up, above $0.501698 cap. Kept OFF; ack and NEEDS_FROM_HUMAN record owner wait.
-- Largest remaining reader weakness: Tech’s five posts repeat two launches. Recorded in docs/edition-reviews/2026-11-06.md; no speculative tuning, runtime change or paid review call.
-- Updated TASKS, SOURCES and STEERING ack. No restarts/deploys during 13:00–16:00 freeze; running code unchanged.
-- Verification: pnpm check passed (560 unit/224 isolated integration); pnpm format; pnpm lint:fix; pnpm build; git diff --check; read-only edition/timing/status endpoints and worker admission/settlement logs; Playwright real saved Bluesky card at 1440/390px.
-- Post-check warning: ObservabilityMemoryBudget pending for obs-shipper; system unit active, 0 restarts, ~78.5/80 MiB. No restart during freeze. Archived iteration 993 to keep this file small.
-- Next: X fresh-window round after 21:00 UTC; Bluesky slot awaits owner. Fixed search OFF.
-
 ## 2026-11-06: iteration 1012 — recover shipper memory headroom
 
 - Started clean on main; no leftover work. Prior iteration's pending shipper warning was firing, so triage took priority over Tech post repetition.
@@ -179,3 +155,14 @@
 - Passed pnpm build; pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration); pnpm exec tsx scripts/smoke-reader-layout.ts; scripts/smoke-bluesky-cards.ts; scripts/smoke-post-sizing.ts; git diff --check.
 - API/worker restarted; saved edition serves 20 stories and 17 posts, /healthz and alerts clear. No paid calls; no source/schema/handbook-flow changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
 - Next: continue final reader spec completion; fresh X round after 21:00 UTC. Reserved Bluesky slot remains OFF awaiting owner; editorial fixes await next scheduled edition.
+
+## 2026-11-06: iteration 1026 — compact relative story times
+
+- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; alerts clear and /healthz DB/Redis OK.
+- Story cards now show minute/hour/day ages, refreshing every minute. Exact saved local date/time remains in hover and accessible labels; article disclosures retain exact times. Future-dated reports show a calendar date.
+- Extended read-only browser checks for exact timestamp retention and clock-driven minute/hour/day transitions across desktop/mobile light/dark; screenshots updated and desktop/mobile light visually inspected.
+- Initial browser attempt raced API startup; reran after healthy. Clock assertions initially depended on timer phase; fixed time plus fast-forward now isolates age boundaries without changing real edition data.
+- Passed pnpm format; pnpm lint:fix; pnpm build; pnpm exec tsx scripts/smoke-reader-layout.ts; git diff --check. pnpm check passed typecheck/lint/format/boundaries and 562 unit tests, then exited 143 after 225 integration cases without a final summary; standalone pnpm test:integration rerun exited 0 (225 passed).
+- API/worker restarted; saved edition has 20 stories/17 posts; health and alerts clear. No paid calls or source/schema/handbook-flow changes; SOURCES unchanged.
+- Corrected stale TASKS/NEEDS_FROM_HUMAN owner-wait wording: latest item 40 explicitly approves reserved-slot activation without a cap increase. Slot activation remains next under Current order; no configuration changed here.
+- Archived iterations 1010–1011 to keep PROGRESS under 25 KB. Next: continue approved reader; enable approved Bluesky slot under Current order; X fresh-window round after 21:00 UTC.

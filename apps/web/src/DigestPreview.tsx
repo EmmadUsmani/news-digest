@@ -8,6 +8,7 @@ import { EditionDateSwitcher } from './EditionDateSwitcher';
 import { editionQuery, HttpError } from './queries';
 import { ReaderContents } from './ReaderContents';
 import { StorySources } from './StorySources';
+import { StoryTime } from './StoryTime';
 import { TopPosts } from './TopPosts';
 
 export function DigestPreview() {
@@ -139,15 +140,7 @@ export function DigestPreview() {
                           </p>
                         )}
                         <StorySources story={story}>
-                          <time dateTime={story.publishedAt}>
-                            {new Date(story.publishedAt).toLocaleString(
-                              undefined,
-                              {
-                                dateStyle: 'medium',
-                                timeStyle: 'short',
-                              },
-                            )}
-                          </time>
+                          <StoryTime publishedAt={story.publishedAt} />
                         </StorySources>
                       </Card>
                     </li>

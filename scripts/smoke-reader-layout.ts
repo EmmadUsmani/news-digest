@@ -62,6 +62,7 @@ async function smoke() {
           reducedMotion: 'reduce',
         });
         const page = await context.newPage();
+        await page.clock.install();
         const errors: string[] = [],
           forbidden: string[] = [];
         page.on('pageerror', (error) => errors.push(error.message));
@@ -325,17 +326,19 @@ async function smoke() {
               await published.getAttribute('datetime'),
               story.publishedAt,
             );
-            assert.equal(
+            const exact = await page.evaluate(
+              (value) =>
+                new Date(value).toLocaleString(undefined, {
+                  dateStyle: 'long',
+                  timeStyle: 'long',
+                }),
+              story.publishedAt,
+            );
+            assert.equal(await published.getAttribute('title'), exact);
+            assert.equal(await published.getAttribute('aria-label'), exact);
+            assert.match(
               await published.innerText(),
-              await page.evaluate(
-                (value) =>
-                  new Date(value).toLocaleString(undefined, {
-                    dateStyle: 'medium',
-                    timeStyle: 'short',
-                  }),
-                story.publishedAt,
-              ),
-              'Every story shows its exact saved publication date and local time',
+              /^(Just now|\d+[mhd] ago|[A-Z][a-z]+ \d+, \d{4})$/,
             );
             assert.ok(await published.isVisible());
             if ((story.coverage?.length ?? 0) > 0) {
@@ -685,6 +688,21 @@ async function smoke() {
         await page.screenshot({
           path: `docs/screenshots/ui/reader-layout-${device}-${theme}.png`,
         });
+        // Age labels follow time while the reader leaves the edition open.
+        const firstStory = edition.topics.flatMap((topic) => topic.stories)[0];
+        const publication = new Date(firstStory.publishedAt).getTime();
+        const storyTime = page.locator(
+          `[id="story-${firstStory.id}"] .story-sources > time`,
+        );
+        for (const [age, label] of [
+          [60_000, '1m ago'],
+          [60 * 60_000, '1h ago'],
+          [1440 * 60_000, '1d ago'],
+        ] as const) {
+          await page.clock.setFixedTime(publication + age);
+          await page.clock.fastForward(60_000);
+          assert.equal(await storyTime.innerText(), label);
+        }
         assert.deepEqual(errors, []);
         assert.deepEqual(forbidden, []);
         await context.close();
