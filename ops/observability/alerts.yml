@@ -54,6 +54,18 @@ groups:
   - name: app-outcomes
     interval: 30s
     rules:
+      - alert: BlueskyEditingFailed
+        expr: news_digest_bluesky_editing_failed == 1
+        labels:
+          severity: warning
+        annotations:
+          summary: Latest scheduled edition has failed or missing Bluesky editing results
+      - alert: BlueskyNoPicks
+        expr: news_digest_bluesky_no_pick_chances >= 3
+        labels:
+          severity: warning
+        annotations:
+          summary: Three scheduled Bluesky opportunities passed without a pick
       - alert: RecentJobFailures
         expr: sum by (queue) (increase_prometheus(news_digest_job_duration_seconds_count{job="app-worker",outcome="failed"}[10m])) > 0
         for: 1m

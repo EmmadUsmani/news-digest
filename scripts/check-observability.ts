@@ -145,6 +145,15 @@ async function main() {
       exporterMetrics,
       /^news_digest_schedule_latest_due_timestamp_seconds(?:\{[^\n]*\})? \d/m,
     );
+    for (const name of ['editing_failed', 'no_pick_chances']) {
+      assert.match(
+        exporterMetrics,
+        new RegExp(
+          `^news_digest_bluesky_${name}(?:\\{[^\\n]*\\})? [0-9]+$`,
+          'm',
+        ),
+      );
+    }
     const commitments = [
       ...exporterMetrics.matchAll(
         /^news_digest_provider_committed_usd\{([^\n]+)\} ([^\n]+)$/gm,
@@ -184,6 +193,8 @@ async function main() {
       'HostMemoryPressure',
       'ObservabilityMemoryBudget',
       'RecentJobFailures',
+      'BlueskyEditingFailed',
+      'BlueskyNoPicks',
       'ApiServerErrorRate',
       'ScheduledEditionUnsettled',
       'ScheduledLifecycleMissing',

@@ -63,6 +63,8 @@ vmalert evaluates every 30 s. Nothing is emailed: alerts show in
 | Service down      | A monitored unit is inactive, or a scrape fails, for 2 min                                                       |
 | Errors            | API 5xx over 5% (with at least 20 requests in 5 min), or new worker job failures                                 |
 | Scheduled edition | The digest scheduler is missing, paused or stalled, or a due run isn't recorded or settled 15 min after its time |
+| Bluesky editing   | Latest scheduled edition has failed, budget-refused or missing Bluesky results while enabled                     |
+| Bluesky quiet     | Three scheduled editions with an open Bluesky slot have no pick; clears on a pick                                |
 | Spend             | Anthropic or xAI reaches 90% of a daily or monthly cap                                                           |
 
 ## Command line

@@ -1421,3 +1421,5 @@ editions.
 
 **Limits:** no deploys between 13:00 and 16:00 UTC, and protect the morning
 edition.
+
+ack: 2026-11-06 item 41: deployed both durable scheduled-edition Bluesky alerts. pnpm check passed 535 unit/224 isolated integration tests; alert firing/clearing and saved-state restart/exclusion cases passed; --verify-alerts passed with 18 healthy rules. Neither alert fires on real editions (0 failures/0 qualifying no-pick editions; Nov 6 is the first eligible scheduled edition).

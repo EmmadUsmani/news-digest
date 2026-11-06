@@ -94,3 +94,91 @@ void test('provider alert aggregate uses UTC periods, empty providers and unreso
     await pool.end();
   }
 });
+
+void test('Bluesky alerts derive from durable scheduled snapshots and exclude old/off/on-demand editions', async () => {
+  const pool = database();
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    await client.query(`CREATE TEMP TABLE digest_previews
+      (id int, created_at timestamptz, scheduled_key text, snapshot jsonb) ON COMMIT DROP`);
+    const query = readFileSync('ops/observability/postgres-reader.sql', 'utf8')
+      .split('CREATE OR REPLACE VIEW bluesky_edition_alert_metrics AS')[1]
+      .split(';')[0];
+    let id = 0;
+    const add = async (
+      result: string | null,
+      slots = 1,
+      picked = false,
+      scheduled = true,
+      old = false,
+    ) => {
+      id++;
+      await client.query(
+        `INSERT INTO digest_previews VALUES ($1, $2, $3, $4)`,
+        [
+          id,
+          old ? '2026-11-05T10:00:00Z' : new Date(Date.UTC(2026, 10, 7, id)),
+          scheduled ? String(id) : null,
+          JSON.stringify({
+            topics: [
+              {
+                ...(result === null
+                  ? {}
+                  : { blueskySelection: { result, openSlots: slots } }),
+                posts: picked ? [{ platform: 'bluesky' }] : [],
+              },
+            ],
+          }),
+        ],
+      );
+    };
+    const check = async (failed: number, chances: number) => {
+      const read = async () => (await client.query(query)).rows[0];
+      assert.deepEqual(await read(), {
+        editing_failed: failed,
+        no_pick_chances: chances,
+      });
+      // Fresh reads need no worker state, matching a collector/worker restart.
+      assert.deepEqual(await read(), {
+        editing_failed: failed,
+        no_pick_chances: chances,
+      });
+    };
+    await check(0, 0);
+    await add(null, 1, false, true, true);
+    await add('budget-refused', 1, false, false);
+    await add('switched-off');
+    await check(0, 0);
+    await add('no-slot', 0);
+    await check(0, 0);
+    await add('editor-chose-none');
+    await check(0, 1);
+    await add('ai-editing-failed');
+    await check(1, 2);
+    await add('budget-refused');
+    await check(1, 3);
+    await add('switched-off');
+    await check(0, 3);
+    await add('no-slot', 0);
+    await check(0, 3);
+    await add('picks-made', 1, true);
+    await check(0, 0);
+    await add(null);
+    await check(1, 0);
+    await add('editor-chose-none');
+    await check(0, 1);
+    // A failed topic cannot be hidden by a successful sibling.
+    await client.query(
+      `UPDATE digest_previews SET snapshot = jsonb_set(snapshot, '{topics}',
+      (snapshot->'topics') || '[{"blueskySelection":{"result":"ai-editing-failed","openSlots":1}}]'::jsonb)
+      WHERE id = $1`,
+      [id],
+    );
+    await check(1, 1);
+  } finally {
+    await client.query('ROLLBACK');
+    client.release();
+    await pool.end();
+  }
+});

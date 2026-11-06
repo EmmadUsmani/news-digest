@@ -41,3 +41,14 @@ news_digest_provider:
     - committed_usd:
         usage: GAUGE
         description: UTC settled spend plus all outstanding holds, including older unresolved calls
+
+news_digest_bluesky:
+  query: |
+    SELECT editing_failed, no_pick_chances FROM bluesky_edition_alert_metrics
+  metrics:
+    - editing_failed:
+        usage: GAUGE
+        description: Latest eligible scheduled edition has failed or missing Bluesky evidence
+    - no_pick_chances:
+        usage: GAUGE
+        description: Scheduled editions with an open Bluesky slot and no pick since the last pick
