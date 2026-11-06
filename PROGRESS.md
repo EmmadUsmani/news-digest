@@ -187,3 +187,15 @@
 - Archived iterations 983–985 to keep PROGRESS below 25 KB. Source checks healthy; failed digest jobs zero.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (560 unit/224 isolated integration), pnpm build and git diff --check passed. Final health green; alerts clear.
 - Next: Nov 6 reader/World/cost/Bluesky review after publication; X round after 21:00 UTC. Fixed search remains off.
+
+## 2026-11-06: iteration 1002 — scope author-provided media descriptions
+
+- Started clean on main; alerts clear, health/DB/Redis green, API/worker active; no leftover work.
+- Latest edition remains Nov 5 (7d99b279); World's breadth still awaits Nov 6 output.
+- Reader weakness: NBA's game-winner and Gaming's release-date announcement depend on linked media; saved text cannot recover unseen content.
+- Owner value: available author descriptions could make posts more useful when official media cannot load.
+- Added a bounded proposal in docs/ideas.md, gated on recorded-source availability; no inference, OCR, extra requests or paid calls. Existing fallback/retry links already work.
+- Consolidated three completed proposal markers in TASKS. No runtime/source/schema changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
+- Sources healthy; failed digest jobs zero; next scheduled run 15:00 UTC. No restarts during 13:00–16:00 deployment freeze.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (560 unit/224 isolated integration), pnpm build and git diff --check passed; final health green and alerts clear.
+- Next: Nov 6 reader/World/cost/Bluesky review after publication; fresh X round after 21:00 UTC. Fixed search remains off.

@@ -39,11 +39,9 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Continuing-story navigation proposal (1001): scoped exact shared-coverage links to earlier immutable editions, with no inferred change claims or extra calls. [Idea](docs/ideas.md#follow-a-continuing-story-across-editions). Proposal only.
+- [x] Media-description proposal (1002): scoped author-provided descriptions for media-dependent posts, gated on existing recorded response availability; no media inference or new requests. [Idea](docs/ideas.md#author-provided-descriptions-for-media-dependent-posts). Proposal only.
 
-- [x] Story/post connection proposal (1000): saved Nov 5 Linux-exploit reporting and primary-source post motivate exact-citation links; bounded scope, evidence threshold and effort in [ideas](docs/ideas.md#connect-reporting-to-the-original-posts-in-the-same-edition). Proposal only; no runtime changes.
-
-- [x] Discovery attribution proposal (999): identified five Google News coverage links and a CNBC/Reuters hostname collision in saved Nov 5 Tech; scoped separate publisher/discovery identities in [ideas](docs/ideas.md#publisher-attribution-for-discovery-feed-coverage). Proposal only; no runtime changes.
+- Earlier proposals 999–1001: publisher attribution, exact story/post citations and continuing-edition links in [ideas](docs/ideas.md).
 
 - [x] Saved-reader review export (998): offline plain-text report preserves briefs, stories, coverage and complete saved posts/context for Nov 5/6 comparison; no generation, provider or runtime changes. [Usage](docs/edition-reviews/2026-11-05-reader.md#export-saved-reader-text-for-comparison).
 

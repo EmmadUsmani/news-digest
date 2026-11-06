@@ -183,3 +183,22 @@
   proposal and budget estimate.
 - Status: idea awaiting owner review under item 38; no implementation or spend.
   Nov 6 breadth/context review and Bluesky/X decisions retain priority.
+
+## Author-provided descriptions for media-dependent posts
+
+- Reader problem: Nov 5 NBA's Klay game-winner and Gaming's God of War
+  release-date announcement link to media. Saved text and editorial context
+  cannot recover a play or an announcement written inside an image when the
+  official embed is unavailable. Existing retry/original links already work.
+- Proposal: preserve author-provided media descriptions when an existing,
+  permitted source response actually supplies them, and expose them beside
+  saved text as attributed descriptions. Never infer an image's contents from
+  a caption, or present editorial context as a transcription.
+- First gate: inspect recorded response fixtures for description availability;
+  if none exist, defer rather than add requests, scraping, OCR or model calls.
+  The saved reader response alone does not establish availability.
+- Cost: roughly half a day for the availability assessment; if useful evidence
+  exists, another 1–2 days for optional snapshot fields, accessible display,
+  compatibility and recorded tests. No new vendor or paid calls proposed.
+- Awaiting owner review under item 38; no implementation, media fetches or
+  runtime changes. Nov 6 edition and Bluesky/X decisions retain priority.
