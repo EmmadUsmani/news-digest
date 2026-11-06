@@ -325,3 +325,7 @@ Next speed work should measure social-triage/edit dependencies and recoverable
 editor retries offline; article-only pre-triage and higher output limits do
 not address the remaining bound. Keep current concurrency, candidate pools,
 quality checks and production settings unchanged. No paid trials were run.
+
+Iteration 970 completed the social-dependency measurement: [saved timeline and
+next implementation](2026-11-05-social-latency.md). The last 8.804 seconds have
+at most one active HTTP call; raising the gate does not remove that serial tail.

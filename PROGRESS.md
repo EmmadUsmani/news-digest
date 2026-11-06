@@ -187,3 +187,17 @@
 - Next: edition/Bluesky review after 15:00 UTC; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.
 - Final rerun passed with exit 0: 543 unit/224 isolated integration tests; build, handbook and four-view browser replay passed. Inspected mobile replacement screenshot; four new screenshots retained.
 - API/worker/docs/schema restarted; health/database/Redis green, alerts clear.
+
+## 2026-11-06: iteration 970 — measure the serialized social tail
+
+- Started clean on main; health/database/Redis green, all 36 sources healthy, alerts clear and no failed digest jobs. No leftover work.
+- Read latest saved topic headlines/posts; World breadth and Tech grouping await Nov 6 publication. Edition at 15:00 UTC; X round after 21:00 UTC.
+- Owner value: identify why editions still take 152 seconds before changing scheduling or risking morning budgets; moved beyond repeated X-card polish.
+- Exported 66 allowlisted Nov 5 journal events, added offline topic-stage/HTTP-occupancy replay and three tests for conservation, interval boundaries and invalid stage evidence.
+- Weakness/cause: Tech posts take 55.895 s; final 8.804 s has at most one HTTP call, social triage then Bluesky editing. Code serializes Bluesky after X/Reddit slot selection.
+- Recorded next cause-level candidate: split scoring from final slot selection after Nov 6 gate; preserve no-slot spending and admission protection. No runtime change or paid calls.
+- Updated TASKS and dated speed evidence; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged because system/source behavior is unchanged.
+- Verification: targeted timeline tests 3/3; pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check. Final results below.
+- Initial sources command used unsupported --limit; corrected command confirmed all 36 healthy. UI unchanged, so no browser screenshots needed.
+- Next: Nov 6 edition/Bluesky review after 15:00 UTC; X round after 21:00 UTC. Fixed search and reserved slot stay off.
+- Final: pnpm check exit 0 (546 unit/224 isolated integration tests); build and diff checks passed. API/worker/docs/schema restart and post-push health confirmation follow.

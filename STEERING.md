@@ -301,6 +301,8 @@ Do this before any other item, and ack it when done.
 
 ack: 2026-11-03 item 7 measurement — iteration 425 observed the scheduled edition (777fdd95-0bcd-4ca7-9ea6-36c654effcca): 231.829 s worker duration, 748 article candidates, $0.339524 Anthropic/43 calls. The under-60-second target is NOT met; keep item 7 open. Three story sections used AI, NBA stories fell back despite complete triage, and World selected no posts. Investigate editor validation/admission and latency offline before another paid run.
 
+ack: 2026-11-06 item 7 — iteration 970: replayed Nov 5 topic stages and HTTP occupancy; Tech post selection takes 55.895 s, and the final 8.804 s has at most one active call (social triage then Bluesky editing). Recorded the serialized slot dependency and a budget-preserving scoring-split candidate for after the Nov 6 gate; no paid calls or runtime changes. Speed target remains open.
+
 ## 8. PARKED by the owner (see item 14): Reddit, the owner's #2 social source (2026-11-02)
 
 None has been built yet: every stored social post is from X. Do it right after

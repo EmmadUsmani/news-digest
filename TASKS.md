@@ -15,7 +15,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - [ ] STEERING 30/31: experiment $2.50 total/$1 per UTC day, outside 13:00–16:00 UTC, $0.15 per-call reservation. Historical round 1 charged $0.532331 including unresolved Gaming timeout; Nov 5 revised round evidence now saved; no winner/activation. [Experiment](docs/x-search-experiment.md), [review](docs/edition-reviews/2026-11-04-x-experiment-review.md).
 - [ ] STEERING 27 grouping: Nov 5 published multi-article groups had no clearly unrelated event; World broadest. Tech Moonshot/Hong Kong combined separate developments; editor v5 same-story instructions shipped (850), verify Nov 6. Raw responses/recall unverified; no wording grouping. [Review](docs/edition-reviews/2026-11-05.md).
   - Same-story production pass enabled (650) after sampled gate: labelled precision 141/141, recall 141/157, zero clearly unrelated/one borderline among 155 reviewed merges; no wording grouping rules. Four-call reservation bound $0.058192.
-- [ ] STEERING 7 speed: Nov 5 152.320 s/756 candidates; <60 s/current volume and <2 min/1,500 unmet. Four-slot work-only bound 137.650 s, or 70.404 s without article triage. Measure social/editor dependencies offline; no paid trial. [Evidence](docs/edition-reviews/2026-11-04-concurrency.md).
+- [ ] STEERING 7 speed: Nov 5 152.320 s/756 candidates; <60 s/current volume and <2 min/1,500 unmet. Four-slot work-only bound 137.650 s, or 70.404 s without article triage. Social dependency timeline measured (970): Tech posts 55.895 s; final 8.804 s has at most one HTTP call, social scoring then Bluesky editing. Next: after Nov 6 slot decision, isolate Bluesky scoring from slot-dependent selection without speculative spend or changed admission protection. [Timeline](docs/edition-reviews/2026-11-05-social-latency.md); no paid trial. [Evidence](docs/edition-reviews/2026-11-04-concurrency.md).
 - [ ] STEERING 16 / M4 Social posts: Nov 5 X picks Tech/NBA/Gaming/World 3/5/5/1; all four topics present, no Bluesky picks. Saved X metrics empty: viral/outside-list quality acceptance remains open. Paid old open-search picks 1/19 (Tech); no claim that all-topic presence proves paid discovery quality.
 - [ ] STEERING 9/15 first-week report: Nov 5 $0.143191/19 fetched/18 new verified outside-list posts; prior Nov 3 $0.137056/18, Nov 4 $0.149447/19. Four topics weakest-first, $0.10 per-topic hold, unchanged $0.40/day/$12/month cap. Per-topic figures: [Sources](docs/SOURCES.md).
 - [ ] STEERING 18 Bluesky: authenticated hourly collection and session refresh verified (788); Nov 5 no selected posts. Quality/diversity acceptance remains open; World phrase shortlist empty. Cross-platform context/semantic gates shipped. [Sources](docs/SOURCES.md#sustained-bluesky-session-recovery--iteration-788-2026-11-05).
@@ -38,6 +38,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - Editorial audit closed under STEERING 5; resume only for actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.
 
 ## Latest verified step
+
+- [x] Social latency cause (970): replayable allowlisted timeline identifies serialized social scoring/Bluesky editing at the end of the saved edition; no production or spend changes.
 
 - [x] X media layout continuity (969): reserve the previous media height during theme/width replacements so the embed area does not collapse while loading.
 
