@@ -39,7 +39,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Offline edition proposal (1008): scoped a text-only, public-reader HTML download with saved context and explicit media limits; awaits owner review. [Proposal](docs/ideas.md#take-a-saved-edition-offline).
+- [x] Proposal decision index (1009): linked nine existing scopes, effort estimates and evidence gates; three remain deferred. No feature authorized or built. [Index](docs/ideas.md#decision-index--nov-6).
 
 - Earlier steps 995–1006: [completed markers](docs/progress-archive/2026-11-06-reader-done-1007.md).
 

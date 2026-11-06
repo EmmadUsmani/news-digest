@@ -1,5 +1,26 @@
 # Product ideas awaiting owner review
 
+## Decision index — Nov 6
+
+These are proposals, not authorized work. STEERING's Current order remains
+the execution priority; the Nov 6 edition gates and X round come first.
+Estimates below are engineering effort, not API charges.
+
+| Proposal                                                                            | Current decision or next gate                                                        | Estimate if approved         |
+| ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | ---------------------------- |
+| [Richer Tech evidence](#richer-evidence-for-discovery-only-tech-stories)            | Compare Nov 6 summaries first; destination collection needs approval                 | 3–5 days                     |
+| [Read stories sooner](#read-finished-stories-while-posts-are-still-being-selected)  | After edition review and approved UI work; draft access needs approval               | 2–4 days                     |
+| [Publisher attribution](#publisher-attribution-for-discovery-feed-coverage)         | Owner review; inspect structured RSS metadata before implementation                  | 1–2 days                     |
+| [Story-to-post links](#connect-reporting-to-the-original-posts-in-the-same-edition) | Deferred: zero exact citation matches in Nov 5                                       | 1–2 days                     |
+| [Continuing-story links](#follow-a-continuing-story-across-editions)                | Deferred: zero same-topic URL matches across Nov 4/5                                 | 1–2 days                     |
+| [Media descriptions](#author-provided-descriptions-for-media-dependent-posts)       | Deferred: recorded X evidence lacks descriptions; Bluesky already preserves alt text | 1–2 days after evidence gate |
+| [Saved-story search](#find-a-story-remembered-from-a-past-edition)                  | Owner review; settle literal matching behavior                                       | 2–3 days                     |
+| [Correction notes](#correct-a-known-error-in-an-older-edition)                      | Owner review; settle publishing authority and revision history                       | 2–3 days                     |
+| [Offline edition](#take-a-saved-edition-offline)                                    | Owner review; text-only download scope                                               | 1–2 days                     |
+
+Deferred entries retain their evidence below. Reopen them only with new
+evidence and owner approval; do not repeat the completed availability checks.
+
 ## Richer evidence for discovery-only Tech stories
 
 - Reader problem: Nov 5's OpenSSH story repeats the HN headline; the Linux

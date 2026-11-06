@@ -193,3 +193,13 @@
 - No runtime/source/schema/prompt/budget changes or paid calls. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged; no restarts during 13:00–16:00 freeze, running code unchanged.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration tests); pnpm build; git diff --check all passed.
 - Next: Nov 6 World/full-AI/cost/Bluesky review after publication; X round after 21:00 UTC; fixed search OFF.
+
+## 2026-11-06: iteration 1009 — consolidate proposal decisions
+
+- Started clean on main; no leftover work. Alerts clear, health/DB/Redis green, API/worker active; all 36 sources healthy and zero failed digest runs.
+- Read all four topics in the latest public saved edition, still Nov 5 at 14:47 UTC; Nov 6 remains scheduled for 15:00. World breadth remains the biggest weakness; deployed fix awaits publication.
+- Owner value: a single linked index makes nine existing proposals, estimates and decision gates reviewable without treating deferred ideas as open implementation work.
+- Added the index to docs/ideas.md; three evidence-deferred proposals stay deferred. No new feature, investigation, paid call or runtime change.
+- No restarts during the deployment freeze; running code unchanged. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration tests); pnpm build; nine proposal anchor checks; git diff --check all passed.
+- Next: Nov 6 World/full-AI/cost/Bluesky review after publication; fresh X round after 21:00 UTC. Fixed search OFF.
