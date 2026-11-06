@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link, useSearch } from '@tanstack/react-router';
+import { useEffect, useRef } from 'react';
 
 import { ThemeToggle } from './components/theme-toggle';
 import { Button } from './components/ui/button';
@@ -10,6 +11,15 @@ import { ReaderSkipLink } from './ReaderSkipLink';
 export function ReaderArchive() {
   const { page } = useSearch({ from: '/editions' });
   const history = useQuery(editionHistoryQuery((page - 1) * 20));
+  const heading = useRef<HTMLHeadingElement>(null);
+  const previousPage = useRef(page);
+  useEffect(() => {
+    // Wait for the new dates (or retry control) before resuming keyboard reading.
+    if (previousPage.current === page || history.isPending) return;
+    previousPage.current = page;
+    heading.current?.focus({ preventScroll: true });
+    heading.current?.scrollIntoView({ behavior: 'instant', block: 'start' });
+  }, [page, history.isPending]);
   return (
     <main className="mx-auto min-h-screen max-w-2xl px-5 pb-16 sm:px-6">
       <ReaderSkipLink target="archive-content" />
@@ -21,7 +31,9 @@ export function ReaderArchive() {
       </header>
       <div className="pt-12">
         <h1
+          ref={heading}
           id="archive-content"
+          aria-description={`Page ${page}`}
           tabIndex={-1}
           className="m-0 scroll-mt-6 font-sans text-3xl leading-tight font-semibold tracking-tight"
         >

@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Archive pagination keyboard reading (1038, item 33): new page focuses the heading after dates load, describes its page number and lets Tab continue to the first date; desktop/mobile light/dark verified.
+
 - [x] Reader keyboard bypass (1037, item 33): focus-only skip links reach edition/archive content directly; focus, sticky-header clearance and continued keyboard reading verified desktop/mobile light/dark.
 
 - [x] Reader archive loading (1036, item 33): responsive date-row skeletons, accessible loading announcement and saved-link/error/retry transitions verified desktop/mobile light/dark.

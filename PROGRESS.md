@@ -1,15 +1,3 @@
-## 2026-11-06: iteration 1022 — prove the early Bluesky admission hazard
-
-- Started clean on main; no leftover work. Alerts clear, /healthz OK, all 36 sources healthy, no failed retained queue jobs.
-- Read the latest saved stories/posts across all four topics. Tech repetition and headline-limited summaries still await deployed editor/excerpt fixes; World has five distinct stories and one distinct Bluesky post.
-- Owner value: protect X editing quality while pursuing faster editions. Completed the requested admission proof before moving paid Bluesky scoring earlier.
-- Extended the real-ledger isolated regression: with 80,000 microdollars available, a 20,001 social-triage hold refuses a 60,000 editor hold; reversing order admits the editor and refuses triage. Synthetic amounts; no provider calls.
-- Cause: the scheduled reserve protects an edition from other runs, not one stage from another. Guaranteed slots alone cannot preserve admission; outstanding holds count before settlement.
-- Kept production sequential. Future early work needs protected X/repair holds or exact cache-only scoring; documented the decision so later iterations do not repeat this investigation. No latency gain claimed.
-- Passed pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration, including both admission orders); pnpm build; git diff --check. API/worker restarted; /healthz DB/Redis OK and alerts clear.
-- No UI, source, schema or handbook flow changed; SOURCES and NEEDS_FROM_HUMAN unchanged. No paid calls.
-- Next: fresh X round after 21:00 UTC; reserved Bluesky slot remains OFF awaiting owner. Review deployed summary/repetition fixes at the next scheduled edition.
-
 ## 2026-11-06: iteration 1023 — make headline-only summaries direct
 
 - Started clean on main; no leftover work. Alerts clear, /healthz DB/Redis OK, 36 sources and 13 services healthy; no failed digest jobs. Two retained ingestion failures have recovered healthy sources.
@@ -166,3 +154,12 @@
 - Passed pnpm build; pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration tests, exit 0); pnpm exec tsx scripts/smoke-reader-skip-link.ts; git diff --check.
 - API/worker restarted; health DB/Redis OK and alerts clear. Archived iteration 1021 to keep PROGRESS small.
 - Next: finish final reader under item 33; fresh X round after 21:00 UTC; approved Bluesky slot activation pending. Fixed search stays OFF.
+
+## 2026-11-06: iteration 1038 — keyboard reading after archive pagination
+
+- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; no leftovers; alerts clear and /healthz DB/Redis OK.
+- Archive pagination now focuses and reveals the heading after the new dates or error state load. The heading describes the page number; Tab continues into the new dates rather than remaining at the footer. Initial arrival keeps normal browser focus.
+- Read-only saved-data replay simulates two pages and delayed responses; desktop/mobile light/dark focus, next date, heading visibility and overflow checks passed. Eight screenshots saved; mobile light and desktop dark visually inspected. Existing archive navigation/recovery smoke passed.
+- No writes, external browser traffic or paid calls in the new replay. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes. Archived iteration 1022 to keep this file small.
+- Verification: pnpm build; pnpm exec tsx scripts/smoke-reader-archive-focus.ts; pnpm exec tsx scripts/smoke-reader-archive.ts; pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration, exit 0); git diff --check. API/worker restarted; all 36 sources healthy, no failed retained digest runs, saved edition four topics/20 stories/17 posts.
+- Next: continue final reader; X round after 21:00 UTC; approved Bluesky slot activation pending under Current order. Fixed search stays OFF.
