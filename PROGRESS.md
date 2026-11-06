@@ -1,26 +1,5 @@
 # Progress
 
-## 2026-11-06: iteration 1034 — shared final reader post cards
-
-- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; no leftover work; alerts clear and /healthz DB/Redis OK.
-- Reader weakness: legacy post cards had different corners/padding from story cards, and Posts skipped a heading level. All platforms now use the shared card component with matching appearance; Posts uses the approved 20px semibold scale. Removed replaced legacy card/section CSS.
-- Saved-edition Playwright layout and X loading/failure/retry checks passed desktop/mobile light/dark. Synthetic Bluesky and Reddit card checks passed all four views; repaired stale Reddit assertion that wrongly rejected the now-public editorial note. No external calls/writes; Reddit stays parked.
-- Screenshots updated for post cards/section; mobile X and desktop dark reader visually inspected. Archived old completed task markers and iteration 1018 to keep orientation files smaller.
-- Passed pnpm build; pnpm format; pnpm lint:fix; git diff --check. Full pnpm check passed static checks and all 562 unit tests, then was terminated (exit 143) during integration without a reported test failure; standalone pnpm test:integration passed all 225 tests (exit 0).
-- API/worker restarted; /healthz DB/Redis OK and alerts clear. Real saved edition retains four topics, 20 stories and 17 posts. No paid calls or source/schema/handbook-flow changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Next: continue final reader; approved Bluesky reserved slot activation pending under Current order; fresh X round after 21:00 UTC. Fixed search stays OFF.
-
-## 2026-11-06: iteration 1035 — final reader loading layout
-
-- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; no leftover work; alerts clear and /healthz DB/Redis OK.
-- Replaced the initial blank reader wait with responsive brief/card skeletons and desktop contents placeholders, using shared Card/Skeleton components. Screen readers receive one loading status; placeholders are hidden and contain no focus targets.
-- Read-only Playwright replay uses the real saved edition with locally delayed responses: loading, saved-content transition and failed-request recovery passed desktop/mobile light/dark; four screenshots saved, mobile light and desktop dark visually inspected.
-- No external browser requests, paid calls or data writes. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes. Archived iteration 1019 to keep PROGRESS small.
-- Passed pnpm build; pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration, exit 0); pnpm exec tsx scripts/smoke-reader-loading.ts; pnpm exec tsx scripts/smoke-reader-layout.ts; git diff --check. First check stopped on archived Markdown formatting; corrected and full rerun passed.
-- All 36 sources healthy; completed collection jobs and saved edition retain four topics, 20 stories and 17 posts. API/worker restarted and health/alerts verified before commit.
-- Initial push rejected: owner updated B2 steering concurrently. Merged origin/main without conflicts or history changes; owner now caps the backup bucket at 3 GB with tiered retention. Code unchanged; push succeeded.
-- Next: continue final reader spec; approved Bluesky slot activation pending under Current order; fresh X round after 21:00 UTC. Fixed search remains OFF.
-
 ## 2026-11-06: iteration 1036 — archive loading layout
 
 - Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; no leftovers; alerts clear and /healthz DB/Redis OK.
@@ -163,3 +142,14 @@
 - Passed pnpm format; pnpm lint:fix; pnpm build; pnpm exec tsx scripts/smoke-bluesky-cards.ts. Full check result recorded below.
 - SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes. Next: fresh X rounds after 21:00 UTC; fixed search stays OFF.
 - pnpm check passed (562 unit/225 integration); git diff --check passed. API/worker restarted; health OK, alerts clear; four topics/20 stories/17 posts intact. No blockers.
+
+## 2026-11-06: iteration 1050 — second fresh-window X round
+
+- Advanced items 39/34: Nov 5–6 21:00 UTC round complete. Started clean on main; alerts/health/sources OK, digest queue no failures. No leftover work.
+- Direct configured Grok 4.3, existing caps/required tool/120 s deadline; ten attempts settled $0.442837, 61 unique candidates all officially embed-verified. No new unresolved holds; lifetime charged $1.468639/$2.50.
+- Tech keyword failed twice; continued only never-attempted cells. NBA recovered on its one retry; Gaming/World and all semantic cells succeeded. Failure rate 3/10 attempts; keyword 1/4 cells still failed after retries. No third attempts.
+- Four production Haiku verification calls scored all 61 saved posts, zero unscored, $0.005013. Usable keyword Tech/NBA/Gaming/World 0 (failed)/3/3/0; semantic zero. World separate; no threshold/query/model changes.
+- Read-only baseline: five production calls/$0.157475/19 posts. Retained free snapshot 1,188 rows/1,022 unique IDs; three NBA keyword overlaps excluded. No old search rerun, ingestion or edition writes.
+- Commands: prepare-x-experiment, run-x-experiment (one continuation), extract-x-experiment, report-x-experiment; private oEmbed/scorer/snapshot scripts. Full review and SHA-256-linked private evidence saved. Archived iterations 1034–1035.
+- pnpm check passed: typecheck/lint/format/boundaries, 562 unit and 225 integration tests. pnpm format, pnpm lint:fix, pnpm build and git diff --check passed; API/worker restarted, health DB/Redis OK, alerts clear, saved edition four topics/20 stories/17 posts.
+- Next: compare saved Nov 5/6 old-search baselines under the same usable rule, apply the plan decision; fixed search OFF, no winner/activation. Handbook unchanged: no system-flow change.

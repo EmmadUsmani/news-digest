@@ -33,6 +33,8 @@ Scorer review (912): Gaming one usable launch out of three (7/4, 552 reported li
 requested; finish the authorized Nov 6 round and report the remaining coverage
 gaps. [Rerun evidence](docs/edition-reviews/2026-11-05-x-experiment-review.md#authorized-keyword-reruns--iteration-910-nov-6).
 
+Nov 6 round (1050): keyword usable Tech/NBA/Gaming/World 0 (failed)/3/3/0; semantic zero. Failure rate 3/10 attempts, one of four keyword cells after retries. All $0.442837 settled, no new holds. No owner action requested; saved old-baseline comparison and the plan decision are next. [Evidence](docs/edition-reviews/2026-11-06-x-experiment-review.md).
+
 ## Admin access rollout (updated under STEERING 36)
 
 No owner action is needed for the private-VM rollout. STEERING 36 confirms

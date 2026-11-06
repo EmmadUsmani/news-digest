@@ -1778,3 +1778,5 @@ ack: 2026-11-06 item 33/43 — iteration 1047: Bluesky image links retain saved 
 ack: 2026-11-06 item 33/43 — iteration 1048: readers can open URLs wrapped in prose parentheses or brackets from Bluesky cards without broken trailing delimiters; balanced URL parentheses and saved text remain intact. Browser replay covers desktop/mobile light/dark.
 
 ack: 2026-11-06 item 33/43 — iteration 1049: Bluesky images now use full-width rows in narrow cards and at most two columns in wider cards, making mobile post media easier to read. Desktop/mobile light/dark replay and screenshots verified; no paid calls.
+
+ack: 2026-11-06 items 39/34 — iteration 1050 finished the Nov 6 fresh-window round: 10 attempts/$0.442837, 61 official-embed-verified candidates; keyword usable Tech/NBA/Gaming/World 0 (failed)/3/3/0, semantic zero. Failure rate 3/10 attempts (30%), 1/4 keyword cells (25%) after retries; no new holds, no third Tech attempt. Lifetime charged $1.468639/$2.50. Next saved old-baseline comparison and plan decision; fixed search OFF. Evidence: docs/edition-reviews/2026-11-06-x-experiment-review.md.

@@ -2139,3 +2139,7 @@ or Atom `content`, still capped at 1,500 plain-text characters. This adds no
 article-page fetches, source changes or full-article storage. Offline synthetic
 RSS/Atom cases verify precedence, blank HTML, decoding and the bound; existing
 recorded feed fixtures remain unchanged. Saved editions are not rewritten.
+
+## Nov 6 fresh-window X round — iteration 1050
+
+Ten Grok 4.3 attempts settled $0.442837; 61 unique candidates all passed official oEmbed. Keyword usable Tech/NBA/Gaming/World: 0 (tool failed twice)/3/3/0; semantic zero. Three of ten attempts failed; one of four keyword cells still failed after its retry. Scoring cost $0.005013 through verification admission. Lifetime experiment charged $1.468639/$2.50; no new unresolved holds. Fixed production search stays off pending saved-baseline comparison and the plan decision. No ingestion, edition writes, query changes or new sources. [Review](edition-reviews/2026-11-06-x-experiment-review.md).
