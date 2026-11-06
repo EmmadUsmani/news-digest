@@ -27,10 +27,18 @@ async function smoke() {
           colorScheme: theme,
         });
         let recover = false;
+        let releaseInitial!: () => void;
+        const initialGate = new Promise<void>((resolve) => {
+          releaseInitial = resolve;
+        });
+        let releaseRecovery!: () => void;
+        const recoveryGate = new Promise<void>((resolve) => {
+          releaseRecovery = resolve;
+        });
         const writes: string[] = [],
           errors: string[] = [];
         page.on('pageerror', (error) => errors.push(error.message));
-        await page.route('**/*', (route) => {
+        await page.route('**/*', async (route) => {
           const request = route.request();
           if (!['GET', 'HEAD'].includes(request.method())) {
             writes.push(request.method());
@@ -40,6 +48,7 @@ async function smoke() {
             request.url() === 'https://platform.twitter.com/widgets.js' &&
             recover
           ) {
+            await recoveryGate;
             return route.fulfill({
               contentType: 'text/javascript',
               body: `
@@ -52,6 +61,10 @@ async function smoke() {
               }}};
             `,
             });
+          }
+          if (request.url() === 'https://platform.twitter.com/widgets.js') {
+            await initialGate;
+            return route.abort();
           }
           if (new URL(request.url()).origin !== origin) return route.abort();
           return route.continue();
@@ -66,7 +79,13 @@ async function smoke() {
         });
         await card.scrollIntoViewIfNeeded();
         const status = card.getByRole('status');
-        await status.waitFor();
+        await status.filter({ hasText: 'Loading X media…' }).waitFor();
+        assert.ok(await card.locator('.post-text').isVisible());
+        await page.screenshot({
+          path: `docs/screenshots/ui/x-media-loading-${device}-${theme}.png`,
+        });
+        releaseInitial();
+        await status.filter({ hasText: 'X media could not load.' }).waitFor();
         assert.equal(
           await status.innerText(),
           'X media could not load. Saved post text is shown above.',
@@ -83,6 +102,10 @@ async function smoke() {
         await card
           .getByRole('button', { name: 'Retry X media', exact: true })
           .click();
+        await status.filter({ hasText: 'Loading X media…' }).waitFor();
+        assert.equal(await card.locator('.x-media-error').count(), 0);
+        assert.ok(await card.locator('.post-text').isVisible());
+        releaseRecovery();
         await card.locator('iframe').waitFor();
         assert.equal(await status.count(), 0);
         assert.equal(await card.locator('.saved-post-text').count(), 1);
@@ -129,7 +152,7 @@ async function smoke() {
       saved,
     );
     console.log(
-      'Saved X media failure/retry and saved-text theme persistence: desktop/mobile light/dark passed; local widget stub, no writes or external calls.',
+      'Saved X media loading/failure/retry and saved-text theme persistence: desktop/mobile light/dark passed; local widget stub, no writes or external calls.',
     );
   } finally {
     await browser.close();

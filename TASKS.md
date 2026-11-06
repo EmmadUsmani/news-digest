@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] X media loading (963): show when an active media request is pending, including retries, while keeping saved post text readable.
+
 - [x] X author profiles (962): saved X bylines link to the original account so readers can inspect who posted, including when media is unavailable.
 
 - [x] Post context attribution (961): label saved editorial commentary “Digest context” to distinguish it from each post author’s words.

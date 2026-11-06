@@ -1,14 +1,3 @@
-## 2026-11-06: iteration 946 — show full desktop Contents headlines
-
-- Started clean on main; no leftover work. Alerts clear and health/database/Redis green; higher-priority reviews remain time-gated.
-- Reader weakness: desktop Contents clipped saved headlines, including Wembanyama's game result; reproduced with a browser assertion before changing the UI.
-- Owner value: full headlines let the reader distinguish stories before choosing one. Titles now wrap in the existing scrollable sidebar.
-- Extended saved-edition layout replay to reject desktop headline clipping, retaining keyboard navigation checks and four-view screenshots. No paid calls, selection or flags changed.
-- Updated TASKS, handbook and STEERING ack; archived the oldest progress entry. SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (543 unit/224 isolated integration tests); pnpm build; pnpm exec tsx scripts/smoke-reader-layout.ts before/after restart; pnpm exec tsx scripts/check-handbook.ts 08-operations; git diff --check. All passed; desktop screenshot inspected.
-- API/worker/docs/schema restarted; health/database/Redis green, 36/36 sources healthy, no failed digest jobs, alerts clear.
-- Next: Nov 6 edition/Bluesky cost review after publication; fresh X round after 21:00 UTC.
-
 ## 2026-11-06: iteration 947 — verify on-demand recovery in both themes
 
 - Started clean on main; alerts clear, health/database/Redis green, 36/36 sources healthy and no failed digest-generation jobs. Higher-priority edition/X reviews remain time-gated.
@@ -200,4 +189,17 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (543 unit/224 isolated integration tests); pnpm build; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check. All passed.
 - Initial browser run raced service startup (connection refused); rerun after green health passed four device/theme views. Inspected mobile light post screenshot; retained only post screenshots.
 - API/worker/docs/schema restarted active; health/database/Redis green, alerts clear, all 36 sources healthy and no failed digest jobs.
+- Next: edition/Bluesky review after 15:00 UTC; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.
+
+## 2026-11-06: iteration 963 — show when X media is loading
+
+- Started clean on main; alerts clear and health/database/Redis green. No leftover work.
+- Read all four saved topics; World breadth/Tech grouping await Nov 6 publication; X round waits until 21:00 UTC.
+- Reader weakness: lazy X media requests gave no pending indication, leaving readers unable to tell whether media was still arriving.
+- Added a loading status only during active requests; clear it on success, failure or timeout. Saved text stays visible while loading and retrying.
+- Extended saved-edition browser replay with held local widget responses, initial/retry loading checks and four-view screenshots; no external calls or writes.
+- Updated TASKS, STEERING ack and affected handbook; archived iteration 946. SOURCES/NEEDS_FROM_HUMAN unchanged; no spend or flag changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (543 unit/224 isolated integration tests); pnpm build; smoke-reader-x-media.ts; check-handbook.ts 08-operations; git diff --check. All passed.
+- Handbook check initially raced API startup; rerun after green health passed. Inspected mobile light loading screenshot; retained only new loading screenshots.
+- API/worker/docs/schema restarted active; health/database/Redis green, all 36 sources healthy, no failed digest jobs and alerts clear.
 - Next: edition/Bluesky review after 15:00 UTC; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.

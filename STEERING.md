@@ -1509,3 +1509,5 @@ ack: 2026-11-06 item 42 — iteration 960: reading the saved edition at 320px sh
 ack: 2026-11-06 item 42 — iteration 961: saved post commentary had no attribution label; added “Digest context” below original posts so readers can distinguish editorial explanation from the author’s words. No spend or selection changes.
 
 ack: 2026-11-06 item 42 — iteration 962: saved X author names were plain text, preventing readers from inspecting an unfamiliar account. Link each name to its saved profile; keyboard and destination checks cover desktop/mobile light/dark. No spend or selection changes.
+
+ack: 2026-11-06 item 42 — iteration 963: saved X cards had no indication while media was pending; added an active-request loading status so readers can distinguish waiting from failure, preserving saved text through retries. No spend or selection changes.

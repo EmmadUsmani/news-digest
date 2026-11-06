@@ -121,6 +121,7 @@ function Post({
   const [embedded, setEmbedded] = React.useState(false);
   const [savedTextOpen, setSavedTextOpen] = React.useState(false);
   const [failed, setFailed] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const [attempt, setAttempt] = React.useState(0);
   React.useEffect(() => {
     const target = host.current;
@@ -131,16 +132,19 @@ function Post({
     target.replaceChildren(attemptTarget);
     setEmbedded(false);
     setFailed(false);
+    setLoading(false);
     const observer = new IntersectionObserver(
       (entries) => {
         if (!entries.some((entry) => entry.isIntersecting)) return;
         observer.disconnect();
+        setLoading(true);
         void loadWidgets(attempt > 0)
           .then((api) => {
             if (!active) return undefined;
             widgetTimeout = window.setTimeout(() => {
               active = false;
               attemptTarget.remove();
+              setLoading(false);
               setFailed(true);
             }, 15000);
             return api.widgets.createTweet(post.externalId, attemptTarget, {
@@ -153,6 +157,7 @@ function Post({
           .then((element) => {
             window.clearTimeout(widgetTimeout);
             if (!active) return;
+            setLoading(false);
             if (element) setEmbedded(true);
             else {
               attemptTarget.remove();
@@ -162,6 +167,7 @@ function Post({
           .catch(() => {
             window.clearTimeout(widgetTimeout);
             if (active) {
+              setLoading(false);
               attemptTarget.remove();
               setFailed(true);
             }
@@ -220,6 +226,11 @@ function Post({
         </p>
       )}
       <div ref={host} className="official-post" />
+      {loading && (
+        <p role="status" className="m-0 text-xs text-[var(--secondary)]">
+          Loading X media…
+        </p>
+      )}
       {failed && (
         <div className="x-media-error flex flex-wrap items-center gap-x-3 gap-y-1">
           <p role="status" className="m-0 text-xs text-[var(--secondary)]">
