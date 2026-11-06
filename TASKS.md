@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Headline-only prose (1023): Nov 6 Tech summaries quoted a post title then repeated its claim. Story editor v12 requests a direct attributed sentence, preserving allegations; fake-only verification, production prose awaits the next scheduled edition.
+
 - [x] Bluesky admission decision (1022): isolated real-ledger regression proves reordered holds change X admission; retained sequential production to protect edition quality. No paid calls or latency claim.
 
 - [x] Reader layout spec alignment (1021): corrected stale two-column desktop diagram to the approved and deployed full-width post rows; runtime preserved.

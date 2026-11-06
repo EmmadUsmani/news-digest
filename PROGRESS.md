@@ -1,26 +1,3 @@
-## 2026-11-06: iteration 1006 — defer unsupported continuing-coverage links
-
-- Started clean on main; no leftover work. Alerts clear, health/DB/Redis green; API/worker active, sources check passed, no failed digest runs. Next scheduled edition 15:00 UTC.
-- Read all four topics in the latest saved edition, still Nov 5. World's limited breadth remains the largest weakness; deployed fix awaits Nov 6 evidence.
-- Reader weakness: following continuing World coverage requires finding the prior edition manually. Owner value: test whether saved citations can support useful direct navigation before building it.
-- Compared Nov 5/4 original and coverage URLs within each topic: 17/14 stories, 32/29 per-story unique URLs, zero matching pairs with literal or existing ingestion canonicalization.
-- Documented the result and deferred exact-URL links in docs/ideas.md; no semantic matching, publisher fetches, paid calls or runtime changes. Stop this investigation until new evidence/approval.
-- Archived iterations 988–989 to keep PROGRESS small. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
-- No service restarts during the 13:00–16:00 freeze; running code unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration tests); pnpm build; git diff --check all passed.
-- Next: Nov 6 edition/World/cost/Bluesky review after publication; fresh X round after 21:00 UTC; fixed search OFF.
-
-## 2026-11-06: iteration 1007 — scope corrections for saved editions
-
-- Started clean on main; no leftover work. Alerts clear, health/DB/Redis green, API/worker active, all 36 sources healthy; no failed digest runs. Historical collection failures have subsequent healthy source checks.
-- Read all four saved Nov 5 topics; World breadth remains the largest weakness and awaits the deployed fix's Nov 6 output. Next edition scheduled 15:00 UTC.
-- Reader weakness: known Sony/GTA errors remain visible in the immutable Nov 5 edition even after prompt fixes. Owner value: returning readers could see an explicit correction without silently rewriting their saved edition.
-- Added a bounded manual correction-note proposal with attribution, dated history, protected publishing, acceptance example and 2–3 day estimate; approval required before implementation under item 38. No new editorial audit.
-- No runtime, source, schema, snapshot, prompt, budget or paid-call changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged. No restarts during the deployment freeze; running code unchanged.
-- Archived iterations 990–991 and older completed task markers to keep handoff files small.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration tests); pnpm build; git diff --check all passed.
-- Next: Nov 6 World/full-AI/cost/Bluesky review after publication; X round after 21:00 UTC; fixed search OFF.
-
 ## 2026-11-06: iteration 1008 — scope a saved edition for offline reading
 
 - Started clean on main; no leftover work. Alerts clear; health/DB/Redis green, API/worker active, all 36 sources healthy; no failed digest runs.
@@ -190,3 +167,14 @@
 - Passed pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration, including both admission orders); pnpm build; git diff --check. API/worker restarted; /healthz DB/Redis OK and alerts clear.
 - No UI, source, schema or handbook flow changed; SOURCES and NEEDS_FROM_HUMAN unchanged. No paid calls.
 - Next: fresh X round after 21:00 UTC; reserved Bluesky slot remains OFF awaiting owner. Review deployed summary/repetition fixes at the next scheduled edition.
+
+## 2026-11-06: iteration 1023 — make headline-only summaries direct
+
+- Started clean on main; no leftover work. Alerts clear, /healthz DB/Redis OK, 36 sources and 13 services healthy; no failed digest jobs. Two retained ingestion failures have recovered healthy sources.
+- Read latest saved briefs/stories/posts across all four topics. Tech has two summaries that announce a Hacker News title and then repeat its claim; richer excerpts/repetition fixes already await the next edition.
+- Owner value: readers should get the supported news once, with attribution, rather than two sentences describing a headline.
+- Story editor v12 requests a direct attributed sentence for thin evidence, with a concrete allegation example. Attribution, absence checks, grouping, models and budgets remain intact; saved editions unchanged.
+- Fake-only headline-summary test checks both Sonnet and Haiku paths; golden purpose expectations advance to v12. No generated-prose quality claim or paid calls.
+- Passed pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration); pnpm build; git diff --check. Targeted editor tests passed 19. First check caught stale synthetic replay hash; refreshed only its fingerprint, response unchanged.
+- Archived iterations 1006–1007 to keep PROGRESS small; recorded actual saved weakness and next-edition evaluation in the Nov 6 review. No source/schema/handbook flow change; SOURCES and NEEDS_FROM_HUMAN unchanged.
+- API/worker restart and live health/content verification follow push. Next: inspect next scheduled prose/repetition fixes; fresh X round after 21:00 UTC. Reserved Bluesky slot stays OFF awaiting owner.

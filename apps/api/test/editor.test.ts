@@ -421,8 +421,16 @@ void test('headline-only evidence accepts a concise attributed summary without r
     const result = await h.editor.edit(topic, thin, 1, 'thin-source');
     assert.deepEqual(result?.stories, output.stories);
     assert.equal(h.calls.length, 1);
-    assert.equal(h.calls[0].purpose, 'shortlist-editor-v11');
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v12');
     assert.match(h.calls[0].instructions, /one sentence for thin evidence/);
+    assert.match(
+      h.calls[0].instructions,
+      /State the attributed claim directly/,
+    );
+    assert.match(
+      h.calls[0].instructions,
+      /Preserve the allegation as an allegation/,
+    );
     assert.match(h.calls[0].instructions, /Preserve the full publisher name/);
     assert.match(
       h.calls[0].instructions,
@@ -469,7 +477,7 @@ void test('brief guidance reaches both editors without changing saved factual bu
     );
     assert.deepEqual(result?.brief, output.brief);
     assert.equal(h.calls.length, 1);
-    assert.equal(h.calls[0].purpose, 'shortlist-editor-v11');
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v12');
     assert.match(
       h.calls[0].instructions,
       /not a copied list of the story headlines/,
@@ -618,7 +626,7 @@ void test('editor preserves practical release qualifications in both headline an
     );
     assert.deepEqual(result?.stories, output.stories);
     assert.deepEqual(JSON.parse(h.calls[0].prompt).candidates, input);
-    assert.equal(h.calls[0].purpose, 'shortlist-editor-v11');
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v12');
     assert.match(
       h.calls[0].instructions,
       /qualifications.*both headline and summary/,
