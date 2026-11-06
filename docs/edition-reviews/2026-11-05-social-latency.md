@@ -80,3 +80,36 @@ Fake-only regressions verify equivalent sequential output, one scoring pass,
 zero editor calls when no slot remains, and refusal of incomplete scores.
 This prepares the dependency split; it establishes no live latency improvement.
 Earlier scheduling still needs admission and slot protection before activation.
+
+## Admission proof — iteration 1022
+
+The existing scheduled-reserve integration test now exercises both orders
+against the real PostgreSQL ledger in a disposable test database. It gives the
+owning edition 80,000 microdollars of available allowance, then requests a
+20,001-microdollar social-triage hold and a 60,000-microdollar editor hold:
+
+| Order                                    | First hold | Second hold |
+| ---------------------------------------- | ---------- | ----------- |
+| Earlier Bluesky scoring, then X editing  | admitted   | refused     |
+| Existing X editing, then Bluesky scoring | admitted   | refused     |
+
+These are synthetic reservation amounts, not observed provider costs. The
+first hold is explicitly released between orders. Both calls use the same
+trusted scheduled attempt and edition identity. No provider is contacted.
+The scheduled reserve protects the edition against other runs; it does not
+earmark money for particular stages inside that edition. Even a guaranteed
+open post slot therefore cannot make the two admission orders equivalent.
+Outstanding calls consume allowance before settlement, so concurrent starts
+can cause this difference even if their final costs would both fit.
+
+**Decision:** keep the production sequence. The separated final editor is
+usable, but early paid scoring is not safe under the existing shared ledger.
+Do not enable it merely after proving slot availability or enabling a reserved
+slot. A future implementation must protect outstanding X editing and possible
+repair reservations before admitting earlier Bluesky work, or use exact cached
+scores without reserving paid work. Neither behavior is implemented here.
+Do not keep revisiting this ordering question without such an implementation.
+
+The Nov 6 review supersedes the Nov 5 slot situation: three topics had no open
+slot and only World scored Bluesky. Its reserved-slot cost gate failed; that
+flag remains off. No latency gain or production admission change is claimed.

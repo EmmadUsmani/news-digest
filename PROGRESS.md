@@ -178,3 +178,15 @@
 - Passed pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration tests); pnpm build; git diff --check. API/worker restarted, health and alerts clear. Archived iterations 1004–1005 to keep this file small.
 - SOURCES, handbook and NEEDS_FROM_HUMAN unchanged: no source, system flow or new owner dependency.
 - Next: safe admission/slot proof before earlier Bluesky scoring; fresh X comparison after 21:00 UTC. No paid calls or latency improvement claimed.
+
+## 2026-11-06: iteration 1022 — prove the early Bluesky admission hazard
+
+- Started clean on main; no leftover work. Alerts clear, /healthz OK, all 36 sources healthy, no failed retained queue jobs.
+- Read the latest saved stories/posts across all four topics. Tech repetition and headline-limited summaries still await deployed editor/excerpt fixes; World has five distinct stories and one distinct Bluesky post.
+- Owner value: protect X editing quality while pursuing faster editions. Completed the requested admission proof before moving paid Bluesky scoring earlier.
+- Extended the real-ledger isolated regression: with 80,000 microdollars available, a 20,001 social-triage hold refuses a 60,000 editor hold; reversing order admits the editor and refuses triage. Synthetic amounts; no provider calls.
+- Cause: the scheduled reserve protects an edition from other runs, not one stage from another. Guaranteed slots alone cannot preserve admission; outstanding holds count before settlement.
+- Kept production sequential. Future early work needs protected X/repair holds or exact cache-only scoring; documented the decision so later iterations do not repeat this investigation. No latency gain claimed.
+- Passed pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration, including both admission orders); pnpm build; git diff --check. API/worker restarted; /healthz DB/Redis OK and alerts clear.
+- No UI, source, schema or handbook flow changed; SOURCES and NEEDS_FROM_HUMAN unchanged. No paid calls.
+- Next: fresh X round after 21:00 UTC; reserved Bluesky slot remains OFF awaiting owner. Review deployed summary/repetition fixes at the next scheduled edition.

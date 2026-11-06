@@ -94,6 +94,30 @@ void test('reserve admission serializes competing spend and fences scheduled pri
       null,
     );
     assert.equal(await contextualLedger.reserve(request, 1), null);
+    // A guaranteed Bluesky slot does not earmark money for X editing.
+    // Both stages share the owning edition's allowance: moving Bluesky
+    // ahead can refuse an X call that the sequential path would admit.
+    const earlyBluesky = await withScheduledAttempt(
+      runId,
+      claimed.attempt,
+      () =>
+        withEditionRun(runId, request.runId, () =>
+          contextualLedger.reserve(
+            { ...request, purpose: 'social-triage' },
+            20001,
+          ),
+        ),
+    );
+    assert.ok(earlyBluesky);
+    assert.equal(
+      await withScheduledAttempt(runId, claimed.attempt, () =>
+        withEditionRun(runId, request.runId, () =>
+          contextualLedger.reserve(request, 60000),
+        ),
+      ),
+      null,
+    );
+    await ledger.fail(earlyBluesky, 'synthetic-ordering-proof', false, false);
     const scheduled = await withScheduledAttempt(runId, claimed.attempt, () =>
       withEditionRun(runId, request.runId, () =>
         contextualLedger.reserve(request, 60000),
@@ -101,6 +125,17 @@ void test('reserve admission serializes competing spend and fences scheduled pri
     );
     assert.equal(scheduledLedgerContext(), undefined);
     assert.ok(scheduled);
+    assert.equal(
+      await withScheduledAttempt(runId, claimed.attempt, () =>
+        withEditionRun(runId, request.runId, () =>
+          contextualLedger.reserve(
+            { ...request, purpose: 'social-triage' },
+            20001,
+          ),
+        ),
+      ),
+      null,
+    );
     await ledger.fail(scheduled, 'fixture-uncertain', false, true);
     // Uncertain holds consume actual daily allowance even for the owner slot.
     assert.equal(await ledger.reserve(request, 20001), null);
