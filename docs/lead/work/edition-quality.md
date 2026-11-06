@@ -14,6 +14,8 @@
 - Check the Nov 6 edition: does World get more stories, and what did it cost?
   The budget check passed by only about $0.009, so watch for AI steps refused.
 - Check editor v5 kept separate developments out of one story.
+- Item 42 (steered Nov 6): while other items wait, the agent reads the latest
+  edition as a reader and fixes the biggest weakness. Check its PROGRESS.md entries.
 
 **Watching:** Bluesky had no picks on Nov 5. Speed target of 60 seconds is unmet,
 and low priority.
