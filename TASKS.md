@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Visible current contents (1029, item 33): short desktop windows reveal the active story/post entry by scrolling only the contents panel, preserving the edition reading position.
+
 - [x] Compact post timestamps (1028, item 33): X, Bluesky and Reddit cards share refreshing relative ages with exact saved timestamps retained for hover and screen readers.
 
 - [x] Inline grouped outlets (1027, item 33): collapsed coverage shares the source/time row; +N outlets expands every saved report. Full article count retained for hover/accessibility; desktop/mobile light/dark verified.

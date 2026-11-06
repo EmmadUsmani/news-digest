@@ -11,6 +11,7 @@ const topicAnchor = (id: string) => `topic-${id}`;
 export function ReaderContents({ topics }: { topics: Topic[] }) {
   const [active, setActive] = useState('');
   const chips = useRef<HTMLDivElement>(null);
+  const sidebar = useRef<HTMLDivElement>(null);
   const selectedTarget = useRef<string | null>(null);
   useEffect(() => {
     const targets = topics.flatMap((topic) => [
@@ -67,6 +68,20 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
         ...topic.stories.map((story) => `story-${story.id}`),
       ].includes(active),
     ) ?? topics[0];
+  useEffect(() => {
+    const container = sidebar.current;
+    const entry = container?.querySelector<HTMLElement>(
+      '[aria-current="location"]',
+    );
+    if (!container || !entry || container.clientHeight === 0) return;
+    const bounds = entry.getBoundingClientRect();
+    const viewport = container.getBoundingClientRect();
+    // Reveal the current entry without scrolling the edition itself.
+    if (bounds.top < viewport.top)
+      container.scrollTop += bounds.top - viewport.top;
+    else if (bounds.bottom > viewport.bottom)
+      container.scrollTop += bounds.bottom - viewport.bottom;
+  }, [active]);
   useEffect(() => {
     const container = chips.current;
     const chip = container?.querySelector<HTMLElement>(
@@ -146,7 +161,10 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
   );
   return (
     <>
-      <div className="sticky top-24 hidden max-h-[calc(100vh-7rem)] w-60 shrink-0 self-start overflow-y-auto pr-5 lg:block">
+      <div
+        ref={sidebar}
+        className="sticky top-24 hidden max-h-[calc(100vh-7rem)] w-60 shrink-0 self-start overflow-y-auto pr-5 lg:block"
+      >
         {contents(false)}
       </div>
       <div className="fixed inset-x-0 top-[65px] z-20 flex items-center gap-2 border-b border-[var(--border)] bg-[var(--background)] px-4 py-2 lg:hidden">

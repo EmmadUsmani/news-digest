@@ -162,3 +162,13 @@
 - API/worker restarted; /healthz DB/Redis OK, all 36 sources and 13 services healthy, alerts clear. Browser checks confirmed saved edition unchanged; no paid calls or source/schema/handbook-flow changes.
 - Archived iterations 1012–1013 to keep PROGRESS small. SOURCES and NEEDS_FROM_HUMAN unchanged.
 - Next: continue final reader spec; approved Bluesky slot activation pending under Current order; fresh X round after 21:00 UTC.
+
+## 2026-11-06: iteration 1029 — keep current contents visible
+
+- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; alerts clear and /healthz DB/Redis OK.
+- Reproduced a reader weakness at 1280×400: World's active Posts entry ended at y=508 below the contents panel's y=384 edge. The panel now reveals the active entry in either direction without moving the edition.
+- Added read-only saved-edition Playwright regression for short desktop light/dark, both scroll directions and stable reading position; screenshots updated and light visually inspected. Broader desktop/mobile light/dark reader layout checks passed.
+- Passed pnpm format; pnpm lint:fix; pnpm build; pnpm exec tsx scripts/smoke-reader-short-contents.ts; pnpm exec tsx scripts/smoke-reader-layout.ts; git diff --check.
+- pnpm check passed static checks and 562 unit tests, then exited 143 during integration; standalone pnpm test:integration passed all 225 cases (exit 0).
+- API/worker restarted; health and alerts clear; saved edition retains four topics, 20 stories and 17 posts. No paid calls or source/schema/handbook-flow changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Next: continue approved reader completion; approved Bluesky slot activation pending under Current order; fresh X round after 21:00 UTC. Investigate recurring combined-check signal 143 if it persists; standalone integration remains the verification fallback.

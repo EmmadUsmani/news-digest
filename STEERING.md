@@ -1646,3 +1646,5 @@ ack: 2026-11-06 item 33/43 — iteration 1026: reader story cards now show compa
 ack: 2026-11-06 item 33/43 — iteration 1027: readers can expand compact +N grouped outlets from the source/time row, saving a row per collapsed story; every saved report and exact time remains available. Desktop/mobile light/dark verified; no paid calls.
 
 ack: 2026-11-06 item 33/43 — iteration 1028: readers can scan compact relative publication times on X, Bluesky and Reddit cards, with exact timestamps on hover and for screen readers. Desktop/mobile light/dark verified; no paid calls.
+
+ack: 2026-11-06 item 33/43 — iteration 1029: readers on short desktop windows can keep the current story/post visible in the independently scrolling contents panel; edition position stays fixed. Light/dark and both scroll directions verified; no paid calls.
