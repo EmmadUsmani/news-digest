@@ -147,3 +147,12 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-archive.ts; smoke-reader-layout.ts; smoke-admin-gate.ts; check-handbook.ts 08-operations; git diff --check.
 - First full check exited 143 during integration after 543 unit passes. Retry caught formatting in the newly archived progress entries; corrected it. Final full check exited zero: 543 unit and 224 isolated integration tests passed, with coverage completed.
 - Rebuilt/restarted API/worker/docs/schema; health green, alerts clear, all sources healthy and zero retained failed digest jobs. Next: Nov 6 World/composition/cost review and Bluesky gate after publication; X round after 21:00 UTC. Experimental flags stay OFF.
+
+## 2026-11-06: iteration 929 — restore archive recovery verification
+
+- Started clean on main; no leftover work. Worker scrape alert briefly pending after restart, metrics HTTP 200 and worker active; alert cleared without intervention. Health/database/Redis green.
+- Reader weakness: the existing failed-history recovery check still targeted the deleted inline history, leaving archive failure recovery unverified. Ported it to archive routes and current controls; no product behavior or content changes.
+- Browser replay uses real saved content with simulated pagination/failures: failed-page escape, retry to empty last page, return and edition opening across desktop/mobile light/dark. No writes; saved edition unchanged. Refreshed recovery screenshots.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-history-recovery.ts; git diff --check. Browser replay passed all four viewport/theme combinations; inspected mobile dark and desktop light screenshots. First full check exited 143 during integration after 543 unit passes; retry exited zero: 543 unit and 224 isolated integration tests passed, coverage completed; build passed.
+- Rebuilt/restarted API/worker/docs/schema; all active, reader HTTP 200 and health/database/Redis green. All 36 sources healthy and zero retained failed digest jobs.
+- Nov 6 World/Bluesky review and X round after 21:00 UTC remain time-gated; no paid calls or flag changes. SOURCES, handbook and NEEDS_FROM_HUMAN unchanged.

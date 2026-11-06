@@ -56,49 +56,52 @@ async function smoke() {
           }
           return route.continue();
         });
-        await page.goto(base);
-        await page.locator('.digest-topic').first().waitFor();
-        await page.locator('.edition-history summary').click();
-        const newer = page.getByRole('button', {
-          name: 'Newer editions',
-          exact: true,
-        });
-        const older = page.getByRole('button', {
-          name: 'Older editions',
-          exact: true,
-        });
+        await page.goto(`${base}/editions`);
+        await page.locator('main li').first().waitFor();
+        const newer = page.getByRole('link', { name: /Newer editions/ });
+        const older = page.getByRole('link', { name: /Older editions/ });
         await older.click();
         await page
-          .getByRole('button', { name: 'Retry history', exact: true })
+          .getByRole('button', { name: 'Try again', exact: true })
           .waitFor();
         assert.ok(attempts >= 1);
-        assert.equal(await newer.isEnabled(), true);
-        assert.equal(await older.isDisabled(), true);
-        await page.locator('.history-pages').scrollIntoViewIfNeeded();
+        assert.equal(await newer.isVisible(), true);
+        assert.equal((await older.count()) === 0, true);
+        await page
+          .getByRole('navigation', { name: 'Edition pages' })
+          .scrollIntoViewIfNeeded();
         await page.screenshot({
           path: `docs/screenshots/ui/history-recovery-${device}-${theme}.png`,
         });
         await newer.click();
-        await page.locator('.edition-history li').first().waitFor();
-        assert.equal(await newer.isDisabled(), true);
+        await page.locator('main li').first().waitFor();
+        assert.equal((await newer.count()) === 0, true);
         // A failed page can also recover through Retry, including an empty last page.
         await older.click();
         const retry = page.getByRole('button', {
-          name: 'Retry history',
+          name: 'Try again',
           exact: true,
         });
         await retry.waitFor();
         fail = false;
         await retry.click();
         await page
-          .getByText('No saved editions on this page.', { exact: true })
+          .getByText('No editions on this page.', { exact: true })
           .waitFor();
-        assert.equal(await older.isDisabled(), true);
+        assert.equal((await older.count()) === 0, true);
         await newer.click();
-        await page.locator('.edition-history li').first().waitFor();
+        await page.locator('main li').first().waitFor();
+        await page
+          .locator(`a[href="/editions/${history.entries[0].id}"]`)
+          .click();
+        await page.locator('.digest-topic').last().waitFor();
         assert.equal(
           await page.locator('.digest-topic').count(),
           edition.topics.length,
+        );
+        assert.ok(
+          attempts >= 3,
+          'Both failures and the successful retry reached page two',
         );
         assert.deepEqual(writes, []);
         assert.deepEqual(errors, []);
