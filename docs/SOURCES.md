@@ -677,14 +677,9 @@ It uses one enabled topic's stored curated handles (1–20) and UTC date-only bo
 The prompt requests one keyword search/five results and avoids profiles/threads;
 these prompt requests do not guarantee a maximum fetched-item cost.
 
-`discover-x.ts TOPIC_ID FROM_DATE TO_DATE` is dry run by default. Explicit
-`X_DISCOVERY_LIVE=1` enables one direct authenticated POST to api.x.ai, without
-retries, redirects or alternate routes. It reserves $0.40 before HTTP; no paid
-scheduler is connected. Current docs say output token limits exclude reasoning,
-so neither that limit nor max_turns provides a dollar ceiling. Measure before
-scheduling or shrinking the reservation. Ordinary input rates include cached
-input conservatively; cumulative input at least 200k doubles input/output rates,
-a conservative proxy for the per-context long-input tier.
+The obsolete manual curated-account command was removed in iteration 1056.
+Production accepts only fixed keyword requests; historical request builders
+remain available for replay tests.
 
 Settlement requires actual `x_posts_fetched` and `x_users_fetched` counters;
 missing/invalid usage, transport failures, 429 and 5xx retain charged uncertainty.
@@ -2170,3 +2165,7 @@ The production scheduler is now covered against the real isolated PostgreSQL led
 
 - Deleted the unused pre-keyword scheduler, optional follow-up orchestration and story-reaction request planner, with their obsolete tests. The production keyword runtime and saved account lists are unchanged.
 - Historical experiment story inputs and replay tests remain; ledger history is retained. Adapter branch cleanup remains before activation. Fixed search stays OFF; no paid calls or edition writes.
+
+### Restrict production adapter — iteration 1056 (2026-11-06)
+
+Production now rejects legacy open-topic, account and reaction requests before HTTP. Historical dispatch is isolated in a replay adapter; the obsolete manual curated-account paid command is removed. Keyword results still retain ten citations and engagement observations, and logs identify keyword discovery. Fixed search remains OFF; no paid calls or edition writes.

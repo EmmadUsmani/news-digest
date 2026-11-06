@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { DirectXSearch } from '../src/modules/social/adapters/x-search';
+import { HistoricalXSearch as DirectXSearch } from '../src/modules/social/adapters/historical-x-search';
 import { readReportedEngagement } from '../src/modules/social/adapters/x-search-engagement';
 
 const id = '2117000000000000001';

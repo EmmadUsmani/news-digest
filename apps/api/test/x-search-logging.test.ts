@@ -4,7 +4,7 @@ import { test } from 'node:test';
 import type { Job } from 'bullmq';
 
 import { createLogger, logJob } from '../src/libs/observability/logging';
-import { DirectXSearch } from '../src/modules/social/adapters/x-search';
+import { HistoricalXSearch as DirectXSearch } from '../src/modules/social/adapters/historical-x-search';
 
 const request = {
   topic: 'private topic',

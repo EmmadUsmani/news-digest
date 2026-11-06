@@ -1,15 +1,5 @@
 # Progress
 
-## 2026-11-06: iteration 1040 — weekday in the reader header
-
-- Advanced item 33/43 while X rounds wait until after 21:00 UTC. Started clean on main; no leftovers; alerts clear and health DB/Redis OK.
-- Desktop edition dates now include the weekday from the approved header spec; mobile dates retain their compact month/day display and accessible year.
-- Read-only Playwright date/overflow check passed desktop/mobile light/dark; archive smoke passed older/newer navigation, reload, paging and error/retry. Four date screenshots updated; desktop light and mobile dark visually inspected.
-- Initial browser assertion included the mobile screen-reader-only year; corrected the assertion to inspect the visible date text. No product defect or external calls.
-- All 36 sources healthy; no failed retained digest runs; latest saved edition four topics/20 stories/17 posts. No paid calls. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes.
-- Verification: pnpm build; node /tmp/news-digest-1040-browser.cjs; pnpm exec tsx scripts/smoke-reader-archive.ts; pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration, exit 0); git diff --check. API/worker restarted; health DB/Redis OK and alerts clear.
-- Archived iteration 1024 to keep this log small. Next: continue final reader; fresh X round after 21:00 UTC; approved Bluesky reserved-slot activation pending under Current order. Fixed search OFF.
-
 ## 2026-11-06: iteration 1041 — group source controls before publication time
 
 - Advanced item 33/43 while X rounds wait until after 21:00 UTC. Started clean on main; no leftovers; alerts clear and health DB/Redis OK.
@@ -166,3 +156,12 @@
 - Next: remaining adapter branch cleanup, then activate for Nov 7; three-edition acceptance remains open.
 - Passed pnpm format, pnpm lint:fix, pnpm build and full pnpm check (535 unit/226 isolated integration; exit 0); git diff --check clean.
 - API/worker restarted active; health DB/Redis OK, alerts clear and saved four-topic edition readable; digest queue available with zero failures. No human blocker.
+
+## 2026-11-06: iteration 1056 — restrict production X adapter to keywords
+
+- Started clean on main; no leftovers; alerts clear, DB/Redis healthy, all 36 sources OK and digest queue zero failures.
+- Production rejects legacy open/account/reaction requests before HTTP; moved historical dispatch into a replay adapter and removed obsolete manual curated-account paid command. Keyword logs now identify keyword discovery.
+- Added no-HTTP rejection coverage; retained ten-citation/engagement production proof and historical five-result replay. No paid calls or edition writes; fixed search remains OFF.
+- Focused tests 9/9; initial broad direct runner correctly rejected DB tests without isolation. Full pnpm check passed 536 unit/226 isolated integration tests (exit 0).
+- Passed pnpm format, pnpm lint:fix, pnpm build, handbook check (18 pages/28 tables) and git diff --check. Updated TASKS/SOURCES/social handbook; archived iteration 1040.
+- Next: activate approved keyword rollout for Nov 7; three-edition acceptance remains open. No human blocker.

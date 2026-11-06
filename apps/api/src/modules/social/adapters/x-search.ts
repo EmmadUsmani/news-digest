@@ -8,8 +8,6 @@ import {
   type XSearchPort,
   type XSearchRequest,
 } from '../domain/x-search.port';
-import { baseXSearchBody } from './x-search-body';
-import { xSearchComparisonBody } from './x-search-comparison';
 import { readReportedEngagement } from './x-search-engagement';
 import { xSearchTimeoutMs, xSearchUsageSchema } from './x-search-usage';
 import {
@@ -38,15 +36,9 @@ const citationsSchema = z.object({
   ),
 });
 export function xSearchBody(request: XSearchRequest) {
-  if (request.fixedSearch) {
-    const { style, settings, rankedStoryTitles } = request.fixedSearch;
-    if (!['reactions', 'trending'].includes(style))
-      throw new Error('Invalid fixed X search style');
-    return style === 'trending'
-      ? viralXSearchBody(request, settings)
-      : xSearchComparisonBody(request, style, settings, rankedStoryTitles);
-  }
-  return baseXSearchBody(request);
+  if (request.fixedSearch?.style !== 'trending')
+    throw new Error('Production X search requires fixed keyword discovery');
+  return viralXSearchBody(request, request.fixedSearch.settings);
 }
 
 // Direct authenticated inference is separate from the public GET-only ingestion client.
@@ -60,19 +52,25 @@ export class DirectXSearch implements XSearchPort {
     this.send = measuredFetch('xai', send);
     if (!key.trim()) throw new Error('X search key unavailable');
   }
+  protected buildBody(request: XSearchRequest) {
+    return xSearchBody(request);
+  }
   async search(request: XSearchRequest) {
-    const body = xSearchBody(request);
+    const body = this.buildBody(request);
     const started = performance.now();
     let status: number | undefined;
     const fields = {
       event: 'external.call',
       target: 'xai',
       model: body.model,
-      searchType: request.reactionStory
-        ? 'story-reactions'
-        : request.handles === undefined
-          ? 'open'
-          : 'account-list',
+      searchType:
+        request.fixedSearch?.style === 'trending'
+          ? 'keyword'
+          : request.reactionStory
+            ? 'story-reactions'
+            : request.handles === undefined
+              ? 'open'
+              : 'account-list',
     };
     try {
       const result = await this.perform(

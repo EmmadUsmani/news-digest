@@ -2,9 +2,9 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import {
-  DirectXSearch,
+  HistoricalXSearch as DirectXSearch,
   xSearchBody,
-} from '../src/modules/social/adapters/x-search';
+} from '../src/modules/social/adapters/historical-x-search';
 import { searchX } from '../src/modules/social/application/search-x';
 import { PostgresSocialRepository } from '../src/modules/social/database/social.repository';
 import { PostgresXDiscoveryLedger } from '../src/modules/social/database/x-discovery.ledger';

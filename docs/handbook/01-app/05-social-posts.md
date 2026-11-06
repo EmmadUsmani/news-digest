@@ -33,7 +33,7 @@ flowchart LR
 
 - **Paid search is switched off** while the keyword rollout is prepared.
   The worker has no fallback to the old open search, story reactions or
-  account-list follow-ups.
+  account-list follow-ups; the adapter rejects them. Old builders remain for replay.
 - **Keyword search:** when enabled, runs 5–30 minutes before the edition,
   weakest topic first. Grok writes fresh keywords from each topic's guidance;
   code supplies the engagement thresholds and exact edition window.

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { xSearchBody } from '../src/modules/social/adapters/x-search';
+import { xSearchBody } from '../src/modules/social/adapters/historical-x-search';
 import { planScheduledSearch } from '../src/modules/social/domain/scheduled-search';
 
 const topic = (id: string, freePosts: number) => ({

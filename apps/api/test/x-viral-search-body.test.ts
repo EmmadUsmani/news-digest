@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
+import { HistoricalXSearch } from '../src/modules/social/adapters/historical-x-search';
 import { DirectXSearch } from '../src/modules/social/adapters/x-search';
 import { viralXSearchBody } from '../src/modules/social/adapters/x-viral-search-body';
 import { planFixedSearchSchedule } from '../src/modules/social/domain/fixed-search-schedule';
@@ -124,5 +125,33 @@ void test('fake provider citations retain all ten posts for viral search; legacy
     result.reportedEngagement?.at(-1)?.externalId,
     result.links.at(-1)?.externalId,
   );
-  assert.equal((await adapter.search(request)).links.length, 5);
+  assert.equal(
+    (await new HistoricalXSearch('fixture-key', send).search(request)).links
+      .length,
+    5,
+  );
+});
+
+void test('production rejects legacy styles before HTTP', async () => {
+  let calls = 0;
+  const search = new DirectXSearch('fixture-key', async () => {
+    calls++;
+    throw new Error('Unexpected HTTP');
+  });
+  for (const legacy of [
+    request,
+    { ...request, handles: ['NBA'] },
+    { ...request, reactionStory: { id: 'story', title: 'NBA final' } },
+    {
+      ...request,
+      fixedSearch: {
+        style: 'reactions' as const,
+        settings,
+        rankedStoryTitles: ['NBA final'],
+      },
+    },
+  ]) {
+    await assert.rejects(search.search(legacy), /requires fixed keyword/);
+  }
+  assert.equal(calls, 0);
 });

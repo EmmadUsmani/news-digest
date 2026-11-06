@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { xSearchBody } from '../src/modules/social/adapters/x-search';
+import { xSearchBody } from '../src/modules/social/adapters/historical-x-search';
 import { xSearchComparisonBody } from '../src/modules/social/adapters/x-search-comparison';
 
 const request = {
