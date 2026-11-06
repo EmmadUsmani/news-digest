@@ -1495,3 +1495,5 @@ ack: 2026-11-06 item 42 — iteration 952: World's Guardian US/World feeds fille
 ack: 2026-11-06 item 42 — iteration 953: Gaming’s image-dependent release-date post showed only a retry button when X media failed. Explain the missing media beside the retry while retaining saved text/context; verified failure and recovery in desktop/mobile light/dark with local widgets. No spend or selection changes.
 
 ack: 2026-11-06 item 42 — iteration 954: changing theme rebuilt X media and closed the saved text a reader had opened. Preserve the disclosure choice through media reloads; saved Gaming content verified across desktop/mobile light/dark with local widgets. No spend or selection changes.
+
+ack: 2026-11-06 item 42 — iteration 955: World’s expanded coverage mixed Nov 4 and Nov 5 reports without dates. Show each report’s saved publication date and local time; saved-content browser checks passed across desktop/mobile light/dark. No spend or selection changes.

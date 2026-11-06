@@ -1,15 +1,3 @@
-## 2026-11-06: iteration 939 — restore malformed reader/archive response recovery
-
-- Started clean on main; alerts clear, health/database/Redis green and all app services active. No leftover work.
-- Nov 6 edition/Bluesky evidence and 21:00 UTC X round remain time-gated. Latest saved edition retains the known World breadth/Tech grouping issues awaiting deployed fixes' publication evidence.
-- Found and reproduced an existing verification breakage: smoke-reader-invalid-data timed out clicking the deleted inline-history panel.
-- Ported the replay to the archive and current retry controls. Owner value: retain proof that unreadable responses show an error and let readers recover their saved edition through a working archive link.
-- Browser-only malformed JSON/schema responses; verify one request before manual retry, empty invalid content, saved links and subsequent real edition navigation. Third-party requests blocked; no writes or paid calls.
-- Verification: pnpm exec tsx scripts/smoke-reader-invalid-data.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check. Final results below.
-- Updated TASKS and reader/archive error screenshots (inspected mobile light archive and desktop dark reader); archived iteration 924 and compacted old done markers. No system-flow change; SOURCES/handbook/STEERING/NEEDS_FROM_HUMAN unchanged.
-- Next: Nov 6 World/cost/Bluesky review after publication, X round after 21:00 UTC; keep fixed search and reserved-slot flags off.
-- Final check passed (543 unit/224 isolated integration tests); build and eight browser cases passed. Initial check caught an archived entry formatted after the main formatter; fixed and full rerun passed. Services/source/job/health/alerts checked around restart.
-
 ## 2026-11-06: iteration 940 — original posts before editorial context
 
 - Started clean on main; alerts clear and health/database/Redis green. No leftover work; Nov 6 edition review and 21:00 UTC X round remain time-gated.
@@ -176,3 +164,14 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm build; check-handbook.ts 08-operations; smoke-reader-x-media.ts passed. Full pnpm check result recorded below.
 - API/worker/docs/schema restarted. Next: Nov 6 World/cost/Bluesky review after publication; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.
 - Final: pnpm check passed (543 unit/224 isolated integration tests); build, handbook and four-view browser replay passed. Services active, health green and alerts clear; git diff --check passed.
+
+## 2026-11-06: iteration 955 — date grouped coverage reports
+
+- Started clean on main; health/database/Redis green, alerts clear and 36/36 sources current. Latest scheduled digest completed. Two retained ingestion failures date to Nov 1–2; subsequent collection recovered.
+- Read all four saved topics. World breadth/Tech grouping await Nov 6 publication; World’s expanded coverage combines Nov 4/5 reports without identifying their dates.
+- Owner value: show each report’s publication date and local time so earlier coverage can be distinguished from updates. All saved titles, sources and links preserved; no paid calls, collection or flag changes.
+- Extended saved-edition layout replay to check every grouped report’s visible timestamp and exact saved datetime in desktop/mobile light/dark. Four coverage screenshots updated; inspected mobile light.
+- Updated TASKS, STEERING ack and operations handbook; archived iteration 939. SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check. Final check/restart results below.
+- Next: Nov 6 edition/Bluesky cost and quality review after publication; X round after 21:00 UTC. Fixed search and reserved slot remain off.
+- Final: pnpm check passed (543 unit/224 isolated integration tests); build, four-view browser replay, handbook and diff checks passed. API/worker/docs/schema restarted active, health green and alerts clear.

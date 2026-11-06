@@ -129,6 +129,22 @@ async function smoke() {
             const card = page.locator(`[id="story-${story.id}"]`);
             assert.equal(await card.locator('h3').innerText(), story.title);
             const sources = card.locator('.story-sources');
+            if ((story.coverage?.length ?? 0) > 1) {
+              await card.locator('.coverage summary').click();
+              const times = card.locator('.coverage time');
+              assert.deepEqual(
+                await times.evaluateAll((nodes) =>
+                  nodes.map((node) => node.getAttribute('datetime')),
+                ),
+                story.coverage!.map((article) => article.publishedAt),
+                'Every grouped report retains its saved publication time',
+              );
+              for (const time of await times.all()) {
+                assert.ok(await time.isVisible());
+                assert.ok((await time.innerText()).trim().length > 0);
+              }
+              await card.locator('.coverage summary').click();
+            }
             const expected = new Map<string, string>();
             const primary = story.coverage?.find(
               (article) => article.url === story.url,

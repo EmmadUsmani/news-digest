@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Grouped report dates (955): expanded coverage shows each saved report’s publication date and local time, distinguishing earlier coverage from updates.
+
 - [x] Saved X text continuity (954): preserve opened/collapsed saved post text through theme-driven media reloads; saved-edition browser recovery covers both choices.
 
 - [x] X media failure clarity (953): cards explain unavailable media while preserving saved text/context and retry; saved-edition recovery verified in four device/theme views.

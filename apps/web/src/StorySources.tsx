@@ -55,6 +55,12 @@ export function StorySources({
                   {article.title}
                 </a>
                 <span className="flex flex-wrap gap-x-3 gap-y-1">
+                  <time dateTime={article.publishedAt}>
+                    {new Date(article.publishedAt).toLocaleString(undefined, {
+                      dateStyle: 'medium',
+                      timeStyle: 'short',
+                    })}
+                  </time>
                   {article.sources.map((name) => (
                     <SourceLink key={name} name={name} url={article.url} />
                   ))}
