@@ -406,6 +406,7 @@ function BlueskyImage({
   return failed ? (
     <span className="text-sm text-[var(--secondary)] underline underline-offset-2">
       {video ? 'Preview unavailable' : 'Image unavailable · Open image ↗'}
+      <span className="sr-only">{` — ${alt}`}</span>
     </span>
   ) : (
     <img

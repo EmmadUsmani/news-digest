@@ -1,15 +1,5 @@
 # Progress
 
-## 2026-11-06: iteration 1032 — open mobile contents at the current entry
-
-- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; no leftover work; alerts clear and /healthz DB/Redis OK.
-- Reproduced a 390×400 reader weakness: opening Contents while reading World's Posts left that entry offscreen and focused the first topic. The sheet now reveals/focuses the current entry; keyboard navigation starts where the reader is.
-- Read-only saved-edition browser regression passed in light/dark: current entry visible/focused, Escape restores Contents focus and exact reading position. Screenshots added and light visually inspected. Broader desktop/mobile light/dark reader-layout checks passed, including sheet navigation and deep links.
-- Passed pnpm format; pnpm lint:fix; pnpm build; pnpm exec tsx scripts/smoke-reader-sheet-current.ts; pnpm exec tsx scripts/smoke-reader-layout.ts; git diff --check.
-- API/worker restarted; /healthz DB/Redis OK and alerts clear. Real saved edition retains four topics, 20 stories and 17 posts. No paid calls or source/schema/handbook-flow changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Full pnpm check passed: static checks, 562 unit tests and 225 isolated integration tests (exit 0).
-- Next: continue final reader spec; approved Bluesky slot activation pending under Current order; fresh X round after 21:00 UTC.
-
 ## 2026-11-06: iteration 1033 — compact unavailable X media
 
 - Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; no leftovers, alerts clear and /healthz DB/Redis OK.
@@ -153,3 +143,14 @@
 - Passed pnpm format; pnpm lint:fix; pnpm build; pnpm check (562 unit/225 isolated integration, exit 0); pnpm exec tsx scripts/smoke-post-sizing.ts; git diff --check.
 - Archived iteration 1030 to keep PROGRESS small. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes.
 - API/worker restarted from verified build; /healthz DB/Redis OK, alerts clear; latest saved edition four topics/20 stories/17 posts. Next: continue final reader until fresh X rounds after 21:00 UTC; fixed search OFF.
+
+## 2026-11-06: iteration 1047 — retain failed-image descriptions
+
+- Advanced item 33/43 while X rounds wait until after 21:00 UTC. Started clean on main; alerts clear, all 36 sources healthy, digest queue zero failed runs.
+- Failed Bluesky thumbnails previously replaced their saved alt text with a generic image link. Preserve that description in the link's accessible name so screen-reader readers can identify the image before opening it; video preview descriptions are retained too.
+- Discarded an initial missing-thumbnail change: browser fixture validation showed image thumbnails are required by the contract. No contract expansion or source changes.
+- Updated synthetic browser replay to assert the described failed-image link, original destination and keyboard focus across desktop/mobile light/dark; screenshots refreshed. No paid calls or edition writes.
+- Passed pnpm format; pnpm lint:fix; pnpm build; pnpm check through formatting/typecheck/lint/boundaries and 562 unit tests. Full check exited 143 during integration; separate isolated integration result follows. Rebuilt and reran format/lint after correcting the initial change.
+- Browser commands: pnpm exec tsx scripts/smoke-bluesky-cards.ts; pnpm exec tsx scripts/smoke-reader-bluesky-links.ts; both passed all four views. Screenshots regenerated with no pixel changes; mobile failed-image view inspected.
+- API/worker restarted; /healthz DB/Redis OK, alerts clear, latest edition four topics/20 stories/17 posts. Initial health request preceded socket startup; retry passed. Archived iteration 1032; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
+- Separate pnpm test:integration passed 225/225 (exit 0); git diff --check passed. No blockers; next continue approved reader work until the fresh X round after 21:00 UTC; fixed search OFF.

@@ -1772,3 +1772,5 @@ ack: 2026-11-06 (1043): confirmed memory-reclaim thrash (2.89 million MemoryHigh
 ack: 2026-11-06 item 33/43 — iteration 1045: readers can open original Bluesky images when thumbnails fail, with a clear compact link in place of broken media. Desktop/mobile light/dark failure replay and screenshots verified; no paid calls.
 
 ack: 2026-11-06 item 33/43 — iteration 1046: readers can open an X original directly from its timestamp while saved text is collapsed, matching Bluesky card navigation; desktop/mobile light/dark screenshots in docs/screenshots/ui/post-sizing-*.png.
+
+ack: 2026-11-06 item 33/43 — iteration 1047: Bluesky image links retain saved descriptions when thumbnails fail, so screen-reader users can identify the image before opening it; desktop/mobile light/dark replay verified. No paid calls.

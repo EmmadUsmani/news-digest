@@ -204,7 +204,7 @@ async function main() {
       await page.route('https://cdn.bsky.app/**', (route) => route.abort());
       await page.reload();
       const failedImage = page.getByRole('link', {
-        name: 'Image unavailable · Open image ↗',
+        name: 'Image unavailable · Open image ↗ — Synthetic image',
         exact: true,
       });
       await cards.first().scrollIntoViewIfNeeded();
