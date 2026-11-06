@@ -1,14 +1,3 @@
-## 2026-11-06: iteration 1020 — separate Bluesky scoring from final editing
-
-- Started clean on main; no leftover work. Alerts clear and /healthz DB/Redis OK; X round still waits until 21:00 UTC and reserved slot stays OFF.
-- Read all four latest saved topics. Thin Tech summaries and repeated launches await already deployed excerpt/editor changes; avoided further unmeasured editorial changes.
-- Owner value: reduce the path toward faster editions (137.059 s on Nov 6); isolated slot-independent scoring from final slot/context-dependent editing as the open speed task requests.
-- Final editor now accepts a prepared shortlist; sequential production caller, paid admission and selection remain unchanged. No speculative paid work or measured latency improvement claimed.
-- Fake regressions cover one scoring pass, equivalent wrapper output, zero editing with no slot, incomplete-score refusal and invalid budget rejection.
-- Passed: pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration); pnpm build; git diff --check; read-only Playwright four-topic render. Health, 13 services, 36 sources and digest jobs healthy.
-- No UI, source, schema or handbook flow changes. SOURCES and NEEDS_FROM_HUMAN unchanged; no paid calls. API/worker restarted after build and push.
-- Next: integrate earlier scoring only with evidence of safe admission/slot protection; X fresh-window round after 21:00 UTC.
-
 ## 2026-11-06: iteration 1021 — reconcile the reader post-layout spec
 
 - Started clean on main; no leftover work. Alerts clear, health DB/Redis OK, all 36 sources healthy and no failed digest jobs.
@@ -168,3 +157,13 @@
 - All 36 sources healthy; completed collection jobs and saved edition retain four topics, 20 stories and 17 posts. API/worker restarted and health/alerts verified before commit.
 - Initial push rejected: owner updated B2 steering concurrently. Merged origin/main without conflicts or history changes; owner now caps the backup bucket at 3 GB with tiered retention. Code unchanged; push succeeded.
 - Next: continue final reader spec; approved Bluesky slot activation pending under Current order; fresh X round after 21:00 UTC. Fixed search remains OFF.
+
+## 2026-11-06: iteration 1036 — archive loading layout
+
+- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; no leftovers; alerts clear and /healthz DB/Redis OK.
+- Archive now shows four responsive date-row placeholders instead of a text-only wait, matching saved date/coverage/topic rows. Screen readers receive one loading announcement; placeholders are hidden and have no focus targets.
+- Read-only Playwright replay of saved archive passed loading, saved links, failure/retry recovery and overflow checks desktop/mobile light/dark. Saved four loading screenshots; mobile light and desktop dark visually inspected.
+- Existing archive smoke passed saved links, pagination/reload, empty/error/retry and reader-only requests. Restored its unrelated regenerated screenshots. No external traffic or paid calls.
+- Passed pnpm build; pnpm exec tsx scripts/smoke-reader-archive-loading.ts; pnpm exec tsx scripts/smoke-reader-archive.ts; pnpm format; pnpm lint:fix. First pnpm check stopped on newly archived Markdown formatting; corrected; full rerun passed (562 unit, 225 isolated integration tests, exit 0); git diff --check passed.
+- API/worker restarted; health and alerts clear; all 36 sources healthy. Real saved edition retains four topics, 20 stories and 17 posts. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes.
+- Archived iteration 1020 to keep PROGRESS small. Next: final reader completion; X round after 21:00 UTC; approved Bluesky slot activation remains pending. Fixed search OFF.

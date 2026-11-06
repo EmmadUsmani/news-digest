@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Reader archive loading (1036, item 33): responsive date-row skeletons, accessible loading announcement and saved-link/error/retry transitions verified desktop/mobile light/dark.
+
 - [x] Reader loading layout (1035, item 33): responsive contents/brief/card skeletons replace the blank initial wait; accessible loading status, saved-edition transition and failure recovery verified in desktop/mobile light/dark.
 - [x] Shared reader cards (1034, item 33): post cards now match story padding/corners through the shared component; Posts headings use the approved scale and correct heading level. All platforms verified with desktop/mobile light/dark replay.
 - Earlier completed markers: [through 1033](docs/progress-archive/2026-11-06-reader-done-1034.md).
