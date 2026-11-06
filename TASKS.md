@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Verification interruption triage (927): standalone `pnpm check` exited zero with 543 unit/224 isolated integration tests passing; temporary signal tracing saw no SIGTERM. Earlier exit-143 interruptions did not reproduce; no speculative runner change.
+
 - [x] X reader cards (926): saved text links to the original; removed repeated footer and empty retry spacer. Embed recovery replay updated for current reader markup.
 
 - [x] Saved post context (925): restored editor context in reader API/cards; topic-by-topic saved-edition review recorded. Nov 6 comparison pending.

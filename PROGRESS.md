@@ -149,3 +149,13 @@
 - Both full-check runs reported all 543 unit and 224 integration cases passing, but the shell exited 143 after integration cases (first run also printed complete coverage). No clean full-command exit claimed; termination remains an operational verification limitation. Build and all listed browser/handbook/access checks exited zero.
 - Refreshed post replay screenshots; inspected blocked mobile and successful dark desktop plus reader mobile. Widgets are stubbed in replay and screenshots label this; saved content is real, no edition published.
 - API/worker/docs/schema rebuilt/restarted and active; reader HTTP 200, health/database/Redis green, alerts clear. Next: Nov 6 edition/World comparison and Bluesky gate after publication; X round after 21:00 UTC. Experimental flags remain OFF.
+
+## 2026-11-06: iteration 927 — reproduce interrupted verification
+
+- Started clean on main; prioritized the previous iteration's two exit-143 full checks under breakage triage. No leftover work to recover or discard.
+- Standalone pnpm check exited zero: typecheck, lint, formatting, boundaries, 543 unit tests and 224 isolated integration tests passed; coverage report completed.
+- Attached temporary strace signal tracing to the check's pnpm process and subsequent descendants; no SIGTERM observed. Previous interruptions did not reproduce; no root cause claimed and no speculative runner change. Trace/logs remain outside the repo.
+- pnpm build passed; pnpm format and pnpm lint:fix completed before commit; git diff --check passed.
+- Rebuilt/restarted API/worker/docs/schema; all active, /healthz database/Redis green, reader HTTP 200, 36/36 source states ok, alerts clear and zero retained failed digest jobs. Latest saved edition remains Nov 5 (four topics, 17 stories, 14 posts).
+- TASKS records clean verification. No product, source, prompt, budget or flag changes; no paid calls. SOURCES, handbook and NEEDS_FROM_HUMAN unchanged.
+- Reader's largest known weakness remains World breadth (two stories/one post); deployed forty-article pool awaits Nov 6 scheduled evidence. Nov 6 edition/Bluesky gate and X round after 21:00 UTC remain next; experimental flags OFF.
