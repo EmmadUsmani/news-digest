@@ -58,6 +58,49 @@ async function smoke() {
         await page.goto(origin);
         await page.locator('.digest-topic').last().waitFor();
         await page.evaluate(() => document.fonts.ready);
+        if (device === 'mobile') {
+          await page.setViewportSize({ width: 320, height });
+          const header = page.locator('header');
+          const brand = header.getByRole('link', {
+            name: 'News Digest',
+            exact: true,
+          });
+          const date = header.locator('time');
+          assert.equal(await date.getAttribute('datetime'), edition.windowEnd);
+          assert.equal(
+            await date.locator('..').getAttribute('aria-description'),
+            await page.evaluate(
+              (value) =>
+                new Date(value).toLocaleDateString(undefined, {
+                  dateStyle: 'long',
+                }),
+              edition.windowEnd,
+            ),
+            'The compact date retains its full date in its accessible description',
+          );
+          for (const item of [brand, date.locator(':scope > span').first()]) {
+            assert.ok(
+              await item.evaluate((node) => {
+                const style = getComputedStyle(node);
+                return (
+                  node.getBoundingClientRect().height <=
+                  parseFloat(style.lineHeight) + 1
+                );
+              }),
+              'Small-screen wordmark and edition date stay on one line',
+            );
+          }
+          assert.ok(
+            await header.evaluate(
+              (node) => node.scrollWidth <= node.clientWidth,
+            ),
+            'Small-screen header controls fit inside the reader',
+          );
+          await header.screenshot({
+            path: `docs/screenshots/ui/reader-header-small-${theme}.png`,
+          });
+          await page.setViewportSize({ width, height });
+        }
         assert.equal(
           await page.locator('.digest-topic').count(),
           edition.topics.length,

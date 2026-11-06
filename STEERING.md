@@ -1503,3 +1503,5 @@ ack: 2026-11-06 item 42 — iteration 956: saved topic briefs repeated story hea
 ack: 2026-11-06 item 42 — iteration 957: standalone reports exposed only edition-relative ages; show saved publication dates and local times on every story so readers can distinguish earlier reporting from updates. No spend or selection changes.
 
 ack: 2026-11-06 item 42 — iteration 959: saved post bylines used long numeric dates with seconds, unlike stories. Apply the same concise date and local time format to all post platforms; verify saved timestamps across desktop/mobile light/dark. No spend or selection changes.
+
+ack: 2026-11-06 item 42 — iteration 960: reading the saved edition at 320px showed a two-line wordmark and date. Keep both on one line with a compact mobile date; retain the year for screen readers and wider screens. No spend or selection changes.

@@ -1,15 +1,3 @@
-## 2026-11-06: iteration 943 — focus the content chosen from Contents
-
-- Started clean on main; alerts clear, health/database/Redis green, 36 sources healthy. No leftover work; edition and X reviews remain time-gated.
-- Read the latest saved edition across all four topics; World breadth/Tech grouping await Nov 6 publication evidence.
-- Reader weakness reproduced: desktop Contents left focus on the body; mobile returned focus to the menu button after selecting a story.
-- Made topic/story/post destinations programmatically focusable; mobile selection focuses its destination after the sheet closes. Escape still restores the menu button. Keyboard readers can continue from their chosen content.
-- Extended the existing saved-edition browser replay with Enter, destination focus, Tab to original article and Escape restoration in desktop/mobile light/dark; screenshots refreshed. No paid calls, writes, selection or flag changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx scripts/smoke-reader-layout.ts; pnpm exec tsx scripts/check-handbook.ts 08-operations; git diff --check. Final results below.
-- Updated TASKS, affected handbook and STEERING ack; archived iteration 928. SOURCES/NEEDS_FROM_HUMAN unchanged.
-- Next: Nov 6 edition/Bluesky review after publication; X round after 21:00 UTC. Fixed search and reserved-slot flags stay off.
-- Final pnpm check passed (543 unit/224 isolated integration tests); build, handbook and four-view browser replay passed. First full check caught archive formatting, corrected before the successful rerun. Desktop/mobile Posts focus also verified. Post-restart replay caught a test timing race with dialog focus-scope removal; waiting for teardown fixed it, then repeated four-view replay passed. All four services restarted; health/database/Redis green and alerts clear.
-
 ## 2026-11-06: iteration 944 — restore delayed archive response verification
 
 - Started clean on main; alerts clear and health/database/Redis green. No leftover work.
@@ -191,3 +179,18 @@
 - Verification commands: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check.
 - Next: Nov 6 edition/Bluesky review after 15:00 UTC; X round after 21:00 UTC. Fixed search and reserved slot remain off.
 - Final: pnpm check passed (543 unit/224 isolated integration tests); build, final format/lint, handbook and four-view saved-edition browser replay passed. Inspected mobile light post screenshot. Sources healthy; no failed digest runs.
+
+## 2026-11-06: iteration 960 — keep the small-screen reader header on one line
+
+- Started clean on main; alerts clear, health/database/Redis green. No leftover work.
+- Read saved Tech, NBA, Gaming and World content; World breadth and Tech grouping still await Nov 6 publication evidence.
+- Reader weakness reproduced at 320px: the wordmark and date each wrapped into two lines, crowding the fixed-height header.
+- Keep the wordmark on one line and use month/day on mobile; wider screens and the accessible date description retain the year.
+- Owner value: the smallest supported reader view keeps its title, date arrows and theme control in a clean single row.
+- Extended saved-edition layout replay with 320px header fit/single-line checks in light/dark; updated screenshots and affected handbook.
+- Archived iteration 943; updated TASKS and STEERING ack. SOURCES and NEEDS_FROM_HUMAN unchanged; no spend, collection or flag changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx scripts/smoke-reader-layout.ts; pnpm exec tsx scripts/check-handbook.ts 08-operations; git diff --check.
+- Next: edition/Bluesky review after 15:00 UTC; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.
+- Initial full check passed 543 unit tests, then exited 143 during integration tests without a reported assertion failure; rerunning standalone before commit.
+- Standalone pnpm check passed (543 unit/224 isolated integration tests); build, handbook, four-view browser replay plus 320px light/dark and final format/lint/diff checks passed. Inspected small-screen light screenshot.
+- API/worker/docs/schema restarted active; health/database/Redis green and alerts clear. All 36 sources healthy; no failed digest-generation jobs.

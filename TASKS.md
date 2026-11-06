@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Small-screen header (960): keep the wordmark and edition date on one line at 320px; compact date retains its year for screen readers.
+
 - [x] Post publication times (959): use concise dates and local times consistently with stories; saved timestamps retained and verified in four reader views.
 
 - [x] Reader theme verification (958): ported stale foundation selectors to the rebuilt reader; saved stories/posts, system changes, reload, cross-tab and blocked-storage checks pass on desktop/mobile.

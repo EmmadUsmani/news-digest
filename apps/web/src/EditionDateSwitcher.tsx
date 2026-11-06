@@ -56,15 +56,37 @@ export function EditionDateSwitcher({
         to="/editions"
         search={{ page: 1 }}
         aria-label="Browse past editions"
-        className="text-sm font-normal text-[var(--secondary)]"
+        aria-description={
+          edition
+            ? new Date(edition.windowEnd).toLocaleDateString(undefined, {
+                dateStyle: 'long',
+              })
+            : undefined
+        }
+        className="text-sm font-normal whitespace-nowrap text-[var(--secondary)]"
       >
-        {edition
-          ? new Date(edition.windowEnd).toLocaleDateString(undefined, {
-              month: 'short',
-              day: 'numeric',
-              year: 'numeric',
-            })
-          : 'Past editions'}
+        {edition ? (
+          <time dateTime={edition.windowEnd}>
+            <span className="sm:hidden">
+              {new Date(edition.windowEnd).toLocaleDateString(undefined, {
+                month: 'short',
+                day: 'numeric',
+              })}
+              <span className="sr-only">
+                {`, ${new Date(edition.windowEnd).getFullYear()}`}
+              </span>
+            </span>
+            <span className="hidden sm:inline">
+              {new Date(edition.windowEnd).toLocaleDateString(undefined, {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+              })}
+            </span>
+          </time>
+        ) : (
+          'Past editions'
+        )}
       </Link>
       {neighbors.data?.newer ? (
         <Link

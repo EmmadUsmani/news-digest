@@ -17,7 +17,10 @@ export function DigestPreview() {
   return (
     <main className="mx-auto min-h-screen max-w-[1008px] px-4 pb-16 sm:px-6">
       <header className="sticky top-0 z-30 flex h-[65px] items-center justify-between gap-3 border-b border-[var(--border)] bg-[var(--background)] py-0">
-        <Link to="/" className="text-lg font-semibold tracking-tight">
+        <Link
+          to="/"
+          className="text-base font-semibold tracking-tight whitespace-nowrap sm:text-lg"
+        >
           News Digest
         </Link>
         <div className="flex items-center gap-2">
