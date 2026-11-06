@@ -23,8 +23,8 @@ details, budgets and rules stay in the items. Every new item goes on this list.
 6. Then item 38's list for choosing meaningful work. While 2–5 wait on a time
    or on evidence, item 42 says what to do first. Item 43 says what not to do.
 
-Blocked on the owner: R2 backups (item 37), on hold while the owner reconsiders
-the approach.
+Blocked on the owner: Backblaze B2 backups (item 37), waiting for the settings
+in NEEDS_FROM_HUMAN.md.
 
 ## 2. LOWER PRIORITY: real DB verification, then an ORM (2026-11-01)
 
@@ -1143,16 +1143,18 @@ cost. Item 33's ack stays as written.
 
 ack: 2026-11-05 item 36 story limit — iteration 872 activates forty scored articles before grouping, retaining ten stories for the editor. Actual saved World replay: Nov 4 1→10 editor inputs (1→5 reviewed story labels); Nov 5 3→10 inputs (2→7 labels). Model stories including singletons: Nov 4 1→16, Nov 5 3→20; election fragmentation remains, no returned group crosses reviewed labels. Four Haiku verification calls cost $0.005837, recorded as verification; responses/fingerprints saved for offline replay. All-topic first-attempt grouping/editor scenario $0.464371 fits unchanged $0.473168 reserve and projected cap; future admission still enforced. Deployed before Nov 6 13:00 UTC; review scheduled Nov 6 outcome. Evidence: docs/edition-reviews/2026-11-05-world-story-pool.md. UI step 2 next; cleanup remains open.
 
-## 37. LOW, blocked on the owner: off-VM backups to Cloudflare R2 (2026-11-05)
+## 37. LOW, blocked on the owner: off-VM backups to Backblaze B2 (2026-11-05, B2 2026-11-06)
 
-Backups live only on the VM, so losing the VM loses them too. The owner chose
-Cloudflare R2, for both the database and the VM.
+Backups live only on the VM, so losing the VM loses them too. The owner first
+chose Cloudflare R2, then switched on Nov 6 to **Backblaze B2**, for both the
+database and the VM. Wherever older text or acks say R2, read B2. Nothing was
+built for R2.
 
 **Blocked until the owner adds the settings listed in NEEDS_FROM_HUMAN.md.
 Don't build any of this before then.** After that, it ranks below items 33, 34
 and 36.
 
-- **Database:** upload each nightly dump after it finishes. Keep 30 days in R2.
+- **Database:** upload each nightly dump after it finishes. Keep 30 days in B2.
 - **VM:** first check whether exe.dev offers a whole-VM snapshot we can export.
   If not, make a weekly bundle of what the repo can't rebuild:
   - `~/.config/news-digest/env`;
@@ -1164,8 +1166,17 @@ and 36.
 - **Encrypt everything before it leaves the VM** with `age`, to the public key
   in `BACKUP_AGE_RECIPIENT`. The VM bundle contains secrets. The private key
   stays with the owner and never goes on the VM.
-- **Credentials:** a token limited to this one bucket, stored only in the env
-  file. Never print or log it.
+- **How to talk to B2:** use its S3-compatible API at `B2_ENDPOINT` (for
+  example `https://s3.us-west-004.backblazeb2.com`; the owner supplies the real
+  one), with an application key limited to this one bucket. Prefer a small
+  dependency-free client or the AWS CLI if already on the VM; ask before adding
+  a large SDK.
+- **Retention:** the agent deletes expired objects itself with that key (a
+  bucket-limited key may not be able to edit lifecycle rules). B2 keeps old
+  versions of deleted files, so the owner sets the bucket lifecycle to "Keep
+  only the last version"; check an expired object really disappears.
+- **Credentials:** the key ID and application key live only in the env file.
+  Never print or log them.
 - **Prove it works:**
   - Download each new object type once and compare its checksum.
   - Write the exact commands for the owner to download, decrypt and
@@ -1175,7 +1186,9 @@ and 36.
 - **Alert** (vmalert) when no database upload has succeeded in 26 hours, or no
   VM upload in 8 days.
 - **A failed upload must never affect editions** or the local backups.
-- **Ack** with sizes and monthly storage use.
+- **Ack** with sizes and monthly storage use. B2 charges about $6.95 per TB per
+  month with the first 10 GB free, so this should cost nothing or cents. Report
+  it anyway.
 
 ## 38. Never idle, and choose work that matters (2026-11-05)
 

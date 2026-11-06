@@ -41,24 +41,32 @@ token is installed. Finish migrating operational routes and tools together.
 Verify proxy identity-header replacement before any future public access;
 the VM stays private. See the [access decision](docs/decisions/2026-11-05-admin-access.md).
 
-## Cloudflare R2 for off-VM backups (2026-11-05, STEERING 37)
+## Backblaze B2 for off-VM backups (2026-11-06, STEERING 37)
 
-Low priority. The agent waits for these. In the Cloudflare dashboard:
+Low priority. The agent waits for these. Replaces the earlier Cloudflare R2
+plan. In the Backblaze web console:
 
-1. Create a private R2 bucket named `news-digest-backups`.
-2. Create an R2 API token with **Object Read & Write**, limited to that bucket.
-3. On your Mac, make the backup encryption key:
+1. Create a Backblaze account and a **private** bucket named `news-digest-backups`
+   (or a unique variant, as bucket names are global). Turn on default encryption
+   if offered. Set the bucket lifecycle to **Keep only the last version**.
+2. Create an **application key** (not the master key) limited to that bucket,
+   with read and write access. Enable `listAllBucketNames` if the console
+   offers it. Copy the `keyID` and `applicationKey` straight away: the key is
+   shown once.
+3. Copy the bucket's S3 endpoint (shown on the bucket page, like
+   `s3.us-west-004.backblazeb2.com`).
+4. On your Mac, make the backup encryption key:
    `brew install age && age-keygen -o ~/news-digest-backup.key`.
    Save that file in your password manager. Without it, backups can't be
    decrypted. It never goes on the VM.
-4. Add these lines to `~/.config/news-digest/env` on the VM. The last value is
+5. Add these lines to `~/.config/news-digest/env` on the VM. The last value is
    the public key printed by `age-keygen`, starting `age1`.
 
 ```
-R2_ACCOUNT_ID=
-R2_ACCESS_KEY_ID=
-R2_SECRET_ACCESS_KEY=
-R2_BUCKET=news-digest-backups
+B2_KEY_ID=
+B2_APPLICATION_KEY=
+B2_BUCKET=news-digest-backups
+B2_ENDPOINT=https://s3.REGION.backblazeb2.com
 BACKUP_AGE_RECIPIENT=
 ```
 
