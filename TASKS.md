@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Pre-publication reader handoff (987): reread all 17 summaries/14 posts/14 brief bullets; World breadth remains the largest weakness, with its cause already addressed pending publication. [Comparison checklist](docs/edition-reviews/2026-11-05-reader.md#nov-6-pre-publication-handoff--iteration-987) separates deployed fixes from actual Nov 6 quality evidence; no further speculative tuning.
+
 - [x] X post recovery copy (986): loading/retry names the whole post, and failure points readers to the original when saved text is incomplete.
 
 - [x] Supported pronouns (985): editor v11 uses names or roles when sources do not establish pronouns; fixes unsupported personal detail in the saved Sony summary for future editions. Actual output awaits publication.
