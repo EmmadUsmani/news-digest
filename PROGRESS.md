@@ -203,3 +203,16 @@
 - Verification: pnpm check passed (560 unit/224 isolated integration); pnpm format; pnpm lint:fix; pnpm build; git diff --check; read-only edition/timing/status endpoints and worker admission/settlement logs; Playwright real saved Bluesky card at 1440/390px.
 - Post-check warning: ObservabilityMemoryBudget pending for obs-shipper; system unit active, 0 restarts, ~78.5/80 MiB. No restart during freeze. Archived iteration 993 to keep this file small.
 - Next: X fresh-window round after 21:00 UTC; Bluesky slot awaits owner. Fixed search OFF.
+
+## 2026-11-06: iteration 1012 — recover shipper memory headroom
+
+- Started clean on main; no leftover work. Prior iteration's pending shipper warning was firing, so triage took priority over Tech post repetition.
+- Owner value: preserve collection of operational logs without an OOM restart while the published edition remains available.
+- Diagnosed cgroup usage: 78.5 MiB total, 66.9 MiB file cache, 7.4 MiB anonymous memory; unit active with zero restarts.
+- Reclaimed 32 MiB through the shipper cgroup memory.reclaim; usage fell to 45.8 MiB under unchanged 80 MiB hard ceiling. No deployment, service restart or configuration change during 13:00–16:00 freeze.
+- Cause/fix identified: charged filesystem cache lacks an early reclaim threshold. TASKS records MemoryHigh=64M after 16:00, matching existing logs/metrics approach; no further investigation needed.
+- pnpm exec tsx scripts/check-observability.ts --verify-o2 passed: seven real log sources, fresh request delivered in 2.626 s, isolated dummy redaction passed; shipper 45 MiB. No paid calls.
+- Health/DB/Redis green; pnpm obs sources --check and services --check passed (36 sources/13 units); latest scheduled digest completed.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration); pnpm build; git diff --check passed.
+- Reader weakness remains Tech's repeated launch posts; no editorial change or new evidence this iteration. SOURCES/handbook/NEEDS_FROM_HUMAN unchanged.
+- Alert cleared at 15:08:50 UTC after metric refresh; zero firing/pending. Persistent shipper threshold after 16:00, then Tech repetition; fresh X round after 21:00.
