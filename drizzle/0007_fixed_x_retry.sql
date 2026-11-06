@@ -1,0 +1,7 @@
+ALTER TABLE "x_discovery_calls" DROP CONSTRAINT "x_fixed_requires_schedule";--> statement-breakpoint
+DROP INDEX "x_discovery_one_optional_attempt_per_topic_day";--> statement-breakpoint
+DROP INDEX "x_discovery_one_fixed_attempt_per_topic_day_style";--> statement-breakpoint
+CREATE UNIQUE INDEX "x_discovery_one_fixed_retry_per_topic_day_style" ON "x_discovery_calls" USING btree (scheduled_day,((requested_topic ->> 'id'::text)),search_type) WHERE ((scheduled_day IS NOT NULL) AND (optional_parent_id IS NOT NULL) AND (search_type = ANY (ARRAY['fixed-reactions'::text, 'fixed-trending'::text])));--> statement-breakpoint
+CREATE UNIQUE INDEX "x_discovery_one_optional_attempt_per_topic_day" ON "x_discovery_calls" USING btree (scheduled_day,((requested_topic ->> 'id'::text))) WHERE ((scheduled_day IS NOT NULL) AND (optional_parent_id IS NOT NULL) AND ((search_type IS NULL) OR (search_type <> ALL (ARRAY['fixed-reactions'::text, 'fixed-trending'::text]))));--> statement-breakpoint
+CREATE UNIQUE INDEX "x_discovery_one_fixed_attempt_per_topic_day_style" ON "x_discovery_calls" USING btree (scheduled_day,((requested_topic ->> 'id'::text)),search_type) WHERE ((scheduled_day IS NOT NULL) AND (optional_parent_id IS NULL) AND (search_type = ANY (ARRAY['fixed-reactions'::text, 'fixed-trending'::text])));--> statement-breakpoint
+ALTER TABLE "x_discovery_calls" ADD CONSTRAINT "x_fixed_requires_schedule" CHECK ((search_type <> ALL (ARRAY['fixed-reactions'::text, 'fixed-trending'::text])) OR ((scheduled_day IS NOT NULL) AND ((requested_topic ->> 'id'::text) IS NOT NULL)));

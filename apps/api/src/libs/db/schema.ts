@@ -422,7 +422,7 @@ export const xDiscoveryCalls = pgTable(
         sql`((requested_topic ->> 'id'::text))`,
       )
       .where(
-        sql`((scheduled_day IS NOT NULL) AND (optional_parent_id IS NOT NULL))`,
+        sql`((scheduled_day IS NOT NULL) AND (optional_parent_id IS NOT NULL) AND ((search_type IS NULL) OR (search_type <> ALL (ARRAY['fixed-reactions'::text, 'fixed-trending'::text]))))`,
       ),
     uniqueIndex('x_discovery_one_scheduled_attempt_per_topic_day')
       .using(
@@ -441,11 +441,21 @@ export const xDiscoveryCalls = pgTable(
         sql`search_type`,
       )
       .where(
-        sql`((scheduled_day IS NOT NULL) AND (search_type = ANY (ARRAY['fixed-reactions'::text, 'fixed-trending'::text])))`,
+        sql`((scheduled_day IS NOT NULL) AND (optional_parent_id IS NULL) AND (search_type = ANY (ARRAY['fixed-reactions'::text, 'fixed-trending'::text])))`,
+      ),
+    uniqueIndex('x_discovery_one_fixed_retry_per_topic_day_style')
+      .using(
+        'btree',
+        sql`scheduled_day`,
+        sql`((requested_topic ->> 'id'::text))`,
+        sql`search_type`,
+      )
+      .where(
+        sql`((scheduled_day IS NOT NULL) AND (optional_parent_id IS NOT NULL) AND (search_type = ANY (ARRAY['fixed-reactions'::text, 'fixed-trending'::text])))`,
       ),
     check(
       'x_fixed_requires_schedule',
-      sql`(search_type <> ALL (ARRAY['fixed-reactions'::text, 'fixed-trending'::text])) OR ((scheduled_day IS NOT NULL) AND (optional_parent_id IS NULL) AND ((requested_topic ->> 'id'::text) IS NOT NULL))`,
+      sql`(search_type <> ALL (ARRAY['fixed-reactions'::text, 'fixed-trending'::text])) OR ((scheduled_day IS NOT NULL) AND ((requested_topic ->> 'id'::text) IS NOT NULL))`,
     ),
     foreignKey({
       columns: [table.optionalParentId],

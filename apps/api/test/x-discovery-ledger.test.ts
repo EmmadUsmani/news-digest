@@ -709,3 +709,124 @@ void test('X execution evidence survives restart and settles atomically with emp
     await restartedDb.end();
   }
 });
+
+void test('fixed retry admission survives restart, keeps holds and rejects completed or historical searches', async () => {
+  const db = database();
+  const restartedDb = database();
+  const ledger = new PostgresXDiscoveryLedger(db);
+  const restarted = new PostgresXDiscoveryLedger(restartedDb);
+  const day = new Date().toISOString().slice(0, 10);
+  const {
+    rows: [topic],
+  } = await db.query<{ id: string; name: string }>(
+    'SELECT id,name FROM topics WHERE enabled AND post_budget > 0 ORDER BY position LIMIT 1',
+  );
+  const empty = {
+    inputTokens: 1,
+    outputTokens: 1,
+    postsFetched: 0,
+    profilesFetched: 0,
+  };
+  try {
+    for (const outcome of [
+      'pending',
+      'uncertain',
+      'rejected',
+      'completed',
+      'unconfirmed',
+      'historical',
+      'fetched',
+      'cited',
+    ] as const) {
+      const ids: string[] = [];
+      const reserve = async (
+        instance: PostgresXDiscoveryLedger,
+        parent?: string,
+        run = 'retry-fixture',
+      ) => {
+        const id = await instance.reserve(
+          'grok-4.3',
+          run,
+          100000,
+          topic,
+          day,
+          'fixed-trending',
+          parent,
+        );
+        if (id) ids.push(id);
+        return id;
+      };
+      try {
+        const parent = await reserve(ledger);
+        assert.ok(parent);
+        if (outcome === 'uncertain' || outcome === 'rejected')
+          await ledger.fail(parent, outcome);
+        else if (outcome !== 'pending') {
+          await ledger.settle(
+            parent,
+            { ...empty, postsFetched: outcome === 'fetched' ? 1 : 0 },
+            price,
+            [],
+            outcome === 'completed' ? 'completed' : 'unconfirmed',
+          );
+          if (outcome === 'historical')
+            await db.query(
+              'UPDATE x_discovery_calls SET execution=NULL WHERE id=$1',
+              [parent],
+            );
+          if (outcome === 'cited')
+            await new PostgresXSearchRepository(db).save(topic.id, parent, [
+              {
+                externalId: '288099',
+                url: 'https://x.com/example/status/288099',
+              },
+            ]);
+        }
+        assert.equal(await reserve(restarted, parent, 'wrong-run'), null);
+        if (outcome === 'uncertain') {
+          const hold = await ledger.reserve(
+            'grok-4.3',
+            'retry-budget-fixture',
+            200001,
+          );
+          assert.ok(hold);
+          ids.push(hold);
+          assert.equal(await reserve(restarted, parent), null);
+          await ledger.fail(hold, 'rejected');
+        }
+        const attempts = await Promise.all([
+          reserve(ledger, parent),
+          reserve(restarted, parent),
+        ]);
+        const admitted = attempts.filter((id): id is string => id !== null);
+        const eligible = outcome === 'uncertain' || outcome === 'unconfirmed';
+        assert.equal(admitted.length, eligible ? 1 : 0, outcome);
+        if (eligible) {
+          const child = admitted[0];
+          assert.equal(await reserve(restarted, parent), null);
+          await restarted.fail(child, 'uncertain');
+          assert.equal(await reserve(ledger, child), null);
+          assert.equal(await reserve(ledger, parent), null);
+          if (outcome === 'uncertain')
+            assert.equal((await restarted.status()).reservedMicros, 200000);
+        }
+      } finally {
+        await db.query(
+          'DELETE FROM x_search_citations WHERE call_id=ANY($1::uuid[])',
+          [ids],
+        );
+        await db.query(
+          'DELETE FROM x_discovery_calls WHERE optional_parent_id=ANY($1::uuid[])',
+          [ids],
+        );
+        await db.query(
+          'DELETE FROM x_discovery_calls WHERE id=ANY($1::uuid[])',
+          [ids],
+        );
+      }
+    }
+  } finally {
+    await db.end();
+    await restartedDb.end();
+  }
+});

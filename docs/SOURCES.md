@@ -2080,3 +2080,8 @@ or production activation in this step; switched-off scheduler retry remains open
 
 - Search settlement now saves confirmed/unconfirmed execution alongside actual usage and cost. Completed empty searches remain distinguishable after restart; historical calls retain unknown execution.
 - Additive generated migration 0006; offline protocol and isolated database restart coverage. No paid calls or activation; durable scheduler retry admission remains next.
+
+### Durable fixed retry admission — iteration 908 (2026-11-06)
+
+- The switched-off fixed scheduler ledger admits one linked retry for an uncertain call or settled unconfirmed zero-post search with no citations. Same topic/day/style/model/run, enabled topic, shared caps and durable uniqueness are required; timeout holds remain counted.
+- Completed empty searches, historical unknown execution, pending/rejected calls and retry chains cannot qualify. Migration 0007 changes admission constraints/indexes without deleting calls. Scheduler dispatch remains next; no paid calls or activation.

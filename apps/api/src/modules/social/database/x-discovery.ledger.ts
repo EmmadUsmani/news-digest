@@ -144,16 +144,21 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
       optionalParentId !== undefined &&
       (!/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(optionalParentId) ||
         scheduledDay === undefined ||
-        !['account-list', 'story-reactions'].includes(searchType ?? ''))
+        ![
+          'account-list',
+          'story-reactions',
+          'fixed-reactions',
+          'fixed-trending',
+        ].includes(searchType ?? ''))
     )
       throw new Error('Invalid optional X discovery reservation');
     const fixed =
       searchType === 'fixed-reactions' || searchType === 'fixed-trending';
-    if (fixed && (scheduledDay === undefined || optionalParentId !== undefined))
+    if (fixed && scheduledDay === undefined)
       throw new Error('Fixed X discovery requires a scheduled primary slot');
     return this.transaction(async (client) => {
       // A topic/day is consumed before HTTP, including rejected/uncertain calls.
-      // Restart/retry cannot spend again or shift an obsolete job into today.
+      // Only a separately admitted fixed retry may spend again; obsolete days stay blocked.
       if (scheduledDay !== undefined) {
         const orm = drizzle(client);
         const calls = xDiscoveryCalls;
@@ -209,10 +214,32 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
                 parent.id,
                 optionalParentId ?? '00000000-0000-0000-0000-000000000000',
               ),
-              completedOpenParent,
+              fixed
+                ? and(
+                    eq(parent.scheduledDay, scheduledDay),
+                    eq(parent.searchType, searchType),
+                    eq(parent.runId, runId),
+                    eq(parent.model, model),
+                    isNull(parent.optionalParentId),
+                    or(
+                      eq(parent.status, 'uncertain'),
+                      and(
+                        eq(parent.status, 'succeeded'),
+                        eq(parent.execution, 'unconfirmed'),
+                        eq(parent.postsFetched, 0),
+                      ),
+                    ),
+                    notExists(
+                      orm
+                        .select({ id: xSearchCitations.callId })
+                        .from(xSearchCitations)
+                        .where(eq(xSearchCitations.callId, parent.id)),
+                    ),
+                  )
+                : completedOpenParent,
               topicMatches(parent.requestedTopic),
-              notExists(unclassifiedCitations),
-              lt(newVerifiedPosts, 3),
+              fixed ? undefined : notExists(unclassifiedCitations),
+              fixed ? undefined : lt(newVerifiedPosts, 3),
             ),
           );
         const completedTopicSearch = orm
@@ -235,7 +262,7 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
             and(
               eq(calls.scheduledDay, scheduledDay),
               topicMatches(calls.requestedTopic),
-              fixed
+              fixed && optionalParentId === undefined
                 ? or(
                     eq(calls.searchType, searchType),
                     isNull(calls.searchType),
@@ -247,7 +274,10 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
                   )
                 : optionalParentId === undefined
                   ? isNull(calls.optionalParentId)
-                  : isNotNull(calls.optionalParentId),
+                  : and(
+                      isNotNull(calls.optionalParentId),
+                      fixed ? eq(calls.searchType, searchType) : undefined,
+                    ),
             ),
           );
         const [admission] = await orm
@@ -270,7 +300,7 @@ export class PostgresXDiscoveryLedger implements XDiscoveryLedger {
                         ),
                     ),
                     exists(eligibleParent),
-                    notExists(unfinishedTopics),
+                    fixed ? undefined : notExists(unfinishedTopics),
                   ),
             )}`,
           })
