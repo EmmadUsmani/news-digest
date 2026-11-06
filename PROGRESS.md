@@ -175,3 +175,4 @@
 - Passed embed sizing and media retry/theme/resize replays, including source-link focus; inspected mobile screenshot. Build, format and lint:fix passed; initial full check terminated (143) during unit tests with no reported failure; rerun required.
 - Fresh full pnpm check passed: 536 unit/226 isolated integration tests, zero failures; format/typecheck/lint/boundaries green. git diff --check clean.
 - API/worker restart and post-deploy health/alerts verification recorded below; next Nov 7 keyword production/three-edition acceptance, with World separate.
+- Post-deploy app health OK, 36 sources healthy, saved edition 4 topics/20 stories/17 posts. GrafanaHealthFailed recurred at 22:11 with memory at 288 MiB reclaim ceiling; restarted, temporarily allowed 50% CPU for startup then restored 3%; endpoint database OK. Long-term recurrence remains open.
