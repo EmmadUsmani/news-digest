@@ -122,6 +122,31 @@ async function smoke() {
             previousBottom = bounds.y + bounds.height;
           }
         }
+        const postTimes = page.locator('.post-card .byline time');
+        const savedPosts = edition.topics.flatMap((topic) => topic.posts);
+        assert.equal(await postTimes.count(), savedPosts.length);
+        for (const [index, post] of savedPosts.entries()) {
+          const time = postTimes.nth(index);
+          assert.equal(await time.getAttribute('datetime'), post.publishedAt);
+          assert.equal(
+            await time.innerText(),
+            await page.evaluate(
+              (value) =>
+                new Date(value).toLocaleString(undefined, {
+                  dateStyle: 'medium',
+                  timeStyle: 'short',
+                }),
+              post.publishedAt,
+            ),
+            'Post dates use the same readable local format as stories',
+          );
+        }
+        await page
+          .locator('.post-card')
+          .first()
+          .screenshot({
+            path: `docs/screenshots/ui/reader-post-date-${device}-${theme}.png`,
+          });
         const expectedContexts = edition.topics.flatMap((topic) =>
           topic.posts.flatMap((post) =>
             post.whyItMatters?.trim() ? [post.whyItMatters] : [],

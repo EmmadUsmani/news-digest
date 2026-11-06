@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Post publication times (959): use concise dates and local times consistently with stories; saved timestamps retained and verified in four reader views.
+
 - [x] Reader theme verification (958): ported stale foundation selectors to the rebuilt reader; saved stories/posts, system changes, reload, cross-tab and blocked-storage checks pass on desktop/mobile.
 
 - [x] Story publication times (957): every story shows its saved publication date and local time, including standalone reports.

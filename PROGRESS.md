@@ -1,14 +1,3 @@
-## 2026-11-06: iteration 942 — readable mobile contents headlines
-
-- Started clean on main; alerts clear and services/health green. No leftover work. Edition/Bluesky review and X round remain time-gated.
-- Read all four saved topics. World breadth and mixed Tech grouping await Nov 6 evidence; mobile Contents cuts off long saved titles, hiding the details needed to choose a story.
-- Reproduced headline clipping with the real saved OpenSSH story. Titles now wrap in the mobile sheet; desktop keeps compact single-line titles. Owner value: choose a story from its complete headline.
-- Extended the existing saved-edition browser replay for full headline visibility, mobile story selection and sheet dismissal; updated screenshots. External widgets blocked; no writes, paid calls, flags or selection changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx scripts/smoke-reader-layout.ts; pnpm exec tsx scripts/check-handbook.ts 08-operations; git diff --check. Final results below.
-- Updated TASKS, affected handbook and STEERING ack; archived iteration 927 and compacted done markers. SOURCES/NEEDS_FROM_HUMAN unchanged; no collection or budget changes.
-- Next: Nov 6 World/cost/Bluesky review after publication; X round after 21:00 UTC. Fixed search and reserved slot remain off.
-- Final standalone pnpm check exited zero (543 unit/224 isolated integration tests); build, handbook and four post-restart browser views passed. First check exited 143 during integration; standalone rerun clean. Inspected both mobile sheet screenshots. API/worker/docs/schema active, health green, 36 sources healthy, no failed digest jobs and alerts clear.
-
 ## 2026-11-06: iteration 943 — focus the content chosen from Contents
 
 - Started clean on main; alerts clear, health/database/Redis green, 36 sources healthy. No leftover work; edition and X reviews remain time-gated.
@@ -190,3 +179,15 @@
 - Next: Nov 6 edition/Bluesky review after 15:00 UTC; X round after 21:00 UTC. Fixed search and reserved slot remain off.
 - Initial combined check exited 143 during unit tests without a failure; standalone pnpm check passed (543 unit/224 isolated integration tests). Build, four-view reader theme checks and diff check passed.
 - API/worker/docs/schema restarted active; health/database/Redis green and alerts clear.
+
+## 2026-11-06: iteration 959 — readable post publication times
+
+- Started clean on main; alerts clear and health/database/Redis green. No leftover work.
+- Read all four saved topics. World breadth and mixed Tech grouping await Nov 6 publication; headline-only HN summaries reflect absent API body text, with full-article fetching deferred.
+- Reader weakness: post bylines use long numeric dates with seconds, unlike the concise story dates; this clutters mobile cards.
+- Owner value: every post platform now uses the same readable publication date and local time as stories, retaining exact saved datetime values.
+- Extended existing saved-edition browser replay to compare all post dates with saved data in desktop/mobile light/dark; external requests and writes blocked.
+- Updated TASKS, STEERING ack and operations handbook; archived oldest progress entry. SOURCES and NEEDS_FROM_HUMAN unchanged. No spend, collection or flag changes.
+- Verification commands: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check.
+- Next: Nov 6 edition/Bluesky review after 15:00 UTC; X round after 21:00 UTC. Fixed search and reserved slot remain off.
+- Final: pnpm check passed (543 unit/224 isolated integration tests); build, final format/lint, handbook and four-view saved-edition browser replay passed. Inspected mobile light post screenshot. Sources healthy; no failed digest runs.

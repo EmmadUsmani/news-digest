@@ -181,7 +181,10 @@ function Post({
       <p className="byline">
         X · {post.author} ·{' '}
         <time dateTime={post.publishedAt}>
-          {new Date(post.publishedAt).toLocaleString()}
+          {new Date(post.publishedAt).toLocaleString(undefined, {
+            dateStyle: 'medium',
+            timeStyle: 'short',
+          })}
         </time>
       </p>
       {embedded ? (
@@ -247,7 +250,10 @@ function RedditPost({ post }: { post: SelectedRedditPost }) {
         </a>{' '}
         ·{' '}
         <time dateTime={post.publishedAt}>
-          {new Date(post.publishedAt).toLocaleString()}
+          {new Date(post.publishedAt).toLocaleString(undefined, {
+            dateStyle: 'medium',
+            timeStyle: 'short',
+          })}
         </time>
       </p>
       <h5>
@@ -291,7 +297,10 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
       <p className="byline">
         Bluesky · {post.author} ·{' '}
         <time dateTime={post.publishedAt}>
-          {new Date(post.publishedAt).toLocaleString()}
+          {new Date(post.publishedAt).toLocaleString(undefined, {
+            dateStyle: 'medium',
+            timeStyle: 'short',
+          })}
         </time>
       </p>
       <p className="post-text">{post.text}</p>
