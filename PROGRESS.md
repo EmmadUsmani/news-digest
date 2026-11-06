@@ -1,23 +1,3 @@
-## 2026-11-05: iteration 901 — X token-only accounting and timeout
-
-- Started clean on main; no leftover work. Owner would care: failed X tool execution no longer leaves a full hold when valid token usage is available, and searches get 120 seconds.
-- Shared validated usage parser between app adapter and experiment runner; absent post/profile counters default to zero, malformed counters still fail closed. Existing no-response holds remain charged. No paid calls or X activation.
-- Synthetic runner coverage settles eight token-only calls at four micros each; adapter coverage checks absent/partial counters and malformed values. Initial direct mixed-suite invocation hit five expected isolation guards; used the proper full isolated harness afterward.
-- Verification: pnpm format; pnpm lint:fix; pnpm check passed typecheck/lint/format/boundaries, 510 unit and 221 isolated integration tests; pnpm build; check-handbook.ts 05-social-posts; git diff --check.
-- Four app services rebuilt/restarted and active; /healthz database/Redis green after startup retry; saved Nov 5 reader endpoint readable; 36 sources/zero errors, latest success 23:30 UTC. Existing observability memory warning remains.
-- Updated TASKS, SOURCES and social handbook; NEEDS_FROM_HUMAN unchanged. GitHub integration recovered: preflight push published the previous iteration's backlog successfully.
-- Next: STEERING 39 supported forced tool execution and one separately admitted retry; append-only NBA/World saved-usage settlement; three failed keyword reruns after Nov 6 00:00 UTC. Production remains off; failure-rate acknowledgement needs real rerun evidence.
-
-## 2026-11-05: iteration 902 — Require X search tool execution
-
-- Started clean on main; no leftover work. Shared request builder now sets documented Responses `tool_choice: required`, with X search as the only tool. Existing windows, limits, caps and production-off state retained.
-- Checked xAI public OpenAPI ModelRequest/ModelToolChoice; required means the model must call a tool. No paid calls; real execution/failure-rate evidence remains pending, so no STEERING 39 failure-rate acknowledgement yet.
-- Offline coverage verifies revised prepared keyword/semantic bodies, all comparison styles and curated app requests require the sole X tool.
-- Verification: targeted request suites 11/11; pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-handbook.ts 05-social-posts; git diff --check. Full check passed typecheck/lint/format/boundaries, 511 unit tests and 221 isolated integration tests.
-- Rebuilt/restarted API, worker, docs and schema services; all active. /healthz database/Redis green; saved reader edition readable; 36 active sources/zero errors with successes through 23:35 UTC. Existing observability memory warning remains.
-- Updated TASKS, SOURCES and social handbook; NEEDS_FROM_HUMAN unchanged.
-- Next: separately admitted one retry for no-execution/no-post failures; append-only saved NBA/World usage settlement; then authorized Nov 5 keyword reruns after Nov 6 00:00 UTC. Fixed production search remains off.
-
 ## 2026-11-05: iteration 903 — settle saved X experiment usage
 
 - Started clean on main; no leftover work. Owner would care: NBA/World failed-response holds now reflect saved token usage, freeing $0.283288 for the authorized comparison.
@@ -151,3 +131,14 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check. All passed: 528 unit/223 isolated integration tests, typecheck/lint/format/boundaries and build.
 - Rebuilt/restarted API, worker, docs and schema; health and reader checks recorded at deployment.
 - Next: persist per-topic Bluesky outcomes and admin inspector line before 13:00 UTC if ready; Nov 6 edition review after publication, X comparison after 21:00 UTC. Fixed X stays off.
+
+## 2026-11-06: iteration 915 — save Bluesky selection evidence
+
+- Started clean on main; no leftover work. Alerts clear, health green and 36/36 sources healthy; X testing and edition review await their windows.
+- New edition snapshots retain per-topic open slots, observations read, shortlisted candidates, picks and selection result. Full slots now save no-slot rather than looking like a successful empty edit.
+- Results distinguish switched-off, no candidates, nothing passed triage, deliberate editor omission, picks, invalid/incomplete AI and unavailable AI. Existing selections and reader behavior are unchanged.
+- Unavailable AI still combines budget refusal and other editor failures: exact budget result and inspector remain open. No guessed attribution, paid calls, collection/query/cap changes or edition writes.
+- Added fixture checks for counts, empty paths, unavailable AI and schema round-trip/older missing fields. Initial integration run found three golden diffs; added diagnostic expectations and fixed no-service/full-slot attribution. Updated source table/handbook; archived 901–902.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (529 unit/223 isolated integration tests); pnpm build; handbook social-posts check; git diff --check. All passed on final run.
+- Restarted API/worker/docs/schema, all active; /healthz database/Redis green, reader HTTP 200, 36/36 sources healthy, alerts clear and zero failed digest jobs.
+- Next: propagate precise budget refusal through editor/triage outcomes, then inspector; item 40 per-post validation follows. Reserved slot stays unbuilt/off; Nov 6 review after publication and X round after 21:00 UTC.

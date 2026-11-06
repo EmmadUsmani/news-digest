@@ -422,6 +422,7 @@ export class PostgresPreviewRepository
             await topicStage(topic.id, 'ready');
             return {
               ...postSelection,
+              blueskySelection: bluesky.evidence,
               editorial,
               qualityRejections,
               relevancePolicy: policy,

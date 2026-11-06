@@ -1,4 +1,5 @@
 import {
+  type DigestPreview,
   type RelevancePolicy,
   selectedBlueskyPostSchema,
   type SelectedSocialPost,
@@ -10,6 +11,10 @@ import { readBlueskyObservations } from '../database/bluesky.repository';
 import type { BlueskyRepository } from '../domain/bluesky';
 import { editBlueskyPosts } from './bluesky-editor';
 import type { SocialSelectionServices } from './editorial-selection';
+
+type BlueskySelectionEvidence = NonNullable<
+  DigestPreview['topics'][number]['blueskySelection']
+>;
 
 // The protected Nov 3 run is acknowledged. Enable stored-post inclusion by
 // default; an explicit non-1 value remains an operational off switch.
@@ -31,6 +36,17 @@ export function selectEditionBlueskyPosts(
         : ('disabled' as const),
       posts: structuredClone(input.selectedPosts),
       model: null,
+      evidence: {
+        openSlots: Math.max(0, input.budget - input.selectedPosts.length),
+        candidatesRead: 0,
+        candidatesShortlisted: 0,
+        postsPicked: 0,
+        result: !blueskyEditionsEnabled()
+          ? 'switched-off'
+          : input.budget <= input.selectedPosts.length
+            ? 'no-slot'
+            : 'ai-unavailable',
+      } satisfies BlueskySelectionEvidence,
     });
   return prepareBlueskyEditionPosts(
     { observations: (...args) => readBlueskyObservations(db, ...args) },
@@ -55,15 +71,25 @@ export async function prepareBlueskyEditionPosts(
   status: 'disabled' | 'complete' | 'incomplete' | 'unavailable';
   posts: SelectedSocialPost[];
   model: string | null;
+  evidence: BlueskySelectionEvidence;
 }> {
+  const evidence: BlueskySelectionEvidence = {
+    openSlots: Math.max(0, input.budget - input.selectedPosts.length),
+    candidatesRead: 0,
+    candidatesShortlisted: 0,
+    postsPicked: 0,
+    result: 'switched-off',
+  };
   const unchanged = (
     status: 'disabled' | 'complete' | 'incomplete' | 'unavailable',
+    result: BlueskySelectionEvidence['result'],
   ) => ({
     status,
+    evidence: { ...evidence, result },
     posts: structuredClone(input.selectedPosts),
     model: null,
   });
-  if (input.enabled !== true) return unchanged('disabled');
+  if (input.enabled !== true) return unchanged('disabled', 'switched-off');
   if (!Number.isInteger(input.budget) || input.budget < 0 || input.budget > 20)
     throw new Error('Expected social edition budget 0–20');
   if (
@@ -75,7 +101,7 @@ export async function prepareBlueskyEditionPosts(
   // Keep all existing editorial picks, especially X. Never expand the topic
   // budget or displace an X pick to make room for the secondary platform.
   const remaining = Math.max(0, input.budget - input.selectedPosts.length);
-  if (!remaining) return unchanged('complete');
+  if (!remaining) return unchanged('complete', 'no-slot');
   const existing = new Set(
     input.selectedPosts
       .filter((p) => p.platform === 'bluesky')
@@ -87,6 +113,7 @@ export async function prepareBlueskyEditionPosts(
     input.end,
     input.end,
   );
+  evidence.candidatesRead = observations.length;
   const candidates = observations.filter(
     (post) =>
       !existing.has(post.externalId) &&
@@ -107,7 +134,12 @@ export async function prepareBlueskyEditionPosts(
     input.runId,
     input.selectedPosts,
   );
-  if (edited.status !== 'complete') return unchanged(edited.status);
+  evidence.candidatesShortlisted = edited.candidatesShortlisted;
+  if (edited.status !== 'complete')
+    return unchanged(
+      edited.status,
+      edited.status === 'unavailable' ? 'ai-unavailable' : 'ai-editing-failed',
+    );
   const additions = edited.posts.map(
     ({ post, reasons, whyItMatters, editorialRationale }) =>
       selectedBlueskyPostSchema.parse({
@@ -121,5 +153,16 @@ export async function prepareBlueskyEditionPosts(
     status: 'complete',
     posts: [...structuredClone(input.selectedPosts), ...additions],
     model: edited.model,
+    evidence: {
+      ...evidence,
+      postsPicked: additions.length,
+      result: additions.length
+        ? 'picks-made'
+        : !candidates.length
+          ? 'no-candidates'
+          : !edited.candidatesShortlisted
+            ? 'nothing-passed-triage'
+            : 'editor-chose-none',
+    },
   };
 }

@@ -1,7 +1,10 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import type { SelectedSocialPost } from '@digest/contracts';
+import {
+  digestPreviewSchema,
+  type SelectedSocialPost,
+} from '@digest/contracts';
 
 import {
   blueskyEditionsEnabled,
@@ -133,6 +136,20 @@ void test('explicit preparation keeps X picks and freezes validated Bluesky evid
   assert.deepEqual(h.calls, ['read', 'triage', 'edit']);
   assert.equal(result.status, 'complete');
   assert.equal(result.model, 'fake');
+  const savedEvidenceSchema =
+    digestPreviewSchema.shape.topics.element.shape.blueskySelection;
+  assert.deepEqual(
+    savedEvidenceSchema.parse(JSON.parse(JSON.stringify(result.evidence))),
+    result.evidence,
+  );
+  assert.equal(savedEvidenceSchema.parse(undefined), undefined);
+  assert.deepEqual(result.evidence, {
+    openSlots: 1,
+    candidatesRead: 2,
+    candidatesShortlisted: 1,
+    postsPicked: 1,
+    result: 'picks-made',
+  });
   assert.deepEqual(result.posts[0], xPost);
   const added = result.posts[1];
   assert.equal(added.platform, 'bluesky');
@@ -158,6 +175,8 @@ void test('editor refusal preserves existing picks without lexical Bluesky fallb
     enabled: true,
   });
   assert.equal(result.status, 'unavailable');
+  assert.equal(result.evidence.result, 'ai-unavailable');
+  assert.equal(result.evidence.candidatesShortlisted, 1);
   assert.deepEqual(result.posts, [xPost]);
 });
 void test('explicit preparation rejects invalid budgets/windows before reading observations', async () => {
@@ -271,4 +290,37 @@ void test('default publisher reads using its transaction and preserves primary p
     if (previous === undefined) delete process.env.BLUESKY_EDITIONS_ENABLED;
     else process.env.BLUESKY_EDITIONS_ENABLED = previous;
   }
+});
+
+void test('saved evidence separates no slot, no candidates, triage rejection and deliberate editor omission', async () => {
+  const h = harness();
+  const run = () =>
+    prepareBlueskyEditionPosts(h.repository, h.services, {
+      ...h.input,
+      enabled: true,
+    });
+  const full = await prepareBlueskyEditionPosts(h.repository, h.services, {
+    ...h.input,
+    enabled: true,
+    budget: 1,
+  });
+  assert.equal(full.evidence.result, 'no-slot');
+  assert.equal(full.evidence.openSlots, 0);
+  h.services.socialEditor.edit = async () => ({ model: 'fake', posts: [] });
+  assert.equal((await run()).evidence.result, 'editor-chose-none');
+  h.services.socialTriage.score = async (_topic, candidates) => ({
+    scores: candidates.map((c) => ({
+      id: c.id,
+      relevance: 1,
+      importance: 1,
+      event: '',
+      rationale: '',
+    })),
+    unscoredIds: [],
+  });
+  assert.equal((await run()).evidence.result, 'nothing-passed-triage');
+  h.repository.observations = async () => [];
+  const empty = await run();
+  assert.equal(empty.evidence.result, 'no-candidates');
+  assert.equal(empty.evidence.candidatesRead, 0);
 });

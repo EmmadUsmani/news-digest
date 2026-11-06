@@ -290,6 +290,24 @@ export const digestPreviewSchema = z.object({
           'verified-semantic-engagement-v3',
         ])
         .optional(),
+      blueskySelection: z
+        .object({
+          openSlots: z.number().int().nonnegative(),
+          candidatesRead: z.number().int().nonnegative(),
+          candidatesShortlisted: z.number().int().nonnegative(),
+          postsPicked: z.number().int().nonnegative(),
+          result: z.enum([
+            'no-slot',
+            'no-candidates',
+            'nothing-passed-triage',
+            'editor-chose-none',
+            'picks-made',
+            'ai-editing-failed',
+            'ai-unavailable',
+            'switched-off',
+          ]),
+        })
+        .optional(),
       postEditorial: z
         .object({
           mode: z.enum(['ai', 'non-ai']),

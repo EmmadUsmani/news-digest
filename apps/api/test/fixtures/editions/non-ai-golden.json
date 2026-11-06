@@ -94,7 +94,14 @@
         "includeAny": [],
         "excludeAny": []
       },
-      "relevanceRejectedCount": 0
+      "relevanceRejectedCount": 0,
+      "blueskySelection": {
+        "openSlots": 0,
+        "candidatesRead": 0,
+        "candidatesShortlisted": 0,
+        "postsPicked": 0,
+        "result": "no-slot"
+      }
     }
   ]
 }

@@ -33,6 +33,7 @@ export async function editBlueskyPosts(
     status,
     posts: [],
     model: null,
+    candidatesShortlisted: shortlist.posts.length,
   });
   if (shortlist.status === 'incomplete') return empty('incomplete');
   if (!shortlist.posts.length) return empty('complete');
@@ -66,6 +67,7 @@ export async function editBlueskyPosts(
   return {
     status: 'complete' as const,
     model: edited.model,
+    candidatesShortlisted: shortlist.posts.length,
     posts: edited.posts.map((selection) => ({
       ...shortlist.posts.find((c) => c.score.id === selection.id)!,
       whyItMatters: selection.whyItMatters,
