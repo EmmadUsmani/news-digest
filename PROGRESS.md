@@ -1,27 +1,3 @@
-## 2026-11-06: iteration 988 — quiet reader post commentary
-
-- Started clean on main; health green, alerts clear, all 36 sources healthy. No leftover work.
-- World breadth remains largest content weakness; its deployed fix awaits Nov 6 publication, as do the other saved comparison findings.
-- Owner value: removed 14 repeated “Digest context” headings from the latest edition; useful translations and explanations remain below original posts in muted text.
-- No saved content, prompts, selection, sources, budgets or paid calls changed. Updated affected handbook wording and existing reader browser check.
-- Archived oldest progress entry to retain the file size limit. SOURCES/NEEDS_FROM_HUMAN unchanged.
-- Verification and live checks recorded below. Next: Nov 6 edition/cost/Bluesky review after 15:00 UTC; no deploys 13:00–16:00; X after 21:00 UTC.
-- Verification: pnpm format; pnpm lint:fix; full pnpm check passed static checks/555 unit tests, then was terminated (143) during integration; standalone isolated integration rerun below. pnpm build and handbook 08-operations passed.
-- smoke-reader-layout passed desktop/mobile light/dark against real saved content; refreshed four post screenshots and inspected mobile light. External embeds blocked by the browser check; no claim of live embed success.
-- Services restarted before browser checks; health/database/Redis green, alerts clear, zero failed digest jobs. Initial jobs help/queue aliases rejected; supported unfiltered queue snapshot succeeded.
-- Final standalone pnpm test:integration passed all 224 tests (exit 0); all required check components green. Build/browser checks and final git diff --check passed; pushed commit below.
-
-## 2026-11-06: iteration 989 — scope the thin-evidence gap
-
-- Started clean on main; no leftover work. Alerts clear, health green, all 36 sources healthy; no failed digest jobs, next edition 15:00 UTC.
-- Reader weakness: saved OpenSSH and Linux-exploit summaries repeat headlines; existing concise-summary changes await today's output.
-- Checked source adapters and recorded feed excerpts: HN link posts have no supplied body; Google News's exploit item is from The Hacker News, a separate publisher. No dropped excerpt found in this investigation.
-- Owner value: richer source evidence could make Tech summaries informative; documented a bounded destination-excerpt proposal in docs/ideas.md for owner review.
-- Full-article collection stays deferred. No runtime, collection, source, prompt, budget or paid-call changes; SOURCES/NEEDS_FROM_HUMAN unchanged.
-- Verification results recorded below; no UI change requiring screenshots or handbook edits.
-- Next: Nov 6 edition/World/cost/Bluesky comparison after 15:00 UTC; no deploys 13:00–16:00; X round after 21:00 UTC.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (555 unit/224 isolated integration tests passed); pnpm build; git diff --check.
-
 ## 2026-11-06: iteration 990 — repair Bluesky reader verification
 
 - Started clean on main; health green, alerts clear, all 36 sources returning data; no leftover work.
@@ -208,3 +184,15 @@
 - No runtime/source/schema changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged. No restarts during the 13:00–16:00 deployment freeze; running code unchanged.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration tests); pnpm build; git diff --check all passed.
 - Next: Nov 6 edition/World/cost/Bluesky review after publication; X round after 21:00 UTC. Fixed search stays OFF.
+
+## 2026-11-06: iteration 1006 — defer unsupported continuing-coverage links
+
+- Started clean on main; no leftover work. Alerts clear, health/DB/Redis green; API/worker active, sources check passed, no failed digest runs. Next scheduled edition 15:00 UTC.
+- Read all four topics in the latest saved edition, still Nov 5. World's limited breadth remains the largest weakness; deployed fix awaits Nov 6 evidence.
+- Reader weakness: following continuing World coverage requires finding the prior edition manually. Owner value: test whether saved citations can support useful direct navigation before building it.
+- Compared Nov 5/4 original and coverage URLs within each topic: 17/14 stories, 32/29 per-story unique URLs, zero matching pairs with literal or existing ingestion canonicalization.
+- Documented the result and deferred exact-URL links in docs/ideas.md; no semantic matching, publisher fetches, paid calls or runtime changes. Stop this investigation until new evidence/approval.
+- Archived iterations 988–989 to keep PROGRESS small. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
+- No service restarts during the 13:00–16:00 freeze; running code unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration tests); pnpm build; git diff --check all passed.
+- Next: Nov 6 edition/World/cost/Bluesky review after publication; fresh X round after 21:00 UTC; fixed search OFF.

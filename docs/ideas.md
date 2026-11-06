@@ -202,6 +202,23 @@
 - Status: idea awaiting owner review under item 38; no implementation or spend.
   Nov 6 breadth/context review and Bluesky/X decisions retain priority.
 
+### Consecutive-edition citation assessment — Nov 6
+
+- Compared the saved Nov 5 edition `7d99b279` with its immediate predecessor,
+  Nov 4 `3bf10f5b`, through the local reader API. These contain 17 and 14
+  stories respectively. Only original and coverage URLs within the same topic
+  were compared; no publisher pages or external services were requested.
+- Per-story unique citation counts (Nov 5 / Nov 4): Tech 6/5, NBA 10/5,
+  Gaming 6/9, World 10/10; totals 32/29. Matching story pairs: zero in every
+  topic, both with literal URL equality and the ingestion `canonicalUrl`
+  function (fragment/tracking removal and query sorting).
+- Decision: defer the proposed exact-URL links. They would offer no navigation
+  in this consecutive pair, including World's live coverage. This does not
+  establish that the events differ: reporting can continue under new URLs.
+  Broader event matching remains outside the proposal; do not expand matching
+  or fetch pages merely to produce links. Revisit only with new saved evidence
+  and owner approval, rather than repeat this comparison.
+
 ## Author-provided descriptions for media-dependent posts
 
 - Reader problem: Nov 5 NBA's Klay game-winner and Gaming's God of War
