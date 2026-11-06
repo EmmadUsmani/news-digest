@@ -1,12 +1,14 @@
 # Observability
 
-**Status:** Grafana hung on Nov 6 (unit `active`, health check gets no answer).
-It sits at its 208 MB memory ceiling with a 2% CPU quota. Steered as item 44.
+**Status:** Grafana is not fixed for good. Item 44 added a health alert and
+restored it once, but it hung again at 22:11 UTC on Nov 6 with memory at its
+288 MiB reclaim ceiling. The agent restarted it and put its CPU limit back to
+3%. The agent's own 31-minute stability check was too short.
 
 **Next:**
 
-1. Read the agent's ack on item 44: the cause it found, limits before and after.
-2. Check `obs alerts` now flags a failing Grafana health check.
-3. Confirm Grafana stays healthy a day after the fix.
+1. The agent diagnoses why memory keeps growing (its open task for item 44).
+2. Check `obs alerts` shows `GrafanaHealthFailed` clear.
+3. Confirm Grafana stays healthy for a full day after the real fix.
 
 **Open:** nothing needs the owner.
