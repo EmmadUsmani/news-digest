@@ -1,25 +1,3 @@
-## 2026-11-06: iteration 916 — Bluesky outcomes in the inspector
-
-- Started clean on main; no leftover work. Alerts clear. X round and Nov 6 edition review await their scheduled windows.
-- Admin edition inspector now shows one Bluesky outcome per topic with open slots, candidates read/shortlisted and picks. Older snapshots explicitly report missing evidence.
-- All eight stored results have plain labels; unavailable AI keeps its cause unknown. Exact budget-refusal attribution remains open; reader and selection behavior unchanged.
-- Added read-only Playwright coverage for saved editions and eight synthetic outcomes at desktop/mobile widths; saved clearly named synthetic screenshots. No writes, paid calls or external browser requests.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; handbook social-posts check; pnpm exec tsx scripts/smoke-bluesky-outcomes.ts; git diff --check. All passed: 529 unit/223 isolated integration tests.
-- Initial browser harness needed an async entry point and a text matcher including nested counts; fixed and rerun passed. Handbook length check caught 101 lines; shortened to 100 and passed.
-- Updated TASKS and affected handbook page. SOURCES and NEEDS_FROM_HUMAN unchanged: collection and owner requirements unchanged.
-- Restarted API/worker/docs/schema; /healthz database/Redis green, 36/36 sources healthy, alerts clear and zero failed digest jobs.
-- Next: exact budget-refusal attribution, then Bluesky per-post validation; Nov 6 edition review after publication and X round after 21:00 UTC. Reserved slot remains unbuilt/off; fixed X stays off.
-
-## 2026-11-06: iteration 917 — explain ledger budget refusals
-
-- Started clean on main; no leftover work. Alerts clear, 36/36 sources healthy and no failed digest jobs. X round and edition review await their windows.
-- Added committed ledger admission logs with purpose/topic/model and exact shared, model-allocation, scheduled-reserve and provider-block refusal reasons plus numeric inputs; verification-cap early refusal is logged separately.
-- Multiple simultaneous limits stay visible; rollback produces no admission log. No request/rejected text, paid calls, selection changes or budget-rule changes.
-- This closes the missing ledger-decision inputs, not the saved Bluesky result: propagate precise budget refusal through AI/editor/triage outcomes next, then per-post validation and item 41 alerts.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (530 unit/223 isolated integration tests); pnpm build; pnpm exec tsx scripts/check-handbook.ts 09-observability; git diff --check. All passed.
-- Updated TASKS and observability handbook; archived iterations 903–904 to keep PROGRESS small. SOURCES/NEEDS_FROM_HUMAN unchanged: collection and owner requirements unchanged.
-- Rebuilt/restarted API/worker/docs/schema; /healthz database/Redis green, reader HTTP 200, 36/36 sources healthy and alerts clear. Fixed X and reserved Bluesky slot remain off.
-
 ## 2026-11-06: iteration 918 — call-scoped AI failure outcomes
 
 - Started clean on main; no leftover work. Alerts clear, health green, 36/36 sources healthy and no failed digest jobs. X round and edition review await their windows.
@@ -156,3 +134,12 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-history-recovery.ts; git diff --check. Browser replay passed all four viewport/theme combinations; inspected mobile dark and desktop light screenshots. First full check exited 143 during integration after 543 unit passes; retry exited zero: 543 unit and 224 isolated integration tests passed, coverage completed; build passed.
 - Rebuilt/restarted API/worker/docs/schema; all active, reader HTTP 200 and health/database/Redis green. All 36 sources healthy and zero retained failed digest jobs.
 - Nov 6 World/Bluesky review and X round after 21:00 UTC remain time-gated; no paid calls or flag changes. SOURCES, handbook and NEEDS_FROM_HUMAN unchanged.
+
+## 2026-11-06: iteration 930 — fit X embeds to reader cards
+
+- Started clean on main; no leftover work. Health/database/Redis green, alerts clear and all sources healthy. Nov 6 review/Bluesky gate and X round remain time-gated.
+- Reader weakness: saved X posts requested 550px widgets inside narrower two-column/mobile cards. Request the actual card width within X's 250–550px range and constrain loaded iframe width after resizing; readers can keep media within the post card.
+- Added saved-post browser replay with a clearly labelled local widget stub; no third-party requests, paid calls or writes. Desktop/mobile light/dark sizing and 320px resize passed; saved edition unchanged. Refreshed/inspected screenshots. General reader layout replay passed all four combinations.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-post-sizing.ts; smoke-reader-layout.ts; git diff --check. Full check exited zero: 543 unit and 224 isolated integration tests passed, with coverage completed; build passed.
+- Updated TASKS and STEERING ack; archived iterations 916–917 to keep PROGRESS small. No source, selection, budget, flag or system-flow changes; SOURCES, handbook and NEEDS_FROM_HUMAN unchanged.
+- Rebuilt/restarted API/worker/docs/schema; health/database/Redis green, alerts clear, 36/36 source states ok and zero retained failed digest jobs. Next: Nov 6 World/cost/Bluesky review after publication, fresh X round after 21:00 UTC; fixed search and reserved Bluesky slot remain OFF.

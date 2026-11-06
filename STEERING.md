@@ -1463,3 +1463,5 @@ ack: 2026-11-06 (925) Read all four saved topics; World pool fix awaits publicat
 ack: 2026-11-06 item 42 — iteration 926: saved X cards repeated a footer link and empty retry spacer; linked original saved text directly and removed the duplicate/spacer, preserving context and official embed recovery. World breadth still awaits the already-deployed pool fix's Nov 6 evidence.
 
 ack: 2026-11-06 item 33 — iteration 928: reader header arrows open adjacent saved editions across archive pages; date opens the archive. Verified saved-edition navigation/reload on desktop/mobile and light/dark. No content, selection or spend changes.
+
+ack: 2026-11-06 item 42 — iteration 930: saved X post cards requested 550px embeds inside narrower reader columns. Request their available width and contain resized frames; verified saved posts with a widget stub on desktop/mobile light/dark, including 320px resize. No spend or selection changes.

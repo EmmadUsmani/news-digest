@@ -144,7 +144,7 @@ function Post({
             return api.widgets.createTweet(post.externalId, attemptTarget, {
               dnt: true,
               conversation: 'none',
-              width: 550,
+              width: Math.min(550, Math.max(250, target.clientWidth)),
               theme,
             });
           })

@@ -610,6 +610,9 @@
   .official-post {
     min-height: 1px;
   }
+  .official-post iframe {
+    max-width: 100%;
+  }
   .post-embed-status {
     margin-bottom: 1rem;
   }
