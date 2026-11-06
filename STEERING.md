@@ -1382,6 +1382,14 @@ attempts. Nov 5 Tech Sonnet chose none; World Sonnet was budget-refused, then
 both Haiku replies failed validation. Exact budget constraint was not logged;
 no paid replay. Historical investigation complete; saved outcomes next.
 
+**Update (2026-11-06): the owner approved switching the reserved Bluesky slot
+on.** The Nov 6 cost gate missed by about $0.00006 (needs $0.501758, cap
+$0.501698). The owner accepts that, so the gate no longer blocks switch-on.
+Switch it on for the next scheduled edition, after the 13:00–16:00 UTC window
+check. Don't change the daily cap. Everything else in step 3 and **Don't** still
+applies, including the three-clean-editions stop. In the ack, report each
+topic's outcome and the edition's cost against the cap.
+
 ## 41. NEXT, small: alert when Bluesky fails or goes quiet (2026-11-05)
 
 **Why:** item 40 saves a Bluesky result for every topic, but someone still has

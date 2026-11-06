@@ -11,11 +11,11 @@ Bluesky pick (World), distinct from the X posts. One unsupported pick was droppe
 - Both durable alerts are live (18 healthy rules). Neither has fired on a real edition.
 - The reserved slot (one X slot per topic) is built but OFF.
 
-**Owner decision pending:** the reserved slot's cost gate fails Nov 6 by about
-$0.00006: needs $0.501758, daily cap is $0.501698. See STEERING item 40 and
-[the Nov 6 review](../../edition-reviews/2026-11-06.md). Switch on, or raise the cap?
+**Owner decision (Nov 6):** switch the reserved slot on, accepting the cost gate
+miss of about $0.00006 (STEERING item 40 update). Cap unchanged.
 
 **Next:**
 
 - Review the first scheduled picks over a few days: distinct from X, worth reading?
-- Decide the reserved slot once there is more than one day of cost data.
+- Check the first edition after switch-on: per-topic outcomes, and cost against the cap.
+- If three clean editions give no picks, item 40 says stop and report.
