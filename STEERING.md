@@ -1722,6 +1722,8 @@ ack: 2026-11-06 item 33/43 — iteration 1042: readers keep their place when cha
 ack: 2026-11-06 item 33/43 — iteration 1044: readers can open saved Bluesky posts directly from their text or timestamp, while embedded source URLs remain separate links; removed the redundant footer. Saved-edition desktop/mobile light/dark screenshots: [Bluesky card](docs/screenshots/ui/reader-bluesky-links-mobile-light.png). No paid calls.
 
 
+ack: 2026-11-06 item 33/43 — iteration 1060: readers can retry unavailable edition dates directly in the header while continuing to read; restored arrows regain keyboard focus. Desktop/mobile light/dark [screenshots](docs/screenshots/ui/reader-date-recovery-mobile-light.png) verified; no paid calls.
+
 ## 44. NOW: Grafana is hung, fix it and make alerts catch it (2026-11-06)
 
 **Why.** On Nov 6 around 19:20 UTC the owner saw Grafana down. `obs-grafana`

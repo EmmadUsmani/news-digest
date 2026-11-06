@@ -1,6 +1,9 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
+import { RotateCw } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
+import { Button } from './components/ui/button';
 import { editionHistoryQuery } from './queries';
 
 export function EditionDateSwitcher({
@@ -9,9 +12,14 @@ export function EditionDateSwitcher({
   edition?: { id: string; windowEnd: string } | null;
 }) {
   const client = useQueryClient();
+  const navigation = useRef<HTMLElement>(null);
+  const recovering = useRef(false);
+  const [retrying, setRetrying] = useState(false);
   const neighbors = useQuery({
     queryKey: ['editions', 'neighbors', edition?.id],
     enabled: !!edition,
+    // History reads already own their retries, including non-retryable failures.
+    retry: false,
     queryFn: async ({ signal }) => {
       let newer: string | undefined;
       for (let offset = 0; ; offset += 20) {
@@ -36,11 +44,26 @@ export function EditionDateSwitcher({
       }
     },
   });
+  useEffect(() => {
+    if (
+      !recovering.current ||
+      retrying ||
+      neighbors.isFetching ||
+      neighbors.isError
+    )
+      return;
+    recovering.current = false;
+    navigation.current?.querySelector<HTMLAnchorElement>('a')?.focus();
+  }, [neighbors.isFetching, neighbors.isError, retrying]);
   const linkClass =
     'flex h-9 w-7 items-center justify-center rounded-md text-[var(--secondary)] hover:bg-[var(--muted)]';
   return (
-    <nav aria-label="Edition dates" className="flex items-center gap-1">
-      {neighbors.data?.older ? (
+    <nav
+      ref={navigation}
+      aria-label="Edition dates"
+      className="flex items-center gap-1"
+    >
+      {neighbors.data?.older && !neighbors.isError && !retrying ? (
         <Link
           to="/editions/$id"
           params={{ id: neighbors.data.older }}
@@ -49,6 +72,26 @@ export function EditionDateSwitcher({
         >
           ‹
         </Link>
+      ) : neighbors.isError || retrying ? (
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          aria-label="Retry edition dates"
+          title="Edition dates unavailable. Try again."
+          disabled={neighbors.isFetching}
+          className={`${linkClass} p-0`}
+          onClick={() => {
+            recovering.current = true;
+            setRetrying(true);
+            void neighbors.refetch().finally(() => setRetrying(false));
+          }}
+        >
+          <RotateCw
+            aria-hidden="true"
+            className={`size-4 ${neighbors.isFetching ? 'motion-safe:animate-spin' : ''}`}
+          />
+        </Button>
       ) : (
         <span className="w-7" />
       )}

@@ -166,3 +166,15 @@
 - pnpm exec tsx scripts/check-handbook.ts observability passed (18 pages/28 tables); git diff --check clean. Installed unit/readiness helper match repository; Grafana restarted outside protected window and caps restored automatically.
 - Post-repair obs health DB/Redis OK, sources --check 36/36, digest queue zero failed, saved edition 4 topics/20 stories/17 posts; alerts clear. No paid calls or edition writes.
 - Next: resume owner-priority UI work while Nov 7 keyword production acceptance waits; whole-stack RAM target remains open.
+
+## 2026-11-06: iteration 1060 — recover reader date navigation
+
+- Clean main; no leftovers. Initial health DB/Redis OK, alerts clear and 36/36 sources healthy. X production acceptance waits for Nov 7.
+- Advanced item 33/43: failed edition-history reads now offer a header retry instead of silently removing date arrows; edition and archive link stay available.
+- History reads own retries; removed the enclosing retry layer. Retry remains visible/disabled during recovery and restores keyboard focus to a date link on success.
+- Read-only saved-edition Playwright replay injects invalid history and repeated failure, then restores real saved history; desktop/mobile light/dark passed. Four screenshots saved; inspected mobile.
+- No paid calls, external browser requests or edition writes. No handbook change: existing routes/data flow unchanged.
+- Passed pnpm build (plus final web rebuild), pnpm format, pnpm lint:fix and full pnpm check: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green.
+- Passed pnpm exec tsx scripts/smoke-reader-date-recovery.ts and scripts/smoke-reader-position.ts; inspected final mobile recovery screenshot. git diff --check clean.
+- API restarted for browser verification; health/alerts clear, 36/36 sources healthy, digest-generation queue available/zero failed; saved edition 4 topics/20 stories/17 posts.
+- Next: continue item 33 reader work; Nov 7 keyword production/three-edition acceptance and approved Bluesky reserved-slot activation remain open. Whole-stack RAM target still unmet.
