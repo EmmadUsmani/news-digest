@@ -174,4 +174,5 @@
 - Extended read-only browser verification for desktop row alignment and accessible counts; updated old-label assertions. Desktop/mobile light/dark passed, including expansion, timestamps, no overflow and no writes. Updated screenshots; inspected desktop/mobile light.
 - Passed pnpm build; pnpm check (562 unit/225 isolated integration); pnpm format; pnpm lint:fix; pnpm exec tsx scripts/smoke-reader-layout.ts. API/worker restarted; health and alerts clear.
 - No paid calls or source/schema/handbook-flow changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Initial push rejected by concurrent owner backup steering commit cce78a99; fetched and merged without conflicts, preserving owner changes. No runtime change in merge.
 - Next: continue approved reader completion; approved Bluesky slot activation pending under Current order; X round after 21:00 UTC.
