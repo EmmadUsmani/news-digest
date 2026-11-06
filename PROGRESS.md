@@ -1,24 +1,3 @@
-## 2026-11-06: iteration 950 — attribute grouped headlines to their primary outlets
-
-- Started clean on main; health/database/Redis green, 36/36 sources healthy, no failed digest runs and alerts clear. Edition/X reviews remain time-gated.
-- Read the latest saved four-topic edition. World's Trump headline opens The Guardian, but its source row started with Al Jazeera because grouped sources were alphabetized.
-- Put the primary report's outlets first, preserving the other outlets and all grouped reports. Readers now see attribution matching the headline destination.
-- Extended four-view saved-edition browser checks with the real World mismatch, direct primary URL assertions and screenshots. No paid calls, selection, collection or flag changes.
-- Updated TASKS, operations handbook and STEERING ack; archived iteration 934. SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (543 unit/224 isolated integration passes); pnpm build; check-handbook.ts 08-operations; smoke-reader-layout.ts; git diff --check. All passed.
-- Browser first reached the restarting API too early; retry after healthy passed all four views. Inspected mobile light attribution screenshot. API/worker/docs/schema active, health green and alerts clear.
-- Next: Nov 6 World/cost/Bluesky review after publication; X round after 21:00 UTC. Fixed search and reserved slot remain off.
-
-## 2026-11-06: iteration 951 — expose grouped coverage depth
-
-- Started clean on main; alerts clear, health/database/Redis green, 36/36 sources healthy and job checks green. Edition/Bluesky review waits for publication; X round waits for 21:00 UTC.
-- Read saved topics: World's eight-report Trump story disclosed only “+1 more outlet,” hiding its coverage depth. Always show the article count alongside extra outlets before expansion.
-- Extended saved-edition browser assertions for every grouped count; four device/theme checks passed and screenshots updated. Inspected mobile light World screenshot. No paid calls, selection, collection or flag changes.
-- Updated TASKS, operations handbook and STEERING ack; archived iteration 935. SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm build; check-handbook.ts 08-operations; smoke-reader-layout.ts; git diff --check passed. First pnpm check ended 143 during unit tests; retry passed (543 unit/224 isolated integration tests).
-- API/worker/docs/schema restarted active; health green and alerts clear.
-- Next: Nov 6 World/cost/Bluesky review after publication; fresh X round after 21:00 UTC. Fixed search and reserved slot remain off.
-
 ## 2026-11-06: iteration 952 — expose independent publishers in grouped coverage
 
 - Started clean on main; health/database/Redis green, alerts clear; latest scheduled run completed and Nov 6 remains scheduled for 15:00 UTC.
@@ -199,3 +178,18 @@
 - Initial jobs command used unsupported --check with filters; reran supported read-only jobs query: zero failed digest jobs. Historical ingestion/social failures remain retained, sources healthy and alerts clear.
 - Next: Nov 6 edition/Bluesky review after 15:00 UTC; X round after 21:00 UTC. Fixed search and reserved slot stay off.
 - Final: first full check ended 143 during unit tests without a reported failure; retry passed 543 unit/224 isolated integration tests. Build, handbook and four-view browser replay passed; services active, health green, alerts clear.
+
+## 2026-11-06: iteration 966 — preserve keyboard focus in saved X text
+
+- Started clean on main; alerts clear and health/database/Redis green. No leftover work.
+- Read latest saved topics: World breadth/Tech grouping and Bluesky review await 15:00 publication; X round waits until 21:00 UTC.
+- Reader weakness: X media rebuilding replaced the saved-text link, dropping keyboard focus during rotation/theme changes; reproduced against HEAD with browser focus assertion.
+- Keep one saved-text disclosure/link mounted through pending, failed and successful media; preserve focused text when media first succeeds.
+- Owner value: keyboard readers can continue from the same original post after rotation or a system theme change.
+- Extended saved-edition replay with focus assertions across 320px, landscape, original width and system themes in desktop/mobile light/dark; local widget stub, no writes/external calls.
+- Updated TASKS, STEERING ack and affected handbook; archived iterations 950–951. SOURCES/NEEDS_FROM_HUMAN unchanged; no spend or flag changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-x-media.ts; check-handbook.ts 08-operations; git diff --check. Final results below.
+- Next: edition/Bluesky review after 15:00 UTC; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.
+- First full check terminated with exit 143 after 543 unit passes and during integration tests, without a reported test failure; rerunning the full check.
+- Inspected mobile light focus/resize screenshot; retained eight resize/theme screenshots. Rebuilt and restarted API/worker/docs/schema; health green, 36 sources healthy, no failed digest jobs and alerts clear.
+- Final retry passed: 543 unit/224 isolated integration tests; build, handbook and four-view browser replay passed. No spend/flag changes; services healthy.

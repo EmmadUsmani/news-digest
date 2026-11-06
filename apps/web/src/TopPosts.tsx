@@ -118,6 +118,7 @@ function Post({
   theme: 'light' | 'dark';
 }) {
   const host = React.useRef<HTMLDivElement>(null);
+  const savedText = React.useRef<HTMLDetailsElement>(null);
   const [embedded, setEmbedded] = React.useState(false);
   const [savedTextOpen, setSavedTextOpen] = React.useState(false);
   const [failed, setFailed] = React.useState(false);
@@ -164,6 +165,8 @@ function Post({
             if (!active) return;
             setLoading(false);
             if (element) {
+              if (savedText.current?.contains(document.activeElement))
+                setSavedTextOpen(true);
               setEmbedded(true);
               // X fixes its iframe width at creation. Rebuild successful media
               // after the card settles at a different width (e.g. rotation).
@@ -222,28 +225,22 @@ function Post({
           })}
         </time>
       </p>
-      {embedded ? (
-        <details
-          className="saved-post-text"
-          open={savedTextOpen}
-          onToggle={(event) => setSavedTextOpen(event.currentTarget.open)}
-        >
-          <summary>Saved post text</summary>
-          <p className="post-text">
-            <a href={post.url} target="_blank" rel="noreferrer">
-              {post.displayText ?? post.text}
-              <span className="sr-only">{` — View post by ${post.author} on X`}</span>
-            </a>
-          </p>
-        </details>
-      ) : (
+      <details
+        ref={savedText}
+        className="saved-post-text"
+        open={!embedded || savedTextOpen}
+        onToggle={(event) => {
+          if (embedded) setSavedTextOpen(event.currentTarget.open);
+        }}
+      >
+        <summary hidden={!embedded}>Saved post text</summary>
         <p className="post-text">
           <a href={post.url} target="_blank" rel="noreferrer">
             {post.displayText ?? post.text}
             <span className="sr-only">{` — View post by ${post.author} on X`}</span>
           </a>
         </p>
-      )}
+      </details>
       <div ref={host} className="official-post" />
       {loading && (
         <p role="status" className="m-0 text-xs text-[var(--secondary)]">

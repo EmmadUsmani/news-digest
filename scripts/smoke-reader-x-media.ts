@@ -107,12 +107,22 @@ async function smoke() {
         await status.filter({ hasText: 'Loading X media…' }).waitFor();
         assert.equal(await card.locator('.x-media-error').count(), 0);
         assert.ok(await card.locator('.post-text').isVisible());
+        await card.locator('.post-text a').focus();
         releaseRecovery();
         await card.locator('iframe').waitFor();
         assert.equal(await status.count(), 0);
+        await expect(card.locator('.post-text a')).toBeFocused();
+        assert.ok(await card.locator('.post-text').isVisible());
+        await card.locator('.saved-post-text summary').click();
         assert.equal(await card.locator('.saved-post-text').count(), 1);
         await card.locator('.saved-post-text summary').click();
         assert.ok(await card.locator('.post-text').isVisible());
+        const savedLink = card.locator('.post-text a');
+        assert.equal(
+          await savedLink.evaluate((node) => getComputedStyle(node).fontSize),
+          '16px',
+        );
+        await savedLink.focus();
         for (const resizedWidth of [320, 844, width]) {
           await page.setViewportSize({ width: resizedWidth, height });
           await card.scrollIntoViewIfNeeded();
@@ -124,7 +134,15 @@ async function smoke() {
             String(mediaWidth),
           );
           assert.ok(await card.locator('.post-text').isVisible());
+          await expect(savedLink).toBeFocused();
         }
+        const systemTheme = theme === 'light' ? 'dark' : 'light';
+        await page.emulateMedia({ colorScheme: systemTheme });
+        await card.locator(`iframe[data-theme="${systemTheme}"]`).waitFor();
+        await expect(savedLink).toBeFocused();
+        await page.emulateMedia({ colorScheme: theme });
+        await card.locator(`iframe[data-theme="${theme}"]`).waitFor();
+        await expect(savedLink).toBeFocused();
         await page.screenshot({
           path: `docs/screenshots/ui/x-media-resize-${device}-${theme}.png`,
         });

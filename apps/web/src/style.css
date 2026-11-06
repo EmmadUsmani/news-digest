@@ -593,6 +593,10 @@
     border-radius: 12px;
     background: var(--surface);
   }
+  .digest-topic .saved-post-text {
+    font-size: 1rem;
+    color: var(--foreground);
+  }
   .post-text {
     white-space: pre-wrap;
     overflow-wrap: anywhere;
