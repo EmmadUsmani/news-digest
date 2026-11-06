@@ -22,8 +22,8 @@ details, budgets and rules stay in the items. Every new item goes on this list.
 5. Bluesky in editions: show why, fix failures, hold a slot, alerts (items 40, 41).
 6. Then item 38's list for choosing meaningful work. While 2–5 wait on a time
    or on evidence, item 42 says what to do first. Item 43 says what not to do.
-7. Off-VM Backblaze B2 backups (item 37). Unblocked Nov 6; the owner's settings
-   are on the VM. Lowest priority: start only when items 2–6 and the other open
+7. Off-VM Backblaze B2 backups (item 37), with a 3 GB storage budget. Unblocked
+   Nov 6; the owner's settings are on the VM. Lowest priority: start only when items 2–6 and the other open
    items above it have nothing available.
 
 ## 2. LOWER PRIORITY: real DB verification, then an ORM (2026-11-01)
@@ -1168,14 +1168,15 @@ assume. For `age`, install the official release binary under
 against the S3 API (SigV4) rather than adding a heavy SDK. If something truly
 needs root or a new service, stop and put it in NEEDS_FROM_HUMAN.md.
 
-- **Database:** upload each nightly dump after it finishes. Keep 30 days in B2.
+- **Database:** upload each nightly dump after it finishes. Retention is tiered (see
+  Storage budget below).
 - **VM:** first check whether exe.dev offers a whole-VM snapshot we can export.
   If not, make a weekly bundle of what the repo can't rebuild:
   - `~/.config/news-digest/env`;
   - systemd units and `obs-*` service files;
   - `~/.local/state/news-digest/`.
 
-  Keep 8 weekly bundles. Leave out the repo, `node_modules`, caches, and metrics
+  Retention is tiered (see Storage budget below). Leave out the repo, `node_modules`, caches, and metrics
   and log data. Add anything else a rebuild turns out to need.
 - **Encrypt everything before it leaves the VM** with `age`, to the public key
   in `BACKUP_AGE_RECIPIENT`. The VM bundle contains secrets. The private key
@@ -1200,9 +1201,37 @@ needs root or a new service, stop and put it in NEEDS_FROM_HUMAN.md.
 - **Alert** (vmalert) when no database upload has succeeded in 26 hours, or no
   VM upload in 8 days.
 - **A failed upload must never affect editions** or the local backups.
-- **Ack** with sizes and monthly storage use. B2 charges about $6.95 per TB per
+- **Ack** with sizes, bucket size against the budget, and monthly storage use. B2 charges about $6.95 per TB per
   month with the first 10 GB free, so this should cost nothing or cents. Report
   it anyway.
+
+**Storage budget (owner-approved Nov 6; replaces the 30-day and 8-bundle
+retention above).** The owner's B2 free tier is 10 GB and the account is shared
+with other projects, so this bucket gets a hard cap of 3 GB. Measured Nov 6: a
+dump is about 6.7 MB (5.1 MB on Nov 4) and the state directory is 16 MB, so
+expect roughly 230 MB in total. The owner already set the bucket lifecycle to
+"Keep only the last version"; check an expired object really disappears.
+
+- **Cap:** one constant, `B2_BUDGET_BYTES` = 3 GB, counting only objects in this bucket.
+- **Retention (the agent prunes itself):**
+  - database dumps, nightly: keep 7 daily, 4 weekly, 6 monthly;
+  - VM bundles, weekly: keep 4 weekly, 3 monthly.
+- **Before every upload:** list the bucket, sum its size, and add the new
+  object's size.
+- **If that total would exceed the cap:** delete the oldest daily dumps beyond
+  7, then the oldest VM bundles. Never delete the newest backup of each type.
+- **If still over:** skip the upload and raise an alert. This never affects
+  editions or the local backups.
+- **Early alert** (vmalert) when the bucket passes 2 GB, or growth projects a
+  breach within about 60 days. Compute the projection from the recorded sizes
+  of the last 30 days of uploads.
+- **Report** bucket size, the cap and the percentage in every ack and in the
+  handbook Operations page.
+- **Stop when:** the budget logic is tested against a fake listing (under,
+  over, and still-over cases) and one real upload passes. Don't tune retention
+  further.
+- **The owner may also set a B2 account storage cap.** That is theirs; don't
+  try to set it.
 
 ## 38. Never idle, and choose work that matters (2026-11-05)
 
