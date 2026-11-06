@@ -1,23 +1,4 @@
-## 2026-11-06: iteration 1030 — preserve contents visibility on resize
-
-- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; no leftover work, alerts clear and /healthz DB/Redis OK.
-- Reader weakness: shrinking a desktop window hid the current contents entry below the panel (entry bottom 476 versus panel bottom 384). Sidebar resize observation now reveals it without moving the edition.
-- Extended read-only saved-edition browser regression from 1280×900 to 1280×400, retaining forward/backward short-window coverage and asserting unchanged scroll position; light/dark passed. Broader desktop/mobile light/dark reader layout passed. Updated resize screenshots and visually inspected light.
-- Passed pnpm build; pnpm exec tsx scripts/smoke-reader-short-contents.ts; pnpm exec tsx scripts/smoke-reader-layout.ts. Initial pnpm check stopped on script formatting during development; corrected before rerunning.
-- Final pnpm check passed (562 unit/225 isolated integration), pnpm format and pnpm lint:fix passed; git diff --check clean. API/worker restarted; /healthz DB/Redis OK, alerts clear; saved edition remains four topics, 20 stories and 17 posts.
-- Archived iteration 1014 to keep PROGRESS small. No source/schema/handbook-flow changes or paid calls; SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Next: continue approved reader completion; approved Bluesky slot activation pending under Current order; fresh X round after 21:00 UTC.
-
-- Push initially rejected by concurrent owner steering commits b5ad6a05/dc872f6e; merged without conflicts, preserving B2 readiness and lowest priority. No runtime changes in the merge.
-
-## 2026-11-06: iteration 1031 — keep the mobile topic visible on resize
-
-- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; no leftovers, alerts clear and /healthz DB/Redis OK.
-- Reproduced offscreen active topic chips when the row narrows. Resize observation now reveals the active chip across desktop/mobile transitions and rotation, scrolling only the chip row.
-- Read-only saved-edition Playwright regression covers 390/320/844/320 widths in light/dark, preserving reading position after responsive layout settles; screenshots updated and light visually inspected. Broader desktop/mobile light/dark reader checks passed.
-- Passed pnpm format; pnpm lint:fix; pnpm build; pnpm exec tsx scripts/smoke-reader-chip-resize.ts; pnpm exec tsx scripts/smoke-reader-layout.ts; git diff --check. pnpm check passed static checks and 562 unit tests, then exited 143 during integration; standalone pnpm test:integration passed all 225 cases (exit 0).
-- API/worker restarted; health and alerts clear. Saved edition retains four topics, 20 stories and 17 posts. No paid calls or source/schema/handbook-flow changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Archived iterations 1015–1016 to keep PROGRESS small. Next: continue final reader spec; approved Bluesky slot activation pending under Current order; fresh X round after 21:00 UTC.
+# Progress
 
 ## 2026-11-06: iteration 1032 — open mobile contents at the current entry
 
@@ -162,3 +143,13 @@
 - Browser commands: pnpm exec tsx scripts/smoke-bluesky-cards.ts; scripts/smoke-reader-bluesky-links.ts; scripts/smoke-reader-layout.ts. Discarded timestamp-only screenshot churn from unchanged views; retained new failed-image screenshots.
 - Archived iteration 1029. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes.
 - Separate isolated integration run passed 225/225 (exit 0); all check stages verified. API/worker restarted; final /healthz DB/Redis OK and alerts clear. No blockers; next continue final reader until fresh X round after 21:00 UTC; fixed search OFF.
+
+## 2026-11-06: iteration 1046 — open X originals from timestamps
+
+- Advanced item 33/43 while fresh X rounds wait until after 21:00 UTC. Started clean on main; alerts clear, all 36 sources healthy, digest queue zero failed runs.
+- Reader weakness: loaded X cards collapse saved text, leaving the app timestamp without an original-post destination. Timestamp now opens the original directly, matching Bluesky and retaining compact author-row typography.
+- Extended saved-post sizing replay to assert original URL, new-tab behavior, keyboard focus and 12px timestamp text alongside loaded-media resizing. Desktop/mobile light/dark passed; four screenshots updated, mobile light inspected. Official widgets stubbed; no external requests, writes or paid calls.
+- First browser run started before the new build finished and timed out against the old bundle; reran successfully after build completion.
+- Passed pnpm format; pnpm lint:fix; pnpm build; pnpm check (562 unit/225 isolated integration, exit 0); pnpm exec tsx scripts/smoke-post-sizing.ts; git diff --check.
+- Archived iteration 1030 to keep PROGRESS small. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes.
+- API/worker restarted from verified build; /healthz DB/Redis OK, alerts clear; latest saved edition four topics/20 stories/17 posts. Next: continue final reader until fresh X rounds after 21:00 UTC; fixed search OFF.

@@ -59,6 +59,24 @@ async function smoke() {
           await host.scrollIntoViewIfNeeded();
           const card = host.locator('..');
           const timestamp = card.locator('time');
+          const original = card.getByRole('link', {
+            name: 'View post on X',
+            exact: true,
+          });
+          assert.equal(
+            await original.getAttribute('href'),
+            await card.locator('.saved-post-text a').getAttribute('href'),
+          );
+          assert.equal(await original.getAttribute('target'), '_blank');
+          assert.equal(
+            await timestamp.evaluate((node) => getComputedStyle(node).fontSize),
+            '12px',
+          );
+          await original.focus();
+          assert.equal(
+            await original.evaluate((node) => node === document.activeElement),
+            true,
+          );
           const publishedAt = await timestamp.getAttribute('datetime');
           assert.ok(publishedAt);
           const exact = new Date(publishedAt).toLocaleString('en-US', {

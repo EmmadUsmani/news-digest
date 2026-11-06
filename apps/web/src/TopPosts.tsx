@@ -248,7 +248,16 @@ function Post({
         >
           {post.author}
         </a>{' '}
-        · <StoryTime publishedAt={post.publishedAt} />
+        ·{' '}
+        <a
+          href={post.url}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="View post on X"
+          className="text-xs font-normal hover:text-[var(--accent)]"
+        >
+          <StoryTime publishedAt={post.publishedAt} />
+        </a>
       </p>
       <details
         ref={savedText}
