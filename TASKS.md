@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Post reading order (940): original saved text/media now precedes the editorial context on X, Reddit and Bluesky cards; real saved X cards verified with and without a widget stub across desktop/mobile light/dark.
+
 - [x] Invalid reader data recovery (939): ported the broken inline-history replay to the archive; malformed JSON/schema errors recover through manual retry and real saved-edition links across desktop/mobile light/dark.
 
 - [x] Full-width reader posts (938): replaced legacy desktop two-column post grid with one post per row; saved-content layout and offline widget sizing verified on desktop/mobile light/dark.

@@ -183,7 +183,6 @@ function Post({
           {new Date(post.publishedAt).toLocaleString()}
         </time>
       </p>
-      <PostContext post={post} />
       {embedded ? (
         <details className="saved-post-text">
           <summary>Saved post text</summary>
@@ -220,6 +219,7 @@ function Post({
           · at collection
         </p>
       )}
+      <PostContext post={post} />
     </article>
   );
 }
@@ -240,7 +240,6 @@ function RedditPost({ post }: { post: SelectedRedditPost }) {
           {new Date(post.publishedAt).toLocaleString()}
         </time>
       </p>
-      <PostContext post={post} />
       <h5>
         <a href={post.url} target="_blank" rel="noreferrer">
           {post.title}
@@ -271,6 +270,7 @@ function RedditPost({ post }: { post: SelectedRedditPost }) {
           </a>
         </p>
       )}
+      <PostContext post={post} />
     </article>
   );
 }
@@ -284,7 +284,6 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
           {new Date(post.publishedAt).toLocaleString()}
         </time>
       </p>
-      <PostContext post={post} />
       <p className="post-text">{post.text}</p>
       <div className="bluesky-media">
         {post.media?.map((media, index) => (
@@ -317,6 +316,7 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
       <a href={post.url} target="_blank" rel="noreferrer">
         Open original post on Bluesky
       </a>
+      <PostContext post={post} />
     </article>
   );
 }

@@ -61,6 +61,16 @@ async function smoke() {
           const savedText = card.locator('.saved-post-text');
           const frame = host.locator('iframe');
           await frame.waitFor();
+          const note = card.locator('.post-context');
+          if (await note.count()) {
+            const noteBounds = await note.boundingBox();
+            const frameBounds = await frame.boundingBox();
+            assert.ok(noteBounds && frameBounds);
+            assert.ok(
+              noteBounds.y >= frameBounds.y + frameBounds.height,
+              'Editorial context follows the loaded media',
+            );
+          }
           await savedText.locator('summary').click();
           const link = savedText.getByRole('link');
           const visibleText = await link.evaluate((element) =>

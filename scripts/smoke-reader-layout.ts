@@ -91,6 +91,19 @@ async function smoke() {
           await page.locator('.post-context').allTextContents(),
           expectedContexts,
         );
+        for (const note of await page.locator('.post-context').all()) {
+          assert.ok(
+            await note.evaluate((element) => {
+              const card = element.closest('.post-card')!;
+              const text = card.querySelector('.post-text')!;
+              return (
+                element.getBoundingClientRect().top >=
+                text.getBoundingClientRect().bottom
+              );
+            }),
+            'Read the original post before its editorial context',
+          );
+        }
         for (const post of edition.topics.flatMap((topic) => topic.posts)) {
           if (post.platform !== 'x') continue;
           const link = page

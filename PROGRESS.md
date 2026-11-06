@@ -1,15 +1,3 @@
-## 2026-11-06: iteration 925 — restore saved context for reader posts
-
-- Started clean on main; alerts/health green, 36/36 sources healthy, no failed digest jobs. Nov 6 edition and X round are not due yet.
-- Read all four topics in the saved Nov 5 edition; review in docs/edition-reviews/2026-11-05-reader.md. Biggest gap is thin World coverage; its deployed pool fix awaits Nov 6 evidence.
-- Fixed the actionable reader weakness: Japanese Gaming announcement and opaque posts had saved English context hidden by the reader API. Exposed only saved whyItMatters and rendered it above original posts/embeds on all platforms; no selection reasons exposed.
-- Owner-visible value: all 14 saved posts now have their existing context, including an understandable English explanation of Monolith Soft's announcement. No new inference, selection, queries, flags or spend.
-- Added browser comparison of public posts with saved protected posts and exact rendered context checks across devices/themes. Refreshed reader screenshots; updated affected handbook, TASKS and STEERING ack. SOURCES/NEEDS_FROM_HUMAN unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; smoke-reader-story-text.ts with saved edition; smoke-admin-gate.ts; smoke-reader-archive.ts; targeted reader-edition tests (4 passed); check-handbook.ts 08-operations; git diff --check. Full check passed 543 unit/224 isolated integration tests.
-- Initial check caught a concurrent smoke-script formatting edit; formatted and reran. Initial browser check used the reader schema for protected data without brief; corrected to protected schema and parsed only allowed post fields.
-- Rebuilt/restarted API/worker/docs/schema; all active, health/database/Redis green; 36/36 sources healthy, zero failed digest jobs, alerts clear. Browser, build, handbook and admin checks passed; full check initially terminated 143; rerun found an obsolete assertion treating context as private. Updated it to require saved public context while retaining private-field checks; final full check passed.
-- Next: read Nov 6 edition, compare World breadth/composition/cost and apply Bluesky gate; fresh X round after 21:00 UTC. Reserved slot and fixed search remain OFF.
-
 ## 2026-11-06: iteration 926 — direct links on saved X cards
 
 - Started clean on main; alerts clear and health/database/Redis green. Nov 6 edition and 21:00 UTC X round still pending; World breadth fix awaits that edition.
@@ -154,3 +142,14 @@
 - Updated TASKS and reader/archive error screenshots (inspected mobile light archive and desktop dark reader); archived iteration 924 and compacted old done markers. No system-flow change; SOURCES/handbook/STEERING/NEEDS_FROM_HUMAN unchanged.
 - Next: Nov 6 World/cost/Bluesky review after publication, X round after 21:00 UTC; keep fixed search and reserved-slot flags off.
 - Final check passed (543 unit/224 isolated integration tests); build and eight browser cases passed. Initial check caught an archived entry formatted after the main formatter; fixed and full rerun passed. Services/source/job/health/alerts checked around restart.
+
+## 2026-11-06: iteration 940 — original posts before editorial context
+
+- Started clean on main; alerts clear and health/database/Redis green. No leftover work; Nov 6 edition review and 21:00 UTC X round remain time-gated.
+- Read all four saved topics. World breadth/Tech grouping await publication evidence; post cards put paraphrased editorial context before the original post, making readers read the explanation first.
+- Moved context below original text, media and metrics on X, Reddit and Bluesky cards, following the approved design. Preserved every saved note, including English context for Gaming's Japanese announcement.
+- Updated existing layout/widget browser checks to verify visible reading order with failed external widgets and with a local widget stub. Saved production content; no external requests, writes, paid calls or flag changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; smoke-post-sizing.ts; git diff --check. Final results below.
+- Updated TASKS, operations handbook and screenshots; archived iteration 925. No source or data-contract change; SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Next: Nov 6 World/cost/Bluesky review after publication; X round after 21:00 UTC. Fixed search and reserved-slot flags remain off.
+- Final full check passed (543 unit/224 isolated integration tests); build, handbook validation and both four-view browser replays passed. Inspected mobile light/desktop dark screenshots; all 36 sources healthy, recent collections completed and no failed digest jobs. Final service restart/health/alerts checked before handoff.
