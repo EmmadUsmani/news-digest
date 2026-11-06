@@ -4,6 +4,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
+- [ ] STEERING 44 NOW: owner reports hung Grafana despite active unit; diagnose CPU/memory limits, fix runtime and endpoint health alerts, verify 30 minutes after restart. Arrived during iteration 1042 push; next breakage priority.
+
 - [x] Observability shipper cache pressure (1018): deployed MemoryHigh=64M under unchanged 80M ceiling after 16:00 UTC; fresh API log delivery and seven-source retention verified. Pending reader links, excerpt preservation and social editor v6 deployed too; selection quality awaits next scheduled edition.
 
 - [ ] STEERING 39 NOW, ahead of UI: reliability/accounting shipped (903–909); Nov 5 keyword reruns complete (910), Gaming three posts, NBA/World tool failed again (2/3 failure), $0.048153 settled. Fair semantic preparation shipped (911); scorer review complete (912): Gaming 1/3 usable, no retained free-link overlap, $0.000337 verification. Next: Nov 6 round after 21:00 UTC. Scorer relevance ≥6/interestingness ≥4 counts as non-promotion; unknown likes unusable. $2.50 total/$1 UTC day caps; fixed search OFF, no further Nov 5 reruns. [Evidence](docs/edition-reviews/2026-11-05-x-experiment-review.md).
