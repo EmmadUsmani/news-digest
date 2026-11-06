@@ -130,11 +130,25 @@ async function smoke() {
             assert.equal(await card.locator('h3').innerText(), story.title);
             const sources = card.locator('.story-sources');
             const expected = new Map<string, string>();
-            for (const article of [story, ...(story.coverage ?? [])]) {
+            const primary = story.coverage?.find(
+              (article) => article.url === story.url,
+            );
+            for (const article of [
+              primary ?? story,
+              story,
+              ...(story.coverage ?? []),
+            ]) {
               for (const name of article.sources) {
                 const key = name.trim().toLocaleLowerCase();
                 if (key && !expected.has(key)) expected.set(key, name);
               }
+            }
+            if (primary) {
+              assert.deepEqual(
+                [...expected.values()].slice(0, primary.sources.length),
+                primary.sources,
+                'Headline attribution starts with the primary report outlets',
+              );
             }
             const visibleLinks = sources.locator(':scope > a');
             if (await visibleLinks.count()) {
@@ -183,6 +197,21 @@ async function smoke() {
                 await sources.locator('summary').innerText(),
                 `+${expected.size - 2} more ${expected.size === 3 ? 'outlet' : 'outlets'}`,
               );
+            }
+            if (primary && story.sources[0] !== primary.sources[0]) {
+              assert.equal(
+                await visibleLinks.first().innerText(),
+                primary.sources[0],
+                'Grouped World story credits the headline destination first',
+              );
+              assert.equal(
+                await visibleLinks.first().getAttribute('href'),
+                story.url,
+              );
+              await card.scrollIntoViewIfNeeded();
+              await page.screenshot({
+                path: `docs/screenshots/ui/reader-primary-source-${device}-${theme}.png`,
+              });
             }
             if (story.coverage && story.coverage.length > 1) {
               const disclosure = sources.locator('details');

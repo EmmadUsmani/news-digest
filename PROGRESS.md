@@ -1,13 +1,3 @@
-## 2026-11-06: iteration 934 — restore the saved reader layout check
-
-- Started clean on main; no leftover work. Health/database/Redis green and alerts clear. Nov 6 edition review and X round remain time-gated.
-- Read latest saved headlines/posts across four topics: World breadth and known Tech grouping await Nov 6 publication; no new selection or paid calls.
-- Found a real verification breakage: smoke-reader-layout still expected generic X link labels removed in 933; reproduced its timeout. Match saved text plus author/destination context, retaining exact accessible-name verification.
-- Owner value: the reader's saved text, sources, navigation and responsive layout can again be checked before future releases. Desktop/mobile light/dark replay passed; screenshots byte-identical. No product behavior change.
-- Verification: pnpm exec tsx scripts/smoke-reader-layout.ts (failed before, passed after); pnpm format; pnpm lint:fix; pnpm check; pnpm build; git diff --check. Final results below.
-- Archived oldest progress entry; updated TASKS. SOURCES, handbook, STEERING and NEEDS_FROM_HUMAN unchanged; no source/system-flow or priority change. Next: Nov 6 edition/Bluesky review after publication, X round after 21:00 UTC.
-- Full check first exited 143 during unit tests with no reported failure; retry exited zero with 543 unit/224 isolated integration tests passing. Build passed. Restarted API/worker/docs/schema; final health/alerts and reader HTTP results checked before commit.
-
 ## 2026-11-06: iteration 935 — accurate saved reader refresh recovery
 
 - Started clean on main; no leftover work. Alerts/health green. Read saved headlines, summaries and posts: World breadth and known Tech grouping await Nov 6 publication; X round waits until 21:00 UTC.
@@ -175,3 +165,14 @@
 - Updated TASKS, handbook and STEERING ack; archived iteration 933. SOURCES and NEEDS_FROM_HUMAN unchanged.
 - Next: Nov 6 World/cost/Bluesky review after publication; fresh X round after 21:00 UTC. Fixed search and reserved slot remain off.
 - Final: first full check ended 143 during integration startup; retry exited zero (543 unit/224 isolated integration passes). Build, four-view reader replay and handbook check passed; services restarted, 36/36 sources healthy, zero failed digest jobs and alerts clear.
+
+## 2026-11-06: iteration 950 — attribute grouped headlines to their primary outlets
+
+- Started clean on main; health/database/Redis green, 36/36 sources healthy, no failed digest runs and alerts clear. Edition/X reviews remain time-gated.
+- Read the latest saved four-topic edition. World's Trump headline opens The Guardian, but its source row started with Al Jazeera because grouped sources were alphabetized.
+- Put the primary report's outlets first, preserving the other outlets and all grouped reports. Readers now see attribution matching the headline destination.
+- Extended four-view saved-edition browser checks with the real World mismatch, direct primary URL assertions and screenshots. No paid calls, selection, collection or flag changes.
+- Updated TASKS, operations handbook and STEERING ack; archived iteration 934. SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (543 unit/224 isolated integration passes); pnpm build; check-handbook.ts 08-operations; smoke-reader-layout.ts; git diff --check. All passed.
+- Browser first reached the restarting API too early; retry after healthy passed all four views. Inspected mobile light attribution screenshot. API/worker/docs/schema active, health green and alerts clear.
+- Next: Nov 6 World/cost/Bluesky review after publication; X round after 21:00 UTC. Fixed search and reserved slot remain off.

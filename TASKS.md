@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Primary outlet attribution (950): grouped story source rows start with the headline destination’s outlets; saved World story and links checked across desktop/mobile light/dark.
+
 - [x] Complete grouped coverage (949): expanded report lists include the primary article, matching the displayed count; saved title/link browser checks cover all four device/theme views.
 
 - [x] Host metrics scrape recovery (948): raised the throttled host exporter CPU ceiling to 2%; preserves its low priority and existing scrape deadline.

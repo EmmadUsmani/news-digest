@@ -11,7 +11,8 @@ export function StorySources({
 }) {
   // Preserve the primary outlet first, then deduplicate grouped outlet names.
   const outlets = new Map<string, { name: string; url: string }>();
-  for (const article of [story, ...(story.coverage ?? [])]) {
+  const primary = story.coverage?.find((article) => article.url === story.url);
+  for (const article of [primary ?? story, story, ...(story.coverage ?? [])]) {
     for (const name of article.sources) {
       const key = name.trim().toLocaleLowerCase();
       if (key && !outlets.has(key)) {
