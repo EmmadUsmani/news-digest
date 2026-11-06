@@ -169,6 +169,28 @@ async function smoke() {
         const savedPosts = edition.topics.flatMap((topic) => topic.posts);
         assert.equal(await postTimes.count(), savedPosts.length);
         for (const [index, post] of savedPosts.entries()) {
+          if (post.platform === 'x') {
+            const author = page
+              .locator('.post-card')
+              .nth(index)
+              .locator('.byline')
+              .first()
+              .getByRole('link', {
+                name: post.author,
+                exact: true,
+              });
+            assert.equal(await author.getAttribute('href'), post.authorUrl);
+            assert.equal(await author.getAttribute('target'), '_blank');
+            assert.equal(await author.getAttribute('rel'), 'noreferrer');
+            assert.equal(
+              await author.evaluate((node) => getComputedStyle(node).fontSize),
+              '12px',
+            );
+            await author.focus();
+            assert.ok(
+              await author.evaluate((node) => document.activeElement === node),
+            );
+          }
           const time = postTimes.nth(index);
           assert.equal(await time.getAttribute('datetime'), post.publishedAt);
           assert.equal(

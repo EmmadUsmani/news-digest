@@ -1,14 +1,3 @@
-## 2026-11-06: iteration 945 — restore the main reader smoke
-
-- Started clean on main; no leftover work. Alerts clear; health/database/Redis green. Edition/Bluesky review and X round remain time-gated.
-- Existing main reader smoke still targeted removed period labels, story links and inline archive controls. Ported it to the rebuilt reader and standalone archive.
-- Checks real saved titles, summaries, image attributes, older-edition opening/reload, latest return and pagination on desktop/mobile. External requests and API writes blocked; no paid calls or product/flag changes.
-- Browser verification passed; refreshed four screenshots and inspected the mobile archive. Archived iteration 929 to keep PROGRESS under its size limit.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx scripts/smoke-ui.ts; git diff --check. Final results below.
-- Updated TASKS; no source/system-flow change, so SOURCES, handbook and NEEDS_FROM_HUMAN unchanged.
-- Next: Nov 6 edition/Bluesky review after publication; X after 21:00 UTC. Fixed search and reserved slot stay off.
-- Final pnpm check exited zero: 543 unit and 224 isolated integration tests passed; build and post-restart desktop/mobile smoke passed. API/worker/docs/schema restarted, health/database/Redis green, 36/36 sources healthy, zero failed digest jobs and alerts clear.
-
 ## 2026-11-06: iteration 946 — show full desktop Contents headlines
 
 - Started clean on main; no leftover work. Alerts clear and health/database/Redis green; higher-priority reviews remain time-gated.
@@ -197,3 +186,18 @@
 - Next: edition/Bluesky review after 15:00 UTC; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.
 - Final pnpm check passed (543 unit/224 isolated integration tests); build, handbook, four-view layout/media recovery and diff checks passed. Inspected mobile light post screenshot.
 - API/worker/docs/schema restarted active; health/database/Redis green, alerts clear, all 36 sources healthy and no failed digest jobs.
+
+## 2026-11-06: iteration 962 — open X authors from saved post bylines
+
+- Started clean on main; alerts clear and health/database/Redis green. No leftover work.
+- Read all four saved topics; World breadth/Tech grouping await Nov 6 publication; X round waits until 21:00 UTC.
+- Investigated Tech's article-like Oumi post: text is from the verified embed; no ingestion mismatch established.
+- Reader weakness: X author names were plain text, preventing inspection of unfamiliar accounts without opening the post first.
+- Link X author names to saved author URLs; preserve compact byline typography and original post text/context.
+- Owner value: inspect who posted directly, even when external media cannot load.
+- Extended saved-edition replay with author URL, new-tab/privacy, keyboard focus and font-size checks in four views; screenshots refreshed.
+- Archived iteration 945; updated TASKS, STEERING ack and affected handbook. SOURCES/NEEDS_FROM_HUMAN unchanged; no spend or flags changed.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (543 unit/224 isolated integration tests); pnpm build; smoke-reader-layout.ts; check-handbook.ts 08-operations; git diff --check. All passed.
+- Initial browser run raced service startup (connection refused); rerun after green health passed four device/theme views. Inspected mobile light post screenshot; retained only post screenshots.
+- API/worker/docs/schema restarted active; health/database/Redis green, alerts clear, all 36 sources healthy and no failed digest jobs.
+- Next: edition/Bluesky review after 15:00 UTC; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.

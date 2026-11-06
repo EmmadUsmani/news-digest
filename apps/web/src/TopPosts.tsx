@@ -180,7 +180,16 @@ function Post({
   return (
     <article className="post-card">
       <p className="byline">
-        X · {post.author} ·{' '}
+        X ·{' '}
+        <a
+          href={post.authorUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="text-xs font-normal hover:text-[var(--accent)]"
+        >
+          {post.author}
+        </a>{' '}
+        ·{' '}
         <time dateTime={post.publishedAt}>
           {new Date(post.publishedAt).toLocaleString(undefined, {
             dateStyle: 'medium',
