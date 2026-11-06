@@ -22,7 +22,6 @@ details, budgets and rules stay in the items. Every new item goes on this list.
 5. Bluesky in editions: show why, fix failures, hold a slot, alerts (items 40, 41).
 6. Then item 38's list for choosing meaningful work. While 2–5 wait on a time
    or on evidence, item 42 says what to do first. Item 43 says what not to do.
-
 7. Off-VM Backblaze B2 backups (item 37). Unblocked Nov 6; the owner's settings
    are on the VM. Lowest priority: start only when items 2–6 and the other open
    items above it have nothing available.
