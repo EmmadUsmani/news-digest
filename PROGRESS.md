@@ -1,14 +1,3 @@
-## 2026-11-06: iteration 928 — reader edition date switching
-
-- Started clean on main; alerts clear, health/database/Redis green, all 36 sources healthy. Nov 6 edition/Bluesky review and the X round remain time-gated; no leftover work.
-- Reader weakness: changing dates required leaving the edition for the archive. Header arrows now open adjacent saved editions, following archive pagination; the date remains an archive link. The owner can compare consecutive editions directly.
-- Uses only public saved-edition history and cached reads; no source, selection, prompt, budget or flag changes and no paid calls. World breadth still awaits Nov 6 evidence.
-- Browser verification used real saved editions: older/newer links, reload, first-page boundary, archive link, desktop/mobile and light/dark. Updated/inspected screenshots; layout and admin gate checks passed.
-- Updated affected handbook and TASKS, added STEERING ack; archived iterations 914–915 to keep this file small. SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-archive.ts; smoke-reader-layout.ts; smoke-admin-gate.ts; check-handbook.ts 08-operations; git diff --check.
-- First full check exited 143 during integration after 543 unit passes. Retry caught formatting in the newly archived progress entries; corrected it. Final full check exited zero: 543 unit and 224 isolated integration tests passed, with coverage completed.
-- Rebuilt/restarted API/worker/docs/schema; health green, alerts clear, all sources healthy and zero retained failed digest jobs. Next: Nov 6 World/composition/cost review and Bluesky gate after publication; X round after 21:00 UTC. Experimental flags stay OFF.
-
 ## 2026-11-06: iteration 929 — restore archive recovery verification
 
 - Started clean on main; no leftover work. Worker scrape alert briefly pending after restart, metrics HTTP 200 and worker active; alert cleared without intervention. Health/database/Redis green.
@@ -154,3 +143,15 @@
 - Updated TASKS, affected handbook and STEERING ack; archived iteration 927 and compacted done markers. SOURCES/NEEDS_FROM_HUMAN unchanged; no collection or budget changes.
 - Next: Nov 6 World/cost/Bluesky review after publication; X round after 21:00 UTC. Fixed search and reserved slot remain off.
 - Final standalone pnpm check exited zero (543 unit/224 isolated integration tests); build, handbook and four post-restart browser views passed. First check exited 143 during integration; standalone rerun clean. Inspected both mobile sheet screenshots. API/worker/docs/schema active, health green, 36 sources healthy, no failed digest jobs and alerts clear.
+
+## 2026-11-06: iteration 943 — focus the content chosen from Contents
+
+- Started clean on main; alerts clear, health/database/Redis green, 36 sources healthy. No leftover work; edition and X reviews remain time-gated.
+- Read the latest saved edition across all four topics; World breadth/Tech grouping await Nov 6 publication evidence.
+- Reader weakness reproduced: desktop Contents left focus on the body; mobile returned focus to the menu button after selecting a story.
+- Made topic/story/post destinations programmatically focusable; mobile selection focuses its destination after the sheet closes. Escape still restores the menu button. Keyboard readers can continue from their chosen content.
+- Extended the existing saved-edition browser replay with Enter, destination focus, Tab to original article and Escape restoration in desktop/mobile light/dark; screenshots refreshed. No paid calls, writes, selection or flag changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx scripts/smoke-reader-layout.ts; pnpm exec tsx scripts/check-handbook.ts 08-operations; git diff --check. Final results below.
+- Updated TASKS, affected handbook and STEERING ack; archived iteration 928. SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Next: Nov 6 edition/Bluesky review after publication; X round after 21:00 UTC. Fixed search and reserved-slot flags stay off.
+- Final pnpm check passed (543 unit/224 isolated integration tests); build, handbook and four-view browser replay passed. First full check caught archive formatting, corrected before the successful rerun. Desktop/mobile Posts focus also verified. Post-restart replay caught a test timing race with dialog focus-scope removal; waiting for teardown fixed it, then repeated four-view replay passed. All four services restarted; health/database/Redis green and alerts clear.

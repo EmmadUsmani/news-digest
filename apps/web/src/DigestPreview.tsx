@@ -73,6 +73,7 @@ export function DigestPreview() {
               <article className="digest-topic m-0 border-0 p-0" key={topic.id}>
                 <h2
                   id={`topic-${topic.id}`}
+                  tabIndex={-1}
                   className="m-0 scroll-mt-36 font-sans text-2xl leading-tight font-semibold tracking-tight lg:scroll-mt-24"
                 >
                   {topic.name}
@@ -94,6 +95,7 @@ export function DigestPreview() {
                     <li key={story.id} className="border-0 p-0">
                       <Card
                         id={`story-${story.id}`}
+                        tabIndex={-1}
                         className="scroll-mt-36 rounded-lg p-5 shadow-none lg:scroll-mt-24"
                       >
                         <h3 className="m-0 font-sans text-lg leading-7 font-semibold tracking-tight">
@@ -122,6 +124,7 @@ export function DigestPreview() {
                 </ol>
                 <div
                   id={`posts-${topic.id}`}
+                  tabIndex={-1}
                   className="scroll-mt-36 lg:scroll-mt-24"
                 >
                   <TopPosts posts={topic.posts} />

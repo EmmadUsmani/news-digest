@@ -39,8 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Mobile contents headlines (942): full saved story titles wrap in the sheet; desktop stays compact. Verified real saved titles, navigation and four device/theme views.
+- [x] Contents keyboard focus (943): selecting a topic/story/post section focuses its destination; mobile dismissal restores the menu button. Saved-edition keyboard/browser verification in four device/theme views.
 
-- Earlier reader steps (924–941), including archive/routing recovery and original-post layout, are recorded in PROGRESS.md and its archive.
+- Earlier reader steps (924–942), including archive/routing recovery and original-post layout, are recorded in PROGRESS.md and its archive.
 
 - Next: STEERING 42 Nov 5 reader review completed; compare Nov 6 World breadth and post context after publication. STEERING 40 Nov 6 reserved-slot cost/AI gate and edition review after publication; fresh X round after 21:00 UTC. Fixed search stays off.

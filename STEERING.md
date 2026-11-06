@@ -1479,3 +1479,5 @@ ack: 2026-11-06 item 33 — iteration 938: replaced legacy two-column desktop po
 ack: 2026-11-06 item 42 — iteration 940: saved posts put their paraphrased context before the original; moved context below text/media on all post platforms so readers see the post first, retaining Gaming’s English context. Verified saved X cards with blocked widgets and a local widget stub across desktop/mobile light/dark. No spend or selection changes.
 
 ack: 2026-11-06 item 42 — iteration 942: mobile Contents cut off saved headlines, hiding distinguishing details. Let titles wrap in the sheet; real saved-title clipping and navigation checks passed in light/dark, with desktop unchanged. No spend or selection changes.
+
+ack: 2026-11-06 item 42 — iteration 943: saved-edition Contents left keyboard focus on the body or mobile menu after choosing a story. Focus the chosen content while preserving Escape restoration; verified saved-edition keyboard paths across desktop/mobile light/dark. No spend or selection changes.

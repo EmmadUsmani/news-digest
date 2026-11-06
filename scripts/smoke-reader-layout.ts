@@ -202,6 +202,10 @@ async function smoke() {
           await page
             .getByRole('button', { name: 'Contents', exact: true })
             .click();
+          await page.keyboard.press('Escape');
+          await page.getByRole('dialog').waitFor({ state: 'hidden' });
+          assert.equal(await page.locator(':focus').innerText(), 'Contents');
+          await page.keyboard.press('Enter');
           const mobileContents = page.getByRole('navigation', {
             name: 'Mobile contents',
           });
@@ -223,9 +227,28 @@ async function smoke() {
           const firstStory = edition.topics[0].stories[0];
           await mobileContents
             .getByRole('link', { name: firstStory.title, exact: true })
-            .click();
+            .focus();
+          await page.keyboard.press('Enter');
           await page.getByRole('dialog').waitFor({ state: 'hidden' });
           assert.equal(new URL(page.url()).hash, `#story-${firstStory.id}`);
+          await page.waitForFunction(
+            (id) => document.activeElement?.id === `story-${id}`,
+            firstStory.id,
+          );
+          // Let Radix finish removing the modal focus scope before the next key.
+          await page.evaluate(
+            () =>
+              new Promise<void>((resolve) =>
+                requestAnimationFrame(() =>
+                  requestAnimationFrame(() => resolve()),
+                ),
+              ),
+          );
+          await page.keyboard.press('Tab');
+          assert.equal(
+            await page.locator(':focus').getAttribute('href'),
+            firstStory.url,
+          );
           await page
             .getByRole('button', { name: 'Contents', exact: true })
             .click();
@@ -247,6 +270,10 @@ async function smoke() {
           return box && box.top >= 60 && box.top < 190;
         }, second.id);
         assert.equal(new URL(page.url()).hash, `#topic-${second.id}`);
+        await page.waitForFunction(
+          (id) => document.activeElement?.id === `topic-${id}`,
+          second.id,
+        );
         const navigation =
           device === 'desktop'
             ? page.getByRole('navigation', { name: 'Edition contents' })
@@ -255,7 +282,17 @@ async function smoke() {
           const story = second.stories[0];
           await navigation
             .getByRole('link', { name: story.title, exact: true })
-            .click();
+            .focus();
+          await page.keyboard.press('Enter');
+          await page.waitForFunction(
+            (id) => document.activeElement?.id === `story-${id}`,
+            story.id,
+          );
+          await page.keyboard.press('Tab');
+          assert.equal(
+            await page.locator(':focus').getAttribute('href'),
+            story.url,
+          );
           await page.waitForFunction(
             (id) =>
               document.querySelector(

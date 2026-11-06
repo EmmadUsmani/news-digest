@@ -11,6 +11,7 @@ const topicAnchor = (id: string) => `topic-${id}`;
 export function ReaderContents({ topics }: { topics: Topic[] }) {
   const [active, setActive] = useState('');
   const chips = useRef<HTMLDivElement>(null);
+  const selectedTarget = useRef<string | null>(null);
   useEffect(() => {
     const targets = topics.flatMap((topic) => [
       topicAnchor(topic.id),
@@ -78,6 +79,13 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
             const anchor = (
               <a
                 href={`#${id}`}
+                onClick={
+                  mobile
+                    ? () => {
+                        selectedTarget.current = id;
+                      }
+                    : undefined
+                }
 
                 aria-current={active === id ? 'location' : undefined}
                 className={`block ${mobile ? 'whitespace-normal break-words' : 'truncate'} rounded py-1 text-sm leading-6 hover:text-[var(--accent)] ${nested ? 'pl-3 font-normal' : 'font-medium'} ${active === id ? 'text-[var(--accent)]' : ''}`}
@@ -136,6 +144,16 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
         </div>
         <Sheet
           title="Edition contents"
+          onCloseAutoFocus={(event) => {
+            const target =
+              selectedTarget.current &&
+              document.getElementById(selectedTarget.current);
+            selectedTarget.current = null;
+            if (target) {
+              event.preventDefault();
+              target.focus({ preventScroll: true });
+            }
+          }}
           trigger={
             <Button variant="ghost" className="px-2 text-sm">
               Contents
