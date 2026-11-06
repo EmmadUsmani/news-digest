@@ -55,7 +55,7 @@ const snapshot: DigestPreview = {
           metrics: { likes: 100 },
           reasons: ['private-post'],
           xSearchRanking: { bonus: 2, reason: 'private-search' },
-          whyItMatters: 'private-note',
+          whyItMatters: 'The author announces a new release.',
         },
       ],
     },
@@ -82,6 +82,10 @@ void test('reader projection keeps content and excludes nested operational field
   assert.deepEqual(result.topics[0].brief, ['News today']);
   assert.equal(result.topics[0].stories[0].summary, 'A launch.');
   assert.equal(result.topics[0].posts[0].metrics.likes, 100);
+  assert.equal(
+    result.topics[0].posts[0].whyItMatters,
+    snapshot.topics[0].posts![0].whyItMatters,
+  );
   assert.doesNotMatch(
     JSON.stringify(result),
     /private-|candidateCount|score|reasons|triage|method/,

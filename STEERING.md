@@ -1457,3 +1457,5 @@ changed, and why a reader would notice. The ack reports the same in one line.
 
 **Limits:** no new spend, vendors or product features. Budgets, the
 13:00–16:00 UTC window and edition protection still apply.
+
+ack: 2026-11-06 (925) Read all four saved topics; World pool fix awaits publication. Fixed hidden post context at the reader API/UI, making Gaming’s Japanese announcement understandable without changing its original text.

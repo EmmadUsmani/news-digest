@@ -101,6 +101,14 @@ export function TopPosts({ posts }: { posts: ReaderPost[] }) {
   );
 }
 
+function PostContext({ post }: { post: ReaderPost }) {
+  return post.whyItMatters?.trim() ? (
+    <p className="post-context text-sm text-[var(--secondary)]">
+      {post.whyItMatters}
+    </p>
+  ) : null;
+}
+
 function Post({
   post,
   theme,
@@ -175,6 +183,7 @@ function Post({
           {new Date(post.publishedAt).toLocaleString()}
         </time>
       </p>
+      <PostContext post={post} />
       {embedded ? (
         <details className="saved-post-text">
           <summary>Saved post text</summary>
@@ -226,6 +235,7 @@ function RedditPost({ post }: { post: SelectedRedditPost }) {
           {new Date(post.publishedAt).toLocaleString()}
         </time>
       </p>
+      <PostContext post={post} />
       <h5>
         <a href={post.url} target="_blank" rel="noreferrer">
           {post.title}
@@ -269,6 +279,7 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
           {new Date(post.publishedAt).toLocaleString()}
         </time>
       </p>
+      <PostContext post={post} />
       <p className="post-text">{post.text}</p>
       <div className="bluesky-media">
         {post.media?.map((media, index) => (

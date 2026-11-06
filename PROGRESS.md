@@ -158,3 +158,15 @@
 - Updated TASKS and Operations handbook; refreshed device/theme screenshots, visually reviewed desktop/mobile. SOURCES and NEEDS_FROM_HUMAN unchanged.
 - Rebuilt/restarted API/worker/docs/schema; all active, database/Redis healthy, reader HTTP 200, 36/36 sources healthy and alerts clear. Latest saved edition: four topics/17 stories/14 posts.
 - Initial push rejected: owner added STEERING 42 remotely. Merged without rewriting history; next iteration reads the saved edition topic by topic and fixes its biggest content weakness before more reader polish. Nov 6 review/Bluesky gate after publication; X round after 21:00 UTC. Both experimental flags remain OFF.
+
+## 2026-11-06: iteration 925 — restore saved context for reader posts
+
+- Started clean on main; alerts/health green, 36/36 sources healthy, no failed digest jobs. Nov 6 edition and X round are not due yet.
+- Read all four topics in the saved Nov 5 edition; review in docs/edition-reviews/2026-11-05-reader.md. Biggest gap is thin World coverage; its deployed pool fix awaits Nov 6 evidence.
+- Fixed the actionable reader weakness: Japanese Gaming announcement and opaque posts had saved English context hidden by the reader API. Exposed only saved whyItMatters and rendered it above original posts/embeds on all platforms; no selection reasons exposed.
+- Owner-visible value: all 14 saved posts now have their existing context, including an understandable English explanation of Monolith Soft's announcement. No new inference, selection, queries, flags or spend.
+- Added browser comparison of public posts with saved protected posts and exact rendered context checks across devices/themes. Refreshed reader screenshots; updated affected handbook, TASKS and STEERING ack. SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; smoke-reader-layout.ts; smoke-reader-story-text.ts with saved edition; smoke-admin-gate.ts; smoke-reader-archive.ts; targeted reader-edition tests (4 passed); check-handbook.ts 08-operations; git diff --check. Full check passed 543 unit/224 isolated integration tests.
+- Initial check caught a concurrent smoke-script formatting edit; formatted and reran. Initial browser check used the reader schema for protected data without brief; corrected to protected schema and parsed only allowed post fields.
+- Rebuilt/restarted API/worker/docs/schema; all active, health/database/Redis green; 36/36 sources healthy, zero failed digest jobs, alerts clear. Browser, build, handbook and admin checks passed; full check initially terminated 143; rerun found an obsolete assertion treating context as private. Updated it to require saved public context while retaining private-field checks; final full check passed.
+- Next: read Nov 6 edition, compare World breadth/composition/cost and apply Bluesky gate; fresh X round after 21:00 UTC. Reserved slot and fixed search remain OFF.

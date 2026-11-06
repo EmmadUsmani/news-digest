@@ -1,13 +1,29 @@
 // Read-only layout/navigation checks against the real saved edition.
 import assert from 'node:assert/strict';
 
-import { readerEditionSchema } from '@digest/contracts';
+import {
+  digestPreviewSchema,
+  readerEditionSchema,
+  readerPostSchema,
+} from '@digest/contracts';
 import { chromium } from 'playwright';
+
+import { localAdminJson } from './lib/local-admin-fetch';
 
 async function smoke() {
   const origin = 'http://127.0.0.1:8000';
   const edition = readerEditionSchema.parse(
     await (await fetch(`${origin}/api/editions/latest`)).json(),
+  );
+  const saved = digestPreviewSchema.parse(
+    await localAdminJson(`/api/admin/digest-previews/${edition.id}`),
+  );
+  assert.deepEqual(
+    edition.topics.map((topic) => topic.posts),
+    saved.topics.map((topic) =>
+      (topic.posts ?? []).map((post) => readerPostSchema.parse(post)),
+    ),
+    'Reader posts retain saved editorial context and original text',
   );
   const browser = await chromium.launch();
   try {
@@ -49,6 +65,15 @@ async function smoke() {
         assert.equal(
           await page.locator('[data-slot="card"]').count(),
           edition.topics.reduce((n, topic) => n + topic.stories.length, 0),
+        );
+        const expectedContexts = edition.topics.flatMap((topic) =>
+          topic.posts.flatMap((post) =>
+            post.whyItMatters?.trim() ? [post.whyItMatters] : [],
+          ),
+        );
+        assert.deepEqual(
+          await page.locator('.post-context').allTextContents(),
+          expectedContexts,
         );
         for (const topic of edition.topics) {
           for (const story of topic.stories) {

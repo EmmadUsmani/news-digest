@@ -355,6 +355,7 @@ export const readerStorySchema = rankedStorySchema.pick({
   coverage: true,
 });
 const readerPostFields = {
+  whyItMatters: true,
   platform: true,
   externalId: true,
   url: true,

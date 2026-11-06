@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Saved post context (925): restored editor context in reader API/cards; topic-by-topic saved-edition review recorded. Nov 6 comparison pending.
+
 - [x] Reader source rows (924): linked outlet names and direct favicons, distinct-outlet counts and expandable saved reports. Failed icons retain readable links. Date switching and post details remain.
 
-- Next: STEERING 42 topic-by-topic saved-edition reader review and biggest content weakness while timed items wait. STEERING 40 Nov 6 reserved-slot cost/AI gate and edition review after publication; fresh X round after 21:00 UTC. Fixed search stays off.
+- Next: STEERING 42 Nov 5 reader review completed; compare Nov 6 World breadth and post context after publication. STEERING 40 Nov 6 reserved-slot cost/AI gate and edition review after publication; fresh X round after 21:00 UTC. Fixed search stays off.
