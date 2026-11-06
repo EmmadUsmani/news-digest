@@ -1,14 +1,5 @@
 # Progress
 
-## 2026-11-06: iteration 1039 — remove replaced combined admin screen
-
-- Advanced item 33/43 while X rounds wait until after 21:00 UTC. Started clean on main; no leftovers; alerts clear and health DB/Redis OK.
-- Removed the legacy combined controls and status component below Overview, completing the spec's removal of replaced screens. Dedicated Editions/Sources/Topics/Schedule/Spend/Tools remain in desktop/mobile navigation.
-- Read-only Playwright overview replay passed desktop/mobile light/dark: real saved edition/cost, healthy sources, anonymous denial, reload, mobile menu, navigation links and no overflow. Four screenshots saved; mobile light/desktop dark visually inspected.
-- Updated runtime handbook to describe the completed admin navigation. SOURCES and NEEDS_FROM_HUMAN unchanged: no source or external-system changes. No paid calls.
-- Verification: pnpm build; pnpm exec tsx scripts/smoke-admin-overview.ts; pnpm exec tsx scripts/check-handbook.ts 01-stack-and-runtime; pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration tests, exit 0); git diff --check.
-- API/worker restarted; health DB/Redis OK and alerts clear. Archived iteration 1023 to keep this log small. Next: final reader completion; fresh X rounds after 21:00 UTC; approved Bluesky reserved-slot activation pending under Current order. Fixed search OFF.
-
 ## 2026-11-06: iteration 1040 — weekday in the reader header
 
 - Advanced item 33/43 while X rounds wait until after 21:00 UTC. Started clean on main; no leftovers; alerts clear and health DB/Redis OK.
@@ -165,3 +156,13 @@
 - Passed focused runtime tests 3/3, pnpm format, pnpm lint:fix, pnpm build and full pnpm check (558 unit/226 isolated integration); initial duplicate-import lint failure corrected. Handbook check passed after cutting one over-limit line; unchanged diagram.
 - Archived iteration 1038. Next: remove remaining standalone legacy search helpers/adapter branches, then activate outside 13:00–16:00 UTC; earliest edition Nov 7. No human blocker.
 - API/worker restarted active; health DB/Redis OK, alerts clear, 36 sources healthy; digest worker available/zero failed runs and saved four-topic edition readable.
+
+## 2026-11-06: iteration 1055 — delete obsolete paid-search orchestration
+
+- Started clean on main; alerts clear, health DB/Redis OK and 36 sources healthy. No leftover work.
+- Removed unused pre-keyword scheduler, optional follow-up orchestration and story-reaction request planner, plus obsolete tests. Saved account lists, historical experiment story inputs/replay and ledger history retained.
+- Focused runtime/historical story tests passed 6/6; no paid calls or edition writes. Fixed search remains OFF.
+- TASKS/SOURCES updated; handbook unchanged (unused implementation removal). Archived oldest progress entry.
+- Next: remaining adapter branch cleanup, then activate for Nov 7; three-edition acceptance remains open.
+- Passed pnpm format, pnpm lint:fix, pnpm build and full pnpm check (535 unit/226 isolated integration; exit 0); git diff --check clean.
+- API/worker restarted active; health DB/Redis OK, alerts clear and saved four-topic edition readable; digest queue available with zero failures. No human blocker.

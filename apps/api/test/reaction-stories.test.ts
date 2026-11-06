@@ -5,7 +5,6 @@ import type { PoolClient } from 'pg';
 
 import { cachedReactionStories } from '../src/modules/digests/domain/cached-reaction-stories';
 import { loadReactionStories } from '../src/modules/digests/public/reaction-stories';
-import { runSearchFollowups } from '../src/modules/social/application/search-followups';
 
 const start = new Date('2026-11-02T00:00:00Z');
 const end = new Date('2026-11-03T00:00:00Z');
@@ -123,31 +122,6 @@ void test('reaction stories reuse article filters, ranking without wording group
   );
   assert.ok(stories[0].importance > stories[1].importance);
   assert.deepEqual(calls, [['nba'], ['nba', start, end]]);
-  const requests: string[] = [];
-  await runSearchFollowups(
-    [
-      {
-        id: 'nba',
-        request: {
-          topic: 'NBA',
-          guidance: '',
-          fromDate: '2026-11-02',
-          toDate: '2026-11-03',
-        },
-        openCallId: '00000000-0000-0000-0000-000000000001',
-        openState: 'completed',
-        openVerifiedAdditions: 0,
-        stories,
-        handles: ['NBA'],
-      },
-    ],
-    async () => true,
-    async (_id, request) => {
-      requests.push(request.reactionStory!.title);
-      return { state: 'completed' };
-    },
-  );
-  assert.deepEqual(requests, ['NBA team wins championship']);
 });
 void test('disabled/missing topics and invalid windows cannot load reaction candidates', async () => {
   const { db, calls } = fixture(false);

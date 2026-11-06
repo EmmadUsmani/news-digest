@@ -2165,3 +2165,8 @@ The production scheduler is now covered against the real isolated PostgreSQL led
 - Removed the worker runtime fallback to legacy open-topic searches and optional story/account follow-ups. Missing or disabled fixed-search configuration exits before loading the profile or touching admission, provider or verification.
 - Removed unused completed-open and headline-loading dependencies from the production runtime. Keyword retry, settlement and official verification remain covered, including the isolated real-ledger admission proof.
 - Fixed search remains OFF; no paid calls or edition writes. Legacy standalone helpers/adapter branches still need cleanup before activation.
+
+### Remove obsolete discovery orchestration — iteration 1055 (2026-11-06)
+
+- Deleted the unused pre-keyword scheduler, optional follow-up orchestration and story-reaction request planner, with their obsolete tests. The production keyword runtime and saved account lists are unchanged.
+- Historical experiment story inputs and replay tests remain; ledger history is retained. Adapter branch cleanup remains before activation. Fixed search stays OFF; no paid calls or edition writes.
