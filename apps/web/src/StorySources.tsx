@@ -37,11 +37,15 @@ export function StorySources({
       {sources.length > 0 && <span aria-hidden="true">·</span>}
       {children}
       {articles.length > 0 && (
-        <details className="coverage w-full text-xs">
-          <summary className="cursor-pointer text-xs">
-            {articles.length} {articles.length === 1 ? 'article' : 'articles'}
-            {sources.length > 2 &&
-              ` · +${sources.length - 2} more ${sources.length === 3 ? 'outlet' : 'outlets'}`}
+        <details className="coverage max-w-full text-xs open:w-full">
+          <summary
+            className="cursor-pointer text-xs"
+            title={`${articles.length} ${articles.length === 1 ? 'article' : 'articles'}`}
+            aria-label={`Show ${articles.length} ${articles.length === 1 ? 'article' : 'articles'} covering this story`}
+          >
+            {sources.length > 2
+              ? `+${sources.length - 2} ${sources.length === 3 ? 'outlet' : 'outlets'}`
+              : `${articles.length} ${articles.length === 1 ? 'article' : 'articles'}`}
           </summary>
           <ul className="my-3 list-none space-y-3 pl-0">
             {articles.map((article) => (

@@ -166,3 +166,12 @@
 - API/worker restarted; saved edition has 20 stories/17 posts; health and alerts clear. No paid calls or source/schema/handbook-flow changes; SOURCES unchanged.
 - Corrected stale TASKS/NEEDS_FROM_HUMAN owner-wait wording: latest item 40 explicitly approves reserved-slot activation without a cap increase. Slot activation remains next under Current order; no configuration changed here.
 - Archived iterations 1010–1011 to keep PROGRESS under 25 KB. Next: continue approved reader; enable approved Bluesky slot under Current order; X fresh-window round after 21:00 UTC.
+
+## 2026-11-06: iteration 1027 — inline grouped outlets
+
+- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; alerts clear and /healthz DB/Redis OK.
+- Collapsed report disclosures now share the source/time row, saving a row per story. Additional publishers use +N outlets; all saved reports expand below. Full article count remains in hover/accessibility text.
+- Extended read-only browser verification for desktop row alignment and accessible counts; updated old-label assertions. Desktop/mobile light/dark passed, including expansion, timestamps, no overflow and no writes. Updated screenshots; inspected desktop/mobile light.
+- Passed pnpm build; pnpm check (562 unit/225 isolated integration); pnpm format; pnpm lint:fix; pnpm exec tsx scripts/smoke-reader-layout.ts. API/worker restarted; health and alerts clear.
+- No paid calls or source/schema/handbook-flow changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Next: continue approved reader completion; approved Bluesky slot activation pending under Current order; X round after 21:00 UTC.

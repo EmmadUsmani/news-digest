@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Inline grouped outlets (1027, item 33): collapsed coverage shares the source/time row; +N outlets expands every saved report. Full article count retained for hover/accessibility; desktop/mobile light/dark verified.
+
 - [x] Relative story times (1026, item 33): compact minute/hour/day ages retain exact saved date/time on hover and for screen readers; refresh every minute.
 
 - [x] Compact post notes (1025, item 33): one-line editorial notes preserve full accessible/hover text; notes repeating saved post text are hidden. Desktop/mobile light/dark saved-edition and synthetic replay verified.

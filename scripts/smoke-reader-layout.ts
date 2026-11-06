@@ -342,7 +342,21 @@ async function smoke() {
             );
             assert.ok(await published.isVisible());
             if ((story.coverage?.length ?? 0) > 0) {
-              await card.locator('.coverage summary').click();
+              const disclosure = card.locator('.coverage summary');
+              assert.equal(
+                await disclosure.getAttribute('aria-label'),
+                `Show ${story.coverage!.length} ${story.coverage!.length === 1 ? 'article' : 'articles'} covering this story`,
+              );
+              if (device === 'desktop') {
+                const timeBox = await published.boundingBox();
+                const toggleBox = await disclosure.boundingBox();
+                assert.ok(timeBox && toggleBox);
+                assert.ok(
+                  Math.abs(timeBox.y - toggleBox.y) < 4,
+                  'Collapsed coverage stays on the desktop source row',
+                );
+              }
+              await disclosure.click();
               const times = card.locator('.coverage time');
               assert.deepEqual(
                 await times.evaluateAll((nodes) =>
@@ -428,7 +442,7 @@ async function smoke() {
             ) {
               assert.equal(
                 await sources.locator('summary').innerText(),
-                `${story.coverage.length} articles · +${expected.size - 2} more ${expected.size === 3 ? 'outlet' : 'outlets'}`,
+                `+${expected.size - 2} ${expected.size === 3 ? 'outlet' : 'outlets'}`,
               );
             }
             if (primary && story.sources[0] !== primary.sources[0]) {
@@ -459,10 +473,12 @@ async function smoke() {
             if (story.coverage && story.coverage.length > 0) {
               const disclosure = sources.locator('details');
               assert.ok(
-                (await disclosure.locator('summary').innerText()).startsWith(
+                (
+                  await disclosure.locator('summary').getAttribute('title')
+                )?.startsWith(
                   `${story.coverage.length} ${story.coverage.length === 1 ? 'article' : 'articles'}`,
                 ),
-                'Readers see the complete report count before expanding coverage',
+                'Readers can inspect the complete report count before expanding coverage',
               );
               await disclosure.locator('summary').click();
               assert.deepEqual(

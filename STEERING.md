@@ -1629,3 +1629,5 @@ ack: 2026-11-06 item 33/43 — iteration 1024: readers can scan single-line cont
 ack: 2026-11-06 item 33/43 — iteration 1025: readers now see compact one-line post notes with full hover/accessibility text, and no note duplicating the saved post text. Desktop/mobile light/dark [screenshots](docs/screenshots/ui/reader-post-date-mobile-light.png) and synthetic repetition replay verified; no paid calls.
 
 ack: 2026-11-06 item 33/43 — iteration 1026: reader story cards now show compact relative publication ages that refresh each minute, retaining exact saved local timestamps on hover and for screen readers. Article disclosures keep exact times. Desktop/mobile light/dark [screenshots](docs/screenshots/ui/reader-single-report-mobile-light.png) and clock-boundary replay verified; no paid calls or selection changes.
+
+ack: 2026-11-06 item 33/43 — iteration 1027: readers can expand compact +N grouped outlets from the source/time row, saving a row per collapsed story; every saved report and exact time remains available. Desktop/mobile light/dark verified; no paid calls.
