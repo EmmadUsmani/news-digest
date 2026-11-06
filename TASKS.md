@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Migration directory guide (993): repository map now includes generated Drizzle migrations and explains the ordered runner/shared ledger, with links to the migration policy.
+
 - [x] Owner database guidance (992): removed the stale in-progress ORM status and adapter inventory from the runtime handbook; it now describes completed Drizzle access and links to the boundary/migration policy.
 
 - [x] Reader heading navigation (991): a dated page heading identifies the saved edition to screen-reader users before topic headings; desktop/mobile light/dark reader checks cover it.

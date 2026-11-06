@@ -18,12 +18,19 @@ news-digest/
 │   ├── docs-site/        serves this handbook
 │   └── schema-explorer/  live DB schema diagram
 ├── packages/contracts/   Zod schemas shared by API and web
-├── migrations/           numbered SQL files, applied in order
+├── migrations/           historical numbered SQL migrations
+├── drizzle/              generated SQL migrations and their journal
 ├── scripts/              smoke checks and test runners
 ├── docs/                 handbook, decisions, reference notes
 ├── ops/                  systemd units, VM setup, agent harness
 └── MISSION.md · STEERING.md · TASKS.md · PROGRESS.md · AGENTS.md   (agent memory)
 ```
+
+Database changes run with `pnpm migrate`: historical files in `migrations/`
+first, then generated files in `drizzle/` in journal order. Both share the
+`schema_migrations` ledger, so already applied changes are skipped. See
+[Stack & runtime](01-stack-and-runtime.md) for database access and
+[migration policy](../../decisions/0003-drizzle-data-access.md) for authoring changes.
 
 ## Business areas (bounded contexts)
 
