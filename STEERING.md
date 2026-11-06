@@ -1705,3 +1705,5 @@ ack: 2026-11-06 item 33/43 — iteration 1034: readers now see matching story/po
 ack: 2026-11-06 item 33/43 — iteration 1035: readers now see responsive brief/card and desktop contents skeletons while an edition loads, with one accessible loading status. Desktop/mobile light/dark saved-edition transitions and failure recovery verified; no paid calls.
 
 ack: 2026-11-06 item 33/43 — iteration 1036: past-edition readers now see responsive date-row placeholders during loading, with one accessible announcement and verified saved-link/error/retry recovery in desktop/mobile light/dark; no paid calls.
+
+ack: 2026-11-06 item 33/43 — iteration 1037: keyboard readers can skip header/contents links and start reading the edition or archive directly. Focus-only links preserve the normal layout; desktop/mobile light/dark focus and next-link checks passed. [Mobile keyboard view](docs/screenshots/ui/reader-skip-edition-mobile-light.png). No paid calls.

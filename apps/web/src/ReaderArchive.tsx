@@ -5,12 +5,14 @@ import { ThemeToggle } from './components/theme-toggle';
 import { Button } from './components/ui/button';
 import { Skeleton } from './components/ui/skeleton';
 import { editionHistoryQuery } from './queries';
+import { ReaderSkipLink } from './ReaderSkipLink';
 
 export function ReaderArchive() {
   const { page } = useSearch({ from: '/editions' });
   const history = useQuery(editionHistoryQuery((page - 1) * 20));
   return (
     <main className="mx-auto min-h-screen max-w-2xl px-5 pb-16 sm:px-6">
+      <ReaderSkipLink target="archive-content" />
       <header className="flex items-center justify-between border-b border-[var(--border)] py-5">
         <Link to="/" className="text-lg font-semibold tracking-tight">
           News Digest
@@ -18,7 +20,11 @@ export function ReaderArchive() {
         <ThemeToggle />
       </header>
       <div className="pt-12">
-        <h1 className="m-0 font-sans text-3xl leading-tight font-semibold tracking-tight">
+        <h1
+          id="archive-content"
+          tabIndex={-1}
+          className="m-0 scroll-mt-6 font-sans text-3xl leading-tight font-semibold tracking-tight"
+        >
           Past editions
         </h1>
         {history.isPending && (

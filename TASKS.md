@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Reader keyboard bypass (1037, item 33): focus-only skip links reach edition/archive content directly; focus, sticky-header clearance and continued keyboard reading verified desktop/mobile light/dark.
+
 - [x] Reader archive loading (1036, item 33): responsive date-row skeletons, accessible loading announcement and saved-link/error/retry transitions verified desktop/mobile light/dark.
 
 - [x] Reader loading layout (1035, item 33): responsive contents/brief/card skeletons replace the blank initial wait; accessible loading status, saved-edition transition and failure recovery verified in desktop/mobile light/dark.

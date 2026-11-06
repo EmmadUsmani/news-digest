@@ -8,6 +8,7 @@ import { EditionDateSwitcher } from './EditionDateSwitcher';
 import { editionQuery, HttpError } from './queries';
 import { ReaderContents } from './ReaderContents';
 import { ReaderSkeleton } from './ReaderSkeleton';
+import { ReaderSkipLink } from './ReaderSkipLink';
 import { StorySources } from './StorySources';
 import { StoryTime } from './StoryTime';
 import { TopPosts } from './TopPosts';
@@ -18,6 +19,9 @@ export function DigestPreview() {
   const preview = edition.data;
   return (
     <main className="mx-auto min-h-screen max-w-[1008px] px-4 pb-16 sm:px-6">
+      {preview?.topics[0] && (
+        <ReaderSkipLink target={`topic-${preview.topics[0].id}`} />
+      )}
       <header className="sticky top-0 z-30 flex h-[65px] items-center justify-between gap-3 border-b border-[var(--border)] bg-[var(--background)] py-0">
         <Link
           to="/"
