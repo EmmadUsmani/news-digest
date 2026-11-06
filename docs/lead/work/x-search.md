@@ -1,7 +1,7 @@
 # X search
 
-**Status:** test in progress. The new search isn't live. Production still runs
-the old open search.
+**Status:** keyword search is switched on in production. First eligible
+window is Nov 7, 14:30–14:55 UTC. Three-edition acceptance is still open.
 
 **Goal:** find viral posts the news hasn't picked up. Free links from articles
 already cover press-linked posts. See [the plan](../../x-search-plan.md).
@@ -10,17 +10,16 @@ already cover press-linked posts. See [the plan](../../x-search-plan.md).
 well-known names from the topic description. Code adds filters, likes minimum and
 exact time window.
 
-**Latest:** Nov 6 rerun of NBA, Gaming and World: 2 of 3 failed (NBA and World
-tool calls, zero posts). Gaming gave 3 verified posts (median 1,058 likes). Spend
-is $1.31 of $2.50 over 23 calls. The fixed search is still OFF in production.
-Item 39 is not finished.
+**Latest:** the agent compared the saved Nov 5/6 baselines. Old open search:
+0 usable of 38 citations. Keywords: 9 usable (Tech 2, NBA 3, Gaming 4), World 0.
+Meaning-based search added nothing and was dropped. Grok 4.3, the caps and the
+likes minimums stay. After the fix, 5 of 9 keyword attempts failed.
 
 **Next:**
 
-- Check the meaning-based test after 21:00 UTC on Nov 6, the agent's priority 2.
-- Then the agent decides by the plan's rule. Earliest live edition is Nov 7.
+- Check the Nov 7 window: which topics got usable posts, and the real cost.
+- Acceptance needs three editions. Report World separately.
 
-**Open decisions:** whether meaning-based search stays. Owner decides any split
-of the $0.40.
+**Open decisions:** none. The meaning-based question is settled.
 
 **Spend:** read the experiment journal for the current figure. Limit $2.50 total.

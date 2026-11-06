@@ -178,3 +178,4 @@
 - Passed pnpm exec tsx scripts/smoke-reader-date-recovery.ts and scripts/smoke-reader-position.ts; inspected final mobile recovery screenshot. git diff --check clean.
 - API restarted for browser verification; health/alerts clear, 36/36 sources healthy, digest-generation queue available/zero failed; saved edition 4 topics/20 stories/17 posts.
 - Next: continue item 33 reader work; Nov 7 keyword production/three-edition acceptance and approved Bluesky reserved-slot activation remain open. Whole-stack RAM target still unmet.
+- Initial push rejected: concurrent lead-only updates in docs/lead/work/{observability,x-search}.md. Fetched and merged without changing owner files or rewriting history; application checks remain applicable. API/worker active and post-restart health/alerts clear.
