@@ -198,3 +198,13 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm build passed. Initial pnpm check found formatting in the newly extracted archive; corrected it; full rerun passed (560 unit/224 isolated integration tests). git diff --check passed.
 - No restarts during the 13:00–16:00 deployment freeze; running code unchanged.
 - Next: Nov 6 edition/World/cost/Bluesky review after publication; X round after 21:00 UTC; fixed search OFF.
+
+## 2026-11-06: iteration 1005 — scope finding remembered stories
+
+- Started clean on main; no leftover work. Alerts clear, health/DB/Redis green, API/worker active, all 36 sources healthy; no failed digest jobs.
+- Latest saved edition remains Nov 5 (7d99b279): Tech 5/3, NBA 5/5, Gaming 5/5, World 2/1 stories/posts. Existing breadth, summary and context fixes await Nov 6 publication; no repeated tuning.
+- Reader weakness: remembering a player or event does not identify its edition date; the archive exposes dates/windows/topics only. Owner value: recover a previously read story without opening each edition.
+- Added a bounded published-story archive search proposal, using Porziņģis as the acceptance example, with a 2–3 day estimate and no LLM/external spend. Owner review required before implementation under item 38.
+- No runtime/source/schema changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged. No restarts during the 13:00–16:00 deployment freeze; running code unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration tests); pnpm build; git diff --check all passed.
+- Next: Nov 6 edition/World/cost/Bluesky review after publication; X round after 21:00 UTC. Fixed search stays OFF.

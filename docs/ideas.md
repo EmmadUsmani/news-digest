@@ -236,3 +236,28 @@
   exists. No new schema or collection work is justified by this assessment.
   A future owner-approved visible-description feature would need separate
   reader evidence; do not duplicate the existing accessibility support.
+
+## Find a story remembered from a past edition
+
+- Reader problem: after reading Nov 5's Porziņģis salary-dispute story, a
+  reader may remember the player but not the edition date. The current archive
+  lists dates, coverage windows and topic names; finding the story requires
+  opening editions individually. Browser find cannot search unopened editions.
+- Proposal: a simple archive text search over published, saved story headlines
+  and summaries, with an optional topic filter. Return the saved headline,
+  topic and edition date, linking directly to that immutable story. Use literal
+  words, with no generated answer or claim that the reporting remains current.
+- Bound the first version to stories; post text, semantic search, publisher
+  pages and unpublished/admin data stay outside this proposal. Search the
+  stored snapshots on the server with paginated results rather than downloading
+  every edition into the browser. Define case/diacritic behavior before building.
+- Cost: approximately 2–3 days for a published-only repository query/index if
+  needed, reader contract/endpoint and accessible archive controls. No model
+  calls, external requests, new vendor or added API spend. Measure the query on
+  the actual snapshot count before choosing an index; preserve edition IDs and
+  existing story anchors. Any schema change needs metadata and handbook updates.
+- Acceptance example: searching “Porziņģis” finds the Nov 5 saved story and
+  opens it in its edition; a no-match query shows a clear empty result. Verify
+  pagination and that unpublished snapshots never appear.
+- Status: proposal awaiting owner review under item 38. No implementation,
+  runtime change or spend; the Nov 6 edition and X/Bluesky decisions come first.

@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Archive retrieval proposal (1005): scoped published-story text search from the saved Nov 5 Porziņģis example; current archive requires date-by-date browsing. Owner approval required before implementation. [Proposal](docs/ideas.md#find-a-story-remembered-from-a-past-edition).
+
 - [x] Story/post citation evidence gate (1004): none of 32 per-story coverage URLs across 17 saved stories identifies any of 14 selected posts; defer exact-link proposal. No fetches or runtime changes. [Assessment](docs/ideas.md#saved-citation-availability-assessment--nov-6).
 
 - [x] Media-description evidence gate (1003): recorded X oEmbed has no description; Bluesky already preserves alt text, with synthetic coverage. Proposal deferred; no new requests or implementation. [Assessment](docs/ideas.md#recorded-data-availability-assessment--nov-6).
