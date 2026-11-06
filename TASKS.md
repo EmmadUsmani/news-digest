@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Concrete social news (974): social editor v3 favors supplied developments over teasers whose news is only in unseen media; concrete highlight stat lines remain eligible. Verify actual Gaming picks in Nov 6 edition.
+
 - [x] Archive coverage periods (973): show saved start/end dates and local times so same-day editions with different windows are distinguishable; browser checks use real saved windows.
 
 - [x] Thin-source summaries (972): editor v6 requests concise attributed news instead of commentary about supplied excerpts; factual validation stays intact. Verify actual wording in the Nov 6 edition.

@@ -1,18 +1,3 @@
-## 2026-11-06: iteration 960 — keep the small-screen reader header on one line
-
-- Started clean on main; alerts clear, health/database/Redis green. No leftover work.
-- Read saved Tech, NBA, Gaming and World content; World breadth and Tech grouping still await Nov 6 publication evidence.
-- Reader weakness reproduced at 320px: the wordmark and date each wrapped into two lines, crowding the fixed-height header.
-- Keep the wordmark on one line and use month/day on mobile; wider screens and the accessible date description retain the year.
-- Owner value: the smallest supported reader view keeps its title, date arrows and theme control in a clean single row.
-- Extended saved-edition layout replay with 320px header fit/single-line checks in light/dark; updated screenshots and affected handbook.
-- Archived iteration 943; updated TASKS and STEERING ack. SOURCES and NEEDS_FROM_HUMAN unchanged; no spend, collection or flag changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx scripts/smoke-reader-layout.ts; pnpm exec tsx scripts/check-handbook.ts 08-operations; git diff --check.
-- Next: edition/Bluesky review after 15:00 UTC; fresh X round after 21:00 UTC. Fixed search and reserved slot stay off.
-- Initial full check passed 543 unit tests, then exited 143 during integration tests without a reported assertion failure; rerunning standalone before commit.
-- Standalone pnpm check passed (543 unit/224 isolated integration tests); build, handbook, four-view browser replay plus 320px light/dark and final format/lint/diff checks passed. Inspected small-screen light screenshot.
-- API/worker/docs/schema restarted active; health/database/Redis green and alerts clear. All 36 sources healthy; no failed digest-generation jobs.
-
 ## 2026-11-06: iteration 961 — distinguish digest commentary from original posts
 
 - Started clean on main; alerts clear and health/database/Redis green. No leftover work.
@@ -192,3 +177,17 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (547 unit/224 isolated integration tests); pnpm build; smoke-reader-archive; check-handbook 08-operations; git diff --check all passed. Four archive screenshots refreshed and mobile light inspected; existing date screenshots refreshed.
 - Archived iterations 958–959 to keep PROGRESS below 25 KB. API/worker/docs/schema restart and post-push health/alerts confirmation follow.
 - Next: Nov 6 saved edition/cost/Bluesky review after 15:00 UTC; fresh X round after 21:00 UTC; flags unchanged.
+
+## 2026-11-06: iteration 974 — favor posts that convey the news
+
+- Started clean on main; alerts clear, health/database/Redis green. No leftover work.
+- Read all four latest saved topics; World breadth/Tech composition await 15:00 UTC, X round waits until 21:00 UTC.
+- Owner value: Gaming’s release-date update gives no date or change in supplied text; readers get a teaser rather than a development when media is unavailable.
+- Cause: social editor excludes invented media descriptions but does not prefer informative text over media-dependent teasers.
+- Social editor v3 favors concrete supplied developments, allows fewer picks instead of filler, and explicitly retains highlights with concrete results/stat lines.
+- Existing factual/absence guards, X preference, budgets, sources and flags unchanged. No wording-based filtering or immutable-edition edits.
+- Offline prompt contract checks passed 12/12, including cache reuse and capped fallback. This verifies instructions/transport, not actual model selection quality; compare Nov 6 Gaming picks.
+- No paid calls. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged: selection-guidance bug fix with no system/source changes. UI unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check passed 547 unit/224 isolated integration tests; pnpm build; git diff --check. No UI changes; browser replay unnecessary.
+- Archived iteration 960 to keep PROGRESS small. API/worker/docs/schema restarted; final health/alerts checked before commit.
+- Next: compare Nov 6 Gaming picks and World/cost/Bluesky after 15:00 UTC; fresh X round after 21:00 UTC. Flags unchanged.
