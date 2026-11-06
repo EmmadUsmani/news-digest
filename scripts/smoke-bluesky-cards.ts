@@ -152,7 +152,7 @@ async function main() {
       assert.equal(
         await cards
           .first()
-          .getByRole('link', { name: 'Open original post on Bluesky' })
+          .getByRole('link', { name: 'View post on Bluesky' })
           .getAttribute('href'),
         post.url,
       );
@@ -166,7 +166,10 @@ async function main() {
         post.url,
       );
       assert.equal(await cards.first().locator('script').count(), 0);
-      const linkedSource = cards.first().locator('.post-text a');
+      const linkedSource = cards
+        .first()
+        .locator('.post-text a')
+        .filter({ hasText: 'https://example.com/' });
       assert.equal(await linkedSource.count(), 1);
       assert.equal(
         await linkedSource.getAttribute('href'),

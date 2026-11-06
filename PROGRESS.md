@@ -1,14 +1,3 @@
-## 2026-11-06: iteration 1028 — compact post timestamps
-
-- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; health and alerts clear.
-- X, Bluesky and Reddit cards now share the story age display, refreshing every minute and retaining exact saved timestamps in hover/accessibility labels. Mobile author rows fit more comfortably.
-- Extended saved-post browser assertions for relative ages and exact timestamp retention; updated the broader reader's old full-date assertion. Desktop/mobile light/dark sizing, synthetic Bluesky and saved reader checks passed; screenshots updated and desktop/mobile light visually inspected.
-- Passed pnpm format; pnpm lint:fix; pnpm build; pnpm exec tsx scripts/smoke-post-sizing.ts; scripts/smoke-bluesky-cards.ts; scripts/smoke-reader-layout.ts; git diff --check.
-- pnpm check passed static checks and 562 unit tests, then exited 143 during integration; standalone pnpm test:integration passed all 225 cases (exit 0).
-- API/worker restarted; /healthz DB/Redis OK, all 36 sources and 13 services healthy, alerts clear. Browser checks confirmed saved edition unchanged; no paid calls or source/schema/handbook-flow changes.
-- Archived iterations 1012–1013 to keep PROGRESS small. SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Next: continue final reader spec; approved Bluesky slot activation pending under Current order; fresh X round after 21:00 UTC.
-
 ## 2026-11-06: iteration 1029 — keep current contents visible
 
 - Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; alerts clear and /healthz DB/Redis OK.
@@ -162,3 +151,15 @@
 - Initial Grafana check needed its old 256 MiB assertion updated. Jobs-only verification hit changing schedule/timing equality assertions; stable Agent dashboard checks passed. Temporary sampler exited 143; durable collector history and direct probes provided stability evidence.
 - API/worker rebuilt/restarted; final health DB/Redis OK, all 36 sources healthy, digest queue zero failed runs, alerts clear. No paid verification calls or source/schema changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
 - Updated affected handbook/owner ack, archived iteration 1027 and older completed task markers. Stop after item 44 as instructed; next resume approved UI while X tests wait until after 21:00 UTC. Fixed search OFF.
+
+## 2026-11-06: iteration 1044 — open Bluesky posts from compact cards
+
+- Advanced item 33/43 while X rounds wait until after 21:00 UTC. Started clean on main; no leftovers; health/alerts clear.
+- Reader weakness: Bluesky text required a separate footer to open its original post. Text now links directly to the post while embedded source URLs keep their destinations; timestamp also links to the post, including URL-only posts. Removed the redundant footer.
+- Read-only actual saved World-post replay passed desktop/mobile light/dark: original/source destinations, saved text, keyboard focus, no nested links or overflow. Four screenshots saved; mobile light visually inspected. Existing synthetic Bluesky media/context replay and broader saved reader layout replay passed all four views.
+- Screenshot review caught an oversized timestamp link; matched author-row typography and added a browser assertion. First full check stopped on archive/script formatting; formatted both and reran.
+- Initial new script used top-level await in this CommonJS workspace; wrapped its entry point and reran successfully. Updated old synthetic footer/link-count assertions for the new card. No paid calls, edition writes or source/selection changes.
+- Passed pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration, exit 0); pnpm build; pnpm exec tsx scripts/smoke-reader-bluesky-links.ts; scripts/smoke-bluesky-cards.ts; scripts/smoke-reader-layout.ts; git diff --check.
+- Built and restarted API/worker; /healthz DB/Redis OK, all 36 sources healthy, digest queue zero failed runs, alerts clear.
+- Archived iteration 1028 to keep this log small. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes.
+- Next: continue final reader; fresh X round after 21:00 UTC. Approved Bluesky slot activation pending under Current order; fixed search OFF.

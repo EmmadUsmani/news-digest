@@ -353,9 +353,14 @@ function RedditPost({ post }: { post: SelectedRedditPost }) {
   );
 }
 
-function LinkedPostText({ text }: { text: string }) {
+function LinkedPostText({ text, postUrl }: { text: string; postUrl: string }) {
   return text.split(/(https?:\/\/[^\s<>]+)/g).map((part, index) => {
-    if (!/^https?:\/\//.test(part)) return part;
+    if (!/^https?:\/\//.test(part))
+      return part ? (
+        <a key={index} href={postUrl} target="_blank" rel="noreferrer">
+          {part}
+        </a>
+      ) : null;
     // Leave sentence punctuation outside the link without changing saved text.
     const url = part.replace(/[.,;:!?]+$/, '');
     try {
@@ -395,10 +400,19 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
         >
           {post.author}
         </a>{' '}
-        · <StoryTime publishedAt={post.publishedAt} />
+        ·{' '}
+        <a
+          href={post.url}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="View post on Bluesky"
+          className="text-xs font-normal hover:text-[var(--accent)]"
+        >
+          <StoryTime publishedAt={post.publishedAt} />
+        </a>
       </p>
       <p className="post-text">
-        <LinkedPostText text={post.text} />
+        <LinkedPostText text={post.text} postUrl={post.url} />
       </p>
       <div className="bluesky-media">
         {post.media?.map((media, index) => (
@@ -428,9 +442,6 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
         {post.metrics.reposts.toLocaleString()} reposts ·{' '}
         {post.metrics.replies.toLocaleString()} replies
       </p>
-      <a href={post.url} target="_blank" rel="noreferrer">
-        Open original post on Bluesky
-      </a>
       <PostContext post={post} />
     </Card>
   );
