@@ -25,6 +25,25 @@ async function smoke() {
     ),
     'Reader posts retain saved editorial context and original text',
   );
+  for (const topic of saved.topics) {
+    for (const story of topic.stories) {
+      const actual = edition.topics
+        .find((item) => item.id === topic.id)!
+        .stories.find((item) => item.id === story.id)!;
+      const expected = [
+        ...(story.coverage ?? []),
+        ...(story.evidence ?? []),
+      ].filter(
+        (article, index, articles) =>
+          articles.findIndex((other) => other.id === article.id) === index,
+      );
+      assert.deepEqual(
+        actual.coverage?.map((article) => article.id) ?? [],
+        expected.map((article) => article.id),
+        'Reader reports retain every saved coverage article and editorial citation',
+      );
+    }
+  }
   const browser = await chromium.launch();
   try {
     for (const [device, width, height] of [
@@ -432,6 +451,11 @@ async function smoke() {
                 story.coverage.map((article) => article.sources.slice(0, 1)),
                 'Each report credits one publisher rather than repeating feed sections',
               );
+              if (story.title.includes('Sony lifts profit outlook')) {
+                await card.screenshot({
+                  path: `docs/screenshots/ui/reader-supporting-reports-${device}-${theme}.png`,
+                });
+              }
               if (story.id === edition.topics[0]?.stories[0]?.id) {
                 await card.screenshot({
                   path: `docs/screenshots/ui/reader-single-report-${device}-${theme}.png`,

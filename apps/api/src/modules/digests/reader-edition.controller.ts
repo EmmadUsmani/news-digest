@@ -24,6 +24,27 @@ export function readerEdition(snapshot: DigestPreview) {
       stories: topic.stories.map((story) => ({
         ...story,
         summary: story.summary || story.excerpt,
+        // Editors may cite a second ranked story outside the selected group.
+        // Keep original coverage metadata first and expose every saved citation.
+        coverage:
+          story.coverage || story.evidence
+            ? [
+                ...(story.coverage ?? []),
+                ...(story.evidence ?? []).map((article) => ({
+                  ...article,
+                  // Ranked evidence can aggregate discovery labels for several
+                  // reports. Only the saved URL identifies this linked report.
+                  sources:
+                    article.sources.length > 1
+                      ? [new URL(article.url).hostname.replace(/^www\./, '')]
+                      : article.sources,
+                })),
+              ].filter(
+                (article, index, articles) =>
+                  articles.findIndex((other) => other.id === article.id) ===
+                  index,
+              )
+            : undefined,
       })),
       posts: topic.posts ?? [],
     })),

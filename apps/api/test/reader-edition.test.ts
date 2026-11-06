@@ -103,6 +103,54 @@ void test('reader projection keeps content and excludes nested operational field
   assert.deepEqual(readerEdition(historical).topics[0].brief, []);
 });
 
+void test('reader reports include editorial citations outside the selected coverage group', () => {
+  const saved = structuredClone(snapshot);
+  const story = saved.topics[0].stories[0];
+  const primary = {
+    id: story.id,
+    title: 'Original launch headline',
+    url: story.url,
+    sources: story.sources,
+    publishedAt: story.publishedAt,
+  };
+  const supporting = {
+    ...primary,
+    id: '00000000-0000-4000-8000-000000000002',
+    title: 'Related development',
+    url: 'https://example.org/report',
+    sources: ['Second publisher', 'Another discovery feed'],
+    excerpt: 'private-supporting-excerpt',
+  };
+  story.coverage = [primary];
+  story.evidence = [
+    {
+      ...primary,
+      title: 'Rewritten grouped headline',
+      excerpt: 'private-primary-excerpt',
+    },
+    supporting,
+  ];
+  const before = JSON.stringify(saved);
+  const reports = readerEdition(saved).topics[0].stories[0].coverage!;
+  assert.deepEqual(
+    reports.map((report) => report.id),
+    [primary.id, supporting.id],
+  );
+  assert.deepEqual(reports[0], primary);
+  assert.equal(reports[1].url, supporting.url);
+  assert.equal(reports[1].title, supporting.title);
+  assert.deepEqual(reports[1].sources, ['example.org']);
+  assert.doesNotMatch(JSON.stringify(reports), /excerpt|private-/);
+  assert.equal(JSON.stringify(saved), before);
+  delete story.coverage;
+  assert.deepEqual(readerEdition(saved).topics[0].stories[0].coverage, [
+    { ...primary, title: 'Rewritten grouped headline' },
+    reports[1],
+  ]);
+  delete story.evidence;
+  assert.equal(readerEdition(saved).topics[0].stories[0].coverage, undefined);
+});
+
 void test('reader summaries preserve AI text and restore saved story text across historical editorial modes', () => {
   for (const mode of ['ai', 'non-ai', undefined] as const) {
     for (const summary of [undefined, '']) {

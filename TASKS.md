@@ -39,38 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Single-report evidence (981): every saved report can be expanded to read its original headline, publication time and link, including stories with only one article.
+- [x] Supporting report links (982): reader article disclosures include all saved editorial citations, including reports outside the selected coverage group; saved snapshots stay unchanged.
 
-- [x] Coverage publisher labels (980): expanded reports show one source label per article, removing repeated Guardian feed sections while keeping every report link.
-
-- [x] Central summary development (979): editor v9 asks summaries to retain the main supported headline claim instead of only excerpt background; prompted by the saved Porziņģis salary story. Verify actual Nov 6 output.
-
-- [x] Original social developments (978): social editor v5 prefers firsthand announcements/demos/reporting over newsletter excerpts; concrete secondhand scoops remain eligible. Verify actual Nov 6 picks.
-
-- [x] Publisher attribution (977): editor v8 preserves explicitly named reporting outlets and distinguishes The Hacker News from Hacker News; aggregator labels are not reporting attribution. Verify actual Nov 6 output.
-
-- [x] Compact briefs (976): editor v7 requests a factual overview instead of copying the following story headlines; all 14 saved Nov 5 bullets were exact headline copies. Confirm Nov 6 output after publication.
-
-- [x] Optional post context (975): social editor accepts an empty reader note for self-explanatory posts instead of requiring a paraphrase; translations remain useful context. Verify repetition in Nov 6 picks.
-
-- [x] Concrete social news (974): social editor v3 favors supplied developments over teasers whose news is only in unseen media; concrete highlight stat lines remain eligible. Verify actual Gaming picks in Nov 6 edition.
-
-- [x] Archive coverage periods (973): show saved start/end dates and local times so same-day editions with different windows are distinguishable; browser checks use real saved windows.
-
-- [x] Thin-source summaries (972): editor v6 requests concise attributed news instead of commentary about supplied excerpts; factual validation stays intact. Verify actual wording in the Nov 6 edition.
-
-- [x] Saved-edition selection replay (971): repair compact-date assertions and verify selected stories, posts and original links survive late latest-edition success/error on desktop/mobile light/dark.
-
-- [x] Social latency cause (970): replayable allowlisted timeline identifies serialized social scoring/Bluesky editing at the end of the saved edition; no production or spend changes.
-
-- [x] X media layout continuity (969): reserve the previous media height during theme/width replacements so the embed area does not collapse while loading.
-
-- [x] Saved X disclosure focus (968): keep the disclosure visible through media reloads, preserving keyboard focus and the collapsed choice during theme changes.
-
-- [x] X media retry focus (967): retry moves keyboard focus to the saved post link before removing the retry control, preserving the reader’s place.
-
-- [x] X saved-text focus (966): media reloads keep the saved-text link mounted, preserving keyboard focus through rotation and system theme changes.
-
-- Earlier reader steps through 965: [completed markers](docs/progress-archive/2026-11-06-reader-done-971.md).
+- Earlier reader steps through 981: [completed markers](docs/progress-archive/2026-11-06-reader-done-982.md).
 
 - Next: STEERING 42 Nov 5 reader review completed; compare Nov 6 World breadth and post context after publication. STEERING 40 Nov 6 reserved-slot cost/AI gate and edition review after publication; fresh X round after 21:00 UTC. Fixed search stays off.

@@ -1545,3 +1545,5 @@ ack: 2026-11-06 item 42 — iteration 979: saved Porziņģis summary mentions on
 ack: 2026-11-06 item 42 — iteration 980: saved World coverage repeated Guardian US/World labels on the same reports; show one publisher label per report, retaining all saved article links. Verified desktop/mobile light/dark; no spend or selection changes.
 
 ack: 2026-11-06 item 42 — iteration 981: read all four saved topics; single-report stories hid the original headline. Enabled their article disclosure so readers can inspect the original report alongside the rewritten summary. No selection or spend changes.
+
+ack: 2026-11-06 item 42 — iteration 982: Sony’s saved summary cites a PS6 report missing from its article disclosure. Reader projection now includes all saved editorial citations, deduplicated with original coverage; saved data and selection stay unchanged.
