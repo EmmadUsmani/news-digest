@@ -18,6 +18,9 @@ Estimates below are engineering effort, not API charges.
 | [Correction notes](#correct-a-known-error-in-an-older-edition)                      | Owner review; settle publishing authority and revision history                       | 2–3 days                     |
 | [Offline edition](#take-a-saved-edition-offline)                                    | Owner review; text-only download scope                                               | 1–2 days                     |
 
+[Continue reading](#continue-reading-an-interrupted-edition) is also awaiting
+owner review: a browser-local return link, estimated at 1–2 days.
+
 Deferred entries retain their evidence below. Reopen them only with new
 evidence and owner approval; do not repeat the completed availability checks.
 
@@ -358,3 +361,23 @@ evidence and owner approval; do not repeat the completed availability checks.
 - Status: proposal awaiting owner review under item 38; no offline feature
   built or private/admin fields exported. World's thin coverage remains the
   largest observed content weakness, with its deployed fix awaiting Nov 6.
+
+## Continue reading an interrupted edition
+
+- Reader problem: the saved Nov 5 edition spans 17 stories and 14 posts. A
+  reader returning in a new tab must find their place again. Contents tracks
+  the visible section and honors explicit anchors, but does not persist it.
+  Browser history restoration may help within one tab; this proposal targets
+  a fresh visit to the same saved edition.
+- Proposal for owner review: a small “Continue reading” link naming the last
+  story or topic, stored only in this browser and keyed by immutable edition
+  ID. Offer the jump explicitly; do not move the reader automatically. An
+  explicit URL anchor takes precedence. Provide a way to clear the position.
+- Keep only edition ID, section anchor and save time for at most ten editions;
+  no text, analytics, server writes, accounts or cross-device synchronization.
+  Storage failures leave ordinary reading usable. An unavailable anchor offers
+  the topic or edition start, without labelling anything read or unread.
+- Estimate: 1–2 days, no API or model cost. If approved, verify fresh-tab return,
+  explicit links, cleared/disabled storage, edition isolation, keyboard focus
+  and mobile layout against saved content. No progress percentages or inferred
+  completion. Proposal only; no implementation or runtime change.

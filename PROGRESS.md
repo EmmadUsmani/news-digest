@@ -1,16 +1,3 @@
-## 2026-11-06: iteration 992 — correct owner database guidance
-
-- Started clean on main; health green, alerts clear, 36 sources healthy; no failed digest jobs or leftover work.
-- World breadth remains the largest saved reader weakness; its deployed fix awaits publication. No further editorial tuning.
-- Checked the authorized ORM follow-up: conversion was already accepted in iteration 618. Found the runtime handbook still describing it as in progress, with a long obsolete adapter inventory.
-- Replaced that inventory with the current PostgreSQL/Drizzle architecture and linked boundary/migration policy; retained owner-console and historical-migration details.
-- Owner value: the runtime handbook now gives a short, accurate answer about database access instead of suggesting unfinished migration work.
-- No runtime, schema, source, prompt, budget, flag or paid-call changes; SOURCES/NEEDS_FROM_HUMAN unchanged.
-- Handbook check passed: 18 pages, one diagram, 28 tables; inspected unchanged runtime diagram. Verification/deployment results follow.
-- Next: Nov 6 World/full-AI/cost/Bluesky review after publication; no deploys 13:00–16:00 UTC; X round after 21:00 UTC.
-- Verification: pnpm format; pnpm lint:fix; pnpm check exit 0 (555 unit/224 isolated integration passed); pnpm build; pnpm exec tsx scripts/check-handbook.ts stack-and-runtime; git diff --check. Archived iteration 977 to keep progress small.
-- Handbook served from repository; restarted docs service before 13:00 UTC. App runtime unchanged; final health and alerts checked.
-
 ## 2026-11-06: iteration 993 — explain both migration directories
 
 - Started clean on main; health/DB/Redis green, alerts clear, API/worker active, all 36 sources healthy; no failed digest runs.
@@ -203,3 +190,14 @@
 - No restarts during the deployment freeze; running code unchanged. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration tests); pnpm build; nine proposal anchor checks; git diff --check all passed.
 - Next: Nov 6 World/full-AI/cost/Bluesky review after publication; fresh X round after 21:00 UTC. Fixed search OFF.
+
+## 2026-11-06: iteration 1010 — scope return to an interrupted edition
+
+- Started clean on main; no leftover work. Alerts clear, health/DB/Redis green, API/worker active; sources check passed and zero failed digest runs.
+- Read all four saved Nov 5 topics; World breadth remains the largest weakness, with the deployed fix awaiting Nov 6 publication at 15:00 UTC. No repeated editorial tuning.
+- Owner value: a returning reader could find their place among 17 stories and 14 posts without searching the whole edition again.
+- Scoped an explicit browser-local continue-reading link: immutable edition/section keys, ten-edition retention, clear control, explicit-link precedence, no automatic jump or inferred read status; 1–2 day estimate, owner review required.
+- Existing Contents honors anchors but does not persist scroll-derived position; proposal distinguishes this from browser history restoration. No feature implemented.
+- No runtime/source/schema/prompt/budget changes or paid calls; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged. No restarts during deployment freeze; running code unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (560 unit/224 isolated integration tests); pnpm build; targeted Prettier and git diff --check passed. Archived iteration 992 to keep this file small.
+- Next: Nov 6 World/full-AI/cost/Bluesky review after publication; X round after 21:00 UTC; fixed search OFF.

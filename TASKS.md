@@ -39,7 +39,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Proposal decision index (1009): linked nine existing scopes, effort estimates and evidence gates; three remain deferred. No feature authorized or built. [Index](docs/ideas.md#decision-index--nov-6).
+- [x] Continue-reading proposal (1010): scoped an explicit browser-local return link for interrupted saved editions, with bounded storage and a 1–2 day estimate; owner review required. [Proposal](docs/ideas.md#continue-reading-an-interrupted-edition).
 
 - Earlier steps 995–1006: [completed markers](docs/progress-archive/2026-11-06-reader-done-1007.md).
 
