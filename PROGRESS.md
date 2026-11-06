@@ -1,13 +1,3 @@
-## 2026-11-06: iteration 1025 — compact reader post notes
-
-- Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; alerts clear and /healthz DB/Redis OK.
-- Reader post notes now occupy at most one line, retaining full accessible text and hover titles. Exact repeats of original/display text (ignoring case/whitespace) are omitted across platforms.
-- Saved-edition desktop/mobile light/dark layout checks passed; synthetic Bluesky replay verifies repetition suppression without changing saved data. Updated screenshots; visually inspected desktop/mobile light post cards.
-- Additional official-widget sizing replay exposed a stale immediate-after-resize assertion: the iframe is replaced asynchronously. Updated it to wait for the resized iframe and its requested width, keeping lazy loading intact.
-- Passed pnpm build; pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration); pnpm exec tsx scripts/smoke-reader-layout.ts; scripts/smoke-bluesky-cards.ts; scripts/smoke-post-sizing.ts; git diff --check.
-- API/worker restarted; saved edition serves 20 stories and 17 posts, /healthz and alerts clear. No paid calls; no source/schema/handbook-flow changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Next: continue final reader spec completion; fresh X round after 21:00 UTC. Reserved Bluesky slot remains OFF awaiting owner; editorial fixes await next scheduled edition.
-
 ## 2026-11-06: iteration 1026 — compact relative story times
 
 - Advanced item 33/43 while X items 39/34 wait until after 21:00 UTC. Started clean on main; alerts clear and /healthz DB/Redis OK.
@@ -160,3 +150,13 @@
 - All 36 sources healthy; no failed retained digest runs; latest saved edition four topics/20 stories/17 posts. No paid calls. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes.
 - Verification: pnpm build; node /tmp/news-digest-1040-browser.cjs; pnpm exec tsx scripts/smoke-reader-archive.ts; pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration, exit 0); git diff --check. API/worker restarted; health DB/Redis OK and alerts clear.
 - Archived iteration 1024 to keep this log small. Next: continue final reader; fresh X round after 21:00 UTC; approved Bluesky reserved-slot activation pending under Current order. Fixed search OFF.
+
+## 2026-11-06: iteration 1041 — group source controls before publication time
+
+- Advanced item 33/43 while X rounds wait until after 21:00 UTC. Started clean on main; no leftovers; alerts clear and health DB/Redis OK.
+- Reader source rows now keep grouped-outlet controls beside publisher names before publication time, matching the approved spec. Expanded reports stay below the row with time above them.
+- Read-only saved-edition Playwright replay checks disclosure order, expansion, article dates and reader navigation desktop/mobile light/dark; source-card screenshots updated and visually inspected.
+- Browser replay initially used two direct-child timestamp selectors from the previous markup; updated both for the timestamp wrapper. First full check received SIGTERM after 562 unit passes at integration setup; reran. No paid calls.
+- All 36 sources report no errors; digest queue has zero failed runs. SOURCES, NEEDS_FROM_HUMAN and handbook unchanged: no source/schema/system-flow changes.
+- Verification: pnpm build; pnpm exec tsx scripts/smoke-reader-layout.ts; pnpm format; pnpm lint:fix; pnpm check (562 unit/225 isolated integration, exit 0); git diff --check. API/worker restarted; health/alerts clear.
+- Archived iteration 1025 to keep this log small. Next: continue final reader; fresh X round after 21:00 UTC; approved Bluesky reserved-slot activation pending under Current order. Fixed search OFF.

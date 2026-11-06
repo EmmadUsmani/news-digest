@@ -1713,3 +1713,5 @@ ack: 2026-11-06 item 33/43 — iteration 1038: keyboard readers can continue fro
 ack: 2026-11-06 item 33/43 — iteration 1039: owners now use the rebuilt overview and dedicated management pages without the duplicate legacy controls screen; desktop/mobile light/dark [screenshots](docs/screenshots/ui/admin-overview-mobile-light.png) verified. No paid calls.
 
 ack: 2026-11-06 item 33/43 — iteration 1040: readers can identify the weekday in the desktop edition date, matching the approved header; mobile stays compact. Older/newer navigation and desktop/mobile light/dark verified; no paid calls.
+
+ack: 2026-11-06 item 33/43 — iteration 1041: readers now see grouped-outlet controls beside publisher names before publication time, matching the approved source row; inline article expansion remains available. Desktop/mobile light/dark [screenshots](docs/screenshots/ui/reader-single-report-mobile-light.png) verified; no paid calls.

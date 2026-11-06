@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Reader source row (1041, item 33): grouped-outlet disclosure now sits beside publishers before the timestamp; expansion keeps article details below the source row, verified desktop/mobile light/dark.
+
 - [x] Reader weekday (1040, item 33): desktop edition dates include the weekday from the approved header spec; compact mobile dates and older/newer navigation preserved, verified light/dark.
 
 - [x] Replaced admin screen cleanup (1039, item 33): removed the combined legacy controls and status screen; overview and dedicated pages remain accessible through desktop/mobile navigation, verified light/dark.

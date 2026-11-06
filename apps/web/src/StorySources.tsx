@@ -34,10 +34,8 @@ export function StorySources({
       {sources.slice(0, 2).map((source) => (
         <SourceLink key={source.name} {...source} />
       ))}
-      {sources.length > 0 && <span aria-hidden="true">·</span>}
-      {children}
       {articles.length > 0 && (
-        <details className="coverage max-w-full text-xs open:w-full">
+        <details className="coverage order-2 max-w-full text-xs open:order-4 open:w-full">
           <summary
             className="cursor-pointer text-xs"
             title={`${articles.length} ${articles.length === 1 ? 'article' : 'articles'}`}
@@ -75,6 +73,10 @@ export function StorySources({
           </ul>
         </details>
       )}
+      <span className="order-3 inline-flex items-center gap-x-2">
+        {sources.length > 0 && <span aria-hidden="true">·</span>}
+        {children}
+      </span>
     </div>
   );
 }

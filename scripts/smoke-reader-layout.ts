@@ -372,7 +372,7 @@ async function smoke() {
             const card = page.locator(`[id="story-${story.id}"]`);
             assert.equal(await card.locator('h3').innerText(), story.title);
             const sources = card.locator('.story-sources');
-            const published = sources.locator(':scope > time');
+            const published = sources.locator(':scope > span > time');
             assert.equal(
               await published.getAttribute('datetime'),
               story.publishedAt,
@@ -405,6 +405,10 @@ async function smoke() {
                 assert.ok(
                   Math.abs(timeBox.y - toggleBox.y) < 4,
                   'Collapsed coverage stays on the desktop source row',
+                );
+                assert.ok(
+                  toggleBox.x < timeBox.x,
+                  'Grouped outlets stay beside publishers before the publication time',
                 );
               }
               await disclosure.click();
@@ -759,7 +763,7 @@ async function smoke() {
         const firstStory = edition.topics.flatMap((topic) => topic.stories)[0];
         const publication = new Date(firstStory.publishedAt).getTime();
         const storyTime = page.locator(
-          `[id="story-${firstStory.id}"] .story-sources > time`,
+          `[id="story-${firstStory.id}"] .story-sources > span > time`,
         );
         for (const [age, label] of [
           [60_000, '1m ago'],
