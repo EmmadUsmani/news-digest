@@ -5,6 +5,7 @@ import fcntl
 import hashlib
 import json
 import os
+from pathlib import Path
 import subprocess
 import time
 import uuid
@@ -19,6 +20,49 @@ def query(container, sql):
         # Only expose SQLSTATE, never server details that could contain saved data.
         raise RuntimeError('Scratch query failed: ' + result.stderr.strip()[:40])
     return result.stdout.strip()
+
+
+def verify_immutable(container):
+    query(container, """DO $$ BEGIN
+          BEGIN
+            UPDATE digest_previews SET snapshot = snapshot;
+            RAISE EXCEPTION 'Immutability guard missing' USING ERRCODE = 'XX000';
+          EXCEPTION WHEN raise_exception THEN
+            IF SQLERRM <> 'Digest previews are immutable' THEN RAISE; END IF;
+          END;
+          BEGIN
+            DELETE FROM digest_previews;
+            RAISE EXCEPTION 'Immutability guard missing' USING ERRCODE = 'XX000';
+          EXCEPTION WHEN raise_exception THEN
+            IF SQLERRM <> 'Digest previews are immutable' THEN RAISE; END IF;
+          END;
+        END $$;""")
+
+
+def verify_rollback(container, migration, original):
+    # Exercise failure with the guard disabled, both before and after the data update.
+    for checkpoint in ('UPDATE digest_previews SET',
+                       'ALTER TABLE digest_previews ENABLE TRIGGER'):
+        if migration.count(checkpoint) != 1:
+            raise RuntimeError('Backfill failure checkpoint missing or ambiguous')
+        failing = migration.replace(checkpoint, 'SELECT 1 / 0;\n' + checkpoint, 1)
+        try:
+            query(container, failing)
+        except RuntimeError as error:
+            if '22012' not in str(error):
+                raise
+        else:
+            raise RuntimeError('Injected backfill failure did not abort')
+        columns = query(container, """SELECT count(*) FROM information_schema.columns
+          WHERE table_schema = 'public' AND table_name = 'digest_previews'
+          AND column_name IN ('kind', 'published_at');""")
+        if columns != '0':
+            raise RuntimeError('Failed backfill retained publication columns')
+        current = query(container, "SELECT md5(string_agg(to_jsonb(d)::text, '' ORDER BY id)) FROM digest_previews d;")
+        if current != original:
+            raise RuntimeError('Failed backfill changed existing editions')
+        verify_immutable(container)
+    return 2
 
 
 def rehearse():
@@ -56,40 +100,13 @@ def rehearse():
             raise RuntimeError('Restored table counts differ')
         # Hash every pre-existing edition field, not just selected display counts.
         original = query(container, "SELECT md5(string_agg(to_jsonb(d)::text, '' ORDER BY id)) FROM digest_previews d;")
-        query(container, """
-BEGIN;
-ALTER TABLE digest_previews ADD COLUMN kind text NOT NULL DEFAULT 'manual'
-  CHECK (kind IN ('scheduled', 'manual', 'test'));
-ALTER TABLE digest_previews ADD COLUMN published_at timestamptz;
-ALTER TABLE digest_previews DISABLE TRIGGER immutable_digest_preview;
-UPDATE digest_previews SET
-  kind = CASE WHEN scheduled_key LIKE 'integration:%' THEN 'test'
-    WHEN scheduled_key IS NOT NULL AND created_at >= '2026-11-03T00:00:00Z'::timestamptz
-      THEN 'scheduled' ELSE 'manual' END,
-  published_at = CASE WHEN scheduled_key IS NOT NULL
-    AND scheduled_key NOT LIKE 'integration:%'
-    AND created_at >= '2026-11-03T00:00:00Z'::timestamptz THEN created_at ELSE NULL END;
-ALTER TABLE digest_previews ENABLE TRIGGER immutable_digest_preview;
-COMMIT;
-""")
+        migration = Path(__file__).with_name('publication_metadata.sql').read_text()
+        rollback_checks = verify_rollback(container, migration, original)
+        query(container, migration)
         after = query(container, "SELECT md5(string_agg((to_jsonb(d) - 'kind' - 'published_at')::text, '' ORDER BY id)) FROM digest_previews d;")
         if original != after:
             raise RuntimeError('Existing edition fields changed')
-        # Verify the backfill did not leave saved editions mutable.
-        query(container, """DO $$ BEGIN
-          BEGIN
-            UPDATE digest_previews SET snapshot = snapshot;
-            RAISE EXCEPTION 'Immutability guard missing' USING ERRCODE = 'XX000';
-          EXCEPTION WHEN raise_exception THEN
-            IF SQLERRM <> 'Digest previews are immutable' THEN RAISE; END IF;
-          END;
-          BEGIN
-            DELETE FROM digest_previews;
-            RAISE EXCEPTION 'Immutability guard missing' USING ERRCODE = 'XX000';
-          EXCEPTION WHEN raise_exception THEN
-            IF SQLERRM <> 'Digest previews are immutable' THEN RAISE; END IF;
-          END;
-        END $$;""")
+        verify_immutable(container)
         rows = json.loads(query(container, """SELECT json_agg(json_build_object(
           'key', scheduled_key, 'created', created_at, 'kind', kind, 'published', published_at))
           FROM digest_previews;"""))
@@ -107,6 +124,7 @@ COMMIT;
         receipt = {'checked_at': time.time(), 'backup': manifest_path.stem,
                    'tables_compared': len(restored), 'rows_compared': sum(restored.values()),
                    'editions_unchanged': len(rows), 'kinds': kinds,
+                   'rollback_checkpoints_passed': rollback_checks,
                    'published': kinds['scheduled'], 'production_schema_changed': False}
         (database.DIRECTORY / 'publication-rehearsal-proof.json').write_text(json.dumps(receipt) + '\n')
         print(json.dumps(receipt))

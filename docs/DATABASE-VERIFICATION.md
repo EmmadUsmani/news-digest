@@ -675,3 +675,13 @@ and changes no production schema. The private backup and structural receipt
 remain in `~/backups/news-digest/`; scratch database storage is removed.
 See the [publication inventory](edition-reviews/2026-11-07-publication-inventory.md)
 for results and remaining rollout checks.
+
+### Publication backfill rollback (iteration 1251)
+
+The private rehearsal uses `ops/backups/publication_metadata.sql` as its candidate
+transaction. Before committing it, two runs inject division-by-zero failures
+with the immutability trigger disabled: before and after the metadata UPDATE.
+Each failed session must roll back both columns, preserve every original edition
+field and reject snapshot UPDATE and DELETE again. The same transaction then
+commits successfully and rechecks the guard and owner publication policy.
+The candidate is not registered as an application migration yet.

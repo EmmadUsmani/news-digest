@@ -178,3 +178,14 @@ Archived: [iterations 1230–1234](docs/progress-archive/2026-11-07-iterations-1
 - Passive metrics check `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 1` at 22:17 UTC: 23 healthy rules, four uncached queries ≤0.224 s, zero new evaluator errors/misses, no merges. Incident remains open; next probe ≥23:17 UTC.
 - Four app services restarted/active; final health database/Redis OK, alerts clear and actual Nov 7 edition readable/four topics. All 36 enabled sources nonempty/error-free, last success ≤30 minutes old. Handbook/source metadata unchanged.
 - Next: registered additive publication migration and future writes, then spend pools/test editions. Nov 8 scheduled acceptance/daily X/Bluesky review/first-week report remain due. No blockers.
+
+## 2026-11-07: iteration 1251 — publication backfill rollback safety
+
+- Clean main/no leftover work; initial alerts clear and health database/Redis OK. Development spend $0. STEERING 50 forbids generation changes after noon; registered migration/future writes remain for a pre-noon iteration.
+- Extracted candidate transaction to `ops/backups/publication_metadata.sql` (not registered/deployed). Private rehearsal injects division-by-zero failures before and after UPDATE while the immutability trigger is disabled; missing/ambiguous injection points fail closed.
+- `python3 ops/backups/rehearse_publication.py` passes twice: both failures roll back new columns and every original field, then UPDATE/DELETE guards reject mutations. The same candidate commits successfully afterward and checks owner policy/guards again.
+- Final backup `news-digest-20261107T222028Z`: 28 tables/48,475 rows/9,109,967 bytes; all 546 editions unchanged, five published candidates/476 manual/65 tests. Scratch container/storage removed; production schema/reader/generation unchanged.
+- `python3 -m unittest discover -s ops/backups -p 'test_database.py'`: four pass. Updated DATABASE-VERIFICATION/TASKS; no handbook/source behavior change.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 575 unit tests, 229 integration tests/four expected skips, typecheck/lint/format/boundaries green. Four services restarted/active; final health database/Redis OK, alerts clear and latest edition readable/four topics.
+- Actual latest Nov 7 edition remains readable/four topics; read-only query confirms 36/36 enabled sources healthy/nonempty. Admin status HTTP probe returned protected 404; first source SQL used nonexistent `sources`, corrected to `content_sources`.
+- Next: register additive metadata migration plus future scheduled writes before 12:00 UTC, then pools/test editions and published-edition rendering comparison. Nov 8 scheduled acceptance/first-week report remain due; next passive metrics probe ≥23:17 UTC.
