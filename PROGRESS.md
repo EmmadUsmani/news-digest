@@ -107,3 +107,14 @@ Earlier entries: [iterations 1089–1101](docs/progress-archive/2026-11-07-itera
 - Orientation: alerts clear, services 14/14, sources 36/36, /healthz database/Redis healthy. No paid calls or production writes/restarts; protected-window deployment remains deferred until after 16:00 UTC.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 543 unit/227 integration tests pass, four rehearsals skipped. Targeted log test, handbook filter and git diff --check pass.
 - Next: actual 15:00 edition review; after 16:00 measure CPU-only metrics trial and deploy queued X diagnostics. Publisher merge remains gated on committed review.
+
+## 2026-11-07: iteration 1201 — review actual keyword/reserved-slot edition
+
+- Clean main/no leftovers. Committed actual Nov 7 edition review and six desktop/mobile screenshots; edition 0b73eb47-19cf-48e8-8190-f9500c140fa4 saved 20 stories/18 posts in 180.570 s for $0.380173, mixed AI.
+- NBA article editing exhausted Sonnet initial/repair (unsupported absence), Haiku initial (schema)/repair (unsupported absence); non-AI fallback excerpts readable, empty brief. Zero budget refusals; rejected text unavailable. Offline diagnosis remains next before tuning.
+- Six keyword calls/$0.166127/zero holds: Tech/NBA completed, Gaming/World unconfirmed after retries (4/6 attempts). Three new Tech citations selected; NBA selected citation already verified. All 20 citations have reported likes; selected X public metrics remain unknown.
+- First reserved-slot edition: NBA/Gaming/World one distinct Bluesky pick each; Tech zero with two unsupported drops. No X replacement, cached X IDs agree; scoring/editing $0.061842. Per-topic outcomes, costs, IDs, engagement and limits in actual review/SOURCES. Two more scheduled reviews remain.
+- World five distinct stories; no clearly unrelated selected merge. Tech launch repetition improved; NBA fallback routine items and Gaming/World post repetition remain. No prompt/source/model/query/cap changes or paid verification.
+- Verification: pnpm check (543 unit/227 integration pass; four rehearsals skipped), pnpm build; read-only timing/discovery/week reports, worker journal and Drizzle snapshot/cache/citation SELECTs. Playwright 1440×1100/390×844: 20 headings/non-empty text, 18 posts, zero page errors; screenshots visually checked.
+- pnpm obs alerts clear; services 14/14, sources 36/36 healthy; /healthz database/Redis OK. pnpm format, pnpm lint:fix and git diff --check pass. Handbook/NEEDS_FROM_HUMAN unchanged.
+- No protected-window deployment/restart; documentation-only step leaves running artifacts unchanged. After 16:00 metrics CPU trial/deploy queued diagnostics first, then gated publisher merge; review gate now satisfied once pushed.

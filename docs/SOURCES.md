@@ -2227,3 +2227,10 @@ Production now rejects legacy open-topic, account and reaction requests before H
 ### Activate keyword discovery — iteration 1057 (2026-11-06)
 
 Enabled `X_FIXED_SEARCH_ENABLED=1` after the approved decision, keyword-only cleanup and isolated four-topic admission proof. First eligible production window is Nov 7 14:30–14:55 UTC, before the 15:00 UTC edition. All four topics retain approved likes thresholds (500/1000/500/2000), NBA exclusions and mandatory `-giveaway`. Grok 4.3 and $0.40/day/$12/month caps are unchanged. Activation outside the search window made no paid calls or edition writes. Three consecutive editions still need usable-post/editor-selection/cost checks and screenshots; World is reported separately.
+
+## Nov 7 scheduled keyword and Bluesky outcome — iteration 1201
+
+- [Actual edition review](edition-reviews/2026-11-07.md): six keyword calls, $0.166127, 20 fetched/verified, 19 new outside-list candidates, zero holds/profile fetches. Tech/NBA completed; Gaming/World each exhausted retry with unconfirmed execution (four of six attempts), not proven empty search.
+- Four cited picks: Tech three new IDs with reported likes 839/875/974; NBA one already-verified ID with 2,026 likes. Thus three selected novel candidates, not four incremental paid discoveries. Provider reports are unverified; remaining 11 selected X posts have unknown likes.
+- First reserved-slot edition: NBA/Gaming/World each saved one distinct Bluesky post; Tech chose none after two unsupported-claim drops. No X replacement; attributed Bluesky scoring/editing $0.061842. Two more scheduled acceptance reviews remain.
+- Edition mixed because NBA story validation exhausted all four attempts; source-text fallback readable. No source/query/model/cap changes or paid verification.
