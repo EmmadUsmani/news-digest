@@ -15,13 +15,13 @@ those areas.
 details, budgets and rules stay in the items. Every new item goes on this list.
 
 1. Breakages and protecting the morning edition. Includes the hung Grafana
-   (item 44) and deploying the held app changes tonight (item 49).
-2. X search: reliability fixes and test rounds (items 39, 34).
+   (item 44). The review after each scheduled edition is a fixed daily task.
+2. Public access and reader accounts (item 50), following
+   `docs/public-access-plan.md`.
+3. X search and Bluesky: acceptance reviews continue in the daily edition
+   review; new tuning waits for item 50 (items 39, 34, 40, 41).
 4. Nov 6 edition review: World stories, cost (item 36).
-5. Bluesky in editions: show why, fix failures, hold a slot, alerts (items 40, 41).
-6. Tonight's reliability work (item 47 steps 1–4), the alert log (item 48), then
-   publisher names on a branch (item 47 step 5).
-7. Then item 38's list for choosing meaningful work. Once item 37 is acked, or
+5. Then item 38's list for choosing meaningful work. Once item 37 is acked, or
    while it waits, item 42 says what to do first. Item 43 says what not to do.
 
 ## 2. LOWER PRIORITY: real DB verification, then an ORM (2026-11-01)
@@ -1690,6 +1690,9 @@ ack: 2026-11-07 item 42/43 — iteration 1239: Bluesky media links identify thei
 
 ## 43. NOW: put X search and the UI rebuild first, stop scoping new features (2026-11-06)
 
+> **Superseded in part (Nov 7):** item 50 is owner-approved feature work and ranks
+> above X search. "Stop scoping new features" still applies to anything else.
+
 **Why:** in the 12 hours to 16:35 UTC on Nov 6, 88 commits landed. About a dozen
 only scoped or proposed features the owner hasn't asked for, such as offline
 edition download, saved-story search, correction notes, story-to-post links and
@@ -2149,3 +2152,49 @@ ack: 2026-11-07 item 49 — iteration 1230 deployed merged main `96457a35` at 19
 ack: 2026-11-07 item 42/43 — iteration 1232: incomplete saved X text had no explicitly labeled original-post action when media failed. Reader now offers “Open original on X” beside retry; saved-data desktop/mobile light/dark destination, focus, wrapping and stubbed retry recovery pass. No generation changes or paid calls.
 
 ack: 2026-11-07 item 42/43 — iteration 1237: retrying X media after a failed replacement moved keyboard focus into text that disappears on recovery. Retry now focuses the visible saved-transcript control; saved-post reproduction and desktop/mobile light/dark recovery checks pass with a local widget stub. No generation changes or paid calls.
+
+## 50. NOW: public access and reader accounts (2026-11-07)
+
+**Why:** the owner wants the site publicly readable. Readers can hide topics
+and bookmark stories and posts, signed in or not; signed-in readers sync across
+devices. Admin pages are publicly viewable, and only admins can change
+anything. The single owner profile goes away: topics, the schedule and editions
+become system-level. This overrides `MISSION.md` "Profiles now, accounts later".
+The design and the owner's decisions are in
+[docs/public-access-plan.md](docs/public-access-plan.md).
+
+**Priority:** Current order line 2, ahead of new X search and Bluesky work.
+Two things stay above it:
+
+- Line 1: a breakage or a failed or abnormal scheduled edition. Drop refactor
+  work, turn the newest flag off if it may be the cause, and fix that first.
+- The review after each scheduled 15:00 UTC edition, including the X search and
+  Bluesky acceptance figures (items 39, 40). Do it every day. New X search and
+  Bluesky tuning pauses until this item is done.
+
+**What to do:** follow the plan one phase at a time, in order, starting with
+phase 0 now. Ack each phase with the plan's checks, the choices you made under
+"What the agent may decide", and its development spend.
+
+**While waiting:** if phase 0 waits for the owner to confirm which manual
+editions count as published, work on phase 2, which needs no backend.
+
+**What not to do:**
+
+- Don't make the VM public, and don't change exe.dev sharing. The owner does
+  phase 5.
+- Drop nothing before the owner approves phase 7.
+- No production cap changes, real email provider or new paid service.
+- No user data in logs, Grafana or any reader database role.
+
+**Stop and report:** in every case in the plan's "Stop and report instead", and
+add it to `NEEDS_FROM_HUMAN.md`.
+
+**Done when:** phases 0–4 are acked with their checks, and phase 4 is ready for
+the lead's security review. Phases 5–7 wait for the owner.
+
+**Limits:** development pools are Anthropic $5 and xAI $2, total; stop and
+report at 75%. Production caps are unchanged. No deploys, restarts or
+migrations between 13:00 and 16:00 UTC, and nothing that touches edition
+generation after 12:00 UTC unless it fixes a breakage. Migrations stay additive
+until phase 7. Back up privately before each migration.
