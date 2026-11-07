@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 
 import {
+  type BookmarkCopy,
+  changeBookmark,
   emptyStore,
   mergePreferences,
   parsePreferences,
@@ -21,7 +23,8 @@ export function useReaderPreferences() {
   const [storageFailed, setStorageFailed] = useState(false);
   useEffect(() => {
     const sync = (event: StorageEvent) => {
-      if (event.key === storageKey || event.key === null) setStore(read());
+      if (event.key === storageKey || event.key === null)
+        setStore((current) => mergePreferences(current, read()));
     };
     window.addEventListener('storage', sync);
     return () => window.removeEventListener('storage', sync);
@@ -51,5 +54,30 @@ export function useReaderPreferences() {
       setStorageFailed(true);
     }
   };
-  return { hiddenTopics: store.hiddenTopics, setHidden, storageFailed };
+  const [bookmarkError, setBookmarkError] = useState<string | null>(null);
+  const setBookmark = (id: string, copy: BookmarkCopy | null) => {
+    try {
+      const next = changeBookmark(mergePreferences(store, read()), id, copy);
+      setStore(next);
+      setBookmarkError(null);
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(next));
+        setStorageFailed(false);
+      } catch {
+        setStorageFailed(true);
+      }
+    } catch (error) {
+      setBookmarkError(
+        error instanceof Error ? error.message : 'Could not save item.',
+      );
+    }
+  };
+  return {
+    hiddenTopics: store.hiddenTopics,
+    bookmarks: store.bookmarks,
+    setHidden,
+    setBookmark,
+    storageFailed,
+    bookmarkError,
+  };
 }

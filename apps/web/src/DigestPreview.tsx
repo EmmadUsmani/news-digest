@@ -49,6 +49,22 @@ export function DigestPreview() {
           <ThemeToggle />
         </div>
       </header>
+      {preferencesEnabled && (
+        <nav aria-label="Reader preferences" className="mt-3 flex justify-end">
+          <Link to="/saved" className="text-sm text-[var(--accent)]">
+            Saved items
+          </Link>
+        </nav>
+      )}
+      {preferencesEnabled && preferences.storageFailed && (
+        <p role="alert">
+          Your browser could not save these choices. They apply until this page
+          is closed or reloaded.
+        </p>
+      )}
+      {preferencesEnabled && preferences.bookmarkError && (
+        <p role="alert">{preferences.bookmarkError}</p>
+      )}
       {edition.isPending && <ReaderSkeleton />}
       {edition.isError && (
         <div role="alert" className="pt-16">
@@ -163,6 +179,37 @@ export function DigestPreview() {
                         <StorySources story={story}>
                           <StoryTime publishedAt={story.publishedAt} />
                         </StorySources>
+                        {preferencesEnabled && (
+                          <Button
+                            variant="ghost"
+                            className="mt-2 px-2 text-sm"
+                            aria-label={`Save story: ${story.title}`}
+                            aria-pressed={
+                              !!preferences.bookmarks[`story:${story.id}`]?.copy
+                            }
+                            onClick={() =>
+                              preferences.setBookmark(
+                                `story:${story.id}`,
+                                preferences.bookmarks[`story:${story.id}`]?.copy
+                                  ? null
+                                  : {
+                                      title: story.title,
+                                      url: story.url,
+                                      attribution:
+                                        story.publisher?.name ??
+                                        story.sources.join(', '),
+                                      excerpt: story.summary ?? '',
+                                      platform: 'story',
+                                      editionId: preview.id,
+                                    },
+                              )
+                            }
+                          >
+                            {preferences.bookmarks[`story:${story.id}`]?.copy
+                              ? 'Saved'
+                              : 'Save'}
+                          </Button>
+                        )}
                       </Card>
                     </li>
                   ))}

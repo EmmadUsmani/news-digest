@@ -28,6 +28,7 @@ import {
   statusQuery,
 } from './queries';
 import { ReaderArchive } from './ReaderArchive';
+import { ReaderSaved } from './ReaderSaved';
 
 export const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: 60_000 } },
@@ -86,6 +87,14 @@ const latestRoute = createRoute({
     ]);
   },
   component: App,
+});
+const savedRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/saved',
+  beforeLoad: () => {
+    if (import.meta.env.VITE_READER_PREFERENCES === '0') throw notFound();
+  },
+  component: ReaderSaved,
 });
 const archiveRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -187,6 +196,7 @@ export const router = createRouter({
   routeTree: rootRoute.addChildren([
     latestRoute,
     archiveRoute,
+    savedRoute,
     editionRoute,
     adminRoute.addChildren([
       adminOverviewRoute,
