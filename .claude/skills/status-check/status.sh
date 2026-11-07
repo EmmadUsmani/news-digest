@@ -57,6 +57,9 @@ print("firing", d["firing"], "pending", d["pending"])
 for a in d["alerts"]:
     print(" ", a["state"], a["labels"].get("alertname"), a["labels"].get("unit", ""))
 '
+echo "== Alert log (latest events)"
+log=~/.local/state/news-digest/alerts/alerts.jsonl
+if [ -f "$log" ]; then tail -n 5 "$log" | cut -c1-200; else echo "no alert log yet"; fi
 echo "== X experiment"
 python3 -c '
 import json, os

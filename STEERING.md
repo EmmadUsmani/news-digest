@@ -19,7 +19,8 @@ details, budgets and rules stay in the items. Every new item goes on this list.
 2. X search: reliability fixes and test rounds (items 39, 34).
 4. Nov 6 edition review: World stories, cost (item 36).
 5. Bluesky in editions: show why, fix failures, hold a slot, alerts (items 40, 41).
-6. Tonight's reliability work, then publisher names on a branch (item 47).
+6. Tonight's reliability work (item 47 steps 1–4), the alert log (item 48), then
+   publisher names on a branch (item 47 step 5).
 7. Then item 38's list for choosing meaningful work. Once item 37 is acked, or
    while it waits, item 42 says what to do first. Item 43 says what not to do.
 
@@ -2009,3 +2010,55 @@ fixes a breakage. Keep disk under the 80% alert, and remove rehearsal containers
 and files when finished.
 
 ack: 2026-11-07 item 46 closed / item 47 step 1 — iteration 1089 accepts the owner trial of 5.2 desktop screens, updates the length smoke/spec and removes the resolved owner blocker. All 17 posts/16 loaded X embeds retained; Tech/NBA/Gaming/World 4.94/4.42/4.98/2.03 screens in both themes at 1440×1100, no desktop inner scrolling. Reader content unchanged; item 33 stays closed.
+
+## 48. NEXT: generic alert system that logs to a file (2026-11-07)
+
+**Why:** alerts reach nobody. `obs-alerts` runs vmalert with `-notifier.blackhole`,
+so a failed edition shows only if someone runs `pnpm obs alerts`. The owner wants
+the architecture and plumbing now, so email or Discord can plug in later. For now
+the only destination is a log file that status checks and agents can read.
+
+**Priority:** after item 47 step 4, before item 47 step 5.
+
+**What to do, in order:**
+
+1. **One generic destination interface.** Follow the port-and-adapter pattern in
+   `apps/api/src/modules/digests/adapters/digest-notifications.ts`. An alert event
+   has a time, `firing` or `resolved`, name, severity and summary. Nothing in the
+   dispatcher may depend on a specific destination.
+2. **File adapter, the only one.** Append one JSON line per event to
+   `~/.local/state/news-digest/alerts/alerts.jsonl`. Keep the file bounded by
+   rotating it at 5 MB and keeping one old copy. No secrets, article text or
+   provider responses.
+3. **Dispatcher as its own small user timer, once a minute.** It must not run
+   inside the worker or API, because it has to keep working when they die.
+   - Read `http://127.0.0.1:8880/api/v1/alerts`. This needs no root, so leave
+     `obs-alerts` and its `-notifier.blackhole` flag alone.
+   - Record changes only: an alert starting to fire, and one resolving. Ignore
+     `pending`. Keep its state on disk, so restarts don't repeat events.
+   - If vmalert can't be reached, record that once, and once more on recovery.
+   - Destinations come from one list in code or config. One failing destination
+     must not stop the others, and it gets retried on the next run.
+   - Add the timer to the unit monitoring, so a dead dispatcher raises an alert.
+4. **Make it visible.** Add a `recentEvents` field to `pnpm obs alerts` with the
+   last few events, keeping `firing`, `pending` and `alerts` unchanged. The status
+   check already prints the file's last lines. Document in
+   `docs/handbook/01-app/09-observability.md` what changed and how to add a
+   destination.
+
+**What not to do:**
+
+- No email, Discord or other external adapter, stub, credential or setting.
+  `MISSION.md`'s ban on real notifications still stands.
+- Don't change `ops/observability/alerts.yml`, or any root-owned file.
+- Don't add severity routing, digests, escalation or quiet hours.
+- Don't fire a fake alert in production to test this. Use a fake vmalert response
+  and a fake failing destination in tests.
+
+**Done when:** tests prove firing and resolved events are written once, state
+survives a restart, vmalert being unreachable is recorded once, and a failing
+destination doesn't stop the file. The timer is installed and has run on the VM.
+Ack what the file shows and how many lines of code adding a destination takes.
+
+**Limits:** no new spend or vendors. Install only outside 13:00–16:00 UTC. Keep it
+small: no new long-running service, and no memory added to the `obs-*` budget.

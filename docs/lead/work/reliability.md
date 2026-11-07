@@ -1,6 +1,6 @@
 # Reliability
 
-**Status:** steered on Nov 7 as item 47, not yet acked. The agent rehearses four
+**Status:** steered on Nov 7 as items 47 and 48, not yet acked. The agent rehearses four
 failed-edition cases and a rebuild from backup, then settles M6 and M7.
 Publisher names are built on the `publisher-attribution` branch and stay off
 `main` until the Nov 7 edition review is committed.
@@ -12,8 +12,9 @@ Publisher names are built on the `publisher-attribution` branch and stay off
   committed review.
 - Owner's Mac-side decrypt test is still open. See [backups](backups.md).
 
-**Open decisions:**
+**Alerts:** item 48 builds a generic alert system that only writes to
+`~/.local/state/news-digest/alerts/alerts.jsonl` on the VM. The status check
+prints its last lines. The owner will choose email, Discord or similar later,
+and that needs an exception to `MISSION.md`'s ban on real notifications.
 
-- Failed-edition alert: the owner wants one, but no delivery channel is chosen.
-  `MISSION.md` bans real notifications, so this needs an owner-approved exception.
-- Richer Tech evidence: wait for a cost estimate before deciding. Not steered.
+**Open decisions:** Richer Tech evidence waits for a cost estimate. Not steered.
