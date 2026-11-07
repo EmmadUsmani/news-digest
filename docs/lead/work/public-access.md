@@ -1,8 +1,11 @@
 # Public access and reader accounts
 
-**Status:** steered Nov 7 as STEERING item 50 (`3472574a`), Current order line 2
-behind breakages; the daily edition review stays above it. Phase 0 starts now.
-Plan: [docs/public-access-plan.md](../../public-access-plan.md).
+**Status:** agent started item 50 at 20:48 UTC Nov 7. Phase 0 inventory done
+([inventory](../../edition-reviews/2026-11-07-publication-inventory.md)): 546
+editions, of which 65 keyed ones are `integration:` tests, so the plan's
+"keyed = published" rule was wrong. Waiting on the owner, the agent moved to
+phase 2 (hide topics, browser bookmarks), as instructed. Separately, item 51
+fixes leaked test folders in `/tmp` (2.9 GB, disk 71%).
 
 **Owner decisions (Nov 7):**
 
@@ -22,7 +25,8 @@ Plan: [docs/public-access-plan.md](../../public-access-plan.md).
 **Next:**
 
 1. Read each phase's ack against the plan's checks, and its development spend.
-2. Phase 0: owner confirms which manual editions count as published.
+2. Phase 0 published set decided Nov 7 (`c4deba0b`): non-`integration:`
+   scheduled editions from Nov 3 on. Check the backfill and comparison ack.
 3. Watch the agent's weekly ChatGPT allowance (71% on Nov 7) during the refactor.
 4. Phase 4: lead security review before the owner decides to go public.
 

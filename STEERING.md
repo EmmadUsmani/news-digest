@@ -15,7 +15,8 @@ those areas.
 details, budgets and rules stay in the items. Every new item goes on this list.
 
 1. Breakages and protecting the morning edition. Includes the hung Grafana
-   (item 44). The review after each scheduled edition is a fixed daily task.
+   (item 44) and the leaked test folders (item 51). The review after each
+   scheduled edition is a fixed daily task.
 2. Public access and reader accounts (item 50), following
    `docs/public-access-plan.md`.
 3. X search and Bluesky: acceptance reviews continue in the daily edition
@@ -2198,3 +2199,37 @@ report at 75%. Production caps are unchanged. No deploys, restarts or
 migrations between 13:00 and 16:00 UTC, and nothing that touches edition
 generation after 12:00 UTC unless it fixes a breakage. Migrations stay additive
 until phase 7. Back up privately before each migration.
+
+**Owner decision (Nov 7, phase 0 publication):** publish only editions with a
+`scheduled_key` that doesn't start with `integration:`, created on or after
+2026-11-03 UTC, plus every future scheduled edition. All of Nov 1–2 stays
+unpublished and visible in admin. The plan's backfill section is updated to
+match. This answers the request in `NEEDS_FROM_HUMAN.md`; mark it resolved.
+
+## 51. NOW: stop leaking integration test folders on the VM (2026-11-07)
+
+**Why:** `scripts/test-isolated.ts` removes its `news-digest-integration-*`
+folder in `finally`, but a run that's killed skips that. On Nov 7 at 21:50 UTC
+`/tmp` held 42 such folders, about 2.9 GB (8 created that day). The disk was at
+71% with the alert at 80%; at that rate the alert could fire within a day.
+
+**Priority:** Current order line 1 (breakage prevention). Small: do it next.
+
+**What to do:**
+
+1. Remove the existing leftover `/tmp/news-digest-integration-*` folders now,
+   except any a running test is using.
+2. At the start of each integration run, remove leftover folders from earlier
+   runs that are over an hour old and not in use. Pick the safest in-use check
+   and say which in the ack.
+3. Add a test for the cleanup.
+
+**What not to do:** don't touch other `/tmp` content, backups, Docker volumes or
+anything outside these folders. No other test-runner changes.
+
+**Done when:** the folders are gone, a killed run's folder is removed by the
+next run, and the test passes. Ack the space freed and the disk percentage.
+
+**Limits:** no deletes or restarts between 13:00 and 16:00 UTC unless the disk
+alert fires.
+
