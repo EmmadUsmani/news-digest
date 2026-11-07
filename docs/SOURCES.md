@@ -27,6 +27,34 @@ Drizzle selection of that day's stored `execution`/`toolCalls` from
 Bluesky outcomes still require the published edition. Keep caps/query/runtime
 unchanged; the first three scheduled editions remain the acceptance window.
 
+### Nov 7 daily and first-week production X report — iteration 1206
+
+Read-only ledger snapshot at 15:42 UTC, using `report-x-discovery.ts 2026-11-07`
+and `report-x-week.ts 2026-11-07`. No provider requests. The rolling seven-day
+report covers Nov 1–7; recorded production calls start Nov 2. Nov 7 is incomplete.
+
+| Topic                             | Nov 7 cost | New verified / outside-list | Nov 2–7 cost | New verified / outside-list |
+| --------------------------------- | ---------: | --------------------------: | -----------: | --------------------------: |
+| Tech & AI                         |  $0.065975 |                     10 / 10 |    $0.204730 |                     27 / 24 |
+| NBA                               |  $0.064192 |                       9 / 9 |    $0.227180 |                     29 / 27 |
+| Gaming                            |  $0.017667 |                       0 / 0 |    $0.169362 |                     20 / 18 |
+| World                             |  $0.018293 |                       0 / 0 |    $0.152024 |                     15 / 11 |
+| Unattributed historical call      |          — |                           — |    $0.023382 |                     unknown |
+| Total attributed yield / all cost |  $0.166127 |                     19 / 19 |    $0.776678 |                     91 / 80 |
+
+Nov 2–7 records 24 calls, 97 fetched posts and zero remaining holds. The Nov 2
+call fetched two posts but lacks requested-topic attribution; its cost remains
+in the total, without inventing incremental topic yield. New/verified counts
+use stored citation baselines and current verification, not causal attribution
+or unique people reached. Historical search types differ from Nov 7 keywords.
+
+Nov 7 selected three novel Tech citations and one previously verified NBA
+citation. Gaming/World exhausted retries with four unconfirmed attempts out of
+six overall; paid receipt is not search completion. See the [actual edition
+review](edition-reviews/2026-11-07.md) for selection and engagement evidence.
+Keep the three-edition keyword acceptance open, report World separately, and
+continue first-week daily reporting through Nov 8. Caps and sources are unchanged.
+
 ### Nov 6 daily production X report — iteration 1077
 
 | Topic     | Open-topic cost / fetched | Reaction cost / fetched | New verified outside-list | Cited posts selected that day |

@@ -156,3 +156,13 @@ Earlier entries: [iterations 1089–1101](docs/progress-archive/2026-11-07-itera
 - Updated affected handbook page, actual review and TASKS; SOURCES/NEEDS_FROM_HUMAN unchanged because collection and owner requirements did not change.
 - Verification: pnpm check passed typecheck/lint/format/boundaries and 547 unit tests, then received SIGTERM during integration with no reported failure; separate pnpm test:integration passes 227 (four skipped). pnpm build, reader tests 6/6, handbook filter and git diff --check pass; pnpm format and pnpm lint:fix run before commit.
 - No paid calls, edition/settings changes or protected-window restart. Reader fix joins queued X/schema diagnostics after metrics recovery; publisher merge follows.
+
+## 2026-11-07: iteration 1206 — update first-week production X accounting
+
+- Clean main/no leftovers. Alerts clear; services 14/14, sources 36/36 and /healthz database/Redis healthy. Protected-window metrics trial/deployments remain queued.
+- Completed Nov 7 daily/rolling-week read-only ledger report in SOURCES, TASKS and steering ack. Per-topic cost/new verified outside-list: Tech $0.065975/10, NBA $0.064192/9, Gaming $0.017667/0, World $0.018293/0.
+- Nov 2–7: 24 production calls/$0.776678, 97 fetched, attributed new verified/outside-list 91/80, zero holds. Historical unattributed $0.023382 remains separate; stored verification is not causal discovery or virality evidence.
+- Nov 7 selected three novel Tech citations and one existing NBA citation. Gaming/World exhausted retries with four unconfirmed attempts; keyword three-edition acceptance stays open. Continue first-week daily reporting through Nov 8.
+- Verification: pnpm exec tsx scripts/report-x-discovery.ts 2026-11-07 and scripts/report-x-week.ts 2026-11-07; independent Python assertions confirm daily/weekly topic agreement and totals. pnpm format, pnpm lint:fix, pnpm check and pnpm build pass (547 unit/227 integration; four rehearsals skipped); git diff --check passes.
+- Documentation only; no paid calls, settings/edition writes, UI changes or runtime restart. Existing queued artifacts remain deliberately undeployed during 13:00–16:00 UTC. No handbook or owner-input change needed.
+- Next after 16:00 UTC: metrics CPU-only recovery trial, queued diagnostic/reader deployment, then publisher merge; Nov 8 daily and second-edition acceptance next.
