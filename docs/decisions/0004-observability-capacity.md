@@ -354,3 +354,36 @@ intermittent outage. Queued application deployments remain deferred.
 Commands: `pnpm exec tsx scripts/sample-observability-capacity.ts 60 10`,
 then `6 10` and `18 10`; direct `/metrics/metrics`, uncached
 `/metrics/api/v1/query`, vmalert `/api/v1/rules`; `systemctl show obs-metrics`.
+
+### Sustained evaluation follow-up (iteration 1208)
+
+At 16:06:47–16:11:48 UTC, the unchanged 2% CPU trial measured 1.393%
+whole-stack CPU and 735.42 MiB sampled peak memory over 300.287 seconds.
+Metrics averaged 0.463% CPU, throttled 465/1,151 active periods, and had
+zero memory-high, OOM or OOM-kill events. Full checks and the build overlapped
+this sample; it is not an idle-load comparison with the earlier baseline.
+
+Nine probes at 30-second intervals from 16:07:35 through 16:11:35 found
+all 23 alert rules healthy with empty lastError. Both uncached selectors
+(`up{job="metrics-store"}` and the API's `news_digest_unit_active`)
+returned exactly one series on every probe; the maximum latency was 0.276 s.
+OffsiteDatabaseBackupStale advanced to 16:11:18 UTC, evaluating in 0.098 s.
+Grafana's configured port/path health check returned database OK.
+
+At 16:12 UTC, the new-process admission-limit, queue-timeout and slow-query
+counters remained zero. Cumulative merged rows were 131,674 small-storage
+and 6,528 indexdb; large-storage merged rows remained zero. These totals do
+not demonstrate a merge comparable to the earlier five-million-row event.
+The incident therefore remains open; do not force a compaction or deploy the
+queued application changes merely to complete this observation. Next check:
+a naturally occurring comparable merge with successful rules/queries and
+bounded cgroup resource use. No service was restarted in this follow-up.
+
+Commands: `pnpm exec tsx scripts/sample-observability-capacity.ts 30 10`;
+nine read-only vmalert `/api/v1/rules` and uncached metrics query probes;
+metrics `/metrics/metrics`; Grafana `:3001/grafana/api/health`;
+`pnpm obs services --check`, `sources --check`, `jobs --check`, and `alerts`.
+A preliminary API-unit selector used the wrong metric name and returned
+zero series; it was discarded before restarting all nine probes with the
+correct selector. A Grafana probe at the default port 3000 was likewise
+invalid; the configured port 3001 passed.
