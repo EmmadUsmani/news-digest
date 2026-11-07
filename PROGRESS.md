@@ -124,3 +124,13 @@
 - Archived older PROGRESS entries above 25 KB. No source/schema/system-flow changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
 - pnpm format, pnpm lint:fix, git diff --check and full pnpm check passed: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green.
 - Next: finish only the three acceptance items, close item 33, then begin approved B2 backups. Scheduled keyword-X/reserved-Bluesky acceptance still waits for Nov 7 publication.
+
+## 2026-11-07: iteration 1073 — complete reader forbidden-label coverage
+
+- Clean main, no leftover work; alerts clear, /healthz DB/Redis OK and sources 36/36 healthy. Scheduled Nov 7 acceptance still awaits publication.
+- Added scripts/smoke-reader-labels.ts for the actual saved latest edition, archive and a distinct past edition, desktop/mobile light/dark, plus mobile contents sheets. Scans text and accessible labels while exempting editorial text, including coverage headlines; surrounding controls remain scanned.
+- pnpm exec tsx scripts/smoke-reader-labels.ts passed all routes/layouts; injected AI-edited label rejection control passed. First attempt exposed a CJS top-level-await incompatibility; corrected. Initial scan caught saved Claude coverage headline, correctly exempted under the spec.
+- pnpm exec tsx scripts/smoke-admin-gate.ts passed 24 protected GET/HEAD paths, identity/cache and forwarded-token checks; saved edition unchanged. Proxy header replacement proof remains required before public access.
+- pnpm build passed with existing chunk warning. No UI/source/schema/system-flow changes, paid calls or edition writes; screenshots, SOURCES and handbook unchanged.
+- pnpm format, pnpm lint:fix, git diff --check and full pnpm check passed: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green. API/worker restarted; health DB/Redis OK and alerts clear; final reader scan passed against rebuilt app.
+- Remaining item 33 work: loaded-embed NBA/Gaming page length and all-route screenshot refresh, then close and begin B2.
