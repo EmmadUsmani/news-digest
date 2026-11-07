@@ -17,9 +17,11 @@ details, budgets and rules stay in the items. Every new item goes on this list.
 1. Breakages and protecting the morning edition. Includes the hung Grafana
    (item 44).
 2. X search: reliability fixes and test rounds (items 39, 34).
-3. Remove the desktop posts scroll box (item 46). Small: do it next.
+3. Close the desktop posts scroll box work at the new length limit (item 46,
+   item 47 step 1). Small: do it next.
 4. Nov 6 edition review: World stories, cost (item 36).
 5. Bluesky in editions: show why, fix failures, hold a slot, alerts (items 40, 41).
+6. Tonight's reliability work, then publisher names on a branch (item 47).
 7. Then item 38's list for choosing meaningful work. Once item 37 is acked, or
    while it waits, item 42 says what to do first. Item 43 says what not to do.
 
@@ -1925,6 +1927,8 @@ and X search. Item 33 stays closed.
 **What not to do:** don't shorten posts, hide posts, cap the post count or add
 another way to bound the page. Don't reopen other reader work. Stop after step 4.
 
+**Length limit replaced:** item 47 sets it to 5.2 desktop screens, not 3.6.
+
 **Done when:** no desktop inner scrolling remains, the smoke scripts pass, and
 the ack gives each topic's length in desktop screens with all posts visible.
 
@@ -1932,3 +1936,76 @@ the ack gives each topic's length in desktop screens with all posts visible.
 protection still applies.
 
 ack: 2026-11-07 item 46 partial — iteration 1079 removes desktop posts inner scrolling and refreshes eight loaded views. Four device/theme layout checks and all-post page reachability pass. All 17 posts/16 loaded X frames yield Tech/NBA/Gaming/World 4.94/4.42/4.98/2.03 desktop screens in both themes. The required 3.6-screen smoke correctly fails for three topics; earlier lengths used partially loaded embeds. No posts shortened/hidden/capped and no replacement bounds. Acceptance conflict recorded in NEEDS_FROM_HUMAN.md; item 33 stays closed. B2 step 4 already verified/closed in 1078.
+
+## 47. NOW: close the length question, rehearse failures, then publisher names (2026-11-07)
+
+**Why:** everything else waits on the Nov 7 edition, and iterations 1085–1088
+made no commits. The owner chose this work for that gap. With every X embed
+loaded, topics measure 4.94/4.42/4.98/2.03 desktop screens, so "about 3" was
+based on partly loaded embeds. Retries and a non-AI fallback exist, but we have no
+end-to-end rehearsal of a failed morning edition or of a rebuild from backup.
+
+**Priority:** below breakages, edition protection and the Nov 7 acceptance work
+(items 39, 34, 40, 41, 36). Above item 42. The Nov 7 review comes first once that
+edition lands.
+
+**What to do, in order:**
+
+1. **Length (owner decision, as a trial).** Accept about 5 desktop screens. Set
+   the limit in `scripts/smoke-reader-length.ts` to 5.2 at 1440×1100 with all
+   embeds loaded, and update `docs/ui-spec.md`. Remove the length entry from
+   `NEEDS_FROM_HUMAN.md`. Ack and close item 46.
+2. **Rehearse a failed morning edition.** Use isolated containers and fake
+   providers, as the integration tests do. Add to existing tests where they
+   already cover part of this. Run exactly four cases:
+   - the worker is down across the scheduled time, then returns;
+   - the worker dies mid-run;
+   - Anthropic is unavailable;
+   - every X search fails.
+
+   Each case must publish exactly one edition, charge nothing twice and give the
+   reader a sensible page. If a case can't be rehearsed, say why. Fix only what
+   actually breaks. These four are named, so item 38's warning about unlikely
+   failures doesn't apply to them.
+3. **Rehearse a rebuild from backup.** Follow "Rebuild from nothing" in
+   `docs/handbook/01-app/10-backups.md` in a scratch setup, as far as it can go on
+   this VM without root. Fix gaps in the guide or scripts. List any step you
+   couldn't test.
+   - Encrypt the test bundle to a throwaway `age` key, not the real recipient.
+     The owner's private key never comes to the VM.
+   - The bundle holds secrets. Keep it private, never commit it, and delete the
+     scratch copy and throwaway key when finished.
+4. **Settle M6 and M7, in one iteration.** Compare what's built with the original
+   scope: M6 is topic management, schedule and budgets, on-demand editions and
+   edition history. M7 is the scheduler, status page and `DigestPublished` with
+   its log adapter. Close each one in TASKS.md, or name the specific gaps there.
+   Don't add new checks for this.
+5. **Build publisher names on a branch.** Follow "Publisher attribution" in
+   `docs/ideas.md`, including its acceptance. This is an exception to working on
+   `main`: use the branch `publisher-attribution` and push it there. Don't merge
+   it, run its migration on the live database or restart services with it until
+   both are true: it's past 16:00 UTC on Nov 7, and your Nov 7 edition review is
+   committed. Then merge and deploy it outside the 13:00–16:00 UTC window.
+
+**While waiting:** after these, follow item 38. Make no article or social editor
+changes until the Nov 7 review is committed.
+
+**What not to do:**
+
+- Don't stop, pause or restart production's worker, Redis or Postgres for a
+  rehearsal, and don't touch the production database or queues.
+- Don't call a real provider in any rehearsal.
+- Don't send alerts or notifications to anyone. Delivery isn't part of this item,
+  and the owner hasn't chosen a channel.
+- Don't add more failure cases, or re-run a case that already passed.
+- Don't shorten posts or bound the page.
+
+**Done when:** item 46 is closed, each rehearsal case has a pass or a fixed
+failure, the rebuild's untested steps are listed, M6 and M7 are closed or have
+named gaps, and the branch is merged after the Nov 7 review. Ack each step in one
+line: what would have gone wrong for the reader, and what changed.
+
+**Limits:** no new spend or vendors. No restart between 13:00 and 16:00 UTC.
+Deploy nothing that touches edition generation after 12:00 UTC on Nov 7 unless it
+fixes a breakage. Keep disk under the 80% alert, and remove rehearsal containers
+and files when finished.
