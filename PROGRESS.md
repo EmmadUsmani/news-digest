@@ -113,3 +113,14 @@ Earlier entries: [iterations 1200–1207](docs/progress-archive/2026-11-07-itera
 - No paid calls, runtime/config/data changes or source/schema/UI/handbook changes. Updated review/TASKS and appended item 42 ack.
 - Verification: pnpm check passes (552 unit/228 integration, four expected skips); pnpm build, pnpm format, pnpm lint:fix and git diff --check pass.
 - Next: natural compaction recovery evidence, queued deployment, Nov 8 scheduled keyword/Bluesky/repetition acceptance.
+
+## 2026-11-07: iteration 1217 — Nov 8 acceptance handoff
+
+- Owner benefit: next scheduled review distinguishes deployed fixes from queued main changes and compares real content against Nov 7 failures.
+- Clean main/no leftovers; services 14/14, sources/jobs checks and /healthz pass; alerts clear, all 23 rules healthy.
+- Added Nov 8 checklist: exact window/revision evidence, NBA fallback, repeated posts, publisher/credit changes, per-topic X/Bluesky outcomes, cost and first-week report. No production result claimed.
+- Corrected stale TASKS next-step text that still requested Nov 7 acceptance and an already-merged publisher branch.
+- Metrics trial remains unchanged since 16:00:24 UTC, no restarts; query admission/timeouts/slow queries zero, small merged rows 2,556,000 cumulative, large zero. Comparable five-million-row compaction unobserved; recovery stays open.
+- Verification: checklist links/report entrypoints exist; pnpm check passes (552 unit/228 integration tests, four expected skips), pnpm build, pnpm format, pnpm lint:fix and git diff --check pass.
+- No paid calls, source/schema/UI changes or runtime changes. Restart deliberately deferred to preserve the isolated metrics trial and deployment gate.
+- Next: natural compaction evidence, queued deployment, Nov 8 second-of-three acceptance and Nov 2–8 first-week report.

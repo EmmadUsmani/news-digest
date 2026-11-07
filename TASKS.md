@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Scheduled acceptance handoff (1217): [Nov 8 checklist](docs/edition-reviews/2026-11-08-acceptance-plan.md) pins the publication window, deployed-revision evidence, queued-fix comparisons and second-of-three X/Bluesky review; includes the Nov 2–8 first-week report. No production acceptance claimed.
+
 - [x] STEERING 42 (1216), prepared: social editor v8 explicitly compares event reactions and campaign teasers after Nov 7 repeated LeBron/BioWare/Miller posts; independently newsworthy developments remain eligible. Both-model offline request checks pass; deployment waits for metrics recovery, production quality acceptance remains open.
 
 - [x] STEERING 42 (1084): NBA routine G League assignment occupied a top-story slot; article editor v13 requires substantial supplied developments for routine roster/availability news. Both-model offline contracts pass; compare next scheduled NBA stories.
@@ -57,4 +59,4 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
-- Next: Nov 7 scheduled keyword/Bluesky acceptance at 15:00 UTC. Item 46 is closed at the owner-approved 5.2-screen trial; prepare item 47 publisher branch while publication evidence waits; item 33 stays closed and B2 backups are closed.
+- Next: metrics recovery evidence, then queued publisher/diagnostic/editor deployment; Nov 8 scheduled keyword/Bluesky acceptance at 15:00 UTC and Nov 2–8 first-week report. Publisher branch is merged; runtime migration/deployment remains gated. Items 33/46 and B2 backups are closed.
