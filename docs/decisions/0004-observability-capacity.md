@@ -558,3 +558,24 @@ recovery and queued deployment remain open. No settings or production writes.
 Commands: `pnpm exec tsx scripts/sample-metrics-recovery.ts 6 30`;
 `pnpm exec tsx scripts/sample-observability-capacity.ts 6 10`;
 direct rules/counter reads, app/Grafana health and unit identity checks.
+
+### Ten-minute paired observation (iteration 1227)
+
+Recovery probe at 18:45:27–18:55:36 UTC captured fourteen small merges,
+130,682 rows, no big merges, 23 healthy/fresh rules and 42 successful uncached
+queries (maximum 1.076 s). Admission-limit hits rose from one to two, first
+sampled at 18:54:34; queue timeouts and slow queries remained zero.
+No comparable natural five-million-row compaction occurred.
+
+The paired 600.547-second cgroup sample beginning 18:45:28 measured 1.680%
+whole-stack CPU and 672.95 MiB sampled peak memory; metrics averaged 0.573%
+CPU, with 1,220/2,670 active periods throttled. Every unit had zero memory-high,
+OOM and OOM-kill events. Full CI/build ran during part of this observation.
+The metrics trial still starts at 16:00:24 UTC with zero restarts. Services
+14/14, sources 36/36, jobs, alerts and app/Grafana health passed. Recovery and
+queued deployment remain open; no runtime changes or paid calls.
+
+Commands: `pnpm exec tsx scripts/sample-metrics-recovery.ts 20 30` paired with
+`pnpm exec tsx scripts/sample-observability-capacity.ts 60 10`;
+`pnpm obs services --check`, `sources --check`, `jobs --check`, `alerts`;
+app/Grafana health and metrics unit identity checks.

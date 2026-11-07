@@ -140,3 +140,12 @@ Earlier entries: [iterations 1208–1214](docs/progress-archive/2026-11-07-itera
 - `sample-observability-capacity.ts 6 10`: 60.052 s, 1.838% CPU/721.63 MiB peak; metrics 0.612% CPU, 128/278 periods throttled; all units zero memory-high/OOM events. Trial unchanged since 16:00:24, zero restarts. Services 14/14, sources 36/36, jobs and app/Grafana health pass.
 - Verification: pnpm check passed typecheck/lint then stopped on new PROGRESS formatting; corrected with pnpm format. pnpm format:check, pnpm boundaries and pnpm test pass (560 unit/229 integration, four expected skips); pnpm build, pnpm lint:fix, offline timeline conservation/allowlist/link checks and git diff --check pass. No runtime code changes; restarts/deployment remain deferred behind metrics recovery.
 - Next: natural comparable compaction evidence, queued deployment, then Nov 8 scheduled quality/cost/speed acceptance and first-week report.
+
+## 2026-11-07: iteration 1227 — ten-minute paired metrics observation
+
+- Owner impact: establish whether the metrics CPU trial protects alerts before queued reader/editor changes deploy. Clean main/no leftovers; highest-priority recovery remains open.
+- `pnpm exec tsx scripts/sample-metrics-recovery.ts 20 30`, 18:45:27–18:55:36 UTC: fourteen small merges/130,682 rows, no big merges, 23 healthy/fresh rules, 42 successful uncached queries/max 1.076 s. Admission-limit hits 1→2 at 18:54:34; zero queue timeouts/slow queries. No comparable natural five-million-row compaction.
+- Paired `pnpm exec tsx scripts/sample-observability-capacity.ts 60 10`: 600.547 s, 1.680% whole-stack CPU/672.95 MiB sampled peak; metrics 0.573% CPU, 1,220/2,670 periods throttled. Every unit zero memory-high/OOM events; CI/build overlapped. Trial unchanged since 16:00:24, zero restarts.
+- `pnpm obs services --check`, `sources --check`, `jobs --check`, `alerts`: services 14/14, sources 36/36, jobs healthy, no active alerts. App database/Redis and Grafana HTTP/database healthy. Updated TASKS and capacity evidence; no production writes or paid calls.
+- Verification: pnpm check (560 unit/229 integration passing, four expected skips), pnpm build, pnpm format, pnpm lint:fix, pnpm format:check and git diff --check pass.
+- Deployment/restarts remain deferred behind recovery gate. Next: capture comparable natural compaction, deploy queued fixes, then Nov 8 scheduled keyword/Bluesky quality/cost/speed acceptance and first-week report.
