@@ -8,6 +8,7 @@ export interface Candidate {
   publishedAt: string;
   sources: string[];
   points: number;
+  publisher?: { name: string; url: string | null } | null;
   imageUrl?: string | null;
 }
 function safeImageUrl(value: string | null | undefined): string | null {
@@ -64,6 +65,7 @@ export function rank(
       // Feed/aggregator observations do not prove independent reporting.
       const score = Math.round((recency * 10 + engagement) * 100) / 100;
       return {
+        ...(item.publisher ? { publisher: item.publisher } : {}),
         imageUrl: safeImageUrl(item.imageUrl),
         id: item.id,
         title: item.title,
@@ -98,6 +100,7 @@ export function rank(
           id: item.id,
           title: item.title,
           url: item.url,
+          ...(item.publisher ? { publisher: item.publisher } : {}),
           sources: item.sources,
           publishedAt: item.publishedAt,
         })),

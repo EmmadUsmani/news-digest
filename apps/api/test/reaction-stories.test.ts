@@ -104,6 +104,7 @@ function fixture(enabled = true) {
                 row.url,
                 row.excerpt,
                 null,
+                null, // structured publisher unknown in this fixture
                 row.publishedAt.toISOString(),
                 row.sources,
                 row.points,

@@ -318,6 +318,9 @@ export class PostgresPreviewRepository
                           title: source.title,
                           url: source.url,
                           excerpt: source.excerpt,
+                          ...(source.publisher
+                            ? { publisher: source.publisher }
+                            : {}),
                           sources: source.sources,
                           publishedAt: source.publishedAt,
                         };

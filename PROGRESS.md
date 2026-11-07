@@ -110,3 +110,13 @@ Earlier entries: [iterations 1075–1084](docs/progress-archive/2026-11-07-itera
 - First full check found new schema field ordered before engagement while PostgreSQL appends it; corrected schema order to preserve strict column-position parity.
 - Verification: pnpm format, pnpm lint:fix, pnpm check pass: static checks, 546 unit and 226 integration tests; four previously passed rehearsals skipped. pnpm build and pnpm exec tsx scripts/check-handbook.ts 07-data-model pass (18 pages/3 unchanged diagrams/28 tables). git diff --check passes.
 - Branch migration remains unapplied to production; no branch service restart. Restore clean main checkout/build after push. Merge/deploy remains gated on committed Nov 7 edition review and 16:00 UTC; snapshots and reader labels next.
+
+## 2026-11-07: iteration 1099 — publisher evidence in immutable snapshot contracts
+
+- Clean main/no leftovers; continued authorized publisher-attribution branch. Initial alerts clear, monitored services healthy and all 36 sources pass; /healthz DB/Redis OK, latest reader serves four topics/20 stories.
+- Candidate loading, ranking, grouped coverage and additional editor citations retain structured publisher evidence separately from discovery labels. Optional/nullable snapshot and reader fields preserve historical compatibility; no historical rewrite or editor prompt/selection changes.
+- Offline CNBC/Reuters regression preserves both publishers under shared Google News provenance, all coverage links and unknown historical metadata. Isolated ingestion test now verifies stored evidence reaches edition candidates.
+- Checks found three positional query mocks missing the publisher slot and golden snapshots gaining null fields; corrected mocks and omit unknown evidence to preserve existing snapshot shape. Targeted incremental-pool/reaction/reader tests: 10 pass. No live provider calls or live migration.
+- Updated TASKS, ideas and data-model handbook; reader labels/browser acceptance remain next. No new table/relation, diagram or source behavior changes; schema metadata/SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Verification: pnpm format, pnpm lint:fix, pnpm check pass (547 unit/227 integration tests, four previously passed rehearsals skipped). pnpm build and handbook 07-data-model check pass (18 pages/3 unchanged diagrams/28 tables); git diff --check passes.
+- Branch remains unmerged: no production migration or branch service restart. Merge/deploy requires committed Nov 7 review and 16:00 UTC; restore main checkout/build after push.

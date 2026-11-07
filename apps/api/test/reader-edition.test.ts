@@ -216,3 +216,46 @@ void test('reader archive exposes topic names without editorial modes', async ()
   assert.equal('method' in history.entries[0], false);
   await assert.rejects(controller.history('-1'), /nonnegative offset/);
 });
+
+void test('reader preserves structured publishers in new coverage and leaves historical metadata unknown', () => {
+  const saved = structuredClone(snapshot);
+  const story = saved.topics[0].stories[0];
+  story.publisher = { name: 'CNBC', url: 'https://www.cnbc.com/' };
+  story.coverage = [
+    {
+      id,
+      title: story.title,
+      url: story.url,
+      sources: ['Google News'],
+      publishedAt: story.publishedAt,
+      publisher: story.publisher,
+    },
+  ];
+  story.evidence = [
+    {
+      id: '00000000-0000-4000-8000-000000000002',
+      title: 'Second report',
+      url: 'https://news.google.com/articles/second',
+      excerpt: 'Report',
+      sources: ['Google News'],
+      publishedAt: story.publishedAt,
+      publisher: { name: 'Reuters', url: 'https://www.reuters.com/' },
+    },
+  ];
+  const serialized = JSON.parse(JSON.stringify(saved)) as DigestPreview;
+  const result = readerEdition(serialized).topics[0].stories[0];
+  assert.equal(result.publisher?.name, 'CNBC');
+  assert.deepEqual(
+    result.coverage?.map((article) => article.publisher?.name),
+    ['CNBC', 'Reuters'],
+  );
+  assert.equal(result.coverage?.length, 2);
+  assert.deepEqual(
+    result.coverage?.map((article) => article.sources),
+    [['Google News'], ['Google News']],
+  );
+  assert.equal(
+    readerEdition(snapshot).topics[0].stories[0].publisher,
+    undefined,
+  );
+});

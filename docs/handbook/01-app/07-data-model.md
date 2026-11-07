@@ -7,6 +7,8 @@ snapshots.
 Articles can retain a publisher name and URL supplied by structured RSS metadata,
 separately from the feed that discovered them. Missing metadata stays unknown;
 a later observation without metadata preserves previously collected evidence.
+New edition snapshots retain this evidence for each report, including extra
+editor citations. Historical snapshots keep their original unknown attribution.
 
 > [!TIP]
 > For every table, column, key and index, open the live

@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { test } from 'node:test';
 
+import { loadArticleCandidates } from '../src/modules/digests/database/article-candidates';
 import { parseFeed } from '../src/modules/ingestion/adapters/feed.adapter';
 import { HackerNewsAdapter } from '../src/modules/ingestion/adapters/hn.adapter';
 import { PostgresContentRepository } from '../src/modules/ingestion/database/content.repository';
@@ -383,6 +384,17 @@ void test('Postgres ingestion is idempotent and records failure without losing l
     const updatedPublisher = { name: 'Reuters', url: null };
     await repository.store(source, [{ ...item, publisher: updatedPublisher }]);
     assert.deepEqual(await readPublisher(), updatedPublisher);
+    const published = new Date(item.publishedAt).getTime();
+    const candidates = await loadArticleCandidates(
+      repository.db,
+      source.topicId,
+      new Date(published),
+      new Date(published + 1),
+    );
+    assert.deepEqual(
+      candidates.find((candidate) => candidate.url === item.url)?.publisher,
+      updatedPublisher,
+    );
     const empty = { collect: async () => [] };
     await assert.rejects(
       ingest(repository, { feed: empty, hn: empty }, id),

@@ -116,3 +116,29 @@ void test('lead images retain HTTPS publisher media without borrowing related co
     );
   }
 });
+
+void test('ranking retains each report publisher separately from discovery labels', () => {
+  const publishers = [
+    { name: 'CNBC', url: 'https://www.cnbc.com/' },
+    { name: 'Reuters', url: 'https://www.reuters.com/' },
+  ];
+  const ranked = rank(
+    publishers.map((publisher, index) =>
+      item(String(index), { publisher, sources: ['Google News'] }),
+    ),
+    start,
+    end,
+    5,
+    () => true,
+  );
+  assert.equal(ranked.length, 1);
+  assert.deepEqual(
+    ranked[0].coverage.map((article) => article.publisher),
+    publishers,
+  );
+  assert.deepEqual(ranked[0].sources, ['Google News']);
+  assert.equal(
+    rank([item('historical')], start, end, 5)[0].publisher,
+    undefined,
+  );
+});

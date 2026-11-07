@@ -24,6 +24,7 @@ export async function loadArticleCandidates(
       url: items.canonicalUrl,
       excerpt: items.excerpt,
       imageUrl: items.imageUrl,
+      publisher: items.publisher,
       publishedAt: items.publishedAt,
       // Drizzle has no builder for DISTINCT, ordered PostgreSQL array aggregates.
       sources: sql<
