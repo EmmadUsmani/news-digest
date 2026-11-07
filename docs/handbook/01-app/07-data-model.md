@@ -4,9 +4,6 @@ Postgres holds about 24 tables in five areas. Most of the app's state is
 simple: settings, collected content, ledgers, and editions as immutable
 snapshots.
 
-> [!NOTE]
-> Publisher attribution is merged; its live migration and deployment await metrics recovery.
-
 Reader source rows use saved publisher names when available, alongside discovery
 provenance; each link still opens its saved report URL. Unknown publishers retain
 the discovery label.

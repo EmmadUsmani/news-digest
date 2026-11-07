@@ -2131,3 +2131,5 @@ deployed commit, migration result, check results, and anything rolled back.
 **Limits:** no new spend. No restarts or deploys between 13:00 and 16:00 UTC.
 Deploy nothing that touches edition generation after 12:00 UTC on Nov 8 unless
 it fixes a breakage.
+
+ack: 2026-11-07 item 49 — iteration 1230 deployed merged main `96457a35` at 19:20 UTC after private backup; `drizzle/0008_content_publisher.sql` applied and publisher JSONB column verified. API/worker/docs/schema restarted; services 14/14, sources 36/36, jobs, app/Grafana health and desktop/mobile saved-reader/archive Playwright pass; no rollback or paid calls. Removed the app deployment hold from TASKS/decision 0004; metrics trial unchanged, incident open, checks now passive and at most hourly.

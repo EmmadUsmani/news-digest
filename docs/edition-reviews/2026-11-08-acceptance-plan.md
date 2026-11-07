@@ -12,8 +12,8 @@ acceptance review, not a production result. Compare with [Nov 7](2026-11-07.md).
   20 stories, 15 X posts, three Bluesky posts, mixed NBA story fallback.
 - Record the deployed revision and API/worker start times at publication from
   deployment history. Main containing a fix does not establish worker deployment.
-  If the metrics recovery gate still prevents deployment, mark queued changes
-  unexercised rather than judging their effectiveness from Nov 8 output.
+  Iteration 1230 deployed merged revision `96457a35` under STEERING 49,
+  including publisher migration `0008`; record any subsequent deployment.
 - Preserve the protected 13:00–16:00 UTC window, existing models and caps.
   No paid reruns or forced publication to obtain acceptance evidence.
 

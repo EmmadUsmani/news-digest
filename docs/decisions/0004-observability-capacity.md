@@ -1,5 +1,7 @@
 # Keep correlation logs; defer optional tracing and a second proxy
 
+> Deployment policy: [STEERING item 49](../../STEERING.md#49-now-stop-holding-app-deployments-behind-metrics-recovery-2026-11-07) removes the app deployment hold. Queued changes deployed in iteration 1230; metrics recovery stays open with at most one short passive check per hour.
+
 Date: 2026-11-04. Status: accepted capacity decision for O11; no installation.
 
 ## Decision
@@ -318,7 +320,7 @@ Evidence commands: `sudo journalctl -u obs-metrics --since '2026-11-07 13:00:00'
 `curl -fsS --max-time 10 http://127.0.0.1:8880/api/v1/rules`, and
 `systemctl show obs-metrics -p CPUQuotaPerSecUSec -p NRestarts
 -p ActiveEnterTimestamp`. Keep the incident open and perform the prepared
-post-16:00 trial before deploying queued application diagnostics.
+post-16:00 trial; app deployment follows STEERING 49.
 
 ### CPU-only trial deployed (iteration 1207)
 
@@ -349,7 +351,7 @@ zero memory-high/OOM events. Small-storage merged 14,118 rows and indexdb
 23 rules were healthy at 16:03:49, with backup staleness evaluated at
 16:03:48 in 0.099 seconds. Keep recovery open until a comparable large
 compaction and sustained alert evaluation are verified. This short trial does not establish that CPU headroom fixes the
-intermittent outage. Queued application deployments remain deferred.
+intermittent outage. App deployment is independent of recovery under STEERING 49.
 
 Commands: `pnpm exec tsx scripts/sample-observability-capacity.ts 60 10`,
 then `6 10` and `18 10`; direct `/metrics/metrics`, uncached
@@ -374,8 +376,7 @@ At 16:12 UTC, the new-process admission-limit, queue-timeout and slow-query
 counters remained zero. Cumulative merged rows were 131,674 small-storage
 and 6,528 indexdb; large-storage merged rows remained zero. These totals do
 not demonstrate a merge comparable to the earlier five-million-row event.
-The incident therefore remains open; do not force a compaction or deploy the
-queued application changes merely to complete this observation. Next check:
+The incident therefore remains open; do not force a compaction. App deployment follows STEERING 49. Next check:
 a naturally occurring comparable merge with successful rules/queries and
 bounded cgroup resource use. No service was restarted in this follow-up.
 
@@ -404,7 +405,7 @@ queries remained zero. Small-storage merged 1,382,722 cumulative rows and
 indexdb 6,528; large-storage remained zero. The cumulative small-merge total
 is not evidence of a single comparable five-million-row compaction.
 
-Recovery and queued deployments remain open. No service, configuration or
+Metrics recovery remains open. No service, configuration or
 production data changed. Commands: `pnpm exec tsx
 scripts/sample-observability-capacity.ts 60 10`, repeated vmalert rules and
 uncached query probes, direct metrics counters, Grafana/app health,
@@ -423,8 +424,7 @@ selectors returning one series; maximum query latency was 0.299 s. Backup
 staleness evaluation advanced to 16:52:18 UTC without error. Admission-limit
 hits, queue timeouts and slow queries remained zero. Cumulative small-storage
 merged rows reached 1,914,990; indexdb remained 6,528 and large-storage zero.
-No comparable single five-million-row merge was observed; recovery and queued
-deployment remain open. No service restart or runtime change was made.
+No comparable single five-million-row merge was observed; Metrics recovery remains open. No service restart or runtime change was made.
 
 Commands: `pnpm exec tsx scripts/sample-observability-capacity.ts 18 10`;
 seven vmalert rules/uncached query probes using the selectors above; metrics
@@ -446,7 +446,7 @@ was 0.101 s. Backup staleness evaluated successfully at 17:00:48 UTC.
 Admission-limit hits, queue timeouts and slow queries remained zero.
 Small-storage merged rows reached 2,194,548 cumulatively, indexdb 13,122,
 and large-storage zero. No comparable single five-million-row merge was
-observed. Recovery and queued deployment remain open; no runtime changes
+observed. Metrics recovery remains open; no runtime changes
 or restarts were made.
 
 Commands: `pnpm exec tsx scripts/sample-observability-capacity.ts 60 10`;
@@ -467,8 +467,7 @@ selectors returning one series. Maximum latency was 0.401 seconds; backup
 staleness evaluated successfully at 17:11:48 UTC. Admission-limit hits,
 queue timeouts and slow queries remained zero. Small-storage merged rows
 reached 2,281,811 cumulatively, indexdb 13,122 and large-storage zero.
-No comparable single five-million-row compaction was observed; recovery
-and queued deployment remain open. Services, sources, jobs and both
+No comparable single five-million-row compaction was observed; Metrics recovery remains open. Services, sources, jobs and both
 app/Grafana health endpoints passed. No paid calls or runtime changes.
 
 Commands: `pnpm exec tsx scripts/sample-observability-capacity.ts 30 10`;
@@ -490,8 +489,7 @@ and API-unit selectors returned one series in 0.235/0.002 seconds;
 Grafana and app health passed. Admission-limit, queue-timeout and slow-query
 counters stayed zero. Small-storage merged rows reached 4,362,390
 cumulatively, indexdb 20,222 and large-storage zero. No comparable single
-five-million-row compaction was observed; recovery and deployment remain
-open. No runtime settings, services or production records changed.
+five-million-row compaction was observed; Metrics recovery remains open. No runtime settings, services or production records changed.
 
 Commands: `pnpm exec tsx scripts/sample-observability-capacity.ts 18 10`;
 vmalert rules, uncached selectors and metrics counters; Grafana/app health;
@@ -522,7 +520,7 @@ zero. A separate 60.038-second cgroup sample starting 18:24:32 measured
 1.592% whole-stack CPU/717.79 MiB peak, metrics 0.619% CPU and 145/265
 periods throttled; every unit had zero memory-high/OOM events. CPU trial
 still starts at 16:00:24 with no restarts. No comparable merge observed;
-recovery and queued deployment remain open.
+Metrics recovery remains open.
 
 ### Paired three-minute observation (iteration 1225)
 
@@ -535,7 +533,7 @@ and 723.57 MiB sampled peak memory; metrics averaged 0.421% CPU with
 232/653 active periods throttled. Every unit had zero memory-high/OOM events.
 The trial still starts at 16:00:24 UTC with zero restarts. Services 14/14,
 sources 36/36, jobs and app/Grafana health passed. No comparable natural
-five-million-row compaction occurred; recovery and queued deployment stay open.
+five-million-row compaction occurred; Metrics recovery remains open.
 
 Commands: `pnpm exec tsx scripts/sample-metrics-recovery.ts 6 30` and
 `pnpm exec tsx scripts/sample-observability-capacity.ts 18 10`;
@@ -553,7 +551,7 @@ The paired 60.052-second cgroup sample beginning 18:37:37 measured 1.838%
 whole-stack CPU/721.63 MiB peak; metrics 0.612% CPU, 128/278 periods throttled.
 Every unit recorded zero memory-high/OOM events. Metrics remains unchanged
 since 16:00:24 UTC with zero restarts. No comparable natural large compaction;
-recovery and queued deployment remain open. No settings or production writes.
+Metrics recovery remains open. No settings or production writes.
 
 Commands: `pnpm exec tsx scripts/sample-metrics-recovery.ts 6 30`;
 `pnpm exec tsx scripts/sample-observability-capacity.ts 6 10`;
@@ -572,8 +570,7 @@ whole-stack CPU and 672.95 MiB sampled peak memory; metrics averaged 0.573%
 CPU, with 1,220/2,670 active periods throttled. Every unit had zero memory-high,
 OOM and OOM-kill events. Full CI/build ran during part of this observation.
 The metrics trial still starts at 16:00:24 UTC with zero restarts. Services
-14/14, sources 36/36, jobs, alerts and app/Grafana health passed. Recovery and
-queued deployment remain open; no runtime changes or paid calls.
+14/14, sources 36/36, jobs, alerts and app/Grafana health passed. Metrics recovery remains open; no runtime changes or paid calls.
 
 Commands: `pnpm exec tsx scripts/sample-metrics-recovery.ts 20 30` paired with
 `pnpm exec tsx scripts/sample-observability-capacity.ts 60 10`;
@@ -597,7 +594,7 @@ values, not continuous availability evidence. Alert execution/error counters
 have no stored series under the queried names, so this history cannot establish
 absence of rule-evaluation failures. Current rules are checked separately.
 The metrics unit reports the unchanged 16:00:24 start and zero restarts.
-Recovery and queued deployment remain open; no forced compaction or runtime change.
+Metrics recovery remains open; no forced compaction or runtime change.
 
 Command: Python urllib requests to local `/metrics/api/v1/query_range` with
 `start=1794067260`, `end=1794078330`, `step=30s`, `nocache=1` for
@@ -621,7 +618,7 @@ At 19:13:55–19:14:55 UTC, three samples showed unchanged evaluator identity,
 All 23 rules were healthy/fresh; six uncached queries passed, maximum 0.162 s.
 Two small merges covered 7,015 rows; big-storage stayed zero. Admission hits
 stayed two, queue timeouts/slow queries zero. Metrics still starts at 16:00:24
-with zero restarts. No comparable compaction; deployment remains deferred.
+with zero restarts. No comparable compaction; app deployment follows STEERING 49.
 
 Commands: `pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30`;
 local evaluator `/metrics`, stored range queries and journal since trial start;

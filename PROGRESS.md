@@ -95,6 +95,17 @@ Earlier entries: [iterations 1215–1222](docs/progress-archive/2026-11-07-itera
 - Confirmed evaluator is not a configured scrape target: correct counter-name history queries return no series; journal since trial start is empty. No historical no-error claim, scrape change, forced compaction, production write or paid call.
 - `pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30`, 19:13:55–19:14:55 UTC: zero new errors/misses (lifetime 14/25), 23 healthy/fresh rules, six uncached queries/max 0.162 s; two small merges/7,015 rows, no big merge. Admission hits two, zero timeouts/slow queries; process unchanged/zero restarts.
 - `pnpm exec tsx scripts/sample-observability-capacity.ts 6 10`: 60.045 s, 1.174% whole-stack CPU/681.0 MiB peak; metrics 0.375% CPU, 65/199 periods throttled; every unit zero memory-high/OOM events.
-- Services 14/14, sources 36/36 and jobs healthy; no active alerts; app database/Redis and Grafana database health pass. TASKS and capacity evidence updated; deployment/restarts remain deferred behind comparable natural compaction recovery.
+- Services 14/14, sources 36/36 and jobs healthy; no active alerts; app database/Redis and Grafana database health pass. TASKS and capacity evidence updated; initial deployment hold was superseded by owner STEERING 49 during push recovery; see deployment entry below.
 - Verification: `pnpm check` passes (563 unit/229 integration, four expected skips); `pnpm build`, `pnpm format`, `pnpm lint:fix`, targeted recovery tests, final live probe smoke and `git diff --check` pass. No app runtime changes or restart.
 - Next: comparable compaction evidence, queued deployment, Nov 8 scheduled acceptance and first-week report. Probe output now carries evaluator deltas for subsequent recovery observations.
+
+## 2026-11-07: iteration 1230 — deploy queued fixes under new owner item 49
+
+- Initial push of `012129a4` rejected: owner commits `8b040128`/`6ef4e2ee` added STEERING 49, removing the indefinite app-deployment hold. Fetched/merged without rewriting history or editing owner files; followed new priority immediately.
+- Deployed merged main `96457a35` at 19:20 UTC: all queued publisher, NBA repair/preview/fallback/cutoff, Bluesky link/repair and X/schema diagnostics are live. Production quality acceptance remains due Nov 8; no paid rerun.
+- `python3 ops/backups/database.py backup`: private 8,973,151-byte dump, 28 tables. `pnpm migrate`: applied `drizzle/0008_content_publisher.sql`; live ledger and `content_items.publisher:jsonb` verified. No rollback.
+- Restarted API/worker/docs/schema with systemctl user units. Metrics service/trial unchanged; STEERING 49 replaces the deployment hold, incident stays open with at most one short passive check per hour.
+- Services 14/14, sources 36/36, jobs, app database/Redis and Grafana database health pass; no active alerts. `pnpm exec tsx scripts/smoke-ui.ts`: actual saved Nov 7 reader, summaries, images, archive/reload and desktop/mobile layouts pass; no API writes/browser errors; four screenshots updated and mobile inspected.
+- Removed stale hold wording in TASKS/decision 0004 and data-model handbook; Nov 8 plan records deployed revision. Earlier probe/check/build results above remain applicable: merged owner changes are instructions/status only.
+- `pnpm exec tsx scripts/check-handbook.ts 07-data-model`: 18 pages, three diagrams and 28-table metadata pass; no diagrams changed. Final formatting/lint and diff checks pass.
+- Next: Nov 8 scheduled selection/quality/cost/speed acceptance and first-week report; do not hold reader work on natural compaction.
