@@ -206,4 +206,5 @@
 - Passed pnpm format, pnpm lint:fix, pnpm build, git diff --check and full pnpm check: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green.
 - API/worker restarted; curl --retry /healthz DB/Redis OK after startup; pnpm obs alerts clear, sources 36/36 healthy, digest queue zero failed. Saved edition four topics/20 stories/17 posts.
 - No paid calls or edition writes. No source/schema/system-flow changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
+- Initial push rejected: concurrent lead status-doc commit 7cb32a12 on origin/main. Merged without rewriting history; no application overlap.
 - Next: review first Nov 7 scheduled keyword-X and reserved-slot Bluesky picks, costs and Tech repetition. Observability RAM target remains unmet.

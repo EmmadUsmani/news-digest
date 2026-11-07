@@ -10,5 +10,6 @@ marks it finished, with screenshots of every route.
 **Next:**
 
 - Review admin pages and the reader against the spec once the agent acks.
-- Watch the agent's commits: item 43 wants reader build work, not new feature scoping.
+- Watch the agent's commits: scoping stopped after item 43, but by Nov 7 they had
+  become small edge-case fixes tested on synthetic data, with no finish in sight.
 - Confirm the owner's real login gets `isAdmin: true` at `/api/me`.

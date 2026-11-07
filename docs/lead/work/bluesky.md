@@ -9,10 +9,11 @@ Bluesky pick (World), distinct from the X posts. One unsupported pick was droppe
 - Bluesky only gets slots X leaves empty. NBA, Gaming and Tech got none on Nov 6.
 - Saved editions now keep the Bluesky outcome, so failures are visible.
 - Both durable alerts are live (18 healthy rules). Neither has fired on a real edition.
-- The reserved slot (one X slot per topic) is built but OFF.
+- The reserved slot (one X slot per topic) is ON. Flag confirmed on the VM on Nov 7.
+  First edition using it: Nov 7.
 
-**Owner decision (Nov 6):** switch the reserved slot on, accepting the cost gate
-miss of about $0.00006 (STEERING item 40 update). Cap unchanged.
+**Owner decision (Nov 6):** reserved slot on, accepting the cost gate miss of
+about $0.00006 (STEERING item 40 update). Cap unchanged.
 
 **Next:**
 
