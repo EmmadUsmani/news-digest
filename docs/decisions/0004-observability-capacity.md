@@ -180,3 +180,21 @@ latency, verify vmalert has no new failed evaluations/429s across a compaction
 and check the backup-staleness rule evaluates successfully. Measure whole-stack
 memory/CPU separately against ~800 MiB/<5%; only persist a limit change after
 verification. No runtime settings or services changed in this protected window.
+
+### Prepared CPU headroom (iteration 1194; not deployed)
+
+The repository unit now proposes `CPUQuota=2%` instead of 1%: two milliseconds
+per 100-millisecond period instead of one. This is a first measured trial,
+not a demonstrated recovery. Memory limits, Go parallelism, two-query
+admission and deadlines stay unchanged so the first trial isolates CPU headroom.
+The installed unit remains at 1%; do not install or restart before 16:00 UTC.
+
+After the protected window, capture cgroup CPU/memory counters and serial
+uncached self-scrape/service-status query timings before and after installing
+only `ops/observability/obs-metrics.service` and restarting `obs-metrics`.
+Do not run the all-metrics installer: it also restarts unrelated collectors.
+Verify successful backup-staleness evaluations and no new queue rejections
+through a compaction, then check whole-stack ~800 MiB/<5% CPU usage. If the
+trial fails, retain the open incident and use measured deltas to choose the
+next change; do not call a quiet short sample recovery. The additional one
+percentage point is a ceiling, not evidence of actual CPU consumption.

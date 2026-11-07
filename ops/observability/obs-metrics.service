@@ -12,7 +12,9 @@ Restart=always
 RestartSec=5
 MemoryHigh=88M
 MemoryMax=112M
-CPUQuota=1%
+# Prepared for the Nov 7 scrape/alert-evaluation outage. Install only after
+# 16:00 UTC; validate latency and whole-stack CPU before closing the incident.
+CPUQuota=2%
 CPUWeight=10
 IOWeight=10
 Nice=10

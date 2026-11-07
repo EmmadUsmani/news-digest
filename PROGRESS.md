@@ -133,3 +133,13 @@ Earlier entries: [iterations 1075–1084](docs/progress-archive/2026-11-07-itera
 - pnpm obs alerts clear; pnpm obs services --check passes 14 units; pnpm obs sources --check passes 36 sources; curl /healthz reports DB/Redis OK. No runtime/UI/source/schema/provider changes or protected-window restart/deploy; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged.
 - Next: Nov 7 scheduled edition review at publication; after 16:00 repair metrics with modest measured CPU headroom, then verify alert evaluations and ~800 MiB/<5% stack budget. Publisher merge still requires actual committed review and 16:00 UTC.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 543 unit and 226 integration tests pass (four rehearsals skipped). git diff --check passes. Docs-only change; live runtime unchanged, no UI screenshots needed.
+
+## 2026-11-07: iteration 1194 — prepare CPU-only metrics recovery trial
+
+- Clean main/no leftovers. Owner value: restore trustworthy scrape and backup-alert evaluation after the observed outage, with a concrete repair ready for the permitted window.
+- Prepared obs-metrics.service CPUQuota 1→2% in the repo; installed production unit remains 1%. Memory 88/112 MiB, GOMAXPROCS=1, query admission/deadlines unchanged. No claim of measured recovery.
+- Capacity decision records isolated-unit deployment and acceptance: before/after cgroup and uncached query measurements, successful backup-rule evaluation/no new 429 across compaction, whole-stack ~800 MiB/<5% CPU. Avoid the all-metrics installer and unrelated collector restarts.
+- pnpm obs alerts: zero active; pnpm obs services --check: 14 healthy; pnpm obs sources --check: 36 healthy; curl /healthz: database/Redis OK. systemd-analyze verify passes the staged unit; installed-file difference confirms it is not deployed.
+- No runtime/provider/UI/schema/source changes or protected-window restart. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged: current deployed behavior unchanged; publisher merge remains gated.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 543 unit/226 integration tests pass (four rehearsals skipped). git diff --check passes.
+- Next: review Nov 7 edition at 15:00 UTC; after 16:00 deploy/measure the CPU-only metrics trial before closing recovery. Publisher requires committed Nov 7 review and the time gate.
