@@ -624,3 +624,18 @@ Commands: `pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30`;
 local evaluator `/metrics`, stored range queries and journal since trial start;
 `pnpm obs services --check`, `sources --check`, `jobs --check`, `alerts`;
 app/Grafana health. Offline tests cover cleared failures and invalid intervals.
+
+### Hourly passive recovery check (iteration 1236)
+
+Nov 7 20:15:10–20:15:40 UTC: all 23 rules healthy/fresh, four uncached
+queries passed (maximum 0.098 s), zero new evaluator errors/missed iterations.
+Admission-limit hits remained two; queue timeouts and slow queries stayed zero.
+No small or big merges occurred in the interval, so the comparable-compaction
+gate remains untested. Metrics still starts at 16:00:24 UTC with zero restarts.
+No limits, scrape configuration or services changed. Next passive check no
+sooner than 21:15 UTC; app deployment remains independent under STEERING 49.
+
+Commands: `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`;
+`systemctl show obs-metrics.service -p ActiveEnterTimestamp -p NRestarts`;
+`pnpm obs alerts`, `services --check`, `sources --check`, `jobs --check`;
+app and Grafana health endpoints.

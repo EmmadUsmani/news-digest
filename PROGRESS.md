@@ -157,3 +157,12 @@ Earlier entries: [iterations 1215–1222](docs/progress-archive/2026-11-07-itera
 - `pnpm build`, `pnpm format`, `pnpm lint:fix` and `git diff --check` pass; rebuilt API restarted healthy. `pnpm check` passes: 563 unit and 229 integration tests, four expected skips.
 - Next: Nov 8 scheduled X/Bluesky/quality/cost/speed acceptance and first-week report. Metrics recovery remains open, passive check no sooner than 20:14 UTC.
 - Initial push rejected: owner handbook palette commits landed remotely. Merged all three without rewriting history; docs-site typecheck/tests pass and docs service restarted. Reader verification remains applicable.
+
+## 2026-11-07: iteration 1236 — hourly recovery evidence
+
+- Clean main/no leftover work. Highest-priority open breakage remains metrics recovery; scheduled X/Bluesky/content acceptance awaits Nov 8 15:00 UTC. No provider calls or generation changes.
+- `pnpm obs alerts`, `services --check`, `sources --check`, `jobs --check`: no active alerts, 14 services/36 sources healthy, next edition queued; latest social collection completed. App database/Redis health passes.
+- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`: 20:15:10–20:15:40 UTC, 23 healthy rules, four uncached queries ≤0.098 s; zero new evaluator errors/misses, admission hits unchanged at two, no queue timeouts/slow queries. No merges; incident stays open.
+- Metrics unchanged since 16:00:24 UTC/zero restarts. Updated decision 0004/TASKS with evidence and next passive check ≥21:15 UTC. No service restart needed for evidence-only changes; deployed app stays unchanged.
+- Initial Grafana health request assumed port 3000 and failed; repository config identifies 3001/grafana, corrected health request passes.
+- Verification: `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 563 unit/229 integration tests, four expected skips; typecheck/lint/format/boundaries green. Evidence-only change, no rebuild required.
