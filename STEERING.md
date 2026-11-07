@@ -1920,3 +1920,5 @@ the ack gives each topic's length in desktop screens with all posts visible.
 
 **Limits:** no restart between 13:00 and 16:00 UTC. No new spend. Edition
 protection still applies.
+
+ack: 2026-11-07 item 46 partial — iteration 1079 removes desktop posts inner scrolling and refreshes eight loaded views. Four device/theme layout checks and all-post page reachability pass. All 17 posts/16 loaded X frames yield Tech/NBA/Gaming/World 4.94/4.42/4.98/2.03 desktop screens in both themes. The required 3.6-screen smoke correctly fails for three topics; earlier lengths used partially loaded embeds. No posts shortened/hidden/capped and no replacement bounds. Acceptance conflict recorded in NEEDS_FROM_HUMAN.md; item 33 stays closed. B2 step 4 already verified/closed in 1078.

@@ -26,15 +26,19 @@ cards and do not measure loaded external embeds. No generation or paid calls.
 ## Loaded desktop posts
 
 `pnpm exec tsx scripts/smoke-reader-length.ts` enables third-party embeds and
-scrolls through every saved post. Desktop posts use a keyboard-accessible scroll
-area; mobile stays in the normal page flow. All 17 posts remain available.
+scrolls through every saved post. Desktop and mobile posts flow in the page,
+with no inner posts scrollbar. All 17 posts remain available.
 
 | Topic | Height at 1440 × 1100 | Light | Dark |
 | --- | --- | --- | --- |
-| Tech & AI | 2849 px / 2.59 screens | [View](loaded-tech-desktop-light.png) | [View](loaded-tech-desktop-dark.png) |
-| NBA | 2849 px / 2.59 screens | [View](loaded-nba-desktop-light.png) | [View](loaded-nba-desktop-dark.png) |
-| Gaming | 2877 px / 2.62 screens | [View](loaded-gaming-desktop-light.png) | [View](loaded-gaming-desktop-dark.png) |
+| Tech & AI | 5436 px / 4.94 screens | [View](loaded-tech-desktop-light.png) | [View](loaded-tech-desktop-dark.png) |
+| NBA | 4863 px / 4.42 screens | [View](loaded-nba-desktop-light.png) | [View](loaded-nba-desktop-dark.png) |
+| Gaming | 5482 px / 4.98 screens | [View](loaded-gaming-desktop-light.png) | [View](loaded-gaming-desktop-dark.png) |
 | World | 2237 px / 2.03 screens | [View](loaded-world-desktop-light.png) | [View](loaded-world-desktop-dark.png) |
 
 Both themes loaded all 16 X frames. These are viewport captures at each posts
 section; the route images above retain full-page coverage.
+
+Iteration 1079: loading every embed exceeds the 3.6-screen acceptance limit for
+Tech, NBA and Gaming. The length smoke check retains that limit and fails;
+the earlier 3.52/3.35-screen figures used partially loaded embeds.

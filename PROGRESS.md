@@ -110,3 +110,15 @@ Earlier entries: [iterations 1062–1069](docs/progress-archive/2026-11-07-itera
 - pnpm build passes with existing bundle/annotation warnings. API/worker restarted; /healthz DB/Redis OK, 13/13 services healthy and saved-edition list returns real entries. No UI/schema/source changes, provider spend or edition writes.
 - Concurrent owner commit bb152fab introduces item 46: remove desktop inner scrolling, permit up to 3.6 screens, refresh checks/screenshots. Read the new instructions; B2 step 4 is complete. Added remaining UI work to TASKS as the next available step.
 - pnpm format, pnpm lint:fix, git diff --check and full pnpm check passed: 537 unit/226 isolated integration tests, typecheck/lint/format/boundaries green. No source/schema/reader rendering changes in this step; next is item 46 continuous desktop page flow, then scheduled acceptance.
+
+## 2026-11-07: iteration 1079 — remove desktop posts scroll box
+
+- Clean main/no leftovers. Alerts clear, /healthz DB/Redis OK, 13/13 services and 36/36 sources healthy; queue check passes. Scheduled Nov 7 keyword/Bluesky acceptance still awaits 15:00 UTC.
+- Removed desktop max-height, overflow/overscroll/gutter, focus styling, tabIndex and scroll-area region/label. All posts now flow in the page; no post text/count/media changes.
+- Updated both smoke scripts for no inner scrolling and every post reachable through page scrolling. Layout check covers desktop/mobile light/dark; existing row geometry now permits negative viewport coordinates after page scrolling.
+- pnpm exec tsx scripts/smoke-reader-layout.ts passes all four views, saved coverage/navigation/no-overflow/no-writes checks. Restored incidental timestamp-only reader screenshots; refreshed the eight requested loaded views and visually inspected light Tech/dark Gaming.
+- pnpm exec tsx scripts/smoke-reader-length.ts verifies all 17 posts/16 official X frames and continuous flow in both themes, then FAILS the required 3.6-screen assertion. Heights identical in light/dark: Tech 5435.94 px/4.94 screens, NBA 4862.94/4.42, Gaming 5481.94/4.98, World 2236.56/2.03.
+- Earlier 3.52/3.35 figures used partial lazy loading (1069 evidence). Prescribed removal alone cannot meet 3.6 with all embeds loaded. Kept the threshold enforced; no shortening/hiding/capping/bounding workaround. Partial ack and acceptance conflict in NEEDS_FROM_HUMAN; item 33 remains closed.
+- Updated runtime handbook and screenshot index. pnpm exec tsx scripts/check-handbook.ts 01-stack-and-runtime passes: 18 pages/28 tables, no warnings; no diagram changes.
+- pnpm format and pnpm lint:fix pass; git diff --check clean. Initial full check interrupted (exit 143 during integration); rerun pnpm check passed: 537 unit/226 isolated integration tests, typecheck/lint/format/boundaries green. pnpm build passed with existing bundle warnings.
+- API/worker restarted after build; health/alerts/services/sources remain healthy and latest real edition retains four topics/20 stories/17 posts. No LLM/X spend, source/schema changes or edition writes. Next: owner length decision; item 42 while waiting, scheduled Nov 7 keyword/Bluesky acceptance at 15:00 UTC.

@@ -216,8 +216,36 @@ async function smoke() {
           );
         }
         for (const grid of await page.locator('.post-grid').all()) {
+          assert.ok(
+            await grid.evaluate((node) => {
+              const style = getComputedStyle(node);
+              return (
+                style.maxHeight === 'none' &&
+                style.overflowY === 'visible' &&
+                node.scrollHeight <= node.clientHeight + 1
+              );
+            }),
+            'Posts have no inner scrolling',
+          );
+          for (const card of await grid.locator('.post-card').all()) {
+            await card.evaluate((node) =>
+              window.scrollTo(
+                0,
+                window.scrollY + node.getBoundingClientRect().top - 120,
+              ),
+            );
+            assert.ok(
+              await card.evaluate((node) => {
+                const bounds = node.getBoundingClientRect();
+                return bounds.bottom > 0 && bounds.top < innerHeight;
+              }),
+              'Every saved post is reachable through page scrolling',
+            );
+            assert.equal(await grid.evaluate((node) => node.scrollTop), 0);
+          }
+          await page.clock.runFor(300);
           const cards = await grid.locator('.post-card').all();
-          let previousBottom = 0;
+          let previousBottom = -Infinity;
           for (const card of cards) {
             assert.equal(
               await card.evaluate((node) => node.tagName),

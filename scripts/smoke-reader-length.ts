@@ -6,6 +6,7 @@ import { chromium } from 'playwright';
 async function smoke() {
   const browser = await chromium.launch();
   try {
+    const lengths: number[] = [];
     for (const theme of ['light', 'dark'] as const) {
       const page = await browser.newPage({
         viewport: { width: 1440, height: 1100 },
@@ -31,26 +32,34 @@ async function smoke() {
         const height = await topic.evaluate(
           (node) => node.getBoundingClientRect().height,
         );
-        assert.ok(height <= 3300, `${name}: ${height}px exceeds three screens`);
         const grid = topic.locator('.post-grid');
-        await grid.focus();
-        await grid.evaluate((node) => {
-          node.scrollTop = 0;
-        });
-        await page.keyboard.press('End');
-        await page.waitForTimeout(300);
         assert.ok(
-          await grid.evaluate(
-            (node) =>
-              node.scrollHeight <= node.clientHeight || node.scrollTop > 0,
-          ),
-          `${name}: keyboard scrolling`,
+          await grid.evaluate((node) => {
+            const style = getComputedStyle(node);
+            return (
+              style.maxHeight === 'none' &&
+              style.overflowY === 'visible' &&
+              node.scrollHeight <= node.clientHeight + 1
+            );
+          }),
+          `${name}: posts flow continuously in the page`,
         );
-        await grid.locator('.post-card').last().scrollIntoViewIfNeeded();
-        assert.ok(await grid.locator('.post-card').last().isVisible());
-        await grid.evaluate((node) => {
-          node.scrollTop = 0;
-        });
+        for (const card of await grid.locator('.post-card').all()) {
+          await card.evaluate((node) => {
+            window.scrollTo(
+              0,
+              window.scrollY + node.getBoundingClientRect().top - 120,
+            );
+          });
+          assert.ok(
+            await card.evaluate((node) => {
+              const box = node.getBoundingClientRect();
+              return box.bottom > 0 && box.top < innerHeight;
+            }),
+            `${name}: every post reachable by page scrolling`,
+          );
+          assert.equal(await grid.evaluate((node) => node.scrollTop), 0);
+        }
         await grid.evaluate((node) => {
           window.scrollTo(
             0,
@@ -79,6 +88,7 @@ async function smoke() {
         false,
       );
       console.log(JSON.stringify({ theme, measurements, posts: count }));
+      lengths.push(...measurements.map(({ height }) => height));
       await page.setViewportSize({ width: 390, height: 844 });
       for (const grid of await page.locator('.post-grid').all()) {
         assert.equal(
@@ -89,6 +99,10 @@ async function smoke() {
       }
       await page.close();
     }
+    assert.ok(
+      lengths.every((height) => height <= 3960),
+      'Every topic must fit 3.6 desktop screens; see measurements above',
+    );
   } finally {
     await browser.close();
   }
