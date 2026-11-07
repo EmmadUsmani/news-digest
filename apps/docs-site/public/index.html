@@ -13,15 +13,9 @@
       <a class="brand" href="#/"
         ><strong>news-digest</strong> <span>docs</span></a
       >
-      <div class="search">
-        <input
-          id="search"
-          type="search"
-          placeholder="Search docs…  (/)"
-          autocomplete="off"
-        />
-        <div id="results" class="results" hidden></div>
-      </div>
+      <button id="search" class="search" type="button" aria-haspopup="dialog">
+        <span>Search docs…</span> <kbd id="search-key">⌘K</kbd>
+      </button>
       <nav class="links">
         <a href="../">App</a>
         <a href="../db/">DB schema</a>
@@ -41,5 +35,24 @@
       </main>
       <aside id="toc" class="toc"></aside>
     </div>
+    <dialog id="palette" class="palette" aria-label="Search and go to">
+      <input
+        id="palette-input"
+        type="text"
+        role="combobox"
+        aria-expanded="true"
+        aria-controls="palette-list"
+        aria-autocomplete="list"
+        placeholder="Search the handbook or jump to a page"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <div id="palette-list" class="palette-list" role="listbox"></div>
+      <footer class="palette-help">
+        <span><kbd>↑</kbd><kbd>↓</kbd> move</span>
+        <span><kbd>↵</kbd> open</span>
+        <span><kbd>esc</kbd> close</span>
+      </footer>
+    </dialog>
   </body>
 </html>

@@ -1,9 +1,18 @@
 // news-digest docs viewer. Renders docs/handbook Markdown in the browser:
-// marked (GFM) + DOMPurify + Mermaid diagrams. Hash routes: #/01-app/02-stack
+// marked (GFM) + DOMPurify + Mermaid diagrams. Hash routes: #/01-app/02-stack,
+// optionally with a heading: #/01-app/02-stack?h=tech-stack
 import DOMPurify from 'https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.es.mjs';
 import { marked } from 'https://cdn.jsdelivr.net/npm/marked@15/lib/marked.esm.js';
 import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
 import elkLayouts from 'https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0/dist/mermaid-layout-elk.esm.min.mjs';
+
+import {
+  rankPages,
+  rankSections,
+  sectionsOf,
+  slug,
+  snippet,
+} from './search.js';
 
 const REPO = 'https://github.com/EmmadUsmani/news-digest/blob/main';
 const BASE = 'docs/handbook';
@@ -11,7 +20,7 @@ const $ = (id) => document.getElementById(id);
 const dark = matchMedia('(prefers-color-scheme: dark)').matches;
 let tree = null;
 let order = []; // flat page list for prev/next
-let searchIndex = null;
+let sections = null; // search index, loaded when the palette first opens
 
 // ELK is the default layout engine: it routes edges and labels around nested
 // boxes and titles far better than dagre. A diagram can opt out with
@@ -46,11 +55,14 @@ marked.use({
 const routeOf = (path) =>
   '#/' + path.replace(/README\.md$/, '').replace(/\.md$/, '');
 function pathOf(hash) {
-  const route = decodeURIComponent(hash.replace(/^#\/?/, ''));
+  const route = decodeURIComponent(hash.replace(/^#\/?/, '').split('?')[0]);
   if (!route) return 'README.md';
   if (route.endsWith('/')) return route + 'README.md';
   return route + '.md';
 }
+
+const anchorOf = (hash) =>
+  new URLSearchParams(hash.split('?')[1] ?? '').get('h');
 
 async function loadTree() {
   tree = await (await fetch('api/tree', { cache: 'no-store' })).json();
@@ -110,11 +122,14 @@ async function render() {
   document.title = `${content.querySelector('h1')?.textContent ?? 'Docs'} · news-digest docs`;
   window.scrollTo(0, 0);
   $('sidebar').classList.remove('open');
+  remember(path);
   try {
     await mermaid.run({ nodes: content.querySelectorAll('pre.mermaid') });
   } catch (error) {
     console.error(error);
   }
+  // After diagrams render, so their height doesn't move the target.
+  scrollToAnchor(anchorOf(location.hash));
   for (const d of content.querySelectorAll('.diagram')) {
     d.title = 'Click to enlarge';
     d.addEventListener('click', () => openDiagram(d.querySelector('svg')));
@@ -197,17 +212,6 @@ function openDiagram(source) {
   document.body.append(overlay);
   document.addEventListener('keydown', onKey);
   apply();
-}
-
-function slug(text, used) {
-  let s = text
-    .toLowerCase()
-    .replace(/[^\w\s-]/g, '')
-    .trim()
-    .replace(/\s+/g, '-');
-  while (used.has(s)) s += '-';
-  used.add(s);
-  return s;
 }
 
 function enhance(root, path) {
@@ -330,60 +334,250 @@ function renderPager(path, updated) {
   pager.append(nav, meta);
 }
 
-// ---------- search ----------
-async function buildIndex() {
-  if (searchIndex) return searchIndex;
-  searchIndex = await Promise.all(
-    order.map(async (p) => {
-      const res = await fetch(`api/page?path=${encodeURIComponent(p.path)}`);
-      const { markdown } = await res.json();
-      return { ...p, text: markdown.replace(/```[\s\S]*?```/g, ' ') };
-    }),
-  );
-  return searchIndex;
+// ---------- command palette (⌘K / Ctrl+K, or /) ----------
+const TOOLS = [
+  ['App', '../'],
+  ['Grafana', '../grafana/'],
+  ['Logs', '../logs/'],
+  ['Metrics', '../metrics/'],
+  ['Queues', '../queues/'],
+  ['DB explorer', '../db/'],
+  ['GitHub', 'https://github.com/EmmadUsmani/news-digest'],
+].map(([title, href]) => ({ title, href }));
+const RECENT = 'docs.recent';
+let rows = []; // { el, go } for each option, in display order
+let active = -1;
+
+function recentPaths() {
+  try {
+    return JSON.parse(localStorage.getItem(RECENT) ?? '[]');
+  } catch {
+    return [];
+  }
 }
-async function search(query) {
-  const box = $('results');
-  const q = query.trim().toLowerCase();
-  if (q.length < 2) {
-    box.hidden = true;
+function remember(path) {
+  const paths = [path, ...recentPaths().filter((p) => p !== path)];
+  try {
+    localStorage.setItem(RECENT, JSON.stringify(paths.slice(0, 5)));
+  } catch {
+    // Private mode or storage full: recents are a convenience only.
+  }
+}
+
+function scrollToAnchor(anchor) {
+  const heading = anchor && document.getElementById(anchor);
+  if (!heading) return;
+  heading.scrollIntoView({ block: 'start' });
+  heading.classList.remove('flash');
+  void heading.offsetWidth; // restart the animation
+  heading.classList.add('flash');
+}
+
+function navigate(path, anchor) {
+  const hash =
+    routeOf(path) + (anchor ? `?h=${encodeURIComponent(anchor)}` : '');
+  if (location.hash === hash) scrollToAnchor(anchor);
+  else location.hash = hash;
+}
+
+async function loadSections() {
+  if (sections) return;
+  const pages = await (await fetch('api/pages', { cache: 'no-store' })).json();
+  sections = pages.flatMap(sectionsOf);
+}
+
+function sectionTitleOf(path) {
+  return tree.sections.find((s) => path.startsWith(`${s.dir}/`))?.title ?? '';
+}
+
+function option(title, detail, go, parts) {
+  const el = document.createElement('div');
+  el.className = 'option';
+  el.setAttribute('role', 'option');
+  const head = document.createElement('div');
+  head.className = 'option-head';
+  const strong = document.createElement('strong');
+  strong.textContent = title;
+  head.append(strong);
+  if (detail) {
+    const small = document.createElement('small');
+    small.textContent = detail;
+    head.append(small);
+  }
+  el.append(head);
+  if (parts?.length) {
+    const p = document.createElement('p');
+    for (const part of parts) {
+      if (!part.match) p.append(part.text);
+      else {
+        const mark = document.createElement('mark');
+        mark.textContent = part.text;
+        p.append(mark);
+      }
+    }
+    el.append(p);
+  }
+  return { el, go };
+}
+
+const pageOption = (page) =>
+  option(page.title, sectionTitleOf(page.path), () => navigate(page.path));
+const toolOption = (tool) =>
+  option(
+    tool.title,
+    tool.href.startsWith('http') ? 'opens a new tab' : '',
+    () => {
+      if (tool.href.startsWith('http'))
+        window.open(tool.href, '_blank', 'noopener');
+      else location.href = tool.href;
+    },
+  );
+function sectionOption(section, query) {
+  const top = section.heading === null || section.heading === section.pageTitle;
+  return option(
+    section.heading ?? section.pageTitle,
+    top ? sectionTitleOf(section.path) : section.pageTitle,
+    () => navigate(section.path, top ? null : section.anchor),
+    snippet(section.text, query),
+  );
+}
+
+function groupsFor(query) {
+  const q = query.trim();
+  if (!q) {
+    const here = pathOf(location.hash);
+    const recent = recentPaths()
+      .filter((p) => p !== here)
+      .map((p) => order.find((page) => page.path === p))
+      .filter(Boolean);
+    return [
+      ['Recent', recent.map(pageOption)],
+      ['Pages', order.map(pageOption)],
+      ['Go to', TOOLS.map(toolOption)],
+    ];
+  }
+  const perPage = new Map();
+  const hits = rankSections(sections ?? [], q)
+    .filter(({ section }) => {
+      const seen = perPage.get(section.path) ?? 0;
+      perPage.set(section.path, seen + 1);
+      return seen < 3;
+    })
+    .slice(0, 8);
+  return [
+    ['Pages', rankPages(order, q).slice(0, 5).map(pageOption)],
+    ['In the handbook', hits.map((h) => sectionOption(h.section, q))],
+    ['Go to', rankPages(TOOLS, q).map(toolOption)],
+  ];
+}
+
+function renderPalette() {
+  const input = $('palette-input');
+  const list = $('palette-list');
+  list.replaceChildren();
+  rows = [];
+  for (const [label, options] of groupsFor(input.value)) {
+    if (!options.length) continue;
+    const group = document.createElement('div');
+    group.setAttribute('role', 'group');
+    const title = document.createElement('div');
+    title.className = 'group-title';
+    title.id = `palette-group-${rows.length}`;
+    title.textContent = label;
+    group.setAttribute('aria-labelledby', title.id);
+    group.append(title);
+    for (const row of options) {
+      const i = rows.length;
+      row.el.id = `palette-option-${i}`;
+      row.el.addEventListener('pointermove', () => setActive(i, false));
+      row.el.addEventListener('click', () => choose(i));
+      group.append(row.el);
+      rows.push(row);
+    }
+    list.append(group);
+  }
+  if (!rows.length) {
+    const empty = document.createElement('div');
+    empty.className = 'empty';
+    // Until the index arrives, an empty list means "not yet", not "none".
+    empty.textContent = sections
+      ? `No matches for “${input.value.trim()}”`
+      : 'Loading the handbook…';
+    list.append(empty);
+  }
+  setActive(rows.length ? 0 : -1);
+}
+
+function setActive(i, scroll = true) {
+  if (i === active && rows[i]?.el.getAttribute('aria-selected') === 'true')
+    return;
+  rows[active]?.el.setAttribute('aria-selected', 'false');
+  active = i;
+  const row = rows[i];
+  const input = $('palette-input');
+  if (!row) {
+    input.removeAttribute('aria-activedescendant');
     return;
   }
-  const index = await buildIndex();
-  const hits = index
-    .map((p) => {
-      const lower = p.text.toLowerCase();
-      const at = lower.indexOf(q);
-      const inTitle = p.title.toLowerCase().includes(q);
-      return at < 0 && !inTitle ? null : { p, at, score: inTitle ? 2 : 1 };
-    })
-    .filter(Boolean)
-    .sort((a, b) => b.score - a.score)
-    .slice(0, 8);
-  box.replaceChildren();
-  if (!hits.length) {
-    box.textContent = 'No matches';
-  }
-  for (const { p, at } of hits) {
-    const a = document.createElement('a');
-    a.href = routeOf(p.path);
-    const strong = document.createElement('strong');
-    strong.textContent = p.title;
-    const small = document.createElement('small');
-    small.textContent =
-      at >= 0
-        ? '…' +
-          p.text.slice(Math.max(0, at - 40), at + 80).replace(/\s+/g, ' ') +
-          '…'
-        : '';
-    a.append(strong, small);
-    a.addEventListener('click', () => {
-      box.hidden = true;
-      $('search').value = '';
-    });
-    box.append(a);
-  }
-  box.hidden = false;
+  row.el.setAttribute('aria-selected', 'true');
+  input.setAttribute('aria-activedescendant', row.el.id);
+  if (scroll) row.el.scrollIntoView({ block: 'nearest' });
+}
+
+function choose(i) {
+  const row = rows[i];
+  if (!row) return;
+  $('palette').close();
+  row.go();
+}
+
+function openPalette() {
+  const dialog = $('palette');
+  if (dialog.open) return;
+  $('palette-input').value = '';
+  renderPalette();
+  dialog.showModal();
+  $('palette-input').focus();
+  if (!sections)
+    loadSections()
+      .then(() => dialog.open && renderPalette())
+      .catch((error) => console.error('search index failed', error));
+}
+
+function setupPalette() {
+  const dialog = $('palette');
+  const input = $('palette-input');
+  const mac = /Mac|iPhone|iPad/.test(navigator.userAgent);
+  $('search-key').textContent = mac ? '⌘K' : 'Ctrl K';
+  $('search').addEventListener('click', openPalette);
+  input.addEventListener('input', renderPalette);
+  input.addEventListener('keydown', (ev) => {
+    const move = { ArrowDown: 1, ArrowUp: -1 }[ev.key];
+    if (move && rows.length) {
+      ev.preventDefault();
+      setActive((active + move + rows.length) % rows.length);
+    } else if (ev.key === 'Enter') {
+      ev.preventDefault();
+      choose(active);
+    }
+  });
+  // A click on the backdrop lands on the dialog itself.
+  dialog.addEventListener('click', (ev) => {
+    if (ev.target === dialog) dialog.close();
+  });
+  document.addEventListener('keydown', (ev) => {
+    if ((ev.metaKey || ev.ctrlKey) && ev.key.toLowerCase() === 'k') {
+      ev.preventDefault();
+      if (dialog.open) dialog.close();
+      else openPalette();
+      return;
+    }
+    const typing = ev.target.closest?.('input, textarea, [contenteditable]');
+    if (ev.key === '/' && !typing && !dialog.open) {
+      ev.preventDefault();
+      openPalette();
+    }
+  });
 }
 
 // ---------- boot ----------
@@ -391,25 +585,7 @@ function setup() {
   $('menu').addEventListener('click', () =>
     $('sidebar').classList.toggle('open'),
   );
-  const input = $('search');
-  input.addEventListener('input', () => void search(input.value));
-  input.addEventListener('keydown', (ev) => {
-    if (ev.key === 'Escape') {
-      input.value = '';
-      $('results').hidden = true;
-      input.blur();
-    }
-    if (ev.key === 'Enter') $('results').querySelector('a')?.click();
-  });
-  document.addEventListener('keydown', (ev) => {
-    if (ev.key === '/' && document.activeElement !== input) {
-      ev.preventDefault();
-      input.focus();
-    }
-  });
-  document.addEventListener('click', (ev) => {
-    if (!ev.target.closest('.search')) $('results').hidden = true;
-  });
+  setupPalette();
   window.addEventListener('hashchange', () => void render());
 }
 

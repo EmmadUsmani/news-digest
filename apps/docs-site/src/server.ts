@@ -6,7 +6,7 @@ import { promisify } from 'node:util';
 
 import { startRuntimeMetrics } from '@digest/tool-metrics';
 
-import { listTree, safePath } from './pages.ts';
+import { listTree, readAll, safePath } from './pages.ts';
 
 // Serves docs/handbook as a site. Markdown is read from disk on every request
 // and rendered in the browser (marked + Mermaid), so a `git pull` is enough to
@@ -61,6 +61,11 @@ const server = createServer((req, res) => {
       }
       if (url.pathname === '/api/tree') {
         json(res, await listTree(handbook));
+        return;
+      }
+      // Every page's Markdown in one response, for the search palette.
+      if (url.pathname === '/api/pages') {
+        json(res, await readAll(handbook));
         return;
       }
       if (url.pathname === '/api/page') {

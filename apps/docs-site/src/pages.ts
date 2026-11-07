@@ -80,6 +80,21 @@ export async function listTree(root: string): Promise<Tree> {
   return { home, sections };
 }
 
+/** Every page in reading order (home, then each section), with its Markdown. */
+export async function readAll(root: string) {
+  const { home, sections } = await listTree(root);
+  const pages = [
+    ...(home ? [home] : []),
+    ...sections.flatMap((s) => [...(s.index ? [s.index] : []), ...s.pages]),
+  ];
+  return Promise.all(
+    pages.map(async (p) => ({
+      ...p,
+      markdown: await readFile(join(root, p.path), 'utf8'),
+    })),
+  );
+}
+
 /** Resolve a request path safely inside root; null if it escapes or is not allowed. */
 export function safePath(
   root: string,
