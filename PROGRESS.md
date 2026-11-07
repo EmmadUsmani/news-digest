@@ -139,3 +139,14 @@
 - Passed pnpm format, pnpm lint:fix, pnpm build, git diff --check and full pnpm check: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green.
 - API/worker restarted after verification; /healthz DB/Redis OK and alerts clear. Sources 36/36 healthy; saved edition four topics/20 stories/17 posts. No source/schema/system-flow changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
 - Next: continue final reader work; inspect first scheduled keyword X and reserved-slot Bluesky picks Nov 7. Observability RAM target remains unmet.
+
+## 2026-11-07: iteration 1066 — fill small Bluesky image previews
+
+- Advanced STEERING 33/43 while scheduled X/Bluesky acceptance awaits Nov 7 publication. Clean main, no leftovers; initial health and alerts clear.
+- Reader weakness reproduced: media links filled the card but small thumbnails stayed at their intrinsic width. Images now fill the media column, retaining contain sizing and the 320 px height cap so portrait images stay fully visible.
+- Expanded pnpm exec tsx scripts/smoke-reader-bluesky-grid.ts to 24 wide/small/portrait, single/multiple, desktop/mobile light/dark cases; all passed. Eight screenshots saved; small mobile light and portrait desktop dark inspected.
+- pnpm exec tsx scripts/smoke-reader-bluesky-video.ts passed all 12 loaded/failed/missing-preview cases. Synthetic media over saved data, external requests blocked, GET-only; no paid calls or edition writes.
+- Passed pnpm format, pnpm lint:fix, pnpm build and git diff --check. Initial pnpm check stopped on script formatting after lint:fix; corrected with Prettier. Final pnpm check: 536 unit/226 isolated integration passes; typecheck/lint/format/boundaries green.
+- API/worker restarted; /healthz DB/Redis OK, pnpm obs alerts clear, pnpm obs sources --check 36/36 healthy; digest-generation queue available, zero failed. Saved edition remains four topics/20 stories/17 posts.
+- No source/schema/system-flow changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
+- Next: continue final reader work; inspect first scheduled keyword X and reserved-slot Bluesky picks Nov 7. Observability RAM target remains unmet.

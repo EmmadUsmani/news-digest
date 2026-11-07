@@ -20,65 +20,83 @@ async function main() {
       ['mobile', 390, 844],
     ] as const) {
       for (const theme of ['light', 'dark'] as const) {
-        for (const count of [1, 2]) {
-          post.media = Array.from({ length: count }, (_, index) => ({
-            type: 'image' as const,
-            thumbnail: `https://cdn.bsky.app/media-grid-${index}.svg`,
-            fullsize: `https://cdn.bsky.app/media-grid-${index}.svg`,
-            alt: `Synthetic layout image ${index + 1}`,
-          }));
-          readerEditionSchema.parse(edition);
-          const page = await browser.newPage({
-            viewport: { width, height },
-            colorScheme: theme,
-          });
-          await page.route('**/*', (route) => {
-            const url = new URL(route.request().url());
-            assert.equal(route.request().method(), 'GET');
-            if (url.pathname.startsWith('/media-grid-'))
-              return route.fulfill({
-                contentType: 'image/svg+xml',
-                body: '<svg xmlns="http://www.w3.org/2000/svg" width="900" height="450"><rect width="900" height="450" fill="#537a95"/><text x="40" y="220" fill="white" font-size="40">Synthetic media layout</text></svg>',
-              });
-            if (url.origin !== origin) return route.abort();
-            if (url.pathname === '/api/editions/latest')
-              return route.fulfill({ json: edition });
-            return route.continue();
-          });
-          await page.goto(origin);
-          const card = page.locator('.bluesky-card').first();
-          await card.scrollIntoViewIfNeeded();
-          const grid = card.locator('.bluesky-media');
-          await grid
-            .locator('img')
-            .first()
-            .evaluate(async (img: HTMLImageElement) => img.decode());
-          const boxes = await grid.locator('a').evaluateAll((nodes) =>
-            nodes.map((node) => {
-              const rect = node.getBoundingClientRect();
-              return { x: rect.x, y: rect.y, width: rect.width };
-            }),
-          );
-          const gridWidth = await grid.evaluate((node) => node.clientWidth);
-          if (count === 1 || device === 'mobile')
-            assert.ok(
-              Math.abs(boxes[0].width - gridWidth) < 2,
-              'Single image and mobile images fill the row',
-            );
-          if (count === 2) {
-            if (device === 'desktop') {
-              assert.ok(Math.abs(boxes[0].y - boxes[1].y) < 2);
-              assert.ok(boxes[1].x > boxes[0].x + boxes[0].width);
-            } else assert.ok(boxes[1].y > boxes[0].y);
-          }
-          assert.ok(
-            await card.evaluate((node) => node.scrollWidth <= node.clientWidth),
-          );
-          if (count === 1)
-            await card.screenshot({
-              path: `docs/screenshots/ui/reader-bluesky-grid-${device}-${theme}.png`,
+        for (const variant of ['wide', 'small', 'portrait'] as const) {
+          for (const count of [1, 2]) {
+            post.media = Array.from({ length: count }, (_, index) => ({
+              type: 'image' as const,
+              thumbnail: `https://cdn.bsky.app/media-grid-${index}.svg`,
+              fullsize: `https://cdn.bsky.app/media-grid-${index}.svg`,
+              alt: `Synthetic layout image ${index + 1}`,
+            }));
+            readerEditionSchema.parse(edition);
+            const page = await browser.newPage({
+              viewport: { width, height },
+              colorScheme: theme,
             });
-          await page.close();
+            await page.route('**/*', (route) => {
+              const url = new URL(route.request().url());
+              assert.equal(route.request().method(), 'GET');
+              if (url.pathname.startsWith('/media-grid-'))
+                return route.fulfill({
+                  contentType: 'image/svg+xml',
+                  body: `<svg xmlns="http://www.w3.org/2000/svg" width="${variant === 'wide' ? 900 : 180}" height="${variant === 'portrait' ? 720 : variant === 'small' ? 90 : 450}"><rect width="100%" height="100%" fill="#537a95"/><text x="10" y="50" fill="white" font-size="16">Synthetic ${variant}</text></svg>`,
+                });
+              if (url.origin !== origin) return route.abort();
+              if (url.pathname === '/api/editions/latest')
+                return route.fulfill({ json: edition });
+              return route.continue();
+            });
+            await page.goto(origin);
+            const card = page.locator('.bluesky-card').first();
+            await card.scrollIntoViewIfNeeded();
+            const grid = card.locator('.bluesky-media');
+            await grid
+              .locator('img')
+              .first()
+              .evaluate(async (img: HTMLImageElement) => img.decode());
+            const boxes = await grid.locator('a').evaluateAll((nodes) =>
+              nodes.map((node) => {
+                const rect = node.getBoundingClientRect();
+                return { x: rect.x, y: rect.y, width: rect.width };
+              }),
+            );
+            const images = await grid.locator('img').evaluateAll((nodes) =>
+              nodes.map((node) => ({
+                width: node.getBoundingClientRect().width,
+                height: node.getBoundingClientRect().height,
+                parentWidth: node.closest('a')!.getBoundingClientRect().width,
+              })),
+            );
+            for (const image of images) {
+              assert.ok(
+                Math.abs(image.width - image.parentWidth) < 2,
+                `${variant} preview fills its media column`,
+              );
+              assert.ok(image.height <= 320, 'Preview stays compact');
+            }
+            const gridWidth = await grid.evaluate((node) => node.clientWidth);
+            if (count === 1 || device === 'mobile')
+              assert.ok(
+                Math.abs(boxes[0].width - gridWidth) < 2,
+                'Single image and mobile images fill the row',
+              );
+            if (count === 2) {
+              if (device === 'desktop') {
+                assert.ok(Math.abs(boxes[0].y - boxes[1].y) < 2);
+                assert.ok(boxes[1].x > boxes[0].x + boxes[0].width);
+              } else assert.ok(boxes[1].y > boxes[0].y);
+            }
+            assert.ok(
+              await card.evaluate(
+                (node) => node.scrollWidth <= node.clientWidth,
+              ),
+            );
+            if (count === 1 && variant !== 'wide')
+              await card.screenshot({
+                path: `docs/screenshots/ui/reader-bluesky-grid-${variant}-${device}-${theme}.png`,
+              });
+            await page.close();
+          }
         }
       }
     }

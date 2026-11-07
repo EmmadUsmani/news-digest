@@ -37,7 +37,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] STEERING 33/43 (1065): quoted URLs in saved post text open the correct destination; straight/curly closing quotes stay in prose and internal apostrophes stay in URLs.
+- [x] STEERING 33/43 (1066): small Bluesky image previews fill the media column; portrait images remain contained within the compact height limit.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
