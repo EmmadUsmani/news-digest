@@ -58,7 +58,36 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
   }, [topics]);
   // Restore a deep link only when opening an edition, not when its data refreshes.
   useEffect(() => {
-    document.getElementById(window.location.hash.slice(1))?.scrollIntoView();
+    const target = document.getElementById(window.location.hash.slice(1));
+    if (!target) return;
+    // Fonts and lazy post cards can resize earlier topics after the first paint.
+    // Keep the opening anchor aligned until the reader starts navigating.
+    let cancelled = false;
+    const restore = () => {
+      if (!cancelled) target.scrollIntoView({ behavior: 'instant' });
+    };
+    const observer = new ResizeObserver(restore);
+    document.querySelectorAll('.digest-topic').forEach((topic) => {
+      observer.observe(topic);
+    });
+    const events = [
+      'wheel',
+      'touchstart',
+      'pointerdown',
+      'keydown',
+      'hashchange',
+    ];
+    const stop = () => {
+      cancelled = true;
+      observer.disconnect();
+      events.forEach((event) => window.removeEventListener(event, stop));
+    };
+    events.forEach((event) =>
+      window.addEventListener(event, stop, { passive: true }),
+    );
+    restore();
+    void document.fonts.ready.then(restore);
+    return stop;
   }, []);
   const activeTopic =
     topics.find((topic) =>

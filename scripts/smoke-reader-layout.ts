@@ -771,8 +771,30 @@ async function smoke() {
           const box = document
             .getElementById(`story-${id}`)
             ?.getBoundingClientRect();
-          return box && box.top >= 60 && box.top < 190;
+          const offset = innerWidth >= 1024 ? 96 : 144;
+          return box && Math.abs(box.top - offset) < 2;
         }, second.stories[0].id);
+        await page.screenshot({
+          path: `docs/screenshots/ui/reader-deep-link-${device}-${theme}.png`,
+        });
+        // Once the reader scrolls, later card resizing must not pull them back.
+        await page.mouse.wheel(0, 400);
+        await page.waitForFunction(() => scrollY > 0);
+        const released = await page.evaluate(() => scrollY);
+        await page
+          .locator('.digest-topic')
+          .first()
+          .evaluate((node) => {
+            (node as HTMLElement).style.paddingBottom = '80px';
+          });
+        await page.waitForTimeout(100);
+        assert.ok(
+          (await page
+            .locator(`#story-${second.stories[0].id}`)
+            .evaluate((node) => node.getBoundingClientRect().top)) < 60,
+          'Resizing earlier cards does not restore the opening anchor after user input',
+        );
+        assert.ok(released > 0);
         await page.goto(origin);
         await page.locator('.digest-topic').last().waitFor();
         await page.evaluate(() => document.fonts.ready);

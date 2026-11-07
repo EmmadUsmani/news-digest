@@ -1680,6 +1680,8 @@ ack: 2026-11-07 item 42 — iteration 1231: Nov 7’s 18 X/Bluesky timestamp lin
 
 ack: 2026-11-07 item 42 — iteration 1233: coverage controls identify the story they expand, so screen-reader users can distinguish all 20 saved Nov 7 report lists; keyboard and destination checks pass desktop/mobile light/dark.
 
+ack: 2026-11-07 item 42 — iteration 1234: fixed saved-story reload drift caused by smooth scrolling and earlier topic resizing; opening anchors stay below navigation until reader input. Four real-edition device/theme views verified without external calls.
+
 ## 43. NOW: put X search and the UI rebuild first, stop scoping new features (2026-11-06)
 
 **Why:** in the 12 hours to 16:35 UTC on Nov 6, 88 commits landed. About a dozen

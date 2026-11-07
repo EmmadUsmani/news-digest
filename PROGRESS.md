@@ -138,3 +138,12 @@ Earlier entries: [iterations 1215–1222](docs/progress-archive/2026-11-07-itera
 - Initial browser selector assumed a native summary matched Playwright's button role; corrected to the summary element and explicit label assertion. Updated existing reader-layout label expectation. No handbook system-flow change.
 - `smoke-reader-layout.ts` hit existing deep-link offset timeout twice at line 770; standalone cold pages confirmed 228 px desktop/351 px mobile instead of 96/144 px. Font-wait attempt did not resolve drift and was deliberately discarded; source-label/keyboard checks pass. Recorded next reader issue in TASKS; unrelated regenerated screenshots discarded.
 - Final `pnpm format`, `pnpm lint:fix` and diff checks pass. Next: diagnose deep-link drift; Nov 8 scheduled acceptance/first-week report. Metrics recovery remains open, passive check no sooner than 20:14 UTC.
+
+## 2026-11-07: iteration 1234 — keep opening story links below navigation
+
+- Owner impact (STEERING 42/43): saved-story reloads landed too far below navigation. Cold-page comparison isolated smooth scrolling plus earlier topic resizing; instant scrolling alone still drifted to 128/212 px. Clean main/no leftover work.
+- Opening anchors now restore instantly through font/lazy-card size changes; wheel, touch, pointer, keyboard or hash navigation disconnects restoration. No content, selection, provider or budget changes; no paid calls.
+- `pnpm exec tsx scripts/smoke-reader-layout.ts` passes all four real saved-edition desktop/mobile light/dark views with strict 96/144 px alignment and resize-after-user-scroll release checks. External embeds blocked, GET-only. Four deep-link screenshots added; mobile light inspected. Unrelated regenerated screenshots discarded.
+- `pnpm check` passed typecheck/lint/format/boundaries and 563 unit tests, then exited 143 after logging all 233 integration cases without a final summary; `pnpm test:integration` rerun passes (229 pass/four expected skips). `pnpm build`, final `pnpm format`, `pnpm lint:fix` and `git diff --check` pass. API restarted with rebuilt reader; `/healthz` database/Redis OK.
+- Initial alerts clear; 14 services/36 sources healthy, latest digest complete and fresh social collection returning data. No repeat metrics probe inside hourly limit. No handbook system-flow change.
+- Next: Nov 8 scheduled X/Bluesky/quality/cost/speed acceptance and first-week report. Metrics recovery remains open; passive check no sooner than 20:14 UTC.

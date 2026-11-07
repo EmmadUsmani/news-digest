@@ -4,7 +4,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
-- [ ] Reader deep-link drift (1233): saved-story reload lands below its intended 96/144 px offset; `smoke-reader-layout.ts:770` timed out twice. Standalone cold pages measured 228 px desktop/351 px mobile. Waiting for fonts alone did not fix it; attempted change discarded. Diagnose remaining asynchronous layout shifts before changing scroll behavior.
+- [x] Reader deep-link drift (1234): opening anchors stay at 96/144 px through font/lazy-card resizing; reader input releases alignment. Four saved-edition device/theme views pass.
 
 - [x] STEERING 49 (1230): deployed queued main revision `96457a35` at 19:20 UTC after private backup; publisher migration `0008` applied, four app services restarted, health/services/sources/jobs and saved-reader desktop/mobile Playwright pass. Metrics trial unchanged; passive checks at most hourly.
 
