@@ -1,6 +1,7 @@
 // Read-only phase-0 inventory. No provider requests or publication decisions.
 import { database } from '../apps/api/src/libs/db/connections';
 import { logger } from '../apps/api/src/libs/observability/logging';
+import { historicalEditionPublication } from '../apps/api/src/modules/digests/domain/edition-publication';
 
 async function main() {
   // Keep redirected stdout valid JSON even when a SELECT crosses 250 ms.
@@ -39,6 +40,10 @@ async function main() {
         windowEnd: new Date(row.window_end).toISOString(),
         scheduled: row.scheduled_key !== null,
         scheduledKey: row.scheduled_key,
+        proposedPublication: historicalEditionPublication(
+          row.scheduled_key,
+          new Date(row.created_at),
+        ),
         topics: topics.length,
         stories: count('stories'),
         posts: count('posts'),
@@ -67,6 +72,18 @@ async function main() {
           checkedAt: new Date().toISOString(),
           dayBasis: 'UTC created_at; windows retained for owner review',
           total: editions.length,
+          publicationPreview: {
+            published: editions.filter(
+              (e) => e.proposedPublication.publishedAt !== null,
+            ).length,
+            kinds: Object.fromEntries(
+              ['scheduled', 'manual', 'test'].map((kind) => [
+                kind,
+                editions.filter((e) => e.proposedPublication.kind === kind)
+                  .length,
+              ]),
+            ),
+          },
           scheduled: editions.filter((e) => e.scheduled).length,
           manual: editions.filter((e) => !e.scheduled).length,
           integrationKeyEditions: editions

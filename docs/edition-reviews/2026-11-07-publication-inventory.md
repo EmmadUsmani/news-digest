@@ -23,11 +23,9 @@ article text and provider diagnostics are not exported.
 
 - No manual edition was created on a UTC day without a keyed edition. The
   requested list of manual editions on otherwise-uncovered days is empty.
-- All 458 manual editions are from November 1–2. They remain candidates for
-  unpublished status under the plan; the owner has not confirmed publication.
+- All 458 manual editions are from November 1–2. The owner confirmed they remain unpublished on Nov 7.
 - **65 keyed editions have an explicit `integration:` prefix.** These are test
-  evidence, not real scheduled publications. The plan's blanket scheduled-key
-  backfill would publish them. Do not apply it without resolving this conflict.
+  evidence, not real scheduled publications. The owner-approved backfill classifies them as unpublished tests.
 - The other 23 keys use the profile/timestamp format; the format alone does not
   establish that early development runs belong in the public archive.
 - The JSON includes every edition's ID, window and counts, all integration-key
@@ -58,5 +56,18 @@ counts absent arrays as zero but separately retains each topic's field shape.
 
 These are stored snapshot counts, not a rendering comparison. Phase 0 still
 needs additive metadata, spend pools/test editions and the every-published-
-edition render comparison. Keep reader visibility unchanged pending the owner
-decision; phase 2 browser preferences can proceed under STEERING 50.
+edition render comparison. Keep reader visibility unchanged until those checks pass.
+
+## Owner-approved backfill preview — iteration 1249
+
+The read-only inventory now includes `proposedPublication` per edition and a
+`publicationPreview` summary. The tested policy uses UTC creation time and the
+November 3 cutoff; integration keys always remain tests, including future ones.
+Unkeyed editions and pre-cutoff non-integration editions become unpublished
+manual editions. A published edition uses its creation time as `published_at`.
+
+Live read-only preview: 546 editions → 5 scheduled/published, 476 manual and
+65 tests. The five published candidates are exactly November 3–7 above, with
+unchanged topic/story/post counts. No metadata has been written and the reader
+is unchanged. The subsequent migration must reproduce this preview before the
+published-only switch is enabled.
