@@ -740,3 +740,16 @@ scheduled key, and legacy integration keys. Duplicate scheduled keys reject.
 Mutations that write every kind as manual or omit the publication time must fail. All probes roll back;
 the full edition fingerprint and immutable trigger remain unchanged. These
 checks exercise candidate persistence SQL, not the unwired runtime repository.
+
+### Candidate development pools (iteration 1260)
+
+`development-spend-database.test.ts` applies `ops/backups/development_pools.sql`
+only to disposable Postgres and drops it before the next suite file. The
+unwired Drizzle adapter locks one provider pool while admitting or settling
+reservations. Three concurrent Anthropic holds reach exactly $3.75; a fourth
+is refused. Null costs retain holds across dates, confirmed costs replace
+holds, confirmed zero releases them, and conflicting retries fail. Charges
+above estimates remain recorded and stop further admission at the lifetime
+threshold. Separate xAI accounting, database cap ceilings and disabled pools
+are exercised. Neither the candidate tables nor the adapter are live; moving
+the tables into the authoritative schema and migration remains pending.

@@ -160,3 +160,12 @@ Earlier entries: [iterations 1243–1246](docs/progress-archive/2026-11-07-itera
 - Updated TASKS; no source/handbook/schema behavior change. Nov 8 scheduled acceptance and first-week review remain due; metrics probe no earlier than 00:17 UTC.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build` and `git diff --check` pass: 582 unit tests, 230 integration passes/four expected skips; typecheck/lint/format/boundaries green.
 - Four app services restarted/active; post-restart health database/Redis OK, alerts clear and five full saved-reader fingerprints still match. Next: register metadata migration, future writes and pool persistence in the permitted window, then actual saved-reader off/on comparison.
+
+## 2026-11-07: iteration 1260 — prepare atomic lifetime development ledger
+
+- Clean main/no leftovers; alerts clear and health database/Redis OK. Generation cutoff respected; no live schema/runtime wiring/reader switch changes or provider spend.
+- Candidate SQL and unwired Drizzle adapter serialize reservations/settlement per provider. Null-cost holds never expire; confirmed charges replace holds, confirmed zero releases them, conflicting retries fail. Database and code ceilings retain Anthropic $5/xAI $2 lifetime caps and 75% stop/report threshold.
+- Disposable Postgres test passes: three concurrent $1.25 Anthropic holds reach $3.75, fourth denied; same-ID replay, unknown holds across dates, confirmed-cost retry/conflict, release, separate xAI accounting, over-estimate charges and disabled/lowered pools checked. Candidate tables dropped after test; authoritative schema unchanged.
+- Updated TASKS and DATABASE-VERIFICATION; no production source/handbook/schema metadata change. Five complete saved-reader fingerprints match; 36/36 enabled sources healthy/nonempty.
+- Next: register publication metadata/future writes and pool migration/runtime wiring in permitted window; compare actual saved-reader off/on before switch. Nov 8 15:00 UTC acceptance/first-week report due; passive metrics probe no earlier than 00:17 UTC.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build` and `git diff --check` pass: 582 unit tests, 231 integration passes/four expected skips; typecheck/lint/format/boundaries green. Four app services restarted/active; post-restart health database/Redis OK, alerts clear and all five full reader fingerprints match.

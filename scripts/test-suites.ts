@@ -11,6 +11,7 @@ const integration = new Set([
   'content-repository.test.ts',
   'console.test.ts',
   'digests.test.ts',
+  'development-spend-database.test.ts',
   'edition-jobs.test.ts',
   'edition-golden.test.ts',
   'edition-timing.test.ts',
