@@ -239,3 +239,16 @@ Read-only `GET http://127.0.0.1:8880/api/v1/rules` showed
 remains one; vmalert's warning journal after 13:46:44 contains no entries.
 These successful evaluations establish current recovery of that rule, not
 sustained recovery across compaction. The CPU trial and incident remain open.
+
+### Repeatable trial sampling (iteration 1196)
+
+Run `pnpm exec tsx scripts/sample-observability-capacity.ts 6 10` before and
+after the permitted metrics restart. It samples the same eight cgroups seven
+times over approximately 60 seconds and emits one JSON record with aggregate
+CPU, starting/ending and sampled peak memory, plus per-unit CPU throttling,
+memory-high and OOM deltas. It uses local files and systemctl only, so it
+remains usable when metrics queries are saturated. A unit restart or a reset
+counter invalidates the run rather than reporting misleading deltas. Optional
+arguments select interval count and seconds; defaults reproduce the baseline.
+This is an operator measurement tool, not a scheduled collector or an automatic
+recovery verdict; the query, alert-evaluation and compaction checks still apply.
