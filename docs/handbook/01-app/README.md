@@ -43,6 +43,15 @@ flowchart LR
 - **Every external call goes through a port.** Feeds, AI, X and queues sit
   behind interfaces, so tests use fakes and never touch live services.
 
+## Reading preferences
+
+- Open **Topics** in an edition to hide or restore its topics. Choices apply
+  to current and past editions in this browser; new topics appear automatically.
+- Choices are stored locally and shared between tabs. No account is needed.
+- To undo hiding every topic, open **Topics** and select a topic again.
+- Rollback: rebuild the web app with `VITE_READER_PREFERENCES=0` to show all
+  topics and remove the menu. Stored choices remain for re-enabling it.
+
 ## Pages in this section
 
 1. [Stack & runtime](01-stack-and-runtime.md): the tech and where it runs

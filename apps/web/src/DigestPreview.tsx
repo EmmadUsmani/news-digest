@@ -7,20 +7,29 @@ import { Card } from './components/ui/card';
 import { EditionDateSwitcher } from './EditionDateSwitcher';
 import { editionQuery, HttpError } from './queries';
 import { ReaderContents } from './ReaderContents';
+import { ReaderPreferences } from './ReaderPreferences';
 import { ReaderSkeleton } from './ReaderSkeleton';
 import { ReaderSkipLink } from './ReaderSkipLink';
 import { StorySources } from './StorySources';
 import { StoryTime } from './StoryTime';
 import { TopPosts } from './TopPosts';
+import { useReaderPreferences } from './use-reader-preferences';
 
 export function DigestPreview() {
   const { id } = useParams({ strict: false });
   const edition = useQuery(editionQuery(id));
   const preview = edition.data;
+  const preferences = useReaderPreferences();
+  const preferencesEnabled = import.meta.env.VITE_READER_PREFERENCES !== '0';
+  const visibleTopics =
+    preview?.topics.filter(
+      (topic) =>
+        !preferencesEnabled || !preferences.hiddenTopics[topic.id]?.hidden,
+    ) ?? [];
   return (
     <main className="mx-auto min-h-screen max-w-[1008px] px-4 pb-16 sm:px-6">
-      {preview?.topics[0] && (
-        <ReaderSkipLink target={`topic-${preview.topics[0].id}`} />
+      {visibleTopics[0] && (
+        <ReaderSkipLink target={`topic-${visibleTopics[0].id}`} />
       )}
       <header className="sticky top-0 z-30 flex h-[65px] items-center justify-between gap-3 border-b border-[var(--border)] bg-[var(--background)] py-0">
         <Link
@@ -30,6 +39,12 @@ export function DigestPreview() {
           News Digest
         </Link>
         <div className="flex items-center gap-2">
+          {preview && preferencesEnabled && (
+            <ReaderPreferences
+              topics={preview.topics}
+              preferences={preferences}
+            />
+          )}
           <EditionDateSwitcher edition={preview} />
           <ThemeToggle />
         </div>
@@ -78,9 +93,14 @@ export function DigestPreview() {
               dateStyle: 'long',
             })}
           </h1>
-          <ReaderContents key={preview.id} topics={preview.topics} />
+          <ReaderContents key={preview.id} topics={visibleTopics} />
           <div className="min-w-0 max-w-2xl flex-1 space-y-16">
-            {preview.topics.map((topic) => (
+            {preview.topics.length > 0 && visibleTopics.length === 0 && (
+              <p role="status">
+                All topics are hidden. Open Topics to show them again.
+              </p>
+            )}
+            {visibleTopics.map((topic) => (
               <article className="digest-topic m-0 border-0 p-0" key={topic.id}>
                 <h2
                   id={`topic-${topic.id}`}
