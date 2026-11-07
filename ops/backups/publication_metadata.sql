@@ -2,6 +2,8 @@ BEGIN;
 ALTER TABLE digest_previews ADD COLUMN kind text NOT NULL DEFAULT 'manual'
   CHECK (kind IN ('scheduled', 'manual', 'test'));
 ALTER TABLE digest_previews ADD COLUMN published_at timestamptz;
+ALTER TABLE digest_previews ADD CONSTRAINT digest_previews_test_unpublished
+  CHECK (kind <> 'test' OR published_at IS NULL);
 ALTER TABLE digest_previews DISABLE TRIGGER immutable_digest_preview;
 UPDATE digest_previews SET
   kind = CASE WHEN scheduled_key LIKE 'integration:%' THEN 'test'

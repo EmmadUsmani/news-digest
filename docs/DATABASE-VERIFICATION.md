@@ -685,3 +685,11 @@ Each failed session must roll back both columns, preserve every original edition
 field and reject snapshot UPDATE and DELETE again. The same transaction then
 commits successfully and rechecks the guard and owner publication policy.
 The candidate is not registered as an application migration yet.
+
+### Test-edition publication constraint (iteration 1252)
+
+The candidate also rejects `kind = test` with a non-null publication timestamp.
+The private rehearsal verifies the named constraint rejects that INSERT, while
+unpublished test/manual and published manual/scheduled INSERTs succeed. All five
+probes roll back; a full-row fingerprint verifies no saved metadata or snapshot
+changed, and immutability is checked again. This remains an undeployed candidate.

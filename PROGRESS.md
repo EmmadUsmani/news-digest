@@ -189,3 +189,14 @@ Archived: [iterations 1230–1234](docs/progress-archive/2026-11-07-iterations-1
 - `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 575 unit tests, 229 integration tests/four expected skips, typecheck/lint/format/boundaries green. Four services restarted/active; final health database/Redis OK, alerts clear and latest edition readable/four topics.
 - Actual latest Nov 7 edition remains readable/four topics; read-only query confirms 36/36 enabled sources healthy/nonempty. Admin status HTTP probe returned protected 404; first source SQL used nonexistent `sources`, corrected to `content_sources`.
 - Next: register additive metadata migration plus future scheduled writes before 12:00 UTC, then pools/test editions and published-edition rendering comparison. Nov 8 scheduled acceptance/first-week report remain due; next passive metrics probe ≥23:17 UTC.
+
+## 2026-11-07: iteration 1252 — prevent publication of test editions
+
+- Clean main/no leftovers; initial alerts clear, health database/Redis OK. Development spend $0; generation cutoff respected, production schema/reader unchanged.
+- Phase 0 candidate SQL now enforces test editions remain unpublished. Private networkless restore verifies named CHECK rejects published test INSERT; unpublished test/manual and published manual/scheduled INSERTs succeed.
+- All five insertion probes roll back; complete migrated-row fingerprint and immutability checks prove saved metadata/snapshots unchanged. Both existing injected backfill rollback checkpoints still pass.
+- `python3 ops/backups/rehearse_publication.py` passes twice; final private backup `news-digest-20261107T222726Z`: 28 tables/48,477 rows, 546 unchanged editions, five published candidates/476 manual/65 tests. Scratch storage removed.
+- `python3 -m unittest discover -s ops/backups -p 'test_database.py'`: four pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 575 unit tests, 229 integration passes/four expected skips; typecheck/lint/format/boundaries green.
+- Read-only source query: 36/36 enabled sources healthy/nonempty/recent. Latest edition endpoint returns four topics. Updated DATABASE-VERIFICATION/TASKS; no handbook/source behavior change.
+- Four app services restarted; final health database/Redis OK, alerts clear, latest actual Nov 7 edition readable/four topics.
+- Next: register additive metadata migration/future scheduled writes before noon, then spend pools/test editions. Nov 8 daily acceptance/first-week report due; passive metrics probe not due until ≥23:17 UTC.

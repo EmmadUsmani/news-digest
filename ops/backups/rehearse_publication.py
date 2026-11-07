@@ -39,6 +39,45 @@ def verify_immutable(container):
         END $$;""")
 
 
+def verify_publication_constraints(container):
+    # All insertion probes roll back, including successful manual publication.
+    fingerprint_sql = "SELECT md5(string_agg(to_jsonb(d)::text, '' ORDER BY id)) FROM digest_previews d;"
+    original = query(container, fingerprint_sql)
+    query(container, """BEGIN;
+      DO $$ DECLARE candidate digest_previews%ROWTYPE; rejected text; BEGIN
+        SELECT * INTO STRICT candidate FROM digest_previews LIMIT 1;
+        candidate.id := gen_random_uuid();
+        candidate.scheduled_key := NULL;
+        candidate.kind := 'test';
+        candidate.published_at := now();
+        BEGIN
+          INSERT INTO digest_previews SELECT candidate.*;
+          RAISE EXCEPTION 'Published test edition accepted';
+        EXCEPTION WHEN check_violation THEN
+          GET STACKED DIAGNOSTICS rejected = CONSTRAINT_NAME;
+          IF rejected <> 'digest_previews_test_unpublished' THEN
+            RAISE EXCEPTION 'Wrong constraint rejected test publication';
+          END IF;
+        END;
+        candidate.published_at := NULL;
+        INSERT INTO digest_previews SELECT candidate.*;
+        candidate.id := gen_random_uuid();
+        candidate.kind := 'manual';
+        INSERT INTO digest_previews SELECT candidate.*;
+        candidate.id := gen_random_uuid();
+        candidate.published_at := now();
+        INSERT INTO digest_previews SELECT candidate.*;
+        candidate.id := gen_random_uuid();
+        candidate.kind := 'scheduled';
+        INSERT INTO digest_previews SELECT candidate.*;
+      END $$;
+      ROLLBACK;""")
+    if query(container, fingerprint_sql) != original:
+        raise RuntimeError('Publication probes changed saved editions')
+    verify_immutable(container)
+    return 5
+
+
 def verify_rollback(container, migration, original):
     # Exercise failure with the guard disabled, both before and after the data update.
     for checkpoint in ('UPDATE digest_previews SET',
@@ -107,6 +146,7 @@ def rehearse():
         if original != after:
             raise RuntimeError('Existing edition fields changed')
         verify_immutable(container)
+        constraint_checks = verify_publication_constraints(container)
         rows = json.loads(query(container, """SELECT json_agg(json_build_object(
           'key', scheduled_key, 'created', created_at, 'kind', kind, 'published', published_at))
           FROM digest_previews;"""))
@@ -125,6 +165,7 @@ def rehearse():
                    'tables_compared': len(restored), 'rows_compared': sum(restored.values()),
                    'editions_unchanged': len(rows), 'kinds': kinds,
                    'rollback_checkpoints_passed': rollback_checks,
+                   'publication_constraint_checks_passed': constraint_checks,
                    'published': kinds['scheduled'], 'production_schema_changed': False}
         (database.DIRECTORY / 'publication-rehearsal-proof.json').write_text(json.dumps(receipt) + '\n')
         print(json.dumps(receipt))
