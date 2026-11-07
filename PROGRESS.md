@@ -128,3 +128,13 @@ Earlier entries: [iterations 1223–1229](docs/progress-archive/2026-11-07-itera
 - Final bulk formatting command exited 143 after listing all files; targeted formatting of all changed text files passes, with standalone `pnpm lint:fix` rerun. Initial full formatting/lint pass remains valid.
 - Next: Nov 8 scheduled X/Bluesky/content/cost/speed acceptance and first-week report; metrics recovery stays open, next passive check ≥21:15 UTC.
 - Initial push rejected by three newer owner commits; merged cleanly without history rewrite. STEERING 50 now prioritizes public access: next iteration starts phase 0 (phase 2 if owner publication decisions block it); daily edition reviews remain required. Remote changes are steering/planning only; verified app remains unchanged.
+
+## 2026-11-07: iteration 1240 — inventory public archive before backfill
+
+- Clean main/no leftover work. Alerts clear; services/sources and `/healthz` healthy, latest edition completed and next scheduled for Nov 8 15:00 UTC. No hourly metrics probe before ≥21:15 UTC.
+- STEERING 50 phase 0: added `pnpm exec tsx scripts/inventory-editions.ts`, a repeatable-read/read-only inventory with 15 s statement timeout; exports IDs/windows/counts/field shapes without article text or provider errors. No migration, generation, visibility, sharing or cap change; development spend $0.
+- Inventory: 546 editions, 458 manual/88 keyed; six topic shapes. Manual editions occur only Nov 1–2; none on UTC days without keyed editions. Documented snapshot evolution and Nov 3–7 counts.
+- Found 65 explicit `integration:` keys: the plan's blanket keyed-edition publication would include test records. Recorded this conflict and manual-publication confirmation in NEEDS_FROM_HUMAN.md; no fixture called live and no publication decision inferred.
+- Inventory rerun matches all IDs/counts/structures; independent `docker exec news-digest-postgres-1 psql ...` aggregate confirms 546/88/65. First redirected rerun exposed slow-query logs contaminating JSON; standalone inventory now silences its own logger and JSON verification passes. Host psql unavailable; container psql used.
+- `pnpm check` exits 0: typecheck/lint/format/boundaries, 563 unit tests and 229 integration tests pass/four expected skips. `pnpm build`, `pnpm format`, `pnpm lint:fix`, inventory JSON/aggregate assertions and `git diff --check` pass. Four app services restarted; health database/Redis OK and final alerts clear/14 services healthy. No UI/system-flow change; no browser or handbook edit required.
+- Next: phase 2 browser preferences while publication decisions wait; phase 0 metadata/pools/test editions remain open. Daily Nov 8 acceptance and first-week report remain required.

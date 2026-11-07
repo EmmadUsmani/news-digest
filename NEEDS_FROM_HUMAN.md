@@ -85,3 +85,17 @@ World already has a distinct Bluesky pick through an open slot.
 [Review and estimate](docs/edition-reviews/2026-11-06.md).
 
 Nov 6 update (1051): saved-baseline comparison completes the authorized decision: keywords nine usable vs old search zero; semantic zero additions, dropped. No owner action needed. Production rollout and three-edition acceptance remain agent work; fixed search OFF until verified rollout. Post-fix keyword failures 5/9 attempts are recorded in the [decision](docs/edition-reviews/2026-11-06-x-experiment-review.md#baseline-comparison-and-decision--iteration-1051).
+
+## Public archive publication decision (2026-11-07, iteration 1240)
+
+Phase 0 inventory found 546 editions: 458 manual (November 1–2) and 88
+with schedule keys. No manual edition falls on a UTC day without a keyed
+edition, so that requested candidate list is empty. Confirm whether any of
+the November 1–2 manual editions should be published.
+
+The plan also conflicts with stored evidence: **65 keyed editions use explicit
+`integration:` keys**. Automatically publishing every keyed edition would
+include test records. Confirm an exclusion for these and whether the other
+early development runs belong in the archive before the backfill/filter is
+enabled. [Inventory and reproduction](docs/edition-reviews/2026-11-07-publication-inventory.md).
+Reader visibility is unchanged; continue phase 2 while publication waits.
