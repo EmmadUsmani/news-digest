@@ -138,3 +138,12 @@ Archived: [iterations 1230–1234](docs/progress-archive/2026-11-07-iterations-1
 - `pnpm exec tsx scripts/smoke-reader-bookmarks.ts` exits 0 for all four views, including existing Nov 7 18-post coverage, storage warnings and layout checks. GET-only/external requests blocked; refreshed screenshots, inspected saved desktop/mobile light. First smoke attempt used an incorrect article selector; corrected to the actual list-item structure and rerun passed.
 - No product, generation, schema or source changes; handbook/source metadata unchanged. Phase 2 remains open pending a normal scheduled edition with preferences enabled; phase 0 publication decisions remain owner-blocked.
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, `git diff --check` pass. `pnpm check` passes typecheck/lint/format/boundaries and all 572 unit tests, then SIGTERM during integration without reported failure; separate `pnpm test:integration` exits 0: 229 pass/four expected skips. Four app services restarted; final health/alerts clear.
+
+## 2026-11-07: iteration 1247 — saved-item keyboard focus
+
+- Clean main/no leftover work. Initial alerts and `/healthz` healthy; 36/36 sources have successful nonempty fetches and no errors. Metrics passive probe not due before 22:16 UTC. Development spend $0.
+- STEERING 50 phase-2 waiting path: removing a saved item now focuses the next Remove button, the previous one at the end, or the Saved items heading when the list empties; keyboard readers can continue without returning to the page start.
+- `pnpm exec tsx scripts/smoke-reader-bookmarks.ts` passes desktop/mobile light/dark with actual saved editions, first/last/only-item keyboard removal, existing bookmark storage/cross-tab/historical checks, GET-only and external requests blocked. Refreshed screenshots; inspected empty desktop/mobile light views.
+- Full `pnpm check` exits 0: typecheck/lint/format/boundaries, 572 unit tests and 229 integration tests pass/four expected skips. `pnpm format`, `pnpm lint:fix`, `git diff --check` pass. First full build received SIGTERM after web completion without compilation errors; `pnpm build` retry exits 0.
+- Four app services restarted; final `/healthz` database/Redis OK, alerts clear and actual Nov 7 scheduled edition readable with four topics. No generation/schema/source changes; handbook/source metadata unchanged.
+- Next: Nov 8 normal scheduled-edition phase-2 acceptance, daily X/Bluesky review and first-week report. Phase-0 owner publication decisions and metrics incident remain open.

@@ -155,6 +155,43 @@ async function smoke() {
           path: `docs/screenshots/ui/bookmark-${device}-${theme}.png`,
           fullPage: true,
         });
+        // Keyboard removal keeps a useful focus target, including the last item.
+        const removals = other.getByRole('button', {
+          name: /^Remove saved item:/,
+        });
+        assert.ok((await removals.count()) >= 3);
+        // Removing the last card moves to its previous neighbor.
+        await removals.last().focus();
+        const previousName = await removals
+          .nth((await removals.count()) - 2)
+          .getAttribute('aria-label');
+        await other.keyboard.press('Enter');
+        await expect(
+          other.getByRole('button', { name: previousName!, exact: true }),
+        ).toBeFocused();
+        // Removing the first card moves to its next neighbor.
+        while ((await removals.count()) > 1) {
+          const nextName = await removals.nth(1).getAttribute('aria-label');
+          await removals.first().focus();
+          await other.keyboard.press('Enter');
+          await expect(
+            other.getByRole('button', { name: nextName!, exact: true }),
+          ).toBeFocused();
+        }
+        await removals.first().focus();
+        await other.keyboard.press('Enter');
+        await expect(
+          other.getByRole('heading', { name: 'Saved items', exact: true }),
+        ).toBeFocused();
+        await expect(
+          other.getByText('No saved items yet.', { exact: false }),
+        ).toBeVisible();
+        await other.screenshot({
+          path: `docs/screenshots/ui/saved-empty-${device}-${theme}.png`,
+          fullPage: true,
+        });
+        await expect(save).toHaveAttribute('aria-pressed', 'false');
+        await save.click();
         // Old editions use their own saved display copy and edition link.
         await page.goto(`${origin}/editions/${historical.id}`);
         const oldControls = [

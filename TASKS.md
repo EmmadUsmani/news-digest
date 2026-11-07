@@ -49,6 +49,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] STEERING 50 (1247): saved-item removal preserves keyboard focus on the next/previous Remove button, or the Saved items heading after the last item; actual saved-content browser checks cover desktop/mobile light/dark. Phase 2 still awaits a normal scheduled edition.
+
 - [x] STEERING 42 (1239): Bluesky media links name the action, image position, saved author/time and supplied description; loaded/recovered/failed image and video browser checks cover desktop/mobile light/dark.
 
 - [x] STEERING 42 (1238): failed X media retry/original controls identify the saved author and exact publication time; all 15 saved posts checked in desktop/mobile light/dark, with keyboard recovery and unchanged destinations.

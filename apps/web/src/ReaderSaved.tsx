@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router';
+import { useRef } from 'react';
 
 import { ThemeToggle } from './components/theme-toggle';
 import { Button } from './components/ui/button';
@@ -6,6 +7,8 @@ import { useReaderPreferences } from './use-reader-preferences';
 
 export function ReaderSaved() {
   const preferences = useReaderPreferences();
+  const heading = useRef<HTMLHeadingElement>(null);
+  const removeButtons = useRef(new Map<string, HTMLButtonElement>());
   const saved = Object.entries(preferences.bookmarks)
     .filter(([, change]) => change.copy !== null)
     .sort((a, b) => b[1].updatedAt - a[1].updatedAt);
@@ -17,7 +20,13 @@ export function ReaderSaved() {
         </Link>
         <ThemeToggle />
       </header>
-      <h1 className="mt-8 font-sans text-2xl font-semibold">Saved items</h1>
+      <h1
+        ref={heading}
+        tabIndex={-1}
+        className="mt-8 font-sans text-2xl font-semibold"
+      >
+        Saved items
+      </h1>
       <p className="my-4 text-sm text-[var(--secondary)]">
         Saved in this browser. No account is needed.
       </p>
@@ -37,7 +46,7 @@ export function ReaderSaved() {
       )}
       <ul className="list-none space-y-6 pl-0">
         {saved.map(
-          ([id, { copy }]) =>
+          ([id, { copy }], index) =>
             copy && (
               <li
                 key={id}
@@ -67,7 +76,18 @@ export function ReaderSaved() {
                   <Button
                     variant="ghost"
                     aria-label={`Remove saved item: ${copy.title}`}
-                    onClick={() => preferences.setBookmark(id, null)}
+                    ref={(button) => {
+                      if (button) removeButtons.current.set(id, button);
+                      else removeButtons.current.delete(id);
+                    }}
+                    onClick={() => {
+                      const neighbor = saved[index + 1] ?? saved[index - 1];
+                      const target = neighbor
+                        ? removeButtons.current.get(neighbor[0])
+                        : heading.current;
+                      target?.focus();
+                      preferences.setBookmark(id, null);
+                    }}
                   >
                     Remove
                   </Button>
