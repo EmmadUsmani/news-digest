@@ -150,6 +150,25 @@ async function smoke() {
           await expect(savedLink).toBeFocused();
         }
         const disclosure = card.locator('.saved-post-text summary');
+        for (const savedPost of posts) {
+          const transcript = page
+            .locator('.post-card')
+            .filter({
+              has: page.locator(`.byline a[href="${savedPost.url}"]`),
+            })
+            .locator('.saved-post-text summary');
+          await expect(transcript).toHaveAttribute(
+            'aria-label',
+            `Saved post text from ${savedPost.author} on X, ${new Date(savedPost.publishedAt).toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'long' })}`,
+          );
+        }
+        await expect(disclosure).toHaveAccessibleName(
+          new RegExp(`^Saved post text from `),
+        );
+        await disclosure.focus();
+        assert.ok(
+          await disclosure.evaluate((node) => node === document.activeElement),
+        );
         await disclosure.click();
         await expect(disclosure).toBeFocused();
         const oldMediaHeight = await card

@@ -1682,6 +1682,8 @@ ack: 2026-11-07 item 42 — iteration 1233: coverage controls identify the story
 
 ack: 2026-11-07 item 42 — iteration 1234: fixed saved-story reload drift caused by smooth scrolling and earlier topic resizing; opening anchors stay below navigation until reader input. Four real-edition device/theme views verified without external calls.
 
+ack: 2026-11-07 item 42 — iteration 1235: X saved-text controls identify author and exact publication time for screen-reader navigation; all 15 saved Nov 7 labels and keyboard recovery verified in four device/theme views. No paid calls.
+
 ## 43. NOW: put X search and the UI rebuild first, stop scoping new features (2026-11-06)
 
 **Why:** in the 12 hours to 16:35 UTC on Nov 6, 88 commits landed. About a dozen

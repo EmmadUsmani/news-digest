@@ -147,3 +147,12 @@ Earlier entries: [iterations 1215–1222](docs/progress-archive/2026-11-07-itera
 - `pnpm check` passed typecheck/lint/format/boundaries and 563 unit tests, then exited 143 after logging all 233 integration cases without a final summary; `pnpm test:integration` rerun passes (229 pass/four expected skips). `pnpm build`, final `pnpm format`, `pnpm lint:fix` and `git diff --check` pass. API restarted with rebuilt reader; `/healthz` database/Redis OK.
 - Initial alerts clear; 14 services/36 sources healthy, latest digest complete and fresh social collection returning data. No repeat metrics probe inside hourly limit. No handbook system-flow change.
 - Next: Nov 8 scheduled X/Bluesky/quality/cost/speed acceptance and first-week report. Metrics recovery remains open; passive check no sooner than 20:14 UTC.
+
+## 2026-11-07: iteration 1235 — distinguish saved X transcripts
+
+- Owner impact (STEERING 42/43): saved X transcript controls all said “Saved post text”; accessible names now identify author and exact publication time so readers can distinguish posts. Visible text and saved content unchanged; no paid calls.
+- Clean main/no leftover work. Alerts clear, 14 services/36 sources healthy, latest digest completed and Nov 8 15:00 UTC queued; `/healthz` database/Redis OK. Metrics trial untouched; no repeat probe inside hourly limit.
+- `pnpm exec tsx scripts/smoke-reader-x-media.ts` passes all 15 real saved X labels plus keyboard focus, transcript toggle, theme/resize and media recovery in desktop/mobile light/dark. External requests blocked; successful media uses an explicitly local stub.
+- Four saved-transcript screenshots updated; mobile light inspected, unrelated regenerated images discarded. No handbook system-flow change.
+- `pnpm build`, `pnpm format`, `pnpm lint:fix` and `git diff --check` pass; rebuilt API restarted healthy. `pnpm check` passes: 563 unit and 229 integration tests, four expected skips.
+- Next: Nov 8 scheduled X/Bluesky/quality/cost/speed acceptance and first-week report. Metrics recovery remains open, passive check no sooner than 20:14 UTC.

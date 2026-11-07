@@ -272,7 +272,12 @@ function Post({
           if (embedded) setSavedTextOpen(event.currentTarget.open);
         }}
       >
-        <summary hidden={!hasEmbedded}>Saved post text</summary>
+        <summary
+          hidden={!hasEmbedded}
+          aria-label={`Saved post text from ${post.author} on X, ${new Date(post.publishedAt).toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'long' })}`}
+        >
+          Saved post text
+        </summary>
         <p className="post-text">
           <LinkedPostText
             text={post.displayText ?? post.text}
