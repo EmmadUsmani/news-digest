@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
+import { editorialShortlist } from '../src/modules/digests/domain/editorial-shortlist';
 import { qualityRejection } from '../src/modules/digests/domain/quality';
 import { type Candidate, rank } from '../src/modules/digests/domain/rank';
 void test('headline quality labels exclude routine filler while retaining reporting and announcements', () => {
@@ -142,5 +143,63 @@ void test('HN question threads cannot spend news slots, while launches and repor
   assert.deepEqual(
     rank([base], new Date('2026-11-01'), new Date('2026-11-02'), 5),
     [],
+  );
+});
+
+void test('Nov 7 labelled matchup preview cannot occupy fallback or AI story slots', () => {
+  const preview: Candidate = {
+    id: 'nov7-preview',
+    title: 'Game Preview: Knicks at Cavaliers, November 7, 2026',
+    url: 'https://example.org/knicks-cavaliers-preview',
+    excerpt:
+      'The Knicks and Cavaliers tangle for an Eastern Conference Finals rematch.',
+    publishedAt: '2026-11-07T10:00:00Z',
+    sources: ['Recorded headline'],
+    points: 10000,
+  };
+  const report = {
+    ...preview,
+    id: 'report',
+    title: 'Cavaliers beat Knicks in Eastern Conference Finals rematch',
+    points: 0,
+  };
+  const start = new Date('2026-11-06T15:00:00Z');
+  const end = new Date('2026-11-07T15:00:00Z');
+  for (const title of [
+    preview.title,
+    'Game Preview: Knicks vs. Cavaliers, November 7, 2026',
+    ' Game Preview: Knicks versus Cavaliers, November 7, 2026',
+  ])
+    assert.equal(
+      qualityRejection({ ...preview, title })?.rule,
+      'matchup-preview',
+    );
+  for (const title of [
+    'Game preview: a hands-on look at the new RPG',
+    'Studio reveals game preview at developer conference',
+    report.title,
+  ])
+    assert.equal(qualityRejection({ ...preview, title }), null);
+  assert.deepEqual(
+    rank([preview, report], start, end, 5).map((item) => item.id),
+    ['report'],
+  );
+  const result = editorialShortlist(
+    [preview, report],
+    [
+      { id: preview.id, relevance: 10, importance: 10 },
+      { id: report.id, relevance: 8, importance: 8 },
+    ],
+    { includeAny: [], excludeAny: [] },
+    start,
+    end,
+  );
+  assert.deepEqual(
+    result.shortlist.map((item) => item.id),
+    ['report'],
+  );
+  assert.deepEqual(
+    result.ranked.map((item) => item.id),
+    ['report'],
   );
 });

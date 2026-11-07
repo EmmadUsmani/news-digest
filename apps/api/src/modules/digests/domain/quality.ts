@@ -15,7 +15,7 @@ const rules: { id: string; reason: string; pattern: RegExp }[] = [
     id: 'matchup-preview',
     reason: 'Routine matchup preview',
     pattern:
-      /\bvs\.?\s+.+\bpreview\b|^preview\s*:.*\b(meet|meets|face|faces|vs)\b/i,
+      /\bvs\.?\s+.+\bpreview\b|^preview\s*:.*\b(meet|meets|face|faces|vs)\b|^\s*game preview\s*:\s*[^:,\n]+\s(?:at|vs\.?|versus)\s+[^:,\n]+,\s*[a-z]+\s+\d{1,2},\s+\d{4}\s*$/i,
   },
   {
     id: 'monthly-schedule',

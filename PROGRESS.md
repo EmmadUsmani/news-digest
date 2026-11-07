@@ -124,3 +124,13 @@ Earlier entries: [iterations 1200–1207](docs/progress-archive/2026-11-07-itera
 - Verification: checklist links/report entrypoints exist; pnpm check passes (552 unit/228 integration tests, four expected skips), pnpm build, pnpm format, pnpm lint:fix and git diff --check pass.
 - No paid calls, source/schema/UI changes or runtime changes. Restart deliberately deferred to preserve the isolated metrics trial and deployment gate.
 - Next: natural compaction evidence, queued deployment, Nov 8 second-of-three acceptance and Nov 2–8 first-week report.
+
+## 2026-11-07: iteration 1218 — keep dated matchup previews out of news slots
+
+- Reader benefit: Nov 7 NBA fallback spent a story slot on a routine Knicks–Cavaliers game preview instead of substantive news.
+- Clean main/no leftovers; alerts clear, services/sources/jobs checks and /healthz pass. Metrics admission/timeouts/slow-query counters zero; small merged rows 2,653,727, no active merge. Comparable large compaction remains unobserved.
+- Existing matchup-preview rule missed “Game Preview: Knicks at Cavaliers, November 7, 2026”; extended it for the explicit dated matchup format, without changing grouping or prompts.
+- Regression uses the saved headline/excerpt and synthetic counterexamples: both fallback ranking and AI shortlist exclude it even with highest scores; substantive game reporting and ordinary gaming previews remain eligible.
+- Focused quality tests pass (4/4). Updated TASKS, item 42 ack and Nov 8 comparison checklist.
+- Verification: pnpm check passes (553 unit/228 integration tests, four expected skips); pnpm build, pnpm format, pnpm lint:fix and git diff --check pass. No paid calls, UI/schema/source/handbook changes or production data writes.
+- Deployment/restart deliberately deferred to preserve the unchanged metrics trial and existing recovery gate. Next: compaction recovery, queued deployment, Nov 8 acceptance.

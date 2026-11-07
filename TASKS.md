@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] STEERING 42 (1218), prepared: exclude dated “Game Preview: Knicks at Cavaliers, November 7, 2026” headline format missed by the existing matchup-preview rule. Observed headline and substantive-report/game-preview counterexamples verified through fallback ranking and AI shortlisting; deployment queued behind metrics recovery.
+
 - [x] Scheduled acceptance handoff (1217): [Nov 8 checklist](docs/edition-reviews/2026-11-08-acceptance-plan.md) pins the publication window, deployed-revision evidence, queued-fix comparisons and second-of-three X/Bluesky review; includes the Nov 2–8 first-week report. No production acceptance claimed.
 
 - [x] STEERING 42 (1216), prepared: social editor v8 explicitly compares event reactions and campaign teasers after Nov 7 repeated LeBron/BioWare/Miller posts; independently newsworthy developments remain eligible. Both-model offline request checks pass; deployment waits for metrics recovery, production quality acceptance remains open.
