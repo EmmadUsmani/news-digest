@@ -1,0 +1,473 @@
+[
+  {
+    "event": "edition.start",
+    "time": 1794063600039
+  },
+  {
+    "event": "edition.step",
+    "time": 1794063600047,
+    "stage": "topics"
+  },
+  {
+    "event": "edition.step",
+    "time": 1794063600047,
+    "topic": "00000000-0000-4000-8000-000000000011",
+    "stage": "triage"
+  },
+  {
+    "event": "edition.step",
+    "time": 1794063600047,
+    "topic": "00000000-0000-4000-8000-000000000012",
+    "stage": "triage"
+  },
+  {
+    "event": "edition.step",
+    "time": 1794063600047,
+    "topic": "00000000-0000-4000-8000-000000000013",
+    "stage": "triage"
+  },
+  {
+    "event": "edition.step",
+    "time": 1794063600047,
+    "topic": "00000000-0000-4000-8000-000000000014",
+    "stage": "triage"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063611066,
+    "purpose": "candidate-triage-v1",
+    "durationMs": 10553,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063617048,
+    "purpose": "candidate-triage-v1",
+    "durationMs": 16693,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063617291,
+    "purpose": "candidate-triage-v1",
+    "durationMs": 16474,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063619324,
+    "purpose": "candidate-triage-v1",
+    "durationMs": 18684,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063624779,
+    "purpose": "candidate-triage-v1",
+    "durationMs": 5454,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063627817,
+    "purpose": "candidate-triage-v1",
+    "durationMs": 16750,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063635335,
+    "purpose": "candidate-triage-v1",
+    "durationMs": 18287,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063635432,
+    "purpose": "candidate-triage-v1",
+    "durationMs": 18140,
+    "outcome": "success"
+  },
+  {
+    "event": "edition.step",
+    "time": 1794063635451,
+    "topic": "00000000-0000-4000-8000-000000000013",
+    "stage": "editing"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063642531,
+    "purpose": "candidate-triage-v1",
+    "durationMs": 17751,
+    "outcome": "success"
+  },
+  {
+    "event": "edition.step",
+    "time": 1794063642555,
+    "topic": "00000000-0000-4000-8000-000000000012",
+    "stage": "editing"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063645359,
+    "purpose": "candidate-triage-v1",
+    "durationMs": 17542,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063652557,
+    "purpose": "candidate-triage-v1",
+    "durationMs": 17221,
+    "outcome": "success"
+  },
+  {
+    "event": "edition.step",
+    "time": 1794063652580,
+    "topic": "00000000-0000-4000-8000-000000000011",
+    "stage": "editing"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063653896,
+    "purpose": "candidate-triage-v1",
+    "durationMs": 18464,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063660159,
+    "purpose": "story-grouping-v3",
+    "durationMs": 6263,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063661361,
+    "purpose": "candidate-triage-v1",
+    "durationMs": 18830,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063664532,
+    "purpose": "candidate-triage-v1",
+    "durationMs": 11975,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063665486,
+    "purpose": "candidate-triage-v1",
+    "durationMs": 20127,
+    "outcome": "success"
+  },
+  {
+    "event": "edition.step",
+    "time": 1794063665505,
+    "topic": "00000000-0000-4000-8000-000000000014",
+    "stage": "editing"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063666514,
+    "purpose": "story-grouping-v3",
+    "durationMs": 5148,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063672805,
+    "purpose": "story-grouping-v3",
+    "durationMs": 12646,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063674192,
+    "purpose": "story-grouping-v3",
+    "durationMs": 8576,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063678229,
+    "purpose": "shortlist-editor-v13",
+    "durationMs": 11551,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063680086,
+    "purpose": "shortlist-editor-v13",
+    "durationMs": 15551,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063689073,
+    "purpose": "shortlist-editor-v13",
+    "durationMs": 10739,
+    "outcome": "success"
+  },
+  {
+    "event": "edition.step",
+    "time": 1794063689086,
+    "topic": "00000000-0000-4000-8000-000000000011",
+    "stage": "posts"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063689869,
+    "purpose": "shortlist-editor-v13",
+    "durationMs": 16958,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063691041,
+    "purpose": "shortlist-editor-v13",
+    "durationMs": 16697,
+    "outcome": "success"
+  },
+  {
+    "event": "edition.step",
+    "time": 1794063691049,
+    "topic": "00000000-0000-4000-8000-000000000014",
+    "stage": "posts"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063693232,
+    "purpose": "shortlist-editor-v13",
+    "durationMs": 13038,
+    "outcome": "success"
+  },
+  {
+    "event": "edition.step",
+    "time": 1794063693254,
+    "topic": "00000000-0000-4000-8000-000000000013",
+    "stage": "posts"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063700172,
+    "purpose": "social-triage-v1",
+    "durationMs": 6940,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063702756,
+    "purpose": "social-triage-v1",
+    "durationMs": 12887,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063704830,
+    "purpose": "social-triage-v1",
+    "durationMs": 4658,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063707123,
+    "purpose": "shortlist-editor-v13",
+    "durationMs": 16082,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063707309,
+    "purpose": "social-triage-v1",
+    "durationMs": 18020,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063709234,
+    "purpose": "social-editor-v2",
+    "durationMs": 6477,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063711491,
+    "purpose": "social-editor-v2",
+    "durationMs": 6560,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063714737,
+    "purpose": "social-editor-v2",
+    "durationMs": 5388,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063718011,
+    "purpose": "social-editor-v2",
+    "durationMs": 10604,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063720096,
+    "purpose": "shortlist-editor-v13",
+    "durationMs": 12846,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063725308,
+    "purpose": "social-triage-v1",
+    "durationMs": 10417,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063726920,
+    "purpose": "social-triage-v1",
+    "durationMs": 15285,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063729792,
+    "purpose": "bluesky-social-editor-v2",
+    "durationMs": 2771,
+    "outcome": "success"
+  },
+  {
+    "event": "edition.step",
+    "time": 1794063729810,
+    "topic": "00000000-0000-4000-8000-000000000013",
+    "stage": "ready"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063730218,
+    "purpose": "social-triage-v1",
+    "durationMs": 12098,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063730764,
+    "purpose": "bluesky-social-editor-v2",
+    "durationMs": 5327,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063732790,
+    "purpose": "bluesky-social-editor-v2",
+    "durationMs": 2453,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063732978,
+    "purpose": "shortlist-editor-v13",
+    "durationMs": 12779,
+    "outcome": "success"
+  },
+  {
+    "event": "edition.step",
+    "time": 1794063732981,
+    "topic": "00000000-0000-4000-8000-000000000012",
+    "stage": "posts"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063734868,
+    "purpose": "bluesky-social-editor-v2",
+    "durationMs": 1962,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063736287,
+    "purpose": "bluesky-social-editor-v2",
+    "durationMs": 5418,
+    "outcome": "success"
+  },
+  {
+    "event": "edition.step",
+    "time": 1794063736296,
+    "topic": "00000000-0000-4000-8000-000000000014",
+    "stage": "ready"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063737048,
+    "purpose": "social-triage-v1",
+    "durationMs": 3779,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063738052,
+    "purpose": "bluesky-social-editor-v2",
+    "durationMs": 3071,
+    "outcome": "success"
+  },
+  {
+    "event": "edition.step",
+    "time": 1794063738057,
+    "topic": "00000000-0000-4000-8000-000000000011",
+    "stage": "ready"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063753607,
+    "purpose": "social-triage-v1",
+    "durationMs": 20492,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063756786,
+    "purpose": "social-editor-v2",
+    "durationMs": 3040,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063760715,
+    "purpose": "social-editor-v2",
+    "durationMs": 3815,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063776523,
+    "purpose": "social-triage-v1",
+    "durationMs": 15671,
+    "outcome": "success"
+  },
+  {
+    "event": "external.call",
+    "time": 1794063780556,
+    "purpose": "bluesky-social-editor-v2",
+    "durationMs": 3910,
+    "outcome": "success"
+  },
+  {
+    "event": "edition.step",
+    "time": 1794063780564,
+    "topic": "00000000-0000-4000-8000-000000000012",
+    "stage": "ready"
+  },
+  {
+    "event": "edition.step",
+    "time": 1794063780565,
+    "stage": "publishing"
+  },
+  {
+    "event": "edition.finish",
+    "time": 1794063780579
+  }
+]

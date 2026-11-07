@@ -541,3 +541,20 @@ Commands: `pnpm exec tsx scripts/sample-metrics-recovery.ts 6 30` and
 `pnpm exec tsx scripts/sample-observability-capacity.ts 18 10`;
 `pnpm obs services --check`, `sources --check`, `jobs --check`, `alerts`;
 app/Grafana health and metrics unit/journal checks. No runtime changes or paid calls.
+
+### First post-restart admission hit (iteration 1226)
+
+Read-only recovery observation beginning 18:36:47 UTC saw the admission-limit
+counter rise from zero to one, first sampled at 18:38:49. Queue timeouts and
+slow queries remained zero, all 23 rules stayed healthy/fresh, and uncached
+health queries succeeded. An admission-limit hit alone does not establish a
+failed query; this does end the earlier zero-admission-hit observation.
+The paired 60.052-second cgroup sample beginning 18:37:37 measured 1.838%
+whole-stack CPU/721.63 MiB peak; metrics 0.612% CPU, 128/278 periods throttled.
+Every unit recorded zero memory-high/OOM events. Metrics remains unchanged
+since 16:00:24 UTC with zero restarts. No comparable natural large compaction;
+recovery and queued deployment remain open. No settings or production writes.
+
+Commands: `pnpm exec tsx scripts/sample-metrics-recovery.ts 6 30`;
+`pnpm exec tsx scripts/sample-observability-capacity.ts 6 10`;
+direct rules/counter reads, app/Grafana health and unit identity checks.

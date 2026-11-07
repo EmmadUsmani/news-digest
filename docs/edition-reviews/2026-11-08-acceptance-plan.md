@@ -34,6 +34,10 @@ Write actual findings in a separate `2026-11-08.md` review after publication.
 
 ## Acceptance comparisons
 
+For speed, compare the [Nov 7 recorded critical path](2026-11-07-social-latency.md):
+NBA finished last, with a 90.426 s story stage and 42.522 s final social tail.
+Identify the new critical topic rather than assuming Nov 6’s Tech tail persists.
+
 If the link-facet fix is deployed, check newly collected Bluesky posts with
 shortened link labels: full official destinations should be clickable, with
 original text preserved in the saved snapshot. Historical Nov 7 links stay

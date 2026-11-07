@@ -129,3 +129,14 @@ Earlier entries: [iterations 1208–1214](docs/progress-archive/2026-11-07-itera
 - `pnpm obs services --check`, `sources --check`, `jobs --check`, `alerts`: 14/14 services, 36/36 sources, jobs healthy, no active alerts. App health/database/Redis and Grafana HTTP/database OK; initial Grafana probe used wrong port, corrected to configured 3001.
 - Updated TASKS and capacity evidence. Verification: pnpm check (560 unit/229 integration, four expected skips), pnpm build, pnpm format, pnpm lint:fix and git diff --check pass.
 - Deployment/restarts remain deferred: comparable natural five-million-row compaction unobserved. Next: capture recovery evidence, deploy queued changes, then Nov 8 scheduled acceptance/first-week report.
+
+## 2026-11-07: iteration 1226 — identify Nov 7 publication critical path
+
+- Owner-visible reason: reduce the wait for editions by targeting the actual slow topic; Nov 7 changed from Tech to NBA. Clean main/no leftovers; recovery waiting on natural evidence, so followed STEERING 38 to available speed work.
+- Exported 71 allowlisted real worker events/51 Anthropic HTTP calls into an offline timeline fixture; no prompts, outputs, credentials, new provider calls or production writes. Excluded concurrent ingestion events.
+- NBA: 42.508 s triage, 90.426 s story stage, 47.583 s posts. Last-topic tail 42.522 s includes X triage/absence repair and Bluesky triage/editing; 41.986 s HTTP, 0.536 s other work. Four-call occupancy 71.84%; conserved 582,862 ms HTTP work and 180,540 ms edition span.
+- Recorded findings in Nov 7 latency review; updated TASKS, Nov 7 review and Nov 8 acceptance comparison. Keep concurrency/admission unchanged; queued story-repair fixes need deployed production evidence.
+- Recovery probe `sample-metrics-recovery.ts 6 30` (18:36:47–18:39:50): four small merges/25,021 rows, big zero, 23 healthy/fresh rules, 14 healthy queries/max 0.561 s. First post-restart admission-limit hit (one); no queue timeout/slow query. Recovery remains open, no comparable compaction.
+- `sample-observability-capacity.ts 6 10`: 60.052 s, 1.838% CPU/721.63 MiB peak; metrics 0.612% CPU, 128/278 periods throttled; all units zero memory-high/OOM events. Trial unchanged since 16:00:24, zero restarts. Services 14/14, sources 36/36, jobs and app/Grafana health pass.
+- Verification: pnpm check passed typecheck/lint then stopped on new PROGRESS formatting; corrected with pnpm format. pnpm format:check, pnpm boundaries and pnpm test pass (560 unit/229 integration, four expected skips); pnpm build, pnpm lint:fix, offline timeline conservation/allowlist/link checks and git diff --check pass. No runtime code changes; restarts/deployment remain deferred behind metrics recovery.
+- Next: natural comparable compaction evidence, queued deployment, then Nov 8 scheduled quality/cost/speed acceptance and first-week report.
