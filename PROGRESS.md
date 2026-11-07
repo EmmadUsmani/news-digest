@@ -124,3 +124,12 @@ Earlier entries: [iterations 1075–1084](docs/progress-archive/2026-11-07-itera
 - No runtime/UI/schema/source changes, paid requests or protected-window restarts/deploys. SOURCES/handbook/NEEDS_FROM_HUMAN unchanged; publisher remains gated.
 - Next: Nov 7 production review on publication; after 16:00 measure modest CPU headroom first, then decide memory changes and verify ~800 MiB/<5% whole-stack usage before publisher deployment.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 543 unit/226 integration tests pass (four previously passed rehearsals skipped). git diff --check passes. Docs-only step; protected-window services remain on unchanged main runtime.
+
+## 2026-11-07: iteration 1193 — confirm alert-evaluation impact of metrics contention
+
+- Clean main/no leftovers. Read-only incident diagnosis confirms metrics contention also interrupted OffsiteDatabaseBackupStale evaluation: metrics queue timeout at 13:46:01, vmalert HTTP 429 at 13:46:43 for the 13:44 evaluation. One queue rejection in 13:30–14:05 journal interval; no claim a backup was stale.
+- Serial self-scrape/RSS probes 0.438/0.500 s; 15.94 s sample consumed 109,148 µs CPU, throttled 101/124 periods and added four memory-high events, zero OOM. Effective quota 1 ms/100 ms; GOMAXPROCS already one. Faster probes do not close intermittent contention.
+- Capacity decision and top TASKS now require successful backup-rule evaluation/no new 429s across compaction after repair, alongside scrape/query and whole-stack budget checks. No deadline/concurrency relaxation proposed.
+- pnpm obs alerts clear; pnpm obs services --check passes 14 units; pnpm obs sources --check passes 36 sources; curl /healthz reports DB/Redis OK. No runtime/UI/source/schema/provider changes or protected-window restart/deploy; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Next: Nov 7 scheduled edition review at publication; after 16:00 repair metrics with modest measured CPU headroom, then verify alert evaluations and ~800 MiB/<5% stack budget. Publisher merge still requires actual committed review and 16:00 UTC.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 543 unit and 226 integration tests pass (four rehearsals skipped). git diff --check passes. Docs-only change; live runtime unchanged, no UI screenshots needed.

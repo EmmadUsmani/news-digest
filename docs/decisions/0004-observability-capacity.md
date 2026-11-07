@@ -154,3 +154,29 @@ Nov 6 reader has four topics and digest-generation has zero failed jobs with
 the next scheduled run at Nov 7 15:00 UTC. Two retained ingestion failures
 remain historical while all current source checks pass. No runtime change,
 provider request, restart or deployment was made during this investigation.
+
+### Alert-evaluation impact (iteration 1193)
+
+Read-only journal correlation found one query-queue rejection between 13:30
+and 14:05 UTC. At 13:46:01 the metrics store rejected the offsite database
+staleness query after its 10-second queue deadline, with both permitted
+query slots occupied. At 13:46:43 vmalert logged HTTP 429 for the
+`OffsiteDatabaseBackupStale` evaluation scheduled at 13:44. This establishes
+that contention interrupted a backup-alert evaluation as well as scraping;
+it does not establish a stale backup or that a notification was missed.
+
+At about 14:02, serial self-scrape and process-RSS queries took 0.438/0.500 s.
+Across 15.94 seconds, CPU usage increased 109,148 microseconds (0.685% of
+one core), 101/124 active CPU periods throttled, throttled time increased
+11.730 s and memory-high events increased four, with no OOM. Effective
+`cpu.max` is `1000 100000`: one millisecond per 100-millisecond period.
+The repository already sets `GOMAXPROCS=1`; excess Go parallelism is not
+an unconfigured setting to fix. Thirteen OS threads do not contradict that
+Go execution limit. These short probes do not close intermittent contention.
+
+After 16:00, retain the two-query admission limit and current deadlines while
+testing modest CPU headroom first. In addition to self-scrape and query
+latency, verify vmalert has no new failed evaluations/429s across a compaction
+and check the backup-staleness rule evaluates successfully. Measure whole-stack
+memory/CPU separately against ~800 MiB/<5%; only persist a limit change after
+verification. No runtime settings or services changed in this protected window.
