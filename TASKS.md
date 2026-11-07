@@ -14,7 +14,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
   - Same-story production pass enabled (650) after sampled gate: labelled precision 141/141, recall 141/157, zero clearly unrelated/one borderline among 155 reviewed merges; no wording grouping rules. Four-call reservation bound $0.058192.
 - [ ] STEERING 7 speed: Nov 5 152.320 s/756 candidates; <60 s/current volume and <2 min/1,500 unmet. Bluesky scoring/editor split prepared (1020), still sequential: earlier scoring holds can refuse otherwise-admitted X editing (1022). Revisit only with protected X/repair holds or exact cache-only scoring; no paid trial. [Timeline/admission proof](docs/edition-reviews/2026-11-05-social-latency.md), [concurrency](docs/edition-reviews/2026-11-04-concurrency.md).
 - [ ] STEERING 16 / M4 Social posts: Nov 5 X picks Tech/NBA/Gaming/World 3/5/5/1; all four topics present, no Bluesky picks. Saved X metrics empty: viral/outside-list quality acceptance remains open. Paid old open-search picks 1/19 (Tech); no claim that all-topic presence proves paid discovery quality.
-- [ ] STEERING 9/15 first-week report: Nov 5 $0.143191/19 fetched/18 new verified outside-list posts; prior Nov 3 $0.137056/18, Nov 4 $0.149447/19. Four topics weakest-first, $0.10 per-topic hold, unchanged $0.40/day/$12/month cap. Per-topic figures: [Sources](docs/SOURCES.md).
+- [ ] STEERING 9/15 first-week report (1077): Nov 6 $0.157475/19 fetched/17 new verified outside-list posts, three cited posts selected (Gaming two/NBA one). NBA empty open search cost $0.012014 before $0.039260 reaction search. Nov 2–6 total $0.610551, zero holds. Daily per-topic report current through Nov 6; continue Nov 7 keyword production reporting. Caps unchanged. [Sources](docs/SOURCES.md#nov-6-daily-production-x-report--iteration-1077).
 - [ ] STEERING 18 Bluesky: authenticated hourly collection and session refresh verified (788); Nov 5 no selected posts. Quality/diversity acceptance remains open; World phrase shortlist empty. Cross-platform context/semantic gates shipped. [Sources](docs/SOURCES.md#sustained-bluesky-session-recovery--iteration-788-2026-11-05).
 - [x] STEERING 33/45 UI rebuild closed (1075): all acceptance gaps finished; [56 route screenshots and eight loaded-post views](docs/screenshots/ui/spec-routes.md). Loaded topics 2.03–2.62 desktop screens in both themes, all 16 X embeds/17 saved posts retained. Desktop posts scroll in a keyboard-accessible area; mobile remains continuous. Label/admin-404/layout checks pass. Private rollout remains authorized; proxy header replacement proof required before public access.
 - [ ] STEERING 28 incremental triage OFF: reserve-safe admission/pools/cutoffs/draining verified. Nov 6 allowance $0.021736–$0.028915; only 2/65 early fingerprints compatible. Keep OFF; waste/latency unmeasured. [Assessment](docs/edition-reviews/2026-11-05-incremental-admission.md).
@@ -34,8 +34,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] STEERING 37 (1076): first verified encrypted off-VM backups and scheduled hook live; alert activation blocked by explicit root boundary.
+- [x] STEERING 9/15 (1077): completed missing Nov 6 production per-topic cost, incremental yield and saved-selection report; no paid calls.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
-- Next (STEERING 45): compare the real saved reader against the spec once, record only real gaps, finish that list and close item 33, then begin B2 backups while publication checks wait. RAM documentation updated (1071); unit limits unchanged.
+- Next: Nov 7 scheduled keyword/Bluesky acceptance at 15:00 UTC; B2 active-alert verification awaits the owner root action. Reader rebuild closed (1075).

@@ -1,5 +1,30 @@
 # Content source inventory
 
+### Nov 6 daily production X report — iteration 1077
+
+| Topic     | Open-topic cost / fetched | Reaction cost / fetched | New verified outside-list | Cited posts selected that day |
+| --------- | ------------------------: | ----------------------: | ------------------------: | ----------------------------: |
+| World     |             $0.031195 / 4 |                       — |                         3 |                             0 |
+| Gaming    |             $0.037663 / 5 |                       — |                         5 |                             2 |
+| NBA       |             $0.012014 / 0 |           $0.039260 / 5 |                         5 |                             1 |
+| Tech & AI |             $0.037343 / 5 |                       — |                         4 |                             0 |
+| Total     |            $0.118215 / 14 |           $0.039260 / 5 |                        17 |                             3 |
+
+Five successful production calls settled **$0.157475**, with zero holds or
+profile fetches. NBA's open search returned no posts; its later story-reaction
+search supplied five. The 19 fetched/cited posts include 17 new candidates
+currently officially verified; all 17 posts have authors outside the current lists.
+Three cited posts appear in the Nov 6 edition (Gaming two, NBA one); this does
+not establish causal selection, relevance or virality. This is the retired
+open-search runtime, separate from the Nov 6 keyword/semantic experiment.
+
+First-week production reporting now covers Nov 2–6: $0.023382 / $0.137056 /
+$0.149447 / $0.143191 / $0.157475, totaling **$0.610551**, zero current holds.
+The seven-day report ending Nov 6 includes two earlier empty days; it does not
+mean a full week of scheduled coverage. Nov 7 keyword acceptance still waits
+for the scheduled run. Read-only commands: `pnpm exec tsx scripts/report-x-discovery.ts 2026-11-06`
+and `pnpm exec tsx scripts/report-x-week.ts 2026-11-06`; no provider requests.
+
 ### Keyword rollout preparation — iteration 1052
 
 The disabled keyword adapter now requests and retains ten results, matching

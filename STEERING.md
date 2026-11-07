@@ -347,6 +347,8 @@ explicit/manual. Do this now; it no longer waits on item 8 (see item 14).
 - Record the daily X cost and the number of verified posts each search adds
   per topic in PROGRESS.md for the first week.
 
+ack: 2026-11-07 item 9/15 — iteration 1077: completed Nov 6 production daily report: World $0.031195/3 new verified outside-list posts, Gaming $0.037663/5, NBA $0.051274/5 (empty open search plus reaction search), Tech $0.037343/4; total $0.157475/17, zero holds. Gaming two and NBA one cited posts appear in the saved edition; no virality claim. Nov 2–6 total $0.610551. Read-only ledger reports, no paid calls; Nov 7 keyword acceptance still awaits publication.
+
 ## 10. ONGOING: balance sources across topics (2026-11-02)
 
 The last session added about 12 Gaming feeds and few for the other topics.
