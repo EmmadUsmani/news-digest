@@ -716,3 +716,14 @@ or candidate membership; changed-hash, missing-candidate and overwrite probes
 pass. Repeat compare against the flagged app alongside the browser smoke before
 switching the reader. Current-model capture/compare passes; new-model equality
 is still pending.
+
+### Published-reader SQL contract (iteration 1255)
+
+The private restore runs `ops/backups/publication_reader_checks.sql` after the
+candidate migration. Its oracle comes from the original scheduled-key/UTC policy,
+independently of the new metadata. Newer unpublished manual/test rows must not
+displace latest, consume history pages or pass published direct-link reads; admin
+reads retain both. Two mutations (removed visibility filter and repeated first
+page) must fail. All probes roll back, the complete edition fingerprint remains
+unchanged and immutability is checked again. These are candidate SQL semantics,
+not verification of the future application's reader implementation.

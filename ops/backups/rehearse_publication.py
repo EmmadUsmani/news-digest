@@ -104,6 +104,32 @@ def verify_rollback(container, migration, original):
     return 2
 
 
+def verify_reader_visibility(container):
+    fingerprint = "SELECT md5(string_agg(to_jsonb(d)::text, '' ORDER BY id)) FROM digest_previews d;"
+    original = query(container, fingerprint)
+    checks = Path(__file__).with_name('publication_reader_checks.sql').read_text()
+    query(container, checks)
+    # Prove the contract rejects both a leaked private edition and broken paging.
+    mutations = [
+        checks.replace('WHERE published_at IS NOT NULL', 'WHERE true'),
+        checks.replace('LIMIT 2 OFFSET position', 'LIMIT 2 OFFSET 0'),
+    ]
+    for mutation in mutations:
+        if mutation == checks:
+            raise RuntimeError('Reader mutation checkpoint missing')
+        try:
+            query(container, mutation)
+        except RuntimeError as error:
+            if 'P0001' not in str(error):
+                raise
+        else:
+            raise RuntimeError('Broken reader query passed rehearsal')
+    if query(container, fingerprint) != original:
+        raise RuntimeError('Reader probes changed saved editions')
+    verify_immutable(container)
+    return len(mutations)
+
+
 def rehearse():
     database.backup()
     manifest_path = sorted(database.DIRECTORY.glob('news-digest-*.json'))[-1]
@@ -147,6 +173,7 @@ def rehearse():
             raise RuntimeError('Existing edition fields changed')
         verify_immutable(container)
         constraint_checks = verify_publication_constraints(container)
+        reader_mutations = verify_reader_visibility(container)
         rows = json.loads(query(container, """SELECT json_agg(json_build_object(
           'key', scheduled_key, 'created', created_at, 'kind', kind, 'published', published_at))
           FROM digest_previews;"""))
@@ -166,6 +193,8 @@ def rehearse():
                    'editions_unchanged': len(rows), 'kinds': kinds,
                    'rollback_checkpoints_passed': rollback_checks,
                    'publication_constraint_checks_passed': constraint_checks,
+                   'reader_visibility_checks_passed': True,
+                   'reader_mutations_rejected': reader_mutations,
                    'published': kinds['scheduled'], 'production_schema_changed': False}
         (database.DIRECTORY / 'publication-rehearsal-proof.json').write_text(json.dumps(receipt) + '\n')
         print(json.dumps(receipt))

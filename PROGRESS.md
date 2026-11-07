@@ -22,42 +22,7 @@ Archived: [iterations 1230–1234](docs/progress-archive/2026-11-07-iterations-1
 
 Archived: [iterations 1235–1242](docs/progress-archive/2026-11-07-iterations-1235-1242.md).
 
-## 2026-11-07: iteration 1243 — bounded bookmark storage foundation
-
-- Clean main/no leftover work. Alerts and `/healthz` healthy; all four topics' connected sources healthy (36 total), saved Nov 7 edition readable, next scheduled digest Nov 8 15:00 UTC. No paid calls or publication/sharing changes.
-- STEERING 50 waiting path: extracted the version-1 browser store; existing hidden-topic records remain compatible and topic writes preserve bookmark records. Added bounded display copies (title 300, excerpt 600, attribution 200, URL 2,048, platform 40, edition ID 200 characters), HTTP(S)-only destinations and no credentials/unknown fields.
-- Bookmark writer permits 1,000 distinct identities including removal tombstones, refuses new identities at capacity, and permits existing saves/removals. Per-key timestamps advance despite clock rollback; newest-record merging preserves stale-tab removals. Controls, cross-tab bookmark mutation and `/saved` remain next; no phase completion claimed.
-- Five offline store tests pass: legacy reload, stale merge/removal/re-save, limits/unsafe destinations/field stripping, capacity and prototype-shaped identities. Browser `pnpm exec tsx scripts/smoke-reader-preferences.ts` passes desktop/mobile light/dark, now asserting topic writes preserve an explicit offline bookmark fixture; refreshed screenshots, mobile light inspected. Fixture never rendered or called live.
-- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 2`: 21:16 UTC passive sample, 23 healthy rules, four queries ≤0.194 s, no new evaluator errors/misses or merges. Incident stays open; next probe ≥22:16 UTC.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build` and `git diff --check` pass. Four app services restarted; final alerts clear and database/Redis healthy. Internal store change needs no handbook/schema/source update.
-- Full `pnpm check` exits 0: typecheck/lint/format/boundaries, 572 unit tests and 229 integration tests pass/four expected skips. Browser regression and final formatting also pass. Next: connect bookmark controls and `/saved`; Nov 8 edition review/first-week report and phase-0 publication decisions remain open.
-
-## 2026-11-07: iteration 1244 — story bookmarks and saved-items page
-
-- Clean main/no leftover work. Alerts clear, `/healthz` database/Redis OK, 14 services/36 sources healthy; next digest Nov 8 15:00 UTC. Metrics passive probe not due before 22:16 UTC. Development spend $0; no provider/publication/sharing changes.
-- STEERING 50 waiting path: story Save toggles and `/saved` retain bounded display copies with original/edition links, newest-first ordering and removal tombstones. Cross-tab mutation rereads/merges the browser store; failed writes retain page state with explicit warnings; capacity errors are surfaced. Flag-off build removes controls and the saved route.
-- `pnpm exec tsx scripts/smoke-reader-bookmarks.ts`: actual saved edition, original/edition destinations, save/reload/remove/re-save, cross-tab changes, blocked storage and no horizontal overflow pass desktop/mobile light/dark; GET-only/external requests blocked. Eight screenshots saved; saved mobile light inspected.
-- Initial added mobile-header overflow assertion caught crowding; moved Saved items below the sticky header, rebuilt and all four views pass. Existing `pnpm exec tsx scripts/smoke-reader-preferences.ts` also passes all four views, including old editions, legacy-topic storage, corrupt/blocked storage and bookmark-envelope preservation; eight screenshots refreshed.
-- Updated app handbook; `pnpm exec tsx scripts/check-handbook.ts 01-app/README` passes (18 pages, one unchanged diagram, 28 tables). First handbook call raced API restart/readiness; rerun passes. No schema/source changes.
-- Verification: `pnpm check` passed typecheck/lint/format/boundaries and 572 unit tests, then received SIGTERM during integration without reported failures. Separate `pnpm test:integration` exits 0: 229 pass/four expected skips. `pnpm format`, `pnpm lint:fix`, full `pnpm build`, final web rebuild and `git diff --check` pass. Four app services restarted; final health/alerts/services/sources and `/saved` HTTP checks pass.
-- Next: post bookmark controls and remaining phase-2 acceptance, including a normal scheduled edition; phase-0 publication decisions remain owner-blocked. Nov 8 edition review/first-week report and metrics incident remain open.
-
-## 2026-11-07: iteration 1245 — bookmark social posts
-
-- Clean main/no leftover work. Initial alerts and `/healthz` healthy; 36/36 connected sources healthy, zero source errors, social collection completed; next digest Nov 8 15:00 UTC. Metrics passive probe not due before 22:16 UTC. Development spend $0.
-- STEERING 50 waiting path: Save toggles for X, Bluesky and Reddit use namespaced JSON platform/external-ID tuples and the existing bounded browser store. `/saved` shows platform/author/text with original/edition links and removal controls; story saves remain compatible. No generation, provider, publication, schema or sharing changes.
-- `pnpm exec tsx scripts/smoke-reader-bookmarks.ts` exits 0: all 18 actual Nov 7 posts (15 X/three Bluesky), save/reload/original links/remove/re-save/cross-tab updates pass desktop/mobile light/dark. GET-only with external requests blocked; exercises saved-text/embed-failure view, no live Reddit claim. Eight bookmark/saved screenshots refreshed; saved desktop/mobile light inspected.
-- `pnpm exec tsx scripts/smoke-reader-preferences.ts` exits 0: old-edition topics, reload, cross-tab/tombstones, corrupt/blocked storage and all-hidden recovery pass four views; screenshots refreshed. Updated app handbook; `pnpm exec tsx scripts/check-handbook.ts 01-app/README` passes (18 pages, one unchanged diagram, 28 tables). No source metadata change.
-- Full `pnpm check` exits 0: typecheck/lint/format/boundaries, 572 unit and 229 integration tests pass/four expected skips. `pnpm format`, `pnpm lint:fix`, `pnpm build` and `git diff --check` pass. Four app services restarted; final health database/Redis OK and alerts clear. Commit/push follows verification.
-- Next: remaining phase-2 acceptance (including normal Nov 8 scheduled edition with preferences enabled); phase-0 publication decisions remain owner-blocked. Daily edition/X/Bluesky review and first-week report remain due Nov 8; metrics incident remains open.
-
-## 2026-11-07: iteration 1246 — historical bookmark acceptance
-
-- Clean main/no leftover work. Alerts clear, `/healthz` database/Redis OK, 36/36 sources healthy; next scheduled digest Nov 8 15:00 UTC. Metrics probe not due before 22:16 UTC. Development spend $0.
-- STEERING 50 waiting path: extended bookmark browser acceptance to the actual Nov 6 edition `1c83e78b-47f9-4a6f-bfb4-93820a691aea`. Historical story/post display copies retain original destinations and their historical edition link; reload, cross-tab removal and removal reload verified desktop/mobile light/dark.
-- `pnpm exec tsx scripts/smoke-reader-bookmarks.ts` exits 0 for all four views, including existing Nov 7 18-post coverage, storage warnings and layout checks. GET-only/external requests blocked; refreshed screenshots, inspected saved desktop/mobile light. First smoke attempt used an incorrect article selector; corrected to the actual list-item structure and rerun passed.
-- No product, generation, schema or source changes; handbook/source metadata unchanged. Phase 2 remains open pending a normal scheduled edition with preferences enabled; phase 0 publication decisions remain owner-blocked.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, `git diff --check` pass. `pnpm check` passes typecheck/lint/format/boundaries and all 572 unit tests, then SIGTERM during integration without reported failure; separate `pnpm test:integration` exits 0: 229 pass/four expected skips. Four app services restarted; final health/alerts clear.
+Earlier entries: [iterations 1243–1246](docs/progress-archive/2026-11-07-iterations-1243-1246.md).
 
 ## 2026-11-07: iteration 1247 — saved-item keyboard focus
 
@@ -141,3 +106,14 @@ Archived: [iterations 1235–1242](docs/progress-archive/2026-11-07-iterations-1
 - Four app services restarted/active; final `/healthz` database/Redis OK and `pnpm obs alerts` clear. Read-only source query confirms 36/36 enabled sources healthy/nonempty/recent. All five actual candidate APIs remain readable.
 - Updated TASKS/publication inventory/DATABASE-VERIFICATION. No handbook/source behavior change; full-response comparison supplements the existing browser count/title baseline and does not claim new-model equality.
 - Next: register metadata migration/future writes before noon, then spend pools/test editions and new-model API/browser comparisons. Nov 8 scheduled acceptance/first-week report due; next passive metrics probe ≥23:17 UTC. No blockers.
+
+## 2026-11-07: iteration 1255 — private published-reader query contract
+
+- Clean main/no leftovers; alerts clear, health database/Redis OK. Development spend $0; noon generation cutoff respected, production schema/reader/generation unchanged.
+- Private restore now checks proposed published latest/history/pagination/direct-link reads against the independent original scheduled-key/UTC policy. Newer unpublished manual/test probes stay admin-readable and cannot displace the published reader.
+- Missing-filter and repeated-first-page mutations both fail. Every probe rolls back; full edition fingerprint and immutability rechecks pass. This does not claim application new-model API/browser acceptance.
+- `python3 ops/backups/rehearse_publication.py` passes twice (second run includes mutations); private backup `news-digest-20261107T225024Z`: 28 tables/48,536 rows, 546 unchanged editions, five published candidates/476 manual/65 tests. Scratch storage removed.
+- `python3 -m unittest discover -s ops/backups -p 'test_database.py'`: four pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 575 unit tests, 229 integration passes/four expected skips. Handbook/metadata checker passes.
+- Actual reader complete-response comparison passes for all five saved candidates. Local status reports 36/36 active sources healthy/nonempty/recent. Four app services restarted; final health and alerts clear.
+- Updated TASKS/publication inventory/DATABASE-VERIFICATION; archived progress 1243–1246 to keep the log below 25 KB. No handbook/source behavior change.
+- Next: register metadata migration/future writes before noon, then pools/test editions and new-model API/browser comparison. Nov 8 scheduled acceptance/first-week report due; passive metrics probe ≥23:17 UTC. No blockers.

@@ -120,3 +120,12 @@ pnpm exec tsx scripts/compare-publication-content.ts compare /tmp/publication-in
 An optional final origin targets the flagged app. All five old-model responses
 match; altered-hash and missing-candidate probes fail as required. Keep the
 browser comparison too: API equality alone does not check rendering.
+
+## Private reader contract — iteration 1255
+
+The restored-data rehearsal now checks published latest/history, two-row pages
+through the empty final page, and direct-link visibility against the original
+owner policy. Newer scratch manual/test editions remain available to admin reads
+and absent from the proposed reader. Missing-filter and repeated-page mutations
+are rejected; probes roll back with every saved edition unchanged. This prepares
+the query contract; application off/on API and browser comparison remains due.
