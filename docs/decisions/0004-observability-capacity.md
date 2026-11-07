@@ -95,3 +95,31 @@ passed, with a 203 ms maximum and 37 ms final response. Grafana used 416.7 MiB
 and averaged 0.81% CPU; the stack's five-minute CPU rate was 2.05%. There were
 no OOM events or restarts; reclaim events stopped increasing after the first
 minute, and current memory pressure was zero.
+
+## Nov 7 metrics-store scrape outage (iteration 1191)
+
+At 13:45 UTC, `ScrapeTargetDown{job="metrics-store"}` moved from pending
+to firing (active since 13:42 UTC). The standalone dispatcher recorded the
+firing event at 13:45:44 UTC. This is a new unresolved incident.
+
+- `pnpm obs services --check` timed out; the same direct PromQL query
+  (`news_digest_unit_active or news_digest_unit_snapshot_timestamp_seconds`)
+  returned HTTP 200 in 12.963 seconds. Journal records self-scrape timeouts
+  and alert queries taking 6–9 seconds.
+- The unit remains active; `/metrics/health` returns OK. Its CPU quota is
+  1% and memory limits are 88/112 MiB. Two cgroup samples show 77 additional
+  CPU periods, all 77 throttled, with 80,212 microseconds of CPU consumed.
+  MemoryCurrent reached 92,073,984 bytes against MemoryHigh 92,274,688;
+  memory.events has 7,114 high events and zero OOM/OOM-kill events.
+  Full memory pressure avg60 was 0.79%; CPU starvation is evident, while
+  these samples alone do not isolate the contribution of memory reclaim.
+- Host memory available was 6,852 MiB and load average 0.22. The app's
+  `/healthz` reports database/Redis healthy and the reader returns HTTP 200.
+
+No limits, files under `/etc`, or live services were changed in the
+13:00–16:00 UTC protected window. After 16:00, inspect current CPU/reclaim
+deltas, tune the metrics unit modestly (starting with CPU headroom if it
+still saturates), and verify query latency, self-scrape/alert recovery and
+whole-stack usage against the existing ~800 MiB/<5% CPU budget. Do not
+restart the app or generation worker to repair the metrics store. The Nov 7
+production edition review remains required before the publisher merge.

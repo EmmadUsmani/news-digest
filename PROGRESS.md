@@ -102,3 +102,13 @@ Earlier entries: [iterations 1075–1084](docs/progress-archive/2026-11-07-itera
 - Next: actual Nov 7 15:00 UTC edition review first; publisher merge only after that review is committed and 16:00 UTC. No further experiment reruns or editor changes before review.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 543 unit tests and 226 integration tests pass (four previously passed rehearsals skipped). git diff --check passes. No UI changes, so no new browser screenshots.
 - Restarted API/worker on main artifacts outside protected hours; /healthz DB/Redis OK, alerts clear and saved reader HTTP 200/four topics/20 stories. Publisher branch tip exactly matches origin/publisher-attribution; no branch build or migration deployed.
+
+## 2026-11-07: iteration 1191 — triage metrics-store scrape outage
+
+- Clean main/no leftovers. New breakage outranks pending X/Bluesky acceptance: metrics-store ScrapeTargetDown pending at 13:45, firing by 13:46 (active since 13:42); dispatcher recorded firing at 13:45:44.
+- pnpm obs services --check times out; direct service-status PromQL returns HTTP 200 in 12.963 s. Self-scrape/alert queries time out or take 6–9 s; metrics health still OK.
+- Unit CPUQuota=1%; sampled 77/77 additional periods throttled. MemoryCurrent 92,073,984 vs MemoryHigh 92,274,688 bytes, 7,114 reclaim events, no OOM; full pressure avg60 0.79%. CPU starvation confirmed; reclaim contribution not isolated. Evidence/recovery plan in capacity decision and top TASKS breakage.
+- curl /healthz: DB/Redis OK; reader HTTP 200. pnpm obs sources --check: 36/36 healthy. Authenticated localAdminJson status: digest-generation failed=0, delayed=1, next Nov 7 15:00 UTC. No provider calls or secrets printed.
+- No runtime changes, restart or deployment during protected 13:00–16:00 UTC. Publisher branch remains gated on actual Nov 7 review plus 16:00 UTC. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged; no system behavior/source changes or owner action needed.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 543 unit tests and 226 integration tests pass (four previously passed rehearsals skipped). git diff --check passes. No UI changes/screenshots; docs-only commit keeps live runtime on main.
+- Next: prioritize Nov 7 publication review when saved; after 16:00 diagnose current metrics CPU/reclaim deltas, tune modestly and verify self-scrape/query latency/alert recovery plus ~800 MiB/<5% whole-stack budget before publisher deployment.
