@@ -122,3 +122,12 @@ Earlier entries: [iterations 1062–1069](docs/progress-archive/2026-11-07-itera
 - Updated runtime handbook and screenshot index. pnpm exec tsx scripts/check-handbook.ts 01-stack-and-runtime passes: 18 pages/28 tables, no warnings; no diagram changes.
 - pnpm format and pnpm lint:fix pass; git diff --check clean. Initial full check interrupted (exit 143 during integration); rerun pnpm check passed: 537 unit/226 isolated integration tests, typecheck/lint/format/boundaries green. pnpm build passed with existing bundle warnings.
 - API/worker restarted after build; health/alerts/services/sources remain healthy and latest real edition retains four topics/20 stories/17 posts. No LLM/X spend, source/schema changes or edition writes. Next: owner length decision; item 42 while waiting, scheduled Nov 7 keyword/Bluesky acceptance at 15:00 UTC.
+
+## 2026-11-07: iteration 1080 — separate saved X source links from prose
+
+- Clean main/no leftovers. Alerts clear, /healthz DB/Redis OK, services/sources healthy; scheduled digest queued for 15:00 UTC, zero failed digest jobs. Hourly Bluesky/free-link collection completed; historical failed ingestion/social jobs have subsequent successful runs.
+- Item 42 reader pass: Tech launch repetition remains the largest content weakness; deployed selection fix awaits scheduled evidence. Next actionable weakness: The SI Maximalist/Jason Wang Tech posts and PocketGamer.biz Gaming post join t.co URLs directly to preceding prose.
+- Inline source links now receive visual spacing when the preceding text ends in a letter, number or sentence punctuation. Saved text, destinations, parentheses, screening/editor evidence and immutable editions remain unchanged. No provider calls or writes.
+- Extended existing GET-only saved-edition Playwright replay to assert spacing, exact text/destinations, focus and no overflow on desktop/mobile light/dark. New assertion fails against the previous build (zero margin), then passes after rebuild. Refreshed four reader-x-links screenshots; inspected desktop/mobile output.
+- pnpm format, pnpm lint:fix, git diff --check, full pnpm check and pnpm build passed; 537 unit/226 isolated integration tests. API/worker restarted; health, services, sources and alerts clear. No handbook/system-flow/schema/source changes.
+- Corrected TASKS' stale completed marker claiming desktop inner scrolling. Item 46 full-embed length conflict still awaits owner decision; next production acceptance is Nov 7 15:00 UTC for keyword X/Bluesky. No new prompt changes stacked.

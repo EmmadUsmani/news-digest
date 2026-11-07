@@ -17,7 +17,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - [ ] STEERING 16 / M4 Social posts: Nov 5 X picks Tech/NBA/Gaming/World 3/5/5/1; all four topics present, no Bluesky picks. Saved X metrics empty: viral/outside-list quality acceptance remains open. Paid old open-search picks 1/19 (Tech); no claim that all-topic presence proves paid discovery quality.
 - [ ] STEERING 9/15 first-week report (1077): Nov 6 $0.157475/19 fetched/17 new verified outside-list posts, three cited posts selected (Gaming two/NBA one). NBA empty open search cost $0.012014 before $0.039260 reaction search. Nov 2–6 total $0.610551, zero holds. Daily per-topic report current through Nov 6; continue Nov 7 keyword production reporting. Caps unchanged. [Sources](docs/SOURCES.md#nov-6-daily-production-x-report--iteration-1077).
 - [ ] STEERING 18 Bluesky: authenticated hourly collection and session refresh verified (788); Nov 5 no selected posts. Quality/diversity acceptance remains open; World phrase shortlist empty. Cross-platform context/semantic gates shipped. [Sources](docs/SOURCES.md#sustained-bluesky-session-recovery--iteration-788-2026-11-05).
-- [x] STEERING 33/45 UI rebuild closed (1075): all acceptance gaps finished; [56 route screenshots and eight loaded-post views](docs/screenshots/ui/spec-routes.md). Loaded topics 2.03–2.62 desktop screens in both themes, all 16 X embeds/17 saved posts retained. Desktop posts scroll in a keyboard-accessible area; mobile remains continuous. Label/admin-404/layout checks pass. Private rollout remains authorized; proxy header replacement proof required before public access.
+- [x] STEERING 33/45 UI rebuild closed (1075): all acceptance gaps finished; [56 route screenshots and eight loaded-post views](docs/screenshots/ui/spec-routes.md). All 16 X embeds/17 saved posts retained. Desktop/mobile posts flow with the page (1079); full-embed length conflict remains open above. Label/admin-404/layout checks pass. Private rollout remains authorized; proxy header replacement proof required before public access.
 - [ ] STEERING 28 incremental triage OFF: reserve-safe admission/pools/cutoffs/draining verified. Nov 6 allowance $0.021736–$0.028915; only 2/65 early fingerprints compatible. Keep OFF; waste/latency unmeasured. [Assessment](docs/edition-reviews/2026-11-05-incremental-admission.md).
 
 ## Remaining milestones and lower priorities
@@ -34,6 +34,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - Editorial audit closed under STEERING 5; resume only for actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.
 
 ## Latest verified step
+
+- [x] STEERING 42 (1080): visually separate inline source URLs joined to saved X prose; original text/destinations preserved. Three affected saved Tech/Gaming posts; desktop/mobile light/dark browser verification.
 
 - [x] STEERING 46 (1079) implementation: posts scroll with the page; all-post reachability/layout verified, handbook/eight loaded screenshots updated. Full-embed length acceptance remains open above.
 

@@ -14,7 +14,7 @@ async function main() {
     .find(
       (post) =>
         post.platform === 'x' &&
-        /https?:\/\//.test(post.displayText ?? post.text),
+        /[\p{L}\p{N}.!?…]https?:\/\//u.test(post.displayText ?? post.text),
     );
   assert.ok(saved, 'A real saved X post is required');
   assert.equal(saved.platform, 'x');
@@ -70,6 +70,21 @@ async function main() {
           );
         }
         assert.equal(await text.locator('a a').count(), 0);
+        const parts = savedText.split(/(https?:\/\/[^\s<>]+)/gi);
+        for (let index = 1; index < parts.length; index += 2) {
+          const link = text.getByRole('link', {
+            name: parts[index],
+            exact: true,
+          });
+          const margin = await link.evaluate((node) =>
+            Number.parseFloat(getComputedStyle(node).marginInlineStart),
+          );
+          assert.equal(
+            margin > 0,
+            /[\p{L}\p{N}.!?…]$/u.test(parts[index - 1]),
+            'Source URLs joined to prose receive visual separation only',
+          );
+        }
 
         await original.focus();
         assert.equal(

@@ -1655,6 +1655,8 @@ ack: 2026-11-06 item 42 — iteration 1018: after 16:00 UTC deployed prepared so
 
 ack: 2026-11-06 item 42 — iteration 1019: thin Tech summaries prompted a feed parser fix: absent or blank summaries now fall back to bounded RSS/Atom body text already supplied by the feed. Publisher summaries stay first; no new fetches or paid calls.
 
+ack: 2026-11-07 item 42 — iteration 1080: reader pass found source URLs joined to words in three saved Tech/Gaming X posts. Added visual link spacing while preserving saved text and destinations; desktop/mobile light/dark verified. Tech repetition still awaits the deployed selection change at scheduled publication; no spend.
+
 ## 43. NOW: put X search and the UI rebuild first, stop scoping new features (2026-11-06)
 
 **Why:** in the 12 hours to 16:35 UTC on Nov 6, 88 commits landed. About a dozen

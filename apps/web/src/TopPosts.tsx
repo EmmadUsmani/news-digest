@@ -368,7 +368,8 @@ function RedditPost({ post }: { post: SelectedRedditPost }) {
 }
 
 function LinkedPostText({ text, postUrl }: { text: string; postUrl: string }) {
-  return text.split(/(https?:\/\/[^\s<>]+)/gi).map((part, index) => {
+  const parts = text.split(/(https?:\/\/[^\s<>]+)/gi);
+  return parts.map((part, index) => {
     if (!/^https?:\/\//i.test(part))
       return part ? (
         <a key={index} href={postUrl} target="_blank" rel="noreferrer">
@@ -409,7 +410,9 @@ function LinkedPostText({ text, postUrl }: { text: string; postUrl: string }) {
           href={url}
           target="_blank"
           rel="noreferrer"
-          className="underline underline-offset-2"
+          // Some official paragraphs place an anchor directly after a word.
+          // Separate its destination visually without changing the saved text.
+          className={`underline underline-offset-2 ${/[\p{L}\p{N}.!?…]$/u.test(parts[index - 1] ?? '') ? 'ms-1' : ''}`}
         >
           {url}
         </a>
