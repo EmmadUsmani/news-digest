@@ -1686,6 +1686,8 @@ ack: 2026-11-07 item 42 — iteration 1235: X saved-text controls identify autho
 
 ack: 2026-11-07 item 42 — iteration 1238: failed X media controls repeated identical names across saved cards. Retry and original-post accessible names now identify author and exact publication time; all 15 saved posts and keyboard recovery pass desktop/mobile light/dark. No paid calls or generation changes.
 
+ack: 2026-11-07 item 42/43 — iteration 1239: Bluesky media links identify their image/video action and saved author/time while retaining supplied descriptions; keyboard destinations and image recovery verified on desktop/mobile light/dark. No spend or generation changes.
+
 ## 43. NOW: put X search and the UI rebuild first, stop scoping new features (2026-11-06)
 
 **Why:** in the 12 hours to 16:35 UTC on Nov 6, 88 commits landed. About a dozen

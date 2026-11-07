@@ -43,6 +43,8 @@ async function main() {
           const page = await browser.newPage({
             viewport: { width, height },
             colorScheme: theme,
+            locale: 'en-US',
+            timezoneId: 'UTC',
           });
           const requests: string[] = [];
           const errors: string[] = [];
@@ -50,7 +52,7 @@ async function main() {
           await page.route('**/*', (route) => {
             const url = new URL(route.request().url());
             assert.equal(route.request().method(), 'GET');
-            if (url.hostname === 'cdn.bsky.app') {
+            if (url.href === thumbnail || url.href === fullsize) {
               requests.push(url.href);
               if (
                 variant === 'failed' ||
@@ -111,6 +113,11 @@ async function main() {
           );
           const link = media.locator('a');
           assert.equal(await link.getAttribute('href'), fullsize);
+          const identity = `from ${post.author}, ${new Date(post.publishedAt).toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'long', timeZone: 'UTC' })}`;
+          assert.equal(
+            await link.getAttribute('aria-label'),
+            `Open image 1 ${identity} — Synthetic recovery image`,
+          );
           await link.focus();
           assert.ok(
             await link.evaluate((node) => node === document.activeElement),

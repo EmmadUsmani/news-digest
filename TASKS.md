@@ -47,6 +47,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] STEERING 42 (1239): Bluesky media links name the action, image position, saved author/time and supplied description; loaded/recovered/failed image and video browser checks cover desktop/mobile light/dark.
+
 - [x] STEERING 42 (1238): failed X media retry/original controls identify the saved author and exact publication time; all 15 saved posts checked in desktop/mobile light/dark, with keyboard recovery and unchanged destinations.
 
 - [x] STEERING 42 (1237): keyboard retry after a failed X media replacement keeps focus on the saved-transcript control through recovery; actual saved-post reproduction and desktop/mobile light/dark checks pass with local media stub.

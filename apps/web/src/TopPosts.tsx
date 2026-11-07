@@ -485,6 +485,7 @@ function BlueskyImage({
 }
 
 function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
+  const postIdentity = `from ${post.author}, ${new Date(post.publishedAt).toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'long' })}`;
   return (
     <Card
       as="article"
@@ -525,6 +526,7 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
             key={index}
             className="relative block"
             href={media.type === 'image' ? media.fullsize : post.url}
+            aria-label={`${media.type === 'image' ? `Open image ${index + 1}` : 'Watch video on Bluesky'} ${postIdentity}${media.alt ? ` — ${media.alt}` : ''}`}
             target="_blank"
             rel="noreferrer"
           >

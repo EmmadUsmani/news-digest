@@ -116,3 +116,14 @@ Earlier entries: [iterations 1223–1229](docs/progress-archive/2026-11-07-itera
 - `pnpm build`, `pnpm format`, `pnpm lint:fix` and `git diff --check` pass. API restarted after the completed build; database/Redis health and final alerts/services/sources checks pass.
 - Full `pnpm check` exits 0: typecheck/lint/format/boundaries, 563 unit tests and 229 integration tests pass; four expected integration skips.
 - Next: Nov 8 scheduled X/Bluesky/content/cost/speed acceptance and first-week report. Metrics recovery stays open; next passive check ≥21:15 UTC.
+
+## 2026-11-07: iteration 1239 — identify Bluesky media actions
+
+- STEERING 42/43 reader weakness: Bluesky image links exposed only their supplied image description (or generic fallback), without naming the open-image action or saved post. Media links now name image position/video action, saved author and exact publication time, preserving supplied descriptions and destinations.
+- Clean main/no leftover work. Initial alerts clear; 14 services/36 sources healthy, latest social collection completed with ten verified posts; scheduled acceptance waits for Nov 8 15:00 UTC. No paid calls, generation changes or hourly metrics probe before its due time.
+- `pnpm exec tsx scripts/smoke-reader-bluesky-image-recovery.ts`: 16 loaded/recovered/failed/same-URL image cases pass with link identity, keyboard focus and destinations on desktop/mobile light/dark. First run exposed unrelated lazy-image requests in the harness; restricted recovery request accounting to the injected URLs.
+- `pnpm exec tsx scripts/smoke-reader-bluesky-video.ts`: 12 loaded/failed/missing-preview cases pass with action/author/description labels. Both replays use saved post text plus explicitly synthetic media, GET-only/external blocked; eight screenshots refreshed, mobile light/desktop dark inspected.
+- `pnpm build` passes; rebuilt API restarted, `/healthz` database/Redis OK. No handbook system-flow change.
+- Verification: `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass (563 unit/229 integration tests; four expected skips).
+- Final bulk formatting command exited 143 after listing all files; targeted formatting of all changed text files passes, with standalone `pnpm lint:fix` rerun. Initial full formatting/lint pass remains valid.
+- Next: Nov 8 scheduled X/Bluesky/content/cost/speed acceptance and first-week report; metrics recovery stays open, next passive check ≥21:15 UTC.

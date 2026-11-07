@@ -70,6 +70,13 @@ async function main() {
           );
           const videoLink = grid.locator('a').first();
           assert.equal(await videoLink.getAttribute('href'), post.url);
+          const mediaName = await videoLink.getAttribute('aria-label');
+          assert.ok(
+            mediaName?.startsWith(
+              `Watch video on Bluesky from ${post.author}, `,
+            ),
+          );
+          assert.ok(mediaName?.endsWith(' — Synthetic layout image 1'));
           assert.equal(await videoLink.getAttribute('target'), '_blank');
           await videoLink.getByText('Watch video on Bluesky ↗').waitFor();
           const play = videoLink.locator('[aria-hidden="true"]');
