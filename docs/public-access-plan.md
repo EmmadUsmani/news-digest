@@ -1,8 +1,7 @@
 # Public access and reader accounts: plan
 
-> [!IMPORTANT]
-> **DRAFT for owner review (2026-11-07). Not steered.** The build agent must not
-> act on this file until a STEERING item points to it.
+> [!NOTE]
+> Approved by the owner on 2026-11-07 and steered as STEERING item 50.
 
 ## Goal
 
