@@ -128,3 +128,14 @@ Earlier entries: [iterations 1243–1246](docs/progress-archive/2026-11-07-itera
 - Four app services restarted/active; post-restart `/healthz` database/Redis OK, alerts clear and all five reader fingerprints still match. Updated TASKS; no handbook/source behavior change. No owner-controlled files edited.
 - Initial push rejected (remote owner documentation commit); fetched and merged `d94c760e` without rewriting history. No application changes in the remote commit.
 - Next: register metadata migration and wire future saves in the permitted window, then pools/test editions and new-model API/browser comparison. Nov 8 scheduled acceptance/first-week report remain due; passive metrics probe no earlier than 23:17 UTC.
+
+## 2026-11-07: iteration 1257 — rehearse future publication saves privately
+
+- Clean main/no leftovers; alerts clear, health database/Redis OK. Generation cutoff respected; production schema/writer/reader unchanged, development spend $0.
+- Private restore now runs eight synthetic inputs through the prepared TypeScript publication policy, persists candidate metadata in a non-UTC session and checks an independent intent/time oracle. Covers cutoff independence, offset dates, manual/test privacy and legacy integration keys.
+- Duplicate scheduled-key inserts reject; forced-manual and missing-publication-time mutations fail. All probes roll back; full saved-edition fingerprint and immutability guards rechecked. This verifies candidate SQL, not runtime writer wiring.
+- `python3 ops/backups/rehearse_publication.py` passes twice; final backup `news-digest-20261107T230804Z`: 28 tables/48,739 rows, 546 unchanged editions, five published candidates/476 manual/65 tests. Scratch containers removed.
+- Five targeted publication tests, four backup unit tests and Python compilation pass. Complete reader fingerprint comparison passes for all five actual Nov 3–7 editions; read-only status confirms 36/36 enabled sources healthy/nonempty/recent.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 578 unit tests, 229 integration passes/four expected skips; typecheck/lint/format/boundaries green.
+- Four app services restarted/active; post-restart health database/Redis OK, alerts clear and all five reader fingerprints still match. Updated TASKS/DATABASE-VERIFICATION; no handbook/source behavior change.
+- Next: register metadata migration/future writes in the permitted window, then pools/test editions and new-model API/browser comparison; Nov 8 15:00 UTC acceptance/first-week report due. Passive metrics probe remains due no earlier than 23:17 UTC.

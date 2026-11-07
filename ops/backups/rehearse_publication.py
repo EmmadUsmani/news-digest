@@ -130,6 +130,47 @@ def verify_reader_visibility(container):
     return len(mutations)
 
 
+def verify_future_writes(container):
+    root = Path(__file__).resolve().parents[2]
+    generated = subprocess.run(['pnpm', 'exec', 'tsx', 'scripts/publication-write-probes.ts'],
+                               cwd=root, text=True, stdout=subprocess.PIPE,
+                               stderr=subprocess.PIPE, timeout=30)
+    if generated.returncode:
+        raise RuntimeError('Future publication policy probe generation failed')
+    probes = json.loads(generated.stdout)
+    if len(probes) != 8:
+        raise RuntimeError('Future publication probes missing')
+    # Hex encoding keeps probe values out of SQL syntax and server diagnostics.
+    expression = "convert_from(decode('" + json.dumps(probes).encode().hex() + "', 'hex'), 'UTF8')::jsonb"
+    checks = Path(__file__).with_name('publication_write_checks.sql').read_text()
+    if checks.count('PROBE_JSON') != 1:
+        raise RuntimeError('Future publication placeholder missing or ambiguous')
+    checks = checks.replace('PROBE_JSON', expression)
+    fingerprint = "SELECT md5(string_agg(to_jsonb(d)::text, '' ORDER BY id)) FROM digest_previews d;"
+    original = query(container, fingerprint)
+    query(container, checks)
+    # Verify the oracle catches default/manual wiring and lost publication time.
+    mutations = [
+        checks.replace("candidate.kind := probe->>'kind';", "candidate.kind := 'manual';"),
+        checks.replace("candidate.published_at := (probe->>'publishedAt')::timestamptz;",
+                       "candidate.published_at := NULL;"),
+    ]
+    for mutation in mutations:
+        if mutation == checks:
+            raise RuntimeError('Future write mutation checkpoint missing')
+        try:
+            query(container, mutation)
+        except RuntimeError as error:
+            if 'P0001' not in str(error):
+                raise
+        else:
+            raise RuntimeError('Broken future publication write passed rehearsal')
+    if query(container, fingerprint) != original:
+        raise RuntimeError('Future publication probes changed saved editions')
+    verify_immutable(container)
+    return len(probes)
+
+
 def rehearse():
     database.backup()
     manifest_path = sorted(database.DIRECTORY.glob('news-digest-*.json'))[-1]
@@ -174,6 +215,7 @@ def rehearse():
         verify_immutable(container)
         constraint_checks = verify_publication_constraints(container)
         reader_mutations = verify_reader_visibility(container)
+        future_write_checks = verify_future_writes(container)
         rows = json.loads(query(container, """SELECT json_agg(json_build_object(
           'key', scheduled_key, 'created', created_at, 'kind', kind, 'published', published_at))
           FROM digest_previews;"""))
@@ -195,6 +237,8 @@ def rehearse():
                    'publication_constraint_checks_passed': constraint_checks,
                    'reader_visibility_checks_passed': True,
                    'reader_mutations_rejected': reader_mutations,
+                   'future_write_checks_passed': future_write_checks,
+                   'future_write_mutations_rejected': 2,
                    'published': kinds['scheduled'], 'production_schema_changed': False}
         (database.DIRECTORY / 'publication-rehearsal-proof.json').write_text(json.dumps(receipt) + '\n')
         print(json.dumps(receipt))

@@ -727,3 +727,16 @@ reads retain both. Two mutations (removed visibility filter and repeated first
 page) must fail. All probes roll back, the complete edition fingerprint remains
 unchanged and immutability is checked again. These are candidate SQL semantics,
 not verification of the future application's reader implementation.
+
+### Future-save persistence rehearsal (iteration 1257)
+
+The private restore generates eight synthetic inputs with the actual prepared
+`newEditionPublication` policy via `scripts/publication-write-probes.ts`.
+`ops/backups/publication_write_checks.sql` inserts their metadata in a non-UTC
+session and compares persisted kind/time against an independent intent-based
+oracle. Cases cover scheduled saves before the historical cutoff, future and
+offset timestamps, private manual/test saves, explicit test intent with a
+scheduled key, and legacy integration keys. Duplicate scheduled keys reject.
+Mutations that write every kind as manual or omit the publication time must fail. All probes roll back;
+the full edition fingerprint and immutable trigger remain unchanged. These
+checks exercise candidate persistence SQL, not the unwired runtime repository.
