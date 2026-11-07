@@ -1,17 +1,21 @@
 # Edition quality
 
-**Status:** improving. Nov 6 was the second fully AI-edited edition.
+**Status:** mixed. Nov 7 held five stories per topic, but NBA story editing
+failed validation four times and fell back to non-AI ranking.
 
 **Latest:**
 
-- Nov 6: $0.287, 137 seconds, World up from 2 to 5 distinct stories. No budget
-  refusals. Review: [docs/edition-reviews/2026-11-06.md](../../edition-reviews/2026-11-06.md).
-- Remaining weakness: repeated Tech posts.
+- Nov 7: $0.380 of the $0.510 cap, 181 seconds, no budget refusals. NBA got a
+  routine debut story and a dated game preview. Review:
+  [docs/edition-reviews/2026-11-07.md](../../edition-reviews/2026-11-07.md).
+- Fixes for the NBA failure (repair hints, preview exclusion, excerpt cutoff)
+  are built but not deployed: they wait behind the metrics-recovery gate
+  (see observability.md).
 
 **Next:**
 
-- Check Nov 7 holds World breadth and cost. The daily cap is tight (about $0.50).
-- Check editor v5 kept separate developments out of one story.
+- Check the queued fixes are deployed before the protected window ahead of the Nov 8 15:00 UTC edition.
+- Nov 8: does NBA story editing stay AI-edited? Cost against the cap.
 - Item 42: while other items wait, the agent reads the edition as a reader and
   fixes the biggest weakness. Check its PROGRESS.md entries.
 

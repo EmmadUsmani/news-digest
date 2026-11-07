@@ -1,7 +1,8 @@
 # Bluesky in editions
 
-**Status:** items 40 and 41 are done and deployed. The Nov 6 edition has one
-Bluesky pick (World), distinct from the X posts. One unsupported pick was dropped.
+**Status:** reserved slot edition 1 (Nov 7): NBA, Gaming and World one pick
+each; Tech none after two unsupported-claim drops. Cost $0.062. A fix for
+inert shortened links is built, waiting for deployment.
 
 **What we know:**
 
@@ -18,5 +19,4 @@ about $0.00006 (STEERING item 40 update). Cap unchanged.
 **Next:**
 
 - Review the first scheduled picks over a few days: distinct from X, worth reading?
-- Check the first edition after switch-on: per-topic outcomes, and cost against the cap.
 - If three clean editions give no picks, item 40 says stop and report.
