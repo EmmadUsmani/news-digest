@@ -132,3 +132,15 @@ Earlier entries: [iterations 1191–1199](docs/progress-archive/2026-11-07-itera
 - Capacity spot sample (60.052 s): 1.165% stack CPU/746.43 MiB peak, zero metrics memory-high/OOM events; all 23 alert rules healthy. No comparable compaction; this does not close recovery.
 - pnpm check passes: 551 unit/228 integration tests, four expected skips; pnpm build, pnpm format, pnpm lint:fix and git diff --check pass. Bug fix needs no handbook/screenshot/schema/SOURCES/NEEDS_FROM_HUMAN changes; edition review and TASKS updated.
 - No paid calls, runtime/config/data changes or restarts; retained isolated metrics trial deliberately. Next: comparable natural compaction, then queued deployment and Nov 8 scheduled acceptance.
+
+## 2026-11-07: iteration 1212 — actionable schema repair without rejected data
+
+- Owner value: the editor now receives specific safe correction guidance after a schema failure, helping avoid the excerpt-only NBA fallback observed today.
+- Clean main/no leftovers; alerts clear, 14 services/36 sources and scheduled digest queue healthy; /healthz database/Redis OK. All 23 alert rules have no errors.
+- Added fixed repair hints for type, upper/lower bounds, extra keys and allowed-value failures. No paths, values, messages or model output enter hints; unknown/custom categories add none.
+- Existing factual-support validation, call limits, model/provider configuration and budget admission unchanged. No extra calls or historical rewrites; runtime deployment remains queued behind metrics recovery.
+- Offline targeted editor/LLM tests pass 51/51: oversized story recovery, mixed-schema request/log privacy, duplicate hints and unknown categories. Historical NBA schema defect remains unknown; production improvement awaits scheduled acceptance.
+- Read-only 30.037 s capacity sample: 1.276% stack CPU/747.77 MiB peak, zero memory-high/OOM; metrics admission/timeouts/slow queries zero. Small merged rows 1,629,016, large zero; no comparable compaction, recovery still open.
+- Verification: pnpm check passes (552 unit/228 integration, four expected skips); pnpm build, pnpm format, pnpm lint:fix and git diff --check pass.
+- Edition review/TASKS updated; internal repair fix needs no handbook/schema/SOURCES/NEEDS_FROM_HUMAN or screenshot changes. No paid calls, runtime changes or restarts.
+- Next: natural comparable compaction, then queued deployment; Nov 8 second scheduled acceptance.

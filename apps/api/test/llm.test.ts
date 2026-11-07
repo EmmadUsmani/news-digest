@@ -14,7 +14,10 @@ import { llmConfig } from '../src/modules/curation/adapters/config';
 import { assertAbsenceSupport } from '../src/modules/curation/application/absence-support';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import { llmFingerprint } from '../src/modules/curation/application/llm-fingerprint';
-import { LlmValidationFailure } from '../src/modules/curation/application/validation-failure';
+import {
+  LlmValidationFailure,
+  schemaRepairFeedback,
+} from '../src/modules/curation/application/validation-failure';
 import {
   budgetAllowance,
   costMicros,
@@ -1096,7 +1099,18 @@ void test('schema diagnostics identify fixed issue categories without rejected v
     [],
   );
   const ledger = new MemoryLedger();
-  const llm = new BudgetedLlm(fake(['{}', '{}']).llm, ledger, log);
+  const requests: LlmRequest[] = [];
+  const provider = fake(['{}', '{}']);
+  const llm = new BudgetedLlm(
+    {
+      async complete(input) {
+        requests.push(input);
+        return provider.llm.complete(input);
+      },
+    },
+    ledger,
+    log,
+  );
   const schema = z
     .object({
       privateField: z.string(),
@@ -1138,6 +1152,13 @@ void test('schema diagnostics identify fixed issue categories without rejected v
   llm.validationDiagnostics()[0].schemaIssues!.push('mutated');
   assert.deepEqual(llm.validationDiagnostics(), expected);
   assert.equal(ledger.calls.length, 2, 'diagnostics must not add calls');
+  const repair = requests[1].prompt.slice(requests[0].prompt.length);
+  assert.match(repair, /Use the requested JSON types/);
+  assert.match(repair, /Respect the stated maximum/);
+  assert.match(repair, /Remove extra keys/);
+  assert.match(repair, /Use only the allowed values/);
+  assert.match(repair, /preserving all factual-support rules/);
+  assert.ok(!JSON.stringify(requests).includes('private'));
 });
 
 void test('schema diagnostic categories exclude custom issue text and unknown runtime codes', async () => {
@@ -1169,4 +1190,19 @@ void test('schema diagnostic categories exclude custom issue text and unknown ru
       schemaIssues: ['custom', 'unknown'],
     },
   ]);
+});
+
+void test('schema repair hints are closed, deduplicated and bounded', () => {
+  assert.equal(
+    schemaRepairFeedback([{ code: 'custom' }, { code: 'private-code' }]),
+    '',
+  );
+  const hint = schemaRepairFeedback([
+    { code: 'too_small' },
+    { code: 'too_small' },
+    { code: 'private-code' },
+  ]);
+  assert.match(hint, /Meet the stated minimum values/);
+  assert.equal(hint.split('Meet the stated minimum values').length, 2);
+  assert.ok(!hint.includes('private'));
 });

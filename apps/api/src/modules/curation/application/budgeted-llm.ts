@@ -12,6 +12,7 @@ import { llmFingerprint } from './llm-fingerprint';
 import {
   LlmValidationFailure,
   schemaIssueCategories,
+  schemaRepairFeedback,
   type ValidationDiagnostic,
 } from './validation-failure';
 
@@ -272,7 +273,12 @@ export class BudgetedLlm {
         // Only application-owned feedback is sent: never raw provider output,
         // schema errors, source text or exception messages.
         this.recordFailure(request, error, attempt ? 'repair' : 'initial');
-        feedback = error instanceof LlmValidationFailure ? error.feedback : '';
+        feedback =
+          error instanceof LlmValidationFailure
+            ? error.feedback
+            : error instanceof ZodError
+              ? schemaRepairFeedback(error.issues)
+              : '';
         continue;
       }
       await this.ledger.cache(key, parsed);

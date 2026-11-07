@@ -285,6 +285,7 @@ void test('editor advertises enforced text bounds and repairs overlong fields wi
     const h = harness([invalid, valid]);
     assert.ok(await h.editor.edit(topic, candidates, 1, 'length-repair'));
     assert.equal(h.calls.length, 2);
+    assert.match(h.calls[1].prompt, /Respect the stated maximum/);
     assert.deepEqual(h.diagnostics(), [
       {
         attempt: 'initial',

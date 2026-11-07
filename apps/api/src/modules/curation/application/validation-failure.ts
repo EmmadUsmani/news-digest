@@ -81,6 +81,40 @@ export function schemaIssueCategories(
   ].sort();
 }
 
+// Closed hints describe the correction without exposing schema paths or values.
+const schemaRepairHints = new Map<string, string>([
+  [
+    'invalid_type',
+    'Use the requested JSON types for every field; include every required field.',
+  ],
+  ['too_big', 'Respect the stated maximum values and string or array lengths.'],
+  [
+    'too_small',
+    'Meet the stated minimum values and required string or array lengths.',
+  ],
+  [
+    'unrecognized_keys',
+    'Remove extra keys; use exactly the requested properties.',
+  ],
+  [
+    'invalid_value',
+    'Use only the allowed values specified in the requested schema.',
+  ],
+]);
+
+export function schemaRepairFeedback(
+  issues: readonly { code: string }[],
+): string {
+  const hints = schemaIssueCategories(issues)
+    .map((code) => schemaRepairHints.get(code))
+    .filter((hint): hint is string => hint !== undefined);
+  return hints.length
+    ? '\nThe previous response failed schema validation. ' +
+        hints.join(' ') +
+        ' Return the complete corrected JSON while preserving all factual-support rules.'
+    : '';
+}
+
 export type ValidationDiagnostic = {
   field?: ValidationField;
   absenceMarker?: AbsenceMarker;
