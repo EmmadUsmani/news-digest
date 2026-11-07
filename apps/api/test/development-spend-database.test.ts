@@ -124,6 +124,49 @@ void test('candidate development ledger serializes lifetime holds and preserves 
     assert.equal(releasedStatus.chargedMicros, 250_000);
     assert.equal(releasedStatus.heldMicros, 2_250_000);
     assert.equal(releasedStatus.unresolvedCount, 2);
+    // Duplicate callers share one hold; settlement retries cannot double-charge it.
+    const concurrent = id();
+    const duplicates = await Promise.all(
+      Array.from({ length: 6 }, () =>
+        repository.reserve(concurrent, 'anthropic', 100_000),
+      ),
+    );
+    assert.equal(
+      duplicates.filter((result) => result.admitted && !result.replay).length,
+      1,
+    );
+    assert.equal(
+      duplicates.filter((result) => result.admitted && result.replay).length,
+      5,
+    );
+    await Promise.all(
+      Array.from({ length: 6 }, () => repository.settle(concurrent, 50_000)),
+    );
+    const afterRetries = await repository.status('anthropic');
+    assert.equal(afterRetries.chargedMicros, 300_000);
+    assert.equal(afterRetries.heldMicros, releasedStatus.heldMicros);
+    assert.equal(afterRetries.unresolvedCount, releasedStatus.unresolvedCount);
+    // Competing confirmed amounts have exactly one winner; the loser rolls back.
+    const disputed = id();
+    assert.equal(
+      (await repository.reserve(disputed, 'anthropic', 100_000)).admitted,
+      true,
+    );
+    const settlements = await Promise.allSettled([
+      repository.settle(disputed, 20_000),
+      repository.settle(disputed, 30_000),
+    ]);
+    assert.equal(settlements.filter((r) => r.status === 'fulfilled').length, 1);
+    const failure = settlements.find((r) => r.status === 'rejected');
+    assert.ok(failure && failure.status === 'rejected');
+    assert.match(String(failure.reason), /Conflicting development settlement/);
+    const winner = settlements[0].status === 'fulfilled' ? 20_000 : 30_000;
+    const afterConflict = await repository.status('anthropic');
+    assert.equal(afterConflict.chargedMicros, 300_000 + winner);
+    assert.equal(afterConflict.heldMicros, releasedStatus.heldMicros);
+    assert.equal(afterConflict.unresolvedCount, releasedStatus.unresolvedCount);
+    await repository.settle(disputed, winner);
+    assert.deepEqual(await repository.status('anthropic'), afterConflict);
     // A lowered/disabled pool is respected; release requires explicit confirmed zero cost.
     await db.query(
       "UPDATE development_spend_pools SET cap_micros = 0 WHERE provider = 'anthropic'",

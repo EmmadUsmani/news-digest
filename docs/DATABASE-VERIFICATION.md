@@ -765,3 +765,9 @@ framework-free domain contract for reservation, status and confirmed settlement.
 The adapter implements it explicitly; the reservation union distinguishes
 denial, first admission and replay so callers can avoid duplicate provider calls.
 No runtime wiring or database behavior changes.
+
+Iteration 1263 adds concurrent duplicate reservation and settlement coverage.
+Six callers produce one new hold and five replays; six identical settlements
+record one charge. Competing confirmed amounts produce one winner and one
+conflict, retaining the winning charge and unrelated unresolved holds; replay
+of that winner leaves status unchanged. All checks use disposable Postgres.

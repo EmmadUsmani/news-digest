@@ -189,3 +189,13 @@ Earlier entries: [iterations 1243–1246](docs/progress-archive/2026-11-07-itera
 - Complete saved-reader comparison: all five Nov 3–7 responses match committed fingerprints. Read-only admin source snapshot: 36/36 enabled sources error-free/nonempty/successful within two hours.
 - Updated TASKS and DATABASE-VERIFICATION; no source, handbook or schema behavior change. Four app services restarted/active; post-restart health and alerts clear and five saved-reader fingerprints match.
 - Next: register metadata/future writes and pool migration/runtime wiring after midnight UTC, then actual saved-reader off/on comparison. Nov 8 15:00 UTC acceptance/first-week report due; passive metrics probe no earlier than 00:17 UTC.
+
+## 2026-11-07: iteration 1263 — verify concurrent development-ledger retries
+
+- Clean main/no leftovers; initial alerts clear and health database/Redis OK. No live schema/runtime wiring/reader switch or provider calls.
+- Disposable Postgres now verifies six duplicate callers create one reservation and five replays; six identical settlements record exactly one confirmed charge.
+- Competing confirmed amounts yield exactly one winner and one conflict; winning-charge replay leaves status unchanged and unrelated uncertain holds remain intact. Candidate adapter stays unwired.
+- `pnpm check` passes: 582 unit tests, 231 integration passes/four expected skips; typecheck/lint/format/boundaries green.
+- Complete saved-reader comparison verifies all five Nov 3–7 responses; read-only source snapshot has 36/36 error-free/nonempty/successful within two hours.
+- Updated TASKS and DATABASE-VERIFICATION. Next: register phase-0 publication metadata/future writes and development-pool migration/runtime wiring in the permitted window, then actual saved-reader off/on comparison. Nov 8 15:00 UTC acceptance/first-week report remains due.
+- `pnpm build`, `pnpm format`, `pnpm lint:fix` and `git diff --check` pass. Four app services restarted/active; post-restart health database/Redis OK, alerts clear and all five full saved-reader fingerprints match. No source, public behavior or authoritative schema changes.
