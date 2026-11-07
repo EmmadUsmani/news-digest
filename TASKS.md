@@ -4,6 +4,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
+- [ ] STEERING 50: public access and reader accounts now rank second, below breakages/daily edition review. Start phase 0 of [owner plan](docs/public-access-plan.md); if awaiting owner publication decisions, proceed with phase 2. Keep VM private; phases 5–7 owner-gated.
+
 - [x] Reader deep-link drift (1234): opening anchors stay at 96/144 px through font/lazy-card resizing; reader input releases alignment. Four saved-edition device/theme views pass.
 
 - [x] STEERING 49 (1230): deployed queued main revision `96457a35` at 19:20 UTC after private backup; publisher migration `0008` applied, four app services restarted, health/services/sources/jobs and saved-reader desktop/mobile Playwright pass. Metrics trial unchanged; passive checks at most hourly.

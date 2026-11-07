@@ -127,3 +127,4 @@ Earlier entries: [iterations 1223–1229](docs/progress-archive/2026-11-07-itera
 - Verification: `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass (563 unit/229 integration tests; four expected skips).
 - Final bulk formatting command exited 143 after listing all files; targeted formatting of all changed text files passes, with standalone `pnpm lint:fix` rerun. Initial full formatting/lint pass remains valid.
 - Next: Nov 8 scheduled X/Bluesky/content/cost/speed acceptance and first-week report; metrics recovery stays open, next passive check ≥21:15 UTC.
+- Initial push rejected by three newer owner commits; merged cleanly without history rewrite. STEERING 50 now prioritizes public access: next iteration starts phase 0 (phase 2 if owner publication decisions block it); daily edition reviews remain required. Remote changes are steering/planning only; verified app remains unchanged.
