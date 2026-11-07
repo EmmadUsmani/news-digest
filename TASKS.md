@@ -43,6 +43,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] STEERING 42 (1221), prepared: recover full official Bluesky link targets from UTF-8 facets into display text while preserving original text; future saved selections retain clickable survey/article links. Two real Nov 7 records, adapter/selection/storage checks and eight browser views verified; historical editions unchanged, deployment gated by metrics recovery.
+
 - [x] STEERING 42 (1219), prepared: editor exhaustion now retains complete triage importance order and validated groups instead of reverting to recency. Saved NBA preview scored below the shortlist threshold; unedited excerpt fallback, incomplete-triage isolation and valid-empty behavior verified offline. Deployment remains gated by metrics recovery.
 
 - [x] STEERING 42 (1218), prepared: exclude dated “Game Preview: Knicks at Cavaliers, November 7, 2026” headline format missed by the existing matchup-preview rule. Observed headline and substantive-report/game-preview counterexamples verified through fallback ranking and AI shortlisting; deployment queued behind metrics recovery.

@@ -74,9 +74,9 @@ counts and media stay unknown; a link supplies no evidence of media contents.
 
 ## Verification and safety
 
-- **Official only:** X posts are confirmed with X's public **oEmbed**
-  endpoint and rendered with X's official embed. Bluesky uses the official
-  API. The app never scrapes either site.
+- **Official only:** X uses official oEmbed and embeds; Bluesky uses its API.
+  Original Bluesky text is saved; display text expands official link targets.
+  Neither site is scraped.
 - **Engagement numbers are hints, not facts.** xAI's counts are stored as
   "reported by xAI", and Bluesky's as timestamped API counts. The editor
   sees them, but relevance and distinct content come first.

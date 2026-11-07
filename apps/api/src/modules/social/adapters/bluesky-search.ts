@@ -4,6 +4,7 @@ import { measuredFetch } from '../../../libs/observability/external-metrics';
 import { logger } from '../../../libs/observability/logging';
 import type { BlueskyPost, BlueskySearchPort } from '../domain/bluesky';
 import { blueskyMedia } from './bluesky-media';
+import { blueskyDisplayText } from './bluesky-text';
 
 const sessionSchema = z.object({
   accessJwt: z.string().min(1),
@@ -22,6 +23,7 @@ const postSchema = z.object({
   author: z.object({ did: z.string(), handle: z.string().min(1) }),
   record: z.object({
     text: z.string().max(30000),
+    facets: z.unknown().optional(),
     createdAt: z.string().datetime(),
   }),
   embed: z.unknown().optional(),
@@ -285,6 +287,7 @@ export class BlueskySearch implements BlueskySearchPort {
           url: `https://bsky.app/profile/${encodeURIComponent(p.author.did)}/post/${key}`,
           author: p.author.handle,
           text: p.record.text,
+          displayText: blueskyDisplayText(p.record.text, p.record.facets),
           publishedAt: time.toISOString(),
           observedAt: new Date(this.now()).toISOString(),
           media: blueskyMedia(p.embed),

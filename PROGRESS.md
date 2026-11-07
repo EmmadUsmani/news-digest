@@ -156,3 +156,15 @@ Earlier entries: [iterations 1200–1207](docs/progress-archive/2026-11-07-itera
 - Verification: read-only authenticated immutable-edition GET, adapter inspection and documentation target checks pass. pnpm check passes (555 unit/229 integration, four expected skips); pnpm build, pnpm format, pnpm lint:fix and git diff --check pass.
 - Deployment/restart deferred to preserve the unchanged metrics trial and existing recovery gate; this step changes documentation only.
 - Next: natural compaction evidence, queued deployment, Nov 8 second-of-three acceptance and Nov 2–8 first-week report; compare Tech evidence depth before further editor changes.
+
+## 2026-11-07: iteration 1221 — recover official Bluesky link targets
+
+- Reader benefit: Gaming's survey and World's article link were shortened/inert; collector discarded full official link facets. One free, read-only official getPosts request confirmed both destinations.
+- Prepared UTF-8-aware display expansion keeps original post text/AI evidence intact; observation snapshots and selected editions retain full HTTP(S) targets, and the reader displays them. Historical editions remain unchanged; no query/source/model/budget changes.
+- Recorded the two official records; adapter checks cover emoji byte offsets, prose labels, malformed/split-Unicode/overlapping/unsafe facets. Selection/storage tests verify display text survives while original text is retained.
+- Focused tests 26/26 pass. pnpm exec tsx scripts/smoke-bluesky-links.ts passes eight prepared local-preview views (two records, desktop/mobile, light/dark), with external traffic blocked, correct hrefs, no horizontal overflow/page errors; inspected screenshots in docs/screenshots/nov7-bluesky-link-*.
+- Updated affected handbook/SOURCES, Nov 7 diagnosis, Nov 8 comparison, TASKS and item 42 ack. Handbook checker passes (18 pages, one unchanged diagram, 28 tables).
+- Clean main/no leftovers initially. Services 14/14, sources 36/36, jobs and /healthz pass; alerts clear and all 23 rules healthy. CPU trial unchanged since 16:00:24; admission/timeouts/slow queries zero, small merged rows 3,890,176, large zero.
+- One-minute cgroup sample: whole stack 1.205% CPU/766.15 MiB peak; metrics zero memory-high/OOM events, logs two memory-high events/no OOM. No comparable large compaction; recovery gate remains open.
+- Verification: pnpm check passes (557 unit/229 integration, four expected skips); pnpm build, pnpm format, pnpm lint:fix and git diff --check pass. Initial check stopped on concurrent formatting edits; another process ended with SIGTERM at integration startup. Persistent-terminal rerun completed green. Browser setup/locator attempts corrected before the final eight-view pass.
+- Deployment/restart deferred to preserve metrics recovery gate. Next: comparable natural compaction, queued deployment, then Nov 8 scheduled X/Bluesky acceptance; newly collected link facets only, no historical rewrite.

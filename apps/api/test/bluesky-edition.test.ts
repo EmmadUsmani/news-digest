@@ -22,6 +22,7 @@ const observation = {
   url: 'https://bsky.app/profile/dev.bsky.social/post/demo',
   author: 'dev.bsky.social',
   text: 'Playable demo with original footage',
+  displayText: 'Playable demo with original footage https://example.com/demo',
   publishedAt: '2026-11-03T11:00:00Z',
   observedAt: end.toISOString(),
   metrics: { likes: 50, reposts: 10, replies: 2 },
@@ -157,7 +158,8 @@ void test('explicit preparation keeps X picks and freezes validated Bluesky evid
   if (added.platform !== 'bluesky') return;
   assert.deepEqual(added.metrics, observation.metrics);
   assert.deepEqual(added.media, observation.media);
-  assert.equal(added.displayText, observation.text);
+  assert.equal(added.text, observation.text);
+  assert.equal(added.displayText, observation.displayText);
   assert.equal(added.observedAt, observation.observedAt);
   assert.equal(added.whyItMatters, 'A playable demo.');
   assert.ok(added.reasons.includes('Editor: Original footage.'));

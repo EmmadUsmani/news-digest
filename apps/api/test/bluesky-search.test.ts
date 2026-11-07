@@ -1,7 +1,9 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
 import { BlueskySearch } from '../src/modules/social/adapters/bluesky-search';
+import { blueskyDisplayText } from '../src/modules/social/adapters/bluesky-text';
 
 const since = new Date('2026-11-02T00:00:00Z');
 const until = new Date('2026-11-03T00:00:00Z');
@@ -362,5 +364,78 @@ void test('Bluesky discards a rejected refresh so the next collection can sign i
   assert.equal(
     (calls[4].init?.headers as Record<string, string>).Authorization,
     'Bearer new-session',
+  );
+});
+
+void test('Bluesky keeps original text and expands official recorded UTF-8 link facets', async () => {
+  const records = JSON.parse(
+    readFileSync(
+      new URL('./fixtures/bluesky-link-records.json', import.meta.url),
+      'utf8',
+    ),
+  ) as {
+    record: { text: string; facets: { features: { uri: string }[] }[] };
+  }[];
+  for (const { record } of records) {
+    const { client } = fixture([
+      { data: session },
+      {
+        data: {
+          posts: [
+            {
+              ...post,
+              record: { ...record, createdAt: post.record.createdAt },
+            },
+          ],
+        },
+      },
+    ]);
+    const [found] = await client.search('links', since, until);
+    assert.equal(found.text, record.text);
+    const prefix = record.text.slice(0, record.text.lastIndexOf('\n') + 1);
+    assert.equal(found.displayText, prefix + record.facets[0].features[0].uri);
+    assert.ok(found.displayText?.includes('https://'));
+    assert.ok(!found.displayText?.endsWith('...'));
+    assert.equal(
+      found.displayText?.split('https://')[0],
+      record.text.slice(0, record.text.lastIndexOf('\n') + 1),
+    );
+  }
+});
+
+void test('Bluesky display links preserve prose labels and ignore malformed or unsafe facets', () => {
+  const facet = (
+    start: number,
+    end: number,
+    uri = 'https://example.com/full',
+  ) => ({
+    index: { byteStart: start, byteEnd: end },
+    features: [{ $type: 'app.bsky.richtext.facet#link', uri }],
+  });
+  assert.equal(
+    blueskyDisplayText('Read here now', [facet(5, 9)]),
+    'Read here (https://example.com/full) now',
+  );
+  for (const facets of [
+    undefined,
+    {},
+    [null],
+    [facet(0, 999)],
+    [facet(5, 4)],
+    [facet(0, 4, 'javascript:alert(1)')],
+    [facet(0, 4, 'https://example.com/a b')],
+  ])
+    assert.equal(blueskyDisplayText('Read here now', facets), 'Read here now');
+  assert.equal(
+    blueskyDisplayText('🗣️ text', [facet(1, 4), facet(0, 1)]),
+    '🗣️ text',
+  );
+  assert.equal(
+    blueskyDisplayText('one two', [
+      facet(4, 7, 'https://two.example'),
+      facet(0, 3, 'https://one.example'),
+      facet(2, 6),
+    ]),
+    'one (https://one.example) two (https://two.example)',
   );
 });

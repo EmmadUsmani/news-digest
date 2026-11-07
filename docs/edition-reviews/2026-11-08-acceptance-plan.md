@@ -34,6 +34,11 @@ Write actual findings in a separate `2026-11-08.md` review after publication.
 
 ## Acceptance comparisons
 
+If the link-facet fix is deployed, check newly collected Bluesky posts with
+shortened link labels: full official destinations should be clickable, with
+original text preserved in the saved snapshot. Historical Nov 7 links stay
+unchanged; an old observation without facets does not exercise the fix.
+
 For Tech summary depth, first classify every selected story's supplied evidence
 as empty, headline-only or substantive. Nov 7 had four empty HN excerpts and one
 headline-only Google News excerpt across all five stories. Assess whether the

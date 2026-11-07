@@ -1,0 +1,42 @@
+[
+  {
+    "uri": "at://did:plc:jbe7fjzzu224qthboll4palb/app.bsky.feed.post/3mznuhcqy4s24",
+    "record": {
+      "text": "🗣️ GAME WORKERS IN NORTH AMERICA 🗣️\n\nThe very first UVW Game Worker Employment Survey is NOW LIVE! This comprehensive survey will gather data about employment and compensation in games across the US and Canada.\n\n...But we'll need data. All responses are anonymous! 👇\nforms.gle/d2PFCjJSaVyW...",
+      "facets": [
+        {
+          "features": [
+            {
+              "$type": "app.bsky.richtext.facet#link",
+              "uri": "https://forms.gle/d2PFCjJSaVyWrB5T6"
+            }
+          ],
+          "index": {
+            "byteEnd": 305,
+            "byteStart": 280
+          }
+        }
+      ]
+    }
+  },
+  {
+    "uri": "at://did:plc:7dyrrsmh2tdg6p2u4tq2jepa/app.bsky.feed.post/3mzpxgza7xs2i",
+    "record": {
+      "text": "Newsrooms in Ireland and Bulgaria received emailed bomb threats from a purported \"Mikhail Andropov\", claiming responsibility for a widening wave of hoax threats disrupting passenger flights across Europe \nwww.thejakartapost.com/world/2026/1...",
+      "facets": [
+        {
+          "features": [
+            {
+              "$type": "app.bsky.richtext.facet#link",
+              "uri": "https://www.thejakartapost.com/world/2026/11/07/newsroom-bomb-threats-follow-escalating-european-flight-hoaxes?utm_source=(direct)&utm_medium=home_latest"
+            }
+          ],
+          "index": {
+            "byteEnd": 243,
+            "byteStart": 205
+          }
+        }
+      ]
+    }
+  }
+]

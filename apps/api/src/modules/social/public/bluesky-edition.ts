@@ -145,7 +145,7 @@ export async function prepareBlueskyEditionPosts(
       !existing.has(post.externalId) &&
       selectedBlueskyPostSchema.safeParse({
         ...post,
-        displayText: post.text,
+        displayText: post.displayText ?? post.text,
         reasons: [],
       }).success,
   );
@@ -184,7 +184,7 @@ export async function prepareBlueskyEditionPosts(
     ({ post, reasons, whyItMatters, editorialRationale }) =>
       selectedBlueskyPostSchema.parse({
         ...post,
-        displayText: post.text,
+        displayText: post.displayText ?? post.text,
         reasons: [...reasons, `Editor: ${editorialRationale}`],
         whyItMatters,
       }),

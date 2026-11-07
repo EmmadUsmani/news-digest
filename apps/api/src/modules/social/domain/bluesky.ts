@@ -5,6 +5,8 @@ export interface BlueskyPost {
   url: string;
   author: string;
   text: string;
+  // Official link targets expanded for display; original text stays unchanged.
+  displayText?: string;
   publishedAt: string;
   observedAt: string;
   // Official media URLs only; no remote media fetches.

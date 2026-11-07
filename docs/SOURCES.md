@@ -2274,3 +2274,14 @@ This is a selected-edition measurement, not an inventory-wide source rating.
 Existing source status, collection and budgets are unchanged. Source balancing
 remains paused; full-article work remains deferred. Next scheduled review should
 compare evidence depth before treating brief summaries as an editor defect.
+
+## Official Bluesky link facets — iteration 1221 (2026-11-07)
+
+A read-only official `app.bsky.feed.getPosts` request for the two already-saved
+Nov 7 Gaming/World IDs confirmed shortened text labels have full link targets
+in `record.facets`, indexed by UTF-8 bytes. The prepared collector preserves
+original text and expands those official HTTP(S) destinations into a separate
+display copy; malformed facets leave text unchanged. No extra hourly queries,
+media fetches, paid calls or source additions. New observation snapshots and
+selected editions carry the display copy; historical editions stay immutable.
+[Diagnosis and verification](edition-reviews/2026-11-07.md#prepared-bluesky-link-recovery--iteration-1221).

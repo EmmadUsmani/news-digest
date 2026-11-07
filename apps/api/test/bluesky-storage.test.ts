@@ -17,6 +17,7 @@ const post: BlueskyPost = {
   url: 'https://bsky.app/profile/synthetic.test/post/abc123',
   author: 'synthetic.test',
   text: 'Synthetic NBA highlight',
+  displayText: 'Synthetic NBA highlight https://example.com/highlight',
   publishedAt: start.toISOString(),
   observedAt: '2026-10-01T12:00:00.000Z',
   metrics: { likes: 10, reposts: 2, replies: 1 },
