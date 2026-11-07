@@ -119,3 +119,12 @@ Earlier entries: [iterations 1215–1222](docs/progress-archive/2026-11-07-itera
 - Restarted API to serve rebuilt reader; `/healthz` database/Redis OK. Metrics trial untouched; no repeat probe inside the hourly limit. TASKS/STEERING updated; no handbook system-flow change.
 - Initial push of `e9ad5319` rejected because owner lead-status commit `59080b41` landed remotely. Fetched/merged its two owner-note changes without editing them or rewriting history; application checks remain applicable.
 - Next: Nov 8 scheduled X/Bluesky/quality/cost/speed acceptance and first-week report. Metrics recovery remains open; next passive check no sooner than 20:14 UTC.
+
+## 2026-11-07: iteration 1232 — make original X posts easy to open after embed failure
+
+- Owner impact (STEERING 42/43): saved Nov 7 X posts include incomplete sentences, but failed media offered only an explicit retry action. Added “Open original on X” beside retry so readers can continue at the original. Generation/content unchanged; no paid calls.
+- Clean main/no leftovers; alerts clear, 14/14 services and 36/36 sources healthy, latest digest completed and Nov 8 15:00 UTC queued. Metrics trial untouched; no repeat probe inside hourly limit.
+- Updated saved-data `pnpm exec tsx scripts/smoke-reader-x-media.ts`: missing-link assertion fails against old reader, then destinations, keyboard focus, wrapping, saved text and retry/theme/resize recovery pass desktop/mobile light/dark after rebuild. External requests blocked; successful embeds use an explicitly local stub.
+- Four failure screenshots updated; mobile light inspected. Discarded unrelated loading/recovery screenshots. Handbook already describes opening originals after media failure; no system-flow change.
+- Verification: `pnpm check` passes (563 unit/229 integration, four expected skips); `pnpm build`, `pnpm format`, `pnpm lint:fix`, browser smoke and `git diff --check` pass. API restarted to serve rebuild; initial immediate browser attempt hit startup connection refusal, retry after healthy `/healthz` passed.
+- Next: Nov 8 scheduled X/Bluesky/quality/cost/speed acceptance and first-week report. Metrics recovery remains open; next passive check no sooner than 20:14 UTC.

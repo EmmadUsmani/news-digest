@@ -45,6 +45,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] STEERING 42 (1232): failed X embeds offer an explicit original-post link beside retry, so readers can continue beyond incomplete saved text; saved-post destination/focus/wrapping/recovery checked desktop/mobile light/dark.
+
 - [x] STEERING 42 (1231): saved X/Bluesky timestamp links expose exact publication dates to screen readers alongside platform/destination; all 18 actual Nov 7 posts checked with keyboard focus in desktop/mobile light/dark. No content or generation changes.
 
 - [x] STEERING 42 (1228), prepared: entirely rejected Bluesky selections retain field-specific absence-support repair guidance instead of generic ID guidance. Both fields, privacy, partial/empty replies, sanitized cache and bounded exhaustion verified offline; Nov 7 Tech dropped two claims before returning no pick. Deployed in 1230 under STEERING 49; production acceptance awaits Nov 8.

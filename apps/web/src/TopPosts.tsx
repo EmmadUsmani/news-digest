@@ -291,6 +291,14 @@ function Post({
           <p role="status" className="m-0 text-xs text-[var(--secondary)]">
             X media unavailable.
           </p>
+          <a
+            href={post.url}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex min-h-8 items-center px-1 py-1 text-xs text-[var(--secondary)] underline underline-offset-4 hover:text-[var(--accent)]"
+          >
+            Open original on X
+          </a>
           <button
             type="button"
             className="min-h-8 border-0 bg-transparent px-1 py-1 text-xs text-[var(--secondary)] underline underline-offset-4 hover:text-[var(--accent)]"

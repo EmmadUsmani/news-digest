@@ -12,8 +12,7 @@ async function smoke() {
   const posts = saved.topics
     .flatMap((topic) => topic.posts)
     .filter((post) => post.platform === 'x');
-  const post =
-    posts.find((post) => post.author.includes('Santa Monica')) ?? posts[0];
+  const post = posts.find((post) => post.whyItMatters?.trim()) ?? posts[0];
   assert.ok(post);
   const browser = await chromium.launch();
   try {
@@ -88,14 +87,29 @@ async function smoke() {
         assert.equal(await status.innerText(), 'X media unavailable.');
         const failureRow = card.locator('.x-media-error');
         assert.ok(
-          (await failureRow.boundingBox())!.height <= 36,
-          'Unavailable media and retry should share one compact row',
+          (await failureRow.boundingBox())!.height <= 72,
+          'Unavailable media, original link and retry fit in two compact rows',
+        );
+        const original = failureRow.getByRole('link', {
+          name: 'Open original on X',
+          exact: true,
+        });
+        await expect(original).toHaveAttribute('href', post.url);
+        await expect(original).toHaveAttribute('target', '_blank');
+        await original.focus();
+        await expect(original).toBeFocused();
+        assert.ok(
+          await failureRow.evaluate(
+            (node) => node.scrollWidth <= node.clientWidth,
+          ),
+          'Fallback actions stay inside the card',
         );
         assert.ok(await card.locator('.post-text').isVisible());
-        assert.equal(
-          await card.locator('.post-context-text').innerText(),
-          post.whyItMatters,
-        );
+        if (post.whyItMatters?.trim())
+          assert.equal(
+            await card.locator('.post-context-text').innerText(),
+            post.whyItMatters,
+          );
         await page.screenshot({
           path: `docs/screenshots/ui/x-media-failure-${device}-${theme}.png`,
         });

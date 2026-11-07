@@ -2135,3 +2135,5 @@ Deploy nothing that touches edition generation after 12:00 UTC on Nov 8 unless
 it fixes a breakage.
 
 ack: 2026-11-07 item 49 — iteration 1230 deployed merged main `96457a35` at 19:20 UTC after private backup; `drizzle/0008_content_publisher.sql` applied and publisher JSONB column verified. API/worker/docs/schema restarted; services 14/14, sources 36/36, jobs, app/Grafana health and desktop/mobile saved-reader/archive Playwright pass; no rollback or paid calls. Removed the app deployment hold from TASKS/decision 0004; metrics trial unchanged, incident open, checks now passive and at most hourly.
+
+ack: 2026-11-07 item 42/43 — iteration 1232: incomplete saved X text had no explicitly labeled original-post action when media failed. Reader now offers “Open original on X” beside retry; saved-data desktop/mobile light/dark destination, focus, wrapping and stubbed retry recovery pass. No generation changes or paid calls.
