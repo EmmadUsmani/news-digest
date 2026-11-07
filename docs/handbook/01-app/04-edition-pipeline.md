@@ -52,7 +52,8 @@ flowchart LR
 - **Graceful degradation:** if triage can't finish within the budget, that
   topic uses non-AI ranking. The edition still publishes, and the snapshot
   records why. Reader stories show the saved article text when no AI summary
-  exists, with no mode label.
+  exists, with no mode label. The reader hides a terminal “The post … appeared
+  first on …” credit when it matches the story title; saved source text stays intact.
 - **Story composition:** the editor keeps separate developments in separate
   stories. Direct follow-ups, reactions and consequences can share a story;
   a shared company or theme alone is insufficient.

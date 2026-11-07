@@ -15,6 +15,16 @@ import {
 
 import { PreviewRepository } from './domain/preview.repository';
 
+function readerExcerpt(title: string, excerpt: string) {
+  const marker = `The post ${title} appeared first on `;
+  const start = excerpt.lastIndexOf(marker);
+  if (start <= 0) return excerpt;
+  const publisher = excerpt.slice(start + marker.length).trim();
+  // Remove only a terminal WordPress credit matching this story's exact title.
+  if (!/^[^.!?\n]{1,200}\s*\.$/.test(publisher)) return excerpt;
+  return excerpt.slice(0, start).trimEnd() || excerpt;
+}
+
 export function readerEdition(snapshot: DigestPreview) {
   return readerEditionSchema.parse({
     ...snapshot,
@@ -23,7 +33,7 @@ export function readerEdition(snapshot: DigestPreview) {
       brief: topic.editorial?.mode === 'ai' ? topic.editorial.brief : [],
       stories: topic.stories.map((story) => ({
         ...story,
-        summary: story.summary || story.excerpt,
+        summary: story.summary || readerExcerpt(story.title, story.excerpt),
         // Editors may cite a second ranked story outside the selected group.
         // Keep original coverage metadata first and expose every saved citation.
         coverage:

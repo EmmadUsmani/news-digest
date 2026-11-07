@@ -146,3 +146,13 @@ Earlier entries: [iterations 1089–1101](docs/progress-archive/2026-11-07-itera
 - Verification: direct metrics/rules HTTP snapshots, decoded slow-query journal aggregation, systemctl limits/process lifetime; /healthz database/Redis OK, services/sources checks pass, alerts clear. pnpm format, pnpm lint:fix, pnpm check (546 unit/227 integration pass; four rehearsals skipped), pnpm build and git diff --check pass.
 - No paid calls, production data changes, UI changes or protected-window deployment/restart. Running artifacts unchanged by documentation-only step; SOURCES/handbook/NEEDS_FROM_HUMAN unchanged.
 - Next after 16:00 UTC: CPU-only metrics trial with compaction/alert-evaluation and whole-stack resource verification, deploy queued diagnostics, then publisher merge.
+
+## 2026-11-07: iteration 1205 — prepare cleaner NBA fallback reader text
+
+- Clean main/no leftovers; metrics trial/deployment remain protected until after 16:00 UTC. Alerts clear, services 14/14 and sources 36/36 healthy; /healthz database/Redis OK.
+- Fixed the visible Nov 7 Cavaliers fallback boilerplate in the prepared reader projection: remove only a terminal WordPress credit matching the exact story title and a short publisher label. Source snapshots, AI summaries, news sentences and publisher links stay intact.
+- Regression covers matching credit, mismatched title, incomplete credit, following reporting, credit-only content and AI text; targeted reader suite 6/6 passes.
+- Temporary read-only Playwright replay of the actual Nov 7 snapshot passes desktop/mobile light/dark: 20 stories/18 posts, no page errors/overflow, unchanged saved snapshot. Four screenshots labelled prepared; external requests blocked, no loaded-embed claim.
+- Updated affected handbook page, actual review and TASKS; SOURCES/NEEDS_FROM_HUMAN unchanged because collection and owner requirements did not change.
+- Verification: pnpm check passed typecheck/lint/format/boundaries and 547 unit tests, then received SIGTERM during integration with no reported failure; separate pnpm test:integration passes 227 (four skipped). pnpm build, reader tests 6/6, handbook filter and git diff --check pass; pnpm format and pnpm lint:fix run before commit.
+- No paid calls, edition/settings changes or protected-window restart. Reader fix joins queued X/schema diagnostics after metrics recovery; publisher merge follows.

@@ -172,6 +172,35 @@ void test('reader summaries preserve AI text and restore saved story text across
   );
 });
 
+void test('reader fallback removes a terminal matching WordPress credit without changing saved evidence or AI text', () => {
+  const saved = structuredClone(snapshot);
+  const story = saved.topics[0].stories[0];
+  story.title = 'Cavaliers hold LeBron James to eight points';
+  story.summary = undefined;
+  const news =
+    'The margin of victory lifted Cleveland to the top of East Group B.';
+  const footer = `The post ${story.title} appeared first on Basketball Insiders | NBA Rumors And Basketball News .`;
+  story.excerpt = `${news} ${footer}`;
+  const before = JSON.stringify(saved);
+  assert.equal(readerEdition(saved).topics[0].stories[0].summary, news);
+  assert.equal(JSON.stringify(saved), before);
+  for (const excerpt of [
+    news,
+    footer,
+    `${news} The post A different headline appeared first on Basketball Insiders .`,
+    `${news} ${footer} More reporting follows.`,
+    `${news} The post ${story.title} appeared first on Basketball Insiders`,
+  ]) {
+    story.excerpt = excerpt;
+    assert.equal(readerEdition(saved).topics[0].stories[0].summary, excerpt);
+  }
+  story.summary = `${news} ${footer}`;
+  assert.equal(
+    readerEdition(saved).topics[0].stories[0].summary,
+    story.summary,
+  );
+});
+
 void test('reader endpoints handle latest, immutable ID lookup and missing editions', async () => {
   const repository = {
     latest: async () => snapshot,
