@@ -17,15 +17,15 @@ details, budgets and rules stay in the items. Every new item goes on this list.
 1. Breakages and protecting the morning edition. Includes the hung Grafana
    (item 44).
 2. X search: reliability fixes and test rounds (items 39, 34).
-3. UI rebuild: admin pages, then final reader (item 33). Raised by the owner
-   on Nov 6 (item 43).
+3. UI rebuild: check the reader against the spec, finish what's left and close
+   item 33 (items 33, 45). Raised by the owner on Nov 6 (item 43).
 4. Nov 6 edition review: World stories, cost (item 36).
 5. Bluesky in editions: show why, fix failures, hold a slot, alerts (items 40, 41).
-6. Then item 38's list for choosing meaningful work. While 2–5 wait on a time
-   or on evidence, item 42 says what to do first. Item 43 says what not to do.
-7. Off-VM Backblaze B2 backups (item 37), with a 3 GB storage budget. Unblocked
-   Nov 6; the owner's settings are on the VM. Lowest priority: start only when items 2–6 and the other open
-   items above it have nothing available.
+6. Off-VM Backblaze B2 backups (item 37), with a 3 GB storage budget. Start as
+   soon as item 33 is closed, whenever items 2, 4 and 5 are waiting on a time or
+   on evidence. The owner's settings are on the VM.
+7. Then item 38's list for choosing meaningful work. Once item 37 is acked, or
+   while it waits, item 42 says what to do first. Item 43 says what not to do.
 
 ## 2. LOWER PRIORITY: real DB verification, then an ORM (2026-11-01)
 
@@ -671,8 +671,9 @@ for the owner and query APIs plus an `obs` CLI for the agent.
 - **One piece at a time** (O1–O11 in the plan). Finish and verify each piece
   with `scripts/check-observability.ts`, update the handbook, and tick it in
   the plan before starting another. Never leave a service half-installed.
-- **Resource budget:** about 500 MB RAM, under 5% of one CPU and about 3 GB
-  disk for the whole stack, enforced with unit limits. If a tool exceeds
+- **Resource budget:** about 800 MiB RAM (raised from 500 MB by the owner on
+  Nov 7, item 45), under 5% of one CPU and about 3 GB disk for the whole stack,
+  enforced with unit limits. If a tool exceeds
   its budget, scale it back or remove it.
 - **Never restart Postgres or Redis within 2 hours of the scheduled
   edition.** Item 23's freeze before the Nov 3 run also applies.
@@ -983,6 +984,8 @@ ack: 2026-11-04 item 32 — iterations 705–708 prepared fixed A/B scheduling b
 
 ## 33. MID-LOW: UI rebuild, reader edition + admin (2026-11-04)
 
+**Item 45 says how this item closes.**
+
 The owner finds the current UI busy and low quality. The home page is about
 23,000 px tall, and most of it is admin data and system caveats.
 **Build exactly [docs/ui-spec.md](docs/ui-spec.md)** (owner-approved).
@@ -1145,6 +1148,8 @@ cost. Item 33's ack stays as written.
 ack: 2026-11-05 item 36 story limit — iteration 872 activates forty scored articles before grouping, retaining ten stories for the editor. Actual saved World replay: Nov 4 1→10 editor inputs (1→5 reviewed story labels); Nov 5 3→10 inputs (2→7 labels). Model stories including singletons: Nov 4 1→16, Nov 5 3→20; election fragmentation remains, no returned group crosses reviewed labels. Four Haiku verification calls cost $0.005837, recorded as verification; responses/fingerprints saved for offline replay. All-topic first-attempt grouping/editor scenario $0.464371 fits unchanged $0.473168 reserve and projected cap; future admission still enforced. Deployed before Nov 6 13:00 UTC; review scheduled Nov 6 outcome. Evidence: docs/edition-reviews/2026-11-05-world-story-pool.md. UI step 2 next; cleanup remains open.
 
 ## 37. LOW, ready, do last: off-VM backups to Backblaze B2 (2026-11-05, B2 2026-11-06)
+
+**Item 45 and Current order set when this starts, not "do last".**
 
 Backups live only on the VM, so losing the VM loses them too. The owner first
 chose Cloudflare R2, then switched on Nov 6 to **Backblaze B2**, for both the
@@ -1806,3 +1811,55 @@ ack: 2026-11-06 item 33/43 — iteration 1066: readers see small Bluesky images 
 ack: 2026-11-07 item 33/43 — iteration 1067: readers can open cited source URLs beginning with uppercase or mixed-case HTTP schemes from saved post text; path/query case and original text stay intact. Desktop/mobile light/dark browser replay verified; no paid calls.
 
 ack: 2026-11-07 item 33/43 — iteration 1068: readers can see saved full-size Bluesky images when thumbnails fail; bounded recovery preserves image links and accessible unavailable states. Desktop/mobile light/dark synthetic replay verified; no paid calls.
+
+## 45. NOW: finish the reader, close item 33, then start B2 backups (2026-11-07)
+
+**Why:** the agent's reader work has shrunk to edge cases such as Japanese
+punctuation in links and mixed-case `HTTP` in URLs, some tested only on
+synthetic data. 23 of the 101 commits in the 12 hours to 00:42 UTC on Nov 7
+concern Bluesky or post links. Meanwhile backups still exist only on the VM.
+Separately, the observability stack uses about 754 MiB, and limits that were too
+tight caused the Grafana hangs.
+
+**Priority:** this replaces open-ended reader work under items 33, 42 and 43.
+Breakages, protecting the morning edition and X search (items 44, 39, 34) still
+come first, including the Nov 7 keyword and Bluesky checks.
+
+**What to do, in order:**
+
+1. **RAM target.** The owner raised the whole-stack target to about 800 MiB.
+   CPU and disk budgets are unchanged. Update
+   `docs/decisions/0004-observability-capacity.md` and remove the "Grafana RAM
+   target" entry from `NEEDS_FROM_HUMAN.md`. Don't change any unit limits.
+2. **List the gaps once.** Compare the live reader, using the real saved edition,
+   with `docs/ui-spec.md` and item 33's "Done when". Write what's left in
+   `TASKS.md` as one short list. A gap is a spec requirement the real edition
+   doesn't meet, or a failed "Done when" check. A case seen only in synthetic data
+   isn't a gap.
+3. **Finish that list and nothing else.** Refresh the screenshots of every route,
+   run the forbidden-terms and admin-404 tests, and measure the edition page
+   against the limit of about 3 desktop screens per topic.
+4. **Close item 33** with an ack that links the screenshots and gives those results.
+5. **Start item 37** as soon as item 33 is closed, following its budget and
+   retention rules.
+
+**While waiting:** if the X or Bluesky checks wait on a time, carry on with this
+list. After item 33 closes, carry on with item 37. Use item 42 only after item 37
+is acked, or if item 37 is itself waiting.
+
+**What not to do:**
+
+- No more reader edge-case fixes, unless a reader would hit the problem in a
+  real saved edition. Put anything else in `NEEDS_FROM_HUMAN.md` as one line.
+- Don't add smoke scripts for cases that have never happened.
+- No new reader features, and no scoping documents.
+
+**When to stop:** if item 33 isn't closed after 20 iterations from this item, ack
+what's left, add one line to `NEEDS_FROM_HUMAN.md`, and start item 37 anyway.
+
+**Done when:** the RAM target is updated, item 33 is closed, and item 37 has its
+own ack. Each ack here says which step it finished. Item 37's ack reports the
+uploaded size against the 3 GB budget.
+
+**Limits:** no new spend, vendors or product features beyond item 37's approved
+B2 use. Budgets, the 13:00–16:00 UTC window and edition protection still apply.

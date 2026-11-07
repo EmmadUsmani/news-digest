@@ -10,6 +10,6 @@ marks it finished, with screenshots of every route.
 **Next:**
 
 - Review admin pages and the reader against the spec once the agent acks.
-- Watch the agent's commits: scoping stopped after item 43, but by Nov 7 they had
-  become small edge-case fixes tested on synthetic data, with no finish in sight.
+- Item 45 (Nov 7): the agent lists real gaps against the spec, finishes them and
+  closes item 33 within 20 iterations. Check the list in `TASKS.md` is honest.
 - Confirm the owner's real login gets `isAdmin: true` at `/api/me`.
