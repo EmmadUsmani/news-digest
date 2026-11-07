@@ -17,6 +17,7 @@ details, budgets and rules stay in the items. Every new item goes on this list.
 1. Breakages and protecting the morning edition. Includes the hung Grafana
    (item 44).
 2. X search: reliability fixes and test rounds (items 39, 34).
+3. Remove the desktop posts scroll box (item 46). Small: do it next.
 4. Nov 6 edition review: World stories, cost (item 36).
 5. Bluesky in editions: show why, fix failures, hold a slot, alerts (items 40, 41).
 6. Off-VM Backblaze B2 backups (item 37), with a 3 GB storage budget. Start as
@@ -984,7 +985,8 @@ ack: 2026-11-04 item 32 — iterations 705–708 prepared fixed A/B scheduling b
 
 ## 33. MID-LOW: UI rebuild, reader edition + admin (2026-11-04)
 
-**Item 45 says how this item closes.**
+**Item 45 says how this item closes. Item 46 replaces its "about 3 desktop
+screens" result: the page stays one scroll, and 3.52 screens is accepted.**
 
 The owner finds the current UI busy and low quality. The home page is about
 23,000 px tall, and most of it is admin data and system caveats.
@@ -1875,3 +1877,45 @@ ack: 2026-11-07 item 45 step 1 — iteration 1071: documented the owner-approved
 ack: 2026-11-07 item 45 step 2 — iteration 1072: compared the real Nov 6 saved reader with the approved spec and item 33 acceptance. TASKS.md now holds the single remaining list: loaded-embed NBA/Gaming length (3.52/3.35 desktop screens at 1440×1100), all-route screenshot refresh, and complete forbidden-label coverage. Admin-404 and reader/archive layout checks pass; item 33 remains open. No synthetic-only gap added.
 
 ack: 2026-11-07 item 45 steps 3–4 — iteration 1075: finished the remaining real-edition gap, refreshed all-route screenshots, passed label/admin-404/layout checks and measured every fully loaded topic below three desktop screens in both themes. Item 33 is closed; item 37 is next while scheduled Nov 7 acceptance waits.
+
+## 46. NOW, small: remove the desktop posts scroll box (2026-11-07)
+
+**Why:** to meet the length limit, commit `87077bb1` put each topic's desktop
+posts in a 1,400 px box with its own scrollbar. The owner doesn't want it.
+`docs/ui-spec.md` says the desktop reader is one scrolling page. The 2.03–2.62
+screens measured with the box hid posts inside it, so they don't count.
+
+**Owner decision (Nov 7):** no scroll box. Accept the earlier lengths of about
+3.52 screens (NBA) and 3.35 (Gaming) as meeting "about 3 desktop screens".
+
+**Priority:** the next reader work, below breakages, morning edition protection
+and X search. Item 33 stays closed.
+
+**What to do, in order:**
+
+1. In `apps/web/src/TopPosts.tsx`, remove `lg:max-h-[1400px]`,
+   `lg:overflow-y-auto`, `lg:overscroll-y-contain`, the scrollbar gutter, the
+   focus outline, `tabIndex` and the "scroll for more" label. Desktop posts then
+   flow in the page, as mobile posts do.
+2. Update `scripts/smoke-reader-length.ts` and `scripts/smoke-reader-layout.ts`:
+   no inner scrolling on desktop, and every post reachable by scrolling the page.
+   The length check should fail above 3.6 desktop screens at 1440×1100 on the
+   Nov 6 saved edition, not above 3.
+3. Remove the bounded-area text from
+   `docs/handbook/01-app/01-stack-and-runtime.md`, and refresh the
+   `docs/screenshots/ui/loaded-*` views.
+4. **Item 37's alerts are active.** The owner approved it and a lead installed
+   the rules on Nov 7. `OffsiteDatabaseBackupStale`, `OffsiteVmBackupStale`,
+   `OffsiteBackupFailed` and `OffsiteBackupStorageWarning` are loaded. Check them
+   yourself, remove the B2 entry from `NEEDS_FROM_HUMAN.md`, and ack item 37.
+
+**While waiting:** follow Current order. Item 42 is available again.
+
+**What not to do:** don't shorten posts, hide posts, cap the post count or add
+another way to bound the page. Don't reopen other reader work. Stop after step 4.
+
+**Done when:** no desktop inner scrolling remains, the smoke scripts pass, and
+the ack gives each topic's length in desktop screens with all posts visible.
+
+**Limits:** no restart between 13:00 and 16:00 UTC. No new spend. Edition
+protection still applies.
