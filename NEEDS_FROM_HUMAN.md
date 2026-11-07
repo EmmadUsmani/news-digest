@@ -88,14 +88,9 @@ Nov 6 update (1051): saved-baseline comparison completes the authorized decision
 
 ## Public archive publication decision (2026-11-07, iteration 1240)
 
-Phase 0 inventory found 546 editions: 458 manual (November 1–2) and 88
-with schedule keys. No manual edition falls on a UTC day without a keyed
-edition, so that requested candidate list is empty. Confirm whether any of
-the November 1–2 manual editions should be published.
-
-The plan also conflicts with stored evidence: **65 keyed editions use explicit
-`integration:` keys**. Automatically publishing every keyed edition would
-include test records. Confirm an exclusion for these and whether the other
-early development runs belong in the archive before the backfill/filter is
-enabled. [Inventory and reproduction](docs/edition-reviews/2026-11-07-publication-inventory.md).
-Reader visibility is unchanged; continue phase 2 while publication waits.
+Resolved by STEERING 50 owner decision on Nov 7: publish non-`integration:`
+scheduled editions created on or after Nov 3 UTC, plus future scheduled editions.
+All Nov 1–2 editions remain unpublished and visible in admin; `integration:`
+editions are tests. No further publication decision is needed. Phase-0 backfill,
+comparison and reader filter remain implementation work; visibility is unchanged.
+[Inventory](docs/edition-reviews/2026-11-07-publication-inventory.md).
