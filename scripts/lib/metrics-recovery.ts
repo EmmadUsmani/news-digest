@@ -26,3 +26,31 @@ export function mergeInterval(before: MergeSnapshot, after: MergeSnapshot) {
     requiresJournalConfirmation: rows >= 5_000_000,
   };
 }
+
+export interface EvaluationSnapshot {
+  processStart: number;
+  errors: number;
+  missed: number;
+}
+
+export function evaluationInterval(
+  before: EvaluationSnapshot,
+  after: EvaluationSnapshot,
+) {
+  if (
+    !Object.values(before).every(Number.isFinite) ||
+    !Object.values(after).every(Number.isFinite) ||
+    after.processStart !== before.processStart ||
+    after.errors < before.errors ||
+    after.missed < before.missed
+  )
+    throw new Error(
+      'Alert evaluator changed or counters invalid; discard interval',
+    );
+  return {
+    errors: after.errors - before.errors,
+    missed: after.missed - before.missed,
+    noNewFailures:
+      after.errors === before.errors && after.missed === before.missed,
+  };
+}

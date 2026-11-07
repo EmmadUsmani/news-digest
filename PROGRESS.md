@@ -87,3 +87,14 @@ Earlier entries: [iterations 1215–1222](docs/progress-archive/2026-11-07-itera
 - Archived progress entries 1215–1222 after PROGRESS exceeded 25 KB; current history retains archive links. `pnpm check` passes (562 unit/229 integration, four expected skips); `pnpm build`, `pnpm format`, `pnpm lint:fix`, changed-document Prettier checks and `git diff --check` pass. App/Grafana health healthy.
 - Initial push rejected because owner lead-status commit `90d75baf` landed remotely. Fetched and merged without changing owner files or rewriting history; retrying push.
 - Next: comparable natural compaction evidence, queued deployment, Nov 8 scheduled acceptance and first-week report. Prefer reader work while waiting; do not mistake many small merges for one comparable merge.
+
+## 2026-11-07: iteration 1230 — retain cleared evaluator failures in recovery evidence
+
+- Owner impact (Current order 1): recovery health snapshots could miss alert-evaluation failures that clear between samples. Clean main/no leftovers; highest-priority incident remains open.
+- Recovery probe now captures evaluator identity, lifetime execution errors and summed missed iterations across groups, plus interval deltas. New failures remain visible after rules recover; restarts/resets/nonfinite counters invalidate intervals. Offline regression covers these paths.
+- Confirmed evaluator is not a configured scrape target: correct counter-name history queries return no series; journal since trial start is empty. No historical no-error claim, scrape change, forced compaction, production write or paid call.
+- `pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30`, 19:13:55–19:14:55 UTC: zero new errors/misses (lifetime 14/25), 23 healthy/fresh rules, six uncached queries/max 0.162 s; two small merges/7,015 rows, no big merge. Admission hits two, zero timeouts/slow queries; process unchanged/zero restarts.
+- `pnpm exec tsx scripts/sample-observability-capacity.ts 6 10`: 60.045 s, 1.174% whole-stack CPU/681.0 MiB peak; metrics 0.375% CPU, 65/199 periods throttled; every unit zero memory-high/OOM events.
+- Services 14/14, sources 36/36 and jobs healthy; no active alerts; app database/Redis and Grafana database health pass. TASKS and capacity evidence updated; deployment/restarts remain deferred behind comparable natural compaction recovery.
+- Verification: `pnpm check` passes (563 unit/229 integration, four expected skips); `pnpm build`, `pnpm format`, `pnpm lint:fix`, targeted recovery tests, final live probe smoke and `git diff --check` pass. No app runtime changes or restart.
+- Next: comparable compaction evidence, queued deployment, Nov 8 scheduled acceptance and first-week report. Probe output now carries evaluator deltas for subsequent recovery observations.

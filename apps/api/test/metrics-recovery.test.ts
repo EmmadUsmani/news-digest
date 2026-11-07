@@ -1,7 +1,10 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { mergeInterval } from '../../../scripts/lib/metrics-recovery';
+import {
+  evaluationInterval,
+  mergeInterval,
+} from '../../../scripts/lib/metrics-recovery';
 
 void test('compaction evidence uses interval rows rather than cumulative totals', () => {
   const before = { processStart: 100, rows: 9_000_000, merges: 20 };
@@ -34,4 +37,28 @@ void test('compaction evidence rejects process changes, resets and missing count
     () => mergeInterval({ ...before, rows: NaN }, before),
     /discard interval/,
   );
+});
+
+void test('recovery sees evaluator failures that have cleared before the next probe', () => {
+  const before = { processStart: 100, errors: 14, missed: 12 };
+  assert.deepEqual(evaluationInterval(before, before), {
+    errors: 0,
+    missed: 0,
+    noNewFailures: true,
+  });
+  assert.deepEqual(
+    evaluationInterval(before, { ...before, errors: 15, missed: 14 }),
+    {
+      errors: 1,
+      missed: 2,
+      noNewFailures: false,
+    },
+  );
+  for (const after of [
+    { ...before, processStart: 101 },
+    { ...before, errors: 0 },
+    { ...before, missed: 0 },
+    { ...before, errors: NaN },
+  ])
+    assert.throws(() => evaluationInterval(before, after), /discard interval/);
 });

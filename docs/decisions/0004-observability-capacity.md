@@ -603,3 +603,27 @@ Command: Python urllib requests to local `/metrics/api/v1/query_range` with
 `start=1794067260`, `end=1794078330`, `step=30s`, `nocache=1` for
 `vm_rows_merged_total` (small/big), `vm_merges_total` (small), process start,
 self-scrape up, admission-limit, queue-timeout and slow-query counters.
+
+### Detect cleared evaluation failures during recovery (iteration 1230)
+
+The evaluator exposes `vmalert_execution_errors_total` and per-group
+`vmalert_iteration_missed_total`, but scrape.yml has no evaluator target.
+Correctly named range queries therefore return no stored series either.
+The read-only recovery probe now reads these counters directly, sums missed
+iterations across groups, and records interval deltas with evaluator process
+identity. Restarts, resets and nonfinite counters invalidate the interval;
+new errors or missed iterations mark `noNewFailures: false`, even when all
+rules have already returned to healthy. Existing lifetime counts are a
+baseline, not evidence of a new failure. No scrape configuration changed.
+
+At 19:13:55–19:14:55 UTC, three samples showed unchanged evaluator identity,
+14 lifetime execution errors and 25 lifetime missed iterations (zero deltas).
+All 23 rules were healthy/fresh; six uncached queries passed, maximum 0.162 s.
+Two small merges covered 7,015 rows; big-storage stayed zero. Admission hits
+stayed two, queue timeouts/slow queries zero. Metrics still starts at 16:00:24
+with zero restarts. No comparable compaction; deployment remains deferred.
+
+Commands: `pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30`;
+local evaluator `/metrics`, stored range queries and journal since trial start;
+`pnpm obs services --check`, `sources --check`, `jobs --check`, `alerts`;
+app/Grafana health. Offline tests cover cleared failures and invalid intervals.

@@ -1,7 +1,11 @@
 // Read-only, local-only evidence collection. No force merge or provider calls.
 import { setTimeout } from 'node:timers/promises';
 
-import { mergeInterval, type MergeSnapshot } from './lib/metrics-recovery';
+import {
+  evaluationInterval,
+  mergeInterval,
+  type MergeSnapshot,
+} from './lib/metrics-recovery';
 
 async function get(path: string) {
   const response = await fetch(path, { signal: AbortSignal.timeout(10_000) });
@@ -14,8 +18,9 @@ async function sample() {
     'up{job="metrics-store"}',
     'news_digest_unit_active{scope="user",unit="news-digest-api.service"}',
   ];
-  const [metrics, rules, ...probes] = await Promise.all([
+  const [metrics, evaluatorMetrics, rules, ...probes] = await Promise.all([
     get('http://127.0.0.1:8428/metrics/metrics').then((r) => r.text()),
+    get('http://127.0.0.1:8880/metrics').then((r) => r.text()),
     get('http://127.0.0.1:8880/api/v1/rules').then((r) => r.json()),
     ...queries.map(async (query) => {
       const started = performance.now();
@@ -32,12 +37,18 @@ async function sample() {
       return { query, seconds: (performance.now() - started) / 1000 };
     }),
   ]);
-  const counter = (name: string) => {
-    const line = metrics.split('\n').find((row) => row.startsWith(`${name} `));
+  const counter = (name: string, source = metrics) => {
+    const line = source.split('\n').find((row) => row.startsWith(`${name} `));
     const value = line ? Number(line.slice(name.length + 1)) : NaN;
     if (!Number.isFinite(value)) throw new Error(`Missing counter: ${name}`);
     return value;
   };
+  const missedIterations = evaluatorMetrics
+    .split('\n')
+    .filter((line) => line.startsWith('vmalert_iteration_missed_total{'))
+    .map((line) => Number(line.slice(line.lastIndexOf(' ') + 1)));
+  if (!missedIterations.length || !missedIterations.every(Number.isFinite))
+    throw new Error('Missing or invalid evaluator missed-iteration counters');
   if (rules.status !== 'success') throw new Error('Rules API unsuccessful');
   const evaluations = rules.data.groups.flatMap(
     (group: {
@@ -71,6 +82,11 @@ async function sample() {
       rows: counter('vm_rows_merged_total{type="storage/big"}'),
       merges: counter('vm_merges_total{type="storage/big"}'),
     } satisfies MergeSnapshot,
+    evaluator: {
+      processStart: counter('process_start_time_seconds', evaluatorMetrics),
+      errors: counter('vmalert_execution_errors_total', evaluatorMetrics),
+      missed: missedIterations.reduce((sum, value) => sum + value, 0),
+    },
     admissionLimit: counter('vm_concurrent_select_limit_reached_total'),
     queueTimeouts: counter('vm_concurrent_select_limit_timeout_total'),
     slowQueries: counter('vm_slow_queries_total'),
@@ -102,6 +118,7 @@ async function main() {
       JSON.stringify({
         ...current,
         interval: {
+          evaluator: evaluationInterval(previous.evaluator, current.evaluator),
           small: mergeInterval(previous.counters, current.counters),
           big: mergeInterval(previous.bigCounters, current.bigCounters),
         },
