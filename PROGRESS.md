@@ -150,3 +150,13 @@ Earlier entries: [iterations 1243–1246](docs/progress-archive/2026-11-07-itera
 - `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 1` at 23:17 UTC: 23 healthy rules, four uncached queries ≤0.192 s, zero new evaluator errors/misses, zero merges; recovery open, next passive check ≥00:17 UTC Nov 8.
 - Updated TASKS and operations handbook; no source/schema metadata change. Actual saved-edition new-model API/browser comparison remains pending migration.
 - Next: register metadata migration/future writes in the permitted window, finish pools/test editions and compare saved reader with switch off/on. Nov 8 15:00 UTC acceptance/first-week report due.
+
+## 2026-11-07: iteration 1259 — prepare lifetime development-pool policy
+
+- Clean main/no leftovers; initial alerts clear and health database/Redis OK. Generation cutoff respected: no runtime generation, schema or reader-switch changes; provider spend $0.
+- Added isolated development allowance policy for phase 0: Anthropic $5/xAI $2 lifetime code ceilings, lower configurable caps, conservative integer 75% stop/report threshold, zero allowance after threshold and validation of unsafe amounts/providers. Settled charges plus pending/uncertain reservations consume the same total; no date input or renewal.
+- Four targeted offline policy tests pass, including exact threshold boundaries, exhausted/over-cap totals, disabled/lowered caps and invalid database caps. Helper has no runtime callers; pool persistence and atomic reservation wiring remain pending.
+- Complete reader fingerprint comparison verifies all five actual Nov 3–7 responses; read-only source status confirms 36/36 enabled sources healthy/nonempty/recent.
+- Updated TASKS; no source/handbook/schema behavior change. Nov 8 scheduled acceptance and first-week review remain due; metrics probe no earlier than 00:17 UTC.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build` and `git diff --check` pass: 582 unit tests, 230 integration passes/four expected skips; typecheck/lint/format/boundaries green.
+- Four app services restarted/active; post-restart health database/Redis OK, alerts clear and five full saved-reader fingerprints still match. Next: register metadata migration, future writes and pool persistence in the permitted window, then actual saved-reader off/on comparison.
