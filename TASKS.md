@@ -4,7 +4,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
-- [ ] Breakage (1191–1215, Nov 7): metrics-store contention at the old 1% CPU cap caused transient scrape alerts and one failed backup-rule evaluation. CPU-only 1→2% trial began 16:00:24 UTC; memory/query limits unchanged. Trial now exceeds one hour without restarts or query-admission/timeouts/slow-query failures; all 23 rules remain healthy. Comparable natural five-million-row compaction still unobserved: recovery stays open and queued app/publisher deployment remains deferred. Prior samples and latest verification: [incident and trial evidence](docs/decisions/0004-observability-capacity.md#nov-7-metrics-store-scrape-outage-iteration-1191).
+- [ ] Breakage (1191–1216, Nov 7): metrics-store contention at the old 1% CPU cap caused transient scrape alerts and one failed backup-rule evaluation. CPU-only 1→2% trial began 16:00:24 UTC; memory/query limits unchanged. Trial now exceeds 80 minutes without restarts or query-admission/timeouts/slow-query failures; all 23 rules remain healthy. Comparable natural five-million-row compaction still unobserved: recovery stays open and queued app/publisher deployment remains deferred. Prior samples and latest verification: [incident and trial evidence](docs/decisions/0004-observability-capacity.md#nov-7-metrics-store-scrape-outage-iteration-1191).
 
 - [x] STEERING 46 / 47 step 1 (1089): owner-approved 5.2-screen trial; all 17 posts/16 X embeds retained, Tech/NBA/Gaming/World 4.94/4.42/4.98/2.03 screens in both themes, no inner scrolling. Length blocker removed; item 33 stays closed.
 - [x] STEERING 48 (1096): minute dispatcher and independent timer monitor installed/running; durable per-destination retries, 5 MB JSONL rotation and recentEvents CLI shipped. Offline lifecycle/restart/outage/failure/rotation tests pass; live file empty with clear alerts.
@@ -40,6 +40,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - Editorial audit closed under STEERING 5; resume only for actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.
 
 ## Latest verified step
+
+- [x] STEERING 42 (1216), prepared: social editor v8 explicitly compares event reactions and campaign teasers after Nov 7 repeated LeBron/BioWare/Miller posts; independently newsworthy developments remain eligible. Both-model offline request checks pass; deployment waits for metrics recovery, production quality acceptance remains open.
 
 - [x] STEERING 42 (1084): NBA routine G League assignment occupied a top-story slot; article editor v13 requires substantial supplied developments for routine roster/availability news. Both-model offline contracts pass; compare next scheduled NBA stories.
 

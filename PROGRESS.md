@@ -99,3 +99,17 @@ Earlier entries: [iterations 1200–1207](docs/progress-archive/2026-11-07-itera
 - Archived iterations 1200–1207 after PROGRESS exceeded 25 KB; linked history retained. Capacity decision/TASKS updated; no source/schema/handbook/UI changes.
 - Verification: pnpm build passes. Initial pnpm check stopped on archive formatting; formatted and reran. Final pnpm check passes: 552 unit/228 integration tests, four expected skips; pnpm format, pnpm lint:fix and git diff --check pass.
 - No paid calls or runtime/config/data changes; deliberately preserved trial instead of restarting queued app changes. Next: comparable natural compaction, queued deployment, Nov 8 scheduled acceptance.
+
+## 2026-11-07: iteration 1216 — compare repeated reactions and campaigns
+
+- Reader benefit: avoid spending several social slots on the same player return, game campaign or appointment reaction; these repetitions appear in the actual Nov 7 review.
+- Clean main/no leftovers; services 14/14, sources 36/36, scheduled queue and app/Grafana health pass; alerts clear.
+- With metrics recovery awaiting natural compaction, moved to available STEERING 42 reader work instead of repeating a monitoring-only iteration.
+- Social editor v8 explicitly extends its comparison to event reactions/campaign teasers; separate newsworthy decisions, game results and releases remain eligible. No keyword grouping or selection postfilter added.
+- Both-model offline request contracts pass (14 focused tests); this verifies guidance delivery, not model compliance. Next scheduled edition after deployment must establish benefit.
+- pnpm exec tsx scripts/sample-observability-capacity.ts 18 10: 1.190% whole-stack CPU/759.77 MiB peak; metrics 0.366% CPU, 177/621 periods throttled; zero memory-high/OOM events.
+- Nine read-only rules/uncached-query probe rounds pass: all 23 rules healthy, one series per selector, max 0.089 s. Query-failure counters zero; small merged rows 2,544,175/large zero.
+- CPU-only trial exceeds 80 minutes without restart; comparable five-million-row compaction still unobserved. Queued deployment/restart remains deliberately deferred to preserve trial.
+- No paid calls, runtime/config/data changes or source/schema/UI/handbook changes. Updated review/TASKS and appended item 42 ack.
+- Verification: pnpm check passes (552 unit/228 integration, four expected skips); pnpm build, pnpm format, pnpm lint:fix and git diff --check pass.
+- Next: natural compaction recovery evidence, queued deployment, Nov 8 scheduled keyword/Bluesky/repetition acceptance.

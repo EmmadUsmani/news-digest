@@ -74,7 +74,7 @@ void test('social editor preserves post identity, isolates purpose and reuses ca
   assert.equal(h.calls.length, 1);
   assert.equal(h.calls[0].purpose, 'social-editor-v2');
   assert.match(h.calls[0].instructions, /Never infer virality/);
-  assert.match(h.calls[0].instructions, /Social editor v7/);
+  assert.match(h.calls[0].instructions, /Social editor v8/);
   assert.match(
     h.calls[0].instructions,
     /essential news appears only in an unseen/,
@@ -97,6 +97,19 @@ void test('originality and substantial-development guidance reaches Sonnet and c
     assert.equal(h.calls.length, 1);
     const prompt = h.calls[0].instructions;
     assert.match(prompt, /Prefer firsthand announcements/);
+    assert.match(
+      prompt,
+      /Apply this comparison to event reactions and promotional campaigns/,
+    );
+    assert.match(prompt, /opposing opinions about the same appointment/);
+    assert.match(
+      prompt,
+      /without independently newsworthy supplied developments/,
+    );
+    assert.match(
+      prompt,
+      /a shared person, team or franchise alone does not make distinct events duplicates/,
+    );
     assert.match(
       prompt,
       /Routine availability lists, questionable\/probable status updates/,
