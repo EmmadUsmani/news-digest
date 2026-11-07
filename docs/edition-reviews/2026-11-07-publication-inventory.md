@@ -71,3 +71,21 @@ Live read-only preview: 546 editions → 5 scheduled/published, 476 manual and
 unchanged topic/story/post counts. No metadata has been written and the reader
 is unchanged. The subsequent migration must reproduce this preview before the
 published-only switch is enabled.
+
+## Private restore/backfill rehearsal — iteration 1250
+
+- Reproduce: `python3 ops/backups/rehearse_publication.py` outside 13:00–16:00 UTC.
+- Fresh private backup `news-digest-20261107T221313Z`: 28 tables, 48,475 rows,
+  9,110,018 bytes; SHA-256 checked before restore. Networkless PostgreSQL 17,
+  tmpfs storage, no published port; scratch container/volume removed on exit.
+- All restored table counts match the snapshot manifest. Metadata backfill gives
+  five scheduled/published, 476 manual/unpublished and 65 test/unpublished.
+  Independent Python UTC classification checks every row against owner policy.
+- Hash comparison over every pre-existing field of all 546 editions matches,
+  including IDs, windows and complete saved snapshots.
+- First attempt exposed `immutable_digest_preview`: it blocks backfill UPDATE.
+  Successful scratch transaction disables only that trigger around the UPDATE,
+  restores it before commit, then verifies snapshot UPDATE and DELETE are rejected again.
+- Private receipt: `~/backups/news-digest/publication-rehearsal-proof.json`.
+  No production migration or reader flag change. This rehearses candidate DDL;
+  the registered migration, future-write behavior and browser comparison remain.

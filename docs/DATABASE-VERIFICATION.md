@@ -663,3 +663,15 @@ patch preserves composite foreign-key column pairs and order during introspectio
 see the Drizzle decision. Historical SQL runs first, followed by generated
 Drizzle migrations in the same ledger. Offline generation compares the latest
 snapshot with the schema; a new migration must leave both parity gates green.
+
+## Publication backfill preflight
+
+`python3 ops/backups/rehearse_publication.py` creates a private local backup and
+restores it into a networkless, disposable PostgreSQL 17 container. It checks
+all table counts, rehearses additive edition metadata and the owner-approved
+backfill, compares every old edition field and verifies the immutability guard
+is restored. It refuses the protected edition window, makes no provider calls
+and changes no production schema. The private backup and structural receipt
+remain in `~/backups/news-digest/`; scratch database storage is removed.
+See the [publication inventory](edition-reviews/2026-11-07-publication-inventory.md)
+for results and remaining rollout checks.
