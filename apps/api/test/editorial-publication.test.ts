@@ -324,11 +324,7 @@ void test('publication stores semantic recovery, source provenance, editor text 
   ]);
 });
 void test('publication labels fallback and never mixes partial semantic results with ranked selections', async () => {
-  for (const options of [
-    { incomplete: true },
-    { refused: true },
-    { disabled: true },
-  ]) {
+  for (const options of [{ incomplete: true }, { disabled: true }]) {
     const topic = (await harness(options)).topics[0];
     assert.equal(topic.editorial?.mode, 'non-ai');
     assert.deepEqual(topic.editorial?.brief, []);
@@ -339,6 +335,21 @@ void test('publication labels fallback and never mixes partial semantic results 
     );
   }
 });
+void test('complete triage survives editor refusal as unedited source excerpts', async () => {
+  const topic = (await harness({ refused: true })).topics[0];
+  assert.equal(topic.editorial?.mode, 'non-ai');
+  assert.equal(topic.editorial?.model, null);
+  assert.deepEqual(topic.editorial?.brief, []);
+  assert.match(topic.editorial.reason, /complete triage importance order/);
+  assert.deepEqual(
+    topic.stories.map((story) => story.id),
+    [id],
+  );
+  assert.equal(topic.stories[0].title, candidate.title);
+  assert.equal(topic.stories[0].excerpt, candidate.excerpt);
+  assert.equal(topic.stories[0].summary, undefined);
+});
+
 void test('valid quiet editorial selection stays empty without padding', async () => {
   const topic = (await harness({ quiet: true })).topics[0];
   assert.equal(topic.editorial?.mode, 'ai');

@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] STEERING 42 (1219), prepared: editor exhaustion now retains complete triage importance order and validated groups instead of reverting to recency. Saved NBA preview scored below the shortlist threshold; unedited excerpt fallback, incomplete-triage isolation and valid-empty behavior verified offline. Deployment remains gated by metrics recovery.
+
 - [x] STEERING 42 (1218), prepared: exclude dated “Game Preview: Knicks at Cavaliers, November 7, 2026” headline format missed by the existing matchup-preview rule. Observed headline and substantive-report/game-preview counterexamples verified through fallback ranking and AI shortlisting; deployment queued behind metrics recovery.
 
 - [x] Scheduled acceptance handoff (1217): [Nov 8 checklist](docs/edition-reviews/2026-11-08-acceptance-plan.md) pins the publication window, deployed-revision evidence, queued-fix comparisons and second-of-three X/Bluesky review; includes the Nov 2–8 first-week report. No production acceptance claimed.

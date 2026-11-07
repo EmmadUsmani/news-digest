@@ -1,6 +1,6 @@
 import type { RelevancePolicy } from '@digest/contracts';
 
-import { noGrouping } from './cluster';
+import { clusterCandidates, noGrouping } from './cluster';
 import { qualityRejection } from './quality';
 import { type Candidate, rank } from './rank';
 import { assessRelevance } from './relevance';
@@ -33,4 +33,18 @@ export function editorialShortlist(
     })
     .slice(0, articlePoolSize);
   return { shortlist, ranked: rank(shortlist, start, end, 10, matches) };
+}
+
+// Only call after complete triage. Preserve its importance order if editing fails;
+// excerpts remain unedited and no generated summary or brief is claimed.
+export function scoredFallback(
+  shortlist: Candidate[],
+  start: Date,
+  end: Date,
+  budget: number,
+  matches: (a: Candidate, b: Candidate) => boolean = noGrouping,
+) {
+  return clusterCandidates(shortlist, matches)
+    .flatMap((group) => rank(group, start, end, 1, matches))
+    .slice(0, budget);
 }

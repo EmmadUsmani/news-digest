@@ -1670,6 +1670,8 @@ ack: 2026-11-07 item 42 — iteration 1084: NBA spent a saved story slot on a ro
 
 ack: 2026-11-07 item 42 — iteration 1218: Nov 7 NBA fallback spent a slot on a dated Knicks–Cavaliers game preview; extended the existing matchup-preview quality rule for that explicit dated format. Offline fallback/AI-shortlist checks retain substantive reporting and gaming previews; deployment awaits metrics recovery.
 
+ack: 2026-11-07 iteration 1219: NBA editor exhaustion discarded complete triage priorities and validated groups; prepared source-excerpt fallback now retains both, avoiding low-importance recency filler. Offline priority/group/refusal/partial-coverage checks; deployment awaits metrics recovery.
+
 ## 43. NOW: put X search and the UI rebuild first, stop scoping new features (2026-11-06)
 
 **Why:** in the 12 hours to 16:35 UTC on Nov 6, 88 commits landed. About a dozen

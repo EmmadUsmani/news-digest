@@ -134,3 +134,14 @@ Earlier entries: [iterations 1200–1207](docs/progress-archive/2026-11-07-itera
 - Focused quality tests pass (4/4). Updated TASKS, item 42 ack and Nov 8 comparison checklist.
 - Verification: pnpm check passes (553 unit/228 integration tests, four expected skips); pnpm build, pnpm format, pnpm lint:fix and git diff --check pass. No paid calls, UI/schema/source/handbook changes or production data writes.
 - Deployment/restart deliberately deferred to preserve the unchanged metrics trial and existing recovery gate. Next: compaction recovery, queued deployment, Nov 8 acceptance.
+
+## 2026-11-07: iteration 1219 — preserve completed triage when editing fails
+
+- Reader weakness: Nov 7 NBA editor exhaustion discarded complete triage/grouping and reverted to recency; the selected preview scored importance 3, below admission, while five importance-6 candidates covered one Porziņģis event.
+- Prepared fallback retains complete triage importance order and validated coverage groups; shows unedited source excerpts, no generated brief. Partial triage and valid-empty editor behavior stay intact. No new calls or wording/grouping rules.
+- Clean main/no leftovers; services 14/14, sources 36/36, jobs and /healthz healthy; saved reader still has 20 stories/18 posts. Alerts clear and all 23 rules healthy.
+- Metrics trial unchanged since 16:00:24 UTC, no restarts; admission/queue-timeout counters zero, small merged rows 3,491,086, large zero. Comparable large compaction unobserved; recovery/deployment gate remains open.
+- Focused quality tests 6/6 pass; direct repository-test invocation was blocked by the isolation guard, then verified through the disposable-database full suite.
+- Updated TASKS, item 42 ack, Nov 7 evidence, Nov 8 acceptance checklist and affected handbook page; handbook checker passes (18 pages, one diagram, 28 tables), no diagram change.
+- Verification: pnpm check passes (555 unit/229 integration, four expected skips); pnpm build, pnpm format, pnpm lint:fix and git diff --check pass. No paid calls, source/schema/UI or production-data changes.
+- Deployment/restart deliberately deferred to preserve the isolated metrics trial. Next: natural compaction recovery, queued deployment, Nov 8 acceptance; check importance/grouped fallback on the next natural editor failure.

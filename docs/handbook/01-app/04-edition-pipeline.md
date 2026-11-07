@@ -25,6 +25,10 @@ flowchart LR
   pub --> ui(["Web app shows it"])
 ```
 
+When every article has a triage score but the editor fails, the fallback keeps
+the shortlist in importance order and shows source excerpts. Incomplete triage
+uses the ordinary relevance and recency fallback. Neither fallback writes a brief.
+
 ## The steps in one line each
 
 | Step          | Plain-language purpose                                                                  |

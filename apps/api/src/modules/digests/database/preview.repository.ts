@@ -29,7 +29,10 @@ import { groupShortlist } from '../application/group-shortlist';
 import { parallelTopics } from '../application/parallel-topics';
 import { articleTriageInput } from '../domain/article-triage-input';
 import { DigestNotifications } from '../domain/digest-published';
-import { editorialShortlist } from '../domain/editorial-shortlist';
+import {
+  editorialShortlist,
+  scoredFallback,
+} from '../domain/editorial-shortlist';
 import {
   type EditionProgress,
   PreviewRepository,
@@ -348,6 +351,21 @@ export class PostgresPreviewRepository
                     .map((story) => story.headline);
                   editorial.reason =
                     'AI edited from supplied headlines and excerpts; full articles were not fetched.';
+                } else {
+                  stories = scoredFallback(
+                    shortlist,
+                    start,
+                    end,
+                    topic.story_budget,
+                    matches,
+                  );
+                  relevanceRejectedCount = candidates.filter(
+                    (c) =>
+                      !qualityRejection(c) &&
+                      !shortlist.some((s) => s.id === c.id),
+                  ).length;
+                  editorial.reason =
+                    'Unedited source excerpts in complete triage importance order: editor unavailable or validation exhausted.';
                 }
               }
             }

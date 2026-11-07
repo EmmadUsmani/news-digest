@@ -1,7 +1,10 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { editorialShortlist } from '../src/modules/digests/domain/editorial-shortlist';
+import {
+  editorialShortlist,
+  scoredFallback,
+} from '../src/modules/digests/domain/editorial-shortlist';
 import { qualityRejection } from '../src/modules/digests/domain/quality';
 import { type Candidate, rank } from '../src/modules/digests/domain/rank';
 void test('headline quality labels exclude routine filler while retaining reporting and announcements', () => {
@@ -201,5 +204,87 @@ void test('Nov 7 labelled matchup preview cannot occupy fallback or AI story slo
   assert.deepEqual(
     result.ranked.map((item) => item.id),
     ['report'],
+  );
+});
+
+void test('complete-triage fallback keeps important reporting ahead of newer routine updates', () => {
+  const base: Candidate = {
+    id: 'important',
+    title: 'League announces player safety rules',
+    url: 'https://example.org/report',
+    excerpt: 'Saved source reporting.',
+    publishedAt: '2026-11-07T01:00:00Z',
+    sources: ['Outlet'],
+    points: 0,
+  };
+  const routine = {
+    ...base,
+    id: 'routine',
+    title: 'Player expected to make season debut',
+    publishedAt: '2026-11-07T14:00:00Z',
+  };
+  const preview = {
+    ...routine,
+    id: 'preview',
+    title: 'Game Preview: Knicks at Cavaliers, November 7, 2026',
+  };
+  const start = new Date('2026-11-06T15:00:00Z');
+  const end = new Date('2026-11-07T15:00:00Z');
+  const { shortlist } = editorialShortlist(
+    [routine, preview, base],
+    [
+      { id: base.id, relevance: 9, importance: 8 },
+      { id: routine.id, relevance: 9, importance: 4 },
+      { id: preview.id, relevance: 8, importance: 3 },
+    ],
+    { includeAny: [], excludeAny: [] },
+    start,
+    end,
+    undefined,
+    40,
+  );
+  assert.equal(rank([routine, base], start, end, 1)[0].id, routine.id);
+  const fallback = scoredFallback(shortlist, start, end, 1);
+  assert.deepEqual(
+    fallback.map((story) => story.id),
+    [base.id],
+  );
+  assert.equal(fallback[0].excerpt, base.excerpt);
+  assert.deepEqual(scoredFallback(shortlist, start, end, 0), []);
+  assert.deepEqual(scoredFallback([], start, end, 5), []);
+});
+
+void test('scored fallback preserves validated coverage as one slot', () => {
+  const base: Candidate = {
+    id: 'lead',
+    title: 'Player steps away',
+    url: 'https://example.org/a',
+    excerpt: 'Reporting.',
+    publishedAt: '2026-11-07T01:00:00Z',
+    sources: ['A'],
+    points: 0,
+  };
+  const support = { ...base, id: 'support', sources: ['B'] };
+  const other = {
+    ...base,
+    id: 'other',
+    title: 'League announces safety rules',
+  };
+  const matches = (a: Candidate, b: Candidate) =>
+    a.id !== 'other' && b.id !== 'other';
+  const stories = scoredFallback(
+    [base, support, other],
+    new Date('2026-11-07'),
+    new Date('2026-11-08'),
+    2,
+    matches,
+  );
+  assert.deepEqual(
+    stories.map((story) => story.id),
+    ['lead', 'other'],
+  );
+  assert.deepEqual(
+    stories[0].coverage.map((item) => item.id),
+    ['lead', 'support'],
   );
 });
