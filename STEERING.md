@@ -1676,6 +1676,8 @@ ack: 2026-11-07 iteration 1220: traced thin Tech summaries to saved evidence: fo
 
 ack: 2026-11-07 iteration 1222: prepared word-safe fallback excerpt cutoff with an ellipsis after Nov 7 NBA ended mid-name at “Windhor”; short source text stays exact, future snapshots only, deployment awaits metrics recovery.
 
+ack: 2026-11-07 item 42 — iteration 1231: Nov 7’s 18 X/Bluesky timestamp links hid their dates behind generic accessible names. Include the exact publication date and platform in each accessible link name; real saved-edition browser/keyboard checks cover desktop/mobile light/dark. No selection, generation or spend changes.
+
 ## 43. NOW: put X search and the UI rebuild first, stop scoping new features (2026-11-06)
 
 **Why:** in the 12 hours to 16:35 UTC on Nov 6, 88 commits landed. About a dozen

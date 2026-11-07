@@ -109,3 +109,12 @@ Earlier entries: [iterations 1215–1222](docs/progress-archive/2026-11-07-itera
 - Removed stale hold wording in TASKS/decision 0004 and data-model handbook; Nov 8 plan records deployed revision. Earlier probe/check/build results above remain applicable: merged owner changes are instructions/status only.
 - `pnpm exec tsx scripts/check-handbook.ts 07-data-model`: 18 pages, three diagrams and 28-table metadata pass; no diagrams changed. Final formatting/lint and diff checks pass.
 - Next: Nov 8 scheduled selection/quality/cost/speed acceptance and first-week report; do not hold reader work on natural compaction.
+
+## 2026-11-07: iteration 1231 — expose post publication dates to screen readers
+
+- Owner impact (STEERING 42/43): the 18 actual Nov 7 X/Bluesky timestamp links announced only generic destinations, hiding publication dates from screen-reader link navigation. Bigger content fixes await Nov 8 acceptance; clean main/no leftover work, no active alerts or broken services/sources/jobs.
+- Replaced overriding accessible labels with visually hidden platform context; existing exact timestamp labels now contribute to each link name. Visible ages, destinations, saved content and generation unchanged. No paid calls.
+- New GET-only browser check reproduces the old accessible-name failure, then verifies all 18 real saved posts, destinations, date names, focus and containment on desktop/mobile light/dark; external traffic blocked. Four screenshots added; mobile light inspected. Existing sizing/layout selectors updated for descriptive names.
+- `pnpm check`: 563 unit and 229 integration pass, four expected skips; `pnpm build`, `pnpm format` and `pnpm lint:fix` pass. `pnpm exec tsx scripts/smoke-post-timestamps.ts` and `scripts/smoke-post-sizing.ts` pass; sizing uses explicitly stubbed widgets. `pnpm exec tsx scripts/smoke-reader-layout.ts` passes four saved-edition device/theme views with external embeds blocked; unrelated regenerated screenshots discarded.
+- Restarted API to serve rebuilt reader; `/healthz` database/Redis OK. Metrics trial untouched; no repeat probe inside the hourly limit. TASKS/STEERING updated; no handbook system-flow change.
+- Next: Nov 8 scheduled X/Bluesky/quality/cost/speed acceptance and first-week report. Metrics recovery remains open; next passive check no sooner than 20:14 UTC.

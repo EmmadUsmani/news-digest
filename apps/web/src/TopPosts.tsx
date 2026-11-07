@@ -258,9 +258,9 @@ function Post({
           href={post.url}
           target="_blank"
           rel="noreferrer"
-          aria-label="View post on X"
           className="text-xs font-normal hover:text-[var(--accent)]"
         >
+          <span className="sr-only">View post on X · </span>
           <StoryTime publishedAt={post.publishedAt} />
         </a>
       </p>
@@ -486,9 +486,9 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
           href={post.url}
           target="_blank"
           rel="noreferrer"
-          aria-label="View post on Bluesky"
           className="text-xs font-normal hover:text-[var(--accent)]"
         >
+          <span className="sr-only">View post on Bluesky · </span>
           <StoryTime publishedAt={post.publishedAt} />
         </a>
       </p>

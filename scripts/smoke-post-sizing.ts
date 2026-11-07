@@ -60,8 +60,7 @@ async function smoke() {
           const card = host.locator('..');
           const timestamp = card.locator('time');
           const original = card.getByRole('link', {
-            name: 'View post on X',
-            exact: true,
+            name: /^View post on X · /,
           });
           assert.equal(
             await original.getAttribute('href'),

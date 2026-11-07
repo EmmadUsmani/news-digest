@@ -45,6 +45,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] STEERING 42 (1231): saved X/Bluesky timestamp links expose exact publication dates to screen readers alongside platform/destination; all 18 actual Nov 7 posts checked with keyboard focus in desktop/mobile light/dark. No content or generation changes.
+
 - [x] STEERING 42 (1228), prepared: entirely rejected Bluesky selections retain field-specific absence-support repair guidance instead of generic ID guidance. Both fields, privacy, partial/empty replies, sanitized cache and bounded exhaustion verified offline; Nov 7 Tech dropped two claims before returning no pick. Deployed in 1230 under STEERING 49; production acceptance awaits Nov 8.
 
 - [x] STEERING 42 (1222), prepared: fallback excerpt cutoff preserves word boundaries and marks omitted text, replacing the Nov 7 NBA mid-name “Windhor” failure in future snapshots. Short text stays exact; Unicode/cap boundaries verified. Deployed in 1230 under STEERING 49.

@@ -376,9 +376,7 @@ async function smoke() {
         for (const post of edition.topics.flatMap((topic) => topic.posts)) {
           if (post.platform !== 'x') continue;
           const card = page.locator('.post-card').filter({
-            has: page.locator(
-              `a[aria-label="View post on X"][href="${post.url}"]`,
-            ),
+            has: page.locator(`a[href="${post.url}"]:has(time)`),
           });
           const text = card.locator('.post-text');
           assert.equal(await text.innerText(), post.displayText ?? post.text);
