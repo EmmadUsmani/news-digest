@@ -148,3 +148,13 @@ Archived: [iterations 1230–1234](docs/progress-archive/2026-11-07-iterations-1
 - Four app services restarted; final `/healthz` database/Redis OK, alerts clear and actual Nov 7 scheduled edition readable with four topics. No generation/schema/source changes; handbook/source metadata unchanged.
 - Initial push rejected (remote advanced); fetched/merged owner commits without rewriting history. New STEERING 51 leak cleanup is next; publication decision now resolved in NEEDS_FROM_HUMAN/TASKS. Remote changes are documentation only.
 - Next: STEERING 51, then resume phase 0 with approved Nov 3+ non-integration scheduled publication set; Nov 8 phase-2 acceptance/daily X/Bluesky review/first-week report and metrics incident remain open.
+
+## 2026-11-07: iteration 1248 — reclaim killed integration-run folders
+
+- Clean main/no leftover work. Initial alerts clear, health database/Redis OK; 36/36 sources healthy and latest actual Nov 7 edition readable with four topics. Development spend $0; no provider/source/schema/UI changes.
+- STEERING 51: removed 41 unused `/tmp/news-digest-integration-*` roots, 2,943,540 KiB (2.81 GiB); disk 71%→59%. First pass removed 39 aged roots; one-off age override removed two recent unused roots with the same process checks. No other temp content touched.
+- Startup cleanup removes owned real directories older than one hour only when no live runner PID or same-UID environment/command/cwd/open-file reference exists. PID reuse retains folders. Read-only sudo proc probe handles protected entries and returns matching paths only; inspection failure deletes nothing. Concurrent disappearance tolerated; other runner behavior unchanged.
+- `pnpm exec tsx --test apps/api/test/integration-temp.test.ts` passes: stale cleanup, recent/live-runner/orphan-child/unrelated/symlink preservation, killed child with runner marker removed by next cleanup, repeated cleanup harmless. Updated DATABASE-VERIFICATION and STEERING ack/TASKS.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, `git diff --check` pass. Initial lint/full check caught missing `void` on test declaration; corrected. Full `pnpm check` retry exits 0: typecheck/lint/format/boundaries, 573 unit tests, 229 integration tests/four expected skips. Zero remaining integration temp roots after success.
+- Four app services restarted; first health request raced readiness, subsequent health database/Redis OK. Alerts clear, 36/36 sources healthy, latest scheduled edition still readable. Disk remains 59%.
+- Next: STEERING 50 phase 0 metadata/pools/test editions with approved Nov 3+ non-integration scheduled publication set. Nov 8 scheduled/daily X/Bluesky/phase-2 acceptance and first-week report remain due. Metrics passive check next ≥22:16 UTC.

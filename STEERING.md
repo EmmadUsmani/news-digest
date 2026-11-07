@@ -2233,3 +2233,5 @@ next run, and the test passes. Ack the space freed and the disk percentage.
 **Limits:** no deletes or restarts between 13:00 and 16:00 UTC unless the disk
 alert fires.
 
+
+ack: 2026-11-07 iteration 1248: removed all 41 unused integration folders (2,943,540 KiB / 2.81 GiB), disk 71%→59%. Startup cleanup keeps roots younger than one hour; live runner PID plus same-UID /proc environment, command, cwd and open-file references protect active/orphaned children. A read-only sudo probe handles protected proc entries; inspection failure skips deletion. Killed-child cleanup and recent/active/unrelated/symlink preservation tested.

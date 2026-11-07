@@ -5,7 +5,11 @@ verification chain. The runner starts fresh PostgreSQL 17 and Redis 7 containers
 applies every migration, runs the explicitly registered integration suite, and
 prints Node's native V8 line/branch/function coverage. It never uses the live DB.
 Each run owns a temporary root for child processes and Node coverage files;
-the runner removes it after success or failure, without sweeping shared `/tmp`.
+the runner removes it after success or failure. At startup it also removes owned
+`news-digest-integration-*` directories older than one hour when no live runner
+or same-user process references them (environment, command, cwd or open files).
+On this VM, a read-only sudo probe handles protected `/proc` entries; if inspection
+fails, cleanup skips deletion. Other temporary files and symlinks are untouched.
 Postgres (`/var/lib/postgresql/data`) and Redis (`/data`) use tmpfs, so their
 image-declared data directories cannot leave anonymous disk volumes behind, even
 if the runner is killed. Test data is ephemeral and disappears with the containers.

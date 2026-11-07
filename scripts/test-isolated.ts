@@ -10,13 +10,20 @@ import {
   Wait,
 } from 'testcontainers';
 
+import {
+  cleanupIntegrationTemps,
+  integrationTempPrefix,
+  markIntegrationTemp,
+} from './lib/integration-temp';
 import { testEnvironment, testFiles } from './test-suites';
 
 async function main() {
+  cleanupIntegrationTemps(tmpdir());
   const containers: StartedTestContainer[] = [];
   // Node creates its own node-coverage-* directory even with NODE_V8_COVERAGE
   // set. Own its temporary root so late child coverage writes cannot leak it.
-  const testTmp = mkdtempSync(join(tmpdir(), 'news-digest-integration-'));
+  const testTmp = mkdtempSync(join(tmpdir(), integrationTempPrefix));
+  markIntegrationTemp(testTmp);
   try {
     // Match compose.yaml's images and major versions. No live volumes or ports.
     // Mount image-declared data volumes as tmpfs, including on interrupted runs.
