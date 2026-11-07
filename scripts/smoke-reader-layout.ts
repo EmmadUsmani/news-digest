@@ -349,12 +349,14 @@ async function smoke() {
         }
         for (const post of edition.topics.flatMap((topic) => topic.posts)) {
           if (post.platform !== 'x') continue;
-          const link = page
-            .getByRole('link', {
-              name: `${post.displayText ?? post.text} — View post by ${post.author} on X`,
-              exact: true,
-            })
-            .filter({ hasText: post.displayText ?? post.text });
+          const card = page.locator('.post-card').filter({
+            has: page.locator(
+              `a[aria-label="View post on X"][href="${post.url}"]`,
+            ),
+          });
+          const text = card.locator('.post-text');
+          assert.equal(await text.innerText(), post.displayText ?? post.text);
+          const link = text.locator(`a[href="${post.url}"]`).first();
           assert.equal(await link.getAttribute('href'), post.url);
           assert.equal(
             await link.evaluate((node) => getComputedStyle(node).fontSize),

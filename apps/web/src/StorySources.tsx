@@ -17,10 +17,13 @@ export function StorySources({
       const sourceName = name.trim().toLocaleLowerCase();
       if (!sourceName) continue;
       // Feed labels can name different sections of the same publisher.
-      const report = story.coverage?.find((item) =>
-        item.sources.some(
-          (source) => source.trim().toLocaleLowerCase() === sourceName,
-        ),
+      // Prefer the headline article when several reports share its source name.
+      const report = [primary, ...(story.coverage ?? [])].find(
+        (item) =>
+          item &&
+          item.sources.some(
+            (source) => source.trim().toLocaleLowerCase() === sourceName,
+          ),
       );
       const url = report?.url ?? article.url;
       const publisher = new URL(url).hostname.replace(/^www\./, '');

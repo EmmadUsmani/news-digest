@@ -184,3 +184,14 @@
 - API/worker restarted; /healthz DB/Redis OK, pnpm obs alerts clear, sources 36/36 healthy; digest-generation queue available/zero failed. Saved edition remains four topics/20 stories/17 posts.
 - Synthetic browser data only; no paid calls or edition writes. No source/schema/system-flow changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
 - Next: review first Nov 7 scheduled keyword-X and reserved-slot Bluesky picks, costs and Tech repetition. Observability RAM target remains unmet.
+
+## 2026-11-07: iteration 1070 — keep publisher links on the primary report
+
+- Advanced STEERING 33/43 while Nov 7 scheduled X/Bluesky acceptance waits. Clean main, no leftovers; alerts clear, health DB/Redis OK, sources 36/36 healthy; digest queue zero failed.
+- Reader weakness reproduced in browser: with two reports from one publisher, its source-row link opened secondary coverage instead of the headline article. Prefer the primary report for matching source labels; expanded coverage retains every article and its own destination.
+- pnpm exec tsx scripts/smoke-reader-primary-source.ts failed against the old build with secondary/primary URL mismatch, then passed desktop/mobile light/dark after rebuilding. Four destination screenshots saved; mobile light inspected. Synthetic coverage over saved edition, GET-only/external requests blocked.
+- pnpm exec tsx scripts/smoke-reader-layout.ts passed saved-content/navigation/coverage checks in all four layouts after updating its stale whole-post X link selector for the linked-text cards. Discarded unrelated layout screenshot churn.
+- Passed pnpm format, pnpm lint:fix, pnpm build and git diff --check. Full pnpm check passed: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green.
+- systemctl --user restart news-digest-api news-digest-worker completed; curl --retry /healthz DB/Redis OK after startup; pnpm exec tsx scripts/obs.ts alerts clear and sources 36/36 healthy.
+- No paid calls or edition writes. Saved edition four topics/20 stories/17 posts. No source/schema/system-flow changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
+- Next: review first Nov 7 scheduled keyword-X and reserved-slot Bluesky picks, costs and Tech repetition. Observability RAM target remains unmet.
