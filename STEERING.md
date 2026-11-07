@@ -1678,6 +1678,8 @@ ack: 2026-11-07 iteration 1222: prepared word-safe fallback excerpt cutoff with 
 
 ack: 2026-11-07 item 42 — iteration 1231: Nov 7’s 18 X/Bluesky timestamp links hid their dates behind generic accessible names. Include the exact publication date and platform in each accessible link name; real saved-edition browser/keyboard checks cover desktop/mobile light/dark. No selection, generation or spend changes.
 
+ack: 2026-11-07 item 42 — iteration 1233: coverage controls identify the story they expand, so screen-reader users can distinguish all 20 saved Nov 7 report lists; keyboard and destination checks pass desktop/mobile light/dark.
+
 ## 43. NOW: put X search and the UI rebuild first, stop scoping new features (2026-11-06)
 
 **Why:** in the 12 hours to 16:35 UTC on Nov 6, 88 commits landed. About a dozen

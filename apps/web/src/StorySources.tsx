@@ -58,7 +58,7 @@ export function StorySources({
           <summary
             className="cursor-pointer text-xs"
             title={`${articles.length} ${articles.length === 1 ? 'article' : 'articles'}`}
-            aria-label={`Show ${articles.length} ${articles.length === 1 ? 'article' : 'articles'} covering this story`}
+            aria-label={`Show ${articles.length} ${articles.length === 1 ? 'article' : 'articles'} covering ${story.title}`}
           >
             {sources.length > 2
               ? `${articles.length} ${articles.length === 1 ? 'article' : 'articles'} · +${sources.length - 2} ${sources.length === 3 ? 'outlet' : 'outlets'}`

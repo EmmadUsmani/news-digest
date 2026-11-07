@@ -4,6 +4,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
+- [ ] Reader deep-link drift (1233): saved-story reload lands below its intended 96/144 px offset; `smoke-reader-layout.ts:770` timed out twice. Standalone cold pages measured 228 px desktop/351 px mobile. Waiting for fonts alone did not fix it; attempted change discarded. Diagnose remaining asynchronous layout shifts before changing scroll behavior.
+
 - [x] STEERING 49 (1230): deployed queued main revision `96457a35` at 19:20 UTC after private backup; publisher migration `0008` applied, four app services restarted, health/services/sources/jobs and saved-reader desktop/mobile Playwright pass. Metrics trial unchanged; passive checks at most hourly.
 
 - [ ] Breakage (1191–1229, Nov 7): metrics-store contention at the old 1% CPU cap caused transient scrape alerts and one failed backup-rule evaluation. CPU-only 1→2% trial began 16:00:24 UTC; memory/query limits unchanged, zero restarts. Iteration 1227 ten-minute paired observation: all 23 rules healthy, 42 uncached queries pass/max 1.076 s; admission-limit hits 1→2, zero queue timeouts/slow queries. Whole-stack 1.680% CPU/672.95 MiB peak, zero memory-high/OOM events. Fourteen small merges/130,682 rows, no big merges; comparable natural five-million-row compaction still unobserved. Iteration 1229 stored-history gap check (16:01–19:05:30, 370 points): largest 30-second merge increase 908,421 rows; 5,415,018 cumulative rows span 353 merges, not one comparable event. Iteration 1230 recovery probe now captures evaluator error/missed-iteration deltas across groups (not scraped historically); minute observation: zero new errors/misses, 23 healthy rules, no comparable merge. Recovery stays open; STEERING 49 removed the deployment hold and queued app changes deployed in 1230. [Incident and trial evidence](docs/decisions/0004-observability-capacity.md#nov-7-metrics-store-scrape-outage-iteration-1191).
@@ -44,6 +46,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - [ ] Tech evidence depth (1220): Nov 7's five stories have four empty HN excerpts and one headline-only Google News excerpt; fuller summaries need more supplied reporting. Source balance remains paused/full articles deferred. Compare evidence depth on Nov 8 before further editor tuning. [Diagnosis](docs/edition-reviews/2026-11-07.md#tech-evidence-depth-diagnosis--iteration-1220).
 
 ## Latest verified step
+
+- [x] STEERING 42 (1233): article-coverage controls name their story for screen-reader navigation; all 20 saved Nov 7 controls checked for keyboard expansion, destinations and layout on desktop/mobile light/dark.
 
 - [x] STEERING 42 (1232): failed X embeds offer an explicit original-post link beside retry, so readers can continue beyond incomplete saved text; saved-post destination/focus/wrapping/recovery checked desktop/mobile light/dark.
 

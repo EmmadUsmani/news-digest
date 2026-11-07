@@ -422,7 +422,7 @@ async function smoke() {
               const disclosure = card.locator('.coverage summary');
               assert.equal(
                 await disclosure.getAttribute('aria-label'),
-                `Show ${story.coverage!.length} ${story.coverage!.length === 1 ? 'article' : 'articles'} covering this story`,
+                `Show ${story.coverage!.length} ${story.coverage!.length === 1 ? 'article' : 'articles'} covering ${story.title}`,
               );
               if (device === 'desktop') {
                 const timeBox = await published.boundingBox();

@@ -128,3 +128,13 @@ Earlier entries: [iterations 1215–1222](docs/progress-archive/2026-11-07-itera
 - Four failure screenshots updated; mobile light inspected. Discarded unrelated loading/recovery screenshots. Handbook already describes opening originals after media failure; no system-flow change.
 - Verification: `pnpm check` passes (563 unit/229 integration, four expected skips); `pnpm build`, `pnpm format`, `pnpm lint:fix`, browser smoke and `git diff --check` pass. API restarted to serve rebuild; initial immediate browser attempt hit startup connection refusal, retry after healthy `/healthz` passed.
 - Next: Nov 8 scheduled X/Bluesky/quality/cost/speed acceptance and first-week report. Metrics recovery remains open; next passive check no sooner than 20:14 UTC.
+
+## 2026-11-07: iteration 1233 — identify each story's coverage control
+
+- Owner impact (STEERING 42/43): all 20 saved Nov 7 story-coverage labels named only the article count, leaving screen-reader navigation without story context. Included the story title; visible counts, reporting, selection and generation unchanged. No paid calls.
+- Clean main/no leftover work. `pnpm obs alerts`, `services --check`, `sources --check`, `jobs --check` and `/healthz`: no active alerts, 14 services/36 sources healthy, no failed digest runs; next edition Nov 8 15:00 UTC. Metrics trial untouched; hourly probe not yet due.
+- `pnpm check`: 563 unit/229 integration pass, four expected skips; `pnpm build` passes. API restarted; database/Redis healthy.
+- `pnpm exec tsx scripts/smoke-reader-coverage-labels.ts`: all 20 real saved controls retain story-specific labels, keyboard expansion/collapse, report URLs and containment in desktop/mobile light/dark. GET-only/external traffic blocked; four screenshots added, mobile light inspected.
+- Initial browser selector assumed a native summary matched Playwright's button role; corrected to the summary element and explicit label assertion. Updated existing reader-layout label expectation. No handbook system-flow change.
+- `smoke-reader-layout.ts` hit existing deep-link offset timeout twice at line 770; standalone cold pages confirmed 228 px desktop/351 px mobile instead of 96/144 px. Font-wait attempt did not resolve drift and was deliberately discarded; source-label/keyboard checks pass. Recorded next reader issue in TASKS; unrelated regenerated screenshots discarded.
+- Final `pnpm format`, `pnpm lint:fix` and diff checks pass. Next: diagnose deep-link drift; Nov 8 scheduled acceptance/first-week report. Metrics recovery remains open, passive check no sooner than 20:14 UTC.
